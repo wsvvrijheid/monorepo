@@ -1,0 +1,99 @@
+{
+    "platform": {
+      "link": "/platforms",
+      "en": "Platforms",
+      "nl": "Platformen",
+      "tr": "Platformlar"
+    },
+    "activity": {
+      "link": "/activities",
+      "en": "Activities",
+      "nl": "Activiteiten",
+      "tr": "Etkinlikler"
+    },
+    "lotus": {
+      "link": "/platforms/lotus",
+      "en": "Lotus van de Media",
+      "nl": "Lotus van de Media",
+      "tr": "Lotus van de Media"
+    },
+    "artStop": {
+      "link": "/platforms/art-stop",
+      "en": "Art Stop",
+      "nl": "Kunsthalte",
+      "tr": "Sanat Durağı"
+    },
+    "samenvvv": {
+      "link": "/platforms/samenvvv",
+      "en": "Samenvvv",
+      "nl": "Samenvvv",
+      "tr": "Samenvvv"
+    },
+    "academy": {
+      "link": "/platforms/academy",
+      "en": "Academy",
+      "nl": "Academie",
+      "tr": "Akademi"
+    },
+    "blog": {
+      "link": "/blog",
+      "en": "Blog",
+      "nl": "Blog",
+      "tr": "Blog"
+    },
+    "announcement": {
+      "link": "/announcements",
+      "en": "Announcements",
+      "nl": "Aankondigingen",
+      "tr": "Duyurular"
+    },
+    "club": {
+      "link": "/club",
+      "en": "Club",
+      "nl": "Club",
+      "tr": "Kulüp"
+    },
+    "about": {
+      "link": "/about-us",
+      "en": "About Us",
+      "nl": "Over Ons",
+      "tr": "Hakkımızda"
+    },
+    "donate": {
+      "link": "/donate",
+      "en": "Donate",
+      "nl": "Doneren",
+      "tr": "Bağış"
+    },
+    "terms": {
+      "link": "/terms",
+      "en": "Terms of service",
+      "nl": "Algemene Voorwaarden ",
+      "tr": "Kullanım Şartları"
+    },
+    "privacy": {
+      "link": "/privacy",
+      "en": "Privacy Policy",
+      "nl": "Privacybeleid",
+      "tr": "Gizlilik Politikası"
+    },
+    "contact": {
+      "link": "/contact",
+      "en": "Contact",
+      "nl": "Contact",
+      "tr": "İletişim"
+    },
+    "volunteer": {
+      "link": "/volunteers",
+      "en": "Volunteers",
+      "nl": "Vrijwilligers",
+      "tr": "Gönüllüler"
+    },
+    "sign-up": {
+      "link": "/sign-up",
+      "en": "Sign-Up",
+      "nl": "Aanmelden",
+      "tr": "Kayıt ol"
+    }
+  }
+  
