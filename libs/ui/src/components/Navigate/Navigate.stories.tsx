@@ -4,7 +4,7 @@ import { Navigate } from './Navigate';
 
 export default {
   component: Navigate,
-  title: 'Navigate',
+  title: 'Shared/Navigate',
 } as ComponentMeta<typeof Navigate>;
 
 const Template: ComponentStory<typeof Navigate> = (args) => (
