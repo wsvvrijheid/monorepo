@@ -82,6 +82,7 @@ export const FormItem: FC<FormItemProps> = forwardRef(
           <Tag
             ref={ref}
             id={name}
+            type={type === 'password' ? (isOpen ? 'password' : 'text') : type}
             placeholder={label}
             {...registerRest}
             {...rest}
