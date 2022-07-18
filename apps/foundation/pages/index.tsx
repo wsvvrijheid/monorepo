@@ -3,7 +3,6 @@ import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { AnimatedBox, Container } from '@wsvvrijheid/ui';
 import { Layout } from '../components/Layout/Layout';
-import { PROJECTS } from '@wsvvrijheid/config';
 import { HomeAbout } from '../components/HomeAbout';
 import { HomeHero } from '../components/HomeHero/HomeHero';
 import { HomeProject } from '../components/HomeProject/HomeProject';
