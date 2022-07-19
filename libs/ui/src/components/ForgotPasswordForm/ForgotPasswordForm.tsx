@@ -1,10 +1,10 @@
-import { Button, Container, Heading, Stack } from '@chakra-ui/react';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { useTranslation } from 'next-i18next';
-import * as React from 'react';
-import { useForm, SubmitHandler, FieldValues } from 'react-hook-form';
-import * as yup from 'yup';
-import { FormItem } from '../FormItem';
+import { Button, Container, Heading, Stack } from '@chakra-ui/react'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { useTranslation } from 'next-i18next'
+import * as React from 'react'
+import { useForm, SubmitHandler, FieldValues } from 'react-hook-form'
+import * as yup from 'yup'
+import { FormItem } from '../FormItem'
 
 const schema = (t: any) =>
   yup.object({
@@ -12,18 +12,18 @@ const schema = (t: any) =>
       .string()
       .email(t`contact.form.email-invalid`)
       .required(t`login.email.required`),
-  });
+  })
 
 export type ForgotPasswordFormProps = {
-  onSubmitHandler: (data: FieldValues) => void;
-  isLoading?: boolean;
-};
+  onSubmitHandler: (data: FieldValues) => void
+  isLoading?: boolean
+}
 
 export const ForgotPasswordForm: React.FC<ForgotPasswordFormProps> = ({
   onSubmitHandler,
   isLoading,
 }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
 
   const {
     register,
@@ -36,36 +36,11 @@ export const ForgotPasswordForm: React.FC<ForgotPasswordFormProps> = ({
     },
     resolver: yupResolver(schema(t)),
     mode: 'all',
-  });
+  })
 
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    onSubmitHandler(data);
-  };
-
-  //   const handleSubmitSign = async (data) => {
-  //     const body = {
-  //       email: data.email,
-  //     };
-  //     setIsLoading(true);
-
-  //     try {
-  //       const resp = await axios.post('/api/auth/forgot-password', body);
-  //       if (resp?.data?.error) {
-  //         toastMessage(t`error`, resp?.data?.error?.message, 'error');
-  //       } else {
-  //         toastMessage(null, t`login.forgot-pass-header.text`, 'success');
-  //         reset();
-  //       }
-  //     } catch (error: any) {
-  //       if (error?.response?.data?.error?.message) {
-  //         toastMessage(t`error`, t`apply-form.error.description`, 'error');
-  //       } else {
-  //         console.error('An unexpected error happened:', error);
-  //       }
-  //     } finally {
-  //       setIsLoading(false);
-  //     }
-  //   };
+  const onSubmit: SubmitHandler<FieldValues> = data => {
+    onSubmitHandler(data)
+  }
 
   return (
     <Container
@@ -104,5 +79,5 @@ export const ForgotPasswordForm: React.FC<ForgotPasswordFormProps> = ({
         </Stack>
       </Stack>
     </Container>
-  );
-};
+  )
+}

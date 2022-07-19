@@ -1,10 +1,10 @@
-import { Button, Container, Heading, Stack } from '@chakra-ui/react';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { useTranslation } from 'next-i18next';
-import * as React from 'react';
-import { useForm, SubmitHandler, FieldValues } from 'react-hook-form';
-import * as yup from 'yup';
-import { FormItem } from '../FormItem';
+import { Button, Container, Heading, Stack } from '@chakra-ui/react'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { useTranslation } from 'next-i18next'
+import * as React from 'react'
+import { useForm, SubmitHandler, FieldValues } from 'react-hook-form'
+import * as yup from 'yup'
+import { FormItem } from '../FormItem'
 
 const schema = (t: any) =>
   yup.object({
@@ -17,26 +17,26 @@ const schema = (t: any) =>
       .matches(RegExp('(.*\\d.*)'), t('login.password.matches.number'))
       .matches(
         RegExp('[!@#$%^&*(),.?":{}|<>]'),
-        t('login.password.matches.special')
+        t('login.password.matches.special'),
       ),
     passwordConfirmation: yup
       .string()
       .oneOf(
         [yup.ref('password'), null],
-        t('login.password.matches.password-match')
+        t('login.password.matches.password-match'),
       ),
-  });
+  })
 
 export type ResetPasswordFormProps = {
-  onSubmitHandler: (data: FieldValues) => void;
-  isLoading?: boolean;
-};
+  onSubmitHandler: (data: FieldValues) => void
+  isLoading?: boolean
+}
 
 export const ResetPasswordForm: React.FC<ResetPasswordFormProps> = ({
   onSubmitHandler,
   isLoading,
 }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
 
   const {
     register,
@@ -50,41 +50,10 @@ export const ResetPasswordForm: React.FC<ResetPasswordFormProps> = ({
     },
     resolver: yupResolver(schema(t)),
     mode: 'all',
-  });
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    onSubmitHandler(data);
-  };
-
-  // const handleSubmitResetPass = async (data) => {
-  //   setIsLoading(true);
-  //   try {
-  //     const resp = await axios.post('/api/auth/reset-password', {
-  //       code,
-  //       password: data.password,
-  //       passwordConfirmation: data.passwordConfirmation,
-  //     });
-  //     if (resp?.data?.error) {
-  //       toastMessage(t`error`, resp?.data?.error?.message, 'error');
-  //       setTimeout(() => {
-  //         reset();
-  //       }, 2000);
-  //     } else {
-  //       toastMessage(null, t`login.reset-pass-header.text`, 'success');
-  //       reset();
-  //       setTimeout(() => {
-  //         router.push('/user/login');
-  //       }, 2000);
-  //     }
-  //   } catch (error) {
-  //     if (error?.response?.data?.error?.message) {
-  //       toastMessage(t`error`, error?.response?.data?.error?.message, 'error');
-  //     } else {
-  //       console.error('An unexpected error happened:', error);
-  //     }
-  //   } finally {
-  //     setIsLoading(false);
-  //   }
-  // };
+  })
+  const onSubmit: SubmitHandler<FieldValues> = data => {
+    onSubmitHandler(data)
+  }
 
   return (
     <Container
@@ -133,5 +102,5 @@ export const ResetPasswordForm: React.FC<ResetPasswordFormProps> = ({
         </Stack>
       </Stack>
     </Container>
-  );
-};
+  )
+}
