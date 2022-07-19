@@ -1,12 +1,10 @@
-
-
 import { fetcher } from './fetcher'
 
 type MutationReturnType = {
-    post: (url: string, data: unknown) => Promise<unknown>,
-    put: (url: string, id: number, data: unknown) => Promise<unknown>,
-    delete: (url: string, id: number) => Promise<unknown>,
-    localize: (url: string, id: number, data: unknown) => Promise<unknown>,
+  post: (url: string, data: unknown) => Promise<unknown>
+  put: (url: string, id: number, data: unknown) => Promise<unknown>
+  delete: (url: string, id: number) => Promise<unknown>
+  localize: (url: string, id: number, data: unknown) => Promise<unknown>
 }
 
 export const mutation = (token?: string): MutationReturnType => ({
@@ -24,7 +22,10 @@ export const mutation = (token?: string): MutationReturnType => ({
   },
   // https://docs.strapi.io/developer-docs/latest/plugins/i18n.html#creating-a-localization-for-an-existing-entry
   localize: async (url, id, data) => {
-    const response = await fetcher(token).post(`/${url}/${id}/localizations`, data)
+    const response = await fetcher(token).post(
+      `/${url}/${id}/localizations`,
+      data,
+    )
     return response.data
   },
 })

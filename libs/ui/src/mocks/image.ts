@@ -61,4 +61,4 @@ export const IMAGE = {
   provider_metadata: null,
   createdAt: '2022-04-15T10:59:12.575Z',
   updatedAt: '2022-04-15T10:59:12.575Z',
-};
+}

@@ -1,3 +1,5 @@
+import { FC } from 'react'
+
 import {
   Flex,
   HStack,
@@ -5,19 +7,17 @@ import {
   Link,
   Stack,
   useBreakpointValue,
-} from '@chakra-ui/react';
-import { motion } from 'framer-motion';
-import { FC } from 'react';
-import Headroom from 'react-headroom';
+} from '@chakra-ui/react'
+import { motion } from 'framer-motion'
+import Headroom from 'react-headroom'
 
-import { useScroll } from '../../hooks';
-
-import { Container } from '../Container/Container';
-import { LocaleSwitcher } from '../LocaleSwitcher/LocaleSwitcher';
-import { ProfileMenu } from './ProfileMenu';
-import { HeaderMobile } from './HeaderMobile';
-import { HeaderNav } from './HeaderNav';
-import { HeaderProps } from './types';
+import { useScroll } from '../../hooks'
+import { Container } from '../Container/Container'
+import { LocaleSwitcher } from '../LocaleSwitcher/LocaleSwitcher'
+import { HeaderMobile } from './HeaderMobile'
+import { HeaderNav } from './HeaderNav'
+import { ProfileMenu } from './ProfileMenu'
+import { HeaderProps } from './types'
 
 export const Header: FC<HeaderProps> = ({
   isDark,
@@ -26,8 +26,8 @@ export const Header: FC<HeaderProps> = ({
   profileMenu,
   isLoggedIn,
 }) => {
-  const isScrolled = useScroll();
-  const isMobile = useBreakpointValue({ base: true, lg: false });
+  const isScrolled = useScroll()
+  const isMobile = useBreakpointValue({ base: true, lg: false })
 
   return (
     <Headroom>
@@ -91,5 +91,5 @@ export const Header: FC<HeaderProps> = ({
         </Container>
       </Flex>
     </Headroom>
-  );
-};
+  )
+}

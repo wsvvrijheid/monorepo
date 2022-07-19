@@ -8,4 +8,4 @@ export const kunsthalte = {
   tr: {
     title: 'Kunsthalte',
   },
-};
+}

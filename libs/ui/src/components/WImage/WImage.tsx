@@ -1,16 +1,17 @@
+import { FC } from 'react'
+
 import {
   AspectRatio,
   chakra,
   ImageProps as ChakraImageProps,
-} from '@chakra-ui/react';
-import { UploadFile, FileFormatsType } from '@wsvvrijheid/types';
-import { getImageUrl, toBase64 } from '@wsvvrijheid/utils';
-import Image, { ImageProps } from 'next/image';
-import { FC } from 'react';
+} from '@chakra-ui/react'
+import { UploadFile, FileFormatsType } from '@wsvvrijheid/types'
+import { getImageUrl, toBase64 } from '@wsvvrijheid/utils'
+import Image, { ImageProps } from 'next/image'
 
 const shimmer = (
   width: number,
-  height: number
+  height: number,
 ) => `<svg width="${width}" height="${height}" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
         <defs>
           <linearGradient id="g">
@@ -22,19 +23,19 @@ const shimmer = (
         <rect width="${width}" height="${height}" fill="#E2E8F0" />
         <rect id="r" width="${width}" height="${height}" fill="url(#g)" />
         <animate xlink:href="#r" attributeName="x" from="-${width}" to="${width}" dur="1s" repeatCount="indefinite"  />
-      </svg>`;
+      </svg>`
 
 type WImageProps = {
-  ratio?: number | 'twitter';
-  format?: FileFormatsType;
-  image: UploadFile | string;
-  alt: string;
-  source: 'local' | 'api' | 'external';
+  ratio?: number | 'twitter'
+  format?: FileFormatsType
+  image: UploadFile | string
+  alt: string
+  source: 'local' | 'api' | 'external'
 } & Omit<ImageProps, 'src'> &
-  ChakraImageProps;
+  ChakraImageProps
 
 const ChakraNextImage = chakra(Image, {
-  shouldForwardProp: (prop) =>
+  shouldForwardProp: prop =>
     [
       'width',
       'height',
@@ -46,7 +47,7 @@ const ChakraNextImage = chakra(Image, {
       'placeholder',
       'objectFit',
     ].includes(prop),
-});
+})
 
 // TODO: add loader
 export const WImage: FC<WImageProps> = ({
@@ -57,10 +58,10 @@ export const WImage: FC<WImageProps> = ({
   source,
   ...rest
 }) => {
-  const src = getImageUrl(image, format);
+  const src = getImageUrl(image, format)
 
   const alternativeText =
-    typeof alt || (image as UploadFile)?.alternativeText || 'image';
+    typeof alt || (image as UploadFile)?.alternativeText || 'image'
 
   return (
     <AspectRatio
@@ -78,5 +79,5 @@ export const WImage: FC<WImageProps> = ({
         {...rest}
       />
     </AspectRatio>
-  );
-};
+  )
+}

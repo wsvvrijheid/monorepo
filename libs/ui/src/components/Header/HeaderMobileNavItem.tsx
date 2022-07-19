@@ -1,8 +1,10 @@
-import { Box } from '@chakra-ui/react';
-import { ChildMenu, ParentMenu } from '@wsvvrijheid/types';
-import { FC } from 'react';
-import { ChildMenuItem } from './HeaderNavItem';
-import { HeaderMobileNavItemProps } from './types';
+import { FC } from 'react'
+
+import { Box } from '@chakra-ui/react'
+import { ChildMenu, ParentMenu } from '@wsvvrijheid/types'
+
+import { ChildMenuItem } from './HeaderNavItem'
+import { HeaderMobileNavItemProps } from './types'
 
 export const HeaderMobileNavItem: FC<HeaderMobileNavItemProps> = ({ item }) => {
   return (
@@ -16,5 +18,5 @@ export const HeaderMobileNavItem: FC<HeaderMobileNavItemProps> = ({ item }) => {
         </Box>
       ))}
     </>
-  );
-};
+  )
+}

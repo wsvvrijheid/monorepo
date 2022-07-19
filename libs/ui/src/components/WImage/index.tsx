@@ -1,1 +1,1 @@
-export * from './WImage';
+export * from './WImage'

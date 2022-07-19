@@ -1,20 +1,21 @@
-import { Box, Center, Flex, Spinner } from '@chakra-ui/react';
-import { NextSeo, NextSeoProps } from 'next-seo';
-import { FC, ReactNode } from 'react';
+import { FC, ReactNode } from 'react'
 
-import { Footer } from '../Footer/Footer';
-import { FooterProps } from '../Footer/types';
-import { Header } from '../Header/Header';
-import { HeaderProps } from '../Header/types';
+import { Box, Center, Flex, Spinner } from '@chakra-ui/react'
+import { NextSeo, NextSeoProps } from 'next-seo'
+
+import { Footer } from '../Footer/Footer'
+import { FooterProps } from '../Footer/types'
+import { Header } from '../Header/Header'
+import { HeaderProps } from '../Header/types'
 
 interface LayoutProps {
-  seo: NextSeoProps;
-  isLoading?: boolean;
-  isDark?: boolean;
-  children: ReactNode;
-  headerProps: Omit<HeaderProps, 'logo'>;
-  footerProps: Omit<FooterProps, 'logo'>;
-  logo: string;
+  seo: NextSeoProps
+  isLoading?: boolean
+  isDark?: boolean
+  children: ReactNode
+  headerProps: Omit<HeaderProps, 'logo'>
+  footerProps: Omit<FooterProps, 'logo'>
+  logo: string
 }
 
 export const Layout: FC<LayoutProps> = ({
@@ -28,7 +29,7 @@ export const Layout: FC<LayoutProps> = ({
 }) => {
   const minH = isDark
     ? 'calc(100vh - 300px)'
-    : { base: 'calc(100vh - 64px)', lg: 'calc(100vh - 100px)' };
+    : { base: 'calc(100vh - 64px)', lg: 'calc(100vh - 100px)' }
 
   return (
     <>
@@ -45,5 +46,5 @@ export const Layout: FC<LayoutProps> = ({
         <Footer {...footerProps} logo={logo} />
       </Flex>
     </>
-  );
-};
+  )
+}

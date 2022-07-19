@@ -1,14 +1,16 @@
-import { Box, Heading, Text, VStack } from '@chakra-ui/react';
-import Image from 'next/image';
-import { FC, memo, PropsWithChildren } from 'react';
-import { Container } from '../Container';
+import { FC, memo, PropsWithChildren } from 'react'
+
+import { Box, Heading, Text, VStack } from '@chakra-ui/react'
+import Image from 'next/image'
+
+import { Container } from '../Container'
 
 interface HeroProps {
-  title: string;
-  description?: string;
-  video?: string;
-  image?: string;
-  isFullHeight?: boolean;
+  title: string
+  description?: string
+  video?: string
+  image?: string
+  isFullHeight?: boolean
 }
 
 export const Hero: FC<PropsWithChildren<HeroProps>> = memo(function Hero({
@@ -108,5 +110,5 @@ export const Hero: FC<PropsWithChildren<HeroProps>> = memo(function Hero({
         </VStack>
       </Container>
     </Box>
-  );
-});
+  )
+})

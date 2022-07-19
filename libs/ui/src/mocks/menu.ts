@@ -1,5 +1,6 @@
-import { ROUTES } from '@wsvvrijheid/config';
-import { HeaderNavProps } from '../components/Header/types';
+import { ROUTES } from '@wsvvrijheid/config'
+
+import { HeaderNavProps } from '../components/Header/types'
 
 const {
   activity,
@@ -15,7 +16,7 @@ const {
   contact,
   terms,
   privacy,
-} = ROUTES;
+} = ROUTES
 
 export const HEADER_MENU: Pick<HeaderNavProps, 'menu'>['menu'] = [
   activity,
@@ -35,7 +36,7 @@ export const HEADER_MENU: Pick<HeaderNavProps, 'menu'>['menu'] = [
     tr: 'Wsvvrijheid',
     children: [volunteer, about, contact],
   },
-];
+]
 
 export const FOOTER_MENU = [
   {
@@ -62,4 +63,4 @@ export const FOOTER_MENU = [
     nl: 'Steun',
     tr: 'Destek',
   },
-];
+]
