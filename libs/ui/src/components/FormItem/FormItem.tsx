@@ -1,3 +1,5 @@
+import { FC, ReactNode } from 'react'
+
 import {
   Box,
   FormControl,
@@ -13,21 +15,20 @@ import {
   InputRightElement,
   useBoolean,
   useMergeRefs,
-} from '@chakra-ui/react';
-import { FC, ReactNode } from 'react';
-import { FieldErrors, FieldValues, UseFormRegister } from 'react-hook-form';
-import { HiEye, HiEyeOff } from 'react-icons/hi';
+} from '@chakra-ui/react'
+import { FieldErrors, FieldValues, UseFormRegister } from 'react-hook-form'
+import { HiEye, HiEyeOff } from 'react-icons/hi'
 
 export type FormItemProps = InputProps & {
-  name: string;
-  label?: string;
-  placeholder?: string;
-  helperText?: string;
-  leftElement?: ReactNode;
-  hideLabel?: boolean;
-  errors: FieldErrors<FieldValues>;
-  register: UseFormRegister<FieldValues>;
-};
+  name: string
+  label?: string
+  placeholder?: string
+  helperText?: string
+  leftElement?: ReactNode
+  hideLabel?: boolean
+  errors: FieldErrors<FieldValues>
+  register: UseFormRegister<FieldValues>
+}
 
 export const FormItem: FC<FormItemProps> = forwardRef(
   (
@@ -44,16 +45,16 @@ export const FormItem: FC<FormItemProps> = forwardRef(
       hideLabel,
       ...rest
     },
-    formItemRef
+    formItemRef,
   ) => {
-    const [isOpen, setIsOpen] = useBoolean();
-    const Tag = as || Input;
+    const [isOpen, setIsOpen] = useBoolean()
+    const Tag = as || Input
 
-    const errorMessage = errors?.[name]?.['message'] as unknown as string;
+    const errorMessage = errors?.[name]?.['message'] as unknown as string
 
-    const { ref: registerRef, ...registerRest } = register(name);
+    const { ref: registerRef, ...registerRest } = register(name)
 
-    const ref = useMergeRefs(formItemRef, registerRef);
+    const ref = useMergeRefs(formItemRef, registerRef)
 
     return (
       <FormControl isInvalid={Boolean(errors?.[name])} isRequired={isRequired}>
@@ -91,6 +92,6 @@ export const FormItem: FC<FormItemProps> = forwardRef(
         <FormErrorMessage>{errorMessage}</FormErrorMessage>
         {helperText && <FormHelperText>{helperText}</FormHelperText>}
       </FormControl>
-    );
-  }
-);
+    )
+  },
+)

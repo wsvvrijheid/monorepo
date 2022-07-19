@@ -1,4 +1,4 @@
-import { FaInstagram, FaTwitter, FaWhatsapp } from 'react-icons/fa';
+import { FaInstagram, FaTwitter, FaWhatsapp } from 'react-icons/fa'
 
 export const samenvvv = [
   {
@@ -28,4 +28,4 @@ export const samenvvv = [
       nl: 'https://instagram.com/samenvvv',
     },
   },
-];
+]

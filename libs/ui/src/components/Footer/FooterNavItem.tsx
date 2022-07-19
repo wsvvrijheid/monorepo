@@ -1,11 +1,13 @@
-import { StrapiLocale } from '@wsvvrijheid/types';
-import { useRouter } from 'next/router';
-import { FC } from 'react';
-import { Navigate } from '../Navigate/Navigate';
-import { FooterNavItemProps } from './types';
+import { FC } from 'react'
+
+import { StrapiLocale } from '@wsvvrijheid/types'
+import { useRouter } from 'next/router'
+
+import { Navigate } from '../Navigate/Navigate'
+import { FooterNavItemProps } from './types'
 
 export const FooterNavItem: FC<FooterNavItemProps> = ({ item }) => {
-  const { locale } = useRouter();
+  const { locale } = useRouter()
   return (
     <Navigate
       color="blue.100"
@@ -17,5 +19,5 @@ export const FooterNavItem: FC<FooterNavItemProps> = ({ item }) => {
     >
       {item[(locale as StrapiLocale) || 'en']}
     </Navigate>
-  );
-};
+  )
+}

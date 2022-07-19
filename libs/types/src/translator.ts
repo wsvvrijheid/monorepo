@@ -1,23 +1,11 @@
-import { LangRole, RawLangRole } from './lang-role'
-import { Post, RawPost } from './post'
-import { RawVolunteer, Volunteer } from './volunteer'
-import {
-  StrapiCollection,
-  StrapiEntity,
-  StrapiRawCollection,
-  StrapiRawEntity,
-} from './strapi'
-
-export type RawTranslator = {
-  id: number
-  posts: StrapiRawCollection<RawPost>
-  roles: StrapiRawCollection<RawLangRole>
-  volunteer: StrapiRawEntity<RawVolunteer>
-}
+import { LangRole } from './lang-role';
+import { Post } from './post';
+import { Volunteer } from './volunteer';
+import { StrapiCollection, StrapiEntity } from './strapi';
 
 export type Translator = {
-  id: number
-  posts: StrapiCollection<Post>
-  roles: StrapiCollection<LangRole>
-  volunteer: StrapiEntity<Volunteer>
-}
+  id: number;
+  posts: StrapiCollection<Post>;
+  roles: StrapiCollection<LangRole>;
+  volunteer: StrapiEntity<Volunteer>;
+};

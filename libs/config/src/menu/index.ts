@@ -1,5 +1,5 @@
-import { wsvvrijheid } from './wsvvrijheid';
+import { wsvvrijheid } from './wsvvrijheid'
 
 export const menus = {
   wsvvrijheid,
-};
+}

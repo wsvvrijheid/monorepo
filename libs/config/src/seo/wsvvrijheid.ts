@@ -8,4 +8,4 @@ export const wsvvrijheid = {
   tr: {
     title: 'WSVVVrijheid',
   },
-};
+}

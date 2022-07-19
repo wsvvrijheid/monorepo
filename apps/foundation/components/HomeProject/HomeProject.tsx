@@ -7,15 +7,15 @@ import {
   SimpleGrid,
   Stack,
   Text,
-} from '@chakra-ui/react';
-import { useRouter } from 'next/router';
-import { useTranslation } from 'next-i18next';
-import { AnimatedBox, Container, Navigate } from '@wsvvrijheid/ui';
-import { PROJECTS } from '@wsvvrijheid/config';
+} from '@chakra-ui/react'
+import { PROJECTS } from '@wsvvrijheid/config'
+import { AnimatedBox, Container, Navigate } from '@wsvvrijheid/ui'
+import { useTranslation } from 'next-i18next'
+import { useRouter } from 'next/router'
 
 export const HomeProject = () => {
-  const { locale } = useRouter();
-  const { t } = useTranslation();
+  const { locale } = useRouter()
+  const { t } = useTranslation()
   return (
     <Box>
       {PROJECTS.map((project, index) => (
@@ -84,5 +84,5 @@ export const HomeProject = () => {
         </Center>
       ))}
     </Box>
-  );
-};
+  )
+}

@@ -1,14 +1,14 @@
-import { Layout as AppLayout } from '@wsvvrijheid/ui';
-import { NextSeoProps } from 'next-seo';
+import { FC, PropsWithChildren } from 'react'
 
-import { FC, PropsWithChildren } from 'react';
-import { menus, socialLinks } from '@wsvvrijheid/config';
+import { menus, socialLinks } from '@wsvvrijheid/config'
+import { Layout as AppLayout } from '@wsvvrijheid/ui'
+import { NextSeoProps } from 'next-seo'
 
 interface LayoutProps extends PropsWithChildren {
-  isDark?: boolean;
-  isLoading?: boolean;
-  hasScroll?: boolean;
-  seo: NextSeoProps;
+  isDark?: boolean
+  isLoading?: boolean
+  hasScroll?: boolean
+  seo: NextSeoProps
 }
 
 export const Layout: FC<LayoutProps> = ({
@@ -38,5 +38,5 @@ export const Layout: FC<LayoutProps> = ({
     >
       {children}
     </AppLayout>
-  );
-};
+  )
+}

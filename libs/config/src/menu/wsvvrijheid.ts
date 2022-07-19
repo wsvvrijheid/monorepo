@@ -12,7 +12,7 @@ import {
   samenvvv,
   terms,
   volunteer,
-} from './routes';
+} from './routes'
 
 export const wsvvrijheid = {
   headerMenu: [
@@ -79,4 +79,4 @@ export const wsvvrijheid = {
     username: 'John Doe',
     userAvatar: 'https://placekitten.com/200/200',
   },
-};
+}

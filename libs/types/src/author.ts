@@ -1,20 +1,9 @@
-import { Blog, RawBlog } from './blog'
-import { RawVolunteer, Volunteer } from './volunteer'
-import {
-  StrapiCollection,
-  StrapiEntity,
-  StrapiRawCollection,
-  StrapiRawEntity,
-} from './strapi'
-
-export type RawAuthor = {
-  id: number
-  blogs: StrapiRawCollection<RawBlog>
-  volunteer: StrapiRawEntity<RawVolunteer>
-}
+import { Blog } from './blog';
+import { Volunteer } from './volunteer';
+import { StrapiCollection, StrapiEntity } from './strapi';
 
 export type Author = {
-  id: number
-  blogs: StrapiCollection<Blog>
-  volunteer: StrapiEntity<Volunteer>
-}
+  id: number;
+  blogs: StrapiCollection<Blog>;
+  volunteer: StrapiEntity<Volunteer>;
+};

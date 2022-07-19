@@ -8,4 +8,4 @@ export const samenvvv = {
   tr: {
     title: 'SamenVVV',
   },
-};
+}
