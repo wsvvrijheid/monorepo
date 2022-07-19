@@ -5,7 +5,9 @@
   "scripts": {
     "start": "nx serve",
     "build": "nx build",
-    "test": "nx test"
+    "test": "nx test",
+    "lint": "nx affected --target=lint --fix",
+    "prepare": "husky install"
   },
   "private": true,
   "dependencies": {
@@ -85,6 +87,7 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "7.30.1",
     "eslint-plugin-react-hooks": "4.6.0",
+    "husky": "^8.0.1",
     "i18next": "^21.8.14",
     "i18next-browser-languagedetector": "^6.1.4",
     "i18next-http-backend": "^1.4.1",
