@@ -4,14 +4,8 @@ import axios from 'axios'
 import Router from 'next/router'
 import { useQuery } from 'react-query'
 
-export const useAuth = (
-  redirectTo = '',
-  redirectIfFound = false,
-  initialUser: any,
-) => {
-  const { data, isLoading } = useQuery('me', () => axios('/api/auth/user'), {
-    initialData: initialUser || {},
-  })
+export const useAuth = (redirectTo = '', redirectIfFound = false) => {
+  const { data, isLoading } = useQuery('me', () => axios('/api/auth/user'))
 
   const user = useMemo(() => data?.data || {}, [data])
 

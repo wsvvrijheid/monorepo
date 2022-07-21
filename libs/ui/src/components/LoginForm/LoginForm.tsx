@@ -27,8 +27,8 @@ import * as yup from 'yup'
 
 import { OAuthButtonGroup } from '../oauth-button-group'
 
-import { Navigate } from '~components'
-import { useAuth } from '~hooks'
+import { Navigate } from '../Navigate'
+import { useAuth } from '../../hooks'
 import { FormItem } from '../FormItem'
 import { TFunction } from 'react-i18next'
 
