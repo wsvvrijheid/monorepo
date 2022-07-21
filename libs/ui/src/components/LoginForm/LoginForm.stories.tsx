@@ -25,7 +25,9 @@ const Template: Story<LoginFormProps> = args => {
     mode: 'all',
   })
 
-  return <LoginForm {...args} name="email" errors={errors} register={register} />
+  return (
+    <LoginForm {...args} name="email" errors={errors} register={register} />
+  )
 }
 
 export const Default = Template.bind({})
