@@ -120,6 +120,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSubmitHandler }) => {
               type="email"
               register={register}
               errors={errors}
+              name={''}
             />
             <FormItem
               id="password"
@@ -128,6 +129,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSubmitHandler }) => {
               autoComplete="current-password"
               register={register}
               errors={errors}
+              name={''}
             />
           </Stack>
           <HStack justify="space-between">
@@ -154,7 +156,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSubmitHandler }) => {
               </Text>
               <Divider />
             </HStack>
-            <OAuthButtonGroup />
+            <OAuthButtonGroup isDisabled={false} />
           </Stack>
         </Stack>
       </Stack>
