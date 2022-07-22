@@ -1,4 +1,5 @@
 export * from './AnimatedBox'
+export * from './CategoryFilter'
 export * from './Container'
 export * from './Footer'
 export * from './FormItem'
