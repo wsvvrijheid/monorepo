@@ -1,12 +1,15 @@
+import * as React from 'react'
+
 import { Button, Container, Heading, Stack } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { useTranslation } from 'next-i18next'
-import * as React from 'react'
-import { useForm, SubmitHandler, FieldValues } from 'react-hook-form'
+import { TFunction, useTranslation } from 'next-i18next'
+import { useForm, SubmitHandler } from 'react-hook-form'
 import * as yup from 'yup'
-import { FormItem } from '../FormItem'
 
-const schema = (t: any) =>
+import { FormItem } from '../FormItem'
+import { ResetPasswordFieldValues, ResetPasswordFormProps } from './types'
+
+const schema = (t: TFunction) =>
   yup.object({
     password: yup
       .string()
@@ -27,11 +30,6 @@ const schema = (t: any) =>
       ),
   })
 
-export type ResetPasswordFormProps = {
-  onSubmitHandler: (data: FieldValues) => void
-  isLoading?: boolean
-}
-
 export const ResetPasswordForm: React.FC<ResetPasswordFormProps> = ({
   onSubmitHandler,
   isLoading,
@@ -41,9 +39,8 @@ export const ResetPasswordForm: React.FC<ResetPasswordFormProps> = ({
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
-  } = useForm<FieldValues>({
+  } = useForm<ResetPasswordFieldValues>({
     defaultValues: {
       password: '',
       passwordConfirmation: '',
@@ -51,7 +48,7 @@ export const ResetPasswordForm: React.FC<ResetPasswordFormProps> = ({
     resolver: yupResolver(schema(t)),
     mode: 'all',
   })
-  const onSubmit: SubmitHandler<FieldValues> = data => {
+  const onSubmit: SubmitHandler<ResetPasswordFieldValues> = data => {
     onSubmitHandler(data)
   }
 

@@ -1,8 +1,9 @@
-import { Story, Meta } from '@storybook/react'
 import React from 'react'
-import { FieldValues } from 'react-hook-form'
 
-import { ForgotPasswordForm, ForgotPasswordFormProps } from '.'
+import { Story, Meta } from '@storybook/react'
+
+import { ForgotPasswordForm } from './ForgotPasswordForm'
+import { ForgotPasswordFormProps, ForgotPasswordFieldValues } from './types'
 
 export default {
   title: 'Forms/ForgotPasswordForm',
@@ -11,13 +12,13 @@ export default {
 
 const Template: Story<ForgotPasswordFormProps> = args => {
   const [isLoading, setIsLoading] = React.useState<boolean>(false)
-  const onSubmit = (data: FieldValues) => {
+  const onSubmit = (data: ForgotPasswordFieldValues) => {
     setIsLoading(true)
     setTimeout(() => {
       setIsLoading(false)
     }, 2000)
 
-    confirm(JSON.stringify(data))
+    alert(JSON.stringify(data))
   }
   return <ForgotPasswordForm onSubmitHandler={onSubmit} isLoading={isLoading} />
 }

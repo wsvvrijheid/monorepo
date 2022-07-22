@@ -1,23 +1,21 @@
+import * as React from 'react'
+
 import { Button, Container, Heading, Stack } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { useTranslation } from 'next-i18next'
-import * as React from 'react'
-import { useForm, SubmitHandler, FieldValues } from 'react-hook-form'
+import { TFunction, useTranslation } from 'next-i18next'
+import { useForm, SubmitHandler } from 'react-hook-form'
 import * as yup from 'yup'
-import { FormItem } from '../FormItem'
 
-const schema = (t: any) =>
+import { FormItem } from '../FormItem'
+import { ForgotPasswordFormProps, ForgotPasswordFieldValues } from './types'
+
+const schema = (t: TFunction) =>
   yup.object({
     email: yup
       .string()
       .email(t`contact.form.email-invalid`)
       .required(t`login.email.required`),
   })
-
-export type ForgotPasswordFormProps = {
-  onSubmitHandler: (data: FieldValues) => void
-  isLoading?: boolean
-}
 
 export const ForgotPasswordForm: React.FC<ForgotPasswordFormProps> = ({
   onSubmitHandler,
@@ -28,9 +26,8 @@ export const ForgotPasswordForm: React.FC<ForgotPasswordFormProps> = ({
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
-  } = useForm<FieldValues>({
+  } = useForm<ForgotPasswordFieldValues>({
     defaultValues: {
       email: '',
     },
@@ -38,7 +35,7 @@ export const ForgotPasswordForm: React.FC<ForgotPasswordFormProps> = ({
     mode: 'all',
   })
 
-  const onSubmit: SubmitHandler<FieldValues> = data => {
+  const onSubmit: SubmitHandler<ForgotPasswordFieldValues> = data => {
     onSubmitHandler(data)
   }
 

@@ -1,8 +1,9 @@
-import { Story, Meta } from '@storybook/react'
 import React from 'react'
-import { FieldValues } from 'react-hook-form'
 
-import { ResetPasswordForm, ResetPasswordFormProps } from '.'
+import { Story, Meta } from '@storybook/react'
+
+import { ResetPasswordForm } from './ResetPasswordForm'
+import { ResetPasswordFieldValues, ResetPasswordFormProps } from './types'
 
 export default {
   title: 'Forms/ResetPasswordForm',
@@ -11,13 +12,13 @@ export default {
 
 const Template: Story<ResetPasswordFormProps> = args => {
   const [isLoading, setIsLoading] = React.useState<boolean>(false)
-  const onSubmit = (data: FieldValues) => {
+  const onSubmit = (data: ResetPasswordFieldValues) => {
     setIsLoading(true)
     setTimeout(() => {
       setIsLoading(false)
     }, 2000)
 
-    confirm(JSON.stringify(data))
+    alert(JSON.stringify(data))
   }
   return <ResetPasswordForm onSubmitHandler={onSubmit} isLoading={isLoading} />
 }
