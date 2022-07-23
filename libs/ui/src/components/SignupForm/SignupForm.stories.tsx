@@ -4,7 +4,7 @@ import { SignupForm } from '.'
 import { SignupFormProps, SignupFormFieldValues } from './types'
 
 export default {
-  title: 'Forms/LoginForm',
+  title: 'Forms/SignupForm',
   component: SignupForm,
 } as Meta<typeof SignupForm>
 
