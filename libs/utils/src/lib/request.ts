@@ -1,13 +1,14 @@
-import { StrapiLocale } from '@wsvvrijheid/types'
+import { StrapiLocale, StrapiModel, StrapiResponse } from '@wsvvrijheid/types'
+import axios, { AxiosError, AxiosResponse } from 'axios'
 import qs from 'qs'
 
 import { fetcher } from './fetcher'
 
 type Request = {
   url: string
-  publicationState: 'live' | 'preview'
-  locale: StrapiLocale
-  filters?: { [key: string]: string }
+  publicationState?: 'live' | 'preview'
+  locale?: StrapiLocale
+  filters?: { [key: string]: unknown }
   populate?: '*' | string | string[]
   sort?: string | string[]
   page?: number
@@ -16,7 +17,7 @@ type Request = {
 
 export const request =
   (token?: string) =>
-  async ({
+  async <T extends StrapiModel | StrapiModel[]>({
     publicationState = 'live',
     locale,
     url,
@@ -44,15 +45,18 @@ export const request =
     )
 
     try {
-      const response = await fetcher(token)(`/${url}?${query}`)
+      const response = (await fetcher(token)(
+        `/${url}?${query}`,
+      )) as AxiosResponse<StrapiResponse<T>>
 
       return response.data
-    } catch (error: any) {
-      // TODO Consider a better error handling
-      console.error(
-        'Request error',
-        error.data || error.response || error.message,
-      )
+    } catch (errr) {
+      const error = errr as Error | AxiosError
+      if (axios.isAxiosError(error)) {
+        console.error('Request error', error.response || error.message)
+      } else {
+        console.error('Request error', error.message)
+      }
       return null
     }
   }
