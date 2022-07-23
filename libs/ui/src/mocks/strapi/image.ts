@@ -1,4 +1,6 @@
-export const IMAGE = {
+import { UploadFile } from '@wsvvrijheid/types'
+
+export const IMAGE_MOCK: UploadFile = {
   id: 1,
   name: 'academy.jpg',
   alternativeText: 'academy.jpg',

@@ -1,14 +1,13 @@
 import { Project } from './project'
-import { StrapiEntity } from './strapi'
+import { StrapiCore } from './strapi'
 
 export type Job = {
-  id: string
   code: string
   name_en: string
   name_nl: string
   name_tr: string
-  description_en: string
-  description_nl: string
-  description_tr: string
-  project: StrapiEntity<Project>
-}
+  description_en: string | null
+  description_nl: string | null
+  description_tr: string | null
+  project?: Project
+} & StrapiCore

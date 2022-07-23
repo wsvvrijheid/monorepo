@@ -1,5 +1,6 @@
+import { StrapiCore } from './strapi'
+
 export type Donate = {
-  id: number
   adddress: string
   amount: number
   createdAt: string
@@ -9,4 +10,4 @@ export type Donate = {
   phone: string
   status: string
   updatedAt: string
-}
+} & StrapiCore
