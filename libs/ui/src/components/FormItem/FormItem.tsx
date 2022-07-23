@@ -1,4 +1,4 @@
-import { FC, ReactNode } from 'react'
+import { ReactNode, RefAttributes, ReactElement } from 'react'
 
 import {
   Box,
@@ -16,21 +16,31 @@ import {
   useBoolean,
   useMergeRefs,
 } from '@chakra-ui/react'
-import { FieldErrors, FieldValues, UseFormRegister } from 'react-hook-form'
+import {
+  FieldErrorsImpl,
+  FieldValues,
+  Path,
+  UseFormRegister,
+} from 'react-hook-form'
 import { HiEye, HiEyeOff } from 'react-icons/hi'
 
-export type FormItemProps = InputProps & {
-  name: string
+export type FormItemProps<FormValues extends FieldValues> = InputProps & {
+  name: Path<FormValues>
   label?: string
   placeholder?: string
   helperText?: string
   leftElement?: ReactNode
   hideLabel?: boolean
-  errors: FieldErrors<FieldValues>
-  register: UseFormRegister<FieldValues>
+  errors: FieldErrorsImpl<FormValues>
+  register: UseFormRegister<FormValues>
 }
 
-export const FormItem: FC<FormItemProps> = forwardRef(
+export type FormItemComponent = <FormValues extends FieldValues>(
+  props: FormItemProps<FormValues> &
+    RefAttributes<HTMLInputElement | HTMLTextAreaElement>,
+) => ReactElement
+
+export const FormItem: FormItemComponent = forwardRef(
   (
     {
       name,
@@ -49,13 +59,9 @@ export const FormItem: FC<FormItemProps> = forwardRef(
   ) => {
     const [isOpen, setIsOpen] = useBoolean()
     const Tag = as || Input
-
     const errorMessage = errors?.[name]?.['message'] as unknown as string
-
     const { ref: registerRef, ...registerRest } = register(name)
-
     const ref = useMergeRefs(formItemRef, registerRef)
-
     return (
       <FormControl isInvalid={Boolean(errors?.[name])} isRequired={isRequired}>
         {label && !hideLabel && (
@@ -79,10 +85,10 @@ export const FormItem: FC<FormItemProps> = forwardRef(
               />
             </InputRightElement>
           )}
-
           <Tag
             ref={ref}
             id={name}
+            type={type === 'password' ? (isOpen ? 'password' : 'text') : type}
             placeholder={label}
             {...registerRest}
             {...rest}

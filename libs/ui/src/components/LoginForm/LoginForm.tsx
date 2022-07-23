@@ -6,32 +6,21 @@ import {
   Divider,
   Heading,
   HStack,
-  InputProps,
   Stack,
   Text,
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
-import axios from 'axios'
-import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import * as React from 'react'
-import { useState } from 'react'
-import {
-  FieldErrors,
-  FieldValues,
-  useForm,
-  SubmitHandler,
-  UseFormRegister,
-} from 'react-hook-form'
+import { useForm, SubmitHandler } from 'react-hook-form'
 import * as yup from 'yup'
 
-import { OAuthButtonGroup } from '../oauth-button-group'
+import { OAuthButtonGroup } from '../OauthButtonGroup'
 
 import { Navigate } from '../Navigate'
-import { useAuth } from '../../hooks'
 import { FormItem } from '../FormItem'
 import { TFunction } from 'react-i18next'
-
+import { LoginFormProps, LoginFormFieldValues } from './types'
 const schema = (t: TFunction<'translation', undefined>) =>
   yup.object({
     password: yup
@@ -51,34 +40,21 @@ const schema = (t: TFunction<'translation', undefined>) =>
       .required(t`login.email.required`),
   })
 
-export type LoginFormProps = InputProps & {
-  name: string
-  label?: string
-  placeholder?: string
-  helperText?: string
-  leftElement?: React.ReactNode
-  hideLabel?: boolean
-  errors: FieldErrors<FieldValues>
-  register: UseFormRegister<FieldValues>
-  onSubmitHandler: (data: FieldValues) => void
-}
-
-export const LoginForm: React.FC<LoginFormProps> = ({ onSubmitHandler }) => {
-  useAuth('/profile', true)
-
-  const [errorMessage, setErrorMessage] = useState(null)
+export const LoginForm: React.FC<LoginFormProps> = ({
+  onSubmitHandler,
+  errorMessage,
+}) => {
   const { t } = useTranslation()
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
-  } = useForm({
+  } = useForm<LoginFormFieldValues>({
     resolver: yupResolver(schema(t)),
     mode: 'all',
   })
 
-  const handleSubmitSign: SubmitHandler<FieldValues> = async data => {
+  const handleSubmitSign: SubmitHandler<LoginFormFieldValues> = async data => {
     onSubmitHandler(data)
   }
 
@@ -115,21 +91,19 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSubmitHandler }) => {
           <Stack spacing="5">
             {errorMessage && <Text color="red.500">{errorMessage}</Text>}
             <FormItem
-              id="email"
+              name="email"
               label={t('login.email.title')}
               type="email"
               register={register}
               errors={errors}
-              name={''}
             />
             <FormItem
-              id="password"
+              name="password"
               type="password"
               label={t('login.password.title')}
               autoComplete="current-password"
               register={register}
               errors={errors}
-              name={''}
             />
           </Stack>
           <HStack justify="space-between">
