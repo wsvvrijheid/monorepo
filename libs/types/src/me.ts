@@ -1,15 +1,15 @@
+import { StrapiCore } from './strapi'
+
 export type Me = {
-  id: number
   blocked: boolean
   confirmed: boolean
   email: string
   role: MeRole
   username: string
-}
+} & StrapiCore
 
 export type MeRole = {
-  id: number
   description: string
   name: string
   type: string
-}
+} & StrapiCore

@@ -2,27 +2,24 @@ import { Author } from './author'
 import { Category } from './category'
 import { Comment } from './comment'
 import { UploadFile } from './file'
-import { StrapiCollection, StrapiEntity } from './strapi'
+import { StrapiLocale } from './locale'
+import { StrapiCore } from './strapi'
 import { Tag } from './tag'
 import { User } from './user'
 
 export type Blog = {
-  id: number
   title: string
   slug: string
-  description: string
+  description: string | null
   content: string
-  image: StrapiEntity<UploadFile>
-  likes: number
+  image?: UploadFile
+  likes: number | null
   views: number
-  locale: string
-  author: StrapiEntity<Author>
-  categories: StrapiCollection<Category>
-  tags: StrapiCollection<Tag>
-  likers: StrapiCollection<User>
-  comments: StrapiCollection<Comment>
-  localizations: StrapiCollection<Blog>
-  createdAt: string
-  publishedAt: string
-  updatedAt: string
-}
+  locale: StrapiLocale
+  author?: Author
+  categories?: Array<Category>
+  tags?: Array<Tag>
+  likers?: Array<User>
+  comments?: Array<Comment>
+  localizations?: Array<Blog>
+} & StrapiCore

@@ -34,6 +34,13 @@ import { Vote } from './vote'
 
 export type PublicationState = 'LIVE' | 'PREVIEW'
 
+export type StrapiCore = {
+  id: number
+  createdAt: string
+  updatedAt: string | null
+  publishedAt: string | null
+}
+
 export type StrapiModel =
   | Activity
   | Announcement
@@ -118,7 +125,10 @@ export type StrapiMeta = {
   pagination: Pagination
 }
 
-export type StrapiEntity<T extends StrapiModel> = T
-export type StrapiCollection<T extends StrapiModel> = StrapiEntity<T>[]
+export type StrapiResponseData<T extends StrapiModel | Array<StrapiModel>> = T
 
-export type StrapiData<T extends StrapiModel> = T | Array<T>
+export type StrapiResponse<T extends StrapiModel | Array<StrapiModel>> = {
+  data: StrapiResponseData<T>
+} & {
+  meta: StrapiMeta
+}

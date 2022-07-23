@@ -16,14 +16,14 @@ import { useRouter } from 'next/router'
 import { useTranslation } from 'react-i18next'
 
 import { useChangeParams } from '../../hooks'
-import { CATEGORIES } from '../../mocks'
+import { CATEGORY_MOCKS } from '../../mocks'
 import { CategoryFilter } from './CategoryFilter'
 
 export default {
   component: CategoryFilter,
   title: 'Shared/CategoryFilter',
   args: {
-    categoryData: CATEGORIES,
+    categoryData: CATEGORY_MOCKS.data,
   },
   argTypes: {
     locale: { control: { type: 'radio', options: ['en', 'nl', 'tr'] } },

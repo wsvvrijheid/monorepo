@@ -1,6 +1,4 @@
 export * from './menu'
 export * from './profile'
 export * from './social'
-export * from './image'
-export * from './collection'
-export * from './category'
+export * from './strapi'

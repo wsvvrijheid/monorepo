@@ -1,7 +1,7 @@
 import { ResponsiveValue } from '@chakra-ui/react'
-import { ChildMenu, ParentMenu } from '@wsvvrijheid/types'
+import { MenuType } from '@wsvvrijheid/types'
 
-export type HeaderMenu = Array<ChildMenu | ParentMenu>
+export type HeaderMenu = Array<MenuType>
 
 export type ProfileMenuProps = {
   menu: Array<{ label: string; link: string; icon?: JSX.Element }>
@@ -28,19 +28,14 @@ export interface HeaderProps {
 }
 
 export interface HeaderNavItemProps {
-  item: ChildMenu | ParentMenu
+  item: MenuType
   isDark?: boolean
 }
 
 export type HeaderMobileNavItemProps = HeaderNavItemProps
 
-export interface ChildMenuItemProps {
-  item: ChildMenu
-  isDark?: boolean
-}
-
-export interface ParentMenuItemProps {
-  item: ParentMenu
+export interface MenuTypeItemProps {
+  item: MenuType
   isDark?: boolean
 }
 

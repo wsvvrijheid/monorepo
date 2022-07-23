@@ -17,6 +17,6 @@ export const getImageUrl = (
     return `${siteUrl}${image}`
   }
 
-  const src = format ? image.formats[format]?.url || image.url : image.url
+  const src = format ? image.formats?.[format]?.url || image.url : image.url
   return `${apiUrl}${src}`
 }

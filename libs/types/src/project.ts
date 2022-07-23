@@ -1,9 +1,8 @@
 import { UploadFile } from './file'
 import { Job } from './job'
-import { StrapiCollection, StrapiEntity } from './strapi'
+import { StrapiCore } from './strapi'
 
 export type Project = {
-  id: string
   code: string
   name_en: string
   name_nl: string
@@ -15,6 +14,6 @@ export type Project = {
   content_nl: string
   content_tr: string
   link: string
-  image: StrapiEntity<UploadFile>
-  jobs: StrapiCollection<Job>
-}
+  image?: UploadFile
+  jobs?: Array<Job>
+} & StrapiCore

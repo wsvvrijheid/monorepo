@@ -1,7 +1,7 @@
 import { FC } from 'react'
 
 import { Stack, Text } from '@chakra-ui/react'
-import { ParentMenu, StrapiLocale } from '@wsvvrijheid/types'
+import { StrapiLocale } from '@wsvvrijheid/types'
 import { useRouter } from 'next/router'
 
 import { FooterNavItem } from './FooterNavItem'
@@ -29,7 +29,7 @@ export const FooterNav: FC<FooterNavProps> = ({ menu }) => {
             >
               {item[(locale as StrapiLocale) || 'en']}
             </Text>
-            {(item as ParentMenu).children.map((item, j) => {
+            {item.children?.map((item, j) => {
               return <FooterNavItem key={j} item={item} />
             })}
           </Stack>

@@ -4,9 +4,10 @@
   "license": "MIT",
   "scripts": {
     "start": "nx serve",
-    "build": "nx build",
     "test": "nx test",
     "lint": "nx affected --target=lint --fix",
+    "build": "nx affected --target=build",
+    "storybook": "nx run ui:storybook",
     "prepare": "husky install"
   },
   "private": true,

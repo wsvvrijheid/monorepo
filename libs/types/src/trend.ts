@@ -1,3 +1,5 @@
+import { StrapiCore } from './strapi'
+
 export interface TwitterTrend {
   name: string
   url: string
@@ -7,10 +9,7 @@ export interface TwitterTrend {
 }
 
 export type Trend = {
-  id: number
-  updatedAt: string
-  createdAt: string
   en: TwitterTrend[] | null
   nl: TwitterTrend[] | null
   tr: TwitterTrend[] | null
-}
+} & StrapiCore
