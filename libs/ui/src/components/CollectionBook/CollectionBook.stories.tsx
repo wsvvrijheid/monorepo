@@ -1,6 +1,6 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react'
 
-import { COLLECTIONS } from '../../mocks'
+import { COLLECTION_MOCKS } from '../../mocks'
 import { CollectionBook } from './CollectionBook'
 
 export default {
@@ -11,9 +11,9 @@ export default {
 const Template: ComponentStory<typeof CollectionBook> = args => (
   <CollectionBook
     {...args}
-    collection={COLLECTIONS[0]}
+    collection={COLLECTION_MOCKS.data[0]}
     title="Art Stop Collection"
-    logo="assets/images/kunsthalte.jpg"
+    logo="/assets/images/kunsthalte.jpg"
   />
 )
 

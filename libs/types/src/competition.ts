@@ -1,22 +1,19 @@
 import { Application } from './application'
 import { Category } from './category'
 import { UploadFile } from './file'
-import { StrapiCollection, StrapiEntity } from './strapi'
+import { StrapiLocale } from './locale'
+import { StrapiCore } from './strapi'
 
 export type Competition = {
-  id: number
   title: string
   slug: string
   description: string
   content: string
-  image: StrapiEntity<UploadFile>
+  image?: UploadFile
   date: string
   dateEnd: string
-  locale: string
-  applications: StrapiCollection<Application>
-  categories: StrapiCollection<Category>
-  localizations: StrapiCollection<Competition>
-  createdAt: string
-  publishedAt: string
-  updatedAt: string
-}
+  locale: StrapiLocale
+  applications?: Array<Application>
+  categories?: Array<Category>
+  localizations?: Array<Competition>
+} & StrapiCore

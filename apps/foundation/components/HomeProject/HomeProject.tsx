@@ -75,7 +75,7 @@ export const HomeProject = () => {
                     as={Button}
                     href={project.link}
                   >
-                    {t`read-more`}
+                    {t('read-more')}
                   </Navigate>
                 </Stack>
               </AnimatedBox>

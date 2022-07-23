@@ -1,7 +1,7 @@
 import { Box } from '@chakra-ui/react'
 import { ComponentStory, ComponentMeta } from '@storybook/react'
 
-import { IMAGE } from '../../mocks'
+import { IMAGE_MOCK } from '../../mocks'
 import { WImage } from './WImage'
 
 export default {
@@ -18,7 +18,7 @@ const Wrapper: ComponentStory<typeof WImage> = args => (
 
 export const Default = Template.bind({})
 Default.args = {
-  image: IMAGE,
+  image: IMAGE_MOCK,
 }
 
 export const Local = Template.bind({})
@@ -34,7 +34,7 @@ External.args = {
 
 export const Card = Wrapper.bind({})
 Card.args = {
-  image: IMAGE,
+  image: IMAGE_MOCK,
   ratio: 3 / 1,
   // layout: 'fill',
   // width: 300,

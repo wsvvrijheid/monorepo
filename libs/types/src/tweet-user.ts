@@ -1,15 +1,15 @@
 export interface TweetUserData {
   id: number
   url: string
-  lang?: string
+  lang?: string | null
   name: string
   id_str: string
   status: {
     id: number
-    geo?: string
+    geo?: string | null
     lang: string
     text: string
-    place?: string
+    place?: string | null
     id_str: string
     source: string
     entities: {
@@ -24,11 +24,13 @@ export interface TweetUserData {
       user_mentions: any[]
     }
     favorited: boolean
+    full_text: string
     retweeted: boolean
     truncated: boolean
     created_at: string
-    coordinates?: any
-    contributors?: any
+    coordinates?: any | null
+    contributors?: any | null
+    display_text_range: number[]
     retweet_count: number
     favorite_count: number
     is_quote_status: boolean
@@ -59,9 +61,9 @@ export interface TweetUserData {
   }
   location: string
   verified: boolean
-  following: boolean
+  following: boolean | null
   protected: boolean
-  time_zone?: string
+  time_zone?: string | null
   created_at: string
   utc_offset?: string
   description: string

@@ -26,7 +26,7 @@ export const CollectionPages = forwardRef<HTMLDivElement, CollectionPagesPops>(
                 <Image
                   rounded="sm"
                   maxH="80%"
-                  src={process.env['NX_API_URL'] + art.images[0].url}
+                  src={process.env['NX_API_URL'] + art.images![0].url}
                   alt={art.title}
                 />
 

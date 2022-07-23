@@ -1,3 +1,5 @@
+import { StrapiCore } from './strapi'
+
 export type FileFormatsType = 'large' | 'small' | 'medium' | 'thumbnail'
 
 export interface FileInfoInput {
@@ -21,21 +23,18 @@ type FileFormat = {
 export type FileFormats = { [F in FileFormatsType]?: FileFormat }
 
 export type UploadFile = {
-  id: number
   alternativeText: string | null
   caption: string | null
-  createdAt: string
   ext: string
-  formats: FileFormats
+  formats: FileFormats | null
   hash: string
-  height: number
+  height: number | null
   mime: string
   name: string
   previewUrl: string | null
   provider: string
   provider_metadata: any
   size: number
-  updatedAt: string
   url: string
-  width: number
-}
+  width: number | null
+} & Omit<StrapiCore, 'publishedAt'>

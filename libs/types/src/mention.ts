@@ -1,16 +1,13 @@
 import { Category } from './category'
 import { Hashtag } from './hashtag'
-import { StrapiCollection } from './strapi'
+import { StrapiLocale } from './locale'
+import { StrapiCore } from './strapi'
 
 export type Mention = {
-  id: number
   username: string
   data: any
-  locale: string
-  categories: StrapiCollection<Category>
-  hashtags: StrapiCollection<Hashtag>
-  localizations: StrapiCollection<Mention>
-  createdAt: string
-  updatedAt: string
-  publishedAt: string
-}
+  locale: StrapiLocale
+  categories?: Array<Category>
+  hashtags?: Array<Hashtag>
+  localizations?: Array<Mention>
+} & StrapiCore
