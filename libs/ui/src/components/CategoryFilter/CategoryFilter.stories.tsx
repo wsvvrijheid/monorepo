@@ -57,7 +57,7 @@ const Template: ComponentStory<typeof CategoryFilter> = args => {
           initialCategories={args.initialCategories || initialCategories}
           isLoading={args.isLoading || isLoading}
           locale={args.locale || (locale as StrapiLocale)}
-          title={args.title || t`categories`}
+          title={args.title || t('categories')}
           setIsLoading={setIsLoading}
           selectCategories={setSelectedCategories}
         />
