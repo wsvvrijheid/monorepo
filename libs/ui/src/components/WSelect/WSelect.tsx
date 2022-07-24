@@ -1,4 +1,4 @@
-import { FC, RefAttributes } from 'react'
+import { RefAttributes } from 'react'
 
 import {
   FormControl,
@@ -12,7 +12,7 @@ import {
   GroupBase,
   SelectInstance,
 } from 'chakra-react-select'
-import { Control, useController } from 'react-hook-form'
+import { Control, FieldValues, useController } from 'react-hook-form'
 
 import { FormItemProps } from '../FormItem'
 
@@ -21,13 +21,17 @@ type SelectOption = {
   value: string
 }
 
-export type WSelectProps = {
+export type WSelectProps<SelectFormFieldValues extends FieldValues> = {
   control: Control
-} & Omit<FormItemProps, 'register' | 'leftElement'> &
+} & Omit<FormItemProps<SelectFormFieldValues>, 'register' | 'leftElement'> &
   SelectProps<SelectOption, boolean, GroupBase<SelectOption>> &
   RefAttributes<SelectInstance<SelectOption, boolean, GroupBase<SelectOption>>>
 
-export const WSelect: FC<WSelectProps> = ({
+export type WSelectComponent = <SelectFormFieldValues extends FieldValues>(
+  props: WSelectProps<SelectFormFieldValues>,
+) => JSX.Element
+
+export const WSelect: WSelectComponent = ({
   control,
   name,
   label,

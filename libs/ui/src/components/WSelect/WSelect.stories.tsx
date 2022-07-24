@@ -21,15 +21,20 @@ const categorySchema = yup.object().shape({
   value: yup.string(),
 })
 
+// SELECT COMPONENT
+
 const objectSchema = yup.object({
   category: categorySchema,
 })
 
-const arraySchema = yup.object({
-  categories: yup.array().of(categorySchema),
-})
+type SelectFormFieldValues = {
+  category: {
+    label: string
+    value: string
+  }
+}
 
-const Template: Story<WSelectProps> = args => {
+const Template: Story<WSelectProps<SelectFormFieldValues>> = args => {
   const {
     control,
     formState: { errors },
@@ -51,7 +56,38 @@ const Template: Story<WSelectProps> = args => {
   )
 }
 
-const MultiTemplate: Story<WSelectProps> = args => {
+export const Default = Template.bind({})
+Default.args = {
+  label: 'Default',
+}
+
+export const Check = Template.bind({})
+Check.args = {
+  label: 'Check',
+  selectedOptionStyle: 'check',
+}
+
+export const Color = Template.bind({})
+Color.args = {
+  label: 'Color',
+  selectedOptionStyle: 'color',
+  selectedOptionColor: 'red',
+}
+
+// MULTISELECT COMPONENT
+
+const arraySchema = yup.object({
+  categories: yup.array().of(categorySchema),
+})
+
+type SelectFormMultiFieldValues = {
+  categories: {
+    label: string
+    value: string
+  }[]
+}
+
+const MultiTemplate: Story<WSelectProps<SelectFormMultiFieldValues>> = args => {
   const {
     control,
     formState: { errors },
@@ -72,24 +108,6 @@ const MultiTemplate: Story<WSelectProps> = args => {
       placeholder="Select categories"
     />
   )
-}
-
-export const Default = Template.bind({})
-Default.args = {
-  label: 'Default',
-}
-
-export const Check = Template.bind({})
-Check.args = {
-  label: 'Check',
-  selectedOptionStyle: 'check',
-}
-
-export const Color = Template.bind({})
-Color.args = {
-  label: 'Color',
-  selectedOptionStyle: 'color',
-  selectedOptionColor: 'red',
 }
 
 export const Multi = MultiTemplate.bind({})
