@@ -16,7 +16,11 @@ const schema = yup.object({
   email: yup.string().email().required(),
 })
 
-const Template: Story<FormItemProps> = args => {
+type FormFieldValues = {
+  email: string
+}
+
+const Template: Story<FormItemProps<FormFieldValues>> = args => {
   const {
     register,
     formState: { errors },

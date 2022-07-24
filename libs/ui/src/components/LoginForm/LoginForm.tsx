@@ -15,13 +15,14 @@ import * as React from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import * as yup from 'yup'
 
-import { OAuthButtonGroup } from '../OauthButtonGroup'
+import { OAuthButtonGroup } from '../OAuthButtonGroup'
 
 import { Navigate } from '../Navigate'
 import { FormItem } from '../FormItem'
 import { TFunction } from 'react-i18next'
 import { LoginFormProps, LoginFormFieldValues } from './types'
-const schema = (t: TFunction<'translation', undefined>) =>
+
+const schema = (t: TFunction) =>
   yup.object({
     password: yup
       .string()
