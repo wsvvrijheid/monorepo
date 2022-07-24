@@ -5,12 +5,16 @@ import { useForm } from 'react-hook-form'
 import { FaEnvelope } from 'react-icons/fa'
 import * as yup from 'yup'
 
-import { FormItem, FormItemProps } from '.'
+import { FormItem, FormItemComponent } from '.'
 
 export default {
   title: 'Forms/FormItem',
   component: FormItem,
 } as Meta<typeof FormItem>
+
+type FormType = {
+  email: string
+}
 
 const schema = yup.object({
   email: yup.string().email().required(),
@@ -24,7 +28,7 @@ const Template: Story<FormItemProps<FormFieldValues>> = args => {
   const {
     register,
     formState: { errors },
-  } = useForm({
+  } = useForm<FormType>({
     resolver: yupResolver(schema),
     mode: 'all',
   })
