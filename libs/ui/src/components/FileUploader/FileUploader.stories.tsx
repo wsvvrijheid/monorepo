@@ -2,12 +2,20 @@ import React, { useEffect } from 'react'
 
 import { Story, Meta } from '@storybook/react'
 
+import { Container } from '../Container'
 import { FileUploader } from './FileUploader'
 import { FileUploaderProps } from './types'
 
 export default {
   title: 'Forms/FileUploader',
   component: FileUploader,
+  decorators: [
+    Story => (
+      <Container maxW="container.md">
+        <Story />
+      </Container>
+    ),
+  ],
 } as Meta<typeof FileUploader>
 
 const Template: Story<FileUploaderProps> = args => {
