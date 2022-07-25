@@ -87,7 +87,8 @@ export const FileUploader: FC<FileUploaderProps> = ({
           onChange={onInputChange}
         />
         <VStack
-          h={250}
+          minH={250}
+          h="full"
           bg="gray.100"
           textAlign={'center'}
           justify="center"
