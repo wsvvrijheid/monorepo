@@ -25,7 +25,7 @@ const defaultFlipboxProps: Partial<IFlipSetting> = {
   showCover: true,
 }
 
-interface CollectionProps {
+export interface CollectionBookProps {
   collection: Collection
   title: string
   coverBg?: string
@@ -34,7 +34,7 @@ interface CollectionProps {
   flipboxProps?: ComponentProps<typeof HTMLFlipBook>
 }
 
-export const CollectionBook: FC<CollectionProps> = ({
+export const CollectionBook: FC<CollectionBookProps> = ({
   collection,
   title,
   coverBg = '#F5F3EB',

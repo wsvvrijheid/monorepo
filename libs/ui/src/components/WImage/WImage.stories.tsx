@@ -1,16 +1,16 @@
 import { Box } from '@chakra-ui/react'
-import { ComponentStory, ComponentMeta } from '@storybook/react'
+import { Story, Meta } from '@storybook/react'
 
 import { IMAGE_MOCK } from '../../mocks'
-import { WImage } from './WImage'
+import { WImage, WImageProps } from './WImage'
 
 export default {
   component: WImage,
   title: 'Shared/ChakraImage',
-} as ComponentMeta<typeof WImage>
+} as Meta<WImageProps>
 
-const Template: ComponentStory<typeof WImage> = args => <WImage {...args} />
-const Wrapper: ComponentStory<typeof WImage> = args => (
+const Template: Story<WImageProps> = args => <WImage {...args} />
+const Wrapper: Story<WImageProps> = args => (
   <Box p={2} bg="primary.400">
     <WImage {...args} />
   </Box>

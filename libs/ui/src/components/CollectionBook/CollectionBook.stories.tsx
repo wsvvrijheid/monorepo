@@ -1,14 +1,14 @@
-import { ComponentStory, ComponentMeta } from '@storybook/react'
+import { Story, Meta } from '@storybook/react'
 
 import { COLLECTION_MOCKS } from '../../mocks'
-import { CollectionBook } from './CollectionBook'
+import { CollectionBook, CollectionBookProps } from './CollectionBook'
 
 export default {
   component: CollectionBook,
   title: 'Shared/CollectionBook',
-} as ComponentMeta<typeof CollectionBook>
+} as Meta<CollectionBookProps>
 
-const Template: ComponentStory<typeof CollectionBook> = args => (
+const Template: Story<CollectionBookProps> = args => (
   <CollectionBook
     {...args}
     collection={COLLECTION_MOCKS.data[0]}

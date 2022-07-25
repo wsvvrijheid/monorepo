@@ -10,7 +10,7 @@ import { FormItem, FormItemComponent } from '.'
 export default {
   title: 'Forms/FormItem',
   component: FormItem,
-} as Meta<typeof FormItem>
+} as Meta<FormItemComponent>
 
 type FormType = {
   email: string

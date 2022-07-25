@@ -25,7 +25,7 @@ const shimmer = (
         <animate xlink:href="#r" attributeName="x" from="-${width}" to="${width}" dur="1s" repeatCount="indefinite"  />
       </svg>`
 
-type WImageProps = {
+export type WImageProps = {
   ratio?: number | 'twitter'
   format?: FileFormatsType
   image: UploadFile | string

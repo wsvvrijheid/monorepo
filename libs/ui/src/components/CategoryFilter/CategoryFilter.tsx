@@ -15,7 +15,7 @@ import { useDebounce } from 'react-use'
 
 import { CategoryFilterCheckbox } from './CategoryFilterCheckbox'
 
-interface CategoryFilterProps {
+export interface CategoryFilterProps {
   categoryData: Partial<Category>[]
   debounce?: number
   initialCategories?: string[]

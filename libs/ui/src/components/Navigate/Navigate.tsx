@@ -3,7 +3,7 @@ import { FC, forwardRef } from 'react'
 import { Link, LinkProps } from '@chakra-ui/react'
 import NextLink from 'next/link'
 
-type NavigateProps = LinkProps
+export type NavigateProps = LinkProps
 
 export const Navigate: FC<NavigateProps> = forwardRef(
   ({ as: Tag = Link, href, children, ...rest }, ref) => {
