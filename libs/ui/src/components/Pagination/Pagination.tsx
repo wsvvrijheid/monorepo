@@ -1,54 +1,71 @@
 import { FC } from 'react'
 
 import { Button, ButtonGroup, IconButton } from '@chakra-ui/react'
-import { FaChevronRight, FaChevronLeft } from 'react-icons/fa'
+import { BsThreeDots } from 'react-icons/bs'
+import { TbChevronLeft, TbChevronRight } from 'react-icons/tb'
 
-export interface PaginationProps {
-  pageCount: number
-  currentPage: number
-  onPageChange: (page: number) => void
-}
+import { PaginationProps } from './types'
+import { usePagination, DOTS } from './usePagination'
 
+// https://stackblitz.com/edit/react-1zaeqk
 export const Pagination: FC<PaginationProps> = ({
-  pageCount,
-  currentPage,
   onPageChange,
+  totalCount,
+  siblingCount = 0,
+  currentPage,
+  ...rest
 }) => {
-  if (pageCount <= 1) return null
+  const paginationRange = usePagination({
+    currentPage,
+    totalCount,
+    siblingCount,
+  })
+
+  if (!paginationRange || paginationRange.length === 0) return null
+
+  if (currentPage === 0 || paginationRange.length < 2) {
+    return null
+  }
+
+  const onNext = () => {
+    onPageChange(currentPage + 1)
+  }
+
+  const onPrevious = () => {
+    onPageChange(currentPage - 1)
+  }
+
+  const lastPage = paginationRange[paginationRange.length - 1]
 
   return (
-    <ButtonGroup isAttached colorScheme="primary">
+    <ButtonGroup variant="outline" colorScheme="primary" isAttached {...rest}>
       <IconButton
-        disabled={currentPage === 1}
         aria-label="Previous page"
-        variant="outline"
-        icon={<FaChevronLeft />}
-        onClick={() => onPageChange(currentPage - 1)}
+        icon={<TbChevronLeft />}
+        disabled={currentPage === 1}
+        onClick={onPrevious}
       />
-      {Array.from({ length: pageCount }, (v, index) => {
-        const page = index + 1
+      {paginationRange.map(pageNumber => {
+        if (pageNumber === DOTS) {
+          return <IconButton aria-label="dots" icon={<BsThreeDots />} />
+        }
+
+        const isCurrentPage = pageNumber === currentPage
 
         return (
           <Button
-            borderRightWidth={page === pageCount ? 1 : 0}
-            onClick={() => onPageChange(page)}
-            variant={
-              page === currentPage || (page === 1 && !currentPage)
-                ? 'solid'
-                : 'outline'
-            }
-            key={index}
+            {...(isCurrentPage && { variant: 'solid' })}
+            onClick={() => onPageChange(pageNumber as number)}
           >
-            {page}
+            {pageNumber}
           </Button>
         )
       })}
       <IconButton
-        disabled={currentPage === pageCount}
-        aria-label="Previous page"
-        icon={<FaChevronRight />}
-        variant="outline"
-        onClick={() => onPageChange(currentPage + 1)}
+        aria-label="Next page"
+        icon={<TbChevronRight />}
+        disabled={lastPage === currentPage}
+        onClick={onNext}
       />
     </ButtonGroup>
   )
