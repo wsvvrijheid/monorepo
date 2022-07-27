@@ -9,7 +9,7 @@ interface CommentItemProps {
 
 export const CommentItem: FC<CommentItemProps> = ({ comment }) => {
   const name =
-    comment.user?.name ||
+    comment.user?.username ||
     comment.user?.artist?.name ||
     comment.user?.username ||
     comment.name;
@@ -18,7 +18,7 @@ export const CommentItem: FC<CommentItemProps> = ({ comment }) => {
     <HStack align="start">
       <Avatar
         size="sm"
-        src={`${process.env.NEXT_PUBLIC_API_URL}${comment.user?.avatar.url}`}
+        src={`${process.env['NX_PUBLIC_URL']}${comment.user?.avatar.url}`}
         name={name}
       />
       <Stack fontSize="sm">
