@@ -1,5 +1,6 @@
 export * from './formatNumber'
 export * from './getImageUrl'
+export * from './getReadingTime'
 export * from './gtag'
 export * from './makeSocialContent'
 export * from './resizeImage'
