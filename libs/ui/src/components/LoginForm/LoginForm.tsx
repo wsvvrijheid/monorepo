@@ -1,4 +1,3 @@
-/* eslint-disable import/order */
 import {
   Button,
   Checkbox,
@@ -11,16 +10,15 @@ import {
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useTranslation } from 'next-i18next'
-import * as React from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form'
+import { TFunction } from 'react-i18next'
 import * as yup from 'yup'
 
-import { OAuthButtonGroup } from '../OauthButtonGroup'
-
-import { Navigate } from '../Navigate'
 import { FormItem } from '../FormItem'
-import { TFunction } from 'react-i18next'
+import { Navigate } from '../Navigate'
+import { OAuthButtonGroup } from '../OauthButtonGroup'
 import { LoginFormProps, LoginFormFieldValues } from './types'
+
 const schema = (t: TFunction<'translation', undefined>) =>
   yup.object({
     password: yup
