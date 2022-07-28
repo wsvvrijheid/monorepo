@@ -6,8 +6,8 @@ export type SignupFormFieldValues = {
 }
 
 export type SignupFormProps = {
-  onhandleSubmitSignUp: (data: SignupFormFieldValues) => void
+  onSignup: (data: SignupFormFieldValues) => void
   errorMessage?: string
-  handleTermsAccepted: React.ChangeEventHandler<HTMLInputElement>
+  onAcceptTerms: React.ChangeEventHandler<HTMLInputElement>
   isTermsAccepted: boolean
 }

@@ -43,8 +43,8 @@ const schema = (t: TFunction<'translation', undefined>) =>
   })
 
 export const SignupForm: React.FC<SignupFormProps> = ({
-  onhandleSubmitSignUp,
-  handleTermsAccepted,
+  onSignup,
+  onAcceptTerms,
   errorMessage,
   isTermsAccepted,
 }) => {
@@ -62,7 +62,7 @@ export const SignupForm: React.FC<SignupFormProps> = ({
   const handleSubmitSignUp: SubmitHandler<
     SignupFormFieldValues
   > = async data => {
-    onhandleSubmitSignUp(data)
+    onSignup(data)
   }
 
   return (
@@ -131,7 +131,7 @@ export const SignupForm: React.FC<SignupFormProps> = ({
 
             <HStack>
               {/* TODO Set session exp time */}
-              <Checkbox defaultChecked onChange={handleTermsAccepted} />
+              <Checkbox defaultChecked onChange={onAcceptTerms} />
               <Navigate
                 as={Button}
                 href="/terms"
