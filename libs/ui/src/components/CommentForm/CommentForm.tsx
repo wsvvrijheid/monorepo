@@ -12,14 +12,12 @@ import {
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useTranslation } from 'next-i18next'
 import { useForm } from 'react-hook-form'
+import { TFunction } from 'react-i18next'
 import { FiArrowRight } from 'react-icons/fi'
 import * as yup from 'yup'
-
 import { FormItem } from '../FormItem'
-import { CommentFormProps } from './types'
+import { CommentFormFieldValues, CommentFormProps } from './types'
 
-import { mutation } from '~lib'
-import { toastMessage } from '~utils'
 
 const userSchema = (t: TFunction<'translation', undefined>) =>
   yup.object({
@@ -39,6 +37,7 @@ const publicSchema = (t: TFunction<'translation', undefined>) =>
 export const CommentForm: React.FC<CommentFormProps> = ({
   auth,
   onSendForm,
+  isLoading,
 }) => {
   const { t } = useTranslation()
 
@@ -46,7 +45,7 @@ export const CommentForm: React.FC<CommentFormProps> = ({
     register,
     handleSubmit,
     formState: { errors, isValid },
-  } = useForm({
+  } = useForm <CommentFormFieldValues>({
     resolver: yupResolver(auth.isLoggedIn ? userSchema(t) : publicSchema(t)),
     mode: 'all',
   })

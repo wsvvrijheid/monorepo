@@ -1,7 +1,7 @@
 import { User } from '@wsvvrijheid/types'
 export type CommentFormFieldValues = {
-  email: string
-  name: string
+  email?: string
+  name?: string
   content: string
 }
 type Auth = {
@@ -11,6 +11,7 @@ type Auth = {
 }
 export type CommentFormProps = {
   errorMessage?: string
-  auth: Auth
+  auth?: Auth
+  isLoading: boolean
   onSendForm: (data: CommentFormFieldValues) => void
 }
