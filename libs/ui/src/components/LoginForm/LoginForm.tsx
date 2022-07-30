@@ -16,10 +16,10 @@ import * as yup from 'yup'
 
 import { FormItem } from '../FormItem'
 import { Navigate } from '../Navigate'
-import { OAuthButtonGroup } from '../OauthButtonGroup'
+import { OAuthButtonGroup } from '../OAuthButtonGroup'
 import { LoginFormProps, LoginFormFieldValues } from './types'
 
-const schema = (t: TFunction<'translation', undefined>) =>
+const schema = (t: TFunction) =>
   yup.object({
     password: yup
       .string()
