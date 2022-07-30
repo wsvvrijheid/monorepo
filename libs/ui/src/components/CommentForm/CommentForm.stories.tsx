@@ -5,7 +5,7 @@ import { CommentFormProps } from './types'
 import { CommentFormFieldValues } from './types'
 
 export default {
-  title: 'Forms/LoginForm',
+  title: 'Forms/CommentForm',
   component: CommentForm,
 } as Meta<typeof CommentForm>
 
