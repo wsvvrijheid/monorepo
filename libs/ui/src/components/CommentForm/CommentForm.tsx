@@ -15,16 +15,16 @@ import { useForm } from 'react-hook-form'
 import { TFunction } from 'react-i18next'
 import { FiArrowRight } from 'react-icons/fi'
 import * as yup from 'yup'
+
 import { FormItem } from '../FormItem'
 import { CommentFormFieldValues, CommentFormProps } from './types'
 
-
-const userSchema = (t: TFunction<'translation', undefined>) =>
+const userSchema = (t: TFunction) =>
   yup.object({
     content: yup.string().required(t`comment-form.content.required`),
   })
 
-const publicSchema = (t: TFunction<'translation', undefined>) =>
+const publicSchema = (t: TFunction) =>
   yup.object({
     name: yup.string().required(t`comment-form.name.required`),
     email: yup
@@ -45,8 +45,8 @@ export const CommentForm: React.FC<CommentFormProps> = ({
     register,
     handleSubmit,
     formState: { errors, isValid },
-  } = useForm <CommentFormFieldValues>({
-    resolver: yupResolver(auth.isLoggedIn ? userSchema(t) : publicSchema(t)),
+  } = useForm<CommentFormFieldValues>({
+    resolver: yupResolver(auth?.isLoggedIn ? userSchema(t) : publicSchema(t)),
     mode: 'all',
   })
 
@@ -67,7 +67,7 @@ export const CommentForm: React.FC<CommentFormProps> = ({
         justify="flex-start"
       >
         <Stack w="100%" alignItems="flex-start">
-          {!auth.isLoggedIn && (
+          {!auth?.isLoggedIn && (
             <Stack direction={{ base: 'column', lg: 'row' }} w="full">
               <FormItem
                 name="name"
@@ -87,7 +87,7 @@ export const CommentForm: React.FC<CommentFormProps> = ({
             </Stack>
           )}
           <HStack w="full" align="start">
-            {auth.isLoggedIn && (
+            {auth?.isLoggedIn && (
               <Avatar
                 size="sm"
                 src={`${auth.user?.avatar?.url}`}

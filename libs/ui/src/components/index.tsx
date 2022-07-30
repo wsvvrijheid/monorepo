@@ -1,7 +1,7 @@
 export * from './AnimatedBox'
 export * from './CategoryFilter'
-export * from './Container'
 export * from './CommentForm'
+export * from './Container'
 export * from './Footer'
 export * from './ForgotPasswordForm'
 export * from './FormItem'
@@ -17,4 +17,3 @@ export * from './SocialButtons'
 export * from './VolunteerCard'
 export * from './WImage'
 export * from './WSelect'
-
