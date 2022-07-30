@@ -6,7 +6,15 @@ import { WImage, WImageProps } from './WImage'
 
 export default {
   component: WImage,
-  title: 'Shared/ChakraImage',
+  title: 'Shared/WImage',
+  argTypes: {
+    format: {
+      control: {
+        type: 'select',
+        options: ['thumbnail', 'small', 'medium', 'large'],
+      },
+    },
+  },
 } as Meta<WImageProps>
 
 const Template: Story<WImageProps> = args => <WImage {...args} />

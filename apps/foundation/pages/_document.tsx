@@ -1,5 +1,4 @@
 import { ColorModeScript } from '@chakra-ui/react'
-/* eslint-disable @next/next/no-document-import-in-page */
 import NextDocument, { Head, Html, Main, NextScript } from 'next/document'
 
 export default class Document extends NextDocument {

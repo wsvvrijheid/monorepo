@@ -60,14 +60,7 @@ export const CollectionBook: FC<CollectionBookProps> = ({
             {title}
           </Heading>
           {logo && (
-            <WImage
-              ratio={1}
-              source="local"
-              maxH={300}
-              mx="auto"
-              image={logo}
-              alt="logo"
-            />
+            <WImage ratio={1} maxH={300} mx="auto" image={logo} alt="logo" />
           )}
           <Heading color="red.500" fontFamily="club">
             {collection.title}
@@ -84,14 +77,7 @@ export const CollectionBook: FC<CollectionBookProps> = ({
       {/* Back */}
       {logo && (
         <Page bgGradient={coverBgGdarient}>
-          <WImage
-            ratio={1}
-            source="local"
-            maxH={300}
-            mx="auto"
-            image={logo}
-            alt="logo"
-          />
+          <WImage ratio={1} maxH={300} mx="auto" image={logo} alt="logo" />
         </Page>
       )}
     </FlipBook>

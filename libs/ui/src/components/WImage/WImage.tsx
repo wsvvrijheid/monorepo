@@ -30,7 +30,6 @@ export type WImageProps = {
   format?: FileFormatsType
   image: UploadFile | string
   alt: string
-  source: 'local' | 'api' | 'external'
 } & Omit<ImageProps, 'src'> &
   ChakraImageProps
 
@@ -55,7 +54,6 @@ export const WImage: FC<WImageProps> = ({
   format,
   alt,
   ratio,
-  source,
   ...rest
 }) => {
   const src = getImageUrl(image, format)
