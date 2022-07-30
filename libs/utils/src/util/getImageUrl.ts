@@ -14,6 +14,10 @@ export const getImageUrl = (
       return image
     }
 
+    if (image?.startsWith('/uploads')) {
+      return `${apiUrl}${image}`
+    }
+
     return `${siteUrl}${image}`
   }
 

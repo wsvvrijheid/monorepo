@@ -25,12 +25,11 @@ const shimmer = (
         <animate xlink:href="#r" attributeName="x" from="-${width}" to="${width}" dur="1s" repeatCount="indefinite"  />
       </svg>`
 
-type WImageProps = {
+export type WImageProps = {
   ratio?: number | 'twitter'
   format?: FileFormatsType
   image: UploadFile | string
   alt: string
-  source: 'local' | 'api' | 'external'
 } & Omit<ImageProps, 'src'> &
   ChakraImageProps
 
@@ -55,7 +54,6 @@ export const WImage: FC<WImageProps> = ({
   format,
   alt,
   ratio,
-  source,
   ...rest
 }) => {
   const src = getImageUrl(image, format)
