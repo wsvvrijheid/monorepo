@@ -10,14 +10,14 @@ import {
   Spinner,
   VStack,
 } from '@chakra-ui/react'
-import { ComponentStory, ComponentMeta } from '@storybook/react'
+import { Story, Meta } from '@storybook/react'
 import { StrapiLocale } from '@wsvvrijheid/types'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'react-i18next'
 
 import { useChangeParams } from '../../hooks'
 import { CATEGORY_MOCKS } from '../../mocks'
-import { CategoryFilter } from './CategoryFilter'
+import { CategoryFilter, CategoryFilterProps } from './CategoryFilter'
 
 export default {
   component: CategoryFilter,
@@ -28,9 +28,9 @@ export default {
   argTypes: {
     locale: { control: { type: 'radio', options: ['en', 'nl', 'tr'] } },
   },
-} as ComponentMeta<typeof CategoryFilter>
+} as Meta<CategoryFilterProps>
 
-const Template: ComponentStory<typeof CategoryFilter> = args => {
+const Template: Story<CategoryFilterProps> = args => {
   const changeParam = useChangeParams()
   const [selectedCategories, setSelectedCategories] = useState<string[]>([])
   const [isLoading, setIsLoading] = useState(false)

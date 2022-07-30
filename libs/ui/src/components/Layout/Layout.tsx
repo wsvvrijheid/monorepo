@@ -8,7 +8,7 @@ import { FooterProps } from '../Footer/types'
 import { Header } from '../Header/Header'
 import { HeaderProps } from '../Header/types'
 
-interface LayoutProps {
+export interface LayoutProps {
   seo: NextSeoProps
   isLoading?: boolean
   isDark?: boolean

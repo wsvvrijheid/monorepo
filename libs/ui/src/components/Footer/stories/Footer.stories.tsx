@@ -1,8 +1,9 @@
 import { Box, Flex } from '@chakra-ui/react'
-import { ComponentStory, ComponentMeta } from '@storybook/react'
+import { Meta, Story } from '@storybook/react'
 
 import { FOOTER_MENU, SOCIAL_LINKS } from '../../../mocks'
 import { Footer } from '../Footer'
+import { FooterProps } from '../types'
 
 export default {
   component: Footer,
@@ -16,9 +17,9 @@ export default {
       </Flex>
     ),
   ],
-} as ComponentMeta<typeof Footer>
+} as Meta<FooterProps>
 
-const Template: ComponentStory<typeof Footer> = args => <Footer {...args} />
+const Template: Story<FooterProps> = args => <Footer {...args} />
 
 export const Default = Template.bind({})
 Default.args = {

@@ -8,7 +8,7 @@ import { ResetPasswordFieldValues, ResetPasswordFormProps } from './types'
 export default {
   title: 'Forms/ResetPasswordForm',
   component: ResetPasswordForm,
-} as Meta<typeof ResetPasswordForm>
+} as Meta<ResetPasswordFormProps>
 
 const Template: Story<ResetPasswordFormProps> = args => {
   const [isLoading, setIsLoading] = React.useState<boolean>(false)
