@@ -15,7 +15,7 @@ export const VOLUNTEER_MOCKS: StrapiResponse<Volunteer[]> = {
       heardFrom: null,
       comment: null,
       linkedin: null,
-      twitter: null,
+      twitter: 'https://twitter.com/talipaltas',
       instagram: null,
       facebook: null,
       inMailingList: false,
