@@ -1,4 +1,5 @@
 import { FC } from 'react'
+
 import {
   Box,
   Button,
@@ -14,12 +15,12 @@ import {
   Wrap,
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { Job } from '@wsvvrijheid/types'
 import { useTranslation } from 'next-i18next'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import * as yup from 'yup'
 import { TFunction } from 'react-i18next'
+import * as yup from 'yup'
 
-import { Job } from '@wsvvrijheid/types'
 import { FormItem } from '../FormItem'
 import { heardFrom } from './data'
 import { JoinFormFieldValues, JoinFormFProps } from './types'

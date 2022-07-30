@@ -1,13 +1,12 @@
 import React from 'react'
 
 import { Story, ComponentMeta } from '@storybook/react'
-
-import { JoinForm } from './JoinForm'
-import { JoinFormFieldValues, JoinFormFProps } from './types'
 import { Job, Project, StrapiLocale } from '@wsvvrijheid/types'
 import { useRouter } from 'next/router'
 
 import { JOB_MOCKS, PROJECT_MOCKS } from '../../mocks'
+import { JoinForm } from './JoinForm'
+import { JoinFormFieldValues, JoinFormFProps } from './types'
 
 export default {
   title: 'Forms/JoinForm',
