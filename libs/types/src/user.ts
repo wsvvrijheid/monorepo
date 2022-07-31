@@ -1,47 +1,29 @@
-import { Applicant, RawApplicant } from './applicant';
-import { Artist, RawArtist } from './artist';
-import { Post, RawPost } from './post';
-import { RawRole, Role } from './role';
-import { RawVolunteer, Volunteer } from './volunteer';
-import { RawVote, Vote } from './vote';
-import {
-  StrapiCollection,
-  StrapiEntity,
-  StrapiRawCollection,
-  StrapiRawEntity,
-} from './strapi';
-
-export type RawUser = {
-  id: number;
-  email: string;
-  username: string;
-  blocked: boolean;
-  confirmed: boolean;
-  provider: string;
-  createdAt: string;
-  updatedAt: string;
-  role: RawRole;
-  createdPosts?: StrapiRawCollection<RawPost>;
-  applicant?: StrapiRawEntity<RawApplicant>;
-  volunteer?: StrapiRawEntity<RawVolunteer>;
-  votes?: StrapiRawCollection<RawVote>;
-  artist: StrapiRawEntity<RawArtist>;
-};
+import { Applicant } from './applicant'
+import { Art } from './art'
+import { Artist } from './artist'
+import { Blog } from './blog'
+import { Comment } from './comment'
+import { UploadFile } from './file'
+import { Post } from './post'
+import { Role } from './role'
+import { StrapiCore } from './strapi'
+import { Volunteer } from './volunteer'
+import { Vote } from './vote'
 
 export type User = {
-  id: number;
-  email: string;
-  username: string;
-  blocked: boolean;
-  confirmed: boolean;
-  provider: string;
-  createdAt: string;
-  updatedAt: string;
-  role: Role;
-  createdPosts?: StrapiCollection<Post>;
-  applicant?: StrapiEntity<Applicant>;
-  volunteer?: StrapiEntity<Volunteer>;
-  votes?: StrapiCollection<Vote>;
-  artist: StrapiEntity<Artist>;
-  avatar: { url: string };
-};
+  email: string
+  username: string
+  blocked: boolean
+  confirmed: boolean
+  provider: string
+  role?: Role
+  avatar?: UploadFile | null
+  createdPosts?: Array<Post>
+  applicant?: Applicant | null
+  volunteer?: Volunteer | null
+  votes?: Array<Vote>
+  artist?: Artist | null
+  liked_arts?: Array<Art>
+  liked_blogs?: Array<Blog>
+  comments?: Array<Comment>
+} & Omit<StrapiCore, 'publishedAt'>

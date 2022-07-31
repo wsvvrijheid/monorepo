@@ -1,21 +1,21 @@
-import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { HeaderNavItem } from '../HeaderNavItem';
+import { Story, Meta } from '@storybook/react'
+
+import { HeaderNavItem } from '../HeaderNavItem'
+import { HeaderNavItemProps } from '../types'
 
 export default {
   component: HeaderNavItem,
   title: 'Layout/HeaderNavItem',
-} as ComponentMeta<typeof HeaderNavItem>;
+} as Meta<HeaderNavItemProps>
 
-const Template: ComponentStory<typeof HeaderNavItem> = (args) => (
-  <HeaderNavItem {...args} />
-);
+const Template: Story<HeaderNavItemProps> = args => <HeaderNavItem {...args} />
 
-export const Default = Template.bind({});
+export const Default = Template.bind({})
 Default.args = {
   item: { link: '/events', en: 'Events', nl: 'Evenementen', tr: 'Etkinlikler' },
-};
+}
 
-export const Parent = Template.bind({});
+export const Parent = Template.bind({})
 Parent.args = {
   item: {
     en: 'Events',
@@ -26,4 +26,4 @@ Parent.args = {
       { link: '/events', en: 'Events', nl: 'Evenementen', tr: 'Etkinlikler' },
     ],
   },
-};
+}

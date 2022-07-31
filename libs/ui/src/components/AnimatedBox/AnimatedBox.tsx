@@ -1,22 +1,22 @@
-import { useAnimation, Transition, Variants } from 'framer-motion';
-import { ComponentProps, FC, PropsWithChildren, useEffect } from 'react';
-import { useInView } from 'react-intersection-observer';
+import { ComponentProps, FC, PropsWithChildren, useEffect } from 'react'
 
-import { Box } from '@chakra-ui/layout';
-import { motion } from 'framer-motion';
+import { Box } from '@chakra-ui/layout'
+import { useAnimation, Transition, Variants } from 'framer-motion'
+import { motion } from 'framer-motion'
+import { useInView } from 'react-intersection-observer'
 
-export const MotionBox = motion(Box);
+export const MotionBox = motion(Box)
 
 interface AnimatedBoxProps
   extends PropsWithChildren,
     ComponentProps<typeof MotionBox> {
-  directing?: 'to-down' | 'to-up' | 'to-left' | 'to-right';
-  distance?: number;
-  hasHover?: boolean;
-  delay?: number;
-  duration?: number;
-  transition?: Transition;
-  variants?: Variants;
+  directing?: 'to-down' | 'to-up' | 'to-left' | 'to-right'
+  distance?: number
+  hasHover?: boolean
+  delay?: number
+  duration?: number
+  transition?: Transition
+  variants?: Variants
 }
 
 export const AnimatedBox: FC<AnimatedBoxProps> = ({
@@ -30,8 +30,8 @@ export const AnimatedBox: FC<AnimatedBoxProps> = ({
   variants,
   ...rest
 }) => {
-  const controls = useAnimation();
-  const [ref, inView] = useInView();
+  const controls = useAnimation()
+  const [ref, inView] = useInView()
 
   const initialVariants = {
     'to-up': {
@@ -50,13 +50,13 @@ export const AnimatedBox: FC<AnimatedBoxProps> = ({
       active: { opacity: 1, x: 0 },
       inactive: { opacity: 0, x: -distance },
     },
-  };
+  }
 
   useEffect(() => {
     if (inView) {
-      controls.start('active');
+      controls.start('active')
     }
-  }, [controls, inView]);
+  }, [controls, inView])
 
   return (
     <MotionBox
@@ -89,5 +89,5 @@ export const AnimatedBox: FC<AnimatedBoxProps> = ({
         {children}
       </MotionBox>
     </MotionBox>
-  );
-};
+  )
+}

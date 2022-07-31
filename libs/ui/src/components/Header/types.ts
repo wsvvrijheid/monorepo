@@ -1,60 +1,55 @@
-import { ResponsiveValue } from '@chakra-ui/react';
-import { ChildMenu, ParentMenu } from '@wsvvrijheid/types';
+import { ResponsiveValue } from '@chakra-ui/react'
+import { MenuType } from '@wsvvrijheid/types'
 
-export type HeaderMenu = Array<ChildMenu | ParentMenu>;
+export type HeaderMenu = Array<MenuType>
 
 export type ProfileMenuProps = {
-  menu: Array<{ label: string; link: string; icon?: JSX.Element }>;
-  isLoggedIn: boolean;
-  userAvatar: string;
-  username: string;
+  menu: Array<{ label: string; link: string; icon?: JSX.Element }>
+  isLoggedIn: boolean
+  userAvatar: string
+  username: string
   login: {
-    label: string;
-    link: string;
-  };
+    label: string
+    link: string
+  }
   logout: {
-    label: string;
-    onClick: () => void;
-  };
-} & Pick<HeaderProps, 'isDark'>;
+    label: string
+    onClick: () => void
+  }
+} & Pick<HeaderProps, 'isDark'>
 
 export interface HeaderProps {
-  isDark?: boolean;
-  hasScroll?: boolean;
-  logo: string;
-  headerMenu: HeaderMenu;
-  profileMenu: ProfileMenuProps;
-  isLoggedIn?: boolean;
+  isDark?: boolean
+  hasScroll?: boolean
+  logo: string
+  headerMenu: HeaderMenu
+  profileMenu: ProfileMenuProps
+  isLoggedIn?: boolean
 }
 
 export interface HeaderNavItemProps {
-  item: ChildMenu | ParentMenu;
-  isDark?: boolean;
+  item: MenuType
+  isDark?: boolean
 }
 
-export type HeaderMobileNavItemProps = HeaderNavItemProps;
+export type HeaderMobileNavItemProps = HeaderNavItemProps
 
-export interface ChildMenuItemProps {
-  item: ChildMenu;
-  isDark?: boolean;
-}
-
-export interface ParentMenuItemProps {
-  item: ParentMenu;
-  isDark?: boolean;
+export interface MenuTypeItemProps {
+  item: MenuType
+  isDark?: boolean
 }
 
 export interface HeaderNavProps {
   direction: ResponsiveValue<
     'row' | 'column' | 'row-reverse' | 'column-reverse'
-  >;
-  menu: HeaderMenu;
-  isDark?: boolean;
+  >
+  menu: HeaderMenu
+  isDark?: boolean
 }
 
-export type HeaderMobileProps = HeaderProps;
+export type HeaderMobileProps = HeaderProps
 
 export type HeaderMobileNavProps = Pick<
   HeaderProps,
   'headerMenu' | 'profileMenu'
->;
+>

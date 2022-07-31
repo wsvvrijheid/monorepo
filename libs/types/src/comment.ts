@@ -1,25 +1,13 @@
-import { Art, RawArt } from './art';
-import { Blog, RawBlog } from './blog';
-import { RawUser, User } from './user';
-import { StrapiEntity, StrapiRawEntity } from './strapi';
-
-export type RawComment = {
-  id: number;
-  content: string;
-  name: string;
-  email: string;
-  user: StrapiRawEntity<RawUser>;
-  blog: StrapiRawEntity<RawBlog>;
-  art: StrapiRawEntity<RawArt>;
-};
+import { Art } from './art'
+import { Blog } from './blog'
+import { StrapiCore } from './strapi'
+import { User } from './user'
 
 export type Comment = {
-  id: number;
-  content: string;
-  name: string;
-  email: string;
-  user: StrapiEntity<User>;
-  blog: StrapiEntity<Blog>;
-  art: StrapiEntity<Art>;
-  createdAt: string;
-};
+  content: string
+  name: string | null
+  email: string | null
+  user?: User | null
+  blog?: Blog | null
+  art?: Art | null
+} & StrapiCore
