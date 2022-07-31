@@ -1,6 +1,7 @@
-import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { SOCIAL_LINKS } from '../../mocks';
-import { SocialButtons } from './SocialButtons';
+import { Story, Meta } from '@storybook/react'
+
+import { SOCIAL_LINKS } from '../../mocks'
+import { SocialButtons, SocialButtonsProps } from './SocialButtons'
 
 export default {
   component: SocialButtons,
@@ -8,10 +9,8 @@ export default {
   args: {
     items: SOCIAL_LINKS,
   },
-} as ComponentMeta<typeof SocialButtons>;
+} as Meta<SocialButtonsProps>
 
-const Template: ComponentStory<typeof SocialButtons> = (args) => (
-  <SocialButtons {...args} />
-);
+const Template: Story<SocialButtonsProps> = args => <SocialButtons {...args} />
 
-export const Default = Template.bind({});
+export const Default = Template.bind({})

@@ -1,38 +1,15 @@
-import { StrapiRawCollection, StrapiRawEntity } from './strapi'
-import { RawUser, User } from './user'
-
-export type RawRole = {
-  createdAt: string
-  description: string
-  name: string
-  permissions: RawPermission
-  type: string
-  updatedAt: string
-  users: StrapiRawCollection<RawUser>
-}
+import { StrapiCore } from './strapi'
+import { User } from './user'
 
 export type Role = {
-  id: number
-  createdAt: string
   description: string
   name: string
-  permissions: Permission
+  permissions?: Permission
   type: string
-  updatedAt: string
-  users: User
-}
-
-export type RawPermission = {
-  action: string
-  createdAt: string
-  updatedAt: string
-  role: RawRole
-}
+  users?: User
+} & Omit<StrapiCore, 'publishedAt'>
 
 export type Permission = {
-  id: number
   action: string
-  createdAt: string
-  updatedAt: string
-  role: Role
-}
+  role?: Role
+} & Omit<StrapiCore, 'publishedAt'>

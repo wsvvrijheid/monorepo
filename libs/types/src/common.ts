@@ -1,12 +1,8 @@
-import { StrapiLocale } from './locale';
+import { StrapiLocale } from './locale'
 
-export type Localize<T> = Record<StrapiLocale, T>;
+export type Localize<T> = Record<StrapiLocale, T>
 
-export type ChildMenu = {
-  link: string;
-} & Localize<string>;
-
-export type ParentMenu = {
-  link?: string;
-  children: ChildMenu[];
-} & Localize<string>;
+export type MenuType = {
+  link?: string
+  children?: MenuType[]
+} & Localize<string>

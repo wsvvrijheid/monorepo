@@ -1,66 +1,33 @@
-import { RawUser, User } from './user'
-import {
-  StrapiCollection,
-  StrapiEntity,
-  StrapiRawCollection,
-  StrapiRawEntity,
-} from './strapi'
-import { RawTranslator, Translator } from './translator'
-import { Juri, RawJuri } from './juri'
-import { Author, RawAuthor } from './author'
-import { Job, RawJob } from './job'
-import { ArtEditor, RawArtEditor } from './art-editor'
-
-export type RawVolunteer = {
-  id: number
-  username: string
-  name: string
-  email: string
-  bio: string
-  occupation: string
-  phone: string
-  country: string
-  availableHours: number
-  heardFrom: string
-  comment: string
-  linkedin: string
-  twitter: string
-  facebook: string
-  instagram: string
-  inMailingList: boolean
-  approved: boolean
-  isPublis: boolean
-  user: StrapiRawEntity<RawUser>
-  translator: StrapiRawEntity<RawTranslator>
-  juri: StrapiRawEntity<RawJuri>
-  author: StrapiRawEntity<RawAuthor>
-  jobs: StrapiRawCollection<RawJob>
-  art_editor: StrapiRawEntity<RawArtEditor>
-}
+import { ArtEditor } from './art-editor'
+import { Author } from './author'
+import { Job } from './job'
+import { Juri } from './juri'
+import { StrapiCore } from './strapi'
+import { Translator } from './translator'
+import { User } from './user'
 
 export type Volunteer = {
-  id: number
   username: string
   name: string
   email: string
-  bio: string
-  occupation: string
-  phone: string
-  country: string
+  bio: string | null
+  occupation: string | null
+  phone: string | null
+  country: string | null
   availableHours: number
-  heardFrom: string
-  comment: string
-  linkedin: string
-  twitter: string
-  facebook: string
-  instagram: string
+  heardFrom: string | null
+  comment: string | null
+  linkedin: string | null
+  twitter: string | null
+  facebook: string | null
+  instagram: string | null
   inMailingList: boolean
   approved: boolean
-  isPublis: boolean
-  user: StrapiEntity<User>
-  translator: StrapiEntity<Translator>
-  juri: StrapiEntity<Juri>
-  author: StrapiEntity<Author>
-  jobs: StrapiCollection<Job>
-  art_editor: StrapiEntity<ArtEditor>
-}
+  isPublic: boolean | null
+  user?: User | null
+  translator?: Translator | null
+  juri?: Juri | null
+  author?: Author | null
+  jobs?: Array<Job>
+  art_editor?: ArtEditor | null
+} & StrapiCore

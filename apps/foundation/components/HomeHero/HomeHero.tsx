@@ -1,24 +1,25 @@
-import { chakra, Flex, keyframes } from '@chakra-ui/react';
-import { useTransform, useScroll } from 'framer-motion';
-import { FC, useCallback, useEffect, useState } from 'react';
+import { FC, useCallback, useEffect, useState } from 'react'
+
+import { chakra, Flex, keyframes } from '@chakra-ui/react'
+import { useTransform, useScroll } from 'framer-motion'
 
 const moveHorizontal = keyframes`
   0% { transform: translateX(50px); }
   50% { transform: translateX(-100px); }
   100% { transform: translateX(50px); }
-`;
+`
 
 export const HomeHero: FC = () => {
-  const [pos, setPos] = useState(0);
-  const { scrollYProgress } = useScroll();
-  const yRange = useTransform(scrollYProgress, [0, 1], [0, 100]);
+  const [pos, setPos] = useState(0)
+  const { scrollYProgress } = useScroll()
+  const yRange = useTransform(scrollYProgress, [0, 1], [0, 100])
 
   const animation = useCallback(
     (sn = 20) => `${moveHorizontal} infinite ${sn}s ease-in-out`,
-    []
-  );
+    [],
+  )
 
-  useEffect(() => yRange.onChange(setPos), [yRange]);
+  useEffect(() => yRange.onChange(setPos), [yRange])
 
   return (
     <Flex
@@ -888,5 +889,5 @@ export const HomeHero: FC = () => {
         </g>
       </chakra.svg>
     </Flex>
-  );
-};
+  )
+}

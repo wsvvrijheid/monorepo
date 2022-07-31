@@ -1,1 +1,1 @@
-export * from './Navigate';
+export * from './Navigate'

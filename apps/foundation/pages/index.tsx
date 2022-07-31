@@ -1,17 +1,17 @@
-import { Box, Center, Flex, Heading, Text, VStack } from '@chakra-ui/react';
-import { useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { AnimatedBox, Container } from '@wsvvrijheid/ui';
-import { Layout } from '../components/Layout/Layout';
-import { PROJECTS } from '@wsvvrijheid/config';
-import { HomeAbout } from '../components/HomeAbout';
-import { HomeHero } from '../components/HomeHero/HomeHero';
-import { HomeProject } from '../components/HomeProject/HomeProject';
-import { GetStaticProps } from 'next';
-import i18nConfig from '../next-i18next.config';
+import { Box, Center, Flex, Heading, Text, VStack } from '@chakra-ui/react'
+import { AnimatedBox, Container } from '@wsvvrijheid/ui'
+import { GetStaticProps } from 'next'
+import { useTranslation } from 'next-i18next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+
+import { HomeAbout } from '../components/HomeAbout'
+import { HomeHero } from '../components/HomeHero/HomeHero'
+import { HomeProject } from '../components/HomeProject/HomeProject'
+import { Layout } from '../components/Layout/Layout'
+import i18nConfig from '../next-i18next.config'
 
 export default function Home({ seo }) {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
 
   return (
     <Layout seo={seo}>
@@ -29,7 +29,7 @@ export default function Home({ seo }) {
           <AnimatedBox directing="to-down">
             <VStack flex={1} py={16} spacing={4} textAlign="center">
               <Heading fontWeight={900}>Wees de Stem voor Vrijheid</Heading>
-              <Text fontSize="xl">{t`home.hero`}</Text>
+              <Text fontSize="xl">{t('home.hero')}</Text>
             </VStack>
           </AnimatedBox>
         </Container>
@@ -46,33 +46,33 @@ export default function Home({ seo }) {
       </Center>
       <HomeProject />
     </Layout>
-  );
+  )
 }
 
-export const getStaticProps: GetStaticProps = async (context) => {
-  const { locale } = context;
+export const getStaticProps: GetStaticProps = async context => {
+  const { locale } = context
 
   const title = {
     en: 'Homepage',
     tr: 'Anasayfa',
     nl: 'Home',
-  };
+  }
 
   const description = {
     en: '',
     tr: '',
     nl: '',
-  };
+  }
 
   const seo = {
     title: title[locale],
     description: description[locale],
-  };
+  }
 
   return {
     props: {
       seo,
       ...(await serverSideTranslations(locale, ['common'], i18nConfig)),
     },
-  };
-};
+  }
+}
