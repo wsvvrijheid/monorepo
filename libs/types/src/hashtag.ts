@@ -1,53 +1,25 @@
-import { Category, RawCategory } from './category'
-import { RawUploadFile, UploadFile } from './file'
-import { Mention, RawMention } from './mention'
-import { Post, RawPost } from './post'
+import { Category } from './category'
+import { UploadFile } from './file'
+import { StrapiLocale } from './locale'
+import { Mention } from './mention'
+import { Post } from './post'
+import { StrapiCore } from './strapi'
 import { Tweet } from './tweet'
-import {
-  StrapiCollection,
-  StrapiEntity,
-  StrapiRawCollection,
-  StrapiRawEntity,
-} from './strapi'
-
-export type RawHashtag = {
-  id: number
-  content: string
-  date: string
-  description: string
-  hashtag: string
-  hashtag_extra: string
-  locale: string
-  slug: string
-  title: string
-  tweets: Tweet[]
-  image: StrapiRawEntity<RawUploadFile>
-  mentions: StrapiRawCollection<RawMention>
-  posts: StrapiRawCollection<RawPost>
-  categories: StrapiRawCollection<RawCategory>
-  localizations: StrapiRawCollection<RawHashtag>
-  createdAt: string
-  publishedAt: string
-  updatedAt: string
-}
 
 export type Hashtag = {
-  id: number
   content: string
   date: string
-  description: string
+  description: string | null
   hashtag: string
-  hashtag_extra: string
-  locale: string
+  hashtag_extra: string | null
+  twitterMedia?: string | null
+  locale: StrapiLocale
   slug: string
   title: string
-  tweets: Tweet[]
-  image: StrapiEntity<UploadFile>
-  mentions: StrapiCollection<Mention>
-  posts: StrapiCollection<Post>
-  categories: StrapiCollection<Category>
-  localizations: StrapiCollection<Hashtag>
-  createdAt: string
-  publishedAt: string
-  updatedAt: string
-}
+  tweets?: Array<Tweet> | null
+  image?: UploadFile
+  mentions?: Array<Mention>
+  posts?: Array<Post>
+  categories?: Array<Category>
+  localizations?: Array<Hashtag>
+} & StrapiCore

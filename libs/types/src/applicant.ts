@@ -1,17 +1,9 @@
-import { Application, RawApplication } from './application'
-import { RawUser, User } from './user'
-import { StrapiEntity, StrapiRawEntity } from './strapi'
-
-export type RawApplicant = {
-  id: number
-  name: string
-  application: StrapiRawEntity<RawApplication>
-  user: StrapiRawEntity<RawUser>
-}
+import { Application } from './application'
+import { StrapiCore } from './strapi'
+import { User } from './user'
 
 export type Applicant = {
-  id: number
   name: string
-  application: StrapiEntity<Application>
-  user: StrapiEntity<User>
-}
+  application?: Application
+  user?: User
+} & StrapiCore

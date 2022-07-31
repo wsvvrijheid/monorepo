@@ -1,3 +1,5 @@
+import { FC } from 'react'
+
 import {
   Avatar,
   Button,
@@ -7,12 +9,12 @@ import {
   MenuDivider,
   MenuItem,
   MenuList,
-} from '@chakra-ui/react';
-import { FiLogIn, FiLogOut } from 'react-icons/fi';
-import { Navigate } from '../Navigate/Navigate';
-import { useScroll } from '../../hooks';
-import { FC } from 'react';
-import { ProfileMenuProps } from './types';
+} from '@chakra-ui/react'
+import { FiLogIn, FiLogOut } from 'react-icons/fi'
+
+import { useScroll } from '../../hooks'
+import { Navigate } from '../Navigate/Navigate'
+import { ProfileMenuProps } from './types'
 
 export const ProfileMenu: FC<ProfileMenuProps> = ({
   isDark,
@@ -23,7 +25,7 @@ export const ProfileMenu: FC<ProfileMenuProps> = ({
   userAvatar,
   username,
 }) => {
-  const isScrolled = useScroll();
+  const isScrolled = useScroll()
 
   if (!isLoggedIn)
     return !isScrolled && isDark ? (
@@ -50,7 +52,7 @@ export const ProfileMenu: FC<ProfileMenuProps> = ({
           {login.label}
         </Button>
       </Navigate>
-    );
+    )
 
   return (
     <Menu placement="bottom">
@@ -62,7 +64,7 @@ export const ProfileMenu: FC<ProfileMenuProps> = ({
         />
       </MenuButton>
       <MenuList>
-        {menu.map((item) => (
+        {menu.map(item => (
           <MenuItem
             key={item.link}
             as={Navigate}
@@ -79,5 +81,5 @@ export const ProfileMenu: FC<ProfileMenuProps> = ({
         </MenuItem>
       </MenuList>
     </Menu>
-  );
-};
+  )
+}
