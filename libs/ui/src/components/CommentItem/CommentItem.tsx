@@ -1,10 +1,11 @@
-import { Avatar, HStack, Stack, Text } from '@chakra-ui/react';
-import { Comment } from '@wsvvrijheid/types';
-import { formatDistanceStrict } from 'date-fns';
-import { FC } from 'react';
+import { FC } from 'react'
+
+import { Avatar, HStack, Stack, Text } from '@chakra-ui/react'
+import { Comment } from '@wsvvrijheid/types'
+import { formatDistanceStrict } from 'date-fns'
 
 interface CommentItemProps {
-  comment: Comment;
+  comment: Comment
 }
 
 export const CommentItem: FC<CommentItemProps> = ({ comment }) => {
@@ -12,7 +13,7 @@ export const CommentItem: FC<CommentItemProps> = ({ comment }) => {
     comment.user?.username ||
     comment.user?.artist?.name ||
     comment.name ||
-    'Anonymous';
+    'Anonymous'
 
   return (
     <HStack align="start">
@@ -33,5 +34,5 @@ export const CommentItem: FC<CommentItemProps> = ({ comment }) => {
         <Text noOfLines={3}>{comment.content}</Text>
       </Stack>
     </HStack>
-  );
-};
+  )
+}

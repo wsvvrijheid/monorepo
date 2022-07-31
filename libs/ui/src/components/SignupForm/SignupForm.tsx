@@ -18,10 +18,10 @@ import * as yup from 'yup'
 
 import { FormItem } from '../FormItem'
 import { Navigate } from '../Navigate'
-import { OAuthButtonGroup } from '../OauthButtonGroup'
+import { OAuthButtonGroup } from '../OAuthButtonGroup'
 import { SignupFormProps, SignupFormFieldValues } from './types'
 
-const schema = (t: TFunction<'translation', undefined>) =>
+const schema = (t: TFunction) =>
   yup.object({
     name: yup.string().required(t('login.name.required')),
     username: yup.string().required(t`login.username.required`),
