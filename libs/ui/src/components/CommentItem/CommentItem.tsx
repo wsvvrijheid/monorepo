@@ -11,14 +11,14 @@ export const CommentItem: FC<CommentItemProps> = ({ comment }) => {
   const name =
     comment.user?.username ||
     comment.user?.artist?.name ||
-    comment.user?.username ||
-    comment.name;
+    comment.name ||
+    'Anonymous';
 
   return (
     <HStack align="start">
       <Avatar
         size="sm"
-        src={`${process.env['NX_PUBLIC_URL']}${comment.user?.avatar.url}`}
+        src={`${process.env['NX_PUBLIC_URL']}${comment.user?.avatar?.url}`}
         name={name}
       />
       <Stack fontSize="sm">
