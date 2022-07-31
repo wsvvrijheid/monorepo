@@ -1,11 +1,12 @@
-import { Flex, useBreakpointValue } from '@chakra-ui/react';
-import { FC, ReactElement } from 'react';
-import Masonry from 'react-masonry-css';
+import { FC, ReactNode } from 'react'
 
-interface MasonryGridProps {
-  gap: number;
-  cols: Array<number>;
-  children: ReactElement;
+import { Flex, useBreakpointValue } from '@chakra-ui/react'
+import Masonry from 'react-masonry-css'
+
+export interface MasonryGridProps {
+  gap?: number
+  cols?: Array<number>
+  children: ReactNode
 }
 
 export const MasonryGrid: FC<MasonryGridProps> = ({
@@ -13,7 +14,7 @@ export const MasonryGrid: FC<MasonryGridProps> = ({
   gap = 4,
   cols = [1, 2, 3, 4],
 }) => {
-  const breakpointCols = useBreakpointValue(cols);
+  const breakpointCols = useBreakpointValue(cols)
   return (
     <Flex
       as={Masonry}
@@ -36,5 +37,5 @@ export const MasonryGrid: FC<MasonryGridProps> = ({
     >
       {children}
     </Flex>
-  );
-};
+  )
+}

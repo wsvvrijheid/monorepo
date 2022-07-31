@@ -1,1 +1,1 @@
-export * from './masonryGrid';
+export * from './MasonryGrid'
