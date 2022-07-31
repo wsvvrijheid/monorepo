@@ -1,13 +1,15 @@
-import { Avatar, Center, Heading, Image, Stack, Text } from '@chakra-ui/react';
-import { FC } from 'react';
-import { Navigate } from '../Navigate';
+import { FC } from 'react'
+
+import { Avatar, Center, Heading, Image, Stack, Text } from '@chakra-ui/react'
+
+import { Navigate } from '../Navigate'
 
 interface CardProps {
-  title: string;
-  description: string;
-  image: string;
-  link: string;
-  rounded: boolean;
+  title: string
+  description: string
+  image: string
+  link: string
+  rounded?: boolean
 }
 
 export const Card: FC<CardProps> = ({
@@ -33,7 +35,7 @@ export const Card: FC<CardProps> = ({
             <Avatar
               objectFit="cover"
               boxSize={48}
-              src={process.env['NX_PUBLIC_URL'] + image}
+              src={image}
               transition="transform 0.5s ease-in-out"
               _groupHover={{ transform: 'scale(1.1)' }}
             />
@@ -42,7 +44,7 @@ export const Card: FC<CardProps> = ({
               objectFit="cover"
               h={48}
               w="full"
-              src={process.env['NX_PUBLIC_URL'] + image}
+              src={image}
               alt="project image"
               transition="transform 0.5s ease-in-out"
               _groupHover={{ transform: 'scale(1.1)' }}
@@ -73,5 +75,5 @@ export const Card: FC<CardProps> = ({
         </Stack>
       </Stack>
     </Navigate>
-  );
-};
+  )
+}
