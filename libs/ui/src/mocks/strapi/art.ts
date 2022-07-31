@@ -83,7 +83,7 @@ export const ART_MOCKS: StrapiResponse<Art[]> = {
       content: 'Dd',
       createdAt: '2022-05-28T21:08:47.931Z',
       updatedAt: '2022-06-11T13:26:14.095Z',
-      publishedAt: '2022-05-28T21:08:47.819Z',
+      publishedAt: null,
       locale: 'en',
       status: 'pending',
       previousStatus: null,
