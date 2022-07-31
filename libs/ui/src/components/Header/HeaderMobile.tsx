@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC } from 'react'
 
 import {
   Drawer,
@@ -9,22 +9,22 @@ import {
   HStack,
   IconButton,
   useDisclosure,
-} from '@chakra-ui/react';
-import { FaBars } from 'react-icons/fa';
+} from '@chakra-ui/react'
+import { FaBars } from 'react-icons/fa'
 
-import { LocaleSwitcher } from '../LocaleSwitcher/LocaleSwitcher';
-import { HeaderMobileProps } from './types';
-import { useScroll } from '../../hooks';
-import { ProfileMenu } from './ProfileMenu';
-import { HeaderMobileNav } from './HeaderMobileNav';
+import { useScroll } from '../../hooks'
+import { LocaleSwitcher } from '../LocaleSwitcher/LocaleSwitcher'
+import { HeaderMobileNav } from './HeaderMobileNav'
+import { ProfileMenu } from './ProfileMenu'
+import { HeaderMobileProps } from './types'
 
 export const HeaderMobile: FC<HeaderMobileProps> = ({
   isDark,
   headerMenu,
   profileMenu,
 }) => {
-  const { isOpen, onToggle, onClose } = useDisclosure();
-  const isScrolled = useScroll();
+  const { isOpen, onToggle, onClose } = useDisclosure()
+  const isScrolled = useScroll()
 
   return (
     <HStack display={{ base: 'flex', lg: 'none' }}>
@@ -51,5 +51,5 @@ export const HeaderMobile: FC<HeaderMobileProps> = ({
         icon={<FaBars />}
       />
     </HStack>
-  );
-};
+  )
+}

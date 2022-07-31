@@ -1,29 +1,13 @@
-import { Category, RawCategory } from './category'
-import { Hashtag, RawHashtag } from './hashtag'
-import { StrapiCollection, StrapiRawCollection } from './strapi'
-
-export type RawMention = {
-  id: number
-  username: string
-  data: any
-  locale: string
-  createdAt: string
-  updatedAt: string
-  publishedAt: string
-  categories: StrapiRawCollection<RawCategory>
-  hashtags: StrapiRawCollection<RawHashtag>
-  localizations: StrapiRawCollection<RawMention>
-}
+import { Category } from './category'
+import { Hashtag } from './hashtag'
+import { StrapiLocale } from './locale'
+import { StrapiCore } from './strapi'
 
 export type Mention = {
-  id: number
   username: string
   data: any
-  locale: string
-  categories: StrapiCollection<Category>
-  hashtags: StrapiCollection<Hashtag>
-  localizations: StrapiCollection<Mention>
-  createdAt: string
-  updatedAt: string
-  publishedAt: string
-}
+  locale: StrapiLocale
+  categories?: Array<Category>
+  hashtags?: Array<Hashtag>
+  localizations?: Array<Mention>
+} & StrapiCore
