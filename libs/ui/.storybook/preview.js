@@ -1,6 +1,7 @@
-import { extendTheme } from '@chakra-ui/react';
-import i18n from './i18next.js';
-import { themes } from '@wsvvrijheid/config';
+import { extendTheme } from '@chakra-ui/react'
+import { themes } from '@wsvvrijheid/config'
+
+import i18n from './i18next.js'
 
 export const parameters = {
   i18n,
@@ -16,4 +17,4 @@ export const parameters = {
       colors: { primary: themes.wsvvrijheid.colors.blue },
     }),
   },
-};
+}

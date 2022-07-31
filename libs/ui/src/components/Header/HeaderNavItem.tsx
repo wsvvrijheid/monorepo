@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC } from 'react'
 
 import {
   Box,
@@ -8,20 +8,17 @@ import {
   PopoverContent,
   PopoverTrigger,
   Stack,
-} from '@chakra-ui/react';
-import { useRouter } from 'next/router';
-import { Navigate } from '../Navigate/Navigate';
-import { ChildMenu, ParentMenu, StrapiLocale } from '@wsvvrijheid/types';
-import {
-  ChildMenuItemProps,
-  HeaderNavItemProps,
-  ParentMenuItemProps,
-} from './types';
-import { useScroll } from '../../hooks';
+} from '@chakra-ui/react'
+import { StrapiLocale } from '@wsvvrijheid/types'
+import { useRouter } from 'next/router'
 
-export const ChildMenuItem: FC<ChildMenuItemProps> = ({ item, isDark }) => {
-  const { asPath, locale } = useRouter();
-  const isScrolled = useScroll();
+import { useScroll } from '../../hooks'
+import { Navigate } from '../Navigate'
+import { HeaderNavItemProps, MenuTypeItemProps } from './types'
+
+export const ChildMenuItem: FC<MenuTypeItemProps> = ({ item, isDark }) => {
+  const { asPath, locale } = useRouter()
+  const isScrolled = useScroll()
 
   return (
     <Navigate
@@ -29,7 +26,7 @@ export const ChildMenuItem: FC<ChildMenuItemProps> = ({ item, isDark }) => {
       fontWeight={600}
       p={2}
       color={
-        item.link !== '/' && asPath.includes(item.link)
+        item.link !== '/' && asPath.includes(item.link as string)
           ? 'primary.400'
           : !isScrolled && isDark
           ? 'white'
@@ -41,15 +38,15 @@ export const ChildMenuItem: FC<ChildMenuItemProps> = ({ item, isDark }) => {
     >
       {item[(locale as StrapiLocale) || 'en']}
     </Navigate>
-  );
-};
+  )
+}
 
-export const ParentMenuItem: FC<ParentMenuItemProps> = ({ item, isDark }) => {
+export const ParentMenuItem: FC<MenuTypeItemProps> = ({ item, isDark }) => {
   return (
     <Popover trigger="hover" arrowSize={16}>
       <PopoverTrigger>
         <Box p={2} w="max-content">
-          <ChildMenuItem item={item as ChildMenu} isDark={isDark} />
+          <ChildMenuItem item={item} isDark={isDark} />
         </Box>
       </PopoverTrigger>
 
@@ -57,7 +54,7 @@ export const ParentMenuItem: FC<ParentMenuItemProps> = ({ item, isDark }) => {
         <PopoverArrow />
         <PopoverBody>
           <Stack>
-            {item.children.map((item) => (
+            {item.children?.map(item => (
               <Box py={1} key={item.link}>
                 <ChildMenuItem item={item} isDark={false} />
               </Box>
@@ -66,17 +63,15 @@ export const ParentMenuItem: FC<ParentMenuItemProps> = ({ item, isDark }) => {
         </PopoverBody>
       </PopoverContent>
     </Popover>
-  );
-};
+  )
+}
 
 export const HeaderNavItem: FC<HeaderNavItemProps> = ({ item, isDark }) => {
-  const parentLink = item as ParentMenu;
-  const childLink = item as ChildMenu;
-  const isParentLink = !!parentLink.children;
+  const isParentLink = !!item.children
 
   if (isParentLink) {
-    return <ParentMenuItem item={parentLink} isDark={isDark} />;
+    return <ParentMenuItem item={item} isDark={isDark} />
   }
 
-  return <ChildMenuItem item={childLink} isDark={isDark} />;
-};
+  return <ChildMenuItem item={item} isDark={isDark} />
+}

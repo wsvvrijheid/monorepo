@@ -1,10 +1,10 @@
-import { render } from '@testing-library/react';
+import { render } from '@testing-library/react'
 
-import {Navigate} from './Navigate';
+import { Navigate } from './Navigate'
 
 describe('Navigate', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<Navigate />);
-    expect(baseElement).toBeTruthy();
-  });
-});
+    const { baseElement } = render(<Navigate />)
+    expect(baseElement).toBeTruthy()
+  })
+})

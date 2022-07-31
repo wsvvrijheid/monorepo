@@ -1,18 +1,19 @@
-import { Avatar, SimpleGrid, Text, VStack } from '@chakra-ui/react';
-import { useRouter } from 'next/router';
-import { Localize, StrapiLocale } from '@wsvvrijheid/types';
-import { ABOUTS } from '@wsvvrijheid/config';
-import { FC } from 'react';
-import { AnimatedBox } from '@wsvvrijheid/ui';
+import { FC } from 'react'
+
+import { Avatar, SimpleGrid, Text, VStack } from '@chakra-ui/react'
+import { ABOUTS } from '@wsvvrijheid/config'
+import { Localize, StrapiLocale } from '@wsvvrijheid/types'
+import { AnimatedBox } from '@wsvvrijheid/ui'
+import { useRouter } from 'next/router'
 
 type AboutItem = {
-  image: string;
-  title: Localize<string>;
-  description: Localize<string>;
-};
+  image: string
+  title: Localize<string>
+  description: Localize<string>
+}
 
 export const HomeAboutItem: FC<{ item: AboutItem }> = ({ item }) => {
-  const { locale } = useRouter();
+  const { locale } = useRouter()
 
   return (
     <VStack align="stretch" spacing={4}>
@@ -22,8 +23,8 @@ export const HomeAboutItem: FC<{ item: AboutItem }> = ({ item }) => {
       </Text>
       <Text>{item.description[locale as StrapiLocale]}</Text>
     </VStack>
-  );
-};
+  )
+}
 
 export const HomeAbout = () => (
   <SimpleGrid columns={{ base: 1, lg: 3 }} gap={8} textAlign="center">
@@ -33,4 +34,4 @@ export const HomeAbout = () => (
       </AnimatedBox>
     ))}
   </SimpleGrid>
-);
+)

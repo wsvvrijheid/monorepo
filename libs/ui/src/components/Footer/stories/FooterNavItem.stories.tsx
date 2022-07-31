@@ -1,24 +1,24 @@
-import { Box } from '@chakra-ui/react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { FooterNavItem } from '../FooterNavItem';
+import { Box } from '@chakra-ui/react'
+import { Story, Meta } from '@storybook/react'
+
+import { FooterNavItem } from '../FooterNavItem'
+import { FooterNavItemProps } from '../types'
 
 export default {
   component: FooterNavItem,
   title: 'Layout/FooterNavItem',
   decorators: [
-    (Story) => (
+    Story => (
       <Box p={4} bg="primary.900">
         <Story />
       </Box>
     ),
   ],
-} as ComponentMeta<typeof FooterNavItem>;
+} as Meta<FooterNavItemProps>
 
-const Template: ComponentStory<typeof FooterNavItem> = (args) => (
-  <FooterNavItem {...args} />
-);
+const Template: Story<FooterNavItemProps> = args => <FooterNavItem {...args} />
 
-export const Default = Template.bind({});
+export const Default = Template.bind({})
 Default.args = {
   item: {
     link: '/about',
@@ -26,4 +26,4 @@ Default.args = {
     nl: 'Over',
     tr: 'Hakkımızda',
   },
-};
+}

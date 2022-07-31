@@ -17,11 +17,11 @@
     "baseUrl": ".",
     "typeRoots": ["node_modules/@types"],
     "paths": {
-      "@sample/assets": ["libs/assets/src/index.ts"],
-      "@wsvvrijheid/config": ["libs/config/src/index.ts"],
-      "@wsvvrijheid/types": ["libs/types/src/index.ts"],
-      "@wsvvrijheid/ui": ["libs/ui/src/index.ts"],
-      "@wsvvrijheid/utils": ["libs/utils/src/index.ts"]
+      "@sample/assets": ["libs/assets/src"],
+      "@wsvvrijheid/config": ["libs/config/src"],
+      "@wsvvrijheid/types": ["libs/types/src"],
+      "@wsvvrijheid/ui": ["libs/ui/src"],
+      "@wsvvrijheid/utils": ["libs/utils/src"]
     }
   },
   "exclude": ["node_modules", "tmp"]
