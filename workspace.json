@@ -94,6 +94,11 @@
                 "input": "libs/assets/src/images",
                 "glob": "*.{png,jpg,jpeg,gif,svg}",
                 "output": "assets/images"
+              },
+              {
+                "input": "public/locales",
+                "glob": "**/*.json",
+                "output": "public/locales"
               }
             ]
           },
