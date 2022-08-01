@@ -1,16 +1,17 @@
-import { Box, Link, Stack, Text, Wrap } from '@chakra-ui/react';
-import { motion } from 'framer-motion';
-import NextImage from 'next/image';
-import { FC } from 'react';
-import { useTranslation } from 'react-i18next';
+import { FC } from 'react'
 
-import { Container } from '../Container/Container';
-import { SocialButtons } from '../SocialButtons';
-import { FooterNav } from './FooterNav';
-import { FooterProps } from './types';
+import { Box, Link, Stack, Text, Wrap } from '@chakra-ui/react'
+import { motion } from 'framer-motion'
+import NextImage from 'next/image'
+import { useTranslation } from 'react-i18next'
+
+import { Container } from '../Container/Container'
+import { SocialButtons } from '../SocialButtons'
+import { FooterNav } from './FooterNav'
+import { FooterProps } from './types'
 
 export const Footer: FC<FooterProps> = ({ menu, about, logo, socialItems }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
   return (
     <Box bg={'blue.900'} color="blue.100" pos="relative">
       <Container as={Stack}>
@@ -60,5 +61,5 @@ export const Footer: FC<FooterProps> = ({ menu, about, logo, socialItems }) => {
         </Wrap>
       </Container>
     </Box>
-  );
-};
+  )
+}

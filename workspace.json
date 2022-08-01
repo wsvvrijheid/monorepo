@@ -94,6 +94,11 @@
                 "input": "libs/assets/src/images",
                 "glob": "*.{png,jpg,jpeg,gif,svg}",
                 "output": "assets/images"
+              },
+              {
+                "input": "public/locales",
+                "glob": "**/*.json",
+                "output": "public/locales"
               }
             ]
           },
@@ -145,6 +150,13 @@
             "main": "libs/types/src/index.ts",
             "tsConfig": "libs/types/tsconfig.lib.json",
             "assets": ["libs/types/*.md"]
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/types/**/*.{ts,tsx,js,jsx}"]
           }
         }
       },

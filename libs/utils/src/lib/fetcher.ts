@@ -1,19 +1,13 @@
 import axios from 'axios'
 
-export const fetcher = (token = process.env["NX_API_TOKEN"]) => {
+export const fetcher = (token = process.env['NX_API_TOKEN']) => {
   // Create instance
   const instance = axios.create({
-    baseURL: process.env["NX_API_URL"],
-  })
-
-  // Set the AUTH token for any request
-  instance.interceptors.request.use((config) => ({
+    baseURL: process.env['NX_API_URL'],
     headers: {
-        ...config?.headers,
-        Authorization: token ? `Bearer ${token}` : '',
+      Authorization: `Bearer ${token}`,
     },
-    ...config
-  }))
+  })
 
   return instance
 }

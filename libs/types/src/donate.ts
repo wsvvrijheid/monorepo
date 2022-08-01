@@ -1,18 +1,6 @@
-export type RawDonate = {
-  id: number
-  adddress: string
-  amount: number
-  createdAt: string
-  email: string
-  mollieId: string
-  name: string
-  phone: string
-  status: string
-  updatedAt: string
-}
+import { StrapiCore } from './strapi'
 
 export type Donate = {
-  id: number
   adddress: string
   amount: number
   createdAt: string
@@ -22,4 +10,4 @@ export type Donate = {
   phone: string
   status: string
   updatedAt: string
-}
+} & StrapiCore

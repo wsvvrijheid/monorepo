@@ -1,11 +1,16 @@
 module.exports = {
   stories: [],
   addons: ['@storybook/addon-essentials'],
-  // uncomment the property below if you want to apply some webpack config globally
-  // webpackFinal: async (config, { configType }) => {
-  //   // Make whatever fine-grained changes you need that should apply to all storybook configs
+  webpackFinal: async (config, { configType }) => {
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      'next-i18next': 'react-i18next',
+    }
+    config.resolve.fallback = {
+      os: require.resolve('os-browserify/browser'),
+      path: require.resolve('path-browserify'),
+    }
 
-  //   // Return the altered config
-  //   return config;
-  // },
-};
+    return config
+  },
+}

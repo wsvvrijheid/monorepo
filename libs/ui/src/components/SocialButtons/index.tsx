@@ -1,1 +1,1 @@
-export * from './SocialButtons';
+export * from './SocialButtons'

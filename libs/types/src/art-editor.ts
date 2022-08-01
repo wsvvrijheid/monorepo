@@ -1,20 +1,8 @@
-import { RawVolunteer, Volunteer } from './volunteer'
-import {
-  StrapiCollection,
-  StrapiEntity,
-  StrapiRawCollection,
-  StrapiRawEntity,
-} from './strapi'
-import { ArtFeedback, RawArtFeedback } from './art-feedback'
-
-export type RawArtEditor = {
-  id: number
-  feedbacks: StrapiRawCollection<RawArtFeedback>
-  volunteer: StrapiRawEntity<RawVolunteer>
-}
+import { ArtFeedback } from './art-feedback'
+import { StrapiCore } from './strapi'
+import { Volunteer } from './volunteer'
 
 export type ArtEditor = {
-  id: number
-  feedbacks: StrapiCollection<ArtFeedback>
-  volunteer: StrapiEntity<Volunteer>
-}
+  feedbacks?: Array<ArtFeedback>
+  volunteer?: Volunteer
+} & StrapiCore

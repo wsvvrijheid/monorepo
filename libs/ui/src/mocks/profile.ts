@@ -1,4 +1,4 @@
-import { ProfileMenuProps } from '../components/Header/types';
+import { ProfileMenuProps } from '../components/Header/types'
 
 export const PROFILE: ProfileMenuProps = {
   isLoggedIn: false,
@@ -18,4 +18,4 @@ export const PROFILE: ProfileMenuProps = {
   },
   username: 'John Doe',
   userAvatar: 'https://placekitten.com/200/200',
-};
+}

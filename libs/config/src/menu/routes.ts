@@ -1,4 +1,4 @@
-import { ROUTES } from '../data';
+import { ROUTES } from '../data'
 
 export const {
   about,
@@ -16,4 +16,4 @@ export const {
   samenvvv,
   terms,
   volunteer,
-} = ROUTES;
+} = ROUTES

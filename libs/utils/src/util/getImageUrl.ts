@@ -1,19 +1,26 @@
 import { FileFormatsType, UploadFile } from '@wsvvrijheid/types'
 
-export type GetImageUrlType = (
+export const getImageUrl = (
   image: UploadFile | string,
-  type?: FileFormatsType,
-) => string
+  format?: FileFormatsType,
+) => {
+  if (!image) return ''
 
-export const getImageUrl: GetImageUrlType = (image, type?) => {
-  const basePath = process.env['NEXT_PUBLIC_API_URL']
-  if (image == null) return ''
+  const apiUrl = process.env['NX_API_URL']
+  const siteUrl = process.env['NX_PUBLIC_URL']
 
-  if (typeof image === 'string')
-    return image.startsWith('http') ? image : `${basePath}${image}`
+  if (typeof image === 'string') {
+    if (image?.startsWith('http')) {
+      return image
+    }
 
-  const imagePath =
-    (type && image.formats && image.formats[type].url) || image.url
+    if (image?.startsWith('/uploads')) {
+      return `${apiUrl}${image}`
+    }
 
-  return `${basePath}${imagePath}`
+    return `${siteUrl}${image}`
+  }
+
+  const src = format ? image.formats?.[format]?.url || image.url : image.url
+  return `${apiUrl}${src}`
 }
