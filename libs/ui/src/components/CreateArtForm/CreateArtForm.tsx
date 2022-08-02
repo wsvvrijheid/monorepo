@@ -184,6 +184,7 @@ export const CreateArtForm: React.FC<CreateArtFormProps> = ({
                     register={register}
                   />
                   <WSelect
+                    label={t('category')}
                     name="categories"
                     errors={errors}
                     control={control as any}
