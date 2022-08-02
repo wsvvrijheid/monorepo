@@ -89,7 +89,7 @@ export const CreateArtForm: React.FC<CreateArtFormProps> = ({
   )
 
   const handleCreateArt = async (data: CreateArtFormFieldValues) => {
-    onCreateArt(data)
+    onCreateArt({ ...data, images })
   }
 
   return (

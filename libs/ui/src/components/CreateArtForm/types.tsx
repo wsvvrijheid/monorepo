@@ -14,7 +14,7 @@ export type CreateArtFormFieldValues = {
 }
 
 export type CreateArtFormProps = {
-  onCreateArt: (data: CreateArtFormFieldValues) => void
+  onCreateArt: (data: CreateArtFormFieldValues & { images: Blob[] }) => void
   isLoading: boolean
   isLoggedIn: boolean
   categories: Category[]
