@@ -54,10 +54,10 @@ const schema = (t: TFunction) =>
 
 // TODO Consider adding modal form instead of a new page
 export const CreateArtForm: React.FC<CreateArtFormProps> = ({
-  auth,
   onCreateArt,
   isLoading,
   categories,
+  isLoggedIn,
 }) => {
   const [images, setImages] = useState<Blob[]>([])
 
@@ -113,7 +113,7 @@ export const CreateArtForm: React.FC<CreateArtFormProps> = ({
         closeOnOverlayClick={false}
         isOpen={formDisclosure.isOpen}
         onClose={formDisclosure.onClose}
-        size={auth?.isLoggedIn ? '4xl' : 'md'}
+        size={isLoggedIn ? '4xl' : 'md'}
       >
         <ModalOverlay />
         <ModalContent>
@@ -136,7 +136,7 @@ export const CreateArtForm: React.FC<CreateArtFormProps> = ({
               </Center>
             )}
 
-            {!auth?.isLoggedIn && (
+            {isLoggedIn && (
               <VStack>
                 <Text>
                   {t`art.create.require-auth.text`}{' '}
@@ -148,7 +148,7 @@ export const CreateArtForm: React.FC<CreateArtFormProps> = ({
             )}
 
             {/* CREATE FORM */}
-            {auth.isLoggedIn && (
+            {isLoggedIn && (
               <SimpleGrid columns={{ base: 1, lg: 2 }} gap={4}>
                 <FileUploader setImages={setImages} images={images} />
                 <Stack
@@ -187,6 +187,7 @@ export const CreateArtForm: React.FC<CreateArtFormProps> = ({
                     name="categories"
                     errors={errors}
                     control={control as any}
+                    isMulti
                     options={
                       categories?.map(c => ({
                         value: c.id.toString(),

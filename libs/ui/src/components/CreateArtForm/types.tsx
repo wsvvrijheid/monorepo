@@ -1,6 +1,6 @@
 import { RefObject } from 'react'
 
-import { Auth, Category } from '@wsvvrijheid/types'
+import { Category } from '@wsvvrijheid/types'
 
 export type CreateArtFormFieldValues = {
   locale: string
@@ -15,9 +15,8 @@ export type CreateArtFormFieldValues = {
 
 export type CreateArtFormProps = {
   onCreateArt: (data: CreateArtFormFieldValues) => void
-  errorMessage?: string
-  auth?: Auth
   isLoading: boolean
+  isLoggedIn: boolean
   categories: Category[]
 }
 
