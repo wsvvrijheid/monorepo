@@ -1,12 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 import {
-  AlertDialog,
-  AlertDialogBody,
-  AlertDialogContent,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogOverlay,
   Box,
   Button,
   ButtonGroup,
@@ -29,57 +23,20 @@ import {
   VStack,
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { StrapiLocale } from '@wsvvrijheid/types'
 import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
 import { TFunction } from 'react-i18next'
 import { FaPlus, FaUpload } from 'react-icons/fa'
-import { useQuery } from 'react-query'
 import * as yup from 'yup'
 
+import { FileUploader } from '../FileUploader'
 import { FormItem } from '../FormItem'
 import { Navigate } from '../Navigate'
-import { FileUploader } from './file-uploader'
-import { CreateArtFormProps } from './types'
-
-import { request } from '~lib'
-
-const ArtCreateSuccessAlert = ({ isOpen, onClose }) => {
-  const { t } = useTranslation()
-
-  return (
-    <AlertDialog
-      closeOnOverlayClick={false}
-      isCentered
-      isOpen={isOpen}
-      onClose={onClose}
-    >
-      <AlertDialogOverlay>
-        <AlertDialogContent>
-          <AlertDialogHeader
-            bg="green.500"
-            color="white"
-            fontSize="lg"
-            fontWeight={600}
-          >
-            {t`art.create.success.title`}
-          </AlertDialogHeader>
-
-          <AlertDialogBody py={4}>
-            <Text>{t`art.create.success.description`}</Text>
-            <Navigate as={Button} colorScheme="blue.500" href="/profile">
-              {t`art.create.success.link`}
-            </Navigate>
-          </AlertDialogBody>
-
-          <AlertDialogFooter>
-            <Button onClick={onClose}>{t`dismiss`}</Button>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialogOverlay>
-    </AlertDialog>
-  )
-}
+import { WSelect } from '../WSelect'
+import { ArtCreateSuccessAlert } from './CreateArtSuccessAlert'
+import { CreateArtFormFieldValues, CreateArtFormProps } from './types'
 
 const schema = (t: TFunction) =>
   yup.object({
@@ -94,62 +51,62 @@ const schema = (t: TFunction) =>
       }),
     ),
   })
+
 // TODO Consider adding modal form instead of a new page
 export const CreateArtForm: React.FC<CreateArtFormProps> = ({
   auth,
   onCreateArt,
-  onCreateArtMutation,
+  isLoading,
+  categories,
 }) => {
-  const [images, setImages] = useState([])
+  const [images, setImages] = useState<Blob[]>([])
 
   const formDisclosure = useDisclosure()
   const successDisclosure = useDisclosure()
 
-  const { data: categories } = useQuery({
-    queryKey: 'categories',
-    queryFn: () =>
-      request({
-        url: 'api/categories',
-        pageSize: 100,
-      }),
-  })
-
   const { locale } = useRouter()
 
   const { t } = useTranslation()
+
   const {
     register,
     formState: { errors, isValid },
     handleSubmit,
     control,
-  } = useForm({ resolver: yupResolver(schema(t)), mode: 'all' })
+  } = useForm<CreateArtFormFieldValues>({
+    resolver: yupResolver(schema(t)),
+    mode: 'all',
+  })
+
+  const cancelRef = useRef<HTMLButtonElement>(null)
 
   useEffect(
     () => () => {
       // Make sure to revoke the data uris to avoid memory leaks
-      images.forEach(image => URL.revokeObjectURL(image.preview))
+      images.forEach(image => URL.revokeObjectURL((image as any).preview))
     },
     [images],
   )
 
-  const handleCreateArt = async data => {
+  const handleCreateArt = async (data: CreateArtFormFieldValues) => {
     onCreateArt(data)
   }
 
   return (
     <>
+      {/* SUCCESS ALERT */}
+      <ArtCreateSuccessAlert
+        isOpen={successDisclosure.isOpen}
+        onClose={successDisclosure.onClose}
+        ref={cancelRef}
+      />
+
       <Button size="lg" colorScheme="blue" onClick={formDisclosure.onOpen}>
         <Box mr={{ base: 0, lg: 4 }}>
           <FaUpload />
         </Box>
         <Box display={{ base: 'none', lg: 'block' }}>{t`art.upload`}</Box>
       </Button>
-
-      {/* SUCCESS ALERT */}
-      <ArtCreateSuccessAlert
-        isOpen={successDisclosure.isOpen}
-        onClose={successDisclosure.onClose}
-      />
 
       <Modal
         isCentered
@@ -166,7 +123,7 @@ export const CreateArtForm: React.FC<CreateArtFormProps> = ({
           <ModalCloseButton color={'white'} />
           <ModalBody pos="relative" py={6}>
             {/* LOADING */}
-            {onCreateArtMutation.isLoading && (
+            {isLoading && (
               <Center
                 zIndex={1}
                 pos="absolute"
@@ -226,19 +183,18 @@ export const CreateArtForm: React.FC<CreateArtFormProps> = ({
                     errors={errors}
                     register={register}
                   />
-                  <FormItem
-                    id="categories"
-                    label={t`categories`}
-                    selectOptions={{
-                      isMulti: true,
-                      options:
-                        categories?.result.map(c => ({
-                          value: c.id,
-                          label: c[`name_${locale}`],
-                        })) || [],
-                    }}
-                    control={control}
+                  <WSelect
+                    name="categories"
+                    errors={errors}
+                    control={control as any}
+                    options={
+                      categories?.map(c => ({
+                        value: c.id.toString(),
+                        label: c[`name_${locale as StrapiLocale}`],
+                      })) || []
+                    }
                   />
+
                   <FormItem
                     name="description"
                     label={t`description`}
@@ -257,7 +213,11 @@ export const CreateArtForm: React.FC<CreateArtFormProps> = ({
                   />
 
                   <ButtonGroup alignSelf="end">
-                    <Button onClick={formDisclosure.onClose} mr={3}>
+                    <Button
+                      onClick={formDisclosure.onClose}
+                      mr={3}
+                      ref={cancelRef}
+                    >
                       {t`cancel`}
                     </Button>
                     <Button
