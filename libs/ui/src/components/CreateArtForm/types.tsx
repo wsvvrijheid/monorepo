@@ -16,7 +16,7 @@ export type CreateArtFormFieldValues = {
 export type CreateArtFormProps = {
   onCreateArt: (data: CreateArtFormFieldValues) => void
   errorMessage?: string
-  auth: Auth
+  auth?: Auth
   isLoading: boolean
   categories: Category[]
 }

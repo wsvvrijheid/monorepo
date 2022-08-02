@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { Story, Meta } from '@storybook/react'
 
 import { CreateArtForm } from '.'
-import { CATEGORY_MOCKS } from '../../mocks'
+import { CATEGORY_MOCKS, USER_MOCKS } from '../../mocks'
 import { CreateArtFormProps, CreateArtFormFieldValues } from './types'
 
 export default {
@@ -37,4 +37,12 @@ Default.args = {}
 export const ErrorMessage = Template.bind({})
 ErrorMessage.args = {
   errorMessage: 'There is a error',
+}
+export const Auth = Template.bind({})
+Auth.args = {
+  auth: {
+    isLoggedIn: true,
+    user: USER_MOCKS[0],
+    token: 'token',
+  },
 }
