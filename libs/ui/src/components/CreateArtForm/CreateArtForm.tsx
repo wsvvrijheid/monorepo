@@ -44,7 +44,6 @@ import { CreateArtFormProps } from './types'
 
 import { request } from '~lib'
 
-
 const ArtCreateSuccessAlert = ({ isOpen, onClose }) => {
   const { t } = useTranslation()
 
