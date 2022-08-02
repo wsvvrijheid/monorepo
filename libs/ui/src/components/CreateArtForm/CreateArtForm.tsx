@@ -136,7 +136,7 @@ export const CreateArtForm: React.FC<CreateArtFormProps> = ({
               </Center>
             )}
 
-            {isLoggedIn && (
+            {!isLoggedIn && (
               <VStack>
                 <Text>
                   {t`art.create.require-auth.text`}{' '}
