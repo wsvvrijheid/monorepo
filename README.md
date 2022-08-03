@@ -36,7 +36,7 @@ This project was generated using [Nx](https://nx.dev).
 ## Environement Variables
 
 ```
-NX_API_URL=http://localhost:1337
+NX_API_URL=https://api.samenvvv.nl
 NX_PUBLIC_URL=http://localhost:4200
 NX_API_TOKEN=
 ```
