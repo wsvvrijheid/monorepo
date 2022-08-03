@@ -32,3 +32,11 @@ This project was generated using [Nx](https://nx.dev).
 ## Recommended VSCode Plugins
 
 - [Nx Console](https://marketplace.visualstudio.com/items?itemName=nrwl.angular-console)
+
+## Environement Variables
+
+```
+NX_API_URL=http://localhost:1337
+NX_PUBLIC_URL=http://localhost:4200
+NX_API_TOKEN=
+```
