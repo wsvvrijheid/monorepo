@@ -8,14 +8,21 @@ import {
   InputRightElement,
   useUpdateEffect,
 } from '@chakra-ui/react'
+import { InputProps } from 'chakra-react-select'
 import { FaSearch, FaTimes } from 'react-icons/fa'
 
 import { useDebounce } from '../../hooks'
-import { SearchFormProps } from './types'
 
 /**
  * @param mode "change | click"
  */
+export type SearchFormProps = {
+  delay?: number
+  onSearch: (value?: string) => void
+  onReset?: () => void
+  mode?: 'change' | 'click'
+} & InputProps
+
 export const SearchForm: React.FC<SearchFormProps> = ({
   placeholder,
   delay,
@@ -56,15 +63,15 @@ export const SearchForm: React.FC<SearchFormProps> = ({
             variant="ghost"
             icon={<FaTimes color="gray.400" />}
             onClick={() => setSearchTerm('')}
-            aria-label={''}
+            aria-label="Clear search"
           />
         )}
         {mode === 'click' && (
           <IconButton
-            colorScheme="blue"
+            colorScheme="primary"
             onClick={() => onSearch(searchTerm)}
             icon={<FaSearch />}
-            aria-label={''}
+            aria-label="Search"
           />
         )}
       </InputRightElement>
