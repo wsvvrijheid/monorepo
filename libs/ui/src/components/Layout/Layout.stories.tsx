@@ -1,8 +1,8 @@
-import { ComponentStory, ComponentMeta } from '@storybook/react'
+import { Story, Meta } from '@storybook/react'
 
 import { FOOTER_MENU, HEADER_MENU, PROFILE, SOCIAL_LINKS } from '../../mocks'
 import { Hero } from '../Hero/Hero'
-import { Layout } from './Layout'
+import { Layout, LayoutProps } from './Layout'
 
 export default {
   component: Layout,
@@ -19,10 +19,10 @@ export default {
       socialItems: SOCIAL_LINKS,
     },
   },
-} as ComponentMeta<typeof Layout>
+} as Meta<LayoutProps>
 
-const Template: ComponentStory<typeof Layout> = args => <Layout {...args} />
-const TemplateHero: ComponentStory<typeof Layout> = args => (
+const Template: Story<LayoutProps> = args => <Layout {...args} />
+const TemplateHero: Story<LayoutProps> = args => (
   <Layout {...args} isDark>
     <Hero
       title="Title"

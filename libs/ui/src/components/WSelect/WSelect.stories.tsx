@@ -14,7 +14,7 @@ const options = [
 export default {
   title: 'Forms/WSelect',
   component: WSelect,
-} as Meta<typeof WSelect>
+} as Meta<WSelectProps>
 
 const categorySchema = yup.object().shape({
   label: yup.string(),

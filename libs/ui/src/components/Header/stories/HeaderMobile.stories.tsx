@@ -1,16 +1,15 @@
-import { ComponentStory, ComponentMeta } from '@storybook/react'
+import { Story, Meta } from '@storybook/react'
 
 import { HEADER_MENU, PROFILE } from '../../../mocks'
 import { HeaderMobile } from '../HeaderMobile'
+import { HeaderMobileProps } from '../types'
 
 export default {
   component: HeaderMobile,
   title: 'Layout/HeaderMobile',
-} as ComponentMeta<typeof HeaderMobile>
+} as Meta<HeaderMobileProps>
 
-const Template: ComponentStory<typeof HeaderMobile> = args => (
-  <HeaderMobile {...args} />
-)
+const Template: Story<HeaderMobileProps> = args => <HeaderMobile {...args} />
 
 export const Default = Template.bind({})
 Default.args = {

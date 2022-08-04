@@ -7,7 +7,7 @@ import { LoginFormFieldValues } from './types'
 export default {
   title: 'Forms/LoginForm',
   component: LoginForm,
-} as Meta<typeof LoginForm>
+} as Meta<LoginFormProps>
 
 const Template: Story<LoginFormProps> = args => {
   const handleSubmitSign = async (data: LoginFormFieldValues) => {

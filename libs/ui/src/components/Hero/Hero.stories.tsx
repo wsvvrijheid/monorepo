@@ -1,6 +1,6 @@
-import { ComponentStory, ComponentMeta } from '@storybook/react'
+import { Story, Meta } from '@storybook/react'
 
-import { Hero } from './Hero'
+import { Hero, HeroProps } from './Hero'
 
 export default {
   component: Hero,
@@ -9,9 +9,9 @@ export default {
     image:
       'https://img.freepik.com/free-vector/hand-painted-watercolor-pastel-sky-background_23-2148902771.jpg?w=2000',
   },
-} as ComponentMeta<typeof Hero>
+} as Meta<HeroProps>
 
-const Template: ComponentStory<typeof Hero> = args => <Hero {...args} />
+const Template: Story<HeroProps> = args => <Hero {...args} />
 
 export const Default = Template.bind({})
 

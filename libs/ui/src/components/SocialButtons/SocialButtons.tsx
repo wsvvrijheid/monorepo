@@ -11,7 +11,7 @@ export type SocialItem = {
   link: Localize<string>
 }
 
-interface SocialButtonsProps {
+export interface SocialButtonsProps {
   items: SocialItem[]
 }
 

@@ -8,7 +8,7 @@ import { ForgotPasswordFormProps, ForgotPasswordFieldValues } from './types'
 export default {
   title: 'Forms/ForgotPasswordForm',
   component: ForgotPasswordForm,
-} as Meta<typeof ForgotPasswordForm>
+} as Meta<ForgotPasswordFormProps>
 
 const Template: Story<ForgotPasswordFormProps> = args => {
   const [isLoading, setIsLoading] = React.useState<boolean>(false)

@@ -5,7 +5,7 @@ import Image from 'next/image'
 
 import { Container } from '../Container'
 
-interface HeroProps {
+export interface HeroProps {
   title: string
   description?: string
   video?: string
