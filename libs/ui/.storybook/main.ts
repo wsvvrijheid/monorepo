@@ -1,8 +1,9 @@
-const path = require('path')
+import type { StorybookConfig } from '@storybook/core-common'
+import path from 'path'
 
-const rootMain = require('../../../.storybook/main')
+import rootMain from '../../../.storybook/main'
 
-module.exports = {
+const config: StorybookConfig = {
   ...rootMain,
 
   core: { ...rootMain.core, builder: 'webpack5' },
@@ -13,7 +14,7 @@ module.exports = {
     '../**/*.stories.@(js|jsx|ts|tsx)',
   ],
   addons: [
-    ...rootMain.addons,
+    ...(rootMain.addons as string[]),
     '@nrwl/react/plugins/storybook',
     '@chakra-ui/storybook-addon',
     'storybook-react-i18next',
@@ -27,6 +28,8 @@ module.exports = {
   webpackFinal: async (config, { configType }) => {
     // apply any global webpack configs that might have been specified in .storybook/main.js
     if (rootMain.webpackFinal) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       config = await rootMain.webpackFinal(config, { configType })
     }
 
@@ -35,3 +38,5 @@ module.exports = {
     return config
   },
 }
+
+export default config

@@ -1,2 +1,2 @@
-export * from './find'
+export * from './findOne'
 export * from './paths'
