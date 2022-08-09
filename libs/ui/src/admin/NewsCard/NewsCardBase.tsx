@@ -1,7 +1,9 @@
-import { HStack, Image, Stack, Text, VStack } from '@chakra-ui/react'
 import React, { FC } from 'react'
+
+import { HStack, Image, Stack, Text, VStack } from '@chakra-ui/react'
 import { AiOutlineEye, AiOutlineLike, AiOutlineShareAlt } from 'react-icons/ai'
 import { BsBookmarkHeart } from 'react-icons/bs'
+
 import ActionButton from './ActionButton'
 import { NewsCardProps } from './types'
 

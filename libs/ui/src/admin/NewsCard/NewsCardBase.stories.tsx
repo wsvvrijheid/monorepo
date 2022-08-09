@@ -1,11 +1,11 @@
 import React from 'react'
 
+import { Container } from '@chakra-ui/react'
 import { Story, Meta } from '@storybook/react'
+import { News } from '@wsvvrijheid/types'
 
 import { NewsCardBase } from './NewsCardBase'
 import { NewsCardProps } from './types'
-import { Container } from '@chakra-ui/react'
-import { News } from '@wsvvrijheid/types'
 
 const news: News = {
   id: '1',

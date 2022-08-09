@@ -1,5 +1,7 @@
-import { HStack, Icon, Text } from '@chakra-ui/react'
 import { FC } from 'react'
+
+import { HStack, Icon, Text } from '@chakra-ui/react'
+
 import { ActionButtonProps } from './types'
 
 const ActionButton: FC<ActionButtonProps> = ({
