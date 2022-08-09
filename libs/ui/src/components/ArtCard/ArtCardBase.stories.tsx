@@ -4,12 +4,12 @@ import { ComponentStory, ComponentMeta } from '@storybook/react'
 
 import { ART_MOCKS, USER_MOCKS } from '../../mocks/strapi'
 import { Container } from '../Container'
-import { ArtCard } from './ArtCard'
+import { ArtCardBase } from './ArtCardBase'
 import { ArtActions } from './types'
 
 export default {
-  component: ArtCard,
-  title: 'Shared/ArtCard',
+  component: ArtCardBase,
+  title: 'Shared/ArtCardBase',
   args: {
     art: ART_MOCKS.data[0],
   },
@@ -20,9 +20,9 @@ export default {
       </Container>
     ),
   ],
-} as ComponentMeta<typeof ArtCard>
+} as ComponentMeta<typeof ArtCardBase>
 
-const Template: ComponentStory<typeof ArtCard> = args => {
+const Template: ComponentStory<typeof ArtCardBase> = args => {
   const [isLiked, setIsLiked] = useState(args.isLiked)
   const [art, setArt] = useState(args.art)
 
@@ -56,7 +56,7 @@ const Template: ComponentStory<typeof ArtCard> = args => {
   }
 
   return (
-    <ArtCard
+    <ArtCardBase
       {...args}
       art={art}
       isLiked={args.isLiked || isLiked}
