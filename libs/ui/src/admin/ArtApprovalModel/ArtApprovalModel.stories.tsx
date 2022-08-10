@@ -1,15 +1,17 @@
-//import { useState } from 'react'
-
-import { ArtApprovalForm, ArtApprvalFormTypes } from './ArtApprovalForm'
+import { ART_MOCKS, USER_MOCKS } from '../../mocks/strapi'
+import { ArtApprovalForm } from './ArtApprovalForm'
+import { ArtApprovalFormTypes } from './types'
 
 export default {
   component: ArtApprovalForm,
-  title: 'Forms/ArtApprovalForm',
-} as ArtApprovalForm<ArtApprvalFormTypes>
+  title: 'Admin/Forms/ArtApprovalForm',
+  args: {
+    art: ART_MOCKS.data[0],
+    user: USER_MOCKS[0],
+  },
+} as ArtApprovalForm<ArtApprovalFormTypes>
 
 const Template: ArtApprovalForm<typeof any> = args => {
-  //const [art, setArt] = useState(args.art)
-
   //   const actions: ArtActions = {
   //     delete: {
   //       title: 'Delete',
@@ -34,7 +36,7 @@ const Template: ArtApprovalForm<typeof any> = args => {
   //     },
   //   }
 
-  return <ArtApprovalForm {...args} />
+  return <ArtApprovalForm {...args} user={args.user} art={args.art} />
 }
 
 export const Default = Template.bind({})
