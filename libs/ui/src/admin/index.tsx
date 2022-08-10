@@ -1,1 +1,1 @@
-export *from './ArtApprovalModel'
+export * from './ArtApprovalModel'

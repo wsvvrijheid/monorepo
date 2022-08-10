@@ -1,7 +1,7 @@
+import { ComponentStory, ComponentMeta } from '@storybook/react'
+
 import { ART_MOCKS, USER_MOCKS } from '../../mocks/strapi'
 import { ArtApprovalForm } from './ArtApprovalForm'
-import { ArtApprovalFormTypes } from './types'
-
 export default {
   component: ArtApprovalForm,
   title: 'Admin/Forms/ArtApprovalForm',
@@ -9,9 +9,9 @@ export default {
     art: ART_MOCKS.data[0],
     user: USER_MOCKS[0],
   },
-} as ArtApprovalForm<ArtApprovalFormTypes>
+} as ComponentMeta<typeof ArtApprovalForm>
 
-const Template: ArtApprovalForm<typeof any> = args => {
+const Template: ComponentStory<typeof ArtApprovalForm> = args => {
   //   const actions: ArtActions = {
   //     delete: {
   //       title: 'Delete',
