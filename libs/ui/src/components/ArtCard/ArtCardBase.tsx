@@ -15,12 +15,12 @@ import { AiFillHeart } from 'react-icons/ai'
 import { FaExternalLinkSquareAlt } from 'react-icons/fa'
 
 import { Navigate } from '../Navigate'
-import { ArtCardActions } from './/ArtCardActions'
+import { ArtCardActions } from './ArtCardActions'
 import { ArtCardAlertDialog } from './ArtCardAlertDialog'
 import { ArtCardImage } from './ArtCardImage'
 import { ArtActionType, ArtCardProps } from './types'
 
-export const ArtCard: FC<ArtCardProps> = ({
+export const ArtCardBase: FC<ArtCardProps> = ({
   art,
   isMasonry,
   toggleLike,
@@ -50,81 +50,81 @@ export const ArtCard: FC<ArtCardProps> = ({
       {/* Card Action Alert Dialog */}
       {actionType && (
         <ArtCardAlertDialog
-          buttonText={actions[actionType].buttonText}
-          colorScheme={actions[actionType].colorScheme}
-          isOpen={isOpen}
-          text={actions[actionType].text}
           title={actions[actionType].title}
-          onClick={actions[actionType].onClick}
+          text={actions[actionType].text}
           onClose={onClose}
+          onClick={actions[actionType].onClick}
+          isOpen={isOpen}
+          colorScheme={actions[actionType].colorScheme}
+          buttonText={actions[actionType].buttonText}
         />
       )}
 
       <Box
-        pos="relative"
-        role="group"
         w="full"
-        overflow="hidden"
         userSelect="none"
+        role="group"
+        pos="relative"
+        overflow="hidden"
       >
         {/* Card Image */}
         <ArtCardImage art={art} isMasonry={isMasonry} />
 
         {!art.publishedAt && (
-          <Badge userSelect="none" pos="absolute" top={2} left={2}>
+          <Badge left={2} pos="absolute" top={2} userSelect="none">
             Draft
           </Badge>
         )}
 
         {/* Card Body */}
         <Box
-          display={{ base: 'none', lg: 'block' }}
-          position={{ base: 'static', lg: 'absolute' }}
+          _groupHover={{ left: 0 }}
+          bgGradient="linear(to-t, blackAlpha.700, transparent, transparent, blackAlpha.700)"
           bottom={0}
+          display={{ base: 'none', lg: 'block' }}
           h="full"
           left="-150%"
-          w="full"
-          _groupHover={{ left: 0 }}
+          position={{ base: 'static', lg: 'absolute' }}
           transition="all 0.2s ease-in-out"
-          bgGradient="linear(to-t, blackAlpha.700, transparent, transparent, blackAlpha.700)"
+          w="full"
         />
 
         <HStack
-          position="absolute"
-          top={{ base: 2, lg: '-150%' }}
-          right={{ base: 2, lg: '-150%' }}
-          w="full"
           _groupHover={{ top: 2, right: 2 }}
-          transition="all 0.2s"
           justify="end"
+          position="absolute"
+          right={{ base: 2, lg: '-150%' }}
+          top={{ base: 2, lg: '-150%' }}
+          transition="all 0.2s"
+          w="full"
         >
           <HStack spacing={1}>
             <Text fontWeight={600} color="white">
               {(art?.likes || 0) + (art.likers?.length || 0)}
             </Text>
             <IconButton
-              rounded="full"
+              _hover={{ color: isLiked ? 'red.200' : 'gray.100' }}
               aria-label="like post"
-              color={isLiked ? 'red.400' : 'white'}
-              colorScheme="blackAlpha"
               borderColor="whiteAlpha.500"
               borderWidth={1}
+              color={isLiked ? 'red.400' : 'white'}
+              colorScheme="blackAlpha"
               disabled={isOwner}
               icon={<AiFillHeart />}
               onClick={toggleLike}
-              _hover={{ color: isLiked ? 'red.200' : 'gray.100' }}
+              rounded="full"
             />
           </HStack>
           <Navigate href={`/club/art/${art.slug}`}>
             <IconButton
-              rounded="full"
+              _hover={{ bg: 'blue.400' }}
               aria-label="view art"
-              color="white"
-              colorScheme="blackAlpha"
               borderColor="whiteAlpha.500"
               borderWidth={1}
+              color="white"
+              colorScheme="blackAlpha"
               icon={<FaExternalLinkSquareAlt />}
-              _hover={{ bg: 'blue.400' }}
+              rounded="full"
             />
           </Navigate>
           {/* Card Owner Actions */}
@@ -138,46 +138,46 @@ export const ArtCard: FC<ArtCardProps> = ({
 
         <HStack
           align="center"
-          pos={{ base: 'absolute', lg: 'static' }}
-          bottom={0}
-          w="full"
           bgGradient="linear(to-t, blackAlpha.700, transparent)"
+          bottom={0}
           p={{ base: 2, lg: 0 }}
+          pos={{ base: 'absolute', lg: 'static' }}
           pt={{ base: 12, lg: 0 }}
+          w="full"
         >
           <Stack
-            position={{ base: 'static', lg: 'absolute' }}
-            bottom={'-150%'}
-            w="full"
             _groupHover={{ bottom: 2 }}
-            transition="all 0.2s"
-            fontSize={{ base: 'md', lg: 'sm' }}
+            bottom={'-150%'}
             color="white"
-            spacing={0}
+            fontSize={{ base: 'md', lg: 'sm' }}
             fontWeight={600}
+            position={{ base: 'static', lg: 'absolute' }}
+            spacing={0}
+            transition="all 0.2s"
+            w="full"
           >
             <Text
-              p={2}
-              pb={0}
               display={{ base: 'none', lg: 'block' }}
               noOfLines={noOfLines}
+              p={2}
+              pb={0}
             >
               {art.title}
             </Text>
             <Navigate href={`/club/artist/${artistUsername}`}>
               <HStack
+                _hover={{ bg: 'whiteAlpha.300', borderColor: 'whiteAlpha.500' }}
+                borderColor="transparent"
+                borderWidth={1}
                 m={1}
                 p={1}
                 rounded="lg"
                 w="max-content"
-                borderWidth={1}
-                borderColor="transparent"
-                _hover={{ bg: 'whiteAlpha.300', borderColor: 'whiteAlpha.500' }}
               >
                 <Avatar
                   size="xs"
-                  src={`${process.env['NX_API_URL']}${artistAvatar}`}
                   name={artistName || artistUsername}
+                  src={`${process.env['NX_API_URL']}${artistAvatar}`}
                 />
                 <Text noOfLines={1}>{artistName || artistUsername}</Text>
               </HStack>
