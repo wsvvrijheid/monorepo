@@ -39,21 +39,24 @@ const Template: ComponentStory<typeof ArtApprovalForm> = args => {
   } = args
   const { isOpen, onOpen, onClose } = useDisclosure()
 
-  console.log('args: ', args)
-  console.log('Art: ', ART_MOCKS.data[0])
-  const handleReject = (data: any) => {
-    alert(data)
+  const handleReject = (artId: number, editorId: number, feedback: string) => {
+    alert(feedback)
+    onClose()
   }
   const isEdit = false
-  const handleApprove = (data: any) => {
-    alert(data)
+  const handleApprove = (artId: number, editorId: number, feedback: string) => {
+    console.log('Approve data here', artId, editorId, feedback)
+    alert(feedback)
+    onClose()
   }
   const handleDelete = (data: any) => {
-    alert(data)
+    alert(`${data} is deleted`)
+    onClose()
   }
   const handleSizeClick = () => {
     onOpen()
   }
+
   return (
     <Box>
       <Button
@@ -70,7 +73,6 @@ const Template: ComponentStory<typeof ArtApprovalForm> = args => {
         editorAvatar={editorAvatar}
         editorName={editorName}
         isOpen={isOpen}
-        onOpen={onOpen}
         onApprove={handleApprove}
         onDelete={handleDelete}
         onClose={onClose}
@@ -82,31 +84,12 @@ const Template: ComponentStory<typeof ArtApprovalForm> = args => {
   )
 }
 
-/*
- artId={args.art?.id}
-      artTitle={args.art.title}
-      artDescription={args.art.description}
-      editorId={args.user.id}
-      editorAvatar={args.user.avatar}
-      editorName={args.user.name}
-      isOpen={}
-      onOpen={}
-      onApprove={artId, editorId, feedback}
-      onDelete={artId}
-      onReject={artId, editorId, feedback}
-
-*/
-// onReject: (artId: number, editorId: number, feedback: string) => void
-// onApprove: (artId: number, editorId: number, feedback: string) => void
-// onDelete: (artId: number) => void
-// artId: number
-// artTitle: string
-// artDescription: string
-// editorId: number
-// editorName: string
-// editorAvatar: string
-// isOpen: boolean
-// onOpen: () => void
-
 export const Default = Template.bind({})
 Default.args = {}
+export const longDescription = Template.bind({})
+longDescription.args = {
+  artDescription: `Lorem ipsum odor amet, consectetuer adipiscing elit. Primis eros nunc fringilla id rutrum nibh.
+  Orci convallis pulvinar urna fusce at purus neque nam leo? Suspendisse semper facilisi
+  parturient sit euismod placerat. Orci ante luctus praesent torquent orci commodo aptent blandit.
+  Placerat arcu dui potenti; nullam taciti taciti amet.`,
+}

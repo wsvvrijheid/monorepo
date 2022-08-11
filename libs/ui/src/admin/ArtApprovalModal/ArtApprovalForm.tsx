@@ -53,7 +53,6 @@ export const ArtApprovalForm: FC<ArtApprovalFormTypes> = ({
   artImages,
   editorId,
   isOpen,
-  // onOpen,
   onClose,
   // editorAvatar,
   // editorName,
@@ -62,17 +61,16 @@ export const ArtApprovalForm: FC<ArtApprovalFormTypes> = ({
 }) => {
   const [feedback, setFeedback] = useState('')
 
-  const handleReject = (artId: number, editorId: number) => {
+  const handleReject = (artId: number, editorId: number, feedback: string) => {
     onReject(artId, editorId, feedback)
   }
 
-  const handleApprove = (artId: number, editorId: number) => {
+  const handleApprove = (artId: number, editorId: number, feedback: string) => {
     onApprove(artId, editorId, feedback)
   }
   const handleDelete = (artId: number) => {
     onDelete(artId)
   }
-
   return (
     <Box>
       <Modal onClose={onClose} size={['1088px']} isOpen={isOpen}>
@@ -113,7 +111,6 @@ export const ArtApprovalForm: FC<ArtApprovalFormTypes> = ({
                     maxH={'72px'}
                     overflow="auto"
                   >
-                    {/* TODO scroll should be here when art has long text*/}
                     <Text>{artDescription}</Text>
                   </Flex>
                 </VStack>
@@ -139,6 +136,7 @@ export const ArtApprovalForm: FC<ArtApprovalFormTypes> = ({
                       <Stack w={'full'}>
                         {/* text area*/}
                         <Textarea
+                          isRequired
                           size={['sm', 'md', 'lg', 'xl']}
                           onChange={e => setFeedback(e.target.value)}
                           placeholder={'type your comment here'}
@@ -153,24 +151,24 @@ export const ArtApprovalForm: FC<ArtApprovalFormTypes> = ({
                           spacing={4}
                         >
                           <Button
-                            onClick={() => handleReject(artId, editorId)}
+                            onClick={() =>
+                              handleReject(artId, editorId, feedback)
+                            }
                             bg={'red.500'}
                             colorScheme={'white'}
                             w="full"
-                            h={10}
-                            pr={2}
                             _hover={{ bg: 'red.400' }}
                             leftIcon={<HiOutlineX />}
                           >
                             Reject
                           </Button>
                           <Button
-                            onClick={() => handleApprove(artId, editorId)}
+                            onClick={() =>
+                              handleApprove(artId, editorId, feedback)
+                            }
                             bg={'green.500'}
                             colorScheme={'white'}
                             w="full"
-                            h={10}
-                            pr={2}
                             _hover={{ bg: 'green.400' }}
                             leftIcon={<HiOutlineCheck />}
                           >
@@ -182,38 +180,30 @@ export const ArtApprovalForm: FC<ArtApprovalFormTypes> = ({
                               rightIcon={<HiDotsVertical />}
                               bg={'blue.500'}
                               color={'white'}
-                              w={10}
-                              h={10}
                               _hover={{ bg: 'blue.400' }}
                             ></MenuButton>
                             <MenuList minWidth={32} minH={20}>
-                              <Stack
-                                spacing={2}
-                                justifyContent={'flex-start'}
-                                alignItems={'flex-start'}
+                              <MenuItem
+                                as={Button}
+                                onClick={() => isEdit}
+                                variant="ghost"
+                                colorScheme="red"
+                                icon={<HiPencil />}
+                                _hover={{ bg: 'blue.400', color: 'white' }}
                               >
-                                <MenuItem
-                                  as={Button}
-                                  onClick={() => isEdit}
-                                  variant="ghost"
-                                  colorScheme="red"
-                                  icon={<HiPencil />}
-                                  _hover={{ bg: 'blue.400', color: 'white' }}
-                                  ml={4}
-                                  w={24}
-                                >
-                                  Edit
-                                </MenuItem>
-                                <MenuItem
-                                  as={Button}
-                                  onClick={() => handleDelete(artId)}
-                                  variant="ghost"
-                                  colorScheme="red"
-                                  icon={<HiOutlineX />}
-                                >
-                                  Delete
-                                </MenuItem>
-                              </Stack>
+                                Edit{' '}
+                              </MenuItem>
+
+                              <MenuItem
+                                as={Button}
+                                onClick={() => handleDelete(artId)}
+                                variant="ghost"
+                                colorScheme="red"
+                                icon={<HiOutlineX />}
+                                _hover={{ bg: 'red', color: 'white' }}
+                              >
+                                Delete
+                              </MenuItem>
                             </MenuList>
                           </Menu>
                         </ButtonGroup>
@@ -224,9 +214,6 @@ export const ArtApprovalForm: FC<ArtApprovalFormTypes> = ({
               </VStack>
             </Stack>
           </ModalBody>
-          {/* <ModalFooter>
-            <Button onClick={onClose}>Close</Button>
-          </ModalFooter> */}
         </ModalContent>
       </Modal>
     </Box>

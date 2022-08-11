@@ -11,7 +11,6 @@ export type ArtApprovalFormTypes = {
   editorName: string
   editorAvatar: string
   isOpen: boolean
-  onOpen: () => void
   artImages: []
   onClose: () => void
   artArtistName: string
