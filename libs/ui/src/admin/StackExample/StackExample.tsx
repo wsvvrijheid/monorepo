@@ -1,12 +1,4 @@
-import {
-  Box,
-  Flex,
-  HStack,
-  Image,
-  Stack,
-  StackDivider,
-  VStack,
-} from '@chakra-ui/react'
+import { Box, Flex, Image, Stack } from '@chakra-ui/react'
 
 export const Onboarding = () => {
   const randomPic = 'https://picsum.photos/400/300'
