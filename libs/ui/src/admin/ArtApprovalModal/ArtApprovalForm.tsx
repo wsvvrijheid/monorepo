@@ -137,7 +137,6 @@ export const ArtApprovalForm: FC<ArtApprovalFormTypes> = ({
                         {/* text area*/}
                         <Textarea
                           isRequired
-                          size={['sm', 'md', 'lg', 'xl']}
                           onChange={e => setFeedback(e.target.value)}
                           placeholder={'type your comment here'}
                         ></Textarea>

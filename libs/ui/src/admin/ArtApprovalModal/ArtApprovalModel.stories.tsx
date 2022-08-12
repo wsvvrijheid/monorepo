@@ -37,7 +37,7 @@ const Template: ComponentStory<typeof ArtApprovalForm> = args => {
     editorAvatar,
     editorName,
     artArtistName,
-    artAvatar
+    artAvatar,
   } = args
   const { isOpen, onOpen, onClose } = useDisclosure()
 
