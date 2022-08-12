@@ -22,6 +22,8 @@ import {
   Image,
   Center,
   Flex,
+  SimpleGrid,
+  IconButton,
 } from '@chakra-ui/react'
 import { Splide, SplideSlide } from '@splidejs/react-splide'
 import {
@@ -50,25 +52,26 @@ export const ArtApprovalForm: FC<ArtApprovalFormTypes> = ({
   artId,
   artDescription,
   artTitle,
+  artAvatar,
   artImages,
   editorId,
   isOpen,
   onClose,
-  // editorAvatar,
-  // editorName,
+  editorAvatar,
+  editorName,
   artArtistName,
   isEdit,
 }) => {
   const [feedback, setFeedback] = useState('')
 
-  const handleReject = (artId: number, editorId: number, feedback: string) => {
+  const handleReject = () => {
     onReject(artId, editorId, feedback)
   }
 
-  const handleApprove = (artId: number, editorId: number, feedback: string) => {
+  const handleApprove = () => {
     onApprove(artId, editorId, feedback)
   }
-  const handleDelete = (artId: number) => {
+  const handleDelete = () => {
     onDelete(artId)
   }
   return (
@@ -78,8 +81,9 @@ export const ArtApprovalForm: FC<ArtApprovalFormTypes> = ({
         <ModalContent>
           <ModalCloseButton />
           <ModalBody>
-            <Stack direction={['column', 'row']} spacing={4} m={4}>
-              <Stack w={'full'}>
+            <SimpleGrid columns={{ base: 1, lg: 2 }} spacing={4}>
+              <Stack>
+                {/*TODO Image should has zoom  */}
                 {artImages && artImages.length > 1 ? (
                   <Splide>
                     {artImages?.map(image => (
@@ -92,8 +96,8 @@ export const ArtApprovalForm: FC<ArtApprovalFormTypes> = ({
                   <ArtImage image={artImages?.[0]} alt={artTitle} />
                 )}
               </Stack>
-              <VStack spacing={4} align={'start'} justify="space-between">
-                <VStack align={'start'} justify="space-between">
+              <Stack spacing={4} align={'start'} justify="space-between">
+                <Stack align={'start'} justify="space-between">
                   <Flex align="start" justify="start" w="full" h={8}>
                     <Text color={'blue.400'} fontWeight={'bold'}>
                       {artTitle}
@@ -101,19 +105,19 @@ export const ArtApprovalForm: FC<ArtApprovalFormTypes> = ({
                   </Flex>
                   <HStack spacing={3} w={'full'}>
                     {/* TODO art owner avatar should be here*/}
-                    <Avatar size="sm" src="https://bit.ly/dan-abramov" />
+                    <Avatar size="sm" src={artAvatar} name={artArtistName} />
                     <Text fontWeight={'bold'}>{artArtistName}</Text>
                   </HStack>
                   <Flex
                     align="start"
                     justify={'start'}
                     w="full"
-                    maxH={'72px'}
+                    maxH={'150px'}
                     overflow="auto"
                   >
                     <Text>{artDescription}</Text>
                   </Flex>
-                </VStack>
+                </Stack>
 
                 <VStack align={'start'} w={'full'}>
                   <Flex align="start" justify={'start'} w="full">
@@ -125,11 +129,7 @@ export const ArtApprovalForm: FC<ArtApprovalFormTypes> = ({
                   <HStack w="full">
                     {/* avatar*/}
                     <Stack align={'start'} flex={1} textAlign="center">
-                      <Avatar
-                        size="sm"
-                        src="https://bit.ly/dan-abramov"
-                        // src={editorAvatar}
-                      />
+                      <Avatar size="sm" src={editorAvatar} name={editorName} />
                     </Stack>
                     <VStack w="full">
                       {/* text area, button group*/}
@@ -151,36 +151,27 @@ export const ArtApprovalForm: FC<ArtApprovalFormTypes> = ({
                           spacing={4}
                         >
                           <Button
-                            onClick={() =>
-                              handleReject(artId, editorId, feedback)
-                            }
-                            bg={'red.500'}
-                            colorScheme={'white'}
+                            onClick={handleReject}
+                            colorScheme="red"
                             w="full"
-                            _hover={{ bg: 'red.400' }}
                             leftIcon={<HiOutlineX />}
                           >
                             Reject
                           </Button>
                           <Button
-                            onClick={() =>
-                              handleApprove(artId, editorId, feedback)
-                            }
-                            bg={'green.500'}
-                            colorScheme={'white'}
+                            onClick={handleApprove}
+                            colorScheme="green"
                             w="full"
-                            _hover={{ bg: 'green.400' }}
                             leftIcon={<HiOutlineCheck />}
                           >
                             Approve
                           </Button>
                           <Menu>
                             <MenuButton
-                              as={Button}
-                              rightIcon={<HiDotsVertical />}
-                              bg={'blue.500'}
-                              color={'white'}
-                              _hover={{ bg: 'blue.400' }}
+                              aria-label="Open art menu"
+                              as={IconButton}
+                              icon={<HiDotsVertical />}
+                              colorScheme="primary"
                             ></MenuButton>
                             <MenuList minWidth={32} minH={20}>
                               <MenuItem
@@ -196,7 +187,7 @@ export const ArtApprovalForm: FC<ArtApprovalFormTypes> = ({
 
                               <MenuItem
                                 as={Button}
-                                onClick={() => handleDelete(artId)}
+                                onClick={handleDelete}
                                 variant="ghost"
                                 colorScheme="red"
                                 icon={<HiOutlineX />}
@@ -211,8 +202,8 @@ export const ArtApprovalForm: FC<ArtApprovalFormTypes> = ({
                     </VStack>
                   </HStack>
                 </VStack>
-              </VStack>
-            </Stack>
+              </Stack>
+            </SimpleGrid>
           </ModalBody>
         </ModalContent>
       </Modal>

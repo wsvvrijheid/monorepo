@@ -16,6 +16,7 @@ export type ArtApprovalFormTypes = {
   artArtistName: string
   isEdit: boolean
   feedback: string
+  artAvatar: string
 }
 export type ArtImageProps = {
   image: UploadFile

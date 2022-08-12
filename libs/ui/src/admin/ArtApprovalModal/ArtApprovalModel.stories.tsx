@@ -16,6 +16,7 @@ export default {
     editorAvatar: USER_MOCKS[0].avatar,
     editorName: USER_MOCKS[0].username,
     artArtistName: ART_MOCKS.data[0].artist?.name,
+    artAvatar: 'https://bit.ly/sage-adebayo',
   },
   decorators: [
     Story => (
@@ -36,6 +37,7 @@ const Template: ComponentStory<typeof ArtApprovalForm> = args => {
     editorAvatar,
     editorName,
     artArtistName,
+    artAvatar
   } = args
   const { isOpen, onOpen, onClose } = useDisclosure()
 
@@ -79,6 +81,7 @@ const Template: ComponentStory<typeof ArtApprovalForm> = args => {
         onReject={handleReject}
         artArtistName={artArtistName}
         isEdit={isEdit}
+        artAvatar={artAvatar}
       />
     </Box>
   )
