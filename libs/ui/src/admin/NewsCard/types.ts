@@ -1,15 +1,17 @@
+import { ReactElement } from 'react'
+
+import { ButtonProps } from '@chakra-ui/react'
 import { News } from '@wsvvrijheid/types'
-import { IconType } from 'react-icons'
 
 export type NewsCardProps = {
   isFeatured?: boolean
-  isVertical?: boolean
   news: News
+  variant?: 'horizontal' | 'vertical'
 }
 
 export type ActionButtonProps = {
   onClick: () => void
   title: string
-  icon: IconType
+  icon: ReactElement
   isVertical?: boolean
-}
+} & ButtonProps

@@ -1,6 +1,6 @@
 import { FC } from 'react'
 
-import { HStack, Icon, Text } from '@chakra-ui/react'
+import { Button, Text } from '@chakra-ui/react'
 
 import { ActionButtonProps } from './types'
 
@@ -11,15 +11,20 @@ const ActionButton: FC<ActionButtonProps> = ({
   onClick,
 }) => {
   return (
-    <HStack
-      as="button"
+    <Button
+      aria-label="View"
       onClick={onClick}
-      fontSize={isVertical ? '20px' : '12px'}
-      color={'blue.500'}
-    >
-      <Icon as={icon as any} size={isVertical ? '20px' : '12px'} />
-      {!isVertical && <Text fontSize={'12px'}>{title}</Text>}
-    </HStack>
+      leftIcon={icon}
+      {...(isVertical
+        ? { iconSpacing: 0 }
+        : {
+            children: (
+              <Text fontWeight={400} fontSize={'12px'}>
+                {title}
+              </Text>
+            ),
+          })}
+    />
   )
 }
 

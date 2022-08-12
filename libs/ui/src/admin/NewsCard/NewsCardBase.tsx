@@ -1,6 +1,14 @@
 import React, { FC } from 'react'
 
-import { HStack, Image, Stack, Text, VStack } from '@chakra-ui/react'
+import {
+  ButtonGroup,
+  HStack,
+  Image,
+  Stack,
+  Text,
+  useBreakpointValue,
+  VStack,
+} from '@chakra-ui/react'
 import { AiOutlineEye, AiOutlineLike, AiOutlineShareAlt } from 'react-icons/ai'
 import { BsBookmarkHeart } from 'react-icons/bs'
 
@@ -9,9 +17,13 @@ import { NewsCardProps } from './types'
 
 export const NewsCardBase: FC<NewsCardProps> = ({
   isFeatured,
-  isVertical,
   news,
+  variant = 'horizontal',
 }) => {
+  const isVertical = useBreakpointValue({
+    base: true, // Always vertical in smaller viewports
+    lg: variant === 'vertical' ? true : false,
+  })
   return (
     <Stack
       w={isVertical ? '300px' : '1000px'}
@@ -20,6 +32,7 @@ export const NewsCardBase: FC<NewsCardProps> = ({
       rounded="md"
       align="flex-start"
       direction={isVertical ? 'column-reverse' : 'row'}
+      overflow="hidden"
     >
       <Stack spacing={4} padding={8} flex={1}>
         <VStack>
@@ -39,7 +52,7 @@ export const NewsCardBase: FC<NewsCardProps> = ({
         </VStack>
         <Stack
           direction={isVertical ? 'column' : 'row'}
-          align={!isVertical ? 'flex-start' : 'center'}
+          align={'center'}
           spacing={4}
         >
           <HStack
@@ -52,44 +65,47 @@ export const NewsCardBase: FC<NewsCardProps> = ({
             <Text>-</Text>
             <Text> {news.owner} </Text>
           </HStack>
-          <HStack spacing={4} fontSize="12px" color={'blue.500'}>
+
+          <ButtonGroup
+            border={0}
+            variant="ghost"
+            colorScheme="primary"
+            fontSize="12px"
+            size={isVertical ? 'md' : 'sm'}
+          >
             <ActionButton
               onClick={() => alert(news.url)}
+              icon={<AiOutlineEye />}
               title="View"
               isVertical={isVertical}
-              icon={AiOutlineEye}
             />
             <ActionButton
               onClick={() => alert('Recommend')}
+              icon={<AiOutlineLike />}
               title="Recommend"
               isVertical={isVertical}
-              icon={AiOutlineLike}
             />
             <ActionButton
               onClick={() => alert('Share')}
+              icon={<AiOutlineShareAlt />}
               title="Share"
               isVertical={isVertical}
-              icon={AiOutlineShareAlt}
             />
             <ActionButton
               onClick={() => alert('Read Later')}
+              icon={<BsBookmarkHeart />}
               title="Read Later"
               isVertical={isVertical}
-              icon={BsBookmarkHeart}
             />
-          </HStack>
+          </ButtonGroup>
         </Stack>
       </Stack>
 
       <Image
-        width={isVertical ? '100%' : '300px'}
-        height={isVertical ? '150px' : '100%'}
+        w={isVertical ? 'full' : '300px'}
+        h={isVertical ? '150px' : 'auto'}
         objectFit="cover"
         objectPosition="center"
-        marginLeft={isVertical ? '0px' : 'auto'}
-        borderTopRightRadius={'md'}
-        borderTopLeftRadius={isVertical ? 'md' : '0'}
-        borderBottomRightRadius={isVertical ? '0' : 'md'}
         src={news.image}
         alt={news.title}
       />
