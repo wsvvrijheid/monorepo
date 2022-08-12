@@ -22,3 +22,13 @@ export type ArtImageProps = {
   image: UploadFile
   alt: string
 }
+export type ArtFeedbackFormTypes = {
+  onReject: (artId: number, editorId: number, feedback: string) => void
+  onApprove: (artId: number, editorId: number, feedback: string) => void
+  onDelete: (artId: number) => void
+  artId: number
+  editorId: number
+  editorAvatar: string
+  editorName: string
+  isEdit: boolean
+}
