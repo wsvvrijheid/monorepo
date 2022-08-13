@@ -12,7 +12,6 @@ import {
   Stack,
   Box,
   Image,
-  Center,
   Flex,
   SimpleGrid,
   Button,
@@ -65,15 +64,16 @@ export const ArtApprovalForm: FC<ArtApprovalFormTypes> = ({
                 {/*TODO Image should has zoom  */}
                 {artImages && artImages.length > 1 ? (
                   <Splide>
-                    {artImages?.map(image => (
-                      <Center as={SplideSlide} key={image?.id}>
+                    {artImages?.map((image, index) => (
+                      <SplideSlide key={index}>
                         <ArtImage image={image} alt={artTitle} />
-                      </Center>
+                      </SplideSlide>
                     ))}
                   </Splide>
                 ) : (
                   <ArtImage image={artImages?.[0]} alt={artTitle} />
                 )}
+                {/* ..... ==============================*/}
               </Stack>
               <Stack spacing={4} align={'start'} justify="space-between">
                 <Stack align={'start'} justify="space-between">
