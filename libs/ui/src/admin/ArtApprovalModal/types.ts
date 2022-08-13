@@ -11,12 +11,14 @@ export type ArtApprovalFormTypes = {
   editorName: string
   editorAvatar: string
   isOpen: boolean
-  artImages: []
+  artImages: UploadFile[]
   onClose: () => void
-  artArtistName: string
-  isEdit: boolean
+  artistName: string
   feedback: string
-  artAvatar: string
+  artistAvatar: string
+  onSave: (artDescription: string) => void
+  setIsEditing: (data: boolean) => void
+  isEditing: boolean
 }
 export type ArtImageProps = {
   image: UploadFile
@@ -30,5 +32,6 @@ export type ArtFeedbackFormTypes = {
   editorId: number
   editorAvatar: string
   editorName: string
-  isEdit: boolean
+  artDescription: string
+  setIsEditing: (data: boolean) => void
 }

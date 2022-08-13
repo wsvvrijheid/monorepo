@@ -1,4 +1,4 @@
-import { FC, memo } from 'react'
+import { FC, memo, useState } from 'react'
 
 import {
   Avatar,
@@ -15,6 +15,8 @@ import {
   Center,
   Flex,
   SimpleGrid,
+  Button,
+  Textarea,
 } from '@chakra-ui/react'
 import { Splide, SplideSlide } from '@splidejs/react-splide'
 
@@ -38,19 +40,22 @@ export const ArtApprovalForm: FC<ArtApprovalFormTypes> = ({
   artId,
   artDescription,
   artTitle,
-  artAvatar,
+  artistAvatar,
   artImages,
   editorId,
   isOpen,
   onClose,
   editorAvatar,
   editorName,
-  artArtistName,
-  isEdit,
+  artistName,
+  onSave,
+  setIsEditing,
+  isEditing,
 }) => {
+  const [description, setDescription] = useState(artDescription)
   return (
     <Box>
-      <Modal onClose={onClose} size={['1088px']} isOpen={isOpen}>
+      <Modal onClose={onClose} size="6xl" isOpen={isOpen}>
         <ModalOverlay />
         <ModalContent>
           <ModalCloseButton />
@@ -79,8 +84,8 @@ export const ArtApprovalForm: FC<ArtApprovalFormTypes> = ({
                   </Flex>
                   <HStack spacing={3} w={'full'}>
                     {/* TODO art owner avatar should be here*/}
-                    <Avatar size="sm" src={artAvatar} name={artArtistName} />
-                    <Text fontWeight={'bold'}>{artArtistName}</Text>
+                    <Avatar size="sm" src={artistAvatar} name={artistName} />
+                    <Text fontWeight={'bold'}>{artistName}</Text>
                   </HStack>
                   <Flex
                     align="start"
@@ -89,7 +94,23 @@ export const ArtApprovalForm: FC<ArtApprovalFormTypes> = ({
                     maxH={'150px'}
                     overflow="auto"
                   >
-                    <Text>{artDescription}</Text>
+                    {isEditing ? (
+                      // // Textarea and save on edit mode
+                      <Stack w="full">
+                        <Textarea
+                          onChange={e => setDescription(e.target.value)}
+                          value={description}
+                        />
+                        <Button
+                          colorScheme="green"
+                          onClick={() => onSave(description)}
+                        >
+                          Save
+                        </Button>
+                      </Stack>
+                    ) : (
+                      <Text>{description}</Text>
+                    )}
                   </Flex>
                 </Stack>
                 {/*feedback ================================= */}
@@ -99,9 +120,10 @@ export const ArtApprovalForm: FC<ArtApprovalFormTypes> = ({
                   onDelete={onDelete}
                   artId={artId}
                   editorId={editorId}
+                  artDescription={artDescription}
                   editorAvatar={editorAvatar}
                   editorName={editorName}
-                  isEdit={isEdit}
+                  setIsEditing={setIsEditing}
                 />
               </Stack>
             </SimpleGrid>

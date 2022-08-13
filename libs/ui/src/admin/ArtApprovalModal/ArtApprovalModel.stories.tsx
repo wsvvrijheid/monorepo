@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 import { Container, useDisclosure, Button, Box } from '@chakra-ui/react'
 import { ComponentStory, ComponentMeta } from '@storybook/react'
 
@@ -11,12 +13,11 @@ export default {
     artDescription: ART_MOCKS.data[0].description,
     artTitle: ART_MOCKS.data[0].title,
     artImages: ART_MOCKS.data[0].images,
-    artFeedbacks: ART_MOCKS.data[0].feedbacks,
     editorId: USER_MOCKS[0].id,
     editorAvatar: USER_MOCKS[0].avatar,
     editorName: USER_MOCKS[0].username,
-    artArtistName: ART_MOCKS.data[0].artist?.name,
-    artAvatar: 'https://bit.ly/sage-adebayo',
+    artistName: ART_MOCKS.data[0].artist?.name,
+    artistAvatar: 'https://bit.ly/sage-adebayo',
   },
   decorators: [
     Story => (
@@ -36,16 +37,15 @@ const Template: ComponentStory<typeof ArtApprovalForm> = args => {
     editorId,
     editorAvatar,
     editorName,
-    artArtistName,
-    artAvatar,
+    artistName,
+    artistAvatar,
   } = args
   const { isOpen, onOpen, onClose } = useDisclosure()
-
+  const [isEditing, setIsEditing] = useState(false)
   const handleReject = (artId: number, editorId: number, feedback: string) => {
     alert(feedback)
     onClose()
   }
-  const isEdit = false
   const handleApprove = (artId: number, editorId: number, feedback: string) => {
     console.log('Approve data here', artId, editorId, feedback)
     alert(feedback)
@@ -58,7 +58,11 @@ const Template: ComponentStory<typeof ArtApprovalForm> = args => {
   const handleSizeClick = () => {
     onOpen()
   }
-
+  const onSave = (data: string) => {
+    alert(`${data} saved`)
+    setIsEditing(false)
+  }
+  console.log('Images: ', artImages)
   return (
     <Box>
       <Button
@@ -79,9 +83,11 @@ const Template: ComponentStory<typeof ArtApprovalForm> = args => {
         onDelete={handleDelete}
         onClose={onClose}
         onReject={handleReject}
-        artArtistName={artArtistName}
-        isEdit={isEdit}
-        artAvatar={artAvatar}
+        artistName={artistName}
+        artistAvatar={artistAvatar}
+        onSave={onSave}
+        isEditing={isEditing}
+        setIsEditing={setIsEditing}
       />
     </Box>
   )
@@ -89,10 +95,301 @@ const Template: ComponentStory<typeof ArtApprovalForm> = args => {
 
 export const Default = Template.bind({})
 Default.args = {}
-export const longDescription = Template.bind({})
-longDescription.args = {
+export const LongDescription = Template.bind({})
+LongDescription.args = {
   artDescription: `Lorem ipsum odor amet, consectetuer adipiscing elit. Primis eros nunc fringilla id rutrum nibh.
   Orci convallis pulvinar urna fusce at purus neque nam leo? Suspendisse semper facilisi
   parturient sit euismod placerat. Orci ante luctus praesent torquent orci commodo aptent blandit.
   Placerat arcu dui potenti; nullam taciti taciti amet.`,
+}
+export const VerticalArts = Template.bind({})
+VerticalArts.args = {
+  // artImages: ART_MOCKS?.data[0]?.images.map((image) =>{
+  //   ...ART_MOCKS?.data[0]?.images,image.url:'https://i.picsum.photos/id/308/540/960.jpg?hmac=F8tIzE-s5FZnE_45--3auP0AUHWbIfE9OaLfcon_7vM')}
+  artImages: [
+    {
+      id: 65,
+      name: 'lotus.jpg',
+      alternativeText: null,
+      caption: null,
+      width: 640,
+      height: 640,
+      formats: {
+        small: {
+          ext: '.jpg',
+          url: '/https://i.picsum.photos/id/308/540/960.jpg?hmac=F8tIzE-s5FZnE_45--3auP0AUHWbIfE9OaLfcon_7vM',
+          hash: 'small_lotus_a1a2e67523',
+          mime: 'image/jpeg',
+          name: 'small_lotus.jpg',
+          path: null,
+          size: 27.52,
+          width: 500,
+          height: 500,
+        },
+        thumbnail: {
+          ext: '.jpg',
+          url: '/https://i.picsum.photos/id/308/540/960.jpg?hmac=F8tIzE-s5FZnE_45--3auP0AUHWbIfE9OaLfcon_7vM',
+          hash: 'thumbnail_lotus_a1a2e67523',
+          mime: 'image/jpeg',
+          name: 'thumbnail_lotus.jpg',
+          path: null,
+          size: 4.66,
+          width: 156,
+          height: 156,
+        },
+      },
+      hash: 'lotus_a1a2e67523',
+      ext: '.jpg',
+      mime: 'image/jpeg',
+      size: 37.35,
+      url: '/https://i.picsum.photos/id/308/540/960.jpg?hmac=F8tIzE-s5FZnE_45--3auP0AUHWbIfE9OaLfcon_7vM',
+      previewUrl: null,
+      provider: 'local',
+      provider_metadata: null,
+      createdAt: '2022-05-27T06:51:08.965Z',
+      updatedAt: '2022-05-27T06:51:08.965Z',
+    },
+  ],
+}
+export const HorizontalArts = Template.bind({})
+HorizontalArts.args = {
+  artImages: [
+    {
+      id: 65,
+      name: 'lotus.jpg',
+      alternativeText: null,
+      caption: null,
+      width: 640,
+      height: 640,
+      formats: {
+        small: {
+          ext: '.jpg',
+          url: '/https://i.picsum.photos/id/912/960/540.jpg?hmac=htLsujol_6f6GlqCPI6YFaPDXVwsqtHNDGktJgbT9Ts',
+          hash: 'small_lotus_a1a2e67523',
+          mime: 'image/jpeg',
+          name: 'small_lotus.jpg',
+          path: null,
+          size: 27.52,
+          width: 500,
+          height: 500,
+        },
+        thumbnail: {
+          ext: '.jpg',
+          url: '/https://i.picsum.photos/id/912/960/540.jpg?hmac=htLsujol_6f6GlqCPI6YFaPDXVwsqtHNDGktJgbT9Ts',
+          hash: 'thumbnail_lotus_a1a2e67523',
+          mime: 'image/jpeg',
+          name: 'thumbnail_lotus.jpg',
+          path: null,
+          size: 4.66,
+          width: 156,
+          height: 156,
+        },
+      },
+      hash: 'lotus_a1a2e67523',
+      ext: '.jpg',
+      mime: 'image/jpeg',
+      size: 37.35,
+      url: '/https://i.picsum.photos/id/912/960/540.jpg?hmac=htLsujol_6f6GlqCPI6YFaPDXVwsqtHNDGktJgbT9Ts',
+      previewUrl: null,
+      provider: 'local',
+      provider_metadata: null,
+      createdAt: '2022-05-27T06:51:08.965Z',
+      updatedAt: '2022-05-27T06:51:08.965Z',
+    },
+  ],
+}
+export const MultiableArts = Template.bind({})
+MultiableArts.args = {
+  artImages: [
+    {
+      id: 65,
+      name: 'lotus.jpg',
+      alternativeText: null,
+      caption: null,
+      width: 640,
+      height: 640,
+      formats: {
+        small: {
+          ext: '.jpg',
+          url: '/https://i.picsum.photos/id/912/960/540.jpg?hmac=htLsujol_6f6GlqCPI6YFaPDXVwsqtHNDGktJgbT9Ts',
+          hash: 'small_lotus_a1a2e67523',
+          mime: 'image/jpeg',
+          name: 'small_lotus.jpg',
+          path: null,
+          size: 27.52,
+          width: 500,
+          height: 500,
+        },
+        thumbnail: {
+          ext: '.jpg',
+          url: '/https://i.picsum.photos/id/912/960/540.jpg?hmac=htLsujol_6f6GlqCPI6YFaPDXVwsqtHNDGktJgbT9Ts',
+          hash: 'thumbnail_lotus_a1a2e67523',
+          mime: 'image/jpeg',
+          name: 'thumbnail_lotus.jpg',
+          path: null,
+          size: 4.66,
+          width: 156,
+          height: 156,
+        },
+      },
+      hash: 'lotus_a1a2e67523',
+      ext: '.jpg',
+      mime: 'image/jpeg',
+      size: 37.35,
+      url: '/https://i.picsum.photos/id/912/960/540.jpg?hmac=htLsujol_6f6GlqCPI6YFaPDXVwsqtHNDGktJgbT9Ts',
+      previewUrl: null,
+      provider: 'local',
+      provider_metadata: null,
+      createdAt: '2022-05-27T06:51:08.965Z',
+      updatedAt: '2022-05-27T06:51:08.965Z',
+    },
+    {
+      id: 65,
+      name: 'lotus.jpg',
+      alternativeText: null,
+      caption: null,
+      width: 640,
+      height: 640,
+      formats: {
+        small: {
+          ext: '.jpg',
+          url: '/https://i.picsum.photos/id/912/960/540.jpg?hmac=htLsujol_6f6GlqCPI6YFaPDXVwsqtHNDGktJgbT9Ts',
+          hash: 'small_lotus_a1a2e67523',
+          mime: 'image/jpeg',
+          name: 'small_lotus.jpg',
+          path: null,
+          size: 27.52,
+          width: 500,
+          height: 500,
+        },
+        thumbnail: {
+          ext: '.jpg',
+          url: '/https://i.picsum.photos/id/912/960/540.jpg?hmac=htLsujol_6f6GlqCPI6YFaPDXVwsqtHNDGktJgbT9Ts',
+          hash: 'thumbnail_lotus_a1a2e67523',
+          mime: 'image/jpeg',
+          name: 'thumbnail_lotus.jpg',
+          path: null,
+          size: 4.66,
+          width: 156,
+          height: 156,
+        },
+      },
+      hash: 'lotus_a1a2e67523',
+      ext: '.jpg',
+      mime: 'image/jpeg',
+      size: 37.35,
+      url: '/https://i.picsum.photos/id/912/960/540.jpg?hmac=htLsujol_6f6GlqCPI6YFaPDXVwsqtHNDGktJgbT9Ts',
+      previewUrl: null,
+      provider: 'local',
+      provider_metadata: null,
+      createdAt: '2022-05-27T06:51:08.965Z',
+      updatedAt: '2022-05-27T06:51:08.965Z',
+    },
+    {
+      id: 65,
+      name: 'lotus.jpg',
+      alternativeText: null,
+      caption: null,
+      width: 640,
+      height: 640,
+      formats: {
+        small: {
+          ext: '.jpg',
+          url: '/https://i.picsum.photos/id/912/960/540.jpg?hmac=htLsujol_6f6GlqCPI6YFaPDXVwsqtHNDGktJgbT9Ts',
+          hash: 'small_lotus_a1a2e67523',
+          mime: 'image/jpeg',
+          name: 'small_lotus.jpg',
+          path: null,
+          size: 27.52,
+          width: 500,
+          height: 500,
+        },
+        thumbnail: {
+          ext: '.jpg',
+          url: '/https://i.picsum.photos/id/912/960/540.jpg?hmac=htLsujol_6f6GlqCPI6YFaPDXVwsqtHNDGktJgbT9Ts',
+          hash: 'thumbnail_lotus_a1a2e67523',
+          mime: 'image/jpeg',
+          name: 'thumbnail_lotus.jpg',
+          path: null,
+          size: 4.66,
+          width: 156,
+          height: 156,
+        },
+      },
+      hash: 'lotus_a1a2e67523',
+      ext: '.jpg',
+      mime: 'image/jpeg',
+      size: 37.35,
+      url: '/https://i.picsum.photos/id/912/960/540.jpg?hmac=htLsujol_6f6GlqCPI6YFaPDXVwsqtHNDGktJgbT9Ts',
+      previewUrl: null,
+      provider: 'local',
+      provider_metadata: null,
+      createdAt: '2022-05-27T06:51:08.965Z',
+      updatedAt: '2022-05-27T06:51:08.965Z',
+    },
+    {
+      id: 71,
+      name: 'IMG20220514211607.jpg',
+      alternativeText: null,
+      caption: null,
+      width: 3000,
+      height: 4000,
+      formats: {
+        large: {
+          ext: '.jpg',
+          url: '/uploads/large_IMG_20220514211607_3fcffa32ff.jpg',
+          hash: 'large_IMG_20220514211607_3fcffa32ff',
+          mime: 'image/jpeg',
+          name: 'large_IMG20220514211607.jpg',
+          path: null,
+          size: 40.67,
+          width: 750,
+          height: 1000,
+        },
+        small: {
+          ext: '.jpg',
+          url: '/uploads/small_IMG_20220514211607_3fcffa32ff.jpg',
+          hash: 'small_IMG_20220514211607_3fcffa32ff',
+          mime: 'image/jpeg',
+          name: 'small_IMG20220514211607.jpg',
+          path: null,
+          size: 9.19,
+          width: 375,
+          height: 500,
+        },
+        medium: {
+          ext: '.jpg',
+          url: '/uploads/medium_IMG_20220514211607_3fcffa32ff.jpg',
+          hash: 'medium_IMG_20220514211607_3fcffa32ff',
+          mime: 'image/jpeg',
+          name: 'medium_IMG20220514211607.jpg',
+          path: null,
+          size: 20.45,
+          width: 563,
+          height: 750,
+        },
+        thumbnail: {
+          ext: '.jpg',
+          url: '/uploads/thumbnail_IMG_20220514211607_3fcffa32ff.jpg',
+          hash: 'thumbnail_IMG_20220514211607_3fcffa32ff',
+          mime: 'image/jpeg',
+          name: 'thumbnail_IMG20220514211607.jpg',
+          path: null,
+          size: 1.56,
+          width: 117,
+          height: 156,
+        },
+      },
+      hash: 'IMG_20220514211607_3fcffa32ff',
+      ext: '.jpg',
+      mime: 'image/jpeg',
+      size: 1121.45,
+      url: '/uploads/IMG_20220514211607_3fcffa32ff.jpg',
+      previewUrl: null,
+      provider: 'local',
+      provider_metadata: null,
+      createdAt: '2022-05-28T21:08:50.179Z',
+      updatedAt: '2022-05-28T21:08:50.179Z',
+    },
+  ],
 }

@@ -33,7 +33,7 @@ export const ArtFeedbackForm: FC<ArtFeedbackFormTypes> = ({
   editorId,
   editorAvatar,
   editorName,
-  isEdit,
+  setIsEditing,
 }) => {
   const [feedback, setFeedback] = useState('')
 
@@ -104,22 +104,19 @@ export const ArtFeedbackForm: FC<ArtFeedbackFormTypes> = ({
                 <MenuList minWidth={32} minH={20}>
                   <MenuItem
                     as={Button}
-                    onClick={() => isEdit}
+                    onClick={() => setIsEditing(true)}
                     variant="ghost"
-                    colorScheme="red"
+                    colorScheme="primary"
                     icon={<HiPencil />}
-                    _hover={{ bg: 'blue.400', color: 'white' }}
                   >
                     Edit{' '}
                   </MenuItem>
-
                   <MenuItem
                     as={Button}
                     onClick={handleDelete}
                     variant="ghost"
                     colorScheme="red"
                     icon={<HiOutlineX />}
-                    _hover={{ bg: 'red', color: 'white' }}
                   >
                     Delete
                   </MenuItem>
