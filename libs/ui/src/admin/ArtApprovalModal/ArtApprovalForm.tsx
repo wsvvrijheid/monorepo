@@ -1,6 +1,5 @@
 import { FC, memo, useState } from 'react'
 
-import '@splidejs/splide/dist/css/themes/splide-default.min.css'
 import {
   Avatar,
   HStack,
