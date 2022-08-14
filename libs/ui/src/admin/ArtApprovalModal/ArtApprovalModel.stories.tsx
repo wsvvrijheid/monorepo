@@ -5,6 +5,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react'
 
 import { ART_MOCKS, USER_MOCKS } from '../../mocks/strapi'
 import { ArtApprovalForm } from './ArtApprovalForm'
+
 export default {
   component: ArtApprovalForm,
   title: 'Admin/Forms/ArtApprovalForm',
@@ -65,10 +66,9 @@ const Template: ComponentStory<typeof ArtApprovalForm> = args => {
 
   return (
     <Box>
-      <Button
-        onClick={() => handleSizeClick('full')}
-        m={4}
-      >{`Open Modal`}</Button>
+      <Button onClick={() => handleSizeClick('full')} m={4}>
+        {`Open Modal`}
+      </Button>
       <ArtApprovalForm
         {...args}
         artId={artId}

@@ -1,5 +1,6 @@
 import { FC, memo, useState } from 'react'
 
+import '@splidejs/splide/dist/css/themes/splide-default.min.css'
 import {
   Avatar,
   HStack,
@@ -16,6 +17,7 @@ import {
   SimpleGrid,
   Button,
   Textarea,
+  Center,
 } from '@chakra-ui/react'
 import { Splide, SplideSlide } from '@splidejs/react-splide'
 
