@@ -73,6 +73,7 @@ export const WImage: FC<WImageProps> = ({
       pos="relative"
       overflow="hidden"
       ratio={ratio === 'twitter' ? 1200 / 675 : ratio}
+      h="full"
     >
       <ChakraNextImage
         objectFit="cover"
