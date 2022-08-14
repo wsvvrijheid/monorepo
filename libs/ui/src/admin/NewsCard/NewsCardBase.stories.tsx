@@ -15,7 +15,7 @@ export default {
   },
   decorators: [
     Story => (
-      <Container maxW="container.sm">
+      <Container>
         <Story />
       </Container>
     ),

@@ -21,13 +21,12 @@ export const NewsCardBase: FC<NewsCardProps> = ({
   variant = 'horizontal',
 }) => {
   const isVertical = useBreakpointValue({
-    base: true, // Always vertical in smaller viewports
+    base: true,
     lg: variant === 'vertical' ? true : false,
   })
   return (
     <Stack
-      w={isVertical ? '300px' : '1000px'}
-      h={isVertical ? 'auto' : isFeatured ? '208px' : '150px'}
+      h={isVertical ? 'auto' : '200px'}
       boxShadow="md"
       rounded="md"
       align="flex-start"
