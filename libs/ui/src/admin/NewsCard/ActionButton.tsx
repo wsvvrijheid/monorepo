@@ -1,6 +1,6 @@
 import { FC } from 'react'
 
-import { Button, Text } from '@chakra-ui/react'
+import { Button } from '@chakra-ui/react'
 
 import { ActionButtonProps } from './types'
 
@@ -12,17 +12,13 @@ const ActionButton: FC<ActionButtonProps> = ({
 }) => {
   return (
     <Button
-      aria-label="View"
+      aria-label={title}
       onClick={onClick}
       leftIcon={icon}
       {...(isVertical
         ? { iconSpacing: 0 }
         : {
-            children: (
-              <Text fontWeight={400} fontSize={'12px'}>
-                {title}
-              </Text>
-            ),
+            children: title,
           })}
     />
   )

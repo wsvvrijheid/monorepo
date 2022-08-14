@@ -4,7 +4,7 @@ import { ButtonProps } from '@chakra-ui/react'
 import { News } from '@wsvvrijheid/types'
 
 export type NewsCardProps = {
-  isFeatured?: boolean
+  hideDescription?: boolean
   news: News
   variant?: 'horizontal' | 'vertical'
 }
