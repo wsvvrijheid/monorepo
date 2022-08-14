@@ -1,5 +1,3 @@
-import { useState } from 'react'
-
 import { Container, useDisclosure, Button, Box } from '@chakra-ui/react'
 import { ComponentStory, ComponentMeta } from '@storybook/react'
 
@@ -43,9 +41,10 @@ const Template: ComponentStory<typeof ArtApprovalModal> = args => {
     artistAvatar,
   } = args
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const [isEditing, setIsEditing] = useState(false)
+
   const handleReject = (artId: number, editorId: number, feedback: string) => {
     alert(feedback)
+    console.log('Reject data here', artId, editorId, feedback)
     onClose()
   }
   const handleApprove = (artId: number, editorId: number, feedback: string) => {
@@ -53,8 +52,8 @@ const Template: ComponentStory<typeof ArtApprovalModal> = args => {
     alert(feedback)
     onClose()
   }
-  const handleDelete = (data: any) => {
-    alert(`${data} is deleted`)
+  const handleDelete = (id: number) => {
+    alert(`${id} is deleted`)
     onClose()
   }
   const handleSizeClick = () => {
@@ -62,7 +61,6 @@ const Template: ComponentStory<typeof ArtApprovalModal> = args => {
   }
   const onSave = (data: string) => {
     alert(`${data} saved`)
-    setIsEditing(false)
   }
 
   return (
@@ -87,8 +85,6 @@ const Template: ComponentStory<typeof ArtApprovalModal> = args => {
         artistName={artistName}
         artistAvatar={artistAvatar}
         onSave={onSave}
-        isEditing={isEditing}
-        setIsEditing={setIsEditing}
       />
     </Box>
   )
@@ -107,7 +103,7 @@ export const VerticalArts = Template.bind({})
 VerticalArts.args = {
   artImages: [
     'https://i.picsum.photos/id/852/540/960.jpg?hmac=AQA_lg0_rXzCOj29d_MPuZx1xUF9WEj2NdaNFdvQ3Ak',
-  ] as unknown as string[],
+  ],
 }
 export const MultiVerticalArts = Template.bind({})
 MultiVerticalArts.args = {
@@ -116,13 +112,13 @@ MultiVerticalArts.args = {
     'https://st2.depositphotos.com/2288675/5430/i/450/depositphotos_54306899-stock-photo-balance-and-harmony-in-nature.jpg',
     'https://image.shutterstock.com/image-photo/color-toned-scenic-highway-travel-260nw-596744513.jpg',
     'https://st2.depositphotos.com/2288675/5430/i/450/depositphotos_54306899-stock-photo-balance-and-harmony-in-nature.jpg',
-  ] as unknown as string[],
+  ],
 }
 export const HorizontalArts = Template.bind({})
 HorizontalArts.args = {
   artImages: [
     'https://i.picsum.photos/id/399/960/540.jpg?hmac=LO1r_Qur7tph6YG2YHUEF5bNTidhcuf38MBkgNhACOo',
-  ] as unknown as string[],
+  ],
 }
 export const MultiHorizontalArts = Template.bind({})
 MultiHorizontalArts.args = {
@@ -132,7 +128,7 @@ MultiHorizontalArts.args = {
     'https://images.all-free-download.com/images/graphiclarge/beach_cloud_dawn_horizon_horizontal_landscape_ocean_601821.jpg',
     'https://ironcodestudio.com/wp-content/uploads/2015/03/css-remove-horizontal-scrollbar.jpg',
     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ78tAx34o7JbBCMmt-636ZxZbw4fv8Wr9bIQ&usqp=CAU',
-  ] as unknown as string[],
+  ],
 }
 export const MultiHorizontalVerticalArts = Template.bind({})
 MultiHorizontalVerticalArts.args = {
@@ -142,7 +138,7 @@ MultiHorizontalVerticalArts.args = {
     'https://images.all-free-download.com/images/graphiclarge/beach_cloud_dawn_horizon_horizontal_landscape_ocean_601821.jpg',
     'https://image.shutterstock.com/image-photo/color-toned-scenic-highway-travel-260nw-596744513.jpg',
     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ78tAx34o7JbBCMmt-636ZxZbw4fv8Wr9bIQ&usqp=CAU',
-  ] as unknown as string[],
+  ],
 }
 
 export const MultiableArts = Template.bind({})

@@ -39,10 +39,14 @@ export const ArtApprovalModal: FC<ArtApprovalTypes> = ({
   editorName,
   artistName,
   onSave,
-  setIsEditing,
-  isEditing,
 }) => {
   const [description, setDescription] = useState(artDescription)
+  const [isEditing, setIsEditing] = useState(false)
+
+  const handleSave = () => {
+    onSave(description)
+    setIsEditing(false)
+  }
 
   return (
     <Box>
@@ -104,7 +108,7 @@ export const ArtApprovalModal: FC<ArtApprovalTypes> = ({
                         />
                         <Button
                           colorScheme="green"
-                          onClick={() => onSave(description)}
+                          onClick={handleSave}
                           alignSelf="end"
                         >
                           Save

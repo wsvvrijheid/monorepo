@@ -11,7 +11,7 @@ export type ArtApprovalTypes = {
   editorName: string
   editorAvatar: string
   isOpen: boolean
-  artImages: UploadFile[]
+  artImages: UploadFile[] | string[]
   onClose: () => void
   artistName: string
   feedback: string
