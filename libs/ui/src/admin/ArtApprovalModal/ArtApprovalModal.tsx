@@ -46,36 +46,34 @@ export const ArtApprovalModal: FC<ArtApprovalTypes> = ({
 
   return (
     <Box>
-      <Modal onClose={onClose} isOpen={isOpen}>
+      <Modal onClose={onClose} isOpen={isOpen} scrollBehavior="inside">
         <ModalOverlay />
-        <ModalContent
-          maxW={['110vh', '150vh']}
-          maxH={['150vh', '350', '150vh']}
-        >
+        <ModalContent maxW="95vw" h="full">
           <ModalCloseButton />
           <ModalBody p={{ base: 2, lg: 4 }}>
-            <SimpleGrid columns={{ base: 1, lg: 2 }} spacing={4}>
+            <SimpleGrid columns={{ base: 1, lg: 2 }} spacing={4} h="full">
               <Stack>
                 {/*TODO Image should has zoom  */}
                 {artImages && artImages.length > 1 ? (
-                  <Splide>
+                  <Box
+                    as={Splide}
+                    sx={{ h: 'full', '.splide__track': { h: 'full' } }}
+                  >
                     {artImages?.map((image, index) => (
-                      <SplideSlide key={index}>
+                      <SplideSlide key={index} style={{ height: '100%' }}>
                         <WImage
+                          objectFit="contain"
                           image={image}
-                          format={image.formats}
                           alt={artTitle}
-                          ratio={1}
                         />
                       </SplideSlide>
                     ))}
-                  </Splide>
+                  </Box>
                 ) : (
                   <WImage
+                    objectFit="contain"
                     image={artImages?.[0]}
-                    format={artImages?.[0].formats}
                     alt={artTitle}
-                    ratio={1}
                   />
                 )}
                 {/* ==============================*/}

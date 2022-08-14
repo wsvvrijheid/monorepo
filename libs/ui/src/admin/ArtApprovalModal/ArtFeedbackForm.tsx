@@ -3,7 +3,6 @@ import { FC, useState } from 'react'
 import {
   Avatar,
   Button,
-  ButtonGroup,
   HStack,
   Text,
   Menu,
@@ -12,7 +11,6 @@ import {
   MenuList,
   Stack,
   Textarea,
-  VStack,
   Flex,
   IconButton,
 } from '@chakra-ui/react'
@@ -60,7 +58,7 @@ export const ArtFeedbackForm: FC<ArtFeedbackFormTypes> = ({
         <Stack align={'start'} flex={1} textAlign="center">
           <Avatar size="sm" src={editorAvatar} name={editorName} />
         </Stack>
-        <VStack w="full">
+        <Stack w="full">
           {/* text area, button group*/}
           <Stack w={'full'}>
             {/* text area*/}
@@ -70,61 +68,54 @@ export const ArtFeedbackForm: FC<ArtFeedbackFormTypes> = ({
               placeholder={'type your comment here'}
             ></Textarea>
           </Stack>
-          <Stack w={'full'}>
-            {/*button group*/}
-            <ButtonGroup
-              alignItems="space-between"
-              w={'full'}
-              justifyItems="flex-end"
-              spacing={4}
+          {/*button group*/}
+          <Stack direction={'row'} w={'full'} spacing={[0.5, 4, 4, 4]}>
+            <Button
+              onClick={handleReject}
+              colorScheme="red"
+              w="full"
+              leftIcon={<HiOutlineX />}
             >
-              <Button
-                onClick={handleReject}
-                colorScheme="red"
-                w="full"
-                leftIcon={<HiOutlineX />}
-              >
-                Reject
-              </Button>
-              <Button
-                onClick={handleApprove}
-                colorScheme="green"
-                w="full"
-                leftIcon={<HiOutlineCheck />}
-              >
-                Approve
-              </Button>
-              <Menu>
-                <MenuButton
-                  aria-label="Open art menu"
-                  as={IconButton}
-                  icon={<HiDotsVertical />}
+              Reject
+            </Button>
+            <Button
+              onClick={handleApprove}
+              colorScheme="green"
+              w="full"
+              leftIcon={<HiOutlineCheck />}
+            >
+              Approve
+            </Button>
+            <Menu>
+              <MenuButton
+                aria-label="Open art menu"
+                as={IconButton}
+                icon={<HiDotsVertical />}
+                colorScheme="primary"
+              ></MenuButton>
+              <MenuList minWidth={32} minH={20}>
+                <MenuItem
+                  as={Button}
+                  onClick={() => setIsEditing(true)}
+                  variant="ghost"
                   colorScheme="primary"
-                ></MenuButton>
-                <MenuList minWidth={32} minH={20}>
-                  <MenuItem
-                    as={Button}
-                    onClick={() => setIsEditing(true)}
-                    variant="ghost"
-                    colorScheme="primary"
-                    icon={<HiPencil />}
-                  >
-                    Edit
-                  </MenuItem>
-                  <MenuItem
-                    as={Button}
-                    onClick={handleDelete}
-                    variant="ghost"
-                    colorScheme="red"
-                    icon={<HiOutlineX />}
-                  >
-                    Delete
-                  </MenuItem>
-                </MenuList>
-              </Menu>
-            </ButtonGroup>
+                  icon={<HiPencil />}
+                >
+                  Edit
+                </MenuItem>
+                <MenuItem
+                  as={Button}
+                  onClick={handleDelete}
+                  variant="ghost"
+                  colorScheme="red"
+                  icon={<HiOutlineX />}
+                >
+                  Delete
+                </MenuItem>
+              </MenuList>
+            </Menu>
           </Stack>
-        </VStack>
+        </Stack>
       </HStack>
     </Stack>
   )

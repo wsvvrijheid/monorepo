@@ -106,15 +106,45 @@ LongDescription.args = {
 export const VerticalArts = Template.bind({})
 VerticalArts.args = {
   artImages: [
-    'https://i.picsum.photos/id/399/960/540.jpg?hmac=LO1r_Qur7tph6YG2YHUEF5bNTidhcuf38MBkgNhACOo',
+    'https://i.picsum.photos/id/852/540/960.jpg?hmac=AQA_lg0_rXzCOj29d_MPuZx1xUF9WEj2NdaNFdvQ3Ak',
+  ] as unknown as string[],
+}
+export const MultiVerticalArts = Template.bind({})
+MultiVerticalArts.args = {
+  artImages: [
+    'https://i.picsum.photos/id/852/540/960.jpg?hmac=AQA_lg0_rXzCOj29d_MPuZx1xUF9WEj2NdaNFdvQ3Ak',
+    'https://st2.depositphotos.com/2288675/5430/i/450/depositphotos_54306899-stock-photo-balance-and-harmony-in-nature.jpg',
+    'https://image.shutterstock.com/image-photo/color-toned-scenic-highway-travel-260nw-596744513.jpg',
+    'https://st2.depositphotos.com/2288675/5430/i/450/depositphotos_54306899-stock-photo-balance-and-harmony-in-nature.jpg',
   ] as unknown as string[],
 }
 export const HorizontalArts = Template.bind({})
 HorizontalArts.args = {
   artImages: [
-    'https://i.picsum.photos/id/852/540/960.jpg?hmac=AQA_lg0_rXzCOj29d_MPuZx1xUF9WEj2NdaNFdvQ3Ak',
+    'https://i.picsum.photos/id/399/960/540.jpg?hmac=LO1r_Qur7tph6YG2YHUEF5bNTidhcuf38MBkgNhACOo',
   ] as unknown as string[],
 }
+export const MultiHorizontalArts = Template.bind({})
+MultiHorizontalArts.args = {
+  artImages: [
+    'https://i.picsum.photos/id/399/960/540.jpg?hmac=LO1r_Qur7tph6YG2YHUEF5bNTidhcuf38MBkgNhACOo',
+    'https://image.shutterstock.com/image-photo/red-horizontal-lens-flares-pack-260nw-1901871499.jpg',
+    'https://images.all-free-download.com/images/graphiclarge/beach_cloud_dawn_horizon_horizontal_landscape_ocean_601821.jpg',
+    'https://ironcodestudio.com/wp-content/uploads/2015/03/css-remove-horizontal-scrollbar.jpg',
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ78tAx34o7JbBCMmt-636ZxZbw4fv8Wr9bIQ&usqp=CAU',
+  ] as unknown as string[],
+}
+export const MultiHorizontalVerticalArts = Template.bind({})
+MultiHorizontalVerticalArts.args = {
+  artImages: [
+    'https://i.picsum.photos/id/399/960/540.jpg?hmac=LO1r_Qur7tph6YG2YHUEF5bNTidhcuf38MBkgNhACOo',
+    'https://st2.depositphotos.com/2288675/5430/i/450/depositphotos_54306899-stock-photo-balance-and-harmony-in-nature.jpg',
+    'https://images.all-free-download.com/images/graphiclarge/beach_cloud_dawn_horizon_horizontal_landscape_ocean_601821.jpg',
+    'https://image.shutterstock.com/image-photo/color-toned-scenic-highway-travel-260nw-596744513.jpg',
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ78tAx34o7JbBCMmt-636ZxZbw4fv8Wr9bIQ&usqp=CAU',
+  ] as unknown as string[],
+}
+
 export const MultiableArts = Template.bind({})
 MultiableArts.args = {
   artImages: ART_MOCKS.data[4].images,
