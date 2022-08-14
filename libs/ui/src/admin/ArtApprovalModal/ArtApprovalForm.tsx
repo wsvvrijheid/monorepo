@@ -17,7 +17,6 @@ import {
   SimpleGrid,
   Button,
   Textarea,
-  Center,
 } from '@chakra-ui/react'
 import { Splide, SplideSlide } from '@splidejs/react-splide'
 
