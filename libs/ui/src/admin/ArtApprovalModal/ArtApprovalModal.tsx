@@ -1,5 +1,6 @@
-import { FC, memo, useState } from 'react'
+import { FC, useState } from 'react'
 
+import '@splidejs/splide/dist/css/themes/splide-default.min.css'
 import {
   Avatar,
   HStack,
@@ -11,7 +12,6 @@ import {
   ModalOverlay,
   Stack,
   Box,
-  Image,
   Flex,
   SimpleGrid,
   Button,
@@ -19,20 +19,11 @@ import {
 } from '@chakra-ui/react'
 import { Splide, SplideSlide } from '@splidejs/react-splide'
 
+import { WImage } from '../../components'
 import { ArtFeedbackForm } from './ArtFeedbackForm'
-import { ArtImageProps, ArtApprovalFormTypes } from './types'
+import { ArtApprovalTypes } from './types'
 
-const ArtImage: FC<ArtImageProps> = memo(({ image, alt }) => {
-  return (
-    <Image
-      objectFit="contain"
-      src={`${process.env['NX_API_URL']}${image.url}`}
-      alt={alt}
-    />
-  )
-})
-
-export const ArtApprovalForm: FC<ArtApprovalFormTypes> = ({
+export const ArtApprovalModal: FC<ArtApprovalTypes> = ({
   onReject,
   onApprove,
   onDelete,
@@ -52,13 +43,17 @@ export const ArtApprovalForm: FC<ArtApprovalFormTypes> = ({
   isEditing,
 }) => {
   const [description, setDescription] = useState(artDescription)
+
   return (
     <Box>
-      <Modal onClose={onClose} size="6xl" isOpen={isOpen}>
+      <Modal onClose={onClose} isOpen={isOpen}>
         <ModalOverlay />
-        <ModalContent>
+        <ModalContent
+          maxW={['110vh', '150vh']}
+          maxH={['150vh', '350', '150vh']}
+        >
           <ModalCloseButton />
-          <ModalBody>
+          <ModalBody p={{ base: 2, lg: 4 }}>
             <SimpleGrid columns={{ base: 1, lg: 2 }} spacing={4}>
               <Stack>
                 {/*TODO Image should has zoom  */}
@@ -66,22 +61,30 @@ export const ArtApprovalForm: FC<ArtApprovalFormTypes> = ({
                   <Splide>
                     {artImages?.map((image, index) => (
                       <SplideSlide key={index}>
-                        <ArtImage image={image} alt={artTitle} />
+                        <WImage
+                          image={image}
+                          format={image.formats}
+                          alt={artTitle}
+                          ratio={1}
+                        />
                       </SplideSlide>
                     ))}
                   </Splide>
                 ) : (
-                  <ArtImage image={artImages?.[0]} alt={artTitle} />
+                  <WImage
+                    image={artImages?.[0]}
+                    format={artImages?.[0].formats}
+                    alt={artTitle}
+                    ratio={1}
+                  />
                 )}
-                {/* ..... ==============================*/}
+                {/* ==============================*/}
               </Stack>
-              <Stack spacing={4} align={'start'} justify="space-between">
-                <Stack align={'start'} justify="space-between">
-                  <Flex align="start" justify="start" w="full" h={8}>
-                    <Text color={'blue.400'} fontWeight={'bold'}>
-                      {artTitle}
-                    </Text>
-                  </Flex>
+              <Stack spacing={4} justify="space-between">
+                <Stack>
+                  <Text color={'blue.400'} fontWeight={'bold'}>
+                    {artTitle}
+                  </Text>
                   <HStack spacing={3} w={'full'}>
                     {/* TODO art owner avatar should be here*/}
                     <Avatar size="sm" src={artistAvatar} name={artistName} />
@@ -104,6 +107,7 @@ export const ArtApprovalForm: FC<ArtApprovalFormTypes> = ({
                         <Button
                           colorScheme="green"
                           onClick={() => onSave(description)}
+                          alignSelf="end"
                         >
                           Save
                         </Button>

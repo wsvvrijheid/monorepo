@@ -4,11 +4,12 @@ import { Container, useDisclosure, Button, Box } from '@chakra-ui/react'
 import { ComponentStory, ComponentMeta } from '@storybook/react'
 
 import { ART_MOCKS, USER_MOCKS } from '../../mocks/strapi'
-import { ArtApprovalForm } from './ArtApprovalForm'
+import { ArtApprovalModal } from './ArtApprovalModal'
+import '@splidejs/splide/dist/css/themes/splide-default.min.css'
 
 export default {
-  component: ArtApprovalForm,
-  title: 'Admin/Forms/ArtApprovalForm',
+  component: ArtApprovalModal,
+  title: 'Admin/ArtApprovalModal',
   args: {
     artId: ART_MOCKS.data[0].id,
     artDescription: ART_MOCKS.data[0].description,
@@ -27,9 +28,9 @@ export default {
       </Container>
     ),
   ],
-} as ComponentMeta<typeof ArtApprovalForm>
+} as ComponentMeta<typeof ArtApprovalModal>
 
-const Template: ComponentStory<typeof ArtApprovalForm> = args => {
+const Template: ComponentStory<typeof ArtApprovalModal> = args => {
   const {
     artId,
     artDescription,
@@ -66,10 +67,10 @@ const Template: ComponentStory<typeof ArtApprovalForm> = args => {
 
   return (
     <Box>
-      <Button onClick={() => handleSizeClick('full')} m={4}>
+      <Button onClick={() => handleSizeClick()} m={4}>
         {`Open Modal`}
       </Button>
-      <ArtApprovalForm
+      <ArtApprovalModal
         {...args}
         artId={artId}
         artTitle={artTitle}
@@ -104,98 +105,15 @@ LongDescription.args = {
 }
 export const VerticalArts = Template.bind({})
 VerticalArts.args = {
-  // artImages: ART_MOCKS?.data[0]?.images.map((image) =>{
-  //   ...ART_MOCKS?.data[0]?.images,image.url:'https://i.picsum.photos/id/308/540/960.jpg?hmac=F8tIzE-s5FZnE_45--3auP0AUHWbIfE9OaLfcon_7vM')}
-  //   {
-  //     id: 65,
-  //     name: 'lotus.jpg',
-  //     alternativeText: null,
-  //     caption: null,
-  //     width: 640,
-  //     height: 640,
-  //     formats: {
-  //       small: {
-  //         ext: '.jpg',
-  //         url: '/https://i.picsum.photos/id/308/540/960.jpg?hmac=F8tIzE-s5FZnE_45--3auP0AUHWbIfE9OaLfcon_7vM',
-  //         hash: 'small_lotus_a1a2e67523',
-  //         mime: 'image/jpeg',
-  //         name: 'small_lotus.jpg',
-  //         path: null,
-  //         size: 27.52,
-  //         width: 500,
-  //         height: 500,
-  //       },
-  //       thumbnail: {
-  //         ext: '.jpg',
-  //         url: '/https://i.picsum.photos/id/308/540/960.jpg?hmac=F8tIzE-s5FZnE_45--3auP0AUHWbIfE9OaLfcon_7vM',
-  //         hash: 'thumbnail_lotus_a1a2e67523',
-  //         mime: 'image/jpeg',
-  //         name: 'thumbnail_lotus.jpg',
-  //         path: null,
-  //         size: 4.66,
-  //         width: 156,
-  //         height: 156,
-  //       },
-  //     },
-  //     hash: 'lotus_a1a2e67523',
-  //     ext: '.jpg',
-  //     mime: 'image/jpeg',
-  //     size: 37.35,
-  //     url: '/https://i.picsum.photos/id/308/540/960.jpg?hmac=F8tIzE-s5FZnE_45--3auP0AUHWbIfE9OaLfcon_7vM',
-  //     previewUrl: null,
-  //     provider: 'local',
-  //     provider_metadata: null,
-  //     createdAt: '2022-05-27T06:51:08.965Z',
-  //     updatedAt: '2022-05-27T06:51:08.965Z',
-  //   },
-  // ],
+  artImages: [
+    'https://i.picsum.photos/id/399/960/540.jpg?hmac=LO1r_Qur7tph6YG2YHUEF5bNTidhcuf38MBkgNhACOo',
+  ] as unknown as string[],
 }
 export const HorizontalArts = Template.bind({})
 HorizontalArts.args = {
   artImages: [
-    {
-      id: 65,
-      name: 'lotus.jpg',
-      alternativeText: null,
-      caption: null,
-      width: 640,
-      height: 640,
-      formats: {
-        small: {
-          ext: '.jpg',
-          url: '/https://i.picsum.photos/id/912/960/540.jpg?hmac=htLsujol_6f6GlqCPI6YFaPDXVwsqtHNDGktJgbT9Ts',
-          hash: 'small_lotus_a1a2e67523',
-          mime: 'image/jpeg',
-          name: 'small_lotus.jpg',
-          path: null,
-          size: 27.52,
-          width: 500,
-          height: 500,
-        },
-        thumbnail: {
-          ext: '.jpg',
-          url: '/https://i.picsum.photos/id/912/960/540.jpg?hmac=htLsujol_6f6GlqCPI6YFaPDXVwsqtHNDGktJgbT9Ts',
-          hash: 'thumbnail_lotus_a1a2e67523',
-          mime: 'image/jpeg',
-          name: 'thumbnail_lotus.jpg',
-          path: null,
-          size: 4.66,
-          width: 156,
-          height: 156,
-        },
-      },
-      hash: 'lotus_a1a2e67523',
-      ext: '.jpg',
-      mime: 'image/jpeg',
-      size: 37.35,
-      url: '/https://i.picsum.photos/id/912/960/540.jpg?hmac=htLsujol_6f6GlqCPI6YFaPDXVwsqtHNDGktJgbT9Ts',
-      previewUrl: null,
-      provider: 'local',
-      provider_metadata: null,
-      createdAt: '2022-05-27T06:51:08.965Z',
-      updatedAt: '2022-05-27T06:51:08.965Z',
-    },
-  ],
+    'https://i.picsum.photos/id/852/540/960.jpg?hmac=AQA_lg0_rXzCOj29d_MPuZx1xUF9WEj2NdaNFdvQ3Ak',
+  ] as unknown as string[],
 }
 export const MultiableArts = Template.bind({})
 MultiableArts.args = {

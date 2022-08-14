@@ -1,6 +1,6 @@
 import { UploadFile } from '@wsvvrijheid/types'
 
-export type ArtApprovalFormTypes = {
+export type ArtApprovalTypes = {
   onReject: (artId: number, editorId: number, feedback: string) => void
   onApprove: (artId: number, editorId: number, feedback: string) => void
   onDelete: (artId: number) => void
@@ -20,10 +20,7 @@ export type ArtApprovalFormTypes = {
   setIsEditing: (data: boolean) => void
   isEditing: boolean
 }
-export type ArtImageProps = {
-  image: UploadFile
-  alt: string
-}
+
 export type ArtFeedbackFormTypes = {
   onReject: (artId: number, editorId: number, feedback: string) => void
   onApprove: (artId: number, editorId: number, feedback: string) => void

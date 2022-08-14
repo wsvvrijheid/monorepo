@@ -109,7 +109,7 @@ export const ArtFeedbackForm: FC<ArtFeedbackFormTypes> = ({
                     colorScheme="primary"
                     icon={<HiPencil />}
                   >
-                    Edit{' '}
+                    Edit
                   </MenuItem>
                   <MenuItem
                     as={Button}

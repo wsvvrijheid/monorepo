@@ -1,2 +1,2 @@
-export * from './ArtApprovalForm'
+export * from './ArtApprovalModal'
 export * from './ArtFeedbackForm'
