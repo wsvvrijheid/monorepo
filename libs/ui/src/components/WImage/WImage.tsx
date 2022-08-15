@@ -30,6 +30,7 @@ export type WImageProps = {
   format?: FileFormatsType
   image: UploadFile | string
   alt: string
+  isExternal?: boolean
 } & Omit<ImageProps, 'src'> &
   ChakraImageProps
 
@@ -54,10 +55,11 @@ export const WImage: FC<WImageProps> = ({
   format,
   alt,
   ratio,
+  isExternal = false,
   ...rest
 }) => {
-  const src = getImageUrl(image, format)
-  const thumbnailSrc = getImageUrl(image, 'thumbnail')
+  const src = isExternal ? image : getImageUrl(image, format)
+  const thumbnailSrc = isExternal ? image : getImageUrl(image, 'thumbnail')
 
   console.log('src', src)
   console.log('thumbnailSrc', thumbnailSrc)
@@ -73,11 +75,12 @@ export const WImage: FC<WImageProps> = ({
       pos="relative"
       overflow="hidden"
       ratio={ratio === 'twitter' ? 1200 / 675 : ratio}
+      h="full"
     >
       <ChakraNextImage
         objectFit="cover"
         layout="fill"
-        src={src}
+        src={src as string}
         alt={alternativeText}
         unoptimized={true}
         // placeholder="blur"

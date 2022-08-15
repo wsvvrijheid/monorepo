@@ -3,6 +3,7 @@ import { themes } from '@wsvvrijheid/config'
 import { QueryClientProvider, QueryClient } from 'react-query'
 
 import i18n from './i18next.js'
+import '@splidejs/splide/dist/css/themes/splide-default.min.css'
 
 // Provide the MSW addon decorator globally
 export const parameters = {
