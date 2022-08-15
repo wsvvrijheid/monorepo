@@ -136,12 +136,7 @@ export const PageHeader: FC<PageHeaderProps> = ({
             </MenuButton>
             <MenuList mt={2} ml={-3}>
               {filterOptions?.map(option => (
-                <MenuItem
-                  value={option}
-                  onClick={e => onFilter(e.target.value)}
-                >
-                  {option}
-                </MenuItem>
+                <MenuItem onClick={() => onFilter(option)}>{option}</MenuItem>
               ))}
             </MenuList>
           </Menu>
@@ -158,9 +153,7 @@ export const PageHeader: FC<PageHeaderProps> = ({
             </MenuButton>
             <MenuList mt={2} ml={-3}>
               {sortOptions?.map(option => (
-                <MenuItem value={option} onClick={e => onSort(e.target.value)}>
-                  {option}
-                </MenuItem>
+                <MenuItem onClick={() => onSort(option)}>{option}</MenuItem>
               ))}
             </MenuList>
           </Menu>
