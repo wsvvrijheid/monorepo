@@ -30,9 +30,24 @@ const Template: ComponentStory<typeof PageHeader> = args => {
 export const Default = Template.bind({})
 Default.args = {
   title: 'News',
-  textColor: '#3182CE',
+
   onSearch: (item: string) => {
     alert(item)
   },
-  backgroundColor: 'white',
+
+  onFilter: (filter: string) => {
+    alert('Filter by ' + filter)
+  },
+  onSort: (sort: string) => {
+    alert('Sort by ' + sort)
+  },
+  onLanguageChange: (slug: string) => {
+    alert('Laguage changed to ' + slug)
+  },
+  createNew: (name: string) => {
+    alert(name)
+  },
+  filterOptions: ['Filter by Date', 'Filter by Author', 'Filter by Published'],
+  sortOptions: ['Ascending', 'Descending'],
+  buttons: ['Create news +'],
 }

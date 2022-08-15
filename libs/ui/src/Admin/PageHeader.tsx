@@ -11,6 +11,9 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
+  InputGroup,
+  InputLeftElement,
+  ButtonGroup,
 } from '@chakra-ui/react'
 import { HiOutlineFilter } from 'react-icons/hi'
 import { VscListFilter } from 'react-icons/vsc'
@@ -19,21 +22,28 @@ interface PageHeaderProps {
   onSearch: (item: string) => void
   title: string
   images: { slug: string; url: string }[]
-  textColor: string
-  backgroundColor: string
-  createNew: () => void
+  createNew: (name: string) => void
+  onFilter: (filter: string) => void
+  onSort: (sort: string) => void
+  onLanguageChange: (slug: string) => void
+  filterOptions: Array<string>
+  sortOptions: Array<string>
+  buttons: Array<string>
 }
 
 export const PageHeader: FC<PageHeaderProps> = ({
   title,
   onSearch,
   images,
-  textColor,
-  backgroundColor,
   createNew,
+  onFilter,
+  onSort,
+  onLanguageChange,
+  filterOptions,
+  sortOptions,
+  buttons,
 }) => {
   const [search, setSearch] = useState('')
-  const [focusColor, setFocusColor] = useState('lightgray')
   const [flags, setFlags] = useState('tr')
 
   return (
@@ -41,11 +51,10 @@ export const PageHeader: FC<PageHeaderProps> = ({
       justifyContent={{ base: 'space-between' }}
       alignItems={'center'}
       padding={1}
-      h={{ base: '60px' }}
-      backgroundColor={backgroundColor}
-      borderRadius={{ base: '10px' }}
+      h={'60px'}
+      borderRadius={'10px'}
     >
-      <Text color={textColor} w={{ base: '40%' }} fontWeight={'bold'}>
+      <Text color="primary.400" w={'40%'} fontWeight={'bold'}>
         {title}
       </Text>
       <Flex
@@ -53,35 +62,30 @@ export const PageHeader: FC<PageHeaderProps> = ({
         justifyContent={{ base: 'end' }}
         alignItems={'center'}
       >
-        <Flex
-          border={{ base: `1px solid ${focusColor}` }}
-          alignItems={'center'}
-          padding={1}
+        <InputGroup
+          border={{ base: `1px solid lightgray` }}
           borderRadius={'10px'}
         >
-          <SearchIcon />
+          <InputLeftElement>
+            <SearchIcon />
+          </InputLeftElement>
           <Input
             placeholder={'Search'}
             border={'none'}
-            w={{ base: '400px' }}
-            focusBorderColor={'none'}
+            w={'400px'}
             value={search}
-            onChange={(e: any) => setSearch(e.target?.value)}
-            onKeyDown={(e: any) =>
-              e.key === 'Enter' ? onSearch(search) : null
-            }
-            onBlur={() => setFocusColor('lightgray')}
-            onFocus={() => setFocusColor(textColor)}
+            onChange={e => setSearch(e.target?.value)}
+            onKeyDown={e => (e.key === 'Enter' ? onSearch(search) : null)}
           />
-        </Flex>
+        </InputGroup>
         <Menu>
           <MenuButton>
             <Avatar
               src={
                 images.filter(image => Object.values(image)[0] === flags)[0].url
               }
-              h={{ base: '40px' }}
-              w={{ base: '40px' }}
+              h={'40px'}
+              w={'40px'}
               borderRadius={'50%'}
               border={'1px solid lightgray'}
               marginLeft={5}
@@ -95,12 +99,13 @@ export const PageHeader: FC<PageHeaderProps> = ({
                 <MenuItem
                   onClick={() => {
                     setFlags(image.slug)
+                    onLanguageChange(image.slug)
                   }}
                 >
                   <Avatar
                     src={image.url}
-                    h={{ base: '40px' }}
-                    w={{ base: '40px' }}
+                    h={'40px'}
+                    w={'40px'}
                     borderRadius={'50%'}
                     border={'1px solid lightgray'}
                     marginLeft={5}
@@ -130,9 +135,14 @@ export const PageHeader: FC<PageHeaderProps> = ({
               <HiOutlineFilter />
             </MenuButton>
             <MenuList mt={2} ml={-3}>
-              <MenuItem>Filter by Date</MenuItem>
-              <MenuItem>Filter by Author</MenuItem>
-              <MenuItem>Filter by Published</MenuItem>
+              {filterOptions?.map(option => (
+                <MenuItem
+                  value={option}
+                  onClick={e => onFilter(e.target.value)}
+                >
+                  {option}
+                </MenuItem>
+              ))}
             </MenuList>
           </Menu>
         </Flex>
@@ -147,19 +157,28 @@ export const PageHeader: FC<PageHeaderProps> = ({
               <VscListFilter />
             </MenuButton>
             <MenuList mt={2} ml={-3}>
-              <MenuItem>Ascending</MenuItem>
-              <MenuItem>Descending</MenuItem>
+              {sortOptions?.map(option => (
+                <MenuItem value={option} onClick={e => onSort(e.target.value)}>
+                  {option}
+                </MenuItem>
+              ))}
             </MenuList>
           </Menu>
         </Flex>
-        <Button
-          backgroundColor={textColor}
-          color={'white'}
-          marginLeft={5}
-          onClick={() => createNew()}
-        >
-          Create {title} +
-        </Button>
+        {buttons && (
+          <ButtonGroup>
+            {buttons.map(button => (
+              <Button
+                colorScheme={'primary'}
+                color={'white'}
+                marginLeft={5}
+                onClick={() => createNew(button)}
+              >
+                {button}
+              </Button>
+            ))}
+          </ButtonGroup>
+        )}
       </Flex>
     </Flex>
   )
