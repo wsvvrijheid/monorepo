@@ -44,7 +44,9 @@ export const Card = Wrapper.bind({})
 Card.args = {
   image: IMAGE_MOCK,
   ratio: 3 / 1,
-  // layout: 'fill',
-  // width: 300,
-  // height: 120,
+}
+export const Zoom = Template.bind({})
+Zoom.args = {
+  image: IMAGE_MOCK,
+  hasZoom: true,
 }
