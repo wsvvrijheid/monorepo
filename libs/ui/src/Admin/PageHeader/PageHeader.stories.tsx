@@ -1,53 +1,81 @@
+import {
+  Button,
+  MenuDivider,
+  MenuItem,
+  MenuItemOption,
+  MenuOptionGroup,
+} from '@chakra-ui/react'
 import { ComponentStory, ComponentMeta } from '@storybook/react'
+import { StrapiLocale } from '@wsvvrijheid/types'
+import { useRouter } from 'next/router'
+import { FaArrowUp, FaPlus } from 'react-icons/fa'
 
 import { PageHeader } from './index'
 
 export default {
   component: PageHeader,
   title: 'Admin/PageHeader',
-  args: {
-    images: [
-      {
-        slug: 'tr',
-        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Flag_of_the_Ottoman_Empire_%281844%E2%80%931922%29.svg/200px-Flag_of_the_Ottoman_Empire_%281844%E2%80%931922%29.svg.png',
-      },
-      {
-        slug: 'en',
-        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Flag_of_the_United_Kingdom_%283-5%29.svg/640px-Flag_of_the_United_Kingdom_%283-5%29.svg.png',
-      },
-      {
-        slug: 'nl',
-        url: 'https://www.hollandavesen.nl/binaries/large/content/gallery/netherlandsandyou/content-afbeeldingen/algemeen/vlag-nederland.png',
-      },
-    ],
-  },
 } as ComponentMeta<typeof PageHeader>
 
 const Template: ComponentStory<typeof PageHeader> = args => {
-  return <PageHeader {...args} />
+  const { locale } = useRouter()
+  return <PageHeader {...args} defaultLocale={locale as StrapiLocale} />
 }
 
 export const Default = Template.bind({})
 Default.args = {
   title: 'News',
-
   onSearch: (item: string) => {
     alert(item)
   },
+  onLanguageSwitch: (locale: StrapiLocale) => {
+    alert('Laguage changed to ' + locale)
+  },
+  filterMenu: (
+    <MenuOptionGroup
+      title="Artists"
+      type="checkbox"
+      onChange={value => alert(`Filter applied: ${value}`)}
+    >
+      <MenuItemOption closeOnSelect={false} value="1">
+        Ali
+      </MenuItemOption>
+      <MenuItemOption closeOnSelect={false} value="2">
+        Mehmet
+      </MenuItemOption>
+      <MenuItemOption closeOnSelect={false} value="3">
+        Merve
+      </MenuItemOption>
+    </MenuOptionGroup>
+  ),
+  sortMenu: (
+    <>
+      <MenuOptionGroup
+        defaultValue="title:asc"
+        title="Order"
+        type="radio"
+        onChange={value => alert(`Sorted by ${value}`)}
+      >
+        <MenuItemOption value="title:asc">Ascending</MenuItemOption>
+        <MenuItemOption value="title:desc">Descending</MenuItemOption>
+      </MenuOptionGroup>
 
-  onFilter: (filter: string) => {
-    alert('Filter by ' + filter)
-  },
-  onSort: (sort: string) => {
-    alert('Sort by ' + sort)
-  },
-  onLanguageChange: (slug: string) => {
-    alert('Laguage changed to ' + slug)
-  },
-  createNew: (name: string) => {
-    alert(name)
-  },
-  filterOptions: ['Filter by Date', 'Filter by Author', 'Filter by Published'],
-  sortOptions: ['Ascending', 'Descending'],
-  buttons: ['Create news +'],
+      <MenuDivider />
+      <MenuItem
+        icon={<FaArrowUp />}
+        onClick={() => alert('Sort user ascending')}
+      >
+        User name ascending
+      </MenuItem>
+    </>
+  ),
+  buttons: (
+    <Button
+      colorScheme="primary"
+      rightIcon={<FaPlus />}
+      onClick={() => alert('Clicked Create')}
+    >
+      Create
+    </Button>
+  ),
 }
