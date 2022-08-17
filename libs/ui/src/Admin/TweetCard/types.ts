@@ -1,9 +1,8 @@
-import { StrapiLocale } from '@wsvvrijheid/types'
-import { ReactNode } from 'react'
-import { Tweet } from '../../../../types/src/tweet'
+import { StrapiLocale, Tweet } from '@wsvvrijheid/types'
 
 export type TweetBaseCardProps = {
   tweet: Tweet
   defaultLocale: StrapiLocale
-  options: ReactNode
+  onSave: (tweet: Tweet) => void
+  onEdit: (tweet: Tweet) => void
 }

@@ -1,9 +1,6 @@
-import { MenuItem, MenuOptionGroup, Text } from '@chakra-ui/react'
 import { ComponentMeta, ComponentStory } from '@storybook/react'
 import { StrapiLocale } from '@wsvvrijheid/types'
 import { useRouter } from 'next/router'
-import { GoCloudDownload } from 'react-icons/go'
-import { RiEditLine } from 'react-icons/ri'
 
 import { TweetCardBase } from './index'
 
@@ -33,16 +30,6 @@ Default.args = {
     likes: 45,
     retweets: 56,
   },
-  options: (
-    <MenuOptionGroup>
-      <MenuItem>
-        <RiEditLine /> <Text ml={3}>Edit</Text>
-      </MenuItem>
-      <MenuItem>
-        <GoCloudDownload /> <Text ml={3}>Save</Text>
-      </MenuItem>
-    </MenuOptionGroup>
-  ),
 }
 
 export const Video = Template.bind({})
@@ -66,14 +53,4 @@ Video.args = {
     likes: 45,
     retweets: 56,
   },
-  options: (
-    <MenuOptionGroup>
-      <MenuItem>
-        <RiEditLine /> <Text ml={3}>Edit</Text>
-      </MenuItem>
-      <MenuItem>
-        <GoCloudDownload /> <Text ml={3}>Save</Text>
-      </MenuItem>
-    </MenuOptionGroup>
-  ),
 }
