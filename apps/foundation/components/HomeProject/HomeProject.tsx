@@ -3,13 +3,12 @@ import {
   Button,
   Center,
   Heading,
-  Image,
   SimpleGrid,
   Stack,
   Text,
 } from '@chakra-ui/react'
 import { PROJECTS } from '@wsvvrijheid/config'
-import { AnimatedBox, Container, Navigate } from '@wsvvrijheid/ui'
+import { AnimatedBox, Container, Navigate, WImage } from '@wsvvrijheid/ui'
 import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
 
@@ -36,8 +35,8 @@ export const HomeProject = () => {
                 w="max-content"
                 directing={index % 2 ? 'to-left' : 'to-right'}
               >
-                <Image
-                  src={project.image}
+                <WImage
+                  image={project.image}
                   boxSize={200}
                   alt={project.title[locale]}
                 />

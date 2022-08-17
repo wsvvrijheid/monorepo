@@ -1,9 +1,9 @@
 import { FC } from 'react'
 
-import { Avatar, SimpleGrid, Text, VStack } from '@chakra-ui/react'
+import { SimpleGrid, Text, VStack } from '@chakra-ui/react'
 import { ABOUTS } from '@wsvvrijheid/config'
 import { Localize, StrapiLocale } from '@wsvvrijheid/types'
-import { AnimatedBox } from '@wsvvrijheid/ui'
+import { AnimatedBox, WImage } from '@wsvvrijheid/ui'
 import { useRouter } from 'next/router'
 
 type AboutItem = {
@@ -17,7 +17,13 @@ export const HomeAboutItem: FC<{ item: AboutItem }> = ({ item }) => {
 
   return (
     <VStack align="stretch" spacing={4}>
-      <Avatar alignSelf="center" size="2xl" src={item.image} />
+      <WImage
+        rounded="full"
+        alignSelf="center"
+        boxSize={48}
+        image={item.image}
+        alt={item.title[locale]}
+      />
       <Text fontSize="xl" fontWeight={600}>
         {item.title[locale as StrapiLocale]}
       </Text>
