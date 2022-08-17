@@ -9,10 +9,7 @@ import { UploadFile, FileFormatsType } from '@wsvvrijheid/types'
 import { getImageUrl } from '@wsvvrijheid/utils'
 import Image, { ImageProps } from 'next/image'
 import Zoom from 'react-medium-image-zoom'
-
 import 'react-medium-image-zoom/dist/styles.css'
-// import { ZoomComponent } from './ZoomComponent'
-
 export type WImageProps = {
   ratio?: number | 'twitter'
   format?: FileFormatsType
@@ -81,13 +78,13 @@ export const WImage: FC<WImageProps> = ({
   // }
   const Wrapper = hasZoom ? Zoom : Fragment
   return (
-    <Wrapper>
-      <AspectRatio
-        pos="relative"
-        overflow="hidden"
-        ratio={ratio === 'twitter' ? 1200 / 675 : ratio}
-        h="full"
-      >
+    <AspectRatio
+      pos="relative"
+      overflow="hidden"
+      ratio={ratio === 'twitter' ? 1200 / 675 : ratio}
+      h="full"
+    >
+      <Wrapper>
         <ChakraNextImage
           objectFit="cover"
           layout="fill"
@@ -96,7 +93,7 @@ export const WImage: FC<WImageProps> = ({
           unoptimized={true}
           {...rest}
         />
-      </AspectRatio>
-    </Wrapper>
+      </Wrapper>
+    </AspectRatio>
   )
 }

@@ -1,7 +1,7 @@
-import { Box } from '@chakra-ui/react'
+import { Box, SimpleGrid } from '@chakra-ui/react'
 import { Story, Meta } from '@storybook/react'
 
-import { IMAGE_MOCK } from '../../mocks'
+import { FILE_MOCKS, IMAGE_MOCK } from '../../mocks'
 import { WImage, WImageProps } from './WImage'
 
 export default {
@@ -17,7 +17,9 @@ export default {
   },
 } as Meta<WImageProps>
 
-const Template: Story<WImageProps> = args => <WImage {...args} />
+const Template: Story<WImageProps> = args => {
+  return <WImage {...args} />
+}
 const Wrapper: Story<WImageProps> = args => (
   <Box p={2} bg="primary.400">
     <WImage {...args} />
@@ -50,3 +52,14 @@ Zoom.args = {
   image: IMAGE_MOCK,
   hasZoom: true,
 }
+export const GridTemplate = () => {
+  return (
+    <SimpleGrid columns={{ base: 1, lg: 2 }} spacing={4} h="full">
+      {FILE_MOCKS.filter(file => file.mime.includes('image')).map(file => (
+        <WImage image={file} hasZoom={true} alt={''} />
+      ))}
+    </SimpleGrid>
+  )
+}
+
+export const Grid = GridTemplate.bind({})
