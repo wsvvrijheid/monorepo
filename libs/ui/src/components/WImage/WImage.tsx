@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, Fragment } from 'react'
 
 import {
   AspectRatio,
@@ -8,29 +8,15 @@ import {
 import { UploadFile, FileFormatsType } from '@wsvvrijheid/types'
 import { getImageUrl } from '@wsvvrijheid/utils'
 import Image, { ImageProps } from 'next/image'
-
-// const shimmer = (
-//   width: number,
-//   height: number,
-// ) => `<svg width="${width}" height="${height}" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-//         <defs>
-//           <linearGradient id="g">
-//             <stop stop-color="#ccc" offset="20%" />
-//             <stop stop-color="#eee" offset="50%" />
-//             <stop stop-color="#ccc" offset="70%" />
-//           </linearGradient>
-//         </defs>
-//         <rect width="${width}" height="${height}" fill="#E2E8F0" />
-//         <rect id="r" width="${width}" height="${height}" fill="url(#g)" />
-//         <animate xlink:href="#r" attributeName="x" from="-${width}" to="${width}" dur="1s" repeatCount="indefinite"  />
-//       </svg>`
-
+import Zoom from 'react-medium-image-zoom'
+import 'react-medium-image-zoom/dist/styles.css'
 export type WImageProps = {
   ratio?: number | 'twitter'
   format?: FileFormatsType
   image: UploadFile | string
   alt: string
   isExternal?: boolean
+  hasZoom?: boolean
 } & Omit<ImageProps, 'src'> &
   ChakraImageProps
 
@@ -56,6 +42,7 @@ export const WImage: FC<WImageProps> = ({
   alt,
   ratio,
   isExternal = false,
+  hasZoom,
   ...rest
 }) => {
   const src = isExternal ? image : getImageUrl(image, format)
@@ -67,9 +54,29 @@ export const WImage: FC<WImageProps> = ({
   const alternativeText =
     alt || (image as UploadFile)?.alternativeText || 'image'
 
-  // const blurDataURL =
-  //   thumbnailSrc || `data:image/svg+xml;base64,${toBase64(shimmer(60, 60))}`
-
+  // if (hasZoom) {
+  //   console.log('has zoom', hasZoom, 'image url', image)
+  //   return (
+  //     <Zoom>
+  //       <AspectRatio
+  //         pos="relative"
+  //         overflow="hidden"
+  //         ratio={ratio === 'twitter' ? 1200 / 675 : ratio}
+  //         h="full"
+  //       >
+  //         <ChakraNextImage
+  //           objectFit="cover"
+  //           layout="fill"
+  //           src={src as string}
+  //           alt={alternativeText}
+  //           unoptimized={true}
+  //           {...rest}
+  //         />
+  //       </AspectRatio>
+  //     </Zoom>
+  //   )
+  // }
+  const Wrapper = hasZoom ? Zoom : Fragment
   return (
     <AspectRatio
       pos="relative"
@@ -77,16 +84,16 @@ export const WImage: FC<WImageProps> = ({
       ratio={ratio === 'twitter' ? 1200 / 675 : ratio}
       h="full"
     >
-      <ChakraNextImage
-        objectFit="cover"
-        layout="fill"
-        src={src as string}
-        alt={alternativeText}
-        unoptimized={true}
-        // placeholder="blur"
-        // blurDataURL={blurDataURL}
-        {...rest}
-      />
+      <Wrapper>
+        <ChakraNextImage
+          objectFit="cover"
+          layout="fill"
+          src={src as string}
+          alt={alternativeText}
+          unoptimized={true}
+          {...rest}
+        />
+      </Wrapper>
     </AspectRatio>
   )
 }
