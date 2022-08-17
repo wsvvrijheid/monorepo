@@ -1,7 +1,7 @@
-import { Box, Flex, Text } from '@chakra-ui/react'
+import { Box, Flex, SimpleGrid, Text, VStack } from '@chakra-ui/react'
 import { Story, Meta } from '@storybook/react'
 
-import { IMAGE_MOCK } from '../../mocks'
+import { FILE_MOCKS, IMAGE_MOCK } from '../../mocks'
 import { Container } from '../Container'
 import { WImage, WImageProps } from './WImage'
 
@@ -72,6 +72,12 @@ Default.args = {
   image: IMAGE_MOCK,
 }
 
+export const Zoom = Template.bind({})
+Zoom.args = {
+  image: IMAGE_MOCK,
+  hasZoom: true,
+}
+
 export const Local = Template.bind({})
 Local.args = {
   image: '/images/samenvvv.jpg',
@@ -125,4 +131,19 @@ InFlex.args = {
 export const Float = FloatWrapper.bind({})
 Float.args = {
   image: IMAGE_MOCK,
+}
+
+export const GridZoom = () => {
+  return (
+    <SimpleGrid columns={{ base: 1, md: 3, lg: 4 }} spacing={4} h="full">
+      {FILE_MOCKS.filter(file => file.mime.includes('image')).map(file => (
+        <VStack shadow="base">
+          <WImage image={file} hasZoom={true} alt={''} />
+          <Text p={2} noOfLines={1}>
+            {file.name}
+          </Text>
+        </VStack>
+      ))}
+    </SimpleGrid>
+  )
 }

@@ -69,6 +69,7 @@ export const ArtApprovalModal: FC<ArtApprovalTypes> = ({
                           objectFit="contain"
                           image={image}
                           alt={artTitle}
+                          hasZoom={true}
                         />
                       </SplideSlide>
                     ))}
@@ -78,6 +79,7 @@ export const ArtApprovalModal: FC<ArtApprovalTypes> = ({
                     objectFit="contain"
                     image={artImages?.[0]}
                     alt={artTitle}
+                    hasZoom={true}
                   />
                 )}
                 {/* ==============================*/}

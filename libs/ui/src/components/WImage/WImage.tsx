@@ -1,9 +1,11 @@
-import { FC } from 'react'
+import { ComponentProps, FC, Fragment } from 'react'
 
 import { AspectRatio, ImageProps as ChakraImageProps } from '@chakra-ui/react'
 import { UploadFile, FileFormatsType } from '@wsvvrijheid/types'
 import { getImageUrl, toBase64 } from '@wsvvrijheid/utils'
-import Image, { ImageProps } from 'next/image'
+import Image from 'next/image'
+import Zoom from 'react-medium-image-zoom'
+import 'react-medium-image-zoom/dist/styles.css'
 
 const shimmer = (
   width: number,
@@ -26,9 +28,9 @@ export type WImageProps = {
   format?: FileFormatsType
   image: UploadFile | string
   alt: string
-  isExternal?: boolean
-} & Omit<ImageProps, 'src' | 'placeholder' | 'blurDataURL'> &
-  ChakraImageProps
+  hasZoom?: boolean
+} & Pick<ComponentProps<typeof Image>, 'layout' | 'objectFit'> &
+  Omit<ChakraImageProps, 'objectFit'>
 
 // TODO: add loader
 export const WImage: FC<WImageProps> = ({
@@ -37,7 +39,8 @@ export const WImage: FC<WImageProps> = ({
   alt,
   ratio,
   objectFit,
-  layout,
+  layout = 'fill',
+  hasZoom,
   ...rest
 }) => {
   const src = getImageUrl(image, format)
@@ -52,24 +55,27 @@ export const WImage: FC<WImageProps> = ({
   const height = rest.height || rest.h
   const width = rest.width || rest.w
 
+  const Wrapper = hasZoom ? Zoom : Fragment
+
   return (
     <AspectRatio
       ratio={width && height ? 0 : ratio === 'twitter' ? 1200 / 675 : ratio}
-      h={height || 'full'}
-      w={width || 'full'}
       overflow="hidden"
+      boxSize="full"
       {...rest}
     >
-      <Image
-        objectFit={objectFit || 'cover'}
-        layout={layout || (height && width) ? 'fixed' : 'fill'}
-        src={src}
-        alt={alternativeText}
-        placeholder="blur"
-        blurDataURL={blurDataURL as string}
-        height={parseInt(height as string, 10) || 0}
-        width={parseInt(width as string, 10) || 0}
-      />
+      <Wrapper>
+        <Image
+          objectFit={objectFit || 'cover'}
+          layout={layout}
+          src={src}
+          alt={alternativeText}
+          placeholder="blur"
+          blurDataURL={blurDataURL as string}
+          height={parseInt(height as string, 10) || 0}
+          width={parseInt(width as string, 10) || 0}
+        />
+      </Wrapper>
     </AspectRatio>
   )
 }
