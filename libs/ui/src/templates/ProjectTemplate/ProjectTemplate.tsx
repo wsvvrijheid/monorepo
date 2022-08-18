@@ -31,7 +31,7 @@ export const ProjectTemplate: FC<ProjectTemplateProps> = ({
       <Stack py={8} spacing={8} align="center">
         <Box boxSize={300}>
           <WImage
-            image={image}
+            src={image}
             rounded="full"
             shadow="md"
             alt={seo.title as string}

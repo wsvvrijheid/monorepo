@@ -5,7 +5,7 @@ import { AiOutlineEye, AiOutlineLike, AiOutlineShareAlt } from 'react-icons/ai'
 import { BsBookmarkHeart } from 'react-icons/bs'
 
 import { WImage } from '../../components'
-import ActionButton from './ActionButton'
+import { ActionButton } from './ActionButton'
 import { NewsCardProps } from './types'
 
 export const NewsCardBase: FC<NewsCardProps> = ({
