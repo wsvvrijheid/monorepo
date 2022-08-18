@@ -4,94 +4,85 @@ import {
   AspectRatio,
   Avatar,
   Box,
-  Button,
   HStack,
-  Image,
+  IconButton,
   Menu,
   MenuButton,
   MenuItem,
   MenuList,
   Stack,
   Text,
+  useBoolean,
 } from '@chakra-ui/react'
-import { BsPatchCheckFill } from 'react-icons/bs'
+import { getTwitterVideoUrl } from '@wsvvrijheid/utils'
+import { BsBookmarkPlus, BsThreeDots } from 'react-icons/bs'
 import { FaPlayCircle } from 'react-icons/fa'
-import { GoCloudDownload } from 'react-icons/go'
 import { RiEditLine } from 'react-icons/ri'
 import ReactPlayer from 'react-player'
 
+import { WImage } from '../../components'
 import { TweetBaseCardProps } from './types'
 
 export const TweetCardBase: FC<TweetBaseCardProps> = ({
   tweet,
-  defaultLocale,
   onEdit,
   onSave,
+  ...rest
 }) => {
+  const [playing, setPlaying] = useBoolean()
+
   return (
-    <Stack bg={'white'} p={2} borderRadius={'10px'} flexDirection={'row'}>
-      <HStack alignItems={'start'} mt={1}>
-        <Avatar src={tweet.user.profile} />
-      </HStack>
-      <HStack flexDirection={'column'} w={'100%'}>
-        <HStack
-          alignItems={'start'}
-          w={'100%'}
-          justifyContent={'space-between'}
-        >
-          <HStack ml={3}>
+    <HStack align="start" bg={'white'} rounded="lg" p={4} {...rest}>
+      <Avatar name={tweet.user.name} src={tweet.user.profile} />
+
+      <Stack>
+        {/* Tweet Header */}
+        <HStack justify={'space-between'} title={tweet.user.username}>
+          <HStack noOfLines={1}>
             <Text fontSize={'sm'} fontWeight={'bolder'}>
               {tweet.user.name}
             </Text>
-            <BsPatchCheckFill color="#1da1f2" size={'15px'} />
             <Text fontSize={'xs'} color={'gray'}>
               @{tweet.user.username}
             </Text>
           </HStack>
-          <HStack>
-            <Menu>
-              <MenuButton
-                colorScheme={'teal'}
-                variant={'ghost'}
-                color="gray"
-                borderRadius="50%"
-                width="20px"
-                height="40px"
-                padding="0"
-                pb={2}
-                _hover={{
-                  bg: 'lightgray',
-                  color: 'primary.400',
-                }}
-                as={Button}
-              >
-                ...
-              </MenuButton>
-              <MenuList>
-                <MenuItem onClick={() => onEdit(tweet)}>
-                  <RiEditLine /> <Text ml={3}>Edit</Text>
-                </MenuItem>
-                <MenuItem onClick={() => onSave(tweet)}>
-                  <GoCloudDownload /> <Text ml={3}>Save (Bookmark)</Text>
-                </MenuItem>
-              </MenuList>
-            </Menu>
-          </HStack>
+
+          <Menu>
+            <MenuButton
+              size="sm"
+              rounded="full"
+              as={IconButton}
+              icon={<BsThreeDots />}
+              variant="ghost"
+            />
+            <MenuList>
+              <MenuItem icon={<RiEditLine />} onClick={() => onEdit(tweet)}>
+                Edit
+              </MenuItem>
+              <MenuItem icon={<BsBookmarkPlus />} onClick={() => onSave(tweet)}>
+                Save (Bookmark)
+              </MenuItem>
+            </MenuList>
+          </Menu>
         </HStack>
 
-        <HStack w={'100%'}>
-          <Text fontSize={'small'} ml={2}>
-            {tweet.text}
-          </Text>
-        </HStack>
-        {tweet.videos ? (
-          <AspectRatio ratio={16 / 9} w="full" rounded={'lg'} overflow="hidden">
+        {/* Tweet Content */}
+        <Text fontSize={'sm'} ml={2}>
+          {tweet.text}
+        </Text>
+
+        {/* Video */}
+        {tweet.videos && (
+          <AspectRatio
+            ratio={16 / 9}
+            w="full"
+            rounded={'lg'}
+            overflow="hidden"
+            onClick={setPlaying.toggle}
+          >
             <ReactPlayer
-              controls
-              muted
-              playing
-              style={{ width: '100%' }}
-              url={tweet.videos[0].url}
+              playing={playing}
+              url={getTwitterVideoUrl(tweet.videos)}
               width="100%"
               height="100%"
               light={tweet.image}
@@ -100,10 +91,17 @@ export const TweetCardBase: FC<TweetBaseCardProps> = ({
               }
             />
           </AspectRatio>
-        ) : (
-          tweet.image && <Image src={tweet.image} rounded={'lg'} />
         )}
-      </HStack>
-    </Stack>
+        {/* Image */}
+        {!tweet.videos && tweet.image && (
+          <WImage
+            ratio="twitter"
+            image={tweet.image}
+            rounded={'lg'}
+            alt={tweet.text}
+          />
+        )}
+      </Stack>
+    </HStack>
   )
 }
