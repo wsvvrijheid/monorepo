@@ -1,15 +1,10 @@
 import { FC } from 'react'
 
-import {
-  ButtonGroup,
-  Image,
-  Stack,
-  Text,
-  useBreakpointValue,
-} from '@chakra-ui/react'
+import { ButtonGroup, Stack, Text, useBreakpointValue } from '@chakra-ui/react'
 import { AiOutlineEye, AiOutlineLike, AiOutlineShareAlt } from 'react-icons/ai'
 import { BsBookmarkHeart } from 'react-icons/bs'
 
+import { WImage } from '../../components'
 import ActionButton from './ActionButton'
 import { NewsCardProps } from './types'
 
@@ -97,11 +92,9 @@ export const NewsCardBase: FC<NewsCardProps> = ({
         </Stack>
       </Stack>
 
-      <Image
+      <WImage
         w={isVertical ? 'full' : '300px'}
-        h={isVertical ? '200px' : 'auto'}
-        objectFit="cover"
-        objectPosition="center"
+        h={isVertical ? '200px' : 'full'}
         src={news.image}
         alt={news.title}
       />

@@ -36,7 +36,7 @@ export const HomeProject = () => {
                 directing={index % 2 ? 'to-left' : 'to-right'}
               >
                 <WImage
-                  image={project.image}
+                  src={project.image}
                   boxSize={200}
                   alt={project.title[locale]}
                 />

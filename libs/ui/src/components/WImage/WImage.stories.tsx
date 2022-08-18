@@ -10,11 +10,14 @@ export default {
   title: 'Shared/WImage',
   decorators: [
     Story => (
-      <Container maxW="container.lg">
+      <Container maxW="container.md">
         <Story />
       </Container>
     ),
   ],
+  args: {
+    src: IMAGE_MOCK,
+  },
   argTypes: {
     format: {
       control: {
@@ -25,27 +28,57 @@ export default {
   },
 } as Meta<WImageProps>
 
+// DEFAULT TEMPLATE
 const Template: Story<WImageProps> = args => <WImage {...args} />
-const Wrapper: Story<WImageProps> = args => (
+
+export const Default = Template.bind({})
+
+export const Zoom = Template.bind({})
+Zoom.args = { hasZoom: true }
+
+export const Local = Template.bind({})
+Local.args = { src: '/images/samen.jpg' }
+
+export const External = Template.bind({})
+External.args = { src: 'https://picsum.photos/200/300' }
+
+export const Width300 = Template.bind({})
+Width300.args = { w: 300 }
+
+export const Height300 = Template.bind({})
+Height300.args = { h: 300 }
+
+export const BoxSize250 = Template.bind({})
+BoxSize250.args = { boxSize: 300 }
+
+export const Twitter = Template.bind({})
+Twitter.args = { ratio: 'twitter' }
+
+export const Rounded = Template.bind({})
+Rounded.args = { rounded: 'lg' }
+
+// CUSTOM
+export const Card = () => (
   <Box p={2} bg="primary.400">
-    <WImage {...args} />
+    <WImage src={IMAGE_MOCK} alt="box" ratio={3} />
     <Text>Card content</Text>
   </Box>
 )
-const FlexWrapper: Story<WImageProps> = args => (
+
+export const FlexCard = () => (
   <Flex>
-    <WImage {...args} />
+    <WImage src={IMAGE_MOCK} alt="flex" />
     <Text>Card content</Text>
   </Flex>
 )
 
-const FloatWrapper: Story<WImageProps> = args => (
+export const Float = () => (
   <Box>
     <WImage
-      {...args}
+      src={IMAGE_MOCK}
+      alt="float"
       float="left"
-      w={'80px'}
-      h={'80px'}
+      boxSize="48"
       mr={4}
       rounded="full"
     />
@@ -66,79 +99,12 @@ const FloatWrapper: Story<WImageProps> = args => (
   </Box>
 )
 
-// TEMPLATE
-export const Default = Template.bind({})
-Default.args = {
-  image: IMAGE_MOCK,
-}
-
-export const Zoom = Template.bind({})
-Zoom.args = {
-  image: IMAGE_MOCK,
-  hasZoom: true,
-}
-
-export const Local = Template.bind({})
-Local.args = {
-  image: '/images/samenvvv.jpg',
-}
-
-export const Height300 = Template.bind({})
-Height300.args = {
-  image: 'https://picsum.photos/200/300',
-  h: '300px',
-}
-
-export const Width300 = Template.bind({})
-Width300.args = {
-  image: 'https://picsum.photos/200/300',
-  w: '300px',
-}
-
-export const WidthHeight300 = Template.bind({})
-WidthHeight300.args = {
-  image: 'https://picsum.photos/200/300',
-  w: '300px',
-  h: '300px',
-}
-
-export const Twitter = Template.bind({})
-Twitter.args = {
-  image: 'https://picsum.photos/200/300',
-  ratio: 'twitter',
-}
-
-export const Rounded = Template.bind({})
-Rounded.args = {
-  image: 'https://picsum.photos/200/300',
-  rounded: 'lg',
-}
-
-// BOX WRAPPER
-export const Card = Wrapper.bind({})
-Card.args = {
-  image: IMAGE_MOCK,
-  ratio: 3 / 1,
-}
-
-// FLEX WRAPPER
-export const InFlex = FlexWrapper.bind({})
-InFlex.args = {
-  image: IMAGE_MOCK,
-}
-
-// FLOAT WRAPPER
-export const Float = FloatWrapper.bind({})
-Float.args = {
-  image: IMAGE_MOCK,
-}
-
 export const GridZoom = () => {
   return (
     <SimpleGrid columns={{ base: 1, md: 3, lg: 4 }} spacing={4} h="full">
       {FILE_MOCKS.filter(file => file.mime.includes('image')).map(file => (
         <VStack shadow="base">
-          <WImage image={file} hasZoom={true} alt={''} />
+          <WImage src={file} hasZoom={true} alt={''} />
           <Text p={2} noOfLines={1}>
             {file.name}
           </Text>

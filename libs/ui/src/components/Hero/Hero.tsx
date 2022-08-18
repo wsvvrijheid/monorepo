@@ -1,9 +1,9 @@
 import { FC, memo, PropsWithChildren } from 'react'
 
 import { Box, Heading, Text, VStack } from '@chakra-ui/react'
-import Image from 'next/image'
 
 import { Container } from '../Container'
+import { WImage } from '../WImage'
 
 export interface HeroProps {
   title: string
@@ -52,12 +52,13 @@ export const Hero: FC<PropsWithChildren<HeroProps>> = memo(function Hero({
           w="full"
           h="full"
         >
-          <Image
+          <WImage
             src={image}
             objectFit="cover"
             objectPosition="bottom"
             layout="fill"
             height="100%"
+            alt={title}
           />
         </Box>
       )}

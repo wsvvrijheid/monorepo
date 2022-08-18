@@ -21,7 +21,7 @@ export const HomeAboutItem: FC<{ item: AboutItem }> = ({ item }) => {
         rounded="full"
         alignSelf="center"
         boxSize={48}
-        image={item.image}
+        src={item.image}
         alt={item.title[locale]}
       />
       <Text fontSize="xl" fontWeight={600}>

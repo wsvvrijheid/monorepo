@@ -26,15 +26,15 @@ const shimmer = (
 export type WImageProps = {
   ratio?: number | 'twitter'
   format?: FileFormatsType
-  image: UploadFile | string
+  src: UploadFile | string
   alt: string
   hasZoom?: boolean
 } & Pick<ComponentProps<typeof Image>, 'layout' | 'objectFit'> &
-  Omit<ChakraImageProps, 'objectFit'>
+  Omit<ChakraImageProps, 'objectFit' | 'src'>
 
 // TODO: add loader
 export const WImage: FC<WImageProps> = ({
-  image,
+  src,
   format,
   alt,
   ratio,
@@ -43,11 +43,10 @@ export const WImage: FC<WImageProps> = ({
   hasZoom,
   ...rest
 }) => {
-  const src = getImageUrl(image, format)
-  const thumbnailSrc = getImageUrl(image, 'thumbnail')
+  const source = getImageUrl(src, format)
+  const thumbnailSrc = getImageUrl(src, 'thumbnail')
 
-  const alternativeText =
-    alt || (image as UploadFile)?.alternativeText || 'image'
+  const alternativeText = alt || (src as UploadFile)?.alternativeText || 'image'
 
   const blurDataURL =
     thumbnailSrc || `data:image/svg+xml;base64,${toBase64(shimmer(60, 60))}`
@@ -57,18 +56,24 @@ export const WImage: FC<WImageProps> = ({
 
   const Wrapper = hasZoom ? Zoom : Fragment
 
+  console.log(
+    source,
+    width && height ? 0 : ratio === 'twitter' ? 1200 / 675 : ratio,
+  )
+
   return (
     <AspectRatio
       ratio={width && height ? 0 : ratio === 'twitter' ? 1200 / 675 : ratio}
       overflow="hidden"
       boxSize="full"
+      pos="relative"
       {...rest}
     >
       <Wrapper>
         <Image
           objectFit={objectFit || 'cover'}
           layout={layout}
-          src={src}
+          src={source}
           alt={alternativeText}
           placeholder="blur"
           blurDataURL={blurDataURL as string}

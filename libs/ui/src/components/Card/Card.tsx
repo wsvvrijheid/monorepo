@@ -1,8 +1,9 @@
 import { FC } from 'react'
 
-import { Avatar, Center, Heading, Image, Stack, Text } from '@chakra-ui/react'
+import { Avatar, Center, Heading, Stack, Text } from '@chakra-ui/react'
 
 import { Navigate } from '../Navigate'
+import { WImage } from '../WImage'
 
 interface CardProps {
   title: string
@@ -40,8 +41,7 @@ export const Card: FC<CardProps> = ({
               _groupHover={{ transform: 'scale(1.1)' }}
             />
           ) : (
-            <Image
-              objectFit="cover"
+            <WImage
               h={48}
               w="full"
               src={image}
