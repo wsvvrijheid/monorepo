@@ -1,17 +1,15 @@
 import { FC } from 'react'
 
-import { Image } from '@chakra-ui/react'
 import { Splide, SplideSlide } from '@splidejs/react-splide'
 
+import { WImage } from '../WImage'
 import { ArtCardImageProps, CardImageProps } from './types'
 
 const CardImage: FC<CardImageProps> = ({ art, isMasonry, image }) => (
-  <Image
+  <WImage
     pos="relative"
     zIndex={-1}
     h={isMasonry ? undefined : 300}
-    w="full"
-    objectFit="cover"
     src={`${process.env['NX_API_URL']}${image?.url}`}
     alt={art.title}
     userSelect="none"

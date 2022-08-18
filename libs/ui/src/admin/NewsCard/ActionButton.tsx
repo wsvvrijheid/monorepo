@@ -4,7 +4,7 @@ import { Button } from '@chakra-ui/react'
 
 import { ActionButtonProps } from './types'
 
-const ActionButton: FC<ActionButtonProps> = ({
+export const ActionButton: FC<ActionButtonProps> = ({
   isVertical,
   title,
   icon,
@@ -23,5 +23,3 @@ const ActionButton: FC<ActionButtonProps> = ({
     />
   )
 }
-
-export default ActionButton

@@ -184,6 +184,11 @@
                 "glob": "libs/ui/README.md",
                 "input": ".",
                 "output": "."
+              },
+              {
+                "input": "libs/assets/src/images",
+                "glob": "*.{png,jpg,jpeg,gif,svg}",
+                "output": "assets/images"
               }
             ]
           }

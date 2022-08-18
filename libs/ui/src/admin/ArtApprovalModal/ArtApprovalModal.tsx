@@ -52,9 +52,9 @@ export const ArtApprovalModal: FC<ArtApprovalTypes> = ({
     <Box>
       <Modal onClose={onClose} isOpen={isOpen} scrollBehavior="inside">
         <ModalOverlay />
-        <ModalContent maxW="95vw" h="full">
+        <ModalContent maxW="95vw" h="full" p={{ base: 2, lg: 4 }}>
           <ModalCloseButton />
-          <ModalBody p={{ base: 2, lg: 4 }}>
+          <ModalBody>
             <SimpleGrid columns={{ base: 1, lg: 2 }} spacing={4} h="full">
               <Stack>
                 {/*TODO Image should has zoom  */}
@@ -67,7 +67,7 @@ export const ArtApprovalModal: FC<ArtApprovalTypes> = ({
                       <SplideSlide key={index} style={{ height: '100%' }}>
                         <WImage
                           objectFit="contain"
-                          image={image}
+                          src={image}
                           alt={artTitle}
                           hasZoom={true}
                         />
@@ -77,7 +77,7 @@ export const ArtApprovalModal: FC<ArtApprovalTypes> = ({
                 ) : (
                   <WImage
                     objectFit="contain"
-                    image={artImages?.[0]}
+                    src={artImages?.[0]}
                     alt={artTitle}
                     hasZoom={true}
                   />

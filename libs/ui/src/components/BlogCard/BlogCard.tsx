@@ -31,7 +31,7 @@ const BlogCardImage: FC<BlogCardImageProps> = memo(
       <WImage
         alt={alt}
         minH={isFeatured ? 450 : 200}
-        image={image}
+        src={image}
         ratio="twitter"
       />
     )

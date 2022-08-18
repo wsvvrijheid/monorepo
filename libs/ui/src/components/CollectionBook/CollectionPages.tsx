@@ -1,8 +1,9 @@
 import { forwardRef, Fragment } from 'react'
 
-import { Heading, Image, Stack, Text, VStack } from '@chakra-ui/react'
+import { Heading, Stack, Text, VStack } from '@chakra-ui/react'
 import { Collection } from '@wsvvrijheid/types'
 
+import { WImage } from '../WImage'
 import { Page } from './Page'
 interface CollectionPagesPops {
   collection: Collection
@@ -23,12 +24,14 @@ export const CollectionPages = forwardRef<HTMLDivElement, CollectionPagesPops>(
                   {art.title}
                 </Heading>
 
-                <Image
-                  rounded="sm"
-                  maxH="80%"
-                  src={process.env['NX_API_URL'] + art.images![0].url}
-                  alt={art.title}
-                />
+                {art.images && (
+                  <WImage
+                    rounded="sm"
+                    maxH="80%"
+                    src={art.images[0]}
+                    alt={art.title}
+                  />
+                )}
 
                 <Text fontFamily="club">{art.description}</Text>
               </VStack>

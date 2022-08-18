@@ -7,7 +7,8 @@ export const getImageUrl = (
   if (!image) return ''
 
   const apiUrl = process.env['NX_API_URL']
-  const siteUrl = process.env['NX_PUBLIC_URL']
+  const siteUrl =
+    process.env['NX_STORYBOOK'] === 'true' ? '' : process.env['NX_PUBLIC_URL']
 
   if (typeof image === 'string') {
     if (image?.startsWith('http')) {
