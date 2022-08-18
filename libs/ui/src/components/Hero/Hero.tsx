@@ -17,7 +17,7 @@ export const Hero: FC<PropsWithChildren<HeroProps>> = memo(function Hero({
   title,
   description,
   video,
-  image = process.env['NX_PUBLIC_URL'] + '/assets/images/hero-bg.jpeg',
+  image = '/assets/images/hero-bg.jpeg',
   isFullHeight = false,
   children,
 }) {
