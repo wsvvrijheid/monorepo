@@ -18,7 +18,7 @@ const providers: Provider[] = [
   },
 ]
 
-const backendUrl = process.env['NX_PUBLIC_API']
+const backendUrl = process.env['NX_API_URL']
 
 export const OAuthButtonGroup: FC<{ isDisabled: boolean }> = ({
   isDisabled,

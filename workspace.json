@@ -75,6 +75,11 @@
                 "input": "libs/assets/src/images",
                 "glob": "*.{png,jpg,jpeg,gif,svg}",
                 "output": "assets/images"
+              },
+              {
+                "input": "public/locales",
+                "glob": "**/*.json",
+                "output": "locales"
               }
             ]
           },
@@ -93,7 +98,7 @@
               {
                 "input": "libs/assets/src/images",
                 "glob": "*.{png,jpg,jpeg,gif,svg}",
-                "output": "assets/images"
+                "output": "assets"
               },
               {
                 "input": "public/locales",
@@ -188,7 +193,7 @@
               {
                 "input": "libs/assets/src/images",
                 "glob": "*.{png,jpg,jpeg,gif,svg}",
-                "output": "assets/images"
+                "output": "assets"
               }
             ]
           }
