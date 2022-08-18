@@ -91,7 +91,9 @@ const Template: ComponentStory<typeof ArtApprovalModal> = args => {
 }
 
 export const Default = Template.bind({})
-Default.args = {}
+Default.args = {
+  hasZoom: true,
+}
 export const LongDescription = Template.bind({})
 LongDescription.args = {
   artDescription: `Lorem ipsum odor amet, consectetuer adipiscing elit. Primis eros nunc fringilla id rutrum nibh.

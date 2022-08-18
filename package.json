@@ -40,6 +40,7 @@
     "react-icons": "^4.4.0",
     "react-intersection-observer": "^9.3.5",
     "react-masonry-css": "^1.0.16",
+    "react-medium-image-zoom": "^5.0.1",
     "react-pageflip": "^2.0.3",
     "react-player": "^2.10.1",
     "react-query": "^3.39.2",
