@@ -1,92 +1,86 @@
-import { FC } from 'react'
+import { ComponentProps, FC, Fragment } from 'react'
 
-import {
-  AspectRatio,
-  chakra,
-  ImageProps as ChakraImageProps,
-} from '@chakra-ui/react'
+import { AspectRatio, ImageProps as ChakraImageProps } from '@chakra-ui/react'
 import { UploadFile, FileFormatsType } from '@wsvvrijheid/types'
-import { getImageUrl } from '@wsvvrijheid/utils'
-import Image, { ImageProps } from 'next/image'
+import { getImageUrl, toBase64 } from '@wsvvrijheid/utils'
+import Image from 'next/image'
+import Zoom from 'react-medium-image-zoom'
+import 'react-medium-image-zoom/dist/styles.css'
 
-// const shimmer = (
-//   width: number,
-//   height: number,
-// ) => `<svg width="${width}" height="${height}" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-//         <defs>
-//           <linearGradient id="g">
-//             <stop stop-color="#ccc" offset="20%" />
-//             <stop stop-color="#eee" offset="50%" />
-//             <stop stop-color="#ccc" offset="70%" />
-//           </linearGradient>
-//         </defs>
-//         <rect width="${width}" height="${height}" fill="#E2E8F0" />
-//         <rect id="r" width="${width}" height="${height}" fill="url(#g)" />
-//         <animate xlink:href="#r" attributeName="x" from="-${width}" to="${width}" dur="1s" repeatCount="indefinite"  />
-//       </svg>`
+const shimmer = (
+  width: number,
+  height: number,
+) => `<svg width="${width}" height="${height}" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <defs>
+          <linearGradient id="g">
+            <stop stop-color="#ccc" offset="20%" />
+            <stop stop-color="#eee" offset="50%" />
+            <stop stop-color="#ccc" offset="70%" />
+          </linearGradient>
+        </defs>
+        <rect width="${width}" height="${height}" fill="#E2E8F0" />
+        <rect id="r" width="${width}" height="${height}" fill="url(#g)" />
+        <animate xlink:href="#r" attributeName="x" from="-${width}" to="${width}" dur="1s" repeatCount="indefinite"  />
+      </svg>`
 
 export type WImageProps = {
   ratio?: number | 'twitter'
   format?: FileFormatsType
-  image: UploadFile | string
+  src: UploadFile | string
   alt: string
-  isExternal?: boolean
-} & Omit<ImageProps, 'src'> &
-  ChakraImageProps
-
-const ChakraNextImage = chakra(Image, {
-  shouldForwardProp: prop =>
-    [
-      'width',
-      'height',
-      'src',
-      'alt',
-      'layout',
-      'loader',
-      'blurDataUrl',
-      'placeholder',
-      'objectFit',
-    ].includes(prop),
-})
+  hasZoom?: boolean
+} & Pick<ComponentProps<typeof Image>, 'layout' | 'objectFit'> &
+  Omit<ChakraImageProps, 'objectFit' | 'src'>
 
 // TODO: add loader
 export const WImage: FC<WImageProps> = ({
-  image,
+  src,
   format,
   alt,
   ratio,
-  isExternal = false,
+  objectFit,
+  layout = 'fill',
+  hasZoom,
   ...rest
 }) => {
-  const src = isExternal ? image : getImageUrl(image, format)
-  const thumbnailSrc = isExternal ? image : getImageUrl(image, 'thumbnail')
+  const source = getImageUrl(src, format)
+  const thumbnailSrc = getImageUrl(src, 'thumbnail')
 
-  console.log('src', src)
-  console.log('thumbnailSrc', thumbnailSrc)
+  const alternativeText = alt || (src as UploadFile)?.alternativeText || 'image'
 
-  const alternativeText =
-    alt || (image as UploadFile)?.alternativeText || 'image'
+  const blurDataURL =
+    thumbnailSrc || `data:image/svg+xml;base64,${toBase64(shimmer(60, 60))}`
 
-  // const blurDataURL =
-  //   thumbnailSrc || `data:image/svg+xml;base64,${toBase64(shimmer(60, 60))}`
+  const height = rest.height || rest.h
+  const width = rest.width || rest.w
+
+  const Wrapper = hasZoom ? Zoom : Fragment
+
+  console.log(
+    source,
+    width && height ? 0 : ratio === 'twitter' ? 1200 / 675 : ratio,
+  )
 
   return (
     <AspectRatio
-      pos="relative"
+      ratio={width && height ? 0 : ratio === 'twitter' ? 1200 / 675 : ratio}
       overflow="hidden"
-      ratio={ratio === 'twitter' ? 1200 / 675 : ratio}
-      h="full"
+      boxSize="full"
+      pos="relative"
+      {...rest}
     >
-      <ChakraNextImage
-        objectFit="cover"
-        layout="fill"
-        src={src as string}
-        alt={alternativeText}
-        unoptimized={true}
-        // placeholder="blur"
-        // blurDataURL={blurDataURL}
-        {...rest}
-      />
+      <Wrapper>
+        <Image
+          objectFit={objectFit || 'cover'}
+          layout={layout}
+          src={source}
+          alt={alternativeText}
+          placeholder="blur"
+          blurDataURL={blurDataURL as string}
+          height={parseInt(height as string, 10) || 0}
+          width={parseInt(width as string, 10) || 0}
+        />
+      </Wrapper>
     </AspectRatio>
   )
 }

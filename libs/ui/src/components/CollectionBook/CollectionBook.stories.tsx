@@ -13,7 +13,7 @@ const Template: Story<CollectionBookProps> = args => (
     {...args}
     collection={COLLECTION_MOCKS.data[0]}
     title="Art Stop Collection"
-    logo="/assets/images/kunsthalte.jpg"
+    logo="/images/kunsthalte.png"
   />
 )
 

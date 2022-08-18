@@ -7,7 +7,7 @@ export interface Tweet {
   }
   image?: string
   videos?: {
-    bitrate: number
+    bitrate?: number
     content_type: string
     url: string
   }[]

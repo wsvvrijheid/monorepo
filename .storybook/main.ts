@@ -3,6 +3,8 @@ import type { StorybookConfig } from '@storybook/core-common'
 const config: StorybookConfig = {
   stories: [],
   addons: ['@storybook/addon-essentials'],
+  staticDirs: ['../../assets/src'],
+
   webpackFinal: async config => {
     if (config.resolve) {
       config.resolve.fallback = {

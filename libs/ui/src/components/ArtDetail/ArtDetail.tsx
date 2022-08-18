@@ -1,14 +1,6 @@
 import { FC, memo } from 'react'
 
-import {
-  Box,
-  Button,
-  Center,
-  HStack,
-  Image,
-  Text,
-  VStack,
-} from '@chakra-ui/react'
+import { Box, Button, Center, HStack, Text, VStack } from '@chakra-ui/react'
 import { Splide, SplideSlide } from '@splidejs/react-splide'
 import { Art, UploadFile } from '@wsvvrijheid/types'
 import { useRouter } from 'next/router'
@@ -16,6 +8,7 @@ import { AiFillHeart } from 'react-icons/ai'
 import { FaEye } from 'react-icons/fa'
 
 import { ShareButtons } from '../ShareButtons'
+import { WImage } from '../WImage'
 
 interface ArtImageProps {
   image: UploadFile
@@ -24,7 +17,7 @@ interface ArtImageProps {
 
 const ArtImage: FC<ArtImageProps> = memo(({ image, alt }) => {
   return (
-    <Image
+    <WImage
       maxH={500}
       src={`${process.env['NX_API_URL']}${image.url}`}
       alt={alt}
