@@ -1,0 +1,99 @@
+import React from 'react'
+
+import { Flex, useBreakpointValue, VStack } from '@chakra-ui/react'
+import { Textarea } from '@chakra-ui/react'
+import { Button } from '@chakra-ui/react'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { SubmitHandler, useForm } from 'react-hook-form'
+import { TFunction, useTranslation } from 'react-i18next'
+import * as yup from 'yup'
+
+import { FormItem } from '../../components/FormItem'
+import Notification from '../Notification/Notification'
+import { MessageBoxFieldValues, MessageBoxProps } from './types'
+
+const schema = (t: TFunction) =>
+  yup.object({
+    message: yup.string().required(t`contact.form.message-required`),
+  })
+
+export const MessageBox: React.FC<MessageBoxProps> = ({
+  onSubmitHandler,
+  isLoading,
+  isSuccess,
+  isError,
+}) => {
+  const { t } = useTranslation()
+  const size = useBreakpointValue({ base: 'md', lg: 'lg' })
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isValid },
+  } = useForm<MessageBoxFieldValues>({
+    resolver: yupResolver(schema(t)),
+    mode: 'all',
+  })
+
+  const onSubmit: SubmitHandler<MessageBoxFieldValues> = async data => {
+    onSubmitHandler(data)
+  }
+
+  return (
+    <VStack
+      spacing={5}
+      as="form"
+      onSubmit={handleSubmit(onSubmit)}
+      alignItems="stretch"
+    >
+      <FormItem
+        as={Textarea}
+        name="message"
+        errors={errors}
+        register={register}
+      />
+      <Flex
+        minWidth="max-content"
+        justifyContent={{ base: 'center', lg: 'end' }}
+        gap="2"
+      >
+        {/* <ButtonGroup gap="2" w={{ base: 'full' }}> */}
+        <Button
+          size={size}
+          variant="solid"
+          colorScheme="gray"
+          type="submit"
+          isDisabled={!isValid}
+          isLoading={isLoading}
+          w={{ base: 'full', lg: 'auto' }}
+        >
+          Cancel
+        </Button>
+        <Button
+          size={size}
+          variant="solid"
+          colorScheme="blue"
+          type="submit"
+          isDisabled={!isValid}
+          isLoading={isLoading}
+          w={{ base: 'full', lg: 'auto' }}
+        >
+          Send
+        </Button>
+        {/* </ButtonGroup> */}
+      </Flex>
+
+      <Notification
+        description={
+          isSuccess
+            ? 'Message has ben sent successfully'
+            : 'An Error Occured while sending your message'
+        }
+        isOpen={isSuccess || isError}
+        status={isSuccess ? 'success' : 'error'}
+        title={isSuccess ? 'Success' : 'Error'}
+      />
+    </VStack>
+  )
+}
+export default MessageBox
