@@ -28,7 +28,7 @@ Default.args = {
 
 export const Success = Template.bind({})
 Success.args = {
-  errorMessage: 'There is a error',
+  errorMessage: 'There is an error',
   isError: false,
   isSuccess: true,
   isLoading: false,
@@ -36,7 +36,7 @@ Success.args = {
 
 export const Error = Template.bind({})
 Error.args = {
-  errorMessage: 'There is a error',
+  errorMessage: 'There is an error',
   isError: true,
   isSuccess: false,
   isLoading: false,
@@ -44,7 +44,7 @@ Error.args = {
 
 export const Loading = Template.bind({})
 Loading.args = {
-  errorMessage: 'There is a error',
+  errorMessage: 'There is an error',
   isError: false,
   isSuccess: false,
   isLoading: true,
