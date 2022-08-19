@@ -15,7 +15,15 @@ const Template: Story<NotificationProps> = args => <Notification {...args} />
 export const Default = Template.bind({})
 Default.args = {
   status: 'success',
-  title: 'congratulations',
-  description: 'you made it :D',
+  title: 'Success',
+  description: 'Message has ben sent successfully',
+  isOpen: true,
+}
+
+export const Error = Template.bind({})
+Error.args = {
+  status: 'error',
+  title: 'Error',
+  description: 'An error occured while sending your message',
   isOpen: true,
 }
