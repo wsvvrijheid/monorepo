@@ -1,6 +1,6 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react'
+import { COMMENT_MOCKS } from '@wsvvrijheid/mocks'
 
-import { COMMENT_MOCKS } from '../../mocks/strapi'
 import { Container } from '../Container'
 import { CommentList } from './CommentList'
 

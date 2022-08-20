@@ -1,7 +1,7 @@
 import { SimpleGrid } from '@chakra-ui/react'
 import { Meta, Story } from '@storybook/react'
+import { VOLUNTEER_MOCKS } from '@wsvvrijheid/mocks'
 
-import { VOLUNTEER_MOCKS } from '../../mocks'
 import { VolunteerCard, VolunteerCardProps } from './VolunteerCard'
 
 export default {

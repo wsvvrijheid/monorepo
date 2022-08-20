@@ -1,6 +1,6 @@
 import { Story, Meta } from '@storybook/react'
+import { BLOG_MOCKS } from '@wsvvrijheid/mocks'
 
-import { BLOG_MOCKS } from '../../mocks'
 import { Container } from '../Container'
 import { BlogCard, BlogCardProps } from './BlogCard'
 
