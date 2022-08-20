@@ -1,6 +1,6 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react'
+import { ART_MOCKS, USER_MOCKS } from '@wsvvrijheid/mocks'
 
-import { ART_MOCKS, USER_MOCKS } from '../../mocks/strapi'
 import { ArtContent } from './ArtContent'
 
 export default {

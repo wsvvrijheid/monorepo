@@ -96,7 +96,7 @@ export const TweetCardBase: FC<TweetBaseCardProps> = ({
         {!tweet.videos && tweet.image && (
           <WImage
             ratio="twitter"
-            image={tweet.image}
+            src={tweet.image}
             rounded={'lg'}
             alt={tweet.text}
           />

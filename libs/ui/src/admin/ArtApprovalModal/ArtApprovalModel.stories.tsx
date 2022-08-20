@@ -1,8 +1,9 @@
 import { Container, useDisclosure, Button, Box } from '@chakra-ui/react'
 import { ComponentStory, ComponentMeta } from '@storybook/react'
+import { ART_MOCKS, USER_MOCKS } from '@wsvvrijheid/mocks'
 
-import { ART_MOCKS, USER_MOCKS } from '../../mocks/strapi'
 import { ArtApprovalModal } from './ArtApprovalModal'
+
 import '@splidejs/splide/dist/css/themes/splide-default.min.css'
 
 export default {

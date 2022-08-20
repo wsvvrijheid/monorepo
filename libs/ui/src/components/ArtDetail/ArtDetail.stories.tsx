@@ -1,8 +1,8 @@
 import { useState } from 'react'
 
 import { ComponentStory, ComponentMeta } from '@storybook/react'
+import { ART_MOCKS } from '@wsvvrijheid/mocks'
 
-import { ART_MOCKS } from '../../mocks/strapi'
 import { ArtDetail } from './ArtDetail'
 
 export default {

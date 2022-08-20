@@ -142,6 +142,31 @@
       },
       "tags": ["type:app"]
     },
+    "mocks": {
+      "root": "libs/mocks",
+      "sourceRoot": "libs/mocks/src",
+      "projectType": "library",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/js:tsc",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/libs/mocks",
+            "main": "libs/mocks/src/index.ts",
+            "tsConfig": "libs/mocks/tsconfig.lib.json",
+            "assets": ["libs/mocks/*.md"]
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/mocks/**/*.ts"]
+          }
+        }
+      },
+      "tags": []
+    },
     "types": {
       "root": "libs/types",
       "sourceRoot": "libs/types/src",
@@ -194,6 +219,11 @@
                 "input": "libs/assets/src/images",
                 "glob": "*.{png,jpg,jpeg,gif,svg}",
                 "output": "assets"
+              },
+              {
+                "input": "libs/assets/src",
+                "glob": "*.js",
+                "output": ""
               }
             ]
           }

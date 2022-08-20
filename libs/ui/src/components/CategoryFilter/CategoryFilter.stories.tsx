@@ -11,12 +11,12 @@ import {
   VStack,
 } from '@chakra-ui/react'
 import { Story, Meta } from '@storybook/react'
+import { CATEGORY_MOCKS } from '@wsvvrijheid/mocks'
 import { StrapiLocale } from '@wsvvrijheid/types'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'react-i18next'
 
 import { useChangeParams } from '../../hooks'
-import { CATEGORY_MOCKS } from '../../mocks'
 import { CategoryFilter, CategoryFilterProps } from './CategoryFilter'
 
 export default {
