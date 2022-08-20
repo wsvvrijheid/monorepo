@@ -12,8 +12,6 @@ export default {
 const Template: ComponentStory<typeof Activity> = () => {
   const { data, isLoading } = useActivity('san')
 
-  console.log('data', data)
-
   if (isLoading) return <Spinner />
 
   return <Activity title={data?.title} />

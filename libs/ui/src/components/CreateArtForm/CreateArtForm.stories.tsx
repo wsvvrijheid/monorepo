@@ -1,9 +1,9 @@
 import { useState } from 'react'
 
 import { Story, Meta } from '@storybook/react'
+import { CATEGORY_MOCKS } from '@wsvvrijheid/mocks'
 
 import { CreateArtForm } from '.'
-import { CATEGORY_MOCKS } from '../../mocks'
 import { CreateArtFormProps, CreateArtFormFieldValues } from './types'
 
 export default {

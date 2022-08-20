@@ -1,6 +1,6 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react'
+import { PROJECT_MOCKS } from '@wsvvrijheid/mocks'
 
-import { PROJECT_MOCKS } from '../../mocks/strapi'
 import { Container } from '../Container'
 import { Card } from './Card'
 

@@ -19,6 +19,7 @@
     "paths": {
       "@sample/assets": ["libs/assets/src"],
       "@wsvvrijheid/config": ["libs/config/src"],
+      "@wsvvrijheid/mocks": ["libs/mocks/src"],
       "@wsvvrijheid/types": ["libs/types/src"],
       "@wsvvrijheid/ui": ["libs/ui/src"],
       "@wsvvrijheid/utils": ["libs/utils/src"]

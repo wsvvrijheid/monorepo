@@ -1,6 +1,6 @@
 import { Story, Meta } from '@storybook/react'
+import { COLLECTION_MOCKS } from '@wsvvrijheid/mocks'
 
-import { COLLECTION_MOCKS } from '../../mocks'
 import { CollectionBook, CollectionBookProps } from './CollectionBook'
 
 export default {

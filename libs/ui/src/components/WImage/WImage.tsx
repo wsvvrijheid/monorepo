@@ -56,11 +56,6 @@ export const WImage: FC<WImageProps> = ({
 
   const Wrapper = hasZoom ? Zoom : Fragment
 
-  console.log(
-    source,
-    width && height ? 0 : ratio === 'twitter' ? 1200 / 675 : ratio,
-  )
-
   return (
     <AspectRatio
       ratio={width && height ? 0 : ratio === 'twitter' ? 1200 / 675 : ratio}

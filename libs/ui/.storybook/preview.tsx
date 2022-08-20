@@ -1,9 +1,14 @@
+// eslint-disable @nrwl/nx/enforce-module-boundaries
+import React from 'react'
+
 import { Box, extendTheme } from '@chakra-ui/react'
-import { themes } from '@wsvvrijheid/config'
 import { QueryClientProvider, QueryClient } from 'react-query'
 
-import i18n from './i18next.js'
-import '@splidejs/splide/dist/css/themes/splide-default.min.css'
+import { mockWorker, themes } from '../src/exports'
+import i18n from './i18next'
+
+mockWorker.start()
+mockWorker.printHandlers()
 
 // Provide the MSW addon decorator globally
 export const parameters = {

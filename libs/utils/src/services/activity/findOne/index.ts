@@ -2,7 +2,7 @@ import { Activity, StrapiLocale } from '@wsvvrijheid/types'
 import { useRouter } from 'next/router'
 import { useQuery } from 'react-query'
 
-import { request } from '../../lib'
+import { request } from '../../../lib/request'
 
 export const getActivity = async (locale: StrapiLocale, slug: string) => {
   const response = await request()<Activity[]>({
