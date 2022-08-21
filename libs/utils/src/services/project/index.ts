@@ -1,4 +1,3 @@
-export * from './find'
-export * from './paths'
+export * from './getBySlug'
 export * from './getStaticPaths'
 export * from './getStaticProps'

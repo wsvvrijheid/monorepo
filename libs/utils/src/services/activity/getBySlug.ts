@@ -2,9 +2,9 @@ import { Activity, StrapiLocale } from '@wsvvrijheid/types'
 import { useRouter } from 'next/router'
 import { useQuery } from 'react-query'
 
-import { request } from '../../../lib/request'
+import { request } from '../../lib/request'
 
-export const getActivity = async (locale: StrapiLocale, slug: string) => {
+export const getActivityBySlug = async (locale: StrapiLocale, slug: string) => {
   const response = await request()<Activity[]>({
     url: 'api/activities',
     filters: { slug: { $eq: slug } },
@@ -19,6 +19,6 @@ export const useActivity = (slug: string) => {
 
   return useQuery({
     queryKey: ['activity', slug],
-    queryFn: () => getActivity(locale as StrapiLocale, slug),
+    queryFn: () => getActivityBySlug(locale as StrapiLocale, slug),
   })
 }
