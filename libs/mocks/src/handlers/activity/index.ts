@@ -1,1 +1,1 @@
-export * from './getMock'
+export * from './getActivityMock'

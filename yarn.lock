@@ -3041,6 +3041,92 @@
   resolved "https://registry.npmjs.org/@popperjs/core/-/core-2.11.5.tgz"
   integrity sha512-9X2obfABZuDVLCgPK9aX0a/x4jaOEweTTWE2+9sr0Qqqevj2Uv5XorvusThmc9XGYpS9yI+fhh8RTafBtGposw==
 
+"@react-aria/focus@3.6.1":
+  version "3.6.1"
+  resolved "https://registry.yarnpkg.com/@react-aria/focus/-/focus-3.6.1.tgz#46478d0919bdc4fedfa1ea115b36f93c055ce8d8"
+  integrity sha512-4IHAu+826jC3SjWwuaYhCr0qhWg4XwmJIUEhcL1wbw3fq2dsjIBwEJ5HoayhluiVCfjGbcQcJNf1L4Vj3VTp4w==
+  dependencies:
+    "@babel/runtime" "^7.6.2"
+    "@react-aria/interactions" "^3.9.1"
+    "@react-aria/utils" "^3.13.1"
+    "@react-types/shared" "^3.13.1"
+    clsx "^1.1.1"
+
+"@react-aria/interactions@^3.9.1":
+  version "3.10.0"
+  resolved "https://registry.yarnpkg.com/@react-aria/interactions/-/interactions-3.10.0.tgz#d60cc42c3904c1578f9c356fba4bab7003102dee"
+  integrity sha512-Lp74VfF+EskT3IqK2MBMdJpJU48p60+YkMbgtoDF6LudNO8jw0nxcsvnimPriTSkZWINRpajG/9sIa0EIDcQKw==
+  dependencies:
+    "@babel/runtime" "^7.6.2"
+    "@react-aria/utils" "^3.13.2"
+    "@react-types/shared" "^3.14.0"
+
+"@react-aria/ssr@^3.3.0":
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/@react-aria/ssr/-/ssr-3.3.0.tgz#25e81daf0c7a270a4a891159d8d984578e4512d8"
+  integrity sha512-yNqUDuOVZIUGP81R87BJVi/ZUZp/nYOBXbPsRe7oltJOfErQZD+UezMpw4vM2KRz18cURffvmC8tJ6JTeyDtaQ==
+  dependencies:
+    "@babel/runtime" "^7.6.2"
+
+"@react-aria/utils@^3.13.1", "@react-aria/utils@^3.13.2":
+  version "3.13.2"
+  resolved "https://registry.yarnpkg.com/@react-aria/utils/-/utils-3.13.2.tgz#c28bc96e940a8a84c3e69a19f483c9f060584580"
+  integrity sha512-VTI8tv9m/BxE/lPTNCZN1fcHuY540xm+HT1vg2ZQCryudUWvzQkHi+h0z32DhiGHhvRFIGdH/enf3psip7ZLTQ==
+  dependencies:
+    "@babel/runtime" "^7.6.2"
+    "@react-aria/ssr" "^3.3.0"
+    "@react-stately/utils" "^3.5.1"
+    "@react-types/shared" "^3.14.0"
+    clsx "^1.1.1"
+
+"@react-stately/utils@^3.5.1":
+  version "3.5.1"
+  resolved "https://registry.yarnpkg.com/@react-stately/utils/-/utils-3.5.1.tgz#502de762e5d33e892347c5f58053674e06d3bc92"
+  integrity sha512-INeQ5Er2Jm+db8Py4upKBtgfzp3UYgwXYmbU/XJn49Xw27ktuimH9e37qP3bgHaReb5L3g8IrGs38tJUpnGPHA==
+  dependencies:
+    "@babel/runtime" "^7.6.2"
+
+"@react-types/shared@^3.13.1", "@react-types/shared@^3.14.0":
+  version "3.14.0"
+  resolved "https://registry.yarnpkg.com/@react-types/shared/-/shared-3.14.0.tgz#240991d6672f32ecd2a172111e163be0fe0778f2"
+  integrity sha512-K069Bh/P0qV3zUG8kqabeO8beAUlFdyVPvpcNVPjRl+0Q9NDS9mfdQbmUa0LqdVo5e6jRPdos77Ylflkrz8wcw==
+
+"@reactour/mask@*":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@reactour/mask/-/mask-1.0.0.tgz#664eda8c367e4e481fa4381250ef92b9d5ad68a5"
+  integrity sha512-W5mwjxmzAYf5uX1iYtngN0wDm0y8GH02kfFDP0XKdD5JR4htyCnhEUJVF0p6rYqTZu2m49Sczl8O6BGXFW+d+Q==
+  dependencies:
+    "@reactour/utils" "*"
+    "@types/react" "17.0.39"
+
+"@reactour/popover@*":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@reactour/popover/-/popover-1.0.0.tgz#738513c6e0b66d25f49f9f19c431f8580df6ba9d"
+  integrity sha512-FO02YUw5BP0EBPDoF/KawxFr53OeUGnlhJ33yULLhyAAYVNBYAX+PjmVnyED1fDtUpfXiOZV3zX4iCfcbUGoyQ==
+  dependencies:
+    "@reactour/utils" "*"
+    "@types/react" "17.0.39"
+
+"@reactour/tour@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@reactour/tour/-/tour-3.0.0.tgz#771490bb0ac585520e0de13488a454efe32120f4"
+  integrity sha512-brmtrQCi1TIyjfVdFqTI+gW53Tv4uXWPKN/bLYVYaHgKP7sR6vyIs2pC1Hf6XFgKSrsh4wldFPZIsw3k6zWn/w==
+  dependencies:
+    "@react-aria/focus" "3.6.1"
+    "@reactour/mask" "*"
+    "@reactour/popover" "*"
+    "@reactour/utils" "*"
+    "@types/react" "17.0.39"
+
+"@reactour/utils@*":
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/@reactour/utils/-/utils-0.4.0.tgz#c70d95ae991bc926b5428ec076ba3224727f55e2"
+  integrity sha512-n8NPqpH33gaU29PDk1iABRRlzsNMAOeQvPTLQqbo3t20qsm2SWEASd5e4uidqQXS2z811XYLC8nRtqGAN+knEQ==
+  dependencies:
+    "@rooks/use-mutation-observer" "4.11.2"
+    "@types/react" "17.0.39"
+    resize-observer-polyfill "1.5.1"
+
 "@reduxjs/toolkit@^1.8.5":
   version "1.8.5"
   resolved "https://registry.yarnpkg.com/@reduxjs/toolkit/-/toolkit-1.8.5.tgz#c14bece03ee08be88467f22dc0ecf9cf875527cd"
@@ -3115,6 +3201,11 @@
   dependencies:
     estree-walker "^2.0.1"
     picomatch "^2.2.2"
+
+"@rooks/use-mutation-observer@4.11.2":
+  version "4.11.2"
+  resolved "https://registry.yarnpkg.com/@rooks/use-mutation-observer/-/use-mutation-observer-4.11.2.tgz#a0466c4338e0a4487ea19253c86bcd427c29f4af"
+  integrity sha512-vpsdrZdr6TkB1zZJcHx+fR1YC/pHs2BaqcuYiEGjBVbwY5xcC49+h0hAUtQKHth3oJqXfIX/Ng8S7s5HFHdM/A==
 
 "@rushstack/eslint-patch@^1.1.3":
   version "1.1.4"
@@ -4622,6 +4713,15 @@
   version "18.0.15"
   resolved "https://registry.npmjs.org/@types/react/-/react-18.0.15.tgz"
   integrity sha512-iz3BtLuIYH1uWdsv6wXYdhozhqj20oD4/Hk2DNXIn1kFsmp9x8d9QB6FnPhfkbhd2PgEONt9Q1x/ebkwjfFLow==
+  dependencies:
+    "@types/prop-types" "*"
+    "@types/scheduler" "*"
+    csstype "^3.0.2"
+
+"@types/react@17.0.39":
+  version "17.0.39"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-17.0.39.tgz#d0f4cde092502a6db00a1cded6e6bf2abb7633ce"
+  integrity sha512-UVavlfAxDd/AgAacMa60Azl7ygyQNRwC/DsHZmKgNvPmRR5p70AJ5Q9EAmL2NWOJmeV+vVUI4IAP7GZrN8h8Ug==
   dependencies:
     "@types/prop-types" "*"
     "@types/scheduler" "*"
@@ -6775,6 +6875,11 @@ clone@^1.0.2:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/clone/-/clone-1.0.4.tgz#da309cc263df15994c688ca902179ca3c7cd7c7e"
   integrity sha512-JQHZ2QMW6l3aH/j6xCqQThY/9OH4D/9ls34cgkUBiEeocRTU04tHfKPBsUK1PqZCUQM7GiA0IIXJSuXHI64Kbg==
+
+clsx@^1.1.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/clsx/-/clsx-1.2.1.tgz#0ddc4a20a549b59c93a4116bb26f5294ca17dc12"
+  integrity sha512-EcR6r5a8bj6pu3ycsa/E/cKVGuTgZJZdsyUYHOksG/UHIiKfjxzRxYJpyVBwYaQeOvghal9fcc4PidlgzugAQg==
 
 co@^4.6.0:
   version "4.6.0"
@@ -15512,7 +15617,7 @@ reselect@^4.1.5:
   resolved "https://registry.yarnpkg.com/reselect/-/reselect-4.1.6.tgz#19ca2d3d0b35373a74dc1c98692cdaffb6602656"
   integrity sha512-ZovIuXqto7elwnxyXbBtCPo9YFEr3uJqj2rRbcOOog1bmu2Ag85M4hixSwFWyaBMKXNgvPaJ9OSu9SkBPIeJHQ==
 
-resize-observer-polyfill@^1.5.1:
+resize-observer-polyfill@1.5.1, resize-observer-polyfill@^1.5.1:
   version "1.5.1"
   resolved "https://registry.npmjs.org/resize-observer-polyfill/-/resize-observer-polyfill-1.5.1.tgz"
   integrity sha512-LwZrotdHOo12nQuZlHEmtuXdqGoOD0OhaxopaNFxWzInpEgaLWoVuAMbTzixuosCx2nEG58ngzW3vxdWoxIgdg==

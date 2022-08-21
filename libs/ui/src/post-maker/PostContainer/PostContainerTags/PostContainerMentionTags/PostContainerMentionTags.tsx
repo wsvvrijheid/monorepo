@@ -5,7 +5,7 @@ import {
   useAppSelector,
 } from '@wsvvrijheid/utils'
 
-import { TagList } from '../TagList'
+import { TagList } from '../../../TagList'
 
 export const PostContainerMentionTags = () => {
   const { mentionUsernames } = useAppSelector(state => state.post)

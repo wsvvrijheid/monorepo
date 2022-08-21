@@ -1,6 +1,7 @@
 export * from './formatNumber'
 export * from './getImageUrl'
 export * from './getReadingTime'
+export * from './getItemLink'
 export * from './getTwitterVideoUrl'
 export * from './gtag'
 export * from './makeSocialContent'
