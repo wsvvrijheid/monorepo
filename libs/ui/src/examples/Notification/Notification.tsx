@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 import {
   Alert,
   AlertDescription,
@@ -18,13 +20,14 @@ const Notification: React.FC<NotificationProps> = ({
   description,
   isOpen,
 }) => {
-  const { isOpen: isVisible, onClose } = useDisclosure({
+  const [display, setDisplay] = useState('')
+  const { isOpen: isVisible } = useDisclosure({
     defaultIsOpen: false,
     isOpen,
   })
 
   return isVisible ? (
-    <Alert status={status}>
+    <Alert status={status} display={display}>
       <Flex justifyContent="space-between" alignItems="center" w="full">
         <Stack direction={{ base: 'column', md: 'row' }}>
           <HStack>
@@ -39,7 +42,7 @@ const Notification: React.FC<NotificationProps> = ({
           position="relative"
           right={-1}
           top={-1}
-          onClick={onClose}
+          onClick={() => setDisplay('none')}
         />
       </Flex>
     </Alert>
