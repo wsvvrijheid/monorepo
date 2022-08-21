@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 
 import { Box, HStack, Tag, TagLabel } from '@chakra-ui/react'
-import { formatNumber } from '@utils'
+import { formatNumber } from '@wsvvrijheid/utils'
 
 interface TrendItemProps {
   trendName: string

@@ -9,14 +9,14 @@ import { FaExternalLinkAlt } from 'react-icons/fa'
 
 import { Container, Navigate, Markdown, WImage } from '../../components'
 
-export type ProjectTemplateProps = {
+export type PlatformTemplateProps = {
   seo: NextSeoProps
   source: MDXRemoteSerializeResult
   image: UploadFile | string
   link: string
 }
 
-export const ProjectTemplate: FC<ProjectTemplateProps> = ({
+export const PlatformTemplate: FC<PlatformTemplateProps> = ({
   seo,
   source,
   image,

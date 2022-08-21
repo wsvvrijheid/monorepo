@@ -1,18 +1,18 @@
 import { Story, Meta } from '@storybook/react'
 
 import { SOURCE_MOCKS } from '../../mocks'
-import { ProjectTemplate, ProjectTemplateProps } from './ProjectTemplate'
+import { PlatformTemplate, PlatformTemplateProps } from './PlatformTemplate'
 
 export default {
-  component: ProjectTemplate,
-  title: 'Templates/ProjectTemplate',
+  component: PlatformTemplate,
+  title: 'Templates/PlatformTemplate',
   argTypes: {
     locale: { control: { type: 'radio', options: ['en', 'nl', 'tr'] } },
   },
-} as Meta<ProjectTemplateProps>
+} as Meta<PlatformTemplateProps>
 
-const Template: Story<ProjectTemplateProps> = args => {
-  return <ProjectTemplate {...args} />
+const Template: Story<PlatformTemplateProps> = args => {
+  return <PlatformTemplate {...args} />
 }
 
 export const Default = Template.bind({})

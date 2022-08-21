@@ -1,6 +1,7 @@
 import { MENTION_MOCKS } from '@wsvvrijheid/mocks'
 import {
   addMentionUsername,
+  addTrendName,
   setInitialMentions,
   store,
 } from '@wsvvrijheid/utils'
@@ -9,6 +10,7 @@ import {
 store.dispatch(setInitialMentions(MENTION_MOCKS.data))
 store.dispatch(addMentionUsername('wsvvrijheid'))
 store.dispatch(addMentionUsername('samenvvv'))
+store.dispatch(addTrendName('#Hello'))
 
 export { store }
 export { mockWorker } from '@wsvvrijheid/mocks'

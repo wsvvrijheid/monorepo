@@ -1,8 +1,7 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import {
   Box,
-  chakra,
   HStack,
   IconButton,
   Modal,
@@ -13,21 +12,18 @@ import {
   SimpleGrid,
   useDisclosure,
 } from '@chakra-ui/react'
-import { Options, Splide, SplideSlide } from '@splidejs/react-splide'
 import { Post, StrapiLocale } from '@wsvvrijheid/types'
 import { getItemLink, useHashtag } from '@wsvvrijheid/utils'
 import { useRouter } from 'next/router'
 import { BiExitFullscreen, BiFullscreen } from 'react-icons/bi'
-// eslint-disable-next-line import/no-unresolved
 
 import { AnimatedBox, ShareButtons, WImage } from '../../components'
+import { PostSlide } from './PostSlide'
 
 export const PostArchive = (): JSX.Element => {
   const { isOpen, onOpen, onClose } = useDisclosure()
 
-  const mainSplide = useRef<Splide>(null)
-  const thumbSplide = useRef<Splide>(null)
-
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [activeIndex, setActiveIndex] = useState<number>(0)
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
@@ -55,37 +51,6 @@ export const PostArchive = (): JSX.Element => {
     setAbsoluteUrl(_absoluteUrl)
   }, [activeIndex, locale, hashtagQuery.data?.posts])
 
-  const mainOptions: Options = {
-    type: 'loop',
-    perPage: 2,
-    perMove: 1,
-    gap: '1rem',
-    pagination: false,
-    height: '10rem',
-  }
-
-  const thumbsOptions: Options = {
-    type: 'slide',
-    rewind: true,
-    gap: '1rem',
-    pagination: false,
-    fixedWidth: 110,
-    fixedHeight: 70,
-    cover: true,
-    focus: 'center',
-    isNavigation: true,
-  }
-
-  useEffect(() => {
-    if (
-      mainSplide.current &&
-      thumbSplide.current &&
-      thumbSplide.current.splide
-    ) {
-      mainSplide.current.sync(thumbSplide.current.splide)
-    }
-  }, [mainSplide, thumbSplide])
-
   return (
     <>
       <Modal
@@ -98,47 +63,7 @@ export const PostArchive = (): JSX.Element => {
         <ModalOverlay bg="blackAlpha.800" />
         <ModalContent bg="transparent">
           <ModalBody>
-            <Splide options={mainOptions}>
-              {hashtagQuery.data?.posts?.map((post, i) => {
-                return (
-                  <SplideSlide key={i}>
-                    {post.image && (
-                      <WImage
-                        src={post.image?.url as string}
-                        ratio="twitter"
-                        alt={`post ${i}`}
-                      />
-                    )}
-                  </SplideSlide>
-                )
-              })}
-            </Splide>
-            <Box
-              as={Splide}
-              options={thumbsOptions}
-              sx={{
-                '.swiper-slide': {
-                  opacity: 0.3,
-                  '&-thumb-active': {
-                    opacity: 1,
-                  },
-                },
-              }}
-            >
-              {hashtagQuery.data?.posts?.map((post, i) => {
-                return (
-                  <SplideSlide key={i}>
-                    {post.image && (
-                      <WImage
-                        src={post.image?.url as string}
-                        ratio="twitter"
-                        alt={`post ${i}`}
-                      />
-                    )}
-                  </SplideSlide>
-                )
-              })}
-            </Box>
+            <PostSlide posts={hashtagQuery.data?.posts} />
           </ModalBody>
 
           <ModalFooter justifyContent="space-between">

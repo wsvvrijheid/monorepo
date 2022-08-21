@@ -1,23 +1,35 @@
-import React, { useEffect, useRef } from 'react'
+import React, { FC, useEffect, useRef, useState } from 'react'
 
 import { chakra, useBoolean } from '@chakra-ui/react'
-import {
-  setPostText,
-  useAppDispatch,
-  usePostSelector,
-} from '@wsvvrijheid/utils'
+import { setPostText, useAppDispatch, useAppSelector } from '@wsvvrijheid/utils'
 import { useDebounce } from 'react-use'
 
-export const PostTextarea = () => {
-  const [editable, setEditable] = useBoolean(false)
-  const { postText, threshold } = usePostSelector()
+export type PostTextareaProps = {
+  isEditable?: boolean
+}
+
+export const PostTextarea: FC<PostTextareaProps> = ({ isEditable }) => {
+  const [editable, setEditable] = useBoolean(isEditable)
+  const { postText, threshold } = useAppSelector(state => state.post)
   const dispatch = useAppDispatch()
+  const [value, setValue] = useState(postText)
+  const [debouncedValue, setDebouncedValue] = useState<string>()
 
   const contentRef = useRef<HTMLTextAreaElement | null>(null)
 
-  const [handleChange] = useDebounce((value: string) => {
-    dispatch(setPostText(value))
-  }, 500)
+  useDebounce(
+    () => {
+      setDebouncedValue(value)
+    },
+    500,
+    [value],
+  )
+
+  useEffect(() => {
+    if (debouncedValue) {
+      dispatch(setPostText(debouncedValue))
+    }
+  }, [debouncedValue, dispatch])
 
   useEffect(() => {
     if (editable) {
@@ -36,7 +48,7 @@ export const PostTextarea = () => {
       p={2}
       w="full"
       onBlur={setEditable.toggle}
-      onChange={e => handleChange(e.target.value)}
+      onChange={e => setValue(e.target.value)}
       defaultValue={postText}
     />
   ) : (

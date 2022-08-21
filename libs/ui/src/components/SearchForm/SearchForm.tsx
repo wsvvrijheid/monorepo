@@ -10,8 +10,7 @@ import {
 } from '@chakra-ui/react'
 import { InputProps } from 'chakra-react-select'
 import { FaSearch, FaTimes } from 'react-icons/fa'
-
-import { useDebounce } from '../../hooks'
+import { useDebounce } from 'react-use'
 
 /**
  * @param mode "change | click"
@@ -31,8 +30,15 @@ export const SearchForm: React.FC<SearchFormProps> = ({
   mode = 'change',
 }) => {
   const [searchTerm, setSearchTerm] = useState('')
+  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('')
 
-  const debouncedSearchTerm = useDebounce(searchTerm, delay || 700)
+  useDebounce(
+    () => {
+      setDebouncedSearchTerm(searchTerm)
+    },
+    delay || 700,
+    [searchTerm],
+  )
 
   // `useUpdateEffect` is used here because we don't need to call `onSearch` at the first render
   // We call `onSearch` only if  mode is `change` and the debouncedSearchTerm's lenght is greater than 2

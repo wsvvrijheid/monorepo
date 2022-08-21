@@ -9,7 +9,7 @@ type Request = {
   publicationState?: 'live' | 'preview'
   locale?: StrapiLocale
   filters?: { [key: string]: unknown }
-  populate?: '*' | string | string[]
+  populate?: string | string[]
   sort?: string | string[]
   page?: number
   pageSize?: number

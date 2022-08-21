@@ -2,13 +2,15 @@ import { StrapiLocale } from '@wsvvrijheid/types'
 import { serialize } from 'next-mdx-remote/serialize'
 import { GetStaticPropsContext } from 'next/types'
 
-import { getProjectBySlug } from './getBySlug'
+import { getPlatformBySlug } from './getBySlug'
 
-export const getProjectStaticProps = async (context: GetStaticPropsContext) => {
+export const getPlatformStaticProps = async (
+  context: GetStaticPropsContext,
+) => {
   const locale = context.locale as StrapiLocale
   const code = context.params?.['code'] as string
 
-  const project = await getProjectBySlug(code)
+  const project = await getPlatformBySlug(code)
 
   if (!project) return { notFound: true }
 

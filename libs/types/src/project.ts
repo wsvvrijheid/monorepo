@@ -2,7 +2,7 @@ import { UploadFile } from './file'
 import { Job } from './job'
 import { StrapiCore } from './strapi'
 
-export type Project = {
+export type Platform = {
   code: string
   name_en: string
   name_nl: string

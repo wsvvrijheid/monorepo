@@ -16,7 +16,7 @@ import { useRouter } from 'next/router'
 import { FaAt, FaRandom, FaTwitter } from 'react-icons/fa'
 import { useQueryClient } from 'react-query'
 
-import { useItemLink } from '../../../../hooks/useItemLink'
+import { useItemLink } from '../../../hooks'
 
 export const PostContainerButtons = () => {
   const queryClient = useQueryClient()

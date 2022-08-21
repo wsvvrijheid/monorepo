@@ -3,11 +3,11 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "start": "nx serve",
-    "test": "nx test",
-    "lint": "nx affected --target=lint --fix",
-    "build": "nx affected --target=build",
-    "storybook": "NX_STORYBOOK=true nx run ui:storybook",
+    "start": "npx nx serve",
+    "test": "npx nx test",
+    "lint": "npx nx affected --target=lint --fix",
+    "build": "npx nx affected --target=build",
+    "storybook": "npx npx nx run ui:storybook",
     "prepare": "husky install"
   },
   "private": true,

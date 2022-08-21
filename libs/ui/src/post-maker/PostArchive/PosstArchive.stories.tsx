@@ -8,7 +8,7 @@ export default {
   title: 'PostMaker/PostArchive',
   decorators: [
     Story => (
-      <Container maxW="container.sm">
+      <Container maxW="container.xl">
         <Story />
       </Container>
     ),

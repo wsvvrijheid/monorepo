@@ -6,6 +6,7 @@ import { QueryClientProvider, QueryClient } from 'react-query'
 import { Provider as ReduxProvider } from 'react-redux'
 
 import { mockWorker, store, themes } from '../src/exports'
+import '@splidejs/react-splide/css'
 import i18n from './i18next'
 
 mockWorker.start()

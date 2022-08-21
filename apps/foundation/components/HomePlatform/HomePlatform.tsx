@@ -7,17 +7,17 @@ import {
   Stack,
   Text,
 } from '@chakra-ui/react'
-import { PROJECTS } from '@wsvvrijheid/config'
+import { PLATFORMS } from '@wsvvrijheid/config'
 import { AnimatedBox, Container, Navigate, WImage } from '@wsvvrijheid/ui'
 import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
 
-export const HomeProject = () => {
+export const HomePlatform = () => {
   const { locale } = useRouter()
   const { t } = useTranslation()
   return (
     <Box>
-      {PROJECTS.map((project, index) => (
+      {PLATFORMS.map((project, index) => (
         <Center
           key={index}
           py={{ base: 16, lg: 32 }}

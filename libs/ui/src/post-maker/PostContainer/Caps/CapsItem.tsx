@@ -3,7 +3,7 @@ import React, { FC, memo } from 'react'
 import { Box, Center } from '@chakra-ui/react'
 import { FaCheck } from 'react-icons/fa'
 
-import { WImage } from '../../../../components'
+import { WImage } from '../../../components'
 
 interface CapsItemProps {
   image: string

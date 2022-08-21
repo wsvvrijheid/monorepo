@@ -22,8 +22,6 @@ export const getHashtagBySlug = async (
     populate: ['image', 'mentions', 'posts.image', 'localizations'],
   })
 
-  console.log('response', response)
-
   if (!response || !response?.data || !response.data.length) return null
 
   const hashtag = response.data[0]
@@ -41,7 +39,7 @@ export const getHashtagBySlug = async (
     ?.filter(p => p.image)
     .map(p => ({ ...p, hashtag }))
 
-  return { ...hashtag, hasPassed, hasStarted, defaultHashtags }
+  return { ...hashtag, posts, hasPassed, hasStarted, defaultHashtags }
 }
 
 export const useHashtag = () => {

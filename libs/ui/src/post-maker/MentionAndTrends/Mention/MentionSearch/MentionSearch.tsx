@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { Box, Input, InputGroup, InputLeftElement } from '@chakra-ui/react'
 import {
@@ -18,22 +18,33 @@ export const MentionSearch = (): JSX.Element => {
   const dispatch = useAppDispatch()
   const { t } = useTranslation()
   const [searchArea, setSearchArea] = useState<string>('')
+  const [debouncedSearchArea, setDebouncedSearchArea] = useState<string>('')
 
-  const [onSearchMention] = useDebounce(() => {
-    if (searchArea.length > 1) {
+  useDebounce(
+    () => {
+      setDebouncedSearchArea(searchArea)
+    },
+    600,
+    [searchArea],
+  )
+
+  useEffect(() => {
+    if (debouncedSearchArea.length > 1) {
       const filteredData =
         mentions?.filter(m =>
-          m.data?.screen_name.toLowerCase().includes(searchArea.toLowerCase()),
+          m.data?.screen_name
+            .toLowerCase()
+            .includes(debouncedSearchArea.toLowerCase()),
         ) ?? []
       dispatch(setMentions(filteredData))
       if (filteredData.length === 0) {
-        dispatch(fetchSearchedMentions(searchArea))
+        dispatch(fetchSearchedMentions(debouncedSearchArea))
       }
     } else {
       dispatch(clearSearchedMentions())
       dispatch(resetMentions())
     }
-  }, 600)
+  }, [debouncedSearchArea, dispatch, mentions])
 
   return (
     <InputGroup data-tour="step-search">
@@ -49,7 +60,6 @@ export const MentionSearch = (): JSX.Element => {
         placeholder={t`post.search-label`}
         onChange={event => {
           setSearchArea(event.target.value)
-          onSearchMention()
         }}
         value={searchArea}
         _focus={{

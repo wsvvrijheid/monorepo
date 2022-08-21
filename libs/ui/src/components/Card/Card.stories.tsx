@@ -1,5 +1,5 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react'
-import { PROJECT_MOCKS } from '@wsvvrijheid/mocks'
+import { PLATFORM_MOCKS } from '@wsvvrijheid/mocks'
 
 import { Container } from '../Container'
 import { Card } from './Card'
@@ -20,7 +20,7 @@ const Template: ComponentStory<typeof Card> = args => {
   return <Card {...args} />
 }
 
-const { name_en, description_en, image } = PROJECT_MOCKS.data[0]
+const { name_en, description_en, image } = PLATFORM_MOCKS.data[0]
 const src = `${process.env['NX_API_URL']}${image?.url}`
 
 export const Default = Template.bind({})

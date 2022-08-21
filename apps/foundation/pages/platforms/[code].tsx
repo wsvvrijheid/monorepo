@@ -1,16 +1,16 @@
 import { FC } from 'react'
 
-import { ProjectTemplate, ProjectTemplateProps } from '@wsvvrijheid/ui'
+import { PlatformTemplate, PlatformTemplateProps } from '@wsvvrijheid/ui'
 import {
-  getProjectStaticPaths,
-  getProjectStaticProps,
+  getPlatformStaticPaths,
+  getPlatformStaticProps,
 } from '@wsvvrijheid/utils'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { Layout } from '../../components'
 import i18nConfig from '../../next-i18next.config'
 
-const ProjectDetailPage: FC<ProjectTemplateProps> = ({
+const PlatformDetailPage: FC<PlatformTemplateProps> = ({
   seo,
   source,
   image,
@@ -20,16 +20,16 @@ const ProjectDetailPage: FC<ProjectTemplateProps> = ({
 
   return (
     <Layout seo={seo}>
-      <ProjectTemplate seo={seo} source={source} image={image} link={link} />
+      <PlatformTemplate seo={seo} source={source} image={image} link={link} />
     </Layout>
   )
 }
-export default ProjectDetailPage
+export default PlatformDetailPage
 
-export const getStaticPaths = getProjectStaticPaths
+export const getStaticPaths = getPlatformStaticPaths
 
 export const getStaticProps = async context => {
-  const props = await getProjectStaticProps(context)
+  const props = await getPlatformStaticProps(context)
   const { locale } = context
 
   return {

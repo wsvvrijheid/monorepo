@@ -2,7 +2,7 @@ import { FC, memo } from 'react'
 
 import { Box, Spacer, Stack } from '@chakra-ui/react'
 
-import { WImage } from '../../../../components'
+import { WImage } from '../../../components'
 import { PostContainerTags } from '../PostContainerTags'
 import { PostTextarea } from '../PostTextarea'
 
