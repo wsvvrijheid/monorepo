@@ -7,7 +7,7 @@
     "test": "nx test",
     "lint": "nx affected --target=lint --fix",
     "build": "nx affected --target=build",
-    "storybook": "NX_STORYBOOK=true nx run ui:storybook",
+    "storybook": "npx nx run ui:storybook",
     "prepare": "husky install"
   },
   "private": true,
