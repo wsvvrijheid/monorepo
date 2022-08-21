@@ -1,8 +1,12 @@
 import React from 'react'
 
-import { Flex, useBreakpointValue, VStack } from '@chakra-ui/react'
-import { Textarea } from '@chakra-ui/react'
-import { Button } from '@chakra-ui/react'
+import {
+  Flex,
+  useBreakpointValue,
+  VStack,
+  Textarea,
+  Button,
+} from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { TFunction, useTranslation } from 'react-i18next'
@@ -60,8 +64,6 @@ export const MessageBox: React.FC<MessageBoxProps> = ({
         {/* <ButtonGroup gap="2" w={{ base: 'full' }}> */}
         <Button
           size={size}
-          variant="solid"
-          colorScheme="gray"
           type="submit"
           isDisabled={!isValid}
           isLoading={isLoading}
@@ -71,7 +73,6 @@ export const MessageBox: React.FC<MessageBoxProps> = ({
         </Button>
         <Button
           size={size}
-          variant="solid"
           colorScheme="blue"
           type="submit"
           isDisabled={!isValid}

@@ -6,7 +6,7 @@ import { NotificationProps } from './types'
 
 export default {
   component: Notification,
-  title: 'Admin/Notification',
+  title: 'Example/Notification',
   decorators: [Story => <Container maxW="container.sm">{Story()}</Container>],
 } as Meta<typeof Notification>
 

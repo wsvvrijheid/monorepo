@@ -7,7 +7,7 @@ import { MessageBoxFieldValues, MessageBoxProps } from './types'
 
 export default {
   component: MessageBox,
-  title: 'Admin/MessageBox',
+  title: 'Example/MessageBox',
   decorators: [Story => <Container maxW="container.sm">{Story()}</Container>],
 } as Meta<typeof MessageBox>
 
