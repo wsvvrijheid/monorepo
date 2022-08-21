@@ -28,12 +28,7 @@ const GridTemplate: Story = () => {
   return (
     <SimpleGrid columns={{ base: 1, md: 2, lg: 4 }} gap={4}>
       {ART_MOCKS.data.map((art, i) => (
-        <CardBase
-          onClick={() => alert('art click')}
-          key={art.id}
-          art={art}
-          hasZoom={true}
-        />
+        <CardBase onClick={() => alert('art click')} key={art.id} art={art} />
       ))}
     </SimpleGrid>
   )
