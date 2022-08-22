@@ -3,14 +3,15 @@ import React from 'react'
 
 import { Box, extendTheme } from '@chakra-ui/react'
 import { QueryClientProvider, QueryClient } from 'react-query'
+import { Provider as ReduxProvider } from 'react-redux'
 
-import { mockWorker, themes } from '../src/exports'
+import { mockWorker, store, themes } from '../src/exports'
+import '@splidejs/react-splide/css'
 import i18n from './i18next'
 
 mockWorker.start()
 mockWorker.printHandlers()
 
-// Provide the MSW addon decorator globally
 export const parameters = {
   i18n,
   locale: 'en',
@@ -35,10 +36,12 @@ const queryClient = new QueryClient()
  */
 export const decorators = [
   Story => (
-    <QueryClientProvider client={queryClient}>
-      <Box>
-        <Story />
-      </Box>
-    </QueryClientProvider>
+    <ReduxProvider store={store}>
+      <QueryClientProvider client={queryClient}>
+        <Box>
+          <Story />
+        </Box>
+      </QueryClientProvider>
+    </ReduxProvider>
   ),
 ]

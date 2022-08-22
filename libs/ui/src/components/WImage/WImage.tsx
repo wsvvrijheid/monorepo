@@ -27,7 +27,7 @@ export type WImageProps = {
   ratio?: number | 'twitter'
   format?: FileFormatsType
   src: UploadFile | string
-  alt: string
+  alt?: string
   hasZoom?: boolean
 } & Pick<ComponentProps<typeof Image>, 'layout' | 'objectFit'> &
   Omit<ChakraImageProps, 'objectFit' | 'src'>

@@ -23,7 +23,7 @@ import { Me } from './me'
 import { Mention } from './mention'
 import { Post } from './post'
 import { Privacy } from './privacy'
-import { Project } from './project'
+import { Platform } from './project'
 import { Tag } from './tag'
 import { Term } from './term'
 import { Translator } from './translator'
@@ -67,7 +67,7 @@ export type StrapiModel =
   | Mention
   | Post
   | Privacy
-  | Project
+  | Platform
   | Tag
   | Term
   | Translator
@@ -101,7 +101,7 @@ export type StrapiModelKeys = keyof (Activity &
   Mention &
   Post &
   Privacy &
-  Project &
+  Platform &
   Tag &
   Term &
   Translator &

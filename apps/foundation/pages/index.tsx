@@ -6,7 +6,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { HomeAbout } from '../components/HomeAbout'
 import { HomeHero } from '../components/HomeHero/HomeHero'
-import { HomeProject } from '../components/HomeProject/HomeProject'
+import { HomePlatform } from '../components/HomePlatform'
 import { Layout } from '../components/Layout/Layout'
 import i18nConfig from '../next-i18next.config'
 
@@ -44,7 +44,7 @@ export default function Home({ seo }) {
           <HomeAbout />
         </Container>
       </Center>
-      <HomeProject />
+      <HomePlatform />
     </Layout>
   )
 }

@@ -1,4 +1,4 @@
-import { Job, Project, StrapiLocale } from '@wsvvrijheid/types'
+import { Job, Platform, StrapiLocale } from '@wsvvrijheid/types'
 
 export type JoinFormFieldValues = {
   name: string
@@ -15,7 +15,7 @@ export type JoinFormFieldValues = {
 
 export type JoinFormFProps = {
   jobs: Job[]
-  projects: Project[]
+  projects: Platform[]
   isLoading: boolean
   locale: StrapiLocale
   onSubmitHandler: (data: JoinFormFieldValues) => void

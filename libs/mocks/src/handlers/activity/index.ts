@@ -1,1 +1,1 @@
-export * from './find'
+export * from './getActivityMock'
