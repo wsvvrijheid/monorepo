@@ -16,7 +16,7 @@ import { useDebounce } from 'react-use'
 export const MentionSearch = (): JSX.Element => {
   const { mentions } = useAppSelector(state => state.post)
   const dispatch = useAppDispatch()
-  const { t } = useTranslation()
+  const { t } = useTranslation(['post'])
   const [searchArea, setSearchArea] = useState<string>('')
   const [debouncedSearchArea, setDebouncedSearchArea] = useState<string>('')
 

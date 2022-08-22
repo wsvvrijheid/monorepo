@@ -16,7 +16,7 @@ export const CapsList: FC<CapsListProps> = memo(function CapsList({
   sharedPosts,
   posts,
 }) {
-  const { t } = useTranslation()
+  const { t } = useTranslation(['post'])
 
   const setCurrentPost = useSetCurrentPost()
 

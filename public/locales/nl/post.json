@@ -1,0 +1,86 @@
+{
+  "hello": "Hallo",
+  "read-more": "Lees Meer",
+  "next": "Volgende",
+  "prev": "Vorige",
+  "announcement": "Aankondiging",
+  "hashtag-events": "Hashtag Evenementen",
+  "news": "Nieuws",
+  "about": {
+    "title": "What wij doen?",
+    "description": "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga."
+  },
+  "home": {
+    "post-maker": {
+      "title": "Post Maker",
+      "content": "Alle content, mention adviezen, caps en trends van onze Social Media Campagnes op één plek",
+      "button": "Bekijk Social Media Campagnes"
+    }
+  },
+  "steps": {
+    "step-post-content": "Klaar om te Delen! | We hebben een kant-en-klare post gemaakt met inhoud, vermelding, hashtag en caps voor je. In de volgende stappen kunt u dit onderdeel naar eigen wens bewerken.",
+    "step-post-text": "Tweet Inhoud | Als je wilt, kun je dit deel met je eigen woorden wijzigen door erop te klikken. Het is erg belangrijk om uw eigen ideeën toe te voegen, zodat uw post anders kan zijn dan andere gebruikers en origineel blijft.",
+    "step-mention-list": "Mention Toevoegen | In deze sectie vindt u enkele populaire gebruikers van sociale media. Als u wilt, kunt u deze voorgestelde gebruikers aan uw post toevoegen.",
+    "step-mention-button": "Mention en Trends Toevoegen | Door populaire gebruikers en trends aan je post toe te voegen, kun je de betrokkenheid van het post vergroten. Klik op de knop en u ziet enkele populaire gebruikers en huidige trends.",
+    "step-search": "Gebruikers Zoeken | U kunt naar elke gebruiker op Twitter zoeken en deze toevoegen aan uw lijst met vermeldingen in uw post. U kunt de gebruikers later terugvinden in het tabblad 'Opgeslagen' als u ze toevoegt als resultaat van de zoekopdracht.",
+    "step-trends": "Trend Toevoegen | Door een van de direct bijgewerkte trends van Twitter toe te voegen, kunt u ervoor zorgen dat uw aandeel meer mensen bereikt. Het heeft de voorkeur dat de toegevoegde trend compatibel is met uw post.",
+    "step-post-added": "Toegevoegd | Gebruikers en trends die u aan uw aandeel toevoegt, worden in dit gedeelte weergegeven. We raden aan om niet meer dan 3 vermeldingen en 2 trends in een post te gebruiken.",
+    "step-character-limit": "Beperken | Zorg ervoor dat je post de door Twitter toegestane limiet van 280 tekens niet overschrijdt! Vermeldingen, hashtags en links zijn inbegrepen.",
+    "step-next-button": "Doorgaan! | Je kunt deze knop gebruiken voor het volgende bericht dat we voor je hebben voorbereid.",
+    "step-other-posts": "Andere Posts | U kunt een nieuwe share maken door op een van de afbeeldingen in de lijst te klikken.",
+    "step-share-button": "Delen | Als je denkt dat je post klaar is om te delen, kun je het delen op Twitter voltooien door hier te klikken. Vergeet niet terug te komen voor volgende posts. 🙂"
+  },
+
+  "copyright": "Samenvvv. Alle rechten voorbehouden",
+  "support": "Steun",
+  "footer_menu": "Menu's",
+  "follow_us": "Volg ons",
+  "society": "Stichting",
+  "footer_about": "Stilte is de grootste vijand van vrijheid.",
+  "contact": {
+    "title": "Contact",
+    "fill-form": "Vul het formulier in om contact op te nemen",
+    "form": {
+      "fullname-label": "Uw naam",
+      "fullname-required": "Naamruimte mag niet leeg zijn.",
+      "email-required": "Mailveld mag niet leeg zijn.",
+      "email-invalid": "Ongeldig e-mailadres.",
+      "email-helper": "We delen uw e-mail op geen enkele manier.",
+      "message-label": "Bericht",
+      "message-required": "Berichtveld mag niet leeg zijn.",
+      "message-delivered": "Bedankt. Uw bericht is ontvangen.",
+      "failed": "Oeps. Er is iets misgegaan, probeer het opnieuw.",
+      "button": "Bericht versturen",
+      "contactOnWhatsApp": "Contact op WhatsApp"
+    }
+  },
+  "post": {
+    "search-label": "Gebruikers Zoeken",
+    "mention-list-label": "Populaire Gebruikers",
+    "mention-tab-popular": "Populair",
+    "mention-tab-saved": "Opgeslagen",
+    "trends-label": "Trends",
+    "add": "Toevoegen",
+    "remove": "Verwijderen",
+    "help": "Hulp",
+    "share-tweet": "Deel Tweet",
+    "next-tweet": "Volgende Tweet",
+    "edit-content": "Inhoud Bewerken",
+    "edit-save": "Opslaan",
+    "content-label": "Inhoud",
+    "other-posts": "Andere Posts",
+    "all-hashtags": "Andere Hashtag Evenementen",
+    "add-mention": "Mention/Trend Toevoegen",
+    "latest-tweets-label": "Laatste Tweets",
+    "no-tweet": "Geen tweets gevonden",
+    "will-start": "Het evenement begint over {{time}}.",
+    "tabs": {
+      "share": "Delen",
+      "archive": "Archief"
+    }
+  },
+  "subpage": {
+    "most-readed": "Meest Gelezen",
+    "latest": "Nieuwste"
+  }
+}

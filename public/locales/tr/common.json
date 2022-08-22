@@ -19,21 +19,7 @@
   },
   "error": "Hata",
   "home": {
-    "hero": "Evrensel hukuk karşısında herkes eşittir. Evrensel insan haklarından herkesin eşit şekilde faydalanması için çalışmalar yapıyoruz.",
-    "about": {
-      "who-we-are": {
-        "title": "Biz Kimiz?",
-        "description": "Hukukun üstünlüğünü, demokrasi ve insan haklarını destekleyen, Hollanda’da yaşayan çeşitli meslek sahibi gönüllüler tarafından kurulmuş bir vakıfız."
-      },
-      "mission": {
-        "title": "Misyonumuz",
-        "description": "Dünyanın farklı coğrafyalarında kişiler veya devletler tarafından işlenen insan hakları ihlallerinin azalması veya son bulması için çalışmalar yapmak."
-      },
-      "vision": {
-        "title": "Vizyonumuz",
-        "description": "İnsan hakları ihlalleri kamuoyuna paylaşıldıkça ihlaller azalacak veya sona erecektir."
-      }
-    }
+    "hero": "Evrensel hukuk karşısında herkes eşittir. Evrensel insan haklarından herkesin eşit şekilde faydalanması için çalışmalar yapıyoruz."
   },
   "copyright": "WSVVrijheid. Bütün hakları saklıdır",
   "support": "Destek",

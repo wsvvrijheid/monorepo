@@ -33,7 +33,7 @@ import { TweetWidget } from './TweetWidget'
 
 export const PostMaker = () => {
   const { isPostModalOpen, sharedPosts } = useAppSelector(state => state.post)
-  const { t } = useTranslation()
+  const { t } = useTranslation(['post'])
   const dispatch = useAppDispatch()
   const generateRandomPostText = useGenerateRandomPostText()
 

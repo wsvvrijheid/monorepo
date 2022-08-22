@@ -22,7 +22,7 @@ import { useFindHashtagInTrends } from '../../../../hooks'
 import { TrendList } from '../TrendList'
 
 export const TrendListTabs = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation(['post'])
   const { locale } = useRouter()
   const [hashtagInTrends, hashtagExtraInTrends] = useFindHashtagInTrends()
 

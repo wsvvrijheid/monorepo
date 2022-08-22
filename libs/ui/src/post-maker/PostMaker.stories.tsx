@@ -13,7 +13,7 @@ export default {
 } as ComponentMeta<typeof PostMaker>
 
 const Template: ComponentStory<typeof PostMaker> = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation(['post'])
   const isMobile = useBreakpointValue({ base: true, lg: false })
 
   const steps = isMobile ? getStepsMobilePostMaker(t) : getStepsPostMaker(t)

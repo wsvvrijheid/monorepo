@@ -19,21 +19,7 @@
     "secretary": "Secretary: "
   },
   "home": {
-    "hero": "Everyone is equal before the universal law. We work to ensure that everyone benefits from universal human rights equally.",
-    "about": {
-      "who-we-are": {
-        "title": "Who We Are?",
-        "description": "We are a foundation founded by volunteers from various professions living in the Netherlands, supporting the rule of law, democracy and human rights."
-      },
-      "mission": {
-        "title": "Our Mission",
-        "description": "To work for the reduction or end human rights violations committed by individuals or states in different geographies of the world."
-      },
-      "vision": {
-        "title": "Our Vision",
-        "description": "As human rights violations are shared with the public, the violations will decrease or come to an end."
-      }
-    }
+    "hero": "Everyone is equal before the universal law. We work to ensure that everyone benefits from universal human rights equally."
   },
   "copyright": "WSVVrijheid. All right reserved",
   "support": "Support",
