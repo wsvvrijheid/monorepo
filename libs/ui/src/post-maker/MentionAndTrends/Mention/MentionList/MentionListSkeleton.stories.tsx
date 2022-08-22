@@ -3,7 +3,7 @@ import { ComponentMeta, ComponentStory } from '@storybook/react'
 import { MentionListSkeleton } from './MentionListSkeleton'
 
 export default {
-  title: 'MentionList/MentionListSkeleton',
+  title: 'PostMaker/MentionListSkeleton',
   component: MentionListSkeleton,
 } as ComponentMeta<typeof MentionListSkeleton>
 

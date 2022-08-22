@@ -20,7 +20,7 @@ import { useItemLink } from '../../../hooks'
 
 export const PostContainerButtons = () => {
   const queryClient = useQueryClient()
-  const { t } = useTranslation()
+  const { t } = useTranslation(['post'])
   const { postContent } = useAppSelector(state => state.post)
 
   const {

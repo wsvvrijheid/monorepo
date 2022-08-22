@@ -1,0 +1,85 @@
+{
+  "hello": "Merhaba",
+  "read-more": "Daha Fazla Oku",
+  "next": "Sonraki",
+  "prev": "Önceki",
+  "announcement": "Duyuru",
+  "hashtag-events": "Hashtag Etkinlikleri",
+  "news": "Haber",
+  "about": {
+    "title": "Ne yapıyoruz?",
+    "description": "something"
+  },
+  "home": {
+    "post-maker": {
+      "title": "Tweet Yardımcısı",
+      "content": "Sosyal Medya Kampanyalarımıza ait bütün içerikler, mention tavsiyeleri, capsler ve trendler tek bir yerde",
+      "button": "Sosyal Medya Kampanyalarına Gözat"
+    }
+  },
+  "steps": {
+    "step-post-content": "Paylaşıma Hazır! | Sizin için içerik, mention, hashtag ve caps içeren paylaşıma hazır bir tweet oluşturduk. Sonraki adımlarda bu kısmı isteklerinize göre düzenleyebilirsiniz.",
+    "step-post-text": "Tweet İçerik | Dilerseniz bu kısmı üzerine tıklayarak kendi cümlelerinizle değiştirebilirsiniz. Paylaşımınızın diğer kullanıcılardan farklı olabilmesi ve özgün kalabilmesi için kendi fikirlerinizi eklemeniz çok önemli.",
+    "step-mention-list": "Mention Ekle | Bu kısımda bazı popüler sosyal medya kullanıcılarını bulacaksınız. Dilerseniz size önerdiğimiz bu kullanıcıları paylaşımınıza ekleyebilirsiniz.",
+    "step-mention-button": "Mention Ekle | Paylaşımınıza popüler kullanıcılar ve trendler ekleyerek, paylaşımın daha fazla kişiye ulaşmasını sağlayabilirsiniz. Butona tıkladığınızda bazı popüler kulanıcıları ve güncel trendleri göreceksiniz.",
+    "step-search": "Kullanıcı Ara | Twitter'daki herhangi bir kullanıcıyı arayarak mention listenize ekleyebilirsiniz. Arama sonucu eklenen kullanıcıları daha sonra “Kaydedilen” sekmesinde tekrar bulabilirsiniz. Bu kısmı zaman içinde geliştireceğiz. Bize popüler kullanıcı önerisi gönderebilirsiniz.",
+    "step-trends": "Trend Ekle | Twitter'dan anlık olarak güncellenen trendlerden birini ekleyerek paylaşımınızın daha fazla kişiye ulaşmasını sağlayabilirsiniz. Ekleyeceğiniz yeni etiketin paylaşımınızla uyumlu olması tercih edilir.",
+    "step-post-added": "Eklenenler | Paylaşımınıza eklediğiniz kullanıcılar ve trendler bu kısımda görünecektir. Bir paylaşımda en fazla 3 mention ve 2 trend kullanmanızı tavsiye ediyoruz.",
+    "step-character-limit": "Limit | Paylaşımınız Twitter'ın izin verdiği 280 karakter sınırını aşmadığından emin olun! Mention, hashtag ve linkler dahil edilmiştir.",
+    "step-next-button": "Devam Et | Size önereceğimiz bir sonraki içerik ve capsler için bu butonu kullanabilirsiniz.",
+    "step-other-posts": "Diğer Paylaşımlar | Listedeki resimlerden herhangi birine tıklayarak yeni bir paylaşım oluşturabilirsiniz.",
+    "step-share-button": "Paylaş | Paylaşımınızın hazır olduğunu düşünüyorsanız buradan tıklayarak Twitter üzerinden paylaşımınızı tamamlayabilirsiniz. Sonraki paylaşımlar için geri gelmeyi unutmayın. 🙂"
+  },
+  "copyright": "Samenvvv. Bütün hakları saklıdır",
+  "support": "Destek",
+  "footer_menu": "Menuler",
+  "follow_us": "Bizi takip edin",
+  "society": "Vakfımız",
+  "footer_about": "Sessizlik, özgürlüğün en büyük düşmanıdır.",
+  "contact": {
+    "title": "İletişim",
+    "fill-form": "İletişim için formu doldurunuz",
+    "form": {
+      "fullname-label": "Adınız",
+      "fullname-required": "Ad alanı boş olamaz.",
+      "email-required": "Mail alanı boş olamaz.",
+      "email-invalid": "Geçersiz e-mail adresi.",
+      "email-helper": "Mailiniz izniniz olmadan kimseyle paylaşılmayacaktır.",
+      "message-label": "Mesaj",
+      "message-required": "Mesaj alanı boş olamaz.",
+      "message-delivered": "Teşekkür ederiz. Mesajınız iletildi.",
+      "failed": "Oops. Birşeyler yanlış gitti, lütfen tekrar deneyin.",
+      "button": "Gönder",
+      "contactOnWhatsApp": "Bizimle WhatsApptan iletişime geçin"
+    }
+  },
+  "post": {
+    "search-label": "Kullanıcı Ara",
+    "mention-list-label": "Popüler Kullanıcılar",
+    "mention-tab-popular": "Popüler",
+    "mention-tab-saved": "Kaydedilen",
+    "trends-label": "Trendler",
+    "add": "Ekle",
+    "remove": "Kaldır",
+    "help": "Yardım",
+    "share-tweet": "Tweet Paylaş",
+    "next-tweet": "Sonraki Tweet",
+    "edit-content": "İçeriği Düzenle",
+    "edit-save": "Kaydet",
+    "content-label": "İçerik",
+    "other-posts": "Diğer Postlar",
+    "all-hashtags": "Diğer Hashtag Etkinlikleri",
+    "add-mention": "Mention/Trend Ekle",
+    "latest-tweets-label": "Son Tweetler",
+    "no-tweet": "Tweet bulunamadı",
+    "will-start": "Etkinlik, {{time}} içinde başlayacaktır.",
+    "tabs": {
+      "share": "Paylaş",
+      "archive": "Arşiv"
+    }
+  },
+  "subpage": {
+    "most-readed": "En Çok Okunan",
+    "latest": "En Son"
+  }
+}
