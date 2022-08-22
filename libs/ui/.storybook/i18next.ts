@@ -3,7 +3,7 @@ import LanguageDetector from 'i18next-browser-languagedetector'
 import Backend from 'i18next-http-backend'
 import { initReactI18next } from 'react-i18next'
 
-const ns = ['common']
+const ns = ['common', 'post']
 const supportedLngs = ['en', 'nl', 'tr']
 const resources = ns.reduce((acc, n) => {
   supportedLngs.forEach(lng => {

@@ -18,21 +18,7 @@
     "secretary": "Secretaris"
   },
   "home": {
-    "hero": "Iedereen is gelijk voor de universele wet. We werken eraan om ervoor te zorgen dat iedereen in gelijke mate profiteert van universele mensenrechten.",
-    "about": {
-      "who-we-are": {
-        "title": "Wie Zijn Wij?",
-        "description": "Wij zijn een stichting opgericht door vrijwilligers uit verschillende beroepen die in Nederland wonen en ondersteunen de rechtsstaat, democratie en mensenrechten."
-      },
-      "mission": {
-        "title": "Onze Missie",
-        "description": "Werken aan het verminderen of beëindigen van mensenrechtenschendingen door individuen of staten in verschillende geografische gebieden van de wereld."
-      },
-      "vision": {
-        "title": "Onze Visie",
-        "description": "Naarmate mensenrechtenschendingen met het publiek worden gedeeld, zullen de schendingen afnemen of eindigen."
-      }
-    }
+    "hero": "Iedereen is gelijk voor de universele wet. We werken eraan om ervoor te zorgen dat iedereen in gelijke mate profiteert van universele mensenrechten."
   },
   "copyright": "WSVVrijheid. Alle rechten voorbehouden",
   "support": "Steun",

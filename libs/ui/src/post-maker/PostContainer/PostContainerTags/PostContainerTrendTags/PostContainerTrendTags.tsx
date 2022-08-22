@@ -20,7 +20,7 @@ export const PostContainerTrendTags = () => {
   const { trendNames, defaultHashtags } = useAppSelector(state => state.post)
 
   const dispatch = useAppDispatch()
-  const { t } = useTranslation()
+  const { t } = useTranslation('post')
 
   const onRemoveTrend = (trend: string) => {
     dispatch(removeTrendName(trend))
