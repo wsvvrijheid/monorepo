@@ -1,14 +1,14 @@
 import React, { FC } from 'react'
 
 import { Avatar, Button, Heading, Spacer, Stack, Text } from '@chakra-ui/react'
-import { Project } from '@wsvvrijheid/types'
+import { Platform } from '@wsvvrijheid/types'
 import { Navigate } from '@wsvvrijheid/ui'
 import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
 import { FaChevronRight } from 'react-icons/fa'
 
 export interface PlatformListProps {
-  platforms: Project[]
+  platforms: Platform[]
 }
 
 export const PlatformList: FC<PlatformListProps> = ({ platforms }) => {

@@ -1,4 +1,4 @@
 export * from './HomeAbout'
 export * from './HomeHero'
-export * from './HomeProject'
+export * from './HomePlatform'
 export * from './Layout'

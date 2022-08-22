@@ -1,4 +1,4 @@
-import { Project } from './project'
+import { Platform } from './project'
 import { StrapiCore } from './strapi'
 
 export type Job = {
@@ -9,5 +9,5 @@ export type Job = {
   description_en: string | null
   description_nl: string | null
   description_tr: string | null
-  project?: Project
+  project?: Platform
 } & StrapiCore

@@ -47,23 +47,28 @@ export const TweetCardBase: FC<TweetBaseCardProps> = ({
             </Text>
           </HStack>
 
-          <Menu>
-            <MenuButton
-              size="sm"
-              rounded="full"
-              as={IconButton}
-              icon={<BsThreeDots />}
-              variant="ghost"
-            />
-            <MenuList>
-              <MenuItem icon={<RiEditLine />} onClick={() => onEdit(tweet)}>
-                Edit
-              </MenuItem>
-              <MenuItem icon={<BsBookmarkPlus />} onClick={() => onSave(tweet)}>
-                Save (Bookmark)
-              </MenuItem>
-            </MenuList>
-          </Menu>
+          {onEdit && onSave && (
+            <Menu>
+              <MenuButton
+                size="sm"
+                rounded="full"
+                as={IconButton}
+                icon={<BsThreeDots />}
+                variant="ghost"
+              />
+              <MenuList>
+                <MenuItem icon={<RiEditLine />} onClick={() => onEdit(tweet)}>
+                  Edit
+                </MenuItem>
+                <MenuItem
+                  icon={<BsBookmarkPlus />}
+                  onClick={() => onSave(tweet)}
+                >
+                  Save (Bookmark)
+                </MenuItem>
+              </MenuList>
+            </Menu>
+          )}
         </HStack>
 
         {/* Tweet Content */}

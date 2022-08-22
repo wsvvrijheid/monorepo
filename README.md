@@ -1,5 +1,3 @@
-
-
 # Wsvvrijheid Monorepo
 
 <img style="text-align: center;" src="https://wsvvrijheid.nl/images/logo.svg" width="150" />
@@ -23,11 +21,12 @@ This project was generated using [Nx](https://nx.dev).
 - UI (@wsvvrijheid/ui)
 - Utils (@wsvvrijheid/utils)
 - Config (@wsvvrijheid/config)
+- Mocks (@wsvvrijheid/mocks)
 - Assets
 
-## Start Storybook
+## Scripts
 
-`yarn storybook`
+Start storybook: `yarn storybook`
 
 ## Recommended VSCode Plugins
 
