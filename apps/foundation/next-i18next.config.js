@@ -1,4 +1,4 @@
-const { resolve } = require('path')
+// const { resolve } = require('path')
 
 /**
  * @type {import('next-i18next').UserConfig}
