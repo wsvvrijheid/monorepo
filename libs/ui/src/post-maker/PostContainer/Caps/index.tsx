@@ -1,1 +1,1 @@
-export * from './Caps'
+export * from './CapsList'

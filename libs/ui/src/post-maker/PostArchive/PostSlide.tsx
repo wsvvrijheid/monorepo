@@ -8,13 +8,15 @@ import { WImage } from '../../components'
 
 export type PostSlideProps = {
   posts?: Post[]
+  startIndex?: number
 }
 
-export const PostSlide: FC<PostSlideProps> = ({ posts }) => {
+export const PostSlide: FC<PostSlideProps> = ({ posts, startIndex = 0 }) => {
   const mainOptions: Options = {
     type: 'loop',
     perPage: 1,
     perMove: 1,
+    start: startIndex,
     gap: '1rem',
     pagination: false,
     height: '10rem',
@@ -25,6 +27,7 @@ export const PostSlide: FC<PostSlideProps> = ({ posts }) => {
     rewind: true,
     gap: '1rem',
     perPage: 6,
+    start: startIndex,
     pagination: false,
     arrows: false,
     fixedHeight: 70,

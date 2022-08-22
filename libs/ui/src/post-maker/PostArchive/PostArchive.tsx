@@ -31,8 +31,6 @@ export const PostArchive = (): JSX.Element => {
 
   const hashtagQuery = useHashtag()
 
-  console.log('hashtagQuery', hashtagQuery)
-
   const { locale } = useRouter()
 
   useEffect(() => {
@@ -63,7 +61,10 @@ export const PostArchive = (): JSX.Element => {
         <ModalOverlay bg="blackAlpha.800" />
         <ModalContent bg="transparent">
           <ModalBody>
-            <PostSlide posts={hashtagQuery.data?.posts} />
+            <PostSlide
+              posts={hashtagQuery.data?.posts}
+              startIndex={activeIndex}
+            />
           </ModalBody>
 
           <ModalFooter justifyContent="space-between">
@@ -91,7 +92,13 @@ export const PostArchive = (): JSX.Element => {
       <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={8}>
         {hashtagQuery.data?.posts?.map((post, i) => {
           return (
-            <AnimatedBox key={i} delay={i} directing="to-down" hasHover>
+            <AnimatedBox
+              key={i}
+              delay={i}
+              directing="to-down"
+              hasHover
+              onClick={() => setActiveIndex(i)}
+            >
               <Box bg="white" shadow="primary" rounded="lg" overflow="hidden">
                 {post.image && (
                   <WImage
