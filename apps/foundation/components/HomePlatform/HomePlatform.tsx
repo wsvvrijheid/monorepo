@@ -17,12 +17,12 @@ export const HomePlatform = () => {
   const { t } = useTranslation()
   return (
     <Box>
-      {PLATFORMS.map((project, index) => (
+      {PLATFORMS.map((platform, index) => (
         <Center
           key={index}
           py={{ base: 16, lg: 32 }}
           minH={{ base: '100vh', lg: '50vh' }}
-          bg={project.colors.bg}
+          bg={platform.colors.bg}
         >
           <Container>
             <SimpleGrid
@@ -36,9 +36,9 @@ export const HomePlatform = () => {
                 directing={index % 2 ? 'to-left' : 'to-right'}
               >
                 <WImage
-                  src={project.image}
+                  src={platform.image}
                   boxSize={200}
-                  alt={project.title[locale]}
+                  alt={platform.title[locale]}
                 />
               </AnimatedBox>
               <AnimatedBox
@@ -55,12 +55,12 @@ export const HomePlatform = () => {
                   <Heading
                     size="lg"
                     fontWeight={900}
-                    color={project.colors.header}
+                    color={platform.colors.header}
                   >
-                    {project.title[locale]}
+                    {platform.title[locale]}
                   </Heading>
-                  <Text color={project.colors.text}>
-                    {project.description[locale]}
+                  <Text color={platform.colors.text}>
+                    {platform.description[locale]}
                   </Text>
                   <Navigate
                     w="max-content"
@@ -69,10 +69,10 @@ export const HomePlatform = () => {
                       base: 'center',
                       lg: index % 2 ? 'end' : 'start',
                     }}
-                    color={project.colors.header}
+                    color={platform.colors.header}
                     variant="link"
                     as={Button}
-                    href={project.link}
+                    href={platform.link}
                   >
                     {t('read-more')}
                   </Navigate>

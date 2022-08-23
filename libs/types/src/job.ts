@@ -1,4 +1,4 @@
-import { Platform } from './project'
+import { Platform } from './platform'
 import { StrapiCore } from './strapi'
 
 export type Job = {
