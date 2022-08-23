@@ -2,6 +2,7 @@ export type ContactFormFieldValues = {
   email: string
   fullname: string
   message: string
+  reset: string
 }
 export type ContactFormProps = {
   onSubmitHandler: (data: ContactFormFieldValues) => void

@@ -39,6 +39,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors, isValid },
   } = useForm<ContactFormFieldValues>({
     resolver: yupResolver(schema(t)),
@@ -47,6 +48,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({
 
   const onSubmit: SubmitHandler<ContactFormFieldValues> = async data => {
     onSubmitHandler(data)
+    reset()
   }
 
   return (
