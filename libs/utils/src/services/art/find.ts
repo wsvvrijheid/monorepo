@@ -1,4 +1,4 @@
-import { StrapiLocale } from '@wsvvrijheid/types'
+import { Art, StrapiLocale } from '@wsvvrijheid/types'
 import qs from 'qs'
 import { useQuery } from 'react-query'
 
@@ -13,7 +13,6 @@ type GetArts = {
   username: string
   sort: string | string[]
   locale: StrapiLocale
-  token?: string
 }
 
 export const getArts = async ({
@@ -25,7 +24,6 @@ export const getArts = async ({
   username,
   sort,
   locale,
-  token,
 }: GetArts) => {
   const userFilter = {
     artist: {
@@ -62,7 +60,7 @@ export const getArts = async ({
     categories: { code: { $in: Object.values(categoryObj) } },
     ...(statusFilter || {}),
   }
-  return request({
+  return request()<Art>({
     url: 'api/arts',
     filters,
     page,
@@ -70,7 +68,6 @@ export const getArts = async ({
     sort: sort || ['publishedAt:desc'],
     locale,
     populate,
-    token,
   })
 }
 

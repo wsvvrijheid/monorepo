@@ -13,50 +13,50 @@ type Request = {
   sort?: string | string[]
   page?: number
   pageSize?: number
-  token?: string
 }
 
-export const request = async <T extends StrapiModel | StrapiModel[]>({
-  publicationState = 'live',
-  locale,
-  url,
-  filters,
-  populate = '*',
-  sort,
-  page = 1,
-  pageSize = 25,
-  token,
-}: Request) => {
-  const query = qs.stringify(
-    {
-      publicationState,
-      locale,
-      populate,
-      filters,
-      sort,
-      pagination: {
-        page,
-        pageSize,
+export const request =
+  (token?: string) =>
+  async <T extends StrapiModel | StrapiModel[]>({
+    publicationState = 'live',
+    locale,
+    url,
+    filters,
+    populate = '*',
+    sort,
+    page = 1,
+    pageSize = 25,
+  }: Request) => {
+    const query = qs.stringify(
+      {
+        publicationState,
+        locale,
+        populate,
+        filters,
+        sort,
+        pagination: {
+          page,
+          pageSize,
+        },
       },
-    },
-    {
-      encodeValuesOnly: true,
-    },
-  )
+      {
+        encodeValuesOnly: true,
+      },
+    )
 
-  try {
-    const response = (await fetcher(token)(
-      `/${url}?${query}`,
-    )) as AxiosResponse<StrapiResponse<T>>
+    try {
+      const response = (await fetcher(token)(
+        `/${url}?${query}`,
+      )) as AxiosResponse<StrapiResponse<T>>
 
-    return response.data
-  } catch (errr) {
-    const error = errr as Error | AxiosError
-    if (axios.isAxiosError(error)) {
-      console.error('Request error', error.response || error.message)
-    } else {
-      console.error('Request error', error.message)
+      return response.data
+    } catch (errr) {
+      const error = errr as Error | AxiosError
+      if (axios.isAxiosError(error)) {
+        console.error('Request error', error.response || error.message)
+      } else {
+        console.error('Request error', error.message)
+      }
+      return null
     }
-    return null
   }
-}
