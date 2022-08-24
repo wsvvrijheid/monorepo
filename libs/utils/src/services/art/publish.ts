@@ -7,12 +7,12 @@ import { mutation } from '../../lib'
 export const publishArt = ({ id }: { id: number }) =>
   mutation<Art>().put('api/arts', id, { data: { publishedAt: new Date() } })
 
-export const usePublishArt = (queryKey: string) => {
+export const usePublishArt = (queryKey: string, id: number) => {
   const queryClient = useQueryClient()
   const toast = useToast()
 
   return useMutation({
-    mutationKey: 'delete-art',
+    mutationKey: ['publish-art', id],
     mutationFn: publishArt,
     onSettled: () => {
       // It's difficult to invalidate cache for paginated or filtering queries
