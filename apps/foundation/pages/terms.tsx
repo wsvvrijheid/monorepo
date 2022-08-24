@@ -1,13 +1,14 @@
 import { Term } from '@wsvvrijheid/types'
+import { Container, Hero, Markdown } from '@wsvvrijheid/ui'
+import { request } from '@wsvvrijheid/utils'
+import { truncateText } from '@wsvvrijheid/utils'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { serialize } from 'next-mdx-remote/serialize'
 import { NextSeoProps } from 'next-seo'
 
-import { Container, Hero, Markdown } from '../../../libs/ui/src'
-import { request } from '../../../libs/utils/src'
-import { truncateText } from '../../../libs/utils/src'
 import { Layout } from '../components'
+import i18nConfig from '../next-i18next.config'
 
 type TermsProps = {
   seo: NextSeoProps
@@ -31,9 +32,9 @@ export default Terms
 export const getStaticProps = async context => {
   const { locale } = context
 
-  const data = await request()<Term>({ url: 'api/term' })
+  const data = await request()<Term>({ url: 'api/terms' })
 
-  if (!data.data)
+  if (!data?.data)
     return {
       notFound: true,
     }
@@ -50,7 +51,7 @@ export const getStaticProps = async context => {
       term: data.data,
       source,
       seo,
-      ...(await serverSideTranslations(locale, ['common'])),
+      ...(await serverSideTranslations(locale, ['common']), i18nConfig),
     },
   }
 }
