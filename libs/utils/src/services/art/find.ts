@@ -60,7 +60,7 @@ export const getArts = async ({
     categories: { code: { $in: Object.values(categoryObj) } },
     ...(statusFilter || {}),
   }
-  return request()<Art>({
+  return request()<Art[]>({
     url: 'api/arts',
     filters,
     page,
