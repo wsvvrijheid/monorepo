@@ -1,7 +1,9 @@
-import { Term } from '@wsvvrijheid/types'
+import { FC } from 'react'
+
+import { StrapiResponse, Term } from '@wsvvrijheid/types'
 import { Container, Hero, Markdown } from '@wsvvrijheid/ui'
-import { request } from '@wsvvrijheid/utils'
-import { truncateText } from '@wsvvrijheid/utils'
+import { fetcher, truncateText } from '@wsvvrijheid/utils'
+import { AxiosResponse } from 'axios'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { serialize } from 'next-mdx-remote/serialize'
@@ -12,14 +14,14 @@ import i18nConfig from '../next-i18next.config'
 
 type TermsProps = {
   seo: NextSeoProps
-  term: { [key: string]: string }
+  terms: Term
   source: MDXRemoteSerializeResult
 }
 
-const Terms = ({ term, seo, source }: TermsProps): JSX.Element => {
+const Terms: FC<TermsProps> = ({ terms, seo, source }) => {
   return (
     <Layout seo={seo} isDark>
-      <Hero title={term.title} isFullHeight={false} />
+      <Hero title={terms.title} isFullHeight={false} />
       <Container>
         <Markdown source={source} />
       </Container>
@@ -32,26 +34,34 @@ export default Terms
 export const getStaticProps = async context => {
   const { locale } = context
 
-  const data = await request()<Term>({ url: 'api/terms' })
+  // `request` returns null for SinglePages
+  // probably because of some default parameters
+  // like filter, populate, etc.
+  const response = (await fetcher()(
+    `api/term?locale=${locale}`,
+  )) as AxiosResponse<StrapiResponse<Term>>
 
-  if (!data?.data)
+  const terms = response?.data?.data
+
+  if (!terms) {
     return {
       notFound: true,
     }
+  }
 
-  const source = await serialize(data.data.content ?? '')
+  const source = await serialize(terms.content || '')
 
   const seo = {
-    title: data.data?.title,
-    description: truncateText(data.data?.content || '', 200),
+    title: terms.title,
+    description: truncateText(terms.content || '', 200),
   }
 
   return {
     props: {
-      term: data.data,
+      terms,
       source,
       seo,
-      ...(await serverSideTranslations(locale, ['common']), i18nConfig),
+      ...(await serverSideTranslations(locale, ['common'], i18nConfig)),
     },
   }
 }
