@@ -34,15 +34,16 @@ const Contact = ({ seo }: ContactProps): JSX.Element => {
 
   const handleSubmit = async data => {
     const emailData = {
-      to: process.env.NEXT_PUBLIC_EMAIL_BASE,
-      from: process.env.NEXT_PUBLIC_EMAIL_FROM,
+      to: process.env['NX_EMAIL_BASE'],
+      from: process.env['NX_EMAIL_FROM'],
       subject: `Form from ${data.fullname} (${data.email})`,
       text: data.message,
     }
     try {
       setIsLoading(true)
-      axios.post(`${process.env.NEXT_PUBLIC_API_URL}/email`, emailData)
+      axios.post(`${process.env.NX_API_URL}/email`, emailData)
     } catch (error) {
+      console.log('error', error)
       setIsError(true)
       setIsSuccess(false)
     } finally {
