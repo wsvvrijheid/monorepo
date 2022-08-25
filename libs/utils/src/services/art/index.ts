@@ -1,1 +1,6 @@
-export * from './delete'
+export * from './comment'
+export * from './comment'
+export * from './getByCategories'
+export * from './getBySlug'
+export * from './like'
+export * from './view'

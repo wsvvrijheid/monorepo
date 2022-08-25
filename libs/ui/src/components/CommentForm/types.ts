@@ -13,5 +13,6 @@ export type CommentFormProps = {
   errorMessage?: string
   auth?: Auth
   isLoading: boolean
+  isSuccess: boolean
   onSendForm: (data: CommentFormFieldValues) => void
 }

@@ -122,7 +122,7 @@ export type PaginationArg =
   | { page: number; pageSize: number }
 
 export type StrapiMeta = {
-  pagination: Pagination
+  pagination?: Pagination
 }
 
 export type StrapiResponseData<T extends StrapiModel | Array<StrapiModel>> = T
@@ -131,4 +131,9 @@ export type StrapiResponse<T extends StrapiModel | Array<StrapiModel>> = {
   data: StrapiResponseData<T>
 } & {
   meta: StrapiMeta
+}
+
+export type StrapiMutationResponse<T extends StrapiModel> = {
+  data: T
+  meta: Record<string, unknown>
 }

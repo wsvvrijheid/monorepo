@@ -5,10 +5,9 @@ import { rest } from 'msw'
 import { ACTIVITY_MOCKS } from '../../strapi/activity'
 
 export const getActivityMock = rest.get<Activity>(
-  `https://api.samenvvv.nl/api/activities`,
+  `${process.env['NX_API_URL']}/api/activities`,
   (req, res, ctx) => {
     const slug = req.url.searchParams.get('slug')
-    console.log('slug', req)
 
     // If slug is provided, return single random activity
     if (slug) {
