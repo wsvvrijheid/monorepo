@@ -33,6 +33,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({
   isLoading,
   isSuccess,
   isError,
+  errorMessage,
 }) => {
   const { t } = useTranslation()
 
@@ -99,7 +100,11 @@ export const ContactForm: React.FC<ContactFormProps> = ({
       {isError && (
         <Alert status="error">
           <AlertIcon />
-          <AlertDescription>{t('contact.form.failed')}</AlertDescription>
+          <AlertDescription>
+            {t('contact.form.failed')}
+            {'  '}
+            {errorMessage ? errorMessage : ''}
+          </AlertDescription>
         </Alert>
       )}
     </VStack>

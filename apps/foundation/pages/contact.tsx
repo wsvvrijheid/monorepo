@@ -31,6 +31,7 @@ const Contact = ({ seo }: ContactProps): JSX.Element => {
   const [isLoading, setIsLoading] = useState(false)
   const [isSuccess, setIsSuccess] = useState(false)
   const [isError, setIsError] = useState(false)
+  const [errormessage, setErrorMessage] = useState('')
 
   const handleSubmit = async data => {
     const emailData = {
@@ -41,7 +42,13 @@ const Contact = ({ seo }: ContactProps): JSX.Element => {
     }
     try {
       setIsLoading(true)
-      axios.post(`${process.env.NX_API_URL}/email`, emailData)
+      axios
+        .post(`${process.env.NX_API_URL}/email`, emailData)
+        .catch(function (error) {
+          setIsError(true)
+          setIsSuccess(false)
+          setErrorMessage(error.message)
+        })
     } catch (error) {
       console.log('error', error)
       setIsError(true)
@@ -152,6 +159,7 @@ const Contact = ({ seo }: ContactProps): JSX.Element => {
                 isLoading={isLoading}
                 isSuccess={isSuccess}
                 isError={isError}
+                errorMessage={errormessage}
               />
             </Stack>
           </SimpleGrid>
