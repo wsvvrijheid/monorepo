@@ -26,7 +26,7 @@ AsButtonInternalLink.args = {
 export const AsButtonExternalLink = Template.bind({})
 AsButtonExternalLink.args = {
   children: 'Button',
-  href: 'http://localhost:3000',
+  href: 'https://www.google.com',
   as: Button,
   colorScheme: 'primary',
 }

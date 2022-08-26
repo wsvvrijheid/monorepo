@@ -35,7 +35,10 @@ Start storybook: `yarn storybook`
 ## Environement Variables
 
 ```
-NX_API_URL=https://api.samenvvv.nl
-NX_PUBLIC_URL=http://localhost:4200
+NX_API_URL=http://localhost:1337
+NX_VERCEL_URL=http://localhost:4200
 NX_API_TOKEN=
+NX_EMAIL_SENDER=
+NX_EMAIL_RECEIVER=
+NX_SECRET_COOKIE_PASSWORD
 ```

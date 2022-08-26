@@ -1,4 +1,5 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react'
+import { API_URL } from '@wsvvrijheid/config'
 import { PLATFORM_MOCKS } from '@wsvvrijheid/mocks'
 
 import { Container } from '../Container'
@@ -21,7 +22,7 @@ const Template: ComponentStory<typeof Card> = args => {
 }
 
 const { name_en, description_en, image } = PLATFORM_MOCKS.data[0]
-const src = `${process.env['NX_API_URL']}${image?.url}`
+const src = `${API_URL}${image?.url}`
 
 export const Default = Template.bind({})
 Default.args = {
