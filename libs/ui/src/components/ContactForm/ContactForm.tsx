@@ -48,7 +48,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({
   })
 
   const onSubmit: SubmitHandler<ContactFormFieldValues> = async data => {
-    onSubmitHandler(data)
+    await onSubmitHandler(data)
     reset()
   }
 

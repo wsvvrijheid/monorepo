@@ -1,5 +1,3 @@
-import { useState } from 'react'
-
 import {
   Box,
   Button,
@@ -12,12 +10,18 @@ import {
   VStack,
   Wrap,
 } from '@chakra-ui/react'
-import { ContactForm, Container, SocialButtons } from '@wsvvrijheid/ui'
-import axios from 'axios'
+import {
+  ContactForm,
+  Container,
+  SocialButtons,
+  ContactFormFieldValues,
+} from '@wsvvrijheid/ui'
+import { EmailData, sendEmail } from '@wsvvrijheid/utils'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
 import { useTranslation } from 'react-i18next'
 import { MdEmail, MdLocationOn, MdPhone } from 'react-icons/md'
+import { useMutation } from 'react-query'
 
 import { Layout } from '../components'
 import i18nConfig from '../next-i18next.config'
@@ -28,36 +32,28 @@ interface ContactProps {
 
 const Contact = ({ seo }: ContactProps): JSX.Element => {
   const { t } = useTranslation()
-  const [isLoading, setIsLoading] = useState(false)
-  const [isSuccess, setIsSuccess] = useState(false)
-  const [isError, setIsError] = useState(false)
-  const [errormessage, setErrorMessage] = useState('')
 
-  const handleSubmit = async data => {
+  const {
+    isError,
+    isLoading,
+    isSuccess,
+    mutate: sendForm,
+  } = useMutation({
+    mutationKey: 'contact',
+    mutationFn: async (data: EmailData) => {
+      return sendEmail(data)
+    },
+  })
+
+  const handleSubmit = async (data: ContactFormFieldValues) => {
     const emailData = {
-      to: process.env['NX_EMAIL_BASE'],
-      from: process.env['NX_EMAIL_FROM'],
       subject: `Form from ${data.fullname} (${data.email})`,
       text: data.message,
     }
-    try {
-      setIsLoading(true)
-      axios
-        .post(`${process.env.NX_API_URL}/email`, emailData)
-        .catch(function (error) {
-          setIsError(true)
-          setIsSuccess(false)
-          setErrorMessage(error.message)
-        })
-    } catch (error) {
-      console.log('error', error)
-      setIsError(true)
-      setIsSuccess(false)
-    } finally {
-      setIsLoading(false)
-      setIsSuccess(true)
-    }
+
+    return sendForm(emailData)
   }
+
   return (
     <Layout seo={seo}>
       <Box minH="inherit">
@@ -159,7 +155,6 @@ const Contact = ({ seo }: ContactProps): JSX.Element => {
                 isLoading={isLoading}
                 isSuccess={isSuccess}
                 isError={isError}
-                errorMessage={errormessage}
               />
             </Stack>
           </SimpleGrid>
