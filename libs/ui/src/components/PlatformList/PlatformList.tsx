@@ -29,7 +29,7 @@ export const PlatformList: FC<PlatformListProps> = ({ platforms }) => {
           shadow="md"
         >
           {/* TODO Create image component to handle internal/external image paths */}
-          <Avatar size="2xl" src={process.env['NX_API_URL'] + p.image.url} />
+          {p.image && <Avatar size="2xl" src={process.env['NX_API_URL'] + p.image.url} />}
           <Stack align={{ base: 'center', lg: 'start' }}>
             <Heading textAlign="center" size="md" as="h3" fontWeight={900}>
               {p[`name_${locale}`]}
