@@ -1,2 +1,2 @@
 export * from './TranslateModal'
-export * from './TranslateForm'
+export * from './types'

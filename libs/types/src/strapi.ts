@@ -132,3 +132,37 @@ export type StrapiResponse<T extends StrapiModel | Array<StrapiModel>> = {
 } & {
   meta: StrapiMeta
 }
+
+export type MergedStrapiModel = Activity &
+  Announcement &
+  Applicant &
+  Application &
+  ArtEditor &
+  ArtFeedback &
+  Art &
+  Artist &
+  Author &
+  Blog &
+  Category &
+  Collection &
+  Comment &
+  Competition &
+  Donate &
+  UploadFile &
+  Hashtag &
+  Job &
+  JuriVote &
+  Juri &
+  LangRole &
+  Me &
+  Mention &
+  Post &
+  Privacy &
+  Platform &
+  Tag &
+  Term &
+  Translator &
+  Trend &
+  User &
+  Volunteer &
+  Vote

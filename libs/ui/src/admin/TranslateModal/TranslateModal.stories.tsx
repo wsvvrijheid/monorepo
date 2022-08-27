@@ -1,12 +1,14 @@
 import { Container, useDisclosure, Button, Box } from '@chakra-ui/react'
 import { ComponentStory, ComponentMeta } from '@storybook/react'
+import { ART_MOCKS } from '@wsvvrijheid/mocks'
+import { MergedStrapiModel } from '@wsvvrijheid/types'
+import { sample } from 'lodash'
 
 import { TranslateModal } from './TranslateModal'
 
 export default {
   component: TranslateModal,
   title: 'Admin/TranslateModal',
-  args: {},
   decorators: [
     Story => (
       <Container maxW="container.sm">
@@ -17,7 +19,6 @@ export default {
 } as unknown as ComponentMeta<typeof TranslateModal>
 
 const Template: ComponentStory<typeof TranslateModal> = args => {
-  const {} = args
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   const handleApprove = (Id: number, content: string) => {
@@ -43,6 +44,7 @@ const Template: ComponentStory<typeof TranslateModal> = args => {
         onApprove={handleApprove}
         onClose={onClose}
         onSave={onSave}
+        model={sample(ART_MOCKS.data) as MergedStrapiModel}
       />
     </Box>
   )

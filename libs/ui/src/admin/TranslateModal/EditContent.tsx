@@ -1,5 +1,11 @@
-import React from 'react'
+import { FC } from 'react'
 
-export const EditContent = () => {
+import { TranslationKey } from './types'
+
+type EditContentProps = {
+  translationKey: TranslationKey
+}
+
+export const EditContent: FC<EditContentProps> = ({ translationKey }) => {
   return <div>EditContent</div>
 }
