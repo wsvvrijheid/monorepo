@@ -14,12 +14,6 @@ type LikesMutationArgs = {
   likes: number
 }
 
-type UseLikeArtProps = {
-  art?: Art | null
-  user?: User
-  queryKey?: QueryKey
-}
-
 const likeArtByUser = ({ id, likers }: LikersMutationArgs) =>
   mutation<Art>().put('api/arts', id, {
     data: { likers },
@@ -44,7 +38,11 @@ const useLikeArtPublicMutation = () => {
   })
 }
 
-export const useLikeArt = ({ art, user, queryKey }: UseLikeArtProps) => {
+export const useLikeArt = (
+  art?: Art | null,
+  user?: User,
+  queryKey?: QueryKey,
+) => {
   const queryClient = useQueryClient()
 
   const likeArtByUserMutation = useLikeArtByUserMutation()
@@ -79,38 +77,13 @@ export const useLikeArt = ({ art, user, queryKey }: UseLikeArtProps) => {
 
   const likes = isLikedStorage ? (art.likes || 0) - 1 : (art.likes || 0) + 1
 
-  const invalidateQueries = (
-    updatedArt: Art,
-    isSinglePage: boolean,
-    queryKey: QueryKey,
-  ) => {
-    if (isSinglePage) {
-      // Invalidate only the current art in the page
-      return queryClient.invalidateQueries(queryKey)
-    }
-
-    // Update the art from the art list
-    const fetchedArts = queryClient.getQueryData<{ data: Art[] }>(queryKey)
-    const updatedArts = fetchedArts?.data.map(art => {
-      if (art.id === updatedArt.id) {
-        return { ...art, likes: updatedArt.likes }
-      }
-      return art
-    })
-
-    return queryClient.setQueryData(queryKey, {
-      ...fetchedArts,
-      data: updatedArts,
-    })
-  }
-
-  const toggleLike = async (isSinglePage: boolean) => {
+  const toggleLike = async () => {
     if (user) {
       return likeArtByUserMutation.mutate(
         { id: art.id, likers },
         {
-          onSuccess: data => {
-            queryKey && invalidateQueries(data, isSinglePage, queryKey)
+          onSuccess: async data => {
+            await queryClient.invalidateQueries(queryKey)
           },
         },
       )
@@ -120,10 +93,9 @@ export const useLikeArt = ({ art, user, queryKey }: UseLikeArtProps) => {
       { id: art.id, likes },
       {
         onSuccess: async data => {
-          queryKey && (await invalidateQueries(data, isSinglePage, queryKey))
-          // TODO Find a better way of getting updated storage
+          const a = await queryClient.invalidateQueries(queryKey)
 
-          console.log('data', data)
+          console.log('a', a)
 
           const isLiked = likersStorage?.some(id => id === art.id)
           const updatedStorage = isLiked

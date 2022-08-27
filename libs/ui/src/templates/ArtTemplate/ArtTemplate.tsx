@@ -8,9 +8,10 @@ import {
   useArtCommentMutation,
   useArtsByCategories,
   useLikeArt,
+  useViewArtMutation,
 } from '@wsvvrijheid/utils'
 import { useTranslation } from 'react-i18next'
-import { useQueryClient } from 'react-query'
+import { QueryKey, useQueryClient } from 'react-query'
 
 import {
   ArtContent,
@@ -24,18 +25,22 @@ import { CommentFormFieldValues } from '../../components/CommentForm/types'
 
 export type ArtTemplateProps = {
   auth: Auth
+  queryKey: QueryKey
 }
 
-export const ArtTemplate: FC<ArtTemplateProps> = ({ auth }) => {
+export const ArtTemplate: FC<ArtTemplateProps> = ({ auth, queryKey }) => {
   const { t } = useTranslation()
   const perPage = useBreakpointValue({ base: 1, sm: 2, md: 3, lg: 4 })
   const { data: art } = useArtBySlug()
   const queryClient = useQueryClient()
 
-  const { toggleLike, isLiked, isLoading } = useLikeArt({
+  useViewArtMutation()
+
+  const { toggleLike, isLiked, isLoading } = useLikeArt(
     art,
-    user: auth?.user,
-  })
+    auth?.user,
+    queryKey,
+  )
 
   const categories = (art?.categories?.flatMap(c => c.code) || []) as string[]
   const { data: arts } = useArtsByCategories(categories, art?.id)
@@ -48,8 +53,7 @@ export const ArtTemplate: FC<ArtTemplateProps> = ({ auth }) => {
         { name, content, email, userId: auth?.user.id, id: art.id },
         {
           onSuccess: async comment => {
-            queryClient.getQueryData(['art', 'en', art.id])
-            queryClient.invalidateQueries(['art', art.locale, art.slug])
+            queryClient.invalidateQueries(queryKey)
           },
         },
       )

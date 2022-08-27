@@ -1,29 +1,28 @@
+import { FC } from 'react'
+
+import { API_URL, SITE_URL } from '@wsvvrijheid/config'
 import { Art, StrapiLocale } from '@wsvvrijheid/types'
-import { ArtTemplate, useAuth } from '@wsvvrijheid/ui'
-import {
-  getArtBySlug,
-  getArtStaticPaths,
-  useArtBySlug,
-  useViewArtMutation,
-} from '@wsvvrijheid/utils'
+import { ArtTemplate } from '@wsvvrijheid/ui'
+import { getArtBySlug, getArtStaticPaths } from '@wsvvrijheid/utils'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { dehydrate, QueryClient } from 'react-query'
+import { NextSeoProps } from 'next-seo'
+import { dehydrate, QueryClient, QueryKey } from 'react-query'
 
 import { Layout } from '../../../components'
 import i18nConfig from '../../../next-i18next.config'
 
-const ArtPage = ({ seo }) => {
-  const auth = useAuth()
+type ArtPageProps = {
+  seo: NextSeoProps
+  queryKey: QueryKey
+}
 
-  const { data: art } = useArtBySlug()
-  useViewArtMutation()
-
-  if (!art) return null
+const ArtPage: FC<ArtPageProps> = ({ seo, queryKey }) => {
+  // const auth = useAuth()
 
   return (
     <Layout seo={seo}>
-      <ArtTemplate auth={auth} />
+      <ArtTemplate auth={null} queryKey={queryKey} />
     </Layout>
   )
 }
@@ -62,8 +61,7 @@ export const getStaticProps: GetStaticProps = async context => {
 
   const title = art.title || null
   const description = art.description || null
-  const adminUrl = process.env['NX_API_URL']
-  const siteUrl = process.env['NX_PUBLIC_URL']
+
   const images = art.images
 
   const seo = {
@@ -74,18 +72,18 @@ export const getStaticProps: GetStaticProps = async context => {
       title,
       description,
       type: 'article',
-      url: `${siteUrl}/club/arts/${slugs[locale]}`,
+      url: `${SITE_URL}/club/arts/${slugs[locale]}`,
       article: {
         publishedTime: art.publishedAt,
         modifiedTime: art.updatedAt,
-        authors: [art.artist.user.username],
+        authors: [art.artist?.user.username],
         // TODO add tags
       },
       images:
         images?.length > 0
           ? images.map(image => ({
-              url: adminUrl + image?.url,
-              secureUrl: adminUrl + image?.url,
+              url: API_URL + image?.url,
+              secureUrl: API_URL + image?.url,
               type: image?.mime,
               width: image?.width,
               height: image?.height,

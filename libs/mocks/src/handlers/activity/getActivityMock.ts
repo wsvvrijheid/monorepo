@@ -1,3 +1,4 @@
+import { API_URL } from '@wsvvrijheid/config'
 import { Activity } from '@wsvvrijheid/types'
 import { sample } from 'lodash'
 import { rest } from 'msw'
@@ -5,7 +6,7 @@ import { rest } from 'msw'
 import { ACTIVITY_MOCKS } from '../../strapi/activity'
 
 export const getActivityMock = rest.get<Activity>(
-  `${process.env['NX_API_URL']}/api/activities`,
+  `${API_URL}/api/activities`,
   (req, res, ctx) => {
     const slug = req.url.searchParams.get('slug')
 

@@ -1,10 +1,11 @@
+import { API_URL } from '@wsvvrijheid/config'
 import { Art } from '@wsvvrijheid/types'
 import { rest } from 'msw'
 
 import { ART_MOCKS } from '../../strapi'
 
 export const getArtMock = rest.get<Art>(
-  `${process.env['NX_API_URL']}/api/arts`,
+  `${API_URL}/api/arts`,
   (req, res, ctx) => {
     const slug = req.url.searchParams.get('slug')
 
