@@ -1,11 +1,6 @@
 import { AlertStatus, createStandaloneToast } from '@chakra-ui/react'
 
-// FIXME Test fails if we import with alias
-import { theme } from '../../../../libs/config/src/theme/theme'
-
-const { toast } = createStandaloneToast({
-  theme,
-})
+const { toast } = createStandaloneToast()
 
 /**
  * this function is used to show toast message

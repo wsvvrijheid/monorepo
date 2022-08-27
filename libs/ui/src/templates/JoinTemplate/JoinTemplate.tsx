@@ -10,37 +10,30 @@ import {
   SimpleGrid,
   VStack,
 } from '@chakra-ui/react'
+import { StrapiLocale, Volunteer } from '@wsvvrijheid/types'
+import { Job, Platform } from '@wsvvrijheid/types'
+import { mutation, usePlatforms, toastMessage } from '@wsvvrijheid/utils'
 import { useTranslation } from 'next-i18next'
-import { useMutation, useQuery } from 'react-query'
+import { useRouter } from 'next/router'
+import { useMutation } from 'react-query'
 import { v4 as uuidV4 } from 'uuid'
 
-import { Container, JoinForm, PageTitle } from '../../components'
-import { mutation, request } from '../../../../utils/src/lib'
-import { Platform } from 'libs/types/src/platform'
-import { Job } from 'libs/types/src/job'
-import { PlatformList } from '../../components/PlatformList'
+import { Container, JoinForm, PageTitle, JoinFormFieldValues, PlatformList } from '@wsvvrijheid/ui'
 import { JoinTemplateProps } from './types'
-import { useRouter } from 'next/router'
-import { StrapiLocale, Volunteer } from '@wsvvrijheid/types'
-import { JoinFormFieldValues } from '../../components/JoinForm/types'
-
-import { toastMessage } from '../../../../utils/src/util/toast'
-import { usePlatforms } from '@wsvvrijheid/utils'
 
 type VolunteerRequest = {
   username: Volunteer['username']
   heardFrom: Volunteer['heardFrom']
 } & Omit<JoinFormFieldValues, 'heardFrom'>
 
-
 export const JoinTemplate: FC<JoinTemplateProps> = ({ title }) => {
   const { t } = useTranslation()
   const { locale } = useRouter()
 
-  const platformsResult = usePlatforms();
+  const platformsResult = usePlatforms()
 
   const platforms: Platform[] = platformsResult.data || []
-  const jobs: Job[] = platforms?.flatMap(p => p.jobs) as Job[] || []
+  const jobs: Job[] = (platforms?.flatMap(p => p.jobs) as Job[]) || []
 
   const { mutate, isLoading, isSuccess } = useMutation(
     'create-volunteer',
@@ -51,8 +44,8 @@ export const JoinTemplate: FC<JoinTemplateProps> = ({ title }) => {
     try {
       const { availableHours = 0 } = data
 
-      const heardFrom = data.heardFrom.join(', ');
-      const jobs = data.jobs;
+      const heardFrom = data.heardFrom.join(', ')
+      const jobs = data.jobs
 
       mutate(
         {
@@ -60,7 +53,7 @@ export const JoinTemplate: FC<JoinTemplateProps> = ({ title }) => {
           username: uuidV4(),
           availableHours,
           heardFrom,
-          jobs
+          jobs,
         },
         {
           onError: () =>
@@ -117,7 +110,7 @@ export const JoinTemplate: FC<JoinTemplateProps> = ({ title }) => {
                 isLoading={isLoading}
                 jobs={jobs}
                 projects={platforms}
-                locale={locale as StrapiLocale || 'en'}
+                locale={(locale as StrapiLocale) || 'en'}
               />
             </Box>
 
