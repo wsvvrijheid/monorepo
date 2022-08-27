@@ -11,6 +11,7 @@ import {
   useBreakpointValue,
   useDisclosure,
 } from '@chakra-ui/react'
+import { API_URL } from '@wsvvrijheid/config'
 import { AiFillHeart } from 'react-icons/ai'
 import { FaExternalLinkSquareAlt } from 'react-icons/fa'
 
@@ -177,7 +178,7 @@ export const ArtCardBase: FC<ArtCardProps> = ({
                 <Avatar
                   size="xs"
                   name={artistName || artistUsername}
-                  src={`${process.env['NX_API_URL']}${artistAvatar}`}
+                  src={`${API_URL}${artistAvatar}`}
                 />
                 <Text noOfLines={1}>{artistName || artistUsername}</Text>
               </HStack>

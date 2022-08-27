@@ -1,4 +1,5 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react'
+import { API_URL } from '@wsvvrijheid/config'
 import { ART_MOCKS, USER_MOCKS } from '@wsvvrijheid/mocks'
 
 import { ArtContent } from './ArtContent'
@@ -22,7 +23,7 @@ const Template: ComponentStory<typeof ArtContent> = args => {
       title={title}
       content={content}
       artistName={artist?.name || user?.username || 'Unknown'}
-      artistAvatar={`${process.env['NX_API_URL']}${user?.avatar?.url}`}
+      artistAvatar={`${API_URL}${user?.avatar?.url}`}
     />
   )
 }

@@ -2,6 +2,7 @@ import { FC, memo } from 'react'
 
 import { Box, Button, Center, HStack, Text, VStack } from '@chakra-ui/react'
 import { Splide, SplideSlide } from '@splidejs/react-splide'
+import { SITE_URL } from '@wsvvrijheid/config'
 import { Art, UploadFile } from '@wsvvrijheid/types'
 import { useRouter } from 'next/router'
 import { AiFillHeart } from 'react-icons/ai'
@@ -16,13 +17,7 @@ interface ArtImageProps {
 }
 
 const ArtImage: FC<ArtImageProps> = memo(({ image, alt }) => {
-  return (
-    <WImage
-      maxH={500}
-      src={`${process.env['NX_API_URL']}${image.url}`}
-      alt={alt}
-    />
-  )
+  return <WImage maxH={500} src={image} alt={alt} />
 })
 
 interface ArtDetailProps {
@@ -39,7 +34,7 @@ export const ArtDetail: FC<ArtDetailProps> = ({
   toggleLike,
 }) => {
   const { locale } = useRouter()
-  const url = `${process.env['NX_PUBLIC_URL']}/${locale}/club/art/${art.slug}`
+  const url = `${SITE_URL}/${locale}/club/art/${art.slug}`
 
   if (!art?.images) return null
 
