@@ -1,4 +1,4 @@
-import { ROUTES } from '@wsvvrijheid/config'
+import { ROUTES, SITE_URL } from '@wsvvrijheid/config'
 import { Hashtag, Post, StrapiLocale } from '@wsvvrijheid/types'
 
 import { getMainPageLink } from './getMainPageLink'
@@ -11,7 +11,7 @@ export const getItemLink = (
 ): string | null => {
   const post = item as Post
   const hashtag = item as Hashtag
-  const siteUrl = process.env['NX_PUBLIC_URL'] as string
+
   let itemUrl: string | null
 
   if (!item) {
@@ -42,5 +42,5 @@ export const getItemLink = (
       break
   }
 
-  return isAbsolute ? siteUrl + itemUrl : itemUrl
+  return isAbsolute ? SITE_URL + itemUrl : itemUrl
 }

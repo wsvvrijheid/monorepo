@@ -1,9 +1,10 @@
+import { API_URL, TOKEN } from '@wsvvrijheid/config'
 import axios from 'axios'
 
-export const fetcher = (token = process.env['NX_API_TOKEN']) => {
+export const fetcher = (token = TOKEN) => {
   // Create instance
   const instance = axios.create({
-    baseURL: process.env['NX_API_URL'],
+    baseURL: API_URL,
     headers: {
       Authorization: `Bearer ${token}`,
     },
