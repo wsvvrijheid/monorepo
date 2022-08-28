@@ -9,21 +9,15 @@ import {
   Stack,
   Text,
 } from '@chakra-ui/react'
-import { Volunteer } from '@wsvvrijheid/types'
+import { StrapiLocale, Volunteer } from '@wsvvrijheid/types'
 import { Job } from '@wsvvrijheid/types'
-import { GetStaticProps } from 'next'
-// import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { useVolunteers } from '@wsvvrijheid/utils'
 import { NextSeoProps } from 'next-seo'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'react-i18next'
 import { IoPeopleCircle } from 'react-icons/io5'
 
-import { request } from '../../../../utils/src/lib/request'
-import {
-  getVolunteers,
-  useVolunteers,
-} from '../../../../utils/src/services/volunteer/getAll'
 import { Container, Hero, MasonryGrid, VolunteerCard } from '../../components'
 
 export type VolunteersTemplateProps = {
@@ -46,7 +40,7 @@ export const VolunteersTemplate: FC<VolunteersTemplateProps> = ({
   const data = useMemo(
     () =>
       volunteersQuery.data?.filter(user =>
-        state ? user.jobs?.some(j => j.code === state) : true,
+        state ? user.jobs?.some(j => j.slug === state) : true,
       ),
     [state, volunteersQuery.data],
   )
@@ -110,11 +104,11 @@ export const VolunteersTemplate: FC<VolunteersTemplateProps> = ({
                   {jobs.map(job => (
                     <Radio
                       p={{ base: 4, lg: 'initial' }}
-                      key={job.code}
-                      value={job.code}
+                      key={job.slug}
+                      value={job.slug}
                     >
                       <Text noOfLines={1}>
-                        {job[`name_${locale as 'en' | 'nl' | 'tr'}`]}
+                        {job[`name_${locale as StrapiLocale}`]}
                       </Text>
                     </Radio>
                   ))}
@@ -122,7 +116,7 @@ export const VolunteersTemplate: FC<VolunteersTemplateProps> = ({
               </RadioGroup>
             </Box>
           </Box>
-          <MasonryGrid cols={[1, 2, 3, 4]} gap={{ base: 4, lg: 8 }}>
+          <MasonryGrid cols={[1, 2, 3, 4]}>
             {data?.map((volunteer, i) => (
               <VolunteerCard key={i} volunteer={volunteer} />
             ))}
@@ -131,31 +125,4 @@ export const VolunteersTemplate: FC<VolunteersTemplateProps> = ({
       </Container>
     </>
   )
-}
-
-export const getStaticProps: GetStaticProps = async context => {
-  const { locale } = context
-
-  const volunteersResponse = await getVolunteers()
-  const jobsResponse = await request()({ url: 'api/jobs' })
-
-  const title = {
-    en: 'Volunteers',
-    nl: 'Vrijwillegers',
-    tr: 'Gönüllüler',
-  }
-
-  const seo = {
-    title: title[(locale as 'en' | 'nl' | 'tr' | undefined) || 'en'],
-  }
-
-  return {
-    props: {
-      // ...(await serverSideTranslations(locale || 'en', ['common'])),
-      volunteers: volunteersResponse,
-      jobs: jobsResponse?.data,
-      seo,
-    },
-    revalidate: 1,
-  }
 }
