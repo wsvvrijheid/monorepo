@@ -36,6 +36,6 @@ Start storybook: `yarn storybook`
 
 ```
 NX_API_URL=https://api.samenvvv.nl
-NX_PUBLIC_URL=http://localhost:4200
+NX_VERCEL_URL=http://localhost:4200
 NX_API_TOKEN=
 ```

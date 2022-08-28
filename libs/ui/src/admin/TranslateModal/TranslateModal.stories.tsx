@@ -58,30 +58,30 @@ const Template: ComponentStory<typeof TranslateModal> = args => {
 
 export const ActivityModel = Template.bind({})
 ActivityModel.args = {
-  model: sample(ACTIVITY_MOCKS.data),
+  model: sample(ACTIVITY_MOCKS.tr.data),
 }
 
 export const AnnouncementModel = Template.bind({})
 AnnouncementModel.args = {
-  model: sample(ANNOUNCEMENT_MOCKS.data),
+  model: sample(ANNOUNCEMENT_MOCKS.tr.data),
 }
 
 export const ArtModel = Template.bind({})
 ArtModel.args = {
-  model: sample(ART_MOCKS.data),
+  model: sample(ART_MOCKS.tr.data),
 }
 
 export const BlogModel = Template.bind({})
 BlogModel.args = {
-  model: sample(BLOG_MOCKS.data),
+  model: sample(BLOG_MOCKS.tr.data),
 }
 
 export const HashtagModel = Template.bind({})
 HashtagModel.args = {
-  model: sample(HASHTAG_MOCKS.data),
+  model: sample(HASHTAG_MOCKS.tr.data),
 }
 
 export const PostModel = Template.bind({})
 PostModel.args = {
-  model: sample(POST_MOCKS.data),
+  model: sample(POST_MOCKS.tr.data),
 }

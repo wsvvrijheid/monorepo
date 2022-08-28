@@ -39,7 +39,7 @@ export const ArtDetail: FC<ArtDetailProps> = ({
   toggleLike,
 }) => {
   const { locale } = useRouter()
-  const url = `${process.env['NX_PUBLIC_URL']}/${locale}/club/art/${art.slug}`
+  const url = `${process.env['NX_VERCEL_URL']}/${locale}/club/art/${art.slug}`
 
   if (!art?.images) return null
 

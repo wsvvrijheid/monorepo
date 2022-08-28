@@ -21,7 +21,7 @@ export const PlatformList: FC<PlatformListProps> = ({ platforms }) => {
         <Stack
           direction={{ base: 'column', lg: 'row' }}
           align={{ base: 'center', lg: 'start' }}
-          key={p.code}
+          key={p.slug}
           p={8}
           spacing={4}
           bg="white"
@@ -37,7 +37,7 @@ export const PlatformList: FC<PlatformListProps> = ({ platforms }) => {
             <Text fontSize="sm">{p[`description_${locale}`]}</Text>
             <Spacer />
 
-            <Navigate href={`/${locale}/platforms/${p.code}`}>
+            <Navigate href={`/${locale}/platforms/${p.slug}`}>
               <Button
                 rightIcon={<FaChevronRight />}
                 variant="link"

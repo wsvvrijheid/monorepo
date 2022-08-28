@@ -16,14 +16,14 @@ import { Donate } from './donate'
 import { UploadFile } from './file'
 import { Hashtag } from './hashtag'
 import { Job } from './job'
-import { Juri } from './juri'
-import { JuriVote } from './juri-vote'
+import { Jury } from './jury'
+import { JuryVote } from './jury-vote'
 import { LangRole } from './lang-role'
 import { Me } from './me'
 import { Mention } from './mention'
+import { Platform } from './platform'
 import { Post } from './post'
 import { Privacy } from './privacy'
-import { Platform } from './project'
 import { Tag } from './tag'
 import { Term } from './term'
 import { Translator } from './translator'
@@ -60,8 +60,8 @@ export type StrapiModel =
   | UploadFile
   | Hashtag
   | Job
-  | JuriVote
-  | Juri
+  | JuryVote
+  | Jury
   | LangRole
   | Me
   | Mention
@@ -94,8 +94,8 @@ export type StrapiAllModels = Activity &
   UploadFile &
   Hashtag &
   Job &
-  JuriVote &
-  Juri &
+  JuryVote &
+  Jury &
   LangRole &
   Me &
   Mention &

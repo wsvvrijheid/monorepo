@@ -11,7 +11,7 @@ export const getItemLink = (
 ): string | null => {
   const post = item as Post
   const hashtag = item as Hashtag
-  const siteUrl = process.env['NX_PUBLIC_URL'] as string
+  const siteUrl = process.env['NX_VERCEL_URL'] as string
   let itemUrl: string | null
 
   if (!item) {
