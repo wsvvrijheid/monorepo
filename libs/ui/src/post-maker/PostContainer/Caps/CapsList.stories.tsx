@@ -17,7 +17,7 @@ export default {
 } as ComponentMeta<typeof CapsList>
 
 const Template: ComponentStory<typeof CapsList> = () => (
-  <CapsList sharedPosts={[]} posts={POST_MOCKS.data} />
+  <CapsList sharedPosts={[]} posts={POST_MOCKS.tr.data} />
 )
 
 export const Default = Template.bind({})

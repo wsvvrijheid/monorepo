@@ -1,6 +1,7 @@
 import { FC } from 'react'
 
 import { Avatar, HStack, Stack, Text } from '@chakra-ui/react'
+import { API_URL } from '@wsvvrijheid/config'
 import { Comment } from '@wsvvrijheid/types'
 import { formatDistanceStrict } from 'date-fns'
 
@@ -19,7 +20,7 @@ export const CommentItem: FC<CommentItemProps> = ({ comment }) => {
     <HStack align="start">
       <Avatar
         size="sm"
-        src={`${process.env['NX_API_URL']}${comment.user?.avatar?.url}`}
+        src={`${API_URL}${comment.user?.avatar?.url}`}
         name={name}
       />
       <Stack fontSize="sm">

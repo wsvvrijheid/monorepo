@@ -3,7 +3,7 @@ import { useQuery } from 'react-query'
 
 import { request } from '../../lib'
 
-export const getPlatforms = async () => {
+export const getAllPlatforms = async () => {
   const response = await request()<Platform[]>({
     url: 'api/projects',
   })
@@ -13,6 +13,6 @@ export const getPlatforms = async () => {
 export const usePlatforms = () => {
   return useQuery({
     queryKey: 'platforms',
-    queryFn: getPlatforms,
+    queryFn: getAllPlatforms,
   })
 }

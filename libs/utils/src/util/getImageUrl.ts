@@ -1,3 +1,4 @@
+import { API_URL, SITE_URL } from '@wsvvrijheid/config'
 import { FileFormatsType, UploadFile } from '@wsvvrijheid/types'
 
 export const getImageUrl = (
@@ -6,22 +7,18 @@ export const getImageUrl = (
 ) => {
   if (!image) return ''
 
-  const apiUrl = process.env['NX_API_URL']
-  const siteUrl =
-    process.env['NX_STORYBOOK'] === 'true' ? '' : process.env['NX_PUBLIC_URL']
-
   if (typeof image === 'string') {
     if (image?.startsWith('http')) {
       return image
     }
 
     if (image?.startsWith('/uploads')) {
-      return `${apiUrl}${image}`
+      return `${API_URL}${image}`
     }
 
-    return `${siteUrl}${image}`
+    return `${SITE_URL}${image}`
   }
 
   const src = format ? image.formats?.[format]?.url || image.url : image.url
-  return `${apiUrl}${src}`
+  return `${API_URL}${src}`
 }

@@ -6,19 +6,21 @@ import { ArtApprovalModal } from './ArtApprovalModal'
 
 import '@splidejs/splide/dist/css/themes/splide-default.min.css'
 
+const artMock = ART_MOCKS.tr.data[0]
+
 export default {
   component: ArtApprovalModal,
   title: 'Admin/ArtApprovalModal',
   args: {
-    artId: ART_MOCKS.data[0].id,
-    artDescription: ART_MOCKS.data[0].description,
-    artTitle: ART_MOCKS.data[0].title,
-    artImages: ART_MOCKS.data[0].images,
-    editorId: USER_MOCKS[0].id,
-    editorAvatar: USER_MOCKS[0].avatar,
-    editorName: USER_MOCKS[0].username,
-    artistName: ART_MOCKS.data[0].artist?.name,
+    artDescription: artMock.description,
+    artId: artMock.id,
+    artImages: artMock.images,
+    artTitle: artMock.title,
     artistAvatar: 'https://bit.ly/sage-adebayo',
+    artistName: artMock.artist?.name,
+    editorAvatar: USER_MOCKS[0].avatar,
+    editorId: USER_MOCKS[0].id,
+    editorName: USER_MOCKS[0].username,
   },
   decorators: [
     Story => (
@@ -27,7 +29,7 @@ export default {
       </Container>
     ),
   ],
-} as ComponentMeta<typeof ArtApprovalModal>
+} as unknown as ComponentMeta<typeof ArtApprovalModal>
 
 const Template: ComponentStory<typeof ArtApprovalModal> = args => {
   const {
@@ -146,5 +148,5 @@ MultiHorizontalVerticalArts.args = {
 
 export const MultiableArts = Template.bind({})
 MultiableArts.args = {
-  artImages: ART_MOCKS.data[4].images,
+  artImages: ART_MOCKS.tr.data[4].images,
 }

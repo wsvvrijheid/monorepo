@@ -1,6 +1,7 @@
 import { FC, ReactElement } from 'react'
 
 import { Box, Button, ButtonGroup, Link } from '@chakra-ui/react'
+import { API_URL } from '@wsvvrijheid/config'
 import { useTranslation } from 'next-i18next'
 import { FaGoogle } from 'react-icons/fa'
 
@@ -18,15 +19,13 @@ const providers: Provider[] = [
   },
 ]
 
-const backendUrl = process.env['NX_API_URL']
-
 export const OAuthButtonGroup: FC<{ isDisabled: boolean }> = ({
   isDisabled,
 }) => {
   const { t } = useTranslation()
 
   const onSocialLogin = async (url: string) => {
-    window.open(`${backendUrl}${url}`, '_self')
+    window.open(`${API_URL}${url}`, '_self')
   }
 
   return (
