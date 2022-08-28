@@ -1,6 +1,6 @@
 import { Story, Meta } from '@storybook/react'
+import { BLOG_MOCKS } from '@wsvvrijheid/mocks'
 import { StrapiLocale } from '@wsvvrijheid/types'
-import { useRouter } from 'next/router'
 
 import { BlogTemplate, BlogTemplateProps } from './BlogTemplate'
 
@@ -13,8 +13,6 @@ export default {
 } as Meta<BlogTemplateProps>
 
 const Template: Story<BlogTemplateProps> = args => {
-  const { locale } = useRouter()
-
   const blogSeo = {
     en: {
       title: 'Blog',
@@ -29,8 +27,10 @@ const Template: Story<BlogTemplateProps> = args => {
       description: 'Yazılar',
     },
   }
-  const seo = blogSeo[locale as StrapiLocale]
-  return <BlogTemplate seo={seo} {...args} />
+
+  const blogs = BLOG_MOCKS[args.locale]?.data
+  const seo = blogSeo[args.locale as StrapiLocale]
+  return <BlogTemplate seo={seo} blogs={blogs} {...args} />
 }
 
 export const Default = Template.bind({})

@@ -2,15 +2,16 @@ import { FC } from 'react'
 import { Image, SimpleGrid, Stack, Text } from '@chakra-ui/react'
 import { NextSeoProps } from 'next-seo'
 import { useTranslation } from 'react-i18next'
-import { useGetBlogs } from '@wsvvrijheid/utils'
+import { Blog, StrapiLocale } from '@wsvvrijheid/types'
 import { Container, BlogCard, AnimatedBox, Hero } from '../../components'
 
 export type BlogTemplateProps = {
   seo: NextSeoProps
+  blogs: Blog[]
+  locale: StrapiLocale
 }
 
-export const BlogTemplate: FC<BlogTemplateProps> = ({ seo }) => {
-  const { data: blogs } = useGetBlogs()
+export const BlogTemplate: FC<BlogTemplateProps> = ({ seo, blogs }) => {
   const { t } = useTranslation()
 
   return (
