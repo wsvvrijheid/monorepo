@@ -11,6 +11,7 @@ export type JoinFormFieldValues = {
   isPublic: boolean
   heardFrom: HeardFrom[]
   // TODO Confirm if the type is correct
+
   jobs: string[]
 }
 

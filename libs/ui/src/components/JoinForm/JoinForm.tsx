@@ -251,8 +251,15 @@ export const JoinForm: FC<JoinFormFProps> = ({
               </Text>
               {platform?.jobs?.map(job => (
                 <HStack key={job.id}>
-                  <Checkbox id={job.id} {...register(`jobs`)} value={job.id} />
-                  <FormLabel textTransform="capitalize" htmlFor={job.id}>
+                  <Checkbox
+                    id={job.id.toString()}
+                    {...register(`jobs`)}
+                    value={job.id}
+                  />
+                  <FormLabel
+                    textTransform="capitalize"
+                    htmlFor={job.id.toString()}
+                  >
                     {job[`name_${locale}`]}
                   </FormLabel>
                 </HStack>
