@@ -1,24 +1,24 @@
 import { UploadFile } from '@wsvvrijheid/types'
 
 export type ArtApprovalTypes = {
-  onReject: (artId: number, editorId: number, feedback: string) => void
-  onApprove: (artId: number, editorId: number, feedback: string) => void
-  onDelete: (artId: number) => void
-  artId: number
-  artTitle: string
   artDescription: string
+  artId: number
+  artImages: UploadFile[] | string[]
+  artTitle: string
+  artistAvatar: string
+  artistName: string
+  editorAvatar: string
   editorId: number
   editorName: string
-  editorAvatar: string
-  isOpen: boolean
-  artImages: UploadFile[] | string[]
-  onClose: () => void
-  artistName: string
   feedback: string
-  artistAvatar: string
+  isEditing: boolean
+  isOpen: boolean
+  onApprove: (artId: number, editorId: number, feedback: string) => void
+  onClose: () => void
+  onDelete: (artId: number) => void
+  onReject: (artId: number, editorId: number, feedback: string) => void
   onSave: (artDescription: string) => void
   setIsEditing: (data: boolean) => void
-  isEditing: boolean
 }
 
 export type ArtFeedbackFormTypes = {

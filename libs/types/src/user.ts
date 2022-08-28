@@ -5,8 +5,11 @@ import { Blog } from './blog'
 import { Comment } from './comment'
 import { UploadFile } from './file'
 import { Post } from './post'
+import { RecommendedTweet } from './recommended-tweet'
 import { Role } from './role'
+import { SavedTweet } from './saved-tweet'
 import { StrapiCore } from './strapi'
+import { Timeline } from './timeline'
 import { Volunteer } from './volunteer'
 import { Vote } from './vote'
 
@@ -23,7 +26,12 @@ export type User = {
   volunteer?: Volunteer | null
   votes?: Array<Vote>
   artist?: Artist | null
-  liked_arts?: Array<Art>
-  liked_blogs?: Array<Blog>
+  likedArts?: Array<Art>
+  likedBlogs?: Array<Blog>
+  reviewedPosts?: Array<Post>
+  listedTimelines?: Array<Timeline>
+  recommendedTweets?: Array<RecommendedTweet>
+  createdTimelines?: Array<Timeline>
+  savedTweets?: Array<SavedTweet>
   comments?: Array<Comment>
 } & Omit<StrapiCore, 'publishedAt'>

@@ -1,7 +1,9 @@
 import { Image, SimpleGrid, Stack, Text } from '@chakra-ui/react'
+import { AnimatedBox, BlogCard, Container, Hero } from '@wsvvrijheid/ui'
+import { getBlogs, useGetBlogs } from '@wsvvrijheid/utils'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { dehydrate, QueryClient } from 'react-query'
-import { useTranslation } from 'react-i18next'
+
 import { AnimatedBox, BlogCard, Container, Hero } from '@wsvvrijheid/ui'
 import { getBlogs, useGetBlogs } from '@wsvvrijheid/utils'
 import { Layout } from '../../components'

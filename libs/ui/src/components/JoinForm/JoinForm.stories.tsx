@@ -12,7 +12,7 @@ export default {
   title: 'Forms/JoinForm',
   component: JoinForm,
   args: {
-    projects: PLATFORM_MOCKS.data,
+    platforms: PLATFORM_MOCKS.data,
     jobs: JOB_MOCKS.data,
   },
   argTypes: {
@@ -25,7 +25,7 @@ const Template: Story<JoinFormFProps> = args => {
 
   const { locale } = useRouter()
 
-  const projects = PLATFORM_MOCKS.data
+  const platforms = PLATFORM_MOCKS.data
   const jobs = JOB_MOCKS.data as Job[]
   const onSubmit = (data: JoinFormFieldValues) => {
     setIsLoading(true)
@@ -40,7 +40,7 @@ const Template: Story<JoinFormFProps> = args => {
       locale={args.locale || (locale as StrapiLocale)}
       onSubmitHandler={onSubmit}
       isLoading={isLoading}
-      projects={projects}
+      platforms={platforms}
       jobs={jobs}
     />
   )
