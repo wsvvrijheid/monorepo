@@ -4,7 +4,7 @@ import { sample } from 'lodash'
 
 import { ArtTemplate, ArtTemplateProps } from './ArtTemplate'
 
-const sampleArt = sample(ART_MOCKS.data)
+const sampleArt = sample(ART_MOCKS.tr.data)
 
 export default {
   component: ArtTemplate,
