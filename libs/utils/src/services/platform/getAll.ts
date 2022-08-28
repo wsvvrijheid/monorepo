@@ -7,7 +7,7 @@ export const getAllPlatforms = async () => {
   const response = await request()<Platform[]>({
     url: 'api/platforms',
   })
-  return response?.data
+  return response?.data || null
 }
 
 export const usePlatforms = () => {

@@ -244,12 +244,12 @@ export const JoinForm: FC<JoinFormFProps> = ({
           borderWidth={2}
           borderColor={errors['jobs'] ? 'red.500' : 'gray.100'}
         >
-          {platforms?.map((platforms, i) => (
+          {platforms?.map((platform, i) => (
             <Stack key={i}>
               <Text fontWeight={600} fontSize="sm">
-                {platforms[`name_${locale}`]}
+                {platform[`name_${locale}`]}
               </Text>
-              {platforms?.jobs?.map(job => (
+              {platform?.jobs?.map(job => (
                 <HStack key={job.id}>
                   <Checkbox
                     id={job.id.toString()}

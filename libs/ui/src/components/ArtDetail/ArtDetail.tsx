@@ -1,24 +1,15 @@
-import { FC, memo } from 'react'
+import { FC } from 'react'
 
-import { Box, Button, Center, HStack, Text, VStack } from '@chakra-ui/react'
+import { Box, Button, Center, HStack, Text } from '@chakra-ui/react'
 import { Splide, SplideSlide } from '@splidejs/react-splide'
 import { SITE_URL } from '@wsvvrijheid/config'
-import { Art, UploadFile } from '@wsvvrijheid/types'
+import { Art } from '@wsvvrijheid/types'
 import { useRouter } from 'next/router'
 import { AiFillHeart } from 'react-icons/ai'
 import { FaEye } from 'react-icons/fa'
 
 import { ShareButtons } from '../ShareButtons'
 import { WImage } from '../WImage'
-
-interface ArtImageProps {
-  image: UploadFile
-  alt: string
-}
-
-const ArtImage: FC<ArtImageProps> = memo(({ image, alt }) => {
-  return <WImage maxH={500} src={image} alt={alt} />
-})
 
 interface ArtDetailProps {
   art: Art
@@ -39,20 +30,22 @@ export const ArtDetail: FC<ArtDetailProps> = ({
   if (!art?.images) return null
 
   return (
-    <VStack bg="white" spacing={4} padding={4} boxShadow="base">
+    <Box bg="white" padding={4} boxShadow="base">
       {art.images && art.images.length > 1 ? (
-        <Splide>
-          {art?.images.map(image => (
-            <Center as={SplideSlide} key={image.id}>
-              <ArtImage image={image} alt={art.title} />
-            </Center>
-          ))}
-        </Splide>
+        <Box>
+          <Splide>
+            {art?.images.map(image => (
+              <Center as={SplideSlide} key={image.id}>
+                <WImage maxH={500} src={image} alt={art.title} hasZoom />
+              </Center>
+            ))}
+          </Splide>
+        </Box>
       ) : (
-        <ArtImage image={art.images?.[0]} alt={art.title} />
+        <WImage maxH={500} src={art.images?.[0]} alt={art.title} hasZoom />
       )}
 
-      <HStack bg="white">
+      <HStack bg="white" justify="center" mt={4}>
         {art.views && (
           <HStack
             py={0.5}
@@ -76,15 +69,12 @@ export const ArtDetail: FC<ArtDetailProps> = ({
         >
           {(art?.likes || 0) + (art.likers?.length || 0)}
         </Button>
-        {/* TODO when I change size of the SharedButtons as shown in Figma, 
-        it will affect other SharedButtons component. Customize it to have different sizes
-        or create a new component for here */}
         <ShareButtons
           title={art?.title}
           url={url}
           quote={art.description || ''}
         />
       </HStack>
-    </VStack>
+    </Box>
   )
 }

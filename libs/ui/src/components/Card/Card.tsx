@@ -45,7 +45,7 @@ export const Card: FC<CardProps> = ({
               h={48}
               w="full"
               src={image}
-              alt="project image"
+              alt={title}
               transition="transform 0.5s ease-in-out"
               _groupHover={{ transform: 'scale(1.1)' }}
             />
