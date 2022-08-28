@@ -16,8 +16,8 @@ import { Donate } from './donate'
 import { UploadFile } from './file'
 import { Hashtag } from './hashtag'
 import { Job } from './job'
-import { Juri } from './juri'
-import { JuriVote } from './juri-vote'
+import { Jury } from './jury'
+import { JuryVote } from './jury-vote'
 import { LangRole } from './lang-role'
 import { Me } from './me'
 import { Mention } from './mention'
@@ -60,8 +60,8 @@ export type StrapiModel =
   | UploadFile
   | Hashtag
   | Job
-  | JuriVote
-  | Juri
+  | JuryVote
+  | Jury
   | LangRole
   | Me
   | Mention
@@ -76,7 +76,7 @@ export type StrapiModel =
   | Volunteer
   | Vote
 
-export type StrapiModelKeys = keyof (Activity &
+export type StrapiAllModels = Activity &
   Announcement &
   Applicant &
   Application &
@@ -94,8 +94,8 @@ export type StrapiModelKeys = keyof (Activity &
   UploadFile &
   Hashtag &
   Job &
-  JuriVote &
-  Juri &
+  JuryVote &
+  Jury &
   LangRole &
   Me &
   Mention &
@@ -108,7 +108,9 @@ export type StrapiModelKeys = keyof (Activity &
   Trend &
   User &
   Volunteer &
-  Vote)
+  Vote
+
+export type StrapiModelKeys = keyof StrapiAllModels
 
 export type Pagination = {
   page: number
@@ -132,6 +134,15 @@ export type StrapiResponse<T extends StrapiModel | Array<StrapiModel>> = {
 } & {
   meta: StrapiMeta
 }
+
+export type StrapiTranslatableModel =
+  | Activity
+  | Announcement
+  | Art
+  | Blog
+  | Competition
+  | Hashtag
+  | Post
 
 export type StrapiMutationResponse<T extends StrapiModel> = {
   data: T

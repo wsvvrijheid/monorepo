@@ -12,7 +12,8 @@ export const getActivityMock = rest.get<Activity>(
 
     // If slug is provided, return single random activity
     if (slug) {
-      const sampleMock = sample(ACTIVITY_MOCKS.data)
+      // TODO Use dynamic locale from request
+      const sampleMock = sample(ACTIVITY_MOCKS.tr.data)
       if (!sampleMock) return res(ctx.status(200), ctx.json(null))
 
       return res(ctx.status(200), ctx.json(sampleMock))

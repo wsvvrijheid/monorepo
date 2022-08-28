@@ -4,11 +4,11 @@ import { request } from '../../lib'
 
 export const getPlatformPaths = async () => {
   const response = await request()<Platform[]>({
-    url: 'api/projects',
+    url: 'api/platforms',
     populate: '',
   })
 
-  const paths = response?.data?.map(({ code }) => ({ params: { code } }))
+  const paths = response?.data?.map(({ slug }) => ({ params: { slug } }))
 
   return paths
 }
