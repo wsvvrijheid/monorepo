@@ -8,12 +8,12 @@ export default {
   component: ArtContent,
   title: 'Shared/ArtContent',
   args: {
-    art: ART_MOCKS.data[0],
+    art: ART_MOCKS.tr.data[0],
   },
 } as ComponentMeta<typeof ArtContent>
 
 const Template: ComponentStory<typeof ArtContent> = args => {
-  const { title, content, artist } = ART_MOCKS.data[0]
+  const { title, content, artist } = ART_MOCKS.tr.data[0]
 
   const user = USER_MOCKS.find(user => user.avatar?.url)
 
@@ -31,10 +31,11 @@ const Template: ComponentStory<typeof ArtContent> = args => {
 export const Default = Template.bind({})
 
 Default.args = {
-  title: ART_MOCKS.data[0].title,
-  content: ART_MOCKS.data[0].content,
+  title: ART_MOCKS.tr.data[0].title,
+  content: ART_MOCKS.tr.data[0].content,
   artistName:
-    ART_MOCKS.data[0].artist?.name || ART_MOCKS.data[0].artist?.user?.username,
-  artistAvatar: ART_MOCKS.data[0].artist?.user?.avatar?.url,
-  artistProfilePath: `/artist/${ART_MOCKS.data[0].artist?.user?.username}`,
+    ART_MOCKS.tr.data[0].artist?.name ||
+    ART_MOCKS.tr.data[0].artist?.user?.username,
+  artistAvatar: ART_MOCKS.tr.data[0].artist?.user?.avatar?.url,
+  artistProfilePath: `/artist/${ART_MOCKS.tr.data[0].artist?.user?.username}`,
 }
