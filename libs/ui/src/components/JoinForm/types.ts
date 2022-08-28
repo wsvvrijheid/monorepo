@@ -16,7 +16,7 @@ export type JoinFormFieldValues = {
 
 export type JoinFormFProps = {
   jobs: Job[]
-  projects: Platform[]
+  platforms: Platform[]
   isLoading: boolean
   locale: StrapiLocale
   onSubmitHandler: (data: JoinFormFieldValues) => void

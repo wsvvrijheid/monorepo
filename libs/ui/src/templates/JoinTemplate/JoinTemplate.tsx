@@ -18,7 +18,13 @@ import { useRouter } from 'next/router'
 import { useMutation } from 'react-query'
 import { v4 as uuidV4 } from 'uuid'
 
-import { Container, JoinForm, PageTitle, JoinFormFieldValues, PlatformList } from '@wsvvrijheid/ui'
+import {
+  Container,
+  JoinForm,
+  PageTitle,
+  JoinFormFieldValues,
+  PlatformList,
+} from '@wsvvrijheid/ui'
 import { JoinTemplateProps } from './types'
 
 type VolunteerRequest = {
@@ -109,7 +115,7 @@ export const JoinTemplate: FC<JoinTemplateProps> = ({ title }) => {
                 onSubmitHandler={onSubmit}
                 isLoading={isLoading}
                 jobs={jobs}
-                projects={platforms}
+                platforms={platforms}
                 locale={(locale as StrapiLocale) || 'en'}
               />
             </Box>

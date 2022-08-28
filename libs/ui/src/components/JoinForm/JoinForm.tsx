@@ -89,7 +89,7 @@ export const JoinForm: FC<JoinFormFProps> = ({
   onSubmitHandler,
   isLoading,
   jobs = [],
-  projects = [],
+  platforms = [],
   locale,
 }) => {
   const { t } = useTranslation()
@@ -244,12 +244,12 @@ export const JoinForm: FC<JoinFormFProps> = ({
           borderWidth={2}
           borderColor={errors['jobs'] ? 'red.500' : 'gray.100'}
         >
-          {projects?.map((project, i) => (
+          {platforms?.map((platforms, i) => (
             <Stack key={i}>
               <Text fontWeight={600} fontSize="sm">
-                {project[`name_${locale}`]}
+                {platforms[`name_${locale}`]}
               </Text>
-              {project?.jobs?.map(job => (
+              {platforms?.jobs?.map(job => (
                 <HStack key={job.id}>
                   <Checkbox
                     id={job.id.toString()}

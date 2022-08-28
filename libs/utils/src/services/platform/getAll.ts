@@ -5,7 +5,7 @@ import { request } from '../../lib'
 
 export const getAllPlatforms = async () => {
   const response = await request()<Platform[]>({
-    url: 'api/projects',
+    url: 'api/platforms',
   })
   return response?.data
 }
