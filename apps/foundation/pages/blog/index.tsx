@@ -1,6 +1,4 @@
 import { Image, SimpleGrid, Stack, Text } from '@chakra-ui/react'
-import { AnimatedBox, BlogCard, Container, Hero } from '@wsvvrijheid/ui'
-import { getBlogs, useGetBlogs } from '@wsvvrijheid/utils'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { dehydrate, QueryClient } from 'react-query'
 
@@ -8,6 +6,7 @@ import { AnimatedBox, BlogCard, Container, Hero } from '@wsvvrijheid/ui'
 import { getBlogs, useGetBlogs } from '@wsvvrijheid/utils'
 import { Layout } from '../../components'
 import i18nConfig from '../../next-i18next.config'
+import { useTranslation } from 'react-i18next'
 
 // TODO: Implement author filter
 const Blogs = ({ seo }) => {
