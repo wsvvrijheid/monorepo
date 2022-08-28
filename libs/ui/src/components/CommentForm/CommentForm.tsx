@@ -1,3 +1,5 @@
+import { useEffect } from 'react'
+
 import {
   Avatar,
   Button,
@@ -38,17 +40,23 @@ export const CommentForm: React.FC<CommentFormProps> = ({
   auth,
   onSendForm,
   isLoading,
+  isSuccess,
 }) => {
   const { t } = useTranslation()
 
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors, isValid },
   } = useForm<CommentFormFieldValues>({
     resolver: yupResolver(auth?.isLoggedIn ? userSchema(t) : publicSchema(t)),
     mode: 'all',
   })
+
+  useEffect(() => {
+    if (isSuccess) reset()
+  }, [isSuccess, reset])
 
   return (
     <Stack spacing={4} p={4} boxShadow="base" borderRadius="sm" bg="white">

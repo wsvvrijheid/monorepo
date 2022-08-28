@@ -16,12 +16,12 @@ export type ArtActionContext = {
 export type ArtActions = Record<ArtActionType, ArtActionContext>
 
 export type ArtCardProps = {
-  actions: ArtActions
+  actions?: ArtActions
   art: Art
-  isLiked: boolean
+  isLiked?: boolean
   isMasonry?: boolean
-  isOwner: boolean
-  toggleLike: () => void
+  isOwner?: boolean
+  toggleLike?: () => void
 }
 
 export type ArtCardAlertDialogProps = {

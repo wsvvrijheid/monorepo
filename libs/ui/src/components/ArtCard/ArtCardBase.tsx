@@ -49,7 +49,7 @@ export const ArtCardBase: FC<ArtCardProps> = ({
   return (
     <>
       {/* Card Action Alert Dialog */}
-      {actionType && (
+      {actions && actionType && (
         <ArtCardAlertDialog
           title={actions[actionType].title}
           text={actions[actionType].text}

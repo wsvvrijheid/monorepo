@@ -1,5 +1,6 @@
 export * from './AnimatedBox'
 export * from './ArtContent'
+export * from './ArtCard'
 export * from './ArtDetail'
 export * from './Card'
 export * from './CategoryFilter'
