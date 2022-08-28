@@ -1,34 +1,21 @@
 import { FC } from 'react'
 import { Image, SimpleGrid, Stack, Text } from '@chakra-ui/react'
-import { StrapiLocale } from '@wsvvrijheid/types'
 import { NextSeoProps } from 'next-seo'
 import { useGetBlogs } from '@wsvvrijheid/utils'
-import { Container, BlogCard, AnimatedBox } from '../../components'
+import { Container, BlogCard, AnimatedBox, Hero } from '../../components'
 
 export type BlogTemplateProps = {
   seo: NextSeoProps
-  locale: StrapiLocale
 }
 
-export const BlogTemplate: FC<BlogTemplateProps> = ({ seo, locale }) => {
+export const BlogTemplate: FC<BlogTemplateProps> = ({ seo }) => {
   const { data: blogs } = useGetBlogs()
 
-  //const queryClient = new QueryClient()
-  // const getBlogByLocale = async () => {
-  //   await queryClient.prefetchQuery({
-  //     queryKey: ['blogs', locale],
-  //     queryFn: () => getBlogs(locale),
-  //   })
-  // }
-  // useEffect(() => {
-  //   getBlogByLocale()
-  // }, [locale])
-
-  // console.log({ blogs, locale })
   return (
     <>
       {blogs?.[0] ? (
         <>
+          <Hero title={seo.title as string} image="/images/blog-bg.jpeg" />
           <Container maxW="container.lg">
             <SimpleGrid gap={8} py={8} columns={{ base: 1, lg: 2 }}>
               {blogs.map((blog, index) => (

@@ -29,8 +29,8 @@ const Template: Story<BlogTemplateProps> = args => {
       description: 'Yazılar',
     },
   }
-  const seo = blogSeo[args.locale || (locale as StrapiLocale)]
-  return <BlogTemplate locale={locale} seo={seo} {...args} />
+  const seo = blogSeo[locale as StrapiLocale]
+  return <BlogTemplate seo={seo} {...args} />
 }
 
 export const Default = Template.bind({})

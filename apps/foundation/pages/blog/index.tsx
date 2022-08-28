@@ -4,7 +4,7 @@ import { dehydrate, QueryClient } from 'react-query'
 
 import { AnimatedBox, BlogCard, Container, Hero } from '@wsvvrijheid/ui'
 import { getBlogs, useGetBlogs } from '@wsvvrijheid/utils'
-import { Layout } from 'apps/foundation/components'
+import { Layout } from '../../components'
 import i18nConfig from '../../next-i18next.config'
 
 // TODO: Implement author filter

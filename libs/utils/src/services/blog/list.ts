@@ -4,11 +4,7 @@ import { useQuery } from 'react-query'
 
 import { request } from '../../lib'
 
-export const getBlogs = async (
-  locale: StrapiLocale,
-  populate?: string | string[],
-  pageSize?: number,
-) => {
+export const getBlogs = async (locale: StrapiLocale) => {
   const response = await request()<Blog[]>({
     url: 'api/blogs',
     locale,
