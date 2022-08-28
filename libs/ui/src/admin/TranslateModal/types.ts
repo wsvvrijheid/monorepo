@@ -1,48 +1,51 @@
-import { MergedStrapiModel, StrapiLocale } from '@wsvvrijheid/types'
-import { Merge, SetOptional } from 'type-fest'
+import {
+  StrapiAllModels,
+  StrapiLocale,
+  StrapiTranslatableModel,
+  UploadFile,
+} from '@wsvvrijheid/types'
+import { Merge } from 'type-fest'
 
-export type TranslateModalProps<T extends MergedStrapiModel> = {
+// Only title, description and locale is required for all models
+// We can use publishedAt in case the model doesn't have status property
+export type DefaultTranslatableModel<T extends StrapiTranslatableModel> = {
+  title: string
+  description: string
+  locale: StrapiLocale
+  publishedAt: string | null
+  content?: string
+  text?: string
+  image?: UploadFile
+  images?: UploadFile[]
+  status?: StrapiAllModels['status']
+  localizations?: T[]
+}
+
+export type TranslatableModel<T extends StrapiTranslatableModel> = Omit<
+  DefaultTranslatableModel<T>,
+  'localizations'
+>
+
+export type TranslateModalProps<T extends StrapiTranslatableModel> = {
   onApprove: (Id: number, content: string) => void
   isOpen: boolean
   onClose: () => void
   onSave: (data: string) => void
-  model: T
+  model: DefaultTranslatableModel<T>
 }
 
-// Only title, description and locale is required for all models
-// We can use publishedAt in case the model doesn't have status property
-export type TranslateModel = SetOptional<
-  Pick<
-    MergedStrapiModel,
-    | 'title'
-    | 'description'
-    | 'content'
-    | 'locale'
-    | 'status'
-    | 'image'
-    | 'images'
-    | 'localizations'
-    | 'publishedAt'
-  >,
-  'image' | 'images' | 'content' | 'status' | 'localizations'
+export type TranslationKey = [StrapiLocale, StrapiLocale]
+
+export type TranslateAccordionItemProps<T extends StrapiTranslatableModel> =
+  Merge<
+    TranslatableModel<T>,
+    {
+      missingTranslations?: StrapiLocale[]
+      handleTranslate: (key: TranslationKey) => void
+    }
+  >
+
+export type LocalizedModel<T extends StrapiTranslatableModel> = Record<
+  StrapiLocale,
+  TranslatableModel<T>
 >
-
-export type TranslatePreviewItemProps = Merge<
-  Omit<TranslateModel, 'localizations'>,
-  {
-    missingTranslations?: Locales[]
-    handleTranslate: (key: TranslationKey) => void
-  }
->
-
-export enum Locales {
-  en = 'en',
-  nl = 'nl',
-}
-
-export type TranslationKey = `${StrapiLocale}-${Locales}`
-
-export type TranslateAccordionProps = {
-  handleTranslate: (key: TranslationKey) => void
-  models: Omit<TranslatePreviewItemProps, 'handleTranslate'>[]
-}

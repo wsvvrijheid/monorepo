@@ -76,64 +76,7 @@ export type StrapiModel =
   | Volunteer
   | Vote
 
-export type StrapiModelKeys = keyof (Activity &
-  Announcement &
-  Applicant &
-  Application &
-  ArtEditor &
-  ArtFeedback &
-  Art &
-  Artist &
-  Author &
-  Blog &
-  Category &
-  Collection &
-  Comment &
-  Competition &
-  Donate &
-  UploadFile &
-  Hashtag &
-  Job &
-  JuriVote &
-  Juri &
-  LangRole &
-  Me &
-  Mention &
-  Post &
-  Privacy &
-  Platform &
-  Tag &
-  Term &
-  Translator &
-  Trend &
-  User &
-  Volunteer &
-  Vote)
-
-export type Pagination = {
-  page: number
-  pageCount: number
-  pageSize: number
-  total: number
-}
-
-export type PaginationArg =
-  | { limit: number; start: number }
-  | { page: number; pageSize: number }
-
-export type StrapiMeta = {
-  pagination: Pagination
-}
-
-export type StrapiResponseData<T extends StrapiModel | Array<StrapiModel>> = T
-
-export type StrapiResponse<T extends StrapiModel | Array<StrapiModel>> = {
-  data: StrapiResponseData<T>
-} & {
-  meta: StrapiMeta
-}
-
-export type MergedStrapiModel = Activity &
+export type StrapiAllModels = Activity &
   Announcement &
   Applicant &
   Application &
@@ -166,3 +109,37 @@ export type MergedStrapiModel = Activity &
   User &
   Volunteer &
   Vote
+
+export type StrapiModelKeys = keyof StrapiAllModels
+
+export type Pagination = {
+  page: number
+  pageCount: number
+  pageSize: number
+  total: number
+}
+
+export type PaginationArg =
+  | { limit: number; start: number }
+  | { page: number; pageSize: number }
+
+export type StrapiMeta = {
+  pagination: Pagination
+}
+
+export type StrapiResponseData<T extends StrapiModel | Array<StrapiModel>> = T
+
+export type StrapiResponse<T extends StrapiModel | Array<StrapiModel>> = {
+  data: StrapiResponseData<T>
+} & {
+  meta: StrapiMeta
+}
+
+export type StrapiTranslatableModel =
+  | Activity
+  | Announcement
+  | Art
+  | Blog
+  | Competition
+  | Hashtag
+  | Post

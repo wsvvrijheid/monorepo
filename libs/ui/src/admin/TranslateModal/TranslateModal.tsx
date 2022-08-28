@@ -2,7 +2,6 @@ import { useState } from 'react'
 
 import {
   HStack,
-  Text,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -12,41 +11,49 @@ import {
   Box,
   Button,
   ModalFooter,
+  Accordion,
 } from '@chakra-ui/react'
-import { MergedStrapiModel } from '@wsvvrijheid/types'
+import { StrapiLocale, StrapiTranslatableModel } from '@wsvvrijheid/types'
+import { isEmpty } from 'lodash'
 import { AiOutlineArrowLeft, AiOutlineCheck } from 'react-icons/ai'
 
-import { TranslateAccordion } from './TranslateAccordion'
+import { TranslateAccordionItem } from './TranslateAccordionItem'
 import {
-  TranslateModel,
+  DefaultTranslatableModel,
   TranslateModalProps,
   TranslationKey,
-  Locales,
+  LocalizedModel,
 } from './types'
 
-const simplifyModel = (model: Omit<TranslateModel, 'localizations'>) => ({
-  ...model,
-  image: model.images?.[0] || model.image,
-})
-
-const concatModelLocalizations = ({
+const mapModelLocalization = <T extends StrapiTranslatableModel>({
   localizations,
   ...model
-}: TranslateModel) => {
-  const defaultModel = simplifyModel(model)
+}: DefaultTranslatableModel<T>) => {
+  const defaultLocalizedModel = {
+    [model.locale]: {
+      ...model,
+      image: model.images?.[0] || model.image,
+    },
+  } as LocalizedModel<T>
 
-  const translations = localizations?.map(localization =>
-    simplifyModel(localization as TranslateModel),
-  )
+  const localizedModels = localizations?.reduce((acc, localization) => {
+    return {
+      ...acc,
+      [localization.locale]: localization,
+    }
+  }, {} as LocalizedModel<T>)
 
-  if (translations) {
-    return [defaultModel, ...translations]
+  if (!isEmpty(localizedModels)) {
+    return {
+      ...defaultLocalizedModel,
+      ...localizedModels,
+    }
   }
 
-  return [defaultModel]
+  return defaultLocalizedModel
 }
 
-export const TranslateModal = <T extends MergedStrapiModel>({
+export const TranslateModal = <T extends StrapiTranslatableModel>({
   isOpen,
   model,
   onApprove,
@@ -56,12 +63,16 @@ export const TranslateModal = <T extends MergedStrapiModel>({
   const [translationKey, setTranslationKey] = useState<TranslationKey>()
   const [step, setStep] = useState(0)
 
-  const models = concatModelLocalizations(model)
+  const locales = ['tr', 'en', 'nl'] as StrapiLocale[]
 
-  const accordionModels = models.map(model => {
-    const missingTranslations = Object.keys(Locales).filter(
-      l => l !== model.locale,
-    ) as Locales[]
+  const localizedModels = mapModelLocalization<T>(model)
+
+  const accordionModels = Object.values(localizedModels).map(model => {
+    const missingTranslations = locales.filter(
+      locale =>
+        locale !== model.locale &&
+        localizedModels[locale]?.status !== 'approved',
+    ) as StrapiLocale[]
 
     return {
       ...model,
@@ -73,8 +84,6 @@ export const TranslateModal = <T extends MergedStrapiModel>({
     setStep(prev => prev + 1)
     setTranslationKey(key)
   }
-
-  console.log('translationKey', translationKey)
 
   const handleReturn = () => {
     if (step === 0) onClose()
@@ -90,18 +99,20 @@ export const TranslateModal = <T extends MergedStrapiModel>({
       <Modal onClose={onClose} isOpen={isOpen} scrollBehavior="inside">
         <ModalOverlay />
         <ModalContent maxW="95vw" h="full">
-          <ModalHeader>
-            <Text size={'xl'} fontWeight={'bold'}>
-              Translate
-            </Text>
+          <ModalHeader fontSize="xl" fontWeight="bold">
+            Translate
           </ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             {step === 0 && (
-              <TranslateAccordion
-                handleTranslate={handleTranslate}
-                models={accordionModels}
-              />
+              <Accordion size={'lg'} allowToggle allowMultiple defaultIndex={0}>
+                {accordionModels.map(model => (
+                  <TranslateAccordionItem
+                    {...model}
+                    handleTranslate={handleTranslate}
+                  />
+                ))}
+              </Accordion>
             )}
             {step === 1 && <Box>{translationKey}</Box>}
           </ModalBody>

@@ -1,7 +1,13 @@
 import { Container, useDisclosure, Button, Box } from '@chakra-ui/react'
 import { ComponentStory, ComponentMeta } from '@storybook/react'
-import { ART_MOCKS } from '@wsvvrijheid/mocks'
-import { MergedStrapiModel } from '@wsvvrijheid/types'
+import {
+  ACTIVITY_MOCKS,
+  ANNOUNCEMENT_MOCKS,
+  ART_MOCKS,
+  BLOG_MOCKS,
+  HASHTAG_MOCKS,
+  POST_MOCKS,
+} from '@wsvvrijheid/mocks'
 import { sample } from 'lodash'
 
 import { TranslateModal } from './TranslateModal'
@@ -11,12 +17,12 @@ export default {
   title: 'Admin/TranslateModal',
   decorators: [
     Story => (
-      <Container maxW="container.sm">
+      <Container maxW="container.xl">
         <Story />
       </Container>
     ),
   ],
-} as unknown as ComponentMeta<typeof TranslateModal>
+} as ComponentMeta<typeof TranslateModal>
 
 const Template: ComponentStory<typeof TranslateModal> = args => {
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -38,17 +44,44 @@ const Template: ComponentStory<typeof TranslateModal> = args => {
       <Button onClick={() => handleSizeClick()} m={4}>
         {`Open Modal`}
       </Button>
+
       <TranslateModal
         {...args}
         isOpen={isOpen}
         onApprove={handleApprove}
         onClose={onClose}
         onSave={onSave}
-        model={sample(ART_MOCKS.data) as MergedStrapiModel}
       />
     </Box>
   )
 }
 
-export const Default = Template.bind({})
-Default.args = {}
+export const ActivityModel = Template.bind({})
+ActivityModel.args = {
+  model: sample(ACTIVITY_MOCKS.data),
+}
+
+export const AnnouncementModel = Template.bind({})
+AnnouncementModel.args = {
+  model: sample(ANNOUNCEMENT_MOCKS.data),
+}
+
+export const ArtModel = Template.bind({})
+ArtModel.args = {
+  model: sample(ART_MOCKS.data),
+}
+
+export const BlogModel = Template.bind({})
+BlogModel.args = {
+  model: sample(BLOG_MOCKS.data),
+}
+
+export const HashtagModel = Template.bind({})
+HashtagModel.args = {
+  model: sample(HASHTAG_MOCKS.data),
+}
+
+export const PostModel = Template.bind({})
+PostModel.args = {
+  model: sample(POST_MOCKS.data),
+}

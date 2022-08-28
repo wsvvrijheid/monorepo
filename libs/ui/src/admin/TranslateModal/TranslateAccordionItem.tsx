@@ -1,5 +1,3 @@
-import React, { FC } from 'react'
-
 import {
   AccordionButton,
   AccordionIcon,
@@ -14,63 +12,74 @@ import {
   Text,
   Tooltip,
 } from '@chakra-ui/react'
+import { StrapiTranslatableModel } from '@wsvvrijheid/types'
 import { BsTranslate } from 'react-icons/bs'
 
 import { Flags } from '../../components'
-import { TranslatePreviewItemProps } from './types'
+import { TranslateAccordionItemProps } from './types'
 
-export const TranslateAccordionItem: FC<TranslatePreviewItemProps> = ({
+const localeColorSchemes = {
+  en: 'purple',
+  nl: 'orange',
+  tr: 'cyan',
+}
+
+export const TranslateAccordionItem = <T extends StrapiTranslatableModel>({
   content,
   description,
-  handleTranslate,
   locale,
   missingTranslations,
-  title,
   publishedAt,
   status,
-}) => {
+  text,
+  title,
+  handleTranslate,
+}: TranslateAccordionItemProps<T>) => {
   return (
     <AccordionItem>
       <AccordionButton as={HStack} cursor="pointer">
         <HStack flex={'1'}>
           <HStack spacing={2} flex={'1'}>
             <Box as={Flags[locale]} />
-            <Text size={'lg'} fontWeight="bold">
-              {title}
+            <HStack>
+              <Text fontWeight="bold" maxW={300} noOfLines={1}>
+                {title || text}
+              </Text>
+
               {status && (
                 <Badge
                   variant="outline"
-                  ml="2"
                   colorScheme={status === 'approved' ? 'green' : 'yellow'}
                 >
                   {status}
                 </Badge>
               )}
-              {!status && (
-                <Badge ml="2" colorScheme={publishedAt ? 'green' : 'gray'}>
-                  {publishedAt ? 'Published' : 'Draft'}
-                </Badge>
-              )}
-            </Text>
+
+              <Badge
+                variant="outline"
+                colorScheme={publishedAt ? 'purple' : 'gray'}
+              >
+                {publishedAt ? 'Published' : 'Draft'}
+              </Badge>
+            </HStack>
           </HStack>
 
           {missingTranslations && (
-            <ButtonGroup gap="3">
+            <ButtonGroup>
               {missingTranslations.map(missingTranslation => (
                 <Tooltip
                   key={missingTranslation}
                   label={`Translate to ${missingTranslation}`}
                 >
                   <Button
+                    size="xs"
                     textTransform={'uppercase'}
                     leftIcon={<BsTranslate />}
-                    colorScheme={
-                      missingTranslation === 'nl' ? 'orange' : 'purple'
-                    }
-                    variant="outline"
+                    colorScheme={localeColorSchemes[missingTranslation]}
+                    variant="ghost"
                     onClick={e => {
                       e.stopPropagation()
-                      handleTranslate(`${locale}-${missingTranslation}`)
+                      handleTranslate([locale, missingTranslation])
                     }}
                   >
                     {missingTranslation}
@@ -85,17 +94,29 @@ export const TranslateAccordionItem: FC<TranslatePreviewItemProps> = ({
       </AccordionButton>
       <AccordionPanel pb={4}>
         <Stack spacing={2}>
-          <Stack>
-            <Text size="lg" fontWeight={'bold'}>
-              Description
-            </Text>
-            <Text>{description}</Text>
-          </Stack>
+          {text && (
+            <Stack>
+              <Text size="lg" fontWeight={'bold'}>
+                Text
+              </Text>
+              {/* TODO: Display in markdown format */}
+              <Box>{text}</Box>
+            </Stack>
+          )}
+          {description && (
+            <Stack>
+              <Text size="lg" fontWeight={'bold'}>
+                Description
+              </Text>
+              <Text>{description}</Text>
+            </Stack>
+          )}
           {content && (
             <Stack>
               <Text size="lg" fontWeight={'bold'}>
                 Content
               </Text>
+              {/* TODO: Display in markdown format */}
               <Box>{content}</Box>
             </Stack>
           )}
