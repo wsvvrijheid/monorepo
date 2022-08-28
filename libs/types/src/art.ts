@@ -3,6 +3,7 @@ import { Artist } from './artist'
 import { Category } from './category'
 import { Collection } from './collection'
 import { Comment } from './comment'
+import { ModelStatus } from './common'
 import { UploadFile } from './file'
 import { StrapiLocale } from './locale'
 import { StrapiCore } from './strapi'
@@ -15,11 +16,11 @@ export type Art = {
   description: string | null
   content: string
   images?: Array<UploadFile>
-  status: 'pending' | 'rejected' | 'approved'
-  previousStatus: 'pending' | 'rejected' | 'approved' | null
+  status: ModelStatus
+  isApproved: boolean | null
+  isRejected: boolean | null
   likes: number | null
   views: number | null
-  locale: StrapiLocale
   artist?: Artist
   categories?: Array<Category>
   tags?: Array<Tag>
@@ -27,5 +28,6 @@ export type Art = {
   likers?: Array<User>
   collection?: Collection | null
   comments?: Array<Comment>
+  locale: StrapiLocale
   localizations?: Array<Art>
 } & StrapiCore
