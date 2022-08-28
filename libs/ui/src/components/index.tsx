@@ -1,6 +1,7 @@
 export * from './AnimatedBox'
 export * from './ArtContent'
 export * from './ArtDetail'
+export * from './Card'
 export * from './CategoryFilter'
 export * from './CommentForm'
 export * from './CommentList'
