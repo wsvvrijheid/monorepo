@@ -1,9 +1,9 @@
-import { Project } from '@wsvvrijheid/types'
+import { Platform } from '@wsvvrijheid/types'
 
 import { request } from '../../lib'
 
-export const getAllProjects = async () => {
-  const projects = await request()<Project[]>({ url: 'api/projects' })
-  if (!projects) return
-  return projects?.data || null
+export const getAllPlatforms = async () => {
+  const platforms = await request()<Platform[]>({ url: 'api/platforms' })
+  if (!platforms) return
+  return platforms?.data || null
 }
