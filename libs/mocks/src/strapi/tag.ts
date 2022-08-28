@@ -23,10 +23,11 @@ export const TAG_MOCKS: StrapiResponse<Tag[]> = {
           updatedAt: '2022-06-12T16:15:21.405Z',
           publishedAt: '2022-03-25T19:22:15.419Z',
           locale: 'nl',
-          status: 'approved',
-          previousStatus: null,
           likes: null,
           views: 1,
+          status: null,
+          isApproved: null,
+          isRejected: null,
         },
       ],
       blogs: [],
@@ -47,6 +48,7 @@ export const TAG_MOCKS: StrapiResponse<Tag[]> = {
           locale: 'tr',
           description:
             'Empati isimli kısa filmde mülteciliğin en çok karşılaştığı sorunlardan birisi olan ırkçılık ele alındı. Filmde derdini anlatamama, anlaşılamama ve hoşgörüsüzlük gibi detaylara yer verildi. ',
+          status: null,
         },
       ],
     },
@@ -78,6 +80,7 @@ export const TAG_MOCKS: StrapiResponse<Tag[]> = {
           locale: 'en',
           description:
             'We are planning an art exhibition entitled Netherlands through the eyes of a refugees in Amsterdam Boosta in May 2022.',
+          status: null,
         },
         {
           id: 10,
@@ -92,6 +95,7 @@ export const TAG_MOCKS: StrapiResponse<Tag[]> = {
           locale: 'tr',
           description:
             'Empati isimli kısa filmde mülteciliğin en çok karşılaştığı sorunlardan birisi olan ırkçılık ele alındı. Filmde derdini anlatamama, anlaşılamama ve hoşgörüsüzlük gibi detaylara yer verildi. ',
+          status: null,
         },
       ],
     },
@@ -111,6 +115,21 @@ export const TAG_MOCKS: StrapiResponse<Tag[]> = {
       posts: [],
       activities: [
         {
+          id: 11,
+          title: 'Yol-Tiyatro oyunu',
+          slug: 'tiyatro-yol',
+          content:
+            "_Ve sonra ölüm gelir.. en son gelir ölüm ama yine de erken deriz... Bu yolda vefat eden tüm kardeşlerimizin anısına..._\n\nLotus van de Media  platformunun ilk tiyatrosu \"Yol\" 2 Temmuz 2022 günü saat 20:00'de gala yapıyor. Sara Burgerhartstraat 1 1055 KV Amsterdam adresinde gösterilecek tiyatronun galasına davetlisiniz. \n\n15 Temmuz 2016 tarihinde Türkiye'de gerçekleşen darbe tiyatrosu bahane edilerek ev hanımı, öğrenci, memur ve esnaf gibi binlerce masum insan ya tutuklandı ya da evinden işinden edildi. Onlarcası Meriç'in soğuk sularında vuslata erdi. \"Yol\" tiyatrosunda, yaşanan bu ifritten süreçten izler bulacaksınız. Arada gülme molası da verecek olan tiyatro heyecanla siz seyircilerini bekliyor. \n\nBiletlerinizi [buradan](https://www.eventbrite.com/e/tickets-yol-371156387747) satın alabilirsiniz. Kontenjanlarımız sınırlı olsa da, tiyatronun sizlerden gelen talepler doğrultusunda diğer şehirlerde  de sergilenmesi planlanmaktadır. Taleplerinizi bize ileşim sayfamızdan bildirmeyi unutmayın. \n### Lotus van de Media kimdir?\nLotus van de Media platformu, evrensel insan haklarının medya ve iletişim yoluyla anlatılabilmesi için; oyunculuk, yönetmenlik, senaristlik gibi alanlarda tecrübe kazanmayı, tecrübeleri geliştirmeyi ve sayılan alanlarda stajla birlikte referans sağlamayı amaçlamaktadır. Kısa film, tiyatro gibi projeler geliştirmeyi düşünmektedir.\n### Lotus van de Media'ya nasıl katılabilirim?\nOyunculuk, yönetmenlik, senaristlik veya destek hizmetleri alanlarında kendinizi geliştirmek ya da seçeceğiniz alanda tecrübenizi aktarmak isterseniz, kısaca kendinizden bahsederek [buradan](https://wsvvrijheid.nl/tr/join)  bize katılma talebinde bulunabilirsiniz. \n\nLotus van de Media'yı [youtube](https://www.youtube.com/channel/UCUcWJZ69qgrM5YQ9iBq_OHg), [instagram](https://www.instagram.com/infolotusmedia/?hl=en) ve [twitterdan](https://twitter.com/infolotusmedia) takip edebilirsiniz. \n",
+          date: '2022-07-02T16:00:00.000Z',
+          createdAt: '2022-06-22T05:18:36.790Z',
+          updatedAt: '2022-07-03T11:53:28.337Z',
+          publishedAt: null,
+          locale: 'tr',
+          description:
+            'Lotus van de Media  platformu ilk tiyatrosu "Yol" 2 Temmuz 2022 günü saat 20:00\'de gala yapıyor. ',
+          status: null,
+        },
+        {
           id: 13,
           title: 'Yol Tiyatro Oyunu',
           slug: 'yol-tiyatrosu',
@@ -123,6 +142,7 @@ export const TAG_MOCKS: StrapiResponse<Tag[]> = {
           locale: 'tr',
           description:
             '15 Temmuz 2016 tarihinde Türkiye\'de gerçekleşen darbe tiyatrosu bahane edilerek ev hanımı, öğrenci, memur ve esnaf gibi binlerce masum insan ya tutuklandı ya da evinden işinden edildi. Onlarcası Meriç\'in soğuk sularında vuslata erdi. "Yol" tiyatrosu Türkiyede yaşanan bu zulmü biraz da olsa anlatma imkanı buldu.  ',
+          status: null,
         },
       ],
     },

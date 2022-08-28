@@ -1,9 +1,9 @@
 import { Application } from './application'
-import { Juri } from './juri'
+import { Jury } from './jury'
 import { StrapiCore } from './strapi'
 
-export type JuriVote = {
+export type JuryVote = {
   value: number
-  juri?: Juri
+  juri?: Jury
   application?: Application
 } & StrapiCore
