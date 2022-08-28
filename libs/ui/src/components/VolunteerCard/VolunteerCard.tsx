@@ -8,6 +8,7 @@ import {
   Stack,
   Text,
 } from '@chakra-ui/react'
+import { API_URL } from '@wsvvrijheid/config'
 import { StrapiLocale, Volunteer } from '@wsvvrijheid/types'
 import { useRouter } from 'next/router'
 import {
@@ -73,7 +74,7 @@ export const VolunteerCard: FC<VolunteerCardProps> = ({
       <Avatar
         name={volunteer.username}
         size="lg"
-        src={`${process.env['NX_API_URL']}${volunteer.user?.avatar?.url}`}
+        src={`${API_URL}${volunteer.user?.avatar?.url}`}
       />
       <Text textAlign="center" fontSize="lg" fontWeight={600} color="blue.500">
         {volunteer.username}
