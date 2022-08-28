@@ -1,6 +1,7 @@
 import { FC } from 'react'
 import { Image, SimpleGrid, Stack, Text } from '@chakra-ui/react'
 import { NextSeoProps } from 'next-seo'
+import { useTranslation } from 'react-i18next'
 import { useGetBlogs } from '@wsvvrijheid/utils'
 import { Container, BlogCard, AnimatedBox, Hero } from '../../components'
 
@@ -10,6 +11,7 @@ export type BlogTemplateProps = {
 
 export const BlogTemplate: FC<BlogTemplateProps> = ({ seo }) => {
   const { data: blogs } = useGetBlogs()
+  const { t } = useTranslation()
 
   return (
     <>
@@ -39,7 +41,7 @@ export const BlogTemplate: FC<BlogTemplateProps> = ({ seo }) => {
         <Stack minH="inherit" justify="center" align="center" spacing={8}>
           <Image h={200} src="/images/no-blog.svg" alt="no blog" />
           <Text textAlign="center" fontSize="lg">
-            Sorry! No articles published in this language.
+            {t`blog-no-content`}
           </Text>
         </Stack>
       )}

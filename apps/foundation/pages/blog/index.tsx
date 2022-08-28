@@ -1,7 +1,7 @@
 import { Image, SimpleGrid, Stack, Text } from '@chakra-ui/react'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { dehydrate, QueryClient } from 'react-query'
-
+import { useTranslation } from 'react-i18next'
 import { AnimatedBox, BlogCard, Container, Hero } from '@wsvvrijheid/ui'
 import { getBlogs, useGetBlogs } from '@wsvvrijheid/utils'
 import { Layout } from '../../components'
@@ -10,6 +10,7 @@ import i18nConfig from '../../next-i18next.config'
 // TODO: Implement author filter
 const Blogs = ({ seo }) => {
   const { data: blogs } = useGetBlogs()
+  const { t } = useTranslation()
 
   return (
     <Layout seo={seo} isDark>
@@ -39,7 +40,7 @@ const Blogs = ({ seo }) => {
         <Stack minH="inherit" justify="center" align="center" spacing={8}>
           <Image h={200} src="/images/no-blog.svg" alt="no blog" />
           <Text textAlign="center" fontSize="lg">
-            Sorry! No articles published in this language.
+            {t`blog-no-content`}
           </Text>
         </Stack>
       )}
