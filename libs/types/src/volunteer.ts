@@ -1,14 +1,14 @@
 import { ArtEditor } from './art-editor'
 import { Author } from './author'
 import { Job } from './job'
-import { Juri } from './juri'
+import { Jury } from './jury'
 import { StrapiCore } from './strapi'
 import { Translator } from './translator'
 import { User } from './user'
 
 export type Volunteer = {
   username: string
-  name: string
+  name: string | null
   email: string
   bio: string | null
   occupation: string | null
@@ -26,8 +26,8 @@ export type Volunteer = {
   isPublic: boolean | null
   user?: User | null
   translator?: Translator | null
-  juri?: Juri | null
+  jury?: Jury | null
   author?: Author | null
   jobs?: Array<Job>
-  art_editor?: ArtEditor | null
+  artEditor?: ArtEditor | null
 } & StrapiCore

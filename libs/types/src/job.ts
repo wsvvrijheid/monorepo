@@ -1,13 +1,13 @@
-import { Platform } from './project'
+import { Platform } from './platform'
 import { StrapiCore } from './strapi'
 
 export type Job = {
-  code: string
+  slug: string
   name_en: string
   name_nl: string
   name_tr: string
   description_en: string | null
   description_nl: string | null
   description_tr: string | null
-  project?: Platform
+  platform?: Platform
 } & StrapiCore

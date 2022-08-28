@@ -1,6 +1,7 @@
 import React, { FC } from 'react'
 
 import { Avatar, Button, Heading, Spacer, Stack, Text } from '@chakra-ui/react'
+import { API_URL } from '@wsvvrijheid/config'
 import { Platform } from '@wsvvrijheid/types'
 import { Navigate } from '@wsvvrijheid/ui'
 import { useTranslation } from 'next-i18next'
@@ -21,7 +22,7 @@ export const PlatformList: FC<PlatformListProps> = ({ platforms }) => {
         <Stack
           direction={{ base: 'column', lg: 'row' }}
           align={{ base: 'center', lg: 'start' }}
-          key={p.code}
+          key={p.slug}
           p={8}
           spacing={4}
           bg="white"
@@ -29,7 +30,7 @@ export const PlatformList: FC<PlatformListProps> = ({ platforms }) => {
           shadow="md"
         >
           {/* TODO Create image component to handle internal/external image paths */}
-          <Avatar size="2xl" src={process.env['NX_API_URL'] + p.image.url} />
+          <Avatar size="2xl" src={API_URL + p.image.url} />
           <Stack align={{ base: 'center', lg: 'start' }}>
             <Heading textAlign="center" size="md" as="h3" fontWeight={900}>
               {p[`name_${locale}`]}
@@ -37,7 +38,7 @@ export const PlatformList: FC<PlatformListProps> = ({ platforms }) => {
             <Text fontSize="sm">{p[`description_${locale}`]}</Text>
             <Spacer />
 
-            <Navigate href={`/${locale}/platforms/${p.code}`}>
+            <Navigate href={`/${locale}/platforms/${p.slug}`}>
               <Button
                 rightIcon={<FaChevronRight />}
                 variant="link"
