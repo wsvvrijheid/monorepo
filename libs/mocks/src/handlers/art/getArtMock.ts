@@ -10,7 +10,7 @@ export const getArtMock = rest.get<Art>(
     const slug = req.url.searchParams.get('slug')
 
     if (slug) {
-      const art = ART_MOCKS.data.find(mock => mock.slug === slug)
+      const art = ART_MOCKS.tr.data.find(mock => mock.slug === slug)
       return res(ctx.status(200), ctx.json({ data: [art], meta: {} }))
     }
 
