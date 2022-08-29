@@ -1,3 +1,4 @@
+import { API_URL } from '@wsvvrijheid/config'
 import { HashtagReturnType } from '@wsvvrijheid/utils'
 import { sample } from 'lodash'
 import { rest } from 'msw'
@@ -5,7 +6,7 @@ import { rest } from 'msw'
 import { HASHTAG_MOCKS, POST_MOCKS } from '../../strapi'
 
 export const getHashtagMock = rest.get<HashtagReturnType>(
-  `https://api.samenvvv.nl/api/hashtags`,
+  `${API_URL}/api/hashtags`,
   (req, res, ctx) => {
     const hashtag = sample(HASHTAG_MOCKS.tr.data)
 

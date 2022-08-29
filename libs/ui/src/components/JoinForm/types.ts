@@ -10,8 +10,7 @@ export type JoinFormFieldValues = {
   inMailingList: boolean
   isPublic: boolean
   heardFrom: HeardFrom[]
-  // TODO Confirm if the type is correct
-
+  // TODO: Confirm this is the correct type
   jobs: string[]
 }
 
