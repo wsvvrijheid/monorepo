@@ -1,6 +1,6 @@
+import { useQuery, QueryKey } from '@tanstack/react-query'
 import { Art, StrapiLocale } from '@wsvvrijheid/types'
 import qs from 'qs'
-import { useQuery } from 'react-query'
 
 import { request } from '../../lib'
 
@@ -72,7 +72,7 @@ export const getArts = async ({
 }
 
 export const useArts = (
-  queryKey: string,
+  queryKey: QueryKey,
   args: {
     categories: string
     populate: Array<string>

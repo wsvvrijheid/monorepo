@@ -1,5 +1,5 @@
+import { useQuery } from '@tanstack/react-query'
 import { Trend } from '@wsvvrijheid/types'
-import { useQuery } from 'react-query'
 
 import { request } from '../../lib'
 

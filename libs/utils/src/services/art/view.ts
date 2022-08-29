@@ -1,7 +1,7 @@
 import { useTimeout } from '@chakra-ui/react'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { Art } from '@wsvvrijheid/types'
 import { useRouter } from 'next/router'
-import { useMutation, useQueryClient } from 'react-query'
 import { useLocalStorage } from 'react-use'
 
 import { mutation } from '../../lib'

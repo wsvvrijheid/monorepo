@@ -1,5 +1,5 @@
+import { useMutation } from '@tanstack/react-query'
 import { Comment } from '@wsvvrijheid/types'
-import { useMutation } from 'react-query'
 
 import { mutation } from '../../lib'
 
@@ -36,7 +36,7 @@ const createArtComment = ({
 
 export const useArtCommentMutation = () => {
   return useMutation({
-    mutationKey: 'create-comment',
+    mutationKey: ['create-comment'],
     mutationFn: (args: CreateArtCommentProps) => createArtComment(args),
   })
 }

@@ -1,5 +1,5 @@
 import { Meta, Story } from '@storybook/react'
-import { useMutation } from 'react-query'
+import { useMutation } from '@tanstack/react-query'
 
 import {
   ChakraBreakpointExample,
@@ -31,7 +31,7 @@ const sendMessage = async (message: string) => {
 // or ComponentStory<typeof ChakraBreakpointExample>
 const Template: Story<ChakraBreakpointExampleProps> = args => {
   const { mutate, isSuccess, isError, isLoading } = useMutation({
-    mutationKey: 'sendMessage',
+    mutationKey: ['send-message'],
     mutationFn: ({ message }: { message: string }) => sendMessage(message),
   })
 

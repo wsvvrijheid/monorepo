@@ -1,5 +1,6 @@
 import { FC } from 'react'
 
+import { dehydrate, QueryClient, QueryKey } from '@tanstack/react-query'
 import { API_URL, SITE_URL } from '@wsvvrijheid/config'
 import { Art, StrapiLocale } from '@wsvvrijheid/types'
 import { ArtTemplate } from '@wsvvrijheid/ui'
@@ -7,7 +8,6 @@ import { getArtBySlug, getArtStaticPaths } from '@wsvvrijheid/utils'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
-import { dehydrate, QueryClient, QueryKey } from 'react-query'
 
 import { Layout } from '../../../components'
 import i18nConfig from '../../../next-i18next.config'

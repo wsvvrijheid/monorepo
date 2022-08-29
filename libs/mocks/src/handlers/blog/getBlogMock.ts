@@ -1,6 +1,7 @@
+import { API_URL } from '@wsvvrijheid/config'
 import { Blog } from '@wsvvrijheid/types'
 import { rest } from 'msw'
-import { API_URL } from '@wsvvrijheid/config'
+
 import { BLOG_MOCKS } from '../../strapi/blog'
 
 export const getBlogMock = rest.get<Blog>(

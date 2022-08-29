@@ -1,6 +1,6 @@
+import { useQuery } from '@tanstack/react-query'
 import { Art, StrapiLocale } from '@wsvvrijheid/types'
 import { useRouter } from 'next/router'
-import { useQuery } from 'react-query'
 
 import { request } from '../../lib'
 

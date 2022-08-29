@@ -2,7 +2,7 @@
 import React from 'react'
 
 import { Box, extendTheme } from '@chakra-ui/react'
-import { QueryClientProvider, QueryClient } from 'react-query'
+import { QueryClientProvider, QueryClient } from '@tanstack/react-query'
 import { Provider as ReduxProvider } from 'react-redux'
 
 import { mockWorker, store, themes } from '../src/exports'

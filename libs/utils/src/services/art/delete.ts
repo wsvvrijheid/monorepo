@@ -1,18 +1,18 @@
 import { useToast } from '@chakra-ui/react'
+import { useMutation, useQueryClient, QueryKey } from '@tanstack/react-query'
 import { Art } from '@wsvvrijheid/types'
-import { useMutation, useQueryClient } from 'react-query'
 
 import { mutation } from '../../lib'
 
 export const deleteArt = ({ id }: { id: number }) =>
   mutation<Art>().delete('api/arts', id)
 
-export const useDeleteArt = (queryKey: string) => {
+export const useDeleteArt = (queryKey: QueryKey) => {
   const queryClient = useQueryClient()
   const toast = useToast()
 
   return useMutation({
-    mutationKey: 'delete-art',
+    mutationKey: ['delete-art'],
     mutationFn: deleteArt,
     onSettled: () => {
       // It's difficult to invalidate cache for paginated or filtering queries
