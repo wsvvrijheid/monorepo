@@ -35,7 +35,7 @@ export const Layout: FC<LayoutProps> = ({
     <>
       {seo && <NextSeo {...seo} />}
       <Flex flexDir="column" minHeight="100vh" overflowX="hidden">
-        {<Header isDark={isDark} {...headerProps} logo={logo} />}
+        <Header isDark={isDark} {...headerProps} logo={logo} />
         {isLoading ? (
           <Center minH={minH}>
             <Spinner colorScheme="red" />

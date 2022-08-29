@@ -1,13 +1,17 @@
 import { useEffect, useState } from 'react'
 
 import { ChakraProvider, createStandaloneToast } from '@chakra-ui/react'
+import {
+  Hydrate,
+  QueryClient,
+  QueryClientProvider,
+} from '@tanstack/react-query'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { defaultSeo, themes } from '@wsvvrijheid/config'
 import { pageview } from '@wsvvrijheid/utils'
 import { appWithTranslation } from 'next-i18next'
 import { DefaultSeo } from 'next-seo'
 import { useRouter } from 'next/router'
-import { Hydrate, QueryClient, QueryClientProvider } from 'react-query'
-import { ReactQueryDevtools } from 'react-query/devtools'
 
 import '@splidejs/splide/dist/css/themes/splide-default.min.css'
 import '@splidejs/react-splide/css'

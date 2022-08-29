@@ -6,7 +6,7 @@ import {
   HStack,
   IconButton,
 } from '@chakra-ui/react'
-import { PopoverContentProps } from '@reactour/tour/dist/types'
+import { PopoverContentProps } from '@reactour/tour'
 import { FaCheck, FaChevronLeft, FaChevronRight } from 'react-icons/fa'
 
 export const StepsContent = (props: PopoverContentProps) => {

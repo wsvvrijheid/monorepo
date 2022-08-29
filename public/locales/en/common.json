@@ -7,11 +7,12 @@
   "event": "Event",
   "news": "News",
   "visit-website": "Visit Website",
-  "projects": "Platforms",
+  "platforms": "Platforms",
   "error": "Error",
   "all": "All",
   "art-stop": "Art Stop",
   "collections": "Collections",
+  "blog-no-content": "Sorry! No articles published in this language.",
   "wsvvrijheid": {
     "management": "Management",
     "chairman": "Chairman",

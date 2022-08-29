@@ -10,33 +10,33 @@ export const getPlatformStaticProps = async (
   const locale = context.locale as StrapiLocale
   const code = context.params?.['code'] as string
 
-  const project = await getPlatformBySlug(code)
+  const platform = await getPlatformBySlug(code)
 
-  if (!project) return { notFound: true }
+  if (!platform) return { notFound: true }
 
-  const projectData = {
+  const platformData = {
     title: {
-      en: project.name_en,
-      nl: project.name_nl,
-      tr: project.name_tr,
+      en: platform.name_en,
+      nl: platform.name_nl,
+      tr: platform.name_tr,
     },
     description: {
-      en: project.description_en,
-      nl: project.description_nl,
-      tr: project.description_tr,
+      en: platform.description_en,
+      nl: platform.description_nl,
+      tr: platform.description_tr,
     },
     content: {
-      en: project.content_en,
-      nl: project.content_nl,
-      tr: project.content_tr,
+      en: platform.content_en,
+      nl: platform.content_nl,
+      tr: platform.content_tr,
     },
   }
 
-  const title = projectData.title[locale as StrapiLocale]
-  const description = projectData.description[locale as StrapiLocale]
-  const content = projectData.content[locale as StrapiLocale]
-  const image = project.image
-  const link = project.link
+  const title = platformData.title[locale as StrapiLocale]
+  const description = platformData.description[locale as StrapiLocale]
+  const content = platformData.content[locale as StrapiLocale]
+  const image = platform.image
+  const link = platform.link
 
   const seo = {
     title,

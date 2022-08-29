@@ -1,7 +1,7 @@
+import { useQuery } from '@tanstack/react-query'
 import { Hashtag, StrapiLocale } from '@wsvvrijheid/types'
 import { addDays, isPast } from 'date-fns'
 import { useRouter } from 'next/router'
-import { useQuery } from 'react-query'
 
 import { request } from '../../lib'
 
@@ -29,8 +29,8 @@ export const getHashtagBySlug = async (
   const hasPassed = isPast(addDays(new Date(hashtag.date as string), 1))
   const hasStarted = isPast(new Date(hashtag.date as string))
   const defaultHashtags =
-    ((hashtag.hashtag || hashtag.hashtag_extra) &&
-      ([hashtag?.hashtag, hashtag?.hashtag_extra].filter(
+    ((hashtag.hashtag || hashtag.hashtagExtra) &&
+      ([hashtag?.hashtag, hashtag?.hashtagExtra].filter(
         h => !!h,
       ) as string[])) ||
     undefined

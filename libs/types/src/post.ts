@@ -1,3 +1,4 @@
+import { ModelStatus } from './common'
 import { UploadFile } from './file'
 import { Hashtag } from './hashtag'
 import { StrapiLocale } from './locale'
@@ -7,13 +8,18 @@ import { Translator } from './translator'
 import { User } from './user'
 
 export type Post = {
-  text: string
-  twitterMedia?: string | null
-  locale: StrapiLocale
-  creator?: User | null
-  hashtag?: Hashtag
+  title: string
+  description: string
+  content: string | null
+  status: ModelStatus
+  capsStatus: ModelStatus
   image?: UploadFile
+  twitterMedia?: string | null
+  hashtag?: Hashtag
   tags?: Array<Tag>
   translator?: Translator | null
+  creator?: User | null
+  reviewer?: User | null
+  locale: StrapiLocale
   localizations?: Array<Post>
 } & StrapiCore

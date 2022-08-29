@@ -8,7 +8,7 @@ export default {
   component: BlogCard,
   title: 'Shared/BlogCard',
   args: {
-    post: BLOG_MOCKS.data[0],
+    post: BLOG_MOCKS.tr.data[0],
   },
   argTypes: {
     locale: { control: { type: 'radio', options: ['en', 'nl', 'tr'] } },

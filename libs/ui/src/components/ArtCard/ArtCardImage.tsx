@@ -1,6 +1,7 @@
 import { FC } from 'react'
 
 import { Splide, SplideSlide } from '@splidejs/react-splide'
+import { UploadFile } from '@wsvvrijheid/types'
 
 import { WImage } from '../WImage'
 import { ArtCardImageProps, CardImageProps } from './types'
@@ -10,7 +11,7 @@ const CardImage: FC<CardImageProps> = ({ art, isMasonry, image }) => (
     pos="relative"
     zIndex={-1}
     h={isMasonry ? undefined : 300}
-    src={`${process.env['NX_API_URL']}${image?.url}`}
+    src={image as UploadFile}
     alt={art.title}
     userSelect="none"
   />
