@@ -1,4 +1,5 @@
 export * from './ArtTemplate'
 export * from './BlogTemplate'
+export * from './JoinTemplate'
 export * from './PlatformTemplate'
 export * from './VolunteersTemplate'
