@@ -1,6 +1,7 @@
 import { useCallback } from 'react'
 
 import { Button, SimpleGrid } from '@chakra-ui/react'
+import { useQueryClient } from '@tanstack/react-query'
 import { Post, StrapiLocale } from '@wsvvrijheid/types'
 import {
   addSharedPost,
@@ -14,7 +15,6 @@ import { useTranslation } from 'next-i18next'
 import { TwitterShareButton } from 'next-share'
 import { useRouter } from 'next/router'
 import { FaAt, FaRandom, FaTwitter } from 'react-icons/fa'
-import { useQueryClient } from 'react-query'
 
 import { useItemLink } from '../../../hooks'
 

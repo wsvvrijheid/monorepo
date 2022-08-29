@@ -1,8 +1,8 @@
 import { useMemo } from 'react'
 
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { Post, StrapiLocale } from '@wsvvrijheid/types'
 import { useRouter } from 'next/router'
-import { useQuery, useQueryClient } from 'react-query'
 
 import { request } from '../../lib'
 

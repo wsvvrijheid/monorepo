@@ -1,7 +1,7 @@
+import { useQuery } from '@tanstack/react-query'
 import { Hashtag, StrapiLocale } from '@wsvvrijheid/types'
 import { addDays, isPast } from 'date-fns'
 import { useRouter } from 'next/router'
-import { useQuery } from 'react-query'
 
 import { request } from '../../lib'
 

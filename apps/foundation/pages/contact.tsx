@@ -10,6 +10,7 @@ import {
   VStack,
   Wrap,
 } from '@chakra-ui/react'
+import { useMutation } from '@tanstack/react-query'
 import {
   ContactForm,
   Container,
@@ -21,7 +22,6 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
 import { useTranslation } from 'react-i18next'
 import { MdEmail, MdLocationOn, MdPhone } from 'react-icons/md'
-import { useMutation } from 'react-query'
 
 import { Layout } from '../components'
 import i18nConfig from '../next-i18next.config'
@@ -39,7 +39,7 @@ const Contact = ({ seo }: ContactProps): JSX.Element => {
     isSuccess,
     mutate: sendForm,
   } = useMutation({
-    mutationKey: 'contact',
+    mutationKey: ['contact'],
     mutationFn: async (data: EmailData) => {
       return sendEmail(data)
     },

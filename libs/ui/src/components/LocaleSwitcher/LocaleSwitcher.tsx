@@ -1,11 +1,11 @@
 import { FC } from 'react'
 
 import { Button, ButtonGroup, DarkMode } from '@chakra-ui/react'
+import { DehydratedState } from '@tanstack/react-query'
 import { Announcement, Hashtag, Post, StrapiLocale } from '@wsvvrijheid/types'
 import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { NextSeoProps } from 'next-seo'
 import { NextRouter, useRouter } from 'next/router'
-import { DehydratedState } from 'react-query'
 
 import { useScroll } from '../../hooks'
 
