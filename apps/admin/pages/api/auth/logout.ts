@@ -1,3 +1,13 @@
-import { logoutHandler } from '@wsvvrijheid/utils'
+import { sessionOptions } from '@wsvvrijheid/utils'
+import { withIronSessionApiRoute } from 'iron-session/next'
+import { NextApiRequest, NextApiResponse } from 'next'
 
-export default logoutHandler
+async function logoutRoute(req: NextApiRequest, res: NextApiResponse) {
+  req.session.destroy()
+  res.json({ isLoggedIn: false, token: null })
+}
+
+export const logoutHandler = withIronSessionApiRoute(
+  logoutRoute,
+  sessionOptions,
+)

@@ -1,6 +1,5 @@
 export * from './activity'
 export * from './art'
-export * from './auth'
 export * from './category'
 export * from './hashtag'
 export * from './post'
