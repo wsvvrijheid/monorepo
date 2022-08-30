@@ -18,7 +18,11 @@ import { useTranslation } from 'next-i18next'
 import { AiOutlineCloudUpload } from 'react-icons/ai'
 import { GrClearOption } from 'react-icons/gr'
 
-import { FileUploaderProps } from './types'
+export type FileUploaderProps = {
+  setImages: React.Dispatch<React.SetStateAction<Blob[]>>
+  maxSize?: number
+  images: Array<Blob>
+}
 
 export const FileUploader: FC<FileUploaderProps> = ({
   images = [],

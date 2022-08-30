@@ -2,7 +2,6 @@ import { Container } from '@chakra-ui/react'
 import { Meta, Story } from '@storybook/react'
 
 import { MessageBox } from './MessageBox'
-import '@splidejs/splide/dist/css/themes/splide-default.min.css'
 import { MessageBoxFieldValues, MessageBoxProps } from './types'
 
 export default {
