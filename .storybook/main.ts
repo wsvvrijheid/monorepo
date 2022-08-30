@@ -15,6 +15,7 @@ const config: StorybookConfig = {
         https: require.resolve('https-browserify'),
         zlib: require.resolve('browserify-zlib'),
         stream: require.resolve('stream-browserify'),
+        crypto: require.resolve('crypto-browserify'),
       }
 
       config.resolve.alias = {

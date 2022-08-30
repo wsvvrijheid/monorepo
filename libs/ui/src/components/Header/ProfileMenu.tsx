@@ -13,7 +13,7 @@ import {
 import { FiLogIn, FiLogOut } from 'react-icons/fi'
 
 import { useScroll } from '../../hooks'
-import { Navigate } from '../Navigate/Navigate'
+import { Navigate } from '../Navigate'
 import { ProfileMenuProps } from './types'
 
 export const ProfileMenu: FC<ProfileMenuProps> = ({
