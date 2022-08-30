@@ -9,7 +9,9 @@ import {
   Text,
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
+import axios from 'axios'
 import { useTranslation } from 'next-i18next'
+import { useRouter } from 'next/router'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { TFunction } from 'react-i18next'
 import * as yup from 'yup'
@@ -38,22 +40,40 @@ const schema = (t: TFunction) =>
       .required(t`login.email.required`),
   })
 
-export const LoginForm: React.FC<LoginFormProps> = ({
-  onSubmitHandler,
-  errorMessage,
-}) => {
+export const LoginForm: React.FC<LoginFormProps> = () => {
   const { t } = useTranslation()
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<LoginFormFieldValues>({
     resolver: yupResolver(schema(t)),
     mode: 'all',
   })
 
+  const router = useRouter()
+
   const handleSubmitSign: SubmitHandler<LoginFormFieldValues> = async data => {
-    onSubmitHandler(data)
+    const body = {
+      identifier: data.email,
+      password: data.password,
+    }
+
+    try {
+      const response = await axios.post('/api/auth/login', body)
+
+      if (response.status === 200) {
+        reset()
+        router.push('/')
+      }
+
+      // TODO: handle error
+      console.log(response)
+    } catch (error) {
+      console.log(error)
+      // TODO: handle error
+    }
   }
 
   return (
@@ -87,7 +107,6 @@ export const LoginForm: React.FC<LoginFormProps> = ({
         </Stack>
         <Stack spacing="6" as="form" onSubmit={handleSubmit(handleSubmitSign)}>
           <Stack spacing="5">
-            {errorMessage && <Text color="red.500">{errorMessage}</Text>}
             <FormItem
               name="email"
               label={t('login.email.title')}
