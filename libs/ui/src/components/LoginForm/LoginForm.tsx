@@ -9,6 +9,7 @@ import {
   Text,
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { useMutation } from '@tanstack/react-query'
 import axios from 'axios'
 import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
@@ -54,26 +55,23 @@ export const LoginForm: React.FC<LoginFormProps> = () => {
 
   const router = useRouter()
 
+  const loginMutation = useMutation({
+    mutationKey: ['login'],
+    mutationFn: (body: { identifier: string; password: string }) =>
+      axios.post('/api/auth/login', body),
+    onSuccess: () => {
+      reset()
+      router.push('/')
+    },
+  })
+
   const handleSubmitSign: SubmitHandler<LoginFormFieldValues> = async data => {
     const body = {
       identifier: data.email,
       password: data.password,
     }
 
-    try {
-      const response = await axios.post('/api/auth/login', body)
-
-      if (response.status === 200) {
-        reset()
-        router.push('/')
-      }
-
-      // TODO: handle error
-      console.log(response)
-    } catch (error) {
-      console.log(error)
-      // TODO: handle error
-    }
+    loginMutation.mutate(body)
   }
 
   return (
@@ -140,6 +138,11 @@ export const LoginForm: React.FC<LoginFormProps> = () => {
             <Button type="submit" colorScheme="blue">
               {t('login.sign-in')}
             </Button>
+            {loginMutation.isError && (
+              <Text color="red.500" fontSize="sm">
+                An error occured
+              </Text>
+            )}
             <HStack>
               <Divider />
               <Text fontSize="sm" whiteSpace="nowrap" color="muted">
