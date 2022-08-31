@@ -1,5 +1,6 @@
 export * from './AnimatedBox'
 export * from './ArtCard'
+export * from './ArtClubSideBar'
 export * from './ArtContent'
 export * from './ArtDetail'
 export * from './BlogCard'
