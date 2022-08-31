@@ -21,4 +21,6 @@ async function userRoute(req: NextApiRequest, res: NextApiResponse) {
   }
 }
 
-export const userHandler = withIronSessionApiRoute(userRoute, sessionOptions)
+const handler = withIronSessionApiRoute(userRoute, sessionOptions)
+
+export default handler
