@@ -1,8 +1,7 @@
 import { FC } from 'react'
 
 import { VolunteersTemplate, VolunteersTemplateProps } from '@wsvvrijheid/ui'
-import { request } from '@wsvvrijheid/utils'
-import { getVolunteers } from '@wsvvrijheid/utils'
+import { getVolunteers, request } from '@wsvvrijheid/utils'
 import { GetStaticProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'

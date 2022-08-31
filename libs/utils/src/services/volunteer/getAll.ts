@@ -1,5 +1,5 @@
+import { useQuery } from '@tanstack/react-query'
 import { Volunteer } from '@wsvvrijheid/types'
-import { useQuery } from 'react-query'
 
 import { request } from '../../lib'
 
@@ -13,7 +13,7 @@ export const getVolunteers = async () => {
 }
 
 export const useVolunteers = (initialData: Array<Volunteer> = []) => {
-  return useQuery('volunteers', getVolunteers, {
+  return useQuery(['volunteers'], getVolunteers, {
     initialData,
   })
 }

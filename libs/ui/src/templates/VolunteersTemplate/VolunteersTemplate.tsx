@@ -9,8 +9,7 @@ import {
   Stack,
   Text,
 } from '@chakra-ui/react'
-import { StrapiLocale, Volunteer } from '@wsvvrijheid/types'
-import { Job } from '@wsvvrijheid/types'
+import { Job, StrapiLocale, Volunteer } from '@wsvvrijheid/types'
 import { useVolunteers } from '@wsvvrijheid/utils'
 import { NextSeoProps } from 'next-seo'
 import Link from 'next/link'
