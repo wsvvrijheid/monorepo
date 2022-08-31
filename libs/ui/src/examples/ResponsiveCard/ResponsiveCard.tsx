@@ -16,7 +16,7 @@ export const ResponsiveCard = () => {
       <Stack>
         <Image
           w={['300px', null, 'full']}
-          h={['300px', null]}
+          h={['300px', null, 'full']}
           src={randomPic}
           borderRadius={['full', null, 'none']}
           m="auto"
