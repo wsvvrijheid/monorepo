@@ -7,7 +7,6 @@ async function logoutRoute(req: NextApiRequest, res: NextApiResponse) {
   res.json({ isLoggedIn: false, token: null })
 }
 
-export const logoutHandler = withIronSessionApiRoute(
-  logoutRoute,
-  sessionOptions,
-)
+const handler = withIronSessionApiRoute(logoutRoute, sessionOptions)
+
+export default handler
