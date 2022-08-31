@@ -14,7 +14,7 @@ import {
 
 import { NotificationProps } from './types'
 
-const Notification: React.FC<NotificationProps> = ({
+export const Notification: React.FC<NotificationProps> = ({
   status,
   title,
   description,
@@ -50,5 +50,3 @@ const Notification: React.FC<NotificationProps> = ({
     <></>
   )
 }
-
-export default Notification

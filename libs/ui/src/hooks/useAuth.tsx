@@ -1,13 +1,17 @@
 import { useEffect, useMemo } from 'react'
 
+import { useQuery } from '@tanstack/react-query'
+import { Auth } from '@wsvvrijheid/types'
 import axios from 'axios'
 import Router from 'next/router'
-import { useQuery } from 'react-query'
 
-export const useAuth = (redirectTo = '', redirectIfFound = false) => {
-  const { data, isLoading } = useQuery('me', () => axios('/api/auth/user'))
+export const useAuth = (
+  redirectTo = '',
+  redirectIfFound = false,
+): Auth & { isLoading: boolean } => {
+  const { data, isLoading } = useQuery(['me'], () => axios('/api/auth/user'))
 
-  const user = useMemo(() => data?.data || {}, [data])
+  const user = useMemo(() => data?.data || {}, [data]) as Auth
 
   useEffect(() => {
     // if no redirect needed, just return (example: already on /dashboard)

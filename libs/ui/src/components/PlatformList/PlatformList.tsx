@@ -3,10 +3,11 @@ import React, { FC } from 'react'
 import { Avatar, Button, Heading, Spacer, Stack, Text } from '@chakra-ui/react'
 import { API_URL } from '@wsvvrijheid/config'
 import { Platform, StrapiLocale } from '@wsvvrijheid/types'
-import { Navigate } from '@wsvvrijheid/ui'
 import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
 import { FaChevronRight } from 'react-icons/fa'
+
+import { Navigate } from '../Navigate'
 
 export interface PlatformListProps {
   platforms: Platform[]

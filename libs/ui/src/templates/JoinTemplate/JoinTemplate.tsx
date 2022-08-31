@@ -10,12 +10,12 @@ import {
   SimpleGrid,
   VStack,
 } from '@chakra-ui/react'
+import { useMutation } from '@tanstack/react-query'
 import { StrapiLocale, Volunteer } from '@wsvvrijheid/types'
 import { Job, Platform } from '@wsvvrijheid/types'
 import { mutation, usePlatforms, toastMessage } from '@wsvvrijheid/utils'
 import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
-import { useMutation } from 'react-query'
 import { v4 as uuidV4 } from 'uuid'
 
 import {
@@ -24,7 +24,7 @@ import {
   PageTitle,
   JoinFormFieldValues,
   PlatformList,
-} from '@wsvvrijheid/ui'
+} from '../../components'
 import { JoinTemplateProps } from './types'
 
 type VolunteerRequest = {
@@ -42,7 +42,7 @@ export const JoinTemplate: FC<JoinTemplateProps> = ({ title }) => {
   const jobs: Job[] = (platforms?.flatMap(p => p.jobs) as Job[]) || []
 
   const { mutate, isLoading, isSuccess } = useMutation(
-    'create-volunteer',
+    ['create-volunteer'],
     (data: VolunteerRequest) => mutation().post('api/volunteers', { data }),
   )
 

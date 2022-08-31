@@ -1,6 +1,6 @@
+import { useQuery } from '@tanstack/react-query'
 import { Category, StrapiLocale } from '@wsvvrijheid/types'
 import { useRouter } from 'next/router'
-import { useQuery } from 'react-query'
 
 import { request } from '../../lib'
 
@@ -28,7 +28,7 @@ export const useGetArtCategories = () => {
   const { locale } = useRouter()
 
   return useQuery({
-    queryKey: 'art-categories',
+    queryKey: ['art-categories', locale],
     queryFn: () => getArtCategories(locale as StrapiLocale),
   })
 }

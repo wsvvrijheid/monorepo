@@ -2,6 +2,7 @@ import { FC } from 'react'
 
 import { Box, Grid, Heading, Stack, useBreakpointValue } from '@chakra-ui/react'
 import { Splide, SplideSlide } from '@splidejs/react-splide'
+import { QueryKey, useQueryClient } from '@tanstack/react-query'
 import { Auth } from '@wsvvrijheid/types'
 import {
   useArtBySlug,
@@ -11,7 +12,6 @@ import {
   useViewArtMutation,
 } from '@wsvvrijheid/utils'
 import { useTranslation } from 'react-i18next'
-import { QueryKey, useQueryClient } from 'react-query'
 
 import {
   ArtContent,
@@ -50,7 +50,7 @@ export const ArtTemplate: FC<ArtTemplateProps> = ({ auth, queryKey }) => {
   const handleSendForm = ({ name, content, email }: CommentFormFieldValues) => {
     if (art?.id) {
       return artCommentMutation.mutate(
-        { name, content, email, userId: auth?.user.id, id: art.id },
+        { name, content, email, userId: auth?.user?.id, id: art.id },
         {
           onSuccess: async comment => {
             queryClient.invalidateQueries(queryKey)

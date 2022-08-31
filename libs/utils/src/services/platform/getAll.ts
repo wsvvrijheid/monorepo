@@ -1,5 +1,5 @@
+import { useQuery } from '@tanstack/react-query'
 import { Platform } from '@wsvvrijheid/types'
-import { useQuery } from 'react-query'
 
 import { request } from '../../lib'
 
@@ -12,7 +12,7 @@ export const getAllPlatforms = async () => {
 
 export const usePlatforms = () => {
   return useQuery({
-    queryKey: 'platforms',
+    queryKey: ['platforms'],
     queryFn: getAllPlatforms,
   })
 }

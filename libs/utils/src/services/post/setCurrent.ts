@@ -1,6 +1,6 @@
+import { QueryClient, useQueryClient } from '@tanstack/react-query'
 import { StrapiLocale } from '@wsvvrijheid/types'
 import { useRouter } from 'next/router'
-import { QueryClient, useQueryClient } from 'react-query'
 
 import { HashtagReturnType } from '../hashtag'
 
