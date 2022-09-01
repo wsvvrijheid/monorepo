@@ -13,7 +13,7 @@ import {
 import { FaBars } from 'react-icons/fa'
 
 import { useScroll } from '../../hooks'
-import { LocaleSwitcher } from '../LocaleSwitcher/LocaleSwitcher'
+import { LocaleSwitcher } from '../LocaleSwitcher'
 import { HeaderMobileNav } from './HeaderMobileNav'
 import { ProfileMenu } from './ProfileMenu'
 import { HeaderMobileProps } from './types'

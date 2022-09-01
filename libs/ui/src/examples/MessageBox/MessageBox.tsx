@@ -12,8 +12,8 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { TFunction, useTranslation } from 'react-i18next'
 import * as yup from 'yup'
 
-import { FormItem } from '../../components/FormItem'
-import Notification from '../Notification/Notification'
+import { FormItem } from '../../components'
+import { Notification } from '../Notification'
 import { MessageBoxFieldValues, MessageBoxProps } from './types'
 
 const schema = (t: TFunction) =>

@@ -1,7 +1,7 @@
 import { Box } from '@chakra-ui/react'
 
 import { PostContainerMentionTags } from './PostContainerMentionTags'
-import { PostContainerTrendTags } from './PostContainerTrendTags/PostContainerTrendTags'
+import { PostContainerTrendTags } from './PostContainerTrendTags'
 
 export const PostContainerTags = () => {
   return (
