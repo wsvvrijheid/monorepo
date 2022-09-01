@@ -24,7 +24,7 @@ export default VolunteersPage
 
 export const getStaticProps: GetStaticProps = async context => {
   const volunteersResponse = await getVolunteers()
-  const jobsResponse = await request()({ url: 'api/jobs' })
+  const jobsResponse = await request({ url: 'api/jobs' })
 
   const title = {
     en: 'Volunteers',

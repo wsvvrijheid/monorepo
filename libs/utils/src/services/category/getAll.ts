@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 import { request } from '../../lib'
 
 export const getArtCategories = async (locale: StrapiLocale) => {
-  const response = await request()<Category[]>({
+  const response = await request<Category[]>({
     url: 'api/categories',
     pageSize: 100,
     locale,

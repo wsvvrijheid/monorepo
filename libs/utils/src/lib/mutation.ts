@@ -1,12 +1,21 @@
-import { StrapiModel, StrapiMutationResponse } from '@wsvvrijheid/types'
+import {
+  StrapiLocale,
+  StrapiModel,
+  StrapiMutationResponse,
+} from '@wsvvrijheid/types'
 
 import { fetcher } from './fetcher'
 
 type MutationReturnType<T> = {
-  post: (url: string, data: unknown) => Promise<T>
-  put: (url: string, id: number, data: unknown) => Promise<T>
+  post: (url: string, data: Record<string, unknown>) => Promise<T>
+  put: (url: string, id: number, data: Record<string, unknown>) => Promise<T>
   delete: (url: string, id: number) => Promise<T>
-  localize: (url: string, id: number, data: unknown) => Promise<T>
+  localize: (
+    url: string,
+    id: number,
+    locale: StrapiLocale,
+    data: Record<string, unknown>,
+  ) => Promise<T>
 }
 
 export const mutation = <T extends StrapiModel>(
@@ -33,10 +42,10 @@ export const mutation = <T extends StrapiModel>(
     return response.data?.data || null
   },
   // https://docs.strapi.io/developer-docs/latest/plugins/i18n.html#creating-a-localization-for-an-existing-entry
-  localize: async (url, id, data) => {
+  localize: async (url, id, locale, data) => {
     const response = await fetcher(token).post<StrapiMutationResponse<T>>(
       `/${url}/${id}/localizations`,
-      data,
+      { ...data, locale },
     )
     return response.data?.data || null
   },

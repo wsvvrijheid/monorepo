@@ -4,7 +4,7 @@ import { Volunteer } from '@wsvvrijheid/types'
 import { request } from '../../lib'
 
 export const getVolunteers = async () => {
-  const response = await request()<Volunteer[]>({
+  const response = await request<Volunteer[]>({
     url: 'api/volunteers',
     filters: { approved: { $eq: true } },
   })
