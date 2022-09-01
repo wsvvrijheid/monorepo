@@ -27,8 +27,9 @@ import { useTranslation } from 'next-i18next'
 import { FaQuestionCircle } from 'react-icons/fa'
 
 import { useGenerateRandomPostText } from '../hooks'
-import { MentionAndTrends } from './MentionAndTrends'
+import { MentionList } from './Mention'
 import { PostContainer } from './PostContainer'
+import { TrendListTabs } from './Trends'
 import { TweetWidget } from './TweetWidget'
 
 export const PostMaker = () => {
@@ -99,7 +100,8 @@ export const PostMaker = () => {
         <ModalContent py={4} h="100vh" pos="relative">
           <DrawerCloseButton />
           <ModalBody as={Stack} w={{ base: 'full', lg: 300 }}>
-            <MentionAndTrends />
+            <MentionList />
+            <TrendListTabs />
           </ModalBody>
         </ModalContent>
       </Modal>
@@ -110,7 +112,8 @@ export const PostMaker = () => {
         alignItems="stretch"
       >
         <Box display={{ base: 'none', lg: 'block' }} h="inherit">
-          <MentionAndTrends />
+          <MentionList />
+          <TrendListTabs />
         </Box>
         <PostContainer
           post={currentPost}
