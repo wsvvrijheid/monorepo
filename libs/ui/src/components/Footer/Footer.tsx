@@ -5,7 +5,7 @@ import { motion } from 'framer-motion'
 import NextImage from 'next/image'
 import { useTranslation } from 'react-i18next'
 
-import { Container } from '../Container/Container'
+import { Container } from '../Container'
 import { SocialButtons } from '../SocialButtons'
 import { FooterNav } from './FooterNav'
 import { FooterProps } from './types'

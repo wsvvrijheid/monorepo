@@ -9,7 +9,10 @@ import {
   Text,
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { useMutation } from '@tanstack/react-query'
+import axios from 'axios'
 import { useTranslation } from 'next-i18next'
+import { useRouter } from 'next/router'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { TFunction } from 'react-i18next'
 import * as yup from 'yup'
@@ -38,22 +41,37 @@ const schema = (t: TFunction) =>
       .required(t`login.email.required`),
   })
 
-export const LoginForm: React.FC<LoginFormProps> = ({
-  onSubmitHandler,
-  errorMessage,
-}) => {
+export const LoginForm: React.FC<LoginFormProps> = () => {
   const { t } = useTranslation()
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<LoginFormFieldValues>({
     resolver: yupResolver(schema(t)),
     mode: 'all',
   })
 
+  const router = useRouter()
+
+  const loginMutation = useMutation({
+    mutationKey: ['login'],
+    mutationFn: (body: { identifier: string; password: string }) =>
+      axios.post('/api/auth/login', body),
+    onSuccess: () => {
+      reset()
+      router.push('/')
+    },
+  })
+
   const handleSubmitSign: SubmitHandler<LoginFormFieldValues> = async data => {
-    onSubmitHandler(data)
+    const body = {
+      identifier: data.email,
+      password: data.password,
+    }
+
+    loginMutation.mutate(body)
   }
 
   return (
@@ -87,7 +105,6 @@ export const LoginForm: React.FC<LoginFormProps> = ({
         </Stack>
         <Stack spacing="6" as="form" onSubmit={handleSubmit(handleSubmitSign)}>
           <Stack spacing="5">
-            {errorMessage && <Text color="red.500">{errorMessage}</Text>}
             <FormItem
               name="email"
               label={t('login.email.title')}
@@ -121,6 +138,11 @@ export const LoginForm: React.FC<LoginFormProps> = ({
             <Button type="submit" colorScheme="blue">
               {t('login.sign-in')}
             </Button>
+            {loginMutation.isError && (
+              <Text color="red.500" fontSize="sm">
+                An error occured
+              </Text>
+            )}
             <HStack>
               <Divider />
               <Text fontSize="sm" whiteSpace="nowrap" color="muted">

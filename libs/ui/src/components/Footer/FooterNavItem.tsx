@@ -3,7 +3,7 @@ import { FC } from 'react'
 import { StrapiLocale } from '@wsvvrijheid/types'
 import { useRouter } from 'next/router'
 
-import { Navigate } from '../Navigate/Navigate'
+import { Navigate } from '../Navigate'
 import { FooterNavItemProps } from './types'
 
 export const FooterNavItem: FC<FooterNavItemProps> = ({ item }) => {
