@@ -19,9 +19,9 @@ import { Navigate } from '../Navigate'
 import { ArtCardActions } from './ArtCardActions'
 import { ArtCardAlertDialog } from './ArtCardAlertDialog'
 import { ArtCardImage } from './ArtCardImage'
-import { ArtActionType, ArtCardProps } from './types'
+import { ArtActionType, ArtCardBaseProps } from './types'
 
-export const ArtCardBase: FC<ArtCardProps> = ({
+export const ArtCardBase: FC<ArtCardBaseProps> = ({
   art,
   isMasonry,
   toggleLike,
