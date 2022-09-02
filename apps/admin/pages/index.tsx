@@ -4,8 +4,8 @@ import axios from 'axios'
 import { useRouter } from 'next/router'
 
 const Index = () => {
-  const { user, isLoggedIn, isLoading } = useAuth()
-
+  const { isLoggedIn, isLoading } = useAuth()
+  //user
   const router = useRouter()
 
   const onLogout = async () => {

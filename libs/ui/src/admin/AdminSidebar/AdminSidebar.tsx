@@ -1,4 +1,4 @@
-import { FC } from 'react'
+//import { FC } from 'react'
 
 import {
   Link,
@@ -10,15 +10,13 @@ import {
   Divider,
   Button,
 } from '@chakra-ui/react'
-import { motion } from 'framer-motion'
-import NextImage from 'next/image'
 import { BsNewspaper, BsTranslate } from 'react-icons/bs'
 import { MdOutlineSpaceDashboard } from 'react-icons/md'
 
 import { useAuth } from '../../hooks'
 // export type AdminSidebarProps = {} FC<AdminSidebarProps>
 export const AdminSidebar = () => {
-  const { user, isLoggedIn, isLoading } = useAuth()
+  const { user } = useAuth()
   console.log('user', user)
   return (
     <Stack w={300} py={8} px={4} bg="white" spacing={8}>
