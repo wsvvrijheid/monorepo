@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react'
 import { useRef } from 'react'
 
-import { Center, Spinner, useBreakpointValue } from '@chakra-ui/react'
+import { useBreakpointValue } from '@chakra-ui/react'
 import { Collection } from '@wsvvrijheid/types'
-import { Container, Layout } from '@wsvvrijheid/ui'
-import { CollectionBook } from '@wsvvrijheid/ui'
+import { CollectionTemplate } from '@wsvvrijheid/ui'
 import { getCollection, getCollectionPaths } from '@wsvvrijheid/utils'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
+
+import { Layout } from '../../../components/Layout'
 
 const CollectionPage = ({
   seo,
@@ -36,23 +37,14 @@ const CollectionPage = ({
 
   return (
     <Layout seo={seo}>
-      <Container minH="inherit">
-        <Center ref={centerRef} py={8} minH="inherit">
-          {isLoading || !height ? (
-            <Spinner />
-          ) : (
-            <CollectionBook
-              flipboxProps={{
-                height,
-                minHeight: height,
-                width: width / pageShow,
-                minWidth: width / pageShow,
-              }}
-              collection={collection}
-            />
-          )}
-        </Center>
-      </Container>
+      <CollectionTemplate
+        centerRef={centerRef}
+        height={height}
+        width={width}
+        isLoading={isLoading}
+        collection={collection}
+        pageShow={pageShow}
+      />
     </Layout>
   )
 }

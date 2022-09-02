@@ -27,11 +27,11 @@ const defaultFlipboxProps: Partial<IFlipSetting> = {
 
 export interface CollectionBookProps {
   collection: Collection
-  title: string
+  title?: string
   coverBg?: string
   logo?: string
   bg?: string
-  flipboxProps?: ComponentProps<typeof HTMLFlipBook>
+  flipboxProps?: Partial<ComponentProps<typeof HTMLFlipBook>>
 }
 
 export const CollectionBook: FC<CollectionBookProps> = ({
