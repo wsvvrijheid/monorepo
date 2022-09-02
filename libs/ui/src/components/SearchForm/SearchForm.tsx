@@ -8,7 +8,7 @@ import {
   InputRightElement,
   useUpdateEffect,
 } from '@chakra-ui/react'
-import { InputProps } from 'chakra-react-select'
+import { InputProps } from '@chakra-ui/react'
 import { FaSearch, FaTimes } from 'react-icons/fa'
 import { useDebounce } from 'react-use'
 
