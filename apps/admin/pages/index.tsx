@@ -1,5 +1,5 @@
 import { Button } from '@chakra-ui/react'
-import { Container, Navigate, useAuth } from '@wsvvrijheid/ui'
+import { Container, Navigate, useAuth, AdminSidebar } from '@wsvvrijheid/ui'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 
@@ -17,14 +17,22 @@ const Index = () => {
   return (
     <Container>
       {isLoggedIn ? (
-        <Button isLoading={isLoading} colorScheme="primary" onClick={onLogout}>
-          Logout
-        </Button>
+        <>
+          <Button
+            isLoading={isLoading}
+            colorScheme="primary"
+            onClick={onLogout}
+          >
+            Logout
+          </Button>
+          <AdminSidebar />
+        </>
       ) : (
         <Navigate href="/login">Login</Navigate>
       )}
 
-      <pre>{JSON.stringify(user, null, 2)}</pre>
+      {/* <pre>{JSON.stringify(user, null, 2)}</pre> */}
+      {/* <AdminSidebar /> */}
     </Container>
   )
 }
