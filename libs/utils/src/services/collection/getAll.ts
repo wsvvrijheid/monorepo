@@ -18,7 +18,7 @@ export const useCollections = () => {
   const { locale } = useRouter()
 
   return useQuery({
-    queryKey: ['art-categories', locale],
+    queryKey: ['collections', locale],
     queryFn: () => getAllCollections(locale as StrapiLocale),
   })
 }
