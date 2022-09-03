@@ -8,13 +8,15 @@ import {
   HStack,
   Avatar,
   Divider,
+  Button,
 } from '@chakra-ui/react'
 
 import { useAuth } from '../../hooks'
 import { AdminNav } from '../AdminNav'
+
 export const AdminSidebar = () => {
   const { user } = useAuth()
-  console.log('user', user)
+
   return (
     <Stack w={300} py={8} px={4} bg="white" spacing={8}>
       {/*logo ................................*/}
@@ -46,6 +48,9 @@ export const AdminSidebar = () => {
           <Text fontWeight={'bold'}>{user?.username}</Text>
           <Text>{user?.email}</Text>
         </Stack>
+        <Button variant={'gray.500'} onClick={() => alert('logout completed')}>
+          Logout
+        </Button>
       </HStack>
       {/*menu ................................*/}
       <Stack>

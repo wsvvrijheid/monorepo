@@ -1,7 +1,7 @@
 import { Stack } from '@chakra-ui/react'
 import { BiChevronRight, BiLandscape } from 'react-icons/bi'
 import { BsCommand, BsNewspaper, BsTranslate } from 'react-icons/bs'
-import { FaHashtag } from 'react-icons/fa'
+import { FaHashtag, FaPaintBrush } from 'react-icons/fa'
 import {
   MdOutlineSpaceDashboard,
   MdOutlineSupervisorAccount,
@@ -10,7 +10,7 @@ import { VscFeedback } from 'react-icons/vsc'
 
 import { AdminNavItem } from './AdminNavItem'
 
-const navItems = [
+export const navItems = [
   {
     label: 'Dashboard',
     link: '/',
@@ -24,7 +24,7 @@ const navItems = [
   {
     label: 'Arts',
     link: '/',
-    icon: <MdOutlineSpaceDashboard />,
+    icon: <FaPaintBrush />,
     submenu: [
       {
         label: 'Pending Arts',
@@ -96,6 +96,28 @@ const navItems = [
     label: 'Feedbacks',
     link: '/',
     icon: <VscFeedback />,
+    submenu: [
+      {
+        label: 'Foundation',
+        link: '/',
+        icon: <BiChevronRight />,
+      },
+      {
+        label: 'Kunsthalte',
+        link: '/',
+        icon: <BiChevronRight />,
+      },
+      {
+        label: 'Samenvvv',
+        link: '/',
+        icon: <BiChevronRight />,
+      },
+      {
+        label: 'Admin',
+        link: '/',
+        icon: <BiChevronRight />,
+      },
+    ],
   },
 ]
 export const AdminNav = () => {

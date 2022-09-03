@@ -1,22 +1,9 @@
 import { FC, useState } from 'react'
 
-import {
-  Link,
-  Stack,
-  HStack,
-  Button,
-  ButtonProps,
-  Spacer,
-} from '@chakra-ui/react'
-import { IconType } from 'react-icons'
+import { Link, Stack, HStack, Button, Spacer } from '@chakra-ui/react'
 import { BiChevronDown, BiChevronUp } from 'react-icons/bi'
-export type NavItemProps = [{ label: string; link: string; icon: IconType }]
-export type AdminNavItemProps = {
-  label: string
-  link: string
-  submenu?: NavItemProps[]
-  icon: IconType
-} & ButtonProps
+
+import { AdminNavItemProps } from './types'
 
 export const AdminNavItem: FC<AdminNavItemProps> = ({
   label,
