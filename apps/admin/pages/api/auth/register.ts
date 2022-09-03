@@ -1,4 +1,3 @@
-import { Session } from '@wsvvrijheid/types'
 import { mutation, sessionOptions, getAuth } from '@wsvvrijheid/utils'
 import axios from 'axios'
 import { withIronSessionApiRoute } from 'iron-session/next'
@@ -30,7 +29,7 @@ const registerRoute = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const auth = await getAuth(email, password)
 
-    req.session = auth as Session
+    req.session = { ...auth, ...req.session }
 
     await req.session.save()
     res.json(auth)

@@ -1,4 +1,3 @@
-import { Session } from '@wsvvrijheid/types'
 import { sessionOptions } from '@wsvvrijheid/utils'
 import axios from 'axios'
 import { withIronSessionApiRoute } from 'iron-session/next'
@@ -30,8 +29,6 @@ const resetPassRoute = async (req: NextApiRequest, res: NextApiResponse) => {
 
       const auth = { user: response.data, token, isLoggedIn: true }
 
-      // req.session as Session
-      ;(req.session as Session).user = auth.user
       req.session = { ...auth, ...req.session }
       await req.session.save()
       res.json(auth)

@@ -1,6 +1,5 @@
 import { API_URL } from '@wsvvrijheid/config'
-import { SessionUser } from '@wsvvrijheid/types'
-import { Auth } from '@wsvvrijheid/types'
+import { SessionUser, Auth, AuthResponse } from '@wsvvrijheid/types'
 import axios from 'axios'
 
 export const getAuth: (
@@ -10,13 +9,13 @@ export const getAuth: (
   identifier: string,
   password: string,
 ) => {
-  const response = await axios.post(`${API_URL}/api/auth/local`, {
+  const response = await axios.post<AuthResponse>(`${API_URL}/api/auth/local`, {
     identifier,
     password,
   })
 
   const token = response.data.jwt
-  const userId = response.data.user?.ids
+  const userId = response.data.user?.id
 
   if (token) {
     const response = await axios.get(

@@ -1,4 +1,4 @@
-import { SessionUser, Session } from '@wsvvrijheid/types'
+import { SessionUser, Artist, User } from '@wsvvrijheid/types'
 import { fetcher, mutation, request, sessionOptions } from '@wsvvrijheid/utils'
 import { withIronSessionApiRoute } from 'iron-session/next'
 import { NextApiResponse, NextApiRequest } from 'next'
@@ -19,7 +19,7 @@ const route = async (req: NextApiRequest, res: NextApiResponse) => {
       const userId = socialLoginResponse.data.user?.id
 
       if (token) {
-        const artistResponse = await request(token)({
+        const artistResponse = await request(token)<Artist[]>({
           url: 'api/artists',
           filters: { user: { id: { $eq: userId } } },
         })
@@ -33,9 +33,8 @@ const route = async (req: NextApiRequest, res: NextApiResponse) => {
           })
         }
 
-        const response = await request(token)({
-          url: 'api/users',
-          filters: { id: { $eq: userId } },
+        const response = await request(token)<User>({
+          url: `api/users/${userId}`,
         })
 
         const userData = response.data?.[0]
@@ -51,8 +50,7 @@ const route = async (req: NextApiRequest, res: NextApiResponse) => {
           }
 
           const auth = { user, token, isLoggedIn: true }
-          req.session = auth as Session
-
+          req.session = { ...auth, ...req.session }
           await req.session.save()
           res.json(auth)
         }

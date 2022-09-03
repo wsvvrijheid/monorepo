@@ -1,4 +1,3 @@
-import { Session } from '@wsvvrijheid/types'
 import { sessionOptions, getAuth } from '@wsvvrijheid/utils'
 import { withIronSessionApiRoute } from 'iron-session/next'
 import { NextApiRequest, NextApiResponse } from 'next'
@@ -8,7 +7,7 @@ const loginRoute = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const auth = await getAuth(identifier, password)
 
-    req.session = auth as Session
+    req.session = { ...auth, ...req.session }
     await req.session.save()
     res.json(auth)
   } catch (error) {
