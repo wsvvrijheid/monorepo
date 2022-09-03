@@ -1,56 +1,66 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 
 import { Box } from '@chakra-ui/layout'
-import { Stack } from '@chakra-ui/react'
-import { Category, Collection, StrapiLocale } from '@wsvvrijheid/types'
+import { Stack, useUpdateEffect } from '@chakra-ui/react'
+import { Category, StrapiLocale } from '@wsvvrijheid/types'
+import { useCollections } from '@wsvvrijheid/utils'
 import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
 
+import { useChangeParams } from '../../hooks'
 import { CategoryFilter } from '../CategoryFilter'
 import { CollectionList } from '../CollectionList'
 
 export type ArtSideBarProps = {
-  categoryData: Partial<Category>[]
-  collectionData: Partial<Collection>[]
+  categoryList: Category[]
   isLoading: boolean
-  debounce?: number
-  initialCategories?: string[]
-  setSelectedCategories: (categories: string[]) => void
   setIsLoading: (isLoading: boolean) => void
 }
 
 export const ArtSideBar: FC<ArtSideBarProps> = ({
-  categoryData,
-  collectionData,
-  initialCategories,
-  debounce,
+  categoryList,
   isLoading,
   setIsLoading,
-  setSelectedCategories,
 }) => {
   const { t } = useTranslation()
-  const { locale } = useRouter()
+  const changeParam = useChangeParams()
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([])
+  const {
+    locale,
+    query: { categories },
+  } = useRouter()
+
+  const collectionsQuery = useCollections()
+
+  const initialCategories = (categories as string)
+    ?.split('&')
+    .map(category => category.split('=')[1])
+
+  useUpdateEffect(() => {
+    changeParam({ categories: selectedCategories })
+  }, [selectedCategories])
 
   return (
     <Stack spacing={8} alignSelf="start">
-      {categoryData && (
+      {categoryList && (
         <Box maxH="calc((100vh - 150px) / 2)" overflowY="scroll">
           <CategoryFilter
-            categoryData={categoryData}
+            categoryData={categoryList || []}
             initialCategories={initialCategories}
             isLoading={isLoading}
             selectCategories={setSelectedCategories}
             setIsLoading={setIsLoading}
             title={t('categories')}
             locale={locale as StrapiLocale}
-            debounce={debounce}
           />
         </Box>
       )}
 
-      {collectionData?.length > 0 && (
+      {collectionsQuery?.data && collectionsQuery?.data?.length > 0 && (
         <Box overflowY="auto" maxH="calc((100vh - 150px) / 2)">
-          <CollectionList collectionData={collectionData}></CollectionList>
+          <CollectionList
+            collectionData={collectionsQuery.data || []}
+          ></CollectionList>
         </Box>
       )}
     </Stack>
