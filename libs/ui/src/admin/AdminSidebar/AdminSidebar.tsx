@@ -8,13 +8,10 @@ import {
   HStack,
   Avatar,
   Divider,
-  Button,
 } from '@chakra-ui/react'
-import { BsNewspaper, BsTranslate } from 'react-icons/bs'
-import { MdOutlineSpaceDashboard } from 'react-icons/md'
 
 import { useAuth } from '../../hooks'
-// export type AdminSidebarProps = {} FC<AdminSidebarProps>
+import { AdminNav } from '../AdminNav'
 export const AdminSidebar = () => {
   const { user } = useAuth()
   console.log('user', user)
@@ -30,7 +27,13 @@ export const AdminSidebar = () => {
             src="https://wsvvrijheid.nl/images/logo.svg"
             alt="logo"
           />
-          <Text color={'blue.500'} paddingLeft={1} mx={2} my={2}>
+          <Text
+            color={'blue.500'}
+            paddingLeft={1}
+            mx={2}
+            my={2}
+            _hover={{ color: 'blue.500' }}
+          >
             <Text>WEES DE STEM</Text>
             <Text>VOOR VRIJHEID</Text>
           </Text>
@@ -47,70 +50,11 @@ export const AdminSidebar = () => {
       {/*menu ................................*/}
       <Stack>
         <Stack h={8} w={67}>
-          <Text fontWeight={'bold'}>Menu</Text>
+          <Text fontWeight={'bold'}>MENU</Text>
         </Stack>
-        <Stack>
-          <Link href="/">
-            <Button
-              variant={'gray.500'}
-              colorScheme="primary"
-              size="lg"
-              leftIcon={<MdOutlineSpaceDashboard />}
-            >
-              Dashboard
-            </Button>
-          </Link>
-        </Stack>
-        <Stack>
-          <Link href="/">
-            <Button
-              variant={'gray.500'}
-              colorScheme="primary"
-              size="lg"
-              leftIcon={<BsTranslate />}
-            >
-              Translate
-            </Button>
-          </Link>
-        </Stack>
-        <Stack>
-          <Link href="/">
-            <Button
-              variant={'gray.500'}
-              colorScheme="primary"
-              size="lg"
-              leftIcon={<BsTranslate />}
-            >
-              Arts
-            </Button>
-          </Link>
-        </Stack>
-        <Stack>
-          <Link href="/">
-            <Button
-              variant={'gray.500'}
-              colorScheme="primary"
-              size="lg"
-              leftIcon={<BsTranslate />}
-            >
-              Hashtag Posts
-            </Button>
-          </Link>
-        </Stack>
-        <Stack>
-          <Link href="/">
-            <Button
-              variant={'gray.500'}
-              colorScheme="primary"
-              size="lg"
-              leftIcon={<BsNewspaper />}
-            >
-              News
-            </Button>
-          </Link>
-        </Stack>
+        {/* Amin Nav .........................*/}
+        <AdminNav />
       </Stack>
-
       {/*footer ................................*/}
       <Stack>
         <Divider />
