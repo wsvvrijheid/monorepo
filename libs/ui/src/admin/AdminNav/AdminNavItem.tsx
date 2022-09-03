@@ -23,6 +23,9 @@ export const AdminNavItem: FC<AdminNavItemProps> = ({
             leftIcon={icon}
             aria-label={''}
             _hover={{ color: 'blue.500' }}
+            _focus={{
+                color: 'blue.500',
+              }}
           >
             {label}
           </Button>
@@ -37,6 +40,9 @@ export const AdminNavItem: FC<AdminNavItemProps> = ({
             rightIcon={submenu ? <BiChevronUp /> : ''}
             aria-label={''}
             _hover={{ color: 'blue.500' }}
+            _focus={{
+              color: 'blue.500',
+            }}
           ></Button>
         ) : (
           <Button
