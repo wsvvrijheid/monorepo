@@ -9,7 +9,7 @@ export type CollectionTempleteProps = {
   width: number
   pageShow: number
   collection: Collection
-  centerRef: LegacyRef<HTMLDivElement>
+  centerRef?: LegacyRef<HTMLDivElement>
 }
 
 export const CollectionTemplate: FC<CollectionTempleteProps> = ({
