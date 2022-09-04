@@ -68,5 +68,3 @@ const Template: Story<BlogDetailProps> = args => {
 }
 
 export const Default = Template.bind({})
-export const Featured = Template.bind({})
-Featured.args = {}
