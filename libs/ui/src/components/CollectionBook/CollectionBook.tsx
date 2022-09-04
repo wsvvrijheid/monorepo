@@ -3,15 +3,13 @@ import { ComponentProps, FC } from 'react'
 import { Heading, VStack } from '@chakra-ui/react'
 import TinyColor from '@ctrl/tinycolor'
 import { Collection } from '@wsvvrijheid/types'
-import dynamic from 'next/dynamic'
 import HTMLFlipBook from 'react-pageflip'
 import { IFlipSetting } from 'react-pageflip/build/html-flip-book/settings'
 
 import { WImage } from '../WImage'
 import { CollectionPages } from './CollectionPages'
+import FlipBook from './Flipbook'
 import { Page } from './Page'
-
-const FlipBook = dynamic(() => import('./Flipbook'), { ssr: false })
 
 const defaultFlipboxProps: Partial<IFlipSetting> = {
   width: 500,
@@ -34,7 +32,7 @@ export interface CollectionBookProps {
   flipboxProps?: Partial<ComponentProps<typeof HTMLFlipBook>>
 }
 
-export const CollectionBook: FC<CollectionBookProps> = ({
+const CollectionBook: FC<CollectionBookProps> = ({
   collection,
   title,
   coverBg = '#F5F3EB',
@@ -73,11 +71,13 @@ export const CollectionBook: FC<CollectionBookProps> = ({
       />
 
       {/* Back */}
-      {logo && (
-        <Page bgGradient={coverBgGdarient}>
+      <Page bgGradient={coverBgGdarient}>
+        {logo ? (
           <WImage ratio={1} maxH={300} mx="auto" src={logo} alt="logo" />
-        </Page>
-      )}
+        ) : null}
+      </Page>
     </FlipBook>
   )
 }
+
+export default CollectionBook
