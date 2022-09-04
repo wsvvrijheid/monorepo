@@ -9,6 +9,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
 
 import { Layout } from '../../../components/Layout'
+import i18nConfig from '../../../next-i18next.config'
 
 const CollectionPage = ({
   seo,
@@ -82,7 +83,7 @@ export const getStaticProps = async context => {
 
   return {
     props: {
-      ...(await serverSideTranslations(locale, ['common'])),
+      ...(await serverSideTranslations(locale, ['common'], i18nConfig)),
       seo,
       slugs: { ...slugs, [locale]: slug },
       collection,
