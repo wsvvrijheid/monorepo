@@ -28,7 +28,7 @@ const Template: Story<BlogTemplateProps> = args => {
     },
   }
 
-  const blogs = BLOG_MOCKS[args.locale]?.data
+  const blogs = BLOG_MOCKS[args.locale]?.data || []
   const seo = blogSeo[args.locale as StrapiLocale]
   return <BlogTemplate seo={seo} blogs={blogs} {...args} />
 }
