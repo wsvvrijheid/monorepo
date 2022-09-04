@@ -1,32 +1,11 @@
 import { FC } from 'react'
 
 import { Button, ButtonGroup } from '@chakra-ui/react'
-import { DehydratedState } from '@tanstack/react-query'
-import { Announcement, Hashtag, Post, StrapiLocale } from '@wsvvrijheid/types'
-import { MDXRemoteSerializeResult } from 'next-mdx-remote'
-import { NextSeoProps } from 'next-seo'
+import { StrapiLocale } from '@wsvvrijheid/types'
 import { NextRouter, useRouter } from 'next/router'
 
 import { useScroll } from '../../hooks'
-
-export interface DynamicProps {
-  locale: StrapiLocale
-  slugs: {
-    en: string
-    nl: string
-    tr: string
-  }
-  source: MDXRemoteSerializeResult<Record<string, unknown>>
-  dehydratedState: DehydratedState
-  pageData: Hashtag | Post | Announcement | Record<string, unknown>
-  _nextI18Next: any
-  seo: NextSeoProps
-  link: string
-}
-
-interface LocaleSwitcherProps {
-  isDark?: boolean
-}
+import { DynamicProps, LocaleSwitcherProps } from './types'
 
 type RouterType = {
   locales: StrapiLocale[]
@@ -68,7 +47,7 @@ const LocaleSwitcher: FC<LocaleSwitcherProps> = ({ isDark }) => {
         return !isScrolled && isDark ? (
           <Button
             px={2}
-            onClick={() => handleChangeLanguage(code)}
+            onClick={() => handleChangeLanguage(code as StrapiLocale)}
             colorScheme={
               locale === code
                 ? 'primary'
@@ -84,7 +63,7 @@ const LocaleSwitcher: FC<LocaleSwitcherProps> = ({ isDark }) => {
           <Button
             key={code}
             px={2}
-            onClick={() => handleChangeLanguage(code)}
+            onClick={() => handleChangeLanguage(code as StrapiLocale)}
             colorScheme={
               locale === code
                 ? 'primary'

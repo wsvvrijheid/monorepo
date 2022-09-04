@@ -2,14 +2,13 @@ import { ComponentProps, FC } from 'react'
 
 import { Heading, VStack } from '@chakra-ui/react'
 import TinyColor from '@ctrl/tinycolor'
-import { Collection } from '@wsvvrijheid/types'
-import HTMLFlipBook from 'react-pageflip'
 import { IFlipSetting } from 'react-pageflip/build/html-flip-book/settings'
 
 import { WImage } from '../WImage'
 import { CollectionPages } from './CollectionPages'
 import FlipBook from './Flipbook'
 import { Page } from './Page'
+import { CollectionBookProps } from './types'
 
 const defaultFlipboxProps: Partial<IFlipSetting> = {
   width: 500,
@@ -21,15 +20,6 @@ const defaultFlipboxProps: Partial<IFlipSetting> = {
   maxHeight: 600,
   maxShadowOpacity: 0.3,
   showCover: true,
-}
-
-export interface CollectionBookProps {
-  collection: Collection
-  title?: string
-  coverBg?: string
-  logo?: string
-  bg?: string
-  flipboxProps?: Partial<ComponentProps<typeof HTMLFlipBook>>
 }
 
 const CollectionBook: FC<CollectionBookProps> = ({
