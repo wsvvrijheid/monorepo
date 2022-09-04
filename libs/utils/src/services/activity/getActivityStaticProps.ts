@@ -23,12 +23,6 @@ export const getActivityStaticProps = async (
 
   if (!activity) return { notFound: true }
 
-  const slugs =
-    activity?.localizations?.reduce((acc, l) => {
-      acc[l?.locale] = l.slug
-      return acc
-    }, {}) || {}
-
   const title = activity.title || null
   const content = activity.content || null
   const image = activity.image || null
@@ -40,7 +34,6 @@ export const getActivityStaticProps = async (
 
   return {
     seo,
-    slugs: { ...slugs, [locale]: slug },
     image,
     content,
     queryClient,
