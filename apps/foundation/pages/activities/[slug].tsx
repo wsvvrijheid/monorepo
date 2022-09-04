@@ -45,8 +45,9 @@ export const getStaticPaths = async context => {
 }
 
 export const getStaticProps = async (context: GetStaticPropsContext) => {
-  const { content, image, seo, queryClient, slugs } =
-    await getActivityStaticProps(context)
+  const { content, image, seo, queryClient } = await getActivityStaticProps(
+    context,
+  )
   const locale = context.locale as StrapiLocale
 
   const source = await serialize(content || '')
@@ -54,7 +55,6 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
   return {
     props: {
       seo,
-      slugs,
       image,
       source,
       dehydratedState: dehydrate(queryClient),
