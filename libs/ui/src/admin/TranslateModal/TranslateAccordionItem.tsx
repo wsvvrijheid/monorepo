@@ -91,6 +91,8 @@ export const TranslateAccordionItem = <T extends StrapiTranslatableModel>({
                 <Tooltip
                   key={missingTranslation}
                   label={`Translate to ${missingTranslation}`}
+                  bg={missingTranslation === 'nl' ? 'orange.300' : 'purple.300'}
+                  hasArrow
                 >
                   <Button
                     size="xs"
