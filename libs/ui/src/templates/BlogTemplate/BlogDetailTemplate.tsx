@@ -11,14 +11,14 @@ import { useRouter } from 'next/router'
 import { Container } from '../../components'
 import { BlogDetail } from '../../components/BlogDetail'
 
-export type BlogDetailProps = {
+export type BlogDetailTemplateProps = {
   auth: Auth
   queryKey: QueryKey
   authorBlogs: Blog[]
   source: MDXRemoteSerializeResult
 }
 
-export const BlogDetailTemplate: FC<BlogDetailProps> = ({
+export const BlogDetailTemplate: FC<BlogDetailTemplateProps> = ({
   auth,
   queryKey,
   source,
