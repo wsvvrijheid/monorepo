@@ -49,6 +49,10 @@ export const request =
         `/${url}?${query}`,
       )) as AxiosResponse<StrapiResponse<T>>
 
+      if (!response.data || (response.data && !response.data.data)) {
+        return { data: response.data as unknown as T, meta: {} }
+      }
+
       return response.data
     } catch (errr) {
       const error = errr as Error | AxiosError
@@ -57,6 +61,6 @@ export const request =
       } else {
         console.error('Request error', error.message)
       }
-      return null
+      return { data: null, meta: {} }
     }
   }
