@@ -1,17 +1,18 @@
 import { Story, Meta } from '@storybook/react'
 import { COLLECTION_MOCKS } from '@wsvvrijheid/mocks'
 
-import { CollectionBook, CollectionBookProps } from './CollectionBook'
+import { CollectionBook } from '.'
+import { CollectionBookProps } from './CollectionBook'
 
 export default {
   component: CollectionBook,
-  title: 'Shared/CollectionBook',
+  title: 'Templates/CollectionBook',
 } as Meta<CollectionBookProps>
 
 const Template: Story<CollectionBookProps> = args => (
   <CollectionBook
     {...args}
-    collection={COLLECTION_MOCKS.data[0]}
+    collection={COLLECTION_MOCKS.tr.data[0]}
     title="Art Stop Collection"
     logo="/images/kunsthalte.png"
   />

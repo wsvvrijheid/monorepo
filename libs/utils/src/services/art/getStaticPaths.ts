@@ -6,7 +6,7 @@ export const getArtPaths = async (locales: StrapiLocale[]) =>
   (
     await Promise.all(
       locales.flatMap(async locale => {
-        const responses = await request()<Art[]>({
+        const responses = await request<Art[]>({
           url: 'api/arts',
           locale,
         })
