@@ -38,7 +38,7 @@ export const AdminSidebar = () => {
       {/*user ................................*/}
       <Stack>
         <HStack spacing={4}>
-          <Avatar size="sm" src={user?.avatar?.url} name={user?.username} />
+          <Avatar size="sm" src={user?.avatar} name={user?.username} />
           <Box flex={1}>
             <Text noOfLines={1} fontWeight={600}>
               {user?.username}
