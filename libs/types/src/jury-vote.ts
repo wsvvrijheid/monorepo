@@ -4,6 +4,6 @@ import { StrapiCore } from './strapi'
 
 export type JuryVote = {
   value: number
-  juri?: Jury
+  jury?: Jury
   application?: Application
 } & StrapiCore

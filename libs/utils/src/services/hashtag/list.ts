@@ -9,7 +9,7 @@ export const getHashtags = async (
   populate?: string | string[],
   pageSize?: number,
 ) => {
-  const response = await request()<Hashtag[]>({
+  const response = await request<Hashtag[]>({
     url: 'api/hashtags',
     locale,
     populate,

@@ -1,7 +1,9 @@
-import { FC, LegacyRef, useRef } from 'react'
+import { FC, LegacyRef } from 'react'
+
 import { Center, Spinner } from '@chakra-ui/react'
-import { CollectionBook, Container } from '@wsvvrijheid/ui'
 import { Collection } from '@wsvvrijheid/types'
+
+import { CollectionBook, Container } from '../../components'
 
 export type CollectionTempleteProps = {
   isLoading: boolean

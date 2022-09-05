@@ -6,7 +6,7 @@ export const getHashtagPaths = async (locales: StrapiLocale[]) =>
   (
     await Promise.all(
       locales.flatMap(async locale => {
-        const responses = await request()<Hashtag[]>({
+        const responses = await request<Hashtag[]>({
           url: 'api/hashtags',
           locale,
         })

@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 import { request } from '../../lib'
 
 export const getArtBySlug = async (locale: StrapiLocale, slug: string) => {
-  const response = await request()<Art[]>({
+  const response = await request<Art[]>({
     url: 'api/arts',
     filters: { slug: { $eq: slug } },
     populate: [

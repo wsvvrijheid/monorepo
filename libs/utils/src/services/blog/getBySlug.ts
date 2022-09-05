@@ -8,7 +8,7 @@ import { request } from '../../lib/request'
 import { getReadingTime } from '../../util'
 
 export const getBlogBySlug = async (locale: StrapiLocale, slug: string) => {
-  const response = await request()<Blog[]>({
+  const response = await request<Blog[]>({
     url: 'api/blogs',
     populate: ['author.volunteer', 'image', 'likers'],
     filters: { slug: { $eq: slug } },

@@ -4,7 +4,7 @@ import { Trend } from '@wsvvrijheid/types'
 import { request } from '../../lib'
 
 export const getTrends = async () => {
-  const response = await request()<Trend>({
+  const response = await request<Trend>({
     url: 'api/trend',
   })
 

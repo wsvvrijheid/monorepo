@@ -6,7 +6,7 @@ export const getBlogPaths = async (locales: StrapiLocale[]) =>
   (
     await Promise.all(
       locales.flatMap(async locale => {
-        const responses = await request()<Blog[]>({
+        const responses = await request<Blog[]>({
           url: 'api/blogs',
           locale,
         })
