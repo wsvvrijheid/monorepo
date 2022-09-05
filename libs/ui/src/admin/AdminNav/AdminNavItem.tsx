@@ -1,8 +1,10 @@
-import { FC, useState } from 'react'
+import { FC, useEffect } from 'react'
 
-import { Link, Stack, HStack, Button, Spacer } from '@chakra-ui/react'
-import { BiChevronDown, BiChevronUp } from 'react-icons/bi'
+import { chakra, Button, useBoolean, Collapse, Box } from '@chakra-ui/react'
+import { useRouter } from 'next/router'
+import { GoChevronDown } from 'react-icons/go'
 
+import { Navigate } from '../../components'
 import { AdminNavItemProps } from './types'
 
 export const AdminNavItem: FC<AdminNavItemProps> = ({
@@ -11,70 +13,77 @@ export const AdminNavItem: FC<AdminNavItemProps> = ({
   submenu,
   icon,
 }) => {
-  const [up, setUp] = useState(false)
+  const [open, setOpen] = useBoolean(false)
+  const router = useRouter()
+
+  const isMenuLinkActive =
+    router.asPath === link || submenu?.some(item => item.link === router.asPath)
+
+  useEffect(() => {
+    if (isMenuLinkActive && submenu) {
+      setOpen.on()
+    }
+  }, [isMenuLinkActive, setOpen, submenu])
+
   return (
-    <Stack w="full">
-      <HStack>
-        <Link href={link}>
-          <Button
-            variant={'gray.500'}
-            colorScheme="primary"
-            size="lg"
-            leftIcon={icon}
-            aria-label={''}
-            _hover={{ color: 'blue.500' }}
-            _focus={{
-                color: 'blue.500',
-              }}
-          >
-            {label}
-          </Button>
-        </Link>
-        <Spacer />
-        {up ? (
-          <Button
-            onClick={() => setUp(false)}
-            variant={'gray.500'}
-            colorScheme="primary"
-            size="lg"
-            rightIcon={submenu ? <BiChevronUp /> : ''}
-            aria-label={''}
-            _hover={{ color: 'blue.500' }}
-            _focus={{
-              color: 'blue.500',
-            }}
-          ></Button>
-        ) : (
-          <Button
-            onClick={() => setUp(true)}
-            variant={'gray.500'}
-            colorScheme="primary"
-            size="lg"
-            rightIcon={submenu ? <BiChevronDown /> : ''}
-            aria-label={''}
-            _hover={{ color: 'blue.500' }}
-          ></Button>
-        )}
-      </HStack>
-      {/* submenu ====================*/}
-      {up
-        ? submenu?.map(item => {
+    <Box w="full">
+      <Navigate
+        _hover={{ color: 'blue.500' }}
+        w="full"
+        as={Button}
+        href={link}
+        leftIcon={icon}
+        size="lg"
+        variant="ghost"
+        {...(isMenuLinkActive && {
+          color: 'blue.500',
+          _hover: { color: 'blue.400' },
+        })}
+        {...(submenu && {
+          onClick: setOpen.toggle,
+          rightIcon: (
+            <Box
+              as={GoChevronDown}
+              transition="all 0.2s"
+              {...(open && {
+                transform: 'rotate(180deg)',
+              })}
+            />
+          ),
+        })}
+      >
+        <chakra.span flex={1} textAlign="left">
+          {label}
+        </chakra.span>
+      </Navigate>
+
+      {/* Submenu */}
+      {submenu && (
+        <Collapse in={open}>
+          {submenu?.map(item => {
+            const isSubmenuLinkActive = router.asPath === item.link
             return (
-              <Link href={item.link}>
-                <Button
-                  ml={10}
-                  variant={'gray.500'}
-                  colorScheme="primary"
-                  size="xs"
-                  leftIcon={item.icon}
-                  _hover={{ color: 'blue.500' }}
-                >
-                  {item.label}
-                </Button>
-              </Link>
+              <Navigate
+                href={item.link}
+                key={item.label}
+                as={Button}
+                leftIcon={item.icon}
+                justifyContent="start"
+                ml={8}
+                variant="ghost"
+                w="full"
+                _hover={{ color: 'blue.500' }}
+                {...(isSubmenuLinkActive && {
+                  color: 'blue.500',
+                  _hover: { color: 'blue.400' },
+                })}
+              >
+                {item.label}
+              </Navigate>
             )
-          })
-        : ''}
-    </Stack>
+          })}
+        </Collapse>
+      )}
+    </Box>
   )
 }

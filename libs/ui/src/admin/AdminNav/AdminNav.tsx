@@ -1,7 +1,8 @@
 import { Stack } from '@chakra-ui/react'
-import { BiChevronRight, BiLandscape } from 'react-icons/bi'
+import { BiLandscape } from 'react-icons/bi'
 import { BsCommand, BsNewspaper, BsTranslate } from 'react-icons/bs'
 import { FaHashtag, FaPaintBrush } from 'react-icons/fa'
+import { GoChevronRight } from 'react-icons/go'
 import {
   MdOutlineSpaceDashboard,
   MdOutlineSupervisorAccount,
@@ -18,114 +19,112 @@ export const navItems = [
   },
   {
     label: 'Translate',
-    link: '/',
+    link: '/translate',
     icon: <BsTranslate />,
   },
   {
     label: 'Arts',
-    link: '/',
     icon: <FaPaintBrush />,
     submenu: [
       {
         label: 'Pending Arts',
-        link: '/',
-        icon: <BiChevronRight />,
+        link: '/arts/pending',
+        icon: <GoChevronRight />,
       },
       {
         label: 'Approved Arts',
-        link: '/',
-        icon: <BiChevronRight />,
+        link: '/arts/approved',
+        icon: <GoChevronRight />,
       },
       {
         label: 'Rejected Arts',
-        link: '/',
-        icon: <BiChevronRight />,
+        link: '/arts/rejected',
+        icon: <GoChevronRight />,
       },
     ],
   },
   {
     label: 'Hashtag',
-    link: '/',
     icon: <FaHashtag />,
     submenu: [
       {
         label: 'Main Hashtag',
-        link: '/',
-        icon: <BiChevronRight />,
+        link: '/hashtag/main',
+        icon: <GoChevronRight />,
       },
       {
         label: 'Hashtag Posts',
-        link: '/',
-        icon: <BiChevronRight />,
+        link: '/hashtag/posts',
+        icon: <GoChevronRight />,
       },
     ],
   },
   {
     label: 'Content Maker',
-    link: '/',
     icon: <BsNewspaper />,
     submenu: [
       {
         label: 'News',
-        link: '/',
-        icon: <BiChevronRight />,
+        link: '/content-maker/news',
+        icon: <GoChevronRight />,
       },
       {
         label: 'HumanRight',
-        link: '/',
-        icon: <BiChevronRight />,
+        link: '/content-maker/human-right',
+        icon: <GoChevronRight />,
       },
     ],
   },
   {
     label: 'Caps Maker',
-    link: '/',
+    link: '/caps-maker',
     icon: <BiLandscape />,
   },
   {
     label: 'Accounts',
-    link: '/',
+    link: '/accounts',
     icon: <MdOutlineSupervisorAccount />,
   },
   {
     label: 'Competition',
-    link: '/',
+    link: '/competition',
     icon: <BsCommand />,
   },
   {
     label: 'Feedbacks',
-    link: '/',
     icon: <VscFeedback />,
     submenu: [
       {
         label: 'Foundation',
-        link: '/',
-        icon: <BiChevronRight />,
+        link: '/feedbacks/foundation',
+        icon: <GoChevronRight />,
       },
       {
         label: 'Kunsthalte',
-        link: '/',
-        icon: <BiChevronRight />,
+        link: '/feedbacks/kunsthalte',
+        icon: <GoChevronRight />,
       },
       {
         label: 'Samenvvv',
-        link: '/',
-        icon: <BiChevronRight />,
+        link: '/feedbacks/samenvvv',
+        icon: <GoChevronRight />,
       },
       {
         label: 'Admin',
-        link: '/',
-        icon: <BiChevronRight />,
+        link: '/feedbacks/admin',
+        icon: <GoChevronRight />,
       },
     ],
   },
 ]
+
 export const AdminNav = () => {
   return (
     <Stack>
       {navItems.map(item => {
         return (
           <AdminNavItem
+            key={item.label}
             label={item.label}
             link={item.link}
             icon={item.icon}
