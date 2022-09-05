@@ -1,42 +1,39 @@
 import { API_URL } from '@wsvvrijheid/config'
-import { SessionUser, Auth, AuthResponse } from '@wsvvrijheid/types'
+import { Auth, AuthResponse } from '@wsvvrijheid/types'
 import axios from 'axios'
+
+import { getSessionUser } from './getSessionUser'
+
+const emptyAuth: Auth = {
+  user: null,
+  isLoggedIn: false,
+  token: null,
+}
 
 export const getAuth: (
   identifier: string,
   password: string,
-) => Promise<Auth | undefined> = async (
-  identifier: string,
-  password: string,
-) => {
+) => Promise<Auth> = async (identifier: string, password: string) => {
+  // TODO Can we populate the AuthResponse with the user data from the backend?
+  // Why do we need to make a new request to get populated user data?
   const response = await axios.post<AuthResponse>(`${API_URL}/api/auth/local`, {
     identifier,
     password,
   })
 
-  const token = response.data.jwt
-  const userId = response.data.user?.id
+  const token = response.data?.jwt
 
-  if (token) {
-    const response = await axios.get(
-      `${API_URL}/api/users/${userId}?populate=*`,
-      {
-        headers: { Authorization: `Bearer ${token}` },
-      },
-    )
-
-    const user: SessionUser = {
-      id: response.data.id,
-      username: response.data.username,
-      email: response.data.email,
-      volunteer: response.data.volunteer,
-      avatar: response.data.avatar,
-      artist: response.data.artist,
-    }
-
-    const auth: Auth = { user, token, isLoggedIn: true }
-
-    return auth
+  if (!token) {
+    return emptyAuth
   }
-  return
+
+  const user = await getSessionUser(token)
+
+  if (!user) {
+    return emptyAuth
+  }
+
+  const auth: Auth = { user, token, isLoggedIn: true }
+
+  return auth
 }

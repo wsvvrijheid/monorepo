@@ -7,7 +7,7 @@ const loginRoute = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const auth = await getAuth(identifier, password)
 
-    req.session = { ...auth, ...req.session }
+    req.session = { ...req.session, ...auth }
     await req.session.save()
     res.json(auth)
   } catch (error) {

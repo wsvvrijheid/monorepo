@@ -1,4 +1,4 @@
-import { sessionOptions } from '@wsvvrijheid/utils'
+import { getSessionUser, sessionOptions } from '@wsvvrijheid/utils'
 import axios from 'axios'
 import { withIronSessionApiRoute } from 'iron-session/next'
 import { NextApiResponse, NextApiRequest } from 'next'
@@ -15,25 +15,23 @@ const resetPassRoute = async (req: NextApiRequest, res: NextApiResponse) => {
       },
     )
 
-    // !! set session here
-
     const token = response.data.jwt
 
-    if (token) {
-      const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/users/me?populate=*`,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        },
-      )
-
-      const auth = { user: response.data, token, isLoggedIn: true }
-
-      req.session = { ...auth, ...req.session }
-      await req.session.save()
-      res.json(auth)
+    if (!token) {
+      return res.json({
+        user: null,
+        isLoggedIn: false,
+        token: null,
+      })
     }
-    res.json(response.data)
+
+    const user = await getSessionUser(token)
+
+    const auth = { user, token, isLoggedIn: true }
+
+    req.session = { ...req.session, ...auth }
+    await req.session.save()
+    res.json(auth)
   } catch (error) {
     console.error('error', error.response?.data)
     if (!error.response?.data?.error.message) {

@@ -1,5 +1,10 @@
-import { SessionUser, Artist, User } from '@wsvvrijheid/types'
-import { fetcher, mutation, request, sessionOptions } from '@wsvvrijheid/utils'
+import { AuthResponse } from '@wsvvrijheid/types'
+import {
+  fetcher,
+  mutation,
+  sessionOptions,
+  getSessionUser,
+} from '@wsvvrijheid/utils'
 import { withIronSessionApiRoute } from 'iron-session/next'
 import { NextApiResponse, NextApiRequest } from 'next'
 
@@ -13,48 +18,36 @@ const route = async (req: NextApiRequest, res: NextApiResponse) => {
         url = `/api/auth/${provider}/callback?access_token=${req.body.access_token}&access_secret=${req.body.access_secret}`
       }
 
-      const socialLoginResponse = await fetcher(req.body.access_token).get(url)
+      const socialLoginResponse = await fetcher(
+        req.body.access_token,
+      ).get<AuthResponse>(url)
 
       const token = socialLoginResponse.data.jwt
       const userId = socialLoginResponse.data.user?.id
 
-      if (token) {
-        const artistResponse = await request(token)<Artist[]>({
-          url: 'api/artists',
-          filters: { user: { id: { $eq: userId } } },
+      if (!token) {
+        return res.json({
+          user: null,
+          isLoggedIn: false,
+          token: null,
         })
-
-        if (!artistResponse?.data?.[0]) {
-          await mutation(token).post('api/artists', {
-            data: {
-              user: userId,
-              name: socialLoginResponse.data.user?.username,
-            },
-          })
-        }
-
-        const response = await request(token)<User>({
-          url: `api/users/${userId}`,
-        })
-
-        const userData = response.data?.[0]
-
-        if (userData) {
-          const user: SessionUser = {
-            id: userData.id,
-            username: userData.username,
-            email: userData.email,
-            volunteer: userData.volunteer,
-            avatar: userData.avatar,
-            artist: userData.artist,
-          }
-
-          const auth = { user, token, isLoggedIn: true }
-          req.session = { ...auth, ...req.session }
-          await req.session.save()
-          res.json(auth)
-        }
       }
+
+      const sessionUser = await getSessionUser(token)
+
+      if (!sessionUser.artistId) {
+        await mutation(token).post('api/artists', {
+          data: {
+            user: userId,
+            name: socialLoginResponse.data.user?.username,
+          },
+        })
+      }
+
+      const auth = { user: sessionUser, token, isLoggedIn: true }
+      req.session = { ...auth, ...req.session }
+      await req.session.save()
+      res.json(auth)
     } catch (error) {
       if (!error.response?.data?.error.message) {
         return res.status(500).json({ message: 'Internal server error', error })
