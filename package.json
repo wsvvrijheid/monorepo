@@ -4,6 +4,7 @@
   "license": "MIT",
   "scripts": {
     "start": "npx nx serve",
+    "admin": "npx nx run admin:serve",
     "test": "npx nx test",
     "lint": "npx nx affected --target=lint --fix",
     "build": "npx nx affected --target=build",

@@ -188,6 +188,7 @@ export type StrapiCollectionUrl =
   | 'tweet-users'
   | 'tweets'
   | 'users'
+  | 'users/me'
   | 'volunteers'
   | 'votes'
 

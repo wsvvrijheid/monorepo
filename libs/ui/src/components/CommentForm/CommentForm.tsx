@@ -98,7 +98,7 @@ export const CommentForm: React.FC<CommentFormProps> = ({
             {auth?.isLoggedIn && (
               <Avatar
                 size="sm"
-                src={`${auth.user?.avatar?.url}`}
+                src={`${auth.user?.avatar}`}
                 name={auth.user?.username}
               />
             )}
