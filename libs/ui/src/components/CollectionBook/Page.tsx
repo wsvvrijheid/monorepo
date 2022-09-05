@@ -1,8 +1,8 @@
-import { forwardRef, PropsWithChildren } from 'react'
+import { forwardRef } from 'react'
 
-import { Center, CenterProps } from '@chakra-ui/react'
+import { Center } from '@chakra-ui/react'
 
-interface PageProps extends PropsWithChildren, CenterProps {}
+import { PageProps } from './types'
 
 export const Page = forwardRef<HTMLDivElement, PageProps>(function Page(
   props,
