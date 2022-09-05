@@ -33,9 +33,9 @@ const route = async (req: NextApiRequest, res: NextApiResponse) => {
         })
       }
 
-      const user = await getSessionUser(token)
+      const sessionUser = await getSessionUser(token)
 
-      if (!user.artistId) {
+      if (!sessionUser.artistId) {
         await mutation(token).post('api/artists', {
           data: {
             user: userId,
@@ -44,7 +44,7 @@ const route = async (req: NextApiRequest, res: NextApiResponse) => {
         })
       }
 
-      const auth = { user, token, isLoggedIn: true }
+      const auth = { user: sessionUser, token, isLoggedIn: true }
       req.session = { ...auth, ...req.session }
       await req.session.save()
       res.json(auth)
