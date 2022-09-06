@@ -29,12 +29,13 @@ export const AdminNavItem: FC<AdminNavItemProps> = ({
     <Box w="full">
       <Navigate
         _hover={{ color: 'blue.500' }}
-        w="full"
         as={Button}
         href={link}
         leftIcon={icon}
+        px={2}
         size="lg"
         variant="ghost"
+        w="full"
         {...(isMenuLinkActive && {
           color: 'blue.500',
           _hover: { color: 'blue.400' },
@@ -64,15 +65,16 @@ export const AdminNavItem: FC<AdminNavItemProps> = ({
             const isSubmenuLinkActive = router.asPath === item.link
             return (
               <Navigate
-                href={item.link}
-                key={item.label}
+                _hover={{ color: 'blue.500' }}
                 as={Button}
-                leftIcon={item.icon}
+                href={item.link}
                 justifyContent="start"
+                key={item.label}
+                leftIcon={item.icon}
                 ml={8}
+                px={2}
                 variant="ghost"
                 w="full"
-                _hover={{ color: 'blue.500' }}
                 {...(isSubmenuLinkActive && {
                   color: 'blue.500',
                   _hover: { color: 'blue.400' },

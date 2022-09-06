@@ -11,6 +11,7 @@ export type SessionUser = Pick<
   avatar?: string
   isAuthenticated: boolean
   isAdmin: boolean
+  isEditor: boolean
   artistId?: number
   authorId?: number
   applicantId?: number

@@ -1,7 +1,7 @@
 import { StrapiCore } from './strapi'
 import { User } from './user'
 
-export type RoleName = 'Public' | 'Authenticated' | 'Admin'
+export type RoleName = 'Public' | 'Authenticated' | 'Editor' | 'Admin'
 
 export type Role = {
   description: string

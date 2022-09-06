@@ -1,5 +1,7 @@
 //import { FC } from 'react'
 
+import { FC } from 'react'
+
 import {
   Link,
   Stack,
@@ -11,17 +13,20 @@ import {
   IconButton,
   Tooltip,
 } from '@chakra-ui/react'
+import { SessionUser } from '@wsvvrijheid/types'
 import { GoSignOut } from 'react-icons/go'
 
-import { useAuth } from '../../hooks'
 import { AdminNav } from '../AdminNav'
 
-export const AdminSidebar = () => {
-  const { user } = useAuth()
+type AdminSidebarProps = {
+  user: SessionUser
+  onLogout: () => void
+}
 
+export const AdminSidebar: FC<AdminSidebarProps> = ({ user, onLogout }) => {
   return (
-    <Stack w={300} py={8} px={4} bg="white" spacing={4} h="100vh">
-      {/*logo ................................*/}
+    <Stack py={8} px={4} bg="white" spacing={8} h="100%" shadow="lg">
+      {/* Logo */}
       <Link href="/">
         <HStack align="center" spacing={4} alignItems="center" justify="center">
           <Avatar
@@ -35,37 +40,43 @@ export const AdminSidebar = () => {
           </Text>
         </HStack>
       </Link>
-      {/*user ................................*/}
+      {/* User */}
       <Stack>
-        <HStack spacing={4}>
+        <HStack>
           <Avatar size="sm" src={user?.avatar} name={user?.username} />
-          <Box flex={1}>
-            <Text noOfLines={1} fontWeight={600}>
+          <Box flex={1} fontSize="sm" lineHeight={1.25}>
+            <Text w={160} noOfLines={1} fontWeight={600}>
               {user?.username}
             </Text>
-            <Text noOfLines={1}>{user?.email}</Text>
+            <Text w={175} noOfLines={1}>
+              {user?.email}
+            </Text>
           </Box>
           <Tooltip label="Logout" bg="white">
             <IconButton
-              variant="ghost"
-              aria-label="Logout"
+              size="sm"
+              fontSize="lg"
               _hover={{ color: 'red.500' }}
+              aria-label="Logout"
               icon={<GoSignOut />}
+              variant="ghost"
+              onClick={onLogout}
             />
           </Tooltip>
         </HStack>
       </Stack>
-      <Divider />
-      {/*menu ................................*/}
+
+      {/* Menu */}
       <Stack flex={1} overflow="auto">
-        <Box pos="sticky" top={0} p={4} bg="white" zIndex={1}>
+        <Box pos="sticky" top={0} p={2} bg="white" zIndex={1}>
           <Text fontWeight={600}>MENU</Text>
         </Box>
 
-        {/* Amin Nav .........................*/}
-        <AdminNav />
+        {/* AdminNav */}
+        <AdminNav user={user} />
       </Stack>
-      {/*footer ................................*/}
+
+      {/* Footer */}
       <Stack>
         <Divider />
         <Text fontSize={'sm'}>Wsvvrijheid &copy;All Copyrights Reserved</Text>

@@ -79,8 +79,6 @@ export const TranslateModal = <T extends StrapiTranslatableModel>({
     // From model to object with its localizations { tr: data, en: data, nl: data }
     const localizedModels = mapModelLocalization<T>(model)
 
-    console.log('localizedModels', localizedModels)
-
     const modelsWithMissingTranslations = Object.values(localizedModels).map(
       model => {
         // Find missing translations for the current model
