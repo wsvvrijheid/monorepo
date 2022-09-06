@@ -1,14 +1,14 @@
 import { Box } from '@chakra-ui/react'
 import { useAuth, AdminLayout } from '@wsvvrijheid/ui'
 
-const Index = () => {
+const CapsMakerPage = () => {
   const { user, isLoading } = useAuth()
 
   return (
-    <AdminLayout title="Dashboard" user={user} isLoading={isLoading}>
-      <Box>Dashboard</Box>
+    <AdminLayout title="CapsMaker" user={user} isLoading={isLoading}>
+      <Box>CapsMaker</Box>
     </AdminLayout>
   )
 }
 
-export default Index
+export default CapsMakerPage

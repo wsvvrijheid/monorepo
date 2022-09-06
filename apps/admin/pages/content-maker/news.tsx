@@ -1,14 +1,14 @@
 import { Box } from '@chakra-ui/react'
 import { useAuth, AdminLayout } from '@wsvvrijheid/ui'
 
-const Index = () => {
+const NewsPage = () => {
   const { user, isLoading } = useAuth()
 
   return (
-    <AdminLayout title="Dashboard" user={user} isLoading={isLoading}>
-      <Box>Dashboard</Box>
+    <AdminLayout title="News" user={user} isLoading={isLoading}>
+      <Box>News</Box>
     </AdminLayout>
   )
 }
 
-export default Index
+export default NewsPage
