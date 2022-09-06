@@ -53,7 +53,7 @@ export const AdminLayout: FC<AdminLayoutProps> = ({
     <Box bg="gray.50">
       {/* Sidebar */}
       <Box pos="fixed" zIndex="sticky" top={0} left={0} h="100vh" w={300}>
-        <AdminSidebar user={user} onLogout={handleLogout} />
+        {user && <AdminSidebar user={user} onLogout={handleLogout} />}
       </Box>
 
       <Stack
