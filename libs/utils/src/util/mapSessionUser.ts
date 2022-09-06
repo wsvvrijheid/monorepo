@@ -12,6 +12,7 @@ export const mapSessionUser = (user: User): SessionUser => {
     isAuthenticated:
       user.role?.name === 'Authenticated' || user.role?.name === 'Admin',
     isAdmin: user.role?.name === 'Admin',
+    isEditor: user.role?.name === 'Editor',
     artistId: user.artist?.id,
     authorId: user.volunteer?.author?.id,
     applicantId: user.applicant?.id,

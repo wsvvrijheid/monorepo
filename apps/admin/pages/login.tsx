@@ -1,10 +1,11 @@
 import { Box } from '@chakra-ui/react'
-import { LoginForm, LoginFormFieldValues } from '@wsvvrijheid/ui'
+import { LoginForm, LoginFormFieldValues, useAuth } from '@wsvvrijheid/ui'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import i18nConfig from '../next-i18next.config'
 
 const LoginPage = ({ seo }) => {
+  useAuth('/', true)
   const handleLogin = async (data: LoginFormFieldValues) => {
     alert(JSON.stringify(data))
   }
