@@ -5,7 +5,11 @@ const CompetitionsPage = () => {
   const { user, isLoading } = useAuth()
 
   return (
-    <AdminLayout title="Competitions" user={user} isLoading={isLoading}>
+    <AdminLayout
+      title="Competitions"
+      user={user}
+      isLoading={!user || isLoading}
+    >
       <Box>Competitions</Box>
     </AdminLayout>
   )

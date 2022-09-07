@@ -28,7 +28,8 @@ export const AdminNavItem: FC<AdminNavItemProps> = ({
   return (
     <Box w="full">
       <Navigate
-        _hover={{ color: 'blue.500' }}
+        display="flex"
+        _hover={{ color: 'primary.500' }}
         as={Button}
         href={link}
         leftIcon={icon}
@@ -37,8 +38,8 @@ export const AdminNavItem: FC<AdminNavItemProps> = ({
         variant="ghost"
         w="full"
         {...(isMenuLinkActive && {
-          color: 'blue.500',
-          _hover: { color: 'blue.400' },
+          color: 'primary.500',
+          _hover: { color: 'primary.400' },
         })}
         {...(submenu && {
           onClick: setOpen.toggle,
@@ -65,7 +66,7 @@ export const AdminNavItem: FC<AdminNavItemProps> = ({
             const isSubmenuLinkActive = router.asPath === item.link
             return (
               <Navigate
-                _hover={{ color: 'blue.500' }}
+                _hover={{ color: 'primary.500' }}
                 as={Button}
                 href={item.link}
                 justifyContent="start"
@@ -76,8 +77,8 @@ export const AdminNavItem: FC<AdminNavItemProps> = ({
                 variant="ghost"
                 w="full"
                 {...(isSubmenuLinkActive && {
-                  color: 'blue.500',
-                  _hover: { color: 'blue.400' },
+                  color: 'primary.500',
+                  _hover: { color: 'primary.400' },
                 })}
               >
                 {item.label}

@@ -10,77 +10,113 @@ import {
   Avatar,
   Divider,
   Box,
-  IconButton,
+  Button,
   Tooltip,
 } from '@chakra-ui/react'
 import { SessionUser } from '@wsvvrijheid/types'
-import { GoSignOut } from 'react-icons/go'
+import { FiArrowLeftCircle, FiArrowRightCircle } from 'react-icons/fi'
 
 import { AdminNav } from '../AdminNav'
+import { AdminSidebarProfile } from './AdminSidebarProfile'
 
 type AdminSidebarProps = {
   user: SessionUser
   onLogout: () => void
+  onToggleExpand: () => void
+  expanded: boolean
 }
 
-export const AdminSidebar: FC<AdminSidebarProps> = ({ user, onLogout }) => {
+export const AdminSidebar: FC<AdminSidebarProps> = ({
+  user,
+  onLogout,
+  onToggleExpand,
+  expanded,
+}) => {
   return (
-    <Stack py={8} px={4} bg="white" spacing={8} h="100%" shadow="lg">
+    <Stack
+      py={8}
+      px={4}
+      bg="white"
+      spacing={0}
+      h="100%"
+      shadow="lg"
+      align={expanded ? 'stretch' : 'center'}
+    >
       {/* Logo */}
       <Link href="/">
         <HStack align="center" spacing={4} alignItems="center" justify="center">
           <Avatar
-            size="lg"
+            size={expanded ? 'lg' : 'md'}
             src="https://wsvvrijheid.nl/images/logo.svg"
             name="Wsvvrijheid"
           />
-          <Text color={'blue.500'} fontWeight={600} fontSize="lg">
-            WEES DE STEM <br />
-            VOOR VRIJHEID
-          </Text>
+          {expanded && (
+            <Text
+              color={'blue.500'}
+              fontWeight={700}
+              fontSize="lg"
+              lineHeight={1.25}
+            >
+              WEES DE STEM <br />
+              VOOR VRIJHEID
+            </Text>
+          )}
         </HStack>
       </Link>
       {/* User */}
-      <Stack>
-        <HStack>
-          <Avatar size="sm" src={user?.avatar} name={user?.username} />
-          <Box flex={1} fontSize="sm" lineHeight={1.25}>
-            <Text w={160} noOfLines={1} fontWeight={600}>
-              {user?.username}
-            </Text>
-            <Text w={175} noOfLines={1}>
-              {user?.email}
-            </Text>
-          </Box>
-          <Tooltip label="Logout" bg="white">
-            <IconButton
-              size="sm"
-              fontSize="lg"
-              _hover={{ color: 'red.500' }}
-              aria-label="Logout"
-              icon={<GoSignOut />}
-              variant="ghost"
-              onClick={onLogout}
-            />
-          </Tooltip>
-        </HStack>
-      </Stack>
+      <Box py={8}>
+        <AdminSidebarProfile
+          user={user}
+          expanded={expanded}
+          onLogout={onLogout}
+        />
+      </Box>
 
       {/* Menu */}
-      <Stack flex={1} overflow="auto">
-        <Box pos="sticky" top={0} p={2} bg="white" zIndex={1}>
-          <Text fontWeight={600}>MENU</Text>
-        </Box>
+      <Box flex={1} overflow="auto">
+        <Stack mx={expanded ? -2 : 0}>
+          {expanded && (
+            <Box pos="sticky" top={0} p={2} bg="white" zIndex={1}>
+              <Text fontWeight={600}>MENU</Text>
+            </Box>
+          )}
 
-        {/* AdminNav */}
-        <AdminNav user={user} />
-      </Stack>
+          {/* AdminNav */}
+          <AdminNav expanded={expanded} user={user} />
+        </Stack>
+      </Box>
 
       {/* Footer */}
-      <Stack>
-        <Divider />
-        <Text fontSize={'sm'}>Wsvvrijheid &copy;All Copyrights Reserved</Text>
-      </Stack>
+      <Box>
+        <Stack mx={expanded ? -2 : 0}>
+          <Divider />
+          <Tooltip
+            {...(!expanded && { label: 'Expand' })}
+            bg="white"
+            placement="right"
+          >
+            <Button
+              size="lg"
+              variant="ghost"
+              onClick={onToggleExpand}
+              justifyContent={expanded ? 'start' : 'center'}
+              px={2}
+            >
+              <Box
+                mr={expanded ? 2 : 0}
+                as={expanded ? FiArrowLeftCircle : FiArrowRightCircle}
+              />
+              {expanded && <Text>Collapse</Text>}
+            </Button>
+          </Tooltip>
+
+          {expanded && (
+            <Text fontSize={'sm'} textAlign="center">
+              Wsvvrijheid &copy;All Copyrights Reserved
+            </Text>
+          )}
+        </Stack>
+      </Box>
     </Stack>
   )
 }
