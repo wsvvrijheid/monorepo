@@ -34,9 +34,8 @@ export const AdminSidebar: FC<AdminSidebarProps> = ({
 }) => {
   return (
     <Stack
-      py={8}
-      px={4}
       bg="white"
+      py={4}
       spacing={0}
       h="100%"
       shadow="lg"
@@ -64,7 +63,7 @@ export const AdminSidebar: FC<AdminSidebarProps> = ({
         </HStack>
       </Link>
       {/* User */}
-      <Box py={8}>
+      <Box px={4} py={8}>
         <AdminSidebarProfile
           user={user}
           expanded={expanded}
@@ -74,9 +73,9 @@ export const AdminSidebar: FC<AdminSidebarProps> = ({
 
       {/* Menu */}
       <Box flex={1} overflow="auto">
-        <Stack mx={expanded ? -2 : 0}>
+        <Stack>
           {expanded && (
-            <Box pos="sticky" top={0} p={2} bg="white" zIndex={1}>
+            <Box pos="sticky" top={0} px={4} bg="white" zIndex={1}>
               <Text fontWeight={600}>MENU</Text>
             </Box>
           )}
@@ -88,8 +87,8 @@ export const AdminSidebar: FC<AdminSidebarProps> = ({
 
       {/* Footer */}
       <Box>
-        <Stack mx={expanded ? -2 : 0}>
-          <Divider />
+        <Divider />
+        <Stack>
           <Tooltip
             {...(!expanded && { label: 'Expand' })}
             bg="white"
@@ -98,15 +97,20 @@ export const AdminSidebar: FC<AdminSidebarProps> = ({
             <Button
               size="lg"
               variant="ghost"
+              _hover={{ bg: 'blackAlpha.50' }}
               onClick={onToggleExpand}
               justifyContent={expanded ? 'start' : 'center'}
-              px={2}
+              px={4}
             >
               <Box
                 mr={expanded ? 2 : 0}
                 as={expanded ? FiArrowLeftCircle : FiArrowRightCircle}
               />
-              {expanded && <Text>Collapse</Text>}
+              {expanded && (
+                <Text flex={1} textAlign="left">
+                  Collapse
+                </Text>
+              )}
             </Button>
           </Tooltip>
 

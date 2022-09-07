@@ -29,17 +29,17 @@ export const AdminNavItem: FC<AdminNavItemProps> = ({
     <Box w="full">
       <Navigate
         display="flex"
-        _hover={{ color: 'primary.500' }}
+        _hover={{ color: 'primary.500', bg: 'blackAlpha.50' }}
         as={Button}
         href={link}
+        px={4}
         leftIcon={icon}
-        px={2}
         size="lg"
         variant="ghost"
         w="full"
         {...(isMenuLinkActive && {
           color: 'primary.500',
-          _hover: { color: 'primary.400' },
+          _hover: { color: 'primary.400', bg: 'blackAlpha.50' },
         })}
         {...(submenu && {
           onClick: setOpen.toggle,
