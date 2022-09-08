@@ -1,3 +1,4 @@
+import { StrapiCore } from './strapi'
 import { User } from './user'
 
 export type RecommendedTopic = {
@@ -6,8 +7,8 @@ export type RecommendedTopic = {
   imageUrl: string
   link: string
   publisher: string
-  recommended: boolean
+  date: string
   skipped: boolean
   posted: boolean
   recommender?: User
-}
+} & StrapiCore
