@@ -24,6 +24,8 @@ import { Mention } from './mention'
 import { Platform } from './platform'
 import { Post } from './post'
 import { Privacy } from './privacy'
+import { RecommendedTopic } from './recommended-topic'
+import { RecommendedTweet } from './recommended-tweet'
 import { Tag } from './tag'
 import { Term } from './term'
 import { Translator } from './translator'
@@ -68,6 +70,8 @@ export type StrapiModel =
   | Post
   | Privacy
   | Platform
+  | RecommendedTopic
+  | RecommendedTweet
   | Tag
   | Term
   | Translator
@@ -102,6 +106,8 @@ export type StrapiAllModels = Activity &
   Post &
   Privacy &
   Platform &
+  RecommendedTopic &
+  RecommendedTweet &
   Tag &
   Term &
   Translator &
@@ -148,3 +154,49 @@ export type StrapiMutationResponse<T extends StrapiModel> = {
   data: T
   meta: Record<string, unknown>
 }
+
+export type StrapiProviders = 'instagram' | 'facebook' | 'google' | 'twitter'
+export type StrapiSingleUrl = 'term' | 'privacy' | 'trend'
+export type StrapiAuthUrl =
+  | 'auth/local/register'
+  | 'auth/local'
+  | `connect/${StrapiProviders}/callback`
+export type StrapiCollectionUrl =
+  | 'activities'
+  | 'announcements'
+  | 'applicants'
+  | 'art-editors'
+  | 'art-feedbacks'
+  | 'arts'
+  | 'artists'
+  | 'authors'
+  | 'blogs'
+  | 'categories'
+  | 'collections'
+  | 'comments'
+  | 'competitions'
+  | 'donates'
+  | 'hashtags'
+  | 'jobs'
+  | 'jury-votes'
+  | 'juries'
+  | 'lang-roles'
+  | 'me'
+  | 'mentions'
+  | 'news'
+  | 'platforms'
+  | 'posts'
+  | 'recommended-topics'
+  | 'recommended-tweets'
+  | 'saved-tweets'
+  | 'tags'
+  | 'timelines'
+  | 'translators'
+  | 'tweet-users'
+  | 'tweets'
+  | 'users'
+  | 'users/me'
+  | 'volunteers'
+  | 'votes'
+
+export type StrapiUrl = StrapiSingleUrl | StrapiCollectionUrl | StrapiAuthUrl

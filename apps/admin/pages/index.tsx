@@ -1,36 +1,14 @@
-import { Button } from '@chakra-ui/react'
-import {
-  Container,
-  AdminLoginForm,
-  LoginFormFieldValues,
-  useAuth,
-} from '@wsvvrijheid/ui'
-import axios from 'axios'
-import { useRouter } from 'next/router'
+
+import { Box } from '@chakra-ui/react'
+import { useAuth, AdminLayout } from '@wsvvrijheid/ui'
 
 const Index = () => {
-  const { isLoggedIn, isLoading } = useAuth()
+  const { user, isLoading } = useAuth()
 
-  const router = useRouter()
-
-  const onLogout = async () => {
-    axios.post('/api/auth/logout').then(() => {
-      router.push('/login')
-    })
-  }
-  const handleLogin = async (data: LoginFormFieldValues) => {
-    alert(JSON.stringify(data))
-  }
   return (
-    <Container>
-      {isLoggedIn ? (
-        <Button isLoading={isLoading} colorScheme="primary" onClick={onLogout}>
-          Logout
-        </Button>
-      ) : (
-        <AdminLoginForm onSubmitHandler={handleLogin} />
-      )}
-    </Container>
+    <AdminLayout title="Dashboard" user={user} isLoading={!user || isLoading}>
+      <Box>Dashboard</Box>
+    </AdminLayout>
   )
 }
 

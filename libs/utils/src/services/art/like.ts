@@ -93,9 +93,7 @@ export const useLikeArt = (
       { id: art.id, likes },
       {
         onSuccess: async data => {
-          const a = await queryClient.invalidateQueries(queryKey)
-
-          console.log('a', a)
+          await queryClient.invalidateQueries(queryKey)
 
           const isLiked = likersStorage?.some(id => id === art.id)
           const updatedStorage = isLiked

@@ -1,23 +1,19 @@
 import { FC, forwardRef } from 'react'
 
-import { Link, LinkProps } from '@chakra-ui/react'
+import { ButtonProps, IconButtonProps, Link, LinkProps } from '@chakra-ui/react'
 import NextLink from 'next/link'
 
-export type NavigateProps = LinkProps
+export type NavigateProps = LinkProps &
+  ButtonProps &
+  Omit<IconButtonProps, 'aria-label'>
 
 export const Navigate: FC<NavigateProps> = forwardRef(
-  ({ as: Tag = Link, href, children, ...rest }, ref) => {
-    if (href) {
-      if (href.startsWith('/')) {
-        return (
-          <NextLink href={href} passHref>
-            <Tag ref={ref} cursor="pointer" {...rest}>
-              {children}
-            </Tag>
-          </NextLink>
-        )
-      }
+  ({ as: Tag = Link, href, ...rest }, ref) => {
+    if (!href) {
+      return <Tag ref={ref} {...rest} />
+    }
 
+    if (href.startsWith('http')) {
       return (
         <Tag
           ref={ref}
@@ -26,18 +22,16 @@ export const Navigate: FC<NavigateProps> = forwardRef(
           href={href}
           target="_blank"
           rel="noopener noreferrer"
-          {...rest}
           isExternal
-        >
-          {children}
-        </Tag>
+          {...rest}
+        />
       )
     }
 
     return (
-      <Link {...rest} isExternal>
-        {children}
-      </Link>
+      <NextLink href={href} passHref>
+        <Tag ref={ref} cursor="pointer" {...rest} />
+      </NextLink>
     )
   },
 )

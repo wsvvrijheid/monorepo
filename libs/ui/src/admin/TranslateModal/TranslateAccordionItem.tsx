@@ -41,25 +41,47 @@ export const TranslateAccordionItem = <T extends StrapiTranslatableModel>({
           <HStack spacing={2} flex={'1'}>
             <Box as={Flags[locale]} />
             <HStack>
-              <Text fontWeight="bold" maxW={300} noOfLines={1}>
+              <Text
+                fontWeight="bold"
+                maxW={{ base: 150, lg: 300 }}
+                noOfLines={1}
+              >
                 {title}
               </Text>
 
               {status && (
-                <Badge
-                  variant="outline"
-                  colorScheme={status === 'approved' ? 'green' : 'yellow'}
-                >
-                  {status}
-                </Badge>
+                <>
+                  <Badge
+                    display={{ base: 'none', lg: 'flex' }}
+                    variant="outline"
+                    colorScheme={status === 'approved' ? 'green' : 'yellow'}
+                  >
+                    {status}
+                  </Badge>
+                  <Box
+                    display={{ base: 'block', lg: 'none' }}
+                    boxSize={3}
+                    rounded="full"
+                    flexShrink={0}
+                    bg={status === 'approved' ? 'green.400' : 'yellow.400'}
+                  />
+                </>
               )}
 
               <Badge
+                display={{ base: 'none', lg: 'flex' }}
                 variant="outline"
                 colorScheme={publishedAt ? 'purple' : 'gray'}
               >
                 {publishedAt ? 'Published' : 'Draft'}
               </Badge>
+              <Box
+                display={{ base: 'block', lg: 'none' }}
+                boxSize={3}
+                rounded="full"
+                flexShrink={0}
+                bg={publishedAt ? 'purple.400' : 'gray.400'}
+              />
             </HStack>
           </HStack>
 
@@ -69,6 +91,8 @@ export const TranslateAccordionItem = <T extends StrapiTranslatableModel>({
                 <Tooltip
                   key={missingTranslation}
                   label={`Translate to ${missingTranslation}`}
+                  bg={missingTranslation === 'nl' ? 'orange.300' : 'purple.300'}
+                  hasArrow
                 >
                   <Button
                     size="xs"

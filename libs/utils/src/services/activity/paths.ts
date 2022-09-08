@@ -6,7 +6,7 @@ export const getActivityPaths = async (locales: StrapiLocale[]) =>
   (
     await Promise.all(
       locales.flatMap(async locale => {
-        const responses = await request()<Activity[]>({
+        const responses = await request<Activity[]>({
           url: 'api/activities',
           locale,
         })

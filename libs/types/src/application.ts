@@ -17,7 +17,7 @@ export type Application = {
   competition?: Competition
   applicant?: Applicant
   votes?: Array<Vote>
-  juriVotes?: Array<JuryVote>
+  juryVotes?: Array<JuryVote>
   tags?: Array<Tag>
   locale: StrapiLocale
   localizations?: Array<Application>

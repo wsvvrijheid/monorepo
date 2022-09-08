@@ -19,7 +19,7 @@ export type LanguageSwitcherProps = {
 }
 
 export const LanguageSwitcher: FC<LanguageSwitcherProps> = ({
-  defaultLocale,
+  defaultLocale = 'tr',
   onLanguageSwitch,
 }) => {
   const [locale, setLocale] = useState(defaultLocale)

@@ -4,7 +4,6 @@ export const getPlatformPaths = async () => {
   const platforms = await getAllPlatforms()
 
   const paths = platforms?.map(({ slug }) => ({ params: { slug } }))
-  console.log('paths', paths)
 
   return paths
 }

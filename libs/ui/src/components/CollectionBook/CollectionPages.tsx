@@ -1,14 +1,10 @@
 import { forwardRef, Fragment } from 'react'
 
 import { Heading, Stack, Text, VStack } from '@chakra-ui/react'
-import { Collection } from '@wsvvrijheid/types'
 
 import { WImage } from '../WImage'
 import { Page } from './Page'
-interface CollectionPagesPops {
-  collection: Collection
-  pageBgGdarient: string
-}
+import { CollectionPagesPops } from './types'
 
 export const CollectionPages = forwardRef<HTMLDivElement, CollectionPagesPops>(
   function CollectionPages({ collection, pageBgGdarient }, ref) {
