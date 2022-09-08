@@ -1,10 +1,15 @@
 import { Button } from '@chakra-ui/react'
-import { Container, Navigate, useAuth } from '@wsvvrijheid/ui'
+import {
+  Container,
+  AdminLoginForm,
+  LoginFormFieldValues,
+  useAuth,
+} from '@wsvvrijheid/ui'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 
 const Index = () => {
-  const { user, isLoggedIn, isLoading } = useAuth()
+  const { isLoggedIn, isLoading } = useAuth()
 
   const router = useRouter()
 
@@ -13,7 +18,9 @@ const Index = () => {
       router.push('/login')
     })
   }
-
+  const handleLogin = async (data: LoginFormFieldValues) => {
+    alert(JSON.stringify(data))
+  }
   return (
     <Container>
       {isLoggedIn ? (
@@ -21,10 +28,8 @@ const Index = () => {
           Logout
         </Button>
       ) : (
-        <Navigate href="/login">Login</Navigate>
+        <AdminLoginForm onSubmitHandler={handleLogin} />
       )}
-
-      <pre>{JSON.stringify(user, null, 2)}</pre>
     </Container>
   )
 }
