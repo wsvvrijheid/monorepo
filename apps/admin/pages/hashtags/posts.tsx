@@ -5,7 +5,11 @@ const HashtagPostsPage = () => {
   const { user, isLoading } = useAuth()
 
   return (
-    <AdminLayout title="HashtagPosts" user={user} isLoading={isLoading}>
+    <AdminLayout
+      title="HashtagPosts"
+      user={user}
+      isLoading={!user || isLoading}
+    >
       <Box>HashtagPosts</Box>
     </AdminLayout>
   )

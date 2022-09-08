@@ -8,7 +8,7 @@ const ActivitiesTranslatePage = () => {
     <AdminLayout
       title="ActivitiesTranslatePage"
       user={user}
-      isLoading={isLoading}
+      isLoading={!user || isLoading}
     >
       <Box>ActivitiesTranslatePage</Box>
     </AdminLayout>

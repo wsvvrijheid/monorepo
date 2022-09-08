@@ -5,7 +5,11 @@ const PostsTranslatePage = () => {
   const { user, isLoading } = useAuth()
 
   return (
-    <AdminLayout title="PostsTranslatePage" user={user} isLoading={isLoading}>
+    <AdminLayout
+      title="PostsTranslatePage"
+      user={user}
+      isLoading={!user || isLoading}
+    >
       <Box>PostsTranslatePage</Box>
     </AdminLayout>
   )

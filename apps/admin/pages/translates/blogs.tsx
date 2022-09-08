@@ -1,14 +1,18 @@
 import { Box } from '@chakra-ui/react'
 import { useAuth, AdminLayout } from '@wsvvrijheid/ui'
 
-const BlogTranslatePage = () => {
+const BlogsTranslatePage = () => {
   const { user, isLoading } = useAuth()
 
   return (
-    <AdminLayout title="BlogTranslatePage" user={user} isLoading={isLoading}>
+    <AdminLayout
+      title="BlogsTranslatePage"
+      user={user}
+      isLoading={!user || isLoading}
+    >
       <Box>BlogTranslatePage</Box>
     </AdminLayout>
   )
 }
 
-export default BlogTranslatePage
+export default BlogsTranslatePage

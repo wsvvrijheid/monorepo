@@ -1,9 +1,11 @@
 import { FC, forwardRef } from 'react'
 
-import { ButtonProps, Link, LinkProps } from '@chakra-ui/react'
+import { ButtonProps, IconButtonProps, Link, LinkProps } from '@chakra-ui/react'
 import NextLink from 'next/link'
 
-export type NavigateProps = LinkProps & ButtonProps
+export type NavigateProps = LinkProps &
+  ButtonProps &
+  Omit<IconButtonProps, 'aria-label'>
 
 export const Navigate: FC<NavigateProps> = forwardRef(
   ({ as: Tag = Link, href, ...rest }, ref) => {

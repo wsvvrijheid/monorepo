@@ -5,7 +5,7 @@ const MainHashtagPage = () => {
   const { user, isLoading } = useAuth()
 
   return (
-    <AdminLayout title="MainHashtag" user={user} isLoading={isLoading}>
+    <AdminLayout title="MainHashtag" user={user} isLoading={!user || isLoading}>
       <Box>MainHashtag</Box>
     </AdminLayout>
   )
