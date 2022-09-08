@@ -7,10 +7,10 @@ import {
   Grid,
   Heading,
   HStack,
-  Spinner,
   VStack,
 } from '@chakra-ui/react'
 import { Story, Meta } from '@storybook/react'
+import { useGetArtCategories } from '@wsvvrijheid/utils'
 import { useRouter } from 'next/router'
 
 import { ArtSideBar, ArtSideBarProps } from './ArtSideBar'
@@ -26,12 +26,14 @@ export default {
 const Template: Story<ArtSideBarProps> = args => {
   const [isLoading, setIsLoading] = useState(false)
   const { query } = useRouter()
+  const categoryQuery = useGetArtCategories()
 
   return (
     <Grid gridTemplateColumns="300px 1fr">
       <Box bg="gray.100" p={4}>
         <ArtSideBar
           {...args}
+          categoryList={categoryQuery.data || []}
           isLoading={args.isLoading || isLoading}
           setIsLoading={setIsLoading}
         />
@@ -40,14 +42,14 @@ const Template: Story<ArtSideBarProps> = args => {
         <VStack>
           <Heading size="md">Selected Categories</Heading>
           <HStack w="50%">
-            {isLoading && <Spinner />}
             <Code>{`Because of the storybook we can not observe the changes in router,
-            but you can see that 'push' function of 'router' called with selected 
+            but you can see that 'push' function of 'router' called with selected
             categories in Actions Tab below.`}</Code>
           </HStack>
           <HStack>
-            {isLoading && <Spinner />}
-            <Code>{JSON.stringify(query, null, 2)}</Code>
+            <Code>
+              {'initial categories: ' + JSON.stringify(query, null, 2)}
+            </Code>
           </HStack>
         </VStack>
       </Center>

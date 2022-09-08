@@ -1,7 +1,7 @@
-import { FC, useState } from 'react'
+import { FC } from 'react'
 
 import { Box } from '@chakra-ui/layout'
-import { Stack, useUpdateEffect } from '@chakra-ui/react'
+import { Stack } from '@chakra-ui/react'
 import { Category, StrapiLocale } from '@wsvvrijheid/types'
 import { useCollections } from '@wsvvrijheid/utils'
 import { useTranslation } from 'next-i18next'
@@ -24,7 +24,6 @@ export const ArtSideBar: FC<ArtSideBarProps> = ({
 }) => {
   const { t } = useTranslation()
   const changeParam = useChangeParams()
-  const [selectedCategories, setSelectedCategories] = useState<string[]>([])
   const {
     locale,
     query: { categories },
@@ -36,10 +35,6 @@ export const ArtSideBar: FC<ArtSideBarProps> = ({
     ?.split('&')
     .map(category => category.split('=')[1])
 
-  useUpdateEffect(() => {
-    changeParam({ categories: selectedCategories })
-  }, [selectedCategories])
-
   return (
     <Stack spacing={8} alignSelf="start">
       {categoryList && (
@@ -48,7 +43,7 @@ export const ArtSideBar: FC<ArtSideBarProps> = ({
             categoryData={categoryList || []}
             initialCategories={initialCategories}
             isLoading={isLoading}
-            selectCategories={setSelectedCategories}
+            selectCategories={value => changeParam({ categories: value })}
             setIsLoading={setIsLoading}
             title={t('categories')}
             locale={locale as StrapiLocale}

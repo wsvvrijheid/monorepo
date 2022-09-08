@@ -65,7 +65,6 @@ export const getArts = async ({
       },
     }
   }
-  console.log({ searchTerm: searchTerm, categories: categories, page: page })
   return request()<Art[]>({
     url: 'api/arts',
     filters,

@@ -38,14 +38,13 @@ import { useAuth, useChangeParams } from '../../hooks'
 
 export const ArtClubTemplate: FC = () => {
   const {
-    query: { categories, page },
+    query: { categories, page, searchTerm },
     locale,
   } = useRouter()
 
   const changeParam = useChangeParams()
   const auth = useAuth()
   const [isLoading, setIsLoading] = useState(false)
-  const [searchTerm, setSearchTerm] = useState<string>()
   const { isOpen, onOpen, onClose } = useDisclosure()
   const { t } = useTranslation()
 
@@ -61,7 +60,7 @@ export const ArtClubTemplate: FC = () => {
     populate: ['artist.user.avatar', 'categories', 'images', 'likers'],
     page: parseInt(page as string) || 1,
     pageSize: 12,
-    searchTerm,
+    searchTerm: searchTerm as string,
     username: auth.user?.username,
     sort: ['publishedAt:desc'],
     locale: locale as StrapiLocale,
@@ -69,8 +68,7 @@ export const ArtClubTemplate: FC = () => {
 
   useUpdateEffect(() => {
     artsQuery.refetch()
-    console.log('refetch', [searchTerm, categories, page, artsQuery])
-  }, [searchTerm])
+  }, [])
 
   const createArt = (data: CreateArtFormFieldValues & { images: Blob[] }) => {
     // mutate(data)
@@ -125,7 +123,10 @@ export const ArtClubTemplate: FC = () => {
 
           <Stack w="full" spacing={4}>
             <HStack>
-              <SearchForm placeholder={t`search`} onSearch={setSearchTerm} />
+              <SearchForm
+                placeholder={t`search`}
+                onSearch={value => changeParam({ searchTerm: value })}
+              />
               <CreateArtForm
                 categories={categoryQuery.data || []}
                 isLoggedIn={auth.isLoggedIn}

@@ -1,9 +1,18 @@
+import { useEffect, useState } from 'react'
+
 import { Box, Skeleton } from '@chakra-ui/react'
 
 export const ArtCardSkeleton = ({ isMasonry }: { isMasonry: boolean }) => {
-  const height = isMasonry
-    ? Math.floor(Math.random() * (400 - 200 + 1)) + 200
-    : '300px'
+  const [height, setHeight] = useState('300px')
+  useEffect(
+    () =>
+      setHeight(
+        isMasonry
+          ? `${Math.floor(Math.random() * (400 - 200 + 1)) + 200}px`
+          : `300px`,
+      ),
+    [],
+  )
 
   return (
     <Box w="full" pos="relative">

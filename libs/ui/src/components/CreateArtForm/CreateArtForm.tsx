@@ -59,6 +59,7 @@ export const CreateArtForm: React.FC<CreateArtFormProps> = ({
   categories,
   isLoggedIn,
 }) => {
+  const cancelRef = useRef<HTMLButtonElement>(null)
   const [images, setImages] = useState<Blob[]>([])
 
   const formDisclosure = useDisclosure()
@@ -77,8 +78,6 @@ export const CreateArtForm: React.FC<CreateArtFormProps> = ({
     resolver: yupResolver(schema(t)),
     mode: 'all',
   })
-
-  const cancelRef = useRef<HTMLButtonElement>(null)
 
   useEffect(
     () => () => {
