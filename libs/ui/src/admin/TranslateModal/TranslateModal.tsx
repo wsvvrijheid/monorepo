@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 
 import {
   HStack,
@@ -12,17 +12,20 @@ import {
   Button,
   ModalFooter,
   Accordion,
+  IconButton,
 } from '@chakra-ui/react'
 import { StrapiLocale, StrapiTranslatableModel } from '@wsvvrijheid/types'
 import { isEmpty } from 'lodash'
 import { AiOutlineArrowLeft, AiOutlineCheck } from 'react-icons/ai'
 
 import { TranslateAccordionItem } from './TranslateAccordionItem'
+import { TranslateForm } from './TranslateForm'
 import {
   DefaultTranslatableModel,
   TranslateModalProps,
   TranslationKey,
   LocalizedModel,
+  TranslatableModel,
 } from './types'
 
 const mapModelLocalization = <T extends StrapiTranslatableModel>({
@@ -32,6 +35,7 @@ const mapModelLocalization = <T extends StrapiTranslatableModel>({
   const defaultLocalizedModel = {
     [model.locale]: {
       ...model,
+      status: model.status || 'pending',
       image: model.images?.[0] || model.image,
     },
   } as LocalizedModel<T>
@@ -39,7 +43,13 @@ const mapModelLocalization = <T extends StrapiTranslatableModel>({
   const localizedModels = localizations?.reduce((acc, localization) => {
     return {
       ...acc,
-      [localization.locale]: localization,
+      [localization.locale]: {
+        ...localization,
+        status: localization.status || 'pending',
+        image:
+          (localization as TranslatableModel<T>)?.images?.[0] ||
+          (localization as TranslatableModel<T>)?.image,
+      },
     }
   }, {} as LocalizedModel<T>)
 
@@ -63,22 +73,32 @@ export const TranslateModal = <T extends StrapiTranslatableModel>({
   const [translationKey, setTranslationKey] = useState<TranslationKey>()
   const [step, setStep] = useState(0)
 
-  const locales = ['tr', 'en', 'nl'] as StrapiLocale[]
+  const { modelsWithMissingTranslations, localizedModels } = useMemo(() => {
+    const locales = ['tr', 'en', 'nl'] as StrapiLocale[]
 
-  const localizedModels = mapModelLocalization<T>(model)
+    // From model to object with its localizations { tr: data, en: data, nl: data }
+    const localizedModels = mapModelLocalization<T>(model)
 
-  const accordionModels = Object.values(localizedModels).map(model => {
-    const missingTranslations = locales.filter(
-      locale =>
-        locale !== model.locale &&
-        localizedModels[locale]?.status !== 'approved',
-    ) as StrapiLocale[]
+    const modelsWithMissingTranslations = Object.values(localizedModels).map(
+      model => {
+        // Find missing translations for the current model
+        // Approved localizations are not included in the missing translations
+        const missingTranslations = locales.filter(locale => {
+          return (
+            locale !== model.locale &&
+            localizedModels[locale]?.status !== 'approved'
+          )
+        }) as StrapiLocale[]
 
-    return {
-      ...model,
-      missingTranslations,
-    }
-  })
+        return {
+          ...model,
+          missingTranslations,
+        }
+      },
+    )
+
+    return { modelsWithMissingTranslations, localizedModels }
+  }, [model])
 
   const handleTranslate = (key: TranslationKey) => {
     setStep(prev => prev + 1)
@@ -99,14 +119,28 @@ export const TranslateModal = <T extends StrapiTranslatableModel>({
       <Modal onClose={onClose} isOpen={isOpen} scrollBehavior="inside">
         <ModalOverlay />
         <ModalContent maxW="95vw" h="full">
-          <ModalHeader fontSize="xl" fontWeight="bold">
+          <ModalHeader
+            fontSize="xl"
+            fontWeight="bold"
+            borderBottomWidth={step > 0 ? 1 : 0}
+          >
+            {step > 0 && (
+              <IconButton
+                aria-label="return"
+                icon={<AiOutlineArrowLeft />}
+                onClick={handleReturn}
+                variant="ghost"
+                mr={2}
+                size="sm"
+              />
+            )}
             Translate
           </ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             {step === 0 && (
               <Accordion size={'lg'} allowToggle allowMultiple defaultIndex={0}>
-                {accordionModels.map(model => (
+                {modelsWithMissingTranslations.map(model => (
                   <TranslateAccordionItem
                     {...model}
                     handleTranslate={handleTranslate}
@@ -114,38 +148,42 @@ export const TranslateModal = <T extends StrapiTranslatableModel>({
                 ))}
               </Accordion>
             )}
-            {step === 1 && <Box>{translationKey}</Box>}
+            {step === 1 && translationKey && (
+              <TranslateForm
+                translationKey={translationKey}
+                localizedModels={localizedModels}
+              />
+            )}
           </ModalBody>
-          <ModalFooter borderTopWidth={1}>
-            <HStack spacing={3}>
-              <Button
-                textColor={'white'}
-                onClick={handleReturn}
-                bg={'gray.400'}
-                leftIcon={<AiOutlineArrowLeft />}
-              >
-                Return
-              </Button>
-              {step === 1 && (
-                <>
-                  <Button
-                    onClick={handleSaveDraft}
-                    colorScheme={'purple'}
-                    leftIcon={<AiOutlineCheck />}
-                  >
-                    Save Draft
-                  </Button>
-                  <Button
-                    onClick={handleSendTranslation}
-                    colorScheme={'blue'}
-                    leftIcon={<AiOutlineCheck />}
-                  >
-                    Send Translation
-                  </Button>
-                </>
-              )}
-            </HStack>
-          </ModalFooter>
+          {step === 1 && (
+            <ModalFooter borderTopWidth={1}>
+              <HStack spacing={3}>
+                <Button
+                  display={{ base: 'none', lg: 'flex' }}
+                  textColor={'white'}
+                  onClick={handleReturn}
+                  bg={'gray.400'}
+                  leftIcon={<AiOutlineArrowLeft />}
+                >
+                  Return
+                </Button>
+                <Button
+                  onClick={handleSaveDraft}
+                  colorScheme={'purple'}
+                  leftIcon={<AiOutlineCheck />}
+                >
+                  Save Draft
+                </Button>
+                <Button
+                  onClick={handleSendTranslation}
+                  colorScheme={'blue'}
+                  leftIcon={<AiOutlineCheck />}
+                >
+                  Send Translation
+                </Button>
+              </HStack>
+            </ModalFooter>
+          )}
         </ModalContent>
       </Modal>
     </Box>

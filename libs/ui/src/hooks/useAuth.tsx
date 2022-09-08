@@ -6,26 +6,33 @@ import axios from 'axios'
 import Router from 'next/router'
 
 export const useAuth = (
-  redirectTo = '',
+  redirectTo = '/login',
   redirectIfFound = false,
 ): Auth & { isLoading: boolean } => {
-  const { data, isLoading } = useQuery(['me'], () => axios('/api/auth/user'))
+  const { data, isLoading, isSuccess } = useQuery(['me'], () =>
+    axios('/api/auth/user'),
+  )
 
-  const user = useMemo(() => data?.data || {}, [data]) as Auth
+  const auth = useMemo(
+    () => data?.data || { user: null, isLoggedIn: false, token: null },
+    [data],
+  ) as Auth
 
   useEffect(() => {
     // if no redirect needed, just return (example: already on /dashboard)
     // if user data not yet there (fetch in progress, logged in or not) then don't do anything yet
-    if (!redirectTo || !user?.isLoggedIn) return
-    if (
-      // If redirectTo is set, redirect if the user was not found.
-      (redirectTo && !redirectIfFound && !user?.isLoggedIn) ||
-      // If redirectIfFound is also set, redirect if the user was found
-      (redirectIfFound && user?.isLoggedIn)
-    ) {
-      Router.push(redirectTo)
-    }
-  }, [user, redirectIfFound, redirectTo])
 
-  return { ...user, isLoading }
+    if (!isLoading && isSuccess) {
+      if (
+        // If redirectTo is set, redirect if the user was not found.
+        (!redirectIfFound && !auth?.isLoggedIn) ||
+        // If redirectIfFound is also set, redirect if the user was found
+        (redirectIfFound && auth.isLoggedIn)
+      ) {
+        Router.push(redirectTo)
+      }
+    }
+  }, [auth, redirectIfFound, redirectTo, isLoading, isSuccess])
+
+  return { ...auth, isLoading }
 }

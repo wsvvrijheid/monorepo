@@ -9,7 +9,7 @@ export const getArtsByCategories = async (
   categories: string[],
   id?: number,
 ) => {
-  const response = await request()<Art[]>({
+  const response = await request<Art[]>({
     url: 'api/arts',
     locale,
     filters: {

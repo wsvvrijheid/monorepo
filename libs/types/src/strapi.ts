@@ -148,3 +148,48 @@ export type StrapiMutationResponse<T extends StrapiModel> = {
   data: T
   meta: Record<string, unknown>
 }
+
+export type StrapiProviders = 'instagram' | 'facebook' | 'google' | 'twitter'
+export type StrapiSingleUrl = 'term' | 'privacy' | 'trend'
+export type StrapiAuthUrl =
+  | 'auth/local/register'
+  | 'auth/local'
+  | `connect/${StrapiProviders}/callback`
+export type StrapiCollectionUrl =
+  | 'activities'
+  | 'announcements'
+  | 'applicants'
+  | 'art-editors'
+  | 'art-feedbacks'
+  | 'arts'
+  | 'artists'
+  | 'authors'
+  | 'blogs'
+  | 'categories'
+  | 'collections'
+  | 'comments'
+  | 'competitions'
+  | 'donates'
+  | 'hashtags'
+  | 'jobs'
+  | 'jury-votes'
+  | 'juries'
+  | 'lang-roles'
+  | 'me'
+  | 'mentions'
+  | 'news'
+  | 'platforms'
+  | 'posts'
+  | 'recommended-tweets'
+  | 'saved-tweets'
+  | 'tags'
+  | 'timelines'
+  | 'translators'
+  | 'tweet-users'
+  | 'tweets'
+  | 'users'
+  | 'users/me'
+  | 'volunteers'
+  | 'votes'
+
+export type StrapiUrl = StrapiSingleUrl | StrapiCollectionUrl | StrapiAuthUrl

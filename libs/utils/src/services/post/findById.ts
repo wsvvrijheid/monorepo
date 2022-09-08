@@ -7,8 +7,9 @@ import { useRouter } from 'next/router'
 import { request } from '../../lib'
 
 export const getPost = async (locale: StrapiLocale, id: number) => {
-  const response = await request()<Post>({
-    url: `api/posts/${id}`,
+  const response = await request<Post>({
+    url: 'api/posts',
+    id,
     locale,
   })
 

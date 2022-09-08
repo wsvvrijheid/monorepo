@@ -9,6 +9,7 @@ import { Merge } from 'type-fest'
 // Only title, description and locale is required for all models
 // We can use publishedAt in case the model doesn't have status property
 export type DefaultTranslatableModel<T extends StrapiTranslatableModel> = {
+  id: number
   title: string
   description: string
   locale: StrapiLocale
@@ -49,3 +50,8 @@ export type LocalizedModel<T extends StrapiTranslatableModel> = Record<
   StrapiLocale,
   TranslatableModel<T>
 >
+
+export type TranslateFormProps<T extends StrapiTranslatableModel> = {
+  translationKey: TranslationKey
+  localizedModels: LocalizedModel<T>
+}
