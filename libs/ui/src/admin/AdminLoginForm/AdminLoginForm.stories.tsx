@@ -1,19 +1,13 @@
-import { Container, Box } from '@chakra-ui/react'
+import { Box } from '@chakra-ui/react'
 import { ComponentStory, ComponentMeta } from '@storybook/react'
 
 import { LoginFormFieldValues } from '../../components'
 import { AdminLoginForm } from './AdminLoginForm'
 export default {
   component: AdminLoginForm,
-  title: 'Admin/ArtApprovalModal',
+  title: 'Admin/AdminLoginForm',
   args: {},
-  decorators: [
-    Story => (
-      <Container maxW="container.sm">
-        <Story />
-      </Container>
-    ),
-  ],
+  decorators: [Story => <Story />],
 } as unknown as ComponentMeta<typeof AdminLoginForm>
 
 const Template: ComponentStory<typeof AdminLoginForm> = args => {

@@ -1,4 +1,3 @@
-
 import { Box } from '@chakra-ui/react'
 import { useAuth, AdminLayout } from '@wsvvrijheid/ui'
 
