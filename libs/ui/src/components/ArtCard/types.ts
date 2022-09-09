@@ -28,6 +28,7 @@ export type ArtCardBaseProps = {
   isLiked?: boolean
   isMasonry?: boolean
   isOwner?: boolean
+  isModal?: boolean
   toggleLike?: () => void
 }
 

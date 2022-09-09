@@ -14,6 +14,7 @@ export const ArtCard: FC<ArtCardProps> = ({ art, user, queryKey }) => {
       toggleLike={toggleLike}
       isOwner={user?.id === art.artist?.user?.id}
       isMasonry
+      isModal
     />
   )
 }

@@ -5,7 +5,7 @@ import { Collection } from '@wsvvrijheid/types'
 
 import { CollectionBook, Container } from '../../components'
 
-export type CollectionTempleteProps = {
+export type CollectionTemplateProps = {
   isLoading: boolean
   height: number
   width: number
@@ -14,7 +14,7 @@ export type CollectionTempleteProps = {
   centerRef?: LegacyRef<HTMLDivElement>
 }
 
-export const CollectionTemplate: FC<CollectionTempleteProps> = ({
+export const CollectionTemplate: FC<CollectionTemplateProps> = ({
   centerRef,
   isLoading,
   height,
