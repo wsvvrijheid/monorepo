@@ -4,13 +4,14 @@ import { Art } from '@wsvvrijheid/types'
 import { useRouter } from 'next/router'
 import { useLocalStorage } from 'react-use'
 
-import { mutation } from '../../lib'
+import { updateMutation } from '../../lib'
 import { useArtBySlug } from './getBySlug'
 
-export const viewArt = async (art: Art) =>
-  mutation<Art>().put('api/arts', art.id, {
-    data: { views: (art.views || 0) + 1 },
-  })
+export const viewArt = async (art: Art) => {
+  const body = { views: (art.views || 0) + 1 }
+
+  return updateMutation<Art, typeof body>('api/arts', art.id, body)
+}
 
 export const useViewArtMutation = async () => {
   const queryClient = useQueryClient()
@@ -25,7 +26,7 @@ export const useViewArtMutation = async () => {
 
   const { mutate } = useMutation({
     mutationKey: ['viewart', art?.id],
-    mutationFn: (art: Art) => viewArt(art),
+    mutationFn: viewArt,
     onSuccess: () => {
       art && setArtStorage([...(artStorage || []), art.id])
       queryClient.invalidateQueries(['art', locale, slug])

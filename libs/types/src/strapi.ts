@@ -155,6 +155,7 @@ export type StrapiMutationResponse<T extends StrapiModel> = {
   meta: Record<string, unknown>
 }
 
+export type StrapiEmailUrl = 'email'
 export type StrapiProviders = 'instagram' | 'facebook' | 'google' | 'twitter'
 export type StrapiSingleUrl = 'term' | 'privacy' | 'trend'
 export type StrapiAuthUrl =
@@ -199,4 +200,8 @@ export type StrapiCollectionUrl =
   | 'volunteers'
   | 'votes'
 
-export type StrapiUrl = StrapiSingleUrl | StrapiCollectionUrl | StrapiAuthUrl
+export type StrapiUrl =
+  | StrapiSingleUrl
+  | StrapiCollectionUrl
+  | StrapiAuthUrl
+  | StrapiEmailUrl

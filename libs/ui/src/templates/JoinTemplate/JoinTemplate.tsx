@@ -12,8 +12,8 @@ import {
 } from '@chakra-ui/react'
 import { useMutation } from '@tanstack/react-query'
 import { StrapiLocale, Volunteer } from '@wsvvrijheid/types'
-import { Job, Platform } from '@wsvvrijheid/types'
-import { mutation, usePlatforms, toastMessage } from '@wsvvrijheid/utils'
+import { Job } from '@wsvvrijheid/types'
+import { usePlatforms, toastMessage, createMutation } from '@wsvvrijheid/utils'
 import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
 import { v4 as uuidV4 } from 'uuid'
@@ -27,9 +27,9 @@ import {
 } from '../../components'
 import { JoinTemplateProps } from './types'
 
-type VolunteerRequest = {
-  username: Volunteer['username']
-  heardFrom: Volunteer['heardFrom']
+type VolunteerBody = {
+  username: string
+  heardFrom: string
 } & Omit<JoinFormFieldValues, 'heardFrom'>
 
 export const JoinTemplate: FC<JoinTemplateProps> = ({ title }) => {
@@ -38,12 +38,13 @@ export const JoinTemplate: FC<JoinTemplateProps> = ({ title }) => {
 
   const platformsResult = usePlatforms()
 
-  const platforms: Platform[] = platformsResult.data || []
-  const jobs: Job[] = (platforms?.flatMap(p => p.jobs) as Job[]) || []
+  const platforms = platformsResult.data || []
+  const jobs = (platforms?.flatMap(p => p.jobs) as Job[]) || []
 
   const { mutate, isLoading, isSuccess } = useMutation(
     ['create-volunteer'],
-    (data: VolunteerRequest) => mutation().post('api/volunteers', { data }),
+    (body: VolunteerBody) =>
+      createMutation<Volunteer, VolunteerBody>('api/volunteers', body),
   )
 
   const onSubmit = (data: JoinFormFieldValues) => {

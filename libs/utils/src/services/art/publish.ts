@@ -2,10 +2,13 @@ import { useToast } from '@chakra-ui/react'
 import { useMutation, useQueryClient, QueryKey } from '@tanstack/react-query'
 import { Art } from '@wsvvrijheid/types'
 
-import { mutation } from '../../lib'
+import { updateMutation } from '../../lib'
 
-export const publishArt = ({ id }: { id: number }) =>
-  mutation<Art>().put('api/arts', id, { data: { publishedAt: new Date() } })
+export const publishArt = ({ id }: { id: number }) => {
+  const body = { publishedAt: new Date() }
+
+  return updateMutation<Art, typeof body>('api/arts', id, body)
+}
 
 export const usePublishArt = (queryKey: QueryKey, id: number) => {
   const queryClient = useQueryClient()

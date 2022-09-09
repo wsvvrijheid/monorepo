@@ -2,7 +2,7 @@ import { QueryKey, useMutation, useQueryClient } from '@tanstack/react-query'
 import { Art, SessionUser } from '@wsvvrijheid/types'
 import { useLocalStorage } from 'react-use'
 
-import { mutation } from '../../lib'
+import { updateMutation } from '../../lib'
 
 type LikersMutationArgs = {
   id: number
@@ -14,15 +14,17 @@ type LikesMutationArgs = {
   likes: number
 }
 
-const likeArtByUser = ({ id, likers }: LikersMutationArgs) =>
-  mutation<Art>().put('api/arts', id, {
-    data: { likers },
-  })
+const likeArtByUser = ({ id, likers }: LikersMutationArgs) => {
+  const body = { likers }
 
-const likeArtPublic = ({ id, likes }: LikesMutationArgs) =>
-  mutation<Art>().put('api/arts', id, {
-    data: { likes },
-  })
+  return updateMutation<Art, typeof body>('api/arts', id, body)
+}
+
+const likeArtPublic = ({ id, likes }: LikesMutationArgs) => {
+  const body = { likes }
+
+  return updateMutation<Art, typeof body>('api/arts', id, body)
+}
 
 const useLikeArtByUserMutation = () => {
   return useMutation({

@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query'
 import { Comment } from '@wsvvrijheid/types'
 
-import { mutation } from '../../lib'
+import { createMutation } from '../../lib'
 
 type CreateArtCommentProps = {
   content: string
@@ -19,19 +19,14 @@ const createArtComment = ({
   userId,
 }: CreateArtCommentProps) => {
   if (userId) {
-    return mutation<Comment>().post(`api/comments`, {
-      data: { content, art: id, user: userId },
-    })
+    const body = { content, art: id, user: userId }
+
+    return createMutation<Comment, typeof body>('api/comments', body)
   }
 
-  return mutation<Comment>().post(`api/comments`, {
-    data: {
-      content,
-      name,
-      email,
-      art: id,
-    },
-  })
+  const body = { content, name, email, art: id }
+
+  return createMutation<Comment, typeof body>('api/comments', body)
 }
 
 export const useArtCommentMutation = () => {
