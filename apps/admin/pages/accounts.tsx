@@ -5,7 +5,7 @@ const AccountsPage = () => {
   const { user, isLoading } = useAuth()
 
   return (
-    <AdminLayout title="Accounts" user={user} isLoading={isLoading}>
+    <AdminLayout title="Accounts" user={user} isLoading={!user || isLoading}>
       <Box>Accounts</Box>
     </AdminLayout>
   )

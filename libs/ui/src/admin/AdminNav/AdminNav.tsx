@@ -1,6 +1,6 @@
 import { FC } from 'react'
 
-import { Box } from '@chakra-ui/react'
+import { Stack } from '@chakra-ui/react'
 import { SessionUser } from '@wsvvrijheid/types'
 import { BiLandscape } from 'react-icons/bi'
 import { BsCommand, BsNewspaper, BsTranslate } from 'react-icons/bs'
@@ -13,6 +13,7 @@ import {
 import { VscFeedback } from 'react-icons/vsc'
 
 import { AdminNavItem } from './AdminNavItem'
+import { AdminNavItemCollapsed } from './AdminNavItemCollapsed'
 
 export const getAdminNav = (user: SessionUser) => {
   const { artEditorId, translatorId, isEditor, isAdmin } = user
@@ -162,26 +163,30 @@ export const getAdminNav = (user: SessionUser) => {
 
 type AdminNAvProps = {
   user: SessionUser
+  expanded: boolean
 }
 
-export const AdminNav: FC<AdminNAvProps> = ({ user }) => {
+export const AdminNav: FC<AdminNAvProps> = ({ user, expanded }) => {
   const navItems = getAdminNav(user)
 
   return (
-    <Box>
+    <Stack spacing={0}>
       {navItems
         // .filter(item => item.visible) // TODO enable this when we are ready to release
         .map(item => {
+          const NavItem = expanded ? AdminNavItem : AdminNavItemCollapsed
+
           return (
-            <AdminNavItem
+            <NavItem
               icon={item.icon}
               key={item.label}
               label={item.label}
               link={item.link}
               submenu={item.submenu}
+              expanded={expanded}
             />
           )
         })}
-    </Box>
+    </Stack>
   )
 }

@@ -5,7 +5,7 @@ const HumanRightsPage = () => {
   const { user, isLoading } = useAuth()
 
   return (
-    <AdminLayout title="HumanRights" user={user} isLoading={isLoading}>
+    <AdminLayout title="HumanRights" user={user} isLoading={!user || isLoading}>
       <Box>HumanRights</Box>
     </AdminLayout>
   )

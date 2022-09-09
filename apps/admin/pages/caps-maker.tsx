@@ -5,7 +5,7 @@ const CapsMakerPage = () => {
   const { user, isLoading } = useAuth()
 
   return (
-    <AdminLayout title="CapsMaker" user={user} isLoading={isLoading}>
+    <AdminLayout title="CapsMaker" user={user} isLoading={!user || isLoading}>
       <Box>CapsMaker</Box>
     </AdminLayout>
   )
