@@ -151,7 +151,7 @@ export const ArtClubTemplate: FC = () => {
                       isMasonry
                     />
                   ))
-                : artsQuery.data?.data.map((art, i) => {
+                : artsQuery.data?.data?.map((art, i) => {
                     // TODO Add link to navigate to the art page
 
                     return (
@@ -172,7 +172,7 @@ export const ArtClubTemplate: FC = () => {
 
             {!artsQuery.isLoading && (
               <Center>
-                {artsQuery.data?.meta.pagination && page && (
+                {artsQuery.data?.meta?.pagination && page && (
                   <Pagination
                     totalCount={artsQuery.data.meta.pagination?.pageCount}
                     currentPage={+page}
