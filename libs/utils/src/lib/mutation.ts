@@ -47,7 +47,7 @@ const mutation = async <T extends StrapiModel, D = unknown>({
     return response.data?.data || null
   }
 
-  const requestUrl = id ? `/${url}/${id}` : `/${url}`
+  const requestUrl = id ? `${url}/${id}` : url
   const requestBody = body ? { data: body } : {}
 
   const response = await fetcher(token)[method]<StrapiMutationResponse<T>>(
