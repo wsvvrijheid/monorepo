@@ -11,10 +11,8 @@ const LoginPage = ({ seo }) => {
   }
 
   return (
-    <Box>
-      <Box minH="inherit">
-        <AdminLoginForm onSubmitHandler={handleLogin} />
-      </Box>
+    <Box minH="inherit" h="full">
+      <AdminLoginForm onSubmitHandler={handleLogin} />
     </Box>
   )
 }
