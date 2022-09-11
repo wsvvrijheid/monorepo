@@ -126,32 +126,20 @@ export const ArtCardBase: FC<ArtCardBaseProps> = ({
               rounded="full"
             />
           </HStack>
-          {isModal ? (
-            <IconButton
-              _hover={{ bg: 'blue.400' }}
-              aria-label="view art"
-              borderColor="whiteAlpha.500"
-              borderWidth={1}
-              color="white"
-              colorScheme="blackAlpha"
-              icon={<FaExternalLinkSquareAlt />}
-              rounded="full"
-              onClick={artModalOnOpen}
-            />
-          ) : (
-            <Navigate href={`/club/art/${art.slug}`}>
-              <IconButton
-                _hover={{ bg: 'blue.400' }}
-                aria-label="view art"
-                borderColor="whiteAlpha.500"
-                borderWidth={1}
-                color="white"
-                colorScheme="blackAlpha"
-                icon={<FaExternalLinkSquareAlt />}
-                rounded="full"
-              />
-            </Navigate>
-          )}
+          <Navigate
+            as={IconButton}
+            _hover={{ bg: 'blue.400' }}
+            aria-label="view art"
+            borderColor="whiteAlpha.500"
+            borderWidth={1}
+            color="white"
+            colorScheme="blackAlpha"
+            icon={<FaExternalLinkSquareAlt />}
+            rounded="full"
+            {...(isModal
+              ? { onClick: artModalOnOpen }
+              : { href: `/club/art/${art.slug}` })}
+          />
           {/* Card Owner Actions */}
           {isOwner && (
             <ArtCardActions
