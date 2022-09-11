@@ -5,6 +5,7 @@ import { Blog } from './blog'
 import { Comment } from './comment'
 import { UploadFile } from './file'
 import { Post } from './post'
+import { RecommendedTopic } from './recommended-topic'
 import { RecommendedTweet } from './recommended-tweet'
 import { Role } from './role'
 import { SavedTweet } from './saved-tweet'
@@ -34,4 +35,5 @@ export type User = {
   createdTimelines?: Array<Timeline>
   savedTweets?: Array<SavedTweet>
   comments?: Array<Comment>
+  recommendedTopics?: Array<RecommendedTopic>
 } & Omit<StrapiCore, 'publishedAt'>

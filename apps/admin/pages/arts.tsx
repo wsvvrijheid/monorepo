@@ -21,7 +21,7 @@ const ArtsPage: FC<ArtsPageProps> = ({ status }) => {
     <AdminLayout
       title={`${status} Arts`}
       user={user}
-      isLoading={isLoading}
+      isLoading={!user || isLoading}
       headerProps={{
         onSearch: handleSearch,
         filterMenu: [

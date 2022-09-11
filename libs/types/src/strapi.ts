@@ -24,6 +24,8 @@ import { Mention } from './mention'
 import { Platform } from './platform'
 import { Post } from './post'
 import { Privacy } from './privacy'
+import { RecommendedTopic } from './recommended-topic'
+import { RecommendedTweet } from './recommended-tweet'
 import { Tag } from './tag'
 import { Term } from './term'
 import { Translator } from './translator'
@@ -68,6 +70,8 @@ export type StrapiModel =
   | Post
   | Privacy
   | Platform
+  | RecommendedTopic
+  | RecommendedTweet
   | Tag
   | Term
   | Translator
@@ -102,6 +106,8 @@ export type StrapiAllModels = Activity &
   Post &
   Privacy &
   Platform &
+  RecommendedTopic &
+  RecommendedTweet &
   Tag &
   Term &
   Translator &
@@ -180,6 +186,7 @@ export type StrapiCollectionUrl =
   | 'news'
   | 'platforms'
   | 'posts'
+  | 'recommended-topics'
   | 'recommended-tweets'
   | 'saved-tweets'
   | 'tags'

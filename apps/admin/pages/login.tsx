@@ -1,5 +1,5 @@
 import { Box } from '@chakra-ui/react'
-import { LoginForm, LoginFormFieldValues, useAuth } from '@wsvvrijheid/ui'
+import { AdminLoginForm, LoginFormFieldValues, useAuth } from '@wsvvrijheid/ui'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import i18nConfig from '../next-i18next.config'
@@ -11,10 +11,8 @@ const LoginPage = ({ seo }) => {
   }
 
   return (
-    <Box>
-      <Box minH="inherit">
-        <LoginForm onSubmitHandler={handleLogin} />
-      </Box>
+    <Box minH="inherit" h="full">
+      <AdminLoginForm onSubmitHandler={handleLogin} />
     </Box>
   )
 }

@@ -5,7 +5,7 @@ import NextLink from 'next/link'
 
 export type NavigateProps = LinkProps &
   ButtonProps &
-  Omit<IconButtonProps, 'aria-label'> & { 'aria-label'?: string }
+  Omit<IconButtonProps, 'aria-label'>
 
 export const Navigate: FC<NavigateProps> = forwardRef(
   ({ as: Tag = Link, href, ...rest }, ref) => {

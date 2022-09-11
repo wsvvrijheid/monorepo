@@ -8,11 +8,14 @@ import {
   IconButton,
   Spinner,
   Stack,
+  useBoolean,
 } from '@chakra-ui/react'
 import { SessionUser } from '@wsvvrijheid/types'
 import axios from 'axios'
+import { NextSeo } from 'next-seo'
 import { useRouter } from 'next/router'
 import { MdOutlineNotifications } from 'react-icons/md'
+import { useLocalStorage } from 'react-use'
 
 import { AdminSidebar } from '../AdminSidebar'
 import { PageHeader, PageHeaderProps } from '../PageHeader'
@@ -32,6 +35,17 @@ export const AdminLayout: FC<AdminLayoutProps> = ({
   user,
   headerProps,
 }) => {
+  const [expandedStorage, setExpandedStorage] = useLocalStorage(
+    'adminSidebarExpanded',
+    true,
+  )
+  const [expanded, { toggle }] = useBoolean(expandedStorage)
+
+  const toggleSidebarExpanded = () => {
+    setExpandedStorage(!expanded)
+    toggle()
+  }
+
   const router = useRouter()
 
   const handleLogout = async () => {
@@ -43,47 +57,67 @@ export const AdminLayout: FC<AdminLayoutProps> = ({
   // Loading indicator when we are fetching user data on the client
   if (isLoading) {
     return (
-      <Center h="100vh">
-        <Spinner size="xl" />
-      </Center>
+      <>
+        <NextSeo title={title} />
+        <Center h="100vh">
+          <Spinner size="xl" />
+        </Center>
+      </>
     )
   }
 
   return (
-    <Box bg="gray.50">
-      {/* Sidebar */}
-      <Box pos="fixed" zIndex="sticky" top={0} left={0} h="100vh" w={300}>
-        {user && <AdminSidebar user={user} onLogout={handleLogout} />}
-      </Box>
-
-      <Stack
-        as="main"
-        ml={300}
-        spacing={4}
-        minH="100vh"
-        h="200vh"
-        overflow="auto"
-      >
-        {/* Title */}
-        <HStack px={4} mt={12} justify="space-between">
-          <Heading>{title}</Heading>
-
-          {/* TODO Create notification component */}
-          <IconButton
-            aria-label="notifications"
-            icon={<MdOutlineNotifications />}
-            variant="outline"
-            rounded="full"
-          />
-        </HStack>
-
-        {/* Page Content */}
-        <Box pos="sticky" top={0} zIndex={1}>
-          {headerProps && <PageHeader defaultLocale="tr" {...headerProps} />}
+    <>
+      <NextSeo title={title} />
+      <Box bg="gray.50">
+        {/* Sidebar */}
+        <Box
+          pos="fixed"
+          zIndex="sticky"
+          top={0}
+          left={0}
+          h="100vh"
+          w={expanded ? 300 : 16}
+        >
+          {user && (
+            <AdminSidebar
+              user={user}
+              onLogout={handleLogout}
+              expanded={expanded}
+              onToggleExpand={toggleSidebarExpanded}
+            />
+          )}
         </Box>
 
-        <Box px={4}>{children}</Box>
-      </Stack>
-    </Box>
+        <Stack
+          as="main"
+          ml={expanded ? 300 : 16}
+          spacing={4}
+          minH="100vh"
+          h="200vh"
+          overflow="auto"
+        >
+          {/* Title */}
+          <HStack px={4} mt={12} justify="space-between">
+            <Heading>{title}</Heading>
+
+            {/* TODO Create notification component */}
+            <IconButton
+              aria-label="notifications"
+              icon={<MdOutlineNotifications />}
+              variant="outline"
+              rounded="full"
+            />
+          </HStack>
+
+          {/* Page Content */}
+          <Box pos="sticky" top={0} zIndex={1}>
+            {headerProps && <PageHeader defaultLocale="tr" {...headerProps} />}
+          </Box>
+
+          <Box px={4}>{children}</Box>
+        </Stack>
+      </Box>
+    </>
   )
 }
