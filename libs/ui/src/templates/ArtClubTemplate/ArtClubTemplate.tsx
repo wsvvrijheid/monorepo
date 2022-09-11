@@ -13,7 +13,6 @@ import {
   Skeleton,
   Stack,
   useDisclosure,
-  useUpdateEffect,
 } from '@chakra-ui/react'
 import { StrapiLocale } from '@wsvvrijheid/types'
 import { useArts, useGetArtCategories } from '@wsvvrijheid/utils'
@@ -64,10 +63,6 @@ export const ArtClubTemplate: FC = () => {
     sort: ['publishedAt:desc'],
     locale: locale as StrapiLocale,
   })
-
-  useUpdateEffect(() => {
-    artsQuery.refetch()
-  }, [])
 
   const createArt = (data: CreateArtFormFieldValues & { images: Blob[] }) => {
     // mutate(data)
