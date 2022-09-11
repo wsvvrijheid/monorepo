@@ -61,7 +61,6 @@ export const ArtClubTemplate: FC = () => {
     page: parseInt(page as string) || 1,
     pageSize: 12,
     searchTerm: searchTerm as string,
-    username: auth.user?.username,
     sort: ['publishedAt:desc'],
     locale: locale as StrapiLocale,
   })
