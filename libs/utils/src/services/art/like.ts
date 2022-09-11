@@ -60,10 +60,7 @@ export const useLikeArt = (
   // We might not have all the `likers` in the art data
   // as there should be a limit for it.
   const isLikedByUser =
-    (user &&
-      art.likers &&
-      art.likers?.length > 0 &&
-      art.likers?.some(({ id }) => id === user.id)) ||
+    (user && art.likers && art.likers?.some(({ id }) => id === user.id)) ||
     undefined
 
   const likersIds = art.likers?.map(liker => liker.id) || []
