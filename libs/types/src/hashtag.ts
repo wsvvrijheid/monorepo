@@ -1,7 +1,7 @@
 import { SetOptional, SetRequired } from 'type-fest'
 
 import { Category } from './category'
-import { Expand, ModelStatus } from './common'
+import { Expand, TranslationStatus } from './common'
 import { UploadFile } from './file'
 import { StrapiLocale } from './locale'
 import { Mention } from './mention'
@@ -14,7 +14,7 @@ export type HashtagBase = {
   slug: string
   description: string | null
   content: string
-  status: ModelStatus
+  translationStatus: TranslationStatus
   hashtag: string
   hashtagExtra: string | null
   date: string
@@ -38,7 +38,10 @@ type HashtagRelationInput = {
 }
 
 export type HashtagCreateInput = Expand<
-  SetOptional<Omit<HashtagBase, 'status' | 'tweets'>, 'hashtagExtra'> &
+  SetOptional<
+    Omit<HashtagBase, 'translationStatus' | 'tweets'>,
+    'hashtagExtra'
+  > &
     SetRequired<HashtagRelationInput, 'image' | 'mentions'>
 >
 export type HashtagUpdateInput = Expand<

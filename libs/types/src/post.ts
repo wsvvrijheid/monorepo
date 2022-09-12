@@ -1,4 +1,4 @@
-import { Expand, ModelStatus } from './common'
+import { Expand, TranslationStatus } from './common'
 import { UploadFile } from './file'
 import { Hashtag } from './hashtag'
 import { StrapiLocale } from './locale'
@@ -11,8 +11,8 @@ export type PostBase = {
   title: string
   description: string
   content?: string | null
-  status: ModelStatus
-  capsStatus: ModelStatus
+  translationStatus: TranslationStatus
+  capsStatus: TranslationStatus
   locale: StrapiLocale
   twitterMedia?: string | null
 }
@@ -37,7 +37,7 @@ export type PostRelationInput = {
 }
 
 export type PostCreateInput = Expand<
-  Omit<PostBase, 'status' | 'capsStatus'> &
+  Omit<PostBase, 'translationStatus' | 'capsStatus'> &
     Pick<PostRelationInput, 'image' | 'hashtag' | 'tags'>
 >
 
@@ -48,7 +48,7 @@ export type PostUpdateInput = Expand<
 
 export type PostLocalizeInput = Pick<
   PostBase,
-  'title' | 'description' | 'content' | 'status'
+  'title' | 'description' | 'content' | 'translationStatus'
 >
 
 export type Post = Expand<StrapiCore & PostBase & PostRelation>

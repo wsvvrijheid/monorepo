@@ -1,7 +1,7 @@
 import { Author } from './author'
 import { Category } from './category'
 import { Comment } from './comment'
-import { Expand, ModelStatus } from './common'
+import { Expand, TranslationStatus } from './common'
 import { UploadFile } from './file'
 import { StrapiLocale } from './locale'
 import { StrapiCore } from './strapi'
@@ -13,7 +13,7 @@ export type BlogBase = {
   slug: string
   description: string | null
   content: string
-  status: ModelStatus
+  translationStatus: TranslationStatus
   locale: StrapiLocale
   likes: number | null
   views: number
@@ -38,7 +38,7 @@ type BlogRelationInput = {
 }
 
 export type BlogCreateInput = Expand<
-  Omit<BlogBase, 'status' | 'likes' | 'views'> & BlogRelationInput
+  Omit<BlogBase, 'translationStatus' | 'likes' | 'views'> & BlogRelationInput
 >
 export type BlogUpdateInput = Expand<Partial<BlogBase> & BlogRelationInput>
 

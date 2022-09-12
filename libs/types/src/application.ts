@@ -1,5 +1,5 @@
 import { Applicant } from './applicant'
-import { Expand, ModelStatus } from './common'
+import { Expand, TranslationStatus } from './common'
 import { Competition } from './competition'
 import { UploadFile } from './file'
 import { JuryVote } from './jury-vote'
@@ -12,12 +12,12 @@ export type ApplicationBase = {
   title: string
   slug: string
   content: string
-  status: ModelStatus
+  translationStatus: TranslationStatus
   locale: StrapiLocale
 }
 
 type ApplicationRelation = {
-  image?: UploadFile
+  images?: UploadFile[]
   competition?: Competition
   applicant?: Applicant
   votes?: Array<Vote>
@@ -27,7 +27,7 @@ type ApplicationRelation = {
 }
 
 type ApplicationRelationInput = {
-  image: Blob
+  images: Blob[]
   competition: number
   applicant: number
   votes?: number[]
@@ -36,7 +36,7 @@ type ApplicationRelationInput = {
 }
 
 export type ApplicationCreateInput = Expand<
-  Omit<ApplicationBase, 'status' | 'slug'> &
+  Omit<ApplicationBase, 'translationStatus' | 'slug'> &
     Omit<ApplicationRelationInput, 'votes' | 'juryVotes'>
 >
 

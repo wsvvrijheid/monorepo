@@ -1,5 +1,5 @@
 import { Art } from './art'
-import { Expand, ModelStatus } from './common'
+import { Expand, TranslationStatus } from './common'
 import { UploadFile } from './file'
 import { StrapiLocale } from './locale'
 import { StrapiCore } from './strapi'
@@ -8,7 +8,7 @@ export type CollectionBase = {
   title: string
   slug: string
   description: string
-  status: ModelStatus
+  translationStatus: TranslationStatus
   locale: StrapiLocale
 }
 
@@ -24,7 +24,7 @@ type CollectionRelationInput = {
 }
 
 export type CollectionCreateInput = Expand<
-  Omit<CollectionBase, 'slug' | 'status'> & CollectionRelationInput
+  Omit<CollectionBase, 'slug' | 'translationStatus'> & CollectionRelationInput
 >
 
 export type CollectionUpdateInput = Expand<

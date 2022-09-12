@@ -5,8 +5,6 @@ import { Announcement } from './announcement'
 import { Applicant } from './applicant'
 import { Application } from './application'
 import { Art } from './art'
-import { ArtEditor } from './art-editor'
-import { ArtFeedback } from './art-feedback'
 import { Artist } from './artist'
 import { Author } from './author'
 import { Blog } from './blog'
@@ -16,6 +14,8 @@ import { Comment } from './comment'
 import { Expand } from './common'
 import { Competition } from './competition'
 import { Donate } from './donate'
+import { Editor } from './editor'
+import { Feedback } from './feedback'
 import { UploadFile } from './file'
 import { Hashtag } from './hashtag'
 import { Job } from './job'
@@ -51,8 +51,6 @@ export type StrapiModel =
   | Announcement
   | Applicant
   | Application
-  | ArtEditor
-  | ArtFeedback
   | Art
   | Artist
   | Author
@@ -62,23 +60,25 @@ export type StrapiModel =
   | Comment
   | Competition
   | Donate
-  | UploadFile
+  | Editor
+  | Feedback
   | Hashtag
   | Job
-  | JuryVote
   | Jury
+  | JuryVote
   | LangRole
   | Me
   | Mention
+  | Platform
   | Post
   | Privacy
-  | Platform
   | RecommendedTopic
   | RecommendedTweet
   | Tag
   | Term
   | Translator
   | Trend
+  | UploadFile
   | User
   | Volunteer
   | Vote
@@ -135,10 +135,8 @@ export type StrapiCollectionUrl =
   | 'activities'
   | 'announcements'
   | 'applicants'
-  | 'art-editors'
-  | 'art-feedbacks'
-  | 'arts'
   | 'artists'
+  | 'arts'
   | 'authors'
   | 'blogs'
   | 'categories'
@@ -146,10 +144,12 @@ export type StrapiCollectionUrl =
   | 'comments'
   | 'competitions'
   | 'donates'
+  | 'editors'
+  | 'feedbacks'
   | 'hashtags'
   | 'jobs'
-  | 'jury-votes'
   | 'juries'
+  | 'jury-votes'
   | 'lang-roles'
   | 'me'
   | 'mentions'

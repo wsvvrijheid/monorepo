@@ -1,6 +1,6 @@
 import { Application } from './application'
 import { Category } from './category'
-import { Expand, ModelStatus } from './common'
+import { Expand, TranslationStatus } from './common'
 import { UploadFile } from './file'
 import { StrapiLocale } from './locale'
 import { StrapiCore } from './strapi'
@@ -10,7 +10,7 @@ type CompetitionBase = {
   slug: string
   description: string
   content: string
-  status: ModelStatus
+  translationStatus: TranslationStatus
   date: string
   deadline: string
   locale: StrapiLocale
@@ -30,7 +30,7 @@ type CompetitionRelationInput = {
 }
 
 export type CompetitionCreateInput = Expand<
-  Omit<CompetitionBase, 'status'> & CompetitionRelationInput
+  Omit<CompetitionBase, 'translationStatus'> & CompetitionRelationInput
 >
 
 export type CompetitionUpdateInput = Expand<

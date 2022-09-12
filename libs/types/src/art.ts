@@ -1,11 +1,11 @@
 import { SetOptional } from 'type-fest'
 
-import { ArtFeedback } from './art-feedback'
 import { Artist } from './artist'
 import { Category } from './category'
 import { Collection } from './collection'
 import { Comment } from './comment'
-import { Expand, ModelStatus } from './common'
+import { Expand, TranslationStatus } from './common'
+import { Feedback } from './feedback'
 import { UploadFile } from './file'
 import { StrapiLocale } from './locale'
 import { StrapiCore } from './strapi'
@@ -16,8 +16,8 @@ type ArtBase = {
   title: string
   slug: string
   description: string | null
-  content: string
-  status: ModelStatus
+  content: string | null
+  translationStatus: TranslationStatus
   locale: StrapiLocale
   isApproved: boolean | null
   isRejected: boolean | null
@@ -30,7 +30,7 @@ type ArtRelation = {
   categories?: Array<Category>
   collection?: Collection | null
   comments?: Array<Comment>
-  feedbacks?: Array<ArtFeedback>
+  feedbacks?: Array<Feedback>
   images?: Array<UploadFile>
   likers?: Array<User>
   locale: StrapiLocale
@@ -51,7 +51,7 @@ type ArtRelationInput = {
 
 export type ArtCreateInput = Expand<
   SetOptional<
-    Omit<ArtBase, 'status'>,
+    Omit<ArtBase, 'translationStatus'>,
     'isApproved' | 'isRejected' | 'views' | 'likes'
   > &
     ArtRelationInput

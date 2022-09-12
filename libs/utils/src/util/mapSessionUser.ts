@@ -16,7 +16,7 @@ export const mapSessionUser = (user: User): SessionUser => {
     artistId: user.artist?.id,
     authorId: user.volunteer?.author?.id,
     applicantId: user.applicant?.id,
-    artEditorId: user.volunteer?.artEditor?.id,
+    editorId: user.volunteer?.editor?.id,
     juryId: user.volunteer?.jury?.id,
     translatorId: user.volunteer?.translator?.id,
     volunteerId: user.volunteer?.id,

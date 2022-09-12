@@ -8,6 +8,7 @@ export type CommentBase = {
   content: string
   name?: string | null
   email?: string | null
+  blocked?: boolean
 }
 
 type CommentRelation = {

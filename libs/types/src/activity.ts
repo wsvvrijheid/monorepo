@@ -1,7 +1,7 @@
 import { SetRequired } from 'type-fest'
 
 import { Category } from './category'
-import { Expand, ModelStatus } from './common'
+import { Expand, TranslationStatus } from './common'
 import { UploadFile } from './file'
 import { StrapiLocale } from './locale'
 import { StrapiCore } from './strapi'
@@ -10,9 +10,9 @@ import { Tag } from './tag'
 type ActivityBase = {
   title: string
   slug: string
-  description: string | null
+  description: string
   content: string
-  status: ModelStatus
+  translationStatus: TranslationStatus
   date: string
   locale: StrapiLocale
 }
@@ -31,7 +31,8 @@ type ActivityRelationInput = {
 }
 
 export type ActivityCreateInput = Expand<
-  Omit<ActivityBase, 'status'> & SetRequired<ActivityRelationInput, 'image'>
+  Omit<ActivityBase, 'translationStatus'> &
+    SetRequired<ActivityRelationInput, 'image'>
 >
 export type ActivityUpdateInput = Expand<
   Partial<Omit<ActivityBase, 'locale'>> & ActivityRelationInput

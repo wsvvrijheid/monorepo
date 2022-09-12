@@ -1,5 +1,5 @@
 import { Category } from './category'
-import { Expand, ModelStatus } from './common'
+import { Expand, TranslationStatus } from './common'
 import { UploadFile } from './file'
 import { StrapiLocale } from './locale'
 import { StrapiCore } from './strapi'
@@ -10,7 +10,7 @@ type AnnouncementBase = {
   slug: string
   description: string
   content: string
-  status: ModelStatus
+  translationStatus: TranslationStatus
   date: string
   locale: StrapiLocale
 }
@@ -29,7 +29,7 @@ type AnnouncementRelationInput = {
 }
 
 export type AnnouncementCreateInput = Expand<
-  Omit<AnnouncementBase, 'status'> & AnnouncementRelationInput
+  Omit<AnnouncementBase, 'translationStatus'> & AnnouncementRelationInput
 >
 export type AnnouncementUpdateInput = Expand<
   Partial<Omit<AnnouncementBase, 'locale'>> & AnnouncementRelationInput

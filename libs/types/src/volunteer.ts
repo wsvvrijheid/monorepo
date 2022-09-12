@@ -1,8 +1,8 @@
 import { SetRequired } from 'type-fest'
 
-import { ArtEditor } from './art-editor'
 import { Author } from './author'
 import { Expand } from './common'
+import { Editor } from './editor'
 import { Job } from './job'
 import { Jury } from './jury'
 import { StrapiCore } from './strapi'
@@ -35,7 +35,7 @@ type VolinteerRelation = {
   jury?: Jury | null
   author?: Omit<Author, 'volunteer'> | null
   jobs?: Array<Job>
-  artEditor?: Omit<ArtEditor, 'volunteer'> | null
+  editor?: Omit<Editor, 'volunteer'> | null
 }
 
 type VolinteerRelationInput = {
@@ -44,7 +44,7 @@ type VolinteerRelationInput = {
   jury?: number
   author?: number
   jobs?: number[]
-  artEditor?: number
+  editor?: number
 }
 
 export type VolunteerCreateInput = Expand<
