@@ -23,6 +23,7 @@ const Template: Story<CreateArtFormProps> = args => {
     const formBody = {
       ...data,
       slug,
+      artist: 1,
       categories: data.categories.map(c => Number(c.value)),
     }
 

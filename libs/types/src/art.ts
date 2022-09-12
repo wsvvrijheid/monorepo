@@ -49,7 +49,7 @@ type ArtRelationInput = {
 
 export type ArtCreateInput = Expand<
   Pick<ArtBase, 'title' | 'description' | 'content' | 'locale'> &
-    ArtRelationInput
+    Omit<ArtRelationInput, 'comments' | 'feedbacks' | 'likers'>
 >
 
 export type ArtUpdateInput = Expand<
