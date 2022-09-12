@@ -1,8 +1,9 @@
+import { Expand } from './common'
 import { UploadFile } from './file'
 import { Job } from './job'
 import { StrapiCore } from './strapi'
 
-export type Platform = {
+export type PlatformBase = {
   slug: string
   name_en: string
   name_nl: string
@@ -14,6 +15,11 @@ export type Platform = {
   content_nl: string
   content_tr: string
   link: string
+}
+
+type PlatformRelation = {
   image?: UploadFile
   jobs?: Array<Job>
-} & StrapiCore
+}
+
+export type Platform = Expand<StrapiCore & PlatformBase & PlatformRelation>

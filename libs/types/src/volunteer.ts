@@ -30,12 +30,12 @@ export type VolunteerBase = {
 }
 
 type VolinteerRelation = {
-  user?: User | null
-  translator?: Translator | null
+  user?: Omit<User, 'volunteer'> | null
+  translator?: Omit<Translator, 'volunteer'> | null
   jury?: Jury | null
-  author?: Author | null
+  author?: Omit<Author, 'volunteer'> | null
   jobs?: Array<Job>
-  artEditor?: ArtEditor | null
+  artEditor?: Omit<ArtEditor, 'volunteer'> | null
 }
 
 type VolinteerRelationInput = {

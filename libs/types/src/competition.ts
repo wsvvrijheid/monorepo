@@ -1,21 +1,42 @@
 import { Application } from './application'
 import { Category } from './category'
-import { ModelStatus } from './common'
+import { Expand, ModelStatus } from './common'
 import { UploadFile } from './file'
 import { StrapiLocale } from './locale'
 import { StrapiCore } from './strapi'
 
-export type Competition = {
+type CompetitionBase = {
   title: string
   slug: string
   description: string
   content: string
   status: ModelStatus
-  image?: UploadFile
   date: string
   deadline: string
   locale: StrapiLocale
+}
+
+type CompetitionRelation = {
+  image?: UploadFile
   applications?: Array<Application>
   categories?: Array<Category>
   localizations?: Array<Competition>
-} & StrapiCore
+}
+
+type CompetitionRelationInput = {
+  image: Blob
+  applications?: number[]
+  categories?: number[]
+}
+
+export type CompetitionCreateInput = Expand<
+  Omit<CompetitionBase, 'status'> & CompetitionRelationInput
+>
+
+export type CompetitionUpdateInput = Expand<
+  Partial<Omit<CompetitionBase, 'locale'> & CompetitionRelationInput>
+>
+
+export type Competition = Expand<
+  StrapiCore & CompetitionBase & CompetitionRelation
+>

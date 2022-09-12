@@ -1,8 +1,18 @@
 import { ArtFeedback } from './art-feedback'
+import { Expand } from './common'
 import { StrapiCore } from './strapi'
 import { Volunteer } from './volunteer'
 
-export type ArtEditor = {
+type ArtEditorRelation = {
   feedbacks?: Array<ArtFeedback>
   volunteer?: Volunteer
-} & StrapiCore
+}
+
+type ArtEditorRelationInput = {
+  feedbacks?: number[]
+  volunteer: number
+}
+
+export type ArtEditorCreateInput = ArtEditorRelationInput
+
+export type ArtEditor = Expand<StrapiCore & ArtEditorRelation>
