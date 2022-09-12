@@ -16,7 +16,7 @@ import { AdminNavItem } from './AdminNavItem'
 import { AdminNavItemCollapsed } from './AdminNavItemCollapsed'
 
 export const getAdminNav = (user: SessionUser) => {
-  const { artEditorId, translatorId, isEditor, isAdmin } = user
+  const { editorId, translatorId, isEditor, isAdmin } = user
 
   return [
     {
@@ -60,7 +60,7 @@ export const getAdminNav = (user: SessionUser) => {
     {
       label: 'Arts',
       icon: <FaPaintBrush />,
-      visible: !!artEditorId || isEditor || isAdmin,
+      visible: !!editorId || isEditor || isAdmin,
       submenu: [
         {
           label: 'Pending Arts',
@@ -163,7 +163,7 @@ export const getAdminNav = (user: SessionUser) => {
 
 type AdminNAvProps = {
   user: SessionUser
-  expanded: boolean
+  expanded?: boolean
 }
 
 export const AdminNav: FC<AdminNAvProps> = ({ user, expanded }) => {

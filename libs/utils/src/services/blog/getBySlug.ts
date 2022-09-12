@@ -3,12 +3,14 @@ import { Blog, StrapiLocale } from '@wsvvrijheid/types'
 import * as dateFns from 'date-fns'
 import { enIN as en, nl, tr } from 'date-fns/locale'
 import { useRouter } from 'next/router'
+import { SetRequired } from 'type-fest'
 
 import { request } from '../../lib/request'
-import { getReadingTime } from '../../util'
 
 export const getBlogBySlug = async (locale: StrapiLocale, slug: string) => {
-  const response = await request<Blog[]>({
+  const response = await request<
+    SetRequired<Blog, 'author' | 'image' | 'likers'>[]
+  >({
     url: 'api/blogs',
     populate: ['author.volunteer', 'image', 'likers'],
     filters: { slug: { $eq: slug } },
@@ -21,23 +23,10 @@ export const getBlogBySlug = async (locale: StrapiLocale, slug: string) => {
 export const useGetBlog = (slug: string) => {
   const { locale } = useRouter()
 
-  const { data, ...rest } = useQuery({
+  return useQuery({
     queryKey: ['blog', locale, slug],
     queryFn: () => getBlogBySlug(locale as StrapiLocale, slug),
   })
-
-  const { formattedDate } = useLocaleTimeFormat(
-    data?.publishedAt as string,
-    'dd MMMM yyyy',
-  )
-  const readingTime = getReadingTime(
-    data?.content as string,
-    locale as StrapiLocale,
-  )
-
-  const blog = data ? { ...data, formattedDate, readingTime } : null
-
-  return { ...rest, data: blog }
 }
 
 export const timeLocale = { en, nl, tr }

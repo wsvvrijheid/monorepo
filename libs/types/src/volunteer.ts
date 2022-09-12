@@ -1,12 +1,15 @@
-import { ArtEditor } from './art-editor'
+import { SetRequired } from 'type-fest'
+
 import { Author } from './author'
+import { Expand } from './common'
+import { Editor } from './editor'
 import { Job } from './job'
 import { Jury } from './jury'
 import { StrapiCore } from './strapi'
 import { Translator } from './translator'
 import { User } from './user'
 
-export type Volunteer = {
+export type VolunteerBase = {
   username: string
   name: string | null
   email: string
@@ -24,10 +27,36 @@ export type Volunteer = {
   inMailingList: boolean
   approved: boolean
   isPublic: boolean | null
-  user?: User | null
-  translator?: Translator | null
+}
+
+type VolinteerRelation = {
+  user?: Omit<User, 'volunteer'> | null
+  translator?: Omit<Translator, 'volunteer'> | null
   jury?: Jury | null
-  author?: Author | null
+  author?: Omit<Author, 'volunteer'> | null
   jobs?: Array<Job>
-  artEditor?: ArtEditor | null
-} & StrapiCore
+  editor?: Omit<Editor, 'volunteer'> | null
+}
+
+type VolinteerRelationInput = {
+  user?: number
+  translator?: number
+  jury?: number
+  author?: number
+  jobs?: number[]
+  editor?: number
+}
+
+export type VolunteerCreateInput = Expand<
+  SetRequired<
+    Partial<Omit<VolunteerBase, 'approved'>>,
+    'username' | 'name' | 'email' | 'phone' | 'availableHours'
+  > &
+    Pick<VolinteerRelationInput, 'jobs' | 'user'>
+>
+
+export type VolunteerUpdateInput = Expand<
+  Partial<VolunteerBase> & VolinteerRelationInput
+>
+
+export type Volunteer = Expand<StrapiCore & VolunteerBase & VolinteerRelation>

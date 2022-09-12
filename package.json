@@ -22,6 +22,7 @@
     "@mollie/api-client": "^3.6.0",
     "@reactour/tour": "^3.1.2",
     "@reduxjs/toolkit": "^1.8.5",
+    "@sindresorhus/slugify": "^2.1.0",
     "@splidejs/react-splide": "^0.7.8",
     "@tanstack/react-query": "^4.2.3",
     "@tanstack/react-query-devtools": "^4.2.3",

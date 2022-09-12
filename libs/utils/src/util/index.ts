@@ -1,4 +1,5 @@
 export * from './formatNumber'
+export * from './generateFormData'
 export * from './getImageUrl'
 export * from './getItemLink'
 export * from './getReadingTime'

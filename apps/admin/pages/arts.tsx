@@ -7,7 +7,7 @@ import { GetServerSideProps } from 'next'
 import { FaArrowDown, FaArrowUp, FaUserAlt } from 'react-icons/fa'
 
 type ArtsPageProps = {
-  status: Art['status']
+  status: Art['translationStatus']
 }
 
 const ArtsPage: FC<ArtsPageProps> = ({ status }) => {
