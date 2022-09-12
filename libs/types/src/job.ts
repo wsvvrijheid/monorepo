@@ -1,7 +1,8 @@
+import { Expand } from './common'
 import { Platform } from './platform'
 import { StrapiCore } from './strapi'
 
-export type Job = {
+export type JobBase = {
   slug: string
   name_en: string
   name_nl: string
@@ -10,4 +11,16 @@ export type Job = {
   description_nl: string | null
   description_tr: string | null
   platform?: Platform
-} & StrapiCore
+}
+
+type JobRelation = {
+  platform?: Platform
+}
+
+type JobRelationInput = {
+  platform: number
+}
+
+export type JobCreateInput = Expand<JobBase & JobRelationInput>
+
+export type Job = Expand<StrapiCore & JobBase & JobRelation>

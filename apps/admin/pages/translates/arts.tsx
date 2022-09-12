@@ -5,7 +5,11 @@ const ArtsTranslatePage = () => {
   const { user, isLoading } = useAuth()
 
   return (
-    <AdminLayout title="ArtsTranslatePage" user={user} isLoading={isLoading}>
+    <AdminLayout
+      title="ArtsTranslatePage"
+      user={user}
+      isLoading={!user || isLoading}
+    >
       <Box>ArtsTranslatePage</Box>
     </AdminLayout>
   )

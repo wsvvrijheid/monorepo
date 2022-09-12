@@ -10,7 +10,7 @@ import qs from 'qs'
 import { fetcher } from './fetcher'
 
 type Request = {
-  url: `api/${StrapiUrl}`
+  url: StrapiUrl
   id?: number
   token?: string
   locale?: StrapiLocale

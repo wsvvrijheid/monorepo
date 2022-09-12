@@ -2,10 +2,10 @@ import { useToast } from '@chakra-ui/react'
 import { useMutation, useQueryClient, QueryKey } from '@tanstack/react-query'
 import { Art } from '@wsvvrijheid/types'
 
-import { mutation } from '../../lib'
+import { deleteMutation } from '../../lib'
 
 export const deleteArt = ({ id }: { id: number }) =>
-  mutation<Art>().delete('api/arts', id)
+  deleteMutation<Art>('api/arts', id)
 
 export const useDeleteArt = (queryKey: QueryKey) => {
   const queryClient = useQueryClient()

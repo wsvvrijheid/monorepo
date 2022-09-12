@@ -15,7 +15,7 @@ export type SessionUser = Pick<
   artistId?: number
   authorId?: number
   applicantId?: number
-  artEditorId?: number
+  editorId?: number
   juryId?: number
   translatorId?: number
   volunteerId?: number

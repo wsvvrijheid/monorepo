@@ -7,7 +7,7 @@ import { GetServerSideProps } from 'next'
 import { FaArrowDown, FaArrowUp, FaUserAlt } from 'react-icons/fa'
 
 type ArtsPageProps = {
-  status: Art['status']
+  status: Art['translationStatus']
 }
 
 const ArtsPage: FC<ArtsPageProps> = ({ status }) => {
@@ -21,7 +21,7 @@ const ArtsPage: FC<ArtsPageProps> = ({ status }) => {
     <AdminLayout
       title={`${status} Arts`}
       user={user}
-      isLoading={isLoading}
+      isLoading={!user || isLoading}
       headerProps={{
         onSearch: handleSearch,
         filterMenu: [

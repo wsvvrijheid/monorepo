@@ -1,13 +1,31 @@
+import { Expand } from './common'
 import { UploadFile } from './file'
 import { StrapiCore } from './strapi'
 import { Tweet } from './tweet'
 import { User } from './user'
 
-export type RecommendedTweet = {
-  recommender: User
-  originalTweet: Tweet
+export type RecommendedTweetBase = {
   isShared: boolean
   isArchived: boolean
-  media: UploadFile
+  originalTweet: Tweet
   text: string
-} & StrapiCore
+}
+
+type RecommendedTweetRelation = {
+  recommender: User
+  media: UploadFile
+}
+
+type RecommendedTweetRelationInput = {
+  recommender: number
+  media: Blob
+}
+
+export type RecommendedTweetCreateInput = Expand<
+  Omit<RecommendedTweetBase, 'isShared' | 'isArchived'> &
+    RecommendedTweetRelationInput
+>
+
+export type RecommendedTweet = Expand<
+  StrapiCore & RecommendedTweetBase & RecommendedTweetRelation
+>

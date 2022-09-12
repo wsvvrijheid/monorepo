@@ -5,7 +5,7 @@ const Index = () => {
   const { user, isLoading } = useAuth()
 
   return (
-    <AdminLayout title="Dashboard" user={user} isLoading={isLoading}>
+    <AdminLayout title="Dashboard" user={user} isLoading={!user || isLoading}>
       <Box>Dashboard</Box>
     </AdminLayout>
   )

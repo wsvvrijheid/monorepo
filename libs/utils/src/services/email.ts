@@ -1,7 +1,7 @@
 import { EMAIL_SENDER, EMAIL_RECEIVER } from '@wsvvrijheid/config'
 import { MergeExclusive } from 'type-fest'
 
-import { mutation } from '../lib'
+import { createMutation } from '../lib'
 
 type BaseEmailData = {
   // If we don't specify the receiver,
@@ -24,9 +24,12 @@ interface EmailDataHtml extends BaseEmailData {
 // Allow only one of text or html
 export type EmailData = MergeExclusive<EmailDataText, EmailDataHtml>
 
-export const sendEmail = async (data: EmailData) =>
-  mutation().post(`api/email`, {
+export const sendEmail = async (data: EmailData) => {
+  const body = {
     ...data,
     to: data.to || EMAIL_RECEIVER || EMAIL_SENDER,
     from: EMAIL_SENDER,
-  })
+  }
+
+  createMutation('api/email', body)
+}

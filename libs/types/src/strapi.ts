@@ -1,18 +1,21 @@
+import { UnionToIntersection } from 'type-fest'
+
 import { Activity } from './activity'
 import { Announcement } from './announcement'
 import { Applicant } from './applicant'
 import { Application } from './application'
 import { Art } from './art'
-import { ArtEditor } from './art-editor'
-import { ArtFeedback } from './art-feedback'
 import { Artist } from './artist'
 import { Author } from './author'
 import { Blog } from './blog'
 import { Category } from './category'
 import { Collection } from './collection'
 import { Comment } from './comment'
+import { Expand } from './common'
 import { Competition } from './competition'
 import { Donate } from './donate'
+import { Editor } from './editor'
+import { Feedback } from './feedback'
 import { UploadFile } from './file'
 import { Hashtag } from './hashtag'
 import { Job } from './job'
@@ -24,6 +27,8 @@ import { Mention } from './mention'
 import { Platform } from './platform'
 import { Post } from './post'
 import { Privacy } from './privacy'
+import { RecommendedTopic } from './recommended-topic'
+import { RecommendedTweet } from './recommended-tweet'
 import { Tag } from './tag'
 import { Term } from './term'
 import { Translator } from './translator'
@@ -46,8 +51,6 @@ export type StrapiModel =
   | Announcement
   | Applicant
   | Application
-  | ArtEditor
-  | ArtFeedback
   | Art
   | Artist
   | Author
@@ -57,58 +60,30 @@ export type StrapiModel =
   | Comment
   | Competition
   | Donate
-  | UploadFile
+  | Editor
+  | Feedback
   | Hashtag
   | Job
-  | JuryVote
   | Jury
+  | JuryVote
   | LangRole
   | Me
   | Mention
+  | Platform
   | Post
   | Privacy
-  | Platform
+  | RecommendedTopic
+  | RecommendedTweet
   | Tag
   | Term
   | Translator
   | Trend
+  | UploadFile
   | User
   | Volunteer
   | Vote
 
-export type StrapiAllModels = Activity &
-  Announcement &
-  Applicant &
-  Application &
-  ArtEditor &
-  ArtFeedback &
-  Art &
-  Artist &
-  Author &
-  Blog &
-  Category &
-  Collection &
-  Comment &
-  Competition &
-  Donate &
-  UploadFile &
-  Hashtag &
-  Job &
-  JuryVote &
-  Jury &
-  LangRole &
-  Me &
-  Mention &
-  Post &
-  Privacy &
-  Platform &
-  Tag &
-  Term &
-  Translator &
-  Trend &
-  User &
-  Volunteer &
-  Vote
+export type StrapiAllModels = Expand<UnionToIntersection<StrapiModel>>
 
 export type StrapiModelKeys = keyof StrapiAllModels
 
@@ -149,6 +124,7 @@ export type StrapiMutationResponse<T extends StrapiModel> = {
   meta: Record<string, unknown>
 }
 
+export type StrapiEmailUrl = 'email'
 export type StrapiProviders = 'instagram' | 'facebook' | 'google' | 'twitter'
 export type StrapiSingleUrl = 'term' | 'privacy' | 'trend'
 export type StrapiAuthUrl =
@@ -159,10 +135,8 @@ export type StrapiCollectionUrl =
   | 'activities'
   | 'announcements'
   | 'applicants'
-  | 'art-editors'
-  | 'art-feedbacks'
-  | 'arts'
   | 'artists'
+  | 'arts'
   | 'authors'
   | 'blogs'
   | 'categories'
@@ -170,16 +144,19 @@ export type StrapiCollectionUrl =
   | 'comments'
   | 'competitions'
   | 'donates'
+  | 'editors'
+  | 'feedbacks'
   | 'hashtags'
   | 'jobs'
-  | 'jury-votes'
   | 'juries'
+  | 'jury-votes'
   | 'lang-roles'
   | 'me'
   | 'mentions'
   | 'news'
   | 'platforms'
   | 'posts'
+  | 'recommended-topics'
   | 'recommended-tweets'
   | 'saved-tweets'
   | 'tags'
@@ -192,4 +169,21 @@ export type StrapiCollectionUrl =
   | 'volunteers'
   | 'votes'
 
-export type StrapiUrl = StrapiSingleUrl | StrapiCollectionUrl | StrapiAuthUrl
+export type StrapiUrl = Expand<`api/${
+  | StrapiSingleUrl
+  | StrapiCollectionUrl
+  | StrapiAuthUrl
+  | StrapiEmailUrl}`>
+
+export type StrapiFormValue =
+  | string
+  | number
+  | boolean
+  | Date
+  | string[]
+  | number[]
+  | Blob
+  | Blob[]
+  | null
+
+export type StrapiMutationInput = { [key in string]?: StrapiFormValue }

@@ -1,9 +1,9 @@
 import { RefObject } from 'react'
 
-import { Category } from '@wsvvrijheid/types'
+import { Category, StrapiLocale } from '@wsvvrijheid/types'
 
 export type CreateArtFormFieldValues = {
-  locale: string
+  locale: StrapiLocale
   title: string
   description: string
   content: string

@@ -6,4 +6,5 @@ export type AdminNavItemProps = {
   link?: string
   submenu?: NavItemProps[]
   icon: JSX.Element
+  expanded?: boolean
 } & ButtonProps

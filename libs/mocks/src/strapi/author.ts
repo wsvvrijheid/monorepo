@@ -22,7 +22,7 @@ export const AUTHOR_MOCKS: StrapiResponse<Author[]> = {
           publishedAt: '2022-03-27T14:24:14.274Z',
           locale: 'tr',
           likes: null,
-          status: null,
+          translationStatus: null,
         },
         {
           id: 2,
@@ -36,7 +36,7 @@ export const AUTHOR_MOCKS: StrapiResponse<Author[]> = {
           publishedAt: null,
           locale: 'en',
           likes: null,
-          status: null,
+          translationStatus: null,
         },
         {
           id: 3,
@@ -50,7 +50,7 @@ export const AUTHOR_MOCKS: StrapiResponse<Author[]> = {
           publishedAt: null,
           locale: 'nl',
           likes: null,
-          status: null,
+          translationStatus: null,
         },
         {
           id: 5,
@@ -65,7 +65,7 @@ export const AUTHOR_MOCKS: StrapiResponse<Author[]> = {
           publishedAt: '2022-05-24T16:10:10.844Z',
           locale: 'tr',
           likes: null,
-          status: null,
+          translationStatus: null,
         },
         {
           id: 6,
@@ -80,7 +80,7 @@ export const AUTHOR_MOCKS: StrapiResponse<Author[]> = {
           publishedAt: '2022-05-24T16:17:42.050Z',
           locale: 'tr',
           likes: 4,
-          status: null,
+          translationStatus: null,
         },
         {
           id: 7,
@@ -95,7 +95,7 @@ export const AUTHOR_MOCKS: StrapiResponse<Author[]> = {
           publishedAt: '2022-05-24T16:20:02.523Z',
           locale: 'tr',
           likes: 0,
-          status: null,
+          translationStatus: null,
         },
         {
           id: 8,
@@ -110,7 +110,7 @@ export const AUTHOR_MOCKS: StrapiResponse<Author[]> = {
           publishedAt: '2022-05-24T16:22:24.285Z',
           locale: 'tr',
           likes: 5,
-          status: null,
+          translationStatus: null,
         },
         {
           id: 11,
@@ -125,7 +125,7 @@ export const AUTHOR_MOCKS: StrapiResponse<Author[]> = {
           publishedAt: '2022-05-24T16:29:50.829Z',
           locale: 'tr',
           likes: 1,
-          status: null,
+          translationStatus: null,
         },
         {
           id: 12,
@@ -140,7 +140,7 @@ export const AUTHOR_MOCKS: StrapiResponse<Author[]> = {
           publishedAt: '2022-05-24T16:31:53.661Z',
           locale: 'tr',
           likes: 20,
-          status: null,
+          translationStatus: null,
         },
         {
           id: 13,
@@ -155,7 +155,7 @@ export const AUTHOR_MOCKS: StrapiResponse<Author[]> = {
           publishedAt: null,
           locale: 'tr',
           likes: null,
-          status: null,
+          translationStatus: null,
         },
       ],
       volunteer: {
@@ -231,7 +231,7 @@ export const AUTHOR_MOCKS: StrapiResponse<Author[]> = {
           publishedAt: '2022-05-24T16:27:29.532Z',
           locale: 'tr',
           likes: 2,
-          status: null,
+          translationStatus: null,
         },
       ],
       volunteer: {
@@ -277,7 +277,7 @@ export const AUTHOR_MOCKS: StrapiResponse<Author[]> = {
           publishedAt: '2022-05-24T16:25:48.525Z',
           locale: 'tr',
           likes: 2,
-          status: null,
+          translationStatus: null,
         },
       ],
       volunteer: {

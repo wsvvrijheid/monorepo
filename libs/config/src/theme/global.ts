@@ -1,5 +1,8 @@
 export const styles = {
   global: {
+    'html, body, #__next': {
+      h: 'full',
+    },
     body: {
       fontFamily: 'body',
       color: 'gray.900',
