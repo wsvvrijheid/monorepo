@@ -13,6 +13,6 @@ export type LoginInput = {
 }
 
 export type LoginPayload = {
-  jwt?: string
+  jwt: string
   user: Me
 }

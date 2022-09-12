@@ -1,4 +1,4 @@
-import { mutation, sessionOptions, getAuth } from '@wsvvrijheid/utils'
+import { sessionOptions, getAuth, createMutation } from '@wsvvrijheid/utils'
 import axios from 'axios'
 import { withIronSessionApiRoute } from 'iron-session/next'
 import { NextApiResponse, NextApiRequest } from 'next'
@@ -23,9 +23,9 @@ const registerRoute = async (req: NextApiRequest, res: NextApiResponse) => {
     const token = response.data.jwt
     const userId = response.data.user?.id
 
-    await mutation(token).post('api/artists', {
-      data: { user: userId, name: trimmedName },
-    })
+    const body = { user: userId, name: trimmedName }
+
+    await createMutation('api/users', body, token)
 
     const auth = await getAuth(email, password)
 

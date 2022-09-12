@@ -16,7 +16,7 @@ export const ACTIVITY_MOCKS: Localize<StrapiResponse<Activity[]>> = {
         locale: 'tr',
         description:
           'Empati isimli kısa filmde mülteciliğin en çok karşılaştığı sorunlardan birisi olan ırkçılık ele alındı. Filmde derdini anlatamama, anlaşılamama ve hoşgörüsüzlük gibi detaylara yer verildi. ',
-        status: null,
+        translationStatus: null,
         image: {
           id: 74,
           name: 'Empati-aktivity.png',
@@ -119,7 +119,7 @@ export const ACTIVITY_MOCKS: Localize<StrapiResponse<Activity[]>> = {
         locale: 'tr',
         description:
           'Lotus van de Media  platformu ilk tiyatrosu "Yol" 2 Temmuz 2022 günü saat 20:00\'de gala yapıyor. ',
-        status: null,
+        translationStatus: null,
         image: {
           id: 123,
           name: 'tiyatroimage.jpg',
@@ -201,7 +201,7 @@ export const ACTIVITY_MOCKS: Localize<StrapiResponse<Activity[]>> = {
         locale: 'tr',
         description:
           'Platformumuz Kunsthalte tarafından düzenlenen, "Bir mültecilerin gözünden Hollanda" konulu karma sanat sergisine hepiniz davetlisiniz. ',
-        status: null,
+        translationStatus: null,
         image: {
           id: 127,
           name: 'SergiSitejpeg.jpeg',
@@ -282,7 +282,7 @@ export const ACTIVITY_MOCKS: Localize<StrapiResponse<Activity[]>> = {
             locale: 'en',
             description:
               'We are planning an art exhibition entitled Netherlands through the eyes of a refugees in Amsterdam Boosta in May 2022.',
-            status: null,
+            translationStatus: null,
           },
           {
             id: 3,
@@ -295,8 +295,8 @@ export const ACTIVITY_MOCKS: Localize<StrapiResponse<Activity[]>> = {
             updatedAt: '2022-06-26T18:58:11.987Z',
             publishedAt: '2022-06-26T12:19:23.924Z',
             locale: 'nl',
-            description: null,
-            status: null,
+            description: '',
+            translationStatus: null,
           },
         ],
       },
@@ -313,7 +313,7 @@ export const ACTIVITY_MOCKS: Localize<StrapiResponse<Activity[]>> = {
         locale: 'tr',
         description:
           '15 Temmuz 2016 tarihinde Türkiye\'de gerçekleşen darbe tiyatrosu bahane edilerek ev hanımı, öğrenci, memur ve esnaf gibi binlerce masum insan ya tutuklandı ya da evinden işinden edildi. Onlarcası Meriç\'in soğuk sularında vuslata erdi. "Yol" tiyatrosu Türkiyede yaşanan bu zulmü biraz da olsa anlatma imkanı buldu.  ',
-        status: null,
+        translationStatus: null,
         image: {
           id: 286,
           name: 'Yol 0.jpeg',
@@ -409,8 +409,8 @@ export const ACTIVITY_MOCKS: Localize<StrapiResponse<Activity[]>> = {
         updatedAt: '2022-06-26T18:58:11.987Z',
         publishedAt: '2022-06-26T12:19:23.924Z',
         locale: 'nl',
-        description: null,
-        status: null,
+        description: '',
+        translationStatus: null,
         image: {
           id: 127,
           name: 'SergiSitejpeg.jpeg',
@@ -502,7 +502,7 @@ export const ACTIVITY_MOCKS: Localize<StrapiResponse<Activity[]>> = {
             locale: 'tr',
             description:
               'Platformumuz Kunsthalte tarafından düzenlenen, "Bir mültecilerin gözünden Hollanda" konulu karma sanat sergisine hepiniz davetlisiniz. ',
-            status: null,
+            translationStatus: null,
           },
           {
             id: 2,
@@ -517,7 +517,7 @@ export const ACTIVITY_MOCKS: Localize<StrapiResponse<Activity[]>> = {
             locale: 'en',
             description:
               'We are planning an art exhibition entitled Netherlands through the eyes of a refugees in Amsterdam Boosta in May 2022.',
-            status: null,
+            translationStatus: null,
           },
         ],
       },
@@ -539,7 +539,7 @@ export const ACTIVITY_MOCKS: Localize<StrapiResponse<Activity[]>> = {
         locale: 'en',
         description:
           'We are planning an art exhibition entitled Netherlands through the eyes of a refugees in Amsterdam Boosta in May 2022.',
-        status: null,
+        translationStatus: null,
         image: {
           id: 127,
           name: 'SergiSitejpeg.jpeg',
@@ -642,7 +642,7 @@ export const ACTIVITY_MOCKS: Localize<StrapiResponse<Activity[]>> = {
             locale: 'tr',
             description:
               'Platformumuz Kunsthalte tarafından düzenlenen, "Bir mültecilerin gözünden Hollanda" konulu karma sanat sergisine hepiniz davetlisiniz. ',
-            status: null,
+            translationStatus: null,
           },
           {
             id: 3,
@@ -655,8 +655,8 @@ export const ACTIVITY_MOCKS: Localize<StrapiResponse<Activity[]>> = {
             updatedAt: '2022-06-26T18:58:11.987Z',
             publishedAt: '2022-06-26T12:19:23.924Z',
             locale: 'nl',
-            description: null,
-            status: null,
+            description: '',
+            translationStatus: null,
           },
         ],
       },

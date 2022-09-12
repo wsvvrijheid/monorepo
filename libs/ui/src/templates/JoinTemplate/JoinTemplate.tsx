@@ -11,9 +11,13 @@ import {
   VStack,
 } from '@chakra-ui/react'
 import { useMutation } from '@tanstack/react-query'
-import { StrapiLocale, Volunteer } from '@wsvvrijheid/types'
-import { Job, Platform } from '@wsvvrijheid/types'
-import { mutation, usePlatforms, toastMessage } from '@wsvvrijheid/utils'
+import {
+  StrapiLocale,
+  Volunteer,
+  VolunteerCreateInput,
+} from '@wsvvrijheid/types'
+import { Job } from '@wsvvrijheid/types'
+import { usePlatforms, toastMessage, createMutation } from '@wsvvrijheid/utils'
 import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
 import { v4 as uuidV4 } from 'uuid'
@@ -27,23 +31,19 @@ import {
 } from '../../components'
 import { JoinTemplateProps } from './types'
 
-type VolunteerRequest = {
-  username: Volunteer['username']
-  heardFrom: Volunteer['heardFrom']
-} & Omit<JoinFormFieldValues, 'heardFrom'>
-
 export const JoinTemplate: FC<JoinTemplateProps> = ({ title }) => {
   const { t } = useTranslation()
   const { locale } = useRouter()
 
   const platformsResult = usePlatforms()
 
-  const platforms: Platform[] = platformsResult.data || []
-  const jobs: Job[] = (platforms?.flatMap(p => p.jobs) as Job[]) || []
+  const platforms = platformsResult.data || []
+  const jobs = (platforms?.flatMap(p => p.jobs) as Job[]) || []
 
   const { mutate, isLoading, isSuccess } = useMutation(
     ['create-volunteer'],
-    (data: VolunteerRequest) => mutation().post('api/volunteers', { data }),
+    (body: VolunteerCreateInput) =>
+      createMutation<Volunteer, VolunteerCreateInput>('api/volunteers', body),
   )
 
   const onSubmit = (data: JoinFormFieldValues) => {
@@ -53,23 +53,22 @@ export const JoinTemplate: FC<JoinTemplateProps> = ({ title }) => {
       const heardFrom = data.heardFrom.join(', ')
       const jobs = data.jobs
 
-      mutate(
-        {
-          ...data,
-          username: uuidV4(),
-          availableHours,
-          heardFrom,
-          jobs,
-        },
-        {
-          onError: () =>
-            toastMessage(
-              t`apply-form.error.title`,
-              t`apply-form.error.description`,
-              'error',
-            ),
-        },
-      )
+      const body: VolunteerCreateInput = {
+        ...data,
+        username: uuidV4(),
+        availableHours,
+        heardFrom,
+        jobs,
+      }
+
+      mutate(body, {
+        onError: () =>
+          toastMessage(
+            t`apply-form.error.title`,
+            t`apply-form.error.description`,
+            'error',
+          ),
+      })
     } catch (error) {
       console.error('Submit volunteer form error', error)
     }

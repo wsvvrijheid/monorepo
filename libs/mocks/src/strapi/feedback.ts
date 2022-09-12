@@ -1,6 +1,6 @@
-import { ArtFeedback, StrapiResponse } from '@wsvvrijheid/types'
+import { Feedback, StrapiResponse } from '@wsvvrijheid/types'
 
-export const ART_FEEDBACK_MOCK: StrapiResponse<ArtFeedback[]> = {
+export const FEEDBACK_MOCK: StrapiResponse<Feedback[]> = {
   data: [
     {
       id: 1,
@@ -22,7 +22,7 @@ export const ART_FEEDBACK_MOCK: StrapiResponse<ArtFeedback[]> = {
         locale: 'en',
         likes: null,
         views: null,
-        status: null,
+        translationStatus: null,
         isApproved: null,
         isRejected: null,
       },

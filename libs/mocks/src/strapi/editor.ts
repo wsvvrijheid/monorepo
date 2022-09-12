@@ -1,6 +1,6 @@
-import { ArtEditor, StrapiResponse } from '@wsvvrijheid/types'
+import { Editor, StrapiResponse } from '@wsvvrijheid/types'
 
-export const ART_EDITOR_MOCKS: StrapiResponse<ArtEditor[]> = {
+export const EDITOR_MOCKS: StrapiResponse<Editor[]> = {
   data: [
     {
       id: 1,

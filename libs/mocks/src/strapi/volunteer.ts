@@ -43,7 +43,7 @@ export const VOLUNTEER_MOCKS: StrapiResponse<Volunteer[]> = {
           slug: 'developer',
         },
       ],
-      artEditor: null,
+      editor: null,
     },
     {
       id: 13,
@@ -100,7 +100,7 @@ export const VOLUNTEER_MOCKS: StrapiResponse<Volunteer[]> = {
           slug: 'developer',
         },
       ],
-      artEditor: {
+      editor: {
         id: 3,
         createdAt: '2022-06-14T18:18:19.087Z',
         updatedAt: '2022-06-14T18:18:21.385Z',
@@ -166,7 +166,7 @@ export const VOLUNTEER_MOCKS: StrapiResponse<Volunteer[]> = {
           slug: 'blogger',
         },
       ],
-      artEditor: null,
+      editor: null,
     },
     {
       id: 17,
@@ -200,7 +200,7 @@ export const VOLUNTEER_MOCKS: StrapiResponse<Volunteer[]> = {
         publishedAt: '2022-03-27T14:29:12.270Z',
       },
       jobs: [],
-      artEditor: null,
+      editor: null,
     },
     {
       id: 16,
@@ -257,7 +257,7 @@ export const VOLUNTEER_MOCKS: StrapiResponse<Volunteer[]> = {
           slug: 'blogger',
         },
       ],
-      artEditor: null,
+      editor: null,
     },
     {
       id: 22,
@@ -286,7 +286,7 @@ export const VOLUNTEER_MOCKS: StrapiResponse<Volunteer[]> = {
       jury: null,
       author: null,
       jobs: [],
-      artEditor: null,
+      editor: null,
     },
     {
       id: 23,
@@ -355,7 +355,7 @@ export const VOLUNTEER_MOCKS: StrapiResponse<Volunteer[]> = {
           slug: 'translator',
         },
       ],
-      artEditor: null,
+      editor: null,
     },
     {
       id: 26,
@@ -411,7 +411,7 @@ export const VOLUNTEER_MOCKS: StrapiResponse<Volunteer[]> = {
           slug: 'social-media-expert',
         },
       ],
-      artEditor: null,
+      editor: null,
     },
     {
       id: 25,
@@ -467,7 +467,7 @@ export const VOLUNTEER_MOCKS: StrapiResponse<Volunteer[]> = {
           slug: 'account-manager',
         },
       ],
-      artEditor: null,
+      editor: null,
     },
     {
       id: 29,
@@ -510,7 +510,7 @@ export const VOLUNTEER_MOCKS: StrapiResponse<Volunteer[]> = {
           slug: 'blogger',
         },
       ],
-      artEditor: null,
+      editor: null,
     },
     {
       id: 30,
@@ -553,7 +553,7 @@ export const VOLUNTEER_MOCKS: StrapiResponse<Volunteer[]> = {
           slug: 'translator',
         },
       ],
-      artEditor: null,
+      editor: null,
     },
     {
       id: 15,
@@ -596,7 +596,7 @@ export const VOLUNTEER_MOCKS: StrapiResponse<Volunteer[]> = {
           slug: 'illustrator',
         },
       ],
-      artEditor: {
+      editor: {
         id: 2,
         createdAt: '2022-05-29T17:02:15.562Z',
         updatedAt: '2022-05-29T17:02:20.132Z',
@@ -735,7 +735,7 @@ export const VOLUNTEER_MOCKS: StrapiResponse<Volunteer[]> = {
           slug: 'social-media-expert',
         },
       ],
-      artEditor: null,
+      editor: null,
     },
     {
       id: 19,
@@ -800,7 +800,7 @@ export const VOLUNTEER_MOCKS: StrapiResponse<Volunteer[]> = {
           slug: 'photograph',
         },
       ],
-      artEditor: {
+      editor: {
         id: 1,
         createdAt: '2022-05-29T17:01:54.573Z',
         updatedAt: '2022-05-29T17:01:58.723Z',
@@ -848,7 +848,7 @@ export const VOLUNTEER_MOCKS: StrapiResponse<Volunteer[]> = {
           slug: 'developer',
         },
       ],
-      artEditor: null,
+      editor: null,
     },
     {
       id: 32,
@@ -891,7 +891,7 @@ export const VOLUNTEER_MOCKS: StrapiResponse<Volunteer[]> = {
           slug: 'content-manager',
         },
       ],
-      artEditor: null,
+      editor: null,
     },
     {
       id: 33,
@@ -934,7 +934,7 @@ export const VOLUNTEER_MOCKS: StrapiResponse<Volunteer[]> = {
           slug: 'scriptwriter',
         },
       ],
-      artEditor: null,
+      editor: null,
     },
     {
       id: 34,
@@ -1016,7 +1016,7 @@ export const VOLUNTEER_MOCKS: StrapiResponse<Volunteer[]> = {
           slug: 'photograph',
         },
       ],
-      artEditor: null,
+      editor: null,
     },
   ],
   meta: { pagination: { page: 1, pageSize: 25, pageCount: 1, total: 18 } },

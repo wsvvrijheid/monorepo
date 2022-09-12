@@ -11,8 +11,7 @@ import {
 } from '@wsvvrijheid/utils'
 import { useTranslation } from 'react-i18next'
 
-import { Container, ArtCardBase } from '../../components'
-import { ArtWithDetails } from '../../components/ArtWithDetails'
+import { Container, ArtCardBase, ArtWithDetails } from '../../components'
 
 export type ArtTemplateProps = {
   auth: Auth

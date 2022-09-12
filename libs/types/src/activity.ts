@@ -1,20 +1,45 @@
+import { SetRequired } from 'type-fest'
+
 import { Category } from './category'
-import { ModelStatus } from './common'
+import { Expand, TranslationStatus } from './common'
 import { UploadFile } from './file'
 import { StrapiLocale } from './locale'
 import { StrapiCore } from './strapi'
 import { Tag } from './tag'
 
-export type Activity = {
+type ActivityBase = {
   title: string
   slug: string
-  description: string | null
+  description: string
   content: string
-  status: ModelStatus
-  image?: UploadFile
+  translationStatus: TranslationStatus
   date: string
+  locale: StrapiLocale
+}
+
+type ActivityRelation = {
   categories?: Array<Category>
   tags?: Array<Tag>
-  locale: StrapiLocale
+  image?: UploadFile
   localizations?: Array<Activity>
-} & StrapiCore
+}
+
+type ActivityRelationInput = {
+  category?: number
+  tags?: number[]
+  image?: Blob
+}
+
+export type ActivityCreateInput = Expand<
+  Omit<ActivityBase, 'translationStatus'> &
+    SetRequired<ActivityRelationInput, 'image'>
+>
+export type ActivityUpdateInput = Expand<
+  Partial<Omit<ActivityBase, 'locale'>> & ActivityRelationInput
+>
+export type ActivityLocalizeInput = Pick<
+  ActivityBase,
+  'title' | 'description' | 'content'
+>
+
+export type Activity = Expand<StrapiCore & ActivityBase & ActivityRelation>

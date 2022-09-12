@@ -1,8 +1,18 @@
 import { Blog } from './blog'
+import { Expand } from './common'
 import { StrapiCore } from './strapi'
 import { Volunteer } from './volunteer'
 
-export type Author = {
+type AuthorRelation = {
   blogs?: Array<Blog>
   volunteer?: Volunteer
-} & StrapiCore
+}
+
+type AuthorRelationInput = {
+  blogs?: number[]
+  volunteer: number
+}
+
+export type AuthorCreateInput = AuthorRelationInput
+
+export type Author = Expand<StrapiCore & AuthorRelation>
