@@ -23,15 +23,11 @@ const Template: Story<CreateArtFormProps> = args => {
     const formBody = {
       ...data,
       slug,
+      artist: 1,
       categories: data.categories.map(c => Number(c.value)),
     }
 
-    const response = await createMutation<Art, ArtCreateInput>(
-      'api/arts',
-      formBody,
-    )
-
-    console.log('response', response)
+    await createMutation<Art, ArtCreateInput>('api/arts', formBody)
 
     setIsLoading(true)
     setTimeout(() => {

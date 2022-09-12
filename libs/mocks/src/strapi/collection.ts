@@ -35,7 +35,7 @@ export const COLLECTION_MOCKS: Localize<StrapiResponse<Collection[]>> = {
             id: 6,
             title: 'Korona döneminde yalnızlık',
             slug: 'korona',
-            description: null,
+            description: '',
             content:
               'Korona döneminde, bakım merkezinde kalan anneye ve ziyaretine izin verildiği sırada onunla zar zor iletişim kurabilen eşim. \nÜzücü, neler olup bittiğini hiç anlamayan annenin ve pencereye hafifçe vurarak onunla biraz sohbet etmeye çalışan eşimin boş bakışları, ama boşuna... her iki taraf için de dokunmak çok zord ve yorucuydu. ',
             createdAt: '2022-03-25T19:23:47.237Z',
@@ -52,7 +52,7 @@ export const COLLECTION_MOCKS: Localize<StrapiResponse<Collection[]>> = {
             id: 8,
             title: 'Yalnızlık',
             slug: 'yalnizlik',
-            description: null,
+            description: '',
             content:
               'Karısı ölen bir koca yalnız, annesi ölen bir çocuk yalnız, sevdiklerimiz gidiyor kalıyoruz yalnız. ',
             createdAt: '2022-03-25T19:28:03.911Z',
@@ -128,7 +128,7 @@ export const COLLECTION_MOCKS: Localize<StrapiResponse<Collection[]>> = {
             id: 5,
             title: 'Eenzaamheid tijdens corona',
             slug: 'eenzaa',
-            description: null,
+            description: '',
             content:
               "Mijn vrouw die tijdens de lockdown een bliksembezoek mag brengen aan moeder, die in het zorgcentrum verblijft en ternauwernood contact kan krijgen met haar. Hartverscheurend is de lege blik van moeder die het helemaal niet begrijpt wat er gaande is en mijn vrouw die via zacht tikken op het raam toch enigszins probeert om nog even 'n praatje te kunnen maken met haar, maar tevergeefs ... het contact liep heel stroef en was voor beide partijen uitputten.",
             createdAt: '2022-03-25T19:21:11.815Z',
@@ -145,7 +145,7 @@ export const COLLECTION_MOCKS: Localize<StrapiResponse<Collection[]>> = {
             id: 9,
             title: 'eenzaamheid',
             slug: 'alone',
-            description: null,
+            description: '',
             content:
               'Alleen is een man wiens vrouw stierf, aleeen is een kind wiens moeder stierf, onze dierbaren gaan weg, we blijven alleen ',
             createdAt: '2022-03-25T19:29:31.617Z',

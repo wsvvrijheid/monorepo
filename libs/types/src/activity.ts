@@ -1,5 +1,3 @@
-import { SetRequired } from 'type-fest'
-
 import { Category } from './category'
 import { Expand, TranslationStatus } from './common'
 import { UploadFile } from './file'
@@ -27,12 +25,11 @@ type ActivityRelation = {
 type ActivityRelationInput = {
   category?: number
   tags?: number[]
-  image?: Blob
+  image: Blob
 }
 
 export type ActivityCreateInput = Expand<
-  Omit<ActivityBase, 'translationStatus'> &
-    SetRequired<ActivityRelationInput, 'image'>
+  Omit<ActivityBase, 'translationStatus'> & ActivityRelationInput
 >
 export type ActivityUpdateInput = Expand<
   Partial<Omit<ActivityBase, 'locale'>> & ActivityRelationInput

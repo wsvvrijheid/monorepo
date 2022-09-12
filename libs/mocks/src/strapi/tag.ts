@@ -16,7 +16,7 @@ export const TAG_MOCKS: StrapiResponse<Tag[]> = {
           id: 5,
           title: 'Eenzaamheid tijdens corona',
           slug: 'eenzaa',
-          description: null,
+          description: '',
           content:
             "Mijn vrouw die tijdens de lockdown een bliksembezoek mag brengen aan moeder, die in het zorgcentrum verblijft en ternauwernood contact kan krijgen met haar. Hartverscheurend is de lege blik van moeder die het helemaal niet begrijpt wat er gaande is en mijn vrouw die via zacht tikken op het raam toch enigszins probeert om nog even 'n praatje te kunnen maken met haar, maar tevergeefs ... het contact liep heel stroef en was voor beide partijen uitputten.",
           createdAt: '2022-03-25T19:21:11.815Z',

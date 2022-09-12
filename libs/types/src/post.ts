@@ -42,8 +42,9 @@ export type PostCreateInput = Expand<
 >
 
 export type PostUpdateInput = Expand<
-  Partial<Omit<PostBase, 'locale'>> &
-    Partial<Omit<PostRelationInput, 'translator' | 'creator'>>
+  Partial<
+    Omit<PostBase, 'locale'> & Omit<PostRelationInput, 'translator' | 'creator'>
+  >
 >
 
 export type PostLocalizeInput = Pick<

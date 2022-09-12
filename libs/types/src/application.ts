@@ -41,8 +41,7 @@ export type ApplicationCreateInput = Expand<
 >
 
 export type ApplicationUpdateInput = Expand<
-  Partial<Omit<ApplicationBase, 'locale' | 'slug'>> &
-    Partial<ApplicationRelationInput>
+  Partial<Omit<ApplicationBase, 'locale' | 'slug'> & ApplicationRelationInput>
 >
 
 export type Application = Expand<

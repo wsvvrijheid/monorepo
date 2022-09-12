@@ -1,5 +1,3 @@
-import { SetRequired } from 'type-fest'
-
 import { Art } from './art'
 import { Expand } from './common'
 import { StrapiCore } from './strapi'
@@ -16,11 +14,11 @@ type ArtistRelation = {
 
 type ArtistRelationInput = {
   arts?: Array<number>
-  user?: number
+  user: number
 }
 
 export type ArtistCreateInput = Expand<
-  ArtistBase & Pick<SetRequired<ArtistRelationInput, 'user'>, 'user'>
+  ArtistBase & Pick<ArtistRelationInput, 'user'>
 >
 
 export type Artist = Expand<StrapiCore & ArtistBase & ArtistRelation>

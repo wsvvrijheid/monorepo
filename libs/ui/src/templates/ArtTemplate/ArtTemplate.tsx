@@ -3,7 +3,7 @@ import { FC } from 'react'
 import { Heading, Stack, useBreakpointValue } from '@chakra-ui/react'
 import { Splide, SplideSlide } from '@splidejs/react-splide'
 import { QueryKey } from '@tanstack/react-query'
-import { Art, Auth } from '@wsvvrijheid/types'
+import { Auth } from '@wsvvrijheid/types'
 import {
   useArtBySlug,
   useArtsByCategories,
@@ -49,7 +49,7 @@ export const ArtTemplate: FC<ArtTemplateProps> = ({ auth, queryKey }) => {
               gap: '1rem',
             }}
           >
-            {arts.map((art: Art) => (
+            {arts.map(art => (
               <SplideSlide key={art.id}>
                 <ArtCardBase
                   auth={auth}
