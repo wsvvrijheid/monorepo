@@ -1,4 +1,12 @@
-import { Avatar, Box, Button, SimpleGrid, Stack, Text } from '@chakra-ui/react'
+import {
+  Avatar,
+  Box,
+  Button,
+  SimpleGrid,
+  Stack,
+  Text,
+  VStack,
+} from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation } from '@tanstack/react-query'
 import axios from 'axios'
@@ -14,6 +22,7 @@ import {
   LoginFormProps,
   LoginFormFieldValues,
   WImage,
+  Container,
 } from '../../components'
 
 const schema = (t: TFunction) =>
@@ -70,82 +79,92 @@ export const AdminLoginForm: React.FC<LoginFormProps> = () => {
 
   return (
     <SimpleGrid columns={{ base: 1, lg: 2 }} h="full">
-      <WImage
-        objectFit="cover"
-        src={
-          'https://api.samenvvv.nl/uploads/admin_6c476509d3.png?updated_at=2022-09-08T20:43:14.867Z'
-        }
-        alt={'admin'}
-      />
+      <Box pos="relative">
+        <WImage
+          objectFit="cover"
+          src={
+            'https://api.samenvvv.nl/uploads/smartmockups_l7y9bzqx_256149ef40.jpeg'
+          }
+          alt={'admin'}
+        />
+        <Box
+          pos="absolute"
+          top={0}
+          left={0}
+          boxSize="full"
+          bgGradient="linear(to-t, blue.500, blackAlpha.500)"
+          opacity={0.5}
+        />
+      </Box>
+      <Container maxW={{ base: 'full', lg: 300 }}>
+        {/* right side (second container) */}
+        <Stack
+          h="full"
+          w="full"
+          textAlign="center"
+          spacing={4}
+          justify="center"
+          pb={8}
+          pt={{ base: 8, lg: '50%' }}
+        >
+          <VStack textAlign="center" w={'full'}>
+            <Avatar size="2xl" src={'https://wsvvrijheid.nl/images/logo.svg'} />
 
-      {/* right side (second container) */}
-      <Stack
-        w={'full'}
-        textAlign="center"
-        bg={'white'}
-        spacing={4}
-        justify="space-between"
-      >
-        <Stack mt={8}>
-          <Stack textAlign="center" w={'full'}>
-            <Box sx={{ h: 'full', '.splide__track': { h: 'full' } }}>
-              <Avatar
-                size="2xl"
-                src={'https://wsvvrijheid.nl/images/logo.svg'}
-              />
-            </Box>
-            <Text fontSize={'medium'} color={'blue.500'} fontWeight={'bolder'}>
-              WEES DE STEM
-            </Text>
-            <Text fontSize={'medium'} color={'blue.500'} fontWeight={'bolder'}>
+            <Text fontSize="xl" color={'blue.500'} fontWeight={700}>
+              WEES DE STEM <br />
               VOOR VRIJHEID
             </Text>
-          </Stack>
-        </Stack>
-        <Stack as="form" onSubmit={handleSubmit(handleSubmitSign)}>
-          <Stack spacing="5" ml={20} mr={20}>
-            <FormItem
-              name="email"
-              label={'Email'}
-              type="email"
-              register={register}
-              errors={errors}
-            />
-            <FormItem
-              name="password"
-              type="password"
-              label={'Password'}
-              autoComplete="current-password"
-              register={register}
-              errors={errors}
-            />
-          </Stack>
-          {/* TODO Set session exp time */}
-          <Navigate
-            as={Button}
-            href="/forgot-password"
-            variant="link"
-            colorScheme="blue"
-            size="sm"
-          >
-            Forgot your password
-          </Navigate>
+          </VStack>
 
-          <Stack justify="space-between">
-            <Button type="submit" colorScheme="blue">
-              Sign in
-            </Button>
-            {loginMutation.isError && (
-              <Text color="red.500" fontSize="sm">
-                An error occured
-              </Text>
-            )}
+          <Stack spacing={4} flex={1}>
+            <Stack
+              spacing={4}
+              as="form"
+              onSubmit={handleSubmit(handleSubmitSign)}
+            >
+              <FormItem
+                w="full"
+                name="email"
+                label={'Email'}
+                type="email"
+                register={register}
+                errors={errors}
+              />
+              <FormItem
+                w="full"
+                name="password"
+                type="password"
+                label={'Password'}
+                autoComplete="current-password"
+                register={register}
+                errors={errors}
+              />
+              <Button w="full" type="submit" colorScheme="primary">
+                Sign in
+              </Button>
+              {loginMutation.isError && (
+                <Text color="red.500" fontSize="sm">
+                  An error occured
+                </Text>
+              )}
+            </Stack>
+            {/* TODO Set session exp time */}
+            <Navigate
+              as={Button}
+              href="/forgot-password"
+              variant="link"
+              colorScheme="blue"
+              size="sm"
+            >
+              Forgot your password
+            </Navigate>
           </Stack>
-          <Text fontSize={'sm'} mr={1} mb={20}>
+
+          <Text fontSize={'xs'}>
             Wsvvrijheid &copy; {new Date().getFullYear()} All rights reserved
           </Text>
         </Stack>
-      </Stack>
+      </Container>
     </SimpleGrid>
   )
 }
