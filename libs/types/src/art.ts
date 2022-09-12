@@ -1,5 +1,3 @@
-import { SetOptional } from 'type-fest'
-
 import { Artist } from './artist'
 import { Category } from './category'
 import { Collection } from './collection'
@@ -15,8 +13,8 @@ import { User } from './user'
 type ArtBase = {
   title: string
   slug: string
-  description: string | null
-  content: string | null
+  description: string
+  content: string
   translationStatus: TranslationStatus
   locale: StrapiLocale
   isApproved: boolean | null
@@ -39,26 +37,23 @@ type ArtRelation = {
 }
 
 type ArtRelationInput = {
-  artist?: number
+  artist: number
   categories?: Array<number>
   collection?: number
   comments?: Array<number>
   feedbacks?: Array<number>
-  images?: Array<Blob>
+  images: Array<Blob>
   likers?: Array<number>
   tags?: Array<number>
 }
 
 export type ArtCreateInput = Expand<
-  SetOptional<
-    Omit<ArtBase, 'translationStatus'>,
-    'isApproved' | 'isRejected' | 'views' | 'likes'
-  > &
+  Pick<ArtBase, 'title' | 'description' | 'content' | 'locale'> &
     ArtRelationInput
 >
 
 export type ArtUpdateInput = Expand<
-  Partial<Omit<ArtBase, 'locale'>> & ArtRelationInput
+  Partial<Omit<ArtBase, 'locale'> & ArtRelationInput>
 >
 
 export type ArtLocalizeInput = Pick<

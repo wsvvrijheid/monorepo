@@ -25,14 +25,14 @@ type AnnouncementRelation = {
 type AnnouncementRelationInput = {
   categories?: number[]
   tags?: number[]
-  image?: Blob
+  image: Blob
 }
 
 export type AnnouncementCreateInput = Expand<
   Omit<AnnouncementBase, 'translationStatus'> & AnnouncementRelationInput
 >
 export type AnnouncementUpdateInput = Expand<
-  Partial<Omit<AnnouncementBase, 'locale'>> & AnnouncementRelationInput
+  Partial<Omit<AnnouncementBase, 'locale'> & AnnouncementRelationInput>
 >
 export type AnnouncementLocalizeInput = Pick<
   AnnouncementBase,

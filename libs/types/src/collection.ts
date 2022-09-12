@@ -19,7 +19,7 @@ type CollectionRelation = {
 }
 
 type CollectionRelationInput = {
-  image?: Blob
+  image: Blob
   arts?: Array<number>
 }
 
@@ -28,7 +28,7 @@ export type CollectionCreateInput = Expand<
 >
 
 export type CollectionUpdateInput = Expand<
-  Omit<CollectionBase, 'locale'> & CollectionRelationInput
+  Partial<Omit<CollectionBase, 'locale'> & CollectionRelationInput>
 >
 
 export type CollectionLocalizeInput = Pick<
