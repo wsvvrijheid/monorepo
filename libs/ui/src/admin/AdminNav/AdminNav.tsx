@@ -163,7 +163,7 @@ export const getAdminNav = (user: SessionUser) => {
 
 type AdminNAvProps = {
   user: SessionUser
-  expanded: boolean
+  expanded?: boolean
 }
 
 export const AdminNav: FC<AdminNAvProps> = ({ user, expanded }) => {

@@ -20,8 +20,8 @@ import {
   CommentList,
   Container,
   ArtCardBase,
+  CommentFormFieldValues,
 } from '../../components'
-import { CommentFormFieldValues } from '../../components/CommentForm/types'
 
 export type ArtTemplateProps = {
   auth: Auth
@@ -49,14 +49,19 @@ export const ArtTemplate: FC<ArtTemplateProps> = ({ auth, queryKey }) => {
 
   const handleSendForm = ({ name, content, email }: CommentFormFieldValues) => {
     if (art?.id) {
-      return artCommentMutation.mutate(
-        { name, content, email, userId: auth?.user?.id, id: art.id },
-        {
-          onSuccess: async comment => {
-            queryClient.invalidateQueries(queryKey)
-          },
+      const body = {
+        name: name as string,
+        content,
+        email: email as string,
+        user: auth?.user?.id,
+        art: art.id,
+      }
+
+      return artCommentMutation.mutate(body, {
+        onSuccess: async comment => {
+          queryClient.invalidateQueries(queryKey)
         },
-      )
+      })
     }
   }
 

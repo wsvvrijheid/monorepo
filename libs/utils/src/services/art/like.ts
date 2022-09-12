@@ -1,5 +1,5 @@
 import { QueryKey, useMutation, useQueryClient } from '@tanstack/react-query'
-import { Art, SessionUser } from '@wsvvrijheid/types'
+import { Art, ArtUpdateInput, SessionUser } from '@wsvvrijheid/types'
 import { useLocalStorage } from 'react-use'
 
 import { updateMutation } from '../../lib'
@@ -17,13 +17,13 @@ type LikesMutationArgs = {
 const likeArtByUser = ({ id, likers }: LikersMutationArgs) => {
   const body = { likers }
 
-  return updateMutation<Art, typeof body>('api/arts', id, body)
+  return updateMutation<Art, ArtUpdateInput>('api/arts', id, body)
 }
 
 const likeArtPublic = ({ id, likes }: LikesMutationArgs) => {
   const body = { likes }
 
-  return updateMutation<Art, typeof body>('api/arts', id, body)
+  return updateMutation<Art, ArtUpdateInput>('api/arts', id, body)
 }
 
 const useLikeArtByUserMutation = () => {

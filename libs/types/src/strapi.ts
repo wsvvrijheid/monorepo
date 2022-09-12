@@ -1,3 +1,5 @@
+import { UnionToIntersection } from 'type-fest'
+
 import { Activity } from './activity'
 import { Announcement } from './announcement'
 import { Applicant } from './applicant'
@@ -11,6 +13,7 @@ import { Blog } from './blog'
 import { Category } from './category'
 import { Collection } from './collection'
 import { Comment } from './comment'
+import { Expand } from './common'
 import { Competition } from './competition'
 import { Donate } from './donate'
 import { UploadFile } from './file'
@@ -80,41 +83,7 @@ export type StrapiModel =
   | Volunteer
   | Vote
 
-export type StrapiAllModels = Activity &
-  Announcement &
-  Applicant &
-  Application &
-  ArtEditor &
-  ArtFeedback &
-  Art &
-  Artist &
-  Author &
-  Blog &
-  Category &
-  Collection &
-  Comment &
-  Competition &
-  Donate &
-  UploadFile &
-  Hashtag &
-  Job &
-  JuryVote &
-  Jury &
-  LangRole &
-  Me &
-  Mention &
-  Post &
-  Privacy &
-  Platform &
-  RecommendedTopic &
-  RecommendedTweet &
-  Tag &
-  Term &
-  Translator &
-  Trend &
-  User &
-  Volunteer &
-  Vote
+export type StrapiAllModels = Expand<UnionToIntersection<StrapiModel>>
 
 export type StrapiModelKeys = keyof StrapiAllModels
 
@@ -200,8 +169,21 @@ export type StrapiCollectionUrl =
   | 'volunteers'
   | 'votes'
 
-export type StrapiUrl =
+export type StrapiUrl = Expand<`api/${
   | StrapiSingleUrl
   | StrapiCollectionUrl
   | StrapiAuthUrl
-  | StrapiEmailUrl
+  | StrapiEmailUrl}`>
+
+export type StrapiFormValue =
+  | string
+  | number
+  | boolean
+  | Date
+  | string[]
+  | number[]
+  | Blob
+  | Blob[]
+  | null
+
+export type StrapiMutationInput = { [key in string]?: StrapiFormValue }

@@ -3,18 +3,6 @@ import { Comment, StrapiResponse } from '@wsvvrijheid/types'
 export const COMMENT_MOCKS: StrapiResponse<Comment[]> = {
   data: [
     {
-      id: 1,
-      createdAt: '2022-06-15T20:10:32.194Z',
-      updatedAt: '2022-06-15T20:10:32.194Z',
-      publishedAt: '2022-06-15T20:10:32.176Z',
-      name: 'Asd',
-      email: 'ss@ss.com',
-      content: 'asd',
-      user: null,
-      blog: null,
-      art: null,
-    },
-    {
       id: 2,
       createdAt: '2022-06-16T03:08:21.307Z',
       updatedAt: '2022-06-16T03:08:21.307Z',
@@ -22,8 +10,6 @@ export const COMMENT_MOCKS: StrapiResponse<Comment[]> = {
       name: 'Yasin Kilic',
       email: 'yasin@samenvvv.nl',
       content: 'Harika',
-      user: null,
-      blog: null,
       art: {
         id: 76,
         title: 'Hobi ',
@@ -49,8 +35,6 @@ export const COMMENT_MOCKS: StrapiResponse<Comment[]> = {
       name: 'Mehtap',
       email: 'mehtap@samenvvv.nl',
       content: 'Cok guzel',
-      user: null,
-      blog: null,
       art: {
         id: 76,
         title: 'Hobi ',
@@ -86,7 +70,6 @@ export const COMMENT_MOCKS: StrapiResponse<Comment[]> = {
         createdAt: '2022-03-21T16:29:36.680Z',
         updatedAt: '2022-04-23T20:09:07.033Z',
       },
-      blog: null,
       art: {
         id: 76,
         title: 'Hobi ',
@@ -122,7 +105,6 @@ export const COMMENT_MOCKS: StrapiResponse<Comment[]> = {
         createdAt: '2022-03-21T16:29:36.680Z',
         updatedAt: '2022-04-23T20:09:07.033Z',
       },
-      blog: null,
       art: {
         id: 76,
         title: 'Hobi ',
@@ -148,8 +130,6 @@ export const COMMENT_MOCKS: StrapiResponse<Comment[]> = {
       name: 'Mustafa ',
       email: 'cana66331@gmail.com',
       content: 'cok guzel',
-      user: null,
-      blog: null,
       art: {
         id: 78,
         title: 'Anneler günü ',
@@ -185,7 +165,6 @@ export const COMMENT_MOCKS: StrapiResponse<Comment[]> = {
         createdAt: '2022-04-12T05:08:58.179Z',
         updatedAt: '2022-06-06T19:26:41.062Z',
       },
-      blog: null,
       art: {
         id: 78,
         title: 'Anneler günü ',
@@ -221,7 +200,6 @@ export const COMMENT_MOCKS: StrapiResponse<Comment[]> = {
         createdAt: '2022-04-12T05:08:58.179Z',
         updatedAt: '2022-06-06T19:26:41.062Z',
       },
-      blog: null,
       art: {
         id: 78,
         title: 'Anneler günü ',
@@ -257,7 +235,6 @@ export const COMMENT_MOCKS: StrapiResponse<Comment[]> = {
         createdAt: '2022-04-12T05:08:58.179Z',
         updatedAt: '2022-06-06T19:26:41.062Z',
       },
-      blog: null,
       art: {
         id: 78,
         title: 'Anneler günü ',
@@ -293,7 +270,6 @@ export const COMMENT_MOCKS: StrapiResponse<Comment[]> = {
         createdAt: '2022-04-12T05:08:58.179Z',
         updatedAt: '2022-06-06T19:26:41.062Z',
       },
-      blog: null,
       art: {
         id: 78,
         title: 'Anneler günü ',
@@ -329,7 +305,6 @@ export const COMMENT_MOCKS: StrapiResponse<Comment[]> = {
         createdAt: '2022-04-12T05:08:58.179Z',
         updatedAt: '2022-06-06T19:26:41.062Z',
       },
-      blog: null,
       art: {
         id: 2,
         title: 'Anneler',
@@ -365,7 +340,6 @@ export const COMMENT_MOCKS: StrapiResponse<Comment[]> = {
         createdAt: '2022-04-12T05:08:58.179Z',
         updatedAt: '2022-06-06T19:26:41.062Z',
       },
-      blog: null,
       art: {
         id: 3,
         title: 'Moeder',
@@ -401,7 +375,6 @@ export const COMMENT_MOCKS: StrapiResponse<Comment[]> = {
         createdAt: '2022-04-12T05:08:58.179Z',
         updatedAt: '2022-06-06T19:26:41.062Z',
       },
-      blog: null,
       art: {
         id: 3,
         title: 'Moeder',
@@ -437,7 +410,6 @@ export const COMMENT_MOCKS: StrapiResponse<Comment[]> = {
         createdAt: '2022-04-12T05:08:58.179Z',
         updatedAt: '2022-06-06T19:26:41.062Z',
       },
-      blog: null,
       art: {
         id: 1,
         title: 'Mother',
@@ -473,7 +445,6 @@ export const COMMENT_MOCKS: StrapiResponse<Comment[]> = {
         createdAt: '2022-04-12T05:08:58.179Z',
         updatedAt: '2022-06-06T19:26:41.062Z',
       },
-      blog: null,
       art: {
         id: 78,
         title: 'Anneler günü ',
@@ -499,8 +470,6 @@ export const COMMENT_MOCKS: StrapiResponse<Comment[]> = {
       name: 'Ahmet',
       email: 'ahmet@f.c',
       content: 'Rengarenk 🌷',
-      user: null,
-      blog: null,
       art: {
         id: 62,
         title: 'Laleler',
@@ -526,8 +495,6 @@ export const COMMENT_MOCKS: StrapiResponse<Comment[]> = {
       name: 'Ahmet',
       email: 'ahmet@f.c',
       content: 'Rengarenk 🌷',
-      user: null,
-      blog: null,
       art: {
         id: 62,
         title: 'Laleler',
@@ -553,8 +520,6 @@ export const COMMENT_MOCKS: StrapiResponse<Comment[]> = {
       name: 'Hakan',
       email: 'h@h.com',
       content: 'Guzel',
-      user: null,
-      blog: null,
       art: {
         id: 13,
         title: 'Snow',
@@ -580,8 +545,6 @@ export const COMMENT_MOCKS: StrapiResponse<Comment[]> = {
       name: 'Beyza',
       email: 'beyza@b.c',
       content: 'Cok hos!',
-      user: null,
-      blog: null,
       art: {
         id: 75,
         title: 'Günbatımı',
@@ -607,8 +570,6 @@ export const COMMENT_MOCKS: StrapiResponse<Comment[]> = {
       name: 'Ahmet',
       email: 'a@a.a',
       content: 'Muhtesem',
-      user: null,
-      blog: null,
       art: {
         id: 75,
         title: 'Günbatımı',
@@ -634,8 +595,6 @@ export const COMMENT_MOCKS: StrapiResponse<Comment[]> = {
       name: 'Ahmet',
       email: 'a@a.a',
       content: 'Muhtesem',
-      user: null,
-      blog: null,
       art: {
         id: 75,
         title: 'Günbatımı',
@@ -661,8 +620,6 @@ export const COMMENT_MOCKS: StrapiResponse<Comment[]> = {
       name: 'Bekir',
       email: 'b@b.com',
       content: 'Eskiden ne kar yagardi...',
-      user: null,
-      blog: null,
       art: {
         id: 13,
         title: 'Snow',
@@ -698,7 +655,6 @@ export const COMMENT_MOCKS: StrapiResponse<Comment[]> = {
         createdAt: '2022-06-14T16:47:41.568Z',
         updatedAt: '2022-06-14T17:03:42.387Z',
       },
-      blog: null,
       art: {
         id: 1,
         title: 'Mother',
@@ -734,7 +690,6 @@ export const COMMENT_MOCKS: StrapiResponse<Comment[]> = {
         createdAt: '2022-06-14T15:18:17.700Z',
         updatedAt: '2022-06-14T15:18:17.700Z',
       },
-      blog: null,
       art: {
         id: 4,
         title: 'Fire',
@@ -757,8 +712,6 @@ export const COMMENT_MOCKS: StrapiResponse<Comment[]> = {
       createdAt: '2022-08-24T20:07:50.663Z',
       updatedAt: '2022-08-24T20:07:50.663Z',
       publishedAt: '2022-08-24T20:07:50.661Z',
-      name: null,
-      email: null,
       content: 'Cool',
       user: {
         id: 29,
@@ -770,7 +723,6 @@ export const COMMENT_MOCKS: StrapiResponse<Comment[]> = {
         createdAt: '2022-04-12T05:08:58.179Z',
         updatedAt: '2022-06-06T19:26:41.062Z',
       },
-      blog: null,
       art: {
         id: 52,
         title: 'Samenvvv',

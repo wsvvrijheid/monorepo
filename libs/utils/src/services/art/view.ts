@@ -1,6 +1,6 @@
 import { useTimeout } from '@chakra-ui/react'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { Art } from '@wsvvrijheid/types'
+import { Art, ArtUpdateInput } from '@wsvvrijheid/types'
 import { useRouter } from 'next/router'
 import { useLocalStorage } from 'react-use'
 
@@ -10,7 +10,7 @@ import { useArtBySlug } from './getBySlug'
 export const viewArt = async (art: Art) => {
   const body = { views: (art.views || 0) + 1 }
 
-  return updateMutation<Art, typeof body>('api/arts', art.id, body)
+  return updateMutation<Art, ArtUpdateInput>('api/arts', art.id, body)
 }
 
 export const useViewArtMutation = async () => {

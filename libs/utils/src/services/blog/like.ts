@@ -1,5 +1,5 @@
 import { QueryKey, useMutation, useQueryClient } from '@tanstack/react-query'
-import { Blog, SessionUser } from '@wsvvrijheid/types'
+import { Blog, BlogUpdateInput, SessionUser } from '@wsvvrijheid/types'
 import { useLocalStorage } from 'react-use'
 
 import { updateMutation } from '../../lib'
@@ -20,13 +20,13 @@ const likeBlogByUser = async ({ id, likers, user }: LikersMutationArgs) => {
 
   const body = { likers }
 
-  return updateMutation<Blog, typeof body>('api/blogs', id, body)
+  return updateMutation<Blog, BlogUpdateInput>('api/blogs', id, body)
 }
 
 const likeBlogPublic = async ({ id, likes }: LikesMutationArgs) => {
   const body = { likes }
 
-  return updateMutation<Blog, typeof body>('api/blogs', id, body)
+  return updateMutation<Blog, BlogUpdateInput>('api/blogs', id, body)
 }
 
 const useLikeBlogByUserMutation = () => {

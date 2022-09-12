@@ -1,10 +1,12 @@
 import {
   StrapiLocale,
   StrapiModel,
+  StrapiMutationInput,
   StrapiMutationResponse,
   StrapiUrl,
 } from '@wsvvrijheid/types'
 
+import { generateFormData } from '../util'
 import { fetcher } from './fetcher'
 
 type Method = 'post' | 'put' | 'delete' | 'localize'
@@ -15,12 +17,15 @@ type MutationParams<D> = {
   locale?: StrapiLocale
   method: Method
   token?: string
-  url: `api/${StrapiUrl}`
+  url: StrapiUrl
 }
 
 // T is the type of the model to be returned
 // D is the type of the data to be sent
-const mutation = async <T extends StrapiModel, D = unknown>({
+const mutation = async <
+  T extends StrapiModel,
+  D extends StrapiMutationInput = StrapiMutationInput,
+>({
   body,
   id,
   locale,
@@ -48,7 +53,11 @@ const mutation = async <T extends StrapiModel, D = unknown>({
   }
 
   const requestUrl = id ? `${url}/${id}` : url
-  const requestBody = body ? { data: body } : {}
+  let requestBody = {}
+
+  if (body) {
+    requestBody = generateFormData(body)
+  }
 
   const response = await fetcher(token)[method]<StrapiMutationResponse<T>>(
     requestUrl,
@@ -58,27 +67,36 @@ const mutation = async <T extends StrapiModel, D = unknown>({
   return response.data?.data || null
 }
 
-export const createMutation = <T extends StrapiModel, D = unknown>(
-  url: `api/${StrapiUrl}`,
+export const createMutation = <
+  T extends StrapiModel,
+  D extends StrapiMutationInput,
+>(
+  url: StrapiUrl,
   body: D,
   token?: string,
 ) => mutation<T, D>({ url, method: 'post', body, token })
 
-export const updateMutation = <T extends StrapiModel, D = unknown>(
-  url: `api/${StrapiUrl}`,
+export const updateMutation = <
+  T extends StrapiModel,
+  D extends StrapiMutationInput,
+>(
+  url: StrapiUrl,
   id: number,
   body: D,
   token?: string,
 ) => mutation<T, D>({ url, method: 'put', id, body, token })
 
 export const deleteMutation = <T extends StrapiModel>(
-  url: `api/${StrapiUrl}`,
+  url: StrapiUrl,
   id: number,
   token?: string,
 ) => mutation<T>({ url, method: 'delete', id, token })
 
-export const localizeMutation = <T extends StrapiModel, D = unknown>(
-  url: `api/${StrapiUrl}`,
+export const localizeMutation = <
+  T extends StrapiModel,
+  D extends StrapiMutationInput,
+>(
+  url: StrapiUrl,
   id: number,
   locale: StrapiLocale,
   body: D,
