@@ -51,7 +51,12 @@ export const ArtTemplate: FC<ArtTemplateProps> = ({ auth, queryKey }) => {
           >
             {arts.map((art: Art) => (
               <SplideSlide key={art.id}>
-                <ArtCardBase art={art} isLiked={false} isOwner={false} />
+                <ArtCardBase
+                  auth={auth}
+                  art={art}
+                  isLiked={false}
+                  isOwner={false}
+                />
               </SplideSlide>
             ))}
           </Splide>

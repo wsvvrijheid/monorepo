@@ -45,14 +45,19 @@ export const ArtWithDetails: FC<ArtWithDetailsProps> = ({
 
   const handleSendForm = ({ name, content, email }: CommentFormFieldValues) => {
     if (art?.id) {
-      return artCommentMutation.mutate(
-        { name, content, email, userId: auth?.user?.id, id: art.id },
-        {
-          onSuccess: async comment => {
-            await queryClient.invalidateQueries(queryKey)
-          },
+      const body = {
+        name: name as string,
+        content,
+        email: email as string,
+        user: auth?.user?.id,
+        art: art.id,
+      }
+
+      return artCommentMutation.mutate(body, {
+        onSuccess: async comment => {
+          queryClient.invalidateQueries(queryKey)
         },
-      )
+      })
     }
   }
 
@@ -85,7 +90,7 @@ export const ArtWithDetails: FC<ArtWithDetailsProps> = ({
             'Unknown Artist Name'
           }
           artistAvatar={art.artist?.user?.avatar?.url}
-          content={art.content}
+          content={art.content as string}
           artistProfilePath={`/artist/${art.artist?.user?.username}`}
         />
         {/* Single Art Comments */}
