@@ -154,11 +154,7 @@ export const ArtClubTemplate: FC = () => {
                         directing="to-down"
                         delay={i * 0.5}
                       >
-                        <ArtCard
-                          art={art}
-                          user={auth.user}
-                          queryKey={queryKey}
-                        />
+                        <ArtCard art={art} auth={auth} queryKey={queryKey} />
                       </AnimatedBox>
                     )
                   })}

@@ -15,7 +15,6 @@ import { API_URL } from '@wsvvrijheid/config'
 import { AiFillHeart } from 'react-icons/ai'
 import { FaExternalLinkSquareAlt } from 'react-icons/fa'
 
-import { useAuth } from '../../hooks'
 import { ArtModal } from '../ArtModal'
 import { Navigate } from '../Navigate'
 import { ArtCardActions } from './ArtCardActions'
@@ -24,6 +23,7 @@ import { ArtCardImage } from './ArtCardImage'
 import { ArtActionType, ArtCardBaseProps } from './types'
 
 export const ArtCardBase: FC<ArtCardBaseProps> = ({
+  auth,
   art,
   isMasonry,
   toggleLike,
@@ -32,7 +32,6 @@ export const ArtCardBase: FC<ArtCardBaseProps> = ({
   isOwner,
   isModal = false,
 }) => {
-  const auth = useAuth()
   const {
     isOpen: artModalIsOpen,
     onOpen: artModalOnOpen,

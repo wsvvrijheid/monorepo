@@ -42,7 +42,7 @@ export const getArts = async ({
   }
 
   const statusFilter = {
-    status: {
+    translationStatus: {
       $eq: 'approved',
     },
   }

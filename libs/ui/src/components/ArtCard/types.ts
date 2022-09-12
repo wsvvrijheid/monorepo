@@ -2,7 +2,7 @@ import { ComponentProps } from 'react'
 
 import { Button } from '@chakra-ui/react'
 import { QueryKey } from '@tanstack/react-query'
-import { Art, SessionUser, UploadFile } from '@wsvvrijheid/types'
+import { Art, Auth, UploadFile } from '@wsvvrijheid/types'
 
 export type ArtActionType = 'delete' | 'publish' | 'unpublish'
 
@@ -17,12 +17,13 @@ export type ArtActionContext = {
 export type ArtActions = Record<ArtActionType, ArtActionContext>
 
 export type ArtCardProps = {
+  auth: Auth
   art: Art
-  user: SessionUser | null
   queryKey?: QueryKey
 }
 
 export type ArtCardBaseProps = {
+  auth: Auth
   actions?: ArtActions
   art: Art
   isLiked?: boolean
