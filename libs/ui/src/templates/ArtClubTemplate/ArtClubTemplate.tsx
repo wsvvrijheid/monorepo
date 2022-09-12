@@ -120,6 +120,7 @@ export const ArtClubTemplate: FC = () => {
               <SearchForm
                 placeholder={t`search`}
                 onSearch={value => changeParam({ searchTerm: value })}
+                isFetching={artsQuery.isFetching}
               />
               <CreateArtForm
                 categories={categoryQuery.data || []}

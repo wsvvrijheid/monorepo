@@ -20,6 +20,7 @@ export type SearchFormProps = {
   onSearch: (value?: string) => void
   onReset?: () => void
   mode?: 'change' | 'click'
+  isFetching?: boolean
 } & InputProps
 
 export const SearchForm: React.FC<SearchFormProps> = ({
@@ -28,6 +29,7 @@ export const SearchForm: React.FC<SearchFormProps> = ({
   onSearch,
   onReset,
   mode = 'change',
+  isFetching,
 }) => {
   const [searchTerm, setSearchTerm] = useState('')
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('')
@@ -64,6 +66,7 @@ export const SearchForm: React.FC<SearchFormProps> = ({
       <InputRightElement w="max-content" right={1}>
         {searchTerm.length > 1 && (
           <IconButton
+            isLoading={isFetching}
             variant="ghost"
             icon={<FaTimes color="gray.400" />}
             onClick={() => setSearchTerm('')}

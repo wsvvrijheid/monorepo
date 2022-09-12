@@ -92,4 +92,5 @@ export const useArts = (
   useQuery({
     queryKey,
     queryFn: () => getArts(args),
+    keepPreviousData: true,
   })
