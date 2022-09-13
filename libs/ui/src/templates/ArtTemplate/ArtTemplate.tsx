@@ -25,7 +25,7 @@ export const ArtTemplate: FC<ArtTemplateProps> = ({ auth, queryKey }) => {
 
   useViewArtMutation()
 
-  const categories = (art?.categories?.flatMap(c => c.code) || []) as string[]
+  const categories = (art?.categories?.flatMap(c => c.slug) || []) as string[]
   const { data: arts } = useArtsByCategories(categories, art?.id)
 
   if (!art) return null

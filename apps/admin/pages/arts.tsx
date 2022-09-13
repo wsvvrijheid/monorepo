@@ -1,40 +1,43 @@
-import { FC, useState } from 'react'
+import { useState } from 'react'
 
 import { Box, Code, MenuItem } from '@chakra-ui/react'
-import { Art, StrapiLocale } from '@wsvvrijheid/types'
+import { StrapiLocale } from '@wsvvrijheid/types'
 import { useAuth, AdminLayout } from '@wsvvrijheid/ui'
 import { useArts } from '@wsvvrijheid/utils'
-import { GetServerSideProps } from 'next'
-import { FaArrowDown, FaArrowUp, FaUserAlt } from 'react-icons/fa'
+import { useRouter } from 'next/router'
+import { FaArrowDown, FaArrowUp } from 'react-icons/fa'
 import { useUpdateEffect } from 'react-use'
 
-type ArtsPageProps = {
-  status: Art['translationStatus']
-}
-
-const ArtsPage: FC<ArtsPageProps> = ({ status }) => {
-  const defaultLocale: StrapiLocale = 'en'
+const ArtsPage = () => {
   const { user, isLoading } = useAuth()
+  const { query } = useRouter()
+
+  // Client side query params (?status=pending)
+  const status = query.status as string
+  const defaultLocale: StrapiLocale = 'en'
+
   const [searchTerm, setSearchTerm] = useState<string>()
   const [locale, setLocale] = useState<StrapiLocale>(defaultLocale)
+
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [sort, setSort] = useState<['title:asc'] | ['title:desc']>([
     'title:asc',
   ])
 
-  const handleSearch = (search: string) => {
-    search ? setSearchTerm(search) : setSearchTerm(undefined)
-  }
-
+  // TODO: Add status filter
   const artsQuery = useArts(['arts'], {
     searchTerm,
     locale,
     sort,
   })
 
+  const handleSearch = (search: string) => {
+    search ? setSearchTerm(search) : setSearchTerm(undefined)
+  }
+
   useUpdateEffect(() => {
     artsQuery.refetch()
-  }, [locale, searchTerm, sort])
+  }, [locale, searchTerm, sort, status])
 
   console.log('artsQuery', artsQuery.data?.data)
 
@@ -47,15 +50,16 @@ const ArtsPage: FC<ArtsPageProps> = ({ status }) => {
         onSearch: handleSearch,
         onLanguageSwitch: locale => setLocale(locale),
         defaultLocale,
-        filterMenu: [
-          <MenuItem
-            icon={<FaUserAlt />}
-            key="user"
-            onClick={() => alert('Artist')}
-          >
-            Artist
-          </MenuItem>,
-        ],
+        // TODO: List artists to be able to filter by artist
+        // filterMenu: [
+        //   <MenuItem
+        //     icon={<FaUserAlt />}
+        //     key="user"
+        //     onClick={() => alert('Artist')}
+        //   >
+        //     Artist
+        //   </MenuItem>,
+        // ],
         sortMenu: [
           <MenuItem key="asc" icon={<FaArrowUp />}>
             Name Asc
@@ -78,16 +82,6 @@ const ArtsPage: FC<ArtsPageProps> = ({ status }) => {
       </Code>
     </AdminLayout>
   )
-}
-
-export const getServerSideProps: GetServerSideProps = async context => {
-  const status = context.query?.status as string
-
-  return {
-    props: {
-      status,
-    },
-  }
 }
 
 export default ArtsPage

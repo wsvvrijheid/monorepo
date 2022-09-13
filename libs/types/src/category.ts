@@ -9,7 +9,7 @@ import { Mention } from './mention'
 import { StrapiCore } from './strapi'
 
 type CategoryBase = {
-  code: string
+  slug: string
   name_en: string
   name_nl: string
   name_tr: string

@@ -9,7 +9,7 @@ import { StrapiCore } from './strapi'
 type FeedbackBase = {
   message: string
   point: number
-  type: 'approve' | 'reject'
+  status: 'approve' | 'reject'
 }
 
 type FeedbackRelation = {

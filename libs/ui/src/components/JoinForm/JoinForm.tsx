@@ -39,7 +39,7 @@ function generateSchema(t: TFunction, jobs: Partial<Job>[]) {
         exclusive: true,
         params: { keys: list.join(', ') },
         test: value =>
-          value == null || list.some(f => !!value[`${f.id}_${f.code}`]),
+          value == null || list.some(f => !!value[`${f.id}_${f.slug}`]),
       })
     },
   )

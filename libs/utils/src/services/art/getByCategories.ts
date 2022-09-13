@@ -13,7 +13,7 @@ export const getArtsByCategories = async (
     url: 'api/arts',
     locale,
     filters: {
-      categories: { code: { $in: categories } },
+      categories: { slug: { $in: categories } },
       id: { $ne: id },
       status: { $eq: 'approved' },
     },

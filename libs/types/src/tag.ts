@@ -8,7 +8,7 @@ import { Post } from './post'
 import { StrapiCore } from './strapi'
 
 export type TagBase = {
-  code: string
+  slug: string
   name_en: string
   name_nl: string
   name_tr: string

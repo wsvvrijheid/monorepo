@@ -2,7 +2,7 @@ import { Artist } from './artist'
 import { Category } from './category'
 import { Collection } from './collection'
 import { Comment } from './comment'
-import { Expand, TranslationStatus } from './common'
+import { ApprovalStatus, Expand, TranslationStatus } from './common'
 import { Feedback } from './feedback'
 import { UploadFile } from './file'
 import { StrapiLocale } from './locale'
@@ -16,9 +16,8 @@ type ArtBase = {
   description: string
   content: string
   translationStatus: TranslationStatus
+  approvalStatus: ApprovalStatus
   locale: StrapiLocale
-  isApproved: boolean | null
-  isRejected: boolean | null
   likes: number | null
   views: number | null
 }
