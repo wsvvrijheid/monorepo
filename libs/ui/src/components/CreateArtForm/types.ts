@@ -1,5 +1,3 @@
-import { RefObject } from 'react'
-
 import { Category, StrapiLocale } from '@wsvvrijheid/types'
 
 export type CreateArtFormFieldValues = {
@@ -23,5 +21,4 @@ export type CreateArtFormProps = {
 export type CreateArtSuccessAlertProps = {
   isOpen: boolean
   onClose: () => void
-  ref: RefObject<HTMLButtonElement>
 }
