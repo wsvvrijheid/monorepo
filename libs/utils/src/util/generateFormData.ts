@@ -12,14 +12,12 @@ export const generateFormData = <T extends StrapiMutationInput>(body: T) => {
     if (blob instanceof Blob || blobs?.[0] instanceof Blob) {
       if (Array.isArray(value)) {
         value.forEach((blob, index) => {
-          // TODO `images` represents the field name in Strapi. This should be dynamic
-          // or we should make sure that we always use `images` as the field name for all models
-          formData.append(`files.images`, blob as Blob)
+          formData.append(`files.${key}`, blob as Blob)
         })
       } else {
         // TODO `image` represents the field name in Strapi. This should be dynamic
         // or we should make sure that we always use `image` as the field name for all models
-        formData.append('files.image', value as Blob)
+        formData.append(`files.${key}`, value as Blob)
       }
     } else {
       data[key] = value

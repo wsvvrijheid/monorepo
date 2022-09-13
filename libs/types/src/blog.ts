@@ -30,7 +30,7 @@ type BlogRelation = {
 }
 
 type BlogRelationInput = {
-  image?: Blob
+  image: Blob
   author?: number
   categories?: Array<number>
   tags?: Array<number>
@@ -40,7 +40,7 @@ type BlogRelationInput = {
 export type BlogCreateInput = Expand<
   Omit<BlogBase, 'translationStatus' | 'likes' | 'views'> & BlogRelationInput
 >
-export type BlogUpdateInput = Expand<Partial<BlogBase> & BlogRelationInput>
+export type BlogUpdateInput = Expand<Partial<BlogBase & BlogRelationInput>>
 
 export type BlogLocalizeInput = Pick<
   BlogBase,

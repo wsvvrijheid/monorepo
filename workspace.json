@@ -146,8 +146,8 @@
             ]
           },
           "configurations": {
-            "development": {},
-            "production": {}
+            "development": { "outputPath": "apps/foundation" },
+            "production": { "outputPath": "dist/apps/foundation" }
           }
         },
         "serve": {
@@ -160,12 +160,12 @@
               {
                 "input": "libs/assets/src/images",
                 "glob": "*.{png,jpg,jpeg,gif,svg}",
-                "output": "assets"
+                "output": "assets/images"
               },
               {
                 "input": "public/locales",
                 "glob": "**/*.json",
-                "output": "public/locales"
+                "output": "locales"
               }
             ]
           },

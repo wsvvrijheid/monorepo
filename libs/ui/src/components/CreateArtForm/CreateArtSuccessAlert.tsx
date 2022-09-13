@@ -1,4 +1,4 @@
-import { forwardRef } from 'react'
+import { forwardRef, RefObject } from 'react'
 
 import {
   AlertDialog,
@@ -10,14 +10,13 @@ import {
   Button,
   Text,
 } from '@chakra-ui/react'
-import { FocusableElement } from '@chakra-ui/utils'
 import { useTranslation } from 'react-i18next'
 
 import { Navigate } from '../Navigate'
 import { CreateArtSuccessAlertProps } from './types'
 
 export const ArtCreateSuccessAlert = forwardRef<
-  FocusableElement,
+  HTMLButtonElement,
   CreateArtSuccessAlertProps
 >(({ isOpen, onClose }, ref) => {
   const { t } = useTranslation()
@@ -28,7 +27,7 @@ export const ArtCreateSuccessAlert = forwardRef<
       isCentered
       isOpen={isOpen}
       onClose={onClose}
-      leastDestructiveRef={ref as any}
+      leastDestructiveRef={ref as RefObject<HTMLButtonElement>}
     >
       <AlertDialogOverlay>
         <AlertDialogContent>

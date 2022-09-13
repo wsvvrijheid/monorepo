@@ -15,20 +15,29 @@ import { API_URL } from '@wsvvrijheid/config'
 import { AiFillHeart } from 'react-icons/ai'
 import { FaExternalLinkSquareAlt } from 'react-icons/fa'
 
+import { ArtModal } from '../ArtModal'
 import { Navigate } from '../Navigate'
 import { ArtCardActions } from './ArtCardActions'
 import { ArtCardAlertDialog } from './ArtCardAlertDialog'
 import { ArtCardImage } from './ArtCardImage'
-import { ArtActionType, ArtCardProps } from './types'
+import { ArtActionType, ArtCardBaseProps } from './types'
 
-export const ArtCardBase: FC<ArtCardProps> = ({
+export const ArtCardBase: FC<ArtCardBaseProps> = ({
+  auth,
   art,
   isMasonry,
   toggleLike,
   isLiked,
   actions,
   isOwner,
+  isModal = false,
 }) => {
+  const {
+    isOpen: artModalIsOpen,
+    onOpen: artModalOnOpen,
+    onClose: artModalOnClose,
+  } = useDisclosure()
+
   const [actionType, setActionType] = useState<ArtActionType>()
 
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -116,18 +125,20 @@ export const ArtCardBase: FC<ArtCardProps> = ({
               rounded="full"
             />
           </HStack>
-          <Navigate href={`/club/art/${art.slug}`}>
-            <IconButton
-              _hover={{ bg: 'blue.400' }}
-              aria-label="view art"
-              borderColor="whiteAlpha.500"
-              borderWidth={1}
-              color="white"
-              colorScheme="blackAlpha"
-              icon={<FaExternalLinkSquareAlt />}
-              rounded="full"
-            />
-          </Navigate>
+          <Navigate
+            as={IconButton}
+            _hover={{ bg: 'blue.400' }}
+            aria-label="view art"
+            borderColor="whiteAlpha.500"
+            borderWidth={1}
+            color="white"
+            colorScheme="blackAlpha"
+            icon={<FaExternalLinkSquareAlt />}
+            rounded="full"
+            {...(isModal
+              ? { onClick: artModalOnOpen }
+              : { href: `/club/art/${art.slug}` })}
+          />
           {/* Card Owner Actions */}
           {isOwner && (
             <ArtCardActions
@@ -184,6 +195,12 @@ export const ArtCardBase: FC<ArtCardProps> = ({
               </HStack>
             </Navigate>
           </Stack>
+          <ArtModal
+            auth={auth}
+            art={art}
+            isOpen={artModalIsOpen}
+            onClose={artModalOnClose}
+          />
         </HStack>
       </Box>
     </>

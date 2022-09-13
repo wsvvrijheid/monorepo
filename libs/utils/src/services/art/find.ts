@@ -5,13 +5,13 @@ import qs from 'qs'
 import { request } from '../../lib'
 
 type GetArts = {
-  categories: string
-  populate: string | string[]
-  page: number
-  pageSize: number
-  searchTerm: string
-  username: string
-  sort: string | string[]
+  categories?: string
+  populate?: string | string[]
+  page?: number
+  pageSize?: number
+  searchTerm?: string
+  username?: string
+  sort?: string | string[]
   locale: StrapiLocale
 }
 
@@ -42,7 +42,7 @@ export const getArts = async ({
   }
 
   const statusFilter = {
-    status: {
+    translationStatus: {
       $eq: 'approved',
     },
   }
@@ -53,12 +53,17 @@ export const getArts = async ({
         $or: [userFilter, titleFilter],
       }
 
-  const categoryObj = qs.parse(categories)
-
   const filters: { [key: string]: unknown } = {
     ...(searchFilter || {}),
-    categories: { code: { $in: Object.values(categoryObj) } },
     ...(statusFilter || {}),
+  }
+
+  if (categories) {
+    filters['categories'] = {
+      code: {
+        $in: Object.values(qs.parse(categories)),
+      },
+    }
   }
   return request<Art[]>({
     url: 'api/arts',
@@ -74,17 +79,18 @@ export const getArts = async ({
 export const useArts = (
   queryKey: QueryKey,
   args: {
-    categories: string
-    populate: Array<string>
-    page: number
-    pageSize: number
-    searchTerm: string
-    username: string
-    sort: Array<string>
+    categories?: string
+    populate?: Array<string>
+    page?: number
+    pageSize?: number
+    searchTerm?: string
+    username?: string
+    sort?: Array<string>
     locale: StrapiLocale
   },
 ) =>
   useQuery({
     queryKey,
     queryFn: () => getArts(args),
+    keepPreviousData: true,
   })

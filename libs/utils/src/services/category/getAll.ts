@@ -14,7 +14,7 @@ export const getArtCategories = async (locale: StrapiLocale) => {
         locale: {
           $eq: locale,
         },
-        status: {
+        translationStatus: {
           $eq: 'approved',
         },
       },

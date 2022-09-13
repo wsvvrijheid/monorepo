@@ -14,7 +14,7 @@ export const FEEDBACK_MOCK: StrapiResponse<Feedback[]> = {
         id: 14,
         title: 'Great place',
         slug: 'great-p',
-        description: null,
+        description: '',
         content: 'Great place',
         createdAt: '2022-04-01T08:08:15.237Z',
         updatedAt: '2022-06-08T18:33:50.706Z',

@@ -4,7 +4,7 @@ import { colors } from './colors'
 import { components } from './components'
 import { styles } from './global'
 
-const fonts = { body: `'Rubik', sans-serif`, club: `'Sriracha', cursive` }
+const fonts = { body: `'Rubik', sans-serif`, club: `'Lemonada', cursive` }
 
 const config = {
   initialColorMode: 'light',
