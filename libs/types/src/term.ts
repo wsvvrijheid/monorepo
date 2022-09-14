@@ -1,15 +1,15 @@
 import { Expand } from './common'
 import { UploadFile } from './file'
-import { StrapiLocale } from './locale'
-import { StrapiBase } from './strapi'
+import { StrapiBase, StrapiEntityBase } from './strapi'
 
-export type Term = Expand<
-  StrapiBase & {
-    title: string
-    slug: string
-    content: string
-    locale: StrapiLocale
-    image?: UploadFile
-    localizations?: Array<Term>
-  }
+export type TermBase = Omit<
+  StrapiEntityBase,
+  'description' | 'translationStatus'
 >
+
+type TermRelation = {
+  image?: UploadFile
+  localizations?: Array<Term>
+}
+
+export type Term = Expand<StrapiBase & TermBase & TermRelation>

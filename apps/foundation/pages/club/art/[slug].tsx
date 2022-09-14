@@ -76,7 +76,7 @@ export const getStaticProps: GetStaticProps = async context => {
       article: {
         publishedTime: art.publishedAt,
         modifiedTime: art.updatedAt,
-        authors: [art.artist?.user.username],
+        authors: [art.artist?.username || null],
         // TODO add tags
       },
       images:

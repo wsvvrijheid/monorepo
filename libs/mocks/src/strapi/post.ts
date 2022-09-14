@@ -98,9 +98,8 @@ export const POST_MOCKS: Localize<StrapiResponse<Post[]>> = {
           translationStatus: 'original',
         },
         tags: [],
-        translator: null,
-        creator: null,
         reviewer: null,
+        creator: null,
         localizations: [
           {
             id: 437,
@@ -230,9 +229,8 @@ export const POST_MOCKS: Localize<StrapiResponse<Post[]>> = {
           translationStatus: 'approved',
         },
         tags: [],
-        translator: null,
-        creator: null,
         reviewer: null,
+        creator: null,
         localizations: [
           {
             id: 437,
@@ -362,7 +360,7 @@ export const POST_MOCKS: Localize<StrapiResponse<Post[]>> = {
           translationStatus: 'approved',
         },
         tags: [],
-        translator: null,
+        reviewer: null,
         creator: {
           id: 53,
           username: 'talipaltas',
@@ -371,17 +369,8 @@ export const POST_MOCKS: Localize<StrapiResponse<Post[]>> = {
           confirmed: true,
           blocked: false,
           createdAt: '2022-06-15T06:07:36.842Z',
-          updatedAt: '2022-08-10T19:27:21.073Z',
-        },
-        reviewer: {
-          id: 30,
-          username: 'new-test',
-          email: 'new-test@test.com',
-          provider: 'local',
-          confirmed: true,
-          blocked: false,
-          createdAt: '2022-04-12T05:37:05.881Z',
-          updatedAt: '2022-04-12T05:37:05.881Z',
+          updatedAt: '2022-09-14T02:42:32.832Z',
+          name: null,
         },
         localizations: [
           {

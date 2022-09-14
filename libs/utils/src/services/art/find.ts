@@ -17,7 +17,7 @@ type GetArts = {
 
 export const getArts = async ({
   categories,
-  populate = ['artist.user.avatar', 'categories', 'images', 'likers'],
+  populate = ['artist.avatar', 'categories', 'images', 'likers'],
   page = 1,
   pageSize,
   searchTerm,
@@ -27,10 +27,8 @@ export const getArts = async ({
 }: GetArts) => {
   const userFilter = {
     artist: {
-      user: {
-        username: {
-          $containsi: searchTerm || username,
-        },
+      username: {
+        $containsi: searchTerm || username,
       },
     },
   }
