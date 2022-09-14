@@ -16,7 +16,7 @@ import { AdminNavItem } from './AdminNavItem'
 import { AdminNavItemCollapsed } from './AdminNavItemCollapsed'
 
 export const getAdminNav = (user: SessionUser) => {
-  const { editorId, translatorId, isEditor, isAdmin } = user
+  const { isEditor, isAdmin } = user
 
   return [
     {
@@ -28,7 +28,7 @@ export const getAdminNav = (user: SessionUser) => {
     {
       label: 'Translates',
       icon: <BsTranslate />,
-      visible: !!translatorId || isAdmin,
+      visible: isAdmin,
       submenu: [
         {
           label: 'Arts',
@@ -60,7 +60,7 @@ export const getAdminNav = (user: SessionUser) => {
     {
       label: 'Arts',
       icon: <FaPaintBrush />,
-      visible: !!editorId || isEditor || isAdmin,
+      visible: isEditor || isAdmin,
       submenu: [
         {
           label: 'Pending Arts',
@@ -82,7 +82,7 @@ export const getAdminNav = (user: SessionUser) => {
     {
       label: 'Hashtags',
       icon: <FaHashtag />,
-      visible: !!translatorId || isEditor || isAdmin,
+      visible: isEditor || isAdmin,
       submenu: [
         {
           label: 'Main Hashtag',

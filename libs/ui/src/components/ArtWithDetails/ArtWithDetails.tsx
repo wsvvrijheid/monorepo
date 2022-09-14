@@ -85,13 +85,11 @@ export const ArtWithDetails: FC<ArtWithDetailsProps> = ({
         <ArtContent
           title={art.title}
           artistName={
-            art.artist?.name ||
-            art.artist?.user?.username ||
-            'Unknown Artist Name'
+            art.artist?.name || art.artist?.username || 'Unknown Artist Name'
           }
-          artistAvatar={art.artist?.user?.avatar?.url}
+          artistAvatar={art.artist?.avatar?.url}
           content={art.content as string}
-          artistProfilePath={`/artist/${art.artist?.user?.username}`}
+          artistProfilePath={`/artist/${art.artist?.username}`}
         />
         {/* Single Art Comments */}
         <Stack spacing={4}>

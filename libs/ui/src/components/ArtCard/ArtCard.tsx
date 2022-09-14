@@ -13,7 +13,7 @@ export const ArtCard: FC<ArtCardProps> = ({ art, auth, queryKey }) => {
       art={art}
       isLiked={isLiked as boolean}
       toggleLike={toggleLike}
-      isOwner={auth.user?.id === art.artist?.user?.id}
+      isOwner={auth.user?.id === art.artist?.id}
       isMasonry
       isModal
     />

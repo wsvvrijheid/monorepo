@@ -15,9 +15,9 @@ export const getArtsByCategories = async (
     filters: {
       categories: { slug: { $in: categories } },
       id: { $ne: id },
-      status: { $eq: 'approved' },
+      approvalStatus: { $eq: 'approved' },
     },
-    populate: ['artist.user.avatar', 'categories', 'images', 'likers'],
+    populate: ['artist.avatar', 'categories', 'images', 'likers'],
     sort: 'publishedAt:desc',
     pageSize: 4,
   })

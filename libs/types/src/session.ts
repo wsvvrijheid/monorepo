@@ -7,17 +7,16 @@ export type SessionUser = Pick<
   User,
   'id' | 'username' | 'email' | 'confirmed' | 'blocked'
 > & {
-  name?: string
-  avatar?: string
-  isAuthenticated: boolean
-  isAdmin: boolean
-  isEditor: boolean
-  artistId?: number
-  authorId?: number
   applicantId?: number
-  editorId?: number
-  juryId?: number
-  translatorId?: number
+  artistId?: number
+  avatar?: string
+  isAdmin?: boolean
+  isAuthenticated: boolean
+  isAuthor?: boolean
+  isEditor?: boolean
+  isJury?: boolean
+  isTranslator?: boolean
+  name?: string
   volunteerId?: number
 }
 

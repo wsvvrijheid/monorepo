@@ -25,9 +25,6 @@ export const VOLUNTEER_MOCKS: StrapiResponse<Volunteer[]> = {
       updatedAt: '2022-03-17T23:33:06.025Z',
       publishedAt: '2022-03-11T07:26:26.519Z',
       user: null,
-      translator: null,
-      jury: null,
-      author: null,
       jobs: [
         {
           id: 1,
@@ -43,7 +40,6 @@ export const VOLUNTEER_MOCKS: StrapiResponse<Volunteer[]> = {
           slug: 'developer',
         },
       ],
-      editor: null,
     },
     {
       id: 13,
@@ -68,6 +64,7 @@ export const VOLUNTEER_MOCKS: StrapiResponse<Volunteer[]> = {
       updatedAt: '2022-03-22T10:41:28.573Z',
       publishedAt: '2022-03-22T10:41:28.562Z',
       user: {
+        name: null,
         id: 29,
         username: 'sameninfo',
         email: 'info@samenvvv.nl',
@@ -76,14 +73,6 @@ export const VOLUNTEER_MOCKS: StrapiResponse<Volunteer[]> = {
         blocked: false,
         createdAt: '2022-04-12T05:08:58.179Z',
         updatedAt: '2022-06-06T19:26:41.062Z',
-      },
-      translator: null,
-      jury: null,
-      author: {
-        id: 2,
-        createdAt: '2022-03-27T14:27:54.427Z',
-        updatedAt: '2022-03-27T14:29:08.772Z',
-        publishedAt: '2022-03-27T14:29:08.769Z',
       },
       jobs: [
         {
@@ -100,12 +89,6 @@ export const VOLUNTEER_MOCKS: StrapiResponse<Volunteer[]> = {
           slug: 'developer',
         },
       ],
-      editor: {
-        id: 3,
-        createdAt: '2022-06-14T18:18:19.087Z',
-        updatedAt: '2022-06-14T18:18:21.385Z',
-        publishedAt: '2022-06-14T18:18:21.383Z',
-      },
     },
     {
       id: 18,
@@ -130,14 +113,6 @@ export const VOLUNTEER_MOCKS: StrapiResponse<Volunteer[]> = {
       updatedAt: '2022-04-01T10:43:02.800Z',
       publishedAt: '2022-03-27T14:32:33.743Z',
       user: null,
-      translator: null,
-      jury: null,
-      author: {
-        id: 4,
-        createdAt: '2022-03-27T14:32:15.691Z',
-        updatedAt: '2022-03-27T14:32:27.309Z',
-        publishedAt: '2022-03-27T14:32:27.218Z',
-      },
       jobs: [
         {
           id: 14,
@@ -166,7 +141,6 @@ export const VOLUNTEER_MOCKS: StrapiResponse<Volunteer[]> = {
           slug: 'blogger',
         },
       ],
-      editor: null,
     },
     {
       id: 17,
@@ -191,16 +165,7 @@ export const VOLUNTEER_MOCKS: StrapiResponse<Volunteer[]> = {
       updatedAt: '2022-04-01T10:43:16.936Z',
       publishedAt: '2022-03-27T14:28:46.623Z',
       user: null,
-      translator: null,
-      jury: null,
-      author: {
-        id: 3,
-        createdAt: '2022-03-27T14:29:00.407Z',
-        updatedAt: '2022-03-27T14:29:12.273Z',
-        publishedAt: '2022-03-27T14:29:12.270Z',
-      },
       jobs: [],
-      editor: null,
     },
     {
       id: 16,
@@ -225,6 +190,7 @@ export const VOLUNTEER_MOCKS: StrapiResponse<Volunteer[]> = {
       updatedAt: '2022-04-01T10:43:30.105Z',
       publishedAt: '2022-03-27T14:23:29.324Z',
       user: {
+        name: null,
         id: 4,
         username: 'umut',
         email: 'umutesen@gmail.com',
@@ -233,14 +199,6 @@ export const VOLUNTEER_MOCKS: StrapiResponse<Volunteer[]> = {
         blocked: false,
         createdAt: '2022-03-27T14:22:29.543Z',
         updatedAt: '2022-05-16T08:40:09.240Z',
-      },
-      translator: null,
-      jury: null,
-      author: {
-        id: 1,
-        createdAt: '2022-03-27T14:23:44.733Z',
-        updatedAt: '2022-03-27T14:23:46.619Z',
-        publishedAt: '2022-03-27T14:23:46.615Z',
       },
       jobs: [
         {
@@ -257,7 +215,6 @@ export const VOLUNTEER_MOCKS: StrapiResponse<Volunteer[]> = {
           slug: 'blogger',
         },
       ],
-      editor: null,
     },
     {
       id: 22,
@@ -282,11 +239,7 @@ export const VOLUNTEER_MOCKS: StrapiResponse<Volunteer[]> = {
       updatedAt: '2022-04-11T16:53:16.337Z',
       publishedAt: null,
       user: null,
-      translator: null,
-      jury: null,
-      author: null,
       jobs: [],
-      editor: null,
     },
     {
       id: 23,
@@ -311,9 +264,6 @@ export const VOLUNTEER_MOCKS: StrapiResponse<Volunteer[]> = {
       updatedAt: '2022-06-03T21:13:50.660Z',
       publishedAt: '2022-05-28T13:31:49.460Z',
       user: null,
-      translator: null,
-      jury: null,
-      author: null,
       jobs: [
         {
           id: 3,
@@ -355,7 +305,6 @@ export const VOLUNTEER_MOCKS: StrapiResponse<Volunteer[]> = {
           slug: 'translator',
         },
       ],
-      editor: null,
     },
     {
       id: 26,
@@ -380,9 +329,6 @@ export const VOLUNTEER_MOCKS: StrapiResponse<Volunteer[]> = {
       updatedAt: '2022-06-03T21:14:41.261Z',
       publishedAt: '2022-05-28T13:32:29.270Z',
       user: null,
-      translator: null,
-      jury: null,
-      author: null,
       jobs: [
         {
           id: 5,
@@ -411,7 +357,6 @@ export const VOLUNTEER_MOCKS: StrapiResponse<Volunteer[]> = {
           slug: 'social-media-expert',
         },
       ],
-      editor: null,
     },
     {
       id: 25,
@@ -436,9 +381,6 @@ export const VOLUNTEER_MOCKS: StrapiResponse<Volunteer[]> = {
       updatedAt: '2022-06-03T21:17:19.909Z',
       publishedAt: '2022-05-28T13:30:59.377Z',
       user: null,
-      translator: null,
-      jury: null,
-      author: null,
       jobs: [
         {
           id: 6,
@@ -467,7 +409,6 @@ export const VOLUNTEER_MOCKS: StrapiResponse<Volunteer[]> = {
           slug: 'account-manager',
         },
       ],
-      editor: null,
     },
     {
       id: 29,
@@ -492,9 +433,6 @@ export const VOLUNTEER_MOCKS: StrapiResponse<Volunteer[]> = {
       updatedAt: '2022-06-05T00:13:40.321Z',
       publishedAt: null,
       user: null,
-      translator: null,
-      jury: null,
-      author: null,
       jobs: [
         {
           id: 7,
@@ -510,7 +448,6 @@ export const VOLUNTEER_MOCKS: StrapiResponse<Volunteer[]> = {
           slug: 'blogger',
         },
       ],
-      editor: null,
     },
     {
       id: 30,
@@ -535,9 +472,6 @@ export const VOLUNTEER_MOCKS: StrapiResponse<Volunteer[]> = {
       updatedAt: '2022-06-05T00:18:01.149Z',
       publishedAt: null,
       user: null,
-      translator: null,
-      jury: null,
-      author: null,
       jobs: [
         {
           id: 2,
@@ -553,7 +487,6 @@ export const VOLUNTEER_MOCKS: StrapiResponse<Volunteer[]> = {
           slug: 'translator',
         },
       ],
-      editor: null,
     },
     {
       id: 15,
@@ -578,9 +511,6 @@ export const VOLUNTEER_MOCKS: StrapiResponse<Volunteer[]> = {
       updatedAt: '2022-06-05T08:43:09.082Z',
       publishedAt: '2022-03-25T15:58:07.815Z',
       user: null,
-      translator: null,
-      jury: null,
-      author: null,
       jobs: [
         {
           id: 15,
@@ -596,12 +526,6 @@ export const VOLUNTEER_MOCKS: StrapiResponse<Volunteer[]> = {
           slug: 'illustrator',
         },
       ],
-      editor: {
-        id: 2,
-        createdAt: '2022-05-29T17:02:15.562Z',
-        updatedAt: '2022-05-29T17:02:20.132Z',
-        publishedAt: '2022-05-29T17:02:20.130Z',
-      },
     },
     {
       id: 24,
@@ -626,9 +550,6 @@ export const VOLUNTEER_MOCKS: StrapiResponse<Volunteer[]> = {
       updatedAt: '2022-06-05T08:44:19.658Z',
       publishedAt: '2022-05-28T13:29:25.779Z',
       user: null,
-      translator: null,
-      jury: null,
-      author: null,
       jobs: [
         {
           id: 5,
@@ -735,7 +656,6 @@ export const VOLUNTEER_MOCKS: StrapiResponse<Volunteer[]> = {
           slug: 'social-media-expert',
         },
       ],
-      editor: null,
     },
     {
       id: 19,
@@ -760,6 +680,7 @@ export const VOLUNTEER_MOCKS: StrapiResponse<Volunteer[]> = {
       updatedAt: '2022-06-05T08:45:22.661Z',
       publishedAt: '2022-04-01T08:19:20.210Z',
       user: {
+        name: null,
         id: 45,
         username: 'hafsadenizoglu',
         email: 'hafsadenizoglu@gmail.com',
@@ -769,9 +690,6 @@ export const VOLUNTEER_MOCKS: StrapiResponse<Volunteer[]> = {
         createdAt: '2022-06-13T15:27:29.777Z',
         updatedAt: '2022-06-14T07:24:47.734Z',
       },
-      translator: null,
-      jury: null,
-      author: null,
       jobs: [
         {
           id: 13,
@@ -800,12 +718,6 @@ export const VOLUNTEER_MOCKS: StrapiResponse<Volunteer[]> = {
           slug: 'photograph',
         },
       ],
-      editor: {
-        id: 1,
-        createdAt: '2022-05-29T17:01:54.573Z',
-        updatedAt: '2022-05-29T17:01:58.723Z',
-        publishedAt: '2022-05-29T17:01:58.720Z',
-      },
     },
     {
       id: 31,
@@ -830,9 +742,6 @@ export const VOLUNTEER_MOCKS: StrapiResponse<Volunteer[]> = {
       updatedAt: '2022-06-08T07:33:57.101Z',
       publishedAt: '2022-06-08T07:33:57.039Z',
       user: null,
-      translator: null,
-      jury: null,
-      author: null,
       jobs: [
         {
           id: 1,
@@ -848,7 +757,6 @@ export const VOLUNTEER_MOCKS: StrapiResponse<Volunteer[]> = {
           slug: 'developer',
         },
       ],
-      editor: null,
     },
     {
       id: 32,
@@ -873,9 +781,6 @@ export const VOLUNTEER_MOCKS: StrapiResponse<Volunteer[]> = {
       updatedAt: '2022-06-08T14:18:02.030Z',
       publishedAt: '2022-06-08T14:18:02.019Z',
       user: null,
-      translator: null,
-      jury: null,
-      author: null,
       jobs: [
         {
           id: 4,
@@ -891,7 +796,6 @@ export const VOLUNTEER_MOCKS: StrapiResponse<Volunteer[]> = {
           slug: 'content-manager',
         },
       ],
-      editor: null,
     },
     {
       id: 33,
@@ -916,9 +820,6 @@ export const VOLUNTEER_MOCKS: StrapiResponse<Volunteer[]> = {
       updatedAt: '2022-07-24T10:49:47.884Z',
       publishedAt: '2022-07-24T10:49:47.876Z',
       user: null,
-      translator: null,
-      jury: null,
-      author: null,
       jobs: [
         {
           id: 10,
@@ -934,7 +835,6 @@ export const VOLUNTEER_MOCKS: StrapiResponse<Volunteer[]> = {
           slug: 'scriptwriter',
         },
       ],
-      editor: null,
     },
     {
       id: 34,
@@ -959,9 +859,6 @@ export const VOLUNTEER_MOCKS: StrapiResponse<Volunteer[]> = {
       updatedAt: '2022-08-26T18:00:18.512Z',
       publishedAt: '2022-08-26T18:00:18.312Z',
       user: null,
-      translator: null,
-      jury: null,
-      author: null,
       jobs: [
         {
           id: 5,
@@ -1016,7 +913,6 @@ export const VOLUNTEER_MOCKS: StrapiResponse<Volunteer[]> = {
           slug: 'photograph',
         },
       ],
-      editor: null,
     },
   ],
   meta: { pagination: { page: 1, pageSize: 25, pageCount: 1, total: 18 } },

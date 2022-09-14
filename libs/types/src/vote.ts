@@ -1,8 +1,8 @@
 import { Application } from './application'
-import { Expand } from './common'
+import { Art } from './art'
+import { Expand, PickRequired } from './common'
 import { StrapiBase } from './strapi'
 import { User } from './user'
-import { Volunteer } from './volunteer'
 
 export type VoteBase = {
   value: number
@@ -10,15 +10,32 @@ export type VoteBase = {
 
 type VoteRelation = {
   voter?: User
-  jury?: Volunteer
-  application?: Application
+  jury?: User
+  application?: Application | null
+  art?: Art | null
 }
 
 type VoteRelationInput = {
-  voter: number
-  application: number
+  voter?: number
+  jury?: number
+  application?: number
+  art?: number
 }
 
-export type VoteCreateInput = Expand<VoteBase & VoteRelationInput>
+export type VoteCreateApplicationInput = Expand<
+  VoteBase & PickRequired<VoteRelationInput, 'voter' | 'application'>
+>
+
+export type VoteCreateArtInput = Expand<
+  VoteBase & PickRequired<VoteRelationInput, 'voter' | 'art'>
+>
+
+export type VoteCreateApplicationJuryInput = Expand<
+  VoteBase & PickRequired<VoteRelationInput, 'jury' | 'application'>
+>
+
+export type VoteCreateArtJuryInput = Expand<
+  VoteBase & PickRequired<VoteRelationInput, 'jury' | 'art'>
+>
 
 export type Vote = Expand<StrapiBase & VoteBase & VoteRelation>
