@@ -1,6 +1,6 @@
 import { Art } from './art'
 import { Expand } from './common'
-import { StrapiCore } from './strapi'
+import { StrapiBase } from './strapi'
 import { User } from './user'
 
 type ArtistBase = {
@@ -21,4 +21,4 @@ export type ArtistCreateInput = Expand<
   ArtistBase & Pick<ArtistRelationInput, 'user'>
 >
 
-export type Artist = Expand<StrapiCore & ArtistBase & ArtistRelation>
+export type Artist = Expand<StrapiBase & ArtistBase & ArtistRelation>

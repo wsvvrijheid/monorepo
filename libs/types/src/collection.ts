@@ -1,19 +1,12 @@
 import { Art } from './art'
-import { Expand, TranslationStatus } from './common'
+import { Expand } from './common'
 import { UploadFile } from './file'
-import { StrapiLocale } from './locale'
-import { StrapiCore } from './strapi'
+import { StrapiBase, StrapiEntityBase } from './strapi'
 
-export type CollectionBase = {
-  title: string
-  slug: string
-  description: string
-  translationStatus: TranslationStatus
-  locale: StrapiLocale
-}
+export type CollectionBase = Omit<StrapiEntityBase, 'content'>
 
 type CollectionRelation = {
-  image?: UploadFile | null
+  image?: UploadFile
   arts?: Array<Art>
   localizations?: Array<Collection>
 }
@@ -24,18 +17,18 @@ type CollectionRelationInput = {
 }
 
 export type CollectionCreateInput = Expand<
-  Omit<CollectionBase, 'slug' | 'translationStatus'> & CollectionRelationInput
+  Omit<CollectionBase, 'translationStatus'> & CollectionRelationInput
 >
 
 export type CollectionUpdateInput = Expand<
   Partial<Omit<CollectionBase, 'locale'> & CollectionRelationInput>
 >
 
-export type CollectionLocalizeInput = Pick<
+export type CollectionLocalizeInput = Omit<
   CollectionBase,
-  'title' | 'description' | 'locale'
+  'approvalStatus' | 'likes' | 'views'
 >
 
 export type Collection = Expand<
-  StrapiCore & CollectionBase & CollectionRelation
+  StrapiBase & CollectionBase & CollectionRelation
 >

@@ -11,7 +11,7 @@ import { Blog } from './blog'
 import { Category } from './category'
 import { Collection } from './collection'
 import { Comment } from './comment'
-import { Expand } from './common'
+import { Expand, TranslationStatus } from './common'
 import { Competition } from './competition'
 import { Donate } from './donate'
 import { Editor } from './editor'
@@ -22,6 +22,7 @@ import { Job } from './job'
 import { Jury } from './jury'
 import { JuryVote } from './jury-vote'
 import { LangRole } from './lang-role'
+import { StrapiLocale } from './locale'
 import { Me } from './me'
 import { Mention } from './mention'
 import { Platform } from './platform'
@@ -39,11 +40,20 @@ import { Vote } from './vote'
 
 export type PublicationState = 'LIVE' | 'PREVIEW'
 
-export type StrapiCore = {
+export type StrapiBase = {
   id: number
   createdAt: string
   updatedAt: string | null
   publishedAt: string | null
+}
+
+export type StrapiEntityBase = {
+  title: string
+  slug: string
+  description: string
+  content: string
+  translationStatus: TranslationStatus
+  locale: StrapiLocale
 }
 
 export type StrapiModel =

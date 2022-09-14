@@ -41,8 +41,12 @@ export const getArts = async ({
     },
   }
 
+  // By default we only show approved arts in the club page
+  // But in Admin project, editors should be able to see also
+  // pending and rejected arts
+  // TODO: Allow user to filter by approvalStatus (see: ApprovalStatus)
   const statusFilter = {
-    translationStatus: {
+    approvalStatus: {
       $eq: 'approved',
     },
   }
@@ -60,7 +64,7 @@ export const getArts = async ({
 
   if (categories) {
     filters['categories'] = {
-      code: {
+      slug: {
         $in: Object.values(qs.parse(categories)),
       },
     }
@@ -76,19 +80,7 @@ export const getArts = async ({
   })
 }
 
-export const useArts = (
-  queryKey: QueryKey,
-  args: {
-    categories?: string
-    populate?: Array<string>
-    page?: number
-    pageSize?: number
-    searchTerm?: string
-    username?: string
-    sort?: Array<string>
-    locale: StrapiLocale
-  },
-) =>
+export const useArts = (queryKey: QueryKey, args: GetArts) =>
   useQuery({
     queryKey,
     queryFn: () => getArts(args),

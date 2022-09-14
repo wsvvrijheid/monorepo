@@ -1,6 +1,6 @@
 import { Expand } from './common'
 import { Feedback } from './feedback'
-import { StrapiCore } from './strapi'
+import { StrapiBase } from './strapi'
 import { Volunteer } from './volunteer'
 
 type EditorRelation = {
@@ -9,10 +9,10 @@ type EditorRelation = {
 }
 
 type EditorRelationInput = {
-  feedbacks?: number[]
+  feedbacks?: Array<number>
   volunteer: number
 }
 
 export type EditorCreateInput = EditorRelationInput
 
-export type Editor = Expand<StrapiCore & EditorRelation>
+export type Editor = Expand<StrapiBase & EditorRelation>

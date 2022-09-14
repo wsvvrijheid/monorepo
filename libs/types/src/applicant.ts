@@ -1,6 +1,6 @@
 import { Application } from './application'
 import { Expand } from './common'
-import { StrapiCore } from './strapi'
+import { StrapiBase } from './strapi'
 import { User } from './user'
 
 export type ApplicantBase = {
@@ -21,4 +21,4 @@ export type ApplicantCreateInput = Expand<
   ApplicantBase & ApplicantRelationInput
 >
 
-export type Applicant = Expand<StrapiCore & ApplicantBase & AplicantRelation>
+export type Applicant = Expand<StrapiBase & ApplicantBase & AplicantRelation>

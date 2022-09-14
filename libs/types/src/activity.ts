@@ -1,19 +1,14 @@
 import { Category } from './category'
-import { Expand, TranslationStatus } from './common'
+import { Expand } from './common'
 import { UploadFile } from './file'
-import { StrapiLocale } from './locale'
-import { StrapiCore } from './strapi'
+import { StrapiBase, StrapiEntityBase } from './strapi'
 import { Tag } from './tag'
 
-type ActivityBase = {
-  title: string
-  slug: string
-  description: string
-  content: string
-  translationStatus: TranslationStatus
-  date: string
-  locale: StrapiLocale
-}
+type ActivityBase = Expand<
+  StrapiEntityBase & {
+    date: string
+  }
+>
 
 type ActivityRelation = {
   categories?: Array<Category>
@@ -24,7 +19,7 @@ type ActivityRelation = {
 
 type ActivityRelationInput = {
   category?: number
-  tags?: number[]
+  tags?: Array<number>
   image: Blob
 }
 
@@ -39,4 +34,4 @@ export type ActivityLocalizeInput = Pick<
   'title' | 'description' | 'content'
 >
 
-export type Activity = Expand<StrapiCore & ActivityBase & ActivityRelation>
+export type Activity = Expand<StrapiBase & ActivityBase & ActivityRelation>

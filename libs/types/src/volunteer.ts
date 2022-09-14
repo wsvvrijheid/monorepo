@@ -5,7 +5,7 @@ import { Expand } from './common'
 import { Editor } from './editor'
 import { Job } from './job'
 import { Jury } from './jury'
-import { StrapiCore } from './strapi'
+import { StrapiBase } from './strapi'
 import { Translator } from './translator'
 import { User } from './user'
 
@@ -24,18 +24,18 @@ export type VolunteerBase = {
   twitter: string | null
   facebook: string | null
   instagram: string | null
-  inMailingList: boolean
-  approved: boolean
+  inMailingList: boolean | null
+  approved: boolean | null
   isPublic: boolean | null
 }
 
 type VolinteerRelation = {
-  user?: Omit<User, 'volunteer'> | null
-  translator?: Omit<Translator, 'volunteer'> | null
+  user?: User | null
+  translator?: Translator | null
   jury?: Jury | null
-  author?: Omit<Author, 'volunteer'> | null
+  author?: Author | null
   jobs?: Array<Job>
-  editor?: Omit<Editor, 'volunteer'> | null
+  editor?: Editor | null
 }
 
 type VolinteerRelationInput = {
@@ -43,7 +43,7 @@ type VolinteerRelationInput = {
   translator?: number
   jury?: number
   author?: number
-  jobs?: number[]
+  jobs?: Array<number>
   editor?: number
 }
 
@@ -59,4 +59,4 @@ export type VolunteerUpdateInput = Expand<
   Partial<VolunteerBase> & VolinteerRelationInput
 >
 
-export type Volunteer = Expand<StrapiCore & VolunteerBase & VolinteerRelation>
+export type Volunteer = Expand<StrapiBase & VolunteerBase & VolinteerRelation>

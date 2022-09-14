@@ -1,26 +1,21 @@
 import { SetOptional, SetRequired } from 'type-fest'
 
 import { Category } from './category'
-import { Expand, TranslationStatus } from './common'
+import { Expand } from './common'
 import { UploadFile } from './file'
-import { StrapiLocale } from './locale'
 import { Mention } from './mention'
 import { Post } from './post'
-import { StrapiCore } from './strapi'
+import { StrapiBase, StrapiEntityBase } from './strapi'
 import { Tweet } from './tweet'
 
-export type HashtagBase = {
-  title: string
-  slug: string
-  description: string | null
-  content: string
-  translationStatus: TranslationStatus
-  hashtag: string
-  hashtagExtra: string | null
-  date: string
-  locale: StrapiLocale
-  tweets?: Array<Tweet> | null
-}
+export type HashtagBase = Expand<
+  StrapiEntityBase & {
+    hashtag: string
+    hashtagExtra: string | null
+    date: string
+    tweets: Array<Tweet> | null
+  }
+>
 
 type HashtagRelation = {
   image?: UploadFile
@@ -42,15 +37,15 @@ export type HashtagCreateInput = Expand<
     Omit<HashtagBase, 'translationStatus' | 'tweets'>,
     'hashtagExtra'
   > &
-    SetRequired<HashtagRelationInput, 'image' | 'mentions'>
+    SetRequired<HashtagRelationInput, 'image'>
 >
 export type HashtagUpdateInput = Expand<
-  Partial<HashtagBase> & HashtagRelationInput
+  Partial<Omit<HashtagBase, 'locale'>> & HashtagRelationInput
 >
 
 export type HashtagLocalizeInput = Pick<
   HashtagBase,
-  'title' | 'description' | 'content'
+  'title' | 'description' | 'content' | 'translationStatus'
 >
 
-export type Hashtag = Expand<StrapiCore & HashtagBase & HashtagRelation>
+export type Hashtag = Expand<StrapiBase & HashtagBase & HashtagRelation>

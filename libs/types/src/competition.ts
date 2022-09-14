@@ -1,20 +1,15 @@
 import { Application } from './application'
 import { Category } from './category'
-import { Expand, TranslationStatus } from './common'
+import { Expand } from './common'
 import { UploadFile } from './file'
-import { StrapiLocale } from './locale'
-import { StrapiCore } from './strapi'
+import { StrapiBase, StrapiEntityBase } from './strapi'
 
-type CompetitionBase = {
-  title: string
-  slug: string
-  description: string
-  content: string
-  translationStatus: TranslationStatus
-  date: string
-  deadline: string
-  locale: StrapiLocale
-}
+type CompetitionBase = Expand<
+  StrapiEntityBase & {
+    date: string
+    deadline: string
+  }
+>
 
 type CompetitionRelation = {
   image?: UploadFile
@@ -25,12 +20,13 @@ type CompetitionRelation = {
 
 type CompetitionRelationInput = {
   image: Blob
-  applications?: number[]
-  categories?: number[]
+  applications?: Array<number>
+  categories?: Array<number>
 }
 
 export type CompetitionCreateInput = Expand<
-  Omit<CompetitionBase, 'translationStatus'> & CompetitionRelationInput
+  Omit<CompetitionBase, 'translationStatus'> &
+    Omit<CompetitionRelationInput, 'applications'>
 >
 
 export type CompetitionUpdateInput = Expand<
@@ -38,5 +34,5 @@ export type CompetitionUpdateInput = Expand<
 >
 
 export type Competition = Expand<
-  StrapiCore & CompetitionBase & CompetitionRelation
+  StrapiBase & CompetitionBase & CompetitionRelation
 >

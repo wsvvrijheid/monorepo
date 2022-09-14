@@ -1,20 +1,20 @@
 import { Art } from './art'
 import { Blog } from './blog'
 import { Expand, PickRequired } from './common'
-import { StrapiCore } from './strapi'
+import { StrapiBase } from './strapi'
 import { User } from './user'
 
 export type CommentBase = {
   content: string
   name?: string | null
   email?: string | null
-  blocked?: boolean
+  blocked?: boolean | null
 }
 
 type CommentRelation = {
-  user?: User
-  blog?: Blog
-  art?: Art
+  user?: User | null
+  blog?: Blog | null
+  art?: Art | null
 }
 
 type CommentRelationInput = {
@@ -51,4 +51,4 @@ export type CommentBlogCreateInput = Expand<
   CommentBlogCreateInputPublic | CommentBlogCreateInputUser
 >
 
-export type Comment = Expand<StrapiCore & CommentBase & CommentRelation>
+export type Comment = Expand<StrapiBase & CommentBase & CommentRelation>

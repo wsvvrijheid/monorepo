@@ -1,8 +1,8 @@
 import { Expand } from './common'
-import { StrapiCore } from './strapi'
+import { StrapiBase } from './strapi'
 
 export type Donate = Expand<
-  StrapiCore & {
+  StrapiBase & {
     adddress: string
     amount: number
     createdAt: string
