@@ -1,7 +1,7 @@
 import { Art } from './art'
 import { Blog } from './blog'
 import { Expand, PickRequired } from './common'
-import { StrapiCore } from './strapi'
+import { StrapiBase } from './strapi'
 import { User } from './user'
 
 export type CommentBase = {
@@ -51,4 +51,4 @@ export type CommentBlogCreateInput = Expand<
   CommentBlogCreateInputPublic | CommentBlogCreateInputUser
 >
 
-export type Comment = Expand<StrapiCore & CommentBase & CommentRelation>
+export type Comment = Expand<StrapiBase & CommentBase & CommentRelation>

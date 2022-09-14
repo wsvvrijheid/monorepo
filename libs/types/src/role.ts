@@ -1,11 +1,11 @@
 import { Expand } from './common'
-import { StrapiCore } from './strapi'
+import { StrapiBase } from './strapi'
 import { User } from './user'
 
 export type RoleName = 'Public' | 'Authenticated' | 'Editor' | 'Admin'
 
 export type Role = Expand<
-  Omit<StrapiCore, 'publishedAt'> & {
+  Omit<StrapiBase, 'publishedAt'> & {
     description: string
     name: RoleName
     permissions?: Permission
@@ -15,7 +15,7 @@ export type Role = Expand<
 >
 
 export type Permission = Expand<
-  Omit<StrapiCore, 'publishedAt'> & {
+  Omit<StrapiBase, 'publishedAt'> & {
     action: string
     role?: Role
   }

@@ -2,7 +2,7 @@ import { Category } from './category'
 import { Expand } from './common'
 import { Hashtag } from './hashtag'
 import { StrapiLocale } from './locale'
-import { StrapiCore } from './strapi'
+import { StrapiBase } from './strapi'
 
 export type MentionBase = {
   username: string
@@ -18,12 +18,12 @@ type MentionRelation = {
 }
 
 type MentionRelationInput = {
-  categories?: number[]
-  hashtags: number[]
+  categories?: Array<number>
+  hashtags: Array<number>
 }
 
 export type MentionCreateInput = Expand<
   Omit<MentionBase, 'data'> & MentionRelationInput
 >
 
-export type Mention = Expand<StrapiCore & MentionBase & MentionRelation>
+export type Mention = Expand<StrapiBase & MentionBase & MentionRelation>

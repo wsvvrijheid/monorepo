@@ -5,7 +5,7 @@ import { Art } from './art'
 import { Blog } from './blog'
 import { Expand } from './common'
 import { Post } from './post'
-import { StrapiCore } from './strapi'
+import { StrapiBase } from './strapi'
 
 export type TagBase = {
   slug: string
@@ -34,4 +34,4 @@ type TagRelationInput = {
 
 export type TagCreateInput = Expand<TagBase & TagRelationInput>
 
-export type Tag = Expand<StrapiCore & TagBase & TagRelation>
+export type Tag = Expand<StrapiBase & TagBase & TagRelation>

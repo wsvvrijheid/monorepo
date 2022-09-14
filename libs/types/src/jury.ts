@@ -1,5 +1,5 @@
 import { Expand } from './common'
-import { StrapiCore } from './strapi'
+import { StrapiBase } from './strapi'
 import { Volunteer } from './volunteer'
 import { Vote } from './vote'
 
@@ -9,10 +9,10 @@ export type JuryRelation = {
 }
 
 export type JuryRelationInput = {
-  votes?: number[]
+  votes?: Array<number>
   volunteer: number
 }
 
 export type JuryCreateInput = JuryRelationInput
 
-export type Jury = Expand<StrapiCore & JuryRelation>
+export type Jury = Expand<StrapiBase & JuryRelation>

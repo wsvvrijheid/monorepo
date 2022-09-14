@@ -1,8 +1,8 @@
 import { Expand } from './common'
-import { StrapiCore } from './strapi'
+import { StrapiBase } from './strapi'
 
 export type Me = Expand<
-  StrapiCore & {
+  StrapiBase & {
     blocked: boolean
     confirmed: boolean
     email: string
@@ -12,7 +12,7 @@ export type Me = Expand<
 >
 
 export type MeRole = Expand<
-  StrapiCore & {
+  StrapiBase & {
     description: string
     name: string
     type: string

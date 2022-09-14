@@ -1,10 +1,8 @@
-import { SetRequired } from 'type-fest'
-
 import { Application } from './application'
 import { Art } from './art'
-import { Expand } from './common'
+import { Expand, PickRequired } from './common'
 import { Editor } from './editor'
-import { StrapiCore } from './strapi'
+import { StrapiBase } from './strapi'
 
 type FeedbackBase = {
   message: string
@@ -13,8 +11,8 @@ type FeedbackBase = {
 }
 
 type FeedbackRelation = {
-  art?: Art
-  application?: Application
+  art?: Art | null
+  application?: Application | null
   editor?: Editor
 }
 
@@ -24,8 +22,12 @@ type FeedbackRelationInput = {
   editor?: number
 }
 
-export type FeedbackCreateInput = Expand<
-  FeedbackBase & SetRequired<FeedbackRelationInput, 'editor'>
+export type FeedbackArtCreateInput = Expand<
+  FeedbackBase & PickRequired<FeedbackRelationInput, 'editor' | 'art'>
 >
 
-export type Feedback = Expand<StrapiCore & FeedbackBase & FeedbackRelation>
+export type FeedbackApplicationCreateInput = Expand<
+  FeedbackBase & PickRequired<FeedbackRelationInput, 'editor' | 'application'>
+>
+
+export type Feedback = Expand<StrapiBase & FeedbackBase & FeedbackRelation>

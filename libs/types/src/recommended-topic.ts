@@ -1,7 +1,7 @@
 import { SetRequired } from 'type-fest'
 
 import { Expand } from './common'
-import { StrapiCore } from './strapi'
+import { StrapiBase } from './strapi'
 import { User } from './user'
 
 export type RecommendedTopicBase = {
@@ -29,5 +29,5 @@ export type RecommendedTopicCreateInput = Expand<
 >
 
 export type RecommendedTopic = Expand<
-  StrapiCore & RecommendedTopicBase & RecommendedTopicRelation
+  StrapiBase & RecommendedTopicBase & RecommendedTopicRelation
 >

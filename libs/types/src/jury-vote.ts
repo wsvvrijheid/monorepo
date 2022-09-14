@@ -1,7 +1,7 @@
 import { Application } from './application'
 import { Expand } from './common'
 import { Jury } from './jury'
-import { StrapiCore } from './strapi'
+import { StrapiBase } from './strapi'
 
 export type JuryVoteBase = {
   value: number
@@ -19,4 +19,4 @@ type JuryVoteRelationInput = {
 
 export type JuryVoteCreateInput = Expand<JuryVoteBase & JuryVoteRelationInput>
 
-export type JuryVote = Expand<StrapiCore & JuryVoteBase & JuryVoteRelation>
+export type JuryVote = Expand<StrapiBase & JuryVoteBase & JuryVoteRelation>

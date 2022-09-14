@@ -1,15 +1,15 @@
 import { Expand } from './common'
 import { UploadFile } from './file'
-import { StrapiLocale } from './locale'
-import { StrapiCore } from './strapi'
+import { StrapiBase, StrapiEntityBase } from './strapi'
 
-export type Privacy = Expand<
-  StrapiCore & {
-    title: string
-    slug: string
-    content: string
-    locale: StrapiLocale
-    image?: UploadFile
-    localizations?: Array<Privacy>
-  }
+export type PrivacyBase = Omit<
+  StrapiEntityBase,
+  'description' | 'translationStatus'
 >
+
+type PrivacyRelation = {
+  image?: UploadFile
+  localizations?: Array<Privacy>
+}
+
+export type Privacy = Expand<StrapiBase & PrivacyBase & PrivacyRelation>

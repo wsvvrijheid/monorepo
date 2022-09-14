@@ -6,7 +6,7 @@ import { Expand } from './common'
 import { Competition } from './competition'
 import { Hashtag } from './hashtag'
 import { Mention } from './mention'
-import { StrapiCore } from './strapi'
+import { StrapiBase } from './strapi'
 
 type CategoryBase = {
   slug: string
@@ -37,4 +37,4 @@ type CategoryRelationInput = {
 
 export type CategoryCreateInput = Expand<CategoryBase & CategoryRelationInput>
 
-export type Category = Expand<StrapiCore & CategoryBase & CategoryRelation>
+export type Category = Expand<StrapiBase & CategoryBase & CategoryRelation>

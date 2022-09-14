@@ -1,7 +1,7 @@
 import { Expand } from './common'
 import { LangRole } from './lang-role'
 import { Post } from './post'
-import { StrapiCore } from './strapi'
+import { StrapiBase } from './strapi'
 import { Volunteer } from './volunteer'
 
 export type TranslatorRelation = {
@@ -11,11 +11,11 @@ export type TranslatorRelation = {
 }
 
 export type TranslatorRelationInput = {
-  posts?: number[]
-  roles: number[]
+  posts?: Array<number>
+  roles: Array<number>
   volunteer: number
 }
 
 export type TranslatorCreateInput = TranslatorRelationInput
 
-export type Translator = Expand<StrapiCore & TranslatorRelation>
+export type Translator = Expand<StrapiBase & TranslatorRelation>

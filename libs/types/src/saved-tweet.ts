@@ -1,5 +1,5 @@
 import { Expand } from './common'
-import { StrapiCore } from './strapi'
+import { StrapiBase } from './strapi'
 import { Tweet } from './tweet'
 import { User } from './user'
 
@@ -21,5 +21,5 @@ export type SavedTweetCreateInput = Expand<
 >
 
 export type SavedTweet = Expand<
-  StrapiCore & SavedTweetBase & SavedTweetRelation
+  StrapiBase & SavedTweetBase & SavedTweetRelation
 >

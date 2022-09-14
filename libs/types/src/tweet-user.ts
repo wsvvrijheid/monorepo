@@ -15,13 +15,13 @@ export interface TweetUserData {
     entities: {
       urls: Array<{
         url: string
-        indices: number[]
+        indices: Array<number>
         display_url: string
         expanded_url: string
       }>
-      symbols: any[]
-      hashtags: any[]
-      user_mentions: any[]
+      symbols: Array<any>
+      hashtags: Array<any>
+      user_mentions: Array<any>
     }
     favorited: boolean
     full_text: string
@@ -30,7 +30,7 @@ export interface TweetUserData {
     created_at: string
     coordinates?: any | null
     contributors?: any | null
-    display_text_range: number[]
+    display_text_range: Array<number>
     retweet_count: number
     favorite_count: number
     is_quote_status: boolean
@@ -45,7 +45,7 @@ export interface TweetUserData {
     url: {
       urls: Array<{
         url: string
-        indices: number[]
+        indices: Array<number>
         display_url: string
         expanded_url: string
       }>
@@ -53,7 +53,7 @@ export interface TweetUserData {
     description: {
       urls: Array<{
         url: string
-        indices: number[]
+        indices: Array<number>
         display_url: string
         expanded_url: string
       }>
@@ -86,7 +86,7 @@ export interface TweetUserData {
   contributors_enabled: boolean
   has_extended_profile: boolean
   default_profile_image: boolean
-  withheld_in_countries: string[]
+  withheld_in_countries: Array<string>
   is_translation_enabled: boolean
   profile_background_tile: boolean
   profile_image_url_https: string

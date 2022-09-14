@@ -1,21 +1,18 @@
 import { Expand, TranslationStatus } from './common'
 import { UploadFile } from './file'
 import { Hashtag } from './hashtag'
-import { StrapiLocale } from './locale'
-import { StrapiCore } from './strapi'
+import { StrapiBase, StrapiEntityBase } from './strapi'
 import { Tag } from './tag'
 import { Translator } from './translator'
 import { User } from './user'
 
-export type PostBase = {
-  title: string
-  description: string
-  content?: string | null
-  translationStatus: TranslationStatus
-  capsStatus: TranslationStatus
-  locale: StrapiLocale
-  twitterMedia?: string | null
-}
+export type PostBase = Expand<
+  Omit<StrapiEntityBase, 'slug' | 'content'> & {
+    content: string | null
+    capsStatus: TranslationStatus
+    twitterMedia?: string | null
+  }
+>
 
 export type PostRelation = {
   image?: UploadFile
@@ -30,7 +27,7 @@ export type PostRelation = {
 export type PostRelationInput = {
   image: Blob
   hashtag: number
-  tags?: number[]
+  tags?: Array<number>
   translator?: number
   creator?: number
   reviewer?: number
@@ -52,4 +49,4 @@ export type PostLocalizeInput = Pick<
   'title' | 'description' | 'content' | 'translationStatus'
 >
 
-export type Post = Expand<StrapiCore & PostBase & PostRelation>
+export type Post = Expand<StrapiBase & PostBase & PostRelation>

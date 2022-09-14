@@ -1,5 +1,5 @@
 import { Expand } from './common'
-import { StrapiCore } from './strapi'
+import { StrapiBase } from './strapi'
 
 export type FileFormatsType = 'large' | 'small' | 'medium' | 'thumbnail'
 
@@ -24,7 +24,7 @@ type FileFormat = {
 export type FileFormats = { [F in FileFormatsType]?: FileFormat }
 
 export type UploadFile = Expand<
-  Omit<StrapiCore, 'publishedAt'> & {
+  Omit<StrapiBase, 'publishedAt'> & {
     alternativeText: string | null
     caption: string | null
     ext: string

@@ -1,19 +1,14 @@
 import { Category } from './category'
-import { Expand, TranslationStatus } from './common'
+import { Expand } from './common'
 import { UploadFile } from './file'
-import { StrapiLocale } from './locale'
-import { StrapiCore } from './strapi'
+import { StrapiBase, StrapiEntityBase } from './strapi'
 import { Tag } from './tag'
 
-type AnnouncementBase = {
-  title: string
-  slug: string
-  description: string
-  content: string
-  translationStatus: TranslationStatus
-  date: string
-  locale: StrapiLocale
-}
+type AnnouncementBase = Expand<
+  StrapiEntityBase & {
+    date: string
+  }
+>
 
 type AnnouncementRelation = {
   categories?: Array<Category>
@@ -23,8 +18,8 @@ type AnnouncementRelation = {
 }
 
 type AnnouncementRelationInput = {
-  categories?: number[]
-  tags?: number[]
+  categories?: Array<number>
+  tags?: Array<number>
   image: Blob
 }
 
@@ -40,5 +35,5 @@ export type AnnouncementLocalizeInput = Pick<
 >
 
 export type Announcement = Expand<
-  StrapiCore & AnnouncementBase & AnnouncementRelation
+  StrapiBase & AnnouncementBase & AnnouncementRelation
 >

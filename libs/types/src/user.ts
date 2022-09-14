@@ -10,7 +10,7 @@ import { RecommendedTopic } from './recommended-topic'
 import { RecommendedTweet } from './recommended-tweet'
 import { Role } from './role'
 import { SavedTweet } from './saved-tweet'
-import { StrapiCore } from './strapi'
+import { StrapiBase } from './strapi'
 import { Timeline } from './timeline'
 import { Volunteer } from './volunteer'
 import { Vote } from './vote'
@@ -45,20 +45,20 @@ type UserRelation = {
 type UserRelationInput = {
   role: number
   avatar?: Blob
-  createdPosts?: number[]
+  createdPosts?: Array<number>
   applicant?: number
   volunteer?: number
-  votes?: number[]
+  votes?: Array<number>
   artist?: number
-  likedArts?: number[]
-  likedBlogs?: number[]
-  reviewedPosts?: number[]
-  listedTimelines?: number[]
-  recommendedTweets?: number[]
-  createdTimelines?: number[]
-  savedTweets?: number[]
-  comments?: number[]
-  recommendedTopics?: number[]
+  likedArts?: Array<number>
+  likedBlogs?: Array<number>
+  reviewedPosts?: Array<number>
+  listedTimelines?: Array<number>
+  recommendedTweets?: Array<number>
+  createdTimelines?: Array<number>
+  savedTweets?: Array<number>
+  comments?: Array<number>
+  recommendedTopics?: Array<number>
 }
 
 export type UpdateUserInput = Expand<
@@ -66,5 +66,5 @@ export type UpdateUserInput = Expand<
 >
 
 export type User = Expand<
-  Omit<StrapiCore, 'publishedAt'> & UserBase & UserRelation
+  Omit<StrapiBase, 'publishedAt'> & UserBase & UserRelation
 >

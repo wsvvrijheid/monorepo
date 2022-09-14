@@ -1,6 +1,6 @@
 import { Expand } from './common'
 import { UploadFile } from './file'
-import { StrapiCore } from './strapi'
+import { StrapiBase } from './strapi'
 import { Tweet } from './tweet'
 import { User } from './user'
 
@@ -27,5 +27,5 @@ export type RecommendedTweetCreateInput = Expand<
 >
 
 export type RecommendedTweet = Expand<
-  StrapiCore & RecommendedTweetBase & RecommendedTweetRelation
+  StrapiBase & RecommendedTweetBase & RecommendedTweetRelation
 >
