@@ -2,7 +2,6 @@ import { Applicant } from './applicant'
 import { ApprovalStatus, Expand } from './common'
 import { Competition } from './competition'
 import { UploadFile } from './file'
-import { JuryVote } from './jury-vote'
 import { StrapiBase, StrapiEntityBase } from './strapi'
 import { Tag } from './tag'
 import { Vote } from './vote'
@@ -18,7 +17,6 @@ type ApplicationRelation = {
   competition?: Competition
   applicant?: Applicant
   votes?: Array<Vote>
-  juryVotes?: Array<JuryVote>
   tags?: Array<Tag>
   localizations?: Array<Application>
 }

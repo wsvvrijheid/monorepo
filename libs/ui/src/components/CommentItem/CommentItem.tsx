@@ -10,11 +10,7 @@ interface CommentItemProps {
 }
 
 export const CommentItem: FC<CommentItemProps> = ({ comment }) => {
-  const name =
-    comment.user?.username ||
-    comment.user?.artist?.name ||
-    comment.name ||
-    'Anonymous'
+  const name = comment.user?.username || comment.name || 'Anonymous'
 
   return (
     <HStack align="start">

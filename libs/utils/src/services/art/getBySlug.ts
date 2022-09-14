@@ -9,7 +9,7 @@ export const getArtBySlug = async (locale: StrapiLocale, slug: string) => {
     url: 'api/arts',
     filters: { slug: { $eq: slug } },
     populate: [
-      'artist.user.avatar',
+      'artist.avatar',
       'categories',
       'images',
       'localizations',

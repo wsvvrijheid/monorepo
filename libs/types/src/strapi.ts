@@ -5,8 +5,6 @@ import { Announcement } from './announcement'
 import { Applicant } from './applicant'
 import { Application } from './application'
 import { Art } from './art'
-import { Artist } from './artist'
-import { Author } from './author'
 import { Blog } from './blog'
 import { Category } from './category'
 import { Collection } from './collection'
@@ -14,13 +12,10 @@ import { Comment } from './comment'
 import { Expand, TranslationStatus } from './common'
 import { Competition } from './competition'
 import { Donate } from './donate'
-import { Editor } from './editor'
 import { Feedback } from './feedback'
 import { UploadFile } from './file'
 import { Hashtag } from './hashtag'
 import { Job } from './job'
-import { Jury } from './jury'
-import { JuryVote } from './jury-vote'
 import { LangRole } from './lang-role'
 import { StrapiLocale } from './locale'
 import { Me } from './me'
@@ -32,7 +27,6 @@ import { RecommendedTopic } from './recommended-topic'
 import { RecommendedTweet } from './recommended-tweet'
 import { Tag } from './tag'
 import { Term } from './term'
-import { Translator } from './translator'
 import { Trend } from './trend'
 import { User } from './user'
 import { Volunteer } from './volunteer'
@@ -62,20 +56,15 @@ export type StrapiModel =
   | Applicant
   | Application
   | Art
-  | Artist
-  | Author
   | Blog
   | Category
   | Collection
   | Comment
   | Competition
   | Donate
-  | Editor
   | Feedback
   | Hashtag
   | Job
-  | Jury
-  | JuryVote
   | LangRole
   | Me
   | Mention
@@ -86,7 +75,6 @@ export type StrapiModel =
   | RecommendedTweet
   | Tag
   | Term
-  | Translator
   | Trend
   | UploadFile
   | User
@@ -145,21 +133,16 @@ export type StrapiCollectionUrl =
   | 'activities'
   | 'announcements'
   | 'applicants'
-  | 'artists'
   | 'arts'
-  | 'authors'
   | 'blogs'
   | 'categories'
   | 'collections'
   | 'comments'
   | 'competitions'
   | 'donates'
-  | 'editors'
   | 'feedbacks'
   | 'hashtags'
   | 'jobs'
-  | 'juries'
-  | 'jury-votes'
   | 'lang-roles'
   | 'me'
   | 'mentions'
@@ -171,7 +154,6 @@ export type StrapiCollectionUrl =
   | 'saved-tweets'
   | 'tags'
   | 'timelines'
-  | 'translators'
   | 'tweet-users'
   | 'tweets'
   | 'users'

@@ -14,7 +14,7 @@ export const getArtCategories = async (locale: StrapiLocale) => {
         locale: {
           $eq: locale,
         },
-        translationStatus: {
+        approvalStatus: {
           $eq: 'approved',
         },
       },
@@ -30,5 +30,6 @@ export const useGetArtCategories = () => {
   return useQuery({
     queryKey: ['art-categories', locale],
     queryFn: () => getArtCategories(locale as StrapiLocale),
+    keepPreviousData: true,
   })
 }

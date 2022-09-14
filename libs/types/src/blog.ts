@@ -1,4 +1,3 @@
-import { Author } from './author'
 import { Category } from './category'
 import { Comment } from './comment'
 import { Expand } from './common'
@@ -16,7 +15,7 @@ export type BlogBase = Expand<
 
 type BlogRelation = {
   image?: UploadFile
-  author?: Author
+  author?: User
   categories?: Array<Category>
   tags?: Array<Tag>
   likers?: Array<User>

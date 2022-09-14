@@ -1,8 +1,8 @@
 import { Application } from './application'
 import { Art } from './art'
 import { Expand, PickRequired } from './common'
-import { Editor } from './editor'
 import { StrapiBase } from './strapi'
+import { User } from './user'
 
 type FeedbackBase = {
   message: string
@@ -13,7 +13,7 @@ type FeedbackBase = {
 type FeedbackRelation = {
   art?: Art | null
   application?: Application | null
-  editor?: Editor
+  editor?: User
 }
 
 type FeedbackRelationInput = {

@@ -45,10 +45,9 @@ export const ArtCardBase: FC<ArtCardBaseProps> = ({
   const noOfLines = useBreakpointValue({ base: undefined, lg: 2 })
 
   const artistName = art.artist?.name
-  const artistUsername = art.artist?.user?.username
+  const artistUsername = art.artist?.username
   const artistAvatar =
-    art.artist?.user?.avatar?.formats?.thumbnail?.url ||
-    art.artist?.user?.avatar?.url
+    art.artist?.avatar?.formats?.thumbnail?.url || art.artist?.avatar?.url
 
   const onHandleAction = (type: ArtActionType) => {
     setActionType(type)

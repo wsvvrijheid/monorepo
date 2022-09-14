@@ -3,7 +3,6 @@ import { UploadFile } from './file'
 import { Hashtag } from './hashtag'
 import { StrapiBase, StrapiEntityBase } from './strapi'
 import { Tag } from './tag'
-import { Translator } from './translator'
 import { User } from './user'
 
 export type PostBase = Expand<
@@ -18,7 +17,7 @@ export type PostRelation = {
   image?: UploadFile
   hashtag?: Hashtag
   tags?: Array<Tag>
-  translator?: Translator | null
+  translator?: User | null
   creator?: User | null
   reviewer?: User | null
   localizations?: Array<Post>

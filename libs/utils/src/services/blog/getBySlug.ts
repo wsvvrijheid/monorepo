@@ -12,7 +12,7 @@ export const getBlogBySlug = async (locale: StrapiLocale, slug: string) => {
     SetRequired<Blog, 'author' | 'image' | 'likers'>[]
   >({
     url: 'api/blogs',
-    populate: ['author.volunteer', 'image', 'likers'],
+    populate: ['author', 'image', 'likers'],
     filters: { slug: { $eq: slug } },
     locale,
   })
