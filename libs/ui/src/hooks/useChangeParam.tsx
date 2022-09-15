@@ -12,7 +12,6 @@ export const useChangeParams = () => {
     // it should be removed from both the query and args
     const newQuery = cleanQuery(query, args)
     cleanArgs(args)
-    resetPage(newQuery, args)
 
     if (JSON.stringify(query) != JSON.stringify({ ...newQuery, ...args })) {
       push({ query: { ...newQuery, ...args } })
@@ -56,13 +55,5 @@ const cleanArgs = (args: ChangeParamArgs) => {
         delete args[key]
       }
     }
-  }
-}
-
-// If page is not specified, remove it from query
-// so that data is always fetched by the first page
-const resetPage = (query: ParsedUrlQuery, args: ChangeParamArgs) => {
-  if (!args['page']) {
-    delete query['page']
   }
 }

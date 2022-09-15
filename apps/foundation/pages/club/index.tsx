@@ -28,8 +28,15 @@ export const getStaticProps: GetStaticProps = async context => {
     // So, we need to keep the same order of the `queryKey` array
 
     // queryKey: [arts, locale, searchTerm, category, page]
-    queryKey: ['arts', locale, '', null, '1'],
-    queryFn: () => getArts({ locale: locale as StrapiLocale }),
+    queryKey: ['arts', locale, null, null, '1'],
+    queryFn: () =>
+      getArts({
+        populate: ['artist.user.avatar', 'categories', 'images', 'likers'],
+        page: 1,
+        pageSize: 12,
+        sort: ['publishedAt:desc'],
+        locale: locale as StrapiLocale,
+      }),
   })
 
   const seo = {

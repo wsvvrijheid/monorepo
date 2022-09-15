@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 
 import {
   Box,
@@ -19,11 +19,11 @@ import {
   Stack,
   Text,
   Textarea,
-  useDisclosure,
   VStack,
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { StrapiLocale } from '@wsvvrijheid/types'
+import { useGetArtCategories } from '@wsvvrijheid/utils'
 import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
@@ -35,7 +35,6 @@ import { FileUploader } from '../FileUploader'
 import { FormItem } from '../FormItem'
 import { Navigate } from '../Navigate'
 import { WSelect } from '../WSelect'
-import { ArtCreateSuccessAlert } from './CreateArtSuccessAlert'
 import { CreateArtFormFieldValues, CreateArtFormProps } from './types'
 
 const schema = (t: TFunction) =>
@@ -53,26 +52,24 @@ const schema = (t: TFunction) =>
   })
 
 // TODO Consider adding modal form instead of a new page
-export const CreateArtForm: React.FC<CreateArtFormProps> = ({
+export const CreateArtForm: FC<CreateArtFormProps> = ({
   onCreateArt,
-  isLoading,
-  categories,
   isLoggedIn,
+  isLoading,
+  cancelRef,
+  formDisclosure,
 }) => {
-  const cancelRef = useRef<HTMLButtonElement>(null)
   const [images, setImages] = useState<Blob[]>([])
-
-  const formDisclosure = useDisclosure()
-  const successDisclosure = useDisclosure()
-
+  const [previews, setPreviews] = useState<string[]>([])
   const { locale } = useRouter()
-
   const { t } = useTranslation()
+  const categories = useGetArtCategories()
 
   const {
     register,
     formState: { errors, isValid },
     handleSubmit,
+    reset: resetForm,
     control,
   } = useForm<CreateArtFormFieldValues>({
     resolver: yupResolver(schema(t)),
@@ -91,15 +88,19 @@ export const CreateArtForm: React.FC<CreateArtFormProps> = ({
     onCreateArt({ ...data, images })
   }
 
+  const resetFileUploader = () => {
+    setImages([])
+    setPreviews([])
+  }
+
+  const closeForm = () => {
+    resetFileUploader()
+    resetForm()
+    formDisclosure.onClose()
+  }
+
   return (
     <>
-      {/* SUCCESS ALERT */}
-      <ArtCreateSuccessAlert
-        isOpen={successDisclosure.isOpen}
-        onClose={successDisclosure.onClose}
-        ref={cancelRef}
-      />
-
       <Button size="lg" colorScheme="blue" onClick={formDisclosure.onOpen}>
         <Box mr={{ base: 0, lg: 4 }}>
           <FaUpload />
@@ -111,7 +112,7 @@ export const CreateArtForm: React.FC<CreateArtFormProps> = ({
         isCentered
         closeOnOverlayClick={false}
         isOpen={formDisclosure.isOpen}
-        onClose={formDisclosure.onClose}
+        onClose={closeForm}
         size={isLoggedIn ? '4xl' : 'md'}
       >
         <ModalOverlay />
@@ -149,7 +150,12 @@ export const CreateArtForm: React.FC<CreateArtFormProps> = ({
             {/* CREATE FORM */}
             {isLoggedIn && (
               <SimpleGrid columns={{ base: 1, lg: 2 }} gap={4}>
-                <FileUploader setImages={setImages} images={images} />
+                <FileUploader
+                  images={images}
+                  previews={previews}
+                  setImages={setImages}
+                  setPreviews={setPreviews}
+                />
                 <Stack
                   spacing={4}
                   as="form"
@@ -189,7 +195,7 @@ export const CreateArtForm: React.FC<CreateArtFormProps> = ({
                     control={control as any}
                     isMulti
                     options={
-                      categories?.map(c => ({
+                      categories.data?.map(c => ({
                         value: c.id.toString(),
                         label: c[`name_${locale as StrapiLocale}`],
                       })) || []
@@ -214,11 +220,7 @@ export const CreateArtForm: React.FC<CreateArtFormProps> = ({
                   />
 
                   <ButtonGroup alignSelf="end">
-                    <Button
-                      onClick={formDisclosure.onClose}
-                      mr={3}
-                      ref={cancelRef}
-                    >
+                    <Button onClick={closeForm} mr={3} ref={cancelRef}>
                       {t`cancel`}
                     </Button>
                     <Button

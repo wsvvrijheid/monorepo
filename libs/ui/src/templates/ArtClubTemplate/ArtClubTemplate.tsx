@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC, useRef, useState } from 'react'
 
 import {
   Box,
@@ -13,9 +13,15 @@ import {
   Skeleton,
   Stack,
   useDisclosure,
+  useToast,
 } from '@chakra-ui/react'
+import slugify from '@sindresorhus/slugify'
 import { StrapiLocale } from '@wsvvrijheid/types'
-import { useArts, useGetArtCategories } from '@wsvvrijheid/utils'
+import {
+  useArts,
+  useCreateArt,
+  useGetApprovedArtCategories,
+} from '@wsvvrijheid/utils'
 import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
 import { MdMenuOpen } from 'react-icons/md'
@@ -32,6 +38,7 @@ import {
   Pagination,
   ArtCard,
 } from '../../components'
+import { ArtCreateSuccessAlert } from '../../components/CreateArtForm/CreateArtSuccessAlert'
 import { CreateArtFormFieldValues } from '../../components/CreateArtForm/types'
 import { useAuth, useChangeParams } from '../../hooks'
 
@@ -46,8 +53,12 @@ export const ArtClubTemplate: FC = () => {
   const [isLoading, setIsLoading] = useState(false)
   const { isOpen, onOpen, onClose } = useDisclosure()
   const { t } = useTranslation()
+  const createArtCancelRef = useRef<HTMLButtonElement>(null)
+  const createArtFormDisclosure = useDisclosure()
+  const createArtSuccessDisclosure = useDisclosure()
+  const toast = useToast()
 
-  const categoryQuery = useGetArtCategories()
+  const approvedCategoryQuery = useGetApprovedArtCategories()
 
   // As mentioned in `getStaticProps`, we need to keep the same order for queryKey
   // queryKey = [arts, locale, searchTerm, category, page]
@@ -64,8 +75,40 @@ export const ArtClubTemplate: FC = () => {
     locale: locale as StrapiLocale,
   })
 
-  const createArt = (data: CreateArtFormFieldValues & { images: Blob[] }) => {
-    // mutate(data)
+  const createArtOnSuccess = () => {
+    createArtFormDisclosure.onClose()
+    createArtSuccessDisclosure.onOpen()
+  }
+
+  const createArtOnError = () => {
+    toast({
+      title: 'Error',
+      description: 'Something went wrong',
+      status: 'error',
+      duration: 5000,
+      isClosable: true,
+    })
+  }
+
+  const { mutate, isLoading: createArtIsLoading } = useCreateArt({
+    onSuccess: createArtOnSuccess,
+    onError: createArtOnError,
+  })
+
+  const createArt = async (
+    data: CreateArtFormFieldValues & { images: Blob[] },
+  ) => {
+    if (!auth.user) return
+
+    const slug = slugify(data.title)
+    const formBody = {
+      ...data,
+      slug,
+      artist: auth.user.id,
+      categories: data.categories?.map(c => Number(c.value)),
+    }
+
+    mutate(formBody)
   }
 
   return (
@@ -75,13 +118,19 @@ export const ArtClubTemplate: FC = () => {
         <DrawerContent>
           <DrawerBody py={8}>
             <ArtSideBar
-              categoryList={categoryQuery.data || []}
+              categoryList={approvedCategoryQuery.data || []}
               isLoading={isLoading}
               setIsLoading={setIsLoading}
             />
           </DrawerBody>
         </DrawerContent>
       </Drawer>
+      {/* SUCCESS ALERT */}
+      <ArtCreateSuccessAlert
+        isOpen={createArtSuccessDisclosure.isOpen}
+        onClose={createArtSuccessDisclosure.onClose}
+        ref={createArtCancelRef}
+      />
       <Container minH="inherit">
         <Grid
           w="full"
@@ -90,7 +139,7 @@ export const ArtClubTemplate: FC = () => {
           gridTemplateColumns={{ base: '1fr', lg: '200px 1fr' }}
         >
           <Box display={{ base: 'none', lg: 'block' }}>
-            {categoryQuery.isLoading ? (
+            {approvedCategoryQuery.isLoading ? (
               <Stack
                 direction={{ base: 'row', lg: 'column' }}
                 justify="stretch"
@@ -108,7 +157,7 @@ export const ArtClubTemplate: FC = () => {
               </Stack>
             ) : (
               <ArtSideBar
-                categoryList={categoryQuery.data || []}
+                categoryList={approvedCategoryQuery.data || []}
                 isLoading={isLoading}
                 setIsLoading={setIsLoading}
               />
@@ -119,14 +168,15 @@ export const ArtClubTemplate: FC = () => {
             <HStack>
               <SearchForm
                 placeholder={t`search`}
-                onSearch={value => changeParam({ searchTerm: value })}
+                onSearch={value => changeParam({ searchTerm: value as string })}
                 isFetching={artsQuery.isFetching}
               />
               <CreateArtForm
-                categories={categoryQuery.data || []}
                 isLoggedIn={auth.isLoggedIn}
-                isLoading={isLoading}
                 onCreateArt={createArt}
+                isLoading={createArtIsLoading}
+                cancelRef={createArtCancelRef}
+                formDisclosure={createArtFormDisclosure}
               />
               <IconButton
                 display={{ base: 'flex', lg: 'none' }}
@@ -163,11 +213,13 @@ export const ArtClubTemplate: FC = () => {
 
             {!artsQuery.isLoading && (
               <Center>
-                {artsQuery.data?.meta?.pagination && page && (
+                {artsQuery.data?.meta?.pagination && (
                   <Pagination
                     totalCount={artsQuery.data.meta.pagination?.pageCount}
-                    currentPage={+page}
-                    onPageChange={() => changeParam({ page: page.toString() })}
+                    currentPage={artsQuery.data.meta.pagination?.page}
+                    onPageChange={page =>
+                      changeParam({ page: page.toString() })
+                    }
                   />
                 )}
               </Center>

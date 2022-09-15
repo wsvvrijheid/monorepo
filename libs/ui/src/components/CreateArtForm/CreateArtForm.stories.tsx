@@ -1,5 +1,6 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 
+import { useDisclosure } from '@chakra-ui/react'
 import slugify from '@sindresorhus/slugify'
 import { Story, Meta } from '@storybook/react'
 import { CATEGORY_MOCKS } from '@wsvvrijheid/mocks'
@@ -16,6 +17,9 @@ export default {
 
 const Template: Story<CreateArtFormProps> = args => {
   const [isLoading, setIsLoading] = useState(false)
+  const createArtCancelRef = useRef<HTMLButtonElement>(null)
+  const createArtFormDisclosure = useDisclosure()
+
   const handleCreateArt = async (
     data: CreateArtFormFieldValues & { images: Blob[] },
   ) => {
@@ -42,6 +46,8 @@ const Template: Story<CreateArtFormProps> = args => {
       onCreateArt={handleCreateArt}
       isLoading={isLoading}
       categories={CATEGORY_MOCKS.data}
+      cancelRef={createArtCancelRef}
+      formDisclosure={createArtFormDisclosure}
     />
   )
 }
