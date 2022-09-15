@@ -1,11 +1,11 @@
-import { ComponentProps, FC, Fragment } from 'react'
+import { ComponentProps, FC, useState } from 'react'
 
 import { AspectRatio, ImageProps as ChakraImageProps } from '@chakra-ui/react'
 import { UploadFile, FileFormatsType } from '@wsvvrijheid/types'
 import { getImageUrl, toBase64 } from '@wsvvrijheid/utils'
 import Image from 'next/image'
-import Zoom from 'react-medium-image-zoom'
-import 'react-medium-image-zoom/dist/styles.css'
+import Cropper from 'react-easy-crop'
+import { Point } from 'react-easy-crop/types'
 
 const shimmer = (
   width: number,
@@ -45,7 +45,8 @@ export const WImage: FC<WImageProps> = ({
 }) => {
   const source = getImageUrl(src, format)
   const thumbnailSrc = getImageUrl(src, 'thumbnail')
-
+  const [crop, setCrop] = useState<Point>({ x: 0, y: 0 })
+  const [zoom, setZoom] = useState(1)
   const alternativeText = alt || (src as UploadFile)?.alternativeText || 'image'
 
   const blurDataURL =
@@ -53,8 +54,6 @@ export const WImage: FC<WImageProps> = ({
 
   const height = rest.height || rest.h
   const width = rest.width || rest.w
-
-  const Wrapper = hasZoom ? Zoom : Fragment
 
   return (
     <AspectRatio
@@ -64,7 +63,16 @@ export const WImage: FC<WImageProps> = ({
       pos="relative"
       {...rest}
     >
-      <Wrapper>
+      {hasZoom ? (
+        <Cropper
+          crop={crop}
+          zoom={zoom}
+          aspect={16 / 16}
+          onCropChange={setCrop}
+          onZoomChange={setZoom}
+          image={source}
+        />
+      ) : (
         <Image
           objectFit={objectFit || 'cover'}
           layout={layout}
@@ -75,7 +83,7 @@ export const WImage: FC<WImageProps> = ({
           height={parseInt(height as string, 10) || 0}
           width={parseInt(width as string, 10) || 0}
         />
-      </Wrapper>
+      )}
     </AspectRatio>
   )
 }

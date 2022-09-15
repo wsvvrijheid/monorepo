@@ -43,6 +43,7 @@
     "qs": "^6.11.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-easy-crop": "^4.5.0",
     "react-headroom": "^3.2.0",
     "react-hook-form": "^7.34.2",
     "react-icons": "^4.4.0",
