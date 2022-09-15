@@ -1,11 +1,11 @@
-import { ComponentProps, FC, useState } from 'react'
+import { ComponentProps, FC } from 'react'
 
 import { AspectRatio, ImageProps as ChakraImageProps } from '@chakra-ui/react'
 import { UploadFile, FileFormatsType } from '@wsvvrijheid/types'
 import { getImageUrl, toBase64 } from '@wsvvrijheid/utils'
 import Image from 'next/image'
-import Cropper from 'react-easy-crop'
-import { Point } from 'react-easy-crop/types'
+import { Gallery, Item } from 'react-photoswipe-gallery'
+import 'photoswipe/dist/photoswipe.css'
 
 const shimmer = (
   width: number,
@@ -45,8 +45,7 @@ export const WImage: FC<WImageProps> = ({
 }) => {
   const source = getImageUrl(src, format)
   const thumbnailSrc = getImageUrl(src, 'thumbnail')
-  const [crop, setCrop] = useState<Point>({ x: 0, y: 0 })
-  const [zoom, setZoom] = useState(1)
+
   const alternativeText = alt || (src as UploadFile)?.alternativeText || 'image'
 
   const blurDataURL =
@@ -64,14 +63,24 @@ export const WImage: FC<WImageProps> = ({
       {...rest}
     >
       {hasZoom ? (
-        <Cropper
-          crop={crop}
-          zoom={zoom}
-          aspect={16 / 16}
-          onCropChange={setCrop}
-          onZoomChange={setZoom}
-          image={source}
-        />
+        <Gallery>
+          <Item original={source} thumbnail={source} width="1024" height="768">
+            {({ ref, open }) => (
+              <Image
+                ref={ref}
+                onClick={open}
+                objectFit={objectFit || 'cover'}
+                layout={layout}
+                src={source}
+                alt={alternativeText}
+                placeholder="blur"
+                blurDataURL={blurDataURL as string}
+                height={parseInt(height as string, 10) || 0}
+                width={parseInt(width as string, 10) || 0}
+              />
+            )}
+          </Item>
+        </Gallery>
       ) : (
         <Image
           objectFit={objectFit || 'cover'}
