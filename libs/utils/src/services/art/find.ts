@@ -19,10 +19,10 @@ export const getArts = async ({
   categories,
   populate = ['artist.avatar', 'categories', 'images', 'likers'],
   page = 1,
-  pageSize,
+  pageSize = 12,
   searchTerm,
   username,
-  sort,
+  sort = ['publishedAt:desc'],
   locale,
 }: GetArts) => {
   const userFilter = {

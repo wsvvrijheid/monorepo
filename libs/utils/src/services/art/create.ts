@@ -7,16 +7,8 @@ export const createArt = (artCreateInput: ArtCreateInput) => {
   return createMutation<Art, ArtCreateInput>('api/arts', artCreateInput)
 }
 
-export const useCreateArt = ({
-  onSuccess,
-  onError,
-}: {
-  onSuccess?: () => void
-  onError?: () => void
-}) =>
+export const useCreateArt = () =>
   useMutation({
     mutationKey: ['create-art'],
     mutationFn: createArt,
-    onSuccess,
-    onError,
   })

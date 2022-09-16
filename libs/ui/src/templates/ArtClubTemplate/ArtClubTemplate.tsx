@@ -67,11 +67,8 @@ export const ArtClubTemplate: FC = () => {
   // Custom useQuery hook or fetching arts
   const artsQuery = useArts(queryKey, {
     categories: categories as string,
-    populate: ['artist.user.avatar', 'categories', 'images', 'likers'],
     page: parseInt(page as string) || 1,
-    pageSize: 12,
     searchTerm: searchTerm as string,
-    sort: ['publishedAt:desc'],
     locale: locale as StrapiLocale,
   })
 
@@ -90,10 +87,7 @@ export const ArtClubTemplate: FC = () => {
     })
   }
 
-  const { mutate, isLoading: createArtIsLoading } = useCreateArt({
-    onSuccess: createArtOnSuccess,
-    onError: createArtOnError,
-  })
+  const { mutate, isLoading: createArtIsLoading } = useCreateArt()
 
   const createArt = async (
     data: CreateArtFormFieldValues & { images: Blob[] },
@@ -108,7 +102,10 @@ export const ArtClubTemplate: FC = () => {
       categories: data.categories?.map(c => Number(c.value)),
     }
 
-    mutate(formBody)
+    mutate(formBody, {
+      onSuccess: createArtOnSuccess,
+      onError: createArtOnError,
+    })
   }
 
   return (
