@@ -1,4 +1,4 @@
-import { FC, useRef, useState } from 'react'
+import { FC, useState } from 'react'
 
 import {
   Box,
@@ -13,15 +13,9 @@ import {
   Skeleton,
   Stack,
   useDisclosure,
-  useToast,
 } from '@chakra-ui/react'
-import slugify from '@sindresorhus/slugify'
 import { StrapiLocale } from '@wsvvrijheid/types'
-import {
-  useArts,
-  useCreateArt,
-  useGetApprovedArtCategories,
-} from '@wsvvrijheid/utils'
+import { useArts, useGetApprovedArtCategories } from '@wsvvrijheid/utils'
 import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
 import { MdMenuOpen } from 'react-icons/md'
@@ -38,8 +32,6 @@ import {
   Pagination,
   ArtCard,
 } from '../../components'
-import { ArtCreateSuccessAlert } from '../../components/CreateArtForm/CreateArtSuccessAlert'
-import { CreateArtFormFieldValues } from '../../components/CreateArtForm/types'
 import { useAuth, useChangeParams } from '../../hooks'
 
 export const ArtClubTemplate: FC = () => {
@@ -53,10 +45,6 @@ export const ArtClubTemplate: FC = () => {
   const [isLoading, setIsLoading] = useState(false)
   const { isOpen, onOpen, onClose } = useDisclosure()
   const { t } = useTranslation()
-  const createArtCancelRef = useRef<HTMLButtonElement>(null)
-  const createArtFormDisclosure = useDisclosure()
-  const createArtSuccessDisclosure = useDisclosure()
-  const toast = useToast()
 
   const approvedCategoryQuery = useGetApprovedArtCategories()
 
@@ -72,42 +60,6 @@ export const ArtClubTemplate: FC = () => {
     locale: locale as StrapiLocale,
   })
 
-  const createArtOnSuccess = () => {
-    createArtFormDisclosure.onClose()
-    createArtSuccessDisclosure.onOpen()
-  }
-
-  const createArtOnError = () => {
-    toast({
-      title: 'Error',
-      description: 'Something went wrong',
-      status: 'error',
-      duration: 5000,
-      isClosable: true,
-    })
-  }
-
-  const { mutate, isLoading: createArtIsLoading } = useCreateArt()
-
-  const createArt = async (
-    data: CreateArtFormFieldValues & { images: Blob[] },
-  ) => {
-    if (!auth.user) return
-
-    const slug = slugify(data.title)
-    const formBody = {
-      ...data,
-      slug,
-      artist: auth.user.id,
-      categories: data.categories?.map(c => Number(c.value)),
-    }
-
-    mutate(formBody, {
-      onSuccess: createArtOnSuccess,
-      onError: createArtOnError,
-    })
-  }
-
   return (
     <>
       <Drawer isOpen={isOpen} onClose={onClose}>
@@ -122,12 +74,7 @@ export const ArtClubTemplate: FC = () => {
           </DrawerBody>
         </DrawerContent>
       </Drawer>
-      {/* SUCCESS ALERT */}
-      <ArtCreateSuccessAlert
-        isOpen={createArtSuccessDisclosure.isOpen}
-        onClose={createArtSuccessDisclosure.onClose}
-        ref={createArtCancelRef}
-      />
+
       <Container minH="inherit">
         <Grid
           w="full"
@@ -168,13 +115,7 @@ export const ArtClubTemplate: FC = () => {
                 onSearch={value => changeParam({ searchTerm: value as string })}
                 isFetching={artsQuery.isFetching}
               />
-              <CreateArtForm
-                isLoggedIn={auth.isLoggedIn}
-                onCreateArt={createArt}
-                isLoading={createArtIsLoading}
-                cancelRef={createArtCancelRef}
-                formDisclosure={createArtFormDisclosure}
-              />
+              <CreateArtForm auth={auth} />
               <IconButton
                 display={{ base: 'flex', lg: 'none' }}
                 variant="outline"

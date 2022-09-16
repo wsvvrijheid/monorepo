@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react'
+import { FC, useEffect, useRef, useState } from 'react'
 
 import {
   Box,
@@ -19,11 +19,14 @@ import {
   Stack,
   Text,
   Textarea,
+  useDisclosure,
+  useToast,
   VStack,
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
+import slugify from '@sindresorhus/slugify'
 import { StrapiLocale } from '@wsvvrijheid/types'
-import { useGetArtCategories } from '@wsvvrijheid/utils'
+import { useCreateArt, useGetArtCategories } from '@wsvvrijheid/utils'
 import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
@@ -35,6 +38,7 @@ import { FileUploader } from '../FileUploader'
 import { FormItem } from '../FormItem'
 import { Navigate } from '../Navigate'
 import { WSelect } from '../WSelect'
+import { ArtCreateSuccessAlert } from './CreateArtSuccessAlert'
 import { CreateArtFormFieldValues, CreateArtFormProps } from './types'
 
 const schema = (t: TFunction) =>
@@ -52,18 +56,17 @@ const schema = (t: TFunction) =>
   })
 
 // TODO Consider adding modal form instead of a new page
-export const CreateArtForm: FC<CreateArtFormProps> = ({
-  onCreateArt,
-  isLoggedIn,
-  isLoading,
-  cancelRef,
-  formDisclosure,
-}) => {
+export const CreateArtForm: FC<CreateArtFormProps> = ({ auth }) => {
   const [images, setImages] = useState<Blob[]>([])
   const [previews, setPreviews] = useState<string[]>([])
   const { locale } = useRouter()
   const { t } = useTranslation()
   const categories = useGetArtCategories()
+
+  const cancelRef = useRef<HTMLButtonElement>(null)
+  const formDisclosure = useDisclosure()
+  const successDisclosure = useDisclosure()
+  const toast = useToast()
 
   const {
     register,
@@ -84,8 +87,40 @@ export const CreateArtForm: FC<CreateArtFormProps> = ({
     [images],
   )
 
+  const { mutate, isLoading } = useCreateArt()
+
+  const createArt = async (
+    data: CreateArtFormFieldValues & { images: Blob[] },
+  ) => {
+    if (!auth.user) return
+
+    const slug = slugify(data.title)
+    const formBody = {
+      ...data,
+      slug,
+      artist: auth.user.id,
+      categories: data.categories?.map(c => Number(c.value)),
+    }
+
+    mutate(formBody, {
+      onSuccess: () => {
+        formDisclosure.onClose()
+        successDisclosure.onOpen()
+      },
+      onError: () => {
+        toast({
+          title: 'Error',
+          description: 'Something went wrong',
+          status: 'error',
+          duration: 5000,
+          isClosable: true,
+        })
+      },
+    })
+  }
+
   const handleCreateArt = async (data: CreateArtFormFieldValues) => {
-    onCreateArt({ ...data, images })
+    createArt({ ...data, images })
   }
 
   const resetFileUploader = () => {
@@ -101,6 +136,13 @@ export const CreateArtForm: FC<CreateArtFormProps> = ({
 
   return (
     <>
+      {/* SUCCESS ALERT */}
+      <ArtCreateSuccessAlert
+        isOpen={successDisclosure.isOpen}
+        onClose={successDisclosure.onClose}
+        ref={cancelRef}
+      />
+
       <Button size="lg" colorScheme="blue" onClick={formDisclosure.onOpen}>
         <Box mr={{ base: 0, lg: 4 }}>
           <FaUpload />
@@ -113,7 +155,7 @@ export const CreateArtForm: FC<CreateArtFormProps> = ({
         closeOnOverlayClick={false}
         isOpen={formDisclosure.isOpen}
         onClose={closeForm}
-        size={isLoggedIn ? '4xl' : 'md'}
+        size={auth.isLoggedIn ? '4xl' : 'md'}
       >
         <ModalOverlay />
         <ModalContent>
@@ -136,7 +178,7 @@ export const CreateArtForm: FC<CreateArtFormProps> = ({
               </Center>
             )}
 
-            {!isLoggedIn && (
+            {!auth.isLoggedIn && (
               <VStack>
                 <Text>
                   {t`art.create.require-auth.text`}{' '}
@@ -148,7 +190,7 @@ export const CreateArtForm: FC<CreateArtFormProps> = ({
             )}
 
             {/* CREATE FORM */}
-            {isLoggedIn && (
+            {auth.isLoggedIn && (
               <SimpleGrid columns={{ base: 1, lg: 2 }} gap={4}>
                 <FileUploader
                   images={images}

@@ -1,6 +1,4 @@
-import { RefObject } from 'react'
-
-import { StrapiLocale } from '@wsvvrijheid/types'
+import { Auth, StrapiLocale } from '@wsvvrijheid/types'
 
 export type CreateArtFormFieldValues = {
   locale: StrapiLocale
@@ -14,15 +12,7 @@ export type CreateArtFormFieldValues = {
 }
 
 export type CreateArtFormProps = {
-  onCreateArt: (data: CreateArtFormFieldValues & { images: Blob[] }) => void
-  isLoggedIn: boolean
-  isLoading: boolean
-  cancelRef: RefObject<HTMLButtonElement>
-  formDisclosure: {
-    isOpen: boolean
-    onOpen: () => void
-    onClose: () => void
-  }
+  auth: Auth
 }
 
 export type CreateArtSuccessAlertProps = {
