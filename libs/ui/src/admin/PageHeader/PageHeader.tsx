@@ -19,7 +19,7 @@ export type PageHeaderProps = {
   filterMenu?: ReactNode
   sortMenu?: ReactNode
   onLanguageSwitch?: (slug: StrapiLocale) => void
-  onSearch: (value: string) => void
+  onSearch: (value: string | null) => void
 }
 
 export const PageHeader: FC<PageHeaderProps> = ({

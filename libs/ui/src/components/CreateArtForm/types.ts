@@ -1,4 +1,4 @@
-import { Category, StrapiLocale } from '@wsvvrijheid/types'
+import { Auth, StrapiLocale } from '@wsvvrijheid/types'
 
 export type CreateArtFormFieldValues = {
   locale: StrapiLocale
@@ -12,10 +12,7 @@ export type CreateArtFormFieldValues = {
 }
 
 export type CreateArtFormProps = {
-  onCreateArt: (data: CreateArtFormFieldValues & { images: Blob[] }) => void
-  isLoading: boolean
-  isLoggedIn: boolean
-  categories: Category[]
+  auth: Auth
 }
 
 export type CreateArtSuccessAlertProps = {

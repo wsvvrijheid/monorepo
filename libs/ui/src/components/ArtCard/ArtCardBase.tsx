@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 
 import {
   Avatar,
@@ -39,6 +39,13 @@ export const ArtCardBase: FC<ArtCardBaseProps> = ({
   } = useDisclosure()
 
   const [actionType, setActionType] = useState<ArtActionType>()
+  const [hover, setHover] = useState({ color: 'gray.100' })
+  const [color, setColor] = useState('white')
+
+  useEffect(() => {
+    setHover({ color: isLiked ? 'red.200' : 'gray.100' })
+    setColor(isLiked ? 'red.400' : 'white')
+  }, [isLiked])
 
   const { isOpen, onOpen, onClose } = useDisclosure()
 
@@ -112,11 +119,11 @@ export const ArtCardBase: FC<ArtCardBaseProps> = ({
               {(art?.likes || 0) + (art.likers?.length || 0)}
             </Text>
             <IconButton
-              _hover={{ color: isLiked ? 'red.200' : 'gray.100' }}
+              _hover={hover}
               aria-label="like post"
               borderColor="whiteAlpha.500"
               borderWidth={1}
-              color={isLiked ? 'red.400' : 'white'}
+              color={color}
               colorScheme="blackAlpha"
               disabled={isOwner}
               icon={<AiFillHeart />}
@@ -175,7 +182,7 @@ export const ArtCardBase: FC<ArtCardBaseProps> = ({
             >
               {art.title}
             </Text>
-            <Navigate href={`/club/artist/${artistUsername}`}>
+            <Navigate href={`/club/artist/${art.artist?.username}`}>
               <HStack
                 _hover={{ bg: 'whiteAlpha.300', borderColor: 'whiteAlpha.500' }}
                 borderColor="transparent"
