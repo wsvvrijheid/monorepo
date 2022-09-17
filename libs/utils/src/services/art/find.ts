@@ -44,9 +44,9 @@ export const getArts = async ({
   // pending and rejected arts
   // TODO: Allow user to filter by approvalStatus (see: ApprovalStatus)
   const statusFilter = {
-    approvalStatus: {
-      $eq: 'approved',
-    },
+    // approvalStatus: {
+    //  $eq: 'approved',
+    // },
   }
 
   const searchFilter = username

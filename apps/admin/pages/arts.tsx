@@ -113,7 +113,7 @@ const ArtsPage = () => {
     >
       <Box>{status} Arts</Box>
       <Container>
-        <ArtList arts={arts} handleClick={handleClick} user={user} />
+        <ArtList arts={arts} handleClick={handleClick} />
         {selectedArt && user && (
           <ArtApprovalModal
             artId={selectedArt.id}
