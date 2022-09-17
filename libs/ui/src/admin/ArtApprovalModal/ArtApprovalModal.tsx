@@ -47,7 +47,7 @@ export const ArtApprovalModal: FC<ArtApprovalTypes> = ({
     onSave(description)
     setIsEditing(false)
   }
-
+  console.log('art approval modal _______', editorName)
   return (
     <Box>
       <Modal onClose={onClose} isOpen={isOpen} scrollBehavior="inside">
