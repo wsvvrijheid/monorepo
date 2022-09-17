@@ -45,7 +45,7 @@ export const ArtCardBase: FC<ArtCardBaseProps> = ({
   useEffect(() => {
     setHover({ color: isLiked ? 'red.200' : 'gray.100' })
     setColor(isLiked ? 'red.400' : 'white')
-  }, [])
+  }, [isLiked])
 
   const { isOpen, onOpen, onClose } = useDisclosure()
 
