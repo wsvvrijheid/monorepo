@@ -1,7 +1,6 @@
-import { FC, useState } from 'react'
+import { FC } from 'react'
 
 import {
-  Box,
   Table,
   TableContainer,
   Tbody,
@@ -13,39 +12,13 @@ import {
 import { Art } from '@wsvvrijheid/types'
 
 import { FormattedDate } from '../../components'
-import { useAuth } from '../../hooks'
-import { ArtApprovalModal } from '../ArtApprovalModal'
 
 export type ArtListProps = {
-  arts: Art
-  handleClick?: () => void
-  handleApprove?: () => void
-  handleDelete?: () => void
-  handleReject?: () => void
-  isOpen: boolean
-  onClose: () => void
+  arts: Art[]
+  handleClick: (index: number) => void
 }
 
-export const ArtList: FC<ArtListProps> = ({
-  arts,
-  isOpen,
-  handleClick,
-  handleApprove,
-  handleDelete,
-  onClose,
-  handleReject,
-}) => {
-  const { user } = useAuth()
-  const [art, setArt] = useState()
-  console.log('arts in ArtList', arts, 'editor user', user)
-  const onSave = (data: string) => {
-    alert(`${data} saved`)
-  }
-  const handleTrClick = art => {
-    console.log('handle click tr >>>>>>>>>>>>>>>>>>>>>>>', art)
-    setArt(art)
-    handleClick()
-  }
+export const ArtList: FC<ArtListProps> = ({ arts, handleClick }) => {
   return (
     <TableContainer>
       <Table variant="simple" colorScheme="blue">
@@ -59,10 +32,13 @@ export const ArtList: FC<ArtListProps> = ({
           </Tr>
         </Thead>
         <Tbody>
-          {arts?.map(art => (
-            <Tr onClick={() => handleTrClick(art)}>
+          {arts?.map((art, index) => (
+            <Tr
+              onClick={() => handleClick(index)}
+              _hover={{ bg: 'blackAlpha.100', cursor: 'pointer' }}
+            >
               <Td>{art.title}</Td>
-              <Td>{art.artist.username}</Td>
+              <Td>{art?.artist?.username}</Td>
               <Td>{art.description}</Td>
               <Td>
                 <FormattedDate date={art.publishedAt as string} />
@@ -70,25 +46,6 @@ export const ArtList: FC<ArtListProps> = ({
               <Td>{art.approvalStatus}</Td>
             </Tr>
           ))}
-          <Box>
-            <ArtApprovalModal
-              artId={art?.id}
-              artTitle={art?.title}
-              artDescription={art?.description}
-              artImages={art?.images}
-              editorId={user?.id}
-              editorAvatar={user?.avatar}
-              editorName={user?.username}
-              isOpen={isOpen}
-              onApprove={handleApprove}
-              onDelete={handleDelete}
-              onReject={handleReject}
-              onClose={onClose}
-              artistName={art?.artist.username}
-              artistAvatar={art?.artist.avatar}
-              onSave={onSave}
-            />
-          </Box>
         </Tbody>
       </Table>
     </TableContainer>
