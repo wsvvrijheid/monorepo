@@ -1,4 +1,3 @@
-import { Expand } from './common'
 import { UploadFile } from './file'
 import { Job } from './job'
 import { StrapiBase } from './strapi'
@@ -22,4 +21,4 @@ type PlatformRelation = {
   jobs?: Array<Job>
 }
 
-export type Platform = Expand<StrapiBase & PlatformBase & PlatformRelation>
+export type Platform = StrapiBase & PlatformBase & PlatformRelation

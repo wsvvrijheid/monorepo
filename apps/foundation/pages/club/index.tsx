@@ -28,7 +28,7 @@ export const getStaticProps: GetStaticProps = async context => {
     // So, we need to keep the same order of the `queryKey` array
 
     // queryKey: [arts, locale, searchTerm, category, page]
-    queryKey: ['arts', locale, '', null, '1'],
+    queryKey: ['arts', locale, null, null, '1'],
     queryFn: () => getArts({ locale: locale as StrapiLocale }),
   })
 

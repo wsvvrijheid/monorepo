@@ -1,4 +1,3 @@
-import { Expand } from './common'
 import { UploadFile } from './file'
 import { StrapiBase, StrapiEntityBase } from './strapi'
 
@@ -12,4 +11,4 @@ type PrivacyRelation = {
   localizations?: Array<Privacy>
 }
 
-export type Privacy = Expand<StrapiBase & PrivacyBase & PrivacyRelation>
+export type Privacy = StrapiBase & PrivacyBase & PrivacyRelation

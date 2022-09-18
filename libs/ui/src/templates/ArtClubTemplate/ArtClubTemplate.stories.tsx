@@ -9,7 +9,7 @@ export default {
     nextRouter: {
       locale: 'en',
       query: {
-        page: 3,
+        page: 1,
       },
     },
   },

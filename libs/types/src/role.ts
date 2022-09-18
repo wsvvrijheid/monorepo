@@ -1,6 +1,5 @@
 import { SnakeCase } from 'type-fest'
 
-import { Expand } from './common'
 import { StrapiBase } from './strapi'
 import { User } from './user'
 
@@ -14,19 +13,15 @@ export type RoleName =
   | 'Translator'
   | 'Translator Editor'
 
-export type Role = Expand<
-  Omit<StrapiBase, 'publishedAt'> & {
-    description: string
-    name: RoleName
-    permissions?: Permission
-    type: SnakeCase<RoleName>
-    users?: User
-  }
->
+export type Role = Omit<StrapiBase, 'publishedAt'> & {
+  description: string
+  name: RoleName
+  permissions?: Permission
+  type: SnakeCase<RoleName>
+  users?: User
+}
 
-export type Permission = Expand<
-  Omit<StrapiBase, 'publishedAt'> & {
-    action: string
-    role?: Role
-  }
->
+export type Permission = Omit<StrapiBase, 'publishedAt'> & {
+  action: string
+  role?: Role
+}

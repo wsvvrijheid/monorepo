@@ -23,14 +23,12 @@ export const ArtTemplate: FC<ArtTemplateProps> = ({ auth, queryKey }) => {
   const perPage = useBreakpointValue({ base: 1, sm: 2, md: 3, lg: 4 })
   const { data: art } = useArtBySlug()
 
-  console.log('art', art)
-
   useViewArtMutation()
 
-  const categories = (art?.categories?.flatMap(c => c.slug) || []) as string[]
+  const categories = (art?.categories?.flatMap(
+    (c: { slug: string }) => c.slug,
+  ) || []) as string[]
   const { data: arts } = useArtsByCategories(categories, art?.id)
-
-  console.log('categories', categories)
 
   if (!art) return null
 

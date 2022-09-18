@@ -5,13 +5,11 @@ import { StrapiBase, StrapiEntityBase } from './strapi'
 import { Tag } from './tag'
 import { User } from './user'
 
-export type PostBase = Expand<
-  Omit<StrapiEntityBase, 'slug' | 'content'> & {
-    content: string | null
-    capsStatus: TranslationStatus
-    twitterMedia?: string | null
-  }
->
+export type PostBase = Omit<StrapiEntityBase, 'slug' | 'content'> & {
+  content: string | null
+  capsStatus: TranslationStatus
+  twitterMedia?: string | null
+}
 
 export type PostRelation = {
   image?: UploadFile
@@ -48,4 +46,4 @@ export type PostLocalizeInput = Pick<
   'title' | 'description' | 'content' | 'translationStatus'
 >
 
-export type Post = Expand<StrapiBase & PostBase & PostRelation>
+export type Post = StrapiBase & PostBase & PostRelation

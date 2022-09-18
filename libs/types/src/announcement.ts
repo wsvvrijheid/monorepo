@@ -4,11 +4,9 @@ import { UploadFile } from './file'
 import { StrapiBase, StrapiEntityBase } from './strapi'
 import { Tag } from './tag'
 
-type AnnouncementBase = Expand<
-  StrapiEntityBase & {
-    date: string
-  }
->
+type AnnouncementBase = StrapiEntityBase & {
+  date: string
+}
 
 type AnnouncementRelation = {
   categories?: Array<Category>
@@ -34,6 +32,4 @@ export type AnnouncementLocalizeInput = Pick<
   'title' | 'description' | 'content'
 >
 
-export type Announcement = Expand<
-  StrapiBase & AnnouncementBase & AnnouncementRelation
->
+export type Announcement = StrapiBase & AnnouncementBase & AnnouncementRelation

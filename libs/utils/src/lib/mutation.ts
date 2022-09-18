@@ -56,7 +56,7 @@ const mutation = async <
   let requestBody = {}
 
   if (body) {
-    requestBody = generateFormData(body)
+    requestBody = generateFormData<D>(body)
   }
 
   const response = await fetcher(token)[method]<StrapiMutationResponse<T>>(

@@ -20,6 +20,4 @@ export type SavedTweetCreateInput = Expand<
   SavedTweetBase & SavedTweetRelationInput
 >
 
-export type SavedTweet = Expand<
-  StrapiBase & SavedTweetBase & SavedTweetRelation
->
+export type SavedTweet = StrapiBase & SavedTweetBase & SavedTweetRelation

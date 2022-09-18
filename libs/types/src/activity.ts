@@ -34,4 +34,4 @@ export type ActivityLocalizeInput = Pick<
   'title' | 'description' | 'content'
 >
 
-export type Activity = Expand<StrapiBase & ActivityBase & ActivityRelation>
+export type Activity = StrapiBase & ActivityBase & ActivityRelation

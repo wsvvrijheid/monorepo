@@ -38,4 +38,4 @@ export type VoteCreateArtJuryInput = Expand<
   VoteBase & PickRequired<VoteRelationInput, 'jury' | 'art'>
 >
 
-export type Vote = Expand<StrapiBase & VoteBase & VoteRelation>
+export type Vote = StrapiBase & VoteBase & VoteRelation

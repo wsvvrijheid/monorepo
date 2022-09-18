@@ -20,17 +20,20 @@ import { GrClearOption } from 'react-icons/gr'
 
 export type FileUploaderProps = {
   setImages: React.Dispatch<React.SetStateAction<Blob[]>>
+  setPreviews: React.Dispatch<React.SetStateAction<string[]>>
   maxSize?: number
   images: Array<Blob>
+  previews: Array<string>
 }
 
 export const FileUploader: FC<FileUploaderProps> = ({
   images = [],
+  previews = [],
   setImages,
+  setPreviews,
   maxSize,
 }) => {
   const inputRef = React.useRef<HTMLInputElement>(null)
-  const [previews, setPreviews] = React.useState<string[]>([])
 
   const { t } = useTranslation()
 
