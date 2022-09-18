@@ -55,10 +55,13 @@ export type WTableCellProps<T extends StrapiModel> = {
 export type WTableRowProps<T extends StrapiModel> = {
   model: T
   columns: { [key in keyof T]?: CellConfig<T> }
+  onClick: (index: number, id?: number) => void
+  artIndex: number
 }
 
 export type WTableProps<T extends StrapiModel> = {
   data: T[]
+  onClickRow: (index: number, id?: number) => void
   columns: WTableRowProps<T>['columns']
   onSort: (key: [`${StrapiModelKeys}:${'asc' | 'desc'}`] | null) => void
 } & TableProps

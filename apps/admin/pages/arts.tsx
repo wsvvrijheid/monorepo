@@ -1,8 +1,8 @@
 import { useState } from 'react'
 
-import { Box, Code, MenuItem } from '@chakra-ui/react'
+import { Box, MenuItem } from '@chakra-ui/react'
 import { ApprovalStatus, StrapiLocale } from '@wsvvrijheid/types'
-import { useAuth, AdminLayout } from '@wsvvrijheid/ui'
+import { useAuth, AdminLayout, ArtList } from '@wsvvrijheid/ui'
 import { useArts } from '@wsvvrijheid/utils'
 import { useRouter } from 'next/router'
 import { FaArrowDown, FaArrowUp } from 'react-icons/fa'
@@ -11,7 +11,7 @@ import { useUpdateEffect } from 'react-use'
 const ArtsPage = () => {
   const { user, isLoading } = useAuth()
   const { query } = useRouter()
-
+  const [currentPage, setCurrentPage] = useState<number>()
   // Client side query params (?status=pending)
   const status = query.status as ApprovalStatus
   const defaultLocale: StrapiLocale = 'en'
@@ -23,13 +23,15 @@ const ArtsPage = () => {
   const [sort, setSort] = useState<['title:asc'] | ['title:desc']>([
     'title:asc',
   ])
-
+  const queryKey = ['arts', locale, searchTerm, sort, currentPage || 1]
   // TODO: Add status filter
-  const artsQuery = useArts(['arts'], {
+  const artsQuery = useArts(queryKey, {
+    populate: ['artist.user.avatar', 'categories', 'images', 'likers'],
+    page: currentPage || 1,
+    pageSize: 10,
     searchTerm,
-    locale,
     sort,
-    status,
+    locale: locale as StrapiLocale,
   })
 
   const handleSearch = (search: string) => {
@@ -40,8 +42,13 @@ const ArtsPage = () => {
     artsQuery.refetch()
   }, [locale, searchTerm, sort, status])
 
-  console.log('artsQuery', artsQuery.data?.data)
+  const arts = artsQuery?.data?.data.filter(
+    art => art.approvalStatus === status,
+  )
 
+  const artPage = {
+    totalCount: artsQuery?.data?.meta?.pagination?.pageCount,
+  }
   return (
     <AdminLayout
       title={`${status} Arts`}
@@ -72,15 +79,13 @@ const ArtsPage = () => {
       }}
     >
       <Box>{status} Arts</Box>
-      <Code>
-        <pre>
-          {JSON.stringify(
-            artsQuery.data?.data?.map(art => art.title),
-            null,
-            2,
-          )}
-        </pre>
-      </Code>
+      <ArtList
+        arts={arts}
+        user={user}
+        totalCount={artPage.totalCount}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+      />
     </AdminLayout>
   )
 }

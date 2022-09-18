@@ -11,6 +11,7 @@ import { CellConfig, WTableProps } from './types'
 export const WTable = <T extends StrapiModel>({
   data,
   columns: config,
+  onClickRow,
   onSort,
   ...rest
 }: WTableProps<T>) => {
@@ -71,7 +72,6 @@ export const WTable = <T extends StrapiModel>({
                 })}
               >
                 {startCase(camelCase(key))}
-
                 <chakra.span ml={2} display="inline" as={getSortIcon()} />
               </Th>
             )
@@ -80,7 +80,15 @@ export const WTable = <T extends StrapiModel>({
       </Thead>
       <Tbody>
         {data.map((model, index) => {
-          return <WTableRow key={index} model={model} columns={config} />
+          return (
+            <WTableRow
+              key={index}
+              artIndex={index}
+              model={model}
+              columns={config}
+              onClick={onClickRow}
+            />
+          )
         })}
       </Tbody>
     </Table>

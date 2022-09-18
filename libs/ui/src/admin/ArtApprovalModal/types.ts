@@ -10,15 +10,12 @@ export type ArtApprovalTypes = {
   editorAvatar: string
   editorId: number
   editorName: string
-  feedback: string
-  isEditing: boolean
   isOpen: boolean
   onApprove: (artId: number, editorId: number, feedback: string) => void
   onClose: () => void
   onDelete: (artId: number) => void
   onReject: (artId: number, editorId: number, feedback: string) => void
   onSave: (artDescription: string) => void
-  setIsEditing: (data: boolean) => void
 }
 
 export type ArtFeedbackFormTypes = {
