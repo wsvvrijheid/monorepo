@@ -25,7 +25,7 @@ export const getArts = async ({
   username,
   sort = ['publishedAt:desc'],
   locale,
-  status
+  status,
 }: GetArts) => {
   const userFilter = {
     artist: {
