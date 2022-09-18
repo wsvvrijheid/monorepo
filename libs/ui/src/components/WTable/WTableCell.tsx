@@ -1,3 +1,5 @@
+import { ReactNode } from 'react'
+
 import { Avatar, Badge, Td } from '@chakra-ui/react'
 import { API_URL } from '@wsvvrijheid/config'
 import { StrapiModel, UploadFile } from '@wsvvrijheid/types'
@@ -7,48 +9,39 @@ import { WTableCellProps } from './types'
 
 export const WTableCell = <T extends StrapiModel>({
   value,
-  cell,
+  cellConfig,
 }: WTableCellProps<T>) => {
+  const { type, transform, componentProps, cellProps } = cellConfig
   const data = (
-    typeof cell.transform === 'function'
-      ? cell.transform(value as T[keyof T])
-      : value
+    typeof transform === 'function' ? transform(value as T[keyof T]) : value
   ) as string | number | boolean
 
+  let cellContent: ReactNode
+
   const props =
-    typeof cell.props === 'function'
-      ? cell.props(data as T[keyof T])
-      : cell.props || {}
+    typeof componentProps === 'function'
+      ? componentProps(data as T[keyof T])
+      : componentProps || {}
 
   // Badge
-  if (cell.type === 'badge') {
-    return (
-      <Td>
-        <Badge {...props}>{data}</Badge>
-      </Td>
-    )
+  if (type === 'badge') {
+    cellContent = <Badge {...props}>{data}</Badge>
   }
 
   // Date
-  if (cell.type === 'date') {
-    return (
-      <Td>
-        <FormattedDate {...props} date={data as string} />
-      </Td>
-    )
+  else if (type === 'date') {
+    cellContent = <FormattedDate {...props} date={data as string} />
   }
 
   // Image
-  if (cell.type === 'images' || cell.type === 'image') {
+  else if (type === 'images' || type === 'image') {
     const image = (value as UploadFile[])?.[0] || (value as UploadFile)
     const thumbnail = image?.formats?.thumbnail?.url || image?.url
 
-    return (
-      <Td>
-        <Avatar size="md" src={`${API_URL}${thumbnail}`} />
-      </Td>
-    )
+    cellContent = <Avatar size="md" src={`${API_URL}${thumbnail}`} />
+  } else {
+    cellContent = data
   }
 
-  return <Td>{data}</Td>
+  return <Td {...cellProps}>{cellContent}</Td>
 }

@@ -22,4 +22,4 @@ type JobRelationInput = {
 
 export type JobCreateInput = Expand<JobBase & JobRelationInput>
 
-export type Job = Expand<StrapiBase & JobBase & JobRelation>
+export type Job = StrapiBase & JobBase & JobRelation

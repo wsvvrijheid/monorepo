@@ -26,6 +26,6 @@ export type RecommendedTweetCreateInput = Expand<
     RecommendedTweetRelationInput
 >
 
-export type RecommendedTweet = Expand<
-  StrapiBase & RecommendedTweetBase & RecommendedTweetRelation
->
+export type RecommendedTweet = StrapiBase &
+  RecommendedTweetBase &
+  RecommendedTweetRelation

@@ -51,4 +51,4 @@ export type CommentBlogCreateInput = Expand<
   CommentBlogCreateInputPublic | CommentBlogCreateInputUser
 >
 
-export type Comment = Expand<StrapiBase & CommentBase & CommentRelation>
+export type Comment = StrapiBase & CommentBase & CommentRelation

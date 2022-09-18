@@ -26,19 +26,21 @@ type CellConfigWithSort = {
 type CellConfigCommon<T extends StrapiModel> =
   | {
       type: 'text' // Default
-      props?: TextProps | ((value: T[keyof T]) => TextProps)
+      componentProps?: TextProps | ((value: T[keyof T]) => TextProps)
     }
   | {
       type: 'badge'
-      props?: BadgeProps | ((value: T[keyof T]) => BadgeProps)
+      componentProps?: BadgeProps | ((value: T[keyof T]) => BadgeProps)
     }
   | {
       type: 'image' | 'images'
-      props?: AvatarProps | ((value: T[keyof T]) => AvatarProps)
+      componentProps?: AvatarProps | ((value: T[keyof T]) => AvatarProps)
     }
   | {
       type: 'date'
-      props?: FormattedDateProps | ((value: T[keyof T]) => FormattedDateProps)
+      componentProps?:
+        | FormattedDateProps
+        | ((value: T[keyof T]) => FormattedDateProps)
     }
 
 export type CellConfig<T extends StrapiModel> = CellConfigCommon<T> &
@@ -47,16 +49,16 @@ export type CellConfig<T extends StrapiModel> = CellConfigCommon<T> &
 export type WTableCellProps<T extends StrapiModel> = {
   value: T[keyof T]
   // TODO Add specific type for each cell value
-  cell: CellConfig<T>
+  cellConfig: CellConfig<T>
 }
 
 export type WTableRowProps<T extends StrapiModel> = {
   model: T
-  config: { [key in keyof T]?: CellConfig<T> }
+  columns: { [key in keyof T]?: CellConfig<T> }
 }
 
 export type WTableProps<T extends StrapiModel> = {
   data: T[]
-  config: WTableRowProps<T>['config']
+  columns: WTableRowProps<T>['columns']
   onSort: (key: [`${StrapiModelKeys}:${'asc' | 'desc'}`] | null) => void
 } & TableProps

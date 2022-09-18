@@ -62,7 +62,7 @@ const Template: Story<WTableProps<StrapiModel>> = args => {
 export const Arts = Template.bind({})
 Arts.args = {
   data: ART_MOCKS.tr.data,
-  config: {
+  columns: {
     images: {
       type: 'images',
     },
@@ -70,7 +70,7 @@ Arts.args = {
     approvalStatus: {
       type: 'badge',
       // Custom props based on value
-      props: value => {
+      componentProps: value => {
         const colorScheme = {
           approved: 'green',
           pending: 'yellow',
@@ -84,7 +84,7 @@ Arts.args = {
     },
     publishedAt: {
       type: 'date',
-      props: {
+      componentProps: {
         format: 'dd MMMM',
       },
       sortable: true,
@@ -95,7 +95,7 @@ Arts.args = {
 export const Users = Template.bind({})
 Users.args = {
   data: USER_MOCKS,
-  config: {
+  columns: {
     avatar: {
       type: 'image',
     },
@@ -105,7 +105,7 @@ Users.args = {
     role: {
       type: 'badge',
       transform: value => (value as Role).name,
-      props: value => {
+      componentProps: value => {
         const colorScheme: { [x in RoleName]?: BadgeProps['colorScheme'] } = {
           Admin: 'blue',
           Authenticated: 'purple',
@@ -123,7 +123,7 @@ Users.args = {
 export const Categories = Template.bind({})
 Categories.args = {
   data: CATEGORY_MOCKS.data,
-  config: {
+  columns: {
     name_en: {},
     arts: {
       transform: value => (value as Art[]).length,

@@ -28,6 +28,6 @@ export type RecommendedTopicCreateInput = Expand<
     SetRequired<RecommendedTopicRelationInput, 'recommender'>
 >
 
-export type RecommendedTopic = Expand<
-  StrapiBase & RecommendedTopicBase & RecommendedTopicRelation
->
+export type RecommendedTopic = StrapiBase &
+  RecommendedTopicBase &
+  RecommendedTopicRelation

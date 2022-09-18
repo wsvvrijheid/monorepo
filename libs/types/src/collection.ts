@@ -29,6 +29,4 @@ export type CollectionLocalizeInput = Omit<
   'approvalStatus' | 'likes' | 'views'
 >
 
-export type Collection = Expand<
-  StrapiBase & CollectionBase & CollectionRelation
->
+export type Collection = StrapiBase & CollectionBase & CollectionRelation

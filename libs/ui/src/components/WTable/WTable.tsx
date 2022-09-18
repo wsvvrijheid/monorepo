@@ -10,7 +10,7 @@ import { CellConfig, WTableProps } from './types'
 
 export const WTable = <T extends StrapiModel>({
   data,
-  config,
+  columns: config,
   onSort,
   ...rest
 }: WTableProps<T>) => {
@@ -80,7 +80,7 @@ export const WTable = <T extends StrapiModel>({
       </Thead>
       <Tbody>
         {data.map((model, index) => {
-          return <WTableRow key={index} model={model} config={config} />
+          return <WTableRow key={index} model={model} columns={config} />
         })}
       </Tbody>
     </Table>

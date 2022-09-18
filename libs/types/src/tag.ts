@@ -34,4 +34,4 @@ type TagRelationInput = {
 
 export type TagCreateInput = Expand<TagBase & TagRelationInput>
 
-export type Tag = Expand<StrapiBase & TagBase & TagRelation>
+export type Tag = StrapiBase & TagBase & TagRelation

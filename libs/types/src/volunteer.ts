@@ -47,4 +47,4 @@ export type VolunteerUpdateInput = Expand<
   Partial<VolunteerBase> & VolinteerRelationInput
 >
 
-export type Volunteer = Expand<StrapiBase & VolunteerBase & VolinteerRelation>
+export type Volunteer = StrapiBase & VolunteerBase & VolinteerRelation
