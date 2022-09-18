@@ -1,5 +1,5 @@
 import { useQuery, QueryKey } from '@tanstack/react-query'
-import { Art, StrapiLocale } from '@wsvvrijheid/types'
+import { ApprovalStatus, Art, StrapiLocale } from '@wsvvrijheid/types'
 import qs from 'qs'
 
 import { request } from '../../lib'
@@ -13,6 +13,7 @@ type GetArts = {
   username?: string
   sort?: string | string[]
   locale: StrapiLocale
+  status?: ApprovalStatus
 }
 
 export const getArts = async ({
@@ -24,6 +25,7 @@ export const getArts = async ({
   username,
   sort = ['publishedAt:desc'],
   locale,
+  status,
 }: GetArts) => {
   const userFilter = {
     artist: {
@@ -45,7 +47,7 @@ export const getArts = async ({
   // TODO: Allow user to filter by approvalStatus (see: ApprovalStatus)
   const statusFilter = {
     approvalStatus: {
-      $eq: 'approved',
+      $eq: status,
     },
   }
 
