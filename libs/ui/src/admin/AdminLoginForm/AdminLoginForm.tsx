@@ -19,7 +19,6 @@ import * as yup from 'yup'
 import {
   FormItem,
   Navigate,
-  LoginFormProps,
   LoginFormFieldValues,
   WImage,
   Container,
@@ -44,7 +43,7 @@ const schema = (t: TFunction) =>
       .required(t`login.email.required`),
   })
 
-export const AdminLoginForm: React.FC<LoginFormProps> = () => {
+export const AdminLoginForm = () => {
   const { t } = useTranslation()
   const {
     register,
