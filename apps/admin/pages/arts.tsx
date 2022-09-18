@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 import { Box, Code, MenuItem } from '@chakra-ui/react'
-import { StrapiLocale } from '@wsvvrijheid/types'
+import { ApprovalStatus, StrapiLocale } from '@wsvvrijheid/types'
 import { useAuth, AdminLayout } from '@wsvvrijheid/ui'
 import { useArts } from '@wsvvrijheid/utils'
 import { useRouter } from 'next/router'
@@ -13,7 +13,7 @@ const ArtsPage = () => {
   const { query } = useRouter()
 
   // Client side query params (?status=pending)
-  const status = query.status as string
+  const status = query.status as ApprovalStatus
   const defaultLocale: StrapiLocale = 'en'
 
   const [searchTerm, setSearchTerm] = useState<string>()
@@ -29,6 +29,7 @@ const ArtsPage = () => {
     searchTerm,
     locale,
     sort,
+    status,
   })
 
   const handleSearch = (search: string) => {
