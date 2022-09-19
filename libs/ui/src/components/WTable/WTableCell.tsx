@@ -1,15 +1,17 @@
 import { ReactNode } from 'react'
 
-import { Avatar, Badge, Td, Tooltip, Image } from '@chakra-ui/react'
+import { Avatar, Badge, Td, Tooltip, Box } from '@chakra-ui/react'
 import { API_URL } from '@wsvvrijheid/config'
 import { StrapiModel, UploadFile } from '@wsvvrijheid/types'
 
 import { FormattedDate } from '../FormattedDate'
+import { WImage } from '../WImage'
 import { WTableCellProps } from './types'
 
 export const WTableCell = <T extends StrapiModel>({
   value,
   cellConfig,
+  field,
 }: WTableCellProps<T>) => {
   const { type, transform, componentProps, cellProps } = cellConfig
   const data = (
@@ -34,15 +36,19 @@ export const WTableCell = <T extends StrapiModel>({
   }
 
   // Image
-  else if (type === 'images' || type === 'image') {
+  else if (type === 'image') {
     const image = (value as UploadFile[])?.[0] || (value as UploadFile)
     const thumbnail = image?.formats?.thumbnail?.url || image?.url
 
     cellContent = (
       <Tooltip
-        bg="transparent"
-        borderRadius={'5%'}
-        label={<Image src={`${API_URL}${thumbnail}`} />}
+        p={0}
+        overflow="hidden"
+        placement="right-end"
+        bg="white"
+        rounded="md"
+        size="lg"
+        label={<WImage w={300} src={image} />}
       >
         <Avatar size="md" src={`${API_URL}${thumbnail}`} />
       </Tooltip>
@@ -51,5 +57,14 @@ export const WTableCell = <T extends StrapiModel>({
     cellContent = data
   }
 
-  return <Td {...cellProps}>{cellContent}</Td>
+  return (
+    <Td {...cellProps}>
+      <Box
+        {...(field === 'description' && { noOfLines: 1, maxW: 120 })}
+        noOfLines={1}
+      >
+        {cellContent}
+      </Box>
+    </Td>
+  )
 }

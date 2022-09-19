@@ -10,17 +10,15 @@ import { CellConfig, WTableProps } from './types'
 
 export const WTable = <T extends StrapiModel>({
   data,
-  columns: config,
+  columns,
   onClickRow,
   onSort,
   ...rest
 }: WTableProps<T>) => {
   const [sortMode, setSortMode] = useState<'desc' | 'asc' | null>(null)
-  const [selectedColumn, setSelectedColumn] = useState<StrapiModelKeys | null>(
-    null,
-  )
+  const [selectedColumn, setSelectedColumn] = useState<string | null>(null)
 
-  const toggleSort = (columnKey: StrapiModelKeys) => {
+  const toggleSort = (columnKey: string) => {
     setSelectedColumn(columnKey)
 
     if (sortMode === 'asc') {
@@ -33,19 +31,25 @@ export const WTable = <T extends StrapiModel>({
   }
 
   useEffect(() => {
+    const { transform, sortKey } = columns?.[selectedColumn as keyof T] || {}
+
     if (sortMode && selectedColumn) {
-      onSort?.([`${selectedColumn}:${sortMode}`])
+      if (transform && sortKey) {
+        onSort?.([`${selectedColumn}.${sortKey}:${sortMode}`])
+      } else {
+        onSort?.([`${selectedColumn}:${sortMode}`])
+      }
     } else if (!sortMode && selectedColumn) {
       onSort?.(null)
     }
   }, [sortMode, selectedColumn])
 
   return (
-    <Table cursor="default" {...rest}>
+    <Table size="sm" cursor="default" {...rest}>
       <Thead>
         <Tr>
-          {Object.keys(config).map((key, index) => {
-            const isSortable = (config[key as keyof T] as CellConfig<T>)
+          {Object.keys(columns).map((key, index) => {
+            const isSortable = (columns[key as keyof T] as CellConfig<T>)
               .sortable
 
             const getSortIcon = () => {
@@ -66,12 +70,14 @@ export const WTable = <T extends StrapiModel>({
               <Th
                 pos="relative"
                 key={index}
+                whiteSpace="nowrap"
                 {...(isSortable && {
                   cursor: 'pointer',
                   onClick: () => toggleSort(key as StrapiModelKeys),
                 })}
               >
                 {startCase(camelCase(key))}
+
                 <chakra.span ml={2} display="inline" as={getSortIcon()} />
               </Th>
             )
@@ -83,9 +89,9 @@ export const WTable = <T extends StrapiModel>({
           return (
             <WTableRow
               key={index}
-              artIndex={index}
               model={model}
-              columns={config}
+              modelIndex={index}
+              columns={columns}
               onClick={onClickRow}
             />
           )

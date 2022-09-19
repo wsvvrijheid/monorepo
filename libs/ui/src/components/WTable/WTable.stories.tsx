@@ -64,7 +64,7 @@ Arts.args = {
   data: ART_MOCKS.tr.data,
   columns: {
     images: {
-      type: 'images',
+      type: 'image',
     },
     title: {}, // default type is text
     approvalStatus: {
