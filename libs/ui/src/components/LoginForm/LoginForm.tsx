@@ -20,7 +20,7 @@ import * as yup from 'yup'
 import { FormItem } from '../FormItem'
 import { Navigate } from '../Navigate'
 import { OAuthButtonGroup } from '../OAuthButtonGroup'
-import { LoginFormProps, LoginFormFieldValues } from './types'
+import { LoginFormFieldValues } from './types'
 
 const schema = (t: TFunction) =>
   yup.object({
@@ -41,7 +41,7 @@ const schema = (t: TFunction) =>
       .required(t`login.email.required`),
   })
 
-export const LoginForm: React.FC<LoginFormProps> = () => {
+export const LoginForm = () => {
   const { t } = useTranslation()
   const {
     register,

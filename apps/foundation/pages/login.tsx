@@ -1,16 +1,20 @@
-import { Box } from '@chakra-ui/react'
-import { AdminLoginForm, useAuth } from '@wsvvrijheid/ui'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { FC } from 'react'
 
+import { Box } from '@chakra-ui/react'
+import { LoginForm } from '@wsvvrijheid/ui'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { NextSeoProps } from 'next-seo'
+
+import { Layout } from '../components'
 import i18nConfig from '../next-i18next.config'
 
-const LoginPage = () => {
-  useAuth('/', true)
-
+const LoginPage: FC<{ seo: NextSeoProps }> = ({ seo }) => {
   return (
-    <Box minH="inherit" h="full">
-      <AdminLoginForm />
-    </Box>
+    <Layout seo={seo}>
+      <Box minH="inherit">
+        <LoginForm />
+      </Box>
+    </Layout>
   )
 }
 
