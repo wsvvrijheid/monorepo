@@ -1,8 +1,9 @@
 import { FC, useState } from 'react'
 
 import { useDisclosure } from '@chakra-ui/react'
+import { QueryKey } from '@tanstack/react-query'
 import { Art, SessionUser, UploadFile } from '@wsvvrijheid/types'
-import { useApproveArt, useRejectArt } from '@wsvvrijheid/utils'
+import { useArtFeedbackMutation, useDeleteArt } from '@wsvvrijheid/utils'
 
 import { ArtApprovalModal } from '../../ArtApprovalModal'
 import { DataTable } from '../DataTable'
@@ -11,9 +12,11 @@ import { columns } from './columns'
 
 type ArtsTableProps = Omit<DataTableProps<Art>, 'columns'> & {
   user: SessionUser
+  queryKey?: QueryKey
 }
 
 export const ArtsTable: FC<ArtsTableProps> = ({
+  queryKey,
   data: arts,
   user,
   totalCount,
@@ -22,10 +25,10 @@ export const ArtsTable: FC<ArtsTableProps> = ({
   setCurrentPage,
 }) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
-
+  const [description, setDescription] = useState<string>('')
   const [selectedIndex, setSelectedIndex] = useState<number>()
-  const rejectArtMutation = useRejectArt()
-  const approveArtMutation = useApproveArt()
+  const feedbackMutation = useArtFeedbackMutation(queryKey)
+  const deleteArtMutation = useDeleteArt(queryKey)
   const selectedArt =
     typeof selectedIndex === 'number' ? arts?.[selectedIndex] : null
 
@@ -37,29 +40,38 @@ export const ArtsTable: FC<ArtsTableProps> = ({
 
   const handleReject = (artId: number, editorId: number, feedback: string) => {
     if (window.confirm('Are you sure you want to reject this art')) {
-      rejectArtMutation.mutate({
+      feedbackMutation.mutate({
         art: artId,
         editor: editorId,
-        feedback,
+        message: feedback,
+        status: 'reject',
+        point: 10,
+        description,
       })
       onClose()
     }
   }
   const handleApprove = (artId: number, editorId: number, feedback: string) => {
     if (window.confirm('Are you sure you want to approve this art')) {
-      approveArtMutation.mutate({
+      feedbackMutation.mutate({
         art: artId,
         editor: editorId,
-        feedback,
+        message: feedback,
+        status: 'approve',
+        point: 10,
+        description,
       })
       onClose()
     }
   }
   const handleDelete = (id: number) => {
-    alert(`${id} is deleted`)
-    onClose()
+    if (window.confirm('Are you sure you want to deete this art')) {
+      deleteArtMutation.mutate({ id })
+      onClose()
+    }
   }
   const onSave = (data: string) => {
+    setDescription(data)
     alert(`${data} saved`)
   }
   console.log('arts table >>>>>>', arts)

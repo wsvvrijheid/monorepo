@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { MenuItem } from '@chakra-ui/react'
 import { ApprovalStatus, StrapiLocale, Sort } from '@wsvvrijheid/types'
@@ -31,7 +31,7 @@ const ArtsPage = () => {
     locale: locale as StrapiLocale,
     status,
   })
-
+  useEffect(() => setCurrentPage(1), [status])
   const handleSearch = (search: string) => {
     search ? setSearchTerm(search) : setSearchTerm(undefined)
   }
@@ -63,6 +63,7 @@ const ArtsPage = () => {
       }}
     >
       <ArtsTable
+        queryKey={queryKey}
         data={arts}
         user={user}
         totalCount={totalCount}
