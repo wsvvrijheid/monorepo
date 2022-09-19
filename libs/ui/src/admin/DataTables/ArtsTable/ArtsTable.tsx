@@ -2,6 +2,7 @@ import { FC, useState } from 'react'
 
 import { useDisclosure } from '@chakra-ui/react'
 import { Art, SessionUser, UploadFile } from '@wsvvrijheid/types'
+import { useApproveArt, useRejectArt } from '@wsvvrijheid/utils'
 
 import { ArtApprovalModal } from '../../ArtApprovalModal'
 import { DataTable } from '../DataTable'
@@ -23,7 +24,8 @@ export const ArtsTable: FC<ArtsTableProps> = ({
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   const [selectedIndex, setSelectedIndex] = useState<number>()
-
+  const rejectArtMutation = useRejectArt()
+  const approveArtMutation = useApproveArt()
   const selectedArt =
     typeof selectedIndex === 'number' ? arts?.[selectedIndex] : null
 
@@ -32,13 +34,26 @@ export const ArtsTable: FC<ArtsTableProps> = ({
     onOpen()
   }
   // functions //////////////////////////
+
   const handleReject = (artId: number, editorId: number, feedback: string) => {
-    alert(feedback)
-    onClose()
+    if (window.confirm('Are you sure you want to reject this art')) {
+      rejectArtMutation.mutate({
+        art: artId,
+        editor: editorId,
+        feedback,
+      })
+      onClose()
+    }
   }
   const handleApprove = (artId: number, editorId: number, feedback: string) => {
-    alert(feedback)
-    onClose()
+    if (window.confirm('Are you sure you want to approve this art')) {
+      approveArtMutation.mutate({
+        art: artId,
+        editor: editorId,
+        feedback,
+      })
+      onClose()
+    }
   }
   const handleDelete = (id: number) => {
     alert(`${id} is deleted`)
@@ -47,7 +62,7 @@ export const ArtsTable: FC<ArtsTableProps> = ({
   const onSave = (data: string) => {
     alert(`${data} saved`)
   }
-
+  console.log('arts table >>>>>>', arts)
   return (
     <>
       {selectedArt && user && (
