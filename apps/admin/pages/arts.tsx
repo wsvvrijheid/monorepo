@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { Box, MenuItem } from '@chakra-ui/react'
+import { MenuItem } from '@chakra-ui/react'
 import { ApprovalStatus, StrapiLocale } from '@wsvvrijheid/types'
 import { useAuth, AdminLayout, ArtList } from '@wsvvrijheid/ui'
 import { useArts } from '@wsvvrijheid/utils'
@@ -51,7 +51,9 @@ const ArtsPage = () => {
   }
   return (
     <AdminLayout
-      title={`${status} Arts`}
+      title={
+        `${status} Arts`.charAt(0).toUpperCase() + `${status} Arts`.slice(1)
+      }
       user={user}
       isLoading={!user || isLoading}
       headerProps={{
@@ -78,7 +80,6 @@ const ArtsPage = () => {
         ],
       }}
     >
-      <Box>{status} Arts</Box>
       <ArtList
         arts={arts}
         user={user}
