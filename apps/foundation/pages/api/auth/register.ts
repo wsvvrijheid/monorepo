@@ -1,4 +1,5 @@
-import { sessionOptions, getAuth, createMutation } from '@wsvvrijheid/utils'
+import { Auth, AuthResponse } from '@wsvvrijheid/types'
+import { sessionOptions, getSessionUser } from '@wsvvrijheid/utils'
 import axios from 'axios'
 import { withIronSessionApiRoute } from 'iron-session/next'
 import { NextApiResponse, NextApiRequest } from 'next'
@@ -11,23 +12,34 @@ const registerRoute = async (req: NextApiRequest, res: NextApiResponse) => {
   const trimmedEmail = email.trim()
 
   try {
-    const response = await axios.post(
+    const response = await axios.post<AuthResponse>(
       `${process.env.NEXT_PUBLIC_API_URL}/api/auth/local/register`,
       {
+        name: trimmedName,
         username: trimmedUsername,
         email: trimmedEmail,
         password,
       },
     )
 
-    const token = response.data.jwt
-    const userId = response.data.user?.id
+    const emptyAuth: Auth = {
+      user: null,
+      isLoggedIn: false,
+      token: null,
+    }
+    const token = response.data?.jwt
 
-    const body = { user: userId, name: trimmedName }
+    if (!token) {
+      return emptyAuth
+    }
 
-    await createMutation('api/users', body, token)
+    const user = await getSessionUser(token)
 
-    const auth = await getAuth(email, password)
+    if (!user) {
+      return emptyAuth
+    }
+
+    const auth: Auth = { user, token, isLoggedIn: true }
 
     req.session = { ...auth, ...req.session }
 
