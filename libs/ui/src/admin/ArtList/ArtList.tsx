@@ -32,6 +32,7 @@ export const ArtList: FC<ArtListProps> = ({
         type: 'images',
       },
       title: {},
+      description: {},
       artist: {
         transform: value => (value as artist).username,
         sortable: true,
