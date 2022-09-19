@@ -10,15 +10,15 @@ This project was generated using [Nx](https://nx.dev).
 
 ## Projects
 
-- Foundation
-- Kunsthalte
-- PostMaker
-- Admin
+- Foundation [wsvvrijheid.nl](https://wsvvrijheid.nl)
+- Kunsthalte [kunsthalte.com](https://kunsthalte.com)
+- PostMaker [samenvvv.nl](https://samenvvv.nl)
+- Admin [dashboard.wsvvrijheid.nl](https://dashboard.wsvvrijheid.nl)
 
 # Libs
 
 - Types (@wsvvrijheid/types)
-- UI (@wsvvrijheid/ui)
+- UI (@wsvvrijheid/ui) [ui.wsvvrijheid.nl](https://ui.wsvvrijheid.nl)
 - Utils (@wsvvrijheid/utils)
 - Config (@wsvvrijheid/config)
 - Mocks (@wsvvrijheid/mocks)
