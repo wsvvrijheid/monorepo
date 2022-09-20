@@ -16,7 +16,11 @@ export type ArtApprovalTypes = {
   onClose: () => void
   onDelete: (artId: number) => void
   onReject: (artId: number, editorId: number, feedback: string) => void
-  onSave: (artId: number, data: string, updateValue: string) => void
+  onSave: (
+    artId: number,
+    data: string,
+    updateValue: 'content' | 'description',
+  ) => void
   onPublish: (artId: number) => void
 }
 

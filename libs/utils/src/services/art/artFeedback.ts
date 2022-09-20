@@ -20,7 +20,7 @@ export const createFeedback = async (args: FeedbackArtCreateInput) => {
   })
 }
 
-export const useArtFeedbackMutation = (queryKey: QueryKey) => {
+export const useArtFeedbackMutation = (queryKey?: QueryKey) => {
   const queryClient = useQueryClient()
   const toast = useToast()
   return useMutation({

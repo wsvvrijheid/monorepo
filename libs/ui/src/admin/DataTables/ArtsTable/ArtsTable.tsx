@@ -6,7 +6,7 @@ import { Art, SessionUser, UploadFile } from '@wsvvrijheid/types'
 import {
   useArtFeedbackMutation,
   useDeleteArt,
-  useUpdateMutation,
+  useUpdateArtMutation,
 } from '@wsvvrijheid/utils'
 
 import { ArtApprovalModal } from '../../ArtApprovalModal'
@@ -30,9 +30,9 @@ export const ArtsTable: FC<ArtsTableProps> = ({
 }) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [selectedIndex, setSelectedIndex] = useState<number>()
-  const feedbackMutation = useArtFeedbackMutation<any>(queryKey)
-  const deleteArtMutation = useDeleteArt<any>(queryKey)
-  const updateField = useUpdateMutation<any>(queryKey)
+  const feedbackMutation = useArtFeedbackMutation(queryKey)
+  const deleteArtMutation = useDeleteArt(queryKey)
+  const updateArtMutation = useUpdateArtMutation(queryKey)
   const selectedArt =
     typeof selectedIndex === 'number' ? arts?.[selectedIndex] : null
 
@@ -77,13 +77,14 @@ export const ArtsTable: FC<ArtsTableProps> = ({
       alert('published')
     }
   }
-  const onSave = (artId: number, data: string, updateValue: string) => {
-    console.log('onSave', data, 'updatefield', updateValue)
-
-    updateField.mutate({
-      artId,
-      field: data,
-      updateValue,
+  const onSave = (
+    artId: number,
+    data: string,
+    updateValue: 'content' | 'description',
+  ) => {
+    updateArtMutation.mutate({
+      id: artId,
+      [updateValue]: data,
     })
   }
   return (

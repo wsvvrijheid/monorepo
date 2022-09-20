@@ -3,38 +3,21 @@ import { QueryKey, useMutation, useQueryClient } from '@tanstack/react-query'
 import { Art, ArtUpdateInput } from '@wsvvrijheid/types'
 
 import { updateMutation } from '../../lib'
-type updateFieldType = {
-  artId: number
-  field: string
-  updateValue: string
-}
+
 export const updateField = ({
-  artId,
-  field,
-  updateValue,
-}: {
-  artId: number
-  field: string
-  updateValue: string
-}) => {
-  if (updateValue === 'description') {
-    return updateMutation<Art, ArtUpdateInput>('api/arts', artId, {
-      description: field,
-    })
-  } else if (updateValue === 'content') {
-    return updateMutation<Art, ArtUpdateInput>('api/arts', artId, {
-      content: field,
-    })
-  }
+  id,
+  ...args
+}: ArtUpdateInput & { id: number }) => {
+  return updateMutation<Art, ArtUpdateInput>('api/arts', id, args)
 }
 
-export const useUpdateMutation = (queryKey: QueryKey) => {
+export const useUpdateArtMutation = (queryKey?: QueryKey) => {
   const queryClient = useQueryClient()
   const toast = useToast()
   return useMutation({
-    mutationKey: ['art-update-field'],
-    mutationFn: ({ artId, field, updateValue }: updateFieldType) =>
-      updateField({ artId, field, updateValue }),
+    mutationKey: ['update-art'],
+    mutationFn: ({ id, ...args }: ArtUpdateInput & { id: number }) =>
+      updateField({ id, ...args }),
     onSuccess: (res: Art) => {
       queryClient.invalidateQueries(queryKey)
       console.log('res on Success', res)
