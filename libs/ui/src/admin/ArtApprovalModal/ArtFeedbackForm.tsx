@@ -20,6 +20,7 @@ import {
   HiOutlineX,
   HiPencil,
 } from 'react-icons/hi'
+import { MdOutlinePublish } from 'react-icons/md'
 
 import { ArtFeedbackFormTypes } from './types'
 
@@ -32,6 +33,7 @@ export const ArtFeedbackForm: FC<ArtFeedbackFormTypes> = ({
   editorAvatar,
   editorName,
   setIsEditing,
+  onPublish,
 }) => {
   const [feedback, setFeedback] = useState('')
 
@@ -44,6 +46,9 @@ export const ArtFeedbackForm: FC<ArtFeedbackFormTypes> = ({
   }
   const handleDelete = () => {
     onDelete(artId)
+  }
+  const handlePublish = () => {
+    onPublish()
   }
   return (
     <Stack align={'start'} w={'full'}>
@@ -102,6 +107,15 @@ export const ArtFeedbackForm: FC<ArtFeedbackFormTypes> = ({
                   icon={<HiPencil />}
                 >
                   Edit
+                </MenuItem>
+                <MenuItem
+                  as={Button}
+                  onClick={handlePublish}
+                  variant="ghost"
+                  colorScheme="primary"
+                  icon={<MdOutlinePublish />}
+                >
+                  Publish
                 </MenuItem>
                 <MenuItem
                   as={Button}

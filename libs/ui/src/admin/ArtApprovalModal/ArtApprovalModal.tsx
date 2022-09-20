@@ -39,6 +39,7 @@ export const ArtApprovalModal: FC<ArtApprovalTypes> = ({
   editorName,
   artistName,
   onSave,
+  onPublish,
 }) => {
   const [description, setDescription] = useState(artDescription)
   const [isEditing, setIsEditing] = useState(false)
@@ -125,6 +126,7 @@ export const ArtApprovalModal: FC<ArtApprovalTypes> = ({
                 <ArtFeedbackForm
                   onReject={onReject}
                   onApprove={onApprove}
+                  onPublish={onPublish}
                   onDelete={onDelete}
                   artId={artId}
                   editorId={editorId}

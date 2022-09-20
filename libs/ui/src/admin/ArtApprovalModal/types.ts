@@ -16,6 +16,7 @@ export type ArtApprovalTypes = {
   onDelete: (artId: number) => void
   onReject: (artId: number, editorId: number, feedback: string) => void
   onSave: (artDescription: string) => void
+  onPublish: () => void
 }
 
 export type ArtFeedbackFormTypes = {
@@ -28,4 +29,5 @@ export type ArtFeedbackFormTypes = {
   editorName: string
   artDescription: string
   setIsEditing: (data: boolean) => void
+  onPublish: () => void
 }

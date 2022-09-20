@@ -27,8 +27,8 @@ export const ArtsTable: FC<ArtsTableProps> = ({
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [description, setDescription] = useState<string>('')
   const [selectedIndex, setSelectedIndex] = useState<number>()
-  const feedbackMutation = useArtFeedbackMutation(queryKey)
-  const deleteArtMutation = useDeleteArt(queryKey)
+  const feedbackMutation = useArtFeedbackMutation<any>(queryKey)
+  const deleteArtMutation = useDeleteArt<any>(queryKey)
   const selectedArt =
     typeof selectedIndex === 'number' ? arts?.[selectedIndex] : null
 
@@ -70,6 +70,9 @@ export const ArtsTable: FC<ArtsTableProps> = ({
       onClose()
     }
   }
+  const handlePublish = () => {
+    alert('published')
+  }
   const onSave = (data: string) => {
     setDescription(data)
     alert(`${data} saved`)
@@ -91,6 +94,7 @@ export const ArtsTable: FC<ArtsTableProps> = ({
           onDelete={handleDelete}
           onReject={handleReject}
           onClose={onClose}
+          onPublish={handlePublish}
           artistName={selectedArt.artist?.username as string}
           artistAvatar={selectedArt.artist?.avatar?.url as string}
           onSave={onSave}
