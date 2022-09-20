@@ -72,10 +72,10 @@ export const ArtApprovalModal: FC<ArtApprovalTypes> = ({
     <Box>
       <Modal onClose={onClose} isOpen={isOpen} scrollBehavior="inside">
         <ModalOverlay />
-        <ModalContent maxW="95vw" h="full" p={{ base: 2, lg: 4 }}>
+        <ModalContent maxW="95vw" h="full" p={0} overflow="hidden">
           <ModalCloseButton />
-          <ModalBody>
-            <SimpleGrid columns={{ base: 1, lg: 2 }} spacing={4} h="full">
+          <ModalBody p={0}>
+            <SimpleGrid columns={{ base: 1, lg: 2 }} h="full">
               <Stack>
                 {/*TODO Image should has zoom  */}
                 {artImages && artImages.length > 1 ? (
@@ -85,26 +85,16 @@ export const ArtApprovalModal: FC<ArtApprovalTypes> = ({
                   >
                     {artImages?.map((image, index) => (
                       <SplideSlide key={index} style={{ height: '100%' }}>
-                        <WImage
-                          objectFit="contain"
-                          src={image}
-                          alt={artTitle}
-                          hasZoom={true}
-                        />
+                        <WImage src={image} alt={artTitle} hasZoom={true} />
                       </SplideSlide>
                     ))}
                   </Box>
                 ) : (
-                  <WImage
-                    objectFit="contain"
-                    src={artImages?.[0]}
-                    alt={artTitle}
-                    hasZoom={true}
-                  />
+                  <WImage src={artImages?.[0]} alt={artTitle} hasZoom={true} />
                 )}
                 {/* ==============================*/}
               </Stack>
-              <Stack spacing={4} justify="space-between">
+              <Stack spacing={4} p={{ base: 4, lg: 8 }} justify="space-between">
                 <Stack>
                   <Text color={'blue.400'} fontWeight={'bold'}>
                     {artTitle}

@@ -11,7 +11,6 @@ import {
   MenuList,
   Stack,
   Textarea,
-  Flex,
   IconButton,
 } from '@chakra-ui/react'
 import {
@@ -51,30 +50,29 @@ export const ArtFeedbackForm: FC<ArtFeedbackFormTypes> = ({
     onPublish(artId)
   }
   return (
-    <Stack align={'start'} w={'full'}>
-      <Flex align="start" justify={'start'} w="full">
-        <Text color={'black'} fontWeight={'bold'}>
-          Give Feedback
-        </Text>
-      </Flex>
+    <Stack w={'full'} spacing={{ base: 2, lg: 4 }}>
+      <Text color={'black'} fontWeight={'bold'}>
+        Give Feedback
+      </Text>
+
       {/*feedback ================================= */}
-      <HStack w="full">
+      <HStack align="start" spacing={{ base: 2, lg: 4 }}>
         {/* avatar*/}
-        <Stack align={'start'} flex={1} textAlign="center">
-          <Avatar size="sm" src={editorAvatar} name={editorName} />
-        </Stack>
-        <Stack w="full">
+
+        <Avatar size="sm" src={editorAvatar} name={editorName} />
+
+        <Stack flex={1} spacing={{ base: 2, lg: 4 }}>
           {/* text area, button group*/}
-          <Stack w={'full'}>
+          <Stack>
             {/* text area*/}
             <Textarea
               isRequired
               onChange={e => setFeedback(e.target.value)}
-              placeholder={'type your comment here'}
-            ></Textarea>
+              placeholder={'Type your comment here'}
+            />
           </Stack>
           {/*button group*/}
-          <Stack direction={'row'} w={'full'} spacing={[0.5, 4, 4, 4]}>
+          <Stack direction={'row'} spacing={{ base: 2, lg: 4 }}>
             <Button
               onClick={handleReject}
               colorScheme="red"
@@ -97,7 +95,7 @@ export const ArtFeedbackForm: FC<ArtFeedbackFormTypes> = ({
                 as={IconButton}
                 icon={<HiDotsVertical />}
                 colorScheme="primary"
-              ></MenuButton>
+              />
               <MenuList minWidth={32} minH={20}>
                 <MenuItem
                   as={Button}
