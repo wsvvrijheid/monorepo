@@ -32,7 +32,7 @@ export const ArtFeedbackForm: FC<ArtFeedbackFormTypes> = ({
   editorId,
   editorAvatar,
   editorName,
-  setIsEditing,
+  updateField,
   onPublish,
 }) => {
   const [feedback, setFeedback] = useState('')
@@ -48,7 +48,7 @@ export const ArtFeedbackForm: FC<ArtFeedbackFormTypes> = ({
     onDelete(artId)
   }
   const handlePublish = () => {
-    onPublish()
+    onPublish(artId)
   }
   return (
     <Stack align={'start'} w={'full'}>
@@ -101,12 +101,21 @@ export const ArtFeedbackForm: FC<ArtFeedbackFormTypes> = ({
               <MenuList minWidth={32} minH={20}>
                 <MenuItem
                   as={Button}
-                  onClick={() => setIsEditing(true)}
+                  onClick={() => updateField('description')}
                   variant="ghost"
                   colorScheme="primary"
                   icon={<HiPencil />}
                 >
-                  Edit
+                  Edit Description
+                </MenuItem>
+                <MenuItem
+                  as={Button}
+                  onClick={() => updateField('content')}
+                  variant="ghost"
+                  colorScheme="primary"
+                  icon={<HiPencil />}
+                >
+                  Edit Content
                 </MenuItem>
                 <MenuItem
                   as={Button}

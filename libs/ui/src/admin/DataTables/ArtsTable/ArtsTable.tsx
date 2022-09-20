@@ -3,7 +3,11 @@ import { FC, useState } from 'react'
 import { useDisclosure } from '@chakra-ui/react'
 import { QueryKey } from '@tanstack/react-query'
 import { Art, SessionUser, UploadFile } from '@wsvvrijheid/types'
-import { useArtFeedbackMutation, useDeleteArt } from '@wsvvrijheid/utils'
+import {
+  useArtFeedbackMutation,
+  useDeleteArt,
+  useUpdateMutation,
+} from '@wsvvrijheid/utils'
 
 import { ArtApprovalModal } from '../../ArtApprovalModal'
 import { DataTable } from '../DataTable'
@@ -25,10 +29,10 @@ export const ArtsTable: FC<ArtsTableProps> = ({
   setCurrentPage,
 }) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const [description, setDescription] = useState<string>('')
   const [selectedIndex, setSelectedIndex] = useState<number>()
   const feedbackMutation = useArtFeedbackMutation<any>(queryKey)
   const deleteArtMutation = useDeleteArt<any>(queryKey)
+  const updateField = useUpdateMutation<any>(queryKey)
   const selectedArt =
     typeof selectedIndex === 'number' ? arts?.[selectedIndex] : null
 
@@ -46,7 +50,6 @@ export const ArtsTable: FC<ArtsTableProps> = ({
         message: feedback,
         status: 'reject',
         point: 10,
-        description,
       })
       onClose()
     }
@@ -59,7 +62,6 @@ export const ArtsTable: FC<ArtsTableProps> = ({
         message: feedback,
         status: 'approve',
         point: 10,
-        description,
       })
       onClose()
     }
@@ -70,14 +72,20 @@ export const ArtsTable: FC<ArtsTableProps> = ({
       onClose()
     }
   }
-  const handlePublish = () => {
-    alert('published')
+  const handlePublish = (id: number) => {
+    if (window.confirm('Are you sure you want to deete this art')) {
+      alert('published')
+    }
   }
-  const onSave = (data: string) => {
-    setDescription(data)
-    alert(`${data} saved`)
+  const onSave = (artId: number, data: string, updateValue: string) => {
+    console.log('onSave', data, 'updatefield', updateValue)
+
+    updateField.mutate({
+      artId,
+      field: data,
+      updateValue,
+    })
   }
-  console.log('arts table >>>>>>', arts)
   return (
     <>
       {selectedArt && user && (
@@ -85,6 +93,7 @@ export const ArtsTable: FC<ArtsTableProps> = ({
           artId={selectedArt.id}
           artTitle={selectedArt.title}
           artDescription={selectedArt.description}
+          artContent={selectedArt.content}
           artImages={selectedArt.images as UploadFile[]}
           editorId={user.id as number}
           editorAvatar={user.avatar as string}

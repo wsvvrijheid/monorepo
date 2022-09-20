@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 
 import '@splidejs/splide/dist/css/themes/splide-default.min.css'
 import {
@@ -29,6 +29,7 @@ export const ArtApprovalModal: FC<ArtApprovalTypes> = ({
   onDelete,
   artId,
   artDescription,
+  artContent,
   artTitle,
   artistAvatar,
   artImages,
@@ -42,13 +43,31 @@ export const ArtApprovalModal: FC<ArtApprovalTypes> = ({
   onPublish,
 }) => {
   const [description, setDescription] = useState(artDescription)
-  const [isEditing, setIsEditing] = useState(false)
+  const [content, setContent] = useState(artContent)
+  const [isEditingDesciption, setIsEditingDesciption] = useState(false)
+  const [isEditingContent, setIsEditingContent] = useState(false)
 
-  const handleSave = () => {
-    onSave(description)
-    setIsEditing(false)
+  const handleSave = (data: string) => {
+    if (data === 'description') {
+      setIsEditingDesciption(false)
+      onSave(artId, description, 'description')
+    } else if (data === 'content') {
+      setIsEditingContent(false)
+      onSave(artId, content, 'content')
+    }
   }
-
+  useEffect(() => {
+    setDescription(artDescription)
+  }, [artDescription])
+  //update field
+  const handleUpdate = (data: string) => {
+    console.log('handleUpdate', data)
+    if (data === 'description') {
+      setIsEditingDesciption(true)
+    } else if (data === 'content') {
+      setIsEditingContent(true)
+    }
+  }
   return (
     <Box>
       <Modal onClose={onClose} isOpen={isOpen} scrollBehavior="inside">
@@ -102,7 +121,7 @@ export const ArtApprovalModal: FC<ArtApprovalTypes> = ({
                     maxH={'150px'}
                     overflow="auto"
                   >
-                    {isEditing ? (
+                    {isEditingDesciption ? (
                       // // Textarea and save on edit mode
                       <Stack w="full">
                         <Textarea
@@ -111,14 +130,50 @@ export const ArtApprovalModal: FC<ArtApprovalTypes> = ({
                         />
                         <Button
                           colorScheme="green"
-                          onClick={handleSave}
+                          onClick={() => handleSave('description')}
                           alignSelf="end"
                         >
                           Save
                         </Button>
                       </Stack>
                     ) : (
-                      <Text>{description}</Text>
+                      <Stack align="start" justify={'start'} w="full">
+                        <Text color={'black'} fontWeight={'bold'}>
+                          Description
+                        </Text>
+                        <Text>{description}</Text>
+                      </Stack>
+                    )}
+                  </Flex>
+                  <Flex
+                    align="start"
+                    justify={'start'}
+                    w="full"
+                    maxH={'150px'}
+                    overflow="auto"
+                  >
+                    {isEditingContent ? (
+                      // // Textarea and save on edit mode
+                      <Stack w="full">
+                        <Textarea
+                          onChange={e => setContent(e.target.value)}
+                          value={content}
+                        />
+                        <Button
+                          colorScheme="green"
+                          onClick={() => handleSave('content')}
+                          alignSelf="end"
+                        >
+                          Save
+                        </Button>
+                      </Stack>
+                    ) : (
+                      <Stack align="start" justify={'start'} w="full">
+                        <Text color={'black'} fontWeight={'bold'}>
+                          Content
+                        </Text>
+                        <Text>{content}</Text>
+                      </Stack>
                     )}
                   </Flex>
                 </Stack>
@@ -133,7 +188,7 @@ export const ArtApprovalModal: FC<ArtApprovalTypes> = ({
                   artDescription={artDescription}
                   editorAvatar={editorAvatar}
                   editorName={editorName}
-                  setIsEditing={setIsEditing}
+                  updateField={handleUpdate}
                 />
               </Stack>
             </SimpleGrid>
