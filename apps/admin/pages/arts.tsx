@@ -1,8 +1,8 @@
 import { useState } from 'react'
 
-import { Box, Code, MenuItem } from '@chakra-ui/react'
-import { ApprovalStatus, StrapiLocale } from '@wsvvrijheid/types'
-import { useAuth, AdminLayout } from '@wsvvrijheid/ui'
+import { MenuItem } from '@chakra-ui/react'
+import { ApprovalStatus, StrapiLocale, Sort } from '@wsvvrijheid/types'
+import { useAuth, AdminLayout, ArtsTable } from '@wsvvrijheid/ui'
 import { useArts } from '@wsvvrijheid/utils'
 import { useRouter } from 'next/router'
 import { FaArrowDown, FaArrowUp } from 'react-icons/fa'
@@ -11,7 +11,7 @@ import { useUpdateEffect } from 'react-use'
 const ArtsPage = () => {
   const { user, isLoading } = useAuth()
   const { query } = useRouter()
-
+  const [currentPage, setCurrentPage] = useState<number>()
   // Client side query params (?status=pending)
   const status = query.status as ApprovalStatus
   const defaultLocale: StrapiLocale = 'en'
@@ -19,16 +19,16 @@ const ArtsPage = () => {
   const [searchTerm, setSearchTerm] = useState<string>()
   const [locale, setLocale] = useState<StrapiLocale>(defaultLocale)
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [sort, setSort] = useState<['title:asc'] | ['title:desc']>([
-    'title:asc',
-  ])
+  const [sort, setSort] = useState<Sort>()
+  const queryKey = ['arts', locale, searchTerm, sort, currentPage || 1, status]
 
-  // TODO: Add status filter
-  const artsQuery = useArts(['arts'], {
+  const artsQuery = useArts(queryKey, {
+    populate: ['artist.user.avatar', 'categories', 'images', 'likers'],
+    page: currentPage || 1,
+    pageSize: 10,
     searchTerm,
-    locale,
     sort,
+    locale: locale as StrapiLocale,
     status,
   })
 
@@ -40,7 +40,8 @@ const ArtsPage = () => {
     artsQuery.refetch()
   }, [locale, searchTerm, sort, status])
 
-  console.log('artsQuery', artsQuery.data?.data)
+  const arts = artsQuery?.data?.data
+  const totalCount = artsQuery?.data?.meta?.pagination?.pageCount
 
   return (
     <AdminLayout
@@ -51,16 +52,6 @@ const ArtsPage = () => {
         onSearch: handleSearch,
         onLanguageSwitch: locale => setLocale(locale),
         defaultLocale,
-        // TODO: List artists to be able to filter by artist
-        // filterMenu: [
-        //   <MenuItem
-        //     icon={<FaUserAlt />}
-        //     key="user"
-        //     onClick={() => alert('Artist')}
-        //   >
-        //     Artist
-        //   </MenuItem>,
-        // ],
         sortMenu: [
           <MenuItem key="asc" icon={<FaArrowUp />}>
             Name Asc
@@ -71,16 +62,14 @@ const ArtsPage = () => {
         ],
       }}
     >
-      <Box>{status} Arts</Box>
-      <Code>
-        <pre>
-          {JSON.stringify(
-            artsQuery.data?.data?.map(art => art.title),
-            null,
-            2,
-          )}
-        </pre>
-      </Code>
+      <ArtsTable
+        data={arts}
+        user={user}
+        totalCount={totalCount}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        onSort={setSort}
+      />
     </AdminLayout>
   )
 }

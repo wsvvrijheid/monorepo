@@ -5,60 +5,48 @@ import {
   TableProps,
   TextProps,
 } from '@chakra-ui/react'
-import { StrapiModel, StrapiModelKeys } from '@wsvvrijheid/types'
+import { StrapiModel, Sort } from '@wsvvrijheid/types'
 
 import { FormattedDateProps } from '../FormattedDate'
 
-type CellConfigWithTransform<T extends StrapiModel> = {
-  label?: string
-  cellProps?: TableCellProps
-  transform?: (value: T[keyof T]) => string | number
-  sortable?: false // Currently not supported when transform is used
-}
+type CustomCellType = 'text' | 'badge' | 'image' | 'date'
 
-type CellConfigWithSort = {
-  label?: string
-  cellProps?: TableCellProps
-  sortable?: boolean
-  transform: false // Currently not supported when sort is used
+type CustomCell<Type extends CustomCellType, T, P> = {
+  type?: Type
+  componentProps?: P | ((value: T[keyof T]) => P)
 }
 
 type CellConfigCommon<T extends StrapiModel> =
-  | {
-      type: 'text' // Default
-      componentProps?: TextProps | ((value: T[keyof T]) => TextProps)
-    }
-  | {
-      type: 'badge'
-      componentProps?: BadgeProps | ((value: T[keyof T]) => BadgeProps)
-    }
-  | {
-      type: 'image' | 'images'
-      componentProps?: AvatarProps | ((value: T[keyof T]) => AvatarProps)
-    }
-  | {
-      type: 'date'
-      componentProps?:
-        | FormattedDateProps
-        | ((value: T[keyof T]) => FormattedDateProps)
-    }
+  | CustomCell<'text', T, TextProps>
+  | CustomCell<'badge', T, BadgeProps>
+  | CustomCell<'image', T, AvatarProps>
+  | CustomCell<'date', T, Partial<FormattedDateProps>>
 
-export type CellConfig<T extends StrapiModel> = CellConfigCommon<T> &
-  (CellConfigWithTransform<T> | CellConfigWithSort)
+export type CellConfig<T extends StrapiModel> = CellConfigCommon<T> & {
+  cellProps?: TableCellProps
+  label?: string
+  sortable?: boolean // Currently not supported when transform is used
+  transform?: (value: T[keyof T]) => string | number
+  sortKey?: string
+}
 
 export type WTableCellProps<T extends StrapiModel> = {
   value: T[keyof T]
   // TODO Add specific type for each cell value
   cellConfig: CellConfig<T>
+  field: keyof T
 }
 
 export type WTableRowProps<T extends StrapiModel> = {
-  model: T
   columns: { [key in keyof T]?: CellConfig<T> }
+  model: T
+  modelIndex: number
+  onClick?: (index: number, id: number) => void
 }
 
 export type WTableProps<T extends StrapiModel> = {
   data: T[]
   columns: WTableRowProps<T>['columns']
-  onSort: (key: [`${StrapiModelKeys}:${'asc' | 'desc'}`] | null) => void
+  onClickRow?: (id: number) => void
+  onSort?: (key: Sort | null) => void
 } & TableProps
