@@ -6,7 +6,7 @@ import { Container } from '../Container'
 import { WImage } from '../WImage'
 
 export interface HeroProps {
-  title: string
+  title?: string
   description?: string
   video?: string
   image?: string
