@@ -14,7 +14,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
 import { useRouter } from 'next/router'
 
-import { Layout } from '../../../components/index'
+import { Layout } from '../../../components'
 import i18nConfig from '../../../next-i18next.config'
 
 type ArtistPageProps = {
@@ -28,8 +28,8 @@ const ArtistPage: FC<ArtistPageProps> = ({ seo }) => {
   const auth = useAuth()
   const { data: artist, isLoading } = useArtistByUsername(username as string)
   return (
-    <Layout seo={seo} isDark isLoading={isLoading}>
-      <Hero title={artist?.name || artist?.username}>
+    <Layout seo={seo} isDark isLoading={isLoading} hasScroll>
+      <Hero>
         <Stack align="center" cursor="default" userSelect="none">
           <Avatar
             size="lg"
