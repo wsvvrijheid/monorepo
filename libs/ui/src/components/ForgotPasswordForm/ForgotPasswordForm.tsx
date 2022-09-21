@@ -47,7 +47,7 @@ export const ForgotPasswordForm: React.FC<ForgotPasswordFormProps> = ({
     >
       <Stack
         spacing="8"
-        shadow="lg"
+        shadow="base"
         bg="white"
         p={{ base: 8, lg: 12 }}
         rounded="lg"

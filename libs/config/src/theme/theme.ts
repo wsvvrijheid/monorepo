@@ -2,9 +2,8 @@ import { extendTheme } from '@chakra-ui/react'
 
 import { colors } from './colors'
 import { components } from './components'
+import { fonts } from './fonts'
 import { styles } from './global'
-
-const fonts = { body: `'Rubik', sans-serif`, club: `'Lemonada', cursive` }
 
 const config = {
   initialColorMode: 'light',
@@ -12,7 +11,7 @@ const config = {
   cssVarPrefix: 'wsvv',
 }
 
-export const theme = extendTheme({
+export const defaultTheme = extendTheme({
   config,
   fonts,
   colors,
@@ -20,6 +19,5 @@ export const theme = extendTheme({
   styles,
   shadows: {
     outline: 'none',
-    primary: 'rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;',
   },
 })

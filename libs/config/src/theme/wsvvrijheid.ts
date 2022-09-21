@@ -1,10 +1,12 @@
 import { extendTheme } from '@chakra-ui/react'
+import { merge } from 'lodash'
 
-import { theme } from './theme'
+import { defaultTheme } from './theme'
 
-export const wsvvrijheid = extendTheme({
-  ...theme,
-  colors: {
-    primary: theme['colors'].blue,
-  },
-})
+export const wsvvrijheid = extendTheme(
+  merge(defaultTheme, {
+    colors: {
+      primary: defaultTheme['colors'].blue,
+    },
+  }),
+)

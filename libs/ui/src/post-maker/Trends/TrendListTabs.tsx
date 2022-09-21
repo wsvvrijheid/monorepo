@@ -58,7 +58,7 @@ export const TrendListTabs = () => {
         </HStack>
       </Flex>
 
-      <Box overflowY="auto" shadow="primary" bg="white">
+      <Box overflowY="auto" shadow="base" bg="white">
         <Tabs colorScheme="primary" isFitted size="sm">
           <TabList pos="sticky" top="0" bg="white">
             <Tab>World</Tab>

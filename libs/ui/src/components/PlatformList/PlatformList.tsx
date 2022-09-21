@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import { FC } from 'react'
 
 import { Avatar, Button, Heading, Spacer, Stack, Text } from '@chakra-ui/react'
 import { API_URL } from '@wsvvrijheid/config'
@@ -28,12 +28,12 @@ export const PlatformList: FC<PlatformListProps> = ({ platforms }) => {
           spacing={4}
           bg="white"
           rounded="lg"
-          shadow="md"
+          shadow="base"
         >
           {/* TODO Create image component to handle internal/external image paths */}
           <Avatar size="2xl" src={`${API_URL}${platform.image?.url}`} />
           <Stack align={{ base: 'center', lg: 'start' }}>
-            <Heading textAlign="center" size="md" as="h3" fontWeight={900}>
+            <Heading textAlign="center" size="md" as="h3" fontWeight="black">
               {platform[`name_${locale as StrapiLocale}`]}
             </Heading>
             <Text fontSize="sm">

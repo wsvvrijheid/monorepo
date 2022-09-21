@@ -27,7 +27,7 @@ export const ArtContent: FC<ArtContentProps> = ({
       <Navigate href={artistProfilePath}>
         <HStack>
           <Avatar size="sm" src={artistAvatar} name={artistName} />
-          <Text fontWeight={600} lineHeight={6} fontSize="md">
+          <Text fontWeight="semibold" lineHeight={6} fontSize="md">
             {artistName}
           </Text>
         </HStack>

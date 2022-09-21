@@ -109,7 +109,7 @@ export const AdminLoginForm = () => {
           <VStack textAlign="center" w={'full'}>
             <Avatar size="2xl" src={'https://wsvvrijheid.nl/images/logo.svg'} />
 
-            <Text fontSize="xl" color={'blue.500'} fontWeight={700}>
+            <Text fontSize="xl" color={'blue.500'} fontWeight="bold">
               WEES DE STEM <br />
               VOOR VRIJHEID
             </Text>

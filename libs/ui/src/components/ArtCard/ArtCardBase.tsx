@@ -115,7 +115,7 @@ export const ArtCardBase: FC<ArtCardBaseProps> = ({
           w="full"
         >
           <HStack spacing={1}>
-            <Text fontWeight={600} color="white">
+            <Text fontWeight="semibold" color="white">
               {(art?.likes || 0) + (art.likers?.length || 0)}
             </Text>
             <IconButton
@@ -168,7 +168,7 @@ export const ArtCardBase: FC<ArtCardBaseProps> = ({
             bottom={'-150%'}
             color="white"
             fontSize={{ base: 'md', lg: 'sm' }}
-            fontWeight={600}
+            fontWeight="semibold"
             position={{ base: 'static', lg: 'absolute' }}
             spacing={0}
             transition="all 0.2s"

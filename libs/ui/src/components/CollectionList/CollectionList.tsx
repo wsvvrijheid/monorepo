@@ -22,7 +22,7 @@ export const CollectionList: FC<CollectionListProps> = ({ collectionData }) => {
         <Box as={MdCollectionsBookmark} />
         <Text
           display={{ base: 'none', lg: 'block' }}
-          fontWeight={600}
+          fontWeight="semibold"
         >{t`collections`}</Text>
       </HStack>
       <Divider />
