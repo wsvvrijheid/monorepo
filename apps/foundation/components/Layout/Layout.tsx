@@ -2,7 +2,9 @@ import { FC, PropsWithChildren } from 'react'
 
 import { menus, socialLinks } from '@wsvvrijheid/config'
 import { Layout as AppLayout, useAuth } from '@wsvvrijheid/ui'
+import axios from 'axios'
 import { NextSeoProps } from 'next-seo'
+import { useRouter } from 'next/router'
 
 interface LayoutProps extends PropsWithChildren {
   isDark?: boolean
@@ -19,6 +21,12 @@ export const Layout: FC<LayoutProps> = ({
   seo,
 }) => {
   const auth = useAuth()
+  const router = useRouter()
+  const logOut = () => {
+    axios.post('/api/auth/logout').then(() => {
+      router.push('/login')
+    })
+  }
   return (
     <AppLayout
       seo={seo}
@@ -30,6 +38,10 @@ export const Layout: FC<LayoutProps> = ({
           isLoggedIn: auth?.isLoggedIn,
           userAvatar: auth?.user?.avatar,
           username: auth?.user?.username,
+          logout: {
+            label: 'Logout',
+            onClick: logOut,
+          },
         },
         isDark,
         hasScroll,
