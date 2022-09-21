@@ -11,7 +11,13 @@ import {
   useBreakpointValue,
   useDisclosure,
 } from '@chakra-ui/react'
+import { QueryKey } from '@tanstack/react-query'
 import { API_URL } from '@wsvvrijheid/config'
+import {
+  usePublishArt,
+  useUnpublishArt,
+  useDeleteArt,
+} from '@wsvvrijheid/utils'
 import { AiFillHeart } from 'react-icons/ai'
 import { FaExternalLinkSquareAlt } from 'react-icons/fa'
 
@@ -31,6 +37,7 @@ export const ArtCardBase: FC<ArtCardBaseProps> = ({
   actions,
   isOwner,
   isModal = false,
+  actionQueryKey,
 }) => {
   const {
     isOpen: artModalIsOpen,
@@ -38,9 +45,15 @@ export const ArtCardBase: FC<ArtCardBaseProps> = ({
     onClose: artModalOnClose,
   } = useDisclosure()
 
+  const queryKey = actionQueryKey as QueryKey
+
   const [actionType, setActionType] = useState<ArtActionType>()
   const [hover, setHover] = useState({ color: 'gray.100' })
   const [color, setColor] = useState('white')
+
+  const deleteMutation = useDeleteArt(queryKey)
+  const publishMutation = usePublishArt(queryKey, art.id)
+  const unpublishMutation = useUnpublishArt(queryKey, art.id)
 
   useEffect(() => {
     setHover({ color: isLiked ? 'red.200' : 'gray.100' })
@@ -57,8 +70,20 @@ export const ArtCardBase: FC<ArtCardBaseProps> = ({
     art.artist?.avatar?.formats?.thumbnail?.url || art.artist?.avatar?.url
 
   const onHandleAction = (type: ArtActionType) => {
-    setActionType(type)
-    onOpen()
+    switch (type) {
+      case 'delete':
+        deleteMutation.mutate({ id: art.id })
+        break
+      case 'publish':
+        publishMutation.mutate({ id: art.id })
+        break
+      case 'unpublish':
+        unpublishMutation.mutate({ id: art.id })
+        break
+      default:
+        setActionType(type)
+        onOpen()
+    }
   }
 
   return (

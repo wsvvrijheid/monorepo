@@ -8,6 +8,9 @@ interface LayoutProps extends PropsWithChildren {
   isDark?: boolean
   isLoading?: boolean
   hasScroll?: boolean
+  isLoggedIn?: boolean
+  userAvatar?: string
+  username?: string
   seo: NextSeoProps
 }
 
@@ -17,6 +20,9 @@ export const Layout: FC<LayoutProps> = ({
   isLoading,
   hasScroll,
   seo,
+  isLoggedIn,
+  userAvatar,
+  username,
 }) => {
   return (
     <AppLayout
@@ -24,9 +30,15 @@ export const Layout: FC<LayoutProps> = ({
       logo="https://wsvvrijheid.nl/images/logo.svg"
       headerProps={{
         headerMenu: menus.wsvvrijheid.headerMenu,
-        profileMenu: menus.wsvvrijheid.profileMenu,
+        profileMenu: {
+          ...menus.wsvvrijheid.profileMenu,
+          isLoggedIn,
+          userAvatar,
+          username,
+        },
         isDark,
         hasScroll,
+        isLoggedIn,
       }}
       footerProps={{
         menu: menus.wsvvrijheid.footerMenu,
