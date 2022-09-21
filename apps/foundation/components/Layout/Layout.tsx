@@ -1,16 +1,13 @@
 import { FC, PropsWithChildren } from 'react'
 
 import { menus, socialLinks } from '@wsvvrijheid/config'
-import { Layout as AppLayout } from '@wsvvrijheid/ui'
+import { Layout as AppLayout, useAuth } from '@wsvvrijheid/ui'
 import { NextSeoProps } from 'next-seo'
 
 interface LayoutProps extends PropsWithChildren {
   isDark?: boolean
   isLoading?: boolean
   hasScroll?: boolean
-  isLoggedIn?: boolean
-  userAvatar?: string
-  username?: string
   seo: NextSeoProps
 }
 
@@ -20,10 +17,8 @@ export const Layout: FC<LayoutProps> = ({
   isLoading,
   hasScroll,
   seo,
-  isLoggedIn,
-  userAvatar,
-  username,
 }) => {
+  const auth = useAuth()
   return (
     <AppLayout
       seo={seo}
@@ -32,13 +27,12 @@ export const Layout: FC<LayoutProps> = ({
         headerMenu: menus.wsvvrijheid.headerMenu,
         profileMenu: {
           ...menus.wsvvrijheid.profileMenu,
-          isLoggedIn,
-          userAvatar,
-          username,
+          isLoggedIn: auth?.isLoggedIn,
+          userAvatar: auth?.user?.avatar,
+          username: auth?.user?.username,
         },
         isDark,
         hasScroll,
-        isLoggedIn,
       }}
       footerProps={{
         menu: menus.wsvvrijheid.footerMenu,

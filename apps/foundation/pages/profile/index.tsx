@@ -11,14 +11,8 @@ import i18nConfig from '../../next-i18next.config'
 const Profile = ({ seo }) => {
   const auth = useAuth()
 
-  const headerProps = {
-    isLoggedIn: auth.isLoggedIn,
-    userAvatar: auth?.user?.avatar,
-    username: auth?.user?.username,
-  }
-
   return (
-    <Layout seo={seo} {...headerProps} isDark>
+    <Layout seo={seo} isDark>
       {auth.user && <AuthenticatedUserProfile auth={auth} />}
     </Layout>
   )
