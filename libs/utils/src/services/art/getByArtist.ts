@@ -22,6 +22,7 @@ export const getArtByArtist = async (
       'likers',
     ],
     locale,
+    publicationState: 'preview',
   })
 
   return response?.data || []
