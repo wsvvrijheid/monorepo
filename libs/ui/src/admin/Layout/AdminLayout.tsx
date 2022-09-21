@@ -97,7 +97,7 @@ export const AdminLayout: FC<AdminLayoutProps> = ({
           overflow="auto"
         >
           {/* Title */}
-          <HStack px={4} mt={12} justify="space-between">
+          <HStack px={4} mt={10} justify="space-between">
             <Heading textTransform="capitalize" color="blackAlpha.400">
               {title}
             </Heading>

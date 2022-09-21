@@ -20,7 +20,7 @@ export const CategoryFilterCheckbox = (props: UseCheckboxProps) => {
       rounded="full"
       py={2}
       pr={2}
-      fontWeight={600}
+      fontWeight="semibold"
       cursor="pointer"
       fontSize="md"
       {...htmlProps}

@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useRef, useState } from 'react'
+import { FC, useEffect, useRef, useState } from 'react'
 
 import { chakra, useBoolean } from '@chakra-ui/react'
 import { setPostText, useAppDispatch, useAppSelector } from '@wsvvrijheid/utils'

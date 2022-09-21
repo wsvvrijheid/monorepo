@@ -63,7 +63,7 @@ export const CommentForm: React.FC<CommentFormProps> = ({
       <Text
         textAlign="left"
         fontSize="16px"
-        fontWeight={600}
+        fontWeight="semibold"
         textTransform="capitalize"
       >
         {t('apply-form.comment-placeholder')}

@@ -73,7 +73,7 @@ export const CategoryFilter: FC<CategoryFilterProps> = ({
   return (
     <Stack justify="stretch" w="full" spacing={1}>
       <HStack py={1.5} w="full" justify="space-between" align="center">
-        <Text fontWeight={600}>{title}</Text>
+        <Text fontWeight="semibold">{title}</Text>
         {isLoading ? (
           <Spinner size="lg" color="blue.500" />
         ) : (

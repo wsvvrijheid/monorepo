@@ -1,4 +1,11 @@
-import React, { DragEvent, FC } from 'react'
+import {
+  ChangeEvent,
+  Dispatch,
+  DragEvent,
+  FC,
+  SetStateAction,
+  useRef,
+} from 'react'
 
 import {
   Box,
@@ -19,8 +26,8 @@ import { AiOutlineCloudUpload } from 'react-icons/ai'
 import { GrClearOption } from 'react-icons/gr'
 
 export type FileUploaderProps = {
-  setImages: React.Dispatch<React.SetStateAction<Blob[]>>
-  setPreviews: React.Dispatch<React.SetStateAction<string[]>>
+  setImages: Dispatch<SetStateAction<Blob[]>>
+  setPreviews: Dispatch<SetStateAction<string[]>>
   maxSize?: number
   images: Array<Blob>
   previews: Array<string>
@@ -33,11 +40,11 @@ export const FileUploader: FC<FileUploaderProps> = ({
   setPreviews,
   maxSize,
 }) => {
-  const inputRef = React.useRef<HTMLInputElement>(null)
+  const inputRef = useRef<HTMLInputElement>(null)
 
   const { t } = useTranslation()
 
-  const onInputChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+  const onInputChange = async (event: ChangeEvent<HTMLInputElement>) => {
     const filesArr = event.target.files
     if (!filesArr) return
     const files = Array.from(filesArr)

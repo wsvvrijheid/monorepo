@@ -23,7 +23,7 @@ export const ChildMenuItem: FC<MenuTypeItemProps> = ({ item, isDark }) => {
   return (
     <Navigate
       href={item.link}
-      fontWeight={600}
+      fontWeight="semibold"
       p={2}
       color={
         item.link !== '/' && asPath.includes(item.link as string)

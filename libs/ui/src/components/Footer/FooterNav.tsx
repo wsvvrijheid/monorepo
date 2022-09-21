@@ -22,7 +22,7 @@ export const FooterNav: FC<FooterNavProps> = ({ menu }) => {
             py={4}
           >
             <Text
-              fontWeight={600}
+              fontWeight="semibold"
               fontSize={'lg'}
               mb={2}
               textTransform="uppercase"

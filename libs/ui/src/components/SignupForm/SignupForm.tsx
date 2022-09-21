@@ -73,7 +73,7 @@ export const SignupForm: React.FC<SignupFormProps> = ({
     >
       <Stack
         spacing="8"
-        shadow="lg"
+        shadow="base"
         bg="white"
         p={{ base: 8, lg: 12 }}
         rounded="lg"

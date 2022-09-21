@@ -3,13 +3,25 @@ import { FC } from 'react'
 import { Stack } from '@chakra-ui/react'
 import { SessionUser } from '@wsvvrijheid/types'
 import { BiLandscape } from 'react-icons/bi'
-import { BsCommand, BsNewspaper, BsTranslate } from 'react-icons/bs'
-import { FaHashtag, FaPaintBrush } from 'react-icons/fa'
+import { BsCommand, BsTranslate } from 'react-icons/bs'
+import { CgHashtag } from 'react-icons/cg'
+import { GiHumanPyramid } from 'react-icons/gi'
 import { GoChevronRight } from 'react-icons/go'
+import { HiOutlineNewspaper } from 'react-icons/hi'
 import {
   MdOutlineSpaceDashboard,
   MdOutlineSupervisorAccount,
 } from 'react-icons/md'
+import {
+  TbActivity,
+  TbBrandTwitter,
+  TbBrush,
+  TbChecks,
+  TbClock,
+  TbVolume,
+  TbWriting,
+  TbX,
+} from 'react-icons/tb'
 import { VscFeedback } from 'react-icons/vsc'
 
 import { AdminNavItem } from './AdminNavItem'
@@ -33,83 +45,83 @@ export const getAdminNav = (user: SessionUser) => {
         {
           label: 'Arts',
           link: '/translates/arts',
-          icon: <GoChevronRight />,
+          icon: <TbBrush />,
         },
         {
           label: 'Posts',
           link: '/translates/posts',
-          icon: <GoChevronRight />,
+          icon: <TbBrandTwitter />,
         },
         {
           label: 'Blogs',
           link: '/translates/blogs',
-          icon: <GoChevronRight />,
+          icon: <TbWriting />,
         },
         {
           label: 'Announcements',
           link: '/translates/announcements',
-          icon: <GoChevronRight />,
+          icon: <TbVolume />,
         },
         {
           label: 'Activities',
           link: '/translates/activities',
-          icon: <GoChevronRight />,
+          icon: <TbActivity />,
         },
       ],
     },
     {
       label: 'Arts',
-      icon: <FaPaintBrush />,
+      icon: <TbBrush />,
       visible: isEditor || isAdmin,
       submenu: [
         {
           label: 'Pending Arts',
           link: '/arts?status=pending',
-          icon: <GoChevronRight />,
+          icon: <TbClock />,
         },
         {
           label: 'Approved Arts',
           link: '/arts?status=approved',
-          icon: <GoChevronRight />,
+          icon: <TbChecks />,
         },
         {
           label: 'Rejected Arts',
           link: '/arts?status=rejected',
-          icon: <GoChevronRight />,
+          icon: <TbX />,
         },
       ],
     },
     {
       label: 'Hashtags',
-      icon: <FaHashtag />,
+      icon: <CgHashtag />,
       visible: isEditor || isAdmin,
       submenu: [
         {
           label: 'Main Hashtag',
           link: '/hashtags/main',
-          icon: <GoChevronRight />,
+          icon: <CgHashtag />,
         },
         {
           label: 'Hashtag Posts',
           link: '/hashtags/posts',
-          icon: <GoChevronRight />,
+          icon: <TbBrandTwitter />,
         },
       ],
     },
     {
       label: 'Content Maker',
-      icon: <BsNewspaper />,
+      icon: <HiOutlineNewspaper />,
       visible: isEditor || isAdmin,
       submenu: [
         {
           label: 'News',
           link: '/content-maker/news',
-          icon: <GoChevronRight />,
+          icon: <HiOutlineNewspaper />,
         },
         {
           label: 'HumanRights',
           link: '/content-maker/human-rights',
-          icon: <GoChevronRight />,
+          icon: <GiHumanPyramid />,
         },
       ],
     },
