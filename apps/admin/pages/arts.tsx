@@ -23,13 +23,20 @@ const ArtsPage = () => {
   const queryKey = ['arts', locale, searchTerm, sort, currentPage || 1, status]
 
   const artsQuery = useArts(queryKey, {
-    populate: ['artist.user.avatar', 'categories', 'images', 'likers'],
+    populate: [
+      'artist.user.avatar',
+      'categories',
+      'images',
+      'likers',
+      'localizations',
+    ],
     page: currentPage || 1,
     pageSize: 10,
     searchTerm,
     sort,
     locale: locale as StrapiLocale,
     status,
+    publicationState: 'preview',
   })
 
   const handleSearch = (search: string) => {
@@ -42,6 +49,11 @@ const ArtsPage = () => {
 
   const arts = artsQuery?.data?.data
   const totalCount = artsQuery?.data?.meta?.pagination?.pageCount
+
+  const mappedArts = arts?.map(art => ({
+    ...art,
+    translates: art.localizations?.map(l => l.locale),
+  }))
 
   return (
     <AdminLayout
@@ -63,7 +75,7 @@ const ArtsPage = () => {
       }}
     >
       <ArtsTable
-        data={arts}
+        data={mappedArts}
         user={user}
         totalCount={totalCount}
         currentPage={currentPage}

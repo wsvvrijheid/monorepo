@@ -14,6 +14,7 @@ type GetArts = {
   sort?: Sort
   locale: StrapiLocale
   status?: ApprovalStatus
+  publicationState?: 'live' | 'preview'
 }
 
 export const getArts = async ({
@@ -26,6 +27,7 @@ export const getArts = async ({
   sort = ['publishedAt:desc'],
   locale,
   status,
+  publicationState,
 }: GetArts) => {
   const userFilter = {
     artist: {
@@ -77,6 +79,7 @@ export const getArts = async ({
     sort: sort || undefined,
     locale,
     populate,
+    publicationState,
   })
 }
 
