@@ -1,8 +1,8 @@
 import { useToast } from '@chakra-ui/react'
 import { useMutation } from '@tanstack/react-query'
 import { NewsCardBase } from '@wsvvrijheid/ui'
-import { mutation } from '@wsvvrijheid/utils'
-import { RecommendedTopic } from 'libs/types/src/recommended-topic'
+import { createMutation } from '@wsvvrijheid/utils'
+import { RecommendedTopic, RecommendedTopicCreateInput } from 'libs/types/src/recommended-topic'
 import { FC, useEffect, useState } from 'react'
 import { NewsCardProps } from './index'
 
@@ -12,9 +12,9 @@ export const NewsCard: FC<NewsCardProps> = ({ news, userId, ...rest }) => {
   const recommendMutation = useMutation({
     mutationKey: ['recommend-topic'],
     mutationFn: () =>
-      mutation<RecommendedTopic>().post(`api/recommended-topics`, {
-        data: { ...news, recommender: userId },
-      }),
+      createMutation<RecommendedTopic, RecommendedTopicCreateInput>(`api/recommended-topics`, 
+        { ...news, recommender: userId },
+      )
   })
   const handleBookmark = (id: string) => {
     const bookmarks = localStorage.getItem('bookmarks')
