@@ -11,7 +11,7 @@ export const columns: WTableProps<Art>['columns'] = {
   },
   description: {},
   artist: {
-    transform: value => (value as User).username,
+    transform: value => (value as User)?.username,
     sortKey: 'username',
     sortable: true,
   },

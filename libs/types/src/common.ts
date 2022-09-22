@@ -4,7 +4,6 @@ import { StrapiLocale } from './locale'
 
 export type TranslationStatus = 'approved' | 'pending' | 'rejected' | 'original'
 export type ApprovalStatus = 'approved' | 'pending' | 'rejected'
-
 export type Localize<T> = Record<StrapiLocale, T>
 
 export type MenuType = {

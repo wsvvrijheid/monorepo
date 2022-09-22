@@ -11,6 +11,8 @@ export type ArtApprovalTypes = {
   editorAvatar: string
   editorId: number
   editorName: string
+  artApprovalStatus: string
+  artPublishedAt: string | null
   isOpen: boolean
   onApprove: (artId: number, editorId: number, feedback: string) => void
   onClose: () => void
@@ -22,6 +24,7 @@ export type ArtApprovalTypes = {
     updateValue: 'content' | 'description',
   ) => void
   onPublish: (artId: number) => void
+  unPublish: (artId: number) => void
 }
 
 export type ArtFeedbackFormTypes = {
@@ -33,6 +36,9 @@ export type ArtFeedbackFormTypes = {
   editorAvatar: string
   editorName: string
   artDescription: string
+  artApprovalStatus: string
+  artPublishedAt: string | null
   updateField: (data: string) => void
   onPublish: (artId: number) => void
+  unPublish: (artId: number) => void
 }

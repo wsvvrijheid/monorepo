@@ -41,6 +41,9 @@ export const ArtApprovalModal: FC<ArtApprovalTypes> = ({
   artistName,
   onSave,
   onPublish,
+  unPublish,
+  artApprovalStatus,
+  artPublishedAt,
 }) => {
   const [description, setDescription] = useState(artDescription)
   const [content, setContent] = useState(artContent)
@@ -56,9 +59,14 @@ export const ArtApprovalModal: FC<ArtApprovalTypes> = ({
       onSave(artId, content, 'content')
     }
   }
+  //set new description and content
   useEffect(() => {
     setDescription(artDescription)
   }, [artDescription])
+  useEffect(() => {
+    setContent(artContent)
+  }, [artContent])
+
   //update field
   const handleUpdate = (data: string) => {
     console.log('handleUpdate', data)
@@ -172,6 +180,9 @@ export const ArtApprovalModal: FC<ArtApprovalTypes> = ({
                   onReject={onReject}
                   onApprove={onApprove}
                   onPublish={onPublish}
+                  unPublish={unPublish}
+                  artPublishedAt={artPublishedAt}
+                  artApprovalStatus={artApprovalStatus}
                   onDelete={onDelete}
                   artId={artId}
                   editorId={editorId}

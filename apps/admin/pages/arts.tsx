@@ -21,7 +21,7 @@ const ArtsPage = () => {
 
   const [sort, setSort] = useState<Sort>()
   const queryKey = ['arts', locale, searchTerm, sort, currentPage || 1, status]
-
+  const publicationState = 'preview'
   const artsQuery = useArts(queryKey, {
     populate: ['artist.user.avatar', 'categories', 'images', 'likers'],
     page: currentPage || 1,
@@ -30,6 +30,7 @@ const ArtsPage = () => {
     sort,
     locale: locale as StrapiLocale,
     status,
+    publicationState,
   })
   useEffect(() => setCurrentPage(1), [status])
   const handleSearch = (search: string) => {

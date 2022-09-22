@@ -6,6 +6,8 @@ import { Art, SessionUser, UploadFile } from '@wsvvrijheid/types'
 import {
   useArtFeedbackMutation,
   useDeleteArt,
+  usePublishArt,
+  useUnpublishArt,
   useUpdateArtMutation,
 } from '@wsvvrijheid/utils'
 
@@ -33,6 +35,8 @@ export const ArtsTable: FC<ArtsTableProps> = ({
   const feedbackMutation = useArtFeedbackMutation(queryKey)
   const deleteArtMutation = useDeleteArt(queryKey)
   const updateArtMutation = useUpdateArtMutation(queryKey)
+  const publishArtMutation = usePublishArt(queryKey)
+  const unpublishArtMutation = useUnpublishArt(queryKey)
   const selectedArt =
     typeof selectedIndex === 'number' ? arts?.[selectedIndex] : null
 
@@ -73,8 +77,13 @@ export const ArtsTable: FC<ArtsTableProps> = ({
     }
   }
   const handlePublish = (id: number) => {
-    if (window.confirm('Are you sure you want to deete this art')) {
-      alert('published')
+    if (window.confirm('Are you sure you want to publish this art')) {
+      publishArtMutation.mutate({ id })
+    }
+  }
+  const handleUnPublish = (id: number) => {
+    if (window.confirm('Are you sure you want to unpublish this art')) {
+      unpublishArtMutation.mutate({ id })
     }
   }
   const onSave = (
@@ -87,6 +96,7 @@ export const ArtsTable: FC<ArtsTableProps> = ({
       [updateValue]: data,
     })
   }
+  console.log('whole arts', arts)
   return (
     <>
       {selectedArt && user && (
@@ -95,6 +105,8 @@ export const ArtsTable: FC<ArtsTableProps> = ({
           artTitle={selectedArt.title}
           artDescription={selectedArt.description}
           artContent={selectedArt.content}
+          artApprovalStatus={selectedArt.approvalStatus}
+          artPublishedAt={selectedArt.publishedAt}
           artImages={selectedArt.images as UploadFile[]}
           editorId={user.id as number}
           editorAvatar={user.avatar as string}
@@ -105,6 +117,7 @@ export const ArtsTable: FC<ArtsTableProps> = ({
           onReject={handleReject}
           onClose={onClose}
           onPublish={handlePublish}
+          unPublish={handleUnPublish}
           artistName={selectedArt.artist?.username as string}
           artistAvatar={selectedArt.artist?.avatar?.url as string}
           onSave={onSave}

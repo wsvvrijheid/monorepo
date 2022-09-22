@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 
 import {
   Avatar,
@@ -19,7 +19,7 @@ import {
   HiOutlineX,
   HiPencil,
 } from 'react-icons/hi'
-import { MdOutlinePublish } from 'react-icons/md'
+import { MdOutlinePublish, MdOutlineUnpublished } from 'react-icons/md'
 
 import { ArtFeedbackFormTypes } from './types'
 
@@ -33,9 +33,16 @@ export const ArtFeedbackForm: FC<ArtFeedbackFormTypes> = ({
   editorName,
   updateField,
   onPublish,
+  unPublish,
+  artApprovalStatus,
+  artPublishedAt,
 }) => {
   const [feedback, setFeedback] = useState('')
-
+  const [publishedAt, setPublishedAt] = useState(artPublishedAt)
+  //update publishedAt
+  useEffect(() => {
+    setPublishedAt(artPublishedAt)
+  }, [artPublishedAt])
   const handleReject = () => {
     onReject(artId, editorId, feedback)
   }
@@ -49,6 +56,10 @@ export const ArtFeedbackForm: FC<ArtFeedbackFormTypes> = ({
   const handlePublish = () => {
     onPublish(artId)
   }
+  const handleUnPublish = () => {
+    unPublish(artId)
+  }
+  console.log('published status >>>>>>>>>', publishedAt)
   return (
     <Stack w={'full'} spacing={{ base: 2, lg: 4 }}>
       <Text color={'black'} fontWeight={'bold'}>
@@ -74,6 +85,7 @@ export const ArtFeedbackForm: FC<ArtFeedbackFormTypes> = ({
           {/*button group*/}
           <Stack direction={'row'} spacing={{ base: 2, lg: 4 }}>
             <Button
+              isDisabled={artApprovalStatus === 'rejected'}
               onClick={handleReject}
               colorScheme="red"
               w="full"
@@ -81,7 +93,9 @@ export const ArtFeedbackForm: FC<ArtFeedbackFormTypes> = ({
             >
               Reject
             </Button>
+
             <Button
+              isDisabled={artApprovalStatus === 'approved'}
               onClick={handleApprove}
               colorScheme="green"
               w="full"
@@ -89,6 +103,7 @@ export const ArtFeedbackForm: FC<ArtFeedbackFormTypes> = ({
             >
               Approve
             </Button>
+
             <Menu>
               <MenuButton
                 aria-label="Open art menu"
@@ -115,15 +130,32 @@ export const ArtFeedbackForm: FC<ArtFeedbackFormTypes> = ({
                 >
                   Edit Content
                 </MenuItem>
-                <MenuItem
-                  as={Button}
-                  onClick={handlePublish}
-                  variant="ghost"
-                  colorScheme="primary"
-                  icon={<MdOutlinePublish />}
-                >
-                  Publish
-                </MenuItem>
+                {artApprovalStatus === 'approved' ? (
+                  publishedAt ? (
+                    <MenuItem
+                      as={Button}
+                      onClick={handleUnPublish}
+                      variant="ghost"
+                      colorScheme="primary"
+                      icon={<MdOutlineUnpublished />}
+                    >
+                      Unpublish
+                    </MenuItem>
+                  ) : (
+                    <MenuItem
+                      as={Button}
+                      onClick={handlePublish}
+                      variant="ghost"
+                      colorScheme="primary"
+                      icon={<MdOutlinePublish />}
+                    >
+                      Publish
+                    </MenuItem>
+                  )
+                ) : (
+                  ''
+                )}
+
                 <MenuItem
                   as={Button}
                   onClick={handleDelete}

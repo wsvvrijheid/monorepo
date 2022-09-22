@@ -3,20 +3,22 @@ import { useMutation, useQueryClient, QueryKey } from '@tanstack/react-query'
 import { Art } from '@wsvvrijheid/types'
 
 import { updateMutation } from '../../lib'
-
+type publishMutation = {
+  id: number
+}
 export const publishArt = ({ id }: { id: number }) => {
   const body = { publishedAt: new Date() }
 
   return updateMutation<Art, typeof body>('api/arts', id, body)
 }
 
-export const usePublishArt = (queryKey: QueryKey, id: number) => {
+export const usePublishArt = (queryKey?: QueryKey) => {
   const queryClient = useQueryClient()
   const toast = useToast()
 
   return useMutation({
-    mutationKey: ['publish-art', id],
-    mutationFn: publishArt,
+    mutationKey: ['publish-art'],
+    mutationFn: ({ id }: publishMutation) => publishArt({ id }),
     onSettled: () => {
       // It's difficult to invalidate cache for paginated or filtering queries
       // Cache invalidation strategy might differ depending on where the mutation is called
@@ -29,6 +31,7 @@ export const usePublishArt = (queryKey: QueryKey, id: number) => {
     },
     onSuccess: () => {
       // TODO Add translations
+      queryClient.invalidateQueries(queryKey)
       toast({
         title: 'Art Published',
         description: 'Art has been published',
