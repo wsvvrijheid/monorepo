@@ -24,7 +24,7 @@ export const ResponsiveCard = () => {
       </Stack>
 
       <Stack spacing={2} w={['full', null]}>
-        <Heading as="h1" size="lg" mb={5} color="#000" fontWeight="500">
+        <Heading as="h1" size="lg" mb={5} color="#000" fontWeight="medium">
           This is Heading...
         </Heading>
         <Text>

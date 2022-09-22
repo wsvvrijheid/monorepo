@@ -1,4 +1,4 @@
-import React, { FC, memo } from 'react'
+import { FC, memo } from 'react'
 
 import { Box, Center } from '@chakra-ui/react'
 import { FaCheck } from 'react-icons/fa'
@@ -21,7 +21,7 @@ export const CapsItem: FC<CapsItemProps> = memo(function CapsItem({
   return (
     <Box
       rounded="md"
-      shadow="primary"
+      shadow="base"
       overflow="hidden"
       flexShrink={0}
       position="relative"

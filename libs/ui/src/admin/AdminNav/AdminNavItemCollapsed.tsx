@@ -47,7 +47,7 @@ export const AdminNavItemCollapsed: FC<AdminNavItemProps> = ({
       <PopoverContent w="max-content">
         <PopoverArrow />
         <PopoverBody>
-          <Text fontWeight={600}>{label}</Text>
+          <Text fontWeight="semibold">{label}</Text>
           {/* Submenu */}
           {submenu && (
             <Box>

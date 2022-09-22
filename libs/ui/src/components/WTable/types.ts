@@ -1,3 +1,5 @@
+import { ReactNode } from 'react'
+
 import {
   AvatarProps,
   BadgeProps,
@@ -26,7 +28,7 @@ export type CellConfig<T extends StrapiModel> = CellConfigCommon<T> & {
   cellProps?: TableCellProps
   label?: string
   sortable?: boolean // Currently not supported when transform is used
-  transform?: (value: T[keyof T]) => string | number
+  transform?: (value: T[keyof T]) => ReactNode
   sortKey?: string
 }
 

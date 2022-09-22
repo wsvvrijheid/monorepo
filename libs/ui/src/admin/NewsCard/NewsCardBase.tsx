@@ -50,7 +50,7 @@ export const NewsCardBase: FC<NewsCardProps> = ({
           <Text
             flex={1}
             fontSize="sm"
-            fontWeight={500}
+            fontWeight="medium"
             color={'primary.500'}
             noOfLines={1}
           >

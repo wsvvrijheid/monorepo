@@ -1,6 +1,7 @@
-import { ApprovalStatus, Art, User } from '@wsvvrijheid/types'
+import { ApprovalStatus, Art, StrapiLocale, User } from '@wsvvrijheid/types'
 
 import { WTableProps } from '../../../components'
+import { LocaleBadges } from '../../LocaleBadges'
 
 export const columns: WTableProps<Art>['columns'] = {
   images: {
@@ -28,6 +29,9 @@ export const columns: WTableProps<Art>['columns'] = {
         colorScheme: colorScheme[value as ApprovalStatus],
       }
     },
+  },
+  translates: {
+    transform: value => <LocaleBadges locales={value as StrapiLocale[]} />,
   },
   publishedAt: {
     type: 'date',

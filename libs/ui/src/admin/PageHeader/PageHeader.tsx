@@ -30,7 +30,7 @@ export const PageHeader: FC<PageHeaderProps> = ({
   onSearch,
 }) => {
   return (
-    <HStack align="center" bg="white" px={4} py={2} shadow="md">
+    <HStack align="center" bg="white" px={4} py={2} shadow="base">
       {typeof onSearch === 'function' && (
         <SearchForm
           onSearch={onSearch}

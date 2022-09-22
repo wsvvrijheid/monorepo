@@ -4,7 +4,12 @@ import { useLikeArt } from '@wsvvrijheid/utils'
 
 import { ArtCardBase, ArtCardProps } from '../'
 
-export const ArtCard: FC<ArtCardProps> = ({ art, auth, queryKey }) => {
+export const ArtCard: FC<ArtCardProps> = ({
+  art,
+  auth,
+  queryKey,
+  actionQueryKey,
+}) => {
   const { toggleLike, isLiked } = useLikeArt(art, auth.user, queryKey)
 
   return (
@@ -16,6 +21,7 @@ export const ArtCard: FC<ArtCardProps> = ({ art, auth, queryKey }) => {
       isOwner={auth.user?.id === art.artist?.id}
       isMasonry
       isModal
+      actionQueryKey={actionQueryKey}
     />
   )
 }

@@ -1,5 +1,3 @@
-import React from 'react'
-
 import { chakra, Text } from '@chakra-ui/react'
 import { usePostSelector } from '@wsvvrijheid/utils'
 

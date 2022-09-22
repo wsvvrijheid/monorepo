@@ -7,6 +7,7 @@ import { User } from './user'
 
 export type PostBase = Omit<StrapiEntityBase, 'slug' | 'content'> & {
   content: string | null
+  translationStatus: TranslationStatus
   capsStatus: TranslationStatus
   twitterMedia?: string | null
 }

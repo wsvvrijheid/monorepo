@@ -1,18 +1,15 @@
 import { Box } from '@chakra-ui/react'
-import { AdminLoginForm, LoginFormFieldValues, useAuth } from '@wsvvrijheid/ui'
+import { AdminLoginForm, useAuth } from '@wsvvrijheid/ui'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import i18nConfig from '../next-i18next.config'
 
-const LoginPage = ({ seo }) => {
+const LoginPage = () => {
   useAuth('/', true)
-  const handleLogin = async (data: LoginFormFieldValues) => {
-    alert(JSON.stringify(data))
-  }
 
   return (
     <Box minH="inherit" h="full">
-      <AdminLoginForm onSubmitHandler={handleLogin} />
+      <AdminLoginForm />
     </Box>
   )
 }

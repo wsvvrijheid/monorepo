@@ -14,7 +14,7 @@ type GetArts = {
   sort?: Sort
   locale: StrapiLocale
   status?: ApprovalStatus
-  publicationState: 'live' | 'preview'
+  publicationState?: 'live' | 'preview'
 }
 
 export const getArts = async ({

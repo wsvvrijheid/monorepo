@@ -33,7 +33,7 @@ const ListTemplate = () => (
         tweet={tweet}
         onEdit={tweet => alert(JSON.stringify(tweet))}
         onSave={tweet => alert(JSON.stringify(tweet))}
-        shadow="md"
+        shadow="base"
         rounded={0}
       />
     ))}
