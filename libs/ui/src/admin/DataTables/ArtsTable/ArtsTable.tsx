@@ -11,6 +11,7 @@ import {
   useUpdateArtMutation,
 } from '@wsvvrijheid/utils'
 
+import { WConfirm, WConfirmProps } from '../../../components/WConfirm'
 import { ArtApprovalModal } from '../../ArtApprovalModal'
 import { DataTable } from '../DataTable'
 import { DataTableProps } from '../types'
@@ -30,7 +31,8 @@ export const ArtsTable: FC<ArtsTableProps> = ({
   onSort,
   setCurrentPage,
 }) => {
-  const { isOpen, onOpen, onClose } = useDisclosure()
+  const approvalDisclosure = useDisclosure()
+  const confirmDisclosure = useDisclosure()
   const [selectedIndex, setSelectedIndex] = useState<number>()
   const feedbackMutation = useArtFeedbackMutation(queryKey)
   const deleteArtMutation = useDeleteArt(queryKey)
@@ -39,53 +41,108 @@ export const ArtsTable: FC<ArtsTableProps> = ({
   const unpublishArtMutation = useUnpublishModel('api/arts', queryKey)
   const selectedArt =
     typeof selectedIndex === 'number' ? arts?.[selectedIndex] : null
+  const [confirmState, setConfirmState] =
+    useState<Omit<WConfirmProps, 'onClose' | 'isOpen' | 'onOpen'>>()
 
   const handleClickRow = (index: number) => {
     setSelectedIndex(index)
-    onOpen()
+    approvalDisclosure.onOpen()
   }
-  // functions //////////////////////////
 
-  const handleReject = (artId: number, editorId: number, feedback: string) => {
-    if (window.confirm('Are you sure you want to reject this art')) {
-      feedbackMutation.mutate({
-        art: artId,
-        editor: editorId,
-        message: feedback,
-        status: 'reject',
-        point: 10,
-      })
-      onClose()
-    }
+  const handleReject = async (art: number, editor: number, message: string) => {
+    confirmDisclosure.onOpen()
+
+    setConfirmState({
+      isWarning: true,
+      title: 'Reject art',
+      description: 'Are you sure you want to reject this art?',
+      buttonText: 'Reject',
+      onConfirm: async () => {
+        await feedbackMutation.mutateAsync({
+          art,
+          editor,
+          message,
+          status: 'reject',
+          point: 10,
+        })
+
+        setConfirmState(undefined)
+        approvalDisclosure.onClose()
+      },
+    })
   }
-  const handleApprove = (artId: number, editorId: number, feedback: string) => {
-    if (window.confirm('Are you sure you want to approve this art')) {
-      feedbackMutation.mutate({
-        art: artId,
-        editor: editorId,
-        message: feedback,
-        status: 'approve',
-        point: 10,
-      })
-      onClose()
-    }
+
+  const handleApprove = (art: number, editor: number, message: string) => {
+    confirmDisclosure.onOpen()
+
+    setConfirmState({
+      title: 'Approve art',
+      description: 'Are you sure you want to approve this art?',
+      buttonText: 'Approve',
+      onConfirm: async () => {
+        await feedbackMutation.mutateAsync({
+          art,
+          editor,
+          message,
+          status: 'approve',
+          point: 10,
+        })
+
+        setConfirmState(undefined)
+        approvalDisclosure.onClose()
+      },
+    })
   }
+
   const handleDelete = (id: number) => {
-    if (window.confirm('Are you sure you want to deete this art')) {
-      deleteArtMutation.mutate({ id })
-      onClose()
-    }
+    confirmDisclosure.onOpen()
+
+    setConfirmState({
+      isWarning: true,
+      title: 'Delete art',
+      description: 'Are you sure you want to delete this art?',
+      buttonText: 'Delete',
+      onConfirm: async () => {
+        await deleteArtMutation.mutateAsync({ id })
+
+        setConfirmState(undefined)
+        approvalDisclosure.onClose()
+      },
+    })
   }
+
   const handlePublish = (id: number) => {
-    if (window.confirm('Are you sure you want to publish this art')) {
-      publishArtMutation.mutate({ id })
-    }
+    confirmDisclosure.onOpen()
+
+    setConfirmState({
+      title: 'Publish art',
+      description: 'Are you sure you want to publish this art?',
+      buttonText: 'Publish',
+      onConfirm: async () => {
+        await publishArtMutation.mutateAsync({ id })
+
+        setConfirmState(undefined)
+        approvalDisclosure.onClose()
+      },
+    })
   }
+
   const handleUnPublish = (id: number) => {
-    if (window.confirm('Are you sure you want to unpublish this art')) {
-      unpublishArtMutation.mutate({ id })
-    }
+    confirmDisclosure.onOpen()
+
+    setConfirmState({
+      title: 'Unpublish art',
+      description: 'Are you sure you want to unpublish this art?',
+      buttonText: 'Publish',
+      onConfirm: async () => {
+        await unpublishArtMutation.mutateAsync({ id })
+
+        setConfirmState(undefined)
+        approvalDisclosure.onClose()
+      },
+    })
   }
+
   const onSave = (
     artId: number,
     data: string,
@@ -96,8 +153,16 @@ export const ArtsTable: FC<ArtsTableProps> = ({
       [updateValue]: data,
     })
   }
+
   return (
     <>
+      {confirmState && (
+        <WConfirm
+          isOpen={confirmDisclosure.isOpen}
+          onClose={confirmDisclosure.onClose}
+          {...confirmState}
+        />
+      )}
       {selectedArt && user && (
         <ArtApprovalModal
           artId={selectedArt.id}
@@ -110,11 +175,11 @@ export const ArtsTable: FC<ArtsTableProps> = ({
           editorId={user.id as number}
           editorAvatar={user.avatar as string}
           editorName={user.username as string}
-          isOpen={isOpen}
+          isOpen={approvalDisclosure.isOpen}
           onApprove={handleApprove}
           onDelete={handleDelete}
           onReject={handleReject}
-          onClose={onClose}
+          onClose={approvalDisclosure.onClose}
           onPublish={handlePublish}
           unPublish={handleUnPublish}
           artistName={selectedArt.artist?.username as string}
