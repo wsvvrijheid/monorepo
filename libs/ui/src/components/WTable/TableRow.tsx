@@ -14,6 +14,7 @@ export const WTableRow = <T extends StrapiModel>({
     <Tr
       onClick={() => onClick?.(modelIndex, model.id)}
       _hover={{ bg: 'blackAlpha.50', cursor: 'pointer' }}
+      bg={model?.publishedAt === null ? 'red' : 'white'}
     >
       {Object.keys(columns).map((key, index) => {
         const field = key as keyof T
