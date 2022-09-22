@@ -9,9 +9,19 @@ export const FetchFetcher = () => {
   const [blogs, setBlogs] = useState([])
 
   useEffect(() => {
-    // TODO: fetch blogs with fetcher by using the API_URL and TOKEN
-    // Remember that fetcher is a wrapper around axios that adds the token and api url to the request
+    const getBlogs = async () => {
+      const response = await fetcher(TOKEN).get('api/blogs')
+      const data = response?.data
+      setBlogs(data)
+    }
+    getBlogs()
   }, [])
 
-  return <Box>{/* TODO: Show only title of the blogs */}</Box>
+  return (
+    <Box>
+      {blogs.map(blog => (
+        <h2>{blog?.title}</h2>
+      ))}
+    </Box>
+  )
 }
