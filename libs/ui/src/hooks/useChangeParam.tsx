@@ -1,7 +1,8 @@
 import { useRouter } from 'next/router'
 import qs from 'qs'
+import { ParsedUrlQuery } from 'querystring'
 
-export type ChangeParamArgs = Record<string, string | string[]>
+export type ChangeParamArgs = Record<string, string | string[] | undefined>
 
 export const useChangeParams = () => {
   const { query, push } = useRouter()
@@ -9,38 +10,50 @@ export const useChangeParams = () => {
   const changeParams = (args: ChangeParamArgs) => {
     // In the case of query has empty string param which we want to remove,
     // it should be removed from both the query and args
-    for (const key in args) {
-      const param = args[key]
-      if (param === '' || param === null) {
-        delete query[key]
-      }
+    const newQuery = cleanQuery(query, args)
+    cleanArgs(args)
+
+    if (JSON.stringify(query) != JSON.stringify({ ...newQuery, ...args })) {
+      push({ query: { ...newQuery, ...args } })
     }
-
-    // When we provide null value for a param, remove it from the query
-    for (const key in args) {
-      const param = args[key]
-
-      if (param === null) {
-        delete args[key]
-      }
-
-      if (Array.isArray(param)) {
-        args[key] = qs.stringify(param, {
-          encodeValuesOnly: true,
-        })
-      }
-    }
-
-    // If page is not specified, remove it from query
-    // so that data is always fetched by the first page
-    if (!args['page']) {
-      delete query['page']
-    }
-
-    push({
-      query: { ...query, ...args },
-    })
   }
 
   return changeParams
+}
+
+const cleanQuery = (query: ParsedUrlQuery, args: ChangeParamArgs) => {
+  const newQuery = Object.assign({}, query)
+  for (const key in args) {
+    const param = args[key]
+    if (
+      param === '' ||
+      param === null ||
+      param === undefined ||
+      param.length === 0
+    ) {
+      delete newQuery[key]
+    }
+  }
+  return newQuery
+}
+
+// When we provide null value for a param, remove it from the query
+const cleanArgs = (args: ChangeParamArgs) => {
+  for (const key in args) {
+    const param = args[key]
+    if (param === null || param === undefined) {
+      delete args[key]
+    }
+
+    if (Array.isArray(param)) {
+      const filtered = param.filter(p => !!p)
+      if (filtered.length) {
+        args[key] = qs.stringify(filtered, {
+          encodeValuesOnly: true,
+        })
+      } else {
+        delete args[key]
+      }
+    }
+  }
 }

@@ -51,6 +51,7 @@ export const LanguageSwitcher: FC<LanguageSwitcherProps> = ({
           .filter(([language]) => language !== locale)
           .map(([language, Flag]) => (
             <MenuItem
+              key={language}
               onClick={() => {
                 setLocale(language as StrapiLocale)
               }}

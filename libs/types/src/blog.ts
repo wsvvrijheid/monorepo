@@ -1,27 +1,47 @@
-import { Author } from './author'
 import { Category } from './category'
 import { Comment } from './comment'
-import { ModelStatus } from './common'
+import { Expand } from './common'
 import { UploadFile } from './file'
-import { StrapiLocale } from './locale'
-import { StrapiCore } from './strapi'
+import { StrapiBase, StrapiEntityBase } from './strapi'
 import { Tag } from './tag'
 import { User } from './user'
 
-export type Blog = {
-  title: string
-  slug: string
-  description: string | null
-  content: string
+export type BlogBase = Expand<
+  StrapiEntityBase & {
+    likes: number
+    views: number
+  }
+>
+
+type BlogRelation = {
   image?: UploadFile
-  status: ModelStatus
-  likes: number | null
-  views: number
-  author?: Author
+  author?: User
   categories?: Array<Category>
   tags?: Array<Tag>
   likers?: Array<User>
   comments?: Array<Comment>
-  locale: StrapiLocale
   localizations?: Array<Blog>
-} & StrapiCore
+}
+
+type BlogRelationInput = {
+  image: Blob
+  author?: number
+  categories?: Array<number>
+  tags?: Array<number>
+  likers?: Array<number>
+}
+
+export type BlogCreateInput = Expand<
+  Omit<BlogBase, 'translationStatus' | 'likes' | 'views'> &
+    Omit<BlogRelationInput, 'likers'>
+>
+export type BlogUpdateInput = Expand<
+  Partial<Omit<BlogBase, 'locale'> & BlogRelationInput>
+>
+
+export type BlogLocalizeInput = Omit<
+  BlogBase,
+  'approvalStatus' | 'likes' | 'views'
+>
+
+export type Blog = Expand<StrapiBase & BlogBase & BlogRelation>

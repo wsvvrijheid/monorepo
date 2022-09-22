@@ -1,25 +1,51 @@
-import { ModelStatus } from './common'
+import { Expand, TranslationStatus } from './common'
 import { UploadFile } from './file'
 import { Hashtag } from './hashtag'
-import { StrapiLocale } from './locale'
-import { StrapiCore } from './strapi'
+import { StrapiBase, StrapiEntityBase } from './strapi'
 import { Tag } from './tag'
-import { Translator } from './translator'
 import { User } from './user'
 
-export type Post = {
-  title: string
-  description: string
-  content: string | null
-  status: ModelStatus
-  capsStatus: ModelStatus
+export type PostBase = Expand<
+  Omit<StrapiEntityBase, 'slug' | 'content'> & {
+    content: string | null
+    capsStatus: TranslationStatus
+    twitterMedia?: string | null
+  }
+>
+
+export type PostRelation = {
   image?: UploadFile
-  twitterMedia?: string | null
   hashtag?: Hashtag
   tags?: Array<Tag>
-  translator?: Translator | null
+  translator?: User | null
   creator?: User | null
   reviewer?: User | null
-  locale: StrapiLocale
   localizations?: Array<Post>
-} & StrapiCore
+}
+
+export type PostRelationInput = {
+  image: Blob
+  hashtag: number
+  tags?: Array<number>
+  translator?: number
+  creator?: number
+  reviewer?: number
+}
+
+export type PostCreateInput = Expand<
+  Omit<PostBase, 'translationStatus' | 'capsStatus'> &
+    Pick<PostRelationInput, 'image' | 'hashtag' | 'tags'>
+>
+
+export type PostUpdateInput = Expand<
+  Partial<
+    Omit<PostBase, 'locale'> & Omit<PostRelationInput, 'translator' | 'creator'>
+  >
+>
+
+export type PostLocalizeInput = Pick<
+  PostBase,
+  'title' | 'description' | 'content' | 'translationStatus'
+>
+
+export type Post = Expand<StrapiBase & PostBase & PostRelation>

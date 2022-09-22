@@ -1,4 +1,5 @@
-import { StrapiCore } from './strapi'
+import { Expand, Localize } from './common'
+import { StrapiBase } from './strapi'
 
 export interface TwitterTrend {
   name: string
@@ -8,8 +9,4 @@ export interface TwitterTrend {
   tweet_volume: number | null
 }
 
-export type Trend = {
-  en: TwitterTrend[] | null
-  nl: TwitterTrend[] | null
-  tr: TwitterTrend[] | null
-} & StrapiCore
+export type Trend = Expand<StrapiBase & Localize<TwitterTrend[] | null>>

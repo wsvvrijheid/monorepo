@@ -1,4 +1,5 @@
 export * from './comment'
+export * from './create'
 export * from './find'
 export * from './getByCategories'
 export * from './getBySlug'

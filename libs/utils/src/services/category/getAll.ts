@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 
 import { request } from '../../lib'
 
-export const getArtCategories = async (locale: StrapiLocale) => {
+export const getApprovedArtCategories = async (locale: StrapiLocale) => {
   const response = await request<Category[]>({
     url: 'api/categories',
     pageSize: 100,
@@ -14,7 +14,7 @@ export const getArtCategories = async (locale: StrapiLocale) => {
         locale: {
           $eq: locale,
         },
-        status: {
+        approvalStatus: {
           $eq: 'approved',
         },
       },
@@ -24,11 +24,32 @@ export const getArtCategories = async (locale: StrapiLocale) => {
   return response?.data
 }
 
+export const getArtCategories = async (locale: StrapiLocale) => {
+  const response = await request<Category[]>({
+    url: 'api/categories',
+    pageSize: 100,
+    locale,
+  })
+
+  return response?.data
+}
+
+export const useGetApprovedArtCategories = () => {
+  const { locale } = useRouter()
+
+  return useQuery({
+    queryKey: ['approved-art-categories', locale],
+    queryFn: () => getApprovedArtCategories(locale as StrapiLocale),
+    keepPreviousData: true,
+  })
+}
+
 export const useGetArtCategories = () => {
   const { locale } = useRouter()
 
   return useQuery({
     queryKey: ['art-categories', locale],
     queryFn: () => getArtCategories(locale as StrapiLocale),
+    keepPreviousData: true,
   })
 }

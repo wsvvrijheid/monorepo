@@ -1,16 +1,17 @@
 import { useTimeout } from '@chakra-ui/react'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { Blog } from '@wsvvrijheid/types'
+import { Blog, BlogUpdateInput } from '@wsvvrijheid/types'
 import { useRouter } from 'next/router'
 import { useLocalStorage } from 'react-use'
 
-import { mutation } from '../../lib'
+import { updateMutation } from '../../lib'
 import { useGetBlog } from './getBySlug'
 
-export const viewBlog = async (blog: Blog) =>
-  mutation<Blog>().put('api/blogs', blog.id, {
-    data: { views: (blog.views || 0) + 1 },
-  })
+export const viewBlog = async (blog: Blog) => {
+  const body = { views: (blog.views || 0) + 1 }
+
+  return updateMutation<Blog, BlogUpdateInput>('api/blogs', blog.id, body)
+}
 
 export const useViewBlog = async () => {
   const queryClient = useQueryClient()

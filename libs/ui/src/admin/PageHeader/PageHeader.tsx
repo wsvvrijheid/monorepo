@@ -1,20 +1,17 @@
-import { FC, ReactNode, useState } from 'react'
+import { FC, ReactNode } from 'react'
 
 import {
   HStack,
   IconButton,
-  Input,
-  InputGroup,
-  InputLeftElement,
-  InputRightElement,
   Menu,
   MenuButton,
   MenuList,
 } from '@chakra-ui/react'
 import { StrapiLocale } from '@wsvvrijheid/types'
-import { HiOutlineFilter, HiOutlineSearch } from 'react-icons/hi'
+import { HiOutlineFilter } from 'react-icons/hi'
 import { VscListFilter } from 'react-icons/vsc'
 
+import { SearchForm } from '../../components'
 import { LanguageSwitcher } from '../LanguageSwitcher'
 
 export type PageHeaderProps = {
@@ -22,7 +19,7 @@ export type PageHeaderProps = {
   filterMenu?: ReactNode
   sortMenu?: ReactNode
   onLanguageSwitch?: (slug: StrapiLocale) => void
-  onSearch: (value: string) => void
+  onSearch: (value: string | null) => void
 }
 
 export const PageHeader: FC<PageHeaderProps> = ({
@@ -32,37 +29,14 @@ export const PageHeader: FC<PageHeaderProps> = ({
   onLanguageSwitch,
   onSearch,
 }) => {
-  const [search, setSearch] = useState('')
-
   return (
     <HStack align="center" bg="white" px={4} py={2}>
-      {onSearch && (
-        <InputGroup role="group" size="lg">
-          <InputLeftElement>
-            <HiOutlineSearch />
-          </InputLeftElement>
-          <Input
-            variant="flushed"
-            placeholder={'Search'}
-            w="full"
-            value={search}
-            onChange={e => setSearch(e.target?.value)}
-            onKeyDown={e =>
-              e.key === 'Enter' && search.length > 2 ? onSearch(search) : null
-            }
-          />
-
-          <InputRightElement>
-            <IconButton
-              aria-label="Search"
-              onClick={() => onSearch(search)}
-              icon={<HiOutlineSearch />}
-              display={search.length > 2 ? 'flex' : 'none'}
-              colorScheme="primary"
-              size="sm"
-            />
-          </InputRightElement>
-        </InputGroup>
+      {typeof onSearch === 'function' && (
+        <SearchForm
+          onSearch={onSearch}
+          variant="flushed"
+          placeholder="Search by art title or artist name"
+        />
       )}
       {/* TODO locale switcher */}
       {defaultLocale && onLanguageSwitch && (

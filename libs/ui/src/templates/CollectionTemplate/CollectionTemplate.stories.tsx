@@ -1,10 +1,11 @@
 import { Meta, Story } from '@storybook/react'
 import { COLLECTION_MOCKS } from '@wsvvrijheid/mocks'
 
-import { CollectionTemplate, CollectionTempleteProps } from './index'
+import { CollectionTemplate, CollectionTemplateProps } from './index'
 
 export default {
   component: CollectionTemplate,
+  title: 'Templates/CollectionTemplate',
   isLoading: false,
   height: 60,
   width: 80,
@@ -13,9 +14,9 @@ export default {
   argTypes: {
     locale: { control: { type: 'radio', options: ['en', 'nl', 'tr'] } },
   },
-} as Meta<CollectionTempleteProps>
+} as Meta<CollectionTemplateProps>
 
-const Template: Story<CollectionTempleteProps> = args => (
+const Template: Story<CollectionTemplateProps> = args => (
   <CollectionTemplate {...args} />
 )
 

@@ -94,7 +94,7 @@ export const CategoryFilter: FC<CategoryFilterProps> = ({
           key={category.id}
           {...getCheckboxProps({
             id: category.id,
-            value: category.code,
+            value: category.slug,
             name: category[`name_${locale}`],
           })}
         />

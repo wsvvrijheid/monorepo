@@ -5,32 +5,30 @@ import qs from 'qs'
 import { request } from '../../lib'
 
 type GetArts = {
-  categories: string
-  populate: string | string[]
-  page: number
-  pageSize: number
-  searchTerm: string
-  username: string
-  sort: string | string[]
+  categories?: string
+  populate?: string | string[]
+  page?: number
+  pageSize?: number
+  searchTerm?: string
+  username?: string
+  sort?: string | string[]
   locale: StrapiLocale
 }
 
 export const getArts = async ({
   categories,
-  populate = ['artist.user.avatar', 'categories', 'images', 'likers'],
+  populate = ['artist.avatar', 'categories', 'images', 'likers'],
   page = 1,
-  pageSize,
+  pageSize = 12,
   searchTerm,
   username,
-  sort,
+  sort = ['publishedAt:desc'],
   locale,
 }: GetArts) => {
   const userFilter = {
     artist: {
-      user: {
-        username: {
-          $containsi: searchTerm || username,
-        },
+      username: {
+        $containsi: searchTerm || username,
       },
     },
   }
@@ -41,8 +39,12 @@ export const getArts = async ({
     },
   }
 
+  // By default we only show approved arts in the club page
+  // But in Admin project, editors should be able to see also
+  // pending and rejected arts
+  // TODO: Allow user to filter by approvalStatus (see: ApprovalStatus)
   const statusFilter = {
-    status: {
+    approvalStatus: {
       $eq: 'approved',
     },
   }
@@ -53,12 +55,17 @@ export const getArts = async ({
         $or: [userFilter, titleFilter],
       }
 
-  const categoryObj = qs.parse(categories)
-
   const filters: { [key: string]: unknown } = {
     ...(searchFilter || {}),
-    categories: { code: { $in: Object.values(categoryObj) } },
     ...(statusFilter || {}),
+  }
+
+  if (categories) {
+    filters['categories'] = {
+      slug: {
+        $in: Object.values(qs.parse(categories)),
+      },
+    }
   }
   return request<Art[]>({
     url: 'api/arts',
@@ -71,20 +78,9 @@ export const getArts = async ({
   })
 }
 
-export const useArts = (
-  queryKey: QueryKey,
-  args: {
-    categories: string
-    populate: Array<string>
-    page: number
-    pageSize: number
-    searchTerm: string
-    username: string
-    sort: Array<string>
-    locale: StrapiLocale
-  },
-) =>
+export const useArts = (queryKey: QueryKey, args: GetArts) =>
   useQuery({
     queryKey,
     queryFn: () => getArts(args),
+    keepPreviousData: true,
   })

@@ -1,24 +1,23 @@
+import { UnionToIntersection } from 'type-fest'
+
 import { Activity } from './activity'
 import { Announcement } from './announcement'
 import { Applicant } from './applicant'
 import { Application } from './application'
 import { Art } from './art'
-import { ArtEditor } from './art-editor'
-import { ArtFeedback } from './art-feedback'
-import { Artist } from './artist'
-import { Author } from './author'
 import { Blog } from './blog'
 import { Category } from './category'
 import { Collection } from './collection'
 import { Comment } from './comment'
+import { Expand, TranslationStatus } from './common'
 import { Competition } from './competition'
 import { Donate } from './donate'
+import { Feedback } from './feedback'
 import { UploadFile } from './file'
 import { Hashtag } from './hashtag'
 import { Job } from './job'
-import { Jury } from './jury'
-import { JuryVote } from './jury-vote'
 import { LangRole } from './lang-role'
+import { StrapiLocale } from './locale'
 import { Me } from './me'
 import { Mention } from './mention'
 import { Platform } from './platform'
@@ -28,7 +27,6 @@ import { RecommendedTopic } from './recommended-topic'
 import { RecommendedTweet } from './recommended-tweet'
 import { Tag } from './tag'
 import { Term } from './term'
-import { Translator } from './translator'
 import { Trend } from './trend'
 import { User } from './user'
 import { Volunteer } from './volunteer'
@@ -36,11 +34,20 @@ import { Vote } from './vote'
 
 export type PublicationState = 'LIVE' | 'PREVIEW'
 
-export type StrapiCore = {
+export type StrapiBase = {
   id: number
   createdAt: string
   updatedAt: string | null
   publishedAt: string | null
+}
+
+export type StrapiEntityBase = {
+  title: string
+  slug: string
+  description: string
+  content: string
+  translationStatus: TranslationStatus
+  locale: StrapiLocale
 }
 
 export type StrapiModel =
@@ -48,73 +55,33 @@ export type StrapiModel =
   | Announcement
   | Applicant
   | Application
-  | ArtEditor
-  | ArtFeedback
   | Art
-  | Artist
-  | Author
   | Blog
   | Category
   | Collection
   | Comment
   | Competition
   | Donate
-  | UploadFile
+  | Feedback
   | Hashtag
   | Job
-  | JuryVote
-  | Jury
   | LangRole
   | Me
   | Mention
+  | Platform
   | Post
   | Privacy
-  | Platform
   | RecommendedTopic
   | RecommendedTweet
   | Tag
   | Term
-  | Translator
   | Trend
+  | UploadFile
   | User
   | Volunteer
   | Vote
 
-export type StrapiAllModels = Activity &
-  Announcement &
-  Applicant &
-  Application &
-  ArtEditor &
-  ArtFeedback &
-  Art &
-  Artist &
-  Author &
-  Blog &
-  Category &
-  Collection &
-  Comment &
-  Competition &
-  Donate &
-  UploadFile &
-  Hashtag &
-  Job &
-  JuryVote &
-  Jury &
-  LangRole &
-  Me &
-  Mention &
-  Post &
-  Privacy &
-  Platform &
-  RecommendedTopic &
-  RecommendedTweet &
-  Tag &
-  Term &
-  Translator &
-  Trend &
-  User &
-  Volunteer &
-  Vote
+export type StrapiAllModels = Expand<UnionToIntersection<StrapiModel>>
 
 export type StrapiModelKeys = keyof StrapiAllModels
 
@@ -155,6 +122,7 @@ export type StrapiMutationResponse<T extends StrapiModel> = {
   meta: Record<string, unknown>
 }
 
+export type StrapiEmailUrl = 'email'
 export type StrapiProviders = 'instagram' | 'facebook' | 'google' | 'twitter'
 export type StrapiSingleUrl = 'term' | 'privacy' | 'trend'
 export type StrapiAuthUrl =
@@ -165,21 +133,16 @@ export type StrapiCollectionUrl =
   | 'activities'
   | 'announcements'
   | 'applicants'
-  | 'art-editors'
-  | 'art-feedbacks'
   | 'arts'
-  | 'artists'
-  | 'authors'
   | 'blogs'
   | 'categories'
   | 'collections'
   | 'comments'
   | 'competitions'
   | 'donates'
+  | 'feedbacks'
   | 'hashtags'
   | 'jobs'
-  | 'jury-votes'
-  | 'juries'
   | 'lang-roles'
   | 'me'
   | 'mentions'
@@ -191,7 +154,6 @@ export type StrapiCollectionUrl =
   | 'saved-tweets'
   | 'tags'
   | 'timelines'
-  | 'translators'
   | 'tweet-users'
   | 'tweets'
   | 'users'
@@ -199,4 +161,21 @@ export type StrapiCollectionUrl =
   | 'volunteers'
   | 'votes'
 
-export type StrapiUrl = StrapiSingleUrl | StrapiCollectionUrl | StrapiAuthUrl
+export type StrapiUrl = Expand<`api/${
+  | StrapiSingleUrl
+  | StrapiCollectionUrl
+  | StrapiAuthUrl
+  | StrapiEmailUrl}`>
+
+export type StrapiFormValue =
+  | string
+  | number
+  | boolean
+  | Date
+  | string[]
+  | number[]
+  | Blob
+  | Blob[]
+  | null
+
+export type StrapiMutationInput = { [key in string]?: StrapiFormValue }

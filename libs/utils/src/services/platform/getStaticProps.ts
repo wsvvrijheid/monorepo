@@ -8,9 +8,9 @@ export const getPlatformStaticProps = async (
   context: GetStaticPropsContext,
 ) => {
   const locale = context.locale as StrapiLocale
-  const code = context.params?.['code'] as string
+  const slug = context.params?.['slug'] as string
 
-  const platform = await getPlatformBySlug(code)
+  const platform = await getPlatformBySlug(slug)
 
   if (!platform) return { notFound: true }
 

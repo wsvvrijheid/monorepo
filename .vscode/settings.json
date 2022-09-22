@@ -1,6 +1,14 @@
 {
-  "editor.formatOnSave": true,
+  "editor.formatOnSave": false,
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
-  }
+  },
+  "cSpell.words": [
+    "Kulübü",
+    "Kunst",
+    "Sanat",
+    "Strapi",
+    "tanstack",
+    "wsvvrijheid"
+  ],
 }

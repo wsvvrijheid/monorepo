@@ -1,24 +1,44 @@
 import { Applicant } from './applicant'
-import { ModelStatus } from './common'
+import { ApprovalStatus, Expand } from './common'
 import { Competition } from './competition'
 import { UploadFile } from './file'
-import { JuryVote } from './jury-vote'
-import { StrapiLocale } from './locale'
-import { StrapiCore } from './strapi'
+import { StrapiBase, StrapiEntityBase } from './strapi'
 import { Tag } from './tag'
 import { Vote } from './vote'
 
-export type Application = {
-  title: string
-  slug: string
-  content: string
-  status: ModelStatus
-  image?: UploadFile
+export type ApplicationBase = Expand<
+  Omit<StrapiEntityBase, 'description'> & {
+    approvalStatus: ApprovalStatus
+  }
+>
+
+type ApplicationRelation = {
+  images?: UploadFile[]
   competition?: Competition
   applicant?: Applicant
   votes?: Array<Vote>
-  juryVotes?: Array<JuryVote>
   tags?: Array<Tag>
-  locale: StrapiLocale
   localizations?: Array<Application>
-} & StrapiCore
+}
+
+type ApplicationRelationInput = {
+  images: Array<Blob>
+  competition: number
+  applicant: number
+  votes?: Array<number>
+  juryVotes?: Array<number>
+  tags?: Array<number>
+}
+
+export type ApplicationCreateInput = Expand<
+  Omit<ApplicationBase, 'translationStatus' | 'approvalStatus'> &
+    Omit<ApplicationRelationInput, 'votes' | 'juryVotes'>
+>
+
+export type ApplicationUpdateInput = Expand<
+  Partial<Omit<ApplicationBase, 'locale'> & ApplicationRelationInput>
+>
+
+export type Application = Expand<
+  StrapiBase & ApplicationBase & ApplicationRelation
+>

@@ -1,20 +1,39 @@
 import { Category } from './category'
-import { ModelStatus } from './common'
+import { Expand } from './common'
 import { UploadFile } from './file'
-import { StrapiLocale } from './locale'
-import { StrapiCore } from './strapi'
+import { StrapiBase, StrapiEntityBase } from './strapi'
 import { Tag } from './tag'
 
-export type Announcement = {
-  title: string
-  slug: string
-  description: string
-  content: string
-  status: ModelStatus
-  image?: UploadFile
-  date: string
+type AnnouncementBase = Expand<
+  StrapiEntityBase & {
+    date: string
+  }
+>
+
+type AnnouncementRelation = {
   categories?: Array<Category>
   tags?: Array<Tag>
-  locale: StrapiLocale
+  image?: UploadFile
   localizations?: Array<Announcement>
-} & StrapiCore
+}
+
+type AnnouncementRelationInput = {
+  categories?: Array<number>
+  tags?: Array<number>
+  image: Blob
+}
+
+export type AnnouncementCreateInput = Expand<
+  Omit<AnnouncementBase, 'translationStatus'> & AnnouncementRelationInput
+>
+export type AnnouncementUpdateInput = Expand<
+  Partial<Omit<AnnouncementBase, 'locale'> & AnnouncementRelationInput>
+>
+export type AnnouncementLocalizeInput = Pick<
+  AnnouncementBase,
+  'title' | 'description' | 'content'
+>
+
+export type Announcement = Expand<
+  StrapiBase & AnnouncementBase & AnnouncementRelation
+>

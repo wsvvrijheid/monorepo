@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 
 import {
   Avatar,
@@ -15,31 +15,46 @@ import { API_URL } from '@wsvvrijheid/config'
 import { AiFillHeart } from 'react-icons/ai'
 import { FaExternalLinkSquareAlt } from 'react-icons/fa'
 
+import { ArtModal } from '../ArtModal'
 import { Navigate } from '../Navigate'
 import { ArtCardActions } from './ArtCardActions'
 import { ArtCardAlertDialog } from './ArtCardAlertDialog'
 import { ArtCardImage } from './ArtCardImage'
-import { ArtActionType, ArtCardProps } from './types'
+import { ArtActionType, ArtCardBaseProps } from './types'
 
-export const ArtCardBase: FC<ArtCardProps> = ({
+export const ArtCardBase: FC<ArtCardBaseProps> = ({
+  auth,
   art,
   isMasonry,
   toggleLike,
   isLiked,
   actions,
   isOwner,
+  isModal = false,
 }) => {
+  const {
+    isOpen: artModalIsOpen,
+    onOpen: artModalOnOpen,
+    onClose: artModalOnClose,
+  } = useDisclosure()
+
   const [actionType, setActionType] = useState<ArtActionType>()
+  const [hover, setHover] = useState({ color: 'gray.100' })
+  const [color, setColor] = useState('white')
+
+  useEffect(() => {
+    setHover({ color: isLiked ? 'red.200' : 'gray.100' })
+    setColor(isLiked ? 'red.400' : 'white')
+  }, [isLiked])
 
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   const noOfLines = useBreakpointValue({ base: undefined, lg: 2 })
 
   const artistName = art.artist?.name
-  const artistUsername = art.artist?.user?.username
+  const artistUsername = art.artist?.username
   const artistAvatar =
-    art.artist?.user?.avatar?.formats?.thumbnail?.url ||
-    art.artist?.user?.avatar?.url
+    art.artist?.avatar?.formats?.thumbnail?.url || art.artist?.avatar?.url
 
   const onHandleAction = (type: ArtActionType) => {
     setActionType(type)
@@ -104,11 +119,11 @@ export const ArtCardBase: FC<ArtCardProps> = ({
               {(art?.likes || 0) + (art.likers?.length || 0)}
             </Text>
             <IconButton
-              _hover={{ color: isLiked ? 'red.200' : 'gray.100' }}
+              _hover={hover}
               aria-label="like post"
               borderColor="whiteAlpha.500"
               borderWidth={1}
-              color={isLiked ? 'red.400' : 'white'}
+              color={color}
               colorScheme="blackAlpha"
               disabled={isOwner}
               icon={<AiFillHeart />}
@@ -116,18 +131,20 @@ export const ArtCardBase: FC<ArtCardProps> = ({
               rounded="full"
             />
           </HStack>
-          <Navigate href={`/club/art/${art.slug}`}>
-            <IconButton
-              _hover={{ bg: 'blue.400' }}
-              aria-label="view art"
-              borderColor="whiteAlpha.500"
-              borderWidth={1}
-              color="white"
-              colorScheme="blackAlpha"
-              icon={<FaExternalLinkSquareAlt />}
-              rounded="full"
-            />
-          </Navigate>
+          <Navigate
+            as={IconButton}
+            _hover={{ bg: 'blue.400' }}
+            aria-label="view art"
+            borderColor="whiteAlpha.500"
+            borderWidth={1}
+            color="white"
+            colorScheme="blackAlpha"
+            icon={<FaExternalLinkSquareAlt />}
+            rounded="full"
+            {...(isModal
+              ? { onClick: artModalOnOpen }
+              : { href: `/club/art/${art.slug}` })}
+          />
           {/* Card Owner Actions */}
           {isOwner && (
             <ArtCardActions
@@ -165,7 +182,7 @@ export const ArtCardBase: FC<ArtCardProps> = ({
             >
               {art.title}
             </Text>
-            <Navigate href={`/club/artist/${artistUsername}`}>
+            <Navigate href={`/club/artist/${art.artist?.username}`}>
               <HStack
                 _hover={{ bg: 'whiteAlpha.300', borderColor: 'whiteAlpha.500' }}
                 borderColor="transparent"
@@ -184,6 +201,12 @@ export const ArtCardBase: FC<ArtCardProps> = ({
               </HStack>
             </Navigate>
           </Stack>
+          <ArtModal
+            auth={auth}
+            art={art}
+            isOpen={artModalIsOpen}
+            onClose={artModalOnClose}
+          />
         </HStack>
       </Box>
     </>

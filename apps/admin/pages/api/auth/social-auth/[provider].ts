@@ -1,10 +1,5 @@
 import { AuthResponse } from '@wsvvrijheid/types'
-import {
-  fetcher,
-  mutation,
-  sessionOptions,
-  getSessionUser,
-} from '@wsvvrijheid/utils'
+import { fetcher, sessionOptions, getSessionUser } from '@wsvvrijheid/utils'
 import { withIronSessionApiRoute } from 'iron-session/next'
 import { NextApiResponse, NextApiRequest } from 'next'
 
@@ -23,7 +18,6 @@ const route = async (req: NextApiRequest, res: NextApiResponse) => {
       ).get<AuthResponse>(url)
 
       const token = socialLoginResponse.data.jwt
-      const userId = socialLoginResponse.data.user?.id
 
       if (!token) {
         return res.json({
@@ -34,15 +28,6 @@ const route = async (req: NextApiRequest, res: NextApiResponse) => {
       }
 
       const sessionUser = await getSessionUser(token)
-
-      if (!sessionUser.artistId) {
-        await mutation(token).post('api/artists', {
-          data: {
-            user: userId,
-            name: socialLoginResponse.data.user?.username,
-          },
-        })
-      }
 
       const auth = { user: sessionUser, token, isLoggedIn: true }
       req.session = { ...auth, ...req.session }

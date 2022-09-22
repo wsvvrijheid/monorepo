@@ -2,16 +2,20 @@ import { Activity } from './activity'
 import { Announcement } from './announcement'
 import { Art } from './art'
 import { Blog } from './blog'
+import { Expand } from './common'
 import { Competition } from './competition'
 import { Hashtag } from './hashtag'
 import { Mention } from './mention'
-import { StrapiCore } from './strapi'
+import { StrapiBase } from './strapi'
 
-export type Category = {
-  code: string
+type CategoryBase = {
+  slug: string
   name_en: string
   name_nl: string
   name_tr: string
+}
+
+type CategoryRelation = {
   activities?: Array<Activity>
   announcements?: Array<Announcement>
   arts?: Array<Art>
@@ -19,4 +23,18 @@ export type Category = {
   competitions?: Array<Competition>
   hashtags?: Array<Hashtag>
   mentions?: Array<Mention>
-} & StrapiCore
+}
+
+type CategoryRelationInput = {
+  activities?: Array<number>
+  announcements?: Array<number>
+  arts?: Array<number>
+  blogs?: Array<number>
+  competitions?: Array<number>
+  hashtags?: Array<number>
+  mentions?: Array<number>
+}
+
+export type CategoryCreateInput = Expand<CategoryBase & CategoryRelationInput>
+
+export type Category = Expand<StrapiBase & CategoryBase & CategoryRelation>

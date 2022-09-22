@@ -8,8 +8,9 @@ import {
   InputRightElement,
   useUpdateEffect,
 } from '@chakra-ui/react'
-import { InputProps } from 'chakra-react-select'
-import { FaSearch, FaTimes } from 'react-icons/fa'
+import { InputProps } from '@chakra-ui/react'
+import { FaTimes } from 'react-icons/fa'
+import { HiOutlineSearch } from 'react-icons/hi'
 import { useDebounce } from 'react-use'
 
 /**
@@ -17,9 +18,10 @@ import { useDebounce } from 'react-use'
  */
 export type SearchFormProps = {
   delay?: number
-  onSearch: (value?: string) => void
+  onSearch: (value: string | null) => void
   onReset?: () => void
   mode?: 'change' | 'click'
+  isFetching?: boolean
 } & InputProps
 
 export const SearchForm: React.FC<SearchFormProps> = ({
@@ -28,6 +30,8 @@ export const SearchForm: React.FC<SearchFormProps> = ({
   onSearch,
   onReset,
   mode = 'change',
+  isFetching,
+  ...rest
 }) => {
   const [searchTerm, setSearchTerm] = useState('')
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('')
@@ -43,29 +47,32 @@ export const SearchForm: React.FC<SearchFormProps> = ({
   // `useUpdateEffect` is used here because we don't need to call `onSearch` at the first render
   // We call `onSearch` only if  mode is `change` and the debouncedSearchTerm's lenght is greater than 2
   useUpdateEffect(() => {
-    if (mode === 'change' && debouncedSearchTerm.length > 2)
+    if (mode === 'change' && debouncedSearchTerm.length > 2) {
       onSearch?.(debouncedSearchTerm)
-  }, [debouncedSearchTerm, onSearch])
-
-  // `useUpdateEffect` is used here because we don't need to call `onSearch` at the first render
-  useUpdateEffect(() => {
-    // In any case user clears the search term, we call `onSearch` with an empty string
-    if (searchTerm === '') onSearch?.()
-  }, [searchTerm, onReset])
+    }
+    if (debouncedSearchTerm === '') {
+      onSearch?.(null)
+    }
+  }, [debouncedSearchTerm, onSearch, onReset])
 
   return (
     <InputGroup size="lg" flex="1">
-      <InputLeftElement pointerEvents="none">
-        {<FaSearch color="gray.400" />}
+      <InputLeftElement pointerEvents="none" color="gray.400">
+        <HiOutlineSearch />
       </InputLeftElement>
       <Input
         placeholder={placeholder}
         value={searchTerm}
         onChange={e => setSearchTerm(e.target.value)}
+        onKeyDown={e =>
+          e.key === 'Enter' && setSearchTerm((e.target as any).value)
+        }
+        {...rest}
       />
       <InputRightElement w="max-content" right={1}>
         {searchTerm.length > 1 && (
           <IconButton
+            isLoading={isFetching}
             variant="ghost"
             icon={<FaTimes color="gray.400" />}
             onClick={() => setSearchTerm('')}
@@ -76,7 +83,7 @@ export const SearchForm: React.FC<SearchFormProps> = ({
           <IconButton
             colorScheme="primary"
             onClick={() => onSearch(searchTerm)}
-            icon={<FaSearch />}
+            icon={<HiOutlineSearch />}
             aria-label="Search"
           />
         )}

@@ -1,5 +1,6 @@
 import {
   StrapiLocale,
+  StrapiMeta,
   StrapiModel,
   StrapiResponse,
   StrapiUrl,
@@ -10,7 +11,7 @@ import qs from 'qs'
 import { fetcher } from './fetcher'
 
 type Request = {
-  url: `api/${StrapiUrl}`
+  url: StrapiUrl
   id?: number
   token?: string
   locale?: StrapiLocale
@@ -33,7 +34,7 @@ export const request = async <T extends StrapiModel | StrapiModel[]>({
   page = 1,
   pageSize = 25,
   publicationState = 'live',
-}: Request) => {
+}: Request): Promise<{ data: T | null; meta: StrapiMeta | null }> => {
   const query = qs.stringify(
     {
       publicationState,
@@ -59,7 +60,7 @@ export const request = async <T extends StrapiModel | StrapiModel[]>({
     >
 
     if (!response.data || (response.data && !response.data.data)) {
-      return { data: response.data as unknown as T, meta: {} }
+      return { data: response.data as unknown as T, meta: null }
     }
 
     return response.data
@@ -70,6 +71,6 @@ export const request = async <T extends StrapiModel | StrapiModel[]>({
     } else {
       console.error('Request error', error.message)
     }
-    return { data: null, meta: {} }
+    return { data: null, meta: null }
   }
 }

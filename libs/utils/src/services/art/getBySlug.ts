@@ -9,7 +9,7 @@ export const getArtBySlug = async (locale: StrapiLocale, slug: string) => {
     url: 'api/arts',
     filters: { slug: { $eq: slug } },
     populate: [
-      'artist.user.avatar',
+      'artist.avatar',
       'categories',
       'images',
       'localizations',
@@ -22,11 +22,12 @@ export const getArtBySlug = async (locale: StrapiLocale, slug: string) => {
   return response?.data?.[0] || null
 }
 
-export const useArtBySlug = () => {
-  const {
-    locale,
-    query: { slug },
-  } = useRouter()
+export const useArtBySlug = (slug?: string) => {
+  const router = useRouter()
+  const locale = router.locale
+  if (!slug) {
+    slug = router.query['slug'] as string
+  }
   return useQuery({
     queryKey: ['art', locale, slug],
     queryFn: () => getArtBySlug(locale as StrapiLocale, slug as string),
