@@ -5,13 +5,18 @@ import { AiOutlineEye, AiOutlineLike, AiOutlineShareAlt } from 'react-icons/ai'
 import { BsBookmarkHeart } from 'react-icons/bs'
 
 import { WImage } from '../../components'
-import { ActionButton } from './ActionButton'
-import { NewsCardProps } from './types'
+import { ActionButton } from './index'
+import { NewsCardBaseProps } from './index'
 
-export const NewsCardBase: FC<NewsCardProps> = ({
+export const NewsCardBase: FC<NewsCardBaseProps> = ({
   hideDescription,
   news,
   variant = 'vertical',
+  onBookmark,
+  onRecommend,
+  onShare,
+  onView,
+  isBookmarked,
 }) => {
   const isVertical = useBreakpointValue({
     base: true,
@@ -65,26 +70,26 @@ export const NewsCardBase: FC<NewsCardProps> = ({
             size={isVertical ? 'md' : 'sm'}
           >
             <ActionButton
-              onClick={() => alert(news.url)}
+              onClick={() => onView(news.url)}
               icon={<AiOutlineEye />}
               title="View"
               isVertical={isVertical}
             />
             <ActionButton
-              onClick={() => alert('Recommend')}
+              onClick={() => onRecommend()}
               icon={<AiOutlineLike />}
               title="Recommend"
               isVertical={isVertical}
             />
             <ActionButton
-              onClick={() => alert('Share')}
+              onClick={() => onShare(news.id)}
               icon={<AiOutlineShareAlt />}
               title="Share"
               isVertical={isVertical}
             />
             <ActionButton
-              onClick={() => alert('Read Later')}
-              icon={<BsBookmarkHeart />}
+              onClick={() => onBookmark(news.id)}
+              icon={<BsBookmarkHeart color={isBookmarked ? 'red' : ''} />}
               title="Read Later"
               isVertical={isVertical}
             />

@@ -3,11 +3,11 @@ import { ComponentMeta, ComponentStory } from '@storybook/react'
 import { TWEET_MOCKS } from '@wsvvrijheid/mocks'
 
 import { Container } from '../../components'
-import { TweetCardBase } from './TweetCardBase'
+import { TweetCardBase } from './index'
 
 export default {
   component: TweetCardBase,
-  title: 'Admin/TweetCard',
+  title: `Admin/TweetCard`,
   decorators: [
     Story => (
       <Container maxW="container.sm">
