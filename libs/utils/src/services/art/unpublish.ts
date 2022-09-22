@@ -31,7 +31,6 @@ export const useUnpublishArt = (queryKey?: QueryKey) => {
     },
     onSuccess: res => {
       // TODO Add translations
-      console.log('unpublish response |||||||||||||||||||||', res)
       queryClient.invalidateQueries(queryKey)
       toast({
         title: 'Art Unpublished',

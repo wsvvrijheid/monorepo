@@ -69,7 +69,6 @@ export const ArtApprovalModal: FC<ArtApprovalTypes> = ({
 
   //update field
   const handleUpdate = (data: string) => {
-    console.log('handleUpdate', data)
     if (data === 'description') {
       setIsEditingDesciption(true)
     } else if (data === 'content') {

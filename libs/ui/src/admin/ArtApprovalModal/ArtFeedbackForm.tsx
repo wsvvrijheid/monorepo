@@ -59,7 +59,6 @@ export const ArtFeedbackForm: FC<ArtFeedbackFormTypes> = ({
   const handleUnPublish = () => {
     unPublish(artId)
   }
-  console.log('published status >>>>>>>>>', publishedAt)
   return (
     <Stack w={'full'} spacing={{ base: 2, lg: 4 }}>
       <Text color={'black'} fontWeight={'bold'}>

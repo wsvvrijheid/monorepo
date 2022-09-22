@@ -20,7 +20,6 @@ export const useUpdateArtMutation = (queryKey?: QueryKey) => {
       updateField({ id, ...args }),
     onSuccess: (res: Art) => {
       queryClient.invalidateQueries(queryKey)
-      console.log('res on Success', res)
       toast({
         title: `Art updated`,
         description: `Art ${res.title} has been updated`,

@@ -96,7 +96,6 @@ export const ArtsTable: FC<ArtsTableProps> = ({
       [updateValue]: data,
     })
   }
-  console.log('whole arts', arts)
   return (
     <>
       {selectedArt && user && (
