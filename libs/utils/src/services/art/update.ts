@@ -28,10 +28,11 @@ export const useUpdateArtMutation = (queryKey?: QueryKey) => {
         isClosable: true,
       })
     },
-    onError: er => {
+    onError: error => {
+      console.error(error)
       toast({
         title: 'Error',
-        description: `${er}`,
+        description: `Something went wrong`,
         status: 'error',
         duration: 5000,
         isClosable: true,

@@ -23,12 +23,14 @@ type CompetitionRelationInput = {
 }
 
 export type CompetitionCreateInput = Expand<
-  Omit<CompetitionBase, 'translationStatus'> &
+  { publishedAt?: string | null } & Omit<CompetitionBase, 'translationStatus'> &
     Omit<CompetitionRelationInput, 'applications'>
 >
 
 export type CompetitionUpdateInput = Expand<
-  Partial<Omit<CompetitionBase, 'locale'> & CompetitionRelationInput>
+  { publishedAt?: string | null } & Partial<
+    Omit<CompetitionBase, 'locale'> & CompetitionRelationInput
+  >
 >
 
 export type Competition = StrapiBase & CompetitionBase & CompetitionRelation

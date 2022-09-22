@@ -24,10 +24,12 @@ type ActivityRelationInput = {
 }
 
 export type ActivityCreateInput = Expand<
-  Omit<ActivityBase, 'translationStatus'> & ActivityRelationInput
+  { publishedAt?: string | null } & Omit<ActivityBase, 'translationStatus'> &
+    ActivityRelationInput
 >
 export type ActivityUpdateInput = Expand<
-  Partial<Omit<ActivityBase, 'locale'>> & ActivityRelationInput
+  { publishedAt?: string | null } & Partial<Omit<ActivityBase, 'locale'>> &
+    ActivityRelationInput
 >
 export type ActivityLocalizeInput = Pick<
   ActivityBase,

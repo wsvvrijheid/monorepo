@@ -1,24 +1,28 @@
 import { useToast } from '@chakra-ui/react'
 import { useMutation, useQueryClient, QueryKey } from '@tanstack/react-query'
-import { Art } from '@wsvvrijheid/types'
+import { StrapiModel, StrapiUrl } from '@wsvvrijheid/types'
 
-import { updateMutation } from '../../lib'
-type publishMutation = {
-  id: number
-}
-export const publishArt = ({ id }: { id: number }) => {
+import { updateMutation } from '../lib'
+
+export const publishModel = <T extends StrapiModel>(
+  id: number,
+  url: StrapiUrl,
+) => {
   const body = { publishedAt: new Date() }
 
-  return updateMutation<Art, typeof body>('api/arts', id, body)
+  return updateMutation<T, typeof body>(url, id, body)
 }
 
-export const usePublishArt = (queryKey?: QueryKey) => {
+export const usePublishModel = <T extends StrapiModel>(
+  url: StrapiUrl,
+  queryKey?: QueryKey,
+) => {
   const queryClient = useQueryClient()
   const toast = useToast()
 
   return useMutation({
-    mutationKey: ['publish-art'],
-    mutationFn: ({ id }: publishMutation) => publishArt({ id }),
+    mutationKey: [`publish-${url}`],
+    mutationFn: ({ id }: { id: number }) => publishModel<T>(id, url),
     onSettled: () => {
       // It's difficult to invalidate cache for paginated or filtering queries
       // Cache invalidation strategy might differ depending on where the mutation is called
@@ -33,8 +37,7 @@ export const usePublishArt = (queryKey?: QueryKey) => {
       // TODO Add translations
       queryClient.invalidateQueries(queryKey)
       toast({
-        title: 'Art Published',
-        description: 'Art has been published',
+        title: `Successfully Published`,
         status: 'success',
         duration: 5000,
         isClosable: true,

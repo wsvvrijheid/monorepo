@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react'
+import { FC, useState } from 'react'
 
 import {
   Avatar,
@@ -38,27 +38,13 @@ export const ArtFeedbackForm: FC<ArtFeedbackFormTypes> = ({
   artPublishedAt,
 }) => {
   const [feedback, setFeedback] = useState('')
-  const [publishedAt, setPublishedAt] = useState(artPublishedAt)
-  //update publishedAt
-  useEffect(() => {
-    setPublishedAt(artPublishedAt)
-  }, [artPublishedAt])
-  const handleReject = () => {
-    onReject(artId, editorId, feedback)
-  }
 
-  const handleApprove = () => {
-    onApprove(artId, editorId, feedback)
-  }
-  const handleDelete = () => {
-    onDelete(artId)
-  }
-  const handlePublish = () => {
-    onPublish(artId)
-  }
-  const handleUnPublish = () => {
-    unPublish(artId)
-  }
+  const handleReject = () => onReject(artId, editorId, feedback)
+  const handleApprove = () => onApprove(artId, editorId, feedback)
+  const handleDelete = () => onDelete(artId)
+  const handlePublish = () => onPublish(artId)
+  const handleUnPublish = () => unPublish(artId)
+
   return (
     <Stack w={'full'} spacing={{ base: 2, lg: 4 }}>
       <Text color={'black'} fontWeight={'bold'}>
@@ -129,30 +115,22 @@ export const ArtFeedbackForm: FC<ArtFeedbackFormTypes> = ({
                 >
                   Edit Content
                 </MenuItem>
-                {artApprovalStatus === 'approved' ? (
-                  publishedAt ? (
-                    <MenuItem
-                      as={Button}
-                      onClick={handleUnPublish}
-                      variant="ghost"
-                      colorScheme="primary"
-                      icon={<MdOutlineUnpublished />}
-                    >
-                      Unpublish
-                    </MenuItem>
-                  ) : (
-                    <MenuItem
-                      as={Button}
-                      onClick={handlePublish}
-                      variant="ghost"
-                      colorScheme="primary"
-                      icon={<MdOutlinePublish />}
-                    >
-                      Publish
-                    </MenuItem>
-                  )
-                ) : (
-                  ''
+                {artApprovalStatus === 'approved' && (
+                  <MenuItem
+                    as={Button}
+                    onClick={artPublishedAt ? handleUnPublish : handlePublish}
+                    variant="ghost"
+                    colorScheme="primary"
+                    icon={
+                      artPublishedAt ? (
+                        <MdOutlineUnpublished />
+                      ) : (
+                        <MdOutlinePublish />
+                      )
+                    }
+                  >
+                    {artPublishedAt ? 'Unpublish' : 'Publish'}
+                  </MenuItem>
                 )}
 
                 <MenuItem

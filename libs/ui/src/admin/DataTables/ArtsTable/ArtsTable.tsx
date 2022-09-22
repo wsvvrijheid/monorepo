@@ -6,8 +6,8 @@ import { Art, SessionUser, UploadFile } from '@wsvvrijheid/types'
 import {
   useArtFeedbackMutation,
   useDeleteArt,
-  usePublishArt,
-  useUnpublishArt,
+  usePublishModel,
+  useUnpublishModel,
   useUpdateArtMutation,
 } from '@wsvvrijheid/utils'
 
@@ -35,8 +35,8 @@ export const ArtsTable: FC<ArtsTableProps> = ({
   const feedbackMutation = useArtFeedbackMutation(queryKey)
   const deleteArtMutation = useDeleteArt(queryKey)
   const updateArtMutation = useUpdateArtMutation(queryKey)
-  const publishArtMutation = usePublishArt(queryKey)
-  const unpublishArtMutation = useUnpublishArt(queryKey)
+  const publishArtMutation = usePublishModel('api/arts', queryKey)
+  const unpublishArtMutation = useUnpublishModel('api/arts', queryKey)
   const selectedArt =
     typeof selectedIndex === 'number' ? arts?.[selectedIndex] : null
 
