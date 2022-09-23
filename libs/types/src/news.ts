@@ -1,9 +1,6 @@
-export interface News {
-  id: string
-  title: string
-  description: string
-  image: string
-  date: string
-  url: string
-  owner: string
-}
+import { RecommendedTopic } from './recommended-topic'
+
+export type Topic = Pick<
+  RecommendedTopic,
+  'id' | 'title' | 'description' | 'imageUrl' | 'date' | 'publisher' | 'link'
+>

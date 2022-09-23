@@ -1,17 +1,17 @@
 import { ReactElement } from 'react'
 
 import { ButtonProps } from '@chakra-ui/react'
-import { News } from '@wsvvrijheid/types'
+import { Topic } from '@wsvvrijheid/types'
 
-export type NewsCardBaseProps = {
+export type TopicCardBaseProps = {
   hideDescription?: boolean
-  news: News
+  news: Topic
   variant?: 'horizontal' | 'vertical'
-  isBookmarked: boolean
-  onBookmark: (id: string) => void
-  onShare: (id: string) => void
+  isBookmarked: boolean | undefined
+  onBookmark: () => void
+  onShare: () => void
   onRecommend: () => void
-  onView: (url: string) => void
+  onView: () => void
 }
 
 export type ActionButtonProps = {

@@ -6,9 +6,9 @@ import { BsBookmarkHeart } from 'react-icons/bs'
 
 import { WImage } from '../../components'
 import { ActionButton } from './index'
-import { NewsCardBaseProps } from './index'
+import { TopicCardBaseProps } from './index'
 
-export const NewsCardBase: FC<NewsCardBaseProps> = ({
+export const TopicCardBase: FC<TopicCardBaseProps> = ({
   hideDescription,
   news,
   variant = 'vertical',
@@ -59,7 +59,7 @@ export const NewsCardBase: FC<NewsCardBaseProps> = ({
             color={'primary.500'}
             noOfLines={1}
           >
-            {news.date} - {news.owner}
+            {news.date} - {news.publisher}
           </Text>
 
           <ButtonGroup
@@ -70,7 +70,7 @@ export const NewsCardBase: FC<NewsCardBaseProps> = ({
             size={isVertical ? 'md' : 'sm'}
           >
             <ActionButton
-              onClick={() => onView(news.url)}
+              onClick={() => onView()}
               icon={<AiOutlineEye />}
               title="View"
               isVertical={isVertical}
@@ -82,13 +82,13 @@ export const NewsCardBase: FC<NewsCardBaseProps> = ({
               isVertical={isVertical}
             />
             <ActionButton
-              onClick={() => onShare(news.id)}
+              onClick={() => onShare()}
               icon={<AiOutlineShareAlt />}
               title="Share"
               isVertical={isVertical}
             />
             <ActionButton
-              onClick={() => onBookmark(news.id)}
+              onClick={() => onBookmark()}
               icon={<BsBookmarkHeart color={isBookmarked ? 'red' : ''} />}
               title="Read Later"
               isVertical={isVertical}
@@ -100,7 +100,7 @@ export const NewsCardBase: FC<NewsCardBaseProps> = ({
       <WImage
         w={isVertical ? 'full' : '300px'}
         h={isVertical ? '200px' : 'full'}
-        src={news.image}
+        src={news.imageUrl}
         alt={news.title}
       />
     </Stack>
