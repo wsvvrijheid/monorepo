@@ -23,11 +23,13 @@ type FeedbackRelationInput = {
 }
 
 export type FeedbackArtCreateInput = Expand<
-  FeedbackBase & PickRequired<FeedbackRelationInput, 'editor' | 'art'>
+  { publishedAt?: string | null } & FeedbackBase &
+    PickRequired<FeedbackRelationInput, 'editor' | 'art'>
 >
 
 export type FeedbackApplicationCreateInput = Expand<
-  FeedbackBase & PickRequired<FeedbackRelationInput, 'editor' | 'application'>
+  { publishedAt?: string | null } & FeedbackBase &
+    PickRequired<FeedbackRelationInput, 'editor' | 'application'>
 >
 
 export type Feedback = StrapiBase & FeedbackBase & FeedbackRelation

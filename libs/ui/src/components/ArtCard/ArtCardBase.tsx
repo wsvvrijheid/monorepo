@@ -14,8 +14,8 @@ import {
 import { QueryKey } from '@tanstack/react-query'
 import { API_URL } from '@wsvvrijheid/config'
 import {
-  usePublishArt,
-  useUnpublishArt,
+  usePublishModel,
+  useUnpublishModel,
   useDeleteArt,
 } from '@wsvvrijheid/utils'
 import { AiFillHeart } from 'react-icons/ai'
@@ -52,8 +52,8 @@ export const ArtCardBase: FC<ArtCardBaseProps> = ({
   const [color, setColor] = useState('white')
 
   const deleteMutation = useDeleteArt(queryKey)
-  const publishMutation = usePublishArt(queryKey, art.id)
-  const unpublishMutation = useUnpublishArt(queryKey, art.id)
+  const publishMutation = usePublishModel('api/arts', queryKey)
+  const unpublishMutation = useUnpublishModel('api/arts', queryKey)
 
   useEffect(() => {
     setHover({ color: isLiked ? 'red.200' : 'gray.100' })

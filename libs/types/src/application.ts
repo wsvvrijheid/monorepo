@@ -29,12 +29,17 @@ type ApplicationRelationInput = {
 }
 
 export type ApplicationCreateInput = Expand<
-  Omit<ApplicationBase, 'translationStatus' | 'approvalStatus'> &
+  { publishedAt?: string | null } & Omit<
+    ApplicationBase,
+    'translationStatus' | 'approvalStatus'
+  > &
     Omit<ApplicationRelationInput, 'votes' | 'juryVotes'>
 >
 
 export type ApplicationUpdateInput = Expand<
-  Partial<Omit<ApplicationBase, 'locale'> & ApplicationRelationInput>
+  { publishedAt?: string | null } & Partial<
+    Omit<ApplicationBase, 'locale'> & ApplicationRelationInput
+  >
 >
 
 export type Application = StrapiBase & ApplicationBase & ApplicationRelation

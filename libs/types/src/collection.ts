@@ -17,11 +17,14 @@ type CollectionRelationInput = {
 }
 
 export type CollectionCreateInput = Expand<
-  Omit<CollectionBase, 'translationStatus'> & CollectionRelationInput
+  { publishedAt?: string | null } & Omit<CollectionBase, 'translationStatus'> &
+    CollectionRelationInput
 >
 
 export type CollectionUpdateInput = Expand<
-  Partial<Omit<CollectionBase, 'locale'> & CollectionRelationInput>
+  { publishedAt?: string | null } & Partial<
+    Omit<CollectionBase, 'locale'> & CollectionRelationInput
+  >
 >
 
 export type CollectionLocalizeInput = Omit<
