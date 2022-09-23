@@ -6,7 +6,6 @@ import { API_URL, TOKEN } from '@wsvvrijheid/config'
 import { fetcher } from '@wsvvrijheid/utils'
 import axios from 'axios'
 
-
 const BLOG_URL = `${API_URL}/api/blogs`
 const API_TOKEN = TOKEN
 
@@ -15,12 +14,12 @@ export const FetchFetcher = () => {
 
   const getBlogs = async () => {
     try {
-      const { data } = await fetcher(API_TOKEN)(BLOG_URL);
-      setBlogs(data);
+      const { data } = await fetcher(API_TOKEN)(BLOG_URL)
+      setBlogs(data)
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
-  };
+  }
 
   useEffect(() => {
     // TODO: fetch blogs with fetcher by using the API_URL and TOKEN
@@ -28,10 +27,14 @@ export const FetchFetcher = () => {
     getBlogs()
   }, [])
 
-  console.log(blogs);
+  console.log(blogs)
 
-  return <Box>
-    {/* TODO: Show only title of the blogs */}
-    {blogs.map(x => <Box>{x["title"]}</Box>)}
+  return (
+    <Box>
+      {/* TODO: Show only title of the blogs */}
+      {blogs.map(x => (
+        <Box>{x['title']}</Box>
+      ))}
     </Box>
+  )
 }

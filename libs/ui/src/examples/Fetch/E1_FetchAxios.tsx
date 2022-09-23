@@ -13,23 +13,24 @@ export const FetcAxios = () => {
 
   const getBlogs = async () => {
     try {
-      const { data } = await axios.get(BLOG_URL);
-      setBlogs(data);
+      const { data } = await axios.get(BLOG_URL)
+      setBlogs(data)
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
-  };
-
+  }
 
   useEffect(() => {
     // TODO: fetch blogs with axios by using the API_URL and TOKEN
     getBlogs()
   }, [])
 
-  
-
-  return (<Box>
-    {/* TODO: Show only title of the blogs */}
-    {blogs.map(x => <Box>{x["title"]}</Box>)}
-    </Box>)
+  return (
+    <Box>
+      {/* TODO: Show only title of the blogs */}
+      {blogs.map(x => (
+        <Box>{x['title']}</Box>
+      ))}
+    </Box>
+  )
 }
