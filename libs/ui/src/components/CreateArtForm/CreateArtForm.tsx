@@ -56,7 +56,7 @@ const schema = (t: TFunction) =>
   })
 
 // TODO Consider adding modal form instead of a new page
-export const CreateArtForm: FC<CreateArtFormProps> = ({ auth }) => {
+export const CreateArtForm: FC<CreateArtFormProps> = ({ auth, queryKey }) => {
   const [images, setImages] = useState<Blob[]>([])
   const [previews, setPreviews] = useState<string[]>([])
   const { locale } = useRouter()
@@ -87,7 +87,7 @@ export const CreateArtForm: FC<CreateArtFormProps> = ({ auth }) => {
     [images],
   )
 
-  const { mutate, isLoading } = useCreateArt()
+  const { mutate, isLoading } = useCreateArt(queryKey)
 
   const createArt = async (
     data: CreateArtFormFieldValues & { images: Blob[] },

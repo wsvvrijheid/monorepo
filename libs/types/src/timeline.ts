@@ -1,4 +1,3 @@
-import { Expand } from './common'
 import { StrapiBase } from './strapi'
 import { Tweet } from './tweet'
 import { TweetUserData } from './tweet-user'
@@ -17,4 +16,4 @@ type TimelineRelation = {
 
 export type TimelineCreateInput = Omit<TimelineBase, 'userData'>
 
-export type Timeline = Expand<StrapiBase & TimelineBase & TimelineRelation>
+export type Timeline = StrapiBase & TimelineBase & TimelineRelation

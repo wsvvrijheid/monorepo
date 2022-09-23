@@ -1,3 +1,4 @@
+import { QueryKey } from '@tanstack/react-query'
 import { Auth, StrapiLocale } from '@wsvvrijheid/types'
 
 export type CreateArtFormFieldValues = {
@@ -13,6 +14,7 @@ export type CreateArtFormFieldValues = {
 
 export type CreateArtFormProps = {
   auth: Auth
+  queryKey?: QueryKey
 }
 
 export type CreateArtSuccessAlertProps = {

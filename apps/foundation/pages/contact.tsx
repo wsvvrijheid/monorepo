@@ -74,7 +74,7 @@ const Contact = ({ seo }: ContactProps): JSX.Element => {
               justify="space-evenly"
               spacing={8}
             >
-              <Heading fontWeight={900} as="h2" size="lg" color="blue.200">
+              <Heading fontWeight="black" as="h2" size="lg" color="blue.200">
                 STICHTING <br /> WEES DE STEM VOOR VRIJHEID
               </Heading>
               <Divider borderColor="whiteAlpha.400" />
@@ -122,7 +122,7 @@ const Contact = ({ seo }: ContactProps): JSX.Element => {
 
               <Stack w="full" spacing={4}>
                 <Stack w="full">
-                  <Text color="blue.200" fontWeight={600}>
+                  <Text color="blue.200" fontWeight="semibold">
                     {t('wsvvrijheid.management')}
                   </Text>
                   <Wrap justify="space-around" spacing={4}>
@@ -144,7 +144,12 @@ const Contact = ({ seo }: ContactProps): JSX.Element => {
               </Stack>
             </VStack>
 
-            <Stack rounded="lg" p={{ base: 8, lg: 16 }} shadow="lg" spacing={4}>
+            <Stack
+              rounded="lg"
+              p={{ base: 8, lg: 16 }}
+              shadow="base"
+              spacing={4}
+            >
               <Stack>
                 <Heading size="lg">{t('contact.title')}</Heading>
                 <Text fontSize="sm">{t('contact.fill-form')}</Text>

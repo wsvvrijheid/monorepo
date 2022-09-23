@@ -88,7 +88,7 @@ export const JoinTemplate: FC<JoinTemplateProps> = ({ title }) => {
             textAlign="center"
             py={16}
             w="container.sm"
-            shadow="lg"
+            shadow="base"
             rounded="lg"
           >
             <VStack spacing={4}>

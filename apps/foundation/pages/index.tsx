@@ -28,7 +28,7 @@ export default function Home({ seo }) {
         <Container maxW="container.md" pos="relative" zIndex={1}>
           <AnimatedBox directing="to-down">
             <VStack flex={1} py={16} spacing={4} textAlign="center">
-              <Heading fontWeight={900}>Wees de Stem voor Vrijheid</Heading>
+              <Heading fontWeight="black">Wees de Stem voor Vrijheid</Heading>
               <Text fontSize="xl">{t('home.hero')}</Text>
             </VStack>
           </AnimatedBox>

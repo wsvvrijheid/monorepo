@@ -37,4 +37,4 @@ type CategoryRelationInput = {
 
 export type CategoryCreateInput = Expand<CategoryBase & CategoryRelationInput>
 
-export type Category = Expand<StrapiBase & CategoryBase & CategoryRelation>
+export type Category = StrapiBase & CategoryBase & CategoryRelation

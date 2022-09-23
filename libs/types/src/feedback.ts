@@ -30,4 +30,4 @@ export type FeedbackApplicationCreateInput = Expand<
   FeedbackBase & PickRequired<FeedbackRelationInput, 'editor' | 'application'>
 >
 
-export type Feedback = Expand<StrapiBase & FeedbackBase & FeedbackRelation>
+export type Feedback = StrapiBase & FeedbackBase & FeedbackRelation

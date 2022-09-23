@@ -20,6 +20,7 @@ export type ArtCardProps = {
   auth: Auth
   art: Art
   queryKey?: QueryKey
+  actionQueryKey?: QueryKey
 }
 
 export type ArtCardBaseProps = {
@@ -31,6 +32,7 @@ export type ArtCardBaseProps = {
   isOwner?: boolean
   isModal?: boolean
   toggleLike?: () => void
+  actionQueryKey?: QueryKey
 }
 
 export type ArtCardAlertDialogProps = {

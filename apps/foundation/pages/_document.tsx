@@ -28,12 +28,12 @@ export default class Document extends NextDocument {
           <link rel="preconnect" href="https://fonts.gstatic.com" />
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link
-            href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;600;900&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;900&display=swap"
             rel="stylesheet"
           />
           <script
             async
-            src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
+            src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NX_GOOGLE_ANALYTICS}`}
           />
           <script
             dangerouslySetInnerHTML={{
@@ -41,7 +41,7 @@ export default class Document extends NextDocument {
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
-              gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}', {
+              gtag('config', '${process.env.NX_GOOGLE_ANALYTICS}', {
                 page_path: window.location.pathname,
               });
           `,

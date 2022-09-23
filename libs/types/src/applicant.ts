@@ -21,4 +21,4 @@ export type ApplicantCreateInput = Expand<
   ApplicantBase & ApplicantRelationInput
 >
 
-export type Applicant = Expand<StrapiBase & ApplicantBase & AplicantRelation>
+export type Applicant = StrapiBase & ApplicantBase & AplicantRelation

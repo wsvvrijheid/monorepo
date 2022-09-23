@@ -1,5 +1,3 @@
-import React from 'react'
-
 import { Box, SimpleGrid } from '@chakra-ui/react'
 import { Story, Meta } from '@storybook/react'
 

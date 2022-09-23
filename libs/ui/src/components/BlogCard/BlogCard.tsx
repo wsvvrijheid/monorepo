@@ -55,7 +55,13 @@ export const BlogCard: FC<BlogCardProps> = ({ post, isFeatured }) => {
       {...(featured && { gridColumn: { lg: 'span 2' } })}
       href={`/blog/${post.slug}`}
     >
-      <Box shadow="lg" pos="relative" bg="white" rounded="sm" overflow="hidden">
+      <Box
+        shadow="base"
+        pos="relative"
+        bg="white"
+        rounded="sm"
+        overflow="hidden"
+      >
         {post.image?.url && (
           <BlogCardImage
             alt={post.title}

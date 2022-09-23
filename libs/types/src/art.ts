@@ -9,13 +9,11 @@ import { Tag } from './tag'
 import { User } from './user'
 import { Vote } from './vote'
 
-type ArtBase = Expand<
-  StrapiEntityBase & {
-    approvalStatus: ApprovalStatus // default 'pending'
-    likes: number
-    views: number
-  }
->
+type ArtBase = StrapiEntityBase & {
+  approvalStatus: ApprovalStatus // default 'pending'
+  likes: number
+  views: number
+}
 
 type ArtRelation = {
   artist?: User
@@ -61,4 +59,4 @@ export type ArtLocalizeInput = Omit<
   'approvalStatus' | 'likes' | 'views'
 >
 
-export type Art = Expand<StrapiBase & ArtBase & ArtRelation>
+export type Art = StrapiBase & ArtBase & ArtRelation

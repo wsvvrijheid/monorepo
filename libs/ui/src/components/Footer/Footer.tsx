@@ -2,8 +2,8 @@ import { FC } from 'react'
 
 import { Box, Link, Stack, Text, Wrap } from '@chakra-ui/react'
 import { motion } from 'framer-motion'
+import { useTranslation } from 'next-i18next'
 import NextImage from 'next/image'
-import { useTranslation } from 'react-i18next'
 
 import { Container } from '../Container'
 import { SocialButtons } from '../SocialButtons'
@@ -55,6 +55,7 @@ export const Footer: FC<FooterProps> = ({ menu, about, logo, socialItems }) => {
           spacing={2}
         >
           <Text fontSize={'sm'} mr={1}>
+            {/* TODO Fix hydration problem for translation field */}
             &copy; {new Date().getFullYear()} {t('copyright')}
           </Text>
           <SocialButtons items={socialItems} />

@@ -6,11 +6,9 @@ import { StrapiBase, StrapiEntityBase } from './strapi'
 import { Tag } from './tag'
 import { Vote } from './vote'
 
-export type ApplicationBase = Expand<
-  Omit<StrapiEntityBase, 'description'> & {
-    approvalStatus: ApprovalStatus
-  }
->
+export type ApplicationBase = Omit<StrapiEntityBase, 'description'> & {
+  approvalStatus: ApprovalStatus
+}
 
 type ApplicationRelation = {
   images?: UploadFile[]
@@ -39,6 +37,4 @@ export type ApplicationUpdateInput = Expand<
   Partial<Omit<ApplicationBase, 'locale'> & ApplicationRelationInput>
 >
 
-export type Application = Expand<
-  StrapiBase & ApplicationBase & ApplicationRelation
->
+export type Application = StrapiBase & ApplicationBase & ApplicationRelation

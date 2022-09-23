@@ -15,7 +15,7 @@ export const CommentList: FC<CommentListProps> = ({ comments }) => {
 
   return (
     <Stack p={4} spacing={4} bg="white" boxShadow="base">
-      <Text fontSize="lg" fontWeight={600}>
+      <Text fontSize="lg" fontWeight="semibold">
         {t('apply-form.comments')}
       </Text>
 

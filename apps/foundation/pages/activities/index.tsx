@@ -73,7 +73,6 @@ export const getServerSideProps = async context => {
       tr: 'Faaliyetler',
     },
   }
-  console.log({ activities })
 
   return {
     props: {

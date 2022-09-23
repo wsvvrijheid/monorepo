@@ -4,12 +4,10 @@ import { Expand } from './common'
 import { UploadFile } from './file'
 import { StrapiBase, StrapiEntityBase } from './strapi'
 
-type CompetitionBase = Expand<
-  StrapiEntityBase & {
-    date: string
-    deadline: string
-  }
->
+type CompetitionBase = StrapiEntityBase & {
+  date: string
+  deadline: string
+}
 
 type CompetitionRelation = {
   image?: UploadFile
@@ -33,6 +31,4 @@ export type CompetitionUpdateInput = Expand<
   Partial<Omit<CompetitionBase, 'locale'> & CompetitionRelationInput>
 >
 
-export type Competition = Expand<
-  StrapiBase & CompetitionBase & CompetitionRelation
->
+export type Competition = StrapiBase & CompetitionBase & CompetitionRelation
