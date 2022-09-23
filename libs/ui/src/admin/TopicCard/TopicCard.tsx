@@ -1,22 +1,25 @@
-import { FC} from 'react'
+import { FC } from 'react'
 
 import { useToast } from '@chakra-ui/react'
 import { useMutation } from '@tanstack/react-query'
-import { TopicCardBase } from '@wsvvrijheid/ui'
-import { createMutation } from '@wsvvrijheid/utils'
 import {
   RecommendedTopic,
   RecommendedTopicCreateInput,
-} from 'libs/types/src/recommended-topic'
+} from '@wsvvrijheid/types'
+import { createMutation } from '@wsvvrijheid/utils'
 import { useLocalStorage } from 'react-use'
 
+import { TopicCardBase } from '../TopicCardBase'
 import { TopicCardProps } from './index'
 
-export const TopicCard: FC<TopicCardProps> = ({ news, userId, ...rest }) => {
-  // const [isBookmarked, setIsBookmarked] = useState(false)
+export const TopicCard: FC<TopicCardProps> = ({ topic, userId, ...rest }) => {
   const [bookmarksStorage, setBookmarksStorage] = useLocalStorage<number[]>(
-    'bookmarks',[]
+    'bookmarks',
+    [],
   )
+
+  const { title, description, date, imageUrl, publisher, link } = topic
+
   const toast = useToast()
   const recommendMutation = useMutation({
     mutationKey: ['recommend-topic'],
@@ -24,50 +27,33 @@ export const TopicCard: FC<TopicCardProps> = ({ news, userId, ...rest }) => {
       createMutation<RecommendedTopic, RecommendedTopicCreateInput>(
         `api/recommended-topics`,
         {
-          date: news.date,
-          description: news.description,
-          title: news.title,
+          date,
+          description,
+          title,
           recommender: userId,
-          imageUrl: news.imageUrl,
-          publisher: news.publisher,
-          link: news.link,
+          imageUrl,
+          publisher,
+          link,
         },
       ),
   })
 
-  const isBookmarked = bookmarksStorage?.some(id => id === news.id)
+  const isBookmarked = bookmarksStorage?.some(id => id === topic.id)
 
   const handleBookmark = () => {
     if (isBookmarked) {
-      setBookmarksStorage(bookmarksStorage?.filter(id => id !== news.id))
+      setBookmarksStorage(bookmarksStorage?.filter(id => id !== topic.id))
     } else {
-      setBookmarksStorage([...(bookmarksStorage as number[]), news.id])
+      setBookmarksStorage([...(bookmarksStorage as number[]), topic.id])
     }
   }
 
-  // const handleBookmark = (id: string) => {
-  //   const bookmarks = localStorage.getItem('bookmarks')
-  //   if (bookmarks) {
-  //     let parsedBookmarks = JSON.parse(bookmarks)
-  //     if (parsedBookmarks.filter((item: string) => item == id).length == 0) {
-  //       parsedBookmarks.push(id)
-  //       localStorage.setItem('bookmarks', JSON.stringify(parsedBookmarks))
-  //       setIsBookmarked(true)
-  //     } else {
-  //       parsedBookmarks = parsedBookmarks.splice(1, parsedBookmarks.indexOf(id))
-  //       localStorage.setItem('bookmarks', JSON.stringify(parsedBookmarks))
-  //       setIsBookmarked(false)
-  //     }
-  //   } else {
-  //     localStorage.setItem('bookmarks', JSON.stringify([id]))
-  //     setIsBookmarked(true)
-  //   }
-  // }
-
-  const handleShare = () => {}
+  const handleShare = () => {
+    console.log('Share')
+  }
 
   const handleView = () => {
-    window.open(news.link, '_blank')
+    window.open(topic.link, '_blank')
   }
 
   const handleRecommend = () => {
@@ -81,19 +67,9 @@ export const TopicCard: FC<TopicCardProps> = ({ news, userId, ...rest }) => {
     })
   }
 
-  // useEffect(() => {
-  //   const bookmarks = localStorage.getItem('bookmarks')
-  //   if (bookmarks) {
-  //     const parsedBookmarks = JSON.parse(bookmarks)
-  //     parsedBookmarks.filter((item: string) => item == news.id).length > 0
-  //       ? setIsBookmarked(true)
-  //       : null
-  //   }
-  // }, [isBookmarked])
-
   return (
     <TopicCardBase
-      news={news}
+      topic={topic}
       {...rest}
       onBookmark={handleBookmark}
       onRecommend={handleRecommend}

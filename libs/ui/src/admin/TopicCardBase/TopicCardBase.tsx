@@ -10,7 +10,7 @@ import { TopicCardBaseProps } from './index'
 
 export const TopicCardBase: FC<TopicCardBaseProps> = ({
   hideDescription,
-  news,
+  topic,
   variant = 'vertical',
   onBookmark,
   onRecommend,
@@ -40,11 +40,11 @@ export const TopicCardBase: FC<TopicCardBaseProps> = ({
       >
         <Stack textAlign={isVertical ? 'center' : 'left'}>
           <Text fontSize="lg" fontWeight="semibold" noOfLines={1}>
-            {news.title}
+            {topic.title}
           </Text>
 
           {!hideDescription && (
-            <Text noOfLines={isVertical ? 3 : 2}>{news.description}</Text>
+            <Text noOfLines={isVertical ? 3 : 2}>{topic.description}</Text>
           )}
         </Stack>
         <Stack
@@ -59,7 +59,7 @@ export const TopicCardBase: FC<TopicCardBaseProps> = ({
             color={'primary.500'}
             noOfLines={1}
           >
-            {news.date} - {news.publisher}
+            {topic.date} - {topic.publisher}
           </Text>
 
           <ButtonGroup
@@ -100,8 +100,8 @@ export const TopicCardBase: FC<TopicCardBaseProps> = ({
       <WImage
         w={isVertical ? 'full' : '300px'}
         h={isVertical ? '200px' : 'full'}
-        src={news.imageUrl}
-        alt={news.title}
+        src={topic.imageUrl}
+        alt={topic.title}
       />
     </Stack>
   )

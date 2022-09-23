@@ -10,7 +10,7 @@ export default {
   title: 'Admin/TopicCard',
   component: TopicCard,
   args: {
-    news: TOPIC_MOCK,
+    topic: TOPIC_MOCK,
   },
   decorators: [
     Story => (
@@ -37,12 +37,12 @@ const GridTemplate: Story = () => {
         TOPIC_MOCK,
         TOPIC_MOCK,
         TOPIC_MOCK,
-      ].map((news, i) => (
-        <Box key={news.id} gridColumn={i === 0 ? 'span 4' : undefined}>
+      ].map((topic, i) => (
+        <Box key={topic.id} gridColumn={i === 0 ? 'span 4' : undefined}>
           <TopicCard
             variant={i === 0 ? 'horizontal' : 'vertical'}
             hideDescription={i > 4}
-            news={news}
+            topic={topic}
             userId={132}
           />
         </Box>

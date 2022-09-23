@@ -1,7 +1,7 @@
 import { Topic } from '@wsvvrijheid/types'
 
 export type TopicCardProps = {
-  news: Topic
+  topic: Topic
   userId: number
   variant?: 'horizontal' | 'vertical'
   hideDescription: boolean

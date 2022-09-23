@@ -3,7 +3,7 @@ import { ComponentMeta, ComponentStory } from '@storybook/react'
 import { TWEET_MOCKS } from '@wsvvrijheid/mocks'
 
 import { Container } from '../../components'
-import { TweetCardBase } from './index'
+import { TweetCardBase } from './TweetCardBase'
 
 export default {
   component: TweetCardBase,

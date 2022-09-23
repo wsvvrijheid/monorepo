@@ -4,9 +4,7 @@ export const TOPIC_MOCK: Topic = {
   id: 1,
   title:
     'Sürgün Profesör Mehmet Ateş’in hikayesi: Tekniği tıp literatürüne girdi',
-  description: `
-             Bir süre önce çok sevdiği ülkesinden ayrılmak zorunda kalan KHK'lı kalp cerrahı Prof. Dr. Mehmet Ateş, tüm dünyada başarıları ve tıp bilimine yaptığı katkılarla tanınan bir doktor olarak Türkiye'den neden ayrıldığını, uğradığı haksızlığı ve maruz kaldığı iftiraları Bold'a anlattı. ABD'nin bir yıl önce akademik Greencard verdiği Ateş, yakında Avrupa'da kalp cerrahı olarak göreve başlayacak.
-  `,
+  description: `Bir süre önce çok sevdiği ülkesinden ayrılmak zorunda kalan KHK'lı kalp cerrahı Prof. Dr. Mehmet Ateş, tüm dünyada başarıları ve tıp bilimine yaptığı katkılarla tanınan bir doktor olarak Türkiye'den neden ayrıldığını, uğradığı haksızlığı ve maruz kaldığı iftiraları Bold'a anlattı. ABD'nin bir yıl önce akademik Greencard verdiği Ateş, yakında Avrupa'da kalp cerrahı olarak göreve başlayacak.`,
   date: '15 Mins Ago',
   publisher: 'Bold Medya',
   imageUrl:

@@ -10,7 +10,7 @@ export default {
   title: 'Admin/TopicCardBase',
   component: TopicCardBase,
   args: {
-    news: TOPIC_MOCK,
+    topic: TOPIC_MOCK,
   },
   decorators: [
     Story => (

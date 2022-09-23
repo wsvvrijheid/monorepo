@@ -21,7 +21,7 @@ import { RiEditLine } from 'react-icons/ri'
 import ReactPlayer from 'react-player'
 
 import { WImage } from '../../components'
-import { TweetBaseCardProps } from './index'
+import { TweetBaseCardProps } from './types'
 
 export const TweetCardBase: FC<TweetBaseCardProps> = ({
   tweet,

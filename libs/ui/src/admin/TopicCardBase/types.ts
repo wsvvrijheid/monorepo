@@ -5,7 +5,7 @@ import { Topic } from '@wsvvrijheid/types'
 
 export type TopicCardBaseProps = {
   hideDescription?: boolean
-  news: Topic
+  topic: Topic
   variant?: 'horizontal' | 'vertical'
   isBookmarked: boolean | undefined
   onBookmark: () => void
