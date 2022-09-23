@@ -70,7 +70,7 @@ export const ArtFeedbackForm: FC<ArtFeedbackFormTypes> = ({
           {/*button group*/}
           <Stack direction={'row'} spacing={{ base: 2, lg: 4 }}>
             <Button
-              isDisabled={artApprovalStatus === 'rejected'}
+              isDisabled={!feedback || artApprovalStatus === 'rejected'}
               onClick={handleReject}
               colorScheme="red"
               w="full"
@@ -80,7 +80,7 @@ export const ArtFeedbackForm: FC<ArtFeedbackFormTypes> = ({
             </Button>
 
             <Button
-              isDisabled={artApprovalStatus === 'approved'}
+              isDisabled={!feedback || artApprovalStatus === 'approved'}
               onClick={handleApprove}
               colorScheme="green"
               w="full"
