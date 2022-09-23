@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { MenuItem } from '@chakra-ui/react'
 import { ApprovalStatus, StrapiLocale, Sort } from '@wsvvrijheid/types'
@@ -21,7 +21,6 @@ const ArtsPage = () => {
 
   const [sort, setSort] = useState<Sort>()
   const queryKey = ['arts', locale, searchTerm, sort, currentPage || 1, status]
-
   const artsQuery = useArts(queryKey, {
     populate: [
       'artist.user.avatar',
@@ -38,7 +37,7 @@ const ArtsPage = () => {
     status,
     publicationState: 'preview',
   })
-
+  useEffect(() => setCurrentPage(1), [status])
   const handleSearch = (search: string) => {
     search ? setSearchTerm(search) : setSearchTerm(undefined)
   }
@@ -76,6 +75,7 @@ const ArtsPage = () => {
     >
       <ArtsTable
         data={mappedArts}
+        queryKey={queryKey}
         user={user}
         totalCount={totalCount}
         currentPage={currentPage}

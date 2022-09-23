@@ -23,19 +23,23 @@ type VoteRelationInput = {
 }
 
 export type VoteCreateApplicationInput = Expand<
-  VoteBase & PickRequired<VoteRelationInput, 'voter' | 'application'>
+  { publishedAt?: string | null } & VoteBase &
+    PickRequired<VoteRelationInput, 'voter' | 'application'>
 >
 
 export type VoteCreateArtInput = Expand<
-  VoteBase & PickRequired<VoteRelationInput, 'voter' | 'art'>
+  { publishedAt?: string | null } & VoteBase &
+    PickRequired<VoteRelationInput, 'voter' | 'art'>
 >
 
 export type VoteCreateApplicationJuryInput = Expand<
-  VoteBase & PickRequired<VoteRelationInput, 'jury' | 'application'>
+  { publishedAt?: string | null } & VoteBase &
+    PickRequired<VoteRelationInput, 'jury' | 'application'>
 >
 
 export type VoteCreateArtJuryInput = Expand<
-  VoteBase & PickRequired<VoteRelationInput, 'jury' | 'art'>
+  { publishedAt?: string | null } & VoteBase &
+    PickRequired<VoteRelationInput, 'jury' | 'art'>
 >
 
 export type Vote = StrapiBase & VoteBase & VoteRelation

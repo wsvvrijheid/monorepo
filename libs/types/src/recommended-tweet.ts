@@ -22,7 +22,10 @@ type RecommendedTweetRelationInput = {
 }
 
 export type RecommendedTweetCreateInput = Expand<
-  Omit<RecommendedTweetBase, 'isShared' | 'isArchived'> &
+  { publishedAt?: string | null } & Omit<
+    RecommendedTweetBase,
+    'isShared' | 'isArchived'
+  > &
     RecommendedTweetRelationInput
 >
 

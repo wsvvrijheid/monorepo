@@ -52,6 +52,8 @@ export const WTable = <T extends StrapiModel>({
             const isSortable = (columns[key as keyof T] as CellConfig<T>)
               .sortable
 
+            const label = (columns[key as keyof T] as CellConfig<T>).label
+
             const getSortIcon = () => {
               if (!isSortable) return
 
@@ -76,7 +78,7 @@ export const WTable = <T extends StrapiModel>({
                   onClick: () => toggleSort(key as StrapiModelKeys),
                 })}
               >
-                {startCase(camelCase(key))}
+                {label || startCase(camelCase(key))}
 
                 <chakra.span ml={2} display="inline" as={getSortIcon()} />
               </Th>

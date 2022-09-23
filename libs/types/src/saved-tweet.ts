@@ -17,7 +17,7 @@ type SavedTweetRelationInput = {
 }
 
 export type SavedTweetCreateInput = Expand<
-  SavedTweetBase & SavedTweetRelationInput
+  { publishedAt?: string | null } & SavedTweetBase & SavedTweetRelationInput
 >
 
 export type SavedTweet = StrapiBase & SavedTweetBase & SavedTweetRelation

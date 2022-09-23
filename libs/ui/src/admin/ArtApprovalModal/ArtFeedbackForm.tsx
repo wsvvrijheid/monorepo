@@ -11,7 +11,6 @@ import {
   MenuList,
   Stack,
   Textarea,
-  Flex,
   IconButton,
 } from '@chakra-ui/react'
 import {
@@ -20,6 +19,7 @@ import {
   HiOutlineX,
   HiPencil,
 } from 'react-icons/hi'
+import { MdOutlinePublish, MdOutlineUnpublished } from 'react-icons/md'
 
 import { ArtFeedbackFormTypes } from './types'
 
@@ -31,46 +31,46 @@ export const ArtFeedbackForm: FC<ArtFeedbackFormTypes> = ({
   editorId,
   editorAvatar,
   editorName,
-  setIsEditing,
+  updateField,
+  onPublish,
+  unPublish,
+  artApprovalStatus,
+  artPublishedAt,
 }) => {
   const [feedback, setFeedback] = useState('')
 
-  const handleReject = () => {
-    onReject(artId, editorId, feedback)
-  }
+  const handleReject = () => onReject(artId, editorId, feedback)
+  const handleApprove = () => onApprove(artId, editorId, feedback)
+  const handleDelete = () => onDelete(artId)
+  const handlePublish = () => onPublish(artId)
+  const handleUnPublish = () => unPublish(artId)
 
-  const handleApprove = () => {
-    onApprove(artId, editorId, feedback)
-  }
-  const handleDelete = () => {
-    onDelete(artId)
-  }
   return (
-    <Stack align={'start'} w={'full'}>
-      <Flex align="start" justify={'start'} w="full">
-        <Text color={'black'} fontWeight={'bold'}>
-          Give Feedback
-        </Text>
-      </Flex>
+    <Stack w={'full'} spacing={{ base: 2, lg: 4 }}>
+      <Text color={'black'} fontWeight={'bold'}>
+        Give Feedback
+      </Text>
+
       {/*feedback ================================= */}
-      <HStack w="full">
+      <HStack align="start" spacing={{ base: 2, lg: 4 }}>
         {/* avatar*/}
-        <Stack align={'start'} flex={1} textAlign="center">
-          <Avatar size="sm" src={editorAvatar} name={editorName} />
-        </Stack>
-        <Stack w="full">
+
+        <Avatar size="sm" src={editorAvatar} name={editorName} />
+
+        <Stack flex={1} spacing={{ base: 2, lg: 4 }}>
           {/* text area, button group*/}
-          <Stack w={'full'}>
+          <Stack>
             {/* text area*/}
             <Textarea
               isRequired
               onChange={e => setFeedback(e.target.value)}
-              placeholder={'type your comment here'}
-            ></Textarea>
+              placeholder={'Type your comment here'}
+            />
           </Stack>
           {/*button group*/}
-          <Stack direction={'row'} w={'full'} spacing={[0.5, 4, 4, 4]}>
+          <Stack direction={'row'} spacing={{ base: 2, lg: 4 }}>
             <Button
+              isDisabled={!feedback || artApprovalStatus === 'rejected'}
               onClick={handleReject}
               colorScheme="red"
               w="full"
@@ -78,7 +78,9 @@ export const ArtFeedbackForm: FC<ArtFeedbackFormTypes> = ({
             >
               Reject
             </Button>
+
             <Button
+              isDisabled={!feedback || artApprovalStatus === 'approved'}
               onClick={handleApprove}
               colorScheme="green"
               w="full"
@@ -86,23 +88,51 @@ export const ArtFeedbackForm: FC<ArtFeedbackFormTypes> = ({
             >
               Approve
             </Button>
+
             <Menu>
               <MenuButton
                 aria-label="Open art menu"
                 as={IconButton}
                 icon={<HiDotsVertical />}
                 colorScheme="primary"
-              ></MenuButton>
+              />
               <MenuList minWidth={32} minH={20}>
                 <MenuItem
                   as={Button}
-                  onClick={() => setIsEditing(true)}
+                  onClick={() => updateField('description')}
                   variant="ghost"
                   colorScheme="primary"
                   icon={<HiPencil />}
                 >
-                  Edit
+                  Edit Description
                 </MenuItem>
+                <MenuItem
+                  as={Button}
+                  onClick={() => updateField('content')}
+                  variant="ghost"
+                  colorScheme="primary"
+                  icon={<HiPencil />}
+                >
+                  Edit Content
+                </MenuItem>
+                {artApprovalStatus === 'approved' && (
+                  <MenuItem
+                    as={Button}
+                    onClick={artPublishedAt ? handleUnPublish : handlePublish}
+                    variant="ghost"
+                    colorScheme="primary"
+                    icon={
+                      artPublishedAt ? (
+                        <MdOutlineUnpublished />
+                      ) : (
+                        <MdOutlinePublish />
+                      )
+                    }
+                  >
+                    {artPublishedAt ? 'Unpublish' : 'Publish'}
+                  </MenuItem>
+                )}
+
                 <MenuItem
                   as={Button}
                   onClick={handleDelete}

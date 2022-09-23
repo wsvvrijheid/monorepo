@@ -14,6 +14,9 @@ type TimelineRelation = {
   listers?: Array<User>
 }
 
-export type TimelineCreateInput = Omit<TimelineBase, 'userData'>
+export type TimelineCreateInput = Omit<
+  { publishedAt?: string | null } & TimelineBase,
+  'userData'
+>
 
 export type Timeline = StrapiBase & TimelineBase & TimelineRelation
