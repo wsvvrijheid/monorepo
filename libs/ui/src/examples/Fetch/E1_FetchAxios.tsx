@@ -1,18 +1,33 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useEffect, useState } from 'react'
 
-import { Box, Stack } from '@chakra-ui/react'
+import { Box, Stack, Text } from '@chakra-ui/react'
 import { API_URL, TOKEN } from '@wsvvrijheid/config'
+import axios from 'axios'
 
 const BLOG_URL = `${API_URL}/api/blogs` // https://api.samenvvv.nl/api/blogs
 const API_TOKEN = TOKEN
 
 export const FetcAxios = () => {
   const [blogs, setBlogs] = useState([])
+  const getBlogs = async () => {
+    const response = await axios.get(BLOG_URL)
+    setBlogs(response.data)
+  }
+  console.log(blogs)
 
   useEffect(() => {
     // TODO: fetch blogs with axios by using the API_URL and TOKEN
+    getBlogs()
   }, [])
 
-  return <Box>{/* TODO: Show only title of the blogs */}</Box>
+  return (
+    <Box>
+      {/* TODO: Show only title of the blogs */}
+
+      {blogs.map(blog => {
+        return <Text fontSize="xl">{blog.title}</Text>
+      })}
+    </Box>
+  )
 }
