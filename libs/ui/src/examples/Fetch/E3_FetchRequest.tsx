@@ -14,8 +14,8 @@ export const FetchRequest = () => {
   const getBlogs = async () => {
     try {
       // const { data } = await fetcher(API_TOKEN)(BLOG_URL)
-      const { data }  = await request({ url: 'api/blogs' })
-      console.log(data);
+      const { data } = await request({ url: 'api/blogs' })
+      console.log(data)
       setBlogs(data) // I have no idea why ts is saying this is null, but I get my data on the screen
     } catch (error) {
       console.log(error)
@@ -27,10 +27,12 @@ export const FetchRequest = () => {
     getBlogs()
   }, [])
 
-  return <Box>
-    {/* TODO: Show only title of the blogs */}
-    {blogs.map(x => (
+  return (
+    <Box>
+      {/* TODO: Show only title of the blogs */}
+      {blogs.map(x => (
         <Box>{x['title']}</Box>
-    ))}
+      ))}
     </Box>
+  )
 }
