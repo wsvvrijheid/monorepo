@@ -12,6 +12,7 @@ export const components = {
   },
   Badge: {
     baseStyle: {
+      textTransform: 'capitalize',
       fontWeight: 'medium',
     },
   },

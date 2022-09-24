@@ -7,7 +7,7 @@ import { deleteMutation } from '../../lib'
 export const deleteArt = ({ id }: { id: number }) =>
   deleteMutation<Art>('api/arts', id)
 
-export const useDeleteArt = (queryKey: QueryKey) => {
+export const useDeleteArt = (queryKey?: QueryKey) => {
   const queryClient = useQueryClient()
   const toast = useToast()
 

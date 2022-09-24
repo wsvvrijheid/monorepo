@@ -32,12 +32,15 @@ export type PostRelationInput = {
 }
 
 export type PostCreateInput = Expand<
-  Omit<PostBase, 'translationStatus' | 'capsStatus'> &
+  { publishedAt?: string | null } & Omit<
+    PostBase,
+    'translationStatus' | 'capsStatus'
+  > &
     Pick<PostRelationInput, 'image' | 'hashtag' | 'tags'>
 >
 
 export type PostUpdateInput = Expand<
-  Partial<
+  { publishedAt?: string | null } & Partial<
     Omit<PostBase, 'locale'> & Omit<PostRelationInput, 'translator' | 'creator'>
   >
 >

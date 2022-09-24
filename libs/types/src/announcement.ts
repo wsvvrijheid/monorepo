@@ -22,10 +22,16 @@ type AnnouncementRelationInput = {
 }
 
 export type AnnouncementCreateInput = Expand<
-  Omit<AnnouncementBase, 'translationStatus'> & AnnouncementRelationInput
+  { publishedAt?: string | null } & Omit<
+    AnnouncementBase,
+    'translationStatus'
+  > &
+    AnnouncementRelationInput
 >
 export type AnnouncementUpdateInput = Expand<
-  Partial<Omit<AnnouncementBase, 'locale'> & AnnouncementRelationInput>
+  { publishedAt?: string | null } & Partial<
+    Omit<AnnouncementBase, 'locale'> & AnnouncementRelationInput
+  >
 >
 export type AnnouncementLocalizeInput = Pick<
   AnnouncementBase,
