@@ -147,7 +147,7 @@ export type StrapiCollectionUrl =
   | 'lang-roles'
   | 'me'
   | 'mentions'
-  | 'news'
+  | 'topics'
   | 'platforms'
   | 'posts'
   | 'recommended-topics'

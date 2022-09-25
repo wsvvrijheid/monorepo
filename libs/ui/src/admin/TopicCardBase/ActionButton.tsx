@@ -2,7 +2,7 @@ import { FC } from 'react'
 
 import { Button } from '@chakra-ui/react'
 
-import { ActionButtonProps } from './types'
+import { ActionButtonProps } from './index'
 
 export const ActionButton: FC<ActionButtonProps> = ({
   isVertical,

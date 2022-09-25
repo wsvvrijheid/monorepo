@@ -7,7 +7,7 @@ import { TweetCardBase } from './TweetCardBase'
 
 export default {
   component: TweetCardBase,
-  title: 'Admin/TweetCard',
+  title: `Admin/TweetCard`,
   decorators: [
     Story => (
       <Container maxW="container.sm">
