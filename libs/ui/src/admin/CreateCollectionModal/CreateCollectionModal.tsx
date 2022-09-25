@@ -83,7 +83,7 @@ export const CreateCollectionModal: FC<CreateCollectionModalProps> = ({
     const formBody: CollectionCreateInput = {
       ...data,
       slug,
-      locale: 'en',
+      locale: 'tr',
     }
 
     mutate(formBody, {
@@ -138,7 +138,7 @@ export const CreateCollectionModal: FC<CreateCollectionModalProps> = ({
 
       <Modal
         isCentered
-        closeOnOverlayClick={false}
+        closeOnOverlayClick={true}
         isOpen={formDisclosure.isOpen}
         onClose={closeForm}
         size={auth.isLoggedIn ? '4xl' : 'md'}
@@ -201,6 +201,7 @@ export const CreateCollectionModal: FC<CreateCollectionModalProps> = ({
                   previews={previews}
                   setImages={setImages}
                   setPreviews={setPreviews}
+                  singleFile={true}
                 />
                 <ButtonGroup alignSelf="end">
                   <Button
@@ -212,7 +213,12 @@ export const CreateCollectionModal: FC<CreateCollectionModalProps> = ({
                     Cancel
                   </Button>
                   <Button
-                    isDisabled={!images || images?.length === 0 || !isValid}
+                    isDisabled={
+                      !images ||
+                      images?.length === 0 ||
+                      !isValid ||
+                      images.length > 1
+                    }
                     type="submit"
                     colorScheme="green"
                     leftIcon={<FaCheck />}
