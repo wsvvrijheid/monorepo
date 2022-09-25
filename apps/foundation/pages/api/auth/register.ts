@@ -1,3 +1,4 @@
+import { API_URL } from '@wsvvrijheid/config'
 import { Auth, AuthResponse } from '@wsvvrijheid/types'
 import { sessionOptions, getSessionUser } from '@wsvvrijheid/utils'
 import axios from 'axios'
@@ -13,7 +14,7 @@ const registerRoute = async (req: NextApiRequest, res: NextApiResponse) => {
 
   try {
     const response = await axios.post<AuthResponse>(
-      `${process.env.NEXT_PUBLIC_API_URL}/api/auth/local/register`,
+      `${API_URL}/api/auth/local/register`,
       {
         name: trimmedName,
         username: trimmedUsername,

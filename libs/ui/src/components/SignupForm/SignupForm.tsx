@@ -9,6 +9,9 @@ import {
   HStack,
   Stack,
   Text,
+  Alert,
+  AlertIcon,
+  AlertDescription,
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useTranslation } from 'next-i18next'
@@ -62,13 +65,12 @@ export const SignupForm: React.FC<SignupFormProps> = ({
   const handleSubmitSignUp: SubmitHandler<
     SignupFormFieldValues
   > = async data => {
-    onSignup(data)
+    await onSignup(data)
   }
-
   return (
     <Container
       maxW="lg"
-      py={{ base: '12', md: '24' }}
+      py={{ base: '8', md: '16' }}
       px={{ base: '0', sm: '8' }}
     >
       <Stack
@@ -86,7 +88,7 @@ export const SignupForm: React.FC<SignupFormProps> = ({
               <Navigate
                 variant="link"
                 as={Button}
-                href="/user/login"
+                href="/login"
                 colorScheme="blue"
               >
                 {t('login.sign-up-header.button')}
@@ -100,7 +102,12 @@ export const SignupForm: React.FC<SignupFormProps> = ({
           onSubmit={handleSubmit(handleSubmitSignUp)}
         >
           <Stack spacing="5">
-            {errorMessage && <Text color="red.500">{errorMessage}</Text>}
+            {errorMessage && (
+              <Alert status="error">
+                <AlertIcon />
+                <AlertDescription>{errorMessage}</AlertDescription>
+              </Alert>
+            )}
             <FormItem
               name="name"
               label={t('login.name.title')}

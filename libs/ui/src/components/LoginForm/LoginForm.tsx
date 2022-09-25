@@ -97,7 +97,7 @@ export const LoginForm = () => {
               <Navigate
                 variant="link"
                 as={Button}
-                href="/user/register"
+                href="/register"
                 colorScheme="blue"
               >
                 {t('login.sign-in-header.button')}
