@@ -34,14 +34,16 @@ export const RequestNestedFilter: FC<RequestNestedFilterProps> = ({
   }, [nameFilter])
 
   // TODO Add Input to change nameFilter
-  return <Box>
-    {/* TODO: Show only title of the blogs */}
-    <input type="text" onChange={e => setNameFilter(e.target.value)}/>
-  {blogs
-    .map(x => x['author']['username'])
-    .filter(y => y.includes(nameFilter))
-    .map(y => (
-      <Box>{y}</Box>
-    ))}
-  </Box>
+  return (
+    <Box>
+      {/* TODO: Show only title of the blogs */}
+      <input type="text" onChange={e => setNameFilter(e.target.value)} />
+      {blogs
+        .map(x => x['author']['username'])
+        .filter(y => y.includes(nameFilter))
+        .map(y => (
+          <Box>{y}</Box>
+        ))}
+    </Box>
+  )
 }

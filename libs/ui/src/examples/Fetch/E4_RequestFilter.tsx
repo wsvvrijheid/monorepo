@@ -32,15 +32,17 @@ export const RequestFilter: FC<RequestFilterProps> = ({ initialValue }) => {
   }, [titleFilter])
 
   // TODO Add Input to change titleFilter
-  return <Box>
-    {/* TODO: Show only title of the blogs */}
-    {/* <button onClick={e => setTitleFilter("Changed")}>Click here to fetch data</button> */}
-    <input type="text" onChange={e => setTitleFilter(e.target.value)}/>
-    {blogs
-      .map(x => x['title'])
-      .filter(y => y.includes(titleFilter))
-      .map(y => (
-        <Box>{y}</Box>
-      ))}
+  return (
+    <Box>
+      {/* TODO: Show only title of the blogs */}
+      {/* <button onClick={e => setTitleFilter("Changed")}>Click here to fetch data</button> */}
+      <input type="text" onChange={e => setTitleFilter(e.target.value)} />
+      {blogs
+        .map(x => x['title'])
+        .filter(y => y.includes(titleFilter))
+        .map(y => (
+          <Box>{y}</Box>
+        ))}
     </Box>
+  )
 }

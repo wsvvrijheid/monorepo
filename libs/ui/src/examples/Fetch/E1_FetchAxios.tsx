@@ -24,7 +24,7 @@ export const FetcAxios = () => {
     // TODO: fetch blogs with axios by using the API_URL and TOKEN
     getBlogs()
   }, [])
-  console.log(blogs);
+  console.log(blogs)
 
   return (
     <Box>
