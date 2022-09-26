@@ -31,6 +31,7 @@ export type FileUploaderProps = {
   maxSize?: number
   images: Array<Blob>
   previews: Array<string>
+  singleFile?: boolean
 }
 
 export const FileUploader: FC<FileUploaderProps> = ({
@@ -39,6 +40,7 @@ export const FileUploader: FC<FileUploaderProps> = ({
   setImages,
   setPreviews,
   maxSize,
+  singleFile,
 }) => {
   const inputRef = useRef<HTMLInputElement>(null)
 
@@ -62,18 +64,20 @@ export const FileUploader: FC<FileUploaderProps> = ({
   const onDrop = (event: DragEvent) => {
     // Prevent default behavior (Prevent file from being opened)
     event.preventDefault()
-
+    if (singleFile && images.length === 1) return
     if (event.dataTransfer.items) {
       // Use DataTransferItemList interface to access the file(s)
       for (let i = 0; i < event.dataTransfer.items.length; i++) {
         // If dropped items aren't files, reject them
         if (event.dataTransfer.items[i].kind === 'file') {
+          if (singleFile && event.dataTransfer.items.length > 1) return
           const file = event.dataTransfer.items[i].getAsFile()
           setImages(prev => [...prev, file as Blob])
           setPreviews(prev => [...prev, URL.createObjectURL(file as Blob)])
         }
       }
     } else {
+      if (singleFile && event.dataTransfer.files.length > 1) return
       // Use DataTransfer interface to access the file(s)
       for (let i = 0; i < event.dataTransfer.files.length; i++) {
         const file = event.dataTransfer.files[i]
@@ -84,6 +88,7 @@ export const FileUploader: FC<FileUploaderProps> = ({
       }
     }
   }
+  const isSingleFileValid = !(singleFile && images.length === 1)
 
   return (
     <Stack>
@@ -95,7 +100,7 @@ export const FileUploader: FC<FileUploaderProps> = ({
           id="form-input"
           accept="image/png, image/jpeg, image/jpeg, image/webp"
           type={'file'}
-          multiple
+          multiple={!singleFile}
           display={'none'}
           ref={inputRef}
           onChange={onInputChange}
@@ -108,8 +113,8 @@ export const FileUploader: FC<FileUploaderProps> = ({
           fontSize="sm"
           borderRadius="md"
           border={'1px dashed gray'}
-          onClick={() => inputRef?.current?.click()}
-          cursor={'pointer'}
+          onClick={() => isSingleFileValid && inputRef?.current?.click()}
+          cursor={isSingleFileValid ? 'pointer' : undefined}
           onDrop={(e: DragEvent) => onDrop(e)}
           onDragOver={(e: DragEvent) => e.preventDefault()}
         >
