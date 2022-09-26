@@ -14,7 +14,7 @@ import {
   Tooltip,
 } from '@chakra-ui/react'
 import { SessionUser } from '@wsvvrijheid/types'
-import { FiArrowLeftCircle, FiArrowRightCircle } from 'react-icons/fi'
+import { TbChevronsLeft, TbChevronsRight } from 'react-icons/tb'
 
 import { AdminNav } from '../AdminNav'
 import { AdminSidebarProfile } from './AdminSidebarProfile'
@@ -38,7 +38,7 @@ export const AdminSidebar: FC<AdminSidebarProps> = ({
       py={4}
       spacing={0}
       h="100%"
-      shadow="lg"
+      shadow="base"
       align={expanded ? 'stretch' : 'center'}
     >
       {/* Logo */}
@@ -50,20 +50,14 @@ export const AdminSidebar: FC<AdminSidebarProps> = ({
             name="Wsvvrijheid"
           />
           {expanded && (
-            <Text
-              color={'blue.500'}
-              fontWeight={700}
-              fontSize="lg"
-              lineHeight={1.25}
-            >
-              WEES DE STEM <br />
-              VOOR VRIJHEID
+            <Text color={'blue.500'} fontWeight="bold" fontSize="xl">
+              Dashboard
             </Text>
           )}
         </HStack>
       </Link>
       {/* User */}
-      <Box px={4} py={8}>
+      <Box py={4}>
         <AdminSidebarProfile
           user={user}
           expanded={expanded}
@@ -76,7 +70,7 @@ export const AdminSidebar: FC<AdminSidebarProps> = ({
         <Stack>
           {expanded && (
             <Box pos="sticky" top={0} px={4} bg="white" zIndex={1}>
-              <Text fontWeight={600}>MENU</Text>
+              <Text fontWeight="semibold">MENU</Text>
             </Box>
           )}
 
@@ -95,22 +89,23 @@ export const AdminSidebar: FC<AdminSidebarProps> = ({
             placement="right"
           >
             <Button
-              size="lg"
               variant="ghost"
+              rounded="0"
               _hover={{ bg: 'blackAlpha.50' }}
               onClick={onToggleExpand}
               justifyContent={expanded ? 'start' : 'center'}
               px={4}
             >
-              <Box
-                mr={expanded ? 2 : 0}
-                as={expanded ? FiArrowLeftCircle : FiArrowRightCircle}
-              />
               {expanded && (
                 <Text flex={1} textAlign="left">
                   Collapse
                 </Text>
               )}
+              <Box
+                mr={expanded ? 2 : 0}
+                as={expanded ? TbChevronsLeft : TbChevronsRight}
+                boxSize={6}
+              />
             </Button>
           </Tooltip>
 

@@ -5,13 +5,18 @@ import { AiOutlineEye, AiOutlineLike, AiOutlineShareAlt } from 'react-icons/ai'
 import { BsBookmarkHeart } from 'react-icons/bs'
 
 import { WImage } from '../../components'
-import { ActionButton } from './ActionButton'
-import { NewsCardProps } from './types'
+import { ActionButton } from './index'
+import { TopicCardBaseProps } from './index'
 
-export const NewsCardBase: FC<NewsCardProps> = ({
+export const TopicCardBase: FC<TopicCardBaseProps> = ({
   hideDescription,
-  news,
+  topic,
   variant = 'vertical',
+  onBookmark,
+  onRecommend,
+  onShare,
+  onView,
+  isBookmarked,
 }) => {
   const isVertical = useBreakpointValue({
     base: true,
@@ -35,11 +40,11 @@ export const NewsCardBase: FC<NewsCardProps> = ({
       >
         <Stack textAlign={isVertical ? 'center' : 'left'}>
           <Text fontSize="lg" fontWeight="semibold" noOfLines={1}>
-            {news.title}
+            {topic.title}
           </Text>
 
           {!hideDescription && (
-            <Text noOfLines={isVertical ? 3 : 2}>{news.description}</Text>
+            <Text noOfLines={isVertical ? 3 : 2}>{topic.description}</Text>
           )}
         </Stack>
         <Stack
@@ -50,11 +55,11 @@ export const NewsCardBase: FC<NewsCardProps> = ({
           <Text
             flex={1}
             fontSize="sm"
-            fontWeight={500}
+            fontWeight="medium"
             color={'primary.500'}
             noOfLines={1}
           >
-            {news.date} - {news.owner}
+            {topic.date} - {topic.publisher}
           </Text>
 
           <ButtonGroup
@@ -65,26 +70,26 @@ export const NewsCardBase: FC<NewsCardProps> = ({
             size={isVertical ? 'md' : 'sm'}
           >
             <ActionButton
-              onClick={() => alert(news.url)}
+              onClick={() => onView()}
               icon={<AiOutlineEye />}
               title="View"
               isVertical={isVertical}
             />
             <ActionButton
-              onClick={() => alert('Recommend')}
+              onClick={() => onRecommend()}
               icon={<AiOutlineLike />}
               title="Recommend"
               isVertical={isVertical}
             />
             <ActionButton
-              onClick={() => alert('Share')}
+              onClick={() => onShare()}
               icon={<AiOutlineShareAlt />}
               title="Share"
               isVertical={isVertical}
             />
             <ActionButton
-              onClick={() => alert('Read Later')}
-              icon={<BsBookmarkHeart />}
+              onClick={() => onBookmark()}
+              icon={<BsBookmarkHeart color={isBookmarked ? 'red' : ''} />}
               title="Read Later"
               isVertical={isVertical}
             />
@@ -95,8 +100,8 @@ export const NewsCardBase: FC<NewsCardProps> = ({
       <WImage
         w={isVertical ? 'full' : '300px'}
         h={isVertical ? '200px' : 'full'}
-        src={news.image}
-        alt={news.title}
+        src={topic.imageUrl}
+        alt={topic.title}
       />
     </Stack>
   )

@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import { FC } from 'react'
 
 import {
   Avatar,
@@ -29,13 +29,13 @@ export const AdminSidebarProfile: FC<AdminSidebarProfileProps> = ({
   onLogout,
 }) => {
   return (
-    <Stack>
+    <Stack p={4} shadow="base">
       {expanded ? (
         <HStack>
           <Avatar size="sm" src={user?.avatar} name={user?.username} />
 
           <Box flex={1} fontSize="sm" lineHeight={1.25}>
-            <Text w={160} noOfLines={1} fontWeight={600}>
+            <Text w={160} noOfLines={1} fontWeight="semibold">
               {user?.username}
             </Text>
             <Text w={175} noOfLines={1}>
@@ -70,7 +70,7 @@ export const AdminSidebarProfile: FC<AdminSidebarProfileProps> = ({
             <PopoverBody>
               <HStack spacing={8}>
                 <Box flex={1} fontSize="sm" lineHeight={1.25}>
-                  <Text w={160} noOfLines={1} fontWeight={600}>
+                  <Text w={160} noOfLines={1} fontWeight="semibold">
                     {user?.username}
                   </Text>
                   <Text w={175} noOfLines={1}>

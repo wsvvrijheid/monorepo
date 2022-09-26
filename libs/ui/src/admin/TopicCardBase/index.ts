@@ -1,3 +1,3 @@
-export * from './NewsCardBase'
+export * from './TopicCardBase'
 export * from './types'
 export * from './ActionButton'

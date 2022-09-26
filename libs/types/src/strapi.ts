@@ -39,6 +39,7 @@ export type StrapiBase = {
   createdAt: string
   updatedAt: string | null
   publishedAt: string | null
+  translates?: StrapiLocale[]
 }
 
 export type StrapiEntityBase = {
@@ -146,7 +147,7 @@ export type StrapiCollectionUrl =
   | 'lang-roles'
   | 'me'
   | 'mentions'
-  | 'news'
+  | 'topics'
   | 'platforms'
   | 'posts'
   | 'recommended-topics'

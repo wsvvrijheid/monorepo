@@ -19,7 +19,6 @@ import * as yup from 'yup'
 import {
   FormItem,
   Navigate,
-  LoginFormProps,
   LoginFormFieldValues,
   WImage,
   Container,
@@ -44,7 +43,7 @@ const schema = (t: TFunction) =>
       .required(t`login.email.required`),
   })
 
-export const AdminLoginForm: React.FC<LoginFormProps> = () => {
+export const AdminLoginForm = () => {
   const { t } = useTranslation()
   const {
     register,
@@ -110,7 +109,7 @@ export const AdminLoginForm: React.FC<LoginFormProps> = () => {
           <VStack textAlign="center" w={'full'}>
             <Avatar size="2xl" src={'https://wsvvrijheid.nl/images/logo.svg'} />
 
-            <Text fontSize="xl" color={'blue.500'} fontWeight={700}>
+            <Text fontSize="xl" color={'blue.500'} fontWeight="bold">
               WEES DE STEM <br />
               VOOR VRIJHEID
             </Text>

@@ -1,10 +1,9 @@
-import React, { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 import { Story, Meta } from '@storybook/react'
 
 import { Container } from '../Container'
-import { FileUploader } from './FileUploader'
-import { FileUploaderProps } from './types'
+import { FileUploader, FileUploaderProps } from './FileUploader'
 
 export default {
   title: 'Forms/FileUploader',
@@ -19,13 +18,21 @@ export default {
 } as Meta<typeof FileUploader>
 
 const Template: Story<FileUploaderProps> = args => {
-  const [images, setImages] = React.useState<Blob[]>([])
+  const [images, setImages] = useState<Blob[]>([])
+  const [previews, setPreviews] = useState<string[]>([])
 
   useEffect(() => {
-    console.log({ images })
-  }, [images])
+    console.log({ images, previews })
+  }, [images, previews])
 
-  return <FileUploader images={images} setImages={setImages} />
+  return (
+    <FileUploader
+      images={images}
+      setImages={setImages}
+      setPreviews={setPreviews}
+      previews={previews}
+    />
+  )
 }
 
 export const Default = Template.bind({})

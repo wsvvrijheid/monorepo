@@ -19,7 +19,7 @@ export type PageHeaderProps = {
   filterMenu?: ReactNode
   sortMenu?: ReactNode
   onLanguageSwitch?: (slug: StrapiLocale) => void
-  onSearch: (value: string) => void
+  onSearch: (value: string | null) => void
 }
 
 export const PageHeader: FC<PageHeaderProps> = ({
@@ -30,7 +30,7 @@ export const PageHeader: FC<PageHeaderProps> = ({
   onSearch,
 }) => {
   return (
-    <HStack align="center" bg="white" px={4} py={2}>
+    <HStack align="center" bg="white" px={4} py={2} shadow="base">
       {typeof onSearch === 'function' && (
         <SearchForm
           onSearch={onSearch}

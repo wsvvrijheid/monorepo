@@ -29,7 +29,7 @@ export const PostContainer: FC<PostContainerProps> = ({
   return (
     <Stack
       p={4}
-      shadow="primary"
+      shadow="base"
       bg="orange.50"
       align="stretch"
       spacing={4}

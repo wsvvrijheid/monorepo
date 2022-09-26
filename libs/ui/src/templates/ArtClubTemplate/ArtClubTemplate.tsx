@@ -15,7 +15,7 @@ import {
   useDisclosure,
 } from '@chakra-ui/react'
 import { StrapiLocale } from '@wsvvrijheid/types'
-import { useArts, useGetArtCategories } from '@wsvvrijheid/utils'
+import { useArts, useGetApprovedArtCategories } from '@wsvvrijheid/utils'
 import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
 import { MdMenuOpen } from 'react-icons/md'
@@ -32,7 +32,6 @@ import {
   Pagination,
   ArtCard,
 } from '../../components'
-import { CreateArtFormFieldValues } from '../../components/CreateArtForm/types'
 import { useAuth, useChangeParams } from '../../hooks'
 
 export const ArtClubTemplate: FC = () => {
@@ -47,7 +46,7 @@ export const ArtClubTemplate: FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const { t } = useTranslation()
 
-  const categoryQuery = useGetArtCategories()
+  const approvedCategoryQuery = useGetApprovedArtCategories()
 
   // As mentioned in `getStaticProps`, we need to keep the same order for queryKey
   // queryKey = [arts, locale, searchTerm, category, page]
@@ -56,17 +55,10 @@ export const ArtClubTemplate: FC = () => {
   // Custom useQuery hook or fetching arts
   const artsQuery = useArts(queryKey, {
     categories: categories as string,
-    populate: ['artist.user.avatar', 'categories', 'images', 'likers'],
     page: parseInt(page as string) || 1,
-    pageSize: 12,
     searchTerm: searchTerm as string,
-    sort: ['publishedAt:desc'],
     locale: locale as StrapiLocale,
   })
-
-  const createArt = (data: CreateArtFormFieldValues & { images: Blob[] }) => {
-    // mutate(data)
-  }
 
   return (
     <>
@@ -75,13 +67,14 @@ export const ArtClubTemplate: FC = () => {
         <DrawerContent>
           <DrawerBody py={8}>
             <ArtSideBar
-              categoryList={categoryQuery.data || []}
+              categoryList={approvedCategoryQuery.data || []}
               isLoading={isLoading}
               setIsLoading={setIsLoading}
             />
           </DrawerBody>
         </DrawerContent>
       </Drawer>
+
       <Container minH="inherit">
         <Grid
           w="full"
@@ -90,7 +83,7 @@ export const ArtClubTemplate: FC = () => {
           gridTemplateColumns={{ base: '1fr', lg: '200px 1fr' }}
         >
           <Box display={{ base: 'none', lg: 'block' }}>
-            {categoryQuery.isLoading ? (
+            {approvedCategoryQuery.isLoading ? (
               <Stack
                 direction={{ base: 'row', lg: 'column' }}
                 justify="stretch"
@@ -108,7 +101,7 @@ export const ArtClubTemplate: FC = () => {
               </Stack>
             ) : (
               <ArtSideBar
-                categoryList={categoryQuery.data || []}
+                categoryList={approvedCategoryQuery.data || []}
                 isLoading={isLoading}
                 setIsLoading={setIsLoading}
               />
@@ -119,15 +112,10 @@ export const ArtClubTemplate: FC = () => {
             <HStack>
               <SearchForm
                 placeholder={t`search`}
-                onSearch={value => changeParam({ searchTerm: value })}
+                onSearch={value => changeParam({ searchTerm: value as string })}
                 isFetching={artsQuery.isFetching}
               />
-              <CreateArtForm
-                categories={categoryQuery.data || []}
-                isLoggedIn={auth.isLoggedIn}
-                isLoading={isLoading}
-                onCreateArt={createArt}
-              />
+              <CreateArtForm auth={auth} />
               <IconButton
                 display={{ base: 'flex', lg: 'none' }}
                 variant="outline"
@@ -163,11 +151,13 @@ export const ArtClubTemplate: FC = () => {
 
             {!artsQuery.isLoading && (
               <Center>
-                {artsQuery.data?.meta?.pagination && page && (
+                {artsQuery.data?.meta?.pagination && (
                   <Pagination
                     totalCount={artsQuery.data.meta.pagination?.pageCount}
-                    currentPage={+page}
-                    onPageChange={() => changeParam({ page: page.toString() })}
+                    currentPage={artsQuery.data.meta.pagination?.page}
+                    onPageChange={page =>
+                      changeParam({ page: page.toString() })
+                    }
                   />
                 )}
               </Center>

@@ -9,7 +9,7 @@ import { Navigate } from '../Navigate'
 const MarkdownComponents = {
   h1: (props: PropsWithChildren<ChakraProps>) => (
     <chakra.h1
-      fontWeight={600}
+      fontWeight="semibold"
       textAlign="center"
       fontSize="3xl"
       my={8}
@@ -18,7 +18,7 @@ const MarkdownComponents = {
   ),
   h2: (props: PropsWithChildren<ChakraProps>) => (
     <chakra.h2
-      fontWeight={600}
+      fontWeight="semibold"
       fontSize="2xl"
       my={6}
       apply="mdx.h2"
@@ -27,7 +27,7 @@ const MarkdownComponents = {
   ),
   h3: (props: PropsWithChildren<ChakraProps>) => (
     <chakra.h3
-      fontWeight={600}
+      fontWeight="semibold"
       fontSize="xl"
       my={4}
       as="h3"
@@ -37,7 +37,7 @@ const MarkdownComponents = {
   ),
   h4: (props: PropsWithChildren<ChakraProps>) => (
     <chakra.h4
-      fontWeight={600}
+      fontWeight="semibold"
       fontSize="lg"
       my={4}
       as="h4"
@@ -49,12 +49,12 @@ const MarkdownComponents = {
     <chakra.hr apply="mdx.hr" {...props} />
   ),
   strong: (props: PropsWithChildren<ChakraProps>) => (
-    <chakra.span fontWeight={600} {...props} />
+    <chakra.span fontWeight="semibold" {...props} />
   ),
   a: (props: PropsWithChildren<ChakraProps>) => (
     <Navigate
       {...props}
-      fontWeight={600}
+      fontWeight="semibold"
       color="blue.500"
       _hover={{ color: 'blue.300' }}
     >

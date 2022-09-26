@@ -22,10 +22,13 @@ type RecommendedTweetRelationInput = {
 }
 
 export type RecommendedTweetCreateInput = Expand<
-  Omit<RecommendedTweetBase, 'isShared' | 'isArchived'> &
+  { publishedAt?: string | null } & Omit<
+    RecommendedTweetBase,
+    'isShared' | 'isArchived'
+  > &
     RecommendedTweetRelationInput
 >
 
-export type RecommendedTweet = Expand<
-  StrapiBase & RecommendedTweetBase & RecommendedTweetRelation
->
+export type RecommendedTweet = StrapiBase &
+  RecommendedTweetBase &
+  RecommendedTweetRelation

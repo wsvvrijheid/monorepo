@@ -8,14 +8,12 @@ import { Post } from './post'
 import { StrapiBase, StrapiEntityBase } from './strapi'
 import { Tweet } from './tweet'
 
-export type HashtagBase = Expand<
-  StrapiEntityBase & {
-    hashtag: string
-    hashtagExtra: string | null
-    date: string
-    tweets: Array<Tweet> | null
-  }
->
+export type HashtagBase = StrapiEntityBase & {
+  hashtag: string
+  hashtagExtra: string | null
+  date: string
+  tweets: Array<Tweet> | null
+}
 
 type HashtagRelation = {
   image?: UploadFile
@@ -33,14 +31,16 @@ type HashtagRelationInput = {
 }
 
 export type HashtagCreateInput = Expand<
-  SetOptional<
+  { publishedAt?: string | null } & SetOptional<
     Omit<HashtagBase, 'translationStatus' | 'tweets'>,
     'hashtagExtra'
   > &
     SetRequired<HashtagRelationInput, 'image'>
 >
+
 export type HashtagUpdateInput = Expand<
-  Partial<Omit<HashtagBase, 'locale'>> & HashtagRelationInput
+  { publishedAt?: string | null } & Partial<Omit<HashtagBase, 'locale'>> &
+    HashtagRelationInput
 >
 
 export type HashtagLocalizeInput = Pick<
@@ -48,4 +48,4 @@ export type HashtagLocalizeInput = Pick<
   'title' | 'description' | 'content' | 'translationStatus'
 >
 
-export type Hashtag = Expand<StrapiBase & HashtagBase & HashtagRelation>
+export type Hashtag = StrapiBase & HashtagBase & HashtagRelation
