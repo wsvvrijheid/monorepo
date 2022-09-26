@@ -10,7 +10,7 @@ export const FetchFetcher = () => {
 
   useEffect(() => {
     const getBlogs = async () => {
-      const response = await fetcher(TOKEN).get('api/blogs')
+      const response = await fetcher(TOKEN)('api/blogs')
       const data = response?.data
       setBlogs(data)
     }
