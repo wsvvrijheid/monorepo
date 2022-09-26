@@ -64,20 +64,20 @@ export const FileUploader: FC<FileUploaderProps> = ({
   const onDrop = (event: DragEvent) => {
     // Prevent default behavior (Prevent file from being opened)
     event.preventDefault()
-
+    if (singleFile && images.length === 1) return
     if (event.dataTransfer.items) {
       // Use DataTransferItemList interface to access the file(s)
       for (let i = 0; i < event.dataTransfer.items.length; i++) {
         // If dropped items aren't files, reject them
         if (event.dataTransfer.items[i].kind === 'file') {
-          if (singleFile === true && event.dataTransfer.items.length > 1) return
+          if (singleFile && event.dataTransfer.items.length > 1) return
           const file = event.dataTransfer.items[i].getAsFile()
           setImages(prev => [...prev, file as Blob])
           setPreviews(prev => [...prev, URL.createObjectURL(file as Blob)])
         }
       }
     } else {
-      if (singleFile === true && event.dataTransfer.files.length > 1) return
+      if (singleFile && event.dataTransfer.files.length > 1) return
       // Use DataTransfer interface to access the file(s)
       for (let i = 0; i < event.dataTransfer.files.length; i++) {
         const file = event.dataTransfer.files[i]
