@@ -13,21 +13,19 @@ import {
   ModalOverlay,
   Spinner,
   Stack,
-  Text,
   Textarea,
   useDisclosure,
   useToast,
-  VStack,
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import slugify from '@sindresorhus/slugify'
 import { CollectionCreateInput } from '@wsvvrijheid/types'
 import { useCreateCollection } from '@wsvvrijheid/utils'
 import { useForm } from 'react-hook-form'
-import { FaCheck, FaTimes, FaPlusCircle } from 'react-icons/fa'
+import { FaCheck, FaTimes, FaPlus } from 'react-icons/fa'
 import * as yup from 'yup'
 
-import { FormItem, Navigate } from '../../components'
+import { FormItem } from '../../components'
 import { FileUploader } from '../../components/FileUploader'
 import { CollectionCreateSuccessAlert } from './CreateCollectionSuccessAlert'
 import {
@@ -43,7 +41,6 @@ const schema = () =>
 
 // TODO Consider adding modal form instead of a new page
 export const CreateCollectionModal: FC<CreateCollectionModalProps> = ({
-  auth,
   queryKey,
 }) => {
   const [images, setImages] = useState<Blob[]>([])
@@ -77,19 +74,20 @@ export const CreateCollectionModal: FC<CreateCollectionModalProps> = ({
   const createCollection = async (
     data: CreateCollectionFormFieldValues & { image: Blob },
   ) => {
-    if (!auth.user) return
-
     const slug = slugify(data.title)
     const formBody: CollectionCreateInput = {
       ...data,
       slug,
       locale: 'tr',
+      publishedAt: null,
     }
 
     mutate(formBody, {
       onSuccess: () => {
         formDisclosure.onClose()
         successDisclosure.onOpen()
+        resetForm()
+        resetFileUploader()
       },
       onError: () => {
         toast({
@@ -131,7 +129,7 @@ export const CreateCollectionModal: FC<CreateCollectionModalProps> = ({
 
       <Button size="lg" colorScheme="blue" onClick={formDisclosure.onOpen}>
         <Box mr={{ base: 0, lg: 4 }}>
-          <FaPlusCircle />
+          <FaPlus />
         </Box>
         <Box display={{ base: 'none', lg: 'block' }}>Create Collection</Box>
       </Button>
@@ -141,7 +139,7 @@ export const CreateCollectionModal: FC<CreateCollectionModalProps> = ({
         closeOnOverlayClick={true}
         isOpen={formDisclosure.isOpen}
         onClose={closeForm}
-        size={auth.isLoggedIn ? '4xl' : 'md'}
+        size="4xl"
       >
         <ModalOverlay />
         <ModalContent>
@@ -162,72 +160,58 @@ export const CreateCollectionModal: FC<CreateCollectionModalProps> = ({
               </Center>
             )}
 
-            {!auth.isLoggedIn && (
-              <VStack>
-                <Text>
-                  You must be logged in in order to be able to create a
-                  collection!
-                  <Navigate href="/login" color="blue.500">
-                    Login now
-                  </Navigate>
-                </Text>
-              </VStack>
-            )}
-
             {/* CREATE FORM */}
-            {auth.isLoggedIn && (
-              <Stack
-                spacing={4}
-                as="form"
-                onSubmit={handleSubmit(handleCreateCollection)}
-              >
-                <FormItem
-                  name="title"
-                  label="Title"
-                  isRequired
-                  errors={errors}
-                  register={register}
-                />
-                <FormItem
-                  name="description"
-                  label="Description"
-                  as={Textarea}
-                  isRequired
-                  errors={errors}
-                  register={register}
-                />
-                <FileUploader
-                  images={images}
-                  previews={previews}
-                  setImages={setImages}
-                  setPreviews={setPreviews}
-                  singleFile={true}
-                />
-                <ButtonGroup alignSelf="end">
-                  <Button
-                    onClick={closeForm}
-                    mr={3}
-                    ref={cancelRef}
-                    leftIcon={<FaTimes />}
-                  >
-                    Cancel
-                  </Button>
-                  <Button
-                    isDisabled={
-                      !images ||
-                      images?.length === 0 ||
-                      !isValid ||
-                      images.length > 1
-                    }
-                    type="submit"
-                    colorScheme="green"
-                    leftIcon={<FaCheck />}
-                  >
-                    Create Collection
-                  </Button>
-                </ButtonGroup>
-              </Stack>
-            )}
+            <Stack
+              spacing={4}
+              as="form"
+              onSubmit={handleSubmit(handleCreateCollection)}
+            >
+              <FormItem
+                name="title"
+                label="Title"
+                isRequired
+                errors={errors}
+                register={register}
+              />
+              <FormItem
+                name="description"
+                label="Description"
+                as={Textarea}
+                isRequired
+                errors={errors}
+                register={register}
+              />
+              <FileUploader
+                images={images}
+                previews={previews}
+                setImages={setImages}
+                setPreviews={setPreviews}
+                singleFile={true}
+              />
+              <ButtonGroup alignSelf="end">
+                <Button
+                  onClick={closeForm}
+                  mr={3}
+                  ref={cancelRef}
+                  leftIcon={<FaTimes />}
+                >
+                  Cancel
+                </Button>
+                <Button
+                  isDisabled={
+                    !images ||
+                    images?.length === 0 ||
+                    !isValid ||
+                    images.length > 1
+                  }
+                  type="submit"
+                  colorScheme="green"
+                  leftIcon={<FaCheck />}
+                >
+                  Create Collection
+                </Button>
+              </ButtonGroup>
+            </Stack>
           </ModalBody>
         </ModalContent>
       </Modal>
