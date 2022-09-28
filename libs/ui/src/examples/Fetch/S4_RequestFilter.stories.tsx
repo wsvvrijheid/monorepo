@@ -7,7 +7,7 @@ export default {
   component: RequestFilter,
   title: 'Example/E4_RequestFilter',
   args: {
-    initialValue: 'a',
+    initialValue: '',
   },
   decorators: [Story => <Container maxW="container.xl">{Story()}</Container>],
 } as Meta<typeof Notification>

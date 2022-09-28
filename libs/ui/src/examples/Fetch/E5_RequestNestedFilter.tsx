@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { FC, useEffect, useState } from 'react'
 
-import { Box, Stack } from '@chakra-ui/react'
+import { Box, Input, Stack, Text } from '@chakra-ui/react'
 import { API_URL, TOKEN } from '@wsvvrijheid/config'
+import { Blog } from '@wsvvrijheid/types'
 import { request } from '@wsvvrijheid/utils'
 
 export type RequestNestedFilterProps = {
@@ -19,8 +20,35 @@ export const RequestNestedFilter: FC<RequestNestedFilterProps> = ({
     // TODO: Fetch blogs by author name (blog.author.name) with nameFilter by using our custom request function
     // Changing nameFilter should trigger a new fetch.
     // How could you achieve it by using useEffect?
-  }, [])
+    const getBlogs = async () => {
+      const { data } = await request<Blog[]>({
+        url: 'api/blogs',
+        filters: {
+          author: {
+            username: {
+              $containsi: nameFilter,
+            },
+          },
+        },
+        locale: 'tr',
+      })
+
+      setBlogs(data)
+    }
+    getBlogs()
+  }, [nameFilter])
 
   // TODO Add Input to change nameFilter
-  return <Box>{/* TODO: Show only title of the blogs */}</Box>
+  return (
+    <Box>
+      <Input
+        placeholder="filter author"
+        onChange={event => setNameFilter(event.target.value)}
+      />
+      {/* TODO: Show only title of the blogs */}
+      {blogs.map(blog => {
+        return <Text fontSize="xl">{blog['author']['username']}</Text>
+      })}
+    </Box>
+  )
 }

@@ -10,7 +10,7 @@ export default {
   component: RequestNestedFilter,
   title: 'Example/E4_RequestNestedFilter',
   args: {
-    initialValue: 'a',
+    initialValue: '',
   },
   decorators: [Story => <Container maxW="container.xl">{Story()}</Container>],
 } as Meta<typeof Notification>
