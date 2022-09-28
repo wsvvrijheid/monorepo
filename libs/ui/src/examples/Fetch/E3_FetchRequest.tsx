@@ -3,17 +3,19 @@ import { useEffect, useState } from 'react'
 
 import { Box, Stack, Text } from '@chakra-ui/react'
 import { API_URL, TOKEN } from '@wsvvrijheid/config'
+import { Blog } from '@wsvvrijheid/types'
 import { request } from '@wsvvrijheid/utils'
 
 export const FetchRequest = () => {
   const [blogs, setBlogs] = useState([])
-  const getBlogs = async () => {
-    const { data } = await request({ url: 'api/blogs' })
-    console.log(data)
-    setBlogs(data)
-  }
+
   useEffect(() => {
     // TODO: fetch blogs with our custom request function
+    const getBlogs = async () => {
+      const { data } = await request<Blog[]>({ url: 'api/blogs' })
+
+      setBlogs(data)
+    }
     getBlogs()
   }, [])
 
