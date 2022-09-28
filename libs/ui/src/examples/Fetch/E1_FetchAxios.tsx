@@ -3,21 +3,21 @@ import { useEffect, useState } from 'react'
 
 import { Box, Stack, Text } from '@chakra-ui/react'
 import { API_URL, TOKEN } from '@wsvvrijheid/config'
+import { Blog } from '@wsvvrijheid/types'
 import axios from 'axios'
 
 const BLOG_URL = `${API_URL}/api/blogs` // https://api.samenvvv.nl/api/blogs
 const API_TOKEN = TOKEN
 
 export const FetcAxios = () => {
-  const [blogs, setBlogs] = useState([])
-  const getBlogs = async () => {
-    const response = await axios.get(BLOG_URL)
-    setBlogs(response.data)
-  }
-  console.log(blogs)
+  const [blogs, setBlogs] = useState<Blog[]>([])
 
   useEffect(() => {
     // TODO: fetch blogs with axios by using the API_URL and TOKEN
+    const getBlogs = async () => {
+      const response = await axios.get(BLOG_URL)
+      setBlogs(response.data)
+    }
     getBlogs()
   }, [])
 
