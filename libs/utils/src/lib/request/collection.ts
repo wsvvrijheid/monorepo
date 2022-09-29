@@ -1,3 +1,4 @@
+import { API_URL, TOKEN } from '@wsvvrijheid/config'
 import {
   StrapiCollectionResponse,
   StrapiMeta,
@@ -6,12 +7,11 @@ import {
 import axios, { AxiosError, AxiosResponse } from 'axios'
 import qs from 'qs'
 
-import { fetcher } from '../fetcher'
 import { RequestArgs } from './types'
 
 export const requestCollection = async <T extends StrapiModel[]>({
   url,
-  token,
+  token = TOKEN,
   locale,
   fields,
   filters,
@@ -37,9 +37,12 @@ export const requestCollection = async <T extends StrapiModel[]>({
   const requestUrl = `${url}?${query}`
 
   try {
-    const response = (await fetcher(token)(requestUrl)) as AxiosResponse<
-      StrapiCollectionResponse<T>
-    >
+    const response = (await axios(requestUrl, {
+      baseURL: API_URL,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })) as AxiosResponse<StrapiCollectionResponse<T>>
 
     if (!response.data || (response.data && !response.data.data)) {
       return {

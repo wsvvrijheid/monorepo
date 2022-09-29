@@ -1,14 +1,14 @@
+import { API_URL, TOKEN } from '@wsvvrijheid/config'
 import { StrapiModel, StrapiSingleResponse } from '@wsvvrijheid/types'
 import axios, { AxiosError, AxiosResponse } from 'axios'
 import qs from 'qs'
 
-import { fetcher } from '../fetcher'
 import { RequestSingleArgs } from './types'
 
 export const requestSingle = async <T extends StrapiModel>({
   id,
   url,
-  token,
+  token = TOKEN,
   fields,
   locale,
   populate,
@@ -19,12 +19,15 @@ export const requestSingle = async <T extends StrapiModel>({
     { encodeValuesOnly: true },
   )
 
-  const requestUrl = `${url}/${id}?${query}`
+  const requestUrl = `${url}${id ? `/${id}` : ''}?${query}`
 
   try {
-    const response = (await fetcher(token)(requestUrl)) as AxiosResponse<
-      StrapiSingleResponse<T>
-    >
+    const response = (await axios(requestUrl, {
+      baseURL: API_URL,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })) as AxiosResponse<StrapiSingleResponse<T>>
 
     if (!response.data || (response.data && !response.data.data)) {
       return { data: response.data as unknown as T, meta: {} }

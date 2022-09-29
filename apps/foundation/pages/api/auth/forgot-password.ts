@@ -1,3 +1,4 @@
+import { API_URL } from '@wsvvrijheid/config'
 import { sessionOptions } from '@wsvvrijheid/utils'
 import axios from 'axios'
 import { withIronSessionApiRoute } from 'iron-session/next'
@@ -7,10 +8,9 @@ const forgotPassRoute = async (req: NextApiRequest, res: NextApiResponse) => {
   const { email } = req.body
   try {
     const response = await axios.post(
-      `${process.env.NEXT_PUBLIC_API_URL}/api/auth/forgot-password`,
-      {
-        email,
-      },
+      'api/auth/forgot-password',
+      { email },
+      { baseURL: API_URL },
     )
     res.json(response.data)
   } catch (error) {
