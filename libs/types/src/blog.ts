@@ -6,12 +6,10 @@ import { StrapiBase, StrapiEntityBase } from './strapi'
 import { Tag } from './tag'
 import { User } from './user'
 
-export type BlogBase = Expand<
-  StrapiEntityBase & {
-    likes: number
-    views: number
-  }
->
+export type BlogBase = StrapiEntityBase & {
+  likes: number
+  views: number
+}
 
 type BlogRelation = {
   image?: UploadFile
@@ -32,11 +30,16 @@ type BlogRelationInput = {
 }
 
 export type BlogCreateInput = Expand<
-  Omit<BlogBase, 'translationStatus' | 'likes' | 'views'> &
+  { publishedAt?: string | null } & Omit<
+    BlogBase,
+    'translationStatus' | 'likes' | 'views'
+  > &
     Omit<BlogRelationInput, 'likers'>
 >
 export type BlogUpdateInput = Expand<
-  Partial<Omit<BlogBase, 'locale'> & BlogRelationInput>
+  { publishedAt?: string | null } & Partial<
+    Omit<BlogBase, 'locale'> & BlogRelationInput
+  >
 >
 
 export type BlogLocalizeInput = Omit<
@@ -44,4 +47,4 @@ export type BlogLocalizeInput = Omit<
   'approvalStatus' | 'likes' | 'views'
 >
 
-export type Blog = Expand<StrapiBase & BlogBase & BlogRelation>
+export type Blog = StrapiBase & BlogBase & BlogRelation

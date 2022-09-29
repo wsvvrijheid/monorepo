@@ -65,7 +65,7 @@ export const FormItem: FormItemComponent = forwardRef(
     return (
       <FormControl isInvalid={Boolean(errors?.[name])} isRequired={isRequired}>
         {label && !hideLabel && (
-          <FormLabel mb={1} htmlFor={name} fontSize="sm" fontWeight={600}>
+          <FormLabel mb={1} htmlFor={name} fontSize="sm" fontWeight="semibold">
             {label}
           </FormLabel>
         )}

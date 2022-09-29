@@ -94,12 +94,13 @@ export const AdminLayout: FC<AdminLayoutProps> = ({
           ml={expanded ? 300 : 16}
           spacing={4}
           minH="100vh"
-          h="200vh"
           overflow="auto"
         >
           {/* Title */}
-          <HStack px={4} mt={12} justify="space-between">
-            <Heading>{title}</Heading>
+          <HStack px={4} mt={10} justify="space-between">
+            <Heading textTransform="capitalize" color="blackAlpha.400">
+              {title}
+            </Heading>
 
             {/* TODO Create notification component */}
             <IconButton

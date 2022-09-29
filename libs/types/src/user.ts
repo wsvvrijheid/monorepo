@@ -75,6 +75,4 @@ export type UpdateUserInput = Expand<
   Partial<Omit<UserBase, 'provider'> & UserRelationInput>
 >
 
-export type User = Expand<
-  Omit<StrapiBase, 'publishedAt'> & UserBase & UserRelation
->
+export type User = Omit<StrapiBase, 'publishedAt'> & UserBase & UserRelation

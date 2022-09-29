@@ -33,7 +33,7 @@ export const PlatformTemplate: FC<PlatformTemplateProps> = ({
           <WImage
             src={image}
             rounded="full"
-            shadow="md"
+            shadow="base"
             alt={seo.title as string}
             ratio={1}
           />

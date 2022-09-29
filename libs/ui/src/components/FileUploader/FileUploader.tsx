@@ -1,4 +1,11 @@
-import React, { DragEvent, FC } from 'react'
+import {
+  ChangeEvent,
+  Dispatch,
+  DragEvent,
+  FC,
+  SetStateAction,
+  useRef,
+} from 'react'
 
 import {
   Box,
@@ -19,22 +26,27 @@ import { AiOutlineCloudUpload } from 'react-icons/ai'
 import { GrClearOption } from 'react-icons/gr'
 
 export type FileUploaderProps = {
-  setImages: React.Dispatch<React.SetStateAction<Blob[]>>
+  setImages: Dispatch<SetStateAction<Blob[]>>
+  setPreviews: Dispatch<SetStateAction<string[]>>
   maxSize?: number
   images: Array<Blob>
+  previews: Array<string>
+  singleFile?: boolean
 }
 
 export const FileUploader: FC<FileUploaderProps> = ({
   images = [],
+  previews = [],
   setImages,
+  setPreviews,
   maxSize,
+  singleFile,
 }) => {
-  const inputRef = React.useRef<HTMLInputElement>(null)
-  const [previews, setPreviews] = React.useState<string[]>([])
+  const inputRef = useRef<HTMLInputElement>(null)
 
   const { t } = useTranslation()
 
-  const onInputChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+  const onInputChange = async (event: ChangeEvent<HTMLInputElement>) => {
     const filesArr = event.target.files
     if (!filesArr) return
     const files = Array.from(filesArr)
@@ -52,18 +64,20 @@ export const FileUploader: FC<FileUploaderProps> = ({
   const onDrop = (event: DragEvent) => {
     // Prevent default behavior (Prevent file from being opened)
     event.preventDefault()
-
+    if (singleFile && images.length === 1) return
     if (event.dataTransfer.items) {
       // Use DataTransferItemList interface to access the file(s)
       for (let i = 0; i < event.dataTransfer.items.length; i++) {
         // If dropped items aren't files, reject them
         if (event.dataTransfer.items[i].kind === 'file') {
+          if (singleFile && event.dataTransfer.items.length > 1) return
           const file = event.dataTransfer.items[i].getAsFile()
           setImages(prev => [...prev, file as Blob])
           setPreviews(prev => [...prev, URL.createObjectURL(file as Blob)])
         }
       }
     } else {
+      if (singleFile && event.dataTransfer.files.length > 1) return
       // Use DataTransfer interface to access the file(s)
       for (let i = 0; i < event.dataTransfer.files.length; i++) {
         const file = event.dataTransfer.files[i]
@@ -74,6 +88,7 @@ export const FileUploader: FC<FileUploaderProps> = ({
       }
     }
   }
+  const isSingleFileValid = !(singleFile && images.length === 1)
 
   return (
     <Stack>
@@ -85,7 +100,7 @@ export const FileUploader: FC<FileUploaderProps> = ({
           id="form-input"
           accept="image/png, image/jpeg, image/jpeg, image/webp"
           type={'file'}
-          multiple
+          multiple={!singleFile}
           display={'none'}
           ref={inputRef}
           onChange={onInputChange}
@@ -98,8 +113,8 @@ export const FileUploader: FC<FileUploaderProps> = ({
           fontSize="sm"
           borderRadius="md"
           border={'1px dashed gray'}
-          onClick={() => inputRef?.current?.click()}
-          cursor={'pointer'}
+          onClick={() => isSingleFileValid && inputRef?.current?.click()}
+          cursor={isSingleFileValid ? 'pointer' : undefined}
           onDrop={(e: DragEvent) => onDrop(e)}
           onDragOver={(e: DragEvent) => e.preventDefault()}
         >

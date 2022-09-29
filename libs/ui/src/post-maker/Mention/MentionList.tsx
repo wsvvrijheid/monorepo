@@ -73,7 +73,7 @@ export const MentionList = () => {
         align="stretch"
         bg="white"
         overflowY="auto"
-        shadow="primary"
+        shadow="base"
       >
         <Tabs
           size="sm"

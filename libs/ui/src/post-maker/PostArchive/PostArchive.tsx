@@ -99,7 +99,7 @@ export const PostArchive = (): JSX.Element => {
               hasHover
               onClick={() => setActiveIndex(i)}
             >
-              <Box bg="white" shadow="primary" rounded="lg" overflow="hidden">
+              <Box bg="white" shadow="base" rounded="lg" overflow="hidden">
                 {post.image && (
                   <WImage
                     ratio="twitter"

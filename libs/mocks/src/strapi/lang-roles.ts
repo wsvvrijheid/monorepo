@@ -1,6 +1,6 @@
-import { LangRole, StrapiResponse } from '@wsvvrijheid/types'
+import { LangRole, StrapiCollectionResponse } from '@wsvvrijheid/types'
 
-export const LANG_ROLE_MOCKS: StrapiResponse<LangRole[]> = {
+export const LANG_ROLE_MOCKS: StrapiCollectionResponse<LangRole[]> = {
   data: [
     {
       id: 43,

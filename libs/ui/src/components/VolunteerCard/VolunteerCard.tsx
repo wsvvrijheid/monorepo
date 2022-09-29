@@ -67,7 +67,7 @@ export const VolunteerCard: FC<VolunteerCardProps> = ({
       rounded="md"
       bg="white"
       w="full"
-      shadow="md"
+      shadow="base"
       align="center"
     >
       {/* TODO Create shared image component */}
@@ -76,7 +76,12 @@ export const VolunteerCard: FC<VolunteerCardProps> = ({
         size="lg"
         src={`${API_URL}${volunteer.user?.avatar?.url}`}
       />
-      <Text textAlign="center" fontSize="lg" fontWeight={600} color="blue.500">
+      <Text
+        textAlign="center"
+        fontSize="lg"
+        fontWeight="semibold"
+        color="blue.500"
+      >
         {volunteer.username}
       </Text>
       <ButtonGroup size="sm">

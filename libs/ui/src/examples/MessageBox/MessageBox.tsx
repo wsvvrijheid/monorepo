@@ -1,4 +1,4 @@
-import React from 'react'
+import { FC } from 'react'
 
 import {
   Flex,
@@ -21,7 +21,7 @@ const schema = (t: TFunction) =>
     message: yup.string().required(t`contact.form.message-required`),
   })
 
-export const MessageBox: React.FC<MessageBoxProps> = ({
+export const MessageBox: FC<MessageBoxProps> = ({
   onSubmitHandler,
   isLoading,
   isSuccess,

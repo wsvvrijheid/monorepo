@@ -1,6 +1,6 @@
-import { Category, StrapiResponse } from '@wsvvrijheid/types'
+import { Category, StrapiCollectionResponse } from '@wsvvrijheid/types'
 
-export const CATEGORY_MOCKS: StrapiResponse<Category[]> = {
+export const CATEGORY_MOCKS: StrapiCollectionResponse<Category[]> = {
   data: [
     {
       id: 6,

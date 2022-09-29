@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 
 import {
   Avatar,
@@ -11,7 +11,13 @@ import {
   useBreakpointValue,
   useDisclosure,
 } from '@chakra-ui/react'
+import { QueryKey } from '@tanstack/react-query'
 import { API_URL } from '@wsvvrijheid/config'
+import {
+  usePublishModel,
+  useUnpublishModel,
+  useDeleteArt,
+} from '@wsvvrijheid/utils'
 import { AiFillHeart } from 'react-icons/ai'
 import { FaExternalLinkSquareAlt } from 'react-icons/fa'
 
@@ -31,6 +37,7 @@ export const ArtCardBase: FC<ArtCardBaseProps> = ({
   actions,
   isOwner,
   isModal = false,
+  actionQueryKey,
 }) => {
   const {
     isOpen: artModalIsOpen,
@@ -38,7 +45,20 @@ export const ArtCardBase: FC<ArtCardBaseProps> = ({
     onClose: artModalOnClose,
   } = useDisclosure()
 
+  const queryKey = actionQueryKey as QueryKey
+
   const [actionType, setActionType] = useState<ArtActionType>()
+  const [hover, setHover] = useState({ color: 'gray.100' })
+  const [color, setColor] = useState('white')
+
+  const deleteMutation = useDeleteArt(queryKey)
+  const publishMutation = usePublishModel('api/arts', queryKey)
+  const unpublishMutation = useUnpublishModel('api/arts', queryKey)
+
+  useEffect(() => {
+    setHover({ color: isLiked ? 'red.200' : 'gray.100' })
+    setColor(isLiked ? 'red.400' : 'white')
+  }, [isLiked])
 
   const { isOpen, onOpen, onClose } = useDisclosure()
 
@@ -50,8 +70,20 @@ export const ArtCardBase: FC<ArtCardBaseProps> = ({
     art.artist?.avatar?.formats?.thumbnail?.url || art.artist?.avatar?.url
 
   const onHandleAction = (type: ArtActionType) => {
-    setActionType(type)
-    onOpen()
+    switch (type) {
+      case 'delete':
+        deleteMutation.mutate({ id: art.id })
+        break
+      case 'publish':
+        publishMutation.mutate({ id: art.id })
+        break
+      case 'unpublish':
+        unpublishMutation.mutate({ id: art.id })
+        break
+      default:
+        setActionType(type)
+        onOpen()
+    }
   }
 
   return (
@@ -108,15 +140,15 @@ export const ArtCardBase: FC<ArtCardBaseProps> = ({
           w="full"
         >
           <HStack spacing={1}>
-            <Text fontWeight={600} color="white">
+            <Text fontWeight="semibold" color="white">
               {(art?.likes || 0) + (art.likers?.length || 0)}
             </Text>
             <IconButton
-              _hover={{ color: isLiked ? 'red.200' : 'gray.100' }}
+              _hover={hover}
               aria-label="like post"
               borderColor="whiteAlpha.500"
               borderWidth={1}
-              color={isLiked ? 'red.400' : 'white'}
+              color={color}
               colorScheme="blackAlpha"
               disabled={isOwner}
               icon={<AiFillHeart />}
@@ -161,7 +193,7 @@ export const ArtCardBase: FC<ArtCardBaseProps> = ({
             bottom={'-150%'}
             color="white"
             fontSize={{ base: 'md', lg: 'sm' }}
-            fontWeight={600}
+            fontWeight="semibold"
             position={{ base: 'static', lg: 'absolute' }}
             spacing={0}
             transition="all 0.2s"
@@ -175,7 +207,7 @@ export const ArtCardBase: FC<ArtCardBaseProps> = ({
             >
               {art.title}
             </Text>
-            <Navigate href={`/club/artist/${artistUsername}`}>
+            <Navigate href={`/club/artist/${art.artist?.username}`}>
               <HStack
                 _hover={{ bg: 'whiteAlpha.300', borderColor: 'whiteAlpha.500' }}
                 borderColor="transparent"

@@ -1,7 +1,7 @@
 // eslint-disable @nrwl/nx/enforce-module-boundaries
 import React from 'react'
 
-import { Box, extendTheme } from '@chakra-ui/react'
+import { Box } from '@chakra-ui/react'
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query'
 import { Provider as ReduxProvider } from 'react-redux'
 
@@ -21,10 +21,7 @@ export const parameters = {
     tr: 'Türkçe',
   },
   chakra: {
-    theme: extendTheme({
-      ...themes.wsvvrijheid,
-      colors: { primary: themes.wsvvrijheid.colors.blue },
-    }),
+    theme: themes.wsvvrijheid,
   },
   actions: { argTypesRegex: '^on[A-Z].*' },
 }

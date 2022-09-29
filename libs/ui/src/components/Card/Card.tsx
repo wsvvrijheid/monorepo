@@ -25,7 +25,7 @@ export const Card: FC<CardProps> = ({
       <Stack
         h="full"
         bg="white"
-        shadow="lg"
+        shadow="base"
         rounded="lg"
         overflow="hidden"
         role="group"
@@ -52,18 +52,11 @@ export const Card: FC<CardProps> = ({
           )}
         </Center>
 
-        <Stack
-          spacing={4}
-          flex={1}
-          p={{ base: 4, lg: 8 }}
-          align="center"
-          textAlign="center"
-        >
+        <Stack spacing={4} flex={1} p={4} align="center" textAlign="center">
           <Heading
             as="h3"
-            fontWeight={900}
             textTransform="uppercase"
-            fontSize="xl"
+            fontSize="lg"
             letterSpacing="wide"
             color="blue.500"
           >

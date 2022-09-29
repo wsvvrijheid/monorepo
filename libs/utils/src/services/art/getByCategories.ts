@@ -2,14 +2,14 @@ import { useQuery } from '@tanstack/react-query'
 import { Art, StrapiLocale } from '@wsvvrijheid/types'
 import { useRouter } from 'next/router'
 
-import { request } from '../../lib'
+import { Request } from '../../lib'
 
 export const getArtsByCategories = async (
   locale: StrapiLocale,
   categories: string[],
   id?: number,
 ) => {
-  const response = await request<Art[]>({
+  const response = await Request.collection<Art[]>({
     url: 'api/arts',
     locale,
     filters: {
@@ -19,10 +19,10 @@ export const getArtsByCategories = async (
     },
     populate: ['artist.avatar', 'categories', 'images', 'likers'],
     sort: 'publishedAt:desc',
-    pageSize: 4,
+    pageSize: 4, // TODO: Change this
   })
 
-  return response?.data || []
+  return response?.data
 }
 
 export const useArtsByCategories = (categories: string[], id?: number) => {

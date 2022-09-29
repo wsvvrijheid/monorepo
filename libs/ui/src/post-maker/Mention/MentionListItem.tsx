@@ -107,9 +107,9 @@ export const MentionListItem: FC<MentionListItemProps> = ({
             name={data.screen_name}
             size="lg"
             src={data.profile_image_url_https}
-            shadow="primary"
+            shadow="base"
           />
-          <Box fontWeight={600}>
+          <Box fontWeight="semibold">
             <Text fontSize="xl">{data.name}</Text>
             <Text color="twitter.400">@{data.screen_name}</Text>
           </Box>

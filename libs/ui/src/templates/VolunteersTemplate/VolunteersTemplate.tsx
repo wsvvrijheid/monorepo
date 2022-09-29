@@ -72,7 +72,7 @@ export const VolunteersTemplate: FC<VolunteersTemplateProps> = ({
                 left={0}
                 w="full"
                 size="lg"
-                shadow="md"
+                shadow="base"
                 py={8}
                 mb={{ base: 0, lg: 8 }}
                 leftIcon={
@@ -87,7 +87,7 @@ export const VolunteersTemplate: FC<VolunteersTemplateProps> = ({
             <Box
               rounded="md"
               bg="white"
-              shadow="md"
+              shadow="base"
               p={{ base: 4, lg: 8 }}
               overflowX="hidden"
             >
