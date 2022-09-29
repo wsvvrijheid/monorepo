@@ -20,34 +20,33 @@ import {
 } from '@chakra-ui/react'
 import { FiArrowUpRight } from 'react-icons/fi'
 import { GrFormClose } from 'react-icons/gr'
-import { stringSimilarity } from 'string-similarity-js'
+import stringSimilarity from 'string-similarity'
 
 import { FileUploader } from '../FileUploader'
-import { WImage } from '../WImage'
 import { CreateTweetFormProps } from './types'
 
 export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
-  onSubmitHandler,
-  image,
+  onSubmit,
   isOpen,
   onClose,
+  originalTweet,
   setImages,
-  maxSize,
-  tweetContent,
   images,
-  tweetImage,
 }) => {
   const [tweet, setTweet] = useState('')
   const [similarityCount, setSimilarityCount] = useState(0)
 
-  //   const similarityCounter = similar(tweet, tweetContent)
-  console.log('similarity ', similarityCount, 'tweet Image: ', tweetImage)
+  console.log('similarity ', similarityCount)
 
   useEffect(() => {
-    const similarity = stringSimilarity(tweet, tweetContent) * 100
+    const similarity =
+      stringSimilarity.compareTwoStrings(tweet, originalTweet.text) * 100
     setSimilarityCount(similarity)
-  }, [tweet, tweetContent])
+  }, [tweet, originalTweet.text])
 
+  const onSubmitHandler = () => {
+    onSubmit(tweet)
+  }
   return (
     <Box>
       <Modal onClose={onClose} isOpen={isOpen} scrollBehavior="inside">
@@ -66,7 +65,7 @@ export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
                   Original Tweet
                 </Text>
                 <Stack>
-                  <Text w={'full'}>{tweetContent}</Text>
+                  <Text w={'full'}>{originalTweet.text}</Text>
                 </Stack>
                 <Text color={'black'} fontWeight={'bold'} w={'full'}>
                   Edited Tweet
@@ -79,6 +78,10 @@ export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
                     placeholder={'Tweet content'}
                   ></Textarea>
                 </Stack>
+                {/* TODO 
+                ADD MENTION
+                ADD HASHTAG
+                */}
                 {/* plagiarism ................*/}
                 <Stack>
                   <HStack>
@@ -106,16 +109,10 @@ export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
                 </Stack>
                 <Divider />
                 <Stack>
-                  {tweetImage?.length > 1 ? (
-                    <WImage src={tweetImage} hasZoom={true} alt={''} />
-                  ) : (
-                    <>
-                      <Text color={'black'} fontWeight={'bold'} w={'full'}>
-                        Add Image(s)
-                      </Text>
-                      <FileUploader images={images} setImages={setImages} />
-                    </>
-                  )}
+                  <Text color={'black'} fontWeight={'bold'} w={'full'}>
+                    Add Image(s)
+                  </Text>
+                  <FileUploader images={images} setImages={setImages} />
                 </Stack>
               </Stack>
               {/* Button group ................*/}

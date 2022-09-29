@@ -55,7 +55,6 @@
     "react-router-dom": "^6.3.0",
     "react-use": "^17.4.0",
     "string-similarity": "^4.0.4",
-    "string-similarity-js": "^2.1.4",
     "uuid": "^9.0.0",
     "yup": "^0.32.11"
   },
@@ -88,6 +87,7 @@
     "@types/react": "18.0.18",
     "@types/react-dom": "18.0.6",
     "@types/react-headroom": "^2.2.2",
+    "@types/string-similarity": "^4.0.0",
     "@types/uuid": "^8.3.4",
     "@typescript-eslint/eslint-plugin": "^5.36.2",
     "@typescript-eslint/parser": "^5.36.2",

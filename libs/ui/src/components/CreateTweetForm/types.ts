@@ -1,12 +1,11 @@
+import { Tweet } from '@wsvvrijheid/types'
+
 export type CreateTweetFormProps = {
-  title: string
   image: string
-  onSubmitHandler: () => void
+  onSubmit: (tweet: string) => void
   onClose: () => void
   isOpen: boolean
-  setImages: React.Dispatch<React.SetStateAction<Blob[]>>
-  maxSize?: number
   images: Array<Blob>
-  tweetContent: string
-  tweetImage: string
+  setImages: React.Dispatch<React.SetStateAction<Blob[]>>
+  originalTweet: Tweet
 }
