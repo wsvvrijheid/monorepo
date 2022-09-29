@@ -1,10 +1,10 @@
 import { useQuery } from '@tanstack/react-query'
 import { Trend } from '@wsvvrijheid/types'
 
-import { request } from '../../lib'
+import { Request } from '../../lib'
 
 export const getTrends = async () => {
-  const response = await request<Trend>({
+  const response = await Request.single<Trend>({
     url: 'api/trend',
   })
 

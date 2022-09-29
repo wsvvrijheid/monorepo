@@ -4,13 +4,13 @@ import { Art, ArtUpdateInput } from '@wsvvrijheid/types'
 import { useRouter } from 'next/router'
 import { useLocalStorage } from 'react-use'
 
-import { updateMutation } from '../../lib'
+import { Mutation } from '../../lib'
 import { useArtBySlug } from './getBySlug'
 
 export const viewArt = async (art: Art) => {
   const body = { views: (art.views || 0) + 1 }
 
-  return updateMutation<Art, ArtUpdateInput>('api/arts', art.id, body)
+  return Mutation.put<Art, ArtUpdateInput>('api/arts', art.id, body)
 }
 
 export const useViewArtMutation = async () => {

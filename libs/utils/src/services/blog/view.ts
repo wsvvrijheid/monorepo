@@ -4,13 +4,13 @@ import { Blog, BlogUpdateInput } from '@wsvvrijheid/types'
 import { useRouter } from 'next/router'
 import { useLocalStorage } from 'react-use'
 
-import { updateMutation } from '../../lib'
+import { Mutation } from '../../lib'
 import { useGetBlog } from './getBySlug'
 
 export const viewBlog = async (blog: Blog) => {
   const body = { views: (blog.views || 0) + 1 }
 
-  return updateMutation<Blog, BlogUpdateInput>('api/blogs', blog.id, body)
+  return Mutation.put<Blog, BlogUpdateInput>('api/blogs', blog.id, body)
 }
 
 export const useViewBlog = async () => {

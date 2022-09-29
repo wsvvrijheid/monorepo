@@ -2,10 +2,10 @@ import { useQuery } from '@tanstack/react-query'
 import { Category, StrapiLocale } from '@wsvvrijheid/types'
 import { useRouter } from 'next/router'
 
-import { request } from '../../lib'
+import { Request } from '../../lib'
 
 export const getApprovedArtCategories = async (locale: StrapiLocale) => {
-  const response = await request<Category[]>({
+  const response = await Request.collection<Category[]>({
     url: 'api/categories',
     pageSize: 100,
     locale,
@@ -25,7 +25,7 @@ export const getApprovedArtCategories = async (locale: StrapiLocale) => {
 }
 
 export const getArtCategories = async (locale: StrapiLocale) => {
-  const response = await request<Category[]>({
+  const response = await Request.collection<Category[]>({
     url: 'api/categories',
     pageSize: 100,
     locale,

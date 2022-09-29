@@ -1,12 +1,12 @@
 import { Hashtag, StrapiLocale } from '@wsvvrijheid/types'
 
-import { request } from '../../lib'
+import { Request } from '../../lib'
 
 export const getHashtagPaths = async (locales: StrapiLocale[]) =>
   (
     await Promise.all(
       locales.flatMap(async locale => {
-        const responses = await request<Hashtag[]>({
+        const responses = await Request.collection<Hashtag[]>({
           url: 'api/hashtags',
           locale,
         })

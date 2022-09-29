@@ -3,7 +3,7 @@ import { Hashtag, StrapiLocale } from '@wsvvrijheid/types'
 import { addDays, isPast } from 'date-fns'
 import { useRouter } from 'next/router'
 
-import { request } from '../../lib'
+import { Request } from '../../lib'
 
 export type HashtagReturnType = {
   hasPassed: boolean
@@ -15,7 +15,7 @@ export const getHashtagBySlug = async (
   locale: StrapiLocale,
   slug: string,
 ): Promise<HashtagReturnType | null> => {
-  const response = await request<Hashtag[]>({
+  const response = await Request.collection<Hashtag[]>({
     url: 'api/hashtags',
     filters: { slug: { $eq: slug } },
     locale,

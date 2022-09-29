@@ -6,7 +6,7 @@ import {
   RecommendedTopic,
   RecommendedTopicCreateInput,
 } from '@wsvvrijheid/types'
-import { createMutation } from '@wsvvrijheid/utils'
+import { Mutation } from '@wsvvrijheid/utils'
 import { useLocalStorage } from 'react-use'
 
 import { TopicCardBase } from '../TopicCardBase'
@@ -24,7 +24,7 @@ export const TopicCard: FC<TopicCardProps> = ({ topic, userId, ...rest }) => {
   const recommendMutation = useMutation({
     mutationKey: ['recommend-topic'],
     mutationFn: () =>
-      createMutation<RecommendedTopic, RecommendedTopicCreateInput>(
+      Mutation.post<RecommendedTopic, RecommendedTopicCreateInput>(
         `api/recommended-topics`,
         {
           date,

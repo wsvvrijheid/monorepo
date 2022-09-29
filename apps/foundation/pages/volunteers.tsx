@@ -1,7 +1,7 @@
 import { FC } from 'react'
 
 import { VolunteersTemplate, VolunteersTemplateProps } from '@wsvvrijheid/ui'
-import { getVolunteers, request } from '@wsvvrijheid/utils'
+import { getVolunteers, Request } from '@wsvvrijheid/utils'
 import { GetStaticProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
@@ -24,7 +24,7 @@ export default VolunteersPage
 
 export const getStaticProps: GetStaticProps = async context => {
   const volunteersResponse = await getVolunteers()
-  const jobsResponse = await request({ url: 'api/jobs' })
+  const jobsResponse = await Request.collection({ url: 'api/jobs' })
 
   const title = {
     en: 'Volunteers',

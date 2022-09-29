@@ -1,12 +1,12 @@
 import { StrapiLocale, User } from '@wsvvrijheid/types'
 
-import { request } from '../../lib'
+import { Request } from '../../lib'
 
 export const getArtistPaths = async (locales: StrapiLocale[]) =>
   (
     await Promise.all(
       locales.flatMap(async locale => {
-        const responses = await request<User[]>({
+        const responses = await Request.collection<User[]>({
           url: 'api/users',
           filters: {
             arts: {
