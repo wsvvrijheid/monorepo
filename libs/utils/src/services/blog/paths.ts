@@ -1,12 +1,12 @@
 import { Blog, StrapiLocale } from '@wsvvrijheid/types'
 
-import { request } from '../../lib'
+import { Request } from '../../lib'
 
 export const getBlogPaths = async (locales: StrapiLocale[]) =>
   (
     await Promise.all(
       locales.flatMap(async locale => {
-        const responses = await request<Blog[]>({
+        const responses = await Request.collection<Blog[]>({
           url: 'api/blogs',
           locale,
         })

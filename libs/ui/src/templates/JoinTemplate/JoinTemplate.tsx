@@ -17,7 +17,7 @@ import {
   VolunteerCreateInput,
 } from '@wsvvrijheid/types'
 import { Job } from '@wsvvrijheid/types'
-import { usePlatforms, toastMessage, createMutation } from '@wsvvrijheid/utils'
+import { usePlatforms, toastMessage, Mutation } from '@wsvvrijheid/utils'
 import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
 import { v4 as uuidV4 } from 'uuid'
@@ -43,7 +43,7 @@ export const JoinTemplate: FC<JoinTemplateProps> = ({ title }) => {
   const { mutate, isLoading, isSuccess } = useMutation(
     ['create-volunteer'],
     (body: VolunteerCreateInput) =>
-      createMutation<Volunteer, VolunteerCreateInput>('api/volunteers', body),
+      Mutation.post<Volunteer, VolunteerCreateInput>('api/volunteers', body),
   )
 
   const onSubmit = (data: JoinFormFieldValues) => {

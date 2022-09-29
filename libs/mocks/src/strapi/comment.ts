@@ -1,6 +1,6 @@
-import { Comment, StrapiResponse } from '@wsvvrijheid/types'
+import { Comment, StrapiCollectionResponse } from '@wsvvrijheid/types'
 
-export const COMMENT_MOCKS: StrapiResponse<Comment[]> = {
+export const COMMENT_MOCKS: StrapiCollectionResponse<Comment[]> = {
   data: [
     {
       id: 1,

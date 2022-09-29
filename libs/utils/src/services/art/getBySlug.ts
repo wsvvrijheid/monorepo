@@ -2,10 +2,13 @@ import { useQuery } from '@tanstack/react-query'
 import { Art, StrapiLocale } from '@wsvvrijheid/types'
 import { useRouter } from 'next/router'
 
-import { request } from '../../lib'
+import { Request } from '../../lib'
 
-export const getArtBySlug = async (locale: StrapiLocale, slug: string) => {
-  const response = await request<Art[]>({
+export const getArtBySlug = async (
+  locale: StrapiLocale,
+  slug: string,
+): Promise<Art | null> => {
+  const response = await Request.collection<Art[]>({
     url: 'api/arts',
     filters: { slug: { $eq: slug } },
     populate: [

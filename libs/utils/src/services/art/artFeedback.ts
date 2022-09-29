@@ -2,7 +2,7 @@ import { useToast } from '@chakra-ui/react'
 import { QueryKey, useMutation, useQueryClient } from '@tanstack/react-query'
 import { Art, Feedback, FeedbackArtCreateInput } from '@wsvvrijheid/types'
 
-import { createMutation, updateMutation } from '../../lib'
+import { Mutation } from '../../lib'
 
 export const createFeedback = async (args: FeedbackArtCreateInput) => {
   if (!args.message) {
@@ -12,8 +12,8 @@ export const createFeedback = async (args: FeedbackArtCreateInput) => {
     approvalStatus: args.status === 'approve' ? 'approved' : 'rejected',
     publishedAt: args.status === 'approve' ? new Date() : null,
   }
-  await createMutation<Feedback, FeedbackArtCreateInput>('api/feedbacks', args)
-  return updateMutation<Art, typeof body>('api/arts', args.art, body)
+  await Mutation.post<Feedback, FeedbackArtCreateInput>('api/feedbacks', args)
+  return Mutation.put<Art, typeof body>('api/arts', args.art, body)
 }
 
 export const useArtFeedbackMutation = (queryKey?: QueryKey) => {

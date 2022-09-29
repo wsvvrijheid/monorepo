@@ -2,10 +2,13 @@ import { useQuery } from '@tanstack/react-query'
 import { Activity, StrapiLocale } from '@wsvvrijheid/types'
 import { useRouter } from 'next/router'
 
-import { request } from '../../lib/request'
+import { Request } from '../../lib/request'
 
-export const getActivityBySlug = async (locale: StrapiLocale, slug: string) => {
-  const response = await request<Activity[]>({
+export const getActivityBySlug = async (
+  locale: StrapiLocale,
+  slug: string,
+): Promise<Activity | null> => {
+  const response = await Request.collection<Activity[]>({
     url: 'api/activities',
     filters: { slug: { $eq: slug } },
     locale,

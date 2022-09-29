@@ -4,10 +4,13 @@ import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { Post, StrapiLocale } from '@wsvvrijheid/types'
 import { useRouter } from 'next/router'
 
-import { request } from '../../lib'
+import { Request } from '../../lib'
 
-export const getPost = async (locale: StrapiLocale, id: number) => {
-  const response = await request<Post>({
+export const getPost = async (
+  locale: StrapiLocale,
+  id: number,
+): Promise<Post | null> => {
+  const response = await Request.single<Post>({
     url: 'api/posts',
     id,
     locale,

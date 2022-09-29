@@ -1,7 +1,7 @@
 import { EMAIL_SENDER, EMAIL_RECEIVER } from '@wsvvrijheid/config'
 import { MergeExclusive } from 'type-fest'
 
-import { createMutation } from '../lib'
+import { Mutation } from '../lib'
 
 type BaseEmailData = {
   // If we don't specify the receiver,
@@ -31,5 +31,5 @@ export const sendEmail = async (data: EmailData) => {
     from: EMAIL_SENDER,
   }
 
-  createMutation('api/email', body)
+  Mutation.post('api/email', body)
 }

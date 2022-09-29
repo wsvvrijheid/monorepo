@@ -1,6 +1,6 @@
-import { Hashtag, Localize, StrapiResponse } from '@wsvvrijheid/types'
+import { Hashtag, Localize, StrapiCollectionResponse } from '@wsvvrijheid/types'
 
-export const HASHTAG_MOCKS: Localize<StrapiResponse<Hashtag[]>> = {
+export const HASHTAG_MOCKS: Localize<StrapiCollectionResponse<Hashtag[]>> = {
   tr: {
     data: [
       {

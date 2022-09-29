@@ -1,6 +1,12 @@
-import { Collection, Localize, StrapiResponse } from '@wsvvrijheid/types'
+import {
+  Collection,
+  Localize,
+  StrapiCollectionResponse,
+} from '@wsvvrijheid/types'
 
-export const COLLECTION_MOCKS: Localize<StrapiResponse<Collection[]>> = {
+export const COLLECTION_MOCKS: Localize<
+  StrapiCollectionResponse<Collection[]>
+> = {
   tr: {
     data: [
       {

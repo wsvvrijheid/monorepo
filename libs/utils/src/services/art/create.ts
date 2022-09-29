@@ -1,10 +1,10 @@
 import { QueryKey, useMutation, useQueryClient } from '@tanstack/react-query'
 import { Art, ArtCreateInput } from '@wsvvrijheid/types'
 
-import { createMutation } from '../../lib'
+import { Mutation } from '../../lib'
 
 export const createArt = (artCreateInput: ArtCreateInput) => {
-  return createMutation<Art, ArtCreateInput>('api/arts', {
+  return Mutation.post<Art, ArtCreateInput>('api/arts', {
     ...artCreateInput,
     publishedAt: null,
   })
