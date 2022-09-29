@@ -1,5 +1,7 @@
+import { API_URL } from '@wsvvrijheid/config'
 import { AuthResponse } from '@wsvvrijheid/types'
-import { fetcher, sessionOptions, getSessionUser } from '@wsvvrijheid/utils'
+import { sessionOptions, getSessionUser } from '@wsvvrijheid/utils'
+import axios from 'axios'
 import { withIronSessionApiRoute } from 'iron-session/next'
 import { NextApiResponse, NextApiRequest } from 'next'
 
@@ -13,9 +15,12 @@ const route = async (req: NextApiRequest, res: NextApiResponse) => {
         url = `/api/auth/${provider}/callback?access_token=${req.body.access_token}&access_secret=${req.body.access_secret}`
       }
 
-      const socialLoginResponse = await fetcher(
-        req.body.access_token,
-      ).get<AuthResponse>(url)
+      const socialLoginResponse = await axios.get<AuthResponse>(url, {
+        baseURL: API_URL,
+        headers: {
+          Authorization: `Bearer ${req.body.access_token}`,
+        },
+      })
 
       const token = socialLoginResponse.data.jwt
 

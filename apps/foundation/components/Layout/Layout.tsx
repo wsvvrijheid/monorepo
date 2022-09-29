@@ -20,13 +20,16 @@ export const Layout: FC<LayoutProps> = ({
   hasScroll,
   seo,
 }) => {
-  const auth = useAuth('')
+  const auth = useAuth()
+
   const router = useRouter()
+
   const logOut = () => {
     axios.post('/api/auth/logout').then(() => {
       router.push('/login')
     })
   }
+
   return (
     <AppLayout
       seo={seo}

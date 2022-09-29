@@ -1,3 +1,4 @@
+import { API_URL, TOKEN } from '@wsvvrijheid/config'
 import {
   StrapiLocale,
   StrapiModel,
@@ -5,9 +6,9 @@ import {
   StrapiMutationResponse,
   StrapiUrl,
 } from '@wsvvrijheid/types'
+import axios from 'axios'
 
 import { generateFormData } from '../../util'
-import { fetcher } from '../fetcher'
 
 type Method = 'post' | 'put' | 'delete' | 'localize'
 
@@ -30,7 +31,7 @@ export const mutation = async <
   id,
   locale,
   method,
-  token,
+  token = TOKEN,
   url,
 }: MutationParams<D>) => {
   //  Throw an error if the body is not provided
@@ -45,9 +46,10 @@ export const mutation = async <
 
   if (method === 'localize') {
     // https://docs.strapi.io/developer-docs/latest/plugins/i18n.html#creating-a-localization-for-an-existing-entry
-    const response = await fetcher(token).post<StrapiMutationResponse<T>>(
-      `/${url}/${id}/localizations`,
+    const response = await axios.post<StrapiMutationResponse<T>>(
+      `${url}/${id}/localizations`,
       { ...body, locale }, // TODO localization body doesn't seem to have data key. Double check this
+      { baseURL: API_URL, headers: { Authorization: `Bearer ${token}` } },
     )
     return response.data?.data || null
   }
@@ -59,9 +61,13 @@ export const mutation = async <
     requestBody = generateFormData<D>(body)
   }
 
-  const response = await fetcher(token)[method]<StrapiMutationResponse<T>>(
+  const response = await axios[method]<StrapiMutationResponse<T>>(
     requestUrl,
     requestBody,
+    {
+      baseURL: API_URL,
+      headers: { Authorization: `Bearer ${token}` },
+    },
   )
 
   return response.data?.data || null
