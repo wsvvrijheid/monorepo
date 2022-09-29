@@ -1,9 +1,9 @@
 import { Platform } from '@wsvvrijheid/types'
 
-import { request } from '../../lib'
+import { Request } from '../../lib'
 
 export const getPlatformBySlug = async (slug: string) => {
-  const response = await request<Platform[]>({
+  const response = await Request.collection<Platform[]>({
     url: 'api/platforms',
     filters: { slug: { $eq: slug } },
   })

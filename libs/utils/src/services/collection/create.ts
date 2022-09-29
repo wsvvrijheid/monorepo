@@ -1,12 +1,12 @@
 import { QueryKey, useMutation, useQueryClient } from '@tanstack/react-query'
 import { Collection, CollectionCreateInput } from '@wsvvrijheid/types'
 
-import { createMutation } from '../../lib'
+import { Mutation } from '../../lib'
 
 export const createCollection = (
   collectionCreateInput: CollectionCreateInput,
 ) => {
-  return createMutation<Collection, CollectionCreateInput>(
+  return Mutation.post<Collection, CollectionCreateInput>(
     'api/collections',
     collectionCreateInput,
   )

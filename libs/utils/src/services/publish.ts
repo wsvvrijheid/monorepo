@@ -2,7 +2,7 @@ import { useToast } from '@chakra-ui/react'
 import { useMutation, useQueryClient, QueryKey } from '@tanstack/react-query'
 import { StrapiModel, StrapiUrl } from '@wsvvrijheid/types'
 
-import { updateMutation } from '../lib'
+import { Mutation } from '../lib'
 
 export const publishModel = <T extends StrapiModel>(
   id: number,
@@ -10,7 +10,7 @@ export const publishModel = <T extends StrapiModel>(
 ) => {
   const body = { publishedAt: new Date() }
 
-  return updateMutation<T, typeof body>(url, id, body)
+  return Mutation.put<T, typeof body>(url, id, body)
 }
 
 export const usePublishModel = <T extends StrapiModel>(

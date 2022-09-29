@@ -2,13 +2,13 @@ import { useToast } from '@chakra-ui/react'
 import { QueryKey, useMutation, useQueryClient } from '@tanstack/react-query'
 import { Art, ArtUpdateInput } from '@wsvvrijheid/types'
 
-import { updateMutation } from '../../lib'
+import { Mutation } from '../../lib'
 
 export const updateField = ({
   id,
   ...args
 }: ArtUpdateInput & { id: number }) => {
-  return updateMutation<Art, ArtUpdateInput>('api/arts', id, args)
+  return Mutation.put<Art, ArtUpdateInput>('api/arts', id, args)
 }
 
 export const useUpdateArtMutation = (queryKey?: QueryKey) => {

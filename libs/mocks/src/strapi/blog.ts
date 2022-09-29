@@ -1,6 +1,6 @@
-import { Blog, Localize, StrapiResponse } from '@wsvvrijheid/types'
+import { Blog, Localize, StrapiCollectionResponse } from '@wsvvrijheid/types'
 
-export const BLOG_MOCKS: Localize<StrapiResponse<Blog[]>> = {
+export const BLOG_MOCKS: Localize<StrapiCollectionResponse<Blog[]>> = {
   tr: {
     data: [
       {

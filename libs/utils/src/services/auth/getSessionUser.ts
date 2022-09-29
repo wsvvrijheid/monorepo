@@ -1,10 +1,10 @@
 import { User } from '@wsvvrijheid/types'
 
-import { request } from '../../lib'
+import { Request } from '../../lib'
 import { mapSessionUser } from '../../util'
 
 export const getSessionUser = async (token: string) => {
-  const userData = await request<User>({
+  const userData = await Request.single<User>({
     url: 'api/users/me',
     token,
   })
