@@ -1,10 +1,10 @@
 import { useQuery } from '@tanstack/react-query'
 import { Volunteer } from '@wsvvrijheid/types'
 
-import { request } from '../../lib'
+import { Request } from '../../lib'
 
 export const getVolunteers = async () => {
-  const response = await request<Volunteer[]>({
+  const response = await Request.collection<Volunteer[]>({
     url: 'api/volunteers',
     filters: { approved: { $eq: true } },
   })

@@ -1,6 +1,12 @@
-import { Announcement, Localize, StrapiResponse } from '@wsvvrijheid/types'
+import {
+  Announcement,
+  Localize,
+  StrapiCollectionResponse,
+} from '@wsvvrijheid/types'
 
-export const ANNOUNCEMENT_MOCKS: Localize<StrapiResponse<Announcement[]>> = {
+export const ANNOUNCEMENT_MOCKS: Localize<
+  StrapiCollectionResponse<Announcement[]>
+> = {
   tr: {
     data: [
       {

@@ -1,19 +1,14 @@
+import { API_URL } from '@wsvvrijheid/config'
 import { getSessionUser, sessionOptions } from '@wsvvrijheid/utils'
 import axios from 'axios'
 import { withIronSessionApiRoute } from 'iron-session/next'
 import { NextApiResponse, NextApiRequest } from 'next'
 
 const resetPassRoute = async (req: NextApiRequest, res: NextApiResponse) => {
-  const { code, password, passwordConfirmation } = req.body
   try {
-    const response = await axios.post(
-      `${process.env.NEXT_PUBLIC_API_URL}/api/auth/reset-password`,
-      {
-        code,
-        password,
-        passwordConfirmation,
-      },
-    )
+    const response = await axios.post('api/auth/reset-password', req.body, {
+      baseURL: API_URL,
+    })
 
     const token = response.data.jwt
 

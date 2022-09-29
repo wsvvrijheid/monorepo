@@ -1,6 +1,6 @@
-import { Platform, StrapiResponse } from '@wsvvrijheid/types'
+import { Platform, StrapiCollectionResponse } from '@wsvvrijheid/types'
 
-export const PLATFORM_MOCKS: StrapiResponse<Platform[]> = {
+export const PLATFORM_MOCKS: StrapiCollectionResponse<Platform[]> = {
   data: [
     {
       id: 1,

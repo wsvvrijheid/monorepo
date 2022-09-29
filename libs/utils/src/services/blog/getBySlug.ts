@@ -5,10 +5,13 @@ import { enIN as en, nl, tr } from 'date-fns/locale'
 import { useRouter } from 'next/router'
 import { SetRequired } from 'type-fest'
 
-import { request } from '../../lib/request'
+import { Request } from '../../lib/request'
 
-export const getBlogBySlug = async (locale: StrapiLocale, slug: string) => {
-  const response = await request<
+export const getBlogBySlug = async (
+  locale: StrapiLocale,
+  slug: string,
+): Promise<Blog | null> => {
+  const response = await Request.collection<
     SetRequired<Blog, 'author' | 'image' | 'likers'>[]
   >({
     url: 'api/blogs',

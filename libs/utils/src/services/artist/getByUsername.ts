@@ -2,13 +2,13 @@ import { useQuery } from '@tanstack/react-query'
 import { StrapiLocale, User } from '@wsvvrijheid/types'
 import { useRouter } from 'next/router'
 
-import { request } from '../../lib'
+import { Request } from '../../lib'
 
 export const getArtistByUsername = async (
   locale: StrapiLocale,
   username: string,
-) => {
-  const response = await request<User[]>({
+): Promise<User | null> => {
+  const response = await Request.collection<User[]>({
     url: 'api/users',
     filters: {
       username: { $eq: username },

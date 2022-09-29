@@ -6,7 +6,7 @@ import {
   CommentArtCreateInputUser,
 } from '@wsvvrijheid/types'
 
-import { createMutation } from '../../lib'
+import { Mutation } from '../../lib'
 
 type CreateArtCommentProps = {
   content: string
@@ -26,7 +26,7 @@ const createArtComment = ({
   if (user) {
     const body = { content, art, user }
 
-    return createMutation<Comment, CommentArtCreateInputUser>(
+    return Mutation.post<Comment, CommentArtCreateInputUser>(
       'api/comments',
       body,
     )
@@ -38,7 +38,7 @@ const createArtComment = ({
 
   const body = { content, name, email, art }
 
-  return createMutation<Comment, CommentArtCreateInputPublic>(
+  return Mutation.post<Comment, CommentArtCreateInputPublic>(
     'api/comments',
     body,
   )
