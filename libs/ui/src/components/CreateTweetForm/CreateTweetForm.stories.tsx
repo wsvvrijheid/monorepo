@@ -3,8 +3,8 @@ import * as React from 'react'
 import { Box, Button, useDisclosure } from '@chakra-ui/react'
 import { Story, Meta } from '@storybook/react'
 import { TWEET_MOCKS, USER_MOCKS } from '@wsvvrijheid/mocks'
-import { RecommendedTweetCreateInput } from '@wsvvrijheid/types'
-import { useRecommendTweet } from '@wsvvrijheid/utils'
+import { RecommendedTweetCreateInput, Tweet } from '@wsvvrijheid/types'
+import { useRecomendTweet } from '@wsvvrijheid/utils'
 
 import { CreateTweetForm } from './CreateTweetForm'
 import { CreateTweetFormProps } from './types'
@@ -20,22 +20,26 @@ export default {
 const Template: Story<CreateTweetFormProps> = args => {
   const { isOpen, onOpen, onClose } = useDisclosure()
 
-  const recommendTweetMutation = useRecommendTweet()
+  // const queryKey = ''
+  const { mutateAsync } = useRecomendTweet()
 
-  const handleSubmit = async (tweet: string, media: Blob[]) => {
+  const handleSubmit = async (
+    text: string,
+    originalTweet: Tweet,
+    media: Blob,
+  ) => {
     const recomendedTweet: RecommendedTweetCreateInput = {
       recommender: USER_MOCKS?.[0].id,
-      originalTweet: JSON.parse(JSON.stringify(args.originalTweet)),
-      media: media,
-      text: tweet,
+      originalTweet: JSON.parse(JSON.stringify(originalTweet)),
+      media,
+      text,
     }
 
-    await recommendTweetMutation.mutateAsync(recomendedTweet, {
+    await mutateAsync(recomendedTweet, {
       onSuccess: () => {
         onClose()
       },
     })
-    console.log('new original Tweet', recomendedTweet)
     onClose()
   }
   const handleSizeClick = () => {

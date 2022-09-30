@@ -18,7 +18,7 @@ type RecommendedTweetRelation = {
 
 type RecommendedTweetRelationInput = {
   recommender: number
-  media: Blob[]
+  media: Blob[] | Blob
   originalTweet: JSON
 }
 

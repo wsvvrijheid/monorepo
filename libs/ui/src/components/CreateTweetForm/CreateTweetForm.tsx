@@ -22,7 +22,7 @@ import { FiArrowUpRight } from 'react-icons/fi'
 import { GrFormClose } from 'react-icons/gr'
 import stringSimilarity from 'string-similarity'
 
-import { FileUploader } from '../FileUploader'
+import { FilePicker } from '../FilePicker'
 import { CreateTweetFormProps } from './types'
 
 export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
@@ -31,20 +31,26 @@ export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
   onClose,
   originalTweet,
 }) => {
-  const [tweet, setTweet] = useState('')
+  const [text, setText] = useState('')
   const [similarityCount, setSimilarityCount] = useState(0)
-  const [media, setMedia] = useState<Blob[]>([])
-  const [previews, setPreviews] = useState<string[]>([])
-  console.log('similarity ', similarityCount)
+  const [media, setMedia] = useState<Blob>()
+
+  const handleFiles = (files: Blob[]) => {
+    if (Array.isArray(files) && files.length > 0) {
+      setMedia(files[0])
+    } else {
+      setMedia(files as unknown as Blob)
+    }
+  }
 
   useEffect(() => {
     const similarity =
-      stringSimilarity.compareTwoStrings(tweet, originalTweet.text) * 100
+      stringSimilarity.compareTwoStrings(text, originalTweet.text) * 100
     setSimilarityCount(similarity)
-  }, [tweet, originalTweet.text])
+  }, [text, originalTweet.text])
 
   const onSubmitHandler = () => {
-    onSubmit(tweet, media)
+    onSubmit(text, originalTweet, media)
   }
   return (
     <Box>
@@ -73,7 +79,7 @@ export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
                   {/* text area*/}
                   <Textarea
                     isRequired
-                    onChange={e => setTweet(e.target.value)}
+                    onChange={e => setText(e.target.value)}
                     placeholder={'Tweet content'}
                   ></Textarea>
                 </Stack>
@@ -92,8 +98,8 @@ export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
                     >
                       Plagiarism
                     </Text>
-                    <Text color={tweet?.length > 279 ? 'red' : 'black'}>
-                      {tweet?.length}/280
+                    <Text color={text?.length > 279 ? 'red' : 'black'}>
+                      {text?.length}/280
                     </Text>
                   </HStack>
 
@@ -111,12 +117,7 @@ export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
                   <Text color={'black'} fontWeight={'bold'} w={'full'}>
                     Add Image(s)
                   </Text>
-                  <FileUploader
-                    previews={previews}
-                    setPreviews={setPreviews}
-                    images={media}
-                    setImages={setMedia}
-                  />
+                  <FilePicker setFiles={handleFiles} />
                 </Stack>
               </Stack>
               {/* Button group ................*/}

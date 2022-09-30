@@ -16,7 +16,7 @@ export const recommendTweet = (
   )
 }
 
-export const useRecommendTweet = (queryKey?: QueryKey) => {
+export const useRecomendTweet = (queryKey?: QueryKey) => {
   const queryClient = useQueryClient()
   const toast = useToast()
 
