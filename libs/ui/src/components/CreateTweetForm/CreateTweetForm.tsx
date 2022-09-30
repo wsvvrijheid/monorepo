@@ -30,12 +30,10 @@ export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
   isOpen,
   onClose,
   originalTweet,
-  setImages,
-  images,
 }) => {
   const [tweet, setTweet] = useState('')
   const [similarityCount, setSimilarityCount] = useState(0)
-
+  const [media, setMedia] = useState<Blob>()
   console.log('similarity ', similarityCount)
 
   useEffect(() => {
@@ -45,7 +43,7 @@ export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
   }, [tweet, originalTweet.text])
 
   const onSubmitHandler = () => {
-    onSubmit(tweet)
+    onSubmit(tweet, media)
   }
   return (
     <Box>
@@ -112,7 +110,7 @@ export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
                   <Text color={'black'} fontWeight={'bold'} w={'full'}>
                     Add Image(s)
                   </Text>
-                  <FileUploader images={images} setImages={setImages} />
+                  <FileUploader images={media} setImages={setMedia} />
                 </Stack>
               </Stack>
               {/* Button group ................*/}

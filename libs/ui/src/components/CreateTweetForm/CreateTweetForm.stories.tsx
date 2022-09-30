@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import * as React from 'react'
 
 import { Box, Button, useDisclosure } from '@chakra-ui/react'
@@ -24,19 +23,16 @@ export default {
 
 const Template: Story<CreateTweetFormProps> = args => {
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const [images, setImages] = useState<Blob[]>([])
 
   // const queryKey = ''
   // const createRecomendedTweet = useRecomendedTweet(queryKey)
 
-  const handleSubmit = async (tweet: string) => {
+  const handleSubmit = async (tweet: string, media: Blob) => {
     const recomendedTweet: RecommendedTweet | RecommendedTweetCreateInput = {
       recommender: USER_MOCKS?.[0].id,
       originalTweet: args.originalTweet,
-      media: images,
+      media,
       text: tweet,
-      isArchived: false,
-      isShared: false,
     }
 
     // ;(await createRecomendedTweet).mutate(recomendedTweet, {
@@ -45,6 +41,7 @@ const Template: Story<CreateTweetFormProps> = args => {
     //   },
     // })
     console.log('new original Tweet', recomendedTweet)
+    onClose()
   }
   const handleSizeClick = () => {
     onOpen()
@@ -60,8 +57,6 @@ const Template: Story<CreateTweetFormProps> = args => {
         onSubmit={handleSubmit}
         isOpen={isOpen}
         onClose={onClose}
-        images={images}
-        setImages={setImages}
         originalTweet={args.originalTweet}
       />
     </Box>

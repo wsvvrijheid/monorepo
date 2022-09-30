@@ -2,10 +2,10 @@ import { Tweet } from '@wsvvrijheid/types'
 
 export type CreateTweetFormProps = {
   image: string
-  onSubmit: (tweet: string) => void
+  onSubmit: (tweet: string, media?: Blob) => void
   onClose: () => void
   isOpen: boolean
-  images: Array<Blob>
-  setImages: React.Dispatch<React.SetStateAction<Blob[]>>
+  media: Blob
+
   originalTweet: Tweet
 }
