@@ -127,7 +127,12 @@ export const CreateCollectionModal: FC<CreateCollectionModalProps> = ({
         ref={cancelRef}
       />
 
-      <Button size="lg" colorScheme="blue" onClick={formDisclosure.onOpen}>
+      <Button
+        size="lg"
+        colorScheme="green"
+        onClick={formDisclosure.onOpen}
+        my={3}
+      >
         <Box mr={{ base: 0, lg: 4 }}>
           <FaPlus />
         </Box>
