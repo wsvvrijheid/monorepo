@@ -7,18 +7,19 @@ import { User } from './user'
 export type RecommendedTweetBase = {
   isShared: boolean
   isArchived: boolean
-  originalTweet: Tweet
   text: string
 }
 
 type RecommendedTweetRelation = {
   recommender: User
   media: UploadFile
+  originalTweet: Tweet
 }
 
 type RecommendedTweetRelationInput = {
   recommender: number
-  media: Blob[]
+  media: Blob[] | Blob
+  originalTweet: JSON
 }
 
 export type RecommendedTweetCreateInput = Expand<

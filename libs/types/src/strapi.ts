@@ -188,6 +188,7 @@ export type StrapiFormValue =
   | number[]
   | Blob
   | Blob[]
+  | JSON
   | null
 
 export type StrapiMutationInput = { [key in string]?: StrapiFormValue }

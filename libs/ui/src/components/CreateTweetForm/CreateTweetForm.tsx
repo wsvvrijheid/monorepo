@@ -31,7 +31,7 @@ export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
   onClose,
   originalTweet,
 }) => {
-  const [tweet, setTweet] = useState('')
+  const [text, setText] = useState('')
   const [similarityCount, setSimilarityCount] = useState(0)
   const [media, setMedia] = useState<Blob>()
 
@@ -45,12 +45,12 @@ export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
 
   useEffect(() => {
     const similarity =
-      stringSimilarity.compareTwoStrings(tweet, originalTweet.text) * 100
+      stringSimilarity.compareTwoStrings(text, originalTweet.text) * 100
     setSimilarityCount(similarity)
-  }, [tweet, originalTweet.text])
+  }, [text, originalTweet.text])
 
   const onSubmitHandler = () => {
-    onSubmit(tweet, media)
+    onSubmit(text, originalTweet, media)
   }
   return (
     <Box>
@@ -79,7 +79,7 @@ export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
                   {/* text area*/}
                   <Textarea
                     isRequired
-                    onChange={e => setTweet(e.target.value)}
+                    onChange={e => setText(e.target.value)}
                     placeholder={'Tweet content'}
                   ></Textarea>
                 </Stack>
@@ -98,8 +98,8 @@ export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
                     >
                       Plagiarism
                     </Text>
-                    <Text color={tweet?.length > 279 ? 'red' : 'black'}>
-                      {tweet?.length}/280
+                    <Text color={text?.length > 279 ? 'red' : 'black'}>
+                      {text?.length}/280
                     </Text>
                   </HStack>
 
