@@ -75,6 +75,7 @@ export const FilePicker: FC<FilePickerProps> = ({
     <Stack>
       <Dashboard
         width="100%"
+        height={300}
         uppy={uppy}
         plugins={['ImageEditor']}
         hideUploadButton
