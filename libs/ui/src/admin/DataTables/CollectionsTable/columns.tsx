@@ -17,7 +17,7 @@ export const columns: WTableProps<Collection>['columns'] = {
   description: {},
   arts: {
     label: 'Arts',
-    transform: (value: Art[]) => value?.length,
+    transform: value => (value as Art[])?.length,
   },
   translates: {
     transform: value => <LocaleBadges locales={value as StrapiLocale[]} />,

@@ -33,10 +33,10 @@ const CollectionsPage = () => {
     CollectionsQuery.refetch()
   }, [locale, searchTerm, sort])
 
-  const Collections = CollectionsQuery?.data?.data
+  const collections = CollectionsQuery?.data?.data
   const totalCount = CollectionsQuery?.data?.meta.pagination.total
 
-  const mappedCollections = Collections?.map(collection => ({
+  const mappedCollections = collections?.map(collection => ({
     ...collection,
     translates: collection.localizations?.map(l => l.locale),
   }))
@@ -62,7 +62,6 @@ const CollectionsPage = () => {
     >
       <CollectionsTable
         data={mappedCollections}
-        user={user}
         totalCount={totalCount}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
