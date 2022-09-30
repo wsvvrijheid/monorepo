@@ -47,13 +47,20 @@ export const Pagination: FC<PaginationProps> = ({
       />
       {paginationRange.map(pageNumber => {
         if (pageNumber === DOTS) {
-          return <IconButton aria-label="dots" icon={<BsThreeDots />} />
+          return (
+            <IconButton
+              key={pageNumber}
+              aria-label="dots"
+              icon={<BsThreeDots />}
+            />
+          )
         }
 
         const isCurrentPage = pageNumber === currentPage
 
         return (
           <Button
+            key={pageNumber}
             {...(isCurrentPage && { variant: 'solid' })}
             onClick={() => onPageChange(pageNumber as number)}
           >

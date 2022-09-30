@@ -32,6 +32,8 @@ type TagRelationInput = {
   posts?: Array<number>
 }
 
-export type TagCreateInput = Expand<TagBase & TagRelationInput>
+export type TagCreateInput = Expand<
+  { publishedAt?: string | null } & TagBase & TagRelationInput
+>
 
-export type Tag = Expand<StrapiBase & TagBase & TagRelation>
+export type Tag = StrapiBase & TagBase & TagRelation

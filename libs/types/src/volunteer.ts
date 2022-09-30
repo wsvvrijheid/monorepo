@@ -36,7 +36,7 @@ type VolinteerRelationInput = {
 }
 
 export type VolunteerCreateInput = Expand<
-  SetRequired<
+  { publishedAt?: string | null } & SetRequired<
     Partial<Omit<VolunteerBase, 'approved'>>,
     'username' | 'name' | 'email' | 'phone' | 'availableHours'
   > &
@@ -44,7 +44,8 @@ export type VolunteerCreateInput = Expand<
 >
 
 export type VolunteerUpdateInput = Expand<
-  Partial<VolunteerBase> & VolinteerRelationInput
+  { publishedAt?: string | null } & Partial<VolunteerBase> &
+    VolinteerRelationInput
 >
 
-export type Volunteer = Expand<StrapiBase & VolunteerBase & VolinteerRelation>
+export type Volunteer = StrapiBase & VolunteerBase & VolinteerRelation

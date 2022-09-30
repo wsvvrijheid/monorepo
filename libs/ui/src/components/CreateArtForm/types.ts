@@ -1,4 +1,5 @@
-import { Category, StrapiLocale } from '@wsvvrijheid/types'
+import { QueryKey } from '@tanstack/react-query'
+import { Auth, StrapiLocale } from '@wsvvrijheid/types'
 
 export type CreateArtFormFieldValues = {
   locale: StrapiLocale
@@ -12,10 +13,8 @@ export type CreateArtFormFieldValues = {
 }
 
 export type CreateArtFormProps = {
-  onCreateArt: (data: CreateArtFormFieldValues & { images: Blob[] }) => void
-  isLoading: boolean
-  isLoggedIn: boolean
-  categories: Category[]
+  auth: Auth
+  queryKey?: QueryKey
 }
 
 export type CreateArtSuccessAlertProps = {

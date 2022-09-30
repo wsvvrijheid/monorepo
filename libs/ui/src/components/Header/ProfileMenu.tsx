@@ -10,6 +10,7 @@ import {
   MenuItem,
   MenuList,
 } from '@chakra-ui/react'
+import { API_URL } from '@wsvvrijheid/config'
 import { FiLogIn, FiLogOut } from 'react-icons/fi'
 
 import { useScroll } from '../../hooks'
@@ -59,7 +60,7 @@ export const ProfileMenu: FC<ProfileMenuProps> = ({
       <MenuButton>
         <Avatar
           boxSize={{ base: 10, lg: 12 }}
-          src={userAvatar}
+          src={`${API_URL}${userAvatar}`}
           name={username}
         />
       </MenuButton>

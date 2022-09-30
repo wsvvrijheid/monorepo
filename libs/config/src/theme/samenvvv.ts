@@ -1,11 +1,13 @@
 import { extendTheme } from '@chakra-ui/react'
+import { merge } from 'lodash'
 
 import { colors } from './colors'
-import { theme } from './theme'
+import { defaultTheme } from './theme'
 
-export const samenvvv = extendTheme({
-  ...theme,
-  colors: {
-    primary: colors.samen,
-  },
-})
+export const samenvvv = extendTheme(
+  merge(defaultTheme, {
+    colors: {
+      primary: colors.samen,
+    },
+  }),
+)

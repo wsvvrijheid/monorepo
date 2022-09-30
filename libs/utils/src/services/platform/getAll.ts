@@ -1,10 +1,10 @@
 import { useQuery } from '@tanstack/react-query'
 import { Platform } from '@wsvvrijheid/types'
 
-import { request } from '../../lib'
+import { Request } from '../../lib'
 
 export const getAllPlatforms = async () => {
-  const response = await request<Platform[]>({
+  const response = await Request.collection<Platform[]>({
     url: 'api/platforms',
   })
   return response?.data || null

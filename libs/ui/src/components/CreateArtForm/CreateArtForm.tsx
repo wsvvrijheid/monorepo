@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import { FC, useEffect, useRef, useState } from 'react'
 
 import {
   Box,
@@ -20,10 +20,13 @@ import {
   Text,
   Textarea,
   useDisclosure,
+  useToast,
   VStack,
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
+import slugify from '@sindresorhus/slugify'
 import { StrapiLocale } from '@wsvvrijheid/types'
+import { useCreateArt, useGetArtCategories } from '@wsvvrijheid/utils'
 import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
@@ -31,7 +34,7 @@ import { TFunction } from 'react-i18next'
 import { FaPlus, FaUpload } from 'react-icons/fa'
 import * as yup from 'yup'
 
-import { FileUploader } from '../FileUploader'
+import { FilePicker } from '../FilePicker'
 import { FormItem } from '../FormItem'
 import { Navigate } from '../Navigate'
 import { WSelect } from '../WSelect'
@@ -53,26 +56,22 @@ const schema = (t: TFunction) =>
   })
 
 // TODO Consider adding modal form instead of a new page
-export const CreateArtForm: React.FC<CreateArtFormProps> = ({
-  onCreateArt,
-  isLoading,
-  categories,
-  isLoggedIn,
-}) => {
-  const cancelRef = useRef<HTMLButtonElement>(null)
+export const CreateArtForm: FC<CreateArtFormProps> = ({ auth, queryKey }) => {
   const [images, setImages] = useState<Blob[]>([])
+  const { locale } = useRouter()
+  const { t } = useTranslation()
+  const categories = useGetArtCategories()
 
+  const cancelRef = useRef<HTMLButtonElement>(null)
   const formDisclosure = useDisclosure()
   const successDisclosure = useDisclosure()
-
-  const { locale } = useRouter()
-
-  const { t } = useTranslation()
+  const toast = useToast()
 
   const {
     register,
     formState: { errors, isValid },
     handleSubmit,
+    reset: resetForm,
     control,
   } = useForm<CreateArtFormFieldValues>({
     resolver: yupResolver(schema(t)),
@@ -87,8 +86,50 @@ export const CreateArtForm: React.FC<CreateArtFormProps> = ({
     [images],
   )
 
+  const { mutate, isLoading } = useCreateArt(queryKey)
+
+  const createArt = async (
+    data: CreateArtFormFieldValues & { images: Blob[] },
+  ) => {
+    if (!auth.user) return
+
+    const slug = slugify(data.title)
+    const formBody = {
+      ...data,
+      slug,
+      artist: auth.user.id,
+      categories: data.categories?.map(c => Number(c.value)),
+    }
+
+    mutate(formBody, {
+      onSuccess: () => {
+        formDisclosure.onClose()
+        successDisclosure.onOpen()
+      },
+      onError: () => {
+        toast({
+          title: 'Error',
+          description: 'Something went wrong',
+          status: 'error',
+          duration: 5000,
+          isClosable: true,
+        })
+      },
+    })
+  }
+
   const handleCreateArt = async (data: CreateArtFormFieldValues) => {
-    onCreateArt({ ...data, images })
+    createArt({ ...data, images })
+  }
+
+  const resetFileUploader = () => {
+    setImages([])
+  }
+
+  const closeForm = () => {
+    resetFileUploader()
+    resetForm()
+    formDisclosure.onClose()
   }
 
   return (
@@ -111,8 +152,8 @@ export const CreateArtForm: React.FC<CreateArtFormProps> = ({
         isCentered
         closeOnOverlayClick={false}
         isOpen={formDisclosure.isOpen}
-        onClose={formDisclosure.onClose}
-        size={isLoggedIn ? '4xl' : 'md'}
+        onClose={closeForm}
+        size={auth.isLoggedIn ? '4xl' : 'md'}
       >
         <ModalOverlay />
         <ModalContent>
@@ -135,7 +176,7 @@ export const CreateArtForm: React.FC<CreateArtFormProps> = ({
               </Center>
             )}
 
-            {!isLoggedIn && (
+            {!auth.isLoggedIn && (
               <VStack>
                 <Text>
                   {t`art.create.require-auth.text`}{' '}
@@ -147,9 +188,9 @@ export const CreateArtForm: React.FC<CreateArtFormProps> = ({
             )}
 
             {/* CREATE FORM */}
-            {isLoggedIn && (
+            {auth.isLoggedIn && (
               <SimpleGrid columns={{ base: 1, lg: 2 }} gap={4}>
-                <FileUploader setImages={setImages} images={images} />
+                <FilePicker setImages={setImages} />
                 <Stack
                   spacing={4}
                   as="form"
@@ -189,7 +230,7 @@ export const CreateArtForm: React.FC<CreateArtFormProps> = ({
                     control={control as any}
                     isMulti
                     options={
-                      categories?.map(c => ({
+                      categories.data?.map(c => ({
                         value: c.id.toString(),
                         label: c[`name_${locale as StrapiLocale}`],
                       })) || []
@@ -214,11 +255,7 @@ export const CreateArtForm: React.FC<CreateArtFormProps> = ({
                   />
 
                   <ButtonGroup alignSelf="end">
-                    <Button
-                      onClick={formDisclosure.onClose}
-                      mr={3}
-                      ref={cancelRef}
-                    >
+                    <Button onClick={closeForm} mr={3} ref={cancelRef}>
                       {t`cancel`}
                     </Button>
                     <Button

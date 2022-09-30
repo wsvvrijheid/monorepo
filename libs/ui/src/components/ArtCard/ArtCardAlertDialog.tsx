@@ -32,7 +32,7 @@ export const ArtCardAlertDialog: FC<ArtCardAlertDialogProps> = ({
     >
       <AlertDialogOverlay>
         <AlertDialogContent>
-          <AlertDialogHeader fontSize="lg" fontWeight={600}>
+          <AlertDialogHeader fontSize="lg" fontWeight="semibold">
             {title}
           </AlertDialogHeader>
 

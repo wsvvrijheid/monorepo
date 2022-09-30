@@ -22,7 +22,7 @@ import { FiArrowUpRight } from 'react-icons/fi'
 import { GrFormClose } from 'react-icons/gr'
 import stringSimilarity from 'string-similarity'
 
-import { FileUploader } from '../FileUploader'
+import { FilePicker } from '../FilePicker'
 import { CreateTweetFormProps } from './types'
 
 export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
@@ -34,7 +34,14 @@ export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
   const [tweet, setTweet] = useState('')
   const [similarityCount, setSimilarityCount] = useState(0)
   const [media, setMedia] = useState<Blob>()
-  console.log('similarity ', similarityCount)
+
+  const handleFiles = (files: Blob[]) => {
+    if (Array.isArray(files) && files.length > 0) {
+      setMedia(files[0])
+    } else {
+      setMedia(files as unknown as Blob)
+    }
+  }
 
   useEffect(() => {
     const similarity =
@@ -110,7 +117,7 @@ export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
                   <Text color={'black'} fontWeight={'bold'} w={'full'}>
                     Add Image(s)
                   </Text>
-                  <FileUploader images={media} setImages={setMedia} />
+                  <FilePicker setFiles={handleFiles} />
                 </Stack>
               </Stack>
               {/* Button group ................*/}

@@ -1,9 +1,8 @@
 import { FC } from 'react'
 
-import { StrapiResponse, Privacy } from '@wsvvrijheid/types'
+import { Privacy } from '@wsvvrijheid/types'
 import { Container, Hero, Markdown } from '@wsvvrijheid/ui'
-import { fetcher, truncateText } from '@wsvvrijheid/utils'
-import { AxiosResponse } from 'axios'
+import { Request, truncateText } from '@wsvvrijheid/utils'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { serialize } from 'next-mdx-remote/serialize'
@@ -34,15 +33,12 @@ export default Privacy
 export const getStaticProps = async context => {
   const { locale } = context
 
-  // `request` returns null for SinglePages
-  // probably because of some default parameters
-  // like filter, populate, etc.
-  const response = (await fetcher()(
-    `api/privacy?locale=${locale}`,
-  )) as AxiosResponse<StrapiResponse<Privacy>>
+  const response = await Request.single<Privacy>({
+    url: 'api/privacy',
+    locale,
+  })
 
-  const privacy = response?.data?.data
-  console.log(privacy)
+  const privacy = response?.data
 
   if (!privacy) {
     return {

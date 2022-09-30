@@ -24,10 +24,13 @@ type RecommendedTopicRelationInput = {
 }
 
 export type RecommendedTopicCreateInput = Expand<
-  Omit<RecommendedTopicBase, 'skipped' | 'posted'> &
+  { publishedAt?: string | null } & Omit<
+    RecommendedTopicBase,
+    'skipped' | 'posted'
+  > &
     SetRequired<RecommendedTopicRelationInput, 'recommender'>
 >
 
-export type RecommendedTopic = Expand<
-  StrapiBase & RecommendedTopicBase & RecommendedTopicRelation
->
+export type RecommendedTopic = StrapiBase &
+  RecommendedTopicBase &
+  RecommendedTopicRelation

@@ -2,6 +2,7 @@ import { UploadFile } from '@wsvvrijheid/types'
 
 export type ArtApprovalTypes = {
   artDescription: string
+  artContent: string
   artId: number
   artImages: UploadFile[] | string[]
   artTitle: string
@@ -10,15 +11,20 @@ export type ArtApprovalTypes = {
   editorAvatar: string
   editorId: number
   editorName: string
-  feedback: string
-  isEditing: boolean
+  artApprovalStatus: string
+  artPublishedAt: string | null
   isOpen: boolean
   onApprove: (artId: number, editorId: number, feedback: string) => void
   onClose: () => void
   onDelete: (artId: number) => void
   onReject: (artId: number, editorId: number, feedback: string) => void
-  onSave: (artDescription: string) => void
-  setIsEditing: (data: boolean) => void
+  onSave: (
+    artId: number,
+    data: string,
+    updateValue: 'content' | 'description',
+  ) => void
+  onPublish: (artId: number) => void
+  unPublish: (artId: number) => void
 }
 
 export type ArtFeedbackFormTypes = {
@@ -30,5 +36,9 @@ export type ArtFeedbackFormTypes = {
   editorAvatar: string
   editorName: string
   artDescription: string
-  setIsEditing: (data: boolean) => void
+  artApprovalStatus: string
+  artPublishedAt: string | null
+  updateField: (data: string) => void
+  onPublish: (artId: number) => void
+  unPublish: (artId: number) => void
 }

@@ -34,8 +34,8 @@ export const AdminNavItem: FC<AdminNavItemProps> = ({
         href={link}
         px={4}
         leftIcon={icon}
-        size="lg"
         variant="ghost"
+        rounded="0"
         w="full"
         {...(isMenuLinkActive && {
           color: 'primary.500',
@@ -74,6 +74,7 @@ export const AdminNavItem: FC<AdminNavItemProps> = ({
                 leftIcon={item.icon}
                 ml={8}
                 px={2}
+                size="sm"
                 variant="ghost"
                 w="full"
                 {...(isSubmenuLinkActive && {

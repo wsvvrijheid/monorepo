@@ -1,4 +1,3 @@
-import { Expand } from './common'
 import { UploadFile } from './file'
 import { StrapiBase, StrapiEntityBase } from './strapi'
 
@@ -12,4 +11,4 @@ type TermRelation = {
   localizations?: Array<Term>
 }
 
-export type Term = Expand<StrapiBase & TermBase & TermRelation>
+export type Term = StrapiBase & TermBase & TermRelation

@@ -123,12 +123,12 @@ export const JoinForm: FC<JoinFormFProps> = ({
       p={8}
       bg="white"
       rounded="lg"
-      shadow="md"
+      shadow="base"
       as="form"
       spacing={4}
       onSubmit={handleSubmit(onSubmit)}
     >
-      <Heading as="h3" size="lg" textAlign="center" fontWeight={900}>
+      <Heading as="h3" size="lg" textAlign="center" fontWeight="black">
         {t`apply-form.title`}
       </Heading>
       <Stack direction={{ base: 'column', md: 'row' }} spacing={4}>
@@ -201,7 +201,7 @@ export const JoinForm: FC<JoinFormFProps> = ({
       <Box>
         <FormLabel
           fontSize="sm"
-          fontWeight={600}
+          fontWeight="semibold"
         >{t`apply-form.heard-from`}</FormLabel>
         <Wrap
           p={4}
@@ -233,7 +233,7 @@ export const JoinForm: FC<JoinFormFProps> = ({
 
       {/* JOBS */}
       <Box>
-        <FormLabel fontSize="sm" fontWeight={600}>
+        <FormLabel fontSize="sm" fontWeight="semibold">
           {t`apply-form.jobs.title`}{' '}
           <chakra.span color="red.500">*</chakra.span>
         </FormLabel>
@@ -246,7 +246,7 @@ export const JoinForm: FC<JoinFormFProps> = ({
         >
           {platforms?.map((platform, i) => (
             <Stack key={i}>
-              <Text fontWeight={600} fontSize="sm">
+              <Text fontWeight="semibold" fontSize="sm">
                 {platform[`name_${locale}`]}
               </Text>
               {platform?.jobs?.map(job => (

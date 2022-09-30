@@ -46,6 +46,7 @@ const LocaleSwitcher: FC<LocaleSwitcherProps> = ({ isDark }) => {
 
         return !isScrolled && isDark ? (
           <Button
+            key={code}
             px={2}
             onClick={() => handleChangeLanguage(code as StrapiLocale)}
             colorScheme={

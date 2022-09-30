@@ -1,7 +1,4 @@
 {
   "name": "@wsvvrijheid/ui",
-  "version": "0.0.1",
-  "devDependencies": {
-    "@types/string-similarity": "^4.0.0"
-  }
+  "version": "0.0.1"
 }

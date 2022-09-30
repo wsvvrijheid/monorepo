@@ -2,13 +2,12 @@ export const styles = {
   global: {
     'html, body, #__next': {
       h: 'full',
+      fontFamily: `'Poppins', sans-serif`,
     },
     body: {
-      fontFamily: 'body',
-      color: 'gray.900',
+      color: 'gray.700',
       bg: 'gray.50',
-      fontWeight: 400,
-      fontSize: { base: 'md', lg: 'lg' },
+      fontWeight: 'regular',
       lineHeight: 1.5,
     },
     iframe: {
