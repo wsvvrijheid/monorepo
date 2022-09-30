@@ -1,30 +1,34 @@
 import { useQuery, QueryKey } from '@tanstack/react-query'
-import { Art, StrapiLocale } from '@wsvvrijheid/types'
+import { ApprovalStatus, Art, Sort, StrapiLocale } from '@wsvvrijheid/types'
 import qs from 'qs'
 
-import { request } from '../../lib'
+import { Request } from '../../lib'
 
-type GetArts = {
+type GetArtsArgs = {
   categories?: string
   populate?: string | string[]
   page?: number
   pageSize?: number
   searchTerm?: string
   username?: string
-  sort?: string | string[]
+  sort?: Sort
   locale: StrapiLocale
+  status?: ApprovalStatus
+  publicationState?: 'live' | 'preview'
 }
 
 export const getArts = async ({
   categories,
   populate = ['artist.avatar', 'categories', 'images', 'likers'],
   page = 1,
-  pageSize,
+  pageSize = 12,
   searchTerm,
   username,
-  sort,
+  sort = ['publishedAt:desc'],
   locale,
-}: GetArts) => {
+  status,
+  publicationState,
+}: GetArtsArgs) => {
   const userFilter = {
     artist: {
       username: {
@@ -45,7 +49,7 @@ export const getArts = async ({
   // TODO: Allow user to filter by approvalStatus (see: ApprovalStatus)
   const statusFilter = {
     approvalStatus: {
-      $eq: 'approved',
+      $eq: status || 'approved',
     },
   }
 
@@ -67,18 +71,19 @@ export const getArts = async ({
       },
     }
   }
-  return request<Art[]>({
+  return Request.collection<Art[]>({
     url: 'api/arts',
     filters,
     page,
     pageSize,
-    sort: sort || ['publishedAt:desc'],
+    sort: sort || undefined,
     locale,
     populate,
+    publicationState,
   })
 }
 
-export const useArts = (queryKey: QueryKey, args: GetArts) =>
+export const useArts = (queryKey: QueryKey, args: GetArtsArgs) =>
   useQuery({
     queryKey,
     queryFn: () => getArts(args),

@@ -35,7 +35,7 @@ const mapModelLocalization = <T extends StrapiTranslatableModel>({
   const defaultLocalizedModel = {
     [model.locale]: {
       ...model,
-      status: model.status || 'pending',
+      translationStatus: model.translationStatus || 'pending',
       image: model.images?.[0] || model.image,
     },
   } as LocalizedModel<T>
@@ -45,7 +45,7 @@ const mapModelLocalization = <T extends StrapiTranslatableModel>({
       ...acc,
       [localization.locale]: {
         ...localization,
-        status: localization.status || 'pending',
+        status: localization.translationStatus || 'pending',
         image:
           (localization as TranslatableModel<T>)?.images?.[0] ||
           (localization as TranslatableModel<T>)?.image,
@@ -86,7 +86,7 @@ export const TranslateModal = <T extends StrapiTranslatableModel>({
         const missingTranslations = locales.filter(locale => {
           return (
             locale !== model.locale &&
-            localizedModels[locale]?.status !== 'approved'
+            localizedModels[locale]?.translationStatus !== 'approved'
           )
         }) as StrapiLocale[]
 

@@ -2,10 +2,10 @@ import { useQuery } from '@tanstack/react-query'
 import { Blog, StrapiLocale } from '@wsvvrijheid/types'
 import { useRouter } from 'next/router'
 
-import { request } from '../../lib'
+import { Request } from '../../lib'
 
 export const getBlogs = async (locale: StrapiLocale) => {
-  const response = await request<Blog[]>({
+  const response = await Request.collection<Blog[]>({
     url: 'api/blogs',
     locale,
     sort: ['publishedAt:desc'],
@@ -18,7 +18,7 @@ export const getAuthorBlogs = async (
   authorID: number,
   blogId: number,
 ) => {
-  const response = await request<Blog[]>({
+  const response = await Request.collection<Blog[]>({
     url: 'api/blogs',
     filters: {
       $and: [{ author: { id: { $eq: authorID } } }, { id: { $ne: blogId } }],

@@ -20,6 +20,8 @@ type JobRelationInput = {
   platform: number
 }
 
-export type JobCreateInput = Expand<JobBase & JobRelationInput>
+export type JobCreateInput = Expand<
+  { publishedAt?: string | null } & JobBase & JobRelationInput
+>
 
-export type Job = Expand<StrapiBase & JobBase & JobRelation>
+export type Job = StrapiBase & JobBase & JobRelation

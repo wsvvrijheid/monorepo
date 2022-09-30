@@ -1,6 +1,6 @@
-import { StrapiResponse, Volunteer } from '@wsvvrijheid/types'
+import { StrapiCollectionResponse, Volunteer } from '@wsvvrijheid/types'
 
-export const VOLUNTEER_MOCKS: StrapiResponse<Volunteer[]> = {
+export const VOLUNTEER_MOCKS: StrapiCollectionResponse<Volunteer[]> = {
   data: [
     {
       id: 1,

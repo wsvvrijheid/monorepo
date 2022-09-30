@@ -16,10 +16,11 @@ export const getAuth: (
 ) => Promise<Auth> = async (identifier: string, password: string) => {
   // TODO Can we populate the AuthResponse with the user data from the backend?
   // Why do we need to make a new request to get populated user data?
-  const response = await axios.post<AuthResponse>(`${API_URL}/api/auth/local`, {
-    identifier,
-    password,
-  })
+  const response = await axios.post<AuthResponse>(
+    'api/auth/local',
+    { identifier, password },
+    { baseURL: API_URL },
+  )
 
   const token = response.data?.jwt
 

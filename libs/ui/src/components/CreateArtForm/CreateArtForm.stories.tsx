@@ -1,13 +1,10 @@
-import { useState } from 'react'
-
-import slugify from '@sindresorhus/slugify'
-import { Story, Meta } from '@storybook/react'
-import { CATEGORY_MOCKS } from '@wsvvrijheid/mocks'
-import { Art, ArtCreateInput } from '@wsvvrijheid/types'
-import { createMutation } from '@wsvvrijheid/utils'
+import { Meta, Story } from '@storybook/react'
+import { USER_MOCKS } from '@wsvvrijheid/mocks'
+import { mapSessionUser } from '@wsvvrijheid/utils'
+import { sample } from 'lodash'
 
 import { CreateArtForm } from '.'
-import { CreateArtFormProps, CreateArtFormFieldValues } from './types'
+import { CreateArtFormProps } from './types'
 
 export default {
   title: 'Forms/CreateArtForm',
@@ -15,41 +12,23 @@ export default {
 } as Meta<CreateArtFormProps>
 
 const Template: Story<CreateArtFormProps> = args => {
-  const [isLoading, setIsLoading] = useState(false)
-  const handleCreateArt = async (
-    data: CreateArtFormFieldValues & { images: Blob[] },
-  ) => {
-    const slug = slugify(data.title)
-    const formBody = {
-      ...data,
-      slug,
-      artist: 1,
-      categories: data.categories.map(c => Number(c.value)),
-    }
-
-    await createMutation<Art, ArtCreateInput>('api/arts', formBody)
-
-    setIsLoading(true)
-    setTimeout(() => {
-      alert(JSON.stringify(data))
-      setIsLoading(false)
-    }, 2000)
-  }
-
-  return (
-    <CreateArtForm
-      {...args}
-      onCreateArt={handleCreateArt}
-      isLoading={isLoading}
-      categories={CATEGORY_MOCKS.data}
-    />
-  )
+  return <CreateArtForm {...args} />
 }
 
 export const Default = Template.bind({})
-Default.args = {}
+Default.args = {
+  auth: {
+    user: null,
+    isLoggedIn: false,
+    token: null,
+  },
+}
 
 export const Auth = Template.bind({})
 Auth.args = {
-  isLoggedIn: true,
-}
+  auth: {
+    user: mapSessionUser(sample(USER_MOCKS)),
+    isLoggedIn: true,
+    token: 'fake-token',
+  },
+} as CreateArtFormProps

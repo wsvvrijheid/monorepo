@@ -1,6 +1,6 @@
-import { StrapiResponse, Tag } from '@wsvvrijheid/types'
+import { StrapiCollectionResponse, Tag } from '@wsvvrijheid/types'
 
-export const TAG_MOCKS: StrapiResponse<Tag[]> = {
+export const TAG_MOCKS: StrapiCollectionResponse<Tag[]> = {
   data: [
     {
       id: 2,

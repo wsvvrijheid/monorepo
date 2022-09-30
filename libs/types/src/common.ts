@@ -18,3 +18,5 @@ export type Expand<T> = T extends infer O ? { [K in keyof O]: O[K] } : never
 export type PickRequired<T, K extends keyof T> = Expand<
   Pick<SetRequired<T, K>, K>
 >
+
+export type Sort = [`${string | `${string}.${string}`}:${'asc' | 'desc'}`]

@@ -7,25 +7,29 @@ import { User } from './user'
 export type RecommendedTweetBase = {
   isShared: boolean
   isArchived: boolean
-  originalTweet: Tweet
   text: string
 }
 
 type RecommendedTweetRelation = {
   recommender: User
   media: UploadFile
+  originalTweet: Tweet
 }
 
 type RecommendedTweetRelationInput = {
   recommender: number
   media: Blob[]
+  originalTweet: JSON
 }
 
 export type RecommendedTweetCreateInput = Expand<
-  Omit<RecommendedTweetBase, 'isShared' | 'isArchived'> &
+  { publishedAt?: string | null } & Omit<
+    RecommendedTweetBase,
+    'isShared' | 'isArchived'
+  > &
     RecommendedTweetRelationInput
 >
 
-export type RecommendedTweet = Expand<
-  StrapiBase & RecommendedTweetBase & RecommendedTweetRelation
->
+export type RecommendedTweet = StrapiBase &
+  RecommendedTweetBase &
+  RecommendedTweetRelation

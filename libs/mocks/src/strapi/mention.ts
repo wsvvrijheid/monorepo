@@ -1,6 +1,6 @@
-import { Mention, StrapiResponse } from '@wsvvrijheid/types'
+import { Mention, StrapiCollectionResponse } from '@wsvvrijheid/types'
 
-export const MENTION_MOCKS = {
+export const MENTION_MOCKS: StrapiCollectionResponse<Mention[]> = {
   data: [
     {
       id: 1,
@@ -357,4 +357,4 @@ export const MENTION_MOCKS = {
     },
   ],
   meta: { pagination: { page: 1, pageSize: 25, pageCount: 1, total: 1 } },
-} as StrapiResponse<Mention[]>
+}

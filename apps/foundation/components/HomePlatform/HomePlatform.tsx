@@ -54,7 +54,7 @@ export const HomePlatform = () => {
                 >
                   <Heading
                     size="lg"
-                    fontWeight={900}
+                    fontWeight="black"
                     color={platform.colors.header}
                   >
                     {platform.title[locale]}
