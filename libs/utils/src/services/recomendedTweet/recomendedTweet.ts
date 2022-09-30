@@ -1,10 +1,11 @@
 import { useToast } from '@chakra-ui/react'
-import {QueryKey, useMutation, useQueryClient } from '@tanstack/react-query'
+import { QueryKey, useMutation, useQueryClient } from '@tanstack/react-query'
 import {
   RecommendedTweet,
   RecommendedTweetCreateInput,
 } from '@wsvvrijheid/types'
-import { Mutation } from '@wsvvrijheid/utils'
+
+import { Mutation } from '../../lib'
 
 export const recommendTweet = (
   recommendedTweet: RecommendedTweetCreateInput,
@@ -26,9 +27,9 @@ export const useRecommendTweet = (queryKey?: QueryKey) => {
     onSettled: () => {
       queryClient.invalidateQueries(queryKey)
     },
-    onSuccess: (res) => {
+    onSuccess: res => {
       // TODO Add translations
-      console.log('res>>>>>',res)
+      console.log('res>>>>>', res)
       toast({
         title: 'Recomended',
         description: 'Recomended Tweet Created',
@@ -48,4 +49,3 @@ export const useRecommendTweet = (queryKey?: QueryKey) => {
     },
   })
 }
-
