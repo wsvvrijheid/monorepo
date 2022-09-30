@@ -13,7 +13,7 @@ import '@uppy/image-editor/dist/style.css'
 
 export type FilePickerProps = Omit<ComponentProps<typeof Dashboard>, 'uppy'> & {
   maxNumberOfFiles?: number
-  setFiles: (images: Blob[]) => void
+  setFiles: (files: Blob[]) => void
   setPreviews?: (urls: string[]) => void
 }
 
