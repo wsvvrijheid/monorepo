@@ -59,10 +59,9 @@ export const FilePicker: FC<FilePickerProps> = ({
   })
 
   uppy.on('complete', result => {
-    const [files, previews] = result.successful.map(file => [
-      file.data,
-      file.preview,
-    ])
+    const files = result.successful.map(file => file.data)
+    const previews = result.successful.map(file => file.preview)
+
     setFiles(files as Blob[])
     setPreviews?.(previews as string[])
   })
@@ -75,6 +74,7 @@ export const FilePicker: FC<FilePickerProps> = ({
     <Stack>
       <Dashboard
         width="100%"
+        height={300}
         uppy={uppy}
         plugins={['ImageEditor']}
         hideUploadButton

@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef, useState } from 'react'
+import { FC, useRef, useState } from 'react'
 
 import {
   Box,
@@ -59,14 +59,6 @@ export const CreateCollectionModal: FC<CreateCollectionModalProps> = ({
     mode: 'all',
   })
 
-  useEffect(
-    () => () => {
-      // Make sure to revoke the data uris to avoid memory leaks
-      images.forEach(image => URL.revokeObjectURL((image as any).preview))
-    },
-    [images],
-  )
-
   const { mutate, isLoading } = useCreateCollection(queryKey)
 
   const createCollection = async (
@@ -124,7 +116,12 @@ export const CreateCollectionModal: FC<CreateCollectionModalProps> = ({
         ref={cancelRef}
       />
 
-      <Button size="lg" colorScheme="blue" onClick={formDisclosure.onOpen}>
+      <Button
+        size="lg"
+        colorScheme="green"
+        onClick={formDisclosure.onOpen}
+        my={3}
+      >
         <Box mr={{ base: 0, lg: 4 }}>
           <FaPlus />
         </Box>
@@ -178,7 +175,7 @@ export const CreateCollectionModal: FC<CreateCollectionModalProps> = ({
                 errors={errors}
                 register={register}
               />
-              <FilePicker setImages={setImages} />
+              <FilePicker setFiles={setImages} />
               <ButtonGroup alignSelf="end">
                 <Button
                   onClick={closeForm}
@@ -189,12 +186,7 @@ export const CreateCollectionModal: FC<CreateCollectionModalProps> = ({
                   Cancel
                 </Button>
                 <Button
-                  isDisabled={
-                    !images ||
-                    images?.length === 0 ||
-                    !isValid ||
-                    images.length > 1
-                  }
+                  isDisabled={!images || images.length === 0 || !isValid}
                   type="submit"
                   colorScheme="green"
                   leftIcon={<FaCheck />}

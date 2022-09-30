@@ -92,6 +92,11 @@ export const getAdminNav = (user: SessionUser) => {
       ],
     },
     {
+      label: 'Collections',
+      link: '/arts/collections',
+      icon: <TbBrush />,
+    },
+    {
       label: 'Hashtags',
       icon: <CgHashtag />,
       visible: isEditor || isAdmin,

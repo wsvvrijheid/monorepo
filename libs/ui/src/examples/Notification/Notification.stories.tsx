@@ -1,7 +1,7 @@
 import { Container } from '@chakra-ui/react'
 import { Meta, Story } from '@storybook/react'
 
-import Notification from './Notification'
+import { Notification } from './Notification'
 import { NotificationProps } from './types'
 
 export default {
