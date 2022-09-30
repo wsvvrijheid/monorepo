@@ -22,11 +22,11 @@ const Template: Story<CreateTweetFormProps> = args => {
 
   const recommendTweetMutation = useRecommendTweet()
 
-  const handleSubmit = async (tweet: string) => {
+  const handleSubmit = async (tweet: string, media: Blob[]) => {
     const recomendedTweet: RecommendedTweetCreateInput = {
       recommender: USER_MOCKS?.[0].id,
       originalTweet: JSON.parse(JSON.stringify(args.originalTweet)),
-      media: images,
+      media: media,
       text: tweet,
     }
 

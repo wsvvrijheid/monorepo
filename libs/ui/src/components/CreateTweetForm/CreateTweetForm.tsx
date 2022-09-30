@@ -33,7 +33,8 @@ export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
 }) => {
   const [tweet, setTweet] = useState('')
   const [similarityCount, setSimilarityCount] = useState(0)
-  const [media, setMedia] = useState<Blob>()
+  const [media, setMedia] = useState<Blob[]>([])
+  const [previews, setPreviews] = useState<string[]>([])
   console.log('similarity ', similarityCount)
 
   useEffect(() => {
@@ -110,7 +111,12 @@ export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
                   <Text color={'black'} fontWeight={'bold'} w={'full'}>
                     Add Image(s)
                   </Text>
-                  <FileUploader images={media} setImages={setMedia} />
+                  <FileUploader
+                    previews={previews}
+                    setPreviews={setPreviews}
+                    images={media}
+                    setImages={setMedia}
+                  />
                 </Stack>
               </Stack>
               {/* Button group ................*/}
