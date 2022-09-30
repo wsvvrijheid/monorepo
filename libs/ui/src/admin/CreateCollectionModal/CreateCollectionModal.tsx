@@ -25,8 +25,7 @@ import { useForm } from 'react-hook-form'
 import { FaCheck, FaTimes, FaPlus } from 'react-icons/fa'
 import * as yup from 'yup'
 
-import { FormItem } from '../../components'
-import { FileUploader } from '../../components/FileUploader'
+import { FormItem, FilePicker } from '../../components'
 import { CollectionCreateSuccessAlert } from './CreateCollectionSuccessAlert'
 import {
   CreateCollectionFormFieldValues,
@@ -44,7 +43,6 @@ export const CreateCollectionModal: FC<CreateCollectionModalProps> = ({
   queryKey,
 }) => {
   const [images, setImages] = useState<Blob[]>([])
-  const [previews, setPreviews] = useState<string[]>([])
 
   const cancelRef = useRef<HTMLButtonElement>(null)
   const formDisclosure = useDisclosure()
@@ -109,7 +107,6 @@ export const CreateCollectionModal: FC<CreateCollectionModalProps> = ({
 
   const resetFileUploader = () => {
     setImages([])
-    setPreviews([])
   }
 
   const closeForm = () => {
@@ -186,13 +183,7 @@ export const CreateCollectionModal: FC<CreateCollectionModalProps> = ({
                 errors={errors}
                 register={register}
               />
-              <FileUploader
-                images={images}
-                previews={previews}
-                setImages={setImages}
-                setPreviews={setPreviews}
-                singleFile={true}
-              />
+              <FilePicker setImages={setImages} />
               <ButtonGroup alignSelf="end">
                 <Button
                   onClick={closeForm}
