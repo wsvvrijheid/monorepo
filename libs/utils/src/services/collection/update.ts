@@ -4,7 +4,7 @@ import { Collection, CollectionUpdateInput } from '@wsvvrijheid/types'
 
 import { Mutation } from '../../lib'
 
-export const updateField = ({
+export const updateCollectionField = ({
   id,
   ...args
 }: CollectionUpdateInput & { id: number }) => {
@@ -21,7 +21,7 @@ export const useUpdateCollectionMutation = (queryKey?: QueryKey) => {
   return useMutation({
     mutationKey: ['update-collection'],
     mutationFn: ({ id, ...args }: CollectionUpdateInput & { id: number }) =>
-      updateField({ id, ...args }),
+      updateCollectionField({ id, ...args }),
     onSuccess: (res: Collection) => {
       queryClient.invalidateQueries(queryKey)
       toast({
