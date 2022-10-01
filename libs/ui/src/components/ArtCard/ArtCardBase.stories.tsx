@@ -42,7 +42,7 @@ const Template: ComponentStory<typeof ArtCardBase> = args => {
     publish: {
       title: 'Publish',
       buttonText: 'Publish',
-      colorScheme: 'green',
+      colorScheme: 'primary',
       text: 'Are you sure you want to publish this art?',
       onClick: () => alert('Published'),
     },

@@ -126,7 +126,7 @@ export const ArtApprovalModal: FC<ArtApprovalTypes> = ({
                           value={description}
                         />
                         <Button
-                          colorScheme="green"
+                          colorScheme="primary"
                           onClick={() => handleSave('description')}
                           alignSelf="end"
                         >
@@ -157,7 +157,7 @@ export const ArtApprovalModal: FC<ArtApprovalTypes> = ({
                           value={content}
                         />
                         <Button
-                          colorScheme="green"
+                          colorScheme="primary"
                           onClick={() => handleSave('content')}
                           alignSelf="end"
                         >

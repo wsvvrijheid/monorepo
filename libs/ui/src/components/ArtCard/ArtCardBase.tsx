@@ -29,7 +29,6 @@ import { ArtCardImage } from './ArtCardImage'
 import { ArtActionType, ArtCardBaseProps } from './types'
 
 export const ArtCardBase: FC<ArtCardBaseProps> = ({
-  auth,
   art,
   isMasonry,
   toggleLike,
@@ -227,7 +226,6 @@ export const ArtCardBase: FC<ArtCardBaseProps> = ({
             </Navigate>
           </Stack>
           <ArtModal
-            auth={auth}
             art={art}
             isOpen={artModalIsOpen}
             onClose={artModalOnClose}

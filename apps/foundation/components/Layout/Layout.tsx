@@ -1,7 +1,8 @@
 import { FC, PropsWithChildren } from 'react'
 
 import { menus, socialLinks } from '@wsvvrijheid/config'
-import { Layout as AppLayout, useAuth } from '@wsvvrijheid/ui'
+import { Layout as AppLayout } from '@wsvvrijheid/ui'
+import { useAuthSelector } from '@wsvvrijheid/utils'
 import axios from 'axios'
 import { NextSeoProps } from 'next-seo'
 import { useRouter } from 'next/router'
@@ -20,7 +21,7 @@ export const Layout: FC<LayoutProps> = ({
   hasScroll,
   seo,
 }) => {
-  const auth = useAuth()
+  const auth = useAuthSelector()
   const router = useRouter()
 
   const logOut = () => {

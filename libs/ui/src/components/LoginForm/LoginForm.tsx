@@ -10,6 +10,7 @@ import {
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation } from '@tanstack/react-query'
+import { checkAuth, useAppDispatch } from '@wsvvrijheid/utils'
 import axios from 'axios'
 import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
@@ -54,6 +55,8 @@ export const LoginForm = () => {
     mode: 'all',
   })
 
+  const dispatch = useAppDispatch()
+
   const router = useRouter()
   useAuth('/profile', true)
 
@@ -63,6 +66,7 @@ export const LoginForm = () => {
       axios.post('/api/auth/login', body),
     onSuccess: () => {
       reset()
+      dispatch(checkAuth())
       router.push('/')
     },
   })

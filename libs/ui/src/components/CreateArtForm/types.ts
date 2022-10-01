@@ -1,5 +1,5 @@
 import { QueryKey } from '@tanstack/react-query'
-import { Auth, StrapiLocale } from '@wsvvrijheid/types'
+import { StrapiLocale } from '@wsvvrijheid/types'
 
 export type CreateArtFormFieldValues = {
   locale: StrapiLocale
@@ -13,7 +13,6 @@ export type CreateArtFormFieldValues = {
 }
 
 export type CreateArtFormProps = {
-  auth: Auth
   queryKey?: QueryKey
 }
 

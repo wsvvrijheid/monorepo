@@ -1,50 +1,47 @@
-import React from 'react'
-
 import { AuthenticatedUserProfile, useAuth } from '@wsvvrijheid/ui'
-import { sessionOptions } from '@wsvvrijheid/utils'
-import { withIronSessionSsr } from 'iron-session/next'
+import { useAuthSelector } from '@wsvvrijheid/utils'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { Layout } from '../../components'
 import i18nConfig from '../../next-i18next.config'
 
 const Profile = ({ seo }) => {
-  const auth = useAuth()
+  const { isLoggedIn } = useAuthSelector()
+  useAuth()
 
   return (
     <Layout seo={seo} isDark>
-      {auth.user && <AuthenticatedUserProfile auth={auth} />}
+      {isLoggedIn && <AuthenticatedUserProfile />}
     </Layout>
   )
 }
 
 export default Profile
 
-export const getServerSideProps = withIronSessionSsr(async function ({
-  req,
-  locale,
-}) {
-  const auth = req.session
+export const getStaticProps = async context => {
+  const { locale } = context
 
-  if (!auth.user) {
-    return {
-      redirect: {
-        permanent: false,
-        destination: '/login',
-      },
-      props: {},
-    }
+  const title = {
+    en: 'Profile',
+    tr: 'Profil',
+    nl: 'Profiel',
+  }
+
+  const description = {
+    en: '',
+    tr: '',
+    nl: '',
   }
 
   const seo = {
-    title: auth.user.username,
+    title: title[locale],
+    description: description[locale],
   }
 
   return {
     props: {
-      ...(await serverSideTranslations(locale, ['common'], i18nConfig)),
       seo,
+      ...(await serverSideTranslations(locale, ['common'], i18nConfig)),
     },
   }
-},
-sessionOptions)
+}

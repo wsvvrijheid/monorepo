@@ -1,8 +1,9 @@
 import { QueryKey, useMutation, useQueryClient } from '@tanstack/react-query'
-import { Art, ArtUpdateInput, SessionUser } from '@wsvvrijheid/types'
+import { Art, ArtUpdateInput } from '@wsvvrijheid/types'
 import { useLocalStorage } from 'react-use'
 
 import { Mutation } from '../../lib'
+import { useAuthSelector } from '../../store'
 
 type LikersMutationArgs = {
   id: number
@@ -40,12 +41,10 @@ const useLikeArtPublicMutation = () => {
   })
 }
 
-export const useLikeArt = (
-  art?: Art | null,
-  user?: SessionUser | null,
-  queryKey?: QueryKey,
-) => {
+export const useLikeArt = (art?: Art | null, queryKey?: QueryKey) => {
   const queryClient = useQueryClient()
+
+  const { user } = useAuthSelector()
 
   const likeArtByUserMutation = useLikeArtByUserMutation()
   const likeArtPublicMutation = useLikeArtPublicMutation()

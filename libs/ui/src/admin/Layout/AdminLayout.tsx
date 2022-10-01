@@ -10,7 +10,7 @@ import {
   Stack,
   useBoolean,
 } from '@chakra-ui/react'
-import { SessionUser } from '@wsvvrijheid/types'
+import { useAuthSelector } from '@wsvvrijheid/utils'
 import axios from 'axios'
 import { NextSeo } from 'next-seo'
 import { useRouter } from 'next/router'
@@ -22,19 +22,17 @@ import { PageHeader, PageHeaderProps } from '../PageHeader'
 
 export type AdminLayoutProps = {
   children: ReactNode
-  isLoading?: boolean
   title: string
-  user: SessionUser
   headerProps?: PageHeaderProps
 }
 
 export const AdminLayout: FC<AdminLayoutProps> = ({
   children,
-  isLoading,
   title,
-  user,
   headerProps,
 }) => {
+  const { user, isAuthLoading } = useAuthSelector()
+
   const [expandedStorage, setExpandedStorage] = useLocalStorage(
     'adminSidebarExpanded',
     true,
@@ -55,7 +53,7 @@ export const AdminLayout: FC<AdminLayoutProps> = ({
   }
 
   // Loading indicator when we are fetching user data on the client
-  if (isLoading) {
+  if (isAuthLoading || !user) {
     return (
       <>
         <NextSeo title={title} />
