@@ -1,4 +1,5 @@
-import { sessionOptions, getAuth, createMutation } from '@wsvvrijheid/utils'
+import { API_URL } from '@wsvvrijheid/config'
+import { sessionOptions, getAuth, Mutation } from '@wsvvrijheid/utils'
 import axios from 'axios'
 import { withIronSessionApiRoute } from 'iron-session/next'
 import { NextApiResponse, NextApiRequest } from 'next'
@@ -12,12 +13,9 @@ const registerRoute = async (req: NextApiRequest, res: NextApiResponse) => {
 
   try {
     const response = await axios.post(
-      `${process.env.NEXT_PUBLIC_API_URL}/api/auth/local/register`,
-      {
-        username: trimmedUsername,
-        email: trimmedEmail,
-        password,
-      },
+      'api/auth/local/register',
+      { username: trimmedUsername, email: trimmedEmail, password },
+      { baseURL: API_URL },
     )
 
     const token = response.data.jwt
@@ -25,7 +23,7 @@ const registerRoute = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const body = { user: userId, name: trimmedName }
 
-    await createMutation('api/users', body, token)
+    await Mutation.post('api/users', body, token)
 
     const auth = await getAuth(email, password)
 

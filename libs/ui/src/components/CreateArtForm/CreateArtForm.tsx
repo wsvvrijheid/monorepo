@@ -34,7 +34,7 @@ import { TFunction } from 'react-i18next'
 import { FaPlus, FaUpload } from 'react-icons/fa'
 import * as yup from 'yup'
 
-import { FileUploader } from '../FileUploader'
+import { FilePicker } from '../FilePicker'
 import { FormItem } from '../FormItem'
 import { Navigate } from '../Navigate'
 import { WSelect } from '../WSelect'
@@ -58,7 +58,6 @@ const schema = (t: TFunction) =>
 // TODO Consider adding modal form instead of a new page
 export const CreateArtForm: FC<CreateArtFormProps> = ({ auth, queryKey }) => {
   const [images, setImages] = useState<Blob[]>([])
-  const [previews, setPreviews] = useState<string[]>([])
   const { locale } = useRouter()
   const { t } = useTranslation()
   const categories = useGetArtCategories()
@@ -125,7 +124,6 @@ export const CreateArtForm: FC<CreateArtFormProps> = ({ auth, queryKey }) => {
 
   const resetFileUploader = () => {
     setImages([])
-    setPreviews([])
   }
 
   const closeForm = () => {
@@ -192,12 +190,7 @@ export const CreateArtForm: FC<CreateArtFormProps> = ({ auth, queryKey }) => {
             {/* CREATE FORM */}
             {auth.isLoggedIn && (
               <SimpleGrid columns={{ base: 1, lg: 2 }} gap={4}>
-                <FileUploader
-                  images={images}
-                  previews={previews}
-                  setImages={setImages}
-                  setPreviews={setPreviews}
-                />
+                <FilePicker setFiles={setImages} />
                 <Stack
                   spacing={4}
                   as="form"

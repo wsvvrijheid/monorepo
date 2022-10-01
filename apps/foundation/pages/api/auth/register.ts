@@ -14,13 +14,14 @@ const registerRoute = async (req: NextApiRequest, res: NextApiResponse) => {
 
   try {
     const response = await axios.post<AuthResponse>(
-      `${API_URL}/api/auth/local/register`,
+      'api/auth/local/register',
       {
         name: trimmedName,
         username: trimmedUsername,
         email: trimmedEmail,
         password,
       },
+      { baseURL: API_URL },
     )
 
     const emptyAuth: Auth = {

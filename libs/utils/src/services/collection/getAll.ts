@@ -2,10 +2,10 @@ import { useQuery } from '@tanstack/react-query'
 import { Collection, StrapiLocale } from '@wsvvrijheid/types'
 import { useRouter } from 'next/router'
 
-import { request } from '../../lib'
+import { Request } from '../../lib'
 
 export const getAllCollections = async (locale: StrapiLocale) => {
-  const response = await request<Collection[]>({
+  const response = await Request.collection<Collection[]>({
     url: 'api/collections',
     pageSize: 100,
     locale,

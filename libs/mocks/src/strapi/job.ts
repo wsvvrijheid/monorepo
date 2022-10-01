@@ -1,6 +1,6 @@
-import { Job, StrapiResponse } from '@wsvvrijheid/types'
+import { Job, StrapiCollectionResponse } from '@wsvvrijheid/types'
 
-export const JOB_MOCKS: StrapiResponse<Job[]> = {
+export const JOB_MOCKS: StrapiCollectionResponse<Job[]> = {
   data: [
     {
       id: 13,

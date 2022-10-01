@@ -1,3 +1,4 @@
+import { API_URL, TOKEN } from '@wsvvrijheid/config'
 import {
   StrapiLocale,
   StrapiModel,
@@ -5,9 +6,9 @@ import {
   StrapiMutationResponse,
   StrapiUrl,
 } from '@wsvvrijheid/types'
+import axios from 'axios'
 
-import { generateFormData } from '../util'
-import { fetcher } from './fetcher'
+import { generateFormData } from '../../util'
 
 type Method = 'post' | 'put' | 'delete' | 'localize'
 
@@ -22,7 +23,7 @@ type MutationParams<D> = {
 
 // T is the type of the model to be returned
 // D is the type of the data to be sent
-const mutation = async <
+export const mutation = async <
   T extends StrapiModel,
   D extends StrapiMutationInput = StrapiMutationInput,
 >({
@@ -30,7 +31,7 @@ const mutation = async <
   id,
   locale,
   method,
-  token,
+  token = TOKEN,
   url,
 }: MutationParams<D>) => {
   //  Throw an error if the body is not provided
@@ -45,9 +46,10 @@ const mutation = async <
 
   if (method === 'localize') {
     // https://docs.strapi.io/developer-docs/latest/plugins/i18n.html#creating-a-localization-for-an-existing-entry
-    const response = await fetcher(token).post<StrapiMutationResponse<T>>(
-      `/${url}/${id}/localizations`,
+    const response = await axios.post<StrapiMutationResponse<T>>(
+      `${url}/${id}/localizations`,
       { ...body, locale }, // TODO localization body doesn't seem to have data key. Double check this
+      { baseURL: API_URL, headers: { Authorization: `Bearer ${token}` } },
     )
     return response.data?.data || null
   }
@@ -59,46 +61,14 @@ const mutation = async <
     requestBody = generateFormData<D>(body)
   }
 
-  const response = await fetcher(token)[method]<StrapiMutationResponse<T>>(
+  const response = await axios[method]<StrapiMutationResponse<T>>(
     requestUrl,
     requestBody,
+    {
+      baseURL: API_URL,
+      headers: { Authorization: `Bearer ${token}` },
+    },
   )
 
   return response.data?.data || null
 }
-
-export const createMutation = <
-  T extends StrapiModel,
-  D extends StrapiMutationInput,
->(
-  url: StrapiUrl,
-  body: D,
-  token?: string,
-) => mutation<T, D>({ url, method: 'post', body, token })
-
-export const updateMutation = <
-  T extends StrapiModel,
-  D extends StrapiMutationInput,
->(
-  url: StrapiUrl,
-  id: number,
-  body: D,
-  token?: string,
-) => mutation<T, D>({ url, method: 'put', id, body, token })
-
-export const deleteMutation = <T extends StrapiModel>(
-  url: StrapiUrl,
-  id: number,
-  token?: string,
-) => mutation<T>({ url, method: 'delete', id, token })
-
-export const localizeMutation = <
-  T extends StrapiModel,
-  D extends StrapiMutationInput,
->(
-  url: StrapiUrl,
-  id: number,
-  locale: StrapiLocale,
-  body: D,
-  token?: string,
-) => mutation<T, D>({ url, method: 'localize', id, locale, body, token })

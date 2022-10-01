@@ -1,7 +1,7 @@
 import { Image, SimpleGrid, Stack, Text } from '@chakra-ui/react'
 import { Activity } from '@wsvvrijheid/types'
 import { AnimatedBox, Card, Container, Hero } from '@wsvvrijheid/ui'
-import { request } from '@wsvvrijheid/utils'
+import { Request } from '@wsvvrijheid/utils'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useRouter } from 'next/router'
 
@@ -59,7 +59,7 @@ export const getServerSideProps = async context => {
   const { locale, query } = context
   const { page } = query
 
-  const activities = await request<Activity[]>({
+  const activities = await Request.collection<Activity[]>({
     url: 'api/activities',
     page,
     pageSize: 10,

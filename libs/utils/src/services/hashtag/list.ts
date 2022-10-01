@@ -2,14 +2,14 @@ import { useQuery } from '@tanstack/react-query'
 import { Hashtag, StrapiLocale } from '@wsvvrijheid/types'
 import { useRouter } from 'next/router'
 
-import { request } from '../../lib'
+import { Request } from '../../lib'
 
 export const getHashtags = async (
   locale: StrapiLocale,
   populate?: string | string[],
   pageSize?: number,
 ) => {
-  const response = await request<Hashtag[]>({
+  const response = await Request.collection<Hashtag[]>({
     url: 'api/hashtags',
     locale,
     populate,
@@ -17,7 +17,7 @@ export const getHashtags = async (
     pageSize,
   })
 
-  return response?.data || []
+  return response?.data
 }
 
 export const useHashtags = () => {

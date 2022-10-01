@@ -2,9 +2,9 @@ import { useQuery, QueryKey } from '@tanstack/react-query'
 import { ApprovalStatus, Art, Sort, StrapiLocale } from '@wsvvrijheid/types'
 import qs from 'qs'
 
-import { request } from '../../lib'
+import { Request } from '../../lib'
 
-type GetArts = {
+type GetArtsArgs = {
   categories?: string
   populate?: string | string[]
   page?: number
@@ -28,7 +28,7 @@ export const getArts = async ({
   locale,
   status,
   publicationState,
-}: GetArts) => {
+}: GetArtsArgs) => {
   const userFilter = {
     artist: {
       username: {
@@ -71,7 +71,7 @@ export const getArts = async ({
       },
     }
   }
-  return request<Art[]>({
+  return Request.collection<Art[]>({
     url: 'api/arts',
     filters,
     page,
@@ -83,7 +83,7 @@ export const getArts = async ({
   })
 }
 
-export const useArts = (queryKey: QueryKey, args: GetArts) =>
+export const useArts = (queryKey: QueryKey, args: GetArtsArgs) =>
   useQuery({
     queryKey,
     queryFn: () => getArts(args),

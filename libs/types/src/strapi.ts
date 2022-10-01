@@ -32,8 +32,9 @@ import { User } from './user'
 import { Volunteer } from './volunteer'
 import { Vote } from './vote'
 
-export type PublicationState = 'LIVE' | 'PREVIEW'
-
+/**
+ * MODEL TYPES
+ */
 export type StrapiBase = {
   id: number
   createdAt: string
@@ -86,6 +87,9 @@ export type StrapiAllModels = Expand<UnionToIntersection<StrapiModel>>
 
 export type StrapiModelKeys = keyof StrapiAllModels
 
+/**
+ * STRAPI RESPONSE TYPES
+ */
 export type Pagination = {
   page: number
   pageCount: number
@@ -101,31 +105,27 @@ export type StrapiMeta = {
   pagination?: Pagination
 }
 
-export type StrapiResponseData<T extends StrapiModel | Array<StrapiModel>> = T
+export type StrapiSingleResponseData<T extends StrapiModel> = T
+export type StrapiCollectionResponseData<T extends StrapiModel[]> = T
 
-export type StrapiResponse<T extends StrapiModel | Array<StrapiModel>> = {
-  data: StrapiResponseData<T>
-} & {
+export type StrapiSingleResponse<T extends StrapiModel> = {
+  data: StrapiSingleResponseData<T>
+  meta: Record<string, unknown>
+}
+export type StrapiMutationResponse<T extends StrapiModel> =
+  StrapiSingleResponse<T>
+
+export type StrapiCollectionResponse<T extends StrapiModel[]> = {
+  data: StrapiCollectionResponseData<T>
   meta: StrapiMeta
 }
 
-export type StrapiTranslatableModel =
-  | Activity
-  | Announcement
-  | Art
-  | Blog
-  | Competition
-  | Hashtag
-  | Post
-
-export type StrapiMutationResponse<T extends StrapiModel> = {
-  data: T
-  meta: Record<string, unknown>
-}
-
+/**
+ * STRAPI API URL TYPES
+ */
 export type StrapiEmailUrl = 'email'
 export type StrapiProviders = 'instagram' | 'facebook' | 'google' | 'twitter'
-export type StrapiSingleUrl = 'term' | 'privacy' | 'trend'
+export type StrapiSingleUrl = 'term' | 'privacy' | 'trend' | 'topic'
 export type StrapiAuthUrl =
   | 'auth/local/register'
   | 'auth/local'
@@ -147,7 +147,6 @@ export type StrapiCollectionUrl =
   | 'lang-roles'
   | 'me'
   | 'mentions'
-  | 'topics'
   | 'platforms'
   | 'posts'
   | 'recommended-topics'
@@ -168,6 +167,18 @@ export type StrapiUrl = Expand<`api/${
   | StrapiAuthUrl
   | StrapiEmailUrl}`>
 
+/**
+ * TRANSLATION TYPES
+ */
+export type StrapiTranslatableModel =
+  | Activity
+  | Announcement
+  | Art
+  | Blog
+  | Competition
+  | Hashtag
+  | Post
+
 export type StrapiFormValue =
   | string
   | number
@@ -177,6 +188,8 @@ export type StrapiFormValue =
   | number[]
   | Blob
   | Blob[]
+  | JSON
   | null
+  | JSON
 
 export type StrapiMutationInput = { [key in string]?: StrapiFormValue }
