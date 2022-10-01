@@ -62,16 +62,7 @@ export const ArtAddToCollectionCard: FC<ArtAddToCollectionCardProps> = ({
           </Button>
         </HStack>
       </Stack>
-      <ArtModal
-        auth={{
-          user: null,
-          isLoggedIn: false,
-          token: null,
-        }}
-        art={art}
-        isOpen={isOpen}
-        onClose={onClose}
-      />
+      <ArtModal art={art} isOpen={isOpen} onClose={onClose} />
     </Stack>
   )
 }
