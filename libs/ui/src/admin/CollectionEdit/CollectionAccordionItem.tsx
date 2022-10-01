@@ -24,7 +24,6 @@ export const CollectionAccordionItem: FC<CollectionAccordionItemProps> = ({
     <AccordionItem>
       <AccordionButton as={HStack} cursor="pointer">
         <Box flex="1" textAlign="left">
-          {' '}
           <Text fontWeight="bold" maxW={{ base: 150, lg: 300 }} noOfLines={1}>
             {collection.title}
           </Text>

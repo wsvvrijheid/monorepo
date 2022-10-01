@@ -5,12 +5,10 @@ import { Accordion } from '@chakra-ui/react'
 import { CollectionAccordionItem } from './CollectionAccordionItem'
 import { CollectionEditProps } from './types'
 
-export const CollectionEdit: FC<CollectionEditProps> = ({ collections }) => {
+export const CollectionEdit: FC<CollectionEditProps> = ({ collection }) => {
   return (
     <Accordion size={'lg'} allowToggle allowMultiple defaultIndex={0}>
-      {collections?.map(c => (
-        <CollectionAccordionItem key={c.id} collection={c} />
-      ))}
+      <CollectionAccordionItem collection={collection} />
     </Accordion>
   )
 }

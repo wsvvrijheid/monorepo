@@ -16,7 +16,7 @@ export type CollectionEditFormFieldValues = {
 }
 
 export type CollectionEditProps = {
-  collections: Collection[]
+  collection: Collection
 }
 
 export type CollectionAccordionItemProps = {

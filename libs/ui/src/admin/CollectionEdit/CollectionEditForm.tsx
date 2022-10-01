@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react'
+import React, { FC, useState } from 'react'
 
 import {
   Stack,
@@ -76,30 +76,23 @@ export const CollectionEditForm: FC<CollectionEditFormProps> = ({
       description: collection.description,
     },
   })
+
   const onSaveCollection = async (data: CollectionEditFormFieldValues) => {
-    updateCollectionMutation.mutate({
-      id,
-      ...(images.length > 1 && {
-        image: images[0],
-      }),
-      ...data,
-    })
-  }
-
-  useEffect(
-    () => () => {
-      // Make sure to revoke the data uris to avoid memory leaks
-      images.forEach(image => URL.revokeObjectURL((image as any).preview))
-    },
-    [images],
-  )
-
-  const resetFileUploader = () => {
-    setImages([])
+    updateCollectionMutation.mutate(
+      {
+        id,
+        ...(images.length > 0 && {
+          image: images[0],
+        }),
+        ...data,
+      },
+      {
+        onSuccess: () => toogleEdit(false),
+      },
+    )
   }
 
   const onCancel = () => {
-    resetFileUploader()
     resetForm()
     toogleEdit(false)
   }
@@ -166,7 +159,7 @@ export const CollectionEditForm: FC<CollectionEditFormProps> = ({
         boxShadow="sm"
       >
         {isEdit ? (
-          <FilePicker setImages={setImages} height="350px" width={'300px'} />
+          <FilePicker setFiles={setImages} height="350px" width={'300px'} />
         ) : (
           <WImage
             ratio="twitter"
