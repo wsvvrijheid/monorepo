@@ -29,16 +29,7 @@ export const Default = Template.bind({})
 const GridTemplate: Story<ArtAddToCollectionCardProps> = args => {
   return (
     <SimpleGrid minChildWidth="300px" spacing="10px">
-      {[
-        ART_MOCKS.tr.data[0],
-        ART_MOCKS.tr.data[0],
-        ART_MOCKS.tr.data[0],
-        ART_MOCKS.tr.data[0],
-        ART_MOCKS.tr.data[0],
-        ART_MOCKS.tr.data[0],
-        ART_MOCKS.tr.data[0],
-        ART_MOCKS.tr.data[0],
-      ].map((topic, i) => (
+      {ART_MOCKS.tr.data.map((topic, i) => (
         <Box key={topic.id}>
           <ArtAddToCollectionCard {...args} art={topic} />
         </Box>

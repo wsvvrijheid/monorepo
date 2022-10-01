@@ -75,7 +75,7 @@ export const ART_MOCKS: Localize<StrapiResponse<Art[]>> = {
             ext: '.',
             mime: 'image/jpeg',
             size: 193.68,
-            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/640px-Image_created_with_a_mobile_phone.png',
+            url: '/uploads/Evimizin_dostu_4b25a6723e.',
             previewUrl: null,
             provider: 'local',
             provider_metadata: null,

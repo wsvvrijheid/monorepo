@@ -1,6 +1,6 @@
 import { FC, useState } from 'react'
 
-import { Box, Flex, Spacer, Stack, Text } from '@chakra-ui/react'
+import { Box, Flex, Spacer, Stack, Text, useDisclosure } from '@chakra-ui/react'
 
 import {  ArtModal, WImage } from '../../components'
 import { ArtAddToCollectionCardProps } from './types'
@@ -14,8 +14,9 @@ export const ArtAddToCollectionCard: FC<ArtAddToCollectionCardProps> = ({
   art,
   onAdd, onRemove
 }) => {
-  const [isOpen, setIsOpen] = useState(false)
+  const {isOpen, onOpen, onClose}= useDisclosure()
   const [added, setAdded] = useState(isAdded)
+  
   return (
     <Stack
       w={'300px'}
@@ -28,7 +29,7 @@ export const ArtAddToCollectionCard: FC<ArtAddToCollectionCardProps> = ({
       <WImage
         h={'200px'}
         src={
-          art.images ? art.images[0].url : ''
+          art.images?.[0].url || ''
         }
       />
       <Stack pl={2} flex={1} justify="space-between">
@@ -45,7 +46,7 @@ export const ArtAddToCollectionCard: FC<ArtAddToCollectionCardProps> = ({
         <MutationButton
           icon={<AiOutlineEye />}
           title="View"
-          onClick={() => setIsOpen(true)}
+          onClick={onOpen}
           variant={'ghost'}
           colorScheme={'gray'}
         />
@@ -57,7 +58,7 @@ export const ArtAddToCollectionCard: FC<ArtAddToCollectionCardProps> = ({
           colorScheme={added ? 'red' : 'green'}
           icon={added ? <IoCloseSharp /> : <HiPlus />}
           title={added ? 'Remove' : 'Add to Collection'}
-          onClick={() => {isAdded ? onRemove() : onAdd(); setAdded(prev => !prev)}}
+          onClick={() => {added ? onRemove() : onAdd(); setAdded(prev => !prev)}}
         />
         </Box>
       </Flex>
@@ -65,7 +66,7 @@ export const ArtAddToCollectionCard: FC<ArtAddToCollectionCardProps> = ({
         user: null,
         isLoggedIn: false,
         token: null
-      }} art={art} isOpen={isOpen} onClose={() => setIsOpen(false) } />
+      }} art={art} isOpen={isOpen} onClose={onClose } />
     </Stack>
   )
 }
