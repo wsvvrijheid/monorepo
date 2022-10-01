@@ -13,13 +13,13 @@ import '@uppy/image-editor/dist/style.css'
 
 export type FilePickerProps = Omit<ComponentProps<typeof Dashboard>, 'uppy'> & {
   maxNumberOfFiles?: number
-  setImages: (images: Blob[]) => void
+  setFiles: (files: Blob[]) => void
   setPreviews?: (urls: string[]) => void
 }
 
 export const FilePicker: FC<FilePickerProps> = ({
   maxNumberOfFiles = 1,
-  setImages,
+  setFiles,
   setPreviews,
   ...props
 }) => {
@@ -59,11 +59,10 @@ export const FilePicker: FC<FilePickerProps> = ({
   })
 
   uppy.on('complete', result => {
-    const [images, previews] = result.successful.map(file => [
-      file.data,
-      file.preview,
-    ])
-    setImages?.(images as Blob[])
+    const files = result.successful.map(file => file.data)
+    const previews = result.successful.map(file => file.preview)
+
+    setFiles(files as Blob[])
     setPreviews?.(previews as string[])
   })
 
@@ -75,6 +74,7 @@ export const FilePicker: FC<FilePickerProps> = ({
     <Stack>
       <Dashboard
         width="100%"
+        height={300}
         uppy={uppy}
         plugins={['ImageEditor']}
         hideUploadButton
