@@ -5,9 +5,10 @@ import { Art } from '@wsvvrijheid/types'
 
 export type ArtAddToCollectionCardProps = {
   isAdded: boolean
+  isLoading: boolean
   art: Art
-  onAdd: () => void
-  onRemove: () => void
+  onAdd: (art: Art) => void
+  onRemove: (art: Art) => void
 }
 
 export type MutationButtonProps = {

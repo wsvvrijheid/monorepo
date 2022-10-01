@@ -1,34 +1,33 @@
-import { FC, useState } from 'react'
+import { FC } from 'react'
 
-import { Box, Flex, Spacer, Stack, Text, useDisclosure } from '@chakra-ui/react'
+import {
+  Button,
+  HStack,
+  Spacer,
+  Stack,
+  Text,
+  useDisclosure,
+} from '@chakra-ui/react'
+import { AiOutlineEye } from 'react-icons/ai'
+import { HiPlus } from 'react-icons/hi'
+import { IoCloseSharp } from 'react-icons/io5'
 
 import { ArtModal, WImage } from '../../components'
 import { ArtAddToCollectionCardProps } from './types'
-import { MutationButton } from '@wsvvrijheid/ui'
-import { AiOutlineEye } from 'react-icons/ai'
-import { IoCloseSharp } from 'react-icons/io5'
-import { HiPlus } from 'react-icons/hi'
 
 export const ArtAddToCollectionCard: FC<ArtAddToCollectionCardProps> = ({
   isAdded,
+  isLoading,
   art,
   onAdd,
   onRemove,
 }) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const [added, setAdded] = useState(isAdded)
 
   return (
-    <Stack
-      w={'300px'}
-      boxShadow="md"
-      rounded="md"
-      align={'flex-start'}
-      direction={'column'}
-      overflow="hidden"
-    >
+    <Stack boxShadow="md" rounded="md" direction={'column'} overflow="hidden">
       <WImage h={'200px'} src={art.images?.[0].url || ''} />
-      <Stack pl={2} flex={1} justify="space-between">
+      <Stack w="full" px={4} py={2}>
         <Text fontSize="md" fontWeight="semibold" noOfLines={1}>
           {art.title}
         </Text>
@@ -36,31 +35,33 @@ export const ArtAddToCollectionCard: FC<ArtAddToCollectionCardProps> = ({
         <Text fontSize="sm" noOfLines={2}>
           {art.artist?.username}
         </Text>
-      </Stack>
-      <Flex gap={'2'} w="full">
-        <Box p="2">
-          <MutationButton
-            icon={<AiOutlineEye />}
+
+        <HStack justify="space-between" w="full">
+          <Button
+            leftIcon={<AiOutlineEye />}
             title="View"
             onClick={onOpen}
             variant={'ghost'}
             colorScheme={'gray'}
-          />
-        </Box>
-        <Spacer />
-        <Box p="2">
-          <MutationButton
+          >
+            View
+          </Button>
+
+          <Spacer />
+
+          <Button
             variant={'outline'}
-            colorScheme={added ? 'red' : 'green'}
-            icon={added ? <IoCloseSharp /> : <HiPlus />}
-            title={added ? 'Remove' : 'Add to Collection'}
+            colorScheme={isAdded ? 'red' : 'green'}
+            leftIcon={isAdded ? <IoCloseSharp /> : <HiPlus />}
+            isLoading={isLoading}
             onClick={() => {
-              added ? onRemove() : onAdd()
-              setAdded(prev => !prev)
+              isAdded ? onRemove(art) : onAdd(art)
             }}
-          />
-        </Box>
-      </Flex>
+          >
+            {isAdded ? 'Remove' : 'Add to Collection'}
+          </Button>
+        </HStack>
+      </Stack>
       <ArtModal
         auth={{
           user: null,
