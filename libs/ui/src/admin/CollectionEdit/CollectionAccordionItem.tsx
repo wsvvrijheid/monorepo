@@ -6,7 +6,6 @@ import {
   HStack,
   AccordionIcon,
   AccordionPanel,
-  Stack,
   Text,
   Box,
 } from '@chakra-ui/react'
@@ -18,13 +17,13 @@ export const CollectionAccordionItem: FC<CollectionAccordionItemProps> = ({
   collection,
   mode,
 }) => {
-  const [isEdit, toogleEdit] = useState(mode === 'editting')
-  const queryKey = ['collections']
+  const [isEdit, toogleEdit] = useState(mode === 'editing')
+
   return (
     <AccordionItem>
       <AccordionButton as={HStack} cursor="pointer">
         <Box flex="1" textAlign="left">
-          <Text fontWeight="bold" maxW={{ base: 150, lg: 300 }} noOfLines={1}>
+          <Text fontWeight="bold" noOfLines={1}>
             {collection.title}
           </Text>
         </Box>
@@ -32,16 +31,11 @@ export const CollectionAccordionItem: FC<CollectionAccordionItemProps> = ({
         <AccordionIcon ml={'auto'} />
       </AccordionButton>
       <AccordionPanel pb={4}>
-        <Stack spacing={2}>
-          <Stack>
-            <CollectionEditForm
-              collection={collection}
-              isEdit={isEdit}
-              toogleEdit={toogleEdit}
-              queryKey={queryKey}
-            />
-          </Stack>
-        </Stack>
+        <CollectionEditForm
+          collection={collection}
+          isEdit={isEdit}
+          toogleEdit={toogleEdit}
+        />
       </AccordionPanel>
     </AccordionItem>
   )

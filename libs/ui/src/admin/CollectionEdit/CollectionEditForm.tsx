@@ -1,12 +1,13 @@
-import React, { FC, useState } from 'react'
+import { FC, useState } from 'react'
 
 import {
   Stack,
   Textarea,
   ButtonGroup,
   Button,
-  HStack,
   useDisclosure,
+  Box,
+  Grid,
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { UploadFile } from '@wsvvrijheid/types'
@@ -44,11 +45,12 @@ export const CollectionEditForm: FC<CollectionEditFormProps> = ({
   collection,
   isEdit,
   toogleEdit,
-  queryKey,
 }) => {
   const id = collection.id
   const isPublish = collection.publishedAt
   const { t } = useTranslation()
+
+  const queryKey = ['collection', id]
 
   const [images, setImages] = useState<Blob[]>([])
   const updateCollectionMutation = useUpdateCollectionMutation(queryKey)
@@ -150,33 +152,28 @@ export const CollectionEditForm: FC<CollectionEditFormProps> = ({
         />
       )}
 
-      <HStack
-        justify={'flex-start'}
-        align={'flex-start'}
-        p={{ base: 4, lg: 8 }}
-        minH="350px"
-        spacing={8}
-        boxShadow="sm"
+      <Grid
+        gap={{ base: 4, lg: 8 }}
+        py={{ base: 4, lg: 8 }}
+        alignItems="stretch"
+        gridTemplateColumns={{ base: '1fr', lg: '300px 1fr' }}
       >
-        {isEdit ? (
-          <FilePicker setFiles={setImages} height="350px" width={'300px'} />
-        ) : (
-          <WImage
-            ratio="twitter"
-            src={collection.image as UploadFile}
-            rounded={'lg'}
-            alt={collection.title}
-            hasZoom={true}
-            w={300}
-            h={350}
-          />
-        )}
+        <Box maxH={{ base: 300, lg: 'full' }} rounded={'md'} overflow="hidden">
+          {isEdit ? (
+            <FilePicker setFiles={setImages} />
+          ) : (
+            <WImage
+              src={collection.image as UploadFile}
+              alt={collection.title}
+              hasZoom={true}
+            />
+          )}
+        </Box>
 
         <Stack
           as="form"
           onSubmit={handleSubmit(onSaveCollection)}
           w="full"
-          h={350}
           spacing={4}
         >
           <FormItem
@@ -195,7 +192,7 @@ export const CollectionEditForm: FC<CollectionEditFormProps> = ({
             name="description"
             label={t`description`}
             as={Textarea}
-            size="lg"
+            flex={1}
             isRequired
             errors={errors}
             register={register}
@@ -214,7 +211,7 @@ export const CollectionEditForm: FC<CollectionEditFormProps> = ({
           errors={errors}
           register={register}
         /> */}
-          <ButtonGroup alignSelf="end" mt="4">
+          <ButtonGroup alignSelf="end">
             <Button
               onClick={onDelete}
               mr={3}
@@ -255,7 +252,6 @@ export const CollectionEditForm: FC<CollectionEditFormProps> = ({
               </Button>
             ) : (
               <>
-                {' '}
                 <Button
                   onClick={onCancel}
                   mr={3}
@@ -269,9 +265,9 @@ export const CollectionEditForm: FC<CollectionEditFormProps> = ({
                   type="submit"
                   mr={3}
                   leftIcon={<MdOutlineCheck />}
-                  colorScheme={'green'}
+                  colorScheme={'primary'}
                   fontSize="sm"
-                  isDisabled={!isValid}
+                  isDisabled={!isValid || !images.length}
                 >
                   Save
                 </Button>
@@ -279,7 +275,7 @@ export const CollectionEditForm: FC<CollectionEditFormProps> = ({
             )}
           </ButtonGroup>
         </Stack>
-      </HStack>
+      </Grid>
     </>
   )
 }
