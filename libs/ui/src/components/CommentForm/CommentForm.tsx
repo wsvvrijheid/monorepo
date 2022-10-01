@@ -12,6 +12,7 @@ import {
   VStack,
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { useAuthSelector } from '@wsvvrijheid/utils'
 import { useTranslation } from 'next-i18next'
 import { useForm } from 'react-hook-form'
 import { TFunction } from 'react-i18next'
@@ -37,12 +38,12 @@ const publicSchema = (t: TFunction) =>
   })
 
 export const CommentForm: React.FC<CommentFormProps> = ({
-  auth,
   onSendForm,
   isLoading,
   isSuccess,
 }) => {
   const { t } = useTranslation()
+  const { user, isLoggedIn } = useAuthSelector()
 
   const {
     register,
@@ -50,7 +51,7 @@ export const CommentForm: React.FC<CommentFormProps> = ({
     reset,
     formState: { errors, isValid },
   } = useForm<CommentFormFieldValues>({
-    resolver: yupResolver(auth?.isLoggedIn ? userSchema(t) : publicSchema(t)),
+    resolver: yupResolver(isLoggedIn ? userSchema(t) : publicSchema(t)),
     mode: 'all',
   })
 
@@ -75,7 +76,7 @@ export const CommentForm: React.FC<CommentFormProps> = ({
         justify="flex-start"
       >
         <Stack w="100%" alignItems="flex-start">
-          {!auth?.isLoggedIn && (
+          {!isLoggedIn && (
             <Stack direction={{ base: 'column', lg: 'row' }} w="full">
               <FormItem
                 name="name"
@@ -95,12 +96,8 @@ export const CommentForm: React.FC<CommentFormProps> = ({
             </Stack>
           )}
           <HStack w="full" align="start">
-            {auth?.isLoggedIn && (
-              <Avatar
-                size="sm"
-                src={`${auth.user?.avatar}`}
-                name={auth.user?.username}
-              />
+            {isLoggedIn && (
+              <Avatar size="sm" src={`${user?.avatar}`} name={user?.username} />
             )}
             <FormItem
               as={Textarea}

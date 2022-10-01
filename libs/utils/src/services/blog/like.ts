@@ -3,6 +3,7 @@ import { Blog, BlogUpdateInput, SessionUser } from '@wsvvrijheid/types'
 import { useLocalStorage } from 'react-use'
 
 import { Mutation } from '../../lib'
+import { useAuthSelector } from '../../store'
 
 type LikersMutationArgs = {
   id: number
@@ -43,12 +44,10 @@ const useLikeBlogPublicMutation = () => {
   })
 }
 
-export const useLikeBlog = (
-  blog?: Blog | null,
-  user?: SessionUser | null,
-  queryKey?: QueryKey,
-) => {
+export const useLikeBlog = (blog?: Blog | null, queryKey?: QueryKey) => {
   const queryClient = useQueryClient()
+
+  const { user } = useAuthSelector()
 
   const likeBlogByUserMutation = useLikeBlogByUserMutation()
   const likeBlogPublicMutation = useLikeBlogPublicMutation()

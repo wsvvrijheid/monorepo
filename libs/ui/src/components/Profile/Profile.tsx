@@ -1,5 +1,3 @@
-import { FC } from 'react'
-
 import {
   Avatar,
   Box,
@@ -14,8 +12,7 @@ import {
   Text,
 } from '@chakra-ui/react'
 import { API_URL } from '@wsvvrijheid/config'
-import { Auth, SessionUser } from '@wsvvrijheid/types'
-import { useArtByArtist } from '@wsvvrijheid/utils'
+import { useArtByArtist, useAuthSelector } from '@wsvvrijheid/utils'
 import { useTranslation } from 'next-i18next'
 import { FaPaintBrush, FaSpinner } from 'react-icons/fa'
 import { IoMdSettings } from 'react-icons/io'
@@ -26,19 +23,10 @@ import { Container } from '../Container'
 import { CreateArtForm } from '../CreateArtForm'
 import { Hero } from '../Hero'
 
-export type AuthenticatedUserProfileProps = {
-  auth: Auth
-}
-export type SettingsProps = {
-  user: SessionUser | null
-}
-
-export const AuthenticatedUserProfile: FC<AuthenticatedUserProfileProps> = ({
-  auth,
-}) => {
+export const AuthenticatedUserProfile = () => {
   const { t } = useTranslation()
 
-  const { user } = auth
+  const { user } = useAuthSelector()
 
   const { data } = useArtByArtist(user?.username)
   const rejected = data?.filter(art => art?.approvalStatus === 'rejected')
@@ -86,7 +74,7 @@ export const AuthenticatedUserProfile: FC<AuthenticatedUserProfileProps> = ({
                 <Box as={IoMdSettings} mr={1} /> {t`profile.general-settings`}
               </Tab>
               <Box my={1} ml={2}>
-                <CreateArtForm auth={auth} queryKey={['user-art']} />
+                <CreateArtForm queryKey={['user-art']} />
               </Box>
             </TabList>
           </Box>
@@ -97,7 +85,6 @@ export const AuthenticatedUserProfile: FC<AuthenticatedUserProfileProps> = ({
                 {approved?.map(art => (
                   <ArtCard
                     key={art.id}
-                    auth={auth}
                     art={art}
                     actionQueryKey={['user-art']}
                   />
@@ -111,7 +98,6 @@ export const AuthenticatedUserProfile: FC<AuthenticatedUserProfileProps> = ({
                   return (
                     <ArtCard
                       key={art.id}
-                      auth={auth}
                       art={art}
                       actionQueryKey={['user-art']}
                     />
@@ -126,7 +112,6 @@ export const AuthenticatedUserProfile: FC<AuthenticatedUserProfileProps> = ({
                   return (
                     <ArtCard
                       key={art.id}
-                      auth={auth}
                       art={art}
                       actionQueryKey={['user-art']}
                     />
@@ -136,7 +121,7 @@ export const AuthenticatedUserProfile: FC<AuthenticatedUserProfileProps> = ({
             </TabPanel>
             {/* general Settings */}
             <TabPanel>
-              <Settings user={user} />
+              <Settings />
             </TabPanel>
           </TabPanels>
         </Tabs>
@@ -145,7 +130,9 @@ export const AuthenticatedUserProfile: FC<AuthenticatedUserProfileProps> = ({
   )
 }
 
-export const Settings: FC<SettingsProps> = ({ user }) => {
+export const Settings = () => {
+  const { user } = useAuthSelector()
+
   return (
     <Stack>
       <Text>Username: {user?.username}</Text>

@@ -1,5 +1,5 @@
 import { Meta, Story } from '@storybook/react'
-import { ART_MOCKS, USER_MOCKS } from '@wsvvrijheid/mocks'
+import { ART_MOCKS } from '@wsvvrijheid/mocks'
 import { sample } from 'lodash'
 
 import { ArtTemplate, ArtTemplateProps } from './ArtTemplate'
@@ -27,12 +27,3 @@ const Template: Story<ArtTemplateProps> = args => {
 
 export const Default = Template.bind({})
 Default.args = {} as ArtTemplateProps
-
-export const Auth = Template.bind({})
-Auth.args = {
-  auth: {
-    isLoggedIn: true,
-    user: sample(USER_MOCKS),
-    token: 'mock-token',
-  },
-} as ArtTemplateProps

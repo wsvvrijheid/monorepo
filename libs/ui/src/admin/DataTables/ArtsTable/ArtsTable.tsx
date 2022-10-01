@@ -2,9 +2,10 @@ import { FC, useState } from 'react'
 
 import { useDisclosure } from '@chakra-ui/react'
 import { QueryKey } from '@tanstack/react-query'
-import { Art, SessionUser, UploadFile } from '@wsvvrijheid/types'
+import { Art, UploadFile } from '@wsvvrijheid/types'
 import {
   useArtFeedbackMutation,
+  useAuthSelector,
   useDeleteArt,
   usePublishModel,
   useUnpublishModel,
@@ -18,19 +19,18 @@ import { DataTableProps } from '../types'
 import { columns } from './columns'
 
 type ArtsTableProps = Omit<DataTableProps<Art>, 'columns'> & {
-  user: SessionUser
   queryKey?: QueryKey
 }
 
 export const ArtsTable: FC<ArtsTableProps> = ({
   queryKey,
   data: arts,
-  user,
   totalCount,
   currentPage,
   onSort,
   setCurrentPage,
 }) => {
+  const { user } = useAuthSelector()
   const approvalDisclosure = useDisclosure()
   const confirmDisclosure = useDisclosure()
   const [selectedIndex, setSelectedIndex] = useState<number>()
