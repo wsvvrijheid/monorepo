@@ -1,6 +1,7 @@
 import { useState } from 'react'
 
 import { Meta, Story } from '@storybook/react'
+import { sleep } from '@wsvvrijheid/utils'
 
 import {
   ChakraBreakpointExample,
@@ -11,9 +12,6 @@ export default {
   component: ChakraBreakpointExample,
   title: 'Example/ChakraBreakpointExample',
 } as Meta<ChakraBreakpointExampleProps> // or ComponentMeta<typeof ChakraBreakpointExample>
-
-// Ref: https://javascript.info/task/delay-promise
-const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
 
 // or ComponentStory<typeof ChakraBreakpointExample>
 const Template: Story<ChakraBreakpointExampleProps> = args => {
@@ -29,7 +27,7 @@ const Template: Story<ChakraBreakpointExampleProps> = args => {
 
       const random = Math.random()
 
-      await delay(1000) // simulate network delay
+      await sleep(1000) // simulate network delay
 
       if (random > 0.5) {
         throw Promise.reject('Error')

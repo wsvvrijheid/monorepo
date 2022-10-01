@@ -1,5 +1,6 @@
 export * from './AdminLoginForm'
 export * from './AdminSidebar'
+export * from './ArtAddToCollectionCard'
 export * from './ArtApprovalModal'
 export * from './CardBase'
 export * from './CreateCollectionModal'
