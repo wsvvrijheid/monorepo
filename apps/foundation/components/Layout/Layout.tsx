@@ -21,7 +21,6 @@ export const Layout: FC<LayoutProps> = ({
   seo,
 }) => {
   const auth = useAuth()
-
   const router = useRouter()
 
   const logOut = () => {
