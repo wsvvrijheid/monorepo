@@ -1,6 +1,7 @@
 import { useState } from 'react'
 
 import { SimpleGrid, useDisclosure } from '@chakra-ui/react'
+import { QueryClient } from '@tanstack/react-query'
 import { Art } from '@wsvvrijheid/types'
 import { useUpdateArtMutation } from '@wsvvrijheid/utils'
 
@@ -20,6 +21,7 @@ export const ArtAddToCollectionGrid = ({
     useState<Omit<WConfirmProps, 'onClose' | 'isOpen' | 'onOpen'>>()
 
   const updateArtMutation = useUpdateArtMutation()
+  const queryClient = new QueryClient()
 
   const handleAdd = (art: Art) => {
     setArtToBeMutated(art)
@@ -39,13 +41,19 @@ export const ArtAddToCollectionGrid = ({
       buttonText: 'Remove',
       isWarning: true,
       onConfirm: async () => {
-        await updateArtMutation.mutateAsync({
-          id: art.id,
-          collection: null,
-        })
-
-        setConfirmProps(undefined)
-        onClose()
+        updateArtMutation.mutate(
+          {
+            id: art.id,
+            collection: null,
+          },
+          {
+            onSuccess: async () => {
+              await queryClient.invalidateQueries(['collection', collection.id])
+              setConfirmProps(undefined)
+              onClose()
+            },
+          },
+        )
       },
     })
   }
