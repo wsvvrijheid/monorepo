@@ -49,6 +49,6 @@ export type WTableRowProps<T extends StrapiModel> = {
 export type WTableProps<T extends StrapiModel> = {
   data: T[]
   columns: WTableRowProps<T>['columns']
-  onClickRow?: (id: number) => void
+  onClickRow?: WTableRowProps<T>['onClick']
   onSort?: (key: Sort | null) => void
 } & TableProps

@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { Art, StrapiLocale } from '@wsvvrijheid/types'
+import { Art, PublicationState, StrapiLocale } from '@wsvvrijheid/types'
 import { useRouter } from 'next/router'
 
 import { Request } from '../../lib'
@@ -7,6 +7,7 @@ import { Request } from '../../lib'
 export const getArtByArtist = async (
   locale: StrapiLocale,
   username: string,
+  publicationState: PublicationState = 'live',
 ) => {
   const response = await Request.collection<Art[]>({
     url: 'api/arts',
@@ -22,7 +23,7 @@ export const getArtByArtist = async (
       'likers',
     ],
     locale,
-    publicationState: 'preview',
+    publicationState,
   })
 
   return response?.data

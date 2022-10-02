@@ -1,3 +1,3 @@
 export * from './getBySlug'
-export * from './paths'
-export * from './getActivityStaticProps'
+export * from './getPaths'
+export * from './getStatic'

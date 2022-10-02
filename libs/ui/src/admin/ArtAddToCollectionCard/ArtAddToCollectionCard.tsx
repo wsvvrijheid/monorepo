@@ -43,6 +43,7 @@ export const ArtAddToCollectionCard: FC<ArtAddToCollectionCardProps> = ({
             onClick={onOpen}
             variant={'ghost'}
             colorScheme={'gray'}
+            size="xs"
           >
             View
           </Button>
@@ -53,6 +54,7 @@ export const ArtAddToCollectionCard: FC<ArtAddToCollectionCardProps> = ({
             variant={'outline'}
             colorScheme={isAdded ? 'red' : 'green'}
             leftIcon={isAdded ? <IoCloseSharp /> : <HiPlus />}
+            size="xs"
             isLoading={isLoading}
             onClick={() => {
               isAdded ? onRemove(art) : onAdd(art)

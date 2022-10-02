@@ -5,7 +5,7 @@ import { Collection } from '@wsvvrijheid/types'
 export type CollectionEditFormProps = {
   collection: Collection
   isEdit: boolean
-  toogleEdit: Dispatch<SetStateAction<boolean>>
+  setEdit: Dispatch<SetStateAction<boolean>>
 }
 
 export type CollectionEditFormFieldValues = {
@@ -19,5 +19,4 @@ export type CollectionEditProps = {
 
 export type CollectionAccordionItemProps = {
   collection: Collection
-  mode?: 'preview' | 'editing'
 }

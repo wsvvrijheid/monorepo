@@ -10,7 +10,7 @@ import {
   VStack,
 } from '@chakra-ui/react'
 import { Story, Meta } from '@storybook/react'
-import { useGetApprovedArtCategories } from '@wsvvrijheid/utils'
+import { useGetArtCategories } from '@wsvvrijheid/utils'
 import { useRouter } from 'next/router'
 
 import { ArtSideBar, ArtSideBarProps } from './ArtSideBar'
@@ -26,7 +26,7 @@ export default {
 const Template: Story<ArtSideBarProps> = args => {
   const [isLoading, setIsLoading] = useState(false)
   const { query } = useRouter()
-  const categoryQuery = useGetApprovedArtCategories()
+  const categoryQuery = useGetArtCategories('approved')
 
   return (
     <Grid gridTemplateColumns="300px 1fr">

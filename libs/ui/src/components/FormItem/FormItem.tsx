@@ -57,7 +57,7 @@ export const FormItem: FormItemComponent = forwardRef(
     },
     formItemRef,
   ) => {
-    const [isOpen, setIsOpen] = useBoolean()
+    const [isOpen, setIsOpen] = useBoolean(false)
     const Tag = as || Input
     const errorMessage = errors?.[name]?.['message'] as unknown as string
     const { ref: registerRef, ...registerRest } = register(name)
@@ -88,7 +88,7 @@ export const FormItem: FormItemComponent = forwardRef(
           <Tag
             ref={ref}
             id={name}
-            type={type === 'password' ? (isOpen ? 'password' : 'text') : type}
+            type={type === 'password' ? (isOpen ? 'text' : 'password') : type}
             placeholder={label}
             {...registerRest}
             {...rest}

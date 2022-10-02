@@ -8,13 +8,15 @@ import {
   useDisclosure,
   Box,
   Grid,
+  Center,
+  useBoolean,
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { UploadFile } from '@wsvvrijheid/types'
 import {
   useDeleteCollection,
   useUnpublishModel,
-  useUpdateCollectionMutation,
+  useUpdateCollection,
   usePublishModel,
 } from '@wsvvrijheid/utils'
 import { useForm } from 'react-hook-form'
@@ -22,6 +24,7 @@ import { useTranslation } from 'react-i18next'
 import { TFunction } from 'react-i18next'
 import { AiOutlineEdit } from 'react-icons/ai'
 import { BsTrash } from 'react-icons/bs'
+import { IoMdClose, IoMdCloudUpload } from 'react-icons/io'
 import {
   MdOutlineUnpublished,
   MdClose,
@@ -44,7 +47,7 @@ const schema = (t: TFunction) =>
 export const CollectionEditForm: FC<CollectionEditFormProps> = ({
   collection,
   isEdit,
-  toogleEdit,
+  setEdit,
 }) => {
   const id = collection.id
   const isPublish = collection.publishedAt
@@ -53,7 +56,8 @@ export const CollectionEditForm: FC<CollectionEditFormProps> = ({
   const queryKey = ['collection', id]
 
   const [images, setImages] = useState<Blob[]>([])
-  const updateCollectionMutation = useUpdateCollectionMutation(queryKey)
+  const [changeImage, setChangeImage] = useBoolean(false)
+  const updateCollectionMutation = useUpdateCollection(queryKey)
   const unpublishCollectionMutation = useUnpublishModel(
     'api/collections',
     queryKey,
@@ -83,22 +87,27 @@ export const CollectionEditForm: FC<CollectionEditFormProps> = ({
     updateCollectionMutation.mutate(
       {
         id,
-        ...(images.length > 0 && {
-          image: images[0],
-        }),
         ...data,
+        // FIXME: https://github.com/strapi/strapi/issues/13041#issuecomment-1095496718
+        image: images[0],
       },
       {
-        onSuccess: () => toogleEdit(false),
+        onSuccess: () => {
+          setEdit(false)
+          setChangeImage.off()
+        },
       },
     )
   }
 
   const onCancel = () => {
     resetForm()
-    toogleEdit(false)
+    setEdit(false)
+    setImages([])
   }
-  const onEdit = () => toogleEdit(true)
+
+  const onEdit = () => setEdit(true)
+
   const onUnPublish = () => {
     confirmDisclosure.onOpen()
     setConfirmState({
@@ -113,6 +122,7 @@ export const CollectionEditForm: FC<CollectionEditFormProps> = ({
       },
     })
   }
+
   const onPublish = () => {
     confirmDisclosure.onOpen()
     setConfirmState({
@@ -127,6 +137,7 @@ export const CollectionEditForm: FC<CollectionEditFormProps> = ({
       },
     })
   }
+
   const onDelete = () => {
     confirmDisclosure.onOpen()
     setConfirmState({
@@ -154,19 +165,46 @@ export const CollectionEditForm: FC<CollectionEditFormProps> = ({
 
       <Grid
         gap={{ base: 4, lg: 8 }}
-        py={{ base: 4, lg: 8 }}
         alignItems="stretch"
         gridTemplateColumns={{ base: '1fr', lg: '300px 1fr' }}
       >
         <Box maxH={{ base: 300, lg: 'full' }} rounded={'md'} overflow="hidden">
-          {isEdit ? (
-            <FilePicker setFiles={setImages} />
+          {changeImage ? (
+            <Stack>
+              <FilePicker setFiles={setImages} />
+              <Button
+                leftIcon={<IoMdClose />}
+                size="sm"
+                onClick={setChangeImage.toggle}
+              >
+                Cancel
+              </Button>
+            </Stack>
           ) : (
-            <WImage
-              src={collection.image as UploadFile}
-              alt={collection.title}
-              hasZoom={true}
-            />
+            <Box pos="relative" role="group" h="full">
+              <WImage
+                src={collection.image as UploadFile}
+                alt={collection.title}
+                hasZoom={true}
+              />
+              {isEdit && (
+                <Center
+                  pos="absolute"
+                  top={0}
+                  left={0}
+                  boxSize="full"
+                  bg="blackAlpha.500"
+                >
+                  <Button
+                    leftIcon={<IoMdCloudUpload />}
+                    size="sm"
+                    onClick={setChangeImage.toggle}
+                  >
+                    Change Image
+                  </Button>
+                </Center>
+              )}
+            </Box>
           )}
         </Box>
 
@@ -267,7 +305,7 @@ export const CollectionEditForm: FC<CollectionEditFormProps> = ({
                   leftIcon={<MdOutlineCheck />}
                   colorScheme={'primary'}
                   fontSize="sm"
-                  isDisabled={!isValid || !images.length}
+                  isDisabled={!isValid || (changeImage && !images.length)}
                 >
                   Save
                 </Button>

@@ -1,4 +1,4 @@
-import { StrapiLocale, StrapiUrl } from '@wsvvrijheid/types'
+import { PublicationState, StrapiLocale, StrapiUrl } from '@wsvvrijheid/types'
 
 export type RequestArgs = {
   url: StrapiUrl
@@ -10,7 +10,7 @@ export type RequestArgs = {
   sort?: string | string[]
   page?: number
   pageSize?: number
-  publicationState?: 'live' | 'preview'
+  publicationState?: PublicationState
 }
 
 export type RequestSingleArgs = Pick<

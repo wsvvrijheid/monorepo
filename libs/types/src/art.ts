@@ -32,7 +32,7 @@ type ArtRelation = {
 type ArtRelationInput = {
   artist: number
   categories?: Array<number>
-  collection?: number
+  collection?: number | null
   comments?: Array<number>
   feedbacks?: Array<number>
   images: Array<Blob>

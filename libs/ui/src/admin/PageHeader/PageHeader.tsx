@@ -20,6 +20,7 @@ export type PageHeaderProps = {
   sortMenu?: ReactNode
   onLanguageSwitch?: (slug: StrapiLocale) => void
   onSearch: (value: string | null) => void
+  children?: ReactNode
 }
 
 export const PageHeader: FC<PageHeaderProps> = ({
@@ -28,6 +29,7 @@ export const PageHeader: FC<PageHeaderProps> = ({
   sortMenu,
   onLanguageSwitch,
   onSearch,
+  children,
 }) => {
   return (
     <HStack align="center" bg="white" px={4} py={2} shadow="base">
@@ -71,6 +73,7 @@ export const PageHeader: FC<PageHeaderProps> = ({
           <MenuList>{sortMenu}</MenuList>
         </Menu>
       )}
+      {children}
     </HStack>
   )
 }

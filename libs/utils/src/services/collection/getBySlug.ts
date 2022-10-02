@@ -2,7 +2,10 @@ import { Collection, StrapiLocale } from '@wsvvrijheid/types'
 
 import { Request } from '../../lib'
 
-export const getCollection = async (locale: StrapiLocale, slug: string) => {
+export const getCollectionBySlug = async (
+  locale: StrapiLocale,
+  slug: string,
+) => {
   const response = await Request.collection<Collection[]>({
     url: 'api/collections',
     filters: { slug: { $eq: slug } },

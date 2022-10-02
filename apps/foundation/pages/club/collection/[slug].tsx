@@ -4,7 +4,7 @@ import { useRef } from 'react'
 import { useBreakpointValue } from '@chakra-ui/react'
 import { Collection } from '@wsvvrijheid/types'
 import { CollectionTemplate } from '@wsvvrijheid/ui'
-import { getCollection, getCollectionPaths } from '@wsvvrijheid/utils'
+import { getCollectionBySlug, getCollectionPaths } from '@wsvvrijheid/utils'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
 
@@ -65,7 +65,7 @@ export const getStaticProps = async context => {
 
   const slug = context.params?.slug
 
-  const collection = await getCollection(locale, slug)
+  const collection = await getCollectionBySlug(locale, slug)
 
   if (!collection) return { notFound: true }
 

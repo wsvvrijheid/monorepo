@@ -15,7 +15,7 @@ import {
   useDisclosure,
 } from '@chakra-ui/react'
 import { StrapiLocale } from '@wsvvrijheid/types'
-import { useArts, useGetApprovedArtCategories } from '@wsvvrijheid/utils'
+import { useArts, useGetArtCategories } from '@wsvvrijheid/utils'
 import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
 import { MdMenuOpen } from 'react-icons/md'
@@ -45,7 +45,7 @@ export const ArtClubTemplate: FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const { t } = useTranslation()
 
-  const approvedCategoryQuery = useGetApprovedArtCategories()
+  const approvedCategoryQuery = useGetArtCategories('approved')
 
   // As mentioned in `getStaticProps`, we need to keep the same order for queryKey
   // queryKey = [arts, locale, searchTerm, category, page]
