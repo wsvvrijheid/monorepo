@@ -17,7 +17,6 @@ import { useForm, SubmitHandler } from 'react-hook-form'
 import { TFunction } from 'react-i18next'
 import * as yup from 'yup'
 
-import { useAuth } from '../../hooks'
 import { FormItem } from '../FormItem'
 import { Navigate } from '../Navigate'
 import { OAuthButtonGroup } from '../OAuthButtonGroup'
