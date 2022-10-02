@@ -1,11 +1,27 @@
+import { useEffect } from 'react'
+
 import { Box } from '@chakra-ui/react'
-import { AdminLoginForm, useAuth } from '@wsvvrijheid/ui'
+import { AdminLoginForm } from '@wsvvrijheid/ui'
+import { checkAuth, useAppDispatch } from '@wsvvrijheid/utils'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { useRouter } from 'next/router'
 
 import i18nConfig from '../next-i18next.config'
 
 const LoginPage = () => {
-  useAuth('/', true)
+  const dispatch = useAppDispatch()
+
+  const router = useRouter()
+
+  useEffect(() => {
+    dispatch(checkAuth())
+      .unwrap()
+      .then(auth => {
+        if (auth.isLoggedIn) {
+          router.push('/')
+        }
+      })
+  }, [router, dispatch])
 
   return (
     <Box minH="inherit" h="full">

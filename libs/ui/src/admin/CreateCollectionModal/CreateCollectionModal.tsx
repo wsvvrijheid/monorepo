@@ -122,7 +122,7 @@ export const CreateCollectionModal: FC<CreateCollectionModalProps> = ({
         onClick={formDisclosure.onOpen}
         my={3}
       >
-        <Box display={{ base: 'none', lg: 'block' }}>Create Collection</Box>
+        Create Collection
       </Button>
 
       <Modal

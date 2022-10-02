@@ -11,10 +11,18 @@ export type AuthState = {
 
 const initialState: AuthState = {
   user: null,
-  isAuthLoading: true,
+  isAuthLoading: false,
   token: null,
   isLoggedIn: false,
 }
+
+export const loginAuth = createAsyncThunk<
+  Auth,
+  { identifier: string; password: string }
+>('auth/login', async data => {
+  const response = await axios.post('/api/auth/login', data)
+  return response.data
+})
 
 export const checkAuth = createAsyncThunk('auth/check', async () => {
   const response = await axios.get<Auth>('/api/auth/user')
@@ -32,16 +40,25 @@ export const authSlice = createSlice({
   reducers: {},
   extraReducers: builder => {
     builder.addCase(checkAuth.fulfilled, (state, action) => {
-      state.user = action.payload.user
-      state.isAuthLoading = false
-      state.token = action.payload.token
-      state.isLoggedIn = true
+      return {
+        ...action.payload,
+        isAuthLoading: false,
+      }
     })
-    builder.addCase(checkAuth.pending, (state, action) => {
+    builder.addCase(checkAuth.pending, state => {
       state.isAuthLoading = true
     })
-    builder.addCase(destroyAuth.fulfilled, state => {
-      state = initialState
+    builder.addCase(destroyAuth.fulfilled, (state, action) => {
+      return initialState
+    })
+    builder.addCase(loginAuth.fulfilled, (state, action) => {
+      return {
+        ...action.payload,
+        isAuthLoading: false,
+      }
+    })
+    builder.addCase(loginAuth.pending, (state, action) => {
+      state.isAuthLoading = true
     })
   },
 })

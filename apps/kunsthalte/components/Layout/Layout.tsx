@@ -2,7 +2,11 @@ import { FC, PropsWithChildren } from 'react'
 
 import { menus, socialLinks } from '@wsvvrijheid/config'
 import { Layout as AppLayout } from '@wsvvrijheid/ui'
-import { useAuthSelector } from '@wsvvrijheid/utils'
+import {
+  destroyAuth,
+  useAppDispatch,
+  useAuthSelector,
+} from '@wsvvrijheid/utils'
 import axios from 'axios'
 import { NextSeoProps } from 'next-seo'
 import { useRouter } from 'next/router'
@@ -24,10 +28,12 @@ export const Layout: FC<LayoutProps> = ({
   const auth = useAuthSelector()
   const router = useRouter()
 
-  const logOut = () => {
-    axios.post('/api/auth/logout').then(() => {
-      router.push('/login')
-    })
+  const dispatch = useAppDispatch()
+
+  const logOut = async () => {
+    await dispatch(destroyAuth()).unwrap()
+
+    router.push('/login')
   }
 
   return (

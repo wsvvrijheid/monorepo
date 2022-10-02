@@ -25,6 +25,7 @@ function MyApp({ Component, pageProps }) {
   const router = useRouter()
 
   useEffect(() => {
+    console.log('Checking auth APP Foundation')
     store.dispatch(checkAuth())
   }, [])
 

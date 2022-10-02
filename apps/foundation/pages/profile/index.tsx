@@ -1,4 +1,4 @@
-import { AuthenticatedUserProfile, useAuth } from '@wsvvrijheid/ui'
+import { AuthenticatedUserProfile } from '@wsvvrijheid/ui'
 import { useAuthSelector } from '@wsvvrijheid/utils'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
@@ -7,7 +7,6 @@ import i18nConfig from '../../next-i18next.config'
 
 const Profile = ({ seo }) => {
   const { isLoggedIn } = useAuthSelector()
-  useAuth()
 
   return (
     <Layout seo={seo} isDark>

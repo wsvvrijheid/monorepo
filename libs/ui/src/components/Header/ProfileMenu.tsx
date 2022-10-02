@@ -11,46 +11,56 @@ import {
   MenuList,
 } from '@chakra-ui/react'
 import { API_URL } from '@wsvvrijheid/config'
+import {
+  destroyAuth,
+  useAppDispatch,
+  useAuthSelector,
+} from '@wsvvrijheid/utils'
+import { useTranslation } from 'next-i18next'
+import { useRouter } from 'next/router'
 import { FiLogIn, FiLogOut } from 'react-icons/fi'
 
 import { useScroll } from '../../hooks'
 import { Navigate } from '../Navigate'
 import { ProfileMenuProps } from './types'
 
-export const ProfileMenu: FC<ProfileMenuProps> = ({
-  isDark,
-  isLoggedIn,
-  login,
-  logout,
-  menu,
-  userAvatar,
-  username,
-}) => {
+export const ProfileMenu: FC<ProfileMenuProps> = ({ isDark, menu }) => {
+  const dispatch = useAppDispatch()
   const isScrolled = useScroll()
+  const router = useRouter()
+  const { t } = useTranslation()
+  const { user, isLoggedIn } = useAuthSelector()
+
+  const handleLogout = async () => {
+    await dispatch(destroyAuth()).unwrap()
+    console.log('Destroyed auth')
+
+    router.push('/login')
+  }
 
   if (!isLoggedIn)
     return !isScrolled && isDark ? (
       <DarkMode>
-        <Navigate href={login.link}>
+        <Navigate href="/login">
           <Button
             size="sm"
             colorScheme="primary"
             variant={!isScrolled && isDark ? 'solid' : 'outline'}
             rightIcon={<FiLogIn />}
           >
-            {login.label}
+            {t('login.sign-in')}
           </Button>
         </Navigate>
       </DarkMode>
     ) : (
-      <Navigate href={login.link}>
+      <Navigate href="/login">
         <Button
           size="sm"
           colorScheme="primary"
           variant={!isScrolled && isDark ? 'solid' : 'outline'}
           rightIcon={<FiLogIn />}
         >
-          {login.label}
+          {t('login.sign-in')}
         </Button>
       </Navigate>
     )
@@ -60,8 +70,8 @@ export const ProfileMenu: FC<ProfileMenuProps> = ({
       <MenuButton>
         <Avatar
           boxSize={{ base: 10, lg: 12 }}
-          src={`${API_URL}${userAvatar}`}
-          name={username}
+          src={`${API_URL}${user?.avatar}`}
+          name={user?.name || user?.username}
         />
       </MenuButton>
       <MenuList>
@@ -77,8 +87,8 @@ export const ProfileMenu: FC<ProfileMenuProps> = ({
         ))}
 
         <MenuDivider />
-        <MenuItem icon={<FiLogOut />} color="red.400" onClick={logout.onClick}>
-          {logout.label}
+        <MenuItem icon={<FiLogOut />} color="red.400" onClick={handleLogout}>
+          {t('logout')}
         </MenuItem>
       </MenuList>
     </Menu>

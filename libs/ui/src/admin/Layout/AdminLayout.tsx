@@ -1,4 +1,4 @@
-import { FC, ReactNode, useEffect } from 'react'
+import { FC, ReactNode } from 'react'
 
 import {
   Box,
@@ -10,8 +10,11 @@ import {
   Stack,
   useBoolean,
 } from '@chakra-ui/react'
-import { useAuthSelector } from '@wsvvrijheid/utils'
-import axios from 'axios'
+import {
+  destroyAuth,
+  useAppDispatch,
+  useAuthSelector,
+} from '@wsvvrijheid/utils'
 import { NextSeo } from 'next-seo'
 import { useRouter } from 'next/router'
 import { MdOutlineNotifications } from 'react-icons/md'
@@ -36,6 +39,7 @@ export const AdminLayout: FC<AdminLayoutProps> = ({
   const { user, isAuthLoading } = useAuthSelector()
 
   const router = useRouter()
+  const dispatch = useAppDispatch()
 
   const [expandedStorage, setExpandedStorage] = useLocalStorage(
     'adminSidebarExpanded',
@@ -48,20 +52,14 @@ export const AdminLayout: FC<AdminLayoutProps> = ({
     toggle()
   }
 
-  useEffect(() => {
-    if (!user && !isAuthLoading) {
-      router.push('/login')
-    }
-  }, [isAuthLoading, user, router])
-
   const handleLogout = async () => {
-    axios.post('/api/auth/logout').then(() => {
-      router.push('/login')
-    })
+    await dispatch(destroyAuth()).unwrap()
+
+    router.push('/login')
   }
 
   // Loading indicator when we are fetching user data on the client
-  if (isAuthLoading || !user) {
+  if (isAuthLoading) {
     return (
       <>
         <NextSeo title={title} />

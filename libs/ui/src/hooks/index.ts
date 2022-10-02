@@ -1,4 +1,3 @@
-export * from './useAuth'
 export * from './useChangeParam'
 export * from './useFindHashtagsInTrend'
 export * from './useGenerateRandomPostText'

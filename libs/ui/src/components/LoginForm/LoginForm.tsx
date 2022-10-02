@@ -10,8 +10,7 @@ import {
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation } from '@tanstack/react-query'
-import { checkAuth, useAppDispatch } from '@wsvvrijheid/utils'
-import axios from 'axios'
+import { loginAuth, useAppDispatch } from '@wsvvrijheid/utils'
 import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
 import { useForm, SubmitHandler } from 'react-hook-form'
@@ -58,15 +57,13 @@ export const LoginForm = () => {
   const dispatch = useAppDispatch()
 
   const router = useRouter()
-  useAuth('/profile', true)
 
   const loginMutation = useMutation({
     mutationKey: ['login'],
     mutationFn: (body: { identifier: string; password: string }) =>
-      axios.post('/api/auth/login', body),
+      dispatch(loginAuth(body)),
     onSuccess: () => {
       reset()
-      dispatch(checkAuth())
       router.push('/')
     },
   })

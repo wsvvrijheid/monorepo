@@ -27,15 +27,15 @@ function MyApp({ Component, pageProps }) {
   const router = useRouter()
 
   useEffect(() => {
-    const handleRouteChange = () => store.dispatch(checkAuth())
-
-    router.events.on('routeChangeComplete', handleRouteChange)
-    return () => router.events.off('routeChangeComplete', handleRouteChange)
-  }, [router.events])
-
-  useEffect(() => {
-    store.dispatch(checkAuth())
-  }, [])
+    store
+      .dispatch(checkAuth())
+      .unwrap()
+      .then(res => {
+        if (router.asPath !== '/login' && !res.isLoggedIn) {
+          router.push('/login')
+        }
+      })
+  }, [router])
 
   return (
     <QueryClientProvider client={queryClient}>

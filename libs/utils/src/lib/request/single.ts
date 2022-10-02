@@ -19,25 +19,26 @@ export const requestSingle = async <T extends StrapiModel>({
     { encodeValuesOnly: true },
   )
 
-  const requestUrl = `${url}${id ? `/${id}` : ''}?${query}`
+  const requestUrl = `${API_URL}/${url}${id ? `/${id}` : ''}?${query}`
 
   try {
-    const response = (await axios(requestUrl, {
-      baseURL: API_URL,
+    const response = await fetch(requestUrl, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
-    })) as AxiosResponse<StrapiSingleResponse<T>>
+    })
 
-    if (!response.data || (response.data && !response.data.data)) {
-      return { data: response.data as unknown as T, meta: {} }
+    const data = await response.json()
+
+    if (!data || (data && !data.data)) {
+      return { data: data as unknown as T, meta: {} }
     }
 
-    return response.data
+    return data
   } catch (errr) {
     const error = errr as Error | AxiosError
     if (axios.isAxiosError(error)) {
-      console.error('Request error', error.response || error.message)
+      console.error('Request error', error.response?.data || error.message)
     } else {
       console.error('Request error', error.message)
     }

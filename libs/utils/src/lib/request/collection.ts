@@ -34,28 +34,29 @@ export const requestCollection = async <T extends StrapiModel[]>({
     { encodeValuesOnly: true },
   )
 
-  const requestUrl = `${url}?${query}`
+  const requestUrl = `${API_URL}/${url}?${query}`
 
   try {
-    const response = (await axios(requestUrl, {
-      baseURL: API_URL,
+    const response = await fetch(requestUrl, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
-    })) as AxiosResponse<StrapiCollectionResponse<T>>
+    })
 
-    if (!response.data || (response.data && !response.data.data)) {
+    const data = await response.json()
+
+    if (!data || (data && !data.data)) {
       return {
-        data: response.data as unknown as T,
+        data: data as unknown as T,
         meta: { pagination: { page: 1, pageSize: 25, pageCount: 0, total: 0 } },
       }
     }
 
-    return response.data
+    return data
   } catch (errr) {
     const error = errr as Error | AxiosError
     if (axios.isAxiosError(error)) {
-      console.error('Request error', error.response || error.message)
+      console.error('Request error', error.response?.data || error.message)
     } else {
       console.error('Request error', error.message)
     }
