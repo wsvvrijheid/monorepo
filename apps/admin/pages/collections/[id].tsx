@@ -20,7 +20,7 @@ const CollectionPage = () => {
   const { query } = useRouter()
 
   const id = Number(query.id as string)
-  const { data, isLoading } = useCollectionById(id)
+  const { data: collection, isLoading } = useCollectionById(id)
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   return (
@@ -28,15 +28,15 @@ const CollectionPage = () => {
       <ArtAddToCollectionModal
         isOpen={isOpen}
         onClose={onClose}
-        collection={data}
+        collection={collection}
       />
       <Stack spacing={6}>
         <Box p={6} rounded="md" bg="white" shadow="md">
-          {data && <CollectionEdit collection={data} />}
+          {collection && <CollectionEdit collection={collection} />}
         </Box>
 
         <Box p={6} rounded="md" bg="white" shadow="md">
-          {data && (
+          {collection && (
             <Stack spacing={6}>
               <HStack justify="space-between">
                 <Text fontWeight="bold" fontSize="xl" noOfLines={1}>
@@ -51,10 +51,13 @@ const CollectionPage = () => {
                   Add arts to collection
                 </Button>
               </HStack>
-              {data.arts && (
+              {collection.arts && (
                 <ArtAddToCollectionGrid
-                  collection={data}
-                  arts={data.arts.map(art => ({ ...art, data }))}
+                  collection={collection}
+                  arts={collection.arts.map(art => ({
+                    ...art,
+                    collection: collection,
+                  }))}
                 />
               )}
             </Stack>
