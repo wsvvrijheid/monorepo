@@ -1,4 +1,4 @@
-import { FC, ReactNode } from 'react'
+import { FC, ReactNode, useEffect } from 'react'
 
 import {
   Box,
@@ -35,6 +35,8 @@ export const AdminLayout: FC<AdminLayoutProps> = ({
 }) => {
   const { user, isAuthLoading } = useAuthSelector()
 
+  const router = useRouter()
+
   const [expandedStorage, setExpandedStorage] = useLocalStorage(
     'adminSidebarExpanded',
     true,
@@ -46,7 +48,11 @@ export const AdminLayout: FC<AdminLayoutProps> = ({
     toggle()
   }
 
-  const router = useRouter()
+  useEffect(() => {
+    if (!user && !isAuthLoading) {
+      router.push('/login')
+    }
+  }, [isAuthLoading, user, router])
 
   const handleLogout = async () => {
     axios.post('/api/auth/logout').then(() => {
