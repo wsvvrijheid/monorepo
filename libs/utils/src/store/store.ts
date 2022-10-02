@@ -1,11 +1,13 @@
 import { Action, configureStore, ThunkAction } from '@reduxjs/toolkit'
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 
+import { authReducer } from './auth'
 import { postReducer } from './post'
 
 export const store = configureStore({
   reducer: {
     post: postReducer,
+    auth: authReducer,
   },
 })
 
@@ -21,3 +23,4 @@ export type AppThunk<ReturnType = void> = ThunkAction<
 export const useAppDispatch = () => useDispatch<AppDispatch>()
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector
 export const usePostSelector = () => useAppSelector(state => state.post)
+export const useAuthSelector = () => useAppSelector(state => state.auth)

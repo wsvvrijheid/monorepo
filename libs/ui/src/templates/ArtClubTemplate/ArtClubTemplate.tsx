@@ -15,7 +15,7 @@ import {
   useDisclosure,
 } from '@chakra-ui/react'
 import { StrapiLocale } from '@wsvvrijheid/types'
-import { useArts, useGetApprovedArtCategories } from '@wsvvrijheid/utils'
+import { useArts, useGetArtCategories } from '@wsvvrijheid/utils'
 import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
 import { MdMenuOpen } from 'react-icons/md'
@@ -32,7 +32,7 @@ import {
   Pagination,
   ArtCard,
 } from '../../components'
-import { useAuth, useChangeParams } from '../../hooks'
+import { useChangeParams } from '../../hooks'
 
 export const ArtClubTemplate: FC = () => {
   const {
@@ -41,12 +41,11 @@ export const ArtClubTemplate: FC = () => {
   } = useRouter()
 
   const changeParam = useChangeParams()
-  const auth = useAuth()
   const [isLoading, setIsLoading] = useState(false)
   const { isOpen, onOpen, onClose } = useDisclosure()
   const { t } = useTranslation()
 
-  const approvedCategoryQuery = useGetApprovedArtCategories()
+  const approvedCategoryQuery = useGetArtCategories('approved')
 
   // As mentioned in `getStaticProps`, we need to keep the same order for queryKey
   // queryKey = [arts, locale, searchTerm, category, page]
@@ -115,7 +114,7 @@ export const ArtClubTemplate: FC = () => {
                 onSearch={value => changeParam({ searchTerm: value as string })}
                 isFetching={artsQuery.isFetching}
               />
-              <CreateArtForm auth={auth} />
+              <CreateArtForm />
               <IconButton
                 display={{ base: 'flex', lg: 'none' }}
                 variant="outline"
@@ -143,7 +142,7 @@ export const ArtClubTemplate: FC = () => {
                         directing="to-down"
                         delay={i * 0.5}
                       >
-                        <ArtCard art={art} auth={auth} queryKey={queryKey} />
+                        <ArtCard art={art} queryKey={queryKey} />
                       </AnimatedBox>
                     )
                   })}

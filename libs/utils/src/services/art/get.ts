@@ -1,5 +1,11 @@
 import { useQuery, QueryKey } from '@tanstack/react-query'
-import { ApprovalStatus, Art, Sort, StrapiLocale } from '@wsvvrijheid/types'
+import {
+  ApprovalStatus,
+  Art,
+  PublicationState,
+  Sort,
+  StrapiLocale,
+} from '@wsvvrijheid/types'
 import qs from 'qs'
 
 import { Request } from '../../lib'
@@ -14,12 +20,12 @@ type GetArtsArgs = {
   sort?: Sort
   locale: StrapiLocale
   status?: ApprovalStatus
-  publicationState?: 'live' | 'preview'
+  publicationState?: PublicationState
 }
 
 export const getArts = async ({
   categories,
-  populate = ['artist.avatar', 'categories', 'images', 'likers'],
+  populate = ['artist.avatar', 'categories', 'images', 'likers', 'collection'],
   page = 1,
   pageSize = 12,
   searchTerm,

@@ -29,7 +29,7 @@ export const CollectionCreateSuccessAlert = forwardRef<
       <AlertDialogOverlay>
         <AlertDialogContent>
           <AlertDialogHeader
-            bg="green.500"
+            bg="primary.500"
             color="white"
             fontSize="lg"
             fontWeight="semibold"

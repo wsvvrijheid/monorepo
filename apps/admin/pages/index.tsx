@@ -1,11 +1,9 @@
 import { Box } from '@chakra-ui/react'
-import { useAuth, AdminLayout } from '@wsvvrijheid/ui'
+import { AdminLayout } from '@wsvvrijheid/ui'
 
 const Index = () => {
-  const { user, isLoading } = useAuth()
-
   return (
-    <AdminLayout title="Dashboard" user={user} isLoading={!user || isLoading}>
+    <AdminLayout title="Dashboard">
       <Box>Dashboard</Box>
     </AdminLayout>
   )

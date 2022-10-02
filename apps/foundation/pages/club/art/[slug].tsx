@@ -18,11 +18,9 @@ type ArtPageProps = {
 }
 
 const ArtPage: FC<ArtPageProps> = ({ seo, queryKey }) => {
-  // const auth = useAuth()
-
   return (
     <Layout seo={seo}>
-      <ArtTemplate auth={null} queryKey={queryKey} />
+      <ArtTemplate queryKey={queryKey} />
     </Layout>
   )
 }

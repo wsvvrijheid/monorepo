@@ -1,7 +1,7 @@
-import { Box } from '@chakra-ui/react'
+import { Layout } from '../components'
 
 export function Index() {
-  return <Box>Kunsthalte</Box>
+  return <Layout seo={{}}>Kunsthalte</Layout>
 }
 
 export default Index

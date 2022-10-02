@@ -22,7 +22,7 @@ import slugify from '@sindresorhus/slugify'
 import { CollectionCreateInput } from '@wsvvrijheid/types'
 import { useCreateCollection } from '@wsvvrijheid/utils'
 import { useForm } from 'react-hook-form'
-import { FaCheck, FaTimes, FaPlus } from 'react-icons/fa'
+import { IoMdAdd, IoMdCheckmark, IoMdClose } from 'react-icons/io'
 import * as yup from 'yup'
 
 import { FormItem, FilePicker } from '../../components'
@@ -117,15 +117,12 @@ export const CreateCollectionModal: FC<CreateCollectionModalProps> = ({
       />
 
       <Button
-        size="lg"
-        colorScheme="green"
+        leftIcon={<IoMdAdd />}
+        colorScheme="primary"
         onClick={formDisclosure.onOpen}
         my={3}
       >
-        <Box mr={{ base: 0, lg: 4 }}>
-          <FaPlus />
-        </Box>
-        <Box display={{ base: 'none', lg: 'block' }}>Create Collection</Box>
+        Create Collection
       </Button>
 
       <Modal
@@ -137,8 +134,8 @@ export const CreateCollectionModal: FC<CreateCollectionModalProps> = ({
       >
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader color={'green'}>Create Collection</ModalHeader>
-          <ModalCloseButton color={'white'} />
+          <ModalHeader color={'primary.500'}>Create Collection</ModalHeader>
+          <ModalCloseButton />
           <ModalBody pos="relative" py={6}>
             {/* LOADING */}
             {isLoading && (
@@ -181,15 +178,15 @@ export const CreateCollectionModal: FC<CreateCollectionModalProps> = ({
                   onClick={closeForm}
                   mr={3}
                   ref={cancelRef}
-                  leftIcon={<FaTimes />}
+                  leftIcon={<IoMdClose />}
                 >
                   Cancel
                 </Button>
                 <Button
                   isDisabled={!images || images.length === 0 || !isValid}
                   type="submit"
-                  colorScheme="green"
-                  leftIcon={<FaCheck />}
+                  colorScheme="primary"
+                  leftIcon={<IoMdCheckmark />}
                 >
                   Create Collection
                 </Button>

@@ -5,17 +5,6 @@ export type HeaderMenu = Array<MenuType>
 
 export type ProfileMenuProps = {
   menu: Array<{ label: string; link: string; icon?: JSX.Element }>
-  isLoggedIn: boolean
-  userAvatar: string
-  username: string
-  login: {
-    label: string
-    link: string
-  }
-  logout: {
-    label: string
-    onClick: () => void
-  }
 } & Pick<HeaderProps, 'isDark'>
 
 export interface HeaderProps {

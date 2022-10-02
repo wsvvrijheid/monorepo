@@ -204,6 +204,90 @@
       },
       "tags": ["type:app"]
     },
+    "kunsthalte": {
+      "root": "apps/kunsthalte",
+      "sourceRoot": "apps/kunsthalte",
+      "projectType": "application",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/next:build",
+          "outputs": ["{options.outputPath}"],
+          "defaultConfiguration": "production",
+          "options": {
+            "root": "apps/kunsthalte",
+            "outputPath": "dist/apps/kunsthalte",
+            "assets": [
+              {
+                "input": "libs/assets/src/images",
+                "glob": "*.{png,jpg,jpeg,gif,svg}",
+                "output": "assets/images"
+              },
+              {
+                "input": "public/locales",
+                "glob": "**/*.json",
+                "output": "locales"
+              }
+            ]
+          },
+          "configurations": {
+            "development": { "outputPath": "apps/kunsthalte" },
+            "production": { "outputPath": "dist/apps/kunsthalte" }
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/next:server",
+          "defaultConfiguration": "development",
+          "options": {
+            "buildTarget": "kunsthalte:build",
+            "dev": true,
+            "assets": [
+              {
+                "input": "libs/assets/src/images",
+                "glob": "*.{png,jpg,jpeg,gif,svg}",
+                "output": "assets/images"
+              },
+              {
+                "input": "public/locales",
+                "glob": "**/*.json",
+                "output": "locales"
+              }
+            ]
+          },
+          "configurations": {
+            "development": {
+              "buildTarget": "kunsthalte:build:development",
+              "dev": true
+            },
+            "production": {
+              "buildTarget": "kunsthalte:build:production",
+              "dev": false
+            }
+          }
+        },
+        "export": {
+          "executor": "@nrwl/next:export",
+          "options": {
+            "buildTarget": "kunsthalte:build:production"
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/kunsthalte"],
+          "options": {
+            "jestConfig": "apps/kunsthalte/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["apps/kunsthalte/**/*.{ts,tsx,js,jsx}"]
+          }
+        }
+      },
+      "tags": ["type:app"]
+    },
     "mocks": {
       "root": "libs/mocks",
       "sourceRoot": "libs/mocks/src",

@@ -3,10 +3,11 @@ import { FC } from 'react'
 import '@splidejs/splide/dist/css/themes/splide-default.min.css'
 import { Stack, Box, Grid } from '@chakra-ui/react'
 import { QueryKey, useQueryClient } from '@tanstack/react-query'
-import { Art, Auth } from '@wsvvrijheid/types'
+import { Art } from '@wsvvrijheid/types'
 import {
   useArtBySlug,
   useArtCommentMutation,
+  useAuthSelector,
   useLikeArt,
 } from '@wsvvrijheid/utils'
 
@@ -19,22 +20,15 @@ import {
 import { CommentFormFieldValues } from '../CommentForm/types'
 
 export type ArtWithDetailsProps = {
-  auth: Auth
   art: Art
   queryKey?: QueryKey
 }
 
-export const ArtWithDetails: FC<ArtWithDetailsProps> = ({
-  auth,
-  art,
-  queryKey,
-}) => {
-  const { toggleLike, isLiked, isLoading } = useLikeArt(
-    art,
-    auth?.user,
-    queryKey,
-  )
+export const ArtWithDetails: FC<ArtWithDetailsProps> = ({ art, queryKey }) => {
+  const { toggleLike, isLiked, isLoading } = useLikeArt(art, queryKey)
   const queryClient = useQueryClient()
+
+  const auth = useAuthSelector()
 
   const artCommentMutation = useArtCommentMutation()
   const { data } = useArtBySlug(art.slug)
@@ -95,7 +89,6 @@ export const ArtWithDetails: FC<ArtWithDetailsProps> = ({
         <Stack spacing={4}>
           {/*  Comment form */}
           <CommentForm
-            auth={auth}
             isLoading={artCommentMutation.isLoading}
             onSendForm={handleSendForm}
             isSuccess={artCommentMutation.isSuccess}

@@ -2,14 +2,13 @@ import { useEffect, useState } from 'react'
 
 import { MenuItem } from '@chakra-ui/react'
 import { ApprovalStatus, StrapiLocale, Sort } from '@wsvvrijheid/types'
-import { useAuth, AdminLayout, ArtsTable } from '@wsvvrijheid/ui'
+import { AdminLayout, ArtsTable } from '@wsvvrijheid/ui'
 import { useArts } from '@wsvvrijheid/utils'
 import { useRouter } from 'next/router'
 import { FaArrowDown, FaArrowUp } from 'react-icons/fa'
 import { useUpdateEffect } from 'react-use'
 
 const ArtsPage = () => {
-  const { user, isLoading } = useAuth()
   const { query } = useRouter()
   const [currentPage, setCurrentPage] = useState<number>()
   // Client side query params (?status=pending)
@@ -57,8 +56,6 @@ const ArtsPage = () => {
   return (
     <AdminLayout
       title={`${status} Arts`}
-      user={user}
-      isLoading={!user || isLoading}
       headerProps={{
         onSearch: handleSearch,
         onLanguageSwitch: locale => setLocale(locale),
@@ -76,7 +73,6 @@ const ArtsPage = () => {
       <ArtsTable
         data={mappedArts}
         queryKey={queryKey}
-        user={user}
         totalCount={totalCount}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}

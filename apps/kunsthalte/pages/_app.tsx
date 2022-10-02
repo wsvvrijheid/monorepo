@@ -8,10 +8,11 @@ import {
 } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { defaultSeo, themes } from '@wsvvrijheid/config'
-import { pageview } from '@wsvvrijheid/utils'
+import { pageview, store } from '@wsvvrijheid/utils'
 import { appWithTranslation } from 'next-i18next'
 import { DefaultSeo } from 'next-seo'
 import { useRouter } from 'next/router'
+import { Provider as ReduxProvider } from 'react-redux'
 
 import '@splidejs/splide/dist/css/themes/splide-default.min.css'
 import '@splidejs/react-splide/css'
@@ -33,11 +34,13 @@ function MyApp({ Component, pageProps }) {
   return (
     <QueryClientProvider client={queryClient}>
       <Hydrate state={pageProps.dehydratedState}>
-        <ChakraProvider theme={themes.kunsthalte}>
-          <DefaultSeo {...defaultSeo.kunsthalte[router.locale]} />
-          <Component {...pageProps} />
-          <ToastContainer />
-        </ChakraProvider>
+        <ReduxProvider store={store}>
+          <ChakraProvider theme={themes.kunsthalte}>
+            <DefaultSeo {...defaultSeo.kunsthalte[router.locale]} />
+            <Component {...pageProps} />
+            <ToastContainer />
+          </ChakraProvider>
+        </ReduxProvider>
       </Hydrate>
       <ReactQueryDevtools />
     </QueryClientProvider>

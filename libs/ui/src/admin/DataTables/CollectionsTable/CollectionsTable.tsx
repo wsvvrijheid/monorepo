@@ -2,6 +2,7 @@ import { FC } from 'react'
 
 import { QueryKey } from '@tanstack/react-query'
 import { Collection } from '@wsvvrijheid/types'
+import { useRouter } from 'next/router'
 
 import { CreateCollectionModal } from '../../CreateCollectionModal'
 import { DataTable } from '../DataTable'
@@ -19,6 +20,12 @@ export const CollectionsTable: FC<CollectionsTableProps> = ({
   onSort,
   setCurrentPage,
 }) => {
+  const router = useRouter()
+
+  const handleClickRow = (index: number, id: number) => {
+    router.push(`/collections/${id}`)
+  }
+
   return (
     <>
       <CreateCollectionModal />
@@ -29,6 +36,7 @@ export const CollectionsTable: FC<CollectionsTableProps> = ({
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
         onSort={onSort}
+        onClickRow={handleClickRow}
       />
     </>
   )

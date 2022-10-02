@@ -1,9 +1,21 @@
 {
+  "art": {
+    "link": "/arts",
+    "en": "Arts",
+    "nl": "Kunsten",
+    "tr": "Eserler"
+  },
   "hashtag": {
     "link": "/hashtags",
     "en": "Hashtags",
     "nl": "Hashtags",
     "tr": "Hashtagler"
+  },
+  "collection": {
+    "link": "/collections",
+    "en": "Collections",
+    "nl": "Collecties",
+    "tr": "Koleksiyonlar"
   },
   "platform": {
     "link": "/platforms",

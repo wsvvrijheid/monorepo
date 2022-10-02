@@ -72,7 +72,7 @@ Arts.args = {
       // Custom props based on value
       componentProps: value => {
         const colorScheme = {
-          approved: 'green',
+          approved: 'primary',
           pending: 'yellow',
           rejected: 'red',
         }

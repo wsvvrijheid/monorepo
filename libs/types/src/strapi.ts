@@ -35,6 +35,8 @@ import { Vote } from './vote'
 /**
  * MODEL TYPES
  */
+export type PublicationState = 'preview' | 'live'
+
 export type StrapiBase = {
   id: number
   createdAt: string

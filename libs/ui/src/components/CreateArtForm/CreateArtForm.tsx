@@ -26,7 +26,11 @@ import {
 import { yupResolver } from '@hookform/resolvers/yup'
 import slugify from '@sindresorhus/slugify'
 import { StrapiLocale } from '@wsvvrijheid/types'
-import { useCreateArt, useGetArtCategories } from '@wsvvrijheid/utils'
+import {
+  useAuthSelector,
+  useCreateArt,
+  useGetArtCategories,
+} from '@wsvvrijheid/utils'
 import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
@@ -56,11 +60,13 @@ const schema = (t: TFunction) =>
   })
 
 // TODO Consider adding modal form instead of a new page
-export const CreateArtForm: FC<CreateArtFormProps> = ({ auth, queryKey }) => {
+export const CreateArtForm: FC<CreateArtFormProps> = ({ queryKey }) => {
   const [images, setImages] = useState<Blob[]>([])
   const { locale } = useRouter()
   const { t } = useTranslation()
   const categories = useGetArtCategories()
+
+  const auth = useAuthSelector()
 
   const cancelRef = useRef<HTMLButtonElement>(null)
   const formDisclosure = useDisclosure()

@@ -1,12 +1,11 @@
 import { useState } from 'react'
 
 import { StrapiLocale, Sort } from '@wsvvrijheid/types'
-import { useAuth, AdminLayout, CollectionsTable } from '@wsvvrijheid/ui'
+import { AdminLayout, CollectionsTable } from '@wsvvrijheid/ui'
 import { useCollectionsByFilterAndSort } from '@wsvvrijheid/utils'
 import { useUpdateEffect } from 'react-use'
 
 const CollectionsPage = () => {
-  const { user, isLoading } = useAuth()
   const [currentPage, setCurrentPage] = useState<number>()
   const defaultLocale: StrapiLocale = 'tr'
 
@@ -41,8 +40,6 @@ const CollectionsPage = () => {
   return (
     <AdminLayout
       title="Collections"
-      user={user}
-      isLoading={!user || isLoading}
       headerProps={{
         onSearch: handleSearch,
         onLanguageSwitch: locale => setLocale(locale),
