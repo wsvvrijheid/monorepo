@@ -10,10 +10,16 @@ import { SocialButtons } from '../SocialButtons'
 import { FooterNav } from './FooterNav'
 import { FooterProps } from './types'
 
-export const Footer: FC<FooterProps> = ({ menu, about, logo, socialItems }) => {
+export const Footer: FC<FooterProps> = ({
+  animated = true,
+  menu,
+  about,
+  logo,
+  socialItems,
+}) => {
   const { t } = useTranslation()
   return (
-    <Box bg={'blue.900'} color="blue.100" pos="relative">
+    <Box bg={'primary.900'} color="primary.100" pos="relative">
       <Container as={Stack}>
         <Stack
           direction={{ base: 'column', lg: 'row' }}
@@ -24,12 +30,14 @@ export const Footer: FC<FooterProps> = ({ menu, about, logo, socialItems }) => {
         >
           <Stack align="center" maxW={250}>
             <motion.div
-              animate={{ rotate: -360 }}
-              transition={{
-                ease: 'linear',
-                repeat: Infinity,
-                duration: 60,
-              }}
+              {...(animated && {
+                animate: { rotate: -360 },
+                transition: {
+                  ease: 'linear',
+                  repeat: Infinity,
+                  duration: 60,
+                },
+              })}
             >
               <Link href="/">
                 <NextImage
@@ -50,7 +58,7 @@ export const Footer: FC<FooterProps> = ({ menu, about, logo, socialItems }) => {
         <Wrap
           justify={{ base: 'center', sm: 'space-between' }}
           borderTopWidth="0.5px"
-          borderTopColor="blue.200"
+          borderTopColor="primary.200"
           py={6}
           spacing={2}
         >

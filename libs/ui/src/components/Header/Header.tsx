@@ -20,6 +20,7 @@ import { ProfileMenu } from './ProfileMenu'
 import { HeaderProps } from './types'
 
 export const Header: FC<HeaderProps> = ({
+  animated = true,
   isDark,
   logo,
   headerMenu,
@@ -42,8 +43,10 @@ export const Header: FC<HeaderProps> = ({
         <Container>
           <Flex justify="space-between" align="center" pos="relative">
             <motion.div
-              animate={{ rotate: -360 }}
-              transition={{ ease: 'linear', repeat: Infinity, duration: 60 }}
+              {...(animated && {
+                animate: { rotate: -360 },
+                transition: { ease: 'linear', repeat: Infinity, duration: 60 },
+              })}
             >
               <Link href="/">
                 <Image

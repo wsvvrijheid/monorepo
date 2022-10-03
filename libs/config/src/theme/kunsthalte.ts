@@ -1,19 +1,19 @@
 import { extendTheme } from '@chakra-ui/react'
 import { merge } from 'lodash'
 
+import { fonts } from './fonts'
+import { styles } from './global'
 import { defaultTheme } from './theme'
 
 export const kunsthalte = extendTheme(
   merge(defaultTheme, {
-    styles: {
-      global: {
-        body: {
-          fontFamily: 'club',
-        },
-      },
+    fonts: {
+      body: fonts.club,
+      heading: fonts.club,
     },
+    styles: styles(fonts.club),
     colors: {
-      primary: defaultTheme['colors'].red,
+      primary: defaultTheme['colors'].pink,
     },
   }),
 )

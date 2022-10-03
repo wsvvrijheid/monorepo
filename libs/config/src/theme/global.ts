@@ -1,8 +1,8 @@
-export const styles = {
+export const styles = (font: string) => ({
   global: {
     'html, body, #__next': {
       h: 'full',
-      fontFamily: `'Poppins', sans-serif`,
+      fontFamily: font,
     },
     body: {
       color: 'gray.700',
@@ -16,4 +16,4 @@ export const styles = {
       height: '450px',
     },
   },
-}
+})
