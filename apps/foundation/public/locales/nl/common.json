@@ -21,7 +21,7 @@
   "home": {
     "hero": "Iedereen is gelijk voor de universele wet. We werken eraan om ervoor te zorgen dat iedereen in gelijke mate profiteert van universele mensenrechten."
   },
-  "copyright": "WSVVrijheid. Alle rechten voorbehouden",
+  "copyright": "{{year}} {{name}}. Alle rechten voorbehouden.",
   "support": "Steun",
   "footer_menu": "Menu's",
   "follow_us": "Volg ons",
