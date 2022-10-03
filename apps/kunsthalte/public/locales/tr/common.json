@@ -1,0 +1,245 @@
+{
+  "category": "Kategori",
+  "hello": "Merhaba",
+  "read-more": "Daha Fazla Oku",
+  "next": "Sonraki",
+  "prev": "Önceki",
+  "event": "Etkinlik",
+  "news": "Haber",
+  "platforms": "Platformlar",
+  "view-arts": "Eserlere Gözat",
+  "view-collections": "Koleksiyonlara Gözat",
+  "visit-website": "Web sitesini ziyaret et",
+  "all": "Tümü",
+  "art-stop": "Sanat Durağı",
+  "collections": "Koleksiyonlar",
+  "blog-no-content": "Afedersiniz! Bu dilde yayınlanmış makale yok.",
+  "wsvvrijheid": {
+    "management": "Yönetim",
+    "chairman": "Başkan",
+    "treasurer": "Sayman",
+    "secretary": "Sekreter"
+  },
+  "error": "Hata",
+  "home": {
+    "hero": "Evrensel hukuk karşısında herkes eşittir. Evrensel insan haklarından herkesin eşit şekilde faydalanması için çalışmalar yapıyoruz."
+  },
+  "copyright": "{{year}} {{name}}. Tüm hakları saklıdır.",
+  "support": "Destek",
+  "footer_menu": "Menuler",
+  "follow_us": "Bizi takip edin",
+  "society": "Vakfımız",
+  "footer_about": "Sessizlik, özgürlüğün en büyük düşmanıdır.",
+  "contact": {
+    "title": "İletişim",
+    "fill-form": "İletişim için formu doldurunuz",
+    "form": {
+      "fullname-label": "Adınız Soyadınız",
+      "fullname-required": "İsim alanı boş olamaz.",
+      "email-required": "Mail alanı boş olamaz.",
+      "email-invalid": "Geçersiz e-mail adresi.",
+      "email-helper": "Mailiniz izniniz olmadan kimseyle paylaşılmayacaktır.",
+      "message-label": "Mesaj",
+      "message-required": "Mesaj alanı boş olamaz.",
+      "message-delivered": "Teşekkür ederiz. Mesajınız iletildi.",
+      "failed": "Oops. Birşeyler yanlış gitti, lütfen tekrar deneyin.",
+      "button": "Gönder"
+    }
+  },
+  "subpage": {
+    "most-readed": "En Çok Okunan",
+    "latest": "En Son"
+  },
+  "joinTheTeam": "Takıma katıl",
+  "contributors": {
+    "header": "Katkıda bulunanlar",
+    "filter": "Takıma göre filtrele: Toplam katkıda bulunan "
+  },
+  "login": {
+    "sign-up-header": {
+      "title": "Hesap oluştur",
+      "text": "Zaten bir hesabınız var mı?",
+      "button": "Giriş yapın"
+    },
+    "sign-in-header": {
+      "title": "Giriş yapın",
+      "text": "Hesabınız yok mu? ",
+      "button": "Kayıt ol"
+    },
+    "forgot-pass-header": {
+      "title": "Şifremi unuttum",
+      "button": "Submit",
+      "text": "E-posta adresinize sifre yenileme linki gönderildi lutfen kontrol ediniz."
+    },
+    "reset-pass-header": {
+      "title": "Şifre yenile",
+      "button": "Submit",
+      "text": "Sifreniz başarıyla yenilendi, login olabilirsiniz."
+    },
+    "name": {
+      "title": "İsim",
+      "required": "İsim alanı zorunludur"
+    },
+    "username": {
+      "title": "Kullanıcı Adı",
+      "required": "Kullanıcı adı alanı zorunludurs"
+    },
+    "email": {
+      "title": "E-posta",
+      "invalid": "Geçersiz e-posta adresi",
+      "required": "E-posta alanı zorunludur"
+    },
+    "password": {
+      "title": "Parola",
+      "invalid": "Çok kısa",
+      "required": "Parola alanı zorunludur",
+      "warning": "Parola en az 8 karakter olmalıdır",
+      "forgot-password": "Parolanızı mı unuttunuz?",
+      "matches": {
+        "lowercase": "Şifreniz en az bir küçük harf içermelidir [a...z]",
+        "uppercase": "Şifreniz en az bir büyük harf içermelidir [A..Z]",
+        "number": "Şifreniz en az bir numara içermelidir [1,2,3...]",
+        "special": "Şifreniz en az bir özel karakter içermelidir [(?=@...]",
+        "password-match": "Şifreleriniz eşleşmiyor"
+      }
+    },
+    "create-account": "Hesap oluştur",
+    "terms-use": "Kullanım koşullarını kabul ediyor musunuz?",
+    "sign-in": "Giriş yap",
+    "sign-up-with": "veya ",
+    "sign-with": "{{provider}} ile giriş yap",
+    "sign-in-with": "veya devam et",
+    "remember-me": "Beni hatırla",
+    "email-taken": {
+      "title": "Email is already taken",
+      "description": "You have registered this email address before. Please use the same provider as your first login"
+    }
+  },
+  "profile": {
+    "title": "Profil",
+    "sign-in": "Giriş yap",
+    "sign-up": "Kayıt ol",
+    "logout": "Çıkış yap",
+    "my-profile": "Profilim",
+    "user-name": "Kullanıcı adı",
+    "email": "E-posta",
+    "approved-arts": "Onaylanan Eserlerim",
+    "pending-arts": "Bekleyen Eserlerim",
+    "rejected-arts": "Reddedilen Eserlerim",
+    "upload-arts": "Eser Yükle",
+    "general-settings": "Genel Ayarlar",
+    "art": {
+      "delete": {
+        "title": "Eseri Sil",
+        "text": "Eserinizi silmek istediğinizden emin misiniz?",
+        "button": "Sil"
+      },
+      "publish": {
+        "title": "Yayınla",
+        "text": "Eserinizi yayınlamak istediğinize emin misiniz?",
+        "button": "Yayınla"
+      },
+      "unpublish": {
+        "title": "Yayından Kaldır",
+        "text": "Eserinizi yayından kaldırmak istediğinize emin misiniz? Daha sonra her zaman tekrar yayınlayabilirsiniz.",
+        "button": "Yayından Kaldır"
+      }
+    }
+  },
+  "apply-form": {
+    "name": {
+      "input": "Ad",
+      "required": "Ad alanı zorunludur"
+    },
+    "email": {
+      "input": "Eposta",
+      "invalid": "Geçersiz eposta adresi",
+      "required": "Eposta alanı zorunludur"
+    },
+    "phone": {
+      "input": "Telefon",
+      "required": "Telefon alanı zorunludur"
+    },
+    "available-hours": {
+      "input": "Haftalık müsait saat sayısı",
+      "required": "Müsait saatlerinizin sayısını belirtmelisiniz"
+    },
+    "occupation": "Meslek",
+    "comment": "Yorum",
+    "comment-placeholder": "Yorum Yazın",
+    "comments": "Yorumlar",
+    "send": "Gönder",
+    "in-mailing-list": "Mail listesine ekle",
+    "show-in-website": "Web sitesinde göster",
+    "heard-from": "Bizi nereden duydunuz?",
+    "jobs": {
+      "title": "Meslekler",
+      "required": "En az bir meslek seçmelisiniz"
+    },
+    "submit": "Gönder",
+    "title": "Başvuru Formu",
+    "thanks": {
+      "title": "Teşekkürler",
+      "description": "Başvurunuzu aldık ve sizinle iletişime geçeceğiz."
+    },
+    "error": {
+      "title": "Hata",
+      "description": "Bir hata oluştu, tekrar deneyiniz."
+    }
+  },
+  "comment-form": {
+    "success": "Yorumunuz başarıyla gönderildi",
+    "name": {
+      "placeholder": "İsim",
+      "required": "İsim alanı zorunludur"
+    },
+    "email": {
+      "placeholder": "Eposta",
+      "invalid": "Geçersiz eposta adresi",
+      "required": "Eposta alanı zorunludur"
+    },
+    "content": {
+      "placeholder": "Yorum",
+      "required": "Yorum alanı zorunludur"
+    },
+    "send": "Yorum Gönder"
+  },
+  "title": "Başlık",
+  "author": "Yazar",
+  "description": "Açıklama",
+  "content": "İçerik",
+  "clear": "Temizle",
+  "create": "Oluştur",
+  "cancel": "Vazgeç",
+  "edit": "Düzenle",
+  "dismiss": "Kapat",
+  "language": "Dil",
+  "search": "Ara",
+  "categories": "Kategoriler",
+  "upload": {
+    "description": "Dosya yüklemek için sürükleyip bırakın ya da buraya tıklayın",
+    "support": "Desteklenen formatlar: jpg, png, webp",
+    "label": "Yükle"
+  },
+  "art": {
+    "upload": "Eser Yükle",
+    "others": "Diğer Eserler",
+    "create": {
+      "form": {
+        "locale-required": "Eserinizin dilini seçmelisiniz",
+        "title-required": "Başlık alanı zorunludur",
+        "description-required": "Açıklama alanı zorunludur",
+        "content-required": "İçerik alanı zorunludur"
+      },
+      "success": {
+        "title": "Eseriniz başarıyla oluşturuldu",
+        "description": "Eseriniz yüklendi. Eseriniz editör onayından sonra sayfada listelenecektir. Onay bekleyen eserlerinizi profil sayfanızda görebilirsiniz.",
+        "link": "Profil sayfasına git"
+      },
+      "require-auth": {
+        "text": "Eser yükleyebilmek için giriş yapmalısınız!",
+        "button": "Şimdi giriş yapın"
+      }
+    }
+  }
+}

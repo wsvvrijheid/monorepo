@@ -1,0 +1,244 @@
+{
+  "category": "Category",
+  "hello": "Hello",
+  "read-more": "Read More",
+  "next": "Next",
+  "prev": "Previous",
+  "event": "Event",
+  "news": "News",
+  "visit-website": "Visit Website",
+  "platforms": "Platforms",
+  "error": "Error",
+  "all": "All",
+  "art-stop": "Art Stop",
+  "collections": "Collections",
+  "blog-no-content": "Sorry! No articles published in this language.",
+  "wsvvrijheid": {
+    "management": "Management",
+    "chairman": "Chairman",
+    "treasurer": "Treasurer",
+    "secretary": "Secretary: "
+  },
+  "home": {
+    "hero": "Everyone is equal before the universal law. We work to ensure that everyone benefits from universal human rights equally."
+  },
+  "copyright": "{{year}} {{name}}. Tüm hakları saklıdır.",
+  "support": "Support",
+  "footer_menu": "Menus",
+  "follow_us": "Folow us",
+  "society": "Society",
+  "footer_about": "Silence is the worst enemy of freedom.",
+  "contact": {
+    "title": "Contact",
+    "fill-form": "Fill up the form to contact",
+    "form": {
+      "fullname-label": "Your Full Name",
+      "fullname-required": "Fullname cannot be empty.",
+      "email-required": "Mail cannot be empty.",
+      "email-invalid": "Invalid email address.",
+      "email-helper": "We will never share your mail.",
+      "message-label": "Message",
+      "message-required": "Message body cannot be empty.",
+      "message-delivered": "Thank you. Your message has been delivered.",
+      "failed": "Oops. Something went wrong, please try again.",
+      "button": "Send message"
+    }
+  },
+  "subpage": {
+    "most-readed": "Most Readed",
+    "latest": "Latest"
+  },
+  "joinTheTeam": "Join the Team",
+  "contributors": {
+    "header": "Contributors",
+    "filter": "Filter by team: Total contributors"
+  },
+  "login": {
+    "sign-up-header": {
+      "title": "Create an account",
+      "text": "Already have an account?",
+      "button": "Sign in"
+    },
+    "sign-in-header": {
+      "title": "Log in to your account",
+      "text": "Don't have an account?",
+      "button": "Sign up"
+    },
+    "forgot-pass-header": {
+      "title": "Forgot your password?",
+      "button": "Submit",
+      "text": "Enter your email address and we will send you a link to reset your password."
+    },
+    "reset-pass-header": {
+      "title": "Reset your password",
+      "button": "Submit",
+      "text": "Password successfully reset. You can now log in."
+    },
+    "name": {
+      "title": "Name",
+      "required": "Name field is required"
+    },
+    "username": {
+      "title": "Username",
+      "required": "Username field is required"
+    },
+    "email": {
+      "title": "Email",
+      "invalid": "Invalid email address",
+      "required": "Email field is required"
+    },
+    "password": {
+      "title": "Password",
+      "invalid": "Too short",
+      "required": "Password field is required",
+      "warning": "At least 8 characters long",
+      "forgot-password": "Forgot password?",
+      "password-confirm": "Confirm password",
+      "matches": {
+        "lowercase": "Your password must contain at least one lowercase letter [a...z]",
+        "uppercase": "Your password must contain at least one uppercase letter [A..Z]",
+        "number": "Your password must contain at least one number [1,2,3...]",
+        "special": "Your password must contain at least one special character [(?=@...]",
+        "password-match": "Passwords do not match"
+      }
+    },
+    "create-account": "Create Account",
+    "terms-use": "Do you accept the terms of use?",
+    "sign-in": "Sign in",
+    "sign-up-with": "or sign up with",
+    "sign-with": "Sign in with {{provider}}",
+    "sign-in-with": "or continue with",
+    "remember-me": "Remember me",
+    "email-taken": {
+      "title": "Email is already taken",
+      "description": "You have registered this email address before. Please use the same provider as your first login"
+    }
+  },
+  "profile": {
+    "title": "Profile",
+    "sign-in": "Sign in",
+    "sign-up": "Sign up",
+    "logout": "Sign Out",
+    "my-profile": "My Profile",
+    "user-name": "Username",
+    "email": "Email",
+    "approved-arts": "Approved Arts",
+    "pending-arts": "Pending Arts",
+    "rejected-arts": "Rejected Arts",
+    "upload-art": "Upload Art",
+    "general-settings": "General Settings",
+    "art": {
+      "delete": {
+        "title": "Delete Art",
+        "text": "Are you sure you want to delete this art?",
+        "button": "Delete"
+      },
+      "publish": {
+        "title": "Publish Art",
+        "text": "Are you sure you want to publish this art?",
+        "button": "Publish"
+      },
+      "unpublish": {
+        "title": "Unpublish Art",
+        "text": "Are you sure you want to unpublish this art? You can always re-publish it later.",
+        "button": "Unpublish"
+      }
+    }
+  },
+  "apply-form": {
+    "name": {
+      "input": "Name",
+      "required": "Name field is required"
+    },
+    "email": {
+      "input": "Email",
+      "invalid": "Invalid email address",
+      "required": "Email field is required"
+    },
+    "phone": {
+      "input": "Phone",
+      "required": "Phone field is required"
+    },
+    "available-hours": {
+      "input": "Weekly Available hours",
+      "required": "You must specify number of your available hours"
+    },
+    "occupation": "Occupation",
+    "comment": "Comment",
+    "comment-placeholder": "Write Comment",
+    "comments": "Comments",
+    "send": "Send",
+    "in-mailing-list": "In mailing list",
+    "show-in-website": "Show me on the website",
+    "heard-from": "From where did you hear about us?",
+    "jobs": {
+      "title": "Jobs",
+      "required": "You must select at least one job"
+    },
+    "submit": "Submit",
+    "title": "Application Form",
+    "thanks": {
+      "title": "Thank you",
+      "description": "We received your application and will reach out to you."
+    },
+    "error": {
+      "title": "Error",
+      "description": "An error occured, please try again."
+    }
+  },
+  "comment-form": {
+    "success": "Your comment has been successfully sent.",
+    "name": {
+      "placeholder": "Name",
+      "required": "Name field is required"
+    },
+    "email": {
+      "placeholder": "Email",
+      "invalid": "Invalid email address",
+      "required": "Email field is required"
+    },
+    "content": {
+      "placeholder": "Content",
+      "required": "Content field is required"
+    },
+    "send": "Send Comment"
+  },
+  "title": "Title",
+  "author": "Author",
+  "description": "Description",
+  "content": "Content",
+  "clear": "Clear",
+  "create": "Create",
+  "cancel": "Cancel",
+  "edit": "Edit",
+  "dismiss": "Dismiss",
+  "language": "Language",
+  "search": "Search",
+  "categories": "Categories",
+  "upload": {
+    "description": "Drag and drop or click to upload",
+    "support": "Supported formats: jpg, png, webp",
+    "label": "Upload"
+  },
+  "art": {
+    "upload": "Upload Art",
+    "others": "Other Arts",
+    "create": {
+      "form": {
+        "locale-required": "You must select at least one language",
+        "title-required": "Title is required",
+        "description-required": "Description is required",
+        "content-required": "Content is required"
+      },
+      "success": {
+        "title": "Art successfully submitted",
+        "description": "Your art updated successfully. Your art will be listed in club page after being approved by editor. You can see your pending arts in your",
+        "link": "Go to my profile"
+      },
+      "require-auth": {
+        "text": "You must be logged in in order to be able to upload an art!",
+        "button": "Login now"
+      }
+    }
+  }
+}
