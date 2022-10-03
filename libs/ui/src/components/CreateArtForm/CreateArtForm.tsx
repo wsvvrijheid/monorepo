@@ -186,7 +186,7 @@ export const CreateArtForm: FC<CreateArtFormProps> = ({ queryKey }) => {
               <VStack>
                 <Text>
                   {t`art.create.require-auth.text`}{' '}
-                  <Navigate href="/user/login" color="primary.500">
+                  <Navigate href="/login" color="primary.500">
                     {t`art.create.require-auth.button`}
                   </Navigate>
                 </Text>

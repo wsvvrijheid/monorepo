@@ -32,6 +32,7 @@ export const Layout: FC<LayoutProps> = ({
       }}
       footerProps={{
         menu: menus.wsvvrijheid.footerMenu,
+        name: 'Wsvvrijheid',
         about: 'About',
         socialItems: socialLinks.wsvvrijheid,
       }}

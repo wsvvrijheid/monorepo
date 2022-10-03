@@ -80,7 +80,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({
 
       <Button
         variant="solid"
-        colorScheme="blue"
+        colorScheme="primary"
         type="submit"
         isDisabled={!isValid}
         isLoading={isLoading}

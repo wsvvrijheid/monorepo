@@ -12,6 +12,7 @@ import { FooterProps } from './types'
 
 export const Footer: FC<FooterProps> = ({
   animated = true,
+  name,
   menu,
   about,
   logo,
@@ -19,7 +20,7 @@ export const Footer: FC<FooterProps> = ({
 }) => {
   const { t } = useTranslation()
   return (
-    <Box bg={'primary.900'} color="primary.100" pos="relative">
+    <Box bg={'gray.700'} color="primary.100" pos="relative">
       <Container as={Stack}>
         <Stack
           direction={{ base: 'column', lg: 'row' }}
@@ -64,7 +65,8 @@ export const Footer: FC<FooterProps> = ({
         >
           <Text fontSize={'sm'} mr={1}>
             {/* TODO Fix hydration problem for translation field */}
-            &copy; {new Date().getFullYear()} {t('copyright')}
+            &copy;
+            {t('copyright', { name, year: new Date().getFullYear() })}
           </Text>
           <SocialButtons items={socialItems} />
         </Wrap>

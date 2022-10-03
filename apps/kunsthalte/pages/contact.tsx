@@ -8,7 +8,6 @@ import {
   Stack,
   Text,
   VStack,
-  Wrap,
 } from '@chakra-ui/react'
 import { useMutation } from '@tanstack/react-query'
 import {
@@ -20,8 +19,9 @@ import {
 import { EmailData, sendEmail } from '@wsvvrijheid/utils'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
+import { useRouter } from 'next/router'
 import { useTranslation } from 'react-i18next'
-import { MdEmail, MdLocationOn, MdPhone } from 'react-icons/md'
+import { MdEmail } from 'react-icons/md'
 
 import { Layout } from '../components'
 import i18nConfig from '../next-i18next.config'
@@ -30,8 +30,16 @@ interface ContactProps {
   seo: NextSeoProps
 }
 
+const about = {
+  tr: `Sanata ilgi duyan Hollanda’ya göç etmiş kişilerin hem online hem fiziki olarak buluştuğu, birbirlerine tecrübelerini aktardığı, modern ve geleneksel sanatlar üzerine bilgi paylaşımı yaptıkları, aynı zamanda sanatsal aktiviteler organize ettikleri bir gruptur.`,
+  en: `Art stop is a group where people who took emigrated in the Netherlands, who are interested in art, meet both online and physically, share their experiences with each other, share information on modern and traditional arts, and organize artistic activities at the same time.`,
+  nl: `Kunsthalte is een groep waar mensen die naar Nederland zijn geëmigreerd, geïnteresseerd zijn in kunst, elkaar online en fysiek ontmoeten, hun ervaringen met elkaar delen, informatie delen over moderne en traditionele kunst en tegelijkertijd artistieke activiteiten organiseren.`,
+}
+
 const Contact = ({ seo }: ContactProps): JSX.Element => {
   const { t } = useTranslation()
+
+  const { locale } = useRouter()
 
   const {
     isError,
@@ -66,7 +74,7 @@ const Contact = ({ seo }: ContactProps): JSX.Element => {
             minH="inherit"
           >
             <VStack
-              bg="gray.900"
+              bg="gray.700"
               color="primary.50"
               borderRadius="lg"
               p={{ base: 8, lg: 12 }}
@@ -75,77 +83,25 @@ const Contact = ({ seo }: ContactProps): JSX.Element => {
               spacing={8}
             >
               <Heading fontWeight="black" as="h2" size="lg" color="primary.200">
-                STICHTING <br /> WEES DE STEM VOOR VRIJHEID
+                Kunsthalte
               </Heading>
+              <Text>{about[locale]}</Text>
+
               <Divider borderColor="whiteAlpha.400" />
 
-              <Wrap spacing={4} justify="center">
-                <Button
-                  as={Link}
-                  isExternal
-                  variant="link"
-                  color="primary.50"
-                  _hover={{ color: 'primary.200' }}
-                  leftIcon={
-                    <Box as={MdPhone} color="primary.200" size="20px" />
-                  }
-                  href="tel:+31685221308"
-                >
-                  +31-6 85221308
-                </Button>
-                <Button
-                  as={Link}
-                  isExternal
-                  variant="link"
-                  color="primary.50"
-                  _hover={{ color: 'primary.200' }}
-                  leftIcon={
-                    <Box as={MdEmail} color="primary.200" size="20px" />
-                  }
-                  href="mailto:info@wsvvrijheid.nl"
-                >
-                  info@wsvvrijheid.nl
-                </Button>
-                <Button
-                  as={Link}
-                  isExternal
-                  variant="link"
-                  color="primary.50"
-                  _hover={{ color: 'primary.200' }}
-                  leftIcon={
-                    <Box as={MdLocationOn} color="primary.200" size="20px" />
-                  }
-                  href="https://goo.gl/maps/E9HaayQnXmphUWtN8"
-                  textAlign="left"
-                >
-                  Tandersplein 1, 3027 CN, Rotterdam
-                </Button>
-              </Wrap>
+              <Button
+                as={Link}
+                isExternal
+                variant="link"
+                color="primary.50"
+                _hover={{ color: 'primary.200' }}
+                leftIcon={<Box as={MdEmail} color="primary.200" size="20px" />}
+                href="mailto:kunsthalte@wsvvrijheid.nl"
+              >
+                kunsthalte@wsvvrijheid.nl
+              </Button>
 
               <SocialButtons items={[]} />
-
-              <Stack w="full" spacing={4}>
-                <Stack w="full">
-                  <Text color="blue.200" fontWeight="semibold">
-                    {t('wsvvrijheid.management')}
-                  </Text>
-                  <Wrap justify="space-around" spacing={4}>
-                    <Box>
-                      <Text fontSize="sm"> {t('wsvvrijheid.chairman')}</Text>
-                      <Text>Sümeyye Ateş</Text>
-                    </Box>
-                    <Box>
-                      <Text fontSize="sm">{t('wsvvrijheid.treasurer')}</Text>
-                      <Text>Davut Dur</Text>
-                    </Box>
-                  </Wrap>
-                </Stack>
-                <Divider borderColor="whiteAlpha.400" />
-                <Wrap justify="space-around" fontSize="sm" textAlign="left">
-                  <Text>KVK: 85680621</Text>
-                  <Text>RSIN: 863705571 </Text>
-                </Wrap>
-              </Stack>
             </VStack>
 
             <Stack

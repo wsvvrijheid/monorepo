@@ -3,6 +3,7 @@ import { SocialItem } from '../SocialButtons'
 
 export type FooterProps = {
   animated?: boolean
+  name: string
   menu: HeaderMenu
   about: string
   logo: string

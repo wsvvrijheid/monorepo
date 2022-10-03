@@ -1,10 +1,25 @@
-import { art, collection, contact, privacy, terms } from './routes'
+import { about, art, collection, contact, privacy, terms } from './routes'
 
 export const kunsthalte = {
-  headerMenu: [art, collection, contact],
+  headerMenu: [art, collection, contact, about],
   footerMenu: [
     {
-      children: [art, collection, contact],
+      children: [
+        contact,
+        about,
+        {
+          link: 'https://wsvvrijheid.nl',
+          tr: 'Vakıf',
+          en: 'Foundation',
+          nl: 'Stichting',
+        },
+      ],
+      en: 'Menu',
+      nl: 'Menu',
+      tr: 'Menu',
+    },
+    {
+      children: [art, collection],
       en: 'Menu',
       nl: 'Menu',
       tr: 'Menu',

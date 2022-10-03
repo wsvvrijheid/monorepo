@@ -32,6 +32,7 @@ export const Layout: FC<LayoutProps> = ({
         hasScroll,
       }}
       footerProps={{
+        name: 'Kunsthalte',
         animated: false,
         menu: menus.kunsthalte.footerMenu,
         about: 'About',

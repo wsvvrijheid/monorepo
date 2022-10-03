@@ -24,7 +24,7 @@
   "home": {
     "hero": "Evrensel hukuk karşısında herkes eşittir. Evrensel insan haklarından herkesin eşit şekilde faydalanması için çalışmalar yapıyoruz."
   },
-  "copyright": "WSVVrijheid. Bütün hakları saklıdır",
+  "copyright": "{{year}} {{name}}. Tüm hakları saklıdır.",
   "support": "Destek",
   "footer_menu": "Menuler",
   "follow_us": "Bizi takip edin",
