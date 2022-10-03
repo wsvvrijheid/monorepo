@@ -29,7 +29,7 @@ export const CollectionList: FC<CollectionListProps> = ({ collectionData }) => {
       {collectionData.map((collection, index) => (
         <Navigate
           key={index}
-          href={`/${locale}/club/collection/${collection.slug}`}
+          href={`/${locale}/club/collections/${collection.slug}`}
         >
           <Text py={2} lineHeight="1.15" _hover={{ color: 'blue.500' }}>
             {collection.title}

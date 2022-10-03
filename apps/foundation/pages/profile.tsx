@@ -2,8 +2,8 @@ import { AuthenticatedUserProfile } from '@wsvvrijheid/ui'
 import { useAuthSelector } from '@wsvvrijheid/utils'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import { Layout } from '../../components'
-import i18nConfig from '../../next-i18next.config'
+import { Layout } from '../components'
+import i18nConfig from '../next-i18next.config'
 
 const Profile = ({ seo }) => {
   const { isLoggedIn } = useAuthSelector()

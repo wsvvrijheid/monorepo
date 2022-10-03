@@ -75,11 +75,11 @@ export const CategoryFilter: FC<CategoryFilterProps> = ({
       <HStack py={1.5} w="full" justify="space-between" align="center">
         <Text fontWeight="semibold">{title}</Text>
         {isLoading ? (
-          <Spinner size="lg" color="blue.500" />
+          <Spinner size="lg" color="primary.500" />
         ) : (
           <IconButton
             isDisabled={!value[0]}
-            colorScheme="blue"
+            colorScheme="primary"
             aria-label="clear filter"
             rounded="full"
             size="sm"

@@ -46,7 +46,7 @@ export default function Home({ seo }) {
             >
               <Navigate
                 size="lg"
-                href={`/${locale}/arts`}
+                href={`/${locale}/club/arts`}
                 as={Button}
                 leftIcon={<FaPaintBrush />}
                 colorScheme="primary"
@@ -55,7 +55,7 @@ export default function Home({ seo }) {
               </Navigate>
               <Navigate
                 size="lg"
-                href={`/${locale}/collections`}
+                href={`/${locale}/club/collections`}
                 as={Button}
                 leftIcon={<BsCollectionFill />}
                 colorScheme="primary"

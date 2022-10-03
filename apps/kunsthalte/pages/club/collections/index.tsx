@@ -7,8 +7,8 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
 import { useRouter } from 'next/router'
 
-import { Layout } from '../../components'
-import i18nConfig from '../../next-i18next.config'
+import { Layout } from '../../../components'
+import i18nConfig from '../../../next-i18next.config'
 
 type CollectionsPageProps = {
   seo: NextSeoProps
@@ -31,7 +31,7 @@ const CollectionsPage: NextPage<CollectionsPageProps> = ({
               title={collection.title}
               image={collection.image?.url}
               description={collection.description}
-              link={`/${locale}/collections/${collection.slug}`}
+              link={`/${locale}/club/collections/${collection.slug}`}
             />
           ))}
         </SimpleGrid>

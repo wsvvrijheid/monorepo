@@ -147,7 +147,7 @@ export const CreateArtForm: FC<CreateArtFormProps> = ({ queryKey }) => {
         ref={cancelRef}
       />
 
-      <Button size="lg" colorScheme="blue" onClick={formDisclosure.onOpen}>
+      <Button size="lg" colorScheme="primary" onClick={formDisclosure.onOpen}>
         <Box mr={{ base: 0, lg: 4 }}>
           <FaUpload />
         </Box>
@@ -163,7 +163,7 @@ export const CreateArtForm: FC<CreateArtFormProps> = ({ queryKey }) => {
       >
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader bg="blue.500" color={'white'}>
+          <ModalHeader bg="primary.500" color={'white'}>
             {t`art.upload`}
           </ModalHeader>
           <ModalCloseButton color={'white'} />
@@ -178,7 +178,7 @@ export const CreateArtForm: FC<CreateArtFormProps> = ({ queryKey }) => {
                 boxSize="full"
                 bg="whiteAlpha.900"
               >
-                <Spinner size="xl" colorScheme="blue" />
+                <Spinner size="xl" colorScheme="primary" />
               </Center>
             )}
 
@@ -186,7 +186,7 @@ export const CreateArtForm: FC<CreateArtFormProps> = ({ queryKey }) => {
               <VStack>
                 <Text>
                   {t`art.create.require-auth.text`}{' '}
-                  <Navigate href="/user/login" color="blue.500">
+                  <Navigate href="/user/login" color="primary.500">
                     {t`art.create.require-auth.button`}
                   </Navigate>
                 </Text>
@@ -267,7 +267,7 @@ export const CreateArtForm: FC<CreateArtFormProps> = ({ queryKey }) => {
                     <Button
                       isDisabled={!images || images?.length === 0 || !isValid}
                       type="submit"
-                      colorScheme="blue"
+                      colorScheme="primary"
                       rightIcon={<FaPlus />}
                     >
                       {t`create`}

@@ -1,6 +1,6 @@
 {
   "art": {
-    "link": "/arts",
+    "link": "/club/arts",
     "en": "Arts",
     "nl": "Kunsten",
     "tr": "Eserler"
@@ -12,7 +12,7 @@
     "tr": "Hashtagler"
   },
   "collection": {
-    "link": "/collections",
+    "link": "/club/collections",
     "en": "Collections",
     "nl": "Collecties",
     "tr": "Koleksiyonlar"
