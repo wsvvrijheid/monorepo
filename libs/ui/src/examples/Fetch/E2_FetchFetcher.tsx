@@ -3,10 +3,11 @@ import { useEffect, useState } from 'react'
 
 import { Box, Stack } from '@chakra-ui/react'
 import { API_URL, TOKEN } from '@wsvvrijheid/config'
+import { Blog } from '@wsvvrijheid/types'
 import { fetcher } from '@wsvvrijheid/utils'
 
 export const FetchFetcher = () => {
-  const [blogs, setBlogs] = useState([])
+  const [blogs, setBlogs] = useState<Blog[]>([])
 
   useEffect(() => {
     const getBlogs = async () => {
@@ -20,7 +21,7 @@ export const FetchFetcher = () => {
   return (
     <Box>
       {blogs.map(blog => (
-        <h2>{blog?.title}</h2>
+        <h2 key={blog.id}>{blog?.title}</h2>
       ))}
     </Box>
   )

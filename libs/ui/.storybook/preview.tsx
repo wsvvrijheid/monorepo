@@ -9,7 +9,7 @@ import { mockWorker, store, themes } from '../src/exports'
 import '@splidejs/react-splide/css'
 import i18n from './i18next'
 
-mockWorker.start()
+//mockWorker.start()
 mockWorker.printHandlers()
 
 export const parameters = {
