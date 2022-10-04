@@ -5,7 +5,6 @@ import {
   Heading,
   Link,
   SimpleGrid,
-  Stack,
   Text,
   VStack,
 } from '@chakra-ui/react'
@@ -20,7 +19,6 @@ import { EmailData, sendEmail } from '@wsvvrijheid/utils'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
 import { useRouter } from 'next/router'
-import { useTranslation } from 'react-i18next'
 import { MdEmail } from 'react-icons/md'
 
 import { Layout } from '../components'
@@ -31,14 +29,12 @@ interface ContactProps {
 }
 
 const about = {
-  tr: `Sanata ilgi duyan Hollanda’ya göç etmiş kişilerin hem online hem fiziki olarak buluştuğu, birbirlerine tecrübelerini aktardığı, modern ve geleneksel sanatlar üzerine bilgi paylaşımı yaptıkları, aynı zamanda sanatsal aktiviteler organize ettikleri bir gruptur.`,
+  tr: `Sanata ilgi duyan Hollanda’ya göç etmiş kişilerin hem online hem fiziki olarak buluştuğu, modern ve geleneksel sanatlar üzerine bilgi paylaşımı yaptıkları, aynı zamanda sanatsal aktiviteler organize ettikleri bir gruptur.`,
   en: `Art Station is a group where people who took emigrated in the Netherlands, who are interested in art, meet both online and physically, share their experiences with each other, share information on modern and traditional arts, and organize artistic activities at the same time.`,
   nl: `Kunsthalte is een groep waar mensen die naar Nederland zijn geëmigreerd, geïnteresseerd zijn in kunst, elkaar online en fysiek ontmoeten, hun ervaringen met elkaar delen, informatie delen over moderne en traditionele kunst en tegelijkertijd artistieke activiteiten organiseren.`,
 }
 
 const Contact = ({ seo }: ContactProps): JSX.Element => {
-  const { t } = useTranslation()
-
   const { locale } = useRouter()
 
   const {
@@ -62,6 +58,12 @@ const Contact = ({ seo }: ContactProps): JSX.Element => {
     return sendForm(emailData)
   }
 
+  const title = {
+    tr: 'Sanat Durağı',
+    en: 'Art Station',
+    nl: 'Kunsthalte',
+  }
+
   return (
     <Layout seo={seo}>
       <Box minH="inherit">
@@ -83,7 +85,7 @@ const Contact = ({ seo }: ContactProps): JSX.Element => {
               spacing={8}
             >
               <Heading fontWeight="black" as="h2" size="lg" color="primary.200">
-                Kunsthalte
+                {title[locale]}
               </Heading>
               <Text>{about[locale]}</Text>
 

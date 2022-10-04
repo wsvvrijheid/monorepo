@@ -34,7 +34,7 @@ export default function Home({ seo }) {
         >
           <AnimatedBox directing="to-down">
             <VStack flex={1} py={16} spacing={4} textAlign="center">
-              <Heading fontWeight="black">{t`art-stop`}</Heading>
+              <Heading fontWeight="black">{t`art-station`}</Heading>
               <Text fontSize={{ base: 'md', lg: 'xl' }}>{t`home.hero`}</Text>
             </VStack>
           </AnimatedBox>

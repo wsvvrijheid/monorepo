@@ -2,6 +2,7 @@ import { FC, PropsWithChildren } from 'react'
 
 import { menus, socialLinks } from '@wsvvrijheid/config'
 import { Layout as AppLayout } from '@wsvvrijheid/ui'
+import { useTranslation } from 'next-i18next'
 import { NextSeoProps } from 'next-seo'
 
 interface LayoutProps extends PropsWithChildren {
@@ -18,6 +19,8 @@ export const Layout: FC<LayoutProps> = ({
   hasScroll,
   seo,
 }) => {
+  const { t } = useTranslation('common')
+
   return (
     <AppLayout
       seo={seo}
@@ -35,7 +38,7 @@ export const Layout: FC<LayoutProps> = ({
         name: 'Kunsthalte',
         animated: false,
         menu: menus.kunsthalte.footerMenu,
-        about: 'About',
+        about: t('about.kunsthalte'),
         socialItems: socialLinks.kunsthalte,
       }}
       isDark={isDark}

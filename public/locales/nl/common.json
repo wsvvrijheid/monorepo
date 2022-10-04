@@ -9,7 +9,7 @@
   "visit-website": "Bezoek Website",
   "all": "Alle",
   "error": "Fout",
-  "art-stop": "Kunsthalte",
+  "art-station": "Kunsthalte",
   "collections": "Collecties",
   "blog-no-content": "Sorry! Geen artikelen gepubliceerd in deze taal.",
   "wsvvrijheid": {
@@ -26,7 +26,10 @@
   "footer_menu": "Menu's",
   "follow_us": "Volg ons",
   "society": "Stichting",
-  "footer_about": "Stilte is de grootste vijand van vrijheid.",
+  "footer_about": {
+    "wsvvrijheid": "Stilte is de grootste vijand van vrijheid.",
+    "kunsthalte": "De ontmoetingspunt van diverse kleuren"
+  },
   "contact": {
     "title": "Contact",
     "fill-form": "Vul het formulier in om contact op te nemen",

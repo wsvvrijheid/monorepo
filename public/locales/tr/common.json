@@ -11,7 +11,7 @@
   "view-collections": "Koleksiyonlara Gözat",
   "visit-website": "Web sitesini ziyaret et",
   "all": "Tümü",
-  "art-stop": "Sanat Durağı",
+  "art-station": "Sanat Durağı",
   "collections": "Koleksiyonlar",
   "blog-no-content": "Afedersiniz! Bu dilde yayınlanmış makale yok.",
   "wsvvrijheid": {
@@ -29,7 +29,10 @@
   "footer_menu": "Menuler",
   "follow_us": "Bizi takip edin",
   "society": "Vakfımız",
-  "footer_about": "Sessizlik, özgürlüğün en büyük düşmanıdır.",
+  "footer_about": {
+    "wsvvrijheid": "Sessizlik, özgürlüğün en büyük düşmanıdır.",
+    "kunsthalte": "Farklı renklerin buluşma noktası"
+  },
   "contact": {
     "title": "İletişim",
     "fill-form": "İletişim için formu doldurunuz",
