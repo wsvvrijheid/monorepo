@@ -36,23 +36,6 @@
   "follow_us": "Folow us",
   "society": "Society",
   "footer_about": "Silence is the worst enemy of freedom.",
-  "contact": {
-    "title": "Contact",
-    "fill-form": "Fill up the form to contact",
-    "form": {
-      "fullname-label": "Your Full Name",
-      "fullname-required": "Fullname cannot be empty.",
-      "email-required": "Mail cannot be empty.",
-      "email-invalid": "Invalid email address.",
-      "email-helper": "We will never share your mail.",
-      "message-label": "Message",
-      "message-required": "Message body cannot be empty.",
-      "message-delivered": "Thank you. Your message has been delivered.",
-      "failed": "Oops. Something went wrong, please try again.",
-      "button": "Send message",
-      "contactOnWhatsApp": " Contact us on WhatsApp"
-    }
-  },
   "post": {
     "search-label": "Search Users",
     "mention-list-label": "Popular Users",

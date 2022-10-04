@@ -35,23 +35,6 @@
   "follow_us": "Volg ons",
   "society": "Stichting",
   "footer_about": "Stilte is de grootste vijand van vrijheid.",
-  "contact": {
-    "title": "Contact",
-    "fill-form": "Vul het formulier in om contact op te nemen",
-    "form": {
-      "fullname-label": "Uw naam",
-      "fullname-required": "Naamruimte mag niet leeg zijn.",
-      "email-required": "Mailveld mag niet leeg zijn.",
-      "email-invalid": "Ongeldig e-mailadres.",
-      "email-helper": "We delen uw e-mail op geen enkele manier.",
-      "message-label": "Bericht",
-      "message-required": "Berichtveld mag niet leeg zijn.",
-      "message-delivered": "Bedankt. Uw bericht is ontvangen.",
-      "failed": "Oeps. Er is iets misgegaan, probeer het opnieuw.",
-      "button": "Bericht versturen",
-      "contactOnWhatsApp": "Contact op WhatsApp"
-    }
-  },
   "post": {
     "search-label": "Gebruikers Zoeken",
     "mention-list-label": "Populaire Gebruikers",

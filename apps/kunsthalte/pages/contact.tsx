@@ -32,7 +32,7 @@ interface ContactProps {
 
 const about = {
   tr: `Sanata ilgi duyan Hollanda’ya göç etmiş kişilerin hem online hem fiziki olarak buluştuğu, birbirlerine tecrübelerini aktardığı, modern ve geleneksel sanatlar üzerine bilgi paylaşımı yaptıkları, aynı zamanda sanatsal aktiviteler organize ettikleri bir gruptur.`,
-  en: `Art stop is a group where people who took emigrated in the Netherlands, who are interested in art, meet both online and physically, share their experiences with each other, share information on modern and traditional arts, and organize artistic activities at the same time.`,
+  en: `Art Station is a group where people who took emigrated in the Netherlands, who are interested in art, meet both online and physically, share their experiences with each other, share information on modern and traditional arts, and organize artistic activities at the same time.`,
   nl: `Kunsthalte is een groep waar mensen die naar Nederland zijn geëmigreerd, geïnteresseerd zijn in kunst, elkaar online en fysiek ontmoeten, hun ervaringen met elkaar delen, informatie delen over moderne en traditionele kunst en tegelijkertijd artistieke activiteiten organiseren.`,
 }
 
@@ -104,24 +104,12 @@ const Contact = ({ seo }: ContactProps): JSX.Element => {
               <SocialButtons items={[]} />
             </VStack>
 
-            <Stack
-              rounded="lg"
-              p={{ base: 8, lg: 16 }}
-              shadow="base"
-              spacing={4}
-            >
-              <Stack>
-                <Heading size="lg">{t('contact.title')}</Heading>
-                <Text fontSize="sm">{t('contact.fill-form')}</Text>
-              </Stack>
-              <Divider />
-              <ContactForm
-                onSubmitHandler={handleSubmit}
-                isLoading={isLoading}
-                isSuccess={isSuccess}
-                isError={isError}
-              />
-            </Stack>
+            <ContactForm
+              onSubmitHandler={handleSubmit}
+              isLoading={isLoading}
+              isSuccess={isSuccess}
+              isError={isError}
+            />
           </SimpleGrid>
         </Container>
       </Box>

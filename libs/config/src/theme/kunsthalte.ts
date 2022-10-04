@@ -13,7 +13,7 @@ export const kunsthalte = extendTheme(
     },
     styles: styles(fonts.club),
     colors: {
-      primary: defaultTheme['colors'].pink,
+      primary: defaultTheme['colors'].teal,
     },
   }),
 )

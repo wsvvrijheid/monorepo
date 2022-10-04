@@ -66,7 +66,7 @@ const Contact = ({ seo }: ContactProps): JSX.Element => {
             minH="inherit"
           >
             <VStack
-              bg="gray.900"
+              bg="gray.700"
               color="primary.50"
               borderRadius="lg"
               p={{ base: 8, lg: 12 }}
@@ -148,24 +148,12 @@ const Contact = ({ seo }: ContactProps): JSX.Element => {
               </Stack>
             </VStack>
 
-            <Stack
-              rounded="lg"
-              p={{ base: 8, lg: 16 }}
-              shadow="base"
-              spacing={4}
-            >
-              <Stack>
-                <Heading size="lg">{t('contact.title')}</Heading>
-                <Text fontSize="sm">{t('contact.fill-form')}</Text>
-              </Stack>
-              <Divider />
-              <ContactForm
-                onSubmitHandler={handleSubmit}
-                isLoading={isLoading}
-                isSuccess={isSuccess}
-                isError={isError}
-              />
-            </Stack>
+            <ContactForm
+              onSubmitHandler={handleSubmit}
+              isLoading={isLoading}
+              isSuccess={isSuccess}
+              isError={isError}
+            />
           </SimpleGrid>
         </Container>
       </Box>

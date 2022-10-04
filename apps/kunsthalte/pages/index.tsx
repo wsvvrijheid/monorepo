@@ -23,7 +23,7 @@ export default function Home({ seo }) {
         pt={100}
         pos="relative"
         zIndex={0}
-        backgroundImage="url(https://api.samenvvv.nl/uploads/kunsthalte_home_bg_55534198a2.jpg)"
+        backgroundImage="url(https://api.samenvvv.nl/uploads/kunsthalte_home_bg_79d33962e7.jpg)"
         backgroundSize="cover"
       >
         <Container

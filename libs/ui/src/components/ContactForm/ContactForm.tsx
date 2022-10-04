@@ -5,6 +5,10 @@ import {
   AlertDescription,
   AlertIcon,
   Button,
+  Divider,
+  Heading,
+  Stack,
+  Text,
   Textarea,
   VStack,
 } from '@chakra-ui/react'
@@ -53,60 +57,67 @@ export const ContactForm: React.FC<ContactFormProps> = ({
   }
 
   return (
-    <VStack spacing={5} as="form" onSubmit={handleSubmit(onSubmit)}>
-      <FormItem
-        name="fullname"
-        label={t('contact.form.fullname-label')}
-        leftElement={<BsPerson color="gray.800" />}
-        errors={errors}
-        register={register}
-      />
-      <FormItem
-        name="email"
-        type="email"
-        label="Email"
-        leftElement={<MdEmail color="gray.200" />}
-        helperText={t`contact.form.email-helper`}
-        errors={errors}
-        register={register}
-      />
-      <FormItem
-        as={Textarea}
-        name="message"
-        label={t('contact.form.message-label')}
-        errors={errors}
-        register={register}
-      />
+    <Stack rounded="lg" p={{ base: 8, lg: 16 }} shadow="base" spacing={4}>
+      <Stack>
+        <Heading size="lg">{t('contact.title')}</Heading>
+        <Text fontSize="sm">{t('contact.fill-form')}</Text>
+      </Stack>
+      <Divider />
+      <VStack spacing={5} as="form" onSubmit={handleSubmit(onSubmit)}>
+        <FormItem
+          name="fullname"
+          label={t('contact.form.fullname-label')}
+          leftElement={<BsPerson color="gray.800" />}
+          errors={errors}
+          register={register}
+        />
+        <FormItem
+          name="email"
+          type="email"
+          label="Email"
+          leftElement={<MdEmail color="gray.200" />}
+          helperText={t`contact.form.email-helper`}
+          errors={errors}
+          register={register}
+        />
+        <FormItem
+          as={Textarea}
+          name="message"
+          label={t('contact.form.message-label')}
+          errors={errors}
+          register={register}
+        />
 
-      <Button
-        variant="solid"
-        colorScheme="primary"
-        type="submit"
-        isDisabled={!isValid}
-        isLoading={isLoading}
-        w="full"
-      >
-        {t`contact.form.button`}
-      </Button>
+        <Button
+          variant="solid"
+          colorScheme="primary"
+          type="submit"
+          isDisabled={!isValid}
+          isLoading={isLoading}
+          w="full"
+        >
+          {t`contact.form.button`}
+        </Button>
 
-      {isSuccess && (
-        <Alert status="success">
-          <AlertIcon />
-          <AlertDescription>
-            {t('contact.form.message-delivered')}
-          </AlertDescription>
-        </Alert>
-      )}
-      {isError && (
-        <Alert status="error">
-          <AlertIcon />
-          <AlertDescription>
-            {t('contact.form.failed')}
-            {'  '}
-            {errorMessage ? errorMessage : ''}
-          </AlertDescription>
-        </Alert>
-      )}
-    </VStack>
+        {isSuccess && (
+          <Alert status="success">
+            <AlertIcon />
+            <AlertDescription>
+              {t('contact.form.message-delivered')}
+            </AlertDescription>
+          </Alert>
+        )}
+        {isError && (
+          <Alert status="error">
+            <AlertIcon />
+            <AlertDescription>
+              {t('contact.form.failed')}
+              {'  '}
+              {errorMessage ? errorMessage : ''}
+            </AlertDescription>
+          </Alert>
+        )}
+      </VStack>
+    </Stack>
   )
 }

@@ -35,23 +35,6 @@
   "follow_us": "Bizi takip edin",
   "society": "Vakfımız",
   "footer_about": "Sessizlik, özgürlüğün en büyük düşmanıdır.",
-  "contact": {
-    "title": "İletişim",
-    "fill-form": "İletişim için formu doldurunuz",
-    "form": {
-      "fullname-label": "Adınız",
-      "fullname-required": "Ad alanı boş olamaz.",
-      "email-required": "Mail alanı boş olamaz.",
-      "email-invalid": "Geçersiz e-mail adresi.",
-      "email-helper": "Mailiniz izniniz olmadan kimseyle paylaşılmayacaktır.",
-      "message-label": "Mesaj",
-      "message-required": "Mesaj alanı boş olamaz.",
-      "message-delivered": "Teşekkür ederiz. Mesajınız iletildi.",
-      "failed": "Oops. Birşeyler yanlış gitti, lütfen tekrar deneyin.",
-      "button": "Gönder",
-      "contactOnWhatsApp": "Bizimle WhatsApptan iletişime geçin"
-    }
-  },
   "post": {
     "search-label": "Kullanıcı Ara",
     "mention-list-label": "Popüler Kullanıcılar",
