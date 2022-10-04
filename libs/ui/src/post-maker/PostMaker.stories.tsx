@@ -2,7 +2,7 @@ import { useBreakpointValue } from '@chakra-ui/react'
 import { TourProvider } from '@reactour/tour'
 import { ComponentMeta, ComponentStory } from '@storybook/react'
 import { getStepsMobilePostMaker, getStepsPostMaker } from '@wsvvrijheid/utils'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'next-i18next'
 
 import { StepsContent } from '../components'
 import { PostMaker } from './PostMaker'

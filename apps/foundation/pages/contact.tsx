@@ -18,9 +18,9 @@ import {
   ContactFormFieldValues,
 } from '@wsvvrijheid/ui'
 import { EmailData, sendEmail } from '@wsvvrijheid/utils'
+import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
-import { useTranslation } from 'react-i18next'
 import { MdEmail, MdLocationOn, MdPhone } from 'react-icons/md'
 
 import { Layout } from '../components'

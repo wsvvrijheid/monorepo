@@ -11,10 +11,10 @@ import {
 } from '@chakra-ui/react'
 import { Job, StrapiLocale, Volunteer } from '@wsvvrijheid/types'
 import { useVolunteers } from '@wsvvrijheid/utils'
+import { useTranslation } from 'next-i18next'
 import { NextSeoProps } from 'next-seo'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useTranslation } from 'react-i18next'
 import { IoPeopleCircle } from 'react-icons/io5'
 
 import { Container, Hero, MasonryGrid, VolunteerCard } from '../../components'
