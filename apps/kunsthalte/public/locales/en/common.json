@@ -24,10 +24,10 @@
   },
   "copyright": "{{year}} {{name}}. All rights reserved.",
   "support": "Support",
-  "footer_menu": "Menus",
-  "follow_us": "Folow us",
+  "footer-menu": "Menus",
+  "follow-us": "Folow us",
   "society": "Society",
-  "footer_about": {
+  "footer-about": {
     "wsvvrijheid": "Silence is the worst enemy of freedom.",
     "kunsthalte": "The meeting point of various colors"
   },

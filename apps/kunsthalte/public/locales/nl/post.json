@@ -31,10 +31,10 @@
     "step-share-button": "Delen | Als je denkt dat je post klaar is om te delen, kun je het delen op Twitter voltooien door hier te klikken. Vergeet niet terug te komen voor volgende posts. 🙂"
   },
   "support": "Steun",
-  "footer_menu": "Menu's",
-  "follow_us": "Volg ons",
+  "footer-menu": "Menu's",
+  "follow-us": "Volg ons",
   "society": "Stichting",
-  "footer_about": "Stilte is de grootste vijand van vrijheid.",
+  "footer-about": "Stilte is de grootste vijand van vrijheid.",
   "post": {
     "search-label": "Gebruikers Zoeken",
     "mention-list-label": "Populaire Gebruikers",

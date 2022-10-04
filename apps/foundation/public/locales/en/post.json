@@ -32,10 +32,10 @@
     "step-share-button": "Share | If you think your post is ready to share, you can complete your sharing on Twitter by clicking here. Don't forget to come back for next posts. 🙂"
   },
   "support": "Support",
-  "footer_menu": "Menus",
-  "follow_us": "Folow us",
+  "footer-menu": "Menus",
+  "follow-us": "Folow us",
   "society": "Society",
-  "footer_about": "Silence is the worst enemy of freedom.",
+  "footer-about": "Silence is the worst enemy of freedom.",
   "post": {
     "search-label": "Search Users",
     "mention-list-label": "Popular Users",

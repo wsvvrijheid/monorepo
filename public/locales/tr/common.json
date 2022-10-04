@@ -26,10 +26,10 @@
   },
   "copyright": "{{year}} {{name}}. Tüm hakları saklıdır.",
   "support": "Destek",
-  "footer_menu": "Menuler",
-  "follow_us": "Bizi takip edin",
+  "footer-menu": "Menuler",
+  "follow-us": "Bizi takip edin",
   "society": "Vakfımız",
-  "footer_about": {
+  "footer-about": {
     "wsvvrijheid": "Sessizlik, özgürlüğün en büyük düşmanıdır.",
     "kunsthalte": "Farklı renklerin buluşma noktası"
   },

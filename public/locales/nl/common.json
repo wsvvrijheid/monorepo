@@ -23,10 +23,10 @@
   },
   "copyright": "{{year}} {{name}}. Alle rechten voorbehouden.",
   "support": "Steun",
-  "footer_menu": "Menu's",
-  "follow_us": "Volg ons",
+  "footer-menu": "Menu's",
+  "follow-us": "Volg ons",
   "society": "Stichting",
-  "footer_about": {
+  "footer-about": {
     "wsvvrijheid": "Stilte is de grootste vijand van vrijheid.",
     "kunsthalte": "De ontmoetingspunt van diverse kleuren"
   },
