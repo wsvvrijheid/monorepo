@@ -16,7 +16,7 @@ import {
 } from '@chakra-ui/react'
 import { TweetUserData } from '@wsvvrijheid/types'
 import { formatNumber } from '@wsvvrijheid/utils'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'next-i18next'
 import { FaPlus, FaTimes } from 'react-icons/fa'
 
 interface MentionListItemProps {

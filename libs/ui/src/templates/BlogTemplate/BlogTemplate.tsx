@@ -2,8 +2,8 @@ import { FC } from 'react'
 
 import { Image, SimpleGrid, Stack, Text } from '@chakra-ui/react'
 import { Blog, StrapiLocale } from '@wsvvrijheid/types'
+import { useTranslation } from 'next-i18next'
 import { NextSeoProps } from 'next-seo'
-import { useTranslation } from 'react-i18next'
 
 import { Container, BlogCard, AnimatedBox, Hero } from '../../components'
 

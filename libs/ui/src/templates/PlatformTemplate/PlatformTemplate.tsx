@@ -2,9 +2,9 @@ import { FC } from 'react'
 
 import { Box, Button, Center, Heading, Stack } from '@chakra-ui/react'
 import { UploadFile } from '@wsvvrijheid/types'
+import { useTranslation } from 'next-i18next'
 import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { NextSeoProps } from 'next-seo'
-import { useTranslation } from 'react-i18next'
 import { FaExternalLinkAlt } from 'react-icons/fa'
 
 import { Container, Navigate, Markdown, WImage } from '../../components'

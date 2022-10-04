@@ -13,8 +13,8 @@ import {
 import { StrapiLocale } from '@wsvvrijheid/types'
 import { useTrends } from '@wsvvrijheid/utils'
 import { formatDistanceToNow } from 'date-fns'
+import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
-import { useTranslation } from 'react-i18next'
 import { FaInfoCircle } from 'react-icons/fa'
 
 import { timeLocale, useFindHashtagInTrends } from '../../hooks'

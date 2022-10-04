@@ -9,7 +9,7 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '@wsvvrijheid/utils'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'next-i18next'
 import { FaSearch } from 'react-icons/fa'
 import { useDebounce } from 'react-use'
 

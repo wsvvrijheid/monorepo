@@ -2,7 +2,7 @@ import { FC } from 'react'
 
 import { Flex, IconButton, Stack, Text, VStack } from '@chakra-ui/react'
 import { Post } from '@wsvvrijheid/types'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'next-i18next'
 import { FaRandom } from 'react-icons/fa'
 
 import { useGenerateRandomPostText } from '../../hooks'
