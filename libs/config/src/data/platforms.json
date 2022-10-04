@@ -1,6 +1,6 @@
 [
   {
-    "image": "/assets/images/samen.png",
+    "image": "https://api.samenvvv.nl/uploads/samen_40a957fb1c.svg",
     "colors": {
       "bg": "samen.100",
       "header": "samen.500"
@@ -18,7 +18,7 @@
     "link": "/platforms/samenvvv"
   },
   {
-    "image": "/assets/images/lotus.jpeg",
+    "image": "https://api.samenvvv.nl/uploads/lotus_82d4dd8d33.jpeg",
     "colors": {
       "bg": "black",
       "header": "white",
@@ -37,7 +37,7 @@
     "link": "/platforms/lotus"
   },
   {
-    "image": "/assets/images/kunsthalte.svg",
+    "image": "https://api.samenvvv.nl/uploads/kunsthalte_logo_6e8dc3b222.svg",
     "colors": {
       "bg": "red.100",
       "header": "red.500"
@@ -55,7 +55,7 @@
     "link": "/platforms/art-stop"
   },
   {
-    "image": "/assets/images/academy.svg",
+    "image": "https://api.samenvvv.nl/uploads/academy_46e1b3485a.svg",
     "colors": {
       "bg": "blue.100",
       "header": "blue.500"

@@ -116,7 +116,10 @@ export const AdminLoginForm = () => {
           pt={{ base: 8, lg: '50%' }}
         >
           <VStack textAlign="center" w={'full'}>
-            <Avatar size="2xl" src={'https://wsvvrijheid.nl/images/logo.svg'} />
+            <Avatar
+              size="2xl"
+              src={'https://api.samenvvv.nl/uploads/wsvvrijheid_051c420ab0.svg'}
+            />
 
             <Text fontSize="xl" color={'blue.500'} fontWeight="bold">
               WEES DE STEM <br />

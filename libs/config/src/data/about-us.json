@@ -5,17 +5,17 @@
       {
         "title": "Wie zijn wij?",
         "description": "Het is opgericht door vrijwilligers uit verschillende in Nederland wonende beroepsgroepen die zich inzetten voor de rechtsstaat, democratie en mensenrechten. Ons team bestaat voornamelijk uit mensen die Turkije om politieke redenen hebben verlaten.",
-        "image": "/assets/images/who-we-are.svg"
+        "image": "https://api.samenvvv.nl/uploads/who_we_are_3bc225cacc.svg"
       },
       {
         "title": "Onze Visie",
         "description": "Als mensenrechtenschendingen openbaar worden gemaakt, zullen schendingen afnemen of eindigen.",
-        "image": "/assets/images/vision.svg"
+        "image": "https://api.samenvvv.nl/uploads/vision_d7a680f405.svg"
       },
       {
         "title": "Onze missie",
         "description": "Om nauwkeurige informatie met het publiek te delen over de mensenrechtenschendingen die plaatsvonden in Turkije en de Turkse staat in andere landen, en de daaruit voortvloeiende grieven.",
-        "image": "/assets/images/mission.svg"
+        "image": "https://api.samenvvv.nl/uploads/mission_10c588adb2.svg"
       }
     ]
   },

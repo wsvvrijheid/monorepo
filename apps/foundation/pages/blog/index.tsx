@@ -15,7 +15,10 @@ const Blogs = ({ seo }) => {
 
   return (
     <Layout seo={seo} isDark>
-      <Hero title="Blog" image="/assets/images/blog-bg.jpeg" />
+      <Hero
+        title="Blog"
+        image="https://api.samenvvv.nl/uploads/blog_bg_ffd7164ce7.jpeg"
+      />
       {blogs?.[0] ? (
         <>
           <Container maxW="container.lg">
