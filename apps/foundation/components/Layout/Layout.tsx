@@ -35,7 +35,7 @@ export const Layout: FC<LayoutProps> = ({
       footerProps={{
         menu: menus.wsvvrijheid.footerMenu,
         name: 'Wsvvrijheid',
-        about: t('about.wsvvrijheid'),
+        about: t('footer-about.wsvvrijheid'),
         socialItems: socialLinks.wsvvrijheid,
       }}
       isDark={isDark}
