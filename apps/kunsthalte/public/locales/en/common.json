@@ -27,7 +27,10 @@
   "footer_menu": "Menus",
   "follow_us": "Folow us",
   "society": "Society",
-  "footer_about": "Silence is the worst enemy of freedom.",
+  "footer_about": {
+    "wsvvrijheid": "Silence is the worst enemy of freedom.",
+    "kunsthalte": "The meeting point of various colors"
+  },
   "contact": {
     "title": "Contact",
     "fill-form": "Fill up the form to contact",
