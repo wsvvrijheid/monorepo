@@ -51,7 +51,7 @@ export const Footer: FC<FooterProps> = ({
               </Link>
             </motion.div>
             <Text textAlign="center" paddingLeft={1} mx={2} my={2}>
-              {about}
+              {t(`footer-about.${about}`)}
             </Text>
           </Stack>
           <FooterNav menu={menu} />

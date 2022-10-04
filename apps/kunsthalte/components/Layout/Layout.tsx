@@ -38,7 +38,7 @@ export const Layout: FC<LayoutProps> = ({
         name: 'Kunsthalte',
         animated: false,
         menu: menus.kunsthalte.footerMenu,
-        about: t('footer-about.kunsthalte'),
+        about: 'kunsthalte',
         socialItems: socialLinks.kunsthalte,
       }}
       isDark={isDark}
