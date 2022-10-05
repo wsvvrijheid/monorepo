@@ -10,11 +10,12 @@ import {
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation } from '@tanstack/react-query'
 import {
-  loginAuth,
+  setAuth,
   sleep,
   useAppDispatch,
   useAuthSelector,
 } from '@wsvvrijheid/utils'
+import axios from 'axios'
 import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
 import { useForm, SubmitHandler } from 'react-hook-form'
@@ -67,9 +68,13 @@ export const AdminLoginForm = () => {
 
   const loginMutation = useMutation({
     mutationKey: ['login'],
-    mutationFn: (body: { identifier: string; password: string }) =>
-      dispatch(loginAuth(body)),
-    onSuccess: async () => {
+    mutationFn: (body: LoginFormFieldValues) =>
+      axios.post('/api/auth/login', {
+        identifier: body.email,
+        password: body.password,
+      }),
+    onSuccess: async data => {
+      dispatch(setAuth(data.data))
       await sleep(1000)
       reset()
       router.push('/')
@@ -77,12 +82,7 @@ export const AdminLoginForm = () => {
   })
 
   const handleSubmitSign: SubmitHandler<LoginFormFieldValues> = async data => {
-    const body = {
-      identifier: data.email,
-      password: data.password,
-    }
-
-    loginMutation.mutate(body)
+    loginMutation.mutate(data)
   }
 
   return (
