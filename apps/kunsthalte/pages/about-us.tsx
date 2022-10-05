@@ -40,22 +40,22 @@ export const getStaticProps: GetStaticProps = async context => {
     
     ## Sanat Durağının amacı nedir?
     
-    Vakfın kuruluş amaçları düşünüldüğünde, sanatın evrensel dili göz ardı edilemeyecek kadar büyük bir öneme sahiptir. Bu nedenle sanata değer verilmeli, sanata ilgi duyan kişiler bir araya getirilmeli ve bu alandaki yeteneklerini geliştirmek isteyenlere değişik fırsatlar sunulmalıdır. Sonuç olarak sanatın insan hakları ihlallerinin azalmasına veya son bulmasına katkı sağlaması amaçlanmaktadır.
+    Günümüzde sanatın evrensel dili büyük bir güce ve öneme sahiptir. Bizler sanata değer verilmesi gerektiğine; sanata ilgi duyan kişiler olarak, bu alandaki yeteneklerini geliştirmek isteyenleri bir araya getirerek, onlara çeşitli fırsatlar sunulması gerektiğine inanıyoruz. Dünyaya dair meselelere sanat merceği altında bakıp, sanat dili ile farkındalık oluşturmak en birincil amacımız.
     `,
     nl: `## Wie is Kunsthalte?
 
-    Kunsthalte is een groep waar mensen die naar Nederland zijn geëmigreerd, geïnteresseerd zijn in kunst, elkaar online en fysiek ontmoeten, hun ervaringen met elkaar delen, informatie delen over moderne en traditionele kunst en tegelijkertijd artistieke activiteiten organiseren.
+    Het is een groep waar immigranten met een interesse in kunst samenkomen, zowel persoonlijk als online, kennis uitwisselen over moderne en traditionele kunst en tegelijkertijd artistieke evenementen plannen.
     
     ## Wat is het doel van de Kunsthalte?
 
-    Gezien de oprichtingsdoelen van de stichting, heeft de universele taal van de kunst een groot belang dat niet kan worden genegeerd. Om deze reden moet kunst worden gewaardeerd, mensen die geïnteresseerd zijn in kunst moeten worden samengebracht en verschillende kansen moeten worden geboden aan degenen die hun vaardigheden op dit gebied willen verbeteren. Hierdoor is het de bedoeling dat kunst bijdraagt aan het verminderen of beëindigen van mensenrechtenschendingen.`,
+    De universele taal van de kunst heeft tegenwoordig veel invloed. Als mensen die geïnteresseerd zijn in kunst, zijn wij van mening dat kunst gewaardeerd moet worden en dat degenen die hun vaardigheden op dit gebied willen vergroten, toegang moeten hebben tot een verscheidenheid aan opties. Ons belangrijkste doel is om mondiale problemen te bekijken door de lens van kunst en het bewustzijn te vergroten met de taal van kunst.`,
     en: `## Who is Art Station?
     
-    Art Station is a group where people who took emigrated in the Netherlands, who are interested in art, meet both online and physically, share their experiences with each other, share information on modern and traditional arts, and organize artistic activities at the same time.
+    It is a group where immigrants with an interest in the arts come together both in person and online, exchange knowledge about modern and traditional arts, and plan artistic events at the same time.
     
     ## What is the purpose of the Art Station?
     
-    Considering the founding purposes of the foundation, the universal language of art has a great importance that cannot be ignored. For this reason, art should be valued, people interested in art should be brought together and different opportunities should be offered to those who want to improve their skills in this field. As a result, it is aimed that art will contribute to the reduction or end of human rights violations.`,
+    The universal language of art has a lot of influence today. As people who are interested in art, we think that it should be valued and that those who want to advance their skills in this area should have access to a variety of options. Our main objective is to look at the global issues through the lens of art and to raise awareness with the language of art.`,
   }
 
   const source = await serialize(markdown[locale])

@@ -43,7 +43,9 @@ export default function Home({ seo }) {
           <AnimatedBox directing="to-down">
             <VStack flex={1} py={16} spacing={4} textAlign="center">
               <Heading fontWeight="black">{t`art-station`}</Heading>
-              <Text fontSize={{ base: 'md', lg: 'xl' }}>{t`home.hero`}</Text>
+              <Text fontSize={{ base: 'md', lg: 'xl' }}>
+                &quot;{t('footer-about.kunsthalte')}&quot;
+              </Text>
             </VStack>
           </AnimatedBox>
           <AnimatedBox directing="to-down" mx="auto">
