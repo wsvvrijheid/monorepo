@@ -3,7 +3,6 @@ import { merge } from 'lodash'
 
 import { colors } from './colors'
 import { fonts } from './fonts'
-import { styles } from './global'
 import { defaultTheme } from './theme'
 
 export const samenvvv = extendTheme(
@@ -12,7 +11,6 @@ export const samenvvv = extendTheme(
       body: fonts.body,
       heading: fonts.body,
     },
-    styles: styles(fonts.body),
     colors: {
       primary: colors.samen,
     },
