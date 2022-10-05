@@ -1,13 +1,25 @@
-import * as React from 'react'
+import { useState, useEffect } from 'react'
 
-import { Button, Container, Heading, Stack } from '@chakra-ui/react'
+import {
+  Button,
+  Center,
+  Container,
+  Heading,
+  Spinner,
+  Stack,
+  Text,
+} from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { useMutation } from '@tanstack/react-query'
+import { Request, toastMessage } from '@wsvvrijheid/utils'
+import axios from 'axios'
 import { TFunction, useTranslation } from 'next-i18next'
+import { useRouter } from 'next/router'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import * as yup from 'yup'
 
 import { FormItem } from '../FormItem'
-import { ResetPasswordFieldValues, ResetPasswordFormProps } from './types'
+import { ResetPasswordFieldValues } from './types'
 
 const schema = (t: TFunction) =>
   yup.object({
@@ -30,15 +42,16 @@ const schema = (t: TFunction) =>
       ),
   })
 
-export const ResetPasswordForm: React.FC<ResetPasswordFormProps> = ({
-  onSubmitHandler,
-  isLoading,
-}) => {
+export const ResetPasswordForm = () => {
   const { t } = useTranslation()
+  const router = useRouter()
+
+  const { code } = router.query
 
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<ResetPasswordFieldValues>({
     defaultValues: {
@@ -48,8 +61,36 @@ export const ResetPasswordForm: React.FC<ResetPasswordFormProps> = ({
     resolver: yupResolver(schema(t)),
     mode: 'all',
   })
+
+  const { mutate, isLoading } = useMutation<
+    unknown,
+    unknown,
+    ResetPasswordFieldValues
+  >({
+    mutationKey: ['reset-password'],
+    mutationFn: (data: ResetPasswordFieldValues) =>
+      axios.post('/api/auth/reset-password', {
+        code,
+        password: data.password,
+        passwordConfirmation: data.passwordConfirmation,
+      }),
+    onSuccess: () => {
+      toastMessage(null, t`login.reset-pass-header.text`, 'success')
+      reset()
+      setTimeout(() => {
+        router.push('/login')
+      }, 2000)
+    },
+    onError: () => {
+      toastMessage(t`error`, null, 'error')
+      setTimeout(() => {
+        reset()
+      }, 2000)
+    },
+  })
+
   const onSubmit: SubmitHandler<ResetPasswordFieldValues> = data => {
-    onSubmitHandler(data)
+    mutate(data)
   }
 
   return (

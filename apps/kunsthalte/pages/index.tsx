@@ -1,4 +1,12 @@
-import { Button, Center, Heading, Stack, Text, VStack } from '@chakra-ui/react'
+import {
+  Box,
+  Button,
+  Center,
+  Heading,
+  Stack,
+  Text,
+  VStack,
+} from '@chakra-ui/react'
 import { AnimatedBox, Container, Navigate } from '@wsvvrijheid/ui'
 import { GetStaticProps } from 'next'
 import { useTranslation } from 'next-i18next'
@@ -11,7 +19,7 @@ import { Layout } from '../components'
 import i18nConfig from '../next-i18next.config'
 
 export default function Home({ seo }) {
-  const { t } = useTranslation()
+  const { t } = useTranslation(['common'])
   const { locale } = useRouter()
 
   return (
@@ -51,7 +59,7 @@ export default function Home({ seo }) {
                 leftIcon={<FaPaintBrush />}
                 colorScheme="primary"
               >
-                {t('view-arts')}
+                <Box>{t('view-arts')}</Box>
               </Navigate>
               <Navigate
                 size="lg"

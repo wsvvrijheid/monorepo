@@ -1,13 +1,14 @@
-import * as React from 'react'
-
 import { Button, Container, Heading, Stack } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { useMutation } from '@tanstack/react-query'
+import { toastMessage } from '@wsvvrijheid/utils'
+import axios from 'axios'
 import { TFunction, useTranslation } from 'next-i18next'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import * as yup from 'yup'
 
 import { FormItem } from '../FormItem'
-import { ForgotPasswordFormProps, ForgotPasswordFieldValues } from './types'
+import { ForgotPasswordFieldValues } from './types'
 
 const schema = (t: TFunction) =>
   yup.object({
@@ -17,14 +18,12 @@ const schema = (t: TFunction) =>
       .required(t`login.email.required`),
   })
 
-export const ForgotPasswordForm: React.FC<ForgotPasswordFormProps> = ({
-  onSubmitHandler,
-  isLoading,
-}) => {
+export const ForgotPasswordForm = () => {
   const { t } = useTranslation()
 
   const {
     register,
+    reset,
     handleSubmit,
     formState: { errors },
   } = useForm<ForgotPasswordFieldValues>({
@@ -35,8 +34,23 @@ export const ForgotPasswordForm: React.FC<ForgotPasswordFormProps> = ({
     mode: 'all',
   })
 
+  const { mutate, isLoading } = useMutation(
+    ['forgot-password'],
+    (values: ForgotPasswordFieldValues) =>
+      axios.post('/api/auth/forgot-password', values),
+    {
+      onSuccess: () => {
+        toastMessage(null, t`login.forgot-pass-header.text`, 'success')
+        reset()
+      },
+      onError: () => {
+        toastMessage(t`error`, t`apply-form.error.description`, 'error')
+      },
+    },
+  )
+
   const onSubmit: SubmitHandler<ForgotPasswordFieldValues> = data => {
-    onSubmitHandler(data)
+    mutate(data)
   }
 
   return (
