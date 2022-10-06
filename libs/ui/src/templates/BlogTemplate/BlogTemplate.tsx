@@ -1,7 +1,7 @@
 import { FC } from 'react'
 
 import { Image, SimpleGrid, Stack, Text } from '@chakra-ui/react'
-import { Blog, StrapiLocale } from '@wsvvrijheid/types'
+import { Blog } from '@wsvvrijheid/types'
 import { useTranslation } from 'next-i18next'
 import { NextSeoProps } from 'next-seo'
 
@@ -10,7 +10,6 @@ import { Container, BlogCard, AnimatedBox, Hero } from '../../components'
 export type BlogTemplateProps = {
   seo: NextSeoProps
   blogs: Blog[]
-  locale: StrapiLocale
 }
 
 export const BlogTemplate: FC<BlogTemplateProps> = ({ seo, blogs }) => {
