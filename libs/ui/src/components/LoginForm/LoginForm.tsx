@@ -66,7 +66,7 @@ export const LoginForm = () => {
         password: body.password,
       }),
     onSuccess: data => {
-      dispatch(setAuth(data))
+      dispatch(setAuth(data.data))
       reset()
       router.push('/')
     },
