@@ -15,14 +15,12 @@ import { Layout } from '../components'
 import i18nConfig from '../next-i18next.config'
 
 const AboutUsPage: FC<PlatformTemplateProps> = ({ seo, source }) => {
-  if (!source) return null
-
   return (
     <Layout seo={seo} isDark>
       <Hero title={seo.title} />
       <Container maxW="container.lg">
         <Box textAlign="center" my={16}>
-          <Markdown source={source} />
+          {source && <Markdown source={source} />}
         </Box>
       </Container>
     </Layout>
