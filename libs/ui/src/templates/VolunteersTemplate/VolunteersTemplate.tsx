@@ -81,7 +81,9 @@ export const VolunteersTemplate: FC<VolunteersTemplateProps> = ({
                   </Box>
                 }
                 colorScheme="blue"
-              >{t`joinTheTeam`}</Button>
+              >
+                {t('joinTheTeam')}
+              </Button>
             </Link>
 
             <Box
@@ -99,7 +101,7 @@ export const VolunteersTemplate: FC<VolunteersTemplateProps> = ({
                   w="full"
                   overflowX={{ base: 'auto', lg: 'hidden' }}
                 >
-                  <Radio value="">{t`all`}</Radio>
+                  <Radio value="">{t('all')}</Radio>
                   {jobs.map(job => (
                     <Radio
                       p={{ base: 4, lg: 'initial' }}

@@ -1,17 +1,7 @@
-import { useState, useEffect } from 'react'
-
-import {
-  Button,
-  Center,
-  Container,
-  Heading,
-  Spinner,
-  Stack,
-  Text,
-} from '@chakra-ui/react'
+import { Button, Container, Heading, Stack } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation } from '@tanstack/react-query'
-import { Request, toastMessage } from '@wsvvrijheid/utils'
+import { toastMessage } from '@wsvvrijheid/utils'
 import axios from 'axios'
 import { TFunction, useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'

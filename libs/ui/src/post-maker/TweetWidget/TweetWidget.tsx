@@ -13,7 +13,7 @@ export const TweetWidget = ({
   title,
   tweets,
 }: TweetWidgetProps): JSX.Element => {
-  const { t } = useTranslation(['post'])
+  const { t } = useTranslation('post')
 
   return (
     <VStack align="stretch" justify="stretch" h={640}>
@@ -36,7 +36,7 @@ export const TweetWidget = ({
                 src="https://api.samenvvv.nl/uploads/tweet_widget_9eb09caf22.svg"
                 alt="no tweets"
               />
-              <Text>{t`post.no-tweet`}</Text>
+              <Text>{t('post.no-tweet')}</Text>
             </Stack>
           )}
         </VStack>

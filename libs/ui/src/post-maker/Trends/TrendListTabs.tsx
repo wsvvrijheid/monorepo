@@ -21,7 +21,7 @@ import { timeLocale, useFindHashtagInTrends } from '../../hooks'
 import { TrendList } from './TrendList'
 
 export const TrendListTabs = () => {
-  const { t } = useTranslation(['post'])
+  const { t } = useTranslation('post')
   const { locale } = useRouter()
   const [hashtagInTrends, hashtagExtraInTrends] = useFindHashtagInTrends()
 
@@ -43,7 +43,7 @@ export const TrendListTabs = () => {
       data-tour="step-trends"
     >
       <Flex pos="relative" align="start" justify="space-between">
-        <Text fontSize="sm">{t`post.trends-label`}</Text>
+        <Text fontSize="sm">{t('post.trends-label')}</Text>
 
         <HStack role="group">
           <Box

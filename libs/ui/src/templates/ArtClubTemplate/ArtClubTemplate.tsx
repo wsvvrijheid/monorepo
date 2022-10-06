@@ -110,7 +110,7 @@ export const ArtClubTemplate: FC = () => {
           <Stack w="full" spacing={4}>
             <HStack>
               <SearchForm
-                placeholder={t`search`}
+                placeholder={t('search')}
                 onSearch={value => changeParam({ searchTerm: value as string })}
                 isFetching={artsQuery.isFetching}
               />

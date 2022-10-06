@@ -24,7 +24,7 @@ export const BlogTemplate: FC<BlogTemplateProps> = ({ seo, blogs }) => {
           alt="no blog"
         />
         <Text textAlign="center" fontSize="lg">
-          {t`blog-no-content`}
+          {t('blog-no-content')}
         </Text>
       </Stack>
     )
