@@ -28,7 +28,7 @@ export const AuthenticatedUserProfile = () => {
 
   const { user } = useAuthSelector()
 
-  const { data } = useArtByArtist(user?.username)
+  const { data } = useArtByArtist(user?.username, 'preview')
   const rejected = data?.filter(art => art?.approvalStatus === 'rejected')
   const approved = data?.filter(art => art?.approvalStatus === 'approved')
   const pending = data?.filter(art => art?.approvalStatus === 'pending')

@@ -29,11 +29,19 @@ export const getArtByArtist = async (
   return response?.data
 }
 
-export const useArtByArtist = (username?: string) => {
+export const useArtByArtist = (
+  username?: string,
+  publicationState?: PublicationState,
+) => {
   const router = useRouter()
   const locale = router.locale
   return useQuery({
     queryKey: ['user-art', locale, username],
-    queryFn: () => getArtByArtist(locale as StrapiLocale, username as string),
+    queryFn: () =>
+      getArtByArtist(
+        locale as StrapiLocale,
+        username as string,
+        publicationState,
+      ),
   })
 }
