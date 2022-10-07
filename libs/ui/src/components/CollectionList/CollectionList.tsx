@@ -20,10 +20,9 @@ export const CollectionList: FC<CollectionListProps> = ({ collectionData }) => {
     <div>
       <HStack py={1.5} w="full" align="center">
         <Box as={MdCollectionsBookmark} />
-        <Text
-          display={{ base: 'none', lg: 'block' }}
-          fontWeight="semibold"
-        >{t`collections`}</Text>
+        <Text display={{ base: 'none', lg: 'block' }} fontWeight="semibold">
+          {t('collections')}
+        </Text>
       </HStack>
       <Divider />
       {collectionData.map((collection, index) => (

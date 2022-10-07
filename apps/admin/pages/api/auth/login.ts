@@ -11,7 +11,12 @@ const loginRoute = async (req: NextApiRequest, res: NextApiResponse) => {
     await req.session.save()
     res.json(auth)
   } catch (error) {
-    console.error('error', error)
+    if (error.response?.data?.error) {
+      console.error('LOGIN_AUTH_ERROR', error.response.data.error)
+      res
+        .status(error.response.data.error.status)
+        .json({ message: error.response.data.error.message })
+    }
     res.status(500).json({ message: 'Something went wrong' })
   }
 }

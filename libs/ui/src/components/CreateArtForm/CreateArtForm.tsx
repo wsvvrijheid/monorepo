@@ -151,7 +151,7 @@ export const CreateArtForm: FC<CreateArtFormProps> = ({ queryKey }) => {
         <Box mr={{ base: 0, lg: 4 }}>
           <FaUpload />
         </Box>
-        <Box display={{ base: 'none', lg: 'block' }}>{t`art.upload`}</Box>
+        <Box display={{ base: 'none', lg: 'block' }}>{t('art.upload')}</Box>
       </Button>
 
       <Modal
@@ -164,7 +164,7 @@ export const CreateArtForm: FC<CreateArtFormProps> = ({ queryKey }) => {
         <ModalOverlay />
         <ModalContent>
           <ModalHeader bg="primary.500" color={'white'}>
-            {t`art.upload`}
+            {t('art.upload')}
           </ModalHeader>
           <ModalCloseButton color={'white'} />
           <ModalBody pos="relative" py={6}>
@@ -185,9 +185,9 @@ export const CreateArtForm: FC<CreateArtFormProps> = ({ queryKey }) => {
             {!auth.isLoggedIn && (
               <VStack>
                 <Text>
-                  {t`art.create.require-auth.text`}{' '}
+                  {t('art.create.require-auth.text')}{' '}
                   <Navigate href="/login" color="primary.500">
-                    {t`art.create.require-auth.button`}
+                    {t('art.create.require-auth.button')}
                   </Navigate>
                 </Text>
               </VStack>
@@ -210,7 +210,7 @@ export const CreateArtForm: FC<CreateArtFormProps> = ({ queryKey }) => {
                       mt={2}
                       fontWeight={'600'}
                     >
-                      {t`language`}
+                      {t('language')}
                     </FormLabel>
                     <Select
                       defaultValue={locale}
@@ -224,7 +224,7 @@ export const CreateArtForm: FC<CreateArtFormProps> = ({ queryKey }) => {
                   </FormControl>
                   <FormItem
                     name="title"
-                    label={t`title`}
+                    label={t('title')}
                     isRequired
                     errors={errors}
                     register={register}
@@ -245,7 +245,7 @@ export const CreateArtForm: FC<CreateArtFormProps> = ({ queryKey }) => {
 
                   <FormItem
                     name="description"
-                    label={t`description`}
+                    label={t('description')}
                     as={Textarea}
                     isRequired
                     errors={errors}
@@ -253,7 +253,7 @@ export const CreateArtForm: FC<CreateArtFormProps> = ({ queryKey }) => {
                   />
                   <FormItem
                     name="content"
-                    label={t`content`}
+                    label={t('content')}
                     as={Textarea}
                     isRequired
                     errors={errors}
@@ -262,7 +262,7 @@ export const CreateArtForm: FC<CreateArtFormProps> = ({ queryKey }) => {
 
                   <ButtonGroup alignSelf="end">
                     <Button onClick={closeForm} mr={3} ref={cancelRef}>
-                      {t`cancel`}
+                      {t('cancel')}
                     </Button>
                     <Button
                       isDisabled={!images || images?.length === 0 || !isValid}
@@ -270,7 +270,7 @@ export const CreateArtForm: FC<CreateArtFormProps> = ({ queryKey }) => {
                       colorScheme="primary"
                       rightIcon={<FaPlus />}
                     >
-                      {t`create`}
+                      {t('create')}
                     </Button>
                   </ButtonGroup>
                 </Stack>

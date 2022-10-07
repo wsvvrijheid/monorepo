@@ -1,4 +1,12 @@
-import { Button, Center, Heading, Stack, Text, VStack } from '@chakra-ui/react'
+import {
+  Box,
+  Button,
+  Center,
+  Heading,
+  Stack,
+  Text,
+  VStack,
+} from '@chakra-ui/react'
 import { AnimatedBox, Container, Navigate } from '@wsvvrijheid/ui'
 import { GetStaticProps } from 'next'
 import { useTranslation } from 'next-i18next'
@@ -34,8 +42,10 @@ export default function Home({ seo }) {
         >
           <AnimatedBox directing="to-down">
             <VStack flex={1} py={16} spacing={4} textAlign="center">
-              <Heading fontWeight="black">{t`art-station`}</Heading>
-              <Text fontSize={{ base: 'md', lg: 'xl' }}>{t`home.hero`}</Text>
+              <Heading fontWeight="black">{t('art-station')}</Heading>
+              <Text fontSize={{ base: 'md', lg: 'xl' }}>
+                &quot;{t('footer-about.kunsthalte')}&quot;
+              </Text>
             </VStack>
           </AnimatedBox>
           <AnimatedBox directing="to-down" mx="auto">
@@ -51,7 +61,7 @@ export default function Home({ seo }) {
                 leftIcon={<FaPaintBrush />}
                 colorScheme="primary"
               >
-                {t('view-arts')}
+                <Box>{t('view-arts')}</Box>
               </Navigate>
               <Navigate
                 size="lg"

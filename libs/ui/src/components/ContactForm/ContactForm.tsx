@@ -76,7 +76,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({
           type="email"
           label="Email"
           leftElement={<MdEmail color="gray.200" />}
-          helperText={t`contact.form.email-helper`}
+          helperText={t('contact.form.email-helper')}
           errors={errors}
           register={register}
         />
@@ -96,7 +96,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({
           isLoading={isLoading}
           w="full"
         >
-          {t`contact.form.button`}
+          {t('contact.form.button')}
         </Button>
 
         {isSuccess && (

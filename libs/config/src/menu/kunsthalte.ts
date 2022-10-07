@@ -1,7 +1,7 @@
 import { about, art, collection, contact, privacy, terms } from './routes'
 
 export const kunsthalte = {
-  headerMenu: [art, collection, contact, about],
+  headerMenu: [art, collection, about, contact],
   footerMenu: [
     {
       children: [

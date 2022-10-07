@@ -8,6 +8,8 @@
   "news": "News",
   "visit-website": "Visit Website",
   "platforms": "Platforms",
+  "view-arts": "View Arts",
+  "view-collections": "View Collections",
   "error": "Error",
   "all": "All",
   "art-station": "Art Station",
@@ -24,10 +26,10 @@
   },
   "copyright": "{{year}} {{name}}. All rights reserved.",
   "support": "Support",
-  "footer_menu": "Menus",
-  "follow_us": "Folow us",
+  "footer-menu": "Menus",
+  "follow-us": "Folow us",
   "society": "Society",
-  "footer_about": {
+  "footer-about": {
     "wsvvrijheid": "Silence is the worst enemy of freedom.",
     "kunsthalte": "The meeting point of various colors"
   },

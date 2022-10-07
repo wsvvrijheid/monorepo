@@ -41,7 +41,7 @@ export const ArtCardActions: FC<ArtCardActionsProps> = ({
         {isPublished && (
           <MenuItem onClick={() => onHandleAction('unpublish')}>
             <Box as={MdOutlineUnpublished} mr={2} />
-            {t`profile.art.unpublish.button`}
+            {t('profile.art.unpublish.button')}
           </MenuItem>
         )}
 
@@ -49,14 +49,14 @@ export const ArtCardActions: FC<ArtCardActionsProps> = ({
         {!isPublished && (
           <MenuItem onClick={() => onHandleAction('publish')}>
             <Box as={MdOutlinePublishedWithChanges} mr={2} />
-            {t`profile.art.publish.button`}
+            {t('profile.art.publish.button')}
           </MenuItem>
         )}
 
         {/* Delete  */}
         <MenuItem color="red.500" onClick={() => onHandleAction('delete')}>
           <Box as={MdDeleteOutline} mr={2} />
-          {t`profile.art.delete.button`}
+          {t('profile.art.delete.button')}
         </MenuItem>
       </MenuList>
     </Menu>

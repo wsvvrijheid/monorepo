@@ -24,7 +24,7 @@ const CollectionsPage: NextPage<CollectionsPageProps> = ({
     <Layout seo={seo} isDark>
       <Hero title={seo.title} />
       <Container minH="inherit" py={{ base: 8, lg: 16 }}>
-        <SimpleGrid columns={{ base: 1, md: 2, lg: 4 }}>
+        <SimpleGrid columns={{ base: 1, md: 2, lg: 4 }} gap={4}>
           {collections.map((collection, i) => (
             <Card
               key={i}

@@ -35,7 +35,7 @@ export const PostContainerTrendTags = () => {
   return (
     <Stack mb={2} spacing={1}>
       <Text color="gray.500" fontSize="sm">
-        {t`post.trends-label`}
+        {t('post.trends-label')}
       </Text>
       {defaultHashtags.length > 0 && (
         <Wrap>

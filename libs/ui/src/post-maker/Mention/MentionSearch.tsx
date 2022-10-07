@@ -16,7 +16,7 @@ import { useDebounce } from 'react-use'
 export const MentionSearch = (): JSX.Element => {
   const { mentions } = useAppSelector(state => state.post)
   const dispatch = useAppDispatch()
-  const { t } = useTranslation(['post'])
+  const { t } = useTranslation('post')
   const [searchArea, setSearchArea] = useState<string>('')
   const [debouncedSearchArea, setDebouncedSearchArea] = useState<string>('')
 
@@ -57,7 +57,7 @@ export const MentionSearch = (): JSX.Element => {
         borderBottomWidth={2}
         rounded={0}
         id="mention-search"
-        placeholder={t`post.search-label`}
+        placeholder={t('post.search-label')}
         onChange={event => {
           setSearchArea(event.target.value)
         }}

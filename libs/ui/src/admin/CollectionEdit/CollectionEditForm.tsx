@@ -216,7 +216,7 @@ export const CollectionEditForm: FC<CollectionEditFormProps> = ({
         >
           <FormItem
             name="title"
-            label={t`title`}
+            label={t('title')}
             isRequired
             errors={errors}
             register={register}
@@ -228,7 +228,7 @@ export const CollectionEditForm: FC<CollectionEditFormProps> = ({
           />
           <FormItem
             name="description"
-            label={t`description`}
+            label={t('description')}
             as={Textarea}
             flex={1}
             isRequired
@@ -243,7 +243,7 @@ export const CollectionEditForm: FC<CollectionEditFormProps> = ({
           />
           {/* <FormItem
           name="content"
-          label={t`content`}
+          label={t('content')}
           as={Textarea}
           isRequired
           errors={errors}

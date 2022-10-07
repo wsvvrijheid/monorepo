@@ -2,7 +2,6 @@ import { FC, PropsWithChildren } from 'react'
 
 import { menus, socialLinks } from '@wsvvrijheid/config'
 import { Layout as AppLayout } from '@wsvvrijheid/ui'
-import { useTranslation } from 'next-i18next'
 import { NextSeoProps } from 'next-seo'
 
 interface LayoutProps extends PropsWithChildren {
@@ -19,7 +18,6 @@ export const Layout: FC<LayoutProps> = ({
   hasScroll,
   seo,
 }) => {
-  const { t } = useTranslation('common')
   return (
     <AppLayout
       seo={seo}
@@ -35,7 +33,7 @@ export const Layout: FC<LayoutProps> = ({
       footerProps={{
         menu: menus.wsvvrijheid.footerMenu,
         name: 'Wsvvrijheid',
-        about: t('footer-about.wsvvrijheid'),
+        about: 'wsvvrijheid',
         socialItems: socialLinks.wsvvrijheid,
       }}
       isDark={isDark}

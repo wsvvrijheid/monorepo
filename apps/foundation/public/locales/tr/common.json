@@ -6,10 +6,11 @@
   "prev": "Önceki",
   "event": "Etkinlik",
   "news": "Haber",
+  "visit-website": "Web sitesini ziyaret et",
   "platforms": "Platformlar",
   "view-arts": "Eserlere Gözat",
   "view-collections": "Koleksiyonlara Gözat",
-  "visit-website": "Web sitesini ziyaret et",
+  "error": "Hata",
   "all": "Tümü",
   "art-station": "Sanat Durağı",
   "collections": "Koleksiyonlar",
@@ -20,16 +21,15 @@
     "treasurer": "Sayman",
     "secretary": "Sekreter"
   },
-  "error": "Hata",
   "home": {
     "hero": "Evrensel hukuk karşısında herkes eşittir. Evrensel insan haklarından herkesin eşit şekilde faydalanması için çalışmalar yapıyoruz."
   },
   "copyright": "{{year}} {{name}}. Tüm hakları saklıdır.",
   "support": "Destek",
-  "footer_menu": "Menuler",
-  "follow_us": "Bizi takip edin",
+  "footer-menu": "Menuler",
+  "follow-us": "Bizi takip edin",
   "society": "Vakfımız",
-  "footer_about": {
+  "footer-about": {
     "wsvvrijheid": "Sessizlik, özgürlüğün en büyük düşmanıdır.",
     "kunsthalte": "Farklı renklerin buluşma noktası"
   },
@@ -98,6 +98,7 @@
       "required": "Parola alanı zorunludur",
       "warning": "Parola en az 8 karakter olmalıdır",
       "forgot-password": "Parolanızı mı unuttunuz?",
+      "password-confirm": "Parolayı onaylayın",
       "matches": {
         "lowercase": "Şifreniz en az bir küçük harf içermelidir [a...z]",
         "uppercase": "Şifreniz en az bir büyük harf içermelidir [A..Z]",

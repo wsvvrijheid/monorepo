@@ -28,7 +28,7 @@ export const AuthenticatedUserProfile = () => {
 
   const { user } = useAuthSelector()
 
-  const { data } = useArtByArtist(user?.username)
+  const { data } = useArtByArtist(user?.username, 'preview')
   const rejected = data?.filter(art => art?.approvalStatus === 'rejected')
   const approved = data?.filter(art => art?.approvalStatus === 'approved')
   const pending = data?.filter(art => art?.approvalStatus === 'pending')
@@ -59,19 +59,20 @@ export const AuthenticatedUserProfile = () => {
               {user && (
                 <>
                   <Tab fontWeight={600}>
-                    <Box as={FaPaintBrush} mr={1} /> {t`profile.approved-arts`}
+                    <Box as={FaPaintBrush} mr={1} />{' '}
+                    {t('profile.approved-arts')}
                   </Tab>
                   <Tab fontWeight={600}>
-                    <Box as={FaSpinner} mr={1} /> {t`profile.pending-arts`}
+                    <Box as={FaSpinner} mr={1} /> {t('profile.pending-arts')}
                   </Tab>
                   <Tab fontWeight={600}>
                     <Box as={MdRemoveModerator} mr={1} />{' '}
-                    {t`profile.rejected-arts`}
+                    {t('profile.rejected-arts')}
                   </Tab>
                 </>
               )}
               <Tab ml="auto" fontWeight={600}>
-                <Box as={IoMdSettings} mr={1} /> {t`profile.general-settings`}
+                <Box as={IoMdSettings} mr={1} /> {t('profile.general-settings')}
               </Tab>
               <Box my={1} ml={2}>
                 <CreateArtForm queryKey={['user-art']} />

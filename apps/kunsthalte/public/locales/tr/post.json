@@ -31,10 +31,10 @@
     "step-share-button": "Paylaş | Paylaşımınızın hazır olduğunu düşünüyorsanız buradan tıklayarak Twitter üzerinden paylaşımınızı tamamlayabilirsiniz. Sonraki paylaşımlar için geri gelmeyi unutmayın. 🙂"
   },
   "support": "Destek",
-  "footer_menu": "Menuler",
-  "follow_us": "Bizi takip edin",
+  "footer-menu": "Menuler",
+  "follow-us": "Bizi takip edin",
   "society": "Vakfımız",
-  "footer_about": "Sessizlik, özgürlüğün en büyük düşmanıdır.",
+  "footer-about": "Sessizlik, özgürlüğün en büyük düşmanıdır.",
   "post": {
     "search-label": "Kullanıcı Ara",
     "mention-list-label": "Popüler Kullanıcılar",
