@@ -34,7 +34,7 @@ export const getStaticProps: GetStaticProps = async context => {
   const markdown = {
     tr: `## Sanat Durağı Kimdir?
 
-    Sanata ilgi duyan Hollanda’ya göç etmiş kişilerin hem online hem fiziki olarak buluştuğu, modern ve geleneksel sanatlar üzerine bilgi paylaşımı yaptıkları, aynı zamanda sanatsal aktiviteler organize ettikleri bir gruptur.
+    Sanata ilgi duyan Hollanda’ya göç etmiş kişilerin hem online hem de fiziki olarak buluştuğu, modern ve geleneksel sanatlar üzerine bilgi paylaşımı yaptıkları, aynı zamanda sanatsal aktiviteler organize ettikleri bir gruptur.
     
     ## Sanat Durağının amacı nedir?
     
