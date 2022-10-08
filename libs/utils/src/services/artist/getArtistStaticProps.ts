@@ -17,12 +17,10 @@ export const getArtistStaticProps = async (context: GetStaticPropsContext) => {
 
   if (!artist) return { notFound: true }
 
-  const title = artist.username || null
-  const content = artist.name || null
+  const title = artist.name || artist.username
 
   const seo = {
     title,
-    content,
   }
 
   return {

@@ -13,6 +13,7 @@ export const getArtistByUsername = async (
     filters: {
       username: { $eq: username },
       arts: {
+        locale,
         id: {
           $gt: 0,
         },
@@ -27,18 +28,16 @@ export const getArtistByUsername = async (
       'arts.comments.user.avatar',
       'arts.likers',
     ],
-    locale,
   })
 
   return response?.data?.[0] || null
 }
 
-export const useArtistByUsername = (username?: string) => {
-  const router = useRouter()
-  const { locale } = router
-  if (!username) {
-    username = router.query['username'] as string
-  }
+export const useArtistByUsername = () => {
+  const { locale, query } = useRouter()
+
+  const username = query['username'] as string
+
   return useQuery({
     queryKey: ['artist', locale, username],
     queryFn: () =>

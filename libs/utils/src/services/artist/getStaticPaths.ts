@@ -10,6 +10,7 @@ export const getArtistPaths = async (locales: StrapiLocale[]) =>
           url: 'api/users',
           filters: {
             arts: {
+              locale,
               id: {
                 $gt: 0,
               },

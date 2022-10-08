@@ -11,7 +11,6 @@ import {
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
-import { useRouter } from 'next/router'
 
 import { Layout } from '../../../components'
 import i18nConfig from '../../../next-i18next.config'
@@ -21,11 +20,7 @@ type ArtistPageProps = {
 }
 
 const ArtistPage: FC<ArtistPageProps> = ({ seo }) => {
-  const {
-    query: { username },
-  } = useRouter()
-
-  const { data: artist } = useArtistByUsername(username as string)
+  const { data: artist } = useArtistByUsername()
 
   return (
     <Layout seo={seo} isDark hasScroll>
