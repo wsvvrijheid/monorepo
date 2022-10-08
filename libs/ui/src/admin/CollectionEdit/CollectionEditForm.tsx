@@ -63,7 +63,7 @@ export const CollectionEditForm: FC<CollectionEditFormProps> = ({
     queryKey,
   )
   const publishCollectionMutation = usePublishModel('api/collections', queryKey)
-  const deleteCollectionMutation = useDeleteCollection(queryKey)
+  const deleteCollectionMutation = useDeleteCollection()
 
   const confirmDisclosure = useDisclosure()
   const [confirmState, setConfirmState] =

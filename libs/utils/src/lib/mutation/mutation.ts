@@ -61,6 +61,17 @@ export const mutation = async <
     requestBody = generateFormData<D>(body)
   }
 
+  if (method === 'delete') {
+    const response = await axios[method]<StrapiMutationResponse<T>>(
+      requestUrl,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+        baseURL: API_URL,
+      },
+    )
+    return response.data?.data || null
+  }
+
   const response = await axios[method]<StrapiMutationResponse<T>>(
     requestUrl,
     requestBody,
