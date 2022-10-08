@@ -1,249 +1,167 @@
 {
+  "all": "Alle",
+  "apply-form.available-hours.input": "Wekelijks beschikbare uren",
+  "apply-form.available-hours.required": "U moet het aantal van uw beschikbare uren opgeven",
+  "apply-form.comment": "Opmerking",
+  "apply-form.comment-placeholder": "Schrijf Opmerking",
+  "apply-form.comments": "Opmerkingen",
+  "apply-form.email.input": "Email",
+  "apply-form.email.invalid": "Ongeldig e-mailadres",
+  "apply-form.email.required": "E-mailveld is verplicht",
+  "apply-form.error.description": "Er is een fout opgetreden. Probeer het opnieuw.",
+  "apply-form.error.title": "Fout",
+  "apply-form.heard-from": "Van waar heeft u over ons gehoord?",
+  "apply-form.in-mailing-list": "In mailinglijst",
+  "apply-form.jobs.required": "U moet ten minste één baan selecteren",
+  "apply-form.jobs.title": "Banen",
+  "apply-form.name.input": "Naam",
+  "apply-form.name.required": "Naamveld is verplicht",
+  "apply-form.occupation": "Beroep",
+  "apply-form.phone.input": "Telefoonnummer",
+  "apply-form.phone.required": "Telefoonnummerveld is verplicht",
+  "apply-form.send": "Verstuur",
+  "apply-form.show-in-website": "Toon mij op de website",
+  "apply-form.submit": "Indienen",
+  "apply-form.thanks.description": "We hebben uw aanmelding ontvangen en zullen contact met je opnemen.",
+  "apply-form.thanks.title": "Bedankt",
+  "apply-form.title": "Aanmeldingsformulier",
+  "art-station": "Kunsthalte",
+  "art.create.form.content-required": "Inhoud is vereist",
+  "art.create.form.description-required": "Beschrijving is vereist",
+  "art.create.form.locale-required": "U moet ten minste één taal selecteren",
+  "art.create.form.title-required": "Titel is vereist",
+  "art.create.require-auth.button": "Log nu in",
+  "art.create.require-auth.text": "Je moet ingelogd zijn om een kunstwerk te kunnen uploaden!",
+  "art.create.success.description": "Uw kunst is geüpload. U kunst wordt weergegeven op de clubpagina na goedkeuring door de redacteur. U kunt je lopende kunsten zien in je",
+  "art.create.success.link": "Ga naar mijn profiel",
+  "art.create.success.title": "Uw kunst succesvol ingediend",
+  "art.others": "Andere Kunsten",
+  "art.upload": "Kunst Uploaden",
+  "author": "Auteur",
+  "blog-no-content": "Sorry! Geen artikelen gepubliceerd in deze taal.",
+  "cancel": "Annuleren",
+  "categories": "Categorieën",
   "category": "Categorie",
+  "clear": "Wissen",
+  "collections": "Collecties",
+  "comment-form.content.placeholder": "Inhoud",
+  "comment-form.content.required": "Inhoudveld is verplicht",
+  "comment-form.email.invalid": "Ongeldig e-mailadres",
+  "comment-form.email.placeholder": "Email",
+  "comment-form.email.required": "E-mailveld is verplicht",
+  "comment-form.name.placeholder": "Naam",
+  "comment-form.name.required": "Naamveld is verplicht",
+  "comment-form.send": "Verstuur",
+  "comment-form.success": "Uw commentaar is succesvol verzonden.",
+  "contact.fill-form": "Vul het formulier in om contact op te nemen",
+  "contact.form.button": "Bericht versturen",
+  "contact.form.email-helper": "We delen uw e-mail op geen enkele manier.",
+  "contact.form.email-invalid": "Ongeldig e-mailadres.",
+  "contact.form.email-required": "Mailveld mag niet leeg zijn.",
+  "contact.form.failed": "Oeps. Er is iets misgegaan, probeer het opnieuw.",
+  "contact.form.fullname-label": "Uw naam",
+  "contact.form.fullname-required": "Naamruimte mag niet leeg zijn.",
+  "contact.form.message-delivered": "Bedankt. Uw bericht is ontvangen.",
+  "contact.form.message-label": "Bericht",
+  "contact.form.message-required": "Berichtveld mag niet leeg zijn.",
+  "contact.title": "Contact",
+  "content": "Inhoud",
+  "contributors.filter": "Filter op team: Totaal aantal bijdragers ",
+  "contributors.header": "Bijdragers",
+  "copyright": "{{year}} {{name}}. Alle rechten voorbehouden.",
+  "create": "Creëren",
+  "description": "Beschrijving",
+  "dismiss": "Negeren",
+  "edit": "Bewerken",
+  "error": "Fout",
+  "event": "Evenement",
+  "follow-us": "Volg ons",
+  "footer-about.kunsthalte": "De ontmoetingspunt van diverse kleuren",
+  "footer-about.wsvvrijheid": "Stilte is de grootste vijand van vrijheid.",
+  "footer-menu": "Menu's",
   "hello": "Hallo",
-  "read-more": "Lees Meer",
-  "next": "Volgende",
-  "prev": "Vorige",
-  "event": "Evenement",  
+  "home.hero": "Iedereen is gelijk voor de universele wet. We werken eraan om ervoor te zorgen dat iedereen in gelijke mate profiteert van universele mensenrechten.",
+  "join-the-team": "Kom Bij Het Team",
+  "language": "Taal",
+  "login.create-account": "Account Aanmaken",
+  "login.email-taken.description": "You have registered this email address before. Please use the same provider as your first login",
+  "login.email-taken.title": "Email is already taken",
+  "login.email.invalid": "Ongeldig e-mailadres",
+  "login.email.required": "Email is verplicht",
+  "login.email.title": "E-mail",
+  "login.forgot-pass-header.button": "Submit",
+  "login.forgot-pass-header.text": "Voer uw e-mailadres in en we sturen u een link om uw wachtwoord opnieuw in te stellen.",
+  "login.forgot-pass-header.title": "Wachtwoord vergeten?",
+  "login.name.required": "Naamveld is verplicht",
+  "login.name.title": "Naam",
+  "login.password.forgot-password": "Wachtwoord vergeten?",
+  "login.password.invalid": "Te kort",
+  "login.password.matches.lowercase": "Uw wachtwoord moet minimaal één kleine letter [a...z] bevatten",
+  "login.password.matches.number": "Uw wachtwoord moet minstens één cijfer bevatten [1,2,3...]",
+  "login.password.matches.password-match": "Wachtwoorden komen niet overeen",
+  "login.password.matches.special": "Uw wachtwoord moet ten minste één speciaal teken bevatten [(?=@...]",
+  "login.password.matches.uppercase": "Uw wachtwoord moet minimaal één hoofdletter [A..Z] bevatten",
+  "login.password.password-confirm": "Bevestig wachtwoord",
+  "login.password.required": "Wachtwoordveld is verplicht",
+  "login.password.title": "Wachtwoord",
+  "login.password.warning": "Minstens 8 karakters lang",
+  "login.remember-me": "Onthoud mij",
+  "login.reset-pass-header.button": "Submit",
+  "login.reset-pass-header.text": "Wachtwoord succesvol opnieuw ingesteld. U kunt nu inloggen.",
+  "login.reset-pass-header.title": "Wachtwoord opnieuw instellen",
+  "login.sign-in": "Inloggen",
+  "login.sign-in-header.button": "Inschrijven",
+  "login.sign-in-header.text": "Heb je geen account?",
+  "login.sign-in-header.title": "Log in op uw account",
+  "login.sign-in-with": "of ga verder met",
+  "login.sign-up-header.button": "Inloggen",
+  "login.sign-up-header.text": "Heeft u al een account?",
+  "login.sign-up-header.title": "Maak een account aan",
+  "login.sign-up-with": "of zingen met",
+  "login.sign-with": "Inloggen met {{provider}}",
+  "login.terms-use": "Accepteert u de gebruiksvoorwaarden?",
+  "login.username.required": "Gebruikersnaam is verplicht",
+  "login.username.title": "Gebruikersnaam",
   "news": "Nieuws",
-  "visit-website": "Bezoek Website",
+  "next": "Volgende",
   "platforms": "Platforms",
+  "prev": "Vorige",
+  "profile.approved-arts": "Goedgekeurde kunst",
+  "profile.art.delete.button": "Verwijder",
+  "profile.art.delete.text": "Weet je zeker dat je deze afbeelding wilt verwijderen?",
+  "profile.art.delete.title": "Verwijder Kunst",
+  "profile.art.publish.button": "Publiceer",
+  "profile.art.publish.text": "Weet u zeker dat u de deze kunst wilt publiceren?",
+  "profile.art.publish.title": "Publiceer Art",
+  "profile.art.unpublish.button": "Deactiveer",
+  "profile.art.unpublish.text": "Weet u zeker dat u de publicatie van deze kunst ongedaan wilt maken? U kunt het later altijd opnieuw publiceren.",
+  "profile.art.unpublish.title": "Deactiveer Art",
+  "profile.email": "E-mail",
+  "profile.general-settings": "Algemene Instellingen",
+  "profile.logout": "Uitloggen",
+  "profile.my-profile": "Mijn Profiel",
+  "profile.pending-arts": "Kunst in behandeling",
+  "profile.rejected-arts": "Afgewezen Kunsten",
+  "profile.sign-in": "Inloggen",
+  "profile.sign-up": "Inschrijven",
+  "profile.title": "Profiel",
+  "profile.upload-art": "Kunst Uploaden",
+  "profile.user-name": "Gebruikersnaam",
+  "read-more": "Lees Meer",
+  "search": "Zoeken",
+  "society": "Stichting",
+  "subpage.latest": "Nieuwste",
+  "subpage.most-readed": "Meest Gelezen",
+  "support": "Steun",
+  "title": "Titel",
+  "upload.description": "Slepen en neerzetten of klikken om te uploaden",
+  "upload.label": "Upload",
+  "upload.support": "Ondersteunde formaten: jpg, png, webp",
   "view-arts": "Bekijk kunstwerken",
   "view-collections": "Bekijk collecties",
-  "error": "Fout",
-  "all": "Alle",
-  "art-station": "Kunsthalte",
-  "collections": "Collecties",
-  "blog-no-content": "Sorry! Geen artikelen gepubliceerd in deze taal.",
-  "wsvvrijheid": {
-    "management": "Bestuur",
-    "chairman": "Voorzitter",
-    "treasurer": "Penningmeester",
-    "secretary": "Secretaris"
-  },
-  "home": {
-    "hero": "De ontmoetingspunt van diverse kleuren"
-  },
-  "copyright": "{{year}} {{name}}. Alle rechten voorbehouden.",
-  "support": "Steun",
-  "footer-menu": "Menu's",
-  "follow-us": "Volg ons",
-  "society": "Stichting",
-  "footer-about": {
-    "wsvvrijheid": "Stilte is de grootste vijand van vrijheid.",
-    "kunsthalte": "De ontmoetingspunt van diverse kleuren"
-  },
-  "contact": {
-    "title": "Contact",
-    "fill-form": "Vul het formulier in om contact op te nemen",
-    "form": {
-      "fullname-label": "Uw naam",
-      "fullname-required": "Naamruimte mag niet leeg zijn.",
-      "email-required": "Mailveld mag niet leeg zijn.",
-      "email-invalid": "Ongeldig e-mailadres.",
-      "email-helper": "We delen uw e-mail op geen enkele manier.",
-      "message-label": "Bericht",
-      "message-required": "Berichtveld mag niet leeg zijn.",
-      "message-delivered": "Bedankt. Uw bericht is ontvangen.",
-      "failed": "Oeps. Er is iets misgegaan, probeer het opnieuw.",
-      "button": "Bericht versturen"
-    }
-  },
-  "subpage": {
-    "most-readed": "Meest Gelezen",
-    "latest": "Nieuwste"
-  },
-  "joinTheTeam": "Kom Bij Het Team",
-  "contributors": {
-    "header": "Bijdragers",
-    "filter": "Filter op team: Totaal aantal bijdragers "
-  },
-  "login": {
-    "sign-up-header": {
-      "title": "Maak een account aan",
-      "text": "Heeft u al een account?",
-      "button": "Inloggen"
-    },
-    "sign-in-header": {
-      "title": "Log in op uw account",
-      "text": "Heb je geen account?",
-      "button": "Inschrijven"
-    },
-    "forgot-pass-header": {
-      "title": "Wachtwoord vergeten?",
-      "button": "Submit",
-      "text": "Voer uw e-mailadres in en we sturen u een link om uw wachtwoord opnieuw in te stellen."
-    },
-    "reset-pass-header": {
-      "title": "Wachtwoord opnieuw instellen",
-      "button": "Submit",
-      "text": "Wachtwoord succesvol opnieuw ingesteld. U kunt nu inloggen."
-    },
-    "name": {
-      "title": "Naam",
-      "required": "Naamveld is verplicht"
-    },
-    "username": {
-      "title": "Gebruikersnaam",
-      "required": "Gebruikersnaam is verplicht"
-    },
-    "email": {
-      "title": "E-mail",
-      "invalid": "Ongeldig e-mailadres",
-      "required": "Email is verplicht"
-    },
-    "password": {
-      "title": "Wachtwoord",
-      "invalid": "Te kort",
-      "required": "Wachtwoordveld is verplicht",
-      "warning": "Minstens 8 karakters lang",
-      "forgot-password": "Wachtwoord vergeten?",
-      "password-confirm": "Bevestig wachtwoord",
-      "matches": {
-        "lowercase": "Uw wachtwoord moet minimaal één kleine letter [a...z] bevatten",
-        "uppercase": "Uw wachtwoord moet minimaal één hoofdletter [A..Z] bevatten",
-        "number": "Uw wachtwoord moet minstens één cijfer bevatten [1,2,3...]",
-        "special": "Uw wachtwoord moet ten minste één speciaal teken bevatten [(?=@...]",
-        "password-match": "Wachtwoorden komen niet overeen"
-      }
-    },
-    "create-account": "Account Aanmaken",
-    "terms-use": "Accepteert u de gebruiksvoorwaarden?",
-    "sign-in": "Inloggen",
-    "sign-up-with": "of zingen met",
-    "sign-with": "Inloggen met {{provider}}",
-    "sign-in-with": "of ga verder met",
-    "remember-me": "Onthoud mij",
-    "email-taken": {
-      "title": "Email is already taken",
-      "description": "You have registered this email address before. Please use the same provider as your first login"
-    }
-  },
-  "profile": {
-    "title": "Profiel",
-    "sign-in": "Inloggen",
-    "sign-up": "Inschrijven",
-    "logout": "Uitloggen",
-    "my-profile": "Mijn Profiel",
-    "user-name": "Gebruikersnaam",
-    "email": "E-mail",
-    "approved-arts": "Goedgekeurde kunst",
-    "pending-arts": "Kunst in behandeling",
-    "rejected-arts": "Afgewezen Kunsten",
-    "upload-art": "Kunst Uploaden",
-    "general-settings": "Algemene Instellingen",
-    "art": {
-      "delete": {
-        "title": "Verwijder Kunst",
-        "text": "Weet je zeker dat je deze afbeelding wilt verwijderen?",
-        "button": "Verwijder"
-      },
-      "publish": {
-        "title": "Publiceer Art",
-        "text": "Weet u zeker dat u de deze kunst wilt publiceren?",
-        "button": "Publiceer"
-      },
-      "unpublish": {
-        "title": "Deactiveer Art",
-        "text": "Weet u zeker dat u de publicatie van deze kunst ongedaan wilt maken? U kunt het later altijd opnieuw publiceren.",
-        "button": "Deactiveer"
-      }
-    }
-  },
-  "apply-form": {
-    "name": {
-      "input": "Naam",
-      "required": "Naamveld is verplicht"
-    },
-    "email": {
-      "input": "Email",
-      "invalid": "Ongeldig e-mailadres",
-      "required": "E-mailveld is verplicht"
-    },
-    "phone": {
-      "input": "Telefoonnummer",
-      "required": "Telefoonnummerveld is verplicht"
-    },
-    "available-hours": {
-      "input": "Wekelijks beschikbare uren",
-      "required": "U moet het aantal van uw beschikbare uren opgeven"
-    },
-    "occupation": "Beroep",
-    "comment": "Opmerking",
-    "comment-placeholder": "Schrijf Opmerking",
-    "comments": "Opmerkingen",
-    "send": "Verstuur",
-    "in-mailing-list": "In mailinglijst",
-    "show-in-website": "Toon mij op de website",
-    "heard-from": "Van waar heeft u over ons gehoord?",
-    "jobs": {
-      "title": "Banen",
-      "required": "U moet ten minste één baan selecteren"
-    },
-    "submit": "Indienen",
-    "title": "Aanmeldingsformulier",
-    "thanks": {
-      "title": "Bedankt",
-      "description": "We hebben uw aanmelding ontvangen en zullen contact met je opnemen."
-    },
-    "error": {
-      "title": "Fout",
-      "description": "Er is een fout opgetreden. Probeer het opnieuw."
-    }
-  },
-  "comment-form": {
-    "success": "Uw commentaar is succesvol verzonden.",
-    "name": {
-      "placeholder": "Naam",
-      "required": "Naamveld is verplicht"
-    },
-    "email": {
-      "placeholder": "Email",
-      "invalid": "Ongeldig e-mailadres",
-      "required": "E-mailveld is verplicht"
-    },
-    "content": {
-      "placeholder": "Inhoud",
-      "required": "Inhoudveld is verplicht"
-    },
-    "send": "Verstuur"
-  },
-  "title": "Titel",
-  "author": "Auteur",
-  "description": "Beschrijving",
-  "content": "Inhoud",
-  "clear": "Wissen",
-  "create": "Creëren",
-  "cancel": "Annuleren",
-  "edit": "Bewerken",
-  "dismiss": "Negeren",
-  "language": "Taal",
-  "search": "Zoeken",
-  "categories": "Categorieën",
-  "upload": {
-    "description": "Slepen en neerzetten of klikken om te uploaden",
-    "support": "Ondersteunde formaten: jpg, png, webp",
-    "label": "Upload"
-  },
-  "art": {
-    "upload": "Kunst Uploaden",
-    "others": "Andere Kunsten",
-    "create": {
-      "form": {
-        "locale-required": "U moet ten minste één taal selecteren",
-        "title-required": "Titel is vereist",
-        "description-required": "Beschrijving is vereist",
-        "content-required": "Inhoud is vereist"
-      },
-      "success": {
-        "title": "Uw kunst succesvol ingediend",
-        "description": "Uw kunst is geüpload. U kunst wordt weergegeven op de clubpagina na goedkeuring door de redacteur. U kunt je lopende kunsten zien in je",
-        "link": "Ga naar mijn profiel"
-      },
-      "require-auth": {
-        "text": "Je moet ingelogd zijn om een kunstwerk te kunnen uploaden!",
-        "button": "Log nu in"
-      }
-    }
-  }
+  "visit-website": "Bezoek Website",
+  "wsvvrijheid.chairman": "Voorzitter",
+  "wsvvrijheid.management": "Bestuur",
+  "wsvvrijheid.secretary": "Secretaris",
+  "wsvvrijheid.treasurer": "Penningmeester"
 }

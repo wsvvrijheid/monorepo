@@ -82,7 +82,7 @@ export const VolunteersTemplate: FC<VolunteersTemplateProps> = ({
                 }
                 colorScheme="blue"
               >
-                {t('joinTheTeam')}
+                {t('join-the-team')}
               </Button>
             </Link>
 
