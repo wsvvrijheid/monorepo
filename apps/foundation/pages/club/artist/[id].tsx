@@ -6,11 +6,12 @@ import { ArtistTemplate } from '@wsvvrijheid/ui'
 import {
   getArtistPaths,
   getArtistStaticProps,
-  useArtistByUsername,
+  useArtistById,
 } from '@wsvvrijheid/utils'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
+import { useRouter } from 'next/router'
 
 import { Layout } from '../../../components'
 import i18nConfig from '../../../next-i18next.config'
@@ -20,7 +21,8 @@ type ArtistPageProps = {
 }
 
 const ArtistPage: FC<ArtistPageProps> = ({ seo }) => {
-  const { data: artist } = useArtistByUsername()
+  const router = useRouter()
+  const { data: artist } = useArtistById(router.query.id as string)
 
   return (
     <Layout seo={seo} isDark hasScroll>
@@ -30,8 +32,8 @@ const ArtistPage: FC<ArtistPageProps> = ({ seo }) => {
 }
 export default ArtistPage
 
-export const getStaticPaths: GetStaticPaths = async context => {
-  const paths = await getArtistPaths(context.locales as StrapiLocale[])
+export const getStaticPaths: GetStaticPaths = async () => {
+  const paths = await getArtistPaths()
 
   return {
     paths,

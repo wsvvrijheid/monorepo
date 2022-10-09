@@ -6,13 +6,13 @@ import { Request } from '../../lib'
 
 export const getArtByArtist = async (
   locale: StrapiLocale,
-  username: string,
+  id: number,
   publicationState: PublicationState = 'live',
 ) => {
   const response = await Request.collection<Art[]>({
     url: 'api/arts',
     filters: {
-      artist: { username: { $eq: username } },
+      artist: { id: { $eq: id } },
     },
     populate: [
       'artist.avatar',
@@ -30,18 +30,14 @@ export const getArtByArtist = async (
 }
 
 export const useArtByArtist = (
-  username?: string,
+  id?: number,
   publicationState?: PublicationState,
 ) => {
   const router = useRouter()
   const locale = router.locale
   return useQuery({
-    queryKey: ['user-art', locale, username],
+    queryKey: ['user-art', locale, id],
     queryFn: () =>
-      getArtByArtist(
-        locale as StrapiLocale,
-        username as string,
-        publicationState,
-      ),
+      getArtByArtist(locale as StrapiLocale, id as number, publicationState),
   })
 }
