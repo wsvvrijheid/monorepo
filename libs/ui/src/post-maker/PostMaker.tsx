@@ -34,7 +34,7 @@ import { TweetWidget } from './TweetWidget'
 
 export const PostMaker = () => {
   const { isPostModalOpen, sharedPosts } = useAppSelector(state => state.post)
-  const { t } = useTranslation(['post'])
+  const { t } = useTranslation('post')
   const dispatch = useAppDispatch()
   const generateRandomPostText = useGenerateRandomPostText()
 
@@ -72,7 +72,7 @@ export const PostMaker = () => {
         leftIcon={<FaQuestionCircle />}
         onClick={() => setIsOpen(true)}
       >
-        {t`post.help`}
+        {t('post.help')}
       </Button>
       <IconButton
         display={{ base: 'flex', lg: 'none' }}
@@ -122,7 +122,7 @@ export const PostMaker = () => {
         />
         <Box>
           <TweetWidget
-            title={t`post.latest-tweets-label`}
+            title={t('post.latest-tweets-label')}
             tweets={hashtag?.tweets}
           />
         </Box>

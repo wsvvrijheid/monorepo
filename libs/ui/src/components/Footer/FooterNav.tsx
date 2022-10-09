@@ -18,7 +18,7 @@ export const FooterNav: FC<FooterNavProps> = ({ menu }) => {
             align="center"
             marginX={4}
             fontSize="lg"
-            color={'blue.200'}
+            color={'primary.200'}
             py={4}
           >
             <Text

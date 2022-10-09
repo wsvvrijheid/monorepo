@@ -1,29 +1,29 @@
-import { AuthenticatedUserProfile } from '@wsvvrijheid/ui'
-import { useAuthSelector } from '@wsvvrijheid/utils'
+import { Box } from '@chakra-ui/react'
+import { ResetPasswordForm } from '@wsvvrijheid/ui'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import { Layout } from '../../components'
-import i18nConfig from '../../next-i18next.config'
+import { Layout } from '../components'
+import i18nConfig from '../next-i18next.config'
 
-const Profile = ({ seo }) => {
-  const { isLoggedIn } = useAuthSelector()
-
+const ForgotPassword = ({ seo }) => {
   return (
-    <Layout seo={seo} isDark>
-      {isLoggedIn && <AuthenticatedUserProfile />}
+    <Layout seo={seo}>
+      <Box minH="inherit">
+        <ResetPasswordForm />
+      </Box>
     </Layout>
   )
 }
 
-export default Profile
+export default ForgotPassword
 
 export const getStaticProps = async context => {
   const { locale } = context
 
   const title = {
-    en: 'Profile',
-    tr: 'Profil',
-    nl: 'Profiel',
+    en: 'Reset Password',
+    tr: 'Şifre Sıfırla',
+    nl: 'Wachtwoord Resetten',
   }
 
   const description = {
@@ -31,7 +31,6 @@ export const getStaticProps = async context => {
     tr: '',
     nl: '',
   }
-
   const seo = {
     title: title[locale],
     description: description[locale],
