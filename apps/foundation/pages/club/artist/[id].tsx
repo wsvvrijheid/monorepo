@@ -2,25 +2,22 @@
 import { FC } from 'react'
 
 import { dehydrate, QueryClient } from '@tanstack/react-query'
-import { StrapiLocale } from '@wsvvrijheid/types'
+import { StrapiLocale, User } from '@wsvvrijheid/types'
 import { ArtistTemplate } from '@wsvvrijheid/ui'
-import { getArtistServerProps, useArtistById } from '@wsvvrijheid/utils'
+import { getArtistServerProps } from '@wsvvrijheid/utils'
 import { GetServerSideProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
-import { useRouter } from 'next/router'
 
 import { Layout } from '../../../components'
 import i18nConfig from '../../../next-i18next.config'
 
 type ArtistPageProps = {
   seo: NextSeoProps
+  artist: User
 }
 
-const ArtistPage: FC<ArtistPageProps> = ({ seo }) => {
-  const router = useRouter()
-  const { data: artist } = useArtistById(router.query.id as string)
-
+const ArtistPage: FC<ArtistPageProps> = ({ seo, artist }) => {
   return (
     <Layout seo={seo} isDark hasScroll>
       <ArtistTemplate artist={artist} />
