@@ -11,6 +11,7 @@ import { NextSeoProps } from 'next-seo'
 import { useRouter } from 'next/router'
 
 import { Layout } from '../../../components'
+import i18nConfig from '../../../next-i18next.config'
 
 type ArtistPageProps = {
   seo: NextSeoProps
@@ -32,9 +33,6 @@ export const getServerSideProps: GetServerSideProps = async context => {
   const queryClient = new QueryClient()
   const artist = await getArtistServerProps(context)
   const locale = context.locale as StrapiLocale
-
-  const path = require('path')
-  const i18nConfig = require(path.join(process.cwd(), 'next-i18next.config.js'))
 
   if (!artist) return { notFound: true }
 
