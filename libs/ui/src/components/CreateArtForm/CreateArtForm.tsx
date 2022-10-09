@@ -233,7 +233,7 @@ export const CreateArtForm: FC<CreateArtFormProps> = ({ queryKey }) => {
                     label={t('category')}
                     name="categories"
                     errors={errors}
-                    control={control as any}
+                    control={control}
                     isMulti
                     options={
                       categories.data?.map(c => ({
