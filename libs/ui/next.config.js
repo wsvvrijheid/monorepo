@@ -18,7 +18,9 @@ const nextConfig = {
     svgr: false,
   },
   output: 'standalone',
-  outputFileTracingRoot: path.join(__dirname, '../../'),
+  experimental: {
+    outputFileTracingRoot: path.join(__dirname, '../../'),
+  },
 }
 
 module.exports = withNx(nextConfig)
