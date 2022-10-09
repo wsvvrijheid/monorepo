@@ -1,6 +1,6 @@
 import { FC } from 'react'
 
-import { dehydrate } from '@tanstack/react-query'
+import { dehydrate, QueryClient } from '@tanstack/react-query'
 import { StrapiLocale } from '@wsvvrijheid/types'
 import { ArtistTemplate } from '@wsvvrijheid/ui'
 import {
@@ -8,7 +8,7 @@ import {
   getArtistStaticProps,
   useArtistByUsername,
 } from '@wsvvrijheid/utils'
-import { GetStaticPropsContext } from 'next'
+import { GetStaticPaths, GetStaticProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
 
@@ -30,8 +30,8 @@ const ArtistPage: FC<ArtistPageProps> = ({ seo }) => {
 }
 export default ArtistPage
 
-export const getStaticPaths = async context => {
-  const paths = await getArtistPaths(context.locales)
+export const getStaticPaths: GetStaticPaths = async context => {
+  const paths = await getArtistPaths(context.locales as StrapiLocale[])
 
   return {
     paths,
@@ -39,13 +39,23 @@ export const getStaticPaths = async context => {
   }
 }
 
-export const getStaticProps = async (context: GetStaticPropsContext) => {
-  const { seo, queryClient } = await getArtistStaticProps(context)
+export const getStaticProps: GetStaticProps = async context => {
+  const queryClient = new QueryClient()
+  const artist = await getArtistStaticProps(context)
   const locale = context.locale as StrapiLocale
+
+  if (!artist) return { notFound: true }
+
+  const title = artist.name || 'Artist'
+
+  const seo = {
+    title,
+  }
 
   return {
     props: {
       seo,
+      artist,
       dehydratedState: dehydrate(queryClient),
       ...(await serverSideTranslations(locale, ['common'], i18nConfig)),
     },

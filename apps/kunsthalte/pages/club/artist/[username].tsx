@@ -1,6 +1,6 @@
 import { FC } from 'react'
 
-import { dehydrate } from '@tanstack/react-query'
+import { dehydrate, QueryClient } from '@tanstack/react-query'
 import { StrapiLocale } from '@wsvvrijheid/types'
 import { ArtistTemplate } from '@wsvvrijheid/ui'
 import {
@@ -40,12 +40,22 @@ export const getStaticPaths: GetStaticPaths = async context => {
 }
 
 export const getStaticProps: GetStaticProps = async context => {
-  const { seo, queryClient } = await getArtistStaticProps(context)
+  const queryClient = new QueryClient()
+  const artist = await getArtistStaticProps(context)
   const locale = context.locale as StrapiLocale
+
+  if (!artist) return { notFound: true }
+
+  const title = artist.name || 'Artist'
+
+  const seo = {
+    title,
+  }
 
   return {
     props: {
       seo,
+      artist,
       dehydratedState: dehydrate(queryClient),
       ...(await serverSideTranslations(locale, ['common'], i18nConfig)),
     },

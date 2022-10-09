@@ -40,7 +40,6 @@ export const useArtistByUsername = () => {
 
   return useQuery({
     queryKey: ['artist', locale, username],
-    queryFn: () =>
-      getArtistByUsername(locale as StrapiLocale, username as string),
+    queryFn: () => getArtistByUsername(locale as StrapiLocale, username),
   })
 }

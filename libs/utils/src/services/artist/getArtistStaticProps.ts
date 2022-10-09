@@ -15,17 +15,5 @@ export const getArtistStaticProps = async (context: GetStaticPropsContext) => {
 
   const artist = queryClient.getQueryData<User>(['artist', locale, username])
 
-  if (!artist) return { notFound: true }
-
-  const title = artist.name || artist.username
-
-  const seo = {
-    title,
-  }
-
-  return {
-    seo,
-    artist,
-    queryClient,
-  }
+  return artist
 }
