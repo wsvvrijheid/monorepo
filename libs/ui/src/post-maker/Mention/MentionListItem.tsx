@@ -16,7 +16,7 @@ import {
 } from '@chakra-ui/react'
 import { TweetUserData } from '@wsvvrijheid/types'
 import { formatNumber } from '@wsvvrijheid/utils'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'next-i18next'
 import { FaPlus, FaTimes } from 'react-icons/fa'
 
 interface MentionListItemProps {
@@ -30,7 +30,7 @@ export const MentionListItem: FC<MentionListItemProps> = ({
   onAddItem,
   onRemoveItem,
 }) => {
-  const { t } = useTranslation(['post'])
+  const { t } = useTranslation('post')
 
   if (!data) return null
 
@@ -63,10 +63,10 @@ export const MentionListItem: FC<MentionListItemProps> = ({
           </HStack>
           <ButtonGroup>
             {onRemoveItem && (
-              <Tooltip label={t`post.remove`}>
+              <Tooltip label={t('post.remove')}>
                 <IconButton
                   pos="static"
-                  aria-label={t`post.remove` + ' mention'}
+                  aria-label={t('post.remove') + ' mention'}
                   variant="ghost"
                   onClick={() => onRemoveItem(data)}
                   colorScheme="blackAlpha"
@@ -77,10 +77,10 @@ export const MentionListItem: FC<MentionListItemProps> = ({
                 />
               </Tooltip>
             )}
-            <Tooltip label={t`post.add`}>
+            <Tooltip label={t('post.add')}>
               <IconButton
                 pos="static"
-                aria-label={t`post.add` + ' mention'}
+                aria-label={t('post.add') + ' mention'}
                 variant="ghost"
                 onClick={() => onAddItem(data)}
                 colorScheme="blackAlpha"

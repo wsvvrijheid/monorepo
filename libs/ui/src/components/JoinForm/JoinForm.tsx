@@ -129,7 +129,7 @@ export const JoinForm: FC<JoinFormFProps> = ({
       onSubmit={handleSubmit(onSubmit)}
     >
       <Heading as="h3" size="lg" textAlign="center" fontWeight="black">
-        {t`apply-form.title`}
+        {t('apply-form.title')}
       </Heading>
       <Stack direction={{ base: 'column', md: 'row' }} spacing={4}>
         <FormItem
@@ -137,7 +137,7 @@ export const JoinForm: FC<JoinFormFProps> = ({
           id="name"
           name="name"
           errors={errors}
-          label={t`apply-form.name.input`}
+          label={t('apply-form.name.input')}
           isRequired
         />
         <FormItem
@@ -145,7 +145,7 @@ export const JoinForm: FC<JoinFormFProps> = ({
           register={register}
           id="email"
           errors={errors}
-          label={t`apply-form.email.input`}
+          label={t('apply-form.email.input')}
           isRequired
         />
       </Stack>
@@ -155,7 +155,7 @@ export const JoinForm: FC<JoinFormFProps> = ({
           id="phone"
           name="phone"
           errors={errors}
-          label={t`apply-form.phone.input`}
+          label={t('apply-form.phone.input')}
           isRequired
         />
         <FormItem
@@ -164,7 +164,7 @@ export const JoinForm: FC<JoinFormFProps> = ({
           id="availableHours"
           name="availableHours"
           errors={errors}
-          label={t`apply-form.available-hours.input`}
+          label={t('apply-form.available-hours.input')}
           defaultValue={1}
           isRequired
         />
@@ -174,7 +174,7 @@ export const JoinForm: FC<JoinFormFProps> = ({
         errors={errors}
         id="occupation"
         name="occupation"
-        label={t`apply-form.occupation`}
+        label={t('apply-form.occupation')}
       />
 
       <FormItem
@@ -183,26 +183,29 @@ export const JoinForm: FC<JoinFormFProps> = ({
         errors={errors}
         id="comment"
         name="comment"
-        label={t`apply-form.comment`}
+        label={t('apply-form.comment')}
       />
 
       <Stack justify="space-between" direction={{ base: 'column', md: 'row' }}>
         <HStack>
           <Switch id="in-mailing-list" {...register('inMailingList')} />
-          <FormLabel htmlFor="in-mailing-list">{t`apply-form.in-mailing-list`}</FormLabel>
+          <FormLabel htmlFor="in-mailing-list">
+            {t('apply-form.in-mailing-list')}
+          </FormLabel>
         </HStack>
         <HStack>
           <Switch id="is-public" {...register('isPublic')} />
-          <FormLabel htmlFor="is-public">{t`apply-form.show-in-website`}</FormLabel>
+          <FormLabel htmlFor="is-public">
+            {t('apply-form.show-in-website')}
+          </FormLabel>
         </HStack>
       </Stack>
 
       {/* heard FROM */}
       <Box>
-        <FormLabel
-          fontSize="sm"
-          fontWeight="semibold"
-        >{t`apply-form.heard-from`}</FormLabel>
+        <FormLabel fontSize="sm" fontWeight="semibold">
+          {t('apply-form.heard-from')}
+        </FormLabel>
         <Wrap
           p={4}
           spacing={4}
@@ -234,7 +237,7 @@ export const JoinForm: FC<JoinFormFProps> = ({
       {/* JOBS */}
       <Box>
         <FormLabel fontSize="sm" fontWeight="semibold">
-          {t`apply-form.jobs.title`}{' '}
+          {t('apply-form.jobs.title')}
           <chakra.span color="red.500">*</chakra.span>
         </FormLabel>
         <Stack
@@ -273,12 +276,9 @@ export const JoinForm: FC<JoinFormFProps> = ({
           )}
         </Stack>
       </Box>
-      <Button
-        isLoading={isLoading}
-        colorScheme="blue"
-        size="lg"
-        type="submit"
-      >{t`apply-form.submit`}</Button>
+      <Button isLoading={isLoading} colorScheme="blue" size="lg" type="submit">
+        {t('apply-form.submit')}
+      </Button>
     </Stack>
   )
 }

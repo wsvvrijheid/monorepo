@@ -13,9 +13,9 @@ export const CategoryFilterCheckbox = (props: UseCheckboxProps) => {
   return (
     <HStack
       as="label"
-      color={state.isChecked ? 'blue.500' : 'initial'}
+      color={state.isChecked ? 'primary.500' : 'initial'}
       borderWidth={2}
-      borderColor={state.isChecked ? 'blue.500' : 'transparent'}
+      borderColor={state.isChecked ? 'primary.500' : 'transparent'}
       _hover={{ bg: 'blackAlpha.50' }}
       rounded="full"
       py={2}

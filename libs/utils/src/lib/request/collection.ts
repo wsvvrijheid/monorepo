@@ -1,10 +1,6 @@
 import { API_URL, TOKEN } from '@wsvvrijheid/config'
-import {
-  StrapiCollectionResponse,
-  StrapiMeta,
-  StrapiModel,
-} from '@wsvvrijheid/types'
-import axios, { AxiosError, AxiosResponse } from 'axios'
+import { StrapiMeta, StrapiModel } from '@wsvvrijheid/types'
+import axios, { AxiosError } from 'axios'
 import qs from 'qs'
 
 import { RequestArgs } from './types'
