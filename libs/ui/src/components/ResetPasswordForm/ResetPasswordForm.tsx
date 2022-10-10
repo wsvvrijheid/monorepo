@@ -72,7 +72,7 @@ export const ResetPasswordForm = () => {
       }, 2000)
     },
     onError: () => {
-      toastMessage(t`error`, null, 'error')
+      toastMessage(t('error'), null, 'error')
       setTimeout(() => {
         reset()
       }, 2000)

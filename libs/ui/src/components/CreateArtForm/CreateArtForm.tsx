@@ -31,10 +31,9 @@ import {
   useCreateArt,
   useGetArtCategories,
 } from '@wsvvrijheid/utils'
-import { useTranslation } from 'next-i18next'
+import { useTranslation, TFunction } from 'next-i18next'
 import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
-import { TFunction } from 'react-i18next'
 import { FaPlus, FaUpload } from 'react-icons/fa'
 import * as yup from 'yup'
 
@@ -47,10 +46,12 @@ import { CreateArtFormFieldValues, CreateArtFormProps } from './types'
 
 const schema = (t: TFunction) =>
   yup.object({
-    locale: yup.string().required(t`art.create.form.locale-required`),
-    title: yup.string().required(t`art.create.form.title-required`),
-    description: yup.string().required(t`art.create.form.description-required`),
-    content: yup.string().required(t`art.create.form.content-required`),
+    locale: yup.string().required(t('art.create.form.locale-required')),
+    title: yup.string().required(t('art.create.form.title-required')),
+    description: yup
+      .string()
+      .required(t('art.create.form.description-required')),
+    content: yup.string().required(t('art.create.form.content-required')),
     categories: yup.array().of(
       yup.object().shape({
         label: yup.string(),

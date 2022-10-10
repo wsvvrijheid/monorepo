@@ -16,10 +16,9 @@ import {
   useAuthSelector,
 } from '@wsvvrijheid/utils'
 import axios from 'axios'
-import { useTranslation } from 'next-i18next'
+import { useTranslation, TFunction } from 'next-i18next'
 import { useRouter } from 'next/router'
 import { useForm, SubmitHandler } from 'react-hook-form'
-import { TFunction } from 'react-i18next'
 import * as yup from 'yup'
 
 import {
@@ -45,8 +44,8 @@ const schema = (t: TFunction) =>
       ),
     email: yup
       .string()
-      .email(t`contact.form.email-invalid`)
-      .required(t`login.email.required`),
+      .email(t('contact.form.email-invalid'))
+      .required(t('login.email.required')),
   })
 
 export const AdminLoginForm = () => {

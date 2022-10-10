@@ -14,9 +14,8 @@ import {
   AlertDescription,
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { useTranslation } from 'next-i18next'
+import { useTranslation, TFunction } from 'next-i18next'
 import { useForm, SubmitHandler } from 'react-hook-form'
-import { TFunction } from 'react-i18next'
 import * as yup from 'yup'
 
 import { FormItem } from '../FormItem'
@@ -27,7 +26,7 @@ import { SignupFormProps, SignupFormFieldValues } from './types'
 const schema = (t: TFunction) =>
   yup.object({
     name: yup.string().required(t('login.name.required')),
-    username: yup.string().required(t`login.username.required`),
+    username: yup.string().required(t('login.username.required')),
     password: yup
       .string()
       .min(8, t('login.password.warning'))
@@ -41,8 +40,8 @@ const schema = (t: TFunction) =>
       ),
     email: yup
       .string()
-      .email(t`contact.form.email-invalid`)
-      .required(t`login.email.required`),
+      .email(t('contact.form.email-invalid'))
+      .required(t('login.email.required')),
   })
 
 export const SignupForm: React.FC<SignupFormProps> = ({

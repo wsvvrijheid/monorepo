@@ -14,8 +14,8 @@ const schema = (t: TFunction) =>
   yup.object({
     email: yup
       .string()
-      .email(t`contact.form.email-invalid`)
-      .required(t`login.email.required`),
+      .email(t('contact.form.email-invalid'))
+      .required(t('login.email.required')),
   })
 
 export const ForgotPasswordForm = () => {
@@ -44,7 +44,7 @@ export const ForgotPasswordForm = () => {
         reset()
       },
       onError: () => {
-        toastMessage(t`error`, t`apply-form.error.description`, 'error')
+        toastMessage(t('error'), t('apply-form.error.description'), 'error')
       },
     },
   )

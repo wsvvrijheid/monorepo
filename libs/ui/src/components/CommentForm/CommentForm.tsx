@@ -13,9 +13,8 @@ import {
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useAuthSelector } from '@wsvvrijheid/utils'
-import { useTranslation } from 'next-i18next'
+import { useTranslation, TFunction } from 'next-i18next'
 import { useForm } from 'react-hook-form'
-import { TFunction } from 'react-i18next'
 import { FiArrowRight } from 'react-icons/fi'
 import * as yup from 'yup'
 
@@ -24,17 +23,17 @@ import { CommentFormFieldValues, CommentFormProps } from './types'
 
 const userSchema = (t: TFunction) =>
   yup.object({
-    content: yup.string().required(t`comment-form.content.required`),
+    content: yup.string().required(t('comment-form.content.required')),
   })
 
 const publicSchema = (t: TFunction) =>
   yup.object({
-    name: yup.string().required(t`comment-form.name.required`),
+    name: yup.string().required(t('comment-form.name.required')),
     email: yup
       .string()
-      .email(t`comment-form.email.invalid`)
-      .required(t`comment-form.email.required`),
-    content: yup.string().required(t`comment-form.content.required`),
+      .email(t('comment-form.email.invalid'))
+      .required(t('comment-form.email.required')),
+    content: yup.string().required(t('comment-form.content.required')),
   })
 
 export const CommentForm: React.FC<CommentFormProps> = ({

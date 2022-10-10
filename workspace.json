@@ -41,7 +41,7 @@
               },
               {
                 "input": "public/locales",
-                "glob": "**/*.json",
+                "glob": "**/common.json",
                 "output": "locales"
               }
             ]
@@ -148,7 +148,24 @@
           "defaultConfiguration": "production",
           "options": {
             "root": "apps/foundation",
-            "outputPath": "dist/apps/foundation"
+            "outputPath": "dist/apps/foundation",
+            "assets": [
+              {
+                "input": "libs/assets/src/images",
+                "glob": "*",
+                "output": "images"
+              },
+              {
+                "input": "libs/assets/src/foundation",
+                "glob": "*",
+                "output": "."
+              },
+              {
+                "input": "libs/assets/src/locales",
+                "glob": "**/common.json",
+                "output": "locales"
+              }
+            ]
           },
           "configurations": {
             "development": { "outputPath": "apps/foundation" },
@@ -164,17 +181,17 @@
             "assets": [
               {
                 "input": "libs/assets/src/images",
-                "glob": "*.{png,jpg,jpeg,gif,svg}",
+                "glob": "*",
                 "output": "images"
               },
               {
                 "input": "libs/assets/src/foundation",
-                "glob": "*.{png,jpg,jpeg,gif,svg,webmanifest,ico}",
+                "glob": "*",
                 "output": "."
               },
               {
-                "input": "public/locales",
-                "glob": "**/*.json",
+                "input": "libs/assets/src/locales",
+                "glob": "**/common.json",
                 "output": "locales"
               }
             ]
@@ -225,7 +242,24 @@
           "defaultConfiguration": "production",
           "options": {
             "root": "apps/kunsthalte",
-            "outputPath": "dist/apps/kunsthalte"
+            "outputPath": "dist/apps/kunsthalte",
+            "assets": [
+              {
+                "input": "libs/assets/src/images",
+                "glob": "*",
+                "output": "images"
+              },
+              {
+                "input": "libs/assets/src/kunsthalte",
+                "glob": "*",
+                "output": "."
+              },
+              {
+                "input": "libs/assets/src/locales",
+                "glob": "**/common.json",
+                "output": "locales"
+              }
+            ]
           },
           "configurations": {
             "development": { "outputPath": "apps/kunsthalte" },
@@ -241,17 +275,17 @@
             "assets": [
               {
                 "input": "libs/assets/src/images",
-                "glob": "*.{png,jpg,jpeg,gif,svg}",
+                "glob": "*",
                 "output": "images"
               },
               {
                 "input": "libs/assets/src/kunsthalte",
-                "glob": "*.{png,jpg,jpeg,gif,svg,webmanifest,ico}",
+                "glob": "*",
                 "output": "."
               },
               {
-                "input": "public/locales",
-                "glob": "**/*.json",
+                "input": "libs/assets/src/locales",
+                "glob": "**/common.json",
                 "output": "locales"
               }
             ]

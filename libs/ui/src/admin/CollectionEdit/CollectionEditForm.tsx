@@ -19,9 +19,8 @@ import {
   useUpdateCollection,
   usePublishModel,
 } from '@wsvvrijheid/utils'
-import { useTranslation } from 'next-i18next'
+import { useTranslation, TFunction } from 'next-i18next'
 import { useForm } from 'react-hook-form'
-import { TFunction } from 'react-i18next'
 import { AiOutlineEdit } from 'react-icons/ai'
 import { BsTrash } from 'react-icons/bs'
 import { IoMdClose, IoMdCloudUpload } from 'react-icons/io'
@@ -40,8 +39,10 @@ import { CollectionEditFormProps, CollectionEditFormFieldValues } from './types'
 
 const schema = (t: TFunction) =>
   yup.object({
-    title: yup.string().required(t`art.create.form.title-required`),
-    description: yup.string().required(t`art.create.form.description-required`),
+    title: yup.string().required(t('art.create.form.title-required')),
+    description: yup
+      .string()
+      .required(t('art.create.form.description-required')),
   })
 
 export const CollectionEditForm: FC<CollectionEditFormProps> = ({

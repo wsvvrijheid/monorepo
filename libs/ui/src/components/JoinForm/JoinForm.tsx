@@ -16,9 +16,8 @@ import {
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { Job } from '@wsvvrijheid/types'
-import { useTranslation } from 'next-i18next'
+import { useTranslation, TFunction } from 'next-i18next'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { TFunction } from 'react-i18next'
 import * as yup from 'yup'
 
 import { FormItem } from '../FormItem'
@@ -45,12 +44,12 @@ function generateSchema(t: TFunction, jobs: Partial<Job>[]) {
   )
 
   return yup.object().shape({
-    name: yup.string().required(t`apply-form.name.required`),
+    name: yup.string().required(t('apply-form.name.required')),
     email: yup
       .string()
-      .email(t`apply-form.email.invalid`)
-      .required(t`apply-form.email.required`),
-    phone: yup.string().required(t`apply-form.phone.required`),
+      .email(t('apply-form.email.invalid'))
+      .required(t('apply-form.email.required')),
+    phone: yup.string().required(t('apply-form.phone.required')),
     occupation: yup.string(),
     comment: yup.string(),
     inMailingList: yup.boolean(),
@@ -59,15 +58,9 @@ function generateSchema(t: TFunction, jobs: Partial<Job>[]) {
       .number()
       .min(1)
       .max(40)
-      .required(t`apply-form.available-hours.required`),
-    heardFrom: yup
-      .array()
-      .required(t`apply-form.jobs.required`)
-      .min(1),
-    jobs: yup
-      .array()
-      .required(t`apply-form.jobs.required`)
-      .min(1),
+      .required(t('apply-form.available-hours.required')),
+    heardFrom: yup.array().required(t('apply-form.jobs.required')).min(1),
+    jobs: yup.array().required(t('apply-form.jobs.required')).min(1),
     // heardFrom: yup.object().shape(
     //   heardFrom.reduce((acc, h) => {
     //     acc[h as any] = yup.bool()
