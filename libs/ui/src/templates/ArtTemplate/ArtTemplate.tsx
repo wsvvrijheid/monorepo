@@ -3,22 +3,20 @@ import { FC } from 'react'
 import { Heading, Stack, useBreakpointValue } from '@chakra-ui/react'
 import { Splide, SplideSlide } from '@splidejs/react-splide'
 import { QueryKey } from '@tanstack/react-query'
-import { Auth } from '@wsvvrijheid/types'
 import {
   useArtBySlug,
   useArtsByCategories,
   useViewArtMutation,
 } from '@wsvvrijheid/utils'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'next-i18next'
 
 import { Container, ArtCardBase, ArtWithDetails } from '../../components'
 
 export type ArtTemplateProps = {
-  auth: Auth
   queryKey: QueryKey
 }
 
-export const ArtTemplate: FC<ArtTemplateProps> = ({ auth, queryKey }) => {
+export const ArtTemplate: FC<ArtTemplateProps> = ({ queryKey }) => {
   const { t } = useTranslation()
   const perPage = useBreakpointValue({ base: 1, sm: 2, md: 3, lg: 4 })
   const { data: art } = useArtBySlug()
@@ -36,7 +34,7 @@ export const ArtTemplate: FC<ArtTemplateProps> = ({ auth, queryKey }) => {
     <Container minH="inherit" my={8}>
       {/* TODO Create skeleton components for ArtDetail ArtContent and Comments */}
 
-      <ArtWithDetails auth={auth} art={art} queryKey={queryKey} />
+      <ArtWithDetails art={art} queryKey={queryKey} />
 
       {/* Other Arts List */}
       {arts && arts?.length > 0 && (
@@ -53,12 +51,7 @@ export const ArtTemplate: FC<ArtTemplateProps> = ({ auth, queryKey }) => {
           >
             {arts.map(art => (
               <SplideSlide key={art.id}>
-                <ArtCardBase
-                  auth={auth}
-                  art={art}
-                  isLiked={false}
-                  isOwner={false}
-                />
+                <ArtCardBase art={art} isLiked={false} isOwner={false} />
               </SplideSlide>
             ))}
           </Splide>

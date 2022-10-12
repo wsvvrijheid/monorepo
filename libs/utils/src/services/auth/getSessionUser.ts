@@ -9,8 +9,6 @@ export const getSessionUser = async (token: string) => {
     token,
   })
 
-  console.log('userData', userData)
-
   if (!userData?.data) {
     return null
   }

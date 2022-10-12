@@ -3,7 +3,7 @@ import { FC } from 'react'
 import { Stack } from '@chakra-ui/react'
 import { SessionUser } from '@wsvvrijheid/types'
 import { BiLandscape } from 'react-icons/bi'
-import { BsCommand, BsTranslate } from 'react-icons/bs'
+import { BsCollection, BsCommand, BsTranslate } from 'react-icons/bs'
 import { CgHashtag } from 'react-icons/cg'
 import { GiHumanPyramid } from 'react-icons/gi'
 import { GoChevronRight } from 'react-icons/go'
@@ -90,6 +90,11 @@ export const getAdminNav = (user: SessionUser) => {
           icon: <TbX />,
         },
       ],
+    },
+    {
+      label: 'Art Collections',
+      link: '/collections',
+      icon: <BsCollection />,
     },
     {
       label: 'Hashtags',

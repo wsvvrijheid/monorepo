@@ -1,6 +1,6 @@
 [
   {
-    "image": "/assets/images/who-we-are.svg",
+    "image": "https://api.samenvvv.nl/uploads/who_we_are_3bc225cacc.svg",
     "title": {
       "en": "Who We Are?",
       "nl": "Wie Zijn Wij?",
@@ -13,7 +13,7 @@
     }
   },
   {
-    "image": "/assets/images/mission.svg",
+    "image": "https://api.samenvvv.nl/uploads/mission_10c588adb2.svg",
     "title": {
       "en": "Our Mission",
       "nl": "Onze Missie",
@@ -26,7 +26,7 @@
     }
   },
   {
-    "image": "/assets/images/vision.svg",
+    "image": "https://api.samenvvv.nl/uploads/vision_d7a680f405.svg",
     "title": {
       "en": "Our Vision",
       "nl": "Onze Visie",

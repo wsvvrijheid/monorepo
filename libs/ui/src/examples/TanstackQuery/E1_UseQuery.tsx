@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Box, Code } from '@chakra-ui/react'
 import { useQuery } from '@tanstack/react-query'
-import { request } from '@wsvvrijheid/utils'
+import { Request } from '@wsvvrijheid/utils'
 
 const getBlogs = () => {
   // TODO: Move queryFn here
@@ -21,7 +21,7 @@ export const UseQuery = () => {
    *
    *  */
   const { data, isLoading, isFetching } = useQuery(['blogs', 'tr'], () =>
-    request({
+    Request.collection({
       url: 'api/blogs',
       locale: 'tr',
     }),

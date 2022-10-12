@@ -8,10 +8,11 @@ import {
 } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { defaultSeo, themes } from '@wsvvrijheid/config'
-import { pageview } from '@wsvvrijheid/utils'
+import { checkAuth, pageview, store } from '@wsvvrijheid/utils'
 import { appWithTranslation } from 'next-i18next'
 import { DefaultSeo } from 'next-seo'
 import { useRouter } from 'next/router'
+import { Provider as ReduxProvider } from 'react-redux'
 
 import '@splidejs/splide/dist/css/themes/splide-default.min.css'
 import '@splidejs/react-splide/css'
@@ -24,6 +25,11 @@ function MyApp({ Component, pageProps }) {
   const router = useRouter()
 
   useEffect(() => {
+    console.log('Checking auth APP Foundation')
+    store.dispatch(checkAuth())
+  }, [])
+
+  useEffect(() => {
     const handleRouteChange = url => pageview(url)
 
     router.events.on('routeChangeComplete', handleRouteChange)
@@ -33,11 +39,13 @@ function MyApp({ Component, pageProps }) {
   return (
     <QueryClientProvider client={queryClient}>
       <Hydrate state={pageProps.dehydratedState}>
-        <ChakraProvider theme={themes.wsvvrijheid}>
-          <DefaultSeo {...defaultSeo.wsvvrijheid[router.locale]} />
-          <Component {...pageProps} />
-          <ToastContainer />
-        </ChakraProvider>
+        <ReduxProvider store={store}>
+          <ChakraProvider theme={themes.wsvvrijheid}>
+            <DefaultSeo {...defaultSeo.wsvvrijheid[router.locale]} />
+            <Component {...pageProps} />
+            <ToastContainer />
+          </ChakraProvider>
+        </ReduxProvider>
       </Hydrate>
       <ReactQueryDevtools />
     </QueryClientProvider>

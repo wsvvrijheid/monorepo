@@ -5,10 +5,10 @@ import { useState } from 'react'
 import { Code, Select, Stack } from '@chakra-ui/react'
 import { useQuery } from '@tanstack/react-query'
 import { User } from '@wsvvrijheid/types'
-import { request } from '@wsvvrijheid/utils'
+import { Request } from '@wsvvrijheid/utils'
 
 const getAuthors = () => {
-  return request<User[]>({
+  return Request.collection<User[]>({
     url: 'api/users',
     filters: {
       blogs: {
@@ -31,7 +31,7 @@ const useAuthorsQuery = () => {
 }
 
 const getAuthorBlogs = (authorId?: number) => {
-  return request({
+  return Request.collection({
     url: 'api/blogs',
     // TODO: Add filters to fetch the blogs of the selected author
   })

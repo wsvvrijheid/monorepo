@@ -1,11 +1,9 @@
 import { Box } from '@chakra-ui/react'
-import { useAuth, AdminLayout } from '@wsvvrijheid/ui'
+import { AdminLayout } from '@wsvvrijheid/ui'
 
 const MainHashtagPage = () => {
-  const { user, isLoading } = useAuth()
-
   return (
-    <AdminLayout title="MainHashtag" user={user} isLoading={!user || isLoading}>
+    <AdminLayout title="MainHashtag">
       <Box>MainHashtag</Box>
     </AdminLayout>
   )

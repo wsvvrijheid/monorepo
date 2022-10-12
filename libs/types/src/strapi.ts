@@ -35,6 +35,8 @@ import { Vote } from './vote'
 /**
  * MODEL TYPES
  */
+export type PublicationState = 'preview' | 'live'
+
 export type StrapiBase = {
   id: number
   createdAt: string
@@ -188,6 +190,8 @@ export type StrapiFormValue =
   | number[]
   | Blob
   | Blob[]
+  | JSON
   | null
+  | JSON
 
 export type StrapiMutationInput = { [key in string]?: StrapiFormValue }

@@ -1,15 +1,9 @@
 import { Box } from '@chakra-ui/react'
-import { useAuth, AdminLayout } from '@wsvvrijheid/ui'
+import { AdminLayout } from '@wsvvrijheid/ui'
 
 const BlogsTranslatePage = () => {
-  const { user, isLoading } = useAuth()
-
   return (
-    <AdminLayout
-      title="BlogsTranslatePage"
-      user={user}
-      isLoading={!user || isLoading}
-    >
+    <AdminLayout title="BlogsTranslatePage">
       <Box>BlogTranslatePage</Box>
     </AdminLayout>
   )

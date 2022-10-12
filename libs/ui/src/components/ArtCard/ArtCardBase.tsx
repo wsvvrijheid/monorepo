@@ -29,7 +29,6 @@ import { ArtCardImage } from './ArtCardImage'
 import { ArtActionType, ArtCardBaseProps } from './types'
 
 export const ArtCardBase: FC<ArtCardBaseProps> = ({
-  auth,
   art,
   isMasonry,
   toggleLike,
@@ -207,7 +206,7 @@ export const ArtCardBase: FC<ArtCardBaseProps> = ({
             >
               {art.title}
             </Text>
-            <Navigate href={`/club/artist/${art.artist?.username}`}>
+            <Navigate href={`/club/artist/${art.artist?.id}`}>
               <HStack
                 _hover={{ bg: 'whiteAlpha.300', borderColor: 'whiteAlpha.500' }}
                 borderColor="transparent"
@@ -227,7 +226,6 @@ export const ArtCardBase: FC<ArtCardBaseProps> = ({
             </Navigate>
           </Stack>
           <ArtModal
-            auth={auth}
             art={art}
             isOpen={artModalIsOpen}
             onClose={artModalOnClose}

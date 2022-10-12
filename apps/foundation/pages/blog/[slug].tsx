@@ -8,7 +8,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { serialize } from 'next-mdx-remote/serialize'
 import { NextSeoProps } from 'next-seo'
-import { GetStaticPropsContext } from 'next/types'
+import { GetStaticPaths, GetStaticProps } from 'next/types'
 
 import { Layout } from '../../components'
 import i18nConfig from '../../next-i18next.config'
@@ -26,12 +26,9 @@ const BlogDetailPage: FC<BlogPageProps> = ({
   authorBlogs,
   source,
 }) => {
-  // const { user } = useAuth()
-  //TODO: @ekrem user integration will be done
   return (
     <Layout seo={seo}>
       <BlogDetailTemplate
-        auth={null}
         queryKey={queryKey}
         authorBlogs={authorBlogs}
         source={source}
@@ -42,8 +39,8 @@ const BlogDetailPage: FC<BlogPageProps> = ({
 
 export default BlogDetailPage
 
-export const getStaticPaths = async context => {
-  const paths = await getBlogPaths(context.locales)
+export const getStaticPaths: GetStaticPaths = async context => {
+  const paths = await getBlogPaths(context.locales as StrapiLocale[])
 
   return {
     paths,
@@ -51,7 +48,7 @@ export const getStaticPaths = async context => {
   }
 }
 
-export const getStaticProps = async (context: GetStaticPropsContext) => {
+export const getStaticProps: GetStaticProps = async context => {
   const { blog, authorBlogs, seo, queryClient } = await getBlogStaticProps(
     context,
   )

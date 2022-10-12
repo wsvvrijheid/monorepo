@@ -1,7 +1,6 @@
-import { FC, useEffect, useRef, useState } from 'react'
+import { FC, useRef, useState } from 'react'
 
 import {
-  Box,
   Button,
   ButtonGroup,
   Center,
@@ -22,11 +21,10 @@ import slugify from '@sindresorhus/slugify'
 import { CollectionCreateInput } from '@wsvvrijheid/types'
 import { useCreateCollection } from '@wsvvrijheid/utils'
 import { useForm } from 'react-hook-form'
-import { FaCheck, FaTimes, FaPlus } from 'react-icons/fa'
+import { IoMdAdd, IoMdCheckmark, IoMdClose } from 'react-icons/io'
 import * as yup from 'yup'
 
-import { FormItem } from '../../components'
-import { FileUploader } from '../../components/FileUploader'
+import { FormItem, FilePicker } from '../../components'
 import { CollectionCreateSuccessAlert } from './CreateCollectionSuccessAlert'
 import {
   CreateCollectionFormFieldValues,
@@ -44,7 +42,6 @@ export const CreateCollectionModal: FC<CreateCollectionModalProps> = ({
   queryKey,
 }) => {
   const [images, setImages] = useState<Blob[]>([])
-  const [previews, setPreviews] = useState<string[]>([])
 
   const cancelRef = useRef<HTMLButtonElement>(null)
   const formDisclosure = useDisclosure()
@@ -60,14 +57,6 @@ export const CreateCollectionModal: FC<CreateCollectionModalProps> = ({
     resolver: yupResolver(schema()),
     mode: 'all',
   })
-
-  useEffect(
-    () => () => {
-      // Make sure to revoke the data uris to avoid memory leaks
-      images.forEach(image => URL.revokeObjectURL((image as any).preview))
-    },
-    [images],
-  )
 
   const { mutate, isLoading } = useCreateCollection(queryKey)
 
@@ -109,7 +98,6 @@ export const CreateCollectionModal: FC<CreateCollectionModalProps> = ({
 
   const resetFileUploader = () => {
     setImages([])
-    setPreviews([])
   }
 
   const closeForm = () => {
@@ -127,11 +115,13 @@ export const CreateCollectionModal: FC<CreateCollectionModalProps> = ({
         ref={cancelRef}
       />
 
-      <Button size="lg" colorScheme="blue" onClick={formDisclosure.onOpen}>
-        <Box mr={{ base: 0, lg: 4 }}>
-          <FaPlus />
-        </Box>
-        <Box display={{ base: 'none', lg: 'block' }}>Create Collection</Box>
+      <Button
+        leftIcon={<IoMdAdd />}
+        colorScheme="primary"
+        onClick={formDisclosure.onOpen}
+        my={3}
+      >
+        Create Collection
       </Button>
 
       <Modal
@@ -143,8 +133,8 @@ export const CreateCollectionModal: FC<CreateCollectionModalProps> = ({
       >
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader color={'green'}>Create Collection</ModalHeader>
-          <ModalCloseButton color={'white'} />
+          <ModalHeader color={'primary.500'}>Create Collection</ModalHeader>
+          <ModalCloseButton />
           <ModalBody pos="relative" py={6}>
             {/* LOADING */}
             {isLoading && (
@@ -181,32 +171,21 @@ export const CreateCollectionModal: FC<CreateCollectionModalProps> = ({
                 errors={errors}
                 register={register}
               />
-              <FileUploader
-                images={images}
-                previews={previews}
-                setImages={setImages}
-                setPreviews={setPreviews}
-                singleFile={true}
-              />
+              <FilePicker setFiles={setImages} />
               <ButtonGroup alignSelf="end">
                 <Button
                   onClick={closeForm}
                   mr={3}
                   ref={cancelRef}
-                  leftIcon={<FaTimes />}
+                  leftIcon={<IoMdClose />}
                 >
                   Cancel
                 </Button>
                 <Button
-                  isDisabled={
-                    !images ||
-                    images?.length === 0 ||
-                    !isValid ||
-                    images.length > 1
-                  }
+                  isDisabled={!images || images.length === 0 || !isValid}
                   type="submit"
-                  colorScheme="green"
-                  leftIcon={<FaCheck />}
+                  colorScheme="primary"
+                  leftIcon={<IoMdCheckmark />}
                 >
                   Create Collection
                 </Button>

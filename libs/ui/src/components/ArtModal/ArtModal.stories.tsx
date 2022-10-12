@@ -1,6 +1,6 @@
 import { Box, Button, useDisclosure } from '@chakra-ui/react'
 import { Meta, Story } from '@storybook/react'
-import { ART_MOCKS, USER_MOCKS } from '@wsvvrijheid/mocks'
+import { ART_MOCKS } from '@wsvvrijheid/mocks'
 import { sample } from 'lodash'
 
 import { ArtModal, ArtModalProps } from './ArtModal'
@@ -31,12 +31,3 @@ const Template: Story<ArtModalProps> = args => {
 
 export const Default = Template.bind({})
 Default.args = {}
-
-export const Auth = Template.bind({})
-Auth.args = {
-  auth: {
-    isLoggedIn: true,
-    user: sample(USER_MOCKS),
-    token: 'mock-token',
-  },
-}

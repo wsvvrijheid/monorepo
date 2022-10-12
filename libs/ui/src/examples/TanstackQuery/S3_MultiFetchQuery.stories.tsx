@@ -5,7 +5,7 @@ import { MultiFetchQuery } from './E3_MultiFetchQuery'
 
 export default {
   component: MultiFetchQuery,
-  title: 'Example/E1_MultiFetchQuery',
+  title: 'Example/E3_MultiFetchQuery',
   decorators: [Story => <Container maxW="container.xl">{Story()}</Container>],
 } as Meta<typeof MultiFetchQuery>
 

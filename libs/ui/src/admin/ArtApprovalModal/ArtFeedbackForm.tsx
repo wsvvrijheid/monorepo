@@ -82,7 +82,7 @@ export const ArtFeedbackForm: FC<ArtFeedbackFormTypes> = ({
             <Button
               isDisabled={!feedback || artApprovalStatus === 'approved'}
               onClick={handleApprove}
-              colorScheme="green"
+              colorScheme="primary"
               w="full"
               leftIcon={<HiOutlineCheck />}
             >

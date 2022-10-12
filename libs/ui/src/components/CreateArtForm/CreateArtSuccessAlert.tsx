@@ -10,7 +10,7 @@ import {
   Button,
   Text,
 } from '@chakra-ui/react'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'next-i18next'
 
 import { Navigate } from '../Navigate'
 import { CreateArtSuccessAlertProps } from './types'
@@ -32,25 +32,25 @@ export const ArtCreateSuccessAlert = forwardRef<
       <AlertDialogOverlay>
         <AlertDialogContent>
           <AlertDialogHeader
-            bg="green.500"
+            bg="primary.500"
             color="white"
             fontSize="lg"
             fontWeight="semibold"
           >
-            {t`art.create.success.title`}
+            {t('art.create.success.title')}
           </AlertDialogHeader>
 
           <AlertDialogBody py={4}>
-            <Text>{t`art.create.success.description`}</Text>
+            <Text>{t('art.create.success.description')}</Text>
             <Navigate href="/profile">
               <Button colorScheme="blue.500">
-                {t`art.create.success.link`}
+                {t('art.create.success.link')}
               </Button>
             </Navigate>
           </AlertDialogBody>
 
           <AlertDialogFooter>
-            <Button onClick={onClose}>{t`dismiss`}</Button>
+            <Button onClick={onClose}>{t('dismiss')}</Button>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialogOverlay>

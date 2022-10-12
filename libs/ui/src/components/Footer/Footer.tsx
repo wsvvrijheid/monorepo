@@ -10,10 +10,17 @@ import { SocialButtons } from '../SocialButtons'
 import { FooterNav } from './FooterNav'
 import { FooterProps } from './types'
 
-export const Footer: FC<FooterProps> = ({ menu, about, logo, socialItems }) => {
+export const Footer: FC<FooterProps> = ({
+  animated = true,
+  name,
+  menu,
+  about,
+  logo,
+  socialItems,
+}) => {
   const { t } = useTranslation()
   return (
-    <Box bg={'blue.900'} color="blue.100" pos="relative">
+    <Box bg={'gray.700'} color="primary.100" pos="relative">
       <Container as={Stack}>
         <Stack
           direction={{ base: 'column', lg: 'row' }}
@@ -24,12 +31,14 @@ export const Footer: FC<FooterProps> = ({ menu, about, logo, socialItems }) => {
         >
           <Stack align="center" maxW={250}>
             <motion.div
-              animate={{ rotate: -360 }}
-              transition={{
-                ease: 'linear',
-                repeat: Infinity,
-                duration: 60,
-              }}
+              {...(animated && {
+                animate: { rotate: -360 },
+                transition: {
+                  ease: 'linear',
+                  repeat: Infinity,
+                  duration: 60,
+                },
+              })}
             >
               <Link href="/">
                 <NextImage
@@ -42,7 +51,7 @@ export const Footer: FC<FooterProps> = ({ menu, about, logo, socialItems }) => {
               </Link>
             </motion.div>
             <Text textAlign="center" paddingLeft={1} mx={2} my={2}>
-              {about}
+              {t(`footer-about.${about}`)}
             </Text>
           </Stack>
           <FooterNav menu={menu} />
@@ -50,13 +59,14 @@ export const Footer: FC<FooterProps> = ({ menu, about, logo, socialItems }) => {
         <Wrap
           justify={{ base: 'center', sm: 'space-between' }}
           borderTopWidth="0.5px"
-          borderTopColor="blue.200"
+          borderTopColor="primary.200"
           py={6}
           spacing={2}
         >
           <Text fontSize={'sm'} mr={1}>
             {/* TODO Fix hydration problem for translation field */}
-            &copy; {new Date().getFullYear()} {t('copyright')}
+            &copy;
+            {t('copyright', { name, year: new Date().getFullYear() })}
           </Text>
           <SocialButtons items={socialItems} />
         </Wrap>

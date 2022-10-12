@@ -10,9 +10,9 @@ export const FooterNavItem: FC<FooterNavItemProps> = ({ item }) => {
   const { locale } = useRouter()
   return (
     <Navigate
-      color="blue.100"
+      color="primary.100"
       _hover={{
-        color: 'blue.50',
+        color: 'primary.50',
       }}
       key={item.link}
       href={item.link}

@@ -2,9 +2,10 @@ import { FC, useState } from 'react'
 
 import { useDisclosure } from '@chakra-ui/react'
 import { QueryKey } from '@tanstack/react-query'
-import { Art, SessionUser, UploadFile } from '@wsvvrijheid/types'
+import { Art, UploadFile } from '@wsvvrijheid/types'
 import {
   useArtFeedbackMutation,
+  useAuthSelector,
   useDeleteArt,
   usePublishModel,
   useUnpublishModel,
@@ -18,19 +19,18 @@ import { DataTableProps } from '../types'
 import { columns } from './columns'
 
 type ArtsTableProps = Omit<DataTableProps<Art>, 'columns'> & {
-  user: SessionUser
   queryKey?: QueryKey
 }
 
 export const ArtsTable: FC<ArtsTableProps> = ({
   queryKey,
   data: arts,
-  user,
   totalCount,
   currentPage,
   onSort,
   setCurrentPage,
 }) => {
+  const { user } = useAuthSelector()
   const approvalDisclosure = useDisclosure()
   const confirmDisclosure = useDisclosure()
   const [selectedIndex, setSelectedIndex] = useState<number>()
@@ -41,7 +41,7 @@ export const ArtsTable: FC<ArtsTableProps> = ({
   const unpublishArtMutation = useUnpublishModel('api/arts', queryKey)
   const selectedArt =
     typeof selectedIndex === 'number' ? arts?.[selectedIndex] : null
-  const [confirmState, setConfirmState] =
+  const [confirmProps, setConfirmProps] =
     useState<Omit<WConfirmProps, 'onClose' | 'isOpen' | 'onOpen'>>()
 
   const handleClickRow = (index: number) => {
@@ -52,7 +52,7 @@ export const ArtsTable: FC<ArtsTableProps> = ({
   const handleReject = async (art: number, editor: number, message: string) => {
     confirmDisclosure.onOpen()
 
-    setConfirmState({
+    setConfirmProps({
       isWarning: true,
       title: 'Reject art',
       description: 'Are you sure you want to reject this art?',
@@ -66,7 +66,7 @@ export const ArtsTable: FC<ArtsTableProps> = ({
           point: 10,
         })
 
-        setConfirmState(undefined)
+        setConfirmProps(undefined)
         approvalDisclosure.onClose()
       },
     })
@@ -75,7 +75,7 @@ export const ArtsTable: FC<ArtsTableProps> = ({
   const handleApprove = (art: number, editor: number, message: string) => {
     confirmDisclosure.onOpen()
 
-    setConfirmState({
+    setConfirmProps({
       title: 'Approve art',
       description: 'Are you sure you want to approve this art?',
       buttonText: 'Approve',
@@ -88,7 +88,7 @@ export const ArtsTable: FC<ArtsTableProps> = ({
           point: 10,
         })
 
-        setConfirmState(undefined)
+        setConfirmProps(undefined)
         approvalDisclosure.onClose()
       },
     })
@@ -97,7 +97,7 @@ export const ArtsTable: FC<ArtsTableProps> = ({
   const handleDelete = (id: number) => {
     confirmDisclosure.onOpen()
 
-    setConfirmState({
+    setConfirmProps({
       isWarning: true,
       title: 'Delete art',
       description: 'Are you sure you want to delete this art?',
@@ -105,7 +105,7 @@ export const ArtsTable: FC<ArtsTableProps> = ({
       onConfirm: async () => {
         await deleteArtMutation.mutateAsync({ id })
 
-        setConfirmState(undefined)
+        setConfirmProps(undefined)
         approvalDisclosure.onClose()
       },
     })
@@ -114,14 +114,14 @@ export const ArtsTable: FC<ArtsTableProps> = ({
   const handlePublish = (id: number) => {
     confirmDisclosure.onOpen()
 
-    setConfirmState({
+    setConfirmProps({
       title: 'Publish art',
       description: 'Are you sure you want to publish this art?',
       buttonText: 'Publish',
       onConfirm: async () => {
         await publishArtMutation.mutateAsync({ id })
 
-        setConfirmState(undefined)
+        setConfirmProps(undefined)
         approvalDisclosure.onClose()
       },
     })
@@ -130,14 +130,14 @@ export const ArtsTable: FC<ArtsTableProps> = ({
   const handleUnPublish = (id: number) => {
     confirmDisclosure.onOpen()
 
-    setConfirmState({
+    setConfirmProps({
       title: 'Unpublish art',
       description: 'Are you sure you want to unpublish this art?',
       buttonText: 'Publish',
       onConfirm: async () => {
         await unpublishArtMutation.mutateAsync({ id })
 
-        setConfirmState(undefined)
+        setConfirmProps(undefined)
         approvalDisclosure.onClose()
       },
     })
@@ -156,11 +156,11 @@ export const ArtsTable: FC<ArtsTableProps> = ({
 
   return (
     <>
-      {confirmState && (
+      {confirmProps && (
         <WConfirm
           isOpen={confirmDisclosure.isOpen}
           onClose={confirmDisclosure.onClose}
-          {...confirmState}
+          {...confirmProps}
         />
       )}
       {selectedArt && user && (

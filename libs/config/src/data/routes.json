@@ -1,9 +1,21 @@
 {
+  "art": {
+    "link": "/club/arts",
+    "en": "Arts",
+    "nl": "Kunsten",
+    "tr": "Eserler"
+  },
   "hashtag": {
     "link": "/hashtags",
     "en": "Hashtags",
     "nl": "Hashtags",
     "tr": "Hashtagler"
+  },
+  "collection": {
+    "link": "/club/collections",
+    "en": "Collections",
+    "nl": "Collecties",
+    "tr": "Koleksiyonlar"
   },
   "platform": {
     "link": "/platforms",
@@ -24,8 +36,8 @@
     "tr": "Lotus van de Media"
   },
   "artStop": {
-    "link": "/platforms/art-stop",
-    "en": "Art Stop",
+    "link": "/platforms/art-station",
+    "en": "Art Station",
     "nl": "Kunsthalte",
     "tr": "Sanat Durağı"
   },

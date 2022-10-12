@@ -10,6 +10,7 @@ import {
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation } from '@tanstack/react-query'
+import { setAuth, useAppDispatch } from '@wsvvrijheid/utils'
 import axios from 'axios'
 import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
@@ -17,7 +18,6 @@ import { useForm, SubmitHandler } from 'react-hook-form'
 import { TFunction } from 'react-i18next'
 import * as yup from 'yup'
 
-import { useAuth } from '../../hooks'
 import { FormItem } from '../FormItem'
 import { Navigate } from '../Navigate'
 import { OAuthButtonGroup } from '../OAuthButtonGroup'
@@ -54,26 +54,29 @@ export const LoginForm = () => {
     mode: 'all',
   })
 
+  const dispatch = useAppDispatch()
+
   const router = useRouter()
-  useAuth('/profile', true)
 
   const loginMutation = useMutation({
     mutationKey: ['login'],
-    mutationFn: (body: { identifier: string; password: string }) =>
-      axios.post('/api/auth/login', body),
-    onSuccess: () => {
+    mutationFn: (body: LoginFormFieldValues) =>
+      axios.post('/api/auth/login', {
+        identifier: body.email,
+        password: body.password,
+      }),
+    onSuccess: data => {
+      dispatch(setAuth(data.data))
       reset()
       router.push('/')
+    },
+    onError: e => {
+      console.log('e', e)
     },
   })
 
   const handleSubmitSign: SubmitHandler<LoginFormFieldValues> = async data => {
-    const body = {
-      identifier: data.email,
-      password: data.password,
-    }
-
-    loginMutation.mutate(body)
+    loginMutation.mutate(data)
   }
 
   return (
@@ -128,7 +131,7 @@ export const LoginForm = () => {
             <Checkbox defaultChecked>{t('login.remember-me')}</Checkbox>
             <Navigate
               as={Button}
-              href="/user/forgot-password"
+              href="/forgot-password"
               variant="link"
               colorScheme="blue"
               size="sm"
@@ -142,7 +145,8 @@ export const LoginForm = () => {
             </Button>
             {loginMutation.isError && (
               <Text color="red.500" fontSize="sm">
-                An error occured
+                {(loginMutation.error as any)?.response?.data?.message ||
+                  'An error occured'}
               </Text>
             )}
             <HStack>

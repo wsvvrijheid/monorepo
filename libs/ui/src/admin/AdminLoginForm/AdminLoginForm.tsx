@@ -9,6 +9,12 @@ import {
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation } from '@tanstack/react-query'
+import {
+  setAuth,
+  sleep,
+  useAppDispatch,
+  useAuthSelector,
+} from '@wsvvrijheid/utils'
 import axios from 'axios'
 import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
@@ -55,25 +61,28 @@ export const AdminLoginForm = () => {
     mode: 'all',
   })
 
+  const { isAuthLoading } = useAuthSelector()
+
   const router = useRouter()
+  const dispatch = useAppDispatch()
 
   const loginMutation = useMutation({
     mutationKey: ['login'],
-    mutationFn: (body: { identifier: string; password: string }) =>
-      axios.post('/api/auth/login', body),
-    onSuccess: () => {
+    mutationFn: (body: LoginFormFieldValues) =>
+      axios.post('/api/auth/login', {
+        identifier: body.email,
+        password: body.password,
+      }),
+    onSuccess: async data => {
+      dispatch(setAuth(data.data))
+      await sleep(1000)
       reset()
       router.push('/')
     },
   })
 
   const handleSubmitSign: SubmitHandler<LoginFormFieldValues> = async data => {
-    const body = {
-      identifier: data.email,
-      password: data.password,
-    }
-
-    loginMutation.mutate(body)
+    loginMutation.mutate(data)
   }
 
   return (
@@ -107,7 +116,10 @@ export const AdminLoginForm = () => {
           pt={{ base: 8, lg: '50%' }}
         >
           <VStack textAlign="center" w={'full'}>
-            <Avatar size="2xl" src={'https://wsvvrijheid.nl/images/logo.svg'} />
+            <Avatar
+              size="2xl"
+              src={'https://api.samenvvv.nl/uploads/wsvvrijheid_051c420ab0.svg'}
+            />
 
             <Text fontSize="xl" color={'blue.500'} fontWeight="bold">
               WEES DE STEM <br />
@@ -138,7 +150,12 @@ export const AdminLoginForm = () => {
                 register={register}
                 errors={errors}
               />
-              <Button w="full" type="submit" colorScheme="primary">
+              <Button
+                isLoading={isAuthLoading}
+                w="full"
+                type="submit"
+                colorScheme="primary"
+              >
                 Sign in
               </Button>
               {loginMutation.isError && (

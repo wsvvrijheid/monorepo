@@ -1,17 +1,10 @@
-import { RefAttributes } from 'react'
-
 import {
   FormControl,
   FormErrorMessage,
   FormHelperText,
   FormLabel,
 } from '@chakra-ui/react'
-import {
-  Select,
-  Props as SelectProps,
-  GroupBase,
-  SelectInstance,
-} from 'chakra-react-select'
+import { Select, Props as SelectProps, GroupBase } from 'chakra-react-select'
 import { Control, FieldValues, useController } from 'react-hook-form'
 
 import { FormItemProps } from '../FormItem'
@@ -22,10 +15,9 @@ type SelectOption = {
 }
 
 export type WSelectProps<SelectFormFieldValues extends FieldValues> = {
-  control: Control
+  control: Control<SelectFormFieldValues>
 } & Omit<FormItemProps<SelectFormFieldValues>, 'register' | 'leftElement'> &
-  SelectProps<SelectOption, boolean, GroupBase<SelectOption>> &
-  RefAttributes<SelectInstance<SelectOption, boolean, GroupBase<SelectOption>>>
+  SelectProps<SelectOption, boolean, GroupBase<SelectOption>>
 
 export type WSelectComponent = <SelectFormFieldValues extends FieldValues>(
   props: WSelectProps<SelectFormFieldValues>,

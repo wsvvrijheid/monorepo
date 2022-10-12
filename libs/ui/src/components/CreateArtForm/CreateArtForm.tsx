@@ -26,7 +26,11 @@ import {
 import { yupResolver } from '@hookform/resolvers/yup'
 import slugify from '@sindresorhus/slugify'
 import { StrapiLocale } from '@wsvvrijheid/types'
-import { useCreateArt, useGetArtCategories } from '@wsvvrijheid/utils'
+import {
+  useAuthSelector,
+  useCreateArt,
+  useGetArtCategories,
+} from '@wsvvrijheid/utils'
 import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
@@ -34,7 +38,7 @@ import { TFunction } from 'react-i18next'
 import { FaPlus, FaUpload } from 'react-icons/fa'
 import * as yup from 'yup'
 
-import { FileUploader } from '../FileUploader'
+import { FilePicker } from '../FilePicker'
 import { FormItem } from '../FormItem'
 import { Navigate } from '../Navigate'
 import { WSelect } from '../WSelect'
@@ -56,12 +60,13 @@ const schema = (t: TFunction) =>
   })
 
 // TODO Consider adding modal form instead of a new page
-export const CreateArtForm: FC<CreateArtFormProps> = ({ auth, queryKey }) => {
+export const CreateArtForm: FC<CreateArtFormProps> = ({ queryKey }) => {
   const [images, setImages] = useState<Blob[]>([])
-  const [previews, setPreviews] = useState<string[]>([])
   const { locale } = useRouter()
   const { t } = useTranslation()
   const categories = useGetArtCategories()
+
+  const auth = useAuthSelector()
 
   const cancelRef = useRef<HTMLButtonElement>(null)
   const formDisclosure = useDisclosure()
@@ -125,7 +130,6 @@ export const CreateArtForm: FC<CreateArtFormProps> = ({ auth, queryKey }) => {
 
   const resetFileUploader = () => {
     setImages([])
-    setPreviews([])
   }
 
   const closeForm = () => {
@@ -143,11 +147,11 @@ export const CreateArtForm: FC<CreateArtFormProps> = ({ auth, queryKey }) => {
         ref={cancelRef}
       />
 
-      <Button size="lg" colorScheme="blue" onClick={formDisclosure.onOpen}>
+      <Button size="lg" colorScheme="primary" onClick={formDisclosure.onOpen}>
         <Box mr={{ base: 0, lg: 4 }}>
           <FaUpload />
         </Box>
-        <Box display={{ base: 'none', lg: 'block' }}>{t`art.upload`}</Box>
+        <Box display={{ base: 'none', lg: 'block' }}>{t('art.upload')}</Box>
       </Button>
 
       <Modal
@@ -159,8 +163,8 @@ export const CreateArtForm: FC<CreateArtFormProps> = ({ auth, queryKey }) => {
       >
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader bg="blue.500" color={'white'}>
-            {t`art.upload`}
+          <ModalHeader bg="primary.500" color={'white'}>
+            {t('art.upload')}
           </ModalHeader>
           <ModalCloseButton color={'white'} />
           <ModalBody pos="relative" py={6}>
@@ -174,16 +178,16 @@ export const CreateArtForm: FC<CreateArtFormProps> = ({ auth, queryKey }) => {
                 boxSize="full"
                 bg="whiteAlpha.900"
               >
-                <Spinner size="xl" colorScheme="blue" />
+                <Spinner size="xl" colorScheme="primary" />
               </Center>
             )}
 
             {!auth.isLoggedIn && (
               <VStack>
                 <Text>
-                  {t`art.create.require-auth.text`}{' '}
-                  <Navigate href="/user/login" color="blue.500">
-                    {t`art.create.require-auth.button`}
+                  {t('art.create.require-auth.text')}{' '}
+                  <Navigate href="/login" color="primary.500">
+                    {t('art.create.require-auth.button')}
                   </Navigate>
                 </Text>
               </VStack>
@@ -192,12 +196,7 @@ export const CreateArtForm: FC<CreateArtFormProps> = ({ auth, queryKey }) => {
             {/* CREATE FORM */}
             {auth.isLoggedIn && (
               <SimpleGrid columns={{ base: 1, lg: 2 }} gap={4}>
-                <FileUploader
-                  images={images}
-                  previews={previews}
-                  setImages={setImages}
-                  setPreviews={setPreviews}
-                />
+                <FilePicker setFiles={setImages} />
                 <Stack
                   spacing={4}
                   as="form"
@@ -211,7 +210,7 @@ export const CreateArtForm: FC<CreateArtFormProps> = ({ auth, queryKey }) => {
                       mt={2}
                       fontWeight={'600'}
                     >
-                      {t`language`}
+                      {t('language')}
                     </FormLabel>
                     <Select
                       defaultValue={locale}
@@ -225,7 +224,7 @@ export const CreateArtForm: FC<CreateArtFormProps> = ({ auth, queryKey }) => {
                   </FormControl>
                   <FormItem
                     name="title"
-                    label={t`title`}
+                    label={t('title')}
                     isRequired
                     errors={errors}
                     register={register}
@@ -234,7 +233,7 @@ export const CreateArtForm: FC<CreateArtFormProps> = ({ auth, queryKey }) => {
                     label={t('category')}
                     name="categories"
                     errors={errors}
-                    control={control as any}
+                    control={control}
                     isMulti
                     options={
                       categories.data?.map(c => ({
@@ -246,7 +245,7 @@ export const CreateArtForm: FC<CreateArtFormProps> = ({ auth, queryKey }) => {
 
                   <FormItem
                     name="description"
-                    label={t`description`}
+                    label={t('description')}
                     as={Textarea}
                     isRequired
                     errors={errors}
@@ -254,7 +253,7 @@ export const CreateArtForm: FC<CreateArtFormProps> = ({ auth, queryKey }) => {
                   />
                   <FormItem
                     name="content"
-                    label={t`content`}
+                    label={t('content')}
                     as={Textarea}
                     isRequired
                     errors={errors}
@@ -263,15 +262,15 @@ export const CreateArtForm: FC<CreateArtFormProps> = ({ auth, queryKey }) => {
 
                   <ButtonGroup alignSelf="end">
                     <Button onClick={closeForm} mr={3} ref={cancelRef}>
-                      {t`cancel`}
+                      {t('cancel')}
                     </Button>
                     <Button
                       isDisabled={!images || images?.length === 0 || !isValid}
                       type="submit"
-                      colorScheme="blue"
+                      colorScheme="primary"
                       rightIcon={<FaPlus />}
                     >
-                      {t`create`}
+                      {t('create')}
                     </Button>
                   </ButtonGroup>
                 </Stack>

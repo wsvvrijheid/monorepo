@@ -94,9 +94,11 @@ export const JoinTemplate: FC<JoinTemplateProps> = ({ title }) => {
             <VStack spacing={4}>
               <AlertIcon boxSize="60px" mr={0} />
               <AlertTitle mt={4} mb={1} fontSize="2xl">
-                {t`apply-form.thanks.title`}
+                {t('apply-form.thanks.title')}
               </AlertTitle>
-              <AlertDescription maxWidth="sm">{t`apply-form.thanks.description`}</AlertDescription>
+              <AlertDescription maxWidth="sm">
+                {t('apply-form.thanks.description')}
+              </AlertDescription>
             </VStack>
           </Alert>
         </Center>

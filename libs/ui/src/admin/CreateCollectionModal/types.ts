@@ -1,5 +1,4 @@
 import { QueryKey } from '@tanstack/react-query'
-import { Auth } from '@wsvvrijheid/types'
 
 export type CreateCollectionFormFieldValues = {
   title: string
@@ -7,7 +6,6 @@ export type CreateCollectionFormFieldValues = {
 }
 
 export type CreateCollectionModalProps = {
-  auth: Auth
   queryKey?: QueryKey
 }
 

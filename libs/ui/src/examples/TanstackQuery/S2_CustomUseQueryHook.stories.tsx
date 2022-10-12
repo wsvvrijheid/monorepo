@@ -5,7 +5,7 @@ import { CustomUseQueryHook } from './E2_CustomUseQueryHook'
 
 export default {
   component: CustomUseQueryHook,
-  title: 'Example/E1_CustomUseQueryHook',
+  title: 'Example/E2_CustomUseQueryHook',
   decorators: [Story => <Container maxW="container.xl">{Story()}</Container>],
 } as Meta<typeof CustomUseQueryHook>
 

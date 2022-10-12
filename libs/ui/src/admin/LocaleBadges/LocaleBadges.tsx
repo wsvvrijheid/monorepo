@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import { FC } from 'react'
 
 import { Badge, BadgeProps, HStack } from '@chakra-ui/react'
 import { StrapiLocale } from '@wsvvrijheid/types'
@@ -16,8 +16,9 @@ export const LocaleBadges: FC<LocaleBadgesProps> = ({ locales, ...rest }) => {
 
   return (
     <HStack spacing={1}>
-      {locales.map(locale => (
+      {locales.map((locale, i) => (
         <Badge
+          key={i}
           variant="outline"
           {...rest}
           textTransform="uppercase"

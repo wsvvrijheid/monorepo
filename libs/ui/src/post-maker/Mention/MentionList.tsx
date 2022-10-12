@@ -18,7 +18,7 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '@wsvvrijheid/utils'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'next-i18next'
 
 import { MentionListItem } from './MentionListItem'
 import { MentionListSkeleton } from './MentionListSkeleton'
@@ -43,7 +43,7 @@ export const MentionList = () => {
   }, [mentions])
 
   const dispatch = useAppDispatch()
-  const { t } = useTranslation(['post'])
+  const { t } = useTranslation('post')
 
   const onAddMention = (value: TweetUserData) => {
     if (value.screen_name) {
@@ -83,8 +83,8 @@ export const MentionList = () => {
           bg="white"
         >
           <TabList pos="sticky" top="0" bg="white">
-            <Tab>{t`post.mention-tab-popular`}</Tab>
-            <Tab>{t`post.mention-tab-saved`}</Tab>
+            <Tab>{t('post.mention-tab-popular')}</Tab>
+            <Tab>{t('post.mention-tab-saved')}</Tab>
           </TabList>
           <TabPanels>
             <TabPanel p={0}>
