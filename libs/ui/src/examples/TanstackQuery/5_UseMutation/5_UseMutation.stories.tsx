@@ -1,14 +1,14 @@
 import { Container } from '@chakra-ui/react'
 import { Meta, Story } from '@storybook/react'
 
-import { CustomUseQueryHook } from './E2_CustomUseQueryHook'
+import { UseMutation } from './5_UseMutation'
 
 export default {
-  component: CustomUseQueryHook,
-  title: 'Example/E2_CustomUseQueryHook',
+  component: UseMutation,
+  title: 'Example/E4_UseMutation',
   decorators: [Story => <Container maxW="container.xl">{Story()}</Container>],
-} as Meta<typeof CustomUseQueryHook>
+} as Meta<typeof UseMutation>
 
-const Template: Story = () => <CustomUseQueryHook />
+const Template: Story = () => <UseMutation />
 
 export const Default = Template.bind({})
