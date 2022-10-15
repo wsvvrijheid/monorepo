@@ -22,6 +22,7 @@ export type PageHeaderProps = {
   onSearch: (value: string | null) => number | void
   children?: ReactNode
   filterMenuCloseOnSelect?: boolean
+  searchPlaceHolder: string
 }
 
 export const PageHeader: FC<PageHeaderProps> = ({
@@ -32,6 +33,7 @@ export const PageHeader: FC<PageHeaderProps> = ({
   onSearch,
   children,
   filterMenuCloseOnSelect,
+  searchPlaceHolder = 'Search',
 }) => {
   return (
     <HStack align="center" bg="white" px={4} py={2} shadow="base">
@@ -39,7 +41,7 @@ export const PageHeader: FC<PageHeaderProps> = ({
         <SearchForm
           onSearch={onSearch}
           variant="flushed"
-          placeholder="Search by art title or artist name"
+          placeholder={searchPlaceHolder}
         />
       )}
       {/* TODO locale switcher */}
