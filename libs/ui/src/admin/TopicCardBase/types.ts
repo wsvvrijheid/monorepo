@@ -8,6 +8,7 @@ export type TopicCardBaseProps = {
   topic: Topic
   variant?: 'horizontal' | 'vertical'
   isBookmarked: boolean | undefined
+  isLoading: boolean | undefined
   onBookmark: () => void
   onShare: () => void
   onRecommend: () => void

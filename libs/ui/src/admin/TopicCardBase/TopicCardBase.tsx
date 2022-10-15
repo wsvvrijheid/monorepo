@@ -1,6 +1,7 @@
 import { FC } from 'react'
 
-import { ButtonGroup, Stack, Text, useBreakpointValue } from '@chakra-ui/react'
+import { Stack, Text, useBreakpointValue } from '@chakra-ui/react'
+import { formatDistanceStrict } from 'date-fns'
 import { AiOutlineEye, AiOutlineLike, AiOutlineShareAlt } from 'react-icons/ai'
 import { BsBookmarkHeart } from 'react-icons/bs'
 
@@ -17,20 +18,34 @@ export const TopicCardBase: FC<TopicCardBaseProps> = ({
   onShare,
   onView,
   isBookmarked,
+  isLoading,
 }) => {
   const isVertical = useBreakpointValue({
     base: true,
-    lg: variant === 'vertical' ? true : false,
+    md: variant === 'vertical' ? true : false,
   })
+
+  const time = topic.time
+    ? formatDistanceStrict(new Date(topic.time), new Date()) + ' - '
+    : ''
+
   return (
     <Stack
       h={isVertical ? 'auto' : '200px'}
       boxShadow="md"
       rounded="md"
       align={isVertical ? 'stretch' : 'flex-start'}
-      direction={isVertical ? 'column-reverse' : 'row'}
+      direction={isVertical ? 'column' : 'row'}
       overflow="hidden"
     >
+      {topic.image && (
+        <WImage
+          w={isVertical ? 'full' : '300px'}
+          h={isVertical ? '200px' : 'full'}
+          src={topic.image}
+          alt={topic.title}
+        />
+      )}
       <Stack
         spacing={4}
         p={isVertical ? 4 : 8}
@@ -59,50 +74,53 @@ export const TopicCardBase: FC<TopicCardBaseProps> = ({
             color={'primary.500'}
             noOfLines={1}
           >
-            {topic.date} - {topic.publisher}
+            {time}
+            {topic.publisher}
           </Text>
 
-          <ButtonGroup
+          <Stack
             border={0}
-            variant="ghost"
-            colorScheme="primary"
+            // variant="ghost"
+            // colorScheme="primary"
             fontSize="sm"
-            size={isVertical ? 'md' : 'sm'}
+            direction="row"
+            spacing={'2'}
+            // size={isVertical ? 'md' : 'sm'}
           >
             <ActionButton
               onClick={() => onView()}
               icon={<AiOutlineEye />}
               title="View"
               isVertical={isVertical}
-            />
-            <ActionButton
-              onClick={() => onRecommend()}
-              icon={<AiOutlineLike />}
-              title="Recommend"
-              isVertical={isVertical}
+              variant="ghost"
             />
             <ActionButton
               onClick={() => onShare()}
               icon={<AiOutlineShareAlt />}
               title="Share"
               isVertical={isVertical}
+              variant="ghost"
             />
             <ActionButton
               onClick={() => onBookmark()}
-              icon={<BsBookmarkHeart color={isBookmarked ? 'red' : ''} />}
-              title="Read Later"
+              icon={<BsBookmarkHeart color={isBookmarked ? 'white' : ''} />}
+              title="Add Bookmark"
               isVertical={isVertical}
+              variant={isBookmarked ? 'solid' : 'ghost'}
+              colorScheme={isBookmarked ? 'blue' : ''}
             />
-          </ButtonGroup>
+            <ActionButton
+              onClick={() => onRecommend()}
+              icon={<AiOutlineLike />}
+              title="Recommend"
+              isVertical={isVertical}
+              disabled={topic.isRecommended || isLoading}
+              variant={topic.isRecommended ? 'solid' : 'ghost'}
+              colorScheme={topic.isRecommended ? 'green' : ''}
+            />
+          </Stack>
         </Stack>
       </Stack>
-
-      <WImage
-        w={isVertical ? 'full' : '300px'}
-        h={isVertical ? '200px' : 'full'}
-        src={topic.imageUrl}
-        alt={topic.title}
-      />
     </Stack>
   )
 }

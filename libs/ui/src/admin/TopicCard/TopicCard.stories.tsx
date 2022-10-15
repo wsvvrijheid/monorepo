@@ -1,8 +1,9 @@
 import { Box, SimpleGrid } from '@chakra-ui/react'
 import { Story, Meta } from '@storybook/react'
+import { useTopic } from '@wsvvrijheid/utils'
 
 import { Container } from '../../components'
-import { TOPIC_MOCK } from '../../mocks'
+import { TOPICS_MOCK } from '../../mocks'
 import { TopicCard } from './index'
 import { TopicCardProps } from './types'
 
@@ -10,7 +11,7 @@ export default {
   title: 'Admin/TopicCard',
   component: TopicCard,
   args: {
-    topic: TOPIC_MOCK,
+    topic: TOPICS_MOCK.data.data[0],
   },
   decorators: [
     Story => (
@@ -26,27 +27,22 @@ const Template: Story<TopicCardProps> = args => {
 }
 
 const GridTemplate: Story = () => {
+  const { data, refetch, isLoading } = useTopic()
   return (
     <SimpleGrid columns={{ base: 1, md: 2, lg: 4 }} gap={4}>
-      {[
-        TOPIC_MOCK,
-        TOPIC_MOCK,
-        TOPIC_MOCK,
-        TOPIC_MOCK,
-        TOPIC_MOCK,
-        TOPIC_MOCK,
-        TOPIC_MOCK,
-        TOPIC_MOCK,
-      ].map((topic, i) => (
-        <Box key={topic.id} gridColumn={i === 0 ? 'span 4' : undefined}>
-          <TopicCard
-            variant={i === 0 ? 'horizontal' : 'vertical'}
-            hideDescription={i > 4}
-            topic={topic}
-            userId={132}
-          />
-        </Box>
-      ))}
+      {data &&
+        data.map((topic, i) => (
+          <Box key={topic.url} gridColumn={i === 0 ? 'span 4' : undefined}>
+            <TopicCard
+              variant={i === 0 ? 'horizontal' : 'vertical'}
+              hideDescription={i > 4 && i < 8}
+              topic={topic}
+              userId={132}
+              onTopicRecommended={refetch}
+              isLoading={isLoading}
+            />
+          </Box>
+        ))}
     </SimpleGrid>
   )
 }

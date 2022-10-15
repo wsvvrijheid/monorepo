@@ -5,4 +5,6 @@ export type TopicCardProps = {
   userId: number
   variant?: 'horizontal' | 'vertical'
   hideDescription: boolean
+  isLoading: boolean | undefined
+  onTopicRecommended: () => void
 }

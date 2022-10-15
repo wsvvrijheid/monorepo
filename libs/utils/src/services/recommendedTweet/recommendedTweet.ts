@@ -16,14 +16,14 @@ export const recommendTweet = (
   )
 }
 
-export const useRecomendTweet = (queryKey?: QueryKey) => {
+export const useRecommendTweet = (queryKey?: QueryKey) => {
   const queryClient = useQueryClient()
   const toast = useToast()
 
   return useMutation({
-    mutationKey: ['create-recomended-tweet'],
-    mutationFn: (recomendedTweet: RecommendedTweetCreateInput) =>
-      recommendTweet(recomendedTweet),
+    mutationKey: ['create-recommended-tweet'],
+    mutationFn: (recommendedTweet: RecommendedTweetCreateInput) =>
+      recommendTweet(recommendedTweet),
     onSettled: () => {
       queryClient.invalidateQueries(queryKey)
     },
@@ -31,8 +31,8 @@ export const useRecomendTweet = (queryKey?: QueryKey) => {
       // TODO Add translations
       console.log('res>>>>>', res)
       toast({
-        title: 'Recomended',
-        description: 'Recomended Tweet Created',
+        title: 'Recommended',
+        description: 'Recommended Tweet Created',
         status: 'success',
         duration: 5000,
         isClosable: true,
