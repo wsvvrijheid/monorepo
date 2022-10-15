@@ -4,13 +4,7 @@ import { MenuItemOption, MenuOptionGroup, SimpleGrid } from '@chakra-ui/react'
 import { dehydrate, QueryClient } from '@tanstack/react-query'
 import { StrapiLocale, Topic } from '@wsvvrijheid/types'
 import { AdminLayout, TopicCard } from '@wsvvrijheid/ui'
-import {
-  getRecommendedTopics,
-  getTopics,
-  topicQueryFn,
-  useAuthSelector,
-  useTopic,
-} from '@wsvvrijheid/utils'
+import { topicQueryFn, useAuthSelector, useTopic } from '@wsvvrijheid/utils'
 import { GetStaticProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { FaArrowDown, FaArrowUp } from 'react-icons/fa'
