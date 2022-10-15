@@ -6,6 +6,7 @@ import { ArtCardBase, ArtCardProps } from '../'
 
 export const ArtCard: FC<ArtCardProps> = ({
   art,
+  isMasonry,
   queryKey,
   actionQueryKey,
 }) => {
@@ -18,7 +19,7 @@ export const ArtCard: FC<ArtCardProps> = ({
       isLiked={isLiked as boolean}
       toggleLike={toggleLike}
       isOwner={user?.id === art.artist?.id}
-      isMasonry
+      isMasonry={isMasonry}
       isModal
       actionQueryKey={actionQueryKey}
     />

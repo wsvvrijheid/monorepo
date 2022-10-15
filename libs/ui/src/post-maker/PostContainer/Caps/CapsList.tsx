@@ -16,7 +16,7 @@ export const CapsList: FC<CapsListProps> = memo(function CapsList({
   sharedPosts,
   posts,
 }) {
-  const { t } = useTranslation(['post'])
+  const { t } = useTranslation('post')
 
   const setCurrentPost = useSetCurrentPost()
 
@@ -36,7 +36,9 @@ export const CapsList: FC<CapsListProps> = memo(function CapsList({
         data-tour="step-other-posts"
         data-tour-mob="step-other-posts"
       >
-        <Text color="gray.500" fontSize="sm">{t`post.other-posts`}</Text>
+        <Text color="gray.500" fontSize="sm">
+          {t('post.other-posts')}
+        </Text>
         <Stack
           direction={{ base: 'row', lg: 'column' }}
           h="full"

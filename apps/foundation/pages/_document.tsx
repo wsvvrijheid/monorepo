@@ -6,6 +6,7 @@ export default class Document extends NextDocument {
     return (
       <Html>
         <Head>
+          <link rel="icon" type="image/x-icon" href="/favicon.ico" />
           <link
             rel="apple-touch-icon"
             sizes="180x180"
@@ -33,7 +34,7 @@ export default class Document extends NextDocument {
           />
           <script
             async
-            src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NX_GOOGLE_ANALYTICS}`}
+            src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NX_ANALYTICS_FOUNDATION}`}
           />
           <script
             dangerouslySetInnerHTML={{
@@ -41,7 +42,7 @@ export default class Document extends NextDocument {
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
-              gtag('config', '${process.env.NX_GOOGLE_ANALYTICS}', {
+              gtag('config', '${process.env.NX_ANALYTICS_FOUNDATION}', {
                 page_path: window.location.pathname,
               });
           `,

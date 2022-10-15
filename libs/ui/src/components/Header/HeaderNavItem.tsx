@@ -27,13 +27,13 @@ export const ChildMenuItem: FC<MenuTypeItemProps> = ({ item, isDark }) => {
       p={2}
       color={
         item.link !== '/' && asPath.includes(item.link as string)
-          ? 'primary.400'
+          ? 'primary.500'
           : !isScrolled && isDark
           ? 'white'
           : 'gray.700'
       }
       _hover={{
-        color: !isScrolled && isDark ? 'whiteAlpha.800' : 'primary.400',
+        color: !isScrolled && isDark ? 'whiteAlpha.800' : 'primary.500',
       }}
     >
       {item[(locale as StrapiLocale) || 'en']}

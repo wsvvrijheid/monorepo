@@ -13,9 +13,9 @@ import {
 } from '@chakra-ui/react'
 import { Blog, StrapiLocale, UploadFile } from '@wsvvrijheid/types'
 import { getReadingTime } from '@wsvvrijheid/utils'
+import { useTranslation } from 'next-i18next'
 import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { useRouter } from 'next/router'
-import { useTranslation } from 'react-i18next'
 import { AiFillHeart } from 'react-icons/ai'
 import { FaCalendarDay, FaClock, FaEye } from 'react-icons/fa'
 
