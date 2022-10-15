@@ -1,12 +1,165 @@
-import { Box } from '@chakra-ui/react'
-import { AdminLayout } from '@wsvvrijheid/ui'
+import { useCallback, useEffect, useState } from 'react'
+
+import { MenuItemOption, MenuOptionGroup, SimpleGrid } from '@chakra-ui/react'
+import { dehydrate, QueryClient } from '@tanstack/react-query'
+import { StrapiLocale, Topic } from '@wsvvrijheid/types'
+import { AdminLayout, TopicCard } from '@wsvvrijheid/ui'
+import {
+  getRecommendedTopics,
+  getTopics,
+  topicQueryFn,
+  useAuthSelector,
+  useTopic,
+} from '@wsvvrijheid/utils'
+import { GetStaticProps } from 'next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { FaArrowDown, FaArrowUp } from 'react-icons/fa'
+
+import i18nConfig from '../../next-i18next.config'
 
 const NewsPage = () => {
+  const { user } = useAuthSelector()
+  const { data, refetch, isLoading } = useTopic()
+  const [sources, setSources] = useState<string[]>([])
+  const [topics, setTopics] = useState<Topic[]>([])
+  const [searchTerm, setSearchTerm] = useState<string>()
+  const [sortDirection, setSortDirection] = useState<'DESC' | 'ASC'>('DESC')
+
+  const defaultLocale: StrapiLocale = 'tr'
+
+  const [locale, setLocale] = useState<StrapiLocale>(defaultLocale)
+
+  const search = useCallback(
+    (data: Topic[]) => {
+      const results = []
+      data?.forEach(ld => {
+        for (const key in ld) {
+          if (
+            typeof ld[key] === 'string' &&
+            ld[key]?.toLowerCase().includes(searchTerm.toLowerCase())
+          ) {
+            results.push(ld)
+            return
+          }
+        }
+      })
+      return results
+    },
+    [data, searchTerm],
+  )
+
+  const sortFn = useCallback(
+    (a: Topic, b: Topic) => {
+      const now = new Date()
+      if (sortDirection === 'ASC') {
+        return (
+          new Date(a.time ?? now).getTime() - new Date(b.time ?? now).getTime()
+        )
+      } else {
+        return (
+          new Date(b.time ?? now).getTime() - new Date(a.time ?? now).getTime()
+        )
+      }
+    },
+    [sortDirection],
+  )
+
+  useEffect(() => {
+    const localeData = data?.filter(d => d.locale === locale)
+    setSources([...new Set(localeData?.map(d => d.publisher))])
+    setTopics((searchTerm ? search(localeData) : localeData)?.sort(sortFn))
+  }, [data, locale, search, searchTerm, sortDirection, sortFn])
+
+  const filterOnChange = event => {
+    if (!event || event.length === 0) {
+      setTopics(data)
+    } else {
+      setTopics(data?.filter(d => event.includes(d.publisher)))
+    }
+  }
+
+  const sortMenu = (
+    <MenuOptionGroup
+      title="Order by Date"
+      type="radio"
+      onChange={(direction: 'ASC' | 'DESC') => setSortDirection(direction)}
+      value={sortDirection}
+    >
+      <MenuItemOption key="asc" icon={<FaArrowUp />} value="ASC">
+        Asc
+      </MenuItemOption>
+      <MenuItemOption key="desc" icon={<FaArrowDown />} value="DESC">
+        Desc
+      </MenuItemOption>
+    </MenuOptionGroup>
+  )
+
+  const filterMenu = (
+    <MenuOptionGroup
+      title="Publishers"
+      type="checkbox"
+      onChange={filterOnChange}
+    >
+      {sources?.map(source => (
+        <MenuItemOption key={source} value={source}>
+          {source}
+        </MenuItemOption>
+      ))}
+    </MenuOptionGroup>
+  )
+
   return (
-    <AdminLayout title="News">
-      <Box>News</Box>
+    <AdminLayout
+      title="Collections"
+      headerProps={{
+        onSearch: setSearchTerm,
+        onLanguageSwitch: locale => setLocale(locale),
+        defaultLocale,
+        sortMenu,
+        filterMenu,
+        filterMenuCloseOnSelect: false,
+      }}
+    >
+      <SimpleGrid columns={{ base: 1 }} gap={4}>
+        {topics?.map((topic, i) => (
+          <TopicCard
+            key={topic.url}
+            variant="horizontal"
+            topic={topic}
+            userId={user?.id}
+            onTopicRecommended={refetch}
+            isLoading={isLoading}
+            hideDescription={false}
+          />
+        ))}
+      </SimpleGrid>
     </AdminLayout>
   )
 }
 
 export default NewsPage
+
+export const getStaticProps: GetStaticProps = async context => {
+  const { locale } = context
+  const queryClient = new QueryClient()
+
+  await queryClient.prefetchQuery({
+    queryKey: ['topics'],
+    queryFn: topicQueryFn,
+  })
+
+  const seo = {
+    title: {
+      en: 'News',
+      nl: 'Nieuws',
+      tr: 'Haberler',
+    },
+  }
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ['common'], i18nConfig)),
+      title: seo.title[locale],
+      dehydratedState: dehydrate(queryClient),
+    },
+  }
+}

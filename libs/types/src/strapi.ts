@@ -23,7 +23,7 @@ import { Mention } from './mention'
 import { Platform } from './platform'
 import { Post } from './post'
 import { Privacy } from './privacy'
-import { RecommendedTopic } from './recommended-topic'
+import { RecommendedTopic, TopicBase } from './recommended-topic'
 import { RecommendedTweet } from './recommended-tweet'
 import { Tag } from './tag'
 import { Term } from './term'
@@ -79,6 +79,7 @@ export type StrapiModel =
   | RecommendedTweet
   | Tag
   | Term
+  | TopicBase
   | Trend
   | UploadFile
   | User

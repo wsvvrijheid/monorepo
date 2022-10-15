@@ -2,7 +2,7 @@
 import { Story, Meta } from '@storybook/react'
 
 import { Container } from '../../components'
-import { TOPIC_MOCK } from '../../mocks'
+import { TOPICS_MOCK } from '../../mocks'
 import { TopicCardBase } from './TopicCardBase'
 import { TopicCardBaseProps } from './types'
 
@@ -10,7 +10,7 @@ export default {
   title: 'Admin/TopicCardBase',
   component: TopicCardBase,
   args: {
-    topic: TOPIC_MOCK,
+    topic: TOPICS_MOCK.data.data[0],
   },
   decorators: [
     Story => (

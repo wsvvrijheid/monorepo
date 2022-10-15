@@ -1,6 +1,16 @@
-import { RecommendedTopic } from './recommended-topic'
+import { StrapiLocale } from './locale'
 
-export type Topic = Pick<
-  RecommendedTopic,
-  'id' | 'title' | 'description' | 'imageUrl' | 'date' | 'publisher' | 'link'
->
+export type TopicBase = {
+  url: string
+  title?: string
+  description?: string
+  category?: string
+  image?: string
+  time?: string
+  locale: StrapiLocale
+  publisher: string
+}
+
+export type Topic = {
+  isRecommended: boolean
+} & TopicBase
