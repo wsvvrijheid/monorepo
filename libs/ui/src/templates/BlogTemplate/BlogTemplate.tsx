@@ -1,16 +1,15 @@
 import { FC } from 'react'
 
 import { Image, SimpleGrid, Stack, Text } from '@chakra-ui/react'
-import { Blog, StrapiLocale } from '@wsvvrijheid/types'
+import { Blog } from '@wsvvrijheid/types'
+import { useTranslation } from 'next-i18next'
 import { NextSeoProps } from 'next-seo'
-import { useTranslation } from 'react-i18next'
 
 import { Container, BlogCard, AnimatedBox, Hero } from '../../components'
 
 export type BlogTemplateProps = {
   seo: NextSeoProps
   blogs: Blog[]
-  locale: StrapiLocale
 }
 
 export const BlogTemplate: FC<BlogTemplateProps> = ({ seo, blogs }) => {
@@ -19,9 +18,13 @@ export const BlogTemplate: FC<BlogTemplateProps> = ({ seo, blogs }) => {
   if (!blogs.length) {
     return (
       <Stack minH="inherit" justify="center" align="center" spacing={8}>
-        <Image h={200} src="/images/no-blog.svg" alt="no blog" />
+        <Image
+          h={200}
+          src="https://api.samenvvv.nl/uploads/no_blog_c7699f3a48.svg"
+          alt="no blog"
+        />
         <Text textAlign="center" fontSize="lg">
-          {t`blog-no-content`}
+          {t('blog-no-content')}
         </Text>
       </Stack>
     )
@@ -29,7 +32,10 @@ export const BlogTemplate: FC<BlogTemplateProps> = ({ seo, blogs }) => {
 
   return (
     <>
-      <Hero title={seo.title as string} image="/assets/images/blog-bg.jpeg" />
+      <Hero
+        title={seo.title as string}
+        image="https://api.samenvvv.nl/uploads/blog_bg_ffd7164ce7.jpeg"
+      />
       <Container maxW="container.lg">
         <SimpleGrid gap={8} py={8} columns={{ base: 1, lg: 2 }}>
           {blogs.map((blog, index) => (

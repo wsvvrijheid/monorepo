@@ -110,7 +110,7 @@ export const ArtClubTemplate: FC = () => {
           <Stack w="full" spacing={4}>
             <HStack>
               <SearchForm
-                placeholder={t`search`}
+                placeholder={t('search')}
                 onSearch={value => changeParam({ searchTerm: value as string })}
                 isFetching={artsQuery.isFetching}
               />
@@ -142,7 +142,7 @@ export const ArtClubTemplate: FC = () => {
                         directing="to-down"
                         delay={i * 0.5}
                       >
-                        <ArtCard art={art} queryKey={queryKey} />
+                        <ArtCard art={art} queryKey={queryKey} isMasonry />
                       </AnimatedBox>
                     )
                   })}

@@ -18,9 +18,9 @@ import {
   ContactFormFieldValues,
 } from '@wsvvrijheid/ui'
 import { EmailData, sendEmail } from '@wsvvrijheid/utils'
+import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
-import { useTranslation } from 'react-i18next'
 import { MdEmail, MdLocationOn, MdPhone } from 'react-icons/md'
 
 import { Layout } from '../components'
@@ -66,15 +66,15 @@ const Contact = ({ seo }: ContactProps): JSX.Element => {
             minH="inherit"
           >
             <VStack
-              bg="blue.900"
-              color="blue.50"
+              bg="gray.700"
+              color="primary.50"
               borderRadius="lg"
               p={{ base: 8, lg: 12 }}
               textAlign="center"
               justify="space-evenly"
               spacing={8}
             >
-              <Heading fontWeight="black" as="h2" size="lg" color="blue.200">
+              <Heading fontWeight="black" as="h2" size="lg" color="primary.200">
                 STICHTING <br /> WEES DE STEM VOOR VRIJHEID
               </Heading>
               <Divider borderColor="whiteAlpha.400" />
@@ -84,9 +84,11 @@ const Contact = ({ seo }: ContactProps): JSX.Element => {
                   as={Link}
                   isExternal
                   variant="link"
-                  color="blue.50"
-                  _hover={{ color: 'blue.200' }}
-                  leftIcon={<Box as={MdPhone} color="blue.200" size="20px" />}
+                  color="primary.50"
+                  _hover={{ color: 'primary.200' }}
+                  leftIcon={
+                    <Box as={MdPhone} color="primary.200" size="20px" />
+                  }
                   href="tel:+31685221308"
                 >
                   +31-6 85221308
@@ -95,9 +97,11 @@ const Contact = ({ seo }: ContactProps): JSX.Element => {
                   as={Link}
                   isExternal
                   variant="link"
-                  color="blue.50"
-                  _hover={{ color: 'blue.200' }}
-                  leftIcon={<Box as={MdEmail} color="blue.200" size="20px" />}
+                  color="primary.50"
+                  _hover={{ color: 'primary.200' }}
+                  leftIcon={
+                    <Box as={MdEmail} color="primary.200" size="20px" />
+                  }
                   href="mailto:info@wsvvrijheid.nl"
                 >
                   info@wsvvrijheid.nl
@@ -106,10 +110,10 @@ const Contact = ({ seo }: ContactProps): JSX.Element => {
                   as={Link}
                   isExternal
                   variant="link"
-                  color="blue.50"
-                  _hover={{ color: 'blue.200' }}
+                  color="primary.50"
+                  _hover={{ color: 'primary.200' }}
                   leftIcon={
-                    <Box as={MdLocationOn} color="blue.200" size="20px" />
+                    <Box as={MdLocationOn} color="primary.200" size="20px" />
                   }
                   href="https://goo.gl/maps/E9HaayQnXmphUWtN8"
                   textAlign="left"
@@ -144,24 +148,12 @@ const Contact = ({ seo }: ContactProps): JSX.Element => {
               </Stack>
             </VStack>
 
-            <Stack
-              rounded="lg"
-              p={{ base: 8, lg: 16 }}
-              shadow="base"
-              spacing={4}
-            >
-              <Stack>
-                <Heading size="lg">{t('contact.title')}</Heading>
-                <Text fontSize="sm">{t('contact.fill-form')}</Text>
-              </Stack>
-              <Divider />
-              <ContactForm
-                onSubmitHandler={handleSubmit}
-                isLoading={isLoading}
-                isSuccess={isSuccess}
-                isError={isError}
-              />
-            </Stack>
+            <ContactForm
+              onSubmitHandler={handleSubmit}
+              isLoading={isLoading}
+              isSuccess={isSuccess}
+              isError={isError}
+            />
           </SimpleGrid>
         </Container>
       </Box>

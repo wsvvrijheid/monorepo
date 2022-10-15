@@ -13,8 +13,8 @@ import {
 import { Story, Meta } from '@storybook/react'
 import { CATEGORY_MOCKS } from '@wsvvrijheid/mocks'
 import { StrapiLocale } from '@wsvvrijheid/types'
+import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
-import { useTranslation } from 'react-i18next'
 
 import { useChangeParams } from '../../hooks'
 import { CategoryFilter, CategoryFilterProps } from './CategoryFilter'

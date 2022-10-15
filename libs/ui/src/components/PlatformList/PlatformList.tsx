@@ -47,7 +47,7 @@ export const PlatformList: FC<PlatformListProps> = ({ platforms }) => {
                 variant="link"
                 colorScheme="blue"
               >
-                {t`read-more`}
+                {t('read-more')}
               </Button>
             </Navigate>
           </Stack>

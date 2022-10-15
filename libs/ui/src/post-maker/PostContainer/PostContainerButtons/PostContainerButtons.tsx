@@ -20,7 +20,7 @@ import { useItemLink } from '../../../hooks'
 
 export const PostContainerButtons = () => {
   const queryClient = useQueryClient()
-  const { t } = useTranslation(['post'])
+  const { t } = useTranslation('post')
   const { postContent } = useAppSelector(state => state.post)
 
   const {
@@ -61,7 +61,7 @@ export const PostContainerButtons = () => {
         onClick={() => dispatch(togglePostModal())}
         rightIcon={<FaAt />}
       >
-        {t`post.add-mention`}
+        {t('post.add-mention')}
       </Button>
       <Button
         data-tour-mob="step-next-button"
@@ -72,7 +72,7 @@ export const PostContainerButtons = () => {
         onClick={shufflePost}
         rightIcon={<FaRandom />}
       >
-        {t`post.next-tweet`}
+        {t('post.next-tweet')}
       </Button>
       <TwitterShareButton title={postContent} url={postUrlAbsolute as string}>
         <Button
@@ -87,7 +87,7 @@ export const PostContainerButtons = () => {
           disabled={isExceeded}
           onClick={onAddShare}
         >
-          {t`post.share-tweet`}
+          {t('post.share-tweet')}
         </Button>
       </TwitterShareButton>
     </SimpleGrid>
