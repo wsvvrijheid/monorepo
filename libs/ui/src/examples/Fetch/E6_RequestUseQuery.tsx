@@ -15,8 +15,10 @@ import {
   Spinner,
 } from '@chakra-ui/react'
 import { useQuery } from '@tanstack/react-query'
-import { StrapiLocale, StrapiModel, StrapiUrl } from '@wsvvrijheid/types'
-import { request } from '@wsvvrijheid/utils'
+import { API_URL } from '@wsvvrijheid/config'
+import { Blog, StrapiLocale, StrapiModel, StrapiUrl } from '@wsvvrijheid/types'
+import { Request } from '@wsvvrijheid/utils'
+import axios from 'axios'
 
 import { LanguageSwitcher } from '../../admin'
 import { URL_OPTIONS } from './RequestPopulate'
@@ -25,7 +27,7 @@ export const RequestUseQuery = () => {
   // TODO: Specify the type of all the states
   const [url, setUrl] = useState<StrapiUrl>('api/blogs')
   const [filterValue, setFilterValue] = useState<string>('')
-  const [filterProperty, setFilterProperty] = useState<string>('title')
+  const [filterProperty, setFilterProperty] = useState<string>('')
   const [locale, setLocale] = useState<StrapiLocale>('tr')
 
   // Example filter: { [filterProperty]: filterValue }
@@ -34,11 +36,16 @@ export const RequestUseQuery = () => {
 
   const fetchData = async () => {
     // TODO: Add request to fetch data
-    const data = await request<StrapiModel[]>({
-      url,
-      [filterProperty]: filterValue,
+
+    // eslint-disable-next-line prettier/prettier
+    const data = await Request.collection<StrapiModel[]>({
+      url: url,
+      filters: {
+        [filterProperty]: filterValue,
+      },
       locale,
     })
+
     return data.data
   }
 
@@ -49,7 +56,6 @@ export const RequestUseQuery = () => {
     // We only want to fetch when the user clicks the button
     enabled: false,
   })
-  console.log(filterProperty)
 
   return (
     <Box>
