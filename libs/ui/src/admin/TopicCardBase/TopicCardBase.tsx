@@ -10,9 +10,7 @@ import { ActionButton } from './index'
 import { TopicCardBaseProps } from './index'
 
 export const TopicCardBase: FC<TopicCardBaseProps> = ({
-  hideDescription,
   topic,
-  variant = 'vertical',
   onBookmark,
   onRecommend,
   onShare,
@@ -22,7 +20,7 @@ export const TopicCardBase: FC<TopicCardBaseProps> = ({
 }) => {
   const isVertical = useBreakpointValue({
     base: true,
-    md: variant === 'vertical' ? true : false,
+    lg: false,
   })
 
   const time = topic.time
@@ -57,10 +55,7 @@ export const TopicCardBase: FC<TopicCardBaseProps> = ({
           <Text fontSize="lg" fontWeight="semibold" noOfLines={1}>
             {topic.title}
           </Text>
-
-          {!hideDescription && (
-            <Text noOfLines={isVertical ? 3 : 2}>{topic.description}</Text>
-          )}
+          <Text noOfLines={isVertical ? 3 : 2}>{topic.description}</Text>
         </Stack>
         <Stack
           direction={isVertical ? 'column' : 'row'}
@@ -73,20 +68,13 @@ export const TopicCardBase: FC<TopicCardBaseProps> = ({
             fontWeight="medium"
             color={'primary.500'}
             noOfLines={1}
+            whiteSpace="pre"
           >
             {time}
             {topic.publisher}
           </Text>
 
-          <Stack
-            border={0}
-            // variant="ghost"
-            // colorScheme="primary"
-            fontSize="sm"
-            direction="row"
-            spacing={'2'}
-            // size={isVertical ? 'md' : 'sm'}
-          >
+          <Stack border={0} fontSize="sm" direction="row" spacing={'2'}>
             <ActionButton
               onClick={() => onView()}
               icon={<AiOutlineEye />}
