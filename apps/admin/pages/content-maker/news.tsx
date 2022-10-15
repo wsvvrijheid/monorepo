@@ -21,6 +21,7 @@ const NewsPage = () => {
   const { user } = useAuthSelector()
   const { data, refetch, isLoading } = useTopic()
   const [sources, setSources] = useState<string[]>([])
+  const [filter, setFilter] = useState<string[]>([])
   const [topics, setTopics] = useState<Topic[]>([])
   const [searchTerm, setSearchTerm] = useState<string>()
   const [sortDirection, setSortDirection] = useState<'DESC' | 'ASC'>('DESC')
@@ -66,17 +67,12 @@ const NewsPage = () => {
 
   useEffect(() => {
     const localeData = data?.filter(d => d.locale === locale)
+    const filteredData = localeData.filter(d =>
+      filter.length > 0 ? filter.includes(d.publisher) : true,
+    )
     setSources([...new Set(localeData?.map(d => d.publisher))])
-    setTopics((searchTerm ? search(localeData) : localeData)?.sort(sortFn))
-  }, [data, locale, search, searchTerm, sortDirection, sortFn])
-
-  const filterOnChange = event => {
-    if (!event || event.length === 0) {
-      setTopics(data)
-    } else {
-      setTopics(data?.filter(d => event.includes(d.publisher)))
-    }
-  }
+    setTopics((searchTerm ? search(filteredData) : filteredData)?.sort(sortFn))
+  }, [data, filter, locale, search, searchTerm, sortDirection, sortFn])
 
   const sortMenu = (
     <MenuOptionGroup
@@ -98,7 +94,7 @@ const NewsPage = () => {
     <MenuOptionGroup
       title="Publishers"
       type="checkbox"
-      onChange={filterOnChange}
+      onChange={(value: string[]) => setFilter(value)}
     >
       {sources?.map(source => (
         <MenuItemOption key={source} value={source}>
