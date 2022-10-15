@@ -114,6 +114,7 @@ const NewsPage = () => {
         sortMenu,
         filterMenu,
         filterMenuCloseOnSelect: false,
+        searchPlaceHolder: 'Search news',
       }}
     >
       <SimpleGrid columns={{ base: 1 }} gap={4}>
