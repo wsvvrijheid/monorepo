@@ -8,6 +8,7 @@ export type ProfileMenuProps = {
 } & Pick<HeaderProps, 'isDark'>
 
 export interface HeaderProps {
+  animated?: boolean
   isDark?: boolean
   hasScroll?: boolean
   logo: string
