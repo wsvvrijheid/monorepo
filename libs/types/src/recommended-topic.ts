@@ -8,7 +8,7 @@ import { User } from './user'
 export type RecommendedTopicBase = {
   skipped: boolean
   posted: boolean
-} & TopicBase
+} & Omit<TopicBase, 'isRecommended'>
 
 type RecommendedTopicRelation = {
   recommender?: User

@@ -22,7 +22,7 @@ export type PageHeaderProps = {
   onSearch: (value: string | null) => number | void
   children?: ReactNode
   filterMenuCloseOnSelect?: boolean
-  searchPlaceHolder: string
+  searchPlaceHolder?: string
 }
 
 export const PageHeader: FC<PageHeaderProps> = ({

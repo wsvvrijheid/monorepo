@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 
 import { MenuItemOption, MenuOptionGroup, SimpleGrid } from '@chakra-ui/react'
 import { dehydrate, QueryClient } from '@tanstack/react-query'
-import { StrapiLocale, Topic } from '@wsvvrijheid/types'
+import { StrapiLocale, TopicBase } from '@wsvvrijheid/types'
 import { AdminLayout, TopicCard } from '@wsvvrijheid/ui'
 import { topicQueryFn, useAuthSelector, useTopic } from '@wsvvrijheid/utils'
 import { GetStaticProps } from 'next'
@@ -16,7 +16,7 @@ const NewsPage = () => {
   const { data, refetch, isLoading } = useTopic()
   const [sources, setSources] = useState<string[]>([])
   const [filter, setFilter] = useState<string[]>([])
-  const [topics, setTopics] = useState<Topic[]>([])
+  const [topics, setTopics] = useState<TopicBase[]>([])
   const [searchTerm, setSearchTerm] = useState<string>()
   const [sortDirection, setSortDirection] = useState<'DESC' | 'ASC'>('DESC')
 
@@ -25,26 +25,26 @@ const NewsPage = () => {
   const [locale, setLocale] = useState<StrapiLocale>(defaultLocale)
 
   const search = useCallback(
-    (data: Topic[]) => {
+    (topics: TopicBase[]) => {
       const results = []
-      data?.forEach(ld => {
-        for (const key in ld) {
+      topics?.forEach(topicBase => {
+        for (const key in topicBase) {
           if (
-            typeof ld[key] === 'string' &&
-            ld[key]?.toLowerCase().includes(searchTerm.toLowerCase())
+            typeof topicBase[key] === 'string' &&
+            topicBase[key]?.toLowerCase().includes(searchTerm.toLowerCase())
           ) {
-            results.push(ld)
+            results.push(topicBase)
             return
           }
         }
       })
       return results
     },
-    [data, searchTerm],
+    [searchTerm],
   )
 
   const sortFn = useCallback(
-    (a: Topic, b: Topic) => {
+    (a: TopicBase, b: TopicBase) => {
       const now = new Date()
       if (sortDirection === 'ASC') {
         return (
