@@ -1,6 +1,7 @@
 import { FC } from 'react'
 
 import { useToast } from '@chakra-ui/react'
+import { useQueryClient } from '@tanstack/react-query'
 import { useRecommendTopic } from '@wsvvrijheid/utils'
 import { useLocalStorage } from 'react-use'
 
@@ -11,7 +12,6 @@ export const TopicCard: FC<TopicCardProps> = ({
   topic,
   userId,
   isLoading,
-  onTopicRecommended,
   ...rest
 }) => {
   const [bookmarksStorage, setBookmarksStorage] = useLocalStorage<string[]>(
@@ -19,13 +19,10 @@ export const TopicCard: FC<TopicCardProps> = ({
     [],
   )
 
-  const onSettled = () => {
-    onTopicRecommended()
-  }
+  const queryClient = useQueryClient()
 
   const toast = useToast()
-  const { mutate, isLoading: isRecommendationLoading } =
-    useRecommendTopic(onSettled)
+  const { mutate, isLoading: isRecommendationLoading } = useRecommendTopic()
 
   const isBookmarked = bookmarksStorage?.some(url => url === topic.url)
 
@@ -46,10 +43,13 @@ export const TopicCard: FC<TopicCardProps> = ({
   }
 
   const handleRecommend = () => {
-    mutate({
-      ...topic,
-      recommender: userId,
-    })
+    mutate(
+      {
+        ...topic,
+        recommender: userId,
+      },
+      { onSettled: () => queryClient.invalidateQueries(['topic']) },
+    )
     toast({
       title: 'Recommended',
       status: 'success',

@@ -1,6 +1,6 @@
 import { FC } from 'react'
 
-import { Stack, Text, useBreakpointValue } from '@chakra-ui/react'
+import { ButtonGroup, Stack, Text, useBreakpointValue } from '@chakra-ui/react'
 import { formatDistanceStrict } from 'date-fns'
 import { AiOutlineEye, AiOutlineLike, AiOutlineShareAlt } from 'react-icons/ai'
 import { BsBookmarkHeart } from 'react-icons/bs'
@@ -68,13 +68,12 @@ export const TopicCardBase: FC<TopicCardBaseProps> = ({
             fontWeight="medium"
             color={'primary.500'}
             noOfLines={1}
-            whiteSpace="pre"
           >
             {time}
             {topic.publisher}
           </Text>
 
-          <Stack border={0} fontSize="sm" direction="row" spacing={'2'}>
+          <ButtonGroup size={'sm'}>
             <ActionButton
               onClick={() => onView()}
               icon={<AiOutlineEye />}
@@ -95,7 +94,7 @@ export const TopicCardBase: FC<TopicCardBaseProps> = ({
               title="Add Bookmark"
               isVertical={isVertical}
               variant={isBookmarked ? 'solid' : 'ghost'}
-              colorScheme={isBookmarked ? 'blue' : ''}
+              colorScheme={isBookmarked ? 'blue' : 'gray'}
             />
             <ActionButton
               onClick={() => onRecommend()}
@@ -104,9 +103,9 @@ export const TopicCardBase: FC<TopicCardBaseProps> = ({
               isVertical={isVertical}
               disabled={topic.isRecommended || isLoading}
               variant={topic.isRecommended ? 'solid' : 'ghost'}
-              colorScheme={topic.isRecommended ? 'green' : ''}
+              colorScheme={topic.isRecommended ? 'green' : 'gray'}
             />
-          </Stack>
+          </ButtonGroup>
         </Stack>
       </Stack>
     </Stack>

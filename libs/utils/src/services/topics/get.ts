@@ -27,7 +27,7 @@ export const topicQueryFn = async () => {
   if (!topics) return
 
   return topics.map(topic => {
-    recommendedTopics.map(recommended => {
+    recommendedTopics.forEach(recommended => {
       if (recommended.url === topic.url) {
         topic.isRecommended = true
       } else {
