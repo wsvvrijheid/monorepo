@@ -13,7 +13,7 @@ import i18nConfig from '../../next-i18next.config'
 
 const NewsPage = () => {
   const { user } = useAuthSelector()
-  const { data, refetch, isLoading } = useTopic()
+  const { data, isLoading } = useTopic()
   const [sources, setSources] = useState<string[]>([])
   const [filter, setFilter] = useState<string[]>([])
   const [topics, setTopics] = useState<TopicBase[]>([])
@@ -100,7 +100,7 @@ const NewsPage = () => {
 
   return (
     <AdminLayout
-      title="Collections"
+      title="News"
       headerProps={{
         onSearch: setSearchTerm,
         onLanguageSwitch: locale => setLocale(locale),
@@ -118,7 +118,6 @@ const NewsPage = () => {
             variant="horizontal"
             topic={topic}
             userId={user?.id}
-            onTopicRecommended={refetch}
             isLoading={isLoading}
             hideDescription={false}
           />
