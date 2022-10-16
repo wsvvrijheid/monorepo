@@ -4,11 +4,11 @@ import { useState } from 'react'
 
 import { Code, Select, Stack } from '@chakra-ui/react'
 import { useQuery } from '@tanstack/react-query'
-import { User } from '@wsvvrijheid/types'
-import { request } from '@wsvvrijheid/utils'
+import { Blog, StrapiModel, User } from '@wsvvrijheid/types'
+import { Request } from '@wsvvrijheid/utils'
 
 const getAuthors = () => {
-  return request<User[]>({
+  return Request.collection<StrapiModel[]>({
     url: 'api/users',
     filters: {
       blogs: {
@@ -31,8 +31,12 @@ const useAuthorsQuery = () => {
 }
 
 const getAuthorBlogs = (authorId?: number) => {
-  return request({
+  return Request.collection<StrapiModel[]>({
     url: 'api/blogs',
+    locale: 'tr',
+    // filters: {
+    //   id: authorId,
+    // },
     // TODO: Add filters to fetch the blogs of the selected author
   })
 }
@@ -49,13 +53,18 @@ export const MultiFetchQuery = () => {
 
   const blogsQuery = useBlogsQuery(selectedAuthorId)
   const authorsQuery = useAuthorsQuery()
-
-  console.log('authorsQuery', authorsQuery)
+  console.log(authorsQuery.data?.data)
 
   return (
     <Stack>
       <Select placeholder="Select author">
         {/* TODO: List all the authors and set the selectedAuthorId with onChange method */}
+        {authorsQuery.data?.data.map(author => (
+          // eslint-disable-next-line react-hooks/rules-of-hooks
+          <option onChange={() => setSelectedAuthorId(author.id)}>
+            {author?.username}
+          </option>
+        ))}
       </Select>
       <Code as="pre">{JSON.stringify(blogsQuery.data, null, 2)}</Code>
     </Stack>
