@@ -1,11 +1,18 @@
 // TODO: Remove the following eslint line
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Box, Code } from '@chakra-ui/react'
+import { Box, Button, Code } from '@chakra-ui/react'
 import { useQuery } from '@tanstack/react-query'
-import { request } from '@wsvvrijheid/utils'
+import { Blog } from '@wsvvrijheid/types'
+import { Request } from '@wsvvrijheid/utils'
 
-const getBlogs = () => {
+const getBlogs = async () => {
   // TODO: Move queryFn here
+
+  const data = Request.single<Blog>({
+    url: 'api/blogs',
+    locale: 'tr',
+  })
+  return data
 }
 
 export const UseQuery = () => {
@@ -20,15 +27,19 @@ export const UseQuery = () => {
    * TODO: Move queryFn to a separate function called `getBlogs`
    *
    *  */
-  const { data, isLoading, isFetching } = useQuery(['blogs', 'tr'], () =>
-    request({
-      url: 'api/blogs',
-      locale: 'tr',
-    }),
+  const { data, isLoading, isFetching, error, refetch } = useQuery({
+    queryKey: ['blogs', 'tr'],
+    queryFn: getBlogs,
+  })
+  console.log(isLoading)
+  console.log(isFetching)
+
+  return (
+    <Box>
+      {isLoading && <Box>Loading...</Box>}
+      {isFetching && <Box>Fetching...</Box>}
+      <Button onClick={() => refetch()}>Refetch</Button>
+      <Code as="pre">{JSON.stringify(data, null, 2)}</Code>
+    </Box>
   )
-
-  if (isLoading) return <Box>Loading...</Box>
-  if (isFetching) return <Box>Fetching...</Box>
-
-  return <Code as="pre">{JSON.stringify(data, null, 2)}</Code>
 }

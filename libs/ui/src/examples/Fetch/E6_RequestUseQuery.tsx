@@ -26,8 +26,8 @@ import { URL_OPTIONS } from './RequestPopulate'
 export const RequestUseQuery = () => {
   // TODO: Specify the type of all the states
   const [url, setUrl] = useState<StrapiUrl>('api/blogs')
-  const [filterValue, setFilterValue] = useState<string>('')
-  const [filterProperty, setFilterProperty] = useState<string>('')
+  const [filterValue, setFilterValue] = useState<string>('Dimitri-2')
+  const [filterProperty, setFilterProperty] = useState<string>('title')
   const [locale, setLocale] = useState<StrapiLocale>('tr')
 
   // Example filter: { [filterProperty]: filterValue }
