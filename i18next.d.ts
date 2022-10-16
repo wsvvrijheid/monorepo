@@ -1,4 +1,3 @@
-/* eslint-disable import/extensions */
 import 'react-i18next'
 // import all namespaces (for the default language, only)
 import common from './public/locales/en/common.json'

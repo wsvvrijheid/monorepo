@@ -88,7 +88,7 @@ export const ProfileMenu: FC<ProfileMenuProps> = ({ isDark, menu }) => {
 
         <MenuDivider />
         <MenuItem icon={<FiLogOut />} color="red.400" onClick={handleLogout}>
-          {t('logout')}
+          {t('profile.logout')}
         </MenuItem>
       </MenuList>
     </Menu>

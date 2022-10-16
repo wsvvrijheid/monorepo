@@ -1,6 +1,6 @@
 [
   {
-    "image": "/assets/images/samen.png",
+    "image": "https://api.samenvvv.nl/uploads/samen_40a957fb1c.svg",
     "colors": {
       "bg": "samen.100",
       "header": "samen.500"
@@ -18,7 +18,7 @@
     "link": "/platforms/samenvvv"
   },
   {
-    "image": "/assets/images/lotus.jpeg",
+    "image": "https://api.samenvvv.nl/uploads/lotus_82d4dd8d33.jpeg",
     "colors": {
       "bg": "black",
       "header": "white",
@@ -37,25 +37,25 @@
     "link": "/platforms/lotus"
   },
   {
-    "image": "/assets/images/kunsthalte.svg",
+    "image": "https://api.samenvvv.nl/uploads/kunsthalte_logo_6e8dc3b222.svg",
     "colors": {
       "bg": "red.100",
       "header": "red.500"
     },
     "title": {
-      "en": "Art Stop",
+      "en": "Art Station",
       "nl": "Kunsthalte",
       "tr": "Sanat Durağı"
     },
     "description": {
       "en": "It is a group where people who took refuge in the Netherlands, who are interested in art, meet both online and physically, share their experiences with each other, share information on modern and traditional arts, and organize artistic activities at the same time.",
       "nl": "Het is een groep waar mensen die naar Nederland zijn gevlucht, geïnteresseerd zijn in kunst, elkaar online en fysiek ontmoeten, hun ervaringen met elkaar delen, informatie delen over moderne en traditionele kunst en tegelijkertijd artistieke activiteiten organiseren.",
-      "tr": "Sanata ilgi duyan Hollanda’ya iltica etmiş kişilerin hem online hem fiziki olarak buluştuğu, birbirlerine tecrübelerini aktardığı, modern ve geleneksel sanatlar üzerine bilgi paylaşımı yaptıkları, aynı zamanda sanatsal aktiviteler organize ettikleri bir gruptur."
+      "tr": "Sanata ilgi duyan Hollanda’ya göç etmiş kişilerin hem online hem fiziki olarak buluştuğu, modern ve geleneksel sanatlar üzerine bilgi paylaşımı yaptıkları, aynı zamanda sanatsal aktiviteler organize ettikleri bir gruptur."
     },
-    "link": "/platforms/art-stop"
+    "link": "/platforms/art-station"
   },
   {
-    "image": "/assets/images/academy.svg",
+    "image": "https://api.samenvvv.nl/uploads/academy_46e1b3485a.svg",
     "colors": {
       "bg": "blue.100",
       "header": "blue.500"

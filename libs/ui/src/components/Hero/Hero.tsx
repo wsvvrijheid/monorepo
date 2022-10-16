@@ -17,7 +17,7 @@ export const Hero: FC<PropsWithChildren<HeroProps>> = memo(function Hero({
   title,
   description,
   video,
-  image = '/assets/images/hero-bg.jpeg',
+  image = 'https://api.samenvvv.nl/uploads/hero_bg_b17c51289c.jpeg',
   isFullHeight = false,
   children,
 }) {

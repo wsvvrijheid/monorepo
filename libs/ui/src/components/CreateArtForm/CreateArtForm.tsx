@@ -147,11 +147,11 @@ export const CreateArtForm: FC<CreateArtFormProps> = ({ queryKey }) => {
         ref={cancelRef}
       />
 
-      <Button size="lg" colorScheme="blue" onClick={formDisclosure.onOpen}>
+      <Button size="lg" colorScheme="primary" onClick={formDisclosure.onOpen}>
         <Box mr={{ base: 0, lg: 4 }}>
           <FaUpload />
         </Box>
-        <Box display={{ base: 'none', lg: 'block' }}>{t`art.upload`}</Box>
+        <Box display={{ base: 'none', lg: 'block' }}>{t('art.upload')}</Box>
       </Button>
 
       <Modal
@@ -163,8 +163,8 @@ export const CreateArtForm: FC<CreateArtFormProps> = ({ queryKey }) => {
       >
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader bg="blue.500" color={'white'}>
-            {t`art.upload`}
+          <ModalHeader bg="primary.500" color={'white'}>
+            {t('art.upload')}
           </ModalHeader>
           <ModalCloseButton color={'white'} />
           <ModalBody pos="relative" py={6}>
@@ -178,16 +178,16 @@ export const CreateArtForm: FC<CreateArtFormProps> = ({ queryKey }) => {
                 boxSize="full"
                 bg="whiteAlpha.900"
               >
-                <Spinner size="xl" colorScheme="blue" />
+                <Spinner size="xl" colorScheme="primary" />
               </Center>
             )}
 
             {!auth.isLoggedIn && (
               <VStack>
                 <Text>
-                  {t`art.create.require-auth.text`}{' '}
-                  <Navigate href="/user/login" color="blue.500">
-                    {t`art.create.require-auth.button`}
+                  {t('art.create.require-auth.text')}{' '}
+                  <Navigate href="/login" color="primary.500">
+                    {t('art.create.require-auth.button')}
                   </Navigate>
                 </Text>
               </VStack>
@@ -210,7 +210,7 @@ export const CreateArtForm: FC<CreateArtFormProps> = ({ queryKey }) => {
                       mt={2}
                       fontWeight={'600'}
                     >
-                      {t`language`}
+                      {t('language')}
                     </FormLabel>
                     <Select
                       defaultValue={locale}
@@ -224,7 +224,7 @@ export const CreateArtForm: FC<CreateArtFormProps> = ({ queryKey }) => {
                   </FormControl>
                   <FormItem
                     name="title"
-                    label={t`title`}
+                    label={t('title')}
                     isRequired
                     errors={errors}
                     register={register}
@@ -233,7 +233,7 @@ export const CreateArtForm: FC<CreateArtFormProps> = ({ queryKey }) => {
                     label={t('category')}
                     name="categories"
                     errors={errors}
-                    control={control as any}
+                    control={control}
                     isMulti
                     options={
                       categories.data?.map(c => ({
@@ -245,7 +245,7 @@ export const CreateArtForm: FC<CreateArtFormProps> = ({ queryKey }) => {
 
                   <FormItem
                     name="description"
-                    label={t`description`}
+                    label={t('description')}
                     as={Textarea}
                     isRequired
                     errors={errors}
@@ -253,7 +253,7 @@ export const CreateArtForm: FC<CreateArtFormProps> = ({ queryKey }) => {
                   />
                   <FormItem
                     name="content"
-                    label={t`content`}
+                    label={t('content')}
                     as={Textarea}
                     isRequired
                     errors={errors}
@@ -262,15 +262,15 @@ export const CreateArtForm: FC<CreateArtFormProps> = ({ queryKey }) => {
 
                   <ButtonGroup alignSelf="end">
                     <Button onClick={closeForm} mr={3} ref={cancelRef}>
-                      {t`cancel`}
+                      {t('cancel')}
                     </Button>
                     <Button
                       isDisabled={!images || images?.length === 0 || !isValid}
                       type="submit"
-                      colorScheme="blue"
+                      colorScheme="primary"
                       rightIcon={<FaPlus />}
                     >
-                      {t`create`}
+                      {t('create')}
                     </Button>
                   </ButtonGroup>
                 </Stack>

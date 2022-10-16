@@ -2,7 +2,7 @@ import { FC } from 'react'
 
 import { Flex, IconButton, Stack, Text, VStack } from '@chakra-ui/react'
 import { Post } from '@wsvvrijheid/types'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'next-i18next'
 import { FaRandom } from 'react-icons/fa'
 
 import { useGenerateRandomPostText } from '../../hooks'
@@ -22,7 +22,7 @@ export const PostContainer: FC<PostContainerProps> = ({
   posts,
   post,
 }) => {
-  const { t } = useTranslation(['post'])
+  const { t } = useTranslation('post')
 
   const generateRandomPostText = useGenerateRandomPostText()
 
@@ -38,7 +38,9 @@ export const PostContainer: FC<PostContainerProps> = ({
     >
       <VStack align="stretch" flex="1">
         <Flex justify="space-between">
-          <Text color="gray.500" fontSize="sm">{t`post.content-label`}</Text>
+          <Text color="gray.500" fontSize="sm">
+            {t('post.content-label')}
+          </Text>
           <PostCharCount />
         </Flex>
         <Stack
