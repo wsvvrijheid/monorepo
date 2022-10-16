@@ -1,10 +1,10 @@
 import { ReactElement } from 'react'
 
 import { ButtonProps } from '@chakra-ui/react'
-import { Topic } from '@wsvvrijheid/types'
+import { TopicBase } from '@wsvvrijheid/types'
 
 export type TopicCardBaseProps = {
-  topic: Topic
+  topic: TopicBase
   isBookmarked: boolean | undefined
   isLoading: boolean | undefined
   onBookmark: () => void

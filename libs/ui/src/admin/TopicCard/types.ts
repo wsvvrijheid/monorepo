@@ -1,7 +1,7 @@
-import { Topic } from '@wsvvrijheid/types'
+import { TopicBase } from '@wsvvrijheid/types'
 
 export type TopicCardProps = {
-  topic: Topic
+  topic: TopicBase
   userId: number
   variant?: 'horizontal' | 'vertical'
   hideDescription: boolean

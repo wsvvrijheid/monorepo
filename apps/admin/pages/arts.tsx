@@ -58,6 +58,7 @@ const ArtsPage = () => {
       title={`${status} Arts`}
       headerProps={{
         onSearch: handleSearch,
+        searchPlaceHolder: 'Search arts by title or artist',
         onLanguageSwitch: locale => setLocale(locale),
         defaultLocale,
         sortMenu: [

@@ -12,7 +12,7 @@ export const getRecommendedTopics = async () => {
 }
 
 export const getTopics = async () => {
-  const response = await Request.single<{ data: Topic[] }>({
+  const response = await Request.single<Topic>({
     url: 'api/topic',
   })
 
