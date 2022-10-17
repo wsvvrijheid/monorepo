@@ -13,7 +13,7 @@ export interface HeaderProps {
   hasScroll?: boolean
   logo: string
   headerMenu: HeaderMenu
-  profileMenu: ProfileMenuProps
+  profileMenu?: ProfileMenuProps
   isLoggedIn?: boolean
 }
 

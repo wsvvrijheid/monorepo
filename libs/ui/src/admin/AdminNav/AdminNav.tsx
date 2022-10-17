@@ -103,7 +103,7 @@ export const getAdminNav = (user: SessionUser) => {
       submenu: [
         {
           label: 'Main Hashtag',
-          link: '/hashtags/main',
+          link: '/hashtags',
           icon: <CgHashtag />,
         },
         {

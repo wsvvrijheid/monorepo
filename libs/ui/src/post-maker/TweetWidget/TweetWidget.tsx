@@ -13,7 +13,7 @@ export const TweetWidget = ({
   title,
   tweets,
 }: TweetWidgetProps): JSX.Element => {
-  const { t } = useTranslation('post')
+  const { t } = useTranslation()
 
   return (
     <VStack align="stretch" justify="stretch" h={640}>

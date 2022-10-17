@@ -19,7 +19,7 @@ export const setCurrentPost = (
   if (!hashtag || !hashtag?.posts) return
 
   const post = hashtag.posts.find(post => post.id === id)
-  queryClient.setQueryData(['post', locale, slug], post)
+  post && queryClient.setQueryData(['post', locale, slug], post)
 }
 
 export const useSetCurrentPost = () => {
