@@ -27,7 +27,24 @@
           "defaultConfiguration": "development",
           "options": {
             "buildTarget": "admin:build",
-            "dev": true
+            "dev": true,
+            "assets": [
+              {
+                "input": "libs/assets/src/images",
+                "glob": "*.{png,jpg,jpeg,gif,svg}",
+                "output": "images"
+              },
+              {
+                "input": "libs/assets/src/foundation",
+                "glob": "*.{png,jpg,jpeg,gif,svg,webmanifest,ico}",
+                "output": "."
+              },
+              {
+                "input": "public/locales",
+                "glob": "**/*.json",
+                "output": "locales"
+              }
+            ]
           },
           "configurations": {
             "development": {
@@ -131,19 +148,7 @@
           "defaultConfiguration": "production",
           "options": {
             "root": "apps/foundation",
-            "outputPath": "dist/apps/foundation",
-            "assets": [
-              {
-                "input": "libs/assets/src/images",
-                "glob": "*.{png,jpg,jpeg,gif,svg}",
-                "output": "assets/images"
-              },
-              {
-                "input": "public/locales",
-                "glob": "**/*.json",
-                "output": "locales"
-              }
-            ]
+            "outputPath": "dist/apps/foundation"
           },
           "configurations": {
             "development": { "outputPath": "apps/foundation" },
@@ -160,7 +165,12 @@
               {
                 "input": "libs/assets/src/images",
                 "glob": "*.{png,jpg,jpeg,gif,svg}",
-                "output": "assets/images"
+                "output": "images"
+              },
+              {
+                "input": "libs/assets/src/foundation",
+                "glob": "*.{png,jpg,jpeg,gif,svg,webmanifest,ico}",
+                "output": "."
               },
               {
                 "input": "public/locales",
@@ -215,19 +225,7 @@
           "defaultConfiguration": "production",
           "options": {
             "root": "apps/kunsthalte",
-            "outputPath": "dist/apps/kunsthalte",
-            "assets": [
-              {
-                "input": "libs/assets/src/images",
-                "glob": "*.{png,jpg,jpeg,gif,svg}",
-                "output": "assets/images"
-              },
-              {
-                "input": "public/locales",
-                "glob": "**/*.json",
-                "output": "locales"
-              }
-            ]
+            "outputPath": "dist/apps/kunsthalte"
           },
           "configurations": {
             "development": { "outputPath": "apps/kunsthalte" },
@@ -244,7 +242,12 @@
               {
                 "input": "libs/assets/src/images",
                 "glob": "*.{png,jpg,jpeg,gif,svg}",
-                "output": "assets/images"
+                "output": "images"
+              },
+              {
+                "input": "libs/assets/src/kunsthalte",
+                "glob": "*.{png,jpg,jpeg,gif,svg,webmanifest,ico}",
+                "output": "."
               },
               {
                 "input": "public/locales",
@@ -354,24 +357,7 @@
             "entryFile": "libs/ui/src/index.ts",
             "external": ["react/jsx-runtime"],
             "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
-            "compiler": "babel",
-            "assets": [
-              {
-                "glob": "libs/ui/README.md",
-                "input": ".",
-                "output": "."
-              },
-              {
-                "input": "libs/assets/src/images",
-                "glob": "*.{png,jpg,jpeg,gif,svg}",
-                "output": "assets"
-              },
-              {
-                "input": "libs/assets/src",
-                "glob": "*.js",
-                "output": ""
-              }
-            ]
+            "compiler": "babel"
           }
         },
         "lint": {

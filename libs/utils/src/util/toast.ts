@@ -10,8 +10,8 @@ const { toast } = createStandaloneToast()
  */
 
 export const toastMessage = (
-  title: string,
-  description: string,
+  title: string | null,
+  description: string | null,
   status: AlertStatus,
 ) => {
   toast({

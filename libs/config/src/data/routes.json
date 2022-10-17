@@ -1,6 +1,6 @@
 {
   "art": {
-    "link": "/arts",
+    "link": "/club/arts",
     "en": "Arts",
     "nl": "Kunsten",
     "tr": "Eserler"
@@ -12,7 +12,7 @@
     "tr": "Hashtagler"
   },
   "collection": {
-    "link": "/collections",
+    "link": "/club/collections",
     "en": "Collections",
     "nl": "Collecties",
     "tr": "Koleksiyonlar"
@@ -36,8 +36,8 @@
     "tr": "Lotus van de Media"
   },
   "artStop": {
-    "link": "/platforms/art-stop",
-    "en": "Art Stop",
+    "link": "/platforms/art-station",
+    "en": "Art Station",
     "nl": "Kunsthalte",
     "tr": "Sanat Durağı"
   },

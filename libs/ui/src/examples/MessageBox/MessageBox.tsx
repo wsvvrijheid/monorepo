@@ -8,8 +8,8 @@ import {
   Button,
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { TFunction, useTranslation } from 'next-i18next'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { TFunction, useTranslation } from 'react-i18next'
 import * as yup from 'yup'
 
 import { FormItem } from '../../components'

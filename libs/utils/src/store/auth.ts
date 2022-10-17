@@ -16,14 +16,6 @@ const initialState: AuthState = {
   isLoggedIn: false,
 }
 
-export const loginAuth = createAsyncThunk<
-  Auth,
-  { identifier: string; password: string }
->('auth/login', async data => {
-  const response = await axios.post('/api/auth/login', data)
-  return response.data
-})
-
 export const checkAuth = createAsyncThunk('auth/check', async () => {
   const response = await axios.get<Auth>('/api/auth/user')
   return response.data
@@ -37,11 +29,22 @@ export const destroyAuth = createAsyncThunk('auth/destroy', async () => {
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
-  reducers: {},
+  reducers: {
+    setAuth: (state, action) => {
+      state.user = action.payload.user
+      state.token = action.payload.token
+      state.isLoggedIn = true
+      state.isAuthLoading = false
+    },
+    loadingAuth: state => {
+      state.isAuthLoading = true
+    },
+  },
   extraReducers: builder => {
     builder.addCase(checkAuth.fulfilled, (state, action) => {
       return {
         ...action.payload,
+        error: null,
         isAuthLoading: false,
       }
     })
@@ -51,16 +54,9 @@ export const authSlice = createSlice({
     builder.addCase(destroyAuth.fulfilled, (state, action) => {
       return initialState
     })
-    builder.addCase(loginAuth.fulfilled, (state, action) => {
-      return {
-        ...action.payload,
-        isAuthLoading: false,
-      }
-    })
-    builder.addCase(loginAuth.pending, (state, action) => {
-      state.isAuthLoading = true
-    })
   },
 })
+
+export const { setAuth, loadingAuth } = authSlice.actions
 
 export const { reducer: authReducer } = authSlice

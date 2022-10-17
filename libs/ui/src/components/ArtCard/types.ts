@@ -18,6 +18,7 @@ export type ArtActions = Record<ArtActionType, ArtActionContext>
 
 export type ArtCardProps = {
   art: Art
+  isMasonry?: boolean
   queryKey?: QueryKey
   actionQueryKey?: QueryKey
 }
