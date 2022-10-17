@@ -5,7 +5,7 @@ export type FooterProps = {
   animated?: boolean
   name: string
   menu: HeaderMenu
-  about: 'wsvvrijheid' | 'kunsthalte'
+  about: 'wsvvrijheid' | 'kunsthalte' | 'samenvvv'
   logo: string
   socialItems: SocialItem[]
 }
