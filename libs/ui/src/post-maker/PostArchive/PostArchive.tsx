@@ -20,7 +20,7 @@ import { BiExitFullscreen, BiFullscreen } from 'react-icons/bi'
 import { AnimatedBox, ShareButtons, WImage } from '../../components'
 import { PostSlide } from './PostSlide'
 
-export const PostArchive = (): JSX.Element => {
+export const PostArchive = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -33,16 +33,18 @@ export const PostArchive = (): JSX.Element => {
 
   const { locale } = useRouter()
 
+  console.log('hashtagQuery.data', hashtagQuery.data)
+
   useEffect(() => {
-    const _title = hashtagQuery.data?.posts?.[activeIndex].hashtag?.title || ''
-    const _content = hashtagQuery.data?.posts?.[activeIndex].text || ''
+    const currentPost = hashtagQuery.data?.posts?.[activeIndex]
+
+    if (!currentPost) return
+
+    const _title = currentPost.hashtag?.title || ''
+    const _content = currentPost.description || ''
     const _absoluteUrl =
-      getItemLink(
-        hashtagQuery.data?.posts?.[activeIndex] as Post,
-        locale as StrapiLocale,
-        'post',
-        true,
-      ) || ''
+      getItemLink(currentPost as Post, locale as StrapiLocale, 'post', true) ||
+      ''
 
     setTitle(_title)
     setContent(_content)

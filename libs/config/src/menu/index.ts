@@ -1,7 +1,9 @@
 import { kunsthalte } from './kunsthalte'
+import { samenvvv } from './samenvvv'
 import { wsvvrijheid } from './wsvvrijheid'
 
 export const menus = {
-  wsvvrijheid,
   kunsthalte,
+  samenvvv,
+  wsvvrijheid,
 }

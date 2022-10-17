@@ -17,6 +17,12 @@
     "nl": "Collecties",
     "tr": "Koleksiyonlar"
   },
+  "foundation": {
+    "link": "https://wsvvrijheid.nl",
+    "en": "Foundation",
+    "nl": "Stichting",
+    "tr": "Vakıf"
+  },
   "platform": {
     "link": "/platforms",
     "en": "Platforms",

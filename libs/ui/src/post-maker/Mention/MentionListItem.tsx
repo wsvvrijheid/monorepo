@@ -30,7 +30,7 @@ export const MentionListItem: FC<MentionListItemProps> = ({
   onAddItem,
   onRemoveItem,
 }) => {
-  const { t } = useTranslation('post')
+  const { t } = useTranslation()
 
   if (!data) return null
 
