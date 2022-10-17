@@ -206,7 +206,7 @@ export const ArtCardBase: FC<ArtCardBaseProps> = ({
             >
               {art.title}
             </Text>
-            <Navigate href={`/club/artist/${art.artist?.username}`}>
+            <Navigate href={`/club/artist/${art.artist?.id}`}>
               <HStack
                 _hover={{ bg: 'whiteAlpha.300', borderColor: 'whiteAlpha.500' }}
                 borderColor="transparent"

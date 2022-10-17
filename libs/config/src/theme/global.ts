@@ -2,7 +2,7 @@ export const styles = {
   global: {
     'html, body, #__next': {
       h: 'full',
-      fontFamily: `'Poppins', sans-serif`,
+      fontFamily: 'body',
     },
     body: {
       color: 'gray.700',
