@@ -2,7 +2,7 @@ import { FC } from 'react'
 
 import { QueryKey } from '@tanstack/react-query'
 import { Hashtag } from '@wsvvrijheid/types'
-// import { useRouter } from 'next/router'
+import { useRouter } from 'next/router'
 
 import { DataTable } from '../DataTable'
 import { DataTableProps } from '../types'
@@ -19,10 +19,10 @@ export const MainHashtagTable: FC<MainHashtagTableProps> = ({
   onSort,
   setCurrentPage,
 }) => {
-  // const router = useRouter()
+  const router = useRouter()
 
   const handleClickRow = (index: number, id: number) => {
-    // router.push(`/hashtag/main/${id}`)
+    router.push(`/hashtags/${id}`)
   }
 
   return (
