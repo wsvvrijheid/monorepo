@@ -27,12 +27,13 @@ export const setRandomPost = (
       randomPost = { ...hashtag.posts[randomPostIndex], hashtag }
     }
 
-    queryClient.setQueryData(['post', locale, slug], randomPost)
+    randomPost && queryClient.setQueryData(['post', locale, slug], randomPost)
   }
 }
 
 export const useSetRandomPost = () => {
   const queryClient = useQueryClient()
+
   const {
     locale,
     query: { slug },
