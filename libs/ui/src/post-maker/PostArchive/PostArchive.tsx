@@ -109,7 +109,7 @@ export const PostArchive = () => {
                     alt={`post ${i}`}
                   />
                 )}
-                {post.text && (
+                {post.description && (
                   <HStack
                     spacing={2}
                     px={6}
@@ -119,7 +119,7 @@ export const PostArchive = () => {
                   >
                     <ShareButtons
                       title={post.hashtag?.title as string}
-                      quote={post.text}
+                      quote={post.description}
                       url={
                         getItemLink(
                           post as Post,
