@@ -15,6 +15,8 @@ export const {
   lotus,
   platform,
   privacy,
+  hashtag,
+  foundation,
   samenvvv,
   terms,
   volunteer,
