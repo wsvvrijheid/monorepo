@@ -28,14 +28,9 @@ const NewsPage = () => {
     (topics: TopicBase[]) => {
       const results = []
       topics?.forEach(topicBase => {
-        for (const key in topicBase) {
-          if (
-            typeof topicBase[key] === 'string' &&
-            topicBase[key]?.toLowerCase().includes(searchTerm.toLowerCase())
-          ) {
-            results.push(topicBase)
-            return
-          }
+        const searchRegex = new RegExp(searchTerm, 'gi')
+        if (Object.values(topicBase).join(' ').match(searchRegex)) {
+          results.push(topicBase)
         }
       })
       return results
@@ -61,7 +56,7 @@ const NewsPage = () => {
 
   useEffect(() => {
     const localeData = data?.filter(d => d.locale === locale)
-    const filteredData = localeData.filter(d =>
+    const filteredData = localeData?.filter(d =>
       filter.length > 0 ? filter.includes(d.publisher) : true,
     )
     setSources([...new Set(localeData?.map(d => d.publisher))])
@@ -129,7 +124,7 @@ const NewsPage = () => {
 
 export default NewsPage
 
-export const getStaticProps: GetStaticProps = async context => {
+/* export const getStaticProps: GetStaticProps = async context => {
   const { locale } = context
   const queryClient = new QueryClient()
 
@@ -152,4 +147,4 @@ export const getStaticProps: GetStaticProps = async context => {
       dehydratedState: dehydrate(queryClient),
     },
   }
-}
+} */

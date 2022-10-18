@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query"
+import { useMutation } from '@tanstack/react-query'
 import {
   RecommendedTopic,
   RecommendedTopicCreateInput,
@@ -11,11 +11,8 @@ export const recommendTopic = (createInput: RecommendedTopicCreateInput) =>
     createInput,
   )
 
-
-export const useRecommendTopic = (onSettled?: (data: any) => void) =>
-  useMutation(['recommend-topic'], recommendTopic, {
-    onSettled,
+export const useRecommendTopic = () =>
+  useMutation({
+    mutationKey: ['recommend-topic'],
+    mutationFn: recommendTopic,
   })
-
-
-  
