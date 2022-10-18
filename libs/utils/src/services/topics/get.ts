@@ -27,24 +27,9 @@ export const topicQueryFn = async () => {
   if (!topics) return
 
   return topics.map(topic => {
-    recommendedTopics.forEach(recommended => {
-      if (recommended.url === topic.url) {
-        topic.isRecommended = true
-      } else {
-        topics.push({
-          url: recommended.url,
-          title: recommended.title,
-          description: recommended.description,
-          category: recommended.category,
-          image: recommended.image,
-          time: recommended.time,
-          locale: recommended.locale,
-          publisher: recommended.publisher,
-          isRecommended: true,
-        })
-      }
-    })
-    return topic
+    const isRecommended = recommendedTopics.some(r => r.url === topic.url)
+
+    return { ...topic, isRecommended }
   })
 }
 
