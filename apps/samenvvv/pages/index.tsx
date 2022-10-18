@@ -21,7 +21,7 @@ const Home: FC<HomeProps> = ({ seo, link }) => {
   const { t } = useTranslation()
 
   return (
-    <Layout seo={seo}>
+    <Layout seo={seo} isDark hasScroll>
       <Box pos="relative" bg="white" mt="-100px">
         <Center
           p={8}

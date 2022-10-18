@@ -10,6 +10,7 @@ import {
   ModalOverlay,
   Stack,
 } from '@chakra-ui/react'
+import { API_URL } from '@wsvvrijheid/config'
 import { Post, StrapiLocale } from '@wsvvrijheid/types'
 import { WImage } from '@wsvvrijheid/ui'
 import { getItemLink, getPost } from '@wsvvrijheid/utils'
@@ -69,7 +70,7 @@ export const getServerSideProps: GetServerSideProps = async context => {
 
   const title = post?.description.slice(0, 20)
   const description = post.description
-  const adminUrl = process.env.NEXT_PUBLIC_API_URL as string
+  const adminUrl = API_URL as string
   const image = post?.image
   const url = getItemLink(post, locale, 'post') as string
 
