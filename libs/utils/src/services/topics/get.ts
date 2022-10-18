@@ -19,23 +19,9 @@ export const getTopics = async () => {
   return response?.data?.data
 }
 
-export const topicQueryFn = async () => {
-  const [recommendedTopics, topics] = await Promise.all([
-    getRecommendedTopics(),
-    getTopics(),
-  ])
-  if (!topics) return
-
-  return topics.map(topic => {
-    const isRecommended = recommendedTopics.some(r => r.url === topic.url)
-
-    return { ...topic, isRecommended }
-  })
-}
-
 export const useTopic = () => {
   return useQuery({
     queryKey: ['topics'],
-    queryFn: topicQueryFn,
+    queryFn: getTopics,
   })
 }

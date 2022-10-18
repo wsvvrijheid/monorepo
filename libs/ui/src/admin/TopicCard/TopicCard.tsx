@@ -48,7 +48,7 @@ export const TopicCard: FC<TopicCardProps> = ({
         ...topic,
         recommender: userId,
       },
-      { onSettled: () => queryClient.invalidateQueries(['topic']) },
+      { onSettled: () => queryClient.invalidateQueries(['topics']) },
     )
     toast({
       title: 'Recommended',
