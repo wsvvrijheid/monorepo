@@ -43,7 +43,7 @@ export const MentionList = () => {
   }, [mentions])
 
   const dispatch = useAppDispatch()
-  const { t } = useTranslation('post')
+  const { t } = useTranslation()
 
   const onAddMention = (value: TweetUserData) => {
     if (value.screen_name) {
