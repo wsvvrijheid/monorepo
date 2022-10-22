@@ -1,7 +1,6 @@
 import 'react-i18next'
 // import all namespaces (for the default language, only)
 import common from './public/locales/en/common.json'
-import post from './public/locales/en/post.json'
 
 declare module 'react-i18next' {
   // and extend them!
@@ -11,7 +10,6 @@ declare module 'react-i18next' {
     // custom resources type
     resources: {
       common: typeof common
-      post: typeof post
     }
   }
 }

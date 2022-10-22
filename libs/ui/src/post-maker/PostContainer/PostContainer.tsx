@@ -22,7 +22,7 @@ export const PostContainer: FC<PostContainerProps> = ({
   posts,
   post,
 }) => {
-  const { t } = useTranslation('post')
+  const { t } = useTranslation()
 
   const generateRandomPostText = useGenerateRandomPostText()
 

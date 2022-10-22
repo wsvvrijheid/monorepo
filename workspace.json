@@ -151,8 +151,12 @@
             "outputPath": "dist/apps/foundation"
           },
           "configurations": {
-            "development": { "outputPath": "apps/foundation" },
-            "production": { "outputPath": "dist/apps/foundation" }
+            "development": {
+              "outputPath": "apps/foundation"
+            },
+            "production": {
+              "outputPath": "dist/apps/foundation"
+            }
           }
         },
         "serve": {
@@ -162,16 +166,6 @@
             "buildTarget": "foundation:build",
             "dev": true,
             "assets": [
-              {
-                "input": "libs/assets/src/images",
-                "glob": "*.{png,jpg,jpeg,gif,svg}",
-                "output": "images"
-              },
-              {
-                "input": "libs/assets/src/foundation",
-                "glob": "*.{png,jpg,jpeg,gif,svg,webmanifest,ico}",
-                "output": "."
-              },
               {
                 "input": "public/locales",
                 "glob": "**/*.json",
@@ -228,8 +222,12 @@
             "outputPath": "dist/apps/kunsthalte"
           },
           "configurations": {
-            "development": { "outputPath": "apps/kunsthalte" },
-            "production": { "outputPath": "dist/apps/kunsthalte" }
+            "development": {
+              "outputPath": "apps/kunsthalte"
+            },
+            "production": {
+              "outputPath": "dist/apps/kunsthalte"
+            }
           }
         },
         "serve": {
@@ -311,6 +309,75 @@
           "outputs": ["{options.outputFile}"],
           "options": {
             "lintFilePatterns": ["libs/mocks/**/*.ts"]
+          }
+        }
+      },
+      "tags": []
+    },
+    "samenvvv": {
+      "root": "apps/samenvvv",
+      "sourceRoot": "apps/samenvvv",
+      "projectType": "application",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/next:build",
+          "outputs": ["{options.outputPath}"],
+          "defaultConfiguration": "production",
+          "options": {
+            "root": "apps/samenvvv",
+            "outputPath": "dist/apps/samenvvv"
+          },
+          "configurations": {
+            "development": {
+              "outputPath": "apps/samenvvv"
+            },
+            "production": {}
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/next:server",
+          "defaultConfiguration": "development",
+          "options": {
+            "buildTarget": "samenvvv:build",
+            "dev": true,
+            "assets": [
+              {
+                "input": "public/locales",
+                "glob": "**/*.json",
+                "output": "locales"
+              }
+            ]
+          },
+          "configurations": {
+            "development": {
+              "buildTarget": "samenvvv:build:development",
+              "dev": true
+            },
+            "production": {
+              "buildTarget": "samenvvv:build:production",
+              "dev": false
+            }
+          }
+        },
+        "export": {
+          "executor": "@nrwl/next:export",
+          "options": {
+            "buildTarget": "samenvvv:build:production"
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/samenvvv"],
+          "options": {
+            "jestConfig": "apps/samenvvv/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["apps/samenvvv/**/*.{ts,tsx,js,jsx}"]
           }
         }
       },
