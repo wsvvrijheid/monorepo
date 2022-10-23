@@ -51,6 +51,7 @@ export const ArtAddToCollectionModal: FC<ArtAddToCollectionModalProps> = ({
                   defaultLocale="tr"
                   onLanguageSwitch={setLocale}
                   onSearch={setSearch}
+                  searchPlaceHolder={'Search by art title or artist name'}
                 >
                   <ModalCloseButton pos="static" />
                 </PageHeader>
