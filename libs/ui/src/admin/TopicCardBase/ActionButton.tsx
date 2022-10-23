@@ -9,6 +9,7 @@ export const ActionButton: FC<ActionButtonProps> = ({
   title,
   icon,
   onClick,
+  ...rest
 }) => {
   return (
     <Button
@@ -20,6 +21,7 @@ export const ActionButton: FC<ActionButtonProps> = ({
         : {
             children: title,
           })}
+      {...rest}
     />
   )
 }
