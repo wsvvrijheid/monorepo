@@ -36,7 +36,7 @@ const schema = (t: TFunction) =>
       .matches(RegExp('(.*[A-Z].*)'), t('login.password.matches.uppercase'))
       .matches(RegExp('(.*\\d.*)'), t('login.password.matches.number'))
       .matches(
-        RegExp('[!@#$%^&*(),.?":{}|<>]'),
+        RegExp('[!@#$%^&*(),.?":{}|<>_+-=]'),
         t('login.password.matches.special'),
       ),
     email: yup
