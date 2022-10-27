@@ -12,7 +12,8 @@ import {
   Text,
 } from '@chakra-ui/react'
 import { API_URL } from '@wsvvrijheid/config'
-import { useArtByArtist, useAuthSelector } from '@wsvvrijheid/utils'
+import { useArtByArtist } from '@wsvvrijheid/services'
+import { useAuthSelector } from '@wsvvrijheid/store'
 import { useTranslation } from 'next-i18next'
 import { FaPaintBrush, FaSpinner } from 'react-icons/fa'
 import { IoMdSettings } from 'react-icons/io'

@@ -6,8 +6,8 @@ import { AiOutlineEye, AiOutlineLike, AiOutlineShareAlt } from 'react-icons/ai'
 import { BsBookmarkHeart } from 'react-icons/bs'
 
 import { WImage } from '../../components'
-import { ActionButton } from './index'
-import { TopicCardBaseProps } from './index'
+import { ActionButton } from './ActionButton'
+import { TopicCardBaseProps } from './types'
 
 export const TopicCardBase: FC<TopicCardBaseProps> = ({
   topic,

@@ -19,6 +19,7 @@ Default.args = {
 
 export const IsLoggedIn = Template.bind({})
 IsLoggedIn.args = {
+  isLoggedIn: true,
   headerMenu: HEADER_MENU,
-  profileMenu: { ...PROFILE, isLoggedIn: true },
+  profileMenu: { ...PROFILE },
 }

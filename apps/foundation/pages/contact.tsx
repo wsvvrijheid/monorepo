@@ -11,13 +11,13 @@ import {
   Wrap,
 } from '@chakra-ui/react'
 import { useMutation } from '@tanstack/react-query'
+import { EmailData, sendEmail } from '@wsvvrijheid/services'
 import {
   ContactForm,
   Container,
   SocialButtons,
   ContactFormFieldValues,
 } from '@wsvvrijheid/ui'
-import { EmailData, sendEmail } from '@wsvvrijheid/utils'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'

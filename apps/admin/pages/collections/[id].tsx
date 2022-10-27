@@ -6,13 +6,13 @@ import {
   Text,
   useDisclosure,
 } from '@chakra-ui/react'
+import { useCollectionById } from '@wsvvrijheid/services'
 import {
   AdminLayout,
   ArtAddToCollectionGrid,
   ArtAddToCollectionModal,
   CollectionEdit,
 } from '@wsvvrijheid/ui'
-import { useCollectionById } from '@wsvvrijheid/utils'
 import { useRouter } from 'next/router'
 import { IoMdAdd } from 'react-icons/io'
 

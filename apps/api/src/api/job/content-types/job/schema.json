@@ -1,0 +1,50 @@
+{
+  "kind": "collectionType",
+  "collectionName": "jobs",
+  "info": {
+    "singularName": "job",
+    "pluralName": "jobs",
+    "displayName": "Job",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "slug": {
+      "type": "uid",
+      "targetField": "name_en",
+      "required": true
+    },
+    "name_en": {
+      "pluginOptions": {},
+      "type": "string",
+      "required": true
+    },
+    "name_nl": {
+      "type": "string",
+      "required": true
+    },
+    "name_tr": {
+      "type": "string",
+      "required": true
+    },
+    "description_en": {
+      "pluginOptions": {},
+      "type": "text"
+    },
+    "description_nl": {
+      "type": "text"
+    },
+    "description_tr": {
+      "type": "text"
+    },
+    "platform": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::platform.platform",
+      "inversedBy": "jobs"
+    }
+  }
+}

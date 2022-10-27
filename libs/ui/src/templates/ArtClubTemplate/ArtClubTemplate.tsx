@@ -14,8 +14,8 @@ import {
   Stack,
   useDisclosure,
 } from '@chakra-ui/react'
+import { useArts, useGetArtCategories } from '@wsvvrijheid/services'
 import { StrapiLocale } from '@wsvvrijheid/types'
-import { useArts, useGetArtCategories } from '@wsvvrijheid/utils'
 import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
 import { MdMenuOpen } from 'react-icons/md'

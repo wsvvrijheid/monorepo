@@ -3,7 +3,7 @@ import type { StorybookConfig } from '@storybook/core-common'
 const config: StorybookConfig = {
   stories: [],
   addons: ['@storybook/addon-essentials'],
-  staticDirs: ['../../assets/src'],
+  staticDirs: ['../public'],
 
   webpackFinal: async config => {
     if (config.resolve) {

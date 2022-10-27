@@ -8,7 +8,8 @@ import {
 } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { defaultSeo, themes } from '@wsvvrijheid/config'
-import { checkAuth, pageview, store } from '@wsvvrijheid/utils'
+import { checkAuth, store } from '@wsvvrijheid/store'
+import { pageview } from '@wsvvrijheid/utils'
 import { appWithTranslation } from 'next-i18next'
 import { DefaultSeo } from 'next-seo'
 import { useRouter } from 'next/router'
@@ -16,6 +17,11 @@ import { Provider as ReduxProvider } from 'react-redux'
 
 import '@splidejs/splide/dist/css/themes/splide-default.min.css'
 import '@splidejs/react-splide/css'
+import '@uppy/core/dist/style.css'
+import '@uppy/dashboard/dist/style.css'
+import '@uppy/url/dist/style.css'
+import '@uppy/image-editor/dist/style.css'
+
 import i18nConfig from '../next-i18next.config'
 
 const { ToastContainer } = createStandaloneToast()
