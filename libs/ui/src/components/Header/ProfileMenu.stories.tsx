@@ -14,8 +14,3 @@ const Template: Story<ProfileMenuProps> = args => <ProfileMenu {...args} />
 
 export const Default = Template.bind({})
 Default.args = {}
-
-export const LoggedIn = Template.bind({})
-LoggedIn.args = {
-  isLoggedIn: true,
-}

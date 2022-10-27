@@ -1,4 +1,4 @@
-import { sessionOptions } from '@wsvvrijheid/utils'
+import { sessionOptions } from '@wsvvrijheid/lib'
 import { withIronSessionApiRoute } from 'iron-session/next'
 import { NextApiRequest, NextApiResponse } from 'next'
 

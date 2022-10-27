@@ -2,7 +2,7 @@ import { FC } from 'react'
 
 import { useToast } from '@chakra-ui/react'
 import { useQueryClient } from '@tanstack/react-query'
-import { useRecommendTopic } from '@wsvvrijheid/utils'
+import { useRecommendTopic } from '@wsvvrijheid/services'
 import { useLocalStorage } from 'react-use'
 
 import { TopicCardBase } from '../TopicCardBase'

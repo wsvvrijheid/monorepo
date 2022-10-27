@@ -25,16 +25,13 @@ import {
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import slugify from '@sindresorhus/slugify'
+import { useCreateArt, useGetArtCategories } from '@wsvvrijheid/services'
+import { useAuthSelector } from '@wsvvrijheid/store'
 import { StrapiLocale } from '@wsvvrijheid/types'
-import {
-  useAuthSelector,
-  useCreateArt,
-  useGetArtCategories,
-} from '@wsvvrijheid/utils'
 import { useTranslation } from 'next-i18next'
+import { TFunction } from 'next-i18next'
 import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
-import { TFunction } from 'react-i18next'
 import { FaPlus, FaUpload } from 'react-icons/fa'
 import * as yup from 'yup'
 

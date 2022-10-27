@@ -1,6 +1,5 @@
 import { Story, Meta } from '@storybook/react'
 import { BLOG_MOCKS } from '@wsvvrijheid/mocks'
-import { StrapiLocale } from '@wsvvrijheid/types'
 
 import { BlogTemplate, BlogTemplateProps } from './BlogTemplate'
 
@@ -28,9 +27,9 @@ const Template: Story<BlogTemplateProps> = args => {
     },
   }
 
-  const blogs = BLOG_MOCKS[args.locale]?.data || []
-  const seo = blogSeo[args.locale as StrapiLocale]
-  return <BlogTemplate seo={seo} blogs={blogs} {...args} />
+  const blogs = BLOG_MOCKS.tr?.data || []
+  const seo = blogSeo.tr
+  return <BlogTemplate seo={args.seo || seo} blogs={args.blogs || blogs} />
 }
 
 export const Default = Template.bind({})

@@ -3,13 +3,13 @@ import { FC } from 'react'
 import '@splidejs/splide/dist/css/themes/splide-default.min.css'
 import { Stack, Box, Grid } from '@chakra-ui/react'
 import { QueryKey, useQueryClient } from '@tanstack/react-query'
-import { Art } from '@wsvvrijheid/types'
 import {
   useArtBySlug,
   useArtCommentMutation,
-  useAuthSelector,
   useLikeArt,
-} from '@wsvvrijheid/utils'
+} from '@wsvvrijheid/services'
+import { useAuthSelector } from '@wsvvrijheid/store'
+import { Art } from '@wsvvrijheid/types'
 
 import {
   ArtContent,
