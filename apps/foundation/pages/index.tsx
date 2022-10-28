@@ -4,10 +4,7 @@ import { GetStaticProps } from 'next'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import { HomeAbout } from '../components/HomeAbout'
-import { HomeHero } from '../components/HomeHero/HomeHero'
-import { HomePlatform } from '../components/HomePlatform'
-import { Layout } from '../components/Layout/Layout'
+import { HomeAbout, HomeHero, HomePlatform, Layout } from '../components'
 import i18nConfig from '../next-i18next.config'
 
 export default function Home({ seo }) {

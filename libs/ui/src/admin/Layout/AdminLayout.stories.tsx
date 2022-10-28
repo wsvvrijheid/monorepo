@@ -6,7 +6,7 @@ import { sample } from 'lodash'
 
 import { AdminLayout, AdminLayoutProps } from './AdminLayout'
 
-const sessionUser = mapSessionUser(sample(USER_MOCKS))
+const sessionUser = mapSessionUser(sample(USER_MOCKS)!)
 
 export default {
   title: 'Admin/AdminLayout',
@@ -33,28 +33,4 @@ export const Default = Template.bind({})
 export const Loading = Template.bind({})
 Loading.args = {
   isLoading: true,
-} as AdminLayoutProps
-
-export const Editor = Template.bind({})
-Editor.args = {
-  user: {
-    ...sessionUser,
-    isEditor: true,
-  },
-} as AdminLayoutProps
-
-export const Admin = Template.bind({})
-Admin.args = {
-  user: {
-    ...sessionUser,
-    isAdmin: true,
-  },
-} as AdminLayoutProps
-
-export const Translator = Template.bind({})
-Translator.args = {
-  user: {
-    ...sessionUser,
-    translatorId: 1,
-  },
 } as AdminLayoutProps

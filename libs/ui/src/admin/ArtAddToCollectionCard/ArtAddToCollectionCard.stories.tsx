@@ -49,7 +49,7 @@ const GridTemplate: Story<ArtAddToCollectionCardProps> = args => {
 
       setCollection({
         ...collection,
-        arts: [...collection.arts, art],
+        arts: [...(collection.arts || []), art],
       })
     },
   })
@@ -61,7 +61,7 @@ const GridTemplate: Story<ArtAddToCollectionCardProps> = args => {
 
       setCollection({
         ...collection,
-        arts: collection.arts.filter(a => a.id !== art.id),
+        arts: collection.arts?.filter(a => a.id !== art.id),
       })
     },
   })
@@ -79,11 +79,11 @@ const GridTemplate: Story<ArtAddToCollectionCardProps> = args => {
   return (
     <Stack>
       <Text p={4} pos="sticky" top={0} bg="white" zIndex={1}>
-        Collection has {collection.arts.length} arts
+        Collection has {collection.arts?.length} arts
       </Text>
       <SimpleGrid minChildWidth="300px" spacing="10px">
         {ART_MOCKS.tr.data.map(art => {
-          const isAdded = collection.arts.some(a => a.id === art.id)
+          const isAdded = collection.arts?.some(a => a.id === art.id) || false
           const isLoading =
             artToBeMutated?.id === art.id &&
             (addMutation.isLoading || removeMutation.isLoading)

@@ -22,7 +22,7 @@ const Template: ComponentStory<typeof Card> = args => {
   return <Card {...args} />
 }
 
-const { name_en, description_en, image } = sample(PLATFORM_MOCKS.data)
+const { name_en, description_en, image } = sample(PLATFORM_MOCKS.data)!
 const src = `${API_URL}${image?.url}`
 
 export const Default = Template.bind({})

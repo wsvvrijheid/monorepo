@@ -1,4 +1,7 @@
-export const admin = {
+import { Localize } from '@wsvvrijheid/types'
+import { NextSeoProps } from 'next-seo'
+
+export const admin: Localize<NextSeoProps> = {
   en: {
     title: 'Admin',
   },

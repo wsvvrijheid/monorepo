@@ -1,8 +1,8 @@
 import { FC, memo } from 'react'
 
 import { Box, Stack, Text } from '@chakra-ui/react'
+import { useSetCurrentPost } from '@wsvvrijheid/services'
 import { Post } from '@wsvvrijheid/types'
-import { useSetCurrentPost } from '@wsvvrijheid/utils'
 import { useTranslation } from 'next-i18next'
 
 import { CapsItem } from './CapsItem'

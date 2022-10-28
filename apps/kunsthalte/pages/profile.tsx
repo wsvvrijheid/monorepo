@@ -1,5 +1,5 @@
+import { useAuthSelector } from '@wsvvrijheid/store'
 import { AuthenticatedUserProfile } from '@wsvvrijheid/ui'
-import { useAuthSelector } from '@wsvvrijheid/utils'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { Layout } from '../components'
