@@ -34,8 +34,7 @@ Default.args = {
   title: ART_MOCKS.tr.data[0].title,
   content: ART_MOCKS.tr.data[0].content,
   artistName:
-    ART_MOCKS.tr.data[0].artist?.name ||
-    ART_MOCKS.tr.data[0].artist?.user?.username,
-  artistAvatar: ART_MOCKS.tr.data[0].artist?.user?.avatar?.url,
-  artistProfilePath: `/artist/${ART_MOCKS.tr.data[0].artist?.user?.username}`,
+    ART_MOCKS.tr.data[0].artist?.name || ART_MOCKS.tr.data[0].artist?.username,
+  artistAvatar: ART_MOCKS.tr.data[0].artist?.avatar?.url,
+  artistProfilePath: `/artist/${ART_MOCKS.tr.data[0].artist?.username}`,
 }

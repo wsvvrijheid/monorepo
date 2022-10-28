@@ -3,8 +3,8 @@ import * as React from 'react'
 import { Box, Button, useDisclosure } from '@chakra-ui/react'
 import { Story, Meta } from '@storybook/react'
 import { TWEET_MOCKS, USER_MOCKS } from '@wsvvrijheid/mocks'
+import { useRecommendTweet } from '@wsvvrijheid/services'
 import { RecommendedTweetCreateInput, Tweet } from '@wsvvrijheid/types'
-import { useRecommendTweet } from '@wsvvrijheid/utils'
 
 import { CreateTweetForm } from './CreateTweetForm'
 import { CreateTweetFormProps } from './types'
@@ -26,7 +26,7 @@ const Template: Story<CreateTweetFormProps> = args => {
   const handleSubmit = async (
     text: string,
     originalTweet: Tweet,
-    media: Blob,
+    media?: Blob,
   ) => {
     const recomendedTweet: RecommendedTweetCreateInput = {
       recommender: USER_MOCKS?.[0].id,

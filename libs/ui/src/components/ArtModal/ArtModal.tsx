@@ -9,15 +9,9 @@ import {
   ModalOverlay,
   Box,
 } from '@chakra-ui/react'
-import { Art } from '@wsvvrijheid/types'
 
 import { ArtWithDetails } from '../ArtWithDetails'
-
-export type ArtModalProps = {
-  art: Art
-  isOpen: boolean
-  onClose: () => void
-}
+import { ArtModalProps } from './types'
 
 export const ArtModal: FC<ArtModalProps> = ({ art, isOpen, onClose }) => {
   return (

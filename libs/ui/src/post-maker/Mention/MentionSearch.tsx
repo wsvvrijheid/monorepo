@@ -8,7 +8,7 @@ import {
   setMentions,
   useAppDispatch,
   useAppSelector,
-} from '@wsvvrijheid/utils'
+} from '@wsvvrijheid/store'
 import { useTranslation } from 'next-i18next'
 import { FaSearch } from 'react-icons/fa'
 import { useDebounce } from 'react-use'

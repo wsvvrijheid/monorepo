@@ -24,7 +24,7 @@ const Template: Story<FooterProps> = args => <Footer {...args} />
 export const Default = Template.bind({})
 Default.args = {
   menu: FOOTER_MENU,
-  about: 'About',
+  about: 'samenvvv',
   logo: 'https://wsvvrijheid.nl/images/logo.svg',
   socialItems: SOCIAL_LINKS,
 }

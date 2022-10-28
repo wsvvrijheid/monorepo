@@ -1,8 +1,8 @@
 import { useState } from 'react'
 
+import { useCollectionsByFilterAndSort } from '@wsvvrijheid/services'
 import { StrapiLocale, Sort } from '@wsvvrijheid/types'
 import { AdminLayout, CollectionsTable } from '@wsvvrijheid/ui'
-import { useCollectionsByFilterAndSort } from '@wsvvrijheid/utils'
 import { useUpdateEffect } from 'react-use'
 
 const CollectionsPage = () => {

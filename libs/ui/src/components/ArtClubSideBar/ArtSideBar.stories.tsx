@@ -10,7 +10,7 @@ import {
   VStack,
 } from '@chakra-ui/react'
 import { Story, Meta } from '@storybook/react'
-import { useGetArtCategories } from '@wsvvrijheid/utils'
+import { useGetArtCategories } from '@wsvvrijheid/services'
 import { useRouter } from 'next/router'
 
 import { ArtSideBar, ArtSideBarProps } from './ArtSideBar'

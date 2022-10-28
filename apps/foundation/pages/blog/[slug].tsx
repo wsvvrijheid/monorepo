@@ -1,9 +1,9 @@
 import { FC } from 'react'
 
 import { dehydrate, QueryKey } from '@tanstack/react-query'
+import { getBlogPaths, getBlogStaticProps } from '@wsvvrijheid/services'
 import { Blog, StrapiLocale } from '@wsvvrijheid/types'
 import { BlogDetailTemplate } from '@wsvvrijheid/ui'
-import { getBlogPaths, getBlogStaticProps } from '@wsvvrijheid/utils'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { serialize } from 'next-mdx-remote/serialize'

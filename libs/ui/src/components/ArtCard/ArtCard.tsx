@@ -1,8 +1,10 @@
 import { FC } from 'react'
 
-import { useAuthSelector, useLikeArt } from '@wsvvrijheid/utils'
+import { useLikeArt } from '@wsvvrijheid/services'
+import { useAuthSelector } from '@wsvvrijheid/store'
 
-import { ArtCardBase, ArtCardProps } from '../'
+import { ArtCardBase } from './ArtCardBase'
+import { ArtCardProps } from './types'
 
 export const ArtCard: FC<ArtCardProps> = ({
   art,
