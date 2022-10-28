@@ -10,7 +10,9 @@
     "samenvvv": "npx nx run samenvvv:serve",
     "test": "npx nx test",
     "lint": "npx nx affected --target=lint --fix",
-    "build": "npx nx affected --target=build --exclude=api",
+    "build": "npx nx affected --target=build --exclude=@strapi/admin,api",
+    "build:api": "yarn --cwd apps/api build",
+    "api": "yarn --cwd apps/api develop",
     "storybook": "npx nx run ui:storybook",
     "prepare": "husky install"
   },
@@ -71,6 +73,7 @@
     "react-router-dom": "^6.4.2",
     "react-use": "^17.4.0",
     "string-similarity": "^4.0.4",
+    "twitter-api-v2": "^1.12.9",
     "uuid": "^9.0.0",
     "yup": "^0.32.11"
   },
@@ -90,6 +93,7 @@
     "@nrwl/storybook": "15.0.3",
     "@nrwl/web": "15.0.3",
     "@nrwl/workspace": "15.0.3",
+    "@nx-extend/strapi": "^3.1.1",
     "@storybook/addon-essentials": "~6.5.13",
     "@storybook/builder-webpack5": "~6.5.13",
     "@storybook/core-server": "~6.5.13",

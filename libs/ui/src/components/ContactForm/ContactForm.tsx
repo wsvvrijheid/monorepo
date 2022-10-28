@@ -111,8 +111,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({
           <Alert status="error">
             <AlertIcon />
             <AlertDescription>
-              {t('contact.form.failed')}
-              {'  '}
+              <>{t('contact.form.failed')} </>
               {errorMessage ? errorMessage : ''}
             </AlertDescription>
           </Alert>

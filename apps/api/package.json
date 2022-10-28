@@ -8,7 +8,7 @@
     "start": "strapi start",
     "build": "strapi build",
     "strapi": "strapi",
-    "prepare": "./scripts/prepare.sh"
+    "prepare-db": "./scripts/prepare.sh"
   },
   "devDependencies": {},
   "dependencies": {
