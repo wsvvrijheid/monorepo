@@ -25,7 +25,7 @@ import { CreateArtForm } from '../CreateArtForm'
 import { Hero } from '../Hero'
 
 export const AuthenticatedUserProfile = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation('common')
 
   const { user } = useAuthSelector()
 
@@ -61,19 +61,21 @@ export const AuthenticatedUserProfile = () => {
                 <>
                   <Tab fontWeight={600}>
                     <Box as={FaPaintBrush} mr={1} />{' '}
-                    {t('profile.approved-arts')}
+                    <>{t('profile.approved-arts')}</>
                   </Tab>
                   <Tab fontWeight={600}>
-                    <Box as={FaSpinner} mr={1} /> {t('profile.pending-arts')}
+                    <Box as={FaSpinner} mr={1} />{' '}
+                    <>{t('profile.pending-arts')}</>
                   </Tab>
                   <Tab fontWeight={600}>
                     <Box as={MdRemoveModerator} mr={1} />{' '}
-                    {t('profile.rejected-arts')}
+                    <>{t('profile.rejected-arts')}</>
                   </Tab>
                 </>
               )}
               <Tab ml="auto" fontWeight={600}>
-                <Box as={IoMdSettings} mr={1} /> {t('profile.general-settings')}
+                <Box as={IoMdSettings} mr={1} />{' '}
+                <>{t('profile.general-settings')}</>
               </Tab>
               <Box my={1} ml={2}>
                 <CreateArtForm queryKey={['user-art']} />

@@ -131,7 +131,7 @@ const Contact = ({ seo }: ContactProps): JSX.Element => {
                   </Text>
                   <Wrap justify="space-around" spacing={4}>
                     <Box>
-                      <Text fontSize="sm"> {t('wsvvrijheid.chairman')}</Text>
+                      <Text fontSize="sm">{t('wsvvrijheid.chairman')}</Text>
                       <Text>Sümeyye Ateş</Text>
                     </Box>
                     <Box>

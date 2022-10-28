@@ -237,7 +237,7 @@ export const JoinForm: FC<JoinFormFProps> = ({
       {/* JOBS */}
       <Box>
         <FormLabel fontSize="sm" fontWeight="semibold">
-          {t('apply-form.jobs.title')}
+          <>{t('apply-form.jobs.title')}</>
           <chakra.span color="red.500">*</chakra.span>
         </FormLabel>
         <Stack

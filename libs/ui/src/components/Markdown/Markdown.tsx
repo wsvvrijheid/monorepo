@@ -1,13 +1,13 @@
 /* eslint-disable react/display-name */
-import { FC, PropsWithChildren } from 'react'
+import { FC, HtmlHTMLAttributes } from 'react'
 
-import { chakra, ChakraProps } from '@chakra-ui/react'
+import { chakra } from '@chakra-ui/react'
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
 
 import { Navigate } from '../Navigate'
 
 const MarkdownComponents = {
-  h1: (props: PropsWithChildren<ChakraProps>) => (
+  h1: (props: HtmlHTMLAttributes<HTMLElement>) => (
     <chakra.h1
       fontWeight="semibold"
       textAlign="center"
@@ -16,7 +16,7 @@ const MarkdownComponents = {
       {...props}
     />
   ),
-  h2: (props: PropsWithChildren<ChakraProps>) => (
+  h2: (props: HtmlHTMLAttributes<HTMLElement>) => (
     <chakra.h2
       fontWeight="semibold"
       fontSize="2xl"
@@ -25,7 +25,7 @@ const MarkdownComponents = {
       {...props}
     />
   ),
-  h3: (props: PropsWithChildren<ChakraProps>) => (
+  h3: (props: HtmlHTMLAttributes<HTMLElement>) => (
     <chakra.h3
       fontWeight="semibold"
       fontSize="xl"
@@ -35,7 +35,7 @@ const MarkdownComponents = {
       {...props}
     />
   ),
-  h4: (props: PropsWithChildren<ChakraProps>) => (
+  h4: (props: HtmlHTMLAttributes<HTMLElement>) => (
     <chakra.h4
       fontWeight="semibold"
       fontSize="lg"
@@ -45,13 +45,13 @@ const MarkdownComponents = {
       {...props}
     />
   ),
-  hr: (props: PropsWithChildren<ChakraProps>) => (
+  hr: (props: HtmlHTMLAttributes<HTMLElement>) => (
     <chakra.hr apply="mdx.hr" {...props} />
   ),
-  strong: (props: PropsWithChildren<ChakraProps>) => (
+  strong: (props: HtmlHTMLAttributes<HTMLElement>) => (
     <chakra.span fontWeight="semibold" {...props} />
   ),
-  a: (props: PropsWithChildren<ChakraProps>) => (
+  a: (props: HtmlHTMLAttributes<HTMLElement>) => (
     <Navigate
       {...props}
       fontWeight="semibold"
@@ -61,15 +61,15 @@ const MarkdownComponents = {
       {props.children}
     </Navigate>
   ),
-  p: (props: PropsWithChildren<ChakraProps>) => <chakra.p mb={4} {...props} />,
-  ul: (props: PropsWithChildren<ChakraProps>) => (
+  p: (props: HtmlHTMLAttributes<HTMLElement>) => <chakra.p mb={4} {...props} />,
+  ul: (props: HtmlHTMLAttributes<HTMLElement>) => (
     <chakra.ul mt={6} ml={4} {...props} />
   ),
-  ol: (props: PropsWithChildren<ChakraProps>) => (
+  ol: (props: HtmlHTMLAttributes<HTMLElement>) => (
     <chakra.ol apply="mdx.ul" {...props} />
   ),
-  li: (props: PropsWithChildren<ChakraProps>) => <chakra.li {...props} />,
-  blockquote: (props: PropsWithChildren<ChakraProps>) => (
+  li: (props: HtmlHTMLAttributes<HTMLElement>) => <chakra.li {...props} />,
+  blockquote: (props: HtmlHTMLAttributes<HTMLElement>) => (
     <chakra.blockquote
       bg="blackAlpha.50"
       borderWidth={1}
