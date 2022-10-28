@@ -8,7 +8,7 @@ export default {
 } as Meta<FilePickerProps>
 
 const Template: Story<FilePickerProps> = args => (
-  <FilePicker {...args} setImages={x => console.log(x)} />
+  <FilePicker {...args} setFiles={x => console.log(x)} />
 )
 
 export const Default = Template.bind({})

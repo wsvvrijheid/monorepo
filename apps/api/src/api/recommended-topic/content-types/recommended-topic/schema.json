@@ -1,0 +1,73 @@
+{
+  "kind": "collectionType",
+  "collectionName": "recommended_topics",
+  "info": {
+    "singularName": "recommended-topic",
+    "pluralName": "recommended-topics",
+    "displayName": "Recommended Topic",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "pluginOptions": {},
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "pluginOptions": {},
+      "type": "text",
+      "required": false,
+      "default": "Description"
+    },
+    "image": {
+      "pluginOptions": {},
+      "type": "string",
+      "required": false
+    },
+    "url": {
+      "pluginOptions": {},
+      "type": "string",
+      "required": true
+    },
+    "category": {
+      "pluginOptions": {},
+      "type": "string"
+    },
+    "publisher": {
+      "pluginOptions": {},
+      "type": "string",
+      "required": true
+    },
+    "time": {
+      "pluginOptions": {},
+      "type": "datetime",
+      "required": false
+    },
+    "skipped": {
+      "pluginOptions": {},
+      "type": "boolean",
+      "default": false,
+      "required": false
+    },
+    "posted": {
+      "pluginOptions": {},
+      "type": "boolean",
+      "default": false
+    },
+    "recommender": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "topics"
+    },
+    "locale": {
+      "pluginOptions": {},
+      "type": "string",
+      "required": true
+    }
+  }
+}

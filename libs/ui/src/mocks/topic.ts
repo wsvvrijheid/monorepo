@@ -1,6 +1,6 @@
-import { Topic } from '@wsvvrijheid/types'
+import { TopicBase } from '@wsvvrijheid/types'
 
-export const TOPICS_MOCK: { data: { data: Topic[] } } = {
+export const TOPICS_MOCK: { data: { data: TopicBase[] } } = {
   data: {
     data: [
       {

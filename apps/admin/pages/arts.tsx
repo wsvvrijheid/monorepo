@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 
 import { MenuItem } from '@chakra-ui/react'
+import { useArts } from '@wsvvrijheid/services'
 import { ApprovalStatus, StrapiLocale, Sort } from '@wsvvrijheid/types'
 import { AdminLayout, ArtsTable } from '@wsvvrijheid/ui'
-import { useArts } from '@wsvvrijheid/utils'
 import { useRouter } from 'next/router'
 import { FaArrowDown, FaArrowUp } from 'react-icons/fa'
 import { useUpdateEffect } from 'react-use'

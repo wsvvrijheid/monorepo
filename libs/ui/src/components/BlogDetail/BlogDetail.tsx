@@ -101,7 +101,9 @@ export const BlogDetail: FC<BlogDetailProps> = ({
       <Box textAlign={{ base: 'left', lg: 'justify' }}>
         <Markdown source={source} />
         <Text>
-          {t('author')}: {post?.author?.volunteer?.name}
+          <>
+            {t('author')}: {post?.author?.volunteer?.name}
+          </>
         </Text>
       </Box>
       <SimpleGrid m={4} gap={8} columns={{ base: 1, md: 2 }}>

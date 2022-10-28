@@ -1,7 +1,7 @@
 import { Box, Stack } from '@chakra-ui/react'
+import { getHashtags } from '@wsvvrijheid/services'
 import { Hashtag, StrapiLocale } from '@wsvvrijheid/types'
 import { AnimatedBox, Container, Hero, Markdown } from '@wsvvrijheid/ui'
-import { getHashtags } from '@wsvvrijheid/utils'
 import { GetStaticProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { MDXRemoteSerializeResult } from 'next-mdx-remote'

@@ -3,7 +3,7 @@ import {
   removeMentionUsername,
   useAppDispatch,
   useAppSelector,
-} from '@wsvvrijheid/utils'
+} from '@wsvvrijheid/store'
 
 import { TagList } from '../../TagList'
 

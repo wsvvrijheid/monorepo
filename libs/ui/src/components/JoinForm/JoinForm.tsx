@@ -17,8 +17,8 @@ import {
 import { yupResolver } from '@hookform/resolvers/yup'
 import { Job } from '@wsvvrijheid/types'
 import { useTranslation } from 'next-i18next'
+import { TFunction } from 'next-i18next'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { TFunction } from 'react-i18next'
 import * as yup from 'yup'
 
 import { FormItem } from '../FormItem'
@@ -237,7 +237,7 @@ export const JoinForm: FC<JoinFormFProps> = ({
       {/* JOBS */}
       <Box>
         <FormLabel fontSize="sm" fontWeight="semibold">
-          {t('apply-form.jobs.title')}
+          <>{t('apply-form.jobs.title')}</>
           <chakra.span color="red.500">*</chakra.span>
         </FormLabel>
         <Stack

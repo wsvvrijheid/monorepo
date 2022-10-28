@@ -17,7 +17,7 @@ import {
   usePublishModel,
   useUnpublishModel,
   useDeleteArt,
-} from '@wsvvrijheid/utils'
+} from '@wsvvrijheid/services'
 import { AiFillHeart } from 'react-icons/ai'
 import { FaExternalLinkSquareAlt } from 'react-icons/fa'
 

@@ -9,17 +9,13 @@ import {
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation } from '@tanstack/react-query'
-import {
-  setAuth,
-  sleep,
-  useAppDispatch,
-  useAuthSelector,
-} from '@wsvvrijheid/utils'
+import { setAuth, useAppDispatch, useAuthSelector } from '@wsvvrijheid/store'
+import { sleep } from '@wsvvrijheid/utils'
 import axios from 'axios'
 import { useTranslation } from 'next-i18next'
+import { TFunction } from 'next-i18next'
 import { useRouter } from 'next/router'
 import { useForm, SubmitHandler } from 'react-hook-form'
-import { TFunction } from 'react-i18next'
 import * as yup from 'yup'
 
 import {
