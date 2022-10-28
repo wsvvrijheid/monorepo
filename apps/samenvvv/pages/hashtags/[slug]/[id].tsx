@@ -11,9 +11,10 @@ import {
   Stack,
 } from '@chakra-ui/react'
 import { API_URL } from '@wsvvrijheid/config'
+import { getPost } from '@wsvvrijheid/services'
 import { Post, StrapiLocale } from '@wsvvrijheid/types'
 import { WImage } from '@wsvvrijheid/ui'
-import { getItemLink, getPost } from '@wsvvrijheid/utils'
+import { getItemLink } from '@wsvvrijheid/utils'
 import { GetServerSideProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeo, NextSeoProps } from 'next-seo'

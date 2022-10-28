@@ -6,7 +6,7 @@ import { sample } from 'lodash'
 
 import { AdminNav, getAdminNav } from './AdminNav'
 
-const sessionUser = mapSessionUser(sample(USER_MOCKS))
+const sessionUser = mapSessionUser(sample(USER_MOCKS)!)
 const adminNav = getAdminNav(sessionUser)
 
 const navLinks = adminNav.flatMap(item => [
@@ -27,7 +27,7 @@ export default {
     },
   },
   decorators: [
-    Story => (
+    (Story: any) => (
       <Grid gridTemplateColumns="300px 1fr" bg="gray.100">
         <Box bg="white">
           <Story />

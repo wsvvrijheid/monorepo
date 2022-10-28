@@ -12,8 +12,9 @@ import {
   SimpleGrid,
   useDisclosure,
 } from '@chakra-ui/react'
+import { useHashtag } from '@wsvvrijheid/services'
 import { Post, StrapiLocale } from '@wsvvrijheid/types'
-import { getItemLink, useHashtag } from '@wsvvrijheid/utils'
+import { getItemLink } from '@wsvvrijheid/utils'
 import { useRouter } from 'next/router'
 import { BiExitFullscreen, BiFullscreen } from 'react-icons/bi'
 

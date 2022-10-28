@@ -14,7 +14,7 @@ import {
   destroyAuth,
   useAppDispatch,
   useAuthSelector,
-} from '@wsvvrijheid/utils'
+} from '@wsvvrijheid/store'
 import { NextSeo } from 'next-seo'
 import { useRouter } from 'next/router'
 import { MdOutlineNotifications } from 'react-icons/md'

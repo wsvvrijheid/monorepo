@@ -4,11 +4,13 @@ import { BadgeProps } from '@chakra-ui/react'
 import { Meta, Story } from '@storybook/react'
 import { ART_MOCKS, CATEGORY_MOCKS, USER_MOCKS } from '@wsvvrijheid/mocks'
 import {
+  ApprovalStatus,
   Art,
   Category,
   Role,
   RoleName,
   StrapiModel,
+  StrapiModelKeys,
   User,
 } from '@wsvvrijheid/types'
 
@@ -33,8 +35,8 @@ const Template: Story<WTableProps<StrapiModel>> = args => {
     console.log('sortKey', sortKey)
 
     const sortedData = [...data].sort((a, b) => {
-      const aValue = a[field]
-      const bValue = b[field]
+      const aValue = a[field as keyof StrapiModel] as StrapiModelKeys
+      const bValue = b[field as keyof StrapiModel] as StrapiModelKeys
 
       if (sort === 'asc') {
         return typeof aValue === 'number'
@@ -49,6 +51,7 @@ const Template: Story<WTableProps<StrapiModel>> = args => {
             : -1
           : bValue.localeCompare(aValue)
       }
+      return 0
     })
 
     setData(sortedData)
@@ -78,7 +81,7 @@ Arts.args = {
         }
         return {
           variant: 'outline',
-          colorScheme: colorScheme[value as string],
+          colorScheme: colorScheme[value as ApprovalStatus],
         }
       },
     },
@@ -113,7 +116,7 @@ Users.args = {
         }
         return {
           variant: 'outline',
-          colorScheme: colorScheme[value as string],
+          colorScheme: colorScheme[value as RoleName],
         }
       },
     },

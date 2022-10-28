@@ -8,7 +8,6 @@ import {
   Tabs,
   VStack,
 } from '@chakra-ui/react'
-import { Mention, TweetUserData } from '@wsvvrijheid/types'
 import {
   addMentionUsername,
   clearSearchedMentions,
@@ -17,7 +16,8 @@ import {
   updateSavedSearchedMentions,
   useAppDispatch,
   useAppSelector,
-} from '@wsvvrijheid/utils'
+} from '@wsvvrijheid/store'
+import { Mention, TweetUserData } from '@wsvvrijheid/types'
 import { useTranslation } from 'next-i18next'
 
 import { MentionListItem } from './MentionListItem'

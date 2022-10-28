@@ -1,8 +1,9 @@
 import { FC } from 'react'
 
+import { Request } from '@wsvvrijheid/lib'
 import { Term } from '@wsvvrijheid/types'
 import { Container, Hero, Markdown } from '@wsvvrijheid/ui'
-import { Request, truncateText } from '@wsvvrijheid/utils'
+import { truncateText } from '@wsvvrijheid/utils'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { serialize } from 'next-mdx-remote/serialize'

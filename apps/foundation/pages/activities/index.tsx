@@ -1,7 +1,7 @@
 import { Image, SimpleGrid, Stack, Text } from '@chakra-ui/react'
+import { Request } from '@wsvvrijheid/lib'
 import { Activity } from '@wsvvrijheid/types'
 import { AnimatedBox, Card, Container, Hero } from '@wsvvrijheid/ui'
-import { Request } from '@wsvvrijheid/utils'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useRouter } from 'next/router'
 

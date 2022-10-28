@@ -6,7 +6,6 @@ import {
   ART_MOCKS,
   BLOG_MOCKS,
   HASHTAG_MOCKS,
-  POST_MOCKS,
 } from '@wsvvrijheid/mocks'
 import { sample } from 'lodash'
 
@@ -79,9 +78,4 @@ BlogModel.args = {
 export const HashtagModel = Template.bind({})
 HashtagModel.args = {
   model: sample(HASHTAG_MOCKS.tr.data),
-}
-
-export const PostModel = Template.bind({})
-PostModel.args = {
-  model: sample(POST_MOCKS.tr.data),
 }
