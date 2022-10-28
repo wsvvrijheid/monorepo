@@ -7,7 +7,14 @@ import {
   Link,
   VStack,
 } from '@chakra-ui/react'
-import { ContactForm, Container, SocialButtons } from '@wsvvrijheid/ui'
+import { useMutation } from '@tanstack/react-query'
+import {
+  ContactForm,
+  ContactFormFieldValues,
+  Container,
+  SocialButtons,
+} from '@wsvvrijheid/ui'
+import { EmailData, sendEmail } from '@wsvvrijheid/utils'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
 import { useTranslation } from 'react-i18next'
@@ -24,8 +31,29 @@ interface ContactProps {
 // eslint-disable-next-line no-empty-pattern
 const Contact = ({ seo }: ContactProps): JSX.Element => {
   const { t } = useTranslation()
+
+  const {
+    isError,
+    isLoading,
+    isSuccess,
+    mutate: sendForm,
+  } = useMutation({
+    mutationKey: ['contact'],
+    mutationFn: async (data: EmailData) => {
+      return sendEmail(data)
+    },
+  })
+
+  const handleSubmit = async (data: ContactFormFieldValues) => {
+    const emailData = {
+      subject: `Form from ${data.fullname} (${data.email})`,
+      text: data.message,
+    }
+    return sendForm(emailData)
+  }
   return (
     <Layout seo={seo}>
+      {/* How can I access the background image url? */}
       <Box
         minH="inherit"
         background="url(/images/bg-wave.svg) no-repeat bottom"
@@ -49,9 +77,9 @@ const Contact = ({ seo }: ContactProps): JSX.Element => {
             >
               <Box>
                 <Heading>
-                {/* I couldn't get the translations in local, it appeared as contact.title maybe it is visible when it is published in vercel */}
+                  {/* I couldn't get the translations in local, it appeared as contact.title maybe it is visible when it is published in vercel */}
                   {t('contact.title')}
-                  </Heading>
+                </Heading>
                 <Text mt={{ sm: 3, md: 3, lg: 5 }} color="primary.50">
                   {t('contact.fill-form')}
                 </Text>
@@ -125,7 +153,12 @@ const Contact = ({ seo }: ContactProps): JSX.Element => {
               p={{ base: 8, lg: 16 }}
               shadow="primary"
             >
-              <ContactForm />
+              <ContactForm
+                onSubmitHandler={handleSubmit}
+                isLoading={isLoading}
+                isSuccess={isSuccess}
+                isError={isError}
+              />
             </Box>
           </Stack>
         </Container>
