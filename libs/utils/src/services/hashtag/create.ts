@@ -5,7 +5,7 @@ import { Mutation } from '../../lib'
 import { getTranslation } from '../deepl'
 
 export const createMainHashtag = (hashtagCreateInput: HashtagCreateInput) => {
-  return Mutation.post<Hashtag, HashtagCreateInput>('api/hashtag', {
+  return Mutation.post<Hashtag, HashtagCreateInput>('api/hashtags', {
     ...hashtagCreateInput,
     publishedAt: null,
   })
