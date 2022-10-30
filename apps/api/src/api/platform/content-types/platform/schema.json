@@ -1,0 +1,75 @@
+{
+  "kind": "collectionType",
+  "collectionName": "platforms",
+  "info": {
+    "singularName": "platform",
+    "pluralName": "platforms",
+    "displayName": "Platform",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "slug": {
+      "pluginOptions": {},
+      "type": "uid",
+      "targetField": "name_en",
+      "required": true
+    },
+    "name_en": {
+      "pluginOptions": {},
+      "type": "string",
+      "required": true
+    },
+    "name_nl": {
+      "pluginOptions": {},
+      "type": "string",
+      "required": true
+    },
+    "name_tr": {
+      "pluginOptions": {},
+      "type": "string",
+      "required": true
+    },
+    "description_en": {
+      "pluginOptions": {},
+      "type": "text"
+    },
+    "description_nl": {
+      "pluginOptions": {},
+      "type": "text"
+    },
+    "description_tr": {
+      "pluginOptions": {},
+      "type": "text"
+    },
+    "content_en": {
+      "type": "richtext"
+    },
+    "content_nl": {
+      "type": "richtext"
+    },
+    "content_tr": {
+      "type": "richtext"
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"],
+      "pluginOptions": {}
+    },
+    "link": {
+      "pluginOptions": {},
+      "type": "string"
+    },
+    "jobs": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::job.job",
+      "mappedBy": "platform"
+    }
+  }
+}

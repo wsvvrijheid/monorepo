@@ -2,9 +2,9 @@
 import { FC } from 'react'
 
 import { dehydrate, QueryClient } from '@tanstack/react-query'
+import { getArtistServerProps } from '@wsvvrijheid/services'
 import { StrapiLocale, User } from '@wsvvrijheid/types'
 import { ArtistTemplate } from '@wsvvrijheid/ui'
-import { getArtistServerProps } from '@wsvvrijheid/utils'
 import { GetServerSideProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'

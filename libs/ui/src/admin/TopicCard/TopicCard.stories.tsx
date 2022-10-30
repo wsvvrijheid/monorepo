@@ -1,8 +1,7 @@
-import { Box, SimpleGrid } from '@chakra-ui/react'
 import { Story, Meta } from '@storybook/react'
 
 import { Container } from '../../components'
-import { TOPIC_MOCK } from '../../mocks'
+import { TOPICS_MOCK } from '../../mocks'
 import { TopicCard } from './index'
 import { TopicCardProps } from './types'
 
@@ -10,7 +9,7 @@ export default {
   title: 'Admin/TopicCard',
   component: TopicCard,
   args: {
-    topic: TOPIC_MOCK,
+    ...TOPICS_MOCK.data.data[0],
   },
   decorators: [
     Story => (
@@ -25,32 +24,6 @@ const Template: Story<TopicCardProps> = args => {
   return <TopicCard {...args} variant={args.variant} />
 }
 
-const GridTemplate: Story = () => {
-  return (
-    <SimpleGrid columns={{ base: 1, md: 2, lg: 4 }} gap={4}>
-      {[
-        TOPIC_MOCK,
-        TOPIC_MOCK,
-        TOPIC_MOCK,
-        TOPIC_MOCK,
-        TOPIC_MOCK,
-        TOPIC_MOCK,
-        TOPIC_MOCK,
-        TOPIC_MOCK,
-      ].map((topic, i) => (
-        <Box key={topic.id} gridColumn={i === 0 ? 'span 4' : undefined}>
-          <TopicCard
-            variant={i === 0 ? 'horizontal' : 'vertical'}
-            hideDescription={i > 4}
-            topic={topic}
-            userId={132}
-          />
-        </Box>
-      ))}
-    </SimpleGrid>
-  )
-}
-
 export const Default = Template.bind({})
 
 export const Horizontal = Template.bind({})
@@ -63,5 +36,3 @@ Simple.args = {
   variant: 'vertical',
   hideDescription: true,
 }
-
-export const Grid = GridTemplate.bind({})

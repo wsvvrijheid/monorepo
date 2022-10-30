@@ -17,7 +17,7 @@ export default {
 } as ComponentMeta<typeof PostContainerBody>
 
 const Template: ComponentStory<typeof PostContainerBody> = () => {
-  return <PostContainerBody postImage={POST_MOCKS.tr.data[0].image.url} />
+  return <PostContainerBody postImage={POST_MOCKS.tr.data[0].image?.url} />
 }
 
 export const Default = Template.bind({})

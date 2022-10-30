@@ -19,8 +19,8 @@ const Template: Story<SignupFormProps> = args => {
   return (
     <SignupForm
       {...args}
-      onhandleSubmitSignUp={handleSubmitSignUp}
-      handleTermsAccepted={handleTermsAccepted}
+      onSignup={handleSubmitSignUp}
+      onAcceptTerms={handleTermsAccepted}
     />
   )
 }

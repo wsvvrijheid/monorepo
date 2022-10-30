@@ -6,7 +6,7 @@ import {
   setPostText,
   useAppDispatch,
   usePostSelector,
-} from '@wsvvrijheid/utils'
+} from '@wsvvrijheid/store'
 
 import { Container } from '../../../components'
 import { PostCharCount } from './PostCharCount'

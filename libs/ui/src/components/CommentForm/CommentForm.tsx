@@ -12,10 +12,10 @@ import {
   VStack,
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { useAuthSelector } from '@wsvvrijheid/utils'
+import { useAuthSelector } from '@wsvvrijheid/store'
 import { useTranslation } from 'next-i18next'
+import { TFunction } from 'next-i18next'
 import { useForm } from 'react-hook-form'
-import { TFunction } from 'react-i18next'
 import { FiArrowRight } from 'react-icons/fi'
 import * as yup from 'yup'
 

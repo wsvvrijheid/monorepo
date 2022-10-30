@@ -12,17 +12,20 @@
     "module": "esnext",
     "lib": ["es2017", "dom"],
     "resolveJsonModule": true,
+    "esModuleInterop": true,
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "typeRoots": ["node_modules/@types"],
     "paths": {
-      "@sample/assets": ["libs/assets/src"],
-      "@wsvvrijheid/config": ["libs/config/src"],
-      "@wsvvrijheid/mocks": ["libs/mocks/src"],
-      "@wsvvrijheid/types": ["libs/types/src"],
-      "@wsvvrijheid/ui": ["libs/ui/src"],
-      "@wsvvrijheid/utils": ["libs/utils/src"]
+      "@wsvvrijheid/config": ["libs/config/src/index.ts"],
+      "@wsvvrijheid/lib": ["libs/lib/src/index.ts"],
+      "@wsvvrijheid/mocks": ["libs/mocks/src/index.ts"],
+      "@wsvvrijheid/services": ["libs/services/src/index.ts"],
+      "@wsvvrijheid/store": ["libs/store/src/index.ts"],
+      "@wsvvrijheid/types": ["libs/types/src/index.ts"],
+      "@wsvvrijheid/ui": ["libs/ui/src/index.ts"],
+      "@wsvvrijheid/utils": ["libs/utils/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

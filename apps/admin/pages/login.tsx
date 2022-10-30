@@ -1,8 +1,8 @@
 import { useEffect } from 'react'
 
 import { Box } from '@chakra-ui/react'
+import { checkAuth, useAppDispatch } from '@wsvvrijheid/store'
 import { AdminLoginForm } from '@wsvvrijheid/ui'
-import { checkAuth, useAppDispatch } from '@wsvvrijheid/utils'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useRouter } from 'next/router'
 

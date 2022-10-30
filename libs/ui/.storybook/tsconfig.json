@@ -1,10 +1,8 @@
 {
-  "extends": "../../../.storybook/tsconfig.json",
+  "extends": "../tsconfig.json",
   "compilerOptions": {
-    "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "outDir": "",
-    "jsx": "preserve"
+    "outDir": ""
   },
   "files": [
     "../../../node_modules/@nrwl/react/typings/styled-jsx.d.ts",
@@ -23,6 +21,8 @@
     "../src/**/*.stories.js",
     "../src/**/*.stories.jsx",
     "../src/**/*.stories.tsx",
-    "../src/**/*.stories.mdx"
+    "../src/**/*.stories.mdx",
+    "*.ts",
+    "*.js"
   ]
 }
