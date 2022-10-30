@@ -3,9 +3,10 @@ import { Meta, Story } from '@storybook/react'
 import { ART_MOCKS } from '@wsvvrijheid/mocks'
 import { sample } from 'lodash'
 
-import { ArtModal, ArtModalProps } from './ArtModal'
+import { ArtModal } from './ArtModal'
+import { ArtModalProps } from './types'
 
-const sampleArt = sample(ART_MOCKS.tr.data)
+const sampleArt = sample(ART_MOCKS.tr.data)!
 
 export default {
   component: ArtModal,

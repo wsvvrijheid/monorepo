@@ -15,7 +15,7 @@ export default {
     logo: 'https://wsvvrijheid.nl/images/logo.svg',
     footerProps: {
       menu: FOOTER_MENU,
-      about: 'About',
+      about: 'samenvvv',
       socialItems: SOCIAL_LINKS,
     },
   },

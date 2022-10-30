@@ -1,0 +1,46 @@
+{
+  "kind": "collectionType",
+  "collectionName": "votes",
+  "info": {
+    "singularName": "vote",
+    "pluralName": "votes",
+    "displayName": "Vote",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "value": {
+      "type": "integer",
+      "required": true,
+      "max": 10,
+      "min": 1
+    },
+    "voter": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "votes"
+    },
+    "application": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::application.application",
+      "inversedBy": "votes"
+    },
+    "jury": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "juryVotes"
+    },
+    "art": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::art.art",
+      "inversedBy": "votes"
+    }
+  }
+}

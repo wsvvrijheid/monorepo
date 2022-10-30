@@ -1,0 +1,49 @@
+{
+  "kind": "collectionType",
+  "collectionName": "feedbacks",
+  "info": {
+    "singularName": "feedback",
+    "pluralName": "feedbacks",
+    "displayName": "Feedback",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "message": {
+      "type": "text",
+      "required": true
+    },
+    "point": {
+      "type": "integer",
+      "max": 10,
+      "min": 1,
+      "required": true
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": ["approve", "reject"],
+      "required": true
+    },
+    "art": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::art.art",
+      "inversedBy": "feedbacks"
+    },
+    "application": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::application.application",
+      "inversedBy": "feedbacks"
+    },
+    "editor": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "feedbacks"
+    }
+  }
+}

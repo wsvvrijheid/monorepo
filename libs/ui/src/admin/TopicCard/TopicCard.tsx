@@ -1,50 +1,36 @@
 import { FC } from 'react'
 
 import { useToast } from '@chakra-ui/react'
-import { useMutation } from '@tanstack/react-query'
-import {
-  RecommendedTopic,
-  RecommendedTopicCreateInput,
-} from '@wsvvrijheid/types'
-import { Mutation } from '@wsvvrijheid/utils'
+import { useQueryClient } from '@tanstack/react-query'
+import { useRecommendTopic } from '@wsvvrijheid/services'
 import { useLocalStorage } from 'react-use'
 
 import { TopicCardBase } from '../TopicCardBase'
 import { TopicCardProps } from './index'
 
-export const TopicCard: FC<TopicCardProps> = ({ topic, userId, ...rest }) => {
-  const [bookmarksStorage, setBookmarksStorage] = useLocalStorage<number[]>(
+export const TopicCard: FC<TopicCardProps> = ({
+  topic,
+  userId,
+  isLoading,
+  ...rest
+}) => {
+  const [bookmarksStorage, setBookmarksStorage] = useLocalStorage<string[]>(
     'bookmarks',
     [],
   )
 
-  const { title, description, date, imageUrl, publisher, link } = topic
+  const queryClient = useQueryClient()
 
   const toast = useToast()
-  const recommendMutation = useMutation({
-    mutationKey: ['recommend-topic'],
-    mutationFn: () =>
-      Mutation.post<RecommendedTopic, RecommendedTopicCreateInput>(
-        `api/recommended-topics`,
-        {
-          date,
-          description,
-          title,
-          recommender: userId,
-          imageUrl,
-          publisher,
-          link,
-        },
-      ),
-  })
+  const { mutate, isLoading: isRecommendationLoading } = useRecommendTopic()
 
-  const isBookmarked = bookmarksStorage?.some(id => id === topic.id)
+  const isBookmarked = bookmarksStorage?.some(url => url === topic.url)
 
   const handleBookmark = () => {
     if (isBookmarked) {
-      setBookmarksStorage(bookmarksStorage?.filter(id => id !== topic.id))
+      setBookmarksStorage(bookmarksStorage?.filter(url => url !== topic.url))
     } else {
-      setBookmarksStorage([...(bookmarksStorage as number[]), topic.id])
+      setBookmarksStorage([...(bookmarksStorage as string[]), topic.url])
     }
   }
 
@@ -53,11 +39,17 @@ export const TopicCard: FC<TopicCardProps> = ({ topic, userId, ...rest }) => {
   }
 
   const handleView = () => {
-    window.open(topic.link, '_blank')
+    window.open(topic.url, '_blank')
   }
 
   const handleRecommend = () => {
-    recommendMutation.mutate()
+    mutate(
+      {
+        ...topic,
+        recommender: userId,
+      },
+      { onSettled: () => queryClient.invalidateQueries(['topics']) },
+    )
     toast({
       title: 'Recommended',
       status: 'success',
@@ -76,6 +68,7 @@ export const TopicCard: FC<TopicCardProps> = ({ topic, userId, ...rest }) => {
       onShare={handleShare}
       onView={handleView}
       isBookmarked={isBookmarked}
+      isLoading={isLoading || isRecommendationLoading}
     />
   )
 }

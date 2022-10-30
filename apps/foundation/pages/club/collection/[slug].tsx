@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react'
 import { useRef } from 'react'
 
 import { useBreakpointValue } from '@chakra-ui/react'
+import { getCollectionBySlug, getCollectionPaths } from '@wsvvrijheid/services'
 import { Collection } from '@wsvvrijheid/types'
 import { CollectionTemplate } from '@wsvvrijheid/ui'
-import { getCollectionBySlug, getCollectionPaths } from '@wsvvrijheid/utils'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
 

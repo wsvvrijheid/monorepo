@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "saved_tweets",
+  "info": {
+    "singularName": "saved-tweet",
+    "pluralName": "saved-tweets",
+    "displayName": "SavedTweet",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "tweet": {
+      "type": "json",
+      "required": true
+    },
+    "username": {
+      "type": "string",
+      "required": true
+    },
+    "saver": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "savedTweets"
+    }
+  }
+}

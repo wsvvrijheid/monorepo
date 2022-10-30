@@ -1,9 +1,15 @@
 import { API_URL } from '@wsvvrijheid/config'
-import { HashtagReturnType } from '@wsvvrijheid/utils'
+import { Hashtag } from '@wsvvrijheid/types'
 import { sample } from 'lodash'
 import { rest } from 'msw'
 
 import { HASHTAG_MOCKS, POST_MOCKS } from '../../strapi'
+
+export type HashtagReturnType = {
+  hasPassed: boolean
+  hasStarted: boolean
+  defaultHashtags?: string[]
+} & Hashtag
 
 export const getHashtagMock = rest.get<HashtagReturnType>(
   `${API_URL}/api/hashtags`,

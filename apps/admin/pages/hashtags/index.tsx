@@ -1,12 +1,12 @@
 import { useState } from 'react'
 
+import { useHashtagsByFilterAndSort } from '@wsvvrijheid/services'
 import { StrapiLocale, Sort } from '@wsvvrijheid/types'
 import {
   AdminLayout,
   CreateMainHashtagModal,
   MainHashtagTable,
 } from '@wsvvrijheid/ui'
-import { useHashtagsByFilterAndSort } from '@wsvvrijheid/utils'
 import { useUpdateEffect } from 'react-use'
 
 const MainHashtagPage = () => {

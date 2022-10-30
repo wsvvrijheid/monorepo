@@ -1,4 +1,4 @@
-import { ComponentMeta, Story } from '@storybook/react'
+import { ComponentMeta } from '@storybook/react'
 import { USER_MOCKS } from '@wsvvrijheid/mocks'
 import { mapSessionUser } from '@wsvvrijheid/utils'
 import { sample } from 'lodash'
@@ -8,14 +8,14 @@ import { getAdminNav } from './AdminNav'
 import { AdminNavItem } from './AdminNavItem'
 import { AdminNavItemProps } from './types'
 
-const navItems = getAdminNav(mapSessionUser(sample(USER_MOCKS)))
+const navItems = getAdminNav(mapSessionUser(sample(USER_MOCKS)!))
 const navItem = sample(navItems)
 
 export default {
   title: 'Admin/AdminNavItem',
   component: AdminNavItem,
   args: {
-    label: navItem.label,
+    label: navItem?.label,
     link: navItem?.link,
     submenu: navItem?.submenu?.map(submenu => ({
       label: submenu.label,
@@ -25,7 +25,7 @@ export default {
     icon: navItems[0]?.icon,
   },
   decorators: [
-    Story => (
+    (Story: any) => (
       <Container>
         <Story />
       </Container>
@@ -33,7 +33,7 @@ export default {
   ],
 } as unknown as ComponentMeta<typeof AdminNavItem>
 
-const Template: Story = (args: AdminNavItemProps) => {
+const Template = (args: AdminNavItemProps) => {
   return <AdminNavItem {...args} />
 }
 
