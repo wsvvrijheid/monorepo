@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { StrapiLocale, Sort } from '@wsvvrijheid/types'
 import {
   AdminLayout,
-  // CreateMainHashtagModal,
+  CreateMainHashtagModal,
   MainHashtagTable,
 } from '@wsvvrijheid/ui'
 import { useHashtagsByFilterAndSort } from '@wsvvrijheid/utils'
@@ -50,7 +50,7 @@ const MainHashtagPage = () => {
         defaultLocale,
       }}
     >
-      {/* <CreateMainHashtagModal /> */}
+      <CreateMainHashtagModal />
       <MainHashtagTable
         data={mappedHashtags}
         totalCount={totalCount}
