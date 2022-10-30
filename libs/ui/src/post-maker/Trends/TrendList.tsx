@@ -1,11 +1,11 @@
 import { SkeletonText, VStack, Wrap } from '@chakra-ui/react'
-import { TwitterTrend } from '@wsvvrijheid/types'
 import {
   addTrendName,
   removeTrendName,
   useAppDispatch,
   useAppSelector,
-} from '@wsvvrijheid/utils'
+} from '@wsvvrijheid/store'
+import { TwitterTrend } from '@wsvvrijheid/types'
 
 import { TrendListItem } from './TrendListItem'
 

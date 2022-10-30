@@ -1,0 +1,23 @@
+{
+  "kind": "singleType",
+  "collectionName": "topics",
+  "info": {
+    "singularName": "topic",
+    "pluralName": "topics",
+    "displayName": "Topic",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "data": {
+      "type": "json"
+    },
+    "isSyncing": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}

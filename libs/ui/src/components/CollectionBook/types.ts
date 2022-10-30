@@ -13,7 +13,7 @@ export interface CollectionBookProps {
   flipboxProps?: Partial<ComponentProps<typeof HTMLFlipBook>>
 }
 
-export interface PageProps extends PropsWithChildren, CenterProps {}
+export type PageProps = PropsWithChildren<CenterProps>
 
 export interface CollectionPagesPops {
   collection: Collection

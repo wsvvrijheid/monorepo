@@ -66,7 +66,7 @@ export const Footer: FC<FooterProps> = ({
           <Text fontSize={'sm'} mr={1}>
             {/* TODO Fix hydration problem for translation field */}
             &copy;
-            {t('copyright', { name, year: new Date().getFullYear() })}
+            <>{t('copyright', { name, year: new Date().getFullYear() })}</>
           </Text>
           <SocialButtons items={socialItems} />
         </Wrap>

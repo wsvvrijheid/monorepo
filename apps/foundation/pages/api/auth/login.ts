@@ -1,4 +1,5 @@
-import { sessionOptions, getAuth } from '@wsvvrijheid/utils'
+import { sessionOptions } from '@wsvvrijheid/lib'
+import { getAuth } from '@wsvvrijheid/services'
 import { withIronSessionApiRoute } from 'iron-session/next'
 import { NextApiRequest, NextApiResponse } from 'next'
 const loginRoute = async (req: NextApiRequest, res: NextApiResponse) => {

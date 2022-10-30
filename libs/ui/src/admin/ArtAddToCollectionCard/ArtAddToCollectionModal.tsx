@@ -13,8 +13,8 @@ import {
   Spinner,
   Stack,
 } from '@chakra-ui/react'
+import { useArts } from '@wsvvrijheid/services'
 import { StrapiLocale } from '@wsvvrijheid/types'
-import { useArts } from '@wsvvrijheid/utils'
 
 import { Pagination } from '../../components'
 import { PageHeader } from '../PageHeader'
@@ -51,6 +51,7 @@ export const ArtAddToCollectionModal: FC<ArtAddToCollectionModalProps> = ({
                   defaultLocale="tr"
                   onLanguageSwitch={setLocale}
                   onSearch={setSearch}
+                  searchPlaceHolder={'Search by art title or artist name'}
                 >
                   <ModalCloseButton pos="static" />
                 </PageHeader>

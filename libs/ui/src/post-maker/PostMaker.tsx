@@ -13,15 +13,14 @@ import {
   Stack,
 } from '@chakra-ui/react'
 import { useTour } from '@reactour/tour'
+import { useCurrentPost, useHashtag } from '@wsvvrijheid/services'
 import {
   checkSharedPosts,
   setRandomMentionUsername,
   togglePostModal,
   useAppDispatch,
   useAppSelector,
-  useCurrentPost,
-  useHashtag,
-} from '@wsvvrijheid/utils'
+} from '@wsvvrijheid/store'
 import _ from 'lodash'
 import { useTranslation } from 'next-i18next'
 import { FaQuestionCircle } from 'react-icons/fa'

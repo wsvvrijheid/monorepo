@@ -24,6 +24,24 @@ import {
 } from '@chakra-ui/react'
 import { TourProvider } from '@reactour/tour'
 import { dehydrate, QueryClient } from '@tanstack/react-query'
+import {
+  getHashtagBySlug,
+  getHashtags,
+  HashtagReturnType,
+  setRandomPost,
+  useHashtag,
+  useHashtags,
+  useLocaleTimeFormat,
+} from '@wsvvrijheid/services'
+import {
+  checkSharedPosts,
+  setDefaultHashtags,
+  setDefaultTab,
+  setInitialMentions,
+  setMentions,
+  useAppDispatch,
+  useAppSelector,
+} from '@wsvvrijheid/store'
 import { StrapiLocale } from '@wsvvrijheid/types'
 import {
   Card,
@@ -34,22 +52,8 @@ import {
   StepsContent,
 } from '@wsvvrijheid/ui'
 import {
-  getHashtags,
-  HashtagReturnType,
-  setRandomPost,
-  useHashtag,
-  useLocaleTimeFormat,
-  useHashtags,
   getItemLink,
   getPageSeo,
-  checkSharedPosts,
-  setDefaultHashtags,
-  setDefaultTab,
-  setInitialMentions,
-  setMentions,
-  useAppDispatch,
-  useAppSelector,
-  getHashtagBySlug,
   getStepsPostMaker,
   getStepsMobilePostMaker,
 } from '@wsvvrijheid/utils'

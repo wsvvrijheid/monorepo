@@ -1,0 +1,24 @@
+{
+  "kind": "singleType",
+  "collectionName": "trends",
+  "info": {
+    "singularName": "trend",
+    "pluralName": "trends",
+    "displayName": "Trend"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "en": {
+      "type": "json"
+    },
+    "nl": {
+      "type": "json"
+    },
+    "tr": {
+      "type": "json"
+    }
+  }
+}

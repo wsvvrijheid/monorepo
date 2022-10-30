@@ -12,16 +12,16 @@ import {
   useBoolean,
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { UploadFile } from '@wsvvrijheid/types'
 import {
   useDeleteCollection,
   useUnpublishModel,
   useUpdateCollection,
   usePublishModel,
-} from '@wsvvrijheid/utils'
+} from '@wsvvrijheid/services'
+import { UploadFile } from '@wsvvrijheid/types'
 import { useTranslation } from 'next-i18next'
+import { TFunction } from 'next-i18next'
 import { useForm } from 'react-hook-form'
-import { TFunction } from 'react-i18next'
 import { AiOutlineEdit } from 'react-icons/ai'
 import { BsTrash } from 'react-icons/bs'
 import { IoMdClose, IoMdCloudUpload } from 'react-icons/io'

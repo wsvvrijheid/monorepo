@@ -2,8 +2,8 @@ import { useState } from 'react'
 
 import { SimpleGrid, useDisclosure } from '@chakra-ui/react'
 import { QueryClient } from '@tanstack/react-query'
+import { useUpdateArtMutation } from '@wsvvrijheid/services'
 import { Art } from '@wsvvrijheid/types'
-import { useUpdateArtMutation } from '@wsvvrijheid/utils'
 
 import { WConfirm, WConfirmProps } from '../../components'
 import { ArtAddToCollectionCard } from './ArtAddToCollectionCard'

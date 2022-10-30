@@ -1,36 +1,49 @@
 import { FC } from 'react'
 
 import { ButtonGroup, Stack, Text, useBreakpointValue } from '@chakra-ui/react'
+import { formatDistanceStrict } from 'date-fns'
 import { AiOutlineEye, AiOutlineLike, AiOutlineShareAlt } from 'react-icons/ai'
 import { BsBookmarkHeart } from 'react-icons/bs'
 
 import { WImage } from '../../components'
-import { ActionButton } from './index'
-import { TopicCardBaseProps } from './index'
+import { ActionButton } from './ActionButton'
+import { TopicCardBaseProps } from './types'
 
 export const TopicCardBase: FC<TopicCardBaseProps> = ({
-  hideDescription,
   topic,
-  variant = 'vertical',
   onBookmark,
   onRecommend,
   onShare,
   onView,
   isBookmarked,
+  isLoading,
 }) => {
   const isVertical = useBreakpointValue({
     base: true,
-    lg: variant === 'vertical' ? true : false,
+    lg: false,
   })
+
+  const time = topic.time
+    ? formatDistanceStrict(new Date(topic.time), new Date()) + ' - '
+    : ''
+
   return (
     <Stack
       h={isVertical ? 'auto' : '200px'}
       boxShadow="md"
       rounded="md"
       align={isVertical ? 'stretch' : 'flex-start'}
-      direction={isVertical ? 'column-reverse' : 'row'}
+      direction={isVertical ? 'column' : 'row'}
       overflow="hidden"
     >
+      {topic.image && (
+        <WImage
+          w={isVertical ? 'full' : '300px'}
+          h={isVertical ? '200px' : 'full'}
+          src={topic.image}
+          alt={topic.title}
+        />
+      )}
       <Stack
         spacing={4}
         p={isVertical ? 4 : 8}
@@ -42,10 +55,7 @@ export const TopicCardBase: FC<TopicCardBaseProps> = ({
           <Text fontSize="lg" fontWeight="semibold" noOfLines={1}>
             {topic.title}
           </Text>
-
-          {!hideDescription && (
-            <Text noOfLines={isVertical ? 3 : 2}>{topic.description}</Text>
-          )}
+          <Text noOfLines={isVertical ? 3 : 2}>{topic.description}</Text>
         </Stack>
         <Stack
           direction={isVertical ? 'column' : 'row'}
@@ -59,50 +69,45 @@ export const TopicCardBase: FC<TopicCardBaseProps> = ({
             color={'primary.500'}
             noOfLines={1}
           >
-            {topic.date} - {topic.publisher}
+            {time}
+            {topic.publisher}
           </Text>
 
-          <ButtonGroup
-            border={0}
-            variant="ghost"
-            colorScheme="primary"
-            fontSize="sm"
-            size={isVertical ? 'md' : 'sm'}
-          >
+          <ButtonGroup size={'sm'}>
             <ActionButton
               onClick={() => onView()}
               icon={<AiOutlineEye />}
               title="View"
               isVertical={isVertical}
-            />
-            <ActionButton
-              onClick={() => onRecommend()}
-              icon={<AiOutlineLike />}
-              title="Recommend"
-              isVertical={isVertical}
+              variant="ghost"
             />
             <ActionButton
               onClick={() => onShare()}
               icon={<AiOutlineShareAlt />}
               title="Share"
               isVertical={isVertical}
+              variant="ghost"
             />
             <ActionButton
               onClick={() => onBookmark()}
-              icon={<BsBookmarkHeart color={isBookmarked ? 'red' : ''} />}
-              title="Read Later"
+              icon={<BsBookmarkHeart color={isBookmarked ? 'white' : ''} />}
+              title="Add Bookmark"
               isVertical={isVertical}
+              variant={isBookmarked ? 'solid' : 'ghost'}
+              colorScheme={isBookmarked ? 'blue' : 'gray'}
+            />
+            <ActionButton
+              onClick={() => onRecommend()}
+              icon={<AiOutlineLike />}
+              title="Recommend"
+              isVertical={isVertical}
+              disabled={topic.isRecommended || isLoading}
+              variant={topic.isRecommended ? 'solid' : 'ghost'}
+              colorScheme={topic.isRecommended ? 'green' : 'gray'}
             />
           </ButtonGroup>
         </Stack>
       </Stack>
-
-      <WImage
-        w={isVertical ? 'full' : '300px'}
-        h={isVertical ? '200px' : 'full'}
-        src={topic.imageUrl}
-        alt={topic.title}
-      />
     </Stack>
   )
 }
