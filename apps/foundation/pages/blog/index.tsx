@@ -1,6 +1,6 @@
 import { dehydrate, QueryClient } from '@tanstack/react-query'
+import { getBlogs, useGetBlogs } from '@wsvvrijheid/services'
 import { BlogTemplate } from '@wsvvrijheid/ui'
-import { getBlogs, useGetBlogs } from '@wsvvrijheid/utils'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { Layout } from '../../components'

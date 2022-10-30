@@ -5,8 +5,10 @@ import { Box } from '@chakra-ui/react'
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query'
 import { Provider as ReduxProvider } from 'react-redux'
 
-import { mockWorker, store, themes } from '../src/exports'
+import '@splidejs/splide/dist/css/themes/splide-default.min.css'
 import '@splidejs/react-splide/css'
+
+import { mockWorker, store, themes } from '../src/exports'
 import i18n from './i18next'
 
 mockWorker.start()

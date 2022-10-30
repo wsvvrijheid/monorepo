@@ -44,7 +44,7 @@ export default function Home({ seo }) {
             <VStack flex={1} py={16} spacing={4} textAlign="center">
               <Heading fontWeight="black">{t('art-station')}</Heading>
               <Text fontSize={{ base: 'md', lg: 'xl' }}>
-                &quot;{t('footer-about.kunsthalte')}&quot;
+                &quot;<>{t('footer-about.kunsthalte')}</>&quot;
               </Text>
             </VStack>
           </AnimatedBox>

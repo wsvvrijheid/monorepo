@@ -21,7 +21,7 @@ export const Layout: FC<LayoutProps> = ({
   return (
     <AppLayout
       seo={seo}
-      logo="https://wsvvrijheid.nl/images/logo.svg"
+      logo="/images/wsvvrijheid-logo.svg"
       headerProps={{
         headerMenu: menus.wsvvrijheid.headerMenu,
         profileMenu: {

@@ -1,10 +1,10 @@
 import { FC } from 'react'
 
-import { PlatformTemplate, PlatformTemplateProps } from '@wsvvrijheid/ui'
 import {
   getPlatformStaticPaths,
   getPlatformStaticProps,
-} from '@wsvvrijheid/utils'
+} from '@wsvvrijheid/services'
+import { PlatformTemplate, PlatformTemplateProps } from '@wsvvrijheid/ui'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { Layout } from '../../components'

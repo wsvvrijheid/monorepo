@@ -3,7 +3,7 @@ import {
   removeMentionUsername,
   useAppDispatch,
   usePostSelector,
-} from '@wsvvrijheid/utils'
+} from '@wsvvrijheid/store'
 
 import { TagList } from './TagList'
 
@@ -25,9 +25,7 @@ const Template: ComponentStory<typeof TagList> = args => {
     dispatch(removeMentionUsername(tag))
   }
 
-  return (
-    <TagList tags={mentionUsernames} onClickButton={handleClick} {...args} />
-  )
+  return <TagList tags={mentionUsernames} onClickButton={handleClick} />
 }
 
 export const Default = Template.bind({})

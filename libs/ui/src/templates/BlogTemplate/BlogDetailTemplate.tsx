@@ -3,8 +3,8 @@ import { FC } from 'react'
 
 import { QueryKey } from '@tanstack/react-query'
 import { SITE_URL } from '@wsvvrijheid/config'
+import { useGetBlog, useLikeBlog, useViewBlog } from '@wsvvrijheid/services'
 import { Blog } from '@wsvvrijheid/types'
-import { useGetBlog, useLikeBlog, useViewBlog } from '@wsvvrijheid/utils'
 import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { useRouter } from 'next/router'
 

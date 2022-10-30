@@ -11,13 +11,15 @@ import {
   VStack,
 } from '@chakra-ui/react'
 import { useMutation } from '@tanstack/react-query'
+import { Mutation } from '@wsvvrijheid/lib'
+import { usePlatforms } from '@wsvvrijheid/services'
 import {
   StrapiLocale,
   Volunteer,
   VolunteerCreateInput,
 } from '@wsvvrijheid/types'
 import { Job } from '@wsvvrijheid/types'
-import { usePlatforms, toastMessage, Mutation } from '@wsvvrijheid/utils'
+import { toastMessage } from '@wsvvrijheid/utils'
 import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
 import { v4 as uuidV4 } from 'uuid'

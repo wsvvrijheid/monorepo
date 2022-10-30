@@ -1,0 +1,33 @@
+{
+  "kind": "collectionType",
+  "collectionName": "user_tweets",
+  "info": {
+    "singularName": "timeline",
+    "pluralName": "timelines",
+    "displayName": "Timeline",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "username": {
+      "type": "uid",
+      "required": true
+    },
+    "userData": {
+      "type": "json"
+    },
+    "tweets": {
+      "type": "json",
+      "required": false
+    },
+    "listers": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "timelines"
+    }
+  }
+}

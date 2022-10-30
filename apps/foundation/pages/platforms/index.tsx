@@ -1,9 +1,9 @@
 import { FC } from 'react'
 
 import { SimpleGrid } from '@chakra-ui/react'
+import { getAllPlatforms } from '@wsvvrijheid/services'
 import { Platform } from '@wsvvrijheid/types'
 import { AnimatedBox, Container, Hero, Card } from '@wsvvrijheid/ui'
-import { getAllPlatforms } from '@wsvvrijheid/utils'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useRouter } from 'next/router'
 
