@@ -37,24 +37,27 @@ export const CookieBanner = (props: CookieBannerProps) => {
       boxShadow="sm"
       {...rest}
     >
-      <CloseButton
-        display={{ sm: 'none' }}
-        position="absolute"
-        right="2"
-        top="2"
-        color={'teal'}
-        onClick={onClose}
-      />
+      {onClose && (
+        <CloseButton
+          display={{ sm: 'none' }}
+          position="absolute"
+          right="2"
+          top="2"
+          color={'lightgray'}
+          onClick={onClose}
+        />
+      )}
+
       {!isMobile && (
         <Square size="12" bg="lightgray" borderRadius="md">
-          <Icon as={BiCookie} boxSize="6" color={'teal'} />
+          <Icon as={BiCookie} boxSize="6" color={'blue.400'} />
         </Square>
       )}
       <Text color="white" fontSize={{ base: 'sm', md: 'md' }}>
         By using our website, you agree to the use of cookies as described in
         our{' '}
         <Navigate
-          _hover={{ transform: 'scale(2.1)', color: 'teal' }}
+          _hover={{ transform: 'scale(2.1)', color: 'blue.400' }}
           as={Link}
           href="#"
         >
@@ -69,24 +72,34 @@ export const CookieBanner = (props: CookieBannerProps) => {
           ...(isMobile && { width: '100%' }),
         }}
       >
+        {onReject && (
+          <Button
+            bg="white"
+            color="black"
+            _hover={{ bg: 'gray.100' }}
+            size="sm"
+            flexShrink={0}
+            onClick={onReject}
+          >
+            Reject
+          </Button>
+        )}
+
         <Button
-          bg="white"
-          color="black"
-          _hover={{ bg: 'gray.100' }}
+          colorScheme={'primary'}
           size="sm"
           flexShrink={0}
-          onClick={onReject}
+          onClick={onAllow}
         >
-          Reject
-        </Button>
-        <Button colorScheme={'teal'} size="sm" flexShrink={0} onClick={onAllow}>
           Allow
         </Button>
-        <CloseButton
-          color={'teal'}
-          display={{ base: 'none', sm: 'inline-flex' }}
-          onClick={onClose}
-        />
+        {onClose && (
+          <CloseButton
+            color={'lightgray'}
+            display={{ base: 'none', sm: 'inline-flex' }}
+            onClick={onClose}
+          />
+        )}
       </Stack>
     </Stack>
   )
