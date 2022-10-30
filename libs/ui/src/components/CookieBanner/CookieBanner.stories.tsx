@@ -17,9 +17,9 @@ export default {
 } as ComponentMeta<typeof CookieBanner>
 
 const Template: ComponentStory<typeof CookieBanner> = () => {
-  const onClose = () => alert('Close')
+  // const onClose = () => alert('Close')
   const onAllow = () => alert('Allow')
-  const onReject = () => alert('Reject')
+  // const onReject = () => alert('Reject')
 
   return (
     <Box position="relative" minH="600px">
@@ -28,9 +28,9 @@ const Template: ComponentStory<typeof CookieBanner> = () => {
         bottom="0"
         right="0"
         left="0"
-        onClose={onClose}
+        // onClose={onClose}
         onAllow={onAllow}
-        onReject={onReject}
+        // onReject={onReject}
       />
     </Box>
   )
