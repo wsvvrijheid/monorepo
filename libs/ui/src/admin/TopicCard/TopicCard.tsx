@@ -24,11 +24,25 @@ export const TopicCard: FC<TopicCardProps> = ({
   const toast = useToast()
   const { mutate, isLoading: isRecommendationLoading } = useRecommendTopic()
 
-  const isBookmarked = bookmarksStorage?.some(url => url === topic.url)
+  const isBookmarked = bookmarksStorage?.some(
+    url =>
+      url ===
+      (topic.url[topic.url.length - 1] === '/'
+        ? topic.url.slice(0, topic.url.length)
+        : topic.url),
+  )
 
   const handleBookmark = () => {
     if (isBookmarked) {
-      setBookmarksStorage(bookmarksStorage?.filter(url => url !== topic.url))
+      setBookmarksStorage(
+        bookmarksStorage?.filter(
+          url =>
+            url !==
+            (topic.url[topic.url.length - 1] === '/'
+              ? topic.url.slice(0, topic.url.length)
+              : topic.url),
+        ),
+      )
     } else {
       setBookmarksStorage([...(bookmarksStorage as string[]), topic.url])
     }
