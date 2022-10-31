@@ -9,7 +9,7 @@ export default {
   title: 'Admin/TopicCard',
   component: TopicCard,
   args: {
-    ...TOPICS_MOCK.data.data[0],
+    topic: TOPICS_MOCK.data.data[0],
   },
   decorators: [
     Story => (
