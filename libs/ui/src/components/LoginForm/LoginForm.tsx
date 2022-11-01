@@ -1,4 +1,9 @@
+import { useState } from 'react'
+
 import {
+  Alert,
+  AlertDescription,
+  AlertIcon,
   Button,
   Checkbox,
   Container,
@@ -34,6 +39,8 @@ const schema = (t: TFunction) =>
 
 export const LoginForm = () => {
   const { t } = useTranslation()
+  const [errorMessage, setErrorMessage] = useState('')
+
   const {
     register,
     handleSubmit,
@@ -56,12 +63,20 @@ export const LoginForm = () => {
         password: body.password,
       }),
     onSuccess: data => {
+      if (data.data?.error) {
+        return setErrorMessage(data.data.error.message)
+      }
       dispatch(setAuth(data.data))
       reset()
       router.push('/')
     },
-    onError: e => {
-      console.log('e', e)
+    onError: (error: any) => {
+      if (error?.response?.data?.error?.message) {
+        setErrorMessage(error?.response?.data?.error?.message)
+      } else {
+        console.error('An unexpected error happened:', error)
+        setErrorMessage('An unexpected error happened')
+      }
     },
   })
 
@@ -83,6 +98,12 @@ export const LoginForm = () => {
         rounded="lg"
       >
         <Stack spacing="6">
+          {errorMessage && (
+            <Alert status="error">
+              <AlertIcon />
+              <AlertDescription>{errorMessage}</AlertDescription>
+            </Alert>
+          )}
           <Stack spacing={{ base: '2', md: '3' }} textAlign="center">
             <Heading>{t('login.sign-in-header.title')}</Heading>
             <HStack spacing="1" justify="center">
