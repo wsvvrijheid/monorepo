@@ -109,7 +109,7 @@
   "login.password.password-confirm": "Parolayı onaylayın",
   "login.password.required": "Parola alanı zorunludur",
   "login.password.title": "Parola",
-  "login.password.warning": "Parola en az 8 karakter olmalıdır",
+  "login.password.warning": "Parola en az {{count}} karakter olmalıdır",
   "login.remember-me": "Beni hatırla",
   "login.reset-pass-header.button": "Gönder",
   "login.reset-pass-header.text": "Sifreniz başarıyla yenilendi, login olabilirsiniz.",
