@@ -3,7 +3,8 @@ import { FC } from 'react'
 import { useToast } from '@chakra-ui/react'
 import { useQueryClient } from '@tanstack/react-query'
 import { useRecommendTopic } from '@wsvvrijheid/services'
-import { useLocalStorage } from 'react-use'
+import { TopicBase } from '@wsvvrijheid/types'
+import { useLocalStorage } from 'usehooks-ts'
 
 import { TopicCardBase } from '../TopicCardBase'
 import { TopicCardProps } from './index'
@@ -14,7 +15,7 @@ export const TopicCard: FC<TopicCardProps> = ({
   isLoading,
   ...rest
 }) => {
-  const [bookmarksStorage, setBookmarksStorage] = useLocalStorage<string[]>(
+  const [bookmarksStorage, setBookmarksStorage] = useLocalStorage<TopicBase[]>(
     'bookmarks',
     [],
   )
@@ -24,27 +25,17 @@ export const TopicCard: FC<TopicCardProps> = ({
   const toast = useToast()
   const { mutate, isLoading: isRecommendationLoading } = useRecommendTopic()
 
-  const isBookmarked = bookmarksStorage?.some(
-    url =>
-      url ===
-      (topic.url[topic.url.length - 1] === '/'
-        ? topic.url.slice(0, topic.url.length)
-        : topic.url),
-  )
+  const isBookmarked = bookmarksStorage?.some(t => t.url === topic.url)
 
   const handleBookmark = () => {
     if (isBookmarked) {
-      setBookmarksStorage(
-        bookmarksStorage?.filter(
-          url =>
-            url !==
-            (topic.url[topic.url.length - 1] === '/'
-              ? topic.url.slice(0, topic.url.length)
-              : topic.url),
-        ),
+      const filteredBookmarks = bookmarksStorage?.filter(
+        t => t.url !== topic.url,
       )
+      setBookmarksStorage(filteredBookmarks)
     } else {
-      setBookmarksStorage([...(bookmarksStorage as string[]), topic.url])
+      const newBookmarks = [...(bookmarksStorage || []), topic]
+      setBookmarksStorage(newBookmarks)
     }
   }
 
