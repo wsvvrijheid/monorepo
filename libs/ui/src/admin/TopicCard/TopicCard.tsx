@@ -39,7 +39,13 @@ export const TopicCard: FC<TopicCardProps> = ({
   }
 
   const handleView = () => {
-    window.open(topic.url, '_blank')
+    window.open(
+      topic.url,
+      '_blank, popupWindow',
+      `height=500,width=800,left=${window.innerWidth / 3},top=${
+        window.innerHeight / 2
+      },resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=yes,directories=no, status=yes`,
+    )
   }
 
   const handleRecommend = () => {
