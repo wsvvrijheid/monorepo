@@ -1,16 +1,15 @@
-import { TwitterApi } from 'twitter-api-v2';
-import { Lifecycles } from '@strapi/strapi';
+import { twitterApi } from '../../../../libs/twitter/client'
 
 export default {
-  afterCreate({ result }) {
-    const twitterApi = strapi.plugin('twitter').config('client') as TwitterApi;
+  async afterCreate({ result }) {
+    const user = await twitterApi.v1.user({
+      screen_name: result.username as unknown as string,
+    })
 
-    twitterApi.v1
-      .user({ screen_name: result.username as unknown as string })
-      .then((data) => {
-        strapi
-          .service('api::mention.mention')
-          .update(result.id, { data: { data } });
-      });
+    console.log('user', user)
+
+    strapi
+      .service('api::mention.mention')
+      .update(result.id, { data: { data: user } })
   },
-};
+}

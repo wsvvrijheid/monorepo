@@ -13,6 +13,7 @@
     "build": "npx nx affected --target=build --exclude=@strapi/admin,api",
     "build:api": "yarn --cwd apps/api build",
     "api": "yarn --cwd apps/api develop",
+    "db": "yarn --cwd apps/api prepare-db",
     "storybook": "npx nx run ui:storybook",
     "prepare": "husky install"
   },

@@ -1,3 +1,5 @@
+import { twitterApi } from '../../../../src/libs/twitter/client'
+
 export default async ({ strapi }) => {
   try {
     const woeids = {
@@ -8,10 +10,7 @@ export default async ({ strapi }) => {
 
     await Promise.all(
       Object.entries(woeids).map(async ([locale, id]) => {
-        const result = await strapi
-          .plugin('twitter')
-          .config('client')
-          .v1.trendsByPlace(id)
+        const result = await twitterApi.v1.trendsByPlace(id)
 
         if (!Array.isArray(result)) return
         if (!result[0]) return
