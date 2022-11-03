@@ -15,18 +15,20 @@ import {
   HStack,
   Textarea,
   useDisclosure,
-  useToast,
   Text,
+  useToast,
+  Input,
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import slugify from '@sindresorhus/slugify'
+import { getTranslation, useCreateMainHashtag } from '@wsvvrijheid/services'
 import { HashtagCreateInput, StrapiLocale } from '@wsvvrijheid/types'
-import { useCreateCollection } from '@wsvvrijheid/utils'
 import { useForm } from 'react-hook-form'
 import { IoMdAdd, IoMdCheckmark, IoMdClose } from 'react-icons/io'
 import * as yup from 'yup'
 
 import { FormItem, FilePicker } from '../../components'
+import { MentionListItem } from '../../post-maker/Mention'
 import { LanguageSwitcher } from '../LanguageSwitcher'
 import { CreateMainHashtagSuccessAlert } from './CreateMainHashtagSuccessAlert'
 import {
@@ -34,30 +36,32 @@ import {
   CreateMainHashtagModalProps,
   //   Mention,
 } from './types'
-
 const schema = () =>
   yup.object({
     title: yup.string().required('Title is required'),
     description: yup.string().required('Description is required'),
+    content: yup.string().required('Content is required'),
+    hashtag: yup.string().required('Hashtag is required'),
+    extrahashtag: yup.string(),
+    mention: yup.string(),
   })
 
 export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
   queryKey,
-  data: Mention,
+  mentions,
 }) => {
   const [images, setImages] = useState<Blob[]>([])
   //const [mention, setMentions] = useState<Mention>([])
-
+  console.log('mentions', mentions)
   const cancelRef = useRef<HTMLButtonElement>(null)
   const formDisclosure = useDisclosure()
   const successDisclosure = useDisclosure()
-  const toast = useToast()
 
   const [locale, setLocale] = useState<StrapiLocale>('en')
 
   const {
     register,
-    formState: { errors, isValid },
+    formState: { errors },
     handleSubmit,
     reset: resetForm,
   } = useForm<CreateMainHashtagFormFieldValues>({
@@ -65,20 +69,24 @@ export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
     mode: 'all',
   })
 
-  const { mutate, isLoading } = useCreateCollection(queryKey)
-
+  const { mutate, isLoading } = useCreateMainHashtag(locale, queryKey)
+  const [date, setDate] = useState<string>('')
+  const toast = useToast()
   const createMainHashtag = async (
     data: CreateMainHashtagFormFieldValues & { image: Blob },
   ) => {
     const slug = slugify(data.title)
-    const formBody: HashtagCreateInput = {
+    const content = data?.content
+    const hashtag = data?.hashtag
+
+    const formBody: HashtagCreateInput & CreateMainHashtagFormFieldValues = {
       ...data,
       slug,
       locale,
       publishedAt: null,
-      content: '',
-      date: '',
-      hashtag: '',
+      content,
+      date,
+      hashtag,
     }
 
     mutate(formBody, {
@@ -87,19 +95,32 @@ export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
         successDisclosure.onOpen()
         resetForm()
         resetFileUploader()
+        const translateData = getTranslationEntry(
+          data.title,
+          data.description,
+          data.content,
+          locale,
+        )
+        console.log('translateData', translateData)
       },
-      onError: () => {
+      onError: error => {
         toast({
           title: 'Error',
-          description: 'Something went wrong',
+          description: `Something went wrong ${error?.response?.data.error.message}`,
           status: 'error',
           duration: 5000,
           isClosable: true,
         })
       },
     })
+    const translateData = await getTranslationEntry(
+      data.title,
+      data.description,
+      data.content,
+      locale,
+    )
+    console.log('translateData', translateData.contentTranslate)
   }
-
   const handleCreateMainHashtag = async (
     data: CreateMainHashtagFormFieldValues,
   ) => {
@@ -183,7 +204,7 @@ export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
                   register={register}
                 />
                 <FormItem
-                  name="description"
+                  name="content"
                   label="Content"
                   as={Textarea}
                   isRequired
@@ -191,22 +212,47 @@ export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
                   register={register}
                 />
                 <HStack>
-                  <LanguageSwitcher
-                    defaultLocale={locale as StrapiLocale}
-                    onLanguageSwitch={setLocale}
-                  />
-                  <Text>Date here</Text>
+                  <Stack>
+                    <Text
+                      aria-required
+                      mb={1}
+                      fontSize="sm"
+                      fontWeight="semibold"
+                    >
+                      Locale
+                    </Text>
+                    <LanguageSwitcher
+                      defaultLocale={locale as StrapiLocale}
+                      onLanguageSwitch={setLocale}
+                    />
+                  </Stack>
+                  <Stack>
+                    <Text
+                      aria-required
+                      mb={1}
+                      fontSize="sm"
+                      fontWeight="semibold"
+                    >
+                      Date
+                    </Text>
+                    <Input
+                      placeholder="Select Date and Time"
+                      size="md"
+                      type="datetime-local"
+                      onChange={event => setDate(event.target.value)}
+                    />
+                  </Stack>
                 </HStack>
                 <HStack>
                   <FormItem
-                    name="description"
+                    name="hashtag"
                     label="Hashtag"
                     isRequired
                     errors={errors}
                     register={register}
                   />
                   <FormItem
-                    name="description"
+                    name="extra hashtag"
                     label="Extra hashtag"
                     errors={errors}
                     register={register}
@@ -214,20 +260,27 @@ export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
                 </HStack>
               </Stack>
               <Stack>
-                <FilePicker setFiles={setImages} />
+                <Stack>
+                  <FilePicker setFiles={setImages} />
+                </Stack>
+                <Stack>
+                  <FormItem
+                    name="mentions"
+                    label="Mentions"
+                    isRequired
+                    errors={errors}
+                    register={register}
+                  />
+                </Stack>
                 {/*Mentions mention list should be here */}
-                <FormItem
-                  name="description"
-                  label="Mentions"
-                  isRequired
-                  errors={errors}
-                  register={register}
+                <MentionListItem
+                  data={mentions.data}
+                  onAddItem={''}
+                  onRemoveItem={''}
                 />
-
                 {/*================ */}
                 <ButtonGroup alignSelf="end">
                   <Button
-                    isDisabled={!images || images.length === 0 || !isValid}
                     type="submit"
                     colorScheme="primary"
                     leftIcon={<IoMdCheckmark />}
@@ -235,8 +288,8 @@ export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
                     save
                   </Button>
                   <Button
-                    isDisabled={!images || images.length === 0 || !isValid}
-                    type="submit"
+                    // isDisabled={!images || images.length === 0 || !isValid}
+                    onClick={'Publish'}
                     colorScheme="blue"
                     leftIcon={<IoMdCheckmark />}
                   >
@@ -258,4 +311,18 @@ export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
       </Modal>
     </>
   )
+}
+export const getTranslationEntry = async (
+  title: string,
+  description: string,
+  content: string,
+  locale: StrapiLocale,
+) => {
+  const responseTitle = await getTranslation(title, locale)
+  const responseContent = await getTranslation(content, locale)
+  const responseDescripton = await getTranslation(description, locale)
+  const titleTranslate = responseTitle.text
+  const contentTranslate = responseContent.text
+  const descriptionTranslate = responseDescripton.text
+  return { titleTranslate, contentTranslate, descriptionTranslate }
 }

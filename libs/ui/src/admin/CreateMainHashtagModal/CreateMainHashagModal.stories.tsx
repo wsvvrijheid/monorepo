@@ -3,13 +3,13 @@ import { MENTION_MOCKS } from '@wsvvrijheid/mocks'
 
 import { CreateMainHashtagModal } from './CreateMainHashtagModal'
 import { CreateMainHashtagModalProps } from './types'
-const mentionMock = MENTION_MOCKS.data[0]
+const mentionMock = MENTION_MOCKS.data
 console.log('mention mock', mentionMock)
 export default {
   title: 'Admin/CreateMainHashtagForm',
   component: CreateMainHashtagModal,
   args: {
-    username: mentionMock.username,
+    mentions: mentionMock,
   },
 } as Meta<CreateMainHashtagModalProps>
 
