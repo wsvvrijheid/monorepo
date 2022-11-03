@@ -12,7 +12,6 @@ export const createMainHashtag = (hashtagCreateInput: HashtagCreateInput) => {
 }
 
 export const useCreateMainHashtag = (
-  text: string,
   local: StrapiLocale,
   queryKey?: QueryKey,
 ) => {
@@ -23,7 +22,8 @@ export const useCreateMainHashtag = (
     onSettled: () => {
       queryClient.invalidateQueries(queryKey)
     },
-    onSuccess: () => {
+    onSuccess: (text: string) => {
+      console.log('on success create main hashtag', text)
       const data = getTranslation(text, local)
       console.log('Translation data', data)
     },
