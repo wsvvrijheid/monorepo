@@ -26,3 +26,14 @@ const Template: Story<TopicCardBaseProps> = args => {
 }
 
 export const Default = Template.bind({})
+Default.args = {
+  onView: () => {
+    window.open(
+      TOPICS_MOCK.data.data[0].url,
+      '_blank, popupWindow',
+      `height=500,width=800,left=${window.innerWidth / 3},top=${
+        window.innerHeight / 2
+      },resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=yes,directories=no, status=yes`,
+    )
+  },
+}

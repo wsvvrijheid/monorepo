@@ -18,7 +18,7 @@ import {
 import { NextSeo } from 'next-seo'
 import { useRouter } from 'next/router'
 import { MdOutlineNotifications } from 'react-icons/md'
-import { useLocalStorage } from 'react-use'
+import { useLocalStorage } from 'usehooks-ts'
 
 import { AdminSidebar } from '../AdminSidebar'
 import { PageHeader, PageHeaderProps } from '../PageHeader'
