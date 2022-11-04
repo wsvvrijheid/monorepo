@@ -4,6 +4,9 @@ import {
   Button,
   ButtonGroup,
   Center,
+  FormControl,
+  FormLabel,
+  HStack,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -12,12 +15,9 @@ import {
   ModalOverlay,
   Spinner,
   Stack,
-  HStack,
   Textarea,
   useDisclosure,
-  Text,
   useToast,
-  Input,
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import slugify from '@sindresorhus/slugify'
@@ -27,15 +27,14 @@ import { useForm } from 'react-hook-form'
 import { IoMdAdd, IoMdCheckmark, IoMdClose } from 'react-icons/io'
 import * as yup from 'yup'
 
-import { FormItem, FilePicker } from '../../components'
-import { MentionListItem } from '../../post-maker/Mention'
+import { FilePicker, FormItem, WSelect } from '../../components'
 import { LanguageSwitcher } from '../LanguageSwitcher'
 import { CreateMainHashtagSuccessAlert } from './CreateMainHashtagSuccessAlert'
 import {
   CreateMainHashtagFormFieldValues,
   CreateMainHashtagModalProps,
-  //   Mention,
 } from './types'
+
 const schema = () =>
   yup.object({
     title: yup.string().required('Title is required'),
@@ -48,11 +47,9 @@ const schema = () =>
 
 export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
   queryKey,
-  mentions,
 }) => {
   const [images, setImages] = useState<Blob[]>([])
   //const [mention, setMentions] = useState<Mention>([])
-  console.log('mentions', mentions)
   const cancelRef = useRef<HTMLButtonElement>(null)
   const formDisclosure = useDisclosure()
   const successDisclosure = useDisclosure()
@@ -61,6 +58,8 @@ export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
 
   const {
     register,
+    control,
+    watch,
     formState: { errors },
     handleSubmit,
     reset: resetForm,
@@ -70,24 +69,25 @@ export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
   })
 
   const { mutate, isLoading } = useCreateMainHashtag(locale, queryKey)
-  const [date, setDate] = useState<string>('')
   const toast = useToast()
+
   const createMainHashtag = async (
     data: CreateMainHashtagFormFieldValues & { image: Blob },
   ) => {
     const slug = slugify(data.title)
-    const content = data?.content
-    const hashtag = data?.hashtag
+    const mentions = data.mentions?.map(mention => Number(mention.value)) || []
+    console.log('data', data)
 
-    const formBody: HashtagCreateInput & CreateMainHashtagFormFieldValues = {
+    const formBody: HashtagCreateInput = {
       ...data,
       slug,
       locale,
       publishedAt: null,
-      content,
-      date,
-      hashtag,
+      mentions,
     }
+
+    const m = watch('mentions')
+    console.log('m', m)
 
     mutate(formBody, {
       onSuccess: () => {
@@ -106,7 +106,9 @@ export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
       onError: error => {
         toast({
           title: 'Error',
-          description: `Something went wrong ${error?.response?.data.error.message}`,
+          description: `Something went wrong ${
+            (error as any)?.response?.data.error.message
+          }`,
           status: 'error',
           duration: 5000,
           isClosable: true,
@@ -182,12 +184,13 @@ export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
             )}
 
             {/* CREATE FORM */}
-            <HStack
+            <Stack
+              direction={{ base: 'column', md: 'row' }}
               spacing={4}
               as="form"
               onSubmit={handleSubmit(handleCreateMainHashtag)}
             >
-              <Stack>
+              <Stack flex={1}>
                 <FormItem
                   name="title"
                   label="Title"
@@ -212,36 +215,21 @@ export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
                   register={register}
                 />
                 <HStack>
-                  <Stack>
-                    <Text
-                      aria-required
-                      mb={1}
-                      fontSize="sm"
-                      fontWeight="semibold"
-                    >
-                      Locale
-                    </Text>
+                  <FormControl isRequired>
+                    <FormLabel>Locale</FormLabel>
                     <LanguageSwitcher
                       defaultLocale={locale as StrapiLocale}
                       onLanguageSwitch={setLocale}
                     />
-                  </Stack>
-                  <Stack>
-                    <Text
-                      aria-required
-                      mb={1}
-                      fontSize="sm"
-                      fontWeight="semibold"
-                    >
-                      Date
-                    </Text>
-                    <Input
-                      placeholder="Select Date and Time"
-                      size="md"
-                      type="datetime-local"
-                      onChange={event => setDate(event.target.value)}
-                    />
-                  </Stack>
+                  </FormControl>
+
+                  <FormItem
+                    label="Date"
+                    register={register}
+                    errors={errors}
+                    name="date"
+                    type="datetime-local"
+                  />
                 </HStack>
                 <HStack>
                   <FormItem
@@ -252,33 +240,30 @@ export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
                     register={register}
                   />
                   <FormItem
-                    name="extra hashtag"
+                    name="extrahashtag"
                     label="Extra hashtag"
                     errors={errors}
                     register={register}
                   />
                 </HStack>
               </Stack>
-              <Stack>
+              <Stack flex={1}>
                 <Stack>
                   <FilePicker setFiles={setImages} />
                 </Stack>
-                <Stack>
-                  <FormItem
-                    name="mentions"
-                    label="Mentions"
-                    isRequired
-                    errors={errors}
-                    register={register}
-                  />
-                </Stack>
-                {/*Mentions mention list should be here */}
-                <MentionListItem
-                  data={mentions.data}
-                  onAddItem={''}
-                  onRemoveItem={''}
+                <WSelect
+                  isMulti
+                  name="mentions"
+                  label="Mentions"
+                  control={control}
+                  errors={errors}
+                  // TODO: get mentions from API with useQuery
+                  // We will improve WSelect later to accept async options
+                  options={[
+                    { label: 'hrw', value: '2' },
+                    { label: 'infolotusmedia', value: '11' },
+                  ]}
                 />
-                {/*================ */}
                 <ButtonGroup alignSelf="end">
                   <Button
                     type="submit"
@@ -286,14 +271,6 @@ export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
                     leftIcon={<IoMdCheckmark />}
                   >
                     save
-                  </Button>
-                  <Button
-                    // isDisabled={!images || images.length === 0 || !isValid}
-                    onClick={'Publish'}
-                    colorScheme="blue"
-                    leftIcon={<IoMdCheckmark />}
-                  >
-                    Publish
                   </Button>
                   <Button
                     onClick={closeForm}
@@ -305,7 +282,7 @@ export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
                   </Button>
                 </ButtonGroup>
               </Stack>
-            </HStack>
+            </Stack>
           </ModalBody>
         </ModalContent>
       </Modal>
