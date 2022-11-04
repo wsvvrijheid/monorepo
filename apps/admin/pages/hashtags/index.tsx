@@ -38,6 +38,7 @@ const MainHashtagPage = () => {
     ...hashtag,
     translates: hashtag.localizations?.map(l => l.locale),
   }))
+  console.log('MappedHashtag', mappedHashtags)
   return (
     <AdminLayout
       title="Main Hashtag"

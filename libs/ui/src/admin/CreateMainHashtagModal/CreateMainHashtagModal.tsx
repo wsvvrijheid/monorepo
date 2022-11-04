@@ -81,7 +81,7 @@ export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
   ) => {
     const slug = slugify(data.title)
     const mentions = data.mentions?.map(mention => Number(mention.value)) || []
-    console.log('data', data)
+    console.log('mentions in createMainHashtag', mentions)
 
     const formBody: HashtagCreateInput = {
       ...data,
@@ -266,7 +266,7 @@ export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
                   // We will improve WSelect later to accept async options
                   options={
                     currentMentions?.data?.map(c => ({
-                      value: `@${c.username.toString()}`,
+                      value: c.username,
                       label: `@${c.username.toString()}`,
                     })) || []
                   }
