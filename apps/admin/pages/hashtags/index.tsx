@@ -1,6 +1,5 @@
 import { useState } from 'react'
 
-import { MENTION_MOCKS } from '@wsvvrijheid/mocks'
 import { useHashtagsByFilterAndSort } from '@wsvvrijheid/services'
 import { StrapiLocale, Sort } from '@wsvvrijheid/types'
 import {
@@ -15,7 +14,6 @@ const MainHashtagPage = () => {
 
   const [searchTerm, setSearchTerm] = useState<string>()
   const [locale, setLocale] = useState<StrapiLocale>(defaultLocale)
-
   const [sort, setSort] = useState<Sort>()
   const queryKey = ['hashtag', searchTerm, sort, currentPage || 1]
 
@@ -40,7 +38,6 @@ const MainHashtagPage = () => {
     ...hashtag,
     translates: hashtag.localizations?.map(l => l.locale),
   }))
-  const mentionMock = MENTION_MOCKS.data[0]
   return (
     <AdminLayout
       title="Main Hashtag"
@@ -50,7 +47,7 @@ const MainHashtagPage = () => {
         defaultLocale,
       }}
     >
-      <CreateMainHashtagModal mentions={mentionMock} />
+      <CreateMainHashtagModal />
       <MainHashtagTable
         data={mappedHashtags}
         totalCount={totalCount}
