@@ -21,7 +21,11 @@ import {
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import slugify from '@sindresorhus/slugify'
-import { getTranslation, useCreateMainHashtag } from '@wsvvrijheid/services'
+import {
+  getTranslation,
+  useCreateMainHashtag,
+  useGetMentions,
+} from '@wsvvrijheid/services'
 import { HashtagCreateInput, StrapiLocale } from '@wsvvrijheid/types'
 import { useForm } from 'react-hook-form'
 import { IoMdAdd, IoMdCheckmark, IoMdClose } from 'react-icons/io'
@@ -70,7 +74,8 @@ export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
 
   const { mutate, isLoading } = useCreateMainHashtag(locale, queryKey)
   const toast = useToast()
-
+  const currentMentions = useGetMentions()
+  console.log('mentions >>>>>> in Modal', currentMentions?.data)
   const createMainHashtag = async (
     data: CreateMainHashtagFormFieldValues & { image: Blob },
   ) => {
@@ -259,10 +264,12 @@ export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
                   errors={errors}
                   // TODO: get mentions from API with useQuery
                   // We will improve WSelect later to accept async options
-                  options={[
-                    { label: 'hrw', value: '2' },
-                    { label: 'infolotusmedia', value: '11' },
-                  ]}
+                  options={
+                    currentMentions?.data?.map(c => ({
+                      value: `@${c.username.toString()}`,
+                      label: `@${c.username.toString()}`,
+                    })) || []
+                  }
                 />
                 <ButtonGroup alignSelf="end">
                   <Button
