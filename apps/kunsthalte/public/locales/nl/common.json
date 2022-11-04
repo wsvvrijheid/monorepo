@@ -110,7 +110,7 @@
   "login.password.password-confirm": "Bevestig wachtwoord",
   "login.password.required": "Wachtwoordveld is verplicht",
   "login.password.title": "Wachtwoord",
-  "login.password.warning": "Minstens 8 karakters lang",
+  "login.password.warning": "Minstens {{count}} karakters lang",
   "login.remember-me": "Onthoud mij",
   "login.reset-pass-header.button": "Submit",
   "login.reset-pass-header.text": "Wachtwoord succesvol opnieuw ingesteld. U kunt nu inloggen.",

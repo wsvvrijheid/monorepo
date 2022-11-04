@@ -1,15 +1,4 @@
-import { TwitterApi } from 'twitter-api-v2'
-const twitterClient = new TwitterApi(process.env.BEARER_TOKEN as string)
-const client = twitterClient.readOnly
-
 export default ({ env }) => ({
-  twitter: {
-    enabled: true,
-    resolve: './src/plugins/twitter',
-    config: {
-      client,
-    },
-  },
   graphql: {
     config: {
       endpoint: '/graphql',

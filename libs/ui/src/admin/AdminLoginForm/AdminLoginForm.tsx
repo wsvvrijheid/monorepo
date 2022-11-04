@@ -28,17 +28,7 @@ import {
 
 const schema = (t: TFunction) =>
   yup.object({
-    password: yup
-      .string()
-      .min(8, t('login.password.warning'))
-      .required(t('login.password.required'))
-      .matches(RegExp('(.*[a-z].*)'), t('login.password.matches.lowercase'))
-      .matches(RegExp('(.*[A-Z].*)'), t('login.password.matches.uppercase'))
-      .matches(RegExp('(.*\\d.*)'), t('login.password.matches.number'))
-      .matches(
-        RegExp('[!@#$%^&*(),.?":{}|<>]'),
-        t('login.password.matches.special'),
-      ),
+    password: yup.string().required(t('login.password.required')),
     email: yup
       .string()
       .email(t`contact.form.email-invalid`)

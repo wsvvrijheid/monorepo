@@ -3,7 +3,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { Mutation } from '@wsvvrijheid/lib'
 import { Art, ArtUpdateInput } from '@wsvvrijheid/types'
 import { useRouter } from 'next/router'
-import { useLocalStorage } from 'react-use'
+import { useLocalStorage } from 'usehooks-ts'
 
 import { useArtBySlug } from './getBySlug'
 
