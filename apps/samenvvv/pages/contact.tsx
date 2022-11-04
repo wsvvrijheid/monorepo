@@ -53,10 +53,9 @@ const Contact = ({ seo }: ContactProps): JSX.Element => {
   }
   return (
     <Layout seo={seo}>
-      {/* How can I access the background image url? */}
       <Box
         minH="inherit"
-        background="url(/images/bg-wave.svg) no-repeat bottom"
+        background="url('https://www.samenvvv.nl/images/bg-wave.svg') no-repeat bottom"
       >
         <Container minH="inherit" maxW="container.xl">
           <Stack
@@ -76,10 +75,7 @@ const Contact = ({ seo }: ContactProps): JSX.Element => {
               spacing={{ base: 8, lg: 16 }}
             >
               <Box>
-                <Heading>
-                  {/* I couldn't get the translations in local, it appeared as contact.title maybe it is visible when it is published in vercel */}
-                  {t('contact.title')}
-                </Heading>
+                <Heading>{t('contact.title')}</Heading>
                 <Text mt={{ sm: 3, md: 3, lg: 5 }} color="primary.50">
                   {t('contact.fill-form')}
                 </Text>
@@ -111,7 +107,6 @@ const Contact = ({ seo }: ContactProps): JSX.Element => {
                   }
                   href="https://api.whatsapp.com/send?phone=31685221308"
                 >
-                  {/* I could not find a suitable message defined here in the common file */}
                   {t('contact.form.message-label')}
                 </Button>
                 <Button
@@ -146,20 +141,13 @@ const Contact = ({ seo }: ContactProps): JSX.Element => {
 
               <SocialButtons items={[]} />
             </VStack>
-            <Box
-              w={{ base: 'full', lg: '500px' }}
-              bg="white"
-              borderRadius="lg"
-              p={{ base: 8, lg: 16 }}
-              shadow="primary"
-            >
-              <ContactForm
-                onSubmitHandler={handleSubmit}
-                isLoading={isLoading}
-                isSuccess={isSuccess}
-                isError={isError}
-              />
-            </Box>
+
+            <ContactForm
+              onSubmitHandler={handleSubmit}
+              isLoading={isLoading}
+              isSuccess={isSuccess}
+              isError={isError}
+            />
           </Stack>
         </Container>
       </Box>
