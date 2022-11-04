@@ -75,13 +75,11 @@ export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
   const { mutate, isLoading } = useCreateMainHashtag(locale, queryKey)
   const toast = useToast()
   const currentMentions = useGetMentions()
-  console.log('mentions >>>>>> in Modal', currentMentions?.data)
   const createMainHashtag = async (
     data: CreateMainHashtagFormFieldValues & { image: Blob },
   ) => {
     const slug = slugify(data.title)
     const mentions = data.mentions?.map(mention => Number(mention.value)) || []
-    console.log('mentions in createMainHashtag', mentions)
 
     const formBody: HashtagCreateInput = {
       ...data,
