@@ -266,7 +266,7 @@ export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
                   // We will improve WSelect later to accept async options
                   options={
                     currentMentions?.data?.map(c => ({
-                      value: c.username,
+                      value: c.id,
                       label: `@${c.username.toString()}`,
                     })) || []
                   }
