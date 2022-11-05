@@ -22,11 +22,12 @@ import {
 import { yupResolver } from '@hookform/resolvers/yup'
 import slugify from '@sindresorhus/slugify'
 import {
-  getTranslation,
+  getDataTranslation,
   useCreateMainHashtag,
   useGetMentions,
 } from '@wsvvrijheid/services'
 import { HashtagCreateInput, StrapiLocale } from '@wsvvrijheid/types'
+import { pick } from 'lodash'
 import { useForm } from 'react-hook-form'
 import { IoMdAdd, IoMdCheckmark, IoMdClose } from 'react-icons/io'
 import * as yup from 'yup'
@@ -39,16 +40,6 @@ import {
   CreateMainHashtagModalProps,
 } from './types'
 
-const schema = () =>
-  yup.object({
-    title: yup.string().required('Title is required'),
-    description: yup.string().required('Description is required'),
-    content: yup.string().required('Content is required'),
-    hashtag: yup.string().required('Hashtag is required'),
-    extrahashtag: yup.string(),
-    mention: yup.string(),
-  })
-
 export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
   queryKey,
 }) => {
@@ -60,6 +51,15 @@ export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
 
   const [locale, setLocale] = useState<StrapiLocale>('en')
 
+  const schema = yup.object({
+    title: yup.string().required('Title is required'),
+    description: yup.string().required('Description is required'),
+    content: yup.string().required('Content is required'),
+    hashtag: yup.string().required('Hashtag is required'),
+    extrahashtag: yup.string(),
+    mention: yup.string(),
+  })
+
   const {
     register,
     control,
@@ -68,13 +68,14 @@ export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
     handleSubmit,
     reset: resetForm,
   } = useForm<CreateMainHashtagFormFieldValues>({
-    resolver: yupResolver(schema()),
+    resolver: yupResolver(schema),
     mode: 'all',
   })
 
   const { mutate, isLoading } = useCreateMainHashtag(locale, queryKey)
   const toast = useToast()
   const currentMentions = useGetMentions()
+
   const createMainHashtag = async (
     data: CreateMainHashtagFormFieldValues & { image: Blob },
   ) => {
@@ -93,17 +94,20 @@ export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
     console.log('m', m)
 
     mutate(formBody, {
-      onSuccess: () => {
+      onSuccess: async data => {
+        console.log('DATA', data)
         formDisclosure.onClose()
         successDisclosure.onOpen()
         resetForm()
         resetFileUploader()
-        const translateData = getTranslationEntry(
-          data.title,
-          data.description,
-          data.content,
+
+        const dataToBeTranslated = pick(data, 'title', 'description', 'content')
+
+        const translateData = await getDataTranslation(
+          dataToBeTranslated,
           locale,
         )
+
         console.log('translateData', translateData)
       },
       onError: error => {
@@ -118,14 +122,8 @@ export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
         })
       },
     })
-    const translateData = await getTranslationEntry(
-      data.title,
-      data.description,
-      data.content,
-      locale,
-    )
-    console.log('translateData', translateData.contentTranslate)
   }
+
   const handleCreateMainHashtag = async (
     data: CreateMainHashtagFormFieldValues,
   ) => {
@@ -264,8 +262,8 @@ export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
                   // We will improve WSelect later to accept async options
                   options={
                     currentMentions?.data?.map(c => ({
-                      value: c.id,
-                      label: `@${c.username.toString()}`,
+                      value: `${c.id}`,
+                      label: `@${c.username}`,
                     })) || []
                   }
                 />
@@ -293,18 +291,4 @@ export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
       </Modal>
     </>
   )
-}
-export const getTranslationEntry = async (
-  title: string,
-  description: string,
-  content: string,
-  locale: StrapiLocale,
-) => {
-  const responseTitle = await getTranslation(title, locale)
-  const responseContent = await getTranslation(content, locale)
-  const responseDescripton = await getTranslation(description, locale)
-  const titleTranslate = responseTitle.text
-  const contentTranslate = responseContent.text
-  const descriptionTranslate = responseDescripton.text
-  return { titleTranslate, contentTranslate, descriptionTranslate }
 }
