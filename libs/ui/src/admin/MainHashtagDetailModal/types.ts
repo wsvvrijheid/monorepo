@@ -1,4 +1,4 @@
-import { Mention } from '@wsvvrijheid/types'
+import { Mention, Post } from '@wsvvrijheid/types'
 
 export type MainHashtagTypes = {
   mainhashtagDescription: string
