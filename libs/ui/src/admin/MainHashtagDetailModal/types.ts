@@ -4,7 +4,7 @@ export type MainHashtagTypes = {
   mainhashtagDescription: string
   mainhashtagContent: string
   mainhashtagId: number
-  mainhashtagImage: any
+  mainhashtagImage: Blob[]
   mainhashtagTitle: string
   mainhashtagHashtag: string
   mainhashtagHashtagExtra: string
@@ -40,4 +40,5 @@ export type CreateMainHashtagFormFieldValues = {
     label: string
     value: string
   }[]
+  image: Blob[]
 }

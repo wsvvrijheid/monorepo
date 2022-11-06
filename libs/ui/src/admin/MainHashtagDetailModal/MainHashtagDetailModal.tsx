@@ -22,7 +22,7 @@ import {
   Input,
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { StrapiLocale } from '@wsvvrijheid/types'
+import { StrapiLocale, UploadFile } from '@wsvvrijheid/types'
 import * as dateFns from 'date-fns'
 import { useForm } from 'react-hook-form'
 import { HiOutlineX, HiPencil } from 'react-icons/hi'
@@ -30,7 +30,7 @@ import { IoMdClose } from 'react-icons/io'
 import { MdOutlinePublish, MdOutlineUnpublished } from 'react-icons/md'
 import * as yup from 'yup'
 
-import { WImage, WSelect } from '../../components'
+import { FilePicker, WImage, WSelect } from '../../components'
 // import { FormItem, FilePicker, WSelect } from '../../components'
 import { LanguageSwitcher } from '../LanguageSwitcher'
 import { CreateMainHashtagFormFieldValues, MainHashtagTypes } from './types'
@@ -62,6 +62,7 @@ export const MainHashtagDetailModal: FC<MainHashtagTypes> = ({
   const [isEditingHashtag, setIsEditingHashtag] = useState(false)
   const [isEditingHashtagextra, setIsEditingHashtagextra] = useState(false)
   const [isEditingMention, setIsEditingMention] = useState(false)
+  const [isEditingImage, setIsEditingImage] = useState(false)
 
   const [title, setTitle] = useState(mainhashtagTitle)
   const [description, setDescription] = useState(mainhashtagDescription)
@@ -70,7 +71,8 @@ export const MainHashtagDetailModal: FC<MainHashtagTypes> = ({
   const [date, setDate] = useState(mainhashtagDate)
   const [hashtag, setHashtag] = useState(mainhashtagHashtag)
   const [hashtagextra, setHashtagextra] = useState(mainhashtagHashtagExtra)
-
+  const [images, setImages] = useState<Blob[]>(mainhashtagImage)
+  console.log('first image', images)
   const cancelRef = useRef<HTMLButtonElement>(null)
 
   const schema = yup.object({
@@ -87,7 +89,25 @@ export const MainHashtagDetailModal: FC<MainHashtagTypes> = ({
     mode: 'all',
   })
 
-  //   //set new description and content
+  //   //update field states
+  useEffect(() => {
+    setDescription(mainhashtagDescription)
+    setTitle(mainhashtagTitle)
+    setContent(mainhashtagContent)
+    setNewMentions(mentions)
+    setHashtag(mainhashtagHashtag)
+    setHashtagextra(mainhashtagHashtagExtra)
+    setImages(mainhashtagImage)
+  }, [
+    mainhashtagDescription,
+    mainhashtagTitle,
+    mainhashtagContent,
+    mentions,
+    mainhashtagHashtag,
+    mainhashtagHashtagExtra,
+    mainhashtagImage,
+  ])
+
   useEffect(() => {
     const formattedDate = dateFns.format(
       new Date(mainhashtagDate),
@@ -95,12 +115,16 @@ export const MainHashtagDetailModal: FC<MainHashtagTypes> = ({
     )
     setDate(formattedDate)
   }, [mainhashtagDate])
-  //   useEffect(() => {
-  //     setContent(artContent)
-  //   }, [artContent])
 
+  //set image
+  useEffect(() => {
+    setImages(mainhashtagImage)
+  }, [mainhashtagImage])
+  const resetFileUploader = () => {
+    setImages([])
+  }
   const closeForm = () => {
-    // resetFileUploader()
+    resetFileUploader()
     // resetForm()
     onClose()
   }
@@ -133,11 +157,16 @@ export const MainHashtagDetailModal: FC<MainHashtagTypes> = ({
       const m = watch('mentions')
       if (m) {
         const mention = mentions?.filter(
-          (mention, index) => m[index]?.value === mention.id,
+          (mention, index) => Number(m[index]?.value) === mention.id,
         )
         setNewMentions(mention)
         onSave(mainhashtagId, mention, 'mention')
       }
+    } else if (data === 'image') {
+      setIsEditingImage(false)
+      const image = images[0]
+      onSave(mainhashtagId, image, 'image')
+      console.log('images', image)
     }
   }
 
@@ -158,6 +187,8 @@ export const MainHashtagDetailModal: FC<MainHashtagTypes> = ({
       setIsEditingHashtagextra(true)
     } else if (data === 'mention') {
       setIsEditingMention(true)
+    } else if (data === 'image') {
+      setIsEditingImage(true)
     }
   }
   const handlePublish = () => onPublish(mainhashtagId)
@@ -455,15 +486,37 @@ export const MainHashtagDetailModal: FC<MainHashtagTypes> = ({
               </Stack>
               <Stack flex={1}>
                 <Stack>
-                  {/* <FilePicker setFiles={setImages} /> */}
-                  {/* current Images*/}
-                  {mainhashtagImage && (
-                    <WImage
-                      src={mainhashtagImage?.url}
-                      alt={mainhashtagTitle}
-                    />
+                  {/* image ==========*/}
+                  {isEditingImage ? (
+                    <>
+                      <FilePicker setFiles={setImages} />
+                      <Button
+                        colorScheme="primary"
+                        onClick={() => handleSave('image')}
+                        alignSelf="end"
+                      >
+                        Save
+                      </Button>
+                    </>
+                  ) : (
+                    <>
+                      {images && (
+                        <WImage
+                          src={mainhashtagImage?.url as UploadFile}
+                          alt={mainhashtagTitle}
+                        />
+                      )}
+                      <Button
+                        as={IconButton}
+                        onClick={() => handleUpdate('image')}
+                        variant="ghost"
+                        colorScheme="primary"
+                        icon={<HiPencil />}
+                      ></Button>
+                    </>
                   )}
                 </Stack>
+
                 {/* Mentions ===*/}
                 <Stack>
                   {isEditingMention ? (
