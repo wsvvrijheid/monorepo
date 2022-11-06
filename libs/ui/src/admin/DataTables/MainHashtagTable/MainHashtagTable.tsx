@@ -52,7 +52,7 @@ export const MainHashtagTable: FC<MainHashtagTableProps> = ({
           {...confirmProps}
         />
       )}
-      {/* <MainHashtagDetailModal /> */}
+      {/* Mainhashtag detail modal ================ */}
       {selectedMainHashtag && (
         <MainHashtagDetailModal
           mainhashtagId={selectedMainHashtag.id}
