@@ -56,6 +56,7 @@ const MainHashtagPage = () => {
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
         onSort={setSort}
+        queryKey={queryKey}
       />
     </AdminLayout>
   )

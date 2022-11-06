@@ -2,7 +2,8 @@ import { FC, useState } from 'react'
 
 import { useDisclosure } from '@chakra-ui/react'
 import { QueryKey } from '@tanstack/react-query'
-import { Hashtag, Mention, UploadFile } from '@wsvvrijheid/types'
+import { useUpdateHashtagMutation } from '@wsvvrijheid/services'
+import { Hashtag, Mention } from '@wsvvrijheid/types'
 
 import { WConfirm, WConfirmProps } from '../../../components'
 import { MainHashtagDetailModal } from '../../MainHashtagDetailModal'
@@ -20,6 +21,7 @@ export const MainHashtagTable: FC<MainHashtagTableProps> = ({
   currentPage,
   onSort,
   setCurrentPage,
+  queryKey,
 }) => {
   const mainhashtagDisclosure = useDisclosure()
   const confirmDisclosure = useDisclosure()
@@ -33,7 +35,7 @@ export const MainHashtagTable: FC<MainHashtagTableProps> = ({
     typeof selectedIndex === 'number' ? mainHashtag?.[selectedIndex] : null
   const [confirmProps] =
     useState<Omit<WConfirmProps, 'onClose' | 'isOpen' | 'onOpen'>>() //setConfirmProps
-  console.log('selectedMainhashtag >>>', selectedMainHashtag)
+  const updateField = useUpdateHashtagMutation(queryKey)
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   const handleDelete = () => {}
@@ -42,7 +44,18 @@ export const MainHashtagTable: FC<MainHashtagTableProps> = ({
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   const handleUnPublish = () => {}
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  const onSave = () => {}
+
+  const onSave = async (id: number, newData: any, text: string) => {
+    updateField.mutate(
+      { id, [text]: newData },
+      {
+        onSuccess: res => {
+          console.log('response in table', res)
+        },
+        onError: error => console.log('error in table', error),
+      },
+    )
+  }
   return (
     <>
       {confirmProps && (
@@ -64,9 +77,7 @@ export const MainHashtagTable: FC<MainHashtagTableProps> = ({
           mainhashtagPublishedAt={selectedMainHashtag.publishedAt}
           mainhashtagHashtagExtra={selectedMainHashtag?.hashtagExtra as string}
           mentions={selectedMainHashtag?.mentions as Mention[]}
-          mainhashtagImage={
-            selectedMainHashtag?.image as unknown as UploadFile[]
-          }
+          mainhashtagImage={selectedMainHashtag?.image as unknown as Blob[]}
           isOpen={mainhashtagDisclosure.isOpen}
           onDelete={handleDelete}
           onClose={mainhashtagDisclosure.onClose}
