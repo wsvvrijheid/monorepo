@@ -12,6 +12,7 @@ export type MainHashtagTypes = {
   mentions: Mention[] | null
   mainhashtagMentions: Mention[] | null
   mainhashtagPublishedAt: string | null
+  posts: Post
   isOpen: boolean
   onClose: () => void
   onDelete: (maninhashtagId: number) => void

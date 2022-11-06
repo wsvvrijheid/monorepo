@@ -44,6 +44,7 @@ export const MainHashtagDetailModal: FC<MainHashtagTypes> = ({
   mainhashtagHashtag,
   mainhashtagHashtagExtra,
   mentions,
+  posts,
   mainhashtagMentions,
   mainhashtagImage,
   mainhashtagPublishedAt,
@@ -512,58 +513,61 @@ export const MainHashtagDetailModal: FC<MainHashtagTypes> = ({
                     </>
                   )}
                 </Stack>
-
-                {/* Mentions ===*/}
-                <Stack>
-                  {isEditingMention ? (
-                    <Stack>
-                      <WSelect
-                        isMulti
-                        name="mentions"
-                        label="Mentions"
-                        register={register}
-                        control={control}
-                        errors={errors}
-                        // TODO: get mentions from API with useQuery
-                        // We will improve WSelect later to accept async options
-                        options={
-                          mentions?.map(c => ({
-                            value: c.id,
-                            label: `@${c.username}`,
-                          })) || []
-                        }
-                      />
-                      <Button
-                        colorScheme="primary"
-                        onClick={() => handleSave('mentions')}
-                        alignSelf="end"
-                      >
-                        Save
-                      </Button>
-                    </Stack>
-                  ) : (
-                    <>
-                      <HStack>
-                        <Text color={'black'} fontWeight={'bold'}>
-                          Mentions
-                        </Text>
+                <HStack>
+                  <Stack>
+                    <Text color={'black'} fontWeight={'bold'}>
+                      Total Post: {posts?.length}
+                    </Text>
+                  </Stack>
+                  {/* Mentions ===*/}
+                  <Stack>
+                    {isEditingMention ? (
+                      <Stack>
+                        <WSelect
+                          isMulti
+                          name="mentions"
+                          label="Mentions"
+                          register={register}
+                          control={control}
+                          errors={errors}
+                          // TODO: get mentions from API with useQuery
+                          // We will improve WSelect later to accept async options
+                          options={
+                            mentions?.map(c => ({
+                              value: c.id,
+                              label: `@${c.username}`,
+                            })) || []
+                          }
+                        />
                         <Button
-                          as={IconButton}
-                          onClick={() => handleUpdate('mentions')}
-                          variant="ghost"
                           colorScheme="primary"
-                          icon={<HiPencil />}
-                        ></Button>
-                      </HStack>
-                      {newMentions
-                        ? newMentions?.map(mention => {
-                            return <Text>{`@${mention.username}`}</Text>
-                          })
-                        : ''}
-                    </>
-                  )}
-                </Stack>
-
+                          onClick={() => handleSave('mentions')}
+                          alignSelf="end"
+                        >
+                          Save
+                        </Button>
+                      </Stack>
+                    ) : (
+                      <>
+                        <HStack>
+                          <Text color={'black'} fontWeight={'bold'}>
+                            Mentions
+                          </Text>
+                          <Button
+                            as={IconButton}
+                            onClick={() => handleUpdate('mentions')}
+                            variant="ghost"
+                            colorScheme="primary"
+                            icon={<HiPencil />}
+                          ></Button>
+                        </HStack>
+                        {newMentions?.map(mention => {
+                          return <Text>{`@${mention.username}`}</Text>
+                        })}
+                      </>
+                    )}
+                  </Stack>
+                </HStack>
                 <ButtonGroup alignSelf="end">
                   {/* <Button
                     type="submit"

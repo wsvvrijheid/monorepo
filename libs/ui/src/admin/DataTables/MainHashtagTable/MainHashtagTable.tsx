@@ -29,6 +29,7 @@ export const MainHashtagTable: FC<MainHashtagTableProps> = ({
   setCurrentPage,
   queryKey,
 }) => {
+  console.log('mainhashtag >>>>>>', mainHashtag)
   const mainhashtagDisclosure = useDisclosure()
   const confirmDisclosure = useDisclosure()
   const [confirmState, setConfirmState] =
@@ -130,6 +131,7 @@ export const MainHashtagTable: FC<MainHashtagTableProps> = ({
           onPublish={onPublish}
           unPublish={onUnPublish}
           onSave={onSave}
+          posts={selectedMainHashtag?.posts}
         />
       )}
       <DataTable
