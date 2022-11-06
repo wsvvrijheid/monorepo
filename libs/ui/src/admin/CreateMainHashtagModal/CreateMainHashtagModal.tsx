@@ -21,6 +21,7 @@ import {
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import slugify from '@sindresorhus/slugify'
+import { Mutation } from '@wsvvrijheid/lib'
 import {
   getDataTranslation,
   useCreateMainHashtag,
@@ -107,8 +108,18 @@ export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
           dataToBeTranslated,
           locale,
         )
-
-        console.log('translateData', translateData)
+        const id = data.id
+        console.log('translateData', translateData, 'data id ', data)
+        await Promise.all(
+          Object.entries(translateData).map(([locale, body]) => {
+            return Mutation.localize(
+              'api/hashtags',
+              id,
+              locale as StrapiLocale,
+              body,
+            )
+          }),
+        )
       },
       onError: error => {
         toast({
@@ -259,7 +270,7 @@ export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
                   control={control}
                   errors={errors}
                   // TODO: get mentions from API with useQuery
-                  // We will improve WSelect later to accept async options
+                  // We will improve WSelect later to accept async options @${c.username}
                   options={
                     currentMentions?.data?.map(c => ({
                       value: `${c.id}`,
