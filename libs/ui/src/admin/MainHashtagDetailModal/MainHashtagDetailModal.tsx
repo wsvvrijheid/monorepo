@@ -44,6 +44,7 @@ export const MainHashtagDetailModal: FC<MainHashtagTypes> = ({
   mainhashtagHashtag,
   mainhashtagHashtagExtra,
   mentions,
+  mainhashtagMentions,
   mainhashtagImage,
   mainhashtagPublishedAt,
   isOpen,
@@ -60,19 +61,19 @@ export const MainHashtagDetailModal: FC<MainHashtagTypes> = ({
   const [isEditingContent, setIsEditingContent] = useState(false)
   const [isEditingDate, setIsEditingDate] = useState(false)
   const [isEditingHashtag, setIsEditingHashtag] = useState(false)
-  const [isEditingHashtagextra, setIsEditingHashtagextra] = useState(false)
+  const [isEditingHashtagExtra, setIsEditingHashtagExtra] = useState(false)
   const [isEditingMention, setIsEditingMention] = useState(false)
   const [isEditingImage, setIsEditingImage] = useState(false)
 
   const [title, setTitle] = useState(mainhashtagTitle)
   const [description, setDescription] = useState(mainhashtagDescription)
   const [content, setContent] = useState(mainhashtagContent)
-  const [newMentions, setNewMentions] = useState(mentions)
+  const [newMentions, setNewMentions] = useState(mainhashtagMentions)
   const [date, setDate] = useState(mainhashtagDate)
   const [hashtag, setHashtag] = useState(mainhashtagHashtag)
-  const [hashtagextra, setHashtagextra] = useState(mainhashtagHashtagExtra)
+  const [hashtagExtra, setHashtagExtra] = useState(mainhashtagHashtagExtra)
   const [images, setImages] = useState<Blob[]>(mainhashtagImage)
-  console.log('first image', images)
+
   const cancelRef = useRef<HTMLButtonElement>(null)
 
   const schema = yup.object({
@@ -94,15 +95,15 @@ export const MainHashtagDetailModal: FC<MainHashtagTypes> = ({
     setDescription(mainhashtagDescription)
     setTitle(mainhashtagTitle)
     setContent(mainhashtagContent)
-    setNewMentions(mentions)
+    setNewMentions(mainhashtagMentions)
     setHashtag(mainhashtagHashtag)
-    setHashtagextra(mainhashtagHashtagExtra)
+    setHashtagExtra(mainhashtagHashtagExtra)
     setImages(mainhashtagImage)
   }, [
     mainhashtagDescription,
     mainhashtagTitle,
     mainhashtagContent,
-    mentions,
+    mainhashtagMentions,
     mainhashtagHashtag,
     mainhashtagHashtagExtra,
     mainhashtagImage,
@@ -120,12 +121,8 @@ export const MainHashtagDetailModal: FC<MainHashtagTypes> = ({
   useEffect(() => {
     setImages(mainhashtagImage)
   }, [mainhashtagImage])
-  const resetFileUploader = () => {
-    setImages([])
-  }
+
   const closeForm = () => {
-    resetFileUploader()
-    // resetForm()
     onClose()
   }
 
@@ -149,18 +146,19 @@ export const MainHashtagDetailModal: FC<MainHashtagTypes> = ({
     } else if (data === 'hashtag') {
       setIsEditingHashtag(false)
       onSave(mainhashtagId, hashtag, 'hashtag')
-    } else if (data === 'hashtagextra') {
-      setIsEditingHashtagextra(false)
-      onSave(mainhashtagId, hashtagextra, 'hashtagextra')
-    } else if (data === 'mention') {
+    } else if (data === 'hashtagExtra') {
+      setIsEditingHashtagExtra(false)
+      onSave(mainhashtagId, hashtagExtra, 'hashtagExtra')
+    } else if (data === 'mentions') {
       setIsEditingMention(false)
       const m = watch('mentions')
       if (m) {
-        const mention = mentions?.filter(
+        const newMentions = mentions?.filter(
           (mention, index) => Number(m[index]?.value) === mention.id,
         )
-        setNewMentions(mention)
-        onSave(mainhashtagId, mention, 'mention')
+        console.log('mentions in onsave>', newMentions)
+        setNewMentions(newMentions)
+        onSave(mainhashtagId, newMentions, 'mentions')
       }
     } else if (data === 'image') {
       setIsEditingImage(false)
@@ -183,9 +181,9 @@ export const MainHashtagDetailModal: FC<MainHashtagTypes> = ({
       setIsEditingDate(true)
     } else if (data === 'hashtag') {
       setIsEditingHashtag(true)
-    } else if (data === 'hashtagextra') {
-      setIsEditingHashtagextra(true)
-    } else if (data === 'mention') {
+    } else if (data === 'hashtagExtra') {
+      setIsEditingHashtagExtra(true)
+    } else if (data === 'mentions') {
       setIsEditingMention(true)
     } else if (data === 'image') {
       setIsEditingImage(true)
@@ -194,7 +192,6 @@ export const MainHashtagDetailModal: FC<MainHashtagTypes> = ({
   const handlePublish = () => onPublish(mainhashtagId)
   const handleUnPublish = () => unPublish(mainhashtagId)
   const handleDelete = () => onDelete(mainhashtagId)
-
   return (
     <Box>
       <Modal onClose={onClose} isOpen={isOpen} scrollBehavior="inside">
@@ -215,7 +212,6 @@ export const MainHashtagDetailModal: FC<MainHashtagTypes> = ({
               </Center>
             )} */}
 
-            {/* CREATE FORM */}
             <Stack
               direction={{ base: 'column', md: 'row' }}
               spacing={4}
@@ -450,15 +446,15 @@ export const MainHashtagDetailModal: FC<MainHashtagTypes> = ({
                     maxH={'150px'}
                     overflow="auto"
                   >
-                    {isEditingHashtagextra ? (
+                    {isEditingHashtagExtra ? (
                       <Stack w="full">
                         <Textarea
-                          onChange={e => setHashtagextra(e.target.value)}
-                          value={hashtagextra}
+                          onChange={e => setHashtagExtra(e.target.value)}
+                          value={hashtagExtra}
                         />
                         <Button
                           colorScheme="primary"
-                          onClick={() => handleSave('hashtagextra')}
+                          onClick={() => handleSave('hashtagExtra')}
                           alignSelf="end"
                         >
                           Save
@@ -467,13 +463,13 @@ export const MainHashtagDetailModal: FC<MainHashtagTypes> = ({
                     ) : (
                       <Stack align="start" justify={'start'} w="full">
                         <Text color={'black'} fontWeight={'bold'}>
-                          Hashtagextra
+                          Hashtag Extra
                         </Text>
                         <HStack>
-                          <Text>{hashtagextra}</Text>
+                          <Text>{hashtagExtra}</Text>
                           <Button
                             as={IconButton}
-                            onClick={() => handleUpdate('hashtagextra')}
+                            onClick={() => handleUpdate('hashtagExtra')}
                             variant="ghost"
                             colorScheme="primary"
                             icon={<HiPencil />}
@@ -539,7 +535,7 @@ export const MainHashtagDetailModal: FC<MainHashtagTypes> = ({
                       />
                       <Button
                         colorScheme="primary"
-                        onClick={() => handleSave('mention')}
+                        onClick={() => handleSave('mentions')}
                         alignSelf="end"
                       >
                         Save
@@ -553,14 +549,14 @@ export const MainHashtagDetailModal: FC<MainHashtagTypes> = ({
                         </Text>
                         <Button
                           as={IconButton}
-                          onClick={() => handleUpdate('mention')}
+                          onClick={() => handleUpdate('mentions')}
                           variant="ghost"
                           colorScheme="primary"
                           icon={<HiPencil />}
                         ></Button>
                       </HStack>
                       {newMentions
-                        ? newMentions.map(mention => {
+                        ? newMentions?.map(mention => {
                             return <Text>{`@${mention.username}`}</Text>
                           })
                         : ''}

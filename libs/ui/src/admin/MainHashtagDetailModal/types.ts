@@ -10,6 +10,7 @@ export type MainHashtagTypes = {
   mainhashtagHashtagExtra: string
   mainhashtagDate: string
   mentions: Mention[] | null
+  mainhashtagMentions: Mention[] | null
   mainhashtagPublishedAt: string | null
   isOpen: boolean
   onClose: () => void
@@ -22,9 +23,10 @@ export type MainHashtagTypes = {
       | 'description'
       | 'hashtag'
       | 'title'
-      | 'hashtagextra'
+      | 'hashtagExtra'
       | 'date'
-      | 'mention',
+      | 'image'
+      | 'mentions',
   ) => void
   onPublish: (maninhashtagId: number) => void
   unPublish: (maninhashtagId: number) => void
