@@ -50,7 +50,6 @@ const MainHashtagPage = () => {
         defaultLocale,
       }}
     >
-      {/* <CreateMainHashtagModal /> */}
       <MainHashtagTable
         data={mappedHashtags}
         totalCount={totalCount}

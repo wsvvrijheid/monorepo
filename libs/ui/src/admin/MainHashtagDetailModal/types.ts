@@ -13,7 +13,7 @@ export type MainHashtagTypes = {
   mainhashtagPublishedAt: string | null
   isOpen: boolean
   onClose: () => void
-  onDelete: (artId: number) => void
+  onDelete: (maninhashtagId: number) => void
   onSave: (
     artId: number,
     data: string,
@@ -23,8 +23,21 @@ export type MainHashtagTypes = {
       | 'hashtag'
       | 'title'
       | 'hashtagextra'
-      | 'date',
+      | 'date'
+      | 'mention',
   ) => void
-  onPublish: (artId: number) => void
-  unPublish: (artId: number) => void
+  onPublish: (maninhashtagId: number) => void
+  unPublish: (maninhashtagId: number) => void
+}
+export type CreateMainHashtagFormFieldValues = {
+  title: string
+  description: string
+  content: string
+  hashtag: string
+  extrahashtag?: string
+  date: string
+  mentions?: {
+    label: string
+    value: string
+  }[]
 }

@@ -21,15 +21,19 @@ import {
   IconButton,
   Input,
 } from '@chakra-ui/react'
+import { yupResolver } from '@hookform/resolvers/yup'
 import { StrapiLocale } from '@wsvvrijheid/types'
 import * as dateFns from 'date-fns'
-import { HiPencil } from 'react-icons/hi'
+import { useForm } from 'react-hook-form'
+import { HiOutlineX, HiPencil } from 'react-icons/hi'
 import { IoMdClose } from 'react-icons/io'
+import { MdOutlinePublish, MdOutlineUnpublished } from 'react-icons/md'
+import * as yup from 'yup'
 
-import { WImage } from '../../components'
+import { WImage, WSelect } from '../../components'
 // import { FormItem, FilePicker, WSelect } from '../../components'
 import { LanguageSwitcher } from '../LanguageSwitcher'
-import { MainHashtagTypes } from './types'
+import { CreateMainHashtagFormFieldValues, MainHashtagTypes } from './types'
 
 export const MainHashtagDetailModal: FC<MainHashtagTypes> = ({
   mainhashtagId,
@@ -41,31 +45,47 @@ export const MainHashtagDetailModal: FC<MainHashtagTypes> = ({
   mainhashtagHashtagExtra,
   mentions,
   mainhashtagImage,
+  mainhashtagPublishedAt,
   isOpen,
-  // onDelete,
-
-  // onPublish,
-  // unPublish,
+  onDelete,
+  onPublish,
+  unPublish,
   onClose,
   onSave,
 }) => {
   const [locale, setLocale] = useState<StrapiLocale>('en')
-  const [isEditingTitle, setIsEditingTitle] = useState(false)
 
+  const [isEditingTitle, setIsEditingTitle] = useState(false)
   const [isEditingDesciption, setIsEditingDesciption] = useState(false)
   const [isEditingContent, setIsEditingContent] = useState(false)
   const [isEditingDate, setIsEditingDate] = useState(false)
   const [isEditingHashtag, setIsEditingHashtag] = useState(false)
   const [isEditingHashtagextra, setIsEditingHashtagextra] = useState(false)
-  const [title, setTitle] = useState(mainhashtagTitle)
+  const [isEditingMention, setIsEditingMention] = useState(false)
 
+  const [title, setTitle] = useState(mainhashtagTitle)
   const [description, setDescription] = useState(mainhashtagDescription)
   const [content, setContent] = useState(mainhashtagContent)
-
+  const [newMentions, setNewMentions] = useState(mentions)
   const [date, setDate] = useState(mainhashtagDate)
   const [hashtag, setHashtag] = useState(mainhashtagHashtag)
   const [hashtagextra, setHashtagextra] = useState(mainhashtagHashtagExtra)
+
   const cancelRef = useRef<HTMLButtonElement>(null)
+
+  const schema = yup.object({
+    mention: yup.string(),
+  })
+
+  const {
+    register,
+    control,
+    watch,
+    formState: { errors },
+  } = useForm<CreateMainHashtagFormFieldValues>({
+    resolver: yupResolver(schema),
+    mode: 'all',
+  })
 
   //   //set new description and content
   useEffect(() => {
@@ -100,7 +120,6 @@ export const MainHashtagDetailModal: FC<MainHashtagTypes> = ({
     } else if (data === 'date') {
       const formattedDate = dateFns.format(new Date(date), 'dd MMMM yyyy HH:mm')
       setDate(formattedDate)
-      console.log('date in handle save >>>>>>>>', formattedDate)
       setIsEditingDate(false)
       onSave(mainhashtagId, date, 'date')
     } else if (data === 'hashtag') {
@@ -109,6 +128,16 @@ export const MainHashtagDetailModal: FC<MainHashtagTypes> = ({
     } else if (data === 'hashtagextra') {
       setIsEditingHashtagextra(false)
       onSave(mainhashtagId, hashtagextra, 'hashtagextra')
+    } else if (data === 'mention') {
+      setIsEditingMention(false)
+      const m = watch('mentions')
+      if (m) {
+        const mention = mentions?.filter(
+          (mention, index) => m[index]?.value === mention.id,
+        )
+        setNewMentions(mention)
+        onSave(mainhashtagId, mention, 'mention')
+      }
     }
   }
 
@@ -127,10 +156,14 @@ export const MainHashtagDetailModal: FC<MainHashtagTypes> = ({
       setIsEditingHashtag(true)
     } else if (data === 'hashtagextra') {
       setIsEditingHashtagextra(true)
+    } else if (data === 'mention') {
+      setIsEditingMention(true)
     }
   }
+  const handlePublish = () => onPublish(mainhashtagId)
+  const handleUnPublish = () => unPublish(mainhashtagId)
+  const handleDelete = () => onDelete(mainhashtagId)
 
-  console.log('mentions >>>', mentions)
   return (
     <Box>
       <Modal onClose={onClose} isOpen={isOpen} scrollBehavior="inside">
@@ -302,11 +335,7 @@ export const MainHashtagDetailModal: FC<MainHashtagTypes> = ({
                     overflow="auto"
                   >
                     {isEditingDate ? (
-                      <Stack
-                        w="full"
-                        // as="form"
-                        // onSubmit={data => console.log('data in form', data)}
-                      >
+                      <Stack w="full">
                         <Input
                           onChange={e => setDate(e.target.value)}
                           value={date}
@@ -435,31 +464,57 @@ export const MainHashtagDetailModal: FC<MainHashtagTypes> = ({
                     />
                   )}
                 </Stack>
+                {/* Mentions ===*/}
                 <Stack>
-                  <Text color={'black'} fontWeight={'bold'}>
-                    Mentions
-                  </Text>
-                  {mentions
-                    ? mentions.map(mention => {
-                        return <Text>{`@${mention.username}`}</Text>
-                      })
-                    : ''}
+                  {isEditingMention ? (
+                    <Stack>
+                      <WSelect
+                        isMulti
+                        name="mentions"
+                        label="Mentions"
+                        register={register}
+                        control={control}
+                        errors={errors}
+                        // TODO: get mentions from API with useQuery
+                        // We will improve WSelect later to accept async options
+                        options={
+                          mentions?.map(c => ({
+                            value: c.id,
+                            label: `@${c.username}`,
+                          })) || []
+                        }
+                      />
+                      <Button
+                        colorScheme="primary"
+                        onClick={() => handleSave('mention')}
+                        alignSelf="end"
+                      >
+                        Save
+                      </Button>
+                    </Stack>
+                  ) : (
+                    <>
+                      <HStack>
+                        <Text color={'black'} fontWeight={'bold'}>
+                          Mentions
+                        </Text>
+                        <Button
+                          as={IconButton}
+                          onClick={() => handleUpdate('mention')}
+                          variant="ghost"
+                          colorScheme="primary"
+                          icon={<HiPencil />}
+                        ></Button>
+                      </HStack>
+                      {newMentions
+                        ? newMentions.map(mention => {
+                            return <Text>{`@${mention.username}`}</Text>
+                          })
+                        : ''}
+                    </>
+                  )}
                 </Stack>
-                {/* <WSelect
-                  isMulti
-                  name="mentions"
-                  label="Mentions"
-                  control={control}
-                  errors={errors}
-                  // TODO: get mentions from API with useQuery
-                  // We will improve WSelect later to accept async options
-                  options={
-                    currentMentions?.data?.map(c => ({
-                      value: c.id,
-                      label: `@${c.username.toString()}`,
-                    })) || []
-                  }
-                /> */}
+
                 <ButtonGroup alignSelf="end">
                   {/* <Button
                     type="submit"
@@ -468,6 +523,29 @@ export const MainHashtagDetailModal: FC<MainHashtagTypes> = ({
                   >
                     save
                   </Button> */}
+                  <Button
+                    onClick={
+                      mainhashtagPublishedAt ? handleUnPublish : handlePublish
+                    }
+                    // variant="ghost"
+                    colorScheme="primary"
+                    rightIcon={
+                      mainhashtagPublishedAt ? (
+                        <MdOutlineUnpublished />
+                      ) : (
+                        <MdOutlinePublish />
+                      )
+                    }
+                  >
+                    {mainhashtagPublishedAt ? 'Unpublish' : 'Publish'}
+                  </Button>
+                  <Button
+                    onClick={handleDelete}
+                    colorScheme="red"
+                    rightIcon={<HiOutlineX />}
+                  >
+                    Delete
+                  </Button>
                   <Button
                     onClick={closeForm}
                     mr={3}
