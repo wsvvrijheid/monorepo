@@ -1,10 +1,10 @@
 import { useToast } from '@chakra-ui/react'
 import { useMutation, useQueryClient, QueryKey } from '@tanstack/react-query'
 import { Mutation } from '@wsvvrijheid/lib'
-import { Art } from '@wsvvrijheid/types'
+import { Hashtag } from '@wsvvrijheid/types'
 
 export const deleteMainHashtag = ({ id }: { id: number }) =>
-  Mutation.delete<Art>('api/hashtags', id)
+  Mutation.delete<Hashtag>('api/hashtags', id)
 
 export const useDeleteMainhashtag = (queryKey?: QueryKey) => {
   const queryClient = useQueryClient()

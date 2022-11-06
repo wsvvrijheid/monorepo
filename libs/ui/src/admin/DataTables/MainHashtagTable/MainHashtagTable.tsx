@@ -4,6 +4,7 @@ import { useDisclosure } from '@chakra-ui/react'
 import { QueryKey } from '@tanstack/react-query'
 import {
   useDeleteMainhashtag,
+  useGetMentions,
   usePublishModel,
   useUnpublishModel,
   useUpdateHashtagMutation,
@@ -40,7 +41,7 @@ export const MainHashtagTable: FC<MainHashtagTableProps> = ({
   }
   const selectedMainHashtag =
     typeof selectedIndex === 'number' ? mainHashtag?.[selectedIndex] : null
-
+  const currentMentions = useGetMentions()
   const updateField = useUpdateHashtagMutation(queryKey)
   const deleteMainhashtag = useDeleteMainhashtag(queryKey)
   const publishMainhashtagMutation = usePublishModel('api/hashtags', queryKey)
@@ -71,7 +72,6 @@ export const MainHashtagTable: FC<MainHashtagTableProps> = ({
       buttonText: 'Publish',
       onConfirm: async () => {
         await publishMainhashtagMutation.mutateAsync({ id })
-
         setConfirmState(undefined)
         confirmDisclosure.onClose()
       },
@@ -85,13 +85,12 @@ export const MainHashtagTable: FC<MainHashtagTableProps> = ({
       buttonText: 'Unpublish',
       onConfirm: async () => {
         await unpublishMainhashtagMutation.mutateAsync({ id })
-
         setConfirmState(undefined)
         confirmDisclosure.onClose()
       },
     })
   }
-  const onSave = async (id: number, newData: any, text: string) => {
+  const onSave = async (id: number, newData: Hashtag, text: string) => {
     updateField.mutate(
       { id, [text]: newData },
       {
@@ -122,7 +121,8 @@ export const MainHashtagTable: FC<MainHashtagTableProps> = ({
           mainhashtagHashtag={selectedMainHashtag.hashtag}
           mainhashtagPublishedAt={selectedMainHashtag.publishedAt}
           mainhashtagHashtagExtra={selectedMainHashtag?.hashtagExtra as string}
-          mentions={selectedMainHashtag?.mentions as Mention[]}
+          mentions={currentMentions?.data as Mention[]}
+          mainhashtagMentions={selectedMainHashtag?.mentions as Mention[]}
           mainhashtagImage={selectedMainHashtag?.image as unknown as Blob[]}
           isOpen={mainhashtagDisclosure.isOpen}
           onDelete={handleDelete}
