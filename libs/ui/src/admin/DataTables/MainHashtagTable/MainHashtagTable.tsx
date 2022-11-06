@@ -2,7 +2,12 @@ import { FC, useState } from 'react'
 
 import { useDisclosure } from '@chakra-ui/react'
 import { QueryKey } from '@tanstack/react-query'
-import { useUpdateHashtagMutation } from '@wsvvrijheid/services'
+import {
+  useDeleteMainhashtag,
+  usePublishModel,
+  useUnpublishModel,
+  useUpdateHashtagMutation,
+} from '@wsvvrijheid/services'
 import { Hashtag, Mention } from '@wsvvrijheid/types'
 
 import { WConfirm, WConfirmProps } from '../../../components'
@@ -25,26 +30,67 @@ export const MainHashtagTable: FC<MainHashtagTableProps> = ({
 }) => {
   const mainhashtagDisclosure = useDisclosure()
   const confirmDisclosure = useDisclosure()
+  const [confirmState, setConfirmState] =
+    useState<Omit<WConfirmProps, 'onClose' | 'isOpen' | 'onOpen'>>()
+
   const [selectedIndex, setSelectedIndex] = useState<number>()
   const handleClickRow = (index: number, id: number) => {
-    // router.push(`/hashtags/${id}`)
     setSelectedIndex(index)
     mainhashtagDisclosure.onOpen()
   }
   const selectedMainHashtag =
     typeof selectedIndex === 'number' ? mainHashtag?.[selectedIndex] : null
-  const [confirmProps] =
-    useState<Omit<WConfirmProps, 'onClose' | 'isOpen' | 'onOpen'>>() //setConfirmProps
+
   const updateField = useUpdateHashtagMutation(queryKey)
+  const deleteMainhashtag = useDeleteMainhashtag(queryKey)
+  const publishMainhashtagMutation = usePublishModel('api/hashtags', queryKey)
+  const unpublishMainhashtagMutation = useUnpublishModel(
+    'api/hashtags',
+    queryKey,
+  )
+  //delete mainhashtag =================
+  const handleDelete = (id: number) => {
+    confirmDisclosure.onOpen()
+    setConfirmState({
+      isWarning: true,
+      title: 'Delete Mainhashtag',
+      description: 'Are you sure you want to delete this mainhashtag?',
+      buttonText: 'Delete',
+      onConfirm: async () => {
+        await deleteMainhashtag.mutateAsync({ id })
+        setConfirmState(undefined)
+        confirmDisclosure.onClose()
+      },
+    })
+  }
+  const onPublish = (id: number) => {
+    confirmDisclosure.onOpen()
+    setConfirmState({
+      title: 'Publish Mainhashtag',
+      description: `Are you sure you want to publish this mainhashtag ?`,
+      buttonText: 'Publish',
+      onConfirm: async () => {
+        await publishMainhashtagMutation.mutateAsync({ id })
 
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  const handleDelete = () => {}
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  const handlePublish = () => {}
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  const handleUnPublish = () => {}
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
+        setConfirmState(undefined)
+        confirmDisclosure.onClose()
+      },
+    })
+  }
+  const onUnPublish = (id: number) => {
+    confirmDisclosure.onOpen()
+    setConfirmState({
+      title: 'Un Publish Mainhashtag',
+      description: `Are you sure you want to unpublish this mainhashtag ?`,
+      buttonText: 'Unpublish',
+      onConfirm: async () => {
+        await unpublishMainhashtagMutation.mutateAsync({ id })
 
+        setConfirmState(undefined)
+        confirmDisclosure.onClose()
+      },
+    })
+  }
   const onSave = async (id: number, newData: any, text: string) => {
     updateField.mutate(
       { id, [text]: newData },
@@ -58,11 +104,11 @@ export const MainHashtagTable: FC<MainHashtagTableProps> = ({
   }
   return (
     <>
-      {confirmProps && (
+      {confirmState && (
         <WConfirm
           isOpen={confirmDisclosure.isOpen}
           onClose={confirmDisclosure.onClose}
-          {...confirmProps}
+          {...confirmState}
         />
       )}
       {/* Mainhashtag detail modal ================ */}
@@ -81,8 +127,8 @@ export const MainHashtagTable: FC<MainHashtagTableProps> = ({
           isOpen={mainhashtagDisclosure.isOpen}
           onDelete={handleDelete}
           onClose={mainhashtagDisclosure.onClose}
-          onPublish={handlePublish}
-          unPublish={handleUnPublish}
+          onPublish={onPublish}
+          unPublish={onUnPublish}
           onSave={onSave}
         />
       )}
