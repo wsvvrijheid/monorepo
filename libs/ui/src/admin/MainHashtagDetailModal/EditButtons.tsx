@@ -1,7 +1,7 @@
 import { FC } from 'react'
 
 import { Button, HStack } from '@chakra-ui/react'
-import { IoMdClose } from 'react-icons/io'
+import { IoMdCheckmark, IoMdClose } from 'react-icons/io'
 
 import { EditButtonsProps } from './types'
 
@@ -13,6 +13,7 @@ export const EditButtons: FC<EditButtonsProps> = ({
   return (
     <HStack>
       <Button
+        leftIcon={<IoMdCheckmark />}
         colorScheme="primary"
         onClick={() => handleSave(task)}
         alignSelf="end"

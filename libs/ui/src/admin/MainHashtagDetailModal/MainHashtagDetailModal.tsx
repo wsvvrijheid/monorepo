@@ -122,11 +122,13 @@ export const MainHashtagDetailModal: FC<MainHashtagTypes> = ({
   ])
 
   useEffect(() => {
-    const formattedDate = dateFns.format(
-      new Date(mainhashtagDate),
-      'dd MMMM yyyy HH:mm',
-    )
-    setDate(formattedDate)
+    if (mainhashtagDate) {
+      const formattedDate = dateFns.format(
+        new Date(mainhashtagDate),
+        'dd MMMM yyyy HH:mm',
+      )
+      setDate(formattedDate)
+    }
   }, [mainhashtagDate])
 
   //set image
@@ -241,7 +243,6 @@ export const MainHashtagDetailModal: FC<MainHashtagTypes> = ({
   const handleUnPublish = () => unPublish(mainhashtagId)
   const handleDelete = () => onDelete(mainhashtagId)
 
-  console.log('mentions >>>', mainhashtagMentions)
   return (
     <>
       {confirmState && (
@@ -560,7 +561,7 @@ export const MainHashtagDetailModal: FC<MainHashtagTypes> = ({
                       mainhashtagPublishedAt ? handleUnPublish : handlePublish
                     }
                     colorScheme="primary"
-                    rightIcon={
+                    leftIcon={
                       mainhashtagPublishedAt ? (
                         <MdOutlineUnpublished />
                       ) : (
@@ -573,7 +574,7 @@ export const MainHashtagDetailModal: FC<MainHashtagTypes> = ({
                   <Button
                     onClick={handleDelete}
                     colorScheme="red"
-                    rightIcon={<HiOutlineX />}
+                    leftIcon={<HiOutlineX />}
                   >
                     Delete
                   </Button>

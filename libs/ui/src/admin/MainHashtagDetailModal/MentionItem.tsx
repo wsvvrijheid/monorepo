@@ -25,9 +25,8 @@ export const MentionItem: FC<MentionItemProps> = ({
 }) => {
   const data = mention?.data
   const id = mention?.id
-  console.log('id in mention item >>>>>>>>>>>>', mention)
+
   const handleRemove = () => {
-    console.log('id in mention item', id)
     onRemoveItem(id)
   }
   return (

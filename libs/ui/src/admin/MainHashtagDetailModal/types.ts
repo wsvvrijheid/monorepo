@@ -12,18 +12,18 @@ export type MainHashtagTypes = {
   mentions: Mention[] | null
   mainhashtagMentions: Mention[] | null
   mainhashtagPublishedAt: string | null
-  posts: Post
+  posts?: Post[]
   isOpen: boolean
   onClose: () => void
   onDelete: (maninhashtagId: number) => void
   onSave: (
-    artId: number,
+    mainhashtagId: number,
     data: string,
     updateValue:
+      | 'title'
       | 'content'
       | 'description'
       | 'hashtag'
-      | 'title'
       | 'hashtagExtra'
       | 'date'
       | 'image'
@@ -39,7 +39,6 @@ export type CreateMainHashtagFormFieldValues = {
   hashtag: string
   extrahashtag?: string
   date: string
-
   mentions?: {
     label: string
     value: string
