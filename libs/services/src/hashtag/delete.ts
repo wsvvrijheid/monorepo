@@ -17,7 +17,6 @@ export const useDeleteMainhashtag = (queryKey?: QueryKey) => {
       queryClient.invalidateQueries(queryKey)
     },
     onSuccess: () => {
-      // TODO Add translations
       toast({
         title: 'Mainhashtag deleted',
         description: 'Mainhashtag has been deleted',
