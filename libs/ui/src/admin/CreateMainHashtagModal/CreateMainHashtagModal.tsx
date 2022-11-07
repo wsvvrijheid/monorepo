@@ -23,7 +23,7 @@ import {
 import { yupResolver } from '@hookform/resolvers/yup'
 import slugify from '@sindresorhus/slugify'
 import { useCreateMainHashtag, useGetMentions } from '@wsvvrijheid/services'
-import { HashtagCreateInput, StrapiLocale } from '@wsvvrijheid/types'
+import { Hashtag, HashtagCreateInput, StrapiLocale } from '@wsvvrijheid/types'
 import { useForm } from 'react-hook-form'
 import { IoMdAdd, IoMdCheckmark, IoMdClose } from 'react-icons/io'
 import * as yup from 'yup'
@@ -38,6 +38,7 @@ import {
 
 export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
   queryKey,
+  showEditModal,
 }) => {
   const [images, setImages] = useState<Blob[]>([])
   const cancelRef = useRef<HTMLButtonElement>(null)
@@ -67,6 +68,7 @@ export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
   })
 
   const { mutate, isLoading } = useCreateMainHashtag(locale, queryKey)
+  const [respHashtag, setRespHashtag] = useState<Hashtag>()
   const toast = useToast()
   const currentMentions = useGetMentions()
 
@@ -85,11 +87,12 @@ export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
     }
 
     mutate(formBody, {
-      onSuccess: async () => {
+      onSuccess: async res => {
         formDisclosure.onClose()
         successDisclosure.onOpen()
         resetForm()
         resetFileUploader()
+        setRespHashtag(res)
       },
       onError: error => {
         toast({
@@ -120,13 +123,19 @@ export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
     resetForm()
     formDisclosure.onClose()
   }
-
+  const handleClickRow = () => {
+    if (respHashtag) {
+      showEditModal(respHashtag)
+      successDisclosure.onClose()
+    }
+  }
   return (
     <>
       {/* SUCCESS ALERT */}
       <CreateMainHashtagSuccessAlert
         isOpen={successDisclosure.isOpen}
         onClose={successDisclosure.onClose}
+        handleClickRow={handleClickRow}
         ref={cancelRef}
       />
 
