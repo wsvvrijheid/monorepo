@@ -18,7 +18,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   })
 
   const text = response.data.translations[0].text
-  res.json({ text })
+  res.json(text)
 }
 
 export default handler

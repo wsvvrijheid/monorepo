@@ -23,8 +23,5 @@ export const useCreateMainHashtag = (
     onSettled: () => {
       queryClient.invalidateQueries(queryKey)
     },
-    onSuccess: hashtag => {
-      console.log('on success create main hashtag', hashtag)
-    },
   })
 }
