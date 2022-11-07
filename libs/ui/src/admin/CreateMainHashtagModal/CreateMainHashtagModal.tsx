@@ -13,6 +13,7 @@ import {
   ModalContent,
   ModalHeader,
   ModalOverlay,
+  Spacer,
   Spinner,
   Stack,
   Textarea,
@@ -21,13 +22,8 @@ import {
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import slugify from '@sindresorhus/slugify'
-import { Mutation } from '@wsvvrijheid/lib'
-import {
-  getModelTranslation,
-  useCreateMainHashtag,
-  useGetMentions,
-} from '@wsvvrijheid/services'
-import { Hashtag, HashtagCreateInput, StrapiLocale } from '@wsvvrijheid/types'
+import { useCreateMainHashtag, useGetMentions } from '@wsvvrijheid/services'
+import { HashtagCreateInput, StrapiLocale } from '@wsvvrijheid/types'
 import { useForm } from 'react-hook-form'
 import { IoMdAdd, IoMdCheckmark, IoMdClose } from 'react-icons/io'
 import * as yup from 'yup'
@@ -90,34 +86,11 @@ export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
     }
 
     mutate(formBody, {
-      onSuccess: async hashtag => {
+      onSuccess: async () => {
         formDisclosure.onClose()
         successDisclosure.onOpen()
         resetForm()
         resetFileUploader()
-
-        const hashtagTranslations = await getModelTranslation(
-          formBody as unknown as Hashtag,
-          ['title', 'description', 'content'],
-          locale,
-        )
-
-        const firstTranslation = hashtagTranslations[0]
-        const secondTranslation = hashtagTranslations[1]
-
-        const firstTranslationResponse = await Mutation.localize(
-          'api/hashtags',
-          hashtag.id,
-          firstTranslation.locale as StrapiLocale,
-          firstTranslation as unknown as HashtagCreateInput,
-        )
-
-        await Mutation.localize(
-          'api/hashtags',
-          firstTranslationResponse.id,
-          secondTranslation.locale as StrapiLocale,
-          secondTranslation as unknown as HashtagCreateInput,
-        )
       },
       onError: error => {
         toast({
@@ -196,11 +169,11 @@ export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
             {/* CREATE FORM */}
             <Stack
               direction={{ base: 'column', md: 'row' }}
-              spacing={4}
+              spacing={8}
               as="form"
               onSubmit={handleSubmit(handleCreateMainHashtag)}
             >
-              <Stack flex={1}>
+              <Stack flex={1} spacing={4}>
                 <FormItem
                   name="title"
                   label="Title"
@@ -234,6 +207,7 @@ export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
                   </FormControl>
 
                   <FormItem
+                    isRequired
                     label="Date"
                     register={register}
                     errors={errors}
@@ -257,10 +231,7 @@ export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
                   />
                 </HStack>
               </Stack>
-              <Stack flex={1}>
-                <Stack>
-                  <FilePicker setFiles={setImages} />
-                </Stack>
+              <Stack flex={1} spacing={4}>
                 <WSelect
                   isMulti
                   name="mentions"
@@ -276,13 +247,18 @@ export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
                     })) || []
                   }
                 />
+
+                <FilePicker setFiles={setImages} />
+
+                <Spacer />
+
                 <ButtonGroup alignSelf="end">
                   <Button
                     type="submit"
                     colorScheme="primary"
                     leftIcon={<IoMdCheckmark />}
                   >
-                    save
+                    Save
                   </Button>
                   <Button
                     onClick={closeForm}
