@@ -4,8 +4,6 @@ import { ART_MOCKS, USER_MOCKS } from '@wsvvrijheid/mocks'
 
 import { ArtApprovalModal } from './ArtApprovalModal'
 
-import '@splidejs/splide/dist/css/themes/splide-default.min.css'
-
 const artMock = ART_MOCKS.tr.data[0]
 
 export default {

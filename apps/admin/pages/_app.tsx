@@ -16,6 +16,7 @@ import { useRouter } from 'next/router'
 import { Provider as ReduxProvider } from 'react-redux'
 
 import i18nConfig from '../next-i18next.config'
+
 import '@splidejs/splide/dist/css/themes/splide-default.min.css'
 import '@splidejs/react-splide/css'
 

@@ -45,12 +45,13 @@ export const mutation = async <
 
   if (method === 'localize') {
     // https://docs.strapi.io/developer-docs/latest/plugins/i18n.html#creating-a-localization-for-an-existing-entry
-    const response = await axios.post<StrapiMutationResponse<T>>(
+    const response = await axios.post<T>(
       `${url}/${id}/localizations`,
       { ...body, locale }, // TODO localization body doesn't seem to have data key. Double check this
       { baseURL: API_URL, headers: { Authorization: `Bearer ${token}` } },
     )
-    return response.data?.data || null
+
+    return response.data || null
   }
 
   const requestUrl = id ? `${url}/${id}` : url
