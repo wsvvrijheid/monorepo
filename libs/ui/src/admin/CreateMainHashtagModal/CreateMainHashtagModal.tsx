@@ -237,8 +237,6 @@ export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
                   label="Mentions"
                   control={control}
                   errors={errors}
-                  // TODO: get mentions from API with useQuery
-                  // We will improve WSelect later to accept async options @${c.username}
                   options={
                     currentMentions?.data?.map(c => ({
                       value: `${c.id}`,

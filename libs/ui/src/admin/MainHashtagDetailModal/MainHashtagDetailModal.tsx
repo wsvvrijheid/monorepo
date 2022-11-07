@@ -9,7 +9,6 @@ import {
   ModalCloseButton,
   ModalContent,
   ModalOverlay,
-  Box,
   Button,
   ButtonGroup,
   FormControl,
@@ -17,9 +16,11 @@ import {
   HStack,
   Stack,
   Textarea,
-  Flex,
   IconButton,
   Input,
+  Spacer,
+  ModalHeader,
+  useDisclosure,
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { StrapiLocale, UploadFile } from '@wsvvrijheid/types'
@@ -30,9 +31,16 @@ import { IoMdClose } from 'react-icons/io'
 import { MdOutlinePublish, MdOutlineUnpublished } from 'react-icons/md'
 import * as yup from 'yup'
 
-import { FilePicker, WImage, WSelect } from '../../components'
-// import { FormItem, FilePicker, WSelect } from '../../components'
+import {
+  FilePicker,
+  WConfirm,
+  WConfirmProps,
+  WImage,
+  WSelect,
+} from '../../components'
 import { LanguageSwitcher } from '../LanguageSwitcher'
+import { EditButtons } from './EditButtons'
+import { MentionItem } from './MentionItem'
 import { CreateMainHashtagFormFieldValues, MainHashtagTypes } from './types'
 
 export const MainHashtagDetailModal: FC<MainHashtagTypes> = ({
@@ -75,6 +83,9 @@ export const MainHashtagDetailModal: FC<MainHashtagTypes> = ({
   const [hashtagExtra, setHashtagExtra] = useState(mainhashtagHashtagExtra)
   const [images, setImages] = useState<Blob[]>(mainhashtagImage)
 
+  const confirmDisclosure = useDisclosure()
+  const [confirmState, setConfirmState] =
+    useState<Omit<WConfirmProps, 'onClose' | 'isOpen' | 'onOpen'>>()
   const cancelRef = useRef<HTMLButtonElement>(null)
 
   const schema = yup.object({
@@ -156,9 +167,10 @@ export const MainHashtagDetailModal: FC<MainHashtagTypes> = ({
 
       if (m) {
         const newMentions = mentions?.filter(
-          (mention, index) => mention.id === Number(m[index]?.value),
+          (mention, index) => mention?.id === Number(m[index]?.value),
         )
         setNewMentions(newMentions)
+        console.log('new mention ======', newMentions)
         onSave(mainhashtagId, newMentions, 'mentions')
       }
     } else if (data === 'image') {
@@ -167,9 +179,45 @@ export const MainHashtagDetailModal: FC<MainHashtagTypes> = ({
       onSave(mainhashtagId, image, 'image')
     }
   }
-
+  const handleRemoveItem = (id: number) => {
+    confirmDisclosure.onOpen()
+    setConfirmState({
+      isWarning: true,
+      title: 'Remove Mention',
+      description: 'Are you sure you want to remove this mention?',
+      buttonText: 'Remove',
+      onConfirm: async () => {
+        const newMentions = mainhashtagMentions?.filter(
+          mention => mention.id !== id,
+        )
+        setNewMentions(newMentions)
+        onSave(mainhashtagId, newMentions, 'mentions')
+        setConfirmState(undefined)
+        confirmDisclosure.onClose()
+      },
+    })
+  }
+  /* cancel edit fields*/
+  const cancelEdit = (data: string) => {
+    if (data === 'description') {
+      setIsEditingDesciption(false)
+    } else if (data === 'content') {
+      setIsEditingContent(false)
+    } else if (data === 'title') {
+      setIsEditingTitle(false)
+    } else if (data === 'date') {
+      setIsEditingDate(false)
+    } else if (data === 'hashtag') {
+      setIsEditingHashtag(false)
+    } else if (data === 'hashtagExtra') {
+      setIsEditingHashtagExtra(false)
+    } else if (data === 'mentions') {
+      setIsEditingMention(false)
+    } else if (data === 'image') {
+      setIsEditingImage(false)
+    }
+  }
   /* update fields*/
-
   const handleUpdate = (data: string) => {
     if (data === 'description') {
       setIsEditingDesciption(true)
@@ -192,157 +240,129 @@ export const MainHashtagDetailModal: FC<MainHashtagTypes> = ({
   const handlePublish = () => onPublish(mainhashtagId)
   const handleUnPublish = () => unPublish(mainhashtagId)
   const handleDelete = () => onDelete(mainhashtagId)
-  return (
-    <Box>
-      <Modal onClose={onClose} isOpen={isOpen} scrollBehavior="inside">
-        <ModalOverlay />
-        <ModalContent maxW="95vw" h="full" p={0} overflow="hidden">
-          <ModalCloseButton />
-          <ModalBody p={0}>
-            {/* {isLoading && (
-              <Center
-                zIndex={1}
-                pos="absolute"
-                top={0}
-                left={0}
-                boxSize="full"
-                bg="whiteAlpha.900"
-              >
-                <Spinner size="xl" colorScheme="blue" />
-              </Center>
-            )} */}
 
+  console.log('mentions >>>', mainhashtagMentions)
+  return (
+    <>
+      {confirmState && (
+        <WConfirm
+          isOpen={confirmDisclosure.isOpen}
+          onClose={confirmDisclosure.onClose}
+          {...confirmState}
+        />
+      )}
+
+      <Modal
+        isCentered
+        onClose={onClose}
+        isOpen={isOpen}
+        scrollBehavior="inside"
+        size="4xl"
+      >
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader color={'primary.500'}>Main Hashtag Details</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody pos="relative" py={6}>
+            {/* MAIN HASHTAG DETAILS */}
             <Stack
               direction={{ base: 'column', md: 'row' }}
-              spacing={4}
+              spacing={8}
               as="form"
             >
-              <Stack
-                flex={1}
-                spacing={4}
-                p={{ base: 4, lg: 8 }}
-                justify="space-between"
-              >
+              {/* LEFT SIDE */}
+              <Stack flex={1} spacing={4}>
                 {/*title ========== */}
-                <Flex
-                  align="start"
-                  justify={'start'}
-                  w="full"
-                  maxH={'150px'}
-                  overflow="auto"
-                >
+                <Stack align="start" justify={'start'} w="full">
+                  <Text color={'black'} fontWeight={'bold'}>
+                    Title
+                  </Text>
                   {isEditingTitle ? (
-                    <Stack w="full">
+                    <Stack>
                       <Textarea
                         onChange={e => setTitle(e.target.value)}
                         value={title}
                       />
-                      <Button
-                        colorScheme="primary"
-                        onClick={() => handleSave('title')}
-                        alignSelf="end"
-                      >
-                        Save
-                      </Button>
+                      <EditButtons
+                        handleSave={handleSave}
+                        cancelEdit={cancelEdit}
+                        task="title"
+                      />
                     </Stack>
                   ) : (
-                    <Stack align="start" justify={'start'} w="full">
-                      <Text color={'black'} fontWeight={'bold'}>
-                        Title
-                      </Text>
-                      <HStack>
-                        <Text>{title}</Text>
-                        <Button
-                          as={IconButton}
-                          onClick={() => handleUpdate('title')}
-                          variant="ghost"
-                          colorScheme="primary"
-                          icon={<HiPencil />}
-                        ></Button>
-                      </HStack>
-                    </Stack>
+                    <HStack>
+                      <Text>{title}</Text>
+                      <Button
+                        as={IconButton}
+                        onClick={() => handleUpdate('title')}
+                        variant="ghost"
+                        colorScheme="primary"
+                        icon={<HiPencil />}
+                      ></Button>
+                    </HStack>
                   )}
-                </Flex>
+                </Stack>
                 {/*description ========== */}
-                <Flex
-                  align="start"
-                  justify={'start'}
-                  w="full"
-                  maxH={'150px'}
-                  overflow="auto"
-                >
+                <Stack align="start" justify={'start'} w="full">
+                  <Text color={'black'} fontWeight={'bold'}>
+                    Description
+                  </Text>
                   {isEditingDesciption ? (
                     <Stack w="full">
                       <Textarea
                         onChange={e => setDescription(e.target.value)}
                         value={description}
                       />
-                      <Button
-                        colorScheme="primary"
-                        onClick={() => handleSave('description')}
-                        alignSelf="end"
-                      >
-                        Save
-                      </Button>
+                      <EditButtons
+                        handleSave={handleSave}
+                        cancelEdit={cancelEdit}
+                        task="description"
+                      />
                     </Stack>
                   ) : (
-                    <Stack align="start" justify={'start'} w="full">
-                      <Text color={'black'} fontWeight={'bold'}>
-                        Description
-                      </Text>
-                      <HStack>
-                        <Text>{description}</Text>
-                        <Button
-                          as={IconButton}
-                          onClick={() => handleUpdate('description')}
-                          variant="ghost"
-                          colorScheme="primary"
-                          icon={<HiPencil />}
-                        ></Button>
-                      </HStack>
-                    </Stack>
+                    <HStack>
+                      <Text>{description}</Text>
+                      <Button
+                        as={IconButton}
+                        onClick={() => handleUpdate('description')}
+                        variant="ghost"
+                        colorScheme="primary"
+                        icon={<HiPencil />}
+                      ></Button>
+                    </HStack>
                   )}
-                </Flex>
+                </Stack>
                 {/*content ========== */}
-                <Flex
-                  align="start"
-                  justify={'start'}
-                  w="full"
-                  maxH={'150px'}
-                  overflow="auto"
-                >
+
+                <Stack align="start" justify={'start'} w="full">
+                  <Text color={'black'} fontWeight={'bold'}>
+                    Content
+                  </Text>
                   {isEditingContent ? (
                     <Stack w="full">
                       <Textarea
                         onChange={e => setContent(e.target.value)}
                         value={content}
                       />
-                      <Button
-                        colorScheme="primary"
-                        onClick={() => handleSave('content')}
-                        alignSelf="end"
-                      >
-                        Save
-                      </Button>
+                      <EditButtons
+                        handleSave={handleSave}
+                        cancelEdit={cancelEdit}
+                        task="content"
+                      />
                     </Stack>
                   ) : (
-                    <Stack align="start" justify={'start'} w="full">
-                      <Text color={'black'} fontWeight={'bold'}>
-                        Content
-                      </Text>
-                      <HStack>
-                        <Text>{content}</Text>
-                        <Button
-                          as={IconButton}
-                          onClick={() => handleUpdate('content')}
-                          variant="ghost"
-                          colorScheme="primary"
-                          icon={<HiPencil />}
-                        ></Button>
-                      </HStack>
-                    </Stack>
+                    <HStack>
+                      <Text>{content}</Text>
+                      <Button
+                        as={IconButton}
+                        onClick={() => handleUpdate('content')}
+                        variant="ghost"
+                        colorScheme="primary"
+                        icon={<HiPencil />}
+                      ></Button>
+                    </HStack>
                   )}
-                </Flex>
+                </Stack>
                 {/*locales ========== */}
 
                 <HStack>
@@ -354,13 +374,10 @@ export const MainHashtagDetailModal: FC<MainHashtagTypes> = ({
                     />
                   </FormControl>
                   {/*date ========== */}
-                  <Flex
-                    align="start"
-                    justify={'start'}
-                    w="full"
-                    maxH={'150px'}
-                    overflow="auto"
-                  >
+                  <Stack align="start" justify={'start'} w="full">
+                    <Text color={'black'} fontWeight={'bold'}>
+                      Date
+                    </Text>
                     {isEditingDate ? (
                       <Stack w="full">
                         <Input
@@ -370,216 +387,178 @@ export const MainHashtagDetailModal: FC<MainHashtagTypes> = ({
                           size="md"
                           type="datetime-local"
                         />
-                        <Button
-                          colorScheme="primary"
-                          onClick={() => handleSave('date')}
-                          alignSelf="end"
-                        >
-                          Save
-                        </Button>
+                        <EditButtons
+                          handleSave={handleSave}
+                          cancelEdit={cancelEdit}
+                          task="date"
+                        />
                       </Stack>
                     ) : (
-                      <Stack align="start" justify={'start'} w="full">
-                        <Text color={'black'} fontWeight={'bold'}>
-                          Date
-                        </Text>
-                        <HStack>
-                          <Text typeof="date">{date}</Text>
-                          <Button
-                            as={IconButton}
-                            onClick={() => handleUpdate('date')}
-                            variant="ghost"
-                            colorScheme="primary"
-                            icon={<HiPencil />}
-                          ></Button>
-                        </HStack>
-                      </Stack>
+                      <HStack>
+                        <Text typeof="date">{date}</Text>
+                        <Button
+                          as={IconButton}
+                          onClick={() => handleUpdate('date')}
+                          variant="ghost"
+                          colorScheme="primary"
+                          icon={<HiPencil />}
+                        ></Button>
+                      </HStack>
                     )}
-                  </Flex>
+                  </Stack>
                 </HStack>
                 <HStack>
                   {/* hashtag*/}
-                  <Flex
-                    align="start"
-                    justify={'start'}
-                    w="full"
-                    maxH={'150px'}
-                    overflow="auto"
-                  >
+                  <Stack align="start" justify={'start'} w="full">
+                    <Text color={'black'} fontWeight={'bold'}>
+                      Hashtag
+                    </Text>
                     {isEditingHashtag && hashtag ? (
                       <Stack w="full">
                         <Textarea
                           onChange={e => setHashtag(e.target.value)}
                           value={hashtag}
                         />
-                        <Button
-                          colorScheme="primary"
-                          onClick={() => handleSave('hashtag')}
-                          alignSelf="end"
-                        >
-                          Save
-                        </Button>
+                        <EditButtons
+                          handleSave={handleSave}
+                          cancelEdit={cancelEdit}
+                          task="hashtag"
+                        />
                       </Stack>
                     ) : (
-                      <Stack align="start" justify={'start'} w="full">
-                        <Text color={'black'} fontWeight={'bold'}>
-                          Hashtag
-                        </Text>
-                        <HStack>
-                          <Text>{hashtag}</Text>
-                          <Button
-                            as={IconButton}
-                            onClick={() => handleUpdate('hashtag')}
-                            variant="ghost"
-                            colorScheme="primary"
-                            icon={<HiPencil />}
-                          ></Button>
-                        </HStack>
-                      </Stack>
+                      <HStack>
+                        <Text>{hashtag}</Text>
+                        <Button
+                          as={IconButton}
+                          onClick={() => handleUpdate('hashtag')}
+                          variant="ghost"
+                          colorScheme="primary"
+                          icon={<HiPencil />}
+                        ></Button>
+                      </HStack>
                     )}
-                  </Flex>
+                  </Stack>
                   {/* hashtagextra =======*/}
-                  <Flex
-                    align="start"
-                    justify={'start'}
-                    w="full"
-                    maxH={'150px'}
-                    overflow="auto"
-                  >
+                  <Stack align="start" justify={'start'} w="full">
+                    <Text color={'black'} fontWeight={'bold'}>
+                      Hashtag Extra
+                    </Text>
                     {isEditingHashtagExtra ? (
                       <Stack w="full">
                         <Textarea
                           onChange={e => setHashtagExtra(e.target.value)}
                           value={hashtagExtra}
                         />
-                        <Button
-                          colorScheme="primary"
-                          onClick={() => handleSave('hashtagExtra')}
-                          alignSelf="end"
-                        >
-                          Save
-                        </Button>
+                        <EditButtons
+                          handleSave={handleSave}
+                          cancelEdit={cancelEdit}
+                          task="hashtagExtra"
+                        />
                       </Stack>
                     ) : (
-                      <Stack align="start" justify={'start'} w="full">
-                        <Text color={'black'} fontWeight={'bold'}>
-                          Hashtag Extra
-                        </Text>
-                        <HStack>
-                          <Text>{hashtagExtra}</Text>
-                          <Button
-                            as={IconButton}
-                            onClick={() => handleUpdate('hashtagExtra')}
-                            variant="ghost"
-                            colorScheme="primary"
-                            icon={<HiPencil />}
-                          ></Button>
-                        </HStack>
-                      </Stack>
+                      <HStack>
+                        <Text>{hashtagExtra}</Text>
+                        <Button
+                          as={IconButton}
+                          onClick={() => handleUpdate('hashtagExtra')}
+                          variant="ghost"
+                          colorScheme="primary"
+                          icon={<HiPencil />}
+                        ></Button>
+                      </HStack>
                     )}
-                  </Flex>
+                  </Stack>
                 </HStack>
+                {/* total posts count*/}
+                <Text color={'black'} fontWeight={'bold'} alignSelf="start">
+                  Total Post: {posts?.length}
+                </Text>
               </Stack>
-              <Stack flex={1}>
-                <Stack>
-                  {/* image ==========*/}
-                  {isEditingImage ? (
-                    <>
-                      <FilePicker setFiles={setImages} />
-                      <Button
-                        colorScheme="primary"
-                        onClick={() => handleSave('image')}
-                        alignSelf="end"
-                      >
-                        Save
-                      </Button>
-                    </>
-                  ) : (
-                    <>
-                      {images && (
-                        <WImage
-                          src={mainhashtagImage?.url as UploadFile}
-                          alt={mainhashtagTitle}
-                        />
-                      )}
+              {/* RIGHT SIDE */}
+              <Stack flex={1} spacing={4}>
+                {/* Mentions ===*/}
+
+                {isEditingMention ? (
+                  <Stack w="full">
+                    <WSelect
+                      isMulti
+                      name="mentions"
+                      label="Mentions"
+                      register={register}
+                      control={control}
+                      errors={errors}
+                      options={
+                        mentions?.map(c => ({
+                          value: c.id,
+                          label: `@${c.username}`,
+                        })) || []
+                      }
+                    />
+                    <EditButtons
+                      handleSave={handleSave}
+                      cancelEdit={cancelEdit}
+                      task="mentions"
+                    />
+                  </Stack>
+                ) : (
+                  <Stack justifySelf={'end'}>
+                    <HStack>
+                      <Text color={'black'} fontWeight={'bold'}>
+                        Mentions
+                      </Text>
                       <Button
                         as={IconButton}
-                        onClick={() => handleUpdate('image')}
+                        onClick={() => handleUpdate('mentions')}
                         variant="ghost"
                         colorScheme="primary"
                         icon={<HiPencil />}
                       ></Button>
-                    </>
-                  )}
-                </Stack>
-                <HStack>
-                  <Stack>
-                    <Text color={'black'} fontWeight={'bold'}>
-                      Total Post: {posts?.length}
-                    </Text>
-                  </Stack>
-                  {/* Mentions ===*/}
-                  <Stack>
-                    {isEditingMention ? (
-                      <Stack>
-                        <WSelect
-                          isMulti
-                          name="mentions"
-                          label="Mentions"
-                          register={register}
-                          control={control}
-                          errors={errors}
-                          // TODO: get mentions from API with useQuery
-                          // We will improve WSelect later to accept async options
-                          options={
-                            mentions?.map(c => ({
-                              value: c.id,
-                              label: `@${c.username}`,
-                            })) || []
-                          }
+                    </HStack>
+                    {newMentions?.map(mention => {
+                      return (
+                        <MentionItem
+                          mention={mention}
+                          onRemoveItem={handleRemoveItem}
                         />
-                        <Button
-                          colorScheme="primary"
-                          onClick={() => handleSave('mentions')}
-                          alignSelf="end"
-                        >
-                          Save
-                        </Button>
-                      </Stack>
-                    ) : (
-                      <>
-                        <HStack>
-                          <Text color={'black'} fontWeight={'bold'}>
-                            Mentions
-                          </Text>
-                          <Button
-                            as={IconButton}
-                            onClick={() => handleUpdate('mentions')}
-                            variant="ghost"
-                            colorScheme="primary"
-                            icon={<HiPencil />}
-                          ></Button>
-                        </HStack>
-                        {newMentions?.map(mention => {
-                          return <Text>{`@${mention.username}`}</Text>
-                        })}
-                      </>
-                    )}
+                      )
+                    })}
                   </Stack>
-                </HStack>
+                )}
+
+                {/* image ==========*/}
+                {isEditingImage ? (
+                  <>
+                    <FilePicker setFiles={setImages} />
+                    <Spacer />
+                    <EditButtons
+                      handleSave={handleSave}
+                      cancelEdit={cancelEdit}
+                      task="image"
+                    />
+                  </>
+                ) : (
+                  <HStack>
+                    {images && (
+                      <WImage
+                        src={mainhashtagImage?.url as UploadFile}
+                        alt={mainhashtagTitle}
+                      />
+                    )}
+                    <Button
+                      as={IconButton}
+                      onClick={() => handleUpdate('image')}
+                      variant="ghost"
+                      colorScheme="primary"
+                      icon={<HiPencil />}
+                      justify={'start'}
+                    ></Button>
+                  </HStack>
+                )}
                 <ButtonGroup alignSelf="end">
-                  {/* <Button
-                    type="submit"
-                    colorScheme="primary"
-                    leftIcon={<IoMdCheckmark />}
-                  >
-                    save
-                  </Button> */}
                   <Button
                     onClick={
                       mainhashtagPublishedAt ? handleUnPublish : handlePublish
                     }
-                    // variant="ghost"
                     colorScheme="primary"
                     rightIcon={
                       mainhashtagPublishedAt ? (
@@ -612,6 +591,6 @@ export const MainHashtagDetailModal: FC<MainHashtagTypes> = ({
           </ModalBody>
         </ModalContent>
       </Modal>
-    </Box>
+    </>
   )
 }
