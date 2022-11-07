@@ -23,12 +23,11 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import slugify from '@sindresorhus/slugify'
 import { Mutation } from '@wsvvrijheid/lib'
 import {
-  getDataTranslation,
+  getModelTranslation,
   useCreateMainHashtag,
   useGetMentions,
 } from '@wsvvrijheid/services'
-import { HashtagCreateInput, StrapiLocale } from '@wsvvrijheid/types'
-import { pick } from 'lodash'
+import { Hashtag, HashtagCreateInput, StrapiLocale } from '@wsvvrijheid/types'
 import { useForm } from 'react-hook-form'
 import { IoMdAdd, IoMdCheckmark, IoMdClose } from 'react-icons/io'
 import * as yup from 'yup'
@@ -64,7 +63,6 @@ export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
   const {
     register,
     control,
-    watch,
     formState: { errors },
     handleSubmit,
     reset: resetForm,
@@ -91,34 +89,34 @@ export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
       mentions,
     }
 
-    const m = watch('mentions')
-    console.log('m', m)
-
     mutate(formBody, {
-      onSuccess: async data => {
-        console.log('DATA', data)
+      onSuccess: async hashtag => {
         formDisclosure.onClose()
         successDisclosure.onOpen()
         resetForm()
         resetFileUploader()
 
-        const dataToBeTranslated = pick(data, 'title', 'description', 'content')
-
-        const translateData = await getDataTranslation(
-          dataToBeTranslated,
+        const hashtagTranslations = await getModelTranslation(
+          formBody as unknown as Hashtag,
+          ['title', 'description', 'content'],
           locale,
         )
-        const id = data.id
-        console.log('translateData', translateData, 'data id ', data)
-        await Promise.all(
-          Object.entries(translateData).map(([locale, body]) => {
-            return Mutation.localize(
-              'api/hashtags',
-              id,
-              locale as StrapiLocale,
-              body,
-            )
-          }),
+
+        const firstTranslation = hashtagTranslations[0]
+        const secondTranslation = hashtagTranslations[1]
+
+        const firstTranslationResponse = await Mutation.localize(
+          'api/hashtags',
+          hashtag.id,
+          firstTranslation.locale as StrapiLocale,
+          firstTranslation as unknown as HashtagCreateInput,
+        )
+
+        await Mutation.localize(
+          'api/hashtags',
+          firstTranslationResponse.id,
+          secondTranslation.locale as StrapiLocale,
+          secondTranslation as unknown as HashtagCreateInput,
         )
       },
       onError: error => {
