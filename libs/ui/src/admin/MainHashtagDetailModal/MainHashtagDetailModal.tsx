@@ -153,11 +153,12 @@ export const MainHashtagDetailModal: FC<MainHashtagTypes> = ({
     } else if (data === 'mentions') {
       setIsEditingMention(false)
       const m = watch('mentions')
+      console.log('watch first', m)
+
       if (m) {
         const newMentions = mentions?.filter(
-          (mention, index) => Number(m[index]?.value) === mention.id,
+          (mention, index) => mention.id === Number(m[index]?.value),
         )
-        console.log('mentions in onsave>', newMentions)
         setNewMentions(newMentions)
         onSave(mainhashtagId, newMentions, 'mentions')
       }
