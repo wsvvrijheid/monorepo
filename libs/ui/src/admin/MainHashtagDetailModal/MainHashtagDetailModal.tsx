@@ -153,7 +153,6 @@ export const MainHashtagDetailModal: FC<MainHashtagTypes> = ({
     } else if (data === 'mentions') {
       setIsEditingMention(false)
       const m = watch('mentions')
-      console.log('watch first', m)
 
       if (m) {
         const newMentions = mentions?.filter(
@@ -166,7 +165,6 @@ export const MainHashtagDetailModal: FC<MainHashtagTypes> = ({
       setIsEditingImage(false)
       const image = images[0]
       onSave(mainhashtagId, image, 'image')
-      console.log('images', image)
     }
   }
 

@@ -29,7 +29,6 @@ export const MainHashtagTable: FC<MainHashtagTableProps> = ({
   setCurrentPage,
   queryKey,
 }) => {
-  console.log('mainhashtag >>>>>>', mainHashtag)
   const mainhashtagDisclosure = useDisclosure()
   const confirmDisclosure = useDisclosure()
   const [confirmState, setConfirmState] =
