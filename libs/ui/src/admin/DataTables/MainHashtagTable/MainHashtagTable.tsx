@@ -64,6 +64,7 @@ export const MainHashtagTable: FC<MainHashtagTableProps> = ({
       },
     })
   }
+
   const onPublish = (id: number) => {
     confirmDisclosure.onOpen()
     setConfirmState({
