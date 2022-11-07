@@ -1,15 +1,15 @@
 import {
   StrapiLocale,
-  StrapiModel,
-  StrapiMutationInput,
+  StrapiLocalizeInput,
+  StrapiTranslatableModel,
   StrapiUrl,
 } from '@wsvvrijheid/types'
 
 import { mutation } from './mutation'
 
 export const localizeMutation = <
-  T extends StrapiModel,
-  D extends StrapiMutationInput,
+  T extends StrapiTranslatableModel,
+  D extends StrapiLocalizeInput,
 >(
   url: StrapiUrl,
   id: number,

@@ -33,4 +33,9 @@ export type CompetitionUpdateInput = Expand<
   >
 >
 
+export type CompetitionLocalizeInput = Omit<
+  CompetitionBase,
+  'approvalStatus' | 'likes' | 'views'
+>
+
 export type Competition = StrapiBase & CompetitionBase & CompetitionRelation
