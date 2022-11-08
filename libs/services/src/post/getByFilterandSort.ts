@@ -1,6 +1,6 @@
 import { useQuery, QueryKey } from '@tanstack/react-query'
 import { Request } from '@wsvvrijheid/lib'
-import { Hashtag, Sort, StrapiLocale } from '@wsvvrijheid/types'
+import { Post, Sort, StrapiLocale } from '@wsvvrijheid/types'
 
 type GetPostsArgs = {
   populate?: string | string[]
@@ -41,7 +41,7 @@ export const getPostsByFilterAndSort = async ({
     ...(searchFilter || {}),
   }
 
-  return Request.collection<Hashtag[]>({
+  return Request.collection<Post[]>({
     url: 'api/posts',
     filters,
     page,
