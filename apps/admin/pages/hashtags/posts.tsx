@@ -1,8 +1,10 @@
 import { useState } from 'react'
 
-import { usePostsByFilterAndSort } from '@wsvvrijheid/services' //usePosts
-import { StrapiLocale, Sort } from '@wsvvrijheid/types'
-import { AdminLayout, MainHashtagTable } from '@wsvvrijheid/ui'
+// import { API_URL, TOKEN } from '@wsvvrijheid/config'
+// import { Request } from '@wsvvrijheid/lib'
+import { usePosts, usePostsByFilterAndSort } from '@wsvvrijheid/services' //usePosts
+import { StrapiLocale, Sort, Post } from '@wsvvrijheid/types'
+import { AdminLayout, PostsTable } from '@wsvvrijheid/ui'
 import { useUpdateEffect } from 'react-use'
 
 const HashtagPostsPage = () => {
@@ -13,8 +15,23 @@ const HashtagPostsPage = () => {
   const [locale, setLocale] = useState<StrapiLocale>(defaultLocale)
   const [sort, setSort] = useState<Sort>()
   const queryKey = ['posts', searchTerm, sort, currentPage || 1]
-  // const getPosts = usePosts()
-  // console.log('get posts all >>>>>>>', getPosts?.data)
+
+  const getPosts = usePosts()
+  console.log('get posts all >>>>>>>', getPosts?.data)
+
+  // const lastPost = async () => {
+  //   const requestUrl = `${API_URL}/api/posts`
+  //   const response = await fetch(requestUrl, {
+  //     headers: {
+  //       Authorization: `Bearer ${TOKEN}`,
+  //     },
+  //   })
+
+  //   const data = await response.json()
+  //   console.log('response in last CCCCCCCCCC', data)
+  //   return data
+  // }
+  // lastPost()
 
   const PostsQuery = usePostsByFilterAndSort(queryKey, {
     sort,
@@ -31,14 +48,14 @@ const HashtagPostsPage = () => {
   }, [locale, searchTerm, sort])
 
   const posts = PostsQuery?.data?.data
-  console.log('posts >>>>>>> ', posts)
+  console.log('posts >>>>>>> ', PostsQuery?.data)
 
   const totalCount = PostsQuery?.data?.meta?.pagination?.pageCount
-  console.log('total count', totalCount)
+  console.log('posts >>>>>>> ', totalCount)
 
   const mappedPosts = posts?.map(posts => ({
     ...posts,
-    translates: posts.localizations?.map(l => l.locale),
+    translates: posts?.localizations?.map(l => l.locale),
   }))
   console.log('mappded posts >>>>>>', mappedPosts)
 
@@ -51,7 +68,7 @@ const HashtagPostsPage = () => {
         defaultLocale,
       }}
     >
-      <MainHashtagTable
+      <PostsTable
         data={mappedPosts}
         totalCount={totalCount}
         currentPage={currentPage}
