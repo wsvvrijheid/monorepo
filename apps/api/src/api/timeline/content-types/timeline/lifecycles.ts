@@ -1,4 +1,5 @@
 import { TwitterApi } from 'twitter-api-v2'
+import { twitterApi } from '../../../../libs/twitter/client'
 
 export default {
   async beforeCreate(event) {
@@ -8,22 +9,15 @@ export default {
   },
   async afterCreate({ result }) {
     try {
-      const twitterPlugin = strapi
-        .plugin('twitter')
-        .config('client') as TwitterApi
-
-      const userData = await twitterPlugin.v1.user({
+      const userData = await twitterApi.v1.user({
         screen_name: result.username,
       })
 
-      const tweetsResponse = await twitterPlugin.v2.userTimeline(
-        userData.id_str,
-        {
-          expansions: ['attachments.media_keys'],
-          'tweet.fields': ['created_at'],
-          'media.fields': ['preview_image_url', 'url'],
-        },
-      )
+      const tweetsResponse = await twitterApi.v2.userTimeline(userData.id_str, {
+        expansions: ['attachments.media_keys'],
+        'tweet.fields': ['created_at'],
+        'media.fields': ['preview_image_url', 'url'],
+      })
 
       const tweetsData = tweetsResponse?.data.data
       const includes = tweetsResponse?.data.includes

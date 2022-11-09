@@ -2,7 +2,7 @@ import { QueryKey, useMutation, useQueryClient } from '@tanstack/react-query'
 import { Mutation } from '@wsvvrijheid/lib'
 import { useAuthSelector } from '@wsvvrijheid/store'
 import { Art, ArtUpdateInput } from '@wsvvrijheid/types'
-import { useLocalStorage } from 'react-use'
+import { useLocalStorage } from 'usehooks-ts'
 
 type LikersMutationArgs = {
   id: number

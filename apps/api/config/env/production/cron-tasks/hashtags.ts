@@ -1,3 +1,5 @@
+import { twitterApi } from '../../../../src/libs/twitter/client'
+
 export default async ({ strapi }) => {
   const date = new Date(
     new Date(Date.now() - 7 * 24 * 60 * 60 * 1000),
@@ -15,12 +17,9 @@ export default async ({ strapi }) => {
     try {
       const { id, attributes } = h
 
-      const result = await strapi
-        .plugin('twitter')
-        .config('client')
-        .v1.get('search/tweets.json', {
-          q: `${attributes.hashtag} -filter:retweets`,
-        })
+      const result = await twitterApi.v1.get('search/tweets.json', {
+        q: `${attributes.hashtag} -filter:retweets`,
+      })
 
       if (result && result.statuses) {
         const tweets = result.statuses
