@@ -2,9 +2,11 @@ import { QueryKey, useMutation, useQueryClient } from '@tanstack/react-query'
 import { Mutation } from '@wsvvrijheid/lib'
 import { Hashtag, HashtagCreateInput, StrapiLocale } from '@wsvvrijheid/types'
 
-import { getTranslation } from '../deepl'
+import { createLocalizations } from '../createLocalizations'
 
-export const createMainHashtag = (hashtagCreateInput: HashtagCreateInput) => {
+export const createMainHashtag = async (
+  hashtagCreateInput: HashtagCreateInput,
+) => {
   return Mutation.post<Hashtag, HashtagCreateInput>('api/hashtags', {
     ...hashtagCreateInput,
     publishedAt: null,
@@ -12,20 +14,23 @@ export const createMainHashtag = (hashtagCreateInput: HashtagCreateInput) => {
 }
 
 export const useCreateMainHashtag = (
-  text: string,
-  local: StrapiLocale,
+  locale: StrapiLocale,
   queryKey?: QueryKey,
 ) => {
   const queryClient = useQueryClient()
+
   return useMutation({
-    mutationKey: ['create-mainhashtag'],
+    mutationKey: ['create-main-hashtag', locale],
     mutationFn: createMainHashtag,
-    onSettled: () => {
+    onSuccess: async hashtag => {
+      await createLocalizations({
+        data: hashtag,
+        translatedFields: ['title', 'description', 'content'],
+        locale,
+        url: 'api/hashtags',
+      })
+
       queryClient.invalidateQueries(queryKey)
-    },
-    onSuccess: () => {
-      const data = getTranslation(text, local)
-      console.log('Translation data', data)
     },
   })
 }

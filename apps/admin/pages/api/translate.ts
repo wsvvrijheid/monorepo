@@ -3,8 +3,6 @@ import axios from 'axios'
 import { NextApiRequest, NextApiResponse } from 'next'
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
-  console.log('req.body', req.body)
-
   const response = await axios({
     url: `https://api-free.deepl.com/v2/translate?text=${
       req.body.text
@@ -18,7 +16,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   })
 
   const text = response.data.translations[0].text
-  res.json({ text })
+  res.json(text)
 }
 
 export default handler
