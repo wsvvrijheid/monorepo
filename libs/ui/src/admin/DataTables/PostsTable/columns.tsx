@@ -4,6 +4,7 @@ import {
   Post,
   StrapiLocale,
   TranslationStatus,
+  User,
 } from '@wsvvrijheid/types'
 
 import { WTableProps } from '../../../components'
@@ -14,7 +15,11 @@ export const columns: WTableProps<Post>['columns'] = {
   image: {
     type: 'image',
   },
-  // creator: {},
+  creator: {
+    transform: value => (value as User)?.username,
+    sortKey: 'username',
+    sortable: true,
+  },
   title: {
     sortable: true,
   },
