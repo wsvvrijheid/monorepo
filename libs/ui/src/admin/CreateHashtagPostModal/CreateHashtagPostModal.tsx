@@ -19,24 +19,26 @@ import {
   Textarea,
   useDisclosure,
   useToast,
+  Text,
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import slugify from '@sindresorhus/slugify'
-import { useCreateMainHashtag, useGetMentions } from '@wsvvrijheid/services'
-import { HashtagCreateInput, StrapiLocale } from '@wsvvrijheid/types'
+import { useCreateHashtagPost, useHashtags } from '@wsvvrijheid/services'
+import { useAuthSelector } from '@wsvvrijheid/store'
+import { StrapiLocale } from '@wsvvrijheid/types'
 import { useForm } from 'react-hook-form'
 import { IoMdAdd, IoMdCheckmark, IoMdClose } from 'react-icons/io'
 import * as yup from 'yup'
 
 import { FilePicker, FormItem, WSelect } from '../../components'
 import { LanguageSwitcher } from '../LanguageSwitcher'
-import { CreateMainHashtagSuccessAlert } from './CreateMainHashtagSuccessAlert'
+import { CreateHashtagPostSuccessAlert } from './CreateHashtagPostSuccessAlert'
 import {
-  CreateMainHashtagFormFieldValues,
-  CreateMainHashtagModalProps,
+  CreateHashtagPostFormFieldValues,
+  CreateHashtagPostModalProps,
 } from './types'
 
-export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
+export const CreateHashtagPostModal: FC<CreateHashtagPostModalProps> = ({
   queryKey,
 }) => {
   const [images, setImages] = useState<Blob[]>([])
@@ -45,14 +47,16 @@ export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
   const successDisclosure = useDisclosure()
 
   const [locale, setLocale] = useState<StrapiLocale>('en')
+  const hashtags = useHashtags()
+  const currentHashtag = hashtags?.data
+  console.log('hashtags', currentHashtag)
 
   const schema = yup.object({
     title: yup.string().required('Title is required'),
     description: yup.string().required('Description is required'),
     content: yup.string().required('Content is required'),
-    hashtag: yup.string().required('Hashtag is required'),
-    extrahashtag: yup.string(),
-    mention: yup.string(),
+    hashtag: yup.string().required('Content is required'),
+    postsource: yup.string(),
   })
 
   const {
@@ -61,27 +65,30 @@ export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
     formState: { errors },
     handleSubmit,
     reset: resetForm,
-  } = useForm<CreateMainHashtagFormFieldValues>({
+  } = useForm<CreateHashtagPostFormFieldValues>({
     resolver: yupResolver(schema),
     mode: 'all',
   })
 
-  const { mutate, isLoading } = useCreateMainHashtag(locale, queryKey)
+  const { mutate, isLoading } = useCreateHashtagPost(locale, queryKey)
   const toast = useToast()
-  const currentMentions = useGetMentions()
-
-  const createMainHashtag = async (
-    data: CreateMainHashtagFormFieldValues & { image: Blob },
+  const auth = useAuthSelector()
+  console.log('created', auth.user?.id)
+  const createHashtagPost = async (
+    data: CreateHashtagPostFormFieldValues & { image: Blob },
   ) => {
+    if (!auth.user) return
+    console.log('data in createHashtag Post', data)
     const slug = slugify(data.title)
-    const mentions = data.mentions?.map(mention => Number(mention.value)) || []
-
-    const formBody: HashtagCreateInput = {
+    const hashtag = data.hashtag?.map(c => Number(c.value))
+    const creater = auth?.user?.id
+    const formBody = {
       ...data,
       slug,
       locale,
       publishedAt: null,
-      mentions,
+      hashtag,
+      creater,
     }
 
     mutate(formBody, {
@@ -105,10 +112,8 @@ export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
     })
   }
 
-  const handleCreateMainHashtag = async (
-    data: CreateMainHashtagFormFieldValues,
-  ) => {
-    createMainHashtag({ ...data, image: images[0] })
+  const handleCreatePost = async (data: CreateHashtagPostFormFieldValues) => {
+    createHashtagPost({ ...data, image: images[0] })
   }
 
   const resetFileUploader = () => {
@@ -124,7 +129,7 @@ export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
   return (
     <>
       {/* SUCCESS ALERT */}
-      <CreateMainHashtagSuccessAlert
+      <CreateHashtagPostSuccessAlert
         isOpen={successDisclosure.isOpen}
         onClose={successDisclosure.onClose}
         ref={cancelRef}
@@ -136,7 +141,7 @@ export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
         onClick={formDisclosure.onOpen}
         my={3}
       >
-        Create Main Hashtag
+        Create Post
       </Button>
 
       <Modal
@@ -148,7 +153,12 @@ export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
       >
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader color={'primary.500'}>Create Main Hashtag</ModalHeader>
+          <ModalHeader color={'primary.500'}>Create Post</ModalHeader>
+          <HStack justify={'end'}>
+            <Text color={'primary.500'} mr="20px">
+              Added {0} Posts
+            </Text>
+          </HStack>
           <ModalCloseButton />
           <ModalBody pos="relative" py={6}>
             {/* LOADING */}
@@ -170,9 +180,17 @@ export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
               direction={{ base: 'column', md: 'row' }}
               spacing={8}
               as="form"
-              onSubmit={handleSubmit(handleCreateMainHashtag)}
+              onSubmit={handleSubmit(handleCreatePost)}
             >
+              {/* left side */}
               <Stack flex={1} spacing={4}>
+                <FormControl isRequired>
+                  <FormLabel>Locale</FormLabel>
+                  <LanguageSwitcher
+                    defaultLocale={locale as StrapiLocale}
+                    onLanguageSwitch={setLocale}
+                  />
+                </FormControl>
                 <FormItem
                   name="title"
                   label="Title"
@@ -196,57 +214,28 @@ export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
                   errors={errors}
                   register={register}
                 />
-                <HStack>
-                  <FormControl isRequired>
-                    <FormLabel>Locale</FormLabel>
-                    <LanguageSwitcher
-                      defaultLocale={locale as StrapiLocale}
-                      onLanguageSwitch={setLocale}
-                    />
-                  </FormControl>
-
-                  <FormItem
-                    isRequired
-                    label="Date"
-                    register={register}
-                    errors={errors}
-                    name="date"
-                    type="datetime-local"
-                  />
-                </HStack>
-                <HStack>
-                  <FormItem
-                    name="hashtag"
-                    label="Hashtag"
-                    isRequired
-                    errors={errors}
-                    register={register}
-                  />
-                  <FormItem
-                    name="extrahashtag"
-                    label="Extra hashtag"
-                    errors={errors}
-                    register={register}
-                  />
-                </HStack>
               </Stack>
+              {/* right side */}
               <Stack flex={1} spacing={4}>
                 <WSelect
-                  isMulti
-                  name="mentions"
-                  label="Mentions"
+                  name="hashtag"
+                  label="Main Hashtag"
+                  isRequired
                   control={control}
                   errors={errors}
-                  // TODO: get mentions from API with useQuery
-                  // We will improve WSelect later to accept async options @${c.username}
                   options={
-                    currentMentions?.data?.map(c => ({
-                      value: `${c.id}`,
-                      label: `@${c.username}`,
+                    currentHashtag?.map(c => ({
+                      value: c.id.toString(),
+                      label: c.title.toString(),
                     })) || []
                   }
                 />
-
+                <FormItem
+                  name="postsource"
+                  label="Post source"
+                  errors={errors}
+                  register={register}
+                />
                 <FilePicker setFiles={setImages} />
 
                 <Spacer />
@@ -257,7 +246,7 @@ export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
                     colorScheme="primary"
                     leftIcon={<IoMdCheckmark />}
                   >
-                    Save
+                    Create
                   </Button>
                   <Button
                     onClick={closeForm}

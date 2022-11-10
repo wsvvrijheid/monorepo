@@ -4,6 +4,8 @@ import {
   Button,
   ButtonGroup,
   Center,
+  FormControl,
+  FormLabel,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -19,12 +21,13 @@ import {
 import { yupResolver } from '@hookform/resolvers/yup'
 import slugify from '@sindresorhus/slugify'
 import { useCreateCollection } from '@wsvvrijheid/services'
-import { CollectionCreateInput } from '@wsvvrijheid/types'
+import { CollectionCreateInput, StrapiLocale } from '@wsvvrijheid/types'
 import { useForm } from 'react-hook-form'
 import { IoMdAdd, IoMdCheckmark, IoMdClose } from 'react-icons/io'
 import * as yup from 'yup'
 
 import { FormItem, FilePicker } from '../../components'
+import { LanguageSwitcher } from '../LanguageSwitcher'
 import { CollectionCreateSuccessAlert } from './CreateCollectionSuccessAlert'
 import {
   CreateCollectionFormFieldValues,
@@ -42,7 +45,7 @@ export const CreateCollectionModal: FC<CreateCollectionModalProps> = ({
   queryKey,
 }) => {
   const [images, setImages] = useState<Blob[]>([])
-
+  const [locale, setLocale] = useState<StrapiLocale>('en')
   const cancelRef = useRef<HTMLButtonElement>(null)
   const formDisclosure = useDisclosure()
   const successDisclosure = useDisclosure()
@@ -67,7 +70,7 @@ export const CreateCollectionModal: FC<CreateCollectionModalProps> = ({
     const formBody: CollectionCreateInput = {
       ...data,
       slug,
-      locale: 'tr',
+      locale,
       publishedAt: null,
     }
 
@@ -156,6 +159,13 @@ export const CreateCollectionModal: FC<CreateCollectionModalProps> = ({
               as="form"
               onSubmit={handleSubmit(handleCreateCollection)}
             >
+              <FormControl isRequired>
+                <FormLabel>Locale</FormLabel>
+                <LanguageSwitcher
+                  defaultLocale={locale as StrapiLocale}
+                  onLanguageSwitch={setLocale}
+                />
+              </FormControl>
               <FormItem
                 name="title"
                 label="Title"
