@@ -1,10 +1,13 @@
 import { Box } from '@chakra-ui/react'
-import { AdminLayout } from '@wsvvrijheid/ui'
+import { AdminLayout, CreateHashtagPostModal } from '@wsvvrijheid/ui'
 
 const HashtagPostsPage = () => {
   return (
     <AdminLayout title="HashtagPosts">
-      <Box>HashtagPosts</Box>
+      <Box>
+        HashtagPosts
+        <CreateHashtagPostModal />
+      </Box>
     </AdminLayout>
   )
 }
