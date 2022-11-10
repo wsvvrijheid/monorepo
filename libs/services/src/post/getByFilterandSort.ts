@@ -16,7 +16,7 @@ export const getPostsByFilterAndSort = async ({
   page = 1,
   pageSize = 12,
   searchTerm,
-  sort = ['date:desc'],
+  sort = ['publishedAt:desc'],
   publicationState = 'preview',
   locale,
   populate,

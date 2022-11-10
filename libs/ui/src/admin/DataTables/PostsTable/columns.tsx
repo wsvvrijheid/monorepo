@@ -1,5 +1,5 @@
 import {
-  ApprovalStatus,
+  // ApprovalStatus,
   Hashtag,
   Post,
   StrapiLocale,
@@ -14,7 +14,7 @@ export const columns: WTableProps<Post>['columns'] = {
   image: {
     type: 'image',
   },
-  creator: {},
+  // creator: {},
   title: {
     sortable: true,
   },
@@ -50,17 +50,32 @@ export const columns: WTableProps<Post>['columns'] = {
     label: 'Locales',
     transform: value => <LocaleBadges locales={value as StrapiLocale[]} />,
   },
-  approvalStatus: {
+  // approvalStatus: {
+  //   type: 'badge',
+  //   componentProps: value => {
+  //     const colorScheme = {
+  //       approved: 'green',
+  //       pending: 'yellow',
+  //       rejected: 'red',
+  //     }
+  //     return {
+  //       variant: 'outline',
+  //       colorScheme: colorScheme[value as ApprovalStatus],
+  //     }
+  //   },
+  // },
+  translationStatus: {
     type: 'badge',
     componentProps: value => {
       const colorScheme = {
         approved: 'green',
         pending: 'yellow',
         rejected: 'red',
+        original: 'blue',
       }
       return {
         variant: 'outline',
-        colorScheme: colorScheme[value as ApprovalStatus],
+        colorScheme: colorScheme[value as TranslationStatus],
       }
     },
   },

@@ -22,7 +22,7 @@ export const PostsTable: FC<PostsTableProps> = ({
   const router = useRouter()
 
   const handleClickRow = (index: number, id: number) => {
-    router.push(`/posts/${id}`)
+    router.push(`/hashtags/posts/${id}`)
   }
 
   return (
