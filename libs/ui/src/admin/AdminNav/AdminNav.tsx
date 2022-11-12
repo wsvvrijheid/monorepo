@@ -26,8 +26,9 @@ import { VscFeedback } from 'react-icons/vsc'
 
 import { AdminNavItem } from './AdminNavItem'
 import { AdminNavItemCollapsed } from './AdminNavItemCollapsed'
+import { AdminNavItemProps } from './types'
 
-export const getAdminNav = (user: SessionUser) => {
+export const getAdminNav = (user: SessionUser): AdminNavItemProps[] => {
   const { isEditor, isAdmin } = user
 
   return [
@@ -72,7 +73,7 @@ export const getAdminNav = (user: SessionUser) => {
     {
       label: 'Arts',
       icon: <TbBrush />,
-      visible: isEditor || isAdmin,
+      visible: !!isEditor || !!isAdmin,
       submenu: [
         {
           label: 'Pending Arts',
@@ -109,7 +110,7 @@ export const getAdminNav = (user: SessionUser) => {
         {
           label: 'Hashtag Posts',
           icon: <TbBrandTwitter />,
-          visible: isEditor || isAdmin,
+          visible: !!Boolean || !!isAdmin,
           submenu: [
             {
               label: 'Pending  Posts',
