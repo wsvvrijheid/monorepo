@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react'
+import { FC, useEffect, useMemo, useState } from 'react'
 
 import { chakra, Button, useBoolean, Collapse, Box } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
@@ -15,24 +15,41 @@ export const AdminNavItem: FC<AdminNavItemProps> = ({
 }) => {
   const [open, setOpen] = useBoolean(false)
   const [openSub, setOpenSub] = useBoolean(false)
+  const [subLink, setSubLink] = useState('')
   const router = useRouter()
-  const subsMenu = submenu?.map(item => item?.submenu)
+
+  const subsMenu = useMemo(() => {
+    if (submenu) {
+      return submenu?.map(item => item?.submenu).filter(sm => sm !== undefined)
+    }
+    return []
+  }, [submenu])
+
   const isMenuLinkActive =
     router.asPath === link ||
     submenu?.some(item => item.link === router.asPath) ||
-    subsMenu?.some(item => item?.link === router.asPath)
+    subsMenu?.flatMap(k => k).some(item => item?.link === router.asPath)
 
   useEffect(() => {
     if (isMenuLinkActive && submenu) {
       setOpen.on()
     }
-  }, [isMenuLinkActive, setOpen, submenu])
+  }, [isMenuLinkActive, setOpen, submenu?.length])
 
   useEffect(() => {
     if (isMenuLinkActive && subsMenu) {
       setOpenSub.on()
+      const active = router.asPath.includes('post')
+        ? 'Hashtag Posts'
+        : 'Hashtag Caps'
+      setSubLink(active)
     }
-  }, [subsMenu])
+  }, [subsMenu?.length])
+
+  const handleSubMenuClick = (label: string) => {
+    setOpenSub.toggle()
+    setSubLink(label)
+  }
 
   return (
     <Box w="full">
@@ -80,7 +97,7 @@ export const AdminNavItem: FC<AdminNavItemProps> = ({
                   as={Button}
                   href={item.link}
                   justifyContent="start"
-                  key={item.label}
+                  key={item.link}
                   leftIcon={item.icon}
                   ml={8}
                   px={2}
@@ -92,14 +109,15 @@ export const AdminNavItem: FC<AdminNavItemProps> = ({
                     _hover: { color: 'primary.400' },
                   })}
                   {...(item?.submenu && {
-                    onClick: setOpenSub.toggle,
+                    onClick: () => handleSubMenuClick(item.label),
                     rightIcon: (
                       <Box
                         as={GoChevronDown}
                         transition="all 0.2s"
-                        {...(openSub && {
-                          transform: 'rotate(180deg)',
-                        })}
+                        {...(openSub &&
+                          item.label === subLink && {
+                            transform: 'rotate(180deg)',
+                          })}
                       />
                     ),
                   })}
@@ -108,7 +126,7 @@ export const AdminNavItem: FC<AdminNavItemProps> = ({
                 </Navigate>
 
                 {item?.submenu && (
-                  <Collapse in={openSub}>
+                  <Collapse in={item.label === subLink && openSub}>
                     {item?.submenu?.map(em => {
                       const isSubmenusSubmenuLinkActive =
                         router.asPath === em.link
