@@ -16,11 +16,11 @@ export const AdminNavItem: FC<AdminNavItemProps> = ({
   const [open, setOpen] = useBoolean(false)
   const [openSub, setOpenSub] = useBoolean(false)
   const router = useRouter()
-  const subsMenu = submenu?.map(item => item?.submenu)
+  const submenus = submenu?.flatMap(item => item.submenu)
   const isMenuLinkActive =
     router.asPath === link ||
     submenu?.some(item => item.link === router.asPath) ||
-    subsMenu?.some(item => item?.link === router.asPath)
+    submenus?.some(item => item?.link === router.asPath)
 
   useEffect(() => {
     if (isMenuLinkActive && submenu) {
@@ -29,10 +29,10 @@ export const AdminNavItem: FC<AdminNavItemProps> = ({
   }, [isMenuLinkActive, setOpen, submenu])
 
   useEffect(() => {
-    if (isMenuLinkActive && subsMenu) {
+    if (isMenuLinkActive && submenus) {
       setOpenSub.on()
     }
-  }, [subsMenu])
+  }, [submenus])
 
   return (
     <Box w="full">
