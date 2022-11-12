@@ -1,4 +1,4 @@
-import { FC, useEffect, useMemo, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 
 import { chakra, Button, useBoolean, Collapse, Box } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
@@ -17,18 +17,11 @@ export const AdminNavItem: FC<AdminNavItemProps> = ({
   const [openSub, setOpenSub] = useBoolean(false)
   const [subLink, setSubLink] = useState('')
   const router = useRouter()
-
-  const subsMenu = useMemo(() => {
-    if (submenu) {
-      return submenu?.map(item => item?.submenu).filter(sm => sm !== undefined)
-    }
-    return []
-  }, [submenu])
-
+  const submenus = submenu?.flatMap(item => item.submenu)
   const isMenuLinkActive =
     router.asPath === link ||
     submenu?.some(item => item.link === router.asPath) ||
-    subsMenu?.flatMap(k => k).some(item => item?.link === router.asPath)
+    submenus?.some(item => item?.link === router.asPath)
 
   useEffect(() => {
     if (isMenuLinkActive && submenu) {
@@ -37,19 +30,14 @@ export const AdminNavItem: FC<AdminNavItemProps> = ({
   }, [isMenuLinkActive, setOpen, submenu?.length])
 
   useEffect(() => {
-    if (isMenuLinkActive && subsMenu) {
+    if (isMenuLinkActive && submenus) {
       setOpenSub.on()
       const active = router.asPath.includes('post')
         ? 'Hashtag Posts'
         : 'Hashtag Caps'
       setSubLink(active)
     }
-  }, [subsMenu?.length])
-
-  const handleSubMenuClick = (label: string) => {
-    setOpenSub.toggle()
-    setSubLink(label)
-  }
+  }, [submenus])
 
   return (
     <Box w="full">
