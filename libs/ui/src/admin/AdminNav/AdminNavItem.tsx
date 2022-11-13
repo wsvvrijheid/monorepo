@@ -97,7 +97,7 @@ export const AdminNavItem: FC<AdminNavItemProps> = ({
                     _hover: { color: 'primary.400' },
                   })}
                   {...(item?.submenu && {
-                    onClick: () => handleSubMenuClick(item.label),
+                    onClick: () => setOpenSub.toggle,
                     rightIcon: (
                       <Box
                         as={GoChevronDown}
