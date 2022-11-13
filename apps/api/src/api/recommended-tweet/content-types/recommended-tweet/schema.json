@@ -1,0 +1,44 @@
+{
+  "kind": "collectionType",
+  "collectionName": "recommended_tweets",
+  "info": {
+    "singularName": "recommended-tweet",
+    "pluralName": "recommended-tweets",
+    "displayName": "Recommended Tweet",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "recommender": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "recommendedTweets"
+    },
+    "originalTweet": {
+      "type": "json",
+      "required": true
+    },
+    "isShared": {
+      "type": "boolean",
+      "default": false
+    },
+    "isArchived": {
+      "type": "boolean",
+      "default": false
+    },
+    "media": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images", "videos"]
+    },
+    "text": {
+      "type": "text",
+      "required": true
+    }
+  }
+}

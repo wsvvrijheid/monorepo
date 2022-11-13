@@ -5,7 +5,7 @@ import {
   setInitialMentions,
   setMentions,
   store,
-} from '@wsvvrijheid/utils'
+} from '@wsvvrijheid/store'
 
 // TODO: Add Manual store configuration with preloaded state
 store.dispatch(setInitialMentions(MENTION_MOCKS.data))

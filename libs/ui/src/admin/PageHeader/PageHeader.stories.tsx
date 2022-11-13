@@ -1,5 +1,4 @@
 import {
-  Button,
   MenuDivider,
   MenuItem,
   MenuItemOption,
@@ -8,7 +7,7 @@ import {
 import { ComponentStory, ComponentMeta } from '@storybook/react'
 import { StrapiLocale } from '@wsvvrijheid/types'
 import { useRouter } from 'next/router'
-import { FaArrowUp, FaPlus } from 'react-icons/fa'
+import { FaArrowUp } from 'react-icons/fa'
 
 import { PageHeader } from './index'
 
@@ -24,8 +23,7 @@ const Template: ComponentStory<typeof PageHeader> = args => {
 
 export const Default = Template.bind({})
 Default.args = {
-  title: 'News',
-  onSearch: (item: string) => {
+  onSearch: (item: string | null) => {
     alert(item)
   },
   onLanguageSwitch: (locale: StrapiLocale) => {
@@ -68,14 +66,5 @@ Default.args = {
         User name ascending
       </MenuItem>
     </>
-  ),
-  buttons: (
-    <Button
-      colorScheme="primary"
-      rightIcon={<FaPlus />}
-      onClick={() => alert('Clicked Create')}
-    >
-      Create
-    </Button>
   ),
 }

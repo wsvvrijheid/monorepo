@@ -1,5 +1,6 @@
 import { API_URL } from '@wsvvrijheid/config'
-import { getSessionUser, sessionOptions } from '@wsvvrijheid/utils'
+import { sessionOptions } from '@wsvvrijheid/lib'
+import { getSessionUser } from '@wsvvrijheid/services'
 import axios from 'axios'
 import { withIronSessionApiRoute } from 'iron-session/next'
 import { NextApiResponse, NextApiRequest } from 'next'

@@ -15,7 +15,7 @@ export default {
 } as ComponentMeta<typeof ArtCard>
 
 const Template: ComponentStory<typeof ArtCard> = args => {
-  return <ArtCard {...args} art={args.art} user={args.user} />
+  return <ArtCard {...args} />
 }
 
 export const Default = Template.bind({})

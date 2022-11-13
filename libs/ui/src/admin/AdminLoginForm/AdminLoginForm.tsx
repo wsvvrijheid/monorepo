@@ -9,17 +9,13 @@ import {
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation } from '@tanstack/react-query'
-import {
-  setAuth,
-  sleep,
-  useAppDispatch,
-  useAuthSelector,
-} from '@wsvvrijheid/utils'
+import { setAuth, useAppDispatch, useAuthSelector } from '@wsvvrijheid/store'
+import { sleep } from '@wsvvrijheid/utils'
 import axios from 'axios'
 import { useTranslation } from 'next-i18next'
+import { TFunction } from 'next-i18next'
 import { useRouter } from 'next/router'
 import { useForm, SubmitHandler } from 'react-hook-form'
-import { TFunction } from 'react-i18next'
 import * as yup from 'yup'
 
 import {
@@ -32,17 +28,7 @@ import {
 
 const schema = (t: TFunction) =>
   yup.object({
-    password: yup
-      .string()
-      .min(8, t('login.password.warning'))
-      .required(t('login.password.required'))
-      .matches(RegExp('(.*[a-z].*)'), t('login.password.matches.lowercase'))
-      .matches(RegExp('(.*[A-Z].*)'), t('login.password.matches.uppercase'))
-      .matches(RegExp('(.*\\d.*)'), t('login.password.matches.number'))
-      .matches(
-        RegExp('[!@#$%^&*(),.?":{}|<>]'),
-        t('login.password.matches.special'),
-      ),
+    password: yup.string().required(t('login.password.required')),
     email: yup
       .string()
       .email(t`contact.form.email-invalid`)

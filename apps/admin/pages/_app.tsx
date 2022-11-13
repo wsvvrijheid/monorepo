@@ -8,7 +8,7 @@ import {
 } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { defaultSeo, themes } from '@wsvvrijheid/config'
-import { checkAuth, store } from '@wsvvrijheid/utils'
+import { checkAuth, store } from '@wsvvrijheid/store'
 import { appWithTranslation } from 'next-i18next'
 import { DefaultSeo } from 'next-seo'
 import Head from 'next/head'
@@ -16,6 +16,7 @@ import { useRouter } from 'next/router'
 import { Provider as ReduxProvider } from 'react-redux'
 
 import i18nConfig from '../next-i18next.config'
+
 import '@splidejs/splide/dist/css/themes/splide-default.min.css'
 import '@splidejs/react-splide/css'
 

@@ -2,15 +2,15 @@ import { FC, useState } from 'react'
 
 import { useDisclosure } from '@chakra-ui/react'
 import { QueryKey } from '@tanstack/react-query'
-import { Art, UploadFile } from '@wsvvrijheid/types'
 import {
   useArtFeedbackMutation,
-  useAuthSelector,
   useDeleteArt,
   usePublishModel,
   useUnpublishModel,
   useUpdateArtMutation,
-} from '@wsvvrijheid/utils'
+} from '@wsvvrijheid/services'
+import { useAuthSelector } from '@wsvvrijheid/store'
+import { Art, UploadFile } from '@wsvvrijheid/types'
 
 import { WConfirm, WConfirmProps } from '../../../components/WConfirm'
 import { ArtApprovalModal } from '../../ArtApprovalModal'

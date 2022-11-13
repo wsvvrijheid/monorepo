@@ -11,7 +11,7 @@ import {
   removeTrendName,
   useAppDispatch,
   useAppSelector,
-} from '@wsvvrijheid/utils'
+} from '@wsvvrijheid/store'
 import { useTranslation } from 'next-i18next'
 
 import { TagList } from '../../TagList'

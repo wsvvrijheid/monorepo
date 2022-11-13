@@ -1,0 +1,77 @@
+{
+  "kind": "collectionType",
+  "collectionName": "categories",
+  "info": {
+    "singularName": "category",
+    "pluralName": "categories",
+    "displayName": "Category",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "slug": {
+      "pluginOptions": {},
+      "type": "uid",
+      "targetField": "name_en",
+      "required": true
+    },
+    "name_en": {
+      "pluginOptions": {},
+      "type": "string",
+      "required": true
+    },
+    "name_nl": {
+      "type": "string",
+      "required": true
+    },
+    "name_tr": {
+      "type": "string",
+      "required": true
+    },
+    "arts": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::art.art",
+      "inversedBy": "categories"
+    },
+    "blogs": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::blog.blog",
+      "inversedBy": "categories"
+    },
+    "mentions": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::mention.mention",
+      "inversedBy": "categories"
+    },
+    "competitions": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::competition.competition",
+      "inversedBy": "categories"
+    },
+    "hashtags": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::hashtag.hashtag",
+      "inversedBy": "categories"
+    },
+    "announcements": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::announcement.announcement",
+      "mappedBy": "categories"
+    },
+    "activities": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::activity.activity",
+      "inversedBy": "categories"
+    }
+  }
+}

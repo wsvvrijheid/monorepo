@@ -1,7 +1,7 @@
 import { useCallback, useRef } from 'react'
 
+import { setPostText, useAppDispatch } from '@wsvvrijheid/store'
 import { Post, StrapiLocale } from '@wsvvrijheid/types'
-import { setPostText, useAppDispatch } from '@wsvvrijheid/utils'
 import { sample } from 'lodash'
 import { useRouter } from 'next/router'
 

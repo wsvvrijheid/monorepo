@@ -61,7 +61,7 @@ const Template: ComponentStory<typeof ArtCardBase> = args => {
       art={art}
       isLiked={args.isLiked || isLiked}
       toggleLike={toggleLike}
-      isOwner={args.isOwner || USER_MOCKS[0].id === art.artist?.user?.id}
+      isOwner={args.isOwner || USER_MOCKS[0].id === art.artist?.id}
       actions={actions}
     />
   )

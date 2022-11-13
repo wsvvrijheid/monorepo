@@ -1,21 +1,19 @@
 import { useState } from 'react'
 
+import { useHashtagsByFilterAndSort } from '@wsvvrijheid/services'
 import { StrapiLocale, Sort } from '@wsvvrijheid/types'
 import {
   AdminLayout,
-  // CreateMainHashtagModal,
+  CreateMainHashtagModal,
   MainHashtagTable,
 } from '@wsvvrijheid/ui'
-import { useHashtagsByFilterAndSort } from '@wsvvrijheid/utils'
 import { useUpdateEffect } from 'react-use'
-
 const MainHashtagPage = () => {
   const [currentPage, setCurrentPage] = useState<number>()
   const defaultLocale: StrapiLocale = 'en'
 
   const [searchTerm, setSearchTerm] = useState<string>()
   const [locale, setLocale] = useState<StrapiLocale>(defaultLocale)
-
   const [sort, setSort] = useState<Sort>()
   const queryKey = ['hashtag', searchTerm, sort, currentPage || 1]
 
@@ -50,7 +48,7 @@ const MainHashtagPage = () => {
         defaultLocale,
       }}
     >
-      {/* <CreateMainHashtagModal /> */}
+      <CreateMainHashtagModal />
       <MainHashtagTable
         data={mappedHashtags}
         totalCount={totalCount}

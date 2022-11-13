@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 
 import { Meta, Story } from '@storybook/react'
 import { ACTIVITY_MOCKS } from '@wsvvrijheid/mocks'
+import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { serialize } from 'next-mdx-remote/serialize'
 
 import { Container } from '../Container'
@@ -27,16 +28,17 @@ export default {
 } as Meta<ActivityDetailProps>
 
 const Template: Story<ActivityDetailProps> = args => {
-  const [source, setSource] = useState(null)
-  const getSource = async content => {
+  const [source, setSource] = useState<MDXRemoteSerializeResult>()
+
+  const getSource = async (content: string) => {
     const s = await serialize(content || '')
     setSource(s)
   }
 
   useEffect(() => {
-    getSource(args?.activity?.content)
-  }, [])
-  return <ActivityDetail {...args} source={source} />
+    getSource(args?.activity?.content || '')
+  }, [args.activity?.content])
+  return <ActivityDetail {...args} source={source!} />
 }
 
 export const Default = Template.bind({})
