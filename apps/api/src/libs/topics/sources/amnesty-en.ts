@@ -6,7 +6,6 @@ const getAmnestyEn = async () => {
 
   const selectors: PageSelectors = {
     link: 'div.postlist article.post.postImage--small div.post-content header.post-header h1.post-title span a',
-    image: 'article.post.postImage--small figure.post-figure img',
   }
 
   const formatTopic: FormatTopic = topic => {

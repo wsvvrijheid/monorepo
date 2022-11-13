@@ -25,6 +25,7 @@ const nextConfig = {
       'image.shaber3.com',
       'ipa.news',
       'static.wixstatic.com',
+      'www.amnesty.org',
     ],
   },
   nx: {
