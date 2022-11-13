@@ -52,7 +52,7 @@ export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
     description: yup.string().required('Description is required'),
     content: yup.string().required('Content is required'),
     hashtag: yup.string().required('Hashtag is required'),
-    extrahashtag: yup.string(),
+    hashtagExtra: yup.string(),
     mention: yup.string(),
   })
 
@@ -68,9 +68,9 @@ export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
   })
 
   const { mutate, isLoading } = useCreateMainHashtag(locale, queryKey)
-  const [respHashtag, setRespHashtag] = useState<Hashtag>()
   const toast = useToast()
   const currentMentions = useGetMentions()
+  const [createdHashtag, setCreatedHashtag] = useState<Hashtag>()
 
   const createMainHashtag = async (
     data: CreateMainHashtagFormFieldValues & { image: Blob },
@@ -87,12 +87,12 @@ export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
     }
 
     mutate(formBody, {
-      onSuccess: async res => {
+      onSuccess: async newHashtag => {
+        setCreatedHashtag(newHashtag)
         formDisclosure.onClose()
         successDisclosure.onOpen()
         resetForm()
         resetFileUploader()
-        setRespHashtag(res)
       },
       onError: error => {
         toast({
@@ -124,8 +124,8 @@ export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
     formDisclosure.onClose()
   }
   const handleClickRow = () => {
-    if (respHashtag) {
-      showEditModal(respHashtag)
+    if (createdHashtag) {
+      showEditModal(createdHashtag)
       successDisclosure.onClose()
     }
   }
@@ -232,7 +232,7 @@ export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
                     register={register}
                   />
                   <FormItem
-                    name="extrahashtag"
+                    name="hashtagExtra"
                     label="Extra hashtag"
                     errors={errors}
                     register={register}

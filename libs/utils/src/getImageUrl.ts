@@ -8,7 +8,11 @@ export const getImageUrl = (
   if (!image) return ''
 
   if (typeof image === 'string') {
-    if (image?.startsWith('http')) {
+    if (
+      image?.startsWith('http') ||
+      image?.startsWith('data:') ||
+      image?.startsWith('blob:')
+    ) {
       return image
     }
 
