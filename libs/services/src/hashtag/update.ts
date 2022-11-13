@@ -3,7 +3,7 @@ import { QueryKey, useMutation, useQueryClient } from '@tanstack/react-query'
 import { Mutation } from '@wsvvrijheid/lib'
 import { Hashtag, HashtagUpdateInput } from '@wsvvrijheid/types'
 
-export const updateField = ({
+export const updateHashtag = ({
   id,
   ...args
 }: HashtagUpdateInput & { id: number }) => {
@@ -15,20 +15,18 @@ export const useUpdateHashtagMutation = (queryKey?: QueryKey) => {
   const toast = useToast()
   return useMutation({
     mutationKey: ['update-hashtag'],
-    mutationFn: ({ id, ...args }: HashtagUpdateInput & { id: number }) =>
-      updateField({ id, ...args }),
-    onSuccess: (res: HashtagUpdateInput) => {
+    mutationFn: updateHashtag,
+    onSuccess: updatedHashtag => {
       queryClient.invalidateQueries(queryKey)
       toast({
         title: `Mainhashag updated`,
-        description: `Mainhashtag ${res.title} has been updated`,
+        description: `Mainhashtag ${updatedHashtag.title} has been updated`,
         status: 'success',
         duration: 5000,
         isClosable: true,
       })
-      console.log('response on success in services', res)
     },
-    onError: error => {
+    onError: (error: any) => {
       console.error('error in sercices', error)
       toast({
         title: 'Error',
