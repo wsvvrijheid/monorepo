@@ -5,6 +5,7 @@ export enum Publisher {
   NOS = 'Nos',
   NRC = 'Nrc',
   AMNESTY = 'Amnesty',
+  AMNESTYEN = 'Amnesty En',
   BOLD_MEDYA = 'Bold Medya',
   KATTENKENING = 'Kanttekening',
   NU = 'Nu',
@@ -13,6 +14,9 @@ export enum Publisher {
   TR724 = 'Tr724',
   TROUW = 'Trouw',
   VOLKSKRANT = 'Volkskrant',
+  TM = 'Turkish Minute',
+  IPA = 'Ipa News',
+  SWO = 'Solidarity With Others',
 }
 
 export enum Locale {
