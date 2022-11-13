@@ -97,13 +97,13 @@ export const TopicCardBase: FC<TopicCardBaseProps> = ({
             <Popover placement="top">
               <PopoverTrigger>
                 <Box>
-                <ActionButton
-                  onClick={() => onShare()}
-                  icon={<AiOutlineShareAlt />}
-                  title="Share"
-                  isVertical={isVertical}
-                  variant="ghost"
-                />
+                  <ActionButton
+                    onClick={() => onShare()}
+                    icon={<AiOutlineShareAlt />}
+                    title="Share"
+                    isVertical={isVertical}
+                    variant="ghost"
+                  />
                 </Box>
               </PopoverTrigger>
               <PopoverContent w="max-content">
