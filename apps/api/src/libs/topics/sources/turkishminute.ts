@@ -15,7 +15,6 @@ const getTurkishMinuteNews = async () => {
     }
   }
 
-  // TODO: Meta tags seem not to be selected correctly
   return await scrapTopics({
     publisher: Publisher.TM,
     locale: Locale.EN,
