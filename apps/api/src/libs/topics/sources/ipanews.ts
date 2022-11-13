@@ -14,7 +14,6 @@ const getIpaNews = async () => {
     }
   }
 
-  // TODO: Meta tags seem not to be selected correctly
   return await scrapTopics({
     publisher: Publisher.IPA,
     locale: Locale.EN,

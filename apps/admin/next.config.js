@@ -23,6 +23,8 @@ const nextConfig = {
       'www.tr724.com',
       'images0.persgroep.net',
       'image.shaber3.com',
+      'ipa.news',
+      'static.wixstatic.com',
     ],
   },
   nx: {

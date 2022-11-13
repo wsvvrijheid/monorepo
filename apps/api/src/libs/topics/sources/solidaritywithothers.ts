@@ -14,7 +14,6 @@ const getSolidaritywithothersNews = async () => {
     }
   }
 
-  // TODO: Meta tags seem not to be selected correctly
   return await scrapTopics({
     publisher: Publisher.SWO,
     locale: Locale.EN,
