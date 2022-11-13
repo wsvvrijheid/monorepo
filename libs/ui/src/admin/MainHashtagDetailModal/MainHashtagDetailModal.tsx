@@ -26,7 +26,7 @@ import '@splidejs/splide/dist/css/themes/splide-default.min.css'
 import slugify from '@sindresorhus/slugify'
 import { useGetMentions, useUpdateHashtagMutation } from '@wsvvrijheid/services'
 import { StrapiLocale, UploadFile } from '@wsvvrijheid/types'
-import { useForm } from 'react-hook-form'
+import { FormProvider, useForm } from 'react-hook-form'
 import { FaTimes } from 'react-icons/fa'
 import { HiOutlineX, HiPencil } from 'react-icons/hi'
 import { IoMdClose } from 'react-icons/io'
@@ -34,8 +34,8 @@ import { MdOutlinePublish, MdOutlineUnpublished } from 'react-icons/md'
 import * as yup from 'yup'
 
 import {
+  EditableFormItem,
   FilePicker,
-  FormItem,
   WConfirm,
   WConfirmProps,
   WImage,
@@ -86,13 +86,7 @@ export const MainHashtagDetailModal: FC<MainHashtagDetailModalProps> = ({
 
   const mainHashtag = localizeHashtag[locale]
 
-  const {
-    control,
-    register,
-    watch,
-    setValue,
-    formState: { errors },
-  } = useForm<CreateMainHashtagFormFieldValues>({
+  const formMethods = useForm<CreateMainHashtagFormFieldValues>({
     resolver: yupResolver(schema),
     mode: 'all',
     defaultValues: {
@@ -110,7 +104,7 @@ export const MainHashtagDetailModal: FC<MainHashtagDetailModalProps> = ({
     onClose()
   }
 
-  const { mutate: updateHashtag } = useUpdateHashtagMutation()
+  const { mutateAsync: updateHashtag } = useUpdateHashtagMutation()
 
   const [
     title,
@@ -121,7 +115,7 @@ export const MainHashtagDetailModal: FC<MainHashtagDetailModalProps> = ({
     date,
     image,
     mentions,
-  ] = watch([
+  ] = formMethods.watch([
     'title',
     'description',
     'content',
@@ -145,7 +139,7 @@ export const MainHashtagDetailModal: FC<MainHashtagDetailModalProps> = ({
 
   /* save fields*/
 
-  const handleSave = (field: string) => {
+  const handleSave = async (field: string) => {
     const fieldIndex = [
       'title',
       'description',
@@ -158,21 +152,21 @@ export const MainHashtagDetailModal: FC<MainHashtagDetailModalProps> = ({
     ].indexOf(field)
 
     if (field === 'mentions') {
-      const mentions = watch('mentions')
+      const mentions = formMethods.watch('mentions')
       const mentionsIds = mentions?.map(m => parseInt(m.value))
-      updateHashtag({
+      return updateHashtag({
         id: mainHashtag.id,
         mentions: mentionsIds,
       })
     } else if (field === 'title') {
       const slug = slugify(title)
-      updateHashtag({
+      return updateHashtag({
         id: mainHashtag.id,
         title,
         slug,
       })
     } else {
-      updateHashtag({
+      return updateHashtag({
         id: mainHashtag.id,
         [field]: fields[fieldIndex],
       })
@@ -189,7 +183,7 @@ export const MainHashtagDetailModal: FC<MainHashtagDetailModalProps> = ({
       onConfirm: async () => {
         const newMentions = mentions?.filter(m => parseInt(m.value) !== id)
 
-        setValue('mentions', newMentions)
+        formMethods.setValue('mentions', newMentions)
         updateHashtag({
           id: mainHashtag.id,
           mentions: newMentions?.map(m => parseInt(m.value)),
@@ -225,248 +219,231 @@ export const MainHashtagDetailModal: FC<MainHashtagDetailModalProps> = ({
           <ModalCloseButton />
           <ModalBody pos="relative" py={6}>
             {/* MAIN HASHTAG DETAILS */}
-            <Stack
-              direction={{ base: 'column', md: 'row' }}
-              spacing={8}
-              as="form"
-            >
-              {/* LEFT SIDE */}
-              <Stack flex={1} spacing={4}>
-                {/*title ========== */}
-                <Stack align="start" justify={'start'} w="full">
-                  <FormItem
-                    name="title"
-                    errors={errors}
-                    label="Title"
-                    isRequired
-                    register={register}
-                    onSave={() => handleSave('title')}
-                    editMode
-                    watch={watch}
-                  />
-                </Stack>
-                {/*description ========== */}
-                <Stack align="start" justify={'start'} w="full">
-                  <FormItem
-                    name="description"
-                    errors={errors}
-                    label="Description"
-                    isRequired
-                    register={register}
-                    as={Textarea}
-                    onSave={() => handleSave('description')}
-                    editMode
-                    watch={watch}
-                  />
-                </Stack>
-                {/*content ========== */}
+            <FormProvider {...formMethods}>
+              <Stack
+                direction={{ base: 'column', md: 'row' }}
+                spacing={8}
+                as="form"
+              >
+                {/* LEFT SIDE */}
+                <Stack flex={1} spacing={4}>
+                  {/*title ========== */}
+                  <Stack align="start" justify={'start'} w="full">
+                    <EditableFormItem
+                      name="title"
+                      label="Title"
+                      isRequired
+                      onSave={() => handleSave('title')}
+                    />
+                  </Stack>
+                  {/*description ========== */}
+                  <Stack align="start" justify={'start'} w="full">
+                    <EditableFormItem
+                      name="description"
+                      label="Description"
+                      isRequired
+                      as={Textarea}
+                      onSave={() => handleSave('description')}
+                    />
+                  </Stack>
+                  {/*content ========== */}
 
-                <Stack align="start" justify={'start'} w="full">
-                  <FormItem
-                    name="content"
-                    errors={errors}
-                    label="Content"
-                    isRequired
-                    register={register}
-                    as={Textarea}
-                    onSave={handleSave}
-                    editMode
-                  />
-                </Stack>
-                {/*locales ========== */}
+                  <Stack align="start" justify={'start'} w="full">
+                    <EditableFormItem
+                      name="content"
+                      label="Content"
+                      isRequired
+                      as={Textarea}
+                      onSave={handleSave}
+                    />
+                  </Stack>
+                  {/*locales ========== */}
 
-                <HStack>
-                  <FormControl isRequired>
-                    <FormLabel>Locale</FormLabel>
-                    <LanguageSwitcher
-                      defaultLocale={locale as StrapiLocale}
-                      onLanguageSwitch={setLocale}
-                    />
-                  </FormControl>
-                  {/*date ========== */}
-                  <Stack align="start" justify={'start'} w="full">
-                    <FormItem
-                      name="date"
-                      errors={errors}
-                      label="Date"
-                      isRequired
-                      register={register}
-                      onSave={() => handleSave('date')}
-                      editMode
-                      type="datetime-local"
-                      watch={watch}
-                    />
-                  </Stack>
-                </HStack>
-                <HStack>
-                  {/* hashtag*/}
-                  <Stack align="start" justify={'start'} w="full">
-                    <FormItem
-                      name="hashtag"
-                      errors={errors}
-                      label="Hashtag"
-                      isRequired
-                      register={register}
-                      onSave={() => handleSave('hashtag')}
-                      editMode
-                      watch={watch}
-                    />
-                  </Stack>
-                  {/* hashtagextra =======*/}
-                  <Stack align="start" justify={'start'} w="full">
-                    <FormItem
-                      name="hashtagExtra"
-                      errors={errors}
-                      label="Hashtag Extra"
-                      isRequired
-                      register={register}
-                      onSave={() => handleSave('hashtagExtra')}
-                      editMode
-                      watch={watch}
-                    />
-                  </Stack>
-                </HStack>
-                {/* total posts count*/}
-                <Text color={'black'} fontWeight={'bold'} alignSelf="start">
-                  Total Post: {mainHashtag.posts?.length}
-                </Text>
-              </Stack>
-              {/* RIGHT SIDE */}
-              <Stack flex={1} spacing={4}>
-                {/* Mentions ===*/}
-                <Stack>
                   <HStack>
-                    <Text fontWeight={600} fontSize={'sm'}>
-                      Mentions
-                    </Text>
-                    <IconButton
-                      aria-label="Edit"
-                      size={'xs'}
-                      rounded={'full'}
-                      onClick={setIsEditingMention.toggle}
-                      variant="outline"
-                      icon={isEditingMention ? <FaTimes /> : <HiPencil />}
-                    />
-                  </HStack>
-                  {isEditingMention ? (
-                    <WSelect
-                      isMulti
-                      name="mentions"
-                      control={control}
-                      errors={errors}
-                      options={
-                        currentMentions.data?.map(c => ({
-                          value: c.id.toString(),
-                          label: `@${c.username}`,
-                        })) || []
-                      }
-                      onBlur={() => {
-                        setIsEditingMention.off()
-                        handleSave('mentions')
-                      }}
-                    />
-                  ) : (
-                    <Stack justify={'stretch'}>
-                      {mainHashtag.mentions?.map(mention => {
-                        return (
-                          <MentionItem
-                            mention={mention}
-                            onRemoveItem={handleRemoveItem}
-                          />
-                        )
-                      })}
-                    </Stack>
-                  )}
-                </Stack>
-
-                {/* image ==========*/}
-                <Stack>
-                  <HStack>
-                    <Text fontWeight={600} fontSize={'sm'}>
-                      Image
-                    </Text>
-                    <IconButton
-                      aria-label="Edit"
-                      size={'xs'}
-                      rounded={'full'}
-                      onClick={setIsEditingImage.toggle}
-                      variant="outline"
-                      icon={isEditingImage ? <FaTimes /> : <HiPencil />}
-                    />
-                  </HStack>
-                  {isEditingImage ? (
-                    <>
-                      <FilePicker
-                        setPreviews={urls => setImagePreview(urls[0])}
-                        setFiles={files => setValue('image', files[0])}
-                        onLoad={() => {
-                          setIsEditingImage.off()
-                          handleSave('image')
-                        }}
-                        height={'auto'}
+                    <FormControl isRequired>
+                      <FormLabel>Locale</FormLabel>
+                      <LanguageSwitcher
+                        defaultLocale={locale as StrapiLocale}
+                        onLanguageSwitch={setLocale}
                       />
-                      <Spacer />
-                      <HStack>
-                        <Button
-                          colorScheme="primary"
-                          onClick={() => {
+                    </FormControl>
+                    {/*date ========== */}
+                    <Stack align="start" justify={'start'} w="full">
+                      <EditableFormItem
+                        name="date"
+                        label="Date"
+                        isRequired
+                        onSave={() => handleSave('date')}
+                        type="datetime-local"
+                      />
+                    </Stack>
+                  </HStack>
+                  <HStack>
+                    {/* hashtag*/}
+                    <Stack align="start" justify={'start'} w="full">
+                      <EditableFormItem
+                        name="hashtag"
+                        label="Hashtag"
+                        isRequired
+                        onSave={() => handleSave('hashtag')}
+                      />
+                    </Stack>
+                    {/* hashtagextra =======*/}
+                    <Stack align="start" justify={'start'} w="full">
+                      <EditableFormItem
+                        name="hashtagExtra"
+                        label="Hashtag Extra"
+                        isRequired
+                        onSave={() => handleSave('hashtagExtra')}
+                      />
+                    </Stack>
+                  </HStack>
+                  {/* total posts count*/}
+                  <Text color={'black'} fontWeight={'bold'} alignSelf="start">
+                    Total Post: {mainHashtag.posts?.length}
+                  </Text>
+                </Stack>
+                {/* RIGHT SIDE */}
+                <Stack flex={1} spacing={4}>
+                  {/* Mentions ===*/}
+                  <Stack>
+                    <HStack>
+                      <Text fontWeight={600} fontSize={'sm'}>
+                        Mentions
+                      </Text>
+                      <IconButton
+                        aria-label="Edit"
+                        size={'xs'}
+                        rounded={'full'}
+                        onClick={setIsEditingMention.toggle}
+                        variant="outline"
+                        icon={isEditingMention ? <FaTimes /> : <HiPencil />}
+                      />
+                    </HStack>
+                    {isEditingMention ? (
+                      <WSelect
+                        isMulti
+                        name="mentions"
+                        control={formMethods.control}
+                        errors={formMethods.formState.errors}
+                        options={
+                          currentMentions.data?.map(c => ({
+                            value: c.id.toString(),
+                            label: `@${c.username}`,
+                          })) || []
+                        }
+                        onBlur={() => {
+                          setIsEditingMention.off()
+                          handleSave('mentions')
+                        }}
+                      />
+                    ) : (
+                      <Stack justify={'stretch'}>
+                        {mainHashtag.mentions?.map(mention => {
+                          return (
+                            <MentionItem
+                              mention={mention}
+                              onRemoveItem={handleRemoveItem}
+                            />
+                          )
+                        })}
+                      </Stack>
+                    )}
+                  </Stack>
+
+                  {/* image ==========*/}
+                  <Stack>
+                    <HStack>
+                      <Text fontWeight={600} fontSize={'sm'}>
+                        Image
+                      </Text>
+                      <IconButton
+                        aria-label="Edit"
+                        size={'xs'}
+                        rounded={'full'}
+                        onClick={setIsEditingImage.toggle}
+                        variant="outline"
+                        icon={isEditingImage ? <FaTimes /> : <HiPencil />}
+                      />
+                    </HStack>
+                    {isEditingImage ? (
+                      <>
+                        <FilePicker
+                          setPreviews={urls => setImagePreview(urls[0])}
+                          setFiles={files =>
+                            formMethods.setValue('image', files[0])
+                          }
+                          onLoad={() => {
                             setIsEditingImage.off()
                             handleSave('image')
                           }}
-                        >
-                          Save
-                        </Button>
-                      </HStack>
-                    </>
-                  ) : (
-                    <Stack>
-                      {(imagePreview || mainHashtag.image) && (
-                        <WImage
-                          src={
-                            (imagePreview || mainHashtag.image) as
-                              | string
-                              | UploadFile
-                          }
-                          alt={mainHashtag.title}
+                          height={'auto'}
                         />
-                      )}
-                    </Stack>
-                  )}
+                        <Spacer />
+                        <HStack>
+                          <Button
+                            colorScheme="primary"
+                            onClick={() => {
+                              setIsEditingImage.off()
+                              handleSave('image')
+                            }}
+                          >
+                            Save
+                          </Button>
+                        </HStack>
+                      </>
+                    ) : (
+                      <Stack>
+                        {(imagePreview || mainHashtag.image) && (
+                          <WImage
+                            src={
+                              (imagePreview || mainHashtag.image) as
+                                | string
+                                | UploadFile
+                            }
+                            alt={mainHashtag.title}
+                          />
+                        )}
+                      </Stack>
+                    )}
+                  </Stack>
+                  <ButtonGroup alignSelf="end">
+                    <Button
+                      onClick={
+                        mainHashtag.publishedAt
+                          ? handleUnPublish
+                          : handlePublish
+                      }
+                      colorScheme="primary"
+                      leftIcon={
+                        mainHashtag.publishedAt ? (
+                          <MdOutlineUnpublished />
+                        ) : (
+                          <MdOutlinePublish />
+                        )
+                      }
+                    >
+                      {mainHashtag.publishedAt ? 'Unpublish' : 'Publish'}
+                    </Button>
+                    <Button
+                      onClick={handleDelete}
+                      colorScheme="red"
+                      leftIcon={<HiOutlineX />}
+                    >
+                      Delete
+                    </Button>
+                    <Button
+                      onClick={closeForm}
+                      mr={3}
+                      ref={cancelRef}
+                      leftIcon={<IoMdClose />}
+                    >
+                      Cancel
+                    </Button>
+                  </ButtonGroup>
                 </Stack>
-                <ButtonGroup alignSelf="end">
-                  <Button
-                    onClick={
-                      mainHashtag.publishedAt ? handleUnPublish : handlePublish
-                    }
-                    colorScheme="primary"
-                    leftIcon={
-                      mainHashtag.publishedAt ? (
-                        <MdOutlineUnpublished />
-                      ) : (
-                        <MdOutlinePublish />
-                      )
-                    }
-                  >
-                    {mainHashtag.publishedAt ? 'Unpublish' : 'Publish'}
-                  </Button>
-                  <Button
-                    onClick={handleDelete}
-                    colorScheme="red"
-                    leftIcon={<HiOutlineX />}
-                  >
-                    Delete
-                  </Button>
-                  <Button
-                    onClick={closeForm}
-                    mr={3}
-                    ref={cancelRef}
-                    leftIcon={<IoMdClose />}
-                  >
-                    Cancel
-                  </Button>
-                </ButtonGroup>
               </Stack>
-            </Stack>
+            </FormProvider>
           </ModalBody>
         </ModalContent>
       </Modal>
