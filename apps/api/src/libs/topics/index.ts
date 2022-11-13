@@ -10,6 +10,10 @@ import getSamanyolu from './sources/samanyoluHaber'
 import getTr724 from './sources/tr724'
 import getTrouw from './sources/trouw'
 import { RecommendedTopic } from './utils/types'
+import getIpaNews from './sources/ipanews'
+import getSolidaritywithothersNews from './sources/solidaritywithothers'
+import getAmnestyEn from './sources/amnesty-en'
+import getTurkishMinuteNews from './sources/turkishminute'
 
 export default async ({ strapi }) => {
   try {
@@ -24,6 +28,10 @@ export default async ({ strapi }) => {
       getSamanyolu,
       getTr724,
       getTrouw,
+      getIpaNews,
+      getSolidaritywithothersNews,
+      getAmnestyEn,
+      getTurkishMinuteNews,
     ]
 
     console.log('-----------------------------------')
