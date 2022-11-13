@@ -41,7 +41,7 @@ export const CreateMainHashtagSuccessAlert = forwardRef<
           </AlertDialogBody>
 
           <AlertDialogFooter>
-            <Button colorScheme="primary" onClick={handleClickRow}>
+            <Button colorScheme="primary" onClick={() => handleClickRow()}>
               Show
             </Button>
             <Button onClick={onClose}>Dismiss</Button>

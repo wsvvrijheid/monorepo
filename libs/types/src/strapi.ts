@@ -193,16 +193,15 @@ export type StrapiLocalizeInput =
   | PostLocalizeInput
 
 export type StrapiFormValue =
-  | string
-  | number
-  | boolean
-  | Date
-  | string[]
-  | number[]
   | Blob
   | Blob[]
+  | Date
   | JSON
+  | boolean
   | null
-  | JSON
+  | number
+  | number[]
+  | string
+  | string[]
 
 export type StrapiMutationInput = { [key in string]?: StrapiFormValue }

@@ -2,8 +2,7 @@ import { FC, useState } from 'react'
 
 import { useDisclosure } from '@chakra-ui/react'
 import { QueryKey } from '@tanstack/react-query'
-import { useGetMentions } from '@wsvvrijheid/services'
-import { Hashtag, Mention } from '@wsvvrijheid/types'
+import { Hashtag } from '@wsvvrijheid/types'
 
 import { MainHashtagDetailModal } from '../../MainHashtagDetailModal'
 import { DataTable } from '../DataTable'
@@ -14,19 +13,6 @@ type MainHashtagTableProps = Omit<DataTableProps<Hashtag>, 'columns'> & {
   queryKey?: QueryKey
   onClose: () => void
   onDelete: (maninhashtagId: number) => void
-  onSave: (
-    mainhashtagId: number,
-    data: string,
-    updateValue:
-      | 'title'
-      | 'content'
-      | 'description'
-      | 'hashtag'
-      | 'hashtagExtra'
-      | 'date'
-      | 'image'
-      | 'mentions',
-  ) => void
   onPublish: (mainhashtagId: number) => void
   unPublish: (mainhashtagId: number) => void
 }
@@ -40,7 +26,6 @@ export const MainHashtagTable: FC<MainHashtagTableProps> = ({
   onDelete,
   onPublish,
   unPublish,
-  onSave,
 }) => {
   const [selectedIndex, setSelectedIndex] = useState<number>()
   const mainhashtagDisclosure = useDisclosure()
@@ -50,31 +35,23 @@ export const MainHashtagTable: FC<MainHashtagTableProps> = ({
   }
   const selectedMainHashtag =
     typeof selectedIndex === 'number' ? mainHashtag?.[selectedIndex] : null
-  const currentMentions = useGetMentions()
 
   return (
     <>
       {/* Mainhashtag detail modal ================ */}
-      {selectedMainHashtag && (
+      {selectedMainHashtag && mainhashtagDisclosure.isOpen && (
         <MainHashtagDetailModal
-          mainhashtagId={selectedMainHashtag.id}
-          mainhashtagTitle={selectedMainHashtag.title}
-          mainhashtagDescription={selectedMainHashtag.description}
-          mainhashtagContent={selectedMainHashtag.content}
-          mainhashtagDate={selectedMainHashtag.date}
-          mainhashtagHashtag={selectedMainHashtag.hashtag}
-          mainhashtagPublishedAt={selectedMainHashtag.publishedAt}
-          mainhashtagHashtagExtra={selectedMainHashtag?.hashtagExtra as string}
-          mentions={currentMentions?.data as Mention[]}
-          mainhashtagMentions={selectedMainHashtag?.mentions as Mention[]}
-          mainhashtagImage={selectedMainHashtag?.image as unknown as Blob[]}
+          // TODO: Create a generic function to generate localizations from a given model
+          localizeHashtag={{
+            tr: selectedMainHashtag,
+            en: selectedMainHashtag,
+            nl: selectedMainHashtag,
+          }}
           isOpen={mainhashtagDisclosure.isOpen}
           onClose={mainhashtagDisclosure.onClose}
           onDelete={onDelete}
           onPublish={onPublish}
           unPublish={unPublish}
-          onSave={onSave}
-          posts={selectedMainHashtag?.posts}
         />
       )}
       <DataTable

@@ -1,4 +1,4 @@
-import { ReactNode, RefAttributes, ReactElement } from 'react'
+import { ReactElement, ReactNode, RefAttributes, useRef } from 'react'
 
 import {
   Box,
@@ -15,12 +15,14 @@ import {
   InputRightElement,
   useBoolean,
   useMergeRefs,
+  usePrevious,
 } from '@chakra-ui/react'
 import {
   FieldErrorsImpl,
   FieldValues,
   Path,
   UseFormRegister,
+  UseFormWatch,
 } from 'react-hook-form'
 import { HiEye, HiEyeOff } from 'react-icons/hi'
 
@@ -33,6 +35,10 @@ export type FormItemProps<T extends FieldValues> = InputProps & {
   hideLabel?: boolean
   errors: Partial<FieldErrorsImpl<T>>
   register: UseFormRegister<T>
+  editMode?: boolean
+  editing?: boolean
+  watch?: UseFormWatch<T>
+  onSave?: (name: Path<T>) => void
 }
 
 export type FormItemComponent = <FormValues extends FieldValues>(
@@ -53,17 +59,49 @@ export const FormItem: FormItemComponent = forwardRef(
       register,
       isRequired,
       hideLabel,
+      editMode,
+      editing = true,
+      onSave,
+      watch,
       ...rest
     },
     formItemRef,
   ) => {
+    const [isEditing, setIsEditing] = useBoolean(editing)
     const [isOpen, setIsOpen] = useBoolean(false)
+
     const Tag = as || Input
     const errorMessage = errors?.[name]?.['message'] as unknown as string
-    const { ref: registerRef, ...registerRest } = register(name)
+    const { ref: registerRef, onBlur, ...registerRest } = register(name)
     const ref = useMergeRefs(formItemRef, registerRef)
+
+    const value = watch?.(name)
+    const firstValue = useRef(value)
+    const previousValue = usePrevious(value)
+
+    const handleBlur = (e: any) => {
+      if (editMode) {
+        setIsEditing.off()
+
+        if (
+          onSave &&
+          previousValue &&
+          value &&
+          previousValue.trim() !== value.trim() &&
+          value.trim() !== firstValue.current?.trim()
+        ) {
+          onSave?.(name)
+        }
+      }
+      onBlur(e)
+    }
+
     return (
-      <FormControl isInvalid={Boolean(errors?.[name])} isRequired={isRequired}>
+      <FormControl
+        isInvalid={Boolean(errors?.[name])}
+        isRequired={isRequired}
+        role="group"
+      >
         {label && !hideLabel && (
           <FormLabel mb={1} htmlFor={name} fontSize="sm" fontWeight="semibold">
             {label}
@@ -90,6 +128,11 @@ export const FormItem: FormItemComponent = forwardRef(
             id={name}
             type={type === 'password' ? (isOpen ? 'text' : 'password') : type}
             placeholder={label}
+            onBlur={handleBlur}
+            {...(editMode && {
+              borderColor: 'transparent',
+              _groupHover: { borderColor: 'gray.200' },
+            })}
             {...registerRest}
             {...rest}
           />

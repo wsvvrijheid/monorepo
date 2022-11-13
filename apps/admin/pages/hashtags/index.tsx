@@ -3,13 +3,11 @@ import { useState } from 'react'
 import { useDisclosure } from '@chakra-ui/react'
 import {
   useDeleteMainhashtag,
-  useGetMentions,
   useHashtagsByFilterAndSort,
   usePublishModel,
   useUnpublishModel,
-  useUpdateHashtagMutation,
 } from '@wsvvrijheid/services'
-import { StrapiLocale, Sort, Mention, Hashtag } from '@wsvvrijheid/types'
+import { StrapiLocale, Sort, Hashtag } from '@wsvvrijheid/types'
 import {
   AdminLayout,
   CreateMainHashtagModal,
@@ -21,26 +19,29 @@ import {
 import { useUpdateEffect } from 'react-use'
 
 const MainHashtagPage = () => {
-  const [currentPage, setCurrentPage] = useState<number>()
-  const defaultLocale: StrapiLocale = 'en'
+  const defaultLocale: StrapiLocale = 'tr'
 
-  const openEditModal = useDisclosure()
-  const [searchTerm, setSearchTerm] = useState<string>()
   const [locale, setLocale] = useState<StrapiLocale>(defaultLocale)
   const [sort, setSort] = useState<Sort>()
-  const queryKey = ['hashtag', searchTerm, sort, currentPage || 1]
   const [selectedMainHashtag, setSelectedMainHashtag] = useState<Hashtag>()
+  const [currentPage, setCurrentPage] = useState<number>()
+  const [searchTerm, setSearchTerm] = useState<string>()
+
+  const openEditModal = useDisclosure()
+
+  const queryKey = ['hashtag', searchTerm, sort, currentPage || 1]
+
   const HashtagsQuery = useHashtagsByFilterAndSort(queryKey, {
     sort,
     searchTerm,
     page: currentPage || 1,
     locale: locale as StrapiLocale,
   })
+
   const handleSearch = (search: string) => {
     search ? setSearchTerm(search) : setSearchTerm(undefined)
   }
 
-  const updateField = useUpdateHashtagMutation(queryKey)
   const deleteMainhashtag = useDeleteMainhashtag(queryKey)
   const publishMainhashtagMutation = usePublishModel('api/hashtags', queryKey)
   const unpublishMainhashtagMutation = useUnpublishModel(
@@ -57,18 +58,13 @@ const MainHashtagPage = () => {
 
   const hashtags = HashtagsQuery?.data?.data
   const totalCount = HashtagsQuery?.data?.meta?.pagination?.pageCount
-  const currentMentions = useGetMentions()
-  const mappedHashtags = hashtags?.map(hashtag => ({
+  const hashtagWithLocalizeKeys = hashtags?.map(hashtag => ({
     ...hashtag,
     translates: hashtag.localizations?.map(l => l.locale),
   }))
-  //function ============
-  const showEditModal = hashtagNew => {
-    const refetchHashtag = mappedHashtags.filter(
-      hashtag => hashtag.id === hashtagNew.id,
-    )
-    console.log('refetch data ', refetchHashtag)
-    setSelectedMainHashtag(refetchHashtag[0])
+
+  const showEditModal = (newHashtag: Hashtag) => {
+    setSelectedMainHashtag(newHashtag)
     openEditModal.onOpen()
   }
 
@@ -101,6 +97,7 @@ const MainHashtagPage = () => {
       },
     })
   }
+
   const onUnPublish = (id: number) => {
     confirmDisclosure.onOpen()
     setConfirmState({
@@ -113,17 +110,6 @@ const MainHashtagPage = () => {
         confirmDisclosure.onClose()
       },
     })
-  }
-  const onSave = async (id: number, newData: Hashtag, text: string) => {
-    updateField.mutate(
-      { id, [text]: newData },
-      {
-        onSuccess: res => {
-          console.log('response in table', res)
-        },
-        onError: error => console.log('error in table', error),
-      },
-    )
   }
 
   return (
@@ -144,7 +130,7 @@ const MainHashtagPage = () => {
       )}
       <CreateMainHashtagModal showEditModal={showEditModal} />
       <MainHashtagTable
-        data={mappedHashtags}
+        data={hashtagWithLocalizeKeys}
         totalCount={totalCount}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
@@ -153,28 +139,20 @@ const MainHashtagPage = () => {
         onDelete={handleDelete}
         onPublish={onPublish}
         unPublish={onUnPublish}
-        onSave={onSave}
+        onClose={() => null}
       />
-      {selectedMainHashtag && (
+      {selectedMainHashtag && openEditModal.isOpen && (
         <MainHashtagDetailModal
-          mainhashtagId={selectedMainHashtag?.id}
-          mainhashtagTitle={selectedMainHashtag?.title}
-          mainhashtagDescription={selectedMainHashtag?.description}
-          mainhashtagContent={selectedMainHashtag?.content}
-          mainhashtagDate={selectedMainHashtag?.date}
-          mainhashtagHashtag={selectedMainHashtag?.hashtag}
-          mainhashtagPublishedAt={selectedMainHashtag?.publishedAt}
-          mainhashtagHashtagExtra={selectedMainHashtag?.hashtagExtra as string}
-          mentions={currentMentions?.data as Mention[]} //
-          mainhashtagMentions={selectedMainHashtag?.mentions as Mention[]}
-          mainhashtagImage={selectedMainHashtag?.image as unknown as Blob[]}
+          localizeHashtag={{
+            tr: selectedMainHashtag,
+            en: selectedMainHashtag,
+            nl: selectedMainHashtag,
+          }}
           isOpen={openEditModal.isOpen}
           onClose={openEditModal.onClose}
           onDelete={handleDelete}
           onPublish={onPublish}
           unPublish={onUnPublish}
-          onSave={onSave}
-          posts={selectedMainHashtag?.posts}
         />
       )}
     </AdminLayout>
