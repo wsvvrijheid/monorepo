@@ -1,32 +1,33 @@
 import { UnionToIntersection } from 'type-fest'
 
-import { Activity } from './activity'
-import { Announcement } from './announcement'
+import { Activity, ActivityLocalizeInput } from './activity'
+import { Announcement, AnnouncementLocalizeInput } from './announcement'
 import { Applicant } from './applicant'
 import { Application } from './application'
-import { Art } from './art'
-import { Blog } from './blog'
+import { Art, ArtLocalizeInput } from './art'
+import { Blog, BlogLocalizeInput } from './blog'
 import { Category } from './category'
 import { Collection } from './collection'
 import { Comment } from './comment'
 import { Expand, TranslationStatus } from './common'
-import { Competition } from './competition'
+import { Competition, CompetitionLocalizeInput } from './competition'
 import { Donate } from './donate'
 import { Feedback } from './feedback'
 import { UploadFile } from './file'
-import { Hashtag } from './hashtag'
+import { Hashtag, HashtagLocalizeInput } from './hashtag'
 import { Job } from './job'
 import { LangRole } from './lang-role'
 import { StrapiLocale } from './locale'
 import { Me } from './me'
 import { Mention } from './mention'
 import { Platform } from './platform'
-import { Post } from './post'
+import { Post, PostLocalizeInput } from './post'
 import { Privacy } from './privacy'
 import { RecommendedTopic } from './recommended-topic'
 import { RecommendedTweet } from './recommended-tweet'
 import { Tag } from './tag'
 import { Term } from './term'
+import { Topic } from './topic'
 import { Trend } from './trend'
 import { User } from './user'
 import { Volunteer } from './volunteer'
@@ -79,6 +80,7 @@ export type StrapiModel =
   | RecommendedTweet
   | Tag
   | Term
+  | Topic
   | Trend
   | UploadFile
   | User
@@ -180,6 +182,15 @@ export type StrapiTranslatableModel =
   | Competition
   | Hashtag
   | Post
+
+export type StrapiLocalizeInput =
+  | ActivityLocalizeInput
+  | AnnouncementLocalizeInput
+  | ArtLocalizeInput
+  | BlogLocalizeInput
+  | CompetitionLocalizeInput
+  | HashtagLocalizeInput
+  | PostLocalizeInput
 
 export type StrapiFormValue =
   | string

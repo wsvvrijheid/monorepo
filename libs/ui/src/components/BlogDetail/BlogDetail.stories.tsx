@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { Story, Meta } from '@storybook/react'
 import { SITE_URL } from '@wsvvrijheid/config'
 import { BLOG_MOCKS } from '@wsvvrijheid/mocks'
+import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { serialize } from 'next-mdx-remote/serialize'
 import { useRouter } from 'next/router'
 
@@ -31,17 +32,17 @@ export default {
 const Template: Story<BlogDetailProps> = args => {
   const { locale } = useRouter()
   const [isLiked, setIsLiked] = useState(false)
-  const [source, setSource] = useState(null)
+  const [source, setSource] = useState<MDXRemoteSerializeResult>()
   const [blogData, setBlogData] = useState(args.post)
 
-  const getSource = async content => {
+  const getSource = async (content: string) => {
     const s = await serialize(content || '')
     setSource(s)
   }
 
   useEffect(() => {
     getSource(args.post.content)
-  }, [])
+  }, [args.post.content])
 
   const toggleLike = () => {
     setTimeout(() => {
@@ -61,7 +62,7 @@ const Template: Story<BlogDetailProps> = args => {
       post={blogData}
       toggleLike={toggleLike}
       isLiked={isLiked}
-      source={source}
+      source={source!}
       link={link}
     />
   )

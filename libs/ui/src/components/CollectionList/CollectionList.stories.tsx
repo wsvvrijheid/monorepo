@@ -1,7 +1,7 @@
 import { Box, Grid } from '@chakra-ui/react'
 import { Story, Meta } from '@storybook/react'
 import { COLLECTION_MOCKS } from '@wsvvrijheid/mocks'
-import { useCollections } from '@wsvvrijheid/utils'
+import { useCollections } from '@wsvvrijheid/services'
 
 import { CollectionList, CollectionListProps } from './CollectionList'
 

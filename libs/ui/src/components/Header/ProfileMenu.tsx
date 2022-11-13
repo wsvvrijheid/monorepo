@@ -15,7 +15,7 @@ import {
   destroyAuth,
   useAppDispatch,
   useAuthSelector,
-} from '@wsvvrijheid/utils'
+} from '@wsvvrijheid/store'
 import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
 import { FiLogIn, FiLogOut } from 'react-icons/fi'

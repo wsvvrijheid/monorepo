@@ -1,9 +1,9 @@
 import { FC } from 'react'
 
 import { dehydrate, QueryClient } from '@tanstack/react-query'
+import { getArts } from '@wsvvrijheid/services'
 import { StrapiLocale } from '@wsvvrijheid/types'
 import { ArtClubTemplate } from '@wsvvrijheid/ui'
-import { getArts } from '@wsvvrijheid/utils'
 import { GetStaticProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 

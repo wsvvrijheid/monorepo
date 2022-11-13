@@ -1,9 +1,10 @@
 import { FC } from 'react'
 
 import { Box, Button, Center, Heading, Stack, Text } from '@chakra-ui/react'
+import { getHashtags } from '@wsvvrijheid/services'
 import { StrapiLocale } from '@wsvvrijheid/types'
 import { Container, Navigate, PostMakerIcon } from '@wsvvrijheid/ui'
-import { getItemLink, getHashtags } from '@wsvvrijheid/utils'
+import { getItemLink } from '@wsvvrijheid/utils'
 import { GetStaticProps } from 'next'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
@@ -21,7 +22,7 @@ const Home: FC<HomeProps> = ({ seo, link }) => {
   const { t } = useTranslation()
 
   return (
-    <Layout seo={seo}>
+    <Layout seo={seo} isDark hasScroll>
       <Box pos="relative" bg="white" mt="-100px">
         <Center
           p={8}

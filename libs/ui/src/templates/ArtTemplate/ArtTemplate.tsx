@@ -7,7 +7,7 @@ import {
   useArtBySlug,
   useArtsByCategories,
   useViewArtMutation,
-} from '@wsvvrijheid/utils'
+} from '@wsvvrijheid/services'
 import { useTranslation } from 'next-i18next'
 
 import { Container, ArtCardBase, ArtWithDetails } from '../../components'

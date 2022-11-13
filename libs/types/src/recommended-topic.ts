@@ -2,18 +2,13 @@ import { SetRequired } from 'type-fest'
 
 import { Expand } from './common'
 import { StrapiBase } from './strapi'
+import { TopicBase } from './topic'
 import { User } from './user'
 
 export type RecommendedTopicBase = {
-  title: string
-  description: string
-  imageUrl: string
-  link: string
-  publisher: string
-  date: string
   skipped: boolean
   posted: boolean
-}
+} & Omit<TopicBase, 'isRecommended'>
 
 type RecommendedTopicRelation = {
   recommender?: User

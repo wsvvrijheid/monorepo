@@ -1,4 +1,9 @@
+import { useState } from 'react'
+
 import {
+  Alert,
+  AlertDescription,
+  AlertIcon,
   Button,
   Checkbox,
   Container,
@@ -10,12 +15,12 @@ import {
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation } from '@tanstack/react-query'
-import { setAuth, useAppDispatch } from '@wsvvrijheid/utils'
+import { setAuth, useAppDispatch } from '@wsvvrijheid/store'
 import axios from 'axios'
 import { useTranslation } from 'next-i18next'
+import { TFunction } from 'next-i18next'
 import { useRouter } from 'next/router'
 import { useForm, SubmitHandler } from 'react-hook-form'
-import { TFunction } from 'react-i18next'
 import * as yup from 'yup'
 
 import { FormItem } from '../FormItem'
@@ -25,17 +30,7 @@ import { LoginFormFieldValues } from './types'
 
 const schema = (t: TFunction) =>
   yup.object({
-    password: yup
-      .string()
-      .min(8, t('login.password.warning'))
-      .required(t('login.password.required'))
-      .matches(RegExp('(.*[a-z].*)'), t('login.password.matches.lowercase'))
-      .matches(RegExp('(.*[A-Z].*)'), t('login.password.matches.uppercase'))
-      .matches(RegExp('(.*\\d.*)'), t('login.password.matches.number'))
-      .matches(
-        RegExp('[!@#$%^&*(),.?":{}|<>]'),
-        t('login.password.matches.special'),
-      ),
+    password: yup.string().required(t('login.password.required')),
     email: yup
       .string()
       .email(t`contact.form.email-invalid`)
@@ -44,6 +39,8 @@ const schema = (t: TFunction) =>
 
 export const LoginForm = () => {
   const { t } = useTranslation()
+  const [errorMessage, setErrorMessage] = useState('')
+
   const {
     register,
     handleSubmit,
@@ -66,12 +63,20 @@ export const LoginForm = () => {
         password: body.password,
       }),
     onSuccess: data => {
+      if (data.data?.error) {
+        return setErrorMessage(data.data.error.message)
+      }
       dispatch(setAuth(data.data))
       reset()
       router.push('/')
     },
-    onError: e => {
-      console.log('e', e)
+    onError: (error: any) => {
+      if (error?.response?.data?.error?.message) {
+        setErrorMessage(error?.response?.data?.error?.message)
+      } else {
+        console.error('An unexpected error happened:', error)
+        setErrorMessage('An unexpected error happened')
+      }
     },
   })
 
@@ -93,6 +98,12 @@ export const LoginForm = () => {
         rounded="lg"
       >
         <Stack spacing="6">
+          {errorMessage && (
+            <Alert status="error">
+              <AlertIcon />
+              <AlertDescription>{errorMessage}</AlertDescription>
+            </Alert>
+          )}
           <Stack spacing={{ base: '2', md: '3' }} textAlign="center">
             <Heading>{t('login.sign-in-header.title')}</Heading>
             <HStack spacing="1" justify="center">

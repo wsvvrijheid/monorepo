@@ -1,7 +1,7 @@
 import { SimpleGrid } from '@chakra-ui/react'
+import { getAllCollections } from '@wsvvrijheid/services'
 import { Collection, StrapiLocale } from '@wsvvrijheid/types'
 import { Card, Container, Hero } from '@wsvvrijheid/ui'
-import { getAllCollections } from '@wsvvrijheid/utils'
 import { GetStaticProps, NextPage } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'

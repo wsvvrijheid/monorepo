@@ -1,6 +1,9 @@
-import * as React from 'react'
+import { useState } from 'react'
 
 import {
+  Alert,
+  AlertDescription,
+  AlertIcon,
   Button,
   Checkbox,
   Container,
@@ -9,20 +12,20 @@ import {
   HStack,
   Stack,
   Text,
-  Alert,
-  AlertIcon,
-  AlertDescription,
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { useTranslation } from 'next-i18next'
-import { useForm, SubmitHandler } from 'react-hook-form'
-import { TFunction } from 'react-i18next'
+import { useMutation } from '@tanstack/react-query'
+import { setAuth, useAppDispatch } from '@wsvvrijheid/store'
+import axios from 'axios'
+import { TFunction, useTranslation } from 'next-i18next'
+import { useRouter } from 'next/router'
+import { SubmitHandler, useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
 import { FormItem } from '../FormItem'
 import { Navigate } from '../Navigate'
 import { OAuthButtonGroup } from '../OAuthButtonGroup'
-import { SignupFormProps, SignupFormFieldValues } from './types'
+import { SignupFormFieldValues } from './types'
 
 const schema = (t: TFunction) =>
   yup.object({
@@ -30,43 +33,64 @@ const schema = (t: TFunction) =>
     username: yup.string().required(t`login.username.required`),
     password: yup
       .string()
-      .min(8, t('login.password.warning'))
+      .min(8, t('login.password.warning', { count: 8 }))
       .required(t('login.password.required'))
       .matches(RegExp('(.*[a-z].*)'), t('login.password.matches.lowercase'))
       .matches(RegExp('(.*[A-Z].*)'), t('login.password.matches.uppercase'))
-      .matches(RegExp('(.*\\d.*)'), t('login.password.matches.number'))
-      .matches(
-        RegExp('[!@#$%^&*(),.?":{}|<>]'),
-        t('login.password.matches.special'),
-      ),
+      .matches(RegExp('(.*\\d.*)'), t('login.password.matches.number')),
     email: yup
       .string()
       .email(t`contact.form.email-invalid`)
       .required(t`login.email.required`),
   })
 
-export const SignupForm: React.FC<SignupFormProps> = ({
-  onSignup,
-  onAcceptTerms,
-  errorMessage,
-  isTermsAccepted,
-}) => {
+export const SignupForm = () => {
   const { t } = useTranslation()
+  const [isTermsAccepted, setIsTermsAccepted] = useState<boolean>(true)
+  const [errorMessage, setErrorMessage] = useState('')
 
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<SignupFormFieldValues>({
     resolver: yupResolver(schema(t)),
     mode: 'all',
   })
 
+  const dispatch = useAppDispatch()
+
+  const router = useRouter()
+
+  const signupMutation = useMutation({
+    mutationKey: ['login'],
+    mutationFn: (body: SignupFormFieldValues) =>
+      axios.post('/api/auth/register', body),
+    onSuccess: data => {
+      if (data.data?.error) {
+        return setErrorMessage(data.data.error.message)
+      }
+      dispatch(setAuth(data.data))
+      reset()
+      router.push('/')
+    },
+    onError: (error: any) => {
+      if (error?.response?.data?.error?.message) {
+        setErrorMessage(error?.response?.data?.error?.message)
+      } else {
+        console.error('An unexpected error happened:', error)
+        setErrorMessage('An unexpected error happened')
+      }
+    },
+  })
+
   const handleSubmitSignUp: SubmitHandler<
     SignupFormFieldValues
   > = async data => {
-    await onSignup(data)
+    signupMutation.mutate(data)
   }
+
   return (
     <Container
       maxW="lg"
@@ -138,7 +162,10 @@ export const SignupForm: React.FC<SignupFormProps> = ({
 
             <HStack>
               {/* TODO Set session exp time */}
-              <Checkbox defaultChecked onChange={onAcceptTerms} />
+              <Checkbox
+                defaultChecked
+                onChange={e => setIsTermsAccepted(e.target.checked)}
+              />
               <Navigate
                 as={Button}
                 href="/terms"

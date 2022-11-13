@@ -4,8 +4,6 @@ import { ART_MOCKS, USER_MOCKS } from '@wsvvrijheid/mocks'
 
 import { ArtApprovalModal } from './ArtApprovalModal'
 
-import '@splidejs/splide/dist/css/themes/splide-default.min.css'
-
 const artMock = ART_MOCKS.tr.data[0]
 
 export default {
@@ -23,7 +21,7 @@ export default {
     editorName: USER_MOCKS[0].username,
   },
   decorators: [
-    Story => (
+    (Story: any) => (
       <Container maxW="container.sm">
         <Story />
       </Container>
@@ -62,7 +60,7 @@ const Template: ComponentStory<typeof ArtApprovalModal> = args => {
   const handleSizeClick = () => {
     onOpen()
   }
-  const onSave = (data: string) => {
+  const onSave = (data: number) => {
     alert(`${data} saved`)
   }
 
@@ -94,9 +92,7 @@ const Template: ComponentStory<typeof ArtApprovalModal> = args => {
 }
 
 export const Default = Template.bind({})
-Default.args = {
-  hasZoom: true,
-}
+Default.args = {}
 export const LongDescription = Template.bind({})
 LongDescription.args = {
   artDescription: `Lorem ipsum odor amet, consectetuer adipiscing elit. Primis eros nunc fringilla id rutrum nibh.
