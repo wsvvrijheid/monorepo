@@ -6,7 +6,7 @@ export type CreateMainHashtagFormFieldValues = {
   description: string
   content: string
   hashtag: string
-  extrahashtag?: string
+  hashtagExtra?: string
   date: string
   mentions?: {
     label: string
@@ -22,5 +22,5 @@ export type CreateMainHashtagModalProps = {
 export type CreateMainHashtagSuccessAlertProps = {
   isOpen: boolean
   onClose: () => void
-  handleClickRow: (hashtag: Hashtag) => void
+  handleClickRow: (hashtag?: Hashtag) => void
 }
