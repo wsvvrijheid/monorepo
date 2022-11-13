@@ -1,6 +1,6 @@
 import { FC } from 'react'
 
-import { ButtonGroup, Stack, Text, useBreakpointValue } from '@chakra-ui/react'
+import { ButtonGroup, Popover, PopoverArrow, PopoverBody, PopoverContent, PopoverTrigger, Stack, Text, useBreakpointValue } from '@chakra-ui/react'
 import { formatDistanceStrict } from 'date-fns'
 import { AiOutlineEye, AiOutlineLike, AiOutlineShareAlt } from 'react-icons/ai'
 import { BsBookmarkHeart } from 'react-icons/bs'
@@ -8,6 +8,7 @@ import { BsBookmarkHeart } from 'react-icons/bs'
 import { WImage } from '../../components'
 import { ActionButton } from './ActionButton'
 import { TopicCardBaseProps } from './types'
+import {ShareButtons} from '@wsvvrijheid/ui'
 
 export const TopicCardBase: FC<TopicCardBaseProps> = ({
   topic,
@@ -81,13 +82,29 @@ export const TopicCardBase: FC<TopicCardBaseProps> = ({
               isVertical={isVertical}
               variant="ghost"
             />
-            <ActionButton
-              onClick={() => onShare()}
-              icon={<AiOutlineShareAlt />}
-              title="Share"
-              isVertical={isVertical}
-              variant="ghost"
-            />
+
+            <Popover placement="bottom">
+              <PopoverTrigger>
+                <ActionButton
+                  onClick={() => onShare()}
+                  icon={<AiOutlineShareAlt />}
+                  title="Share"
+                  isVertical={isVertical}
+                  variant="ghost"
+                />
+              </PopoverTrigger>
+              <PopoverContent w="max-content">
+                <PopoverArrow />
+                <PopoverBody>
+                <ShareButtons
+                  title={topic.title}
+                  url={topic.url}
+                  quote={topic.description || ''}
+                />
+                </PopoverBody>
+              </PopoverContent>
+            </Popover>
+
             <ActionButton
               onClick={() => onBookmark()}
               icon={<BsBookmarkHeart color={isBookmarked ? 'white' : ''} />}
