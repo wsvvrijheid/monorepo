@@ -1,23 +1,16 @@
-import {
-  Box,
-  Button,
-  Heading,
-  Stack,
-  Text,
-  Link,
-  VStack,
-} from '@chakra-ui/react'
+import { Box, Button, Heading, Link, Stack, VStack } from '@chakra-ui/react'
 import { useMutation } from '@tanstack/react-query'
+import { socialLinks } from '@wsvvrijheid/config'
+import { EmailData, sendEmail } from '@wsvvrijheid/services'
 import {
   ContactForm,
   ContactFormFieldValues,
   Container,
   SocialButtons,
 } from '@wsvvrijheid/ui'
-import { EmailData, sendEmail } from '@wsvvrijheid/utils'
+import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
-import { useTranslation } from 'react-i18next'
 import { FaWhatsapp } from 'react-icons/fa'
 import { MdEmail, MdLocationOn, MdPhone } from 'react-icons/md'
 
@@ -30,7 +23,7 @@ interface ContactProps {
 
 // eslint-disable-next-line no-empty-pattern
 const Contact = ({ seo }: ContactProps): JSX.Element => {
-  const { t } = useTranslation()
+  const { t } = useTranslation(['common'])
 
   const {
     isError,
@@ -55,7 +48,7 @@ const Contact = ({ seo }: ContactProps): JSX.Element => {
     <Layout seo={seo}>
       <Box
         minH="inherit"
-        background="url('https://www.samenvvv.nl/images/bg-wave.svg') no-repeat bottom"
+        // background="url('https://api.samenvvv.nl/uploads/...') no-repeat bottom"
       >
         <Container minH="inherit" maxW="container.xl">
           <Stack
@@ -69,17 +62,12 @@ const Contact = ({ seo }: ContactProps): JSX.Element => {
               bg="gray.700"
               borderRadius="lg"
               p={{ base: 8, lg: 16 }}
-              w={{ base: 'full', lg: '500px' }}
+              w={'full'}
               textAlign="center"
               justify="center"
               spacing={{ base: 8, lg: 16 }}
             >
-              <Box>
-                <Heading>{t('contact.title')}</Heading>
-                <Text mt={{ sm: 3, md: 3, lg: 5 }} color="primary.50">
-                  {t('contact.fill-form')}
-                </Text>
-              </Box>
+              <Heading>{t('samenvvv')}</Heading>
               <VStack alignItems="flex-start" color="primary.50">
                 <Button
                   as={Link}
@@ -139,15 +127,17 @@ const Contact = ({ seo }: ContactProps): JSX.Element => {
                 </Button>
               </VStack>
 
-              <SocialButtons items={[]} />
+              <SocialButtons items={socialLinks.samenvvv} />
             </VStack>
 
-            <ContactForm
-              onSubmitHandler={handleSubmit}
-              isLoading={isLoading}
-              isSuccess={isSuccess}
-              isError={isError}
-            />
+            <Box w="full">
+              <ContactForm
+                onSubmitHandler={handleSubmit}
+                isLoading={isLoading}
+                isSuccess={isSuccess}
+                isError={isError}
+              />
+            </Box>
           </Stack>
         </Container>
       </Box>
