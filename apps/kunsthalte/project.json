@@ -10,7 +10,14 @@
       "defaultConfiguration": "production",
       "options": {
         "root": "apps/kunsthalte",
-        "outputPath": "dist/apps/kunsthalte"
+        "outputPath": "dist/apps/kunsthalte",
+        "assets": [
+          {
+            "input": "public/locales",
+            "glob": "**/*.json",
+            "output": "locales"
+          }
+        ]
       },
       "configurations": {
         "development": {
@@ -24,7 +31,14 @@
       "defaultConfiguration": "development",
       "options": {
         "buildTarget": "kunsthalte:build",
-        "dev": true
+        "dev": true,
+        "assets": [
+          {
+            "input": "public/locales",
+            "glob": "**/*.json",
+            "output": "locales"
+          }
+        ]
       },
       "configurations": {
         "development": {
