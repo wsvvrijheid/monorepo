@@ -5,8 +5,8 @@ export const samenvvv = [
     label: 'Twitter',
     icon: FaTwitter,
     link: {
-      en: 'https://twitter.com/samenvvv',
-      tr: 'https://twitter.com/samenvvv',
+      en: 'https://twitter.com/samenvvvEN',
+      tr: 'https://twitter.com/samenvvvTR',
       nl: 'https://twitter.com/samenvvv',
     },
   },
