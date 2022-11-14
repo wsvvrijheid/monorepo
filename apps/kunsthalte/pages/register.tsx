@@ -12,7 +12,7 @@ const RegisterPage: FC<{ seo: NextSeoProps }> = ({ seo }) => {
   return (
     <Layout seo={seo}>
       <Box minH="inherit">
-        <SignupForm />
+        <SignupForm providersToBeShown={['google']} />
       </Box>
     </Layout>
   )

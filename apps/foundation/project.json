@@ -4,13 +4,30 @@
   "sourceRoot": "apps/foundation",
   "projectType": "application",
   "targets": {
+    "tsc": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          {
+            "command": "tsc --noEmit -p apps/foundation/tsconfig.json"
+          }
+        ]
+      }
+    },
     "build": {
       "executor": "@nrwl/next:build",
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
         "root": "apps/foundation",
-        "outputPath": "dist/apps/foundation"
+        "outputPath": "dist/apps/foundation",
+        "assets": [
+          {
+            "input": "public/locales",
+            "glob": "**/*.json",
+            "output": "locales"
+          }
+        ]
       },
       "configurations": {
         "development": {
@@ -24,7 +41,14 @@
       "defaultConfiguration": "development",
       "options": {
         "buildTarget": "foundation:build",
-        "dev": true
+        "dev": true,
+        "assets": [
+          {
+            "input": "public/locales",
+            "glob": "**/*.json",
+            "output": "locales"
+          }
+        ]
       },
       "configurations": {
         "development": {
