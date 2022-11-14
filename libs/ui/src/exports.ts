@@ -15,5 +15,4 @@ store.dispatch(addTrendName('#Hello'))
 store.dispatch(setMentions(MENTION_MOCKS.data))
 
 export { store }
-export { mockWorker } from '@wsvvrijheid/mocks'
 export { themes } from '@wsvvrijheid/config'
