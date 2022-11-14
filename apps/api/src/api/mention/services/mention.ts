@@ -1,3 +1,4 @@
-import { factories } from '@strapi/strapi';
+import { factories } from '@strapi/strapi'
 
-export default factories.createCoreService('api::mention.mention');
+// TODO: Add search service when https://github.com/strapi/strapi/pull/14208 is merged
+export default factories.createCoreService('api::mention.mention')
