@@ -33,14 +33,15 @@ export const CreateHashtagPostSuccessAlert = forwardRef<
             fontSize="lg"
             fontWeight="semibold"
           >
-            MainHashtag successfully submitted
+            Hashtag Post successfully submitted
           </AlertDialogHeader>
 
           <AlertDialogBody py={4}>
-            <Text>MainHashtag created successfully.</Text>
+            <Text>Hashtag Post created successfully.</Text>
           </AlertDialogBody>
 
           <AlertDialogFooter>
+            <Button onClick={onClose}>Show</Button>
             <Button onClick={onClose}>Dismiss</Button>
           </AlertDialogFooter>
         </AlertDialogContent>

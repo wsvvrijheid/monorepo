@@ -6,7 +6,6 @@ import {
   Center,
   FormControl,
   FormLabel,
-  HStack,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -48,13 +47,12 @@ export const CreateHashtagPostModal: FC<CreateHashtagPostModalProps> = ({
   const [locale, setLocale] = useState<StrapiLocale>('en')
   const hashtags = useHashtags()
   const currentHashtag = hashtags?.data
-  console.log('hashtags', currentHashtag)
 
   const schema = yup.object({
     title: yup.string().required('Title is required'),
     description: yup.string().required('Description is required'),
     content: yup.string().required('Content is required'),
-    hashtag: yup.string().required('Hashtag is required'),
+    hashtag: yup.object().required('Hashtag is required'),
     image: yup.mixed().required('Image is required'),
     reference: yup.string(),
   })
@@ -81,7 +79,7 @@ export const CreateHashtagPostModal: FC<CreateHashtagPostModalProps> = ({
     if (!auth.user) return
 
     const slug = slugify(data.title)
-    const hashtag = parseInt(data.hashtag.value)
+    const hashtag = parseInt(data.hashtag?.value)
     const creater = auth?.user?.id
 
     const formBody = {
@@ -154,11 +152,6 @@ export const CreateHashtagPostModal: FC<CreateHashtagPostModalProps> = ({
         <ModalOverlay />
         <ModalContent>
           <ModalHeader color={'primary.500'}>Create Post</ModalHeader>
-          <HStack justify={'end'}>
-            <Text color={'primary.500'} mr="20px">
-              Added {0} Posts
-            </Text>
-          </HStack>
           <ModalCloseButton />
           <ModalBody pos="relative" py={6}>
             {/* LOADING */}
