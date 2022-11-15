@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { FC, useState } from 'react'
 
 import {
   Alert,
@@ -25,7 +25,10 @@ import * as yup from 'yup'
 
 import { FormItem } from '../FormItem'
 import { Navigate } from '../Navigate'
-import { OAuthButtonGroup } from '../OAuthButtonGroup'
+import {
+  SocialLoginButtons,
+  SocialLoginButtonsProps,
+} from '../SocialLoginButtons'
 import { LoginFormFieldValues } from './types'
 
 const schema = (t: TFunction) =>
@@ -37,7 +40,9 @@ const schema = (t: TFunction) =>
       .required(t`login.email.required`),
   })
 
-export const LoginForm = () => {
+type LoginFormProps = Pick<SocialLoginButtonsProps, 'providersToBeShown'>
+
+export const LoginForm: FC<LoginFormProps> = ({ providersToBeShown = [] }) => {
   const { t } = useTranslation()
   const [errorMessage, setErrorMessage] = useState('')
 
@@ -160,14 +165,16 @@ export const LoginForm = () => {
                   'An error occured'}
               </Text>
             )}
-            <HStack>
-              <Divider />
-              <Text fontSize="sm" whiteSpace="nowrap" color="muted">
-                {t('login.sign-in-with')}
-              </Text>
-              <Divider />
-            </HStack>
-            <OAuthButtonGroup isDisabled={false} />
+            {providersToBeShown.length > 0 && (
+              <HStack>
+                <Divider />
+                <Text fontSize="sm" whiteSpace="nowrap" color="muted">
+                  {t('login.sign-in-with')}
+                </Text>
+                <Divider />
+              </HStack>
+            )}
+            <SocialLoginButtons providersToBeShown={providersToBeShown} />
           </Stack>
         </Stack>
       </Stack>

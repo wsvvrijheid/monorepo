@@ -19,7 +19,7 @@ interface HashtagEventsProps {
 
 const HashtagEvents = ({ hashtags, seo, source }: HashtagEventsProps) => {
   return (
-    <Layout seo={seo}>
+    <Layout seo={seo} isDark>
       <Hero title={seo.title as string} isFullHeight={false} />
       <Container overflowX="hidden">
         {source && (
