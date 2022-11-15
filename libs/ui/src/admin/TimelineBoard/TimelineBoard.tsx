@@ -6,7 +6,7 @@ import { TweetCardBase } from '@wsvvrijheid/ui'
 
 import { TimelineBoardProps } from './types'
 
-const TimelineBoard: FC<TimelineBoardProps> = ({ timelines }) => {
+export const TimelineBoard: FC<TimelineBoardProps> = ({ timelines }) => {
   const onEdit = () => {
     console.log('edit')
   }
@@ -56,5 +56,3 @@ const TimelineBoard: FC<TimelineBoardProps> = ({ timelines }) => {
     </HStack>
   )
 }
-
-export default TimelineBoard
