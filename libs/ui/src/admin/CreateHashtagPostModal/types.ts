@@ -4,8 +4,8 @@ export type CreateHashtagPostFormFieldValues = {
   title: string
   description: string
   content: string
-  hashtag: string
-  postsource: string
+  hashtag: { value: string; label: string }
+  reference: string
   image: Blob
   creator: number
 }

@@ -41,7 +41,6 @@ import {
 export const CreateHashtagPostModal: FC<CreateHashtagPostModalProps> = ({
   queryKey,
 }) => {
-  const [images, setImages] = useState<Blob[]>([])
   const cancelRef = useRef<HTMLButtonElement>(null)
   const formDisclosure = useDisclosure()
   const successDisclosure = useDisclosure()
@@ -55,13 +54,15 @@ export const CreateHashtagPostModal: FC<CreateHashtagPostModalProps> = ({
     title: yup.string().required('Title is required'),
     description: yup.string().required('Description is required'),
     content: yup.string().required('Content is required'),
-    hashtag: yup.string().required('Content is required'),
-    postsource: yup.string(),
+    hashtag: yup.string().required('Hashtag is required'),
+    image: yup.mixed().required('Image is required'),
+    reference: yup.string(),
   })
 
   const {
     register,
     control,
+    setValue,
     formState: { errors },
     handleSubmit,
     reset: resetForm,
@@ -73,21 +74,22 @@ export const CreateHashtagPostModal: FC<CreateHashtagPostModalProps> = ({
   const { mutate, isLoading } = useCreateHashtagPost(locale, queryKey)
   const toast = useToast()
   const auth = useAuthSelector()
-  console.log('created', auth.user?.id)
+
   const createHashtagPost = async (
     data: CreateHashtagPostFormFieldValues & { image: Blob },
   ) => {
     if (!auth.user) return
-    console.log('data in createHashtag Post', data)
+
     const slug = slugify(data.title)
-    const hashtag = data.hashtag?.map(c => Number(c.value))
+    const hashtag = parseInt(data.hashtag.value)
     const creater = auth?.user?.id
+
     const formBody = {
       ...data,
       slug,
       locale,
-      publishedAt: null,
       hashtag,
+      publishedAt: null,
       creater,
     }
 
@@ -96,7 +98,6 @@ export const CreateHashtagPostModal: FC<CreateHashtagPostModalProps> = ({
         formDisclosure.onClose()
         successDisclosure.onOpen()
         resetForm()
-        resetFileUploader()
       },
       onError: error => {
         toast({
@@ -113,17 +114,16 @@ export const CreateHashtagPostModal: FC<CreateHashtagPostModalProps> = ({
   }
 
   const handleCreatePost = async (data: CreateHashtagPostFormFieldValues) => {
-    createHashtagPost({ ...data, image: images[0] })
-  }
-
-  const resetFileUploader = () => {
-    setImages([])
+    createHashtagPost({ ...data })
   }
 
   const closeForm = () => {
-    resetFileUploader()
     resetForm()
     formDisclosure.onClose()
+  }
+
+  const setImages = (images: Blob[]) => {
+    setValue('image', images[0])
   }
 
   return (
@@ -231,12 +231,19 @@ export const CreateHashtagPostModal: FC<CreateHashtagPostModalProps> = ({
                   }
                 />
                 <FormItem
-                  name="postsource"
-                  label="Post source"
+                  name="reference"
+                  label="Source Link"
                   errors={errors}
                   register={register}
                 />
-                <FilePicker setFiles={setImages} />
+                <Stack>
+                  <FilePicker setFiles={setImages} />
+                  {errors.image && (
+                    <Text fontSize={'sm'} color="red.500">
+                      {errors.image.message}
+                    </Text>
+                  )}
+                </Stack>
 
                 <Spacer />
 
