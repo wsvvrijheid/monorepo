@@ -12,7 +12,7 @@ const LoginPage: FC<{ seo: NextSeoProps }> = ({ seo }) => {
   return (
     <Layout seo={seo}>
       <Box minH="inherit">
-        <LoginForm />
+        <LoginForm providersToBeShown={['google']} />
       </Box>
     </Layout>
   )

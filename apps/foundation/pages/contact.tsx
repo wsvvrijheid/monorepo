@@ -11,6 +11,7 @@ import {
   Wrap,
 } from '@chakra-ui/react'
 import { useMutation } from '@tanstack/react-query'
+import { socialLinks } from '@wsvvrijheid/config'
 import { EmailData, sendEmail } from '@wsvvrijheid/services'
 import {
   ContactForm,
@@ -122,7 +123,7 @@ const Contact = ({ seo }: ContactProps): JSX.Element => {
                 </Button>
               </Wrap>
 
-              <SocialButtons items={[]} />
+              <SocialButtons items={socialLinks.wsvvrijheid} />
 
               <Stack w="full" spacing={4}>
                 <Stack w="full">

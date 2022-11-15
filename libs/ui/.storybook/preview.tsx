@@ -5,27 +5,42 @@ import { Box } from '@chakra-ui/react'
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query'
 import { Provider as ReduxProvider } from 'react-redux'
 
-import { mockWorker, store, themes } from '../src/exports'
+import { store, themes } from '../src/exports'
 import i18n from './i18next'
 
 import '@splidejs/splide/dist/css/themes/splide-default.min.css'
 import '@splidejs/react-splide/css'
-mockWorker.start()
-mockWorker.printHandlers()
 
 export const parameters = {
   i18n,
-  locale: 'en',
-  locales: {
-    en: 'English',
-    nl: 'Nederlands',
-    tr: 'Türkçe',
-  },
   chakra: {
     theme: themes.wsvvrijheid,
   },
   actions: { argTypesRegex: '^on[A-Z].*' },
 }
+
+// Create a global variable called locale in storybook
+// and add a menu in the toolbar to change your locale
+export const globalTypes = {
+  locale: {
+    name: 'Locale',
+    description: 'Internationalization locale',
+    toolbar: {
+      icon: 'globe',
+      items: [
+        { value: 'en', title: 'English' },
+        { value: 'nl', title: 'Nederlands' },
+        { value: 'tr', title: 'Türkçe' },
+      ],
+      showName: true,
+    },
+  },
+}
+
+i18n.on('languageChanged', locale => {
+  const direction = i18n.dir(locale)
+  document.dir = direction
+})
 
 const queryClient = new QueryClient()
 
