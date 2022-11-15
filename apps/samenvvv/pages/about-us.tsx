@@ -1,19 +1,14 @@
 import React from 'react'
 
-import { Box, Heading, Image, SimpleGrid, Stack, Text, VStack } from '@chakra-ui/react' //Stack,
+import { Heading, Image, SimpleGrid, Stack, Text } from '@chakra-ui/react' //Stack,
+import { ABOUT_US } from '@wsvvrijheid/config'
+import { AnimatedBox, Container, Hero } from '@wsvvrijheid/ui'
 import { GetStaticProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
-import { ABOUT_US } from '@wsvvrijheid/config'
-import i18nConfig from '../next-i18next.config'
-
-import {
-  AnimatedBox,
-  Container,
-  Hero,
-} from '@wsvvrijheid/ui'
 
 import { Layout } from '../components'
+import i18nConfig from '../next-i18next.config'
 
 const AboutUsBlock = props => {
   const { image, title, text } = props
@@ -31,15 +26,15 @@ const AboutUsBlock = props => {
   )
 }
 
-interface AboutUsProps {
-  title: string
-  content: {
-    title: string
-    description: string
-    image: string
-  }[]
-  seo: NextSeoProps
-}
+// interface AboutUsProps {
+//   title: string
+//   content: {
+//     title: string
+//     description: string
+//     image: string
+//   }[]
+//   seo: NextSeoProps
+// }
 
 function AboutUs({ title, content, seo }) {
   return (
@@ -49,7 +44,7 @@ function AboutUs({ title, content, seo }) {
         <SimpleGrid py={16} gap={8} columns={{ base: 1, lg: 3 }}>
           {content.map(({ title, description, image }, i) => (
             <AnimatedBox directing="to-down" delay={i * 3} key={i}>
-              <AboutUsBlock title={title} text={description} image={image}/>
+              <AboutUsBlock title={title} text={description} image={image} />
             </AnimatedBox>
           ))}
         </SimpleGrid>
