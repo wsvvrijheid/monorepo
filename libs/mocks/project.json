@@ -4,6 +4,16 @@
   "sourceRoot": "libs/mocks/src",
   "projectType": "library",
   "targets": {
+    "tsc": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          {
+            "command": "tsc --noEmit -p libs/mocks/tsconfig.json"
+          }
+        ]
+      }
+    },
     "build": {
       "executor": "@nrwl/js:tsc",
       "outputs": ["{options.outputPath}"],
