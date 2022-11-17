@@ -4,6 +4,7 @@
 dist
 tmp
 /out-tsc
+tsconfig.tsbuildinfo
 
 # dependencies
 node_modules
@@ -41,3 +42,4 @@ Thumbs.db
 
 # Next.js
 .next
+
