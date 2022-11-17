@@ -62,7 +62,12 @@
         }
       },
       "type": "enumeration",
-      "enum": ["pending", "approved", "rejected", "original"],
+      "enum": [
+        "pending",
+        "approved",
+        "rejected",
+        "original"
+      ],
       "default": "original",
       "required": false
     },
@@ -70,7 +75,9 @@
       "type": "media",
       "multiple": false,
       "required": true,
-      "allowedTypes": ["images"],
+      "allowedTypes": [
+        "images"
+      ],
       "pluginOptions": {
         "i18n": {
           "localized": false

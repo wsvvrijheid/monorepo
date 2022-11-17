@@ -1,6 +1,6 @@
 import { FC } from 'react'
 
-import { Heading, Image, SimpleGrid, Stack, Text } from '@chakra-ui/react' //Stack,
+import { Heading, Image, SimpleGrid, Stack, Text } from '@chakra-ui/react'
 import { ABOUT_US } from '@wsvvrijheid/config'
 import { AnimatedBox, Container, Hero } from '@wsvvrijheid/ui'
 import { GetStaticProps } from 'next'

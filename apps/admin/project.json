@@ -4,6 +4,16 @@
   "sourceRoot": "apps/admin",
   "projectType": "application",
   "targets": {
+    "tsc": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          {
+            "command": "tsc --noEmit -p apps/admin/tsconfig.json"
+          }
+        ]
+      }
+    },
     "build": {
       "executor": "@nrwl/next:build",
       "outputs": ["{options.outputPath}"],
