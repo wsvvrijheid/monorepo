@@ -4,13 +4,30 @@
   "sourceRoot": "apps/samenvvv",
   "projectType": "application",
   "targets": {
+    "tsc": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          {
+            "command": "tsc --noEmit -p apps/samenvvv/tsconfig.json"
+          }
+        ]
+      }
+    },
     "build": {
       "executor": "@nrwl/next:build",
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
         "root": "apps/samenvvv",
-        "outputPath": "dist/apps/samenvvv"
+        "outputPath": "dist/apps/samenvvv",
+        "assets": [
+          {
+            "input": "public/locales",
+            "glob": "**/*.json",
+            "output": "locales"
+          }
+        ]
       },
       "configurations": {
         "development": {
@@ -24,7 +41,14 @@
       "defaultConfiguration": "development",
       "options": {
         "buildTarget": "samenvvv:build",
-        "dev": true
+        "dev": true,
+        "assets": [
+          {
+            "input": "public/locales",
+            "glob": "**/*.json",
+            "output": "locales"
+          }
+        ]
       },
       "configurations": {
         "development": {
