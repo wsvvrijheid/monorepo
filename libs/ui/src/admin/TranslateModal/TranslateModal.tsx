@@ -1,67 +1,26 @@
 import { useMemo, useState } from 'react'
 
 import {
+  Accordion,
+  Box,
+  Button,
   HStack,
+  IconButton,
   Modal,
   ModalBody,
   ModalCloseButton,
   ModalContent,
-  ModalOverlay,
-  ModalHeader,
-  Box,
-  Button,
   ModalFooter,
-  Accordion,
-  IconButton,
+  ModalHeader,
+  ModalOverlay,
 } from '@chakra-ui/react'
 import { StrapiLocale, StrapiTranslatableModel } from '@wsvvrijheid/types'
-import { isEmpty } from 'lodash'
 import { AiOutlineArrowLeft, AiOutlineCheck } from 'react-icons/ai'
 
 import { TranslateAccordionItem } from './TranslateAccordionItem'
 import { TranslateForm } from './TranslateForm'
-import {
-  DefaultTranslatableModel,
-  TranslateModalProps,
-  TranslationKey,
-  LocalizedModel,
-  TranslatableModel,
-} from './types'
-
-const mapModelLocalization = <T extends StrapiTranslatableModel>({
-  localizations,
-  ...model
-}: DefaultTranslatableModel<T>) => {
-  const defaultLocalizedModel = {
-    [model.locale]: {
-      ...model,
-      translationStatus: model.translationStatus || 'pending',
-      image: model.images?.[0] || model.image,
-    },
-  } as LocalizedModel<T>
-
-  const localizedModels = localizations?.reduce((acc, localization) => {
-    return {
-      ...acc,
-      [localization.locale]: {
-        ...localization,
-        status: localization.translationStatus || 'pending',
-        image:
-          (localization as TranslatableModel<T>)?.images?.[0] ||
-          (localization as TranslatableModel<T>)?.image,
-      },
-    }
-  }, {} as LocalizedModel<T>)
-
-  if (!isEmpty(localizedModels)) {
-    return {
-      ...defaultLocalizedModel,
-      ...localizedModels,
-    }
-  }
-
-  return defaultLocalizedModel
-}
+import { TranslateModalProps, TranslationKey } from './types'
+import { mapModelLocalization } from './utils'
 
 export const TranslateModal = <T extends StrapiTranslatableModel>({
   isOpen,
