@@ -112,7 +112,7 @@ export const TopicCardBase: FC<TopicCardBaseProps> = ({
                   <ShareButtons
                     title={topic.title}
                     url={topic.url}
-                    quote={topic.description?.substring(0, 196) + '...' || ''}
+                    quote={topic.description || ''}
                   />
                 </PopoverBody>
               </PopoverContent>
