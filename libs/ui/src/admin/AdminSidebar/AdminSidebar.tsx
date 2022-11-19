@@ -87,6 +87,7 @@ export const AdminSidebar: FC<AdminSidebarProps> = ({
             {...(!expanded && { label: 'Expand' })}
             bg="white"
             placement="right"
+            color="initial"
           >
             <Button
               variant="ghost"

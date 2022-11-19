@@ -15,7 +15,6 @@ export const ART_MOCKS: Localize<StrapiCollectionResponse<Art[]>> = {
         locale: 'tr',
         likes: 1,
         views: 2,
-        translationStatus: 'original',
         approvalStatus: 'pending',
         images: [
           {
@@ -126,7 +125,6 @@ export const ART_MOCKS: Localize<StrapiCollectionResponse<Art[]>> = {
         locale: 'tr',
         likes: 0,
         views: 0,
-        translationStatus: 'original',
         approvalStatus: 'approved',
         images: [
           {
@@ -237,7 +235,6 @@ export const ART_MOCKS: Localize<StrapiCollectionResponse<Art[]>> = {
         locale: 'tr',
         likes: 6,
         views: 16,
-        translationStatus: 'original',
         approvalStatus: 'approved',
         images: [
           {
@@ -409,7 +406,6 @@ export const ART_MOCKS: Localize<StrapiCollectionResponse<Art[]>> = {
         locale: 'tr',
         likes: 9,
         views: 9,
-        translationStatus: 'original',
         approvalStatus: 'pending',
         images: [
           {
@@ -571,7 +567,6 @@ export const ART_MOCKS: Localize<StrapiCollectionResponse<Art[]>> = {
         locale: 'tr',
         likes: 1,
         views: 5,
-        translationStatus: 'original',
         approvalStatus: 'rejected',
         images: [
           {
@@ -713,7 +708,6 @@ export const ART_MOCKS: Localize<StrapiCollectionResponse<Art[]>> = {
         locale: 'tr',
         likes: 4,
         views: 5,
-        translationStatus: 'original',
         approvalStatus: 'approved',
         images: [
           {
@@ -824,7 +818,6 @@ export const ART_MOCKS: Localize<StrapiCollectionResponse<Art[]>> = {
         locale: 'tr',
         likes: 1,
         views: 1,
-        translationStatus: 'original',
         approvalStatus: 'rejected',
         images: [
           {
@@ -936,7 +929,6 @@ export const ART_MOCKS: Localize<StrapiCollectionResponse<Art[]>> = {
         locale: 'tr',
         likes: 4,
         views: 7,
-        translationStatus: 'original',
         approvalStatus: 'approved',
         images: [
           {
@@ -1038,7 +1030,6 @@ export const ART_MOCKS: Localize<StrapiCollectionResponse<Art[]>> = {
         locale: 'tr',
         likes: 2,
         views: 2,
-        translationStatus: 'original',
         approvalStatus: 'approved',
         images: [
           {
@@ -1149,7 +1140,6 @@ export const ART_MOCKS: Localize<StrapiCollectionResponse<Art[]>> = {
         locale: 'tr',
         likes: 2,
         views: 5,
-        translationStatus: 'original',
         approvalStatus: 'approved',
         images: [
           {
@@ -1495,7 +1485,6 @@ export const ART_MOCKS: Localize<StrapiCollectionResponse<Art[]>> = {
         locale: 'nl',
         likes: 7,
         views: 6,
-        translationStatus: 'approved',
         approvalStatus: 'approved',
         images: [
           {
@@ -1575,7 +1564,7 @@ export const ART_MOCKS: Localize<StrapiCollectionResponse<Art[]>> = {
           title: 'Eenzaamheid in de Corona-period',
           slug: 'eenzaamheid-in-de-corona-period',
           description: 'Uitleg',
-          translationStatus: 'pending',
+          approvalStatus: 'pending',
         },
         comments: [
           {
@@ -1625,7 +1614,6 @@ export const ART_MOCKS: Localize<StrapiCollectionResponse<Art[]>> = {
             locale: 'en',
             likes: 7,
             views: 6,
-            translationStatus: 'approved',
             approvalStatus: 'approved',
           },
         ],
@@ -1643,7 +1631,6 @@ export const ART_MOCKS: Localize<StrapiCollectionResponse<Art[]>> = {
         locale: 'nl',
         likes: 1,
         views: 1,
-        translationStatus: 'approved',
         approvalStatus: 'approved',
         images: [
           {
@@ -1723,7 +1710,7 @@ export const ART_MOCKS: Localize<StrapiCollectionResponse<Art[]>> = {
           title: 'Eenzaamheid in de Corona-period',
           slug: 'eenzaamheid-in-de-corona-period',
           description: 'Uitleg',
-          translationStatus: 'pending',
+          approvalStatus: 'pending',
         },
         comments: [],
         likers: [],
@@ -1753,7 +1740,6 @@ export const ART_MOCKS: Localize<StrapiCollectionResponse<Art[]>> = {
         locale: 'nl',
         likes: 1,
         views: 1,
-        translationStatus: 'approved',
         approvalStatus: 'approved',
         images: [
           {
@@ -1928,7 +1914,6 @@ export const ART_MOCKS: Localize<StrapiCollectionResponse<Art[]>> = {
         locale: 'nl',
         likes: 0,
         views: 0,
-        translationStatus: 'rejected',
         approvalStatus: 'rejected',
         images: [
           {
@@ -2039,7 +2024,6 @@ export const ART_MOCKS: Localize<StrapiCollectionResponse<Art[]>> = {
         locale: 'nl',
         likes: 0,
         views: 0,
-        translationStatus: 'approved',
         approvalStatus: 'rejected',
         images: [
           {
@@ -2288,7 +2272,6 @@ export const ART_MOCKS: Localize<StrapiCollectionResponse<Art[]>> = {
         locale: 'nl',
         likes: 6,
         views: 4,
-        translationStatus: 'approved',
         approvalStatus: 'approved',
         images: [
           {
@@ -2470,7 +2453,6 @@ export const ART_MOCKS: Localize<StrapiCollectionResponse<Art[]>> = {
             locale: 'en',
             likes: 6,
             views: 4,
-            translationStatus: 'pending',
             approvalStatus: 'approved',
           },
         ],
@@ -2489,7 +2471,6 @@ export const ART_MOCKS: Localize<StrapiCollectionResponse<Art[]>> = {
         locale: 'nl',
         likes: 1,
         views: 1,
-        translationStatus: 'pending',
         approvalStatus: 'approved',
         images: [
           {
@@ -2580,7 +2561,7 @@ export const ART_MOCKS: Localize<StrapiCollectionResponse<Art[]>> = {
           title: 'Eenzaamheid in de Corona-period',
           slug: 'eenzaamheid-in-de-corona-period',
           description: 'Uitleg',
-          translationStatus: 'pending',
+          approvalStatus: 'pending',
         },
         comments: [],
         likers: [],
@@ -2615,7 +2596,6 @@ export const ART_MOCKS: Localize<StrapiCollectionResponse<Art[]>> = {
         locale: 'en',
         likes: 6,
         views: 4,
-        translationStatus: 'pending',
         approvalStatus: 'approved',
         images: [
           {
@@ -2828,7 +2808,6 @@ export const ART_MOCKS: Localize<StrapiCollectionResponse<Art[]>> = {
             locale: 'nl',
             likes: 6,
             views: 4,
-            translationStatus: 'approved',
             approvalStatus: 'approved',
           },
         ],
@@ -2845,7 +2824,6 @@ export const ART_MOCKS: Localize<StrapiCollectionResponse<Art[]>> = {
         locale: 'en',
         likes: 11,
         views: 9,
-        translationStatus: 'approved',
         approvalStatus: 'approved',
         images: [
           {
@@ -2997,7 +2975,6 @@ export const ART_MOCKS: Localize<StrapiCollectionResponse<Art[]>> = {
         locale: 'en',
         likes: 1,
         views: 1,
-        translationStatus: 'approved',
         approvalStatus: 'approved',
         images: [
           {
@@ -3108,7 +3085,6 @@ export const ART_MOCKS: Localize<StrapiCollectionResponse<Art[]>> = {
         locale: 'en',
         likes: 5,
         views: 0,
-        translationStatus: 'approved',
         approvalStatus: 'approved',
         images: [
           {
@@ -3188,7 +3164,7 @@ export const ART_MOCKS: Localize<StrapiCollectionResponse<Art[]>> = {
           title: 'Loneliness in the Corona Period',
           slug: 'loneliness-in-the-corona-period',
           description: 'Description',
-          translationStatus: 'pending',
+          approvalStatus: 'pending',
         },
         comments: [
           {
@@ -3279,7 +3255,6 @@ export const ART_MOCKS: Localize<StrapiCollectionResponse<Art[]>> = {
         locale: 'en',
         likes: 7,
         views: 6,
-        translationStatus: 'approved',
         approvalStatus: 'approved',
         images: [
           {
@@ -3369,7 +3344,7 @@ export const ART_MOCKS: Localize<StrapiCollectionResponse<Art[]>> = {
           title: 'Loneliness in the Corona Period',
           slug: 'loneliness-in-the-corona-period',
           description: 'Description',
-          translationStatus: 'pending',
+          approvalStatus: 'pending',
         },
         comments: [
           {
@@ -3451,7 +3426,6 @@ export const ART_MOCKS: Localize<StrapiCollectionResponse<Art[]>> = {
             locale: 'nl',
             likes: 7,
             views: 6,
-            translationStatus: 'approved',
             approvalStatus: 'approved',
           },
         ],
@@ -3468,7 +3442,6 @@ export const ART_MOCKS: Localize<StrapiCollectionResponse<Art[]>> = {
         locale: 'en',
         likes: 6,
         views: 3,
-        translationStatus: 'approved',
         approvalStatus: 'approved',
         images: [
           {
