@@ -55,7 +55,7 @@
       "required": true,
       "default": "Content"
     },
-    "translationStatus": {
+    "approvalStatus": {
       "pluginOptions": {
         "i18n": {
           "localized": true
@@ -65,10 +65,9 @@
       "enum": [
         "pending",
         "approved",
-        "rejected",
-        "original"
+        "rejected"
       ],
-      "default": "original",
+      "default": "pending",
       "required": false
     },
     "image": {

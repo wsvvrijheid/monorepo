@@ -24,15 +24,15 @@ import {
 } from 'react-hook-form'
 import { HiEye, HiEyeOff } from 'react-icons/hi'
 
-export type FormItemProps<FormValues extends FieldValues> = InputProps & {
-  name: Path<FormValues>
+export type FormItemProps<T extends FieldValues> = InputProps & {
+  name: Path<T>
   label?: string
   placeholder?: string
   helperText?: string
   leftElement?: ReactNode
   hideLabel?: boolean
-  errors: FieldErrorsImpl<FormValues>
-  register: UseFormRegister<FormValues>
+  errors: Partial<FieldErrorsImpl<T>>
+  register: UseFormRegister<T>
 }
 
 export type FormItemComponent = <FormValues extends FieldValues>(

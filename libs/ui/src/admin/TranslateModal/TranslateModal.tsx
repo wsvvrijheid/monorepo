@@ -45,7 +45,7 @@ export const TranslateModal = <T extends StrapiTranslatableModel>({
         const missingTranslations = locales.filter(locale => {
           return (
             locale !== model.locale &&
-            localizedModels[locale]?.translationStatus !== 'approved'
+            localizedModels[locale]?.approvalStatus !== 'approved'
           )
         }) as StrapiLocale[]
 

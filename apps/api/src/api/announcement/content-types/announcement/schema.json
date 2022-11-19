@@ -54,22 +54,28 @@
       "type": "richtext",
       "required": true
     },
-    "translationStatus": {
+    "approvalStatus": {
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
       },
       "type": "enumeration",
-      "enum": ["pending", "approved", "rejected", "original"],
+      "enum": [
+        "pending",
+        "approved",
+        "rejected"
+      ],
       "required": false,
-      "default": "original"
+      "default": "pending"
     },
     "image": {
       "type": "media",
       "multiple": false,
       "required": true,
-      "allowedTypes": ["images"],
+      "allowedTypes": [
+        "images"
+      ],
       "pluginOptions": {
         "i18n": {
           "localized": false

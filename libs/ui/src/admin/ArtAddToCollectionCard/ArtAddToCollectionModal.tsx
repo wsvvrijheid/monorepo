@@ -15,6 +15,7 @@ import {
 } from '@chakra-ui/react'
 import { useArts } from '@wsvvrijheid/services'
 import { StrapiLocale } from '@wsvvrijheid/types'
+import { useRouter } from 'next/router'
 
 import { Pagination } from '../../components'
 import { PageHeader } from '../PageHeader'
@@ -27,12 +28,12 @@ export const ArtAddToCollectionModal: FC<ArtAddToCollectionModalProps> = ({
   collection,
 }) => {
   const [search, setSearch] = useState<string | null>('')
-  const [locale, setLocale] = useState<StrapiLocale>('tr')
   const [page, setPage] = useState(1)
+  const { locale } = useRouter()
 
   const { data, isLoading, refetch } = useArts([], {
     searchTerm: search || undefined,
-    locale,
+    locale: locale as StrapiLocale,
   })
 
   useEffect(() => {
@@ -48,8 +49,6 @@ export const ArtAddToCollectionModal: FC<ArtAddToCollectionModalProps> = ({
             <HStack pos="sticky" top={0} zIndex="modal">
               <Box flex={1}>
                 <PageHeader
-                  defaultLocale="tr"
-                  onLanguageSwitch={setLocale}
                   onSearch={setSearch}
                   searchPlaceHolder={'Search by art title or artist name'}
                 >

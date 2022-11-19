@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { useCollectionsByFilterAndSort } from '@wsvvrijheid/services'
 import { StrapiLocale, Sort } from '@wsvvrijheid/types'
 import { AdminLayout, CollectionsTable } from '@wsvvrijheid/ui'
+import { useRouter } from 'next/router'
 import { useUpdateEffect } from 'react-use'
 
 const CollectionsPage = () => {
@@ -10,7 +11,7 @@ const CollectionsPage = () => {
   const defaultLocale: StrapiLocale = 'tr'
 
   const [searchTerm, setSearchTerm] = useState<string>()
-  const [locale, setLocale] = useState<StrapiLocale>(undefined)
+  const { locale } = useRouter()
 
   const [sort, setSort] = useState<Sort>()
   const queryKey = ['collections', searchTerm, sort, currentPage || 1]
@@ -42,7 +43,6 @@ const CollectionsPage = () => {
       title="Collections"
       headerProps={{
         onSearch: handleSearch,
-        onLanguageSwitch: locale => setLocale(locale),
         defaultLocale,
       }}
     >

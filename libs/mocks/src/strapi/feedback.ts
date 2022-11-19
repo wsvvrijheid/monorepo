@@ -22,7 +22,6 @@ export const FEEDBACK_MOCK: StrapiCollectionResponse<Feedback[]> = {
         locale: 'en',
         likes: 7,
         views: 6,
-        translationStatus: 'approved',
         approvalStatus: 'approved',
       },
       application: null,
