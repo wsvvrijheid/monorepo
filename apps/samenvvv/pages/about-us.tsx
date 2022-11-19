@@ -1,17 +1,20 @@
 import { FC } from 'react'
 
-
 import { Heading, Image, SimpleGrid, Stack, Text } from '@chakra-ui/react'
-
 import { ABOUT_US } from '@wsvvrijheid/config'
 import { AnimatedBox, Container, Hero } from '@wsvvrijheid/ui'
-import { GetStaticProps } from 'next'
+import { InferGetStaticPropsType } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
 
 import { Layout } from '../components'
 import i18nConfig from '../next-i18next.config'
 
+type AboutUsBlockProps = {
+  title: string
+  image: string
+  text: string
+}
 
 const AboutUsBlock: FC<AboutUsBlockProps> = props => {
   const { image, title, text } = props
@@ -29,9 +32,9 @@ const AboutUsBlock: FC<AboutUsBlockProps> = props => {
   )
 }
 
+type AboutUsProps = InferGetStaticPropsType<typeof getStaticProps>
 
 const AboutUs: FC<AboutUsProps> = ({ title, content, seo }) => {
-
   return (
     <Layout seo={seo} isDark>
       <Hero title={title} />
@@ -49,10 +52,11 @@ const AboutUs: FC<AboutUsProps> = ({ title, content, seo }) => {
 }
 
 export default AboutUs
-export const getStaticProps: GetStaticProps = async context => {
+
+export const getStaticProps = async context => {
   const { locale } = context
 
-  const pageData = ABOUT_US[locale]
+  const pageData = ABOUT_US[locale] as typeof ABOUT_US.en
 
   const seo: NextSeoProps = {
     title: pageData.title,
