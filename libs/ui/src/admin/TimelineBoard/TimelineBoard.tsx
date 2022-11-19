@@ -1,9 +1,8 @@
 import { FC } from 'react'
 
 import { Box, HStack, Text } from '@chakra-ui/react'
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import { TweetCardBase } from '@wsvvrijheid/ui'
 
+import { TimelineTweetBase } from '../TimelineTweet'
 import { TimelineBoardProps } from './types'
 
 export const TimelineBoard: FC<TimelineBoardProps> = ({ timelines }) => {
@@ -15,7 +14,7 @@ export const TimelineBoard: FC<TimelineBoardProps> = ({ timelines }) => {
     console.log('save')
   }
 
-  console.log(timelines)
+  // console.log(timelines)
 
   return (
     <HStack
@@ -41,7 +40,7 @@ export const TimelineBoard: FC<TimelineBoardProps> = ({ timelines }) => {
           {/* I assigned height 700 randomly. What height do you think I should assign? */}
           <Box overflowY="auto" h="700px">
             {timeline.tweets.map((tweet, key) => (
-              <TweetCardBase
+              <TimelineTweetBase
                 tweet={tweet}
                 onEdit={onEdit}
                 username={timeline.username}

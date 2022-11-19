@@ -2,12 +2,12 @@ import { useTimelines } from '@wsvvrijheid/services'
 import { AdminLayout, TimelineBoard } from '@wsvvrijheid/ui'
 
 const Timelines = () => {
-  const timelinesRequest = useTimelines()
-  const timelines = timelinesRequest?.data
+  const { data: timelines, isLoading } = useTimelines()
+
   console.log('Timelines in Timeline page :::::::', timelines)
 
   return (
-    <AdminLayout title="Timelines">
+    <AdminLayout title="Timelines" isLoading={isLoading}>
       <TimelineBoard timelines={timelines} />
     </AdminLayout>
   )

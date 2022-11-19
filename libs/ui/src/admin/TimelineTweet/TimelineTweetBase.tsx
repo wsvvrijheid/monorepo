@@ -1,9 +1,7 @@
 import { FC } from 'react'
 
 import {
-  AspectRatio,
   Avatar,
-  Box,
   HStack,
   IconButton,
   Menu,
@@ -12,38 +10,37 @@ import {
   MenuList,
   Stack,
   Text,
-  useBoolean,
 } from '@chakra-ui/react'
-import { getTwitterVideoUrl } from '@wsvvrijheid/utils'
 import { BsBookmarkPlus, BsThreeDots } from 'react-icons/bs'
-import { FaPlayCircle } from 'react-icons/fa'
 import { RiEditLine } from 'react-icons/ri'
-import ReactPlayer from 'react-player'
 
-import { WImage } from '../../components'
-import { TweetBaseCardProps } from './types'
+// import { WImage } from '../../components'
+import { TimelineTweetProps } from './types'
 
-export const TweetCardBase: FC<TweetBaseCardProps> = ({
+export const TimelineTweetBase: FC<TimelineTweetProps> = ({
   tweet,
   onEdit,
   onSave,
+  username,
+  profileImg,
   ...rest
 }) => {
-  const [playing, setPlaying] = useBoolean()
+  console.log('tweeet TimelineTweetBase', tweet)
+  // console.log('timeline cardbase', username)
 
   return (
     <HStack align="start" bg={'white'} rounded="lg" p={4} {...rest}>
-      <Avatar name={tweet.user.name} src={tweet.user.profile} />
+      <Avatar name={username} src={profileImg} />
 
       <Stack>
         {/* Tweet Header */}
-        <HStack justify={'space-between'} title={tweet.user.username}>
+        <HStack justify={'space-between'} title={username}>
           <HStack noOfLines={1}>
             <Text fontSize={'sm'} fontWeight={'bolder'}>
-              {tweet.user.name}
+              {username}
             </Text>
             <Text fontSize={'xs'} color={'gray'}>
-              @{tweet.user.username}
+              @{username}
             </Text>
           </HStack>
 
@@ -70,14 +67,22 @@ export const TweetCardBase: FC<TweetBaseCardProps> = ({
             </Menu>
           )}
         </HStack>
-
-        {/* Tweet Content */}
         <Text fontSize={'sm'} ml={2}>
           {tweet.text}
         </Text>
+        {tweet?.media?.url && (
+          <img src={tweet?.media?.url} alt="" />
+          // <WImage
+          //   ratio="twitter"
+          //   src={tweet?.media?.url}
+          //   rounded={'lg'}
+          //   alt={tweet.text}
+          // />
+        )}
+        {/* Tweet Content */}
 
         {/* Video */}
-        {tweet.videos && (
+        {/* {tweet.videos && (
           <AspectRatio
             ratio={16 / 9}
             w="full"
@@ -96,16 +101,16 @@ export const TweetCardBase: FC<TweetBaseCardProps> = ({
               }
             />
           </AspectRatio>
-        )}
+        )} */}
         {/* Image */}
-        {!tweet.videos && tweet.image && (
+        {/* {!tweet.videos && tweet.image && (
           <WImage
             ratio="twitter"
             src={tweet.image}
             rounded={'lg'}
             alt={tweet.text}
           />
-        )}
+        )} */}
       </Stack>
     </HStack>
   )
