@@ -32,20 +32,22 @@ type HashtagRelationInput = {
 
 export type HashtagCreateInput = Expand<
   { publishedAt?: string | null } & SetOptional<
-    Omit<HashtagBase, 'translationStatus' | 'tweets'>,
+    Omit<HashtagBase, 'approvalStatus' | 'tweets'>,
     'hashtagExtra'
   > &
     SetRequired<HashtagRelationInput, 'image'>
 >
 
 export type HashtagUpdateInput = Expand<
-  { publishedAt?: string | null } & Partial<Omit<HashtagBase, 'locale'>> &
+  { publishedAt?: string | null } & Partial<
+    Omit<HashtagBase, 'locale' | 'tweets'>
+  > &
     HashtagRelationInput
 >
 
 export type HashtagLocalizeInput = Pick<
   HashtagBase,
-  'title' | 'description' | 'content' | 'translationStatus'
+  'title' | 'description' | 'content' | 'approvalStatus'
 >
 
 export type Hashtag = StrapiBase & HashtagBase & HashtagRelation

@@ -141,12 +141,6 @@
       "target": "api::post.post",
       "mappedBy": "reviewer"
     },
-    "savedTweets": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::saved-tweet.saved-tweet",
-      "mappedBy": "saver"
-    },
     "timelines": {
       "type": "relation",
       "relation": "manyToMany",

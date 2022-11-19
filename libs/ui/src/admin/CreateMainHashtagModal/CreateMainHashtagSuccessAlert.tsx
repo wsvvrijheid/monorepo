@@ -16,7 +16,7 @@ import { CreateMainHashtagSuccessAlertProps } from './types'
 export const CreateMainHashtagSuccessAlert = forwardRef<
   HTMLButtonElement,
   CreateMainHashtagSuccessAlertProps
->(({ isOpen, onClose }, ref) => {
+>(({ isOpen, onClose, handleClickRow }, ref) => {
   return (
     <AlertDialog
       closeOnOverlayClick={false}
@@ -41,6 +41,9 @@ export const CreateMainHashtagSuccessAlert = forwardRef<
           </AlertDialogBody>
 
           <AlertDialogFooter>
+            <Button colorScheme="primary" onClick={() => handleClickRow()}>
+              Show
+            </Button>
             <Button onClick={onClose}>Dismiss</Button>
           </AlertDialogFooter>
         </AlertDialogContent>

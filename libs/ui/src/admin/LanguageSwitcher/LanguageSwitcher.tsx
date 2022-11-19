@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react'
+import { useCallback } from 'react'
 
 import {
   Box,
@@ -7,36 +7,31 @@ import {
   MenuButton,
   MenuItem,
   MenuList,
-  usePrevious,
 } from '@chakra-ui/react'
 import { StrapiLocale } from '@wsvvrijheid/types'
+import { useRouter } from 'next/router'
 
 import { Flags } from '../../components'
 
-export type LanguageSwitcherProps = {
-  onLanguageSwitch: (locale: StrapiLocale) => void
-  defaultLocale: StrapiLocale
-}
+export const LanguageSwitcher = () => {
+  const router = useRouter()
 
-export const LanguageSwitcher: FC<LanguageSwitcherProps> = ({
-  defaultLocale = 'tr',
-  onLanguageSwitch,
-}) => {
-  const [locale, setLocale] = useState(defaultLocale)
-  const previousLocale = usePrevious(locale)
+  const CurrentFlag = Flags[router.locale as StrapiLocale]
 
-  const CurrentFlag = Flags[locale]
   const LanguageNames: Record<StrapiLocale, string> = {
     en: 'English',
     nl: 'Nederlands',
     tr: 'Türkçe',
   }
 
-  useEffect(() => {
-    if (previousLocale && previousLocale !== locale) {
-      onLanguageSwitch(locale)
-    }
-  }, [locale, onLanguageSwitch, previousLocale])
+  const switchLocale = useCallback(
+    (locale: StrapiLocale) => {
+      router.push(router.asPath, router.asPath, {
+        locale,
+      })
+    },
+    [router],
+  )
 
   return (
     <Menu>
@@ -48,13 +43,11 @@ export const LanguageSwitcher: FC<LanguageSwitcherProps> = ({
       />
       <MenuList>
         {Object.entries(Flags)
-          .filter(([language]) => language !== locale)
+          .filter(([language]) => language !== (router.locale as StrapiLocale))
           .map(([language, Flag]) => (
             <MenuItem
               key={language}
-              onClick={() => {
-                setLocale(language as StrapiLocale)
-              }}
+              onClick={() => switchLocale(language as StrapiLocale)}
               icon={<Box as={Flag} boxSize={8} />}
             >
               {LanguageNames[language as StrapiLocale]}

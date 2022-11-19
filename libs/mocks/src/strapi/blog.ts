@@ -17,7 +17,7 @@ export const BLOG_MOCKS: Localize<StrapiCollectionResponse<Blog[]>> = {
         publishedAt: '2022-05-24T16:20:02.523Z',
         locale: 'tr',
         likes: 0,
-        translationStatus: 'original',
+        approvalStatus: 'pending',
         image: {
           id: 44,
           name: 'Ayrılık Çanları-2.png',
@@ -113,7 +113,7 @@ export const BLOG_MOCKS: Localize<StrapiCollectionResponse<Blog[]>> = {
         publishedAt: null,
         locale: 'tr',
         likes: 0,
-        translationStatus: 'original',
+        approvalStatus: 'pending',
         image: {
           id: 50,
           name: 'https://samen-strapi.onrender.com/uploads/haykiris_b779248532.jpg?14617250.399999976',
@@ -178,7 +178,7 @@ export const BLOG_MOCKS: Localize<StrapiCollectionResponse<Blog[]>> = {
         publishedAt: '2022-05-24T16:31:53.661Z',
         locale: 'tr',
         likes: 21,
-        translationStatus: 'original',
+        approvalStatus: 'pending',
         image: {
           id: 49,
           name: 'https://samen-strapi.onrender.com/uploads/small_tutsak_2_243962a76d.jpg?14488038.299999982',
@@ -243,7 +243,7 @@ export const BLOG_MOCKS: Localize<StrapiCollectionResponse<Blog[]>> = {
         publishedAt: '2022-05-24T16:29:50.829Z',
         locale: 'tr',
         likes: 1,
-        translationStatus: 'original',
+        approvalStatus: 'pending',
         image: {
           id: 48,
           name: 'https://samen-strapi.onrender.com/uploads/small_tutsak_585b31f667.jpg?14409210.099999994',
@@ -308,7 +308,7 @@ export const BLOG_MOCKS: Localize<StrapiCollectionResponse<Blog[]>> = {
         publishedAt: '2022-05-24T16:27:29.532Z',
         locale: 'tr',
         likes: 2,
-        translationStatus: 'original',
+        approvalStatus: 'pending',
         image: {
           id: 47,
           name: 'https://samen-strapi.onrender.com/uploads/small_bacasizfabrika_312df482d5.jpg?14253439.199999988',
@@ -373,7 +373,7 @@ export const BLOG_MOCKS: Localize<StrapiCollectionResponse<Blog[]>> = {
         publishedAt: '2022-05-24T16:25:48.525Z',
         locale: 'tr',
         likes: 2,
-        translationStatus: 'original',
+        approvalStatus: 'pending',
         image: {
           id: 46,
           name: 'https://samen-strapi.onrender.com/uploads/small_300181_1370601118_c613026b76.jpg?14051743.799999982',
@@ -438,7 +438,7 @@ export const BLOG_MOCKS: Localize<StrapiCollectionResponse<Blog[]>> = {
         publishedAt: '2022-05-24T16:22:24.285Z',
         locale: 'tr',
         likes: 6,
-        translationStatus: 'original',
+        approvalStatus: 'pending',
         image: {
           id: 45,
           name: 'ozgurluk-ifadesi.jpg',
@@ -512,7 +512,7 @@ export const BLOG_MOCKS: Localize<StrapiCollectionResponse<Blog[]>> = {
         publishedAt: '2022-05-24T16:17:42.050Z',
         locale: 'tr',
         likes: 5,
-        translationStatus: 'original',
+        approvalStatus: 'pending',
         image: {
           id: 43,
           name: 'Ayrılık Çanları.png',
@@ -608,7 +608,7 @@ export const BLOG_MOCKS: Localize<StrapiCollectionResponse<Blog[]>> = {
         publishedAt: '2022-05-24T16:10:10.844Z',
         locale: 'tr',
         likes: 1,
-        translationStatus: 'original',
+        approvalStatus: 'pending',
         image: {
           id: 42,
           name: 'bir-cift-kundura.jpg',
@@ -682,7 +682,7 @@ export const BLOG_MOCKS: Localize<StrapiCollectionResponse<Blog[]>> = {
         publishedAt: '2022-03-27T14:24:14.274Z',
         locale: 'tr',
         likes: 0,
-        translationStatus: 'original',
+        approvalStatus: 'pending',
         image: {
           id: 33,
           name: 'GökhanAçıkkollu.jpg',
@@ -781,7 +781,7 @@ export const BLOG_MOCKS: Localize<StrapiCollectionResponse<Blog[]>> = {
         publishedAt: null,
         locale: 'nl',
         likes: 0,
-        translationStatus: 'pending',
+        approvalStatus: 'pending',
         image: {
           id: 39,
           name: 'academy.jpg',
@@ -863,7 +863,7 @@ export const BLOG_MOCKS: Localize<StrapiCollectionResponse<Blog[]>> = {
             publishedAt: null,
             locale: 'en',
             likes: 0,
-            translationStatus: 'pending',
+            approvalStatus: 'pending',
           },
         ],
       },
@@ -884,7 +884,7 @@ export const BLOG_MOCKS: Localize<StrapiCollectionResponse<Blog[]>> = {
         publishedAt: null,
         locale: 'en',
         likes: 0,
-        translationStatus: 'pending',
+        approvalStatus: 'pending',
         image: {
           id: 39,
           name: 'academy.jpg',
@@ -966,7 +966,7 @@ export const BLOG_MOCKS: Localize<StrapiCollectionResponse<Blog[]>> = {
             publishedAt: null,
             locale: 'nl',
             likes: 0,
-            translationStatus: 'pending',
+            approvalStatus: 'pending',
           },
         ],
       },
