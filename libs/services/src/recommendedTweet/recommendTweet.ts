@@ -28,7 +28,6 @@ export const useRecommendTweet = (queryKey?: QueryKey) => {
     },
     onSuccess: res => {
       // TODO Add translations
-      console.log('res>>>>>', res)
       toast({
         title: 'Recommended',
         description: 'Recommended Tweet Created',

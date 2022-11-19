@@ -1,0 +1,9 @@
+import { ReactElement } from 'react'
+
+export type SocialProviderName = 'google' | 'facebook' | 'twitter' | 'instagram'
+
+export type SocialProvider = {
+  name: Capitalize<SocialProviderName>
+  icon: ReactElement
+  url: `/api/connect/${SocialProviderName}`
+}

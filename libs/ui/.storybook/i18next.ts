@@ -1,10 +1,11 @@
+import { StrapiLocale } from '@wsvvrijheid/types'
 import i18n from 'i18next'
 import LanguageDetector from 'i18next-browser-languagedetector'
 import Backend from 'i18next-http-backend'
 import { initReactI18next } from 'react-i18next'
 
-const ns = ['common', 'post']
-const supportedLngs = ['en', 'nl', 'tr']
+const ns = ['common']
+const supportedLngs: StrapiLocale[] = ['en', 'nl', 'tr']
 const resources = ns.reduce((acc, n) => {
   supportedLngs.forEach(lng => {
     if (!acc[lng]) acc[lng] = {}
@@ -14,7 +15,7 @@ const resources = ns.reduce((acc, n) => {
     }
   })
   return acc
-}, {})
+}, {} as Record<StrapiLocale, Record<string, Record<string, string>>>)
 
 i18n
   .use(initReactI18next)

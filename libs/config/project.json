@@ -4,6 +4,16 @@
   "sourceRoot": "libs/config/src",
   "projectType": "library",
   "targets": {
+    "tsc": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          {
+            "command": "tsc --noEmit -p libs/config/tsconfig.json"
+          }
+        ]
+      }
+    },
     "build": {
       "executor": "@nrwl/js:tsc",
       "outputs": ["{options.outputPath}"],

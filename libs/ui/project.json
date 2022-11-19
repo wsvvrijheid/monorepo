@@ -5,6 +5,16 @@
   "projectType": "library",
   "tags": ["ui"],
   "targets": {
+    "tsc": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          {
+            "command": "tsc --noEmit -p libs/ui/tsconfig.json"
+          }
+        ]
+      }
+    },
     "build": {
       "executor": "@nrwl/web:rollup",
       "outputs": ["{options.outputPath}"],
