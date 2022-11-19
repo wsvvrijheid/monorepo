@@ -10,8 +10,6 @@ import { NextSeoProps } from 'next-seo'
 import { Layout } from '../components'
 import i18nConfig from '../next-i18next.config'
 
-type AboutUsProps = InferGetStaticPropsType<typeof getStaticProps>
-
 type AboutUsBlockProps = {
   title: string
   image: string
@@ -33,6 +31,8 @@ const AboutUsBlock: FC<AboutUsBlockProps> = props => {
     </Stack>
   )
 }
+
+type AboutUsProps = InferGetStaticPropsType<typeof getStaticProps>
 
 const AboutUs: FC<AboutUsProps> = ({ title, content, seo }) => {
   return (
@@ -56,7 +56,7 @@ export default AboutUs
 export const getStaticProps = async context => {
   const { locale } = context
 
-  const pageData = ABOUT_US[locale] as typeof ABOUT_US['en']
+  const pageData = ABOUT_US[locale] as typeof ABOUT_US.en
 
   const seo: NextSeoProps = {
     title: pageData.title,

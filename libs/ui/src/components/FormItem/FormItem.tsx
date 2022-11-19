@@ -1,4 +1,4 @@
-import { ForwardedRef, ReactNode } from 'react'
+import { ReactNode, RefAttributes, ReactElement } from 'react'
 
 import {
   Box,
@@ -24,75 +24,79 @@ import {
 } from 'react-hook-form'
 import { HiEye, HiEyeOff } from 'react-icons/hi'
 
-export type FormItemProps<T extends FieldValues> = InputProps & {
-  name: Path<T>
+export type FormItemProps<FormValues extends FieldValues> = InputProps & {
+  name: Path<FormValues>
   label?: string
+  placeholder?: string
   helperText?: string
   leftElement?: ReactNode
   hideLabel?: boolean
-  errors: Partial<FieldErrorsImpl<T>>
-  register: UseFormRegister<T>
+  errors: FieldErrorsImpl<FormValues>
+  register: UseFormRegister<FormValues>
 }
 
-function FormItemBase<T extends FieldValues>(
-  props: FormItemProps<T>,
-  formItemRef: ForwardedRef<HTMLInputElement | HTMLTextAreaElement>,
-) {
-  const {
-    name,
-    type,
-    as,
-    leftElement,
-    label,
-    helperText,
-    errors,
-    register,
-    isRequired,
-    hideLabel,
-    ...rest
-  } = props
+export type FormItemComponent = <FormValues extends FieldValues>(
+  props: FormItemProps<FormValues> &
+    RefAttributes<HTMLInputElement | HTMLTextAreaElement>,
+) => ReactElement
 
-  const [isOpen, setIsOpen] = useBoolean(false)
-  const Tag = as || Input
-  const errorMessage = errors?.[name]?.['message'] as unknown as string
-  const { ref: registerRef, ...registerRest } = register(name)
-  const ref = useMergeRefs(formItemRef, registerRef)
-  return (
-    <FormControl isInvalid={Boolean(errors?.[name])} isRequired={isRequired}>
-      {label && !hideLabel && (
-        <FormLabel mb={1} htmlFor={name} fontSize="sm" fontWeight="semibold">
-          {label}
-        </FormLabel>
-      )}
-      <InputGroup>
-        {leftElement && (
-          <InputLeftElement pointerEvents="none">
-            <Box color="gray.300">{leftElement}</Box>
-          </InputLeftElement>
+export const FormItem: FormItemComponent = forwardRef(
+  (
+    {
+      name,
+      type,
+      as,
+      leftElement,
+      label,
+      helperText,
+      errors,
+      register,
+      isRequired,
+      hideLabel,
+      ...rest
+    },
+    formItemRef,
+  ) => {
+    const [isOpen, setIsOpen] = useBoolean(false)
+    const Tag = as || Input
+    const errorMessage = errors?.[name]?.['message'] as unknown as string
+    const { ref: registerRef, ...registerRest } = register(name)
+    const ref = useMergeRefs(formItemRef, registerRef)
+    return (
+      <FormControl isInvalid={Boolean(errors?.[name])} isRequired={isRequired}>
+        {label && !hideLabel && (
+          <FormLabel mb={1} htmlFor={name} fontSize="sm" fontWeight="semibold">
+            {label}
+          </FormLabel>
         )}
-        {type === 'password' && (
-          <InputRightElement>
-            <IconButton
-              variant="link"
-              aria-label={isOpen ? 'Mask password' : 'Reveal password'}
-              icon={isOpen ? <HiEyeOff /> : <HiEye />}
-              onClick={setIsOpen.toggle}
-            />
-          </InputRightElement>
-        )}
-        <Tag
-          ref={ref}
-          id={name}
-          type={type === 'password' ? (isOpen ? 'text' : 'password') : type}
-          placeholder={label}
-          {...registerRest}
-          {...rest}
-        />
-      </InputGroup>
-      <FormErrorMessage>{errorMessage}</FormErrorMessage>
-      {helperText && <FormHelperText>{helperText}</FormHelperText>}
-    </FormControl>
-  )
-}
-
-export const FormItem = forwardRef(FormItemBase)
+        <InputGroup>
+          {leftElement && (
+            <InputLeftElement pointerEvents="none">
+              <Box color="gray.300">{leftElement}</Box>
+            </InputLeftElement>
+          )}
+          {type === 'password' && (
+            <InputRightElement>
+              <IconButton
+                variant="link"
+                aria-label={isOpen ? 'Mask password' : 'Reveal password'}
+                icon={isOpen ? <HiEyeOff /> : <HiEye />}
+                onClick={setIsOpen.toggle}
+              />
+            </InputRightElement>
+          )}
+          <Tag
+            ref={ref}
+            id={name}
+            type={type === 'password' ? (isOpen ? 'text' : 'password') : type}
+            placeholder={label}
+            {...registerRest}
+            {...rest}
+          />
+        </InputGroup>
+        <FormErrorMessage>{errorMessage}</FormErrorMessage>
+        {helperText && <FormHelperText>{helperText}</FormHelperText>}
+      </FormControl>
+    )
+  },
+)
