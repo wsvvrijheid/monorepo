@@ -22,10 +22,7 @@ type AnnouncementRelationInput = {
 }
 
 export type AnnouncementCreateInput = Expand<
-  { publishedAt?: string | null } & Omit<
-    AnnouncementBase,
-    'translationStatus'
-  > &
+  { publishedAt?: string | null } & Omit<AnnouncementBase, 'approvalStatus'> &
     AnnouncementRelationInput
 >
 export type AnnouncementUpdateInput = Expand<

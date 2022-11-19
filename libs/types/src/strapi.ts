@@ -9,7 +9,7 @@ import { Blog, BlogLocalizeInput } from './blog'
 import { Category } from './category'
 import { Collection } from './collection'
 import { Comment } from './comment'
-import { Expand, TranslationStatus } from './common'
+import { ApprovalStatus, Expand } from './common'
 import { Competition, CompetitionLocalizeInput } from './competition'
 import { Donate } from './donate'
 import { Feedback } from './feedback'
@@ -51,7 +51,7 @@ export type StrapiEntityBase = {
   slug: string
   description: string
   content: string
-  translationStatus: TranslationStatus
+  approvalStatus: ApprovalStatus
   locale: StrapiLocale
 }
 
@@ -193,16 +193,15 @@ export type StrapiLocalizeInput =
   | PostLocalizeInput
 
 export type StrapiFormValue =
-  | string
-  | number
-  | boolean
-  | Date
-  | string[]
-  | number[]
   | Blob
   | Blob[]
+  | Date
   | JSON
+  | boolean
   | null
-  | JSON
+  | number
+  | number[]
+  | string
+  | string[]
 
 export type StrapiMutationInput = { [key in string]?: StrapiFormValue }

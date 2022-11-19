@@ -16,7 +16,7 @@ const ArtsPage = () => {
   const defaultLocale: StrapiLocale = 'en'
 
   const [searchTerm, setSearchTerm] = useState<string>()
-  const [locale, setLocale] = useState<StrapiLocale>(defaultLocale)
+  const { locale } = useRouter()
 
   const [sort, setSort] = useState<Sort>()
   const queryKey = ['arts', locale, searchTerm, sort, currentPage || 1, status]
@@ -59,7 +59,6 @@ const ArtsPage = () => {
       headerProps={{
         onSearch: handleSearch,
         searchPlaceHolder: 'Search arts by title or artist',
-        onLanguageSwitch: locale => setLocale(locale),
         defaultLocale,
         sortMenu: [
           <MenuItem key="asc" icon={<FaArrowUp />}>

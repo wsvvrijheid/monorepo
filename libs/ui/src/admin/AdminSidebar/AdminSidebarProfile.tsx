@@ -43,7 +43,7 @@ export const AdminSidebarProfile: FC<AdminSidebarProfileProps> = ({
             </Text>
           </Box>
 
-          <Tooltip label="Logout" bg="white">
+          <Tooltip label="Logout" bg="white" color="initial">
             <IconButton
               size="sm"
               fontSize="lg"
@@ -78,7 +78,7 @@ export const AdminSidebarProfile: FC<AdminSidebarProfileProps> = ({
                   </Text>
                 </Box>
 
-                <Tooltip label="Logout" bg="white">
+                <Tooltip label="Logout" bg="white" color="initial">
                   <IconButton
                     size="sm"
                     fontSize="lg"

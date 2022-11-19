@@ -1,11 +1,23 @@
 import { FC } from 'react'
 
-import { ButtonGroup, Stack, Text, useBreakpointValue } from '@chakra-ui/react'
+import {
+  Box,
+  ButtonGroup,
+  Popover,
+  PopoverArrow,
+  PopoverBody,
+  PopoverContent,
+  PopoverTrigger,
+  Stack,
+  Text,
+  useBreakpointValue,
+} from '@chakra-ui/react'
 import { formatDistanceStrict } from 'date-fns'
 import { AiOutlineEye, AiOutlineLike, AiOutlineShareAlt } from 'react-icons/ai'
 import { BsBookmarkHeart } from 'react-icons/bs'
 
 import { WImage } from '../../components'
+import { ShareButtons } from '../../components'
 import { ActionButton } from './ActionButton'
 import { TopicCardBaseProps } from './types'
 
@@ -81,13 +93,31 @@ export const TopicCardBase: FC<TopicCardBaseProps> = ({
               isVertical={isVertical}
               variant="ghost"
             />
-            <ActionButton
-              onClick={() => onShare()}
-              icon={<AiOutlineShareAlt />}
-              title="Share"
-              isVertical={isVertical}
-              variant="ghost"
-            />
+
+            <Popover placement="top">
+              <PopoverTrigger>
+                <Box>
+                  <ActionButton
+                    onClick={() => onShare()}
+                    icon={<AiOutlineShareAlt />}
+                    title="Share"
+                    isVertical={isVertical}
+                    variant="ghost"
+                  />
+                </Box>
+              </PopoverTrigger>
+              <PopoverContent w="max-content">
+                <PopoverArrow />
+                <PopoverBody>
+                  <ShareButtons
+                    title={topic.title}
+                    url={topic.url}
+                    quote={topic.description || ''}
+                  />
+                </PopoverBody>
+              </PopoverContent>
+            </Popover>
+
             <ActionButton
               onClick={() => onBookmark()}
               icon={<BsBookmarkHeart color={isBookmarked ? 'white' : ''} />}

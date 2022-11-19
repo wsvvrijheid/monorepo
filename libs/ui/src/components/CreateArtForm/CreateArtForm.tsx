@@ -32,6 +32,7 @@ import { useTranslation } from 'next-i18next'
 import { TFunction } from 'next-i18next'
 import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
+import useFormPersist from 'react-hook-form-persist'
 import { FaPlus, FaUpload } from 'react-icons/fa'
 import * as yup from 'yup'
 
@@ -72,6 +73,8 @@ export const CreateArtForm: FC<CreateArtFormProps> = ({ queryKey }) => {
 
   const {
     register,
+    watch,
+    setValue,
     formState: { errors, isValid },
     handleSubmit,
     reset: resetForm,
@@ -79,6 +82,12 @@ export const CreateArtForm: FC<CreateArtFormProps> = ({ queryKey }) => {
   } = useForm<CreateArtFormFieldValues>({
     resolver: yupResolver(schema(t)),
     mode: 'all',
+  })
+
+  useFormPersist(`create-art-${locale}`, {
+    watch,
+    setValue,
+    ...(typeof window !== 'undefined' && { storage: window.sessionStorage }),
   })
 
   useEffect(
