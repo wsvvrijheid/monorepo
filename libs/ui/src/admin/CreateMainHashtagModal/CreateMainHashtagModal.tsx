@@ -23,7 +23,7 @@ import {
 import { yupResolver } from '@hookform/resolvers/yup'
 import slugify from '@sindresorhus/slugify'
 import { useCreateMainHashtag, useGetMentions } from '@wsvvrijheid/services'
-import { HashtagCreateInput, StrapiLocale } from '@wsvvrijheid/types'
+import { Hashtag, HashtagCreateInput, StrapiLocale } from '@wsvvrijheid/types'
 import { useForm } from 'react-hook-form'
 import { IoMdAdd, IoMdCheckmark, IoMdClose } from 'react-icons/io'
 import * as yup from 'yup'
@@ -38,9 +38,9 @@ import {
 
 export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
   queryKey,
+  showEditModal,
 }) => {
   const [images, setImages] = useState<Blob[]>([])
-  //const [mention, setMentions] = useState<Mention>([])
   const cancelRef = useRef<HTMLButtonElement>(null)
   const formDisclosure = useDisclosure()
   const successDisclosure = useDisclosure()
@@ -52,7 +52,7 @@ export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
     description: yup.string().required('Description is required'),
     content: yup.string().required('Content is required'),
     hashtag: yup.string().required('Hashtag is required'),
-    extrahashtag: yup.string(),
+    hashtagExtra: yup.string(),
     mention: yup.string(),
   })
 
@@ -70,6 +70,7 @@ export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
   const { mutate, isLoading } = useCreateMainHashtag(locale, queryKey)
   const toast = useToast()
   const currentMentions = useGetMentions()
+  const [createdHashtag, setCreatedHashtag] = useState<Hashtag>()
 
   const createMainHashtag = async (
     data: CreateMainHashtagFormFieldValues & { image: Blob },
@@ -86,7 +87,8 @@ export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
     }
 
     mutate(formBody, {
-      onSuccess: async () => {
+      onSuccess: async newHashtag => {
+        setCreatedHashtag(newHashtag)
         formDisclosure.onClose()
         successDisclosure.onOpen()
         resetForm()
@@ -121,13 +123,19 @@ export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
     resetForm()
     formDisclosure.onClose()
   }
-
+  const handleClickRow = () => {
+    if (createdHashtag) {
+      showEditModal(createdHashtag)
+      successDisclosure.onClose()
+    }
+  }
   return (
     <>
       {/* SUCCESS ALERT */}
       <CreateMainHashtagSuccessAlert
         isOpen={successDisclosure.isOpen}
         onClose={successDisclosure.onClose}
+        handleClickRow={handleClickRow}
         ref={cancelRef}
       />
 
@@ -224,7 +232,7 @@ export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
                     register={register}
                   />
                   <FormItem
-                    name="extrahashtag"
+                    name="hashtagExtra"
                     label="Extra hashtag"
                     errors={errors}
                     register={register}
@@ -238,8 +246,6 @@ export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
                   label="Mentions"
                   control={control}
                   errors={errors}
-                  // TODO: get mentions from API with useQuery
-                  // We will improve WSelect later to accept async options @${c.username}
                   options={
                     currentMentions?.data?.map(c => ({
                       value: `${c.id}`,

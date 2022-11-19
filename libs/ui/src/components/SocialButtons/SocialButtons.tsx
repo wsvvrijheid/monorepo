@@ -17,6 +17,7 @@ export interface SocialButtonsProps {
 
 export const SocialButtons: FC<SocialButtonsProps> = ({ items }) => {
   const { locale } = useRouter()
+
   return (
     <HStack align="start">
       {items.map((item, i) => (

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { FC, useState } from 'react'
 
 import {
   Alert,
@@ -24,7 +24,10 @@ import * as yup from 'yup'
 
 import { FormItem } from '../FormItem'
 import { Navigate } from '../Navigate'
-import { OAuthButtonGroup } from '../OAuthButtonGroup'
+import {
+  SocialLoginButtons,
+  SocialLoginButtonsProps,
+} from '../SocialLoginButtons'
 import { SignupFormFieldValues } from './types'
 
 const schema = (t: TFunction) =>
@@ -44,7 +47,11 @@ const schema = (t: TFunction) =>
       .required(t`login.email.required`),
   })
 
-export const SignupForm = () => {
+type SignupFormProps = Pick<SocialLoginButtonsProps, 'providersToBeShown'>
+
+export const SignupForm: FC<SignupFormProps> = ({
+  providersToBeShown = [],
+}) => {
   const { t } = useTranslation()
   const [isTermsAccepted, setIsTermsAccepted] = useState<boolean>(true)
   const [errorMessage, setErrorMessage] = useState('')
@@ -185,14 +192,19 @@ export const SignupForm = () => {
             >
               {t('login.create-account')}
             </Button>
-            <HStack>
-              <Divider />
-              <Text fontSize="sm" whiteSpace="nowrap" color="muted">
-                {t('login.sign-up-with')}
-              </Text>
-              <Divider />
-            </HStack>
-            <OAuthButtonGroup isDisabled={!isTermsAccepted} />
+            {providersToBeShown.length > 0 && (
+              <HStack>
+                <Divider />
+                <Text fontSize="sm" whiteSpace="nowrap" color="muted">
+                  {t('login.sign-up-with')}
+                </Text>
+                <Divider />
+              </HStack>
+            )}
+            <SocialLoginButtons
+              providersToBeShown={providersToBeShown}
+              isDisabled={!isTermsAccepted}
+            />
           </Stack>
         </Stack>
       </Stack>

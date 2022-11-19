@@ -39,7 +39,9 @@ export type HashtagCreateInput = Expand<
 >
 
 export type HashtagUpdateInput = Expand<
-  { publishedAt?: string | null } & Partial<Omit<HashtagBase, 'locale'>> &
+  { publishedAt?: string | null } & Partial<
+    Omit<HashtagBase, 'locale' | 'tweets'>
+  > &
     HashtagRelationInput
 >
 
