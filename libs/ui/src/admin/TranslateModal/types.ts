@@ -18,7 +18,7 @@ export type DefaultTranslatableModel<T extends StrapiTranslatableModel> = {
   text?: string
   image?: UploadFile
   images?: UploadFile[]
-  translationStatus?: StrapiAllModels['translationStatus']
+  approvalStatus?: StrapiAllModels['approvalStatus']
   localizations?: T[]
 }
 

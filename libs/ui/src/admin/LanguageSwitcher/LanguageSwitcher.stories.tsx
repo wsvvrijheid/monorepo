@@ -1,6 +1,4 @@
-import { ComponentStory, ComponentMeta } from '@storybook/react'
-import { StrapiLocale } from '@wsvvrijheid/types'
-import { useRouter } from 'next/router'
+import { ComponentMeta, ComponentStory } from '@storybook/react'
 
 import { LanguageSwitcher } from './LanguageSwitcher'
 
@@ -10,13 +8,7 @@ export default {
 } as ComponentMeta<typeof LanguageSwitcher>
 
 const Template: ComponentStory<typeof LanguageSwitcher> = args => {
-  const { locale } = useRouter()
-  return <LanguageSwitcher {...args} defaultLocale={locale as StrapiLocale} />
+  return <LanguageSwitcher />
 }
 
 export const Default = Template.bind({})
-Default.args = {
-  onLanguageSwitch: (locale: StrapiLocale) => {
-    alert('Laguage changed to ' + locale)
-  },
-}

@@ -24,7 +24,6 @@ export const CATEGORY_MOCKS: StrapiCollectionResponse<Category[]> = {
           locale: 'en',
           likes: 6,
           views: 4,
-          translationStatus: 'pending',
           approvalStatus: 'approved',
         },
       ],
@@ -57,7 +56,6 @@ export const CATEGORY_MOCKS: StrapiCollectionResponse<Category[]> = {
           locale: 'tr',
           likes: 0,
           views: 2,
-          translationStatus: 'original',
           approvalStatus: 'rejected',
         },
         {
@@ -72,7 +70,6 @@ export const CATEGORY_MOCKS: StrapiCollectionResponse<Category[]> = {
           locale: 'nl',
           likes: 1,
           views: 1,
-          translationStatus: 'approved',
           approvalStatus: 'approved',
         },
       ],
@@ -105,7 +102,6 @@ export const CATEGORY_MOCKS: StrapiCollectionResponse<Category[]> = {
           locale: 'tr',
           likes: 0,
           views: 0,
-          translationStatus: 'original',
           approvalStatus: 'pending',
         },
       ],
@@ -138,7 +134,6 @@ export const CATEGORY_MOCKS: StrapiCollectionResponse<Category[]> = {
           locale: 'en',
           likes: 5,
           views: 0,
-          translationStatus: 'approved',
           approvalStatus: 'approved',
         },
         {
@@ -153,7 +148,6 @@ export const CATEGORY_MOCKS: StrapiCollectionResponse<Category[]> = {
           locale: 'tr',
           likes: 9,
           views: 9,
-          translationStatus: 'original',
           approvalStatus: 'pending',
         },
       ],
@@ -186,7 +180,6 @@ export const CATEGORY_MOCKS: StrapiCollectionResponse<Category[]> = {
           locale: 'tr',
           likes: 0,
           views: 0,
-          translationStatus: 'original',
           approvalStatus: 'pending',
         },
         {
@@ -201,7 +194,6 @@ export const CATEGORY_MOCKS: StrapiCollectionResponse<Category[]> = {
           locale: 'nl',
           likes: 0,
           views: 0,
-          translationStatus: 'approved',
           approvalStatus: 'rejected',
         },
       ],
@@ -234,7 +226,6 @@ export const CATEGORY_MOCKS: StrapiCollectionResponse<Category[]> = {
           locale: 'en',
           likes: 6,
           views: 4,
-          translationStatus: 'pending',
           approvalStatus: 'approved',
         },
         {
@@ -249,7 +240,6 @@ export const CATEGORY_MOCKS: StrapiCollectionResponse<Category[]> = {
           locale: 'tr',
           likes: 0,
           views: 2,
-          translationStatus: 'original',
           approvalStatus: 'approved',
         },
         {
@@ -264,7 +254,6 @@ export const CATEGORY_MOCKS: StrapiCollectionResponse<Category[]> = {
           locale: 'en',
           likes: 7,
           views: 6,
-          translationStatus: 'approved',
           approvalStatus: 'approved',
         },
       ],
@@ -297,7 +286,6 @@ export const CATEGORY_MOCKS: StrapiCollectionResponse<Category[]> = {
           locale: 'en',
           likes: 6,
           views: 3,
-          translationStatus: 'approved',
           approvalStatus: 'approved',
         },
         {
@@ -312,7 +300,6 @@ export const CATEGORY_MOCKS: StrapiCollectionResponse<Category[]> = {
           locale: 'tr',
           likes: 1,
           views: 5,
-          translationStatus: 'original',
           approvalStatus: 'rejected',
         },
         {
@@ -327,7 +314,6 @@ export const CATEGORY_MOCKS: StrapiCollectionResponse<Category[]> = {
           locale: 'tr',
           likes: 0,
           views: 0,
-          translationStatus: 'original',
           approvalStatus: 'rejected',
         },
         {
@@ -342,7 +328,6 @@ export const CATEGORY_MOCKS: StrapiCollectionResponse<Category[]> = {
           locale: 'tr',
           likes: 0,
           views: 0,
-          translationStatus: 'original',
           approvalStatus: 'pending',
         },
         {
@@ -357,7 +342,6 @@ export const CATEGORY_MOCKS: StrapiCollectionResponse<Category[]> = {
           locale: 'tr',
           likes: 1,
           views: 1,
-          translationStatus: 'original',
           approvalStatus: 'rejected',
         },
         {
@@ -372,7 +356,6 @@ export const CATEGORY_MOCKS: StrapiCollectionResponse<Category[]> = {
           locale: 'tr',
           likes: 4,
           views: 5,
-          translationStatus: 'original',
           approvalStatus: 'approved',
         },
         {
@@ -387,7 +370,6 @@ export const CATEGORY_MOCKS: StrapiCollectionResponse<Category[]> = {
           locale: 'tr',
           likes: 9,
           views: 7,
-          translationStatus: 'original',
           approvalStatus: 'approved',
         },
       ],
@@ -420,7 +402,6 @@ export const CATEGORY_MOCKS: StrapiCollectionResponse<Category[]> = {
           locale: 'tr',
           likes: 0,
           views: 0,
-          translationStatus: 'original',
           approvalStatus: 'approved',
         },
         {
@@ -435,7 +416,6 @@ export const CATEGORY_MOCKS: StrapiCollectionResponse<Category[]> = {
           locale: 'nl',
           likes: 0,
           views: 0,
-          translationStatus: 'approved',
           approvalStatus: 'rejected',
         },
         {
@@ -450,7 +430,6 @@ export const CATEGORY_MOCKS: StrapiCollectionResponse<Category[]> = {
           locale: 'tr',
           likes: 7,
           views: 6,
-          translationStatus: 'original',
           approvalStatus: 'approved',
         },
         {
@@ -465,7 +444,6 @@ export const CATEGORY_MOCKS: StrapiCollectionResponse<Category[]> = {
           locale: 'nl',
           likes: 7,
           views: 6,
-          translationStatus: 'approved',
           approvalStatus: 'approved',
         },
         {
@@ -480,7 +458,6 @@ export const CATEGORY_MOCKS: StrapiCollectionResponse<Category[]> = {
           locale: 'nl',
           likes: 6,
           views: 4,
-          translationStatus: 'approved',
           approvalStatus: 'approved',
         },
         {
@@ -495,7 +472,6 @@ export const CATEGORY_MOCKS: StrapiCollectionResponse<Category[]> = {
           locale: 'tr',
           likes: 6,
           views: 4,
-          translationStatus: 'original',
           approvalStatus: 'approved',
         },
         {
@@ -510,7 +486,6 @@ export const CATEGORY_MOCKS: StrapiCollectionResponse<Category[]> = {
           locale: 'tr',
           likes: 6,
           views: 16,
-          translationStatus: 'original',
           approvalStatus: 'approved',
         },
       ],
@@ -533,7 +508,7 @@ export const CATEGORY_MOCKS: StrapiCollectionResponse<Category[]> = {
           locale: 'tr',
           description:
             'Platformumuz Kunsthalte tarafından düzenlenen, "Bir mültecilerin gözünden Hollanda" konulu karma sanat sergisine hepiniz davetlisiniz. ',
-          translationStatus: 'pending',
+          approvalStatus: 'approved',
         },
       ],
     },
@@ -559,7 +534,6 @@ export const CATEGORY_MOCKS: StrapiCollectionResponse<Category[]> = {
           locale: 'nl',
           likes: 0,
           views: 0,
-          translationStatus: 'rejected',
           approvalStatus: 'rejected',
         },
         {
@@ -574,7 +548,6 @@ export const CATEGORY_MOCKS: StrapiCollectionResponse<Category[]> = {
           locale: 'tr',
           likes: 2,
           views: 3,
-          translationStatus: 'original',
           approvalStatus: 'pending',
         },
         {
@@ -591,7 +564,6 @@ export const CATEGORY_MOCKS: StrapiCollectionResponse<Category[]> = {
           locale: 'tr',
           likes: 1,
           views: 1,
-          translationStatus: 'original',
           approvalStatus: 'approved',
         },
         {
@@ -606,7 +578,6 @@ export const CATEGORY_MOCKS: StrapiCollectionResponse<Category[]> = {
           locale: 'tr',
           likes: 2,
           views: 2,
-          translationStatus: 'original',
           approvalStatus: 'approved',
         },
         {
@@ -621,7 +592,6 @@ export const CATEGORY_MOCKS: StrapiCollectionResponse<Category[]> = {
           locale: 'tr',
           likes: 3,
           views: 5,
-          translationStatus: 'original',
           approvalStatus: 'approved',
         },
         {
@@ -638,7 +608,6 @@ export const CATEGORY_MOCKS: StrapiCollectionResponse<Category[]> = {
           locale: 'tr',
           likes: 1,
           views: 1,
-          translationStatus: 'original',
           approvalStatus: 'approved',
         },
         {
@@ -653,7 +622,6 @@ export const CATEGORY_MOCKS: StrapiCollectionResponse<Category[]> = {
           locale: 'en',
           likes: 11,
           views: 9,
-          translationStatus: 'approved',
           approvalStatus: 'approved',
         },
         {
@@ -668,7 +636,6 @@ export const CATEGORY_MOCKS: StrapiCollectionResponse<Category[]> = {
           locale: 'en',
           likes: 1,
           views: 1,
-          translationStatus: 'approved',
           approvalStatus: 'approved',
         },
         {
@@ -685,7 +652,6 @@ export const CATEGORY_MOCKS: StrapiCollectionResponse<Category[]> = {
           locale: 'nl',
           likes: 1,
           views: 1,
-          translationStatus: 'pending',
           approvalStatus: 'approved',
         },
         {
@@ -701,7 +667,6 @@ export const CATEGORY_MOCKS: StrapiCollectionResponse<Category[]> = {
           locale: 'nl',
           likes: 1,
           views: 1,
-          translationStatus: 'approved',
           approvalStatus: 'approved',
         },
         {
@@ -716,7 +681,6 @@ export const CATEGORY_MOCKS: StrapiCollectionResponse<Category[]> = {
           locale: 'tr',
           likes: 11,
           views: 4,
-          translationStatus: 'original',
           approvalStatus: 'pending',
         },
         {
@@ -732,7 +696,6 @@ export const CATEGORY_MOCKS: StrapiCollectionResponse<Category[]> = {
           locale: 'tr',
           likes: 0,
           views: 1,
-          translationStatus: 'original',
           approvalStatus: 'approved',
         },
         {
@@ -747,7 +710,6 @@ export const CATEGORY_MOCKS: StrapiCollectionResponse<Category[]> = {
           locale: 'tr',
           likes: 2,
           views: 5,
-          translationStatus: 'original',
           approvalStatus: 'approved',
         },
         {
@@ -764,7 +726,6 @@ export const CATEGORY_MOCKS: StrapiCollectionResponse<Category[]> = {
           locale: 'tr',
           likes: 11,
           views: 8,
-          translationStatus: 'original',
           approvalStatus: 'approved',
         },
       ],
@@ -797,7 +758,6 @@ export const CATEGORY_MOCKS: StrapiCollectionResponse<Category[]> = {
           locale: 'tr',
           likes: 1,
           views: 2,
-          translationStatus: 'original',
           approvalStatus: 'pending',
         },
         {
@@ -813,7 +773,6 @@ export const CATEGORY_MOCKS: StrapiCollectionResponse<Category[]> = {
           locale: 'tr',
           likes: 4,
           views: 7,
-          translationStatus: 'original',
           approvalStatus: 'approved',
         },
         {
@@ -828,7 +787,6 @@ export const CATEGORY_MOCKS: StrapiCollectionResponse<Category[]> = {
           locale: 'tr',
           likes: 1,
           views: 3,
-          translationStatus: 'original',
           approvalStatus: 'approved',
         },
         {
@@ -843,7 +801,6 @@ export const CATEGORY_MOCKS: StrapiCollectionResponse<Category[]> = {
           locale: 'en',
           likes: 11,
           views: 9,
-          translationStatus: 'approved',
           approvalStatus: 'approved',
         },
       ],
@@ -866,7 +823,7 @@ export const CATEGORY_MOCKS: StrapiCollectionResponse<Category[]> = {
           locale: 'en',
           description:
             'We are planning an art exhibition entitled Netherlands through the eyes of a refugees in Amsterdam Boosta in May 2022.',
-          translationStatus: 'pending',
+          approvalStatus: 'approved',
         },
         {
           id: 3,
@@ -881,7 +838,7 @@ export const CATEGORY_MOCKS: StrapiCollectionResponse<Category[]> = {
           locale: 'nl',
           description:
             'U kunt uw steun voor de kunsten en kunstenaars tonen door een donatie te doen.',
-          translationStatus: 'pending',
+          approvalStatus: 'approved',
         },
         {
           id: 10,
@@ -896,7 +853,7 @@ export const CATEGORY_MOCKS: StrapiCollectionResponse<Category[]> = {
           locale: 'tr',
           description:
             'Empati isimli kısa filmde mülteciliğin en çok karşılaştığı sorunlardan birisi olan ırkçılık ele alındı. Filmde derdini anlatamama, anlaşılamama ve hoşgörüsüzlük gibi detaylara yer verildi. ',
-          translationStatus: 'approved',
+          approvalStatus: 'approved',
         },
         {
           id: 13,
@@ -911,7 +868,7 @@ export const CATEGORY_MOCKS: StrapiCollectionResponse<Category[]> = {
           locale: 'tr',
           description:
             '15 Temmuz 2016 tarihinde Türkiye\'de gerçekleşen darbe tiyatrosu bahane edilerek ev hanımı, öğrenci, memur ve esnaf gibi binlerce masum insan ya tutuklandı ya da evinden işinden edildi. Onlarcası Meriç\'in soğuk sularında vuslata erdi. "Yol" tiyatrosu Türkiyede yaşanan bu zulmü biraz da olsa anlatma imkanı buldu.  ',
-          translationStatus: 'pending',
+          approvalStatus: 'approved',
         },
       ],
     },
@@ -944,7 +901,8 @@ export const CATEGORY_MOCKS: StrapiCollectionResponse<Category[]> = {
           locale: 'tr',
           description:
             'Empati isimli kısa filmde mülteciliğin en çok karşılaştığı sorunlardan birisi olan ırkçılık ele alındı. Filmde derdini anlatamama, anlaşılamama ve hoşgörüsüzlük gibi detaylara yer verildi. ',
-          translationStatus: 'approved',
+
+          approvalStatus: 'approved',
         },
         {
           id: 11,
@@ -959,7 +917,7 @@ export const CATEGORY_MOCKS: StrapiCollectionResponse<Category[]> = {
           locale: 'tr',
           description:
             'Lotus van de Media  platformu ilk tiyatrosu "Yol" 2 Temmuz 2022 günü saat 20:00\'de gala yapıyor. ',
-          translationStatus: 'original',
+          approvalStatus: 'approved',
         },
         {
           id: 13,
@@ -974,7 +932,7 @@ export const CATEGORY_MOCKS: StrapiCollectionResponse<Category[]> = {
           locale: 'tr',
           description:
             '15 Temmuz 2016 tarihinde Türkiye\'de gerçekleşen darbe tiyatrosu bahane edilerek ev hanımı, öğrenci, memur ve esnaf gibi binlerce masum insan ya tutuklandı ya da evinden işinden edildi. Onlarcası Meriç\'in soğuk sularında vuslata erdi. "Yol" tiyatrosu Türkiyede yaşanan bu zulmü biraz da olsa anlatma imkanı buldu.  ',
-          translationStatus: 'pending',
+          approvalStatus: 'approved',
         },
       ],
     },

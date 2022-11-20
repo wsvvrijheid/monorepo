@@ -64,6 +64,7 @@
     "react-dom": "^18.2.0",
     "react-headroom": "^3.2.1",
     "react-hook-form": "^7.39.3",
+    "react-hook-form-persist": "^3.0.0",
     "react-i18next": "^12.0.0",
     "react-icons": "^4.6.0",
     "react-intersection-observer": "^9.4.0",

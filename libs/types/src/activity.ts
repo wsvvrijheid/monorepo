@@ -24,7 +24,7 @@ type ActivityRelationInput = {
 }
 
 export type ActivityCreateInput = Expand<
-  { publishedAt?: string | null } & Omit<ActivityBase, 'translationStatus'> &
+  { publishedAt?: string | null } & Omit<ActivityBase, 'approvalStatus'> &
     ActivityRelationInput
 >
 export type ActivityUpdateInput = Expand<

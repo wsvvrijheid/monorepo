@@ -9,21 +9,19 @@ import {
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation } from '@tanstack/react-query'
-import { setAuth, useAppDispatch, useAuthSelector } from '@wsvvrijheid/store'
-import { sleep } from '@wsvvrijheid/utils'
+import { checkAuth, useAppDispatch, useAuthSelector } from '@wsvvrijheid/store'
 import axios from 'axios'
-import { useTranslation } from 'next-i18next'
-import { TFunction } from 'next-i18next'
+import { TFunction, useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
-import { useForm, SubmitHandler } from 'react-hook-form'
+import { SubmitHandler, useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
 import {
-  FormItem,
-  Navigate,
-  LoginFormFieldValues,
-  WImage,
   Container,
+  FormItem,
+  LoginFormFieldValues,
+  Navigate,
+  WImage,
 } from '../../components'
 
 const schema = (t: TFunction) =>
@@ -60,8 +58,7 @@ export const AdminLoginForm = () => {
         password: body.password,
       }),
     onSuccess: async data => {
-      dispatch(setAuth(data.data))
-      await sleep(1000)
+      await dispatch(checkAuth()).unwrap()
       reset()
       router.push('/')
     },

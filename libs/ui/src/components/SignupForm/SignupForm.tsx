@@ -15,7 +15,7 @@ import {
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation } from '@tanstack/react-query'
-import { setAuth, useAppDispatch } from '@wsvvrijheid/store'
+import { checkAuth, useAppDispatch } from '@wsvvrijheid/store'
 import axios from 'axios'
 import { TFunction, useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
@@ -74,11 +74,11 @@ export const SignupForm: FC<SignupFormProps> = ({
     mutationKey: ['login'],
     mutationFn: (body: SignupFormFieldValues) =>
       axios.post('/api/auth/register', body),
-    onSuccess: data => {
+    onSuccess: async data => {
       if (data.data?.error) {
         return setErrorMessage(data.data.error.message)
       }
-      dispatch(setAuth(data.data))
+      await dispatch(checkAuth()).unwrap()
       reset()
       router.push('/')
     },
