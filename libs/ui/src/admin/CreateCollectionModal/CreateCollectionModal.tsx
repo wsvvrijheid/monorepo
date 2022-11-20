@@ -22,6 +22,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import slugify from '@sindresorhus/slugify'
 import { useCreateCollection } from '@wsvvrijheid/services'
 import { CollectionCreateInput, StrapiLocale } from '@wsvvrijheid/types'
+import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
 import { IoMdAdd, IoMdCheckmark, IoMdClose } from 'react-icons/io'
 import * as yup from 'yup'
@@ -45,11 +46,11 @@ export const CreateCollectionModal: FC<CreateCollectionModalProps> = ({
   queryKey,
 }) => {
   const [images, setImages] = useState<Blob[]>([])
-  const [locale, setLocale] = useState<StrapiLocale>('en')
   const cancelRef = useRef<HTMLButtonElement>(null)
   const formDisclosure = useDisclosure()
   const successDisclosure = useDisclosure()
   const toast = useToast()
+  const { locale } = useRouter()
 
   const {
     register,
@@ -70,7 +71,7 @@ export const CreateCollectionModal: FC<CreateCollectionModalProps> = ({
     const formBody: CollectionCreateInput = {
       ...data,
       slug,
-      locale,
+      locale: locale as StrapiLocale,
       publishedAt: null,
     }
 
@@ -161,10 +162,7 @@ export const CreateCollectionModal: FC<CreateCollectionModalProps> = ({
             >
               <FormControl isRequired>
                 <FormLabel>Locale</FormLabel>
-                <LanguageSwitcher
-                  defaultLocale={locale as StrapiLocale}
-                  onLanguageSwitch={setLocale}
-                />
+                <LanguageSwitcher />
               </FormControl>
               <FormItem
                 name="title"

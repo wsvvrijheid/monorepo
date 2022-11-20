@@ -14,13 +14,13 @@ type SelectOption = {
   value: string
 }
 
-export type WSelectProps<SelectFormFieldValues extends FieldValues> = {
-  control: Control<SelectFormFieldValues>
-} & Omit<FormItemProps<SelectFormFieldValues>, 'register' | 'leftElement'> &
+export type WSelectProps<T extends FieldValues> = {
+  control: Control<T>
+} & Omit<FormItemProps<T>, 'register' | 'leftElement'> &
   SelectProps<SelectOption, boolean, GroupBase<SelectOption>>
 
-export type WSelectComponent = <SelectFormFieldValues extends FieldValues>(
-  props: WSelectProps<SelectFormFieldValues>,
+export type WSelectComponent = <T extends FieldValues>(
+  props: WSelectProps<T>,
 ) => JSX.Element
 
 export const WSelect: WSelectComponent = ({

@@ -15,7 +15,7 @@ const COLLECTION_MOCK: Collection = {
   id: 1,
   title: 'Collection 1',
   slug: 'collection-1',
-  translationStatus: 'pending',
+  approvalStatus: 'pending',
   locale: 'tr',
   description: 'Collection 1',
   createdAt: new Date().toISOString(),
