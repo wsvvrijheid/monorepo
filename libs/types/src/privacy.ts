@@ -3,7 +3,7 @@ import { StrapiBase, StrapiEntityBase } from './strapi'
 
 export type PrivacyBase = Omit<
   StrapiEntityBase,
-  'description' | 'translationStatus'
+  'description' | 'approvalStatus'
 >
 
 type PrivacyRelation = {

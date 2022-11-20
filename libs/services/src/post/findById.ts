@@ -15,8 +15,6 @@ export const getPost = async (
     locale,
   })
 
-  console.log('response.data', response.data)
-
   return response?.data || null
 }
 

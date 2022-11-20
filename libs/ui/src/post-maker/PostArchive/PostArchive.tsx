@@ -34,8 +34,6 @@ export const PostArchive = () => {
 
   const { locale } = useRouter()
 
-  console.log('hashtagQuery.data', hashtagQuery.data)
-
   useEffect(() => {
     const currentPost = hashtagQuery.data?.posts?.[activeIndex]
 

@@ -29,7 +29,7 @@ export const TAG_MOCKS: StrapiCollectionResponse<Tag[]> = {
           locale: 'en',
           description:
             'We are planning an art exhibition entitled Netherlands through the eyes of a refugees in Amsterdam Boosta in May 2022.',
-          translationStatus: 'pending',
+          approvalStatus: 'pending',
         },
         {
           id: 10,
@@ -44,7 +44,7 @@ export const TAG_MOCKS: StrapiCollectionResponse<Tag[]> = {
           locale: 'tr',
           description:
             'Empati isimli kısa filmde mülteciliğin en çok karşılaştığı sorunlardan birisi olan ırkçılık ele alındı. Filmde derdini anlatamama, anlaşılamama ve hoşgörüsüzlük gibi detaylara yer verildi. ',
-          translationStatus: 'approved',
+          approvalStatus: 'approved',
         },
       ],
     },
@@ -72,7 +72,6 @@ export const TAG_MOCKS: StrapiCollectionResponse<Tag[]> = {
           locale: 'nl',
           likes: 1,
           views: 1,
-          translationStatus: 'pending',
           approvalStatus: 'approved',
         },
       ],
@@ -93,7 +92,7 @@ export const TAG_MOCKS: StrapiCollectionResponse<Tag[]> = {
           locale: 'tr',
           description:
             'Empati isimli kısa filmde mülteciliğin en çok karşılaştığı sorunlardan birisi olan ırkçılık ele alındı. Filmde derdini anlatamama, anlaşılamama ve hoşgörüsüzlük gibi detaylara yer verildi. ',
-          translationStatus: 'approved',
+          approvalStatus: 'approved',
         },
       ],
     },
@@ -124,7 +123,7 @@ export const TAG_MOCKS: StrapiCollectionResponse<Tag[]> = {
           locale: 'tr',
           description:
             'Lotus van de Media  platformu ilk tiyatrosu "Yol" 2 Temmuz 2022 günü saat 20:00\'de gala yapıyor. ',
-          translationStatus: 'original',
+          approvalStatus: 'approved',
         },
         {
           id: 13,
@@ -139,7 +138,7 @@ export const TAG_MOCKS: StrapiCollectionResponse<Tag[]> = {
           locale: 'tr',
           description:
             '15 Temmuz 2016 tarihinde Türkiye\'de gerçekleşen darbe tiyatrosu bahane edilerek ev hanımı, öğrenci, memur ve esnaf gibi binlerce masum insan ya tutuklandı ya da evinden işinden edildi. Onlarcası Meriç\'in soğuk sularında vuslata erdi. "Yol" tiyatrosu Türkiyede yaşanan bu zulmü biraz da olsa anlatma imkanı buldu.  ',
-          translationStatus: 'pending',
+          approvalStatus: 'pending',
         },
       ],
     },

@@ -20,7 +20,7 @@ export const ACTIVITY_MOCKS: Localize<StrapiCollectionResponse<Activity[]>> = {
         locale: 'tr',
         description:
           'Platformumuz Kunsthalte tarafından düzenlenen, "Bir mültecilerin gözünden Hollanda" konulu karma sanat sergisine hepiniz davetlisiniz. ',
-        translationStatus: 'pending',
+        approvalStatus: 'pending',
       },
       {
         id: 10,
@@ -35,7 +35,7 @@ export const ACTIVITY_MOCKS: Localize<StrapiCollectionResponse<Activity[]>> = {
         locale: 'tr',
         description:
           'Empati isimli kısa filmde mülteciliğin en çok karşılaştığı sorunlardan birisi olan ırkçılık ele alındı. Filmde derdini anlatamama, anlaşılamama ve hoşgörüsüzlük gibi detaylara yer verildi. ',
-        translationStatus: 'approved',
+        approvalStatus: 'approved',
       },
       {
         id: 13,
@@ -50,7 +50,7 @@ export const ACTIVITY_MOCKS: Localize<StrapiCollectionResponse<Activity[]>> = {
         locale: 'tr',
         description:
           '15 Temmuz 2016 tarihinde Türkiye\'de gerçekleşen darbe tiyatrosu bahane edilerek ev hanımı, öğrenci, memur ve esnaf gibi binlerce masum insan ya tutuklandı ya da evinden işinden edildi. Onlarcası Meriç\'in soğuk sularında vuslata erdi. "Yol" tiyatrosu Türkiyede yaşanan bu zulmü biraz da olsa anlatma imkanı buldu.  ',
-        translationStatus: 'pending',
+        approvalStatus: 'pending',
       },
     ],
     meta: { pagination: { page: 1, pageSize: 25, pageCount: 1, total: 3 } },
@@ -70,7 +70,7 @@ export const ACTIVITY_MOCKS: Localize<StrapiCollectionResponse<Activity[]>> = {
         locale: 'nl',
         description:
           'U kunt uw steun voor de kunsten en kunstenaars tonen door een donatie te doen.',
-        translationStatus: 'pending',
+        approvalStatus: 'pending',
       },
     ],
     meta: { pagination: { page: 1, pageSize: 25, pageCount: 1, total: 1 } },
@@ -90,7 +90,7 @@ export const ACTIVITY_MOCKS: Localize<StrapiCollectionResponse<Activity[]>> = {
         locale: 'en',
         description:
           'We are planning an art exhibition entitled Netherlands through the eyes of a refugees in Amsterdam Boosta in May 2022.',
-        translationStatus: 'pending',
+        approvalStatus: 'pending',
       },
     ],
     meta: {
