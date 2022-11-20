@@ -1,9 +1,8 @@
 import {
-  // ApprovalStatus,
   Hashtag,
   Post,
   StrapiLocale,
-  TranslationStatus,
+  ApprovalStatus,
   User,
 } from '@wsvvrijheid/types'
 
@@ -47,7 +46,7 @@ export const columns: WTableProps<Post>['columns'] = {
       }
       return {
         variant: 'outline',
-        colorScheme: colorScheme[value as TranslationStatus],
+        colorScheme: colorScheme[value as ApprovalStatus],
       }
     },
   },
@@ -69,18 +68,17 @@ export const columns: WTableProps<Post>['columns'] = {
   //     }
   //   },
   // },
-  translationStatus: {
+  approvalStatus: {
     type: 'badge',
     componentProps: value => {
       const colorScheme = {
         approved: 'green',
         pending: 'yellow',
         rejected: 'red',
-        original: 'blue',
       }
       return {
         variant: 'outline',
-        colorScheme: colorScheme[value as TranslationStatus],
+        colorScheme: colorScheme[value as ApprovalStatus],
       }
     },
   },
