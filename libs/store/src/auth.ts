@@ -29,17 +29,7 @@ export const destroyAuth = createAsyncThunk('auth/destroy', async () => {
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
-  reducers: {
-    setAuth: (state, action) => {
-      state.user = action.payload.user
-      state.token = action.payload.token
-      state.isLoggedIn = true
-      state.isAuthLoading = false
-    },
-    loadingAuth: state => {
-      state.isAuthLoading = true
-    },
-  },
+  reducers: {},
   extraReducers: builder => {
     builder.addCase(checkAuth.fulfilled, (state, action) => {
       return {
@@ -56,7 +46,5 @@ export const authSlice = createSlice({
     })
   },
 })
-
-export const { setAuth, loadingAuth } = authSlice.actions
 
 export const { reducer: authReducer } = authSlice

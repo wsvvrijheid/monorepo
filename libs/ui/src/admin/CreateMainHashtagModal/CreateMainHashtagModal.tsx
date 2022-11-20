@@ -24,7 +24,9 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import slugify from '@sindresorhus/slugify'
 import { useCreateMainHashtag, useGetMentions } from '@wsvvrijheid/services'
 import { Hashtag, HashtagCreateInput, StrapiLocale } from '@wsvvrijheid/types'
+import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
+import useFormPersist from 'react-hook-form-persist'
 import { IoMdAdd, IoMdCheckmark, IoMdClose } from 'react-icons/io'
 import * as yup from 'yup'
 
@@ -45,7 +47,7 @@ export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
   const formDisclosure = useDisclosure()
   const successDisclosure = useDisclosure()
 
-  const [locale, setLocale] = useState<StrapiLocale>('en')
+  const { locale } = useRouter()
 
   const schema = yup.object({
     title: yup.string().required('Title is required'),
@@ -59,6 +61,8 @@ export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
   const {
     register,
     control,
+    watch,
+    setValue,
     formState: { errors },
     handleSubmit,
     reset: resetForm,
@@ -67,7 +71,13 @@ export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
     mode: 'all',
   })
 
-  const { mutate, isLoading } = useCreateMainHashtag(locale, queryKey)
+  useFormPersist(`create-main-hashtag-${locale}`, {
+    watch,
+    setValue,
+    ...(typeof window !== 'undefined' && { storage: window.sessionStorage }),
+  })
+
+  const { mutate, isLoading } = useCreateMainHashtag(queryKey)
   const toast = useToast()
   const currentMentions = useGetMentions()
   const [createdHashtag, setCreatedHashtag] = useState<Hashtag>()
@@ -81,7 +91,7 @@ export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
     const formBody: HashtagCreateInput = {
       ...data,
       slug,
-      locale,
+      locale: locale as StrapiLocale,
       publishedAt: null,
       mentions,
     }
@@ -150,7 +160,7 @@ export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
 
       <Modal
         isCentered
-        closeOnOverlayClick={true}
+        closeOnOverlayClick={false}
         isOpen={formDisclosure.isOpen}
         onClose={closeForm}
         size="4xl"
@@ -208,10 +218,7 @@ export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
                 <HStack>
                   <FormControl isRequired>
                     <FormLabel>Locale</FormLabel>
-                    <LanguageSwitcher
-                      defaultLocale={locale as StrapiLocale}
-                      onLanguageSwitch={setLocale}
-                    />
+                    <LanguageSwitcher />
                   </FormControl>
 
                   <FormItem

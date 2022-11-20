@@ -15,7 +15,7 @@ import {
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation } from '@tanstack/react-query'
-import { setAuth, useAppDispatch } from '@wsvvrijheid/store'
+import { checkAuth, useAppDispatch } from '@wsvvrijheid/store'
 import axios from 'axios'
 import { useTranslation } from 'next-i18next'
 import { TFunction } from 'next-i18next'
@@ -67,11 +67,11 @@ export const LoginForm: FC<LoginFormProps> = ({ providersToBeShown = [] }) => {
         identifier: body.email,
         password: body.password,
       }),
-    onSuccess: data => {
+    onSuccess: async data => {
       if (data.data?.error) {
         return setErrorMessage(data.data.error.message)
       }
-      dispatch(setAuth(data.data))
+      await dispatch(checkAuth()).unwrap()
       reset()
       router.push('/')
     },

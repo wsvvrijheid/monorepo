@@ -1,4 +1,4 @@
-import { FC, useRef, useState } from 'react'
+import { FC, useRef } from 'react'
 
 import {
   Button,
@@ -15,17 +15,19 @@ import {
   Spacer,
   Spinner,
   Stack,
+  Text,
   Textarea,
   useDisclosure,
   useToast,
-  Text,
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import slugify from '@sindresorhus/slugify'
 import { useCreateHashtagPost, useHashtags } from '@wsvvrijheid/services'
 import { useAuthSelector } from '@wsvvrijheid/store'
 import { StrapiLocale } from '@wsvvrijheid/types'
+import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
+import useFormPersist from 'react-hook-form-persist'
 import { IoMdAdd, IoMdCheckmark, IoMdClose } from 'react-icons/io'
 import * as yup from 'yup'
 
@@ -44,9 +46,9 @@ export const CreateHashtagPostModal: FC<CreateHashtagPostModalProps> = ({
   const formDisclosure = useDisclosure()
   const successDisclosure = useDisclosure()
 
-  const [locale, setLocale] = useState<StrapiLocale>('en')
   const hashtags = useHashtags()
   const currentHashtag = hashtags?.data
+  const { locale } = useRouter()
 
   const schema = yup.object({
     title: yup.string().required('Title is required'),
@@ -61,6 +63,7 @@ export const CreateHashtagPostModal: FC<CreateHashtagPostModalProps> = ({
     register,
     control,
     setValue,
+    watch,
     formState: { errors },
     handleSubmit,
     reset: resetForm,
@@ -69,7 +72,13 @@ export const CreateHashtagPostModal: FC<CreateHashtagPostModalProps> = ({
     mode: 'all',
   })
 
-  const { mutate, isLoading } = useCreateHashtagPost(locale, queryKey)
+  useFormPersist(`create-hashtag-post-${locale}`, {
+    watch,
+    setValue,
+    ...(typeof window !== 'undefined' && { storage: window.sessionStorage }),
+  })
+
+  const { mutate, isLoading } = useCreateHashtagPost(queryKey)
   const toast = useToast()
   const auth = useAuthSelector()
 
@@ -85,7 +94,7 @@ export const CreateHashtagPostModal: FC<CreateHashtagPostModalProps> = ({
     const formBody = {
       ...data,
       slug,
-      locale,
+      locale: locale as StrapiLocale,
       hashtag,
       publishedAt: null,
       creater,
@@ -179,10 +188,7 @@ export const CreateHashtagPostModal: FC<CreateHashtagPostModalProps> = ({
               <Stack flex={1} spacing={4}>
                 <FormControl isRequired>
                   <FormLabel>Locale</FormLabel>
-                  <LanguageSwitcher
-                    defaultLocale={locale as StrapiLocale}
-                    onLanguageSwitch={setLocale}
-                  />
+                  <LanguageSwitcher />
                 </FormControl>
                 <FormItem
                   name="title"

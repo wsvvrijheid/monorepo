@@ -32,7 +32,7 @@ type BlogRelationInput = {
 export type BlogCreateInput = Expand<
   { publishedAt?: string | null } & Omit<
     BlogBase,
-    'translationStatus' | 'likes' | 'views'
+    'approvalStatus' | 'likes' | 'views'
   > &
     Omit<BlogRelationInput, 'likers'>
 >

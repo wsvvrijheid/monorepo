@@ -18,7 +18,6 @@ export type PageHeaderProps = {
   defaultLocale?: StrapiLocale
   filterMenu?: ReactNode
   sortMenu?: ReactNode
-  onLanguageSwitch?: (slug: StrapiLocale) => void
   onSearch: (value: string | null) => number | void
   children?: ReactNode
   filterMenuCloseOnSelect?: boolean
@@ -29,7 +28,6 @@ export const PageHeader: FC<PageHeaderProps> = ({
   defaultLocale,
   filterMenu,
   sortMenu,
-  onLanguageSwitch,
   onSearch,
   children,
   filterMenuCloseOnSelect,
@@ -45,12 +43,7 @@ export const PageHeader: FC<PageHeaderProps> = ({
         />
       )}
       {/* TODO locale switcher */}
-      {defaultLocale && onLanguageSwitch && (
-        <LanguageSwitcher
-          defaultLocale={defaultLocale}
-          onLanguageSwitch={onLanguageSwitch}
-        />
-      )}
+      <LanguageSwitcher />
 
       {filterMenu && (
         <Menu closeOnSelect={filterMenuCloseOnSelect}>

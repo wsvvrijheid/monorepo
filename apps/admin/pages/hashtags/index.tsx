@@ -16,16 +16,15 @@ import {
   WConfirm,
   WConfirmProps,
 } from '@wsvvrijheid/ui'
+import { useRouter } from 'next/router'
 import { useUpdateEffect } from 'react-use'
 
 const MainHashtagPage = () => {
-  const defaultLocale: StrapiLocale = 'tr'
-
-  const [locale, setLocale] = useState<StrapiLocale>(defaultLocale)
   const [sort, setSort] = useState<Sort>()
   const [selectedMainHashtag, setSelectedMainHashtag] = useState<Hashtag>()
   const [currentPage, setCurrentPage] = useState<number>()
   const [searchTerm, setSearchTerm] = useState<string>()
+  const { locale } = useRouter()
 
   const openEditModal = useDisclosure()
 
@@ -117,8 +116,6 @@ const MainHashtagPage = () => {
       title="Main Hashtag"
       headerProps={{
         onSearch: handleSearch,
-        onLanguageSwitch: locale => setLocale(locale),
-        defaultLocale,
       }}
     >
       {confirmState && (
