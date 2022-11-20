@@ -33,8 +33,8 @@ const Platforms: FC<PlatformsProps> = ({ title, platforms }) => {
               <Card
                 title={project[`name_${locale}`]}
                 description={project[`description_${locale}`]}
-                image={project.image.url}
-                link={`/${locale}/platforms/${project.slug}`}
+                image={project.image?.url}
+                link={`/platforms/${project.slug}`}
                 rounded
               />
             </AnimatedBox>
@@ -51,6 +51,8 @@ export const getStaticProps = async context => {
   const { locale } = context
 
   const platforms = await getAllPlatforms()
+
+  console.log('platforms', platforms)
 
   const seo = {
     title: {

@@ -17,7 +17,7 @@ type CollectionRelationInput = {
 }
 
 export type CollectionCreateInput = Expand<
-  { publishedAt?: string | null } & Omit<CollectionBase, 'translationStatus'> &
+  { publishedAt?: string | null } & Omit<CollectionBase, 'approvalStatus'> &
     CollectionRelationInput
 >
 

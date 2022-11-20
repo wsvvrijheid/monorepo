@@ -42,15 +42,23 @@
       },
       "type": "text"
     },
-    "translationStatus": {
+    "reference": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "string"
+    },
+    "approvalStatus": {
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
       },
       "type": "enumeration",
-      "enum": ["pending", "approved", "rejected", "original"],
-      "default": "original",
+      "enum": ["pending", "approved", "rejected"],
+      "default": "pending",
       "required": false
     },
     "capsStatus": {
@@ -61,7 +69,6 @@
       },
       "type": "enumeration",
       "enum": ["pending", "approved", "rejected"],
-      "required": false,
       "default": "pending"
     },
     "image": {

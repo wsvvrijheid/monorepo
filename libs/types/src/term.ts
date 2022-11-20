@@ -1,10 +1,7 @@
 import { UploadFile } from './file'
 import { StrapiBase, StrapiEntityBase } from './strapi'
 
-export type TermBase = Omit<
-  StrapiEntityBase,
-  'description' | 'translationStatus'
->
+export type TermBase = Omit<StrapiEntityBase, 'description' | 'approvalStatus'>
 
 type TermRelation = {
   image?: UploadFile

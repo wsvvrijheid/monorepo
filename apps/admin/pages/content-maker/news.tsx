@@ -4,10 +4,11 @@ import { MenuItemOption, MenuOptionGroup, SimpleGrid } from '@chakra-ui/react'
 import { dehydrate, QueryClient } from '@tanstack/react-query'
 import { getTopics, useTopic } from '@wsvvrijheid/services'
 import { useAuthSelector } from '@wsvvrijheid/store'
-import { StrapiLocale, TopicBase } from '@wsvvrijheid/types'
+import { TopicBase } from '@wsvvrijheid/types'
 import { AdminLayout, TopicCard } from '@wsvvrijheid/ui'
 import { GetStaticProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { useRouter } from 'next/router'
 import { FaArrowDown, FaArrowUp } from 'react-icons/fa'
 
 import i18nConfig from '../../next-i18next.config'
@@ -21,9 +22,7 @@ const NewsPage = () => {
   const [searchTerm, setSearchTerm] = useState<string>()
   const [sortDirection, setSortDirection] = useState<'DESC' | 'ASC'>('DESC')
 
-  const defaultLocale: StrapiLocale = 'tr'
-
-  const [locale, setLocale] = useState<StrapiLocale>(defaultLocale)
+  const { locale } = useRouter()
 
   const search = useCallback(
     (topics: TopicBase[]) => {
@@ -99,8 +98,6 @@ const NewsPage = () => {
       title="News"
       headerProps={{
         onSearch: setSearchTerm,
-        onLanguageSwitch: locale => setLocale(locale),
-        defaultLocale,
         sortMenu,
         filterMenu,
         filterMenuCloseOnSelect: false,

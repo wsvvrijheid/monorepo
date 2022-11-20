@@ -9,7 +9,7 @@ import { Blog, BlogLocalizeInput } from './blog'
 import { Category } from './category'
 import { Collection } from './collection'
 import { Comment } from './comment'
-import { Expand, TranslationStatus } from './common'
+import { ApprovalStatus, Expand } from './common'
 import { Competition, CompetitionLocalizeInput } from './competition'
 import { Donate } from './donate'
 import { Feedback } from './feedback'
@@ -27,6 +27,7 @@ import { RecommendedTopic } from './recommended-topic'
 import { RecommendedTweet } from './recommended-tweet'
 import { Tag } from './tag'
 import { Term } from './term'
+import { Timeline } from './timeline'
 import { Topic } from './topic'
 import { Trend } from './trend'
 import { User } from './user'
@@ -51,7 +52,7 @@ export type StrapiEntityBase = {
   slug: string
   description: string
   content: string
-  translationStatus: TranslationStatus
+  approvalStatus: ApprovalStatus
   locale: StrapiLocale
 }
 
@@ -80,6 +81,7 @@ export type StrapiModel =
   | RecommendedTweet
   | Tag
   | Term
+  | Timeline
   | Topic
   | Trend
   | UploadFile
@@ -193,16 +195,15 @@ export type StrapiLocalizeInput =
   | PostLocalizeInput
 
 export type StrapiFormValue =
-  | string
-  | number
-  | boolean
-  | Date
-  | string[]
-  | number[]
   | Blob
   | Blob[]
+  | Date
   | JSON
+  | boolean
   | null
-  | JSON
+  | number
+  | number[]
+  | string
+  | string[]
 
 export type StrapiMutationInput = { [key in string]?: StrapiFormValue }
