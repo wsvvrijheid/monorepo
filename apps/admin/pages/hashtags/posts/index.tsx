@@ -2,7 +2,11 @@ import { useState } from 'react'
 
 import { usePostsByFilterAndSort } from '@wsvvrijheid/services'
 import { StrapiLocale, Sort, ApprovalStatus } from '@wsvvrijheid/types'
-import { AdminLayout, PostsTable } from '@wsvvrijheid/ui'
+import {
+  AdminLayout,
+  CreateHashtagPostModal,
+  PostsTable,
+} from '@wsvvrijheid/ui'
 import { useRouter } from 'next/router'
 import { useUpdateEffect } from 'react-use'
 
@@ -50,6 +54,7 @@ const HashtagPostsPage = () => {
         defaultLocale,
       }}
     >
+      <CreateHashtagPostModal />
       <PostsTable
         data={mappedPosts}
         totalCount={totalCount}

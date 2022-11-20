@@ -81,7 +81,7 @@ export const CreateHashtagPostModal: FC<CreateHashtagPostModalProps> = ({
     const slug = slugify(data.title)
     const hashtag = parseInt(data.hashtag?.value)
     const creater = auth?.user?.id
-
+    console.log('creater', creater)
     const formBody = {
       ...data,
       slug,
