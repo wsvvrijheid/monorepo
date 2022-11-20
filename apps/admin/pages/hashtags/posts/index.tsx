@@ -8,12 +8,10 @@ import { useUpdateEffect } from 'react-use'
 
 const HashtagPostsPage = () => {
   const [currentPage, setCurrentPage] = useState<number>()
-  const defaultLocale: StrapiLocale = 'en'
-  const { query } = useRouter()
+  const { query, locale } = useRouter()
   console.log('status', query.status)
   const status = query.status as ApprovalStatus
   const [searchTerm, setSearchTerm] = useState<string>()
-  const [locale, setLocale] = useState<StrapiLocale>(defaultLocale)
   const [sort, setSort] = useState<Sort>()
   const queryKey = ['posts', searchTerm, sort, currentPage || 1, status]
 
@@ -46,8 +44,6 @@ const HashtagPostsPage = () => {
       title="Hashtag Posts"
       headerProps={{
         onSearch: handleSearch,
-        onLanguageSwitch: locale => setLocale(locale),
-        defaultLocale,
       }}
     >
       <PostsTable
