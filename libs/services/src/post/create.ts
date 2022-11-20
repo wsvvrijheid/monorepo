@@ -1,6 +1,7 @@
 import { QueryKey, useMutation, useQueryClient } from '@tanstack/react-query'
 import { Mutation } from '@wsvvrijheid/lib'
 import { Post, PostCreateInput, StrapiLocale } from '@wsvvrijheid/types'
+import { useRouter } from 'next/router'
 
 import { createLocalizations } from '../createLocalizations'
 
@@ -11,11 +12,9 @@ export const createHashtagPost = async (postCreateInput: PostCreateInput) => {
   })
 }
 
-export const useCreateHashtagPost = (
-  locale: StrapiLocale,
-  queryKey?: QueryKey,
-) => {
+export const useCreateHashtagPost = (queryKey?: QueryKey) => {
   const queryClient = useQueryClient()
+  const { locale } = useRouter()
 
   return useMutation({
     mutationKey: ['create-hashtag-post', locale],
@@ -24,7 +23,7 @@ export const useCreateHashtagPost = (
       await createLocalizations({
         data: post,
         translatedFields: ['title', 'description', 'content'],
-        locale,
+        locale: locale as StrapiLocale,
         url: 'api/posts',
       })
 

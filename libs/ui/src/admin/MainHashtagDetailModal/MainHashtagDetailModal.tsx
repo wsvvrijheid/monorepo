@@ -26,6 +26,7 @@ import '@splidejs/splide/dist/css/themes/splide-default.min.css'
 import slugify from '@sindresorhus/slugify'
 import { useGetMentions, useUpdateHashtagMutation } from '@wsvvrijheid/services'
 import { StrapiLocale, UploadFile } from '@wsvvrijheid/types'
+import { useRouter } from 'next/router'
 import { FormProvider, useForm } from 'react-hook-form'
 import { FaTimes } from 'react-icons/fa'
 import { HiOutlineX, HiPencil } from 'react-icons/hi'
@@ -56,7 +57,7 @@ export const MainHashtagDetailModal: FC<MainHashtagDetailModalProps> = ({
   unPublish,
   onClose,
 }) => {
-  const [locale, setLocale] = useState<StrapiLocale>('en')
+  const { locale } = useRouter()
 
   const [isEditingMention, setIsEditingMention] = useBoolean(false)
   const [isEditingImage, setIsEditingImage] = useBoolean(false)
@@ -84,7 +85,7 @@ export const MainHashtagDetailModal: FC<MainHashtagDetailModalProps> = ({
     ),
   })
 
-  const mainHashtag = localizeHashtag[locale]
+  const mainHashtag = localizeHashtag[locale as StrapiLocale]
 
   const formMethods = useForm<CreateMainHashtagFormFieldValues>({
     resolver: yupResolver(schema),
@@ -262,10 +263,7 @@ export const MainHashtagDetailModal: FC<MainHashtagDetailModalProps> = ({
                   <HStack>
                     <FormControl isRequired>
                       <FormLabel>Locale</FormLabel>
-                      <LanguageSwitcher
-                        defaultLocale={locale as StrapiLocale}
-                        onLanguageSwitch={setLocale}
-                      />
+                      <LanguageSwitcher />
                     </FormControl>
                     {/*date ========== */}
                     <Stack align="start" justify={'start'} w="full">
@@ -321,7 +319,7 @@ export const MainHashtagDetailModal: FC<MainHashtagDetailModalProps> = ({
                       />
                     </HStack>
                     {isEditingMention ? (
-                      <WSelect
+                      <WSelect<CreateMainHashtagFormFieldValues>
                         isMulti
                         name="mentions"
                         control={formMethods.control}

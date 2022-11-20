@@ -14,7 +14,7 @@ export const mapModelLocalization = <T extends StrapiTranslatableModel>({
   const defaultLocalizedModel = {
     [model.locale]: {
       ...model,
-      translationStatus: model.translationStatus || 'pending',
+      approvalStatus: model.approvalStatus || 'pending',
       image: model.images?.[0] || model.image,
     },
   } as LocalizedModel<T>
@@ -24,7 +24,7 @@ export const mapModelLocalization = <T extends StrapiTranslatableModel>({
       ...acc,
       [localization.locale]: {
         ...localization,
-        status: localization.translationStatus || 'pending',
+        status: localization.approvalStatus || 'pending',
         image:
           (localization as TranslatableModel<T>)?.images?.[0] ||
           (localization as TranslatableModel<T>)?.image,

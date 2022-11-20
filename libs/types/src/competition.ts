@@ -23,7 +23,7 @@ type CompetitionRelationInput = {
 }
 
 export type CompetitionCreateInput = Expand<
-  { publishedAt?: string | null } & Omit<CompetitionBase, 'translationStatus'> &
+  { publishedAt?: string | null } & Omit<CompetitionBase, 'approvalStatus'> &
     Omit<CompetitionRelationInput, 'applications'>
 >
 
