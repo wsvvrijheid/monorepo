@@ -40,7 +40,7 @@ export const PostsTable: FC<PostsTableProps> = ({
     setSelectedIndex(index)
     openEditModal.onOpen()
   }
-  console.log('selectedPost >>>>>>>>', selectedPost)
+
   const deletepost = useDeletePost(queryKey)
   const approveMutation = useApproveMutation(queryKey)
   const publishPostMutation = usePublishModel('api/posts', queryKey)
