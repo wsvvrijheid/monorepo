@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
-import { usePostsByFilterAndSort } from '@wsvvrijheid/services'
-import { StrapiLocale, Sort, ApprovalStatus } from '@wsvvrijheid/types'
+import { usePostsByFilterAndSort} from '@wsvvrijheid/services'
+import { StrapiLocale, Sort, ApprovalStatus,  } from '@wsvvrijheid/types'
 import {
   AdminLayout,
   CreateHashtagPostModal,
@@ -13,10 +13,12 @@ import { useUpdateEffect } from 'react-use'
 const HashtagPostsPage = () => {
   const [currentPage, setCurrentPage] = useState<number>()
   const { query, locale } = useRouter()
-  console.log('status', query.status)
+
+
   const status = query.status as ApprovalStatus
   const [searchTerm, setSearchTerm] = useState<string>()
   const [sort, setSort] = useState<Sort>()
+
   const queryKey = ['posts', searchTerm, sort, currentPage || 1, status]
 
   const PostsQuery = usePostsByFilterAndSort(queryKey, {
@@ -43,6 +45,7 @@ const HashtagPostsPage = () => {
     translates: posts?.localizations?.map(l => l.locale),
   }))
 
+
   return (
     <AdminLayout
       title="Hashtag Posts"
@@ -52,12 +55,14 @@ const HashtagPostsPage = () => {
     >
       <CreateHashtagPostModal />
       <PostsTable
+       queryKey={queryKey}
         data={mappedPosts}
         totalCount={totalCount}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
         onSort={setSort}
       />
+    
     </AdminLayout>
   )
 }
