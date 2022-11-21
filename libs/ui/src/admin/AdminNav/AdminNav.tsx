@@ -26,8 +26,9 @@ import { VscFeedback } from 'react-icons/vsc'
 
 import { AdminNavItem } from './AdminNavItem'
 import { AdminNavItemCollapsed } from './AdminNavItemCollapsed'
+import { AdminNavItemProps } from './types'
 
-export const getAdminNav = (user: SessionUser) => {
+export const getAdminNav = (user: SessionUser): AdminNavItemProps[] => {
   const { isEditor, isAdmin } = user
 
   return [
@@ -72,7 +73,7 @@ export const getAdminNav = (user: SessionUser) => {
     {
       label: 'Arts',
       icon: <TbBrush />,
-      visible: isEditor || isAdmin,
+      visible: !!isEditor || !!isAdmin,
       submenu: [
         {
           label: 'Pending Arts',
@@ -108,8 +109,37 @@ export const getAdminNav = (user: SessionUser) => {
         },
         {
           label: 'Hashtag Posts',
-          link: '/hashtags/posts',
           icon: <TbBrandTwitter />,
+          visible: !!Boolean || !!isAdmin,
+          submenu: [
+            {
+              label: 'Pending  Posts',
+              link: '/hashtags/posts?status=pending',
+              icon: <TbClock />,
+            },
+            {
+              label: 'Approved  Posts',
+              link: '/hashtags/posts?status=approved',
+              icon: <TbChecks />,
+            },
+          ],
+        },
+        {
+          label: 'Hashtag Caps',
+          icon: <TbBrandTwitter />,
+          visible: isEditor || isAdmin,
+          submenu: [
+            {
+              label: 'Pending  Caps',
+              link: '/hashtags/caps?status=pending',
+              icon: <TbClock />,
+            },
+            {
+              label: 'Approved  Caps',
+              link: '/hashtags/caps?status=approved',
+              icon: <TbChecks />,
+            },
+          ],
         },
       ],
     },
