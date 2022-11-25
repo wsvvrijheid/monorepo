@@ -49,8 +49,8 @@ export type StrapiBase = {
 export type StrapiEntityBase = {
   title: string
   slug: string
-  description: string
-  content: string
+  description: string | null
+  content: string | null
   approvalStatus: ApprovalStatus
   locale: StrapiLocale
 }

@@ -110,7 +110,7 @@ export const PostsTable: FC<PostsTableProps> = ({
           {...confirmState}
         />
       )}
-      {selectedPost && openEditModal.isOpen && (
+      {selectedPost && openEditModal.isOpen && confirmState && (
         <PostDetailModal
           localizePost={{
             tr: selectedPost,

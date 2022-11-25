@@ -94,8 +94,8 @@ export const PostDetailModal: FC<PostDetailModalProps> = ({
     mode: 'all',
     defaultValues: {
       title: hashtagPost?.title,
-      description: hashtagPost?.description,
-      content: hashtagPost?.content,
+      description: hashtagPost?.description || undefined,
+      content: hashtagPost?.content || undefined,
       image: hashtagPost?.image,
       reference: hashtagPost?.reference,
       hashtag: {

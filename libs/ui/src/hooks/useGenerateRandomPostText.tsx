@@ -19,12 +19,13 @@ export const useGenerateRandomPostText = () => {
       if (tryCount.current === 10) tryCount.current = 0
 
       const randomPostSentence = getRandomPostSentence(locale as StrapiLocale)
-      const sentences = post.description
-        .replace(/\.\.+/g, '.')
-        .replace(/\n/g, '.')
-        .split('.')
-        .map(sentence => sentence.trim())
-        .filter(sentence => sentence.length > 0)
+      const sentences =
+        post.description
+          ?.replace(/\.\.+/g, '.')
+          .replace(/\n/g, '.')
+          .split('.')
+          .map(sentence => sentence.trim())
+          .filter(sentence => sentence.length > 0) ?? []
 
       const numberOfSentences = sentences.length
 
