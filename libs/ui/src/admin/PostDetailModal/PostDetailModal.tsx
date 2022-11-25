@@ -23,7 +23,6 @@ import {
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import '@splidejs/splide/dist/css/themes/splide-default.min.css'
-import slugify from '@sindresorhus/slugify'
 import { useHashtags, useUpdatePostMutation } from '@wsvvrijheid/services'
 import { Post, StrapiLocale, UploadFile } from '@wsvvrijheid/types'
 import { useRouter } from 'next/router'
@@ -77,7 +76,6 @@ export const PostDetailModal: FC<PostDetailModalProps> = ({
     reference: yup.string(),
   })
   //update postapprovalStatus
-  const postApprovalStatus = 'pending'
   const [hashtagPost, setHashtagPost] = useState<Post>(
     localizePost[locale as StrapiLocale],
   )
@@ -95,12 +93,15 @@ export const PostDetailModal: FC<PostDetailModalProps> = ({
     resolver: yupResolver(schema),
     mode: 'all',
     defaultValues: {
-      ...hashtagPost,
+      title: hashtagPost?.title,
+      description: hashtagPost?.description,
+      content: hashtagPost?.content,
+      image: hashtagPost?.image,
+      reference: hashtagPost?.reference,
       hashtag: {
         value: hashtagPost.hashtag?.title || '',
         label: 'Hashtag',
       },
-      title: hashtagPost?.title,
     },
   })
 
@@ -135,11 +136,9 @@ export const PostDetailModal: FC<PostDetailModalProps> = ({
     ].indexOf(field)
 
     if (field === 'title') {
-      const slug = slugify(title)
       return updatePost({
         id: hashtagPost.id,
         title,
-        slug,
       })
     } else {
       return updatePost({
@@ -324,7 +323,7 @@ export const PostDetailModal: FC<PostDetailModalProps> = ({
                   <Stack direction={'row'} spacing={{ base: 2, lg: 4 }}>
                     <ButtonGroup alignSelf="end">
                       <Button
-                        isDisabled={postApprovalStatus === 'approved'}
+                        isDisabled={hashtagPost.approvalStatus === 'approved'}
                         onClick={handleApprove}
                         colorScheme="primary"
                         leftIcon={<HiOutlineCheck />}
