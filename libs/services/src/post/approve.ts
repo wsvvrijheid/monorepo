@@ -1,15 +1,15 @@
 import { useToast } from '@chakra-ui/react'
 import { QueryKey, useMutation, useQueryClient } from '@tanstack/react-query'
 import { Mutation } from '@wsvvrijheid/lib'
-import { Post } from '@wsvvrijheid/types'
+import { Post, PostUpdateInput } from '@wsvvrijheid/types'
 
 export const postApprove = async ({ id }: { id: number }) => {
-  const body = {
+  const body: PostUpdateInput = {
     approvalStatus: 'approved',
-    publishedAt: new Date(),
+    publishedAt: new Date().toISOString(),
   }
 
-  return Mutation.put<Post, typeof body>('api/posts', id, body)
+  return Mutation.put<Post, PostUpdateInput>('api/posts', id, body)
 }
 
 export const useApproveMutation = (queryKey?: QueryKey) => {
@@ -18,8 +18,6 @@ export const useApproveMutation = (queryKey?: QueryKey) => {
   return useMutation({
     mutationKey: ['post-approve'],
     mutationFn: postApprove,
-    //TODO we should add approved editor name here
-    postApprove,
     onSuccess: res => {
       queryClient.invalidateQueries(queryKey)
       toast({
