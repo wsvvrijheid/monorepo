@@ -19,12 +19,13 @@ import {
   Textarea,
   useBoolean,
   useDisclosure,
+  useUpdateEffect,
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import '@splidejs/splide/dist/css/themes/splide-default.min.css'
 import slugify from '@sindresorhus/slugify'
 import { useHashtags, useUpdatePostMutation } from '@wsvvrijheid/services'
-import { StrapiLocale, UploadFile } from '@wsvvrijheid/types'
+import { Post, StrapiLocale, UploadFile } from '@wsvvrijheid/types'
 import { useRouter } from 'next/router'
 import { FormProvider, useForm } from 'react-hook-form'
 import { FaTimes } from 'react-icons/fa'
@@ -58,7 +59,7 @@ export const PostDetailModal: FC<PostDetailModalProps> = ({
 
   const [isEditingImage, setIsEditingImage] = useBoolean(false)
   const [imagePreview, setImagePreview] = useState<string>()
-
+  const [isEditingHashtag, setIsEditingHashtag] = useBoolean(false)
   const confirmDisclosure = useDisclosure()
 
   const cancelRef = useRef<HTMLButtonElement>(null)
@@ -77,14 +78,29 @@ export const PostDetailModal: FC<PostDetailModalProps> = ({
   })
   //update postapprovalStatus
   const postApprovalStatus = 'pending'
-  const hashtagPost = localizePost[locale as StrapiLocale]
+  const [hashtagPost, setHashtagPost] = useState<Post>(
+    localizePost[locale as StrapiLocale],
+  )
+
+  useUpdateEffect(() => {
+    const hashtagPost = localizePost[locale as StrapiLocale]
+    if (hashtagPost === undefined) {
+      console.log('undefined >>>>>>>>>>>>>>>>>>>>>.')
+      onClose()
+    }
+    setHashtagPost(hashtagPost)
+  }, [locale])
 
   const formMethods = useForm<CreateHashtagPostFormFieldValues>({
     resolver: yupResolver(schema),
     mode: 'all',
     defaultValues: {
       ...hashtagPost,
-      hashtag: hashtagPost?.hashtag || undefined,
+      hashtag: {
+        value: hashtagPost.hashtag?.title || '',
+        label: 'Hashtag',
+      },
+      title: hashtagPost?.title,
     },
   })
 
@@ -137,7 +153,7 @@ export const PostDetailModal: FC<PostDetailModalProps> = ({
   const handleUnPublish = () => unPublish(hashtagPost.id)
   const handleDelete = () => onDelete(hashtagPost.id)
   const handleApprove = () => onApprove(hashtagPost.id)
-
+  console.log('current post title', hashtagPost.title)
   return (
     <>
       {confirmState && (
@@ -208,19 +224,43 @@ export const PostDetailModal: FC<PostDetailModalProps> = ({
                 {/* RIGHT SIDE */}
                 <Stack flex={1} spacing={4}>
                   {/* hashtag ==========*/}
-                  <WSelect
-                    name="hashtag"
-                    label="Main Hashtag"
-                    isRequired
-                    control={formMethods.control}
-                    errors={formMethods.formState.errors}
-                    options={
-                      currentHashtag?.map(c => ({
-                        value: c.id.toString(),
-                        label: c.title.toString(),
-                      })) || []
-                    }
-                  />
+                  {isEditingHashtag ? (
+                    <WSelect
+                      name="hashtag"
+                      label="Main Hashtag"
+                      isRequired
+                      control={formMethods.control}
+                      errors={formMethods.formState.errors}
+                      options={
+                        currentHashtag?.map(c => ({
+                          value: c.id.toString(),
+                          label: c.title.toString(),
+                        })) || []
+                      }
+                      onBlur={() => {
+                        setIsEditingHashtag.off()
+                        handleSave('hashtag')
+                      }}
+                    />
+                  ) : (
+                    <Stack justify={'stretch'}>
+                      <HStack>
+                        <Text fontWeight={600} fontSize={'sm'}>
+                          Hashtag
+                        </Text>
+                        <IconButton
+                          aria-label="Edit"
+                          size={'xs'}
+                          rounded={'full'}
+                          onClick={setIsEditingHashtag.toggle}
+                          variant="outline"
+                          icon={isEditingHashtag ? <FaTimes /> : <HiPencil />}
+                        />
+                      </HStack>
+                      <Text>{hashtagPost?.hashtag?.title}</Text>
+                    </Stack>
+                  )}
+
                   <EditableFormItem
                     name="reference"
                     label="Source Link"
