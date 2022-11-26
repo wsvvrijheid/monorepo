@@ -51,7 +51,6 @@ export const AdminNavItem: FC<AdminNavItemProps> = ({
     setSubLink(label)
   }
 
-  console.log(openSub)
   return (
     <Box w="full">
       <Navigate
