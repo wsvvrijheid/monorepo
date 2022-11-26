@@ -2,8 +2,11 @@ import { FC } from 'react'
 
 import {
   Avatar,
+  Box,
   HStack,
   IconButton,
+  Image,
+  Link,
   Menu,
   MenuButton,
   MenuItem,
@@ -25,23 +28,31 @@ export const TimelineTweetBase: FC<TimelineTweetProps> = ({
   profileImg,
   ...rest
 }) => {
-  console.log('tweeet TimelineTweetBase', tweet)
+  // console.log('tweeet TimelineTweetBase', tweet)
   // console.log('timeline cardbase', username)
 
   return (
-    <HStack align="start" bg={'white'} rounded="lg" p={4} {...rest}>
-      <Avatar name={username} src={profileImg} />
+    <HStack
+      align="start"
+      borderBottom="1px"
+      borderRadius="0px"
+      borderColor="gray.300"
+      bg={'white'}
+      p={4}
+      {...rest}
+    >
+      <Avatar name={username} src={profileImg} mr={1} />
 
       <Stack>
         {/* Tweet Header */}
         <HStack justify={'space-between'} title={username}>
-          <HStack noOfLines={1}>
-            <Text fontSize={'sm'} fontWeight={'bolder'}>
+          <HStack>
+            <Text fontSize={'15px'} fontWeight={'bolder'}>
               {username}
             </Text>
-            <Text fontSize={'xs'} color={'gray'}>
+            {/* <Text fontSize={'xs'} color={'gray'}>
               @{username}
-            </Text>
+            </Text> */}
           </HStack>
 
           {onEdit && onSave && (
@@ -67,11 +78,60 @@ export const TimelineTweetBase: FC<TimelineTweetProps> = ({
             </Menu>
           )}
         </HStack>
-        <Text fontSize={'sm'} ml={2}>
-          {tweet.text}
+        <Text fontSize={'15px'} lineHeight={'20px'} ml={2}>
+          {tweet.text.split('\n').map(a => {
+            return (
+              <>
+                <p></p>
+                {a.split(' ').map(b => {
+                  console.log(b)
+                  if (b.startsWith('@')) {
+                    return (
+                      <Link
+                        href={`https://twitter.com/${b.slice(1, b.length - 1)}`}
+                        cursor="pointer"
+                        color="blue.400"
+                        target="_blank"
+                      >
+                        {b + ' '}
+                      </Link>
+                    )
+                  } else if (b.startsWith('#')) {
+                    return (
+                      <Link
+                        href={`https://twitter.com/hashtag/${b.slice(
+                          1,
+                          b.length,
+                        )}`}
+                        cursor="pointer"
+                        color="blue.400"
+                        target="_blank"
+                      >
+                        {b + ' '}
+                      </Link>
+                    )
+                  } else if (b.startsWith('https://')) {
+                    return (
+                      <Link
+                        href={b.slice(1, b.length)}
+                        cursor="pointer"
+                        color="blue.400"
+                        target="_blank"
+                      >
+                        {b + ' '}
+                      </Link>
+                    )
+                  }
+                  return b + ' '
+                })}
+              </>
+            )
+          })}
         </Text>
         {tweet?.media?.url && (
-          <img src={tweet?.media?.url} alt="" />
+          <Box mt={2}>
+            <Image src={tweet?.media?.url} alt="" borderRadius={16} />
+          </Box>
           // <WImage
           //   ratio="twitter"
           //   src={tweet?.media?.url}
