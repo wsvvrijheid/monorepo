@@ -8,6 +8,7 @@ import { User } from './user'
 export type PostBase = Omit<StrapiEntityBase, 'slug'> & {
   capsStatus: ApprovalStatus
   twitterMedia?: string | null
+  reference?: string | null
 }
 
 export type PostRelation = {

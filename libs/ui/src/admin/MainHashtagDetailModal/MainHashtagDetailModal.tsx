@@ -88,8 +88,13 @@ export const MainHashtagDetailModal: FC<MainHashtagDetailModalProps> = ({
     resolver: yupResolver(schema),
     mode: 'all',
     defaultValues: {
-      ...mainHashtag,
+      title: mainHashtag.title,
+      description: mainHashtag.description || undefined,
+      content: mainHashtag.content || undefined,
+      hashtag: mainHashtag.hashtag || undefined,
       hashtagExtra: mainHashtag.hashtagExtra || undefined,
+      image: mainHashtag.image || undefined,
+      date: mainHashtag.date || undefined,
       mentions:
         mainHashtag.mentions?.map(m => ({
           label: m.username,

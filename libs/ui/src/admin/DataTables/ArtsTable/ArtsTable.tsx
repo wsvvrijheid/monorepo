@@ -150,8 +150,8 @@ export const ArtsTable: FC<ArtsTableProps> = ({
         <ArtApprovalModal
           artId={selectedArt.id}
           artTitle={selectedArt.title}
-          artDescription={selectedArt.description}
-          artContent={selectedArt.content}
+          artDescription={selectedArt.description || ''}
+          artContent={selectedArt.content || ''}
           artApprovalStatus={selectedArt.approvalStatus}
           artPublishedAt={selectedArt.publishedAt}
           artImages={selectedArt.images as UploadFile[]}
