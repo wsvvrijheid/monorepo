@@ -171,18 +171,6 @@ export type StrapiUrl = Expand<`api/${
   | StrapiAuthUrl
   | StrapiEmailUrl}`>
 
-/**
- * TRANSLATION TYPES
- */
-export type StrapiTranslatableModel =
-  | Activity
-  | Announcement
-  | Art
-  | Blog
-  | Competition
-  | Hashtag
-  | Post
-
 export type StrapiLocalizeInput =
   | ActivityLocalizeInput
   | AnnouncementLocalizeInput
