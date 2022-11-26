@@ -1,42 +1,39 @@
 import { FC, useState } from 'react'
 
 import {
+  Box,
+  Button,
+  ButtonGroup,
+  Center,
+  Grid,
   Stack,
   Textarea,
-  ButtonGroup,
-  Button,
-  useDisclosure,
-  Box,
-  Grid,
-  Center,
   useBoolean,
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import {
   useDeleteCollection,
+  usePublishModel,
   useUnpublishModel,
   useUpdateCollection,
-  usePublishModel,
 } from '@wsvvrijheid/services'
 import { UploadFile } from '@wsvvrijheid/types'
-import { useTranslation } from 'next-i18next'
-import { TFunction } from 'next-i18next'
+import { TFunction, useTranslation } from 'next-i18next'
 import { useForm } from 'react-hook-form'
 import { AiOutlineEdit } from 'react-icons/ai'
 import { BsTrash } from 'react-icons/bs'
 import { IoMdClose, IoMdCloudUpload } from 'react-icons/io'
 import {
-  MdOutlineUnpublished,
   MdClose,
   MdOutlineCheck,
   MdOutlinePublishedWithChanges,
+  MdOutlineUnpublished,
 } from 'react-icons/md'
 import * as yup from 'yup'
 
-import { FilePicker, FormItem } from '../../components'
-import { WImage } from '../../components'
+import { FilePicker, FormItem, WImage } from '../../components'
 import { WConfirm, WConfirmProps } from '../../components/WConfirm'
-import { CollectionEditFormProps, CollectionEditFormFieldValues } from './types'
+import { CollectionEditFormFieldValues, CollectionEditFormProps } from './types'
 
 const schema = (t: TFunction) =>
   yup.object({
@@ -65,9 +62,7 @@ export const CollectionEditForm: FC<CollectionEditFormProps> = ({
   const publishCollectionMutation = usePublishModel('api/collections', queryKey)
   const deleteCollectionMutation = useDeleteCollection()
 
-  const confirmDisclosure = useDisclosure()
-  const [confirmState, setConfirmState] =
-    useState<Omit<WConfirmProps, 'onClose' | 'isOpen' | 'onOpen'>>()
+  const [confirmState, setConfirmState] = useState<WConfirmProps>()
 
   const {
     register,
@@ -109,37 +104,30 @@ export const CollectionEditForm: FC<CollectionEditFormProps> = ({
   const onEdit = () => setEdit(true)
 
   const onUnPublish = () => {
-    confirmDisclosure.onOpen()
     setConfirmState({
       title: 'Un Publish Collection',
       description: `Are you sure you want to unpublish this collection ?`,
       buttonText: 'Unpublish',
       onConfirm: async () => {
         await unpublishCollectionMutation.mutateAsync({ id })
-
         setConfirmState(undefined)
-        confirmDisclosure.onClose()
       },
     })
   }
 
   const onPublish = () => {
-    confirmDisclosure.onOpen()
     setConfirmState({
       title: 'Publish Collection',
       description: `Are you sure you want to publish this collection ?`,
       buttonText: 'Publish',
       onConfirm: async () => {
         await publishCollectionMutation.mutateAsync({ id })
-
         setConfirmState(undefined)
-        confirmDisclosure.onClose()
       },
     })
   }
 
   const onDelete = () => {
-    confirmDisclosure.onOpen()
     setConfirmState({
       isWarning: true,
       title: 'Delete Collection',
@@ -148,20 +136,13 @@ export const CollectionEditForm: FC<CollectionEditFormProps> = ({
       onConfirm: async () => {
         await deleteCollectionMutation.mutateAsync({ id })
         setConfirmState(undefined)
-        confirmDisclosure.onClose()
       },
     })
   }
 
   return (
     <>
-      {confirmState && (
-        <WConfirm
-          isOpen={confirmDisclosure.isOpen}
-          onClose={confirmDisclosure.onClose}
-          {...confirmState}
-        />
-      )}
+      {confirmState && <WConfirm {...confirmState} />}
 
       <Grid
         gap={{ base: 4, lg: 8 }}
