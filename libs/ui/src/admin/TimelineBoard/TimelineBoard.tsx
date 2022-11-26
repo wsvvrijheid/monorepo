@@ -1,6 +1,6 @@
 import { FC } from 'react'
 
-import { Box, HStack, Text } from '@chakra-ui/react'
+import { Box, HStack, Link, Text } from '@chakra-ui/react'
 
 import { TimelineTweetBase } from '../TimelineTweet'
 import { TimelineBoardProps } from './types'
@@ -14,29 +14,37 @@ export const TimelineBoard: FC<TimelineBoardProps> = ({ timelines }) => {
     console.log('save')
   }
 
-  // console.log(timelines)
-
+  console.log(timelines)
   return (
     <HStack
       align="start"
       bg={'white'}
       rounded="lg"
       p={4}
+      gap={4}
       overflowY="auto"
       shouldWrapChildren={true}
     >
       {timelines?.map(timeline => (
         // eslint-disable-next-line react/jsx-key
-        <Box w="460px" overflowX="auto">
-          <Box bg="blue.400" color="white" p={3}>
-            <HStack justify={'space-between'} title={timeline.username}>
-              <HStack noOfLines={1}>
-                <Text fontSize={'sm'} fontWeight={'bolder'}>
-                  @{timeline.username}
-                </Text>
+        <Box
+          w="500px"
+          overflowX="auto"
+          borderRadius="6px"
+          border="1px"
+          borderColor="gray.300"
+        >
+          <Link href={timeline.userData.url} target="_blank" cursor="pointer">
+            <Box bg="blue.400" borderBottom="1px" color="white" p={3}>
+              <HStack justify={'space-between'} title={timeline.username}>
+                <HStack noOfLines={1}>
+                  <Text fontSize={'sm'} fontWeight={'bolder'}>
+                    @{timeline.username}
+                  </Text>
+                </HStack>
               </HStack>
-            </HStack>
-          </Box>
+            </Box>
+          </Link>
           {/* I assigned height 700 randomly. What height do you think I should assign? */}
           <Box overflowY="auto" h="700px">
             {timeline.tweets.map((tweet, key) => (
