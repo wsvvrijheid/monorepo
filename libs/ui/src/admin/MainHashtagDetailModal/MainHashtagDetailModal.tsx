@@ -19,11 +19,10 @@ import {
   Text,
   Textarea,
   useBoolean,
-  useDisclosure,
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
-import '@splidejs/splide/dist/css/themes/splide-default.min.css'
 import slugify from '@sindresorhus/slugify'
+import '@splidejs/splide/dist/css/themes/splide-default.min.css'
 import { useGetMentions, useUpdateHashtagMutation } from '@wsvvrijheid/services'
 import { StrapiLocale, UploadFile } from '@wsvvrijheid/types'
 import { useRouter } from 'next/router'
@@ -65,9 +64,7 @@ export const MainHashtagDetailModal: FC<MainHashtagDetailModalProps> = ({
 
   const currentMentions = useGetMentions()
 
-  const confirmDisclosure = useDisclosure()
-  const [confirmState, setConfirmState] =
-    useState<Omit<WConfirmProps, 'onClose' | 'isOpen' | 'onOpen'>>()
+  const [confirmState, setConfirmState] = useState<WConfirmProps>()
   const cancelRef = useRef<HTMLButtonElement>(null)
 
   const schema = yup.object({
@@ -180,7 +177,6 @@ export const MainHashtagDetailModal: FC<MainHashtagDetailModalProps> = ({
   }
 
   const handleRemoveItem = (id: number) => {
-    confirmDisclosure.onOpen()
     setConfirmState({
       isWarning: true,
       title: 'Remove Mention',
@@ -204,13 +200,7 @@ export const MainHashtagDetailModal: FC<MainHashtagDetailModalProps> = ({
 
   return (
     <>
-      {confirmState && (
-        <WConfirm
-          isOpen={confirmDisclosure.isOpen}
-          onClose={confirmDisclosure.onClose}
-          {...confirmState}
-        />
-      )}
+      {confirmState && <WConfirm {...confirmState} />}
 
       <Modal
         isCentered
