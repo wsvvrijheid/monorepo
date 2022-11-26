@@ -21,13 +21,13 @@ export const createLocalizations = async <T extends StrapiTranslatableModel>({
   translatedFields,
   url,
 }: CreateLocalizationsArgs<T>) => {
-  const hashtagTranslations = await getModelTranslation(
+  const modelTranslations = await getModelTranslation(
     data as unknown as T,
     translatedFields,
     locale,
   )
 
-  const [firstTranslation, secondTranslation] = hashtagTranslations
+  const [firstTranslation, secondTranslation] = modelTranslations
 
   const firstTranslationResponse = await Mutation.localize<
     T,

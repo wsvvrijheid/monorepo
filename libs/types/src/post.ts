@@ -5,8 +5,7 @@ import { StrapiBase, StrapiEntityBase } from './strapi'
 import { Tag } from './tag'
 import { User } from './user'
 
-export type PostBase = Omit<StrapiEntityBase, 'slug' | 'content'> & {
-  content: string | null
+export type PostBase = Omit<StrapiEntityBase, 'slug'> & {
   capsStatus: ApprovalStatus
   twitterMedia?: string | null
 }
