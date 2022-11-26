@@ -88,7 +88,7 @@ export const TimelineTweetBase: FC<TimelineTweetProps> = ({
                   if (b.startsWith('@')) {
                     return (
                       <Link
-                        href={`https://twitter.com/${b.slice(1, b.length - 1)}`}
+                        href={`https://twitter.com/${b.slice(1, b.length)}`}
                         cursor="pointer"
                         color="blue.400"
                         target="_blank"
