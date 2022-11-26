@@ -74,7 +74,7 @@ export const CollectionEditForm: FC<CollectionEditFormProps> = ({
     mode: 'all',
     defaultValues: {
       title: collection.title,
-      description: collection.description,
+      description: collection.description || undefined,
     },
   })
 

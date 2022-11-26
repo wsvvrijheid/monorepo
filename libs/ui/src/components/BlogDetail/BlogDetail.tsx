@@ -45,7 +45,7 @@ export const BlogDetail: FC<BlogDetailProps> = ({
   const { locale } = useRouter()
   const { t } = useTranslation()
 
-  const readingTime = getReadingTime(post.content, locale as StrapiLocale)
+  const readingTime = getReadingTime(post.content || '', locale as StrapiLocale)
 
   return (
     <Stack py={8} spacing={8}>

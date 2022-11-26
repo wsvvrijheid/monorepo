@@ -23,12 +23,6 @@ export type CreateMainHashtagFormFieldValues = {
   image: Blob
 }
 
-export type EditButtonsProps = {
-  handleSave: (text: string) => void
-  cancelEdit: (text: string) => void
-  task: string
-}
-
 export type MentionItemProps = {
   mention: Mention
   onRemoveItem: (id: number) => void
