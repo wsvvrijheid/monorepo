@@ -18,7 +18,6 @@ import {
   Text,
   Textarea,
   useBoolean,
-  useDisclosure,
   useUpdateEffect,
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -59,7 +58,6 @@ export const PostDetailModal: FC<PostDetailModalProps> = ({
   const [isEditingImage, setIsEditingImage] = useBoolean(false)
   const [imagePreview, setImagePreview] = useState<string>()
   const [isEditingHashtag, setIsEditingHashtag] = useBoolean(false)
-  const confirmDisclosure = useDisclosure()
 
   const cancelRef = useRef<HTMLButtonElement>(null)
   const hashtags = useHashtags()
@@ -155,13 +153,7 @@ export const PostDetailModal: FC<PostDetailModalProps> = ({
   console.log('current post title', hashtagPost.title)
   return (
     <>
-      {confirmState && (
-        <WConfirm
-          isOpen={confirmDisclosure.isOpen}
-          onClose={confirmDisclosure.onClose}
-          {...confirmState}
-        />
-      )}
+      {confirmState && <WConfirm {...confirmState} />}
 
       <Modal
         isCentered
