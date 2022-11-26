@@ -10,5 +10,5 @@ export type PostDetailModalProps = {
   onPublish: (postId: number) => void
   unPublish: (postId: number) => void
   onApprove: (postId: number) => void
-  confirmState: Omit<WConfirmProps, 'onClose' | 'isOpen' | 'onOpen'>
+  confirmState: WConfirmProps
 }

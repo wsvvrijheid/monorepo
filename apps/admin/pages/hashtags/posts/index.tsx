@@ -13,7 +13,6 @@ import { useUpdateEffect } from 'react-use'
 const HashtagPostsPage = () => {
   const [currentPage, setCurrentPage] = useState<number>()
   const { query, locale } = useRouter()
-
   const status = query.status as ApprovalStatus
   const [searchTerm, setSearchTerm] = useState<string>()
   const [sort, setSort] = useState<Sort>()
@@ -27,10 +26,11 @@ const HashtagPostsPage = () => {
     locale: locale as StrapiLocale,
     status,
   })
+
   const handleSearch = (search: string) => {
     search ? setSearchTerm(search) : setSearchTerm(undefined)
   }
-  console.log('postQuery', PostsQuery)
+
   useUpdateEffect(() => {
     PostsQuery.refetch()
   }, [locale, searchTerm, sort])

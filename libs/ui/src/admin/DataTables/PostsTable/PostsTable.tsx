@@ -33,15 +33,14 @@ export const PostsTable: FC<PostsTableProps> = ({
   const selectedPost =
     typeof selectedIndex === 'number' ? posts?.[selectedIndex] : null
   const openEditModal = useDisclosure()
-  const [confirmState, setConfirmState] =
-    useState<Omit<WConfirmProps, 'onClose' | 'isOpen' | 'onOpen'>>()
+  const [confirmState, setConfirmState] = useState<WConfirmProps>()
 
   const handleClickRow = (index: number, id: number) => {
     setSelectedIndex(index)
     openEditModal.onOpen()
   }
 
-  const deletepost = useDeletePost(queryKey)
+  const deletePostMutation = useDeletePost(queryKey)
   const approveMutation = useApproveMutation(queryKey)
   const publishPostMutation = usePublishModel('api/posts', queryKey)
   const unpublishPostMutation = useUnpublishModel('api/posts', queryKey)
@@ -54,7 +53,7 @@ export const PostsTable: FC<PostsTableProps> = ({
       description: 'Are you sure you want to delete this post?',
       buttonText: 'Delete',
       onConfirm: async () => {
-        await deletepost.mutateAsync({ id })
+        await deletePostMutation.mutateAsync({ id })
         setConfirmState(undefined)
         confirmDisclosure.onClose()
       },
@@ -103,13 +102,7 @@ export const PostsTable: FC<PostsTableProps> = ({
   }
   return (
     <>
-      {confirmState && (
-        <WConfirm
-          isOpen={confirmDisclosure.isOpen}
-          onClose={confirmDisclosure.onClose}
-          {...confirmState}
-        />
-      )}
+      {confirmState && <WConfirm {...confirmState} />}
       {selectedPost && openEditModal.isOpen && confirmState && (
         <PostDetailModal
           localizePost={{

@@ -15,12 +15,12 @@ import {
   ModalOverlay,
 } from '@chakra-ui/react'
 import { StrapiLocale, StrapiTranslatableModel } from '@wsvvrijheid/types'
+import { mapModelLocalization } from '@wsvvrijheid/utils'
 import { AiOutlineArrowLeft, AiOutlineCheck } from 'react-icons/ai'
 
 import { TranslateAccordionItem } from './TranslateAccordionItem'
 import { TranslateForm } from './TranslateForm'
 import { TranslateModalProps, TranslationKey } from './types'
-import { mapModelLocalization } from './utils'
 
 export const TranslateModal = <T extends StrapiTranslatableModel>({
   isOpen,

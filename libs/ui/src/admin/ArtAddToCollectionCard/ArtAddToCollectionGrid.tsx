@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { SimpleGrid, useDisclosure } from '@chakra-ui/react'
+import { SimpleGrid } from '@chakra-ui/react'
 import { QueryClient } from '@tanstack/react-query'
 import { useUpdateArtMutation } from '@wsvvrijheid/services'
 import { Art } from '@wsvvrijheid/types'
@@ -15,10 +15,7 @@ export const ArtAddToCollectionGrid = ({
 }: ArtAddToCollectionGridProps) => {
   const [artToBeMutated, setArtToBeMutated] = useState<Art | null>(null)
 
-  const { isOpen, onClose, onOpen } = useDisclosure()
-
-  const [confirmProps, setConfirmProps] =
-    useState<Omit<WConfirmProps, 'onClose' | 'isOpen' | 'onOpen'>>()
+  const [confirmState, setConfirmState] = useState<WConfirmProps>()
 
   const updateArtMutation = useUpdateArtMutation()
   const queryClient = new QueryClient()
@@ -33,9 +30,8 @@ export const ArtAddToCollectionGrid = ({
 
   const handleRemove = (art: Art) => {
     setArtToBeMutated(art)
-    onOpen()
 
-    setConfirmProps({
+    setConfirmState({
       title: 'Remove art',
       description: 'Are you sure you want to remove this art?',
       buttonText: 'Remove',
@@ -49,8 +45,7 @@ export const ArtAddToCollectionGrid = ({
           {
             onSuccess: async () => {
               await queryClient.invalidateQueries(['collection', collection.id])
-              setConfirmProps(undefined)
-              onClose()
+              setConfirmState(undefined)
             },
           },
         )
@@ -60,9 +55,7 @@ export const ArtAddToCollectionGrid = ({
 
   return (
     <>
-      {confirmProps && (
-        <WConfirm isOpen={isOpen} onClose={onClose} {...confirmProps} />
-      )}
+      {confirmState && <WConfirm {...confirmState} />}
       <SimpleGrid gap={8} columns={{ base: 1, md: 2, lg: 4 }}>
         {arts.map(art => {
           const isAdded = art.collection?.id === collection.id

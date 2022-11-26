@@ -23,16 +23,21 @@ import {
 import { yupResolver } from '@hookform/resolvers/yup'
 import slugify from '@sindresorhus/slugify'
 import { useCreateMainHashtag, useGetMentions } from '@wsvvrijheid/services'
-import { Hashtag, HashtagCreateInput, StrapiLocale } from '@wsvvrijheid/types'
+import { HashtagCreateInput, StrapiLocale } from '@wsvvrijheid/types'
 import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
 import useFormPersist from 'react-hook-form-persist'
 import { IoMdAdd, IoMdCheckmark, IoMdClose } from 'react-icons/io'
 import * as yup from 'yup'
 
-import { FilePicker, FormItem, WSelect } from '../../components'
+import {
+  FilePicker,
+  FormItem,
+  WConfirm,
+  WConfirmProps,
+  WSelect,
+} from '../../components'
 import { LanguageSwitcher } from '../LanguageSwitcher'
-import { CreateMainHashtagSuccessAlert } from './CreateMainHashtagSuccessAlert'
 import {
   CreateMainHashtagFormFieldValues,
   CreateMainHashtagModalProps,
@@ -45,7 +50,9 @@ export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
   const [images, setImages] = useState<Blob[]>([])
   const cancelRef = useRef<HTMLButtonElement>(null)
   const formDisclosure = useDisclosure()
-  const successDisclosure = useDisclosure()
+
+  const [successConfirmState, setSuccessConfirmState] =
+    useState<WConfirmProps>()
 
   const { locale } = useRouter()
 
@@ -80,7 +87,6 @@ export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
   const { mutate, isLoading } = useCreateMainHashtag(queryKey)
   const toast = useToast()
   const currentMentions = useGetMentions()
-  const [createdHashtag, setCreatedHashtag] = useState<Hashtag>()
 
   const createMainHashtag = async (
     data: CreateMainHashtagFormFieldValues & { image: Blob },
@@ -98,9 +104,17 @@ export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
 
     mutate(formBody, {
       onSuccess: async newHashtag => {
-        setCreatedHashtag(newHashtag)
         formDisclosure.onClose()
-        successDisclosure.onOpen()
+        setSuccessConfirmState({
+          title: 'MainHashtag successfully submitted',
+          description:
+            'MainHashtag created successfully. Do you want to edit it?',
+          buttonText: 'Edit',
+          onConfirm: () => {
+            showEditModal(newHashtag)
+            setSuccessConfirmState(undefined)
+          },
+        })
         resetForm()
         resetFileUploader()
       },
@@ -133,21 +147,11 @@ export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
     resetForm()
     formDisclosure.onClose()
   }
-  const handleClickRow = () => {
-    if (createdHashtag) {
-      showEditModal(createdHashtag)
-      successDisclosure.onClose()
-    }
-  }
+
   return (
     <>
       {/* SUCCESS ALERT */}
-      <CreateMainHashtagSuccessAlert
-        isOpen={successDisclosure.isOpen}
-        onClose={successDisclosure.onClose}
-        handleClickRow={handleClickRow}
-        ref={cancelRef}
-      />
+      {successConfirmState && <WConfirm {...successConfirmState} />}
 
       <Button
         leftIcon={<IoMdAdd />}

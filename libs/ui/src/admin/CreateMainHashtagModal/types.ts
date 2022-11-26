@@ -18,9 +18,3 @@ export type CreateMainHashtagModalProps = {
   queryKey?: QueryKey
   showEditModal: (respHashtag: Hashtag) => void
 }
-
-export type CreateMainHashtagSuccessAlertProps = {
-  isOpen: boolean
-  onClose: () => void
-  handleClickRow: (hashtag?: Hashtag) => void
-}
