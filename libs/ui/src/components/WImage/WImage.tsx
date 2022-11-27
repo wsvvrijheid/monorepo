@@ -5,7 +5,6 @@ import { UploadFile, FileFormatsType } from '@wsvvrijheid/types'
 import { getImageUrl, toBase64 } from '@wsvvrijheid/utils'
 import Image from 'next/image'
 import Zoom from 'react-medium-image-zoom'
-import 'react-medium-image-zoom/dist/styles.css'
 
 const shimmer = (
   width: number,

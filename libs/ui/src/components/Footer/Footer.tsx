@@ -42,8 +42,8 @@ export const Footer: FC<FooterProps> = ({
             >
               <Link href="/">
                 <NextImage
-                  width="92px"
-                  height="92px"
+                  width={92}
+                  height={92}
                   objectFit="cover"
                   src={logo}
                   alt="logo"
