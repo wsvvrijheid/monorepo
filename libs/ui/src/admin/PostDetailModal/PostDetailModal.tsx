@@ -32,13 +32,7 @@ import { IoMdClose } from 'react-icons/io'
 import { MdOutlinePublish, MdOutlineUnpublished } from 'react-icons/md'
 import * as yup from 'yup'
 
-import {
-  EditableFormItem,
-  FilePicker,
-  WConfirm,
-  WImage,
-  WSelect,
-} from '../../components'
+import { EditableFormItem, FilePicker, WImage, WSelect } from '../../components'
 import { CreateHashtagPostFormFieldValues } from '../CreateHashtagPostModal'
 import { LanguageSwitcher } from '../LanguageSwitcher'
 import { PostDetailModalProps } from './types'
@@ -51,7 +45,6 @@ export const PostDetailModal: FC<PostDetailModalProps> = ({
   unPublish,
   onClose,
   onApprove,
-  confirmState,
 }) => {
   const { locale } = useRouter()
 
@@ -78,15 +71,6 @@ export const PostDetailModal: FC<PostDetailModalProps> = ({
     localizePost[locale as StrapiLocale],
   )
 
-  useUpdateEffect(() => {
-    const hashtagPost = localizePost[locale as StrapiLocale]
-    if (hashtagPost === undefined) {
-      console.log('undefined >>>>>>>>>>>>>>>>>>>>>.')
-      onClose()
-    }
-    setHashtagPost(hashtagPost)
-  }, [locale])
-
   const formMethods = useForm<CreateHashtagPostFormFieldValues>({
     resolver: yupResolver(schema),
     mode: 'all',
@@ -102,7 +86,28 @@ export const PostDetailModal: FC<PostDetailModalProps> = ({
       },
     },
   })
+  useUpdateEffect(() => {
+    const hashtagPost = localizePost[locale as StrapiLocale]
 
+    if (hashtagPost === undefined) {
+      console.log('undefined >>>>>>>>>>>>>>>>>>>>>.')
+      onClose()
+    }
+    setHashtagPost(hashtagPost)
+    formMethods.reset({
+      title: hashtagPost?.title,
+      description: hashtagPost?.description || undefined,
+      content: hashtagPost?.content || undefined,
+      image: hashtagPost?.image,
+      reference: hashtagPost?.reference || undefined,
+      hashtag: {
+        value: hashtagPost?.hashtag?.title || '',
+        label: 'Hashtag',
+      },
+    })
+
+    setImagePreview(hashtagPost?.image?.url)
+  }, [locale])
   const closeForm = () => {
     onClose()
   }
@@ -152,216 +157,212 @@ export const PostDetailModal: FC<PostDetailModalProps> = ({
   const handleApprove = () => onApprove(hashtagPost.id)
   console.log('current post title', hashtagPost.title)
   return (
-    <>
-      {confirmState && <WConfirm {...confirmState} />}
-
-      <Modal
-        isCentered
-        onClose={onClose}
-        isOpen={isOpen}
-        scrollBehavior="inside"
-        size="4xl"
-      >
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader color={'primary.500'}>Hashtag Post Details</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody pos="relative" py={6}>
-            {/* HASHTAG POST DETAILS */}
-            <FormProvider {...formMethods}>
-              <Stack
-                direction={{ base: 'column', md: 'row' }}
-                spacing={8}
-                as="form"
-              >
-                {/* LEFT SIDE */}
-                <Stack flex={1} spacing={4}>
-                  {/*title ========== */}
-                  <Stack align="start" justify={'start'} w="full">
-                    <FormControl isRequired>
-                      <FormLabel>Locale</FormLabel>
-                      <LanguageSwitcher />
-                    </FormControl>
-                    <EditableFormItem
-                      name="title"
-                      label="Title"
-                      isRequired
-                      onSave={() => handleSave('title')}
-                    />
-                  </Stack>
-                  {/*description ========== */}
-                  <Stack align="start" justify={'start'} w="full">
-                    <EditableFormItem
-                      name="description"
-                      label="Description"
-                      isRequired
-                      as={Textarea}
-                      onSave={() => handleSave('description')}
-                    />
-                  </Stack>
-                  {/*content ========== */}
-
-                  <Stack align="start" justify={'start'} w="full">
-                    <EditableFormItem
-                      name="content"
-                      label="Content"
-                      isRequired
-                      as={Textarea}
-                      onSave={handleSave}
-                    />
-                  </Stack>
-                  {/*locales ========== */}
-                </Stack>
-                {/* RIGHT SIDE */}
-                <Stack flex={1} spacing={4}>
-                  {/* hashtag ==========*/}
-                  {isEditingHashtag ? (
-                    <WSelect
-                      name="hashtag"
-                      label="Main Hashtag"
-                      isRequired
-                      control={formMethods.control}
-                      errors={formMethods.formState.errors}
-                      options={
-                        currentHashtag?.map(c => ({
-                          value: c.id.toString(),
-                          label: c.title.toString(),
-                        })) || []
-                      }
-                      onBlur={() => {
-                        setIsEditingHashtag.off()
-                        handleSave('hashtag')
-                      }}
-                    />
-                  ) : (
-                    <Stack justify={'stretch'}>
-                      <HStack>
-                        <Text fontWeight={600} fontSize={'sm'}>
-                          Hashtag
-                        </Text>
-                        <IconButton
-                          aria-label="Edit"
-                          size={'xs'}
-                          rounded={'full'}
-                          onClick={setIsEditingHashtag.toggle}
-                          variant="outline"
-                          icon={isEditingHashtag ? <FaTimes /> : <HiPencil />}
-                        />
-                      </HStack>
-                      <Text>{hashtagPost?.hashtag?.title}</Text>
-                    </Stack>
-                  )}
-
+    <Modal
+      isCentered
+      onClose={onClose}
+      isOpen={isOpen}
+      scrollBehavior="inside"
+      size="4xl"
+    >
+      <ModalOverlay />
+      <ModalContent>
+        <ModalHeader color={'primary.500'}>Hashtag Post Details</ModalHeader>
+        <ModalCloseButton />
+        <ModalBody pos="relative" py={6}>
+          {/* HASHTAG POST DETAILS */}
+          <FormProvider {...formMethods}>
+            <Stack
+              direction={{ base: 'column', md: 'row' }}
+              spacing={8}
+              as="form"
+            >
+              {/* LEFT SIDE */}
+              <Stack flex={1} spacing={4}>
+                {/*title ========== */}
+                <Stack align="start" justify={'start'} w="full">
+                  <FormControl isRequired>
+                    <FormLabel>Locale</FormLabel>
+                    <LanguageSwitcher />
+                  </FormControl>
                   <EditableFormItem
-                    name="reference"
-                    label="Source Link"
+                    name="title"
+                    label="Title"
+                    isRequired
+                    onSave={() => handleSave('title')}
+                  />
+                </Stack>
+                {/*description ========== */}
+                <Stack align="start" justify={'start'} w="full">
+                  <EditableFormItem
+                    name="description"
+                    label="Description"
+                    isRequired
+                    as={Textarea}
+                    onSave={() => handleSave('description')}
+                  />
+                </Stack>
+                {/*content ========== */}
+
+                <Stack align="start" justify={'start'} w="full">
+                  <EditableFormItem
+                    name="content"
+                    label="Content"
+                    isRequired
+                    as={Textarea}
                     onSave={handleSave}
                   />
-                  <Stack>
+                </Stack>
+                {/*locales ========== */}
+              </Stack>
+              {/* RIGHT SIDE */}
+              <Stack flex={1} spacing={4}>
+                {/* hashtag ==========*/}
+                {isEditingHashtag ? (
+                  <WSelect
+                    name="hashtag"
+                    label="Main Hashtag"
+                    isRequired
+                    control={formMethods.control}
+                    errors={formMethods.formState.errors}
+                    options={
+                      currentHashtag?.map(c => ({
+                        value: c.id.toString(),
+                        label: c.title.toString(),
+                      })) || []
+                    }
+                    onBlur={() => {
+                      setIsEditingHashtag.off()
+                      handleSave('hashtag')
+                    }}
+                  />
+                ) : (
+                  <Stack justify={'stretch'}>
                     <HStack>
                       <Text fontWeight={600} fontSize={'sm'}>
-                        Image
+                        Hashtag
                       </Text>
                       <IconButton
                         aria-label="Edit"
                         size={'xs'}
                         rounded={'full'}
-                        onClick={setIsEditingImage.toggle}
+                        onClick={setIsEditingHashtag.toggle}
                         variant="outline"
-                        icon={isEditingImage ? <FaTimes /> : <HiPencil />}
+                        icon={isEditingHashtag ? <FaTimes /> : <HiPencil />}
                       />
                     </HStack>
-                    {isEditingImage ? (
-                      <>
-                        <FilePicker
-                          setPreviews={urls => setImagePreview(urls[0])}
-                          setFiles={files =>
-                            formMethods.setValue('image', files[0])
-                          }
-                          onLoad={() => {
+                    <Text>{hashtagPost?.hashtag?.title}</Text>
+                  </Stack>
+                )}
+
+                <EditableFormItem
+                  name="reference"
+                  label="Source Link"
+                  onSave={handleSave}
+                />
+                <Stack>
+                  <HStack>
+                    <Text fontWeight={600} fontSize={'sm'}>
+                      Image
+                    </Text>
+                    <IconButton
+                      aria-label="Edit"
+                      size={'xs'}
+                      rounded={'full'}
+                      onClick={setIsEditingImage.toggle}
+                      variant="outline"
+                      icon={isEditingImage ? <FaTimes /> : <HiPencil />}
+                    />
+                  </HStack>
+                  {isEditingImage ? (
+                    <>
+                      <FilePicker
+                        setPreviews={urls => setImagePreview(urls[0])}
+                        setFiles={files =>
+                          formMethods.setValue('image', files[0])
+                        }
+                        onLoad={() => {
+                          setIsEditingImage.off()
+                          handleSave('image')
+                        }}
+                        height={'auto'}
+                      />
+                      <Spacer />
+                      <HStack>
+                        <Button
+                          colorScheme="primary"
+                          onClick={() => {
                             setIsEditingImage.off()
                             handleSave('image')
                           }}
-                          height={'auto'}
+                        >
+                          Save
+                        </Button>
+                      </HStack>
+                    </>
+                  ) : (
+                    <Stack>
+                      {(imagePreview || hashtagPost.image) && (
+                        <WImage
+                          src={
+                            (imagePreview || hashtagPost.image) as
+                              | string
+                              | UploadFile
+                          }
+                          alt={hashtagPost.title}
                         />
-                        <Spacer />
-                        <HStack>
-                          <Button
-                            colorScheme="primary"
-                            onClick={() => {
-                              setIsEditingImage.off()
-                              handleSave('image')
-                            }}
-                          >
-                            Save
-                          </Button>
-                        </HStack>
-                      </>
-                    ) : (
-                      <Stack>
-                        {(imagePreview || hashtagPost.image) && (
-                          <WImage
-                            src={
-                              (imagePreview || hashtagPost.image) as
-                                | string
-                                | UploadFile
-                            }
-                            alt={hashtagPost.title}
-                          />
-                        )}
-                      </Stack>
-                    )}
-                  </Stack>
-                  <Stack direction={'row'} spacing={{ base: 2, lg: 4 }}>
-                    <ButtonGroup alignSelf="end">
-                      <Button
-                        isDisabled={hashtagPost.approvalStatus === 'approved'}
-                        onClick={handleApprove}
-                        colorScheme="primary"
-                        leftIcon={<HiOutlineCheck />}
-                      >
-                        Approve
-                      </Button>
-                      <Button
-                        onClick={
-                          hashtagPost.publishedAt
-                            ? handleUnPublish
-                            : handlePublish
-                        }
-                        colorScheme="primary"
-                        leftIcon={
-                          hashtagPost.publishedAt ? (
-                            <MdOutlineUnpublished />
-                          ) : (
-                            <MdOutlinePublish />
-                          )
-                        }
-                      >
-                        {hashtagPost.publishedAt ? 'Unpublish' : 'Publish'}
-                      </Button>
-                      <Button
-                        onClick={handleDelete}
-                        colorScheme="red"
-                        leftIcon={<HiOutlineX />}
-                      >
-                        Delete
-                      </Button>
-                      <Button
-                        onClick={closeForm}
-                        mr={3}
-                        ref={cancelRef}
-                        leftIcon={<IoMdClose />}
-                      >
-                        Cancel
-                      </Button>
-                    </ButtonGroup>
-                  </Stack>
+                      )}
+                    </Stack>
+                  )}
+                </Stack>
+                <Stack direction={'row'} spacing={{ base: 2, lg: 4 }}>
+                  <ButtonGroup alignSelf="end">
+                    <Button
+                      isDisabled={hashtagPost.approvalStatus === 'approved'}
+                      onClick={handleApprove}
+                      colorScheme="primary"
+                      leftIcon={<HiOutlineCheck />}
+                    >
+                      Approve
+                    </Button>
+                    <Button
+                      onClick={
+                        hashtagPost.publishedAt
+                          ? handleUnPublish
+                          : handlePublish
+                      }
+                      colorScheme="primary"
+                      leftIcon={
+                        hashtagPost.publishedAt ? (
+                          <MdOutlineUnpublished />
+                        ) : (
+                          <MdOutlinePublish />
+                        )
+                      }
+                    >
+                      {hashtagPost.publishedAt ? 'Unpublish' : 'Publish'}
+                    </Button>
+                    <Button
+                      onClick={handleDelete}
+                      colorScheme="red"
+                      leftIcon={<HiOutlineX />}
+                    >
+                      Delete
+                    </Button>
+                    <Button
+                      onClick={closeForm}
+                      mr={3}
+                      ref={cancelRef}
+                      leftIcon={<IoMdClose />}
+                    >
+                      Cancel
+                    </Button>
+                  </ButtonGroup>
                 </Stack>
               </Stack>
-            </FormProvider>
-          </ModalBody>
-        </ModalContent>
-      </Modal>
-    </>
+            </Stack>
+          </FormProvider>
+        </ModalBody>
+      </ModalContent>
+    </Modal>
   )
 }
