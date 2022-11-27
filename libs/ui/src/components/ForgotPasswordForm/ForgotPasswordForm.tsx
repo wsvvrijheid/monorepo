@@ -14,8 +14,8 @@ const schema = (t: TFunction) =>
   yup.object({
     email: yup
       .string()
-      .email(t`contact.form.email-invalid`)
-      .required(t`login.email.required`),
+      .email(t('contact.form.email-invalid') as string)
+      .required(t('login.email.required') as string),
   })
 
 export const ForgotPasswordForm = () => {
@@ -75,7 +75,7 @@ export const ForgotPasswordForm = () => {
           <Stack spacing="5">
             <FormItem
               id="email"
-              label={t('login.email.title')}
+              label={t('login.email.title') as string}
               type="email"
               register={register}
               errors={errors}

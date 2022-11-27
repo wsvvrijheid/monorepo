@@ -47,7 +47,7 @@ export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
   queryKey,
   showEditModal,
 }) => {
-  const [images, setImages] = useState<Blob[]>([])
+  const [images, setImages] = useState<File[]>([])
   const cancelRef = useRef<HTMLButtonElement>(null)
   const formDisclosure = useDisclosure()
 
@@ -89,7 +89,7 @@ export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
   const currentMentions = useGetMentions()
 
   const createMainHashtag = async (
-    data: CreateMainHashtagFormFieldValues & { image: Blob },
+    data: CreateMainHashtagFormFieldValues & { image: File },
   ) => {
     const slug = slugify(data.title)
     const mentions = data.mentions?.map(mention => Number(mention.value)) || []
