@@ -8,7 +8,7 @@ import {
   usePublishModel,
   useUnpublishModel,
 } from '@wsvvrijheid/services'
-import { Post } from '@wsvvrijheid/types'
+import { Localize, Post } from '@wsvvrijheid/types'
 
 import { WConfirm, WConfirmProps } from '../../../components'
 import { PostDetailModal } from '../../PostDetailModal'
@@ -33,14 +33,15 @@ export const PostsTable: FC<PostsTableProps> = ({
   const selectedPost =
     typeof selectedIndex === 'number' ? posts?.[selectedIndex] : null
   const openEditModal = useDisclosure()
-  const [confirmState, setConfirmState] = useState<WConfirmProps>()
+  const [confirmState, setConfirmState] =
+    useState<Omit<WConfirmProps, 'onClose' | 'isOpen' | 'onOpen'>>()
 
   const handleClickRow = (index: number, id: number) => {
     setSelectedIndex(index)
     openEditModal.onOpen()
   }
 
-  const deletePostMutation = useDeletePost(queryKey)
+  const deletepost = useDeletePost(queryKey)
   const approveMutation = useApproveMutation(queryKey)
   const publishPostMutation = usePublishModel('api/posts', queryKey)
   const unpublishPostMutation = useUnpublishModel('api/posts', queryKey)
@@ -53,7 +54,7 @@ export const PostsTable: FC<PostsTableProps> = ({
       description: 'Are you sure you want to delete this post?',
       buttonText: 'Delete',
       onConfirm: async () => {
-        await deletePostMutation.mutateAsync({ id })
+        await deletepost.mutateAsync({ id })
         setConfirmState(undefined)
         confirmDisclosure.onClose()
       },
@@ -100,23 +101,36 @@ export const PostsTable: FC<PostsTableProps> = ({
       },
     })
   }
+  const getLocalizePosts = (post: Post) => {
+    const firstTranslation = post?.localizations?.[0] || ({} as Post)
+    const secondTranslation = post?.localizations?.[1] || ({} as Post)
+
+    const postBody = {
+      [post.locale]: post,
+      [firstTranslation.locale]: firstTranslation,
+      [secondTranslation.locale]: firstTranslation,
+    } as Localize<Post>
+    return postBody
+  }
+
   return (
     <>
-      {confirmState && <WConfirm {...confirmState} />}
-      {selectedPost && openEditModal.isOpen && confirmState && (
+      {confirmState && (
+        <WConfirm
+          isOpen={confirmDisclosure.isOpen}
+          onClose={confirmDisclosure.onClose}
+          {...confirmState}
+        />
+      )}
+      {selectedPost && openEditModal.isOpen && (
         <PostDetailModal
-          localizePost={{
-            tr: selectedPost,
-            en: selectedPost,
-            nl: selectedPost,
-          }}
+          localizePost={getLocalizePosts(selectedPost)}
           isOpen={openEditModal.isOpen}
           onClose={openEditModal.onClose}
           onDelete={handleDelete}
           onPublish={onPublish}
           onApprove={handleApprove}
           unPublish={onUnPublish}
-          confirmState={confirmState}
         />
       )}
       <DataTable
