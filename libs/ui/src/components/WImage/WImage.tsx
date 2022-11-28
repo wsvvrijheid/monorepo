@@ -28,7 +28,7 @@ export type WImageProps = {
   src: UploadFile | string
   alt?: string
   hasZoom?: boolean
-} & Pick<ComponentProps<typeof Image>, 'layout' | 'objectFit'> &
+} & Pick<ComponentProps<typeof Image>, 'fill' | 'objectFit'> &
   Omit<ChakraImageProps, 'objectFit' | 'src'>
 
 // TODO: add loader
@@ -38,7 +38,7 @@ export const WImage: FC<WImageProps> = ({
   alt,
   ratio,
   objectFit,
-  layout = 'fill',
+  fill = true,
   hasZoom,
   ...rest
 }) => {
@@ -66,7 +66,7 @@ export const WImage: FC<WImageProps> = ({
       <Wrapper>
         <Image
           objectFit={objectFit || 'cover'}
-          layout={layout}
+          fill={width || height ? undefined : fill}
           src={source}
           alt={alternativeText}
           placeholder="blur"

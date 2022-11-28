@@ -100,7 +100,7 @@ export const AdminLoginForm = () => {
           <VStack textAlign="center" w={'full'}>
             <Avatar
               size="2xl"
-              src={'https://api.samenvvv.nl/uploads/wsvvrijheid_051c420ab0.svg'}
+              src={`${API_URL}/uploads/wsvvrijheid_051c420ab0.svg`}
             />
 
             <Text fontSize="xl" color={'blue.500'} fontWeight="bold">

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 
 import { MenuItem } from '@chakra-ui/react'
 import { useArts } from '@wsvvrijheid/services'
-import { ApprovalStatus, StrapiLocale, Sort } from '@wsvvrijheid/types'
+import { ApprovalStatus, Sort, StrapiLocale } from '@wsvvrijheid/types'
 import { AdminLayout, ArtsTable } from '@wsvvrijheid/ui'
 import { useRouter } from 'next/router'
 import { FaArrowDown, FaArrowUp } from 'react-icons/fa'
@@ -36,6 +36,7 @@ const ArtsPage = () => {
     status,
     publicationState: 'preview',
   })
+
   useEffect(() => setCurrentPage(1), [status])
   const handleSearch = (search: string) => {
     search ? setSearchTerm(search) : setSearchTerm(undefined)

@@ -1,6 +1,7 @@
 import { FC } from 'react'
 
 import { Image, SimpleGrid, Stack, Text } from '@chakra-ui/react'
+import { API_URL } from '@wsvvrijheid/config'
 import { Blog } from '@wsvvrijheid/types'
 import { useTranslation } from 'next-i18next'
 import { NextSeoProps } from 'next-seo'
@@ -20,7 +21,7 @@ export const BlogTemplate: FC<BlogTemplateProps> = ({ seo, blogs }) => {
       <Stack minH="inherit" justify="center" align="center" spacing={8}>
         <Image
           h={200}
-          src="https://api.samenvvv.nl/uploads/no_blog_c7699f3a48.svg"
+          src={`${API_URL}/uploads/no_blog_c7699f3a48.svg`}
           alt="no blog"
         />
         <Text textAlign="center" fontSize="lg">
@@ -34,7 +35,7 @@ export const BlogTemplate: FC<BlogTemplateProps> = ({ seo, blogs }) => {
     <>
       <Hero
         title={seo.title as string}
-        image="https://api.samenvvv.nl/uploads/blog_bg_ffd7164ce7.jpeg"
+        image={`${API_URL}/uploads/blog_bg_ffd7164ce7.jpeg`}
       />
       <Container maxW="container.lg">
         <SimpleGrid gap={8} py={8} columns={{ base: 1, lg: 2 }}>
