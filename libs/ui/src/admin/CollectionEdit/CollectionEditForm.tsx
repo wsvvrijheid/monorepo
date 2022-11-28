@@ -168,7 +168,7 @@ export const CollectionEditForm: FC<CollectionEditFormProps> = ({
               <WImage
                 src={collection.image as UploadFile}
                 alt={collection.title}
-                hasZoom={true}
+                hasZoom
               />
               {isEdit && (
                 <Center

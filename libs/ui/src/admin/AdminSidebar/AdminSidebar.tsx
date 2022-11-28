@@ -13,6 +13,7 @@ import {
   Button,
   Tooltip,
 } from '@chakra-ui/react'
+import { API_URL } from '@wsvvrijheid/config'
 import { SessionUser } from '@wsvvrijheid/types'
 import { TbChevronsLeft, TbChevronsRight } from 'react-icons/tb'
 
@@ -46,7 +47,7 @@ export const AdminSidebar: FC<AdminSidebarProps> = ({
         <HStack align="center" spacing={4} alignItems="center" justify="center">
           <Avatar
             size={expanded ? 'lg' : 'md'}
-            src="https://api.samenvvv.nl/uploads/wsvvrijheid_051c420ab0.svg"
+            src={`${API_URL}/uploads/wsvvrijheid_051c420ab0.svg`}
             name="Wsvvrijheid"
           />
           {expanded && (
