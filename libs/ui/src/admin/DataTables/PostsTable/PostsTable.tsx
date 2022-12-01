@@ -115,13 +115,7 @@ export const PostsTable: FC<PostsTableProps> = ({
 
   return (
     <>
-      {confirmState && (
-        <WConfirm
-          isOpen={confirmDisclosure.isOpen}
-          onClose={confirmDisclosure.onClose}
-          {...confirmState}
-        />
-      )}
+      {confirmState && <WConfirm {...confirmState} />}
       {selectedPost && openEditModal.isOpen && (
         <PostDetailModal
           localizePost={getLocalizePosts(selectedPost)}

@@ -20,7 +20,6 @@ export const getPostsByFilterAndSort = async ({
   sort = ['publishedAt:desc'],
   publicationState = 'preview',
   locale,
-  populate,
 }: // status,
 GetPostsArgs) => {
   const descriptionFilter = {
@@ -56,7 +55,7 @@ GetPostsArgs) => {
     locale,
     sort: sort || undefined,
     publicationState,
-    populate,
+    populate: ['image', 'localizations.image', 'hashtag', 'reference'],
   })
 }
 export const getCapsByFilterAndSort = async ({

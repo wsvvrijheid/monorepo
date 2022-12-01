@@ -55,8 +55,7 @@ export const PostDetailModal: FC<PostDetailModalProps> = ({
   const cancelRef = useRef<HTMLButtonElement>(null)
   const hashtags = useHashtags()
   const currentHashtag = hashtags?.data
-  console.log('hashtags', currentHashtag)
-  console.log('localizepost', localizePost)
+  console.log('hashtags posts localize 11111111111', localizePost)
 
   const schema = yup.object({
     title: yup.string().required('Title is required'),
@@ -70,6 +69,7 @@ export const PostDetailModal: FC<PostDetailModalProps> = ({
   const [hashtagPost, setHashtagPost] = useState<Post>(
     localizePost[locale as StrapiLocale],
   )
+  console.log('hashtagpost 222222222222', 'locale', locale, 'data', hashtagPost)
 
   const formMethods = useForm<CreateHashtagPostFormFieldValues>({
     resolver: yupResolver(schema),
@@ -88,9 +88,10 @@ export const PostDetailModal: FC<PostDetailModalProps> = ({
   })
   useUpdateEffect(() => {
     const hashtagPost = localizePost[locale as StrapiLocale]
-
+    setHashtagPost(hashtagPost)
     if (hashtagPost === undefined) {
       console.log('undefined >>>>>>>>>>>>>>>>>>>>>.')
+      // TODO add confirm here for closing edit modal
       onClose()
     }
     setHashtagPost(hashtagPost)
@@ -98,7 +99,7 @@ export const PostDetailModal: FC<PostDetailModalProps> = ({
       title: hashtagPost?.title,
       description: hashtagPost?.description || undefined,
       content: hashtagPost?.content || undefined,
-      image: hashtagPost?.image,
+      image: hashtagPost?.image?.url,
       reference: hashtagPost?.reference || undefined,
       hashtag: {
         value: hashtagPost?.hashtag?.title || '',
@@ -155,7 +156,9 @@ export const PostDetailModal: FC<PostDetailModalProps> = ({
   const handleUnPublish = () => unPublish(hashtagPost.id)
   const handleDelete = () => onDelete(hashtagPost.id)
   const handleApprove = () => onApprove(hashtagPost.id)
-  console.log('current post title', hashtagPost.title)
+  console.log('current post imagePreview', imagePreview)
+  console.log('current post image', hashtagPost?.image)
+  console.log('current post reference', hashtagPost?.reference)
   return (
     <Modal
       isCentered
