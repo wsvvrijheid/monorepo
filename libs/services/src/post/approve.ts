@@ -20,6 +20,7 @@ export const useApproveMutation = (queryKey?: QueryKey) => {
     mutationFn: postApprove,
     onSuccess: res => {
       queryClient.invalidateQueries(queryKey)
+      //TODO Add translate here
       toast({
         title: `Post ${res.approvalStatus}`,
         description: `Post has been ${res.approvalStatus}`,
