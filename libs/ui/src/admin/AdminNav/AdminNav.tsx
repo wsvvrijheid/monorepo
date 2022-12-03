@@ -41,6 +41,7 @@ export const getAdminNav = (user: SessionUser): AdminNavItemProps[] => {
     {
       label: 'Translates',
       icon: <BsTranslate />,
+      link: '#',
       visible: isAdmin,
       submenu: [
         {
@@ -73,6 +74,7 @@ export const getAdminNav = (user: SessionUser): AdminNavItemProps[] => {
     {
       label: 'Arts',
       icon: <TbBrush />,
+      link: '#',
       visible: !!isEditor || !!isAdmin,
       submenu: [
         {
@@ -100,6 +102,7 @@ export const getAdminNav = (user: SessionUser): AdminNavItemProps[] => {
     {
       label: 'Hashtags',
       icon: <CgHashtag />,
+      link: '#',
       visible: isEditor || isAdmin,
       submenu: [
         {
@@ -110,6 +113,7 @@ export const getAdminNav = (user: SessionUser): AdminNavItemProps[] => {
         {
           label: 'Hashtag Posts',
           icon: <TbBrandTwitter />,
+          link: '#',
           visible: !!Boolean || !!isAdmin,
           submenu: [
             {
@@ -127,6 +131,7 @@ export const getAdminNav = (user: SessionUser): AdminNavItemProps[] => {
         {
           label: 'Hashtag Caps',
           icon: <TbBrandTwitter />,
+          link: '#',
           visible: isEditor || isAdmin,
           submenu: [
             {
@@ -146,6 +151,7 @@ export const getAdminNav = (user: SessionUser): AdminNavItemProps[] => {
     {
       label: 'Content Maker',
       icon: <HiOutlineNewspaper />,
+      link: '#',
       visible: isEditor || isAdmin,
       submenu: [
         {
@@ -181,6 +187,7 @@ export const getAdminNav = (user: SessionUser): AdminNavItemProps[] => {
     {
       label: 'Feedbacks',
       icon: <VscFeedback />,
+      link: '#',
       visible: isEditor || isAdmin,
       submenu: [
         {
@@ -228,7 +235,7 @@ export const AdminNav: FC<AdminNAvProps> = ({ user, expanded }) => {
               icon={item.icon}
               key={item.label}
               label={item.label}
-              link={item.link}
+              link={item.link || '#'}
               submenu={item.submenu}
               expanded={expanded}
             />
