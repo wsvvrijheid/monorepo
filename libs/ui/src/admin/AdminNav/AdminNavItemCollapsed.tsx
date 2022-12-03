@@ -30,18 +30,18 @@ export const AdminNavItemCollapsed: FC<AdminNavItemProps> = ({
   return (
     <Popover placement="right-start" trigger="hover">
       <PopoverTrigger>
-        <Navigate
-          aria-label={label}
-          as={IconButton}
-          href={link}
-          icon={icon}
-          size="lg"
-          variant="ghost"
-          {...(isMenuLinkActive && {
-            colorScheme: 'primary',
-            variant: 'solid',
-          })}
-        />
+        <Navigate href={link as string}>
+          <IconButton
+            aria-label={label}
+            icon={icon}
+            size="lg"
+            variant="ghost"
+            {...(isMenuLinkActive && {
+              colorScheme: 'primary',
+              variant: 'solid',
+            })}
+          />
+        </Navigate>
       </PopoverTrigger>
 
       <PopoverContent w="max-content">
@@ -55,21 +55,23 @@ export const AdminNavItemCollapsed: FC<AdminNavItemProps> = ({
                 const isSubmenuLinkActive = router.asPath === item.link
                 return (
                   <Navigate
-                    _hover={{ color: 'primary.500' }}
-                    as={Button}
-                    display="flex"
-                    size="sm"
-                    href={item.link}
-                    justifyContent="start"
                     key={item.label}
-                    leftIcon={item.icon}
-                    variant="ghost"
-                    {...(isSubmenuLinkActive && {
-                      color: 'primary.500',
-                      _hover: { color: 'primary.400' },
-                    })}
+                    display="flex"
+                    href={item.link as string}
+                    justifyContent="start"
                   >
-                    {item.label}
+                    <Button
+                      size="sm"
+                      _hover={{ color: 'primary.500' }}
+                      leftIcon={item.icon}
+                      variant="ghost"
+                      {...(isSubmenuLinkActive && {
+                        color: 'primary.500',
+                        _hover: { color: 'primary.400' },
+                      })}
+                    >
+                      {item.label}
+                    </Button>
                   </Navigate>
                 )
               })}

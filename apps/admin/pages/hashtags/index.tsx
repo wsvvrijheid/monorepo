@@ -47,9 +47,7 @@ const MainHashtagPage = () => {
     'api/hashtags',
     queryKey,
   )
-  const [confirmState, setConfirmState] =
-    useState<Omit<WConfirmProps, 'onClose' | 'isOpen' | 'onOpen'>>()
-  const confirmDisclosure = useDisclosure()
+  const [confirmState, setConfirmState] = useState<WConfirmProps>()
 
   useUpdateEffect(() => {
     HashtagsQuery.refetch()
@@ -69,8 +67,8 @@ const MainHashtagPage = () => {
 
   //delete mainhashtag =================
   const handleDelete = (id: number) => {
-    confirmDisclosure.onOpen()
     setConfirmState({
+      ...confirmState,
       isWarning: true,
       title: 'Delete Mainhashtag',
       description: 'Are you sure you want to delete this mainhashtag?',
@@ -78,35 +76,33 @@ const MainHashtagPage = () => {
       onConfirm: async () => {
         await deleteMainhashtag.mutateAsync({ id })
         setConfirmState(undefined)
-        confirmDisclosure.onClose()
+        openEditModal.onClose()
       },
     })
   }
 
   const onPublish = (id: number) => {
-    confirmDisclosure.onOpen()
     setConfirmState({
+      ...confirmState,
       title: 'Publish Mainhashtag',
       description: `Are you sure you want to publish this mainhashtag ?`,
       buttonText: 'Publish',
       onConfirm: async () => {
         await publishMainhashtagMutation.mutateAsync({ id })
         setConfirmState(undefined)
-        confirmDisclosure.onClose()
       },
     })
   }
 
   const onUnPublish = (id: number) => {
-    confirmDisclosure.onOpen()
     setConfirmState({
+      ...confirmState,
       title: 'Un Publish Mainhashtag',
       description: `Are you sure you want to unpublish this mainhashtag ?`,
       buttonText: 'Unpublish',
       onConfirm: async () => {
         await unpublishMainhashtagMutation.mutateAsync({ id })
         setConfirmState(undefined)
-        confirmDisclosure.onClose()
       },
     })
   }
@@ -118,13 +114,7 @@ const MainHashtagPage = () => {
         onSearch: handleSearch,
       }}
     >
-      {confirmState && (
-        <WConfirm
-          isOpen={confirmDisclosure.isOpen}
-          onClose={confirmDisclosure.onClose}
-          {...confirmState}
-        />
-      )}
+      {confirmState && <WConfirm {...confirmState} />}
       <CreateMainHashtagModal showEditModal={showEditModal} />
       <MainHashtagTable
         data={hashtagWithLocalizeKeys}

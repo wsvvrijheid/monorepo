@@ -6,8 +6,6 @@ export default {
       screen_name: result.username as unknown as string,
     })
 
-    console.log('user', user)
-
     strapi
       .service('api::mention.mention')
       .update(result.id, { data: { data: user } })

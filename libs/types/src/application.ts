@@ -18,7 +18,7 @@ type ApplicationRelation = {
 }
 
 type ApplicationRelationInput = {
-  images: Array<Blob>
+  images: Array<File>
   competition: number
   applicant: number
   votes?: Array<number>

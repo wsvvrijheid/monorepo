@@ -13,8 +13,6 @@ const resetPassRoute = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const token = response.data.jwt
 
-    console.log('token', response.data)
-
     if (!token) {
       return res.json({
         user: null,
