@@ -6,13 +6,13 @@ export const generateFormData = <T extends StrapiMutationInput>(body: T) => {
   const data = {} as Record<string, unknown>
 
   Object.entries(body).forEach(([key, value]) => {
-    const blob = value as File
-    const blobs = value as File[]
+    const file = value as File
+    const files = value as File[]
 
-    if (blob instanceof File || blobs?.[0] instanceof File) {
+    if (file instanceof File || files?.[0] instanceof File) {
       if (Array.isArray(value)) {
-        value.forEach((blob, index) => {
-          formData.append(`files.${key}`, blob as File)
+        value.forEach(f => {
+          formData.append(`files.${key}`, f as File)
         })
       } else {
         // TODO `image` represents the field name in Strapi. This should be dynamic
