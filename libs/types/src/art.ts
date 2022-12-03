@@ -34,7 +34,7 @@ type ArtRelationInput = {
   collection?: number | null
   comments?: Array<number>
   feedbacks?: Array<number>
-  images: Array<Blob>
+  images: Array<File>
   likers?: Array<number>
   tags?: Array<number>
   votes?: Array<number>

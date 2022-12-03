@@ -1,6 +1,7 @@
 import { FC, memo, PropsWithChildren } from 'react'
 
 import { Box, Heading, Text, VStack } from '@chakra-ui/react'
+import { API_URL } from '@wsvvrijheid/config'
 
 import { Container } from '../Container'
 import { WImage } from '../WImage'
@@ -17,7 +18,7 @@ export const Hero: FC<PropsWithChildren<HeroProps>> = memo(function Hero({
   title,
   description,
   video,
-  image = 'https://api.samenvvv.nl/uploads/hero_bg_b17c51289c.jpeg',
+  image = `${API_URL}/uploads/hero_bg_b17c51289c.jpeg`,
   isFullHeight = false,
   children,
 }) {
@@ -56,8 +57,6 @@ export const Hero: FC<PropsWithChildren<HeroProps>> = memo(function Hero({
             src={image}
             objectFit="cover"
             objectPosition="bottom"
-            layout="fill"
-            height="100%"
             alt={title}
           />
         </Box>

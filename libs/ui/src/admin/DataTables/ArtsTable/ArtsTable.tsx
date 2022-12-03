@@ -32,7 +32,7 @@ export const ArtsTable: FC<ArtsTableProps> = ({
 }) => {
   const { user } = useAuthSelector()
   const approvalDisclosure = useDisclosure()
-  const confirmDisclosure = useDisclosure()
+
   const [selectedIndex, setSelectedIndex] = useState<number>()
   const feedbackMutation = useArtFeedbackMutation(queryKey)
   const deleteArtMutation = useDeleteArt(queryKey)
@@ -41,8 +41,7 @@ export const ArtsTable: FC<ArtsTableProps> = ({
   const unpublishArtMutation = useUnpublishModel('api/arts', queryKey)
   const selectedArt =
     typeof selectedIndex === 'number' ? arts?.[selectedIndex] : null
-  const [confirmProps, setConfirmProps] =
-    useState<Omit<WConfirmProps, 'onClose' | 'isOpen' | 'onOpen'>>()
+  const [confirmState, setConfirmState] = useState<WConfirmProps>()
 
   const handleClickRow = (index: number) => {
     setSelectedIndex(index)
@@ -50,9 +49,7 @@ export const ArtsTable: FC<ArtsTableProps> = ({
   }
 
   const handleReject = async (art: number, editor: number, message: string) => {
-    confirmDisclosure.onOpen()
-
-    setConfirmProps({
+    setConfirmState({
       isWarning: true,
       title: 'Reject art',
       description: 'Are you sure you want to reject this art?',
@@ -66,16 +63,14 @@ export const ArtsTable: FC<ArtsTableProps> = ({
           point: 10,
         })
 
-        setConfirmProps(undefined)
+        setConfirmState(undefined)
         approvalDisclosure.onClose()
       },
     })
   }
 
   const handleApprove = (art: number, editor: number, message: string) => {
-    confirmDisclosure.onOpen()
-
-    setConfirmProps({
+    setConfirmState({
       title: 'Approve art',
       description: 'Are you sure you want to approve this art?',
       buttonText: 'Approve',
@@ -88,16 +83,14 @@ export const ArtsTable: FC<ArtsTableProps> = ({
           point: 10,
         })
 
-        setConfirmProps(undefined)
+        setConfirmState(undefined)
         approvalDisclosure.onClose()
       },
     })
   }
 
   const handleDelete = (id: number) => {
-    confirmDisclosure.onOpen()
-
-    setConfirmProps({
+    setConfirmState({
       isWarning: true,
       title: 'Delete art',
       description: 'Are you sure you want to delete this art?',
@@ -105,39 +98,35 @@ export const ArtsTable: FC<ArtsTableProps> = ({
       onConfirm: async () => {
         await deleteArtMutation.mutateAsync({ id })
 
-        setConfirmProps(undefined)
+        setConfirmState(undefined)
         approvalDisclosure.onClose()
       },
     })
   }
 
   const handlePublish = (id: number) => {
-    confirmDisclosure.onOpen()
-
-    setConfirmProps({
+    setConfirmState({
       title: 'Publish art',
       description: 'Are you sure you want to publish this art?',
       buttonText: 'Publish',
       onConfirm: async () => {
         await publishArtMutation.mutateAsync({ id })
 
-        setConfirmProps(undefined)
+        setConfirmState(undefined)
         approvalDisclosure.onClose()
       },
     })
   }
 
   const handleUnPublish = (id: number) => {
-    confirmDisclosure.onOpen()
-
-    setConfirmProps({
+    setConfirmState({
       title: 'Unpublish art',
       description: 'Are you sure you want to unpublish this art?',
       buttonText: 'Publish',
       onConfirm: async () => {
         await unpublishArtMutation.mutateAsync({ id })
 
-        setConfirmProps(undefined)
+        setConfirmState(undefined)
         approvalDisclosure.onClose()
       },
     })
@@ -156,13 +145,7 @@ export const ArtsTable: FC<ArtsTableProps> = ({
 
   return (
     <>
-      {confirmProps && (
-        <WConfirm
-          isOpen={confirmDisclosure.isOpen}
-          onClose={confirmDisclosure.onClose}
-          {...confirmProps}
-        />
-      )}
+      {confirmState && <WConfirm {...confirmState} />}
       {selectedArt && user && (
         <ArtApprovalModal
           artId={selectedArt.id}

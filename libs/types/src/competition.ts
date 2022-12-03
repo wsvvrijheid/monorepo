@@ -17,7 +17,7 @@ type CompetitionRelation = {
 }
 
 type CompetitionRelationInput = {
-  image: Blob
+  image: File
   applications?: Array<number>
   categories?: Array<number>
 }

@@ -1,10 +1,7 @@
-import * as React from 'react'
-
 import {
   Button,
   CloseButton,
   Icon,
-  Link,
   Square,
   Stack,
   StackProps,
@@ -58,7 +55,6 @@ export const CookieBanner = (props: CookieBannerProps) => {
         our{' '}
         <Navigate
           _hover={{ transform: 'scale(2.1)', color: 'blue.400' }}
-          as={Link}
           href="#"
         >
           Cookie Policy

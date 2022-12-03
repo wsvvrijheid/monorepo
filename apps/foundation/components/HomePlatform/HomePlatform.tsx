@@ -63,18 +63,20 @@ export const HomePlatform = () => {
                     {platform.description[locale]}
                   </Text>
                   <Navigate
-                    w="max-content"
-                    size="lg"
                     alignSelf={{
                       base: 'center',
                       lg: index % 2 ? 'end' : 'start',
                     }}
-                    color={platform.colors.header}
-                    variant="link"
-                    as={Button}
                     href={platform.link}
                   >
-                    {t('read-more')}
+                    <Button
+                      w="max-content"
+                      size="lg"
+                      color={platform.colors.header}
+                      variant="link"
+                    >
+                      {t('read-more')}
+                    </Button>
                   </Navigate>
                 </Stack>
               </AnimatedBox>
