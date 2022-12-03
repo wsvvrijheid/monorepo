@@ -1,15 +1,15 @@
 import { FC } from 'react'
 
 import {
-  Button,
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-  PopoverBody,
-  PopoverArrow,
-  IconButton,
-  Text,
   Box,
+  Button,
+  IconButton,
+  Popover,
+  PopoverArrow,
+  PopoverBody,
+  PopoverContent,
+  PopoverTrigger,
+  Text,
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 
@@ -61,6 +61,7 @@ export const AdminNavItemCollapsed: FC<AdminNavItemProps> = ({
                     justifyContent="start"
                   >
                     <Button
+                      justifyContent={'start'}
                       size="sm"
                       _hover={{ color: 'primary.500' }}
                       leftIcon={item.icon}
