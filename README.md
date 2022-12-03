@@ -73,10 +73,10 @@ SMTP_PASSWORD=
 ENABLE_LOCAL_CRON=false
 
 # Database
-DATABASE_URL=postgres://samen_user:Samen123@localhost/samen_api
-DATABASE_USERNAMe=samen_user
+DATABASE_URL=postgres://wsvv_user:Wsvv123@localhost/wsvv_db
+DATABASE_USERNAMe=wsvv_user
 DATABASE_PASSWORD=Samen123
-DATABASE_NAME=samen_api
+DATABASE_NAME=wsvv_db
 DATABASE_HOST=localhost
 DATABASE_PORT=5432
 DATABASE_CLIENT=postgres

@@ -12,7 +12,7 @@ const nextConfig = {
   images: {
     domains: [
       'api.samenvvv.nl',
-      'wsvv-api.onrender.com',
+      'api.wsvvrijheid.nl',
       'admin.wsvvrijheid.nl',
       'localhost',
       'amnesty.imgix.net',
