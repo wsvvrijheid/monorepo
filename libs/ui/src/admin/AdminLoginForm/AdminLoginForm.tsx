@@ -9,6 +9,7 @@ import {
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation } from '@tanstack/react-query'
+import { API_URL } from '@wsvvrijheid/config'
 import { checkAuth, useAppDispatch, useAuthSelector } from '@wsvvrijheid/store'
 import axios from 'axios'
 import { TFunction, useTranslation } from 'next-i18next'
@@ -26,11 +27,11 @@ import {
 
 const schema = (t: TFunction) =>
   yup.object({
-    password: yup.string().required(t('login.password.required')),
+    password: yup.string().required(t('login.password.required') as string),
     email: yup
       .string()
-      .email(t`contact.form.email-invalid`)
-      .required(t`login.email.required`),
+      .email(t('contact.form.email-invalid') as string)
+      .required(t('login.email.required') as string),
   })
 
 export const AdminLoginForm = () => {
@@ -73,9 +74,7 @@ export const AdminLoginForm = () => {
       <Box pos="relative">
         <WImage
           objectFit="cover"
-          src={
-            'https://api.samenvvv.nl/uploads/smartmockups_l7y9bzqx_256149ef40.jpeg'
-          }
+          src={`${API_URL}/uploads/smartmockups_l7y9bzqx_256149ef40.jpeg`}
           alt={'admin'}
         />
         <Box
@@ -101,7 +100,7 @@ export const AdminLoginForm = () => {
           <VStack textAlign="center" w={'full'}>
             <Avatar
               size="2xl"
-              src={'https://api.samenvvv.nl/uploads/wsvvrijheid_051c420ab0.svg'}
+              src={`${API_URL}/uploads/wsvvrijheid_051c420ab0.svg`}
             />
 
             <Text fontSize="xl" color={'blue.500'} fontWeight="bold">
@@ -148,14 +147,10 @@ export const AdminLoginForm = () => {
               )}
             </Stack>
             {/* TODO Set session exp time */}
-            <Navigate
-              as={Button}
-              href="/forgot-password"
-              variant="link"
-              colorScheme="blue"
-              size="sm"
-            >
-              Forgot your password
+            <Navigate href="/forgot-password">
+              <Button variant="link" colorScheme="blue" size="sm">
+                Forgot your password
+              </Button>
             </Navigate>
           </Stack>
 

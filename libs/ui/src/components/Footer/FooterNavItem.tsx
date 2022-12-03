@@ -15,7 +15,7 @@ export const FooterNavItem: FC<FooterNavItemProps> = ({ item }) => {
         color: 'primary.50',
       }}
       key={item.link}
-      href={item.link}
+      href={item.link as string}
     >
       {item[(locale as StrapiLocale) || 'en']}
     </Navigate>

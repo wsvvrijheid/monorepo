@@ -49,7 +49,7 @@ type UserRelation = {
 
 type UserRelationInput = {
   role?: number
-  avatar?: Blob
+  avatar?: File
   applicant?: number
   arts?: Array<number>
   blogs?: Array<number>

@@ -45,7 +45,7 @@ const schema = () =>
 export const CreateCollectionModal: FC<CreateCollectionModalProps> = ({
   queryKey,
 }) => {
-  const [images, setImages] = useState<Blob[]>([])
+  const [images, setImages] = useState<File[]>([])
   const cancelRef = useRef<HTMLButtonElement>(null)
   const formDisclosure = useDisclosure()
   const successDisclosure = useDisclosure()
@@ -65,7 +65,7 @@ export const CreateCollectionModal: FC<CreateCollectionModalProps> = ({
   const { mutate, isLoading } = useCreateCollection(queryKey)
 
   const createCollection = async (
-    data: CreateCollectionFormFieldValues & { image: Blob },
+    data: CreateCollectionFormFieldValues & { image: File },
   ) => {
     const slug = slugify(data.title)
     const formBody: CollectionCreateInput = {

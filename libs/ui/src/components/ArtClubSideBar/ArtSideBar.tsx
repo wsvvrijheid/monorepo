@@ -1,7 +1,6 @@
 import { FC } from 'react'
 
-import { Box } from '@chakra-ui/layout'
-import { Stack } from '@chakra-ui/react'
+import { Stack, Box } from '@chakra-ui/react'
 import { useCollections } from '@wsvvrijheid/services'
 import { Category, StrapiLocale } from '@wsvvrijheid/types'
 import { useTranslation } from 'next-i18next'
