@@ -1,6 +1,6 @@
 import { FC, useEffect, useMemo, useState } from 'react'
 
-import { chakra, Button, useBoolean, Collapse, Box } from '@chakra-ui/react'
+import { Box, Button, chakra, Collapse, useBoolean } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { GoChevronDown } from 'react-icons/go'
 
@@ -55,6 +55,7 @@ export const AdminNavItem: FC<AdminNavItemProps> = ({
     <Box w="full">
       <Navigate href={link as string}>
         <Button
+          justifyContent={'start'}
           leftIcon={icon}
           variant="ghost"
           rounded="0"
@@ -98,6 +99,7 @@ export const AdminNavItem: FC<AdminNavItemProps> = ({
                   ml={8}
                 >
                   <Button
+                    justifyContent={'start'}
                     leftIcon={item.icon}
                     size="sm"
                     variant="ghost"
@@ -144,6 +146,7 @@ export const AdminNavItem: FC<AdminNavItemProps> = ({
                             })}
                           >
                             <Button
+                              justifyContent={'start'}
                               px={2}
                               w="full"
                               _hover={{ color: 'primary.500' }}
