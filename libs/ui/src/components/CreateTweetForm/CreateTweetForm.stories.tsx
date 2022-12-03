@@ -26,7 +26,7 @@ const Template: Story<CreateTweetFormProps> = args => {
   const handleSubmit = async (
     text: string,
     originalTweet: Tweet,
-    media?: Blob,
+    media?: File,
   ) => {
     const recomendedTweet: RecommendedTweetCreateInput = {
       recommender: USER_MOCKS?.[0].id,

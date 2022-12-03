@@ -45,10 +45,16 @@ import { CreateArtFormFieldValues, CreateArtFormProps } from './types'
 
 const schema = (t: TFunction) =>
   yup.object({
-    locale: yup.string().required(t`art.create.form.locale-required`),
-    title: yup.string().required(t`art.create.form.title-required`),
-    description: yup.string().required(t`art.create.form.description-required`),
-    content: yup.string().required(t`art.create.form.content-required`),
+    locale: yup
+      .string()
+      .required(t('art.create.form.locale-required') as string),
+    title: yup.string().required(t('art.create.form.title-required') as string),
+    description: yup
+      .string()
+      .required(t('art.create.form.description-required') as string),
+    content: yup
+      .string()
+      .required(t('art.create.form.content-required') as string),
     categories: yup.array().of(
       yup.object().shape({
         label: yup.string(),
@@ -59,7 +65,7 @@ const schema = (t: TFunction) =>
 
 // TODO Consider adding modal form instead of a new page
 export const CreateArtForm: FC<CreateArtFormProps> = ({ queryKey }) => {
-  const [images, setImages] = useState<Blob[]>([])
+  const [images, setImages] = useState<File[]>([])
   const { locale } = useRouter()
   const { t } = useTranslation()
   const categories = useGetArtCategories()
@@ -101,7 +107,7 @@ export const CreateArtForm: FC<CreateArtFormProps> = ({ queryKey }) => {
   const { mutate, isLoading } = useCreateArt(queryKey)
 
   const createArt = async (
-    data: CreateArtFormFieldValues & { images: Blob[] },
+    data: CreateArtFormFieldValues & { images: File[] },
   ) => {
     if (!auth.user) return
 
@@ -230,13 +236,13 @@ export const CreateArtForm: FC<CreateArtFormProps> = ({ queryKey }) => {
                   </FormControl>
                   <FormItem
                     name="title"
-                    label={t('title')}
+                    label={t('title') as string}
                     isRequired
                     errors={errors}
                     register={register}
                   />
                   <WSelect
-                    label={t('category')}
+                    label={t('category') as string}
                     name="categories"
                     errors={errors}
                     control={control}
@@ -251,7 +257,7 @@ export const CreateArtForm: FC<CreateArtFormProps> = ({ queryKey }) => {
 
                   <FormItem
                     name="description"
-                    label={t('description')}
+                    label={t('description') as string}
                     as={Textarea}
                     isRequired
                     errors={errors}
@@ -259,7 +265,7 @@ export const CreateArtForm: FC<CreateArtFormProps> = ({ queryKey }) => {
                   />
                   <FormItem
                     name="content"
-                    label={t('content')}
+                    label={t('content') as string}
                     as={Textarea}
                     isRequired
                     errors={errors}

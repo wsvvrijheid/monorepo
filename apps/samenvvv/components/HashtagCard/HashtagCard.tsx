@@ -50,14 +50,10 @@ export const HashtagCard = ({ item, type }: SliderHeroProps): JSX.Element => {
           </Text>
         </Box>
 
-        <Navigate
-          justifySelf="end"
-          as={Button}
-          href={link as string}
-          colorScheme="primary"
-          rightIcon={<FaArrowRight />}
-        >
-          {t('read-more')}
+        <Navigate href={link as string} justifySelf="end">
+          <Button colorScheme="primary" rightIcon={<FaArrowRight />}>
+            {t('read-more')}
+          </Button>
         </Navigate>
       </Stack>
 

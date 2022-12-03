@@ -83,7 +83,7 @@ export const CreateHashtagPostModal: FC<CreateHashtagPostModalProps> = ({
   const auth = useAuthSelector()
 
   const createHashtagPost = async (
-    data: CreateHashtagPostFormFieldValues & { image: Blob },
+    data: CreateHashtagPostFormFieldValues & { image: File },
   ) => {
     if (!auth.user) return
 
@@ -129,7 +129,7 @@ export const CreateHashtagPostModal: FC<CreateHashtagPostModalProps> = ({
     formDisclosure.onClose()
   }
 
-  const setImages = (images: Blob[]) => {
+  const setImages = (images: File[]) => {
     setValue('image', images[0])
   }
 
