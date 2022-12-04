@@ -1,4 +1,5 @@
 import { Box, Image, Stack, StackDivider, Text, VStack } from '@chakra-ui/react'
+import { API_URL } from '@wsvvrijheid/config'
 import { Tweet } from '@wsvvrijheid/types'
 import { useTranslation } from 'next-i18next'
 
@@ -33,7 +34,7 @@ export const TweetWidget = ({
           ) : (
             <Stack textAlign="center">
               <Image
-                src="https://api.samenvvv.nl/uploads/tweet_widget_9eb09caf22.svg"
+                src={`${API_URL}/uploads/tweet_widget_9eb09caf22.svg`}
                 alt="no tweets"
               />
               <Text>{t('post.no-tweet')}</Text>

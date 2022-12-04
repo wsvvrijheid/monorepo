@@ -14,10 +14,11 @@ import {
 import { QueryKey } from '@tanstack/react-query'
 import { API_URL } from '@wsvvrijheid/config'
 import {
+  useDeleteArt,
   usePublishModel,
   useUnpublishModel,
-  useDeleteArt,
 } from '@wsvvrijheid/services'
+import { useRouter } from 'next/router'
 import { AiFillHeart } from 'react-icons/ai'
 import { FaExternalLinkSquareAlt } from 'react-icons/fa'
 
@@ -50,6 +51,8 @@ export const ArtCardBase: FC<ArtCardBaseProps> = ({
   const [hover, setHover] = useState({ color: 'gray.100' })
   const [color, setColor] = useState('white')
 
+  const router = useRouter()
+
   const deleteMutation = useDeleteArt(queryKey)
   const publishMutation = usePublishModel('api/arts', queryKey)
   const unpublishMutation = useUnpublishModel('api/arts', queryKey)
@@ -58,6 +61,14 @@ export const ArtCardBase: FC<ArtCardBaseProps> = ({
     setHover({ color: isLiked ? 'red.200' : 'gray.100' })
     setColor(isLiked ? 'red.400' : 'white')
   }, [isLiked])
+
+  const onClickLink = () => {
+    if (isModal) {
+      artModalOnOpen()
+    } else {
+      router.push(`/club/art/${art.slug}`)
+    }
+  }
 
   const { isOpen, onOpen, onClose } = useDisclosure()
 
@@ -155,8 +166,9 @@ export const ArtCardBase: FC<ArtCardBaseProps> = ({
               rounded="full"
             />
           </HStack>
-          <Navigate
-            as={IconButton}
+
+          <IconButton
+            onClick={onClickLink}
             _hover={{ bg: 'blue.400' }}
             aria-label="view art"
             borderColor="whiteAlpha.500"
@@ -165,10 +177,8 @@ export const ArtCardBase: FC<ArtCardBaseProps> = ({
             colorScheme="blackAlpha"
             icon={<FaExternalLinkSquareAlt />}
             rounded="full"
-            {...(isModal
-              ? { onClick: artModalOnOpen }
-              : { href: `/club/art/${art.slug}` })}
           />
+
           {/* Card Owner Actions */}
           {isOwner && (
             <ArtCardActions

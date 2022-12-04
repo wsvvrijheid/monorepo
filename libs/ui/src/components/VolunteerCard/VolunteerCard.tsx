@@ -88,14 +88,15 @@ export const VolunteerCard: FC<VolunteerCardProps> = ({
         {socialItems
           .filter(item => item.link)
           .map((item, i) => (
-            <Navigate key={i} href={item.link as string}>
-              <IconButton
-                aria-label={item.label}
-                variant="outline"
-                isRound
-                icon={item.icon}
-              />
-            </Navigate>
+            <IconButton
+              as={Navigate}
+              key={i}
+              href={item.link as string}
+              aria-label={item.label}
+              variant="outline"
+              isRound
+              icon={item.icon}
+            />
           ))}
       </ButtonGroup>
 

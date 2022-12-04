@@ -43,7 +43,6 @@ export const Card: FC<CardProps> = ({
             />
           ) : (
             <WImage
-              h={48}
               w="full"
               src={image}
               alt={title}

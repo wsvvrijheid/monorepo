@@ -22,7 +22,7 @@ type BlogRelation = {
 }
 
 type BlogRelationInput = {
-  image: Blob
+  image: File
   author?: number
   categories?: Array<number>
   tags?: Array<number>

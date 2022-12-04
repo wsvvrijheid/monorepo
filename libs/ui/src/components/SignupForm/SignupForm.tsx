@@ -32,19 +32,28 @@ import { SignupFormFieldValues } from './types'
 
 const schema = (t: TFunction) =>
   yup.object({
-    name: yup.string().required(t('login.name.required')),
-    username: yup.string().required(t`login.username.required`),
+    name: yup.string().required(t('login.name.required') as string),
+    username: yup.string().required(t('login.username.required') as string),
     password: yup
       .string()
-      .min(8, t('login.password.warning', { count: 8 }))
-      .required(t('login.password.required'))
-      .matches(RegExp('(.*[a-z].*)'), t('login.password.matches.lowercase'))
-      .matches(RegExp('(.*[A-Z].*)'), t('login.password.matches.uppercase'))
-      .matches(RegExp('(.*\\d.*)'), t('login.password.matches.number')),
+      .min(8, t('login.password.warning', { count: 8 }) as string)
+      .required(t('login.password.required') as string)
+      .matches(
+        RegExp('(.*[a-z].*)'),
+        t('login.password.matches.lowercase') as string,
+      )
+      .matches(
+        RegExp('(.*[A-Z].*)'),
+        t('login.password.matches.uppercase') as string,
+      )
+      .matches(
+        RegExp('(.*\\d.*)'),
+        t('login.password.matches.number') as string,
+      ),
     email: yup
       .string()
-      .email(t`contact.form.email-invalid`)
-      .required(t`login.email.required`),
+      .email(t('contact.form.email-invalid') as string)
+      .required(t('login.email.required') as string),
   })
 
 type SignupFormProps = Pick<SocialLoginButtonsProps, 'providersToBeShown'>
@@ -116,14 +125,15 @@ export const SignupForm: FC<SignupFormProps> = ({
             <Heading>{t('login.sign-up-header.title')}</Heading>
             <HStack spacing="1" justify="center">
               <Text color="muted">{t('login.sign-up-header.text')}</Text>
-              <Navigate
-                variant="link"
-                as={Button}
+
+              <Button
+                as={Navigate}
                 href="/login"
+                variant="link"
                 colorScheme="blue"
               >
                 {t('login.sign-up-header.button')}
-              </Navigate>
+              </Button>
             </HStack>
           </Stack>
         </Stack>
@@ -141,27 +151,27 @@ export const SignupForm: FC<SignupFormProps> = ({
             )}
             <FormItem
               name="name"
-              label={t('login.name.title')}
+              label={t('login.name.title') as string}
               register={register}
               errors={errors}
             />
             <FormItem
               name="username"
-              label={t('login.username.title')}
+              label={t('login.username.title') as string}
               register={register}
               errors={errors}
             />
             <FormItem
               name="email"
               type="email"
-              label={t('login.email.title')}
+              label={t('login.email.title') as string}
               register={register}
               errors={errors}
             />
             <FormItem
               name="password"
               type="password"
-              label={t('login.password.title')}
+              label={t('login.password.title') as string}
               autoComplete="current-password"
               register={register}
               errors={errors}
@@ -173,14 +183,10 @@ export const SignupForm: FC<SignupFormProps> = ({
                 defaultChecked
                 onChange={e => setIsTermsAccepted(e.target.checked)}
               />
-              <Navigate
-                as={Button}
-                href="/terms"
-                variant="link"
-                colorScheme="gray"
-                size="sm"
-              >
-                {t('login.terms-use')}
+              <Navigate href="/terms">
+                <Button variant="link" colorScheme="gray" size="sm">
+                  {t('login.terms-use')}
+                </Button>
               </Navigate>
             </HStack>
           </Stack>

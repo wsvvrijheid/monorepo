@@ -18,7 +18,9 @@ import { MessageBoxFieldValues, MessageBoxProps } from './types'
 
 const schema = (t: TFunction) =>
   yup.object({
-    message: yup.string().required(t`contact.form.message-required`),
+    message: yup
+      .string()
+      .required(t('contact.form.message-required') as string),
   })
 
 export const MessageBox: FC<MessageBoxProps> = ({

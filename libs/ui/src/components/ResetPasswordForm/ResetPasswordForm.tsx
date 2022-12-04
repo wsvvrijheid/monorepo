@@ -15,16 +15,25 @@ const schema = (t: TFunction) =>
   yup.object({
     password: yup
       .string()
-      .min(8, t('login.password.warning', { count: 8 }))
-      .required(t('login.password.required'))
-      .matches(RegExp('(.*[a-z].*)'), t('login.password.matches.lowercase'))
-      .matches(RegExp('(.*[A-Z].*)'), t('login.password.matches.uppercase'))
-      .matches(RegExp('(.*\\d.*)'), t('login.password.matches.number')),
+      .min(8, t('login.password.warning', { count: 8 }) as string)
+      .required(t('login.password.required') as string)
+      .matches(
+        RegExp('(.*[a-z].*)'),
+        t('login.password.matches.lowercase') as string,
+      )
+      .matches(
+        RegExp('(.*[A-Z].*)'),
+        t('login.password.matches.uppercase') as string,
+      )
+      .matches(
+        RegExp('(.*\\d.*)'),
+        t('login.password.matches.number') as string,
+      ),
     passwordConfirmation: yup
       .string()
       .oneOf(
         [yup.ref('password'), null],
-        t('login.password.matches.password-match'),
+        t('login.password.matches.password-match') as string,
       ),
   })
 
@@ -61,7 +70,7 @@ export const ResetPasswordForm = () => {
         passwordConfirmation: data.passwordConfirmation,
       }),
     onSuccess: () => {
-      toastMessage(null, t`login.reset-pass-header.text`, 'success')
+      toastMessage(null, t('login.reset-pass-header.text'), 'success')
       reset()
       setTimeout(() => {
         router.push('/login')
@@ -102,7 +111,7 @@ export const ResetPasswordForm = () => {
             <FormItem
               id="password"
               type="password"
-              label={t('login.password.title')}
+              label={t('login.password.title') as string}
               autoComplete="current-password"
               register={register}
               errors={errors}
@@ -111,7 +120,7 @@ export const ResetPasswordForm = () => {
             <FormItem
               id="passwordConfirmation"
               type="password"
-              label={t('login.password.password-confirm')}
+              label={t('login.password.password-confirm') as string}
               autoComplete="current-password"
               register={register}
               errors={errors}

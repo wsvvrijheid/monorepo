@@ -57,7 +57,7 @@ export const MentionSearch = (): JSX.Element => {
         borderBottomWidth={2}
         rounded={0}
         id="mention-search"
-        placeholder={t('post.search-label')}
+        placeholder={t('post.search-label') as string}
         onChange={event => {
           setSearchArea(event.target.value)
         }}
