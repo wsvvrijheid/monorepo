@@ -22,7 +22,6 @@ import {
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import slugify from '@sindresorhus/slugify'
-import '@splidejs/splide/dist/css/themes/splide-default.min.css'
 import { useGetMentions, useUpdateHashtagMutation } from '@wsvvrijheid/services'
 import { StrapiLocale, UploadFile } from '@wsvvrijheid/types'
 import { useRouter } from 'next/router'
@@ -80,6 +79,9 @@ export const MainHashtagDetailModal: FC<MainHashtagDetailModalProps> = ({
         value: yup.string(),
       }),
     ),
+    image: yup.object().shape({
+      file: yup.mixed().required('File is required'),
+    }),
   })
 
   const mainHashtag = localizeHashtag[locale as StrapiLocale]

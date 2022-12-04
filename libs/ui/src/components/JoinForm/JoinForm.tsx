@@ -45,12 +45,12 @@ function generateSchema(t: TFunction, jobs: Partial<Job>[]) {
   )
 
   return yup.object().shape({
-    name: yup.string().required(t`apply-form.name.required`),
+    name: yup.string().required(t('apply-form.name.required') as string),
     email: yup
       .string()
-      .email(t`apply-form.email.invalid`)
-      .required(t`apply-form.email.required`),
-    phone: yup.string().required(t`apply-form.phone.required`),
+      .email(t('apply-form.email.invalid') as string)
+      .required(t('apply-form.email.required') as string),
+    phone: yup.string().required(t('apply-form.phone.required') as string),
     occupation: yup.string(),
     comment: yup.string(),
     inMailingList: yup.boolean(),
@@ -59,14 +59,14 @@ function generateSchema(t: TFunction, jobs: Partial<Job>[]) {
       .number()
       .min(1)
       .max(40)
-      .required(t`apply-form.available-hours.required`),
+      .required(t('apply-form.available-hours.required') as string),
     heardFrom: yup
       .array()
-      .required(t`apply-form.jobs.required`)
+      .required(t('apply-form.jobs.required') as string)
       .min(1),
     jobs: yup
       .array()
-      .required(t`apply-form.jobs.required`)
+      .required(t('apply-form.jobs.required') as string)
       .min(1),
     // heardFrom: yup.object().shape(
     //   heardFrom.reduce((acc, h) => {
@@ -137,7 +137,7 @@ export const JoinForm: FC<JoinFormFProps> = ({
           id="name"
           name="name"
           errors={errors}
-          label={t('apply-form.name.input')}
+          label={t('apply-form.name.input') as string}
           isRequired
         />
         <FormItem
@@ -145,7 +145,7 @@ export const JoinForm: FC<JoinFormFProps> = ({
           register={register}
           id="email"
           errors={errors}
-          label={t('apply-form.email.input')}
+          label={t('apply-form.email.input') as string}
           isRequired
         />
       </Stack>
@@ -155,7 +155,7 @@ export const JoinForm: FC<JoinFormFProps> = ({
           id="phone"
           name="phone"
           errors={errors}
-          label={t('apply-form.phone.input')}
+          label={t('apply-form.phone.input') as string}
           isRequired
         />
         <FormItem
@@ -164,7 +164,7 @@ export const JoinForm: FC<JoinFormFProps> = ({
           id="availableHours"
           name="availableHours"
           errors={errors}
-          label={t('apply-form.available-hours.input')}
+          label={t('apply-form.available-hours.input') as string}
           defaultValue={1}
           isRequired
         />
@@ -174,7 +174,7 @@ export const JoinForm: FC<JoinFormFProps> = ({
         errors={errors}
         id="occupation"
         name="occupation"
-        label={t('apply-form.occupation')}
+        label={t('apply-form.occupation') as string}
       />
 
       <FormItem
@@ -183,7 +183,7 @@ export const JoinForm: FC<JoinFormFProps> = ({
         errors={errors}
         id="comment"
         name="comment"
-        label={t('apply-form.comment')}
+        label={t('apply-form.comment') as string}
       />
 
       <Stack justify="space-between" direction={{ base: 'column', md: 'row' }}>

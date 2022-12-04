@@ -41,20 +41,9 @@ export const ProfileMenu: FC<ProfileMenuProps> = ({ isDark, menu }) => {
   if (!isLoggedIn)
     return !isScrolled && isDark ? (
       <DarkMode>
-        <Navigate href="/login">
-          <Button
-            size="sm"
-            colorScheme="primary"
-            variant={!isScrolled && isDark ? 'solid' : 'outline'}
-            rightIcon={<FiLogIn />}
-          >
-            {t('login.sign-in')}
-          </Button>
-        </Navigate>
-      </DarkMode>
-    ) : (
-      <Navigate href="/login">
         <Button
+          as={Navigate}
+          href="/login"
           size="sm"
           colorScheme="primary"
           variant={!isScrolled && isDark ? 'solid' : 'outline'}
@@ -62,7 +51,18 @@ export const ProfileMenu: FC<ProfileMenuProps> = ({ isDark, menu }) => {
         >
           {t('login.sign-in')}
         </Button>
-      </Navigate>
+      </DarkMode>
+    ) : (
+      <Button
+        as={Navigate}
+        href="/login"
+        size="sm"
+        colorScheme="primary"
+        variant={!isScrolled && isDark ? 'solid' : 'outline'}
+        rightIcon={<FiLogIn />}
+      >
+        {t('login.sign-in')}
+      </Button>
     )
 
   return (

@@ -1,7 +1,6 @@
 import { FC } from 'react'
 
-import { Box } from '@chakra-ui/layout'
-import { Divider, HStack, Text } from '@chakra-ui/react'
+import { Divider, HStack, Text, Box } from '@chakra-ui/react'
 import { Collection } from '@wsvvrijheid/types'
 import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
@@ -29,10 +28,11 @@ export const CollectionList: FC<CollectionListProps> = ({ collectionData }) => {
         <Navigate
           key={index}
           href={`/${locale}/club/collections/${collection.slug}`}
+          py={2}
+          lineHeight="1.15"
+          _hover={{ color: 'blue.500' }}
         >
-          <Text py={2} lineHeight="1.15" _hover={{ color: 'blue.500' }}>
-            {collection.title}
-          </Text>
+          {collection.title}
         </Navigate>
       ))}
     </div>

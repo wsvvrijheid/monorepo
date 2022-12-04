@@ -181,8 +181,8 @@ export type StrapiLocalizeInput =
   | PostLocalizeInput
 
 export type StrapiFormValue =
-  | Blob
-  | Blob[]
+  | File
+  | File[]
   | Date
   | JSON
   | boolean

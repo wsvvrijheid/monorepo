@@ -22,7 +22,7 @@ export type PostRelation = {
 }
 
 export type PostRelationInput = {
-  image: Blob
+  image: File
   hashtag: number
   tags?: Array<number>
   translator?: number

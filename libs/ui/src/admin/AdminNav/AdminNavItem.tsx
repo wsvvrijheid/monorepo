@@ -1,6 +1,6 @@
 import { FC, useEffect, useMemo, useState } from 'react'
 
-import { chakra, Button, useBoolean, Collapse, Box } from '@chakra-ui/react'
+import { Box, Button, chakra, Collapse, useBoolean } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { GoChevronDown } from 'react-icons/go'
 
@@ -53,36 +53,36 @@ export const AdminNavItem: FC<AdminNavItemProps> = ({
 
   return (
     <Box w="full">
-      <Navigate
-        display="flex"
-        _hover={{ color: 'primary.500', bg: 'blackAlpha.50' }}
-        as={Button}
-        href={link}
-        px={4}
-        leftIcon={icon}
-        variant="ghost"
-        rounded="0"
-        w="full"
-        {...(isMenuLinkActive && {
-          color: 'primary.500',
-          _hover: { color: 'primary.400', bg: 'blackAlpha.50' },
-        })}
-        {...(submenu && {
-          onClick: setOpen.toggle,
-          rightIcon: (
-            <Box
-              as={GoChevronDown}
-              transition="all 0.2s"
-              {...(open && {
-                transform: 'rotate(180deg)',
-              })}
-            />
-          ),
-        })}
-      >
-        <chakra.span flex={1} textAlign="left">
-          {label}
-        </chakra.span>
+      <Navigate href={link as string}>
+        <Button
+          justifyContent={'start'}
+          leftIcon={icon}
+          variant="ghost"
+          rounded="0"
+          w="full"
+          px={4}
+          _hover={{ color: 'primary.500', bg: 'blackAlpha.50' }}
+          {...(isMenuLinkActive && {
+            color: 'primary.500',
+            _hover: { color: 'primary.400', bg: 'blackAlpha.50' },
+          })}
+          {...(submenu && {
+            onClick: setOpen.toggle,
+            rightIcon: (
+              <Box
+                as={GoChevronDown}
+                transition="all 0.2s"
+                {...(open && {
+                  transform: 'rotate(180deg)',
+                })}
+              />
+            ),
+          })}
+        >
+          <chakra.span flex={1} textAlign="left">
+            {label}
+          </chakra.span>
+        </Button>
       </Navigate>
 
       {/* Submenu */}
@@ -93,36 +93,39 @@ export const AdminNavItem: FC<AdminNavItemProps> = ({
             return (
               <Box>
                 <Navigate
-                  _hover={{ color: 'primary.500' }}
-                  as={Button}
-                  href={item.link}
+                  href={item.link as string}
                   justifyContent="start"
                   key={item.link}
-                  leftIcon={item.icon}
                   ml={8}
-                  px={2}
-                  size="sm"
-                  variant="ghost"
-                  w="full"
-                  {...(isSubmenuLinkActive && {
-                    color: 'primary.500',
-                    _hover: { color: 'primary.400' },
-                  })}
-                  {...(item?.submenu && {
-                    onClick: () => handleSubMenuClick(item.label),
-                    rightIcon: (
-                      <Box
-                        as={GoChevronDown}
-                        transition="all 0.2s"
-                        {...(openSub &&
-                          item.label === subLink && {
-                            transform: 'rotate(180deg)',
-                          })}
-                      />
-                    ),
-                  })}
                 >
-                  {item.label}
+                  <Button
+                    justifyContent={'start'}
+                    leftIcon={item.icon}
+                    size="sm"
+                    variant="ghost"
+                    w="full"
+                    px={2}
+                    _hover={{ color: 'primary.500' }}
+                    {...(isSubmenuLinkActive && {
+                      color: 'primary.500',
+                      _hover: { color: 'primary.400' },
+                    })}
+                    {...(item?.submenu && {
+                      onClick: () => handleSubMenuClick(item.label),
+                      rightIcon: (
+                        <Box
+                          as={GoChevronDown}
+                          transition="all 0.2s"
+                          {...(openSub &&
+                            item.label === subLink && {
+                              transform: 'rotate(180deg)',
+                            })}
+                        />
+                      ),
+                    })}
+                  >
+                    {item.label}
+                  </Button>
                 </Navigate>
 
                 {item?.submenu && (
@@ -133,23 +136,26 @@ export const AdminNavItem: FC<AdminNavItemProps> = ({
                       return (
                         <Box>
                           <Navigate
-                            _hover={{ color: 'primary.500' }}
-                            as={Button}
                             href={em.link}
                             justifyContent="start"
                             key={em.label}
-                            leftIcon={em.icon}
                             ml={16}
-                            px={2}
-                            size="sm"
-                            variant="ghost"
-                            w="full"
                             {...(isSubmenusSubmenuLinkActive && {
                               color: 'primary.500',
                               _hover: { color: 'primary.400' },
                             })}
                           >
-                            {em.label}
+                            <Button
+                              justifyContent={'start'}
+                              px={2}
+                              w="full"
+                              _hover={{ color: 'primary.500' }}
+                              leftIcon={em.icon}
+                              size="sm"
+                              variant="ghost"
+                            >
+                              {em.label}
+                            </Button>
                           </Navigate>
                         </Box>
                       )

@@ -1,13 +1,18 @@
+import { FC } from 'react'
+
 import { Box, Center, Flex, Heading, Text, VStack } from '@chakra-ui/react'
+import { getAllPlatforms } from '@wsvvrijheid/services'
 import { AnimatedBox, Container } from '@wsvvrijheid/ui'
-import { GetStaticProps } from 'next'
+import { InferGetStaticPropsType } from 'next'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { HomeAbout, HomeHero, HomePlatform, Layout } from '../components'
 import i18nConfig from '../next-i18next.config'
 
-export default function Home({ seo }) {
+type HomeProps = InferGetStaticPropsType<typeof getStaticProps>
+
+const Home: FC<HomeProps> = ({ seo, platforms }) => {
   const { t } = useTranslation()
 
   return (
@@ -41,13 +46,17 @@ export default function Home({ seo }) {
           <HomeAbout />
         </Container>
       </Center>
-      <HomePlatform />
+      <HomePlatform platforms={platforms} />
     </Layout>
   )
 }
 
-export const getStaticProps: GetStaticProps = async context => {
+export default Home
+
+export const getStaticProps = async context => {
   const { locale } = context
+
+  const platforms = await getAllPlatforms()
 
   const title = {
     en: 'Homepage',
@@ -69,6 +78,7 @@ export const getStaticProps: GetStaticProps = async context => {
   return {
     props: {
       seo,
+      platforms,
       ...(await serverSideTranslations(locale, ['common'], i18nConfig)),
     },
   }
