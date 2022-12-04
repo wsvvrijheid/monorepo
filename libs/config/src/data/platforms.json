@@ -1,6 +1,6 @@
 [
   {
-    "image": "https://api.samenvvv.nl/uploads/samen_40a957fb1c.svg",
+    "image": "https://api.wsvvrijheid.nl/uploads/samenvvv_32898faefb.svg",
     "colors": {
       "bg": "samen.100",
       "header": "samen.500"
@@ -18,7 +18,7 @@
     "link": "/platforms/samenvvv"
   },
   {
-    "image": "https://api.samenvvv.nl/uploads/lotus_82d4dd8d33.jpeg",
+    "image": "https://api.wsvvrijheid.nl/uploads/lotus_d559be0c32.svg",
     "colors": {
       "bg": "black",
       "header": "white",
@@ -37,7 +37,7 @@
     "link": "/platforms/lotus"
   },
   {
-    "image": "https://api.samenvvv.nl/uploads/kunsthalte_logo_6e8dc3b222.svg",
+    "image": "https://api.wsvvrijheid.nl/uploads/kunsthalte_4eec0eea66.svg",
     "colors": {
       "bg": "red.100",
       "header": "red.500"
@@ -55,7 +55,7 @@
     "link": "/platforms/art-station"
   },
   {
-    "image": "https://api.samenvvv.nl/uploads/academy_46e1b3485a.svg",
+    "image": "https://api.wsvvrijheid.nl/uploads/wsvvacademy_4538b3193b.svg?updated_at=2022-12-04T05:30:44.264Z",
     "colors": {
       "bg": "blue.100",
       "header": "blue.500"

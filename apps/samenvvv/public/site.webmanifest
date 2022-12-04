@@ -1,14 +1,14 @@
 {
-  "name": "",
-  "short_name": "",
+  "name": "Samenvvv",
+  "short_name": "samenvvv",
   "icons": [
     {
-      "src": "/android-chrome-192x192.png",
+      "src": "https://api.wsvvrijheid.nl/uploads/android_chrome_192x192_52f5f8d998.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "/android-chrome-512x512.png",
+      "src": "https://api.wsvvrijheid.nl/uploads/android_chrome_512x512_32ea723875.png",
       "sizes": "512x512",
       "type": "image/png"
     }

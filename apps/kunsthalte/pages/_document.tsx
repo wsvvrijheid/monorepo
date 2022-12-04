@@ -1,4 +1,5 @@
 import { ColorModeScript } from '@chakra-ui/react'
+import { GA_MEASUREMENT_ID } from '@wsvvrijheid/config'
 import NextDocument, { Head, Html, Main, NextScript } from 'next/document'
 
 export default class Document extends NextDocument {
@@ -6,25 +7,32 @@ export default class Document extends NextDocument {
     return (
       <Html>
         <Head>
-          <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+          <link
+            rel="icon"
+            type="image/x-icon"
+            href="https://api.wsvvrijheid.nl/uploads/favicon_f7d105a38c.ico"
+          />
           <link
             rel="apple-touch-icon"
             sizes="180x180"
-            href="/apple-touch-icon.png"
+            href="https://api.wsvvrijheid.nl/uploads/apple_touch_icon_3cf0e4ea2c.png"
           />
           <link
             rel="icon"
             type="image/png"
             sizes="32x32"
-            href="/favicon-32x32.png"
+            href="https://api.wsvvrijheid.nl/uploads/favicon_32x32_5df5918930.png"
           />
           <link
             rel="icon"
             type="image/png"
             sizes="16x16"
-            href="/favicon-16x16.png"
+            href="https://api.wsvvrijheid.nl/uploads/favicon_16x16_734c34cebf.png"
           />
-          <link rel="manifest" href="/site.webmanifest" />
+          <link
+            rel="manifest"
+            href="https://api.wsvvrijheid.nl/uploads/site_406faca58d.webmanifest"
+          />
           <link rel="preconnect" href="https://fonts.gstatic.com" />
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link
@@ -33,7 +41,7 @@ export default class Document extends NextDocument {
           />
           <script
             async
-            src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NX_ANALYTICS_KUNSTHALTE}`}
+            src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
           />
           <script
             dangerouslySetInnerHTML={{
@@ -41,7 +49,7 @@ export default class Document extends NextDocument {
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
-              gtag('config', '${process.env.NX_ANALYTICS_KUNSTHALTE}', {
+              gtag('config', '${GA_MEASUREMENT_ID}', {
                 page_path: window.location.pathname,
               });
           `,
