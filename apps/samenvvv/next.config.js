@@ -13,6 +13,7 @@ const nextConfig = {
     domains: [
       'api.samenvvv.nl',
       'api.wsvvrijheid.nl',
+      'pbs.twimg.com',
       'samenvvv.nl',
       'localhost',
     ],

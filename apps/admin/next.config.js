@@ -12,6 +12,7 @@ const nextConfig = {
   images: {
     domains: [
       'api.samenvvv.nl',
+      'pbs.twimg.com',
       'api.wsvvrijheid.nl',
       'admin.wsvvrijheid.nl',
       'localhost',

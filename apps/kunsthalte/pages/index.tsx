@@ -24,7 +24,7 @@ export default function Home({ seo }) {
         pt={100}
         pos="relative"
         zIndex={0}
-        backgroundImage={`url(${API_URL}/uploads/kunsthalte_home_bg_79d33962e7.jpg)`}
+        backgroundImage={`url(${API_URL}/uploads/kunsthalte_home_bg_79d33962e7_95c9ce377d.jpg)`}
         backgroundSize="cover"
       >
         <Container
@@ -47,24 +47,25 @@ export default function Home({ seo }) {
               direction={{ base: 'column', lg: 'row' }}
               spacing={4}
             >
-              <Navigate href={`/${locale}/club/arts`}>
-                <Button
-                  size="lg"
-                  leftIcon={<FaPaintBrush />}
-                  colorScheme="primary"
-                >
-                  {t('view-arts')}
-                </Button>
-              </Navigate>
-              <Navigate href={`/${locale}/club/collections`}>
-                <Button
-                  size="lg"
-                  leftIcon={<BsCollectionFill />}
-                  colorScheme="primary"
-                >
-                  {t('view-collections')}
-                </Button>
-              </Navigate>
+              <Button
+                as={Navigate}
+                href={`/${locale}/club/arts`}
+                size="lg"
+                leftIcon={<FaPaintBrush />}
+                colorScheme="primary"
+              >
+                {t('view-arts')}
+              </Button>
+
+              <Button
+                as={Navigate}
+                href={`/${locale}/club/collections`}
+                size="lg"
+                leftIcon={<BsCollectionFill />}
+                colorScheme="primary"
+              >
+                {t('view-collections')}
+              </Button>
             </Stack>
           </AnimatedBox>
         </Container>
