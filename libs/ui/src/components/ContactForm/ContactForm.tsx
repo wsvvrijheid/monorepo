@@ -24,12 +24,16 @@ import { ContactFormProps, ContactFormFieldValues } from './types'
 
 const schema = (t: TFunction) =>
   yup.object({
-    fullname: yup.string().required(t`contact.form.fullname-required`),
+    fullname: yup
+      .string()
+      .required(t('contact.form.fullname-required') as string),
     email: yup
       .string()
-      .email(t`contact.form.email-invalid`)
-      .required(t`contact.form.email-required`),
-    message: yup.string().required(t`contact.form.message-required`),
+      .email(t('contact.form.email-invalid') as string)
+      .required(t('contact.form.email-required') as string),
+    message: yup
+      .string()
+      .required(t('contact.form.message-required') as string),
   })
 
 export const ContactForm: React.FC<ContactFormProps> = ({
@@ -66,7 +70,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({
       <VStack spacing={5} as="form" onSubmit={handleSubmit(onSubmit)}>
         <FormItem
           name="fullname"
-          label={t('contact.form.fullname-label')}
+          label={t('contact.form.fullname-label') as string}
           leftElement={<BsPerson color="gray.800" />}
           errors={errors}
           register={register}
@@ -76,14 +80,14 @@ export const ContactForm: React.FC<ContactFormProps> = ({
           type="email"
           label="Email"
           leftElement={<MdEmail color="gray.200" />}
-          helperText={t('contact.form.email-helper')}
+          helperText={t('contact.form.email-helper') as string}
           errors={errors}
           register={register}
         />
         <FormItem
           as={Textarea}
           name="message"
-          label={t('contact.form.message-label')}
+          label={t('contact.form.message-label') as string}
           errors={errors}
           register={register}
         />
