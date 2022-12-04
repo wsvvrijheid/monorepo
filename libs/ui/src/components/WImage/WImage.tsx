@@ -2,26 +2,25 @@ import { ComponentProps, FC, Fragment } from 'react'
 
 import { AspectRatio, ImageProps as ChakraImageProps } from '@chakra-ui/react'
 import { UploadFile, FileFormatsType } from '@wsvvrijheid/types'
-import { getImageUrl, toBase64 } from '@wsvvrijheid/utils'
+import { getImageUrl } from '@wsvvrijheid/utils'
 import Image from 'next/image'
 import Zoom from 'react-medium-image-zoom'
-import 'react-medium-image-zoom/dist/styles.css'
 
-const shimmer = (
-  width: number,
-  height: number,
-) => `<svg width="${width}" height="${height}" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-        <defs>
-          <linearGradient id="g">
-            <stop stop-color="#ccc" offset="20%" />
-            <stop stop-color="#eee" offset="50%" />
-            <stop stop-color="#ccc" offset="70%" />
-          </linearGradient>
-        </defs>
-        <rect width="${width}" height="${height}" fill="#E2E8F0" />
-        <rect id="r" width="${width}" height="${height}" fill="url(#g)" />
-        <animate xlink:href="#r" attributeName="x" from="-${width}" to="${width}" dur="1s" repeatCount="indefinite"  />
-      </svg>`
+// const shimmer = (
+//   width: number,
+//   height: number,
+// ) => `<svg width="${width}" height="${height}" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+//         <defs>
+//           <linearGradient id="g">
+//             <stop stop-color="#ccc" offset="20%" />
+//             <stop stop-color="#eee" offset="50%" />
+//             <stop stop-color="#ccc" offset="70%" />
+//           </linearGradient>
+//         </defs>
+//         <rect width="${width}" height="${height}" fill="#E2E8F0" />
+//         <rect id="r" width="${width}" height="${height}" fill="url(#g)" />
+//         <animate xlink:href="#r" attributeName="x" from="-${width}" to="${width}" dur="1s" repeatCount="indefinite"  />
+//       </svg>`
 
 export type WImageProps = {
   ratio?: number | 'twitter'
@@ -29,7 +28,7 @@ export type WImageProps = {
   src: UploadFile | string
   alt?: string
   hasZoom?: boolean
-} & Pick<ComponentProps<typeof Image>, 'layout' | 'objectFit'> &
+} & Pick<ComponentProps<typeof Image>, 'fill' | 'objectFit'> &
   Omit<ChakraImageProps, 'objectFit' | 'src'>
 
 // TODO: add loader
@@ -39,17 +38,17 @@ export const WImage: FC<WImageProps> = ({
   alt,
   ratio,
   objectFit,
-  layout = 'fill',
+  fill = true,
   hasZoom,
   ...rest
 }) => {
   const source = getImageUrl(src, format)
-  const thumbnailSrc = getImageUrl(src, 'thumbnail')
+  // const thumbnailSrc = getImageUrl(src, 'thumbnail')
 
   const alternativeText = alt || (src as UploadFile)?.alternativeText || 'image'
 
-  const blurDataURL =
-    thumbnailSrc || `data:image/svg+xml;base64,${toBase64(shimmer(60, 60))}`
+  // const blurDataURL =
+  //   thumbnailSrc || `data:image/svg+xml;base64,${toBase64(shimmer(60, 60))}`
 
   const height = rest.height || rest.h
   const width = rest.width || rest.w
@@ -67,13 +66,11 @@ export const WImage: FC<WImageProps> = ({
       <Wrapper>
         <Image
           objectFit={objectFit || 'cover'}
-          layout={layout}
+          fill={width || height ? undefined : fill}
           src={source}
           alt={alternativeText}
-          placeholder="blur"
-          blurDataURL={blurDataURL as string}
-          height={parseInt(height as string, 10) || 0}
-          width={parseInt(width as string, 10) || 0}
+          height={parseInt(height as string, 10) || undefined}
+          width={parseInt(width as string, 10) || undefined}
         />
       </Wrapper>
     </AspectRatio>

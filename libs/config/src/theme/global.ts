@@ -15,5 +15,10 @@ export const styles = {
       width: '100%',
       height: '450px',
     },
+    a: {
+      _hover: {
+        textDecoration: 'none',
+      },
+    },
   },
 }

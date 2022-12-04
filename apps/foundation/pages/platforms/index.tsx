@@ -34,7 +34,7 @@ const Platforms: FC<PlatformsProps> = ({ title, platforms }) => {
                 title={project[`name_${locale}`]}
                 description={project[`description_${locale}`]}
                 image={project.image?.url}
-                link={`/platforms/${project.slug}`}
+                link={`/${locale}/platforms/${project.slug}`}
                 rounded
               />
             </AnimatedBox>

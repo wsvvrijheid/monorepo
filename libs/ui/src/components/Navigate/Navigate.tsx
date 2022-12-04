@@ -1,37 +1,11 @@
-import { FC, forwardRef } from 'react'
+import { chakra } from '@chakra-ui/react'
+import NextLink, { type LinkProps as NextLinkProps } from 'next/link'
 
-import { ButtonProps, IconButtonProps, Link, LinkProps } from '@chakra-ui/react'
-import NextLink from 'next/link'
-
-export type NavigateProps = LinkProps &
-  ButtonProps &
-  Omit<IconButtonProps, 'aria-label'>
-
-export const Navigate: FC<NavigateProps> = forwardRef(
-  ({ as: Tag = Link, href, ...rest }, ref) => {
-    if (!href) {
-      return <Tag ref={ref} {...rest} />
-    }
-
-    if (href.startsWith('http')) {
-      return (
-        <Tag
-          ref={ref}
-          cursor="pointer"
-          as={Link}
-          href={href}
-          target="_blank"
-          rel="noopener noreferrer"
-          isExternal
-          {...rest}
-        />
-      )
-    }
-
-    return (
-      <NextLink href={href} passHref>
-        <Tag ref={ref} cursor="pointer" {...rest} />
-      </NextLink>
-    )
+// wrap the NextLink with Chakra UI's factory function
+export const Navigate = chakra<typeof NextLink, Omit<NextLinkProps, 'as'>>(
+  NextLink,
+  {
+    // ensure that you're forwarding all of the required props for your case
+    shouldForwardProp: prop => ['href', 'target', 'children'].includes(prop),
   },
 )

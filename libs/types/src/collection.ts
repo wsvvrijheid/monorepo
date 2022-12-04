@@ -12,7 +12,7 @@ type CollectionRelation = {
 }
 
 type CollectionRelationInput = {
-  image: Blob
+  image: File
   arts?: Array<number>
 }
 

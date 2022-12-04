@@ -20,7 +20,7 @@ export type CreateMainHashtagFormFieldValues = {
     label: string
     value: string
   }[]
-  image: Blob
+  image: any
 }
 
 export type EditButtonsProps = {

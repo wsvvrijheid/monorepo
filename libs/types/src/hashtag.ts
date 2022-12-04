@@ -24,7 +24,7 @@ type HashtagRelation = {
 }
 
 type HashtagRelationInput = {
-  image?: Blob
+  image?: File
   posts?: Array<number>
   categories?: Array<number>
   mentions?: Array<number>

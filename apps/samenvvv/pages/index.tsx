@@ -51,17 +51,18 @@ const Home: FC<HomeProps> = ({ seo, link }) => {
                 <Text fontSize="xl" fontWeight="semibold">
                   {t('home.post-maker.content')}
                 </Text>
-                <Navigate
-                  size="lg"
-                  as={Button}
+
+                <Button
+                  as={Navigate}
                   href={link}
+                  size="lg"
                   variant="outline"
                   colorScheme="primary"
                   color="white"
                   _hover={{ color: 'white', bg: 'blackAlpha.100' }}
                 >
                   {t('home.post-maker.button')}
-                </Navigate>
+                </Button>
               </Stack>
 
               <PostMakerIcon

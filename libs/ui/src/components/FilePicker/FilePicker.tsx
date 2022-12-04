@@ -6,14 +6,9 @@ import Uppy from '@uppy/core'
 import ImageEditor from '@uppy/image-editor'
 import { Dashboard, useUppy } from '@uppy/react'
 
-import '@uppy/core/dist/style.css'
-import '@uppy/dashboard/dist/style.css'
-import '@uppy/url/dist/style.css'
-import '@uppy/image-editor/dist/style.css'
-
 export type FilePickerProps = Omit<ComponentProps<typeof Dashboard>, 'uppy'> & {
   maxNumberOfFiles?: number
-  setFiles: (files: Blob[]) => void
+  setFiles: (files: File[]) => void
   setPreviews?: (urls: string[]) => void
 }
 
@@ -62,7 +57,7 @@ export const FilePicker: FC<FilePickerProps> = ({
     const files = result.successful.map(file => file.data)
     const previews = result.successful.map(file => file.preview)
 
-    setFiles(files as Blob[])
+    setFiles(files as File[])
     setPreviews?.(previews as string[])
   })
 
