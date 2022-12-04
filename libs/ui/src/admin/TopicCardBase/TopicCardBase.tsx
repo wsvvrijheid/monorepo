@@ -50,8 +50,8 @@ export const TopicCardBase: FC<TopicCardBaseProps> = ({
     >
       {topic.image && (
         <WImage
-          w={isVertical ? 'full' : '300px'}
-          h={isVertical ? '200px' : 'full'}
+          w={isVertical ? '100%' : '300px'}
+          h={isVertical ? '200px' : '100%'}
           src={topic.image}
           alt={topic.title}
         />
