@@ -41,13 +41,7 @@ export const Footer: FC<FooterProps> = ({
               })}
             >
               <Link href="/">
-                <NextImage
-                  width="92px"
-                  height="92px"
-                  objectFit="cover"
-                  src={logo}
-                  alt="logo"
-                />
+                <NextImage width={92} height={92} src={logo} alt="logo" />
               </Link>
             </motion.div>
             <Text textAlign="center" paddingLeft={1} mx={2} my={2}>

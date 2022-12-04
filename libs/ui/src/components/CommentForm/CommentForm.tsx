@@ -24,17 +24,21 @@ import { CommentFormFieldValues, CommentFormProps } from './types'
 
 const userSchema = (t: TFunction) =>
   yup.object({
-    content: yup.string().required(t`comment-form.content.required`),
+    content: yup
+      .string()
+      .required(t('comment-form.content.required') as string),
   })
 
 const publicSchema = (t: TFunction) =>
   yup.object({
-    name: yup.string().required(t`comment-form.name.required`),
+    name: yup.string().required(t('comment-form.name.required') as string),
     email: yup
       .string()
-      .email(t`comment-form.email.invalid`)
-      .required(t`comment-form.email.required`),
-    content: yup.string().required(t`comment-form.content.required`),
+      .email(t('comment-form.email.invalid') as string)
+      .required(t('comment-form.email.required') as string),
+    content: yup
+      .string()
+      .required(t('comment-form.content.required') as string),
   })
 
 export const CommentForm: React.FC<CommentFormProps> = ({
@@ -81,7 +85,7 @@ export const CommentForm: React.FC<CommentFormProps> = ({
               <FormItem
                 name="name"
                 hideLabel
-                label={t('comment-form.name.placeholder')}
+                label={t('comment-form.name.placeholder') as string}
                 register={register}
                 errors={errors}
               />
@@ -89,7 +93,7 @@ export const CommentForm: React.FC<CommentFormProps> = ({
                 name="email"
                 type="email"
                 hideLabel
-                label={t('comment-form.email.placeholder')}
+                label={t('comment-form.email.placeholder') as string}
                 register={register}
                 errors={errors}
               />
@@ -103,7 +107,7 @@ export const CommentForm: React.FC<CommentFormProps> = ({
               as={Textarea}
               name="content"
               hideLabel
-              label={t('comment-form.content.placeholder')}
+              label={t('comment-form.content.placeholder') as string}
               register={register}
               errors={errors}
               {...useBreakpointValue({ base: { rows: 1 }, sm: { rows: 3 } })}

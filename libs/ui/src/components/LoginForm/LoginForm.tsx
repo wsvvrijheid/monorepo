@@ -33,11 +33,11 @@ import { LoginFormFieldValues } from './types'
 
 const schema = (t: TFunction) =>
   yup.object({
-    password: yup.string().required(t('login.password.required')),
+    password: yup.string().required(t('login.password.required') as string),
     email: yup
       .string()
-      .email(t`contact.form.email-invalid`)
-      .required(t`login.email.required`),
+      .email(t('contact.form.email-invalid') as string)
+      .required(t('login.email.required') as string),
   })
 
 type LoginFormProps = Pick<SocialLoginButtonsProps, 'providersToBeShown'>
@@ -113,14 +113,15 @@ export const LoginForm: FC<LoginFormProps> = ({ providersToBeShown = [] }) => {
             <Heading>{t('login.sign-in-header.title')}</Heading>
             <HStack spacing="1" justify="center">
               <Text color="muted">{t('login.sign-in-header.text')}</Text>
-              <Navigate
-                variant="link"
-                as={Button}
+
+              <Button
+                as={Navigate}
                 href="/register"
+                variant="link"
                 colorScheme="blue"
               >
                 {t('login.sign-in-header.button')}
-              </Navigate>
+              </Button>
             </HStack>
           </Stack>
         </Stack>
@@ -128,7 +129,7 @@ export const LoginForm: FC<LoginFormProps> = ({ providersToBeShown = [] }) => {
           <Stack spacing="5">
             <FormItem
               name="email"
-              label={t('login.email.title')}
+              label={t('login.email.title') as string}
               type="email"
               register={register}
               errors={errors}
@@ -136,7 +137,7 @@ export const LoginForm: FC<LoginFormProps> = ({ providersToBeShown = [] }) => {
             <FormItem
               name="password"
               type="password"
-              label={t('login.password.title')}
+              label={t('login.password.title') as string}
               autoComplete="current-password"
               register={register}
               errors={errors}
@@ -145,15 +146,16 @@ export const LoginForm: FC<LoginFormProps> = ({ providersToBeShown = [] }) => {
           <HStack justify="space-between">
             {/* TODO Set session exp time */}
             <Checkbox defaultChecked>{t('login.remember-me')}</Checkbox>
-            <Navigate
-              as={Button}
+
+            <Button
+              as={Navigate}
               href="/forgot-password"
               variant="link"
               colorScheme="blue"
               size="sm"
             >
               {t('login.password.forgot-password')}
-            </Navigate>
+            </Button>
           </HStack>
           <Stack spacing="6">
             <Button type="submit" colorScheme="blue">
