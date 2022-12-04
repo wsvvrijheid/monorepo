@@ -33,7 +33,7 @@ export const PostContainerBody: FC<PostContainerBodyProp> = memo(
             borderColor="gray.300"
             borderWidth={1}
           >
-            <WImage ratio="twitter" h={'100%'} src={postImage} />
+            <WImage ratio="twitter" src={postImage} />
           </Box>
         )}
       </Stack>
