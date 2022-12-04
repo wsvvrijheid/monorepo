@@ -160,6 +160,11 @@ export const getAdminNav = (user: SessionUser): AdminNavItemProps[] => {
           icon: <HiOutlineNewspaper />,
         },
         {
+          label: 'Bookmarked News',
+          link: '/content-maker/news-bookmarks',
+          icon: <HiOutlineNewspaper />,
+        },
+        {
           label: 'HumanRights',
           link: '/content-maker/human-rights',
           icon: <GiHumanPyramid />,
