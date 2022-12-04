@@ -21,7 +21,6 @@ import {
   useUpdateEffect,
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
-import '@splidejs/splide/dist/css/themes/splide-default.min.css'
 import { useHashtags, useUpdatePostMutation } from '@wsvvrijheid/services'
 import { Post, StrapiLocale, UploadFile } from '@wsvvrijheid/types'
 import { useRouter } from 'next/router'
