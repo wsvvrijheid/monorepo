@@ -113,11 +113,15 @@ export const LoginForm: FC<LoginFormProps> = ({ providersToBeShown = [] }) => {
             <Heading>{t('login.sign-in-header.title')}</Heading>
             <HStack spacing="1" justify="center">
               <Text color="muted">{t('login.sign-in-header.text')}</Text>
-              <Navigate href="/register">
-                <Button variant="link" colorScheme="blue">
-                  {t('login.sign-in-header.button')}
-                </Button>
-              </Navigate>
+
+              <Button
+                as={Navigate}
+                href="/register"
+                variant="link"
+                colorScheme="blue"
+              >
+                {t('login.sign-in-header.button')}
+              </Button>
             </HStack>
           </Stack>
         </Stack>
@@ -142,11 +146,16 @@ export const LoginForm: FC<LoginFormProps> = ({ providersToBeShown = [] }) => {
           <HStack justify="space-between">
             {/* TODO Set session exp time */}
             <Checkbox defaultChecked>{t('login.remember-me')}</Checkbox>
-            <Navigate href="/forgot-password">
-              <Button variant="link" colorScheme="blue" size="sm">
-                {t('login.password.forgot-password')}
-              </Button>
-            </Navigate>
+
+            <Button
+              as={Navigate}
+              href="/forgot-password"
+              variant="link"
+              colorScheme="blue"
+              size="sm"
+            >
+              {t('login.password.forgot-password')}
+            </Button>
           </HStack>
           <Stack spacing="6">
             <Button type="submit" colorScheme="blue">

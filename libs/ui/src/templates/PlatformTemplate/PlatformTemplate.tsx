@@ -47,15 +47,15 @@ export const PlatformTemplate: FC<PlatformTemplateProps> = ({
         </Box>
         <Center>
           {!!link && (
-            <Navigate href={link}>
-              <Button
-                colorScheme="blue"
-                size="lg"
-                rightIcon={<FaExternalLinkAlt />}
-              >
-                {t('visit-website')}
-              </Button>
-            </Navigate>
+            <Button
+              as={Navigate}
+              href={link}
+              colorScheme="blue"
+              size="lg"
+              rightIcon={<FaExternalLinkAlt />}
+            >
+              {t('visit-website')}
+            </Button>
           )}
         </Center>
       </Stack>
