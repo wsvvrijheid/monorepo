@@ -28,10 +28,11 @@ export const CollectionList: FC<CollectionListProps> = ({ collectionData }) => {
         <Navigate
           key={index}
           href={`/${locale}/club/collections/${collection.slug}`}
+          py={2}
+          lineHeight="1.15"
+          _hover={{ color: 'blue.500' }}
         >
-          <Text py={2} lineHeight="1.15" _hover={{ color: 'blue.500' }}>
-            {collection.title}
-          </Text>
+          {collection.title}
         </Navigate>
       ))}
     </div>

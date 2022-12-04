@@ -73,7 +73,7 @@ export const AdminLoginForm = () => {
     <SimpleGrid columns={{ base: 1, lg: 2 }} h="full">
       <Box pos="relative">
         <WImage
-          objectFit="cover"
+          style={{ objectFit: 'cover' }}
           src={`${API_URL}/uploads/smartmockups_l7y9bzqx_256149ef40.jpeg`}
           alt={'admin'}
         />
@@ -147,11 +147,16 @@ export const AdminLoginForm = () => {
               )}
             </Stack>
             {/* TODO Set session exp time */}
-            <Navigate href="/forgot-password">
-              <Button variant="link" colorScheme="blue" size="sm">
-                Forgot your password
-              </Button>
-            </Navigate>
+
+            <Button
+              as={Navigate}
+              href="/forgot-password"
+              variant="link"
+              colorScheme="blue"
+              size="sm"
+            >
+              Forgot your password
+            </Button>
           </Stack>
 
           <Text fontSize={'xs'}>

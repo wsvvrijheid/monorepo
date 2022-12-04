@@ -125,11 +125,15 @@ export const SignupForm: FC<SignupFormProps> = ({
             <Heading>{t('login.sign-up-header.title')}</Heading>
             <HStack spacing="1" justify="center">
               <Text color="muted">{t('login.sign-up-header.text')}</Text>
-              <Navigate href="/login">
-                <Button variant="link" colorScheme="blue">
-                  {t('login.sign-up-header.button')}
-                </Button>
-              </Navigate>
+
+              <Button
+                as={Navigate}
+                href="/login"
+                variant="link"
+                colorScheme="blue"
+              >
+                {t('login.sign-up-header.button')}
+              </Button>
             </HStack>
           </Stack>
         </Stack>
