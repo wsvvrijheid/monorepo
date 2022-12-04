@@ -4,7 +4,11 @@ export default factories.createCoreController(
   'api::topic.topic',
   ({ strapi }) => ({
     async find(ctx) {
-      const { data, meta } = await super.find(ctx)
+      const response = await super.find(ctx)
+
+      if (!response) return []
+
+      const { data, meta } = response
 
       const updatedAt = new Date(data.attributes.updatedAt).getTime()
       const now = new Date().getTime()
