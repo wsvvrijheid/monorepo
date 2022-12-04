@@ -50,21 +50,19 @@ export const HashtagCard = ({ item, type }: SliderHeroProps): JSX.Element => {
           </Text>
         </Box>
 
-        <Navigate
-          justifySelf="end"
-          as={Button}
+        <Button
+          as={Navigate}
           href={link as string}
+          justifySelf="end"
           colorScheme="primary"
           rightIcon={<FaArrowRight />}
         >
           {t('read-more')}
-        </Navigate>
+        </Button>
       </Stack>
 
       <Box flex={1} h="full" w="full">
-        {item.image && (
-          <WImage ratio="twitter" h="full" overflow="hidden" src={item.image} />
-        )}
+        {item.image && <WImage overflow="hidden" src={item.image} />}
       </Box>
     </Grid>
   )

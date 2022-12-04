@@ -18,7 +18,7 @@ type AnnouncementRelation = {
 type AnnouncementRelationInput = {
   categories?: Array<number>
   tags?: Array<number>
-  image: Blob
+  image: File
 }
 
 export type AnnouncementCreateInput = Expand<

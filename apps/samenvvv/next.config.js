@@ -10,7 +10,13 @@ const { i18n } = require('./next-i18next.config')
 const nextConfig = {
   i18n,
   images: {
-    domains: ['api.samenvvv.nl', 'samenvvv.nl', 'localhost'],
+    domains: [
+      'api.samenvvv.nl',
+      'api.wsvvrijheid.nl',
+      'pbs.twimg.com',
+      'samenvvv.nl',
+      'localhost',
+    ],
   },
   nx: {
     // Set this to true if you would like to to use SVGR

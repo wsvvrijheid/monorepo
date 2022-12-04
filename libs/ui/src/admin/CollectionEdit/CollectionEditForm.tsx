@@ -37,8 +37,10 @@ import { CollectionEditFormFieldValues, CollectionEditFormProps } from './types'
 
 const schema = (t: TFunction) =>
   yup.object({
-    title: yup.string().required(t`art.create.form.title-required`),
-    description: yup.string().required(t`art.create.form.description-required`),
+    title: yup.string().required(t('art.create.form.title-required') as string),
+    description: yup
+      .string()
+      .required(t('art.create.form.description-required') as string),
   })
 
 export const CollectionEditForm: FC<CollectionEditFormProps> = ({
@@ -52,7 +54,7 @@ export const CollectionEditForm: FC<CollectionEditFormProps> = ({
 
   const queryKey = ['collection', id]
 
-  const [images, setImages] = useState<Blob[]>([])
+  const [images, setImages] = useState<File[]>([])
   const [changeImage, setChangeImage] = useBoolean(false)
   const updateCollectionMutation = useUpdateCollection(queryKey)
   const unpublishCollectionMutation = useUnpublishModel(
@@ -166,7 +168,7 @@ export const CollectionEditForm: FC<CollectionEditFormProps> = ({
               <WImage
                 src={collection.image as UploadFile}
                 alt={collection.title}
-                hasZoom={true}
+                hasZoom
               />
               {isEdit && (
                 <Center
@@ -197,7 +199,7 @@ export const CollectionEditForm: FC<CollectionEditFormProps> = ({
         >
           <FormItem
             name="title"
-            label={t('title')}
+            label={t('title') as string}
             isRequired
             errors={errors}
             register={register}
@@ -209,7 +211,7 @@ export const CollectionEditForm: FC<CollectionEditFormProps> = ({
           />
           <FormItem
             name="description"
-            label={t('description')}
+            label={t('description') as string}
             as={Textarea}
             flex={1}
             isRequired

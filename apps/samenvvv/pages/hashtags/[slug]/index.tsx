@@ -50,13 +50,9 @@ import {
   PostMaker,
   PostMakerIcon,
   StepsContent,
+  usePostMakerSteps,
 } from '@wsvvrijheid/ui'
-import {
-  getItemLink,
-  getPageSeo,
-  getStepsPostMaker,
-  getStepsMobilePostMaker,
-} from '@wsvvrijheid/utils'
+import { getItemLink, getPageSeo } from '@wsvvrijheid/utils'
 import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock'
 import { GetServerSideProps } from 'next'
 import { useTranslation } from 'next-i18next'
@@ -108,7 +104,8 @@ const Hashtag: FC<HashtagProps> = ({
   const { t } = useTranslation()
 
   const isMobile = useBreakpointValue({ base: true, lg: false })
-  const steps = isMobile ? getStepsMobilePostMaker(t) : getStepsPostMaker(t)
+  const postMakerSteps = usePostMakerSteps()
+  const steps = isMobile ? postMakerSteps.mobile : postMakerSteps.desktop
   const disableBody = (target: Element | null) =>
     target && disableBodyScroll(target)
   const enableBody = (target: Element | null) =>

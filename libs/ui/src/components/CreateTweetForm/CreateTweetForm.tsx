@@ -33,13 +33,13 @@ export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
 }) => {
   const [text, setText] = useState('')
   const [similarityCount, setSimilarityCount] = useState(0)
-  const [media, setMedia] = useState<Blob>()
+  const [media, setMedia] = useState<File>()
 
-  const handleFiles = (files: Blob[]) => {
+  const handleFiles = (files: File[]) => {
     if (Array.isArray(files) && files.length > 0) {
       setMedia(files[0])
     } else {
-      setMedia(files as unknown as Blob)
+      setMedia(files as unknown as File)
     }
   }
 
