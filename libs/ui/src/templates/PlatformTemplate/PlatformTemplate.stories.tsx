@@ -21,6 +21,6 @@ Default.args = {
     title: 'SamenVVV',
   },
   source: SOURCE_MOCKS.platforms.samenvvv,
-  image: 'https://www.samenvvv.nl/samenvvv-logo.svg',
+  image: 'https://api.wsvvrijheid.nl/uploads/samenvvv_32898faefb.svg',
   link: '/platforms/samenvvv',
 }
