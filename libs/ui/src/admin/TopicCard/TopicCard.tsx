@@ -73,13 +73,13 @@ export const TopicCard: FC<TopicCardProps> = ({
   return (
     <TopicCardBase
       topic={topic}
-      {...rest}
       onBookmark={handleBookmark}
       onRecommend={handleRecommend}
       onShare={handleShare}
       onView={handleView}
       isBookmarked={isBookmarked}
       isLoading={isLoading || isRecommendationLoading}
+      {...rest}
     />
   )
 }

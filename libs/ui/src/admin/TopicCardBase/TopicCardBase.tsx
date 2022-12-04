@@ -121,10 +121,10 @@ export const TopicCardBase: FC<TopicCardBaseProps> = ({
             <ActionButton
               onClick={() => onBookmark()}
               icon={<BsBookmarkHeart color={isBookmarked ? 'white' : ''} />}
-              title="Add Bookmark"
+              title={isBookmarked ? 'Remove' : 'Add Bookmark'}
               isVertical={isVertical}
               variant={isBookmarked ? 'solid' : 'ghost'}
-              colorScheme={isBookmarked ? 'blue' : 'gray'}
+              colorScheme={isBookmarked ? 'red' : 'gray'}
             />
             <ActionButton
               onClick={() => onRecommend()}
