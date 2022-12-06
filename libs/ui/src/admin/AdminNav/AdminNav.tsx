@@ -165,8 +165,8 @@ export const getAdminNav = (user: SessionUser): AdminNavItemProps[] => {
           icon: <HiOutlineNewspaper />,
         },
         {
-          label: 'HumanRights',
-          link: '/content-maker/human-rights',
+          label: 'Timelines',
+          link: '/content-maker/timelines',
           icon: <GiHumanPyramid />,
         },
       ],
