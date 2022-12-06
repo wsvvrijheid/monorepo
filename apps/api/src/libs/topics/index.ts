@@ -21,7 +21,7 @@ export default async ({ strapi }) => {
       getAktifHaber,
       getAmnesty,
       getBoldMedya,
-      getKanttekening,
+      // getKanttekening,
       getNos,
       getNu,
       getRtl,
@@ -31,7 +31,7 @@ export default async ({ strapi }) => {
       getIpaNews,
       getSolidaritywithothersNews,
       getAmnestyEn,
-      getTurkishMinuteNews,
+      // getTurkishMinuteNews,
     ]
 
     console.log('-----------------------------------')

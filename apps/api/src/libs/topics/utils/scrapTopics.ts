@@ -41,7 +41,7 @@ export const scrapTopics: ScrapTopics = async ({
 
   const topics: Topic[] = []
 
-  for (const link of links) {
+  for (const link of links.slice(0, 15)) {
     try {
       /**
       After getting URLs of news from the front page, 
