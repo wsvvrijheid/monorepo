@@ -1,7 +1,7 @@
 import { Category } from './category'
 import { Collection } from './collection'
 import { Comment } from './comment'
-import { ApprovalStatus, Expand } from './common'
+import { Expand } from './common'
 import { Feedback } from './feedback'
 import { UploadFile } from './file'
 import { StrapiBase, StrapiEntityBase } from './strapi'
@@ -10,7 +10,6 @@ import { User } from './user'
 import { Vote } from './vote'
 
 type ArtBase = StrapiEntityBase & {
-  approvalStatus: ApprovalStatus // default 'pending'
   likes: number
   views: number
 }
@@ -35,7 +34,7 @@ type ArtRelationInput = {
   collection?: number | null
   comments?: Array<number>
   feedbacks?: Array<number>
-  images: Array<Blob>
+  images: Array<File>
   likers?: Array<number>
   tags?: Array<number>
   votes?: Array<number>
@@ -45,7 +44,7 @@ type ArtRelationInput = {
 export type ArtCreateInput = Expand<
   { publishedAt?: string | null } & Omit<
     ArtBase,
-    'approvalStatus' | 'translationStatus' | 'likes' | 'views'
+    'approvalStatus' | 'likes' | 'views'
   > &
     Omit<
       ArtRelationInput,

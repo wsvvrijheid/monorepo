@@ -1,11 +1,12 @@
 import { QueryKey } from '@tanstack/react-query'
+import { Hashtag } from '@wsvvrijheid/types'
 
 export type CreateMainHashtagFormFieldValues = {
   title: string
   description: string
   content: string
   hashtag: string
-  extrahashtag?: string
+  hashtagExtra?: string
   date: string
   mentions?: {
     label: string
@@ -15,9 +16,5 @@ export type CreateMainHashtagFormFieldValues = {
 
 export type CreateMainHashtagModalProps = {
   queryKey?: QueryKey
-}
-
-export type CreateMainHashtagSuccessAlertProps = {
-  isOpen: boolean
-  onClose: () => void
+  showEditModal: (respHashtag: Hashtag) => void
 }

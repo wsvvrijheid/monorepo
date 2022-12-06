@@ -30,7 +30,7 @@ export const TranslateAccordionItem = <T extends StrapiTranslatableModel>({
   locale,
   missingTranslations,
   publishedAt,
-  translationStatus,
+  approvalStatus,
   title,
   handleTranslate,
 }: TranslateAccordionItemProps<T>) => {
@@ -49,16 +49,16 @@ export const TranslateAccordionItem = <T extends StrapiTranslatableModel>({
                 {title}
               </Text>
 
-              {translationStatus && (
+              {approvalStatus && (
                 <>
                   <Badge
                     display={{ base: 'none', lg: 'flex' }}
                     variant="outline"
                     colorScheme={
-                      translationStatus === 'approved' ? 'green' : 'yellow'
+                      approvalStatus === 'approved' ? 'green' : 'yellow'
                     }
                   >
-                    {translationStatus}
+                    {approvalStatus}
                   </Badge>
                   <Box
                     display={{ base: 'block', lg: 'none' }}
@@ -66,9 +66,7 @@ export const TranslateAccordionItem = <T extends StrapiTranslatableModel>({
                     rounded="full"
                     flexShrink={0}
                     bg={
-                      translationStatus === 'approved'
-                        ? 'green.400'
-                        : 'yellow.400'
+                      approvalStatus === 'approved' ? 'green.400' : 'yellow.400'
                     }
                   />
                 </>

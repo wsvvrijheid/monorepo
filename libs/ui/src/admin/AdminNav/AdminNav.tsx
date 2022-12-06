@@ -26,8 +26,9 @@ import { VscFeedback } from 'react-icons/vsc'
 
 import { AdminNavItem } from './AdminNavItem'
 import { AdminNavItemCollapsed } from './AdminNavItemCollapsed'
+import { AdminNavItemProps } from './types'
 
-export const getAdminNav = (user: SessionUser) => {
+export const getAdminNav = (user: SessionUser): AdminNavItemProps[] => {
   const { isEditor, isAdmin } = user
 
   return [
@@ -40,6 +41,7 @@ export const getAdminNav = (user: SessionUser) => {
     {
       label: 'Translates',
       icon: <BsTranslate />,
+      link: '#',
       visible: isAdmin,
       submenu: [
         {
@@ -72,7 +74,8 @@ export const getAdminNav = (user: SessionUser) => {
     {
       label: 'Arts',
       icon: <TbBrush />,
-      visible: isEditor || isAdmin,
+      link: '#',
+      visible: !!isEditor || !!isAdmin,
       submenu: [
         {
           label: 'Pending Arts',
@@ -99,6 +102,7 @@ export const getAdminNav = (user: SessionUser) => {
     {
       label: 'Hashtags',
       icon: <CgHashtag />,
+      link: '#',
       visible: isEditor || isAdmin,
       submenu: [
         {
@@ -108,14 +112,46 @@ export const getAdminNav = (user: SessionUser) => {
         },
         {
           label: 'Hashtag Posts',
-          link: '/hashtags/posts',
           icon: <TbBrandTwitter />,
+          link: '#',
+          visible: !!Boolean || !!isAdmin,
+          submenu: [
+            {
+              label: 'Pending  Posts',
+              link: '/hashtags/posts?status=pending',
+              icon: <TbClock />,
+            },
+            {
+              label: 'Approved  Posts',
+              link: '/hashtags/posts?status=approved',
+              icon: <TbChecks />,
+            },
+          ],
+        },
+        {
+          label: 'Hashtag Caps',
+          icon: <TbBrandTwitter />,
+          link: '#',
+          visible: isEditor || isAdmin,
+          submenu: [
+            {
+              label: 'Pending  Caps',
+              link: '/hashtags/caps?status=pending',
+              icon: <TbClock />,
+            },
+            {
+              label: 'Approved  Caps',
+              link: '/hashtags/caps?status=approved',
+              icon: <TbChecks />,
+            },
+          ],
         },
       ],
     },
     {
       label: 'Content Maker',
       icon: <HiOutlineNewspaper />,
+      link: '#',
       visible: isEditor || isAdmin,
       submenu: [
         {
@@ -124,8 +160,13 @@ export const getAdminNav = (user: SessionUser) => {
           icon: <HiOutlineNewspaper />,
         },
         {
-          label: 'HumanRights',
-          link: '/content-maker/human-rights',
+          label: 'Bookmarked News',
+          link: '/content-maker/news-bookmarks',
+          icon: <HiOutlineNewspaper />,
+        },
+        {
+          label: 'Timelines',
+          link: '/content-maker/timelines',
           icon: <GiHumanPyramid />,
         },
       ],
@@ -151,6 +192,7 @@ export const getAdminNav = (user: SessionUser) => {
     {
       label: 'Feedbacks',
       icon: <VscFeedback />,
+      link: '#',
       visible: isEditor || isAdmin,
       submenu: [
         {
@@ -198,7 +240,7 @@ export const AdminNav: FC<AdminNAvProps> = ({ user, expanded }) => {
               icon={item.icon}
               key={item.label}
               label={item.label}
-              link={item.link}
+              link={item.link || '#'}
               submenu={item.submenu}
               expanded={expanded}
             />

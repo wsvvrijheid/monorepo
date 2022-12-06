@@ -9,30 +9,29 @@ import {
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation } from '@tanstack/react-query'
-import { setAuth, useAppDispatch, useAuthSelector } from '@wsvvrijheid/store'
-import { sleep } from '@wsvvrijheid/utils'
+import { API_URL } from '@wsvvrijheid/config'
+import { checkAuth, useAppDispatch, useAuthSelector } from '@wsvvrijheid/store'
 import axios from 'axios'
-import { useTranslation } from 'next-i18next'
-import { TFunction } from 'next-i18next'
+import { TFunction, useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
-import { useForm, SubmitHandler } from 'react-hook-form'
+import { SubmitHandler, useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
 import {
-  FormItem,
-  Navigate,
-  LoginFormFieldValues,
-  WImage,
   Container,
+  FormItem,
+  LoginFormFieldValues,
+  Navigate,
+  WImage,
 } from '../../components'
 
 const schema = (t: TFunction) =>
   yup.object({
-    password: yup.string().required(t('login.password.required')),
+    password: yup.string().required(t('login.password.required') as string),
     email: yup
       .string()
-      .email(t`contact.form.email-invalid`)
-      .required(t`login.email.required`),
+      .email(t('contact.form.email-invalid') as string)
+      .required(t('login.email.required') as string),
   })
 
 export const AdminLoginForm = () => {
@@ -60,8 +59,7 @@ export const AdminLoginForm = () => {
         password: body.password,
       }),
     onSuccess: async data => {
-      dispatch(setAuth(data.data))
-      await sleep(1000)
+      await dispatch(checkAuth()).unwrap()
       reset()
       router.push('/')
     },
@@ -75,10 +73,8 @@ export const AdminLoginForm = () => {
     <SimpleGrid columns={{ base: 1, lg: 2 }} h="full">
       <Box pos="relative">
         <WImage
-          objectFit="cover"
-          src={
-            'https://api.samenvvv.nl/uploads/smartmockups_l7y9bzqx_256149ef40.jpeg'
-          }
+          style={{ objectFit: 'cover' }}
+          src={`${API_URL}/uploads/smartmockups_l7y9bzqx_256149ef40.jpeg`}
           alt={'admin'}
         />
         <Box
@@ -104,7 +100,7 @@ export const AdminLoginForm = () => {
           <VStack textAlign="center" w={'full'}>
             <Avatar
               size="2xl"
-              src={'https://api.samenvvv.nl/uploads/wsvvrijheid_051c420ab0.svg'}
+              src={`${API_URL}/uploads/wsvvrijheid_051c420ab0.svg`}
             />
 
             <Text fontSize="xl" color={'blue.500'} fontWeight="bold">
@@ -151,15 +147,16 @@ export const AdminLoginForm = () => {
               )}
             </Stack>
             {/* TODO Set session exp time */}
-            <Navigate
-              as={Button}
+
+            <Button
+              as={Navigate}
               href="/forgot-password"
               variant="link"
               colorScheme="blue"
               size="sm"
             >
               Forgot your password
-            </Navigate>
+            </Button>
           </Stack>
 
           <Text fontSize={'xs'}>

@@ -9,6 +9,7 @@ import {
   VStack,
 } from '@chakra-ui/react'
 import { useMutation } from '@tanstack/react-query'
+import { socialLinks } from '@wsvvrijheid/config'
 import { EmailData, sendEmail } from '@wsvvrijheid/services'
 import {
   ContactForm,
@@ -103,7 +104,7 @@ const Contact = ({ seo }: ContactProps): JSX.Element => {
                 kunsthalte@wsvvrijheid.nl
               </Button>
 
-              <SocialButtons items={[]} />
+              <SocialButtons items={socialLinks.kunsthalte} />
             </VStack>
 
             <ContactForm

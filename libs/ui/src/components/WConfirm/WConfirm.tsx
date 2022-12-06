@@ -1,4 +1,4 @@
-import { FC, useRef } from 'react'
+import { FC, useEffect, useRef } from 'react'
 
 import {
   AlertDialog,
@@ -8,40 +8,41 @@ import {
   AlertDialogHeader,
   AlertDialogOverlay,
   Button,
+  useBoolean,
+  useDisclosure,
 } from '@chakra-ui/react'
 
 export type WConfirmProps = {
-  buttonText: string
-  description: string
-  isOpen: boolean
+  buttonText?: string
+  description?: string
   isWarning?: boolean
-  title: string
-  onClose: () => void
-  onConfirm: () => void
+  title?: string
+  onConfirm?: () => void
 }
 
-export const WConfirm: FC<WConfirmProps> = ({
-  buttonText,
-  description,
-  isOpen,
-  isWarning,
-  title,
-  onClose,
-  onConfirm,
-}) => {
+export const WConfirm: FC<WConfirmProps> = (props: WConfirmProps) => {
+  const { buttonText, description, isWarning, title, onConfirm } = props
+  const [isOpen, setIsOpen] = useBoolean(!!props)
   const cancelRef = useRef<HTMLButtonElement>(null)
+  const disclosure = useDisclosure()
+
+  useEffect(() => {
+    if (isOpen) disclosure.onOpen()
+    if (!isOpen) disclosure.onClose()
+  }, [isOpen, disclosure])
+
+  useEffect(() => {
+    if (props) setIsOpen.on()
+    if (!props) setIsOpen.off()
+  }, [props, setIsOpen])
 
   const handleConfirm = () => {
-    onConfirm()
-    onClose()
+    onConfirm?.()
+    disclosure.onClose()
   }
 
   return (
-    <AlertDialog
-      isOpen={isOpen}
-      leastDestructiveRef={cancelRef}
-      onClose={onClose}
-    >
+    <AlertDialog leastDestructiveRef={cancelRef} {...disclosure}>
       <AlertDialogOverlay>
         <AlertDialogContent>
           <AlertDialogHeader fontSize="lg" fontWeight="bold">
@@ -51,7 +52,7 @@ export const WConfirm: FC<WConfirmProps> = ({
           <AlertDialogBody>{description}</AlertDialogBody>
 
           <AlertDialogFooter>
-            <Button ref={cancelRef} onClick={onClose}>
+            <Button ref={cancelRef} onClick={setIsOpen.off}>
               Cancel
             </Button>
             <Button

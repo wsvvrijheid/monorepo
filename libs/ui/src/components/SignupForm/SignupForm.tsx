@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { FC, useState } from 'react'
 
 import {
   Alert,
@@ -15,7 +15,7 @@ import {
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation } from '@tanstack/react-query'
-import { setAuth, useAppDispatch } from '@wsvvrijheid/store'
+import { checkAuth, useAppDispatch } from '@wsvvrijheid/store'
 import axios from 'axios'
 import { TFunction, useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
@@ -24,27 +24,43 @@ import * as yup from 'yup'
 
 import { FormItem } from '../FormItem'
 import { Navigate } from '../Navigate'
-import { OAuthButtonGroup } from '../OAuthButtonGroup'
+import {
+  SocialLoginButtons,
+  SocialLoginButtonsProps,
+} from '../SocialLoginButtons'
 import { SignupFormFieldValues } from './types'
 
 const schema = (t: TFunction) =>
   yup.object({
-    name: yup.string().required(t('login.name.required')),
-    username: yup.string().required(t`login.username.required`),
+    name: yup.string().required(t('login.name.required') as string),
+    username: yup.string().required(t('login.username.required') as string),
     password: yup
       .string()
-      .min(8, t('login.password.warning', { count: 8 }))
-      .required(t('login.password.required'))
-      .matches(RegExp('(.*[a-z].*)'), t('login.password.matches.lowercase'))
-      .matches(RegExp('(.*[A-Z].*)'), t('login.password.matches.uppercase'))
-      .matches(RegExp('(.*\\d.*)'), t('login.password.matches.number')),
+      .min(8, t('login.password.warning', { count: 8 }) as string)
+      .required(t('login.password.required') as string)
+      .matches(
+        RegExp('(.*[a-z].*)'),
+        t('login.password.matches.lowercase') as string,
+      )
+      .matches(
+        RegExp('(.*[A-Z].*)'),
+        t('login.password.matches.uppercase') as string,
+      )
+      .matches(
+        RegExp('(.*\\d.*)'),
+        t('login.password.matches.number') as string,
+      ),
     email: yup
       .string()
-      .email(t`contact.form.email-invalid`)
-      .required(t`login.email.required`),
+      .email(t('contact.form.email-invalid') as string)
+      .required(t('login.email.required') as string),
   })
 
-export const SignupForm = () => {
+type SignupFormProps = Pick<SocialLoginButtonsProps, 'providersToBeShown'>
+
+export const SignupForm: FC<SignupFormProps> = ({
+  providersToBeShown = [],
+}) => {
   const { t } = useTranslation()
   const [isTermsAccepted, setIsTermsAccepted] = useState<boolean>(true)
   const [errorMessage, setErrorMessage] = useState('')
@@ -67,11 +83,11 @@ export const SignupForm = () => {
     mutationKey: ['login'],
     mutationFn: (body: SignupFormFieldValues) =>
       axios.post('/api/auth/register', body),
-    onSuccess: data => {
+    onSuccess: async data => {
       if (data.data?.error) {
         return setErrorMessage(data.data.error.message)
       }
-      dispatch(setAuth(data.data))
+      await dispatch(checkAuth()).unwrap()
       reset()
       router.push('/')
     },
@@ -109,14 +125,15 @@ export const SignupForm = () => {
             <Heading>{t('login.sign-up-header.title')}</Heading>
             <HStack spacing="1" justify="center">
               <Text color="muted">{t('login.sign-up-header.text')}</Text>
-              <Navigate
-                variant="link"
-                as={Button}
+
+              <Button
+                as={Navigate}
                 href="/login"
+                variant="link"
                 colorScheme="blue"
               >
                 {t('login.sign-up-header.button')}
-              </Navigate>
+              </Button>
             </HStack>
           </Stack>
         </Stack>
@@ -134,27 +151,27 @@ export const SignupForm = () => {
             )}
             <FormItem
               name="name"
-              label={t('login.name.title')}
+              label={t('login.name.title') as string}
               register={register}
               errors={errors}
             />
             <FormItem
               name="username"
-              label={t('login.username.title')}
+              label={t('login.username.title') as string}
               register={register}
               errors={errors}
             />
             <FormItem
               name="email"
               type="email"
-              label={t('login.email.title')}
+              label={t('login.email.title') as string}
               register={register}
               errors={errors}
             />
             <FormItem
               name="password"
               type="password"
-              label={t('login.password.title')}
+              label={t('login.password.title') as string}
               autoComplete="current-password"
               register={register}
               errors={errors}
@@ -166,14 +183,10 @@ export const SignupForm = () => {
                 defaultChecked
                 onChange={e => setIsTermsAccepted(e.target.checked)}
               />
-              <Navigate
-                as={Button}
-                href="/terms"
-                variant="link"
-                colorScheme="gray"
-                size="sm"
-              >
-                {t('login.terms-use')}
+              <Navigate href="/terms">
+                <Button variant="link" colorScheme="gray" size="sm">
+                  {t('login.terms-use')}
+                </Button>
               </Navigate>
             </HStack>
           </Stack>
@@ -185,14 +198,19 @@ export const SignupForm = () => {
             >
               {t('login.create-account')}
             </Button>
-            <HStack>
-              <Divider />
-              <Text fontSize="sm" whiteSpace="nowrap" color="muted">
-                {t('login.sign-up-with')}
-              </Text>
-              <Divider />
-            </HStack>
-            <OAuthButtonGroup isDisabled={!isTermsAccepted} />
+            {providersToBeShown.length > 0 && (
+              <HStack>
+                <Divider />
+                <Text fontSize="sm" whiteSpace="nowrap" color="muted">
+                  {t('login.sign-up-with')}
+                </Text>
+                <Divider />
+              </HStack>
+            )}
+            <SocialLoginButtons
+              providersToBeShown={providersToBeShown}
+              isDisabled={!isTermsAccepted}
+            />
           </Stack>
         </Stack>
       </Stack>

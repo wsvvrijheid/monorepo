@@ -1,4 +1,4 @@
-import { Expand, TranslationStatus } from './common'
+import { ApprovalStatus, Expand } from './common'
 import { UploadFile } from './file'
 import { Hashtag } from './hashtag'
 import { StrapiBase, StrapiEntityBase } from './strapi'
@@ -7,8 +7,7 @@ import { User } from './user'
 
 export type PostBase = Omit<StrapiEntityBase, 'slug' | 'content'> & {
   content: string | null
-  translationStatus: TranslationStatus
-  capsStatus: TranslationStatus
+  capsStatus: ApprovalStatus
   twitterMedia?: string | null
 }
 
@@ -23,7 +22,7 @@ export type PostRelation = {
 }
 
 export type PostRelationInput = {
-  image: Blob
+  image: File
   hashtag: number
   tags?: Array<number>
   translator?: number
@@ -34,7 +33,7 @@ export type PostRelationInput = {
 export type PostCreateInput = Expand<
   { publishedAt?: string | null } & Omit<
     PostBase,
-    'translationStatus' | 'capsStatus'
+    'approvalStatus' | 'capsStatus'
   > &
     Pick<PostRelationInput, 'image' | 'hashtag' | 'tags'>
 >
@@ -47,7 +46,7 @@ export type PostUpdateInput = Expand<
 
 export type PostLocalizeInput = Pick<
   PostBase,
-  'title' | 'description' | 'content' | 'translationStatus'
+  'title' | 'description' | 'content' | 'approvalStatus'
 >
 
 export type Post = StrapiBase & PostBase & PostRelation

@@ -1,11 +1,13 @@
 import { StrapiBase } from './strapi'
 import { Tweet } from './tweet'
-import { TweetUserData } from './tweet-user'
 import { User } from './user'
 
 export type TimelineBase = {
-  username: string
-  userData: TweetUserData
+  userData: {
+    name: string
+    username: string
+    profile: string
+  }
 }
 
 type TimelineRelation = {
