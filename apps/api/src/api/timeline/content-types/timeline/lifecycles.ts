@@ -37,9 +37,16 @@ export default {
         },
       )
 
-      await strapi
-        .service('api::timeline.timeline')
-        .update(result.id, { data: { userData, tweets } })
+      await strapi.service('api::timeline.timeline').update(result.id, {
+        data: {
+          userData: {
+            name: userData.name,
+            username: userData.screen_name,
+            profile: userData.profile_image_url_https,
+          },
+          tweets,
+        },
+      })
     } catch (error) {
       console.log('Error updating user tweet', error)
     }

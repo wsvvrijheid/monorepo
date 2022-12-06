@@ -3,10 +3,10 @@ import { ComponentMeta, ComponentStory } from '@storybook/react'
 import { TWEET_MOCKS } from '@wsvvrijheid/mocks'
 
 import { Container } from '../../components'
-import { TweetCardBase } from './TweetCardBase'
+import { TweetCard } from './TweetCard'
 
 export default {
-  component: TweetCardBase,
+  component: TweetCard,
   title: `Admin/TweetCard`,
   decorators: [
     Story => (
@@ -19,16 +19,16 @@ export default {
     onEdit: tweet => alert(JSON.stringify(tweet)),
     onSave: tweet => alert(JSON.stringify(tweet)),
   },
-} as ComponentMeta<typeof TweetCardBase>
+} as ComponentMeta<typeof TweetCard>
 
-const Template: ComponentStory<typeof TweetCardBase> = args => (
-  <TweetCardBase {...args} />
+const Template: ComponentStory<typeof TweetCard> = args => (
+  <TweetCard {...args} />
 )
 
 const ListTemplate = () => (
   <Stack>
     {TWEET_MOCKS.map(tweet => (
-      <TweetCardBase
+      <TweetCard
         key={tweet.id}
         tweet={tweet}
         onEdit={tweet => alert(JSON.stringify(tweet))}

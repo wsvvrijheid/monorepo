@@ -3,7 +3,7 @@ import { API_URL } from '@wsvvrijheid/config'
 import { Tweet } from '@wsvvrijheid/types'
 import { useTranslation } from 'next-i18next'
 
-import { TweetCardBase } from '../../admin/TweetCard'
+import { TweetCard } from '../../admin/TweetCard'
 
 interface TweetWidgetProps {
   title: string
@@ -29,7 +29,7 @@ export const TweetWidget = ({
         >
           {tweets && tweets.length > 0 ? (
             tweets.map((tweet, index) => {
-              return <TweetCardBase key={index} tweet={tweet} />
+              return <TweetCard key={index} tweet={tweet} />
             })
           ) : (
             <Stack textAlign="center">
