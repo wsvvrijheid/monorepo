@@ -19,11 +19,12 @@ import { BsBookmarkPlus, BsThreeDots } from 'react-icons/bs'
 import { FaPlayCircle } from 'react-icons/fa'
 import { RiEditLine } from 'react-icons/ri'
 import ReactPlayer from 'react-player'
+import twitterText from 'twitter-text'
 
 import { WImage } from '../../components'
-import { TweetBaseCardProps } from './types'
+import { TweetCardProps } from './types'
 
-export const TweetCardBase: FC<TweetBaseCardProps> = ({
+export const TweetCard: FC<TweetCardProps> = ({
   tweet,
   onEdit,
   onSave,
@@ -32,20 +33,28 @@ export const TweetCardBase: FC<TweetBaseCardProps> = ({
   const [playing, setPlaying] = useBoolean()
 
   return (
-    <HStack align="start" bg={'white'} rounded="lg" p={4} {...rest}>
+    <HStack
+      spacing={4}
+      align={'start'}
+      bg={'white'}
+      rounded={'md'}
+      shadow={'sm'}
+      p={4}
+      {...rest}
+    >
       <Avatar name={tweet.user.name} src={tweet.user.profile} />
 
-      <Stack>
+      <Stack spacing={4}>
         {/* Tweet Header */}
         <HStack justify={'space-between'} title={tweet.user.username}>
-          <HStack noOfLines={1}>
-            <Text fontSize={'sm'} fontWeight={'bolder'}>
+          <Box lineHeight={1.15}>
+            <Text noOfLines={1} wordBreak={'break-all'} fontWeight={'bolder'}>
               {tweet.user.name}
             </Text>
-            <Text fontSize={'xs'} color={'gray'}>
+            <Text noOfLines={1} color={'gray.500'}>
               @{tweet.user.username}
             </Text>
-          </HStack>
+          </Box>
 
           {onEdit && onSave && (
             <Menu>
@@ -72,9 +81,17 @@ export const TweetCardBase: FC<TweetBaseCardProps> = ({
         </HStack>
 
         {/* Tweet Content */}
-        <Text fontSize={'sm'} ml={2}>
-          {tweet.text}
-        </Text>
+        <Text
+          ml={2}
+          wordBreak={'break-word'}
+          whiteSpace={'pre-wrap'}
+          sx={{
+            '& a': {
+              color: 'twitter.500',
+            },
+          }}
+          dangerouslySetInnerHTML={{ __html: twitterText.autoLink(tweet.text) }}
+        />
 
         {/* Video */}
         {tweet.videos && (
