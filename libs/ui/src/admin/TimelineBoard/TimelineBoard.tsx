@@ -2,7 +2,7 @@ import { FC } from 'react'
 
 import { Box, HStack, Link, Text } from '@chakra-ui/react'
 
-import { TimelineTweetBase } from '../TimelineTweet'
+import { TimelineTweet } from '../TimelineTweet'
 import { TimelineBoardProps } from './types'
 
 export const TimelineBoard: FC<TimelineBoardProps> = ({ timelines }) => {
@@ -14,7 +14,6 @@ export const TimelineBoard: FC<TimelineBoardProps> = ({ timelines }) => {
     console.log('save')
   }
 
-  console.log(timelines)
   return (
     <HStack
       align="start"
@@ -26,7 +25,6 @@ export const TimelineBoard: FC<TimelineBoardProps> = ({ timelines }) => {
       shouldWrapChildren={true}
     >
       {timelines?.map(timeline => (
-        // eslint-disable-next-line react/jsx-key
         <Box
           w="500px"
           overflowX="auto"
@@ -34,25 +32,31 @@ export const TimelineBoard: FC<TimelineBoardProps> = ({ timelines }) => {
           border="1px"
           borderColor="gray.300"
         >
-          <Link href={timeline.userData.url} target="_blank" cursor="pointer">
+          <Link
+            href={`https://twitter/com/${timeline.userData.username}`}
+            target="_blank"
+            rel="noreferrer noopener"
+            cursor="pointer"
+          >
             <Box bg="blue.400" borderBottom="1px" color="white" p={3}>
-              <HStack justify={'space-between'} title={timeline.username}>
-                <HStack noOfLines={1}>
-                  <Text fontSize={'sm'} fontWeight={'bolder'}>
-                    @{timeline.username}
-                  </Text>
-                </HStack>
+              <HStack>
+                <Text
+                  fontSize={'sm'}
+                  wordBreak={'break-all'}
+                  fontWeight={'bolder'}
+                >
+                  {timeline.userData.name} - @{timeline.userData.username}
+                </Text>
               </HStack>
             </Box>
           </Link>
           {/* I assigned height 700 randomly. What height do you think I should assign? */}
           <Box overflowY="auto" h="700px">
             {timeline.tweets.map((tweet, key) => (
-              <TimelineTweetBase
+              <TimelineTweet
                 tweet={tweet}
                 onEdit={onEdit}
-                username={timeline.username}
-                profileImg={timeline.userData.profile_image_url}
+                user={timeline.userData}
                 onSave={onSave}
                 key={key}
               />

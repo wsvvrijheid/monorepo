@@ -52,8 +52,6 @@ export const getStaticProps = async context => {
 
   const platforms = await getAllPlatforms()
 
-  console.log('platforms', platforms)
-
   const seo = {
     title: {
       en: 'Platforms',
