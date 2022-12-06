@@ -4,6 +4,8 @@ import {
   Button,
   ButtonGroup,
   Center,
+  FormControl,
+  FormLabel,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -19,12 +21,14 @@ import {
 import { yupResolver } from '@hookform/resolvers/yup'
 import slugify from '@sindresorhus/slugify'
 import { useCreateCollection } from '@wsvvrijheid/services'
-import { CollectionCreateInput } from '@wsvvrijheid/types'
+import { CollectionCreateInput, StrapiLocale } from '@wsvvrijheid/types'
+import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
 import { IoMdAdd, IoMdCheckmark, IoMdClose } from 'react-icons/io'
 import * as yup from 'yup'
 
 import { FormItem, FilePicker } from '../../components'
+import { LanguageSwitcher } from '../LanguageSwitcher'
 import { CollectionCreateSuccessAlert } from './CreateCollectionSuccessAlert'
 import {
   CreateCollectionFormFieldValues,
@@ -41,12 +45,12 @@ const schema = () =>
 export const CreateCollectionModal: FC<CreateCollectionModalProps> = ({
   queryKey,
 }) => {
-  const [images, setImages] = useState<Blob[]>([])
-
+  const [images, setImages] = useState<File[]>([])
   const cancelRef = useRef<HTMLButtonElement>(null)
   const formDisclosure = useDisclosure()
   const successDisclosure = useDisclosure()
   const toast = useToast()
+  const { locale } = useRouter()
 
   const {
     register,
@@ -61,13 +65,13 @@ export const CreateCollectionModal: FC<CreateCollectionModalProps> = ({
   const { mutate, isLoading } = useCreateCollection(queryKey)
 
   const createCollection = async (
-    data: CreateCollectionFormFieldValues & { image: Blob },
+    data: CreateCollectionFormFieldValues & { image: File },
   ) => {
     const slug = slugify(data.title)
     const formBody: CollectionCreateInput = {
       ...data,
       slug,
-      locale: 'tr',
+      locale: locale as StrapiLocale,
       publishedAt: null,
     }
 
@@ -156,6 +160,10 @@ export const CreateCollectionModal: FC<CreateCollectionModalProps> = ({
               as="form"
               onSubmit={handleSubmit(handleCreateCollection)}
             >
+              <FormControl isRequired>
+                <FormLabel>Locale</FormLabel>
+                <LanguageSwitcher />
+              </FormControl>
               <FormItem
                 name="title"
                 label="Title"

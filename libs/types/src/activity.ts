@@ -20,11 +20,11 @@ type ActivityRelation = {
 type ActivityRelationInput = {
   category?: number
   tags?: Array<number>
-  image: Blob
+  image: File
 }
 
 export type ActivityCreateInput = Expand<
-  { publishedAt?: string | null } & Omit<ActivityBase, 'translationStatus'> &
+  { publishedAt?: string | null } & Omit<ActivityBase, 'approvalStatus'> &
     ActivityRelationInput
 >
 export type ActivityUpdateInput = Expand<

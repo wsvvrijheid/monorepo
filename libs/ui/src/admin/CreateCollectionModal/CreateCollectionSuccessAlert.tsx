@@ -39,9 +39,10 @@ export const CollectionCreateSuccessAlert = forwardRef<
 
           <AlertDialogBody py={4}>
             <Text>Collection created successfully.</Text>
-            <Navigate href="/collections">
-              <Button colorScheme="blue.500">Go to collections</Button>
-            </Navigate>
+
+            <Button as={Navigate} href="/collections" colorScheme="blue.500">
+              Go to collections
+            </Button>
           </AlertDialogBody>
 
           <AlertDialogFooter>

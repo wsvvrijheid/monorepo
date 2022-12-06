@@ -17,13 +17,13 @@ type CompetitionRelation = {
 }
 
 type CompetitionRelationInput = {
-  image: Blob
+  image: File
   applications?: Array<number>
   categories?: Array<number>
 }
 
 export type CompetitionCreateInput = Expand<
-  { publishedAt?: string | null } & Omit<CompetitionBase, 'translationStatus'> &
+  { publishedAt?: string | null } & Omit<CompetitionBase, 'approvalStatus'> &
     Omit<CompetitionRelationInput, 'applications'>
 >
 

@@ -1,14 +1,12 @@
 import { Applicant } from './applicant'
-import { ApprovalStatus, Expand } from './common'
+import { Expand } from './common'
 import { Competition } from './competition'
 import { UploadFile } from './file'
 import { StrapiBase, StrapiEntityBase } from './strapi'
 import { Tag } from './tag'
 import { Vote } from './vote'
 
-export type ApplicationBase = Omit<StrapiEntityBase, 'description'> & {
-  approvalStatus: ApprovalStatus
-}
+export type ApplicationBase = Omit<StrapiEntityBase, 'description'>
 
 type ApplicationRelation = {
   images?: UploadFile[]
@@ -20,7 +18,7 @@ type ApplicationRelation = {
 }
 
 type ApplicationRelationInput = {
-  images: Array<Blob>
+  images: Array<File>
   competition: number
   applicant: number
   votes?: Array<number>
@@ -29,10 +27,7 @@ type ApplicationRelationInput = {
 }
 
 export type ApplicationCreateInput = Expand<
-  { publishedAt?: string | null } & Omit<
-    ApplicationBase,
-    'translationStatus' | 'approvalStatus'
-  > &
+  { publishedAt?: string | null } & Omit<ApplicationBase, 'approvalStatus'> &
     Omit<ApplicationRelationInput, 'votes' | 'juryVotes'>
 >
 

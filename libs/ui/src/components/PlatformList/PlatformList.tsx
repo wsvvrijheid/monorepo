@@ -41,15 +41,15 @@ export const PlatformList: FC<PlatformListProps> = ({ platforms }) => {
             </Text>
             <Spacer />
 
-            <Navigate href={`/${locale}/platforms/${platform.slug}`}>
-              <Button
-                rightIcon={<FaChevronRight />}
-                variant="link"
-                colorScheme="blue"
-              >
-                {t('read-more')}
-              </Button>
-            </Navigate>
+            <Button
+              as={Navigate}
+              href={`/${locale}/platforms/${platform.slug}`}
+              rightIcon={<FaChevronRight />}
+              variant="link"
+              colorScheme="blue"
+            >
+              {t('read-more')}
+            </Button>
           </Stack>
         </Stack>
       ))}

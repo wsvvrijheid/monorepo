@@ -21,6 +21,7 @@ import '@uppy/core/dist/style.css'
 import '@uppy/dashboard/dist/style.css'
 import '@uppy/url/dist/style.css'
 import '@uppy/image-editor/dist/style.css'
+import 'react-medium-image-zoom/dist/styles.css'
 
 import i18nConfig from '../next-i18next.config'
 
@@ -31,7 +32,6 @@ function MyApp({ Component, pageProps }) {
   const router = useRouter()
 
   useEffect(() => {
-    console.log('Checking auth APP Foundation')
     store.dispatch(checkAuth())
   }, [])
 

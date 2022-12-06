@@ -10,7 +10,6 @@ import { Post } from './post'
 import { RecommendedTopic } from './recommended-topic'
 import { RecommendedTweet } from './recommended-tweet'
 import { Role } from './role'
-import { SavedTweet } from './saved-tweet'
 import { StrapiBase } from './strapi'
 import { Timeline } from './timeline'
 import { Volunteer } from './volunteer'
@@ -42,7 +41,6 @@ type UserRelation = {
   posts?: Array<Post>
   recommendedTweets?: Array<RecommendedTweet>
   reviewedPosts?: Array<Post>
-  savedTweets?: Array<SavedTweet>
   timelines?: Array<Timeline>
   topics?: Array<RecommendedTopic>
   volunteer?: Volunteer | null
@@ -51,7 +49,7 @@ type UserRelation = {
 
 type UserRelationInput = {
   role?: number
-  avatar?: Blob
+  avatar?: File
   applicant?: number
   arts?: Array<number>
   blogs?: Array<number>

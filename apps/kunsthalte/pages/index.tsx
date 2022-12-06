@@ -1,12 +1,5 @@
-import {
-  Box,
-  Button,
-  Center,
-  Heading,
-  Stack,
-  Text,
-  VStack,
-} from '@chakra-ui/react'
+import { Button, Center, Heading, Stack, Text, VStack } from '@chakra-ui/react'
+import { API_URL } from '@wsvvrijheid/config'
 import { AnimatedBox, Container, Navigate } from '@wsvvrijheid/ui'
 import { GetStaticProps } from 'next'
 import { useTranslation } from 'next-i18next'
@@ -31,7 +24,7 @@ export default function Home({ seo }) {
         pt={100}
         pos="relative"
         zIndex={0}
-        backgroundImage="url(https://api.samenvvv.nl/uploads/kunsthalte_home_bg_79d33962e7.jpg)"
+        backgroundImage={`url(${API_URL}/uploads/kunsthalte_home_bg_79d33962e7_95c9ce377d.jpg)`}
         backgroundSize="cover"
       >
         <Container
@@ -54,24 +47,25 @@ export default function Home({ seo }) {
               direction={{ base: 'column', lg: 'row' }}
               spacing={4}
             >
-              <Navigate
-                size="lg"
+              <Button
+                as={Navigate}
                 href={`/${locale}/club/arts`}
-                as={Button}
+                size="lg"
                 leftIcon={<FaPaintBrush />}
                 colorScheme="primary"
               >
-                <Box>{t('view-arts')}</Box>
-              </Navigate>
-              <Navigate
-                size="lg"
+                {t('view-arts')}
+              </Button>
+
+              <Button
+                as={Navigate}
                 href={`/${locale}/club/collections`}
-                as={Button}
+                size="lg"
                 leftIcon={<BsCollectionFill />}
                 colorScheme="primary"
               >
                 {t('view-collections')}
-              </Navigate>
+              </Button>
             </Stack>
           </AnimatedBox>
         </Container>

@@ -24,13 +24,20 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import slugify from '@sindresorhus/slugify'
 import { useCreateMainHashtag, useGetMentions } from '@wsvvrijheid/services'
 import { HashtagCreateInput, StrapiLocale } from '@wsvvrijheid/types'
+import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
+import useFormPersist from 'react-hook-form-persist'
 import { IoMdAdd, IoMdCheckmark, IoMdClose } from 'react-icons/io'
 import * as yup from 'yup'
 
-import { FilePicker, FormItem, WSelect } from '../../components'
+import {
+  FilePicker,
+  FormItem,
+  WConfirm,
+  WConfirmProps,
+  WSelect,
+} from '../../components'
 import { LanguageSwitcher } from '../LanguageSwitcher'
-import { CreateMainHashtagSuccessAlert } from './CreateMainHashtagSuccessAlert'
 import {
   CreateMainHashtagFormFieldValues,
   CreateMainHashtagModalProps,
@@ -38,27 +45,31 @@ import {
 
 export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
   queryKey,
+  showEditModal,
 }) => {
-  const [images, setImages] = useState<Blob[]>([])
-  //const [mention, setMentions] = useState<Mention>([])
+  const [images, setImages] = useState<File[]>([])
   const cancelRef = useRef<HTMLButtonElement>(null)
   const formDisclosure = useDisclosure()
-  const successDisclosure = useDisclosure()
 
-  const [locale, setLocale] = useState<StrapiLocale>('en')
+  const [successConfirmState, setSuccessConfirmState] =
+    useState<WConfirmProps>()
+
+  const { locale } = useRouter()
 
   const schema = yup.object({
     title: yup.string().required('Title is required'),
     description: yup.string().required('Description is required'),
     content: yup.string().required('Content is required'),
     hashtag: yup.string().required('Hashtag is required'),
-    extrahashtag: yup.string(),
+    hashtagExtra: yup.string(),
     mention: yup.string(),
   })
 
   const {
     register,
     control,
+    watch,
+    setValue,
     formState: { errors },
     handleSubmit,
     reset: resetForm,
@@ -67,12 +78,18 @@ export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
     mode: 'all',
   })
 
-  const { mutate, isLoading } = useCreateMainHashtag(locale, queryKey)
+  useFormPersist(`create-main-hashtag-${locale}`, {
+    watch,
+    setValue,
+    ...(typeof window !== 'undefined' && { storage: window.sessionStorage }),
+  })
+
+  const { mutate, isLoading } = useCreateMainHashtag(queryKey)
   const toast = useToast()
   const currentMentions = useGetMentions()
 
   const createMainHashtag = async (
-    data: CreateMainHashtagFormFieldValues & { image: Blob },
+    data: CreateMainHashtagFormFieldValues & { image: File },
   ) => {
     const slug = slugify(data.title)
     const mentions = data.mentions?.map(mention => Number(mention.value)) || []
@@ -80,15 +97,24 @@ export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
     const formBody: HashtagCreateInput = {
       ...data,
       slug,
-      locale,
+      locale: locale as StrapiLocale,
       publishedAt: null,
       mentions,
     }
 
     mutate(formBody, {
-      onSuccess: async () => {
+      onSuccess: async newHashtag => {
         formDisclosure.onClose()
-        successDisclosure.onOpen()
+        setSuccessConfirmState({
+          title: 'MainHashtag successfully submitted',
+          description:
+            'MainHashtag created successfully. Do you want to edit it?',
+          buttonText: 'Edit',
+          onConfirm: () => {
+            showEditModal(newHashtag)
+            setSuccessConfirmState(undefined)
+          },
+        })
         resetForm()
         resetFileUploader()
       },
@@ -125,11 +151,7 @@ export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
   return (
     <>
       {/* SUCCESS ALERT */}
-      <CreateMainHashtagSuccessAlert
-        isOpen={successDisclosure.isOpen}
-        onClose={successDisclosure.onClose}
-        ref={cancelRef}
-      />
+      {successConfirmState && <WConfirm {...successConfirmState} />}
 
       <Button
         leftIcon={<IoMdAdd />}
@@ -142,7 +164,7 @@ export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
 
       <Modal
         isCentered
-        closeOnOverlayClick={true}
+        closeOnOverlayClick={false}
         isOpen={formDisclosure.isOpen}
         onClose={closeForm}
         size="4xl"
@@ -200,10 +222,7 @@ export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
                 <HStack>
                   <FormControl isRequired>
                     <FormLabel>Locale</FormLabel>
-                    <LanguageSwitcher
-                      defaultLocale={locale as StrapiLocale}
-                      onLanguageSwitch={setLocale}
-                    />
+                    <LanguageSwitcher />
                   </FormControl>
 
                   <FormItem
@@ -224,7 +243,7 @@ export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
                     register={register}
                   />
                   <FormItem
-                    name="extrahashtag"
+                    name="hashtagExtra"
                     label="Extra hashtag"
                     errors={errors}
                     register={register}
@@ -238,8 +257,6 @@ export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
                   label="Mentions"
                   control={control}
                   errors={errors}
-                  // TODO: get mentions from API with useQuery
-                  // We will improve WSelect later to accept async options @${c.username}
                   options={
                     currentMentions?.data?.map(c => ({
                       value: `${c.id}`,

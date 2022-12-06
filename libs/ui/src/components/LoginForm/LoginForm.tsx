@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { FC, useState } from 'react'
 
 import {
   Alert,
@@ -15,7 +15,7 @@ import {
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation } from '@tanstack/react-query'
-import { setAuth, useAppDispatch } from '@wsvvrijheid/store'
+import { checkAuth, useAppDispatch } from '@wsvvrijheid/store'
 import axios from 'axios'
 import { useTranslation } from 'next-i18next'
 import { TFunction } from 'next-i18next'
@@ -25,19 +25,24 @@ import * as yup from 'yup'
 
 import { FormItem } from '../FormItem'
 import { Navigate } from '../Navigate'
-import { OAuthButtonGroup } from '../OAuthButtonGroup'
+import {
+  SocialLoginButtons,
+  SocialLoginButtonsProps,
+} from '../SocialLoginButtons'
 import { LoginFormFieldValues } from './types'
 
 const schema = (t: TFunction) =>
   yup.object({
-    password: yup.string().required(t('login.password.required')),
+    password: yup.string().required(t('login.password.required') as string),
     email: yup
       .string()
-      .email(t`contact.form.email-invalid`)
-      .required(t`login.email.required`),
+      .email(t('contact.form.email-invalid') as string)
+      .required(t('login.email.required') as string),
   })
 
-export const LoginForm = () => {
+type LoginFormProps = Pick<SocialLoginButtonsProps, 'providersToBeShown'>
+
+export const LoginForm: FC<LoginFormProps> = ({ providersToBeShown = [] }) => {
   const { t } = useTranslation()
   const [errorMessage, setErrorMessage] = useState('')
 
@@ -62,11 +67,11 @@ export const LoginForm = () => {
         identifier: body.email,
         password: body.password,
       }),
-    onSuccess: data => {
+    onSuccess: async data => {
       if (data.data?.error) {
         return setErrorMessage(data.data.error.message)
       }
-      dispatch(setAuth(data.data))
+      await dispatch(checkAuth()).unwrap()
       reset()
       router.push('/')
     },
@@ -108,14 +113,15 @@ export const LoginForm = () => {
             <Heading>{t('login.sign-in-header.title')}</Heading>
             <HStack spacing="1" justify="center">
               <Text color="muted">{t('login.sign-in-header.text')}</Text>
-              <Navigate
-                variant="link"
-                as={Button}
+
+              <Button
+                as={Navigate}
                 href="/register"
+                variant="link"
                 colorScheme="blue"
               >
                 {t('login.sign-in-header.button')}
-              </Navigate>
+              </Button>
             </HStack>
           </Stack>
         </Stack>
@@ -123,7 +129,7 @@ export const LoginForm = () => {
           <Stack spacing="5">
             <FormItem
               name="email"
-              label={t('login.email.title')}
+              label={t('login.email.title') as string}
               type="email"
               register={register}
               errors={errors}
@@ -131,7 +137,7 @@ export const LoginForm = () => {
             <FormItem
               name="password"
               type="password"
-              label={t('login.password.title')}
+              label={t('login.password.title') as string}
               autoComplete="current-password"
               register={register}
               errors={errors}
@@ -140,15 +146,16 @@ export const LoginForm = () => {
           <HStack justify="space-between">
             {/* TODO Set session exp time */}
             <Checkbox defaultChecked>{t('login.remember-me')}</Checkbox>
-            <Navigate
-              as={Button}
+
+            <Button
+              as={Navigate}
               href="/forgot-password"
               variant="link"
               colorScheme="blue"
               size="sm"
             >
               {t('login.password.forgot-password')}
-            </Navigate>
+            </Button>
           </HStack>
           <Stack spacing="6">
             <Button type="submit" colorScheme="blue">
@@ -160,14 +167,16 @@ export const LoginForm = () => {
                   'An error occured'}
               </Text>
             )}
-            <HStack>
-              <Divider />
-              <Text fontSize="sm" whiteSpace="nowrap" color="muted">
-                {t('login.sign-in-with')}
-              </Text>
-              <Divider />
-            </HStack>
-            <OAuthButtonGroup isDisabled={false} />
+            {providersToBeShown.length > 0 && (
+              <HStack>
+                <Divider />
+                <Text fontSize="sm" whiteSpace="nowrap" color="muted">
+                  {t('login.sign-in-with')}
+                </Text>
+                <Divider />
+              </HStack>
+            )}
+            <SocialLoginButtons providersToBeShown={providersToBeShown} />
           </Stack>
         </Stack>
       </Stack>

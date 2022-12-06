@@ -2,6 +2,7 @@
 import { FC, HtmlHTMLAttributes } from 'react'
 
 import { chakra } from '@chakra-ui/react'
+import { MDXProvider } from '@mdx-js/react'
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
 
 import { Navigate } from '../Navigate'
@@ -51,9 +52,9 @@ const MarkdownComponents = {
   strong: (props: HtmlHTMLAttributes<HTMLElement>) => (
     <chakra.span fontWeight="semibold" {...props} />
   ),
-  a: (props: HtmlHTMLAttributes<HTMLElement>) => (
+  a: (props: any) => (
     <Navigate
-      {...props}
+      href={props.href as any}
       fontWeight="semibold"
       color="blue.500"
       _hover={{ color: 'blue.300' }}
@@ -69,18 +70,6 @@ const MarkdownComponents = {
     <chakra.ol apply="mdx.ul" {...props} />
   ),
   li: (props: HtmlHTMLAttributes<HTMLElement>) => <chakra.li {...props} />,
-  blockquote: (props: HtmlHTMLAttributes<HTMLElement>) => (
-    <chakra.blockquote
-      bg="blackAlpha.50"
-      borderWidth={1}
-      borderColor="blue.500"
-      rounded="lg"
-      px={6}
-      py={4}
-      my={6}
-      {...props}
-    />
-  ),
 }
 
 export interface MarkdownProps {
@@ -94,7 +83,8 @@ export const Markdown: FC<MarkdownProps> = ({ source }) => {
     return null
   }
   return (
-    // TODO Might be extended with custom components
-    <MDXRemote {...source} components={{ ...MarkdownComponents }} />
+    <MDXProvider components={{ ...MarkdownComponents }}>
+      <MDXRemote {...source} />
+    </MDXProvider>
   )
 }

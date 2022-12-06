@@ -12,12 +12,12 @@ type CollectionRelation = {
 }
 
 type CollectionRelationInput = {
-  image: Blob
+  image: File
   arts?: Array<number>
 }
 
 export type CollectionCreateInput = Expand<
-  { publishedAt?: string | null } & Omit<CollectionBase, 'translationStatus'> &
+  { publishedAt?: string | null } & Omit<CollectionBase, 'approvalStatus'> &
     CollectionRelationInput
 >
 

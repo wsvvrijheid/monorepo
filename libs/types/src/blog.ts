@@ -22,7 +22,7 @@ type BlogRelation = {
 }
 
 type BlogRelationInput = {
-  image: Blob
+  image: File
   author?: number
   categories?: Array<number>
   tags?: Array<number>
@@ -32,7 +32,7 @@ type BlogRelationInput = {
 export type BlogCreateInput = Expand<
   { publishedAt?: string | null } & Omit<
     BlogBase,
-    'translationStatus' | 'likes' | 'views'
+    'approvalStatus' | 'likes' | 'views'
   > &
     Omit<BlogRelationInput, 'likers'>
 >
