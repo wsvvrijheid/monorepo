@@ -20,6 +20,7 @@ export const getPostsByFilterAndSort = async ({
   sort = ['publishedAt:desc'],
   publicationState = 'preview',
   locale,
+  status,
 }: // status,
 GetPostsArgs) => {
   const descriptionFilter = {
@@ -33,18 +34,18 @@ GetPostsArgs) => {
       $containsi: searchTerm,
     },
   }
-  // const approvalStatusFilter = {
-  //   approvalStatus: {
-  //     $eq: status || 'pending',
-  //   },
-  // }
+  const approvalStatusFilter = {
+    approvalStatus: {
+      $eq: status || 'pending',
+    },
+  }
   const searchFilter = searchTerm && {
     $or: [descriptionFilter, titleFilter],
   }
 
   const filters: { [key: string]: unknown } = {
     ...(searchFilter || {}),
-    // ...(approvalStatus || {}),
+    ...(approvalStatusFilter || {}),
   }
 
   return Request.collection<Post[]>({

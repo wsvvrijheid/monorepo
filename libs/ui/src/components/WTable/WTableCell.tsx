@@ -48,7 +48,7 @@ export const WTableCell = <T extends StrapiModel>({
         bg="white"
         rounded="md"
         size="lg"
-        label={<WImage w={300} src={image} />}
+        label={<WImage h={150} w={300} src={image} />}
       >
         <Avatar size="md" src={`${API_URL}${thumbnail}`} />
       </Tooltip>
