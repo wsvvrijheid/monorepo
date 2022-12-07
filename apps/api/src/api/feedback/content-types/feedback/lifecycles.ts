@@ -1,8 +1,6 @@
 export default {
   async afterCreate({ result }) {
-    const populatedArt = await strapi.entityService.findMany(
-      'api::feedback.feedback',
-      {
+    const populatedArt = await strapi.entityService.findMany('api::feedback.feedback',{
         filters: {
           id: {
             $eq: result.id,
