@@ -21,7 +21,7 @@ export const BlogTemplate: FC<BlogTemplateProps> = ({ seo, blogs }) => {
       <Stack minH="inherit" justify="center" align="center" spacing={8}>
         <Image
           h={200}
-          src={`${API_URL}/uploads/no_blog_c7699f3a48.svg`}
+          src={`${API_URL}/uploads/no_blog_1eaf8feac1.svg`}
           alt="no blog"
         />
         <Text textAlign="center" fontSize="lg">
