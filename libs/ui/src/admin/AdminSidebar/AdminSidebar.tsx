@@ -47,7 +47,7 @@ export const AdminSidebar: FC<AdminSidebarProps> = ({
         <HStack align="center" spacing={4} alignItems="center" justify="center">
           <Avatar
             size={expanded ? 'lg' : 'md'}
-            src={`${API_URL}/uploads/wsvvrijheid_735585809a.svg`}
+            src={`${API_URL}/uploads/wsvvrijheid_3916828b44.svg`}
             name="Wsvvrijheid"
           />
           {expanded && (
