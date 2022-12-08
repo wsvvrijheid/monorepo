@@ -27,13 +27,7 @@ import { StrapiLocale } from '@wsvvrijheid/types'
 import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
 import useFormPersist from 'react-hook-form-persist'
-import {
-  IoMdAdd,
-  IoMdArrowUp,
-  IoMdCheckmark,
-  IoMdClose,
-  IoMdTrash,
-} from 'react-icons/io'
+import { IoMdAdd, IoMdCheckmark, IoMdClose } from 'react-icons/io'
 import * as yup from 'yup'
 
 import { FilePicker, FormItem } from '../../components'
@@ -48,8 +42,7 @@ export const CreateActivityModal: FC<CreateActivityModalProps> = ({
   queryKey,
 }) => {
   const cancelRef = useRef<HTMLButtonElement>(null)
-  const deleteRef = useRef<HTMLButtonElement>(null)
-  const publishRef = useRef<HTMLButtonElement>(null)
+
   const formDisclosure = useDisclosure()
   const successDisclosure = useDisclosure()
 
@@ -123,7 +116,6 @@ export const CreateActivityModal: FC<CreateActivityModalProps> = ({
   }
 
   const handleCreateActivity = async (data: CreateActivityFormFieldValues) => {
-    console.log({ data })
     await createActivity({ ...data })
   }
 
@@ -248,24 +240,7 @@ export const CreateActivityModal: FC<CreateActivityModalProps> = ({
                   >
                     Save
                   </Button>
-                  <Button
-                    onClick={closeForm}
-                    // mr={3}
-                    ref={publishRef}
-                    leftIcon={<IoMdArrowUp />}
-                    colorScheme="blue"
-                  >
-                    Publish
-                  </Button>
-                  <Button
-                    onClick={closeForm}
-                    // mr={3}
-                    ref={deleteRef}
-                    leftIcon={<IoMdTrash />}
-                    colorScheme="red"
-                  >
-                    Delete
-                  </Button>
+
                   <Button
                     onClick={closeForm}
                     // mr={3}
