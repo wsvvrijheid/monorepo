@@ -27,6 +27,7 @@ import { RecommendedTopic } from './recommended-topic'
 import { RecommendedTweet } from './recommended-tweet'
 import { Tag } from './tag'
 import { Term } from './term'
+import { Timeline } from './timeline'
 import { Topic } from './topic'
 import { Trend } from './trend'
 import { User } from './user'
@@ -80,6 +81,7 @@ export type StrapiModel =
   | RecommendedTweet
   | Tag
   | Term
+  | Timeline
   | Topic
   | Trend
   | UploadFile

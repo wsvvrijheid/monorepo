@@ -1,6 +1,6 @@
 # Wsvvrijheid Monorepo
 
-<img style="text-align: center;" src="/uploads/wsvvrijheid_3916828b44.svg" width="150" />
+<img style="text-align: center;" src="https://api.wsvvrijheid.nl/uploads/wsvvrijheid_3916828b44.svg" width="150" />
 
 This project was generated using [Nx](https://nx.dev).
 
