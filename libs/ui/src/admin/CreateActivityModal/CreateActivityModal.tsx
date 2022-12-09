@@ -81,16 +81,16 @@ export const CreateActivityModal: FC<CreateActivityModalProps> = ({
   const createActivity = async (
     data: CreateActivityFormFieldValues & { image: File },
   ) => {
-    // if (!auth.user) return
+    if (!auth.user) return
 
     const slug = slugify(data.title)
 
-    const creator = auth?.user?.id ?? 1
+    const creator = auth?.user?.id
 
     const formBody = {
       ...data,
       slug,
-      locale: (locale as StrapiLocale) ?? 'tr',
+      locale: locale as StrapiLocale,
       publishedAt: null,
       creator,
     }
