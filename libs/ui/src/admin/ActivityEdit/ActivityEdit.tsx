@@ -18,6 +18,7 @@ import {
   useUpdateActivityMutation,
 } from '@wsvvrijheid/services'
 import { UploadFile } from '@wsvvrijheid/types'
+import Router from 'next/router'
 import { useForm } from 'react-hook-form'
 import { AiOutlineEdit } from 'react-icons/ai'
 import { BsTrash } from 'react-icons/bs'
@@ -49,7 +50,7 @@ export const ActivityEdit: FC<ActivityEditProps> = ({ activity }) => {
   const [images, setImages] = useState<File[]>([])
   const [changeImage, setChangeImage] = useBoolean(false)
 
-  const queryKey = ['activity', id]
+  const queryKey = ['activity-id', id]
 
   const updateActivityMutation = useUpdateActivityMutation(queryKey)
   const unpublishActivityMutation = useUnpublishModel(
@@ -84,7 +85,6 @@ export const ActivityEdit: FC<ActivityEditProps> = ({ activity }) => {
       {
         id,
         ...data,
-        // FIXME: https://github.com/strapi/strapi/issues/13041#issuecomment-1095496718
         image: images[0],
       },
       {
@@ -120,7 +120,7 @@ export const ActivityEdit: FC<ActivityEditProps> = ({ activity }) => {
     setConfirmState({
       title: 'Publish Activity',
       description: `Are you sure you want to publish this activity ?`,
-      buttonText: 'Activity',
+      buttonText: 'Publish',
       onConfirm: async () => {
         await publishActivityMutation.mutateAsync({ id })
         setConfirmState(undefined)
@@ -137,6 +137,7 @@ export const ActivityEdit: FC<ActivityEditProps> = ({ activity }) => {
       onConfirm: async () => {
         await deleteActivityMutation.mutateAsync({ id })
         setConfirmState(undefined)
+        Router.back()
       },
     })
   }
@@ -189,15 +190,6 @@ export const ActivityEdit: FC<ActivityEditProps> = ({ activity }) => {
               color: '#A0AEC0',
             }}
           />
-
-          {/* <Stack>
-            <FilePicker setFiles={setImages} />
-            {errors.image && (
-              <Text fontSize={'sm'} color="red.500">
-                {errors.image.message}
-              </Text>
-            )}
-          </Stack> */}
           <Box
             maxH={{ base: 300, lg: 'full' }}
             rounded={'md'}
@@ -216,11 +208,15 @@ export const ActivityEdit: FC<ActivityEditProps> = ({ activity }) => {
               </Stack>
             ) : (
               <Box pos="relative" role="group" h="full">
+                {/* FIXME: WImage not working */}
                 <WImage
                   src={activity.image as UploadFile}
                   alt={activity.title}
                   hasZoom
+                  width={400}
+                  height={475}
                 />
+
                 {isEdit && (
                   <Center
                     pos="absolute"
@@ -262,6 +258,7 @@ export const ActivityEdit: FC<ActivityEditProps> = ({ activity }) => {
             label="Content"
             as={Textarea}
             isRequired
+            isDisabled={!isEdit}
             errors={errors}
             register={register}
             size="lg"
@@ -274,15 +271,18 @@ export const ActivityEdit: FC<ActivityEditProps> = ({ activity }) => {
           />
 
           <ButtonGroup alignSelf="end">
-            <Button
-              onClick={onApprove}
-              size="sm"
-              leftIcon={<HiOutlineCheck />}
-              fontSize="sm"
-              colorScheme={'primary'}
-            >
-              Approve
-            </Button>
+            {activity.approvalStatus === 'approved' ? null : (
+              <Button
+                onClick={onApprove}
+                size="sm"
+                leftIcon={<HiOutlineCheck />}
+                fontSize="sm"
+                colorScheme={'primary'}
+              >
+                Approve
+              </Button>
+            )}
+
             {!isEdit ? (
               <Button
                 onClick={onEdit}
@@ -306,7 +306,7 @@ export const ActivityEdit: FC<ActivityEditProps> = ({ activity }) => {
                 </Button>
                 <Button
                   type="submit"
-                  mr={3}
+                  size="sm"
                   leftIcon={<MdOutlineCheck />}
                   colorScheme={'primary'}
                   fontSize="sm"

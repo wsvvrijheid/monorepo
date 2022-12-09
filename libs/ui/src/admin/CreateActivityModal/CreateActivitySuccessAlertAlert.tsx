@@ -43,7 +43,6 @@ export const CreateActivitySuccessAlertAlert = forwardRef<
 
           <AlertDialogFooter>
             <ButtonGroup alignSelf="end">
-              <Button onClick={onClose}>Show</Button>
               <Button onClick={onClose}>Dismiss</Button>
             </ButtonGroup>
           </AlertDialogFooter>
