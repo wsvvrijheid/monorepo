@@ -15,3 +15,15 @@ export interface Tweet {
   likes: number
   retweets: number
 }
+
+export type TimelineTweet = {
+  id: string
+  text: string
+  media?: {
+    type: string
+    media_key: string
+    url?: string
+    preview_image_url?: string
+  }
+  created_at?: string
+}
