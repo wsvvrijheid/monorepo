@@ -1,25 +1,33 @@
 import { useToast } from '@chakra-ui/react'
 import { useMutation, useQueryClient, QueryKey } from '@tanstack/react-query'
 import { Mutation } from '@wsvvrijheid/lib'
-import { Hashtag } from '@wsvvrijheid/types'
+import { StrapiModel, StrapiUrl } from '@wsvvrijheid/types'
 
-export const deletePost = ({ id }: { id: number }) =>
-  Mutation.delete<Hashtag>('api/posts', id)
+export const deleteModel = <T extends StrapiModel>(
+  id: number,
+  url: StrapiUrl,
+) => {
+  return Mutation.delete<T>(url, id)
+}
 
-export const useDeletePost = (queryKey?: QueryKey) => {
+export const useDeleteModel = <T extends StrapiModel>(
+  url: StrapiUrl,
+  queryKey?: QueryKey,
+) => {
   const queryClient = useQueryClient()
   const toast = useToast()
 
   return useMutation({
-    mutationKey: ['delete-Post'],
-    mutationFn: deletePost,
+    mutationKey: [`delete-${url}`],
+    mutationFn: ({ id }: { id: number }) => deleteModel<T>(id, url),
     onSettled: () => {
       queryClient.invalidateQueries(queryKey)
     },
     onSuccess: () => {
+      // TODO Add translations
+      queryClient.invalidateQueries(queryKey)
       toast({
-        title: 'Post deleted',
-        description: 'Post has been deleted',
+        title: `Successfully Deleted`,
         status: 'success',
         duration: 5000,
         isClosable: true,

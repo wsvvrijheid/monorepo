@@ -14,7 +14,7 @@ import {
 import { QueryKey } from '@tanstack/react-query'
 import { API_URL } from '@wsvvrijheid/config'
 import {
-  useDeleteArt,
+  useDeleteModel,
   usePublishModel,
   useUnpublishModel,
 } from '@wsvvrijheid/services'
@@ -53,7 +53,7 @@ export const ArtCardBase: FC<ArtCardBaseProps> = ({
 
   const router = useRouter()
 
-  const deleteMutation = useDeleteArt(queryKey)
+  const deleteMutation = useDeleteModel('api/arts', queryKey)
   const publishMutation = usePublishModel('api/arts', queryKey)
   const unpublishMutation = useUnpublishModel('api/arts', queryKey)
 
