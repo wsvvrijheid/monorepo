@@ -3,8 +3,8 @@ import { FC, useState } from 'react'
 import { useDisclosure } from '@chakra-ui/react'
 import { QueryKey } from '@tanstack/react-query'
 import {
-  useDeletePost,
-  useApproveMutation,
+  useDeleteModel,
+  useApproveModel,
   usePublishModel,
   useUnpublishModel,
 } from '@wsvvrijheid/services'
@@ -41,8 +41,8 @@ export const PostsTable: FC<PostsTableProps> = ({
     openEditModal.onOpen()
   }
 
-  const deletepost = useDeletePost(queryKey)
-  const approveMutation = useApproveMutation(queryKey)
+  const deletePostMutation = useDeleteModel('api/posts', queryKey)
+  const approvePostMutation = useApproveModel('api/posts', queryKey)
   const publishPostMutation = usePublishModel('api/posts', queryKey)
   const unpublishPostMutation = useUnpublishModel('api/posts', queryKey)
   //delete post =================
@@ -54,7 +54,7 @@ export const PostsTable: FC<PostsTableProps> = ({
       description: 'Are you sure you want to delete this post?',
       buttonText: 'Delete',
       onConfirm: async () => {
-        await deletepost.mutateAsync({ id })
+        await deletePostMutation.mutateAsync({ id })
         setConfirmState(undefined)
         confirmDisclosure.onClose()
       },
@@ -68,7 +68,7 @@ export const PostsTable: FC<PostsTableProps> = ({
       description: 'Are you sure you want to approve this post?',
       buttonText: 'Approve',
       onConfirm: async () => {
-        await approveMutation.mutateAsync({ id })
+        await approvePostMutation.mutateAsync({ id })
         setConfirmState(undefined)
         confirmDisclosure.onClose()
       },
@@ -135,7 +135,7 @@ export const PostsTable: FC<PostsTableProps> = ({
         setCurrentPage={setCurrentPage}
         onSort={onSort}
         onClickRow={handleClickRow}
-      />{' '}
+      />
     </>
   )
 }

@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import { useDisclosure } from '@chakra-ui/react'
 import {
-  useDeleteMainhashtag,
+  useDeleteModel,
   useHashtagsByFilterAndSort,
   usePublishModel,
   useUnpublishModel,
@@ -41,7 +41,7 @@ const MainHashtagPage = () => {
     search ? setSearchTerm(search) : setSearchTerm(undefined)
   }
 
-  const deleteMainhashtag = useDeleteMainhashtag(queryKey)
+  const deleteMainhashtag = useDeleteModel('api/hashtags', queryKey)
   const publishMainhashtagMutation = usePublishModel('api/hashtags', queryKey)
   const unpublishMainhashtagMutation = useUnpublishModel(
     'api/hashtags',
