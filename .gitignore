@@ -44,3 +44,7 @@ Thumbs.db
 # Next.js
 .next
 
+# Playwright
+**/test-results
+**/playwright-report
+**/playwright/.cache
