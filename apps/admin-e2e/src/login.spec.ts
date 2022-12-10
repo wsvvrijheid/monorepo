@@ -2,12 +2,12 @@ import { expect, test } from '@playwright/test'
 
 test('Should fill credentials', async ({ page }) => {
   await page.goto('/login')
-  const emailButton = page.locator('input[name="email"]')
-  const passwordButton = page.locator('input[name="password"]')
+  const emailInput = page.locator('input[name="email"]')
+  const passwordInput = page.locator('input[name="password"]')
   const loginButton = page.locator('button[type="submit"]')
 
-  await emailButton.fill('test@samenvvv.nl')
-  await passwordButton.fill('Test?123')
+  await emailInput.fill('test@samenvvv.nl')
+  await passwordInput.fill('Test?123')
   await loginButton.click()
 
   await page.waitForNavigation({ url: 'http://localhost:4200/' })
