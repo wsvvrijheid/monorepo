@@ -9,20 +9,8 @@ export type TimelineTweetProps = {
     username: string
     profile: string
   }
-  onSave?: (
-    tweet: TimelineTweet,
-    user: {
-      name: string
-      username: string
-      profile: string
-    },
-  ) => void
-  onEdit?: (
-    tweet: TimelineTweet,
-    user: {
-      name: string
-      username: string
-      profile: string
-    },
-  ) => void
+  onSave?: (data: TimelineLocalTweet) => void
+  onEdit?: (data: TimelineLocalTweet) => void
 } & StackProps
+
+export type TimelineLocalTweet = Pick<TimelineTweetProps, 'tweet' | 'user'>

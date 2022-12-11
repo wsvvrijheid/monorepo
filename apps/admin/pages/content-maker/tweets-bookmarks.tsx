@@ -1,13 +1,12 @@
 import { SimpleGrid } from '@chakra-ui/react'
-import { Tweet } from '@wsvvrijheid/types'
-import { AdminLayout, TimelineTweet } from '@wsvvrijheid/ui'
+import { AdminLayout, TimelineLocalTweet, TimelineTweet } from '@wsvvrijheid/ui'
 import { useLocalStorage } from 'usehooks-ts'
 
 const TweetBookmarkedPage = () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [tweetBookmarksStorage, setTweetBookmarksStorage] = useLocalStorage<
-    Tweet[]
+    TimelineLocalTweet[]
   >('tweetBookmarks', [])
-  console.log(tweetBookmarksStorage)
 
   return (
     <AdminLayout
