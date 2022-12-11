@@ -42,7 +42,11 @@ export const PostsTable: FC<PostsTableProps> = ({
   }
 
   const deletePostMutation = useDeleteModel('api/posts', queryKey)
-  const approvePostMutation = useApproveModel('api/posts', queryKey)
+  const approvePostMutation = useApproveModel(
+    'api/posts',
+    ['title', 'description', 'content'],
+    queryKey,
+  )
   const publishPostMutation = usePublishModel('api/posts', queryKey)
   const unpublishPostMutation = useUnpublishModel('api/posts', queryKey)
   //delete post =================

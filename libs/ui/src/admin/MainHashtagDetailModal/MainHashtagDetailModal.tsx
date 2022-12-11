@@ -26,7 +26,7 @@ import { useGetMentions, useUpdateHashtagMutation } from '@wsvvrijheid/services'
 import { StrapiLocale, UploadFile } from '@wsvvrijheid/types'
 import { useRouter } from 'next/router'
 import { FormProvider, useForm } from 'react-hook-form'
-import { FaTimes } from 'react-icons/fa'
+import { FaCheck, FaTimes } from 'react-icons/fa'
 import { HiOutlineX, HiPencil } from 'react-icons/hi'
 import { IoMdClose } from 'react-icons/io'
 import { MdOutlinePublish, MdOutlineUnpublished } from 'react-icons/md'
@@ -50,6 +50,7 @@ import {
 export const MainHashtagDetailModal: FC<MainHashtagDetailModalProps> = ({
   localizeHashtag,
   isOpen,
+  onApprove,
   onDelete,
   onPublish,
   unPublish,
@@ -95,7 +96,7 @@ export const MainHashtagDetailModal: FC<MainHashtagDetailModalProps> = ({
       content: mainHashtag.content || undefined,
       hashtag: mainHashtag.hashtag || undefined,
       hashtagExtra: mainHashtag.hashtagExtra || undefined,
-      image: mainHashtag.image || undefined,
+      image: undefined,
       date: mainHashtag.date || undefined,
       mentions:
         mainHashtag.mentions?.map(m => ({
@@ -199,6 +200,7 @@ export const MainHashtagDetailModal: FC<MainHashtagDetailModalProps> = ({
   const handlePublish = () => onPublish(mainHashtag.id)
   const handleUnPublish = () => unPublish(mainHashtag.id)
   const handleDelete = () => onDelete(mainHashtag.id)
+  const handleApprove = () => onApprove(mainHashtag.id)
 
   return (
     <>
@@ -333,7 +335,7 @@ export const MainHashtagDetailModal: FC<MainHashtagDetailModalProps> = ({
                         }}
                       />
                     ) : (
-                      <Stack justify={'stretch'}>
+                      <Stack w="full" justify={'stretch'}>
                         {mainHashtag.mentions?.map(mention => {
                           return (
                             <MentionItem
@@ -403,6 +405,15 @@ export const MainHashtagDetailModal: FC<MainHashtagDetailModalProps> = ({
                     )}
                   </Stack>
                   <ButtonGroup alignSelf="end">
+                    {mainHashtag.approvalStatus === 'pending' && (
+                      <Button
+                        onClick={handleApprove}
+                        colorScheme="primary"
+                        leftIcon={<FaCheck />}
+                      >
+                        Approve
+                      </Button>
+                    )}
                     <Button
                       onClick={
                         mainHashtag.publishedAt

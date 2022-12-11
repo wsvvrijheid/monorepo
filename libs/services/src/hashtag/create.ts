@@ -1,9 +1,7 @@
 import { QueryKey, useMutation, useQueryClient } from '@tanstack/react-query'
 import { Mutation } from '@wsvvrijheid/lib'
-import { Hashtag, HashtagCreateInput, StrapiLocale } from '@wsvvrijheid/types'
+import { Hashtag, HashtagCreateInput } from '@wsvvrijheid/types'
 import { useRouter } from 'next/router'
-
-import { createLocalizations } from '../createLocalizations'
 
 export const createMainHashtag = async (
   hashtagCreateInput: HashtagCreateInput,
@@ -21,14 +19,7 @@ export const useCreateMainHashtag = (queryKey?: QueryKey) => {
   return useMutation({
     mutationKey: ['create-main-hashtag', locale],
     mutationFn: createMainHashtag,
-    onSuccess: async hashtag => {
-      await createLocalizations({
-        data: hashtag,
-        translatedFields: ['title', 'description', 'content'],
-        locale: locale as StrapiLocale,
-        url: 'api/hashtags',
-      })
-
+    onSuccess: async () => {
       queryClient.invalidateQueries(queryKey)
     },
   })

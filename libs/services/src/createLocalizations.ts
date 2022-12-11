@@ -11,20 +11,17 @@ import { getModelTranslation } from './deepl'
 type CreateLocalizationsArgs<T extends StrapiTranslatableModel> = {
   data: T
   translatedFields: (keyof T)[]
-  locale: StrapiLocale
   url: StrapiUrl
 }
 
 export const createLocalizations = async <T extends StrapiTranslatableModel>({
   data,
-  locale,
   translatedFields,
   url,
 }: CreateLocalizationsArgs<T>) => {
   const modelTranslations = await getModelTranslation(
     data as unknown as T,
     translatedFields,
-    locale,
   )
 
   const [firstTranslation, secondTranslation] = modelTranslations
