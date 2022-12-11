@@ -60,12 +60,15 @@ export const TimelineTweet: FC<TimelineTweetProps> = ({
                 variant="ghost"
               />
               <MenuList>
-                <MenuItem icon={<RiEditLine />} onClick={() => onEdit(tweet)}>
+                <MenuItem
+                  icon={<RiEditLine />}
+                  onClick={() => onEdit(tweet, user)}
+                >
                   Edit
                 </MenuItem>
                 <MenuItem
                   icon={<BsBookmarkPlus />}
-                  onClick={() => onSave(tweet)}
+                  onClick={() => onSave(tweet, user)}
                 >
                   Save (Bookmark)
                 </MenuItem>

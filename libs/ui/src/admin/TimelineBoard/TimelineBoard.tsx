@@ -1,17 +1,36 @@
 import { FC } from 'react'
 
 import { Box, HStack, Link, Text } from '@chakra-ui/react'
+import { Tweet } from '@wsvvrijheid/types'
+import { useLocalStorage } from 'usehooks-ts'
 
 import { TimelineTweet } from '../TimelineTweet'
 import { TimelineBoardProps } from './types'
 
 export const TimelineBoard: FC<TimelineBoardProps> = ({ timelines }) => {
+  const [tweetBookmarksStorage, setTweetBookmarksStorage] = useLocalStorage<
+    Tweet[]
+  >('tweetBookmarks', [])
   const onEdit = () => {
     console.log('edit')
   }
+  // this function's parameters type is : TimelineTweetProps but I dont know how can I use this type
+  const onSave = (tweet, user) => {
+    const newSavedTweet = { tweet, user }
 
-  const onSave = () => {
-    console.log('save')
+    if (tweetBookmarksStorage.length > 0) {
+      const filteredBookmarks = tweetBookmarksStorage?.filter(
+        t => t.tweet.id !== tweet.id,
+      )
+
+      setTweetBookmarksStorage([...filteredBookmarks, newSavedTweet])
+    } else {
+      const newTweetBookmarks = [
+        ...(tweetBookmarksStorage || []),
+        newSavedTweet,
+      ]
+      setTweetBookmarksStorage(newTweetBookmarks)
+    }
   }
 
   return (

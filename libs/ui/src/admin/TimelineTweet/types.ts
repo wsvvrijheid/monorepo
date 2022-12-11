@@ -9,6 +9,20 @@ export type TimelineTweetProps = {
     username: string
     profile: string
   }
-  onSave?: (tweet: TimelineTweet) => void
-  onEdit?: (tweet: TimelineTweet) => void
+  onSave?: (
+    tweet: TimelineTweet,
+    user: {
+      name: string
+      username: string
+      profile: string
+    },
+  ) => void
+  onEdit?: (
+    tweet: TimelineTweet,
+    user: {
+      name: string
+      username: string
+      profile: string
+    },
+  ) => void
 } & StackProps
