@@ -1,26 +1,25 @@
 import { FC } from 'react'
 
 import { Box, HStack, Link, Text } from '@chakra-ui/react'
-import { Tweet } from '@wsvvrijheid/types'
 import { useLocalStorage } from 'usehooks-ts'
 
-import { TimelineTweet } from '../TimelineTweet'
+import { TimelineLocalTweet, TimelineTweet } from '../TimelineTweet'
 import { TimelineBoardProps } from './types'
 
 export const TimelineBoard: FC<TimelineBoardProps> = ({ timelines }) => {
   const [tweetBookmarksStorage, setTweetBookmarksStorage] = useLocalStorage<
-    Tweet[]
+    TimelineLocalTweet[]
   >('tweetBookmarks', [])
   const onEdit = () => {
     console.log('edit')
   }
-  // this function's parameters type is : TimelineTweetProps but I dont know how can I use this type
-  const onSave = (tweet, user) => {
-    const newSavedTweet = { tweet, user }
+
+  const onSave = (data: TimelineLocalTweet) => {
+    const newSavedTweet = data
 
     if (tweetBookmarksStorage.length > 0) {
       const filteredBookmarks = tweetBookmarksStorage?.filter(
-        t => t.tweet.id !== tweet.id,
+        t => t.tweet.id !== data.tweet.id,
       )
 
       setTweetBookmarksStorage([...filteredBookmarks, newSavedTweet])
@@ -32,6 +31,7 @@ export const TimelineBoard: FC<TimelineBoardProps> = ({ timelines }) => {
       setTweetBookmarksStorage(newTweetBookmarks)
     }
   }
+  console.log(timelines)
 
   return (
     <HStack
@@ -69,7 +69,7 @@ export const TimelineBoard: FC<TimelineBoardProps> = ({ timelines }) => {
               </HStack>
             </Box>
           </Link>
-          {/* I assigned height 700 randomly. What height do you think I should assign? */}
+
           <Box overflowY="auto" h="700px">
             {timeline.tweets.map((tweet, key) => (
               <TimelineTweet
