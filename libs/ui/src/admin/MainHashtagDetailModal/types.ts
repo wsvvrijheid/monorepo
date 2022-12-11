@@ -4,6 +4,7 @@ export type MainHashtagDetailModalProps = {
   localizeHashtag: Localize<Hashtag>
   isOpen: boolean
   onClose: () => void
+  onApprove: (maninhashtagId: number) => void
   onDelete: (maninhashtagId: number) => void
   onPublish: (maninhashtagId: number) => void
   unPublish: (maninhashtagId: number) => void
@@ -21,12 +22,6 @@ export type CreateMainHashtagFormFieldValues = {
     value: string
   }[]
   image: any
-}
-
-export type EditButtonsProps = {
-  handleSave: (text: string) => void
-  cancelEdit: (text: string) => void
-  task: string
 }
 
 export type MentionItemProps = {

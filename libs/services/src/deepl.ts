@@ -1,23 +1,18 @@
 import slugify from '@sindresorhus/slugify'
-import { StrapiLocale, StrapiModel } from '@wsvvrijheid/types'
+import { StrapiLocale, StrapiTranslatableModel } from '@wsvvrijheid/types'
 import axios from 'axios'
 
 export const getTranslation = async (text: string, locale: StrapiLocale) => {
-  // TODO: Remove localhost
-  const response = await axios.post('http://localhost:4200/api/translate', {
-    text,
-    locale,
-  })
+  const response = await axios.post('/api/translate', { text, locale })
 
   return response.data
 }
 
 export const getModelTranslation = async <
-  T extends StrapiModel & { slug?: string },
+  T extends StrapiTranslatableModel & { slug?: string },
 >(
   model: T,
   translatedFields: (keyof T)[],
-  locale: StrapiLocale,
 ) => {
   const translatedData = [] as T[]
 
@@ -25,17 +20,18 @@ export const getModelTranslation = async <
 
   await Promise.all(
     locales.map(async l => {
-      if (l === locale) return
+      if (l === model.locale) return
 
       const translatedModel = { locale: l } as T
 
       await Promise.all(
         translatedFields.map(async key => {
-          const isTranslatedField = translatedFields.includes(key as keyof T)
           const value = model[key as keyof T]
+          console.log('value', value)
 
-          if (isTranslatedField && typeof value === 'string') {
+          if (typeof value === 'string') {
             const translation = await getTranslation(value, l)
+            console.log(value, translation)
             translatedModel[key as keyof T] = translation
 
             if (key === 'title') {
