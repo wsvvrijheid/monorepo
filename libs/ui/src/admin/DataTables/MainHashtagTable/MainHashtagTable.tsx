@@ -12,6 +12,7 @@ import { columns } from './columns'
 type MainHashtagTableProps = Omit<DataTableProps<Hashtag>, 'columns'> & {
   queryKey?: QueryKey
   onClose: () => void
+  onApprove: (mainhashtagId: number) => void
   onDelete: (maninhashtagId: number) => void
   onPublish: (mainhashtagId: number) => void
   unPublish: (mainhashtagId: number) => void
@@ -23,6 +24,7 @@ export const MainHashtagTable: FC<MainHashtagTableProps> = ({
   currentPage,
   onSort,
   setCurrentPage,
+  onApprove,
   onDelete,
   onPublish,
   unPublish,
@@ -49,6 +51,7 @@ export const MainHashtagTable: FC<MainHashtagTableProps> = ({
           }}
           isOpen={mainhashtagDisclosure.isOpen}
           onClose={mainhashtagDisclosure.onClose}
+          onApprove={onApprove}
           onDelete={onDelete}
           onPublish={onPublish}
           unPublish={unPublish}
