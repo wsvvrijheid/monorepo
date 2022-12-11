@@ -7,6 +7,8 @@ import {
   StrapiUrl,
 } from '@wsvvrijheid/types'
 
+import { createLocalizations } from '../createLocalizations'
+
 export const approveModel = <T extends StrapiModel>(
   id: number,
   url: StrapiUrl,
@@ -21,6 +23,7 @@ export const approveModel = <T extends StrapiModel>(
 
 export const useApproveModel = <T extends StrapiTranslatableModel>(
   url: StrapiUrl,
+  translatedFields?: (keyof T)[],
   queryKey?: QueryKey,
 ) => {
   const queryClient = useQueryClient()
@@ -32,9 +35,15 @@ export const useApproveModel = <T extends StrapiTranslatableModel>(
     onSettled: () => {
       queryClient.invalidateQueries(queryKey)
     },
-    onSuccess: res => {
-      // TODO Add translations
-      queryClient.invalidateQueries(queryKey)
+    onSuccess: async res => {
+      if (translatedFields && res.localizations?.length === 0) {
+        await createLocalizations({
+          data: res,
+          translatedFields,
+          url,
+        })
+      }
+
       toast({
         title: `Model ${res.approvalStatus}`,
         description: `Model has been ${res.approvalStatus}`,
@@ -42,6 +51,7 @@ export const useApproveModel = <T extends StrapiTranslatableModel>(
         duration: 5000,
         isClosable: true,
       })
+      queryClient.invalidateQueries(queryKey)
     },
     onError: () => {
       toast({

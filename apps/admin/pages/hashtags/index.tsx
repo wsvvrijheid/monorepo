@@ -2,6 +2,7 @@ import { useState } from 'react'
 
 import { useDisclosure } from '@chakra-ui/react'
 import {
+  useApproveModel,
   useDeleteModel,
   useHashtagsByFilterAndSort,
   usePublishModel,
@@ -41,6 +42,11 @@ const MainHashtagPage = () => {
     search ? setSearchTerm(search) : setSearchTerm(undefined)
   }
 
+  const approveMainhashtag = useApproveModel(
+    'api/hashtags',
+    ['title', 'description', 'content'],
+    queryKey,
+  )
   const deleteMainhashtag = useDeleteModel('api/hashtags', queryKey)
   const publishMainhashtagMutation = usePublishModel('api/hashtags', queryKey)
   const unpublishMainhashtagMutation = useUnpublishModel(
@@ -63,6 +69,22 @@ const MainHashtagPage = () => {
   const showEditModal = (newHashtag: Hashtag) => {
     setSelectedMainHashtag(newHashtag)
     openEditModal.onOpen()
+  }
+
+  //delete mainhashtag =================
+  const handleApprove = (id: number) => {
+    setConfirmState({
+      ...confirmState,
+      isWarning: true,
+      title: 'Approve Main Hashtag',
+      description: 'Are you sure you want to approve this main hashtag?',
+      buttonText: 'Approve',
+      onConfirm: async () => {
+        await approveMainhashtag.mutateAsync({ id })
+        setConfirmState(undefined)
+        openEditModal.onClose()
+      },
+    })
   }
 
   //delete mainhashtag =================
@@ -123,6 +145,7 @@ const MainHashtagPage = () => {
         setCurrentPage={setCurrentPage}
         onSort={setSort}
         queryKey={queryKey}
+        onApprove={handleApprove}
         onDelete={handleDelete}
         onPublish={onPublish}
         unPublish={onUnPublish}
@@ -137,6 +160,7 @@ const MainHashtagPage = () => {
           }}
           isOpen={openEditModal.isOpen}
           onClose={openEditModal.onClose}
+          onApprove={handleApprove}
           onDelete={handleDelete}
           onPublish={onPublish}
           unPublish={onUnPublish}

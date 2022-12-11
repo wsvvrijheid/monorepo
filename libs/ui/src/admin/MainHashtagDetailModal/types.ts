@@ -4,6 +4,7 @@ export type MainHashtagDetailModalProps = {
   localizeHashtag: Localize<Hashtag>
   isOpen: boolean
   onClose: () => void
+  onApprove: (maninhashtagId: number) => void
   onDelete: (maninhashtagId: number) => void
   onPublish: (maninhashtagId: number) => void
   unPublish: (maninhashtagId: number) => void
