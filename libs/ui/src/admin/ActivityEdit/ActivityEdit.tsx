@@ -11,8 +11,8 @@ import {
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import {
-  useApproveMutation,
-  useDeleteActivity,
+  useApproveModel,
+  useDeleteModel,
   usePublishModel,
   useUnpublishModel,
   useUpdateActivityMutation,
@@ -58,8 +58,12 @@ export const ActivityEdit: FC<ActivityEditProps> = ({ activity }) => {
     queryKey,
   )
   const publishActivityMutation = usePublishModel('api/activities', queryKey)
-  const deleteActivityMutation = useDeleteActivity()
-  const approveActivityMutation = useApproveMutation()
+  const deleteActivityMutation = useDeleteModel('api/activities', queryKey)
+  const approveActivityMutation = useApproveModel(
+    'api/activities',
+    ['title', 'description', 'content'],
+    queryKey,
+  )
 
   const [confirmState, setConfirmState] = useState<WConfirmProps>()
 
@@ -74,9 +78,9 @@ export const ActivityEdit: FC<ActivityEditProps> = ({ activity }) => {
     mode: 'all',
     defaultValues: {
       title: activity.title,
-      description: activity.description,
+      description: activity.description as string,
       date: new Date(activity.date).toLocaleDateString(),
-      content: activity.content,
+      content: activity.content as string,
     },
   })
 
