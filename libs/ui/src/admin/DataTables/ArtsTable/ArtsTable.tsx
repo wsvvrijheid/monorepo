@@ -4,7 +4,7 @@ import { useDisclosure } from '@chakra-ui/react'
 import { QueryKey } from '@tanstack/react-query'
 import {
   useArtFeedbackMutation,
-  useDeleteArt,
+  useDeleteModel,
   usePublishModel,
   useUnpublishModel,
   useUpdateArtMutation,
@@ -35,7 +35,7 @@ export const ArtsTable: FC<ArtsTableProps> = ({
 
   const [selectedIndex, setSelectedIndex] = useState<number>()
   const feedbackMutation = useArtFeedbackMutation(queryKey)
-  const deleteArtMutation = useDeleteArt(queryKey)
+  const deleteArtMutation = useDeleteModel('api/arts', queryKey)
   const updateArtMutation = useUpdateArtMutation(queryKey)
   const publishArtMutation = usePublishModel('api/arts', queryKey)
   const unpublishArtMutation = useUnpublishModel('api/arts', queryKey)
@@ -150,8 +150,8 @@ export const ArtsTable: FC<ArtsTableProps> = ({
         <ArtApprovalModal
           artId={selectedArt.id}
           artTitle={selectedArt.title}
-          artDescription={selectedArt.description}
-          artContent={selectedArt.content}
+          artDescription={selectedArt.description || ''}
+          artContent={selectedArt.content || ''}
           artApprovalStatus={selectedArt.approvalStatus}
           artPublishedAt={selectedArt.publishedAt}
           artImages={selectedArt.images as UploadFile[]}

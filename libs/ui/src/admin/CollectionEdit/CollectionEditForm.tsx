@@ -12,7 +12,7 @@ import {
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import {
-  useDeleteCollection,
+  useDeleteModel,
   usePublishModel,
   useUnpublishModel,
   useUpdateCollection,
@@ -62,7 +62,7 @@ export const CollectionEditForm: FC<CollectionEditFormProps> = ({
     queryKey,
   )
   const publishCollectionMutation = usePublishModel('api/collections', queryKey)
-  const deleteCollectionMutation = useDeleteCollection()
+  const deleteCollectionMutation = useDeleteModel('api/collections', queryKey)
 
   const [confirmState, setConfirmState] = useState<WConfirmProps>()
 
@@ -76,7 +76,7 @@ export const CollectionEditForm: FC<CollectionEditFormProps> = ({
     mode: 'all',
     defaultValues: {
       title: collection.title,
-      description: collection.description,
+      description: collection.description || undefined,
     },
   })
 

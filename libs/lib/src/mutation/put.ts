@@ -10,4 +10,12 @@ export const putMutation = <
   id: number,
   body: D,
   token?: string,
-) => mutation<T, D>({ url, method: 'put', id, body, token })
+) =>
+  mutation<T, D>({
+    url,
+    method: 'put',
+    id,
+    body,
+    token,
+    queryParameters: 'populate=*',
+  })

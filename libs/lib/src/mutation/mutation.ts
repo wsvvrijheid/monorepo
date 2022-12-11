@@ -18,6 +18,7 @@ type MutationParams<D> = {
   method: Method
   token?: string
   url: StrapiUrl
+  queryParameters?: string
 }
 
 // T is the type of the model to be returned
@@ -32,6 +33,7 @@ export const mutation = async <
   method,
   token = TOKEN,
   url,
+  queryParameters,
 }: MutationParams<D>) => {
   //  Throw an error if the body is not provided
   if (method !== 'delete' && !body) {
@@ -54,7 +56,9 @@ export const mutation = async <
     return response.data || null
   }
 
-  const requestUrl = id ? `${url}/${id}` : url
+  const queryParams = queryParameters ? `?${queryParameters}` : ''
+
+  const requestUrl = id ? `${url}/${id}${queryParams}` : `${url}${queryParams}`
   let requestBody = {}
 
   if (body) {
