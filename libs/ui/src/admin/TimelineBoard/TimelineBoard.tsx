@@ -1,38 +1,11 @@
 import { FC } from 'react'
 
 import { Box, HStack, Link, Text } from '@chakra-ui/react'
-import { useLocalStorage } from 'usehooks-ts'
 
-import { TimelineLocalTweet, TimelineTweet } from '../TimelineTweet'
+import { TimelineTweet } from '../TimelineTweet'
 import { TimelineBoardProps } from './types'
 
 export const TimelineBoard: FC<TimelineBoardProps> = ({ timelines }) => {
-  const [tweetBookmarksStorage, setTweetBookmarksStorage] = useLocalStorage<
-    TimelineLocalTweet[]
-  >('tweetBookmarks', [])
-  const onEdit = () => {
-    console.log('edit')
-  }
-
-  const onSave = (data: TimelineLocalTweet) => {
-    const newSavedTweet = data
-
-    if (tweetBookmarksStorage.length > 0) {
-      const filteredBookmarks = tweetBookmarksStorage?.filter(
-        t => t.tweet.id !== data.tweet.id,
-      )
-
-      setTweetBookmarksStorage([...filteredBookmarks, newSavedTweet])
-    } else {
-      const newTweetBookmarks = [
-        ...(tweetBookmarksStorage || []),
-        newSavedTweet,
-      ]
-      setTweetBookmarksStorage(newTweetBookmarks)
-    }
-  }
-  console.log(timelines)
-
   return (
     <HStack
       align="start"
@@ -72,13 +45,7 @@ export const TimelineBoard: FC<TimelineBoardProps> = ({ timelines }) => {
 
           <Box overflowY="auto" h="700px">
             {timeline.tweets.map((tweet, key) => (
-              <TimelineTweet
-                tweet={tweet}
-                onEdit={onEdit}
-                user={timeline.userData}
-                onSave={onSave}
-                key={key}
-              />
+              <TimelineTweet tweet={tweet} user={timeline.userData} key={key} />
             ))}
           </Box>
         </Box>
