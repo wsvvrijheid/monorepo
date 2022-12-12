@@ -37,11 +37,12 @@ export const MentionItem: FC<MentionItemProps> = ({
           <HStack
             px={4}
             py={2}
+            w="full"
             cursor="pointer"
             transition="padding 0.3s"
+            rounded={'md'}
             _hover={{
               shadow: 'base',
-              pl: 6,
             }}
           >
             <HStack flex="1" fontSize="sm">
@@ -52,9 +53,7 @@ export const MentionItem: FC<MentionItemProps> = ({
                 pos="static"
               />
               <Box>
-                <Text noOfLines={1} maxW="120px">
-                  {data?.name}
-                </Text>
+                <Text noOfLines={1}>{data?.name}</Text>
                 <Text>@{data?.screen_name}</Text>
               </Box>
             </HStack>
