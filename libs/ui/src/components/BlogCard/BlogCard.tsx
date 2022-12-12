@@ -48,7 +48,7 @@ export const BlogCard: FC<BlogCardProps> = ({ post, isFeatured }) => {
   const isMobile = useBreakpointValue({ base: true, lg: false })
 
   const featured = isFeatured && !isMobile
-  const readingTime = getReadingTime(post.content, locale as StrapiLocale)
+  const readingTime = getReadingTime(post.content || '', locale as StrapiLocale)
 
   return (
     <Navigate
