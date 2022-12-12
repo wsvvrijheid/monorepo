@@ -29,7 +29,7 @@ export type ActivityCreateInput = Expand<
 >
 export type ActivityUpdateInput = Expand<
   { publishedAt?: string | null } & Partial<Omit<ActivityBase, 'locale'>> &
-    ActivityRelationInput
+    Omit<ActivityRelationInput, 'image'> & { image?: File }
 >
 export type ActivityLocalizeInput = Pick<
   ActivityBase,

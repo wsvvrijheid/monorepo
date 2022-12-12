@@ -128,6 +128,7 @@ export const LoginForm: FC<LoginFormProps> = ({ providersToBeShown = [] }) => {
         <Stack spacing="6" as="form" onSubmit={handleSubmit(handleSubmitSign)}>
           <Stack spacing="5">
             <FormItem
+              data-testid="input-email"
               name="email"
               label={t('login.email.title') as string}
               type="email"
@@ -135,6 +136,7 @@ export const LoginForm: FC<LoginFormProps> = ({ providersToBeShown = [] }) => {
               errors={errors}
             />
             <FormItem
+              data-testid="input-password"
               name="password"
               type="password"
               label={t('login.password.title') as string}
@@ -148,6 +150,7 @@ export const LoginForm: FC<LoginFormProps> = ({ providersToBeShown = [] }) => {
             <Checkbox defaultChecked>{t('login.remember-me')}</Checkbox>
 
             <Button
+              data-testid="button-forgot-password"
               as={Navigate}
               href="/forgot-password"
               variant="link"
@@ -158,7 +161,11 @@ export const LoginForm: FC<LoginFormProps> = ({ providersToBeShown = [] }) => {
             </Button>
           </HStack>
           <Stack spacing="6">
-            <Button type="submit" colorScheme="blue">
+            <Button
+              type="submit"
+              colorScheme="blue"
+              data-testid="button-submit-login"
+            >
               {t('login.sign-in')}
             </Button>
             {loginMutation.isError && (

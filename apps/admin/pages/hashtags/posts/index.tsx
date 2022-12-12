@@ -16,6 +16,7 @@ const HashtagPostsPage = () => {
   const status = query.status as ApprovalStatus
   const [searchTerm, setSearchTerm] = useState<string>()
   const [sort, setSort] = useState<Sort>()
+
   const queryKey = ['posts', searchTerm, sort, currentPage || 1, status]
 
   const PostsQuery = usePostsByFilterAndSort(queryKey, {
@@ -52,6 +53,7 @@ const HashtagPostsPage = () => {
     >
       <CreateHashtagPostModal />
       <PostsTable
+        queryKey={queryKey}
         data={mappedPosts}
         totalCount={totalCount}
         currentPage={currentPage}

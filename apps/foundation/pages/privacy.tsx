@@ -3,7 +3,7 @@ import { FC } from 'react'
 import { Request } from '@wsvvrijheid/lib'
 import { Privacy } from '@wsvvrijheid/types'
 import { Container, Hero, Markdown } from '@wsvvrijheid/ui'
-import { truncateText } from '@wsvvrijheid/utils'
+import { truncate } from 'lodash'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { serialize } from 'next-mdx-remote/serialize'
@@ -51,7 +51,7 @@ export const getStaticProps = async context => {
 
   const seo = {
     title: privacy.title,
-    description: truncateText(privacy.content || '', 200),
+    description: truncate(privacy.content || '', { length: 200 }),
   }
 
   return {
