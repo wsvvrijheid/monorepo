@@ -5,6 +5,7 @@ import { SessionUser } from '@wsvvrijheid/types'
 import { BiLandscape } from 'react-icons/bi'
 import { BsCollection, BsCommand, BsTranslate } from 'react-icons/bs'
 import { CgHashtag } from 'react-icons/cg'
+import { FiActivity } from 'react-icons/fi'
 import { GiHumanPyramid } from 'react-icons/gi'
 import { GoChevronRight } from 'react-icons/go'
 import { HiOutlineNewspaper } from 'react-icons/hi'
@@ -91,6 +92,24 @@ export const getAdminNav = (user: SessionUser): AdminNavItemProps[] => {
           label: 'Rejected Arts',
           link: '/arts?status=rejected',
           icon: <TbX />,
+        },
+      ],
+    },
+    {
+      label: 'Activities',
+      icon: <FiActivity />,
+      link: '#',
+      visible: !!isEditor || !!isAdmin,
+      submenu: [
+        {
+          label: 'Pending Activities',
+          link: '/activity?status=pending',
+          icon: <TbClock />,
+        },
+        {
+          label: 'Approved Activities',
+          link: '/activity?status=approved',
+          icon: <TbChecks />,
         },
       ],
     },

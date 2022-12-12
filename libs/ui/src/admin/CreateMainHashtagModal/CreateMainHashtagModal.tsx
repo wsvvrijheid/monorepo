@@ -30,13 +30,7 @@ import useFormPersist from 'react-hook-form-persist'
 import { IoMdAdd, IoMdCheckmark, IoMdClose } from 'react-icons/io'
 import * as yup from 'yup'
 
-import {
-  FilePicker,
-  FormItem,
-  WConfirm,
-  WConfirmProps,
-  WSelect,
-} from '../../components'
+import { FilePicker, FormItem, WSelect } from '../../components'
 import { LanguageSwitcher } from '../LanguageSwitcher'
 import {
   CreateMainHashtagFormFieldValues,
@@ -50,9 +44,6 @@ export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
   const [images, setImages] = useState<File[]>([])
   const cancelRef = useRef<HTMLButtonElement>(null)
   const formDisclosure = useDisclosure()
-
-  const [successConfirmState, setSuccessConfirmState] =
-    useState<WConfirmProps>()
 
   const { locale } = useRouter()
 
@@ -105,16 +96,6 @@ export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
     mutate(formBody, {
       onSuccess: async newHashtag => {
         formDisclosure.onClose()
-        setSuccessConfirmState({
-          title: 'MainHashtag successfully submitted',
-          description:
-            'MainHashtag created successfully. Do you want to edit it?',
-          buttonText: 'Edit',
-          onConfirm: () => {
-            showEditModal(newHashtag)
-            setSuccessConfirmState(undefined)
-          },
-        })
         resetForm()
         resetFileUploader()
       },
@@ -150,9 +131,6 @@ export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
 
   return (
     <>
-      {/* SUCCESS ALERT */}
-      {successConfirmState && <WConfirm {...successConfirmState} />}
-
       <Button
         leftIcon={<IoMdAdd />}
         colorScheme="primary"
