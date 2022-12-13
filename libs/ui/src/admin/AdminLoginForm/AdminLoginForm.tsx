@@ -142,7 +142,8 @@ export const AdminLoginForm = () => {
               </Button>
               {loginMutation.isError && (
                 <Text color="red.500" fontSize="sm">
-                  An error occured
+                  {(loginMutation.error as any)?.response?.data?.message ||
+                    'An error occured'}
                 </Text>
               )}
             </Stack>

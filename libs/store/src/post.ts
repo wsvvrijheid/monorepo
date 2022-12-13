@@ -1,8 +1,13 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { API_URL, TOKEN } from '@wsvvrijheid/config'
 import { Mention, TweetUserData } from '@wsvvrijheid/types'
+import axios from 'axios'
 
 const LOCAL_STORAGE_MENTIONS_KEY = 'mentions'
 const LOCAL_STORAGE_SHARED_POSTS_KEY = 'sharedPosts'
+const TWITTER_CHAR_LIMIT = 280
+const TWITTER_LINK_CHAR_COUNT = 23 + 2 // 2 chars is because of the library leaves spaces before/after the link
+const availableCount = TWITTER_CHAR_LIMIT - TWITTER_LINK_CHAR_COUNT
 
 const searchedMentionsStorage: TweetUserData[] =
   typeof window !== 'undefined' &&
@@ -11,31 +16,34 @@ const searchedMentionsStorage: TweetUserData[] =
     : []
 
 export const updatePostContent = (state: PostState): void => {
-  const twitterCharLimit = 280
-  const linkCharCount = 23 + 2 // 2 chars is because of the library leaves spaces before/after the link
-
   const mentionsStr = state.mentionUsernames.filter(a => !!a).join('\n')
 
   const trendsStr = [...state.defaultHashtags, ...state.trendNames]
     .filter(a => !!a)
     .join('\n')
 
+  const defaultCount =
+    TWITTER_LINK_CHAR_COUNT +
+    [mentionsStr, trendsStr].filter(a => !!a).join('\n\n').length
+
   const postContent = [state.postText, mentionsStr, trendsStr]
     .filter(a => !!a)
     .join('\n\n')
 
-  const count = linkCharCount + postContent.length
-  const isExceeded = count > twitterCharLimit
+  const count = TWITTER_LINK_CHAR_COUNT + postContent.length
+  const isExceeded = count > TWITTER_CHAR_LIMIT
   const exceededCharacters =
-    count - twitterCharLimit > 0 ? count - twitterCharLimit : 0
+    count - TWITTER_CHAR_LIMIT > 0 ? count - TWITTER_CHAR_LIMIT : 0
 
   state.count = count
   state.isExceeded = isExceeded
   state.postContent = postContent
   state.threshold = state.postText.length - exceededCharacters
+  state.availableCount = TWITTER_CHAR_LIMIT - defaultCount
 }
 
 export type PostState = {
+  availableCount: number
   count: number
   defaultHashtags: string[]
   defaultTab: number | null
@@ -57,6 +65,7 @@ export type PostState = {
 }
 
 const initialState: PostState = {
+  availableCount,
   count: 0,
   defaultHashtags: [],
   defaultTab: null,
@@ -80,8 +89,14 @@ const initialState: PostState = {
 export const fetchSearchedMentions = createAsyncThunk(
   'post/searchedMentions',
   async (value: string) => {
-    // return await lookupTwitterUsers(value)
-    return value
+    const response = await axios(`${API_URL}/api/mentions/search?q=${value}`, {
+      headers: {
+        Authorization: `Bearer ${TOKEN}`,
+      },
+    })
+    const rawData = response.data as TweetUserData[]
+    console.log('rawData', rawData)
+    return rawData.sort((a, b) => b.followers_count - a.followers_count)
   },
 )
 
@@ -189,17 +204,17 @@ export const postSlice = createSlice({
       state.isPostModalOpen = !state.isPostModalOpen
     },
   },
-  extraReducers: () => {
-    // builder.addCase(fetchSearchedMentions.fulfilled, (state, action) => {
-    //   state.searchedMentions = action.payload
-    //   state.isSearchedMentionsLoading = false
-    // }),
-    //   builder.addCase(fetchSearchedMentions.pending, state => {
-    //     state.isSearchedMentionsLoading = true
-    //   }),
-    //   builder.addCase(fetchSearchedMentions.rejected, state => {
-    //     state.isSearchedMentionsLoading = false
-    //   }),
+  extraReducers: builder => {
+    builder.addCase(fetchSearchedMentions.fulfilled, (state, action) => {
+      state.searchedMentions = action.payload
+      state.isSearchedMentionsLoading = false
+    })
+    builder.addCase(fetchSearchedMentions.pending, state => {
+      state.isSearchedMentionsLoading = true
+    })
+    builder.addCase(fetchSearchedMentions.rejected, state => {
+      state.isSearchedMentionsLoading = false
+    })
   },
 })
 

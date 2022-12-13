@@ -37,8 +37,6 @@ import {
   checkSharedPosts,
   setDefaultHashtags,
   setDefaultTab,
-  setInitialMentions,
-  setMentions,
   useAppDispatch,
   useAppSelector,
 } from '@wsvvrijheid/store'
@@ -121,13 +119,6 @@ const Hashtag: FC<HashtagProps> = ({
   useEffect(() => {
     dispatch(checkSharedPosts())
   }, [dispatch])
-
-  useEffect(() => {
-    if (hashtagQuery.data) {
-      dispatch(setInitialMentions(hashtagQuery.data.mentions))
-      dispatch(setMentions(hashtagQuery.data.mentions))
-    }
-  }, [hashtagQuery.data, dispatch])
 
   return (
     <TourProvider

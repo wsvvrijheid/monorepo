@@ -1,7 +1,7 @@
 import { FC } from 'react'
 
 import { SimpleGrid, Text, VStack } from '@chakra-ui/react'
-import { ABOUTS } from '@wsvvrijheid/config'
+import { ABOUT_DATA } from '@wsvvrijheid/config'
 import { Localize, StrapiLocale } from '@wsvvrijheid/types'
 import { AnimatedBox, WImage } from '@wsvvrijheid/ui'
 import { useRouter } from 'next/router'
@@ -34,7 +34,7 @@ export const HomeAboutItem: FC<{ item: AboutItem }> = ({ item }) => {
 
 export const HomeAbout = () => (
   <SimpleGrid columns={{ base: 1, lg: 3 }} gap={8} textAlign="center">
-    {ABOUTS.map((item, i) => (
+    {ABOUT_DATA.map((item, i) => (
       <AnimatedBox key={i} delay={i * 3} directing="to-down">
         <HomeAboutItem item={item} />
       </AnimatedBox>
