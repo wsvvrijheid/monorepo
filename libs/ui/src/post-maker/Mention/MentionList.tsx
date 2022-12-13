@@ -1,6 +1,5 @@
-import { useEffect, useState } from 'react'
-
 import {
+  Box,
   Tab,
   TabList,
   TabPanel,
@@ -17,12 +16,16 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '@wsvvrijheid/store'
-import { Mention, TweetUserData } from '@wsvvrijheid/types'
+import { TweetUserData } from '@wsvvrijheid/types'
 import { useTranslation } from 'next-i18next'
+import dynamic from 'next/dynamic'
 
-import { MentionListItem } from './MentionListItem'
 import { MentionListSkeleton } from './MentionListSkeleton'
-// import { MentionSearch } from '../MentionSearch'
+import { MentionSearch } from './MentionSearch'
+
+const MentionListItem = dynamic(() => import('./MentionListItem'), {
+  ssr: false,
+})
 
 export const MentionList = () => {
   const {
@@ -33,14 +36,6 @@ export const MentionList = () => {
     searchedMentions,
     savedMentions,
   } = useAppSelector(state => state.post)
-
-  const [currentMentions, setCurrentMentions] = useState<Mention[]>([])
-
-  useEffect(() => {
-    if (mentions) {
-      setCurrentMentions(mentions)
-    }
-  }, [mentions])
 
   const dispatch = useAppDispatch()
   const { t } = useTranslation()
@@ -88,9 +83,9 @@ export const MentionList = () => {
           </TabList>
           <TabPanels>
             <TabPanel p={0}>
-              {/* <Box pos="sticky" top="31px">
+              <Box pos="sticky" top="31px">
                 <MentionSearch />
-              </Box> */}
+              </Box>
               {isSearchedMentionsLoading || isMentionListLoading ? (
                 <MentionListSkeleton />
               ) : searchedMentions.length > 0 ? (
@@ -102,7 +97,7 @@ export const MentionList = () => {
                   />
                 ))
               ) : (
-                currentMentions
+                mentions
                   ?.filter(
                     mention =>
                       !mentionUsernames.includes('@' + mention.username),
