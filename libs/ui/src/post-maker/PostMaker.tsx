@@ -25,20 +25,26 @@ import _ from 'lodash'
 import { useTranslation } from 'next-i18next'
 import { FaQuestionCircle } from 'react-icons/fa'
 
-import { useGenerateRandomPostText } from '../hooks'
+import { useRandomPostContent } from '../hooks'
 import { MentionList } from './Mention'
 import { PostContainer } from './PostContainer'
 import { TrendListTabs } from './Trends'
 import { TweetWidget } from './TweetWidget'
 
 export const PostMaker = () => {
-  const { isPostModalOpen, sharedPosts } = useAppSelector(state => state.post)
+  const { isPostModalOpen, sharedPosts, postText } = useAppSelector(
+    state => state.post,
+  )
   const { t } = useTranslation()
   const dispatch = useAppDispatch()
-  const generateRandomPostText = useGenerateRandomPostText()
+
+  const currentPost = useCurrentPost()
+
+  const generateRandomPostContent = useRandomPostContent(
+    currentPost?.description || postText,
+  )
 
   const { data: hashtag } = useHashtag()
-  const currentPost = useCurrentPost()
 
   const { setIsOpen } = useTour()
 
@@ -56,8 +62,8 @@ export const PostMaker = () => {
   }, [currentPost, hashtag?.mentions, dispatch])
 
   useEffect(() => {
-    generateRandomPostText(currentPost)
-  }, [currentPost, generateRandomPostText])
+    generateRandomPostContent()
+  }, [currentPost, generateRandomPostContent])
 
   return (
     <>

@@ -5,7 +5,7 @@ import { Post } from '@wsvvrijheid/types'
 import { useTranslation } from 'next-i18next'
 import { FaRandom } from 'react-icons/fa'
 
-import { useGenerateRandomPostText } from '../../hooks'
+import { useRandomPostContent } from '../../hooks'
 import { CapsList } from './Caps'
 import { PostCharCount } from './PostCharCount'
 import { PostContainerBody } from './PostContainerBody'
@@ -24,7 +24,7 @@ export const PostContainer: FC<PostContainerProps> = ({
 }) => {
   const { t } = useTranslation()
 
-  const generateRandomPostText = useGenerateRandomPostText()
+  const generateRandomPostText = useRandomPostContent(post?.description || '')
 
   return (
     <Stack
@@ -57,7 +57,7 @@ export const PostContainer: FC<PostContainerProps> = ({
             colorScheme="twitter"
             aria-label="random post"
             icon={<FaRandom />}
-            onClick={() => generateRandomPostText(post)}
+            onClick={() => generateRandomPostText()}
           />
           <PostContainerBody postImage={post?.image?.url} />
         </Stack>

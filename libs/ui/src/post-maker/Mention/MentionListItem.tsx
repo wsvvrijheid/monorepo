@@ -25,7 +25,7 @@ interface MentionListItemProps {
   onRemoveItem?: (value: TweetUserData) => void
 }
 
-export const MentionListItem: FC<MentionListItemProps> = ({
+const MentionListItem: FC<MentionListItemProps> = ({
   data,
   onAddItem,
   onRemoveItem,
@@ -133,3 +133,5 @@ export const MentionListItem: FC<MentionListItemProps> = ({
     </Popover>
   )
 }
+
+export default MentionListItem

@@ -116,6 +116,17 @@ export const getPageSeo = (
   const image = data.image
   const adminUrl = API_URL as string
 
+  const images = image && [
+    {
+      url: adminUrl + image.url,
+      secureUrl: adminUrl + image.url,
+      type: image.mime as string,
+      width: image.width as number,
+      height: image.height as number,
+      alt: title,
+    },
+  ]
+
   return {
     title,
     description,
@@ -123,16 +134,7 @@ export const getPageSeo = (
       title,
       description,
       url,
-      images: [
-        {
-          url: adminUrl + image?.url,
-          secureUrl: adminUrl + image?.url,
-          type: image?.mime as string,
-          width: image?.width as number,
-          height: image?.height as number,
-          alt: title,
-        },
-      ],
+      images,
     },
   }
 }

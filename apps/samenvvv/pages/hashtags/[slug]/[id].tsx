@@ -1,5 +1,3 @@
-import React from 'react'
-
 import {
   Box,
   Button,
@@ -75,6 +73,17 @@ export const getServerSideProps: GetServerSideProps = async context => {
   const image = post?.image
   const url = getItemLink(post, locale, 'post') as string
 
+  const images = image && [
+    {
+      url: adminUrl + image.url,
+      secureUrl: adminUrl + image.url,
+      type: image.mime as string,
+      width: image.width as number,
+      height: image.height as number,
+      alt: title,
+    },
+  ]
+
   const seo: NextSeoProps = {
     title,
     description,
@@ -82,16 +91,7 @@ export const getServerSideProps: GetServerSideProps = async context => {
       title,
       description,
       url,
-      images: [
-        {
-          url: adminUrl + image?.url,
-          secureUrl: adminUrl + image?.url,
-          type: image?.mime as string,
-          width: image?.width as number,
-          height: image?.height as number,
-          alt: title,
-        },
-      ],
+      images,
     },
   }
 
