@@ -1,9 +1,6 @@
-import { FC, useState } from 'react'
+import { FC } from 'react'
 
 import {
-  Alert,
-  AlertDescription,
-  AlertIcon,
   Button,
   Checkbox,
   Container,
@@ -17,10 +14,9 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation } from '@tanstack/react-query'
 import { checkAuth, useAppDispatch } from '@wsvvrijheid/store'
 import axios from 'axios'
-import { useTranslation } from 'next-i18next'
-import { TFunction } from 'next-i18next'
+import { TFunction, useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
-import { useForm, SubmitHandler } from 'react-hook-form'
+import { SubmitHandler, useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
 import { FormItem } from '../FormItem'
@@ -44,7 +40,6 @@ type LoginFormProps = Pick<SocialLoginButtonsProps, 'providersToBeShown'>
 
 export const LoginForm: FC<LoginFormProps> = ({ providersToBeShown = [] }) => {
   const { t } = useTranslation()
-  const [errorMessage, setErrorMessage] = useState('')
 
   const {
     register,
@@ -68,20 +63,9 @@ export const LoginForm: FC<LoginFormProps> = ({ providersToBeShown = [] }) => {
         password: body.password,
       }),
     onSuccess: async data => {
-      if (data.data?.error) {
-        return setErrorMessage(data.data.error.message)
-      }
       await dispatch(checkAuth()).unwrap()
       reset()
       router.push('/')
-    },
-    onError: (error: any) => {
-      if (error?.response?.data?.error?.message) {
-        setErrorMessage(error?.response?.data?.error?.message)
-      } else {
-        console.error('An unexpected error happened:', error)
-        setErrorMessage('An unexpected error happened')
-      }
     },
   })
 
@@ -103,12 +87,6 @@ export const LoginForm: FC<LoginFormProps> = ({ providersToBeShown = [] }) => {
         rounded="lg"
       >
         <Stack spacing="6">
-          {errorMessage && (
-            <Alert status="error">
-              <AlertIcon />
-              <AlertDescription>{errorMessage}</AlertDescription>
-            </Alert>
-          )}
           <Stack spacing={{ base: '2', md: '3' }} textAlign="center">
             <Heading>{t('login.sign-in-header.title')}</Heading>
             <HStack spacing="1" justify="center">
