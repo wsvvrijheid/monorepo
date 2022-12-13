@@ -76,7 +76,7 @@ export const getStaticProps: GetStaticProps = async context => {
     description: description[locale],
   }
 
-  const source = await serialize(content[locale].trim())
+  const source = (await serialize(content[locale].trim())) || null
 
   return {
     props: {

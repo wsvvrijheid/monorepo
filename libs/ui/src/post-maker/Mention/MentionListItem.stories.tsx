@@ -2,7 +2,7 @@ import { ComponentMeta, ComponentStory } from '@storybook/react'
 import { MENTION_MOCKS } from '@wsvvrijheid/mocks'
 import { TweetUserData } from '@wsvvrijheid/types'
 
-import { MentionListItem } from './MentionListItem'
+import MentionListItem from './MentionListItem'
 
 export default {
   title: 'PostMaker/MentionListItem',

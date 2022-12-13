@@ -5,7 +5,6 @@ import {
   clearSearchedMentions,
   fetchSearchedMentions,
   resetMentions,
-  setMentions,
   useAppDispatch,
   useAppSelector,
 } from '@wsvvrijheid/store'
@@ -36,7 +35,6 @@ export const MentionSearch = (): JSX.Element => {
             .toLowerCase()
             .includes(debouncedSearchArea.toLowerCase()),
         ) ?? []
-      dispatch(setMentions(filteredData))
       if (filteredData.length === 0) {
         dispatch(fetchSearchedMentions(debouncedSearchArea))
       }
