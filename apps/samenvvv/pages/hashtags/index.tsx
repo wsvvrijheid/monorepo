@@ -1,5 +1,6 @@
 import { Box, Stack } from '@chakra-ui/react'
-import { getHashtags } from '@wsvvrijheid/services'
+import { QueryClient } from '@tanstack/react-query'
+import { getHashtags, useHashtags } from '@wsvvrijheid/services'
 import { Hashtag, StrapiLocale } from '@wsvvrijheid/types'
 import { AnimatedBox, Container, Hero, Markdown } from '@wsvvrijheid/ui'
 import { GetStaticProps } from 'next'
@@ -17,7 +18,9 @@ interface HashtagEventsProps {
   source: MDXRemoteSerializeResult<Record<string, unknown>>
 }
 
-const HashtagEvents = ({ hashtags, seo, source }: HashtagEventsProps) => {
+const HashtagEvents = ({ seo, source }: HashtagEventsProps) => {
+  const hashtagsQuery = useHashtags()
+
   return (
     <Layout seo={seo} isDark>
       <Hero title={seo.title as string} isFullHeight={false} />
@@ -29,7 +32,7 @@ const HashtagEvents = ({ hashtags, seo, source }: HashtagEventsProps) => {
         )}
 
         <Stack spacing={12} mb={12}>
-          {hashtags?.map((hashtag, i) => (
+          {hashtagsQuery.data?.map((hashtag, i) => (
             <AnimatedBox
               directing={i % 2 === 0 ? 'to-left' : 'to-right'}
               delay={3}
@@ -50,8 +53,11 @@ export default HashtagEvents
 
 export const getStaticProps: GetStaticProps = async context => {
   const locale = context.locale as StrapiLocale
+  const queryClient = new QueryClient()
 
-  const hashtags = await getHashtags(locale)
+  await queryClient.prefetchQuery(['hashtags'], () => getHashtags(locale))
+
+  const hashtags = queryClient.getQueryData<Hashtag[]>(['hashtags'])
 
   const title = {
     en: 'Hashtags',
