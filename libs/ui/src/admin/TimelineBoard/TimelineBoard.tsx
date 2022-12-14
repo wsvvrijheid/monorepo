@@ -6,14 +6,6 @@ import { TimelineTweet } from '../TimelineTweet'
 import { TimelineBoardProps } from './types'
 
 export const TimelineBoard: FC<TimelineBoardProps> = ({ timelines }) => {
-  const onEdit = () => {
-    console.log('edit')
-  }
-
-  const onSave = () => {
-    console.log('save')
-  }
-
   return (
     <HStack
       align="start"
@@ -50,16 +42,10 @@ export const TimelineBoard: FC<TimelineBoardProps> = ({ timelines }) => {
               </HStack>
             </Box>
           </Link>
-          {/* I assigned height 700 randomly. What height do you think I should assign? */}
+
           <Box overflowY="auto" h="700px">
             {timeline.tweets.map((tweet, key) => (
-              <TimelineTweet
-                tweet={tweet}
-                onEdit={onEdit}
-                user={timeline.userData}
-                onSave={onSave}
-                key={key}
-              />
+              <TimelineTweet tweet={tweet} user={timeline.userData} key={key} />
             ))}
           </Box>
         </Box>

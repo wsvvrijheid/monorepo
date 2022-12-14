@@ -15,17 +15,47 @@ import {
 import { BsBookmarkPlus, BsThreeDots } from 'react-icons/bs'
 import { RiEditLine } from 'react-icons/ri'
 import twitterText from 'twitter-text'
+import { useLocalStorage } from 'usehooks-ts'
 
 import { WImage } from '../../components'
-import { TimelineTweetProps } from './types'
+import { TimelineLocalTweet, TimelineTweetProps } from './types'
 
 export const TimelineTweet: FC<TimelineTweetProps> = ({
   tweet,
-  onEdit,
-  onSave,
   user,
   ...rest
 }) => {
+  const [tweetBookmarksStorage, setTweetBookmarksStorage] = useLocalStorage<
+    TimelineLocalTweet[]
+  >('tweetBookmarks', [])
+
+  const isBookmarked = tweetBookmarksStorage?.some(t => t.tweet.id === tweet.id)
+
+  const onEdit = (data: TimelineLocalTweet) => {
+    console.log('edit')
+  }
+
+  const onSave = (data: TimelineLocalTweet) => {
+    const newSavedTweet = data
+
+    if (tweetBookmarksStorage.length > 0) {
+      const filteredBookmarks = tweetBookmarksStorage?.filter(
+        t => t.tweet.id !== data.tweet.id,
+      )
+      if (tweetBookmarksStorage?.some(t => t.tweet.id === data.tweet.id)) {
+        setTweetBookmarksStorage([...filteredBookmarks])
+      } else {
+        setTweetBookmarksStorage([...filteredBookmarks, newSavedTweet])
+      }
+    } else {
+      const newTweetBookmarks = [
+        ...(tweetBookmarksStorage || []),
+        newSavedTweet,
+      ]
+      setTweetBookmarksStorage(newTweetBookmarks)
+    }
+  }
+
   return (
     <HStack
       spacing={4}
@@ -60,14 +90,17 @@ export const TimelineTweet: FC<TimelineTweetProps> = ({
                 variant="ghost"
               />
               <MenuList>
-                <MenuItem icon={<RiEditLine />} onClick={() => onEdit(tweet)}>
+                <MenuItem
+                  icon={<RiEditLine />}
+                  onClick={() => onEdit({ tweet, user })}
+                >
                   Edit
                 </MenuItem>
                 <MenuItem
-                  icon={<BsBookmarkPlus />}
-                  onClick={() => onSave(tweet)}
+                  icon={<BsBookmarkPlus color={isBookmarked ? 'red' : ''} />}
+                  onClick={() => onSave({ tweet, user })}
                 >
-                  Save (Bookmark)
+                  {isBookmarked ? 'Remove' : 'Save'} (Bookmark)
                 </MenuItem>
               </MenuList>
             </Menu>
