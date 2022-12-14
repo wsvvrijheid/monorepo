@@ -188,6 +188,11 @@ export const getAdminNav = (user: SessionUser): AdminNavItemProps[] => {
           link: '/content-maker/timelines',
           icon: <GiHumanPyramid />,
         },
+        {
+          label: 'Bookmarked Tweets',
+          link: '/content-maker/tweets-bookmarks',
+          icon: <GiHumanPyramid />,
+        },
       ],
     },
     {
