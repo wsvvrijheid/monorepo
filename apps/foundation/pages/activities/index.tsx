@@ -6,7 +6,6 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useRouter } from 'next/router'
 
 import { Layout } from '../../components'
-import i18nConfig from '../../next-i18next.config'
 
 export default function Activities({ activities, query, title, pagination }) {
   const { locale } = useRouter()
@@ -56,6 +55,9 @@ export default function Activities({ activities, query, title, pagination }) {
   )
 }
 export const getServerSideProps = async context => {
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  const i18nConfig = require('../../next-i18next.config')
+
   const { locale, query } = context
   const { page } = query
 
