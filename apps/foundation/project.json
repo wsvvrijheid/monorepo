@@ -43,6 +43,7 @@
         "buildTarget": "foundation:build",
         "dev": true,
         "assets": [
+          "apps/foundation/public/favicon.ico",
           {
             "input": "public/locales",
             "glob": "**/*.json",

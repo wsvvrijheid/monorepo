@@ -26,7 +26,6 @@ const colors = {
 }
 
 export const HomePlatform: FC<HomePlatformProps> = ({ platforms }) => {
-  console.log('platforms', platforms)
   const { locale } = useRouter()
   const { t } = useTranslation()
 

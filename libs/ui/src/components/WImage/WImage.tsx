@@ -53,12 +53,13 @@ export const WImage: FC<WImageProps> = ({
 
   const height = rest.height || rest.h
   const width = rest.width || rest.w
+  const hasDimensions = width && height
 
   const Wrapper = hasZoom ? Zoom : Fragment
 
   return (
     <AspectRatio
-      ratio={width && height ? 0 : ratio === 'twitter' ? 1200 / 675 : ratio}
+      ratio={hasDimensions ? 0 : ratio === 'twitter' ? 1200 / 675 : ratio}
       overflow="hidden"
       boxSize="full"
       pos="relative"
@@ -67,11 +68,13 @@ export const WImage: FC<WImageProps> = ({
       <Wrapper>
         <Image
           style={{ objectFit }}
-          fill={width && height ? undefined : fill}
+          fill={hasDimensions ? undefined : fill}
           src={source}
           alt={alternativeText}
-          height={parseInt(height as string, 10) || undefined}
-          width={parseInt(width as string, 10) || undefined}
+          {...(hasDimensions && {
+            width: parseInt(width as string, 10),
+            height: parseInt(height as string, 10),
+          })}
         />
       </Wrapper>
     </AspectRatio>
