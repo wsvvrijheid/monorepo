@@ -1,7 +1,7 @@
-import { ComponentProps, FC, Fragment } from 'react'
+import { FC, Fragment } from 'react'
 
 import { AspectRatio, ImageProps as ChakraImageProps } from '@chakra-ui/react'
-import { UploadFile, FileFormatsType } from '@wsvvrijheid/types'
+import { FileFormatsType, UploadFile } from '@wsvvrijheid/types'
 import { getImageUrl } from '@wsvvrijheid/utils'
 import Image from 'next/image'
 import Zoom from 'react-medium-image-zoom'
@@ -28,8 +28,9 @@ export type WImageProps = {
   src: UploadFile | string
   alt?: string
   hasZoom?: boolean
-} & Pick<ComponentProps<typeof Image>, 'fill' | 'objectFit'> &
-  Omit<ChakraImageProps, 'objectFit' | 'src'>
+  fill?: boolean
+  objectFit?: 'cover' | 'contain' | 'fill' | 'none' | 'scale-down'
+} & Omit<ChakraImageProps, 'objectFit' | 'src'>
 
 // TODO: add loader
 export const WImage: FC<WImageProps> = ({
@@ -37,7 +38,7 @@ export const WImage: FC<WImageProps> = ({
   format,
   alt,
   ratio,
-  objectFit,
+  objectFit = 'cover',
   fill = true,
   hasZoom,
   ...rest
@@ -65,8 +66,8 @@ export const WImage: FC<WImageProps> = ({
     >
       <Wrapper>
         <Image
-          objectFit={objectFit || 'cover'}
-          fill={width || height ? undefined : fill}
+          style={{ objectFit }}
+          fill={width && height ? undefined : fill}
           src={source}
           alt={alternativeText}
           height={parseInt(height as string, 10) || undefined}

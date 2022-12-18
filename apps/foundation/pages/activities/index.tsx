@@ -2,6 +2,7 @@ import { Image, SimpleGrid, Stack, Text } from '@chakra-ui/react'
 import { Request } from '@wsvvrijheid/lib'
 import { Activity } from '@wsvvrijheid/types'
 import { AnimatedBox, Card, Container, Hero } from '@wsvvrijheid/ui'
+import i18nConfig from 'next-i18next.config'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useRouter } from 'next/router'
 
@@ -55,9 +56,6 @@ export default function Activities({ activities, query, title, pagination }) {
   )
 }
 export const getServerSideProps = async context => {
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const i18nConfig = require('../../next-i18next.config')
-
   const { locale, query } = context
   const { page } = query
 
