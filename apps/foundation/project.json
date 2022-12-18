@@ -22,7 +22,7 @@
         "root": "apps/foundation",
         "outputPath": "dist/apps/foundation",
         "assets": [
-          "apps/foundation/public/favicon.ico",
+          "dist/apps/foundation/public/favicon.ico",
           {
             "input": "public/locales",
             "glob": "**/*.json",
