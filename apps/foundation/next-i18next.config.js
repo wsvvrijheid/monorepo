@@ -8,7 +8,7 @@ const i18nConfig = {
     defaultLocale: 'en',
     locales: ['en', 'nl', 'tr'],
   },
-  localePath: resolve('./public/locales'),
+  localePath: resolve('public/locales'),
 }
 
 module.exports = i18nConfig
