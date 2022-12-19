@@ -5,7 +5,7 @@
   "scripts": {
     "start": "npx nx serve:development",
     "build:admin": "npx nx build admin --prod --skip-nx-cache",
-    "build:foundation": "npx nx build foundation --prod --skip-nx-cache",
+    "build:foundation": "npx nx build foundation --prod --skip-nx-cache && cp -R dist/apps/foundation/public dist/apps/foundation/.next",
     "build:kunsthalte": "npx nx build kunsthalte --prod --skip-nx-cache",
     "build:samenvvv": "npx nx build samenvvv --prod --skip-nx-cache",
     "admin": "npx nx run admin:serve:development",
