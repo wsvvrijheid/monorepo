@@ -22,6 +22,7 @@
         "root": "apps/foundation",
         "outputPath": "dist/apps/foundation",
         "assets": [
+          { "glob": "favicon.ico", "input": "./", "output": "./" },
           {
             "input": "public/foundation",
             "glob": "**/*",
