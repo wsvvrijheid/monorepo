@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "start": "npx nx serve:development",
-    "admin": "npx nx run admin:serve:develop,ent",
+    "admin": "npx nx run admin:serve:development",
     "foundation": "npx nx run foundation:serve:development",
     "kunsthalte": "npx nx run kunsthalte:serve:development",
     "samenvvv": "npx nx run samenvvv:serve:development",
