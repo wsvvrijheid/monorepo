@@ -5,9 +5,13 @@ export default {
 
     // populating artist to use in email subject
     const populatedArtist = await strapi.entityService.findOne('api::art.art', result.id, {
-      populate: ['artist'],
+      populate: {
+        artist: {
+          fields: ["name", "username"],
+        },
+      },
     },)
-    const artist = populatedArtist.artist
+    const artist = populatedArtist.artist;
 
     if (editorEmails?.length > 0) {
       strapi.plugins['email'].services.email.send({
@@ -20,7 +24,7 @@ export default {
               </div>`,
       })
     } else {
-      console.log('no editor email exist');
+      console.log('no editor email exists');
     }
   },
 }
