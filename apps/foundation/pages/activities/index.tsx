@@ -2,11 +2,11 @@ import { Image, SimpleGrid, Stack, Text } from '@chakra-ui/react'
 import { Request } from '@wsvvrijheid/lib'
 import { Activity } from '@wsvvrijheid/types'
 import { AnimatedBox, Card, Container, Hero } from '@wsvvrijheid/ui'
-import i18nConfig from 'next-i18next.config'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useRouter } from 'next/router'
 
 import { Layout } from '../../components'
+import i18nConfig from '../../next-i18next.config'
 
 export default function Activities({ activities, query, title, pagination }) {
   const { locale } = useRouter()
