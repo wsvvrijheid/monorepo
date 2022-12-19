@@ -23,6 +23,11 @@
         "outputPath": "dist/apps/foundation",
         "assets": [
           {
+            "input": "public/foundation",
+            "glob": "**/*",
+            "output": "./"
+          },
+          {
             "input": "public/locales",
             "glob": "**/*.json",
             "output": "locales"
