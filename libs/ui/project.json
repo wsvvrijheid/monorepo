@@ -33,11 +33,6 @@
             "output": "."
           },
           {
-            "input": "public",
-            "glob": "**/*.+(ico|png|jpg|jpeg|gif|svg|webp|avif)",
-            "output": "./images"
-          },
-          {
             "input": "public/locales",
             "glob": "**/*.json",
             "output": "locales"

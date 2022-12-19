@@ -23,11 +23,6 @@
         "outputPath": "dist/apps/admin",
         "assets": [
           {
-            "input": "public/admin",
-            "glob": "**/*",
-            "output": "./"
-          },
-          {
             "input": "public/locales",
             "glob": "**/*.json",
             "output": "locales"
@@ -46,7 +41,14 @@
       "defaultConfiguration": "development",
       "options": {
         "buildTarget": "admin:build",
-        "dev": true
+        "dev": true,
+        "assets": [
+          {
+            "input": "public/locales",
+            "glob": "**/*.json",
+            "output": "locales"
+          }
+        ]
       },
       "configurations": {
         "development": {

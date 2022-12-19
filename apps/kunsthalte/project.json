@@ -23,11 +23,6 @@
         "outputPath": "dist/apps/kunsthalte",
         "assets": [
           {
-            "input": "public/kunsthalte",
-            "glob": "**/*",
-            "output": "./"
-          },
-          {
             "input": "public/locales",
             "glob": "**/*.json",
             "output": "locales"
@@ -48,11 +43,6 @@
         "buildTarget": "kunsthalte:build",
         "dev": true,
         "assets": [
-          {
-            "input": "public/kunsthalte",
-            "glob": "**/*",
-            "output": "./"
-          },
           {
             "input": "public/locales",
             "glob": "**/*.json",
