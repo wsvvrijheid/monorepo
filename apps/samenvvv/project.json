@@ -23,6 +23,11 @@
         "outputPath": "dist/apps/samenvvv",
         "assets": [
           {
+            "input": "public/samenvvv",
+            "glob": "**/*",
+            "output": "./"
+          },
+          {
             "input": "public/locales",
             "glob": "**/*.json",
             "output": "locales"

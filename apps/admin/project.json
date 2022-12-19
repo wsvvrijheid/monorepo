@@ -20,7 +20,19 @@
       "defaultConfiguration": "production",
       "options": {
         "root": "apps/admin",
-        "outputPath": "dist/apps/admin"
+        "outputPath": "dist/apps/admin",
+        "assets": [
+          {
+            "input": "public/admin",
+            "glob": "**/*",
+            "output": "./"
+          },
+          {
+            "input": "public/locales",
+            "glob": "**/*.json",
+            "output": "locales"
+          }
+        ]
       },
       "configurations": {
         "development": {
