@@ -4,11 +4,15 @@ const path = require('path')
 
 const { i18n } = require('./next-i18next.config')
 
+const isProd = process.env.NODE_ENV === 'production'
+const vercelUrl = process.env.VERCEL_URL
+
 /**
  * @type {import('@nrwl/next/plugins/with-nx').WithNxOptions}
  **/
 const nextConfig = {
   i18n,
+  assetPrefix: isProd ? vercelUrl : undefined,
   images: {
     domains: [
       'api.samenvvv.nl',
