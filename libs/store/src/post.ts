@@ -95,7 +95,7 @@ export const fetchSearchedMentions = createAsyncThunk(
       },
     })
     const rawData = response.data as TweetUserData[]
-    console.log('rawData', rawData)
+
     return rawData.sort((a, b) => b.followers_count - a.followers_count)
   },
 )

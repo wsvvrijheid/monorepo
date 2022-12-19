@@ -10,3 +10,6 @@ export const EMAIL_RECEIVER = process.env['NX_NX_EMAIL_RECEIVER']
 export const COOKIE_PASSWORD = process.env['NX_SECRET_COOKIE_PASSWORD']
 export const DEEPL_API_KEY = process.env['NX_DEEPL_API_KEY']
 export const GA_MEASUREMENT_ID = process.env['NX_GA_MEASUREMENT_ID']
+export const IS_PROD = process.env['NODE_ENV'] === 'production'
+export const VERCEL_URL =
+  process.env['NX_VERCEL_URL'] || process.env['VERCEL_URL']

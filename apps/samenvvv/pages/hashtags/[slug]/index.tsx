@@ -67,8 +67,8 @@ import {
   FaTwitter,
 } from 'react-icons/fa'
 
-import i18nConfig from '../../..//next-i18next.config'
 import { Layout } from '../../../components'
+import i18nConfig from '../../../next-i18next.config'
 
 interface HashtagProps {
   source: MDXRemoteSerializeResult<Record<string, unknown>>

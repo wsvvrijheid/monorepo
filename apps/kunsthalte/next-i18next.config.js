@@ -1,14 +1,3 @@
-const { resolve } = require('path')
-
-/**
- * @type {import('next-i18next').UserConfig}
- **/
-const i18nConfig = {
-  i18n: {
-    defaultLocale: 'en',
-    locales: ['en', 'nl', 'tr'],
-  },
-  localePath: resolve('./public/locales'),
-}
+const i18nConfig = require('../../next-i18next.config.js')
 
 module.exports = i18nConfig

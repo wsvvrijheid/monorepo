@@ -43,7 +43,6 @@ export const Card: FC<CardProps> = ({
             />
           ) : (
             <WImage
-              w="full"
               src={image}
               alt={title}
               transition="transform 0.5s ease-in-out"
