@@ -20,7 +20,14 @@
       "defaultConfiguration": "production",
       "options": {
         "root": "apps/admin",
-        "outputPath": "dist/apps/admin"
+        "outputPath": "dist/apps/admin",
+        "assets": [
+          {
+            "input": "public/locales",
+            "glob": "**/*.json",
+            "output": "locales"
+          }
+        ]
       },
       "configurations": {
         "development": {
@@ -34,7 +41,14 @@
       "defaultConfiguration": "development",
       "options": {
         "buildTarget": "admin:build",
-        "dev": true
+        "dev": true,
+        "assets": [
+          {
+            "input": "public/locales",
+            "glob": "**/*.json",
+            "output": "locales"
+          }
+        ]
       },
       "configurations": {
         "development": {
