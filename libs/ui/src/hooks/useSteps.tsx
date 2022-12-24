@@ -53,7 +53,7 @@ export const usePostMakerSteps = (): {
   const mobileSteps = [
     {
       selector: '[data-tour-mob="step-post-content"]',
-      content: t('steps.step-post-content('),
+      content: t('steps.step-post-content'),
     },
     {
       selector: '[data-tour-mob="step-post-text"]',

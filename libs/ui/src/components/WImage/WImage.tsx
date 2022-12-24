@@ -1,7 +1,7 @@
-import { ComponentProps, FC, Fragment } from 'react'
+import { FC, Fragment } from 'react'
 
 import { AspectRatio, ImageProps as ChakraImageProps } from '@chakra-ui/react'
-import { UploadFile, FileFormatsType } from '@wsvvrijheid/types'
+import { FileFormatsType, UploadFile } from '@wsvvrijheid/types'
 import { getImageUrl } from '@wsvvrijheid/utils'
 import Image from 'next/image'
 import Zoom from 'react-medium-image-zoom'
@@ -28,8 +28,9 @@ export type WImageProps = {
   src: UploadFile | string
   alt?: string
   hasZoom?: boolean
-} & Pick<ComponentProps<typeof Image>, 'fill' | 'objectFit'> &
-  Omit<ChakraImageProps, 'objectFit' | 'src'>
+  fill?: boolean
+  objectFit?: 'cover' | 'contain' | 'fill' | 'none' | 'scale-down'
+} & Omit<ChakraImageProps, 'objectFit' | 'src'>
 
 // TODO: add loader
 export const WImage: FC<WImageProps> = ({
@@ -37,7 +38,7 @@ export const WImage: FC<WImageProps> = ({
   format,
   alt,
   ratio,
-  objectFit,
+  objectFit = 'cover',
   fill = true,
   hasZoom,
   ...rest
@@ -52,12 +53,13 @@ export const WImage: FC<WImageProps> = ({
 
   const height = rest.height || rest.h
   const width = rest.width || rest.w
+  const hasDimensions = width && height
 
   const Wrapper = hasZoom ? Zoom : Fragment
 
   return (
     <AspectRatio
-      ratio={width && height ? 0 : ratio === 'twitter' ? 1200 / 675 : ratio}
+      ratio={hasDimensions ? 0 : ratio === 'twitter' ? 1200 / 675 : ratio}
       overflow="hidden"
       boxSize="full"
       pos="relative"
@@ -65,12 +67,14 @@ export const WImage: FC<WImageProps> = ({
     >
       <Wrapper>
         <Image
-          objectFit={objectFit || 'cover'}
-          fill={width || height ? undefined : fill}
+          style={{ objectFit }}
+          fill={hasDimensions ? undefined : fill}
           src={source}
           alt={alternativeText}
-          height={parseInt(height as string, 10) || undefined}
-          width={parseInt(width as string, 10) || undefined}
+          {...(hasDimensions && {
+            width: parseInt(width as string, 10),
+            height: parseInt(height as string, 10),
+          })}
         />
       </Wrapper>
     </AspectRatio>
