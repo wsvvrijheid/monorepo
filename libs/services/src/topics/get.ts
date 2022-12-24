@@ -24,3 +24,10 @@ export const useTopic = () => {
     queryFn: getTopics,
   })
 }
+
+export const useGetRecommendedTopics = () => {
+  return useQuery({
+    queryKey: ['recommended-topics'],
+    queryFn: getRecommendedTopics,
+  })
+}
