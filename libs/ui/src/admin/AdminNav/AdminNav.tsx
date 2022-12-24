@@ -6,7 +6,7 @@ import { BiLandscape } from 'react-icons/bi'
 import { BsCollection, BsCommand, BsTranslate } from 'react-icons/bs'
 import { CgHashtag } from 'react-icons/cg'
 import { FiActivity } from 'react-icons/fi'
-import { GiHumanPyramid } from 'react-icons/gi'
+import { GiAbstract020, GiDozen, GiHumanPyramid } from 'react-icons/gi'
 import { GoChevronRight } from 'react-icons/go'
 import { HiOutlineNewspaper } from 'react-icons/hi'
 import {
@@ -191,7 +191,12 @@ export const getAdminNav = (user: SessionUser): AdminNavItemProps[] => {
         {
           label: 'Bookmarked Tweets',
           link: '/content-maker/tweets-bookmarks',
-          icon: <GiHumanPyramid />,
+          icon: <GiAbstract020 />,
+        },
+        {
+          label: 'Recommended Topics',
+          link: '/content-maker/recommended-topics',
+          icon: <GiDozen />,
         },
       ],
     },
