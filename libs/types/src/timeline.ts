@@ -1,5 +1,5 @@
 import { StrapiBase } from './strapi'
-import { Tweet } from './tweet'
+import { TimelineTweet } from './tweet'
 import { User } from './user'
 
 export type TimelineBase = {
@@ -11,7 +11,7 @@ export type TimelineBase = {
 }
 
 type TimelineRelation = {
-  tweets: Array<Tweet>
+  tweets: Array<TimelineTweet>
   creator?: User
   listers?: Array<User>
 }

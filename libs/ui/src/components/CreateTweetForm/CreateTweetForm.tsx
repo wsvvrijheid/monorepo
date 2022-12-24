@@ -31,6 +31,9 @@ export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
   onClose,
   originalTweet,
 }) => {
+  const TWEET_LENGTH = 280
+  const SIMILARITY_LIMIT = 60
+
   const [text, setText] = useState('')
   const [similarityCount, setSimilarityCount] = useState(0)
   const [media, setMedia] = useState<File>()
@@ -45,16 +48,30 @@ export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
 
   useEffect(() => {
     const similarity =
-      stringSimilarity.compareTwoStrings(text, originalTweet.text) * 100
+      stringSimilarity.compareTwoStrings(
+        text.toLowerCase(),
+        originalTweet.text.toLowerCase(),
+      ) * 100
     setSimilarityCount(similarity)
   }, [text, originalTweet.text])
 
   const onSubmitHandler = () => {
     onSubmit(text, originalTweet, media)
   }
+
+  const resetForm = () => {
+    setText('')
+    setSimilarityCount(0)
+    setMedia(undefined)
+  }
+
+  const closeModal = () => {
+    resetForm()
+    onClose()
+  }
   return (
     <Box>
-      <Modal onClose={onClose} isOpen={isOpen} scrollBehavior="inside">
+      <Modal onClose={closeModal} isOpen={isOpen} scrollBehavior="inside">
         <ModalOverlay />
         <ModalContent maxW="95vw" h="full" p={{ base: 2, lg: 8 }}>
           <ModalCloseButton />
@@ -98,13 +115,17 @@ export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
                     >
                       Plagiarism
                     </Text>
-                    <Text color={text?.length > 279 ? 'red' : 'black'}>
+                    <Text
+                      color={text?.length >= TWEET_LENGTH ? 'red' : 'black'}
+                    >
                       {text?.length}/280
                     </Text>
                   </HStack>
 
                   <Progress
-                    colorScheme={similarityCount > 60 ? 'red' : 'green'}
+                    colorScheme={
+                      similarityCount > SIMILARITY_LIMIT ? 'red' : 'green'
+                    }
                     size="lg"
                     value={similarityCount}
                   />
@@ -127,7 +148,7 @@ export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
                     bg={'transparent'}
                     mr={3}
                     leftIcon={<GrFormClose />}
-                    onClick={onClose}
+                    onClick={closeModal}
                   >
                     Cancel
                   </Button>
@@ -135,6 +156,7 @@ export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
                     type="submit"
                     colorScheme="primary"
                     leftIcon={<FiArrowUpRight />}
+                    disabled={similarityCount > SIMILARITY_LIMIT}
                     onClick={onSubmitHandler}
                   >
                     Recommend
