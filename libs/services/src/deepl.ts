@@ -27,7 +27,6 @@ export const getModelTranslation = async <
       await Promise.all(
         translatedFields.map(async key => {
           const value = model[key as keyof T]
-          console.log('value', value)
 
           if (typeof value === 'string') {
             const translation = await getTranslation(value, l)
