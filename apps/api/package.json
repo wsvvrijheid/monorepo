@@ -8,7 +8,9 @@
     "start": "strapi start",
     "build": "strapi build",
     "strapi": "strapi",
-    "prepare-db": "./scripts/prepare.sh"
+    "prepare-db": "./scripts/prepare.sh",
+    "docker-up": "docker compose up --remove-orphans",
+    "docker-db-update": "docker exec -i strapiDB bash < ./scripts/docker-db-update.sh"
   },
   "devDependencies": {},
   "dependencies": {
