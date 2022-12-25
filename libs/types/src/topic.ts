@@ -10,7 +10,7 @@ export type TopicBase = {
   time?: string
   locale: StrapiLocale
   publisher: string
-  isRecommended: boolean
+  isRecommended?: boolean
 }
 
 export type Topic = StrapiBase & {
