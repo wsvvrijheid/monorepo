@@ -22,7 +22,7 @@ export const checkAuth = createAsyncThunk('auth/check', async () => {
 })
 
 export const destroyAuth = createAsyncThunk('auth/destroy', async () => {
-  await axios.get<Auth>('/api/auth/logout')
+  await axios.post<Auth>('/api/auth/logout')
   return initialState
 })
 
