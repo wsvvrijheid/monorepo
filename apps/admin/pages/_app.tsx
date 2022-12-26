@@ -41,7 +41,7 @@ function MyApp({ Component, pageProps }) {
           router.push('/login')
         }
       })
-  }, [])
+  }, [router])
 
   return (
     <QueryClientProvider client={queryClient}>
