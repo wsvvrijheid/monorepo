@@ -32,12 +32,18 @@ export const scrapTopics: ScrapTopics = async ({
     First stage of scraping. It gets links from front page of the site. We send 
     another request to the news detail page to fulfill the topic object.
   */
-  const links = await scrapLinks({
-    headers,
-    proxy,
-    selector: selectors.link,
-    url,
-  })
+  let links = []
+
+  try {
+    links = await scrapLinks({
+      headers,
+      proxy,
+      selector: selectors.link,
+      url,
+    })
+  } catch (error) {
+    console.error('Scrap links error', error)
+  }
 
   const topics: Topic[] = []
 
