@@ -15,7 +15,7 @@ export const getTopics = async () => {
     url: 'api/topic',
   })
 
-  return response?.data?.data || []
+  return response?.data || ({} as Topic)
 }
 
 export const useTopic = () => {
