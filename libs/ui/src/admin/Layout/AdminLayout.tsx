@@ -59,7 +59,7 @@ export const AdminLayout: FC<AdminLayoutProps> = ({
   }
 
   // Loading indicator when we are fetching user data on the client
-  if (isAuthLoading) {
+  if (isAuthLoading || !user) {
     return (
       <>
         <NextSeo title={title} />
