@@ -6,7 +6,7 @@ const getAktifHaber = async () => {
 
   // TODO: Links are not selected correctly
   const selectors: PageSelectors = {
-    link: '.owl-carousel.manset a',
+    link: '.tek > a',
   }
 
   const formatTopic: FormatTopic = topic => {

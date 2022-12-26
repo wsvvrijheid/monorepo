@@ -6,6 +6,7 @@ const getAmnesty = async () => {
 
   const selectors: PageSelectors = {
     link: 'article.teaser a.teaser__link',
+    time: 'meta[property="article:modified_time"]',
   }
 
   const formatTopic: FormatTopic = topic => {
