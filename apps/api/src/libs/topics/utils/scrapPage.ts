@@ -51,7 +51,7 @@ export const scrapPage: ScrapPage = async ({
       category,
     }
   } catch (error: any) {
-    console.error(`Error while scraping ${url}`, error.message)
+    console.error(`Error while scraping ${url}`, error.response || error)
 
     return <Topic>{
       category: 'SCRAPING ERROR',

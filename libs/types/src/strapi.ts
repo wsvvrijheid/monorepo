@@ -131,7 +131,12 @@ export type StrapiCollectionResponse<T extends StrapiModel[]> = {
  */
 export type StrapiEmailUrl = 'email'
 export type StrapiProviders = 'instagram' | 'facebook' | 'google' | 'twitter'
-export type StrapiSingleUrl = 'term' | 'privacy' | 'trend' | 'topic'
+export type StrapiSingleUrl =
+  | 'term'
+  | 'privacy'
+  | 'trend'
+  | 'topic'
+  | 'topic/sync'
 export type StrapiAuthUrl =
   | 'auth/local/register'
   | 'auth/local'
