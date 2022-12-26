@@ -7,7 +7,6 @@ const getTurkishMinuteNews = async () => {
 
   const selectors: PageSelectors = {
     link: 'div.td_block_inner.td-mc1-wrap div.td_module_flex.td_module_flex_1.td_module_wrap.td-animation-stack div.td-module-container.td-category-pos-image div.td-module-meta-info h3.entry-title.td-module-title a',
-    image: 'meta[property="twitter:image"]',
   }
 
   const formatTopic: FormatTopic = topic => {
