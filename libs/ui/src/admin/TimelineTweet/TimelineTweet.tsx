@@ -23,6 +23,7 @@ import { TimelineLocalTweet, TimelineTweetProps } from './types'
 export const TimelineTweet: FC<TimelineTweetProps> = ({
   tweet,
   user,
+  onEdit,
   ...rest
 }) => {
   const [tweetBookmarksStorage, setTweetBookmarksStorage] = useLocalStorage<
@@ -30,10 +31,6 @@ export const TimelineTweet: FC<TimelineTweetProps> = ({
   >('tweetBookmarks', [])
 
   const isBookmarked = tweetBookmarksStorage?.some(t => t.tweet.id === tweet.id)
-
-  const onEdit = (data: TimelineLocalTweet) => {
-    console.log('edit')
-  }
 
   const onSave = (data: TimelineLocalTweet) => {
     const newSavedTweet = data
