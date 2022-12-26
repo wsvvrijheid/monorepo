@@ -4,13 +4,12 @@ import getAktifHaber from './sources/aktifHaber'
 import getKanttekening from './sources/kanttekening'
 import getAmnesty from './sources/amnesty'
 import getNos from './sources/nos'
-import getNu from './sources/nu'
+// import getNu from './sources/nu'
 import getRtl from './sources/rtl'
 import getSamanyolu from './sources/samanyoluHaber'
 import getTr724 from './sources/tr724'
 import getTrouw from './sources/trouw'
 import { RecommendedTopic } from './utils/types'
-import getIpaNews from './sources/ipanews'
 import getSolidaritywithothersNews from './sources/solidaritywithothers'
 import getAmnestyEn from './sources/amnesty-en'
 import getTurkishMinuteNews from './sources/turkishminute'
@@ -21,17 +20,16 @@ export default async ({ strapi }) => {
       getAktifHaber,
       getAmnesty,
       getBoldMedya,
-      // getKanttekening,
+      getKanttekening,
       getNos,
-      getNu,
+      // getNu,
       getRtl,
       getSamanyolu,
       getTr724,
       getTrouw,
-      getIpaNews,
       getSolidaritywithothersNews,
       getAmnestyEn,
-      // getTurkishMinuteNews,
+      getTurkishMinuteNews,
     ]
 
     console.log('-----------------------------------')
