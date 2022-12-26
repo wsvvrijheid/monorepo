@@ -36,7 +36,7 @@ export const AdminLayout: FC<AdminLayoutProps> = ({
   isLoading,
   headerProps,
 }) => {
-  const { user, isAuthLoading } = useAuthSelector()
+  const { user } = useAuthSelector()
 
   const router = useRouter()
   const dispatch = useAppDispatch()
@@ -58,15 +58,11 @@ export const AdminLayout: FC<AdminLayoutProps> = ({
     router.push('/login')
   }
 
-  // Loading indicator when we are fetching user data on the client
-  if (isAuthLoading || !user) {
+  if (!user) {
     return (
-      <>
-        <NextSeo title={title} />
-        <Center h="100vh">
-          <Spinner size="xl" />
-        </Center>
-      </>
+      <Center h={'100vh'}>
+        <Spinner size={'lg'} />
+      </Center>
     )
   }
 
@@ -83,14 +79,12 @@ export const AdminLayout: FC<AdminLayoutProps> = ({
           h="100vh"
           w={expanded ? 300 : 16}
         >
-          {user && (
-            <AdminSidebar
-              user={user}
-              onLogout={handleLogout}
-              expanded={expanded}
-              onToggleExpand={toggleSidebarExpanded}
-            />
-          )}
+          <AdminSidebar
+            user={user}
+            onLogout={handleLogout}
+            expanded={expanded}
+            onToggleExpand={toggleSidebarExpanded}
+          />
         </Box>
 
         <Stack
