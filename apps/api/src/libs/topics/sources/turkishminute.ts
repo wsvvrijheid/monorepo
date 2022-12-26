@@ -15,13 +15,22 @@ const getTurkishMinuteNews = async () => {
     }
   }
 
-  return await scrapTopics({
-    publisher: Publisher.TM,
-    locale: Locale.EN,
-    url,
-    selectors,
-    formatTopic,
-  })
+  try {
+    return await scrapTopics({
+      publisher: Publisher.TM,
+      locale: Locale.EN,
+      url,
+      selectors,
+      formatTopic,
+      headers: {
+        'User-Agent':
+          'Mozilla/5.0 (X11; CrOS x86_64 8172.45.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.64 Safari/537.36',
+      },
+    })
+  } catch (error) {
+    console.error('Scrap topics error', error)
+    return []
+  }
 }
 
 export default getTurkishMinuteNews
