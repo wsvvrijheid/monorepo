@@ -12,7 +12,7 @@ import getTrouw from './sources/trouw'
 import { RecommendedTopic } from './utils/types'
 import getSolidaritywithothersNews from './sources/solidaritywithothers'
 import getAmnestyEn from './sources/amnesty-en'
-import getTurkishMinuteNews from './sources/turkishminute'
+// import getTurkishMinuteNews from './sources/turkishminute'
 
 export default async ({ strapi }) => {
   try {
@@ -29,7 +29,7 @@ export default async ({ strapi }) => {
       getTrouw,
       getSolidaritywithothersNews,
       getAmnestyEn,
-      getTurkishMinuteNews,
+      // getTurkishMinuteNews,
     ]
 
     console.log('-----------------------------------')
