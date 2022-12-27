@@ -1,4 +1,3 @@
-import { sessionOptions } from '@wsvvrijheid/lib'
 import { getIronSession } from 'iron-session/edge'
 import type { NextRequest } from 'next/server'
 import { NextResponse } from 'next/server'
@@ -14,7 +13,15 @@ export const middleware = async (req: NextRequest) => {
     nextUrl.pathname.includes('/api/') ||
     PUBLIC_FILE.test(nextUrl.pathname)
 
-  const session = await getIronSession(req, res, sessionOptions)
+  const session = await getIronSession(req, res, {
+    password:
+      process.env['NX_SECRET_COOKIE_PASSWORD'] ||
+      '12345678901234567890123456789012',
+    cookieName: 'iron-session',
+    cookieOptions: {
+      secure: process.env['NODE_ENV'] === 'production',
+    },
+  })
 
   if (notPage) return res
 
