@@ -2,10 +2,10 @@ import { scrapTopics } from '../utils/scrapTopics'
 import { FormatTopic, Locale, Publisher, PageSelectors } from '../utils/types'
 
 const getRtlNews = async () => {
-  const url = new URL('https://www.rtlnieuws.nl/net-binnen')
+  const url = new URL('https://www.rtlnieuws.nl')
 
   const selectors: PageSelectors = {
-    link: 'div.large-4.medium-4.small-12.columns.relative.grid-block a.js_link.image-block-link',
+    link: '.opening-net-binnen__list > a',
   }
 
   const formatTopic: FormatTopic = topic => {
