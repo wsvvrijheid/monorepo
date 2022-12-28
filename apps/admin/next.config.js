@@ -1,6 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const withNx = require('@nrwl/next/plugins/with-nx')
-const path = require('path')
 
 const { i18n } = require('./next-i18next.config')
 
@@ -11,6 +10,8 @@ const nextConfig = {
   i18n,
   images: {
     domains: [
+      'aktifhaber.com',
+      'www.turkishminute.com',
       'api.samenvvv.nl',
       'pbs.twimg.com',
       'api.wsvvrijheid.nl',

@@ -49,6 +49,7 @@
       "files": ["*.ts", "*.tsx"],
       "extends": ["plugin:@nrwl/nx/typescript"],
       "rules": {
+        "import/no-unused-modules": "off",
         "no-unused-vars": "off",
         "@typescript-eslint/no-unused-vars": ["error"]
       }

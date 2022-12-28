@@ -1,21 +1,24 @@
 import { useCallback, useEffect, useState } from 'react'
 
-import { MenuItemOption, MenuOptionGroup, SimpleGrid } from '@chakra-ui/react'
-import { dehydrate, QueryClient } from '@tanstack/react-query'
-import { getTopics, useTopic } from '@wsvvrijheid/services'
+import {
+  IconButton,
+  MenuItemOption,
+  MenuOptionGroup,
+  SimpleGrid,
+  Tooltip,
+} from '@chakra-ui/react'
+import { useTopic, useTopicSync } from '@wsvvrijheid/services'
 import { useAuthSelector } from '@wsvvrijheid/store'
 import { TopicBase } from '@wsvvrijheid/types'
 import { AdminLayout, TopicCard } from '@wsvvrijheid/ui'
-import { GetStaticProps } from 'next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { addHours, formatDistanceToNow, isPast } from 'date-fns'
 import { useRouter } from 'next/router'
-import { FaArrowDown, FaArrowUp } from 'react-icons/fa'
-
-import i18nConfig from '../../next-i18next.config'
+import { FaArrowDown, FaArrowUp, FaSyncAlt } from 'react-icons/fa'
 
 const NewsPage = () => {
   const { user } = useAuthSelector()
   const { data, isLoading } = useTopic()
+  const syncTopic = useTopicSync()
   const [sources, setSources] = useState<string[]>([])
   const [filter, setFilter] = useState<string[]>([])
   const [topics, setTopics] = useState<TopicBase[]>([])
@@ -55,7 +58,7 @@ const NewsPage = () => {
   )
 
   useEffect(() => {
-    const localeData = data?.filter(d => d.locale === locale)
+    const localeData = data?.data.filter(d => d.locale === locale)
     const filteredData = localeData?.filter(d =>
       filter.length > 0 ? filter.includes(d.publisher) : true,
     )
@@ -93,6 +96,15 @@ const NewsPage = () => {
     </MenuOptionGroup>
   )
 
+  const canSync =
+    data?.updatedAt && isPast(addHours(new Date(data.updatedAt), 1))
+
+  const syncedStr =
+    data?.updatedAt &&
+    `Updated ${formatDistanceToNow(new Date(data.updatedAt), {
+      addSuffix: true,
+    })}`
+
   return (
     <AdminLayout
       title="News"
@@ -102,12 +114,24 @@ const NewsPage = () => {
         filterMenu,
         filterMenuCloseOnSelect: false,
         searchPlaceHolder: 'Search news',
+        children: (
+          <Tooltip label={syncedStr} hasArrow bg="primary.400">
+            <IconButton
+              aria-label="Sync news"
+              isLoading={syncTopic.isLoading}
+              onClick={() => syncTopic.mutate()}
+              disabled={!canSync}
+              colorScheme={'primary'}
+              icon={<FaSyncAlt />}
+            />
+          </Tooltip>
+        ),
       }}
     >
       <SimpleGrid columns={{ base: 1 }} gap={4}>
         {topics?.map((topic, i) => (
           <TopicCard
-            key={topic.url}
+            key={topic.url + i}
             variant="horizontal"
             topic={topic}
             userId={user?.id}
@@ -121,28 +145,3 @@ const NewsPage = () => {
 }
 
 export default NewsPage
-
-export const getStaticProps: GetStaticProps = async context => {
-  const { locale } = context
-  const queryClient = new QueryClient()
-
-  await queryClient.prefetchQuery({
-    queryKey: ['topics'],
-    queryFn: getTopics,
-  })
-
-  const seo = {
-    title: {
-      en: 'News',
-      nl: 'Nieuws',
-      tr: 'Haberler',
-    },
-  }
-  return {
-    props: {
-      ...(await serverSideTranslations(locale, ['common'], i18nConfig)),
-      title: seo.title[locale],
-      dehydratedState: dehydrate(queryClient),
-    },
-  }
-}

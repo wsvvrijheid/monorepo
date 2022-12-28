@@ -30,17 +30,8 @@ function MyApp({ Component, pageProps }) {
   const [queryClient] = useState(() => new QueryClient())
   const { locale } = useRouter()
 
-  const router = useRouter()
-
   useEffect(() => {
-    store
-      .dispatch(checkAuth())
-      .unwrap()
-      .then(res => {
-        if (router.asPath !== '/login' && !res.isLoggedIn) {
-          router.push('/login')
-        }
-      })
+    store.dispatch(checkAuth())
   }, [])
 
   return (
