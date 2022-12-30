@@ -87,7 +87,7 @@ export const POST_MOCKS: Localize<StrapiCollectionResponse<Post[]>> = {
             '“Mülteci ve Göç Sürecindeki Zorluklar” konulu hashtag çalışmamıza desteklerinizi bekliyoruz. ',
           content:
             '“Mülteci ve Göç Sürecindeki Zorluklar” konulu hashtag çalışmamıza desteklerinizi bekliyoruz. ',
-          hashtag: 'Mağdurlarİçin BirazEmpati ',
+          hashtagDefault: 'Mağdurlarİçin BirazEmpati ',
           hashtagExtra: '',
           date: '2022-05-25T16:00:00.000Z',
           tweets: [],
@@ -218,7 +218,7 @@ export const POST_MOCKS: Localize<StrapiCollectionResponse<Post[]>> = {
             'We kijken uit naar uw steun voor ons hashtag-werk over "Uitdagingen in het vluchtelingen- en migratieproces".',
           content:
             'We kijken uit naar uw steun voor ons hashtag-werk over "Uitdagingen in het vluchtelingen- en migratieproces".\n',
-          hashtag: 'Mağdurlarİçin BirazEmpati ',
+          hashtagDefault: 'Mağdurlarİçin BirazEmpati ',
           hashtagExtra: '',
           date: '2022-05-25T16:00:00.000Z',
           tweets: [],
@@ -349,7 +349,7 @@ export const POST_MOCKS: Localize<StrapiCollectionResponse<Post[]>> = {
             'We look forward to your support for our hashtag work on “Challenges in the Refugee and Migration Process”.',
           content:
             'We look forward to your support for our hashtag work on “Challenges in the Refugee and Migration Process”.',
-          hashtag: 'Mağdurlarİçin BirazEmpati ',
+          hashtagDefault: 'Mağdurlarİçin BirazEmpati ',
           hashtagExtra: '',
           date: '2022-05-25T16:00:00.000Z',
           tweets: [],

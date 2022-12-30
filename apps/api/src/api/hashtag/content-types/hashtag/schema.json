@@ -118,12 +118,6 @@
       },
       "type": "json"
     },
-    "posts": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::post.post",
-      "mappedBy": "hashtag"
-    },
     "categories": {
       "type": "relation",
       "relation": "manyToMany",
@@ -135,6 +129,12 @@
       "relation": "manyToMany",
       "target": "api::mention.mention",
       "inversedBy": "hashtags"
+    },
+    "posts": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::post.post",
+      "mappedBy": "hashtag"
     }
   }
 }

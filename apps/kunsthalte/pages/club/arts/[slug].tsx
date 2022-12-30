@@ -60,7 +60,7 @@ export const getStaticProps: GetStaticProps = async context => {
   const title = art.title || null
   const description = art.description || null
 
-  const images = art.images
+  const image = art.image
 
   const seo = {
     title: art.title,
@@ -77,17 +77,18 @@ export const getStaticProps: GetStaticProps = async context => {
         authors: [art.artist?.username || null],
         // TODO add tags
       },
-      images:
-        images?.length > 0
-          ? images.map(image => ({
-              url: API_URL + image?.url,
-              secureUrl: API_URL + image?.url,
-              type: image?.mime,
-              width: image?.width,
-              height: image?.height,
+      images: image
+        ? [
+            {
+              url: API_URL + image.url,
+              secureUrl: API_URL + image.url,
+              type: image.mime,
+              width: image.width,
+              height: image.height,
               alt: art.title,
-            }))
-          : [],
+            },
+          ]
+        : [],
     },
   }
 

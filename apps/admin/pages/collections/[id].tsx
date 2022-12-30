@@ -24,7 +24,7 @@ const CollectionPage = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   return (
-    <AdminLayout title="Collection" isLoading={isLoading}>
+    <AdminLayout title="Collection" isLoading={isLoading} hasBackButton>
       <ArtAddToCollectionModal
         isOpen={isOpen}
         onClose={onClose}

@@ -9,7 +9,7 @@ import { Vote } from './vote'
 export type ApplicationBase = Omit<StrapiEntityBase, 'description'>
 
 type ApplicationRelation = {
-  images?: UploadFile[]
+  image?: UploadFile
   competition?: Competition
   applicant?: Applicant
   votes?: Array<Vote>
@@ -18,7 +18,7 @@ type ApplicationRelation = {
 }
 
 type ApplicationRelationInput = {
-  images: Array<File>
+  image: File
   competition: number
   applicant: number
   votes?: Array<number>

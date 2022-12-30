@@ -1,7 +1,6 @@
 import { FC } from 'react'
 
-import { Box, Button, Center, HStack, Text } from '@chakra-ui/react'
-import { Splide, SplideSlide } from '@splidejs/react-splide'
+import { Box, Button, HStack, Text } from '@chakra-ui/react'
 import { SITE_URL } from '@wsvvrijheid/config'
 import { Art } from '@wsvvrijheid/types'
 import { useRouter } from 'next/router'
@@ -27,23 +26,11 @@ export const ArtDetail: FC<ArtDetailProps> = ({
   const { locale } = useRouter()
   const url = `${SITE_URL}/${locale}/club/art/${art.slug}`
 
-  if (!art?.images) return null
+  if (!art?.image) return null
 
   return (
     <Box bg="white" padding={4} boxShadow="base">
-      {art.images && art.images.length > 1 ? (
-        <Box>
-          <Splide>
-            {art?.images.map(image => (
-              <Center as={SplideSlide} key={image.id}>
-                <WImage maxH={500} src={image} alt={art.title} hasZoom />
-              </Center>
-            ))}
-          </Splide>
-        </Box>
-      ) : (
-        <WImage maxH={500} src={art.images?.[0]} alt={art.title} hasZoom />
-      )}
+      <WImage maxH={500} src={art.image} alt={art.title} hasZoom />
 
       <HStack bg="white" justify="center" mt={4}>
         {art.views && (

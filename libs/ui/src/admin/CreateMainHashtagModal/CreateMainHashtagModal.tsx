@@ -39,7 +39,6 @@ import {
 
 export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
   queryKey,
-  showEditModal,
 }) => {
   const [images, setImages] = useState<File[]>([])
   const cancelRef = useRef<HTMLButtonElement>(null)
@@ -51,7 +50,7 @@ export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
     title: yup.string().required('Title is required'),
     description: yup.string().required('Description is required'),
     content: yup.string().required('Content is required'),
-    hashtag: yup.string().required('Hashtag is required'),
+    hashtagDefault: yup.string().required('Hashtag is required'),
     hashtagExtra: yup.string(),
     mention: yup.string(),
   })
@@ -214,7 +213,7 @@ export const CreateMainHashtagModal: FC<CreateMainHashtagModalProps> = ({
                 </HStack>
                 <HStack>
                   <FormItem
-                    name="hashtag"
+                    name="hashtagDefault"
                     label="Hashtag"
                     isRequired
                     errors={errors}

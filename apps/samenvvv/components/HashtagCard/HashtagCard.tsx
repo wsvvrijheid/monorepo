@@ -32,9 +32,9 @@ export const HashtagCard = ({ item, type }: SliderHeroProps): JSX.Element => {
       >
         <Box>
           <Heading size="lg">{item.title}</Heading>
-          {(item as Hashtag).hashtag && (
+          {(item as Hashtag).hashtagDefault && (
             <Heading size="md" color="gray.900">
-              {(item as Hashtag).hashtag}
+              {(item as Hashtag).hashtagDefault}
             </Heading>
           )}
           {(item as Hashtag).hashtagExtra && (

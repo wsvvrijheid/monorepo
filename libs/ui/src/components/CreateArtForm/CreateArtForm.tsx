@@ -65,7 +65,7 @@ const schema = (t: TFunction) =>
 
 // TODO Consider adding modal form instead of a new page
 export const CreateArtForm: FC<CreateArtFormProps> = ({ queryKey }) => {
-  const [images, setImages] = useState<File[]>([])
+  const [image, setImage] = useState<File>()
   const { locale } = useRouter()
   const { t } = useTranslation()
   const categories = useGetArtCategories()
@@ -99,15 +99,15 @@ export const CreateArtForm: FC<CreateArtFormProps> = ({ queryKey }) => {
   useEffect(
     () => () => {
       // Make sure to revoke the data uris to avoid memory leaks
-      images.forEach(image => URL.revokeObjectURL((image as any).preview))
+      URL.revokeObjectURL((image as any).preview)
     },
-    [images],
+    [image],
   )
 
   const { mutate, isLoading } = useCreateArt(queryKey)
 
   const createArt = async (
-    data: CreateArtFormFieldValues & { images: File[] },
+    data: CreateArtFormFieldValues & { image: File },
   ) => {
     if (!auth.user) return
 
@@ -137,11 +137,11 @@ export const CreateArtForm: FC<CreateArtFormProps> = ({ queryKey }) => {
   }
 
   const handleCreateArt = async (data: CreateArtFormFieldValues) => {
-    createArt({ ...data, images })
+    createArt({ ...data, image: image as File })
   }
 
   const resetFileUploader = () => {
-    setImages([])
+    setImage(undefined)
   }
 
   const closeForm = () => {
@@ -208,7 +208,7 @@ export const CreateArtForm: FC<CreateArtFormProps> = ({ queryKey }) => {
             {/* CREATE FORM */}
             {auth.isLoggedIn && (
               <SimpleGrid columns={{ base: 1, lg: 2 }} gap={4}>
-                <FilePicker setFiles={setImages} />
+                <FilePicker setFiles={files => setImage(files[0])} />
                 <Stack
                   spacing={4}
                   as="form"
@@ -277,7 +277,7 @@ export const CreateArtForm: FC<CreateArtFormProps> = ({ queryKey }) => {
                       {t('cancel')}
                     </Button>
                     <Button
-                      isDisabled={!images || images?.length === 0 || !isValid}
+                      isDisabled={!image || image?.length === 0 || !isValid}
                       type="submit"
                       colorScheme="primary"
                       rightIcon={<FaPlus />}

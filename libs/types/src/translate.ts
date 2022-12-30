@@ -1,15 +1,16 @@
 // Only title, description and locale is required for all models
 
-import { Activity } from './activity'
-import { Announcement } from './announcement'
-import { Art } from './art'
-import { Blog } from './blog'
+import { Activity, ActivityUpdateInput } from './activity'
+import { Announcement, AnnouncementUpdateInput } from './announcement'
+import { Art, ArtUpdateInput } from './art'
+import { Blog, BlogUpdateInput } from './blog'
+import { Collection, CollectionUpdateInput } from './collection'
 import { ApprovalStatus, Localize } from './common'
-import { Competition } from './competition'
+import { Competition, CompetitionUpdateInput } from './competition'
 import { UploadFile } from './file'
-import { Hashtag } from './hashtag'
+import { Hashtag, HashtagUpdateInput } from './hashtag'
 import { StrapiLocale } from './locale'
-import { Post } from './post'
+import { Post, PostUpdateInput } from './post'
 
 /**
  * TRANSLATION TYPES
@@ -19,9 +20,20 @@ export type StrapiTranslatableModel =
   | Announcement
   | Art
   | Blog
+  | Collection
   | Competition
   | Hashtag
   | Post
+
+export type StrapiTranslatableUpdateInput =
+  | ActivityUpdateInput
+  | AnnouncementUpdateInput
+  | ArtUpdateInput
+  | BlogUpdateInput
+  | CollectionUpdateInput
+  | CompetitionUpdateInput
+  | HashtagUpdateInput
+  | PostUpdateInput
 
 export type TranslatableModel<T extends StrapiTranslatableModel> = {
   id: number
@@ -32,7 +44,6 @@ export type TranslatableModel<T extends StrapiTranslatableModel> = {
   content: string | null
   text?: string
   image?: UploadFile
-  images?: UploadFile[]
   approvalStatus?: ApprovalStatus
   localizations?: T[]
 }

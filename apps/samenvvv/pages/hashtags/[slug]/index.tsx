@@ -199,7 +199,7 @@ const Hashtag: FC<HashtagProps> = ({
               onClick={handleToggle}
             />
           </Box>
-          {hasStarted && hashtagQuery.data?.hashtag ? (
+          {hasStarted && hashtagQuery.data?.hashtagDefault ? (
             <Tabs
               flex={1}
               isFitted

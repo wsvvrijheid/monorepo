@@ -3,6 +3,8 @@ import { QueryKey } from '@tanstack/react-query'
 export type CreateCollectionFormFieldValues = {
   title: string
   description: string
+  content: string
+  date: string
 }
 
 export type CreateCollectionModalProps = {
