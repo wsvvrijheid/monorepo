@@ -7,7 +7,7 @@ import {
   useDeleteModel,
   usePublishModel,
   useUnpublishModel,
-  useUpdateArtMutation,
+  useUpdateModelMutation,
 } from '@wsvvrijheid/services'
 import { useAuthSelector } from '@wsvvrijheid/store'
 import { Art, UploadFile } from '@wsvvrijheid/types'
@@ -36,7 +36,7 @@ export const ArtsTable: FC<ArtsTableProps> = ({
   const [selectedIndex, setSelectedIndex] = useState<number>()
   const feedbackMutation = useArtFeedbackMutation(queryKey)
   const deleteArtMutation = useDeleteModel('api/arts', queryKey)
-  const updateArtMutation = useUpdateArtMutation(queryKey)
+  const updateArtMutation = useUpdateModelMutation('api/arts', queryKey)
   const publishArtMutation = usePublishModel('api/arts', queryKey)
   const unpublishArtMutation = useUnpublishModel('api/arts', queryKey)
   const selectedArt =

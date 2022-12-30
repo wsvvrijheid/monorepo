@@ -2,8 +2,9 @@ import { useState } from 'react'
 
 import { SimpleGrid } from '@chakra-ui/react'
 import { QueryClient } from '@tanstack/react-query'
-import { useUpdateArtMutation } from '@wsvvrijheid/services'
+import { useUpdateModelMutation } from '@wsvvrijheid/services'
 import { Art } from '@wsvvrijheid/types'
+import { useRouter } from 'next/router'
 
 import { WConfirm, WConfirmProps } from '../../components'
 import { ArtAddToCollectionCard } from './ArtAddToCollectionCard'
@@ -14,10 +15,14 @@ export const ArtAddToCollectionGrid = ({
   collection,
 }: ArtAddToCollectionGridProps) => {
   const [artToBeMutated, setArtToBeMutated] = useState<Art | null>(null)
-
   const [confirmState, setConfirmState] = useState<WConfirmProps>()
 
-  const updateArtMutation = useUpdateArtMutation()
+  const { query } = useRouter()
+
+  const id = Number(query['id'] as string)
+  const queryKey = ['collection', id]
+
+  const updateArtMutation = useUpdateModelMutation('api/arts', queryKey)
   const queryClient = new QueryClient()
 
   const handleAdd = (art: Art) => {
