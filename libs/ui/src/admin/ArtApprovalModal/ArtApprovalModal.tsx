@@ -2,21 +2,20 @@ import { FC, useEffect, useState } from 'react'
 
 import {
   Avatar,
+  Box,
+  Button,
+  Flex,
   HStack,
-  Text,
   Modal,
   ModalBody,
   ModalCloseButton,
   ModalContent,
   ModalOverlay,
-  Stack,
-  Box,
-  Flex,
   SimpleGrid,
-  Button,
+  Stack,
+  Text,
   Textarea,
 } from '@chakra-ui/react'
-import { Splide, SplideSlide } from '@splidejs/react-splide'
 
 import { WImage } from '../../components'
 import { ArtFeedbackForm } from './ArtFeedbackForm'
@@ -31,7 +30,7 @@ export const ArtApprovalModal: FC<ArtApprovalTypes> = ({
   artContent,
   artTitle,
   artistAvatar,
-  artImages,
+  artImage,
   editorId,
   isOpen,
   onClose,
@@ -83,21 +82,8 @@ export const ArtApprovalModal: FC<ArtApprovalTypes> = ({
           <ModalBody p={0}>
             <SimpleGrid columns={{ base: 1, lg: 2 }} h="full">
               <Stack>
-                {/*TODO Image should has zoom  */}
-                {artImages && artImages.length > 1 ? (
-                  <Box
-                    as={Splide}
-                    sx={{ h: 'full', '.splide__track': { h: 'full' } }}
-                  >
-                    {artImages?.map((image, index) => (
-                      <SplideSlide key={index} style={{ height: '100%' }}>
-                        <WImage src={image} alt={artTitle} hasZoom={true} />
-                      </SplideSlide>
-                    ))}
-                  </Box>
-                ) : (
-                  <WImage src={artImages?.[0]} alt={artTitle} hasZoom={true} />
-                )}
+                <WImage src={artImage} alt={artTitle} hasZoom={true} />
+
                 {/* ==============================*/}
               </Stack>
               <Stack spacing={4} p={{ base: 4, lg: 8 }} justify="space-between">

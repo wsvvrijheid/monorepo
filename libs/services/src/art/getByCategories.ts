@@ -16,7 +16,7 @@ export const getArtsByCategories = async (
       id: { $ne: id },
       approvalStatus: { $eq: 'approved' },
     },
-    populate: ['artist.avatar', 'categories', 'images', 'likers'],
+    populate: ['artist.avatar', 'categories', 'image', 'likers'],
     sort: 'publishedAt:desc',
     pageSize: 4, // TODO: Change this
   })

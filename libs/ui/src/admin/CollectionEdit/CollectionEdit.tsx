@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC } from 'react'
 
 import {
   Accordion,
@@ -8,13 +8,23 @@ import {
   AccordionPanel,
   Text,
 } from '@chakra-ui/react'
+import { Collection } from '@wsvvrijheid/types'
+import * as yup from 'yup'
 
-import { CollectionEditForm } from './CollectionEditForm'
+import { ModelEdit } from '../ModelEdit'
 import { CollectionEditProps } from './types'
 
-export const CollectionEdit: FC<CollectionEditProps> = ({ collection }) => {
-  const [isEdit, setEdit] = useState(false)
+const schema = yup.object({
+  title: yup.string().required('Title is required'),
+  description: yup.string().required('Description is required'),
+  content: yup.string().required('Content is required'),
+  date: yup.date().required('Date is required'),
+  image: yup.object().shape({
+    file: yup.mixed(),
+  }),
+})
 
+export const CollectionEdit: FC<CollectionEditProps> = ({ collection }) => {
   return (
     <Accordion
       size={'lg'}
@@ -35,10 +45,13 @@ export const CollectionEdit: FC<CollectionEditProps> = ({ collection }) => {
           <AccordionIcon ml={'auto'} />
         </AccordionButton>
         <AccordionPanel p={0} mt={4}>
-          <CollectionEditForm
-            collection={collection}
-            isEdit={isEdit}
-            setEdit={setEdit}
+          <ModelEdit<Collection>
+            url="api/collections"
+            model={collection}
+            translatedFields={['title', 'description', 'content']}
+            fields={['title', 'description', 'content', 'date', 'image']}
+            queryKey={['collection', collection.id]}
+            schema={schema}
           />
         </AccordionPanel>
       </AccordionItem>

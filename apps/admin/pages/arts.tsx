@@ -24,7 +24,7 @@ const ArtsPage = () => {
     populate: [
       'artist.user.avatar',
       'categories',
-      'images',
+      'image',
       'likers',
       'localizations',
     ],

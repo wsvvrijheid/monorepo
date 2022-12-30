@@ -55,7 +55,12 @@ export const ArtAddToCollectionGrid = ({
 
   return (
     <>
-      {confirmState && <WConfirm {...confirmState} />}
+      {confirmState && (
+        <WConfirm
+          {...confirmState}
+          onCancel={() => setConfirmState(undefined)}
+        />
+      )}
       <SimpleGrid gap={8} columns={{ base: 1, md: 2, lg: 4 }}>
         {arts.map(art => {
           const isAdded = art.collection?.id === collection.id

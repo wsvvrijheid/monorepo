@@ -199,4 +199,4 @@ export type StrapiFormValue =
   | string
   | string[]
 
-export type StrapiMutationInput = { [key in string]?: StrapiFormValue }
+export type StrapiMutationInput = { [key in StrapiModelKeys]?: StrapiFormValue }

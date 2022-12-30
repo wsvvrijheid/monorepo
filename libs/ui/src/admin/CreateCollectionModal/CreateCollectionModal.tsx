@@ -179,6 +179,14 @@ export const CreateCollectionModal: FC<CreateCollectionModalProps> = ({
                 errors={errors}
                 register={register}
               />
+              <FormItem
+                name="content"
+                label="Content"
+                as={Textarea}
+                isRequired
+                errors={errors}
+                register={register}
+              />
               <FilePicker setFiles={setImages} />
               <ButtonGroup alignSelf="end">
                 <Button

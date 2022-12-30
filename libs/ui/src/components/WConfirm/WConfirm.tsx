@@ -18,10 +18,12 @@ export type WConfirmProps = {
   isWarning?: boolean
   title?: string
   onConfirm?: () => void
+  onCancel?: () => void
 }
 
 export const WConfirm: FC<WConfirmProps> = (props: WConfirmProps) => {
-  const { buttonText, description, isWarning, title, onConfirm } = props
+  const { buttonText, description, isWarning, title, onConfirm, onCancel } =
+    props
   const [isOpen, setIsOpen] = useBoolean(!!props)
   const cancelRef = useRef<HTMLButtonElement>(null)
   const disclosure = useDisclosure()
@@ -41,6 +43,11 @@ export const WConfirm: FC<WConfirmProps> = (props: WConfirmProps) => {
     disclosure.onClose()
   }
 
+  const handleCancel = () => {
+    onCancel?.()
+    setIsOpen.off()
+  }
+
   return (
     <AlertDialog leastDestructiveRef={cancelRef} {...disclosure}>
       <AlertDialogOverlay>
@@ -52,7 +59,7 @@ export const WConfirm: FC<WConfirmProps> = (props: WConfirmProps) => {
           <AlertDialogBody>{description}</AlertDialogBody>
 
           <AlertDialogFooter>
-            <Button ref={cancelRef} onClick={setIsOpen.off}>
+            <Button ref={cancelRef} onClick={handleCancel}>
               Cancel
             </Button>
             <Button

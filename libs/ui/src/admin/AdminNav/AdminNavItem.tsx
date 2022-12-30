@@ -1,4 +1,4 @@
-import { FC, useEffect, useMemo, useState } from 'react'
+import { FC, memo, useEffect } from 'react'
 
 import { Box, Button, chakra, Collapse, useBoolean } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
@@ -7,166 +7,91 @@ import { GoChevronDown } from 'react-icons/go'
 import { Navigate } from '../../components'
 import { AdminNavItemProps } from './types'
 
-export const AdminNavItem: FC<AdminNavItemProps> = ({
-  label,
-  link,
-  submenu,
-  icon,
-}) => {
-  const [open, setOpen] = useBoolean(false)
-  const [openSub, setOpenSub] = useBoolean(false)
-  const [subLink, setSubLink] = useState('')
-  const router = useRouter()
+export const AdminNavItem: FC<AdminNavItemProps> = memo(
+  ({ label, link, submenu, icon }) => {
+    const [open, setOpen] = useBoolean(false)
 
-  const subsMenu = useMemo(() => {
-    if (submenu) {
-      return submenu?.map(item => item?.submenu).filter(sm => sm !== undefined)
-    }
-    return []
-  }, [submenu])
+    const router = useRouter()
 
-  const isMenuLinkActive =
-    router.asPath === link ||
-    submenu?.some(item => item.link === router.asPath) ||
-    subsMenu?.flatMap(k => k).some(item => item?.link === router.asPath)
+    const isMenuLinkActive =
+      router.asPath === link ||
+      submenu?.some(item => item.link === router.asPath)
 
-  useEffect(() => {
-    if (isMenuLinkActive && submenu) {
-      setOpen.on()
-    }
-  }, [isMenuLinkActive, setOpen, submenu?.length])
+    useEffect(() => {
+      if (isMenuLinkActive && submenu && !open) {
+        setOpen.on()
+      }
+    }, [isMenuLinkActive, open, setOpen, submenu])
 
-  useEffect(() => {
-    if (isMenuLinkActive && subsMenu) {
-      setOpenSub.on()
-      const active = router.asPath.includes('post')
-        ? 'Hashtag Posts'
-        : 'Hashtag Caps'
-      setSubLink(active)
-    }
-  }, [subsMenu?.length])
+    return (
+      <Box w="full">
+        <Navigate href={link as string}>
+          <Button
+            justifyContent={'start'}
+            leftIcon={icon}
+            variant="ghost"
+            rounded="0"
+            w="full"
+            px={4}
+            _hover={{ color: 'primary.500', bg: 'blackAlpha.50' }}
+            {...(isMenuLinkActive && {
+              color: 'primary.500',
+              _hover: { color: 'primary.400', bg: 'blackAlpha.50' },
+            })}
+            {...(submenu && {
+              onClick: setOpen.toggle,
+              rightIcon: (
+                <Box
+                  as={GoChevronDown}
+                  transition="all 0.2s"
+                  {...(open && {
+                    transform: 'rotate(180deg)',
+                  })}
+                />
+              ),
+            })}
+          >
+            <chakra.span flex={1} textAlign="left">
+              {label}
+            </chakra.span>
+          </Button>
+        </Navigate>
 
-  const handleSubMenuClick = (label: string) => {
-    setOpenSub.toggle()
-    setSubLink(label)
-  }
-
-  return (
-    <Box w="full">
-      <Navigate href={link as string}>
-        <Button
-          justifyContent={'start'}
-          leftIcon={icon}
-          variant="ghost"
-          rounded="0"
-          w="full"
-          px={4}
-          _hover={{ color: 'primary.500', bg: 'blackAlpha.50' }}
-          {...(isMenuLinkActive && {
-            color: 'primary.500',
-            _hover: { color: 'primary.400', bg: 'blackAlpha.50' },
-          })}
-          {...(submenu && {
-            onClick: setOpen.toggle,
-            rightIcon: (
-              <Box
-                as={GoChevronDown}
-                transition="all 0.2s"
-                {...(open && {
-                  transform: 'rotate(180deg)',
-                })}
-              />
-            ),
-          })}
-        >
-          <chakra.span flex={1} textAlign="left">
-            {label}
-          </chakra.span>
-        </Button>
-      </Navigate>
-
-      {/* Submenu */}
-      {submenu && (
-        <Collapse in={open}>
-          {submenu?.map(item => {
-            const isSubmenuLinkActive = router.asPath === item.link
-            return (
-              <Box>
-                <Navigate
-                  href={item.link as string}
-                  justifyContent="start"
-                  key={item.link}
-                  ml={8}
-                >
-                  <Button
-                    justifyContent={'start'}
-                    leftIcon={item.icon}
-                    size="sm"
-                    variant="ghost"
-                    w="full"
-                    px={2}
-                    _hover={{ color: 'primary.500' }}
-                    {...(isSubmenuLinkActive && {
-                      color: 'primary.500',
-                      _hover: { color: 'primary.400' },
-                    })}
-                    {...(item?.submenu && {
-                      onClick: () => handleSubMenuClick(item.label),
-                      rightIcon: (
-                        <Box
-                          as={GoChevronDown}
-                          transition="all 0.2s"
-                          {...(openSub &&
-                            item.label === subLink && {
-                              transform: 'rotate(180deg)',
-                            })}
-                        />
-                      ),
-                    })}
+        {/* Submenu */}
+        {submenu && (
+          <Collapse in={open}>
+            {submenu?.map((item, index) => {
+              const isSubmenuLinkActive = router.asPath === item.link
+              return (
+                <Box key={index}>
+                  <Navigate
+                    href={item.link as string}
+                    justifyContent="start"
+                    key={item.link}
+                    ml={8}
                   >
-                    {item.label}
-                  </Button>
-                </Navigate>
-
-                {item?.submenu && (
-                  <Collapse in={item.label === subLink && openSub}>
-                    {item?.submenu?.map(em => {
-                      const isSubmenusSubmenuLinkActive =
-                        router.asPath === em.link
-                      return (
-                        <Box>
-                          <Navigate
-                            href={em.link}
-                            justifyContent="start"
-                            key={em.label}
-                            ml={16}
-                            {...(isSubmenusSubmenuLinkActive && {
-                              color: 'primary.500',
-                              _hover: { color: 'primary.400' },
-                            })}
-                          >
-                            <Button
-                              justifyContent={'start'}
-                              px={2}
-                              w="full"
-                              _hover={{ color: 'primary.500' }}
-                              leftIcon={em.icon}
-                              size="sm"
-                              variant="ghost"
-                            >
-                              {em.label}
-                            </Button>
-                          </Navigate>
-                        </Box>
-                      )
-                    })}
-                  </Collapse>
-                )}
-              </Box>
-            )
-          })}
-        </Collapse>
-      )}
-    </Box>
-  )
-}
+                    <Button
+                      justifyContent={'start'}
+                      leftIcon={item.icon}
+                      size="sm"
+                      variant="ghost"
+                      w="full"
+                      px={2}
+                      _hover={{ color: 'primary.500' }}
+                      {...(isSubmenuLinkActive && {
+                        color: 'primary.500',
+                        _hover: { color: 'primary.400' },
+                      })}
+                    >
+                      {item.label}
+                    </Button>
+                  </Navigate>
+                </Box>
+              )
+            })}
+          </Collapse>
+        )}
+      </Box>
+    )
+  },
+)

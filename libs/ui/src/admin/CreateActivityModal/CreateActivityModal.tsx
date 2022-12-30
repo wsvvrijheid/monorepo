@@ -52,7 +52,9 @@ export const CreateActivityModal: FC<CreateActivityModalProps> = ({
     title: yup.string().required('Title is required'),
     description: yup.string().required('Description is required'),
     content: yup.string().required('Content is required'),
-    image: yup.mixed().required('Image is required'),
+    image: yup.object().shape({
+      file: yup.mixed().required('File is required'),
+    }),
     date: yup.date().required('Date is required'),
   })
 

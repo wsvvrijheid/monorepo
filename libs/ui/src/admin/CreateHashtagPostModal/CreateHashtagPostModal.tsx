@@ -55,7 +55,9 @@ export const CreateHashtagPostModal: FC<CreateHashtagPostModalProps> = ({
     description: yup.string().required('Description is required'),
     content: yup.string().required('Content is required'),
     hashtag: yup.object().required('Hashtag is required'),
-    image: yup.mixed().required('Image is required'),
+    image: yup.object().shape({
+      file: yup.mixed().required('File is required'),
+    }),
     reference: yup.string(),
   })
 

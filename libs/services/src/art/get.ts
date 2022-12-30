@@ -24,7 +24,7 @@ type GetArtsArgs = {
 
 export const getArts = async ({
   categories,
-  populate = ['artist.avatar', 'categories', 'images', 'likers', 'collection'],
+  populate = ['artist.avatar', 'categories', 'image', 'likers', 'collection'],
   page = 1,
   pageSize = 12,
   searchTerm,

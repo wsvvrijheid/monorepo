@@ -16,7 +16,7 @@ export const getArtByArtist = async (
     populate: [
       'artist.avatar',
       'categories',
-      'images',
+      'image',
       'localizations',
       'comments.user.avatar',
       'likers',

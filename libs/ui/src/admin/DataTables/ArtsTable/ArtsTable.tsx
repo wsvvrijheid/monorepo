@@ -145,7 +145,12 @@ export const ArtsTable: FC<ArtsTableProps> = ({
 
   return (
     <>
-      {confirmState && <WConfirm {...confirmState} />}
+      {confirmState && (
+        <WConfirm
+          {...confirmState}
+          onCancel={() => setConfirmState(undefined)}
+        />
+      )}
       {selectedArt && user && (
         <ArtApprovalModal
           artId={selectedArt.id}
@@ -154,7 +159,7 @@ export const ArtsTable: FC<ArtsTableProps> = ({
           artContent={selectedArt.content || ''}
           artApprovalStatus={selectedArt.approvalStatus}
           artPublishedAt={selectedArt.publishedAt}
-          artImages={selectedArt.images as UploadFile[]}
+          artImage={selectedArt.image as UploadFile}
           editorId={user.id as number}
           editorAvatar={user.avatar as string}
           editorName={user.username as string}
