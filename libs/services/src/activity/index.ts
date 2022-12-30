@@ -1,5 +1,4 @@
 export * from './getBySlug'
-export * from './getPaths'
 export * from './getStatic'
 export * from './create'
 export * from './getById'

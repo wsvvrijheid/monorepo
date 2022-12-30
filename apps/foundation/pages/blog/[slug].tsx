@@ -1,7 +1,7 @@
 import { FC } from 'react'
 
 import { dehydrate, QueryKey } from '@tanstack/react-query'
-import { getBlogPaths, getBlogStaticProps } from '@wsvvrijheid/services'
+import { getBlogStaticProps, getModelStaticPaths } from '@wsvvrijheid/services'
 import { Blog, StrapiLocale } from '@wsvvrijheid/types'
 import { BlogDetailTemplate } from '@wsvvrijheid/ui'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
@@ -40,12 +40,10 @@ const BlogDetailPage: FC<BlogPageProps> = ({
 export default BlogDetailPage
 
 export const getStaticPaths: GetStaticPaths = async context => {
-  const paths = await getBlogPaths(context.locales as StrapiLocale[])
-
-  return {
-    paths,
-    fallback: true,
-  }
+  return await getModelStaticPaths(
+    'api/blogs',
+    context.locales as StrapiLocale[],
+  )
 }
 
 export const getStaticProps: GetStaticProps = async context => {
