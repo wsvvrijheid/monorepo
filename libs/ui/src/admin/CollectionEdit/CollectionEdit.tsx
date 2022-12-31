@@ -19,9 +19,7 @@ const schema = yup.object({
   description: yup.string().required('Description is required'),
   content: yup.string().required('Content is required'),
   date: yup.date().required('Date is required'),
-  image: yup.object().shape({
-    file: yup.mixed(),
-  }),
+  image: yup.mixed(),
 })
 
 export const CollectionEdit: FC<CollectionEditProps> = ({ collection }) => {

@@ -18,9 +18,7 @@ const schema = yup.object({
       value: yup.string(),
     }),
   ),
-  image: yup.object().shape({
-    file: yup.mixed(),
-  }),
+  image: yup.mixed(),
 })
 
 const MainHashtagPage = () => {
