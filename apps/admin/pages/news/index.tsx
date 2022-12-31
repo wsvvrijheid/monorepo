@@ -8,7 +8,6 @@ import {
   Tooltip,
 } from '@chakra-ui/react'
 import { useTopic, useTopicSync } from '@wsvvrijheid/services'
-import { useAuthSelector } from '@wsvvrijheid/store'
 import { TopicBase } from '@wsvvrijheid/types'
 import { AdminLayout, TopicCard } from '@wsvvrijheid/ui'
 import { addHours, formatDistanceToNow, isPast } from 'date-fns'
@@ -16,8 +15,7 @@ import { useRouter } from 'next/router'
 import { FaArrowDown, FaArrowUp, FaSyncAlt } from 'react-icons/fa'
 
 const NewsPage = () => {
-  const { user } = useAuthSelector()
-  const { data, isLoading } = useTopic()
+  const { data } = useTopic()
   const syncTopic = useTopicSync()
   const [sources, setSources] = useState<string[]>([])
   const [filter, setFilter] = useState<string[]>([])
@@ -130,14 +128,7 @@ const NewsPage = () => {
     >
       <SimpleGrid columns={{ base: 1 }} gap={4}>
         {topics?.map((topic, i) => (
-          <TopicCard
-            key={topic.url + i}
-            variant="horizontal"
-            topic={topic}
-            userId={user?.id}
-            isLoading={isLoading}
-            hideDescription={false}
-          />
+          <TopicCard key={topic.url + i} topic={topic} />
         ))}
       </SimpleGrid>
     </AdminLayout>
