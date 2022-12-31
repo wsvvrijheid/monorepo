@@ -10,9 +10,7 @@ const schema = yup.object({
   description: yup.string().required('Description is required'),
   content: yup.string().required('Content is required'),
   date: yup.date().required('Date is required'),
-  image: yup.object().shape({
-    file: yup.mixed(),
-  }),
+  image: yup.mixed(),
 })
 
 const ActivityPage = () => {
@@ -32,7 +30,7 @@ const ActivityPage = () => {
             schema={schema}
             translatedFields={['title', 'description', 'content']}
             fields={['title', 'description', 'content', 'date', 'image']}
-            queryKey={['activity', activity.id]}
+            queryKey={['activity', id]}
           />
         )}
       </Box>

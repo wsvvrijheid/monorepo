@@ -8,14 +8,12 @@ import * as yup from 'yup'
 const schema = yup.object({
   title: yup.string().required('Title is required'),
   description: yup.string().required('Description is required'),
-  content: yup.string().required('Content is required'),
+  content: yup.string(),
   hashtag: yup.object().shape({
     label: yup.string(),
     value: yup.string(),
   }),
-  image: yup.object().shape({
-    file: yup.mixed(),
-  }),
+  image: yup.mixed(),
   reference: yup.string(),
 })
 
@@ -25,8 +23,6 @@ const PostPage = () => {
 
   const id = Number(query.id as string)
   const { data: post, isLoading } = usePost(id)
-
-  console.log('post', post)
 
   return (
     <AdminLayout title="Post" isLoading={isLoading} hasBackButton>

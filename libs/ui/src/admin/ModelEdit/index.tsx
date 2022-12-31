@@ -148,6 +148,8 @@ export const ModelEdit = <T extends StrapiTranslatableModel>({
       {
         onSuccess: () => {
           setIsEditing.off()
+          setIsChangingImage.off()
+          setValue('image', undefined)
         },
       },
     )

@@ -35,7 +35,7 @@ const MainHashtagsPage = () => {
   }, [router.locale, searchTerm, sort])
 
   const hashtags = hashtagsQuery?.data?.data
-  console.log('hashtagsQuery.data', hashtagsQuery.data)
+
   const totalCount = hashtagsQuery?.data?.meta?.pagination?.pageCount
   const hashtagWithLocalizeKeys = hashtags?.map(hashtag => ({
     ...hashtag,
