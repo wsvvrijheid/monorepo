@@ -2,7 +2,6 @@ import { FC, useEffect, useState } from 'react'
 
 import {
   Box,
-  Center,
   Collapse,
   Drawer,
   DrawerBody,
@@ -46,9 +45,7 @@ import {
   Container,
   PostArchive,
   PostMaker,
-  PostMakerIcon,
   StepsContent,
-  useLocaleTimeFormat,
   usePostMakerSteps,
 } from '@wsvvrijheid/ui'
 import { getItemLink, getPageSeo } from '@wsvvrijheid/utils'
@@ -68,7 +65,7 @@ import {
   FaTwitter,
 } from 'react-icons/fa'
 
-import { Layout } from '../../../components'
+import { Layout, TimeLeft } from '../../../components'
 import i18nConfig from '../../../next-i18next.config'
 
 interface HashtagProps {
@@ -94,9 +91,6 @@ const Hashtag: FC<HashtagProps> = ({
     locale: locale as StrapiLocale,
   })
   const hashtagQuery = useHashtag()
-
-  const { formattedDate, formattedDateDistance, timeZone } =
-    useLocaleTimeFormat(hashtagQuery.data?.date as string, 'dd MMMM HH:mm')
 
   const [show, setShow] = useState<boolean>(false)
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -172,7 +166,7 @@ const Hashtag: FC<HashtagProps> = ({
         <Container py={4} pos="relative">
           <Box flex={1} textAlign="center">
             <Heading>
-              {hashtagQuery.data?.title}{' '}
+              {hashtagQuery.data?.title}
               <Tooltip label={t`post.all-hashtags`} hasArrow bg="primary.400">
                 <IconButton
                   aria-label="open hashtags"
@@ -203,7 +197,7 @@ const Hashtag: FC<HashtagProps> = ({
               onClick={handleToggle}
             />
           </Box>
-          {hasStarted && hashtagQuery.data?.hashtagDefault ? (
+          {hasStarted ? (
             <Tabs
               flex={1}
               isFitted
@@ -260,29 +254,7 @@ const Hashtag: FC<HashtagProps> = ({
               </TabPanels>
             </Tabs>
           ) : (
-            <Center minH={500}>
-              <Stack
-                alignItems="center"
-                justifyContent="center"
-                textAlign="center"
-                py={16}
-                px={{ base: 4, lg: 16 }}
-                maxW={700}
-                rounded="lg"
-                spacing={2}
-                bg="#9EDEF8"
-                w="full"
-              >
-                <PostMakerIcon boxSize={300} />
-
-                <Heading color="twitter.800" fontSize="2xl">
-                  {t('post.will-start', { time: formattedDateDistance })}
-                </Heading>
-                <Text>
-                  {formattedDate} ({timeZone})
-                </Text>
-              </Stack>
-            </Center>
+            <TimeLeft date={hashtagQuery?.data?.date as string} />
           )}
         </Container>
       </Layout>
