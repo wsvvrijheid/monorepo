@@ -13,6 +13,7 @@ export const ModelSelect: FC<ModelSelectProps> = ({ url, ...rest }) => {
   const models = useSearchModel({
     url,
     locale: locale as StrapiLocale,
+    statuses: ['approved'],
   })
 
   return (

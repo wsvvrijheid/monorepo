@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 
 import { MenuItem } from '@chakra-ui/react'
-import { useArts } from '@wsvvrijheid/services'
-import { ApprovalStatus, Sort, StrapiLocale } from '@wsvvrijheid/types'
+import { useSearchModel } from '@wsvvrijheid/services'
+import { ApprovalStatus, Art, Sort, StrapiLocale } from '@wsvvrijheid/types'
 import { AdminLayout, ArtsTable } from '@wsvvrijheid/ui'
 import { useRouter } from 'next/router'
 import { FaArrowDown, FaArrowUp } from 'react-icons/fa'
@@ -21,9 +21,8 @@ const ArtsPage = () => {
 
   const { locale } = useRouter()
 
-  const queryKey = ['arts', locale, searchTerm, sort, currentPage || 1, status]
-
-  const artsQuery = useArts(queryKey, {
+  const artsQuery = useSearchModel<Art>({
+    url: 'api/arts',
     populate: [
       'artist.user.avatar',
       'categories',
@@ -36,8 +35,7 @@ const ArtsPage = () => {
     searchTerm,
     sort,
     locale: locale as StrapiLocale,
-    status,
-    publicationState: 'preview',
+    statuses: [status],
   })
 
   useEffect(() => setCurrentPage(1), [status])

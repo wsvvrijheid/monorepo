@@ -14,8 +14,8 @@ import {
   Stack,
   useDisclosure,
 } from '@chakra-ui/react'
-import { useArts, useGetArtCategories } from '@wsvvrijheid/services'
-import { StrapiLocale } from '@wsvvrijheid/types'
+import { useGetArtCategories, useSearchModel } from '@wsvvrijheid/services'
+import { Art, StrapiLocale } from '@wsvvrijheid/types'
 import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
 import { MdMenuOpen } from 'react-icons/md'
@@ -52,11 +52,12 @@ export const ArtClubTemplate: FC = () => {
   const queryKey = ['arts', locale, searchTerm, categories || null, page || '1']
 
   // Custom useQuery hook or fetching arts
-  const artsQuery = useArts(queryKey, {
-    categories: categories as string,
+  const artsQuery = useSearchModel<Art>({
+    url: 'api/arts',
     page: parseInt(page as string) || 1,
     searchTerm: searchTerm as string,
     locale: locale as StrapiLocale,
+    statuses: ['approved'],
   })
 
   return (

@@ -65,7 +65,7 @@ export const WImage: FC<WImageProps> = ({
       pos="relative"
       {...rest}
     >
-      <Wrapper {...rest}>
+      <Wrapper {...(hasZoom && { ...rest })}>
         <Image
           style={{ objectFit }}
           fill={hasDimensions ? undefined : fill}
