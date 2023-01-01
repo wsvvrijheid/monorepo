@@ -12,8 +12,9 @@ import {
 } from '@chakra-ui/react'
 import { useMutation } from '@tanstack/react-query'
 import { Mutation } from '@wsvvrijheid/lib'
-import { usePlatforms } from '@wsvvrijheid/services'
+import { useSearchModel } from '@wsvvrijheid/services'
 import {
+  Platform,
   StrapiLocale,
   Volunteer,
   VolunteerCreateInput,
@@ -37,9 +38,12 @@ export const JoinTemplate: FC<JoinTemplateProps> = ({ title }) => {
   const { t } = useTranslation()
   const { locale } = useRouter()
 
-  const platformsResult = usePlatforms()
+  const platformsResult = useSearchModel<Platform>({
+    url: 'api/platforms',
+    locale: locale as StrapiLocale,
+  })
 
-  const platforms = platformsResult.data || []
+  const platforms = platformsResult.data?.data || []
   const jobs = (platforms?.flatMap(p => p.jobs) as Job[]) || []
 
   const { mutate, isLoading, isSuccess } = useMutation(

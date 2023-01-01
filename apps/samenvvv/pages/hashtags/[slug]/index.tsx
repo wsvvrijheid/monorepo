@@ -26,12 +26,12 @@ import { TourProvider } from '@reactour/tour'
 import { dehydrate, QueryClient } from '@tanstack/react-query'
 import {
   getHashtagBySlug,
-  getHashtags,
   HashtagReturnType,
+  searchModel,
+  SearchModelArgs,
   setRandomPost,
   useHashtag,
-  useHashtags,
-  useLocaleTimeFormat,
+  useSearchModel,
 } from '@wsvvrijheid/services'
 import {
   checkSharedPosts,
@@ -40,7 +40,7 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '@wsvvrijheid/store'
-import { StrapiLocale } from '@wsvvrijheid/types'
+import { Hashtag, StrapiLocale } from '@wsvvrijheid/types'
 import {
   Card,
   Container,
@@ -48,6 +48,7 @@ import {
   PostMaker,
   PostMakerIcon,
   StepsContent,
+  useLocaleTimeFormat,
   usePostMakerSteps,
 } from '@wsvvrijheid/ui'
 import { getItemLink, getPageSeo } from '@wsvvrijheid/utils'
@@ -88,7 +89,10 @@ const Hashtag: FC<HashtagProps> = ({
   const dispatch = useAppDispatch()
   const { locale } = useRouter()
 
-  const hashtagsQuery = useHashtags()
+  const hashtagsQuery = useSearchModel<Hashtag>({
+    url: 'api/hashtags',
+    locale: locale as StrapiLocale,
+  })
   const hashtagQuery = useHashtag()
 
   const { formattedDate, formattedDateDistance, timeZone } =
@@ -145,7 +149,7 @@ const Hashtag: FC<HashtagProps> = ({
 
             <DrawerBody>
               <Stack spacing={4}>
-                {hashtagsQuery.data?.map(hashtag => (
+                {hashtagsQuery.data?.data?.map(hashtag => (
                   <Card
                     key={hashtag.id}
                     title={hashtag.title}
@@ -294,9 +298,14 @@ export const getServerSideProps: GetServerSideProps = async context => {
 
   const queryClient = new QueryClient()
 
+  const args: SearchModelArgs = {
+    url: 'api/hashtags',
+    locale,
+  }
+
   await queryClient.prefetchQuery({
-    queryKey: ['hashtags', locale],
-    queryFn: () => getHashtags(locale),
+    queryKey: Object.values(args),
+    queryFn: () => searchModel<Hashtag>(args),
   })
 
   await queryClient.prefetchQuery({

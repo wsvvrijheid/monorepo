@@ -8,7 +8,7 @@ describe('Index', () => {
   it('should render successfully', () => {
     const { baseElement } = render(
       <Index
-        platforms={[]}
+        platforms={{ data: [], meta: {} }}
         seo={{ title: 'Title', description: 'Description' }}
       />,
     )

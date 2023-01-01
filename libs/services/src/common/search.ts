@@ -4,16 +4,16 @@ import {
   ApprovalStatus,
   Sort,
   StrapiLocale,
+  StrapiModel,
   StrapiModelKeys,
-  StrapiTranslatableModel,
   StrapiUrl,
 } from '@wsvvrijheid/types'
 import { parse } from 'qs'
 
-type SearchModelArgs = {
+export type SearchModelArgs = {
   capsStatuses?: ApprovalStatus[]
   categories?: string
-  locale: StrapiLocale
+  locale?: StrapiLocale
   page?: number
   pageSize?: number
   populate?: string | string[]
@@ -26,7 +26,7 @@ type SearchModelArgs = {
   username?: string
 }
 
-export const searchModel = async <T extends StrapiTranslatableModel>({
+export const searchModel = async <T extends StrapiModel>({
   capsStatuses,
   categories,
   locale = 'tr',
@@ -144,20 +144,17 @@ export const searchModel = async <T extends StrapiTranslatableModel>({
     page,
     populate,
     pageSize,
-    locale: hasLocale ? locale : undefined,
+    locale: hasLocale && locale ? locale : undefined,
     sort: sort || undefined,
     publicationState,
   })
 }
 
-export const useSearchModel = <T extends StrapiTranslatableModel>(
+export const useSearchModel = <T extends StrapiModel>(
   args: SearchModelArgs,
 ) => {
-  const { url, searchTerm, sort, page } = args
-  const queryKey = [url, searchTerm, sort, page]
-
   return useQuery({
-    queryKey,
+    queryKey: Object.values(args),
     queryFn: () => searchModel<T>(args),
     keepPreviousData: true,
   })

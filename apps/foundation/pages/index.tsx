@@ -1,9 +1,10 @@
 import { FC } from 'react'
 
 import { Box, Center, Flex, Heading, Text, VStack } from '@chakra-ui/react'
-import { getAllPlatforms } from '@wsvvrijheid/services'
+import { searchModel } from '@wsvvrijheid/services'
+import { Platform } from '@wsvvrijheid/types'
 import { AnimatedBox, Container } from '@wsvvrijheid/ui'
-import { InferGetStaticPropsType } from 'next'
+import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
@@ -46,17 +47,19 @@ const Home: FC<HomeProps> = ({ seo, platforms }) => {
           <HomeAbout />
         </Container>
       </Center>
-      <HomePlatform platforms={platforms} />
+      <HomePlatform platforms={platforms?.data} />
     </Layout>
   )
 }
 
 export default Home
 
-export const getStaticProps = async context => {
+export const getStaticProps = async (context: GetStaticPropsContext) => {
   const { locale } = context
 
-  const platforms = await getAllPlatforms()
+  const platforms = await searchModel<Platform>({
+    url: 'api/platforms',
+  })
 
   const title = {
     en: 'Homepage',
