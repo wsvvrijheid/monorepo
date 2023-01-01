@@ -34,7 +34,7 @@ const MainHashtagsPage = () => {
     ),
   })
 
-  const hashtagsQuery = useSearchModel({
+  const hashtagsQuery = useSearchModel<Hashtag>({
     url: 'api/hashtags',
     sort,
     searchTerm,
