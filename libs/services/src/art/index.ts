@@ -1,5 +1,4 @@
 export * from './comment'
-export * from './create'
 export * from './feedback'
 export * from './get'
 export * from './getByArtist'

@@ -1,16 +1,30 @@
 // Only title, description and locale is required for all models
 
-import { Activity, ActivityUpdateInput } from './activity'
-import { Announcement, AnnouncementUpdateInput } from './announcement'
-import { Art, ArtUpdateInput } from './art'
-import { Blog, BlogUpdateInput } from './blog'
-import { Collection, CollectionUpdateInput } from './collection'
+import { UnionToIntersection } from 'type-fest'
+
+import { Activity, ActivityCreateInput, ActivityUpdateInput } from './activity'
+import {
+  Announcement,
+  AnnouncementCreateInput,
+  AnnouncementUpdateInput,
+} from './announcement'
+import { Art, ArtCreateInput, ArtUpdateInput } from './art'
+import { Blog, BlogCreateInput, BlogUpdateInput } from './blog'
+import {
+  Collection,
+  CollectionCreateInput,
+  CollectionUpdateInput,
+} from './collection'
 import { ApprovalStatus, Localize } from './common'
-import { Competition, CompetitionUpdateInput } from './competition'
+import {
+  Competition,
+  CompetitionCreateInput,
+  CompetitionUpdateInput,
+} from './competition'
 import { UploadFile } from './file'
-import { Hashtag, HashtagUpdateInput } from './hashtag'
+import { Hashtag, HashtagCreateInput, HashtagUpdateInput } from './hashtag'
 import { StrapiLocale } from './locale'
-import { Post, PostUpdateInput } from './post'
+import { Post, PostCreateInput, PostUpdateInput } from './post'
 
 /**
  * TRANSLATION TYPES
@@ -34,6 +48,19 @@ export type StrapiTranslatableUpdateInput =
   | CompetitionUpdateInput
   | HashtagUpdateInput
   | PostUpdateInput
+
+export type StrapiTranslatableCreateInput =
+  | ActivityCreateInput
+  | AnnouncementCreateInput
+  | ArtCreateInput
+  | BlogCreateInput
+  | CollectionCreateInput
+  | CompetitionCreateInput
+  | HashtagCreateInput
+  | PostCreateInput
+
+export type StrapiCreateInputKeys =
+  keyof UnionToIntersection<StrapiTranslatableCreateInput>
 
 export type TranslatableModel<T extends StrapiTranslatableModel> = {
   id: number

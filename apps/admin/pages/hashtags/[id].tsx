@@ -1,7 +1,7 @@
 import { Box } from '@chakra-ui/react'
 import { useHashtagById } from '@wsvvrijheid/services'
-import { Hashtag } from '@wsvvrijheid/types'
-import { AdminLayout, ModelEdit } from '@wsvvrijheid/ui'
+import { Hashtag, HashtagUpdateInput } from '@wsvvrijheid/types'
+import { AdminLayout, ModelEditForm } from '@wsvvrijheid/ui'
 import { useRouter } from 'next/router'
 import * as yup from 'yup'
 
@@ -26,28 +26,34 @@ const MainHashtagPage = () => {
   const { query } = router
 
   const id = Number(query.id as string)
-  const { data: hashtag, isLoading } = useHashtagById(id)
+  const { data: hashtag, isLoading, refetch } = useHashtagById(id)
 
   return (
     <AdminLayout title="Hashtag" isLoading={isLoading} hasBackButton>
       <Box p={6} rounded="md" bg="white" shadow="md">
         {hashtag && (
-          <ModelEdit<Hashtag>
+          <ModelEditForm<Hashtag, HashtagUpdateInput>
             url="api/hashtags"
             model={hashtag}
             schema={schema}
             translatedFields={['title', 'description', 'content']}
             fields={[
-              'title',
-              'description',
-              'content',
-              'date',
-              'image',
-              'mentions',
-              'hashtagDefault',
-              'hashtagExtra',
+              { name: 'title', isRequired: true },
+              { name: 'description', isRequired: true, type: 'textarea' },
+              { name: 'content', isRequired: true, type: 'textarea' },
+              { name: 'date', isRequired: true, type: 'datetime-local' },
+              { name: 'image', isRequired: true, type: 'file' },
+              { name: 'hashtagDefault', isRequired: true },
+              { name: 'hashtagExtra' },
+              {
+                name: 'mentions',
+                type: 'select',
+                url: 'api/mentions',
+                isMulti: true,
+                isRequired: true,
+              },
             ]}
-            queryKey={['hashtag', hashtag.id]}
+            onSuccess={refetch}
           />
         )}
       </Box>

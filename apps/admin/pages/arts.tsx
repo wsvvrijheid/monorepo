@@ -11,15 +11,18 @@ import { useUpdateEffect } from 'react-use'
 const ArtsPage = () => {
   const { query } = useRouter()
   const [currentPage, setCurrentPage] = useState<number>()
+  const [searchTerm, setSearchTerm] = useState<string>()
+
   // Client side query params (?status=pending)
   const status = query.status as ApprovalStatus
   const defaultLocale: StrapiLocale = 'en'
 
-  const [searchTerm, setSearchTerm] = useState<string>()
+  const [sort, setSort] = useState<Sort>()
+
   const { locale } = useRouter()
 
-  const [sort, setSort] = useState<Sort>()
   const queryKey = ['arts', locale, searchTerm, sort, currentPage || 1, status]
+
   const artsQuery = useArts(queryKey, {
     populate: [
       'artist.user.avatar',
@@ -73,7 +76,7 @@ const ArtsPage = () => {
     >
       <ArtsTable
         data={mappedArts}
-        queryKey={queryKey}
+        onSuccess={artsQuery.refetch}
         totalCount={totalCount}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}

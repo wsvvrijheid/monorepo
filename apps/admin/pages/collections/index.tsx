@@ -1,10 +1,11 @@
 import { useState } from 'react'
 
 import { useSearchModel } from '@wsvvrijheid/services'
-import { StrapiLocale, Sort, Collection } from '@wsvvrijheid/types'
-import { AdminLayout, CreateCollectionModal, DataTable } from '@wsvvrijheid/ui'
+import { Collection, Sort, StrapiLocale } from '@wsvvrijheid/types'
+import { AdminLayout, DataTable, ModelCreateModal } from '@wsvvrijheid/ui'
 import { useRouter } from 'next/router'
 import { useUpdateEffect } from 'react-use'
+import * as yup from 'yup'
 
 import { collectionColumns } from '../../data'
 
@@ -14,9 +15,14 @@ const CollectionsPage = () => {
   const [searchTerm, setSearchTerm] = useState<string>()
   const router = useRouter()
 
-  const queryKey = ['collections', searchTerm, sort, currentPage || 1]
+  const schema = yup.object({
+    title: yup.string().required('Title is required'),
+    description: yup.string().required('Description is required'),
+    content: yup.string().required('Content is required'),
+    image: yup.mixed(),
+  })
 
-  const collectionsQuery = useSearchModel<Collection>(queryKey, {
+  const collectionsQuery = useSearchModel<Collection>({
     url: 'api/collections',
     sort,
     searchTerm,
@@ -52,7 +58,19 @@ const CollectionsPage = () => {
         defaultLocale: router.defaultLocale as StrapiLocale,
       }}
     >
-      <CreateCollectionModal queryKey={queryKey} />
+      <ModelCreateModal
+        url="api/collections"
+        schema={schema}
+        fields={[
+          { name: 'title', isRequired: true },
+          { name: 'description', isRequired: true, type: 'textarea' },
+          { name: 'content', isRequired: true, type: 'textarea' },
+          { name: 'image', isRequired: true, type: 'file' },
+        ]}
+        onSuccess={collectionsQuery.refetch}
+      >
+        Create Collection
+      </ModelCreateModal>
       <DataTable
         columns={collectionColumns}
         data={mappedCollections}
