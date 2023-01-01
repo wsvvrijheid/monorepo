@@ -3,32 +3,31 @@ import { useMutation } from '@tanstack/react-query'
 import { Mutation } from '@wsvvrijheid/lib'
 import {
   StrapiMutationInput,
+  StrapiTranslatableCreateInput,
   StrapiTranslatableModel,
-  StrapiTranslatableUpdateInput,
   StrapiUrl,
 } from '@wsvvrijheid/types'
 
-export const updateModel = <
+export const createModel = <
   T extends StrapiTranslatableModel,
-  D extends StrapiTranslatableUpdateInput & { id: number },
+  D extends StrapiTranslatableCreateInput,
 >(
   url: StrapiUrl,
-  { id, ...args }: D & { id: number },
+  args: D,
 ) => {
-  return Mutation.put<T, StrapiMutationInput>(url, id, args)
+  return Mutation.post<T, StrapiMutationInput>(url, args)
 }
 
-export const useUpdateModelMutation = <
+export const useCreateModelMutation = <
   T extends StrapiTranslatableModel,
-  D extends StrapiTranslatableUpdateInput & { id: number },
+  D extends StrapiTranslatableCreateInput,
 >(
   url: StrapiUrl,
 ) => {
   const toast = useToast()
   return useMutation({
     mutationKey: ['update-model', url],
-    mutationFn: ({ id, ...args }: D) =>
-      updateModel<T, D>(url, { id, ...args } as D),
+    mutationFn: (args: D) => createModel<T, D>(url, args as D),
     onSuccess: (res: T) => {
       toast({
         title: `Model updated`,

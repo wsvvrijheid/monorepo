@@ -1,12 +1,28 @@
 import { useEffect, useState } from 'react'
 
 import { useSearchModel } from '@wsvvrijheid/services'
-import { ApprovalStatus, Post, Sort, StrapiLocale } from '@wsvvrijheid/types'
-import { AdminLayout, CreateActivityModal, DataTable } from '@wsvvrijheid/ui'
+import {
+  ApprovalStatus,
+  Post,
+  PostCreateInput,
+  Sort,
+  StrapiLocale,
+} from '@wsvvrijheid/types'
+import { AdminLayout, ModelCreateModal, DataTable } from '@wsvvrijheid/ui'
 import { useRouter } from 'next/router'
 import { useUpdateEffect } from 'react-use'
+import * as yup from 'yup'
 
 import { postColumns } from '../../data'
+
+const schema = yup.object({
+  title: yup.string().required('Title is required'),
+  description: yup.string().required('Description is required'),
+  content: yup.string(),
+  hashtag: yup.object().required('Hashtag is required'),
+  image: yup.mixed().required('Image is required'),
+  reference: yup.string(),
+})
 
 const PostsPage = () => {
   const { query } = useRouter()
@@ -18,18 +34,10 @@ const PostsPage = () => {
   const { locale, push } = useRouter()
 
   const [sort, setSort] = useState<Sort>()
-  const queryKey = [
-    'posts',
-    locale,
-    searchTerm,
-    sort,
-    currentPage || 1,
-    status ? [status] : undefined,
-  ]
-  const postsQuery = useSearchModel<Post>(queryKey, {
+
+  const postsQuery = useSearchModel<Post>({
     url: 'api/posts',
     page: currentPage || 1,
-    pageSize: 10,
     searchTerm,
     sort,
     locale: locale as StrapiLocale,
@@ -67,7 +75,42 @@ const PostsPage = () => {
         defaultLocale,
       }}
     >
-      <CreateActivityModal queryKey={queryKey} />
+      <ModelCreateModal<Post, PostCreateInput>
+        url="api/posts"
+        schema={schema}
+        fields={[
+          {
+            name: 'title',
+            isRequired: true,
+          },
+          {
+            name: 'reference',
+          },
+          {
+            name: 'description',
+            isRequired: true,
+            type: 'textarea',
+          },
+          {
+            name: 'content',
+            type: 'textarea',
+          },
+          {
+            name: 'hashtag',
+            isRequired: true,
+            type: 'select',
+            url: 'api/hashtags',
+          },
+          {
+            name: 'image',
+            type: 'file',
+            isRequired: true,
+          },
+        ]}
+        onSuccess={() => postsQuery.refetch()}
+      >
+        Create Post
+      </ModelCreateModal>
       <DataTable<Post>
         columns={postColumns}
         data={mappedPosts}

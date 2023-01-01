@@ -20,7 +20,7 @@ const CollectionPage = () => {
   const { query } = useRouter()
 
   const id = Number(query.id as string)
-  const { data: collection, isLoading } = useCollectionById(id)
+  const { data: collection, isLoading, refetch } = useCollectionById(id)
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   return (
@@ -54,10 +54,8 @@ const CollectionPage = () => {
               {collection.arts && (
                 <ArtAddToCollectionGrid
                   collection={collection}
-                  arts={collection.arts.map(art => ({
-                    ...art,
-                    collection: collection,
-                  }))}
+                  arts={collection.arts.map(art => ({ ...art, collection }))}
+                  onSuccess={refetch}
                 />
               )}
             </Stack>

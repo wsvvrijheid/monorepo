@@ -1,4 +1,4 @@
-import { QueryKey, useQuery } from '@tanstack/react-query'
+import { useQuery } from '@tanstack/react-query'
 import { Request } from '@wsvvrijheid/lib'
 import {
   ApprovalStatus,
@@ -26,7 +26,7 @@ type SearchModelArgs = {
 export const searchModel = async <T extends StrapiTranslatableModel>({
   url,
   page = 1,
-  pageSize = 12,
+  pageSize,
   searchTerm,
   searchFields = ['title', 'description'],
   sort = ['publishedAt:desc'],
@@ -79,11 +79,14 @@ export const searchModel = async <T extends StrapiTranslatableModel>({
 }
 
 export const useSearchModel = <T extends StrapiTranslatableModel>(
-  queryKey: QueryKey,
   args: SearchModelArgs,
-) =>
-  useQuery({
+) => {
+  const { url, searchTerm, sort, page } = args
+  const queryKey = [url, searchTerm, sort, page]
+
+  return useQuery({
     queryKey,
     queryFn: () => searchModel<T>(args),
     keepPreviousData: true,
   })
+}

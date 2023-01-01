@@ -8,10 +8,10 @@ import {
   AccordionPanel,
   Text,
 } from '@chakra-ui/react'
-import { Collection } from '@wsvvrijheid/types'
+import { Collection, CollectionUpdateInput } from '@wsvvrijheid/types'
 import * as yup from 'yup'
 
-import { ModelEdit } from '../ModelEdit'
+import { ModelEditForm } from '../ModelForm'
 import { CollectionEditProps } from './types'
 
 const schema = yup.object({
@@ -43,12 +43,37 @@ export const CollectionEdit: FC<CollectionEditProps> = ({ collection }) => {
           <AccordionIcon ml={'auto'} />
         </AccordionButton>
         <AccordionPanel p={0} mt={4}>
-          <ModelEdit<Collection>
+          <ModelEditForm<Collection, CollectionUpdateInput>
             url="api/collections"
             model={collection}
             translatedFields={['title', 'description', 'content']}
-            fields={['title', 'description', 'content', 'date', 'image']}
-            queryKey={['collection', collection.id]}
+            fields={[
+              {
+                name: 'title',
+                isRequired: true,
+              },
+              {
+                name: 'description',
+                type: 'textarea',
+                isRequired: true,
+              },
+              {
+                name: 'content',
+                type: 'textarea',
+                isRequired: true,
+              },
+              {
+                name: 'date',
+                type: 'datetime-local',
+                isRequired: true,
+              },
+              {
+                name: 'image',
+                type: 'file',
+                isRequired: true,
+              },
+            ]}
+            onSuccess={() => null}
             schema={schema}
           />
         </AccordionPanel>

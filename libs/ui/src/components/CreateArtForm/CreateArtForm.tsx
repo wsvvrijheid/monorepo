@@ -25,11 +25,13 @@ import {
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import slugify from '@sindresorhus/slugify'
-import { useCreateArt, useGetArtCategories } from '@wsvvrijheid/services'
+import {
+  useCreateModelMutation,
+  useGetArtCategories,
+} from '@wsvvrijheid/services'
 import { useAuthSelector } from '@wsvvrijheid/store'
 import { StrapiLocale } from '@wsvvrijheid/types'
-import { useTranslation } from 'next-i18next'
-import { TFunction } from 'next-i18next'
+import { TFunction, useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
 import useFormPersist from 'react-hook-form-persist'
@@ -104,7 +106,7 @@ export const CreateArtForm: FC<CreateArtFormProps> = ({ queryKey }) => {
     [image],
   )
 
-  const { mutate, isLoading } = useCreateArt(queryKey)
+  const { mutate, isLoading } = useCreateModelMutation('api/arts')
 
   const createArt = async (
     data: CreateArtFormFieldValues & { image: File },

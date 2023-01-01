@@ -47,6 +47,8 @@ export const WSelect: WSelectComponent = ({
       isInvalid={Boolean(errors?.[name])}
       isRequired={isRequired}
       w="full"
+      zIndex={1}
+      pos="relative"
     >
       {label && !hideLabel && (
         <FormLabel mb={1} htmlFor={name} fontSize="sm" fontWeight="semibold">

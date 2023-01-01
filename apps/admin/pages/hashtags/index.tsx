@@ -1,10 +1,16 @@
 import { useState } from 'react'
 
 import { useSearchModel } from '@wsvvrijheid/services'
-import { Sort, StrapiLocale } from '@wsvvrijheid/types'
-import { AdminLayout, CreateMainHashtagModal, DataTable } from '@wsvvrijheid/ui'
+import {
+  Hashtag,
+  HashtagCreateInput,
+  Sort,
+  StrapiLocale,
+} from '@wsvvrijheid/types'
+import { AdminLayout, DataTable, ModelCreateModal } from '@wsvvrijheid/ui'
 import { useRouter } from 'next/router'
 import { useUpdateEffect } from 'react-use'
+import * as yup from 'yup'
 
 import { mainHashtagColumns } from '../../data/'
 
@@ -14,9 +20,21 @@ const MainHashtagsPage = () => {
   const [searchTerm, setSearchTerm] = useState<string>()
   const router = useRouter()
 
-  const queryKey = ['hashtag', searchTerm, sort, currentPage || 1]
+  const schema = yup.object({
+    title: yup.string().required('Title is required'),
+    description: yup.string().required('Description is required'),
+    content: yup.string().required('Content is required'),
+    hashtagDefault: yup.string().required('Hashtag is required'),
+    hashtagExtra: yup.string(),
+    mentions: yup.array().of(
+      yup.object().shape({
+        label: yup.string(),
+        value: yup.string(),
+      }),
+    ),
+  })
 
-  const hashtagsQuery = useSearchModel(queryKey, {
+  const hashtagsQuery = useSearchModel({
     url: 'api/hashtags',
     sort,
     searchTerm,
@@ -53,7 +71,21 @@ const MainHashtagsPage = () => {
         onSearch: handleSearch,
       }}
     >
-      <CreateMainHashtagModal queryKey={queryKey} />
+      <ModelCreateModal<Hashtag, HashtagCreateInput>
+        url="api/hashtags"
+        schema={schema}
+        onSuccess={hashtagsQuery.refetch}
+        fields={[
+          { name: 'title', isRequired: true },
+          { name: 'description', isRequired: true, type: 'textarea' },
+          { name: 'content', isRequired: true, type: 'textarea' },
+          { name: 'hashtagDefault', isRequired: true },
+          { name: 'hashtagExtra' },
+          { name: 'mentions', type: 'select', isMulti: true, isRequired: true },
+        ]}
+      >
+        Create Hashtag
+      </ModelCreateModal>
       <DataTable
         columns={mainHashtagColumns}
         data={hashtagWithLocalizeKeys}

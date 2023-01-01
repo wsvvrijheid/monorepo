@@ -1,5 +1,2 @@
-export * from './getBySlug'
 export * from './getStatic'
-export * from './create'
 export * from './getById'
-export * from './getAll'

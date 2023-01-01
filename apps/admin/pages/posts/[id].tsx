@@ -1,7 +1,7 @@
 import { Box } from '@chakra-ui/react'
 import { usePost } from '@wsvvrijheid/services'
-import { Post } from '@wsvvrijheid/types'
-import { AdminLayout, ModelEdit } from '@wsvvrijheid/ui'
+import { Post, PostUpdateInput } from '@wsvvrijheid/types'
+import { AdminLayout, ModelEditForm } from '@wsvvrijheid/ui'
 import { useRouter } from 'next/router'
 import * as yup from 'yup'
 
@@ -22,26 +22,31 @@ const PostPage = () => {
   const { query } = router
 
   const id = Number(query.id as string)
-  const { data: post, isLoading } = usePost(id)
+  const { data: post, isLoading, refetch } = usePost(id)
 
   return (
     <AdminLayout title="Post" isLoading={isLoading} hasBackButton>
       <Box p={6} rounded="md" bg="white" shadow="md">
         {post && (
-          <ModelEdit<Post>
+          <ModelEditForm<Post, PostUpdateInput>
             url="api/posts"
             model={post}
             schema={schema}
             translatedFields={['title', 'description', 'content']}
             fields={[
-              'title',
-              'description',
-              'content',
-              'image',
-              'hashtag',
-              'reference',
+              { name: 'title', isRequired: true },
+              { name: 'description', isRequired: true, type: 'textarea' },
+              { name: 'reference' },
+              { name: 'content', type: 'textarea' },
+              {
+                name: 'hashtag',
+                type: 'select',
+                url: 'api/hashtags',
+                isRequired: true,
+              },
+              { name: 'image', type: 'file', isRequired: true },
             ]}
-            queryKey={['hashtag', post.id]}
+            onSuccess={refetch}
           />
         )}
       </Box>

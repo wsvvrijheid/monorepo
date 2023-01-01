@@ -69,6 +69,7 @@ export const ArtAddToCollectionModal: FC<ArtAddToCollectionModalProps> = ({
                   <ArtAddToCollectionGrid
                     arts={data?.data || []}
                     collection={collection}
+                    onSuccess={refetch}
                   />
                   <Pagination
                     alignSelf="center"
