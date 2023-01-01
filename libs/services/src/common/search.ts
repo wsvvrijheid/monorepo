@@ -8,34 +8,79 @@ import {
   StrapiTranslatableModel,
   StrapiUrl,
 } from '@wsvvrijheid/types'
+import { parse } from 'qs'
 
 type SearchModelArgs = {
-  url: StrapiUrl
-  populate?: string | string[]
+  capsStatuses?: ApprovalStatus[]
+  categories?: string
+  locale: StrapiLocale
   page?: number
   pageSize?: number
-  searchTerm?: string
-  searchFields?: Array<StrapiModelKeys>
-  sort?: Sort
-  locale: StrapiLocale
+  populate?: string | string[]
   publicationState?: 'live' | 'preview'
+  searchFields?: Array<StrapiModelKeys>
+  searchTerm?: string
+  sort?: Sort
   statuses?: ApprovalStatus[]
-  capsStatuses?: ApprovalStatus[]
+  url: StrapiUrl
+  username?: string
 }
 
 export const searchModel = async <T extends StrapiTranslatableModel>({
-  url,
+  capsStatuses,
+  categories,
+  locale = 'tr',
   page = 1,
   pageSize,
-  searchTerm,
-  searchFields = ['title', 'description'],
-  sort = ['publishedAt:desc'],
-  publicationState = 'preview',
-  locale = 'tr',
   populate,
-  statuses = ['approved'],
-  capsStatuses,
+  publicationState = 'preview',
+  searchFields = ['title', 'description'],
+  searchTerm,
+  sort = ['publishedAt:desc'],
+  statuses,
+  url,
+  username,
 }: SearchModelArgs) => {
+  const urlsWithoutStatus: StrapiUrl[] = [
+    'api/applicants',
+    'api/categories',
+    'api/comments',
+    'api/donates',
+    'api/feedbacks',
+    'api/jobs',
+    'api/lang-roles',
+    'api/mentions',
+    'api/platforms',
+    'api/recommended-topics',
+    'api/recommended-tweets',
+    'api/tags',
+    'api/timelines',
+    'api/users',
+    'api/volunteers',
+    'api/votes',
+  ]
+
+  const urlsWithoutLocale = [
+    'api/applicants',
+    'api/categories',
+    'api/comments',
+    'api/donates',
+    'api/feedbacks',
+    'api/jobs',
+    'api/lang-roles',
+    'api/platforms',
+    'api/recommended-tweets',
+    'api/tags',
+    'api/timelines',
+    'api/users',
+    'api/volunteers',
+    'api/votes',
+  ]
+
+  const hasStatus = !urlsWithoutStatus.includes(url)
+  const hasLocale = !urlsWithoutLocale.includes(url)
+  const hasCapsStatus = url === 'api/posts'
+
   const searchFilter = searchTerm && {
     $or: searchFields.map(field => ({
       [field]: {
@@ -44,26 +89,53 @@ export const searchModel = async <T extends StrapiTranslatableModel>({
     })),
   }
 
-  const statusFilter = {
-    $or: statuses.map(status => ({
-      approvalStatus: {
-        $eq: status,
-      },
-    })),
-  }
+  const statusFilter = statuses &&
+    hasStatus && {
+      $or: statuses.map(status => ({
+        approvalStatus: {
+          $eq: status,
+        },
+      })),
+    }
 
-  const capsStatusFilter = capsStatuses && {
-    $or: capsStatuses?.map(status => ({
-      capsStatus: {
-        $eq: status,
-      },
-    })),
+  const capsStatusFilter = capsStatuses &&
+    hasCapsStatus && {
+      $or: capsStatuses?.map(status => ({
+        capsStatus: {
+          $eq: status,
+        },
+      })),
+    }
+
+  let userFilter = {}
+  let categoryFilter = {}
+
+  if (url === 'api/arts') {
+    if (username) {
+      userFilter = {
+        artist: {
+          username: {
+            $containsi: searchTerm || username,
+          },
+        },
+      }
+    }
+
+    if (categories) {
+      categoryFilter = {
+        slug: {
+          $in: Object.values(parse(categories)),
+        },
+      }
+    }
   }
 
   const filters: { [key: string]: unknown } = {
     ...(searchFilter || {}),
     ...(statusFilter || {}),
     ...(capsStatusFilter || {}),
+    ...(userFilter || {}),
+    ...(categoryFilter || {}),
   }
 
   return Request.collection<T[]>({
@@ -72,7 +144,7 @@ export const searchModel = async <T extends StrapiTranslatableModel>({
     page,
     populate,
     pageSize,
-    locale,
+    locale: hasLocale ? locale : undefined,
     sort: sort || undefined,
     publicationState,
   })

@@ -5,6 +5,7 @@ import {
   FormControl,
   FormLabel,
   SimpleGrid,
+  Stack,
   Textarea,
   useBoolean,
   Wrap,
@@ -236,65 +237,70 @@ export const ModelEditForm = <
           onCancel={() => setConfirmState(undefined)}
         />
       )}
-      <SimpleGrid
-        rowGap={4}
-        columnGap={8}
-        columns={{ base: 1, lg: 2 }}
-        as="form"
-        onSubmit={handleSubmit(onSaveModel)}
-      >
-        {fields.map((field, index) => {
-          const label = field.label || capitalize(field.name as string)
+      <Stack spacing={8}>
+        <SimpleGrid
+          rowGap={4}
+          columnGap={8}
+          columns={{ base: 1, lg: 2 }}
+          as="form"
+          onSubmit={handleSubmit(onSaveModel)}
+        >
+          {fields.map((field, index) => {
+            const label = field.label || capitalize(field.name as string)
 
-          if (field.type === 'file') {
-            return (
-              <FormControl isRequired={field.isRequired} maxW={500}>
-                <FormLabel>Image</FormLabel>
-                <ModelImage
-                  isEditing={isEditing}
-                  model={model}
-                  setValue={setValue}
-                  isChangingImage={isChangingImage}
-                  setIsChangingImage={setIsChangingImage}
+            if (field.type === 'file') {
+              return (
+                <FormControl
+                  key={index}
+                  isRequired={field.isRequired}
+                  maxW={500}
+                >
+                  <FormLabel>Image</FormLabel>
+                  <ModelImage
+                    isEditing={isEditing}
+                    model={model}
+                    setValue={setValue}
+                    isChangingImage={isChangingImage}
+                    setIsChangingImage={setIsChangingImage}
+                  />
+                </FormControl>
+              )
+            }
+
+            if (field.type === 'select') {
+              return (
+                <ModelSelect
+                  key={index}
+                  url={field.url as StrapiUrl}
+                  isMulti={field.isMulti}
+                  isRequired={field.isRequired}
+                  name={field.name as string}
+                  isDisabled={!isEditing}
+                  label={label}
+                  errors={errors}
+                  control={control}
+                  _disabled={disabledStyle}
                 />
-              </FormControl>
-            )
-          }
+              )
+            }
 
-          if (field.type === 'select') {
             return (
-              <ModelSelect
+              <FormItem
+                {...(field.type === 'textarea' && { as: Textarea })}
                 key={index}
-                url={field.url as StrapiUrl}
-                isMulti={field.isMulti}
-                isRequired={field.isRequired}
                 name={field.name as string}
-                isDisabled={!isEditing}
+                type={field.type || 'text'}
                 label={label}
+                isRequired={field.isRequired}
                 errors={errors}
-                control={control}
+                register={register}
+                isDisabled={!isEditing}
                 _disabled={disabledStyle}
               />
             )
-          }
-
-          return (
-            <FormItem
-              {...(field.type === 'textarea' && { as: Textarea })}
-              key={index}
-              name={field.name as string}
-              type={field.type || 'text'}
-              label={label}
-              isRequired={field.isRequired}
-              errors={errors}
-              register={register}
-              isDisabled={!isEditing}
-              _disabled={disabledStyle}
-            />
-          )
-        })}
-
-        <Wrap alignSelf={'end'} justifySelf={'end'}>
+          })}
+        </SimpleGrid>
+        <Wrap alignSelf={'end'} justify={'end'}>
           {model.approvalStatus === 'approved' ? null : (
             <Button
               onClick={onApprove}
@@ -353,7 +359,7 @@ export const ModelEditForm = <
             Delete
           </Button>
         </Wrap>
-      </SimpleGrid>
+      </Stack>
     </>
   )
 }

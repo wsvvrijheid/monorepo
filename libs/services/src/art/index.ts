@@ -1,6 +1,5 @@
 export * from './comment'
 export * from './feedback'
-export * from './get'
 export * from './getByArtist'
 export * from './getByCategories'
 export * from './getById'
