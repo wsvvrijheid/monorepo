@@ -39,33 +39,12 @@ import {
   MdOutlineUnpublished,
 } from 'react-icons/md'
 import * as yup from 'yup'
-import { OptionalObjectSchema } from 'yup/lib/object'
 
 import { FormItem } from '../../components'
 import { WConfirm, WConfirmProps } from '../../components/WConfirm'
 import { ModelImage } from './ModelImage'
 import { ModelSelect } from './ModelSelect'
-import { Option } from './types'
-
-export type ModelEditFormProps<
-  T extends StrapiTranslatableModel,
-  D extends StrapiTranslatableUpdateInput,
-> = {
-  url: StrapiUrl
-  model: T
-  translatedFields: (keyof T)[]
-  fields: {
-    name: keyof D
-    label?: string
-    url?: StrapiUrl
-    // Todo: Add markdown support
-    type?: 'text' | 'textarea' | 'select' | 'file' | 'date' | 'datetime-local'
-    isMulti?: boolean
-    isRequired?: boolean
-  }[]
-  schema: OptionalObjectSchema<any>
-  onSuccess: () => void
-}
+import { ModelEditFormProps, Option } from './types'
 
 export const ModelEditForm = <
   T extends StrapiTranslatableModel,
