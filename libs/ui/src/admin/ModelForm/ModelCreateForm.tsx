@@ -8,6 +8,7 @@ import {
 import { yupResolver } from '@hookform/resolvers/yup'
 import slugify from '@sindresorhus/slugify'
 import { useCreateModelMutation } from '@wsvvrijheid/services'
+import { useAuthSelector } from '@wsvvrijheid/store'
 import {
   StrapiLocale,
   StrapiTranslatableCreateInput,
@@ -33,6 +34,8 @@ export const ModelCreateForm = <
   schema,
   onSuccess,
 }: ModelCreateFormProps<D>) => {
+  const { user } = useAuthSelector()
+
   const createModelMutation = useCreateModelMutation<
     T,
     StrapiTranslatableCreateInput
@@ -59,6 +62,7 @@ export const ModelCreateForm = <
         return acc
       }
 
+      // Multiple select
       if (Array.isArray(value)) {
         return {
           ...acc,
@@ -66,6 +70,7 @@ export const ModelCreateForm = <
         }
       }
 
+      // Single select
       if ((value as Option).value) {
         return {
           ...acc,
@@ -80,9 +85,10 @@ export const ModelCreateForm = <
     }, {} as StrapiTranslatableCreateInput)
 
     const slug = slugify(body.title)
+    const creator = url === 'api/posts' ? user?.id : undefined
 
     createModelMutation.mutate(
-      { ...body, slug, locale: locale as StrapiLocale },
+      { ...body, slug, locale: locale as StrapiLocale, creator },
       {
         onSuccess: () => {
           onSuccess?.()
