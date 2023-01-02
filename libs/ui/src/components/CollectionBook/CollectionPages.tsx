@@ -20,11 +20,11 @@ export const CollectionPages = forwardRef<HTMLDivElement, CollectionPagesPops>(
                   {art.title}
                 </Heading>
 
-                {art.images && (
+                {art.image && (
                   <WImage
                     rounded="sm"
                     maxH="80%"
-                    src={art.images[0]}
+                    src={art.image}
                     alt={art.title}
                   />
                 )}

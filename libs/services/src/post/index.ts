@@ -1,7 +1,3 @@
 export * from './findById'
 export * from './random'
 export * from './setCurrent'
-export * from './getByFilterandSort'
-export * from './getAll'
-export * from './create'
-export * from './update'

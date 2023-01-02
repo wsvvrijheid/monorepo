@@ -1,1 +1,1 @@
-export * from './recommendTweet'
+export * from './recommend'

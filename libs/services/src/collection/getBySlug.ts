@@ -8,7 +8,7 @@ export const getCollectionBySlug = async (
   const response = await Request.collection<Collection[]>({
     url: 'api/collections',
     filters: { slug: { $eq: slug } },
-    populate: ['localizations', 'image', 'arts.images', 'arts.artist'],
+    populate: ['localizations', 'image', 'arts.image', 'arts.artist'],
     locale,
   })
 

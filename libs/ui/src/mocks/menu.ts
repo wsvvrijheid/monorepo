@@ -11,7 +11,6 @@ const {
   academy,
   blog,
   club,
-  volunteer,
   about,
   contact,
   terms,
@@ -34,7 +33,7 @@ export const HEADER_MENU: Pick<HeaderNavProps, 'menu'>['menu'] = [
     en: 'Wsvvrijheid',
     nl: 'Wsvvrijheid',
     tr: 'Wsvvrijheid',
-    children: [volunteer, about, contact],
+    children: [about, contact],
   },
 ]
 
@@ -52,7 +51,7 @@ export const FOOTER_MENU = [
     tr: 'Vakıf',
   },
   {
-    children: [club, activity, volunteer],
+    children: [club, activity],
     en: 'Menu',
     nl: 'Menu',
     tr: 'Menu',

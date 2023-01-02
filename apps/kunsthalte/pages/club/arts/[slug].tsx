@@ -2,7 +2,7 @@ import { FC } from 'react'
 
 import { dehydrate, QueryClient, QueryKey } from '@tanstack/react-query'
 import { API_URL, SITE_URL } from '@wsvvrijheid/config'
-import { getArtBySlug, getArtStaticPaths } from '@wsvvrijheid/services'
+import { getArtBySlug, getModelStaticPaths } from '@wsvvrijheid/services'
 import { Art, StrapiLocale } from '@wsvvrijheid/types'
 import { ArtTemplate } from '@wsvvrijheid/ui'
 import { GetStaticPaths, GetStaticProps } from 'next'
@@ -28,7 +28,10 @@ const ArtPage: FC<ArtPageProps> = ({ seo, queryKey }) => {
 export default ArtPage
 
 export const getStaticPaths: GetStaticPaths = async context => {
-  return await getArtStaticPaths(context.locales as StrapiLocale[])
+  return await getModelStaticPaths(
+    'api/arts',
+    context.locales as StrapiLocale[],
+  )
 }
 
 export const getStaticProps: GetStaticProps = async context => {
@@ -60,7 +63,7 @@ export const getStaticProps: GetStaticProps = async context => {
   const title = art.title || null
   const description = art.description || null
 
-  const images = art.images
+  const image = art.image
 
   const seo = {
     title: art.title,
@@ -77,17 +80,18 @@ export const getStaticProps: GetStaticProps = async context => {
         authors: [art.artist?.username || null],
         // TODO add tags
       },
-      images:
-        images?.length > 0
-          ? images.map(image => ({
-              url: API_URL + image?.url,
-              secureUrl: API_URL + image?.url,
-              type: image?.mime,
-              width: image?.width,
-              height: image?.height,
+      images: image
+        ? [
+            {
+              url: API_URL + image.url,
+              secureUrl: API_URL + image.url,
+              type: image.mime,
+              width: image.width,
+              height: image.height,
               alt: art.title,
-            }))
-          : [],
+            },
+          ]
+        : [],
     },
   }
 

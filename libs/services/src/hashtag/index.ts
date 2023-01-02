@@ -1,6 +1,2 @@
+export * from './getById'
 export * from './getBySlug'
-export * from './list'
-export * from './paths'
-export * from './update'
-export * from './getByFilterAndSort'
-export * from './create'

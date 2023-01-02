@@ -4,11 +4,9 @@ import { UploadFile } from './file'
 import { StrapiBase, StrapiEntityBase } from './strapi'
 import { Tag } from './tag'
 
-type ActivityBase = Expand<
-  StrapiEntityBase & {
-    date: string
-  }
->
+type ActivityBase = StrapiEntityBase & {
+  date: string
+}
 
 type ActivityRelation = {
   categories?: Array<Category>

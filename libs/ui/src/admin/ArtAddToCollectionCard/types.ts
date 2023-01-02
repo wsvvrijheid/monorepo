@@ -11,6 +11,7 @@ export type ArtAddToCollectionCardProps = {
 export type ArtAddToCollectionGridProps = {
   arts: Art[]
   collection: Collection
+  onSuccess?: () => void
 }
 
 export type ArtAddToCollectionModalProps = {

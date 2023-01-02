@@ -14,9 +14,11 @@ export default {
       })
 
       const tweetsResponse = await twitterApi.v2.userTimeline(userData.id_str, {
+        max_results: 50,
         expansions: ['attachments.media_keys'],
         'tweet.fields': ['created_at'],
         'media.fields': ['preview_image_url', 'url'],
+        exclude: 'retweets',
       })
 
       const tweetsData = tweetsResponse?.data.data

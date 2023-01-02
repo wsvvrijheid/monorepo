@@ -19,5 +19,4 @@ export const {
   foundation,
   samenvvv,
   terms,
-  volunteer,
 } = ROUTES

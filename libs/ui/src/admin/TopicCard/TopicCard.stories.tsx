@@ -1,8 +1,9 @@
+// import { Box, SimpleGrid } from '@chakra-ui/react'
 import { Story, Meta } from '@storybook/react'
 
 import { Container } from '../../components'
 import { TOPICS_MOCK } from '../../mocks'
-import { TopicCard } from './index'
+import { TopicCard } from './TopicCard'
 import { TopicCardProps } from './types'
 
 export default {
@@ -21,18 +22,7 @@ export default {
 } as Meta<TopicCardProps>
 
 const Template: Story<TopicCardProps> = args => {
-  return <TopicCard {...args} variant={args.variant} />
+  return <TopicCard {...args} />
 }
 
 export const Default = Template.bind({})
-
-export const Horizontal = Template.bind({})
-Horizontal.args = {
-  variant: 'horizontal',
-}
-
-export const Simple = Template.bind({})
-Simple.args = {
-  variant: 'vertical',
-  hideDescription: true,
-}
