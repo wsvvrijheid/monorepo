@@ -64,7 +64,7 @@ export const TimelineTweet: FC<TimelineTweetProps> = ({
       p={4}
       {...rest}
     >
-      <Avatar name={user.username} src={user.profile} mr={1} />
+      <Avatar size={'sm'} name={user.username} src={user.profile} mr={1} />
 
       <Stack spacing={4}>
         {/* Tweet Header */}
