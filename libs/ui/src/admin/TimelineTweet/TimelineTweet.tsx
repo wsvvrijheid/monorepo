@@ -12,6 +12,7 @@ import {
   Stack,
   Text,
 } from '@chakra-ui/react'
+import { formatDistanceToNow } from 'date-fns'
 import { BsBookmarkPlus, BsThreeDots } from 'react-icons/bs'
 import { RiEditLine } from 'react-icons/ri'
 import twitterText from 'twitter-text'
@@ -63,7 +64,7 @@ export const TimelineTweet: FC<TimelineTweetProps> = ({
       p={4}
       {...rest}
     >
-      <Avatar name={user.username} src={user.profile} mr={1} />
+      <Avatar size={'sm'} name={user.username} src={user.profile} mr={1} />
 
       <Stack spacing={4}>
         {/* Tweet Header */}
@@ -124,6 +125,11 @@ export const TimelineTweet: FC<TimelineTweetProps> = ({
             />
           </Box>
         )}
+        <Text fontSize={'sm'} color={'gray.500'} textAlign={'right'}>
+          {formatDistanceToNow(new Date(tweet.created_at as string), {
+            addSuffix: true,
+          })}
+        </Text>
       </Stack>
     </HStack>
   )

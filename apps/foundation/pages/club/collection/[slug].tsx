@@ -2,9 +2,10 @@ import { useEffect, useState } from 'react'
 import { useRef } from 'react'
 
 import { useBreakpointValue } from '@chakra-ui/react'
-import { getCollectionBySlug, getCollectionPaths } from '@wsvvrijheid/services'
-import { Collection } from '@wsvvrijheid/types'
+import { getCollectionBySlug, getModelStaticPaths } from '@wsvvrijheid/services'
+import { Collection, StrapiLocale } from '@wsvvrijheid/types'
 import { CollectionTemplate } from '@wsvvrijheid/ui'
+import { GetStaticPaths } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
 
@@ -51,13 +52,11 @@ const CollectionPage = ({
 }
 export default CollectionPage
 
-export const getStaticPaths = async context => {
-  const paths = await getCollectionPaths(context.locales)
-
-  return {
-    paths,
-    fallback: true,
-  }
+export const getStaticPaths: GetStaticPaths = async context => {
+  return await getModelStaticPaths(
+    'api/collections',
+    context.locales as StrapiLocale[],
+  )
 }
 
 export const getStaticProps = async context => {

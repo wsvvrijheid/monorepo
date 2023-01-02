@@ -11,6 +11,7 @@ export default factories.createCoreController(
         expansions: ['attachments.media_keys'],
         'tweet.fields': ['created_at'],
         'media.fields': ['preview_image_url', 'url'],
+        exclude: 'retweets',
       })
 
       const tweetsData = tweetsResponse?.data.data

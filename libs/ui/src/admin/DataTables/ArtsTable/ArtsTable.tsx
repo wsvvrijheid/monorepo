@@ -1,13 +1,12 @@
 import { FC, useState } from 'react'
 
 import { useDisclosure } from '@chakra-ui/react'
-import { QueryKey } from '@tanstack/react-query'
 import {
   useArtFeedbackMutation,
   useDeleteModel,
   usePublishModel,
   useUnpublishModel,
-  useUpdateArtMutation,
+  useUpdateModelMutation,
 } from '@wsvvrijheid/services'
 import { useAuthSelector } from '@wsvvrijheid/store'
 import { Art, UploadFile } from '@wsvvrijheid/types'
@@ -19,11 +18,11 @@ import { DataTableProps } from '../types'
 import { columns } from './columns'
 
 type ArtsTableProps = Omit<DataTableProps<Art>, 'columns'> & {
-  queryKey?: QueryKey
+  onSuccess?: () => void
 }
 
 export const ArtsTable: FC<ArtsTableProps> = ({
-  queryKey,
+  onSuccess,
   data: arts,
   totalCount,
   currentPage,
@@ -34,11 +33,11 @@ export const ArtsTable: FC<ArtsTableProps> = ({
   const approvalDisclosure = useDisclosure()
 
   const [selectedIndex, setSelectedIndex] = useState<number>()
-  const feedbackMutation = useArtFeedbackMutation(queryKey)
-  const deleteArtMutation = useDeleteModel('api/arts', queryKey)
-  const updateArtMutation = useUpdateArtMutation(queryKey)
-  const publishArtMutation = usePublishModel('api/arts', queryKey)
-  const unpublishArtMutation = useUnpublishModel('api/arts', queryKey)
+  const feedbackMutation = useArtFeedbackMutation()
+  const deleteArtMutation = useDeleteModel('api/arts')
+  const updateArtMutation = useUpdateModelMutation('api/arts')
+  const publishArtMutation = usePublishModel('api/arts')
+  const unpublishArtMutation = useUnpublishModel('api/arts')
   const selectedArt =
     typeof selectedIndex === 'number' ? arts?.[selectedIndex] : null
   const [confirmState, setConfirmState] = useState<WConfirmProps>()
@@ -48,6 +47,12 @@ export const ArtsTable: FC<ArtsTableProps> = ({
     approvalDisclosure.onOpen()
   }
 
+  const handleSucccess = () => {
+    onSuccess?.()
+    setConfirmState(undefined)
+    approvalDisclosure.onClose()
+  }
+
   const handleReject = async (art: number, editor: number, message: string) => {
     setConfirmState({
       isWarning: true,
@@ -55,16 +60,16 @@ export const ArtsTable: FC<ArtsTableProps> = ({
       description: 'Are you sure you want to reject this art?',
       buttonText: 'Reject',
       onConfirm: async () => {
-        await feedbackMutation.mutateAsync({
-          art,
-          editor,
-          message,
-          status: 'reject',
-          point: 10,
-        })
-
-        setConfirmState(undefined)
-        approvalDisclosure.onClose()
+        feedbackMutation.mutate(
+          {
+            art,
+            editor,
+            message,
+            status: 'reject',
+            point: 10,
+          },
+          { onSuccess: handleSucccess },
+        )
       },
     })
   }
@@ -75,16 +80,16 @@ export const ArtsTable: FC<ArtsTableProps> = ({
       description: 'Are you sure you want to approve this art?',
       buttonText: 'Approve',
       onConfirm: async () => {
-        await feedbackMutation.mutateAsync({
-          art,
-          editor,
-          message,
-          status: 'approve',
-          point: 10,
-        })
-
-        setConfirmState(undefined)
-        approvalDisclosure.onClose()
+        feedbackMutation.mutate(
+          {
+            art,
+            editor,
+            message,
+            status: 'approve',
+            point: 10,
+          },
+          { onSuccess: handleSucccess },
+        )
       },
     })
   }
@@ -96,10 +101,7 @@ export const ArtsTable: FC<ArtsTableProps> = ({
       description: 'Are you sure you want to delete this art?',
       buttonText: 'Delete',
       onConfirm: async () => {
-        await deleteArtMutation.mutateAsync({ id })
-
-        setConfirmState(undefined)
-        approvalDisclosure.onClose()
+        deleteArtMutation.mutate({ id }, { onSuccess: handleSucccess })
       },
     })
   }
@@ -110,10 +112,7 @@ export const ArtsTable: FC<ArtsTableProps> = ({
       description: 'Are you sure you want to publish this art?',
       buttonText: 'Publish',
       onConfirm: async () => {
-        await publishArtMutation.mutateAsync({ id })
-
-        setConfirmState(undefined)
-        approvalDisclosure.onClose()
+        publishArtMutation.mutate({ id }, { onSuccess: handleSucccess })
       },
     })
   }
@@ -124,10 +123,7 @@ export const ArtsTable: FC<ArtsTableProps> = ({
       description: 'Are you sure you want to unpublish this art?',
       buttonText: 'Publish',
       onConfirm: async () => {
-        await unpublishArtMutation.mutateAsync({ id })
-
-        setConfirmState(undefined)
-        approvalDisclosure.onClose()
+        unpublishArtMutation.mutate({ id }, { onSuccess: handleSucccess })
       },
     })
   }
@@ -145,7 +141,12 @@ export const ArtsTable: FC<ArtsTableProps> = ({
 
   return (
     <>
-      {confirmState && <WConfirm {...confirmState} />}
+      {confirmState && (
+        <WConfirm
+          {...confirmState}
+          onCancel={() => setConfirmState(undefined)}
+        />
+      )}
       {selectedArt && user && (
         <ArtApprovalModal
           artId={selectedArt.id}
@@ -154,7 +155,7 @@ export const ArtsTable: FC<ArtsTableProps> = ({
           artContent={selectedArt.content || ''}
           artApprovalStatus={selectedArt.approvalStatus}
           artPublishedAt={selectedArt.publishedAt}
-          artImages={selectedArt.images as UploadFile[]}
+          artImage={selectedArt.image as UploadFile}
           editorId={user.id as number}
           editorAvatar={user.avatar as string}
           editorName={user.username as string}

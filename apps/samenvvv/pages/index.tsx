@@ -1,8 +1,8 @@
 import { FC } from 'react'
 
 import { Box, Button, Center, Heading, Stack, Text } from '@chakra-ui/react'
-import { getHashtags } from '@wsvvrijheid/services'
-import { StrapiLocale } from '@wsvvrijheid/types'
+import { searchModel } from '@wsvvrijheid/services'
+import { Hashtag, StrapiLocale } from '@wsvvrijheid/types'
 import { Container, Navigate, PostMakerIcon } from '@wsvvrijheid/ui'
 import { getItemLink } from '@wsvvrijheid/utils'
 import { GetStaticProps } from 'next'
@@ -54,7 +54,7 @@ const Home: FC<HomeProps> = ({ seo, link }) => {
 
                 <Button
                   as={Navigate}
-                  href={link}
+                  href={link || '/'}
                   size="lg"
                   variant="outline"
                   colorScheme="primary"
@@ -86,8 +86,12 @@ export const getStaticProps: GetStaticProps = async context => {
     tr: 'Anasayfa',
   }
 
-  const hashtags = await getHashtags(locale, '*', 1)
-  const link = getItemLink(hashtags[0], locale, 'hashtag')
+  const hashtags = await searchModel<Hashtag>({
+    url: 'api/hashtags',
+    locale,
+    statuses: ['approved'],
+  })
+  const link = getItemLink(hashtags?.data?.[0], locale, 'hashtag')
 
   const seo: NextSeoProps = {
     title: title[locale],
@@ -99,7 +103,7 @@ export const getStaticProps: GetStaticProps = async context => {
       link,
       seo,
     },
-    revalidate: 120,
+    revalidate: 1,
   }
 }
 

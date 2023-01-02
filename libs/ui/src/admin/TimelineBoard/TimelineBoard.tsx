@@ -71,21 +71,19 @@ export const TimelineBoard: FC<TimelineBoardProps> = ({ timelines }) => {
           borderColor="gray.300"
         >
           <Link
-            href={`https://twitter/com/${timeline.userData.username}`}
+            href={`https://twitter.com/${timeline.userData.username}`}
             target="_blank"
             rel="noreferrer noopener"
             cursor="pointer"
           >
-            <Box bg="blue.400" borderBottom="1px" color="white" p={3}>
-              <HStack>
-                <Text
-                  fontSize={'sm'}
-                  wordBreak={'break-all'}
-                  fontWeight={'bolder'}
-                >
-                  {timeline.userData.name} - @{timeline.userData.username}
-                </Text>
-              </HStack>
+            <Box bg="twitter.500" borderBottom="1px" color="white" p={3}>
+              <Text
+                fontSize={'sm'}
+                wordBreak={'break-all'}
+                fontWeight={'bolder'}
+              >
+                {timeline.userData.name} - @{timeline.userData.username}
+              </Text>
             </Box>
           </Link>
 

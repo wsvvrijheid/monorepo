@@ -1,19 +1,15 @@
 import { SimpleGrid } from '@chakra-ui/react'
-import { getAllCollections } from '@wsvvrijheid/services'
+import { searchModel } from '@wsvvrijheid/services'
 import { Collection, StrapiLocale } from '@wsvvrijheid/types'
 import { Card, Container, Hero } from '@wsvvrijheid/ui'
-import { GetStaticProps, NextPage } from 'next'
+import { GetStaticPropsContext, InferGetStaticPropsType, NextPage } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { NextSeoProps } from 'next-seo'
 import { useRouter } from 'next/router'
 
 import { Layout } from '../../../components'
 import i18nConfig from '../../../next-i18next.config'
 
-type CollectionsPageProps = {
-  seo: NextSeoProps
-  collections: Collection[]
-}
+type CollectionsPageProps = InferGetStaticPropsType<typeof getStaticProps>
 
 const CollectionsPage: NextPage<CollectionsPageProps> = ({
   seo,
@@ -25,7 +21,7 @@ const CollectionsPage: NextPage<CollectionsPageProps> = ({
       <Hero title={seo.title} />
       <Container minH="inherit" py={{ base: 8, lg: 16 }}>
         <SimpleGrid columns={{ base: 1, md: 2, lg: 4 }} gap={4}>
-          {collections.map((collection, i) => (
+          {collections?.data?.map((collection, i) => (
             <Card
               key={i}
               title={collection.title}
@@ -41,12 +37,15 @@ const CollectionsPage: NextPage<CollectionsPageProps> = ({
 }
 export default CollectionsPage
 
-export const getStaticProps: GetStaticProps = async context => {
+export const getStaticProps = async (context: GetStaticPropsContext) => {
   const locale = context.locale as StrapiLocale
 
-  const collections = await getAllCollections(locale)
+  const collections = await searchModel<Collection>({
+    url: 'api/collections',
+    locale,
+  })
 
-  if (!collections) return { notFound: true }
+  if (!collections?.data) return { notFound: true }
 
   const title = {
     en: 'Collections',

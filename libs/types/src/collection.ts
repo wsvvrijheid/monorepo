@@ -3,7 +3,9 @@ import { Expand } from './common'
 import { UploadFile } from './file'
 import { StrapiBase, StrapiEntityBase } from './strapi'
 
-export type CollectionBase = Omit<StrapiEntityBase, 'content'>
+export type CollectionBase = StrapiEntityBase & {
+  date: string
+}
 
 type CollectionRelation = {
   image?: UploadFile

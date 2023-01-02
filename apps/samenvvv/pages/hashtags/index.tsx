@@ -1,16 +1,21 @@
 import { Box, Stack } from '@chakra-ui/react'
 import { QueryClient } from '@tanstack/react-query'
-import { getHashtags, useHashtags } from '@wsvvrijheid/services'
-import { Hashtag, StrapiLocale } from '@wsvvrijheid/types'
+import {
+  searchModel,
+  SearchModelArgs,
+  useSearchModel,
+} from '@wsvvrijheid/services'
+import { Art, Hashtag, StrapiLocale } from '@wsvvrijheid/types'
 import { AnimatedBox, Container, Hero, Markdown } from '@wsvvrijheid/ui'
 import { GetStaticProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { serialize } from 'next-mdx-remote/serialize'
 import { NextSeoProps } from 'next-seo'
+import { useRouter } from 'next/router'
 
 import i18nConfig from '../..//next-i18next.config'
-import { Layout, HashtagCard } from '../../components'
+import { HashtagCard, Layout } from '../../components'
 
 interface HashtagEventsProps {
   hashtags: Hashtag[]
@@ -19,7 +24,12 @@ interface HashtagEventsProps {
 }
 
 const HashtagEvents = ({ seo, source }: HashtagEventsProps) => {
-  const hashtagsQuery = useHashtags()
+  const router = useRouter()
+
+  const hashtagsQuery = useSearchModel<Hashtag>({
+    url: 'api/hashtags',
+    locale: router.locale as StrapiLocale,
+  })
 
   return (
     <Layout seo={seo} isDark>
@@ -32,7 +42,7 @@ const HashtagEvents = ({ seo, source }: HashtagEventsProps) => {
         )}
 
         <Stack spacing={12} mb={12}>
-          {hashtagsQuery.data?.map((hashtag, i) => (
+          {hashtagsQuery.data?.data?.map((hashtag, i) => (
             <AnimatedBox
               directing={i % 2 === 0 ? 'to-left' : 'to-right'}
               delay={3}
@@ -55,9 +65,17 @@ export const getStaticProps: GetStaticProps = async context => {
   const locale = context.locale as StrapiLocale
   const queryClient = new QueryClient()
 
-  await queryClient.prefetchQuery(['hashtags'], () => getHashtags(locale))
+  const args: SearchModelArgs = {
+    url: 'api/hashtags',
+    locale,
+    statuses: ['approved'],
+  }
 
-  const hashtags = queryClient.getQueryData<Hashtag[]>(['hashtags'])
+  const queryKey = Object.values(args)
+
+  await queryClient.prefetchQuery(queryKey, () => searchModel<Art>(args))
+
+  const hashtags = queryClient.getQueryData<Hashtag[]>(queryKey)
 
   const title = {
     en: 'Hashtags',

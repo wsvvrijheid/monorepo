@@ -1,5 +1,2 @@
 export * from './ArtsTable'
-export * from './CollectionsTable'
-export * from './MainHashtagTable'
-export * from './PostsTable'
-export * from './ActivityTable'
+export * from './DataTable'

@@ -2,14 +2,7 @@ import { FC, useEffect, useState } from 'react'
 
 import {
   Box,
-  Center,
   Collapse,
-  Drawer,
-  DrawerBody,
-  DrawerCloseButton,
-  DrawerContent,
-  DrawerHeader,
-  DrawerOverlay,
   Heading,
   IconButton,
   Stack,
@@ -26,12 +19,12 @@ import { TourProvider } from '@reactour/tour'
 import { dehydrate, QueryClient } from '@tanstack/react-query'
 import {
   getHashtagBySlug,
-  getHashtags,
   HashtagReturnType,
+  searchModel,
+  SearchModelArgs,
   setRandomPost,
   useHashtag,
-  useHashtags,
-  useLocaleTimeFormat,
+  useSearchModel,
 } from '@wsvvrijheid/services'
 import {
   checkSharedPosts,
@@ -40,17 +33,15 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '@wsvvrijheid/store'
-import { StrapiLocale } from '@wsvvrijheid/types'
+import { Hashtag, StrapiLocale } from '@wsvvrijheid/types'
 import {
-  Card,
   Container,
   PostArchive,
   PostMaker,
-  PostMakerIcon,
   StepsContent,
   usePostMakerSteps,
 } from '@wsvvrijheid/ui'
-import { getItemLink, getPageSeo } from '@wsvvrijheid/utils'
+import { getPageSeo } from '@wsvvrijheid/utils'
 import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock'
 import { GetServerSideProps } from 'next'
 import { useTranslation } from 'next-i18next'
@@ -67,7 +58,7 @@ import {
   FaTwitter,
 } from 'react-icons/fa'
 
-import { Layout } from '../../../components'
+import { HashtagsDrawer, Layout, TimeLeft } from '../../../components'
 import i18nConfig from '../../../next-i18next.config'
 
 interface HashtagProps {
@@ -88,11 +79,11 @@ const Hashtag: FC<HashtagProps> = ({
   const dispatch = useAppDispatch()
   const { locale } = useRouter()
 
-  const hashtagsQuery = useHashtags()
+  const hashtagsQuery = useSearchModel<Hashtag>({
+    url: 'api/hashtags',
+    locale: locale as StrapiLocale,
+  })
   const hashtagQuery = useHashtag()
-
-  const { formattedDate, formattedDateDistance, timeZone } =
-    useLocaleTimeFormat(hashtagQuery.data?.date as string, 'dd MMMM HH:mm')
 
   const [show, setShow] = useState<boolean>(false)
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -137,38 +128,16 @@ const Hashtag: FC<HashtagProps> = ({
       }}
     >
       <Layout seo={seo}>
-        <Drawer isOpen={isOpen} placement="right" onClose={onClose}>
-          <DrawerOverlay />
-          <DrawerContent>
-            <DrawerCloseButton />
-            <DrawerHeader>{t`post.all-hashtags`}</DrawerHeader>
-
-            <DrawerBody>
-              <Stack spacing={4}>
-                {hashtagsQuery.data?.map(hashtag => (
-                  <Card
-                    key={hashtag.id}
-                    title={hashtag.title}
-                    image={hashtag.image?.url}
-                    description={hashtag.description}
-                    link={
-                      getItemLink(
-                        hashtag,
-                        locale as StrapiLocale,
-                        'hashtag',
-                      ) as string
-                    }
-                  />
-                ))}
-              </Stack>
-            </DrawerBody>
-          </DrawerContent>
-        </Drawer>
+        <HashtagsDrawer
+          isOpen={isOpen}
+          onClose={onClose}
+          hashtags={hashtagsQuery.data?.data}
+        />
 
         <Container py={4} pos="relative">
           <Box flex={1} textAlign="center">
             <Heading>
-              {hashtagQuery.data?.title}{' '}
+              {hashtagQuery.data?.title}
               <Tooltip label={t`post.all-hashtags`} hasArrow bg="primary.400">
                 <IconButton
                   aria-label="open hashtags"
@@ -199,7 +168,7 @@ const Hashtag: FC<HashtagProps> = ({
               onClick={handleToggle}
             />
           </Box>
-          {hasStarted && hashtagQuery.data?.hashtag ? (
+          {hasStarted ? (
             <Tabs
               flex={1}
               isFitted
@@ -256,29 +225,7 @@ const Hashtag: FC<HashtagProps> = ({
               </TabPanels>
             </Tabs>
           ) : (
-            <Center minH={500}>
-              <Stack
-                alignItems="center"
-                justifyContent="center"
-                textAlign="center"
-                py={16}
-                px={{ base: 4, lg: 16 }}
-                maxW={700}
-                rounded="lg"
-                spacing={2}
-                bg="#9EDEF8"
-                w="full"
-              >
-                <PostMakerIcon boxSize={300} />
-
-                <Heading color="twitter.800" fontSize="2xl">
-                  {t('post.will-start', { time: formattedDateDistance })}
-                </Heading>
-                <Text>
-                  {formattedDate} ({timeZone})
-                </Text>
-              </Stack>
-            </Center>
+            <TimeLeft date={hashtagQuery?.data?.date as string} />
           )}
         </Container>
       </Layout>
@@ -293,22 +240,25 @@ export const getServerSideProps: GetServerSideProps = async context => {
   const slug = context.params?.slug as string
 
   const queryClient = new QueryClient()
+  const queryKey = ['hashtag', locale, slug]
+
+  const args: SearchModelArgs = {
+    url: 'api/hashtags',
+    locale,
+    statuses: ['approved'],
+  }
 
   await queryClient.prefetchQuery({
-    queryKey: ['hashtags', locale],
-    queryFn: () => getHashtags(locale),
+    queryKey: Object.values(args),
+    queryFn: () => searchModel<Hashtag>(args),
   })
 
   await queryClient.prefetchQuery({
-    queryKey: ['hashtag', locale, slug],
+    queryKey,
     queryFn: () => getHashtagBySlug(locale, slug),
   })
 
-  const hashtag = queryClient.getQueryData<HashtagReturnType>([
-    'hashtag',
-    locale,
-    slug,
-  ])
+  const hashtag = queryClient.getQueryData<HashtagReturnType>(queryKey)
 
   if (!hashtag) {
     return { notFound: true }
@@ -317,8 +267,10 @@ export const getServerSideProps: GetServerSideProps = async context => {
   const slugs =
     hashtag.localizations?.reduce(
       (acc, l) => {
-        acc[l.locale as StrapiLocale] = l.slug
-        return acc
+        return {
+          ...acc,
+          [l.locale as StrapiLocale]: l.slug,
+        }
       },
       { en: '', nl: '', tr: '' },
     ) || {}

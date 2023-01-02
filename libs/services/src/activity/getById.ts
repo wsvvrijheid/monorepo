@@ -14,7 +14,7 @@ export const getActivityById = async (id: number) => {
 
 export const useActivityById = (id: number) => {
   return useQuery({
-    queryKey: ['activity-id', id],
+    queryKey: ['activity', id],
     queryFn: () => getActivityById(id),
   })
 }

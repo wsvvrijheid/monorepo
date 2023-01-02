@@ -28,11 +28,11 @@ export const getHashtagBySlug = async (
   const hasPassed = isPast(addDays(new Date(hashtag.date as string), 1))
   const hasStarted = isPast(new Date(hashtag.date as string))
   const defaultHashtags =
-    ((hashtag.hashtag || hashtag.hashtagExtra) &&
-      ([hashtag?.hashtag, hashtag?.hashtagExtra].filter(
+    ((hashtag.hashtagDefault || hashtag.hashtagExtra) &&
+      ([hashtag.hashtagDefault, hashtag.hashtagExtra].filter(
         h => !!h,
       ) as string[])) ||
-    undefined
+    []
 
   const posts = hashtag.posts
     ?.filter(p => p.image)

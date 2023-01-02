@@ -1,19 +1,17 @@
 import { FC } from 'react'
 
 import { SimpleGrid } from '@chakra-ui/react'
-import { getAllPlatforms } from '@wsvvrijheid/services'
+import { searchModel } from '@wsvvrijheid/services'
 import { Platform } from '@wsvvrijheid/types'
 import { AnimatedBox, Container, Hero, Card } from '@wsvvrijheid/ui'
+import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useRouter } from 'next/router'
 
 import { Layout } from '../../components'
 import i18nConfig from '../../next-i18next.config'
 
-type PlatformsProps = {
-  title: string
-  platforms: Platform[]
-}
+type PlatformsProps = InferGetStaticPropsType<typeof getStaticProps>
 
 const Platforms: FC<PlatformsProps> = ({ title, platforms }) => {
   const { locale } = useRouter()
@@ -28,7 +26,7 @@ const Platforms: FC<PlatformsProps> = ({ title, platforms }) => {
           gap={{ base: 6, lg: 8 }}
           my={16}
         >
-          {platforms.map((project, i) => (
+          {platforms?.data?.map((project, i) => (
             <AnimatedBox key={project.id} delay={i * 3} directing="to-down">
               <Card
                 title={project[`name_${locale}`]}
@@ -47,10 +45,12 @@ const Platforms: FC<PlatformsProps> = ({ title, platforms }) => {
 
 export default Platforms
 
-export const getStaticProps = async context => {
+export const getStaticProps = async (context: GetStaticPropsContext) => {
   const { locale } = context
 
-  const platforms = await getAllPlatforms()
+  const platforms = await searchModel<Platform>({
+    url: 'api/platforms',
+  })
 
   const seo = {
     title: {
