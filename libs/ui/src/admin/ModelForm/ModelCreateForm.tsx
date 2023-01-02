@@ -103,6 +103,7 @@ export const ModelCreateForm = <
       rowGap={4}
       columnGap={8}
       columns={{ base: 1, lg: 2 }}
+      as={'form'}
       onSubmit={handleSubmit(onCreateModel)}
     >
       {fields.map((field, index) => {

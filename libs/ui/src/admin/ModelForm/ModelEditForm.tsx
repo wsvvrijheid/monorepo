@@ -115,7 +115,7 @@ export const ModelEditForm = <
 
   const {
     register,
-    formState: { errors, isValid },
+    formState: { errors },
     handleSubmit,
     control,
     setValue,
@@ -237,14 +237,8 @@ export const ModelEditForm = <
           onCancel={() => setConfirmState(undefined)}
         />
       )}
-      <Stack spacing={8}>
-        <SimpleGrid
-          rowGap={4}
-          columnGap={8}
-          columns={{ base: 1, lg: 2 }}
-          as="form"
-          onSubmit={handleSubmit(onSaveModel)}
-        >
+      <Stack spacing={8} as="form" onSubmit={handleSubmit(onSaveModel)}>
+        <SimpleGrid rowGap={4} columnGap={8} columns={{ base: 1, lg: 2 }}>
           {fields.map((field, index) => {
             const label = field.label || capitalize(field.name as string)
 
@@ -335,7 +329,6 @@ export const ModelEditForm = <
                 leftIcon={<MdOutlineCheck />}
                 colorScheme={'primary'}
                 fontSize="sm"
-                isDisabled={!isValid}
               >
                 Save
               </Button>

@@ -10,7 +10,7 @@ const schema = yup.object({
   description: yup.string().required('Description is required'),
   content: yup.string().required('Content is required'),
   date: yup.date().required('Date is required'),
-  hashtag: yup.string().required('Hashtag is required'),
+  hashtagDefault: yup.string().required('Hashtag is required'),
   hashtagExtra: yup.string(),
   mentions: yup.array().of(
     yup.object().shape({
