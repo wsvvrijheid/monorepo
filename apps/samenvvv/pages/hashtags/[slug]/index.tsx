@@ -245,6 +245,7 @@ export const getServerSideProps: GetServerSideProps = async context => {
   const args: SearchModelArgs = {
     url: 'api/hashtags',
     locale,
+    statuses: ['approved'],
   }
 
   await queryClient.prefetchQuery({

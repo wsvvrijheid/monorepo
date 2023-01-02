@@ -68,6 +68,7 @@ export const getStaticProps: GetStaticProps = async context => {
   const args: SearchModelArgs = {
     url: 'api/hashtags',
     locale,
+    statuses: ['approved'],
   }
 
   const queryKey = Object.values(args)
