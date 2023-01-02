@@ -39,10 +39,9 @@ const MainHashtagPage = () => {
             translatedFields={['title', 'description', 'content']}
             fields={[
               { name: 'title', isRequired: true },
+              { name: 'date', isRequired: true, type: 'datetime-local' },
               { name: 'description', isRequired: true, type: 'textarea' },
               { name: 'content', isRequired: true, type: 'textarea' },
-              { name: 'date', isRequired: true, type: 'datetime-local' },
-              { name: 'image', isRequired: true, type: 'file' },
               { name: 'hashtagDefault', isRequired: true },
               { name: 'hashtagExtra' },
               {
@@ -52,6 +51,7 @@ const MainHashtagPage = () => {
                 isMulti: true,
                 isRequired: true,
               },
+              { name: 'image', isRequired: true, type: 'file' },
             ]}
             onSuccess={refetch}
           />
