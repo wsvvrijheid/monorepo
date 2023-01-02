@@ -30,18 +30,20 @@ export const AdminNavItemCollapsed: FC<AdminNavItemProps> = ({
   return (
     <Popover placement="right-start" trigger="hover">
       <PopoverTrigger>
-        <Navigate href={link as string}>
-          <IconButton
-            aria-label={label}
-            icon={icon}
-            size="lg"
-            variant="ghost"
-            {...(isMenuLinkActive && {
-              colorScheme: 'primary',
-              variant: 'solid',
-            })}
-          />
-        </Navigate>
+        <Box>
+          <Navigate href={link as string}>
+            <IconButton
+              aria-label={label}
+              icon={icon}
+              size="lg"
+              variant="ghost"
+              {...(isMenuLinkActive && {
+                colorScheme: 'primary',
+                variant: 'solid',
+              })}
+            />
+          </Navigate>
+        </Box>
       </PopoverTrigger>
 
       <PopoverContent w="max-content">

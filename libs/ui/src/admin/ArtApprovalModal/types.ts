@@ -4,7 +4,7 @@ export type ArtApprovalTypes = {
   artDescription: string
   artContent: string
   artId: number
-  artImages: UploadFile[] | string[]
+  artImage: UploadFile | string
   artTitle: string
   artistAvatar: string
   artistName: string

@@ -6,7 +6,7 @@ export const getCollectionById = async (id: number) => {
   const response = await Request.single<Collection>({
     url: 'api/collections',
     id,
-    populate: ['localizations', 'image', 'arts.images', 'arts.artist'],
+    populate: ['localizations', 'image', 'arts.image', 'arts.artist'],
   })
 
   return response?.data || null

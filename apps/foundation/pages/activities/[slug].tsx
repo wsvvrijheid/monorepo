@@ -2,10 +2,13 @@ import { FC } from 'react'
 
 import { Spinner } from '@chakra-ui/react'
 import { dehydrate } from '@tanstack/react-query'
-import { getActivityPaths, getActivityStaticProps } from '@wsvvrijheid/services'
+import {
+  getActivityStaticProps,
+  getModelStaticPaths,
+} from '@wsvvrijheid/services'
 import { StrapiLocale, UploadFile } from '@wsvvrijheid/types'
 import { ActivityDetail } from '@wsvvrijheid/ui'
-import { GetStaticPropsContext } from 'next'
+import { GetStaticPaths, GetStaticPropsContext } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { serialize } from 'next-mdx-remote/serialize'
@@ -35,13 +38,11 @@ const ActivityDetailPage: FC<ActivityDetailPageProps> = ({
 }
 export default ActivityDetailPage
 
-export const getStaticPaths = async context => {
-  const paths = await getActivityPaths(context.locales)
-
-  return {
-    paths,
-    fallback: true,
-  }
+export const getStaticPaths: GetStaticPaths = async context => {
+  return await getModelStaticPaths(
+    'api/activities',
+    context.locales as StrapiLocale[],
+  )
 }
 
 export const getStaticProps = async (context: GetStaticPropsContext) => {

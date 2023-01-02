@@ -11,7 +11,6 @@ import {
   privacy,
   samenvvv,
   terms,
-  volunteer,
 } from './routes'
 
 export const wsvvrijheid = {
@@ -31,7 +30,7 @@ export const wsvvrijheid = {
       en: 'Wsvvrijheid',
       nl: 'Wsvvrijheid',
       tr: 'Wsvvrijheid',
-      children: [volunteer, about, contact],
+      children: [about, contact],
     },
   ],
   footerMenu: [
@@ -48,7 +47,7 @@ export const wsvvrijheid = {
       tr: 'Vakıf',
     },
     {
-      children: [club, activity, volunteer],
+      children: [club, activity],
       en: 'Menu',
       nl: 'Menu',
       tr: 'Menu',

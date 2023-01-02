@@ -1,5 +1,5 @@
 import { useToast } from '@chakra-ui/react'
-import { QueryKey, useMutation, useQueryClient } from '@tanstack/react-query'
+import { useMutation } from '@tanstack/react-query'
 import { Mutation } from '@wsvvrijheid/lib'
 import { Art, Feedback, FeedbackArtCreateInput } from '@wsvvrijheid/types'
 
@@ -15,15 +15,13 @@ export const createFeedback = async (args: FeedbackArtCreateInput) => {
   return Mutation.put<Art, typeof body>('api/arts', args.art, body)
 }
 
-export const useArtFeedbackMutation = (queryKey?: QueryKey) => {
-  const queryClient = useQueryClient()
+export const useArtFeedbackMutation = () => {
   const toast = useToast()
   return useMutation({
     mutationKey: ['art-feedback'],
     mutationFn: ({ art, editor, message, status }: FeedbackArtCreateInput) =>
       createFeedback({ art, editor, message, status, point: 1 }),
     onSuccess: res => {
-      queryClient.invalidateQueries(queryKey)
       toast({
         title: `Art ${res.approvalStatus}`,
         description: `Art has been ${res.approvalStatus}`,

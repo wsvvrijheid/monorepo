@@ -1,10 +1,12 @@
 import { FC } from 'react'
 
 import {
-  getPlatformStaticPaths,
+  getModelStaticPaths,
   getPlatformStaticProps,
 } from '@wsvvrijheid/services'
+import { StrapiLocale } from '@wsvvrijheid/types'
 import { PlatformTemplate, PlatformTemplateProps } from '@wsvvrijheid/ui'
+import { GetStaticPaths } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { Layout } from '../../components'
@@ -26,7 +28,12 @@ const PlatformDetailPage: FC<PlatformTemplateProps> = ({
 }
 export default PlatformDetailPage
 
-export const getStaticPaths = getPlatformStaticPaths
+export const getStaticPaths: GetStaticPaths = async context => {
+  return await getModelStaticPaths(
+    'api/platforms',
+    context.locales as StrapiLocale[],
+  )
+}
 
 export const getStaticProps = async context => {
   const props = await getPlatformStaticProps(context)

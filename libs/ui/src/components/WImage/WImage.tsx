@@ -30,7 +30,7 @@ export type WImageProps = {
   hasZoom?: boolean
   fill?: boolean
   objectFit?: 'cover' | 'contain' | 'fill' | 'none' | 'scale-down'
-} & Omit<ChakraImageProps, 'objectFit' | 'src'>
+} & Omit<ChakraImageProps, 'objectFit' | 'src' | 'fill'>
 
 // TODO: add loader
 export const WImage: FC<WImageProps> = ({
@@ -51,8 +51,8 @@ export const WImage: FC<WImageProps> = ({
   // const blurDataURL =
   //   thumbnailSrc || `data:image/svg+xml;base64,${toBase64(shimmer(60, 60))}`
 
-  const height = rest.height || rest.h
-  const width = rest.width || rest.w
+  const height = rest.height
+  const width = rest.width
   const hasDimensions = width && height
 
   const Wrapper = hasZoom ? Zoom : Fragment
@@ -65,7 +65,7 @@ export const WImage: FC<WImageProps> = ({
       pos="relative"
       {...rest}
     >
-      <Wrapper>
+      <Wrapper {...(hasZoom && { ...rest })}>
         <Image
           style={{ objectFit }}
           fill={hasDimensions ? undefined : fill}

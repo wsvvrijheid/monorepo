@@ -1,20 +1,44 @@
 import { FC } from 'react'
 
-import { useToast } from '@chakra-ui/react'
+import {
+  Box,
+  ButtonGroup,
+  Popover,
+  PopoverArrow,
+  PopoverBody,
+  PopoverContent,
+  PopoverTrigger,
+  Stack,
+  Text,
+  useBreakpointValue,
+  useToast,
+} from '@chakra-ui/react'
 import { useQueryClient } from '@tanstack/react-query'
 import { useRecommendTopic } from '@wsvvrijheid/services'
+import { useAuthSelector } from '@wsvvrijheid/store'
 import { TopicBase } from '@wsvvrijheid/types'
+import { formatDistanceStrict } from 'date-fns'
+import { AiOutlineEye, AiOutlineLike, AiOutlineShareAlt } from 'react-icons/ai'
+import { BsBookmarkHeart } from 'react-icons/bs'
 import { useLocalStorage } from 'usehooks-ts'
 
-import { TopicCardBase } from '../TopicCardBase'
-import { TopicCardProps } from './index'
+import { WImage } from '../../components'
+import { ShareButtons } from '../../components'
+import { ActionButton } from './ActionButton'
+import { TopicCardProps } from './types'
 
-export const TopicCard: FC<TopicCardProps> = ({
-  topic,
-  userId,
-  isLoading,
-  ...rest
-}) => {
+export const TopicCard: FC<TopicCardProps> = ({ topic }) => {
+  const { user } = useAuthSelector()
+
+  const isVertical = useBreakpointValue({
+    base: true,
+    lg: false,
+  })
+
+  const time = topic.time
+    ? formatDistanceStrict(new Date(topic.time), new Date()) + ' - '
+    : ''
+
   const [bookmarksStorage, setBookmarksStorage] = useLocalStorage<TopicBase[]>(
     'bookmarks',
     [],
@@ -23,7 +47,7 @@ export const TopicCard: FC<TopicCardProps> = ({
   const queryClient = useQueryClient()
 
   const toast = useToast()
-  const { mutate, isLoading: isRecommendationLoading } = useRecommendTopic()
+  const { mutate, isLoading } = useRecommendTopic()
 
   const isBookmarked = bookmarksStorage?.some(t => t.url === topic.url)
 
@@ -43,21 +67,11 @@ export const TopicCard: FC<TopicCardProps> = ({
     console.log('Share')
   }
 
-  const handleView = () => {
-    window.open(
-      topic.url,
-      '_blank, popupWindow',
-      `height=500,width=800,left=${window.innerWidth / 3},top=${
-        window.innerHeight / 2
-      },resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=yes,directories=no, status=yes`,
-    )
-  }
-
   const handleRecommend = () => {
     mutate(
       {
         ...topic,
-        recommender: userId,
+        recommender: user?.id as number,
       },
       { onSettled: () => queryClient.invalidateQueries(['topics']) },
     )
@@ -70,16 +84,117 @@ export const TopicCard: FC<TopicCardProps> = ({
     })
   }
 
+  const handleView = () => {
+    window.open(
+      topic.url,
+      '_blank, popupWindow',
+      `height=500,width=800,left=${window.innerWidth / 3},top=${
+        window.innerHeight / 2
+      },resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=yes,directories=no, status=yes`,
+    )
+  }
+
   return (
-    <TopicCardBase
-      topic={topic}
-      onBookmark={handleBookmark}
-      onRecommend={handleRecommend}
-      onShare={handleShare}
-      onView={handleView}
-      isBookmarked={isBookmarked}
-      isLoading={isLoading || isRecommendationLoading}
-      {...rest}
-    />
+    <Stack
+      h={isVertical ? 'auto' : '200px'}
+      boxShadow="md"
+      rounded="md"
+      align={isVertical ? 'stretch' : 'flex-start'}
+      direction={isVertical ? 'column' : 'row'}
+      overflow="hidden"
+    >
+      {topic.image && (
+        <WImage
+          w={isVertical ? '100%' : '300px'}
+          h={isVertical ? '200px' : '100%'}
+          src={topic.image}
+          alt={topic.title}
+        />
+      )}
+      <Stack
+        spacing={4}
+        p={isVertical ? 4 : 8}
+        flex={1}
+        justify="space-between"
+        h="full"
+      >
+        <Stack textAlign={isVertical ? 'center' : 'left'}>
+          <Text fontSize="lg" fontWeight="semibold" noOfLines={1}>
+            {topic.title}
+          </Text>
+          <Text noOfLines={isVertical ? 3 : 2}>{topic.description}</Text>
+        </Stack>
+        <Stack
+          direction={isVertical ? 'column' : 'row'}
+          align={'center'}
+          spacing={4}
+        >
+          <Text
+            flex={1}
+            fontSize="sm"
+            fontWeight="medium"
+            color={'primary.500'}
+            noOfLines={1}
+          >
+            {time}
+            {topic.publisher}
+          </Text>
+
+          <ButtonGroup size={'sm'}>
+            <ActionButton
+              onClick={() => handleView()}
+              icon={<AiOutlineEye />}
+              title="View"
+              isVertical={isVertical}
+              variant="ghost"
+            />
+
+            <Popover placement="top">
+              <PopoverTrigger>
+                <Box>
+                  <ActionButton
+                    onClick={() => handleShare()}
+                    icon={<AiOutlineShareAlt />}
+                    title="Share"
+                    isVertical={isVertical}
+                    variant="ghost"
+                  />
+                </Box>
+              </PopoverTrigger>
+              <PopoverContent w="max-content">
+                <PopoverArrow />
+                <PopoverBody>
+                  <ShareButtons
+                    title={topic.title}
+                    url={topic.url}
+                    quote={topic.description || ''}
+                  />
+                </PopoverBody>
+              </PopoverContent>
+            </Popover>
+
+            <ActionButton
+              onClick={() => handleBookmark()}
+              icon={<BsBookmarkHeart color={isBookmarked ? 'white' : ''} />}
+              title={isBookmarked ? 'Remove' : 'Add Bookmark'}
+              isVertical={isVertical}
+              variant={isBookmarked ? 'solid' : 'ghost'}
+              colorScheme={isBookmarked ? 'red' : 'gray'}
+            />
+            {user && (
+              <ActionButton
+                onClick={() => handleRecommend()}
+                icon={<AiOutlineLike />}
+                title="Recommend"
+                isVertical={isVertical}
+                disabled={topic.isRecommended || isLoading}
+                variant={topic.isRecommended ? 'solid' : 'ghost'}
+                colorScheme={topic.isRecommended ? 'green' : 'gray'}
+              />
+            )}
+          </ButtonGroup>
+        </Stack>
+      </Stack>
+    </Stack>
   )
 }

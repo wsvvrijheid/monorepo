@@ -35,7 +35,7 @@ export type PostCreateInput = Expand<
     PostBase,
     'approvalStatus' | 'capsStatus'
   > &
-    Pick<PostRelationInput, 'image' | 'hashtag' | 'tags'>
+    Pick<PostRelationInput, 'image' | 'hashtag' | 'tags' | 'creator'>
 >
 
 export type PostUpdateInput = Expand<

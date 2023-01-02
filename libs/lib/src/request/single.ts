@@ -11,7 +11,7 @@ export const requestSingle = async <T extends StrapiModel>({
   token = TOKEN,
   fields,
   locale,
-  populate,
+  populate = '*',
   publicationState,
 }: RequestSingleArgs) => {
   const query = qs.stringify(

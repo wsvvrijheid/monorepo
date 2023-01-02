@@ -1,8 +1,8 @@
 import { FC } from 'react'
 
-import { Stack, Box } from '@chakra-ui/react'
-import { useCollections } from '@wsvvrijheid/services'
-import { Category, StrapiLocale } from '@wsvvrijheid/types'
+import { Box, Stack } from '@chakra-ui/react'
+import { useSearchModel } from '@wsvvrijheid/services'
+import { Category, Collection, StrapiLocale } from '@wsvvrijheid/types'
 import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
 
@@ -28,7 +28,10 @@ export const ArtSideBar: FC<ArtSideBarProps> = ({
     query: { categories },
   } = useRouter()
 
-  const collectionsQuery = useCollections()
+  const collectionsQuery = useSearchModel<Collection>({
+    url: 'api/collections',
+    locale: locale as StrapiLocale,
+  })
 
   const initialCategories = (categories as string)
     ?.split('&')
@@ -50,10 +53,10 @@ export const ArtSideBar: FC<ArtSideBarProps> = ({
         </Box>
       )}
 
-      {collectionsQuery?.data && collectionsQuery?.data?.length > 0 && (
+      {collectionsQuery?.data && collectionsQuery?.data?.data?.length > 0 && (
         <Box overflowY="auto" maxH="calc((100vh - 150px) / 2)">
           <CollectionList
-            collectionData={collectionsQuery.data || []}
+            collectionData={collectionsQuery.data?.data || []}
           ></CollectionList>
         </Box>
       )}

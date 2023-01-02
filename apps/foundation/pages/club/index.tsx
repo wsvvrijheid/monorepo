@@ -1,8 +1,8 @@
 import { FC } from 'react'
 
 import { dehydrate, QueryClient } from '@tanstack/react-query'
-import { getArts } from '@wsvvrijheid/services'
-import { StrapiLocale } from '@wsvvrijheid/types'
+import { searchModel } from '@wsvvrijheid/services'
+import { Art, StrapiLocale } from '@wsvvrijheid/types'
 import { ArtClubTemplate } from '@wsvvrijheid/ui'
 import { GetStaticProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
@@ -29,7 +29,12 @@ export const getStaticProps: GetStaticProps = async context => {
 
     // queryKey: [arts, locale, searchTerm, category, page]
     queryKey: ['arts', locale, null, null, '1'],
-    queryFn: () => getArts({ locale: locale as StrapiLocale }),
+    queryFn: () =>
+      searchModel<Art>({
+        url: 'api/arts',
+        locale: locale as StrapiLocale,
+        statuses: ['approved'],
+      }),
   })
 
   const seo = {
