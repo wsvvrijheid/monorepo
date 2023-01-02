@@ -1,16 +1,15 @@
-import { TwitterApi } from 'twitter-api-v2'
-import { twitterApi } from '../../../../libs/twitter/client'
+import { twitterApi } from '../../../../src/libs/twitter/client'
 
-export default {
-  async beforeCreate(event) {
-    // const { data } = event.params
-    // FIXME
-    // event.params.data.creator = data.createdBy
-  },
-  async afterCreate({ result }) {
-    try {
+export default async ({ strapi }) => {
+  try {
+    const timelines = await strapi.controller('api::timeline.timeline').find({})
+
+    if (!Array.isArray(timelines.data)) return
+    if (!timelines.data[0]) return
+
+    timelines.data.map(async ({ id, attributes }) => {
       const userData = await twitterApi.v1.user({
-        screen_name: result.username,
+        screen_name: attributes.username,
       })
 
       const tweetsResponse = await twitterApi.v2.userTimeline(userData.id_str, {
@@ -39,7 +38,7 @@ export default {
         },
       )
 
-      await strapi.service('api::timeline.timeline').update(result.id, {
+      await strapi.service('api::timeline.timeline').update(id, {
         data: {
           userData: {
             name: userData.name,
@@ -49,8 +48,11 @@ export default {
           tweets,
         },
       })
-    } catch (error) {
-      console.log('Error updating user tweet', error)
-    }
-  },
+    })
+  } catch (error) {
+    console.log(
+      'Error updating timeline tweet',
+      error?.response || error.message,
+    )
+  }
 }
