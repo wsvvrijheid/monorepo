@@ -30,8 +30,8 @@ export const useCreateModelMutation = <
     mutationFn: (args: D) => createModel<T, D>(url, args as D),
     onSuccess: (res: T) => {
       toast({
-        title: `Model updated`,
-        description: `Model ${res.title} has been updated`,
+        title: `Model created`,
+        description: `Model ${res.title} has been created`,
         status: 'success',
         duration: 5000,
         isClosable: true,

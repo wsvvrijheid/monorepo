@@ -22,6 +22,7 @@ export const TimelineBoard: FC<TimelineBoardProps> = ({ timelines }) => {
   const handleSubmit = async (
     text: string,
     originalTweet: TimelineTweetType,
+    mentions: number[],
     media?: File,
   ) => {
     const recommendedTweet: RecommendedTweetCreateInput = {
@@ -29,13 +30,12 @@ export const TimelineBoard: FC<TimelineBoardProps> = ({ timelines }) => {
       originalTweet: JSON.parse(JSON.stringify(originalTweet)),
       media,
       text,
+      mentions,
     }
 
-    await mutateAsync(recommendedTweet, {
-      onSuccess: () => {
-        onClose()
-      },
-    })
+    console.log('recommendedTweet', recommendedTweet)
+
+    await mutateAsync(recommendedTweet)
     onClose()
   }
 

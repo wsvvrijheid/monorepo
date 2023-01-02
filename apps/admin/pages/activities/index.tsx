@@ -76,6 +76,7 @@ const ActivitiesPage = () => {
       }}
     >
       <ModelCreateModal<Activity, ActivityCreateInput>
+        title="Create Activity"
         url="api/activities"
         schema={schema}
         fields={[

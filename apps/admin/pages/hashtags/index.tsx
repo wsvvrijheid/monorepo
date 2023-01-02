@@ -32,6 +32,7 @@ const MainHashtagsPage = () => {
         value: yup.string(),
       }),
     ),
+    image: yup.mixed().required('Image is required'),
   })
 
   const hashtagsQuery = useSearchModel<Hashtag>({
@@ -72,15 +73,12 @@ const MainHashtagsPage = () => {
       }}
     >
       <ModelCreateModal<Hashtag, HashtagCreateInput>
+        title="Create Hashtag"
         url="api/hashtags"
         schema={schema}
         onSuccess={hashtagsQuery.refetch}
         fields={[
           { name: 'title', isRequired: true },
-          { name: 'description', isRequired: true, type: 'textarea' },
-          { name: 'content', isRequired: true, type: 'textarea' },
-          { name: 'hashtagDefault', isRequired: true },
-          { name: 'hashtagExtra' },
           {
             name: 'mentions',
             type: 'select',
@@ -88,6 +86,17 @@ const MainHashtagsPage = () => {
             isMulti: true,
             isRequired: true,
           },
+          { name: 'description', isRequired: true, type: 'textarea' },
+          { name: 'content', isRequired: true, type: 'textarea' },
+          {
+            name: 'hashtagDefault',
+            label: 'Default Hashtag',
+            isRequired: true,
+          },
+          { name: 'hashtagExtra', label: 'Extra Hashtag' },
+          { name: 'categories', type: 'select', url: 'api/categories' },
+          { name: 'date', type: 'datetime-local', isRequired: true },
+          { name: 'image', type: 'file', isRequired: true },
         ]}
       >
         Create Hashtag

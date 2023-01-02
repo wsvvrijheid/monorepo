@@ -1,7 +1,12 @@
 import { useState } from 'react'
 
 import { useSearchModel } from '@wsvvrijheid/services'
-import { Collection, Sort, StrapiLocale } from '@wsvvrijheid/types'
+import {
+  Collection,
+  CollectionCreateInput,
+  Sort,
+  StrapiLocale,
+} from '@wsvvrijheid/types'
 import { AdminLayout, DataTable, ModelCreateModal } from '@wsvvrijheid/ui'
 import { useRouter } from 'next/router'
 import { useUpdateEffect } from 'react-use'
@@ -58,7 +63,8 @@ const CollectionsPage = () => {
         defaultLocale: router.defaultLocale as StrapiLocale,
       }}
     >
-      <ModelCreateModal
+      <ModelCreateModal<Collection, CollectionCreateInput>
+        title="Create Collection"
         url="api/collections"
         schema={schema}
         fields={[
