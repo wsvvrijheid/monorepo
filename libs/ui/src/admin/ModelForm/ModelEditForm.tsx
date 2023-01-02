@@ -221,8 +221,6 @@ export const ModelEditForm = <
     })
   }
 
-  console.log('errors', errors)
-
   const disabledStyle = {
     borderColor: 'transparent',
     _hover: { borderColor: 'transparent' },

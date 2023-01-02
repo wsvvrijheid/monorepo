@@ -81,7 +81,13 @@ const MainHashtagsPage = () => {
           { name: 'content', isRequired: true, type: 'textarea' },
           { name: 'hashtagDefault', isRequired: true },
           { name: 'hashtagExtra' },
-          { name: 'mentions', type: 'select', isMulti: true, isRequired: true },
+          {
+            name: 'mentions',
+            type: 'select',
+            url: 'api/mentions',
+            isMulti: true,
+            isRequired: true,
+          },
         ]}
       >
         Create Hashtag
