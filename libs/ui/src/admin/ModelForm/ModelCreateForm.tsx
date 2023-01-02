@@ -42,13 +42,13 @@ export const ModelCreateForm = <
 
   const {
     register,
-    formState: { errors, isValid },
+    formState: { errors },
     handleSubmit,
     control,
     setValue,
   } = useForm<InferType<typeof schema>>({
     resolver: yupResolver(schema),
-    mode: 'all',
+    mode: 'onBlur',
   })
 
   const onCreateModel = async (
@@ -152,8 +152,8 @@ export const ModelCreateForm = <
         alignSelf={'end'}
         leftIcon={<TbPlus />}
         colorScheme={'primary'}
-        isDisabled={!isValid}
         type={'submit'}
+        isLoading={createModelMutation.isLoading}
       >
         Create
       </Button>

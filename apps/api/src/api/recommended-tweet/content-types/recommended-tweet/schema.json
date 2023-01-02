@@ -12,14 +12,8 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "recommender": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "plugin::users-permissions.user",
-      "inversedBy": "recommendedTweets"
-    },
-    "originalTweet": {
-      "type": "json",
+    "text": {
+      "type": "text",
       "required": true
     },
     "isShared": {
@@ -36,9 +30,20 @@
       "required": false,
       "allowedTypes": ["images", "videos"]
     },
-    "text": {
-      "type": "text",
+    "originalTweet": {
+      "type": "json",
       "required": true
+    },
+    "recommender": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "recommendedTweets"
+    },
+    "mentions": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::mention.mention"
     }
   }
 }
