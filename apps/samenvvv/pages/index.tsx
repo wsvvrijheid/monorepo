@@ -54,7 +54,7 @@ const Home: FC<HomeProps> = ({ seo, link }) => {
 
                 <Button
                   as={Navigate}
-                  href={link}
+                  href={link || '/'}
                   size="lg"
                   variant="outline"
                   colorScheme="primary"
