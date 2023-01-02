@@ -23,6 +23,6 @@ export default async ({ strapi }) => {
       }),
     )
   } catch (error) {
-    console.error('error', error)
+    console.error('error', error?.response || error.message)
   }
 }
