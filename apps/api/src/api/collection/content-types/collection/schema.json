@@ -73,6 +73,22 @@
       "relation": "oneToMany",
       "target": "api::art.art",
       "mappedBy": "collection"
+    },
+    "content": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "richtext"
+    },
+    "date": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "datetime"
     }
   }
 }

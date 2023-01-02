@@ -1,7 +1,2 @@
-export * from './getAll'
 export * from './getById'
 export * from './getBySlug'
-export * from './getCollectionPaths'
-export * from './create'
-export * from './update'
-export * from './getByFilterAndSort'

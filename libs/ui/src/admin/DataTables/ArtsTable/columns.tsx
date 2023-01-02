@@ -5,7 +5,7 @@ import { LocaleBadges } from '../../LocaleBadges'
 import { PublicationBadges } from '../../PublicationBadges'
 
 export const columns: WTableProps<Art>['columns'] = {
-  images: {
+  image: {
     type: 'image',
   },
   title: {

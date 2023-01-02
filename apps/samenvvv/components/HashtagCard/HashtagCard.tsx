@@ -1,3 +1,5 @@
+import { FC } from 'react'
+
 import { Box, Button, Grid, Heading, Stack, Text } from '@chakra-ui/react'
 import { ROUTES } from '@wsvvrijheid/config'
 import { Hashtag, StrapiLocale } from '@wsvvrijheid/types'
@@ -12,7 +14,7 @@ interface SliderHeroProps {
   type: keyof typeof ROUTES | 'post'
 }
 
-export const HashtagCard = ({ item, type }: SliderHeroProps): JSX.Element => {
+export const HashtagCard: FC<SliderHeroProps> = ({ item, type }) => {
   const { locale } = useRouter()
   const { t } = useTranslation(['common'])
   const link = getItemLink(item, locale as StrapiLocale, type)
@@ -32,9 +34,9 @@ export const HashtagCard = ({ item, type }: SliderHeroProps): JSX.Element => {
       >
         <Box>
           <Heading size="lg">{item.title}</Heading>
-          {(item as Hashtag).hashtag && (
+          {(item as Hashtag).hashtagDefault && (
             <Heading size="md" color="gray.900">
-              {(item as Hashtag).hashtag}
+              {(item as Hashtag).hashtagDefault}
             </Heading>
           )}
           {(item as Hashtag).hashtagExtra && (

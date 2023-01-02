@@ -29,10 +29,7 @@ const Post = ({ seo, post }: PostProps) => {
   const router = useRouter()
 
   const back = () => {
-    router.push(
-      '/hashtag-events/[slug]',
-      `/hashtag-events/${post.hashtag.slug}`,
-    )
+    router.push('/hashtags/[slug]', `/hashtags/${post.hashtag.slug}`)
   }
   return (
     <>

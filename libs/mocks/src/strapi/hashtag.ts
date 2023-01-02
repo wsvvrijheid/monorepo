@@ -11,7 +11,7 @@ export const HASHTAG_MOCKS: Localize<StrapiCollectionResponse<Hashtag[]>> = {
           "Türkiye'de ve dünyanın değişik yerlerinde Türkiye devleti tarafından yalnızca politik sebeplerle insanlar kaçırılıyor. ",
         content:
           "Türkiye'de ve dünyanın değişik yerlerinde Türkiye devleti tarafından yalnızca politik sebeplerle insanlar kaçırılıyor. Sizleri uluslararası hukuka aykırı bu insan hakları ihlalini kamuoyuna duyurmaya davet ediyoruz.  ",
-        hashtag: 'Hayatımızdan NelerÇalındı',
+        hashtagDefault: 'Hayatımızdan NelerÇalındı',
         hashtagExtra: 'Orhanİnandı 19GünÖnceKaçırıldı',
         date: '2021-12-27T18:00:00.000Z',
         tweets: [],
@@ -96,7 +96,7 @@ export const HASHTAG_MOCKS: Localize<StrapiCollectionResponse<Hashtag[]>> = {
               'In Turkey and in different parts of the world, people are kidnapped by the Turkish state only for political reasons. ',
             content:
               'In Turkey and in different parts of the world, people are kidnapped by the Turkish state only for political reasons. We invite you to publicize this violation of human rights, which is against international law.',
-            hashtag: 'Hayatımızdan NelerÇalındı',
+            hashtagDefault: 'Hayatımızdan NelerÇalındı',
             hashtagExtra: 'Orhanİnandı 19GünÖnceKaçırıldı',
             date: '2021-12-27T18:00:00.000Z',
             tweets: [],
@@ -114,7 +114,7 @@ export const HASHTAG_MOCKS: Localize<StrapiCollectionResponse<Hashtag[]>> = {
               'In Turkije en in verschillende delen van de wereld worden mensen alleen om politieke redenen door de Turkse staat gekidnapt.',
             content:
               'In Turkije en in verschillende delen van de wereld worden mensen alleen om politieke redenen door de Turkse staat gekidnapt. We nodigen u uit om deze schending van de mensenrechten, die in strijd is met het internationaal recht, bekend te maken.',
-            hashtag: 'Hayatımızdan NelerÇalındı',
+            hashtagDefault: 'Hayatımızdan NelerÇalındı',
             hashtagExtra: 'Orhanİnandı 19GünÖnceKaçırıldı',
             date: '2021-12-27T18:00:00.000Z',
             tweets: [],
@@ -134,7 +134,7 @@ export const HASHTAG_MOCKS: Localize<StrapiCollectionResponse<Hashtag[]>> = {
           '“Mülteci ve Göç Sürecindeki Zorluklar” konulu hashtag çalışmamıza desteklerinizi bekliyoruz. ',
         content:
           '“Mülteci ve Göç Sürecindeki Zorluklar” konulu hashtag çalışmamıza desteklerinizi bekliyoruz. ',
-        hashtag: 'Mağdurlarİçin BirazEmpati ',
+        hashtagDefault: 'Mağdurlarİçin BirazEmpati ',
         hashtagExtra: '',
         date: '2022-05-25T16:00:00.000Z',
         tweets: [],
@@ -211,7 +211,7 @@ export const HASHTAG_MOCKS: Localize<StrapiCollectionResponse<Hashtag[]>> = {
               'We look forward to your support for our hashtag work on “Challenges in the Refugee and Migration Process”.',
             content:
               'We look forward to your support for our hashtag work on “Challenges in the Refugee and Migration Process”.',
-            hashtag: 'Mağdurlarİçin BirazEmpati ',
+            hashtagDefault: 'Mağdurlarİçin BirazEmpati ',
             hashtagExtra: '',
             date: '2022-05-25T16:00:00.000Z',
             tweets: [],
@@ -229,7 +229,7 @@ export const HASHTAG_MOCKS: Localize<StrapiCollectionResponse<Hashtag[]>> = {
               'We kijken uit naar uw steun voor ons hashtag-werk over "Uitdagingen in het vluchtelingen- en migratieproces".',
             content:
               'We kijken uit naar uw steun voor ons hashtag-werk over "Uitdagingen in het vluchtelingen- en migratieproces".\n',
-            hashtag: 'Mağdurlarİçin BirazEmpati ',
+            hashtagDefault: 'Mağdurlarİçin BirazEmpati ',
             hashtagExtra: '',
             date: '2022-05-25T16:00:00.000Z',
             tweets: [],
@@ -249,7 +249,7 @@ export const HASHTAG_MOCKS: Localize<StrapiCollectionResponse<Hashtag[]>> = {
           '15 Temmuz 2016\'da Türkiye hükümeti tarafından "Allah\'ın nimeti" olarak görülen sahte bir darbe gerçekleştirildi.',
         content:
           '15 Temmuz 2016\'da Türkiye hükümeti tarafından "Allah\'ın nimeti" olarak görülen sahte bir darbe gerçekleştirildi. Bu olayla birlikte ülke tamamıyla karanlık çağa döndü. Hukuk olmadığı gibi insan hakları ihlalleri ve daha fazla hukuksuzluk ardı arkasına gelmeye başladı. Bu hukuksuzluklara ve ihlallere dikkat çekmek için "15 Temmuzun Karanlık Yüzü" konulu sosyal medya kampanyası yapıyoruz. Desteklerinizi bekliyoruz. Hashtag: 15 Temmuzun Karanlık Yüzü',
-        hashtag: 'HakanKanatın SesiOlalım',
+        hashtagDefault: 'HakanKanatın SesiOlalım',
         hashtagExtra: null,
         date: '2021-07-15T15:00:00.000Z',
         tweets: [],
@@ -312,7 +312,7 @@ export const HASHTAG_MOCKS: Localize<StrapiCollectionResponse<Hashtag[]>> = {
               'On July 15, 2016, a fake coup was carried out by the Turkish government, which was seen as "God\'s blessing". ',
             content:
               'On July 15, 2016, a fake coup was carried out by the Turkish government, which was seen as "God\'s blessing". With this event, the country went completely into the dark ages. As there was no law, human rights violations and more unlawfulness began to come one after another. We are launching a social media campaign on the "Dark Side of July 15" to draw attention to these unlawfulnesses and violations. We look forward to your support. Hashtag: DarkSideOf 15 July',
-            hashtag: 'HakanKanatın SesiOlalım',
+            hashtagDefault: 'HakanKanatın SesiOlalım',
             hashtagExtra: null,
             date: '2021-07-15T15:00:00.000Z',
             tweets: [],
@@ -330,7 +330,7 @@ export const HASHTAG_MOCKS: Localize<StrapiCollectionResponse<Hashtag[]>> = {
               'Op 15 juli 2016 werd door de Turkse regering een nep-coup gepleegd, die werd gezien als "Gods zegen".',
             content:
               'Op 15 juli 2016 werd door de Turkse regering een nep-coup gepleegd, die werd gezien als "Gods zegen". Met dit evenement ging het land volledig de donkere middeleeuwen in. Omdat er geen wet was, begonnen mensenrechtenschendingen en meer onwettigheid de een na de ander te volgen. We lanceren een social media campagne op de "Dark Side of 15 juli" om aandacht te vragen voor deze onrechtmatigheden en overtredingen. We kijken uit naar uw steun. Hashtag: DarkSideOf 15 July',
-            hashtag: 'HakanKanatın SesiOlalım',
+            hashtagDefault: 'HakanKanatın SesiOlalım',
             hashtagExtra: null,
             date: '2021-07-15T15:00:00.000Z',
             tweets: [],
@@ -350,7 +350,7 @@ export const HASHTAG_MOCKS: Localize<StrapiCollectionResponse<Hashtag[]>> = {
           ' 15 Temmuz 2016 tarihindeki tiyatro darbeden sonra onbinlerce insan tutuklandı.',
         content:
           ' 15 Temmuz 2016 tarihindeki tiyatro darbeden sonra onbinlerce insan tutuklandı. Bu tutuklanmalardan en fazla çocuklar etkilendi. Babaları tutuklandığında bir yaşında veya üzerinde olan çocuklar bu sene de babasız karnelerini aldılar. Birçok çocuk babasını hatırlamıyor. Bitsin artık bu zulüm. Haksız yere tutuklanan tüm babaları serbest bırakın!',
-        hashtag: 'BabamYanımda Olsa ',
+        hashtagDefault: 'BabamYanımda Olsa ',
         hashtagExtra: null,
         date: '2022-06-22T16:00:00.000Z',
         tweets: [],
@@ -424,7 +424,7 @@ export const HASHTAG_MOCKS: Localize<StrapiCollectionResponse<Hashtag[]>> = {
               'Thousands of people were arrested after the theater coup in Turkey on July 15, 2016.',
             content:
               'Thousands of people were arrested after the theater coup in Turkey on July 15, 2016. Children were most affected by these arrests. Children who were one year old or older when their fathers were arrested received their fatherless school report this year as well. Many children do not remember their father.This persecution must end! Release all the wrongfully arrested fathers!',
-            hashtag: 'BabamYanımda Olsa ',
+            hashtagDefault: 'BabamYanımda Olsa ',
             hashtagExtra: null,
             date: '2022-06-22T16:00:00.000Z',
             tweets: [],
@@ -442,7 +442,7 @@ export const HASHTAG_MOCKS: Localize<StrapiCollectionResponse<Hashtag[]>> = {
               'Na de mislukte/theatrale staatsgreep van 15 juli 2016 in Turkije zijn tienduizenden mensen gearresteerd. ',
             content:
               'Na de mislukte/theatrale staatsgreep van 15 juli 2016 in Turkije zijn tienduizenden mensen gearresteerd. De kinderen zijn het meest getroffen door deze arrestaties. Ze waren nog maar één jaar oud toen hun vaders werden gearresteerd. Ook dit jaar hebben zij hun schoolrapporten zonder hun vaders erbij in ontvangst mogen nemen. De meeste kinderen herinneren hun vader niet meer. Stop deze barbaarsheid! \nLaat alle ten onrechte gearresteerde vaders vrij!',
-            hashtag: 'BabamYanımda Olsa ',
+            hashtagDefault: 'BabamYanımda Olsa ',
             hashtagExtra: null,
             date: '2022-06-22T16:00:00.000Z',
             tweets: [],
@@ -462,7 +462,7 @@ export const HASHTAG_MOCKS: Localize<StrapiCollectionResponse<Hashtag[]>> = {
           'Bugün 8 Mart Dünya Kadınlar Günü. Bu vesileyle dünyadaki kadınlara yönelik insan hakları ihlallerine, şiddete ve ayrımcılıklara dikkat çekmek istiyoruz. ',
         content:
           'Bugün 8 Mart Dünya Kadınlar Günü. Bu vesileyle dünyadaki kadınlara yönelik insan hakları ihlallerine, şiddete ve ayrımcılıklara dikkat çekmek istiyoruz. ',
-        hashtag: '#SpeakUp',
+        hashtagDefault: '#SpeakUp',
         hashtagExtra: '#SesVer',
         date: '2022-03-08T17:00:00.000Z',
         tweets: [
@@ -729,7 +729,7 @@ export const HASHTAG_MOCKS: Localize<StrapiCollectionResponse<Hashtag[]>> = {
               "Today, March 8, is International Women's Day. We would like to take this opportunity to draw attention to human rights violations, violence and discrimination against women around the world.",
             content:
               "Today, March 8, is International Women's Day. We would like to take this opportunity to draw attention to human rights violations, violence and discrimination against women around the world.",
-            hashtag: '#SpeakUp',
+            hashtagDefault: '#SpeakUp',
             hashtagExtra: '#SesVer',
             date: '2022-03-08T17:00:00.000Z',
             tweets: [
@@ -929,7 +929,7 @@ export const HASHTAG_MOCKS: Localize<StrapiCollectionResponse<Hashtag[]>> = {
               'Vandaag, 8 maart, is het Internationale Vrouwendag. We willen van deze gelegenheid gebruik maken om aandacht te vragen voor mensenrechtenschendingen, geweld en discriminatie van vrouwen over de hele wereld.',
             content:
               'Vandaag, 8 maart, is het Internationale Vrouwendag. We willen van deze gelegenheid gebruik maken om aandacht te vragen voor mensenrechtenschendingen, geweld en discriminatie van vrouwen over de hele wereld.',
-            hashtag: '#SpeakUp',
+            hashtagDefault: '#SpeakUp',
             hashtagExtra: '#SesVer',
             date: '2022-03-08T17:00:00.000Z',
             tweets: [
@@ -1136,7 +1136,7 @@ export const HASHTAG_MOCKS: Localize<StrapiCollectionResponse<Hashtag[]>> = {
           'Na de mislukte/theatrale staatsgreep van 15 juli 2016 in Turkije zijn tienduizenden mensen gearresteerd. ',
         content:
           'Na de mislukte/theatrale staatsgreep van 15 juli 2016 in Turkije zijn tienduizenden mensen gearresteerd. De kinderen zijn het meest getroffen door deze arrestaties. Ze waren nog maar één jaar oud toen hun vaders werden gearresteerd. Ook dit jaar hebben zij hun schoolrapporten zonder hun vaders erbij in ontvangst mogen nemen. De meeste kinderen herinneren hun vader niet meer. Stop deze barbaarsheid! \nLaat alle ten onrechte gearresteerde vaders vrij!',
-        hashtag: 'BabamYanımda Olsa ',
+        hashtagDefault: 'BabamYanımda Olsa ',
         hashtagExtra: null,
         date: '2022-06-22T16:00:00.000Z',
         tweets: [],
@@ -1210,7 +1210,7 @@ export const HASHTAG_MOCKS: Localize<StrapiCollectionResponse<Hashtag[]>> = {
               'Thousands of people were arrested after the theater coup in Turkey on July 15, 2016.',
             content:
               'Thousands of people were arrested after the theater coup in Turkey on July 15, 2016. Children were most affected by these arrests. Children who were one year old or older when their fathers were arrested received their fatherless school report this year as well. Many children do not remember their father.This persecution must end! Release all the wrongfully arrested fathers!',
-            hashtag: 'BabamYanımda Olsa ',
+            hashtagDefault: 'BabamYanımda Olsa ',
             hashtagExtra: null,
             date: '2022-06-22T16:00:00.000Z',
             tweets: [],
@@ -1228,7 +1228,7 @@ export const HASHTAG_MOCKS: Localize<StrapiCollectionResponse<Hashtag[]>> = {
               ' 15 Temmuz 2016 tarihindeki tiyatro darbeden sonra onbinlerce insan tutuklandı.',
             content:
               ' 15 Temmuz 2016 tarihindeki tiyatro darbeden sonra onbinlerce insan tutuklandı. Bu tutuklanmalardan en fazla çocuklar etkilendi. Babaları tutuklandığında bir yaşında veya üzerinde olan çocuklar bu sene de babasız karnelerini aldılar. Birçok çocuk babasını hatırlamıyor. Bitsin artık bu zulüm. Haksız yere tutuklanan tüm babaları serbest bırakın!',
-            hashtag: 'BabamYanımda Olsa ',
+            hashtagDefault: 'BabamYanımda Olsa ',
             hashtagExtra: null,
             date: '2022-06-22T16:00:00.000Z',
             tweets: [],
@@ -1248,7 +1248,7 @@ export const HASHTAG_MOCKS: Localize<StrapiCollectionResponse<Hashtag[]>> = {
           'In Turkije en in verschillende delen van de wereld worden mensen alleen om politieke redenen door de Turkse staat gekidnapt.',
         content:
           'In Turkije en in verschillende delen van de wereld worden mensen alleen om politieke redenen door de Turkse staat gekidnapt. We nodigen u uit om deze schending van de mensenrechten, die in strijd is met het internationaal recht, bekend te maken.',
-        hashtag: 'Hayatımızdan NelerÇalındı',
+        hashtagDefault: 'Hayatımızdan NelerÇalındı',
         hashtagExtra: 'Orhanİnandı 19GünÖnceKaçırıldı',
         date: '2021-12-27T18:00:00.000Z',
         tweets: [],
@@ -1333,7 +1333,7 @@ export const HASHTAG_MOCKS: Localize<StrapiCollectionResponse<Hashtag[]>> = {
               'In Turkey and in different parts of the world, people are kidnapped by the Turkish state only for political reasons. ',
             content:
               'In Turkey and in different parts of the world, people are kidnapped by the Turkish state only for political reasons. We invite you to publicize this violation of human rights, which is against international law.',
-            hashtag: 'Hayatımızdan NelerÇalındı',
+            hashtagDefault: 'Hayatımızdan NelerÇalındı',
             hashtagExtra: 'Orhanİnandı 19GünÖnceKaçırıldı',
             date: '2021-12-27T18:00:00.000Z',
             tweets: [],
@@ -1351,7 +1351,7 @@ export const HASHTAG_MOCKS: Localize<StrapiCollectionResponse<Hashtag[]>> = {
               "Türkiye'de ve dünyanın değişik yerlerinde Türkiye devleti tarafından yalnızca politik sebeplerle insanlar kaçırılıyor. ",
             content:
               "Türkiye'de ve dünyanın değişik yerlerinde Türkiye devleti tarafından yalnızca politik sebeplerle insanlar kaçırılıyor. Sizleri uluslararası hukuka aykırı bu insan hakları ihlalini kamuoyuna duyurmaya davet ediyoruz.  ",
-            hashtag: 'Hayatımızdan NelerÇalındı',
+            hashtagDefault: 'Hayatımızdan NelerÇalındı',
             hashtagExtra: 'Orhanİnandı 19GünÖnceKaçırıldı',
             date: '2021-12-27T18:00:00.000Z',
             tweets: [],
@@ -1371,7 +1371,7 @@ export const HASHTAG_MOCKS: Localize<StrapiCollectionResponse<Hashtag[]>> = {
           'We kijken uit naar uw steun voor ons hashtag-werk over "Uitdagingen in het vluchtelingen- en migratieproces".',
         content:
           'We kijken uit naar uw steun voor ons hashtag-werk over "Uitdagingen in het vluchtelingen- en migratieproces".\n',
-        hashtag: 'Mağdurlarİçin BirazEmpati ',
+        hashtagDefault: 'Mağdurlarİçin BirazEmpati ',
         hashtagExtra: '',
         date: '2022-05-25T16:00:00.000Z',
         tweets: [],
@@ -1448,7 +1448,7 @@ export const HASHTAG_MOCKS: Localize<StrapiCollectionResponse<Hashtag[]>> = {
               'We look forward to your support for our hashtag work on “Challenges in the Refugee and Migration Process”.',
             content:
               'We look forward to your support for our hashtag work on “Challenges in the Refugee and Migration Process”.',
-            hashtag: 'Mağdurlarİçin BirazEmpati ',
+            hashtagDefault: 'Mağdurlarİçin BirazEmpati ',
             hashtagExtra: '',
             date: '2022-05-25T16:00:00.000Z',
             tweets: [],
@@ -1466,7 +1466,7 @@ export const HASHTAG_MOCKS: Localize<StrapiCollectionResponse<Hashtag[]>> = {
               '“Mülteci ve Göç Sürecindeki Zorluklar” konulu hashtag çalışmamıza desteklerinizi bekliyoruz. ',
             content:
               '“Mülteci ve Göç Sürecindeki Zorluklar” konulu hashtag çalışmamıza desteklerinizi bekliyoruz. ',
-            hashtag: 'Mağdurlarİçin BirazEmpati ',
+            hashtagDefault: 'Mağdurlarİçin BirazEmpati ',
             hashtagExtra: '',
             date: '2022-05-25T16:00:00.000Z',
             tweets: [],
@@ -1486,7 +1486,7 @@ export const HASHTAG_MOCKS: Localize<StrapiCollectionResponse<Hashtag[]>> = {
           'Op 15 juli 2016 werd door de Turkse regering een nep-coup gepleegd, die werd gezien als "Gods zegen".',
         content:
           'Op 15 juli 2016 werd door de Turkse regering een nep-coup gepleegd, die werd gezien als "Gods zegen". Met dit evenement ging het land volledig de donkere middeleeuwen in. Omdat er geen wet was, begonnen mensenrechtenschendingen en meer onwettigheid de een na de ander te volgen. We lanceren een social media campagne op de "Dark Side of 15 juli" om aandacht te vragen voor deze onrechtmatigheden en overtredingen. We kijken uit naar uw steun. Hashtag: DarkSideOf 15 July',
-        hashtag: 'HakanKanatın SesiOlalım',
+        hashtagDefault: 'HakanKanatın SesiOlalım',
         hashtagExtra: null,
         date: '2021-07-15T15:00:00.000Z',
         tweets: [],
@@ -1549,7 +1549,7 @@ export const HASHTAG_MOCKS: Localize<StrapiCollectionResponse<Hashtag[]>> = {
               'On July 15, 2016, a fake coup was carried out by the Turkish government, which was seen as "God\'s blessing". ',
             content:
               'On July 15, 2016, a fake coup was carried out by the Turkish government, which was seen as "God\'s blessing". With this event, the country went completely into the dark ages. As there was no law, human rights violations and more unlawfulness began to come one after another. We are launching a social media campaign on the "Dark Side of July 15" to draw attention to these unlawfulnesses and violations. We look forward to your support. Hashtag: DarkSideOf 15 July',
-            hashtag: 'HakanKanatın SesiOlalım',
+            hashtagDefault: 'HakanKanatın SesiOlalım',
             hashtagExtra: null,
             date: '2021-07-15T15:00:00.000Z',
             tweets: [],
@@ -1567,7 +1567,7 @@ export const HASHTAG_MOCKS: Localize<StrapiCollectionResponse<Hashtag[]>> = {
               '15 Temmuz 2016\'da Türkiye hükümeti tarafından "Allah\'ın nimeti" olarak görülen sahte bir darbe gerçekleştirildi.',
             content:
               '15 Temmuz 2016\'da Türkiye hükümeti tarafından "Allah\'ın nimeti" olarak görülen sahte bir darbe gerçekleştirildi. Bu olayla birlikte ülke tamamıyla karanlık çağa döndü. Hukuk olmadığı gibi insan hakları ihlalleri ve daha fazla hukuksuzluk ardı arkasına gelmeye başladı. Bu hukuksuzluklara ve ihlallere dikkat çekmek için "15 Temmuzun Karanlık Yüzü" konulu sosyal medya kampanyası yapıyoruz. Desteklerinizi bekliyoruz. Hashtag: 15 Temmuzun Karanlık Yüzü',
-            hashtag: 'HakanKanatın SesiOlalım',
+            hashtagDefault: 'HakanKanatın SesiOlalım',
             hashtagExtra: null,
             date: '2021-07-15T15:00:00.000Z',
             tweets: [],
@@ -1587,7 +1587,7 @@ export const HASHTAG_MOCKS: Localize<StrapiCollectionResponse<Hashtag[]>> = {
           'Vandaag, 8 maart, is het Internationale Vrouwendag. We willen van deze gelegenheid gebruik maken om aandacht te vragen voor mensenrechtenschendingen, geweld en discriminatie van vrouwen over de hele wereld.',
         content:
           'Vandaag, 8 maart, is het Internationale Vrouwendag. We willen van deze gelegenheid gebruik maken om aandacht te vragen voor mensenrechtenschendingen, geweld en discriminatie van vrouwen over de hele wereld.',
-        hashtag: '#SpeakUp',
+        hashtagDefault: '#SpeakUp',
         hashtagExtra: '#SesVer',
         date: '2022-03-08T17:00:00.000Z',
         tweets: [
@@ -1854,7 +1854,7 @@ export const HASHTAG_MOCKS: Localize<StrapiCollectionResponse<Hashtag[]>> = {
               "Today, March 8, is International Women's Day. We would like to take this opportunity to draw attention to human rights violations, violence and discrimination against women around the world.",
             content:
               "Today, March 8, is International Women's Day. We would like to take this opportunity to draw attention to human rights violations, violence and discrimination against women around the world.",
-            hashtag: '#SpeakUp',
+            hashtagDefault: '#SpeakUp',
             hashtagExtra: '#SesVer',
             date: '2022-03-08T17:00:00.000Z',
             tweets: [
@@ -2054,7 +2054,7 @@ export const HASHTAG_MOCKS: Localize<StrapiCollectionResponse<Hashtag[]>> = {
               'Bugün 8 Mart Dünya Kadınlar Günü. Bu vesileyle dünyadaki kadınlara yönelik insan hakları ihlallerine, şiddete ve ayrımcılıklara dikkat çekmek istiyoruz. ',
             content:
               'Bugün 8 Mart Dünya Kadınlar Günü. Bu vesileyle dünyadaki kadınlara yönelik insan hakları ihlallerine, şiddete ve ayrımcılıklara dikkat çekmek istiyoruz. ',
-            hashtag: '#SpeakUp',
+            hashtagDefault: '#SpeakUp',
             hashtagExtra: '#SesVer',
             date: '2022-03-08T17:00:00.000Z',
             tweets: [
@@ -2261,7 +2261,7 @@ export const HASHTAG_MOCKS: Localize<StrapiCollectionResponse<Hashtag[]>> = {
           'In Turkey and in different parts of the world, people are kidnapped by the Turkish state only for political reasons. ',
         content:
           'In Turkey and in different parts of the world, people are kidnapped by the Turkish state only for political reasons. We invite you to publicize this violation of human rights, which is against international law.',
-        hashtag: 'Hayatımızdan NelerÇalındı',
+        hashtagDefault: 'Hayatımızdan NelerÇalındı',
         hashtagExtra: 'Orhanİnandı 19GünÖnceKaçırıldı',
         date: '2021-12-27T18:00:00.000Z',
         tweets: [],
@@ -2346,7 +2346,7 @@ export const HASHTAG_MOCKS: Localize<StrapiCollectionResponse<Hashtag[]>> = {
               'In Turkije en in verschillende delen van de wereld worden mensen alleen om politieke redenen door de Turkse staat gekidnapt.',
             content:
               'In Turkije en in verschillende delen van de wereld worden mensen alleen om politieke redenen door de Turkse staat gekidnapt. We nodigen u uit om deze schending van de mensenrechten, die in strijd is met het internationaal recht, bekend te maken.',
-            hashtag: 'Hayatımızdan NelerÇalındı',
+            hashtagDefault: 'Hayatımızdan NelerÇalındı',
             hashtagExtra: 'Orhanİnandı 19GünÖnceKaçırıldı',
             date: '2021-12-27T18:00:00.000Z',
             tweets: [],
@@ -2364,7 +2364,7 @@ export const HASHTAG_MOCKS: Localize<StrapiCollectionResponse<Hashtag[]>> = {
               "Türkiye'de ve dünyanın değişik yerlerinde Türkiye devleti tarafından yalnızca politik sebeplerle insanlar kaçırılıyor. ",
             content:
               "Türkiye'de ve dünyanın değişik yerlerinde Türkiye devleti tarafından yalnızca politik sebeplerle insanlar kaçırılıyor. Sizleri uluslararası hukuka aykırı bu insan hakları ihlalini kamuoyuna duyurmaya davet ediyoruz.  ",
-            hashtag: 'Hayatımızdan NelerÇalındı',
+            hashtagDefault: 'Hayatımızdan NelerÇalındı',
             hashtagExtra: 'Orhanİnandı 19GünÖnceKaçırıldı',
             date: '2021-12-27T18:00:00.000Z',
             tweets: [],
@@ -2384,7 +2384,7 @@ export const HASHTAG_MOCKS: Localize<StrapiCollectionResponse<Hashtag[]>> = {
           'We look forward to your support for our hashtag work on “Challenges in the Refugee and Migration Process”.',
         content:
           'We look forward to your support for our hashtag work on “Challenges in the Refugee and Migration Process”.',
-        hashtag: 'Mağdurlarİçin BirazEmpati ',
+        hashtagDefault: 'Mağdurlarİçin BirazEmpati ',
         hashtagExtra: '',
         date: '2022-05-25T16:00:00.000Z',
         tweets: [],
@@ -2461,7 +2461,7 @@ export const HASHTAG_MOCKS: Localize<StrapiCollectionResponse<Hashtag[]>> = {
               'We kijken uit naar uw steun voor ons hashtag-werk over "Uitdagingen in het vluchtelingen- en migratieproces".',
             content:
               'We kijken uit naar uw steun voor ons hashtag-werk over "Uitdagingen in het vluchtelingen- en migratieproces".\n',
-            hashtag: 'Mağdurlarİçin BirazEmpati ',
+            hashtagDefault: 'Mağdurlarİçin BirazEmpati ',
             hashtagExtra: '',
             date: '2022-05-25T16:00:00.000Z',
             tweets: [],
@@ -2479,7 +2479,7 @@ export const HASHTAG_MOCKS: Localize<StrapiCollectionResponse<Hashtag[]>> = {
               '“Mülteci ve Göç Sürecindeki Zorluklar” konulu hashtag çalışmamıza desteklerinizi bekliyoruz. ',
             content:
               '“Mülteci ve Göç Sürecindeki Zorluklar” konulu hashtag çalışmamıza desteklerinizi bekliyoruz. ',
-            hashtag: 'Mağdurlarİçin BirazEmpati ',
+            hashtagDefault: 'Mağdurlarİçin BirazEmpati ',
             hashtagExtra: '',
             date: '2022-05-25T16:00:00.000Z',
             tweets: [],
@@ -2499,7 +2499,7 @@ export const HASHTAG_MOCKS: Localize<StrapiCollectionResponse<Hashtag[]>> = {
           "Today, March 8, is International Women's Day. We would like to take this opportunity to draw attention to human rights violations, violence and discrimination against women around the world.",
         content:
           "Today, March 8, is International Women's Day. We would like to take this opportunity to draw attention to human rights violations, violence and discrimination against women around the world.",
-        hashtag: '#SpeakUp',
+        hashtagDefault: '#SpeakUp',
         hashtagExtra: '#SesVer',
         date: '2022-03-08T17:00:00.000Z',
         tweets: [
@@ -2766,7 +2766,7 @@ export const HASHTAG_MOCKS: Localize<StrapiCollectionResponse<Hashtag[]>> = {
               'Vandaag, 8 maart, is het Internationale Vrouwendag. We willen van deze gelegenheid gebruik maken om aandacht te vragen voor mensenrechtenschendingen, geweld en discriminatie van vrouwen over de hele wereld.',
             content:
               'Vandaag, 8 maart, is het Internationale Vrouwendag. We willen van deze gelegenheid gebruik maken om aandacht te vragen voor mensenrechtenschendingen, geweld en discriminatie van vrouwen over de hele wereld.',
-            hashtag: '#SpeakUp',
+            hashtagDefault: '#SpeakUp',
             hashtagExtra: '#SesVer',
             date: '2022-03-08T17:00:00.000Z',
             tweets: [
@@ -2966,7 +2966,7 @@ export const HASHTAG_MOCKS: Localize<StrapiCollectionResponse<Hashtag[]>> = {
               'Bugün 8 Mart Dünya Kadınlar Günü. Bu vesileyle dünyadaki kadınlara yönelik insan hakları ihlallerine, şiddete ve ayrımcılıklara dikkat çekmek istiyoruz. ',
             content:
               'Bugün 8 Mart Dünya Kadınlar Günü. Bu vesileyle dünyadaki kadınlara yönelik insan hakları ihlallerine, şiddete ve ayrımcılıklara dikkat çekmek istiyoruz. ',
-            hashtag: '#SpeakUp',
+            hashtagDefault: '#SpeakUp',
             hashtagExtra: '#SesVer',
             date: '2022-03-08T17:00:00.000Z',
             tweets: [
@@ -3168,7 +3168,7 @@ export const HASHTAG_MOCKS: Localize<StrapiCollectionResponse<Hashtag[]>> = {
           'Thousands of people were arrested after the theater coup in Turkey on July 15, 2016.',
         content:
           'Thousands of people were arrested after the theater coup in Turkey on July 15, 2016. Children were most affected by these arrests. Children who were one year old or older when their fathers were arrested received their fatherless school report this year as well. Many children do not remember their father.This persecution must end! Release all the wrongfully arrested fathers!',
-        hashtag: 'BabamYanımda Olsa ',
+        hashtagDefault: 'BabamYanımda Olsa ',
         hashtagExtra: null,
         date: '2022-06-22T16:00:00.000Z',
         tweets: [],
@@ -3242,7 +3242,7 @@ export const HASHTAG_MOCKS: Localize<StrapiCollectionResponse<Hashtag[]>> = {
               'Na de mislukte/theatrale staatsgreep van 15 juli 2016 in Turkije zijn tienduizenden mensen gearresteerd. ',
             content:
               'Na de mislukte/theatrale staatsgreep van 15 juli 2016 in Turkije zijn tienduizenden mensen gearresteerd. De kinderen zijn het meest getroffen door deze arrestaties. Ze waren nog maar één jaar oud toen hun vaders werden gearresteerd. Ook dit jaar hebben zij hun schoolrapporten zonder hun vaders erbij in ontvangst mogen nemen. De meeste kinderen herinneren hun vader niet meer. Stop deze barbaarsheid! \nLaat alle ten onrechte gearresteerde vaders vrij!',
-            hashtag: 'BabamYanımda Olsa ',
+            hashtagDefault: 'BabamYanımda Olsa ',
             hashtagExtra: null,
             date: '2022-06-22T16:00:00.000Z',
             tweets: [],
@@ -3260,7 +3260,7 @@ export const HASHTAG_MOCKS: Localize<StrapiCollectionResponse<Hashtag[]>> = {
               ' 15 Temmuz 2016 tarihindeki tiyatro darbeden sonra onbinlerce insan tutuklandı.',
             content:
               ' 15 Temmuz 2016 tarihindeki tiyatro darbeden sonra onbinlerce insan tutuklandı. Bu tutuklanmalardan en fazla çocuklar etkilendi. Babaları tutuklandığında bir yaşında veya üzerinde olan çocuklar bu sene de babasız karnelerini aldılar. Birçok çocuk babasını hatırlamıyor. Bitsin artık bu zulüm. Haksız yere tutuklanan tüm babaları serbest bırakın!',
-            hashtag: 'BabamYanımda Olsa ',
+            hashtagDefault: 'BabamYanımda Olsa ',
             hashtagExtra: null,
             date: '2022-06-22T16:00:00.000Z',
             tweets: [],
@@ -3280,7 +3280,7 @@ export const HASHTAG_MOCKS: Localize<StrapiCollectionResponse<Hashtag[]>> = {
           'On July 15, 2016, a fake coup was carried out by the Turkish government, which was seen as "God\'s blessing". ',
         content:
           'On July 15, 2016, a fake coup was carried out by the Turkish government, which was seen as "God\'s blessing". With this event, the country went completely into the dark ages. As there was no law, human rights violations and more unlawfulness began to come one after another. We are launching a social media campaign on the "Dark Side of July 15" to draw attention to these unlawfulnesses and violations. We look forward to your support. Hashtag: DarkSideOf 15 July',
-        hashtag: 'HakanKanatın SesiOlalım',
+        hashtagDefault: 'HakanKanatın SesiOlalım',
         hashtagExtra: null,
         date: '2021-07-15T15:00:00.000Z',
         tweets: [],
@@ -3343,7 +3343,7 @@ export const HASHTAG_MOCKS: Localize<StrapiCollectionResponse<Hashtag[]>> = {
               'Op 15 juli 2016 werd door de Turkse regering een nep-coup gepleegd, die werd gezien als "Gods zegen".',
             content:
               'Op 15 juli 2016 werd door de Turkse regering een nep-coup gepleegd, die werd gezien als "Gods zegen". Met dit evenement ging het land volledig de donkere middeleeuwen in. Omdat er geen wet was, begonnen mensenrechtenschendingen en meer onwettigheid de een na de ander te volgen. We lanceren een social media campagne op de "Dark Side of 15 juli" om aandacht te vragen voor deze onrechtmatigheden en overtredingen. We kijken uit naar uw steun. Hashtag: DarkSideOf 15 July',
-            hashtag: 'HakanKanatın SesiOlalım',
+            hashtagDefault: 'HakanKanatın SesiOlalım',
             hashtagExtra: null,
             date: '2021-07-15T15:00:00.000Z',
             tweets: [],
@@ -3361,7 +3361,7 @@ export const HASHTAG_MOCKS: Localize<StrapiCollectionResponse<Hashtag[]>> = {
               '15 Temmuz 2016\'da Türkiye hükümeti tarafından "Allah\'ın nimeti" olarak görülen sahte bir darbe gerçekleştirildi.',
             content:
               '15 Temmuz 2016\'da Türkiye hükümeti tarafından "Allah\'ın nimeti" olarak görülen sahte bir darbe gerçekleştirildi. Bu olayla birlikte ülke tamamıyla karanlık çağa döndü. Hukuk olmadığı gibi insan hakları ihlalleri ve daha fazla hukuksuzluk ardı arkasına gelmeye başladı. Bu hukuksuzluklara ve ihlallere dikkat çekmek için "15 Temmuzun Karanlık Yüzü" konulu sosyal medya kampanyası yapıyoruz. Desteklerinizi bekliyoruz. Hashtag: 15 Temmuzun Karanlık Yüzü',
-            hashtag: 'HakanKanatın SesiOlalım',
+            hashtagDefault: 'HakanKanatın SesiOlalım',
             hashtagExtra: null,
             date: '2021-07-15T15:00:00.000Z',
             tweets: [],

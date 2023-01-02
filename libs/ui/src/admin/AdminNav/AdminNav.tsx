@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { Stack } from '@chakra-ui/react'
 import { SessionUser } from '@wsvvrijheid/types'
@@ -15,10 +15,13 @@ import {
 } from 'react-icons/md'
 import {
   TbActivity,
+  TbBookmarks,
   TbBrandTwitter,
   TbBrush,
   TbChecks,
   TbClock,
+  TbThumbUp,
+  TbTimeline,
   TbVolume,
   TbWriting,
   TbX,
@@ -103,12 +106,12 @@ export const getAdminNav = (user: SessionUser): AdminNavItemProps[] => {
       submenu: [
         {
           label: 'Pending Activities',
-          link: '/activity?status=pending',
+          link: '/activities?status=pending',
           icon: <TbClock />,
         },
         {
           label: 'Approved Activities',
-          link: '/activity?status=approved',
+          link: '/activities?status=approved',
           icon: <TbChecks />,
         },
       ],
@@ -121,77 +124,64 @@ export const getAdminNav = (user: SessionUser): AdminNavItemProps[] => {
     {
       label: 'Hashtags',
       icon: <CgHashtag />,
-      link: '#',
+      link: '/hashtags',
       visible: isEditor || isAdmin,
+    },
+    {
+      label: 'Hashtag Posts',
+      icon: <TbBrandTwitter />,
+      link: '#',
+      visible: !!Boolean || !!isAdmin,
       submenu: [
         {
-          label: 'Main Hashtag',
-          link: '/hashtags',
-          icon: <CgHashtag />,
+          label: 'Pending  Posts',
+          link: '/posts?status=pending',
+          icon: <TbClock />,
         },
         {
-          label: 'Hashtag Posts',
-          icon: <TbBrandTwitter />,
-          link: '#',
-          visible: !!Boolean || !!isAdmin,
-          submenu: [
-            {
-              label: 'Pending  Posts',
-              link: '/hashtags/posts?status=pending',
-              icon: <TbClock />,
-            },
-            {
-              label: 'Approved  Posts',
-              link: '/hashtags/posts?status=approved',
-              icon: <TbChecks />,
-            },
-          ],
-        },
-        {
-          label: 'Hashtag Caps',
-          icon: <TbBrandTwitter />,
-          link: '#',
-          visible: isEditor || isAdmin,
-          submenu: [
-            {
-              label: 'Pending  Caps',
-              link: '/hashtags/caps?status=pending',
-              icon: <TbClock />,
-            },
-            {
-              label: 'Approved  Caps',
-              link: '/hashtags/caps?status=approved',
-              icon: <TbChecks />,
-            },
-          ],
+          label: 'Approved  Posts',
+          link: '/posts?status=approved',
+          icon: <TbChecks />,
         },
       ],
     },
     {
-      label: 'Content Maker',
+      label: 'News',
       icon: <HiOutlineNewspaper />,
       link: '#',
       visible: isEditor || isAdmin,
       submenu: [
         {
           label: 'News',
-          link: '/content-maker/news',
+          link: '/news',
           icon: <HiOutlineNewspaper />,
         },
         {
           label: 'Bookmarked News',
-          link: '/content-maker/news-bookmarks',
-          icon: <HiOutlineNewspaper />,
+          link: '/news/bookmarks',
+          icon: <TbBookmarks />,
         },
         {
+          label: 'Recommended News',
+          link: '/news/recommended',
+          icon: <TbThumbUp />,
+        },
+      ],
+    },
+    {
+      label: 'Timelines',
+      icon: <TbTimeline />,
+      link: '#',
+      submenu: [
+        {
           label: 'Timelines',
-          link: '/content-maker/timelines',
+          link: '/timelines',
           icon: <GiHumanPyramid />,
         },
         {
           label: 'Bookmarked Tweets',
-          link: '/content-maker/tweets-bookmarks',
-          icon: <GiHumanPyramid />,
+          link: '/timelines/bookmarks',
+          icon: <TbBookmarks />,
         },
       ],
     },
@@ -249,20 +239,20 @@ type AdminNAvProps = {
   expanded?: boolean
 }
 
-export const AdminNav: FC<AdminNAvProps> = ({ user, expanded }) => {
+export const AdminNav: FC<AdminNAvProps> = memo(({ user, expanded }) => {
   const navItems = getAdminNav(user)
 
   return (
     <Stack spacing={0}>
       {navItems
         // .filter(item => item.visible) // TODO enable this when we are ready to release
-        .map(item => {
+        .map((item, index) => {
           const NavItem = expanded ? AdminNavItem : AdminNavItemCollapsed
 
           return (
             <NavItem
               icon={item.icon}
-              key={item.label}
+              key={index}
               label={item.label}
               link={item.link || '#'}
               submenu={item.submenu}
@@ -272,4 +262,4 @@ export const AdminNav: FC<AdminNAvProps> = ({ user, expanded }) => {
         })}
     </Stack>
   )
-}
+})

@@ -66,7 +66,7 @@ export const Arts = Template.bind({})
 Arts.args = {
   data: ART_MOCKS.tr.data,
   columns: {
-    images: {
+    image: {
       type: 'image',
     },
     title: {}, // default type is text

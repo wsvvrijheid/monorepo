@@ -8,6 +8,7 @@ import {
   IconButton,
   Spinner,
   Stack,
+  Tooltip,
   useBoolean,
 } from '@chakra-ui/react'
 import {
@@ -15,8 +16,10 @@ import {
   useAppDispatch,
   useAuthSelector,
 } from '@wsvvrijheid/store'
+import { startCase } from 'lodash'
 import { NextSeo } from 'next-seo'
 import { useRouter } from 'next/router'
+import { FaArrowLeft } from 'react-icons/fa'
 import { MdOutlineNotifications } from 'react-icons/md'
 import { useLocalStorage } from 'usehooks-ts'
 
@@ -28,6 +31,7 @@ export type AdminLayoutProps = {
   title: string
   isLoading?: boolean
   headerProps?: PageHeaderProps
+  hasBackButton?: boolean
 }
 
 export const AdminLayout: FC<AdminLayoutProps> = ({
@@ -35,6 +39,7 @@ export const AdminLayout: FC<AdminLayoutProps> = ({
   title,
   isLoading,
   headerProps,
+  hasBackButton,
 }) => {
   const { user } = useAuthSelector()
 
@@ -68,7 +73,7 @@ export const AdminLayout: FC<AdminLayoutProps> = ({
 
   return (
     <>
-      <NextSeo title={title} />
+      <NextSeo title={startCase(title)} />
       <Box bg="gray.50">
         {/* Sidebar */}
         <Box
@@ -102,9 +107,22 @@ export const AdminLayout: FC<AdminLayoutProps> = ({
           ) : (
             <>
               <HStack px={4} mt={10} justify="space-between">
-                <Heading textTransform="capitalize" color="blackAlpha.400">
-                  {title}
-                </Heading>
+                <HStack>
+                  {hasBackButton && (
+                    <Tooltip label={'Go back'}>
+                      <IconButton
+                        aria-label="back"
+                        icon={<FaArrowLeft />}
+                        colorScheme={'blackAlpha'}
+                        rounded="full"
+                        onClick={() => router.back()}
+                      />
+                    </Tooltip>
+                  )}
+                  <Heading textTransform="capitalize" color="blackAlpha.500">
+                    {title}
+                  </Heading>
+                </HStack>
 
                 {/* TODO Create notification component */}
                 <IconButton

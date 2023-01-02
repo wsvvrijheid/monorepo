@@ -59,11 +59,6 @@ export const mutation = async <
   const queryParams = queryParameters ? `?${queryParameters}` : ''
 
   const requestUrl = id ? `${url}/${id}${queryParams}` : `${url}${queryParams}`
-  let requestBody = {}
-
-  if (body) {
-    requestBody = generateFormData<D>(body)
-  }
 
   if (method === 'delete') {
     const response = await axios[method]<StrapiMutationResponse<T>>(
@@ -74,6 +69,12 @@ export const mutation = async <
       },
     )
     return response.data?.data || null
+  }
+
+  let requestBody = {}
+
+  if (body) {
+    requestBody = generateFormData<D>(body)
   }
 
   const response = await axios[method]<StrapiMutationResponse<T>>(

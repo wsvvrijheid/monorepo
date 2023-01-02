@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC } from 'react'
 
 import {
   Accordion,
@@ -8,13 +8,21 @@ import {
   AccordionPanel,
   Text,
 } from '@chakra-ui/react'
+import { Collection, CollectionUpdateInput } from '@wsvvrijheid/types'
+import * as yup from 'yup'
 
-import { CollectionEditForm } from './CollectionEditForm'
+import { ModelEditForm } from '../ModelForm'
 import { CollectionEditProps } from './types'
 
-export const CollectionEdit: FC<CollectionEditProps> = ({ collection }) => {
-  const [isEdit, setEdit] = useState(false)
+const schema = yup.object({
+  title: yup.string().required('Title is required'),
+  description: yup.string().required('Description is required'),
+  content: yup.string().required('Content is required'),
+  date: yup.date().required('Date is required'),
+  image: yup.mixed(),
+})
 
+export const CollectionEdit: FC<CollectionEditProps> = ({ collection }) => {
   return (
     <Accordion
       size={'lg'}
@@ -35,10 +43,38 @@ export const CollectionEdit: FC<CollectionEditProps> = ({ collection }) => {
           <AccordionIcon ml={'auto'} />
         </AccordionButton>
         <AccordionPanel p={0} mt={4}>
-          <CollectionEditForm
-            collection={collection}
-            isEdit={isEdit}
-            setEdit={setEdit}
+          <ModelEditForm<Collection, CollectionUpdateInput>
+            url="api/collections"
+            model={collection}
+            translatedFields={['title', 'description', 'content']}
+            fields={[
+              {
+                name: 'title',
+                isRequired: true,
+              },
+              {
+                name: 'description',
+                type: 'textarea',
+                isRequired: true,
+              },
+              {
+                name: 'content',
+                type: 'textarea',
+                isRequired: true,
+              },
+              {
+                name: 'date',
+                type: 'datetime-local',
+                isRequired: true,
+              },
+              {
+                name: 'image',
+                type: 'file',
+                isRequired: true,
+              },
+            ]}
+            onSuccess={() => null}
+            schema={schema}
           />
         </AccordionPanel>
       </AccordionItem>

@@ -1,7 +1,9 @@
 import { Box, Grid } from '@chakra-ui/react'
 import { Story, Meta } from '@storybook/react'
 import { COLLECTION_MOCKS } from '@wsvvrijheid/mocks'
-import { useCollections } from '@wsvvrijheid/services'
+import { useSearchModel } from '@wsvvrijheid/services'
+import { Collection, StrapiLocale } from '@wsvvrijheid/types'
+import { useRouter } from 'next/router'
 
 import { CollectionList, CollectionListProps } from './CollectionList'
 
@@ -17,12 +19,17 @@ export default {
 } as Meta<CollectionListProps>
 
 const Template: Story<CollectionListProps> = args => {
-  const { data } = useCollections()
+  const router = useRouter()
+
+  const { data } = useSearchModel<Collection>({
+    url: 'api/collections',
+    locale: router.locale as StrapiLocale,
+  })
 
   return (
     <Grid gridTemplateColumns="300px 1fr">
       <Box bg="gray.100" p={4}>
-        <CollectionList collectionData={data || args.collectionData} />
+        <CollectionList collectionData={data?.data || args.collectionData} />
       </Box>
     </Grid>
   )

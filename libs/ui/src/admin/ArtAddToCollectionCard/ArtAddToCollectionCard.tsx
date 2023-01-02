@@ -26,7 +26,7 @@ export const ArtAddToCollectionCard: FC<ArtAddToCollectionCardProps> = ({
 
   return (
     <Stack boxShadow="md" rounded="md" direction={'column'} overflow="hidden">
-      <WImage h={'200px'} src={art.images?.[0].url || ''} />
+      <WImage h={'200px'} src={art.image?.url || ''} />
       <Stack w="full" px={4} py={2}>
         <Text fontSize="md" fontWeight="semibold" noOfLines={1}>
           {art.title}

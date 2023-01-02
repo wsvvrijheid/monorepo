@@ -1,5 +1,5 @@
 import { Image, SimpleGrid, Stack, Text } from '@chakra-ui/react'
-import { Request } from '@wsvvrijheid/lib'
+import { searchModel } from '@wsvvrijheid/services'
 import { Activity } from '@wsvvrijheid/types'
 import { AnimatedBox, Card, Container, Hero } from '@wsvvrijheid/ui'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
@@ -59,11 +59,11 @@ export const getServerSideProps = async context => {
   const { locale, query } = context
   const { page } = query
 
-  const activities = await Request.collection<Activity[]>({
+  const activities = await searchModel<Activity>({
     url: 'api/activities',
-    page,
-    pageSize: 10,
     locale,
+    page,
+    statuses: ['approved'],
   })
 
   const seo = {

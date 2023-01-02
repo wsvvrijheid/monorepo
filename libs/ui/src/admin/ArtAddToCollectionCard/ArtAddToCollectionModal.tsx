@@ -13,8 +13,8 @@ import {
   Spinner,
   Stack,
 } from '@chakra-ui/react'
-import { useArts } from '@wsvvrijheid/services'
-import { StrapiLocale } from '@wsvvrijheid/types'
+import { useSearchModel } from '@wsvvrijheid/services'
+import { Art, StrapiLocale } from '@wsvvrijheid/types'
 import { useRouter } from 'next/router'
 
 import { Pagination } from '../../components'
@@ -31,9 +31,11 @@ export const ArtAddToCollectionModal: FC<ArtAddToCollectionModalProps> = ({
   const [page, setPage] = useState(1)
   const { locale } = useRouter()
 
-  const { data, isLoading, refetch } = useArts([], {
+  const { data, isLoading, refetch } = useSearchModel<Art>({
+    url: 'api/arts',
     searchTerm: search || undefined,
     locale: locale as StrapiLocale,
+    statuses: ['approved'],
   })
 
   useEffect(() => {
@@ -69,6 +71,7 @@ export const ArtAddToCollectionModal: FC<ArtAddToCollectionModalProps> = ({
                   <ArtAddToCollectionGrid
                     arts={data?.data || []}
                     collection={collection}
+                    onSuccess={refetch}
                   />
                   <Pagination
                     alignSelf="center"
