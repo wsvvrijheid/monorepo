@@ -28,7 +28,8 @@ export const ModelCreateModal = <
   schema,
   url,
   children,
-}: PropsWithChildren<ModelCreateFormProps<D>>) => {
+  title,
+}: PropsWithChildren<ModelCreateFormProps<D> & { title: string }>) => {
   const formDisclosure = useDisclosure()
 
   const handleSuccess = () => {
@@ -57,7 +58,7 @@ export const ModelCreateModal = <
       >
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader color={'primary.500'}>Create Post</ModalHeader>
+          <ModalHeader color={'primary.500'}>{title}</ModalHeader>
           <ModalCloseButton />
           <ModalBody pos="relative" py={6}>
             <ModelCreateForm<T, D>

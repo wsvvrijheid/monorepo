@@ -19,7 +19,14 @@ const schema = yup.object({
   title: yup.string().required('Title is required'),
   description: yup.string().required('Description is required'),
   content: yup.string(),
-  hashtag: yup.object().required('Hashtag is required'),
+  hashtag: yup
+    .object()
+    .shape({
+      label: yup.string(),
+      value: yup.string(),
+    })
+    .default(undefined)
+    .required(),
   image: yup.mixed().required('Image is required'),
   reference: yup.string(),
 })
@@ -76,36 +83,21 @@ const PostsPage = () => {
       }}
     >
       <ModelCreateModal<Post, PostCreateInput>
+        title="Create Post"
         url="api/posts"
         schema={schema}
         fields={[
-          {
-            name: 'title',
-            isRequired: true,
-          },
-          {
-            name: 'reference',
-          },
-          {
-            name: 'description',
-            isRequired: true,
-            type: 'textarea',
-          },
-          {
-            name: 'content',
-            type: 'textarea',
-          },
+          { name: 'title', isRequired: true },
+          { name: 'reference' },
+          { name: 'description', isRequired: true, type: 'textarea' },
+          { name: 'content', type: 'textarea' },
           {
             name: 'hashtag',
             isRequired: true,
             type: 'select',
             url: 'api/hashtags',
           },
-          {
-            name: 'image',
-            type: 'file',
-            isRequired: true,
-          },
+          { name: 'image', type: 'file', isRequired: true },
         ]}
         onSuccess={() => postsQuery.refetch()}
       >

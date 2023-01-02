@@ -83,7 +83,7 @@
         }
       }
     },
-    "hashtag": {
+    "hashtagDefault": {
       "pluginOptions": {
         "i18n": {
           "localized": false
