@@ -22,7 +22,7 @@ export const Card: FC<CardProps> = ({
   rounded,
 }) => {
   return (
-    <Navigate href={link}>
+    <Navigate href={link || '#'}>
       <Stack
         h="full"
         bg="white"
@@ -57,7 +57,7 @@ export const Card: FC<CardProps> = ({
             textTransform="uppercase"
             fontSize="lg"
             letterSpacing="wide"
-            color="blue.500"
+            color="primary.500"
           >
             {title}
           </Heading>
