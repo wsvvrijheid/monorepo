@@ -1,11 +1,18 @@
 // import { useEffect, useState } from 'react'
 
 import { SimpleGrid } from '@chakra-ui/react'
-import { useGetRecommendedTopics } from '@wsvvrijheid/services'
+import { useSearchModel } from '@wsvvrijheid/services'
+import { RecommendedTopic, StrapiLocale } from '@wsvvrijheid/types'
 import { AdminLayout, TopicCard } from '@wsvvrijheid/ui'
+import { useRouter } from 'next/router'
 
 const NewsBookmarkedPage = () => {
-  const { data } = useGetRecommendedTopics()
+  const { locale } = useRouter()
+
+  const { data } = useSearchModel<RecommendedTopic>({
+    url: 'api/recommended-topics',
+    locale: locale as StrapiLocale,
+  })
 
   return (
     <AdminLayout
@@ -17,7 +24,7 @@ const NewsBookmarkedPage = () => {
       }}
     >
       <SimpleGrid columns={{ base: 1 }} gap={4}>
-        {data?.map((topic, i) => (
+        {data?.data?.map((topic, i) => (
           <TopicCard key={topic.url} topic={topic} />
         ))}
       </SimpleGrid>
