@@ -23,12 +23,15 @@ type CompetitionRelationInput = {
 }
 
 export type CompetitionCreateInput = Expand<
-  { publishedAt?: string | null } & Omit<CompetitionBase, 'approvalStatus'> &
+  { publishedAt?: Date | string | null } & Omit<
+    CompetitionBase,
+    'approvalStatus'
+  > &
     Omit<CompetitionRelationInput, 'applications'>
 >
 
 export type CompetitionUpdateInput = Expand<
-  { publishedAt?: string | null } & Partial<
+  { publishedAt?: Date | string | null } & Partial<
     Omit<CompetitionBase, 'locale'> & CompetitionRelationInput
   >
 >

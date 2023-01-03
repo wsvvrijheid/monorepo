@@ -24,34 +24,34 @@ type CommentRelationInput = {
 }
 
 export type CommentArtCreateInputPublic = Expand<
-  { publishedAt?: string | null } & {
+  { publishedAt?: Date | string | null } & {
     content: string
     name: string
     email: string
   } & PickRequired<CommentRelationInput, 'art'>
 >
 export type CommentArtCreateInputUser = Expand<
-  { publishedAt?: string | null } & Pick<CommentBase, 'content'> &
+  { publishedAt?: Date | string | null } & Pick<CommentBase, 'content'> &
     PickRequired<CommentRelationInput, 'art' | 'user'>
 >
 export type CommentArtCreateInput = Expand<
-  | ({ publishedAt?: string | null } & CommentArtCreateInputPublic)
+  | ({ publishedAt?: Date | string | null } & CommentArtCreateInputPublic)
   | CommentArtCreateInputUser
 >
 
 export type CommentBlogCreateInputPublic = Expand<
-  { publishedAt?: string | null } & {
+  { publishedAt?: Date | string | null } & {
     content: string
     name: string
     email: string
   } & PickRequired<CommentRelationInput, 'blog'>
 >
 export type CommentBlogCreateInputUser = Expand<
-  { publishedAt?: string | null } & Pick<CommentBase, 'content'> &
+  { publishedAt?: Date | string | null } & Pick<CommentBase, 'content'> &
     PickRequired<CommentRelationInput, 'blog' | 'user'>
 >
 export type CommentBlogCreateInput = Expand<
-  | ({ publishedAt?: string | null } & CommentBlogCreateInputPublic)
+  | ({ publishedAt?: Date | string | null } & CommentBlogCreateInputPublic)
   | CommentBlogCreateInputUser
 >
 

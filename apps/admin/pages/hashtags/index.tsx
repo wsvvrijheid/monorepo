@@ -9,7 +9,6 @@ import {
   mainHashtagColumns,
   mainHashtagSchema,
   ModelCreateModal,
-  MainHashtagSchemaKeys,
 } from '@wsvvrijheid/ui'
 import { useRouter } from 'next/router'
 import { useUpdateEffect } from 'react-use'
@@ -57,7 +56,7 @@ const MainHashtagsPage = () => {
         onSearch: handleSearch,
       }}
     >
-      <ModelCreateModal<Hashtag, MainHashtagSchemaKeys>
+      <ModelCreateModal<Hashtag>
         title="Create Hashtag"
         url="api/hashtags"
         schema={mainHashtagSchema}

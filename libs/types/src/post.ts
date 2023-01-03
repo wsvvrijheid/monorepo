@@ -31,7 +31,7 @@ export type PostRelationInput = {
 }
 
 export type PostCreateInput = Expand<
-  { publishedAt?: string | null } & Omit<
+  { publishedAt?: Date | string | null } & Omit<
     PostBase,
     'approvalStatus' | 'capsStatus'
   > &
@@ -39,7 +39,7 @@ export type PostCreateInput = Expand<
 >
 
 export type PostUpdateInput = Expand<
-  { publishedAt?: string | null } & Partial<
+  { publishedAt?: Date | string | null } & Partial<
     Omit<PostBase, 'locale'> & Omit<PostRelationInput, 'translator' | 'creator'>
   >
 >

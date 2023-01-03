@@ -7,7 +7,6 @@ import {
   collectionColumns,
   collectionFields,
   collectionSchema,
-  CollectionSchemaKeys,
   DataTable,
   ModelCreateModal,
 } from '@wsvvrijheid/ui'
@@ -56,7 +55,7 @@ const CollectionsPage = () => {
         defaultLocale: router.defaultLocale as StrapiLocale,
       }}
     >
-      <ModelCreateModal<Collection, CollectionSchemaKeys>
+      <ModelCreateModal<Collection>
         title="Create Collection"
         url="api/collections"
         schema={collectionSchema}

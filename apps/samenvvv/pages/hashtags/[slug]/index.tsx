@@ -242,7 +242,7 @@ export const getServerSideProps: GetServerSideProps = async context => {
   const queryClient = new QueryClient()
   const queryKey = ['hashtag', locale, slug]
 
-  const args: SearchModelArgs = {
+  const args: SearchModelArgs<Hashtag> = {
     url: 'api/hashtags',
     locale,
     statuses: ['approved'],

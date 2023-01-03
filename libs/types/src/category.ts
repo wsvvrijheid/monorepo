@@ -36,7 +36,7 @@ type CategoryRelationInput = {
 }
 
 export type CategoryCreateInput = Expand<
-  { publishedAt?: string | null } & CategoryBase & CategoryRelationInput
+  { publishedAt?: Date | string | null } & CategoryBase & CategoryRelationInput
 >
 
 export type Category = StrapiBase & CategoryBase & CategoryRelation

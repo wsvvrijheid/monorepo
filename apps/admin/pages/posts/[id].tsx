@@ -6,7 +6,6 @@ import {
   ModelEditForm,
   postFields,
   postSchema,
-  PostSchemaKeys,
 } from '@wsvvrijheid/ui'
 import { useRouter } from 'next/router'
 
@@ -21,7 +20,7 @@ const PostPage = () => {
     <AdminLayout title="Post" isLoading={isLoading} hasBackButton>
       <Box p={6} rounded="md" bg="white" shadow="md">
         {post && (
-          <ModelEditForm<Post, PostSchemaKeys>
+          <ModelEditForm<Post>
             url="api/posts"
             model={post}
             schema={postSchema}

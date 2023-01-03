@@ -4,7 +4,6 @@ import { Activity } from '@wsvvrijheid/types'
 import {
   activityFields,
   activitySchema,
-  ActivitySchemaKeys,
   AdminLayout,
   ModelEditForm,
 } from '@wsvvrijheid/ui'
@@ -21,7 +20,7 @@ const ActivityPage = () => {
     <AdminLayout title="Activity" isLoading={isLoading} hasBackButton>
       <Box p={6} rounded="md" bg="white" shadow="md">
         {activity && (
-          <ModelEditForm<Activity, ActivitySchemaKeys>
+          <ModelEditForm<Activity>
             url="api/activities"
             model={activity}
             schema={activitySchema}

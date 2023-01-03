@@ -9,7 +9,6 @@ import {
   postColumns,
   postFields,
   postSchema,
-  PostSchemaKeys,
 } from '@wsvvrijheid/ui'
 import { useRouter } from 'next/router'
 import { useUpdateEffect } from 'react-use'
@@ -65,7 +64,7 @@ const PostsPage = () => {
         defaultLocale,
       }}
     >
-      <ModelCreateModal<Post, PostSchemaKeys>
+      <ModelCreateModal<Post>
         title="Create Post"
         url="api/posts"
         schema={postSchema}

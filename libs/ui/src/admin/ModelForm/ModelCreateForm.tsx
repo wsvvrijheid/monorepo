@@ -12,8 +12,8 @@ import { useCreateModelMutation } from '@wsvvrijheid/services'
 import { useAuthSelector } from '@wsvvrijheid/store'
 import {
   StrapiLocale,
+  StrapiModel,
   StrapiTranslatableCreateInput,
-  StrapiTranslatableModel,
   StrapiUrl,
 } from '@wsvvrijheid/types'
 import { capitalize } from 'lodash'
@@ -26,15 +26,12 @@ import { FilePicker, FormItem, MasonryGrid } from '../../components'
 import { ModelSelect } from './ModelSelect'
 import { ModelCreateFormProps, Option } from './types'
 
-export const ModelCreateForm = <
-  T extends StrapiTranslatableModel,
-  D extends string,
->({
+export const ModelCreateForm = <T extends StrapiModel>({
   url,
   fields,
   schema,
   onSuccess,
-}: ModelCreateFormProps<D>) => {
+}: ModelCreateFormProps<T>) => {
   const { user } = useAuthSelector()
 
   const createModelMutation = useCreateModelMutation<
@@ -52,7 +49,7 @@ export const ModelCreateForm = <
     setValue,
   } = useForm<InferType<typeof schema>>({
     resolver: yupResolver(schema),
-    mode: 'onBlur',
+    mode: 'all',
   })
 
   const onCreateModel = async (
@@ -102,10 +99,8 @@ export const ModelCreateForm = <
   const disabledStyle = {
     borderColor: 'transparent',
     _hover: { borderColor: 'transparent' },
-    color: 'blackAlpha.500',
+    color: 'gray.500',
   }
-
-  console.log('errors', errors)
 
   return (
     <Stack as={'form'} onSubmit={handleSubmit(onCreateModel)}>
@@ -137,6 +132,7 @@ export const ModelCreateForm = <
                 isMulti={field.isMulti}
                 isRequired={field.isRequired}
                 name={field.name as string}
+                fields={field.fields}
                 label={label}
                 errors={errors}
                 control={control}

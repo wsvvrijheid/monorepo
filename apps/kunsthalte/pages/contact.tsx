@@ -9,8 +9,9 @@ import {
   VStack,
 } from '@chakra-ui/react'
 import { useMutation } from '@tanstack/react-query'
-import { socialLinks } from '@wsvvrijheid/config'
-import { EmailData, sendEmail } from '@wsvvrijheid/services'
+import { EMAIL_SENDER, socialLinks } from '@wsvvrijheid/config'
+import { sendEmail } from '@wsvvrijheid/services'
+import { EmailCreateInput } from '@wsvvrijheid/types'
 import {
   ContactForm,
   Container,
@@ -45,7 +46,7 @@ const Contact = ({ seo }: ContactProps): JSX.Element => {
     mutate: sendForm,
   } = useMutation({
     mutationKey: ['contact'],
-    mutationFn: async (data: EmailData) => {
+    mutationFn: async (data: EmailCreateInput) => {
       return sendEmail(data)
     },
   })
@@ -54,6 +55,7 @@ const Contact = ({ seo }: ContactProps): JSX.Element => {
     const emailData = {
       subject: `Form from ${data.fullname} (${data.email})`,
       text: data.message,
+      from: EMAIL_SENDER,
     }
 
     return sendForm(emailData)

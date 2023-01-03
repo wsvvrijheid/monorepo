@@ -1,6 +1,10 @@
-import { StrapiMutationInput } from '@wsvvrijheid/types'
+import { StrapiCreateInput, StrapiUpdateInput } from '@wsvvrijheid/types'
 
-export const generateFormData = <T extends StrapiMutationInput>(body: T) => {
+export const generateFormData = <
+  T extends StrapiCreateInput | StrapiUpdateInput,
+>(
+  body: T,
+) => {
   const formData = new FormData()
 
   const data = {} as Record<string, unknown>
