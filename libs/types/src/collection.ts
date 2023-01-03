@@ -19,12 +19,15 @@ type CollectionRelationInput = {
 }
 
 export type CollectionCreateInput = Expand<
-  { publishedAt?: string | null } & Omit<CollectionBase, 'approvalStatus'> &
+  { publishedAt?: Date | string | null } & Omit<
+    CollectionBase,
+    'approvalStatus'
+  > &
     CollectionRelationInput
 >
 
 export type CollectionUpdateInput = Expand<
-  { publishedAt?: string | null } & Partial<
+  { publishedAt?: Date | string | null } & Partial<
     Omit<CollectionBase, 'locale'> & CollectionRelationInput
   >
 >

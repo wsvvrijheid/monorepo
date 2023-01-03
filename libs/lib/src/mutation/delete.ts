@@ -6,4 +6,4 @@ export const deleteMutation = <T extends StrapiModel>(
   url: StrapiUrl,
   id: number,
   token?: string,
-) => mutation<T>({ url, method: 'delete', id, token })
+) => mutation<T, any>({ url, method: 'delete', id, token })

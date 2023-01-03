@@ -5,7 +5,6 @@ import {
   AdminLayout,
   mainHashtagFields,
   mainHashtagSchema,
-  MainHashtagSchemaKeys,
   ModelEditForm,
 } from '@wsvvrijheid/ui'
 import { useRouter } from 'next/router'
@@ -21,7 +20,7 @@ const MainHashtagPage = () => {
     <AdminLayout title="Hashtag" isLoading={isLoading} hasBackButton>
       <Box p={6} rounded="md" bg="white" shadow="md">
         {hashtag && (
-          <ModelEditForm<Hashtag, MainHashtagSchemaKeys>
+          <ModelEditForm<Hashtag>
             url="api/hashtags"
             model={hashtag}
             schema={mainHashtagSchema}

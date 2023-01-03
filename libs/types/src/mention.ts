@@ -23,7 +23,7 @@ type MentionRelationInput = {
 }
 
 export type MentionCreateInput = Expand<
-  { publishedAt?: string | null } & Omit<MentionBase, 'data'> &
+  { publishedAt?: Date | string | null } & Omit<MentionBase, 'data'> &
     MentionRelationInput
 >
 

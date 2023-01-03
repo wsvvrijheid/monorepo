@@ -1,28 +1,29 @@
-import { FC } from 'react'
-
 import { useSearchModel } from '@wsvvrijheid/services'
-import { StrapiLocale } from '@wsvvrijheid/types'
+import { StrapiLocale, StrapiModel } from '@wsvvrijheid/types'
 import { useRouter } from 'next/router'
 
 import { WSelect } from '../../components'
 import { ModelSelectProps } from './types'
-import { mapModelToOption } from './utils'
+import { mapModelsToOptions } from './utils'
 
-export const ModelSelect: FC<ModelSelectProps> = ({ url, ...rest }) => {
+export const ModelSelect = <T extends StrapiModel>({
+  url,
+  fields,
+  ...rest
+}: ModelSelectProps<T>) => {
   const { locale } = useRouter()
-  const models = useSearchModel({
+
+  const models = useSearchModel<T>({
     url,
     locale: locale as StrapiLocale,
     statuses: ['approved'],
+    fields,
+    populate: [],
   })
 
   return (
     <WSelect
-      options={
-        models.data?.data?.map(model =>
-          mapModelToOption(model, locale as StrapiLocale),
-        ) || []
-      }
+      options={mapModelsToOptions(models.data?.data, locale as StrapiLocale)}
       {...rest}
     />
   )

@@ -4,7 +4,7 @@ import { StrapiLocale, StrapiModel, StrapiUrl } from '@wsvvrijheid/types'
 const getModelPaths = async <T extends StrapiModel>(
   url: StrapiUrl,
   locales: StrapiLocale[],
-  args: Omit<RequestArgs, 'url'> = {},
+  args: Omit<RequestArgs<T>, 'url'> = {},
 ) =>
   (
     await Promise.all(
@@ -28,7 +28,7 @@ const getModelPaths = async <T extends StrapiModel>(
 export const getModelStaticPaths = async <T extends StrapiModel>(
   url: StrapiUrl,
   locales: StrapiLocale[],
-  args: Omit<RequestArgs, 'url'> = {},
+  args: Omit<RequestArgs<T>, 'url'> = {},
 ) => {
   const paths = await getModelPaths<T>(url, locales, args)
 
