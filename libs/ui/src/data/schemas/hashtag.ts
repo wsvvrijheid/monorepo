@@ -4,8 +4,9 @@ import { FormFields } from '../../admin'
 
 export const mainHashtagSchema = yup.object({
   title: yup.string().required('Title is required'),
+  date: yup.date().required('Date is required'),
   description: yup.string().required('Description is required'),
-  content: yup.string().required('Content is required'),
+  content: yup.string(),
   hashtagDefault: yup.string().required('Hashtag is required'),
   hashtagExtra: yup.string(),
   categories: yup.array().of(
@@ -14,7 +15,6 @@ export const mainHashtagSchema = yup.object({
       value: yup.string(),
     }),
   ),
-  date: yup.date().required('Date is required'),
   mentions: yup.array().of(
     yup.object().shape({
       label: yup.string(),
@@ -32,7 +32,7 @@ export const mainHashtagFields: FormFields<MainHashtagSchemaKeys> = [
   { name: 'title', isRequired: true },
   { name: 'date', type: 'datetime-local', isRequired: true },
   { name: 'description', isRequired: true, type: 'textarea' },
-  { name: 'content', isRequired: true, type: 'textarea' },
+  { name: 'content', type: 'textarea' },
   {
     name: 'hashtagDefault',
     label: 'Default Hashtag',
@@ -44,7 +44,6 @@ export const mainHashtagFields: FormFields<MainHashtagSchemaKeys> = [
     type: 'select',
     url: 'api/mentions',
     isMulti: true,
-    isRequired: true,
   },
   {
     name: 'categories',
