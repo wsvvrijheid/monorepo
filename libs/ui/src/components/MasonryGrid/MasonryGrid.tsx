@@ -5,6 +5,8 @@ import Masonry from 'react-masonry-css'
 
 export interface MasonryGridProps {
   gap?: number
+  columnGap?: number
+  rowGap?: number
   cols?: Array<number>
   children: ReactNode
 }
@@ -12,13 +14,14 @@ export interface MasonryGridProps {
 export const MasonryGrid: FC<MasonryGridProps> = ({
   children,
   gap = 4,
+  columnGap = 4,
+  rowGap = 4,
   cols = [1, 2, 3, 4],
 }) => {
   const breakpointCols = useBreakpointValue(cols)
   return (
     <Flex
       as={Masonry}
-      ml={-gap}
       breakpointCols={breakpointCols}
       className="masonry-grid"
       columnClassName="masonry-grid_column"
@@ -26,11 +29,14 @@ export const MasonryGrid: FC<MasonryGridProps> = ({
         '& .masonry-grid_column': {
           '&:not(:nth-of-type(1))': {
             bgClip: 'padding-box',
-            pl: { base: cols[0] === 1 ? 0 : gap, lg: gap },
+            pl: {
+              base: cols[0] === 1 ? 0 : columnGap || gap,
+              lg: columnGap || gap,
+            },
           },
 
           '& > div': {
-            mb: gap,
+            mb: rowGap || gap,
           },
         },
       }}
