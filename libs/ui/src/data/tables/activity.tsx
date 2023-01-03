@@ -4,14 +4,9 @@ import { LocaleBadges, PublicationBadges } from '../../admin'
 import { WTableProps } from '../../components'
 
 export const activityColumns: WTableProps<Activity>['columns'] = {
-  image: {
-    type: 'image',
-  },
-  title: {
-    sortable: true,
-  },
+  image: { type: 'image' },
+  title: { sortable: true },
   description: {},
-
   approvalStatus: {
     type: 'badge',
     componentProps: value => {
@@ -37,16 +32,12 @@ export const activityColumns: WTableProps<Activity>['columns'] = {
   },
   createdAt: {
     type: 'date',
-    componentProps: {
-      format: 'dd MMMM',
-    },
+    componentProps: { format: 'dd MMMM' },
     sortable: true,
   },
   date: {
     type: 'date',
-    componentProps: {
-      format: 'dd MMMM yyyy',
-    },
+    componentProps: { format: 'dd MMMM yyyy' },
     sortable: true,
   },
 }
