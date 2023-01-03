@@ -33,7 +33,7 @@ type TagRelationInput = {
 }
 
 export type TagCreateInput = Expand<
-  { publishedAt?: string | null } & TagBase & TagRelationInput
+  { publishedAt?: Date | string | null } & TagBase & TagRelationInput
 >
 
 export type Tag = StrapiBase & TagBase & TagRelation

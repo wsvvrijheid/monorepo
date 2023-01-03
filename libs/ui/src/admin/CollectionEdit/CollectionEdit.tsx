@@ -10,11 +10,7 @@ import {
 } from '@chakra-ui/react'
 import { Collection } from '@wsvvrijheid/types'
 
-import {
-  collectionFields,
-  collectionSchema,
-  CollectionSchemaKeys,
-} from '../../data'
+import { collectionFields, collectionSchema } from '../../data'
 import { ModelEditForm } from '../ModelForm'
 import { CollectionEditProps } from './types'
 
@@ -42,7 +38,7 @@ export const CollectionEdit: FC<CollectionEditProps> = ({
           <AccordionIcon ml={'auto'} />
         </AccordionButton>
         <AccordionPanel p={0} mt={4}>
-          <ModelEditForm<Collection, CollectionSchemaKeys>
+          <ModelEditForm<Collection>
             url="api/collections"
             model={collection}
             translatedFields={['title', 'description', 'content']}

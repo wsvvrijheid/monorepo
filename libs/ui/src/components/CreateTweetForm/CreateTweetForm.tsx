@@ -19,6 +19,7 @@ import {
   Textarea,
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { Mention } from '@wsvvrijheid/types'
 import { useForm } from 'react-hook-form'
 import { FiArrowUpRight } from 'react-icons/fi'
 import { GrFormClose } from 'react-icons/gr'
@@ -137,10 +138,11 @@ export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
                   isRequired
                 />
 
-                <ModelSelect
+                <ModelSelect<Mention>
                   isMulti
                   url="api/mentions"
                   control={control as any}
+                  fields={['username', 'data']}
                   name="mention"
                   label="Mention"
                   errors={errors}

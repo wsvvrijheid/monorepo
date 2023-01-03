@@ -16,7 +16,7 @@ export const requestCollection = async <T extends StrapiModel[]>({
   page = 1,
   pageSize = 25,
   publicationState = 'live',
-}: RequestArgs): Promise<{ data: T; meta: StrapiMeta }> => {
+}: RequestArgs<T[number]>): Promise<{ data: T; meta: StrapiMeta }> => {
   const query = qs.stringify(
     {
       publicationState,
@@ -39,7 +39,7 @@ export const requestCollection = async <T extends StrapiModel[]>({
       },
     })
 
-    const data = await response.json()
+    const data = (await response.json()) as { data: T; meta: StrapiMeta }
 
     if (!data || (data && !data.data)) {
       return {

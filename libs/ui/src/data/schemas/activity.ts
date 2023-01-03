@@ -1,3 +1,4 @@
+import { Activity } from '@wsvvrijheid/types'
 import * as yup from 'yup'
 
 import { FormFields } from '../../admin'
@@ -10,9 +11,7 @@ export const activitySchema = yup.object({
   image: yup.mixed().required('Image is required'),
 })
 
-export type ActivitySchemaKeys = keyof yup.InferType<typeof activitySchema>
-
-export const activityFields: FormFields<ActivitySchemaKeys> = [
+export const activityFields: FormFields<Activity> = [
   { name: 'title', isRequired: true },
   { name: 'date', isRequired: true, type: 'datetime-local' },
   { name: 'description', isRequired: true, type: 'textarea' },

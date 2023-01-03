@@ -21,7 +21,7 @@ export const approveModel = <T extends StrapiModel>(
   return Mutation.put<T, typeof body>(url, id, body)
 }
 
-export const useApproveModel = <T extends StrapiTranslatableModel>(
+export const useApproveModel = <T extends StrapiModel>(
   url: StrapiUrl,
   translatedFields?: (keyof T)[],
   queryKey?: QueryKey,
@@ -36,17 +36,19 @@ export const useApproveModel = <T extends StrapiTranslatableModel>(
       queryClient.invalidateQueries(queryKey)
     },
     onSuccess: async res => {
-      if (translatedFields && res.localizations?.length === 0) {
+      const translatableRes = res as StrapiTranslatableModel
+      if (translatedFields && translatableRes.localizations?.length === 0) {
         await createLocalizations({
-          data: res,
-          translatedFields,
+          data: res as StrapiTranslatableModel,
+          translatedFields:
+            translatedFields as (keyof StrapiTranslatableModel)[],
           url,
         })
       }
 
       toast({
-        title: `Model ${res.approvalStatus}`,
-        description: `Model has been ${res.approvalStatus}`,
+        title: `Model ${translatableRes.approvalStatus}`,
+        description: `Model has been ${translatableRes.approvalStatus}`,
         status: 'success',
         duration: 5000,
         isClosable: true,

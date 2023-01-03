@@ -22,6 +22,7 @@ import {
   Activity,
   Hashtag,
   Post,
+  StrapiModel,
   StrapiTranslatableModel,
   StrapiTranslatableUpdateInput,
   StrapiUrl,
@@ -47,22 +48,20 @@ import { ModelImage } from './ModelImage'
 import { ModelSelect } from './ModelSelect'
 import { ModelEditFormProps, Option } from './types'
 
-export const ModelEditForm = <
-  T extends StrapiTranslatableModel,
-  D extends string,
->({
+export const ModelEditForm = <T extends StrapiModel>({
   url,
   model,
   translatedFields,
   fields,
   schema,
   onSuccess,
-}: ModelEditFormProps<T, D>) => {
+}: ModelEditFormProps<T>) => {
   const hashtagModel = model as Hashtag
   const postModel = model as Post
+  const translatableModel = model as StrapiTranslatableModel
 
   const id = model.id
-  const isPublished = model.publishedAt
+  const isPublished = translatableModel.publishedAt
   const [isEditing, setIsEditing] = useBoolean(false)
   const [isChangingImage, setIsChangingImage] = useBoolean(false)
   const [confirmState, setConfirmState] = useState<WConfirmProps>()
@@ -224,7 +223,7 @@ export const ModelEditForm = <
   const disabledStyle = {
     borderColor: 'transparent',
     _hover: { borderColor: 'transparent' },
-    color: 'blackAlpha.500',
+    color: 'gray.500',
   }
 
   return (
@@ -261,11 +260,12 @@ export const ModelEditForm = <
 
             if (field.type === 'select') {
               return (
-                <ModelSelect
+                <ModelSelect<T>
                   key={index}
                   url={field.url as StrapiUrl}
                   isMulti={field.isMulti}
                   isRequired={field.isRequired}
+                  fields={field.fields as (keyof T)[]}
                   name={field.name as string}
                   isDisabled={!isEditing}
                   label={label}
@@ -293,16 +293,18 @@ export const ModelEditForm = <
           })}
         </SimpleGrid>
         <Wrap alignSelf={'end'} justify={'end'}>
-          {model.approvalStatus === 'approved' ? null : (
-            <Button
-              onClick={onApprove}
-              leftIcon={<HiOutlineCheck />}
-              fontSize="sm"
-              colorScheme={'primary'}
-            >
-              Approve
-            </Button>
-          )}
+          {translatableModel.approvalStatus === 'approved'
+            ? null
+            : translatableModel.approvalStatus && (
+                <Button
+                  onClick={onApprove}
+                  leftIcon={<HiOutlineCheck />}
+                  fontSize="sm"
+                  colorScheme={'primary'}
+                >
+                  Approve
+                </Button>
+              )}
           {!isEditing ? (
             <Button
               onClick={setIsEditing.on}

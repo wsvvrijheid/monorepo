@@ -1,9 +1,10 @@
 import { API_URL, TOKEN } from '@wsvvrijheid/config'
 import {
+  StrapiCreateInput,
   StrapiLocale,
   StrapiModel,
-  StrapiMutationInput,
   StrapiMutationResponse,
+  StrapiUpdateInput,
   StrapiUrl,
 } from '@wsvvrijheid/types'
 import { generateFormData } from '@wsvvrijheid/utils'
@@ -25,7 +26,7 @@ type MutationParams<D> = {
 // D is the type of the data to be sent
 export const mutation = async <
   T extends StrapiModel,
-  D extends StrapiMutationInput = StrapiMutationInput,
+  D extends StrapiCreateInput | StrapiUpdateInput,
 >({
   body,
   id,

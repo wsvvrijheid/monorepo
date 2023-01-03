@@ -1,3 +1,4 @@
+import { Hashtag } from '@wsvvrijheid/types'
 import * as yup from 'yup'
 
 import { FormFields } from '../../admin'
@@ -24,11 +25,7 @@ export const mainHashtagSchema = yup.object({
   image: yup.mixed().required('Image is required'),
 })
 
-export type MainHashtagSchemaKeys = keyof yup.InferType<
-  typeof mainHashtagSchema
->
-
-export const mainHashtagFields: FormFields<MainHashtagSchemaKeys> = [
+export const mainHashtagFields: FormFields<Hashtag> = [
   { name: 'title', isRequired: true },
   { name: 'date', type: 'datetime-local', isRequired: true },
   { name: 'description', isRequired: true, type: 'textarea' },
@@ -44,12 +41,14 @@ export const mainHashtagFields: FormFields<MainHashtagSchemaKeys> = [
     type: 'select',
     url: 'api/mentions',
     isMulti: true,
+    fields: ['username', 'data'],
   },
   {
     name: 'categories',
     type: 'select',
     url: 'api/categories',
     isMulti: true,
+    fields: ['name'],
   },
   { name: 'image', type: 'file', isRequired: true },
 ]
