@@ -76,6 +76,24 @@ export const getAdminNav = (user: SessionUser): AdminNavItemProps[] => {
       ],
     },
     {
+      label: 'Activities',
+      icon: <FiActivity />,
+      link: '#',
+      visible: !!isEditor || !!isAdmin,
+      submenu: [
+        {
+          label: 'Pending Activities',
+          link: '/activities?status=pending',
+          icon: <TbClock />,
+        },
+        {
+          label: 'Approved Activities',
+          link: '/activities?status=approved',
+          icon: <TbChecks />,
+        },
+      ],
+    },
+    {
       label: 'Arts',
       icon: <TbBrush />,
       link: '#',
@@ -95,24 +113,6 @@ export const getAdminNav = (user: SessionUser): AdminNavItemProps[] => {
           label: 'Rejected Arts',
           link: '/arts?status=rejected',
           icon: <TbX />,
-        },
-      ],
-    },
-    {
-      label: 'Activities',
-      icon: <FiActivity />,
-      link: '#',
-      visible: !!isEditor || !!isAdmin,
-      submenu: [
-        {
-          label: 'Pending Activities',
-          link: '/activities?status=pending',
-          icon: <TbClock />,
-        },
-        {
-          label: 'Approved Activities',
-          link: '/activities?status=approved',
-          icon: <TbChecks />,
         },
       ],
     },
