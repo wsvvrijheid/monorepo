@@ -17,7 +17,7 @@ type TimelineRelation = {
 }
 
 export type TimelineCreateInput = Omit<
-  { publishedAt?: string | null } & TimelineBase,
+  { publishedAt?: Date | string | null } & TimelineBase,
   'userData'
 >
 

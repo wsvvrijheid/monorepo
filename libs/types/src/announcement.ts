@@ -18,15 +18,18 @@ type AnnouncementRelation = {
 type AnnouncementRelationInput = {
   categories?: Array<number>
   tags?: Array<number>
-  image: File
+  image?: File
 }
 
 export type AnnouncementCreateInput = Expand<
-  { publishedAt?: string | null } & Omit<AnnouncementBase, 'approvalStatus'> &
+  { publishedAt?: Date | string | null } & Omit<
+    AnnouncementBase,
+    'approvalStatus'
+  > &
     AnnouncementRelationInput
 >
 export type AnnouncementUpdateInput = Expand<
-  { publishedAt?: string | null } & Partial<
+  { publishedAt?: Date | string | null } & Partial<
     Omit<AnnouncementBase, 'locale'> & AnnouncementRelationInput
   >
 >

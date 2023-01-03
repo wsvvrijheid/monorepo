@@ -1,3 +1,4 @@
+import { Post } from '@wsvvrijheid/types'
 import * as yup from 'yup'
 
 import { FormFields } from '../../admin'
@@ -14,9 +15,7 @@ export const postSchema = yup.object({
   image: yup.mixed().required('Image is required'),
 })
 
-export type PostSchemaKeys = keyof yup.InferType<typeof postSchema>
-
-export const postFields: FormFields<PostSchemaKeys> = [
+export const postFields: FormFields<Post> = [
   { name: 'title', isRequired: true },
   { name: 'reference' },
   { name: 'description', isRequired: true, type: 'textarea' },
@@ -25,6 +24,7 @@ export const postFields: FormFields<PostSchemaKeys> = [
     name: 'hashtag',
     type: 'select',
     url: 'api/hashtags',
+    fields: ['title'],
   },
   { name: 'image', type: 'file', isRequired: true },
 ]

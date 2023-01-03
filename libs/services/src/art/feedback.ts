@@ -1,18 +1,23 @@
 import { useToast } from '@chakra-ui/react'
 import { useMutation } from '@tanstack/react-query'
 import { Mutation } from '@wsvvrijheid/lib'
-import { Art, Feedback, FeedbackArtCreateInput } from '@wsvvrijheid/types'
+import {
+  Art,
+  ArtUpdateInput,
+  Feedback,
+  FeedbackArtCreateInput,
+} from '@wsvvrijheid/types'
 
 export const createFeedback = async (args: FeedbackArtCreateInput) => {
   if (!args.message) {
     throw new Error('feedback field is required')
   }
-  const body = {
-    approvalStatus: args.status === 'approve' ? 'approved' : 'rejected',
-    publishedAt: args.status === 'approve' ? new Date() : null,
+  const body: ArtUpdateInput = {
+    approvalStatus: args.status,
+    publishedAt: args.status === 'approved' ? new Date() : null,
   }
   await Mutation.post<Feedback, FeedbackArtCreateInput>('api/feedbacks', args)
-  return Mutation.put<Art, typeof body>('api/arts', args.art, body)
+  return Mutation.put<Art, ArtUpdateInput>('api/arts', args.art, body)
 }
 
 export const useArtFeedbackMutation = () => {

@@ -5,7 +5,7 @@ import {
   SearchModelArgs,
   useSearchModel,
 } from '@wsvvrijheid/services'
-import { Art, Hashtag, StrapiLocale } from '@wsvvrijheid/types'
+import { Hashtag, StrapiLocale } from '@wsvvrijheid/types'
 import { AnimatedBox, Container, Hero, Markdown } from '@wsvvrijheid/ui'
 import { GetStaticProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
@@ -65,7 +65,7 @@ export const getStaticProps: GetStaticProps = async context => {
   const locale = context.locale as StrapiLocale
   const queryClient = new QueryClient()
 
-  const args: SearchModelArgs = {
+  const args: SearchModelArgs<Hashtag> = {
     url: 'api/hashtags',
     locale,
     statuses: ['approved'],
@@ -73,7 +73,7 @@ export const getStaticProps: GetStaticProps = async context => {
 
   const queryKey = Object.values(args)
 
-  await queryClient.prefetchQuery(queryKey, () => searchModel<Art>(args))
+  await queryClient.prefetchQuery(queryKey, () => searchModel<Hashtag>(args))
 
   const hashtags = queryClient.getQueryData<Hashtag[]>(queryKey)
 

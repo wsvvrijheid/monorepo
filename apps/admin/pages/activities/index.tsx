@@ -11,7 +11,6 @@ import {
   activityColumns,
   activityFields,
   activitySchema,
-  ActivitySchemaKeys,
   AdminLayout,
   DataTable,
   ModelCreateModal,
@@ -71,7 +70,7 @@ const ActivitiesPage = () => {
         defaultLocale,
       }}
     >
-      <ModelCreateModal<Activity, ActivitySchemaKeys>
+      <ModelCreateModal<Activity>
         title="Create Activity"
         url="api/activities"
         schema={activitySchema}

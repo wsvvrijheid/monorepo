@@ -25,7 +25,10 @@ const NewsBookmarkedPage = () => {
     >
       <SimpleGrid columns={{ base: 1 }} gap={4}>
         {data?.data?.map((topic, i) => (
-          <TopicCard key={topic.url} topic={topic} />
+          <TopicCard
+            key={topic.url}
+            topic={{ ...topic, isRecommended: true }}
+          />
         ))}
       </SimpleGrid>
     </AdminLayout>

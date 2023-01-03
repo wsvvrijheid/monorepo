@@ -19,7 +19,7 @@ type RecommendedTopicRelationInput = {
 }
 
 export type RecommendedTopicCreateInput = Expand<
-  { publishedAt?: string | null } & Omit<
+  { publishedAt?: Date | string | null } & Omit<
     RecommendedTopicBase,
     'skipped' | 'posted'
   > &

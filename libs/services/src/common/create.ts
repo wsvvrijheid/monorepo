@@ -2,25 +2,22 @@ import { useToast } from '@chakra-ui/react'
 import { useMutation } from '@tanstack/react-query'
 import { Mutation } from '@wsvvrijheid/lib'
 import {
-  StrapiMutationInput,
-  StrapiTranslatableCreateInput,
+  StrapiCreateInput,
+  StrapiModel,
   StrapiTranslatableModel,
   StrapiUrl,
 } from '@wsvvrijheid/types'
 
-export const createModel = <
-  T extends StrapiTranslatableModel,
-  D extends StrapiTranslatableCreateInput,
->(
+export const createModel = <T extends StrapiModel, D extends StrapiCreateInput>(
   url: StrapiUrl,
   args: D,
 ) => {
-  return Mutation.post<T, StrapiMutationInput>(url, args)
+  return Mutation.post<T, D>(url, args)
 }
 
 export const useCreateModelMutation = <
-  T extends StrapiTranslatableModel,
-  D extends StrapiTranslatableCreateInput,
+  T extends StrapiModel,
+  D extends StrapiCreateInput,
 >(
   url: StrapiUrl,
 ) => {
@@ -31,7 +28,9 @@ export const useCreateModelMutation = <
     onSuccess: (res: T) => {
       toast({
         title: `Model created`,
-        description: `Model ${res.title} has been created`,
+        description: `Model ${
+          (res as StrapiTranslatableModel).title
+        } has been created`,
         status: 'success',
         duration: 5000,
         isClosable: true,

@@ -1,4 +1,4 @@
-import { StrapiTranslatableModel, StrapiUrl } from '@wsvvrijheid/types'
+import { StrapiModel, StrapiModelKeys, StrapiUrl } from '@wsvvrijheid/types'
 import { Control, FieldErrorsImpl, FieldValues } from 'react-hook-form'
 import { AssertsShape, OptionalObjectSchema } from 'yup/lib/object'
 
@@ -14,43 +14,54 @@ export type MentionSelectProps = {
   >
 }
 
-export type FormFields<D extends string> = {
-  name: D
-  label?: string
-  url?: StrapiUrl
-  // Todo: Add markdown support
-  type?: 'text' | 'textarea' | 'select' | 'file' | 'date' | 'datetime-local'
-  isMulti?: boolean
-  isRequired?: boolean
-}[]
+type FormTextFields = {
+  type?: 'text' | 'textarea' | 'date' | 'datetime-local' | 'file'
+}
 
-export type ModelCreateFormProps<D extends string> = {
+type FormSelectFields = {
+  type: 'select'
+  isMulti?: boolean
   url: StrapiUrl
-  fields: FormFields<D>
+  fields: StrapiModelKeys[]
+}
+
+type FormCommonFields<T extends StrapiModel> = {
+  name: keyof T
+  label?: string
+  isRequired?: boolean
+}
+
+export type FormFields<T extends StrapiModel> = Array<
+  | (FormTextFields & FormCommonFields<T>)
+  | (FormSelectFields & FormCommonFields<T>)
+>
+
+export type ModelCreateFormProps<T extends StrapiModel> = {
+  url: StrapiUrl
+  fields: FormFields<T>
   schema: OptionalObjectSchema<any>
   onSuccess: () => void
 }
 
-export type ModelEditFormProps<
-  T extends StrapiTranslatableModel,
-  D extends string,
-> = {
+export type ModelEditFormProps<T extends StrapiModel> = {
   url: StrapiUrl
   model: T
   translatedFields: (keyof T)[]
-  fields: FormFields<D>
+  fields: FormFields<T>
   schema: OptionalObjectSchema<any>
   onSuccess: () => void
 }
 
-export type ModelSelectProps = WSelectProps<FieldValues> & {
-  url: StrapiUrl
-  control: Control<AssertsShape<any>, any>
-  errors: Partial<
-    FieldErrorsImpl<{
-      [x: string]: any
-    }>
-  >
-}
+export type ModelSelectProps<T extends StrapiModel> =
+  WSelectProps<FieldValues> & {
+    url: StrapiUrl
+    fields?: (keyof T)[]
+    control: Control<AssertsShape<any>, any>
+    errors: Partial<
+      FieldErrorsImpl<{
+        [x: string]: any
+      }>
+    >
+  }
 
 export type Option = { value: string | number; label: string }
