@@ -1,18 +1,14 @@
 import { Hashtag, Mention, Post, StrapiLocale } from '@wsvvrijheid/types'
-import { LocaleBadges, PublicationBadges, WTableProps } from '@wsvvrijheid/ui'
+
+import { LocaleBadges, PublicationBadges } from '../../admin'
+import { WTableProps } from '../../components'
 
 export const mainHashtagColumns: WTableProps<Hashtag>['columns'] = {
-  image: {
-    type: 'image',
-  },
-  title: {
-    sortable: true,
-  },
+  image: { type: 'image' },
+  title: { sortable: true },
   createdAt: {
     type: 'date',
-    componentProps: {
-      format: 'dd MMMM',
-    },
+    componentProps: { format: 'dd MMMM' },
     sortable: true,
   },
   posts: {

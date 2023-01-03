@@ -12,10 +12,10 @@ import { useAuthSelector } from '@wsvvrijheid/store'
 import { Art, UploadFile } from '@wsvvrijheid/types'
 
 import { WConfirm, WConfirmProps } from '../../../components/WConfirm'
+import { artColumns } from '../../../data'
 import { ArtApprovalModal } from '../../ArtApprovalModal'
 import { DataTable } from '../DataTable'
 import { DataTableProps } from '../types'
-import { columns } from './columns'
 
 type ArtsTableProps = Omit<DataTableProps<Art>, 'columns'> & {
   onSuccess?: () => void
@@ -173,7 +173,7 @@ export const ArtsTable: FC<ArtsTableProps> = ({
       )}
       <DataTable
         data={arts}
-        columns={columns}
+        columns={artColumns}
         onClickRow={handleClickRow}
         totalCount={totalCount}
         currentPage={currentPage}

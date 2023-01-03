@@ -1,35 +1,18 @@
 import { useEffect, useState } from 'react'
 
 import { useSearchModel } from '@wsvvrijheid/services'
+import { ApprovalStatus, Post, Sort, StrapiLocale } from '@wsvvrijheid/types'
 import {
-  ApprovalStatus,
-  Post,
-  PostCreateInput,
-  Sort,
-  StrapiLocale,
-} from '@wsvvrijheid/types'
-import { AdminLayout, ModelCreateModal, DataTable } from '@wsvvrijheid/ui'
+  AdminLayout,
+  DataTable,
+  ModelCreateModal,
+  postColumns,
+  postFields,
+  postSchema,
+  PostSchemaKeys,
+} from '@wsvvrijheid/ui'
 import { useRouter } from 'next/router'
 import { useUpdateEffect } from 'react-use'
-import * as yup from 'yup'
-
-import { postColumns } from '../../data'
-
-const schema = yup.object({
-  title: yup.string().required('Title is required'),
-  description: yup.string().required('Description is required'),
-  content: yup.string(),
-  hashtag: yup
-    .object()
-    .shape({
-      label: yup.string(),
-      value: yup.string(),
-    })
-    .default(undefined)
-    .required(),
-  image: yup.mixed().required('Image is required'),
-  reference: yup.string(),
-})
 
 const PostsPage = () => {
   const { query } = useRouter()
@@ -82,24 +65,12 @@ const PostsPage = () => {
         defaultLocale,
       }}
     >
-      <ModelCreateModal<Post, PostCreateInput>
+      <ModelCreateModal<Post, PostSchemaKeys>
         title="Create Post"
         url="api/posts"
-        schema={schema}
-        fields={[
-          { name: 'title', isRequired: true },
-          { name: 'reference' },
-          { name: 'description', isRequired: true, type: 'textarea' },
-          { name: 'content', type: 'textarea' },
-          {
-            name: 'hashtag',
-            isRequired: true,
-            type: 'select',
-            url: 'api/hashtags',
-          },
-          { name: 'image', type: 'file', isRequired: true },
-        ]}
-        onSuccess={() => postsQuery.refetch()}
+        schema={postSchema}
+        fields={postFields}
+        onSuccess={postsQuery.refetch}
       >
         Create Post
       </ModelCreateModal>

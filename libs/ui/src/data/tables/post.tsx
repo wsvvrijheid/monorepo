@@ -5,20 +5,18 @@ import {
   ApprovalStatus,
   User,
 } from '@wsvvrijheid/types'
-import { LocaleBadges, PublicationBadges, WTableProps } from '@wsvvrijheid/ui'
+
+import { LocaleBadges, PublicationBadges } from '../../admin'
+import { WTableProps } from '../../components'
 
 export const postColumns: WTableProps<Post>['columns'] = {
-  image: {
-    type: 'image',
-  },
+  image: { type: 'image' },
   creator: {
     transform: value => (value as User)?.username,
     sortKey: 'username',
     sortable: true,
   },
-  title: {
-    sortable: true,
-  },
+  title: { sortable: true },
   content: {},
   hashtag: {
     sortable: true,
@@ -27,9 +25,7 @@ export const postColumns: WTableProps<Post>['columns'] = {
   },
   createdAt: {
     type: 'date',
-    componentProps: {
-      format: 'dd MMMM',
-    },
+    componentProps: { format: 'dd MMMM' },
     sortable: true,
   },
   capsStatus: {

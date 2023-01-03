@@ -15,6 +15,7 @@ export type CollectionEditFormFieldValues = {
 
 export type CollectionEditProps = {
   collection: Collection
+  onSuccess: () => void
 }
 
 export type CollectionAccordionItemProps = {

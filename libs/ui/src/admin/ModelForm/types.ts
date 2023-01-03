@@ -1,9 +1,4 @@
-import {
-  StrapiTranslatableCreateInput,
-  StrapiTranslatableModel,
-  StrapiTranslatableUpdateInput,
-  StrapiUrl,
-} from '@wsvvrijheid/types'
+import { StrapiTranslatableModel, StrapiUrl } from '@wsvvrijheid/types'
 import { Control, FieldErrorsImpl, FieldValues } from 'react-hook-form'
 import { AssertsShape, OptionalObjectSchema } from 'yup/lib/object'
 
@@ -19,37 +14,31 @@ export type MentionSelectProps = {
   >
 }
 
-export type ModelCreateFormProps<D extends StrapiTranslatableCreateInput> = {
+export type FormFields<D extends string> = {
+  name: D
+  label?: string
+  url?: StrapiUrl
+  // Todo: Add markdown support
+  type?: 'text' | 'textarea' | 'select' | 'file' | 'date' | 'datetime-local'
+  isMulti?: boolean
+  isRequired?: boolean
+}[]
+
+export type ModelCreateFormProps<D extends string> = {
   url: StrapiUrl
-  fields: {
-    name: keyof D
-    label?: string
-    url?: StrapiUrl
-    // Todo: Add markdown support
-    type?: 'text' | 'textarea' | 'select' | 'file' | 'date' | 'datetime-local'
-    isMulti?: boolean
-    isRequired?: boolean
-  }[]
+  fields: FormFields<D>
   schema: OptionalObjectSchema<any>
   onSuccess: () => void
 }
 
 export type ModelEditFormProps<
   T extends StrapiTranslatableModel,
-  D extends StrapiTranslatableUpdateInput,
+  D extends string,
 > = {
   url: StrapiUrl
   model: T
   translatedFields: (keyof T)[]
-  fields: {
-    name: keyof D
-    label?: string
-    url?: StrapiUrl
-    // Todo: Add markdown support
-    type?: 'text' | 'textarea' | 'select' | 'file' | 'date' | 'datetime-local'
-    isMulti?: boolean
-    isRequired?: boolean
-  }[]
+  fields: FormFields<D>
   schema: OptionalObjectSchema<any>
   onSuccess: () => void
 }

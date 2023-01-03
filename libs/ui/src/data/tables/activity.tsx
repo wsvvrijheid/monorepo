@@ -1,5 +1,7 @@
 import { Activity, ApprovalStatus, StrapiLocale } from '@wsvvrijheid/types'
-import { LocaleBadges, PublicationBadges, WTableProps } from '@wsvvrijheid/ui'
+
+import { LocaleBadges, PublicationBadges } from '../../admin'
+import { WTableProps } from '../../components'
 
 export const activityColumns: WTableProps<Activity>['columns'] = {
   image: {

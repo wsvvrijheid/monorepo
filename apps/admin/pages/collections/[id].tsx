@@ -32,7 +32,9 @@ const CollectionPage = () => {
       />
       <Stack spacing={6}>
         <Box p={6} rounded="md" bg="white" shadow="md">
-          {collection && <CollectionEdit collection={collection} />}
+          {collection && (
+            <CollectionEdit collection={collection} onSuccess={refetch} />
+          )}
         </Box>
 
         <Box p={6} rounded="md" bg="white" shadow="md">

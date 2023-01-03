@@ -1,39 +1,24 @@
 import { useState } from 'react'
 
 import { useSearchModel } from '@wsvvrijheid/services'
+import { Hashtag, Sort, StrapiLocale } from '@wsvvrijheid/types'
 import {
-  Hashtag,
-  HashtagCreateInput,
-  Sort,
-  StrapiLocale,
-} from '@wsvvrijheid/types'
-import { AdminLayout, DataTable, ModelCreateModal } from '@wsvvrijheid/ui'
+  AdminLayout,
+  DataTable,
+  mainHashtagFields,
+  mainHashtagColumns,
+  mainHashtagSchema,
+  ModelCreateModal,
+  MainHashtagSchemaKeys,
+} from '@wsvvrijheid/ui'
 import { useRouter } from 'next/router'
 import { useUpdateEffect } from 'react-use'
-import * as yup from 'yup'
-
-import { mainHashtagColumns } from '../../data/'
 
 const MainHashtagsPage = () => {
   const [sort, setSort] = useState<Sort>()
   const [currentPage, setCurrentPage] = useState<number>()
   const [searchTerm, setSearchTerm] = useState<string>()
   const router = useRouter()
-
-  const schema = yup.object({
-    title: yup.string().required('Title is required'),
-    description: yup.string().required('Description is required'),
-    content: yup.string().required('Content is required'),
-    hashtagDefault: yup.string().required('Hashtag is required'),
-    hashtagExtra: yup.string(),
-    mentions: yup.array().of(
-      yup.object().shape({
-        label: yup.string(),
-        value: yup.string(),
-      }),
-    ),
-    image: yup.mixed().required('Image is required'),
-  })
 
   const hashtagsQuery = useSearchModel<Hashtag>({
     url: 'api/hashtags',
@@ -72,32 +57,12 @@ const MainHashtagsPage = () => {
         onSearch: handleSearch,
       }}
     >
-      <ModelCreateModal<Hashtag, HashtagCreateInput>
+      <ModelCreateModal<Hashtag, MainHashtagSchemaKeys>
         title="Create Hashtag"
         url="api/hashtags"
-        schema={schema}
+        schema={mainHashtagSchema}
+        fields={mainHashtagFields}
         onSuccess={hashtagsQuery.refetch}
-        fields={[
-          { name: 'title', isRequired: true },
-          {
-            name: 'mentions',
-            type: 'select',
-            url: 'api/mentions',
-            isMulti: true,
-            isRequired: true,
-          },
-          { name: 'description', isRequired: true, type: 'textarea' },
-          { name: 'content', isRequired: true, type: 'textarea' },
-          {
-            name: 'hashtagDefault',
-            label: 'Default Hashtag',
-            isRequired: true,
-          },
-          { name: 'hashtagExtra', label: 'Extra Hashtag' },
-          { name: 'categories', type: 'select', url: 'api/categories' },
-          { name: 'date', type: 'datetime-local', isRequired: true },
-          { name: 'image', type: 'file', isRequired: true },
-        ]}
       >
         Create Hashtag
       </ModelCreateModal>
