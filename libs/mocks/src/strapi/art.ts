@@ -2618,7 +2618,7 @@ export const ART_MOCKS: Localize<StrapiCollectionResponse<Art[]>> = {
             createdAt: '2022-09-13T22:22:12.138Z',
             updatedAt: '2022-09-14T02:51:31.847Z',
             publishedAt: '2022-09-13T22:22:16.067Z',
-            status: 'approve',
+            status: 'approved',
           },
         ],
         collection: {

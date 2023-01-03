@@ -1,13 +1,13 @@
 import { Application } from './application'
 import { Art } from './art'
-import { Expand, PickRequired } from './common'
+import { ApprovalStatus, Expand, PickRequired } from './common'
 import { StrapiBase } from './strapi'
 import { User } from './user'
 
 type FeedbackBase = {
   message: string
   point: number
-  status: 'approve' | 'reject'
+  status: ApprovalStatus
 }
 
 type FeedbackRelation = {
