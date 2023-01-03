@@ -3,17 +3,21 @@ import { useEffect, useState } from 'react'
 import { useSearchModel } from '@wsvvrijheid/services'
 import {
   Activity,
-  ActivityCreateInput,
   ApprovalStatus,
   Sort,
   StrapiLocale,
 } from '@wsvvrijheid/types'
-import { AdminLayout, DataTable, ModelCreateModal } from '@wsvvrijheid/ui'
+import {
+  activityColumns,
+  activityFields,
+  activitySchema,
+  ActivitySchemaKeys,
+  AdminLayout,
+  DataTable,
+  ModelCreateModal,
+} from '@wsvvrijheid/ui'
 import { useRouter } from 'next/router'
 import { useUpdateEffect } from 'react-use'
-import * as yup from 'yup'
-
-import { activityColumns } from '../../data'
 
 const ActivitiesPage = () => {
   const { query } = useRouter()
@@ -25,14 +29,6 @@ const ActivitiesPage = () => {
   const { locale, push } = useRouter()
 
   const [sort, setSort] = useState<Sort>()
-
-  const schema = yup.object({
-    title: yup.string().required('Title is required'),
-    description: yup.string().required('Description is required'),
-    content: yup.string().required('Content is required'),
-    image: yup.mixed(),
-    date: yup.date().required('Date is required'),
-  })
 
   const activitiesQuery = useSearchModel<Activity>({
     url: 'api/activities',
@@ -75,35 +71,11 @@ const ActivitiesPage = () => {
         defaultLocale,
       }}
     >
-      <ModelCreateModal<Activity, ActivityCreateInput>
+      <ModelCreateModal<Activity, ActivitySchemaKeys>
         title="Create Activity"
         url="api/activities"
-        schema={schema}
-        fields={[
-          {
-            name: 'title',
-            isRequired: true,
-          },
-          {
-            name: 'description',
-            isRequired: true,
-            type: 'textarea',
-          },
-          {
-            name: 'date',
-            isRequired: true,
-            type: 'datetime-local',
-          },
-          {
-            name: 'content',
-            type: 'textarea',
-          },
-          {
-            name: 'image',
-            type: 'file',
-            isRequired: true,
-          },
-        ]}
+        schema={activitySchema}
+        fields={activityFields}
         onSuccess={() => activitiesQuery.refetch()}
       >
         Create Activity

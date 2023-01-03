@@ -49,7 +49,7 @@ import { ModelEditFormProps, Option } from './types'
 
 export const ModelEditForm = <
   T extends StrapiTranslatableModel,
-  D extends StrapiTranslatableUpdateInput,
+  D extends string,
 >({
   url,
   model,

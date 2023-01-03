@@ -10,10 +10,7 @@ import {
   ModalOverlay,
   useDisclosure,
 } from '@chakra-ui/react'
-import {
-  StrapiTranslatableCreateInput,
-  StrapiTranslatableModel,
-} from '@wsvvrijheid/types'
+import { StrapiTranslatableModel } from '@wsvvrijheid/types'
 import { IoMdAdd } from 'react-icons/io'
 
 import { ModelCreateForm } from '.'
@@ -21,7 +18,7 @@ import { ModelCreateFormProps } from './types'
 
 export const ModelCreateModal = <
   T extends StrapiTranslatableModel,
-  D extends StrapiTranslatableCreateInput,
+  D extends string,
 >({
   fields,
   onSuccess,

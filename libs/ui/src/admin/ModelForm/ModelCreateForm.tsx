@@ -1,8 +1,9 @@
 import {
   Button,
   FormControl,
+  FormErrorMessage,
   FormLabel,
-  SimpleGrid,
+  Stack,
   Textarea,
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -21,13 +22,13 @@ import { useForm } from 'react-hook-form'
 import { TbPlus } from 'react-icons/tb'
 import { InferType } from 'yup'
 
-import { FilePicker, FormItem } from '../../components'
+import { FilePicker, FormItem, MasonryGrid } from '../../components'
 import { ModelSelect } from './ModelSelect'
 import { ModelCreateFormProps, Option } from './types'
 
 export const ModelCreateForm = <
   T extends StrapiTranslatableModel,
-  D extends StrapiTranslatableCreateInput,
+  D extends string,
 >({
   url,
   fields,
@@ -104,56 +105,60 @@ export const ModelCreateForm = <
     color: 'blackAlpha.500',
   }
 
+  console.log('errors', errors)
+
   return (
-    <SimpleGrid
-      rowGap={4}
-      columnGap={8}
-      columns={{ base: 1, lg: 2 }}
-      as={'form'}
-      onSubmit={handleSubmit(onCreateModel)}
-    >
-      {fields.map((field, index) => {
-        const label = field.label || capitalize(field.name as string)
+    <Stack as={'form'} onSubmit={handleSubmit(onCreateModel)}>
+      <MasonryGrid cols={[1, 1, 1, 2]} columnGap={8} rowGap={4}>
+        {fields.map((field, index) => {
+          const label = field.label || capitalize(field.name as string)
 
-        if (field.type === 'file') {
-          return (
-            <FormControl key={index} isRequired={field.isRequired}>
-              <FormLabel>{label}</FormLabel>
-              <FilePicker setFiles={files => setValue('image', files[0])} />
-            </FormControl>
-          )
-        }
+          if (field.type === 'file') {
+            return (
+              <FormControl
+                isInvalid={Boolean((errors as any)?.[field.name])}
+                key={index}
+                isRequired={field.isRequired}
+              >
+                <FormLabel>{label}</FormLabel>
+                <FilePicker setFiles={files => setValue('image', files[0])} />
+                <FormErrorMessage>
+                  {(errors as any)?.[field.name].message}
+                </FormErrorMessage>
+              </FormControl>
+            )
+          }
 
-        if (field.type === 'select') {
+          if (field.type === 'select') {
+            return (
+              <ModelSelect
+                key={index}
+                url={field.url as StrapiUrl}
+                isMulti={field.isMulti}
+                isRequired={field.isRequired}
+                name={field.name as string}
+                label={label}
+                errors={errors}
+                control={control}
+              />
+            )
+          }
+
           return (
-            <ModelSelect
+            <FormItem
+              {...(field.type === 'textarea' && { as: Textarea })}
               key={index}
-              url={field.url as StrapiUrl}
-              isMulti={field.isMulti}
-              isRequired={field.isRequired}
               name={field.name as string}
+              type={field.type || 'text'}
               label={label}
+              isRequired={field.isRequired}
               errors={errors}
-              control={control}
+              register={register}
+              _disabled={disabledStyle}
             />
           )
-        }
-
-        return (
-          <FormItem
-            {...(field.type === 'textarea' && { as: Textarea })}
-            key={index}
-            name={field.name as string}
-            type={field.type || 'text'}
-            label={label}
-            isRequired={field.isRequired}
-            errors={errors}
-            register={register}
-            _disabled={disabledStyle}
-          />
-        )
-      })}
-
+        })}
+      </MasonryGrid>
       <Button
         alignSelf={'end'}
         leftIcon={<TbPlus />}
@@ -163,6 +168,6 @@ export const ModelCreateForm = <
       >
         Create
       </Button>
-    </SimpleGrid>
+    </Stack>
   )
 }
