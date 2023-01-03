@@ -123,7 +123,7 @@ export const ModelCreateForm = <
                 <FormLabel>{label}</FormLabel>
                 <FilePicker setFiles={files => setValue('image', files[0])} />
                 <FormErrorMessage>
-                  {(errors as any)?.[field.name].message}
+                  {(errors as any)?.[field.name]?.message}
                 </FormErrorMessage>
               </FormControl>
             )
