@@ -2,25 +2,25 @@ import { useToast } from '@chakra-ui/react'
 import { useMutation } from '@tanstack/react-query'
 import { Mutation } from '@wsvvrijheid/lib'
 import {
-  StrapiMutationInput,
+  StrapiModel,
   StrapiTranslatableModel,
-  StrapiTranslatableUpdateInput,
+  StrapiUpdateInput,
   StrapiUrl,
 } from '@wsvvrijheid/types'
 
 export const updateModel = <
-  T extends StrapiTranslatableModel,
-  D extends StrapiTranslatableUpdateInput & { id: number },
+  T extends StrapiModel,
+  D extends StrapiUpdateInput & { id: number },
 >(
   url: StrapiUrl,
   { id, ...args }: D & { id: number },
 ) => {
-  return Mutation.put<T, StrapiMutationInput>(url, id, args)
+  return Mutation.put<T, StrapiUpdateInput>(url, id, args)
 }
 
 export const useUpdateModelMutation = <
-  T extends StrapiTranslatableModel,
-  D extends StrapiTranslatableUpdateInput & { id: number },
+  T extends StrapiModel,
+  D extends StrapiUpdateInput & { id: number },
 >(
   url: StrapiUrl,
 ) => {
@@ -32,7 +32,9 @@ export const useUpdateModelMutation = <
     onSuccess: (res: T) => {
       toast({
         title: `Model updated`,
-        description: `Model ${res.title} has been updated`,
+        description: `Model ${
+          (res as StrapiTranslatableModel).title
+        } has been updated`,
         status: 'success',
         duration: 5000,
         isClosable: true,

@@ -31,7 +31,7 @@ type HashtagRelationInput = {
 }
 
 export type HashtagCreateInput = Expand<
-  { publishedAt?: string | null } & SetOptional<
+  { publishedAt?: Date | string | null } & SetOptional<
     Omit<HashtagBase, 'approvalStatus' | 'tweets'>,
     'hashtagExtra'
   > &
@@ -39,7 +39,7 @@ export type HashtagCreateInput = Expand<
 >
 
 export type HashtagUpdateInput = Expand<
-  { publishedAt?: string | null } & Partial<
+  { publishedAt?: Date | string | null } & Partial<
     Omit<HashtagBase, 'locale' | 'tweets'>
   > &
     HashtagRelationInput

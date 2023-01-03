@@ -90,6 +90,7 @@ export const FormItem: FormItemComponent = forwardRef(
             id={name}
             type={type === 'password' ? (isOpen ? 'text' : 'password') : type}
             placeholder={label}
+            _placeholder={{ color: 'gray.300' }}
             {...registerRest}
             {...rest}
           />
