@@ -5,12 +5,11 @@ import {
   Sort,
   StrapiLocale,
   StrapiModel,
-  StrapiModelKeys,
   StrapiUrl,
 } from '@wsvvrijheid/types'
 import { parse } from 'qs'
 
-export type SearchModelArgs = {
+export type SearchModelArgs<T extends StrapiModel> = {
   capsStatuses?: ApprovalStatus[]
   categories?: string
   locale?: StrapiLocale
@@ -18,8 +17,9 @@ export type SearchModelArgs = {
   pageSize?: number
   populate?: string | string[]
   publicationState?: 'live' | 'preview'
-  searchFields?: Array<StrapiModelKeys>
+  searchFields?: (keyof T)[]
   searchTerm?: string
+  fields?: (keyof T)[]
   sort?: Sort
   statuses?: ApprovalStatus[]
   url: StrapiUrl
@@ -29,18 +29,19 @@ export type SearchModelArgs = {
 export const searchModel = async <T extends StrapiModel>({
   capsStatuses,
   categories,
+  fields,
   locale = 'tr',
   page = 1,
   pageSize,
   populate,
   publicationState = 'preview',
-  searchFields = ['title', 'description'],
+  searchFields = ['title', 'description'] as unknown as (keyof StrapiModel)[],
   searchTerm,
   sort = ['publishedAt:desc'],
   statuses,
   url,
   username,
-}: SearchModelArgs) => {
+}: SearchModelArgs<T>) => {
   const urlsWithoutStatus: StrapiUrl[] = [
     'api/applicants',
     'api/categories',
@@ -143,6 +144,7 @@ export const searchModel = async <T extends StrapiModel>({
     filters,
     page,
     populate,
+    fields,
     pageSize,
     locale: hasLocale && locale ? locale : undefined,
     sort: sort || undefined,
@@ -151,7 +153,7 @@ export const searchModel = async <T extends StrapiModel>({
 }
 
 export const useSearchModel = <T extends StrapiModel>(
-  args: SearchModelArgs,
+  args: SearchModelArgs<T>,
 ) => {
   return useQuery({
     queryKey: Object.values(args),

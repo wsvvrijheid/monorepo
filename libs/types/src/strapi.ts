@@ -1,38 +1,101 @@
 import { UnionToIntersection } from 'type-fest'
 
-import { Activity, ActivityLocalizeInput } from './activity'
-import { Announcement, AnnouncementLocalizeInput } from './announcement'
+import {
+  Activity,
+  ActivityCreateInput,
+  ActivityLocalizeInput,
+  ActivityUpdateInput,
+} from './activity'
+import {
+  Announcement,
+  AnnouncementCreateInput,
+  AnnouncementLocalizeInput,
+  AnnouncementUpdateInput,
+} from './announcement'
 import { Applicant } from './applicant'
-import { Application } from './application'
-import { Art, ArtLocalizeInput } from './art'
-import { Blog, BlogLocalizeInput } from './blog'
-import { Category } from './category'
-import { Collection } from './collection'
-import { Comment } from './comment'
+import {
+  Application,
+  ApplicationCreateInput,
+  ApplicationUpdateInput,
+} from './application'
+import { Art, ArtCreateInput, ArtLocalizeInput, ArtUpdateInput } from './art'
+import {
+  Blog,
+  BlogCreateInput,
+  BlogLocalizeInput,
+  BlogUpdateInput,
+} from './blog'
+import { Category, CategoryCreateInput } from './category'
+import {
+  Collection,
+  CollectionCreateInput,
+  CollectionUpdateInput,
+} from './collection'
+import {
+  Comment,
+  CommentArtCreateInput,
+  CommentBlogCreateInput,
+} from './comment'
 import { ApprovalStatus, Expand } from './common'
-import { Competition, CompetitionLocalizeInput } from './competition'
+import {
+  Competition,
+  CompetitionCreateInput,
+  CompetitionLocalizeInput,
+  CompetitionUpdateInput,
+} from './competition'
 import { Donate } from './donate'
-import { Feedback } from './feedback'
+import { EmailCreateInput } from './email'
+import {
+  Feedback,
+  FeedbackApplicationCreateInput,
+  FeedbackArtCreateInput,
+} from './feedback'
 import { UploadFile } from './file'
-import { Hashtag, HashtagLocalizeInput } from './hashtag'
-import { Job } from './job'
+import {
+  Hashtag,
+  HashtagCreateInput,
+  HashtagLocalizeInput,
+  HashtagUpdateInput,
+} from './hashtag'
+import { Job, JobCreateInput } from './job'
 import { LangRole } from './lang-role'
 import { StrapiLocale } from './locale'
 import { Me } from './me'
-import { Mention } from './mention'
+import { Mention, MentionCreateInput } from './mention'
 import { Platform } from './platform'
-import { Post, PostLocalizeInput } from './post'
+import {
+  Post,
+  PostCreateInput,
+  PostLocalizeInput,
+  PostUpdateInput,
+} from './post'
 import { Privacy } from './privacy'
-import { RecommendedTopic } from './recommended-topic'
-import { RecommendedTweet } from './recommended-tweet'
-import { Tag } from './tag'
+import {
+  RecommendedTopic,
+  RecommendedTopicCreateInput,
+} from './recommended-topic'
+import {
+  RecommendedTweet,
+  RecommendedTweetCreateInput,
+} from './recommended-tweet'
+import { Tag, TagCreateInput } from './tag'
 import { Term } from './term'
-import { Timeline } from './timeline'
+import { Timeline, TimelineCreateInput } from './timeline'
 import { Topic } from './topic'
 import { Trend } from './trend'
 import { User } from './user'
-import { Volunteer } from './volunteer'
-import { Vote } from './vote'
+import {
+  Volunteer,
+  VolunteerCreateInput,
+  VolunteerUpdateInput,
+} from './volunteer'
+import {
+  Vote,
+  VoteCreateApplicationInput,
+  VoteCreateApplicationJuryInput,
+  VoteCreateArtInput,
+  VoteCreateArtJuryInput,
+} from './vote'
 
 /**
  * MODEL TYPES
@@ -199,4 +262,42 @@ export type StrapiFormValue =
   | string
   | string[]
 
-export type StrapiMutationInput = { [key in StrapiModelKeys]?: StrapiFormValue }
+export type StrapiCreateInput =
+  | ActivityCreateInput
+  | AnnouncementCreateInput
+  | ApplicationCreateInput
+  | ArtCreateInput
+  | BlogCreateInput
+  | CategoryCreateInput
+  | CollectionCreateInput
+  | CommentArtCreateInput
+  | CommentBlogCreateInput
+  | CompetitionCreateInput
+  | EmailCreateInput
+  | FeedbackArtCreateInput
+  | FeedbackApplicationCreateInput
+  | HashtagCreateInput
+  | JobCreateInput
+  | MentionCreateInput
+  | PostCreateInput
+  | RecommendedTopicCreateInput
+  | RecommendedTweetCreateInput
+  | TagCreateInput
+  | TimelineCreateInput
+  | VolunteerCreateInput
+  | VoteCreateApplicationInput
+  | VoteCreateArtInput
+  | VoteCreateApplicationJuryInput
+  | VoteCreateArtJuryInput
+
+export type StrapiUpdateInput =
+  | ActivityUpdateInput
+  | AnnouncementUpdateInput
+  | ApplicationUpdateInput
+  | ArtUpdateInput
+  | BlogUpdateInput
+  | CollectionUpdateInput
+  | CompetitionUpdateInput
+  | HashtagUpdateInput
+  | PostUpdateInput
+  | VolunteerUpdateInput

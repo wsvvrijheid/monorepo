@@ -1,7 +1,11 @@
 import { FC } from 'react'
 
 import { Box, Button, Center, Stack } from '@chakra-ui/react'
-import { UploadFile, StrapiTranslatableModel } from '@wsvvrijheid/types'
+import {
+  StrapiModel,
+  StrapiTranslatableModel,
+  UploadFile,
+} from '@wsvvrijheid/types'
 import { UseFormSetValue } from 'react-hook-form'
 import { IoMdCloudUpload } from 'react-icons/io'
 import { AssertsShape } from 'yup/lib/object'
@@ -9,7 +13,7 @@ import { AssertsShape } from 'yup/lib/object'
 import { FilePicker, WImage } from '../../components'
 
 type ModelImageProps = {
-  model: StrapiTranslatableModel
+  model: StrapiModel
   isEditing: boolean
   isChangingImage: boolean
   setIsChangingImage: {
@@ -27,6 +31,8 @@ export const ModelImage: FC<ModelImageProps> = ({
   isChangingImage,
   setIsChangingImage,
 }) => {
+  const modelWithImage = model as StrapiTranslatableModel
+
   return (
     <Box maxH={{ base: 300, lg: 'full' }} rounded={'md'} overflow="hidden">
       {isChangingImage ? (
@@ -37,8 +43,8 @@ export const ModelImage: FC<ModelImageProps> = ({
       ) : (
         <Box pos="relative" role="group" h="full">
           <WImage
-            src={model.image as UploadFile}
-            alt={model.title}
+            src={modelWithImage.image as UploadFile}
+            alt={modelWithImage.title}
             hasZoom
             objectFit="contain"
           />

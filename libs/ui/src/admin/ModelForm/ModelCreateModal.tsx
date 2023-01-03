@@ -10,23 +10,20 @@ import {
   ModalOverlay,
   useDisclosure,
 } from '@chakra-ui/react'
-import { StrapiTranslatableModel } from '@wsvvrijheid/types'
+import { StrapiModel } from '@wsvvrijheid/types'
 import { IoMdAdd } from 'react-icons/io'
 
 import { ModelCreateForm } from '.'
 import { ModelCreateFormProps } from './types'
 
-export const ModelCreateModal = <
-  T extends StrapiTranslatableModel,
-  D extends string,
->({
+export const ModelCreateModal = <T extends StrapiModel>({
   fields,
   onSuccess,
   schema,
   url,
   children,
   title,
-}: PropsWithChildren<ModelCreateFormProps<D> & { title: string }>) => {
+}: PropsWithChildren<ModelCreateFormProps<T> & { title: string }>) => {
   const formDisclosure = useDisclosure()
 
   const handleSuccess = () => {
@@ -58,7 +55,7 @@ export const ModelCreateModal = <
           <ModalHeader color={'primary.500'}>{title}</ModalHeader>
           <ModalCloseButton />
           <ModalBody pos="relative" py={6}>
-            <ModelCreateForm<T, D>
+            <ModelCreateForm<T>
               url={url}
               schema={schema}
               fields={fields}

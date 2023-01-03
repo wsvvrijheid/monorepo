@@ -22,11 +22,16 @@ type ActivityRelationInput = {
 }
 
 export type ActivityCreateInput = Expand<
-  { publishedAt?: string | null } & Omit<ActivityBase, 'approvalStatus'> &
+  { publishedAt?: Date | string | null } & Omit<
+    ActivityBase,
+    'approvalStatus'
+  > &
     ActivityRelationInput
 >
 export type ActivityUpdateInput = Expand<
-  { publishedAt?: string | null } & Partial<Omit<ActivityBase, 'locale'>> &
+  { publishedAt?: Date | string | null } & Partial<
+    Omit<ActivityBase, 'locale'>
+  > &
     Omit<ActivityRelationInput, 'image'> & { image?: File }
 >
 export type ActivityLocalizeInput = Pick<

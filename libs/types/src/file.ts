@@ -23,6 +23,7 @@ type FileFormat = {
 export type FileFormats = { [F in FileFormatsType]?: FileFormat }
 
 export type UploadFile = Omit<StrapiBase, 'publishedAt'> & {
+  publishedAt?: string | null
   alternativeText: string | null
   caption: string | null
   ext: string

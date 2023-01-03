@@ -1,7 +1,5 @@
 // Only title, description and locale is required for all models
 
-import { UnionToIntersection } from 'type-fest'
-
 import { Activity, ActivityCreateInput, ActivityUpdateInput } from './activity'
 import {
   Announcement,
@@ -59,15 +57,12 @@ export type StrapiTranslatableCreateInput =
   | HashtagCreateInput
   | PostCreateInput
 
-export type StrapiCreateInputKeys =
-  keyof UnionToIntersection<StrapiTranslatableCreateInput>
-
 export type TranslatableModel<T extends StrapiTranslatableModel> = {
   id: number
   title: string
   description: string | null
   locale: StrapiLocale
-  publishedAt?: string | null
+  publishedAt?: Date | string | null
   content: string | null
   text?: string
   image?: UploadFile

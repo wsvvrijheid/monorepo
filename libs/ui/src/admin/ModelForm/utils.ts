@@ -7,11 +7,23 @@ import {
   User,
 } from '@wsvvrijheid/types'
 
-export const mapModelToOption = (model: StrapiModel, locale: StrapiLocale) => {
+export const mapModelsToOptions = (
+  models?: StrapiModel[],
+  locale?: StrapiLocale,
+) => models?.map(model => mapModelToOption(model, locale))
+
+export const mapModelToOption = (
+  model?: StrapiModel,
+  locale?: StrapiLocale,
+) => {
+  if (!model) return { value: '', label: '' }
+
   const mention = model as unknown as Mention
   const user = model as unknown as User
   const modelWithLocalizedName = model as unknown as Category
-  const localizedName = modelWithLocalizedName[`name_${locale}`]
+  const localizedName = locale
+    ? modelWithLocalizedName[`name_${locale}`]
+    : 'name'
   const value = model.id.toString()
   let label = (model as StrapiTranslatableModel).title
 
@@ -20,14 +32,14 @@ export const mapModelToOption = (model: StrapiModel, locale: StrapiLocale) => {
     label = `@${mention.username}`
   }
 
-  // Category, Tag etc.
-  if (localizedName) {
-    label = localizedName
+  // User
+  else if (user.email) {
+    label = user.name || user.username
   }
 
-  // User
-  if (user.email) {
-    label = user.name || user.username
+  // Category, Tag etc.
+  else if (localizedName) {
+    label = localizedName
   }
 
   return { value, label }

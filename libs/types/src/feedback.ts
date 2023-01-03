@@ -23,12 +23,12 @@ type FeedbackRelationInput = {
 }
 
 export type FeedbackArtCreateInput = Expand<
-  { publishedAt?: string | null } & FeedbackBase &
+  { publishedAt?: Date | string | null } & FeedbackBase &
     PickRequired<FeedbackRelationInput, 'editor' | 'art'>
 >
 
 export type FeedbackApplicationCreateInput = Expand<
-  { publishedAt?: string | null } & FeedbackBase &
+  { publishedAt?: Date | string | null } & FeedbackBase &
     PickRequired<FeedbackRelationInput, 'editor' | 'application'>
 >
 
