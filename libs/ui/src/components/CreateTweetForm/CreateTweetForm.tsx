@@ -142,7 +142,7 @@ export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
                   isMulti
                   url="api/mentions"
                   control={control as any}
-                  fields={['username']}
+                  fields={['username', 'data']}
                   name="mention"
                   label="Mention"
                   errors={errors}
