@@ -41,7 +41,7 @@ export const mainHashtagFields: FormFields<Hashtag> = [
     type: 'select',
     url: 'api/mentions',
     isMulti: true,
-    fields: ['username', 'name'],
+    fields: ['username', 'data'],
   },
   {
     name: 'categories',

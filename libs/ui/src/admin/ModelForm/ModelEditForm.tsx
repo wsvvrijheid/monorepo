@@ -223,7 +223,7 @@ export const ModelEditForm = <T extends StrapiModel>({
   const disabledStyle = {
     borderColor: 'transparent',
     _hover: { borderColor: 'transparent' },
-    color: 'blackAlpha.500',
+    color: 'gray.500',
   }
 
   return (

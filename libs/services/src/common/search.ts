@@ -78,9 +78,24 @@ export const searchModel = async <T extends StrapiModel>({
     'api/votes',
   ]
 
+  const urlsWithLocalizedNames = [
+    'api/categories',
+    'api/tags',
+    'api/jobs',
+    'api/platforms',
+  ]
+
   const hasStatus = !urlsWithoutStatus.includes(url)
   const hasLocale = !urlsWithoutLocale.includes(url)
   const hasCapsStatus = url === 'api/posts'
+
+  const filterFields = fields?.map(field => {
+    if (urlsWithLocalizedNames.includes(url)) {
+      return `${String(field)}_${locale}`
+    } else {
+      return field
+    }
+  })
 
   const searchFilter = searchTerm && {
     $or: searchFields.map(field => ({
@@ -144,7 +159,7 @@ export const searchModel = async <T extends StrapiModel>({
     filters,
     page,
     populate,
-    fields,
+    fields: filterFields as (keyof T)[],
     pageSize,
     locale: hasLocale && locale ? locale : undefined,
     sort: sort || undefined,

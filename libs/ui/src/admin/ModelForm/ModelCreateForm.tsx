@@ -49,7 +49,7 @@ export const ModelCreateForm = <T extends StrapiModel>({
     setValue,
   } = useForm<InferType<typeof schema>>({
     resolver: yupResolver(schema),
-    mode: 'onBlur',
+    mode: 'all',
   })
 
   const onCreateModel = async (
@@ -99,10 +99,8 @@ export const ModelCreateForm = <T extends StrapiModel>({
   const disabledStyle = {
     borderColor: 'transparent',
     _hover: { borderColor: 'transparent' },
-    color: 'blackAlpha.500',
+    color: 'gray.500',
   }
-
-  console.log('errors', errors)
 
   return (
     <Stack as={'form'} onSubmit={handleSubmit(onCreateModel)}>
