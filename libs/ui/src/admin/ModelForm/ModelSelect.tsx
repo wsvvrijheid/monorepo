@@ -13,7 +13,7 @@ export const ModelSelect = <T extends StrapiModel>({
 }: ModelSelectProps<T>) => {
   const { locale } = useRouter()
 
-  const models = useSearchModel<T>({
+  const modelsQuery = useSearchModel<T>({
     url,
     locale: locale as StrapiLocale,
     statuses: ['approved'],
@@ -21,9 +21,11 @@ export const ModelSelect = <T extends StrapiModel>({
     populate: [],
   })
 
+  const models = modelsQuery.data?.data
+
   return (
     <WSelect
-      options={mapModelsToOptions(models.data?.data, locale as StrapiLocale)}
+      options={models && mapModelsToOptions(models, locale as StrapiLocale)}
       {...rest}
     />
   )

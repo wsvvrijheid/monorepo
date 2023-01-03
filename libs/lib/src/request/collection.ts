@@ -39,7 +39,7 @@ export const requestCollection = async <T extends StrapiModel[]>({
       },
     })
 
-    const data = await response.json()
+    const data = (await response.json()) as { data: T; meta: StrapiMeta }
 
     if (!data || (data && !data.data)) {
       return {
