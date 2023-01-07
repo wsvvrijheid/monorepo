@@ -27,6 +27,8 @@ export const MasonryGrid: FC<MasonryGridProps> = ({
       columnClassName="masonry-grid_column"
       sx={{
         '& .masonry-grid_column': {
+          display: 'flex',
+          flexDirection: 'column',
           '&:not(:nth-of-type(1))': {
             bgClip: 'padding-box',
             pl: {

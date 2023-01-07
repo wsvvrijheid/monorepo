@@ -29,7 +29,8 @@ export const mainHashtagFields: FormFields<Hashtag> = [
   { name: 'title', isRequired: true },
   { name: 'date', type: 'datetime-local', isRequired: true },
   { name: 'description', isRequired: true, type: 'textarea' },
-  { name: 'content', type: 'textarea' },
+  { name: 'image', type: 'file', isRequired: true },
+  { name: 'content', type: 'markdown' },
   {
     name: 'hashtagDefault',
     label: 'Default Hashtag',
@@ -50,5 +51,4 @@ export const mainHashtagFields: FormFields<Hashtag> = [
     isMulti: true,
     fields: ['name'],
   },
-  { name: 'image', type: 'file', isRequired: true },
 ]

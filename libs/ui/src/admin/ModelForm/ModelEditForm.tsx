@@ -4,7 +4,6 @@ import {
   Button,
   FormControl,
   FormLabel,
-  SimpleGrid,
   Stack,
   Textarea,
   useBoolean,
@@ -42,7 +41,7 @@ import {
 } from 'react-icons/md'
 import * as yup from 'yup'
 
-import { FormItem } from '../../components'
+import { FormItem, MasonryGrid, MdFormItem } from '../../components'
 import { WConfirm, WConfirmProps } from '../../components/WConfirm'
 import { ModelImage } from './ModelImage'
 import { ModelSelect } from './ModelSelect'
@@ -129,7 +128,6 @@ export const ModelEditForm = <T extends StrapiModel>({
     onSuccess?.()
     setIsEditing.off()
     setIsChangingImage.off()
-    setValue('image', undefined)
     setConfirmState(undefined)
   }
 
@@ -168,7 +166,6 @@ export const ModelEditForm = <T extends StrapiModel>({
     resetForm()
     setIsEditing.off()
     setIsChangingImage.off()
-    setValue('image', undefined)
     setConfirmState(undefined)
   }
 
@@ -235,7 +232,7 @@ export const ModelEditForm = <T extends StrapiModel>({
         />
       )}
       <Stack spacing={8} as="form" onSubmit={handleSubmit(onSaveModel)}>
-        <SimpleGrid rowGap={4} columnGap={8} columns={{ base: 1, lg: 2 }}>
+        <MasonryGrid cols={[1, 1, 1, 2]} columnGap={8} rowGap={4}>
           {fields.map((field, index) => {
             const label = field.label || capitalize(field.name as string)
 
@@ -276,12 +273,34 @@ export const ModelEditForm = <T extends StrapiModel>({
               )
             }
 
+            if (field.type === 'markdown') {
+              return (
+                <MdFormItem
+                  key={index}
+                  name={field.name as string}
+                  label={label}
+                  isDisabled={!isEditing}
+                  isRequired={field.isRequired}
+                  errors={errors}
+                  control={control}
+                  _disabled={disabledStyle}
+                />
+              )
+            }
+
+            const inputType =
+              field.type === 'date'
+                ? 'date'
+                : field.type === 'datetime-local'
+                ? 'datetime-local'
+                : 'text'
+
             return (
               <FormItem
                 {...(field.type === 'textarea' && { as: Textarea })}
                 key={index}
                 name={field.name as string}
-                type={field.type || 'text'}
+                type={inputType}
                 label={label}
                 isRequired={field.isRequired}
                 errors={errors}
@@ -291,7 +310,7 @@ export const ModelEditForm = <T extends StrapiModel>({
               />
             )
           })}
-        </SimpleGrid>
+        </MasonryGrid>
         <Wrap alignSelf={'end'} justify={'end'}>
           {translatableModel.approvalStatus === 'approved'
             ? null
