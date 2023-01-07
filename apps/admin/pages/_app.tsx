@@ -23,6 +23,7 @@ import '@uppy/dashboard/dist/style.css'
 import '@uppy/image-editor/dist/style.css'
 import '@uppy/url/dist/style.css'
 import 'react-medium-image-zoom/dist/styles.css'
+import 'react-markdown-editor-lite/lib/index.css'
 
 const { ToastContainer } = createStandaloneToast()
 
