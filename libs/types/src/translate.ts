@@ -23,6 +23,7 @@ import { UploadFile } from './file'
 import { Hashtag, HashtagCreateInput, HashtagUpdateInput } from './hashtag'
 import { StrapiLocale } from './locale'
 import { Post, PostCreateInput, PostUpdateInput } from './post'
+import { RecommendedTopicCreateInput } from './recommended-topic'
 
 /**
  * TRANSLATION TYPES
@@ -56,6 +57,7 @@ export type StrapiTranslatableCreateInput =
   | CompetitionCreateInput
   | HashtagCreateInput
   | PostCreateInput
+  | RecommendedTopicCreateInput
 
 export type TranslatableModel<T extends StrapiTranslatableModel> = {
   id: number

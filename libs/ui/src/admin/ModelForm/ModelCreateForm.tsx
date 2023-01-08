@@ -82,11 +82,18 @@ export const ModelCreateForm = <T extends StrapiModel>({
       }
     }, {} as StrapiTranslatableCreateInput)
 
-    const slug = slugify(body.title)
+    const slug = slugify(body.title as string)
     const creator = url === 'api/posts' ? user?.id : undefined
+    const recommender = url === 'api/recommended-topics' ? user?.id : undefined
 
     createModelMutation.mutate(
-      { ...body, slug, locale: locale as StrapiLocale, creator },
+      {
+        ...body,
+        slug,
+        locale: locale as StrapiLocale,
+        creator,
+        recommender,
+      } as StrapiTranslatableCreateInput,
       {
         onSuccess: () => {
           onSuccess?.()

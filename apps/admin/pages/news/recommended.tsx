@@ -15,7 +15,7 @@ import { useRouter } from 'next/router'
 const NewsBookmarkedPage = () => {
   const { locale } = useRouter()
 
-  const { data } = useSearchModel<RecommendedTopic>({
+  const { data, refetch } = useSearchModel<RecommendedTopic>({
     url: 'api/recommended-topics',
     locale: locale as StrapiLocale,
   })
@@ -34,6 +34,7 @@ const NewsBookmarkedPage = () => {
         url="api/recommended-topics"
         schema={topicSchema}
         fields={topicFields}
+        onSuccess={refetch}
       >
         Create News
       </ModelCreateModal>
