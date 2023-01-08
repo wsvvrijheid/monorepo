@@ -22,7 +22,7 @@ import { useForm } from 'react-hook-form'
 import { TbPlus } from 'react-icons/tb'
 import { InferType } from 'yup'
 
-import { FilePicker, FormItem, MasonryGrid } from '../../components'
+import { FilePicker, FormItem, MasonryGrid, MdFormItem } from '../../components'
 import { ModelSelect } from './ModelSelect'
 import { ModelCreateFormProps, Option } from './types'
 
@@ -82,11 +82,18 @@ export const ModelCreateForm = <T extends StrapiModel>({
       }
     }, {} as StrapiTranslatableCreateInput)
 
-    const slug = slugify(body.title)
+    const slug = slugify(body.title as string)
     const creator = url === 'api/posts' ? user?.id : undefined
+    const recommender = url === 'api/recommended-topics' ? user?.id : undefined
 
     createModelMutation.mutate(
-      { ...body, slug, locale: locale as StrapiLocale, creator },
+      {
+        ...body,
+        slug,
+        locale: locale as StrapiLocale,
+        creator,
+        recommender,
+      } as StrapiTranslatableCreateInput,
       {
         onSuccess: () => {
           onSuccess?.()
@@ -140,12 +147,33 @@ export const ModelCreateForm = <T extends StrapiModel>({
             )
           }
 
+          if (field.type === 'markdown') {
+            return (
+              <MdFormItem
+                key={index}
+                name={field.name as string}
+                label={label}
+                isRequired={field.isRequired}
+                errors={errors}
+                control={control}
+                _disabled={disabledStyle}
+              />
+            )
+          }
+
+          const inputType =
+            field.type === 'date'
+              ? 'date'
+              : field.type === 'datetime-local'
+              ? 'datetime-local'
+              : 'text'
+
           return (
             <FormItem
               {...(field.type === 'textarea' && { as: Textarea })}
               key={index}
               name={field.name as string}
-              type={field.type || 'text'}
+              type={inputType}
               label={label}
               isRequired={field.isRequired}
               errors={errors}

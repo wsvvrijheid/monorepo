@@ -58,10 +58,13 @@ export const FormItem: FormItemComponent = forwardRef(
     formItemRef,
   ) => {
     const [isOpen, setIsOpen] = useBoolean(false)
+
     const Tag = as || Input
     const errorMessage = errors?.[name]?.['message'] as unknown as string
+
     const { ref: registerRef, ...registerRest } = register(name)
     const ref = useMergeRefs(formItemRef, registerRef)
+
     return (
       <FormControl isInvalid={Boolean(errors?.[name])} isRequired={isRequired}>
         {label && !hideLabel && (
