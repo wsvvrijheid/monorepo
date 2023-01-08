@@ -10,7 +10,7 @@ export const topicSchema = yup.object({
   publisher: yup.string().required('Publisher is required'),
   category: yup.string(),
   time: yup.date(),
-  image: yup.mixed().required('Image is required'),
+  image: yup.mixed(),
 })
 
 export const topicFields: FormFields<RecommendedTopic> = [
@@ -20,5 +20,5 @@ export const topicFields: FormFields<RecommendedTopic> = [
   { name: 'publisher', isRequired: true },
   { name: 'time', type: 'datetime-local' },
   { name: 'category' },
-  { name: 'image', isRequired: true },
+  { name: 'image' },
 ]
