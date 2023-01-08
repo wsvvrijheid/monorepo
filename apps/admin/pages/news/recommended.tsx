@@ -3,13 +3,19 @@
 import { SimpleGrid } from '@chakra-ui/react'
 import { useSearchModel } from '@wsvvrijheid/services'
 import { RecommendedTopic, StrapiLocale } from '@wsvvrijheid/types'
-import { AdminLayout, TopicCard } from '@wsvvrijheid/ui'
+import {
+  AdminLayout,
+  ModelCreateModal,
+  TopicCard,
+  topicFields,
+  topicSchema,
+} from '@wsvvrijheid/ui'
 import { useRouter } from 'next/router'
 
 const NewsBookmarkedPage = () => {
   const { locale } = useRouter()
 
-  const { data } = useSearchModel<RecommendedTopic>({
+  const { data, refetch } = useSearchModel<RecommendedTopic>({
     url: 'api/recommended-topics',
     locale: locale as StrapiLocale,
   })
@@ -23,6 +29,15 @@ const NewsBookmarkedPage = () => {
         searchPlaceHolder: 'Search bookmarks',
       }}
     >
+      <ModelCreateModal<RecommendedTopic>
+        title="Create News"
+        url="api/recommended-topics"
+        schema={topicSchema}
+        fields={topicFields}
+        onSuccess={refetch}
+      >
+        Create News
+      </ModelCreateModal>
       <SimpleGrid columns={{ base: 1 }} gap={4}>
         {data?.data?.map((topic, i) => (
           <TopicCard

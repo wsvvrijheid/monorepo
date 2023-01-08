@@ -3,6 +3,7 @@ import { FC } from 'react'
 import {
   Box,
   ButtonGroup,
+  Image,
   Popover,
   PopoverArrow,
   PopoverBody,
@@ -27,8 +28,34 @@ import { ShareButtons } from '../../components'
 import { ActionButton } from './ActionButton'
 import { TopicCardProps } from './types'
 
+const domains = [
+  'aktifhaber.com',
+  'turkishminute.com',
+  'api.samenvvv.nl',
+  'pbs.twimg.com',
+  'api.wsvvrijheid.nl',
+  'admin.wsvvrijheid.nl',
+  'localhost',
+  'amnesty.imgix.net',
+  'boldmedya.com',
+  'dekanttekening.nl',
+  'cdn.nos.nl',
+  'rtlnieuws.nl',
+  'image.writeclouds.com',
+  'tr724.com',
+  'images0.persgroep.net',
+  'image.shaber3.com',
+  'ipa.news',
+  'static.wixstatic.com',
+  'amnesty.org',
+]
+
 export const TopicCard: FC<TopicCardProps> = ({ topic }) => {
   const { user } = useAuthSelector()
+
+  const ImageComponent = domains.some(d => topic.image?.includes(d))
+    ? WImage
+    : Image
 
   const isVertical = useBreakpointValue({
     base: true,
@@ -104,7 +131,7 @@ export const TopicCard: FC<TopicCardProps> = ({ topic }) => {
       overflow="hidden"
     >
       {topic.image && (
-        <WImage
+        <ImageComponent
           w={isVertical ? '100%' : '300px'}
           h={isVertical ? '200px' : '100%'}
           src={topic.image}
