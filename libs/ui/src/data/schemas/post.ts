@@ -19,12 +19,12 @@ export const postFields: FormFields<Post> = [
   { name: 'title', isRequired: true },
   { name: 'reference' },
   { name: 'description', isRequired: true, type: 'textarea' },
-  { name: 'content', type: 'textarea' },
   {
     name: 'hashtag',
     type: 'select',
     url: 'api/hashtags',
     fields: ['title'],
   },
+  { name: 'content', type: 'markdown' },
   { name: 'image', type: 'file', isRequired: true },
 ]
