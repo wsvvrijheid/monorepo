@@ -3,6 +3,7 @@
 import { CSSProperties } from 'react'
 
 import { ImageResponse } from '@vercel/og'
+import { sample } from 'lodash'
 import { NextRequest } from 'next/server'
 
 export const config = {
@@ -21,12 +22,12 @@ async function handler(req: NextRequest) {
   const title = params.get('title') || ''
   const text = params.get('text')
   const image = params.get('image') || null
-  const flip = params.get('flip') || false
-  const shape = params.get('shape') || 0
+  const shape = sample([0, 1, 2, 3])
   const bg = params.get('bg') || 'white'
   const color = params.get('color') || '#FF4F00'
   const scale = Number(params.get('scale')) || 1
-  const hasLine = params.get('hasLine') || false
+  const flip = sample([true, false])
+  const hasLine = sample([true, false])
 
   const absoluteStyle: CSSProperties = {
     position: 'absolute',
@@ -73,7 +74,7 @@ async function handler(req: NextRequest) {
               objectFit: 'cover',
               left: flip ? '0px' : `${dimensions.width - dimensions.image}px`,
             }}
-            src={image || 'https://picsum.photos/300/675'}
+            src={image}
             alt={''}
           />
           <svg
@@ -142,12 +143,12 @@ async function handler(req: NextRequest) {
                 : dimensions.image + dimensions.shape,
               display: 'flex',
               flexDirection: 'column',
+              gap: `${dimensions.font / 2}px`,
             }}
           >
             {title && (
               <div
                 style={{
-                  marginBottom: `${dimensions.font / 2}px`,
                   fontSize: `${dimensions.font * 1.5}px`,
                   fontWeight: 'bold',
                   color,
@@ -158,19 +159,29 @@ async function handler(req: NextRequest) {
                   whiteSpace: 'nowrap',
                   overflow: 'hidden',
                   textOverflow: 'ellipsis',
+                  flexShrink: 0,
                 }}
               >
                 {title}
               </div>
             )}
+
             {hasLine && (
               <div
-                style={{ backgroundColor: bg, height: '8px', width: '100%' }}
+                style={{
+                  backgroundColor: color,
+                  height: hasLine ? `${dimensions.font / 6}px` : '0',
+                  width: '100%',
+                  borderRadius: `${dimensions.font / 6}px`,
+                }}
               />
             )}
+
             <div
               style={{
                 fontSize: `${dimensions.font}px`,
+                overflow: 'hidden',
+                whiteSpace: 'pre-wrap',
               }}
             >
               {text}
@@ -180,8 +191,8 @@ async function handler(req: NextRequest) {
       </div>
     ),
     {
-      width: 1200,
-      height: 675,
+      width: dimensions.width,
+      height: dimensions.height,
     },
   )
 }
