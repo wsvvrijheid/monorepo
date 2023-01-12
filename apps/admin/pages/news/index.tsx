@@ -8,6 +8,7 @@ import {
   Tooltip,
   Button,
   ButtonGroup,
+  Box,
 } from '@chakra-ui/react'
 import { useTopic, useTopicSync } from '@wsvvrijheid/services'
 import { TopicBase } from '@wsvvrijheid/types'
@@ -15,6 +16,7 @@ import { AdminLayout, TopicCard } from '@wsvvrijheid/ui'
 import { addHours, formatDistanceToNow, isPast } from 'date-fns'
 import { useRouter } from 'next/router'
 import { FaArrowDown, FaArrowUp, FaSyncAlt } from 'react-icons/fa'
+import { AiOutlineClear } from 'react-icons/ai'
 
 const NewsPage = () => {
   const { data } = useTopic()
@@ -24,15 +26,15 @@ const NewsPage = () => {
   const [topics, setTopics] = useState<TopicBase[]>([])
   const [searchTerm, setSearchTerm] = useState<string>()
   const [sortDirection, setSortDirection] = useState<'DESC' | 'ASC'>('DESC')
-  // const [searchItem, setSearchItem] = useState<string>("Deneme")
 
   const { locale } = useRouter()
 
   const search = useCallback(
     (topics: TopicBase[]) => {
-      const results = []
+      const results = [];
+      const keywords = searchTerm.split(" ");
+      const searchRegex = new RegExp(keywords.join('|'), 'gi');
       topics?.forEach(topicBase => {
-        const searchRegex = new RegExp(searchTerm, 'gi')
         if (Object.values(topicBase).join(' ').match(searchRegex)) {
           results.push(topicBase)
         }
@@ -107,9 +109,9 @@ const NewsPage = () => {
     })}`
 
   const keywords = {
-    tr: ['insan haklari', 'işkence', 'adalet'],
-    en: ['human rights', 'torture', 'justice'],
-    nl: ['mensenrechten', 'marteling', 'gerechtigheid'],
+    tr: ['insan haklari', 'işkence', 'adalet', 'özgürlük'],
+    en: ['human rights', 'torture', 'justice', 'freedom'],
+    nl: ['mensenrechten', 'marteling', 'gerechtigheid', 'vrijheid'],
   }
 
   return (
@@ -135,17 +137,31 @@ const NewsPage = () => {
         ),
       }}
     >
-      <ButtonGroup overflowX="auto">
-        {keywords[locale].map(keyword => (
-          <Button
-            key={keyword}
-            colorScheme={'primary'}
-            onClick={() => setSearchTerm(keyword)}
-          >
-            {keyword}
-          </Button>
-        ))}
-      </ButtonGroup>
+
+      <Box overflow={'hidden'} mb={4} >
+        <Box overflowX={'auto'}>
+          <ButtonGroup size={'sm'} overflowX={'auto'}>
+            <IconButton
+              aria-label="Clear filters"
+              icon={<AiOutlineClear />}
+              size={'sm'}
+              colorScheme={'primary'}
+              variant={searchTerm === "" ? 'solid' : 'outline'}
+              onClick={() => setSearchTerm('')}
+            />
+            {keywords[locale].map(keyword => (
+              <Button
+                key={keyword}
+                onClick={() => setSearchTerm(keyword)}
+                colorScheme={'primary'}
+                variant={searchTerm === keyword ? 'solid' : 'outline'}
+              >
+                {keyword}
+              </Button>
+            ))}
+          </ButtonGroup>
+        </Box>
+      </Box>
 
       <SimpleGrid columns={{ base: 1 }} gap={4}>
         {topics?.map((topic, i) => (
