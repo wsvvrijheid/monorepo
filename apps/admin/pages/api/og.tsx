@@ -1,14 +1,13 @@
-/* eslint-disable @next/next/no-img-element */
-/* eslint-disable import/no-anonymous-default-export */
 import { CSSProperties } from 'react'
 
 import { ImageResponse } from '@vercel/og'
-import { sample } from 'lodash'
 import { NextRequest } from 'next/server'
 
 export const config = {
   runtime: 'edge',
 }
+
+const sample = (arr: any[]) => arr[Math.floor(Math.random() * arr.length)]
 
 const paths = [
   'M50 337.5L0 0H50V337.5Z',
@@ -67,6 +66,7 @@ async function handler(req: NextRequest) {
             position: 'relative',
           }}
         >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             style={{
               ...absoluteStyle,
