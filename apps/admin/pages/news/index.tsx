@@ -6,6 +6,8 @@ import {
   MenuOptionGroup,
   SimpleGrid,
   Tooltip,
+  Button,
+  ButtonGroup,
 } from '@chakra-ui/react'
 import { useTopic, useTopicSync } from '@wsvvrijheid/services'
 import { TopicBase } from '@wsvvrijheid/types'
@@ -22,6 +24,7 @@ const NewsPage = () => {
   const [topics, setTopics] = useState<TopicBase[]>([])
   const [searchTerm, setSearchTerm] = useState<string>()
   const [sortDirection, setSortDirection] = useState<'DESC' | 'ASC'>('DESC')
+  // const [searchItem, setSearchItem] = useState<string>("Deneme")
 
   const { locale } = useRouter()
 
@@ -56,7 +59,7 @@ const NewsPage = () => {
   )
 
   useEffect(() => {
-    const localeData = data?.data.filter(d => d.locale === locale)
+    const localeData = data?.data?.filter(d => d.locale === locale)
     const filteredData = localeData?.filter(d =>
       filter.length > 0 ? filter.includes(d.publisher) : true,
     )
@@ -103,6 +106,12 @@ const NewsPage = () => {
       addSuffix: true,
     })}`
 
+  const keywords = {
+    tr: ['insan haklari', 'işkence', 'adalet'],
+    en: ['human rights', 'torture', 'justice'],
+    nl: ['mensenrechten', 'marteling', 'gerechtigheid'],
+  }
+
   return (
     <AdminLayout
       title="News"
@@ -126,6 +135,18 @@ const NewsPage = () => {
         ),
       }}
     >
+      <ButtonGroup overflowX="auto">
+        {keywords[locale].map(keyword => (
+          <Button
+            key={keyword}
+            colorScheme={'primary'}
+            onClick={() => setSearchTerm(keyword)}
+          >
+            {keyword}
+          </Button>
+        ))}
+      </ButtonGroup>
+
       <SimpleGrid columns={{ base: 1 }} gap={4}>
         {topics?.map((topic, i) => (
           <TopicCard key={topic.url + i} topic={topic} />
