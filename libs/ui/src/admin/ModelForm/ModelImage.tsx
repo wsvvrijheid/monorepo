@@ -1,16 +1,18 @@
 import { FC } from 'react'
 
 import { Box, Button, Center, Stack } from '@chakra-ui/react'
+import { API_URL } from '@wsvvrijheid/config'
 import {
   StrapiModel,
   StrapiTranslatableModel,
+  StrapiUrl,
   UploadFile,
 } from '@wsvvrijheid/types'
 import { UseFormSetValue } from 'react-hook-form'
 import { IoMdCloudUpload } from 'react-icons/io'
 import { AssertsShape } from 'yup/lib/object'
 
-import { FilePicker, WImage } from '../../components'
+import { FilePicker, OgImage, WImage } from '../../components'
 
 type ModelImageProps = {
   model: StrapiModel
@@ -22,6 +24,7 @@ type ModelImageProps = {
     toggle: () => void
   }
   setValue: UseFormSetValue<AssertsShape<any>>
+  url: StrapiUrl
 }
 
 export const ModelImage: FC<ModelImageProps> = ({
@@ -30,6 +33,7 @@ export const ModelImage: FC<ModelImageProps> = ({
   isEditing,
   isChangingImage,
   setIsChangingImage,
+  url,
 }) => {
   const modelWithImage = model as StrapiTranslatableModel
 
@@ -42,12 +46,20 @@ export const ModelImage: FC<ModelImageProps> = ({
         </Stack>
       ) : (
         <Box pos="relative" role="group" h="full">
-          <WImage
-            src={modelWithImage.image as UploadFile}
-            alt={modelWithImage.title}
-            hasZoom
-            objectFit="contain"
-          />
+          {url === 'api/posts' ? (
+            <OgImage
+              title={modelWithImage.title}
+              text={modelWithImage.description as string}
+              image={`${API_URL}${modelWithImage.image?.url}`}
+            />
+          ) : (
+            <WImage
+              src={modelWithImage.image as UploadFile}
+              alt={modelWithImage.title}
+              hasZoom
+              objectFit="contain"
+            />
+          )}
 
           {isEditing && (
             <Center
