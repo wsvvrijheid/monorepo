@@ -6,12 +6,16 @@ import {
   MenuOptionGroup,
   SimpleGrid,
   Tooltip,
+  Button,
+  ButtonGroup,
+  Box,
 } from '@chakra-ui/react'
 import { useTopic, useTopicSync } from '@wsvvrijheid/services'
 import { TopicBase } from '@wsvvrijheid/types'
 import { AdminLayout, TopicCard } from '@wsvvrijheid/ui'
 import { addHours, formatDistanceToNow, isPast } from 'date-fns'
 import { useRouter } from 'next/router'
+import { AiOutlineClear } from 'react-icons/ai'
 import { FaArrowDown, FaArrowUp, FaSyncAlt } from 'react-icons/fa'
 
 const NewsPage = () => {
@@ -28,8 +32,9 @@ const NewsPage = () => {
   const search = useCallback(
     (topics: TopicBase[]) => {
       const results = []
+      const keywords = searchTerm.split(' ')
+      const searchRegex = new RegExp(keywords.join('|'), 'gi')
       topics?.forEach(topicBase => {
-        const searchRegex = new RegExp(searchTerm, 'gi')
         if (Object.values(topicBase).join(' ').match(searchRegex)) {
           results.push(topicBase)
         }
@@ -56,7 +61,7 @@ const NewsPage = () => {
   )
 
   useEffect(() => {
-    const localeData = data?.data.filter(d => d.locale === locale)
+    const localeData = data?.data?.filter(d => d.locale === locale)
     const filteredData = localeData?.filter(d =>
       filter.length > 0 ? filter.includes(d.publisher) : true,
     )
@@ -103,6 +108,12 @@ const NewsPage = () => {
       addSuffix: true,
     })}`
 
+  const keywords = {
+    tr: ['insan haklari', 'işkence', 'adalet', 'özgürlük'],
+    en: ['human rights', 'torture', 'justice', 'freedom'],
+    nl: ['mensenrechten', 'marteling', 'gerechtigheid', 'vrijheid'],
+  }
+
   return (
     <AdminLayout
       title="News"
@@ -126,6 +137,31 @@ const NewsPage = () => {
         ),
       }}
     >
+      <Box overflow={'hidden'} mb={4}>
+        <Box overflowX={'auto'}>
+          <ButtonGroup size={'sm'} overflowX={'auto'}>
+            <IconButton
+              aria-label="Clear filters"
+              icon={<AiOutlineClear />}
+              size={'sm'}
+              colorScheme={'primary'}
+              variant={searchTerm === '' ? 'solid' : 'outline'}
+              onClick={() => setSearchTerm('')}
+            />
+            {keywords[locale].map(keyword => (
+              <Button
+                key={keyword}
+                onClick={() => setSearchTerm(keyword)}
+                colorScheme={'primary'}
+                variant={searchTerm === keyword ? 'solid' : 'outline'}
+              >
+                {keyword}
+              </Button>
+            ))}
+          </ButtonGroup>
+        </Box>
+      </Box>
+
       <SimpleGrid columns={{ base: 1 }} gap={4}>
         {topics?.map((topic, i) => (
           <TopicCard key={topic.url + i} topic={topic} />
