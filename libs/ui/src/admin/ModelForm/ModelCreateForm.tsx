@@ -27,7 +27,7 @@ import { useForm } from 'react-hook-form'
 import { TbPlus } from 'react-icons/tb'
 import { InferType } from 'yup'
 
-import { FormItem, MasonryGrid, MdFormItem } from '../../components'
+import { FilePicker, FormItem, MasonryGrid, MdFormItem } from '../../components'
 import { useFileFromUrl } from '../../hooks'
 import { ModelImage } from './ModelImage'
 import { ModelSelect } from './ModelSelect'
@@ -58,7 +58,7 @@ export const ModelCreateForm = <T extends StrapiModel>({
     if (isField) {
       const defaults = {} as any
 
-      fields.forEach(field => {
+      fields?.forEach(field => {
         switch (field.name) {
           case 'mentions':
             defaults.mentions =
@@ -102,7 +102,7 @@ export const ModelCreateForm = <T extends StrapiModel>({
   } = useForm<InferType<typeof schema>>({
     resolver: yupResolver(schema),
     mode: 'all',
-    defaultValues,
+    defaultValues: isField ? defaultValues : '',
   })
 
   console.log('QQQQQQ image file ', imageFile, 'watch', watch('image'))
@@ -181,16 +181,18 @@ export const ModelCreateForm = <T extends StrapiModel>({
                 isRequired={field.isRequired}
               >
                 <FormLabel>{label}</FormLabel>
+                {isField ? (
+                  <ModelImage
+                    isEditing={!!postModel?.image?.url}
+                    model={model as T}
+                    setValue={setValue}
+                    isChangingImage={isChangingImage}
+                    setIsChangingImage={setIsChangingImage}
+                  />
+                ) : (
+                  <FilePicker setFiles={files => setValue('image', files[0])} />
+                )}
 
-                <ModelImage
-                  isEditing={!!postModel?.image?.url}
-                  model={model as T}
-                  setValue={setValue}
-                  isChangingImage={isChangingImage}
-                  setIsChangingImage={setIsChangingImage}
-                />
-
-                {/* <FilePicker setFiles={files => setValue('image', files[0])} /> */}
                 <FormErrorMessage>
                   {(errors as any)?.[field.name]?.message}
                 </FormErrorMessage>

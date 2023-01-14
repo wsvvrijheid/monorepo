@@ -134,7 +134,7 @@ const NewsPage = () => {
     description: topic?.description,
     reference: topic?.url,
     image: {
-      url: topic.image,
+      url: topic?.image,
     },
   } as Post
   const handleSuccess = () => {
