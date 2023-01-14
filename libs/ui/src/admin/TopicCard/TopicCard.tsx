@@ -91,10 +91,6 @@ export const TopicCard: FC<TopicCardProps> = ({ topic, onCreatePost }) => {
     }
   }
 
-  const handleShare = () => {
-    console.log('Share')
-  }
-
   const handleRecommend = () => {
     mutate(
       {
@@ -122,7 +118,7 @@ export const TopicCard: FC<TopicCardProps> = ({ topic, onCreatePost }) => {
     )
   }
   const handleCreatePost = () => {
-    onCreatePost(topic)
+    onCreatePost?.(topic)
   }
   return (
     <Stack
@@ -190,7 +186,7 @@ export const TopicCard: FC<TopicCardProps> = ({ topic, onCreatePost }) => {
               <PopoverTrigger>
                 <Box>
                   <ActionButton
-                    onClick={() => handleShare()}
+                    onClick={() => null}
                     icon={<AiOutlineShareAlt />}
                     title="Share"
                     isVertical={isVertical}

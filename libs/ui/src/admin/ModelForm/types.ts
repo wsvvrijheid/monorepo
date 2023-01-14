@@ -40,7 +40,6 @@ export type ModelCreateFormProps<T extends StrapiModel> = {
   url: StrapiUrl
   fields: FormFields<T>
   model?: Partial<T>
-  isField?: boolean
   schema: OptionalObjectSchema<any>
   onSuccess?: () => void
 }
