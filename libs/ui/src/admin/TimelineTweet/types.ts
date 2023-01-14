@@ -14,3 +14,6 @@ export type TimelineTweetProps = {
 } & StackProps
 
 export type TimelineLocalTweet = Pick<TimelineTweetProps, 'tweet' | 'user'>
+export type TweetTextProps = {
+  tweet: TimelineTweet
+}

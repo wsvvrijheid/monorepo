@@ -1,3 +1,5 @@
+import { useMemo } from 'react'
+
 import {
   Button,
   FormControl,
@@ -5,12 +7,15 @@ import {
   FormLabel,
   Stack,
   Textarea,
+  useBoolean,
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import slugify from '@sindresorhus/slugify'
 import { useCreateModelMutation } from '@wsvvrijheid/services'
 import { useAuthSelector } from '@wsvvrijheid/store'
 import {
+  Hashtag,
+  Post,
   StrapiLocale,
   StrapiModel,
   StrapiTranslatableCreateInput,
@@ -22,7 +27,9 @@ import { useForm } from 'react-hook-form'
 import { TbPlus } from 'react-icons/tb'
 import { InferType } from 'yup'
 
-import { FilePicker, FormItem, MasonryGrid, MdFormItem } from '../../components'
+import { FormItem, MasonryGrid, MdFormItem } from '../../components'
+import { useFileFromUrl } from '../../hooks'
+import { ModelImage } from './ModelImage'
 import { ModelSelect } from './ModelSelect'
 import { ModelCreateFormProps, Option } from './types'
 
@@ -30,6 +37,8 @@ export const ModelCreateForm = <T extends StrapiModel>({
   url,
   fields,
   schema,
+  model,
+  isField,
   onSuccess,
 }: ModelCreateFormProps<T>) => {
   const { user } = useAuthSelector()
@@ -40,6 +49,48 @@ export const ModelCreateForm = <T extends StrapiModel>({
   >(url)
 
   const { locale } = useRouter()
+  const [isChangingImage, setIsChangingImage] = useBoolean(false)
+  const hashtagModel = model as unknown as Hashtag
+  const postModel = model as unknown as Post
+  const imageFile = useFileFromUrl(postModel?.image?.url)
+
+  const defaultValues = useMemo(() => {
+    if (isField) {
+      const defaults = {} as any
+
+      fields.forEach(field => {
+        switch (field.name) {
+          case 'mentions':
+            defaults.mentions =
+              hashtagModel.mentions?.map(m => ({
+                label: m.username,
+                value: m.id.toString(),
+              })) || []
+            break
+          case 'title':
+            defaults.title = postModel.title
+            break
+          case 'description':
+            defaults.description = postModel.description
+            break
+          case 'hashtag':
+            defaults.hashtag = {
+              label: postModel.hashtag?.title,
+              value: postModel.hashtag?.id.toString(),
+            }
+            break
+          case 'image':
+            defaults.image = imageFile
+            break
+          default:
+            defaults[field.name] = model?.[field.name as keyof T] || undefined
+            break
+        }
+      })
+
+      return defaults
+    }
+  }, [model, fields, imageFile])
 
   const {
     register,
@@ -47,11 +98,16 @@ export const ModelCreateForm = <T extends StrapiModel>({
     handleSubmit,
     control,
     setValue,
+    watch,
   } = useForm<InferType<typeof schema>>({
     resolver: yupResolver(schema),
     mode: 'all',
+    defaultValues,
   })
 
+  console.log('QQQQQQ image file ', imageFile, 'watch', watch('image'))
+
+  console.log('image file in create form defailtValues>>>>>', defaultValues)
   const onCreateModel = async (
     data: Record<string, string | File | Option | Option[]>,
   ) => {
@@ -97,6 +153,8 @@ export const ModelCreateForm = <T extends StrapiModel>({
       {
         onSuccess: () => {
           onSuccess?.()
+          // setIsEditing.off()
+          // setIsChangingImage.off()
           setValue('image', undefined)
         },
       },
@@ -123,7 +181,16 @@ export const ModelCreateForm = <T extends StrapiModel>({
                 isRequired={field.isRequired}
               >
                 <FormLabel>{label}</FormLabel>
-                <FilePicker setFiles={files => setValue('image', files[0])} />
+
+                <ModelImage
+                  isEditing={!!postModel?.image?.url}
+                  model={model as T}
+                  setValue={setValue}
+                  isChangingImage={isChangingImage}
+                  setIsChangingImage={setIsChangingImage}
+                />
+
+                {/* <FilePicker setFiles={files => setValue('image', files[0])} /> */}
                 <FormErrorMessage>
                   {(errors as any)?.[field.name]?.message}
                 </FormErrorMessage>

@@ -33,8 +33,6 @@ export const TimelineBoard: FC<TimelineBoardProps> = ({ timelines }) => {
       mentions,
     }
 
-    console.log('recommendedTweet', recommendedTweet)
-
     await mutateAsync(recommendedTweet)
     onClose()
   }
@@ -44,6 +42,11 @@ export const TimelineBoard: FC<TimelineBoardProps> = ({ timelines }) => {
     onOpen()
   }
 
+  const mappedPosts = {
+    description: editTweet?.text,
+    type: 'title',
+  }
+  console.log('mapped post >>>', mappedPosts)
   return (
     <HStack
       align="start"
@@ -60,8 +63,10 @@ export const TimelineBoard: FC<TimelineBoardProps> = ({ timelines }) => {
           isOpen={isOpen}
           onClose={onClose}
           originalTweet={editTweet}
+          isNews={false}
         />
       )}
+
       {timelines?.map(timeline => (
         <Box
           w="500px"
