@@ -1,9 +1,6 @@
 import { FC } from 'react'
 
 import { Box, Button, Center, Stack } from '@chakra-ui/react'
-
-import { StrapiModel, StrapiTranslatableModel } from '@wsvvrijheid/types'
-
 import { API_URL } from '@wsvvrijheid/config'
 import {
   StrapiModel,
@@ -11,7 +8,6 @@ import {
   StrapiUrl,
   UploadFile,
 } from '@wsvvrijheid/types'
-
 import { UseFormSetValue } from 'react-hook-form'
 import { IoMdCloudUpload } from 'react-icons/io'
 import { AssertsShape } from 'yup/lib/object'
@@ -28,7 +24,7 @@ type ModelImageProps = {
     toggle: () => void
   }
   setValue: UseFormSetValue<AssertsShape<any>>
-  url: StrapiUrl
+  url?: StrapiUrl
 }
 
 export const ModelImage: FC<ModelImageProps> = ({
