@@ -245,6 +245,7 @@ export const ModelEditForm = <T extends StrapiModel>({
                 >
                   <FormLabel>Image</FormLabel>
                   <ModelImage
+                    url={url}
                     isEditing={isEditing}
                     model={model}
                     setValue={setValue}
