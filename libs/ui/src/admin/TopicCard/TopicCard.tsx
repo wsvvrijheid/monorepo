@@ -21,6 +21,7 @@ import { TopicBase } from '@wsvvrijheid/types'
 import { formatDistanceStrict } from 'date-fns'
 import { AiOutlineEye, AiOutlineLike, AiOutlineShareAlt } from 'react-icons/ai'
 import { BsBookmarkHeart } from 'react-icons/bs'
+import { TbPlus } from 'react-icons/tb'
 import { useLocalStorage } from 'usehooks-ts'
 
 import { WImage } from '../../components'
@@ -50,7 +51,7 @@ const domains = [
   'amnesty.org',
 ]
 
-export const TopicCard: FC<TopicCardProps> = ({ topic }) => {
+export const TopicCard: FC<TopicCardProps> = ({ topic, onCreatePost }) => {
   const { user } = useAuthSelector()
 
   const ImageComponent = domains.some(d => topic.image?.includes(d))
@@ -120,7 +121,9 @@ export const TopicCard: FC<TopicCardProps> = ({ topic }) => {
       },resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=yes,directories=no, status=yes`,
     )
   }
-
+  const handleCreatePost = () => {
+    onCreatePost(topic)
+  }
   return (
     <Stack
       h={isVertical ? 'auto' : '200px'}
@@ -168,6 +171,13 @@ export const TopicCard: FC<TopicCardProps> = ({ topic }) => {
           </Text>
 
           <ButtonGroup size={'sm'}>
+            <ActionButton
+              onClick={() => handleCreatePost()}
+              icon={<TbPlus />}
+              title="CreatePost"
+              isVertical={isVertical}
+              variant="ghost"
+            />
             <ActionButton
               onClick={() => handleView()}
               icon={<AiOutlineEye />}

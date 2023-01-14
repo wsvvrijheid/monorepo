@@ -1,11 +1,7 @@
 import { FC } from 'react'
 
 import { Box, Button, Center, Stack } from '@chakra-ui/react'
-import {
-  StrapiModel,
-  StrapiTranslatableModel,
-  UploadFile,
-} from '@wsvvrijheid/types'
+import { StrapiModel, StrapiTranslatableModel } from '@wsvvrijheid/types'
 import { UseFormSetValue } from 'react-hook-form'
 import { IoMdCloudUpload } from 'react-icons/io'
 import { AssertsShape } from 'yup/lib/object'
@@ -43,8 +39,8 @@ export const ModelImage: FC<ModelImageProps> = ({
       ) : (
         <Box pos="relative" role="group" h="full">
           <WImage
-            src={modelWithImage.image as UploadFile}
-            alt={modelWithImage.title}
+            src={modelWithImage?.image?.url as string}
+            alt={modelWithImage?.title}
             hasZoom
             objectFit="contain"
           />

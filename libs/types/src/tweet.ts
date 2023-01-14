@@ -19,6 +19,7 @@ export interface Tweet {
 export type TimelineTweet = {
   id: string
   text: string
+  description?: string
   media?: {
     type: string
     media_key: string

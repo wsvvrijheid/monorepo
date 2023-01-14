@@ -1,5 +1,6 @@
 export * from './useChangeParam'
 export * from './useFindHashtagsInTrend'
+export * from './useFileFromUrl'
 export * from './useItemLink'
 export * from './useLocaleTimeFormat'
 export * from './useRandomPostContent'

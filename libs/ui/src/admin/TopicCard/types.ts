@@ -5,8 +5,8 @@ import { TopicBase } from '@wsvvrijheid/types'
 
 export type TopicCardProps = {
   topic: TopicBase
+  onCreatePost?: (topic: TopicBase) => void
 }
-
 export type ActionButtonProps = {
   onClick: () => void
   title: string
