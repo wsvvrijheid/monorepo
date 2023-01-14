@@ -28,11 +28,8 @@ import {
 } from '@wsvvrijheid/ui'
 import { addHours, formatDistanceToNow, isPast } from 'date-fns'
 import { useRouter } from 'next/router'
-
 import { title } from 'process'
-
 import { AiOutlineClear } from 'react-icons/ai'
-
 import { FaArrowDown, FaArrowUp, FaSyncAlt } from 'react-icons/fa'
 
 const NewsPage = () => {
