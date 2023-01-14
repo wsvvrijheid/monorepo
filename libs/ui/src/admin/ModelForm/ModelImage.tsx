@@ -36,7 +36,8 @@ export const ModelImage: FC<ModelImageProps> = ({
   url,
 }) => {
   const modelWithImage = model as StrapiTranslatableModel
-
+  console.log('is Editing', isEditing)
+  console.log('modelWithImage', modelWithImage)
   return (
     <Box maxH={{ base: 300, lg: 'full' }} rounded={'md'} overflow="hidden">
       {isChangingImage ? (
@@ -46,12 +47,15 @@ export const ModelImage: FC<ModelImageProps> = ({
         </Stack>
       ) : (
         <Box pos="relative" role="group" h="full">
-          <WImage
-            src={modelWithImage?.image?.url as string}
-            alt={modelWithImage?.title}
-            hasZoom
-            objectFit="contain"
-          />
+          {modelWithImage && (
+            <WImage
+              src={modelWithImage?.image?.url as string}
+              alt={modelWithImage?.title}
+              hasZoom
+              objectFit="contain"
+            />
+          )}
+
           {url === 'api/posts' ? (
             <OgImage
               title={modelWithImage.title}
@@ -60,8 +64,8 @@ export const ModelImage: FC<ModelImageProps> = ({
             />
           ) : (
             <WImage
-              src={modelWithImage.image as UploadFile}
-              alt={modelWithImage.title}
+              src={modelWithImage?.image as UploadFile}
+              alt={modelWithImage?.title}
               hasZoom
               objectFit="contain"
             />
