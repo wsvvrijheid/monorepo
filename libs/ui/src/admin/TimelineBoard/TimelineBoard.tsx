@@ -42,11 +42,6 @@ export const TimelineBoard: FC<TimelineBoardProps> = ({ timelines }) => {
     onOpen()
   }
 
-  const mappedPosts = {
-    description: editTweet?.text,
-    type: 'title',
-  }
-  console.log('mapped post >>>', mappedPosts)
   return (
     <HStack
       align="start"
@@ -69,6 +64,7 @@ export const TimelineBoard: FC<TimelineBoardProps> = ({ timelines }) => {
 
       {timelines?.map(timeline => (
         <Box
+          key={timeline.id}
           w="500px"
           overflowX="auto"
           borderRadius="6px"

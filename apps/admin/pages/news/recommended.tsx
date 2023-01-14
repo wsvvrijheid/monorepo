@@ -1,5 +1,3 @@
-// import { useEffect, useState } from 'react'
-
 import { useState } from 'react'
 
 import {
@@ -55,7 +53,7 @@ const NewsBookmarkedPage = () => {
     formDisclosure.onClose()
     setOnNews(false)
   }
-  console.log('postContent content', postContent)
+
   return (
     <AdminLayout
       title=" Recomended News"
@@ -84,7 +82,6 @@ const NewsBookmarkedPage = () => {
                 schema={postSchema}
                 fields={postFields}
                 model={postContent}
-                isField={true}
                 onSuccess={handleSuccess}
               />
             </ModalBody>

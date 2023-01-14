@@ -6,7 +6,6 @@ import {
   StrapiModel,
   StrapiTranslatableModel,
   StrapiUrl,
-  UploadFile,
 } from '@wsvvrijheid/types'
 import { UseFormSetValue } from 'react-hook-form'
 import { IoMdCloudUpload } from 'react-icons/io'
@@ -14,7 +13,7 @@ import { AssertsShape } from 'yup/lib/object'
 
 import { FilePicker, OgImage, WImage } from '../../components'
 
-type ModelImageProps = {
+export type ModelImageProps = {
   model: StrapiModel
   isEditing: boolean
   isChangingImage: boolean
@@ -36,8 +35,13 @@ export const ModelImage: FC<ModelImageProps> = ({
   url,
 }) => {
   const modelWithImage = model as StrapiTranslatableModel
-  console.log('is Editing', isEditing)
-  console.log('modelWithImage', modelWithImage)
+
+  const modelImageUrl = modelWithImage?.image?.url
+
+  const imageUrl = modelImageUrl?.startsWith('http')
+    ? modelImageUrl
+    : `${API_URL}${modelImageUrl}`
+
   return (
     <Box maxH={{ base: 300, lg: 'full' }} rounded={'md'} overflow="hidden">
       {isChangingImage ? (
@@ -47,24 +51,15 @@ export const ModelImage: FC<ModelImageProps> = ({
         </Stack>
       ) : (
         <Box pos="relative" role="group" h="full">
-          {modelWithImage && (
-            <WImage
-              src={modelWithImage?.image?.url as string}
-              alt={modelWithImage?.title}
-              hasZoom
-              objectFit="contain"
-            />
-          )}
-
           {url === 'api/posts' ? (
             <OgImage
               title={modelWithImage.title}
               text={modelWithImage.description as string}
-              image={`${API_URL}${modelWithImage.image?.url}`}
+              image={imageUrl}
             />
           ) : (
             <WImage
-              src={modelWithImage?.image as UploadFile}
+              src={modelWithImage?.image?.url as string}
               alt={modelWithImage?.title}
               hasZoom
               objectFit="contain"
@@ -78,7 +73,7 @@ export const ModelImage: FC<ModelImageProps> = ({
               left={0}
               boxSize="full"
               bg="blackAlpha.500"
-              onClick={setIsChangingImage.toggle}
+              onClick={setIsChangingImage?.toggle}
               cursor="pointer"
             >
               <Button

@@ -189,7 +189,6 @@ const NewsPage = () => {
                 schema={postSchema}
                 fields={postFields}
                 model={postContent}
-                isField={true}
                 onSuccess={handleSuccess}
               />
             </ModalBody>

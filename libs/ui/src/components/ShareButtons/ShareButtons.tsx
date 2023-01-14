@@ -7,8 +7,15 @@ import {
   TelegramShareButton,
   TwitterShareButton,
   WhatsappShareButton,
+  LinkedinShareButton,
 } from 'next-share'
-import { FaFacebook, FaTelegram, FaTwitter, FaWhatsapp } from 'react-icons/fa'
+import {
+  FaFacebook,
+  FaLinkedin,
+  FaTelegram,
+  FaTwitter,
+  FaWhatsapp,
+} from 'react-icons/fa'
 
 interface ShareButtonsProps extends ButtonGroupProps {
   title?: string
@@ -65,6 +72,15 @@ export const ShareButtons: FC<PropsWithChildren<ShareButtonsProps>> = ({
           icon={<FaTelegram />}
         />
       </TelegramShareButton>
+      <LinkedinShareButton url={url} title={content} about={content}>
+        <IconButton
+          as="span"
+          isRound
+          _hover={{ bg: 'blue.500', color: 'white' }}
+          aria-label="share on linkedin"
+          icon={<FaLinkedin />}
+        />
+      </LinkedinShareButton>
     </ButtonGroup>
   )
 }

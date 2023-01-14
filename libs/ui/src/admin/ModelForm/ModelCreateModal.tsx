@@ -24,7 +24,6 @@ export const ModelCreateModal = <T extends StrapiModel>({
   children,
   title,
   model,
-  isField,
 }: PropsWithChildren<ModelCreateFormProps<T> & { title: string }>) => {
   const formDisclosure = useDisclosure()
 
@@ -39,7 +38,6 @@ export const ModelCreateModal = <T extends StrapiModel>({
         leftIcon={<IoMdAdd />}
         colorScheme="primary"
         onClick={formDisclosure.onOpen}
-        my={3}
       >
         {children}
       </Button>
@@ -62,7 +60,6 @@ export const ModelCreateModal = <T extends StrapiModel>({
               schema={schema}
               fields={fields}
               model={model}
-              isField={isField}
               onSuccess={handleSuccess}
             />
           </ModalBody>

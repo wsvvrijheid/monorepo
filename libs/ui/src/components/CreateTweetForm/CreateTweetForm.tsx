@@ -4,7 +4,6 @@ import {
   Box,
   Button,
   ButtonGroup,
-  Divider,
   FormLabel,
   HStack,
   Modal,
@@ -17,6 +16,7 @@ import {
   Stack,
   Text,
   Textarea,
+  useBoolean,
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { Mention, Post, TimelineTweet } from '@wsvvrijheid/types'
@@ -29,13 +29,13 @@ import * as yup from 'yup'
 import { ModelCreateModal, TweetText } from '../../admin'
 import { ModelSelect } from '../../admin/ModelForm/ModelSelect'
 import { postFields, postSchema } from '../../data'
-import { FilePicker } from '../FilePicker'
+import { useFileFromUrl } from '../../hooks'
 import { FormItem } from '../FormItem'
 import { CreateTweetFormProps } from './types'
 
 const schema = yup.object({
   text: yup.string().required('Title is required'),
-  image: yup.mixed(),
+  media: yup.mixed(),
   mentions: yup.array().of(
     yup.object().shape({
       label: yup.string(),
@@ -56,7 +56,11 @@ export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
   const TWEET_LENGTH = 280
   const SIMILARITY_LIMIT = 60
 
+  const [isChangingImage, setIsChangingImage] = useBoolean(false)
   const [similarity, setSimilarity] = useState(0)
+
+  const imageFile = useFileFromUrl(originalTweet?.media?.url)
+
   if (isNews) {
     originalTweet = { text: originalTweet.text } as TimelineTweet
   }
@@ -77,14 +81,15 @@ export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
     },
   })
 
-  const [text, image] = watch(['text', 'image'])
-  console.log('original tweet', originalTweet, 'form image', image)
+  const [text] = watch(['text'])
 
-  const handleFiles = (files: File[]) => {
-    setValue('image', files[0])
-  }
+  useEffect(() => {
+    if (imageFile) {
+      setValue('media', imageFile)
+    }
+  }, [imageFile, setValue])
 
-  const model = {
+  const newPost = {
     description: text,
     content: text,
     image: { url: originalTweet?.media?.url },
@@ -97,17 +102,18 @@ export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
         originalTweet.text.toLowerCase(),
       ) * 100
     setSimilarity(similarity)
-    model.description = text
   }, [text, originalTweet.text, setValue])
 
-  const onSubmitHandler = (data: FormFieldValues) => {
+  const onSubmitHandler = async (data: FormFieldValues) => {
     const mentions = data.mentions?.map(mention => mention.value) || []
-    onSubmit(
+
+    await onSubmit?.(
       data?.text,
       originalTweet,
       mentions as unknown as number[],
-      data.image,
+      data.media,
     )
+    reset()
   }
 
   const closeModal = () => {
@@ -139,7 +145,13 @@ export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
             >
               <Stack>
                 <FormLabel fontWeight={600}>Original Tweet</FormLabel>
-                <TweetText tweet={originalTweet} />
+                <TweetText
+                  isVertical={false}
+                  tweet={originalTweet}
+                  isChangingImage={isChangingImage}
+                  setIsChangingImage={setIsChangingImage}
+                  setValue={setValue}
+                />
                 <FormItem<FormFieldValues>
                   as={Textarea}
                   name="text"
@@ -154,12 +166,11 @@ export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
                   url="api/mentions"
                   control={control as any}
                   fields={['username', 'data']}
-                  name="mention"
+                  name="mentions"
                   label="Mention"
                   errors={errors}
                 />
                 {/* TODO 
-                ADD MENTION
                 ADD HASHTAG
                 */}
                 {/* plagiarism ................*/}
@@ -186,11 +197,6 @@ export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
                     *The Lower is better
                   </Text>
                 </Stack>
-                <Divider />
-                <Stack>
-                  <Text fontWeight={600}>Add Image(s)</Text>
-                  <FilePicker setFiles={handleFiles} />
-                </Stack>
               </Stack>
               <ButtonGroup alignSelf="end">
                 <Button
@@ -214,9 +220,7 @@ export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
                   url="api/posts"
                   schema={postSchema}
                   fields={postFields}
-                  model={model}
-                  isField={true}
-                  // onSuccess={postsQuery.refetch}
+                  model={newPost}
                 >
                   Create Post
                 </ModelCreateModal>
