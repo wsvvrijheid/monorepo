@@ -44,6 +44,7 @@ const NewsBookmarkedPage = () => {
   const postContent = {
     title: topic?.title,
     description: topic?.description,
+    content: topic?.description,
     reference: topic?.url,
     image: {
       url: topic?.image,
