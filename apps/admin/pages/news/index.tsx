@@ -161,7 +161,6 @@ const NewsPage = () => {
           </ButtonGroup>
         </Box>
       </Box>
-
       <SimpleGrid columns={{ base: 1 }} gap={4}>
         {topics?.map((topic, i) => (
           <TopicCard key={topic.url + i} topic={topic} />

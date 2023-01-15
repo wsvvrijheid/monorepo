@@ -1,5 +1,3 @@
-// import { useEffect, useState } from 'react'
-
 import { SimpleGrid } from '@chakra-ui/react'
 import { useSearchModel } from '@wsvvrijheid/services'
 import { RecommendedTopic, StrapiLocale } from '@wsvvrijheid/types'
@@ -19,10 +17,9 @@ const NewsBookmarkedPage = () => {
     url: 'api/recommended-topics',
     locale: locale as StrapiLocale,
   })
-
   return (
     <AdminLayout
-      title="News"
+      title=" Recomended News"
       headerProps={{
         onSearch: () => null,
         filterMenuCloseOnSelect: false,

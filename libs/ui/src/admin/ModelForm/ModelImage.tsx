@@ -6,7 +6,6 @@ import {
   StrapiModel,
   StrapiTranslatableModel,
   StrapiUrl,
-  UploadFile,
 } from '@wsvvrijheid/types'
 import { UseFormSetValue } from 'react-hook-form'
 import { IoMdCloudUpload } from 'react-icons/io'
@@ -14,7 +13,7 @@ import { AssertsShape } from 'yup/lib/object'
 
 import { FilePicker, OgImage, WImage } from '../../components'
 
-type ModelImageProps = {
+export type ModelImageProps = {
   model: StrapiModel
   isEditing: boolean
   isChangingImage: boolean
@@ -24,7 +23,7 @@ type ModelImageProps = {
     toggle: () => void
   }
   setValue: UseFormSetValue<AssertsShape<any>>
-  url: StrapiUrl
+  url?: StrapiUrl
 }
 
 export const ModelImage: FC<ModelImageProps> = ({
@@ -37,11 +36,19 @@ export const ModelImage: FC<ModelImageProps> = ({
 }) => {
   const modelWithImage = model as StrapiTranslatableModel
 
+  const modelImageUrl = modelWithImage?.image?.url
+
+  const imageUrl = modelImageUrl?.startsWith('http')
+    ? modelImageUrl
+    : `${API_URL}${modelImageUrl}`
+
   return (
     <Box maxH={{ base: 300, lg: 'full' }} rounded={'md'} overflow="hidden">
       {isChangingImage ? (
         <Stack>
-          <Button onClick={setIsChangingImage.off}>Cancel</Button>
+          {modelWithImage?.image && (
+            <Button onClick={setIsChangingImage.off}>Cancel</Button>
+          )}
           <FilePicker setFiles={files => setValue('image', files[0])} />
         </Stack>
       ) : (
@@ -50,12 +57,12 @@ export const ModelImage: FC<ModelImageProps> = ({
             <OgImage
               title={modelWithImage.title}
               text={modelWithImage.description as string}
-              image={`${API_URL}${modelWithImage.image?.url}`}
+              image={imageUrl}
             />
           ) : (
             <WImage
-              src={modelWithImage.image as UploadFile}
-              alt={modelWithImage.title}
+              src={modelWithImage?.image?.url as string}
+              alt={modelWithImage?.title}
               hasZoom
               objectFit="contain"
             />
@@ -68,7 +75,7 @@ export const ModelImage: FC<ModelImageProps> = ({
               left={0}
               boxSize="full"
               bg="blackAlpha.500"
-              onClick={setIsChangingImage.toggle}
+              onClick={setIsChangingImage?.toggle}
               cursor="pointer"
             >
               <Button

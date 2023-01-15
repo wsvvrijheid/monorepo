@@ -12,13 +12,11 @@ import {
   Stack,
   Text,
 } from '@chakra-ui/react'
-import { formatDistanceToNow } from 'date-fns'
 import { BsBookmarkPlus, BsThreeDots } from 'react-icons/bs'
 import { RiEditLine } from 'react-icons/ri'
-import twitterText from 'twitter-text'
 import { useLocalStorage } from 'usehooks-ts'
 
-import { WImage } from '../../components'
+import { TweetText } from './TweetText'
 import { TimelineLocalTweet, TimelineTweetProps } from './types'
 
 export const TimelineTweet: FC<TimelineTweetProps> = ({
@@ -104,32 +102,7 @@ export const TimelineTweet: FC<TimelineTweetProps> = ({
             </Menu>
           )}
         </HStack>
-        <Text
-          ml={2}
-          wordBreak={'break-word'}
-          whiteSpace={'pre-wrap'}
-          sx={{
-            '& a': {
-              color: 'twitter.500',
-            },
-          }}
-          dangerouslySetInnerHTML={{ __html: twitterText.autoLink(tweet.text) }}
-        />
-        {tweet?.media?.url && (
-          <Box mt={2}>
-            <WImage
-              ratio="twitter"
-              src={tweet?.media?.url}
-              rounded={'lg'}
-              alt={tweet.text}
-            />
-          </Box>
-        )}
-        <Text fontSize={'sm'} color={'gray.500'} textAlign={'right'}>
-          {formatDistanceToNow(new Date(tweet.created_at as string), {
-            addSuffix: true,
-          })}
-        </Text>
+        <TweetText tweet={tweet} />
       </Stack>
     </HStack>
   )
