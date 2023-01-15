@@ -4,28 +4,15 @@ import {
   IconButton,
   MenuItemOption,
   MenuOptionGroup,
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalHeader,
-  ModalOverlay,
   SimpleGrid,
   Tooltip,
-  useDisclosure,
   Button,
   ButtonGroup,
   Box,
 } from '@chakra-ui/react'
 import { useTopic, useTopicSync } from '@wsvvrijheid/services'
-import { Post, TopicBase } from '@wsvvrijheid/types'
-import {
-  AdminLayout,
-  ModelCreateForm,
-  postFields,
-  postSchema,
-  TopicCard,
-} from '@wsvvrijheid/ui'
+import { TopicBase } from '@wsvvrijheid/types'
+import { AdminLayout, TopicCard } from '@wsvvrijheid/ui'
 import { addHours, formatDistanceToNow, isPast } from 'date-fns'
 import { useRouter } from 'next/router'
 import { AiOutlineClear } from 'react-icons/ai'
@@ -37,8 +24,6 @@ const NewsPage = () => {
   const [sources, setSources] = useState<string[]>([])
   const [filter, setFilter] = useState<string[]>([])
   const [topics, setTopics] = useState<TopicBase[]>([])
-  const [topic, setTopic] = useState<TopicBase>()
-  const [isNews, setOnNews] = useState<boolean>(false)
   const [searchTerm, setSearchTerm] = useState<string>()
   const [sortDirection, setSortDirection] = useState<'DESC' | 'ASC'>('DESC')
 
@@ -122,25 +107,7 @@ const NewsPage = () => {
     `Updated ${formatDistanceToNow(new Date(data.updatedAt), {
       addSuffix: true,
     })}`
-  const formDisclosure = useDisclosure()
-  const handleCreatePost = (data: TopicBase) => {
-    setTopic(data)
-    setOnNews(true)
-    formDisclosure.onOpen()
-  }
-  const postContent = {
-    title: topic?.title,
-    description: topic?.description,
-    content: topic?.description,
-    reference: topic?.url,
-    image: {
-      url: topic?.image,
-    },
-  } as Post
-  const handleSuccess = () => {
-    formDisclosure.onClose()
-    setOnNews(false)
-  }
+
   const keywords = {
     tr: ['insan haklari', 'işkence', 'adalet', 'özgürlük'],
     en: ['human rights', 'torture', 'justice', 'freedom'],
@@ -170,31 +137,6 @@ const NewsPage = () => {
         ),
       }}
     >
-      {isNews && (
-        <Modal
-          isCentered
-          closeOnOverlayClick={true}
-          isOpen={formDisclosure.isOpen}
-          onClose={formDisclosure.onClose}
-          size="6xl"
-          scrollBehavior="inside"
-        >
-          <ModalOverlay />
-          <ModalContent>
-            <ModalHeader color={'primary.500'}>Create Post</ModalHeader>
-            <ModalCloseButton />
-            <ModalBody pos="relative" py={6}>
-              <ModelCreateForm<Post>
-                url="api/posts"
-                schema={postSchema}
-                fields={postFields}
-                model={postContent}
-                onSuccess={handleSuccess}
-              />
-            </ModalBody>
-          </ModalContent>
-        </Modal>
-      )}
       <Box overflow={'hidden'} mb={4}>
         <Box overflowX={'auto'}>
           <ButtonGroup size={'sm'} overflowX={'auto'}>
@@ -221,11 +163,7 @@ const NewsPage = () => {
       </Box>
       <SimpleGrid columns={{ base: 1 }} gap={4}>
         {topics?.map((topic, i) => (
-          <TopicCard
-            key={topic.url + i}
-            topic={topic}
-            onCreatePost={handleCreatePost}
-          />
+          <TopicCard key={topic.url + i} topic={topic} />
         ))}
       </SimpleGrid>
     </AdminLayout>
