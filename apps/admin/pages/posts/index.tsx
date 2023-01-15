@@ -69,6 +69,7 @@ const PostsPage = () => {
         url="api/posts"
         schema={postSchema}
         fields={postFields}
+        isChangingImage={true}
         onSuccess={postsQuery.refetch}
       >
         Create Post

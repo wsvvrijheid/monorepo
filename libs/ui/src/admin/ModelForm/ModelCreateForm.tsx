@@ -48,11 +48,13 @@ export const ModelCreateForm = <T extends StrapiModel>({
   >(url)
 
   const { locale } = useRouter()
-  const [isChangingImage, setIsChangingImage] = useBoolean(false)
+  const [isChangingImage, setIsChangingImage] = useBoolean(model ? false : true)
+
   const hashtagModel = model as unknown as Hashtag
   const postModel = model as unknown as Post
   const imageFile = useFileFromUrl(postModel?.image?.url)
-
+  console.log('mentions', hashtagModel?.mentions)
+  console.log('fields', fields)
   const defaultValues = useMemo(() => {
     const defaults = {} as any
 
@@ -60,21 +62,22 @@ export const ModelCreateForm = <T extends StrapiModel>({
       switch (field.name) {
         case 'mentions':
           defaults.mentions =
-            hashtagModel.mentions?.map(m => ({
+            hashtagModel?.mentions?.map(m => ({
               label: m.username,
               value: m.id.toString(),
             })) || []
           break
         case 'title':
-          defaults.title = postModel.title
+          defaults.title = postModel?.title
           break
         case 'description':
-          defaults.description = postModel.description
+          defaults.description = postModel?.description
           break
         case 'hashtag':
+          console.log('here is hashtag case', hashtagModel)
           defaults.hashtag = {
-            label: postModel.hashtag?.title,
-            value: postModel.hashtag?.id.toString(),
+            label: postModel?.hashtag?.title,
+            value: postModel?.hashtag?.id.toString(),
           }
           break
         default:
