@@ -1,3 +1,4 @@
+import { ButtonProps } from '@chakra-ui/react'
 import { StrapiModel, StrapiModelKeys, StrapiUrl } from '@wsvvrijheid/types'
 import { Control, FieldErrorsImpl, FieldValues } from 'react-hook-form'
 import { AssertsShape, OptionalObjectSchema } from 'yup/lib/object'
@@ -41,6 +42,7 @@ export type ModelCreateFormProps<T extends StrapiModel> = {
   fields: FormFields<T>
   model?: Partial<T>
   schema: OptionalObjectSchema<any>
+  buttonProps?: ButtonProps
   onSuccess?: () => void
 }
 

@@ -17,15 +17,16 @@ import {
 import { useQueryClient } from '@tanstack/react-query'
 import { useRecommendTopic } from '@wsvvrijheid/services'
 import { useAuthSelector } from '@wsvvrijheid/store'
-import { TopicBase } from '@wsvvrijheid/types'
+import { Post, TopicBase } from '@wsvvrijheid/types'
 import { formatDistanceStrict } from 'date-fns'
 import { AiOutlineEye, AiOutlineLike, AiOutlineShareAlt } from 'react-icons/ai'
 import { BsBookmarkHeart } from 'react-icons/bs'
-import { TbPlus } from 'react-icons/tb'
 import { useLocalStorage } from 'usehooks-ts'
 
 import { WImage } from '../../components'
 import { ShareButtons } from '../../components'
+import { postFields, postSchema } from '../../data'
+import { ModelCreateModal } from '../ModelForm'
 import { ActionButton } from './ActionButton'
 import { TopicCardProps } from './types'
 
@@ -117,9 +118,17 @@ export const TopicCard: FC<TopicCardProps> = ({ topic, onCreatePost }) => {
       },resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=yes,directories=no, status=yes`,
     )
   }
-  const handleCreatePost = () => {
-    onCreatePost?.(topic)
-  }
+
+  const postContent = {
+    title: topic?.title,
+    description: topic?.description,
+    content: topic?.description,
+    reference: topic?.url,
+    image: {
+      url: topic?.image,
+    },
+  } as Post
+
   return (
     <Stack
       h={isVertical ? 'auto' : '200px'}
@@ -167,13 +176,16 @@ export const TopicCard: FC<TopicCardProps> = ({ topic, onCreatePost }) => {
           </Text>
 
           <ButtonGroup size={'sm'}>
-            <ActionButton
-              onClick={() => handleCreatePost()}
-              icon={<TbPlus />}
-              title="CreatePost"
-              isVertical={isVertical}
-              variant="ghost"
-            />
+            <ModelCreateModal
+              title="Create Post"
+              url="api/posts"
+              schema={postSchema}
+              fields={postFields}
+              model={postContent}
+              buttonProps={{ variant: 'ghost', colorScheme: 'gray' }}
+            >
+              Create Post
+            </ModelCreateModal>
             <ActionButton
               onClick={() => handleView()}
               icon={<AiOutlineEye />}
