@@ -39,7 +39,6 @@ export const MdFormItem = <T extends FieldValues>({
       isInvalid={Boolean(errors?.[name])}
       isRequired={isRequired}
       w="full"
-      zIndex={1}
       pos="relative"
       flex={1}
       display={'flex'}
