@@ -36,7 +36,7 @@ export const TweetText: FC<TweetTextProps> = ({
               isEditing={true}
               model={{ image: tweet.media } as unknown as StrapiModel}
               setValue={setValue}
-              isChangingImage={isChangingImage}
+              isChangingImage={tweet?.media ? isChangingImage : true}
               setIsChangingImage={setIsChangingImage}
             />
           </Box>

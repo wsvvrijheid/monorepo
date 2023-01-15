@@ -28,7 +28,6 @@ import {
 } from '@wsvvrijheid/ui'
 import { addHours, formatDistanceToNow, isPast } from 'date-fns'
 import { useRouter } from 'next/router'
-import { title } from 'process'
 import { AiOutlineClear } from 'react-icons/ai'
 import { FaArrowDown, FaArrowUp, FaSyncAlt } from 'react-icons/fa'
 
@@ -182,7 +181,7 @@ const NewsPage = () => {
         >
           <ModalOverlay />
           <ModalContent>
-            <ModalHeader color={'primary.500'}>{title}</ModalHeader>
+            <ModalHeader color={'primary.500'}>Create Post</ModalHeader>
             <ModalCloseButton />
             <ModalBody pos="relative" py={6}>
               <ModelCreateForm<Post>
