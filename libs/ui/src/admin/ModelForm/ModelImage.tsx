@@ -41,8 +41,7 @@ export const ModelImage: FC<ModelImageProps> = ({
   const imageUrl = modelImageUrl?.startsWith('http')
     ? modelImageUrl
     : `${API_URL}${modelImageUrl}`
-  console.log('is changing image', isChangingImage)
-  console.log('model for image', modelWithImage)
+
   return (
     <Box maxH={{ base: 300, lg: 'full' }} rounded={'md'} overflow="hidden">
       {isChangingImage ? (
