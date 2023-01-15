@@ -22,7 +22,6 @@ export const ModelSelect = <T extends StrapiModel>({
   })
 
   const models = modelsQuery.data?.data
-
   return (
     <WSelect
       options={models && mapModelsToOptions(models, locale as StrapiLocale)}

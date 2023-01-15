@@ -33,8 +33,6 @@ export const TimelineBoard: FC<TimelineBoardProps> = ({ timelines }) => {
       mentions,
     }
 
-    console.log('recommendedTweet', recommendedTweet)
-
     await mutateAsync(recommendedTweet)
     onClose()
   }
@@ -60,10 +58,13 @@ export const TimelineBoard: FC<TimelineBoardProps> = ({ timelines }) => {
           isOpen={isOpen}
           onClose={onClose}
           originalTweet={editTweet}
+          isNews={false}
         />
       )}
+
       {timelines?.map(timeline => (
         <Box
+          key={timeline.id}
           w="500px"
           overflowX="auto"
           borderRadius="6px"
