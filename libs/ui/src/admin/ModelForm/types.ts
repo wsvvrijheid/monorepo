@@ -3,7 +3,6 @@ import { Control, FieldErrorsImpl, FieldValues } from 'react-hook-form'
 import { AssertsShape, OptionalObjectSchema } from 'yup/lib/object'
 
 import { WSelectProps } from '../../components'
-import { ModelImageProps } from './ModelImage'
 
 export type MentionSelectProps = {
   isEditing: boolean
@@ -43,7 +42,7 @@ export type ModelCreateFormProps<T extends StrapiModel> = {
   model?: Partial<T>
   schema: OptionalObjectSchema<any>
   onSuccess?: () => void
-} & Pick<ModelImageProps, 'isChangingImage'>
+}
 
 export type ModelEditFormProps<T extends StrapiModel> = {
   url: StrapiUrl
