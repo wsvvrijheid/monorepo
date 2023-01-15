@@ -46,7 +46,7 @@ export const ModelImage: FC<ModelImageProps> = ({
     <Box maxH={{ base: 300, lg: 'full' }} rounded={'md'} overflow="hidden">
       {isChangingImage ? (
         <Stack>
-          <Button onClick={setIsChangingImage.off}>Cancel</Button>
+          {model && <Button onClick={setIsChangingImage.off}>Cancel</Button>}
           <FilePicker setFiles={files => setValue('image', files[0])} />
         </Stack>
       ) : (
