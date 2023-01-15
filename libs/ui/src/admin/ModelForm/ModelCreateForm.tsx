@@ -53,8 +53,6 @@ export const ModelCreateForm = <T extends StrapiModel>({
   const hashtagModel = model as unknown as Hashtag
   const postModel = model as unknown as Post
   const imageFile = useFileFromUrl(postModel?.image?.url)
-  console.log('mentions', hashtagModel?.mentions)
-  console.log('fields', fields)
   const defaultValues = useMemo(() => {
     const defaults = {} as any
 
@@ -74,7 +72,6 @@ export const ModelCreateForm = <T extends StrapiModel>({
           defaults.description = postModel?.description
           break
         case 'hashtag':
-          console.log('here is hashtag case', hashtagModel)
           defaults.hashtag = {
             label: postModel?.hashtag?.title,
             value: postModel?.hashtag?.id.toString(),
@@ -102,6 +99,7 @@ export const ModelCreateForm = <T extends StrapiModel>({
   })
 
   useEffect(() => {
+    console.log('image file in useEffect', imageFile)
     if (imageFile) {
       setValue('image', imageFile)
     }
