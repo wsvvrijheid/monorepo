@@ -48,11 +48,13 @@ export const ModelCreateForm = <T extends StrapiModel>({
   >(url)
 
   const { locale } = useRouter()
-  const [isChangingImage, setIsChangingImage] = useBoolean(model ? false : true)
 
   const hashtagModel = model as unknown as Hashtag
   const postModel = model as unknown as Post
   const imageFile = useFileFromUrl(postModel?.image?.url)
+  const [isChangingImage, setIsChangingImage] = useBoolean(
+    postModel?.image ? false : true,
+  )
   const defaultValues = useMemo(() => {
     const defaults = {} as any
 
@@ -150,8 +152,6 @@ export const ModelCreateForm = <T extends StrapiModel>({
       {
         onSuccess: () => {
           onSuccess?.()
-          // setIsEditing.off()
-          // setIsChangingImage.off()
           setValue('image', undefined)
         },
       },
