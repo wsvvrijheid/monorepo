@@ -1,7 +1,7 @@
 import { TimelineTweet } from '@wsvvrijheid/types'
 
 export type CreateTweetFormProps = {
-  onSubmit: (
+  onSubmit?: (
     text: string,
     originalTweet: TimelineTweet,
     mentions: number[],
@@ -10,4 +10,5 @@ export type CreateTweetFormProps = {
   onClose: () => void
   isOpen: boolean
   originalTweet: TimelineTweet
+  isNews: boolean
 }

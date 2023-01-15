@@ -10,10 +10,15 @@ export const generateFormData = <
   const data = {} as Record<string, unknown>
 
   Object.entries(body).forEach(([key, value]) => {
-    const file = value as File
-    const files = value as File[]
+    const file = value as File | Blob
+    const files = value as File[] | Blob[]
 
-    if (file instanceof File || files?.[0] instanceof File) {
+    if (
+      file instanceof File ||
+      files?.[0] instanceof File ||
+      file instanceof Blob ||
+      files?.[0] instanceof Blob
+    ) {
       if (Array.isArray(value)) {
         value.forEach(f => {
           formData.append(`files.${key}`, f as File)
