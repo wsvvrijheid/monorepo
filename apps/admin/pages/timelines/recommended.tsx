@@ -1,6 +1,11 @@
 import { useSearchModel } from '@wsvvrijheid/services'
 import { Timeline } from '@wsvvrijheid/types'
-import { AdminLayout, Container, MasonryGrid, TweetText } from '@wsvvrijheid/ui'
+import {
+  AdminLayout,
+  Container,
+  MasonryGrid,
+  RecommendedTweetCard,
+} from '@wsvvrijheid/ui'
 
 const Timelines = () => {
   const { data: timelines, isLoading } = useSearchModel<Timeline>({
@@ -13,7 +18,7 @@ const Timelines = () => {
       <Container>
         <MasonryGrid cols={[1, 1, 1, 2, 3]}>
           {timelines?.data?.map((t, key) => (
-            <TweetText tweet={t} key={key} />
+            <RecommendedTweetCard tweet={t} key={key} />
           ))}
         </MasonryGrid>
       </Container>
