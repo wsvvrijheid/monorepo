@@ -1,7 +1,7 @@
 import { FC } from 'react'
 
 import { Box, SimpleGrid, Stack, Text } from '@chakra-ui/react'
-import { StrapiModel } from '@wsvvrijheid/types'
+import { RecommendedTweet, StrapiModel } from '@wsvvrijheid/types'
 import { formatDistanceToNow } from 'date-fns'
 import twitterText from 'twitter-text'
 
@@ -16,6 +16,9 @@ export const TweetText: FC<TweetTextProps> = ({
   setIsChangingImage,
   setValue,
 }) => {
+  //  console.log('tweet', tweet)
+  if (!tweet) return
+  const recomendedTweet = tweet as unknown as RecommendedTweet
   return (
     <Stack spacing={4}>
       <SimpleGrid columns={{ base: 1, lg: isVertical ? 1 : 2 }}>
@@ -36,23 +39,29 @@ export const TweetText: FC<TweetTextProps> = ({
               isEditing={true}
               model={{ image: tweet.media } as unknown as StrapiModel}
               setValue={setValue}
-              isChangingImage={tweet?.media ? isChangingImage : true}
+              isChangingImage={recomendedTweet?.media ? isChangingImage : true}
               setIsChangingImage={setIsChangingImage}
             />
           </Box>
         ) : (
-          tweet?.media?.url && (
+          recomendedTweet?.media?.url && (
             <Box mt={2} boxSize={'full'}>
-              <WImage src={tweet.media.url} alt={tweet.text} rounded={'md'} />
+              <WImage
+                src={recomendedTweet.media.url}
+                alt={recomendedTweet.text}
+                rounded={'md'}
+              />
             </Box>
           )
         )}
       </SimpleGrid>
-      <Text fontSize={'sm'} color={'gray.500'} textAlign={'right'}>
-        {formatDistanceToNow(new Date(tweet.created_at as string), {
-          addSuffix: true,
-        })}
-      </Text>
+      {recomendedTweet?.updatedAt && (
+        <Text fontSize={'sm'} color={'gray.500'} textAlign={'right'}>
+          {formatDistanceToNow(new Date(recomendedTweet.updatedAt as string), {
+            addSuffix: true,
+          })}
+        </Text>
+      )}
     </Stack>
   )
 }
