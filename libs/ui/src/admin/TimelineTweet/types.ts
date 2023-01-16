@@ -6,7 +6,7 @@ import { ModelImageProps } from '../ModelForm/ModelImage'
 
 export type TimelineTweetProps = {
   tweet: TimelineTweet
-  user: {
+  user?: {
     name: string
     username: string
     profile: string

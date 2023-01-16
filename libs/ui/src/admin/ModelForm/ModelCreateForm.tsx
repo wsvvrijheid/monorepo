@@ -101,7 +101,6 @@ export const ModelCreateForm = <T extends StrapiModel>({
   })
 
   useEffect(() => {
-    console.log('image file in useEffect', imageFile)
     if (imageFile) {
       setValue('image', imageFile)
     }
