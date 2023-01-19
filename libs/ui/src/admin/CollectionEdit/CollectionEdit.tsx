@@ -10,9 +10,9 @@ import {
 } from '@chakra-ui/react'
 import { Collection } from '@wsvvrijheid/types'
 
+import { CollectionEditProps } from './types'
 import { collectionFields, collectionSchema } from '../../data'
 import { ModelEditForm } from '../ModelForm'
-import { CollectionEditProps } from './types'
 
 export const CollectionEdit: FC<CollectionEditProps> = ({
   collection,

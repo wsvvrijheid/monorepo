@@ -23,12 +23,12 @@ import { AiOutlineEye, AiOutlineLike, AiOutlineShareAlt } from 'react-icons/ai'
 import { BsBookmarkHeart } from 'react-icons/bs'
 import { useLocalStorage } from 'usehooks-ts'
 
+import { ActionButton } from './ActionButton'
+import { TopicCardProps } from './types'
 import { WImage } from '../../components'
 import { ShareButtons } from '../../components'
 import { postFields, postSchema } from '../../data'
 import { ModelCreateModal } from '../ModelForm'
-import { ActionButton } from './ActionButton'
-import { TopicCardProps } from './types'
 
 const domains = [
   'aktifhaber.com',

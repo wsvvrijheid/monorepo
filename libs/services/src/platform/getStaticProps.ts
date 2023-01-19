@@ -1,6 +1,6 @@
 import { StrapiLocale } from '@wsvvrijheid/types'
-import { serialize } from 'next-mdx-remote/serialize'
 import { GetStaticPropsContext } from 'next/types'
+import { serialize } from 'next-mdx-remote/serialize'
 
 import { getPlatformBySlug } from './getBySlug'
 

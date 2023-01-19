@@ -11,13 +11,13 @@ import {
 import { motion } from 'framer-motion'
 import Headroom from 'react-headroom'
 
-import { useScroll } from '../../hooks'
-import { Container } from '../Container'
-import { LocaleSwitcher } from '../LocaleSwitcher'
 import { HeaderMobile } from './HeaderMobile'
 import { HeaderNav } from './HeaderNav'
 import { ProfileMenu } from './ProfileMenu'
 import { HeaderProps } from './types'
+import { useScroll } from '../../hooks'
+import { Container } from '../Container'
+import { LocaleSwitcher } from '../LocaleSwitcher'
 
 export const Header: FC<HeaderProps> = ({
   animated = true,

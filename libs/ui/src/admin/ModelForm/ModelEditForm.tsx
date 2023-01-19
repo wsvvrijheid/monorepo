@@ -41,11 +41,11 @@ import {
 } from 'react-icons/md'
 import * as yup from 'yup'
 
-import { FormItem, MasonryGrid, MdFormItem } from '../../components'
-import { WConfirm, WConfirmProps } from '../../components/WConfirm'
 import { ModelImage } from './ModelImage'
 import { ModelSelect } from './ModelSelect'
 import { ModelEditFormProps, Option } from './types'
+import { FormItem, MasonryGrid, MdFormItem } from '../../components'
+import { WConfirm, WConfirmProps } from '../../components/WConfirm'
 
 export const ModelEditForm = <T extends StrapiModel>({
   url,

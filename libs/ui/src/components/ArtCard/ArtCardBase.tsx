@@ -22,12 +22,12 @@ import { useRouter } from 'next/router'
 import { AiFillHeart } from 'react-icons/ai'
 import { FaExternalLinkSquareAlt } from 'react-icons/fa'
 
-import { ArtModal } from '../ArtModal'
-import { Navigate } from '../Navigate'
 import { ArtCardActions } from './ArtCardActions'
 import { ArtCardAlertDialog } from './ArtCardAlertDialog'
 import { ArtCardImage } from './ArtCardImage'
 import { ArtActionType, ArtCardBaseProps } from './types'
+import { ArtModal } from '../ArtModal'
+import { Navigate } from '../Navigate'
 
 export const ArtCardBase: FC<ArtCardBaseProps> = ({
   art,

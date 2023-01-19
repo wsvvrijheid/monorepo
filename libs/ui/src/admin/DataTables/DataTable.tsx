@@ -1,8 +1,8 @@
 import { Box, Spacer, Stack } from '@chakra-ui/react'
 import { StrapiModel } from '@wsvvrijheid/types'
 
-import { Pagination, WTable } from '../../components'
 import { DataTableProps } from './types'
+import { Pagination, WTable } from '../../components'
 
 export const DataTable = <T extends StrapiModel>({
   currentPage,

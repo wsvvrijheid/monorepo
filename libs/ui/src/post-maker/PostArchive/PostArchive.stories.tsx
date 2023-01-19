@@ -1,7 +1,7 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react'
 
-import { Container } from '../../components'
 import { PostArchive } from './PostArchive'
+import { Container } from '../../components'
 
 export default {
   component: PostArchive,

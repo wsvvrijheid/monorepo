@@ -7,8 +7,8 @@ import { TFunction, useTranslation } from 'next-i18next'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import * as yup from 'yup'
 
-import { FormItem } from '../FormItem'
 import { ForgotPasswordFieldValues } from './types'
+import { FormItem } from '../FormItem'
 
 const schema = (t: TFunction) =>
   yup.object({

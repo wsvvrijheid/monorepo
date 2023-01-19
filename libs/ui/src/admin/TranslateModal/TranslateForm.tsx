@@ -10,8 +10,8 @@ import {
 } from '@chakra-ui/react'
 import { StrapiTranslatableModel } from '@wsvvrijheid/types'
 
-import { Flags } from '../../components'
 import { TranslateFormProps } from './types'
+import { Flags } from '../../components'
 
 export const TranslateForm = <T extends StrapiTranslatableModel>({
   translationKey,

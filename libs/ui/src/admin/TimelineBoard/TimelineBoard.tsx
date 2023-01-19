@@ -8,9 +8,9 @@ import {
   TimelineTweet as TimelineTweetType,
 } from '@wsvvrijheid/types'
 
+import { TimelineBoardProps } from './types'
 import { CreateTweetForm } from '../../components/CreateTweetForm'
 import { TimelineLocalTweet, TimelineTweet } from '../TimelineTweet'
-import { TimelineBoardProps } from './types'
 
 export const TimelineBoard: FC<TimelineBoardProps> = ({ timelines }) => {
   const { isOpen, onOpen, onClose } = useDisclosure()

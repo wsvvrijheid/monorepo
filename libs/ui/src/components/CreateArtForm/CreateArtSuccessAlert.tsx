@@ -12,8 +12,8 @@ import {
 } from '@chakra-ui/react'
 import { useTranslation } from 'next-i18next'
 
-import { Navigate } from '../Navigate'
 import { CreateArtSuccessAlertProps } from './types'
+import { Navigate } from '../Navigate'
 
 export const ArtCreateSuccessAlert = forwardRef<
   HTMLButtonElement,

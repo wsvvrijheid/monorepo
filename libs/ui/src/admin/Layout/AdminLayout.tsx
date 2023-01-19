@@ -17,8 +17,8 @@ import {
   useAuthSelector,
 } from '@wsvvrijheid/store'
 import { startCase } from 'lodash'
-import { NextSeo } from 'next-seo'
 import { useRouter } from 'next/router'
+import { NextSeo } from 'next-seo'
 import { FaArrowLeft } from 'react-icons/fa'
 import { MdOutlineNotifications } from 'react-icons/md'
 import { useLocalStorage } from 'usehooks-ts'

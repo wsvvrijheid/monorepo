@@ -17,8 +17,8 @@ import {
   useAppSelector,
 } from '@wsvvrijheid/store'
 import { TweetUserData } from '@wsvvrijheid/types'
-import { useTranslation } from 'next-i18next'
 import dynamic from 'next/dynamic'
+import { useTranslation } from 'next-i18next'
 
 import { MentionListSkeleton } from './MentionListSkeleton'
 import { MentionSearch } from './MentionSearch'
