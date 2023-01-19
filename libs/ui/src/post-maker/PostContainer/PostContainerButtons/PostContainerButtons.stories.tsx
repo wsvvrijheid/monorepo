@@ -1,7 +1,7 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react'
 
-import { Container } from '../../../components'
 import { PostContainerButtons } from './PostContainerButtons'
+import { Container } from '../../../components'
 
 export default {
   title: 'PostMaker/PostContainerButtons',

@@ -8,11 +8,11 @@ import {
 import { Hashtag, StrapiLocale } from '@wsvvrijheid/types'
 import { AnimatedBox, Container, Hero, Markdown } from '@wsvvrijheid/ui'
 import { GetStaticProps } from 'next'
+import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { serialize } from 'next-mdx-remote/serialize'
 import { NextSeoProps } from 'next-seo'
-import { useRouter } from 'next/router'
 
 import i18nConfig from '../..//next-i18next.config'
 import { HashtagCard, Layout } from '../../components'

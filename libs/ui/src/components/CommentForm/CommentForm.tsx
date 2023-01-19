@@ -19,8 +19,8 @@ import { useForm } from 'react-hook-form'
 import { FiArrowRight } from 'react-icons/fi'
 import * as yup from 'yup'
 
-import { FormItem } from '../FormItem'
 import { CommentFormFieldValues, CommentFormProps } from './types'
+import { FormItem } from '../FormItem'
 
 const userSchema = (t: TFunction) =>
   yup.object({

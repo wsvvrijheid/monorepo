@@ -17,8 +17,8 @@ import { API_URL } from '@wsvvrijheid/config'
 import { SessionUser } from '@wsvvrijheid/types'
 import { TbChevronsLeft, TbChevronsRight } from 'react-icons/tb'
 
-import { AdminNav } from '../AdminNav'
 import { AdminSidebarProfile } from './AdminSidebarProfile'
+import { AdminNav } from '../AdminNav'
 
 type AdminSidebarProps = {
   user: SessionUser

@@ -4,11 +4,11 @@ import { Heading, VStack } from '@chakra-ui/react'
 import TinyColor from '@ctrl/tinycolor'
 import { IFlipSetting } from 'react-pageflip/build/html-flip-book/settings'
 
-import { WImage } from '../WImage'
 import { CollectionPages } from './CollectionPages'
 import FlipBook from './Flipbook'
 import { Page } from './Page'
 import { CollectionBookProps } from './types'
+import { WImage } from '../WImage'
 
 const defaultFlipboxProps: Partial<IFlipSetting> = {
   width: 500,

@@ -3,13 +3,13 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation } from '@tanstack/react-query'
 import { toastMessage } from '@wsvvrijheid/utils'
 import axios from 'axios'
-import { TFunction, useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
+import { TFunction, useTranslation } from 'next-i18next'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import * as yup from 'yup'
 
-import { FormItem } from '../FormItem'
 import { ResetPasswordFieldValues } from './types'
+import { FormItem } from '../FormItem'
 
 const schema = (t: TFunction) =>
   yup.object({

@@ -13,13 +13,13 @@ import {
 import { useTrends } from '@wsvvrijheid/services'
 import { StrapiLocale } from '@wsvvrijheid/types'
 import { formatDistanceToNow } from 'date-fns'
-import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
 import { FaInfoCircle } from 'react-icons/fa'
 
-import { timeLocale } from '../../hooks'
 import { TrendList } from './TrendList'
 import { useFindHashtagInTrends } from './useFindHashtagsInTrend'
+import { timeLocale } from '../../hooks'
 
 export const TrendListTabs = () => {
   const { t } = useTranslation()

@@ -5,8 +5,8 @@ import { ACTIVITY_MOCKS } from '@wsvvrijheid/mocks'
 import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { serialize } from 'next-mdx-remote/serialize'
 
-import { Container } from '../Container'
 import { ActivityDetail, ActivityDetailProps } from './ActivitiyDetail'
+import { Container } from '../Container'
 export default {
   component: ActivityDetail,
   title: 'Shared/ActivityDetail',

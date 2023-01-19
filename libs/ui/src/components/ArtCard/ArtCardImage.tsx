@@ -2,8 +2,8 @@ import { FC } from 'react'
 
 import { UploadFile } from '@wsvvrijheid/types'
 
-import { WImage } from '../WImage'
 import { ArtCardImageProps, CardImageProps } from './types'
+import { WImage } from '../WImage'
 
 const CardImage: FC<CardImageProps> = ({ art, isMasonry, image }) => (
   <WImage

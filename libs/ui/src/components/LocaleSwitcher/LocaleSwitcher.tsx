@@ -4,8 +4,8 @@ import { Button, ButtonGroup } from '@chakra-ui/react'
 import { StrapiLocale } from '@wsvvrijheid/types'
 import { NextRouter, useRouter } from 'next/router'
 
-import { useScroll } from '../../hooks'
 import { DynamicProps, LocaleSwitcherProps } from './types'
+import { useScroll } from '../../hooks'
 
 type RouterType = {
   locales: StrapiLocale[]

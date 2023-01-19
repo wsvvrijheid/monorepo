@@ -27,11 +27,11 @@ import { useForm } from 'react-hook-form'
 import { TbPlus } from 'react-icons/tb'
 import { InferType } from 'yup'
 
-import { FormItem, MasonryGrid, MdFormItem } from '../../components'
-import { useFileFromUrl } from '../../hooks'
 import { ModelImage } from './ModelImage'
 import { ModelSelect } from './ModelSelect'
 import { ModelCreateFormProps, Option } from './types'
+import { FormItem, MasonryGrid, MdFormItem } from '../../components'
+import { useFileFromUrl } from '../../hooks'
 
 export const ModelCreateForm = <T extends StrapiModel>({
   url,

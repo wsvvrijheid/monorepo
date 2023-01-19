@@ -5,11 +5,11 @@ import { Post } from '@wsvvrijheid/types'
 import { useTranslation } from 'next-i18next'
 import { FaRandom } from 'react-icons/fa'
 
-import { useRandomPostContent } from '../../hooks'
 import { CapsList } from './Caps'
 import { PostCharCount } from './PostCharCount'
 import { PostContainerBody } from './PostContainerBody'
 import { PostContainerButtons } from './PostContainerButtons'
+import { useRandomPostContent } from '../../hooks'
 
 interface PostContainerProps {
   sharedPosts: number[]

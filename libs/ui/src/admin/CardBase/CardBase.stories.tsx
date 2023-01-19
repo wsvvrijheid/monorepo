@@ -2,8 +2,8 @@ import { SimpleGrid } from '@chakra-ui/react'
 import { Story, Meta } from '@storybook/react'
 import { ART_MOCKS } from '@wsvvrijheid/mocks'
 
-import { Container } from '../../components'
 import { CardBase, CardBaseProps } from './CardBase'
+import { Container } from '../../components'
 
 export default {
   title: 'Admin/CardBase',

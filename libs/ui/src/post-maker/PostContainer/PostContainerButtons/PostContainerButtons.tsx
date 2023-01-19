@@ -10,9 +10,9 @@ import {
   useAppSelector,
 } from '@wsvvrijheid/store'
 import { Post, StrapiLocale } from '@wsvvrijheid/types'
+import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { TwitterShareButton } from 'next-share'
-import { useRouter } from 'next/router'
 import { FaAt, FaRandom, FaTwitter } from 'react-icons/fa'
 
 import { useItemLink } from '../../../hooks'

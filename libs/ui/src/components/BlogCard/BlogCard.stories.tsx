@@ -1,8 +1,8 @@
 import { Story, Meta } from '@storybook/react'
 import { BLOG_MOCKS } from '@wsvvrijheid/mocks'
 
-import { Container } from '../Container'
 import { BlogCard, BlogCardProps } from './BlogCard'
+import { Container } from '../Container'
 
 export default {
   component: BlogCard,
