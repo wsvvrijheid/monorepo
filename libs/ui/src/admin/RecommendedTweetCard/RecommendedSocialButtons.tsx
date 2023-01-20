@@ -11,19 +11,17 @@ import {
   Tooltip,
 } from '@chakra-ui/react'
 import { useDeleteModel } from '@wsvvrijheid/services'
-import { Localize, RecommendedTweet } from '@wsvvrijheid/types'
+import { RecommendedTweet } from '@wsvvrijheid/types'
 import { AiFillDelete, AiOutlineShareAlt } from 'react-icons/ai'
-import { IconType } from 'react-icons/lib'
 //import { RiEditLine } from 'react-icons/ri'
 
-import { ShareButtons, WConfirm, WConfirmProps } from '../../components'
+import {
+  ShareButtons,
+  SocialItem,
+  WConfirm,
+  WConfirmProps,
+} from '../../components'
 import { ActionButton } from '../TopicCard'
-
-export type SocialItem = {
-  label: string
-  icon: IconType
-  link: Localize<string>
-}
 
 export interface RecommendedSocialButtonsProps {
   items?: SocialItem[]
