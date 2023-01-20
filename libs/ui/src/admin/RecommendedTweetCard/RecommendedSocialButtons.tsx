@@ -14,7 +14,7 @@ import { useDeleteModel } from '@wsvvrijheid/services'
 import { Localize, RecommendedTweet } from '@wsvvrijheid/types'
 import { AiFillDelete, AiOutlineShareAlt } from 'react-icons/ai'
 import { IconType } from 'react-icons/lib'
-import { RiEditLine } from 'react-icons/ri'
+//import { RiEditLine } from 'react-icons/ri'
 
 import { ShareButtons, WConfirm, WConfirmProps } from '../../components'
 import { ActionButton } from '../TopicCard'
@@ -49,7 +49,6 @@ export const RecommendedSocialButtons: FC<RecommendedSocialButtonsProps> = ({
   }
 
   const onDelete = () => {
-    console.log('delete id ', id)
     setConfirmState({
       isWarning: true,
       title: 'Delete Tweet',
@@ -69,6 +68,23 @@ export const RecommendedSocialButtons: FC<RecommendedSocialButtonsProps> = ({
       },
     })
   }
+
+  const getMentions = () => {
+    let mentions = ''
+
+    tweet?.mentions?.map(mention => {
+      mentions = mentions + ' @' + mention?.username
+    })
+    return mentions
+  }
+  const mentions = getMentions()
+
+  console.log('mentions', mentions)
+
+  const quoteTweet = tweet?.text + ' @' + tweet?.mentions[0]?.username || ''
+
+  //const { data: trends, isLoading } = useTrends()
+  //console.log('treds >>>', 'locale', locale, trends?.[locale]?.name)
   return (
     <HStack
       //align="start"
@@ -84,7 +100,7 @@ export const RecommendedSocialButtons: FC<RecommendedSocialButtonsProps> = ({
           onCancel={() => setConfirmState(undefined)}
         />
       )}
-      <Tooltip label="update tweet" hasArrow bg="primary.400">
+      {/* <Tooltip label="update tweet" hasArrow bg="primary.400">
         <Box>
           <ActionButton
             onClick={() => null}
@@ -94,7 +110,7 @@ export const RecommendedSocialButtons: FC<RecommendedSocialButtonsProps> = ({
             variant="ghost"
           />
         </Box>
-      </Tooltip>
+      </Tooltip> */}
 
       <Popover placement="top">
         <PopoverTrigger>
@@ -112,9 +128,9 @@ export const RecommendedSocialButtons: FC<RecommendedSocialButtonsProps> = ({
           <PopoverArrow />
           <PopoverBody>
             <ShareButtons
-              title={tweet?.text}
+              // title={tweet?.text}
               url={tweet?.originalTweet?.media?.url}
-              quote={tweet?.text || ''}
+              quote={quoteTweet}
             />
           </PopoverBody>
         </PopoverContent>
@@ -123,7 +139,7 @@ export const RecommendedSocialButtons: FC<RecommendedSocialButtonsProps> = ({
         <Box>
           <ActionButton
             onClick={onDelete}
-            icon={<AiFillDelete />}
+            icon={<AiFillDelete color={'red'} />}
             title="Delete"
             isVertical={isVertical}
             variant="ghost"

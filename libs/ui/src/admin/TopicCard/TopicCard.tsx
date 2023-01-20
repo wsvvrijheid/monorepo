@@ -182,9 +182,12 @@ export const TopicCard: FC<TopicCardProps> = ({ topic, onCreatePost }) => {
               schema={postSchema}
               fields={postFields}
               model={postContent}
-              buttonProps={{ variant: 'ghost', colorScheme: 'gray' }}
+              buttonProps={{
+                variant: 'ghost',
+                colorScheme: 'gray',
+              }}
             >
-              Create Post
+              {isVertical ? '' : 'Create Post'}
             </ModelCreateModal>
             <ActionButton
               onClick={() => handleView()}
