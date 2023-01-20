@@ -40,9 +40,6 @@ export const RecommendedSocialButtons: FC<RecommendedSocialButtonsProps> = ({
   const id = tweet?.id
 
   const handleSuccess = () => {
-    // onSuccess?.()
-    //  setIsEditing.off()
-    //setIsChangingImage.off()
     setConfirmState(undefined)
   }
 

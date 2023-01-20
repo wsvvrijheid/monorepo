@@ -54,7 +54,6 @@ const domains = [
 
 export const TopicCard: FC<TopicCardProps> = ({ topic, onCreatePost }) => {
   const { user } = useAuthSelector()
-
   const ImageComponent = domains.some(d => topic.image?.includes(d))
     ? WImage
     : Image
