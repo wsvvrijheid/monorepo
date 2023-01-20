@@ -1,5 +1,5 @@
 import { useSearchModel } from '@wsvvrijheid/services'
-import { Timeline } from '@wsvvrijheid/types'
+import { RecommendedTweet, Timeline } from '@wsvvrijheid/types'
 import {
   AdminLayout,
   Container,
@@ -7,18 +7,20 @@ import {
   RecommendedTweetCard,
 } from '@wsvvrijheid/ui'
 
-const Timelines = () => {
-  const { data: timelines, isLoading } = useSearchModel<Timeline>({
+const RecommendedTweetPage = () => {
+  const { data: recommendedTweet, isLoading } = useSearchModel<Timeline>({
     url: 'api/recommended-tweets',
   })
 
-  console.log('recomended tweets', timelines?.data)
   return (
     <AdminLayout title="Recomended Tweets" isLoading={isLoading}>
       <Container>
         <MasonryGrid cols={[1, 1, 1, 2, 3]}>
-          {timelines?.data?.map((t, key) => (
-            <RecommendedTweetCard tweet={t} key={key} />
+          {recommendedTweet?.data?.map((t, key) => (
+            <RecommendedTweetCard
+              tweet={t as unknown as RecommendedTweet}
+              key={key}
+            />
           ))}
         </MasonryGrid>
       </Container>
@@ -26,4 +28,4 @@ const Timelines = () => {
   )
 }
 
-export default Timelines
+export default RecommendedTweetPage

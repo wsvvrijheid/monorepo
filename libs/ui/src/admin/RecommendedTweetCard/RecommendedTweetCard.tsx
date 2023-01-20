@@ -14,7 +14,7 @@ import { TimelineTweet as TimelineTweetType } from '@wsvvrijheid/types'
 import { CreateTweetForm } from '../../components'
 import { TimelineLocalTweet, TimelineTweet } from '../TimelineTweet'
 import { RecommendedSocialButtons } from './RecommendedSocialButtons'
-import { RecommendedTweetCardProps } from './types'
+import { RecommendedTweetCardProps, RecommenderType } from './types'
 
 export const RecommendedTweetCard: FC<RecommendedTweetCardProps> = ({
   tweet,
@@ -48,36 +48,6 @@ export const RecommendedTweetCard: FC<RecommendedTweetCardProps> = ({
     lg: false,
   })
 
-  // const recomendedTweetButtons = [
-  //   {
-  //     label: 'Twitter',
-  //     icon: FaTwitter,
-  //     link: {
-  //       en: 'https://twitter.com/sanatduragi_nl',
-  //       tr: 'https://twitter.com/sanatduragi_nl',
-  //       nl: 'https://twitter.com/sanatduragi_nl',
-  //     },
-  //   },
-  //   {
-  //     label: 'WhatsApp',
-  //     icon: FaWhatsapp,
-  //     link: {
-  //       en: 'https://api.whatsapp.com/send?phone=31685221308',
-  //       tr: 'https://api.whatsapp.com/send?phone=31685221308',
-  //       nl: 'https://api.whatsapp.com/send?phone=31685221308',
-  //     },
-  //   },
-  //   {
-  //     label: 'Instagram',
-  //     icon: FaInstagram,
-  //     link: {
-  //       en: 'https://instagram.com/sanatduragi.nl',
-  //       tr: 'https://instagram.com/sanatduragi.nl',
-  //       nl: 'https://instagram.com/sanatduragi.nl',
-  //     },
-  //   },
-  // ]
-  console.log('recommender in card', tweet)
   const onEdit = (data: TimelineLocalTweet) => {
     setEditTweet(data.tweet)
     onOpen()
@@ -105,8 +75,8 @@ export const RecommendedTweetCard: FC<RecommendedTweetCardProps> = ({
 
       <HStack spacing={4} align={'start'} bg={'white'} rounded={'md'} p={4}>
         <TimelineTweet
-          tweet={tweet}
-          user={tweet?.recommender}
+          tweet={tweet as unknown as TimelineTweetType}
+          user={tweet?.recommender as unknown as RecommenderType}
           onEdit={onEdit}
           key={key}
         />
