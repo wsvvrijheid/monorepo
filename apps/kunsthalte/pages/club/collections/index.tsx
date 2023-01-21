@@ -25,7 +25,7 @@ const CollectionsPage: NextPage<CollectionsPageProps> = ({
             <Card
               key={i}
               title={collection.title}
-              image={collection.image?.url}
+              image={collection.image}
               description={collection.description}
               link={`/${locale}/club/collections/${collection.slug}`}
             />

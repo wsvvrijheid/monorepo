@@ -10,7 +10,7 @@ import {
   useBreakpointValue,
   Wrap,
 } from '@chakra-ui/react'
-import { Blog, StrapiLocale } from '@wsvvrijheid/types'
+import { Blog, StrapiLocale, UploadFile } from '@wsvvrijheid/types'
 import { getReadingTime } from '@wsvvrijheid/utils'
 import { useRouter } from 'next/router'
 import { FaCalendarDay, FaClock, FaEye, FaHeart } from 'react-icons/fa'
@@ -21,7 +21,7 @@ import { WImage } from '../WImage'
 
 type BlogCardImageProps = {
   isFeatured?: boolean
-  image: string
+  image: UploadFile
   alt: string
 }
 
@@ -66,7 +66,7 @@ export const BlogCard: FC<BlogCardProps> = ({ post, isFeatured }) => {
           <BlogCardImage
             alt={post.title}
             isFeatured={featured}
-            image={post.image.url}
+            image={post.image}
           />
         )}
         <Stack

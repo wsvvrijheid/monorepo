@@ -9819,6 +9819,11 @@ std-env@^3.0.1:
   resolved "https://registry.yarnpkg.com/std-env/-/std-env-3.3.1.tgz#93a81835815e618c8aa75e7c8a4dc04f7c314e29"
   integrity sha512-3H20QlwQsSm2OvAxWIYhs+j01MzzqwMwGiiO1NQaJYZgJZFPuAbf95/DiKRBSTYIJ2FeGUc+B/6mPGcWP9dO3Q==
 
+strapi-plugin-responsive-image@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/strapi-plugin-responsive-image/-/strapi-plugin-responsive-image-1.0.0.tgz#a33093a31af0854459e4015d2a9fa70143b9bbb5"
+  integrity sha512-34yZjTv32NyDV0K7n1+ixoB3TV1Tna7DFFRH46rIh5GCJI0N20VCkpDwzScaGUe6DWT82LlNF3C68BJeTvpe6g==
+
 strapi-plugin-transformer@^2.2.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/strapi-plugin-transformer/-/strapi-plugin-transformer-2.2.0.tgz#430e831670cd6b38fd699fc169076c26bd505e63"

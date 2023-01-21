@@ -13,7 +13,7 @@ import {
   useDisclosure,
 } from '@chakra-ui/react'
 import { useHashtag } from '@wsvvrijheid/services'
-import { Post, StrapiLocale } from '@wsvvrijheid/types'
+import { Post, StrapiLocale, UploadFile } from '@wsvvrijheid/types'
 import { getItemLink } from '@wsvvrijheid/utils'
 import { useRouter } from 'next/router'
 import { BiExitFullscreen, BiFullscreen } from 'react-icons/bi'
@@ -104,7 +104,7 @@ export const PostArchive = () => {
                 {post.image && (
                   <WImage
                     ratio="twitter"
-                    src={post.image?.url as string}
+                    src={post.image as UploadFile}
                     alt={`post ${i}`}
                   />
                 )}
