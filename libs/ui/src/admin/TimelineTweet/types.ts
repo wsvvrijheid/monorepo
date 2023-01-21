@@ -2,7 +2,6 @@ import { StackProps } from '@chakra-ui/react'
 import { TimelineTweet } from '@wsvvrijheid/types'
 
 import { ModelImageProps } from '../ModelForm/ModelImage'
-// import { Tweet } from '@wsvvrijheid/types'
 
 export type TimelineTweetProps = {
   tweet: TimelineTweet

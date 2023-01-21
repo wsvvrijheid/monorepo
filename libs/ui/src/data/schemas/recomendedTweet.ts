@@ -3,7 +3,7 @@ import * as yup from 'yup'
 
 import { FormFields } from '../../admin'
 
-export const recomendedTweetSchema = yup.object({
+export const recommendedTweetSchema = yup.object({
   text: yup.string().required('Text is required'),
   mentions: yup.array().of(
     yup.object().shape({
@@ -14,7 +14,7 @@ export const recomendedTweetSchema = yup.object({
   media: yup.mixed(),
 })
 
-export const recomendedTweetFields: FormFields<RecommendedTweet> = [
+export const recommendedTweetFields: FormFields<RecommendedTweet> = [
   { name: 'text', isRequired: true },
   {
     name: 'mentions',

@@ -15,33 +15,21 @@ import { RecommendedTweet } from '@wsvvrijheid/types'
 import { AiFillDelete, AiOutlineShareAlt } from 'react-icons/ai'
 //import { RiEditLine } from 'react-icons/ri'
 
-import {
-  ShareButtons,
-  SocialItem,
-  WConfirm,
-  WConfirmProps,
-} from '../../components'
+import { ShareButtons, WConfirm, WConfirmProps } from '../../components'
 import { ActionButton } from '../TopicCard'
 
 export interface RecommendedSocialButtonsProps {
-  items?: SocialItem[]
   tweet: RecommendedTweet
   isVertical?: boolean | undefined
 }
 
 export const RecommendedSocialButtons: FC<RecommendedSocialButtonsProps> = ({
-  //items,
   tweet,
   isVertical,
 }) => {
-  //const { locale } = useRouter()
   const deleteModelMutation = useDeleteModel('api/recommended-tweets')
   const [confirmState, setConfirmState] = useState<WConfirmProps>()
   const id = tweet?.id
-
-  const handleSuccess = () => {
-    setConfirmState(undefined)
-  }
 
   const onDelete = () => {
     setConfirmState({
@@ -53,7 +41,9 @@ export const RecommendedSocialButtons: FC<RecommendedSocialButtonsProps> = ({
         deleteModelMutation.mutate(
           { id },
           {
-            onSuccess: handleSuccess,
+            onSuccess: () => {
+              setConfirmState(undefined)
+            },
             onError: async errors => {
               console.log('error delete mutation', errors)
             },
@@ -63,26 +53,11 @@ export const RecommendedSocialButtons: FC<RecommendedSocialButtonsProps> = ({
       },
     })
   }
+  const mentions = tweet?.mentions?.map(mention => `@${mention}`).join(' ')
+  const quoteTweet = [tweet?.text, mentions].filter(a => !!a).join('\n\n')
 
-  const getMentions = () => {
-    let mentions = ''
-
-    tweet?.mentions?.map(mention => {
-      mentions = mentions + ' @' + mention?.username
-    })
-    return mentions
-  }
-  const mentions = getMentions()
-
-  console.log('mentions', mentions)
-
-  const quoteTweet = tweet?.text + ' @' + tweet?.mentions[0]?.username || ''
-
-  //const { data: trends, isLoading } = useTrends()
-  //console.log('treds >>>', 'locale', locale, trends?.[locale]?.name)
   return (
     <HStack
-      //align="start"
       justify={'space-between'}
       rounded="md"
       align={'space-between'}
@@ -95,18 +70,6 @@ export const RecommendedSocialButtons: FC<RecommendedSocialButtonsProps> = ({
           onCancel={() => setConfirmState(undefined)}
         />
       )}
-      {/* <Tooltip label="update tweet" hasArrow bg="primary.400">
-        <Box>
-          <ActionButton
-            onClick={() => null}
-            icon={<RiEditLine />}
-            title="Update"
-            isVertical={isVertical}
-            variant="ghost"
-          />
-        </Box>
-      </Tooltip> */}
-
       <Popover placement="top">
         <PopoverTrigger>
           <Box>
@@ -123,14 +86,13 @@ export const RecommendedSocialButtons: FC<RecommendedSocialButtonsProps> = ({
           <PopoverArrow />
           <PopoverBody>
             <ShareButtons
-              // title={tweet?.text}
               url={tweet?.originalTweet?.media?.url}
               quote={quoteTweet}
             />
           </PopoverBody>
         </PopoverContent>
       </Popover>
-      <Tooltip label="delete tweet" hasArrow bg="primary.400">
+      <Tooltip label="Delete tweet" hasArrow bg="primary.400">
         <Box>
           <ActionButton
             onClick={onDelete}

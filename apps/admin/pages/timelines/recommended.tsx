@@ -13,7 +13,7 @@ const RecommendedTweetPage = () => {
   })
 
   return (
-    <AdminLayout title="Recomended Tweets" isLoading={isLoading}>
+    <AdminLayout title="Recommended Tweets" isLoading={isLoading}>
       <Container>
         <MasonryGrid cols={[1, 1, 1, 2, 3]}>
           {recommendedTweet?.data?.map((t, key) => (
