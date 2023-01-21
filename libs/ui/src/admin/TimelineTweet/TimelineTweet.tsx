@@ -16,7 +16,7 @@ import { BsBookmarkPlus, BsThreeDots } from 'react-icons/bs'
 import { RiEditLine } from 'react-icons/ri'
 import { useLocalStorage } from 'usehooks-ts'
 
-import { TweetText } from './TweetText'
+import { TweetContent } from './TweetContent'
 import { TimelineLocalTweet, TimelineTweetProps } from './types'
 
 export const TimelineTweet: FC<TimelineTweetProps> = ({
@@ -62,9 +62,15 @@ export const TimelineTweet: FC<TimelineTweetProps> = ({
       p={4}
       {...rest}
     >
-      <Avatar size={'sm'} name={user.username} src={user.profile} mr={1} />
+      <Avatar
+        flexShrink={0}
+        size={'sm'}
+        name={user.username}
+        src={user.profile}
+        mr={1}
+      />
 
-      <Stack spacing={4}>
+      <Stack flex={1} spacing={4}>
         {/* Tweet Header */}
         <HStack justify={'space-between'}>
           <Box lineHeight={1.15}>
@@ -102,7 +108,7 @@ export const TimelineTweet: FC<TimelineTweetProps> = ({
             </Menu>
           )}
         </HStack>
-        <TweetText tweet={tweet} />
+        <TweetContent tweet={tweet} />
       </Stack>
     </HStack>
   )

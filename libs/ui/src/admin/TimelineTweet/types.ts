@@ -17,7 +17,8 @@ export type TimelineTweetProps = {
 } & StackProps
 
 export type TimelineLocalTweet = Pick<TimelineTweetProps, 'tweet' | 'user'>
-export type TweetTextProps = Partial<
+
+export type TweetContentProps = Partial<
   Pick<ModelImageProps, 'isChangingImage' | 'setIsChangingImage' | 'setValue'>
 > & {
   tweet: TimelineTweet

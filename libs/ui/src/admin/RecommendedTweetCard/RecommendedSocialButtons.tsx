@@ -53,7 +53,10 @@ export const RecommendedSocialButtons: FC<RecommendedSocialButtonsProps> = ({
       },
     })
   }
-  const mentions = tweet?.mentions?.map(mention => `@${mention}`).join(' ')
+
+  const mentions = tweet?.mentions
+    ?.map(mention => `@${mention?.username}`)
+    .join(' ')
   const quoteTweet = [tweet?.text, mentions].filter(a => !!a).join('\n\n')
 
   return (
