@@ -1,9 +1,16 @@
 import { FC, useState } from 'react'
 
-import { Stack, useBreakpointValue, useDisclosure } from '@chakra-ui/react'
+import {
+  Box,
+  Divider,
+  Stack,
+  useBreakpointValue,
+  useDisclosure,
+} from '@chakra-ui/react'
 import { useRecommendTweet } from '@wsvvrijheid/services'
 import { useAuthSelector } from '@wsvvrijheid/store'
 import {
+  RecommendedTweet,
   RecommendedTweetCreateInput,
   TimelineTweet as TimelineTweetType,
   User,
@@ -60,14 +67,36 @@ export const RecommendedTweetCard: FC<RecommendedTweetCardProps> = ({
     setEditTweet(data.tweet)
     onOpen()
   }
+
+  const mapRecommendedTweetToTimelineTweet = (
+    recommendedTweet: RecommendedTweet,
+  ): Partial<TimelineTweetType> => {
+    const mentions = recommendedTweet?.mentions
+      ?.map(mention => `@${mention?.username}`)
+      .join(' ')
+    const quoteTweet = [recommendedTweet?.text, mentions]
+      .filter(a => !!a)
+      .join('\n\n')
+
+    return {
+      text: quoteTweet,
+      media: {
+        url: recommendedTweet?.media?.url,
+        preview_image_url: recommendedTweet?.media?.url,
+        type: recommendedTweet?.media?.mime,
+        media_key: '',
+      },
+    }
+  }
+
   return (
     <Stack
       bg={'white'}
       rounded={'md'}
       shadow={'sm'}
-      p={4}
       align={'space-between'}
       overflow="hidden"
+      spacing={0}
     >
       {editTweet && (
         <CreateTweetForm
@@ -79,12 +108,16 @@ export const RecommendedTweetCard: FC<RecommendedTweetCardProps> = ({
         />
       )}
       <TimelineTweet
-        tweet={tweet as unknown as TimelineTweetType}
+        tweet={mapRecommendedTweetToTimelineTweet(tweet) as TimelineTweetType}
         user={mapRecommenderToTweetUser(tweet.recommender)}
         onEdit={onEdit}
         key={key}
+        shadow={'none'}
       />
-      <RecommendedSocialButtons tweet={tweet} isVertical={isVertical} />
+      <Divider />
+      <Box p={2}>
+        <RecommendedSocialButtons tweet={tweet} isVertical={isVertical} />
+      </Box>
     </Stack>
   )
 }

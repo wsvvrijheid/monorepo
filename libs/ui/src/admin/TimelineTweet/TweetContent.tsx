@@ -5,11 +5,11 @@ import { RecommendedTweet, StrapiModel } from '@wsvvrijheid/types'
 import { formatDistanceToNow } from 'date-fns'
 import twitterText from 'twitter-text'
 
-import { TweetTextProps } from './types'
+import { TweetContentProps } from './types'
 import { WImage } from '../../components'
 import { ModelImage } from '../ModelForm/ModelImage'
 
-export const TweetText: FC<TweetTextProps> = ({
+export const TweetContent: FC<TweetContentProps> = ({
   tweet,
   isVertical = true,
   isChangingImage,

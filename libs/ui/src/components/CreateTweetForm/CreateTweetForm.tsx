@@ -27,7 +27,7 @@ import stringSimilarity from 'string-similarity'
 import * as yup from 'yup'
 
 import { CreateTweetFormProps } from './types'
-import { ModelCreateModal, TweetText } from '../../admin'
+import { ModelCreateModal, TweetContent } from '../../admin'
 import { ModelSelect } from '../../admin/ModelForm/ModelSelect'
 import { postFields, postSchema } from '../../data'
 import { useFileFromUrl } from '../../hooks'
@@ -149,7 +149,7 @@ export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
             >
               <Stack>
                 <FormLabel fontWeight={600}>Original Tweet</FormLabel>
-                <TweetText
+                <TweetContent
                   isVertical={false}
                   tweet={originalTweet}
                   isChangingImage={isChangingImage}
