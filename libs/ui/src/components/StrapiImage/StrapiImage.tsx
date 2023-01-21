@@ -20,9 +20,7 @@ const mapStrapiImage = (width: number, image: UploadFile) => {
     images.unshift(...formats)
   }
 
-  const imageToUse =
-    images.find(({ width: imageWidth }) => imageWidth || 480 >= width) ||
-    images[0]
+  const imageToUse = images.find(image => image.width >= width) || images[0]
 
   if (!imageToUse) {
     console.warn('No image found for', image)
