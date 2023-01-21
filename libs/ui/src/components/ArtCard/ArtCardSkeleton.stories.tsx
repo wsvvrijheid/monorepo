@@ -1,8 +1,8 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react'
 
-import { Container } from '../Container'
 import { ArtCardBase } from './ArtCardBase'
 import { ArtCardSkeleton } from './ArtCardSkeleton'
+import { Container } from '../Container'
 
 export default {
   component: ArtCardSkeleton,

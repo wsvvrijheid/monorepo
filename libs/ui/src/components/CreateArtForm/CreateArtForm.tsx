@@ -31,19 +31,19 @@ import {
 } from '@wsvvrijheid/services'
 import { useAuthSelector } from '@wsvvrijheid/store'
 import { StrapiLocale } from '@wsvvrijheid/types'
-import { TFunction, useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
+import { TFunction, useTranslation } from 'next-i18next'
 import { useForm } from 'react-hook-form'
 import useFormPersist from 'react-hook-form-persist'
 import { FaPlus, FaUpload } from 'react-icons/fa'
 import * as yup from 'yup'
 
+import { ArtCreateSuccessAlert } from './CreateArtSuccessAlert'
+import { CreateArtFormFieldValues, CreateArtFormProps } from './types'
 import { FilePicker } from '../FilePicker'
 import { FormItem } from '../FormItem'
 import { Navigate } from '../Navigate'
 import { WSelect } from '../WSelect'
-import { ArtCreateSuccessAlert } from './CreateArtSuccessAlert'
-import { CreateArtFormFieldValues, CreateArtFormProps } from './types'
 
 const schema = (t: TFunction) =>
   yup.object({

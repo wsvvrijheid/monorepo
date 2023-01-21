@@ -1,8 +1,8 @@
 import { Box } from '@chakra-ui/react'
 import { Story, Meta } from '@storybook/react'
 
-import { Container } from '../Container'
 import { MasonryGrid, MasonryGridProps } from './MasonryGrid'
+import { Container } from '../Container'
 
 export default {
   component: MasonryGrid,

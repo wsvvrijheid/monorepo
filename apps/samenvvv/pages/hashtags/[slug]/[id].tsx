@@ -14,9 +14,9 @@ import { Post, StrapiLocale } from '@wsvvrijheid/types'
 import { WImage } from '@wsvvrijheid/ui'
 import { getItemLink } from '@wsvvrijheid/utils'
 import { GetServerSideProps } from 'next'
+import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeo, NextSeoProps } from 'next-seo'
-import { useRouter } from 'next/router'
 
 import i18nConfig from '../../../next-i18next.config'
 

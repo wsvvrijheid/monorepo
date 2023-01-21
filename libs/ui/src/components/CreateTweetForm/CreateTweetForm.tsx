@@ -26,12 +26,12 @@ import { GrFormClose } from 'react-icons/gr'
 import stringSimilarity from 'string-similarity'
 import * as yup from 'yup'
 
+import { CreateTweetFormProps } from './types'
 import { ModelCreateModal, TweetText } from '../../admin'
 import { ModelSelect } from '../../admin/ModelForm/ModelSelect'
 import { postFields, postSchema } from '../../data'
 import { useFileFromUrl } from '../../hooks'
 import { FormItem } from '../FormItem'
-import { CreateTweetFormProps } from './types'
 
 const schema = yup.object({
   text: yup.string().required('Title is required'),

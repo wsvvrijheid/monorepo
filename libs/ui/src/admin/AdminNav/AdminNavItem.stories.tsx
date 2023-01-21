@@ -3,10 +3,10 @@ import { USER_MOCKS } from '@wsvvrijheid/mocks'
 import { mapSessionUser } from '@wsvvrijheid/utils'
 import { sample } from 'lodash'
 
-import { Container } from '../../components'
 import { getAdminNav } from './AdminNav'
 import { AdminNavItem } from './AdminNavItem'
 import { AdminNavItemProps } from './types'
+import { Container } from '../../components'
 
 const navItems = getAdminNav(mapSessionUser(sample(USER_MOCKS)!))
 const navItem = sample(navItems)

@@ -16,8 +16,8 @@ import {
 } from '@chakra-ui/react'
 import { useGetArtCategories, useSearchModel } from '@wsvvrijheid/services'
 import { Art, StrapiLocale } from '@wsvvrijheid/types'
-import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
 import { MdMenuOpen } from 'react-icons/md'
 
 import {

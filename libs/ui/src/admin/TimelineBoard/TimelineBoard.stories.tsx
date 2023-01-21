@@ -2,8 +2,8 @@
 import { Story, Meta } from '@storybook/react'
 import { TİMELİNE_MOCKS } from '@wsvvrijheid/mocks'
 
-import { Container } from '../../components'
 import { TimelineBoard } from './TimelineBoard'
+import { Container } from '../../components'
 
 export default {
   title: 'Admin/TimelineBoard',

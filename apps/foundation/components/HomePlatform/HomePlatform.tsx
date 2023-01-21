@@ -11,8 +11,8 @@ import {
 } from '@chakra-ui/react'
 import { Platform } from '@wsvvrijheid/types'
 import { AnimatedBox, Container, Navigate, WImage } from '@wsvvrijheid/ui'
-import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
 
 type HomePlatformProps = {
   platforms: Platform[]

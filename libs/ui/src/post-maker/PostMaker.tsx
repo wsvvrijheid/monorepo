@@ -25,11 +25,11 @@ import _ from 'lodash'
 import { useTranslation } from 'next-i18next'
 import { FaQuestionCircle } from 'react-icons/fa'
 
-import { useRandomPostContent } from '../hooks'
 import { MentionList } from './Mention'
 import { PostContainer } from './PostContainer'
 import { TrendListTabs } from './Trends'
 import { TweetWidget } from './TweetWidget'
+import { useRandomPostContent } from '../hooks'
 
 export const PostMaker = () => {
   const { isPostModalOpen, sharedPosts, postText } = useAppSelector(

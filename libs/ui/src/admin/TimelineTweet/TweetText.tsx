@@ -5,9 +5,9 @@ import { RecommendedTweet, StrapiModel } from '@wsvvrijheid/types'
 import { formatDistanceToNow } from 'date-fns'
 import twitterText from 'twitter-text'
 
+import { TweetTextProps } from './types'
 import { WImage } from '../../components'
 import { ModelImage } from '../ModelForm/ModelImage'
-import { TweetTextProps } from './types'
 
 export const TweetText: FC<TweetTextProps> = ({
   tweet,

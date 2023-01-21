@@ -18,8 +18,8 @@ import { getItemLink } from '@wsvvrijheid/utils'
 import { useRouter } from 'next/router'
 import { BiExitFullscreen, BiFullscreen } from 'react-icons/bi'
 
-import { AnimatedBox, ShareButtons, WImage } from '../../components'
 import { PostSlide } from './PostSlide'
+import { AnimatedBox, ShareButtons, WImage } from '../../components'
 
 export const PostArchive = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
