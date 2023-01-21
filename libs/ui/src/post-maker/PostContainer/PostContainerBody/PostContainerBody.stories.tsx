@@ -1,8 +1,8 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react'
 import { POST_MOCKS } from '@wsvvrijheid/mocks'
 
-import { Container } from '../../../components'
 import { PostContainerBody } from './PostContainerBody'
+import { Container } from '../../../components'
 
 export default {
   title: 'PostMaker/PostContainerBody',

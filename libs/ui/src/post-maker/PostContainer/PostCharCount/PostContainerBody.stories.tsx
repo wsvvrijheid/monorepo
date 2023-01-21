@@ -8,8 +8,8 @@ import {
   usePostSelector,
 } from '@wsvvrijheid/store'
 
-import { Container } from '../../../components'
 import { PostCharCount } from './PostCharCount'
+import { Container } from '../../../components'
 
 export default {
   title: 'PostMaker/PostCharCount',

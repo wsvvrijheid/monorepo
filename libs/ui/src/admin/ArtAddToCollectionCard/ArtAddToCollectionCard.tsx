@@ -12,8 +12,8 @@ import { AiOutlineEye } from 'react-icons/ai'
 import { HiPlus } from 'react-icons/hi'
 import { IoCloseSharp } from 'react-icons/io5'
 
-import { ArtModal, WImage } from '../../components'
 import { ArtAddToCollectionCardProps } from './types'
+import { ArtModal, WImage } from '../../components'
 
 export const ArtAddToCollectionCard: FC<ArtAddToCollectionCardProps> = ({
   isAdded,

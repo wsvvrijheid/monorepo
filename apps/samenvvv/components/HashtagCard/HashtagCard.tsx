@@ -5,8 +5,8 @@ import { ROUTES } from '@wsvvrijheid/config'
 import { Hashtag, StrapiLocale } from '@wsvvrijheid/types'
 import { Navigate, WImage } from '@wsvvrijheid/ui'
 import { getItemLink } from '@wsvvrijheid/utils'
-import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
 import { FaArrowRight } from 'react-icons/fa'
 
 interface SliderHeroProps {

@@ -2,8 +2,8 @@ import { ComponentMeta, ComponentStory } from '@storybook/react'
 import { TIMELINE_TWEET_MOCKS } from '@wsvvrijheid/mocks'
 import { sample } from 'lodash'
 
-import { Container } from '../../components'
 import { TimelineTweet } from './TimelineTweet'
+import { Container } from '../../components'
 
 export default {
   component: TimelineTweet,

@@ -2,13 +2,13 @@ import { FC } from 'react'
 
 import { Box, Link, Stack, Text, Wrap } from '@chakra-ui/react'
 import { motion } from 'framer-motion'
-import { useTranslation } from 'next-i18next'
 import NextImage from 'next/image'
+import { useTranslation } from 'next-i18next'
 
-import { Container } from '../Container'
-import { SocialButtons } from '../SocialButtons'
 import { FooterNav } from './FooterNav'
 import { FooterProps } from './types'
+import { Container } from '../Container'
+import { SocialButtons } from '../SocialButtons'
 
 export const Footer: FC<FooterProps> = ({
   animated = true,

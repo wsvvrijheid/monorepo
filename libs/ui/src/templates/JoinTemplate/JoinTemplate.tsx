@@ -21,10 +21,11 @@ import {
 } from '@wsvvrijheid/types'
 import { Job } from '@wsvvrijheid/types'
 import { toastMessage } from '@wsvvrijheid/utils'
-import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
 import { v4 as uuidV4 } from 'uuid'
 
+import { JoinTemplateProps } from './types'
 import {
   Container,
   JoinForm,
@@ -32,7 +33,6 @@ import {
   JoinFormFieldValues,
   PlatformList,
 } from '../../components'
-import { JoinTemplateProps } from './types'
 
 export const JoinTemplate: FC<JoinTemplateProps> = ({ title }) => {
   const { t } = useTranslation()

@@ -9,8 +9,8 @@ import {
   Box,
 } from '@chakra-ui/react'
 
-import { ArtWithDetails } from '../ArtWithDetails'
 import { ArtModalProps } from './types'
+import { ArtWithDetails } from '../ArtWithDetails'
 
 export const ArtModal: FC<ArtModalProps> = ({ art, isOpen, onClose }) => {
   return (

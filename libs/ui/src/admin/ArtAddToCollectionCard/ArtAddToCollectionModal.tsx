@@ -17,10 +17,10 @@ import { useSearchModel } from '@wsvvrijheid/services'
 import { Art, StrapiLocale } from '@wsvvrijheid/types'
 import { useRouter } from 'next/router'
 
-import { Pagination } from '../../components'
-import { PageHeader } from '../PageHeader'
 import { ArtAddToCollectionGrid } from './ArtAddToCollectionGrid'
 import { ArtAddToCollectionModalProps } from './types'
+import { Pagination } from '../../components'
+import { PageHeader } from '../PageHeader'
 
 export const ArtAddToCollectionModal: FC<ArtAddToCollectionModalProps> = ({
   isOpen,

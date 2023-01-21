@@ -44,12 +44,12 @@ import {
 import { getPageSeo } from '@wsvvrijheid/utils'
 import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock'
 import { GetServerSideProps } from 'next'
+import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { serialize } from 'next-mdx-remote/serialize'
 import { NextSeoProps } from 'next-seo'
-import { useRouter } from 'next/router'
 import {
   FaChevronDown,
   FaChevronUp,

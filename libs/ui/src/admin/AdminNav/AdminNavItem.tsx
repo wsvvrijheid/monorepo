@@ -4,8 +4,8 @@ import { Box, Button, chakra, Collapse, useBoolean } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { GoChevronDown } from 'react-icons/go'
 
-import { Navigate } from '../../components'
 import { AdminNavItemProps } from './types'
+import { Navigate } from '../../components'
 
 export const AdminNavItem: FC<AdminNavItemProps> = memo(
   ({ label, link, submenu, icon }) => {

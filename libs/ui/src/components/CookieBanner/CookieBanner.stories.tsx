@@ -1,8 +1,8 @@
 import { Box } from '@chakra-ui/react'
 import { ComponentMeta, ComponentStory } from '@storybook/react'
 
-import { Container } from '../Container'
 import { CookieBanner } from './CookieBanner'
+import { Container } from '../Container'
 
 export default {
   component: CookieBanner,

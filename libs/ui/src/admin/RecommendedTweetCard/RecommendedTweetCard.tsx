@@ -6,10 +6,10 @@ import { useAuthSelector } from '@wsvvrijheid/store'
 import { RecommendedTweetCreateInput } from '@wsvvrijheid/types'
 import { TimelineTweet as TimelineTweetType } from '@wsvvrijheid/types'
 
-import { CreateTweetForm } from '../../components'
-import { TimelineLocalTweet, TimelineTweet } from '../TimelineTweet'
 import { RecommendedSocialButtons } from './RecommendedSocialButtons'
 import { RecommendedTweetCardProps, RecommenderType } from './types'
+import { CreateTweetForm } from '../../components'
+import { TimelineLocalTweet, TimelineTweet } from '../TimelineTweet'
 
 export const RecommendedTweetCard: FC<RecommendedTweetCardProps> = ({
   tweet,

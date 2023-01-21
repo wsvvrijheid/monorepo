@@ -3,8 +3,8 @@ import { API_URL } from '@wsvvrijheid/config'
 import { PLATFORM_MOCKS } from '@wsvvrijheid/mocks'
 import { sample } from 'lodash'
 
-import { Container } from '../Container'
 import { Card } from './Card'
+import { Container } from '../Container'
 
 export default {
   component: Card,

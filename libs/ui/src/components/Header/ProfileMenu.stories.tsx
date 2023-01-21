@@ -1,8 +1,8 @@
 import { Story, Meta } from '@storybook/react'
 
-import { PROFILE } from '../../mocks'
 import { ProfileMenu } from './ProfileMenu'
 import { ProfileMenuProps } from './types'
+import { PROFILE } from '../../mocks'
 
 export default {
   component: ProfileMenu,

@@ -2,8 +2,8 @@ import { FC } from 'react'
 
 import { chakra } from '@chakra-ui/react'
 
-import { useLocaleTimeFormat } from '../../hooks'
 import { FormattedDateProps } from './types'
+import { useLocaleTimeFormat } from '../../hooks'
 
 const FormattedDate: FC<FormattedDateProps> = ({
   date,

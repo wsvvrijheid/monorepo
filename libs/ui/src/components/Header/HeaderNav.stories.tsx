@@ -1,8 +1,8 @@
 import { Story, Meta } from '@storybook/react'
 
-import { HEADER_MENU } from '../../mocks'
 import { HeaderNav } from './HeaderNav'
 import { HeaderNavProps } from './types'
+import { HEADER_MENU } from '../../mocks'
 
 export default {
   component: HeaderNav,
