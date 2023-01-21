@@ -51,6 +51,7 @@ export const ModelCreateForm = <T extends StrapiModel>({
 
   const hashtagModel = model as unknown as Hashtag
   const postModel = model as unknown as Post
+
   const imageFile = useFileFromUrl(postModel?.image?.url)
   const [isChangingImage, setIsChangingImage] = useBoolean(
     postModel?.image ? false : true,
@@ -136,8 +137,9 @@ export const ModelCreateForm = <T extends StrapiModel>({
         [key]: value,
       }
     }, {} as StrapiTranslatableCreateInput)
+    console.log('body', body)
+    const slug = slugify(body.title || (body?.text as string))
 
-    const slug = slugify(body.title as string)
     const creator = url === 'api/posts' ? user?.id : undefined
     const recommender = url === 'api/recommended-topics' ? user?.id : undefined
 

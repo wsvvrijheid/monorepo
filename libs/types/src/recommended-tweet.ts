@@ -14,14 +14,14 @@ export type RecommendedTweetBase = {
 type RecommendedTweetRelation = {
   recommender: User
   media: UploadFile
-  originalTweet: Tweet
+  originalTweet?: Tweet
   mentions: Mention[]
 }
 
 type RecommendedTweetRelationInput = {
   recommender: number
   media?: File[] | File
-  originalTweet: JSON
+  originalTweet?: JSON
   mentions: number[]
 }
 
