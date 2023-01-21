@@ -3,11 +3,14 @@ import { FC, useState } from 'react'
 import { Stack, useBreakpointValue, useDisclosure } from '@chakra-ui/react'
 import { useRecommendTweet } from '@wsvvrijheid/services'
 import { useAuthSelector } from '@wsvvrijheid/store'
-import { RecommendedTweetCreateInput } from '@wsvvrijheid/types'
-import { TimelineTweet as TimelineTweetType } from '@wsvvrijheid/types'
+import {
+  RecommendedTweetCreateInput,
+  TimelineTweet as TimelineTweetType,
+  User,
+} from '@wsvvrijheid/types'
 
 import { RecommendedSocialButtons } from './RecommendedSocialButtons'
-import { RecommendedTweetCardProps, RecommenderType } from './types'
+import { RecommendedTweetCardProps } from './types'
 import { CreateTweetForm } from '../../components'
 import { TimelineLocalTweet, TimelineTweet } from '../TimelineTweet'
 
@@ -20,6 +23,16 @@ export const RecommendedTweetCard: FC<RecommendedTweetCardProps> = ({
 
   const { user } = useAuthSelector()
   const { mutateAsync } = useRecommendTweet()
+
+  const mapRecommenderToTweetUser = (
+    recommender: User,
+  ): { name?: string; username: string; profile?: string } => {
+    return {
+      name: recommender.name as string,
+      username: recommender.username,
+      profile: recommender.avatar?.url,
+    }
+  }
 
   const handleSubmit = async (
     text: string,
@@ -67,7 +80,7 @@ export const RecommendedTweetCard: FC<RecommendedTweetCardProps> = ({
       )}
       <TimelineTweet
         tweet={tweet as unknown as TimelineTweetType}
-        user={tweet?.recommender as unknown as RecommenderType}
+        user={mapRecommenderToTweetUser(tweet.recommender)}
         onEdit={onEdit}
         key={key}
       />

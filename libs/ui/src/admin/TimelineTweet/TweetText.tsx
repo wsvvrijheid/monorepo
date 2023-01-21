@@ -16,9 +16,9 @@ export const TweetText: FC<TweetTextProps> = ({
   setIsChangingImage,
   setValue,
 }) => {
-  //  console.log('tweet', tweet)
-  if (!tweet) return
-  const recomendedTweet = tweet as unknown as RecommendedTweet
+  if (!tweet) return null
+
+  const recommendedTweet = tweet as unknown as RecommendedTweet
   return (
     <Stack spacing={4}>
       <SimpleGrid columns={{ base: 1, lg: isVertical ? 1 : 2 }}>
@@ -39,25 +39,25 @@ export const TweetText: FC<TweetTextProps> = ({
               isEditing={true}
               model={{ image: tweet.media } as unknown as StrapiModel}
               setValue={setValue}
-              isChangingImage={recomendedTweet?.media ? isChangingImage : true}
+              isChangingImage={recommendedTweet?.media ? isChangingImage : true}
               setIsChangingImage={setIsChangingImage}
             />
           </Box>
         ) : (
-          recomendedTweet?.media?.url && (
+          recommendedTweet?.media?.url && (
             <Box mt={2} boxSize={'full'}>
               <WImage
-                src={recomendedTweet.media.url}
-                alt={recomendedTweet.text}
+                src={recommendedTweet.media.url}
+                alt={recommendedTweet.text}
                 rounded={'md'}
               />
             </Box>
           )
         )}
       </SimpleGrid>
-      {recomendedTweet?.updatedAt && (
+      {recommendedTweet?.updatedAt && (
         <Text fontSize={'sm'} color={'gray.500'} textAlign={'right'}>
-          {formatDistanceToNow(new Date(recomendedTweet.updatedAt as string), {
+          {formatDistanceToNow(new Date(recommendedTweet.updatedAt as string), {
             addSuffix: true,
           })}
         </Text>
