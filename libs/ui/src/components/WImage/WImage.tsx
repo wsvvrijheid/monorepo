@@ -37,11 +37,21 @@ export const WImage: FC<WImageProps> = ({
     return null
   }
 
-  console.log('src', src)
-
   const alternativeText = alt || 'image'
 
   const Wrapper = hasZoom ? Zoom : Fragment
+
+  const zoomImg =
+    typeof src === 'string'
+      ? { src }
+      : {
+          // If the image is larger than largest format (1080px), use the original size
+          // Otherwise, use the largest format
+          src:
+            (src.width as number) < 1080
+              ? src.formats?.large?.url || src.url
+              : src.url,
+        }
 
   return (
     <AspectRatio
@@ -49,9 +59,15 @@ export const WImage: FC<WImageProps> = ({
       overflow="hidden"
       boxSize="full"
       pos="relative"
+      sx={{
+        '[data-rmiz-content]': {
+          position: 'relative',
+          boxSize: 'full',
+        },
+      }}
       {...rest}
     >
-      <Wrapper {...(hasZoom && { ...rest })}>
+      <Wrapper {...(hasZoom && { zoomImg })}>
         {typeof src === 'string' ? (
           <Image src={src} alt={alternativeText} objectFit={objectFit} />
         ) : (
