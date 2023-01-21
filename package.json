@@ -62,6 +62,7 @@
     "i18next-browser-languagedetector": "^7.0.1",
     "i18next-http-backend": "^2.1.1",
     "iron-session": "^6.3.1",
+    "lint": "^0.8.19",
     "lodash": "^4.17.21",
     "next": "^13.1.2",
     "next-i18next": "^13.0.3",

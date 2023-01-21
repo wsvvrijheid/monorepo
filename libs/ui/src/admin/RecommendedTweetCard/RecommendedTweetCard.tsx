@@ -1,11 +1,6 @@
 import { FC, useState } from 'react'
 
-import {
-  HStack,
-  Stack,
-  useBreakpointValue,
-  useDisclosure,
-} from '@chakra-ui/react'
+import { Stack, useBreakpointValue, useDisclosure } from '@chakra-ui/react'
 import { useRecommendTweet } from '@wsvvrijheid/services'
 import { useAuthSelector } from '@wsvvrijheid/store'
 import { RecommendedTweetCreateInput } from '@wsvvrijheid/types'
@@ -54,8 +49,6 @@ export const RecommendedTweetCard: FC<RecommendedTweetCardProps> = ({
   }
   return (
     <Stack
-      spacing={4}
-      // align={'start'}
       bg={'white'}
       rounded={'md'}
       shadow={'sm'}
@@ -72,20 +65,13 @@ export const RecommendedTweetCard: FC<RecommendedTweetCardProps> = ({
           isNews={false}
         />
       )}
-
-      <HStack spacing={4} align={'start'} bg={'white'} rounded={'md'} p={4}>
-        <TimelineTweet
-          tweet={tweet as unknown as TimelineTweetType}
-          user={tweet?.recommender as unknown as RecommenderType}
-          onEdit={onEdit}
-          key={key}
-        />
-      </HStack>
-      <RecommendedSocialButtons
-        tweet={tweet}
-        isVertical={isVertical}
-        //items={recomendedTweetButtons}
+      <TimelineTweet
+        tweet={tweet as unknown as TimelineTweetType}
+        user={tweet?.recommender as unknown as RecommenderType}
+        onEdit={onEdit}
+        key={key}
       />
+      <RecommendedSocialButtons tweet={tweet} isVertical={isVertical} />
     </Stack>
   )
 }
