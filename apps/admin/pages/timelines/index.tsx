@@ -25,7 +25,6 @@ const Timelines = () => {
         schema={recommendedTweetSchema}
         fields={recommendedTweetFields}
         onSuccess={refetch}
-        isChangingImage={true}
       >
         Create Recommended Tweet
       </ModelCreateModal>
