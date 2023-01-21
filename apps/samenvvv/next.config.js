@@ -9,6 +9,8 @@ const { i18n } = require('./next-i18next.config')
 const nextConfig = {
   i18n,
   images: {
+    deviceSizes: [320, 480, 720, 1080],
+    imageSizes: [150],
     domains: [
       'api.samenvvv.nl',
       'api.wsvvrijheid.nl',
@@ -16,6 +18,10 @@ const nextConfig = {
       'samenvvv.nl',
       'localhost',
     ],
+  },
+  modularizeImports: {
+    'date-fns': { transform: 'date-fns/{{member}}' },
+    lodash: { transform: 'lodash/{{member}}' },
   },
   nx: {
     // Set this to true if you would like to to use SVGR

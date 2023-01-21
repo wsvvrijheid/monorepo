@@ -2,6 +2,7 @@ import { FC } from 'react'
 
 import { Avatar, Center, Heading, Stack, Text } from '@chakra-ui/react'
 import { API_URL } from '@wsvvrijheid/config'
+import { UploadFile } from '@wsvvrijheid/types'
 
 import { Navigate } from '../Navigate'
 import { WImage } from '../WImage'
@@ -9,7 +10,7 @@ import { WImage } from '../WImage'
 interface CardProps {
   title: string
   description: string
-  image: string
+  image: UploadFile
   link: string
   rounded?: boolean
 }

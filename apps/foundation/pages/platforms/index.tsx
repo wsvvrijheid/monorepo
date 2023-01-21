@@ -31,7 +31,7 @@ const Platforms: FC<PlatformsProps> = ({ title, platforms }) => {
               <Card
                 title={project[`name_${locale}`]}
                 description={project[`description_${locale}`]}
-                image={project.image?.url}
+                image={project.image}
                 link={`/${locale}/platforms/${project.slug}`}
                 rounded
               />

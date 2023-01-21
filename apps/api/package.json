@@ -24,6 +24,7 @@
     "cheerio": "^1.0.0-rc.12",
     "pg": "^8.8.0",
     "pg-connection-string": "^2.5.0",
+    "strapi-plugin-responsive-image": "^1.0.0",
     "strapi-plugin-transformer": "^2.2.0",
     "twitter-api-v2": "^1.14.0"
   },
