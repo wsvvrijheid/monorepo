@@ -138,7 +138,7 @@ export const ModelCreateForm = <T extends StrapiModel>({
       }
     }, {} as StrapiTranslatableCreateInput)
     console.log('body', body)
-    const slug = slugify(body.title || (body?.text as string))
+    const slug = slugify(body.title as string)
 
     const creator = url === 'api/posts' ? user?.id : undefined
     const recommender = url === 'api/recommended-topics' ? user?.id : undefined
