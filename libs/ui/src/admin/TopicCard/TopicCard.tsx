@@ -136,7 +136,7 @@ export const TopicCard: FC<TopicCardProps> = ({ topic, onCreatePost }) => {
     },
   } as Post
   const [confirmState, setConfirmState] = useState<WConfirmProps>()
-  const id = topic?.id
+  const id = topic?.id as number
 
   const onDelete = () => {
     setConfirmState({
