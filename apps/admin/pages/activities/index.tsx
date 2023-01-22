@@ -76,6 +76,7 @@ const ActivitiesPage = () => {
         schema={activitySchema}
         fields={activityFields}
         onSuccess={() => activitiesQuery.refetch()}
+        buttonProps={{ mb: 4 }}
       >
         Create Activity
       </ModelCreateModal>

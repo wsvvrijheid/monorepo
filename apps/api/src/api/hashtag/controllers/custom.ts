@@ -1,3 +1,4 @@
+import { Context } from 'koa'
 import { twitterApi } from '../../../libs/twitter/client'
 import { mapTweetResponseToTweet } from '../../../libs/twitter/getUserTweets'
 
@@ -17,5 +18,10 @@ export default {
     const tweets = mapTweetResponseToTweet(tweetsData, includes)
 
     ctx.send(tweets)
+  },
+  async approve(ctx: Context) {
+    await strapi.service('api::hashtag.hashtag').update(ctx.params.id, {
+      data: { approvalStatus: 'approved', approver: ctx.state.user.id },
+    })
   },
 }

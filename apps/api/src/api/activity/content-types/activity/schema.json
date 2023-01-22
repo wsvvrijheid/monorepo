@@ -8,8 +8,7 @@
     "description": ""
   },
   "options": {
-    "draftAndPublish": true,
-    "populateCreatorFields": true
+    "draftAndPublish": true
   },
   "pluginOptions": {
     "i18n": {
@@ -99,7 +98,12 @@
       "target": "api::category.category",
       "mappedBy": "activities"
     },
-    "approvedBy": {
+    "approver": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "creator": {
       "type": "relation",
       "relation": "oneToOne",
       "target": "plugin::users-permissions.user"

@@ -1,7 +1,7 @@
 import { ApprovalStatus, Expand } from './common'
 import { UploadFile } from './file'
 import { Hashtag } from './hashtag'
-import { StrapiBase, StrapiEntityBase } from './strapi'
+import { StrapiBase, StrapiCreatorRelation, StrapiEntityBase } from './strapi'
 import { Tag } from './tag'
 import { User } from './user'
 
@@ -45,4 +45,4 @@ export type PostLocalizeInput = Pick<
   'title' | 'description' | 'content' | 'approvalStatus'
 >
 
-export type Post = StrapiBase & PostBase & PostRelation
+export type Post = StrapiBase & PostBase & PostRelation & StrapiCreatorRelation

@@ -1,7 +1,7 @@
 import { Art } from './art'
 import { Expand } from './common'
 import { UploadFile } from './file'
-import { StrapiBase, StrapiEntityBase } from './strapi'
+import { StrapiBase, StrapiCreatorRelation, StrapiEntityBase } from './strapi'
 
 export type CollectionBase = StrapiEntityBase & {
   date: string
@@ -37,4 +37,7 @@ export type CollectionLocalizeInput = Omit<
   'approvalStatus' | 'likes' | 'views'
 >
 
-export type Collection = StrapiBase & CollectionBase & CollectionRelation
+export type Collection = StrapiBase &
+  CollectionBase &
+  CollectionRelation &
+  StrapiCreatorRelation
