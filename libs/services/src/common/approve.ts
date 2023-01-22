@@ -1,6 +1,7 @@
 import { useToast } from '@chakra-ui/react'
 import { useMutation, useQueryClient, QueryKey } from '@tanstack/react-query'
 import { Mutation } from '@wsvvrijheid/lib'
+import { useAuthSelector } from '@wsvvrijheid/store'
 import {
   StrapiModel,
   StrapiTranslatableModel,
@@ -11,14 +12,17 @@ import { createLocalizations } from '../createLocalizations'
 
 export const approveModel = <T extends StrapiModel>(
   id: number,
+  userId: number,
   url: StrapiUrl,
+  token?: string,
 ) => {
   const body = {
     approvalStatus: 'approved',
+    approvedBy: userId,
     publishedAt: new Date().toISOString(),
   }
 
-  return Mutation.put<T, typeof body>(url, id, body)
+  return Mutation.put<T, typeof body>(url, id, body, token)
 }
 
 export const useApproveModel = <T extends StrapiModel>(
@@ -28,15 +32,18 @@ export const useApproveModel = <T extends StrapiModel>(
 ) => {
   const queryClient = useQueryClient()
   const toast = useToast()
+  const { user, token } = useAuthSelector()
 
   return useMutation({
     mutationKey: [`approve-${url}`],
-    mutationFn: ({ id }: { id: number }) => approveModel<T>(id, url),
+    mutationFn: ({ id }: { id: number }) =>
+      approveModel<T>(id, user?.id, url, token ?? undefined),
     onSettled: () => {
       queryClient.invalidateQueries(queryKey)
     },
     onSuccess: async res => {
       const translatableRes = res as StrapiTranslatableModel
+
       if (translatedFields && translatableRes.localizations?.length === 0) {
         await createLocalizations({
           data: res as StrapiTranslatableModel,

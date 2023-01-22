@@ -1,6 +1,7 @@
 import { useToast } from '@chakra-ui/react'
 import { QueryKey, useMutation, useQueryClient } from '@tanstack/react-query'
 import { Mutation } from '@wsvvrijheid/lib'
+import { useAuthSelector } from '@wsvvrijheid/store'
 import {
   RecommendedTweet,
   RecommendedTweetCreateInput,
@@ -8,21 +9,24 @@ import {
 
 export const recommendTweet = (
   recommendedTweet: RecommendedTweetCreateInput,
+  token?: string,
 ) => {
   return Mutation.post<RecommendedTweet, RecommendedTweetCreateInput>(
     'api/recommended-tweets',
     recommendedTweet,
+    token,
   )
 }
 
 export const useRecommendTweet = (queryKey?: QueryKey) => {
   const queryClient = useQueryClient()
   const toast = useToast()
+  const { token } = useAuthSelector()
 
   return useMutation({
     mutationKey: ['create-recommended-tweet'],
     mutationFn: (recommendedTweet: RecommendedTweetCreateInput) =>
-      recommendTweet(recommendedTweet),
+      recommendTweet(recommendedTweet, token ?? undefined),
     onSettled: () => {
       queryClient.invalidateQueries(queryKey)
     },

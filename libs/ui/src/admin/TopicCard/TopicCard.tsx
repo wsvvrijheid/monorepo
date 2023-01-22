@@ -75,7 +75,7 @@ export const TopicCard: FC<TopicCardProps> = ({ topic, onCreatePost }) => {
   const queryClient = useQueryClient()
 
   const toast = useToast()
-  const { mutate, isLoading } = useRecommendTopic()
+  const { mutateAsync, isLoading } = useRecommendTopic()
 
   const isBookmarked = bookmarksStorage?.some(t => t.url === topic.url)
 
@@ -92,13 +92,9 @@ export const TopicCard: FC<TopicCardProps> = ({ topic, onCreatePost }) => {
   }
 
   const handleRecommend = () => {
-    mutate(
-      {
-        ...topic,
-        recommender: user?.id as number,
-      },
-      { onSettled: () => queryClient.invalidateQueries(['topics']) },
-    )
+    mutateAsync(topic, {
+      onSettled: () => queryClient.invalidateQueries(['topics']),
+    })
     toast({
       title: 'Recommended',
       status: 'success',

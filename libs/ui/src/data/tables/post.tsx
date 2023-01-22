@@ -11,7 +11,7 @@ import { WTableProps } from '../../components'
 
 export const postColumns: WTableProps<Post>['columns'] = {
   image: { type: 'image' },
-  creator: {
+  createdBy: {
     transform: value => (value as User)?.username,
     sortKey: 'username',
     sortable: true,
