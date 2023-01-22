@@ -15,13 +15,13 @@ import { TweetCard } from '../TweetCard'
 export const RecommendedTweetCard: FC<RecommendedTweetCardProps> = ({
   tweet,
 }) => {
-  const mapRecommenderToTweetUser = (createdBy?: User) => {
-    if (!createdBy) return
+  const mapRecommenderToTweetUser = (creator?: User) => {
+    if (!creator) return
 
     return {
-      name: createdBy.name as string,
-      username: createdBy.username,
-      profile: createdBy.avatar?.url,
+      name: creator.name as string,
+      username: creator.username,
+      profile: creator.avatar?.url,
     }
   }
 
@@ -36,7 +36,7 @@ export const RecommendedTweetCard: FC<RecommendedTweetCardProps> = ({
     return {
       text: recommendedTweet.text,
       user: mapRecommenderToTweetUser(
-        recommendedTweet.createdBy,
+        recommendedTweet.creator,
       ) as TweetUserBase,
       image: recommendedTweet?.image?.url,
       video: recommendedTweet?.video?.url,

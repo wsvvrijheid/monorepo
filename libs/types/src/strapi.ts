@@ -108,8 +108,6 @@ export type StrapiBase = {
   updatedAt: string | null
   publishedAt: string | null
   translates?: StrapiLocale[]
-  createdBy?: User
-  updatedBy?: User
 }
 
 export type StrapiEntityBase = {
@@ -119,7 +117,11 @@ export type StrapiEntityBase = {
   content: string | null
   approvalStatus: ApprovalStatus
   locale: StrapiLocale
-  approvedBy?: User
+}
+
+export type StrapiCreatorRelation = {
+  approver?: User
+  creator?: User
 }
 
 export type StrapiModel =

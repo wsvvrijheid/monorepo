@@ -24,9 +24,10 @@ export default factories.createCoreController(
         },
       )
 
-      await strapi
-        .service('api::topic.topic')
-        .createOrUpdate({ data: { data: newTopics }, meta: {} })
+      await strapi.service('api::topic.topic').createOrUpdate({
+        data: { data: newTopics, creator: ctx.state.user.id },
+        meta: {},
+      })
 
       return result
     },

@@ -91,10 +91,14 @@ export const TweetCard: FC<TweetCardProps> = ({
         {...rest}
       >
         {tweet.user && (
-          <Avatar name={tweet.user.name} src={tweet.user.profile} />
+          <Avatar
+            flexShrink={0}
+            name={tweet.user.name}
+            src={tweet.user.profile}
+          />
         )}
 
-        <Stack spacing={4}>
+        <Stack flex={1} spacing={4}>
           {/* Tweet Header */}
           <HStack justify={'space-between'} title={tweet.user?.username}>
             {tweet.user && (

@@ -87,11 +87,12 @@ export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
     defaultValues,
   })
 
-  useEffect(() => {
-    if (imageFile) {
-      setValue('image', imageFile)
-    }
-  }, [imageFile, setValue, originalTweet?.image])
+  // We don't need to upload the same image as the original tweet
+  // useEffect(() => {
+  //   if (imageFile) {
+  //     setValue('image', imageFile)
+  //   }
+  // }, [imageFile, setValue, originalTweet?.image])
 
   const [text, image] = watch(['text', 'image'])
 
@@ -118,7 +119,7 @@ export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
   const handleRecommend = async (data: FormFieldValues) => {
     const mentions = data.mentions?.map(mention => Number(mention.value)) || []
 
-    mutateAsync({
+    await mutateAsync({
       originalTweet: JSON.parse(JSON.stringify(originalTweet)),
       text: data.text,
       mentions,

@@ -70,6 +70,7 @@ const PostsPage = () => {
         schema={postSchema}
         fields={postFields}
         onSuccess={postsQuery.refetch}
+        buttonProps={{ mb: 4 }}
       >
         Create Post
       </ModelCreateModal>

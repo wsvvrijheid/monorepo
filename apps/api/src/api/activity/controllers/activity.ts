@@ -1,9 +1,27 @@
-'use strict';
+import { factories } from '@strapi/strapi'
 
-/**
- *  activity controller
- */
+export default factories.createCoreController(
+  'api::activity.activity',
+  ({ strapi }) => ({
+    create: async ctx => {
+      const body = ctx.request.body as any
 
-import { factories } from '@strapi/strapi';
+      const data = JSON.parse(body.data)
 
-export default factories.createCoreController('api::activity.activity');
+      const modelToBeCreated = {
+        data: {
+          ...data,
+          creator: ctx.state.user.id,
+        },
+      }
+
+      const entity = await strapi
+        .service('api::activity.activity')
+        .create(modelToBeCreated)
+
+      ctx.created(entity)
+
+      return entity
+    },
+  }),
+)
