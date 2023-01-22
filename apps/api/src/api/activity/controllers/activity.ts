@@ -1,27 +1,11 @@
 import { factories } from '@strapi/strapi'
 
-export default factories.createCoreController(
-  'api::activity.activity',
-  ({ strapi }) => ({
-    create: async ctx => {
-      const body = ctx.request.body as any
+export default factories.createCoreController('api::activity.activity', () => ({
+  async create(ctx) {
+    Object.assign((ctx.request.body as any).data, {
+      creator: ctx.state.user.id,
+    })
 
-      const data = JSON.parse(body.data)
-
-      const modelToBeCreated = {
-        data: {
-          ...data,
-          creator: ctx.state.user.id,
-        },
-      }
-
-      const entity = await strapi
-        .service('api::activity.activity')
-        .create(modelToBeCreated)
-
-      ctx.created(entity)
-
-      return entity
-    },
-  }),
-)
+    return super.create(ctx)
+  },
+}))
