@@ -13,6 +13,7 @@ export const {
   contact,
   donate,
   lotus,
+  join,
   platform,
   privacy,
   hashtag,
