@@ -1,4 +1,5 @@
 export interface Tweet {
+  media?: any
   id: string
   user: {
     name: string

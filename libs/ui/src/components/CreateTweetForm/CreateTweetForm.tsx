@@ -59,11 +59,18 @@ export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
   const [isChangingImage, setIsChangingImage] = useBoolean(false)
   const [similarity, setSimilarity] = useState(0)
 
-  const imageFile = useFileFromUrl(originalTweet?.media?.url)
+  const mediaFile = useFileFromUrl(originalTweet?.media?.url)
 
   if (isNews) {
     originalTweet = { text: originalTweet.text } as TimelineTweet
   }
+
+  const defaultValues = {
+    text: '',
+    mentions: [],
+    media: mediaFile,
+  } as unknown as TimelineTweet
+
   const {
     register,
     control,
@@ -75,19 +82,16 @@ export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
   } = useForm<FormFieldValues>({
     resolver: yupResolver(schema),
     mode: 'all',
-    defaultValues: {
-      text: '',
-      mentions: [],
-    },
+    defaultValues,
   })
 
-  const [text] = watch(['text'])
-
   useEffect(() => {
-    if (imageFile) {
-      setValue('media', imageFile)
+    if (mediaFile) {
+      setValue('media', mediaFile)
     }
-  }, [imageFile, setValue])
+  }, [mediaFile, setValue, originalTweet?.media?.url])
+
+  const [text] = watch(['text'])
 
   const newPost = {
     description: text,

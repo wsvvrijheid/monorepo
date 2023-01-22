@@ -54,7 +54,6 @@ const domains = [
 
 export const TopicCard: FC<TopicCardProps> = ({ topic, onCreatePost }) => {
   const { user } = useAuthSelector()
-
   const ImageComponent = domains.some(d => topic.image?.includes(d))
     ? WImage
     : Image
@@ -182,9 +181,12 @@ export const TopicCard: FC<TopicCardProps> = ({ topic, onCreatePost }) => {
               schema={postSchema}
               fields={postFields}
               model={postContent}
-              buttonProps={{ variant: 'ghost', colorScheme: 'gray' }}
+              buttonProps={{
+                variant: 'ghost',
+                colorScheme: 'gray',
+              }}
             >
-              Create Post
+              {isVertical ? '' : 'Create Post'}
             </ModelCreateModal>
             <ActionButton
               onClick={() => handleView()}

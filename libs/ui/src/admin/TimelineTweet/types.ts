@@ -2,15 +2,16 @@ import { StackProps } from '@chakra-ui/react'
 import { TimelineTweet } from '@wsvvrijheid/types'
 
 import { ModelImageProps } from '../ModelForm/ModelImage'
-// import { Tweet } from '@wsvvrijheid/types'
+
+export type TimelineUser = {
+  name?: string
+  username: string
+  profile?: string
+}
 
 export type TimelineTweetProps = {
   tweet: TimelineTweet
-  user: {
-    name: string
-    username: string
-    profile: string
-  }
+  user: TimelineUser
   onSave?: (data: TimelineLocalTweet) => void
   onEdit?: (data: TimelineLocalTweet) => void
 } & StackProps
