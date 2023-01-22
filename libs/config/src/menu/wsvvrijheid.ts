@@ -7,6 +7,7 @@ import {
   club,
   contact,
   lotus,
+  join,
   platform,
   privacy,
   samenvvv,
@@ -30,7 +31,7 @@ export const wsvvrijheid = {
       en: 'Wsvvrijheid',
       nl: 'Wsvvrijheid',
       tr: 'Wsvvrijheid',
-      children: [about, contact],
+      children: [about, contact, join],
     },
   ],
   footerMenu: [
@@ -41,7 +42,7 @@ export const wsvvrijheid = {
       tr: platform.tr,
     },
     {
-      children: [about, contact],
+      children: [about, contact, join],
       en: 'Foundation',
       nl: 'Stichting',
       tr: 'Vakıf',
