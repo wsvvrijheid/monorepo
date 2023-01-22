@@ -1,8 +1,14 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 import { MenuItemOption, MenuOptionGroup } from '@chakra-ui/react'
 import { useSearchModel } from '@wsvvrijheid/services'
-import { ApprovalStatus, Post, Sort, StrapiLocale } from '@wsvvrijheid/types'
+import {
+  ApprovalStatus,
+  Hashtag,
+  Post,
+  Sort,
+  StrapiLocale,
+} from '@wsvvrijheid/types'
 import {
   AdminLayout,
   DataTable,
@@ -24,22 +30,32 @@ const PostsPage = () => {
   const { locale, push } = useRouter()
 
   const [sort, setSort] = useState<Sort>()
-  const [posts, setPosts] = useState<Post[]>([])
 
-  const [sources, setSources] = useState<string[]>([])
-  const [filters, setFilter] = useState<string[]>([])
+  const [hashtagsFilter, setHashtagsFilter] = useState<number[]>([])
 
   const postsQuery = useSearchModel<Post>({
     url: 'api/posts',
     page: currentPage || 1,
     searchTerm,
+    relationFilter: {
+      parent: 'hashtag',
+      ids: hashtagsFilter,
+    },
     sort,
     locale: locale as StrapiLocale,
     statuses: status ? [status] : undefined,
     publicationState: 'preview',
   })
 
-  useEffect(() => setCurrentPage(1), [status])
+  const hashtagsQuery = useSearchModel<Hashtag>({
+    url: 'api/hashtags',
+    locale: locale as StrapiLocale,
+    publicationState: 'preview',
+    fields: ['id', 'title'],
+  })
+
+  useEffect(() => setCurrentPage(1), [status, hashtagsFilter])
+
   const handleSearch = (search: string) => {
     search ? setSearchTerm(search) : setSearchTerm(undefined)
   }
@@ -47,35 +63,28 @@ const PostsPage = () => {
   const postsData = postsQuery?.data?.data
   const totalCount = postsQuery?.data?.meta?.pagination?.pageCount
 
-  const mappedPosts = postsData?.map(post => ({
-    ...post,
-    translates: post.localizations?.map(l => l.locale),
-  }))
+  const posts = useMemo(
+    () =>
+      postsData?.map(post => ({
+        ...post,
+        translates: post.localizations?.map(l => l.locale),
+      })),
+    [postsData],
+  )
+
   useUpdateEffect(() => {
     postsQuery.refetch()
-    setPosts(mappedPosts)
-  }, [locale, searchTerm, sort, status])
-
-  useEffect(() => {
-    const localeData = postsQuery?.data?.data?.filter(d => d.locale === locale)
-
-    const filteredData = localeData?.filter(d =>
-      filters.length > 0 ? filters.includes(d?.hashtag?.title) : true,
-    )
-    console.log('filtered data', filteredData)
-    setSources([...new Set(localeData?.map(d => d.hashtag.title))])
-    //  setPosts(searchTerm ? handleSearch(filteredData) : filteredData)
-  }, [filters, locale, handleSearch, searchTerm])
+  }, [locale, searchTerm, sort, status, hashtagsFilter])
 
   const filterMenu = (
     <MenuOptionGroup
       title="Hastags"
       type="checkbox"
-      onChange={(value: string[]) => setFilter(value)}
+      onChange={(value: string[]) => setHashtagsFilter(value.map(v => +v))}
     >
-      {sources?.map(source => (
-        <MenuItemOption key={source} value={source}>
-          {source}
+      {hashtagsQuery.data?.data?.map(hashtag => (
+        <MenuItemOption key={hashtag.id} value={`${hashtag.id}`}>
+          {hashtag.title}
         </MenuItemOption>
       ))}
     </MenuOptionGroup>
