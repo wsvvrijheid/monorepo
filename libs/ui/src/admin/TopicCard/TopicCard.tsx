@@ -58,7 +58,7 @@ const domains = [
   'amnesty.org',
 ]
 
-export const TopicCard: FC<TopicCardProps> = ({ topic, onCreatePost }) => {
+export const TopicCard: FC<TopicCardProps> = ({ topic }) => {
   const { user } = useAuthSelector()
   const ImageComponent = domains.some(d => topic.image?.includes(d))
     ? WImage
@@ -135,6 +135,7 @@ export const TopicCard: FC<TopicCardProps> = ({ topic, onCreatePost }) => {
       url: topic?.image,
     },
   } as Post
+
   const [confirmState, setConfirmState] = useState<WConfirmProps>()
   const id = topic?.id as number
 
@@ -278,24 +279,18 @@ export const TopicCard: FC<TopicCardProps> = ({ topic, onCreatePost }) => {
                 colorScheme={topic.isRecommended ? 'green' : 'gray'}
               />
             )}
-            {user ? (
-              topic?.isRecommended ? (
-                <Tooltip label="Delete news" hasArrow bg="primary.400">
-                  <Box>
-                    <ActionButton
-                      onClick={onDelete}
-                      icon={<AiFillDelete color={'red'} />}
-                      title="Delete"
-                      isVertical={isVertical}
-                      variant="ghost"
-                    />
-                  </Box>
-                </Tooltip>
-              ) : (
-                ''
-              )
-            ) : (
-              ''
+            {user && topic?.isRecommended && (
+              <Tooltip label="Delete news" hasArrow bg="primary.400">
+                <Box>
+                  <ActionButton
+                    onClick={onDelete}
+                    icon={<AiFillDelete color={'red'} />}
+                    title="Delete"
+                    isVertical={isVertical}
+                    variant="ghost"
+                  />
+                </Box>
+              </Tooltip>
             )}
           </ButtonGroup>
         </Stack>
