@@ -78,8 +78,6 @@ export const mutation = async <
     requestBody = generateFormData<D>(body)
   }
 
-  console.log('body', body)
-
   try {
     const response = await axios[method]<StrapiMutationResponse<T>>(
       requestUrl,

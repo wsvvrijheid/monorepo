@@ -5,7 +5,7 @@ import { mapTweetResponseToTweet } from '../../../libs/twitter/getUserTweets'
 export default {
   async search(ctx) {
     const result = await twitterApi.v2.search({
-      query: ctx.query.q,
+      query: ctx.query.q as string,
       max_results: 50,
       expansions: ['attachments.media_keys'],
       'media.fields': ['url', 'preview_image_url', 'variants'],
@@ -20,8 +20,17 @@ export default {
     ctx.send(tweets)
   },
   async approve(ctx: Context) {
-    await strapi.service('api::hashtag.hashtag').update(ctx.params.id, {
-      data: { approvalStatus: 'approved', approver: ctx.state.user.id },
-    })
+    const result = await strapi
+      .service('api::hashtag.hashtag')
+      .update(ctx.params.id, {
+        data: {
+          approvalStatus: 'approved',
+          publishedAt: new Date(),
+          approver: ctx.state.user.id,
+        },
+        populate: ['localizations'],
+      })
+
+    return { data: result }
   },
 }

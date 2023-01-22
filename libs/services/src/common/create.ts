@@ -30,11 +30,12 @@ export const useCreateModelMutation = <
     mutationKey: ['update-model', url],
     mutationFn: (args: D) =>
       createModel<T, D>(url, args as D, token ?? undefined),
-    onSuccess: (res: T) => {
+    onSuccess: res => {
+      console.log('res', res)
       toast({
         title: `Model created`,
         description: `Model ${
-          (res as StrapiTranslatableModel).title
+          (res as StrapiTranslatableModel)?.title
         } has been created`,
         status: 'success',
         duration: 5000,
