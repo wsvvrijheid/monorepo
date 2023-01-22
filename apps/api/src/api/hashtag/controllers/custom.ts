@@ -1,4 +1,5 @@
 import { twitterApi } from '../../../libs/twitter/client'
+import { mapTweetResponseToTweet } from '../../../libs/twitter/getUserTweets'
 
 export default {
   async search(ctx) {
@@ -10,6 +11,11 @@ export default {
       'tweet.fields': ['attachments'],
     })
 
-    ctx.send(result.data)
+    const tweetsData = result?.data.data
+    const includes = result?.data.includes
+
+    const tweets = mapTweetResponseToTweet(tweetsData, includes)
+
+    ctx.send(tweets)
   },
 }

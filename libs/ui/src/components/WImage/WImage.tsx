@@ -30,6 +30,7 @@ export type WImageProps = {
   hasZoom?: boolean
   fill?: boolean
   objectFit?: 'cover' | 'contain' | 'fill' | 'none' | 'scale-down'
+  unoptimized?: boolean
 } & Omit<ChakraImageProps, 'objectFit' | 'src' | 'fill'>
 
 // TODO: add loader
@@ -41,6 +42,7 @@ export const WImage: FC<WImageProps> = ({
   objectFit = 'cover',
   fill = true,
   hasZoom,
+  unoptimized,
   ...rest
 }) => {
   const source = getImageUrl(src, format)
@@ -71,6 +73,7 @@ export const WImage: FC<WImageProps> = ({
           fill={hasDimensions ? undefined : fill}
           src={source}
           alt={alternativeText}
+          unoptimized={unoptimized}
           {...(hasDimensions && {
             width: parseInt(width as string, 10),
             height: parseInt(height as string, 10),

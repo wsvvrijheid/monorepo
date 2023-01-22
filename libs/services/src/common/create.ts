@@ -1,6 +1,7 @@
 import { useToast } from '@chakra-ui/react'
 import { useMutation } from '@tanstack/react-query'
 import { Mutation } from '@wsvvrijheid/lib'
+import { useAuthSelector } from '@wsvvrijheid/store'
 import {
   StrapiCreateInput,
   StrapiModel,
@@ -11,8 +12,9 @@ import {
 export const createModel = <T extends StrapiModel, D extends StrapiCreateInput>(
   url: StrapiUrl,
   args: D,
+  token?: string,
 ) => {
-  return Mutation.post<T, D>(url, args)
+  return Mutation.post<T, D>(url, args, token)
 }
 
 export const useCreateModelMutation = <
@@ -22,9 +24,12 @@ export const useCreateModelMutation = <
   url: StrapiUrl,
 ) => {
   const toast = useToast()
+  const { token } = useAuthSelector()
+
   return useMutation({
     mutationKey: ['update-model', url],
-    mutationFn: (args: D) => createModel<T, D>(url, args as D),
+    mutationFn: (args: D) =>
+      createModel<T, D>(url, args as D, token ?? undefined),
     onSuccess: (res: T) => {
       toast({
         title: `Model created`,

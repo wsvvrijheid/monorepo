@@ -123,36 +123,6 @@
       "target": "api::lang-role.lang-role",
       "mappedBy": "translator"
     },
-    "posts": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::post.post",
-      "mappedBy": "creator"
-    },
-    "recommendedTweets": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::recommended-tweet.recommended-tweet",
-      "mappedBy": "recommender"
-    },
-    "reviewedPosts": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::post.post",
-      "mappedBy": "reviewer"
-    },
-    "timelines": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::timeline.timeline",
-      "inversedBy": "listers"
-    },
-    "topics": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::recommended-topic.recommended-topic",
-      "mappedBy": "recommender"
-    },
     "volunteer": {
       "type": "relation",
       "relation": "oneToOne",

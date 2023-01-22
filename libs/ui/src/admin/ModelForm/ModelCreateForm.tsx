@@ -12,7 +12,6 @@ import {
 import { yupResolver } from '@hookform/resolvers/yup'
 import slugify from '@sindresorhus/slugify'
 import { useCreateModelMutation } from '@wsvvrijheid/services'
-import { useAuthSelector } from '@wsvvrijheid/store'
 import {
   Hashtag,
   Post,
@@ -40,8 +39,6 @@ export const ModelCreateForm = <T extends StrapiModel>({
   model,
   onSuccess,
 }: ModelCreateFormProps<T>) => {
-  const { user } = useAuthSelector()
-
   const createModelMutation = useCreateModelMutation<
     T,
     StrapiTranslatableCreateInput
@@ -137,16 +134,12 @@ export const ModelCreateForm = <T extends StrapiModel>({
     }, {} as StrapiTranslatableCreateInput)
 
     const slug = slugify(body.title as string)
-    const creator = url === 'api/posts' ? user?.id : undefined
-    const recommender = url === 'api/recommended-topics' ? user?.id : undefined
 
     createModelMutation.mutate(
       {
         ...body,
         slug,
         locale: locale as StrapiLocale,
-        creator,
-        recommender,
       } as StrapiTranslatableCreateInput,
       {
         onSuccess: () => {

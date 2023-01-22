@@ -3,7 +3,7 @@ export default {
     {
       method: 'POST',
       path: '/timelines/:id/update-tweets',
-      handler: 'timeline.updateTweets',
+      handler: 'custom.updateTweets',
     },
   ],
-};
+}

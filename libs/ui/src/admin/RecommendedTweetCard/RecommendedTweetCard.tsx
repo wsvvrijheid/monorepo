@@ -1,93 +1,49 @@
-import { FC, useState } from 'react'
+import { FC } from 'react'
 
-import {
-  Box,
-  Divider,
-  Stack,
-  useBreakpointValue,
-  useDisclosure,
-} from '@chakra-ui/react'
-import { useRecommendTweet } from '@wsvvrijheid/services'
-import { useAuthSelector } from '@wsvvrijheid/store'
+import { Box, Divider, Stack, useBreakpointValue } from '@chakra-ui/react'
 import {
   RecommendedTweet,
-  RecommendedTweetCreateInput,
-  TimelineTweet as TimelineTweetType,
+  Tweet,
+  TweetUserBase,
   User,
 } from '@wsvvrijheid/types'
 
 import { RecommendedSocialButtons } from './RecommendedSocialButtons'
 import { RecommendedTweetCardProps } from './types'
-import { CreateTweetForm } from '../../components'
-import { TimelineLocalTweet, TimelineTweet } from '../TimelineTweet'
+import { TweetCard } from '../TweetCard'
 
 export const RecommendedTweetCard: FC<RecommendedTweetCardProps> = ({
   tweet,
-  key,
 }) => {
-  const { isOpen, onOpen, onClose } = useDisclosure()
-  const [editTweet, setEditTweet] = useState<TimelineTweetType>()
+  const mapRecommenderToTweetUser = (createdBy?: User) => {
+    if (!createdBy) return
 
-  const { user } = useAuthSelector()
-  const { mutateAsync } = useRecommendTweet()
-
-  const mapRecommenderToTweetUser = (
-    recommender: User,
-  ): { name?: string; username: string; profile?: string } => {
     return {
-      name: recommender.name as string,
-      username: recommender.username,
-      profile: recommender.avatar?.url,
+      name: createdBy.name as string,
+      username: createdBy.username,
+      profile: createdBy.avatar?.url,
     }
   }
 
-  const handleSubmit = async (
-    text: string,
-    originalTweet: TimelineTweetType,
-    mentions: number[],
-    media?: File,
-  ) => {
-    const recommendedTweet: RecommendedTweetCreateInput = {
-      recommender: Number(user?.id),
-      originalTweet: JSON.parse(JSON.stringify(originalTweet)),
-      media,
-      text,
-      mentions,
-    }
-
-    await mutateAsync(recommendedTweet)
-    onClose()
-  }
   const isVertical = useBreakpointValue({
     base: true,
     lg: false,
   })
 
-  const onEdit = (data: TimelineLocalTweet) => {
-    setEditTweet(data.tweet)
-    onOpen()
-  }
-
-  const mapRecommendedTweetToTimelineTweet = (
+  const mapRecommendedTweetToTweet = (
     recommendedTweet: RecommendedTweet,
-  ): Partial<TimelineTweetType> => {
-    const mentions = recommendedTweet?.mentions
-      ?.map(mention => `@${mention?.username}`)
-      .join(' ')
-    const quoteTweet = [recommendedTweet?.text, mentions]
-      .filter(a => !!a)
-      .join('\n\n')
-
+  ): Partial<Tweet> => {
     return {
-      text: quoteTweet,
-      media: {
-        url: recommendedTweet?.media?.url,
-        preview_image_url: recommendedTweet?.media?.url,
-        type: recommendedTweet?.media?.mime,
-        media_key: '',
-      },
+      text: recommendedTweet.text,
+      user: mapRecommenderToTweetUser(
+        recommendedTweet.createdBy,
+      ) as TweetUserBase,
+      image: recommendedTweet?.image?.url,
+      video: recommendedTweet?.video?.url,
     }
   }
+
+  console.log('tweet', tweet)
 
   return (
     <Stack
@@ -98,20 +54,9 @@ export const RecommendedTweetCard: FC<RecommendedTweetCardProps> = ({
       overflow="hidden"
       spacing={0}
     >
-      {editTweet && (
-        <CreateTweetForm
-          onSubmit={handleSubmit}
-          isOpen={isOpen}
-          onClose={onClose}
-          originalTweet={editTweet}
-          isNews={false}
-        />
-      )}
-      <TimelineTweet
-        tweet={mapRecommendedTweetToTimelineTweet(tweet) as TimelineTweetType}
-        user={mapRecommenderToTweetUser(tweet.recommender)}
-        onEdit={onEdit}
-        key={key}
+      <TweetCard
+        tweet={mapRecommendedTweetToTweet(tweet) as Tweet}
+        editable
         shadow={'none'}
       />
       <Divider />

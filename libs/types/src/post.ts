@@ -16,8 +16,6 @@ export type PostRelation = {
   hashtag?: Hashtag
   tags?: Array<Tag>
   translator?: User | null
-  creator?: User | null
-  reviewer?: User | null
   localizations?: Array<Post>
 }
 
@@ -26,8 +24,6 @@ export type PostRelationInput = {
   hashtag: number
   tags?: Array<number>
   translator?: number
-  creator?: number
-  reviewer?: number
 }
 
 export type PostCreateInput = Expand<
@@ -35,12 +31,12 @@ export type PostCreateInput = Expand<
     PostBase,
     'approvalStatus' | 'capsStatus'
   > &
-    Pick<PostRelationInput, 'image' | 'hashtag' | 'tags' | 'creator'>
+    Pick<PostRelationInput, 'image' | 'hashtag' | 'tags'>
 >
 
 export type PostUpdateInput = Expand<
   { publishedAt?: Date | string | null } & Partial<
-    Omit<PostBase, 'locale'> & Omit<PostRelationInput, 'translator' | 'creator'>
+    Omit<PostBase, 'locale'> & Omit<PostRelationInput, 'translator'>
   >
 >
 

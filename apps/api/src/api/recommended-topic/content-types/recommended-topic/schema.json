@@ -8,7 +8,8 @@
     "description": ""
   },
   "options": {
-    "draftAndPublish": true
+    "draftAndPublish": true,
+    "populateCreatorFields": true
   },
   "pluginOptions": {
     "i18n": {
@@ -97,21 +98,6 @@
       },
       "type": "boolean",
       "default": false
-    },
-    "recommender": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "plugin::users-permissions.user",
-      "inversedBy": "topics"
-    },
-    "locale": {
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "type": "string",
-      "required": true
     }
   }
 }

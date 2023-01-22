@@ -1,47 +1,11 @@
-import { FC, useState } from 'react'
+import { FC } from 'react'
 
-import { Box, HStack, Link, Text, useDisclosure } from '@chakra-ui/react'
-import { useRecommendTweet } from '@wsvvrijheid/services'
-import { useAuthSelector } from '@wsvvrijheid/store'
-import {
-  RecommendedTweetCreateInput,
-  TimelineTweet as TimelineTweetType,
-} from '@wsvvrijheid/types'
+import { Box, HStack, Link, Text } from '@chakra-ui/react'
 
 import { TimelineBoardProps } from './types'
-import { CreateTweetForm } from '../../components/CreateTweetForm'
-import { TimelineLocalTweet, TimelineTweet } from '../TimelineTweet'
+import { TweetCard } from '../TweetCard'
 
 export const TimelineBoard: FC<TimelineBoardProps> = ({ timelines }) => {
-  const { isOpen, onOpen, onClose } = useDisclosure()
-  const [editTweet, setEditTweet] = useState<TimelineTweetType>()
-
-  const { user } = useAuthSelector()
-  const { mutateAsync } = useRecommendTweet()
-
-  const handleSubmit = async (
-    text: string,
-    originalTweet: TimelineTweetType,
-    mentions: number[],
-    media?: File,
-  ) => {
-    const recommendedTweet: RecommendedTweetCreateInput = {
-      recommender: Number(user?.id),
-      originalTweet: JSON.parse(JSON.stringify(originalTweet)),
-      media,
-      text,
-      mentions,
-    }
-
-    await mutateAsync(recommendedTweet)
-    onClose()
-  }
-
-  const onEdit = (data: TimelineLocalTweet) => {
-    setEditTweet(data.tweet)
-    onOpen()
-  }
-
   return (
     <HStack
       align="start"
@@ -52,16 +16,6 @@ export const TimelineBoard: FC<TimelineBoardProps> = ({ timelines }) => {
       overflowY="auto"
       shouldWrapChildren={true}
     >
-      {editTweet && (
-        <CreateTweetForm
-          onSubmit={handleSubmit}
-          isOpen={isOpen}
-          onClose={onClose}
-          originalTweet={editTweet}
-          isNews={false}
-        />
-      )}
-
       {timelines?.map(timeline => (
         <Box
           key={timeline.id}
@@ -90,10 +44,9 @@ export const TimelineBoard: FC<TimelineBoardProps> = ({ timelines }) => {
 
           <Box overflowY="auto" h="700px">
             {timeline?.tweets?.map((tweet, key) => (
-              <TimelineTweet
-                tweet={tweet}
-                user={timeline.userData}
-                onEdit={onEdit}
+              <TweetCard
+                tweet={{ ...tweet, user: timeline.userData }}
+                editable
                 key={key}
               />
             ))}

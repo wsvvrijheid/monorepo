@@ -89,7 +89,9 @@ export const RecommendedSocialButtons: FC<RecommendedSocialButtonsProps> = ({
           <PopoverArrow />
           <PopoverBody>
             <ShareButtons
-              url={tweet?.originalTweet?.media?.url}
+              // TODO: fix this
+              url="https://twitter.com"
+              // url={tweet?.originalTweet?.media?.url}
               quote={quoteTweet}
             />
           </PopoverBody>

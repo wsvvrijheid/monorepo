@@ -8,7 +8,8 @@
     "description": ""
   },
   "options": {
-    "draftAndPublish": true
+    "draftAndPublish": true,
+    "populateCreatorFields": true
   },
   "pluginOptions": {
     "i18n": {
@@ -51,11 +52,7 @@
         }
       },
       "type": "enumeration",
-      "enum": [
-        "pending",
-        "approved",
-        "rejected"
-      ],
+      "enum": ["pending", "approved", "rejected"],
       "default": "pending",
       "required": false
     },
@@ -63,9 +60,7 @@
       "type": "media",
       "multiple": false,
       "required": true,
-      "allowedTypes": [
-        "images"
-      ],
+      "allowedTypes": ["images"],
       "pluginOptions": {
         "i18n": {
           "localized": false
@@ -101,6 +96,11 @@
       "relation": "oneToMany",
       "target": "api::feedback.feedback",
       "mappedBy": "application"
+    },
+    "approvedBy": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::activity.activity"
     }
   }
 }

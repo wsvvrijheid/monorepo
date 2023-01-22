@@ -1,11 +1,9 @@
 import { API_URL } from '@wsvvrijheid/config'
-import { TweetUserData } from '@wsvvrijheid/types'
 import axios from 'axios'
+import { UserV1 } from 'twitter-api-v2'
 
-export const lookupTwitterUsers = async (
-  value: string,
-): Promise<TweetUserData[]> => {
+export const lookupTwitterUsers = async (value: string): Promise<UserV1[]> => {
   const response = await axios(`${API_URL}/mentions/search?username=${value}`)
-  const rawData = response.data as TweetUserData[]
+  const rawData = response.data as UserV1[]
   return rawData.sort((a, b) => b.followers_count - a.followers_count)
 }

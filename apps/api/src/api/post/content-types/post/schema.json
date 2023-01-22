@@ -8,7 +8,8 @@
     "description": ""
   },
   "options": {
-    "draftAndPublish": true
+    "draftAndPublish": true,
+    "populateCreatorFields": true
   },
   "pluginOptions": {
     "i18n": {
@@ -57,11 +58,7 @@
         }
       },
       "type": "enumeration",
-      "enum": [
-        "pending",
-        "approved",
-        "rejected"
-      ],
+      "enum": ["pending", "approved", "rejected"],
       "default": "pending",
       "required": false
     },
@@ -72,21 +69,14 @@
         }
       },
       "type": "enumeration",
-      "enum": [
-        "pending",
-        "approved",
-        "rejected"
-      ],
+      "enum": ["pending", "approved", "rejected"],
       "default": "pending"
     },
     "image": {
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": [
-        "images",
-        "videos"
-      ],
+      "allowedTypes": ["images", "videos"],
       "pluginOptions": {
         "i18n": {
           "localized": true
@@ -113,17 +103,10 @@
       "target": "api::tag.tag",
       "inversedBy": "posts"
     },
-    "reviewer": {
+    "approvedBy": {
       "type": "relation",
-      "relation": "manyToOne",
-      "target": "plugin::users-permissions.user",
-      "inversedBy": "reviewedPosts"
-    },
-    "creator": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "plugin::users-permissions.user",
-      "inversedBy": "posts"
+      "relation": "oneToOne",
+      "target": "api::activity.activity"
     }
   }
 }
