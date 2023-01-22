@@ -72,7 +72,7 @@ export const TimelineBoard: FC<TimelineBoardProps> = ({ timelines }) => {
           borderColor="gray.300"
         >
           <Link
-            href={`https://twitter.com/${timeline.userData.username}`}
+            href={`https://twitter.com/${timeline?.userData?.username}`}
             target="_blank"
             rel="noreferrer noopener"
             cursor="pointer"
@@ -83,13 +83,13 @@ export const TimelineBoard: FC<TimelineBoardProps> = ({ timelines }) => {
                 wordBreak={'break-all'}
                 fontWeight={'bolder'}
               >
-                {timeline.userData.name} - @{timeline.userData.username}
+                {timeline?.userData?.name} - @{timeline?.userData?.username}
               </Text>
             </Box>
           </Link>
 
           <Box overflowY="auto" h="700px">
-            {timeline.tweets.map((tweet, key) => (
+            {timeline?.tweets?.map((tweet, key) => (
               <TimelineTweet
                 tweet={tweet}
                 user={timeline.userData}

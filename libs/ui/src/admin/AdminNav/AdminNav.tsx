@@ -183,6 +183,11 @@ export const getAdminNav = (user: SessionUser): AdminNavItemProps[] => {
           link: '/timelines/bookmarks',
           icon: <TbBookmarks />,
         },
+        {
+          label: 'Recommended Tweets',
+          link: '/timelines/recommended',
+          icon: <TbThumbUp />,
+        },
       ],
     },
     {
