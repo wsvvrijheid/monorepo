@@ -279,7 +279,7 @@ export const TopicCard: FC<TopicCardProps> = ({ topic }) => {
                 colorScheme={topic.isRecommended ? 'green' : 'gray'}
               />
             )}
-            {user && topic?.isRecommended && (
+            {user && topic?.isRecommended && id && (
               <Tooltip label="Delete news" hasArrow bg="primary.400">
                 <Box>
                   <ActionButton
