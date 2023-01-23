@@ -6,8 +6,9 @@ import { Hashtag } from './hashtag'
 import { StrapiLocale } from './locale'
 import { StrapiBase } from './strapi'
 
-type MentionUserData = Pick<
+export type MentionUserData = Pick<
   UserV1,
+  | 'id'
   | 'id_str'
   | 'name'
   | 'screen_name'

@@ -10,7 +10,7 @@ export interface Tweet {
   image?: string
   video?: string
   text: string
-  createdAt: string
+  createdAt?: string
   likes?: number
   retweets?: number
   replies?: number

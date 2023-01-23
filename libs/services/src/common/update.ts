@@ -13,7 +13,8 @@ export const updateModel = <
   D extends StrapiUpdateInput & { id: number },
 >(
   url: StrapiUrl,
-  { id, ...args }: D & { id: number },
+  id: number,
+  args: D,
 ) => {
   return Mutation.put<T, StrapiUpdateInput>(url, id, args)
 }
@@ -27,9 +28,9 @@ export const useUpdateModelMutation = <
   const toast = useToast()
   return useMutation({
     mutationKey: ['update-model', url],
-    mutationFn: ({ id, ...args }: D) =>
-      updateModel<T, D>(url, { id, ...args } as D),
-    onSuccess: (res: T) => {
+    mutationFn: ({ id, ...args }: D & { id: number }) =>
+      updateModel<T, D>(url, id, args as D),
+    onSuccess: res => {
       toast({
         title: `Model updated`,
         description: `Model ${

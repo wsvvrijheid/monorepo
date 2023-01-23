@@ -120,8 +120,8 @@ export type StrapiEntityBase = {
 }
 
 export type StrapiCreatorRelation = {
-  approver?: User
-  creator?: User
+  approver?: User | null
+  creator?: User | null
 }
 
 export type StrapiModel =
