@@ -25,7 +25,6 @@ export const useRecommendTweet = () => {
   return useMutation({
     mutationKey: ['create-recommended-tweet'],
     mutationFn: (recommendedTweet: RecommendedTweetCreateInput) => {
-      console.log('recommendedTweet', recommendedTweet)
       return recommendTweet(recommendedTweet, token ?? undefined)
     },
     onSuccess: res => {
