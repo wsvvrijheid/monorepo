@@ -13,28 +13,10 @@ export const TWEET_MOCKS: Tweet[] = [
     image:
       'https://pbs.twimg.com/ext_tw_video_thumb/1475889728075538434/pu/img/w77p-wSzdcb_BgaQ.jpg',
     likes: 0,
-    videos: [
-      {
-        url: 'https://video.twimg.com/ext_tw_video/1475889728075538434/pu/pl/EI-bAODm0v5-ouTH.m3u8?tag=12&container=fmp4',
-        content_type: 'application/x-mpegURL',
-      },
-      {
-        url: 'https://video.twimg.com/ext_tw_video/1475889728075538434/pu/vid/480x852/CHZKcmBNU52Y7Sx7.mp4?tag=12',
-        bitrate: 950000,
-        content_type: 'video/mp4',
-      },
-      {
-        url: 'https://video.twimg.com/ext_tw_video/1475889728075538434/pu/vid/320x568/E1MjWQODM7Pohjc5.mp4?tag=12',
-        bitrate: 632000,
-        content_type: 'video/mp4',
-      },
-      {
-        url: 'https://video.twimg.com/ext_tw_video/1475889728075538434/pu/vid/720x1280/bPEmtdXqnrQwXpNe.mp4?tag=12',
-        bitrate: 2176000,
-        content_type: 'video/mp4',
-      },
-    ],
+    video:
+      'https://video.twimg.com/ext_tw_video/1475889728075538434/pu/vid/480x852/CHZKcmBNU52Y7Sx7.mp4?tag=12',
     retweets: 1747,
+    createdAt: '2021-10-29T13:00:00.000Z',
   },
   {
     id: '1476406721513988098',
@@ -48,6 +30,7 @@ export const TWEET_MOCKS: Tweet[] = [
     image: 'https://pbs.twimg.com/media/FH1AFfmWUAEoMYD.jpg',
     likes: 1441,
     retweets: 514,
+    createdAt: '2021-10-27T13:00:00.000Z',
   },
   {
     id: '1476259219758366724',
@@ -59,6 +42,7 @@ export const TWEET_MOCKS: Tweet[] = [
     },
     likes: 71,
     retweets: 69,
+    createdAt: '2021-10-27T03:00:00.000Z',
   },
   {
     id: '1478735502236860421',
@@ -72,6 +56,7 @@ export const TWEET_MOCKS: Tweet[] = [
     image: 'https://pbs.twimg.com/media/FHyzbvJXwA0Ova8.jpg',
     likes: 0,
     retweets: 27,
+    createdAt: '2021-10-30T13:00:00.000Z',
   },
   {
     id: '1478733431060238341',
@@ -84,6 +69,7 @@ export const TWEET_MOCKS: Tweet[] = [
     },
     likes: 0,
     retweets: 116,
+    createdAt: '2021-10-30T13:00:00.000Z',
   },
   {
     id: '1478716218857115655',
@@ -95,6 +81,7 @@ export const TWEET_MOCKS: Tweet[] = [
     },
     likes: 0,
     retweets: 64,
+    createdAt: '2021-10-30T13:00:00.000Z',
   },
   {
     id: '1478714884703539204',
@@ -108,6 +95,7 @@ export const TWEET_MOCKS: Tweet[] = [
     image: 'https://pbs.twimg.com/media/FH1AFfmWUAEoMYD.jpg',
     likes: 0,
     retweets: 514,
+    createdAt: '2021-10-30T13:00:00.000Z',
   },
   {
     id: '1478690043002822659',
@@ -121,6 +109,7 @@ export const TWEET_MOCKS: Tweet[] = [
     image: 'https://pbs.twimg.com/media/FH1AFfmWUAEoMYD.jpg',
     likes: 0,
     retweets: 514,
+    createdAt: '2021-10-30T13:00:00.000Z',
   },
   {
     id: '1478682132402913281',
@@ -132,6 +121,7 @@ export const TWEET_MOCKS: Tweet[] = [
     },
     likes: 0,
     retweets: 138,
+    createdAt: '2021-10-30T13:00:00.000Z',
   },
   {
     id: '1478651012189757440',
@@ -145,6 +135,7 @@ export const TWEET_MOCKS: Tweet[] = [
     image: 'https://pbs.twimg.com/media/FH1AFfmWUAEoMYD.jpg',
     likes: 0,
     retweets: 514,
+    createdAt: '2021-10-30T13:00:00.000Z',
   },
   {
     id: '1478563180397969408',
@@ -157,6 +148,7 @@ export const TWEET_MOCKS: Tweet[] = [
     },
     likes: 0,
     retweets: 79,
+    createdAt: '2021-10-30T13:00:00.000Z',
   },
   {
     id: '1478465381564133378',
@@ -169,6 +161,7 @@ export const TWEET_MOCKS: Tweet[] = [
     },
     likes: 0,
     retweets: 139,
+    createdAt: '2021-10-30T13:00:00.000Z',
   },
   {
     id: '1478445313006444544',
@@ -181,6 +174,7 @@ export const TWEET_MOCKS: Tweet[] = [
     },
     likes: 0,
     retweets: 417,
+    createdAt: '2021-10-30T13:00:00.000Z',
   },
   {
     id: '1478444870813556747',
@@ -194,6 +188,7 @@ export const TWEET_MOCKS: Tweet[] = [
     image: 'https://pbs.twimg.com/media/FHy0TM2X0AAU6qq.jpg',
     likes: 0,
     retweets: 409,
+    createdAt: '2021-10-30T13:00:00.000Z',
   },
   {
     id: '1478433962821398528',
@@ -206,6 +201,7 @@ export const TWEET_MOCKS: Tweet[] = [
     },
     likes: 0,
     retweets: 640,
+    createdAt: '2021-10-30T13:00:00.000Z',
   },
   {
     id: '1478335107194929152',
@@ -219,6 +215,7 @@ export const TWEET_MOCKS: Tweet[] = [
     image: 'https://pbs.twimg.com/media/FHy0VIwXMAEhN_x.jpg',
     likes: 0,
     retweets: 131,
+    createdAt: '2021-10-30T13:00:00.000Z',
   },
   {
     id: '1478327530096631809',
@@ -231,6 +228,7 @@ export const TWEET_MOCKS: Tweet[] = [
     },
     likes: 0,
     retweets: 640,
+    createdAt: '2021-10-30T13:00:00.000Z',
   },
   {
     id: '1478146407412662274',
@@ -243,6 +241,7 @@ export const TWEET_MOCKS: Tweet[] = [
     },
     likes: 0,
     retweets: 97,
+    createdAt: '2021-10-30T13:00:00.000Z',
   },
   {
     id: '1478146160581828610',
@@ -255,6 +254,7 @@ export const TWEET_MOCKS: Tweet[] = [
     },
     likes: 0,
     retweets: 122,
+    createdAt: '2021-10-30T13:00:00.000Z',
   },
   {
     id: '1478144313565622282',
@@ -267,6 +267,7 @@ export const TWEET_MOCKS: Tweet[] = [
     },
     likes: 0,
     retweets: 60,
+    createdAt: '2021-10-30T13:00:00.000Z',
   },
   {
     id: '1478139096488980482',
@@ -279,5 +280,6 @@ export const TWEET_MOCKS: Tweet[] = [
     },
     likes: 0,
     retweets: 245,
+    createdAt: '2021-10-30T13:00:00.000Z',
   },
 ]

@@ -19,7 +19,8 @@ import {
   useBoolean,
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { Mention, Post, TimelineTweet } from '@wsvvrijheid/types'
+import { useRecommendTweet } from '@wsvvrijheid/services'
+import { Mention, Post, Tweet } from '@wsvvrijheid/types'
 import { useForm } from 'react-hook-form'
 import { FiArrowUpRight } from 'react-icons/fi'
 import { GrFormClose } from 'react-icons/gr'
@@ -27,15 +28,16 @@ import stringSimilarity from 'string-similarity'
 import * as yup from 'yup'
 
 import { CreateTweetFormProps } from './types'
-import { ModelCreateModal, TweetText } from '../../admin'
+import { ModelCreateModal } from '../../admin'
 import { ModelSelect } from '../../admin/ModelForm/ModelSelect'
+import { TweetContent } from '../../admin/TweetContent'
 import { postFields, postSchema } from '../../data'
 import { useFileFromUrl } from '../../hooks'
 import { FormItem } from '../FormItem'
 
 const schema = yup.object({
   text: yup.string().required('Title is required'),
-  media: yup.mixed(),
+  image: yup.mixed(),
   mentions: yup.array().of(
     yup.object().shape({
       label: yup.string(),
@@ -47,7 +49,6 @@ const schema = yup.object({
 type FormFieldValues = yup.InferType<typeof schema>
 
 export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
-  onSubmit,
   isOpen,
   onClose,
   originalTweet,
@@ -59,17 +60,18 @@ export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
   const [isChangingImage, setIsChangingImage] = useBoolean(false)
   const [similarity, setSimilarity] = useState(0)
 
-  const mediaFile = useFileFromUrl(originalTweet?.media?.url)
+  const imageFile = useFileFromUrl(originalTweet?.image)
+
+  const { mutateAsync } = useRecommendTweet()
 
   if (isNews) {
-    originalTweet = { text: originalTweet.text } as TimelineTweet
+    originalTweet = { text: originalTweet.text } as Tweet
   }
 
   const defaultValues = {
     text: '',
-    mentions: [],
-    media: mediaFile,
-  } as unknown as TimelineTweet
+    image: imageFile,
+  }
 
   const {
     register,
@@ -85,44 +87,46 @@ export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
     defaultValues,
   })
 
-  useEffect(() => {
-    if (mediaFile) {
-      setValue('media', mediaFile)
-    }
-  }, [mediaFile, setValue, originalTweet?.media?.url])
+  // We don't need to upload the same image as the original tweet
+  // useEffect(() => {
+  //   if (imageFile) {
+  //     setValue('image', imageFile)
+  //   }
+  // }, [imageFile, setValue, originalTweet?.image])
 
-  const [text] = watch(['text'])
+  const [text, image] = watch(['text', 'image'])
 
   const newPost = {
     description: text,
     content: text,
-    image: { url: originalTweet?.media?.url },
+    image: { url: originalTweet?.image },
   } as Post
 
   useEffect(() => {
     const similarity =
       stringSimilarity.compareTwoStrings(
         text.toLowerCase(),
-        originalTweet.text.toLowerCase(),
+        originalTweet.text?.toLowerCase() || '',
       ) * 100
     setSimilarity(similarity)
   }, [text, originalTweet.text, setValue])
 
-  const onSubmitHandler = async (data: FormFieldValues) => {
-    const mentions = data.mentions?.map(mention => mention.value) || []
-
-    await onSubmit?.(
-      data?.text,
-      originalTweet,
-      mentions as unknown as number[],
-      data.media,
-    )
-    reset()
-  }
-
   const closeModal = () => {
     reset()
     onClose()
+  }
+
+  const handleRecommend = async (data: FormFieldValues) => {
+    const mentions = data.mentions?.map(mention => Number(mention.value)) || []
+
+    await mutateAsync({
+      originalTweet: JSON.parse(JSON.stringify(originalTweet)),
+      text: data.text,
+      mentions,
+      image,
+    })
+
+    closeModal()
   }
 
   return (
@@ -145,13 +149,13 @@ export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
             <Stack
               spacing={4}
               as="form"
-              onSubmit={handleSubmit(onSubmitHandler)}
+              onSubmit={handleSubmit(handleRecommend)}
             >
               <Stack>
                 <FormLabel fontWeight={600}>Original Tweet</FormLabel>
-                <TweetText
-                  isVertical={false}
-                  tweet={originalTweet}
+                <TweetContent
+                  horizontal
+                  tweet={originalTweet as Tweet}
                   isChangingImage={isChangingImage}
                   setIsChangingImage={setIsChangingImage}
                   setValue={setValue}

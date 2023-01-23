@@ -11,7 +11,7 @@ export const recommendedTweetSchema = yup.object({
       value: yup.string(),
     }),
   ),
-  media: yup.mixed(),
+  image: yup.mixed(),
 })
 
 export const recommendedTweetFields: FormFields<RecommendedTweet> = [
@@ -23,6 +23,5 @@ export const recommendedTweetFields: FormFields<RecommendedTweet> = [
     isMulti: true,
     fields: ['username', 'data'],
   },
-
-  { name: 'media' },
+  { name: 'image', type: 'file' },
 ]

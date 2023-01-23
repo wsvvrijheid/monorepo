@@ -2,7 +2,7 @@ import { Category } from './category'
 import { Comment } from './comment'
 import { Expand } from './common'
 import { UploadFile } from './file'
-import { StrapiBase, StrapiEntityBase } from './strapi'
+import { StrapiBase, StrapiCreatorRelation, StrapiEntityBase } from './strapi'
 import { Tag } from './tag'
 import { User } from './user'
 
@@ -47,4 +47,4 @@ export type BlogLocalizeInput = Omit<
   'approvalStatus' | 'likes' | 'views'
 >
 
-export type Blog = StrapiBase & BlogBase & BlogRelation
+export type Blog = StrapiBase & BlogBase & BlogRelation & StrapiCreatorRelation

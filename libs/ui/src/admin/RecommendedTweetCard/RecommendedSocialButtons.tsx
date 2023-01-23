@@ -53,7 +53,10 @@ export const RecommendedSocialButtons: FC<RecommendedSocialButtonsProps> = ({
       },
     })
   }
-  const mentions = tweet?.mentions?.map(mention => `@${mention}`).join(' ')
+
+  const mentions = tweet?.mentions
+    ?.map(mention => `@${mention?.username}`)
+    .join(' ')
   const quoteTweet = [tweet?.text, mentions].filter(a => !!a).join('\n\n')
 
   return (
@@ -86,7 +89,9 @@ export const RecommendedSocialButtons: FC<RecommendedSocialButtonsProps> = ({
           <PopoverArrow />
           <PopoverBody>
             <ShareButtons
-              url={tweet?.originalTweet?.media?.url}
+              // TODO: fix this
+              url="https://twitter.com"
+              // url={tweet?.originalTweet?.media?.url}
               quote={quoteTweet}
             />
           </PopoverBody>

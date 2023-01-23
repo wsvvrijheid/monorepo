@@ -32,6 +32,7 @@ const NewsBookmarkedPage = () => {
         schema={topicSchema}
         fields={topicFields}
         onSuccess={refetch}
+        buttonProps={{ mb: 4 }}
       >
         Create News
       </ModelCreateModal>
