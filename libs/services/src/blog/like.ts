@@ -93,10 +93,10 @@ export const useLikeBlog = (blog?: Blog | null, queryKey?: QueryKey) => {
 
           const isLiked = likersStorage?.some(id => id === blog.id)
           const updatedStorage = isLiked
-            ? likersStorage?.filter(id => id !== data.id)
-            : [...(likersStorage || []), data.id]
+            ? likersStorage?.filter(id => id !== data?.id)
+            : [...(likersStorage || []), data?.id]
 
-          setLikersStorage(updatedStorage)
+          setLikersStorage(updatedStorage as number[])
         },
       },
     )

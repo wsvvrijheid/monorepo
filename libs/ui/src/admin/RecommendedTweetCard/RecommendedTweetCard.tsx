@@ -15,7 +15,7 @@ import { TweetCard } from '../TweetCard'
 export const RecommendedTweetCard: FC<RecommendedTweetCardProps> = ({
   tweet,
 }) => {
-  const mapRecommenderToTweetUser = (creator?: User) => {
+  const mapRecommenderToTweetUser = (creator?: User | null) => {
     if (!creator) return
 
     return {

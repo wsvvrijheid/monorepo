@@ -28,8 +28,8 @@ export const useArtFeedbackMutation = () => {
       createFeedback({ art, editor, message, status, point: 1 }),
     onSuccess: res => {
       toast({
-        title: `Art ${res.approvalStatus}`,
-        description: `Art has been ${res.approvalStatus}`,
+        title: `Art ${res?.approvalStatus}`,
+        description: `Art has been ${res?.approvalStatus}`,
         status: 'success',
         duration: 5000,
         isClosable: true,
