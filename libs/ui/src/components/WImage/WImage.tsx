@@ -1,11 +1,8 @@
 import { FC, Fragment } from 'react'
 
-import {
-  AspectRatio,
-  Image,
-  ImageProps as ChakraImageProps,
-} from '@chakra-ui/react'
+import { AspectRatio, ImageProps as ChakraImageProps } from '@chakra-ui/react'
 import { FileFormatsType, UploadFile } from '@wsvvrijheid/types'
+import Image from 'next/image'
 import Zoom from 'react-medium-image-zoom'
 
 import { StrapiImage } from '../StrapiImage'
@@ -71,7 +68,13 @@ export const WImage: FC<WImageProps> = ({
     >
       <Wrapper {...(hasZoom && { zoomImg })}>
         {typeof src === 'string' ? (
-          <Image src={src} alt={alternativeText} objectFit={objectFit} />
+          <Image
+            unoptimized
+            fill
+            src={src}
+            alt={alternativeText}
+            style={{ objectFit }}
+          />
         ) : (
           <StrapiImage
             style={{ objectFit }}
