@@ -119,6 +119,11 @@ export type StrapiEntityBase = {
   locale: StrapiLocale
 }
 
+export type StrapiCreatorRelation = {
+  approver?: User | null
+  creator?: User | null
+}
+
 export type StrapiModel =
   | Activity
   | Announcement

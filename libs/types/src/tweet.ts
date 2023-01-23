@@ -1,30 +1,18 @@
-export interface Tweet {
-  id: string
-  user: {
-    name: string
-    username: string
-    profile: string
-  }
-  image?: string
-  videos?: {
-    bitrate?: number
-    content_type: string
-    url: string
-  }[]
-  text: string
-  likes: number
-  retweets: number
+export type TweetUserBase = {
+  name: string
+  username: string
+  profile: string
 }
 
-export type TimelineTweet = {
+export interface Tweet {
   id: string
+  user: TweetUserBase
+  image?: string
+  video?: string
   text: string
-  description?: string
-  media?: {
-    type: string
-    media_key: string
-    url?: string
-    preview_image_url?: string
-  }
-  created_at?: string
+  createdAt?: string
+  likes?: number
+  retweets?: number
+  replies?: number
+  impressions?: number
 }

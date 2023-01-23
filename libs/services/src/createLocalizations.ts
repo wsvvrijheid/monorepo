@@ -33,7 +33,7 @@ export const createLocalizations = async <T extends StrapiTranslatableModel>({
 
   const secondTranslationResponse = await Mutation.localize(
     url,
-    firstTranslationResponse.id,
+    firstTranslationResponse?.id as number,
     secondTranslation.locale as StrapiLocale,
     secondTranslation,
   )

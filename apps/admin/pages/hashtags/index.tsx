@@ -62,6 +62,7 @@ const MainHashtagsPage = () => {
         schema={mainHashtagSchema}
         fields={mainHashtagFields}
         onSuccess={hashtagsQuery.refetch}
+        buttonProps={{ mb: 4 }}
       >
         Create Hashtag
       </ModelCreateModal>

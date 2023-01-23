@@ -1,9 +1,11 @@
-'use strict';
+import { factories } from '@strapi/strapi'
 
-/**
- *  activity controller
- */
+export default factories.createCoreController('api::activity.activity', () => ({
+  async create(ctx) {
+    Object.assign((ctx.request.body as any).data, {
+      creator: ctx.state.user.id,
+    })
 
-import { factories } from '@strapi/strapi';
-
-export default factories.createCoreController('api::activity.activity');
+    return super.create(ctx)
+  },
+}))
