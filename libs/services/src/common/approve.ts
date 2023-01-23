@@ -30,7 +30,6 @@ export const useApproveModel = <T extends StrapiModel>(
     mutationFn: ({ id }: { id: number }) =>
       approveModel<T>(id, url, token ?? undefined),
     onSuccess: async res => {
-      console.log('res', res)
       const translatableRes = res as StrapiTranslatableModel
       const hasLocalizations = translatableRes?.localizations?.[0]
 

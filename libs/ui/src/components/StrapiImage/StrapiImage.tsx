@@ -20,13 +20,16 @@ const mapStrapiImage = (width: number, image: UploadFile) => {
     images.unshift(...formats)
   }
 
-  const imageToUse = images.find(image => image.width >= width) || images[0]
+  // Find the image that is closest in images array
+  const imageToUse = images.reduce((prev, curr) => {
+    return Math.abs(curr.width - width) < Math.abs(prev.width - width)
+      ? curr
+      : prev
+  }, images[0])
 
-  if (!imageToUse) {
-    console.warn('No image found for', image)
-  }
-
-  return imageToUse?.url
+  return imageToUse.url.startsWith('http')
+    ? imageToUse.url
+    : API_URL + imageToUse.url
 }
 
 export const StrapiImage: FC<StrapiImageProps> = ({
@@ -38,7 +41,7 @@ export const StrapiImage: FC<StrapiImageProps> = ({
 }) => {
   return (
     <Image
-      src={API_URL + image.url}
+      src={image.url.startsWith('http') ? image.url : API_URL + image.url}
       alt={alt || image.name}
       fill
       loader={({ width }) => mapStrapiImage(width, image)}
