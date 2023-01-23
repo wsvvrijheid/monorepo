@@ -26,22 +26,24 @@ const mapStrapiImage = (width: number, image: UploadFile) => {
     console.warn('No image found for', image)
   }
 
-  return API_URL + imageToUse?.url
+  return imageToUse?.url
 }
 
 export const StrapiImage: FC<StrapiImageProps> = ({
   image,
   alt,
   sizes,
+  unoptimized,
   ...rest
 }) => {
   return (
     <Image
-      src={image.url}
+      src={API_URL + image.url}
       alt={alt || image.name}
       fill
       loader={({ width }) => mapStrapiImage(width, image)}
       sizes={sizes || '100vw'}
+      unoptimized={image.url.includes('.svg') ? true : unoptimized}
       {...rest}
     />
   )
