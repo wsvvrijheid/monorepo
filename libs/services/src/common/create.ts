@@ -31,7 +31,6 @@ export const useCreateModelMutation = <
     mutationFn: (args: D) =>
       createModel<T, D>(url, args as D, token ?? undefined),
     onSuccess: res => {
-      console.log('res', res)
       toast({
         title: `Model created`,
         description: `Model ${

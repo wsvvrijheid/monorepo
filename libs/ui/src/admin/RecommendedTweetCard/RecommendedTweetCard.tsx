@@ -43,8 +43,6 @@ export const RecommendedTweetCard: FC<RecommendedTweetCardProps> = ({
     }
   }
 
-  console.log('tweet', tweet)
-
   return (
     <Stack
       bg={'white'}
