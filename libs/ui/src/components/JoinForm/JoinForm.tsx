@@ -21,9 +21,9 @@ import { TFunction } from 'next-i18next'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
-import { FormItem } from '../FormItem'
 import { heardFrom } from './data'
 import { JoinFormFieldValues, JoinFormFProps } from './types'
+import { FormItem } from '../FormItem'
 
 //TODO: @ekrem fix yup schema add methot and reduce opt.
 // Link: https://stackoverflow.com/questions/69176340/yup-addmethod-not-working-in-typescript-yup-version

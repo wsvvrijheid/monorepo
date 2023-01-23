@@ -2,8 +2,8 @@ import { FC } from 'react'
 
 import { Divider, HStack, Text, Box } from '@chakra-ui/react'
 import { Collection } from '@wsvvrijheid/types'
-import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
 import { MdCollectionsBookmark } from 'react-icons/md'
 
 import { Navigate } from '../Navigate'

@@ -2,7 +2,7 @@ import { Application } from './application'
 import { Category } from './category'
 import { Expand } from './common'
 import { UploadFile } from './file'
-import { StrapiBase, StrapiEntityBase } from './strapi'
+import { StrapiBase, StrapiCreatorRelation, StrapiEntityBase } from './strapi'
 
 type CompetitionBase = StrapiEntityBase & {
   date: string
@@ -41,4 +41,7 @@ export type CompetitionLocalizeInput = Omit<
   'approvalStatus' | 'likes' | 'views'
 >
 
-export type Competition = StrapiBase & CompetitionBase & CompetitionRelation
+export type Competition = StrapiBase &
+  CompetitionBase &
+  CompetitionRelation &
+  StrapiCreatorRelation

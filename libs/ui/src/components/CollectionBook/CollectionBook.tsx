@@ -4,11 +4,11 @@ import { Heading, VStack } from '@chakra-ui/react'
 import TinyColor from '@ctrl/tinycolor'
 import { IFlipSetting } from 'react-pageflip/build/html-flip-book/settings'
 
-import { WImage } from '../WImage'
 import { CollectionPages } from './CollectionPages'
 import FlipBook from './Flipbook'
 import { Page } from './Page'
 import { CollectionBookProps } from './types'
+import { WImage } from '../WImage'
 
 const defaultFlipboxProps: Partial<IFlipSetting> = {
   width: 500,
@@ -47,7 +47,7 @@ const CollectionBook: FC<CollectionBookProps> = ({
           <Heading color="red.500" fontFamily="club">
             {title}
           </Heading>
-          {logo && <WImage ratio={1} mx="auto" src={logo} alt="logo" />}
+          <WImage ratio={1} mx="auto" src={logo} alt="logo" />
           <Heading color="red.500" fontFamily="club">
             {collection.title}
           </Heading>

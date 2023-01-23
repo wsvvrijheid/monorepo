@@ -18,9 +18,9 @@ import {
   SocialButtons,
   ContactFormFieldValues,
 } from '@wsvvrijheid/ui'
+import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
-import { useRouter } from 'next/router'
 import { MdEmail } from 'react-icons/md'
 
 import { Layout } from '../components'

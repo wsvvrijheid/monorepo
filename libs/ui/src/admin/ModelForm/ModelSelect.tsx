@@ -2,9 +2,9 @@ import { useSearchModel } from '@wsvvrijheid/services'
 import { StrapiLocale, StrapiModel } from '@wsvvrijheid/types'
 import { useRouter } from 'next/router'
 
-import { WSelect } from '../../components'
 import { ModelSelectProps } from './types'
 import { mapModelsToOptions } from './utils'
+import { WSelect } from '../../components'
 
 export const ModelSelect = <T extends StrapiModel>({
   url,

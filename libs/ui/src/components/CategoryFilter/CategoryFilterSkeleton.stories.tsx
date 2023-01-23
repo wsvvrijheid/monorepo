@@ -1,8 +1,8 @@
 import { Box, Grid } from '@chakra-ui/react'
 import { ComponentStory, ComponentMeta } from '@storybook/react'
 
-import { Container } from '../Container'
 import { CategoryFilterSkeleton } from './CategoryFilterSkeleton'
+import { Container } from '../Container'
 
 export default {
   component: CategoryFilterSkeleton,

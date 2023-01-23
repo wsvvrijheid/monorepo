@@ -13,8 +13,8 @@ import {
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 
-import { Navigate } from '../../components'
 import { AdminNavItemProps } from './types'
+import { Navigate } from '../../components'
 
 export const AdminNavItemCollapsed: FC<AdminNavItemProps> = ({
   label,

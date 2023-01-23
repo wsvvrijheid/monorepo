@@ -6,6 +6,7 @@ import {
   StrapiModel,
   StrapiTranslatableModel,
   StrapiUrl,
+  UploadFile,
 } from '@wsvvrijheid/types'
 import { UseFormSetValue } from 'react-hook-form'
 import { IoMdCloudUpload } from 'react-icons/io'
@@ -61,7 +62,7 @@ export const ModelImage: FC<ModelImageProps> = ({
             />
           ) : (
             <WImage
-              src={modelWithImage?.image?.url as string}
+              src={modelWithImage?.image as UploadFile}
               alt={modelWithImage?.title}
               hasZoom
               objectFit="contain"

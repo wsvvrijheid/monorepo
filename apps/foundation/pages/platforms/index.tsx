@@ -5,8 +5,8 @@ import { searchModel } from '@wsvvrijheid/services'
 import { Platform } from '@wsvvrijheid/types'
 import { AnimatedBox, Container, Hero, Card } from '@wsvvrijheid/ui'
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useRouter } from 'next/router'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { Layout } from '../../components'
 import i18nConfig from '../../next-i18next.config'
@@ -31,7 +31,7 @@ const Platforms: FC<PlatformsProps> = ({ title, platforms }) => {
               <Card
                 title={project[`name_${locale}`]}
                 description={project[`description_${locale}`]}
-                image={project.image?.url}
+                image={project.image}
                 link={`/${locale}/platforms/${project.slug}`}
                 rounded
               />

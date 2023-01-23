@@ -12,9 +12,9 @@ import {
 import { StrapiLocale } from '@wsvvrijheid/types'
 import { useRouter } from 'next/router'
 
+import { HeaderNavItemProps, MenuTypeItemProps } from './types'
 import { useScroll } from '../../hooks'
 import { Navigate } from '../Navigate'
-import { HeaderNavItemProps, MenuTypeItemProps } from './types'
 
 export const ChildMenuItem: FC<MenuTypeItemProps> = ({ item, isDark }) => {
   const { asPath, locale } = useRouter()

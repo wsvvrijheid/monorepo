@@ -2,7 +2,7 @@ import { FC, useEffect, useRef } from 'react'
 
 import { Box } from '@chakra-ui/react'
 import { Options, Splide, SplideSlide } from '@splidejs/react-splide'
-import { Post } from '@wsvvrijheid/types'
+import { Post, UploadFile } from '@wsvvrijheid/types'
 
 import { WImage } from '../../components'
 
@@ -53,7 +53,7 @@ export const PostSlide: FC<PostSlideProps> = ({ posts, startIndex = 0 }) => {
             <Box as={SplideSlide} h="full !important" key={i}>
               {post.image && (
                 <WImage
-                  src={post.image?.url as string}
+                  src={post.image as UploadFile}
                   ratio="twitter"
                   alt={`post ${i}`}
                 />
@@ -73,7 +73,7 @@ export const PostSlide: FC<PostSlideProps> = ({ posts, startIndex = 0 }) => {
             >
               {post.image && (
                 <WImage
-                  src={post.image?.url as string}
+                  src={post.image as UploadFile}
                   ratio="twitter"
                   alt={`post ${i}`}
                 />
