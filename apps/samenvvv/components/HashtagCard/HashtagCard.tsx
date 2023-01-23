@@ -64,7 +64,7 @@ export const HashtagCard: FC<SliderHeroProps> = ({ item, type }) => {
       </Stack>
 
       <Box flex={1} h="full" w="full">
-        {item.image && <WImage overflow="hidden" src={item.image} />}
+        <WImage overflow="hidden" src={item.image} />
       </Box>
     </Grid>
   )

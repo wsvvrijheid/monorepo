@@ -49,7 +49,7 @@ export const HashtagsDrawer: FC<HashtagsDrawerProps> = ({
                 <Card
                   key={hashtag.id}
                   title={hashtag.title}
-                  image={hashtag.image?.url}
+                  image={hashtag.image}
                   description={hashtag.description}
                   link={link}
                 />

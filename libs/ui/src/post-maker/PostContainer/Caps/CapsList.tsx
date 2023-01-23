@@ -2,7 +2,7 @@ import { FC, memo } from 'react'
 
 import { Box, Stack, Text } from '@chakra-ui/react'
 import { useSetCurrentPost } from '@wsvvrijheid/services'
-import { Post } from '@wsvvrijheid/types'
+import { Post, UploadFile } from '@wsvvrijheid/types'
 import { useTranslation } from 'next-i18next'
 
 import { CapsItem } from './CapsItem'
@@ -50,7 +50,7 @@ export const CapsList: FC<CapsListProps> = memo(function CapsList({
             return (
               <CapsItem
                 key={i}
-                image={post.image?.url as string}
+                image={post.image as UploadFile}
                 id={post.id}
                 isShared={sharedPosts.includes(post.id)}
                 onCapsClick={setCurrentPost}

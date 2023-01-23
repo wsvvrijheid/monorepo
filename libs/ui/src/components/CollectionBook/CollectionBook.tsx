@@ -47,7 +47,7 @@ const CollectionBook: FC<CollectionBookProps> = ({
           <Heading color="red.500" fontFamily="club">
             {title}
           </Heading>
-          {logo && <WImage ratio={1} mx="auto" src={logo} alt="logo" />}
+          <WImage ratio={1} mx="auto" src={logo} alt="logo" />
           <Heading color="red.500" fontFamily="club">
             {collection.title}
           </Heading>

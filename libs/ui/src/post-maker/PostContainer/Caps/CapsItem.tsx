@@ -1,12 +1,13 @@
 import { FC, memo } from 'react'
 
 import { Box, Center } from '@chakra-ui/react'
+import { UploadFile } from '@wsvvrijheid/types'
 import { FaCheck } from 'react-icons/fa'
 
 import { WImage } from '../../../components'
 
 interface CapsItemProps {
-  image: string
+  image: UploadFile
   id: number
   isShared: boolean
   onCapsClick: (id: number) => void

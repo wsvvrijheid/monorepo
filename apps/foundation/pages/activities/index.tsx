@@ -31,7 +31,7 @@ export default function Activities({ activities, query, title, pagination }) {
                   <Card
                     title={activity.title}
                     description={activity.description}
-                    image={activity.image.url}
+                    image={activity.image}
                     link={`/${locale}/activities/${activity.slug}`}
                   />
                 </AnimatedBox>
