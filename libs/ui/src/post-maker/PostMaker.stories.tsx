@@ -2,9 +2,9 @@ import { useBreakpointValue } from '@chakra-ui/react'
 import { TourProvider } from '@reactour/tour'
 import { ComponentMeta, ComponentStory } from '@storybook/react'
 
+import { PostMaker } from './PostMaker'
 import { StepsContent } from '../components'
 import { usePostMakerSteps } from '../hooks'
-import { PostMaker } from './PostMaker'
 
 export default {
   title: 'PostMaker/PostMaker',

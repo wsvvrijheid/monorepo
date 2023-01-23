@@ -2,8 +2,8 @@ import { Box, Flex, SimpleGrid, Text, VStack } from '@chakra-ui/react'
 import { Story, Meta } from '@storybook/react'
 import { FILE_MOCKS, IMAGE_MOCK } from '@wsvvrijheid/mocks'
 
-import { Container } from '../Container'
 import { WImage, WImageProps } from './WImage'
+import { Container } from '../Container'
 
 export default {
   component: WImage,

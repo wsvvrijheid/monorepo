@@ -1,8 +1,8 @@
 import { Story, Meta } from '@storybook/react'
 
+import { Layout, LayoutProps } from './Layout'
 import { FOOTER_MENU, HEADER_MENU, PROFILE, SOCIAL_LINKS } from '../../mocks'
 import { Hero } from '../Hero/Hero'
-import { Layout, LayoutProps } from './Layout'
 
 export default {
   component: Layout,

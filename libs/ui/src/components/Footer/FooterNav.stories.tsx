@@ -1,9 +1,9 @@
 import { Box } from '@chakra-ui/react'
 import { Meta, Story } from '@storybook/react'
 
-import { FOOTER_MENU } from '../../mocks'
 import { FooterNav } from './FooterNav'
 import { FooterNavProps } from './types'
+import { FOOTER_MENU } from '../../mocks'
 
 export default {
   component: FooterNav,

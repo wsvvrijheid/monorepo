@@ -16,13 +16,13 @@ import {
   useAppDispatch,
   useAuthSelector,
 } from '@wsvvrijheid/store'
-import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
 import { FiLogIn, FiLogOut } from 'react-icons/fi'
 
+import { ProfileMenuProps } from './types'
 import { useScroll } from '../../hooks'
 import { Navigate } from '../Navigate'
-import { ProfileMenuProps } from './types'
 
 export const ProfileMenu: FC<ProfileMenuProps> = ({ isDark, menu }) => {
   const dispatch = useAppDispatch()

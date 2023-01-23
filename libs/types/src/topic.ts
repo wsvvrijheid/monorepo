@@ -2,6 +2,7 @@ import { StrapiLocale } from './locale'
 import { StrapiBase } from './strapi'
 
 export type TopicBase = {
+  id?: number
   url: string
   title?: string
   description?: string

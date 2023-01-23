@@ -1,8 +1,8 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react'
 import { COMMENT_MOCKS } from '@wsvvrijheid/mocks'
 
-import { Container } from '../Container'
 import { CommentList } from './CommentList'
+import { Container } from '../Container'
 
 export default {
   component: CommentList,

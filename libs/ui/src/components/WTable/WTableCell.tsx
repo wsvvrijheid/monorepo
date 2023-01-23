@@ -4,9 +4,9 @@ import { Avatar, Badge, Td, Tooltip, Box } from '@chakra-ui/react'
 import { API_URL } from '@wsvvrijheid/config'
 import { StrapiModel, UploadFile } from '@wsvvrijheid/types'
 
+import { WTableCellProps } from './types'
 import { FormattedDate } from '../FormattedDate'
 import { WImage } from '../WImage'
-import { WTableCellProps } from './types'
 
 export const WTableCell = <T extends StrapiModel>({
   value,
@@ -48,7 +48,7 @@ export const WTableCell = <T extends StrapiModel>({
         bg="white"
         rounded="md"
         size="lg"
-        label={<WImage h={150} w={300} src={image} />}
+        label={<WImage h={150} w={300} src={image} sizes={'720px'} />}
       >
         <Avatar size="md" src={`${API_URL}${thumbnail}`} />
       </Tooltip>

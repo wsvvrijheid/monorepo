@@ -2,34 +2,20 @@ import { FC, Fragment } from 'react'
 
 import { AspectRatio, ImageProps as ChakraImageProps } from '@chakra-ui/react'
 import { FileFormatsType, UploadFile } from '@wsvvrijheid/types'
-import { getImageUrl } from '@wsvvrijheid/utils'
 import Image from 'next/image'
 import Zoom from 'react-medium-image-zoom'
 
-// const shimmer = (
-//   width: number,
-//   height: number,
-// ) => `<svg width="${width}" height="${height}" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-//         <defs>
-//           <linearGradient id="g">
-//             <stop stop-color="#ccc" offset="20%" />
-//             <stop stop-color="#eee" offset="50%" />
-//             <stop stop-color="#ccc" offset="70%" />
-//           </linearGradient>
-//         </defs>
-//         <rect width="${width}" height="${height}" fill="#E2E8F0" />
-//         <rect id="r" width="${width}" height="${height}" fill="url(#g)" />
-//         <animate xlink:href="#r" attributeName="x" from="-${width}" to="${width}" dur="1s" repeatCount="indefinite"  />
-//       </svg>`
+import { StrapiImage } from '../StrapiImage'
 
 export type WImageProps = {
   ratio?: number | 'twitter'
   format?: FileFormatsType
-  src: UploadFile | string
+  src?: UploadFile | string
   alt?: string
   hasZoom?: boolean
   fill?: boolean
   objectFit?: 'cover' | 'contain' | 'fill' | 'none' | 'scale-down'
+  unoptimized?: boolean
 } & Omit<ChakraImageProps, 'objectFit' | 'src' | 'fill'>
 
 // TODO: add loader
@@ -41,41 +27,63 @@ export const WImage: FC<WImageProps> = ({
   objectFit = 'cover',
   fill = true,
   hasZoom,
+  sizes,
+  unoptimized,
   ...rest
 }) => {
-  const source = getImageUrl(src, format)
-  // const thumbnailSrc = getImageUrl(src, 'thumbnail')
+  if (!src) {
+    console.warn('No src provided to WImage')
+    return null
+  }
 
-  const alternativeText = alt || (src as UploadFile)?.alternativeText || 'image'
-
-  // const blurDataURL =
-  //   thumbnailSrc || `data:image/svg+xml;base64,${toBase64(shimmer(60, 60))}`
-
-  const height = rest.height
-  const width = rest.width
-  const hasDimensions = width && height
+  const alternativeText = alt || 'image'
 
   const Wrapper = hasZoom ? Zoom : Fragment
 
+  const zoomImg =
+    typeof src === 'string'
+      ? { src }
+      : {
+          // If the image is larger than largest format (1080px), use the original size
+          // Otherwise, use the largest format
+          src:
+            (src.width as number) < 1080
+              ? src.formats?.large?.url || src.url
+              : src.url,
+        }
+
   return (
     <AspectRatio
-      ratio={hasDimensions ? 0 : ratio === 'twitter' ? 1200 / 675 : ratio}
+      ratio={ratio === 'twitter' ? 1200 / 675 : ratio}
       overflow="hidden"
       boxSize="full"
       pos="relative"
+      sx={{
+        '[data-rmiz-content]': {
+          position: 'relative',
+          boxSize: 'full',
+        },
+      }}
       {...rest}
     >
-      <Wrapper {...(hasZoom && { ...rest })}>
-        <Image
-          style={{ objectFit }}
-          fill={hasDimensions ? undefined : fill}
-          src={source}
-          alt={alternativeText}
-          {...(hasDimensions && {
-            width: parseInt(width as string, 10),
-            height: parseInt(height as string, 10),
-          })}
-        />
+      <Wrapper {...(hasZoom && { zoomImg })}>
+        {typeof src === 'string' ? (
+          <Image
+            unoptimized
+            fill
+            src={src}
+            alt={alternativeText}
+            style={{ objectFit }}
+          />
+        ) : (
+          <StrapiImage
+            style={{ objectFit }}
+            image={src}
+            alt={alternativeText}
+            sizes={sizes}
+            unoptimized={unoptimized}
+          />
+        )}
       </Wrapper>
     </AspectRatio>
   )

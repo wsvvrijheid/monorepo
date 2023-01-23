@@ -1,7 +1,7 @@
 import { Story, Meta } from '@storybook/react'
 
-import { SOURCE_MOCKS } from '../../mocks'
 import { PlatformTemplate, PlatformTemplateProps } from './PlatformTemplate'
+import { SOURCE_MOCKS } from '../../mocks'
 
 export default {
   component: PlatformTemplate,

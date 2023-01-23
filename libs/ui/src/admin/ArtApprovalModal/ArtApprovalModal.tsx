@@ -17,9 +17,9 @@ import {
   Textarea,
 } from '@chakra-ui/react'
 
-import { WImage } from '../../components'
 import { ArtFeedbackForm } from './ArtFeedbackForm'
 import { ArtApprovalTypes } from './types'
+import { WImage } from '../../components'
 
 export const ArtApprovalModal: FC<ArtApprovalTypes> = ({
   onReject,

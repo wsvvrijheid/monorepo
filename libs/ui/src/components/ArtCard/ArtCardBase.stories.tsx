@@ -3,9 +3,9 @@ import { useState } from 'react'
 import { ComponentStory, ComponentMeta } from '@storybook/react'
 import { ART_MOCKS, USER_MOCKS } from '@wsvvrijheid/mocks'
 
-import { Container } from '../Container'
 import { ArtCardBase } from './ArtCardBase'
 import { ArtActions } from './types'
+import { Container } from '../Container'
 
 export default {
   component: ArtCardBase,

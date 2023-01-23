@@ -83,6 +83,16 @@
       "relation": "oneToMany",
       "target": "api::art.art",
       "mappedBy": "collection"
+    },
+    "approver": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "creator": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
     }
   }
 }

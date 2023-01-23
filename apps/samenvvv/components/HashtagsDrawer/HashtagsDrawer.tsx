@@ -12,8 +12,8 @@ import {
 import { Hashtag, StrapiLocale } from '@wsvvrijheid/types'
 import { Card } from '@wsvvrijheid/ui'
 import { getItemLink } from '@wsvvrijheid/utils'
-import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
 
 type HashtagsDrawerProps = {
   isOpen: boolean
@@ -49,7 +49,7 @@ export const HashtagsDrawer: FC<HashtagsDrawerProps> = ({
                 <Card
                   key={hashtag.id}
                   title={hashtag.title}
-                  image={hashtag.image?.url}
+                  image={hashtag.image}
                   description={hashtag.description}
                   link={link}
                 />
