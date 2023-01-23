@@ -12,6 +12,11 @@ import { parse } from 'qs'
 export type SearchModelArgs<T extends StrapiModel> = {
   capsStatuses?: ApprovalStatus[]
   categories?: string
+  fields?: (keyof T)[]
+  relationFilter?: {
+    parent: keyof T
+    ids: number[]
+  }
   locale?: StrapiLocale
   page?: number
   pageSize?: number
@@ -19,7 +24,6 @@ export type SearchModelArgs<T extends StrapiModel> = {
   publicationState?: 'live' | 'preview'
   searchFields?: (keyof T)[]
   searchTerm?: string
-  fields?: (keyof T)[]
   sort?: Sort
   statuses?: ApprovalStatus[]
   url: StrapiUrl
@@ -30,6 +34,7 @@ export const searchModel = async <T extends StrapiModel>({
   capsStatuses,
   categories,
   fields,
+  relationFilter,
   locale = 'tr',
   page = 1,
   pageSize,
@@ -85,16 +90,15 @@ export const searchModel = async <T extends StrapiModel>({
     'api/platforms',
   ]
 
-  const hasStatus = !urlsWithoutStatus.includes(url)
+  const hasStatus = statuses && !urlsWithoutStatus.includes(url)
   const hasLocale = !urlsWithoutLocale.includes(url)
-  const hasCapsStatus = url === 'api/posts'
+  const hasCapsStatus = capsStatuses && url === 'api/posts'
 
   const filterFields = fields?.map(field => {
-    if (urlsWithLocalizedNames.includes(url)) {
+    if (urlsWithLocalizedNames.includes(url))
       return `${String(field)}_${locale}`
-    } else {
-      return field
-    }
+
+    return field
   })
 
   const searchFilter = searchTerm && {
@@ -105,54 +109,48 @@ export const searchModel = async <T extends StrapiModel>({
     })),
   }
 
-  const statusFilter = statuses &&
-    hasStatus && {
-      $or: statuses.map(status => ({
-        approvalStatus: {
-          $eq: status,
-        },
-      })),
-    }
+  const statusFilter = hasStatus && { approvalStatus: { $in: statuses } }
 
-  const capsStatusFilter = capsStatuses &&
-    hasCapsStatus && {
-      $or: capsStatuses?.map(status => ({
-        capsStatus: {
-          $eq: status,
-        },
-      })),
-    }
+  const capsStatusFilter = hasCapsStatus && {
+    capsStatus: { $in: capsStatuses },
+  }
 
-  let userFilter = {}
-  let categoryFilter = {}
+  let userFilter
+  let categoryFilter
 
   if (url === 'api/arts') {
     if (username) {
       userFilter = {
-        artist: {
-          username: {
-            $containsi: searchTerm || username,
-          },
-        },
+        artist: { username: { $containsi: searchTerm || username } },
       }
     }
 
     if (categories) {
-      categoryFilter = {
-        slug: {
-          $in: Object.values(parse(categories)),
-        },
-      }
+      categoryFilter = { slug: { $in: Object.values(parse(categories)) } }
     }
   }
 
-  const filters: { [key: string]: unknown } = {
-    ...(searchFilter || {}),
-    ...(statusFilter || {}),
-    ...(capsStatusFilter || {}),
-    ...(userFilter || {}),
-    ...(categoryFilter || {}),
-  }
+  const filterRelation = relationFilter?.ids
+    ? relationFilter.ids?.length > 0 && {
+        [relationFilter.parent]: { id: { $in: relationFilter.ids } },
+      }
+    : undefined
+
+  const filtersArray = [
+    searchFilter,
+    statusFilter,
+    capsStatusFilter,
+    userFilter,
+    categoryFilter,
+    filterRelation,
+  ].filter(Boolean)
+
+  const filters =
+    filtersArray && filtersArray.length > 0
+      ? {
+          $and: filtersArray,
+        }
+      : undefined
 
   return Request.collection<T[]>({
     url,
@@ -171,7 +169,7 @@ export const useSearchModel = <T extends StrapiModel>(
   args: SearchModelArgs<T>,
 ) => {
   return useQuery({
-    queryKey: Object.values(args),
+    queryKey: Object.entries(args),
     queryFn: () => searchModel<T>(args),
     keepPreviousData: true,
   })

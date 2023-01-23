@@ -78,14 +78,19 @@ export const mutation = async <
     requestBody = generateFormData<D>(body)
   }
 
-  const response = await axios[method]<StrapiMutationResponse<T>>(
-    requestUrl,
-    requestBody,
-    {
-      baseURL: API_URL,
-      headers: { Authorization: `Bearer ${token}` },
-    },
-  )
+  try {
+    const response = await axios[method]<StrapiMutationResponse<T>>(
+      requestUrl,
+      requestBody,
+      {
+        baseURL: API_URL,
+        headers: { Authorization: `Bearer ${token}` },
+      },
+    )
 
-  return response.data?.data || null
+    return response.data?.data || null
+  } catch (error) {
+    console.log('EEEERROR', error)
+    return null
+  }
 }

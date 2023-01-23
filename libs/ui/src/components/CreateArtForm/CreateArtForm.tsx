@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef, useState } from 'react'
+import { FC, useRef, useState } from 'react'
 
 import {
   Box,
@@ -97,14 +97,6 @@ export const CreateArtForm: FC<CreateArtFormProps> = ({ queryKey }) => {
     setValue,
     ...(typeof window !== 'undefined' && { storage: window.sessionStorage }),
   })
-
-  useEffect(
-    () => () => {
-      // Make sure to revoke the data uris to avoid memory leaks
-      URL.revokeObjectURL((image as any).preview)
-    },
-    [image],
-  )
 
   const { mutate, isLoading } = useCreateModelMutation('api/arts')
 

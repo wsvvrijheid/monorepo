@@ -14,15 +14,15 @@ import {
   Tooltip,
   VStack,
 } from '@chakra-ui/react'
-import { TweetUserData } from '@wsvvrijheid/types'
 import { formatNumber } from '@wsvvrijheid/utils'
 import { useTranslation } from 'next-i18next'
 import { FaPlus, FaTimes } from 'react-icons/fa'
+import { UserV1 } from 'twitter-api-v2'
 
 interface MentionListItemProps {
-  data: TweetUserData
-  onAddItem: (value: TweetUserData) => void
-  onRemoveItem?: (value: TweetUserData) => void
+  data: UserV1
+  onAddItem: (value: UserV1) => void
+  onRemoveItem?: (value: UserV1) => void
 }
 
 const MentionListItem: FC<MentionListItemProps> = ({

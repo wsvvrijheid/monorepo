@@ -61,6 +61,7 @@ const CollectionsPage = () => {
         schema={collectionSchema}
         fields={collectionFields}
         onSuccess={collectionsQuery.refetch}
+        buttonProps={{ mb: 4 }}
       >
         Create Collection
       </ModelCreateModal>

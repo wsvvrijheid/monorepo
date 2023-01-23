@@ -1,7 +1,8 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { API_URL, TOKEN } from '@wsvvrijheid/config'
-import { Mention, TweetUserData } from '@wsvvrijheid/types'
+import { Mention } from '@wsvvrijheid/types'
 import axios from 'axios'
+import { UserV1 } from 'twitter-api-v2'
 
 const LOCAL_STORAGE_MENTIONS_KEY = 'mentions'
 const LOCAL_STORAGE_SHARED_POSTS_KEY = 'sharedPosts'
@@ -9,7 +10,7 @@ const TWITTER_CHAR_LIMIT = 280
 const TWITTER_LINK_CHAR_COUNT = 23 + 2 // 2 chars is because of the library leaves spaces before/after the link
 const availableCount = TWITTER_CHAR_LIMIT - TWITTER_LINK_CHAR_COUNT
 
-const searchedMentionsStorage: TweetUserData[] =
+const searchedMentionsStorage: UserV1[] =
   typeof window !== 'undefined' &&
   localStorage.getItem(LOCAL_STORAGE_MENTIONS_KEY)
     ? JSON.parse(localStorage.getItem(LOCAL_STORAGE_MENTIONS_KEY) as string)
@@ -57,8 +58,8 @@ export type PostState = {
   mentions: Mention[]
   postContent: string
   postText: string
-  savedMentions: TweetUserData[]
-  searchedMentions: TweetUserData[]
+  savedMentions: UserV1[]
+  searchedMentions: UserV1[]
   sharedPosts: number[]
   threshold: number
   trendNames: string[]
@@ -94,7 +95,7 @@ export const fetchSearchedMentions = createAsyncThunk(
         Authorization: `Bearer ${TOKEN}`,
       },
     })
-    const rawData = response.data as TweetUserData[]
+    const rawData = response.data as UserV1[]
 
     return rawData.sort((a, b) => b.followers_count - a.followers_count)
   },
@@ -142,10 +143,7 @@ export const postSlice = createSlice({
       )
       state.savedMentions = savedList
     },
-    updateSavedSearchedMentions: (
-      state,
-      action: PayloadAction<TweetUserData>,
-    ) => {
+    updateSavedSearchedMentions: (state, action: PayloadAction<UserV1>) => {
       state.savedMentions.push(action.payload)
       localStorage.setItem(
         LOCAL_STORAGE_MENTIONS_KEY,

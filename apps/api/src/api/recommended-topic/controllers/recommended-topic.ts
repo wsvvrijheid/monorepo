@@ -5,7 +5,7 @@
  */
 
 import { factories } from '@strapi/strapi'
-import { RecommendedTopic, Topic } from '../../../libs/topics/utils/types'
+import { RecommendedTopic } from '../../../libs/topics/utils/types'
 
 export default factories.createCoreController(
   'api::recommended-topic.recommended-topic',
@@ -24,9 +24,10 @@ export default factories.createCoreController(
         },
       )
 
-      await strapi
-        .service('api::topic.topic')
-        .createOrUpdate({ data: { data: newTopics }, meta: {} })
+      await strapi.service('api::topic.topic').createOrUpdate({
+        data: { data: newTopics, creator: ctx.state.user.id },
+        meta: {},
+      })
 
       return result
     },

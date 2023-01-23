@@ -16,9 +16,9 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '@wsvvrijheid/store'
-import { TweetUserData } from '@wsvvrijheid/types'
 import dynamic from 'next/dynamic'
 import { useTranslation } from 'next-i18next'
+import { UserV1 } from 'twitter-api-v2'
 
 import { MentionListSkeleton } from './MentionListSkeleton'
 import { MentionSearch } from './MentionSearch'
@@ -40,21 +40,21 @@ export const MentionList = () => {
   const dispatch = useAppDispatch()
   const { t } = useTranslation()
 
-  const onAddMention = (value: TweetUserData) => {
+  const onAddMention = (value: UserV1) => {
     if (value.screen_name) {
       dispatch(addMentionUsername(value.screen_name))
       dispatch(resetMentions())
     }
   }
 
-  const onRemoveMention = (value: TweetUserData) => {
+  const onRemoveMention = (value: UserV1) => {
     if (value.screen_name) {
       dispatch(removeSavedMention(value.screen_name))
       dispatch(resetMentions())
     }
   }
 
-  const onAddUserMention = (value: TweetUserData) => {
+  const onAddUserMention = (value: UserV1) => {
     onAddMention(value)
     dispatch(updateSavedSearchedMentions(value))
     dispatch(clearSearchedMentions())
@@ -105,7 +105,7 @@ export const MentionList = () => {
                   ?.map(({ data }, i) => (
                     <MentionListItem
                       key={i}
-                      data={data as TweetUserData}
+                      data={data as UserV1}
                       onAddItem={onAddMention}
                     />
                   ))
