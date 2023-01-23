@@ -1,4 +1,5 @@
 import { twitterApi } from '../../../../src/libs/twitter/client'
+import { getUserTweets } from '../../../../src/libs/twitter/getUserTweets'
 
 export default async ({ strapi }) => {
   try {
@@ -12,31 +13,7 @@ export default async ({ strapi }) => {
         screen_name: attributes.username,
       })
 
-      const tweetsResponse = await twitterApi.v2.userTimeline(userData.id_str, {
-        max_results: 50,
-        expansions: ['attachments.media_keys'],
-        'tweet.fields': ['created_at'],
-        'media.fields': ['preview_image_url', 'url'],
-        exclude: 'retweets',
-      })
-
-      const tweetsData = tweetsResponse?.data.data
-      const includes = tweetsResponse?.data.includes
-
-      const tweets = tweetsData?.map(
-        ({ id, text, created_at, attachments }) => {
-          let media = includes?.media?.find(
-            media => media.media_key === attachments?.media_keys?.[0],
-          )
-
-          return {
-            id,
-            text,
-            created_at,
-            media,
-          }
-        },
-      )
+      const tweets = await getUserTweets(userData.id_str)
 
       await strapi.service('api::timeline.timeline').update(id, {
         data: {

@@ -95,10 +95,10 @@ export const useLikeArt = (art?: Art | null, queryKey?: QueryKey) => {
 
           const isLiked = likersStorage?.some(id => id === art.id)
           const updatedStorage = isLiked
-            ? likersStorage?.filter(id => id !== data.id)
-            : [...(likersStorage || []), data.id]
+            ? likersStorage?.filter(id => id !== data?.id)
+            : [...(likersStorage || []), data?.id]
 
-          setLikersStorage(updatedStorage)
+          setLikersStorage(updatedStorage as number[])
         },
       },
     )
