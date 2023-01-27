@@ -5,13 +5,13 @@ import { useRouter } from 'next/router'
 
 export const getArtByArtist = async (
   locale: StrapiLocale,
-  id: number,
+  userId: number,
   publicationState: PublicationState = 'live',
 ) => {
   const response = await Request.collection<Art[]>({
     url: 'api/arts',
     filters: {
-      artist: { id: { $eq: id } },
+      artist: { id: { $eq: userId || null } },
     },
     populate: [
       'artist.avatar',
@@ -29,14 +29,19 @@ export const getArtByArtist = async (
 }
 
 export const useArtByArtist = (
-  id?: number,
+  userId?: number,
   publicationState?: PublicationState,
 ) => {
   const router = useRouter()
   const locale = router.locale
+
   return useQuery({
-    queryKey: ['user-art', locale, id],
+    queryKey: ['user-art', locale, userId],
     queryFn: () =>
-      getArtByArtist(locale as StrapiLocale, id as number, publicationState),
+      getArtByArtist(
+        locale as StrapiLocale,
+        userId as number,
+        publicationState,
+      ),
   })
 }
