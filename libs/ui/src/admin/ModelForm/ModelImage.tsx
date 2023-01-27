@@ -36,7 +36,7 @@ export const ModelImage: FC<ModelImageProps> = ({
   setIsChangingImage,
   url,
 }) => {
-  const { image, title, description } = model as StrapiTranslatableModel
+  const { image, title, description } = (model || {}) as StrapiTranslatableModel
 
   const modelImageUrl = image?.url
 
