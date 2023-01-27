@@ -8,7 +8,7 @@ import {
 } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { defaultSeo, themes } from '@wsvvrijheid/config'
-import { store } from '@wsvvrijheid/store'
+import { checkAuth, store } from '@wsvvrijheid/store'
 import { pageview } from '@wsvvrijheid/utils'
 import { useRouter } from 'next/router'
 import { appWithTranslation } from 'next-i18next'
@@ -30,6 +30,10 @@ const { ToastContainer } = createStandaloneToast()
 function MyApp({ Component, pageProps }) {
   const [queryClient] = useState(() => new QueryClient())
   const router = useRouter()
+
+  useEffect(() => {
+    store.dispatch(checkAuth())
+  }, [])
 
   useEffect(() => {
     const handleRouteChange = url => pageview(url)
