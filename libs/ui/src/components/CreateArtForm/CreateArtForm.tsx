@@ -109,13 +109,12 @@ export const CreateArtForm: FC<CreateArtFormProps> = ({ queryKey }) => {
     const formBody = {
       ...data,
       slug,
-      artist: auth.user.id,
-      categories: data.categories?.map(c => Number(c.value)),
+      categories: data.categories?.map(c => Number(c.value)) || [],
     }
 
     mutate(formBody, {
       onSuccess: () => {
-        formDisclosure.onClose()
+        closeForm()
         successDisclosure.onOpen()
       },
       onError: () => {
