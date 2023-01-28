@@ -8,7 +8,8 @@ import {
   Text,
   useBoolean,
 } from '@chakra-ui/react'
-import { StrapiModel } from '@wsvvrijheid/types'
+import { API_URL } from '@wsvvrijheid/config'
+import { RecommendedTweet, StrapiModel } from '@wsvvrijheid/types'
 import { formatDistanceToNow } from 'date-fns'
 import { FaPlayCircle } from 'react-icons/fa'
 import ReactPlayer from 'react-player'
@@ -29,6 +30,14 @@ export const TweetContent: FC<TweetContentProps> = ({
 
   if (!tweet) return null
 
+  const originalTweetUrl = (tweet as unknown as RecommendedTweet).originalTweet
+    ?.image
+
+  const imageUrl =
+    tweet.image && tweet.image.startsWith('http')
+      ? tweet.image
+      : `${API_URL}${tweet.image}`
+
   return (
     <Stack spacing={4}>
       <SimpleGrid columns={{ base: 1, lg: horizontal ? 2 : 1 }} gap={2}>
@@ -44,7 +53,7 @@ export const TweetContent: FC<TweetContentProps> = ({
               isEditing={true}
               model={
                 {
-                  image: { url: tweet.image },
+                  image: { url: imageUrl || originalTweetUrl },
                 } as unknown as StrapiModel
               }
               setValue={setValue}

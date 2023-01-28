@@ -28,7 +28,6 @@ export const ArtFeedbackForm: FC<ArtFeedbackFormTypes> = ({
   onApprove,
   onDelete,
   artId,
-  editorId,
   editorAvatar,
   editorName,
   updateField,
@@ -39,8 +38,8 @@ export const ArtFeedbackForm: FC<ArtFeedbackFormTypes> = ({
 }) => {
   const [feedback, setFeedback] = useState('')
 
-  const handleReject = () => onReject(artId, editorId, feedback)
-  const handleApprove = () => onApprove(artId, editorId, feedback)
+  const handleReject = () => onReject(artId, feedback)
+  const handleApprove = () => onApprove(artId, feedback)
   const handleDelete = () => onDelete(artId)
   const handlePublish = () => onPublish(artId)
   const handleUnPublish = () => unPublish(artId)

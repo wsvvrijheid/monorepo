@@ -2551,10 +2551,10 @@
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/@leichtgewicht/ip-codec/-/ip-codec-2.0.4.tgz#b2ac626d6cb9c8718ab459166d4bb405b8ffa78b"
 
-"@mands/nx-playwright@^0.1.30":
-  version "0.1.30"
-  resolved "https://registry.yarnpkg.com/@mands/nx-playwright/-/nx-playwright-0.1.30.tgz#d2b0a2f394eef63aa7a1293212223844dd683341"
-  integrity sha512-F3H8Dby6quksc+BcOJiVpozZ38Uo36AFJ5QCGq5jsyQvKffNpXI24NoRxqmNpxjQ2a2FY6bDA20QdJVEHiaV4Q==
+"@mands/nx-playwright@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@mands/nx-playwright/-/nx-playwright-0.2.0.tgz#145bc450e3ec8fdd54476b2d0e1308f8b71aa8f6"
+  integrity sha512-EuEtKWvQjy4PGf0p7qNHnZB/9QmsIgBTW+ZgUYNmm5c1k/Is7e0DOC8KRn89opmICyuopsAnh6G0CXNcybozWQ==
 
 "@mdx-js/mdx@^1.6.22":
   version "1.6.22"
@@ -5295,11 +5295,12 @@
     classnames "^2.2.6"
     preact "^10.5.13"
 
-"@uppy/react@^3.0.2":
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/@uppy/react/-/react-3.0.2.tgz#38a58c8e5f01839e504254620f9e39bb30bf4406"
+"@uppy/react@^3.1.0":
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/@uppy/react/-/react-3.1.0.tgz#1dc8fa5e2b21b548c8e242c072956994a34439f6"
+  integrity sha512-KEhmwaCM3iyni7HSj+5fyGKZdn2rQjRyXRW0Gga/28ZkUX10m8LFYhmcwsRTlpHXhgGogFK9pqwQmN/ZdmtZZQ==
   dependencies:
-    "@uppy/utils" "^5.0.2"
+    "@uppy/utils" "^5.1.2"
     prop-types "^15.6.1"
 
 "@uppy/status-bar@^3.0.1":
@@ -6113,12 +6114,14 @@ axe-core@^4.6.2:
   version "4.6.2"
   resolved "https://registry.yarnpkg.com/axe-core/-/axe-core-4.6.2.tgz#6e566ab2a3d29e415f5115bc0fd2597a5eb3e5e3"
 
-axios@0.27.2:
-  version "0.27.2"
-  resolved "https://registry.yarnpkg.com/axios/-/axios-0.27.2.tgz#207658cc8621606e586c85db4b41a750e756d972"
+axios@1.2.5:
+  version "1.2.5"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-1.2.5.tgz#858c129d286e7ee3b1e970961cde410ba3ea3740"
+  integrity sha512-9pU/8mmjSSOb4CXVsvGIevN+MlO/t9OWtKadTaLuN85Gge3HGorUckgp8A/2FH4V4hJ7JuQ3LIeI7KAV9ITZrQ==
   dependencies:
-    follow-redirects "^1.14.9"
+    follow-redirects "^1.15.0"
     form-data "^4.0.0"
+    proxy-from-env "^1.1.0"
 
 axios@^0.25.0:
   version "0.25.0"
@@ -9021,7 +9024,7 @@ focus-lock@^0.11.2:
   dependencies:
     tslib "^2.0.3"
 
-follow-redirects@^1.0.0, follow-redirects@^1.14.7, follow-redirects@^1.14.9, follow-redirects@^1.15.0:
+follow-redirects@^1.0.0, follow-redirects@^1.14.7, follow-redirects@^1.15.0:
   version "1.15.2"
   resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.15.2.tgz#b460864144ba63f2681096f274c4e57026da2c13"
 
@@ -9131,10 +9134,10 @@ fragment-cache@^0.2.1:
   dependencies:
     map-cache "^0.2.2"
 
-framer-motion@^8.5.3:
-  version "8.5.3"
-  resolved "https://registry.yarnpkg.com/framer-motion/-/framer-motion-8.5.3.tgz#5b5eb85cdeea95aaa24ed93ccf83de9f65d949c1"
-  integrity sha512-CkQHhGlldJptI0SGjmjUzseXCzi0lljDkToE7cANHRCs12F5I84ymdWvCi6HfIKkt6Ykq2RiDd3dGuYV0oMn2w==
+framer-motion@^8.5.4:
+  version "8.5.4"
+  resolved "https://registry.yarnpkg.com/framer-motion/-/framer-motion-8.5.4.tgz#aa6d88f2af8d7aa1b58ca8e53b7ccce0d8c4089b"
+  integrity sha512-xBVovXUIdpKvRvIPsrSTiyXZUYyct9zarzdVeyzv+V6DFsDpHIuppyOjDO8VM1fBspDn+rUU4ZFZ5yJxLmzebQ==
   dependencies:
     "@motionone/dom" "^10.15.3"
     hey-listen "^1.0.8"

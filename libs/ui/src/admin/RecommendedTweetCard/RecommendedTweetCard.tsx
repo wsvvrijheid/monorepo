@@ -38,7 +38,8 @@ export const RecommendedTweetCard: FC<RecommendedTweetCardProps> = ({
       user: mapRecommenderToTweetUser(
         recommendedTweet.creator,
       ) as TweetUserBase,
-      image: recommendedTweet?.image?.url,
+      image:
+        recommendedTweet?.image?.url || recommendedTweet?.originalTweet?.image,
       video: recommendedTweet?.video?.url,
     }
   }

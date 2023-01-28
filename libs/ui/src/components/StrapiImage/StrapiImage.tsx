@@ -27,6 +27,9 @@ const mapStrapiImage = (width: number, image: UploadFile) => {
       : prev
   }, images[0])
 
+  if (!imageToUse)
+    return image.url.startsWith('http') ? image.url : API_URL + image.url
+
   return imageToUse.url.startsWith('http')
     ? imageToUse.url
     : API_URL + imageToUse.url

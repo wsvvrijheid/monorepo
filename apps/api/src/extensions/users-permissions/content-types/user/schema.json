@@ -81,12 +81,6 @@
       "target": "api::applicant.applicant",
       "inversedBy": "user"
     },
-    "blogs": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::blog.blog",
-      "mappedBy": "author"
-    },
     "comments": {
       "type": "relation",
       "relation": "oneToMany",
@@ -105,18 +99,6 @@
       "target": "api::vote.vote",
       "mappedBy": "jury"
     },
-    "likedArts": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::art.art",
-      "inversedBy": "likers"
-    },
-    "likedBlogs": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::blog.blog",
-      "inversedBy": "likers"
-    },
     "langRoles": {
       "type": "relation",
       "relation": "oneToMany",
@@ -128,18 +110,6 @@
       "relation": "oneToOne",
       "target": "api::volunteer.volunteer",
       "inversedBy": "user"
-    },
-    "votes": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::vote.vote",
-      "mappedBy": "voter"
-    },
-    "arts": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::art.art",
-      "mappedBy": "artist"
     }
   }
 }

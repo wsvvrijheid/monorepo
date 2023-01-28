@@ -46,16 +46,15 @@ export type ArtCreateInput = Expand<
     ArtBase,
     'approvalStatus' | 'likes' | 'views'
   > &
-    Omit<
-      ArtRelationInput,
-      'comments' | 'feedbacks' | 'likers' | 'votes' | 'juryVotes'
-    >
+    Pick<ArtRelationInput, 'categories' | 'collection' | 'tags'> & {
+      token: string
+    }
 >
 
 export type ArtUpdateInput = Expand<
   { publishedAt?: Date | string | null } & Partial<
     Omit<ArtBase, 'locale'> & ArtRelationInput
-  >
+  > & { token: string }
 >
 
 export type ArtLocalizeInput = Omit<
