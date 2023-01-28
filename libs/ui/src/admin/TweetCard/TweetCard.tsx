@@ -14,6 +14,7 @@ import {
   useDisclosure,
 } from '@chakra-ui/react'
 import { useRecommendTweet } from '@wsvvrijheid/services'
+import { useAuthSelector } from '@wsvvrijheid/store'
 import { RecommendedTweetCreateInput, Tweet } from '@wsvvrijheid/types'
 import { BsBookmarkPlus, BsThreeDots } from 'react-icons/bs'
 import { RiEditLine } from 'react-icons/ri'
@@ -37,6 +38,7 @@ export const TweetCard: FC<TweetCardProps> = ({
     [],
   )
   const { isOpen, onOpen, onClose } = useDisclosure()
+  const { token } = useAuthSelector()
 
   const isBookmarked = storageTweets?.some(t => t.id === tweet.id)
 
@@ -55,6 +57,8 @@ export const TweetCard: FC<TweetCardProps> = ({
     onOpen()
   }
 
+  // console.log('tweet', tweet)
+
   const handleSubmit = async (
     text: string,
     originalTweet: Partial<Tweet>,
@@ -66,6 +70,7 @@ export const TweetCard: FC<TweetCardProps> = ({
       image,
       text,
       mentions,
+      token: token as string,
     }
 
     await mutateAsync(recommendedTweet)

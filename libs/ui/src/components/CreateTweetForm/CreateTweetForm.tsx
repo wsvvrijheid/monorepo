@@ -20,6 +20,7 @@ import {
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useRecommendTweet } from '@wsvvrijheid/services'
+import { useAuthSelector } from '@wsvvrijheid/store'
 import { Mention, Post, Tweet } from '@wsvvrijheid/types'
 import { useForm } from 'react-hook-form'
 import { FiArrowUpRight } from 'react-icons/fi'
@@ -61,6 +62,7 @@ export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
   const [similarity, setSimilarity] = useState(0)
 
   const imageFile = useFileFromUrl(originalTweet?.image)
+  const { token } = useAuthSelector()
 
   const { mutateAsync } = useRecommendTweet()
 
@@ -124,6 +126,7 @@ export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
       text: data.text,
       mentions,
       image,
+      token: token as string,
     })
 
     closeModal()

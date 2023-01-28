@@ -15,7 +15,12 @@ export const approveModel = async <T extends StrapiModel>(
   url: StrapiUrl,
   token?: string,
 ) => {
-  return Mutation.put<T, any>(`${url}/approve` as StrapiUrl, id, {}, token)
+  return Mutation.put<T, any>(
+    `${url}/approve` as StrapiUrl,
+    id,
+    {},
+    token as string,
+  )
 }
 
 export const useApproveModel = <T extends StrapiModel>(
@@ -39,6 +44,7 @@ export const useApproveModel = <T extends StrapiModel>(
           translatedFields:
             translatedFields as (keyof StrapiTranslatableModel)[],
           url,
+          token: token as string,
         })
       }
 

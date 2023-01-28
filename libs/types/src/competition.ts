@@ -27,13 +27,13 @@ export type CompetitionCreateInput = Expand<
     CompetitionBase,
     'approvalStatus'
   > &
-    Omit<CompetitionRelationInput, 'applications'>
+    Omit<CompetitionRelationInput, 'applications'> & { token: string }
 >
 
 export type CompetitionUpdateInput = Expand<
   { publishedAt?: Date | string | null } & Partial<
     Omit<CompetitionBase, 'locale'> & CompetitionRelationInput
-  >
+  > & { token: string }
 >
 
 export type CompetitionLocalizeInput = Omit<

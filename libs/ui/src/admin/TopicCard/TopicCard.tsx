@@ -18,7 +18,11 @@ import {
 import { useQueryClient } from '@tanstack/react-query'
 import { useDeleteModel, useRecommendTopic } from '@wsvvrijheid/services'
 import { useAuthSelector } from '@wsvvrijheid/store'
-import { Post, TopicBase } from '@wsvvrijheid/types'
+import {
+  Post,
+  RecommendedTopicCreateInput,
+  TopicBase,
+} from '@wsvvrijheid/types'
 import { formatDistanceStrict } from 'date-fns'
 import {
   AiFillDelete,
@@ -31,8 +35,7 @@ import { useLocalStorage } from 'usehooks-ts'
 
 import { ActionButton } from './ActionButton'
 import { TopicCardProps } from './types'
-import { WConfirm, WConfirmProps, WImage } from '../../components'
-import { ShareButtons } from '../../components'
+import { ShareButtons, WConfirm, WConfirmProps, WImage } from '../../components'
 import { postFields, postSchema } from '../../data'
 import { ModelCreateModal } from '../ModelForm'
 
@@ -99,8 +102,8 @@ export const TopicCard: FC<TopicCardProps> = ({ topic }) => {
     }
   }
 
-  const handleRecommend = () => {
-    mutateAsync(topic, {
+  const handleRecommend = async () => {
+    await mutateAsync(topic as RecommendedTopicCreateInput, {
       onSettled: () => queryClient.invalidateQueries(['topics']),
     })
     toast({
@@ -271,6 +274,7 @@ export const TopicCard: FC<TopicCardProps> = ({ topic }) => {
                 title="Recommend"
                 isVertical={isVertical}
                 disabled={topic.isRecommended || isLoading}
+                isDisabled={topic.isRecommended || isLoading}
                 variant={topic.isRecommended ? 'solid' : 'ghost'}
                 colorScheme={topic.isRecommended ? 'green' : 'gray'}
               />

@@ -31,7 +31,6 @@ export const ArtApprovalModal: FC<ArtApprovalTypes> = ({
   artTitle,
   artistAvatar,
   artImage,
-  editorId,
   isOpen,
   onClose,
   editorAvatar,
@@ -169,7 +168,6 @@ export const ArtApprovalModal: FC<ArtApprovalTypes> = ({
                   artApprovalStatus={artApprovalStatus}
                   onDelete={onDelete}
                   artId={artId}
-                  editorId={editorId}
                   artDescription={artDescription}
                   editorAvatar={editorAvatar}
                   editorName={editorName}

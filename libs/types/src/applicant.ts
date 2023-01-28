@@ -19,7 +19,7 @@ type ApplicantRelationInput = {
 
 export type ApplicantCreateInput = Expand<
   { publishedAt?: Date | string | null } & ApplicantBase &
-    ApplicantRelationInput
+    ApplicantRelationInput & { token: string }
 >
 
 export type Applicant = StrapiBase & ApplicantBase & AplicantRelation
