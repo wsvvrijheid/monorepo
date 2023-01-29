@@ -1,5 +1,5 @@
 import { ButtonProps } from '@chakra-ui/react'
-import { StrapiModel, StrapiModelKeys, StrapiUrl } from '@wsvvrijheid/types'
+import { StrapiModel, StrapiUrl } from '@wsvvrijheid/types'
 import { Control, FieldErrorsImpl, FieldValues } from 'react-hook-form'
 import { AssertsShape, OptionalObjectSchema } from 'yup/lib/object'
 
@@ -23,7 +23,6 @@ type FormSelectFields = {
   type: 'select'
   isMulti?: boolean
   url: StrapiUrl
-  fields: StrapiModelKeys[]
 }
 
 type FormCommonFields<T extends StrapiModel> = {
@@ -55,16 +54,14 @@ export type ModelEditFormProps<T extends StrapiModel> = {
   onSuccess: () => void
 }
 
-export type ModelSelectProps<T extends StrapiModel> =
-  WSelectProps<FieldValues> & {
-    url: StrapiUrl
-    fields?: (keyof T)[]
-    control: Control<AssertsShape<any>, any>
-    errors: Partial<
-      FieldErrorsImpl<{
-        [x: string]: any
-      }>
-    >
-  }
+export type ModelSelectProps = WSelectProps<FieldValues> & {
+  url: StrapiUrl
+  control: Control<AssertsShape<any>, any>
+  errors: Partial<
+    FieldErrorsImpl<{
+      [x: string]: any
+    }>
+  >
+}
 
 export type Option = { value: string | number; label: string }

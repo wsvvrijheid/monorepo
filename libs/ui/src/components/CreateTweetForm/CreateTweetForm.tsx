@@ -73,6 +73,7 @@ export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
   const defaultValues = {
     text: '',
     image: imageFile,
+    mentions: [],
   }
 
   const {
@@ -86,7 +87,7 @@ export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
   } = useForm<FormFieldValues>({
     resolver: yupResolver(schema),
     mode: 'all',
-    defaultValues,
+    values: defaultValues,
   })
 
   // We don't need to upload the same image as the original tweet
@@ -176,7 +177,6 @@ export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
                   isMulti
                   url="api/mentions"
                   control={control as any}
-                  fields={['username', 'data']}
                   name="mentions"
                   label="Mention"
                   errors={errors}

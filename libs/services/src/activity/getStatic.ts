@@ -3,6 +3,7 @@ import { Activity, StrapiLocale } from '@wsvvrijheid/types'
 import { GetStaticPropsContext } from 'next/types'
 
 import { getActivityBySlug } from './getBySlug'
+
 export const getActivityStaticProps = async (
   context: GetStaticPropsContext,
 ) => {

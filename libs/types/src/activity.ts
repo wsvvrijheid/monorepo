@@ -16,7 +16,7 @@ type ActivityRelation = {
 }
 
 type ActivityRelationInput = {
-  category?: number
+  categories?: number
   tags?: Array<number>
   image: File
 }

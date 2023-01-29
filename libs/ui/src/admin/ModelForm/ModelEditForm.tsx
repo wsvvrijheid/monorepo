@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 
 import {
   Button,
@@ -18,17 +18,13 @@ import {
   useUpdateModelMutation,
 } from '@wsvvrijheid/services'
 import {
-  Activity,
-  Hashtag,
-  Post,
   StrapiModel,
   StrapiTranslatableModel,
   StrapiTranslatableUpdateInput,
   StrapiUrl,
 } from '@wsvvrijheid/types'
-import { format } from 'date-fns'
 import { capitalize } from 'lodash'
-import Router from 'next/router'
+import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
 import { AiOutlineEdit } from 'react-icons/ai'
 import { BsTrash } from 'react-icons/bs'
@@ -39,11 +35,12 @@ import {
   MdOutlinePublishedWithChanges,
   MdOutlineUnpublished,
 } from 'react-icons/md'
-import * as yup from 'yup'
+import { InferType } from 'yup'
 
 import { ModelImage } from './ModelImage'
 import { ModelSelect } from './ModelSelect'
 import { ModelEditFormProps, Option } from './types'
+import { useDefaultValues } from './utils'
 import { FormItem, MasonryGrid, MdFormItem } from '../../components'
 import { WConfirm, WConfirmProps } from '../../components/WConfirm'
 
@@ -55,8 +52,6 @@ export const ModelEditForm = <T extends StrapiModel>({
   schema,
   onSuccess,
 }: ModelEditFormProps<T>) => {
-  const hashtagModel = model as Hashtag
-  const postModel = model as Post
   const translatableModel = model as StrapiTranslatableModel
 
   const id = model.id
@@ -65,51 +60,15 @@ export const ModelEditForm = <T extends StrapiModel>({
   const [isChangingImage, setIsChangingImage] = useBoolean(false)
   const [confirmState, setConfirmState] = useState<WConfirmProps>()
 
+  const router = useRouter()
+
   const updateModelMutation = useUpdateModelMutation(url)
   const unpublishModelMutation = useUnpublishModel(url)
   const publishModelMutation = usePublishModel(url)
   const deleteModelMutation = useDeleteModel(url)
   const approveModelMutation = useApproveModel(url, translatedFields)
 
-  const defaultValues = useMemo(() => {
-    const defaults = {} as any
-    const { date } = model as Activity
-    const dateString = date ? format(new Date(date), 'yyyy-MM-dd') : undefined
-    const dateTimeString = date
-      ? new Date(date).toISOString().replace('Z', '')
-      : undefined
-
-    fields.forEach(field => {
-      switch (field.name) {
-        case 'date':
-          if (field.type === 'date') {
-            defaults[field.name] = dateString
-          } else if (field.type === 'datetime-local') {
-            defaults[field.name] = dateTimeString
-          }
-          break
-        case 'mentions':
-          defaults.mentions =
-            hashtagModel.mentions?.map(m => ({
-              label: m.username,
-              value: m.id.toString(),
-            })) || []
-          break
-        case 'hashtag':
-          defaults.hashtag = {
-            label: postModel.hashtag?.title,
-            value: postModel.hashtag?.id.toString(),
-          }
-
-          break
-        default:
-          defaults[field.name] = model[field.name as keyof T] || undefined
-          break
-      }
-    })
-
-    return defaults
-  }, [model, fields])
+  const defaultValues = useDefaultValues(model, fields)
 
   const {
     register,
@@ -118,10 +77,10 @@ export const ModelEditForm = <T extends StrapiModel>({
     control,
     setValue,
     reset: resetForm,
-  } = useForm<yup.InferType<typeof schema>>({
+  } = useForm<InferType<typeof schema>>({
     resolver: yupResolver(schema),
     mode: 'all',
-    defaultValues,
+    values: defaultValues,
   })
 
   const handleSuccess = () => {
@@ -200,7 +159,7 @@ export const ModelEditForm = <T extends StrapiModel>({
       onConfirm: async () => {
         deleteModelMutation.mutate({ id }, { onSuccess: handleSuccess })
         setConfirmState(undefined)
-        Router.back()
+        router.back()
       },
     })
   }
@@ -263,7 +222,6 @@ export const ModelEditForm = <T extends StrapiModel>({
                   url={field.url as StrapiUrl}
                   isMulti={field.isMulti}
                   isRequired={field.isRequired}
-                  fields={field.fields as (keyof T)[]}
                   name={field.name as string}
                   isDisabled={!isEditing}
                   label={label}
@@ -321,6 +279,7 @@ export const ModelEditForm = <T extends StrapiModel>({
                   leftIcon={<HiOutlineCheck />}
                   fontSize="sm"
                   colorScheme={'primary'}
+                  isLoading={approveModelMutation.isLoading}
                 >
                   Approve
                 </Button>
