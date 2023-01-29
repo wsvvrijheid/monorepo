@@ -32,13 +32,8 @@ function MyApp({ Component, pageProps }) {
     () =>
       new QueryClient({
         defaultOptions: {
-          mutations: {
-            networkMode: 'always',
-          },
-          queries: {
-            networkMode: 'always',
-            keepPreviousData: true,
-          },
+          mutations: { networkMode: 'always' },
+          queries: { networkMode: 'always' },
         },
       }),
   )
