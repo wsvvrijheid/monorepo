@@ -79,13 +79,15 @@ export const TweetCard: FC<TweetCardProps> = ({
 
   return (
     <>
-      <CreateTweetForm
-        onSubmit={handleSubmit}
-        isOpen={isOpen}
-        onClose={onClose}
-        originalTweet={tweet as Tweet}
-        isNews={false}
-      />
+      {isOpen && (
+        <CreateTweetForm
+          onSubmit={handleSubmit}
+          isOpen={isOpen}
+          onClose={onClose}
+          originalTweet={tweet as Tweet}
+          isNews={false}
+        />
+      )}
       <HStack
         spacing={4}
         align={'start'}

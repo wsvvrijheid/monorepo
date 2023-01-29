@@ -13,6 +13,7 @@ import {
   AdminLayout,
   DataTable,
   ModelCreateModal,
+  PageHeader,
   postColumns,
   postFields,
   postSchema,
@@ -24,7 +25,6 @@ const PostsPage = () => {
   const { query } = useRouter()
   const [currentPage, setCurrentPage] = useState<number>()
   const status = query.status as ApprovalStatus
-  const defaultLocale: StrapiLocale = 'en'
 
   const [searchTerm, setSearchTerm] = useState<string>()
   const { locale, push } = useRouter()
@@ -95,26 +95,25 @@ const PostsPage = () => {
   }
 
   return (
-    <AdminLayout
-      title={`${status} Posts`}
-      headerProps={{
-        filterMenu,
-        filterMenuCloseOnSelect: false,
-        onSearch: handleSearch,
-        searchPlaceHolder: 'Search by title or content',
-        defaultLocale,
-      }}
-    >
-      <ModelCreateModal<Post>
-        title="Create Post"
-        url="api/posts"
-        schema={postSchema}
-        fields={postFields}
-        onSuccess={postsQuery.refetch}
-        buttonProps={{ mb: 4 }}
+    <AdminLayout title={`${status} Posts`}>
+      <PageHeader
+        filterMenu={filterMenu}
+        filterMenuCloseOnSelect={false}
+        onSearch={handleSearch}
+        searchPlaceHolder={'Search by title or description'}
       >
-        Create Post
-      </ModelCreateModal>
+        <ModelCreateModal<Post>
+          title="Create Post"
+          url="api/posts"
+          schema={postSchema}
+          fields={postFields}
+          onSuccess={postsQuery.refetch}
+          buttonProps={{ mb: 4 }}
+        >
+          New Post
+        </ModelCreateModal>
+      </PageHeader>
+
       <DataTable<Post>
         columns={postColumns}
         data={posts}

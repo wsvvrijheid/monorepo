@@ -64,6 +64,8 @@ export const useDefaultValues = <T extends StrapiModel>(
   const { locale } = useRouter()
 
   return useMemo(() => {
+    if (!model) return {} as T
+
     const defaults = {} as any
     const { date } = model as Activity
 

@@ -6,8 +6,8 @@ import {
   Menu,
   MenuButton,
   MenuList,
+  Spacer,
 } from '@chakra-ui/react'
-import { StrapiLocale } from '@wsvvrijheid/types'
 import { HiOutlineFilter } from 'react-icons/hi'
 import { VscListFilter } from 'react-icons/vsc'
 
@@ -15,17 +15,15 @@ import { SearchForm } from '../../components'
 import { LanguageSwitcher } from '../LanguageSwitcher'
 
 export type PageHeaderProps = {
-  defaultLocale?: StrapiLocale
   filterMenu?: ReactNode
   sortMenu?: ReactNode
-  onSearch: (value: string | null) => number | void
+  onSearch?: (value: string | null) => number | void
   children?: ReactNode
   filterMenuCloseOnSelect?: boolean
   searchPlaceHolder?: string
 }
 
 export const PageHeader: FC<PageHeaderProps> = ({
-  defaultLocale,
   filterMenu,
   sortMenu,
   onSearch,
@@ -35,12 +33,14 @@ export const PageHeader: FC<PageHeaderProps> = ({
 }) => {
   return (
     <HStack align="center" bg="white" px={4} py={2} shadow="base">
-      {typeof onSearch === 'function' && (
+      {typeof onSearch === 'function' ? (
         <SearchForm
           onSearch={onSearch}
           variant="flushed"
           placeholder={searchPlaceHolder}
         />
+      ) : (
+        <Spacer />
       )}
       {/* TODO locale switcher */}
       <LanguageSwitcher />

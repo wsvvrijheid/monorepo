@@ -66,7 +66,10 @@ export const ModelEditForm = <T extends StrapiModel>({
   const unpublishModelMutation = useUnpublishModel(url)
   const publishModelMutation = usePublishModel(url)
   const deleteModelMutation = useDeleteModel(url)
-  const approveModelMutation = useApproveModel(url, translatedFields)
+  const approveModelMutation = useApproveModel(
+    url,
+    translatedFields as Array<keyof StrapiTranslatableModel>,
+  )
 
   const defaultValues = useDefaultValues(model, fields)
 
@@ -278,7 +281,7 @@ export const ModelEditForm = <T extends StrapiModel>({
                   onClick={onApprove}
                   leftIcon={<HiOutlineCheck />}
                   fontSize="sm"
-                  colorScheme={'primary'}
+                  colorScheme={'purple'}
                   isLoading={approveModelMutation.isLoading}
                 >
                   Approve
@@ -315,6 +318,8 @@ export const ModelEditForm = <T extends StrapiModel>({
           )}
           <Button
             onClick={isPublished ? onUnPublish : onPublish}
+            colorScheme={isPublished ? 'yellow' : 'green'}
+            fontSize="sm"
             leftIcon={
               isPublished ? (
                 <MdOutlineUnpublished />
@@ -322,8 +327,6 @@ export const ModelEditForm = <T extends StrapiModel>({
                 <MdOutlinePublishedWithChanges />
               )
             }
-            colorScheme="blue"
-            fontSize="sm"
           >
             {isPublished ? 'Unpublish' : 'Publish'}
           </Button>
