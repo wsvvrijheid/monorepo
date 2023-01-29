@@ -112,5 +112,11 @@
     "en": "Sign-Up",
     "nl": "Aanmelden",
     "tr": "Kayıt ol"
+  },
+  "join": {
+    "link": "/join",
+    "en": "Become a Volunteer",
+    "nl": "Word Vrijwilliger",
+    "tr": "Gönüllü Ol"
   }
 }

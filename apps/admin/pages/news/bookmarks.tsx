@@ -7,14 +7,7 @@ const NewsBookmarkedPage = () => {
   const [bookmarksStorage] = useLocalStorage<TopicBase[]>('bookmarks', [])
 
   return (
-    <AdminLayout
-      title="News"
-      headerProps={{
-        onSearch: () => null,
-        filterMenuCloseOnSelect: false,
-        searchPlaceHolder: 'Search bookmarks',
-      }}
-    >
+    <AdminLayout title="News">
       <SimpleGrid columns={{ base: 1 }} gap={4}>
         {bookmarksStorage?.map((topic, i) => (
           <TopicCard key={topic.url} topic={topic} />

@@ -9,7 +9,7 @@ import {
 
 export const recommendTweet = (
   recommendedTweet: RecommendedTweetCreateInput,
-  token?: string,
+  token: string,
 ) => {
   return Mutation.post<RecommendedTweet, RecommendedTweetCreateInput>(
     'api/recommended-tweets',
@@ -25,7 +25,7 @@ export const useRecommendTweet = () => {
   return useMutation({
     mutationKey: ['create-recommended-tweet'],
     mutationFn: (recommendedTweet: RecommendedTweetCreateInput) => {
-      return recommendTweet(recommendedTweet, token ?? undefined)
+      return recommendTweet(recommendedTweet, token as string)
     },
     onSuccess: res => {
       toast({

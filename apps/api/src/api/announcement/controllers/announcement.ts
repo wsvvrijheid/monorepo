@@ -2,13 +2,17 @@ import { factories } from '@strapi/strapi'
 
 export default factories.createCoreController(
   'api::announcement.announcement',
-  () => ({
-    async create(ctx) {
-      Object.assign((ctx.request.body as any).data, {
-        creator: ctx.state.user.id,
-      })
+  ({ strapi }) => {
+    return {
+      async create(ctx) {
+        const result = await super.create(ctx)
 
-      return super.create(ctx)
-    },
-  }),
+        await strapi
+          .service('api::announcement.announcement')
+          .update(result.data.id, { data: { creator: ctx.state.user.id } })
+
+        return result
+      },
+    }
+  },
 )

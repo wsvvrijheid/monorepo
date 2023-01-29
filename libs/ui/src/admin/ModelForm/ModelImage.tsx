@@ -40,9 +40,10 @@ export const ModelImage: FC<ModelImageProps> = ({
 
   const modelImageUrl = image?.url
 
-  const imageUrl = modelImageUrl?.startsWith('http')
-    ? modelImageUrl
-    : `${API_URL}${modelImageUrl}`
+  const imageUrl =
+    modelImageUrl && modelImageUrl.startsWith('http')
+      ? modelImageUrl
+      : `${API_URL}${modelImageUrl}`
 
   const renderImage = () => {
     if (isChangingImage || (isEditing && !image)) {
@@ -92,7 +93,7 @@ export const ModelImage: FC<ModelImageProps> = ({
       overflow="hidden"
     >
       {renderImage()}
-      {isEditing && image && (
+      {isEditing && image && !isChangingImage && (
         <Center
           pos="absolute"
           zIndex={1}

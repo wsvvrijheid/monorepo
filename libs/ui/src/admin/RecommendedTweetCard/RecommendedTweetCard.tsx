@@ -1,6 +1,7 @@
 import { FC } from 'react'
 
 import { Box, Divider, Stack, useBreakpointValue } from '@chakra-ui/react'
+import { API_URL } from '@wsvvrijheid/config'
 import {
   RecommendedTweet,
   Tweet,
@@ -33,12 +34,22 @@ export const RecommendedTweetCard: FC<RecommendedTweetCardProps> = ({
   const mapRecommendedTweetToTweet = (
     recommendedTweet: RecommendedTweet,
   ): Partial<Tweet> => {
+    let image: string | undefined
+
+    if (recommendedTweet?.image?.url) {
+      image = API_URL + recommendedTweet?.image?.url
+    }
+
+    if (recommendedTweet?.originalTweet?.image) {
+      image = recommendedTweet?.originalTweet?.image
+    }
+
     return {
       text: recommendedTweet.text,
       user: mapRecommenderToTweetUser(
         recommendedTweet.creator,
       ) as TweetUserBase,
-      image: recommendedTweet?.image?.url,
+      image,
       video: recommendedTweet?.video?.url,
     }
   }

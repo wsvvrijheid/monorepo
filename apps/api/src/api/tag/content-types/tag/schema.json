@@ -31,12 +31,6 @@
       "type": "string",
       "required": true
     },
-    "arts": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::art.art",
-      "inversedBy": "tags"
-    },
     "blogs": {
       "type": "relation",
       "relation": "manyToMany",
