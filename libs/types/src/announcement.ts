@@ -26,12 +26,12 @@ export type AnnouncementCreateInput = Expand<
     AnnouncementBase,
     'approvalStatus'
   > &
-    AnnouncementRelationInput
+    AnnouncementRelationInput & { token: string }
 >
 export type AnnouncementUpdateInput = Expand<
   { publishedAt?: Date | string | null } & Partial<
     Omit<AnnouncementBase, 'locale'> & AnnouncementRelationInput
-  >
+  > & { token: string }
 >
 export type AnnouncementLocalizeInput = Pick<
   AnnouncementBase,

@@ -34,12 +34,12 @@ export type BlogCreateInput = Expand<
     BlogBase,
     'approvalStatus' | 'likes' | 'views'
   > &
-    Omit<BlogRelationInput, 'likers'>
+    Omit<BlogRelationInput, 'likers'> & { token: string }
 >
 export type BlogUpdateInput = Expand<
   { publishedAt?: Date | string | null } & Partial<
     Omit<BlogBase, 'locale'> & BlogRelationInput
-  >
+  > & { token: string }
 >
 
 export type BlogLocalizeInput = Omit<

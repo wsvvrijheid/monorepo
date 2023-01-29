@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { MenuItem } from '@chakra-ui/react'
 import { useSearchModel } from '@wsvvrijheid/services'
 import { ApprovalStatus, Art, Sort, StrapiLocale } from '@wsvvrijheid/types'
-import { AdminLayout, ArtsTable } from '@wsvvrijheid/ui'
+import { AdminLayout, ArtsTable, PageHeader } from '@wsvvrijheid/ui'
 import { useRouter } from 'next/router'
 import { FaArrowDown, FaArrowUp } from 'react-icons/fa'
 import { useUpdateEffect } from 'react-use'
@@ -15,7 +15,6 @@ const ArtsPage = () => {
 
   // Client side query params (?status=pending)
   const status = query.status as ApprovalStatus
-  const defaultLocale: StrapiLocale = 'en'
 
   const [sort, setSort] = useState<Sort>()
 
@@ -56,22 +55,19 @@ const ArtsPage = () => {
   }))
 
   return (
-    <AdminLayout
-      title={`${status} Arts`}
-      headerProps={{
-        onSearch: handleSearch,
-        searchPlaceHolder: 'Search arts by title or artist',
-        defaultLocale,
-        sortMenu: [
+    <AdminLayout title={`${status} Arts`}>
+      <PageHeader
+        onSearch={handleSearch}
+        searchPlaceHolder={'Search arts by title or artist'}
+        sortMenu={[
           <MenuItem key="asc" icon={<FaArrowUp />}>
             Name Asc
           </MenuItem>,
           <MenuItem key="desc" icon={<FaArrowDown />}>
             Name Desc
           </MenuItem>,
-        ],
-      }}
-    >
+        ]}
+      />
       <ArtsTable
         data={mappedArts}
         onSuccess={artsQuery.refetch}

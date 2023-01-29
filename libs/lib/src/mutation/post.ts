@@ -8,5 +8,5 @@ export const postMutation = <
 >(
   url: StrapiUrl,
   body: D,
-  token?: string,
+  token: string,
 ) => mutation<T, D>({ url, method: 'post', body, token })

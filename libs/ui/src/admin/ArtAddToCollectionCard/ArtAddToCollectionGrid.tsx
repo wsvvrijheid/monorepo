@@ -20,10 +20,15 @@ export const ArtAddToCollectionGrid = ({
 
   const handleAdd = (art: Art) => {
     setArtToBeMutated(art)
-    updateArtMutation.mutate({
-      id: art.id,
-      collection: collection.id,
-    })
+    updateArtMutation.mutate(
+      {
+        id: art.id,
+        collection: collection.id,
+      },
+      {
+        onSuccess,
+      },
+    )
   }
 
   const handleRemove = (art: Art) => {

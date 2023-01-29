@@ -13,6 +13,7 @@ import {
 import { useMutation } from '@tanstack/react-query'
 import { Mutation } from '@wsvvrijheid/lib'
 import { useSearchModel } from '@wsvvrijheid/services'
+import { useAuthSelector } from '@wsvvrijheid/store'
 import {
   Platform,
   StrapiLocale,
@@ -38,6 +39,8 @@ export const JoinTemplate: FC<JoinTemplateProps> = ({ title }) => {
   const { t } = useTranslation()
   const { locale } = useRouter()
 
+  const { token } = useAuthSelector()
+
   const platformsResult = useSearchModel<Platform>({
     url: 'api/platforms',
     locale: locale as StrapiLocale,
@@ -49,7 +52,11 @@ export const JoinTemplate: FC<JoinTemplateProps> = ({ title }) => {
   const { mutate, isLoading, isSuccess } = useMutation(
     ['create-volunteer'],
     (body: VolunteerCreateInput) =>
-      Mutation.post<Volunteer, VolunteerCreateInput>('api/volunteers', body),
+      Mutation.post<Volunteer, VolunteerCreateInput>(
+        'api/volunteers',
+        body,
+        token as string,
+      ),
   )
 
   const onSubmit = (data: JoinFormFieldValues) => {

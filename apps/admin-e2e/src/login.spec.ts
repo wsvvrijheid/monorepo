@@ -13,7 +13,5 @@ test('Should fill credentials', async ({ page }) => {
   await page.waitForNavigation({ url: 'http://localhost:4200/' })
   const url = page.url()
 
-  console.log('url', url)
-
   expect(url).toBe('http://localhost:4200/')
 })

@@ -2,15 +2,16 @@ import { FC } from 'react'
 
 import { Avatar, SimpleGrid, Stack, Text } from '@chakra-ui/react'
 import { API_URL } from '@wsvvrijheid/config'
-import { User } from '@wsvvrijheid/types'
+import { Art, User } from '@wsvvrijheid/types'
 
 import { ArtCard, Container, Hero } from '../../components'
 
 type ArtistTemplateProps = {
   artist: User
+  arts: Art[]
 }
 
-export const ArtistTemplate: FC<ArtistTemplateProps> = ({ artist }) => {
+export const ArtistTemplate: FC<ArtistTemplateProps> = ({ artist, arts }) => {
   return (
     <>
       <Hero>
@@ -26,7 +27,7 @@ export const ArtistTemplate: FC<ArtistTemplateProps> = ({ artist }) => {
       </Hero>
       <Container mt={'80px'}>
         <SimpleGrid m={4} gap={8} columns={{ base: 1, md: 2, lg: 4 }}>
-          {artist?.arts?.map(art => (
+          {arts?.map(art => (
             <ArtCard key={art.id} art={art} />
           ))}
         </SimpleGrid>

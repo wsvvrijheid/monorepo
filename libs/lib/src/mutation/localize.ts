@@ -15,5 +15,13 @@ export const localizeMutation = <
   id: number,
   locale: StrapiLocale,
   body: D,
-  token?: string,
-) => mutation<T, D>({ url, method: 'localize', id, locale, body, token })
+  token: string,
+) =>
+  mutation<T, D>({
+    url,
+    method: 'localize',
+    id,
+    locale,
+    body,
+    token,
+  })

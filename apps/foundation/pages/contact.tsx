@@ -11,14 +11,14 @@ import {
   Wrap,
 } from '@chakra-ui/react'
 import { useMutation } from '@tanstack/react-query'
-import { EMAIL_SENDER, socialLinks } from '@wsvvrijheid/config'
+import { EMAIL_SENDER, socialLinks, TOKEN } from '@wsvvrijheid/config'
 import { sendEmail } from '@wsvvrijheid/services'
 import { EmailCreateInput } from '@wsvvrijheid/types'
 import {
   ContactForm,
+  ContactFormFieldValues,
   Container,
   SocialButtons,
-  ContactFormFieldValues,
 } from '@wsvvrijheid/ui'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
@@ -43,7 +43,7 @@ const Contact = ({ seo }: ContactProps): JSX.Element => {
   } = useMutation({
     mutationKey: ['contact'],
     mutationFn: async (data: EmailCreateInput) => {
-      return sendEmail(data)
+      return sendEmail(data, TOKEN)
     },
   })
 

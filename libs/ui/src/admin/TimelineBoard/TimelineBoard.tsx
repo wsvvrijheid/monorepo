@@ -43,13 +43,19 @@ export const TimelineBoard: FC<TimelineBoardProps> = ({ timelines }) => {
           </Link>
 
           <Box overflowY="auto" h="700px">
-            {timeline?.tweets?.map((tweet, key) => (
-              <TweetCard
-                tweet={{ ...tweet, user: timeline.userData }}
-                editable
-                key={key}
-              />
-            ))}
+            {timeline?.tweets?.map((tweet, key) => {
+              // FIXME: Why image is not showing up?
+              return (
+                <TweetCard
+                  tweet={{
+                    ...tweet,
+                    user: timeline.userData,
+                  }}
+                  editable
+                  key={key}
+                />
+              )
+            })}
           </Box>
         </Box>
       ))}
