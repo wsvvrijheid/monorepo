@@ -1,18 +1,12 @@
-import { useMemo } from 'react'
-
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { Request } from '@wsvvrijheid/lib'
-import { Post, StrapiLocale } from '@wsvvrijheid/types'
+import { Post } from '@wsvvrijheid/types'
 import { useRouter } from 'next/router'
 
-export const getPost = async (
-  locale: StrapiLocale,
-  id: number,
-): Promise<Post | null> => {
+export const getPost = async (id: number): Promise<Post | null> => {
   const response = await Request.single<Post>({
     url: 'api/posts',
     id,
-    locale,
   })
 
   return response?.data || null
@@ -23,7 +17,7 @@ export const usePost = (id: number) => {
 
   return useQuery({
     queryKey: ['post', locale, id],
-    queryFn: () => getPost(locale as StrapiLocale, id),
+    queryFn: () => getPost(id),
   })
 }
 
@@ -41,5 +35,5 @@ export const useCurrentPost = () => {
     queryFn: () => queryClient.getQueryData<Post>(queryKey),
   })
 
-  return useMemo(() => data, [data])
+  return data
 }

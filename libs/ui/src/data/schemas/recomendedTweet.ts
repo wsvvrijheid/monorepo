@@ -21,7 +21,6 @@ export const recommendedTweetFields: FormFields<RecommendedTweet> = [
     type: 'select',
     url: 'api/mentions',
     isMulti: true,
-    fields: ['username', 'data'],
   },
   { name: 'image', type: 'file' },
 ]

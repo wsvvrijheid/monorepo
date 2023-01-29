@@ -12,7 +12,7 @@ import {
 } from '@chakra-ui/react'
 import { useTopic, useTopicSync } from '@wsvvrijheid/services'
 import { TopicBase } from '@wsvvrijheid/types'
-import { AdminLayout, TopicCard } from '@wsvvrijheid/ui'
+import { AdminLayout, PageHeader, TopicCard } from '@wsvvrijheid/ui'
 import { addHours, formatDistanceToNow, isPast } from 'date-fns'
 import { useRouter } from 'next/router'
 import { AiOutlineClear } from 'react-icons/ai'
@@ -115,28 +115,25 @@ const NewsPage = () => {
   }
 
   return (
-    <AdminLayout
-      title="News"
-      headerProps={{
-        onSearch: setSearchTerm,
-        sortMenu,
-        filterMenu,
-        filterMenuCloseOnSelect: false,
-        searchPlaceHolder: 'Search news',
-        children: (
-          <Tooltip label={syncedStr} hasArrow bg="primary.400">
-            <IconButton
-              aria-label="Sync news"
-              isLoading={syncTopic.isLoading}
-              onClick={() => syncTopic.mutate()}
-              disabled={!canSync}
-              colorScheme={'primary'}
-              icon={<FaSyncAlt />}
-            />
-          </Tooltip>
-        ),
-      }}
-    >
+    <AdminLayout title="News">
+      <PageHeader
+        searchPlaceHolder="Search news"
+        onSearch={setSearchTerm}
+        sortMenu={sortMenu}
+        filterMenu={filterMenu}
+        filterMenuCloseOnSelect={false}
+      >
+        <Tooltip label={syncedStr} hasArrow bg="primary.400">
+          <IconButton
+            aria-label="Sync news"
+            isLoading={syncTopic.isLoading}
+            onClick={() => syncTopic.mutate()}
+            disabled={!canSync}
+            colorScheme={'primary'}
+            icon={<FaSyncAlt />}
+          />
+        </Tooltip>
+      </PageHeader>
       <Box overflow={'hidden'} mb={4}>
         <Box overflowX={'auto'}>
           <ButtonGroup size={'sm'} overflowX={'auto'}>

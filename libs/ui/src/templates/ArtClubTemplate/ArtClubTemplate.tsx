@@ -14,23 +14,23 @@ import {
   Stack,
   useDisclosure,
 } from '@chakra-ui/react'
-import { useGetArtCategories, useSearchModel } from '@wsvvrijheid/services'
-import { Art, StrapiLocale } from '@wsvvrijheid/types'
+import { useSearchModel } from '@wsvvrijheid/services'
+import { Art, Category, StrapiLocale } from '@wsvvrijheid/types'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { MdMenuOpen } from 'react-icons/md'
 
 import {
-  Container,
+  AnimatedBox,
+  ArtCard,
+  ArtCardSkeleton,
   ArtSideBar,
   CategoryFilterSkeleton,
-  SearchForm,
+  Container,
   CreateArtForm,
   MasonryGrid,
-  ArtCardSkeleton,
-  AnimatedBox,
   Pagination,
-  ArtCard,
+  SearchForm,
 } from '../../components'
 import { useChangeParams } from '../../hooks'
 
@@ -45,7 +45,10 @@ export const ArtClubTemplate: FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const { t } = useTranslation()
 
-  const approvedCategoryQuery = useGetArtCategories('approved')
+  const categoryQuery = useSearchModel<Category>({
+    url: 'api/categories',
+    pageSize: 100,
+  })
 
   // As mentioned in `getStaticProps`, we need to keep the same order for queryKey
   // queryKey = [arts, locale, searchTerm, category, page]
@@ -67,7 +70,7 @@ export const ArtClubTemplate: FC = () => {
         <DrawerContent>
           <DrawerBody py={8}>
             <ArtSideBar
-              categoryList={approvedCategoryQuery.data || []}
+              categoryList={categoryQuery.data?.data || []}
               isLoading={isLoading}
               setIsLoading={setIsLoading}
             />
@@ -83,7 +86,7 @@ export const ArtClubTemplate: FC = () => {
           gridTemplateColumns={{ base: '1fr', lg: '200px 1fr' }}
         >
           <Box display={{ base: 'none', lg: 'block' }}>
-            {approvedCategoryQuery.isLoading ? (
+            {categoryQuery.isLoading ? (
               <Stack
                 direction={{ base: 'row', lg: 'column' }}
                 justify="stretch"
@@ -101,7 +104,7 @@ export const ArtClubTemplate: FC = () => {
               </Stack>
             ) : (
               <ArtSideBar
-                categoryList={approvedCategoryQuery.data || []}
+                categoryList={categoryQuery.data?.data || []}
                 isLoading={isLoading}
                 setIsLoading={setIsLoading}
               />
