@@ -9,6 +9,7 @@ import {
   mainHashtagColumns,
   mainHashtagSchema,
   ModelCreateModal,
+  PageHeader,
 } from '@wsvvrijheid/ui'
 import { useRouter } from 'next/router'
 import { useUpdateEffect } from 'react-use'
@@ -50,22 +51,20 @@ const MainHashtagsPage = () => {
   }
 
   return (
-    <AdminLayout
-      title="Main Hashtag"
-      headerProps={{
-        onSearch: handleSearch,
-      }}
-    >
-      <ModelCreateModal<Hashtag>
-        title="Create Hashtag"
-        url="api/hashtags"
-        schema={mainHashtagSchema}
-        fields={mainHashtagFields}
-        onSuccess={hashtagsQuery.refetch}
-        buttonProps={{ mb: 4 }}
-      >
-        Create Hashtag
-      </ModelCreateModal>
+    <AdminLayout title="Main Hashtag">
+      <PageHeader onSearch={handleSearch}>
+        <ModelCreateModal<Hashtag>
+          title="Create Hashtag"
+          url="api/hashtags"
+          schema={mainHashtagSchema}
+          fields={mainHashtagFields}
+          onSuccess={hashtagsQuery.refetch}
+          buttonProps={{ mb: 4 }}
+        >
+          New Hashtag
+        </ModelCreateModal>
+      </PageHeader>
+
       <DataTable
         columns={mainHashtagColumns}
         data={hashtagWithLocalizeKeys}

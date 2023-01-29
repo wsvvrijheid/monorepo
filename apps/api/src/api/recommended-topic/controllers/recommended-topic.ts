@@ -13,6 +13,12 @@ export default factories.createCoreController(
     async create(ctx) {
       const result = await super.create(ctx)
 
+      await strapi
+        .service('api::recommended-topic.recommended-topic')
+        .update(result.data.id, {
+          data: { creator: ctx.state.user.id },
+        })
+
       const topics = await strapi.service('api::topic.topic').find({})
 
       const newTopics = (topics as { data: RecommendedTopic[] }).data.map(
@@ -25,7 +31,7 @@ export default factories.createCoreController(
       )
 
       await strapi.service('api::topic.topic').createOrUpdate({
-        data: { data: newTopics, creator: ctx.state.user.id },
+        data: { data: newTopics },
         meta: {},
       })
 

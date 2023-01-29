@@ -1,11 +1,18 @@
 import { factories } from '@strapi/strapi'
 
-export default factories.createCoreController('api::post.post', () => ({
-  async create(ctx) {
-    Object.assign((ctx.request.body as any).data, {
-      creator: ctx.state.user.id,
-    })
+export default factories.createCoreController(
+  'api::post.post',
+  ({ strapi }) => {
+    return {
+      async create(ctx) {
+        const result = await super.create(ctx)
 
-    return super.create(ctx)
+        await strapi
+          .service('api::post.post')
+          .update(result.data.id, { data: { creator: ctx.state.user.id } })
+
+        return result
+      },
+    }
   },
-}))
+)

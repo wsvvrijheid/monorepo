@@ -11,7 +11,7 @@ export type RecommendedTopicCreateInput = Expand<
   { publishedAt?: Date | string | null } & Omit<
     RecommendedTopicBase,
     'skipped' | 'posted'
-  >
+  > & { token: string }
 >
 
 export type RecommendedTopic = StrapiBase &

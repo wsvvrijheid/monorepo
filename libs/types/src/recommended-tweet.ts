@@ -28,7 +28,7 @@ export type RecommendedTweetCreateInput = Expand<
     RecommendedTweetBase,
     'isShared'
   > &
-    RecommendedTweetRelationInput
+    RecommendedTweetRelationInput & { token: string }
 >
 
 export type RecommendedTweet = StrapiBase &

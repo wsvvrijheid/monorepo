@@ -7,7 +7,7 @@ import { StrapiModel, StrapiUrl } from '@wsvvrijheid/types'
 export const deleteModel = <T extends StrapiModel>(
   id: number,
   url: StrapiUrl,
-  token?: string,
+  token: string,
 ) => {
   return Mutation.delete<T>(url, id, token)
 }
@@ -23,7 +23,7 @@ export const useDeleteModel = <T extends StrapiModel>(
   return useMutation({
     mutationKey: [`delete-${url}`],
     mutationFn: ({ id }: { id: number }) =>
-      deleteModel<T>(id, url, token ?? undefined),
+      deleteModel<T>(id, url, token as string),
     onSettled: () => {
       queryClient.invalidateQueries(queryKey)
     },

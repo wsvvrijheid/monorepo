@@ -8,25 +8,32 @@ type LikersMutationArgs = {
   id: number
   likers: number[]
   user?: SessionUser
+  token: string
 }
 
 type LikesMutationArgs = {
   id: number
   likes: number
+  token: string
 }
 
-const likeBlogByUser = async ({ id, likers, user }: LikersMutationArgs) => {
+const likeBlogByUser = async ({
+  id,
+  likers,
+  user,
+  token,
+}: LikersMutationArgs) => {
   if (!user) return
 
-  const body = { likers }
+  const body = { likers, token }
 
-  return Mutation.put<Blog, BlogUpdateInput>('api/blogs', id, body)
+  return Mutation.put<Blog, BlogUpdateInput>('api/blogs', id, body, token)
 }
 
-const likeBlogPublic = async ({ id, likes }: LikesMutationArgs) => {
-  const body = { likes }
+const likeBlogPublic = async ({ id, likes, token }: LikesMutationArgs) => {
+  const body = { likes, token }
 
-  return Mutation.put<Blog, BlogUpdateInput>('api/blogs', id, body)
+  return Mutation.put<Blog, BlogUpdateInput>('api/blogs', id, body, token)
 }
 
 const useLikeBlogByUserMutation = () => {
@@ -46,7 +53,7 @@ const useLikeBlogPublicMutation = () => {
 export const useLikeBlog = (blog?: Blog | null, queryKey?: QueryKey) => {
   const queryClient = useQueryClient()
 
-  const { user } = useAuthSelector()
+  const { user, token } = useAuthSelector()
 
   const likeBlogByUserMutation = useLikeBlogByUserMutation()
   const likeBlogPublicMutation = useLikeBlogPublicMutation()
@@ -76,7 +83,7 @@ export const useLikeBlog = (blog?: Blog | null, queryKey?: QueryKey) => {
   const toggleLike = async () => {
     if (user) {
       return likeBlogByUserMutation.mutate(
-        { id: blog.id, likers },
+        { id: blog.id, likers, token: token as string, user },
         {
           onSuccess: async data => {
             await queryClient.invalidateQueries(queryKey)
@@ -86,7 +93,7 @@ export const useLikeBlog = (blog?: Blog | null, queryKey?: QueryKey) => {
     }
 
     likeBlogPublicMutation.mutate(
-      { id: blog.id, likes },
+      { id: blog.id, likes, token: token as string },
       {
         onSuccess: async data => {
           await queryClient.invalidateQueries(queryKey)

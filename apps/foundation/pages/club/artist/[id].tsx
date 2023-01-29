@@ -3,7 +3,7 @@ import { FC } from 'react'
 
 import { dehydrate, QueryClient } from '@tanstack/react-query'
 import { getArtistServerProps } from '@wsvvrijheid/services'
-import { StrapiLocale, User } from '@wsvvrijheid/types'
+import { Art, StrapiLocale, User } from '@wsvvrijheid/types'
 import { ArtistTemplate } from '@wsvvrijheid/ui'
 import { GetServerSideProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
@@ -15,12 +15,13 @@ import i18nConfig from '../../../next-i18next.config'
 type ArtistPageProps = {
   seo: NextSeoProps
   artist: User
+  arts: Art[]
 }
 
-const ArtistPage: FC<ArtistPageProps> = ({ seo, artist }) => {
+const ArtistPage: FC<ArtistPageProps> = ({ seo, artist, arts }) => {
   return (
     <Layout seo={seo} isDark hasScroll>
-      <ArtistTemplate artist={artist} />
+      <ArtistTemplate artist={artist} arts={arts} />
     </Layout>
   )
 }
@@ -28,7 +29,7 @@ export default ArtistPage
 
 export const getServerSideProps: GetServerSideProps = async context => {
   const queryClient = new QueryClient()
-  const artist = await getArtistServerProps(context)
+  const { artist, arts } = await getArtistServerProps(context)
   const locale = context.locale as StrapiLocale
 
   if (!artist) return { notFound: true }
@@ -43,6 +44,7 @@ export const getServerSideProps: GetServerSideProps = async context => {
     props: {
       seo,
       artist,
+      arts,
       dehydratedState: dehydrate(queryClient),
       ...(await serverSideTranslations(locale, ['common'], i18nConfig)),
     },
