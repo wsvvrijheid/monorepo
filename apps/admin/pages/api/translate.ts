@@ -6,7 +6,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   const response = await axios({
     url: `https://api-free.deepl.com/v2/translate?text=${
       req.body.text
-    }&target_lang=${req.body.locale.toUpperCase()}`,
+    }&target_lang=${req.body.locale.toUpperCase()}&tag_handling=xml`,
     method: 'POST',
 
     headers: {

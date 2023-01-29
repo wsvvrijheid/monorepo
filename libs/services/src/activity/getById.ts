@@ -6,7 +6,6 @@ export const getActivityById = async (id: number) => {
   const response = await Request.single<Activity>({
     url: 'api/activities',
     id,
-    populate: ['localizations', 'image'],
   })
 
   return response?.data || null
