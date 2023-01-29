@@ -10,6 +10,7 @@ export default {
           publishedAt: new Date(),
           approver: ctx.state.user.id,
         },
+        populate: '*',
       })
 
     return { data: result }

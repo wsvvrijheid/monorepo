@@ -9,20 +9,20 @@ import {
 import { getModelTranslation } from './deepl'
 
 type CreateLocalizationsArgs<T extends StrapiTranslatableModel> = {
-  data: T
+  model: T
   translatedFields: (keyof T)[]
   url: StrapiUrl
   token: string
 }
 
 export const createLocalizations = async <T extends StrapiTranslatableModel>({
-  data,
+  model,
   translatedFields,
   url,
   token,
 }: CreateLocalizationsArgs<T>) => {
   const modelTranslations = await getModelTranslation(
-    data as unknown as T,
+    model as unknown as T,
     translatedFields,
   )
 
@@ -33,7 +33,7 @@ export const createLocalizations = async <T extends StrapiTranslatableModel>({
     StrapiLocalizeInput
   >(
     url,
-    data.id,
+    model.id,
     firstTranslation.locale as StrapiLocale,
     firstTranslation,
     token,

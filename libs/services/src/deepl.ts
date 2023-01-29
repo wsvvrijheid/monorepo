@@ -8,24 +8,44 @@ export const getTranslation = async (
   locale: StrapiLocale,
   isMarkdown?: boolean,
 ) => {
-  let text = content
+  let paragraphs = [] as string[]
 
   if (isMarkdown) {
     try {
-      text = removeMarkdown(content)
       // TODO Add proper way of removing html tags including self closing tags
-      text.replace(/<.*?>(.*?)<\/.*?>/g, '').replace(/<.*?>(.*?)\/>/g, '')
+      paragraphs = content
+        .replace(/<.*?>(.*?)<\/.*?>/g, '')
+        .replace(/<.*?>(.*?)\/>/g, '')
+        // Split text into paragraphs
+        .split(/\r?\n\r?\n/)
+
+      paragraphs = paragraphs.map(p => removeMarkdown(p))
     } catch (error) {
       console.error('Error removing markdown', error)
     }
   }
 
+  if (paragraphs[0]) {
+    const translatedParagraphs = await Promise.all(
+      paragraphs.map(async text => {
+        const translation = await axios.post('/api/translate', { text, locale })
+
+        return translation.data
+      }),
+    )
+
+    return translatedParagraphs.join('\n\n')
+  }
+
   try {
-    const response = await axios.post('/api/translate', { text, locale })
+    const response = await axios.post('/api/translate', {
+      text: content,
+      locale,
+    })
 
     return response.data
   } catch (error) {
-    console.error('Error translating', text)
+    console.error('Error translating', content)
     return `**NOT_TRANSLATED** ${content}`
   }
 }
@@ -60,7 +80,6 @@ export const getModelTranslation = async <
             key === 'content',
           )
 
-          console.log(value, translation)
           translatedModel[key as keyof T] = translation
 
           if (key === 'title') {

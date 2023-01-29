@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useMemo } from 'react'
 
 import {
   Box,
@@ -59,7 +59,6 @@ export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
   const SIMILARITY_LIMIT = 60
 
   const [isChangingImage, setIsChangingImage] = useBoolean(false)
-  const [similarity, setSimilarity] = useState(0)
 
   const imageFile = useFileFromUrl(originalTweet?.image)
   const { token } = useAuthSelector()
@@ -105,14 +104,16 @@ export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
     image: { url: originalTweet?.image },
   } as Post
 
-  useEffect(() => {
-    const similarity =
+  const similarity = useMemo(() => {
+    if (!text || !originalTweet.text) return 0
+
+    return (
       stringSimilarity.compareTwoStrings(
         text.toLowerCase(),
-        originalTweet.text?.toLowerCase() || '',
+        originalTweet.text.toLowerCase() || '',
       ) * 100
-    setSimilarity(similarity)
-  }, [text, originalTweet.text, setValue])
+    )
+  }, [text, originalTweet.text])
 
   const closeModal = () => {
     reset()
@@ -220,7 +221,7 @@ export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
                 </Button>
                 <Button
                   type="submit"
-                  colorScheme="primary"
+                  colorScheme="purple"
                   leftIcon={<FiArrowUpRight />}
                   disabled={similarity > SIMILARITY_LIMIT}
                 >

@@ -23,7 +23,7 @@ export const approveModel = async <T extends StrapiModel>(
   )
 }
 
-export const useApproveModel = <T extends StrapiModel>(
+export const useApproveModel = <T extends StrapiTranslatableModel>(
   url: StrapiUrl,
   translatedFields?: (keyof T)[],
 ) => {
@@ -34,13 +34,12 @@ export const useApproveModel = <T extends StrapiModel>(
     mutationKey: [`approve-${url}`],
     mutationFn: ({ id }: { id: number }) =>
       approveModel<T>(id, url, token ?? undefined),
-    onSuccess: async res => {
-      const translatableRes = res as StrapiTranslatableModel
-      const hasLocalizations = translatableRes?.localizations?.[0]
+    onSuccess: async model => {
+      const hasLocalizations = model?.localizations?.[0]
 
-      if (translatedFields && !hasLocalizations) {
+      if (model && translatedFields && !hasLocalizations) {
         await createLocalizations({
-          data: res as StrapiTranslatableModel,
+          model,
           translatedFields:
             translatedFields as (keyof StrapiTranslatableModel)[],
           url,
@@ -49,8 +48,8 @@ export const useApproveModel = <T extends StrapiModel>(
       }
 
       toast({
-        title: `Model ${translatableRes?.approvalStatus}`,
-        description: `Model has been ${translatableRes?.approvalStatus}`,
+        title: `Model ${model?.approvalStatus}`,
+        description: `Model has been ${model?.approvalStatus}`,
         status: 'success',
         duration: 5000,
         isClosable: true,
