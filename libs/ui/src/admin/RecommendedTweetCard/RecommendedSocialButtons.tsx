@@ -10,12 +10,14 @@ import {
   PopoverTrigger,
   Tooltip,
 } from '@chakra-ui/react'
+import { API_URL } from '@wsvvrijheid/config'
 import { useDeleteModel } from '@wsvvrijheid/services'
-import { RecommendedTweet } from '@wsvvrijheid/types'
+import { Post, RecommendedTweet } from '@wsvvrijheid/types'
 import { AiFillDelete, AiOutlineShareAlt } from 'react-icons/ai'
-//import { RiEditLine } from 'react-icons/ri'
 
 import { ShareButtons, WConfirm, WConfirmProps } from '../../components'
+import { postFields, postSchema } from '../../data'
+import { ModelCreateModal } from '../ModelForm'
 import { ActionButton } from '../TopicCard'
 
 export interface RecommendedSocialButtonsProps {
@@ -59,6 +61,25 @@ export const RecommendedSocialButtons: FC<RecommendedSocialButtonsProps> = ({
     .join(' ')
   const quoteTweet = [tweet?.text, mentions].filter(a => !!a).join('\n\n')
 
+  let imageUrl: string | unknown
+
+  if (tweet?.image?.url) {
+    imageUrl = API_URL + tweet?.image?.url
+  }
+
+  if (tweet?.originalTweet?.image) {
+    imageUrl = tweet?.originalTweet?.image
+  }
+
+  const postContent = {
+    title: tweet.text,
+    description: tweet?.text,
+    content: tweet?.text,
+    image: {
+      url: imageUrl,
+    },
+  } as Post
+
   return (
     <HStack
       justify={'space-between'}
@@ -97,6 +118,21 @@ export const RecommendedSocialButtons: FC<RecommendedSocialButtonsProps> = ({
           </PopoverBody>
         </PopoverContent>
       </Popover>
+      <Tooltip label="Create post" hasArrow bg="primary.400">
+        <ModelCreateModal
+          title="Create Post"
+          url="api/posts"
+          schema={postSchema}
+          fields={postFields}
+          model={postContent}
+          buttonProps={{
+            variant: 'ghost',
+            colorScheme: 'gray',
+          }}
+        >
+          {isVertical ? '' : 'Create Post'}
+        </ModelCreateModal>
+      </Tooltip>
       <Tooltip label="Delete tweet" hasArrow bg="primary.400">
         <Box>
           <ActionButton
