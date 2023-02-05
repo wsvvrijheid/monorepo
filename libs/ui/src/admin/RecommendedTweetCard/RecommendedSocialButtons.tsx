@@ -126,11 +126,12 @@ export const RecommendedSocialButtons: FC<RecommendedSocialButtonsProps> = ({
           fields={postFields}
           model={postContent}
           buttonProps={{
+            iconSpacing: isVertical ? 0 : 2,
             variant: 'ghost',
             colorScheme: 'gray',
           }}
         >
-          {isVertical ? '' : 'Create Post'}
+          {!isVertical && 'Create Post'}
         </ModelCreateModal>
       </Tooltip>
       <Tooltip label="Delete tweet" hasArrow bg="primary.400">
