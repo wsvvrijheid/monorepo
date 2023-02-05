@@ -28,11 +28,14 @@
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": ["images", "videos"]
+      "allowedTypes": [
+        "images",
+        "videos"
+      ]
     },
     "originalTweet": {
       "type": "json",
-      "required": true
+      "required": false
     },
     "recommender": {
       "type": "relation",
