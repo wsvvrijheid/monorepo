@@ -22,7 +22,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { useRecommendTweet } from '@wsvvrijheid/services'
 import { useAuthSelector } from '@wsvvrijheid/store'
 import { Mention, Post, Tweet } from '@wsvvrijheid/types'
-import { useForm } from 'react-hook-form'
+import { useForm, FieldErrorsImpl } from 'react-hook-form'
 import { FiArrowUpRight } from 'react-icons/fi'
 import { GrFormClose } from 'react-icons/gr'
 import stringSimilarity from 'string-similarity'
@@ -170,7 +170,7 @@ export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
                   name="text"
                   label="New Tweet"
                   register={register}
-                  errors={errors}
+                  errors={errors as FieldErrorsImpl<FormFieldValues>}
                   isRequired
                 />
 
