@@ -3,7 +3,7 @@ import { FC } from 'react'
 import { Box, Button, Center, Heading, Stack, Text } from '@chakra-ui/react'
 import { searchModel } from '@wsvvrijheid/services'
 import { Hashtag, StrapiLocale } from '@wsvvrijheid/types'
-import { Container, Navigate, PostMakerIcon } from '@wsvvrijheid/ui'
+import { Container, Navigate } from '@wsvvrijheid/ui'
 import { getItemLink } from '@wsvvrijheid/utils'
 import { GetStaticProps } from 'next'
 import { useTranslation } from 'next-i18next'
@@ -40,15 +40,15 @@ const Home: FC<HomeProps> = ({ seo, link }) => {
               <Stack
                 order={{ base: 2, lg: 1 }}
                 color="white"
-                spacing={8}
-                alignItems={{ base: 'center', lg: 'start' }}
+                spacing={6}
+                alignItems={{ base: 'center', lg: 'center' }}
                 flex={1}
-                textAlign={{ base: 'center', lg: 'left' }}
+                textAlign={{ base: 'center', lg: 'center' }}
               >
-                <Heading as="h3" size="2xl" color="white">
+                <Heading as="h3" size="xl" color="white">
                   {t('home.post-maker.title')}
                 </Heading>
-                <Text fontSize="xl" fontWeight="semibold">
+                <Text fontSize="xl" fontWeight="normal" maxWidth="2xl">
                   {t('home.post-maker.content')}
                 </Text>
 
@@ -56,19 +56,22 @@ const Home: FC<HomeProps> = ({ seo, link }) => {
                   as={Navigate}
                   href={link || '/'}
                   size="lg"
-                  variant="outline"
-                  colorScheme="primary"
-                  color="white"
+                  fontWeight="semibold"
+                  variant="solid"
+                  colorScheme="primary.600"
+                  bg="white"
+                  color="primary.500"
+                  boxShadow="lg"
                   _hover={{ color: 'white', bg: 'blackAlpha.100' }}
                 >
                   {t('home.post-maker.button')}
                 </Button>
               </Stack>
 
-              <PostMakerIcon
+              {/* <PostMakerIcon
                 order={{ base: 1, lg: 2 }}
                 boxSize={{ base: 300, lg: 500 }}
-              />
+              /> */}
             </Stack>
           </Container>
         </Center>
