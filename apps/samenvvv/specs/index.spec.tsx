@@ -6,7 +6,7 @@ import Index from '../pages/index'
 
 describe('Index', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<Index seo={{}} link="" />)
+    const { baseElement } = render(<Index hashtags={[]} seo={{}} link="" />)
     expect(baseElement).toBeTruthy()
   })
 })
