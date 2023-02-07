@@ -1,9 +1,9 @@
 import { FC } from 'react'
 
-import { Box, Button, Center, Heading, Stack, Text } from '@chakra-ui/react'
+import { Box, Button, Heading, Stack, Text, VStack } from '@chakra-ui/react'
 import { searchModel } from '@wsvvrijheid/services'
 import { Hashtag, StrapiLocale } from '@wsvvrijheid/types'
-import { Container, Navigate } from '@wsvvrijheid/ui'
+import { Navigate } from '@wsvvrijheid/ui'
 import { getItemLink } from '@wsvvrijheid/utils'
 import { GetStaticProps } from 'next'
 import { useTranslation } from 'next-i18next'
@@ -24,57 +24,89 @@ const Home: FC<HomeProps> = ({ seo, link }) => {
   return (
     <Layout seo={seo} isDark hasScroll>
       <Box pos="relative" bg="white" mt="-100px">
-        <Center
+        <Stack
           p={8}
           bgGradient="linear(to-b, primary.600, primary.300)"
           shadow="primary"
           rounded="sm"
           minH="100vh"
+          alignItems={'center'}
         >
-          <Container>
-            <Stack
-              direction={{ base: 'column', lg: 'row' }}
-              alignItems="center"
-              spacing={4}
+          <Stack
+            color="white"
+            spacing={6}
+            alignItems={{ base: 'center', lg: 'center' }}
+            justifyContent={'center'}
+            flex={1}
+            textAlign={{ base: 'center', lg: 'center' }}
+          >
+            <Heading as="h3" size="xl" color="white">
+              {t('home.post-maker.title')}
+            </Heading>
+            <Text fontSize="xl" fontWeight="normal" maxWidth="2xl">
+              {t('home.post-maker.content')}
+            </Text>
+
+            <Button
+              as={Navigate}
+              href={link || '/'}
+              size={{ base: 'sm', md: 'lg' }}
+              fontWeight="semibold"
+              variant="solid"
+              colorScheme="primary.600"
+              bg="white"
+              color="primary.500"
+              boxShadow="lg"
+              _hover={{ color: 'white', bg: 'blackAlpha.100' }}
             >
-              <Stack
-                order={{ base: 2, lg: 1 }}
-                color="white"
-                spacing={6}
-                alignItems={{ base: 'center', lg: 'center' }}
-                flex={1}
-                textAlign={{ base: 'center', lg: 'center' }}
+              {t('home.post-maker.button')}
+            </Button>
+          </Stack>
+
+          {/* Placeholder for HashtagCard */}
+          <Stack
+            direction={{ base: 'column', sm: 'row' }}
+            color="white"
+            spacing={6}
+            alignItems={{ base: 'center', lg: 'center' }}
+            justifyContent={'space-between'}
+          >
+            <VStack
+              alignItems={{ base: 'center', sm: 'flex-start' }}
+              spacing={6}
+            >
+              <Heading as="h3" size="xl" color="white">
+                {t('home.post-maker.title')}
+              </Heading>
+              <Text fontSize="xl" fontWeight="normal" maxWidth="2xl">
+                {t('home.post-maker.content')}
+              </Text>
+              <Button
+                as={Navigate}
+                href={link || '/'}
+                size={{ base: 'sm', md: 'lg' }}
+                fontWeight="semibold"
+                variant="solid"
+                colorScheme="primary.600"
+                bg="white"
+                color="primary.500"
+                boxShadow="lg"
+                _hover={{ color: 'white', bg: 'blackAlpha.100' }}
               >
-                <Heading as="h3" size="xl" color="white">
-                  {t('home.post-maker.title')}
-                </Heading>
-                <Text fontSize="xl" fontWeight="normal" maxWidth="2xl">
-                  {t('home.post-maker.content')}
-                </Text>
-
-                <Button
-                  as={Navigate}
-                  href={link || '/'}
-                  size="lg"
-                  fontWeight="semibold"
-                  variant="solid"
-                  colorScheme="primary.600"
-                  bg="white"
-                  color="primary.500"
-                  boxShadow="lg"
-                  _hover={{ color: 'white', bg: 'blackAlpha.100' }}
-                >
-                  {t('home.post-maker.button')}
-                </Button>
-              </Stack>
-
-              {/* <PostMakerIcon
-                order={{ base: 1, lg: 2 }}
-                boxSize={{ base: 300, lg: 500 }}
-              /> */}
-            </Stack>
-          </Container>
-        </Center>
+                Daha fazla oku
+              </Button>
+            </VStack>
+            <Box
+              as="image"
+              bg={'gray'}
+              borderRadius={12}
+              border={'1px'}
+              borderColor={'white'}
+              width={600}
+              height={60}
+            ></Box>
+          </Stack>
+        </Stack>
       </Box>
     </Layout>
   )
