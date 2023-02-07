@@ -16,10 +16,12 @@ import i18nConfig from '../next-i18next.config'
 interface HomeProps {
   seo: NextSeoProps
   link: string
+  hashtags: Hashtag[]
 }
 
-const Home: FC<HomeProps> = ({ seo, link }) => {
+const Home: FC<HomeProps> = ({ seo, link, hashtags }) => {
   const { t } = useTranslation()
+  console.log(hashtags)
 
   return (
     <Layout seo={seo} isDark hasScroll>
@@ -97,7 +99,6 @@ const Home: FC<HomeProps> = ({ seo, link }) => {
               </Button>
             </VStack>
             <Box
-              as="image"
               bg={'gray'}
               borderRadius={12}
               border={'1px'}
@@ -137,6 +138,7 @@ export const getStaticProps: GetStaticProps = async context => {
       ...(await serverSideTranslations(locale, ['common'], i18nConfig)),
       link,
       seo,
+      hashtags,
     },
     revalidate: 1,
   }
