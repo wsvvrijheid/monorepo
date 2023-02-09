@@ -1,9 +1,9 @@
 import { FC } from 'react'
 
-import { Box, Button, Heading, Stack, Text, VStack } from '@chakra-ui/react'
+import { Box, Button, Heading, Stack, Text } from '@chakra-ui/react'
 import { searchModel } from '@wsvvrijheid/services'
 import { Hashtag, StrapiLocale } from '@wsvvrijheid/types'
-import { Navigate } from '@wsvvrijheid/ui'
+import { Navigate, WImage } from '@wsvvrijheid/ui'
 import { getItemLink } from '@wsvvrijheid/utils'
 import { GetStaticProps } from 'next'
 import { useTranslation } from 'next-i18next'
@@ -16,12 +16,11 @@ import i18nConfig from '../next-i18next.config'
 interface HomeProps {
   seo: NextSeoProps
   link: string
-  hashtags: Hashtag[]
+  hashtag: Hashtag
 }
 
-const Home: FC<HomeProps> = ({ seo, link, hashtags }) => {
+const Home: FC<HomeProps> = ({ seo, link, hashtag }) => {
   const { t } = useTranslation()
-  console.log(hashtags)
 
   return (
     <Layout seo={seo} isDark hasScroll>
@@ -65,48 +64,51 @@ const Home: FC<HomeProps> = ({ seo, link, hashtags }) => {
             </Button>
           </Stack>
 
-          {/* Placeholder for HashtagCard */}
-          <Stack
-            direction={{ base: 'column', sm: 'row' }}
-            color="white"
-            spacing={6}
-            alignItems={{ base: 'center', lg: 'center' }}
-            justifyContent={'space-between'}
-          >
-            <VStack
-              alignItems={{ base: 'center', sm: 'flex-start' }}
+          {hashtag && (
+            <Stack
+              direction={{ base: 'column', sm: 'row' }}
+              color="white"
               spacing={6}
+              alignItems={'stretch'}
+              justifyContent={'space-between'}
             >
-              <Heading as="h3" size="xl" color="white">
-                {t('home.post-maker.title')}
-              </Heading>
-              <Text fontSize="xl" fontWeight="normal" maxWidth="2xl">
-                {t('home.post-maker.content')}
-              </Text>
-              <Button
-                as={Navigate}
-                href={link || '/'}
-                size={{ base: 'sm', md: 'lg' }}
-                fontWeight="semibold"
-                variant="solid"
-                colorScheme="primary.600"
-                bg="white"
-                color="primary.500"
-                boxShadow="lg"
-                _hover={{ color: 'white', bg: 'blackAlpha.100' }}
+              <Stack
+                py={2}
+                justifyContent={'space-between'}
+                alignItems={{ base: 'center', sm: 'flex-start' }}
               >
-                Daha fazla oku
-              </Button>
-            </VStack>
-            <Box
-              bg={'gray'}
-              borderRadius={12}
-              border={'1px'}
-              borderColor={'white'}
-              width={600}
-              height={60}
-            ></Box>
-          </Stack>
+                <Heading as="h3" size="xl" color="white">
+                  {hashtag.title}
+                </Heading>
+                <Text fontSize="xl" fontWeight="normal" maxWidth="2xl">
+                  {hashtag.description}
+                </Text>
+                <Button
+                  as={Navigate}
+                  href={link || '/'}
+                  size={{ base: 'sm', md: 'lg' }}
+                  fontWeight="semibold"
+                  variant="solid"
+                  colorScheme="primary.600"
+                  bg="white"
+                  color="primary.500"
+                  boxShadow="lg"
+                  _hover={{ color: 'white', bg: 'blackAlpha.100' }}
+                >
+                  {t('read-more')}
+                </Button>
+              </Stack>
+              <WImage
+                width={480}
+                height={270}
+                borderRadius={'xl'}
+                border={'1px'}
+                borderColor={'white'}
+                objectFit="fill"
+                src={hashtag.image}
+              />
+            </Stack>
+          )}
         </Stack>
       </Box>
     </Layout>
@@ -127,7 +129,9 @@ export const getStaticProps: GetStaticProps = async context => {
     locale,
     statuses: ['approved'],
   })
-  const link = getItemLink(hashtags?.data?.[0], locale, 'hashtag')
+  const hashtag = hashtags?.data?.[0] || null
+
+  const link = getItemLink(hashtag, locale, 'hashtag')
 
   const seo: NextSeoProps = {
     title: title[locale],
@@ -138,7 +142,7 @@ export const getStaticProps: GetStaticProps = async context => {
       ...(await serverSideTranslations(locale, ['common'], i18nConfig)),
       link,
       seo,
-      hashtags,
+      hashtag,
     },
     revalidate: 1,
   }
