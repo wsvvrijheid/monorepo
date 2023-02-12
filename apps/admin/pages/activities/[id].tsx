@@ -1,4 +1,4 @@
-import { Box } from '@chakra-ui/react'
+import { Box, ButtonGroup, Button } from '@chakra-ui/react'
 import { useActivityById } from '@wsvvrijheid/services'
 import { Activity } from '@wsvvrijheid/types'
 import {
@@ -6,6 +6,8 @@ import {
   activitySchema,
   AdminLayout,
   ModelEditForm,
+  Navigate,
+  PageHeader,
 } from '@wsvvrijheid/ui'
 import { useRouter } from 'next/router'
 
@@ -18,6 +20,15 @@ const ActivityPage = () => {
 
   return (
     <AdminLayout title="Activity" isLoading={isLoading} hasBackButton>
+      <PageHeader>
+        <ButtonGroup>
+          {activity?.localizations?.map(l => (
+            <Navigate key={l.id} href={`/activities/${l.id}`}>
+              <Button textTransform={'uppercase'}>{l.locale}</Button>
+            </Navigate>
+          ))}
+        </ButtonGroup>
+      </PageHeader>
       <Box p={6} rounded="md" bg="white" shadow="md">
         {activity && (
           <ModelEditForm<Activity>

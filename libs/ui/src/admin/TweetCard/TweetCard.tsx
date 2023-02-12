@@ -1,7 +1,6 @@
 import { FC } from 'react'
 
 import {
-  AspectRatio,
   Avatar,
   Box,
   HStack,
@@ -12,118 +11,150 @@ import {
   MenuList,
   Stack,
   Text,
-  useBoolean,
+  useDisclosure,
 } from '@chakra-ui/react'
-import { getTwitterVideoUrl } from '@wsvvrijheid/utils'
+import { useRecommendTweet } from '@wsvvrijheid/services'
+import { useAuthSelector } from '@wsvvrijheid/store'
+import { RecommendedTweetCreateInput, Tweet } from '@wsvvrijheid/types'
 import { BsBookmarkPlus, BsThreeDots } from 'react-icons/bs'
-import { FaPlayCircle } from 'react-icons/fa'
 import { RiEditLine } from 'react-icons/ri'
-import ReactPlayer from 'react-player'
-import twitterText from 'twitter-text'
+import { useLocalStorage } from 'usehooks-ts'
 
 import { TweetCardProps } from './types'
-import { WImage } from '../../components'
+import { CreateTweetForm } from '../../components'
+import { TweetContent } from '../TweetContent'
 
 export const TweetCard: FC<TweetCardProps> = ({
   tweet,
-  onEdit,
-  onSave,
+  bookmarkable,
+  editable,
+  setValue,
+  isChangingImage,
+  setIsChangingImage,
   ...rest
 }) => {
-  const [playing, setPlaying] = useBoolean()
+  const [storageTweets, setStorageTweets] = useLocalStorage<Tweet[]>(
+    'bookmarked-tweets',
+    [],
+  )
+  const { isOpen, onOpen, onClose } = useDisclosure()
+  const { token } = useAuthSelector()
+
+  const isBookmarked = storageTweets?.some(t => t.id === tweet.id)
+
+  const { mutateAsync } = useRecommendTweet()
+
+  const handleBookmark = () => {
+    if (isBookmarked) {
+      const filteredBookmarks = storageTweets?.filter(t => t.id !== tweet.id)
+      setStorageTweets(filteredBookmarks)
+    } else {
+      setStorageTweets([...storageTweets, tweet])
+    }
+  }
+
+  const handleEdit = () => {
+    onOpen()
+  }
+
+  // console.log('tweet', tweet)
+
+  const handleSubmit = async (
+    text: string,
+    originalTweet: Partial<Tweet>,
+    mentions: number[],
+    image?: File,
+  ) => {
+    const recommendedTweet: RecommendedTweetCreateInput = {
+      originalTweet: JSON.parse(JSON.stringify(originalTweet)),
+      image,
+      text,
+      mentions,
+      token: token as string,
+    }
+
+    await mutateAsync(recommendedTweet)
+    onClose()
+  }
 
   return (
-    <HStack
-      spacing={4}
-      align={'start'}
-      bg={'white'}
-      rounded={'md'}
-      shadow={'sm'}
-      p={4}
-      {...rest}
-    >
-      <Avatar name={tweet.user.name} src={tweet.user.profile} />
-
-      <Stack spacing={4}>
-        {/* Tweet Header */}
-        <HStack justify={'space-between'} title={tweet.user.username}>
-          <Box lineHeight={1.15}>
-            <Text noOfLines={1} wordBreak={'break-all'} fontWeight={'bolder'}>
-              {tweet.user.name}
-            </Text>
-            <Text noOfLines={1} color={'gray.500'}>
-              @{tweet.user.username}
-            </Text>
-          </Box>
-
-          {onEdit && onSave && (
-            <Menu>
-              <MenuButton
-                size="sm"
-                rounded="full"
-                as={IconButton}
-                icon={<BsThreeDots />}
-                variant="ghost"
-              />
-              <MenuList>
-                <MenuItem icon={<RiEditLine />} onClick={() => onEdit(tweet)}>
-                  Edit
-                </MenuItem>
-                <MenuItem
-                  icon={<BsBookmarkPlus />}
-                  onClick={() => onSave(tweet)}
-                >
-                  Save (Bookmark)
-                </MenuItem>
-              </MenuList>
-            </Menu>
-          )}
-        </HStack>
-
-        {/* Tweet Content */}
-        <Text
-          ml={2}
-          wordBreak={'break-word'}
-          whiteSpace={'pre-wrap'}
-          sx={{
-            '& a': {
-              color: 'twitter.500',
-            },
-          }}
-          dangerouslySetInnerHTML={{ __html: twitterText.autoLink(tweet.text) }}
+    <>
+      {isOpen && (
+        <CreateTweetForm
+          onSubmit={handleSubmit}
+          isOpen={isOpen}
+          onClose={onClose}
+          originalTweet={tweet as Tweet}
+          isNews={false}
         />
-
-        {/* Video */}
-        {tweet.videos && (
-          <AspectRatio
-            ratio={16 / 9}
-            w="full"
-            rounded={'lg'}
-            overflow="hidden"
-            onClick={setPlaying.toggle}
-          >
-            <ReactPlayer
-              playing={playing}
-              url={getTwitterVideoUrl(tweet.videos)}
-              width="100%"
-              height="100%"
-              light={tweet.image}
-              playIcon={
-                <Box boxSize={12} color="whiteAlpha.700" as={FaPlayCircle} />
-              }
-            />
-          </AspectRatio>
-        )}
-        {/* Image */}
-        {!tweet.videos && tweet.image && (
-          <WImage
-            ratio="twitter"
-            src={tweet.image}
-            rounded={'lg'}
-            alt={tweet.text}
+      )}
+      <HStack
+        spacing={4}
+        align={'start'}
+        bg={'white'}
+        rounded={'md'}
+        shadow={'sm'}
+        p={4}
+        {...rest}
+      >
+        {tweet.user && (
+          <Avatar
+            flexShrink={0}
+            name={tweet.user.name}
+            src={tweet.user.profile}
           />
         )}
-      </Stack>
-    </HStack>
+
+        <Stack flex={1} spacing={4}>
+          {/* Tweet Header */}
+          <HStack justify={'space-between'} title={tweet.user?.username}>
+            {tweet.user && (
+              <Box lineHeight={1.15}>
+                <Text
+                  noOfLines={1}
+                  wordBreak={'break-all'}
+                  fontWeight={'bolder'}
+                >
+                  {tweet.user.name}
+                </Text>
+                <Text noOfLines={1} color={'gray.500'}>
+                  @{tweet.user.username}
+                </Text>
+              </Box>
+            )}
+
+            {(bookmarkable || editable) && (
+              <Menu>
+                <MenuButton
+                  size="sm"
+                  rounded="full"
+                  as={IconButton}
+                  icon={<BsThreeDots />}
+                  variant="ghost"
+                />
+                <MenuList>
+                  <MenuItem icon={<RiEditLine />} onClick={handleEdit}>
+                    Edit
+                  </MenuItem>
+                  <MenuItem
+                    icon={<BsBookmarkPlus color={isBookmarked ? 'red' : ''} />}
+                    onClick={handleBookmark}
+                  >
+                    {isBookmarked ? 'Remove' : 'Save'} (Bookmark)
+                  </MenuItem>
+                </MenuList>
+              </Menu>
+            )}
+          </HStack>
+
+          <TweetContent
+            tweet={tweet}
+            setValue={setValue}
+            isChangingImage={isChangingImage}
+            setIsChangingImage={setIsChangingImage}
+          />
+        </Stack>
+      </HStack>
+    </>
   )
 }

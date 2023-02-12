@@ -1,9 +1,3 @@
-'use strict';
+import { factories } from '@strapi/strapi'
 
-/**
- *  activity controller
- */
-
-import { factories } from '@strapi/strapi';
-
-export default factories.createCoreController('api::activity.activity');
+export default factories.createCoreController('api::activity.activity')

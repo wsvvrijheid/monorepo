@@ -3150,6 +3150,7 @@ export const HASHTAG_MOCKS: Localize<StrapiCollectionResponse<Hashtag[]>> = {
                 },
                 likes: 0,
                 retweets: 0,
+                createdAt: '2021-09-10T23:00:00.000Z',
               },
             ],
             createdAt: '2022-06-26T23:01:19.959Z',

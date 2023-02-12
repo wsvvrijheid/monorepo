@@ -1,7 +1,7 @@
 import { Category } from './category'
 import { Expand } from './common'
 import { UploadFile } from './file'
-import { StrapiBase, StrapiEntityBase } from './strapi'
+import { StrapiBase, StrapiCreatorRelation, StrapiEntityBase } from './strapi'
 import { Tag } from './tag'
 
 type ActivityBase = StrapiEntityBase & {
@@ -16,7 +16,7 @@ type ActivityRelation = {
 }
 
 type ActivityRelationInput = {
-  category?: number
+  categories?: number
   tags?: Array<number>
   image: File
 }
@@ -26,17 +26,20 @@ export type ActivityCreateInput = Expand<
     ActivityBase,
     'approvalStatus'
   > &
-    ActivityRelationInput
+    ActivityRelationInput & { token: string }
 >
 export type ActivityUpdateInput = Expand<
   { publishedAt?: Date | string | null } & Partial<
     Omit<ActivityBase, 'locale'>
   > &
-    Omit<ActivityRelationInput, 'image'> & { image?: File }
+    Omit<ActivityRelationInput, 'image'> & { image?: File } & { token: string }
 >
 export type ActivityLocalizeInput = Pick<
   ActivityBase,
   'title' | 'description' | 'content'
 >
 
-export type Activity = StrapiBase & ActivityBase & ActivityRelation
+export type Activity = StrapiBase &
+  ActivityBase &
+  ActivityRelation &
+  StrapiCreatorRelation

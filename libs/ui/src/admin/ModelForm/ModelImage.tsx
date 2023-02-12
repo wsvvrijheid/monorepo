@@ -1,13 +1,15 @@
 import { FC } from 'react'
 
-import { Box, Button, Center, Stack } from '@chakra-ui/react'
+import { Box, Button, Center, Stack, Text } from '@chakra-ui/react'
 import { API_URL } from '@wsvvrijheid/config'
 import {
   StrapiModel,
   StrapiTranslatableModel,
   StrapiUrl,
+  UploadFile,
 } from '@wsvvrijheid/types'
 import { UseFormSetValue } from 'react-hook-form'
+import { CiImageOff } from 'react-icons/ci'
 import { IoMdCloudUpload } from 'react-icons/io'
 import { AssertsShape } from 'yup/lib/object'
 
@@ -34,60 +36,82 @@ export const ModelImage: FC<ModelImageProps> = ({
   setIsChangingImage,
   url,
 }) => {
-  const modelWithImage = model as StrapiTranslatableModel
+  const { image, title, description } = (model || {}) as StrapiTranslatableModel
 
-  const modelImageUrl = modelWithImage?.image?.url
+  const modelImageUrl = image?.url
 
-  const imageUrl = modelImageUrl?.startsWith('http')
-    ? modelImageUrl
-    : `${API_URL}${modelImageUrl}`
+  const imageUrl =
+    modelImageUrl && modelImageUrl.startsWith('http')
+      ? modelImageUrl
+      : `${API_URL}${modelImageUrl}`
 
-  return (
-    <Box maxH={{ base: 300, lg: 'full' }} rounded={'md'} overflow="hidden">
-      {isChangingImage ? (
+  const renderImage = () => {
+    if (isChangingImage || (isEditing && !image)) {
+      return (
         <Stack>
-          {modelWithImage?.image && (
-            <Button onClick={setIsChangingImage.off}>Cancel</Button>
-          )}
+          {image && <Button onClick={setIsChangingImage.off}>Cancel</Button>}
           <FilePicker setFiles={files => setValue('image', files[0])} />
         </Stack>
-      ) : (
-        <Box pos="relative" role="group" h="full">
-          {url === 'api/posts' ? (
-            <OgImage
-              title={modelWithImage.title}
-              text={modelWithImage.description as string}
-              image={imageUrl}
-            />
-          ) : (
-            <WImage
-              src={modelWithImage?.image?.url as string}
-              alt={modelWithImage?.title}
-              hasZoom
-              objectFit="contain"
-            />
-          )}
+      )
+    } else if (!image) {
+      return (
+        <Stack
+          borderWidth={1}
+          rounded={'md'}
+          h={300}
+          align={'center'}
+          justify={'center'}
+        >
+          <Box as={CiImageOff} boxSize={100} />
+          <Text>No image available</Text>
+        </Stack>
+      )
+    }
 
-          {isEditing && (
-            <Center
-              pos="absolute"
-              top={0}
-              left={0}
-              boxSize="full"
-              bg="blackAlpha.500"
-              onClick={setIsChangingImage?.toggle}
-              cursor="pointer"
-            >
-              <Button
-                leftIcon={<IoMdCloudUpload />}
-                size="lg"
-                colorScheme={'blackAlpha'}
-              >
-                Change Image
-              </Button>
-            </Center>
-          )}
-        </Box>
+    if (url === 'api/posts' && imageUrl) {
+      return (
+        <OgImage title={title} text={description as string} image={imageUrl} />
+      )
+    }
+
+    return (
+      <WImage
+        src={image as UploadFile}
+        alt={title}
+        hasZoom
+        objectFit="contain"
+        sizes="(max-width: 480) 80vw, 33vw"
+      />
+    )
+  }
+
+  return (
+    <Box
+      maxH={{ base: 300, lg: 'full' }}
+      rounded={'md'}
+      pos={'relative'}
+      overflow="hidden"
+    >
+      {renderImage()}
+      {isEditing && image && !isChangingImage && (
+        <Center
+          pos="absolute"
+          zIndex={1}
+          top={0}
+          left={0}
+          boxSize="full"
+          bg="blackAlpha.500"
+          onClick={setIsChangingImage?.toggle}
+          cursor="pointer"
+        >
+          <Button
+            leftIcon={<IoMdCloudUpload />}
+            size="lg"
+            colorScheme={'blackAlpha'}
+          >
+            Change Image
+          </Button>
+        </Center>
       )}
     </Box>
   )

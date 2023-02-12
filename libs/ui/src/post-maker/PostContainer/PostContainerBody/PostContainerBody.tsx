@@ -1,13 +1,14 @@
 import { FC, memo } from 'react'
 
 import { Box, Spacer, Stack } from '@chakra-ui/react'
+import { UploadFile } from '@wsvvrijheid/types'
 
 import { WImage } from '../../../components'
 import { PostContainerTags } from '../PostContainerTags'
 import { PostTextarea } from '../PostTextarea'
 
 interface PostContainerBodyProp {
-  postImage?: string
+  postImage?: UploadFile
 }
 
 export const PostContainerBody: FC<PostContainerBodyProp> = memo(

@@ -24,13 +24,11 @@ import { MdOutlineNotifications } from 'react-icons/md'
 import { useLocalStorage } from 'usehooks-ts'
 
 import { AdminSidebar } from '../AdminSidebar'
-import { PageHeader, PageHeaderProps } from '../PageHeader'
 
 export type AdminLayoutProps = {
   children: ReactNode
   title: string
   isLoading?: boolean
-  headerProps?: PageHeaderProps
   hasBackButton?: boolean
 }
 
@@ -38,7 +36,6 @@ export const AdminLayout: FC<AdminLayoutProps> = ({
   children,
   title,
   isLoading,
-  headerProps,
   hasBackButton,
 }) => {
   const { user } = useAuthSelector()
@@ -134,13 +131,9 @@ export const AdminLayout: FC<AdminLayoutProps> = ({
               </HStack>
 
               {/* Page Content */}
-              <Box pos="sticky" top={0} zIndex={1}>
-                {headerProps && (
-                  <PageHeader defaultLocale="tr" {...headerProps} />
-                )}
-              </Box>
-
-              <Box px={4}>{children}</Box>
+              <Stack spacing={4} px={4}>
+                {children}
+              </Stack>
             </>
           )}
         </Stack>

@@ -5,13 +5,19 @@
  */
 
 import { factories } from '@strapi/strapi'
-import { RecommendedTopic, Topic } from '../../../libs/topics/utils/types'
+import { RecommendedTopic } from '../../../libs/topics/utils/types'
 
 export default factories.createCoreController(
   'api::recommended-topic.recommended-topic',
   ({ strapi }) => ({
     async create(ctx) {
       const result = await super.create(ctx)
+
+      await strapi
+        .service('api::recommended-topic.recommended-topic')
+        .update(result.data.id, {
+          data: { creator: ctx.state.user.id },
+        })
 
       const topics = await strapi.service('api::topic.topic').find({})
 
@@ -24,9 +30,10 @@ export default factories.createCoreController(
         },
       )
 
-      await strapi
-        .service('api::topic.topic')
-        .createOrUpdate({ data: { data: newTopics }, meta: {} })
+      await strapi.service('api::topic.topic').createOrUpdate({
+        data: { data: newTopics },
+        meta: {},
+      })
 
       return result
     },

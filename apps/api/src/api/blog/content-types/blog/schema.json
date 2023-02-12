@@ -118,15 +118,23 @@
     },
     "likers": {
       "type": "relation",
-      "relation": "manyToMany",
-      "target": "plugin::users-permissions.user",
-      "mappedBy": "likedBlogs"
+      "relation": "oneToMany",
+      "target": "plugin::users-permissions.user"
     },
     "author": {
       "type": "relation",
-      "relation": "manyToOne",
-      "target": "plugin::users-permissions.user",
-      "inversedBy": "blogs"
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "approver": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "creator": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
     }
   }
 }

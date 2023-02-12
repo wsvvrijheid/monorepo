@@ -1,6 +1,14 @@
 import { ReactNode } from 'react'
 
-import { Avatar, Badge, Td, Tooltip, Box } from '@chakra-ui/react'
+import {
+  Avatar,
+  Badge,
+  Box,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+  Td,
+} from '@chakra-ui/react'
 import { API_URL } from '@wsvvrijheid/config'
 import { StrapiModel, UploadFile } from '@wsvvrijheid/types'
 
@@ -41,17 +49,14 @@ export const WTableCell = <T extends StrapiModel>({
     const thumbnail = image?.formats?.thumbnail?.url || image?.url
 
     cellContent = (
-      <Tooltip
-        p={0}
-        overflow="hidden"
-        placement="right-end"
-        bg="white"
-        rounded="md"
-        size="lg"
-        label={<WImage h={150} w={300} src={image} />}
-      >
-        <Avatar size="md" src={`${API_URL}${thumbnail}`} />
-      </Tooltip>
+      <Popover trigger="hover" isLazy placement="right">
+        <PopoverTrigger>
+          <Avatar size="md" src={`${API_URL}${thumbnail}`} />
+        </PopoverTrigger>
+        <PopoverContent p={0} w={'auto'} overflow={'hidden'}>
+          <WImage w={'50vw'} src={image} sizes={'400px'} />
+        </PopoverContent>
+      </Popover>
     )
   } else {
     cellContent = data

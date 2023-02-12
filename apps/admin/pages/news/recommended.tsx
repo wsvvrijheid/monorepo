@@ -18,20 +18,14 @@ const NewsBookmarkedPage = () => {
     locale: locale as StrapiLocale,
   })
   return (
-    <AdminLayout
-      title=" Recomended News"
-      headerProps={{
-        onSearch: () => null,
-        filterMenuCloseOnSelect: false,
-        searchPlaceHolder: 'Search bookmarks',
-      }}
-    >
+    <AdminLayout title=" Recomended News">
       <ModelCreateModal<RecommendedTopic>
         title="Create News"
         url="api/recommended-topics"
         schema={topicSchema}
         fields={topicFields}
         onSuccess={refetch}
+        buttonProps={{ mb: 4, alignSelf: 'start' }}
       >
         Create News
       </ModelCreateModal>

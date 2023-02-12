@@ -1,7 +1,7 @@
 import { Category } from './category'
 import { Expand } from './common'
 import { UploadFile } from './file'
-import { StrapiBase, StrapiEntityBase } from './strapi'
+import { StrapiBase, StrapiCreatorRelation, StrapiEntityBase } from './strapi'
 import { Tag } from './tag'
 
 type AnnouncementBase = StrapiEntityBase & {
@@ -26,16 +26,19 @@ export type AnnouncementCreateInput = Expand<
     AnnouncementBase,
     'approvalStatus'
   > &
-    AnnouncementRelationInput
+    AnnouncementRelationInput & { token: string }
 >
 export type AnnouncementUpdateInput = Expand<
   { publishedAt?: Date | string | null } & Partial<
     Omit<AnnouncementBase, 'locale'> & AnnouncementRelationInput
-  >
+  > & { token: string }
 >
 export type AnnouncementLocalizeInput = Pick<
   AnnouncementBase,
   'title' | 'description' | 'content'
 >
 
-export type Announcement = StrapiBase & AnnouncementBase & AnnouncementRelation
+export type Announcement = StrapiBase &
+  AnnouncementBase &
+  AnnouncementRelation &
+  StrapiCreatorRelation

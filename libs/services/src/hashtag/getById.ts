@@ -6,7 +6,6 @@ export const getHashtagById = async (id: number) => {
   const response = await Request.single<Hashtag>({
     url: 'api/hashtags',
     id,
-    populate: ['localizations', 'image', 'mentions', 'posts.image'],
   })
 
   return response?.data || null

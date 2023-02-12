@@ -14,6 +14,7 @@ import {
   AdminLayout,
   DataTable,
   ModelCreateModal,
+  PageHeader,
 } from '@wsvvrijheid/ui'
 import { useRouter } from 'next/router'
 import { useUpdateEffect } from 'react-use'
@@ -22,7 +23,6 @@ const ActivitiesPage = () => {
   const { query } = useRouter()
   const [currentPage, setCurrentPage] = useState<number>()
   const status = query.status as ApprovalStatus
-  const defaultLocale: StrapiLocale = 'en'
 
   const [searchTerm, setSearchTerm] = useState<string>()
   const { locale, push } = useRouter()
@@ -62,23 +62,23 @@ const ActivitiesPage = () => {
   }
 
   return (
-    <AdminLayout
-      title={`${status} Activities`}
-      headerProps={{
-        onSearch: handleSearch,
-        searchPlaceHolder: 'Search by title or content',
-        defaultLocale,
-      }}
-    >
-      <ModelCreateModal<Activity>
-        title="Create Activity"
-        url="api/activities"
-        schema={activitySchema}
-        fields={activityFields}
-        onSuccess={() => activitiesQuery.refetch()}
+    <AdminLayout title={`${status} Activities`}>
+      <PageHeader
+        onSearch={handleSearch}
+        searchPlaceHolder={'Search by title or description'}
       >
-        Create Activity
-      </ModelCreateModal>
+        <ModelCreateModal<Activity>
+          title="Create Activity"
+          url="api/activities"
+          schema={activitySchema}
+          fields={activityFields}
+          onSuccess={() => activitiesQuery.refetch()}
+          buttonProps={{ mb: 4 }}
+        >
+          New Activity
+        </ModelCreateModal>
+      </PageHeader>
+
       <DataTable
         columns={activityColumns}
         data={mappedActivities}

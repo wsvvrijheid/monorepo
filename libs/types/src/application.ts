@@ -2,7 +2,7 @@ import { Applicant } from './applicant'
 import { Expand } from './common'
 import { Competition } from './competition'
 import { UploadFile } from './file'
-import { StrapiBase, StrapiEntityBase } from './strapi'
+import { StrapiBase, StrapiCreatorRelation, StrapiEntityBase } from './strapi'
 import { Tag } from './tag'
 import { Vote } from './vote'
 
@@ -31,13 +31,17 @@ export type ApplicationCreateInput = Expand<
     ApplicationBase,
     'approvalStatus'
   > &
-    Omit<ApplicationRelationInput, 'votes' | 'juryVotes'>
+    Omit<ApplicationRelationInput, 'votes' | 'juryVotes'> & { token: string }
 >
 
 export type ApplicationUpdateInput = Expand<
   { publishedAt?: Date | string | null } & Partial<
-    Omit<ApplicationBase, 'locale'> & ApplicationRelationInput
+    Omit<ApplicationBase, 'locale'> &
+      ApplicationRelationInput & { token: string }
   >
 >
 
-export type Application = StrapiBase & ApplicationBase & ApplicationRelation
+export type Application = StrapiBase &
+  ApplicationBase &
+  ApplicationRelation &
+  StrapiCreatorRelation

@@ -1,5 +1,6 @@
 import { useMutation } from '@tanstack/react-query'
 import { Mutation } from '@wsvvrijheid/lib'
+import { useAuthSelector } from '@wsvvrijheid/store'
 import {
   Comment,
   CommentArtCreateInput,
@@ -13,6 +14,7 @@ type CreateArtCommentProps = {
   email?: string
   art: number
   user?: number
+  token: string
 }
 
 const createArtComment = ({
@@ -21,6 +23,7 @@ const createArtComment = ({
   email,
   art,
   user,
+  token,
 }: CreateArtCommentProps) => {
   if (user) {
     const body = { content, art, user }
@@ -28,6 +31,7 @@ const createArtComment = ({
     return Mutation.post<Comment, CommentArtCreateInputUser>(
       'api/comments',
       body,
+      token,
     )
   }
 
@@ -40,12 +44,16 @@ const createArtComment = ({
   return Mutation.post<Comment, CommentArtCreateInputPublic>(
     'api/comments',
     body,
+    token,
   )
 }
 
 export const useArtCommentMutation = () => {
+  const { token } = useAuthSelector()
+
   return useMutation({
     mutationKey: ['create-comment'],
-    mutationFn: (args: CommentArtCreateInput) => createArtComment(args),
+    mutationFn: (args: CommentArtCreateInput) =>
+      createArtComment({ ...args, token: token as string }),
   })
 }

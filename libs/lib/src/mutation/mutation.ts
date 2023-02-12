@@ -1,4 +1,4 @@
-import { API_URL, TOKEN } from '@wsvvrijheid/config'
+import { API_URL } from '@wsvvrijheid/config'
 import {
   StrapiCreateInput,
   StrapiLocale,
@@ -17,7 +17,7 @@ type MutationParams<D> = {
   id?: number
   locale?: StrapiLocale
   method: Method
-  token?: string
+  token: string
   url: StrapiUrl
   queryParameters?: string
 }
@@ -32,7 +32,7 @@ export const mutation = async <
   id,
   locale,
   method,
-  token = TOKEN,
+  token,
   url,
   queryParameters,
 }: MutationParams<D>) => {
@@ -72,20 +72,31 @@ export const mutation = async <
     return response.data?.data || null
   }
 
-  let requestBody = {}
+  let requestBody = { data: body } as unknown as FormData
 
-  if (body) {
+  if (
+    typeof window !== 'undefined' &&
+    body &&
+    Object.values(body).some(
+      value => value instanceof File || value instanceof Blob,
+    )
+  ) {
     requestBody = generateFormData<D>(body)
   }
 
-  const response = await axios[method]<StrapiMutationResponse<T>>(
-    requestUrl,
-    requestBody,
-    {
-      baseURL: API_URL,
-      headers: { Authorization: `Bearer ${token}` },
-    },
-  )
+  try {
+    const response = await axios[method]<StrapiMutationResponse<T>>(
+      requestUrl,
+      requestBody,
+      {
+        baseURL: API_URL,
+        headers: { Authorization: `Bearer ${token}` },
+      },
+    )
 
-  return response.data?.data || null
+    return response.data?.data || null
+  } catch (error) {
+    console.log('Mutation error', error)
+    return null
+  }
 }

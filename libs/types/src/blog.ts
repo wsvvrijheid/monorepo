@@ -2,7 +2,7 @@ import { Category } from './category'
 import { Comment } from './comment'
 import { Expand } from './common'
 import { UploadFile } from './file'
-import { StrapiBase, StrapiEntityBase } from './strapi'
+import { StrapiBase, StrapiCreatorRelation, StrapiEntityBase } from './strapi'
 import { Tag } from './tag'
 import { User } from './user'
 
@@ -34,12 +34,12 @@ export type BlogCreateInput = Expand<
     BlogBase,
     'approvalStatus' | 'likes' | 'views'
   > &
-    Omit<BlogRelationInput, 'likers'>
+    Omit<BlogRelationInput, 'likers'> & { token: string }
 >
 export type BlogUpdateInput = Expand<
   { publishedAt?: Date | string | null } & Partial<
     Omit<BlogBase, 'locale'> & BlogRelationInput
-  >
+  > & { token: string }
 >
 
 export type BlogLocalizeInput = Omit<
@@ -47,4 +47,4 @@ export type BlogLocalizeInput = Omit<
   'approvalStatus' | 'likes' | 'views'
 >
 
-export type Blog = StrapiBase & BlogBase & BlogRelation
+export type Blog = StrapiBase & BlogBase & BlogRelation & StrapiCreatorRelation
