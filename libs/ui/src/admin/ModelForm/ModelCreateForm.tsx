@@ -101,9 +101,9 @@ export const ModelCreateForm = <T extends StrapiModel>({
         ...acc,
         [key]: value,
       }
-    }, {} as StrapiTranslatableCreateInput)
+    }, {} as any)
 
-    const slug = slugify(body.title as string)
+    const slug = slugify((body.title || body.text) as string)
 
     createModelMutation.mutate(
       {
