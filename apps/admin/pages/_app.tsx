@@ -28,7 +28,15 @@ import 'react-markdown-editor-lite/lib/index.css'
 const { ToastContainer } = createStandaloneToast()
 
 function MyApp({ Component, pageProps }) {
-  const [queryClient] = useState(() => new QueryClient())
+  const [queryClient] = useState(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          mutations: { networkMode: 'always' },
+          queries: { networkMode: 'always' },
+        },
+      }),
+  )
   const { locale } = useRouter()
 
   useEffect(() => {

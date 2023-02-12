@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 
+import { API_URL } from '@wsvvrijheid/config'
 import axios from 'axios'
 
 export const useFileFromUrl = (url?: string) => {
@@ -7,7 +8,8 @@ export const useFileFromUrl = (url?: string) => {
 
   useEffect(() => {
     const createFileFromUrl = async (url: string) => {
-      const response = await axios.get(`/api/images?url=${url}`, {
+      const imageUrl = url.startsWith('http') ? url : `${API_URL}${url}`
+      const response = await axios.get(`/api/images?url=${imageUrl}`, {
         responseType: 'blob',
       })
       const file = new File([response.data], 'image.png', {

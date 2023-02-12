@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef, useState } from 'react'
+import { FC, useRef, useState } from 'react'
 
 import {
   Box,
@@ -25,12 +25,9 @@ import {
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import slugify from '@sindresorhus/slugify'
-import {
-  useCreateModelMutation,
-  useGetArtCategories,
-} from '@wsvvrijheid/services'
+import { useCreateModelMutation, useSearchModel } from '@wsvvrijheid/services'
 import { useAuthSelector } from '@wsvvrijheid/store'
-import { StrapiLocale } from '@wsvvrijheid/types'
+import { ArtCreateInput, Category, StrapiLocale } from '@wsvvrijheid/types'
 import { useRouter } from 'next/router'
 import { TFunction, useTranslation } from 'next-i18next'
 import { useForm } from 'react-hook-form'
@@ -70,9 +67,11 @@ export const CreateArtForm: FC<CreateArtFormProps> = ({ queryKey }) => {
   const [image, setImage] = useState<File>()
   const { locale } = useRouter()
   const { t } = useTranslation()
-  const categories = useGetArtCategories()
+  const categories = useSearchModel<Category>({
+    url: 'api/categories',
+  })
 
-  const auth = useAuthSelector()
+  const { user, token, isLoggedIn } = useAuthSelector()
 
   const cancelRef = useRef<HTMLButtonElement>(null)
   const formDisclosure = useDisclosure()
@@ -98,32 +97,24 @@ export const CreateArtForm: FC<CreateArtFormProps> = ({ queryKey }) => {
     ...(typeof window !== 'undefined' && { storage: window.sessionStorage }),
   })
 
-  useEffect(
-    () => () => {
-      // Make sure to revoke the data uris to avoid memory leaks
-      URL.revokeObjectURL((image as any).preview)
-    },
-    [image],
-  )
-
   const { mutate, isLoading } = useCreateModelMutation('api/arts')
 
   const createArt = async (
     data: CreateArtFormFieldValues & { image: File },
   ) => {
-    if (!auth.user) return
+    if (!user) return
 
     const slug = slugify(data.title)
-    const formBody = {
+    const formBody: ArtCreateInput = {
       ...data,
       slug,
-      artist: auth.user.id,
-      categories: data.categories?.map(c => Number(c.value)),
+      categories: data.categories?.map(c => Number(c.value)) || [],
+      token: token as string,
     }
 
     mutate(formBody, {
       onSuccess: () => {
-        formDisclosure.onClose()
+        closeForm()
         successDisclosure.onOpen()
       },
       onError: () => {
@@ -173,7 +164,7 @@ export const CreateArtForm: FC<CreateArtFormProps> = ({ queryKey }) => {
         closeOnOverlayClick={false}
         isOpen={formDisclosure.isOpen}
         onClose={closeForm}
-        size={auth.isLoggedIn ? '4xl' : 'md'}
+        size={isLoggedIn ? '4xl' : 'md'}
       >
         <ModalOverlay />
         <ModalContent>
@@ -196,7 +187,7 @@ export const CreateArtForm: FC<CreateArtFormProps> = ({ queryKey }) => {
               </Center>
             )}
 
-            {!auth.isLoggedIn && (
+            {!isLoggedIn && (
               <VStack>
                 <Text>
                   <>{t('art.create.require-auth.text')} </>
@@ -208,7 +199,7 @@ export const CreateArtForm: FC<CreateArtFormProps> = ({ queryKey }) => {
             )}
 
             {/* CREATE FORM */}
-            {auth.isLoggedIn && (
+            {isLoggedIn && (
               <SimpleGrid columns={{ base: 1, lg: 2 }} gap={4}>
                 <FilePicker setFiles={files => setImage(files[0])} />
                 <Stack
@@ -250,7 +241,7 @@ export const CreateArtForm: FC<CreateArtFormProps> = ({ queryKey }) => {
                     control={control}
                     isMulti
                     options={
-                      categories.data?.map(c => ({
+                      categories.data?.data?.map(c => ({
                         value: c.id.toString(),
                         label: c[`name_${locale as StrapiLocale}`],
                       })) || []

@@ -120,9 +120,8 @@
     },
     "categories": {
       "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::category.category",
-      "mappedBy": "hashtags"
+      "relation": "oneToMany",
+      "target": "api::category.category"
     },
     "mentions": {
       "type": "relation",
@@ -135,6 +134,16 @@
       "relation": "oneToMany",
       "target": "api::post.post",
       "mappedBy": "hashtag"
+    },
+    "approver": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "creator": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
     }
   }
 }

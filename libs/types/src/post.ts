@@ -1,7 +1,7 @@
 import { ApprovalStatus, Expand } from './common'
 import { UploadFile } from './file'
 import { Hashtag } from './hashtag'
-import { StrapiBase, StrapiEntityBase } from './strapi'
+import { StrapiBase, StrapiCreatorRelation, StrapiEntityBase } from './strapi'
 import { Tag } from './tag'
 import { User } from './user'
 
@@ -16,8 +16,6 @@ export type PostRelation = {
   hashtag?: Hashtag
   tags?: Array<Tag>
   translator?: User | null
-  creator?: User | null
-  reviewer?: User | null
   localizations?: Array<Post>
 }
 
@@ -26,8 +24,6 @@ export type PostRelationInput = {
   hashtag: number
   tags?: Array<number>
   translator?: number
-  creator?: number
-  reviewer?: number
 }
 
 export type PostCreateInput = Expand<
@@ -35,12 +31,13 @@ export type PostCreateInput = Expand<
     PostBase,
     'approvalStatus' | 'capsStatus'
   > &
-    Pick<PostRelationInput, 'image' | 'hashtag' | 'tags' | 'creator'>
+    Pick<PostRelationInput, 'image' | 'hashtag' | 'tags'> & { token: string }
 >
 
 export type PostUpdateInput = Expand<
   { publishedAt?: Date | string | null } & Partial<
-    Omit<PostBase, 'locale'> & Omit<PostRelationInput, 'translator' | 'creator'>
+    Omit<PostBase, 'locale'> &
+      Omit<PostRelationInput, 'translator'> & { token: string }
   >
 >
 
@@ -49,4 +46,4 @@ export type PostLocalizeInput = Pick<
   'title' | 'description' | 'content' | 'approvalStatus'
 >
 
-export type Post = StrapiBase & PostBase & PostRelation
+export type Post = StrapiBase & PostBase & PostRelation & StrapiCreatorRelation

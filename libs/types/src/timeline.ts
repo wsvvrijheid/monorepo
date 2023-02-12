@@ -1,24 +1,18 @@
 import { StrapiBase } from './strapi'
-import { TimelineTweet } from './tweet'
+import { Tweet, TweetUserBase } from './tweet'
 import { User } from './user'
 
-export type TimelineBase = {
-  userData: {
-    name: string
-    username: string
-    profile: string
-  }
-}
+export type TimelineBase = StrapiBase
 
 type TimelineRelation = {
-  tweets: Array<TimelineTweet>
+  userData: TweetUserBase
+  tweets: Array<Omit<Tweet, 'user'>>
   creator?: User
-  listers?: Array<User>
 }
 
 export type TimelineCreateInput = Omit<
-  { publishedAt?: Date | string | null } & TimelineBase,
+  { publishedAt?: Date | string | null },
   'userData'
->
+> & { token: string }
 
-export type Timeline = StrapiBase & TimelineBase & TimelineRelation
+export type Timeline = TimelineBase & TimelineRelation

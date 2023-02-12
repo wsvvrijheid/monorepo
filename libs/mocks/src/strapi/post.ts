@@ -98,7 +98,6 @@ export const POST_MOCKS: Localize<StrapiCollectionResponse<Post[]>> = {
           approvalStatus: 'pending',
         },
         tags: [],
-        reviewer: null,
         creator: null,
         localizations: [
           {
@@ -229,7 +228,6 @@ export const POST_MOCKS: Localize<StrapiCollectionResponse<Post[]>> = {
           approvalStatus: 'approved',
         },
         tags: [],
-        reviewer: null,
         creator: null,
         localizations: [
           {
@@ -360,7 +358,6 @@ export const POST_MOCKS: Localize<StrapiCollectionResponse<Post[]>> = {
           approvalStatus: 'approved',
         },
         tags: [],
-        reviewer: null,
         creator: {
           id: 53,
           username: 'talipaltas',

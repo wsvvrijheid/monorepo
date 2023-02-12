@@ -1,14 +1,15 @@
-import { TimelineTweet } from '@wsvvrijheid/types'
+import { Tweet } from '@wsvvrijheid/types'
 
 export type CreateTweetFormProps = {
   onSubmit?: (
     text: string,
-    originalTweet: TimelineTweet,
+    originalTweet: Partial<Tweet>,
     mentions: number[],
-    media?: File,
+    image?: File,
+    video?: File,
   ) => void
   onClose: () => void
   isOpen: boolean
-  originalTweet: TimelineTweet
+  originalTweet: Partial<Tweet>
   isNews: boolean
 }

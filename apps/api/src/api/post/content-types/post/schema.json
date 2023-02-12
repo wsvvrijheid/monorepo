@@ -113,17 +113,15 @@
       "target": "api::tag.tag",
       "inversedBy": "posts"
     },
-    "reviewer": {
+    "approver": {
       "type": "relation",
-      "relation": "manyToOne",
-      "target": "plugin::users-permissions.user",
-      "inversedBy": "reviewedPosts"
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
     },
     "creator": {
       "type": "relation",
-      "relation": "manyToOne",
-      "target": "plugin::users-permissions.user",
-      "inversedBy": "posts"
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
     }
   }
 }

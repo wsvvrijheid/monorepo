@@ -98,20 +98,10 @@
       "type": "boolean",
       "default": false
     },
-    "recommender": {
+    "creator": {
       "type": "relation",
-      "relation": "manyToOne",
-      "target": "plugin::users-permissions.user",
-      "inversedBy": "topics"
-    },
-    "locale": {
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "type": "string",
-      "required": true
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
     }
   }
 }

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useMemo } from 'react'
 
 import {
   Box,
@@ -19,23 +19,26 @@ import {
   useBoolean,
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { Mention, Post, TimelineTweet } from '@wsvvrijheid/types'
-import { useForm } from 'react-hook-form'
+import { useRecommendTweet } from '@wsvvrijheid/services'
+import { useAuthSelector } from '@wsvvrijheid/store'
+import { Mention, Post, Tweet } from '@wsvvrijheid/types'
+import { useForm, FieldErrorsImpl } from 'react-hook-form'
 import { FiArrowUpRight } from 'react-icons/fi'
 import { GrFormClose } from 'react-icons/gr'
 import stringSimilarity from 'string-similarity'
 import * as yup from 'yup'
 
 import { CreateTweetFormProps } from './types'
-import { ModelCreateModal, TweetText } from '../../admin'
+import { ModelCreateModal } from '../../admin'
 import { ModelSelect } from '../../admin/ModelForm/ModelSelect'
+import { TweetContent } from '../../admin/TweetContent'
 import { postFields, postSchema } from '../../data'
 import { useFileFromUrl } from '../../hooks'
 import { FormItem } from '../FormItem'
 
 const schema = yup.object({
   text: yup.string().required('Title is required'),
-  media: yup.mixed(),
+  image: yup.mixed(),
   mentions: yup.array().of(
     yup.object().shape({
       label: yup.string(),
@@ -47,7 +50,6 @@ const schema = yup.object({
 type FormFieldValues = yup.InferType<typeof schema>
 
 export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
-  onSubmit,
   isOpen,
   onClose,
   originalTweet,
@@ -57,13 +59,22 @@ export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
   const SIMILARITY_LIMIT = 60
 
   const [isChangingImage, setIsChangingImage] = useBoolean(false)
-  const [similarity, setSimilarity] = useState(0)
 
-  const imageFile = useFileFromUrl(originalTweet?.media?.url)
+  const imageFile = useFileFromUrl(originalTweet?.image)
+  const { token } = useAuthSelector()
+
+  const { mutateAsync } = useRecommendTweet()
 
   if (isNews) {
-    originalTweet = { text: originalTweet.text } as TimelineTweet
+    originalTweet = { text: originalTweet.text } as Tweet
   }
+
+  const defaultValues = {
+    text: '',
+    image: imageFile,
+    mentions: [],
+  }
+
   const {
     register,
     control,
@@ -75,50 +86,52 @@ export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
   } = useForm<FormFieldValues>({
     resolver: yupResolver(schema),
     mode: 'all',
-    defaultValues: {
-      text: '',
-      mentions: [],
-    },
+    values: defaultValues,
   })
 
-  const [text] = watch(['text'])
+  // We don't need to upload the same image as the original tweet
+  // useEffect(() => {
+  //   if (imageFile) {
+  //     setValue('image', imageFile)
+  //   }
+  // }, [imageFile, setValue, originalTweet?.image])
 
-  useEffect(() => {
-    if (imageFile) {
-      setValue('media', imageFile)
-    }
-  }, [imageFile, setValue])
+  const [text, image] = watch(['text', 'image'])
 
   const newPost = {
     description: text,
     content: text,
-    image: { url: originalTweet?.media?.url },
+    image: { url: originalTweet?.image },
   } as Post
 
-  useEffect(() => {
-    const similarity =
+  const similarity = useMemo(() => {
+    if (!text || !originalTweet.text) return 0
+
+    return (
       stringSimilarity.compareTwoStrings(
         text.toLowerCase(),
-        originalTweet.text.toLowerCase(),
+        originalTweet.text.toLowerCase() || '',
       ) * 100
-    setSimilarity(similarity)
-  }, [text, originalTweet.text, setValue])
-
-  const onSubmitHandler = async (data: FormFieldValues) => {
-    const mentions = data.mentions?.map(mention => mention.value) || []
-
-    await onSubmit?.(
-      data?.text,
-      originalTweet,
-      mentions as unknown as number[],
-      data.media,
     )
-    reset()
-  }
+  }, [text, originalTweet.text])
 
   const closeModal = () => {
     reset()
     onClose()
+  }
+
+  const handleRecommend = async (data: FormFieldValues) => {
+    const mentions = data.mentions?.map(mention => Number(mention.value)) || []
+
+    await mutateAsync({
+      originalTweet: JSON.parse(JSON.stringify(originalTweet)),
+      text: data.text,
+      mentions,
+      image,
+      token: token as string,
+    })
+
+    closeModal()
   }
 
   return (
@@ -141,13 +154,13 @@ export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
             <Stack
               spacing={4}
               as="form"
-              onSubmit={handleSubmit(onSubmitHandler)}
+              onSubmit={handleSubmit(handleRecommend)}
             >
               <Stack>
                 <FormLabel fontWeight={600}>Original Tweet</FormLabel>
-                <TweetText
-                  isVertical={false}
-                  tweet={originalTweet}
+                <TweetContent
+                  horizontal
+                  tweet={originalTweet as Tweet}
                   isChangingImage={isChangingImage}
                   setIsChangingImage={setIsChangingImage}
                   setValue={setValue}
@@ -157,7 +170,7 @@ export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
                   name="text"
                   label="New Tweet"
                   register={register}
-                  errors={errors}
+                  errors={errors as FieldErrorsImpl<FormFieldValues>}
                   isRequired
                 />
 
@@ -165,7 +178,6 @@ export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
                   isMulti
                   url="api/mentions"
                   control={control as any}
-                  fields={['username', 'data']}
                   name="mentions"
                   label="Mention"
                   errors={errors}
@@ -209,7 +221,7 @@ export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
                 </Button>
                 <Button
                   type="submit"
-                  colorScheme="primary"
+                  colorScheme="purple"
                   leftIcon={<FiArrowUpRight />}
                   disabled={similarity > SIMILARITY_LIMIT}
                 >

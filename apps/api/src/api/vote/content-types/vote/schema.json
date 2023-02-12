@@ -20,9 +20,8 @@
     },
     "voter": {
       "type": "relation",
-      "relation": "manyToOne",
-      "target": "plugin::users-permissions.user",
-      "inversedBy": "votes"
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
     },
     "application": {
       "type": "relation",

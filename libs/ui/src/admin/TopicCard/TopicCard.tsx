@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 
 import {
   Box,
@@ -11,22 +11,31 @@ import {
   PopoverTrigger,
   Stack,
   Text,
+  Tooltip,
   useBreakpointValue,
   useToast,
 } from '@chakra-ui/react'
 import { useQueryClient } from '@tanstack/react-query'
-import { useRecommendTopic } from '@wsvvrijheid/services'
+import { useDeleteModel, useRecommendTopic } from '@wsvvrijheid/services'
 import { useAuthSelector } from '@wsvvrijheid/store'
-import { Post, TopicBase } from '@wsvvrijheid/types'
+import {
+  Post,
+  RecommendedTopicCreateInput,
+  TopicBase,
+} from '@wsvvrijheid/types'
 import { formatDistanceStrict } from 'date-fns'
-import { AiOutlineEye, AiOutlineLike, AiOutlineShareAlt } from 'react-icons/ai'
+import {
+  AiFillDelete,
+  AiOutlineEye,
+  AiOutlineLike,
+  AiOutlineShareAlt,
+} from 'react-icons/ai'
 import { BsBookmarkHeart } from 'react-icons/bs'
 import { useLocalStorage } from 'usehooks-ts'
 
 import { ActionButton } from './ActionButton'
 import { TopicCardProps } from './types'
-import { WImage } from '../../components'
-import { ShareButtons } from '../../components'
+import { ShareButtons, WConfirm, WConfirmProps, WImage } from '../../components'
 import { postFields, postSchema } from '../../data'
 import { ModelCreateModal } from '../ModelForm'
 
@@ -52,9 +61,8 @@ const domains = [
   'amnesty.org',
 ]
 
-export const TopicCard: FC<TopicCardProps> = ({ topic, onCreatePost }) => {
+export const TopicCard: FC<TopicCardProps> = ({ topic }) => {
   const { user } = useAuthSelector()
-
   const ImageComponent = domains.some(d => topic.image?.includes(d))
     ? WImage
     : Image
@@ -73,10 +81,12 @@ export const TopicCard: FC<TopicCardProps> = ({ topic, onCreatePost }) => {
     [],
   )
 
+  const deleteModelMutation = useDeleteModel('api/recommended-topics')
+
   const queryClient = useQueryClient()
 
   const toast = useToast()
-  const { mutate, isLoading } = useRecommendTopic()
+  const { mutateAsync, isLoading } = useRecommendTopic()
 
   const isBookmarked = bookmarksStorage?.some(t => t.url === topic.url)
 
@@ -92,14 +102,10 @@ export const TopicCard: FC<TopicCardProps> = ({ topic, onCreatePost }) => {
     }
   }
 
-  const handleRecommend = () => {
-    mutate(
-      {
-        ...topic,
-        recommender: user?.id as number,
-      },
-      { onSettled: () => queryClient.invalidateQueries(['topics']) },
-    )
+  const handleRecommend = async () => {
+    await mutateAsync(topic as RecommendedTopicCreateInput, {
+      onSettled: () => queryClient.invalidateQueries(['topics']),
+    })
     toast({
       title: 'Recommended',
       status: 'success',
@@ -129,6 +135,32 @@ export const TopicCard: FC<TopicCardProps> = ({ topic, onCreatePost }) => {
     },
   } as Post
 
+  const [confirmState, setConfirmState] = useState<WConfirmProps>()
+  const id = topic?.id as number
+
+  const onDelete = () => {
+    setConfirmState({
+      isWarning: true,
+      title: 'Delete News',
+      description: 'Are you sure you want to delete this news?',
+      buttonText: 'Delete',
+      onConfirm: async () => {
+        deleteModelMutation.mutate(
+          { id },
+          {
+            onSuccess: () => {
+              setConfirmState(undefined)
+            },
+            onError: async errors => {
+              console.log('error delete mutation', errors)
+            },
+          },
+        )
+        setConfirmState(undefined)
+      },
+    })
+  }
+
   return (
     <Stack
       h={isVertical ? 'auto' : '200px'}
@@ -138,6 +170,12 @@ export const TopicCard: FC<TopicCardProps> = ({ topic, onCreatePost }) => {
       direction={isVertical ? 'column' : 'row'}
       overflow="hidden"
     >
+      {confirmState && (
+        <WConfirm
+          {...confirmState}
+          onCancel={() => setConfirmState(undefined)}
+        />
+      )}
       {topic.image && (
         <ImageComponent
           w={isVertical ? '100%' : '300px'}
@@ -182,9 +220,12 @@ export const TopicCard: FC<TopicCardProps> = ({ topic, onCreatePost }) => {
               schema={postSchema}
               fields={postFields}
               model={postContent}
-              buttonProps={{ variant: 'ghost', colorScheme: 'gray' }}
+              buttonProps={{
+                variant: 'ghost',
+                colorScheme: 'gray',
+              }}
             >
-              Create Post
+              {isVertical ? '' : 'Create Post'}
             </ModelCreateModal>
             <ActionButton
               onClick={() => handleView()}
@@ -233,9 +274,23 @@ export const TopicCard: FC<TopicCardProps> = ({ topic, onCreatePost }) => {
                 title="Recommend"
                 isVertical={isVertical}
                 disabled={topic.isRecommended || isLoading}
+                isDisabled={topic.isRecommended || isLoading}
                 variant={topic.isRecommended ? 'solid' : 'ghost'}
                 colorScheme={topic.isRecommended ? 'green' : 'gray'}
               />
+            )}
+            {user && topic?.isRecommended && id && (
+              <Tooltip label="Delete news" hasArrow bg="primary.400">
+                <Box>
+                  <ActionButton
+                    onClick={onDelete}
+                    icon={<AiFillDelete color={'red'} />}
+                    title="Delete"
+                    isVertical={isVertical}
+                    variant="ghost"
+                  />
+                </Box>
+              </Tooltip>
             )}
           </ButtonGroup>
         </Stack>

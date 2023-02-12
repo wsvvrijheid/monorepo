@@ -6,7 +6,7 @@ export const putMutation = <T extends StrapiModel, D extends StrapiUpdateInput>(
   url: StrapiUrl,
   id: number,
   body: D,
-  token?: string,
+  token: string,
 ) =>
   mutation<T, D>({
     url,
@@ -14,5 +14,5 @@ export const putMutation = <T extends StrapiModel, D extends StrapiUpdateInput>(
     id,
     body,
     token,
-    queryParameters: 'populate=*',
+    queryParameters: 'populate[0]=localizations',
   })

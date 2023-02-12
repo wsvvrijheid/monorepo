@@ -7,23 +7,26 @@ import { useLocalStorage } from 'usehooks-ts'
 type LikersMutationArgs = {
   id: number
   likers: number[]
+  token: string
 }
 
 type LikesMutationArgs = {
   id: number
   likes: number
+  token: string
 }
 
-const likeArtByUser = ({ id, likers }: LikersMutationArgs) => {
-  const body = { likers }
+const likeArtByUser = ({ id, likers, token }: LikersMutationArgs) => {
+  const body = { likers, token }
 
-  return Mutation.put<Art, ArtUpdateInput>('api/arts', id, body)
+  return Mutation.put<Art, ArtUpdateInput>('api/arts', id, body, token)
 }
 
-const likeArtPublic = ({ id, likes }: LikesMutationArgs) => {
-  const body = { likes }
+// TODO: Create new route, no token needed
+const likeArtPublic = ({ id, likes, token }: LikesMutationArgs) => {
+  const body = { likes, token }
 
-  return Mutation.put<Art, ArtUpdateInput>('api/arts', id, body)
+  return Mutation.put<Art, ArtUpdateInput>('api/arts', id, body, token)
 }
 
 const useLikeArtByUserMutation = () => {
@@ -43,7 +46,7 @@ const useLikeArtPublicMutation = () => {
 export const useLikeArt = (art?: Art | null, queryKey?: QueryKey) => {
   const queryClient = useQueryClient()
 
-  const { user } = useAuthSelector()
+  const { user, token } = useAuthSelector()
 
   const likeArtByUserMutation = useLikeArtByUserMutation()
   const likeArtPublicMutation = useLikeArtPublicMutation()
@@ -78,7 +81,7 @@ export const useLikeArt = (art?: Art | null, queryKey?: QueryKey) => {
   const toggleLike = async () => {
     if (user) {
       return likeArtByUserMutation.mutate(
-        { id: art.id, likers },
+        { id: art.id, likers, token: token as string },
         {
           onSuccess: async data => {
             await queryClient.invalidateQueries(queryKey)
@@ -88,17 +91,17 @@ export const useLikeArt = (art?: Art | null, queryKey?: QueryKey) => {
     }
 
     likeArtPublicMutation.mutate(
-      { id: art.id, likes },
+      { id: art.id, likes, token: token as string },
       {
         onSuccess: async data => {
           await queryClient.invalidateQueries(queryKey)
 
           const isLiked = likersStorage?.some(id => id === art.id)
           const updatedStorage = isLiked
-            ? likersStorage?.filter(id => id !== data.id)
-            : [...(likersStorage || []), data.id]
+            ? likersStorage?.filter(id => id !== data?.id)
+            : [...(likersStorage || []), data?.id]
 
-          setLikersStorage(updatedStorage)
+          setLikersStorage(updatedStorage as number[])
         },
       },
     )

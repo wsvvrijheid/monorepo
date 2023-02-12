@@ -59,7 +59,7 @@ export const PostContainer: FC<PostContainerProps> = ({
             icon={<FaRandom />}
             onClick={() => generateRandomPostText()}
           />
-          <PostContainerBody postImage={post?.image?.url} />
+          <PostContainerBody postImage={post?.image} />
         </Stack>
         <PostContainerButtons />
       </VStack>

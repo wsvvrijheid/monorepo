@@ -1,6 +1,7 @@
 import { useToast } from '@chakra-ui/react'
 import { useMutation } from '@tanstack/react-query'
 import { Mutation } from '@wsvvrijheid/lib'
+import { useAuthSelector } from '@wsvvrijheid/store'
 import {
   Art,
   ArtUpdateInput,
@@ -8,28 +9,45 @@ import {
   FeedbackArtCreateInput,
 } from '@wsvvrijheid/types'
 
-export const createFeedback = async (args: FeedbackArtCreateInput) => {
+export const createFeedback = async ({
+  token,
+  ...args
+}: FeedbackArtCreateInput) => {
   if (!args.message) {
     throw new Error('feedback field is required')
   }
   const body: ArtUpdateInput = {
     approvalStatus: args.status,
     publishedAt: args.status === 'approved' ? new Date() : null,
+    token,
   }
-  await Mutation.post<Feedback, FeedbackArtCreateInput>('api/feedbacks', args)
-  return Mutation.put<Art, ArtUpdateInput>('api/arts', args.art, body)
+  await Mutation.post<Feedback, FeedbackArtCreateInput>(
+    'api/feedbacks',
+    args as FeedbackArtCreateInput,
+    token,
+  )
+  return Mutation.put<Art, ArtUpdateInput>('api/arts', args.art, body, token)
 }
 
 export const useArtFeedbackMutation = () => {
   const toast = useToast()
+
+  const { token } = useAuthSelector()
+
   return useMutation({
     mutationKey: ['art-feedback'],
-    mutationFn: ({ art, editor, message, status }: FeedbackArtCreateInput) =>
-      createFeedback({ art, editor, message, status, point: 1 }),
+    mutationFn: ({ art, message, status }: FeedbackArtCreateInput) =>
+      createFeedback({
+        art,
+        message,
+        status,
+        point: 1,
+        token: token as string,
+      }),
     onSuccess: res => {
       toast({
-        title: `Art ${res.approvalStatus}`,
-        description: `Art has been ${res.approvalStatus}`,
+        title: `Art ${res?.approvalStatus}`,
+        description: `Art has been ${res?.approvalStatus}`,
         status: 'success',
         duration: 5000,
         isClosable: true,

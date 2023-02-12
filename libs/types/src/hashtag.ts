@@ -5,7 +5,7 @@ import { Expand } from './common'
 import { UploadFile } from './file'
 import { Mention } from './mention'
 import { Post } from './post'
-import { StrapiBase, StrapiEntityBase } from './strapi'
+import { StrapiBase, StrapiCreatorRelation, StrapiEntityBase } from './strapi'
 import { Tweet } from './tweet'
 
 export type HashtagBase = StrapiEntityBase & {
@@ -35,14 +35,14 @@ export type HashtagCreateInput = Expand<
     Omit<HashtagBase, 'approvalStatus' | 'tweets'>,
     'hashtagExtra'
   > &
-    SetRequired<HashtagRelationInput, 'image'>
+    SetRequired<HashtagRelationInput, 'image'> & { token: string }
 >
 
 export type HashtagUpdateInput = Expand<
   { publishedAt?: Date | string | null } & Partial<
     Omit<HashtagBase, 'locale' | 'tweets'>
   > &
-    HashtagRelationInput
+    HashtagRelationInput & { token: string }
 >
 
 export type HashtagLocalizeInput = Pick<
@@ -50,4 +50,7 @@ export type HashtagLocalizeInput = Pick<
   'title' | 'description' | 'content' | 'approvalStatus'
 >
 
-export type Hashtag = StrapiBase & HashtagBase & HashtagRelation
+export type Hashtag = StrapiBase &
+  HashtagBase &
+  HashtagRelation &
+  StrapiCreatorRelation
