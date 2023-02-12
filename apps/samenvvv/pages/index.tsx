@@ -24,14 +24,14 @@ const Home: FC<HomeProps> = ({ seo, link, hashtag }) => {
 
   return (
     <Layout seo={seo} isDark hasScroll>
-      <Box pos="relative" bg="white" mt="-100px">
+      <Box bgGradient="linear(to-b, primary.600, primary.300)" mt="-100px">
         <Stack
-          p={8}
-          bgGradient="linear(to-b, primary.600, primary.300)"
-          shadow="primary"
-          rounded="sm"
+          p={{ base: 4, xl: 0 }}
+          pt={{ base: '100px', lg: '100px' }}
           minH="100vh"
-          alignItems={'center'}
+          alignItems={'stretch'}
+          maxWidth="7xl"
+          mx="auto"
         >
           <Stack
             color="white"
@@ -51,14 +51,17 @@ const Home: FC<HomeProps> = ({ seo, link, hashtag }) => {
             <Button
               as={Navigate}
               href={link || '/'}
-              size={{ base: 'sm', md: 'lg' }}
+              size={'lg'}
               fontWeight="semibold"
               variant="solid"
-              colorScheme="primary.600"
+              colorScheme="primary"
               bg="white"
               color="primary.500"
               boxShadow="lg"
+              whiteSpace="normal"
               _hover={{ color: 'white', bg: 'blackAlpha.100' }}
+              py={'4'}
+              h={'auto'}
             >
               {t('home.post-maker.button')}
             </Button>
@@ -71,11 +74,13 @@ const Home: FC<HomeProps> = ({ seo, link, hashtag }) => {
               spacing={6}
               alignItems={'stretch'}
               justifyContent={'space-between'}
+              pb={{ base: 4, lg: 8 }}
             >
               <Stack
                 py={2}
                 justifyContent={'space-between'}
                 alignItems={{ base: 'center', sm: 'flex-start' }}
+                textAlign={{ base: 'center', sm: 'left' }}
               >
                 <Heading as="h3" size="xl" color="white">
                   {hashtag.title}
@@ -86,25 +91,26 @@ const Home: FC<HomeProps> = ({ seo, link, hashtag }) => {
                 <Button
                   as={Navigate}
                   href={link || '/'}
-                  size={{ base: 'sm', md: 'lg' }}
+                  size={'lg'}
                   fontWeight="semibold"
                   variant="solid"
-                  colorScheme="primary.600"
+                  colorScheme="primary"
                   bg="white"
                   color="primary.500"
                   boxShadow="lg"
+                  whiteSpace="normal"
                   _hover={{ color: 'white', bg: 'blackAlpha.100' }}
                 >
                   {t('read-more')}
                 </Button>
               </Stack>
               <WImage
-                width={480}
-                height={270}
+                maxWidth={'xl'}
+                h={'auto'}
+                ratio={16 / 9}
                 borderRadius={'xl'}
                 border={'1px'}
                 borderColor={'white'}
-                objectFit="fill"
                 src={hashtag.image}
               />
             </Stack>
