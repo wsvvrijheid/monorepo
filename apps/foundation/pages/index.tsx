@@ -6,12 +6,14 @@ import {
   Flex,
   Heading,
   Text,
+  HStack,
   VStack,
+  Image,
   Link,
 } from '@chakra-ui/react'
 import { searchModel } from '@wsvvrijheid/services'
 import { Platform } from '@wsvvrijheid/types'
-import { AnimatedBox, Container, WImage } from '@wsvvrijheid/ui'
+import { AnimatedBox, Container } from '@wsvvrijheid/ui'
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
@@ -50,26 +52,27 @@ const Home: FC<HomeProps> = ({ seo, platforms }) => {
           </AnimatedBox>
         </Box>
       </Flex>
-      <Center bg="blue.100" py={{ base: 16, lg: 32 }} minH="50vh">
+      <Center bg="blue.100" py={{ base: 16, lg: 32 }} minH="100vh">
         <Container>
           <HomeAbout />
         </Container>
       </Center>
       <HomePlatform platforms={platforms?.data} />
-      <Center bg="blue.100" py={{ base: 16, lg: 32 }} minH="50vh">
+      <Center py={{ base: 16, lg: 32 }} bg={'gray.100'}>
         <Container>
-          {/* <Heading fontWeight="black">{t('home.partners')}</Heading> */}
-          <Heading fontWeight="black">Partners</Heading>
-          <Text fontSize="xl">Stichting Challenges</Text>
-          <Box flex={1} h="full" w="full">
+          <VStack spacing={8}>
+            <Heading fontWeight="black">{t('home.partners')}</Heading>
             <Link href="https://challenges.nl" isExternal>
-              <WImage
-                src="https://challenges.nl/wp-content/uploads/2022/12/challengeslogo-1.png"
-                boxSize={250}
-                overflow="hidden"
-              />
+              <HStack align={'center'}>
+                <Image
+                  alt={'Stichting Challenges'}
+                  src="https://challenges.nl/wp-content/uploads/2022/12/challengeslogo-1.png"
+                  w={150}
+                />
+                <Text fontSize="xl">Stichting Challenges</Text>
+              </HStack>
             </Link>
-          </Box>
+          </VStack>
         </Container>
       </Center>
     </Layout>
