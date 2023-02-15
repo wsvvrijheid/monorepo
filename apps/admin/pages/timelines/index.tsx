@@ -25,6 +25,9 @@ const Timelines = () => {
         schema={recommendedTweetSchema}
         fields={recommendedTweetFields}
         onSuccess={refetch}
+        buttonProps={{
+          alignSelf: 'start',
+        }}
       >
         Create Recommended Tweet
       </ModelCreateModal>
