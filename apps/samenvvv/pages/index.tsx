@@ -1,9 +1,9 @@
 import { FC } from 'react'
 
-import { Box, Button, Heading, Stack, Text } from '@chakra-ui/react'
+import { Box, Button, Heading, Spacer, Stack, Text } from '@chakra-ui/react'
 import { searchModel } from '@wsvvrijheid/services'
 import { Hashtag, StrapiLocale } from '@wsvvrijheid/types'
-import { Navigate, WImage } from '@wsvvrijheid/ui'
+import { Navigate, WImage, Container } from '@wsvvrijheid/ui'
 import { getItemLink } from '@wsvvrijheid/utils'
 import { GetStaticProps } from 'next'
 import { useTranslation } from 'next-i18next'
@@ -24,22 +24,19 @@ const Home: FC<HomeProps> = ({ seo, link, hashtag }) => {
 
   return (
     <Layout seo={seo} isDark hasScroll>
-      <Box bgGradient="linear(to-b, primary.600, primary.300)" mt="-100px">
-        <Stack
-          p={{ base: 4, xl: 0 }}
-          pt={{ base: '100px', lg: '100px' }}
-          minH="100vh"
-          alignItems={'stretch'}
-          maxWidth="7xl"
-          mx="auto"
-        >
+      <Box
+        bgGradient="linear(to-b, primary.600, primary.300)"
+        mt={{ base: '-64px', lg: '-100px' }}
+        pb={{ base: 16, lg: 32 }}
+      >
+        <Container>
           <Stack
             color="white"
             spacing={6}
             alignItems={{ base: 'center', lg: 'center' }}
             justifyContent={'center'}
-            flex={1}
             textAlign={{ base: 'center', lg: 'center' }}
+            h={'100vh'}
           >
             <Heading as="h3" size="xl" color="white">
               {t('home.post-maker.title')}
@@ -69,25 +66,23 @@ const Home: FC<HomeProps> = ({ seo, link, hashtag }) => {
 
           {hashtag && (
             <Stack
-              direction={{ base: 'column', sm: 'row' }}
+              direction={{ base: 'column', lg: 'row' }}
               color="white"
-              spacing={6}
+              spacing={8}
               alignItems={'stretch'}
               justifyContent={'space-between'}
-              pb={{ base: 4, lg: 8 }}
             >
               <Stack
-                py={2}
-                justifyContent={'space-between'}
+                spacing={4}
                 alignItems={{ base: 'center', sm: 'flex-start' }}
-                textAlign={{ base: 'center', sm: 'left' }}
               >
                 <Heading as="h3" size="xl" color="white">
                   {hashtag.title}
                 </Heading>
-                <Text fontSize="xl" fontWeight="normal" maxWidth="2xl">
+                <Text fontSize="xl" fontWeight="normal">
                   {hashtag.description}
                 </Text>
+                <Spacer />
                 <Button
                   as={Navigate}
                   href={link || '/'}
@@ -105,8 +100,6 @@ const Home: FC<HomeProps> = ({ seo, link, hashtag }) => {
                 </Button>
               </Stack>
               <WImage
-                maxWidth={'xl'}
-                h={'auto'}
                 ratio={16 / 9}
                 borderRadius={'xl'}
                 border={'1px'}
@@ -115,7 +108,7 @@ const Home: FC<HomeProps> = ({ seo, link, hashtag }) => {
               />
             </Stack>
           )}
-        </Stack>
+        </Container>
       </Box>
     </Layout>
   )
