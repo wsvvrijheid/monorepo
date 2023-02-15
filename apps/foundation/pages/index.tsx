@@ -1,9 +1,17 @@
 import { FC } from 'react'
 
-import { Box, Center, Flex, Heading, Text, VStack } from '@chakra-ui/react'
+import {
+  Box,
+  Center,
+  Flex,
+  Heading,
+  Text,
+  VStack,
+  Link,
+} from '@chakra-ui/react'
 import { searchModel } from '@wsvvrijheid/services'
 import { Platform } from '@wsvvrijheid/types'
-import { AnimatedBox, Container } from '@wsvvrijheid/ui'
+import { AnimatedBox, Container, WImage } from '@wsvvrijheid/ui'
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
@@ -48,6 +56,22 @@ const Home: FC<HomeProps> = ({ seo, platforms }) => {
         </Container>
       </Center>
       <HomePlatform platforms={platforms?.data} />
+      <Center bg="blue.100" py={{ base: 16, lg: 32 }} minH="50vh">
+        <Container>
+          {/* <Heading fontWeight="black">{t('home.partners')}</Heading> */}
+          <Heading fontWeight="black">Partners</Heading>
+          <Text fontSize="xl">Stichting Challenges</Text>
+          <Box flex={1} h="full" w="full">
+            <Link href="https://challenges.nl" isExternal>
+              <WImage
+                src="https://challenges.nl/wp-content/uploads/2022/12/challengeslogo-1.png"
+                boxSize={250}
+                overflow="hidden"
+              />
+            </Link>
+          </Box>
+        </Container>
+      </Center>
     </Layout>
   )
 }
