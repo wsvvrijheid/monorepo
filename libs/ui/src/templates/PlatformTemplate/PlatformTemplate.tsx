@@ -1,13 +1,13 @@
 import { FC } from 'react'
 
-import { Box, Button, Center, Heading, Stack } from '@chakra-ui/react'
+import { Box, Button, Center, Heading, Link, Stack } from '@chakra-ui/react'
 import { UploadFile } from '@wsvvrijheid/types'
 import { useTranslation } from 'next-i18next'
 import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { NextSeoProps } from 'next-seo'
 import { FaExternalLinkAlt } from 'react-icons/fa'
 
-import { Container, Navigate, Markdown, WImage } from '../../components'
+import { Container, Markdown, WImage } from '../../components'
 
 export type PlatformTemplateProps = {
   seo: NextSeoProps
@@ -48,7 +48,8 @@ export const PlatformTemplate: FC<PlatformTemplateProps> = ({
         <Center>
           {!!link && (
             <Button
-              as={Navigate}
+              as={Link}
+              isExternal
               href={link}
               colorScheme="blue"
               size="lg"
