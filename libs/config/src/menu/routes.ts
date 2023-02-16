@@ -11,6 +11,7 @@ export const {
   club,
   collection,
   contact,
+  dashboard,
   donate,
   lotus,
   join,

@@ -93,7 +93,6 @@ export const TweetCard: FC<TweetCardProps> = ({
         align={'start'}
         bg={'white'}
         rounded={'md'}
-        shadow={'sm'}
         p={4}
         {...rest}
       >

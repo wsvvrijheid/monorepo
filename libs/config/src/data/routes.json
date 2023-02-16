@@ -5,6 +5,12 @@
     "nl": "Kunsten",
     "tr": "Eserler"
   },
+  "dashboard": {
+    "link": "https://dashboard.wsvvrijheid.nl",
+    "en": "Dashboard",
+    "nl": "Dashboard",
+    "tr": "Kontrol Paneli"
+  },
   "hashtag": {
     "link": "/hashtags",
     "en": "Hashtags",
