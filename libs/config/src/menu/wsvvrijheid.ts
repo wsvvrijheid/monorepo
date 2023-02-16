@@ -6,6 +6,7 @@ import {
   blog,
   club,
   contact,
+  dashboard,
   lotus,
   join,
   platform,
@@ -42,7 +43,7 @@ export const wsvvrijheid = {
       tr: platform.tr,
     },
     {
-      children: [about, contact, join],
+      children: [about, contact, join, dashboard],
       en: 'Foundation',
       nl: 'Stichting',
       tr: 'Vakıf',
