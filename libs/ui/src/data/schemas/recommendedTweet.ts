@@ -15,12 +15,12 @@ export const recommendedTweetSchema = yup.object({
 })
 
 export const recommendedTweetFields: FormFields<RecommendedTweet> = [
-  { name: 'text', isRequired: true },
+  { name: 'text', isRequired: true, type: 'textarea' },
+  { name: 'image', type: 'file' },
   {
     name: 'mentions',
     type: 'select',
     url: 'api/mentions',
     isMulti: true,
   },
-  { name: 'image', type: 'file' },
 ]

@@ -1,29 +1,21 @@
 import { FC } from 'react'
 
-import { Box, HStack, Link, Text } from '@chakra-ui/react'
+import { Box, Divider, HStack, Link, Stack, Text } from '@chakra-ui/react'
 
 import { TimelineBoardProps } from './types'
 import { TweetCard } from '../TweetCard'
 
 export const TimelineBoard: FC<TimelineBoardProps> = ({ timelines }) => {
   return (
-    <HStack
-      align="start"
-      bg={'white'}
-      rounded="lg"
-      p={4}
-      gap={4}
-      overflowY="auto"
-      shouldWrapChildren={true}
-    >
+    <HStack gap={4} overflowY="auto" shouldWrapChildren={true}>
       {timelines?.map(timeline => (
         <Box
           key={timeline.id}
           w="500px"
           overflowX="auto"
           borderRadius="6px"
-          border="1px"
-          borderColor="gray.300"
+          bg={'white'}
+          shadow={'md'}
         >
           <Link
             href={`https://twitter.com/${timeline?.userData?.username}`}
@@ -42,7 +34,7 @@ export const TimelineBoard: FC<TimelineBoardProps> = ({ timelines }) => {
             </Box>
           </Link>
 
-          <Box overflowY="auto" h="700px">
+          <Stack overflowY="auto" h="720px" divider={<Divider />}>
             {timeline?.tweets?.map((tweet, key) => {
               // FIXME: Why image is not showing up?
               return (
@@ -56,7 +48,7 @@ export const TimelineBoard: FC<TimelineBoardProps> = ({ timelines }) => {
                 />
               )
             })}
-          </Box>
+          </Stack>
         </Box>
       ))}
     </HStack>
