@@ -185,6 +185,12 @@ export const ModelEditForm = <T extends StrapiModel>({
     color: 'gray.500',
   }
 
+  // const originalData = model?.map(model => {
+  //   const id = model?.localizations?.map(localdata => model.id < localdata.id)
+  //   return id
+  // })
+
+  // console.log('originaldata model', originalData)
   return (
     <>
       {confirmState && (

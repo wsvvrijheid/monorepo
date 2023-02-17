@@ -18,6 +18,10 @@ const PostPage = () => {
   const id = Number(query.id as string)
   const { data: post, isLoading, refetch } = usePost(id)
 
+  const originalData = post?.localizations?.filter(localdata => localdata.id)
+
+  console.log('originaldata model', originalData)
+  console.log('post', post)
   return (
     <AdminLayout title="Post" isLoading={isLoading} hasBackButton>
       <PageHeader>
