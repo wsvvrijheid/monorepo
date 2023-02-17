@@ -13,6 +13,7 @@ import {
   privacy,
   samenvvv,
   terms,
+  donate,
 } from './routes'
 
 export const wsvvrijheid = {
@@ -34,6 +35,7 @@ export const wsvvrijheid = {
       tr: 'Wsvvrijheid',
       children: [about, contact, join],
     },
+    donate,
   ],
   footerMenu: [
     {
@@ -55,7 +57,7 @@ export const wsvvrijheid = {
       tr: 'Menu',
     },
     {
-      children: [terms, privacy],
+      children: [terms, privacy, donate],
       en: 'Support',
       nl: 'Steun',
       tr: 'Destek',

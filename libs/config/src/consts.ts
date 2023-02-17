@@ -13,3 +13,5 @@ export const GA_MEASUREMENT_ID = process.env['NX_GA_MEASUREMENT_ID']
 export const IS_PROD = process.env['NODE_ENV'] === 'production'
 export const VERCEL_URL =
   process.env['NX_VERCEL_URL'] || process.env['VERCEL_URL']
+export const DONATION_ENABLED = process.env['NX_DONATION_ENABLED'] === 'true'
+export const MOLLIE_KEY = process.env['NX_MOLLIE_KEY']
