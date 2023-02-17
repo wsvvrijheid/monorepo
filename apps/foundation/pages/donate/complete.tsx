@@ -2,6 +2,7 @@ import { FC } from 'react'
 
 import { Center } from '@chakra-ui/react'
 import { Request } from '@wsvvrijheid/lib'
+import { mollieClient } from '@wsvvrijheid/mollie'
 import { Donate } from '@wsvvrijheid/types'
 import { Container, DonationResultAlert } from '@wsvvrijheid/ui'
 import { InferGetServerSidePropsType } from 'next'
@@ -94,7 +95,11 @@ export const getServerSideProps = async context => {
     populate: [],
   })
 
-  const status = response.data?.status || 'not-found'
+  const payment =
+    response.data?.mollieId &&
+    (await mollieClient.payments.get(response.data.mollieId))
+
+  const status = payment?.status || null
 
   return {
     props: {
