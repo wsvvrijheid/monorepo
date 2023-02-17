@@ -2669,6 +2669,7 @@
 "@mollie/api-client@^3.6.0":
   version "3.6.0"
   resolved "https://registry.yarnpkg.com/@mollie/api-client/-/api-client-3.6.0.tgz#ed4752035fc9f2abe7c15c50704af83d24db8d89"
+  integrity sha512-9eaygcSdBEf36LAWuHyYCnBXtRFWkv9OqbDujpriBc4txJMQryHLTejrSXkDU8TzJ5tEgLwzluVv+Kbgr8+7iQ==
   dependencies:
     axios "^0.25.0"
 
