@@ -23,5 +23,5 @@
     "**/*.stories.jsx",
     "**/*.stories.tsx"
   ],
-  "include": ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx", "src/admin/TranslatedData/TranslatedData"]
+  "include": ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx", "src/admin/TranslatedEdit/TranslatedData"]
 }

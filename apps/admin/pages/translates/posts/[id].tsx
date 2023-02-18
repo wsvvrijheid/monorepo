@@ -3,12 +3,19 @@ import {
   Button,
   ButtonGroup,
   HStack,
+  Stack,
   Text,
   VStack,
 } from '@chakra-ui/react'
 import { usePost } from '@wsvvrijheid/services'
 import { Post } from '@wsvvrijheid/types'
-import { AdminLayout, FormFields, Navigate, PageHeader } from '@wsvvrijheid/ui'
+import {
+  AdminLayout,
+  FormFields,
+  ModelEditTranslate,
+  Navigate,
+  PageHeader,
+} from '@wsvvrijheid/ui'
 import { useRouter } from 'next/router'
 import * as yup from 'yup'
 
@@ -28,10 +35,10 @@ export const translatedField: FormFields<Post> = [
 
 const TranslatePage = () => {
   const router = useRouter()
-  const { query, locale } = router
+  const { query } = router
 
   const id = Number(query.id as string)
-  const { data: post, isLoading } = usePost(id) //refetch
+  const { data: post, isLoading, refetch } = usePost(id) //
   let original = post //41
   const findOriginal = post => {
     post?.localizations?.map(localpost => {
@@ -44,14 +51,6 @@ const TranslatePage = () => {
   }
 
   const originalData = findOriginal(post)
-  //post?.localizations?.filter(localdata => localdata.id)
-
-  console.log(
-    'originaldata in translates pages XXXXXXXXX',
-    originalData?.id,
-    'locale',
-    locale,
-  )
 
   return (
     <AdminLayout title="Post" isLoading={isLoading} hasBackButton>
@@ -69,19 +68,50 @@ const TranslatePage = () => {
       <Box p={6} rounded="md" bg="white" shadow="md">
         <HStack>
           <VStack>
-            <Text>original</Text>
-            <Text>{originalData?.id}</Text>
-            <Text>{originalData?.locale}</Text>
+            <Text size="lg" fontWeight={'bold'}>
+              Title
+            </Text>
             <Text>{originalData?.title}</Text>
-            <Text>{originalData?.description}</Text>
+            <Stack>
+              <Text size="lg" fontWeight={'bold'}>
+                Description
+              </Text>
+              <Text>{originalData?.description}</Text>
+              <Text size="lg" fontWeight={'bold'}>
+                Content
+              </Text>
+              <Text>{originalData?.content}</Text>
+            </Stack>
           </VStack>
           {post?.locale !== originalData?.locale && (
             <VStack>
-              <Text>Translate</Text>
+              <Box p={6} rounded="md" bg="white" shadow="md">
+                {post && (
+                  <ModelEditTranslate<Post>
+                    url="api/posts"
+                    model={post}
+                    schema={translatePostSchema}
+                    translatedFields={['title', 'description', 'content']}
+                    fields={translatedField}
+                    onSuccess={refetch}
+                  />
+                )}
+              </Box>
+              {/* <Text>Translate</Text>
               <Text>{post?.id}</Text>
               <Text>{post?.locale}</Text>
+              <Text size="lg" fontWeight={'bold'}>
+                Title
+              </Text>
               <Text>{post?.title}</Text>
+              <Text size="lg" fontWeight={'bold'}>
+                Description
+              </Text>
               <Text>{post?.description}</Text>
+              <Text size="lg" fontWeight={'bold'}>
+                Content
+              </Text>
+              <Text>{post?.content}</Text>*/}
             </VStack>
           )}
         </HStack>

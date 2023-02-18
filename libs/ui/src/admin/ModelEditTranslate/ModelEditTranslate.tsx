@@ -2,8 +2,7 @@ import { useState } from 'react'
 
 import {
   Button,
-  FormControl,
-  FormLabel,
+  SimpleGrid,
   Stack,
   Textarea,
   useBoolean,
@@ -21,7 +20,6 @@ import {
   StrapiModel,
   StrapiTranslatableModel,
   StrapiTranslatableUpdateInput,
-  StrapiUrl,
 } from '@wsvvrijheid/types'
 import { capitalize } from 'lodash'
 import { useRouter } from 'next/router'
@@ -37,14 +35,12 @@ import {
 } from 'react-icons/md'
 import { InferType } from 'yup'
 
-import { ModelImage } from './ModelImage'
-import { ModelSelect } from './ModelSelect'
-import { ModelEditFormProps, Option } from './types'
-import { useDefaultValues } from './utils'
-import { FormItem, MasonryGrid, MdFormItem } from '../../components'
+import { Option } from './types'
+import { FormItem, MdFormItem } from '../../components'
 import { WConfirm, WConfirmProps } from '../../components/WConfirm'
+import { ModelEditFormProps, useDefaultValues } from '../ModelForm'
 
-export const ModelEditForm = <T extends StrapiModel>({
+export const ModelEditTranslate = <T extends StrapiModel>({
   url,
   model,
   translatedFields,
@@ -57,7 +53,6 @@ export const ModelEditForm = <T extends StrapiModel>({
   const id = model.id
   const isPublished = translatableModel.publishedAt
   const [isEditing, setIsEditing] = useBoolean(false)
-  const [isChangingImage, setIsChangingImage] = useBoolean(false)
   const [confirmState, setConfirmState] = useState<WConfirmProps>()
 
   const router = useRouter()
@@ -78,7 +73,6 @@ export const ModelEditForm = <T extends StrapiModel>({
     formState: { errors },
     handleSubmit,
     control,
-    setValue,
     reset: resetForm,
   } = useForm<InferType<typeof schema>>({
     resolver: yupResolver(schema),
@@ -89,7 +83,6 @@ export const ModelEditForm = <T extends StrapiModel>({
   const handleSuccess = () => {
     onSuccess?.()
     setIsEditing.off()
-    setIsChangingImage.off()
     setConfirmState(undefined)
   }
 
@@ -127,7 +120,6 @@ export const ModelEditForm = <T extends StrapiModel>({
   const onCancel = () => {
     resetForm()
     setIsEditing.off()
-    setIsChangingImage.off()
     setConfirmState(undefined)
   }
 
@@ -194,46 +186,9 @@ export const ModelEditForm = <T extends StrapiModel>({
         />
       )}
       <Stack spacing={8} as="form" onSubmit={handleSubmit(onSaveModel)}>
-        <MasonryGrid cols={[1, 1, 1, 2]} columnGap={8} rowGap={4}>
+        <SimpleGrid columnGap={8} rowGap={4}>
           {fields.map((field, index) => {
             const label = field.label || capitalize(field.name as string)
-
-            if (field.type === 'file') {
-              return (
-                <FormControl
-                  key={index}
-                  isRequired={field.isRequired}
-                  maxW={500}
-                >
-                  <FormLabel>Image</FormLabel>
-                  <ModelImage
-                    url={url}
-                    isEditing={isEditing}
-                    model={model}
-                    setValue={setValue}
-                    isChangingImage={isChangingImage}
-                    setIsChangingImage={setIsChangingImage}
-                  />
-                </FormControl>
-              )
-            }
-
-            if (field.type === 'select') {
-              return (
-                <ModelSelect<T>
-                  key={index}
-                  url={field.url as StrapiUrl}
-                  isMulti={field.isMulti}
-                  isRequired={field.isRequired}
-                  name={field.name as string}
-                  isDisabled={!isEditing}
-                  label={label}
-                  errors={errors}
-                  control={control}
-                  _disabled={disabledStyle}
-                />
-              )
-            }
 
             if (field.type === 'markdown') {
               return (
@@ -272,7 +227,7 @@ export const ModelEditForm = <T extends StrapiModel>({
               />
             )
           })}
-        </MasonryGrid>
+        </SimpleGrid>
         <Wrap alignSelf={'end'} justify={'end'}>
           {translatableModel.approvalStatus === 'approved'
             ? null
