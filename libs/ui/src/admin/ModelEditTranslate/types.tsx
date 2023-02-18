@@ -45,9 +45,10 @@ export type ModelCreateFormProps<T extends StrapiModel> = {
   onSuccess?: () => void
 }
 
-export type ModelEditFormProps<T extends StrapiModel> = {
+export type ModelEditTranslateProps<T extends StrapiModel> = {
   url: StrapiUrl
-  model: T
+  targetModel: T
+  currentModel: T
   translatedFields: (keyof T)[]
   fields: FormFields<T>
   schema: OptionalObjectSchema<any>

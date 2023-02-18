@@ -10,7 +10,7 @@ export const mapModelLocalization = <T extends StrapiTranslatableModel>(
   model: TranslatableModel<T>,
   untranslatedFields?: (keyof TranslatableModel<T>)[],
 ) => {
-  const locale = model.locale as StrapiLocale
+  const locale = model?.locale as StrapiLocale
   const defaultLocalizedModel = {
     [locale]: model,
   } as LocalizedModel<T>
@@ -26,7 +26,7 @@ export const mapModelLocalization = <T extends StrapiTranslatableModel>(
   }, {} as Partial<TranslatableModel<T>>)
 
   const localizedModels =
-    Array.isArray(model.localizations) &&
+    Array.isArray(model?.localizations) &&
     model.localizations?.reduce((acc, localizeModel) => {
       return {
         ...acc,
