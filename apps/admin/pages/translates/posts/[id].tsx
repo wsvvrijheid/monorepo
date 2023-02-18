@@ -12,13 +12,13 @@ import { useRouter } from 'next/router'
 import * as yup from 'yup'
 
 export const translatePostSchema = yup.object({
-  title: yup.string().required('Title is required'),
-  description: yup.string().required('Description is required'),
+  title: yup.string(),
+  description: yup.string(),
   content: yup.string(),
 })
 
 export const translatedField: FormFields<Post> = [
-  { name: 'title' },
+  { name: 'title', type: 'textarea' },
 
   { name: 'description', type: 'textarea' },
 
