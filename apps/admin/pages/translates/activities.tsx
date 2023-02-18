@@ -55,7 +55,7 @@ const ActivitiesTranslatePage = () => {
   }))
 
   const handleClick = (index: number, id: number) => {
-    push(`/activities/${id}`)
+    push(`/translates/${id}`)
   }
 
   return (

@@ -88,7 +88,7 @@ const PostsTranslatesPage = () => {
   )
 
   const handleClick = (index: number, id: number) => {
-    push(`/posts/${id}`)
+    push(`/translates/posts/${id}`)
   }
 
   return (
