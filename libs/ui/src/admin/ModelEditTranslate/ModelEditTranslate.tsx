@@ -1,9 +1,13 @@
 import { useState } from 'react'
 
 import {
+  Box,
   Button,
-  SimpleGrid,
+  Divider,
+  FormLabel,
+  HStack,
   Stack,
+  Text,
   Textarea,
   useBoolean,
   Wrap,
@@ -12,8 +16,6 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import {
   useApproveModel,
   useDeleteModel,
-  usePublishModel,
-  useUnpublishModel,
   useUpdateModelMutation,
 } from '@wsvvrijheid/services'
 import {
@@ -21,59 +23,47 @@ import {
   StrapiTranslatableModel,
   StrapiTranslatableUpdateInput,
 } from '@wsvvrijheid/types'
-import { capitalize } from 'lodash'
 import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
-import { AiOutlineEdit } from 'react-icons/ai'
 import { BsTrash } from 'react-icons/bs'
 import { HiOutlineCheck } from 'react-icons/hi'
-import {
-  MdClose,
-  MdOutlineCheck,
-  MdOutlinePublishedWithChanges,
-  MdOutlineUnpublished,
-} from 'react-icons/md'
+import { MdOutlineCheck } from 'react-icons/md'
 import { InferType } from 'yup'
 
-import { Option } from './types'
-import { FormItem, MdFormItem } from '../../components'
-import { WConfirm, WConfirmProps } from '../../components/WConfirm'
-import { ModelEditFormProps, useDefaultValues } from '../ModelForm'
+import { ModelEditTranslateProps, Option } from './types'
+import { Flags, FormItem, WConfirm, WConfirmProps } from '../../components'
+import { useDefaultValues } from '../ModelForm'
 
 export const ModelEditTranslate = <T extends StrapiModel>({
   url,
-  model,
+  targetModel,
+  currentModel,
   translatedFields,
   fields,
   schema,
   onSuccess,
-}: ModelEditFormProps<T>) => {
-  const translatableModel = model as StrapiTranslatableModel
+}: ModelEditTranslateProps<T>) => {
+  const router = useRouter()
+  const currentModels = currentModel as StrapiTranslatableModel
+  const id = targetModel?.id
+  const targetModels = targetModel as StrapiTranslatableModel
 
-  const id = model.id
-  const isPublished = translatableModel.publishedAt
+  const defaultValues = useDefaultValues(targetModel, fields)
+
   const [isEditing, setIsEditing] = useBoolean(false)
   const [confirmState, setConfirmState] = useState<WConfirmProps>()
 
-  const router = useRouter()
-
   const updateModelMutation = useUpdateModelMutation(url)
-  const unpublishModelMutation = useUnpublishModel(url)
-  const publishModelMutation = usePublishModel(url)
   const deleteModelMutation = useDeleteModel(url)
   const approveModelMutation = useApproveModel(
     url,
     translatedFields as Array<keyof StrapiTranslatableModel>,
   )
 
-  const defaultValues = useDefaultValues(model, fields)
-
   const {
     register,
     formState: { errors },
     handleSubmit,
-    control,
-    reset: resetForm,
   } = useForm<InferType<typeof schema>>({
     resolver: yupResolver(schema),
     mode: 'all',
@@ -117,34 +107,6 @@ export const ModelEditTranslate = <T extends StrapiModel>({
     updateModelMutation.mutate({ id, ...body }, { onSuccess: handleSuccess })
   }
 
-  const onCancel = () => {
-    resetForm()
-    setIsEditing.off()
-    setConfirmState(undefined)
-  }
-
-  const onUnPublish = () => {
-    setConfirmState({
-      title: 'Unpublish model',
-      description: `Are you sure you want to unpublish this collection ?`,
-      buttonText: 'Unpublish',
-      onConfirm: async () => {
-        unpublishModelMutation.mutate({ id }, { onSuccess: handleSuccess })
-      },
-    })
-  }
-
-  const onPublish = () => {
-    setConfirmState({
-      title: 'Publish Activity',
-      description: `Are you sure you want to publish this model ?`,
-      buttonText: 'Publish',
-      onConfirm: async () => {
-        publishModelMutation.mutate({ id }, { onSuccess: handleSuccess })
-      },
-    })
-  }
-
   const onDelete = () => {
     setConfirmState({
       isWarning: true,
@@ -186,52 +148,103 @@ export const ModelEditTranslate = <T extends StrapiModel>({
         />
       )}
       <Stack spacing={8} as="form" onSubmit={handleSubmit(onSaveModel)}>
-        <SimpleGrid columnGap={8} rowGap={4}>
-          {fields.map((field, index) => {
-            const label = field.label || capitalize(field.name as string)
-
-            if (field.type === 'markdown') {
-              return (
-                <MdFormItem
-                  key={index}
-                  name={field.name as string}
-                  label={label}
-                  isDisabled={!isEditing}
-                  isRequired={field.isRequired}
-                  errors={errors}
-                  control={control}
-                  _disabled={disabledStyle}
-                />
-              )
-            }
-
-            const inputType =
-              field.type === 'date'
-                ? 'date'
-                : field.type === 'datetime-local'
-                ? 'datetime-local'
-                : 'text'
-
+        {fields.map((field, index) => {
+          if (currentModels?.title) {
             return (
-              <FormItem
-                {...(field.type === 'textarea' && { as: Textarea })}
-                key={index}
-                name={field.name as string}
-                type={inputType}
-                label={label}
-                isRequired={field.isRequired}
-                errors={errors}
-                register={register}
-                isDisabled={!isEditing}
-                _disabled={disabledStyle}
-              />
+              <Stack>
+                <FormLabel htmlFor={`${currentModel?.id} title`}>
+                  Title
+                </FormLabel>
+                <Stack direction={{ base: 'column', lg: 'row' }}>
+                  <HStack w={{ base: 'full', lg: 400 }} align="baseline">
+                    <Box as={Flags[currentModels?.locale]} />
+                    <Text>{currentModels?.title}</Text>
+                  </HStack>
+                  <HStack flex={1} align="baseline">
+                    <FormItem
+                      {...(field?.type === 'textarea' && { as: Textarea })}
+                      key={index}
+                      name={field?.name as string}
+                      type={'text'}
+                      errors={errors}
+                      register={register}
+                      isDisabled={isEditing}
+                      _disabled={disabledStyle}
+                    />
+                  </HStack>
+                </Stack>
+              </Stack>
             )
-          })}
-        </SimpleGrid>
+          }
+          if (currentModels?.description) {
+            return (
+              <>
+                <Divider orientation="horizontal" />
+                <Stack>
+                  <FormLabel htmlFor={`${currentModel?.id} description`}>
+                    Description
+                  </FormLabel>
+                  <Stack direction={{ base: 'column', lg: 'row' }}>
+                    <HStack w={{ base: 'full', lg: 400 }} align="baseline">
+                      <Box as={Flags[currentModels?.locale]} />
+                      <Text>{currentModels?.description}</Text>
+                    </HStack>
+                    <HStack flex={1} align="baseline">
+                      <FormItem
+                        {...(field?.type === 'textarea' && { as: Textarea })}
+                        key={index}
+                        name={field?.name as string}
+                        type={'text'}
+                        label={'Description'}
+                        errors={errors}
+                        register={register}
+                        isDisabled={isEditing}
+                        _disabled={disabledStyle}
+                      />
+                    </HStack>
+                  </Stack>
+                </Stack>
+              </>
+            )
+          }
+          if (currentModels?.content) {
+            return (
+              <>
+                <Divider orientation="horizontal" />
+                <Stack>
+                  <FormLabel htmlFor={`${currentModel?.id} content`}>
+                    Content
+                  </FormLabel>
+                  <Stack direction={{ base: 'column', lg: 'row' }}>
+                    <HStack w={{ base: 'full', lg: 400 }} align="baseline">
+                      <Box as={Flags[currentModels?.locale]} />
+                      <Text maxH={300} overflowY="auto">
+                        {currentModels?.content}
+                      </Text>
+                    </HStack>
+                    <HStack flex={1} align="baseline">
+                      <FormItem
+                        {...(field?.type === 'textarea' && { as: Textarea })}
+                        key={index}
+                        name={field?.name as string}
+                        type={'text'}
+                        errors={errors}
+                        register={register}
+                        isDisabled={!isEditing}
+                        _disabled={disabledStyle}
+                      />
+                    </HStack>
+                  </Stack>
+                </Stack>
+              </>
+            )
+          }
+        })}
+        {/*  Button group  */}
         <Wrap alignSelf={'end'} justify={'end'}>
-          {translatableModel.approvalStatus === 'approved'
+          {targetModels?.approvalStatus === 'approved'
             ? null
-            : translatableModel.approvalStatus && (
+            : targetModels?.approvalStatus && (
                 <Button
                   onClick={onApprove}
                   leftIcon={<HiOutlineCheck />}
@@ -242,48 +255,13 @@ export const ModelEditTranslate = <T extends StrapiModel>({
                   Approve
                 </Button>
               )}
-          {!isEditing ? (
-            <Button
-              onClick={setIsEditing.on}
-              leftIcon={<AiOutlineEdit />}
-              colorScheme={'primary'}
-              fontSize="sm"
-            >
-              Edit
-            </Button>
-          ) : (
-            <>
-              <Button
-                onClick={onCancel}
-                leftIcon={<MdClose />}
-                colorScheme={'gray'}
-                fontSize="sm"
-              >
-                Cancel
-              </Button>
-              <Button
-                type="submit"
-                leftIcon={<MdOutlineCheck />}
-                colorScheme={'primary'}
-                fontSize="sm"
-              >
-                Save
-              </Button>
-            </>
-          )}
           <Button
-            onClick={isPublished ? onUnPublish : onPublish}
-            colorScheme={isPublished ? 'yellow' : 'green'}
+            type="submit"
+            leftIcon={<MdOutlineCheck />}
+            colorScheme={'primary'}
             fontSize="sm"
-            leftIcon={
-              isPublished ? (
-                <MdOutlineUnpublished />
-              ) : (
-                <MdOutlinePublishedWithChanges />
-              )
-            }
           >
-            {isPublished ? 'Unpublish' : 'Publish'}
+            Save
           </Button>
           <Button onClick={onDelete} leftIcon={<BsTrash />} colorScheme="red">
             Delete
