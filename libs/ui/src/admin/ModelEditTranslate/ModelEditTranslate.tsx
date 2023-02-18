@@ -138,7 +138,11 @@ export const ModelEditTranslate = <T extends StrapiModel>({
     _hover: { borderColor: 'transparent' },
     color: 'gray.500',
   }
-
+  console.log(
+    'locales',
+    currentModels?.locale !== targetModels?.locale,
+    'ander',
+  )
   return (
     <>
       {confirmState && (
@@ -149,17 +153,19 @@ export const ModelEditTranslate = <T extends StrapiModel>({
       )}
       <Stack spacing={8} as="form" onSubmit={handleSubmit(onSaveModel)}>
         {fields.map((field, index) => {
-          if (currentModels?.title) {
+          if (field?.name === 'title') {
             return (
               <Stack>
-                <FormLabel htmlFor={`${currentModel?.id} title`}>
+                <FormLabel htmlFor={`${currentModels?.id} title`}>
                   Title
                 </FormLabel>
                 <Stack direction={{ base: 'column', lg: 'row' }}>
-                  <HStack w={{ base: 'full', lg: 400 }} align="baseline">
-                    <Box as={Flags[currentModels?.locale]} />
-                    <Text>{currentModels?.title}</Text>
-                  </HStack>
+                  {currentModels?.locale !== targetModels?.locale && (
+                    <HStack w={{ base: 'full', lg: 400 }} align="baseline">
+                      <Box as={Flags[currentModels?.locale]} />
+                      <Text>{currentModels?.title}</Text>
+                    </HStack>
+                  )}
                   <HStack flex={1} align="baseline">
                     <FormItem
                       {...(field?.type === 'textarea' && { as: Textarea })}
@@ -176,12 +182,12 @@ export const ModelEditTranslate = <T extends StrapiModel>({
               </Stack>
             )
           }
-          if (currentModels?.description) {
+          if (field?.name === 'description') {
             return (
               <>
                 <Divider orientation="horizontal" />
                 <Stack>
-                  <FormLabel htmlFor={`${currentModel?.id} description`}>
+                  <FormLabel htmlFor={`${currentModels?.id} description`}>
                     Description
                   </FormLabel>
                   <Stack direction={{ base: 'column', lg: 'row' }}>
@@ -195,7 +201,6 @@ export const ModelEditTranslate = <T extends StrapiModel>({
                         key={index}
                         name={field?.name as string}
                         type={'text'}
-                        label={'Description'}
                         errors={errors}
                         register={register}
                         isDisabled={isEditing}
@@ -207,7 +212,7 @@ export const ModelEditTranslate = <T extends StrapiModel>({
               </>
             )
           }
-          if (currentModels?.content) {
+          if (field?.name === 'content') {
             return (
               <>
                 <Divider orientation="horizontal" />
@@ -221,19 +226,21 @@ export const ModelEditTranslate = <T extends StrapiModel>({
                       <Text maxH={300} overflowY="auto">
                         {currentModels?.content}
                       </Text>
-                    </HStack>
-                    <HStack flex={1} align="baseline">
-                      <FormItem
-                        {...(field?.type === 'textarea' && { as: Textarea })}
-                        key={index}
-                        name={field?.name as string}
-                        type={'text'}
-                        errors={errors}
-                        register={register}
-                        isDisabled={!isEditing}
-                        _disabled={disabledStyle}
-                      />
-                    </HStack>
+                    </HStack>{' '}
+                    {currentModels?.locale !== targetModels?.locale && (
+                      <HStack flex={1} align="baseline">
+                        <FormItem
+                          {...(field?.type === 'textarea' && { as: Textarea })}
+                          key={index}
+                          name={field?.name as string}
+                          type={'text'}
+                          errors={errors}
+                          register={register}
+                          isDisabled={isEditing}
+                          _disabled={disabledStyle}
+                        />
+                      </HStack>
+                    )}
                   </Stack>
                 </Stack>
               </>
