@@ -4,8 +4,11 @@ import {
   Box,
   Button,
   ButtonGroup,
+  Center,
   Heading,
+  HStack,
   Image,
+  Link,
   NumberDecrementStepper,
   NumberIncrementStepper,
   NumberInput,
@@ -20,6 +23,7 @@ import {
   Text,
   Tooltip,
   useBreakpointValue,
+  VStack,
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { DONATION_ENABLED } from '@wsvvrijheid/config'
@@ -52,11 +56,10 @@ type DonatePageProps = InferGetStaticPropsType<typeof getStaticProps>
 const DonatePage: FC<DonatePageProps> = ({ platforms, title }) => {
   const [amount, setAmount] = useState(10)
   const [method, setMethod] = useState<'ideal' | 'creditcard' | 'paypal'>()
+  const { t } = useTranslation()
 
   const format = (val: number) => `€` + val
   const parse = (val: string) => +val.replace(/^€/, '')
-
-  const { t } = useTranslation()
 
   const {
     register,
@@ -87,6 +90,22 @@ const DonatePage: FC<DonatePageProps> = ({ platforms, title }) => {
   return (
     <Layout seo={{ title }}>
       <Container>
+        <Center m={16}>
+          <VStack>
+            <Text>{t('donation.description')}</Text>
+
+            <Link href="https://challenges.nl" isExternal>
+              <HStack align={'center'}>
+                <Image
+                  alt={'Stichting Challenges'}
+                  src="https://challenges.nl/wp-content/uploads/2022/12/challengeslogo-1.png"
+                  w={150}
+                />
+                <Text fontSize="xl">Stichting Challenges</Text>
+              </HStack>
+            </Link>
+          </VStack>
+        </Center>
         <SimpleGrid
           alignItems="start"
           columns={{ base: 1, lg: 2 }}
@@ -153,7 +172,7 @@ const DonatePage: FC<DonatePageProps> = ({ platforms, title }) => {
                 </Button>
               </ButtonGroup>
               <Text textAlign="center" fontSize="md" color="gray.500">
-                Choose your payment method *
+                {t('donation.checkpaymentmethod')} *
               </Text>
             </Stack>
 
