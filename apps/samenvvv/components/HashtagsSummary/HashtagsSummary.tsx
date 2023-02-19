@@ -1,22 +1,25 @@
 import { FC } from 'react'
 
 import { Box, Button, Heading, Stack, Text } from '@chakra-ui/react'
-import { Hashtag } from '@wsvvrijheid/types'
 import { Navigate, WImage } from '@wsvvrijheid/ui'
 import { useTranslation } from 'react-i18next'
 
 import { HashtagMiniCard } from './HashtagMiniCard'
+import { SearchedHashtags } from '../../pages/index'
 
 type HashtagsSummaryProps = {
-  hashtag: Hashtag
-  link: string
+  hashtags: SearchedHashtags
+  links: string[]
 }
 
 export const HashtagsSummary: FC<HashtagsSummaryProps> = ({
-  hashtag,
-  link,
+  hashtags,
+  links,
 }) => {
   const { t } = useTranslation()
+
+  const latestHashtag = hashtags.data[0]
+  const latestLink = links[0]
 
   return (
     <Box bg={'white'} p={{ base: 2, lg: 20 }}>
@@ -36,9 +39,17 @@ export const HashtagsSummary: FC<HashtagsSummaryProps> = ({
           justifyContent={'center'}
           spacing={4}
         >
-          <HashtagMiniCard hashtag={hashtag} link={link} />
-          <HashtagMiniCard hashtag={hashtag} link={link} />
-          <HashtagMiniCard hashtag={hashtag} link={link} />
+          {hashtags.data.map((hashtag, i) => {
+            if (i !== 0) {
+              return (
+                <HashtagMiniCard
+                  key={hashtag.id}
+                  hashtag={hashtag}
+                  link={links[i]}
+                />
+              )
+            }
+          })}
         </Stack>
         <Stack
           direction={'column'}
@@ -52,7 +63,7 @@ export const HashtagsSummary: FC<HashtagsSummaryProps> = ({
             borderRadius={'xl'}
             border={'1px'}
             borderColor={'white'}
-            src={hashtag.image}
+            src={latestHashtag.image}
           />
           <Stack
             spacing={{ base: 2, lg: 4 }}
@@ -60,14 +71,14 @@ export const HashtagsSummary: FC<HashtagsSummaryProps> = ({
             color={'black'}
           >
             <Heading as="h3" size="lg">
-              {hashtag.title}
+              {latestHashtag.title}
             </Heading>
             <Text size="lg" fontWeight="normal">
-              {hashtag.description}
+              {latestHashtag.description}
             </Text>
             <Button
               as={Navigate}
-              href={link || '/'}
+              href={latestLink || '/'}
               size={'lg'}
               fontWeight="semibold"
               variant="solid"
