@@ -24,13 +24,7 @@ export const HashtagMiniCard: FC<HashtagMiniCardProps> = ({
       transitionDuration={'500ms'}
       _hover={{ bgGradient: 'linear(to-r, blackAlpha.100, white)' }}
     >
-      <WImage
-        ratio={1 / 1}
-        maxW={'sm'}
-        w={'xs'}
-        borderRadius={'xl'}
-        src={hashtag.image}
-      />
+      <WImage ratio={1 / 1} w={'xs'} borderRadius={'xl'} src={hashtag.image} />
       <Stack p={{ base: 1, lg: 5 }} justifyContent={'flex-start'}>
         <Heading as={'h4'} size={{ base: 'sm', sm: 'lg' }}>
           {hashtag.title}

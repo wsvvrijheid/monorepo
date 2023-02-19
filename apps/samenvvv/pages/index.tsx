@@ -2,7 +2,7 @@ import { FC } from 'react'
 
 import { Box, Button, Heading, Stack, Text } from '@chakra-ui/react'
 import { searchModel } from '@wsvvrijheid/services'
-import { Hashtag, StrapiLocale } from '@wsvvrijheid/types'
+import { Hashtag, StrapiLocale, StrapiMeta } from '@wsvvrijheid/types'
 import { Navigate, Container } from '@wsvvrijheid/ui'
 import { getItemLink } from '@wsvvrijheid/utils'
 import { GetStaticProps } from 'next'
@@ -14,13 +14,19 @@ import { Layout } from '../components'
 import { HashtagsSummary } from '../components/HashtagsSummary/HashtagsSummary'
 import i18nConfig from '../next-i18next.config'
 
+export type SearchedHashtags = {
+  data: Hashtag[]
+  meta: StrapiMeta
+}
+
 interface HomeProps {
   seo: NextSeoProps
   link: string
-  hashtag: Hashtag
+  hashtags: SearchedHashtags
+  links: string[]
 }
 
-const Home: FC<HomeProps> = ({ seo, link, hashtag }) => {
+const Home: FC<HomeProps> = ({ seo, link, hashtags, links }) => {
   const { t } = useTranslation()
 
   return (
@@ -66,7 +72,7 @@ const Home: FC<HomeProps> = ({ seo, link, hashtag }) => {
           </Stack>
         </Container>
       </Box>
-      {hashtag && <HashtagsSummary hashtag={hashtag} link={link} />}
+      {hashtags && <HashtagsSummary hashtags={hashtags} links={links} />}
     </Layout>
   )
 }
@@ -84,10 +90,19 @@ export const getStaticProps: GetStaticProps = async context => {
     url: 'api/hashtags',
     locale,
     statuses: ['approved'],
+    pageSize: 4,
   })
-  const hashtag = hashtags?.data?.[0] || null
 
-  const link = getItemLink(hashtag, locale, 'hashtag')
+  const latestHashtag = hashtags?.data?.[0] || null
+  const links = [
+    ...hashtags.data.map(hashtag => {
+      return getItemLink(hashtag, locale, 'hashtag')
+    }),
+  ]
+
+  console.log(hashtags)
+
+  const link = getItemLink(latestHashtag, locale, 'hashtag')
 
   const seo: NextSeoProps = {
     title: title[locale],
@@ -98,7 +113,8 @@ export const getStaticProps: GetStaticProps = async context => {
       ...(await serverSideTranslations(locale, ['common'], i18nConfig)),
       link,
       seo,
-      hashtag,
+      hashtags,
+      links,
     },
     revalidate: 1,
   }
