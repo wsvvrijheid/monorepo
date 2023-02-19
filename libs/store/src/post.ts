@@ -100,6 +100,16 @@ export const fetchSearchedMentions = createAsyncThunk(
     return rawData.sort((a, b) => b.followers_count - a.followers_count)
   },
 )
+export const fetchMentions = createAsyncThunk('post/mentions', async () => {
+  const response = await axios(`${API_URL}/api/mentions`, {
+    headers: {
+      Authorization: `Bearer ${TOKEN}`,
+    },
+  })
+  const rawData = response.data
+
+  return rawData.data as Mention[]
+})
 
 export const postSlice = createSlice({
   name: 'post',
@@ -212,6 +222,17 @@ export const postSlice = createSlice({
     })
     builder.addCase(fetchSearchedMentions.rejected, state => {
       state.isSearchedMentionsLoading = false
+    })
+    builder.addCase(fetchMentions.fulfilled, (state, action) => {
+      state.initialMentions = action.payload
+      state.mentions = action.payload
+      state.isMentionListLoading = false
+    })
+    builder.addCase(fetchMentions.pending, state => {
+      state.isMentionListLoading = true
+    })
+    builder.addCase(fetchMentions.rejected, state => {
+      state.isMentionListLoading = false
     })
   },
 })

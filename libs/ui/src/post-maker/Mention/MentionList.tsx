@@ -1,3 +1,5 @@
+import { useEffect } from 'react'
+
 import {
   Box,
   Tab,
@@ -15,6 +17,7 @@ import {
   updateSavedSearchedMentions,
   useAppDispatch,
   useAppSelector,
+  fetchMentions,
 } from '@wsvvrijheid/store'
 import dynamic from 'next/dynamic'
 import { useTranslation } from 'next-i18next'
@@ -35,10 +38,17 @@ export const MentionList = () => {
     isSearchedMentionsLoading,
     searchedMentions,
     savedMentions,
+    initialMentions,
   } = useAppSelector(state => state.post)
 
   const dispatch = useAppDispatch()
   const { t } = useTranslation()
+
+  useEffect(() => {
+    if (!initialMentions || initialMentions.length === 0) {
+      dispatch(fetchMentions())
+    }
+  }, [initialMentions, dispatch])
 
   const onAddMention = (value: UserV1) => {
     if (value.screen_name) {
