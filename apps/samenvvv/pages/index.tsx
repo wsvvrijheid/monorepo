@@ -1,9 +1,9 @@
 import { FC } from 'react'
 
-import { Box, Button, Heading, Spacer, Stack, Text } from '@chakra-ui/react'
+import { Box, Button, Heading, Stack, Text } from '@chakra-ui/react'
 import { searchModel } from '@wsvvrijheid/services'
 import { Hashtag, StrapiLocale } from '@wsvvrijheid/types'
-import { Navigate, WImage, Container } from '@wsvvrijheid/ui'
+import { Navigate, Container } from '@wsvvrijheid/ui'
 import { getItemLink } from '@wsvvrijheid/utils'
 import { GetStaticProps } from 'next'
 import { useTranslation } from 'next-i18next'
@@ -11,7 +11,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
 
 import { Layout } from '../components'
-import HashtagMiniCard from '../components/HashtagMiniCard'
+import { HashtagsSummary } from '../components/HashtagsSummary/HashtagsSummary'
 import i18nConfig from '../next-i18next.config'
 
 interface HomeProps {
@@ -64,78 +64,9 @@ const Home: FC<HomeProps> = ({ seo, link, hashtag }) => {
               {t('home.post-maker.button')}
             </Button>
           </Stack>
-
-          {hashtag && (
-            <Stack
-              direction={'row'}
-              spacing={4}
-              maxH={'xl'}
-              justifyContent={'space-between'}
-            >
-              <Stack direction={'column'} justifyContent={'space-between'}>
-                <HashtagMiniCard
-                  image={hashtag.image}
-                  title={hashtag.title}
-                  link={link}
-                />
-                <HashtagMiniCard
-                  image={hashtag.image}
-                  title={hashtag.title}
-                  link={link}
-                />
-                <HashtagMiniCard
-                  image={hashtag.image}
-                  title={hashtag.title}
-                  link={link}
-                />
-              </Stack>
-              <Stack
-                direction={'column'}
-                color="white"
-                spacing={8}
-                alignItems={'stretch'}
-                justifyContent={'space-between'}
-              >
-                <WImage
-                  ratio={16 / 9}
-                  borderRadius={'xl'}
-                  border={'1px'}
-                  borderColor={'white'}
-                  src={hashtag.image}
-                />
-                <Stack
-                  spacing={4}
-                  alignItems={{ base: 'center', sm: 'flex-start' }}
-                >
-                  <Heading as="h3" size="xl" color="white">
-                    {hashtag.title}
-                  </Heading>
-                  <Text fontSize="xl" fontWeight="normal">
-                    {hashtag.description}
-                  </Text>
-                  <Spacer />
-                  <Button
-                    as={Navigate}
-                    href={link || '/'}
-                    size={'lg'}
-                    fontWeight="semibold"
-                    variant="solid"
-                    colorScheme="primary"
-                    bg="white"
-                    color="primary.500"
-                    boxShadow="lg"
-                    whiteSpace="normal"
-                    _hover={{ color: 'white', bg: 'blackAlpha.100' }}
-                  >
-                    {t('read-more')}
-                  </Button>
-                </Stack>
-              </Stack>
-            </Stack>
-          )}
-          <Stack></Stack>
         </Container>
       </Box>
+      {hashtag && <HashtagsSummary hashtag={hashtag} link={link} />}
     </Layout>
   )
 }
