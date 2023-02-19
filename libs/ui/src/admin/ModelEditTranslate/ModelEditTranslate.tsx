@@ -32,7 +32,13 @@ import { MdClose, MdOutlineCheck } from 'react-icons/md'
 import { InferType } from 'yup'
 
 import { ModelEditTranslateProps, Option } from './types'
-import { Flags, FormItem, WConfirm, WConfirmProps } from '../../components'
+import {
+  Flags,
+  FormItem,
+  MdFormItem,
+  WConfirm,
+  WConfirmProps,
+} from '../../components'
 import { useDefaultValues } from '../ModelForm'
 
 export const ModelEditTranslate = <T extends StrapiModel>({
@@ -65,6 +71,7 @@ export const ModelEditTranslate = <T extends StrapiModel>({
     register,
     formState: { errors },
     handleSubmit,
+    control,
     reset: resetForm,
   } = useForm<InferType<typeof schema>>({
     resolver: yupResolver(schema),
@@ -206,10 +213,12 @@ export const ModelEditTranslate = <T extends StrapiModel>({
                     {field?.name.charAt(0).toUpperCase() + field?.name.slice(1)}
                   </FormLabel>
                   <Stack direction={{ base: 'column', lg: 'row' }}>
-                    <HStack w={{ base: 'full', lg: 400 }} align="baseline">
-                      <Box as={Flags[currentModels?.locale]} />
-                      <Text>{currentModels?.description}</Text>
-                    </HStack>
+                    {currentModels?.locale !== targetModels?.locale && (
+                      <HStack w={{ base: 'full', lg: 400 }} align="baseline">
+                        <Box as={Flags[currentModels?.locale]} />
+                        <Text>{currentModels?.description}</Text>
+                      </HStack>
+                    )}
                     <HStack
                       flex={1}
                       align="baseline"
@@ -241,31 +250,31 @@ export const ModelEditTranslate = <T extends StrapiModel>({
                     {field?.name.charAt(0).toUpperCase() + field?.name.slice(1)}
                   </FormLabel>
                   <Stack direction={{ base: 'column', lg: 'row' }}>
-                    <HStack align="baseline" w={{ base: 'full', lg: 400 }}>
-                      <Box as={Flags[currentModels?.locale]} />
-                      <Text maxH={300} overflowY="auto">
-                        {currentModels?.content}
-                      </Text>
-                    </HStack>
                     {currentModels?.locale !== targetModels?.locale && (
-                      <HStack
-                        flex={1}
-                        align="baseline"
-                        w={{ base: 'full', lg: 400 }}
-                      >
-                        <Box as={Flags[targetModels?.locale]} />
-                        <FormItem
-                          {...(field?.type === 'textarea' && { as: Textarea })}
-                          key={index}
-                          name={field?.name as string}
-                          type={'text'}
-                          errors={errors}
-                          register={register}
-                          isDisabled={!isEditing}
-                          _disabled={disabledStyle}
-                        />
+                      <HStack align="baseline" w={{ base: 'full', lg: 400 }}>
+                        <Box as={Flags[currentModels?.locale]} />
+                        <Text maxH={300} overflowY="auto">
+                          {currentModels?.content}
+                        </Text>
                       </HStack>
                     )}
+                    <HStack
+                      flex={1}
+                      align="baseline"
+                      w={{ base: 'full', lg: 400 }}
+                    >
+                      <Box as={Flags[targetModels?.locale]} />
+                      <MdFormItem
+                        key={index}
+                        name={field.name as string}
+                        label={field?.label}
+                        isDisabled={!isEditing}
+                        isRequired={field.isRequired}
+                        errors={errors}
+                        control={control}
+                        _disabled={disabledStyle}
+                      />
+                    </HStack>
                   </Stack>
                 </Stack>
               </>
