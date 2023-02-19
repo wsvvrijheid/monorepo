@@ -119,7 +119,7 @@ export const ModelEditTranslate = <T extends StrapiModel>({
   const onDelete = () => {
     setConfirmState({
       isWarning: true,
-      title: 'Delete Activity',
+      title: 'Delete',
       description: 'Are you sure you want to delete this model?',
       buttonText: 'Delete',
       onConfirm: async () => {
@@ -132,7 +132,7 @@ export const ModelEditTranslate = <T extends StrapiModel>({
 
   const onApprove = () => {
     setConfirmState({
-      title: 'Approve Activity',
+      title: `Approve `,
       description: 'Are you sure you want to approve this model?',
       buttonText: 'Approve',
       onConfirm: async () => {
