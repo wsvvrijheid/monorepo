@@ -25,9 +25,10 @@ import {
 } from '@wsvvrijheid/types'
 import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
+import { AiOutlineEdit } from 'react-icons/ai'
 import { BsTrash } from 'react-icons/bs'
 import { HiOutlineCheck } from 'react-icons/hi'
-import { MdOutlineCheck } from 'react-icons/md'
+import { MdClose, MdOutlineCheck } from 'react-icons/md'
 import { InferType } from 'yup'
 
 import { ModelEditTranslateProps, Option } from './types'
@@ -64,6 +65,7 @@ export const ModelEditTranslate = <T extends StrapiModel>({
     register,
     formState: { errors },
     handleSubmit,
+    reset: resetForm,
   } = useForm<InferType<typeof schema>>({
     resolver: yupResolver(schema),
     mode: 'all',
@@ -143,6 +145,12 @@ export const ModelEditTranslate = <T extends StrapiModel>({
     currentModels?.locale !== targetModels?.locale,
     'ander',
   )
+
+  const onCancel = () => {
+    resetForm()
+    setIsEditing.off()
+    setConfirmState(undefined)
+  }
   return (
     <>
       {confirmState && (
@@ -157,7 +165,9 @@ export const ModelEditTranslate = <T extends StrapiModel>({
             return (
               <Stack>
                 <FormLabel htmlFor={`${currentModels?.id} title`}>
-                  Title
+                  <Text>
+                    {field?.name.charAt(0).toUpperCase() + field?.name.slice(1)}
+                  </Text>
                 </FormLabel>
                 <Stack direction={{ base: 'column', lg: 'row' }}>
                   {currentModels?.locale !== targetModels?.locale && (
@@ -166,7 +176,12 @@ export const ModelEditTranslate = <T extends StrapiModel>({
                       <Text>{currentModels?.title}</Text>
                     </HStack>
                   )}
-                  <HStack flex={1} align="baseline">
+                  <HStack
+                    flex={1}
+                    align="baseline"
+                    w={{ base: 'full', lg: 400 }}
+                  >
+                    <Box as={Flags[targetModels?.locale]} />
                     <FormItem
                       {...(field?.type === 'textarea' && { as: Textarea })}
                       key={index}
@@ -174,7 +189,7 @@ export const ModelEditTranslate = <T extends StrapiModel>({
                       type={'text'}
                       errors={errors}
                       register={register}
-                      isDisabled={isEditing}
+                      isDisabled={!isEditing}
                       _disabled={disabledStyle}
                     />
                   </HStack>
@@ -188,14 +203,19 @@ export const ModelEditTranslate = <T extends StrapiModel>({
                 <Divider orientation="horizontal" />
                 <Stack>
                   <FormLabel htmlFor={`${currentModels?.id} description`}>
-                    Description
+                    {field?.name.charAt(0).toUpperCase() + field?.name.slice(1)}
                   </FormLabel>
                   <Stack direction={{ base: 'column', lg: 'row' }}>
                     <HStack w={{ base: 'full', lg: 400 }} align="baseline">
                       <Box as={Flags[currentModels?.locale]} />
                       <Text>{currentModels?.description}</Text>
                     </HStack>
-                    <HStack flex={1} align="baseline">
+                    <HStack
+                      flex={1}
+                      align="baseline"
+                      w={{ base: 'full', lg: 400 }}
+                    >
+                      <Box as={Flags[targetModels?.locale]} />
                       <FormItem
                         {...(field?.type === 'textarea' && { as: Textarea })}
                         key={index}
@@ -203,7 +223,7 @@ export const ModelEditTranslate = <T extends StrapiModel>({
                         type={'text'}
                         errors={errors}
                         register={register}
-                        isDisabled={isEditing}
+                        isDisabled={!isEditing}
                         _disabled={disabledStyle}
                       />
                     </HStack>
@@ -218,17 +238,22 @@ export const ModelEditTranslate = <T extends StrapiModel>({
                 <Divider orientation="horizontal" />
                 <Stack>
                   <FormLabel htmlFor={`${currentModel?.id} content`}>
-                    Content
+                    {field?.name.charAt(0).toUpperCase() + field?.name.slice(1)}
                   </FormLabel>
                   <Stack direction={{ base: 'column', lg: 'row' }}>
-                    <HStack w={{ base: 'full', lg: 400 }} align="baseline">
+                    <HStack align="baseline" w={{ base: 'full', lg: 400 }}>
                       <Box as={Flags[currentModels?.locale]} />
                       <Text maxH={300} overflowY="auto">
                         {currentModels?.content}
                       </Text>
-                    </HStack>{' '}
+                    </HStack>
                     {currentModels?.locale !== targetModels?.locale && (
-                      <HStack flex={1} align="baseline">
+                      <HStack
+                        flex={1}
+                        align="baseline"
+                        w={{ base: 'full', lg: 400 }}
+                      >
+                        <Box as={Flags[targetModels?.locale]} />
                         <FormItem
                           {...(field?.type === 'textarea' && { as: Textarea })}
                           key={index}
@@ -236,7 +261,7 @@ export const ModelEditTranslate = <T extends StrapiModel>({
                           type={'text'}
                           errors={errors}
                           register={register}
-                          isDisabled={isEditing}
+                          isDisabled={!isEditing}
                           _disabled={disabledStyle}
                         />
                       </HStack>
@@ -262,14 +287,36 @@ export const ModelEditTranslate = <T extends StrapiModel>({
                   Approve
                 </Button>
               )}
-          <Button
-            type="submit"
-            leftIcon={<MdOutlineCheck />}
-            colorScheme={'primary'}
-            fontSize="sm"
-          >
-            Save
-          </Button>
+          {!isEditing ? (
+            <Button
+              onClick={setIsEditing.on}
+              leftIcon={<AiOutlineEdit />}
+              colorScheme={'primary'}
+              fontSize="sm"
+            >
+              Edit
+            </Button>
+          ) : (
+            <>
+              <Button
+                onClick={onCancel}
+                leftIcon={<MdClose />}
+                colorScheme={'gray'}
+                fontSize="sm"
+              >
+                Cancel
+              </Button>
+              <Button
+                type="submit"
+                leftIcon={<MdOutlineCheck />}
+                colorScheme={'primary'}
+                fontSize="sm"
+              >
+                Save
+              </Button>
+            </>
+          )}
+
           <Button onClick={onDelete} leftIcon={<BsTrash />} colorScheme="red">
             Delete
           </Button>
