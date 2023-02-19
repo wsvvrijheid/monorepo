@@ -3,35 +3,21 @@ import { usePost } from '@wsvvrijheid/services'
 import { Post } from '@wsvvrijheid/types'
 import {
   AdminLayout,
-  FormFields,
   ModelEditTranslate,
   Navigate,
   PageHeader,
+  translatePostField,
+  translatePostSchema,
 } from '@wsvvrijheid/ui'
 import { useRouter } from 'next/router'
-import * as yup from 'yup'
 
-export const translatePostSchema = yup.object({
-  title: yup.string(),
-  description: yup.string(),
-  content: yup.string(),
-})
-
-export const translatedField: FormFields<Post> = [
-  { name: 'title', type: 'textarea' },
-
-  { name: 'description', type: 'textarea' },
-
-  { name: 'content', type: 'markdown' },
-]
-
-const TranslatePage = () => {
+const TranslatePostPage = () => {
   const router = useRouter()
   const { query } = router
 
   const id = Number(query.id as string)
-  const { data: post, isLoading, refetch } = usePost(id) //
-  let original = post //41
+  const { data: post, isLoading, refetch } = usePost(id)
+  let original = post
 
   const findOriginal = post => {
     post?.localizations?.map(localpost => {
@@ -62,7 +48,7 @@ const TranslatePage = () => {
         targetModel={post}
         currentModel={originalData as Post}
         translatedFields={['title', 'description', 'content']}
-        fields={translatedField}
+        fields={translatePostField}
         onSuccess={refetch}
         schema={translatePostSchema}
       />
@@ -70,4 +56,4 @@ const TranslatePage = () => {
   )
 }
 
-export default TranslatePage
+export default TranslatePostPage

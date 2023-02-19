@@ -147,11 +147,6 @@ export const ModelEditTranslate = <T extends StrapiModel>({
     _hover: { borderColor: 'transparent' },
     color: 'gray.500',
   }
-  console.log(
-    'locales',
-    currentModels?.locale !== targetModels?.locale,
-    'ander',
-  )
 
   const onCancel = () => {
     resetForm()
