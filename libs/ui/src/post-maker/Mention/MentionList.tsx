@@ -19,7 +19,9 @@ import {
   useAppSelector,
   fetchMentions,
 } from '@wsvvrijheid/store'
+import { StrapiLocale } from '@wsvvrijheid/types'
 import dynamic from 'next/dynamic'
+import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { UserV1 } from 'twitter-api-v2'
 
@@ -42,13 +44,18 @@ export const MentionList = () => {
   } = useAppSelector(state => state.post)
 
   const dispatch = useAppDispatch()
+  const { query, locale } = useRouter()
   const { t } = useTranslation()
 
   useEffect(() => {
     if (!initialMentions || initialMentions.length === 0) {
-      dispatch(fetchMentions())
+      const payload = {
+        slug: query?.['slug'] as string,
+        locale: locale as StrapiLocale,
+      }
+      dispatch(fetchMentions(payload))
     }
-  }, [initialMentions, dispatch])
+  }, [initialMentions, dispatch, locale, query])
 
   const onAddMention = (value: UserV1) => {
     if (value.screen_name) {

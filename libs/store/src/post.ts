@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { API_URL, TOKEN } from '@wsvvrijheid/config'
-import { Mention } from '@wsvvrijheid/types'
+import { Mention, StrapiLocale } from '@wsvvrijheid/types'
 import axios from 'axios'
 import { UserV1 } from 'twitter-api-v2'
 
@@ -100,16 +100,27 @@ export const fetchSearchedMentions = createAsyncThunk(
     return rawData.sort((a, b) => b.followers_count - a.followers_count)
   },
 )
-export const fetchMentions = createAsyncThunk('post/mentions', async () => {
-  const response = await axios(`${API_URL}/api/mentions`, {
-    headers: {
-      Authorization: `Bearer ${TOKEN}`,
-    },
-  })
-  const rawData = response.data
+//?locale=${locale}&filters[hashtags][slug][$eqi]=${slug}
+export const fetchMentions = createAsyncThunk(
+  'post/mentions',
 
-  return rawData.data as Mention[]
-})
+  async (payload: {
+    locale: StrapiLocale
+    slug: string
+  }): Promise<Mention[]> => {
+    const response = await axios(
+      `${API_URL}/api/mentions?locale=${payload?.locale}&filters[hashtags][slug][$eq]=${payload?.slug}`,
+      {
+        headers: {
+          Authorization: `Bearer ${TOKEN}`,
+        },
+      },
+    )
+    const rawData = response.data
+
+    return rawData.data as Mention[]
+  },
+)
 
 export const postSlice = createSlice({
   name: 'post',
