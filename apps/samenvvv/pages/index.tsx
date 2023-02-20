@@ -100,8 +100,6 @@ export const getStaticProps: GetStaticProps = async context => {
     }),
   ]
 
-  console.log(hashtags)
-
   const link = getItemLink(latestHashtag, locale, 'hashtag')
 
   const seo: NextSeoProps = {

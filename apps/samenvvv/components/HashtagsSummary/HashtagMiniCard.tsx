@@ -22,14 +22,14 @@ export const HashtagMiniCard: FC<HashtagMiniCardProps> = ({
       borderRadius={'xl'}
       transition={'all'}
       transitionDuration={'500ms'}
-      _hover={{ bgGradient: 'linear(to-r, blackAlpha.100, white)' }}
+      _hover={{ lg: { bgGradient: 'linear(to-r, blackAlpha.100, white)' } }}
     >
-      <WImage ratio={1 / 1} w={'xs'} borderRadius={'xl'} src={hashtag.image} />
+      <WImage ratio={1 / 1} w={'3xs'} borderRadius={'xl'} src={hashtag.image} />
       <Stack p={{ base: 1, lg: 5 }} justifyContent={'flex-start'}>
-        <Heading as={'h4'} size={{ base: 'sm', sm: 'lg' }}>
+        <Heading as={'h4'} size={{ base: 'md', sm: 'lg' }}>
           {hashtag.title}
         </Heading>
-        <Text>{hashtag.description.substring(0, 50).concat('...')}</Text>
+        <Text>{hashtag.description.substring(0, 45).concat('...')}</Text>
       </Stack>
     </Card>
   )
