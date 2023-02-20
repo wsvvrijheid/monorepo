@@ -62,13 +62,15 @@ export const HashtagsSummary: FC<HashtagsSummaryProps> = ({ hashtags }) => {
           justifyContent={'space-between'}
           flexGrow={1}
         >
-          <WImage
-            ratio={16 / 10}
-            borderRadius={'xl'}
-            border={'1px'}
-            borderColor={'white'}
-            src={latestHashtag.image}
-          />
+          <Box borderRadius={'xl'} overflow={'hidden'}>
+            <WImage
+              ratio={16 / 10}
+              src={latestHashtag.image}
+              _hover={{ transform: 'scale(1.05 )' }}
+              transition={'transform'}
+              transitionDuration={'300ms'}
+            />
+          </Box>
           <Stack
             spacing={{ base: 2, lg: 4 }}
             alignItems={'flex-start'}

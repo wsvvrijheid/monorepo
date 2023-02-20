@@ -24,7 +24,7 @@ export const HashtagMiniCard: FC<HashtagMiniCardProps> = ({
       transitionDuration={'300ms'}
       _hover={{
         lg: {
-          bgGradient: 'linear(to-r, blackAlpha.100, white)',
+          bgGradient: 'linear(to-r, blackAlpha.50, white)',
           transform: 'translateX(4px)',
         },
       }}
