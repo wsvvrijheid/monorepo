@@ -22,22 +22,22 @@ export const HashtagsSummary: FC<HashtagsSummaryProps> = ({
   const latestLink = links[0]
 
   return (
-    <Box bg={'white'} p={{ base: 2, lg: 20 }}>
+    <Box bg={'white'} p={{ base: 4, lg: 16 }}>
       <Stack
         direction={{ base: 'column-reverse', lg: 'row' }}
         spacing={{ base: 6, lg: 4 }}
         justifyContent={'space-between'}
-        px={30}
-        py={10}
         borderRadius={'xl'}
         border={2}
         borderColor={'white'}
+        maxH={{ lg: '2xl' }}
       >
         <Stack
           direction={'column'}
           alignItems={'stretch'}
-          justifyContent={'center'}
-          spacing={4}
+          justifyContent={'space-evenly'}
+          spacing={{ base: 3, lg: 6 }}
+          maxW={'lg'}
         >
           {hashtags.data.map((hashtag, i) => {
             if (i !== 0) {
@@ -57,6 +57,7 @@ export const HashtagsSummary: FC<HashtagsSummaryProps> = ({
           spacing={{ base: 2, lg: 8 }}
           alignItems={'stretch'}
           justifyContent={'space-between'}
+          flexGrow={1}
         >
           <WImage
             ratio={16 / 10}
@@ -69,6 +70,7 @@ export const HashtagsSummary: FC<HashtagsSummaryProps> = ({
             spacing={{ base: 2, lg: 4 }}
             alignItems={'flex-start'}
             color={'black'}
+            px={1}
           >
             <Heading as="h3" size="lg">
               {latestHashtag.title}
