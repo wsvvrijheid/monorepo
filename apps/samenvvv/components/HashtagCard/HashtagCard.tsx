@@ -1,14 +1,23 @@
 import { FC } from 'react'
 
-import { Box, Button, Grid, Heading, Stack, Text } from '@chakra-ui/react'
+import {
+  Box,
+  Button,
+  Grid,
+  Heading,
+  HStack,
+  Stack,
+  Text,
+  Icon,
+} from '@chakra-ui/react'
 import { ROUTES } from '@wsvvrijheid/config'
 import { Hashtag, StrapiLocale } from '@wsvvrijheid/types'
-import { Navigate, WImage } from '@wsvvrijheid/ui'
+import { FormattedDate, Navigate, WImage } from '@wsvvrijheid/ui'
 import { getItemLink } from '@wsvvrijheid/utils'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { FaArrowRight } from 'react-icons/fa'
-
+import { HiOutlineCalendar } from 'react-icons/hi'
 interface SliderHeroProps {
   item: Hashtag
   type: keyof typeof ROUTES | 'post'
@@ -45,7 +54,10 @@ export const HashtagCard: FC<SliderHeroProps> = ({ item, type }) => {
             </Heading>
           )}
         </Box>
-        <Text>{item.date}</Text>
+        <HStack>
+          <Icon as={HiOutlineCalendar} mr={1} mb={1} />
+          <FormattedDate date={item.date as string} />
+        </HStack>
         <Box>
           <Text flex={1} noOfLines={4}>
             {item.description}
