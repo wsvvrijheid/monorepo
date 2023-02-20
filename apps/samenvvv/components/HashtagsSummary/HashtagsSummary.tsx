@@ -1,7 +1,10 @@
 import { FC } from 'react'
 
 import { Box, Button, Heading, Stack, Text } from '@chakra-ui/react'
+import { StrapiLocale } from '@wsvvrijheid/types'
 import { Navigate, WImage } from '@wsvvrijheid/ui'
+import { getItemLink } from '@wsvvrijheid/utils'
+import { useRouter } from 'next/router'
 import { useTranslation } from 'react-i18next'
 
 import { HashtagMiniCard } from './HashtagMiniCard'
@@ -9,14 +12,15 @@ import { SearchedHashtags } from '../../pages/index'
 
 type HashtagsSummaryProps = {
   hashtags: SearchedHashtags
-  links: string[]
 }
 
-export const HashtagsSummary: FC<HashtagsSummaryProps> = ({
-  hashtags,
-  links,
-}) => {
+export const HashtagsSummary: FC<HashtagsSummaryProps> = ({ hashtags }) => {
+  const { locale } = useRouter()
   const { t } = useTranslation()
+
+  const links = hashtags.data.map(hashtag => {
+    return getItemLink(hashtag, locale as StrapiLocale, 'hashtag')
+  })
 
   const latestHashtag = hashtags.data[0]
   const latestLink = links[0]

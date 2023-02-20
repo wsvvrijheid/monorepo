@@ -72,7 +72,7 @@ const Home: FC<HomeProps> = ({ seo, link, hashtags, links }) => {
           </Stack>
         </Container>
       </Box>
-      {hashtags && <HashtagsSummary hashtags={hashtags} links={links} />}
+      {hashtags && <HashtagsSummary hashtags={hashtags} />}
     </Layout>
   )
 }
@@ -94,11 +94,6 @@ export const getStaticProps: GetStaticProps = async context => {
   })
 
   const latestHashtag = hashtags?.data?.[0] || null
-  const links = [
-    ...hashtags.data.map(hashtag => {
-      return getItemLink(hashtag, locale, 'hashtag')
-    }),
-  ]
 
   const link = getItemLink(latestHashtag, locale, 'hashtag')
 
@@ -112,7 +107,6 @@ export const getStaticProps: GetStaticProps = async context => {
       link,
       seo,
       hashtags,
-      links,
     },
     revalidate: 1,
   }
