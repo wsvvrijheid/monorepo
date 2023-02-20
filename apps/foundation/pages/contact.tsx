@@ -139,7 +139,7 @@ const Contact = ({ seo }: ContactProps): JSX.Element => {
                     </Box>
                     <Box>
                       <Text fontSize="sm">{t('wsvvrijheid.treasurer')}</Text>
-                      <Text>Davut Dur</Text>
+                      <Text>Ahmet Nurettin Kara</Text>
                     </Box>
                   </Wrap>
                 </Stack>
