@@ -21,8 +21,13 @@ export const HashtagMiniCard: FC<HashtagMiniCardProps> = ({
       variant="solid"
       borderRadius={'xl'}
       transition={'all'}
-      transitionDuration={'500ms'}
-      _hover={{ lg: { bgGradient: 'linear(to-r, blackAlpha.100, white)' } }}
+      transitionDuration={'300ms'}
+      _hover={{
+        lg: {
+          bgGradient: 'linear(to-r, blackAlpha.100, white)',
+          transform: 'translateX(4px)',
+        },
+      }}
     >
       <WImage ratio={1 / 1} w={'3xs'} borderRadius={'xl'} src={hashtag.image} />
       <Stack p={{ base: 1, lg: 5 }} justifyContent={'flex-start'}>
