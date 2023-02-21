@@ -3,7 +3,7 @@ import { useState } from 'react'
 import {
   Box,
   Button,
-  Divider,
+  ButtonGroup,
   FormLabel,
   HStack,
   Stack,
@@ -16,10 +16,11 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import {
   useApproveModel,
   useDeleteModel,
+  useModelById,
   useUpdateModelMutation,
 } from '@wsvvrijheid/services'
 import {
-  StrapiModel,
+  StrapiLocale,
   StrapiTranslatableModel,
   StrapiTranslatableUpdateInput,
 } from '@wsvvrijheid/types'
@@ -36,26 +37,29 @@ import {
   Flags,
   FormItem,
   MdFormItem,
+  Navigate,
   WConfirm,
   WConfirmProps,
 } from '../../components'
+import { useReferenceModel } from '../../hooks'
 import { useDefaultValues } from '../ModelForm'
 
-export const ModelEditTranslate = <T extends StrapiModel>({
+export const ModelEditTranslate = <T extends StrapiTranslatableModel>({
+  id,
   url,
-  targetModel,
-  currentModel,
   translatedFields,
   fields,
   schema,
-  onSuccess,
 }: ModelEditTranslateProps<T>) => {
   const router = useRouter()
-  const currentModels = currentModel as StrapiTranslatableModel
-  const id = targetModel?.id
-  const targetModels = targetModel as StrapiTranslatableModel
 
-  const defaultValues = useDefaultValues(targetModel, fields)
+  const { data: model } = useModelById<T>({ url, id })
+
+  const referenceModel = useReferenceModel<T>(model)
+
+  const isReferenceDifferent = model?.locale !== referenceModel?.locale
+
+  const defaultValues = useDefaultValues(model, fields)
 
   const [isEditing, setIsEditing] = useBoolean(false)
   const [confirmState, setConfirmState] = useState<WConfirmProps>()
@@ -80,7 +84,6 @@ export const ModelEditTranslate = <T extends StrapiModel>({
   })
 
   const handleSuccess = () => {
-    onSuccess?.()
     setIsEditing.off()
     setConfirmState(undefined)
   }
@@ -153,6 +156,9 @@ export const ModelEditTranslate = <T extends StrapiModel>({
     setIsEditing.off()
     setConfirmState(undefined)
   }
+
+  if (!model) return null
+
   return (
     <>
       {confirmState && (
@@ -162,135 +168,77 @@ export const ModelEditTranslate = <T extends StrapiModel>({
         />
       )}
       <Stack spacing={8} as="form" onSubmit={handleSubmit(onSaveModel)}>
+        <ButtonGroup>
+          {model?.localizations?.map(l => (
+            <Navigate key={l.id} href={`/translates/posts/${l.id}`}>
+              {l?.locale !== referenceModel?.locale && (
+                <Button textTransform={'uppercase'}>{l.locale}</Button>
+              )}
+            </Navigate>
+          ))}
+        </ButtonGroup>
         {fields.map((field, index) => {
-          if (field?.name === 'title') {
-            return (
-              <Stack>
-                <FormLabel htmlFor={`${currentModels?.id} title`}>
-                  <Text>
-                    {field?.name.charAt(0).toUpperCase() + field?.name.slice(1)}
-                  </Text>
-                </FormLabel>
-                <Stack direction={{ base: 'column', lg: 'row' }}>
-                  {currentModels?.locale !== targetModels?.locale && (
-                    <HStack w={{ base: 'full', lg: 400 }} align="baseline">
-                      <Box as={Flags[currentModels?.locale]} />
-                      <Text>{currentModels?.title}</Text>
-                    </HStack>
-                  )}
-                  <HStack
-                    flex={1}
-                    align="baseline"
-                    w={{ base: 'full', lg: 400 }}
-                  >
-                    <Box as={Flags[targetModels?.locale]} />
+          return (
+            <Stack spacing={4} p={4} rounded={'md'} shadow={'md'} bg={'white'}>
+              <FormLabel
+                htmlFor={`${model?.id} title`}
+                textTransform={'capitalize'}
+              >
+                {field?.name as string}
+              </FormLabel>
+              <Stack direction={{ base: 'column', lg: 'row' }}>
+                {isReferenceDifferent && referenceModel && (
+                  <HStack w={{ base: 'full', lg: 400 }} align="baseline">
+                    <Box as={Flags[referenceModel.locale as StrapiLocale]} />
+                    <Text>{(referenceModel as any)[field.name]}</Text>
+                  </HStack>
+                )}
+                <HStack flex={1} align="baseline" w={{ base: 'full', lg: 400 }}>
+                  <Box as={Flags[model?.locale as StrapiLocale]} />
+                  {field.type === 'markdown' ? (
+                    <MdFormItem
+                      {...(!isEditing && { p: 0 })}
+                      key={index}
+                      name={field.name as string}
+                      label={field?.label}
+                      isDisabled={!isEditing}
+                      isRequired={field.isRequired}
+                      errors={errors}
+                      control={control}
+                      _disabled={disabledStyle}
+                    />
+                  ) : (
                     <FormItem
+                      {...(!isEditing && { p: 0 })}
                       {...(field?.type === 'textarea' && { as: Textarea })}
                       key={index}
                       name={field?.name as string}
+                      h={'full'}
                       type={'text'}
                       errors={errors}
                       register={register}
                       isDisabled={!isEditing}
                       _disabled={disabledStyle}
                     />
-                  </HStack>
-                </Stack>
+                  )}
+                </HStack>
               </Stack>
-            )
-          }
-          if (field?.name === 'description') {
-            return (
-              <>
-                <Divider orientation="horizontal" />
-                <Stack>
-                  <FormLabel htmlFor={`${currentModels?.id} description`}>
-                    {field?.name.charAt(0).toUpperCase() + field?.name.slice(1)}
-                  </FormLabel>
-                  <Stack direction={{ base: 'column', lg: 'row' }}>
-                    {currentModels?.locale !== targetModels?.locale && (
-                      <HStack w={{ base: 'full', lg: 400 }} align="baseline">
-                        <Box as={Flags[currentModels?.locale]} />
-                        <Text>{currentModels?.description}</Text>
-                      </HStack>
-                    )}
-                    <HStack
-                      flex={1}
-                      align="baseline"
-                      w={{ base: 'full', lg: 400 }}
-                    >
-                      <Box as={Flags[targetModels?.locale]} />
-                      <FormItem
-                        {...(field?.type === 'textarea' && { as: Textarea })}
-                        key={index}
-                        name={field?.name as string}
-                        type={'text'}
-                        errors={errors}
-                        register={register}
-                        isDisabled={!isEditing}
-                        _disabled={disabledStyle}
-                      />
-                    </HStack>
-                  </Stack>
-                </Stack>
-              </>
-            )
-          }
-          if (field?.name === 'content') {
-            return (
-              <>
-                <Divider orientation="horizontal" />
-                <Stack>
-                  <FormLabel htmlFor={`${currentModel?.id} content`}>
-                    {field?.name.charAt(0).toUpperCase() + field?.name.slice(1)}
-                  </FormLabel>
-                  <Stack direction={{ base: 'column', lg: 'row' }}>
-                    {currentModels?.locale !== targetModels?.locale && (
-                      <HStack align="baseline" w={{ base: 'full', lg: 400 }}>
-                        <Box as={Flags[currentModels?.locale]} />
-                        <Text maxH={300} overflowY="auto">
-                          {currentModels?.content}
-                        </Text>
-                      </HStack>
-                    )}
-                    <HStack
-                      flex={1}
-                      align="baseline"
-                      w={{ base: 'full', lg: 400 }}
-                    >
-                      <Box as={Flags[targetModels?.locale]} />
-                      <MdFormItem
-                        key={index}
-                        name={field.name as string}
-                        label={field?.label}
-                        isDisabled={!isEditing}
-                        isRequired={field.isRequired}
-                        errors={errors}
-                        control={control}
-                        _disabled={disabledStyle}
-                      />
-                    </HStack>
-                  </Stack>
-                </Stack>
-              </>
-            )
-          }
+            </Stack>
+          )
         })}
         {/*  Button group  */}
         <Wrap alignSelf={'end'} justify={'end'}>
-          {targetModels?.approvalStatus === 'approved'
-            ? null
-            : targetModels?.approvalStatus && (
-                <Button
-                  onClick={onApprove}
-                  leftIcon={<HiOutlineCheck />}
-                  fontSize="sm"
-                  colorScheme={'purple'}
-                  isLoading={approveModelMutation.isLoading}
-                >
-                  Approve
-                </Button>
-              )}
+          {referenceModel?.approvalStatus === 'approved' && (
+            <Button
+              onClick={onApprove}
+              leftIcon={<HiOutlineCheck />}
+              fontSize="sm"
+              colorScheme={'purple'}
+              isLoading={approveModelMutation.isLoading}
+            >
+              Approve
+            </Button>
+          )}
           {!isEditing ? (
             <Button
               onClick={setIsEditing.on}

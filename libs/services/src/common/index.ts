@@ -1,6 +1,7 @@
 export * from './approve'
 export * from './create'
 export * from './delete'
+export * from './getById'
 export * from './publish'
 export * from './search'
 export * from './staticPaths'
