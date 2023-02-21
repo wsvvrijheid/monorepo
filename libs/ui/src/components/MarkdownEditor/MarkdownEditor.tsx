@@ -46,7 +46,7 @@ const MarkdownEditor = forwardRef<MarkdownEditorProps, any>((props, ref) => {
           '&.full': {
             zIndex: 'modal',
           },
-          bg: '#f5f5f5',
+          bg: props.isDisabled ? 'transparent' : '#f5f5f5',
           [hiddenButtonClasses]: {
             display: 'none !important',
           },
