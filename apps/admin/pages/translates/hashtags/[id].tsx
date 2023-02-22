@@ -2,8 +2,8 @@ import { Hashtag } from '@wsvvrijheid/types'
 import {
   AdminLayout,
   ModelEditTranslate,
-  translateHashtagField,
-  translateHashtagSchema,
+  translateModelFields,
+  translateModelSchema,
 } from '@wsvvrijheid/ui'
 import { useRouter } from 'next/router'
 
@@ -20,8 +20,8 @@ const TranslateMainHashtagPage = () => {
         url="api/hashtags"
         pathname="hashtags"
         translatedFields={['title', 'description', 'content']}
-        fields={translateHashtagField}
-        schema={translateHashtagSchema}
+        fields={translateModelFields}
+        schema={translateModelSchema}
       />
     </AdminLayout>
   )

@@ -1,6 +1,6 @@
 export * from './activity'
 export * from './art'
+export * from './blogs'
 export * from './collection'
 export * from './mainHashtag'
 export * from './post'
-export * from './blogs'
