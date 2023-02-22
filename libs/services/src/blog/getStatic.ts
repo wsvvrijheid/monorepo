@@ -4,7 +4,7 @@ import { Blog, StrapiLocale } from '@wsvvrijheid/types'
 import { GetStaticPropsContext } from 'next/types'
 
 import { getAuthorBlogs } from './get'
-import { getBlogBySlug } from './getById'
+import { getBlogBySlug } from './getBlogBySlug'
 
 export const getBlogStaticProps = async (context: GetStaticPropsContext) => {
   const queryClient = new QueryClient()
