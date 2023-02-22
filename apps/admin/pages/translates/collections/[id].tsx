@@ -7,18 +7,18 @@ import {
 } from '@wsvvrijheid/ui'
 import { useRouter } from 'next/router'
 
-const TranslateActivityPage = () => {
+const TranslateCollectionPage = () => {
   const router = useRouter()
   const { query } = router
 
   const id = Number(query.id as string)
 
   return (
-    <AdminLayout title="Activity" hasBackButton>
+    <AdminLayout title="Collection" hasBackButton>
       <ModelEditTranslate<Activity>
         id={id}
-        url="api/activities"
-        pathname="activities"
+        url="api/collections"
+        pathname="collections"
         translatedFields={['title', 'description', 'content']}
         fields={translateActivityField}
         schema={translateActivitySchema}
@@ -27,4 +27,4 @@ const TranslateActivityPage = () => {
   )
 }
 
-export default TranslateActivityPage
+export default TranslateCollectionPage

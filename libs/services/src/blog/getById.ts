@@ -4,27 +4,27 @@ import { Blog, StrapiLocale } from '@wsvvrijheid/types'
 import { useRouter } from 'next/router'
 import { SetRequired } from 'type-fest'
 
-export const getBlogBySlug = async (
+export const getBlogById = async (
   locale: StrapiLocale,
-  slug: string,
+  id: number,
 ): Promise<Blog | null> => {
   const response = await Request.collection<
     SetRequired<Blog, 'author' | 'image' | 'likers'>[]
   >({
     url: 'api/blogs',
     populate: ['author', 'image', 'likers'],
-    filters: { slug: { $eq: slug } },
+    filters: { id: { $eq: id } },
     locale,
   })
 
   return response?.data?.[0] || null
 }
 
-export const useGetBlog = (slug: string) => {
+export const useGetBlog = (id: number) => {
   const { locale } = useRouter()
 
   return useQuery({
-    queryKey: ['blog', locale, slug],
-    queryFn: () => getBlogBySlug(locale as StrapiLocale, slug),
+    queryKey: ['blog', locale, id],
+    queryFn: () => getBlogById(locale as StrapiLocale, id),
   })
 }

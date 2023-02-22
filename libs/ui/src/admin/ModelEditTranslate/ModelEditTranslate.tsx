@@ -49,6 +49,7 @@ export const ModelEditTranslate = <T extends StrapiTranslatableModel>({
   url,
   translatedFields,
   fields,
+  pathname,
   schema,
 }: ModelEditTranslateProps<T>) => {
   const router = useRouter()
@@ -159,7 +160,7 @@ export const ModelEditTranslate = <T extends StrapiTranslatableModel>({
   }
 
   if (!model) return null
-
+  console.log('model', model)
   return (
     <>
       {confirmState && (
@@ -171,7 +172,7 @@ export const ModelEditTranslate = <T extends StrapiTranslatableModel>({
       <Stack spacing={8} as="form" onSubmit={handleSubmit(onSaveModel)}>
         <ButtonGroup>
           {model?.localizations?.map(l => (
-            <Navigate key={l.id} href={`/translates/posts/${l.id}`}>
+            <Navigate key={l.id} href={`/translates/${pathname}/${l.id}`}>
               {l?.locale !== referenceModel?.locale && (
                 <Button textTransform={'uppercase'}>{l.locale}</Button>
               )}
