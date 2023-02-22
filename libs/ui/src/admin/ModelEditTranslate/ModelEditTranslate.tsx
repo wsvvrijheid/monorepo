@@ -38,7 +38,7 @@ import {
   WConfirm,
   WConfirmProps,
 } from '../../components'
-import { useReferenceModel } from '../../hooks'
+import { useReferenceModel } from '../../hooks/useReferenceModel'
 import { useDefaultValues } from '../ModelForm'
 
 export const ModelEditTranslate = <T extends StrapiTranslatableModel>({
