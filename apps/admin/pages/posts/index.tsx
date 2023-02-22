@@ -25,7 +25,6 @@ const PostsPage = () => {
   const { query } = useRouter()
   const [currentPage, setCurrentPage] = useState<number>()
   const status = query.status as ApprovalStatus
-  console.log('status >>>', query)
 
   const [searchTerm, setSearchTerm] = useState<string>()
   const { locale, push } = useRouter()

@@ -17,6 +17,7 @@ const NewsBookmarkedPage = () => {
     url: 'api/recommended-topics',
     locale: locale as StrapiLocale,
   })
+
   return (
     <AdminLayout title=" Recomended News">
       <ModelCreateModal<RecommendedTopic>
