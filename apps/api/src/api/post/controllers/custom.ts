@@ -35,7 +35,7 @@ export default {
         { filters: { localizations: { id: referenceModel.hashtag.id } } },
       )
 
-      targetHashtag = hashtagsResponse?.[0]
+      targetHashtag = hashtagsResponse?.find(h =>h.locale)
     }
 
     const result = await strapi.service('api::post.post').update(id, {
