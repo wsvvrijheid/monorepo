@@ -1,5 +1,5 @@
-import { Box, ButtonGroup, Button } from '@chakra-ui/react'
-import { useActivityById } from '@wsvvrijheid/services'
+import { Box, Button, ButtonGroup } from '@chakra-ui/react'
+import { useModelById } from '@wsvvrijheid/services'
 import { Activity } from '@wsvvrijheid/types'
 import {
   activityFields,
@@ -16,7 +16,14 @@ const ActivityPage = () => {
   const { query } = router
 
   const id = Number(query.id as string)
-  const { data: activity, isLoading, refetch } = useActivityById(id)
+  const {
+    data: activity,
+    isLoading,
+    refetch,
+  } = useModelById<Activity>({
+    url: 'api/activities',
+    id,
+  })
 
   return (
     <AdminLayout title="Activity" isLoading={isLoading} hasBackButton>
