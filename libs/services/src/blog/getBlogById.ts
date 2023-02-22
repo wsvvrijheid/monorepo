@@ -20,7 +20,7 @@ export const getBlogById = async (
   return response?.data?.[0] || null
 }
 
-export const useGetBlog = (id: number) => {
+export const useGetBlogId = (id: number) => {
   const { locale } = useRouter()
 
   return useQuery({
