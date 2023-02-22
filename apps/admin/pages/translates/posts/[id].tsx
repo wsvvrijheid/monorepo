@@ -18,6 +18,7 @@ const TranslatePostPage = () => {
       <ModelEditTranslate<Post>
         id={id}
         url="api/posts"
+        pathname="posts"
         translatedFields={['title', 'description', 'content']}
         fields={translatePostField}
         schema={translatePostSchema}

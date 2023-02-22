@@ -49,19 +49,9 @@ export const getAdminNav = (user: SessionUser): AdminNavItemProps[] => {
       visible: isAdmin,
       submenu: [
         {
-          label: 'Arts',
-          link: '/translates/arts',
-          icon: <TbBrush />,
-        },
-        {
-          label: 'Posts',
-          link: '/translates/posts',
-          icon: <TbBrandTwitter />,
-        },
-        {
-          label: 'Blogs',
-          link: '/translates/blogs',
-          icon: <TbWriting />,
+          label: 'Activities',
+          link: '/translates/activities',
+          icon: <TbActivity />,
         },
         {
           label: 'Announcements',
@@ -69,9 +59,24 @@ export const getAdminNav = (user: SessionUser): AdminNavItemProps[] => {
           icon: <TbVolume />,
         },
         {
-          label: 'Activities',
-          link: '/translates/activities',
-          icon: <TbActivity />,
+          label: 'Arts',
+          link: '/translates/arts',
+          icon: <TbBrush />,
+        },
+        {
+          label: 'Collections',
+          link: '/translates/collections',
+          icon: <BsCollection />,
+        },
+        {
+          label: 'Hashtags',
+          link: '/translates/hashtags',
+          icon: <CgHashtag />,
+        },
+        {
+          label: 'Posts',
+          link: '/translates/posts',
+          icon: <TbBrandTwitter />,
         },
       ],
     },
@@ -195,6 +200,25 @@ export const getAdminNav = (user: SessionUser): AdminNavItemProps[] => {
       link: '/caps-maker',
       icon: <BiLandscape />,
       visible: isEditor || isAdmin,
+    },
+
+    {
+      label: 'Blogs',
+      icon: <TbWriting />,
+      link: '#',
+      visible: !!Boolean || !!isAdmin,
+      submenu: [
+        {
+          label: 'Pending  Blogs',
+          link: '/blogs?status=pending',
+          icon: <TbClock />,
+        },
+        {
+          label: 'Approved  Blogs',
+          link: '/blogs?status=approved',
+          icon: <TbChecks />,
+        },
+      ],
     },
     {
       label: 'Accounts',

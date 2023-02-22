@@ -1,4 +1,5 @@
 export * from './activity'
+export * from './blogs'
 export * from './collection'
 export * from './hashtag'
 export * from './post'
