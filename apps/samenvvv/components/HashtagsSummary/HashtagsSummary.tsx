@@ -5,7 +5,7 @@ import { Hashtag, StrapiLocale } from '@wsvvrijheid/types'
 import { Container, Navigate, WImage } from '@wsvvrijheid/ui'
 import { getItemLink } from '@wsvvrijheid/utils'
 import { useRouter } from 'next/router'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'next-i18next'
 
 import { HashtagMiniCard } from './HashtagMiniCard'
 
@@ -48,13 +48,14 @@ export const HashtagsSummary: FC<HashtagsSummaryProps> = ({ hashtags }) => {
             spacing={{ base: 3, lg: 6 }}
             maxW={'lg'}
           >
-            {prevHashtags.map((hashtag, i) => (
-              <HashtagMiniCard
-                key={hashtag.id}
-                hashtag={hashtag}
-                link={prevLinks[i]}
-              />
-            ))}
+            {prevHashtags &&
+              prevHashtags.map((hashtag, i) => (
+                <HashtagMiniCard
+                  key={hashtag.id}
+                  hashtag={hashtag}
+                  link={prevLinks[i]}
+                />
+              ))}
           </Stack>
           <Stack
             direction={'column'}

@@ -66,7 +66,7 @@ const Home: FC<HomeProps> = ({ seo, link, hashtags }) => {
           </Stack>
         </Container>
       </Box>
-      {hashtags && <HashtagsSummary hashtags={hashtags} />}
+      {hashtags.length > 0 && <HashtagsSummary hashtags={hashtags} />}
     </Layout>
   )
 }
