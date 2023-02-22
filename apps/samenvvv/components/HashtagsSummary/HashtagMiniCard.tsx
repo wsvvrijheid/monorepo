@@ -31,7 +31,7 @@ export const HashtagMiniCard: FC<HashtagMiniCardProps> = ({
       }}
     >
       <WImage ratio={1 / 1} w={'3xs'} borderRadius={'xl'} src={hashtag.image} />
-      <Stack p={{ base: 1, sm: 5 }} justifyContent={'flex-start'}>
+      <Stack p={{ base: 2, sm: 5 }} justifyContent={'flex-start'}>
         <Heading as={'h4'} fontSize={{ base: 'md', md: 'xl' }}>
           {hashtag.title}
         </Heading>

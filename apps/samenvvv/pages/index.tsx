@@ -39,7 +39,7 @@ const Home: FC<HomeProps> = ({ seo, link, hashtags }) => {
             textAlign={{ base: 'center', lg: 'center' }}
             h={'100vh'}
           >
-            <Heading as="h3" size="xl" color="white">
+            <Heading size="xl" color="white">
               {t('home.post-maker.title')}
             </Heading>
             <Text fontSize="xl" fontWeight="normal" maxWidth="2xl">

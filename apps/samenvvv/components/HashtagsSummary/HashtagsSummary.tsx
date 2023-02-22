@@ -21,11 +21,14 @@ export const HashtagsSummary: FC<HashtagsSummaryProps> = ({ hashtags }) => {
     return getItemLink(hashtag, locale as StrapiLocale, 'hashtag')
   })
 
-  const latestHashtag = hashtags[0]
-  const latestLink = links[0]
+  const [latestHashtag, ...prevHashtags] = hashtags
+  const [latestLink, ...prevLinks] = links
 
   return (
     <Box bg={'white'} p={{ base: 4, lg: 16 }}>
+      <Heading textAlign={'center'} pb={{ base: 4, lg: 8 }}>
+        Hashtag Events
+      </Heading>
       <Container p={0}>
         <Stack
           direction={{ base: 'column-reverse', lg: 'row' }}
@@ -45,17 +48,13 @@ export const HashtagsSummary: FC<HashtagsSummaryProps> = ({ hashtags }) => {
             spacing={{ base: 3, lg: 6 }}
             maxW={'lg'}
           >
-            {hashtags.map((hashtag, i) => {
-              if (i !== 0) {
-                return (
-                  <HashtagMiniCard
-                    key={hashtag.id}
-                    hashtag={hashtag}
-                    link={links[i]}
-                  />
-                )
-              }
-            })}
+            {prevHashtags.map((hashtag, i) => (
+              <HashtagMiniCard
+                key={hashtag.id}
+                hashtag={hashtag}
+                link={prevLinks[i]}
+              />
+            ))}
           </Stack>
           <Stack
             direction={'column'}
@@ -80,7 +79,7 @@ export const HashtagsSummary: FC<HashtagsSummaryProps> = ({ hashtags }) => {
               color={'black'}
               px={1}
             >
-              <Heading as="h3" size="lg">
+              <Heading as="h3" fontSize="2xl">
                 {latestHashtag.title}
               </Heading>
               <Text size="lg" fontWeight="normal">
