@@ -53,11 +53,11 @@ export const ModelEditTranslate = <T extends StrapiTranslatableModel>({
 }: ModelEditTranslateProps<T>) => {
   const router = useRouter()
 
-  const { data: model } = useModelById<T>({ url, id })
+  const { data: model, refetch } = useModelById<T>({ url, id })
 
   const referenceModel = useReferenceModel<T>(model)
 
-  const isReferenceDifferent = model?.locale !== referenceModel?.locale
+  const isReferenceSelf = model?.locale === referenceModel?.locale
 
   const defaultValues = useDefaultValues(model, fields)
 
@@ -84,6 +84,7 @@ export const ModelEditTranslate = <T extends StrapiTranslatableModel>({
   })
 
   const handleSuccess = () => {
+    refetch()
     setIsEditing.off()
     setConfirmState(undefined)
   }
@@ -179,7 +180,14 @@ export const ModelEditTranslate = <T extends StrapiTranslatableModel>({
         </ButtonGroup>
         {fields.map((field, index) => {
           return (
-            <Stack spacing={4} p={4} rounded={'md'} shadow={'md'} bg={'white'}>
+            <Stack
+              key={index}
+              spacing={4}
+              p={4}
+              rounded={'md'}
+              shadow={'md'}
+              bg={'white'}
+            >
               <FormLabel
                 htmlFor={`${model?.id} title`}
                 textTransform={'capitalize'}
@@ -187,7 +195,7 @@ export const ModelEditTranslate = <T extends StrapiTranslatableModel>({
                 {field?.name as string}
               </FormLabel>
               <Stack direction={{ base: 'column', lg: 'row' }}>
-                {isReferenceDifferent && referenceModel && (
+                {!isReferenceSelf && referenceModel && (
                   <HStack w={{ base: 'full', lg: 400 }} align="baseline">
                     <Box as={Flags[referenceModel.locale as StrapiLocale]} />
                     <Text>{(referenceModel as any)[field.name]}</Text>
@@ -228,17 +236,19 @@ export const ModelEditTranslate = <T extends StrapiTranslatableModel>({
         })}
         {/*  Button group  */}
         <Wrap alignSelf={'end'} justify={'end'}>
-          {referenceModel?.approvalStatus === 'approved' && (
-            <Button
-              onClick={onApprove}
-              leftIcon={<HiOutlineCheck />}
-              fontSize="sm"
-              colorScheme={'purple'}
-              isLoading={approveModelMutation.isLoading}
-            >
-              Approve
-            </Button>
-          )}
+          {model.approvalStatus !== 'approved' &&
+            (isReferenceSelf ||
+              referenceModel?.approvalStatus === 'approved') && (
+              <Button
+                onClick={onApprove}
+                leftIcon={<HiOutlineCheck />}
+                fontSize="sm"
+                colorScheme={'purple'}
+                isLoading={approveModelMutation.isLoading}
+              >
+                Approve
+              </Button>
+            )}
           {!isEditing ? (
             <Button
               onClick={setIsEditing.on}
