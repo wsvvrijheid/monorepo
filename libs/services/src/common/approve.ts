@@ -35,16 +35,33 @@ export const useApproveModel = <T extends StrapiTranslatableModel>(
     mutationFn: ({ id }: { id: number }) =>
       approveModel<T>(id, url, token ?? undefined),
     onSuccess: async model => {
-      const hasLocalizations = model?.localizations?.[0]
+      const hasLocalizations = !!model?.localizations?.[0]
 
       if (model && translatedFields && !hasLocalizations) {
-        await createLocalizations({
+        const localizations = await createLocalizations({
           model,
           translatedFields:
             translatedFields as (keyof StrapiTranslatableModel)[],
           url,
           token: token as string,
+          hasSlug: url !== 'api/posts',
         })
+
+        // Fixes translated relation fields
+        const promises = localizations?.map(
+          localizedModel =>
+            localizedModel &&
+            Mutation.put(
+              `${url}/relation` as StrapiUrl,
+              localizedModel.id,
+              {},
+              token as string,
+            ),
+        )
+
+        if (promises) {
+          await Promise.all(promises)
+        }
       }
 
       toast({
