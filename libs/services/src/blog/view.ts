@@ -6,7 +6,7 @@ import { Blog, BlogUpdateInput } from '@wsvvrijheid/types'
 import { useRouter } from 'next/router'
 import { useLocalStorage } from 'usehooks-ts'
 
-import { useGetBlog } from './getById'
+import { useGetBlog } from './getBlogById'
 
 export const viewBlog = async (blog: Blog, token: string) => {
   const body = { views: (blog.views || 0) + 1, token }
