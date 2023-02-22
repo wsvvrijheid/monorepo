@@ -118,7 +118,10 @@ export const ModelEditTranslate = <T extends StrapiTranslatableModel>({
       }
     }, {} as StrapiTranslatableUpdateInput)
 
-    updateModelMutation.mutate({ id, ...body }, { onSuccess: handleSuccess })
+    updateModelMutation.mutateAsync(
+      { id, ...body },
+      { onSuccess: handleSuccess },
+    )
   }
 
   const onDelete = () => {
@@ -160,7 +163,7 @@ export const ModelEditTranslate = <T extends StrapiTranslatableModel>({
   }
 
   if (!model) return null
-  console.log('model', model)
+
   return (
     <>
       {confirmState && (
@@ -189,23 +192,27 @@ export const ModelEditTranslate = <T extends StrapiTranslatableModel>({
               shadow={'md'}
               bg={'white'}
             >
-              <FormLabel
-                htmlFor={`${model?.id} title`}
-                textTransform={'capitalize'}
-              >
+              <FormLabel htmlFor={`${model?.id}`} textTransform={'capitalize'}>
                 {field?.name as string}
               </FormLabel>
               <Stack direction={{ base: 'column', lg: 'row' }}>
                 {!isReferenceSelf && referenceModel && (
                   <HStack w={{ base: 'full', lg: 400 }} align="baseline">
                     <Box as={Flags[referenceModel.locale as StrapiLocale]} />
-                    <Text>{(referenceModel as any)[field.name]}</Text>
+                    <Text>
+                      {
+                        referenceModel[
+                          field.name as 'title' | 'description' | 'content'
+                        ]
+                      }
+                    </Text>
                   </HStack>
                 )}
                 <HStack flex={1} align="baseline" w={{ base: 'full', lg: 400 }}>
                   <Box as={Flags[model?.locale as StrapiLocale]} />
                   {field.type === 'markdown' ? (
                     <MdFormItem
+                      id={`${model?.id}`}
                       {...(!isEditing && { p: 0 })}
                       key={index}
                       name={field.name as string}
@@ -218,6 +225,7 @@ export const ModelEditTranslate = <T extends StrapiTranslatableModel>({
                     />
                   ) : (
                     <FormItem
+                      id={`${model?.id}`}
                       {...(!isEditing && { p: 0 })}
                       {...(field?.type === 'textarea' && { as: Textarea })}
                       key={index}

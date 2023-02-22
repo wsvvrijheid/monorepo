@@ -23,24 +23,26 @@ export default {
       populate: ['localizations.hashtag', 'localizations.image'],
     })
 
-    const referenceModel = getReferenceModel(currentPost)
-
-    console.log('referenceModel.image', referenceModel)
+    const referencePost = getReferenceModel(currentPost)
 
     let targetHashtag
 
-    if (referenceModel.id !== id) {
+    if (referencePost.id !== id) {
       const hashtagsResponse = await strapi.entityService.findMany(
         'api::hashtag.hashtag',
-        { filters: { localizations: { id: referenceModel.hashtag.id } } },
+        {
+          filters: {
+            locale: currentPost.locale,
+            localizations: { id: referencePost.hashtag.id },
+          },
+        },
       )
 
-      targetHashtag = hashtagsResponse?.find(h =>h.locale)
+      targetHashtag = hashtagsResponse?.[0]
     }
 
     const result = await strapi.service('api::post.post').update(id, {
-      data: { hashtag: targetHashtag?.id, image: referenceModel.image?.id },
-      populate: ['localizations'],
+      data: { hashtag: targetHashtag?.id, image: referencePost.image?.id },
     })
 
     return { data: result }
