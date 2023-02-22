@@ -1,5 +1,5 @@
 import { Box, Button, ButtonGroup } from '@chakra-ui/react'
-import { usePost } from '@wsvvrijheid/services'
+import { useModelById } from '@wsvvrijheid/services'
 import { Post } from '@wsvvrijheid/types'
 import {
   AdminLayout,
@@ -16,7 +16,14 @@ const PostPage = () => {
   const { query } = router
 
   const id = Number(query.id as string)
-  const { data: post, isLoading, refetch } = usePost(id)
+  const {
+    data: post,
+    isLoading,
+    refetch,
+  } = useModelById<Post>({
+    url: 'api/posts',
+    id,
+  })
 
   return (
     <AdminLayout title="Post" isLoading={isLoading} hasBackButton>

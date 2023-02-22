@@ -7,7 +7,8 @@ import {
   Text,
   useDisclosure,
 } from '@chakra-ui/react'
-import { useCollectionById } from '@wsvvrijheid/services'
+import { useModelById } from '@wsvvrijheid/services'
+import { Collection } from '@wsvvrijheid/types'
 import {
   AdminLayout,
   ArtAddToCollectionGrid,
@@ -23,7 +24,14 @@ const CollectionPage = () => {
   const { query } = useRouter()
 
   const id = Number(query.id as string)
-  const { data: collection, isLoading, refetch } = useCollectionById(id)
+  const {
+    data: collection,
+    isLoading,
+    refetch,
+  } = useModelById<Collection>({
+    url: 'api/collections',
+    id,
+  })
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   return (

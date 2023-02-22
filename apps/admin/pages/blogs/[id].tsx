@@ -1,5 +1,5 @@
 import { Box } from '@chakra-ui/react'
-import { useGetBlogId } from '@wsvvrijheid/services'
+import { useModelById } from '@wsvvrijheid/services'
 import { Blog } from '@wsvvrijheid/types'
 import {
   AdminLayout,
@@ -14,16 +14,20 @@ const BlogPage = () => {
   const { query } = router
 
   const id = Number(query.id as string)
-  const { data: blogs, isLoading, refetch } = useGetBlogId(id)
+  const {
+    data: blog,
+    isLoading,
+    refetch,
+  } = useModelById<Blog>({ url: 'api/blogs', id })
   //TODO: Unpublished blogs doesn't coming
 
   return (
     <AdminLayout title="Blogs" isLoading={isLoading} hasBackButton>
       <Box p={6} rounded="md" bg="white" shadow="md">
-        {blogs && (
+        {blog && (
           <ModelEditForm<Blog>
             url="api/blogs"
-            model={blogs}
+            model={blog}
             translatedFields={['title', 'description', 'content']}
             schema={blogSchema}
             fields={blogFields}

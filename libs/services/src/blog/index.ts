@@ -1,5 +1,4 @@
 export * from './get'
-export * from './getBlogById'
 export * from './getStatic'
 export * from './like'
 export * from './view'

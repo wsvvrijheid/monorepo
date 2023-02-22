@@ -1,5 +1,5 @@
 import { Box, Button, ButtonGroup } from '@chakra-ui/react'
-import { useHashtagById } from '@wsvvrijheid/services'
+import { useModelById } from '@wsvvrijheid/services'
 import { Hashtag } from '@wsvvrijheid/types'
 import {
   AdminLayout,
@@ -16,7 +16,14 @@ const MainHashtagPage = () => {
   const { query } = router
 
   const id = Number(query.id as string)
-  const { data: hashtag, isLoading, refetch } = useHashtagById(id)
+  const {
+    data: hashtag,
+    isLoading,
+    refetch,
+  } = useModelById<Hashtag>({
+    url: 'api/hashtags',
+    id,
+  })
 
   return (
     <AdminLayout title="Hashtag" isLoading={isLoading} hasBackButton>
