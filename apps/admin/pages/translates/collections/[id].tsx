@@ -2,8 +2,8 @@ import { Activity } from '@wsvvrijheid/types'
 import {
   AdminLayout,
   ModelEditTranslate,
-  translateActivityField,
-  translateActivitySchema,
+  translateModelFields,
+  translateModelSchema,
 } from '@wsvvrijheid/ui'
 import { useRouter } from 'next/router'
 
@@ -20,8 +20,8 @@ const TranslateCollectionPage = () => {
         url="api/collections"
         pathname="collections"
         translatedFields={['title', 'description', 'content']}
-        fields={translateActivityField}
-        schema={translateActivitySchema}
+        fields={translateModelFields}
+        schema={translateModelSchema}
       />
     </AdminLayout>
   )

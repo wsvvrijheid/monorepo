@@ -2,8 +2,8 @@ import { Post } from '@wsvvrijheid/types'
 import {
   AdminLayout,
   ModelEditTranslate,
-  translatePostField,
-  translatePostSchema,
+  translateModelFields,
+  translateModelSchema,
 } from '@wsvvrijheid/ui'
 import { useRouter } from 'next/router'
 
@@ -20,8 +20,8 @@ const TranslatePostPage = () => {
         url="api/posts"
         pathname="posts"
         translatedFields={['title', 'description', 'content']}
-        fields={translatePostField}
-        schema={translatePostSchema}
+        fields={translateModelFields}
+        schema={translateModelSchema}
       />
     </AdminLayout>
   )
