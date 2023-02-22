@@ -10,5 +10,10 @@ export default {
       path: '/hashtags/approve/:id',
       handler: 'custom.approve',
     },
+    {
+      method: 'PUT',
+      path: '/hashtags/relation/:id',
+      handler: 'custom.relation',
+    },
   ],
 }
