@@ -15,7 +15,6 @@ import {
 import { yupResolver } from '@hookform/resolvers/yup'
 import {
   useApproveModel,
-  useDeleteModel,
   useModelById,
   useUpdateModelMutation,
 } from '@wsvvrijheid/services'
@@ -24,10 +23,8 @@ import {
   StrapiTranslatableModel,
   StrapiTranslatableUpdateInput,
 } from '@wsvvrijheid/types'
-import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
 import { AiOutlineEdit } from 'react-icons/ai'
-import { BsTrash } from 'react-icons/bs'
 import { HiOutlineCheck } from 'react-icons/hi'
 import { MdClose, MdOutlineCheck } from 'react-icons/md'
 import { InferType } from 'yup'
@@ -52,8 +49,6 @@ export const ModelEditTranslate = <T extends StrapiTranslatableModel>({
   pathname,
   schema,
 }: ModelEditTranslateProps<T>) => {
-  const router = useRouter()
-
   const { data: model, refetch } = useModelById<T>({ url, id })
 
   const referenceModel = useReferenceModel<T>(model)
@@ -66,7 +61,6 @@ export const ModelEditTranslate = <T extends StrapiTranslatableModel>({
   const [confirmState, setConfirmState] = useState<WConfirmProps>()
 
   const updateModelMutation = useUpdateModelMutation(url)
-  const deleteModelMutation = useDeleteModel(url)
   const approveModelMutation = useApproveModel(
     url,
     translatedFields as Array<keyof StrapiTranslatableModel>,
@@ -122,20 +116,6 @@ export const ModelEditTranslate = <T extends StrapiTranslatableModel>({
       { id, ...body },
       { onSuccess: handleSuccess },
     )
-  }
-
-  const onDelete = () => {
-    setConfirmState({
-      isWarning: true,
-      title: 'Delete',
-      description: 'Are you sure you want to delete this model?',
-      buttonText: 'Delete',
-      onConfirm: async () => {
-        deleteModelMutation.mutate({ id }, { onSuccess: handleSuccess })
-        setConfirmState(undefined)
-        router.back()
-      },
-    })
   }
 
   const onApprove = () => {
@@ -287,10 +267,6 @@ export const ModelEditTranslate = <T extends StrapiTranslatableModel>({
               </Button>
             </>
           )}
-
-          <Button onClick={onDelete} leftIcon={<BsTrash />} colorScheme="red">
-            Delete
-          </Button>
         </Wrap>
       </Stack>
     </>
