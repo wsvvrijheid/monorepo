@@ -1,9 +1,9 @@
 import { Hashtag } from '@wsvvrijheid/types'
 import {
   AdminLayout,
-  ModelEditTranslate,
   translateModelFields,
   translateModelSchema,
+  ModelEditTranslate,
 } from '@wsvvrijheid/ui'
 import { useRouter } from 'next/router'
 
