@@ -3,7 +3,7 @@ import { FC } from 'react'
 
 import { QueryKey } from '@tanstack/react-query'
 import { SITE_URL } from '@wsvvrijheid/config'
-import { useGetBlog, useLikeBlog, useViewBlog } from '@wsvvrijheid/services'
+import { useGetBlogSlug, useLikeBlog, useViewBlog } from '@wsvvrijheid/services'
 import { Blog } from '@wsvvrijheid/types'
 import { useRouter } from 'next/router'
 import { MDXRemoteSerializeResult } from 'next-mdx-remote'
@@ -28,7 +28,7 @@ export const BlogDetailTemplate: FC<BlogDetailTemplateProps> = ({
   } = useRouter()
 
   if (!source) return null
-  const { data: blog } = useGetBlog(slug as string)
+  const { data: blog } = useGetBlogSlug(slug as string)
   if (!blog) return null
   const { isLiked, toggleLike } = useLikeBlog(blog, queryKey)
 

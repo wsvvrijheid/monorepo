@@ -1,5 +1,5 @@
 import { Box } from '@chakra-ui/react'
-import { useGetBlog } from '@wsvvrijheid/services'
+import { useGetBlogId } from '@wsvvrijheid/services'
 import { Blog } from '@wsvvrijheid/types'
 import {
   AdminLayout,
@@ -14,7 +14,7 @@ const BlogPage = () => {
   const { query } = router
 
   const id = Number(query.id as string)
-  const { data: blogs, isLoading, refetch } = useGetBlog(id)
+  const { data: blogs, isLoading, refetch } = useGetBlogId(id)
   //TODO: Unpublished blogs doesn't coming
 
   return (

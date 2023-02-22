@@ -20,7 +20,7 @@ export const getBlogBySlug = async (
   return response?.data?.[0] || null
 }
 
-export const useGetBlog = (slug: string) => {
+export const useGetBlogSlug = (slug: string) => {
   const { locale } = useRouter()
 
   return useQuery({
