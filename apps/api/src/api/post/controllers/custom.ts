@@ -38,7 +38,7 @@ export default {
         },
       )
 
-      targetHashtag = hashtagsResponse?.[0]
+      targetHashtag = hashtagsResponse?.find(h => h.locale ===currentPost?.locale)
     }
 
     const result = await strapi.service('api::post.post').update(id, {
