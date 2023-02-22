@@ -110,6 +110,7 @@ export const ModelCreateForm = <T extends StrapiModel>({
         ...body,
         slug,
         locale: locale as StrapiLocale,
+        publishedAt: null,
       } as StrapiTranslatableCreateInput,
       {
         onSuccess: () => {

@@ -110,6 +110,7 @@ export const CreateArtForm: FC<CreateArtFormProps> = ({ queryKey }) => {
       slug,
       categories: data.categories?.map(c => Number(c.value)) || [],
       token: token as string,
+      publishedAt: null,
     }
 
     mutate(formBody, {
