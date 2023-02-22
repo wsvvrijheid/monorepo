@@ -98,6 +98,15 @@ export const ArtFeedbackForm: FC<ArtFeedbackFormTypes> = ({
               <MenuList minWidth={32} minH={20}>
                 <MenuItem
                   as={Button}
+                  onClick={() => updateField('title')}
+                  variant="ghost"
+                  colorScheme="primary"
+                  icon={<HiPencil />}
+                >
+                  Edit Title
+                </MenuItem>
+                <MenuItem
+                  as={Button}
                   onClick={() => updateField('description')}
                   variant="ghost"
                   colorScheme="primary"

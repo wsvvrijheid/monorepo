@@ -20,7 +20,7 @@ export type ArtApprovalTypes = {
   onSave: (
     artId: number,
     data: string,
-    updateValue: 'content' | 'description',
+    updateValue: 'content' | 'description' | 'title',
   ) => void
   onPublish: (artId: number) => void
   unPublish: (artId: number) => void
