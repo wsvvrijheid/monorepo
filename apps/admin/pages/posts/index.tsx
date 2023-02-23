@@ -63,7 +63,7 @@ const PostsPage = () => {
 
   useUpdateEffect(() => {
     postsQuery.refetch()
-  }, [locale, searchTerm, sort, status, hashtagsFilter])
+  }, [locale, searchTerm, sort, hashtagsFilter])
 
   const filterMenu = (
     <MenuOptionGroup
