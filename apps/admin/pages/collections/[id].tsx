@@ -1,7 +1,6 @@
 import {
   Box,
   Button,
-  ButtonGroup,
   HStack,
   Stack,
   Text,
@@ -14,7 +13,7 @@ import {
   ArtAddToCollectionGrid,
   ArtAddToCollectionModal,
   CollectionEdit,
-  Navigate,
+  FormLocaleSwitcher,
   PageHeader,
 } from '@wsvvrijheid/ui'
 import { useRouter } from 'next/router'
@@ -36,14 +35,11 @@ const CollectionPage = () => {
 
   return (
     <AdminLayout title="Collection" isLoading={isLoading} hasBackButton>
-      <PageHeader>
-        <ButtonGroup>
-          {collection?.localizations?.map(l => (
-            <Navigate key={l.id} href={`/collections/${l.id}`}>
-              <Button textTransform={'uppercase'}>{l.locale}</Button>
-            </Navigate>
-          ))}
-        </ButtonGroup>
+      <PageHeader hideLocaleSwitcher>
+        <FormLocaleSwitcher
+          models={collection?.localizations}
+          slug={'collections'}
+        />
       </PageHeader>
       <ArtAddToCollectionModal
         isOpen={isOpen}

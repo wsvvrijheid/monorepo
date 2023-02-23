@@ -1,10 +1,10 @@
-import { Box, Button, ButtonGroup } from '@chakra-ui/react'
+import { Box } from '@chakra-ui/react'
 import { useModelById } from '@wsvvrijheid/services'
 import { Post } from '@wsvvrijheid/types'
 import {
   AdminLayout,
+  FormLocaleSwitcher,
   ModelEditForm,
-  Navigate,
   PageHeader,
   postFields,
   postSchema,
@@ -27,14 +27,8 @@ const PostPage = () => {
 
   return (
     <AdminLayout title="Post" isLoading={isLoading} hasBackButton>
-      <PageHeader>
-        <ButtonGroup>
-          {post?.localizations?.map(l => (
-            <Navigate key={l.id} href={`/posts/${l.id}`}>
-              <Button textTransform={'uppercase'}>{l.locale}</Button>
-            </Navigate>
-          ))}
-        </ButtonGroup>
+      <PageHeader hideLocaleSwitcher>
+        <FormLocaleSwitcher models={post?.localizations} slug={'posts'} />
       </PageHeader>
       <Box p={6} rounded="md" bg="white" shadow="md">
         {post && (

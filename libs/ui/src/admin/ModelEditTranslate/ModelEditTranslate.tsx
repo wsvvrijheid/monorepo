@@ -3,7 +3,6 @@ import { useState } from 'react'
 import {
   Box,
   Button,
-  ButtonGroup,
   FormLabel,
   HStack,
   Stack,
@@ -34,11 +33,11 @@ import {
   Flags,
   FormItem,
   MdFormItem,
-  Navigate,
   WConfirm,
   WConfirmProps,
 } from '../../components'
-import { useReferenceModel } from '../../hooks/useReferenceModel'
+import { useReferenceModel } from '../../hooks'
+import { FormLocaleSwitcher } from '../FormLocaleSwitcher'
 import { useDefaultValues } from '../ModelForm'
 
 export const ModelEditTranslate = <T extends StrapiTranslatableModel>({
@@ -153,15 +152,10 @@ export const ModelEditTranslate = <T extends StrapiTranslatableModel>({
         />
       )}
       <Stack spacing={8} as="form" onSubmit={handleSubmit(onSaveModel)}>
-        <ButtonGroup>
-          {model?.localizations?.map(l => (
-            <Navigate key={l.id} href={`/translates/${pathname}/${l.id}`}>
-              {l?.locale !== referenceModel?.locale && (
-                <Button textTransform={'uppercase'}>{l.locale}</Button>
-              )}
-            </Navigate>
-          ))}
-        </ButtonGroup>
+        <FormLocaleSwitcher
+          models={model?.localizations as StrapiTranslatableModel[]}
+          slug={`translates/${pathname}`}
+        />
         {fields.map((field, index) => {
           return (
             <Stack

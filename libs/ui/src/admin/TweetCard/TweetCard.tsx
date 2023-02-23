@@ -57,8 +57,6 @@ export const TweetCard: FC<TweetCardProps> = ({
     onOpen()
   }
 
-  // console.log('tweet', tweet)
-
   const handleSubmit = async (
     text: string,
     originalTweet: Partial<Tweet>,
