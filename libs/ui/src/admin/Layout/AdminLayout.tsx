@@ -117,18 +117,25 @@ export const AdminLayout: FC<AdminLayoutProps> = ({
                       />
                     </Tooltip>
                   )}
-                  <Heading textTransform="capitalize" color="blackAlpha.500">
+                  <Heading
+                    textTransform="capitalize"
+                    color="blackAlpha.500"
+                    size={{ base: 'md', lg: '2xl' }}
+                  >
                     {title}
                   </Heading>
                 </HStack>
 
                 {/* TODO Create notification component */}
-                <IconButton
-                  aria-label="notifications"
-                  icon={<MdOutlineNotifications />}
-                  variant="outline"
-                  rounded="full"
-                />
+                <HStack>
+                  <IconButton
+                    aria-label="notifications"
+                    icon={<MdOutlineNotifications />}
+                    variant="outline"
+                    rounded="full"
+                  />
+                  <CreateModelButton />
+                </HStack>
               </HStack>
 
               {/* Page Content */}
@@ -139,7 +146,6 @@ export const AdminLayout: FC<AdminLayoutProps> = ({
           )}
         </Stack>
       </Box>
-      <CreateModelButton />
     </>
   )
 }
