@@ -139,16 +139,17 @@ export const ArtClubTemplate: FC = () => {
                   ))
                 : artsQuery.data?.data?.map((art, i) => {
                     // TODO Add link to navigate to the art page
-
-                    return (
-                      <AnimatedBox
-                        key={art.id}
-                        directing="to-down"
-                        delay={i * 0.5}
-                      >
-                        <ArtCard art={art} queryKey={queryKey} isMasonry />
-                      </AnimatedBox>
-                    )
+                    if (art.publishedAt) {
+                      return (
+                        <AnimatedBox
+                          key={art.id}
+                          directing="to-down"
+                          delay={i * 0.5}
+                        >
+                          <ArtCard art={art} queryKey={queryKey} isMasonry />
+                        </AnimatedBox>
+                      )
+                    }
                   })}
             </MasonryGrid>
 
