@@ -1,13 +1,7 @@
 import { useEffect, useState } from 'react'
 
 import { useSearchModel } from '@wsvvrijheid/services'
-import {
-  Activity,
-  ApprovalStatus,
-  Blog,
-  Sort,
-  StrapiLocale,
-} from '@wsvvrijheid/types'
+import { Activity, Blog, Sort, StrapiLocale } from '@wsvvrijheid/types'
 import {
   AdminLayout,
   blogColumns,
@@ -21,9 +15,7 @@ import { useRouter } from 'next/router'
 import { useUpdateEffect } from 'react-use'
 
 const BlogsPage = () => {
-  const { query } = useRouter()
   const [currentPage, setCurrentPage] = useState<number>()
-  const status = query.status as ApprovalStatus
 
   const [searchTerm, setSearchTerm] = useState<string>()
   const { locale, push } = useRouter()
@@ -37,18 +29,18 @@ const BlogsPage = () => {
     searchTerm,
     sort,
     locale: locale as StrapiLocale,
-    statuses: status ? [status] : undefined,
+    statuses: ['approved'],
     publicationState: 'preview',
   })
 
-  useEffect(() => setCurrentPage(1), [status])
+  useEffect(() => setCurrentPage(1), [])
   const handleSearch = (search: string) => {
     search ? setSearchTerm(search) : setSearchTerm(undefined)
   }
 
   useUpdateEffect(() => {
     blogsQuery.refetch()
-  }, [locale, searchTerm, sort, status])
+  }, [locale, searchTerm, sort])
 
   const blogs = blogsQuery?.data?.data
   const totalCount = blogsQuery?.data?.meta?.pagination?.pageCount
@@ -58,7 +50,7 @@ const BlogsPage = () => {
   }
 
   return (
-    <AdminLayout title={`${status} Blogs`}>
+    <AdminLayout title={`Blogs`}>
       <PageHeader
         onSearch={handleSearch}
         searchPlaceHolder={'Search by title or description'}

@@ -83,20 +83,8 @@ export const getAdminNav = (user: SessionUser): AdminNavItemProps[] => {
     {
       label: 'Activities',
       icon: <FiActivity />,
-      link: '#',
+      link: '/activities',
       visible: !!isEditor || !!isAdmin,
-      submenu: [
-        {
-          label: 'Pending Activities',
-          link: '/activities?status=pending',
-          icon: <TbClock />,
-        },
-        {
-          label: 'Approved Activities',
-          link: '/activities?status=approved',
-          icon: <TbChecks />,
-        },
-      ],
     },
     {
       label: 'Arts',
@@ -135,20 +123,8 @@ export const getAdminNav = (user: SessionUser): AdminNavItemProps[] => {
     {
       label: 'Hashtag Posts',
       icon: <TbBrandTwitter />,
-      link: '#',
+      link: '/posts',
       visible: !!Boolean || !!isAdmin,
-      submenu: [
-        {
-          label: 'Pending  Posts',
-          link: '/posts?status=pending',
-          icon: <TbClock />,
-        },
-        {
-          label: 'Approved  Posts',
-          link: '/posts?status=approved',
-          icon: <TbChecks />,
-        },
-      ],
     },
     {
       label: 'News',
@@ -205,20 +181,8 @@ export const getAdminNav = (user: SessionUser): AdminNavItemProps[] => {
     {
       label: 'Blogs',
       icon: <TbWriting />,
-      link: '#',
+      link: '/blogs',
       visible: !!Boolean || !!isAdmin,
-      submenu: [
-        {
-          label: 'Pending  Blogs',
-          link: '/blogs?status=pending',
-          icon: <TbClock />,
-        },
-        {
-          label: 'Approved  Blogs',
-          link: '/blogs?status=approved',
-          icon: <TbChecks />,
-        },
-      ],
     },
     {
       label: 'Accounts',
