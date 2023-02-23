@@ -5,7 +5,9 @@ import {
   AdminLayout,
   blogFields,
   blogSchema,
+  FormLocaleSwitcher,
   ModelEditForm,
+  PageHeader,
 } from '@wsvvrijheid/ui'
 import { useRouter } from 'next/router'
 
@@ -23,6 +25,9 @@ const BlogPage = () => {
 
   return (
     <AdminLayout title="Blogs" isLoading={isLoading} hasBackButton>
+      <PageHeader hideLocaleSwitcher>
+        <FormLocaleSwitcher models={blog?.localizations} slug={'collections'} />
+      </PageHeader>
       <Box p={6} rounded="md" bg="white" shadow="md">
         {blog && (
           <ModelEditForm<Blog>

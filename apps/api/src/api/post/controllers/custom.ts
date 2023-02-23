@@ -20,7 +20,7 @@ export default {
     const id = ctx.params.id
 
     const currentPost = await strapi.service('api::post.post').findOne(id, {
-      populate: ['localizations.hashtag', 'localizations.image'],
+      populate: ['localizations.hashtag.localizations', 'localizations.image'],
     })
 
     const referencePost = getReferenceModel(currentPost)
@@ -28,17 +28,11 @@ export default {
     let targetHashtag
 
     if (referencePost.id !== id) {
-      const hashtagsResponse = await strapi.entityService.findMany(
-        'api::hashtag.hashtag',
-        {
-          filters: {
-            locale: currentPost.locale,
-            localizations: { id: referencePost.hashtag.id },
-          },
-        },
-      )
+      const referenceHashtag = referencePost.hashtag
 
-      targetHashtag = hashtagsResponse?.find(h => h.locale ===currentPost?.locale)
+      targetHashtag = referenceHashtag.localizations?.find(
+        hashtag => hashtag.locale === currentPost.locale,
+      )
     }
 
     const result = await strapi.service('api::post.post').update(id, {

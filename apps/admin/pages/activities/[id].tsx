@@ -1,12 +1,12 @@
-import { Box, Button, ButtonGroup } from '@chakra-ui/react'
+import { Box } from '@chakra-ui/react'
 import { useModelById } from '@wsvvrijheid/services'
 import { Activity } from '@wsvvrijheid/types'
 import {
   activityFields,
   activitySchema,
   AdminLayout,
+  FormLocaleSwitcher,
   ModelEditForm,
-  Navigate,
   PageHeader,
 } from '@wsvvrijheid/ui'
 import { useRouter } from 'next/router'
@@ -27,14 +27,11 @@ const ActivityPage = () => {
 
   return (
     <AdminLayout title="Activity" isLoading={isLoading} hasBackButton>
-      <PageHeader>
-        <ButtonGroup>
-          {activity?.localizations?.map(l => (
-            <Navigate key={l.id} href={`/activities/${l.id}`}>
-              <Button textTransform={'uppercase'}>{l.locale}</Button>
-            </Navigate>
-          ))}
-        </ButtonGroup>
+      <PageHeader hideLocaleSwitcher>
+        <FormLocaleSwitcher
+          models={activity?.localizations}
+          slug={'activities'}
+        />
       </PageHeader>
       <Box p={6} rounded="md" bg="white" shadow="md">
         {activity && (

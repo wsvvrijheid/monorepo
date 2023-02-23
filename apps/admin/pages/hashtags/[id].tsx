@@ -1,4 +1,4 @@
-import { Box, Button, ButtonGroup } from '@chakra-ui/react'
+import { Box } from '@chakra-ui/react'
 import { useModelById } from '@wsvvrijheid/services'
 import { Hashtag } from '@wsvvrijheid/types'
 import {
@@ -6,8 +6,8 @@ import {
   mainHashtagFields,
   mainHashtagSchema,
   ModelEditForm,
-  Navigate,
   PageHeader,
+  FormLocaleSwitcher,
 } from '@wsvvrijheid/ui'
 import { useRouter } from 'next/router'
 
@@ -27,14 +27,8 @@ const MainHashtagPage = () => {
 
   return (
     <AdminLayout title="Hashtag" isLoading={isLoading} hasBackButton>
-      <PageHeader>
-        <ButtonGroup>
-          {hashtag?.localizations?.map(l => (
-            <Navigate key={l.id} href={`/hashtags/${l.id}`}>
-              <Button textTransform={'uppercase'}>{l.locale}</Button>
-            </Navigate>
-          ))}
-        </ButtonGroup>
+      <PageHeader hideLocaleSwitcher>
+        <FormLocaleSwitcher models={hashtag?.localizations} slug={'hashtags'} />
       </PageHeader>
       <Box p={6} rounded="md" bg="white" shadow="md">
         {hashtag && (
