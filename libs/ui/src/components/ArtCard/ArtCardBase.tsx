@@ -2,7 +2,6 @@ import { FC, useEffect, useState } from 'react'
 
 import {
   Avatar,
-  Badge,
   Box,
   HStack,
   IconButton,
@@ -26,7 +25,6 @@ import { ArtCardActions } from './ArtCardActions'
 import { ArtCardAlertDialog } from './ArtCardAlertDialog'
 import { ArtCardImage } from './ArtCardImage'
 import { ArtActionType, ArtCardBaseProps } from './types'
-import { ArtModal } from '../ArtModal'
 import { Navigate } from '../Navigate'
 
 export const ArtCardBase: FC<ArtCardBaseProps> = ({
@@ -36,15 +34,8 @@ export const ArtCardBase: FC<ArtCardBaseProps> = ({
   isLiked,
   actions,
   isOwner,
-  isModal = false,
   actionQueryKey,
 }) => {
-  const {
-    isOpen: artModalIsOpen,
-    onOpen: artModalOnOpen,
-    onClose: artModalOnClose,
-  } = useDisclosure()
-
   const queryKey = actionQueryKey as QueryKey
 
   const [actionType, setActionType] = useState<ArtActionType>()
@@ -63,11 +54,7 @@ export const ArtCardBase: FC<ArtCardBaseProps> = ({
   }, [isLiked])
 
   const onClickLink = () => {
-    if (isModal) {
-      artModalOnOpen()
-    } else {
-      router.push(`/club/art/${art.slug}`)
-    }
+    router.push(`/club/arts/${art.slug}`)
   }
 
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -120,12 +107,6 @@ export const ArtCardBase: FC<ArtCardBaseProps> = ({
       >
         {/* Card Image */}
         <ArtCardImage art={art} isMasonry={isMasonry} />
-
-        {!art.publishedAt && (
-          <Badge left={2} pos="absolute" top={2} userSelect="none">
-            Draft
-          </Badge>
-        )}
 
         {/* Card Body */}
         <Box
@@ -235,11 +216,6 @@ export const ArtCardBase: FC<ArtCardBaseProps> = ({
               </HStack>
             </Navigate>
           </Stack>
-          <ArtModal
-            art={art}
-            isOpen={artModalIsOpen}
-            onClose={artModalOnClose}
-          />
         </HStack>
       </Box>
     </>
