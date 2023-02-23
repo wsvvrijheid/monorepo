@@ -24,6 +24,7 @@ import { MdOutlineNotifications } from 'react-icons/md'
 import { useLocalStorage } from 'usehooks-ts'
 
 import { AdminSidebar } from '../AdminSidebar'
+import { CreateModelButton } from '../CreateModelButton'
 
 export type AdminLayoutProps = {
   children: ReactNode
@@ -138,6 +139,7 @@ export const AdminLayout: FC<AdminLayoutProps> = ({
           )}
         </Stack>
       </Box>
+      <CreateModelButton />
     </>
   )
 }
