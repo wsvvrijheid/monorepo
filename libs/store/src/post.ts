@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { API_URL, TOKEN } from '@wsvvrijheid/config'
-import { Mention } from '@wsvvrijheid/types'
+import { Mention, StrapiLocale } from '@wsvvrijheid/types'
 import axios from 'axios'
 import { UserV1 } from 'twitter-api-v2'
 
@@ -98,6 +98,27 @@ export const fetchSearchedMentions = createAsyncThunk(
     const rawData = response.data as UserV1[]
 
     return rawData.sort((a, b) => b.followers_count - a.followers_count)
+  },
+)
+//?locale=${locale}&filters[hashtags][slug][$eqi]=${slug}
+export const fetchMentions = createAsyncThunk(
+  'post/mentions',
+
+  async (payload: {
+    locale: StrapiLocale
+    slug: string
+  }): Promise<Mention[]> => {
+    const response = await axios(
+      `${API_URL}/api/mentions?locale=${payload?.locale}&filters[hashtags][slug][$eq]=${payload?.slug}`,
+      {
+        headers: {
+          Authorization: `Bearer ${TOKEN}`,
+        },
+      },
+    )
+    const rawData = response.data
+
+    return rawData.data as Mention[]
   },
 )
 
@@ -212,6 +233,17 @@ export const postSlice = createSlice({
     })
     builder.addCase(fetchSearchedMentions.rejected, state => {
       state.isSearchedMentionsLoading = false
+    })
+    builder.addCase(fetchMentions.fulfilled, (state, action) => {
+      state.initialMentions = action.payload
+      state.mentions = action.payload
+      state.isMentionListLoading = false
+    })
+    builder.addCase(fetchMentions.pending, state => {
+      state.isMentionListLoading = true
+    })
+    builder.addCase(fetchMentions.rejected, state => {
+      state.isMentionListLoading = false
     })
   },
 })
