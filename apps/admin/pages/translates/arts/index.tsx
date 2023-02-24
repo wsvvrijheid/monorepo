@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { MenuItem } from '@chakra-ui/react'
 import { useSearchModel } from '@wsvvrijheid/services'
 import { ApprovalStatus, Art, Sort, StrapiLocale } from '@wsvvrijheid/types'
-import { AdminLayout, ArtsTable, PageHeader } from '@wsvvrijheid/ui'
+import { AdminLayout, artColumns, DataTable, PageHeader } from '@wsvvrijheid/ui'
 import { useRouter } from 'next/router'
 import { FaArrowDown, FaArrowUp } from 'react-icons/fa'
 import { useUpdateEffect } from 'react-use'
@@ -18,7 +18,7 @@ const ArtsTranslatesPage = () => {
 
   const [sort, setSort] = useState<Sort>()
 
-  const { locale } = useRouter()
+  const { locale, push } = useRouter()
 
   const artsQuery = useSearchModel<Art>({
     url: 'api/arts',
@@ -54,6 +54,10 @@ const ArtsTranslatesPage = () => {
     translates: art.localizations?.map(l => l.locale),
   }))
 
+  const handleClick = (index: number, id: number) => {
+    push(`/translates/arts/${id}`)
+  }
+
   return (
     <AdminLayout title={`Translated Arts`}>
       <PageHeader
@@ -68,13 +72,14 @@ const ArtsTranslatesPage = () => {
           </MenuItem>,
         ]}
       />
-      <ArtsTable
+      <DataTable
+        columns={artColumns}
         data={mappedArts}
-        onSuccess={artsQuery.refetch}
         totalCount={totalCount}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
         onSort={setSort}
+        onClickRow={handleClick}
       />
     </AdminLayout>
   )
