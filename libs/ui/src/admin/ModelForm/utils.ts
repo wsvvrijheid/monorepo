@@ -55,8 +55,8 @@ export const mapModelToOption = (
 }
 
 export const useDefaultValues = <T extends StrapiModel>(
-  model: T,
-  fields: FormFields<T>,
+  model?: T | null,
+  fields?: FormFields<T>,
 ) => {
   const hashtagModel = model as Hashtag
   const postModel = model as Post
@@ -64,7 +64,7 @@ export const useDefaultValues = <T extends StrapiModel>(
   const { locale } = useRouter()
 
   return useMemo(() => {
-    if (!model) return {} as T
+    if (!model || !fields) return {} as T
 
     const defaults = {} as any
     const { date } = model as Activity

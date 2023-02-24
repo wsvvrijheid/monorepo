@@ -13,6 +13,7 @@ type CreateLocalizationsArgs<T extends StrapiTranslatableModel> = {
   translatedFields: (keyof T)[]
   url: StrapiUrl
   token: string
+  hasSlug?: boolean
 }
 
 export const createLocalizations = async <T extends StrapiTranslatableModel>({
@@ -20,10 +21,12 @@ export const createLocalizations = async <T extends StrapiTranslatableModel>({
   translatedFields,
   url,
   token,
+  hasSlug = true,
 }: CreateLocalizationsArgs<T>) => {
   const modelTranslations = await getModelTranslation(
     model as unknown as T,
     translatedFields,
+    hasSlug,
   )
 
   const [firstTranslation, secondTranslation] = modelTranslations
