@@ -18,15 +18,20 @@ const paths = [
 
 async function handler(req: NextRequest) {
   const params = new URLSearchParams(req.nextUrl.search)
-  const title = params.get('title') || ''
+  const title = params.get('title')
   const text = params.get('text')
   const image = params.get('image') || null
-  const shape = sample([0, 1, 2, 3])
+  const shape = params.get('shape') || sample([0, 1, 2, 3])
   const bg = params.get('bg') || 'white'
   const color = params.get('color') || '#FF4F00'
   const scale = Number(params.get('scale')) || 1
-  const flip = sample([true, false])
-  const hasLine = sample([true, false])
+  const flip = params.get('flip')
+    ? params.get('flip') === 'true'
+    : sample([true, false])
+  const hasLine =
+    title && params.get('hasLine')
+      ? params.get('hasLine') === 'true'
+      : sample([true, false])
 
   const absoluteStyle: CSSProperties = {
     position: 'absolute',

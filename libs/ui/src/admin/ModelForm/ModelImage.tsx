@@ -3,6 +3,7 @@ import { FC } from 'react'
 import { Box, Button, Center, Stack, Text } from '@chakra-ui/react'
 import { API_URL } from '@wsvvrijheid/config'
 import {
+  Post,
   StrapiModel,
   StrapiTranslatableModel,
   StrapiUrl,
@@ -70,7 +71,12 @@ export const ModelImage: FC<ModelImageProps> = ({
 
     if (url === 'api/posts' && imageUrl) {
       return (
-        <OgImage title={title} text={description as string} image={imageUrl} />
+        <OgImage
+          title={title}
+          text={description as string}
+          image={imageUrl}
+          {...((model as Post)?.imageParams || {})}
+        />
       )
     }
 
