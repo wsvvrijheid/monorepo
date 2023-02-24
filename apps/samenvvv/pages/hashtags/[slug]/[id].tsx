@@ -9,7 +9,7 @@ import {
   Stack,
 } from '@chakra-ui/react'
 import { API_URL } from '@wsvvrijheid/config'
-import { getPost } from '@wsvvrijheid/services'
+import { getModelById } from '@wsvvrijheid/services'
 import { Post, StrapiLocale } from '@wsvvrijheid/types'
 import { WImage } from '@wsvvrijheid/ui'
 import { getItemLink } from '@wsvvrijheid/utils'
@@ -58,7 +58,10 @@ export const getServerSideProps: GetServerSideProps = async context => {
   const locale = context.locale as StrapiLocale
   const id = context.params?.id as string
 
-  const post = await getPost(Number(id))
+  const post = await getModelById<Post>({
+    url: 'api/posts',
+    id: Number(id),
+  })
 
   if (!post) {
     return { notFound: true }

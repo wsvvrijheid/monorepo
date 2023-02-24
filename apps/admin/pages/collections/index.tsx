@@ -26,7 +26,7 @@ const CollectionsPage = () => {
     searchTerm,
     page: currentPage || 1,
     locale: router.locale as StrapiLocale,
-    statuses: ['approved', 'pending', 'rejected'],
+    statuses: ['approved'],
   })
   const handleSearch = (search: string) => {
     search ? setSearchTerm(search) : setSearchTerm(undefined)
