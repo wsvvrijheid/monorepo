@@ -1,3 +1,3 @@
-export * from './findById'
+export * from './current'
 export * from './random'
 export * from './setCurrent'
