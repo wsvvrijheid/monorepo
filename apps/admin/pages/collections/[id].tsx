@@ -1,19 +1,19 @@
 import {
   Box,
   Button,
-  ButtonGroup,
   HStack,
   Stack,
   Text,
   useDisclosure,
 } from '@chakra-ui/react'
-import { useCollectionById } from '@wsvvrijheid/services'
+import { useModelById } from '@wsvvrijheid/services'
+import { Collection } from '@wsvvrijheid/types'
 import {
   AdminLayout,
   ArtAddToCollectionGrid,
   ArtAddToCollectionModal,
   CollectionEdit,
-  Navigate,
+  FormLocaleSwitcher,
   PageHeader,
 } from '@wsvvrijheid/ui'
 import { useRouter } from 'next/router'
@@ -23,19 +23,23 @@ const CollectionPage = () => {
   const { query } = useRouter()
 
   const id = Number(query.id as string)
-  const { data: collection, isLoading, refetch } = useCollectionById(id)
+  const {
+    data: collection,
+    isLoading,
+    refetch,
+  } = useModelById<Collection>({
+    url: 'api/collections',
+    id,
+  })
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   return (
     <AdminLayout title="Collection" isLoading={isLoading} hasBackButton>
-      <PageHeader>
-        <ButtonGroup>
-          {collection?.localizations?.map(l => (
-            <Navigate key={l.id} href={`/collections/${l.id}`}>
-              <Button textTransform={'uppercase'}>{l.locale}</Button>
-            </Navigate>
-          ))}
-        </ButtonGroup>
+      <PageHeader hideLocaleSwitcher>
+        <FormLocaleSwitcher
+          models={collection?.localizations}
+          slug={'collections'}
+        />
       </PageHeader>
       <ArtAddToCollectionModal
         isOpen={isOpen}

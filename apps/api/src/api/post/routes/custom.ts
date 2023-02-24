@@ -5,5 +5,10 @@ export default {
       path: '/posts/approve/:id',
       handler: 'custom.approve',
     },
+    {
+      method: 'PUT',
+      path: '/posts/relation/:id',
+      handler: 'custom.relation',
+    },
   ],
 }
