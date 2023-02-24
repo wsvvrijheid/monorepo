@@ -1,10 +1,11 @@
-import { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { Image } from '@chakra-ui/react'
+import { OgImageParams } from '@wsvvrijheid/types'
+import { getOgImageSrc } from '@wsvvrijheid/utils'
 
-import { OgImageProps } from './types'
-import { getOgImage } from './utils'
+export const OgImage: FC<OgImageParams> = memo(props => {
+  const src = getOgImageSrc(props)
 
-export const OgImage: FC<OgImageProps> = props => {
-  return <Image w="full" src={getOgImage(props)} alt={props.title} />
-}
+  return <Image w="full" src={src} alt={props.title} />
+})
