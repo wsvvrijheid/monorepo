@@ -13,7 +13,7 @@ export const getBlogBySlug = async (
   >({
     url: 'api/blogs',
     populate: ['author', 'image', 'likers'],
-    filters: { id: { $eq: slug } },
+    filters: { slug: { $eq: slug } },
     locale,
   })
 

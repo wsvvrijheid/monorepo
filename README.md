@@ -48,7 +48,7 @@ Start apps `yarn foundation|kunsthalte|admin|samenvvv`
 
 ```
 NX_API_URL=http://localhost:1337
-NX_VERCEL_URL=http://localhost:4200
+VERCEL_URL=localhost:4200
 NX_API_TOKEN=
 NX_EMAIL_SENDER=
 NX_EMAIL_RECEIVER=
