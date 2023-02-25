@@ -101,7 +101,7 @@ export const PostArchive = () => {
               onClick={() => setActiveIndex(i)}
             >
               <Box bg="white" shadow="base" rounded="lg" overflow="hidden">
-                {post.image && <PostImage post={post} />}
+                {post.image && <PostImage size="sm" post={post} />}
                 {post.description && (
                   <HStack
                     spacing={2}

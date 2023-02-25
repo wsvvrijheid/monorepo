@@ -27,14 +27,14 @@ export const PostContainerBody: FC<PostContainerBodyProp> = memo(({ post }) => {
       <PostContainerTags />
       <Spacer />
 
-      {post?.imageParams && post?.image?.url && (
+      {post?.image?.url && (
         <Box
           rounded="md"
           overflow="hidden"
           borderColor="gray.300"
           borderWidth={1}
         >
-          <PostImage post={post} />
+          <PostImage size="sm" post={post} />
         </Box>
       )}
     </Stack>
