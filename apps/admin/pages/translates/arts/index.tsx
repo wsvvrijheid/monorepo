@@ -1,0 +1,88 @@
+import { useEffect, useState } from 'react'
+
+import { MenuItem } from '@chakra-ui/react'
+import { useSearchModel } from '@wsvvrijheid/services'
+import { ApprovalStatus, Art, Sort, StrapiLocale } from '@wsvvrijheid/types'
+import { AdminLayout, artColumns, DataTable, PageHeader } from '@wsvvrijheid/ui'
+import { useRouter } from 'next/router'
+import { FaArrowDown, FaArrowUp } from 'react-icons/fa'
+import { useUpdateEffect } from 'react-use'
+
+const ArtsTranslatesPage = () => {
+  const { query } = useRouter()
+  const [currentPage, setCurrentPage] = useState<number>()
+  const [searchTerm, setSearchTerm] = useState<string>()
+
+  // Client side query params (?status=pending)
+  const status = query.status as ApprovalStatus
+
+  const [sort, setSort] = useState<Sort>()
+
+  const { locale, push } = useRouter()
+
+  const artsQuery = useSearchModel<Art>({
+    url: 'api/arts',
+    populate: [
+      'artist.user.avatar',
+      'categories',
+      'image',
+      'likers',
+      'localizations',
+    ],
+    page: currentPage || 1,
+    pageSize: 10,
+    searchTerm,
+    sort,
+    locale: locale as StrapiLocale,
+    statuses: ['pending'],
+  })
+
+  useEffect(() => setCurrentPage(1), [status])
+  const handleSearch = (search: string) => {
+    search ? setSearchTerm(search) : setSearchTerm(undefined)
+  }
+
+  useUpdateEffect(() => {
+    artsQuery.refetch()
+  }, [locale, searchTerm, sort, status])
+
+  const arts = artsQuery?.data?.data
+  const totalCount = artsQuery?.data?.meta?.pagination?.pageCount
+
+  const mappedArts = arts?.map(art => ({
+    ...art,
+    translates: art.localizations?.map(l => l.locale),
+  }))
+
+  const handleClick = (index: number, id: number) => {
+    push(`/translates/arts/${id}`)
+  }
+
+  return (
+    <AdminLayout title={`Translated Arts`}>
+      <PageHeader
+        onSearch={handleSearch}
+        searchPlaceHolder={'Search arts by title or artist'}
+        sortMenu={[
+          <MenuItem key="asc" icon={<FaArrowUp />}>
+            Name Asc
+          </MenuItem>,
+          <MenuItem key="desc" icon={<FaArrowDown />}>
+            Name Desc
+          </MenuItem>,
+        ]}
+      />
+      <DataTable
+        columns={artColumns}
+        data={mappedArts}
+        totalCount={totalCount}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        onSort={setSort}
+        onClickRow={handleClick}
+      />
+    </AdminLayout>
+  )
+}
+
+export default ArtsTranslatesPage

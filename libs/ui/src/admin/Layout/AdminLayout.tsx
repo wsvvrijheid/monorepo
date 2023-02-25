@@ -24,6 +24,7 @@ import { MdOutlineNotifications } from 'react-icons/md'
 import { useLocalStorage } from 'usehooks-ts'
 
 import { AdminSidebar } from '../AdminSidebar'
+import { CreateModelButton } from '../CreateModelButton'
 
 export type AdminLayoutProps = {
   children: ReactNode
@@ -116,18 +117,25 @@ export const AdminLayout: FC<AdminLayoutProps> = ({
                       />
                     </Tooltip>
                   )}
-                  <Heading textTransform="capitalize" color="blackAlpha.500">
+                  <Heading
+                    textTransform="capitalize"
+                    color="blackAlpha.500"
+                    size={{ base: 'md', lg: '2xl' }}
+                  >
                     {title}
                   </Heading>
                 </HStack>
 
                 {/* TODO Create notification component */}
-                <IconButton
-                  aria-label="notifications"
-                  icon={<MdOutlineNotifications />}
-                  variant="outline"
-                  rounded="full"
-                />
+                <HStack>
+                  <IconButton
+                    aria-label="notifications"
+                    icon={<MdOutlineNotifications />}
+                    variant="outline"
+                    rounded="full"
+                  />
+                  <CreateModelButton />
+                </HStack>
               </HStack>
 
               {/* Page Content */}

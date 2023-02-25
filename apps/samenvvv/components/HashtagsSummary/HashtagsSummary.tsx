@@ -27,7 +27,7 @@ export const HashtagsSummary: FC<HashtagsSummaryProps> = ({ hashtags }) => {
   return (
     <Box bg={'white'} p={{ base: 4, lg: 16 }}>
       <Heading textAlign={'center'} pb={{ base: 4, lg: 8 }}>
-        Hashtag Events
+        {t('hashtag-events')}
       </Heading>
       <Container p={0}>
         <Stack
