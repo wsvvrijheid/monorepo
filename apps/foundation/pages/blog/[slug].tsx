@@ -1,6 +1,6 @@
 import { FC } from 'react'
 
-import { dehydrate, QueryKey } from '@tanstack/react-query'
+import { QueryKey } from '@tanstack/react-query'
 import { getBlogStaticProps, getModelStaticPaths } from '@wsvvrijheid/services'
 import { Blog, StrapiLocale } from '@wsvvrijheid/types'
 import { BlogDetailTemplate } from '@wsvvrijheid/ui'
@@ -47,19 +47,15 @@ export const getStaticPaths: GetStaticPaths = async context => {
 }
 
 export const getStaticProps: GetStaticProps = async context => {
-  const { blog, authorBlogs, seo, queryClient } = await getBlogStaticProps(
-    context,
-  )
+  const { blog, ...rest } = await getBlogStaticProps(context)
   const locale = context.locale as StrapiLocale
 
-  const source = await serialize(blog.content || '')
+  const source = await serialize(blog?.content || '')
 
   return {
     props: {
       source,
-      authorBlogs,
-      seo,
-      dehydratedState: dehydrate(queryClient),
+      ...rest,
       ...(await serverSideTranslations(locale, ['common'], i18nConfig)),
     },
     revalidate: 1,

@@ -6,7 +6,7 @@ import { Blog, BlogUpdateInput } from '@wsvvrijheid/types'
 import { useRouter } from 'next/router'
 import { useLocalStorage } from 'usehooks-ts'
 
-import { useGetBlog } from './getBySlug'
+import { useGetBlogSlug } from './getBlogBySlug'
 
 export const viewBlog = async (blog: Blog, token: string) => {
   const body = { views: (blog.views || 0) + 1, token }
@@ -23,7 +23,7 @@ export const useViewBlog = async () => {
 
   const { token } = useAuthSelector()
 
-  const { data: blog } = useGetBlog(slug as string)
+  const { data: blog } = useGetBlogSlug(slug as string)
 
   const [blogStorage, setBlogStorage] = useLocalStorage<number[]>(
     'view-blog',

@@ -55,6 +55,7 @@ export const getModelTranslation = async <
 >(
   model: T,
   translatedFields: (keyof T)[],
+  hasSlug = true,
 ) => {
   const translatedData = [] as T[]
 
@@ -82,7 +83,7 @@ export const getModelTranslation = async <
 
           translatedModel[key as keyof T] = translation
 
-          if (key === 'title') {
+          if (key === 'title' && hasSlug) {
             let slug = slugify(translation as string)
 
             const isSlugTaken =
