@@ -51,7 +51,7 @@ export const PostSlide: FC<PostSlideProps> = ({ posts, startIndex = 0 }) => {
         {posts?.map((post, i) => {
           return (
             <Box as={SplideSlide} h="full !important" key={i}>
-              {post.image && <PostImage post={post} />}
+              {post.image && <PostImage size="md" post={post} />}
             </Box>
           )
         })}

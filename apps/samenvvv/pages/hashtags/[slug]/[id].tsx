@@ -39,7 +39,7 @@ const Post = ({ seo, post }: PostProps) => {
         <ModalContent>
           <ModalBody p={0}>
             <Stack>
-              <PostImage post={post} />
+              <PostImage size="sm" post={post} />
               <Box p={8}>{post.description}</Box>
             </Stack>
           </ModalBody>
@@ -75,7 +75,15 @@ export const getServerSideProps: GetServerSideProps = async context => {
 
   const images = image && [
     {
-      url: 'https://' + VERCEL_URL + getOgImageSrc(post.imageParams),
+      url:
+        'https://' +
+        VERCEL_URL +
+        getOgImageSrc({
+          title: post.title,
+          text: post.description,
+          image: image?.url ? `${API_URL}${image?.url}` : undefined,
+          ...post.imageParams,
+        }),
       secureUrl: adminUrl + image.url,
       type: image.mime as string,
       width: 1200,

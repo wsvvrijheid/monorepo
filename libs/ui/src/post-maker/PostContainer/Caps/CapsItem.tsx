@@ -29,7 +29,7 @@ export const CapsItem: FC<CapsItemProps> = memo(function CapsItem({
       onClick={() => onCapsClick(id)}
       cursor="pointer"
     >
-      <PostImage w={150} h={85} post={post} />
+      <PostImage size="xs" w={150} h={85} post={post} />
       {isShared && (
         <Center pos="absolute" top={0} left={0} boxSize="full">
           <Box pos="relative" color="white" fontSize="2xl" as={FaCheck} />
