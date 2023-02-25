@@ -14,6 +14,7 @@ import { Post, StrapiLocale } from '@wsvvrijheid/types'
 import { PostImage } from '@wsvvrijheid/ui'
 import { getItemLink, getOgImageSrc } from '@wsvvrijheid/utils'
 import { GetServerSideProps } from 'next'
+import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeo, NextSeoProps } from 'next-seo'
@@ -34,6 +35,12 @@ const Post = ({ seo, post }: PostProps) => {
   return (
     <>
       <NextSeo {...seo} />
+      <Head>
+        <meta
+          property="twitter:image:src"
+          content={seo.openGraph.images[0].url}
+        />
+      </Head>
       <Modal isCentered isOpen={true} onClose={() => null}>
         <ModalOverlay />
         <ModalContent>
@@ -128,6 +135,7 @@ export const getServerSideProps: GetServerSideProps = async context => {
     props: {
       link,
       seo,
+      imgSrc,
       post,
       ...(await serverSideTranslations(
         locale as StrapiLocale,
