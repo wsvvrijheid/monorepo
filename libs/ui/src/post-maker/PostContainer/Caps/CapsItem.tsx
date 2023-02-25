@@ -1,20 +1,20 @@
 import { FC, memo } from 'react'
 
 import { Box, Center } from '@chakra-ui/react'
-import { UploadFile } from '@wsvvrijheid/types'
+import { Post } from '@wsvvrijheid/types'
 import { FaCheck } from 'react-icons/fa'
 
-import { WImage } from '../../../components'
+import { PostImage } from '../../../components'
 
 interface CapsItemProps {
-  image: UploadFile
+  post: Post
   id: number
   isShared: boolean
   onCapsClick: (id: number) => void
 }
 
 export const CapsItem: FC<CapsItemProps> = memo(function CapsItem({
-  image,
+  post,
   id,
   isShared,
   onCapsClick,
@@ -29,7 +29,7 @@ export const CapsItem: FC<CapsItemProps> = memo(function CapsItem({
       onClick={() => onCapsClick(id)}
       cursor="pointer"
     >
-      <WImage w={150} h={85} src={image} alt="image" />
+      <PostImage w={150} h={85} post={post} />
       {isShared && (
         <Center pos="absolute" top={0} left={0} boxSize="full">
           <Box pos="relative" color="white" fontSize="2xl" as={FaCheck} />

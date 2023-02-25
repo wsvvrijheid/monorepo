@@ -72,10 +72,12 @@ export const ModelImage: FC<ModelImageProps> = ({
     if (url === 'api/posts' && imageUrl) {
       return (
         <OgImage
-          title={title}
-          text={description as string}
-          image={imageUrl}
-          {...((model as Post)?.imageParams || {})}
+          imageParams={{
+            title,
+            text: description as string,
+            image: imageUrl,
+            ...(model as Post)?.imageParams,
+          }}
         />
       )
     }

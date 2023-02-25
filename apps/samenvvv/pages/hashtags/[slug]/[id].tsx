@@ -8,11 +8,11 @@ import {
   ModalOverlay,
   Stack,
 } from '@chakra-ui/react'
-import { API_URL } from '@wsvvrijheid/config'
+import { API_URL, VERCEL_URL } from '@wsvvrijheid/config'
 import { getModelById } from '@wsvvrijheid/services'
 import { Post, StrapiLocale } from '@wsvvrijheid/types'
-import { WImage } from '@wsvvrijheid/ui'
-import { getItemLink } from '@wsvvrijheid/utils'
+import { PostImage } from '@wsvvrijheid/ui'
+import { getItemLink, getOgImageSrc } from '@wsvvrijheid/utils'
 import { GetServerSideProps } from 'next'
 import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
@@ -39,7 +39,7 @@ const Post = ({ seo, post }: PostProps) => {
         <ModalContent>
           <ModalBody p={0}>
             <Stack>
-              <WImage ratio="twitter" src={post.image} />
+              <PostImage post={post} />
               <Box p={8}>{post.description}</Box>
             </Stack>
           </ModalBody>
@@ -75,11 +75,11 @@ export const getServerSideProps: GetServerSideProps = async context => {
 
   const images = image && [
     {
-      url: adminUrl + image.url,
+      url: 'https://' + VERCEL_URL + getOgImageSrc(post.imageParams),
       secureUrl: adminUrl + image.url,
       type: image.mime as string,
-      width: image.width as number,
-      height: image.height as number,
+      width: 1200,
+      height: 675,
       alt: title,
     },
   ]
