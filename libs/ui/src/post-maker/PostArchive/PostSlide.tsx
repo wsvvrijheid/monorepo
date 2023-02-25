@@ -4,7 +4,7 @@ import { Box } from '@chakra-ui/react'
 import { Options, Splide, SplideSlide } from '@splidejs/react-splide'
 import { Post, UploadFile } from '@wsvvrijheid/types'
 
-import { WImage } from '../../components'
+import { PostImage, WImage } from '../../components'
 
 export type PostSlideProps = {
   posts?: Post[]
@@ -51,13 +51,7 @@ export const PostSlide: FC<PostSlideProps> = ({ posts, startIndex = 0 }) => {
         {posts?.map((post, i) => {
           return (
             <Box as={SplideSlide} h="full !important" key={i}>
-              {post.image && (
-                <WImage
-                  src={post.image as UploadFile}
-                  ratio="twitter"
-                  alt={`post ${i}`}
-                />
-              )}
+              {post.image && <PostImage post={post} />}
             </Box>
           )
         })}
