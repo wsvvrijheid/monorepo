@@ -21,6 +21,7 @@ export type ArtCardProps = {
   isMasonry?: boolean
   queryKey?: QueryKey
   actionQueryKey?: QueryKey
+  isModal?: boolean
 }
 
 export type ArtCardBaseProps = {

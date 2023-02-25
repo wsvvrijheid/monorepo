@@ -138,8 +138,6 @@ export const ArtClubTemplate: FC = () => {
                     />
                   ))
                 : artsQuery.data?.data?.map((art, i) => {
-                    // TODO Add link to navigate to the art page
-
                     return (
                       <AnimatedBox
                         key={art.id}
