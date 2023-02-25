@@ -3,6 +3,7 @@ import { FC } from 'react'
 import { Box, Button, Center, Stack, Text } from '@chakra-ui/react'
 import { API_URL } from '@wsvvrijheid/config'
 import {
+  Post,
   StrapiModel,
   StrapiTranslatableModel,
   StrapiUrl,
@@ -40,9 +41,10 @@ export const ModelImage: FC<ModelImageProps> = ({
 
   const modelImageUrl = image?.url
 
-  const imageUrl = modelImageUrl?.startsWith('http')
-    ? modelImageUrl
-    : `${API_URL}${modelImageUrl}`
+  const imageUrl =
+    modelImageUrl && modelImageUrl.startsWith('http')
+      ? modelImageUrl
+      : `${API_URL}${modelImageUrl}`
 
   const renderImage = () => {
     if (isChangingImage || (isEditing && !image)) {
@@ -69,7 +71,14 @@ export const ModelImage: FC<ModelImageProps> = ({
 
     if (url === 'api/posts' && imageUrl) {
       return (
-        <OgImage title={title} text={description as string} image={imageUrl} />
+        <OgImage
+          imageParams={{
+            title,
+            text: description as string,
+            image: imageUrl,
+            ...(model as Post)?.imageParams,
+          }}
+        />
       )
     }
 
@@ -92,7 +101,7 @@ export const ModelImage: FC<ModelImageProps> = ({
       overflow="hidden"
     >
       {renderImage()}
-      {isEditing && image && (
+      {isEditing && image && !isChangingImage && (
         <Center
           pos="absolute"
           zIndex={1}

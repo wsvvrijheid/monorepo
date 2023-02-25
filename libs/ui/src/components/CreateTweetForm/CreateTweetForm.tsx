@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useMemo } from 'react'
 
 import {
   Box,
@@ -20,8 +20,9 @@ import {
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useRecommendTweet } from '@wsvvrijheid/services'
+import { useAuthSelector } from '@wsvvrijheid/store'
 import { Mention, Post, Tweet } from '@wsvvrijheid/types'
-import { useForm } from 'react-hook-form'
+import { useForm, FieldErrorsImpl } from 'react-hook-form'
 import { FiArrowUpRight } from 'react-icons/fi'
 import { GrFormClose } from 'react-icons/gr'
 import stringSimilarity from 'string-similarity'
@@ -58,9 +59,9 @@ export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
   const SIMILARITY_LIMIT = 60
 
   const [isChangingImage, setIsChangingImage] = useBoolean(false)
-  const [similarity, setSimilarity] = useState(0)
 
   const imageFile = useFileFromUrl(originalTweet?.image)
+  const { token } = useAuthSelector()
 
   const { mutateAsync } = useRecommendTweet()
 
@@ -71,6 +72,7 @@ export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
   const defaultValues = {
     text: '',
     image: imageFile,
+    mentions: [],
   }
 
   const {
@@ -84,7 +86,7 @@ export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
   } = useForm<FormFieldValues>({
     resolver: yupResolver(schema),
     mode: 'all',
-    defaultValues,
+    values: defaultValues,
   })
 
   // We don't need to upload the same image as the original tweet
@@ -102,14 +104,16 @@ export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
     image: { url: originalTweet?.image },
   } as Post
 
-  useEffect(() => {
-    const similarity =
+  const similarity = useMemo(() => {
+    if (!text || !originalTweet.text) return 0
+
+    return (
       stringSimilarity.compareTwoStrings(
         text.toLowerCase(),
-        originalTweet.text?.toLowerCase() || '',
+        originalTweet.text.toLowerCase() || '',
       ) * 100
-    setSimilarity(similarity)
-  }, [text, originalTweet.text, setValue])
+    )
+  }, [text, originalTweet.text])
 
   const closeModal = () => {
     reset()
@@ -124,6 +128,7 @@ export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
       text: data.text,
       mentions,
       image,
+      token: token as string,
     })
 
     closeModal()
@@ -165,7 +170,7 @@ export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
                   name="text"
                   label="New Tweet"
                   register={register}
-                  errors={errors}
+                  errors={errors as FieldErrorsImpl<FormFieldValues>}
                   isRequired
                 />
 
@@ -173,7 +178,6 @@ export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
                   isMulti
                   url="api/mentions"
                   control={control as any}
-                  fields={['username', 'data']}
                   name="mentions"
                   label="Mention"
                   errors={errors}
@@ -217,7 +221,7 @@ export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
                 </Button>
                 <Button
                   type="submit"
-                  colorScheme="primary"
+                  colorScheme="purple"
                   leftIcon={<FiArrowUpRight />}
                   disabled={similarity > SIMILARITY_LIMIT}
                 >

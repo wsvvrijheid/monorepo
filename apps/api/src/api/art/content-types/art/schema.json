@@ -61,11 +61,7 @@
         }
       },
       "type": "enumeration",
-      "enum": [
-        "pending",
-        "approved",
-        "rejected"
-      ],
+      "enum": ["pending", "approved", "rejected"],
       "default": "pending",
       "required": false
     },
@@ -73,9 +69,7 @@
       "type": "media",
       "multiple": false,
       "required": true,
-      "allowedTypes": [
-        "images"
-      ],
+      "allowedTypes": ["images"],
       "pluginOptions": {
         "i18n": {
           "localized": false
@@ -105,15 +99,13 @@
     },
     "categories": {
       "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::category.category",
-      "mappedBy": "arts"
+      "relation": "oneToMany",
+      "target": "api::category.category"
     },
     "tags": {
       "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::tag.tag",
-      "mappedBy": "arts"
+      "relation": "oneToMany",
+      "target": "api::tag.tag"
     },
     "feedbacks": {
       "type": "relation",
@@ -135,9 +127,8 @@
     },
     "likers": {
       "type": "relation",
-      "relation": "manyToMany",
-      "target": "plugin::users-permissions.user",
-      "mappedBy": "likedArts"
+      "relation": "oneToMany",
+      "target": "plugin::users-permissions.user"
     },
     "votes": {
       "type": "relation",
@@ -147,9 +138,8 @@
     },
     "artist": {
       "type": "relation",
-      "relation": "manyToOne",
-      "target": "plugin::users-permissions.user",
-      "inversedBy": "arts"
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
     }
   }
 }

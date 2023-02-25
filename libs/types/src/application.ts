@@ -31,12 +31,13 @@ export type ApplicationCreateInput = Expand<
     ApplicationBase,
     'approvalStatus'
   > &
-    Omit<ApplicationRelationInput, 'votes' | 'juryVotes'>
+    Omit<ApplicationRelationInput, 'votes' | 'juryVotes'> & { token: string }
 >
 
 export type ApplicationUpdateInput = Expand<
   { publishedAt?: Date | string | null } & Partial<
-    Omit<ApplicationBase, 'locale'> & ApplicationRelationInput
+    Omit<ApplicationBase, 'locale'> &
+      ApplicationRelationInput & { token: string }
   >
 >
 

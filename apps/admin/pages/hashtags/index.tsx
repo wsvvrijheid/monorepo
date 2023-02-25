@@ -5,10 +5,8 @@ import { Hashtag, Sort, StrapiLocale } from '@wsvvrijheid/types'
 import {
   AdminLayout,
   DataTable,
-  mainHashtagFields,
   mainHashtagColumns,
-  mainHashtagSchema,
-  ModelCreateModal,
+  PageHeader,
 } from '@wsvvrijheid/ui'
 import { useRouter } from 'next/router'
 import { useUpdateEffect } from 'react-use'
@@ -26,7 +24,7 @@ const MainHashtagsPage = () => {
     searchFields: ['title', 'description'],
     page: currentPage || 1,
     locale: router.locale as StrapiLocale,
-    statuses: ['approved', 'pending', 'rejected'],
+    statuses: ['approved'],
   })
 
   const handleSearch = (search: string) => {
@@ -50,22 +48,9 @@ const MainHashtagsPage = () => {
   }
 
   return (
-    <AdminLayout
-      title="Main Hashtag"
-      headerProps={{
-        onSearch: handleSearch,
-      }}
-    >
-      <ModelCreateModal<Hashtag>
-        title="Create Hashtag"
-        url="api/hashtags"
-        schema={mainHashtagSchema}
-        fields={mainHashtagFields}
-        onSuccess={hashtagsQuery.refetch}
-        buttonProps={{ mb: 4 }}
-      >
-        Create Hashtag
-      </ModelCreateModal>
+    <AdminLayout title="Main Hashtag">
+      <PageHeader onSearch={handleSearch} />
+
       <DataTable
         columns={mainHashtagColumns}
         data={hashtagWithLocalizeKeys}

@@ -1,12 +1,7 @@
 import { useEffect, useState } from 'react'
 
 import { useSearchModel } from '@wsvvrijheid/services'
-import {
-  Activity,
-  ApprovalStatus,
-  Sort,
-  StrapiLocale,
-} from '@wsvvrijheid/types'
+import { Activity, Sort, StrapiLocale } from '@wsvvrijheid/types'
 import {
   activityColumns,
   activityFields,
@@ -14,15 +9,13 @@ import {
   AdminLayout,
   DataTable,
   ModelCreateModal,
+  PageHeader,
 } from '@wsvvrijheid/ui'
 import { useRouter } from 'next/router'
 import { useUpdateEffect } from 'react-use'
 
 const ActivitiesPage = () => {
-  const { query } = useRouter()
   const [currentPage, setCurrentPage] = useState<number>()
-  const status = query.status as ApprovalStatus
-  const defaultLocale: StrapiLocale = 'en'
 
   const [searchTerm, setSearchTerm] = useState<string>()
   const { locale, push } = useRouter()
@@ -36,18 +29,18 @@ const ActivitiesPage = () => {
     searchTerm,
     sort,
     locale: locale as StrapiLocale,
-    statuses: status ? [status] : undefined,
+    statuses: ['approved'],
     publicationState: 'preview',
   })
 
-  useEffect(() => setCurrentPage(1), [status])
+  useEffect(() => setCurrentPage(1), [])
   const handleSearch = (search: string) => {
     search ? setSearchTerm(search) : setSearchTerm(undefined)
   }
 
   useUpdateEffect(() => {
     activitiesQuery.refetch()
-  }, [locale, searchTerm, sort, status])
+  }, [locale, searchTerm, sort])
 
   const activities = activitiesQuery?.data?.data
   const totalCount = activitiesQuery?.data?.meta?.pagination?.pageCount
@@ -62,24 +55,23 @@ const ActivitiesPage = () => {
   }
 
   return (
-    <AdminLayout
-      title={`${status} Activities`}
-      headerProps={{
-        onSearch: handleSearch,
-        searchPlaceHolder: 'Search by title or content',
-        defaultLocale,
-      }}
-    >
-      <ModelCreateModal<Activity>
-        title="Create Activity"
-        url="api/activities"
-        schema={activitySchema}
-        fields={activityFields}
-        onSuccess={() => activitiesQuery.refetch()}
-        buttonProps={{ mb: 4 }}
+    <AdminLayout title={`Activities`}>
+      <PageHeader
+        onSearch={handleSearch}
+        searchPlaceHolder={'Search by title or description'}
       >
-        Create Activity
-      </ModelCreateModal>
+        <ModelCreateModal<Activity>
+          title="Create Activity"
+          url="api/activities"
+          schema={activitySchema}
+          fields={activityFields}
+          onSuccess={() => activitiesQuery.refetch()}
+          buttonProps={{ mb: 4 }}
+        >
+          New Activity
+        </ModelCreateModal>
+      </PageHeader>
+
       <DataTable
         columns={activityColumns}
         data={mappedActivities}

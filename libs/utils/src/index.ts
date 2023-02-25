@@ -1,5 +1,6 @@
 export * from './formatNumber'
 export * from './generateFormData'
+export * from './generateOgImageProps'
 export * from './getImageUrl'
 export * from './getItemLink'
 export * from './getPageSeo'

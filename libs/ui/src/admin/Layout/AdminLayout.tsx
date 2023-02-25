@@ -24,13 +24,12 @@ import { MdOutlineNotifications } from 'react-icons/md'
 import { useLocalStorage } from 'usehooks-ts'
 
 import { AdminSidebar } from '../AdminSidebar'
-import { PageHeader, PageHeaderProps } from '../PageHeader'
+import { CreateModelButton } from '../CreateModelButton'
 
 export type AdminLayoutProps = {
   children: ReactNode
   title: string
   isLoading?: boolean
-  headerProps?: PageHeaderProps
   hasBackButton?: boolean
 }
 
@@ -38,7 +37,6 @@ export const AdminLayout: FC<AdminLayoutProps> = ({
   children,
   title,
   isLoading,
-  headerProps,
   hasBackButton,
 }) => {
   const { user } = useAuthSelector()
@@ -119,28 +117,31 @@ export const AdminLayout: FC<AdminLayoutProps> = ({
                       />
                     </Tooltip>
                   )}
-                  <Heading textTransform="capitalize" color="blackAlpha.500">
+                  <Heading
+                    textTransform="capitalize"
+                    color="blackAlpha.500"
+                    size={{ base: 'md', lg: '2xl' }}
+                  >
                     {title}
                   </Heading>
                 </HStack>
 
                 {/* TODO Create notification component */}
-                <IconButton
-                  aria-label="notifications"
-                  icon={<MdOutlineNotifications />}
-                  variant="outline"
-                  rounded="full"
-                />
+                <HStack>
+                  <IconButton
+                    aria-label="notifications"
+                    icon={<MdOutlineNotifications />}
+                    variant="outline"
+                    rounded="full"
+                  />
+                  <CreateModelButton />
+                </HStack>
               </HStack>
 
               {/* Page Content */}
-              <Box pos="sticky" top={0} zIndex={1}>
-                {headerProps && (
-                  <PageHeader defaultLocale="tr" {...headerProps} />
-                )}
-              </Box>
-
-              <Box px={4}>{children}</Box>
+              <Stack spacing={4} px={4}>
+                {children}
+              </Stack>
             </>
           )}
         </Stack>

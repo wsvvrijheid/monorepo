@@ -6,12 +6,15 @@ import {
   Text,
   useDisclosure,
 } from '@chakra-ui/react'
-import { useCollectionById } from '@wsvvrijheid/services'
+import { useModelById } from '@wsvvrijheid/services'
+import { Collection } from '@wsvvrijheid/types'
 import {
   AdminLayout,
   ArtAddToCollectionGrid,
   ArtAddToCollectionModal,
   CollectionEdit,
+  FormLocaleSwitcher,
+  PageHeader,
 } from '@wsvvrijheid/ui'
 import { useRouter } from 'next/router'
 import { IoMdAdd } from 'react-icons/io'
@@ -20,11 +23,24 @@ const CollectionPage = () => {
   const { query } = useRouter()
 
   const id = Number(query.id as string)
-  const { data: collection, isLoading, refetch } = useCollectionById(id)
+  const {
+    data: collection,
+    isLoading,
+    refetch,
+  } = useModelById<Collection>({
+    url: 'api/collections',
+    id,
+  })
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   return (
     <AdminLayout title="Collection" isLoading={isLoading} hasBackButton>
+      <PageHeader hideLocaleSwitcher>
+        <FormLocaleSwitcher
+          models={collection?.localizations}
+          slug={'collections'}
+        />
+      </PageHeader>
       <ArtAddToCollectionModal
         isOpen={isOpen}
         onClose={onClose}

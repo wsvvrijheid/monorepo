@@ -1,6 +1,7 @@
 import { Hashtag } from '@wsvvrijheid/types'
 import * as yup from 'yup'
 
+import { yupMultiSelect } from './common'
 import { FormFields } from '../../admin'
 
 export const mainHashtagSchema = yup.object({
@@ -10,18 +11,8 @@ export const mainHashtagSchema = yup.object({
   content: yup.string(),
   hashtagDefault: yup.string().required('Hashtag is required'),
   hashtagExtra: yup.string(),
-  categories: yup.array().of(
-    yup.object().shape({
-      label: yup.string(),
-      value: yup.string(),
-    }),
-  ),
-  mentions: yup.array().of(
-    yup.object().shape({
-      label: yup.string(),
-      value: yup.string(),
-    }),
-  ),
+  categories: yupMultiSelect,
+  mentions: yupMultiSelect,
   image: yup.mixed().required('Image is required'),
 })
 
@@ -42,13 +33,11 @@ export const mainHashtagFields: FormFields<Hashtag> = [
     type: 'select',
     url: 'api/mentions',
     isMulti: true,
-    fields: ['username', 'data'],
   },
   {
     name: 'categories',
     type: 'select',
     url: 'api/categories',
     isMulti: true,
-    fields: ['name'],
   },
 ]

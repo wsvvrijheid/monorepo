@@ -1,11 +1,18 @@
 import { factories } from '@strapi/strapi'
 
-export default factories.createCoreController('api::blog.blog', () => ({
-  async create(ctx) {
-    Object.assign((ctx.request.body as any).data, {
-      creator: ctx.state.user.id,
-    })
+export default factories.createCoreController(
+  'api::blog.blog',
+  ({ strapi }) => {
+    return {
+      async create(ctx) {
+        const result = await super.create(ctx)
 
-    return super.create(ctx)
+        await strapi
+          .service('api::blog.blog')
+          .update(result.data.id, { data: { creator: ctx.state.user.id } })
+
+        return result
+      },
+    }
   },
-}))
+)

@@ -1,7 +1,6 @@
 #!/usr/bin/env sh
 # Load the .env file https://stackoverflow.com/a/30969768/8206907
 set -a; source .env; set +a
-
 DUMP_FILE=sql/database.dump.sql
 INIT_FILE=sql/init.sql
 

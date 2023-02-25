@@ -1,9 +1,9 @@
 import { FC } from 'react'
 
-import { Box, Button, Center, Heading, Stack, Text } from '@chakra-ui/react'
+import { Box, Button, Heading, Stack, Text } from '@chakra-ui/react'
 import { searchModel } from '@wsvvrijheid/services'
 import { Hashtag, StrapiLocale } from '@wsvvrijheid/types'
-import { Container, Navigate, PostMakerIcon } from '@wsvvrijheid/ui'
+import { Navigate, Container } from '@wsvvrijheid/ui'
 import { getItemLink } from '@wsvvrijheid/utils'
 import { GetStaticProps } from 'next'
 import { useTranslation } from 'next-i18next'
@@ -11,68 +11,62 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
 
 import { Layout } from '../components'
+import { HashtagsSummary } from '../components/HashtagsSummary/HashtagsSummary'
 import i18nConfig from '../next-i18next.config'
 
 interface HomeProps {
   seo: NextSeoProps
   link: string
+  hashtags: Hashtag[]
 }
 
-const Home: FC<HomeProps> = ({ seo, link }) => {
+const Home: FC<HomeProps> = ({ seo, link, hashtags }) => {
   const { t } = useTranslation()
 
   return (
     <Layout seo={seo} isDark hasScroll>
-      <Box pos="relative" bg="white" mt="-100px">
-        <Center
-          p={8}
-          bgGradient="linear(to-b, primary.600, primary.300)"
-          shadow="primary"
-          rounded="sm"
-          minH="100vh"
-        >
-          <Container>
-            <Stack
-              direction={{ base: 'column', lg: 'row' }}
-              alignItems="center"
-              spacing={4}
+      <Box
+        bgGradient="linear(to-b, primary.600, primary.300)"
+        mt={{ base: '-64px', lg: '-100px' }}
+        pb={{ base: 16, lg: 32 }}
+      >
+        <Container>
+          <Stack
+            color="white"
+            spacing={6}
+            alignItems={{ base: 'center', lg: 'center' }}
+            justifyContent={'center'}
+            textAlign={{ base: 'center', lg: 'center' }}
+            h={'100vh'}
+          >
+            <Heading size="xl" color="white">
+              {t('home.post-maker.title')}
+            </Heading>
+            <Text fontSize="xl" fontWeight="normal" maxWidth="2xl">
+              {t('home.post-maker.content')}
+            </Text>
+
+            <Button
+              as={Navigate}
+              href={link || '/'}
+              size={'lg'}
+              fontWeight="semibold"
+              variant="solid"
+              colorScheme="primary"
+              bg="white"
+              color="primary.500"
+              boxShadow="lg"
+              whiteSpace="normal"
+              _hover={{ color: 'white', bg: 'blackAlpha.100' }}
+              py={'4'}
+              h={'auto'}
             >
-              <Stack
-                order={{ base: 2, lg: 1 }}
-                color="white"
-                spacing={8}
-                alignItems={{ base: 'center', lg: 'start' }}
-                flex={1}
-                textAlign={{ base: 'center', lg: 'left' }}
-              >
-                <Heading as="h3" size="2xl" color="white">
-                  {t('home.post-maker.title')}
-                </Heading>
-                <Text fontSize="xl" fontWeight="semibold">
-                  {t('home.post-maker.content')}
-                </Text>
-
-                <Button
-                  as={Navigate}
-                  href={link || '/'}
-                  size="lg"
-                  variant="outline"
-                  colorScheme="primary"
-                  color="white"
-                  _hover={{ color: 'white', bg: 'blackAlpha.100' }}
-                >
-                  {t('home.post-maker.button')}
-                </Button>
-              </Stack>
-
-              <PostMakerIcon
-                order={{ base: 1, lg: 2 }}
-                boxSize={{ base: 300, lg: 500 }}
-              />
-            </Stack>
-          </Container>
-        </Center>
+              {t('home.post-maker.button')}
+            </Button>
+          </Stack>
+        </Container>
       </Box>
+      {hashtags.length > 0 && <HashtagsSummary hashtags={hashtags} />}
     </Layout>
   )
 }
@@ -86,12 +80,16 @@ export const getStaticProps: GetStaticProps = async context => {
     tr: 'Anasayfa',
   }
 
-  const hashtags = await searchModel<Hashtag>({
+  const { data: hashtags } = await searchModel<Hashtag>({
     url: 'api/hashtags',
     locale,
     statuses: ['approved'],
+    pageSize: 4,
   })
-  const link = getItemLink(hashtags?.data?.[0], locale, 'hashtag')
+
+  const latestHashtag = hashtags?.[0] || null
+
+  const link = getItemLink(latestHashtag, locale, 'hashtag')
 
   const seo: NextSeoProps = {
     title: title[locale],
@@ -102,6 +100,7 @@ export const getStaticProps: GetStaticProps = async context => {
       ...(await serverSideTranslations(locale, ['common'], i18nConfig)),
       link,
       seo,
+      hashtags,
     },
     revalidate: 1,
   }

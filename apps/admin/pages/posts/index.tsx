@@ -2,29 +2,18 @@ import { useEffect, useMemo, useState } from 'react'
 
 import { MenuItemOption, MenuOptionGroup } from '@chakra-ui/react'
 import { useSearchModel } from '@wsvvrijheid/services'
-import {
-  ApprovalStatus,
-  Hashtag,
-  Post,
-  Sort,
-  StrapiLocale,
-} from '@wsvvrijheid/types'
+import { Hashtag, Post, Sort, StrapiLocale } from '@wsvvrijheid/types'
 import {
   AdminLayout,
   DataTable,
-  ModelCreateModal,
+  PageHeader,
   postColumns,
-  postFields,
-  postSchema,
 } from '@wsvvrijheid/ui'
 import { useRouter } from 'next/router'
 import { useUpdateEffect } from 'react-use'
 
 const PostsPage = () => {
-  const { query } = useRouter()
   const [currentPage, setCurrentPage] = useState<number>()
-  const status = query.status as ApprovalStatus
-  const defaultLocale: StrapiLocale = 'en'
 
   const [searchTerm, setSearchTerm] = useState<string>()
   const { locale, push } = useRouter()
@@ -43,7 +32,7 @@ const PostsPage = () => {
     },
     sort,
     locale: locale as StrapiLocale,
-    statuses: status ? [status] : undefined,
+    statuses: ['approved'],
     publicationState: 'preview',
   })
 
@@ -54,7 +43,7 @@ const PostsPage = () => {
     fields: ['id', 'title'],
   })
 
-  useEffect(() => setCurrentPage(1), [status, hashtagsFilter])
+  useEffect(() => setCurrentPage(1), [hashtagsFilter])
 
   const handleSearch = (search: string) => {
     search ? setSearchTerm(search) : setSearchTerm(undefined)
@@ -74,7 +63,7 @@ const PostsPage = () => {
 
   useUpdateEffect(() => {
     postsQuery.refetch()
-  }, [locale, searchTerm, sort, status, hashtagsFilter])
+  }, [locale, searchTerm, sort, hashtagsFilter])
 
   const filterMenu = (
     <MenuOptionGroup
@@ -95,26 +84,14 @@ const PostsPage = () => {
   }
 
   return (
-    <AdminLayout
-      title={`${status} Posts`}
-      headerProps={{
-        filterMenu,
-        filterMenuCloseOnSelect: false,
-        onSearch: handleSearch,
-        searchPlaceHolder: 'Search by title or content',
-        defaultLocale,
-      }}
-    >
-      <ModelCreateModal<Post>
-        title="Create Post"
-        url="api/posts"
-        schema={postSchema}
-        fields={postFields}
-        onSuccess={postsQuery.refetch}
-        buttonProps={{ mb: 4 }}
-      >
-        Create Post
-      </ModelCreateModal>
+    <AdminLayout title={`Hashtag Posts`}>
+      <PageHeader
+        filterMenu={filterMenu}
+        filterMenuCloseOnSelect={false}
+        onSearch={handleSearch}
+        searchPlaceHolder={'Search by title or description'}
+      />
+
       <DataTable<Post>
         columns={postColumns}
         data={posts}
