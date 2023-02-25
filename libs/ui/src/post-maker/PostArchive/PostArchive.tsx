@@ -13,13 +13,13 @@ import {
   useDisclosure,
 } from '@chakra-ui/react'
 import { useHashtag } from '@wsvvrijheid/services'
-import { Post, StrapiLocale, UploadFile } from '@wsvvrijheid/types'
+import { Post, StrapiLocale } from '@wsvvrijheid/types'
 import { getItemLink } from '@wsvvrijheid/utils'
 import { useRouter } from 'next/router'
 import { BiExitFullscreen, BiFullscreen } from 'react-icons/bi'
 
 import { PostSlide } from './PostSlide'
-import { AnimatedBox, ShareButtons, WImage } from '../../components'
+import { AnimatedBox, PostImage, ShareButtons } from '../../components'
 
 export const PostArchive = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -101,13 +101,7 @@ export const PostArchive = () => {
               onClick={() => setActiveIndex(i)}
             >
               <Box bg="white" shadow="base" rounded="lg" overflow="hidden">
-                {post.image && (
-                  <WImage
-                    ratio="twitter"
-                    src={post.image as UploadFile}
-                    alt={`post ${i}`}
-                  />
-                )}
+                {post.image && <PostImage size="sm" post={post} />}
                 {post.description && (
                   <HStack
                     spacing={2}
