@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react'
+import { useEffect } from 'react'
 
 import {
   Button,
@@ -13,13 +13,14 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import slugify from '@sindresorhus/slugify'
 import { useCreateModelMutation } from '@wsvvrijheid/services'
 import {
-  Hashtag,
   Post,
+  PostCreateInput,
   StrapiLocale,
   StrapiModel,
   StrapiTranslatableCreateInput,
   StrapiUrl,
 } from '@wsvvrijheid/types'
+import { generateOgImageParams } from '@wsvvrijheid/utils'
 import { capitalize } from 'lodash'
 import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
@@ -29,6 +30,7 @@ import { InferType } from 'yup'
 import { ModelImage } from './ModelImage'
 import { ModelSelect } from './ModelSelect'
 import { ModelCreateFormProps, Option } from './types'
+import { useDefaultValues } from './utils'
 import { FormItem, MasonryGrid, MdFormItem } from '../../components'
 import { useFileFromUrl } from '../../hooks'
 
@@ -46,44 +48,14 @@ export const ModelCreateForm = <T extends StrapiModel>({
 
   const { locale } = useRouter()
 
-  const hashtagModel = model as unknown as Hashtag
   const postModel = model as unknown as Post
+
   const imageFile = useFileFromUrl(postModel?.image?.url)
+
   const [isChangingImage, setIsChangingImage] = useBoolean(
     postModel?.image ? false : true,
   )
-  const defaultValues = useMemo(() => {
-    const defaults = {} as any
-
-    fields?.forEach(field => {
-      switch (field.name) {
-        case 'mentions':
-          defaults.mentions =
-            hashtagModel?.mentions?.map(m => ({
-              label: m.username,
-              value: m.id.toString(),
-            })) || []
-          break
-        case 'title':
-          defaults.title = postModel?.title
-          break
-        case 'description':
-          defaults.description = postModel?.description
-          break
-        case 'hashtag':
-          defaults.hashtag = {
-            label: postModel?.hashtag?.title,
-            value: postModel?.hashtag?.id.toString(),
-          }
-          break
-        default:
-          defaults[field.name] = model?.[field.name as keyof T] || undefined
-          break
-      }
-    })
-
-    return defaults
-  }, [model, fields, imageFile])
+  const defaultValues = useDefaultValues(model as T, fields)
 
   const {
     register,
@@ -94,7 +66,7 @@ export const ModelCreateForm = <T extends StrapiModel>({
   } = useForm<InferType<typeof schema>>({
     resolver: yupResolver(schema),
     mode: 'all',
-    defaultValues: model ? defaultValues : '',
+    values: model ? defaultValues : {},
   })
 
   useEffect(() => {
@@ -133,21 +105,27 @@ export const ModelCreateForm = <T extends StrapiModel>({
       }
     }, {} as StrapiTranslatableCreateInput)
 
-    const slug = slugify(body.title as string)
+    const slug = body.title && slugify(body.title)
 
-    createModelMutation.mutate(
-      {
-        ...body,
-        slug,
-        locale: locale as StrapiLocale,
-      } as StrapiTranslatableCreateInput,
-      {
-        onSuccess: () => {
-          onSuccess?.()
-          setValue('image', undefined)
-        },
+    const bodyData = {
+      ...body,
+      slug,
+      publishedAt: null,
+      locale: locale as StrapiLocale,
+    } as StrapiTranslatableCreateInput
+
+    if (url === 'api/posts') {
+      const imageProps = generateOgImageParams()
+      const postBody = bodyData as PostCreateInput
+      postBody.imageParams = imageProps
+    }
+
+    createModelMutation.mutate(bodyData, {
+      onSuccess: () => {
+        onSuccess?.()
+        setValue('image', undefined)
       },
-    )
+    })
   }
 
   const disabledStyle = {
@@ -165,7 +143,7 @@ export const ModelCreateForm = <T extends StrapiModel>({
           if (field.type === 'file') {
             return (
               <FormControl
-                isInvalid={Boolean((errors as any)?.[field.name])}
+                isInvalid={Boolean(errors?.[field.name])}
                 key={index}
                 isRequired={field.isRequired}
               >
@@ -179,7 +157,7 @@ export const ModelCreateForm = <T extends StrapiModel>({
                 />
 
                 <FormErrorMessage>
-                  {(errors as any)?.[field.name]?.message}
+                  {errors?.[field.name]?.message as string}
                 </FormErrorMessage>
               </FormControl>
             )
@@ -193,7 +171,6 @@ export const ModelCreateForm = <T extends StrapiModel>({
                 isMulti={field.isMulti}
                 isRequired={field.isRequired}
                 name={field.name as string}
-                fields={field.fields}
                 label={label}
                 errors={errors}
                 control={control}

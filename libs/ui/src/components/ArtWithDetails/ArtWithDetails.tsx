@@ -82,7 +82,7 @@ export const ArtWithDetails: FC<ArtWithDetailsProps> = ({ art, queryKey }) => {
           }
           artistAvatar={art.artist?.avatar?.url}
           content={art.content as string}
-          artistProfilePath={`/artist/${art.artist?.id}`}
+          artistProfilePath={`/club/artist/${art.artist?.id}`}
         />
         {/* Single Art Comments */}
         <Stack spacing={4}>

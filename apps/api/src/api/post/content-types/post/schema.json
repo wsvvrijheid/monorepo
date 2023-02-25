@@ -71,6 +71,14 @@
       "enum": ["pending", "approved", "rejected"],
       "default": "pending"
     },
+    "imageParams": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
+      "type": "json"
+    },
     "image": {
       "type": "media",
       "multiple": false,
@@ -78,7 +86,7 @@
       "allowedTypes": ["images", "videos"],
       "pluginOptions": {
         "i18n": {
-          "localized": true
+          "localized": false
         }
       }
     },

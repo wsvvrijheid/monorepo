@@ -1,4 +1,4 @@
-import { ApprovalStatus, Expand } from './common'
+import { ApprovalStatus, Expand, OgImageParams } from './common'
 import { UploadFile } from './file'
 import { Hashtag } from './hashtag'
 import { StrapiBase, StrapiCreatorRelation, StrapiEntityBase } from './strapi'
@@ -9,6 +9,7 @@ export type PostBase = Omit<StrapiEntityBase, 'slug'> & {
   capsStatus: ApprovalStatus
   twitterMedia?: string | null
   reference?: string | null
+  imageParams?: OgImageParams
 }
 
 export type PostRelation = {
@@ -31,12 +32,13 @@ export type PostCreateInput = Expand<
     PostBase,
     'approvalStatus' | 'capsStatus'
   > &
-    Pick<PostRelationInput, 'image' | 'hashtag' | 'tags'>
+    Pick<PostRelationInput, 'image' | 'hashtag' | 'tags'> & { token: string }
 >
 
 export type PostUpdateInput = Expand<
   { publishedAt?: Date | string | null } & Partial<
-    Omit<PostBase, 'locale'> & Omit<PostRelationInput, 'translator'>
+    Omit<PostBase, 'locale'> &
+      Omit<PostRelationInput, 'translator'> & { token: string }
   >
 >
 

@@ -9,6 +9,7 @@ import {
   collectionSchema,
   DataTable,
   ModelCreateModal,
+  PageHeader,
 } from '@wsvvrijheid/ui'
 import { useRouter } from 'next/router'
 import { useUpdateEffect } from 'react-use'
@@ -25,7 +26,7 @@ const CollectionsPage = () => {
     searchTerm,
     page: currentPage || 1,
     locale: router.locale as StrapiLocale,
-    statuses: ['approved', 'pending', 'rejected'],
+    statuses: ['approved'],
   })
   const handleSearch = (search: string) => {
     search ? setSearchTerm(search) : setSearchTerm(undefined)
@@ -48,23 +49,20 @@ const CollectionsPage = () => {
   }
 
   return (
-    <AdminLayout
-      title="Collections"
-      headerProps={{
-        onSearch: handleSearch,
-        defaultLocale: router.defaultLocale as StrapiLocale,
-      }}
-    >
-      <ModelCreateModal<Collection>
-        title="Create Collection"
-        url="api/collections"
-        schema={collectionSchema}
-        fields={collectionFields}
-        onSuccess={collectionsQuery.refetch}
-        buttonProps={{ mb: 4 }}
-      >
-        Create Collection
-      </ModelCreateModal>
+    <AdminLayout title="Collections">
+      <PageHeader onSearch={handleSearch}>
+        <ModelCreateModal<Collection>
+          title="Create Collection"
+          url="api/collections"
+          schema={collectionSchema}
+          fields={collectionFields}
+          onSuccess={collectionsQuery.refetch}
+          buttonProps={{ mb: 4 }}
+        >
+          New Collection
+        </ModelCreateModal>
+      </PageHeader>
+
       <DataTable
         columns={collectionColumns}
         data={mappedCollections}

@@ -1,9 +1,11 @@
 import { Box } from '@chakra-ui/react'
-import { usePost } from '@wsvvrijheid/services'
+import { useModelById } from '@wsvvrijheid/services'
 import { Post } from '@wsvvrijheid/types'
 import {
   AdminLayout,
+  FormLocaleSwitcher,
   ModelEditForm,
+  PageHeader,
   postFields,
   postSchema,
 } from '@wsvvrijheid/ui'
@@ -14,10 +16,20 @@ const PostPage = () => {
   const { query } = router
 
   const id = Number(query.id as string)
-  const { data: post, isLoading, refetch } = usePost(id)
+  const {
+    data: post,
+    isLoading,
+    refetch,
+  } = useModelById<Post>({
+    url: 'api/posts',
+    id,
+  })
 
   return (
     <AdminLayout title="Post" isLoading={isLoading} hasBackButton>
+      <PageHeader hideLocaleSwitcher>
+        <FormLocaleSwitcher models={post?.localizations} slug={'posts'} />
+      </PageHeader>
       <Box p={6} rounded="md" bg="white" shadow="md">
         {post && (
           <ModelEditForm<Post>

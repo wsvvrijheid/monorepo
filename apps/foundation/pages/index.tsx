@@ -1,6 +1,16 @@
 import { FC } from 'react'
 
-import { Box, Center, Flex, Heading, Text, VStack } from '@chakra-ui/react'
+import {
+  Box,
+  Center,
+  Flex,
+  Heading,
+  Text,
+  HStack,
+  VStack,
+  Image,
+  Link,
+} from '@chakra-ui/react'
 import { searchModel } from '@wsvvrijheid/services'
 import { Platform } from '@wsvvrijheid/types'
 import { AnimatedBox, Container } from '@wsvvrijheid/ui'
@@ -42,12 +52,29 @@ const Home: FC<HomeProps> = ({ seo, platforms }) => {
           </AnimatedBox>
         </Box>
       </Flex>
-      <Center bg="blue.100" py={{ base: 16, lg: 32 }} minH="50vh">
+      <Center bg="blue.100" py={{ base: 16, lg: 32 }} minH="100vh">
         <Container>
           <HomeAbout />
         </Container>
       </Center>
       <HomePlatform platforms={platforms?.data} />
+      <Center py={{ base: 16, lg: 32 }} bg={'gray.100'}>
+        <Container>
+          <VStack spacing={8}>
+            <Heading fontWeight="black">{t('home.partners')}</Heading>
+            <Link href="https://challenges.nl" isExternal>
+              <HStack align={'center'}>
+                <Image
+                  alt={'Stichting Challenges'}
+                  src="https://challenges.nl/wp-content/uploads/2022/12/challengeslogo-1.png"
+                  w={150}
+                />
+                <Text fontSize="xl">Stichting Challenges</Text>
+              </HStack>
+            </Link>
+          </VStack>
+        </Container>
+      </Center>
     </Layout>
   )
 }

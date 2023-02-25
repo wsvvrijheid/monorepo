@@ -29,7 +29,7 @@ export const ArtsTable: FC<ArtsTableProps> = ({
   onSort,
   setCurrentPage,
 }) => {
-  const { user } = useAuthSelector()
+  const { user, token } = useAuthSelector()
   const approvalDisclosure = useDisclosure()
 
   const [selectedIndex, setSelectedIndex] = useState<number>()
@@ -53,7 +53,7 @@ export const ArtsTable: FC<ArtsTableProps> = ({
     approvalDisclosure.onClose()
   }
 
-  const handleReject = async (art: number, editor: number, message: string) => {
+  const handleReject = async (art: number, message: string) => {
     setConfirmState({
       isWarning: true,
       title: 'Reject art',
@@ -63,7 +63,7 @@ export const ArtsTable: FC<ArtsTableProps> = ({
         feedbackMutation.mutate(
           {
             art,
-            editor,
+            token: token as string,
             message,
             status: 'rejected',
             point: 10,
@@ -74,7 +74,7 @@ export const ArtsTable: FC<ArtsTableProps> = ({
     })
   }
 
-  const handleApprove = (art: number, editor: number, message: string) => {
+  const handleApprove = (art: number, message: string) => {
     setConfirmState({
       title: 'Approve art',
       description: 'Are you sure you want to approve this art?',
@@ -83,7 +83,7 @@ export const ArtsTable: FC<ArtsTableProps> = ({
         feedbackMutation.mutate(
           {
             art,
-            editor,
+            token: token as string,
             message,
             status: 'approved',
             point: 10,
@@ -131,7 +131,7 @@ export const ArtsTable: FC<ArtsTableProps> = ({
   const onSave = (
     artId: number,
     data: string,
-    updateValue: 'content' | 'description',
+    updateValue: 'content' | 'description' | 'title',
   ) => {
     updateArtMutation.mutate({
       id: artId,
@@ -156,7 +156,6 @@ export const ArtsTable: FC<ArtsTableProps> = ({
           artApprovalStatus={selectedArt.approvalStatus}
           artPublishedAt={selectedArt.publishedAt}
           artImage={selectedArt.image as UploadFile}
-          editorId={user.id as number}
           editorAvatar={user.avatar as string}
           editorName={user.username as string}
           isOpen={approvalDisclosure.isOpen}

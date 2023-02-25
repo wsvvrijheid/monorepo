@@ -31,7 +31,6 @@ export const ArtApprovalModal: FC<ArtApprovalTypes> = ({
   artTitle,
   artistAvatar,
   artImage,
-  editorId,
   isOpen,
   onClose,
   editorAvatar,
@@ -44,7 +43,9 @@ export const ArtApprovalModal: FC<ArtApprovalTypes> = ({
   artPublishedAt,
 }) => {
   const [description, setDescription] = useState(artDescription)
+  const [title, setTitle] = useState(artTitle)
   const [content, setContent] = useState(artContent)
+  const [isEditingTitle, setIsEditingTitle] = useState(false)
   const [isEditingDesciption, setIsEditingDesciption] = useState(false)
   const [isEditingContent, setIsEditingContent] = useState(false)
 
@@ -55,6 +56,9 @@ export const ArtApprovalModal: FC<ArtApprovalTypes> = ({
     } else if (data === 'content') {
       setIsEditingContent(false)
       onSave(artId, content, 'content')
+    } else if (data === 'title') {
+      setIsEditingTitle(false)
+      onSave(artId, title, 'title')
     }
   }
   //set new description and content
@@ -64,13 +68,17 @@ export const ArtApprovalModal: FC<ArtApprovalTypes> = ({
   useEffect(() => {
     setContent(artContent)
   }, [artContent])
-
+  useEffect(() => {
+    setTitle(artTitle)
+  }, [artTitle])
   //update field
   const handleUpdate = (data: string) => {
     if (data === 'description') {
       setIsEditingDesciption(true)
     } else if (data === 'content') {
       setIsEditingContent(true)
+    } else if (data === 'title') {
+      setIsEditingTitle(true)
     }
   }
   return (
@@ -88,9 +96,28 @@ export const ArtApprovalModal: FC<ArtApprovalTypes> = ({
               </Stack>
               <Stack spacing={4} p={{ base: 4, lg: 8 }} justify="space-between">
                 <Stack>
-                  <Text color={'blue.400'} fontWeight={'bold'}>
-                    {artTitle}
-                  </Text>
+                  {isEditingTitle ? (
+                    // // Textarea and save on edit mode
+                    <Stack w="full">
+                      <Textarea
+                        onChange={e => setTitle(e.target.value)}
+                        value={title}
+                      />
+                      <Button
+                        colorScheme="primary"
+                        onClick={() => handleSave('title')}
+                        alignSelf="end"
+                      >
+                        Save
+                      </Button>
+                    </Stack>
+                  ) : (
+                    <Stack align="start" justify={'start'} w="full">
+                      <Text color={'blue.400'} fontWeight={'bold'}>
+                        {title}
+                      </Text>
+                    </Stack>
+                  )}
                   <HStack spacing={3} w={'full'}>
                     {/* TODO art owner avatar should be here*/}
                     <Avatar size="sm" src={artistAvatar} name={artistName} />
@@ -169,7 +196,6 @@ export const ArtApprovalModal: FC<ArtApprovalTypes> = ({
                   artApprovalStatus={artApprovalStatus}
                   onDelete={onDelete}
                   artId={artId}
-                  editorId={editorId}
                   artDescription={artDescription}
                   editorAvatar={editorAvatar}
                   editorName={editorName}

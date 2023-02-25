@@ -23,13 +23,13 @@ export type CollectionCreateInput = Expand<
     CollectionBase,
     'approvalStatus'
   > &
-    CollectionRelationInput
+    CollectionRelationInput & { token: string }
 >
 
 export type CollectionUpdateInput = Expand<
   { publishedAt?: Date | string | null } & Partial<
     Omit<CollectionBase, 'locale'> & CollectionRelationInput
-  >
+  > & { token: string }
 >
 
 export type CollectionLocalizeInput = Omit<
