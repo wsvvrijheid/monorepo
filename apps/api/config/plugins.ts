@@ -39,4 +39,15 @@ export default ({ env }) => ({
       },
     },
   },
+  upload: {
+    config: {
+      breakpoints: {
+        xlarge: 1920,
+        large: 1080,
+        medium: 720,
+        small: 512,
+        xsmall: 64,
+      },
+    },
+  },
 })

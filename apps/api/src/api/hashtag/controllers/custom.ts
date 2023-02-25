@@ -1,6 +1,7 @@
 import { Context } from 'koa'
 import { twitterApi } from '../../../libs/twitter/client'
 import { mapTweetResponseToTweet } from '../../../libs/twitter/getUserTweets'
+import { getReferenceModel } from '../../../utils/reference'
 
 export default {
   async search(ctx) {
@@ -30,6 +31,23 @@ export default {
         },
         populate: ['localizations'],
       })
+
+    return { data: result }
+  },
+  async relation(ctx: Context) {
+    const id = ctx.params.id
+
+    const currentHashtag = await strapi
+      .service('api::hashtag.hashtag')
+      .findOne(id, {
+        populate: ['localizations.image'],
+      })
+
+    const referenceHashtag = getReferenceModel(currentHashtag)
+
+    const result = await strapi.service('api::hashtag.hashtag').update(id, {
+      data: { image: referenceHashtag.image?.id },
+    })
 
     return { data: result }
   },

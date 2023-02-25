@@ -8,11 +8,11 @@ import {
   ModalOverlay,
   Stack,
 } from '@chakra-ui/react'
-import { API_URL } from '@wsvvrijheid/config'
-import { getPost } from '@wsvvrijheid/services'
+import { API_URL, VERCEL_URL } from '@wsvvrijheid/config'
+import { getModelById } from '@wsvvrijheid/services'
 import { Post, StrapiLocale } from '@wsvvrijheid/types'
-import { WImage } from '@wsvvrijheid/ui'
-import { getItemLink } from '@wsvvrijheid/utils'
+import { PostImage } from '@wsvvrijheid/ui'
+import { getItemLink, getOgImageSrc } from '@wsvvrijheid/utils'
 import { GetServerSideProps } from 'next'
 import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
@@ -39,7 +39,7 @@ const Post = ({ seo, post }: PostProps) => {
         <ModalContent>
           <ModalBody p={0}>
             <Stack>
-              <WImage ratio="twitter" src={post.image} />
+              <PostImage size="sm" post={post} />
               <Box p={8}>{post.description}</Box>
             </Stack>
           </ModalBody>
@@ -58,7 +58,10 @@ export const getServerSideProps: GetServerSideProps = async context => {
   const locale = context.locale as StrapiLocale
   const id = context.params?.id as string
 
-  const post = await getPost(Number(id))
+  const post = await getModelById<Post>({
+    url: 'api/posts',
+    id: Number(id),
+  })
 
   if (!post) {
     return { notFound: true }
@@ -72,11 +75,19 @@ export const getServerSideProps: GetServerSideProps = async context => {
 
   const images = image && [
     {
-      url: adminUrl + image.url,
+      url:
+        'https://' +
+        VERCEL_URL +
+        getOgImageSrc({
+          title: post.title,
+          text: post.description,
+          image: image?.url ? `${API_URL}${image?.url}` : undefined,
+          ...post.imageParams,
+        }),
       secureUrl: adminUrl + image.url,
       type: image.mime as string,
-      width: image.width as number,
-      height: image.height as number,
+      width: 1200,
+      height: 675,
       alt: title,
     },
   ]

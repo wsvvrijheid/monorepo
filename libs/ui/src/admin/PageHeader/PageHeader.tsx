@@ -21,6 +21,7 @@ export type PageHeaderProps = {
   children?: ReactNode
   filterMenuCloseOnSelect?: boolean
   searchPlaceHolder?: string
+  hideLocaleSwitcher?: boolean
 }
 
 export const PageHeader: FC<PageHeaderProps> = ({
@@ -30,6 +31,7 @@ export const PageHeader: FC<PageHeaderProps> = ({
   children,
   filterMenuCloseOnSelect,
   searchPlaceHolder = 'Search',
+  hideLocaleSwitcher,
 }) => {
   return (
     <HStack align="center" bg="white" px={4} py={2} shadow="base">
@@ -42,8 +44,8 @@ export const PageHeader: FC<PageHeaderProps> = ({
       ) : (
         <Spacer />
       )}
-      {/* TODO locale switcher */}
-      <LanguageSwitcher />
+
+      {!hideLocaleSwitcher && <LanguageSwitcher />}
 
       {filterMenu && (
         <Menu closeOnSelect={filterMenuCloseOnSelect}>

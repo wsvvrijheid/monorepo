@@ -14,11 +14,13 @@ import slugify from '@sindresorhus/slugify'
 import { useCreateModelMutation } from '@wsvvrijheid/services'
 import {
   Post,
+  PostCreateInput,
   StrapiLocale,
   StrapiModel,
   StrapiTranslatableCreateInput,
   StrapiUrl,
 } from '@wsvvrijheid/types'
+import { generateOgImageParams } from '@wsvvrijheid/utils'
 import { capitalize } from 'lodash'
 import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
@@ -105,19 +107,25 @@ export const ModelCreateForm = <T extends StrapiModel>({
 
     const slug = body.title && slugify(body.title)
 
-    createModelMutation.mutate(
-      {
-        ...body,
-        slug,
-        locale: locale as StrapiLocale,
-      } as StrapiTranslatableCreateInput,
-      {
-        onSuccess: () => {
-          onSuccess?.()
-          setValue('image', undefined)
-        },
+    const bodyData = {
+      ...body,
+      slug,
+      publishedAt: null,
+      locale: locale as StrapiLocale,
+    } as StrapiTranslatableCreateInput
+
+    if (url === 'api/posts') {
+      const imageProps = generateOgImageParams()
+      const postBody = bodyData as PostCreateInput
+      postBody.imageParams = imageProps
+    }
+
+    createModelMutation.mutate(bodyData, {
+      onSuccess: () => {
+        onSuccess?.()
+        setValue('image', undefined)
       },
-    )
+    })
   }
 
   const disabledStyle = {
