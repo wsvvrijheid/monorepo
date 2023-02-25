@@ -8,7 +8,7 @@ type OgImageProps = {
   imageParams: OgImageParams
 }
 
-export const OgImage: FC<OgImageProps> = memo(({ imageParams }) => {
+const OgImage: FC<OgImageProps> = memo(({ imageParams }) => {
   const src = getOgImageSrc(imageParams)
 
   return (
@@ -17,7 +17,10 @@ export const OgImage: FC<OgImageProps> = memo(({ imageParams }) => {
       width={1200}
       height={675}
       src={src}
+      style={{ objectFit: 'cover', width: '100%' }}
       alt={imageParams.title || ''}
     />
   )
 })
+
+export default OgImage
