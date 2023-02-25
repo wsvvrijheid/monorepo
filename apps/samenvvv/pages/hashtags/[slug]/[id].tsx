@@ -8,7 +8,7 @@ import {
   ModalOverlay,
   Stack,
 } from '@chakra-ui/react'
-import { API_URL, VERCEL_URL } from '@wsvvrijheid/config'
+import { API_URL, SITE_URL } from '@wsvvrijheid/config'
 import { getModelById } from '@wsvvrijheid/services'
 import { Post, StrapiLocale } from '@wsvvrijheid/types'
 import { PostImage } from '@wsvvrijheid/ui'
@@ -89,8 +89,7 @@ export const getServerSideProps: GetServerSideProps = async context => {
   }
 
   const imgSrc =
-    'https://' +
-    VERCEL_URL +
+    SITE_URL +
     getOgImageSrc({
       title: post.title,
       text: post.description,
