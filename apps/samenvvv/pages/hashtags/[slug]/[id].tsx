@@ -69,10 +69,9 @@ export const getServerSideProps: GetServerSideProps = async context => {
 
   const title = post?.description.slice(0, 20)
   const description = post.description
-  const adminUrl = API_URL as string
   const image = post?.image
   let src = image?.url
-  const url = getItemLink(post, locale, 'post') as string
+  const link = getItemLink(post, locale, 'post') as string
 
   if (image?.formats?.small) {
     src = image.formats.small.url
@@ -82,18 +81,20 @@ export const getServerSideProps: GetServerSideProps = async context => {
     src = image.formats.large.url
   }
 
+  const imgSrc =
+    'https://' +
+    VERCEL_URL +
+    getOgImageSrc({
+      title: post.title,
+      text: post.description,
+      image: src ? `${API_URL}${src}` : undefined,
+      ...post.imageParams,
+    })
+
   const images = image && [
     {
-      url:
-        'https://' +
-        VERCEL_URL +
-        getOgImageSrc({
-          title: post.title,
-          text: post.description,
-          image: src ? `${API_URL}${src}` : undefined,
-          ...post.imageParams,
-        }),
-      secureUrl: adminUrl + image.url,
+      url: imgSrc,
+      secureUrl: imgSrc,
       type: image.mime as string,
       width: 1200,
       height: 675,
@@ -101,20 +102,31 @@ export const getServerSideProps: GetServerSideProps = async context => {
     },
   ]
 
+  const twitterHandle = {
+    en: '@samenvvvEn',
+    nl: '@samenvvv',
+    tr: '@samenvvvTr',
+  }
+
   const seo: NextSeoProps = {
     title,
     description,
+    twitter: {
+      cardType: 'summary_large_image',
+      site: twitterHandle[locale],
+      handle: twitterHandle[locale],
+    },
     openGraph: {
       title,
       description,
-      url,
+      url: link,
       images,
     },
   }
 
   return {
     props: {
-      link: url,
+      link,
       seo,
       post,
       ...(await serverSideTranslations(
