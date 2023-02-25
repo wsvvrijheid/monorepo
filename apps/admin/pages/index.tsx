@@ -1,5 +1,5 @@
 import { SimpleGrid } from '@chakra-ui/react'
-import { AdminLayout, OgImage } from '@wsvvrijheid/ui'
+import { AdminLayout, Caps } from '@wsvvrijheid/ui'
 
 const Index = () => {
   const text =
@@ -8,7 +8,7 @@ const Index = () => {
   return (
     <AdminLayout title="Dashboard">
       <SimpleGrid columns={{ base: 1, md: 2 }} gap={8} shadow={'md'} p={4}>
-        <OgImage
+        <Caps
           imageParams={{
             title: 'Scale 1',
             text,
@@ -19,8 +19,9 @@ const Index = () => {
             color: 'black',
             hasLine: true,
           }}
+          hasRandomImage
         />
-        <OgImage
+        <Caps
           imageParams={{
             title: 'Scale 0.5',
             text,
@@ -31,6 +32,7 @@ const Index = () => {
             color: 'black',
             hasLine: true,
           }}
+          hasRandomImage
         />
       </SimpleGrid>
     </AdminLayout>
