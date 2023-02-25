@@ -71,7 +71,16 @@ export const getServerSideProps: GetServerSideProps = async context => {
   const description = post.description
   const adminUrl = API_URL as string
   const image = post?.image
+  let src = image?.url
   const url = getItemLink(post, locale, 'post') as string
+
+  if (image?.formats?.small) {
+    src = image.formats.small.url
+  } else if (image?.formats?.medium) {
+    src = image.formats.medium.url
+  } else if (image?.formats?.large) {
+    src = image.formats.large.url
+  }
 
   const images = image && [
     {
@@ -81,7 +90,7 @@ export const getServerSideProps: GetServerSideProps = async context => {
         getOgImageSrc({
           title: post.title,
           text: post.description,
-          image: image?.url ? `${API_URL}${image?.url}` : undefined,
+          image: src ? `${API_URL}${src}` : undefined,
           ...post.imageParams,
         }),
       secureUrl: adminUrl + image.url,
