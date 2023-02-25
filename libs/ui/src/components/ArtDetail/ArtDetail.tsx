@@ -24,7 +24,7 @@ export const ArtDetail: FC<ArtDetailProps> = ({
   toggleLike,
 }) => {
   const { locale } = useRouter()
-  const url = `${SITE_URL}/${locale}/club/art/${art.slug}`
+  const url = `${SITE_URL}/${locale}/club/arts/${art.slug}`
 
   if (!art?.image) return null
 
