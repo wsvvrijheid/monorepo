@@ -66,7 +66,7 @@ export const ArtCardBase: FC<ArtCardBaseProps> = ({
     if (isModal) {
       artModalOnOpen()
     } else {
-      router.push(`/club/art/${art.slug}`)
+      router.push(`/club/arts/${art.slug}`)
     }
   }
 
