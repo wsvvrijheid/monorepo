@@ -1,10 +1,10 @@
-import React, { FC } from 'react'
+import { FC } from 'react'
 
 import { ImageProps } from '@chakra-ui/react'
 import { API_URL } from '@wsvvrijheid/config'
 import { Post } from '@wsvvrijheid/types'
 
-import { OgImage } from '../OgImage'
+import { Caps } from '../Caps'
 
 type PostImageProps = ImageProps & {
   post: Post
@@ -36,7 +36,7 @@ export const PostImage: FC<PostImageProps> = ({
   }
 
   return (
-    <OgImage
+    <Caps
       imageParams={{
         title: post.title,
         text: post.description as string,
