@@ -8,7 +8,7 @@ import { OgImage } from '../OgImage'
 
 type PostImageProps = ImageProps & {
   post: Post
-  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
+  size?: 'xs' | 'sm' | 'md' | 'lg'
 }
 
 export const PostImage: FC<PostImageProps> = ({
@@ -29,11 +29,10 @@ export const PostImage: FC<PostImageProps> = ({
   }
 
   const scales = {
-    xs: 0.25,
-    sm: 0.5,
-    md: 0.75,
-    lg: 1,
-    xl: 1.5,
+    xs: 300 / 1200,
+    sm: 500 / 1200,
+    md: 900 / 1200,
+    lg: 1200 / 1200,
   }
 
   return (
