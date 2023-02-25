@@ -26,7 +26,11 @@ const MarkdownEditor = forwardRef<MarkdownEditorProps, any>((props, ref) => {
         '.rc-md-navigation': { display: 'none' },
         '.sec-md': { display: 'none' },
         '.sec-html': { border: 'none' },
-        '.custom-html-style': { color: 'gray.500' },
+        '.section-container': { p: '0 !important' },
+        '.custom-html-style': {
+          color: 'gray.500',
+          '& p': { fontSize: 'md', m: 0 },
+        },
         borderColor: 'transparent',
         _hover: { borderColor: 'transparent' },
         color: 'gray.500',
@@ -39,6 +43,10 @@ const MarkdownEditor = forwardRef<MarkdownEditorProps, any>((props, ref) => {
       sx={{
         '.rc-md-editor': {
           ...disabledStyles,
+          '&.full': {
+            zIndex: 'modal',
+          },
+          bg: props.isDisabled ? 'transparent' : '#f5f5f5',
           [hiddenButtonClasses]: {
             display: 'none !important',
           },

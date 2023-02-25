@@ -7,18 +7,31 @@ const Index = () => {
 
   return (
     <AdminLayout title="Dashboard">
-      <SimpleGrid
-        columns={{ base: 1, md: 2, lg: 3 }}
-        gap={8}
-        bg={'white'}
-        shadow={'md'}
-        p={4}
-      >
-        <OgImage title={'Scale 2'} scale={2} text={text} />
-        <OgImage title={'Scale 1'} text={text} />
-        <OgImage title={'Scale 0.5'} scale={0.5} text={text} />
-        <OgImage title={'Scale 0.3'} scale={0.3} text={text} />
-        <OgImage title={'Scale 0.2'} scale={0.2} text={text} />
+      <SimpleGrid columns={{ base: 1, md: 2 }} gap={8} shadow={'md'} p={4}>
+        <OgImage
+          imageParams={{
+            title: 'Scale 1',
+            text,
+            shape: 1,
+            randomImage: true,
+            flip: true,
+            bg: 'white',
+            color: 'black',
+            hasLine: true,
+          }}
+        />
+        <OgImage
+          imageParams={{
+            title: 'Scale 0.5',
+            text,
+            shape: 2,
+            randomImage: true,
+            flip: true,
+            bg: 'white',
+            color: 'black',
+            hasLine: true,
+          }}
+        />
       </SimpleGrid>
     </AdminLayout>
   )

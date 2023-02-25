@@ -19,3 +19,16 @@ export type PickRequired<T, K extends keyof T> = Expand<
 >
 
 export type Sort = [`${string | `${string}.${string}`}:${'asc' | 'desc'}`]
+
+export type OgImageParams = Partial<{
+  bg: string
+  color: string
+  flip: boolean
+  hasLine: boolean
+  image: string
+  randomImage: boolean
+  scale: number
+  shape: number
+  text: string
+  title: string
+}>

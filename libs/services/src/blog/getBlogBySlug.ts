@@ -13,14 +13,14 @@ export const getBlogBySlug = async (
   >({
     url: 'api/blogs',
     populate: ['author', 'image', 'likers'],
-    filters: { slug: { $eq: slug } },
+    filters: { id: { $eq: slug } },
     locale,
   })
 
   return response?.data?.[0] || null
 }
 
-export const useGetBlog = (slug: string) => {
+export const useGetBlogSlug = (slug: string) => {
   const { locale } = useRouter()
 
   return useQuery({

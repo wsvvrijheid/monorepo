@@ -131,7 +131,7 @@ export const ArtsTable: FC<ArtsTableProps> = ({
   const onSave = (
     artId: number,
     data: string,
-    updateValue: 'content' | 'description',
+    updateValue: 'content' | 'description' | 'title',
   ) => {
     updateArtMutation.mutate({
       id: artId,
