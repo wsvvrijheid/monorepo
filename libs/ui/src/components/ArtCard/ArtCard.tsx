@@ -11,6 +11,7 @@ export const ArtCard: FC<ArtCardProps> = ({
   isMasonry,
   queryKey,
   actionQueryKey,
+  isModal,
 }) => {
   const { toggleLike, isLiked } = useLikeArt(art, queryKey)
   const { user } = useAuthSelector()
@@ -22,7 +23,7 @@ export const ArtCard: FC<ArtCardProps> = ({
       toggleLike={toggleLike}
       isOwner={user?.id === art.artist?.id}
       isMasonry={isMasonry}
-      isModal
+      isModal={isModal}
       actionQueryKey={actionQueryKey}
     />
   )
