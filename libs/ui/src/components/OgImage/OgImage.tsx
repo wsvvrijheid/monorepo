@@ -13,7 +13,7 @@ export const OgImage: FC<OgImageProps> = memo(({ imageParams }) => {
 
   return (
     <Image
-      loader={({ src }) => src}
+      unoptimized
       width={1200}
       height={675}
       src={src}
