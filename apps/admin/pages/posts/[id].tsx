@@ -27,7 +27,7 @@ const PostPage = () => {
 
   return (
     <AdminLayout title="Post" isLoading={isLoading} hasBackButton>
-      <PageHeader hideLocaleSwitcher>
+      <PageHeader>
         <FormLocaleSwitcher models={post?.localizations} slug={'posts'} />
       </PageHeader>
       <Box p={6} rounded="md" bg="white" shadow="md">
