@@ -25,7 +25,7 @@ const BlogPage = () => {
 
   return (
     <AdminLayout title="Blogs" isLoading={isLoading} hasBackButton>
-      <PageHeader hideLocaleSwitcher>
+      <PageHeader>
         <FormLocaleSwitcher models={blog?.localizations} slug={'collections'} />
       </PageHeader>
       <Box p={6} rounded="md" bg="white" shadow="md">
