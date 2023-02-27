@@ -27,7 +27,7 @@ const MainHashtagPage = () => {
 
   return (
     <AdminLayout title="Hashtag" isLoading={isLoading} hasBackButton>
-      <PageHeader hideLocaleSwitcher>
+      <PageHeader>
         <FormLocaleSwitcher models={hashtag?.localizations} slug={'hashtags'} />
       </PageHeader>
       <Box p={6} rounded="md" bg="white" shadow="md">

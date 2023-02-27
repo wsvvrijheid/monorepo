@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 
 import {
+  Box,
   Button,
   FormControl,
   FormErrorMessage,
@@ -33,6 +34,7 @@ import { ModelCreateFormProps, Option } from './types'
 import { useDefaultValues } from './utils'
 import { FormItem, MasonryGrid, MdFormItem } from '../../components'
 import { useFileFromUrl } from '../../hooks'
+import { LanguageSwitcher } from '../LanguageSwitcher'
 
 export const ModelCreateForm = <T extends StrapiModel>({
   url,
@@ -137,6 +139,9 @@ export const ModelCreateForm = <T extends StrapiModel>({
   return (
     <Stack as={'form'} onSubmit={handleSubmit(onCreateModel)}>
       <MasonryGrid cols={[1, 1, 1, 2]} columnGap={8} rowGap={4}>
+        <Box mb={8}>
+          <LanguageSwitcher />
+        </Box>
         {fields.map((field, index) => {
           const label = field.label || capitalize(field.name as string)
 

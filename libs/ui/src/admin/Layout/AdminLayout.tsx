@@ -25,6 +25,7 @@ import { useLocalStorage } from 'usehooks-ts'
 
 import { AdminSidebar } from '../AdminSidebar'
 import { CreateModelButton } from '../CreateModelButton'
+import { LanguageSwitcher } from '../LanguageSwitcher'
 
 export type AdminLayoutProps = {
   children: ReactNode
@@ -134,6 +135,7 @@ export const AdminLayout: FC<AdminLayoutProps> = ({
                     variant="outline"
                     rounded="full"
                   />
+                  <LanguageSwitcher responsive />
                   <CreateModelButton />
                 </HStack>
               </HStack>

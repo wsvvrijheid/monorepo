@@ -1,6 +1,6 @@
 import {
   Box,
-  IconButton,
+  Button,
   Popover,
   PopoverArrow,
   PopoverBody,
@@ -8,6 +8,7 @@ import {
   PopoverTrigger,
   Portal,
   Stack,
+  Text,
 } from '@chakra-ui/react'
 import {
   Activity,
@@ -46,12 +47,16 @@ export const CreateModelButton = () => {
   return (
     <Popover placement="bottom-start">
       <PopoverTrigger>
-        <IconButton
+        <Button
           colorScheme={'primary'}
+          fontWeight={'bold'}
           rounded={'full'}
           aria-label="create"
-          icon={<FaPlus />}
-        />
+          leftIcon={<FaPlus />}
+          iconSpacing={{ base: 0, lg: 2 }}
+        >
+          <Text display={{ base: 'none', lg: 'block' }}>Create</Text>
+        </Button>
       </PopoverTrigger>
       <Portal>
         <Box pos={'relative'} zIndex={'popover'}>
