@@ -16,9 +16,8 @@ import {
   useAppDispatch,
   useAuthSelector,
 } from '@wsvvrijheid/store'
-import { startCase } from 'lodash'
 import { useRouter } from 'next/router'
-import { NextSeo } from 'next-seo'
+import { NextSeo, NextSeoProps } from 'next-seo'
 import { FaArrowLeft } from 'react-icons/fa'
 import { MdOutlineNotifications } from 'react-icons/md'
 import { useLocalStorage } from 'usehooks-ts'
@@ -29,16 +28,16 @@ import { LanguageSwitcher } from '../LanguageSwitcher'
 
 export type AdminLayoutProps = {
   children: ReactNode
-  title: string
   isLoading?: boolean
   hasBackButton?: boolean
+  seo: NextSeoProps
 }
 
 export const AdminLayout: FC<AdminLayoutProps> = ({
   children,
-  title,
   isLoading,
   hasBackButton,
+  seo,
 }) => {
   const { user } = useAuthSelector()
 
@@ -72,7 +71,7 @@ export const AdminLayout: FC<AdminLayoutProps> = ({
 
   return (
     <>
-      <NextSeo title={startCase(title)} />
+      <NextSeo {...seo} />
       <Box bg="gray.50">
         {/* Sidebar */}
         <Box
@@ -123,7 +122,7 @@ export const AdminLayout: FC<AdminLayoutProps> = ({
                     color="blackAlpha.500"
                     size={{ base: 'md', lg: '2xl' }}
                   >
-                    {title}
+                    {seo.title}
                   </Heading>
                 </HStack>
 
