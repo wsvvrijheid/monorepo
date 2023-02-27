@@ -2,6 +2,7 @@ import { ReactNode, RefAttributes, ReactElement } from 'react'
 
 import {
   Box,
+  Flex,
   FormControl,
   FormErrorMessage,
   FormHelperText,
@@ -13,6 +14,7 @@ import {
   InputLeftElement,
   InputProps,
   InputRightElement,
+  Tooltip,
   useBoolean,
   useMergeRefs,
 } from '@chakra-ui/react'
@@ -23,6 +25,7 @@ import {
   UseFormRegister,
 } from 'react-hook-form'
 import { HiEye, HiEyeOff } from 'react-icons/hi'
+import { TbInfoCircle } from 'react-icons/tb'
 
 export type FormItemProps<T extends FieldValues> = InputProps & {
   name: Path<T>
@@ -31,6 +34,7 @@ export type FormItemProps<T extends FieldValues> = InputProps & {
   helperText?: string
   leftElement?: ReactNode
   hideLabel?: boolean
+  tooltip?: string
   errors: Partial<FieldErrorsImpl<T>>
   register: UseFormRegister<T>
 }
@@ -53,6 +57,7 @@ export const FormItem: FormItemComponent = forwardRef(
       register,
       isRequired,
       hideLabel,
+      tooltip,
       ...rest
     },
     formItemRef,
@@ -68,9 +73,31 @@ export const FormItem: FormItemComponent = forwardRef(
     return (
       <FormControl isInvalid={Boolean(errors?.[name])} isRequired={isRequired}>
         {label && !hideLabel && (
-          <FormLabel mb={1} htmlFor={name} fontSize="sm" fontWeight="semibold">
-            {label}
-          </FormLabel>
+          <Flex align={'center'} mb={1}>
+            <FormLabel
+              mb={0}
+              htmlFor={name}
+              fontSize="sm"
+              fontWeight="semibold"
+            >
+              {label}
+            </FormLabel>
+            {tooltip && (
+              <Tooltip
+                placement="top-start"
+                bg={'white'}
+                fontSize={'xs'}
+                color={'black'}
+                label={tooltip}
+                aria-label={tooltip}
+                cursor={'pointer'}
+              >
+                <Box color="gray.500">
+                  <TbInfoCircle />
+                </Box>
+              </Tooltip>
+            )}
+          </Flex>
         )}
         <InputGroup>
           {leftElement && (
