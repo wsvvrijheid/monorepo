@@ -12,9 +12,13 @@ import {
   PageHeader,
 } from '@wsvvrijheid/ui'
 import { useRouter } from 'next/router'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { NextSeoProps } from 'next-seo'
 import { useUpdateEffect } from 'react-use'
 
-const ActivitiesPage = () => {
+import i18nConfig from '../../next-i18next.config'
+
+const ActivitiesPage = ({ seo }) => {
   const [currentPage, setCurrentPage] = useState<number>()
 
   const [searchTerm, setSearchTerm] = useState<string>()
@@ -55,7 +59,7 @@ const ActivitiesPage = () => {
   }
 
   return (
-    <AdminLayout title={`Activities`}>
+    <AdminLayout seo={seo}>
       <PageHeader
         onSearch={handleSearch}
         searchPlaceHolder={'Search by title or description'}
@@ -83,6 +87,31 @@ const ActivitiesPage = () => {
       />
     </AdminLayout>
   )
+}
+
+export const getStaticProps = async context => {
+  const { locale } = context
+
+  const title = {
+    en: 'Activities',
+    tr: 'Aktiviteler',
+    nl: 'Activiteiten',
+  }
+
+  const seo: NextSeoProps = {
+    title: title[locale],
+  }
+
+  return {
+    props: {
+      seo,
+      ...(await serverSideTranslations(
+        locale,
+        ['common', 'admin'],
+        i18nConfig,
+      )),
+    },
+  }
 }
 
 export default ActivitiesPage
