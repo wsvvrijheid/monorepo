@@ -5,10 +5,7 @@ import { Collection, Sort, StrapiLocale } from '@wsvvrijheid/types'
 import {
   AdminLayout,
   collectionColumns,
-  collectionFields,
-  collectionSchema,
   DataTable,
-  ModelCreateModal,
   PageHeader,
 } from '@wsvvrijheid/ui'
 import { InferGetStaticPropsType } from 'next'
@@ -57,18 +54,7 @@ const CollectionsPage: FC<PageProps> = ({ seo }) => {
 
   return (
     <AdminLayout seo={seo}>
-      <PageHeader onSearch={handleSearch}>
-        <ModelCreateModal<Collection>
-          title="Create Collection"
-          url="api/collections"
-          schema={collectionSchema}
-          fields={collectionFields}
-          onSuccess={collectionsQuery.refetch}
-          buttonProps={{ mb: 4 }}
-        >
-          New Collection
-        </ModelCreateModal>
-      </PageHeader>
+      <PageHeader onSearch={handleSearch} />
 
       <DataTable
         columns={collectionColumns}
