@@ -44,6 +44,10 @@ Thumbs.db
 # Next.js
 .next
 
+#PWA
+**/public/sw.js
+**/public/workbox-*.js
+
 # Playwright
 **/test-results
 **/playwright-report
