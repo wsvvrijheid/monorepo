@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { FC, useState } from 'react'
 
 import { useSearchModel } from '@wsvvrijheid/services'
 import { Hashtag, Sort, StrapiLocale } from '@wsvvrijheid/types'
@@ -8,10 +8,17 @@ import {
   mainHashtagColumns,
   PageHeader,
 } from '@wsvvrijheid/ui'
+import { InferGetStaticPropsType } from 'next'
 import { useRouter } from 'next/router'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { NextSeoProps } from 'next-seo'
 import { useUpdateEffect } from 'react-use'
 
-const MainHashtagsTranslatePage = () => {
+import i18nConfig from '../../../next-i18next.config'
+
+type PageProps = InferGetStaticPropsType<typeof getStaticProps>
+
+const MainHashtagsTranslatePage: FC<PageProps> = ({ seo }) => {
   const [sort, setSort] = useState<Sort>()
   const [currentPage, setCurrentPage] = useState<number>()
   const [searchTerm, setSearchTerm] = useState<string>()
@@ -48,7 +55,7 @@ const MainHashtagsTranslatePage = () => {
   }
 
   return (
-    <AdminLayout title="Main Hashtag">
+    <AdminLayout seo={seo}>
       <PageHeader
         onSearch={handleSearch}
         searchPlaceHolder={'Search by title or description'}
@@ -65,6 +72,31 @@ const MainHashtagsTranslatePage = () => {
       />
     </AdminLayout>
   )
+}
+
+export const getStaticProps = async context => {
+  const { locale } = context
+
+  const title = {
+    en: 'Hashtags',
+    tr: 'Hashtags',
+    nl: 'Hashtags',
+  }
+
+  const seo: NextSeoProps = {
+    title: title[locale],
+  }
+
+  return {
+    props: {
+      seo,
+      ...(await serverSideTranslations(
+        locale,
+        ['common', 'admin'],
+        i18nConfig,
+      )),
+    },
+  }
 }
 
 export default MainHashtagsTranslatePage
