@@ -53,6 +53,7 @@ export const LanguageSwitcher: FC<LanguageSwitcherProps> = ({ responsive }) => {
         leftIcon={<Box boxSize={6} as={CurrentFlag} />}
         {...(responsive && {
           iconSpacing: { base: 0, lg: 2 },
+          px: { base: 2, lg: 4 },
         })}
       >
         <Text
