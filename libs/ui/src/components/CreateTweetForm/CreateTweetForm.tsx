@@ -33,7 +33,6 @@ import { ModelCreateModal } from '../../admin'
 import { ModelSelect } from '../../admin/ModelForm/ModelSelect'
 import { TweetContent } from '../../admin/TweetContent'
 import { postFields, postSchema } from '../../data'
-import { useFileFromUrl } from '../../hooks'
 import { FormItem } from '../FormItem'
 
 const schema = yup.object({
@@ -60,7 +59,6 @@ export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
 
   const [isChangingImage, setIsChangingImage] = useBoolean(false)
 
-  const imageFile = useFileFromUrl(originalTweet?.image)
   const { token } = useAuthSelector()
 
   const { mutateAsync } = useRecommendTweet()
@@ -71,7 +69,7 @@ export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
 
   const defaultValues = {
     text: '',
-    image: imageFile,
+    image: undefined,
     mentions: [],
   }
 
@@ -88,13 +86,6 @@ export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
     mode: 'all',
     values: defaultValues,
   })
-
-  // We don't need to upload the same image as the original tweet
-  // useEffect(() => {
-  //   if (imageFile) {
-  //     setValue('image', imageFile)
-  //   }
-  // }, [imageFile, setValue, originalTweet?.image])
 
   const [text, image] = watch(['text', 'image'])
 

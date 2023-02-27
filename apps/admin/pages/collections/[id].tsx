@@ -35,7 +35,7 @@ const CollectionPage = () => {
 
   return (
     <AdminLayout title="Collection" isLoading={isLoading} hasBackButton>
-      <PageHeader hideLocaleSwitcher>
+      <PageHeader>
         <FormLocaleSwitcher
           models={collection?.localizations}
           slug={'collections'}

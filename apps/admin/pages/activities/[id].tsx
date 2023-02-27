@@ -27,7 +27,7 @@ const ActivityPage = () => {
 
   return (
     <AdminLayout title="Activity" isLoading={isLoading} hasBackButton>
-      <PageHeader hideLocaleSwitcher>
+      <PageHeader>
         <FormLocaleSwitcher
           models={activity?.localizations}
           slug={'activities'}
