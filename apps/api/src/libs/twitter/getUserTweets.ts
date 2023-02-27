@@ -69,7 +69,7 @@ export const getUserTweets = async (
     max_results: 50,
     expansions: ['attachments.media_keys'],
     'tweet.fields': ['created_at', 'public_metrics'],
-    'media.fields': ['preview_image_url', 'url'],
+    'media.fields': ['preview_image_url', 'url', 'media_key', 'variants'],
     exclude: 'retweets',
   })
 
