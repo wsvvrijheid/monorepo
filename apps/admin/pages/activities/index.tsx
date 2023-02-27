@@ -4,11 +4,8 @@ import { useSearchModel } from '@wsvvrijheid/services'
 import { Activity, Sort, StrapiLocale } from '@wsvvrijheid/types'
 import {
   activityColumns,
-  activityFields,
-  activitySchema,
   AdminLayout,
   DataTable,
-  ModelCreateModal,
   PageHeader,
 } from '@wsvvrijheid/ui'
 import { useRouter } from 'next/router'
@@ -63,18 +60,7 @@ const ActivitiesPage = ({ seo }) => {
       <PageHeader
         onSearch={handleSearch}
         searchPlaceHolder={'Search by title or description'}
-      >
-        <ModelCreateModal<Activity>
-          title="Create Activity"
-          url="api/activities"
-          schema={activitySchema}
-          fields={activityFields}
-          onSuccess={() => activitiesQuery.refetch()}
-          buttonProps={{ mb: 4 }}
-        >
-          New Activity
-        </ModelCreateModal>
-      </PageHeader>
+      />
 
       <DataTable
         columns={activityColumns}
