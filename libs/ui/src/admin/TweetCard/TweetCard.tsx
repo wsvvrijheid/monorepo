@@ -5,6 +5,7 @@ import {
   Box,
   HStack,
   IconButton,
+  Link,
   Menu,
   MenuButton,
   MenuItem,
@@ -16,8 +17,18 @@ import {
 import { useRecommendTweet } from '@wsvvrijheid/services'
 import { useAuthSelector } from '@wsvvrijheid/store'
 import { Post, RecommendedTweetCreateInput, Tweet } from '@wsvvrijheid/types'
+import { formatDistanceToNow } from 'date-fns'
 import { BsThreeDots } from 'react-icons/bs'
-import { TbBookmark, TbBrandTwitter, TbThumbUp } from 'react-icons/tb'
+import {
+  TbBookmark,
+  TbBrandTwitter,
+  TbChartBar,
+  TbClock,
+  TbHeart,
+  TbMessageCircle,
+  TbRefresh,
+  TbThumbUp,
+} from 'react-icons/tb'
 import { useLocalStorage } from 'usehooks-ts'
 
 import { TweetCardProps } from './types'
@@ -41,6 +52,8 @@ export const TweetCard: FC<TweetCardProps> = ({
   )
   const { isOpen, onOpen, onClose } = useDisclosure()
   const { token } = useAuthSelector()
+
+  console.log('tweet', tweet)
 
   const isBookmarked = storageTweets?.some(t => t.id === tweet.id)
 
@@ -94,16 +107,10 @@ export const TweetCard: FC<TweetCardProps> = ({
           isNews={false}
         />
       )}
-      <HStack
-        spacing={4}
-        align={'start'}
-        bg={'white'}
-        rounded={'md'}
-        p={4}
-        {...rest}
-      >
+      <HStack align={'start'} bg={'white'} rounded={'md'} p={4} {...rest}>
         {tweet.user && (
           <Avatar
+            size={'sm'}
             flexShrink={0}
             name={tweet.user.name}
             src={tweet.user.profile}
@@ -177,6 +184,62 @@ export const TweetCard: FC<TweetCardProps> = ({
             isChangingImage={isChangingImage}
             setIsChangingImage={setIsChangingImage}
           />
+          <HStack justify={'space-between'}>
+            {tweet.likes != null && (
+              <HStack
+                as={Link}
+                rel="noopener noreferrer"
+                target="_blank"
+                href={`https://twitter.com/intent/like?tweet_id=${tweet.id}`}
+              >
+                <TbHeart />
+                <Text fontSize={'sm'}>{tweet.likes}</Text>
+              </HStack>
+            )}
+            {tweet.retweets != null && (
+              <HStack
+                as={Link}
+                rel="noopener noreferrer"
+                target="_blank"
+                href={`https://twitter.com/intent/retweet?tweet_id=${tweet.id}`}
+              >
+                <TbRefresh />
+                <Text fontSize={'sm'}>{tweet.retweets}</Text>
+              </HStack>
+            )}
+            {tweet.replies != null && (
+              <HStack
+                as={Link}
+                rel="noopener noreferrer"
+                target="_blank"
+                href={`https://twitter.com/intent/tweet?in_reply_to=${tweet.id}`}
+              >
+                <TbMessageCircle />
+                <Text fontSize={'sm'}>{tweet.replies}</Text>
+              </HStack>
+            )}
+            {tweet.impressions != null && (
+              <HStack>
+                <TbChartBar />
+                <Text fontSize={'sm'}>{tweet.impressions}</Text>
+              </HStack>
+            )}
+            {tweet.createdAt && (
+              <HStack>
+                <TbClock />
+                <Text
+                  noOfLines={1}
+                  fontSize={'sm'}
+                  color={'gray.500'}
+                  textAlign={'right'}
+                >
+                  {formatDistanceToNow(new Date(tweet.createdAt as string), {
+                    addSuffix: true,
+                  })}
+                </Text>
+              </HStack>
+            )}
+          </HStack>
         </Stack>
       </HStack>
     </>
