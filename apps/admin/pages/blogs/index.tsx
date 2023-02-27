@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 
 import { useSearchModel } from '@wsvvrijheid/services'
 import { Activity, Blog, Sort, StrapiLocale } from '@wsvvrijheid/types'
@@ -11,10 +11,17 @@ import {
   ModelCreateModal,
   PageHeader,
 } from '@wsvvrijheid/ui'
+import { InferGetStaticPropsType } from 'next'
 import { useRouter } from 'next/router'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { NextSeoProps } from 'next-seo'
 import { useUpdateEffect } from 'react-use'
 
-const BlogsPage = () => {
+import i18nConfig from '../../next-i18next.config'
+
+type PageProps = InferGetStaticPropsType<typeof getStaticProps>
+
+const BlogsPage: FC<PageProps> = ({ seo }) => {
   const [currentPage, setCurrentPage] = useState<number>()
 
   const [searchTerm, setSearchTerm] = useState<string>()
@@ -50,7 +57,7 @@ const BlogsPage = () => {
   }
 
   return (
-    <AdminLayout title={`Blogs`}>
+    <AdminLayout seo={seo}>
       <PageHeader
         onSearch={handleSearch}
         searchPlaceHolder={'Search by title or description'}
@@ -78,6 +85,31 @@ const BlogsPage = () => {
       />
     </AdminLayout>
   )
+}
+
+export const getStaticProps = async context => {
+  const { locale } = context
+
+  const title = {
+    en: 'Blogs',
+    tr: 'Bloglar',
+    nl: 'Blogs',
+  }
+
+  const seo: NextSeoProps = {
+    title: title[locale],
+  }
+
+  return {
+    props: {
+      seo,
+      ...(await serverSideTranslations(
+        locale,
+        ['common', 'admin'],
+        i18nConfig,
+      )),
+    },
+  }
 }
 
 export default BlogsPage

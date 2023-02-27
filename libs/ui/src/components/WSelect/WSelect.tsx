@@ -1,11 +1,15 @@
 import {
+  Box,
+  Flex,
   FormControl,
   FormErrorMessage,
   FormHelperText,
   FormLabel,
+  Tooltip,
 } from '@chakra-ui/react'
 import { Select, Props as SelectProps, GroupBase } from 'chakra-react-select'
 import { Control, FieldValues, useController } from 'react-hook-form'
+import { TbInfoCircle } from 'react-icons/tb'
 
 import { FormItemProps } from '../FormItem'
 
@@ -33,6 +37,7 @@ export const WSelect: WSelectComponent = ({
   helperText,
   placeholder,
   options,
+  tooltip,
   ...rest
 }) => {
   const { field } = useController({
@@ -50,9 +55,26 @@ export const WSelect: WSelectComponent = ({
       pos="relative"
     >
       {label && !hideLabel && (
-        <FormLabel mb={1} htmlFor={name} fontSize="sm" fontWeight="semibold">
-          {label}
-        </FormLabel>
+        <Flex align={'center'} mb={1}>
+          <FormLabel mb={0} htmlFor={name} fontSize="sm" fontWeight="semibold">
+            {label}
+          </FormLabel>
+          {tooltip && (
+            <Tooltip
+              placement="top-start"
+              bg={'white'}
+              fontSize={'xs'}
+              color={'black'}
+              label={tooltip}
+              aria-label={tooltip}
+              cursor={'pointer'}
+            >
+              <Box color="gray.500">
+                <TbInfoCircle />
+              </Box>
+            </Tooltip>
+          )}
+        </Flex>
       )}
 
       <Select<SelectOption, boolean, GroupBase<SelectOption>>

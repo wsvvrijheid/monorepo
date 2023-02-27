@@ -15,13 +15,15 @@ import {
 } from '@chakra-ui/react'
 import { useRecommendTweet } from '@wsvvrijheid/services'
 import { useAuthSelector } from '@wsvvrijheid/store'
-import { RecommendedTweetCreateInput, Tweet } from '@wsvvrijheid/types'
-import { BsBookmarkPlus, BsThreeDots } from 'react-icons/bs'
-import { RiEditLine } from 'react-icons/ri'
+import { Post, RecommendedTweetCreateInput, Tweet } from '@wsvvrijheid/types'
+import { BsThreeDots } from 'react-icons/bs'
+import { TbBookmark, TbBrandTwitter, TbThumbUp } from 'react-icons/tb'
 import { useLocalStorage } from 'usehooks-ts'
 
 import { TweetCardProps } from './types'
 import { CreateTweetForm } from '../../components'
+import { postFields, postSchema } from '../../data'
+import { ModelCreateModal } from '../ModelForm'
 import { TweetContent } from '../TweetContent'
 
 export const TweetCard: FC<TweetCardProps> = ({
@@ -43,6 +45,12 @@ export const TweetCard: FC<TweetCardProps> = ({
   const isBookmarked = storageTweets?.some(t => t.id === tweet.id)
 
   const { mutateAsync } = useRecommendTweet()
+
+  const newPost = {
+    description: tweet.text,
+    content: tweet.text,
+    image: { url: tweet?.image },
+  } as Post
 
   const handleBookmark = () => {
     if (isBookmarked) {
@@ -121,7 +129,7 @@ export const TweetCard: FC<TweetCardProps> = ({
             )}
 
             {(bookmarkable || editable) && (
-              <Menu>
+              <Menu placement="bottom-end">
                 <MenuButton
                   size="sm"
                   rounded="full"
@@ -130,11 +138,30 @@ export const TweetCard: FC<TweetCardProps> = ({
                   variant="ghost"
                 />
                 <MenuList>
-                  <MenuItem icon={<RiEditLine />} onClick={handleEdit}>
-                    Edit
+                  <MenuItem icon={<TbThumbUp />} onClick={handleEdit}>
+                    Recommend
                   </MenuItem>
+                  <ModelCreateModal<Post>
+                    title="Create Post"
+                    url="api/posts"
+                    schema={postSchema}
+                    fields={postFields}
+                    model={newPost}
+                    buttonProps={{
+                      variant: 'ghost',
+                      w: 'full',
+                      justifyContent: 'start',
+                      colorScheme: 'gray',
+                      leftIcon: <Box fontSize={'sm'} as={TbBrandTwitter} />,
+                      rounded: 'none',
+                      fontWeight: 400,
+                      px: 3,
+                    }}
+                  >
+                    Create Post
+                  </ModelCreateModal>
                   <MenuItem
-                    icon={<BsBookmarkPlus color={isBookmarked ? 'red' : ''} />}
+                    icon={<TbBookmark color={isBookmarked ? 'red' : ''} />}
                     onClick={handleBookmark}
                   >
                     {isBookmarked ? 'Remove' : 'Save'} (Bookmark)

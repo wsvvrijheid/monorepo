@@ -57,6 +57,7 @@ export type ModelEditFormProps<T extends StrapiModel> = {
 export type ModelSelectProps = WSelectProps<FieldValues> & {
   url: StrapiUrl
   control: Control<AssertsShape<any>, any>
+  tooltip?: string
   errors: Partial<
     FieldErrorsImpl<{
       [x: string]: any

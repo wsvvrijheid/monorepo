@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { FC, useEffect, useMemo, useState } from 'react'
 
 import { MenuItemOption, MenuOptionGroup } from '@chakra-ui/react'
 import { useSearchModel } from '@wsvvrijheid/services'
@@ -9,10 +9,17 @@ import {
   PageHeader,
   postColumns,
 } from '@wsvvrijheid/ui'
+import { InferGetStaticPropsType } from 'next'
 import { useRouter } from 'next/router'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { NextSeoProps } from 'next-seo'
 import { useUpdateEffect } from 'react-use'
 
-const PostsPage = () => {
+import i18nConfig from '../../next-i18next.config'
+
+type PageProps = InferGetStaticPropsType<typeof getStaticProps>
+
+const PostsPage: FC<PageProps> = ({ seo }) => {
   const [currentPage, setCurrentPage] = useState<number>()
 
   const [searchTerm, setSearchTerm] = useState<string>()
@@ -84,7 +91,7 @@ const PostsPage = () => {
   }
 
   return (
-    <AdminLayout title={`Hashtag Posts`}>
+    <AdminLayout seo={seo}>
       <PageHeader
         filterMenu={filterMenu}
         filterMenuCloseOnSelect={false}
@@ -103,6 +110,31 @@ const PostsPage = () => {
       />
     </AdminLayout>
   )
+}
+
+export const getStaticProps = async context => {
+  const { locale } = context
+
+  const title = {
+    en: 'Posts',
+    tr: 'Posts',
+    nl: 'Posts',
+  }
+
+  const seo: NextSeoProps = {
+    title: title[locale],
+  }
+
+  return {
+    props: {
+      seo,
+      ...(await serverSideTranslations(
+        locale,
+        ['common', 'admin'],
+        i18nConfig,
+      )),
+    },
+  }
 }
 
 export default PostsPage

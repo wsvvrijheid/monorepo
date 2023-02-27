@@ -1,3 +1,5 @@
+import { FC } from 'react'
+
 import { Box } from '@chakra-ui/react'
 import { useModelById } from '@wsvvrijheid/services'
 import { Post } from '@wsvvrijheid/types'
@@ -9,9 +11,16 @@ import {
   postFields,
   postSchema,
 } from '@wsvvrijheid/ui'
+import { InferGetServerSidePropsType } from 'next'
 import { useRouter } from 'next/router'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { NextSeoProps } from 'next-seo'
 
-const PostPage = () => {
+import i18nConfig from '../../next-i18next.config'
+
+type PageProps = InferGetServerSidePropsType<typeof getServerSideProps>
+
+const PostPage: FC<PageProps> = ({ seo }) => {
   const router = useRouter()
   const { query } = router
 
@@ -26,7 +35,7 @@ const PostPage = () => {
   })
 
   return (
-    <AdminLayout title="Post" isLoading={isLoading} hasBackButton>
+    <AdminLayout seo={seo} isLoading={isLoading} hasBackButton>
       <PageHeader>
         <FormLocaleSwitcher models={post?.localizations} slug={'posts'} />
       </PageHeader>
@@ -44,6 +53,31 @@ const PostPage = () => {
       </Box>
     </AdminLayout>
   )
+}
+
+export const getServerSideProps = async context => {
+  const { locale } = context
+
+  const title = {
+    en: 'Post',
+    tr: 'Post',
+    nl: 'Post',
+  }
+
+  const seo: NextSeoProps = {
+    title: title[locale],
+  }
+
+  return {
+    props: {
+      seo,
+      ...(await serverSideTranslations(
+        locale,
+        ['common', 'admin'],
+        i18nConfig,
+      )),
+    },
+  }
 }
 
 export default PostPage

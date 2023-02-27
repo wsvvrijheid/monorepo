@@ -1,3 +1,5 @@
+import { FC } from 'react'
+
 import { Box } from '@chakra-ui/react'
 import { useModelById } from '@wsvvrijheid/services'
 import { Blog } from '@wsvvrijheid/types'
@@ -9,9 +11,16 @@ import {
   ModelEditForm,
   PageHeader,
 } from '@wsvvrijheid/ui'
+import { InferGetServerSidePropsType } from 'next'
 import { useRouter } from 'next/router'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { NextSeoProps } from 'next-seo'
 
-const BlogPage = () => {
+import i18nConfig from '../../next-i18next.config'
+
+type PageProps = InferGetServerSidePropsType<typeof getServerSideProps>
+
+const BlogPage: FC<PageProps> = ({ seo }) => {
   const router = useRouter()
   const { query } = router
 
@@ -24,7 +33,7 @@ const BlogPage = () => {
   //TODO: Unpublished blogs doesn't coming
 
   return (
-    <AdminLayout title="Blogs" isLoading={isLoading} hasBackButton>
+    <AdminLayout seo={seo} isLoading={isLoading} hasBackButton>
       <PageHeader>
         <FormLocaleSwitcher models={blog?.localizations} slug={'collections'} />
       </PageHeader>
@@ -42,6 +51,31 @@ const BlogPage = () => {
       </Box>
     </AdminLayout>
   )
+}
+
+export const getServerSideProps = async context => {
+  const { locale } = context
+
+  const title = {
+    en: 'Blog Translate',
+    tr: 'Blog Çeviri',
+    nl: 'Blog Vertalen',
+  }
+
+  const seo: NextSeoProps = {
+    title: title[locale],
+  }
+
+  return {
+    props: {
+      seo,
+      ...(await serverSideTranslations(
+        locale,
+        ['common', 'admin'],
+        i18nConfig,
+      )),
+    },
+  }
 }
 
 export default BlogPage

@@ -1,3 +1,5 @@
+import { FC } from 'react'
+
 import {
   Box,
   Button,
@@ -16,10 +18,17 @@ import {
   FormLocaleSwitcher,
   PageHeader,
 } from '@wsvvrijheid/ui'
+import { InferGetServerSidePropsType } from 'next'
 import { useRouter } from 'next/router'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { NextSeoProps } from 'next-seo'
 import { IoMdAdd } from 'react-icons/io'
 
-const CollectionPage = () => {
+import i18nConfig from '../../next-i18next.config'
+
+type PageProps = InferGetServerSidePropsType<typeof getServerSideProps>
+
+const CollectionPage: FC<PageProps> = ({ seo }) => {
   const { query } = useRouter()
 
   const id = Number(query.id as string)
@@ -34,7 +43,7 @@ const CollectionPage = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   return (
-    <AdminLayout title="Collection" isLoading={isLoading} hasBackButton>
+    <AdminLayout seo={seo} isLoading={isLoading} hasBackButton>
       <PageHeader>
         <FormLocaleSwitcher
           models={collection?.localizations}
@@ -82,6 +91,31 @@ const CollectionPage = () => {
       </Stack>
     </AdminLayout>
   )
+}
+
+export const getServerSideProps = async context => {
+  const { locale } = context
+
+  const title = {
+    en: 'Collection Translate',
+    tr: 'Koleksiyon Çeviri',
+    nl: 'Collectie Vertalen',
+  }
+
+  const seo: NextSeoProps = {
+    title: title[locale],
+  }
+
+  return {
+    props: {
+      seo,
+      ...(await serverSideTranslations(
+        locale,
+        ['common', 'admin'],
+        i18nConfig,
+      )),
+    },
+  }
 }
 
 export default CollectionPage
