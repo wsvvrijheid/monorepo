@@ -54,6 +54,7 @@ export const CreateModelButton = () => {
           aria-label="create"
           leftIcon={<FaPlus />}
           iconSpacing={{ base: 0, lg: 2 }}
+          px={{ base: 2, lg: 4 }}
         >
           <Text display={{ base: 'none', lg: 'block' }}>Create</Text>
         </Button>
