@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "account_statistics",
+  "info": {
+    "singularName": "account-statistic",
+    "pluralName": "account-statistics",
+    "displayName": "Account Statistic"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "account": {
+      "type": "string"
+    },
+    "followers": {
+      "type": "integer"
+    },
+    "tweets": {
+      "type": "integer"
+    },
+    "retweets": {
+      "type": "integer"
+    },
+    "likes": {
+      "type": "integer"
+    }
+  }
+}
