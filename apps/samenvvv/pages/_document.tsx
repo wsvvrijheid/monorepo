@@ -7,7 +7,6 @@ export default class Document extends NextDocument {
     return (
       <Html>
         <Head>
-          <link rel="manifest" href="/manifest.json" />
           <link
             rel="icon"
             type="image/x-icon"
