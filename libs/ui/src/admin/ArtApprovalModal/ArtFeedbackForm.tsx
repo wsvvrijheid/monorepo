@@ -46,7 +46,7 @@ export const ArtFeedbackForm: FC<ArtFeedbackFormTypes> = ({
 
   return (
     <Stack w={'full'} spacing={{ base: 2, lg: 4 }}>
-      <Text color={'black'} fontWeight={'bold'}>
+      <Text color={'black'} fontWeight={700}>
         Give Feedback
       </Text>
 

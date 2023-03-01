@@ -192,7 +192,7 @@ export const TopicCard: FC<TopicCardProps> = ({ topic }) => {
         h="full"
       >
         <Stack textAlign={isVertical ? 'center' : 'left'}>
-          <Text fontSize="lg" fontWeight="semibold" noOfLines={1}>
+          <Text fontSize="lg" fontWeight={600} noOfLines={1}>
             {topic.title}
           </Text>
           <Text noOfLines={isVertical ? 3 : 2}>{topic.description}</Text>

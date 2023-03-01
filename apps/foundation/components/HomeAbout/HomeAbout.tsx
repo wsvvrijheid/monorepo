@@ -24,7 +24,7 @@ export const HomeAboutItem: FC<{ item: AboutItem }> = ({ item }) => {
         src={item.image}
         alt={item.title[locale]}
       />
-      <Text fontSize="xl" fontWeight="semibold">
+      <Text fontSize="xl" fontWeight={600}>
         {item.title[locale as StrapiLocale]}
       </Text>
       <Text>{item.description[locale as StrapiLocale]}</Text>

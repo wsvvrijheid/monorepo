@@ -109,7 +109,7 @@ const MentionListItem: FC<MentionListItemProps> = ({
             src={data.profile_image_url_https}
             shadow="base"
           />
-          <Box fontWeight="semibold">
+          <Box fontWeight={600}>
             <Text fontSize="xl">{data.name}</Text>
             <Text color="twitter.400">@{data.screen_name}</Text>
           </Box>

@@ -77,7 +77,7 @@ const Contact = ({ seo }: ContactProps): JSX.Element => {
               justify="space-evenly"
               spacing={8}
             >
-              <Heading fontWeight="black" as="h2" size="lg" color="primary.200">
+              <Heading fontWeight={900} as="h2" size="lg" color="primary.200">
                 STICHTING <br /> WEES DE STEM VOOR VRIJHEID
               </Heading>
               <Divider borderColor="whiteAlpha.400" />
@@ -129,7 +129,7 @@ const Contact = ({ seo }: ContactProps): JSX.Element => {
 
               <Stack w="full" spacing={4}>
                 <Stack w="full">
-                  <Text color="blue.200" fontWeight="semibold">
+                  <Text color="blue.200" fontWeight={600}>
                     {t('wsvvrijheid.management')}
                   </Text>
                   <Wrap justify="space-around" spacing={4}>
