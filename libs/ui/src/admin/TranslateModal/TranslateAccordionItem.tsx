@@ -42,7 +42,7 @@ export const TranslateAccordionItem = <T extends StrapiTranslatableModel>({
             <Box as={Flags[locale]} />
             <HStack>
               <Text
-                fontWeight="bold"
+                fontWeight={700}
                 maxW={{ base: 150, lg: 300 }}
                 noOfLines={1}
               >
@@ -123,7 +123,7 @@ export const TranslateAccordionItem = <T extends StrapiTranslatableModel>({
         <Stack spacing={2}>
           {description && (
             <Stack>
-              <Text size="lg" fontWeight={'bold'}>
+              <Text size="lg" fontWeight={700}>
                 Description
               </Text>
               <Text>{description}</Text>
@@ -131,7 +131,7 @@ export const TranslateAccordionItem = <T extends StrapiTranslatableModel>({
           )}
           {content && (
             <Stack>
-              <Text size="lg" fontWeight={'bold'}>
+              <Text size="lg" fontWeight={700}>
                 Content
               </Text>
               {/* TODO: Display in markdown format */}

@@ -52,7 +52,7 @@ export const AdminSidebar: FC<AdminSidebarProps> = memo(
               name="Wsvvrijheid"
             />
             {expanded && (
-              <Text color={'blue.500'} fontWeight="bold" fontSize="xl">
+              <Text color={'blue.500'} fontWeight={700} fontSize="xl">
                 Dashboard
               </Text>
             )}
@@ -72,7 +72,7 @@ export const AdminSidebar: FC<AdminSidebarProps> = memo(
           <Stack>
             {expanded && (
               <Box pos="sticky" top={0} px={4} bg="white" zIndex={1}>
-                <Text fontWeight="semibold">MENU</Text>
+                <Text fontWeight={600}>MENU</Text>
               </Box>
             )}
 
