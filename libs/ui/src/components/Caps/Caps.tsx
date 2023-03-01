@@ -163,7 +163,7 @@ export const Caps = forwardRef<CapsProps, 'div'>(
                 {title && (
                   <Text
                     fontSize={`${dimensions.font * 1.5}px`}
-                    fontWeight={'bold'}
+                    fontWeight={700}
                     color={color}
                     // Truncate text
                     width={`${

@@ -214,7 +214,7 @@ export const CreateArtForm: FC<CreateArtFormProps> = ({ queryKey }) => {
                       htmlFor="locale"
                       mb={2}
                       mt={2}
-                      fontWeight={'600'}
+                      fontWeight={600}
                     >
                       {t('language')}
                     </FormLabel>

@@ -56,7 +56,7 @@ export const WSelect: WSelectComponent = ({
     >
       {label && !hideLabel && (
         <Flex align={'center'} mb={1}>
-          <FormLabel mb={0} htmlFor={name} fontSize="sm" fontWeight="semibold">
+          <FormLabel mb={0} htmlFor={name} fontSize="sm" fontWeight={600}>
             {label}
           </FormLabel>
           {tooltip && (
