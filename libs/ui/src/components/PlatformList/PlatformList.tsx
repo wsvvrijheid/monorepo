@@ -33,7 +33,7 @@ export const PlatformList: FC<PlatformListProps> = ({ platforms }) => {
           {/* TODO Create image component to handle internal/external image paths */}
           <Avatar size="2xl" src={`${API_URL}${platform.image?.url}`} />
           <Stack align={{ base: 'center', lg: 'start' }}>
-            <Heading textAlign="center" size="md" as="h3" fontWeight="black">
+            <Heading textAlign="center" size="md" as="h3" fontWeight={900}>
               {platform[`name_${locale as StrapiLocale}`]}
             </Heading>
             <Text fontSize="sm">

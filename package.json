@@ -37,6 +37,7 @@
     "@emotion/styled": "^11.10.6",
     "@hookform/resolvers": "^2.9.11",
     "@mollie/api-client": "^3.6.0",
+    "@next/font": "^13.2.3",
     "@popperjs/core": "^2.11.6",
     "@reactour/tour": "^3.3.0",
     "@reduxjs/toolkit": "^1.9.3",
@@ -174,4 +175,3 @@
     "webpack": "^5.75.0"
   }
 }
-

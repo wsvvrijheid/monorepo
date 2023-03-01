@@ -80,7 +80,7 @@ export const TranslateModal = <T extends StrapiTranslatableModel>({
         <ModalContent maxW="95vw" h="full">
           <ModalHeader
             fontSize="xl"
-            fontWeight="bold"
+            fontWeight={700}
             borderBottomWidth={step > 0 ? 1 : 0}
           >
             {step > 0 && (

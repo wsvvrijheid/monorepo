@@ -33,12 +33,6 @@ export default class Document extends NextDocument {
             rel="manifest"
             href="https://api.wsvvrijheid.nl/uploads/site_a26582cda2.webmanifest"
           />
-          <link rel="preconnect" href="https://fonts.gstatic.com" />
-          <link rel="preconnect" href="https://fonts.googleapis.com" />
-          <link
-            href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;900&display=swap"
-            rel="stylesheet"
-          />
           <script
             async
             src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}

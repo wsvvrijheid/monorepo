@@ -129,7 +129,7 @@ export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
         <ModalContent p={{ base: 2, lg: 4 }}>
           <ModalCloseButton />
           <ModalHeader>
-            <Text color={'primary.500'} fontWeight={'bold'} w={'full'}>
+            <Text color={'primary.500'} fontWeight={700} w={'full'}>
               Create Tweet
             </Text>
           </ModalHeader>

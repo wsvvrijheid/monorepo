@@ -49,7 +49,7 @@ export const CreateModelButton = () => {
       <PopoverTrigger>
         <Button
           colorScheme={'primary'}
-          fontWeight={'bold'}
+          fontWeight={700}
           rounded={'full'}
           aria-label="create"
           leftIcon={<FaPlus />}

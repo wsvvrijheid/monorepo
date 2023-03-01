@@ -122,11 +122,7 @@ export const TweetCard: FC<TweetCardProps> = ({
           <HStack justify={'space-between'} title={tweet.user?.username}>
             {tweet.user && (
               <Box lineHeight={1.15}>
-                <Text
-                  noOfLines={1}
-                  wordBreak={'break-all'}
-                  fontWeight={'bolder'}
-                >
+                <Text noOfLines={1} wordBreak={'break-all'} fontWeight={700}>
                   {tweet.user.name}
                 </Text>
                 <Text noOfLines={1} color={'gray.500'}>

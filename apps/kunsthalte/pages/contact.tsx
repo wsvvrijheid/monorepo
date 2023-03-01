@@ -87,7 +87,7 @@ const Contact = ({ seo }: ContactProps): JSX.Element => {
               justify="space-evenly"
               spacing={8}
             >
-              <Heading fontWeight="black" as="h2" size="lg" color="primary.200">
+              <Heading fontWeight={900} as="h2" size="lg" color="primary.200">
                 {title[locale]}
               </Heading>
               <Text>{about[locale]}</Text>
