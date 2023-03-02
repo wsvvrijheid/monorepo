@@ -30,23 +30,6 @@ const HashtagEvents = ({ seo, source }: HashtagEventsProps) => {
     url: 'api/hashtags',
     locale: router.locale as StrapiLocale,
   })
-  // const anounscements = samen_aonounscement
-  //const samenAnounscement = {}
-  const hashtag = hashtagsQuery?.data?.data?.[0]
-  const hashtagAnounscements = {
-    title: 'ETKINLIK DUYURUSU',
-    topic: hashtag?.title,
-    description: hashtag?.description,
-    date: hashtag?.date,
-    defaultCaps: '',
-    hashtag:
-      hashtag?.hashtagDefault ||
-      hashtag?.hashtagExtra ||
-      'Hashtag saatinde yayinlanacak',
-  }
-
-  //console.log('samen anounscement', anounscements)
-  console.log('samen anounscement >>', hashtagAnounscements)
 
   return (
     <Layout seo={seo} isDark>
