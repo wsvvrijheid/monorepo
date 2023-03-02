@@ -40,6 +40,20 @@ Start storybook: `yarn storybook`
 
 Start apps `yarn foundation|kunsthalte|admin|samenvvv`
 
+Start mobile aps `yarn android|ios`
+
+## Android for Mac
+
+Add the following block in your `.zshrc`. Change `<username>`.
+
+```
+export ANDROID_HOME=/Users/<username>/Library/Android/sdk
+export PATH=$ANDROID_HOME/emulator:$PATH
+export PATH=$ANDROID_HOME/platform-tools:$PATH
+export PATH=$ANDROID_HOME/tools:$PATH
+export PATH=$ANDROID_HOME/tools/bin:$PATH
+```
+
 ## Recommended VSCode Plugins
 
 - [Nx Console](https://marketplace.visualstudio.com/items?itemName=nrwl.angular-console)
