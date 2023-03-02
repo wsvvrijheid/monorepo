@@ -10,6 +10,17 @@
     "react-native-config": "*",
     "react-native-svg": "*",
     "@react-native-async-storage/async-storage": "*",
-    "metro-config": "*"
+    "metro-config": "*",
+    "@reduxjs/toolkit": "*",
+    "type-fest": "*",
+    "twitter-api-v2": "*",
+    "iron-session": "*",
+    "axios": "*",
+    "next-seo": "*",
+    "react-icons": "*",
+    "@chakra-ui/react": "*",
+    "lodash": "*",
+    "@next/font": "*",
+    "react-redux": "*"
   }
 }

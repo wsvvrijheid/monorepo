@@ -12,6 +12,8 @@
     "foundation": "npx nx run foundation:serve:development",
     "kunsthalte": "npx nx run kunsthalte:serve:development",
     "samenvvv": "npx nx run samenvvv:serve:development",
+    "android": "npx nx run-android mobile",
+    "ios": "npx nx run-ios mobile",
     "tsc": "nx affected --target=tsc",
     "lint": "nx affected --target=lint --fix=true",
     "build": "npx nx affected --target=build --exclude=@strapi/admin,api",
