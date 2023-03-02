@@ -41,7 +41,7 @@ export const getStaticProps = async context => {
       seo,
       ...(await serverSideTranslations(
         locale,
-        ['common', 'dashboard'],
+        ['common', 'admin'],
         i18nConfig,
       )),
     },
