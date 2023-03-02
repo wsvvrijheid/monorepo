@@ -114,7 +114,7 @@
     "@nrwl/storybook": "15.8.2",
     "@nrwl/web": "15.8.2",
     "@nrwl/workspace": "15.8.2",
-    "@playwright/test": "1.31.1",
+    "@playwright/test": "1.31.2",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.10",
     "@storybook/addon-essentials": "~6.5.16",
     "@storybook/builder-webpack5": "~6.5.16",
@@ -175,4 +175,3 @@
     "webpack": "^5.75.0"
   }
 }
-
