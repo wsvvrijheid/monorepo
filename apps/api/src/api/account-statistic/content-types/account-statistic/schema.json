@@ -4,14 +4,15 @@
   "info": {
     "singularName": "account-statistic",
     "pluralName": "account-statistics",
-    "displayName": "Account Statistic"
+    "displayName": "Account Statistic",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
   },
   "pluginOptions": {},
   "attributes": {
-    "account": {
+    "username": {
       "type": "string"
     },
     "followers": {
@@ -25,6 +26,15 @@
     },
     "likes": {
       "type": "integer"
+    },
+    "followings": {
+      "type": "integer"
+    },
+    "replies": {
+      "type": "integer"
+    },
+    "date": {
+      "type": "string"
     }
   }
 }
