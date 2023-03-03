@@ -12,14 +12,13 @@ import {
 export const createFeedback = async ({
   token,
   ...args
-}: FeedbackArtCreateInput) => {
+}: FeedbackArtCreateInput & { token: string }) => {
   if (!args.message) {
     throw new Error('feedback field is required')
   }
   const body: ArtUpdateInput = {
     approvalStatus: args.status,
     publishedAt: args.status === 'approved' ? new Date() : null,
-    token,
   }
   await Mutation.post<Feedback, FeedbackArtCreateInput>(
     'api/feedbacks',

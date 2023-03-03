@@ -71,7 +71,7 @@ export const CreateArtForm: FC<CreateArtFormProps> = ({ queryKey }) => {
     url: 'api/categories',
   })
 
-  const { user, token, isLoggedIn } = useAuthSelector()
+  const { user, isLoggedIn } = useAuthSelector()
 
   const cancelRef = useRef<HTMLButtonElement>(null)
   const formDisclosure = useDisclosure()
@@ -109,7 +109,6 @@ export const CreateArtForm: FC<CreateArtFormProps> = ({ queryKey }) => {
       ...data,
       slug,
       categories: data.categories?.map(c => Number(c.value)) || [],
-      token: token as string,
       publishedAt: null,
     }
 

@@ -1,4 +1,7 @@
 export default ({ env }) => ({
+  'import-export-entries': {
+    enabled: true,
+  },
   graphql: {
     config: {
       endpoint: '/graphql',
