@@ -39,7 +39,7 @@ type MentionRelationInput = {
 
 export type MentionCreateInput = Expand<
   { publishedAt?: Date | string | null } & Omit<MentionBase, 'data'> &
-    MentionRelationInput & { token: string }
+    MentionRelationInput
 >
 
 export type Mention = StrapiBase & MentionBase & MentionRelation
