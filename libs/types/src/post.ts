@@ -32,13 +32,12 @@ export type PostCreateInput = Expand<
     PostBase,
     'approvalStatus' | 'capsStatus'
   > &
-    Pick<PostRelationInput, 'image' | 'hashtag' | 'tags'> & { token: string }
+    Pick<PostRelationInput, 'image' | 'hashtag' | 'tags'>
 >
 
 export type PostUpdateInput = Expand<
   { publishedAt?: Date | string | null } & Partial<
-    Omit<PostBase, 'locale'> &
-      Omit<PostRelationInput, 'translator'> & { token: string }
+    Omit<PostBase, 'locale'> & Omit<PostRelationInput, 'translator'>
   >
 >
 

@@ -15,7 +15,6 @@ import {
   useDisclosure,
 } from '@chakra-ui/react'
 import { useRecommendTweet } from '@wsvvrijheid/services'
-import { useAuthSelector } from '@wsvvrijheid/store'
 import { Post, RecommendedTweetCreateInput, Tweet } from '@wsvvrijheid/types'
 import { formatDistanceToNow } from 'date-fns'
 import { BsThreeDots } from 'react-icons/bs'
@@ -51,9 +50,6 @@ export const TweetCard: FC<TweetCardProps> = ({
     [],
   )
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const { token } = useAuthSelector()
-
-  console.log('tweet', tweet)
 
   const isBookmarked = storageTweets?.some(t => t.id === tweet.id)
 
@@ -89,7 +85,6 @@ export const TweetCard: FC<TweetCardProps> = ({
       image,
       text,
       mentions,
-      token: token as string,
     }
 
     await mutateAsync(recommendedTweet)
