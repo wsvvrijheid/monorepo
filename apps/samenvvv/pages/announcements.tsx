@@ -1,15 +1,4 @@
-import { useEffect } from 'react'
-
-import {
-  Box,
-  Button,
-  Center,
-  HStack,
-  Link,
-  Stack,
-  Text,
-  VStack,
-} from '@chakra-ui/react'
+import { Box, Link, Text } from '@chakra-ui/react'
 import { QueryClient } from '@tanstack/react-query'
 import {
   searchModel,
@@ -17,25 +6,19 @@ import {
   useSearchModel,
 } from '@wsvvrijheid/services'
 import { Hashtag, StrapiLocale } from '@wsvvrijheid/types'
-import {
-  Container,
-  FormattedDate,
-  Hero,
-  Markdown,
-  ShareButtons,
-} from '@wsvvrijheid/ui'
+import { Container, Hero, Markdown, useAnnoucementData } from '@wsvvrijheid/ui'
 import { getItemLink } from '@wsvvrijheid/utils'
-import { addDays, isPast } from 'date-fns'
+import { isPast } from 'date-fns'
 import { GetStaticProps } from 'next'
 import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { serialize } from 'next-mdx-remote/serialize'
 import { NextSeoProps } from 'next-seo'
-import { GrAnnounce } from 'react-icons/gr'
 
 import i18nConfig from '..//next-i18next.config'
 import { Layout } from '../components'
+import { Announcement } from '../components/Announcement/announcement' //TODO fix import style
 
 interface HashtagEventsProps {
   hashtags: Hashtag[]
@@ -44,61 +27,28 @@ interface HashtagEventsProps {
 }
 
 const HashtagEvents = ({ seo, source }: HashtagEventsProps) => {
-  const router = useRouter()
-  // const [sort, setSort] = useState<'desc' | 'asc' | null>(null)
+  const { locale } = useRouter()
   const hashtagsQuery = useSearchModel<Hashtag>({
     url: 'api/hashtags',
-    locale: router.locale as StrapiLocale,
+    locale: locale as StrapiLocale,
     pageSize: 1,
   })
-  useEffect(() => {
-    if (hasPassed) {
-      router.push('./')
-    }
-  }, [])
 
   const latestHashtag = hashtagsQuery?.data?.data?.[0] || null
   const link = getItemLink(latestHashtag, latestHashtag?.locale, 'hashtag')
 
   const hashtag = hashtagsQuery?.data?.data?.[0] //get newest hashtag here
-  const hashtagAnounscements = {
-    title: 'ETKINLIK DUYURUSU',
-    description: hashtag?.description,
-    date: hashtag?.date,
-    defaultCaps: '',
-    hashtag:
-      hashtag?.hashtagDefault ||
-      hashtag?.hashtagExtra ||
-      'Hashtag saatinde yayinlanacak',
-    content: hashtag?.content,
-  }
 
-  console.log('samen anounscement >>', hashtagAnounscements)
-  const date = (
-    <FormattedDate
-      date={(hashtagAnounscements.date + 2) as string}
-      format="hh:mm"
-    />
+  const hashtagAnounscement = useAnnoucementData(
+    hashtag,
+    locale as StrapiLocale,
   )
 
-  //const newformat = format(new Date(hashtag?.date), 'dd MMMM yyyy')
-  console.log('new date', Number(date.props.date))
-
-  const hasPassed = isPast(addDays(new Date(hashtag?.date as string), 1))
+  // const hasPassed = isPast(addDays(new Date(hashtag?.date as string), 1))
   const hasStarted = isPast(new Date(hashtag?.date as string))
-  const today = new Date()
+  //const today = new Date()
   //format(new Date(hashtag?.date as string), 'dd MMMM yyyy')
-  console.log('hashtag >>>>>>', hashtag)
-  console.log('hasPassed', hasPassed)
-  console.log('hasStarted', hasStarted)
-  console.log(
-    'Today ....',
-    today,
-    'hashtag date :::',
-    hashtagAnounscements?.date,
-  )
-  const now = new Date(hashtag?.date)
-  console.log('now', now.getHours() + 2)
+
   return (
     <Layout seo={seo} isDark>
       <Hero title={seo.title as string} isFullHeight={false} />
@@ -108,87 +58,24 @@ const HashtagEvents = ({ seo, source }: HashtagEventsProps) => {
             <Markdown source={source} />
           </Box>
         )}
-
-        <Stack spacing={4} mb={8} mt={8} ml={8}>
-          <Center>
-            <HStack alignItems="center">
-              <Button
-                // as={Icon}
-                colorScheme={'primary'}
-                aria-label="create"
-                leftIcon={<GrAnnounce />}
-                rightIcon={<GrAnnounce />}
-              >
-                <Text>{hashtagAnounscements.title}</Text>
-              </Button>
-            </HStack>
-          </Center>
-          <VStack alignItems={'start'} p={4}>
-            <HStack>
-              <Text fontWeight={'bold'}>Konu: </Text>
-              <Text> {hashtagAnounscements?.description}</Text>
-            </HStack>
-
-            <HStack>
-              <VStack alignItems={'start'}>
-                {' '}
-                <HStack>
-                  {' '}
-                  <Text fontWeight={'bold'}>Tarih: </Text>
-                  <Text>
-                    <FormattedDate
-                      date={hashtagAnounscements.date as string}
-                      format="dd MMMM yyyy"
-                    />
-                  </Text>
-                </HStack>
-                <VStack p={4}>
-                  {' '}
-                  <Text>
-                    🇳🇱{' '}
-                    <FormattedDate
-                      date={hashtagAnounscements.date as string}
-                      format="hh:mm "
-                    />
-                  </Text>
-                  <Text>
-                    {' '}
-                    🇹🇷
-                    <FormattedDate
-                      date={hashtagAnounscements.date as string}
-                      format="hh:mm "
-                    />
-                  </Text>
-                </VStack>
-              </VStack>
-            </HStack>
-            <HStack>
-              <Text fontWeight={'bold'}>Hashtag: </Text>
-              <Text>{hashtagAnounscements?.hashtag}</Text>
-            </HStack>
-
-            <Text>{hashtagAnounscements?.content}</Text>
-            <Link href={link}>
-              <Text fontWeight={'bold'} color={'primary'} m={4}>
-                Hashtag Etkinligine Katil
-              </Text>
-            </Link>
-            <ShareButtons
-              //  title={`📢${hashtagAnounscements.title}`}
-              url={hashtagAnounscements.url}
-              //TODO create caps for announcement
-              quote={
-                `📢${hashtagAnounscements.title} \n\n Konu: ${
-                  hashtagAnounscements?.description
-                }\n\nTarih: ${hashtagAnounscements?.date}\n\n 🇹🇷 ${
-                  hashtagAnounscements?.date + 2
-                }\n 🇳🇱 ${hashtagAnounscements?.date} \n\n${
-                  hashtagAnounscements.content
-                } \n` || ''
-              }
-            />
-          </VStack>
-        </Stack>
+        {!hasStarted ? (
+          <Announcement
+            title={hashtagAnounscement?.title}
+            description={hashtagAnounscement?.description}
+            date={hashtagAnounscement?.date}
+            defaultCaps={hashtagAnounscement?.defaultCaps}
+            hashtag={hashtagAnounscement?.hashtag}
+            content={hashtagAnounscement?.content}
+            join={hashtagAnounscement?.join}
+            link={link}
+          />
+        ) : (
+          <Link href={link}>
+            <Text fontWeight={'bold'} color={'primary'} m={4}>
+              {hashtagAnounscement?.join}
+            </Text>
+          </Link>
+        )}
       </Container>
     </Layout>
   )
