@@ -35,14 +35,14 @@ export type HashtagCreateInput = Expand<
     Omit<HashtagBase, 'approvalStatus' | 'tweets'>,
     'hashtagExtra'
   > &
-    SetRequired<HashtagRelationInput, 'image'> & { token: string }
+    SetRequired<HashtagRelationInput, 'image'>
 >
 
 export type HashtagUpdateInput = Expand<
   { publishedAt?: Date | string | null } & Partial<
     Omit<HashtagBase, 'locale' | 'tweets'>
   > &
-    HashtagRelationInput & { token: string }
+    HashtagRelationInput
 >
 
 export type HashtagLocalizeInput = Pick<
