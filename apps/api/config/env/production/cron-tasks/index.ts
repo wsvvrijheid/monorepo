@@ -28,7 +28,7 @@ export default {
   accountStatistics: {
     task: accountStatistics,
     options: {
-      rule: '0 0 8 * * 1',
+      rule: '0 0 * * SUN',
       tz: 'Europe/Amsterdam',
     },
   },
