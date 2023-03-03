@@ -1,6 +1,7 @@
 import tweets from './tweets'
 import hashtags from './hashtags'
 import timeline from './timeline'
+import accountStatistics from './accountStatistics'
 
 export default {
   tweets: {
@@ -21,6 +22,13 @@ export default {
     task: timeline,
     options: {
       rule: '0 */6 * * *',
+      tz: 'Europe/Amsterdam',
+    },
+  },
+  accountStatistics: {
+    task: accountStatistics,
+    options: {
+      rule: '0 0 * * SUN',
       tz: 'Europe/Amsterdam',
     },
   },
