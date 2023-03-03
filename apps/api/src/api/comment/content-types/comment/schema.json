@@ -22,12 +22,6 @@
     "email": {
       "type": "email"
     },
-    "user": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "plugin::users-permissions.user",
-      "inversedBy": "comments"
-    },
     "blog": {
       "type": "relation",
       "relation": "manyToOne",
@@ -43,6 +37,17 @@
     "blocked": {
       "type": "boolean",
       "default": false
+    },
+    "artWork": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::art-work.art-work",
+      "inversedBy": "comments"
+    },
+    "user": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
     }
   }
 }

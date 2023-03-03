@@ -9,12 +9,21 @@ import { Tag } from './tag'
 import { User } from './user'
 import { Vote } from './vote'
 
-type ArtBase = StrapiEntityBase & {
+type ArtWorkBase = StrapiEntityBase & {
   likes: number
   views: number
+  title_tr: string | null
+  title_en: string | null
+  title_nl: string | null
+  description_tr: string | null
+  description_en: string | null
+  description_nl: string | null
+  content_tr: string | null
+  content_en: string | null
+  content_nl: string | null
 }
 
-type ArtRelation = {
+type ArtWorkRelation = {
   artist?: User
   categories?: Array<Category>
   collection?: Collection | null
@@ -22,12 +31,11 @@ type ArtRelation = {
   feedbacks?: Array<Feedback>
   image?: UploadFile
   likers?: Array<User>
-  localizations?: Array<Art>
   tags?: Array<Tag>
   votes?: Array<Vote>
 }
 
-type ArtRelationInput = {
+type ArtWorkRelationInput = {
   artist: number
   categories?: Array<number>
   collection?: number | null
@@ -39,25 +47,23 @@ type ArtRelationInput = {
   votes?: Array<number>
 }
 
-export type ArtCreateInput = Expand<
+export type ArtWorkCreateInput = Expand<
   { publishedAt?: Date | string | null } & Omit<
-    ArtBase,
+    ArtWorkBase,
     'approvalStatus' | 'likes' | 'views'
   > &
-    Pick<ArtRelationInput, 'categories' | 'collection' | 'tags'> & {
+    Pick<ArtWorkRelationInput, 'categories' | 'collection' | 'tags'> & {
       token: string
     }
 >
 
-export type ArtUpdateInput = Expand<
+export type ArtWorkUpdateInput = Expand<
   { publishedAt?: Date | string | null } & Partial<
-    Omit<ArtBase, 'locale'> & ArtRelationInput
+    Omit<ArtWorkBase, 'locale'> & ArtWorkRelationInput
   > & { token: string }
 >
 
-export type ArtLocalizeInput = Omit<
-  ArtBase,
-  'approvalStatus' | 'likes' | 'views'
->
-
-export type Art = StrapiBase & ArtBase & ArtRelation & StrapiCreatorRelation
+export type ArtWork = StrapiBase &
+  ArtWorkBase &
+  ArtWorkRelation &
+  StrapiCreatorRelation

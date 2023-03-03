@@ -21,7 +21,6 @@ export const USER_MOCKS: Array<User> = [
       updatedAt: '2022-09-14T02:07:31.634Z',
     },
     volunteer: null,
-    votes: [],
   },
   {
     id: 51,
@@ -83,20 +82,7 @@ export const USER_MOCKS: Array<User> = [
       createdAt: '2022-09-14T02:01:43.814Z',
       updatedAt: '2022-09-14T02:01:43.814Z',
     },
-    comments: [
-      {
-        id: 23,
-        createdAt: '2022-08-24T19:48:05.321Z',
-        updatedAt: '2022-08-24T19:48:05.321Z',
-        publishedAt: '2022-08-24T19:48:05.319Z',
-        name: null,
-        email: null,
-        content: 'Merhaba',
-        blocked: null,
-      },
-    ],
     volunteer: null,
-    votes: [],
   },
   {
     id: 31,
@@ -169,20 +155,7 @@ export const USER_MOCKS: Array<User> = [
       createdAt: '2022-09-14T01:21:31.074Z',
       updatedAt: '2022-09-14T01:57:14.305Z',
     },
-    comments: [
-      {
-        id: 32,
-        createdAt: '2022-08-27T06:27:39.715Z',
-        updatedAt: '2022-08-27T06:27:39.715Z',
-        publishedAt: '2022-08-27T06:27:39.714Z',
-        name: null,
-        email: null,
-        content: 'Liked!',
-        blocked: null,
-      },
-    ],
     volunteer: null,
-    votes: [],
   },
   {
     id: 54,
@@ -204,7 +177,6 @@ export const USER_MOCKS: Array<User> = [
       updatedAt: '2022-09-14T01:58:07.254Z',
     },
     volunteer: null,
-    votes: [],
   },
   {
     id: 46,
@@ -225,20 +197,7 @@ export const USER_MOCKS: Array<User> = [
       createdAt: '2022-09-14T01:21:03.391Z',
       updatedAt: '2022-09-14T01:58:07.254Z',
     },
-    comments: [
-      {
-        id: 39,
-        createdAt: '2022-09-09T13:07:33.515Z',
-        updatedAt: '2022-09-09T13:07:33.515Z',
-        publishedAt: '2022-09-09T13:07:33.513Z',
-        name: null,
-        email: null,
-        content: 'sada',
-        blocked: null,
-      },
-    ],
     volunteer: null,
-    votes: [],
   },
   {
     id: 43,
@@ -260,7 +219,6 @@ export const USER_MOCKS: Array<User> = [
       updatedAt: '2022-09-14T01:53:13.306Z',
     },
     volunteer: null,
-    votes: [],
   },
   {
     id: 57,
@@ -282,7 +240,6 @@ export const USER_MOCKS: Array<User> = [
       updatedAt: '2022-09-14T02:07:31.634Z',
     },
     volunteer: null,
-    votes: [],
   },
   {
     id: 34,
@@ -304,7 +261,6 @@ export const USER_MOCKS: Array<User> = [
       updatedAt: '2022-09-14T02:07:31.634Z',
     },
     volunteer: null,
-    votes: [],
   },
   {
     id: 56,
@@ -326,7 +282,6 @@ export const USER_MOCKS: Array<User> = [
       updatedAt: '2022-09-14T02:07:31.634Z',
     },
     volunteer: null,
-    votes: [],
   },
   {
     id: 53,
@@ -348,7 +303,6 @@ export const USER_MOCKS: Array<User> = [
       updatedAt: '2022-09-14T02:07:31.634Z',
     },
     volunteer: null,
-    votes: [],
   },
   {
     id: 3,
@@ -399,30 +353,7 @@ export const USER_MOCKS: Array<User> = [
       createdAt: '2022-03-31T18:54:29.468Z',
       updatedAt: '2022-09-14T02:07:31.634Z',
     },
-    comments: [
-      {
-        id: 5,
-        createdAt: '2022-06-16T03:21:14.105Z',
-        updatedAt: '2022-06-16T03:21:14.105Z',
-        publishedAt: '2022-06-16T03:21:14.097Z',
-        name: null,
-        email: null,
-        content: 'Mooie!',
-        blocked: null,
-      },
-      {
-        id: 4,
-        createdAt: '2022-06-16T03:14:40.473Z',
-        updatedAt: '2022-06-16T03:14:40.473Z',
-        publishedAt: '2022-06-16T03:14:40.465Z',
-        name: null,
-        email: null,
-        content: 'Tesekkurler',
-        blocked: null,
-      },
-    ],
     volunteer: null,
-    votes: [],
   },
   {
     id: 4,
@@ -473,7 +404,6 @@ export const USER_MOCKS: Array<User> = [
       createdAt: '2022-03-31T18:54:29.468Z',
       updatedAt: '2022-09-14T02:07:31.634Z',
     },
-    comments: [],
     volunteer: {
       id: 16,
       username: 'umut',
@@ -497,6 +427,5 @@ export const USER_MOCKS: Array<User> = [
       updatedAt: '2022-09-13T21:34:10.451Z',
       publishedAt: '2022-03-27T14:23:29.324Z',
     },
-    votes: [],
   },
 ]

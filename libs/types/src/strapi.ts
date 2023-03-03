@@ -19,6 +19,7 @@ import {
   ApplicationUpdateInput,
 } from './application'
 import { Art, ArtCreateInput, ArtLocalizeInput, ArtUpdateInput } from './art'
+import { ArtWork, ArtWorkCreateInput, ArtWorkUpdateInput } from './art-work'
 import {
   Blog,
   BlogCreateInput,
@@ -130,6 +131,7 @@ export type StrapiModel =
   | Applicant
   | Application
   | Art
+  | ArtWork
   | Blog
   | Category
   | Collection
@@ -214,6 +216,7 @@ export type StrapiCollectionUrl =
   | 'announcements'
   | 'applicants'
   | 'arts'
+  | 'art-works'
   | 'blogs'
   | 'categories'
   | 'collections'
@@ -272,6 +275,7 @@ export type StrapiCreateInput =
   | AnnouncementCreateInput
   | ApplicationCreateInput
   | ArtCreateInput
+  | ArtWorkCreateInput
   | BlogCreateInput
   | CategoryCreateInput
   | CollectionCreateInput
@@ -300,6 +304,7 @@ export type StrapiUpdateInput =
   | AnnouncementUpdateInput
   | ApplicationUpdateInput
   | ArtUpdateInput
+  | ArtWorkUpdateInput
   | BlogUpdateInput
   | CollectionUpdateInput
   | CompetitionUpdateInput

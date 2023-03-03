@@ -44,8 +44,13 @@
     },
     "editor": {
       "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "artWork": {
+      "type": "relation",
       "relation": "manyToOne",
-      "target": "plugin::users-permissions.user",
+      "target": "api::art-work.art-work",
       "inversedBy": "feedbacks"
     }
   }

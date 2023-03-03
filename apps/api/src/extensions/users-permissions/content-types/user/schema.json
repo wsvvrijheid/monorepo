@@ -13,10 +13,6 @@
     "timestamps": true
   },
   "attributes": {
-    "name": {
-      "type": "string",
-      "required": false
-    },
     "username": {
       "type": "string",
       "minLength": 3,
@@ -60,6 +56,17 @@
       "default": false,
       "configurable": false
     },
+    "role": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.role",
+      "inversedBy": "users",
+      "configurable": false
+    },
+    "name": {
+      "type": "string",
+      "required": false
+    },
     "avatar": {
       "type": "media",
       "multiple": false,
@@ -68,36 +75,11 @@
         "images"
       ]
     },
-    "role": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "plugin::users-permissions.role",
-      "inversedBy": "users",
-      "configurable": false
-    },
     "applicant": {
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::applicant.applicant",
       "inversedBy": "user"
-    },
-    "comments": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::comment.comment",
-      "mappedBy": "user"
-    },
-    "feedbacks": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::feedback.feedback",
-      "mappedBy": "editor"
-    },
-    "juryVotes": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::vote.vote",
-      "mappedBy": "jury"
     },
     "langRoles": {
       "type": "relation",

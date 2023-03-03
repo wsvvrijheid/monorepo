@@ -31,14 +31,19 @@
     },
     "jury": {
       "type": "relation",
-      "relation": "manyToOne",
-      "target": "plugin::users-permissions.user",
-      "inversedBy": "juryVotes"
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
     },
     "art": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::art.art",
+      "inversedBy": "votes"
+    },
+    "artWork": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::art-work.art-work",
       "inversedBy": "votes"
     }
   }
