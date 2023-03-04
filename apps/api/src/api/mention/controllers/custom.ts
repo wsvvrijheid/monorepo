@@ -1,4 +1,4 @@
-import { twitterApi } from '../../../libs/twitter/client'
+import { twitterApi } from '../../../libs'
 
 export default {
   async search(ctx) {

@@ -1,9 +1,9 @@
-'use strict';
+'use strict'
 
 /**
  * activity service.
  */
 
-import { factories } from '@strapi/strapi';
+import { factories } from '@strapi/strapi'
 
-export default factories.createCoreService('api::activity.activity');
+export default factories.createCoreService('api::activity.activity')

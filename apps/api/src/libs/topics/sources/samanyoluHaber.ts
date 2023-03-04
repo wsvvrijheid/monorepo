@@ -1,7 +1,7 @@
 import { scrapTopics } from '../utils/scrapTopics'
 import { FormatTopic, Locale, PageSelectors, Publisher } from '../utils/types'
 
-const getSamanyoluNews = async () => {
+export const getSamanyoluNews = async () => {
   const url = new URL('https://www.samanyoluhaber.com')
 
   const selectors: PageSelectors = {
@@ -24,5 +24,3 @@ const getSamanyoluNews = async () => {
     formatTopic,
   })
 }
-
-export default getSamanyoluNews

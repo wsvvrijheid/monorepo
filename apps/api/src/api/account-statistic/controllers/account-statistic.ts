@@ -4,4 +4,6 @@
 
 import { factories } from '@strapi/strapi'
 
-export default factories.createCoreController('api::account-statistic.account-statistic');
+export default factories.createCoreController(
+  'api::account-statistic.account-statistic',
+)

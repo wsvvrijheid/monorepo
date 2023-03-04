@@ -1,5 +1,4 @@
-import { twitterApi } from '../../../../src/libs/twitter/client'
-import { getUserTweets } from '../../../../src/libs/twitter/getUserTweets'
+import { getUserTweets, twitterApi } from '../../../../src/libs'
 
 export default async ({ strapi }) => {
   try {
