@@ -1,3 +1,3 @@
-import { factories } from '@strapi/strapi';
+import { factories } from '@strapi/strapi'
 
-export default factories.createCoreRouter('api::competition.competition');
+export default factories.createCoreRouter('api::competition.competition')
