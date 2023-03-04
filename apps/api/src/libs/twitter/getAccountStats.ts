@@ -1,29 +1,33 @@
-import { writeFileSync } from 'fs'
+import addDays from 'date-fns/addDays'
+import format from 'date-fns/format'
+import formatIso from 'date-fns/formatISO'
 import { twitterApi } from './client'
 
-export const getAccountStats = async (username: string, days = 7) => {
+export const getAccountStats = async (
+  username: string,
+  date = new Date(),
+  totalDays = 7,
+) => {
   try {
     const user = await twitterApi.v2.userByUsername(username, {
       'user.fields': 'public_metrics',
       'tweet.fields': 'public_metrics',
     })
 
-    writeFileSync('user.json', JSON.stringify(user, null, 2))
-
     const followerCount = user.data.public_metrics.followers_count
     const followingCount = user.data.public_metrics.following_count
-    const tweetCount = user.data.public_metrics.tweet_count
+    let tweetCount = 0
     let likeCount = 0
     let retweetCount = 0
     let replies = 0
 
     const today = new Date()
-    const pastWeek = new Date(today.getTime() - days * 24 * 60 * 60 * 1000)
-
-    const isoDateString = pastWeek.toISOString()
+    const start_time = formatIso(addDays(date, -totalDays))
+    const end_time = formatIso(date)
 
     const timeline = await twitterApi.v2.userTimeline(user.data.id, {
-      start_time: isoDateString,
+      start_time,
+      end_time,
       exclude: ['retweets', 'replies'],
       'tweet.fields': 'public_metrics',
     })
@@ -32,6 +36,7 @@ export const getAccountStats = async (username: string, days = 7) => {
       likeCount += item.public_metrics.like_count
       retweetCount += item.public_metrics.retweet_count
       replies += item.public_metrics.reply_count
+      tweetCount += 1
     })
 
     return {
@@ -40,14 +45,16 @@ export const getAccountStats = async (username: string, days = 7) => {
       tweets: tweetCount,
       retweets: retweetCount,
       likes: likeCount,
-      date: new Date(today.getTime()).toLocaleDateString(),
-      replies: replies,
-      username: username,
+      date: format(today, 'yyyy-MM-dd'),
+      replies,
+      username,
     }
   } catch (error) {
     console.log(
       'Error getting account statistics',
       error?.response || error.message,
     )
+
+    return null
   }
 }
