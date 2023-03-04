@@ -8,7 +8,7 @@ export default ({ env }) => ({
     keys: env.array('APP_KEYS'),
   },
   cron: {
-    enabled: env.ENABLE_LOCAL_CRON === 'true',
+    enabled: env('ENABLE_LOCAL_CRON') === 'true',
     tasks: cronTasks,
   },
 })
