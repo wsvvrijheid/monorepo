@@ -1,8 +1,8 @@
-import { getAccountStats } from '../../../../src/libs/twitter/getAccountStats'
+import { getAccountStats } from '../../../../src/libs'
 
 export default async ({ strapi }) => {
   try {
-    const accounts = process.env['ACCOUNTS'] as string
+    const accounts = process.env['STATS_ACCOUNTS'] || ''
 
     accounts.split(',').map(async username => {
       const stats = await getAccountStats(username)

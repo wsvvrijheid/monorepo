@@ -1,5 +1,5 @@
 import { UserV1 } from 'twitter-api-v2'
-import { twitterApi } from '../../../../libs/twitter/client'
+import { twitterApi } from '../../../../libs'
 
 type MentionUserData = Pick<
   UserV1,

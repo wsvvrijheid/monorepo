@@ -1,4 +1,4 @@
-import { getUserTweets } from '../../../libs/twitter/getUserTweets'
+import { getUserTweets } from '../../../libs'
 
 export default {
   async updateTweets(ctx) {

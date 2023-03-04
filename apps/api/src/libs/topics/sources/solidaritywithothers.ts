@@ -1,7 +1,7 @@
 import { scrapTopics } from '../utils/scrapTopics'
 import { FormatTopic, Locale, Publisher, PageSelectors } from '../utils/types'
 
-const getSolidaritywithothersNews = async () => {
+export const getSolidaritywithothersNews = async () => {
   const url = new URL('https://www.solidaritywithothers.com/news')
 
   const selectors: PageSelectors = {
@@ -22,5 +22,3 @@ const getSolidaritywithothersNews = async () => {
     formatTopic,
   })
 }
-
-export default getSolidaritywithothersNews

@@ -1,11 +1,14 @@
+import { writeFileSync } from 'fs'
 import { twitterApi } from './client'
 
-export const getAccountStats = async (username: string, days: number = 7) => {
+export const getAccountStats = async (username: string, days = 7) => {
   try {
     const user = await twitterApi.v2.userByUsername(username, {
       'user.fields': 'public_metrics',
       'tweet.fields': 'public_metrics',
     })
+
+    writeFileSync('user.json', JSON.stringify(user, null, 2))
 
     const followerCount = user.data.public_metrics.followers_count
     const followingCount = user.data.public_metrics.following_count
@@ -21,6 +24,7 @@ export const getAccountStats = async (username: string, days: number = 7) => {
 
     const timeline = await twitterApi.v2.userTimeline(user.data.id, {
       start_time: isoDateString,
+      exclude: ['retweets', 'replies'],
       'tweet.fields': 'public_metrics',
     })
 

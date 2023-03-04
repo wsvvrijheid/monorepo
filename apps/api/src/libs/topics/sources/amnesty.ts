@@ -1,7 +1,7 @@
 import { scrapTopics } from '../utils/scrapTopics'
 import { FormatTopic, Locale, PageSelectors, Publisher } from '../utils/types'
 
-const getAmnesty = async () => {
+export const getAmnesty = async () => {
   const url = new URL('https://www.amnesty.nl/nieuws')
 
   const selectors: PageSelectors = {
@@ -23,5 +23,3 @@ const getAmnesty = async () => {
     formatTopic,
   })
 }
-
-export default getAmnesty
