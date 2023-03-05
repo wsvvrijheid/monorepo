@@ -35,7 +35,7 @@ const PostPage: FC<PageProps> = ({ seo }) => {
   })
 
   return (
-    <AdminLayout seo={seo} isLoading={isLoading} hasBackButton slug={'posts'}>
+    <AdminLayout seo={seo} isLoading={isLoading} hasBackButton>
       <PageHeader>
         <FormLocaleSwitcher models={post?.localizations} slug={'posts'} />
       </PageHeader>

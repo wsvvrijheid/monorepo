@@ -43,12 +43,7 @@ const CollectionPage: FC<PageProps> = ({ seo }) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   return (
-    <AdminLayout
-      seo={seo}
-      isLoading={isLoading}
-      hasBackButton
-      slug={'collections'}
-    >
+    <AdminLayout seo={seo} isLoading={isLoading} hasBackButton>
       <PageHeader>
         <FormLocaleSwitcher
           models={collection?.localizations}
