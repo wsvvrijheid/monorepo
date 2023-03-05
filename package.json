@@ -59,6 +59,7 @@
     "body-scroll-lock": "^4.0.0-beta.0",
     "chakra-react-select": "^4.5.0",
     "date-fns": "^2.29.3",
+    "date-fns-tz": "^2.0.0",
     "framer-motion": "^9.0.7",
     "i18next": "^22.4.10",
     "i18next-browser-languagedetector": "^7.0.1",
