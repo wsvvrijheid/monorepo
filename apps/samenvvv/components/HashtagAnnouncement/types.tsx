@@ -1,4 +1,4 @@
-export interface AnnouncementProps {
+export interface HashtagAnnouncementProps {
   hashtag: {
     name: string
     value: string
