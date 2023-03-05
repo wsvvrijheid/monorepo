@@ -1,7 +1,7 @@
 import { Context } from 'koa'
-import { twitterApi } from '../../../libs/twitter/client'
-import { mapTweetResponseToTweet } from '../../../libs/twitter/getUserTweets'
-import { getReferenceModel } from '../../../utils/reference'
+
+import { twitterApi } from '../../../libs'
+import { getReferenceModel, mapTweetResponseToTweet } from '../../../utils'
 
 export default {
   async search(ctx) {

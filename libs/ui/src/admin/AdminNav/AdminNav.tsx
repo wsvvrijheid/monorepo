@@ -2,12 +2,12 @@ import { FC, memo } from 'react'
 
 import { Stack } from '@chakra-ui/react'
 import { SessionUser } from '@wsvvrijheid/types'
+import { useTranslation } from 'next-i18next'
 import { BiLandscape } from 'react-icons/bi'
 import { BsCollection, BsCommand, BsTranslate } from 'react-icons/bs'
 import { CgHashtag } from 'react-icons/cg'
 import { FiActivity } from 'react-icons/fi'
 import { GiHumanPyramid } from 'react-icons/gi'
-import { GoChevronRight } from 'react-icons/go'
 import { HiOutlineNewspaper } from 'react-icons/hi'
 import {
   MdOutlineSpaceDashboard,
@@ -26,203 +26,176 @@ import {
   TbWriting,
   TbX,
 } from 'react-icons/tb'
-import { VscFeedback } from 'react-icons/vsc'
 
 import { AdminNavItem } from './AdminNavItem'
 import { AdminNavItemCollapsed } from './AdminNavItemCollapsed'
 import { AdminNavItemProps } from './types'
 
-export const getAdminNav = (user: SessionUser): AdminNavItemProps[] => {
+export const useAdminNav = (user: SessionUser): AdminNavItemProps[] => {
   const { isEditor, isAdmin } = user
+
+  const { t: tAdmin } = useTranslation('admin')
 
   return [
     {
-      label: 'Dashboard',
+      label: tAdmin('dashboard'),
       link: '/',
       icon: <MdOutlineSpaceDashboard />,
       visible: true,
     },
     {
-      label: 'Translates',
+      label: tAdmin('translates'),
       icon: <BsTranslate />,
       link: '#',
       visible: isAdmin,
       submenu: [
         {
-          label: 'Activities',
+          label: tAdmin('activities'),
           link: '/translates/activities',
           icon: <TbActivity />,
         },
         {
-          label: 'Announcements',
+          label: tAdmin('announcements'),
           link: '/translates/announcements',
           icon: <TbVolume />,
         },
         {
-          label: 'Arts',
+          label: tAdmin('arts'),
           link: '/translates/arts',
           icon: <TbBrush />,
         },
         {
-          label: 'Collections',
+          label: tAdmin('collections'),
           link: '/translates/collections',
           icon: <BsCollection />,
         },
         {
-          label: 'Hashtags',
+          label: tAdmin('hashtags'),
           link: '/translates/hashtags',
           icon: <CgHashtag />,
         },
         {
-          label: 'Posts',
+          label: tAdmin('posts'),
           link: '/translates/posts',
           icon: <TbBrandTwitter />,
         },
       ],
     },
     {
-      label: 'Activities',
+      label: tAdmin('activities'),
       icon: <FiActivity />,
       link: '/activities',
       visible: !!isEditor || !!isAdmin,
     },
     {
-      label: 'Arts',
+      label: tAdmin('arts'),
       icon: <TbBrush />,
       link: '#',
       visible: !!isEditor || !!isAdmin,
       submenu: [
         {
-          label: 'Pending Arts',
+          label: tAdmin('pendingArts'),
           link: '/arts?status=pending',
           icon: <TbClock />,
         },
         {
-          label: 'Approved Arts',
+          label: tAdmin('approvedArts'),
           link: '/arts?status=approved',
           icon: <TbChecks />,
         },
         {
-          label: 'Rejected Arts',
+          label: tAdmin('rejectedArts'),
           link: '/arts?status=rejected',
           icon: <TbX />,
         },
       ],
     },
     {
-      label: 'Art Collections',
+      label: tAdmin('artCollections'),
       link: '/collections',
       icon: <BsCollection />,
     },
     {
-      label: 'Hashtags',
+      label: tAdmin('hashtags'),
       icon: <CgHashtag />,
       link: '/hashtags',
       visible: isEditor || isAdmin,
     },
     {
-      label: 'Hashtag Posts',
+      label: tAdmin('hashtagPosts'),
       icon: <TbBrandTwitter />,
       link: '/posts',
       visible: !!Boolean || !!isAdmin,
     },
     {
-      label: 'News',
+      label: tAdmin('news'),
       icon: <HiOutlineNewspaper />,
       link: '#',
       visible: isEditor || isAdmin,
       submenu: [
         {
-          label: 'News',
+          label: tAdmin('news'),
           link: '/news',
           icon: <HiOutlineNewspaper />,
         },
         {
-          label: 'Bookmarked News',
+          label: tAdmin('bookmarkedNews'),
           link: '/news/bookmarks',
           icon: <TbBookmarks />,
         },
         {
-          label: 'Recommended News',
+          label: tAdmin('recommendedNews'),
           link: '/news/recommended',
           icon: <TbThumbUp />,
         },
       ],
     },
     {
-      label: 'Timelines',
+      label: tAdmin('timelines'),
       icon: <TbTimeline />,
       link: '#',
       submenu: [
         {
-          label: 'Timelines',
+          label: tAdmin('timelines'),
           link: '/timelines',
           icon: <GiHumanPyramid />,
         },
         {
-          label: 'Bookmarked Tweets',
+          label: tAdmin('bookmarkedTweets'),
           link: '/timelines/bookmarks',
           icon: <TbBookmarks />,
         },
         {
-          label: 'Recommended Tweets',
+          label: tAdmin('recommendedTweets'),
           link: '/timelines/recommended',
           icon: <TbThumbUp />,
         },
       ],
     },
     {
-      label: 'Caps Maker',
+      label: tAdmin('capsMaker'),
       link: '/caps-maker',
       icon: <BiLandscape />,
       visible: isEditor || isAdmin,
     },
 
     {
-      label: 'Blogs',
+      label: tAdmin('blogs'),
       icon: <TbWriting />,
       link: '/blogs',
       visible: !!Boolean || !!isAdmin,
     },
     {
-      label: 'Accounts',
+      label: tAdmin('accounts'),
       link: '/accounts',
       icon: <MdOutlineSupervisorAccount />,
       visible: isAdmin,
     },
     {
-      label: 'Competitions',
+      label: tAdmin('competitions'),
       link: '/competitions',
       icon: <BsCommand />,
       visible: isEditor || isAdmin,
-    },
-    {
-      label: 'Feedbacks',
-      icon: <VscFeedback />,
-      link: '#',
-      visible: isEditor || isAdmin,
-      submenu: [
-        {
-          label: 'Foundation',
-          link: '/feedbacks/foundation',
-          icon: <GoChevronRight />,
-        },
-        {
-          label: 'Kunsthalte',
-          link: '/feedbacks/kunsthalte',
-          icon: <GoChevronRight />,
-        },
-        {
-          label: 'Samenvvv',
-          link: '/feedbacks/samenvvv',
-          icon: <GoChevronRight />,
-        },
-        {
-          label: 'Admin',
-          link: '/feedbacks/admin',
-          icon: <GoChevronRight />,
-        },
-      ],
     },
   ]
 }
@@ -233,7 +206,7 @@ type AdminNAvProps = {
 }
 
 export const AdminNav: FC<AdminNAvProps> = memo(({ user, expanded }) => {
-  const navItems = getAdminNav(user)
+  const navItems = useAdminNav(user)
 
   return (
     <Stack spacing={0}>

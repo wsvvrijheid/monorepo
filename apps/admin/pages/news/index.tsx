@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import { FC, useCallback, useEffect, useState } from 'react'
 
 import {
   IconButton,
@@ -14,11 +14,18 @@ import { useTopic, useTopicSync } from '@wsvvrijheid/services'
 import { TopicBase } from '@wsvvrijheid/types'
 import { AdminLayout, PageHeader, TopicCard } from '@wsvvrijheid/ui'
 import { addHours, formatDistanceToNow, isPast } from 'date-fns'
+import { InferGetStaticPropsType } from 'next'
 import { useRouter } from 'next/router'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { NextSeoProps } from 'next-seo'
 import { AiOutlineClear } from 'react-icons/ai'
 import { FaArrowDown, FaArrowUp, FaSyncAlt } from 'react-icons/fa'
 
-const NewsPage = () => {
+import i18nConfig from '../../next-i18next.config'
+
+type PageProps = InferGetStaticPropsType<typeof getStaticProps>
+
+const NewsPage: FC<PageProps> = ({ seo }) => {
   const { data } = useTopic()
   const syncTopic = useTopicSync()
   const [sources, setSources] = useState<string[]>([])
@@ -115,7 +122,7 @@ const NewsPage = () => {
   }
 
   return (
-    <AdminLayout title="News">
+    <AdminLayout seo={seo}>
       <PageHeader
         searchPlaceHolder="Search news"
         onSearch={setSearchTerm}
@@ -165,6 +172,31 @@ const NewsPage = () => {
       </SimpleGrid>
     </AdminLayout>
   )
+}
+
+export const getStaticProps = async context => {
+  const { locale } = context
+
+  const title = {
+    en: 'News',
+    tr: 'Haberler',
+    nl: 'Nieuws',
+  }
+
+  const seo: NextSeoProps = {
+    title: title[locale],
+  }
+
+  return {
+    props: {
+      seo,
+      ...(await serverSideTranslations(
+        locale,
+        ['common', 'admin'],
+        i18nConfig,
+      )),
+    },
+  }
 }
 
 export default NewsPage

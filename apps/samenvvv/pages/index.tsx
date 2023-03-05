@@ -46,7 +46,7 @@ const Home: FC<HomeProps> = ({ seo, link, hashtags }) => {
             <Heading size="xl" color="white">
               {t('home.post-maker.title')}
             </Heading>
-            <Text fontSize="xl" fontWeight="normal" maxWidth="2xl">
+            <Text fontSize="xl" fontWeight={400} maxWidth="2xl">
               {t('home.post-maker.content')}
             </Text>
 
@@ -54,7 +54,7 @@ const Home: FC<HomeProps> = ({ seo, link, hashtags }) => {
               as={Navigate}
               href={link || '/'}
               size={'lg'}
-              fontWeight="semibold"
+              fontWeight={600}
               variant="solid"
               colorScheme="primary"
               bg="white"

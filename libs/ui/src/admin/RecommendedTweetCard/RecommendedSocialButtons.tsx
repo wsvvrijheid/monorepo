@@ -8,7 +8,6 @@ import {
   PopoverBody,
   PopoverContent,
   PopoverTrigger,
-  Tooltip,
 } from '@chakra-ui/react'
 import { API_URL } from '@wsvvrijheid/config'
 import { useDeleteModel } from '@wsvvrijheid/services'
@@ -103,6 +102,7 @@ export const RecommendedSocialButtons: FC<RecommendedSocialButtonsProps> = ({
               title="Share"
               isVertical={isVertical}
               variant="ghost"
+              size="sm"
             />
           </Box>
         </PopoverTrigger>
@@ -114,37 +114,36 @@ export const RecommendedSocialButtons: FC<RecommendedSocialButtonsProps> = ({
               url="https://twitter.com"
               // url={tweet?.originalTweet?.media?.url}
               quote={quoteTweet}
+              size="sm"
             />
           </PopoverBody>
         </PopoverContent>
       </Popover>
-      <Tooltip label="Create post" hasArrow bg="primary.400">
-        <ModelCreateModal
-          title="Create Post"
-          url="api/posts"
-          schema={postSchema}
-          fields={postFields}
-          model={postContent}
-          buttonProps={{
-            iconSpacing: isVertical ? 0 : 2,
-            variant: 'ghost',
-            colorScheme: 'gray',
-          }}
-        >
-          {!isVertical && 'Create Post'}
-        </ModelCreateModal>
-      </Tooltip>
-      <Tooltip label="Delete tweet" hasArrow bg="primary.400">
-        <Box>
-          <ActionButton
-            onClick={onDelete}
-            icon={<AiFillDelete color={'red'} />}
-            title="Delete"
-            isVertical={isVertical}
-            variant="ghost"
-          />
-        </Box>
-      </Tooltip>
+
+      <ModelCreateModal
+        title="Create Post"
+        url="api/posts"
+        schema={postSchema}
+        fields={postFields}
+        model={postContent}
+        buttonProps={{
+          iconSpacing: isVertical ? 0 : 2,
+          variant: 'ghost',
+          colorScheme: 'gray',
+          size: 'sm',
+        }}
+      >
+        {!isVertical && 'Create Post'}
+      </ModelCreateModal>
+
+      <ActionButton
+        onClick={onDelete}
+        icon={<AiFillDelete color={'red'} />}
+        title="Delete"
+        isVertical={isVertical}
+        variant="ghost"
+        size="sm"
+      />
     </HStack>
   )
 }

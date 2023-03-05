@@ -60,6 +60,7 @@ export const SearchForm: React.FC<SearchFormProps> = ({
       <InputLeftElement pointerEvents="none" color="gray.400">
         <HiOutlineSearch />
       </InputLeftElement>
+
       <Input
         placeholder={placeholder}
         value={searchTerm}

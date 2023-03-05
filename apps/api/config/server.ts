@@ -1,4 +1,4 @@
-import cronTasks from './env/production/cron-tasks';
+import cronTasks from './env/production/cron-tasks'
 
 export default ({ env }) => ({
   host: env('HOST', '0.0.0.0'),
@@ -8,7 +8,7 @@ export default ({ env }) => ({
     keys: env.array('APP_KEYS'),
   },
   cron: {
-    enabled: env.ENABLE_LOCAL_CRON === 'true',
+    enabled: env('ENABLE_LOCAL_CRON') === 'true',
     tasks: cronTasks,
   },
-});
+})

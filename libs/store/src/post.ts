@@ -10,11 +10,11 @@ const TWITTER_CHAR_LIMIT = 280
 const TWITTER_LINK_CHAR_COUNT = 23 + 2 // 2 chars is because of the library leaves spaces before/after the link
 const availableCount = TWITTER_CHAR_LIMIT - TWITTER_LINK_CHAR_COUNT
 
-const searchedMentionsStorage: UserV1[] =
-  typeof window !== 'undefined' &&
-  localStorage.getItem(LOCAL_STORAGE_MENTIONS_KEY)
-    ? JSON.parse(localStorage.getItem(LOCAL_STORAGE_MENTIONS_KEY) as string)
-    : []
+const searchedMentionsStorage: UserV1[] = []
+// typeof window !== 'undefined' &&
+// localStorage.getItem(LOCAL_STORAGE_MENTIONS_KEY)
+//   ? JSON.parse(localStorage.getItem(LOCAL_STORAGE_MENTIONS_KEY) as string)
+//   : []
 
 export const updatePostContent = (state: PostState): void => {
   const mentionsStr = state.mentionUsernames.filter(a => !!a).join('\n')

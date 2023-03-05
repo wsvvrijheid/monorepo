@@ -52,7 +52,7 @@ export const WConfirm: FC<WConfirmProps> = (props: WConfirmProps) => {
     <AlertDialog leastDestructiveRef={cancelRef} {...disclosure}>
       <AlertDialogOverlay>
         <AlertDialogContent>
-          <AlertDialogHeader fontSize="lg" fontWeight="bold">
+          <AlertDialogHeader fontSize="lg" fontWeight={700}>
             {title}
           </AlertDialogHeader>
 

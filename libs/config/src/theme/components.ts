@@ -1,6 +1,7 @@
 export const components = {
   Heading: {
     baseStyle: {
+      fontFamily: 'heading',
       color: 'primary.500',
       fontWeight: 'bold',
     },

@@ -5,7 +5,7 @@
  */
 
 import { factories } from '@strapi/strapi'
-import { RecommendedTopic } from '../../../libs/topics/utils/types'
+import { RecommendedTopic } from '../../../libs'
 
 export default factories.createCoreController(
   'api::recommended-topic.recommended-topic',

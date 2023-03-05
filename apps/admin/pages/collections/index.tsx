@@ -1,20 +1,24 @@
-import { useState } from 'react'
+import { FC, useState } from 'react'
 
 import { useSearchModel } from '@wsvvrijheid/services'
 import { Collection, Sort, StrapiLocale } from '@wsvvrijheid/types'
 import {
   AdminLayout,
   collectionColumns,
-  collectionFields,
-  collectionSchema,
   DataTable,
-  ModelCreateModal,
   PageHeader,
 } from '@wsvvrijheid/ui'
+import { InferGetStaticPropsType } from 'next'
 import { useRouter } from 'next/router'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { NextSeoProps } from 'next-seo'
 import { useUpdateEffect } from 'react-use'
 
-const CollectionsPage = () => {
+import i18nConfig from '../../next-i18next.config'
+
+type PageProps = InferGetStaticPropsType<typeof getStaticProps>
+
+const CollectionsPage: FC<PageProps> = ({ seo }) => {
   const [sort, setSort] = useState<Sort>()
   const [currentPage, setCurrentPage] = useState<number>()
   const [searchTerm, setSearchTerm] = useState<string>()
@@ -49,19 +53,8 @@ const CollectionsPage = () => {
   }
 
   return (
-    <AdminLayout title="Collections">
-      <PageHeader onSearch={handleSearch}>
-        <ModelCreateModal<Collection>
-          title="Create Collection"
-          url="api/collections"
-          schema={collectionSchema}
-          fields={collectionFields}
-          onSuccess={collectionsQuery.refetch}
-          buttonProps={{ mb: 4 }}
-        >
-          New Collection
-        </ModelCreateModal>
-      </PageHeader>
+    <AdminLayout seo={seo}>
+      <PageHeader onSearch={handleSearch} />
 
       <DataTable
         columns={collectionColumns}
@@ -74,6 +67,31 @@ const CollectionsPage = () => {
       />
     </AdminLayout>
   )
+}
+
+export const getStaticProps = async context => {
+  const { locale } = context
+
+  const title = {
+    en: 'Collections',
+    tr: 'Koleksiyonlar',
+    nl: 'Collecties',
+  }
+
+  const seo: NextSeoProps = {
+    title: title[locale],
+  }
+
+  return {
+    props: {
+      seo,
+      ...(await serverSideTranslations(
+        locale,
+        ['common', 'admin'],
+        i18nConfig,
+      )),
+    },
+  }
 }
 
 export default CollectionsPage
