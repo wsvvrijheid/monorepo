@@ -6,7 +6,7 @@ import {
   useSearchModel,
 } from '@wsvvrijheid/services'
 import { Hashtag, StrapiLocale } from '@wsvvrijheid/types'
-import { Container, Hero, Markdown, useAnnoucementData } from '@wsvvrijheid/ui'
+import { Container, Hero, Markdown } from '@wsvvrijheid/ui'
 import { getItemLink } from '@wsvvrijheid/utils'
 import { isPast } from 'date-fns'
 import { GetStaticProps } from 'next'
@@ -20,7 +20,6 @@ import { useTranslation } from 'react-i18next'
 import i18nConfig from '..//next-i18next.config'
 import { Layout } from '../components'
 import { HashtagAnnouncement } from '../components/HashtagAnnouncement' //TODO fix import style
-
 interface HashtagEventsProps {
   hashtags: Hashtag[]
   seo: NextSeoProps
@@ -40,10 +39,6 @@ const HashtagEvents = ({ seo, source }: HashtagEventsProps) => {
   const link = getItemLink(latestHashtag, latestHashtag?.locale, 'hashtag')
 
   const hashtag = hashtagsQuery?.data?.data?.[0]
-  const hashtagAnounscement = useAnnoucementData(
-    hashtag,
-    locale as StrapiLocale,
-  )
 
   const hasStarted = isPast(new Date(hashtag?.date as string))
 
@@ -58,13 +53,8 @@ const HashtagEvents = ({ seo, source }: HashtagEventsProps) => {
         )}
         {!hasStarted ? (
           <HashtagAnnouncement
-            title={hashtagAnounscement?.title}
-            description={hashtagAnounscement?.description}
-            date={hashtagAnounscement?.date}
-            defaultCaps={hashtagAnounscement?.defaultCaps}
-            hashtag={hashtagAnounscement?.hashtag}
-            content={hashtagAnounscement?.content}
-            join={hashtagAnounscement?.join}
+            hashtag={hashtag}
+            defaultCaps={{ url: '' }}
             link={link}
           />
         ) : (
@@ -75,7 +65,7 @@ const HashtagEvents = ({ seo, source }: HashtagEventsProps) => {
             </Text>
             <Link href={link}>
               <Text fontWeight={'bold'} color={'primary'} m={4}>
-                {hashtagAnounscement?.join}
+                {t('join-previous-hashtag')}
               </Text>
             </Link>
           </>

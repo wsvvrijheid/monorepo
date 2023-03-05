@@ -8,29 +8,30 @@ import {
   VStack,
 } from '@chakra-ui/react'
 import { ShareButtons, useLocaleTimeFormat } from '@wsvvrijheid/ui'
-import { addHours, format } from 'date-fns'
+import { formatInTimeZone } from 'date-fns-tz'
+import { useTranslation } from 'next-i18next'
 import { GrAnnounce } from 'react-icons/gr'
 
 import { HashtagAnnouncementProps } from './types'
 
 export const HashtagAnnouncement = ({
-  title,
-  description,
-  date,
-  defaultCaps,
   hashtag,
-  content,
-  join,
+  defaultCaps,
   link,
 }: HashtagAnnouncementProps) => {
-  const { formattedDate } = useLocaleTimeFormat(date?.value, 'dd MMMM yyyy')
+  const { t } = useTranslation()
+  const { formattedDate } = useLocaleTimeFormat(hashtag?.date, 'dd MMMM yyyy')
   const { formattedDate: formatedHour } = useLocaleTimeFormat(
-    date?.value,
+    hashtag?.date,
     'HH:mm',
   )
-  const TurkeyHour = date?.value
-    ? format(addHours(new Date(date?.value as string), 2), 'HH:mm')
+
+  const newDate = new Date(hashtag?.date as string)
+
+  const turkeyHour = hashtag?.date
+    ? formatInTimeZone(newDate, 'Europe/Istanbul', 'HH:mm')
     : undefined
+
   return (
     <Stack spacing={4} mb={8} mt={8} ml={8}>
       <Center>
@@ -41,46 +42,44 @@ export const HashtagAnnouncement = ({
             leftIcon={<GrAnnounce />}
             rightIcon={<GrAnnounce />}
           >
-            <Text>{title}</Text>
+            <Text>{t('announcement.title')}</Text>
           </Button>
         </HStack>
       </Center>
       <VStack alignItems={'start'} p={4}>
         <HStack>
-          <Text fontWeight={'bold'}>{description?.name}</Text>
-          <Text> {description?.value}</Text>
+          <Text fontWeight={'bold'}>{t('announcement.topic')}</Text>
+          <Text> {hashtag?.description}</Text>
         </HStack>
 
         <HStack>
           <VStack alignItems={'start'}>
             <HStack>
-              <Text fontWeight={'bold'}>{date?.name} </Text>
+              <Text fontWeight={'bold'}>{t('announcement.date')}</Text>
               <Text>{formattedDate}</Text>
             </HStack>
             <VStack p={4}>
               <Text>🇳🇱 {formatedHour}</Text>
-              <Text>🇹🇷 {TurkeyHour}</Text>
+              <Text>🇹🇷 {turkeyHour}</Text>
             </VStack>
           </VStack>
         </HStack>
-        <HStack>
-          <Text fontWeight={'bold'}>{hashtag?.name} </Text>
-          <Text>{hashtag?.value}</Text>
-        </HStack>
-
-        <Text>{content}</Text>
+        <Text>{hashtag?.content}</Text>
         <Link href={link}>
           <Text fontWeight={'bold'} color={'primary'} m={4}>
-            {join}
+            {t('join-link')}
           </Text>
         </Link>
         <ShareButtons
-          title={`📢${title}📢`}
+          title={`📢${t('announcement.title')}📢`}
           url={defaultCaps?.url}
           //TODO create caps for announcement
           quote={
-            `${description?.name} ${description?.value}\n\n${date?.name} ${formattedDate}\n\n 🇳🇱 ${formatedHour} \n 🇹🇷  ${TurkeyHour} \n\n${content} \n` ||
-            ''
+            `${t('announcement.topic')} ${hashtag?.description}\n\n${t(
+              'announcement.date',
+            )} ${formattedDate}\n\n 🇳🇱 ${formatedHour} \n 🇹🇷  ${turkeyHour} \n\n${
+              hashtag?.content
+            } \n` || ''
           }
         />
       </VStack>

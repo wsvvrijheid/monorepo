@@ -3,11 +3,10 @@ import { FC } from 'react'
 import { Box, Button, Heading, Stack, Text } from '@chakra-ui/react'
 import { searchModel } from '@wsvvrijheid/services'
 import { Hashtag, StrapiLocale } from '@wsvvrijheid/types'
-import { Navigate, Container, useAnnoucementData } from '@wsvvrijheid/ui'
+import { Navigate, Container } from '@wsvvrijheid/ui'
 import { getItemLink } from '@wsvvrijheid/utils'
 import { isPast } from 'date-fns'
 import { GetStaticProps } from 'next'
-import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
@@ -24,14 +23,9 @@ interface HomeProps {
 
 const Home: FC<HomeProps> = ({ seo, link, hashtags }) => {
   const { t } = useTranslation()
-  const { locale } = useRouter()
 
   const hashtag = hashtags?.[0]
   const hasStarted = isPast(new Date(hashtag?.date as string))
-  const hashtagAnounscement = useAnnoucementData(
-    hashtag,
-    locale as StrapiLocale,
-  )
 
   return (
     <Layout seo={seo} isDark hasScroll>
@@ -84,12 +78,8 @@ const Home: FC<HomeProps> = ({ seo, link, hashtags }) => {
         >
           {!hasStarted && (
             <HashtagAnnouncement
-              title={hashtagAnounscement?.title}
-              description={hashtagAnounscement?.description}
-              date={hashtagAnounscement?.date}
-              defaultCaps={hashtagAnounscement?.defaultCaps}
-              hashtag={hashtagAnounscement?.hashtag}
-              content={hashtagAnounscement?.content}
+              defaultCaps={{ url: '' }}
+              hashtag={hashtag}
               link={link}
             />
           )}
