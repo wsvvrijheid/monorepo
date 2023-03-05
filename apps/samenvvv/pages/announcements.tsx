@@ -39,17 +39,13 @@ const HashtagEvents = ({ seo, source }: HashtagEventsProps) => {
   const latestHashtag = hashtagsQuery?.data?.data?.[0] || null
   const link = getItemLink(latestHashtag, latestHashtag?.locale, 'hashtag')
 
-  const hashtag = hashtagsQuery?.data?.data?.[0] //get newest hashtag here
-
+  const hashtag = hashtagsQuery?.data?.data?.[0]
   const hashtagAnounscement = useAnnoucementData(
     hashtag,
     locale as StrapiLocale,
   )
 
-  // const hasPassed = isPast(addDays(new Date(hashtag?.date as string), 1))
   const hasStarted = isPast(new Date(hashtag?.date as string))
-  //const today = new Date()
-  //format(new Date(hashtag?.date as string), 'dd MMMM yyyy')
 
   return (
     <Layout seo={seo} isDark>
