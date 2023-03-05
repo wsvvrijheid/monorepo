@@ -35,7 +35,12 @@ const MainHashtagPage: FC<PageProps> = ({ seo }) => {
   })
 
   return (
-    <AdminLayout seo={seo} isLoading={isLoading} hasBackButton>
+    <AdminLayout
+      seo={seo}
+      isLoading={isLoading}
+      hasBackButton
+      slug={'hashtags'}
+    >
       <PageHeader>
         <FormLocaleSwitcher models={hashtag?.localizations} slug={'hashtags'} />
       </PageHeader>
