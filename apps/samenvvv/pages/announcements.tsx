@@ -70,7 +70,7 @@ const HashtagEvents = ({ seo, source }: HashtagEventsProps) => {
         ) : (
           <>
             {' '}
-            <Text fontWeight={'bold'} color={'primary'} m={4}>
+            <Text color={'primary'} m={4}>
               {t('join-previous-hashtag')}
             </Text>
             <Link href={link}>
