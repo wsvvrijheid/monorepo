@@ -1,11 +1,11 @@
-import syncTopics from '../../../libs/topics';
+import { syncNews } from '../../../libs'
 
-const { createCoreService } = require('@strapi/strapi').factories;
+const { createCoreService } = require('@strapi/strapi').factories
 
 export default createCoreService('api::topic.topic', ({ strapi }) => ({
   async sync(...args: any[]) {
-    let response = await syncTopics({ strapi });
+    const response = await syncNews({ strapi })
 
-    return response;
+    return response
   },
-}));
+}))

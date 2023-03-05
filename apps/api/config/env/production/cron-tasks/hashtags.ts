@@ -1,4 +1,4 @@
-import { twitterApi } from '../../../../src/libs/twitter/client'
+import { twitterApi } from '../../../../src/libs'
 
 export default async ({ strapi }) => {
   const date = new Date(

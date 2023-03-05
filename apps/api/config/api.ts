@@ -4,4 +4,4 @@ export default {
     maxLimit: 100,
     withCount: true,
   },
-};
+}

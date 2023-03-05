@@ -26,13 +26,13 @@ export type ActivityCreateInput = Expand<
     ActivityBase,
     'approvalStatus'
   > &
-    ActivityRelationInput & { token: string }
+    ActivityRelationInput
 >
 export type ActivityUpdateInput = Expand<
   { publishedAt?: Date | string | null } & Partial<
     Omit<ActivityBase, 'locale'>
   > &
-    Omit<ActivityRelationInput, 'image'> & { image?: File } & { token: string }
+    Omit<ActivityRelationInput, 'image'> & { image?: File }
 >
 export type ActivityLocalizeInput = Pick<
   ActivityBase,

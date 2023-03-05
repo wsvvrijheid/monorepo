@@ -1,5 +1,5 @@
 import { Context } from 'koa'
-import { getReferenceModel } from '../../../utils/reference'
+import { getReferenceModel } from '../../../utils'
 
 export default {
   async approve(ctx: Context) {

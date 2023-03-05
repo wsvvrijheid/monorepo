@@ -1,3 +1,5 @@
+import { FC } from 'react'
+
 import { Box } from '@chakra-ui/react'
 import { useModelById } from '@wsvvrijheid/services'
 import { Hashtag } from '@wsvvrijheid/types'
@@ -9,9 +11,16 @@ import {
   PageHeader,
   FormLocaleSwitcher,
 } from '@wsvvrijheid/ui'
+import { InferGetServerSidePropsType } from 'next'
 import { useRouter } from 'next/router'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { NextSeoProps } from 'next-seo'
 
-const MainHashtagPage = () => {
+import i18nConfig from '../../next-i18next.config'
+
+type PageProps = InferGetServerSidePropsType<typeof getServerSideProps>
+
+const MainHashtagPage: FC<PageProps> = ({ seo }) => {
   const router = useRouter()
   const { query } = router
 
@@ -26,8 +35,8 @@ const MainHashtagPage = () => {
   })
 
   return (
-    <AdminLayout title="Hashtag" isLoading={isLoading} hasBackButton>
-      <PageHeader hideLocaleSwitcher>
+    <AdminLayout seo={seo} isLoading={isLoading} hasBackButton>
+      <PageHeader>
         <FormLocaleSwitcher models={hashtag?.localizations} slug={'hashtags'} />
       </PageHeader>
       <Box p={6} rounded="md" bg="white" shadow="md">
@@ -44,6 +53,31 @@ const MainHashtagPage = () => {
       </Box>
     </AdminLayout>
   )
+}
+
+export const getServerSideProps = async context => {
+  const { locale } = context
+
+  const title = {
+    en: 'Hashtag Translate',
+    tr: 'Hashtag Çeviri',
+    nl: 'Hashtag Vertalen',
+  }
+
+  const seo: NextSeoProps = {
+    title: title[locale],
+  }
+
+  return {
+    props: {
+      seo,
+      ...(await serverSideTranslations(
+        locale,
+        ['common', 'admin'],
+        i18nConfig,
+      )),
+    },
+  }
 }
 
 export default MainHashtagPage

@@ -1,7 +1,7 @@
-import { parse } from 'pg-connection-string';
+import { parse } from 'pg-connection-string'
 
 export default ({ env }) => {
-  const { host, user, password = '', database } = parse(env('DATABASE_URL'));
+  const { host, user, password = '', database } = parse(env('DATABASE_URL'))
 
   return {
     connection: {
@@ -26,5 +26,5 @@ export default ({ env }) => {
       },
       debug: false,
     },
-  };
-};
+  }
+}

@@ -29,7 +29,7 @@ export const ArtsTable: FC<ArtsTableProps> = ({
   onSort,
   setCurrentPage,
 }) => {
-  const { user, token } = useAuthSelector()
+  const { user } = useAuthSelector()
   const approvalDisclosure = useDisclosure()
 
   const [selectedIndex, setSelectedIndex] = useState<number>()
@@ -63,7 +63,6 @@ export const ArtsTable: FC<ArtsTableProps> = ({
         feedbackMutation.mutate(
           {
             art,
-            token: token as string,
             message,
             status: 'rejected',
             point: 10,
@@ -83,7 +82,6 @@ export const ArtsTable: FC<ArtsTableProps> = ({
         feedbackMutation.mutate(
           {
             art,
-            token: token as string,
             message,
             status: 'approved',
             point: 10,

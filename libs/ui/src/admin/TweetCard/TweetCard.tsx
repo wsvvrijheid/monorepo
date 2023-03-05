@@ -5,6 +5,7 @@ import {
   Box,
   HStack,
   IconButton,
+  Link,
   Menu,
   MenuButton,
   MenuItem,
@@ -14,14 +15,25 @@ import {
   useDisclosure,
 } from '@chakra-ui/react'
 import { useRecommendTweet } from '@wsvvrijheid/services'
-import { useAuthSelector } from '@wsvvrijheid/store'
-import { RecommendedTweetCreateInput, Tweet } from '@wsvvrijheid/types'
-import { BsBookmarkPlus, BsThreeDots } from 'react-icons/bs'
-import { RiEditLine } from 'react-icons/ri'
+import { Post, RecommendedTweetCreateInput, Tweet } from '@wsvvrijheid/types'
+import { formatDistanceToNow } from 'date-fns'
+import { BsThreeDots } from 'react-icons/bs'
+import {
+  TbBookmark,
+  TbBrandTwitter,
+  TbChartBar,
+  TbClock,
+  TbHeart,
+  TbMessageCircle,
+  TbRefresh,
+  TbThumbUp,
+} from 'react-icons/tb'
 import { useLocalStorage } from 'usehooks-ts'
 
 import { TweetCardProps } from './types'
 import { CreateTweetForm } from '../../components'
+import { postFields, postSchema } from '../../data'
+import { ModelCreateModal } from '../ModelForm'
 import { TweetContent } from '../TweetContent'
 
 export const TweetCard: FC<TweetCardProps> = ({
@@ -38,11 +50,16 @@ export const TweetCard: FC<TweetCardProps> = ({
     [],
   )
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const { token } = useAuthSelector()
 
   const isBookmarked = storageTweets?.some(t => t.id === tweet.id)
 
   const { mutateAsync } = useRecommendTweet()
+
+  const newPost = {
+    description: tweet.text,
+    content: tweet.text,
+    image: { url: tweet?.image },
+  } as Post
 
   const handleBookmark = () => {
     if (isBookmarked) {
@@ -68,7 +85,6 @@ export const TweetCard: FC<TweetCardProps> = ({
       image,
       text,
       mentions,
-      token: token as string,
     }
 
     await mutateAsync(recommendedTweet)
@@ -86,16 +102,10 @@ export const TweetCard: FC<TweetCardProps> = ({
           isNews={false}
         />
       )}
-      <HStack
-        spacing={4}
-        align={'start'}
-        bg={'white'}
-        rounded={'md'}
-        p={4}
-        {...rest}
-      >
+      <HStack align={'start'} bg={'white'} rounded={'md'} p={4} {...rest}>
         {tweet.user && (
           <Avatar
+            size={'sm'}
             flexShrink={0}
             name={tweet.user.name}
             src={tweet.user.profile}
@@ -107,11 +117,7 @@ export const TweetCard: FC<TweetCardProps> = ({
           <HStack justify={'space-between'} title={tweet.user?.username}>
             {tweet.user && (
               <Box lineHeight={1.15}>
-                <Text
-                  noOfLines={1}
-                  wordBreak={'break-all'}
-                  fontWeight={'bolder'}
-                >
+                <Text noOfLines={1} wordBreak={'break-all'} fontWeight={700}>
                   {tweet.user.name}
                 </Text>
                 <Text noOfLines={1} color={'gray.500'}>
@@ -121,7 +127,7 @@ export const TweetCard: FC<TweetCardProps> = ({
             )}
 
             {(bookmarkable || editable) && (
-              <Menu>
+              <Menu placement="bottom-end">
                 <MenuButton
                   size="sm"
                   rounded="full"
@@ -130,11 +136,30 @@ export const TweetCard: FC<TweetCardProps> = ({
                   variant="ghost"
                 />
                 <MenuList>
-                  <MenuItem icon={<RiEditLine />} onClick={handleEdit}>
-                    Edit
+                  <MenuItem icon={<TbThumbUp />} onClick={handleEdit}>
+                    Recommend
                   </MenuItem>
+                  <ModelCreateModal<Post>
+                    title="Create Post"
+                    url="api/posts"
+                    schema={postSchema}
+                    fields={postFields}
+                    model={newPost}
+                    buttonProps={{
+                      variant: 'ghost',
+                      w: 'full',
+                      justifyContent: 'start',
+                      colorScheme: 'gray',
+                      leftIcon: <Box fontSize={'sm'} as={TbBrandTwitter} />,
+                      rounded: 'none',
+                      fontWeight: 400,
+                      px: 3,
+                    }}
+                  >
+                    Create Post
+                  </ModelCreateModal>
                   <MenuItem
-                    icon={<BsBookmarkPlus color={isBookmarked ? 'red' : ''} />}
+                    icon={<TbBookmark color={isBookmarked ? 'red' : ''} />}
                     onClick={handleBookmark}
                   >
                     {isBookmarked ? 'Remove' : 'Save'} (Bookmark)
@@ -150,6 +175,62 @@ export const TweetCard: FC<TweetCardProps> = ({
             isChangingImage={isChangingImage}
             setIsChangingImage={setIsChangingImage}
           />
+          <HStack justify={'space-between'}>
+            {tweet.likes != null && (
+              <HStack
+                as={Link}
+                rel="noopener noreferrer"
+                target="_blank"
+                href={`https://twitter.com/intent/like?tweet_id=${tweet.id}`}
+              >
+                <TbHeart />
+                <Text fontSize={'sm'}>{tweet.likes}</Text>
+              </HStack>
+            )}
+            {tweet.retweets != null && (
+              <HStack
+                as={Link}
+                rel="noopener noreferrer"
+                target="_blank"
+                href={`https://twitter.com/intent/retweet?tweet_id=${tweet.id}`}
+              >
+                <TbRefresh />
+                <Text fontSize={'sm'}>{tweet.retweets}</Text>
+              </HStack>
+            )}
+            {tweet.replies != null && (
+              <HStack
+                as={Link}
+                rel="noopener noreferrer"
+                target="_blank"
+                href={`https://twitter.com/intent/tweet?in_reply_to=${tweet.id}`}
+              >
+                <TbMessageCircle />
+                <Text fontSize={'sm'}>{tweet.replies}</Text>
+              </HStack>
+            )}
+            {tweet.impressions != null && (
+              <HStack>
+                <TbChartBar />
+                <Text fontSize={'sm'}>{tweet.impressions}</Text>
+              </HStack>
+            )}
+            {tweet.createdAt && (
+              <HStack>
+                <TbClock />
+                <Text
+                  noOfLines={1}
+                  fontSize={'sm'}
+                  color={'gray.500'}
+                  textAlign={'right'}
+                >
+                  {formatDistanceToNow(new Date(tweet.createdAt as string), {
+                    addSuffix: true,
+                  })}
+                </Text>
+              </HStack>
+            )}
+          </HStack>
         </Stack>
       </HStack>
     </>

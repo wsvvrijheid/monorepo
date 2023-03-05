@@ -103,7 +103,7 @@ export const AdminLoginForm = () => {
               src={`${API_URL}/uploads/wsvvrijheid_051c420ab0.svg`}
             />
 
-            <Text fontSize="xl" color={'blue.500'} fontWeight="bold">
+            <Text fontSize="xl" color={'blue.500'} fontWeight={700}>
               WEES DE STEM <br />
               VOOR VRIJHEID
             </Text>

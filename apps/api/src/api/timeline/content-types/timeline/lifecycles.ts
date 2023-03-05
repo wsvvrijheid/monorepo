@@ -1,5 +1,4 @@
-import { twitterApi } from '../../../../libs/twitter/client'
-import { getUserTweets } from '../../../../libs/twitter/getUserTweets'
+import { getUserTweets, twitterApi } from '../../../../libs'
 
 export default {
   async afterCreate({ result }) {

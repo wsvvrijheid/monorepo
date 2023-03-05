@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { FC, useEffect, useMemo, useState } from 'react'
 
 import { MenuItemOption, MenuOptionGroup } from '@chakra-ui/react'
 import { useSearchModel } from '@wsvvrijheid/services'
@@ -15,10 +15,17 @@ import {
   PageHeader,
   postColumns,
 } from '@wsvvrijheid/ui'
+import { InferGetStaticPropsType } from 'next'
 import { useRouter } from 'next/router'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { NextSeoProps } from 'next-seo'
 import { useUpdateEffect } from 'react-use'
 
-const PostsTranslatesPage = () => {
+import i18nConfig from '../../../next-i18next.config'
+
+type PageProps = InferGetStaticPropsType<typeof getStaticProps>
+
+const PostsTranslatesPage: FC<PageProps> = ({ seo }) => {
   const { query } = useRouter()
   const [currentPage, setCurrentPage] = useState<number>()
   const status = query.status as ApprovalStatus
@@ -92,7 +99,7 @@ const PostsTranslatesPage = () => {
   }
 
   return (
-    <AdminLayout title={`Translated Posts`}>
+    <AdminLayout seo={seo}>
       <PageHeader
         filterMenu={filterMenu}
         filterMenuCloseOnSelect={false}
@@ -111,6 +118,31 @@ const PostsTranslatesPage = () => {
       />
     </AdminLayout>
   )
+}
+
+export const getStaticProps = async context => {
+  const { locale } = context
+
+  const title = {
+    en: 'Posts',
+    tr: 'Postlar',
+    nl: 'Posts',
+  }
+
+  const seo: NextSeoProps = {
+    title: title[locale],
+  }
+
+  return {
+    props: {
+      seo,
+      ...(await serverSideTranslations(
+        locale,
+        ['common', 'admin'],
+        i18nConfig,
+      )),
+    },
+  }
 }
 
 export default PostsTranslatesPage

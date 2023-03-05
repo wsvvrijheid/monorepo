@@ -1,7 +1,7 @@
 import { scrapTopics } from '../utils/scrapTopics'
 import { FormatTopic, Publisher, Locale, PageSelectors } from '../utils/types'
 
-const getKanttekeningNews = async () => {
+export const getKanttekeningNews = async () => {
   const url = new URL('https://dekanttekening.nl')
 
   const selectors: PageSelectors = {
@@ -23,5 +23,3 @@ const getKanttekeningNews = async () => {
     formatTopic,
   })
 }
-
-export default getKanttekeningNews

@@ -1,22 +1,33 @@
-import { useCallback } from 'react'
+import { FC, useCallback } from 'react'
 
 import {
   Box,
-  IconButton,
+  Button,
   Menu,
   MenuButton,
   MenuItem,
   MenuList,
+  Text,
 } from '@chakra-ui/react'
 import { StrapiLocale } from '@wsvvrijheid/types'
 import { useRouter } from 'next/router'
 
 import { Flags } from '../../components'
 
-export const LanguageSwitcher = () => {
+type LanguageSwitcherProps = {
+  responsive?: boolean
+}
+
+export const LanguageSwitcher: FC<LanguageSwitcherProps> = ({ responsive }) => {
   const router = useRouter()
 
   const CurrentFlag = Flags[router.locale as StrapiLocale]
+
+  const currentLanguage = {
+    en: 'English',
+    nl: 'Nederlands',
+    tr: 'Türkçe',
+  }
 
   const LanguageNames: Record<StrapiLocale, string> = {
     en: 'English',
@@ -36,11 +47,23 @@ export const LanguageSwitcher = () => {
   return (
     <Menu>
       <MenuButton
-        as={IconButton}
-        variant="ghost"
+        as={Button}
+        variant="outline"
         rounded="full"
-        icon={<Box boxSize={8} as={CurrentFlag} />}
-      />
+        leftIcon={<Box boxSize={6} as={CurrentFlag} />}
+        {...(responsive && {
+          iconSpacing: { base: 0, lg: 2 },
+          px: { base: 2, lg: 4 },
+        })}
+      >
+        <Text
+          {...(responsive && {
+            display: { base: 'none', lg: 'block' },
+          })}
+        >
+          {currentLanguage[router.locale as StrapiLocale]}
+        </Text>
+      </MenuButton>
       <MenuList>
         {Object.entries(Flags)
           .filter(([language]) => language !== (router.locale as StrapiLocale))

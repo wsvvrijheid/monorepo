@@ -35,7 +35,7 @@ export const ArtCreateSuccessAlert = forwardRef<
             bg="primary.500"
             color="white"
             fontSize="lg"
-            fontWeight="semibold"
+            fontWeight={600}
           >
             {t('art.create.success.title')}
           </AlertDialogHeader>
