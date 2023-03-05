@@ -75,11 +75,11 @@ export const HashtagAnnouncement = ({
           </Text>
         </Link>
         <ShareButtons
-          //  title={`📢${hashtagAnounscements.title}`}
+          title={`📢${title}📢`}
           url={defaultCaps?.url}
           //TODO create caps for announcement
           quote={
-            `📢${title}📢 \n\n ${description?.name} ${description?.value}\n\n${date?.name} ${formattedDate}\n\n 🇳🇱 ${formatedHour} \n 🇹🇷  ${TurkeyHour} \n\n${content} \n` ||
+            `${description?.name} ${description?.value}\n\n${date?.name} ${formattedDate}\n\n 🇳🇱 ${formatedHour} \n 🇹🇷  ${TurkeyHour} \n\n${content} \n` ||
             ''
           }
         />
