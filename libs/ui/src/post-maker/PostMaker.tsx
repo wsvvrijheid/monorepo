@@ -117,10 +117,20 @@ export const PostMaker = () => {
           lg: 'repeat(2,1fr)',
           xl: '300px 1fr 300px',
         }}
-        h={{ base: 'auto', lg: 640 }}
+        gridTemplateRows={{
+          base: 'auto',
+          lg: 'repeat(2, 1fr)',
+          xl: '1fr',
+        }}
+        h={{ base: 'auto', xl: 640 }}
         alignItems="stretch"
       >
-        <Box display={{ base: 'none', lg: 'block' }} h="inherit">
+        <Box
+          gridRowStart={1}
+          gridRowEnd={{ base: 3, xl: 1 }}
+          display={{ base: 'none', lg: 'block' }}
+          h="inherit"
+        >
           <MentionList />
           <TrendListTabs />
         </Box>
@@ -129,7 +139,7 @@ export const PostMaker = () => {
           sharedPosts={sharedPosts}
           posts={hashtag?.posts}
         />
-        <Box display={{ base: 'none', xl: 'block' }}>
+        <Box>
           <TweetWidget
             title={t('post.latest-tweets-label')}
             tweets={hashtag?.tweets}
