@@ -28,10 +28,9 @@ export const HashtagAnnouncement = ({
     date?.value,
     'HH:mm',
   )
-  const TurkeyHour = format(
-    addHours(new Date(date?.value as string), 2),
-    'HH:mm',
-  )
+  const TurkeyHour = date?.value
+    ? format(addHours(new Date(date?.value as string), 2), 'HH:mm')
+    : undefined
   return (
     <Stack spacing={4} mb={8} mt={8} ml={8}>
       <Center>
