@@ -14,6 +14,6 @@ export interface HashtagAnnouncementProps {
   }
   defaultCaps: { url: string }
   content: string
-  join: string
+  join?: string
   link: string
 }

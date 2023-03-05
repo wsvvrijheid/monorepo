@@ -15,6 +15,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { serialize } from 'next-mdx-remote/serialize'
 import { NextSeoProps } from 'next-seo'
+import { useTranslation } from 'react-i18next'
 
 import i18nConfig from '..//next-i18next.config'
 import { Layout } from '../components'
@@ -28,6 +29,7 @@ interface HashtagEventsProps {
 
 const HashtagEvents = ({ seo, source }: HashtagEventsProps) => {
   const { locale } = useRouter()
+  const { t } = useTranslation()
   const hashtagsQuery = useSearchModel<Hashtag>({
     url: 'api/hashtags',
     locale: locale as StrapiLocale,
@@ -70,11 +72,17 @@ const HashtagEvents = ({ seo, source }: HashtagEventsProps) => {
             link={link}
           />
         ) : (
-          <Link href={link}>
+          <>
+            {' '}
             <Text fontWeight={'bold'} color={'primary'} m={4}>
-              {hashtagAnounscement?.join}
+              {t('join-previous-hashtag')}
             </Text>
-          </Link>
+            <Link href={link}>
+              <Text fontWeight={'bold'} color={'primary'} m={4}>
+                {hashtagAnounscement?.join}
+              </Text>
+            </Link>
+          </>
         )}
       </Container>
     </Layout>
