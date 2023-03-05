@@ -7,7 +7,8 @@ import {
   Text,
   VStack,
 } from '@chakra-ui/react'
-import { FormattedDate, ShareButtons } from '@wsvvrijheid/ui'
+import { ShareButtons, useLocaleTimeFormat } from '@wsvvrijheid/ui'
+import { addHours, format } from 'date-fns'
 import { GrAnnounce } from 'react-icons/gr'
 
 import { HashtagAnnouncementProps } from './types'
@@ -22,12 +23,20 @@ export const HashtagAnnouncement = ({
   join,
   link,
 }: HashtagAnnouncementProps) => {
+  const { formattedDate } = useLocaleTimeFormat(date?.value, 'dd MMMM yyyy')
+  const { formattedDate: formatedHour } = useLocaleTimeFormat(
+    date?.value,
+    'HH:mm',
+  )
+  const TurkeyHour = format(
+    addHours(new Date(date?.value as string), 2),
+    'HH:mm',
+  )
   return (
     <Stack spacing={4} mb={8} mt={8} ml={8}>
       <Center>
         <HStack alignItems="center">
           <Button
-            // as={Icon}
             colorScheme={'primary'}
             aria-label="create"
             leftIcon={<GrAnnounce />}
@@ -47,22 +56,11 @@ export const HashtagAnnouncement = ({
           <VStack alignItems={'start'}>
             <HStack>
               <Text fontWeight={'bold'}>{date?.name} </Text>
-              <Text>
-                <FormattedDate
-                  date={date?.value as string}
-                  format="dd MMMM yyyy"
-                />
-              </Text>
+              <Text>{formattedDate}</Text>
             </HStack>
             <VStack p={4}>
-              <Text>
-                🇳🇱
-                <FormattedDate date={date?.value as string} format="hh:mm " />
-              </Text>
-              <Text>
-                🇹🇷
-                <FormattedDate date={date?.value as string} format="hh:mm " />
-              </Text>
+              <Text>🇳🇱 {formatedHour}</Text>
+              <Text>🇹🇷 {TurkeyHour}</Text>
             </VStack>
           </VStack>
         </HStack>
@@ -82,7 +80,7 @@ export const HashtagAnnouncement = ({
           url={defaultCaps?.url}
           //TODO create caps for announcement
           quote={
-            `📢${title}📢 \n\n ${description?.name} ${description?.value}\n\n${date?.name} ${date?.value}\n\n 🇹🇷 ${date?.value} \n 🇳🇱 ${date?.value} \n\n${content} \n` ||
+            `📢${title}📢 \n\n ${description?.name} ${description?.value}\n\n${date?.name} ${formattedDate}\n\n 🇳🇱 ${formatedHour} \n 🇹🇷  ${TurkeyHour} \n\n${content} \n` ||
             ''
           }
         />

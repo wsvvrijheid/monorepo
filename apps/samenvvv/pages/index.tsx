@@ -26,7 +26,7 @@ const Home: FC<HomeProps> = ({ seo, link, hashtags }) => {
   const { t } = useTranslation()
   const { locale } = useRouter()
 
-  const hashtag = hashtags?.[0] //get newest hashtag here
+  const hashtag = hashtags?.[0]
   const hasStarted = isPast(new Date(hashtag?.date as string))
   const hashtagAnounscement = useAnnoucementData(
     hashtag,
