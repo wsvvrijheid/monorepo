@@ -35,7 +35,12 @@ const ActivityPage: FC<PageProps> = ({ seo }) => {
   })
 
   return (
-    <AdminLayout seo={seo} isLoading={isLoading} hasBackButton>
+    <AdminLayout
+      seo={seo}
+      isLoading={isLoading}
+      hasBackButton
+      slug={'activities'}
+    >
       <PageHeader>
         <FormLocaleSwitcher
           models={activity?.localizations}
