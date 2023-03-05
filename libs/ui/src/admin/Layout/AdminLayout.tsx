@@ -31,7 +31,6 @@ export type AdminLayoutProps = {
   isLoading?: boolean
   hasBackButton?: boolean
   seo: NextSeoProps
-  slug?: string
 }
 
 export const AdminLayout: FC<AdminLayoutProps> = ({
@@ -39,7 +38,6 @@ export const AdminLayout: FC<AdminLayoutProps> = ({
   isLoading,
   hasBackButton,
   seo,
-  slug,
 }) => {
   const { user } = useAuthSelector()
 
@@ -70,6 +68,8 @@ export const AdminLayout: FC<AdminLayoutProps> = ({
       </Center>
     )
   }
+
+  const slug = router.asPath.split('/')[1]
 
   return (
     <>
