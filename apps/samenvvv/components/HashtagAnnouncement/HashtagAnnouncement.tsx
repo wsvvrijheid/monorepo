@@ -10,9 +10,9 @@ import {
 import { FormattedDate, ShareButtons } from '@wsvvrijheid/ui'
 import { GrAnnounce } from 'react-icons/gr'
 
-import { AnnouncementProps } from './types'
+import { HashtagAnnouncementProps } from './types'
 
-export const Announcement = ({
+export const HashtagAnnouncement = ({
   title,
   description,
   date,
@@ -21,7 +21,7 @@ export const Announcement = ({
   content,
   join,
   link,
-}: AnnouncementProps) => {
+}: HashtagAnnouncementProps) => {
   return (
     <Stack spacing={4} mb={8} mt={8} ml={8}>
       <Center>
@@ -82,7 +82,7 @@ export const Announcement = ({
           url={defaultCaps?.url}
           //TODO create caps for announcement
           quote={
-            `📢${title} \n\n ${description?.name} ${description?.value}\n\n${date?.name} ${date?.value}\n\n 🇹🇷 ${date?.value} \n 🇳🇱 ${date?.value} \n\n${content} \n` ||
+            `📢${title}📢 \n\n ${description?.name} ${description?.value}\n\n${date?.name} ${date?.value}\n\n 🇹🇷 ${date?.value} \n 🇳🇱 ${date?.value} \n\n${content} \n` ||
             ''
           }
         />

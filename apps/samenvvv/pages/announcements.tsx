@@ -18,7 +18,7 @@ import { NextSeoProps } from 'next-seo'
 
 import i18nConfig from '..//next-i18next.config'
 import { Layout } from '../components'
-import { Announcement } from '../components/Announcement/announcement' //TODO fix import style
+import { HashtagAnnouncement } from '../components/HashtagAnnouncement' //TODO fix import style
 
 interface HashtagEventsProps {
   hashtags: Hashtag[]
@@ -59,7 +59,7 @@ const HashtagEvents = ({ seo, source }: HashtagEventsProps) => {
           </Box>
         )}
         {!hasStarted ? (
-          <Announcement
+          <HashtagAnnouncement
             title={hashtagAnounscement?.title}
             description={hashtagAnounscement?.description}
             date={hashtagAnounscement?.date}
