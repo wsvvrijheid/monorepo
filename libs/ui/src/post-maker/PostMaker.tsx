@@ -112,7 +112,11 @@ export const PostMaker = () => {
       </Modal>
       <Grid
         gap={4}
-        gridTemplateColumns={{ base: '1fr', lg: '300px 1fr 300px' }}
+        gridTemplateColumns={{
+          base: '1fr',
+          lg: 'repeat(2,1fr)',
+          xl: '300px 1fr 300px',
+        }}
         h={{ base: 'auto', lg: 640 }}
         alignItems="stretch"
       >
@@ -125,7 +129,7 @@ export const PostMaker = () => {
           sharedPosts={sharedPosts}
           posts={hashtag?.posts}
         />
-        <Box>
+        <Box display={{ base: 'none', xl: 'block' }}>
           <TweetWidget
             title={t('post.latest-tweets-label')}
             tweets={hashtag?.tweets}
