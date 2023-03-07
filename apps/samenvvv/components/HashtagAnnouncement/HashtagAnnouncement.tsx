@@ -1,16 +1,8 @@
-import {
-  Button,
-  Center,
-  HStack,
-  Link,
-  Stack,
-  Text,
-  VStack,
-} from '@chakra-ui/react'
-import { ShareButtons, useLocaleTimeFormat } from '@wsvvrijheid/ui'
+import { Link, Stack, Text, VStack } from '@chakra-ui/react'
+import { Caps, ShareButtons, useLocaleTimeFormat } from '@wsvvrijheid/ui'
 import { formatInTimeZone } from 'date-fns-tz'
 import { useTranslation } from 'next-i18next'
-import { GrAnnounce } from 'react-icons/gr'
+//import { GrAnnounce } from 'react-icons/gr'
 
 import { HashtagAnnouncementProps } from './types'
 
@@ -34,7 +26,7 @@ export const HashtagAnnouncement = ({
 
   return (
     <Stack spacing={4} mb={8} mt={8} ml={8}>
-      <Center>
+      {/* <Center>
         <HStack alignItems="center">
           <Button
             colorScheme={'primary'}
@@ -45,9 +37,25 @@ export const HashtagAnnouncement = ({
             <Text>{t('announcement.title')}</Text>
           </Button>
         </HStack>
-      </Center>
+      </Center> */}
+      <Caps
+        imageParams={{
+          title: `📢${t('announcement.title')}📢`,
+          text: `${t('announcement.topic')} ${hashtag?.description}\n\n${t(
+            'announcement.date',
+          )} ${formattedDate}\n\n 🇳🇱 ${formatedHour} \n 🇹🇷  ${turkeyHour} \n\n`,
+          image:
+            'https://www.simplilearn.com/ice9/free_resources_article_thumb/COVER-IMAGE_Digital-Selling-Foundation-Program.jpg',
+          shape: 0,
+          bg: 'white',
+          color: 'black',
+          flip: true,
+          hasLine: true,
+          scale: 0.5,
+        }}
+      />
       <VStack alignItems={'start'} p={4}>
-        <HStack>
+        {/* <HStack>
           <Text fontWeight={'bold'}>{t('announcement.topic')}</Text>
           <Text> {hashtag?.description}</Text>
         </HStack>
@@ -63,7 +71,7 @@ export const HashtagAnnouncement = ({
               <Text>🇹🇷 {turkeyHour}</Text>
             </VStack>
           </VStack>
-        </HStack>
+        </HStack> */}
         <Text>{hashtag?.content}</Text>
         <Link href={link}>
           <Text fontWeight={'bold'} color={'primary'} m={4}>
