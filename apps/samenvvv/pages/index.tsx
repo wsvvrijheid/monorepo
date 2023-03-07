@@ -76,13 +76,7 @@ const Home: FC<HomeProps> = ({ seo, link, hashtags }) => {
           justifyContent={'center'}
           textAlign={{ base: 'center', lg: 'center' }}
         >
-          {!hasStarted && (
-            <HashtagAnnouncement
-              defaultCaps={{ url: '' }}
-              hashtag={hashtag}
-              link={link}
-            />
-          )}
+          {!hasStarted && <HashtagAnnouncement hashtag={hashtag} link={link} />}
         </Stack>
       </Box>
       {hashtags.length > 0 && <HashtagsSummary hashtags={hashtags} />}
