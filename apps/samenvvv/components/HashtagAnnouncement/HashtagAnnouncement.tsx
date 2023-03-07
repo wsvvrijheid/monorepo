@@ -1,5 +1,11 @@
 import { Link, Stack, Text, VStack } from '@chakra-ui/react'
-import { Caps, ShareButtons, useLocaleTimeFormat } from '@wsvvrijheid/ui'
+import { API_URL } from '@wsvvrijheid/config'
+import {
+  Caps,
+  ShareButtons,
+  useItemLink,
+  useLocaleTimeFormat,
+} from '@wsvvrijheid/ui'
 import { formatInTimeZone } from 'date-fns-tz'
 import { useTranslation } from 'next-i18next'
 //import { GrAnnounce } from 'react-icons/gr'
@@ -8,7 +14,6 @@ import { HashtagAnnouncementProps } from './types'
 
 export const HashtagAnnouncement = ({
   hashtag,
-  defaultCaps,
   link,
 }: HashtagAnnouncementProps) => {
   const { t } = useTranslation()
@@ -23,7 +28,9 @@ export const HashtagAnnouncement = ({
   const turkeyHour = hashtag?.date
     ? formatInTimeZone(newDate, 'Europe/Istanbul', 'HH:mm')
     : undefined
+  const linkCaps = useItemLink(hashtag, 'hashtag')
 
+  console.log('useItemlink', linkCaps)
   return (
     <Stack spacing={4} mb={8} mt={8} ml={8}>
       {/* <Center>
@@ -55,23 +62,6 @@ export const HashtagAnnouncement = ({
         }}
       />
       <VStack alignItems={'start'} p={4}>
-        {/* <HStack>
-          <Text fontWeight={'bold'}>{t('announcement.topic')}</Text>
-          <Text> {hashtag?.description}</Text>
-        </HStack>
-
-        <HStack>
-          <VStack alignItems={'start'}>
-            <HStack>
-              <Text fontWeight={'bold'}>{t('announcement.date')}</Text>
-              <Text>{formattedDate}</Text>
-            </HStack>
-            <VStack p={4}>
-              <Text>🇳🇱 {formatedHour}</Text>
-              <Text>🇹🇷 {turkeyHour}</Text>
-            </VStack>
-          </VStack>
-        </HStack> */}
         <Text>{hashtag?.content}</Text>
         <Link href={link}>
           <Text fontWeight={'bold'} color={'primary'} m={4}>
@@ -80,7 +70,7 @@ export const HashtagAnnouncement = ({
         </Link>
         <ShareButtons
           title={`📢${t('announcement.title')}📢`}
-          url={defaultCaps?.url}
+          url={`${API_URL}${linkCaps}`}
           //TODO create caps for announcement
           quote={
             `${t('announcement.topic')} ${hashtag?.description}\n\n${t(
