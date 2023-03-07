@@ -30,7 +30,7 @@ interface HashtagEventsProps {
   source: MDXRemoteSerializeResult<Record<string, unknown>>
 }
 
-const HashtagEvents = ({ seo, source }: HashtagEventsProps) => {
+const AnnouncementEvent = ({ seo, source }: HashtagEventsProps) => {
   const { locale } = useRouter()
   const { t } = useTranslation()
   const hashtagsQuery = useSearchModel<Hashtag>({
@@ -81,7 +81,7 @@ const HashtagEvents = ({ seo, source }: HashtagEventsProps) => {
   )
 }
 
-export default HashtagEvents
+export default AnnouncementEvent
 
 export const getStaticProps: GetStaticProps = async context => {
   const locale = context.locale as StrapiLocale
@@ -194,7 +194,7 @@ export const getStaticProps: GetStaticProps = async context => {
   }
 
   const source = (await serialize(content[locale].trim())) || null
-
+  console.log('hashtag', hashtag)
   return {
     props: {
       ...(await serverSideTranslations(
