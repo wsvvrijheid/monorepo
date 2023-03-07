@@ -1,10 +1,10 @@
 import { ROUTES, SITE_URL } from '@wsvvrijheid/config'
-import { Hashtag, Post, StrapiLocale } from '@wsvvrijheid/types'
+import { Announcement, Hashtag, Post, StrapiLocale } from '@wsvvrijheid/types'
 
 import { getMainPageLink } from './getMainPageLink'
 
 export const getItemLink = (
-  item: Hashtag | Post,
+  item: Hashtag | Post | Announcement,
   locale: StrapiLocale,
   type: keyof typeof ROUTES | 'post' | 'hashtag',
   isAbsolute?: boolean,
