@@ -82,7 +82,17 @@ const AnnouncementEvent = ({ seo, source }: HashtagEventsProps) => {
 }
 
 export default AnnouncementEvent
-
+type HashtagData = {
+  data: Hashtag[]
+  meta: {
+    pagination: {
+      page: number
+      pageSize: number
+      pageCount: number
+      total: number
+    }
+  }
+}
 export const getStaticProps: GetStaticProps = async context => {
   const locale = context.locale as StrapiLocale
   const queryClient = new QueryClient()
@@ -99,6 +109,7 @@ export const getStaticProps: GetStaticProps = async context => {
   await queryClient.prefetchQuery(queryKey, () => searchModel<Hashtag>(args))
 
   const hashtags = queryClient.getQueryData<Hashtag[]>(queryKey)
+  const newHashtag = hashtags as HashtagData | any
 
   const title = {
     en: 'Hashtag Announcement',
@@ -122,7 +133,7 @@ export const getStaticProps: GetStaticProps = async context => {
     nl: '@samenvvv',
     tr: '@samenvvvTr',
   }
-  const hashtag = hashtags?.data[0]
+  const hashtag = newHashtag?.data[0]
 
   const announcementTitle = hashtag?.title.slice(0, 20) || ''
   const announcementDescription = hashtag?.description || ''
@@ -194,7 +205,7 @@ export const getStaticProps: GetStaticProps = async context => {
   }
 
   const source = (await serialize(content[locale].trim())) || null
-  console.log('hashtag', hashtag)
+
   return {
     props: {
       ...(await serverSideTranslations(
