@@ -30,7 +30,6 @@ export const HashtagAnnouncement = ({
     : undefined
   const linkCaps = useItemLink(hashtag, 'hashtag')
 
-  console.log('useItemlink', linkCaps)
   return (
     <Stack spacing={4} mb={8} mt={8} ml={8}>
       {/* <Center>
