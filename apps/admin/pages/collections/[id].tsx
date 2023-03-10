@@ -66,7 +66,7 @@ const CollectionPage: FC<PageProps> = ({ seo }) => {
           {collection && (
             <Stack spacing={6}>
               <HStack justify="space-between">
-                <Text fontWeight="bold" fontSize="xl" noOfLines={1}>
+                <Text fontWeight={700} fontSize="xl" noOfLines={1}>
                   Collection Arts
                 </Text>
 

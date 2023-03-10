@@ -24,11 +24,7 @@ export const TimelineBoard: FC<TimelineBoardProps> = ({ timelines }) => {
             cursor="pointer"
           >
             <Box bg="twitter.500" borderBottom="1px" color="white" p={3}>
-              <Text
-                fontSize={'sm'}
-                wordBreak={'break-all'}
-                fontWeight={'bolder'}
-              >
+              <Text fontSize={'sm'} wordBreak={'break-all'} fontWeight={700}>
                 {timeline?.userData?.name} - @{timeline?.userData?.username}
               </Text>
             </Box>

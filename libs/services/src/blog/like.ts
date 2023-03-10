@@ -25,13 +25,13 @@ const likeBlogByUser = async ({
 }: LikersMutationArgs) => {
   if (!user) return
 
-  const body = { likers, token }
+  const body = { likers }
 
   return Mutation.put<Blog, BlogUpdateInput>('api/blogs', id, body, token)
 }
 
 const likeBlogPublic = async ({ id, likes, token }: LikesMutationArgs) => {
-  const body = { likes, token }
+  const body = { likes }
 
   return Mutation.put<Blog, BlogUpdateInput>('api/blogs', id, body, token)
 }

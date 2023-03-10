@@ -20,7 +20,6 @@ import {
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useRecommendTweet } from '@wsvvrijheid/services'
-import { useAuthSelector } from '@wsvvrijheid/store'
 import { Mention, Tweet } from '@wsvvrijheid/types'
 import { FieldErrorsImpl, useForm } from 'react-hook-form'
 import { FiArrowUpRight } from 'react-icons/fi'
@@ -56,8 +55,6 @@ export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
   const SIMILARITY_LIMIT = 60
 
   const [isChangingImage, setIsChangingImage] = useBoolean(false)
-
-  const { token } = useAuthSelector()
 
   const { mutateAsync } = useRecommendTweet()
 
@@ -111,7 +108,6 @@ export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
       text: data.text,
       mentions,
       image,
-      token: token as string,
     })
 
     closeModal()
@@ -129,7 +125,7 @@ export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
         <ModalContent p={{ base: 2, lg: 4 }}>
           <ModalCloseButton />
           <ModalHeader>
-            <Text color={'primary.500'} fontWeight={'bold'} w={'full'}>
+            <Text color={'primary.500'} fontWeight={700} w={'full'}>
               Create Tweet
             </Text>
           </ModalHeader>

@@ -31,7 +31,7 @@ export const CollectionEdit: FC<CollectionEditProps> = ({
           cursor="pointer"
           fontSize="xl"
         >
-          <Text fontWeight="bold" noOfLines={1}>
+          <Text fontWeight={700} noOfLines={1}>
             {collection.title}
           </Text>
 

@@ -2,7 +2,7 @@ import { AxiosHeaders } from 'axios'
 import { scrapTopics } from '../utils/scrapTopics'
 import { FormatTopic, Locale, Publisher, PageSelectors } from '../utils/types'
 
-const getNuNews = async () => {
+export const getNuNews = async () => {
   const url = new URL('https://nu.nl/net-binnen')
 
   const selectors: PageSelectors = {
@@ -31,5 +31,3 @@ const getNuNews = async () => {
     headers,
   })
 }
-
-export default getNuNews

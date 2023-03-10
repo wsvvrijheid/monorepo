@@ -1,5 +1,5 @@
-import { factories } from '@strapi/strapi';
+import { factories } from '@strapi/strapi'
 
 export default factories.createCoreRouter(
-  'api::recommended-topic.recommended-topic'
-);
+  'api::recommended-topic.recommended-topic',
+)

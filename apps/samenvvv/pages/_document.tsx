@@ -33,12 +33,6 @@ export default class Document extends NextDocument {
             rel="manifest"
             href="https://api/wsvvrijheid.nl/uploads/site_6c805a152a.webmanifest"
           />
-          <link rel="preconnect" href="https://fonts.gstatic.com" />
-          <link rel="preconnect" href="https://fonts.googleapis.com" />
-          <link
-            href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;900&display=swap"
-            rel="stylesheet"
-          />
           <script
             async
             src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
@@ -46,13 +40,13 @@ export default class Document extends NextDocument {
           <script
             dangerouslySetInnerHTML={{
               __html: `
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date());
-                gtag('config', '${GA_MEASUREMENT_ID}', {
-                  page_path: window.location.pathname,
-                });
-            `,
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', '${GA_MEASUREMENT_ID}', {
+                page_path: window.location.pathname,
+              });
+          `,
             }}
           />
         </Head>

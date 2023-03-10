@@ -45,7 +45,7 @@ export const MdFormItem = <T extends FieldValues>({
       flexDir={'column'}
     >
       {label && !hideLabel && (
-        <FormLabel mb={1} htmlFor={name} fontSize="sm" fontWeight="semibold">
+        <FormLabel mb={1} htmlFor={name} fontSize="sm" fontWeight={600}>
           {label}
         </FormLabel>
       )}

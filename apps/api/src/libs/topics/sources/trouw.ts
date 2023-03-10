@@ -1,7 +1,7 @@
 import { scrapTopics } from '../utils/scrapTopics'
 import { FormatTopic, Locale, Publisher, PageSelectors } from '../utils/types'
 
-const getTrouwNews = async () => {
+export const getTrouwNews = async () => {
   const url = new URL('https://www.trouw.nl/nieuws')
 
   const selectors: PageSelectors = {
@@ -22,5 +22,3 @@ const getTrouwNews = async () => {
     formatTopic,
   })
 }
-
-export default getTrouwNews

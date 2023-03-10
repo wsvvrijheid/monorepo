@@ -1,7 +1,7 @@
 import { scrapTopics } from '../utils/scrapTopics'
 import { Locale, Publisher, FormatTopic, PageSelectors } from '../utils/types'
 
-const getBoldMedyaNews = async () => {
+export const getBoldMedyaNews = async () => {
   const url = new URL('https://boldmedya.com')
 
   const selectors: PageSelectors = {
@@ -25,5 +25,3 @@ const getBoldMedyaNews = async () => {
     formatTopic,
   })
 }
-
-export default getBoldMedyaNews

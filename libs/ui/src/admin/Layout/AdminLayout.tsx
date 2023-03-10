@@ -69,6 +69,8 @@ export const AdminLayout: FC<AdminLayoutProps> = ({
     )
   }
 
+  const slug = router.asPath.split('/')[1]
+
   return (
     <>
       <NextSeo {...seo} />
@@ -113,7 +115,7 @@ export const AdminLayout: FC<AdminLayoutProps> = ({
                         icon={<FaArrowLeft />}
                         colorScheme={'blackAlpha'}
                         rounded="full"
-                        onClick={() => router.back()}
+                        onClick={() => router.push(`/${slug}`)}
                       />
                     </Tooltip>
                   )}
