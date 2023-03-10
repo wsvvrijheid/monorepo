@@ -8,10 +8,12 @@ import {
 } from '@wsvvrijheid/services'
 import { Hashtag, StrapiLocale } from '@wsvvrijheid/types'
 import { Container, Hero, Markdown } from '@wsvvrijheid/ui'
-import { getItemLink, getOgImageSrc } from '@wsvvrijheid/utils'
+import {
+  getItemLink,
+  getOgImageSrc,
+  mapHashtagToOgParams,
+} from '@wsvvrijheid/utils'
 import { isPast } from 'date-fns'
-import * as dateFns from 'date-fns'
-import { formatInTimeZone } from 'date-fns-tz'
 import { GetStaticProps } from 'next'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
@@ -44,7 +46,7 @@ const AnnouncementEvent = ({ seo, source }: HashtagEventsProps) => {
 
   const hashtag = hashtagsQuery?.data?.data?.[0]
 
-  const hasStarted = isPast(new Date(hashtag?.date as string))
+  const hasStarted = hashtag?.date && isPast(new Date(hashtag?.date as string))
 
   return (
     <Layout seo={seo} isDark>
@@ -65,7 +67,6 @@ const AnnouncementEvent = ({ seo, source }: HashtagEventsProps) => {
           <HashtagAnnouncement hashtag={hashtag} link={link} />
         ) : (
           <>
-            {' '}
             <Text color={'primary'} m={4}>
               {t('join-previous-hashtag')}
             </Text>
@@ -137,50 +138,19 @@ export const getStaticProps: GetStaticProps = async context => {
 
   const announcementTitle = hashtag?.title.slice(0, 20) || ''
   const announcementDescription = hashtag?.description || ''
-  const image =
-    'https://www.simplilearn.com/ice9/free_resources_article_thumb/COVER-IMAGE_Digital-Selling-Foundation-Program.jpg'
 
-  const src =
-    'https://www.simplilearn.com/ice9/free_resources_article_thumb/COVER-IMAGE_Digital-Selling-Foundation-Program.jpg'
   const link = getItemLink(hashtag, locale, 'announcement') as string
 
-  const newDate = new Date(hashtag?.date as string)
+  const ogParams = mapHashtagToOgParams(hashtag, locale)
 
-  const capsContent = {
-    en: { title: '📢ETİKET DUYURUSU📢', topic: 'Topic: ', date: 'Date: ' },
-    nl: {
-      title: '📢TAG AANKONDIGING📢',
-      topic: 'Onderwerp: ',
-      date: 'Datum: ',
-    },
-    tr: { title: '📢TAG ANNOUNCEMENT📢', topic: 'Konu: ', date: 'Tarih: ' },
-  }
+  const imgSrc = SITE_URL + getOgImageSrc(ogParams)
 
-  const imgSrc =
-    SITE_URL +
-    getOgImageSrc({
-      title: `${capsContent[locale].title}`,
-      text: `${capsContent[locale].topic} ${hashtag?.description}\n\n${
-        capsContent[locale].date
-      } ${dateFns.format(newDate, 'dd MMMM yyyy')}\n\n 🇳🇱 ${dateFns.format(
-        newDate,
-        'HH:mm',
-      )} \n 🇹🇷  ${formatInTimeZone(newDate, 'Europe/Istanbul', 'HH:mm')} \n\n`,
-      image: src,
-      shape: 0,
-      bg: 'white',
-      color: 'black',
-      flip: true,
-      hasLine: true,
-      scale: 0.5,
-    })
-
-  const images = image
+  const images = imgSrc
     ? [
         {
           url: imgSrc,
           secureUrl: imgSrc,
-          type: image as string,
+          type: 'image/jpg',
           width: 1200,
           height: 675,
           alt: title[locale],
