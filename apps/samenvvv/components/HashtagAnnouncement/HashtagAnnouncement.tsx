@@ -1,14 +1,10 @@
 import { Link, Stack, Text, VStack } from '@chakra-ui/react'
 import { API_URL } from '@wsvvrijheid/config'
-import {
-  Caps,
-  ShareButtons,
-  useItemLink,
-  useLocaleTimeFormat,
-} from '@wsvvrijheid/ui'
-import { formatInTimeZone } from 'date-fns-tz'
+import { StrapiLocale } from '@wsvvrijheid/types'
+import { Caps, ShareButtons, useItemLink } from '@wsvvrijheid/ui'
+import { mapHashtagToOgParams } from '@wsvvrijheid/utils'
+import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
-//import { GrAnnounce } from 'react-icons/gr'
 
 import { HashtagAnnouncementProps } from './types'
 
@@ -17,18 +13,11 @@ export const HashtagAnnouncement = ({
   link,
 }: HashtagAnnouncementProps) => {
   const { t } = useTranslation()
-  const { formattedDate } = useLocaleTimeFormat(hashtag?.date, 'dd MMMM yyyy')
-  const { formattedDate: formatedHour } = useLocaleTimeFormat(
-    hashtag?.date,
-    'HH:mm',
-  )
+  const { locale } = useRouter()
 
-  const newDate = new Date(hashtag?.date as string)
-
-  const turkeyHour = hashtag?.date
-    ? formatInTimeZone(newDate, 'Europe/Istanbul', 'HH:mm')
-    : undefined
   const linkCaps = useItemLink(hashtag, 'hashtag')
+
+  const capsParams = mapHashtagToOgParams(hashtag, locale as StrapiLocale)
 
   return (
     <Stack spacing={4} mb={8} mt={8} ml={8}>
@@ -44,22 +33,7 @@ export const HashtagAnnouncement = ({
           </Button>
         </HStack>
       </Center> */}
-      <Caps
-        imageParams={{
-          title: `📢${t('announcement.title')}📢`,
-          text: `${t('announcement.topic')} ${hashtag?.description}\n\n${t(
-            'announcement.date',
-          )} ${formattedDate}\n\n 🇳🇱 ${formatedHour} \n 🇹🇷  ${turkeyHour} \n\n`,
-          image:
-            'https://www.simplilearn.com/ice9/free_resources_article_thumb/COVER-IMAGE_Digital-Selling-Foundation-Program.jpg',
-          shape: 0,
-          bg: 'white',
-          color: 'black',
-          flip: true,
-          hasLine: true,
-          scale: 0.5,
-        }}
-      />
+      <Caps imageParams={capsParams} />
       <VStack alignItems={'start'} p={4}>
         <Text>{hashtag?.content}</Text>
         <Link href={link}>
@@ -68,16 +42,10 @@ export const HashtagAnnouncement = ({
           </Text>
         </Link>
         <ShareButtons
-          title={`📢${t('announcement.title')}📢`}
+          title={capsParams.title}
           url={`${API_URL}${linkCaps}`}
           //TODO create caps for announcement
-          quote={
-            `${t('announcement.topic')} ${hashtag?.description}\n\n${t(
-              'announcement.date',
-            )} ${formattedDate}\n\n 🇳🇱 ${formatedHour} \n 🇹🇷  ${turkeyHour} \n\n${
-              hashtag?.content
-            } \n` || ''
-          }
+          quote={`${capsParams.text}\n\n`}
         />
       </VStack>
     </Stack>
