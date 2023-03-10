@@ -1,5 +1,7 @@
+import { FC } from 'react'
+
 import { Link, Stack, Text, VStack } from '@chakra-ui/react'
-import { API_URL } from '@wsvvrijheid/config'
+import { SITE_URL } from '@wsvvrijheid/config'
 import { StrapiLocale } from '@wsvvrijheid/types'
 import { Caps, ShareButtons, useItemLink } from '@wsvvrijheid/ui'
 import { mapHashtagToOgParams } from '@wsvvrijheid/utils'
@@ -8,10 +10,10 @@ import { useTranslation } from 'next-i18next'
 
 import { HashtagAnnouncementProps } from './types'
 
-export const HashtagAnnouncement = ({
+export const HashtagAnnouncement: FC<HashtagAnnouncementProps> = ({
   hashtag,
   link,
-}: HashtagAnnouncementProps) => {
+}) => {
   const { t } = useTranslation()
   const { locale } = useRouter()
 
@@ -21,18 +23,6 @@ export const HashtagAnnouncement = ({
 
   return (
     <Stack spacing={4} mb={8} mt={8} ml={8}>
-      {/* <Center>
-        <HStack alignItems="center">
-          <Button
-            colorScheme={'primary'}
-            aria-label="create"
-            leftIcon={<GrAnnounce />}
-            rightIcon={<GrAnnounce />}
-          >
-            <Text>{t('announcement.title')}</Text>
-          </Button>
-        </HStack>
-      </Center> */}
       <Caps imageParams={capsParams} />
       <VStack alignItems={'start'} p={4}>
         <Text>{hashtag?.content}</Text>
@@ -43,8 +33,7 @@ export const HashtagAnnouncement = ({
         </Link>
         <ShareButtons
           title={capsParams.title}
-          url={`${API_URL}${linkCaps}`}
-          //TODO create caps for announcement
+          url={`${SITE_URL}${linkCaps}`}
           quote={`${capsParams.text}\n\n`}
         />
       </VStack>

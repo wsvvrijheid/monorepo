@@ -1,12 +1,14 @@
+import { FC } from 'react'
+
 import { Box, Link, Text } from '@chakra-ui/react'
 import { QueryClient } from '@tanstack/react-query'
 import { SITE_URL } from '@wsvvrijheid/config'
+import { searchModel, SearchModelArgs } from '@wsvvrijheid/services'
 import {
-  searchModel,
-  SearchModelArgs,
-  useSearchModel,
-} from '@wsvvrijheid/services'
-import { Hashtag, StrapiLocale } from '@wsvvrijheid/types'
+  Hashtag,
+  StrapiCollectionResponse,
+  StrapiLocale,
+} from '@wsvvrijheid/types'
 import { Container, Hero, Markdown } from '@wsvvrijheid/ui'
 import {
   getItemLink,
@@ -14,9 +16,8 @@ import {
   mapHashtagToOgParams,
 } from '@wsvvrijheid/utils'
 import { isPast } from 'date-fns'
-import { GetStaticProps } from 'next'
+import { GetServerSideProps } from 'next'
 import Head from 'next/head'
-import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { serialize } from 'next-mdx-remote/serialize'
@@ -26,27 +27,23 @@ import { useTranslation } from 'react-i18next'
 import i18nConfig from '..//next-i18next.config'
 import { Layout } from '../components'
 import { HashtagAnnouncement } from '../components/HashtagAnnouncement' //TODO fix import style
-interface HashtagEventsProps {
-  hashtags: Hashtag[]
+
+type HashtagEventsProps = {
   seo: NextSeoProps
-  source: MDXRemoteSerializeResult<Record<string, unknown>>
+  source: MDXRemoteSerializeResult
+  hashtag: Hashtag
+  hasStarted: boolean
+  link: string
 }
 
-const AnnouncementEvent = ({ seo, source }: HashtagEventsProps) => {
-  const { locale } = useRouter()
+const AnnouncementEvent: FC<HashtagEventsProps> = ({
+  seo,
+  source,
+  hashtag,
+  hasStarted,
+  link,
+}) => {
   const { t } = useTranslation()
-  const hashtagsQuery = useSearchModel<Hashtag>({
-    url: 'api/hashtags',
-    locale: locale as StrapiLocale,
-    pageSize: 1,
-  })
-
-  const latestHashtag = hashtagsQuery?.data?.data?.[0] || null
-  const link = getItemLink(latestHashtag, latestHashtag?.locale, 'hashtag')
-
-  const hashtag = hashtagsQuery?.data?.data?.[0]
-
-  const hasStarted = hashtag?.date && isPast(new Date(hashtag?.date as string))
 
   return (
     <Layout seo={seo} isDark>
@@ -83,20 +80,16 @@ const AnnouncementEvent = ({ seo, source }: HashtagEventsProps) => {
 }
 
 export default AnnouncementEvent
-type HashtagData = {
-  data: Hashtag[]
-  meta: {
-    pagination: {
-      page: number
-      pageSize: number
-      pageCount: number
-      total: number
-    }
-  }
-}
-export const getStaticProps: GetStaticProps = async context => {
+
+export const getServerSideProps: GetServerSideProps = async context => {
   const locale = context.locale as StrapiLocale
   const queryClient = new QueryClient()
+
+  const ssrTranslations = await serverSideTranslations(
+    locale as StrapiLocale,
+    ['common'],
+    i18nConfig,
+  )
 
   const args: SearchModelArgs<Hashtag> = {
     url: 'api/hashtags',
@@ -109,8 +102,10 @@ export const getStaticProps: GetStaticProps = async context => {
 
   await queryClient.prefetchQuery(queryKey, () => searchModel<Hashtag>(args))
 
-  const hashtags = queryClient.getQueryData<Hashtag[]>(queryKey)
-  const newHashtag = hashtags as HashtagData | any
+  const hashtagsResponse =
+    queryClient.getQueryData<StrapiCollectionResponse<Hashtag[]>>(queryKey)
+
+  const hashtag = hashtagsResponse?.data[0]
 
   const title = {
     en: 'Hashtag Announcement',
@@ -124,17 +119,21 @@ export const getStaticProps: GetStaticProps = async context => {
     tr: '',
   }
 
-  const content = {
-    en: ``,
-    nl: ``,
-    tr: ``,
-  }
   const twitterHandle = {
     en: '@samenvvvEn',
     nl: '@samenvvv',
     tr: '@samenvvvTr',
   }
-  const hashtag = newHashtag?.data[0]
+
+  if (!hashtag) {
+    return {
+      props: {
+        ...ssrTranslations,
+        seo: { title: title[locale] },
+        hashtag: null,
+      },
+    }
+  }
 
   const announcementTitle = hashtag?.title.slice(0, 20) || ''
   const announcementDescription = hashtag?.description || ''
@@ -174,20 +173,19 @@ export const getStaticProps: GetStaticProps = async context => {
     },
   }
 
-  const source = (await serialize(content[locale].trim())) || null
+  const source = (await serialize(hashtag.content)) || null
+  const hasStarted = hashtag.date
+    ? isPast(new Date(hashtag.date as string))
+    : false
 
   return {
     props: {
-      ...(await serverSideTranslations(
-        locale as StrapiLocale,
-        ['common'],
-        i18nConfig,
-      )),
-      hashtags,
-      link,
-      imgSrc,
+      ...ssrTranslations,
       seo,
       source,
+      hashtag,
+      hasStarted,
+      link,
     },
   }
 }
