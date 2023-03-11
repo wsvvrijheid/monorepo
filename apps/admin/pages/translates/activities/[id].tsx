@@ -1,3 +1,5 @@
+import { FC } from 'react'
+
 import { Activity } from '@wsvvrijheid/types'
 import {
   AdminLayout,
@@ -5,16 +7,23 @@ import {
   translateModelFields,
   translateModelSchema,
 } from '@wsvvrijheid/ui'
+import { InferGetServerSidePropsType } from 'next'
 import { useRouter } from 'next/router'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { NextSeoProps } from 'next-seo'
 
-const TranslateActivityPage = () => {
+import i18nConfig from '../../../next-i18next.config'
+
+type PageProps = InferGetServerSidePropsType<typeof getServerSideProps>
+
+const TranslateActivityPage: FC<PageProps> = ({ seo }) => {
   const router = useRouter()
   const { query } = router
 
   const id = Number(query.id as string)
 
   return (
-    <AdminLayout title="Activity" hasBackButton>
+    <AdminLayout seo={seo} hasBackButton>
       <ModelEditTranslate<Activity>
         id={id}
         url="api/activities"
@@ -25,6 +34,31 @@ const TranslateActivityPage = () => {
       />
     </AdminLayout>
   )
+}
+
+export const getServerSideProps = async context => {
+  const { locale } = context
+
+  const title = {
+    en: 'Post Translate',
+    tr: 'Post Çeviri',
+    nl: 'Post Vertalen',
+  }
+
+  const seo: NextSeoProps = {
+    title: title[locale],
+  }
+
+  return {
+    props: {
+      seo,
+      ...(await serverSideTranslations(
+        locale,
+        ['common', 'admin'],
+        i18nConfig,
+      )),
+    },
+  }
 }
 
 export default TranslateActivityPage

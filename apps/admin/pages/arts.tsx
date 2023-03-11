@@ -1,14 +1,20 @@
-import { useEffect, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 
 import { MenuItem } from '@chakra-ui/react'
 import { useSearchModel } from '@wsvvrijheid/services'
 import { ApprovalStatus, Art, Sort, StrapiLocale } from '@wsvvrijheid/types'
 import { AdminLayout, ArtsTable, PageHeader } from '@wsvvrijheid/ui'
+import { InferGetStaticPropsType } from 'next'
 import { useRouter } from 'next/router'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { FaArrowDown, FaArrowUp } from 'react-icons/fa'
 import { useUpdateEffect } from 'react-use'
 
-const ArtsPage = () => {
+import i18nConfig from '../next-i18next.config'
+
+type PageProps = InferGetStaticPropsType<typeof getStaticProps>
+
+const ArtsPage: FC<PageProps> = ({ seo }) => {
   const { query } = useRouter()
   const [currentPage, setCurrentPage] = useState<number>()
   const [searchTerm, setSearchTerm] = useState<string>()
@@ -55,7 +61,7 @@ const ArtsPage = () => {
   }))
 
   return (
-    <AdminLayout title={`${status} Arts`}>
+    <AdminLayout seo={seo}>
       <PageHeader
         onSearch={handleSearch}
         searchPlaceHolder={'Search arts by title or artist'}
@@ -78,6 +84,31 @@ const ArtsPage = () => {
       />
     </AdminLayout>
   )
+}
+
+export const getStaticProps = async context => {
+  const { locale } = context
+
+  const title = {
+    en: 'Arts',
+    tr: 'Eserler',
+    nl: 'Arts',
+  }
+
+  const seo = {
+    title: title[locale],
+  }
+
+  return {
+    props: {
+      seo,
+      ...(await serverSideTranslations(
+        locale,
+        ['common', 'admin'],
+        i18nConfig,
+      )),
+    },
+  }
 }
 
 export default ArtsPage

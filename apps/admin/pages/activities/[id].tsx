@@ -1,3 +1,5 @@
+import { FC } from 'react'
+
 import { Box } from '@chakra-ui/react'
 import { useModelById } from '@wsvvrijheid/services'
 import { Activity } from '@wsvvrijheid/types'
@@ -9,9 +11,16 @@ import {
   ModelEditForm,
   PageHeader,
 } from '@wsvvrijheid/ui'
+import { InferGetServerSidePropsType } from 'next'
 import { useRouter } from 'next/router'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { NextSeoProps } from 'next-seo'
 
-const ActivityPage = () => {
+import i18nConfig from '../../next-i18next.config'
+
+type PageProps = InferGetServerSidePropsType<typeof getServerSideProps>
+
+const ActivityPage: FC<PageProps> = ({ seo }) => {
   const router = useRouter()
   const { query } = router
 
@@ -26,8 +35,8 @@ const ActivityPage = () => {
   })
 
   return (
-    <AdminLayout title="Activity" isLoading={isLoading} hasBackButton>
-      <PageHeader hideLocaleSwitcher>
+    <AdminLayout seo={seo} isLoading={isLoading} hasBackButton>
+      <PageHeader>
         <FormLocaleSwitcher
           models={activity?.localizations}
           slug={'activities'}
@@ -47,6 +56,31 @@ const ActivityPage = () => {
       </Box>
     </AdminLayout>
   )
+}
+
+export const getServerSideProps = async context => {
+  const { locale } = context
+
+  const title = {
+    en: 'Activity Translate',
+    tr: 'Aktivite Çeviri',
+    nl: 'Activiteit Vertalen',
+  }
+
+  const seo: NextSeoProps = {
+    title: title[locale],
+  }
+
+  return {
+    props: {
+      seo,
+      ...(await serverSideTranslations(
+        locale,
+        ['common', 'admin'],
+        i18nConfig,
+      )),
+    },
+  }
 }
 
 export default ActivityPage

@@ -66,7 +66,7 @@ export const ArtCardBase: FC<ArtCardBaseProps> = ({
     if (isModal) {
       artModalOnOpen()
     } else {
-      router.push(`/club/art/${art.slug}`)
+      router.push(`/club/arts/${art.slug}`)
     }
   }
 
@@ -150,7 +150,7 @@ export const ArtCardBase: FC<ArtCardBaseProps> = ({
           w="full"
         >
           <HStack spacing={1}>
-            <Text fontWeight="semibold" color="white">
+            <Text fontWeight={600} color="white">
               {(art?.likes || 0) + (art.likers?.length || 0)}
             </Text>
             <IconButton
@@ -202,7 +202,7 @@ export const ArtCardBase: FC<ArtCardBaseProps> = ({
             bottom={'-150%'}
             color="white"
             fontSize={{ base: 'md', lg: 'sm' }}
-            fontWeight="semibold"
+            fontWeight={600}
             position={{ base: 'static', lg: 'absolute' }}
             spacing={0}
             transition="all 0.2s"

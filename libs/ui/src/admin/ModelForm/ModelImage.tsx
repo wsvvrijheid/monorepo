@@ -14,7 +14,7 @@ import { CiImageOff } from 'react-icons/ci'
 import { IoMdCloudUpload } from 'react-icons/io'
 import { AssertsShape } from 'yup/lib/object'
 
-import { FilePicker, OgImage, WImage } from '../../components'
+import { Caps, FilePicker, WImage } from '../../components'
 
 export type ModelImageProps = {
   model: StrapiModel
@@ -71,7 +71,7 @@ export const ModelImage: FC<ModelImageProps> = ({
 
     if (url === 'api/posts' && imageUrl) {
       return (
-        <OgImage
+        <Caps
           imageParams={{
             title,
             text: description as string,

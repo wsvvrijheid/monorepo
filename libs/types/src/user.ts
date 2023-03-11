@@ -38,7 +38,7 @@ type UserRelationInput = {
 }
 
 export type UpdateUserInput = Expand<
-  Partial<Omit<UserBase, 'provider'> & UserRelationInput> & { token: string }
+  Partial<Omit<UserBase, 'provider'> & UserRelationInput>
 >
 
 export type User = Omit<StrapiBase, 'publishedAt'> & UserBase & UserRelation

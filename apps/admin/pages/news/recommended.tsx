@@ -1,10 +1,19 @@
+import { FC } from 'react'
+
 import { SimpleGrid } from '@chakra-ui/react'
 import { useSearchModel } from '@wsvvrijheid/services'
 import { RecommendedTopic, StrapiLocale } from '@wsvvrijheid/types'
 import { AdminLayout, TopicCard } from '@wsvvrijheid/ui'
+import { InferGetStaticPropsType } from 'next'
 import { useRouter } from 'next/router'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { NextSeoProps } from 'next-seo'
 
-const NewsBookmarkedPage = () => {
+import i18nConfig from '../../next-i18next.config'
+
+type PageProps = InferGetStaticPropsType<typeof getStaticProps>
+
+const NewsBookmarkedPage: FC<PageProps> = ({ seo }) => {
   const { locale } = useRouter()
 
   const { data } = useSearchModel<RecommendedTopic>({
@@ -13,7 +22,7 @@ const NewsBookmarkedPage = () => {
   })
 
   return (
-    <AdminLayout title=" Recomended News">
+    <AdminLayout seo={seo}>
       <SimpleGrid columns={{ base: 1 }} gap={4}>
         {data?.data?.map((topic, i) => (
           <TopicCard
@@ -24,6 +33,31 @@ const NewsBookmarkedPage = () => {
       </SimpleGrid>
     </AdminLayout>
   )
+}
+
+export const getStaticProps = async context => {
+  const { locale } = context
+
+  const title = {
+    en: 'Recommended News',
+    tr: 'Tavsite Haberler',
+    nl: 'Aanbevolen Nieuws',
+  }
+
+  const seo: NextSeoProps = {
+    title: title[locale],
+  }
+
+  return {
+    props: {
+      seo,
+      ...(await serverSideTranslations(
+        locale,
+        ['common', 'admin'],
+        i18nConfig,
+      )),
+    },
+  }
 }
 
 export default NewsBookmarkedPage

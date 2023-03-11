@@ -113,7 +113,7 @@ export const ArtApprovalModal: FC<ArtApprovalTypes> = ({
                     </Stack>
                   ) : (
                     <Stack align="start" justify={'start'} w="full">
-                      <Text color={'blue.400'} fontWeight={'bold'}>
+                      <Text color={'blue.400'} fontWeight={700}>
                         {title}
                       </Text>
                     </Stack>
@@ -121,7 +121,7 @@ export const ArtApprovalModal: FC<ArtApprovalTypes> = ({
                   <HStack spacing={3} w={'full'}>
                     {/* TODO art owner avatar should be here*/}
                     <Avatar size="sm" src={artistAvatar} name={artistName} />
-                    <Text fontWeight={'bold'}>{artistName}</Text>
+                    <Text fontWeight={700}>{artistName}</Text>
                   </HStack>
                   <Flex
                     align="start"
@@ -147,7 +147,7 @@ export const ArtApprovalModal: FC<ArtApprovalTypes> = ({
                       </Stack>
                     ) : (
                       <Stack align="start" justify={'start'} w="full">
-                        <Text color={'black'} fontWeight={'bold'}>
+                        <Text color={'black'} fontWeight={700}>
                           Description
                         </Text>
                         <Text>{description}</Text>
@@ -178,7 +178,7 @@ export const ArtApprovalModal: FC<ArtApprovalTypes> = ({
                       </Stack>
                     ) : (
                       <Stack align="start" justify={'start'} w="full">
-                        <Text color={'black'} fontWeight={'bold'}>
+                        <Text color={'black'} fontWeight={700}>
                           Content
                         </Text>
                         <Text>{content}</Text>

@@ -1,8 +1,12 @@
-import { proxy } from '../utils/proxy'
-import { scrapTopics } from '../utils/scrapTopics'
-import { FormatTopic, Locale, Publisher, PageSelectors } from '../utils/types'
+import {
+  FormatTopic,
+  Locale,
+  Publisher,
+  PageSelectors,
+  scrapTopics,
+} from '../utils'
 
-const getTurkishMinuteNews = async () => {
+export const getTurkishMinuteNews = async () => {
   const url = new URL('https://www.turkishminute.com')
 
   const selectors: PageSelectors = {
@@ -28,5 +32,3 @@ const getTurkishMinuteNews = async () => {
     return []
   }
 }
-
-export default getTurkishMinuteNews

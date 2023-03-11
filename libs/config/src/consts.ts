@@ -2,10 +2,8 @@ export const VERCEL_URL = process.env['VERCEL_URL']
 export const SITE_URL =
   typeof window !== 'undefined'
     ? window.location.origin
-    : VERCEL_URL?.startsWith('localhost')
-    ? `http://${VERCEL_URL}`
-    : VERCEL_URL?.startsWith('http')
-    ? VERCEL_URL
+    : process.env['NODE_ENV'] === 'development'
+    ? 'http://localhost:4200'
     : `https://${VERCEL_URL}`
 
 export const API_URL = process.env['NX_API_URL']
