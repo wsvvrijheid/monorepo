@@ -1,6 +1,6 @@
 import { StrapiBase } from './strapi'
 
-export type Donate = StrapiBase & {
+type DonateBase = {
   adddress: string
   amount: number
   createdAt: string
@@ -11,3 +11,9 @@ export type Donate = StrapiBase & {
   status: string
   updatedAt: string
 }
+
+export type DonateCreateInput = Pick<DonateBase, 'name' | 'email' | 'amount'>
+
+export type DonateUpdateInput = Pick<DonateBase, 'status' | 'mollieId'>
+
+export type Donate = DonateBase & StrapiBase
