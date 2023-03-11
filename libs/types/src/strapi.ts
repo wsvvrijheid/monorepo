@@ -43,7 +43,7 @@ import {
   CompetitionLocalizeInput,
   CompetitionUpdateInput,
 } from './competition'
-import { Donate } from './donate'
+import { Donate, DonateCreateInput, DonateUpdateInput } from './donate'
 import { EmailCreateInput } from './email'
 import {
   Feedback,
@@ -220,6 +220,7 @@ export type StrapiCollectionUrl =
   | 'comments'
   | 'competitions'
   | 'donates'
+  | 'donates/email'
   | 'feedbacks'
   | 'hashtags'
   | 'jobs'
@@ -278,6 +279,7 @@ export type StrapiCreateInput =
   | CommentArtCreateInput
   | CommentBlogCreateInput
   | CompetitionCreateInput
+  | DonateCreateInput
   | EmailCreateInput
   | FeedbackArtCreateInput
   | FeedbackApplicationCreateInput
@@ -303,6 +305,7 @@ export type StrapiUpdateInput =
   | BlogUpdateInput
   | CollectionUpdateInput
   | CompetitionUpdateInput
+  | DonateUpdateInput
   | HashtagUpdateInput
   | PostUpdateInput
   | VolunteerUpdateInput

@@ -73,6 +73,8 @@
   "create": "Oluştur",
   "description": "Açıklama",
   "dismiss": "Kapat",
+  "donation.checkpaymentmethod":"Ödeme yönteminizi seçin",
+  "donation.description":"Vakfımız bağış kabullerı Stichting Vakfı ile mevcut protokol çervesinde birlikte yürütülmektedir. Bağışlarınız Stichting Challenges bünyesinde vakfımız için ayrılmaktadır.",
   "edit": "Düzenle",
   "error": "Hata",
   "event": "Etkinlik",
