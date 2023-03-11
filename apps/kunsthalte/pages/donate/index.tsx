@@ -14,7 +14,6 @@ import {
   NumberInput,
   NumberInputField,
   NumberInputStepper,
-  SimpleGrid,
   Slider,
   SliderFilledTrack,
   SliderThumb,
@@ -29,7 +28,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { DONATION_ENABLED } from '@wsvvrijheid/config'
 import { Request } from '@wsvvrijheid/lib'
 import { Platform } from '@wsvvrijheid/types'
-import { Container, FormItem, PlatformList } from '@wsvvrijheid/ui'
+import { Container, FormItem } from '@wsvvrijheid/ui'
 import axios from 'axios'
 import { InferGetStaticPropsType } from 'next'
 import { useTranslation } from 'next-i18next'
@@ -108,12 +107,7 @@ const DonatePage: FC<DonatePageProps> = ({ platforms, title }) => {
             </Link>
           </VStack>
         </Center>
-        <SimpleGrid
-          alignItems="start"
-          columns={{ base: 1, lg: 2 }}
-          my={16}
-          gap={16}
-        >
+        <VStack my={16} gap={16}>
           <Stack
             px={{ base: 8, lg: 16 }}
             py={{ base: 8, lg: 12 }}
@@ -275,8 +269,7 @@ const DonatePage: FC<DonatePageProps> = ({ platforms, title }) => {
               {amount && ` €${amount}`}
             </Button>
           </Stack>
-          {platforms.data && <PlatformList platforms={platforms.data} />}
-        </SimpleGrid>
+        </VStack>
       </Container>
     </Layout>
   )
