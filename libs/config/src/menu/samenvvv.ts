@@ -1,7 +1,15 @@
-import { about, contact, foundation, hashtag, privacy, terms } from './routes'
+import {
+  about,
+  contact,
+  donate,
+  foundation,
+  hashtag,
+  privacy,
+  terms,
+} from './routes'
 
 export const samenvvv = {
-  headerMenu: [hashtag, about, contact, foundation],
+  headerMenu: [hashtag, about, contact, foundation, donate],
   footerMenu: [
     {
       children: [foundation, about, contact],

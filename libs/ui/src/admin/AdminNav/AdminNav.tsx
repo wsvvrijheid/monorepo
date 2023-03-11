@@ -4,7 +4,12 @@ import { Stack } from '@chakra-ui/react'
 import { SessionUser } from '@wsvvrijheid/types'
 import { useTranslation } from 'next-i18next'
 import { BiLandscape } from 'react-icons/bi'
-import { BsCollection, BsCommand, BsTranslate } from 'react-icons/bs'
+import {
+  BsCashCoin,
+  BsCollection,
+  BsCommand,
+  BsTranslate,
+} from 'react-icons/bs'
 import { CgHashtag } from 'react-icons/cg'
 import { FiActivity } from 'react-icons/fi'
 import { GiHumanPyramid } from 'react-icons/gi'
@@ -195,6 +200,12 @@ export const useAdminNav = (user: SessionUser): AdminNavItemProps[] => {
       label: tAdmin('competitions'),
       link: '/competitions',
       icon: <BsCommand />,
+      visible: isEditor || isAdmin,
+    },
+    {
+      label: 'Donate',
+      link: '/donate',
+      icon: <BsCashCoin />,
       visible: isEditor || isAdmin,
     },
   ]
