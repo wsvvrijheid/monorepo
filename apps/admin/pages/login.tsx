@@ -1,14 +1,18 @@
-import { useEffect } from 'react'
+import { FC, useEffect } from 'react'
 
 import { Box } from '@chakra-ui/react'
 import { checkAuth, useAppDispatch } from '@wsvvrijheid/store'
 import { AdminLoginForm } from '@wsvvrijheid/ui'
+import { InferGetStaticPropsType } from 'next'
 import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { NextSeo, NextSeoProps } from 'next-seo'
 
 import i18nConfig from '../next-i18next.config'
 
-const LoginPage = () => {
+type PageProps = InferGetStaticPropsType<typeof getStaticProps>
+
+const LoginPage: FC<PageProps> = ({ seo }) => {
   const dispatch = useAppDispatch()
 
   const router = useRouter()
@@ -24,9 +28,12 @@ const LoginPage = () => {
   }, [router, dispatch])
 
   return (
-    <Box minH="inherit" h="full">
-      <AdminLoginForm />
-    </Box>
+    <>
+      <NextSeo {...seo} />
+      <Box minH="inherit" h="full">
+        <AdminLoginForm />
+      </Box>
+    </>
   )
 }
 
@@ -41,14 +48,8 @@ export const getStaticProps = async context => {
     nl: 'Login',
   }
 
-  const description = {
-    en: '',
-    tr: '',
-    nl: '',
-  }
-  const seo = {
+  const seo: NextSeoProps = {
     title: title[locale],
-    description: description[locale],
   }
 
   return {

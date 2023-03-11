@@ -17,14 +17,14 @@ type LikesMutationArgs = {
 }
 
 const likeArtByUser = ({ id, likers, token }: LikersMutationArgs) => {
-  const body = { likers, token }
+  const body = { likers }
 
   return Mutation.put<Art, ArtUpdateInput>('api/arts', id, body, token)
 }
 
 // TODO: Create new route, no token needed
 const likeArtPublic = ({ id, likes, token }: LikesMutationArgs) => {
-  const body = { likes, token }
+  const body = { likes }
 
   return Mutation.put<Art, ArtUpdateInput>('api/arts', id, body, token)
 }

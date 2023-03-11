@@ -21,8 +21,7 @@ type JobRelationInput = {
 }
 
 export type JobCreateInput = Expand<
-  { publishedAt?: Date | string | null } & JobBase &
-    JobRelationInput & { token: string }
+  { publishedAt?: Date | string | null } & JobBase & JobRelationInput
 >
 
 export type Job = StrapiBase & JobBase & JobRelation

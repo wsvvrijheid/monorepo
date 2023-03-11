@@ -6,7 +6,7 @@ import {
   FrontPageSelectors,
 } from '../utils/types'
 
-const getNosNews = async () => {
+export const getNosNews = async () => {
   const url = new URL('https://nos.nl/nieuws')
 
   const selectors: FrontPageSelectors = {
@@ -39,5 +39,3 @@ const getNosNews = async () => {
     formatTopic,
   })
 }
-
-export default getNosNews

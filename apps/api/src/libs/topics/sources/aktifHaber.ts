@@ -1,7 +1,7 @@
 import { scrapTopics } from '../utils/scrapTopics'
 import { FormatTopic, Publisher, Locale, PageSelectors } from '../utils/types'
 
-const getAktifHaber = async () => {
+export const getAktifHaber = async () => {
   const url = new URL('https://aktifhaber.com/category/gundem')
 
   // TODO: Links are not selected correctly
@@ -23,5 +23,3 @@ const getAktifHaber = async () => {
     formatTopic,
   })
 }
-
-export default getAktifHaber

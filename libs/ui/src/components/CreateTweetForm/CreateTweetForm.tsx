@@ -20,20 +20,16 @@ import {
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useRecommendTweet } from '@wsvvrijheid/services'
-import { useAuthSelector } from '@wsvvrijheid/store'
-import { Mention, Post, Tweet } from '@wsvvrijheid/types'
-import { useForm, FieldErrorsImpl } from 'react-hook-form'
+import { Mention, Tweet } from '@wsvvrijheid/types'
+import { FieldErrorsImpl, useForm } from 'react-hook-form'
 import { FiArrowUpRight } from 'react-icons/fi'
 import { GrFormClose } from 'react-icons/gr'
 import stringSimilarity from 'string-similarity'
 import * as yup from 'yup'
 
 import { CreateTweetFormProps } from './types'
-import { ModelCreateModal } from '../../admin'
 import { ModelSelect } from '../../admin/ModelForm/ModelSelect'
 import { TweetContent } from '../../admin/TweetContent'
-import { postFields, postSchema } from '../../data'
-import { useFileFromUrl } from '../../hooks'
 import { FormItem } from '../FormItem'
 
 const schema = yup.object({
@@ -60,9 +56,6 @@ export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
 
   const [isChangingImage, setIsChangingImage] = useBoolean(false)
 
-  const imageFile = useFileFromUrl(originalTweet?.image)
-  const { token } = useAuthSelector()
-
   const { mutateAsync } = useRecommendTweet()
 
   if (isNews) {
@@ -71,7 +64,7 @@ export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
 
   const defaultValues = {
     text: '',
-    image: imageFile,
+    image: undefined,
     mentions: [],
   }
 
@@ -89,20 +82,7 @@ export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
     values: defaultValues,
   })
 
-  // We don't need to upload the same image as the original tweet
-  // useEffect(() => {
-  //   if (imageFile) {
-  //     setValue('image', imageFile)
-  //   }
-  // }, [imageFile, setValue, originalTweet?.image])
-
   const [text, image] = watch(['text', 'image'])
-
-  const newPost = {
-    description: text,
-    content: text,
-    image: { url: originalTweet?.image },
-  } as Post
 
   const similarity = useMemo(() => {
     if (!text || !originalTweet.text) return 0
@@ -128,7 +108,6 @@ export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
       text: data.text,
       mentions,
       image,
-      token: token as string,
     })
 
     closeModal()
@@ -146,7 +125,7 @@ export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
         <ModalContent p={{ base: 2, lg: 4 }}>
           <ModalCloseButton />
           <ModalHeader>
-            <Text color={'primary.500'} fontWeight={'bold'} w={'full'}>
+            <Text color={'primary.500'} fontWeight={700} w={'full'}>
               Create Tweet
             </Text>
           </ModalHeader>
@@ -220,22 +199,13 @@ export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
                   Cancel
                 </Button>
                 <Button
-                  type="submit"
+                  type={'submit'}
                   colorScheme="purple"
                   leftIcon={<FiArrowUpRight />}
                   disabled={similarity > SIMILARITY_LIMIT}
                 >
                   Recommend
                 </Button>
-                <ModelCreateModal<Post>
-                  title="Create Post"
-                  url="api/posts"
-                  schema={postSchema}
-                  fields={postFields}
-                  model={newPost}
-                >
-                  Create Post
-                </ModelCreateModal>
               </ButtonGroup>
             </Stack>
           </ModalBody>

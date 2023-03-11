@@ -8,12 +8,13 @@ import {
   ModalOverlay,
   Stack,
 } from '@chakra-ui/react'
-import { API_URL, VERCEL_URL } from '@wsvvrijheid/config'
+import { API_URL, SITE_URL } from '@wsvvrijheid/config'
 import { getModelById } from '@wsvvrijheid/services'
 import { Post, StrapiLocale } from '@wsvvrijheid/types'
 import { PostImage } from '@wsvvrijheid/ui'
 import { getItemLink, getOgImageSrc } from '@wsvvrijheid/utils'
 import { GetServerSideProps } from 'next'
+import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeo, NextSeoProps } from 'next-seo'
@@ -34,6 +35,12 @@ const Post = ({ seo, post }: PostProps) => {
   return (
     <>
       <NextSeo {...seo} />
+      <Head>
+        <meta
+          property="twitter:image:src"
+          content={seo.openGraph.images[0].url}
+        />
+      </Head>
       <Modal isCentered isOpen={true} onClose={() => null}>
         <ModalOverlay />
         <ModalContent>
@@ -69,22 +76,31 @@ export const getServerSideProps: GetServerSideProps = async context => {
 
   const title = post?.description.slice(0, 20)
   const description = post.description
-  const adminUrl = API_URL as string
   const image = post?.image
-  const url = getItemLink(post, locale, 'post') as string
+  let src = image?.url
+  const link = getItemLink(post, locale, 'post') as string
+
+  if (image?.formats?.small) {
+    src = image.formats.small.url
+  } else if (image?.formats?.medium) {
+    src = image.formats.medium.url
+  } else if (image?.formats?.large) {
+    src = image.formats.large.url
+  }
+
+  const imgSrc =
+    SITE_URL +
+    getOgImageSrc({
+      title: post.title,
+      text: post.description,
+      image: src ? `${API_URL}${src}` : undefined,
+      ...post.imageParams,
+    })
 
   const images = image && [
     {
-      url:
-        'https://' +
-        VERCEL_URL +
-        getOgImageSrc({
-          title: post.title,
-          text: post.description,
-          image: image?.url ? `${API_URL}${image?.url}` : undefined,
-          ...post.imageParams,
-        }),
-      secureUrl: adminUrl + image.url,
+      url: imgSrc,
+      secureUrl: imgSrc,
       type: image.mime as string,
       width: 1200,
       height: 675,
@@ -92,21 +108,33 @@ export const getServerSideProps: GetServerSideProps = async context => {
     },
   ]
 
+  const twitterHandle = {
+    en: '@samenvvvEn',
+    nl: '@samenvvv',
+    tr: '@samenvvvTr',
+  }
+
   const seo: NextSeoProps = {
     title,
     description,
+    twitter: {
+      cardType: 'summary_large_image',
+      site: twitterHandle[locale],
+      handle: twitterHandle[locale],
+    },
     openGraph: {
       title,
       description,
-      url,
+      url: link,
       images,
     },
   }
 
   return {
     props: {
-      link: url,
+      link,
       seo,
+      imgSrc,
       post,
       ...(await serverSideTranslations(
         locale as StrapiLocale,

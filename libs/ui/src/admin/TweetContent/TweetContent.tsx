@@ -10,7 +10,6 @@ import {
 } from '@chakra-ui/react'
 import { API_URL } from '@wsvvrijheid/config'
 import { RecommendedTweet, StrapiModel } from '@wsvvrijheid/types'
-import { formatDistanceToNow } from 'date-fns'
 import { FaPlayCircle } from 'react-icons/fa'
 import ReactPlayer from 'react-player'
 import twitterText from 'twitter-text'
@@ -102,13 +101,6 @@ export const TweetContent: FC<TweetContentProps> = ({
           )}
         </Box>
       </SimpleGrid>
-      {tweet?.createdAt && (
-        <Text fontSize={'sm'} color={'gray.500'} textAlign={'right'}>
-          {formatDistanceToNow(new Date(tweet.createdAt as string), {
-            addSuffix: true,
-          })}
-        </Text>
-      )}
     </Stack>
   )
 }

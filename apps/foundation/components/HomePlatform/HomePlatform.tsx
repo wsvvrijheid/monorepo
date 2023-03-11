@@ -69,7 +69,7 @@ export const HomePlatform: FC<HomePlatformProps> = ({ platforms }) => {
                       lg: index % 2 ? 'right' : 'left',
                     }}
                   >
-                    <Heading size="lg" fontWeight="black" color={color.text}>
+                    <Heading size="lg" fontWeight={900} color={color.text}>
                       {platform[`name_${locale}`]}
                     </Heading>
                     <Text color={color.text}>

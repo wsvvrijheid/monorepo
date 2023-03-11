@@ -1,7 +1,7 @@
 import { scrapTopics } from '../utils/scrapTopics'
 import { FormatTopic, Locale, Publisher, PageSelectors } from '../utils/types'
 
-const getRtlNews = async () => {
+export const getRtlNews = async () => {
   const url = new URL('https://www.rtlnieuws.nl')
 
   const selectors: PageSelectors = {
@@ -22,5 +22,3 @@ const getRtlNews = async () => {
     formatTopic,
   })
 }
-
-export default getRtlNews

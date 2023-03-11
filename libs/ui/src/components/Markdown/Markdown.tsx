@@ -10,7 +10,7 @@ import { Navigate } from '../Navigate'
 const MarkdownComponents = {
   h1: (props: HtmlHTMLAttributes<HTMLElement>) => (
     <chakra.h1
-      fontWeight="semibold"
+      fontWeight={600}
       textAlign="center"
       fontSize="3xl"
       my={8}
@@ -19,7 +19,7 @@ const MarkdownComponents = {
   ),
   h2: (props: HtmlHTMLAttributes<HTMLElement>) => (
     <chakra.h2
-      fontWeight="semibold"
+      fontWeight={600}
       fontSize="2xl"
       my={6}
       apply="mdx.h2"
@@ -28,7 +28,7 @@ const MarkdownComponents = {
   ),
   h3: (props: HtmlHTMLAttributes<HTMLElement>) => (
     <chakra.h3
-      fontWeight="semibold"
+      fontWeight={600}
       fontSize="xl"
       my={4}
       as="h3"
@@ -38,7 +38,7 @@ const MarkdownComponents = {
   ),
   h4: (props: HtmlHTMLAttributes<HTMLElement>) => (
     <chakra.h4
-      fontWeight="semibold"
+      fontWeight={600}
       fontSize="lg"
       my={4}
       as="h4"
@@ -50,12 +50,12 @@ const MarkdownComponents = {
     <chakra.hr apply="mdx.hr" {...props} />
   ),
   strong: (props: HtmlHTMLAttributes<HTMLElement>) => (
-    <chakra.span fontWeight="semibold" {...props} />
+    <chakra.span fontWeight={600} {...props} />
   ),
   a: (props: any) => (
     <Navigate
       href={props.href as any}
-      fontWeight="semibold"
+      fontWeight={600}
       color="blue.500"
       _hover={{ color: 'blue.300' }}
     >
