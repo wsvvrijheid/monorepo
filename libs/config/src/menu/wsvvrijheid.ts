@@ -7,13 +7,13 @@ import {
   club,
   contact,
   dashboard,
-  lotus,
+  donate,
   join,
+  lotus,
   platform,
   privacy,
   samenvvv,
   terms,
-  donate,
 } from './routes'
 
 export const wsvvrijheid = {

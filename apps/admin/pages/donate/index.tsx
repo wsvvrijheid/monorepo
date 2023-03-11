@@ -14,7 +14,6 @@ import {
   NumberInput,
   NumberInputField,
   NumberInputStepper,
-  SimpleGrid,
   Slider,
   SliderFilledTrack,
   SliderThumb,
@@ -27,9 +26,7 @@ import {
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { DONATION_ENABLED } from '@wsvvrijheid/config'
-import { Request } from '@wsvvrijheid/lib'
-import { Platform } from '@wsvvrijheid/types'
-import { Container, FormItem, PlatformList } from '@wsvvrijheid/ui'
+import { AdminLayout, Container, FormItem } from '@wsvvrijheid/ui'
 import axios from 'axios'
 import { InferGetStaticPropsType } from 'next'
 import { useTranslation } from 'next-i18next'
@@ -38,8 +35,6 @@ import { useForm } from 'react-hook-form'
 import { AiOutlineEuroCircle } from 'react-icons/ai'
 import { FaDonate } from 'react-icons/fa'
 import * as yup from 'yup'
-
-import { Layout } from '../../components'
 
 function generateSchema(t) {
   return yup.object().shape({
@@ -53,7 +48,7 @@ function generateSchema(t) {
 
 type DonatePageProps = InferGetStaticPropsType<typeof getStaticProps>
 
-const DonatePage: FC<DonatePageProps> = ({ platforms, title }) => {
+const DonatePage: FC<DonatePageProps> = ({ title }) => {
   const [amount, setAmount] = useState(10)
   const [method, setMethod] = useState<'ideal' | 'creditcard' | 'paypal'>(
     'ideal',
@@ -90,7 +85,7 @@ const DonatePage: FC<DonatePageProps> = ({ platforms, title }) => {
   }
 
   return (
-    <Layout seo={{ title }}>
+    <AdminLayout seo={{ title }}>
       <Container>
         <Center m={16}>
           <VStack>
@@ -108,12 +103,7 @@ const DonatePage: FC<DonatePageProps> = ({ platforms, title }) => {
             </Link>
           </VStack>
         </Center>
-        <SimpleGrid
-          alignItems="start"
-          columns={{ base: 1, lg: 2 }}
-          my={16}
-          gap={16}
-        >
+        <VStack my={16} gap={16}>
           <Stack
             px={{ base: 8, lg: 16 }}
             py={{ base: 8, lg: 12 }}
@@ -275,10 +265,9 @@ const DonatePage: FC<DonatePageProps> = ({ platforms, title }) => {
               {amount && ` €${amount}`}
             </Button>
           </Stack>
-          {platforms.data && <PlatformList platforms={platforms.data} />}
-        </SimpleGrid>
+        </VStack>
       </Container>
-    </Layout>
+    </AdminLayout>
   )
 }
 
@@ -288,10 +277,6 @@ export const getStaticProps = async context => {
       notFound: true,
     }
   }
-
-  const platforms = await Request.collection<Platform[]>({
-    url: 'api/platforms',
-  })
 
   const seo = {
     title: {
@@ -305,7 +290,6 @@ export const getStaticProps = async context => {
     props: {
       ...(await serverSideTranslations(context.locale, ['common'])),
       title: seo.title[context.locale],
-      platforms,
     },
   }
 }
