@@ -55,7 +55,9 @@ type DonatePageProps = InferGetStaticPropsType<typeof getStaticProps>
 
 const DonatePage: FC<DonatePageProps> = ({ platforms, title }) => {
   const [amount, setAmount] = useState(10)
-  const [method, setMethod] = useState<'ideal' | 'creditcard' | 'paypal'>()
+  const [method, setMethod] = useState<'ideal' | 'creditcard' | 'paypal'>(
+    'ideal',
+  )
   const { t } = useTranslation()
 
   const format = (val: number) => `€` + val
@@ -142,21 +144,25 @@ const DonatePage: FC<DonatePageProps> = ({ platforms, title }) => {
                     alt="ideal"
                   />
                 </Button>
-                <Button
-                  py={4}
-                  colorScheme={method === 'creditcard' ? 'blue' : 'gray'}
-                  variant={method === 'creditcard' ? 'solid' : 'outline'}
-                  onClick={() => setMethod('creditcard')}
-                  h="auto"
-                  size="lg"
-                >
-                  <Image
-                    src={`https://api.wsvvrijheid.nl/uploads/visa_master_logo_0b0568b367.svg`}
-                    h={50}
-                    alt="ideal"
-                  />
-                </Button>
-                <Button
+                <Tooltip label={'Not available yet'}>
+                  <Button
+                    py={4}
+                    colorScheme={method === 'creditcard' ? 'blue' : 'gray'}
+                    variant={method === 'creditcard' ? 'solid' : 'outline'}
+                    onClick={() => setMethod('creditcard')}
+                    h="auto"
+                    size="lg"
+                    disabled
+                    isDisabled
+                  >
+                    <Image
+                      src={`https://api.wsvvrijheid.nl/uploads/visa_master_logo_0b0568b367.svg`}
+                      h={50}
+                      alt="ideal"
+                    />
+                  </Button>
+                </Tooltip>
+                {/* <Button
                   py={4}
                   colorScheme={method === 'paypal' ? 'blue' : 'gray'}
                   variant={method === 'paypal' ? 'solid' : 'outline'}
@@ -169,7 +175,7 @@ const DonatePage: FC<DonatePageProps> = ({ platforms, title }) => {
                     h={50}
                     alt="ideal"
                   />
-                </Button>
+                </Button> */}
               </ButtonGroup>
               <Text textAlign="center" fontSize="md" color="gray.500">
                 {t('donation.checkpaymentmethod')} *

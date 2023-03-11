@@ -220,6 +220,7 @@ export type StrapiCollectionUrl =
   | 'comments'
   | 'competitions'
   | 'donates'
+  | 'donates/email'
   | 'feedbacks'
   | 'hashtags'
   | 'jobs'

@@ -1,9 +1,10 @@
 import { FC } from 'react'
 
 import { Center } from '@chakra-ui/react'
-import { Request } from '@wsvvrijheid/lib'
+import { TOKEN } from '@wsvvrijheid/config'
+import { Mutation, Request } from '@wsvvrijheid/lib'
 import { mollieClient } from '@wsvvrijheid/mollie'
-import { Donate } from '@wsvvrijheid/types'
+import { Donate, StrapiUrl } from '@wsvvrijheid/types'
 import { Container, DonationResultAlert } from '@wsvvrijheid/ui'
 import { InferGetServerSidePropsType } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
@@ -100,6 +101,10 @@ export const getServerSideProps = async context => {
     (await mollieClient.payments.get(response.data.mollieId))
 
   const status = payment?.status || null
+
+  if (status === 'paid') {
+    await Mutation.post(`api/donates/email/${query.id}` as StrapiUrl, {}, TOKEN)
+  }
 
   return {
     props: {

@@ -4,7 +4,7 @@ import { mollieClient } from '@wsvvrijheid/mollie'
 import { Donate, DonateCreateInput } from '@wsvvrijheid/types'
 
 export default async function handler(req, res) {
-  const { amount, name, email, method, description } = req.body
+  const { amount, name, email, method } = req.body
 
   // Create blank donate in database
   const donate = await Mutation.post<Donate, DonateCreateInput>(
@@ -29,7 +29,7 @@ export default async function handler(req, res) {
     metadata: {
       id: donate.id,
     },
-    description: description ?? 'no description',
+    description: 'Wsvvrjheid donatie',
     redirectUrl: `${SITE_URL}/donate/complete?id=${donate.id}`,
     webhookUrl: `${SITE_URL}/api/payment/status`,
   })
