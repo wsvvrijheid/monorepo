@@ -1,6 +1,6 @@
 import { FC } from 'react'
 
-import { Box, Link, Text } from '@chakra-ui/react'
+import { Link, Text } from '@chakra-ui/react'
 import { QueryClient } from '@tanstack/react-query'
 import { SITE_URL } from '@wsvvrijheid/config'
 import { searchModel, SearchModelArgs } from '@wsvvrijheid/services'
@@ -9,7 +9,7 @@ import {
   StrapiCollectionResponse,
   StrapiLocale,
 } from '@wsvvrijheid/types'
-import { Container, Hero, Markdown } from '@wsvvrijheid/ui'
+import { Container, Hero } from '@wsvvrijheid/ui'
 import {
   getItemLink,
   getOgImageSrc,
@@ -55,11 +55,11 @@ const AnnouncementEvent: FC<HashtagEventsProps> = ({
       </Head>
       <Hero title={seo.title as string} isFullHeight={false} />
       <Container overflowX="hidden">
-        {source && (
+        {/* {source && (
           <Box my={8} maxW="container.md" mx="auto" textAlign="center">
             <Markdown source={source} />
           </Box>
-        )}
+        )} */}
         {!hasStarted ? (
           <HashtagAnnouncement hashtag={hashtag} link={link} />
         ) : (
