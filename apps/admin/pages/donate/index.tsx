@@ -174,8 +174,8 @@ const DonatePage: FC<DonatePageProps> = ({ title }) => {
 
             <ButtonGroup w="full" isAttached alignSelf="center" size="lg">
               {useBreakpointValue({
-                base: [10, 20, 30, 50],
-                sm: [10, 20, 30, 50, 100],
+                base: [5, 10, 20, 50],
+                sm: [5, 10, 20, 50, 100],
               }).map(val => (
                 <Button
                   w="full"
