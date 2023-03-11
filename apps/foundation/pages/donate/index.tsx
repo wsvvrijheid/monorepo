@@ -54,7 +54,7 @@ function generateSchema(t) {
 type DonatePageProps = InferGetStaticPropsType<typeof getStaticProps>
 
 const DonatePage: FC<DonatePageProps> = ({ platforms, title }) => {
-  const [amount, setAmount] = useState(10)
+  const [amount, setAmount] = useState(5)
   const [method, setMethod] = useState<'ideal' | 'creditcard' | 'paypal'>(
     'ideal',
   )
@@ -210,7 +210,7 @@ const DonatePage: FC<DonatePageProps> = ({ platforms, title }) => {
                 maxW={120}
                 onChange={valueString => setAmount(parse(valueString))}
                 value={format(amount)}
-                min={10}
+                min={5}
                 size="lg"
               >
                 <NumberInputField />
@@ -222,9 +222,9 @@ const DonatePage: FC<DonatePageProps> = ({ platforms, title }) => {
               <Slider
                 flex={1}
                 id="slider"
-                defaultValue={10}
+                defaultValue={5}
                 value={amount}
-                min={10}
+                min={5}
                 max={100}
                 colorScheme="primary"
                 onChange={v => setAmount(v)}
@@ -267,7 +267,7 @@ const DonatePage: FC<DonatePageProps> = ({ platforms, title }) => {
 
             <Button
               isDisabled={!amount || !method || !isValid}
-              colorScheme="primary"
+              colorScheme="green"
               type="submit"
               leftIcon={<FaDonate />}
             >
