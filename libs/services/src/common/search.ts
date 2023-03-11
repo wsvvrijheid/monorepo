@@ -124,9 +124,10 @@ export const searchModel = async <T extends StrapiModel>({
         artist: { username: { $containsi: searchTerm || username } },
       }
     }
-
     if (categories) {
-      categoryFilter = { slug: { $in: Object.values(parse(categories)) } }
+      categoryFilter = {
+        categories: { slug: { $in: Object.values(parse(categories)) } },
+      }
     }
   }
 
