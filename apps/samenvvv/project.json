@@ -26,6 +26,11 @@
             "input": "public/locales",
             "glob": "**/*.json",
             "output": "locales"
+          },
+          {
+            "input": "public",
+            "glob": "*.js",
+            "output": "/"
           }
         ]
       },
