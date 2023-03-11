@@ -1,7 +1,15 @@
-import { about, art, collection, contact, privacy, terms } from './routes'
+import {
+  about,
+  art,
+  collection,
+  contact,
+  privacy,
+  terms,
+  donate,
+} from './routes'
 
 export const kunsthalte = {
-  headerMenu: [art, collection, about, contact],
+  headerMenu: [art, collection, about, contact, donate],
   footerMenu: [
     {
       children: [
@@ -13,6 +21,7 @@ export const kunsthalte = {
           en: 'Foundation',
           nl: 'Stichting',
         },
+        donate,
       ],
       en: 'Menu',
       nl: 'Menu',

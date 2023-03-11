@@ -76,6 +76,8 @@
   "create": "Create",
   "description": "Description",
   "dismiss": "Dismiss",
+  "donation.checkpaymentmethod":"Choose your payment method",
+  "donation.description":"Our foundation accepts donations together with the Stichting Challenges Foundation within the framework of the current protocol. Your donations are reserved for our foundation within Stichting Challenges.",
   "edit": "Edit",
   "error": "Error",
   "event": "Event",

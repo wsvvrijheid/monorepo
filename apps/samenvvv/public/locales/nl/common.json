@@ -76,6 +76,8 @@
   "create": "Creëren",
   "description": "Beschrijving",
   "dismiss": "Negeren",
+  "donation.description":"Onze stichting accepteert samen met Stichting Challenges binnen de kaders van het huidige protocol donaties. Uw donaties worden gereserveerd voor onze stichting binnen Stichting Challenges.",
+  "donation.checkpaymentmethod":"Kies je betaalmethode",
   "edit": "Bewerken",
   "error": "Fout",
   "event": "Evenement",
