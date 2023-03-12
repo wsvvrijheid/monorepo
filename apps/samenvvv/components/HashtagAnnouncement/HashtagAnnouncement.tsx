@@ -34,7 +34,7 @@ export const HashtagAnnouncement: FC<HashtagAnnouncementProps> = ({
         <ShareButtons
           title={capsParams.title}
           url={`${SITE_URL}${linkCaps}`}
-          quote={`${capsParams.text}\n\n ${t('suppport.hashtag')}\n\n`}
+          quote={`${capsParams.text}\n\n ${t('support.hashtag')}\n\n`}
         />
       </VStack>
     </Stack>
