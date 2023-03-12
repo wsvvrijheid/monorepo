@@ -133,7 +133,7 @@ export const getServerSideProps: GetServerSideProps = async context => {
   const announcementTitle = hashtag?.title.slice(0, 20) || ''
   const announcementDescription = hashtag?.description || ''
 
-  const link = getItemLink(hashtag, locale, 'announcement') as string
+  const link = getItemLink(hashtag, locale, 'hashtag') as string
 
   const ogParams = mapHashtagToOgParams(hashtag, locale)
 
