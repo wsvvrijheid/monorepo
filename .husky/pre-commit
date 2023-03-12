@@ -2,5 +2,5 @@
 . "$(dirname -- "$0")/_/husky.sh"
 
 yarn lint
-yarn --cwd apps/api format
+#yarn --cwd apps/api format
 
