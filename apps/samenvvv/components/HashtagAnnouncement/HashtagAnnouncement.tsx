@@ -1,9 +1,9 @@
 import { FC } from 'react'
 
-import { Link, Stack, Text, VStack } from '@chakra-ui/react'
+import { Stack, Text, VStack } from '@chakra-ui/react'
 import { SITE_URL } from '@wsvvrijheid/config'
 import { StrapiLocale } from '@wsvvrijheid/types'
-import { Caps, ShareButtons, useItemLink } from '@wsvvrijheid/ui'
+import { Caps, Navigate, ShareButtons, useItemLink } from '@wsvvrijheid/ui'
 import { mapHashtagToOgParams } from '@wsvvrijheid/utils'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
@@ -29,11 +29,11 @@ export const HashtagAnnouncement: FC<HashtagAnnouncementProps> = ({
       <Caps imageParams={capsParams} />
       <VStack alignItems={'start'} p={4}>
         <Text>{hashtag?.content}</Text>
-        <Link href={link}>
+        <Navigate href={link}>
           <Text fontWeight={'bold'} color={'primary'} m={4}>
             {t('join-link')}
           </Text>
-        </Link>
+        </Navigate>
         <ShareButtons
           title={capsParams.title}
           url={`${SITE_URL}${linkCaps}`}
