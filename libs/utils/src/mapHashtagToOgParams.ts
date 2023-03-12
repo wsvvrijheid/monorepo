@@ -25,7 +25,7 @@ export const mapHashtagToOgParams = (
 
   return {
     title: `📢 ${TITLE} 📢`,
-    text: `${TOPIC}: ${hashtag?.description}\n\n📅 ${euDate}\n🇳🇱 ${euTime}\n🇹🇷 ${trTime}`,
+    text: `${TOPIC}: ${hashtag?.description}\n\n📅 ${euDate}\n\n🇳🇱 ${euTime}\n🇹🇷 ${trTime}`,
     image: 'https://api.wsvvrijheid.nl/uploads/announcement_5a80e36c27.png',
     shape: 0,
     bg: 'white',

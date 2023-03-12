@@ -18,15 +18,14 @@ import {
 import { isPast } from 'date-fns'
 import { GetServerSideProps } from 'next'
 import Head from 'next/head'
+import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { serialize } from 'next-mdx-remote/serialize'
 import { NextSeoProps } from 'next-seo'
-import { useTranslation } from 'react-i18next'
 
-import i18nConfig from '..//next-i18next.config'
-import { Layout } from '../components'
-import { HashtagAnnouncement } from '../components/HashtagAnnouncement' //TODO fix import style
+import { Layout, HashtagAnnouncement } from '../components'
+import i18nConfig from '../next-i18next.config'
 
 type HashtagEventsProps = {
   seo: NextSeoProps
@@ -127,11 +126,7 @@ export const getServerSideProps: GetServerSideProps = async context => {
 
   if (!hashtag) {
     return {
-      props: {
-        ...ssrTranslations,
-        seo: { title: title[locale] },
-        hashtag: null,
-      },
+      notFound: true,
     }
   }
 
