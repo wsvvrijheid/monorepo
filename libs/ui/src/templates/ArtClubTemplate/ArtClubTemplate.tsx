@@ -57,6 +57,7 @@ export const ArtClubTemplate: FC = () => {
   // Custom useQuery hook or fetching arts
   const artsQuery = useSearchModel<Art>({
     url: 'api/arts',
+    categories: categories as string,
     page: parseInt(page as string) || 1,
     searchTerm: searchTerm as string,
     locale: locale as StrapiLocale,

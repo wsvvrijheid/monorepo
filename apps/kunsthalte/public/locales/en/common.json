@@ -1,6 +1,9 @@
 {
   "all": "All",
   "announcement": "Announcement",
+  "announcement.title": "EVENT ANNOUNCEMENT",
+  "announcement.topic": "Topic",
+  "announcement.date": "Date",
   "apply-form.available-hours.input": "Weekly Available hours",
   "apply-form.available-hours.required": "You must specify number of your available hours",
   "apply-form.comment": "Comment",
@@ -92,6 +95,8 @@
   "home.post-maker.content": "All content mention advices caps and trends of our Social media campaigns in one place",
   "home.post-maker.title": "Post Maker",
   "join-the-team": "Join the Team",
+  "join-previous-hashtag": "We do not have any hashtag work planned yet. You can join our previous work from the link below.",
+  "join-link":"Join event",
   "language": "Language",
   "login.create-account": "Create Account",
   "login.email-taken.description": "You have registered this email address before. Please use the same provider as your first login",
