@@ -1,6 +1,6 @@
 import { FC } from 'react'
 
-import { Link, Text } from '@chakra-ui/react'
+import { Text } from '@chakra-ui/react'
 import { QueryClient } from '@tanstack/react-query'
 import { SITE_URL } from '@wsvvrijheid/config'
 import { searchModel, SearchModelArgs } from '@wsvvrijheid/services'
@@ -9,7 +9,7 @@ import {
   StrapiCollectionResponse,
   StrapiLocale,
 } from '@wsvvrijheid/types'
-import { Container, Hero } from '@wsvvrijheid/ui'
+import { Container, Hero, Navigate } from '@wsvvrijheid/ui'
 import {
   getItemLink,
   getOgImageSrc,
@@ -37,7 +37,6 @@ type HashtagEventsProps = {
 
 const AnnouncementEvent: FC<HashtagEventsProps> = ({
   seo,
-  source,
   hashtag,
   hasStarted,
   link,
@@ -47,30 +46,27 @@ const AnnouncementEvent: FC<HashtagEventsProps> = ({
   return (
     <Layout seo={seo} isDark>
       <Head>
-        <meta
-          property="twitter:image:src"
-          content={seo.openGraph.images[0].url}
-        />
+        {seo?.openGraph && (
+          <meta
+            property="twitter:image:src"
+            content={seo.openGraph.images[0].url}
+          />
+        )}
       </Head>
       <Hero title={seo.title as string} isFullHeight={false} />
       <Container overflowX="hidden">
-        {/* {source && (
-          <Box my={8} maxW="container.md" mx="auto" textAlign="center">
-            <Markdown source={source} />
-          </Box>
-        )} */}
-        {!hasStarted ? (
+        {hashtag && !hasStarted ? (
           <HashtagAnnouncement hashtag={hashtag} link={link} />
         ) : (
           <>
             <Text color={'primary'} m={4}>
               {t('join-previous-hashtag')}
             </Text>
-            <Link href={link}>
+            <Navigate href={link || `/hashtags`}>
               <Text fontWeight={'bold'} color={'primary'} m={4}>
                 {t('join-link')}
               </Text>
-            </Link>
+            </Navigate>
           </>
         )}
       </Container>
@@ -126,7 +122,11 @@ export const getServerSideProps: GetServerSideProps = async context => {
 
   if (!hashtag) {
     return {
-      notFound: true,
+      props: {
+        ...ssrTranslations,
+        seo: { title: title[locale] },
+        hashtag: null,
+      },
     }
   }
 
