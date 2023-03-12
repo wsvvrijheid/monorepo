@@ -18,7 +18,10 @@ export const HashtagAnnouncement: FC<HashtagAnnouncementProps> = ({
   const { locale } = useRouter()
 
   const linkCaps = useItemLink(hashtag, 'hashtag')
-
+  console.log('hashtag >>', hashtag)
+  if (!hashtag) {
+    return
+  }
   const capsParams = mapHashtagToOgParams(hashtag, locale as StrapiLocale)
 
   return (
