@@ -16,15 +16,6 @@
     }
   },
   "attributes": {
-    "title": {
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "type": "string",
-      "required": true
-    },
     "description": {
       "pluginOptions": {
         "i18n": {
@@ -57,7 +48,11 @@
         }
       },
       "type": "enumeration",
-      "enum": ["pending", "approved", "rejected"],
+      "enum": [
+        "pending",
+        "approved",
+        "rejected"
+      ],
       "default": "pending",
       "required": false
     },
@@ -68,7 +63,11 @@
         }
       },
       "type": "enumeration",
-      "enum": ["pending", "approved", "rejected"],
+      "enum": [
+        "pending",
+        "approved",
+        "rejected"
+      ],
       "default": "pending"
     },
     "imageParams": {
@@ -83,7 +82,10 @@
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": ["images", "videos"],
+      "allowedTypes": [
+        "images",
+        "videos"
+      ],
       "pluginOptions": {
         "i18n": {
           "localized": false

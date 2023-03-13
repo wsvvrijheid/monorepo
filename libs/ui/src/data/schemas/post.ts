@@ -18,7 +18,6 @@ export const postSchema = yup.object({
 })
 
 export const postFields: FormFields<Post> = [
-  { name: 'title', isRequired: true },
   { name: 'description', isRequired: true, type: 'textarea' },
   {
     name: 'hashtag',
