@@ -10,5 +10,15 @@ export default {
       path: '/blogs/relation/:id',
       handler: 'custom.relation',
     },
+    {
+      method: 'PUT',
+      path: '/blogs/like/:id',
+      handler: 'custom.like',
+    },
+    {
+      method: 'PUT',
+      path: '/blogs/view/:id',
+      handler: 'custom.view',
+    },
   ],
 }

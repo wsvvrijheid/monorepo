@@ -11,7 +11,7 @@ import { useArtBySlug } from './getBySlug'
 export const viewArt = async (art: Art, token: string) => {
   const body = { views: (art.views || 0) + 1, token }
 
-  return Mutation.put<Art, ArtUpdateInput>('api/arts', art.id, body, token)
+  return Mutation.put<Art, ArtUpdateInput>('api/arts/view', art.id, body, token)
 }
 
 export const useViewArtMutation = async () => {
