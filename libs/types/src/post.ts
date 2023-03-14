@@ -43,7 +43,7 @@ export type PostUpdateInput = Expand<
 
 export type PostLocalizeInput = Pick<
   PostBase,
-  'title' | 'description' | 'content' | 'approvalStatus'
+  'description' | 'content' | 'approvalStatus'
 >
 
 export type Post = StrapiBase & PostBase & PostRelation & StrapiCreatorRelation

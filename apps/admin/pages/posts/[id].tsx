@@ -45,7 +45,7 @@ const PostPage: FC<PageProps> = ({ seo }) => {
             url="api/posts"
             model={post}
             schema={postSchema}
-            translatedFields={['title', 'description', 'content']}
+            translatedFields={['description', 'content']}
             fields={postFields}
             onSuccess={refetch}
           />
