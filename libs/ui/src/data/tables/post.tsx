@@ -16,7 +16,6 @@ export const postColumns: WTableProps<Post>['columns'] = {
     sortKey: 'username',
     sortable: true,
   },
-  title: { sortable: true },
   content: {},
   hashtag: {
     sortable: true,
@@ -27,21 +26,6 @@ export const postColumns: WTableProps<Post>['columns'] = {
     type: 'date',
     componentProps: { format: 'dd MMMM' },
     sortable: true,
-  },
-  capsStatus: {
-    type: 'badge',
-    componentProps: value => {
-      const colorScheme = {
-        approved: 'green',
-        pending: 'yellow',
-        rejected: 'red',
-        original: 'blue',
-      }
-      return {
-        variant: 'outline',
-        colorScheme: colorScheme[value as ApprovalStatus],
-      }
-    },
   },
   translates: {
     label: 'Locales',

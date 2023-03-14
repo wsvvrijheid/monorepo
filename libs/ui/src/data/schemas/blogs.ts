@@ -14,7 +14,8 @@ export const blogSchema = yup.object({
 
 export const blogFields: FormFields<Blog> = [
   { name: 'title', isRequired: true },
-
+  { name: 'image', type: 'file', isRequired: true },
+  { name: 'content', isRequired: true, type: 'markdown' },
   {
     name: 'categories',
     type: 'select',
@@ -27,7 +28,4 @@ export const blogFields: FormFields<Blog> = [
     isMulti: true,
     url: 'api/tags',
   },
-
-  { name: 'content', isRequired: true, type: 'markdown' },
-  { name: 'image', type: 'file', isRequired: true },
 ]

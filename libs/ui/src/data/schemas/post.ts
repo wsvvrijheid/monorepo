@@ -18,7 +18,14 @@ export const postSchema = yup.object({
 })
 
 export const postFields: FormFields<Post> = [
-  { name: 'title', isRequired: true },
+  { name: 'description', isRequired: true, type: 'textarea' },
+  {
+    name: 'hashtag',
+    type: 'select',
+    url: 'api/hashtags',
+  },
+  { name: 'image', type: 'file', isRequired: true },
+  { name: 'content', type: 'markdown' },
   { name: 'reference' },
   {
     name: 'tags',
@@ -26,12 +33,4 @@ export const postFields: FormFields<Post> = [
     url: 'api/tags',
     isMulti: true,
   },
-  { name: 'description', isRequired: true, type: 'textarea' },
-  {
-    name: 'hashtag',
-    type: 'select',
-    url: 'api/hashtags',
-  },
-  { name: 'content', type: 'markdown' },
-  { name: 'image', type: 'file', isRequired: true },
 ]
