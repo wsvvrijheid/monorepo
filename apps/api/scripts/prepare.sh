@@ -24,7 +24,7 @@ echo "\n_________________________________________________________\n"
 if [[ "${REMOTE_DB_PASSWORD}" && "${REMOTE_DB_HOST}" && "${REMOTE_DB_USER}" && "${REMOTE_DB_NAME}" ]]; then
     echo "Dumping database..."
     PGPASSWORD=$REMOTE_DB_PASSWORD pg_dump -h $REMOTE_DB_HOST -U $REMOTE_DB_USER $REMOTE_DB_NAME \
-    -n public --no-owner > sql/database.dump.sql
+    -n public --no-owner -c > sql/database.dump.sql
     echo "Database dumped!"
 else
     echo "No remote database credentials found. Skipping database dump."
@@ -34,7 +34,7 @@ echo "\n_________________________________________________________\n"
 
 if test -f "$DUMP_FILE"; then
     echo "Restoring database..."
-    psql -U postgres $DATABASE_NAME < sql/database.dump.sql
+    psql -U postgres $DATABASE_NAME -Fc < sql/database.dump.sql
     echo "Database restored!"
 else
     echo "No database dump found. Skipping database restore."
