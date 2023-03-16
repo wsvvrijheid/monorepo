@@ -48,10 +48,16 @@
     "tr": "Lotus van de Media"
   },
   "artStop": {
-    "link": "/platforms/art-station",
+    "link": "/platforms/kunsthalte",
     "en": "Art Station",
     "nl": "Kunsthalte",
     "tr": "Sanat Durağı"
+  },
+  "muzic": {
+    "link": "/platforms/scm",
+    "en": "Sound of Change Muzic",
+    "nl": "Sound of Change Muzic",
+    "tr": "Sound of Change Muzic"
   },
   "samenvvv": {
     "link": "/platforms/samenvvv",

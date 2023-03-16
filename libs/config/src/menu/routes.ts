@@ -21,4 +21,5 @@ export const {
   foundation,
   samenvvv,
   terms,
+  muzic,
 } = ROUTES
