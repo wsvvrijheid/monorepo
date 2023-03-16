@@ -16,7 +16,11 @@ export const activitySchema = yup.object({
 
 export const activityFields: FormFields<Activity> = [
   { name: 'title', isRequired: true },
+  { name: 'description', isRequired: true, type: 'textarea' },
   { name: 'date', isRequired: true, type: 'datetime-local' },
+
+  { name: 'content', isRequired: true, type: 'markdown' },
+  { name: 'image', type: 'file', isRequired: true },
   {
     name: 'categories',
     type: 'select',
@@ -29,7 +33,4 @@ export const activityFields: FormFields<Activity> = [
     isMulti: true,
     url: 'api/tags',
   },
-  { name: 'description', isRequired: true, type: 'textarea' },
-  { name: 'content', isRequired: true, type: 'markdown' },
-  { name: 'image', type: 'file', isRequired: true },
 ]

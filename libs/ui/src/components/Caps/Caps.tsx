@@ -179,7 +179,7 @@ export const Caps = forwardRef<CapsProps, 'div'>(
                   </Text>
                 )}
 
-                {hasLine && (
+                {hasLine && title && (
                   <Box
                     bg={color}
                     h={hasLine ? `${dimensions.font / 6}px` : '0'}
