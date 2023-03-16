@@ -14,53 +14,58 @@ export default {
   },
   async like(ctx: Context) {
     if (ctx.state.user) {
-      const art = await strapi.service('api::art.art').findOne(ctx.params.id, {
-        populate: {
-          likers: true,
+      const likedArts = await strapi.service('api::art.art').find({
+        filters: {
+          id: ctx.params.id,
+          likers: { id: { $eq: ctx.state.user.id } },
         },
+        populate: { likers: true },
       })
-      const isLiked = art.likers.filter(user => user.id == ctx.state.user.id)
 
-      if (isLiked.length === 0) {
-        const likers = [...art.likers]
-        likers.push(ctx.state.user)
+      const isLiked = (likedArts['results']?.length || 0) > 0
+
+      if (!isLiked) {
+        const singleArt = await strapi
+          .service('api::art.art')
+          .findOne(ctx.params.id, {
+            populate: { likers: true },
+          })
         const updatedArt = await strapi
           .service('api::art.art')
           .update(ctx.params.id, {
             data: {
-              likers: likers,
-              likes: art.likes + 1,
+              likes: singleArt.likes + 1,
+              likers: [...singleArt.likers, ctx.state.user.id],
             },
           })
-
-        return updatedArt
-      } else {
-        const likers = art.likers.filter(user => user.id != ctx.state.user.id)
-        const updatedArt = await strapi
-          .service('api::art.art')
-          .update(ctx.params.id, {
-            data: {
-              likers: likers,
-              likes: art.likes - 1,
-            },
-          })
-
         return updatedArt
       }
-    } else {
-      const art = await strapi
-        .service('api::art.art')
-        .findOne(ctx.params.id, {})
 
+      const likers = likedArts['results'][0].likers.filter(
+        user => user.id != ctx.state.user.id,
+      )
       const updatedArt = await strapi
         .service('api::art.art')
         .update(ctx.params.id, {
           data: {
-            likes: art.likes + 1,
+            likes: likedArts['results'][0].likes - 1,
+            likers: likers,
           },
         })
+
       return updatedArt
     }
+    const art = await strapi.service('api::art.art').findOne(ctx.params.id, {})
+
+    const updatedArt = await strapi
+      .service('api::art.art')
+      .update(ctx.params.id, {
+        data: {
+          likes: art.likes + 1,
+        },
+      })
+      
+    return updatedArt
   },
   async view(ctx: Context) {
     const art = await strapi.service('api::art.art').findOne(ctx.params.id, {})

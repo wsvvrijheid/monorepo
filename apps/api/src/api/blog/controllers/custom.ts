@@ -32,55 +32,60 @@ export default {
   },
   async like(ctx: Context) {
     if (ctx.state.user) {
-      const blog = await strapi
-        .service('api::blog.blog')
-        .findOne(ctx.params.id, {
-          populate: {
-            likers: true,
-          },
-        })
-      const isLiked = blog.likers.filter(user => user.id == ctx.state.user.id)
+      const likedBlogs = await strapi.service('api::blog.blog').find({
+        filters: {
+          id: ctx.params.id,
+          likers: { id: { $eq: ctx.state.user.id } },
+        },
+        populate: { likers: true },
+      })
 
-      if (isLiked.length === 0) {
-        const likers = [...blog.likers]
-        likers.push(ctx.state.user)
+      const isLiked = (likedBlogs['results']?.length || 0) > 0
+
+      if (!isLiked) {
+        const singleBlog = await strapi
+          .service('api::blog.blog')
+          .findOne(ctx.params.id, {
+            populate: { likers: true },
+          })
         const updatedBlog = await strapi
           .service('api::blog.blog')
           .update(ctx.params.id, {
             data: {
-              likers: likers,
-              likes: blog.likes + 1,
+              likes: singleBlog.likes + 1,
+              likers: [...singleBlog.likers, ctx.state.user.id],
             },
           })
-
-        return updatedBlog
-      } else {
-        const likers = blog.likers.filter(user => user.id != ctx.state.user.id)
-        const updatedBlog = await strapi
-          .service('api::blog.blog')
-          .update(ctx.params.id, {
-            data: {
-              likers: likers,
-              likes: blog.likes - 1,
-            },
-          })
-
+          
         return updatedBlog
       }
-    } else {
-      const blog = await strapi
-        .service('api::blog.blog')
-        .findOne(ctx.params.id, {})
 
+      const likers = likedBlogs['results'][0].likers.filter(
+        user => user.id != ctx.state.user.id,
+      )
       const updatedBlog = await strapi
         .service('api::blog.blog')
         .update(ctx.params.id, {
           data: {
-            likes: blog.likes + 1,
+            likes: likedBlogs['results'][0].likes - 1,
+            likers: likers,
           },
         })
+
       return updatedBlog
     }
+    const blog = await strapi
+      .service('api::blog.blog')
+      .findOne(ctx.params.id, {})
+
+    const updatedBlog = await strapi
+      .service('api::blog.blog')
+      .update(ctx.params.id, {
+        data: {
+          likes: blog.likes + 1,
+        },
+      })
+    return updatedBlog
   },
   async view(ctx: Context) {
     const blog = await strapi
