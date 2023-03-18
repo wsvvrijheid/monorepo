@@ -1,6 +1,6 @@
 export default ({ env }) => ({
   'import-export-entries': {
-    enabled: true,
+    enabled: false,
   },
   graphql: {
     config: {
