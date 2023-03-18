@@ -49,6 +49,8 @@
   "category": "Categorie",
   "clear": "Wissen",
   "collections": "Collecties",
+  "collection-arts": "Collectie Kunst",
+  "collection.add-art": "Kunst toevoegen aan collectie",
   "comment-form.content.placeholder": "Inhoud",
   "comment-form.content.required": "Inhoudveld is verplicht",
   "comment-form.email.invalid": "Ongeldig e-mailadres",

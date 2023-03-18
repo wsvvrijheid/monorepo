@@ -8,6 +8,7 @@ import {
   MenuList,
   Spacer,
 } from '@chakra-ui/react'
+import { useTranslation } from 'next-i18next'
 import { HiOutlineFilter } from 'react-icons/hi'
 import { VscListFilter } from 'react-icons/vsc'
 
@@ -28,15 +29,17 @@ export const PageHeader: FC<PageHeaderProps> = ({
   onSearch,
   children,
   filterMenuCloseOnSelect,
-  searchPlaceHolder = 'Search',
+  searchPlaceHolder,
 }) => {
+  const { t } = useTranslation()
+
   return (
     <HStack align="center" bg="white" px={4} py={2} shadow="base">
       {typeof onSearch === 'function' ? (
         <SearchForm
           onSearch={onSearch}
           variant="flushed"
-          placeholder={searchPlaceHolder}
+          placeholder={t('search')}
         />
       ) : (
         <Spacer />

@@ -49,6 +49,8 @@
   "category": "Category",
   "clear": "Clear",
   "collections": "Collections",
+  "collection-arts": "Collection Arts",
+  "collection.add-art": "Add arts to collection",
   "comment-form.content.placeholder": "Content",
   "comment-form.content.required": "Content field is required",
   "comment-form.email.invalid": "Invalid email address",
