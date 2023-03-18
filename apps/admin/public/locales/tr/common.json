@@ -49,6 +49,8 @@
   "category": "Kategori",
   "clear": "Temizle",
   "collections": "Koleksiyonlar",
+  "collection-arts": "Koleksiyon Eserleri",
+  "collection.add-art": "Eserleri koleksiyona ekle",
   "comment-form.content.placeholder": "Yorum",
   "comment-form.content.required": "Yorum alanı zorunludur",
   "comment-form.email.invalid": "Geçersiz eposta adresi",
