@@ -178,7 +178,7 @@ const DonatePage: FC<DonatePageProps> = ({ platforms, title }) => {
                 </Button> */}
               </ButtonGroup>
               <Text textAlign="center" fontSize="md" color="gray.500">
-                {t('donation.checkpaymentmethod')} *
+                {t('donation.check-payment-method')} *
               </Text>
             </Stack>
 
