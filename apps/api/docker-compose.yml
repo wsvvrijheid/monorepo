@@ -1,7 +1,6 @@
 version: '3.8'
 
 services:
-
   strapi:
     container_name: strapi
     build:
@@ -54,8 +53,8 @@ services:
     healthcheck:
       test:
         [
-          "CMD-SHELL",
-          "sh -c 'pg_isready -U ${DATABASE_USERNAME} -d ${DATABASE_NAME}'"
+          'CMD-SHELL',
+          "sh -c 'pg_isready -U ${DATABASE_USERNAME} -d ${DATABASE_NAME}'",
         ]
       interval: 10s
       timeout: 3s
@@ -67,7 +66,6 @@ networks:
   strapi:
     name: Strapi
     driver: bridge
-
 # docker rm -f $(docker ps -a -q)
 
 # docker volume rm $(docker volume ls -q)
