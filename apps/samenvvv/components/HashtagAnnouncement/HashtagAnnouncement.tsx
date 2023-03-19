@@ -1,6 +1,6 @@
 import { FC } from 'react'
 
-import { Stack, Text, VStack } from '@chakra-ui/react'
+import { Heading, SimpleGrid, Stack, Text } from '@chakra-ui/react'
 import { SITE_URL } from '@wsvvrijheid/config'
 import { StrapiLocale } from '@wsvvrijheid/types'
 import { Caps, Navigate, ShareButtons, useItemLink } from '@wsvvrijheid/ui'
@@ -25,21 +25,27 @@ export const HashtagAnnouncement: FC<HashtagAnnouncementProps> = ({
   const capsParams = mapHashtagToOgParams(hashtag, locale as StrapiLocale)
 
   return (
-    <Stack spacing={4} mb={8} mt={8} ml={8}>
-      <Caps imageParams={capsParams} />
-      <VStack alignItems={'start'} p={4}>
+    <SimpleGrid gap={8}>
+      <Caps
+        rounded={'lg'}
+        overflow={'hidden'}
+        w={'full'}
+        shadow={'md'}
+        imageParams={capsParams}
+      />
+      <Stack fontSize={'lg'} justify={'center'} spacing={6}>
+        <Heading as={'h3'}>{hashtag.title}</Heading>
         <Text>{t('support.hashtag')}</Text>
-        <Navigate href={link}>
-          <Text fontWeight={'bold'} color={'primary'} m={4}>
-            {t('join-link')}
-          </Text>
+        <Navigate href={link} fontWeight={'bold'} color={'primary.500'}>
+          {t('join-link')}
         </Navigate>
         <ShareButtons
+          size={'lg'}
           title={capsParams.title}
           url={`${SITE_URL}${linkCaps}`}
           quote={`${capsParams.text}\n\n ${t('support.hashtag')}\n\n`}
         />
-      </VStack>
-    </Stack>
+      </Stack>
+    </SimpleGrid>
   )
 }
