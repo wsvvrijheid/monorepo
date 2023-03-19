@@ -22,6 +22,7 @@ import {
   StrapiTranslatableModel,
   StrapiTranslatableUpdateInput,
 } from '@wsvvrijheid/types'
+import { useTranslation } from 'next-i18next'
 import { useForm } from 'react-hook-form'
 import { AiOutlineEdit } from 'react-icons/ai'
 import { HiOutlineCheck } from 'react-icons/hi'
@@ -48,6 +49,8 @@ export const ModelEditTranslate = <T extends StrapiTranslatableModel>({
   pathname,
   schema,
 }: ModelEditTranslateProps<T>) => {
+  const { t } = useTranslation()
+
   const { data: model, refetch } = useModelById<T>({ url, id })
 
   const referenceModel = useReferenceModel<T>(model)
@@ -119,9 +122,9 @@ export const ModelEditTranslate = <T extends StrapiTranslatableModel>({
 
   const onApprove = () => {
     setConfirmState({
-      title: `Approve `,
-      description: 'Are you sure you want to approve this model?',
-      buttonText: 'Approve',
+      title: t('model.approve'),
+      description: t('model.approve-prompt'),
+      buttonText: t('model.approve'),
       onConfirm: async () => {
         approveModelMutation.mutate({ id }, { onSuccess: handleSuccess })
         setConfirmState(undefined)
@@ -229,7 +232,7 @@ export const ModelEditTranslate = <T extends StrapiTranslatableModel>({
                 colorScheme={'purple'}
                 isLoading={approveModelMutation.isLoading}
               >
-                Approve
+                {t('model.approve')}
               </Button>
             )}
           {!isEditing ? (
@@ -239,7 +242,7 @@ export const ModelEditTranslate = <T extends StrapiTranslatableModel>({
               colorScheme={'primary'}
               fontSize="sm"
             >
-              Edit
+              {t('model.edit')}
             </Button>
           ) : (
             <>
@@ -249,7 +252,7 @@ export const ModelEditTranslate = <T extends StrapiTranslatableModel>({
                 colorScheme={'gray'}
                 fontSize="sm"
               >
-                Cancel
+                {t('model.cancel')}
               </Button>
               <Button
                 type="submit"
@@ -257,7 +260,7 @@ export const ModelEditTranslate = <T extends StrapiTranslatableModel>({
                 colorScheme={'primary'}
                 fontSize="sm"
               >
-                Save
+                {t('model.save')}
               </Button>
             </>
           )}
