@@ -28,7 +28,7 @@ export const HashtagAnnouncement: FC<HashtagAnnouncementProps> = ({
     <Stack spacing={4} mb={8} mt={8} ml={8}>
       <Caps imageParams={capsParams} />
       <VStack alignItems={'start'} p={4}>
-        <Text>{hashtag?.content}</Text>
+        <Text>{t('support.hashtag')}</Text>
         <Navigate href={link}>
           <Text fontWeight={'bold'} color={'primary'} m={4}>
             {t('join-link')}
