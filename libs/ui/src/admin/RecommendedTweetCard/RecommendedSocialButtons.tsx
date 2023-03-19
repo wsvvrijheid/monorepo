@@ -60,6 +60,10 @@ export const RecommendedSocialButtons: FC<RecommendedSocialButtonsProps> = ({
     .join(' ')
   const quoteTweet = [tweet?.text, mentions].filter(a => !!a).join('\n\n')
 
+  const tweetImageUrl = tweet?.image
+    ? ''
+    : `https://twitter.com/${tweet.originalTweet?.user?.username}/status/${tweet?.originalTweet?.id}/video/1`
+
   let imageUrl: string | unknown
 
   if (tweet?.image?.url) {
@@ -111,9 +115,8 @@ export const RecommendedSocialButtons: FC<RecommendedSocialButtonsProps> = ({
           <PopoverBody>
             <ShareButtons
               // TODO: fix this
-              url="https://twitter.com"
-              // url={tweet?.originalTweet?.media?.url}
               quote={quoteTweet}
+              url={tweetImageUrl}
               size="sm"
             />
           </PopoverBody>
