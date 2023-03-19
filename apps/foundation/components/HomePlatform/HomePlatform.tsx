@@ -23,6 +23,7 @@ const colors = {
   samenvvv: { bg: 'samen.100', text: 'samen.500' },
   kunsthalte: { bg: 'green.100', text: 'green.500' },
   academy: { bg: 'blue.100', text: 'blue.500' },
+  scm: { bg: 'red.100', text: 'red.500' },
 }
 
 export const HomePlatform: FC<HomePlatformProps> = ({ platforms }) => {
@@ -39,7 +40,7 @@ export const HomePlatform: FC<HomePlatformProps> = ({ platforms }) => {
             key={index}
             py={{ base: 16, lg: 32 }}
             minH={{ base: '100vh', lg: '50vh' }}
-            bg={color.bg}
+            bg={color?.bg}
           >
             <Container>
               <SimpleGrid
