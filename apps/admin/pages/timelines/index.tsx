@@ -28,8 +28,8 @@ export const getStaticProps = async context => {
 
   const title = {
     en: 'Timelines',
-    tr: 'Timelines',
-    nl: 'Timelines',
+    tr: 'Timelinelar',
+    nl: 'Tijdlijnen',
   }
 
   const seo: NextSeoProps = {
