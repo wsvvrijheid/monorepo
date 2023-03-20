@@ -117,7 +117,7 @@ export const RecommendedSocialButtons: FC<RecommendedSocialButtonsProps> = ({
             <ShareButtons
               // TODO: fix this
               quote={quoteTweet}
-              url={tweetImageUrl}
+              url={tweetImageUrl as string}
               size="sm"
             />
           </PopoverBody>
