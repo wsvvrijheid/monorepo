@@ -1,6 +1,6 @@
 import { FC } from 'react'
 
-import { Text } from '@chakra-ui/react'
+import { Box, Text } from '@chakra-ui/react'
 import { QueryClient } from '@tanstack/react-query'
 import { SITE_URL } from '@wsvvrijheid/config'
 import { searchModel, SearchModelArgs } from '@wsvvrijheid/services'
@@ -54,22 +54,24 @@ const AnnouncementEvent: FC<HashtagEventsProps> = ({
         )}
       </Head>
       <Hero title={seo.title as string} isFullHeight={false} />
-      <Container overflowX="hidden">
-        {hashtag && !hasStarted ? (
-          <HashtagAnnouncement hashtag={hashtag} link={link} />
-        ) : (
-          <>
-            <Text color={'primary'} m={4}>
-              {t('join-previous-hashtag')}
-            </Text>
-            <Navigate href={link || `/hashtags`}>
-              <Text fontWeight={'bold'} color={'primary'} m={4}>
-                {t('join-link')}
+      <Box py={16}>
+        <Container maxW={'4xl'}>
+          {hashtag && !hasStarted ? (
+            <HashtagAnnouncement hashtag={hashtag} link={link} />
+          ) : (
+            <>
+              <Text color={'primary'} m={4}>
+                {t('join-previous-hashtag')}
               </Text>
-            </Navigate>
-          </>
-        )}
-      </Container>
+              <Navigate href={link || `/hashtags`}>
+                <Text fontWeight={'bold'} color={'primary'} m={4}>
+                  {t('join-link')}
+                </Text>
+              </Navigate>
+            </>
+          )}
+        </Container>
+      </Box>
     </Layout>
   )
 }

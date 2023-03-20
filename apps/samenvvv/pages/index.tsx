@@ -3,7 +3,7 @@ import { FC } from 'react'
 import { Box, Button, Heading, Stack, Text } from '@chakra-ui/react'
 import { searchModel } from '@wsvvrijheid/services'
 import { Hashtag, StrapiLocale } from '@wsvvrijheid/types'
-import { Navigate, Container } from '@wsvvrijheid/ui'
+import { Container, Navigate } from '@wsvvrijheid/ui'
 import { getItemLink } from '@wsvvrijheid/utils'
 import { isPast } from 'date-fns'
 import { GetStaticProps } from 'next'
@@ -30,7 +30,7 @@ const Home: FC<HomeProps> = ({ seo, link, hashtags }) => {
   return (
     <Layout seo={seo} isDark hasScroll>
       <Box
-        bgGradient="linear(to-b, primary.600, primary.300)"
+        bg={'primary.500'}
         mt={{ base: '-64px', lg: '-100px' }}
         pb={{ base: 16, lg: 32 }}
       >
@@ -41,12 +41,13 @@ const Home: FC<HomeProps> = ({ seo, link, hashtags }) => {
             alignItems={{ base: 'center', lg: 'center' }}
             justifyContent={'center'}
             textAlign={{ base: 'center', lg: 'center' }}
-            h={'75vh'}
+            minH={{ base: 'calc(100vh - 64px)', lg: 'calc(100vh - 100px)' }}
           >
             <Heading size="xl" color="white">
               {t('home.post-maker.title')}
             </Heading>
-            <Text fontSize="xl" fontWeight={400} maxWidth="2xl">
+
+            <Text fontSize="xl" fontWeight={400}>
               {t('home.post-maker.content')}
             </Text>
 
@@ -70,15 +71,13 @@ const Home: FC<HomeProps> = ({ seo, link, hashtags }) => {
           </Stack>
         </Container>
       </Box>
-      <Box>
-        <Stack
-          alignItems={{ base: 'center', lg: 'center' }}
-          justifyContent={'center'}
-          textAlign={{ base: 'center', lg: 'center' }}
-        >
-          {!hasStarted && <HashtagAnnouncement hashtag={hashtag} link={link} />}
-        </Stack>
-      </Box>
+      {!hasStarted && (
+        <Box bg={'primary.50'} py={16} borderBottomWidth={1}>
+          <Container maxW={'4xl'}>
+            <HashtagAnnouncement hashtag={hashtag} link={link} />
+          </Container>
+        </Box>
+      )}
       {hashtags.length > 0 && <HashtagsSummary hashtags={hashtags} />}
     </Layout>
   )
