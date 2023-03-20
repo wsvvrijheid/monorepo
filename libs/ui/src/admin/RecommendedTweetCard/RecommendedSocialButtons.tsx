@@ -60,11 +60,6 @@ export const RecommendedSocialButtons: FC<RecommendedSocialButtonsProps> = ({
     .join(' ')
   const quoteTweet = [tweet?.text, mentions].filter(a => !!a).join('\n\n')
 
-  const tweetImageUrl =
-    tweet?.originalTweet?.image ||
-    (tweet?.originalTweet?.video &&
-      `https://twitter.com/${tweet.originalTweet?.user?.username}/status/${tweet?.originalTweet?.id}/video/1`)
-
   let imageUrl: string | unknown
 
   if (tweet?.image?.url) {
@@ -74,6 +69,11 @@ export const RecommendedSocialButtons: FC<RecommendedSocialButtonsProps> = ({
   if (tweet?.originalTweet?.image) {
     imageUrl = tweet?.originalTweet?.image
   }
+
+  const tweetImageUrl =
+    tweet?.originalTweet?.image || tweet?.originalTweet?.video
+      ? `https://twitter.com/${tweet.originalTweet?.user?.username}/status/${tweet?.originalTweet?.id}/video/1`
+      : imageUrl
 
   const postContent = {
     title: tweet.text,
