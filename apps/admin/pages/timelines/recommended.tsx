@@ -1,9 +1,10 @@
 import { FC } from 'react'
 
 import { useSearchModel } from '@wsvvrijheid/services'
-import { RecommendedTweet } from '@wsvvrijheid/types'
+import { RecommendedTweet, StrapiLocale } from '@wsvvrijheid/types'
 import { AdminLayout, MasonryGrid, RecommendedTweetCard } from '@wsvvrijheid/ui'
 import { InferGetStaticPropsType } from 'next'
+import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
 
@@ -12,8 +13,11 @@ import i18nConfig from '../../next-i18next.config'
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>
 
 const RecommendedTweetPage: FC<PageProps> = ({ seo }) => {
+  const { locale } = useRouter()
+
   const { data: tweets, isLoading } = useSearchModel<RecommendedTweet>({
     url: 'api/recommended-tweets',
+    locale: locale as StrapiLocale,
   })
 
   return (
