@@ -70,6 +70,10 @@ export const RecommendedSocialButtons: FC<RecommendedSocialButtonsProps> = ({
     imageUrl = tweet?.originalTweet?.image
   }
 
+  const tweetImageUrl =
+    (tweet?.originalTweet?.image || tweet?.originalTweet?.video) &&
+    `https://twitter.com/${tweet.originalTweet?.user?.username}/status/${tweet?.originalTweet?.id}/video/1`
+
   const postContent = {
     title: tweet.text,
     description: tweet?.text,
@@ -111,9 +115,8 @@ export const RecommendedSocialButtons: FC<RecommendedSocialButtonsProps> = ({
           <PopoverBody>
             <ShareButtons
               // TODO: fix this
-              url="https://twitter.com"
-              // url={tweet?.originalTweet?.media?.url}
               quote={quoteTweet}
+              url={tweetImageUrl as string}
               size="sm"
             />
           </PopoverBody>

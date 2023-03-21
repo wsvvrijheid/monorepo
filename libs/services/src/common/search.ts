@@ -75,9 +75,8 @@ export const searchModel = async <T extends StrapiModel>({
     'api/jobs',
     'api/lang-roles',
     'api/platforms',
-    'api/recommended-tweets',
     'api/tags',
-    'api/timelines',
+
     'api/users',
     'api/volunteers',
     'api/votes',
