@@ -9,7 +9,6 @@ import {
   Button,
   ButtonGroup,
   Box,
-  Container,
 } from '@chakra-ui/react'
 import { useTopic, useTopicSync } from '@wsvvrijheid/services'
 import { TopicBase } from '@wsvvrijheid/types'
@@ -21,14 +20,13 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
 import { AiOutlineClear } from 'react-icons/ai'
 import { FaArrowDown, FaArrowUp, FaSyncAlt } from 'react-icons/fa'
-import ClipLoader from 'react-spinners/ClipLoader'
 
 import i18nConfig from '../../next-i18next.config'
 
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>
 
 const NewsPage: FC<PageProps> = ({ seo }) => {
-  const { data, isLoading } = useTopic()
+  const { data } = useTopic()
   const syncTopic = useTopicSync()
   const [sources, setSources] = useState<string[]>([])
   const [filter, setFilter] = useState<string[]>([])
@@ -168,16 +166,6 @@ const NewsPage: FC<PageProps> = ({ seo }) => {
         </Box>
       </Box>
       <SimpleGrid columns={{ base: 1 }} gap={4}>
-        {isLoading && (
-          <Container
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-            height="lg"
-          >
-            <ClipLoader />
-          </Container>
-        )}
         {topics?.map((topic, i) => (
           <TopicCard key={topic.url + i} topic={topic} />
         ))}
