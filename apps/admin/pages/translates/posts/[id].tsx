@@ -4,8 +4,8 @@ import { Post } from '@wsvvrijheid/types'
 import {
   AdminLayout,
   ModelEditTranslate,
-  translateModelFields,
-  translateModelSchema,
+  translatePostModelFields,
+  translatePostModelSchema,
 } from '@wsvvrijheid/ui'
 import { InferGetServerSidePropsType } from 'next'
 import { useRouter } from 'next/router'
@@ -29,8 +29,8 @@ const TranslatePostPage: FC<PageProps> = ({ seo }) => {
         url="api/posts"
         pathname="posts"
         translatedFields={['description', 'content']}
-        fields={translateModelFields}
-        schema={translateModelSchema}
+        fields={translatePostModelFields}
+        schema={translatePostModelSchema}
       />
     </AdminLayout>
   )

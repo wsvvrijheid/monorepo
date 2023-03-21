@@ -19,6 +19,7 @@ import {
   RecommendedTopic,
   RecommendedTweet,
 } from '@wsvvrijheid/types'
+import { useTranslation } from 'next-i18next'
 import { BsCollection } from 'react-icons/bs'
 import { CgHashtag } from 'react-icons/cg'
 import { FaPlus } from 'react-icons/fa'
@@ -44,6 +45,8 @@ import {
 import { ModelCreateModal } from '../ModelForm'
 
 export const CreateModelButton = () => {
+  const { t } = useTranslation()
+
   return (
     <Popover placement="bottom-start">
       <PopoverTrigger>
@@ -56,7 +59,7 @@ export const CreateModelButton = () => {
           iconSpacing={{ base: 0, lg: 2 }}
           px={{ base: 2, lg: 4 }}
         >
-          <Text display={{ base: 'none', lg: 'block' }}>Create</Text>
+          <Text display={{ base: 'none', lg: 'block' }}>{t('create')}</Text>
         </Button>
       </PopoverTrigger>
       <Portal>
@@ -73,7 +76,7 @@ export const CreateModelButton = () => {
                   fields={activityFields}
                   buttonProps={{ variant: 'outline', leftIcon: <TbActivity /> }}
                 >
-                  Create Activity
+                  {t('create-activity')}
                 </ModelCreateModal>
                 <ModelCreateModal<Blog>
                   title="Create Blog"
@@ -82,7 +85,7 @@ export const CreateModelButton = () => {
                   fields={blogFields}
                   buttonProps={{ variant: 'outline', leftIcon: <TbWriting /> }}
                 >
-                  Create Blog
+                  {t('create-blog')}
                 </ModelCreateModal>
                 <ModelCreateModal<Collection>
                   title="Create Collection"
@@ -94,7 +97,7 @@ export const CreateModelButton = () => {
                     leftIcon: <BsCollection />,
                   }}
                 >
-                  Create Collection
+                  {t('create-collection')}
                 </ModelCreateModal>
                 <ModelCreateModal<Hashtag>
                   title="Create Hashtag"
@@ -103,7 +106,7 @@ export const CreateModelButton = () => {
                   fields={mainHashtagFields}
                   buttonProps={{ variant: 'outline', leftIcon: <CgHashtag /> }}
                 >
-                  Create Hashtag
+                  {t('create-hashtag')}
                 </ModelCreateModal>
                 <ModelCreateModal<Post>
                   title="Create Post"
@@ -115,7 +118,7 @@ export const CreateModelButton = () => {
                     leftIcon: <TbBrandTwitter />,
                   }}
                 >
-                  Create Post
+                  {t('create-post')}
                 </ModelCreateModal>
                 <ModelCreateModal<RecommendedTopic>
                   title="Create News"
@@ -127,7 +130,7 @@ export const CreateModelButton = () => {
                     leftIcon: <HiOutlineNewspaper />,
                   }}
                 >
-                  Create News
+                  {t('create-news')}
                 </ModelCreateModal>
                 <ModelCreateModal<RecommendedTweet>
                   title="Create Recommended Tweet"
@@ -139,7 +142,7 @@ export const CreateModelButton = () => {
                     leftIcon: <TbBrandTwitter />,
                   }}
                 >
-                  Create Recommended Tweet
+                  {t('create-recommended-tweet')}
                 </ModelCreateModal>
               </Stack>
             </PopoverBody>

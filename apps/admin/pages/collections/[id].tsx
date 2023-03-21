@@ -20,6 +20,7 @@ import {
 } from '@wsvvrijheid/ui'
 import { InferGetServerSidePropsType } from 'next'
 import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
 import { IoMdAdd } from 'react-icons/io'
@@ -30,6 +31,7 @@ type PageProps = InferGetServerSidePropsType<typeof getServerSideProps>
 
 const CollectionPage: FC<PageProps> = ({ seo }) => {
   const { query } = useRouter()
+  const { t } = useTranslation()
 
   const id = Number(query.id as string)
   const {
@@ -67,7 +69,7 @@ const CollectionPage: FC<PageProps> = ({ seo }) => {
             <Stack spacing={6}>
               <HStack justify="space-between">
                 <Text fontWeight={700} fontSize="xl" noOfLines={1}>
-                  Collection Arts
+                  {t('collection-arts')}
                 </Text>
 
                 <Button
@@ -75,7 +77,7 @@ const CollectionPage: FC<PageProps> = ({ seo }) => {
                   leftIcon={<IoMdAdd />}
                   onClick={onOpen}
                 >
-                  Add arts to collection
+                  {t('collection.add-art')}
                 </Button>
               </HStack>
               {collection.arts && (
