@@ -5,7 +5,6 @@ import { yupMultiSelect } from './common'
 import { FormFields } from '../../admin'
 
 export const postSchema = yup.object({
-  title: yup.string().required('Title is required'),
   reference: yup.string(),
   tags: yupMultiSelect,
   description: yup.string().required('Description is required'),

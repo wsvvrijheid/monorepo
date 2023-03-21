@@ -6,6 +6,7 @@ import { ApprovalStatus, Art, Sort, StrapiLocale } from '@wsvvrijheid/types'
 import { AdminLayout, artColumns, DataTable, PageHeader } from '@wsvvrijheid/ui'
 import { InferGetStaticPropsType } from 'next'
 import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
 import { FaArrowDown, FaArrowUp } from 'react-icons/fa'
@@ -26,6 +27,8 @@ const ArtsTranslatesPage: FC<PageProps> = ({ seo }) => {
   const [sort, setSort] = useState<Sort>()
 
   const { locale, push } = useRouter()
+
+  const { t } = useTranslation()
 
   const artsQuery = useSearchModel<Art>({
     url: 'api/arts',
@@ -69,7 +72,7 @@ const ArtsTranslatesPage: FC<PageProps> = ({ seo }) => {
     <AdminLayout seo={seo}>
       <PageHeader
         onSearch={handleSearch}
-        searchPlaceHolder={'Search arts by title or artist'}
+        searchPlaceHolder={t('art.search-placeholder')}
         sortMenu={[
           <MenuItem key="asc" icon={<FaArrowUp />}>
             Name Asc

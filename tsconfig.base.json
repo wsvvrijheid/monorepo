@@ -21,12 +21,12 @@
       "@wsvvrijheid/config": ["libs/config/src/index.ts"],
       "@wsvvrijheid/lib": ["libs/lib/src/index.ts"],
       "@wsvvrijheid/mocks": ["libs/mocks/src/index.ts"],
+      "@wsvvrijheid/mollie": ["libs/lib/src/mollie.ts"],
       "@wsvvrijheid/services": ["libs/services/src/index.ts"],
       "@wsvvrijheid/store": ["libs/store/src/index.ts"],
       "@wsvvrijheid/types": ["libs/types/src/index.ts"],
       "@wsvvrijheid/ui": ["libs/ui/src/index.ts"],
-      "@wsvvrijheid/utils": ["libs/utils/src/index.ts"],
-      "@wsvvrijheid/mollie": ["libs/lib/src/mollie.ts"]
+      "@wsvvrijheid/utils": ["libs/utils/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

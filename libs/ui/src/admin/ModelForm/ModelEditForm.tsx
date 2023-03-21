@@ -25,6 +25,7 @@ import {
 } from '@wsvvrijheid/types'
 import { capitalize } from 'lodash'
 import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
 import { useForm } from 'react-hook-form'
 import { AiOutlineEdit } from 'react-icons/ai'
 import { BsTrash } from 'react-icons/bs'
@@ -61,6 +62,7 @@ export const ModelEditForm = <T extends StrapiModel>({
   const [confirmState, setConfirmState] = useState<WConfirmProps>()
 
   const router = useRouter()
+  const { t } = useTranslation()
 
   const updateModelMutation = useUpdateModelMutation(url)
   const unpublishModelMutation = useUnpublishModel(url)
@@ -205,7 +207,7 @@ export const ModelEditForm = <T extends StrapiModel>({
                   isRequired={field.isRequired}
                   maxW={500}
                 >
-                  <FormLabel>Image</FormLabel>
+                  <FormLabel>{t('model.image')}</FormLabel>
                   <ModelImage
                     url={url}
                     isEditing={isEditing}
@@ -284,7 +286,7 @@ export const ModelEditForm = <T extends StrapiModel>({
                   colorScheme={'purple'}
                   isLoading={approveModelMutation.isLoading}
                 >
-                  Approve
+                  {t('model.approve')}
                 </Button>
               )}
           {!isEditing ? (
@@ -294,7 +296,7 @@ export const ModelEditForm = <T extends StrapiModel>({
               colorScheme={'primary'}
               fontSize="sm"
             >
-              Edit
+              {t('model.edit')}
             </Button>
           ) : (
             <>
@@ -304,7 +306,7 @@ export const ModelEditForm = <T extends StrapiModel>({
                 colorScheme={'gray'}
                 fontSize="sm"
               >
-                Cancel
+                {t('model.cancel')}
               </Button>
               <Button
                 type="submit"
@@ -312,7 +314,7 @@ export const ModelEditForm = <T extends StrapiModel>({
                 colorScheme={'primary'}
                 fontSize="sm"
               >
-                Save
+                {t('model.save')}
               </Button>
             </>
           )}
@@ -328,10 +330,10 @@ export const ModelEditForm = <T extends StrapiModel>({
               )
             }
           >
-            {isPublished ? 'Unpublish' : 'Publish'}
+            {isPublished ? t('model.unpublish') : t('model.publish')}
           </Button>
           <Button onClick={onDelete} leftIcon={<BsTrash />} colorScheme="red">
-            Delete
+            {t('model.delete')}
           </Button>
         </Wrap>
       </Stack>

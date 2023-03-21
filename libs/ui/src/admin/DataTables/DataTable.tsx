@@ -1,5 +1,6 @@
 import { Box, Spacer, Stack } from '@chakra-ui/react'
 import { StrapiModel } from '@wsvvrijheid/types'
+import { useTranslation } from 'next-i18next'
 
 import { DataTableProps } from './types'
 import { Pagination, WTable } from '../../components'
@@ -10,13 +11,15 @@ export const DataTable = <T extends StrapiModel>({
   totalCount,
   ...tableProps
 }: DataTableProps<T>) => {
+  const { t } = useTranslation()
+
   return (
     <Stack spacing={4} h={`calc(100vh - 200px)`}>
       <Box bg="white" shadow="base" p={4} overflow="auto">
         {tableProps.data?.length > 0 ? (
           <WTable {...tableProps} />
         ) : (
-          <Box>No data found!</Box>
+          <Box>{t('no-data')}</Box>
         )}
       </Box>
       <Spacer />

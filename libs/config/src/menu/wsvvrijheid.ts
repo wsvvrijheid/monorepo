@@ -14,6 +14,7 @@ import {
   privacy,
   samenvvv,
   terms,
+  music,
 } from './routes'
 
 export const wsvvrijheid = {
@@ -24,7 +25,7 @@ export const wsvvrijheid = {
       en: platform.en,
       nl: platform.nl,
       tr: platform.tr,
-      children: [lotus, artStop, samenvvv, academy],
+      children: [samenvvv, artStop, lotus, academy, music],
     },
     blog,
     club,
@@ -39,7 +40,7 @@ export const wsvvrijheid = {
   ],
   footerMenu: [
     {
-      children: [lotus, artStop, samenvvv, academy],
+      children: [samenvvv, artStop, lotus, academy, music],
       en: platform.en,
       nl: platform.nl,
       tr: platform.tr,
