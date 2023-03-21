@@ -1,5 +1,6 @@
 import { UnionToIntersection } from 'type-fest'
 
+import { AccountStats } from './account-stats'
 import {
   Activity,
   ActivityCreateInput,
@@ -125,6 +126,7 @@ export type StrapiCreatorRelation = {
 }
 
 export type StrapiModel =
+  | AccountStats
   | Activity
   | Announcement
   | Applicant
@@ -210,6 +212,7 @@ export type StrapiAuthUrl =
   | 'auth/local'
   | `connect/${StrapiProviders}/callback`
 export type StrapiCollectionUrl =
+  | 'account-statistics'
   | 'activities'
   | 'announcements'
   | 'applicants'
