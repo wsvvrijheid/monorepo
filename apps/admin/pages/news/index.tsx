@@ -9,6 +9,8 @@ import {
   Button,
   ButtonGroup,
   Box,
+  Spinner,
+  Center,
 } from '@chakra-ui/react'
 import { useTopic, useTopicSync } from '@wsvvrijheid/services'
 import { TopicBase } from '@wsvvrijheid/types'
@@ -26,7 +28,7 @@ import i18nConfig from '../../next-i18next.config'
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>
 
 const NewsPage: FC<PageProps> = ({ seo }) => {
-  const { data } = useTopic()
+  const { data, isLoading } = useTopic()
   const syncTopic = useTopicSync()
   const [sources, setSources] = useState<string[]>([])
   const [filter, setFilter] = useState<string[]>([])
@@ -166,6 +168,17 @@ const NewsPage: FC<PageProps> = ({ seo }) => {
         </Box>
       </Box>
       <SimpleGrid columns={{ base: 1 }} gap={4}>
+        {isLoading ? (
+          <Center h="60vh">
+            <Spinner size="xl" />
+          </Center>
+        ) : (
+          <>
+            {topics?.map((topic, i) => (
+              <TopicCard key={topic.url + i} topic={topic} />
+            ))}
+          </>
+        )}
         {topics?.map((topic, i) => (
           <TopicCard key={topic.url + i} topic={topic} />
         ))}
