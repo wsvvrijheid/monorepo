@@ -70,7 +70,7 @@ export const AccountStats: FC<AccountStatsProps> = ({ title }) => {
 
   return (
     <Box p="5" minH={250}>
-      <Line options={options} data={data} />{' '}
+      <Line options={options} data={data} />
     </Box>
   )
 }
