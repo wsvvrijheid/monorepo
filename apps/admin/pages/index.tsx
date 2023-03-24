@@ -1,8 +1,7 @@
 import { FC } from 'react'
 
 import { SimpleGrid } from '@chakra-ui/react'
-import { AccountStats } from '@wsvvrijheid/ui'
-import { AdminLayout } from '@wsvvrijheid/ui'
+import { AccountStats, AdminLayout } from '@wsvvrijheid/ui'
 import { InferGetStaticPropsType } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
