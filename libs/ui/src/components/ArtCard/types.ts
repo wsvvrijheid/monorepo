@@ -2,7 +2,7 @@ import { ComponentProps } from 'react'
 
 import { Button } from '@chakra-ui/react'
 import { QueryKey } from '@tanstack/react-query'
-import { Art, UploadFile } from '@wsvvrijheid/types'
+import { Art, StrapiLocale, UploadFile } from '@wsvvrijheid/types'
 
 export type ArtActionType = 'delete' | 'publish' | 'unpublish'
 
@@ -48,6 +48,7 @@ export type ArtCardActionsProps = {
 export type ArtCardImageProps = {
   art: Art
   isMasonry?: boolean
+  locale?: StrapiLocale
 }
 
 export type CardImageProps = { image?: UploadFile } & ArtCardImageProps
