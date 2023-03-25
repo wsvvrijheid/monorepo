@@ -1,9 +1,10 @@
 import { FC } from 'react'
 
 import { useSearchModel } from '@wsvvrijheid/services'
-import { Timeline } from '@wsvvrijheid/types'
+import { StrapiLocale, Timeline } from '@wsvvrijheid/types'
 import { AdminLayout, TimelineBoard } from '@wsvvrijheid/ui'
 import { InferGetStaticPropsType } from 'next'
+import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
 
@@ -12,8 +13,11 @@ import i18nConfig from '../../next-i18next.config'
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>
 
 const Timelines: FC<PageProps> = ({ seo }) => {
+  const { locale } = useRouter()
+
   const { data: timelines, isLoading } = useSearchModel<Timeline>({
     url: 'api/timelines',
+    locale: locale as StrapiLocale,
   })
 
   return (
@@ -28,8 +32,8 @@ export const getStaticProps = async context => {
 
   const title = {
     en: 'Timelines',
-    tr: 'Timelines',
-    nl: 'Timelines',
+    tr: 'Timelinelar',
+    nl: 'Tijdlijnen',
   }
 
   const seo: NextSeoProps = {

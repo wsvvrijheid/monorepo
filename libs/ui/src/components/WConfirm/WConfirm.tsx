@@ -11,6 +11,7 @@ import {
   useBoolean,
   useDisclosure,
 } from '@chakra-ui/react'
+import { useTranslation } from 'next-i18next'
 
 export type WConfirmProps = {
   buttonText?: string
@@ -22,6 +23,8 @@ export type WConfirmProps = {
 }
 
 export const WConfirm: FC<WConfirmProps> = (props: WConfirmProps) => {
+  const { t } = useTranslation()
+
   const { buttonText, description, isWarning, title, onConfirm, onCancel } =
     props
   const [isOpen, setIsOpen] = useBoolean(!!props)
@@ -60,7 +63,7 @@ export const WConfirm: FC<WConfirmProps> = (props: WConfirmProps) => {
 
           <AlertDialogFooter>
             <Button ref={cancelRef} onClick={handleCancel}>
-              Cancel
+              {t('model.cancel')}
             </Button>
             <Button
               colorScheme={isWarning ? 'red' : 'primary'}
