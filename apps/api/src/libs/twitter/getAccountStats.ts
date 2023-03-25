@@ -21,7 +21,6 @@ export const getAccountStats = async (
     let retweetCount = 0
     let replies = 0
 
-    const today = new Date()
     const start_time = formatIso(addDays(date, -totalDays))
     const end_time = formatIso(date)
 
@@ -45,7 +44,6 @@ export const getAccountStats = async (
       tweets: tweetCount,
       retweets: retweetCount,
       likes: likeCount,
-      date: format(today, 'yyyy-MM-dd'),
       replies,
       username,
     }
