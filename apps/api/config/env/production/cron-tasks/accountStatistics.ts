@@ -1,4 +1,4 @@
-import { getAccountStats } from '../../../../src/libs'
+import { format } from 'date-fns'
 
 export default async ({ strapi }) => {
   try {
@@ -10,15 +10,14 @@ export default async ({ strapi }) => {
     }
 
     accounts.split(',').map(async username => {
-      const stats = await getAccountStats(username)
+      const date = format(new Date(), 'yyyy-MM-dd')
 
-      if (!stats) {
-        console.log('No stats found for ', username)
-        return
-      }
-
+      // After create lifecycle will update it with the stats
       await strapi.service('api::account-statistic.account-statistic').create({
-        data: stats,
+        data: {
+          username,
+          date,
+        },
       })
     })
   } catch (error) {
