@@ -35,16 +35,18 @@ export const getStaticPaths: GetStaticPaths = async context => {
 }
 
 export const getStaticProps: GetStaticProps = async context => {
-  const { locale, params } = context
+  const { params } = context
   const queryClient = new QueryClient()
+
+  const locale = context.locale as StrapiLocale
 
   // See: `useGetArt` (services/art/find-one.js)
   // [art, locale, slug]
-  const queryKey = ['art', locale, params.slug]
+  const queryKey = ['art', params.slug]
 
   await queryClient.prefetchQuery({
     queryKey,
-    queryFn: () => getArtBySlug(locale as StrapiLocale, params.slug as string),
+    queryFn: () => getArtBySlug(params.slug as string),
   })
 
   const art = queryClient.getQueryData<Art>(queryKey)
@@ -54,26 +56,23 @@ export const getStaticProps: GetStaticProps = async context => {
       notFound: true,
     }
 
-  const slugs =
-    art.localizations?.reduce((acc, l) => {
-      acc[l.locale] = l.slug
-      return acc
-    }, {}) || {}
+  const titleKey = `title_${locale}`
+  const descriptionKey = `description_${locale}`
 
-  const title = art.title || null
-  const description = art.description || null
+  const title = art[titleKey] || null
+  const description = art[descriptionKey] || null
+  const slug = art.slug
 
   const image = art.image
 
   const seo = {
-    title: art.title,
-    description: art.description,
-    content: art.content,
+    title,
+    description,
     openGraph: {
       title,
       description,
       type: 'article',
-      url: `${SITE_URL}/club/arts/${slugs[locale]}`,
+      url: `${SITE_URL}/club/arts/${slug}`,
       article: {
         publishedTime: art.publishedAt,
         modifiedTime: art.updatedAt,
@@ -88,7 +87,7 @@ export const getStaticProps: GetStaticProps = async context => {
               type: image.mime,
               width: image.width,
               height: image.height,
-              alt: art.title,
+              alt: title,
             },
           ]
         : [],
@@ -99,7 +98,7 @@ export const getStaticProps: GetStaticProps = async context => {
     props: {
       seo,
       queryKey,
-      slugs: { ...slugs, [locale]: art.slug },
+      slugs: { en: slug, nl: slug, tr: slug },
       dehydratedState: dehydrate(queryClient),
       ...(await serverSideTranslations(locale, ['common'], i18nConfig)),
     },

@@ -3,7 +3,7 @@ import { FC } from 'react'
 import { Box, Button, HStack, Text } from '@chakra-ui/react'
 import { SITE_URL } from '@wsvvrijheid/config'
 import { Art, StrapiLocale } from '@wsvvrijheid/types'
-import router, { useRouter } from 'next/router'
+import { useRouter } from 'next/router'
 import { AiFillHeart } from 'react-icons/ai'
 import { FaEye } from 'react-icons/fa'
 
@@ -23,7 +23,9 @@ export const ArtDetail: FC<ArtDetailProps> = ({
   isLoading,
   toggleLike,
 }) => {
-  const { locale } = useRouter()
+  const router = useRouter()
+  const locale = router.locale as StrapiLocale
+
   const url = `${SITE_URL}/${locale}/club/arts/${art.slug}`
 
   if (!art?.image) return null
@@ -33,7 +35,7 @@ export const ArtDetail: FC<ArtDetailProps> = ({
       <WImage
         maxH={500}
         src={art.image}
-        alt={art?.[`title_${router.locale as StrapiLocale}`]}
+        alt={art?.[`title_${locale}`]}
         hasZoom
       />
 

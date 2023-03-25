@@ -5,15 +5,12 @@ import {
   Button,
   ButtonGroup,
   Center,
-  FormControl,
-  FormLabel,
   Modal,
   ModalBody,
   ModalCloseButton,
   ModalContent,
   ModalHeader,
   ModalOverlay,
-  Select,
   SimpleGrid,
   Spinner,
   Stack,
@@ -44,16 +41,10 @@ import { WSelect } from '../WSelect'
 
 const schema = (t: TFunction) =>
   yup.object({
-    locale: yup
-      .string()
-      .required(t('art.create.form.locale-required') as string),
     title: yup.string().required(t('art.create.form.title-required') as string),
     description: yup
       .string()
       .required(t('art.create.form.description-required') as string),
-    content: yup
-      .string()
-      .required(t('art.create.form.content-required') as string),
     categories: yup.array().of(
       yup.object().shape({
         label: yup.string(),
@@ -91,7 +82,7 @@ export const CreateArtForm: FC<CreateArtFormProps> = ({ queryKey }) => {
     mode: 'all',
   })
 
-  useFormPersist(`create-art-${locale}`, {
+  useFormPersist(`create-art`, {
     watch,
     setValue,
     ...(typeof window !== 'undefined' && { storage: window.sessionStorage }),
@@ -105,11 +96,18 @@ export const CreateArtForm: FC<CreateArtFormProps> = ({ queryKey }) => {
     if (!user) return
 
     const slug = slugify(data.title)
+
     const formBody: ArtCreateInput = {
-      ...data,
+      title_en: data.title,
+      title_nl: data.title,
+      title_tr: data.title,
+      description_en: data.description,
+      description_nl: data.description,
+      description_tr: data.description,
       slug,
       categories: data.categories?.map(c => Number(c.value)) || [],
       publishedAt: null,
+      image: image as File,
     }
 
     mutate(formBody, {
@@ -207,26 +205,6 @@ export const CreateArtForm: FC<CreateArtFormProps> = ({ queryKey }) => {
                   as="form"
                   onSubmit={handleSubmit(handleCreateArt)}
                 >
-                  <FormControl>
-                    <FormLabel
-                      fontSize="sm"
-                      htmlFor="locale"
-                      mb={2}
-                      mt={2}
-                      fontWeight={600}
-                    >
-                      {t('language')}
-                    </FormLabel>
-                    <Select
-                      defaultValue={locale}
-                      {...register('locale')}
-                      id="locale"
-                    >
-                      <option value={'en'}>EN (English)</option>
-                      <option value={'nl'}>NL (Nederlands)</option>
-                      <option value={'tr'}>TR (Türkçe)</option>
-                    </Select>
-                  </FormControl>
                   <FormItem
                     name="title"
                     label={t('title') as string}
@@ -251,14 +229,6 @@ export const CreateArtForm: FC<CreateArtFormProps> = ({ queryKey }) => {
                   <FormItem
                     name="description"
                     label={t('description') as string}
-                    as={Textarea}
-                    isRequired
-                    errors={errors}
-                    register={register}
-                  />
-                  <FormItem
-                    name="content"
-                    label={t('content') as string}
                     as={Textarea}
                     isRequired
                     errors={errors}

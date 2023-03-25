@@ -8,7 +8,8 @@ import {
   Text,
   useDisclosure,
 } from '@chakra-ui/react'
-import { UploadFile } from '@wsvvrijheid/types'
+import { StrapiLocale, UploadFile } from '@wsvvrijheid/types'
+import { useRouter } from 'next/router'
 import { AiOutlineEye } from 'react-icons/ai'
 import { HiPlus } from 'react-icons/hi'
 import { IoCloseSharp } from 'react-icons/io5'
@@ -25,12 +26,16 @@ export const ArtAddToCollectionCard: FC<ArtAddToCollectionCardProps> = ({
 }) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
 
+  const router = useRouter()
+
+  const titleKey = `title_${router.locale as StrapiLocale}` as const
+
   return (
     <Stack boxShadow="md" rounded="md" direction={'column'} overflow="hidden">
       <WImage h={'200px'} src={art.image as UploadFile} />
       <Stack w="full" px={4} py={2}>
         <Text fontSize="md" fontWeight={600} noOfLines={1}>
-          {art.title}
+          {art[titleKey]}
         </Text>
 
         <Text fontSize="sm" noOfLines={2}>
