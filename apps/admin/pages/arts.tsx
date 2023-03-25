@@ -57,7 +57,6 @@ const ArtsPage: FC<PageProps> = ({ seo }) => {
 
   const mappedArts = arts?.map(art => ({
     ...art,
-    translates: art.localizations?.map(l => l.locale),
   }))
 
   return (
