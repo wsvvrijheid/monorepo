@@ -1,12 +1,10 @@
 import { useQuery } from '@tanstack/react-query'
 import { Request } from '@wsvvrijheid/lib'
-import { Art, StrapiLocale, User } from '@wsvvrijheid/types'
-import { useRouter } from 'next/router'
+import { Art, User } from '@wsvvrijheid/types'
 
 import { getArtByArtist } from '../art/getByArtist'
 
 export const getArtistById = async (
-  locale: StrapiLocale,
   id: string,
 ): Promise<(User & { arts: Art[] }) | null> => {
   const artistResponse = await Request.single<User>({
@@ -18,7 +16,7 @@ export const getArtistById = async (
 
   if (!artist) return null
 
-  const arts = await getArtByArtist(locale, artist.id)
+  const arts = await getArtByArtist(artist.id)
 
   return {
     ...artist,
@@ -27,10 +25,8 @@ export const getArtistById = async (
 }
 
 export const useArtistById = (id: string) => {
-  const { locale } = useRouter()
-
   return useQuery({
-    queryKey: ['artist', locale, id],
-    queryFn: () => getArtistById(locale as StrapiLocale, id),
+    queryKey: ['artist', id],
+    queryFn: () => getArtistById(id),
   })
 }

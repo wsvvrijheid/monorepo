@@ -55,9 +55,18 @@ const ArtsPage: FC<PageProps> = ({ seo }) => {
   const arts = artsQuery?.data?.data
   const totalCount = artsQuery?.data?.meta?.pagination?.pageCount
 
-  const mappedArts = arts?.map(art => ({
-    ...art,
-  }))
+  const mappedArts = arts?.map(art => {
+    const translates = []
+
+    if (art.title_en) translates.push('en')
+    if (art.title_tr) translates.push('tr')
+    if (art.title_nl) translates.push('nl')
+
+    return {
+      ...art,
+      translates,
+    }
+  })
 
   return (
     <AdminLayout seo={seo}>

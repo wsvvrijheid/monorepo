@@ -48,7 +48,7 @@ export type ArtCardActionsProps = {
 export type ArtCardImageProps = {
   art: Art
   isMasonry?: boolean
-  locale?: StrapiLocale
+  locale: StrapiLocale
 }
 
 export type CardImageProps = { image?: UploadFile } & ArtCardImageProps

@@ -10,35 +10,39 @@
   "options": {
     "draftAndPublish": true
   },
-  "pluginOptions": {
-    
-  },
+  "pluginOptions": {},
   "attributes": {
     "title_tr": {
-      "pluginOptions": {
-        
-      },
+      "pluginOptions": {},
       "type": "string",
-      "required": true
+      "required": false
+    },
+    "title_en": {
+      "pluginOptions": {},
+      "type": "string"
+    },
+    "title_nl": {
+      "pluginOptions": {},
+      "type": "string"
     },
     "slug": {
-      "pluginOptions": {
-       
-      },
+      "pluginOptions": {},
       "type": "uid",
       "required": true
     },
     "description_tr": {
-      "pluginOptions": {
-        
-      },
+      "pluginOptions": {},
       "type": "text",
-      "required": true,
+      "required": false,
       "default": "Description"
     },
-   
-      "type": "richtext",
-      "required": true
+    "description_en": {
+      "pluginOptions": {},
+      "type": "text"
+    },
+    "description_nl": {
+      "pluginOptions": {},
+      "type": "text"
     },
     "approvalStatus": {
       "pluginOptions": {
@@ -132,32 +136,6 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "plugin::users-permissions.user"
-    },
-    "title_en": {
-      "pluginOptions": {
-      
-      },
-      "type": "string"
-    },
-    "title_nl": {
-      "pluginOptions": {
-       
-      },
-      "type": "string"
-    },
-    "description_nl": {
-      "pluginOptions": {
-        
-      },
-      "type": "text"
-    },
-    "decsription_en": {
-      "pluginOptions": {
-      
-      },
-      "type": "text"
     }
-   
-   
   }
-
+}
