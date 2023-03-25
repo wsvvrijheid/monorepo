@@ -9,6 +9,7 @@ import {
   PageHeader,
 } from '@wsvvrijheid/ui'
 import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
 import { useUpdateEffect } from 'react-use'
@@ -16,6 +17,7 @@ import { useUpdateEffect } from 'react-use'
 import i18nConfig from '../../next-i18next.config'
 
 const ActivitiesPage = ({ seo }) => {
+  const { t } = useTranslation()
   const [currentPage, setCurrentPage] = useState<number>()
 
   const [searchTerm, setSearchTerm] = useState<string>()
@@ -59,7 +61,7 @@ const ActivitiesPage = ({ seo }) => {
     <AdminLayout seo={seo}>
       <PageHeader
         onSearch={handleSearch}
-        searchPlaceHolder={'Search by title or description'}
+        searchPlaceHolder={t('search-placeholder')}
       />
 
       <DataTable
