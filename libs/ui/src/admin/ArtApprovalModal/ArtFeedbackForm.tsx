@@ -27,22 +27,20 @@ export const ArtFeedbackForm: FC<ArtFeedbackFormTypes> = ({
   onReject,
   onApprove,
   onDelete,
-  artId,
+  art,
   editorAvatar,
   editorName,
   updateField,
   onPublish,
   unPublish,
-  artApprovalStatus,
-  artPublishedAt,
 }) => {
   const [feedback, setFeedback] = useState('')
 
-  const handleReject = () => onReject(artId, feedback)
-  const handleApprove = () => onApprove(artId, feedback)
-  const handleDelete = () => onDelete(artId)
-  const handlePublish = () => onPublish(artId)
-  const handleUnPublish = () => unPublish(artId)
+  const handleReject = () => onReject(art.id, feedback)
+  const handleApprove = () => onApprove(art.id, feedback)
+  const handleDelete = () => onDelete(art.id)
+  const handlePublish = () => onPublish(art.id)
+  const handleUnPublish = () => unPublish(art.id)
 
   return (
     <Stack w={'full'} spacing={{ base: 2, lg: 4 }}>
@@ -69,7 +67,7 @@ export const ArtFeedbackForm: FC<ArtFeedbackFormTypes> = ({
           {/*button group*/}
           <Stack direction={'row'} spacing={{ base: 2, lg: 4 }}>
             <Button
-              isDisabled={!feedback || artApprovalStatus === 'rejected'}
+              isDisabled={!feedback || art.approvalStatus === 'rejected'}
               onClick={handleReject}
               colorScheme="red"
               w="full"
@@ -79,7 +77,7 @@ export const ArtFeedbackForm: FC<ArtFeedbackFormTypes> = ({
             </Button>
 
             <Button
-              isDisabled={!feedback || artApprovalStatus === 'approved'}
+              isDisabled={!feedback || art.approvalStatus === 'approved'}
               onClick={handleApprove}
               colorScheme="purple"
               w="full"
@@ -123,21 +121,21 @@ export const ArtFeedbackForm: FC<ArtFeedbackFormTypes> = ({
                 >
                   Edit Content
                 </MenuItem>
-                {artApprovalStatus === 'approved' && (
+                {art.approvalStatus === 'approved' && (
                   <MenuItem
                     as={Button}
-                    onClick={artPublishedAt ? handleUnPublish : handlePublish}
+                    onClick={art.publishedAt ? handleUnPublish : handlePublish}
                     variant="ghost"
                     colorScheme="primary"
                     icon={
-                      artPublishedAt ? (
+                      art.publishedAt ? (
                         <MdOutlineUnpublished />
                       ) : (
                         <MdOutlinePublish />
                       )
                     }
                   >
-                    {artPublishedAt ? 'Unpublish' : 'Publish'}
+                    {art.publishedAt ? 'Unpublish' : 'Publish'}
                   </MenuItem>
                 )}
 

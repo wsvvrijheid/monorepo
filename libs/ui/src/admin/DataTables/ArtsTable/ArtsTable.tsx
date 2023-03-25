@@ -9,7 +9,7 @@ import {
   useUpdateModelMutation,
 } from '@wsvvrijheid/services'
 import { useAuthSelector } from '@wsvvrijheid/store'
-import { Art, UploadFile } from '@wsvvrijheid/types'
+import { Art } from '@wsvvrijheid/types'
 
 import { WConfirm, WConfirmProps } from '../../../components/WConfirm'
 import { artColumns } from '../../../data'
@@ -47,7 +47,7 @@ export const ArtsTable: FC<ArtsTableProps> = ({
     approvalDisclosure.onOpen()
   }
 
-  const handleSucccess = () => {
+  const handleSuccess = () => {
     onSuccess?.()
     setConfirmState(undefined)
     approvalDisclosure.onClose()
@@ -67,7 +67,7 @@ export const ArtsTable: FC<ArtsTableProps> = ({
             status: 'rejected',
             point: 10,
           },
-          { onSuccess: handleSucccess },
+          { onSuccess: handleSuccess },
         )
       },
     })
@@ -86,7 +86,7 @@ export const ArtsTable: FC<ArtsTableProps> = ({
             status: 'approved',
             point: 10,
           },
-          { onSuccess: handleSucccess },
+          { onSuccess: handleSuccess },
         )
       },
     })
@@ -99,7 +99,7 @@ export const ArtsTable: FC<ArtsTableProps> = ({
       description: 'Are you sure you want to delete this art?',
       buttonText: 'Delete',
       onConfirm: async () => {
-        deleteArtMutation.mutate({ id }, { onSuccess: handleSucccess })
+        deleteArtMutation.mutate({ id }, { onSuccess: handleSuccess })
       },
     })
   }
@@ -110,7 +110,7 @@ export const ArtsTable: FC<ArtsTableProps> = ({
       description: 'Are you sure you want to publish this art?',
       buttonText: 'Publish',
       onConfirm: async () => {
-        publishArtMutation.mutate({ id }, { onSuccess: handleSucccess })
+        publishArtMutation.mutate({ id }, { onSuccess: handleSuccess })
       },
     })
   }
@@ -121,7 +121,7 @@ export const ArtsTable: FC<ArtsTableProps> = ({
       description: 'Are you sure you want to unpublish this art?',
       buttonText: 'Publish',
       onConfirm: async () => {
-        unpublishArtMutation.mutate({ id }, { onSuccess: handleSucccess })
+        unpublishArtMutation.mutate({ id }, { onSuccess: handleSuccess })
       },
     })
   }
@@ -147,13 +147,7 @@ export const ArtsTable: FC<ArtsTableProps> = ({
       )}
       {selectedArt && user && (
         <ArtApprovalModal
-          artId={selectedArt.id}
-          artTitle={selectedArt.title}
-          artDescription={selectedArt.description || ''}
-          artContent={selectedArt.content || ''}
-          artApprovalStatus={selectedArt.approvalStatus}
-          artPublishedAt={selectedArt.publishedAt}
-          artImage={selectedArt.image as UploadFile}
+          art={selectedArt}
           editorAvatar={user.avatar as string}
           editorName={user.username as string}
           isOpen={approvalDisclosure.isOpen}

@@ -1,16 +1,13 @@
 import { useQuery } from '@tanstack/react-query'
 import { Request } from '@wsvvrijheid/lib'
-import { Art, StrapiLocale } from '@wsvvrijheid/types'
-import { useRouter } from 'next/router'
+import { Art } from '@wsvvrijheid/types'
 
 export const getArtsByCategories = async (
-  locale: StrapiLocale,
   categories: string[],
   id?: number,
 ) => {
   const response = await Request.collection<Art[]>({
     url: 'api/arts',
-    locale,
     filters: {
       categories: { slug: { $in: categories } },
       id: { $ne: id },
@@ -25,10 +22,8 @@ export const getArtsByCategories = async (
 }
 
 export const useArtsByCategories = (categories: string[], id?: number) => {
-  const { locale } = useRouter()
-
   return useQuery({
-    queryKey: ['arts', locale, categories, id],
-    queryFn: () => getArtsByCategories(locale as StrapiLocale, categories, id),
+    queryKey: ['arts', categories, id],
+    queryFn: () => getArtsByCategories(categories, id),
   })
 }
