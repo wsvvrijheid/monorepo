@@ -9,7 +9,8 @@ import {
   useUpdateModelMutation,
 } from '@wsvvrijheid/services'
 import { useAuthSelector } from '@wsvvrijheid/store'
-import { Art, UploadFile } from '@wsvvrijheid/types'
+import { Art, StrapiLocale, UploadFile } from '@wsvvrijheid/types'
+import { useRouter } from 'next/router'
 
 import { WConfirm, WConfirmProps } from '../../../components/WConfirm'
 import { artColumns } from '../../../data'
@@ -30,6 +31,7 @@ export const ArtsTable: FC<ArtsTableProps> = ({
   setCurrentPage,
 }) => {
   const { user } = useAuthSelector()
+  const { locale } = useRouter()
   const approvalDisclosure = useDisclosure()
 
   const [selectedIndex, setSelectedIndex] = useState<number>()
@@ -40,6 +42,7 @@ export const ArtsTable: FC<ArtsTableProps> = ({
   const unpublishArtMutation = useUnpublishModel('api/arts')
   const selectedArt =
     typeof selectedIndex === 'number' ? arts?.[selectedIndex] : null
+
   const [confirmState, setConfirmState] = useState<WConfirmProps>()
 
   const handleClickRow = (index: number) => {
@@ -129,7 +132,7 @@ export const ArtsTable: FC<ArtsTableProps> = ({
   const onSave = (
     artId: number,
     data: string,
-    updateValue: 'content' | 'description' | 'title',
+    updateValue: 'description' | 'title',
   ) => {
     updateArtMutation.mutate({
       id: artId,
@@ -148,9 +151,10 @@ export const ArtsTable: FC<ArtsTableProps> = ({
       {selectedArt && user && (
         <ArtApprovalModal
           artId={selectedArt.id}
-          artTitle={selectedArt.title}
-          artDescription={selectedArt.description || ''}
-          artContent={selectedArt.content || ''}
+          artTitle={selectedArt[`title_${locale as StrapiLocale}`]}
+          artDescription={
+            selectedArt[`description_${locale as StrapiLocale}`] || ''
+          }
           artApprovalStatus={selectedArt.approvalStatus}
           artPublishedAt={selectedArt.publishedAt}
           artImage={selectedArt.image as UploadFile}

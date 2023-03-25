@@ -2,7 +2,6 @@ import { UploadFile } from '@wsvvrijheid/types'
 
 export type ArtApprovalTypes = {
   artDescription: string
-  artContent: string
   artId: number
   artImage: UploadFile | string
   artTitle: string

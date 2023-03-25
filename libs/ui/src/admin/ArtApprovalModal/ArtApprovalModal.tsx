@@ -27,7 +27,6 @@ export const ArtApprovalModal: FC<ArtApprovalTypes> = ({
   onDelete,
   artId,
   artDescription,
-  artContent,
   artTitle,
   artistAvatar,
   artImage,
@@ -44,18 +43,13 @@ export const ArtApprovalModal: FC<ArtApprovalTypes> = ({
 }) => {
   const [description, setDescription] = useState(artDescription)
   const [title, setTitle] = useState(artTitle)
-  const [content, setContent] = useState(artContent)
   const [isEditingTitle, setIsEditingTitle] = useState(false)
   const [isEditingDesciption, setIsEditingDesciption] = useState(false)
-  const [isEditingContent, setIsEditingContent] = useState(false)
 
   const handleSave = (data: string) => {
     if (data === 'description') {
       setIsEditingDesciption(false)
       onSave(artId, description, 'description')
-    } else if (data === 'content') {
-      setIsEditingContent(false)
-      onSave(artId, content, 'content')
     } else if (data === 'title') {
       setIsEditingTitle(false)
       onSave(artId, title, 'title')
@@ -65,9 +59,7 @@ export const ArtApprovalModal: FC<ArtApprovalTypes> = ({
   useEffect(() => {
     setDescription(artDescription)
   }, [artDescription])
-  useEffect(() => {
-    setContent(artContent)
-  }, [artContent])
+
   useEffect(() => {
     setTitle(artTitle)
   }, [artTitle])
@@ -75,8 +67,6 @@ export const ArtApprovalModal: FC<ArtApprovalTypes> = ({
   const handleUpdate = (data: string) => {
     if (data === 'description') {
       setIsEditingDesciption(true)
-    } else if (data === 'content') {
-      setIsEditingContent(true)
     } else if (data === 'title') {
       setIsEditingTitle(true)
     }
@@ -151,37 +141,6 @@ export const ArtApprovalModal: FC<ArtApprovalTypes> = ({
                           Description
                         </Text>
                         <Text>{description}</Text>
-                      </Stack>
-                    )}
-                  </Flex>
-                  <Flex
-                    align="start"
-                    justify={'start'}
-                    w="full"
-                    maxH={'150px'}
-                    overflow="auto"
-                  >
-                    {isEditingContent ? (
-                      // // Textarea and save on edit mode
-                      <Stack w="full">
-                        <Textarea
-                          onChange={e => setContent(e.target.value)}
-                          value={content}
-                        />
-                        <Button
-                          colorScheme="primary"
-                          onClick={() => handleSave('content')}
-                          alignSelf="end"
-                        >
-                          Save
-                        </Button>
-                      </Stack>
-                    ) : (
-                      <Stack align="start" justify={'start'} w="full">
-                        <Text color={'black'} fontWeight={700}>
-                          Content
-                        </Text>
-                        <Text>{content}</Text>
                       </Stack>
                     )}
                   </Flex>
