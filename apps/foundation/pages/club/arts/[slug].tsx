@@ -2,7 +2,7 @@ import { FC } from 'react'
 
 import { dehydrate, QueryClient, QueryKey } from '@tanstack/react-query'
 import { API_URL, SITE_URL } from '@wsvvrijheid/config'
-import { getArtBySlug, getModelStaticPaths } from '@wsvvrijheid/services'
+import { getArtBySlug, searchModel } from '@wsvvrijheid/services'
 import { Art, StrapiLocale } from '@wsvvrijheid/types'
 import { ArtTemplate } from '@wsvvrijheid/ui'
 import { GetStaticPaths, GetStaticProps } from 'next'
@@ -28,10 +28,15 @@ const ArtPage: FC<ArtPageProps> = ({ seo, queryKey }) => {
 export default ArtPage
 
 export const getStaticPaths: GetStaticPaths = async context => {
-  return await getModelStaticPaths(
-    'api/arts',
-    context.locales as StrapiLocale[],
-  )
+  const artsResponse = await searchModel<Art>({
+    url: 'api/arts',
+  })
+
+  const paths = artsResponse.data?.map(({ slug }) => ({
+    params: { slug },
+  }))
+
+  return { paths, fallback: true }
 }
 
 export const getStaticProps: GetStaticProps = async context => {
