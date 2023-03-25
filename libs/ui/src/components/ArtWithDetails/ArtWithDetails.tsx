@@ -8,7 +8,8 @@ import {
   useLikeArt,
 } from '@wsvvrijheid/services'
 import { useAuthSelector } from '@wsvvrijheid/store'
-import { Art } from '@wsvvrijheid/types'
+import { Art, StrapiLocale } from '@wsvvrijheid/types'
+import { useRouter } from 'next/router'
 
 import {
   ArtContent,
@@ -26,6 +27,9 @@ export type ArtWithDetailsProps = {
 export const ArtWithDetails: FC<ArtWithDetailsProps> = ({ art, queryKey }) => {
   const { toggleLike, isLiked, isLoading } = useLikeArt(art, queryKey)
   const queryClient = useQueryClient()
+
+  const router = useRouter()
+  const locale = router.locale as StrapiLocale
 
   const auth = useAuthSelector()
 
@@ -56,6 +60,9 @@ export const ArtWithDetails: FC<ArtWithDetailsProps> = ({ art, queryKey }) => {
 
   if (!art) return null
 
+  const titleKey = `title_${locale}` as const
+  const descriptionKey = `description_${locale}` as const
+
   return (
     <Grid
       pos="relative"
@@ -76,12 +83,12 @@ export const ArtWithDetails: FC<ArtWithDetailsProps> = ({ art, queryKey }) => {
       <Stack spacing={4}>
         {/* Single Art Content */}
         <ArtContent
-          title={art.title}
+          title={art[titleKey]}
           artistName={
             art.artist?.name || art.artist?.username || 'Unknown Artist Name'
           }
           artistAvatar={art.artist?.avatar?.url}
-          content={art.content as string}
+          content={art[descriptionKey] as string}
           artistProfilePath={`/club/artist/${art.artist?.id}`}
         />
         {/* Single Art Comments */}

@@ -5,8 +5,8 @@ import { WTableProps } from '../../components'
 
 export const artColumns: WTableProps<Art>['columns'] = {
   image: { type: 'image' },
-  title: { sortable: true },
-  description: {},
+  title_nl: { label: 'Title' },
+  description_nl: { label: 'Description' },
   artist: {
     transform: value => (value as User)?.username,
     sortKey: 'username',

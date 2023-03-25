@@ -1,6 +1,8 @@
 import { forwardRef, Fragment } from 'react'
 
 import { Heading, Stack, Text, VStack } from '@chakra-ui/react'
+import { StrapiLocale } from '@wsvvrijheid/types'
+import { useRouter } from 'next/router'
 
 import { Page } from './Page'
 import { CollectionPagesPops } from './types'
@@ -8,6 +10,12 @@ import { WImage } from '../WImage'
 
 export const CollectionPages = forwardRef<HTMLDivElement, CollectionPagesPops>(
   function CollectionPages({ collection, pageBgGdarient }, ref) {
+    const router = useRouter()
+    const locale = router.locale as StrapiLocale
+
+    const titleKey = `title_${locale}` as const
+    const descriptionKey = `description_${locale}` as const
+
     if (!collection.arts) return null
 
     return (
@@ -17,7 +25,7 @@ export const CollectionPages = forwardRef<HTMLDivElement, CollectionPagesPops>(
             <Page ref={ref} p={8} bgGradient={pageBgGdarient}>
               <VStack justify="center" w="full" h="full" spacing={2}>
                 <Heading color="red.500" fontFamily="club" textAlign="center">
-                  {art.title}
+                  {art[titleKey]}
                 </Heading>
 
                 {art.image && (
@@ -25,18 +33,15 @@ export const CollectionPages = forwardRef<HTMLDivElement, CollectionPagesPops>(
                     rounded="sm"
                     maxH="80%"
                     src={art.image}
-                    alt={art.title}
+                    alt={art[titleKey]}
                   />
                 )}
 
-                <Text fontFamily="club">{art.description}</Text>
+                <Text fontFamily="club">{art[descriptionKey]}</Text>
               </VStack>
             </Page>
             <Page ref={ref} bgGradient={pageBgGdarient}>
               <Stack w="full" h="full" justify="center" fontFamily="club">
-                <Text fontFamily="club" textAlign="center">
-                  {art.content}
-                </Text>
                 <Text fontFamily="club" textAlign="right">
                   {art.artist?.name}
                 </Text>

@@ -30,7 +30,6 @@ type ArtRelation = {
   feedbacks?: Array<Feedback>
   image?: UploadFile
   likers?: Array<User>
-  localizations?: Array<Art>
   tags?: Array<Tag>
   votes?: Array<Vote>
   juryVotes?: Array<Vote>
@@ -51,10 +50,10 @@ type ArtRelationInput = {
 
 export type ArtCreateInput = Expand<
   { publishedAt?: Date | string | null } & Omit<
-    ArtBase,
+    Partial<ArtBase>,
     'approvalStatus' | 'likes' | 'views'
   > &
-    Pick<ArtRelationInput, 'categories' | 'collection' | 'tags'>
+    Pick<ArtRelationInput, 'image' | 'categories' | 'collection' | 'tags'>
 >
 
 export type ArtUpdateInput = Expand<

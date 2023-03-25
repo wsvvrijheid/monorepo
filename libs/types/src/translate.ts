@@ -6,7 +6,6 @@ import {
   AnnouncementCreateInput,
   AnnouncementUpdateInput,
 } from './announcement'
-import { Art, ArtCreateInput, ArtUpdateInput } from './art'
 import { Blog, BlogCreateInput, BlogUpdateInput } from './blog'
 import {
   Collection,
@@ -31,7 +30,6 @@ import { RecommendedTopicCreateInput } from './recommended-topic'
 export type StrapiTranslatableModel =
   | Activity
   | Announcement
-  | Art
   | Blog
   | Collection
   | Competition
@@ -41,7 +39,6 @@ export type StrapiTranslatableModel =
 export type StrapiTranslatableUpdateInput =
   | ActivityUpdateInput
   | AnnouncementUpdateInput
-  | ArtUpdateInput
   | BlogUpdateInput
   | CollectionUpdateInput
   | CompetitionUpdateInput
@@ -51,7 +48,6 @@ export type StrapiTranslatableUpdateInput =
 export type StrapiTranslatableCreateInput =
   | ActivityCreateInput
   | AnnouncementCreateInput
-  | ArtCreateInput
   | BlogCreateInput
   | CollectionCreateInput
   | CompetitionCreateInput

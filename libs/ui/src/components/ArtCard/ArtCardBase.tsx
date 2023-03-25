@@ -53,6 +53,7 @@ export const ArtCardBase: FC<ArtCardBaseProps> = ({
   const [color, setColor] = useState('white')
 
   const router = useRouter()
+  const locale = router.locale as StrapiLocale
 
   const deleteMutation = useDeleteModel('api/arts', queryKey)
   const publishMutation = usePublishModel('api/arts', queryKey)
@@ -120,7 +121,7 @@ export const ArtCardBase: FC<ArtCardBaseProps> = ({
         overflow="hidden"
       >
         {/* Card Image */}
-        <ArtCardImage art={art} isMasonry={isMasonry} />
+        <ArtCardImage art={art} isMasonry={isMasonry} locale={locale} />
 
         {!art.publishedAt && (
           <Badge left={2} pos="absolute" top={2} userSelect="none">

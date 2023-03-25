@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react'
+import { FC, useState } from 'react'
 
 import {
   Avatar,
@@ -16,20 +16,19 @@ import {
   Text,
   Textarea,
 } from '@chakra-ui/react'
+import { StrapiLocale } from '@wsvvrijheid/types'
+import { useRouter } from 'next/router'
 
 import { ArtFeedbackForm } from './ArtFeedbackForm'
 import { ArtApprovalTypes } from './types'
 import { WImage } from '../../components'
 
 export const ArtApprovalModal: FC<ArtApprovalTypes> = ({
+  art,
   onReject,
   onApprove,
   onDelete,
-  artId,
-  artDescription,
-  artTitle,
   artistAvatar,
-  artImage,
   isOpen,
   onClose,
   editorAvatar,
@@ -38,35 +37,32 @@ export const ArtApprovalModal: FC<ArtApprovalTypes> = ({
   onSave,
   onPublish,
   unPublish,
-  artApprovalStatus,
-  artPublishedAt,
 }) => {
-  const [description, setDescription] = useState(artDescription)
-  const [title, setTitle] = useState(artTitle)
+  const router = useRouter()
+  const locale = router.locale as StrapiLocale
+
+  const titleKey = `title_${locale}` as const
+  const descriptionKey = `description_${locale}` as const
+
+  const [title, setTitle] = useState(art[titleKey])
+  const [description, setDescription] = useState(art[descriptionKey])
   const [isEditingTitle, setIsEditingTitle] = useState(false)
-  const [isEditingDesciption, setIsEditingDesciption] = useState(false)
+  const [isEditingDescription, setIsEditingDescription] = useState(false)
 
   const handleSave = (data: string) => {
     if (data === 'description') {
-      setIsEditingDesciption(false)
-      onSave(artId, description, 'description')
+      setIsEditingDescription(false)
+      onSave(art.id, description, 'description')
     } else if (data === 'title') {
       setIsEditingTitle(false)
-      onSave(artId, title, 'title')
+      onSave(art.id, title, 'title')
     }
   }
-  //set new description and content
-  useEffect(() => {
-    setDescription(artDescription)
-  }, [artDescription])
 
-  useEffect(() => {
-    setTitle(artTitle)
-  }, [artTitle])
   //update field
   const handleUpdate = (data: string) => {
     if (data === 'description') {
-      setIsEditingDesciption(true)
+      setIsEditingDescription(true)
     } else if (data === 'title') {
       setIsEditingTitle(true)
     }
@@ -80,7 +76,7 @@ export const ArtApprovalModal: FC<ArtApprovalTypes> = ({
           <ModalBody p={0}>
             <SimpleGrid columns={{ base: 1, lg: 2 }} h="full">
               <Stack>
-                <WImage src={artImage} alt={artTitle} hasZoom={true} />
+                <WImage src={art.image} alt={title} hasZoom={true} />
 
                 {/* ==============================*/}
               </Stack>
@@ -120,7 +116,7 @@ export const ArtApprovalModal: FC<ArtApprovalTypes> = ({
                     maxH={'150px'}
                     overflow="auto"
                   >
-                    {isEditingDesciption ? (
+                    {isEditingDescription ? (
                       // // Textarea and save on edit mode
                       <Stack w="full">
                         <Textarea
@@ -147,17 +143,14 @@ export const ArtApprovalModal: FC<ArtApprovalTypes> = ({
                 </Stack>
                 {/*feedback ================================= */}
                 <ArtFeedbackForm
-                  onReject={onReject}
-                  onApprove={onApprove}
-                  onPublish={onPublish}
-                  unPublish={unPublish}
-                  artPublishedAt={artPublishedAt}
-                  artApprovalStatus={artApprovalStatus}
-                  onDelete={onDelete}
-                  artId={artId}
-                  artDescription={artDescription}
+                  art={art}
                   editorAvatar={editorAvatar}
                   editorName={editorName}
+                  onApprove={onApprove}
+                  onDelete={onDelete}
+                  onPublish={onPublish}
+                  onReject={onReject}
+                  unPublish={unPublish}
                   updateField={handleUpdate}
                 />
               </Stack>

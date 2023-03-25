@@ -18,7 +18,7 @@ export const createFeedback = async ({
   }
   const body: ArtUpdateInput = {
     approvalStatus: args.status,
-    publishedAt: args.status === 'approved' ? new Date() : null,
+    publishedAt: args.status === 'approved' ? new Date().toISOString() : null,
   }
   await Mutation.post<Feedback, FeedbackArtCreateInput>(
     'api/feedbacks',

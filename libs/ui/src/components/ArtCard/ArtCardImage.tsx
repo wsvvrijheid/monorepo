@@ -12,19 +12,21 @@ const CardImage: FC<CardImageProps> = ({ art, isMasonry, image, locale }) => (
     zIndex={-1}
     h={isMasonry ? undefined : 300}
     src={image as UploadFile}
-    alt={art?.[`title_${locale as StrapiLocale}`]}
+    alt={art?.[`title_${locale}`]}
     userSelect="none"
   />
 )
 
 export const ArtCardImage: FC<ArtCardImageProps> = ({ art, isMasonry }) => {
   const router = useRouter()
+  const locale = router.locale as StrapiLocale
+
   return (
     <CardImage
       art={art}
       isMasonry={isMasonry}
       image={art.image}
-      locale={router.locale as StrapiLocale}
+      locale={locale}
     />
   )
 }
