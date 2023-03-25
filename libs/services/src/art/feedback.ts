@@ -54,7 +54,6 @@ export const useArtFeedbackMutation = () => {
     },
     onError: error => {
       console.error(error)
-
       toast({
         title: 'Error',
         description: 'Something went wrong',
