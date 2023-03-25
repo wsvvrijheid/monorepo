@@ -18,6 +18,7 @@ import {
   usePublishModel,
   useUnpublishModel,
 } from '@wsvvrijheid/services'
+import { StrapiLocale } from '@wsvvrijheid/types'
 import { useRouter } from 'next/router'
 import { AiFillHeart } from 'react-icons/ai'
 import { FaExternalLinkSquareAlt } from 'react-icons/fa'
@@ -214,7 +215,7 @@ export const ArtCardBase: FC<ArtCardBaseProps> = ({
               p={2}
               pb={0}
             >
-              {art.title}
+              {art?.[`title_${router.locale as StrapiLocale}`]}
             </Text>
             <Navigate href={`/club/artist/${art.artist?.id}`}>
               <HStack

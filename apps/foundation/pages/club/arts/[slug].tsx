@@ -54,21 +54,17 @@ export const getStaticProps: GetStaticProps = async context => {
       notFound: true,
     }
 
-  const slugs =
-    art.localizations?.reduce((acc, l) => {
-      acc[l.locale] = l.slug
-      return acc
-    }, {}) || {}
-
-  const title = art.title || null
-  const description = art.description || null
+  const slugs = art.slug || {}
+  //  {art?.[`title_${router.locale as StrapiLocale}`]}
+  const title = art?.[`title_${locale as StrapiLocale}`] || null
+  const description = art?.[`description${locale as StrapiLocale}`] || null
 
   const image = art.image
 
   const seo = {
-    title: art.title,
-    description: art.description,
-    content: art.content,
+    title: art?.[`title_${locale as StrapiLocale}`],
+    description: art?.[`description${locale as StrapiLocale}`],
+    content: art?.[`content${locale as StrapiLocale}`],
     openGraph: {
       title,
       description,
@@ -88,7 +84,7 @@ export const getStaticProps: GetStaticProps = async context => {
               type: image.mime,
               width: image.width,
               height: image.height,
-              alt: art.title,
+              alt: art?.[`title_${locale as StrapiLocale}`],
             },
           ]
         : [],
