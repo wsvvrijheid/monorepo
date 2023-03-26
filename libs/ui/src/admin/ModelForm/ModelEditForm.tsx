@@ -52,6 +52,7 @@ export const ModelEditForm = <T extends StrapiModel>({
   fields,
   schema,
   onSuccess,
+  noColumns,
 }: ModelEditFormProps<T>) => {
   const translatableModel = model as StrapiTranslatableModel
 
@@ -196,7 +197,11 @@ export const ModelEditForm = <T extends StrapiModel>({
         />
       )}
       <Stack spacing={8} as="form" onSubmit={handleSubmit(onSaveModel)}>
-        <MasonryGrid cols={[1, 1, 1, 2]} columnGap={8} rowGap={4}>
+        <MasonryGrid
+          cols={noColumns ? [1] : [1, 1, 1, 2]}
+          columnGap={8}
+          rowGap={4}
+        >
           {fields.map((field, index) => {
             const label = field.label || capitalize(field.name as string)
 

@@ -1,11 +1,8 @@
 import { QueryKey } from '@tanstack/react-query'
-import { StrapiLocale } from '@wsvvrijheid/types'
 
 export type CreateArtFormFieldValues = {
-  locale: StrapiLocale
   title: string
   description: string
-  content: string
   categories: {
     label: string
     value: string

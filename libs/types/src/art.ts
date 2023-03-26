@@ -4,14 +4,22 @@ import { Comment } from './comment'
 import { Expand } from './common'
 import { Feedback } from './feedback'
 import { UploadFile } from './file'
-import { StrapiBase, StrapiCreatorRelation, StrapiEntityBase } from './strapi'
+import { StrapiBase, StrapiCreatorRelation } from './strapi'
 import { Tag } from './tag'
 import { User } from './user'
 import { Vote } from './vote'
 
-type ArtBase = StrapiEntityBase & {
+type ArtBase = StrapiBase & {
   likes: number
   views: number
+  slug: string
+  title_en: string
+  title_nl: string
+  title_tr: string
+  description_en: string
+  description_nl: string
+  description_tr: string
+  approvalStatus: string
 }
 
 type ArtRelation = {
@@ -22,7 +30,6 @@ type ArtRelation = {
   feedbacks?: Array<Feedback>
   image?: UploadFile
   likers?: Array<User>
-  localizations?: Array<Art>
   tags?: Array<Tag>
   votes?: Array<Vote>
   juryVotes?: Array<Vote>
@@ -43,10 +50,10 @@ type ArtRelationInput = {
 
 export type ArtCreateInput = Expand<
   { publishedAt?: Date | string | null } & Omit<
-    ArtBase,
+    Partial<ArtBase>,
     'approvalStatus' | 'likes' | 'views'
   > &
-    Pick<ArtRelationInput, 'categories' | 'collection' | 'tags'>
+    Pick<ArtRelationInput, 'image' | 'categories' | 'collection' | 'tags'>
 >
 
 export type ArtUpdateInput = Expand<
