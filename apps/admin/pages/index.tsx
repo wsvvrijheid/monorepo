@@ -54,6 +54,7 @@ export const getStaticProps = async context => {
 
   const statsResponse = await searchModel<AccounStatsType>({
     url: 'api/account-statistics',
+    sort: ['date:desc'],
   })
 
   const title = {
