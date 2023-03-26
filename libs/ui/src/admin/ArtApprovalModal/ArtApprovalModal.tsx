@@ -4,7 +4,8 @@ import {
   Avatar,
   Box,
   Button,
-  Flex,
+  ButtonGroup,
+  Heading,
   HStack,
   Modal,
   ModalBody,
@@ -13,60 +14,38 @@ import {
   ModalOverlay,
   SimpleGrid,
   Stack,
+  Tag,
   Text,
-  Textarea,
 } from '@chakra-ui/react'
-import { StrapiLocale } from '@wsvvrijheid/types'
+import { Art, StrapiLocale } from '@wsvvrijheid/types'
 import { useRouter } from 'next/router'
 
 import { ArtFeedbackForm } from './ArtFeedbackForm'
 import { ArtApprovalTypes } from './types'
 import { WImage } from '../../components'
+import { artFields, artSchema } from '../../data'
+import { ModelEditForm } from '../ModelForm'
 
 export const ArtApprovalModal: FC<ArtApprovalTypes> = ({
   art,
-  onReject,
-  onApprove,
-  onDelete,
-  artistAvatar,
+  artist,
   isOpen,
   onClose,
-  editorAvatar,
-  editorName,
-  artistName,
-  onSave,
-  onPublish,
-  unPublish,
+  onSuccess,
+  editor,
 }) => {
   const router = useRouter()
   const locale = router.locale as StrapiLocale
+  const [isEditing, setIsEditing] = useState(false)
 
-  const titleKey = `title_${locale}` as const
-  const descriptionKey = `description_${locale}` as const
+  const [language, setLanguage] = useState<StrapiLocale>(locale)
 
-  const [title, setTitle] = useState(art[titleKey])
-  const [description, setDescription] = useState(art[descriptionKey])
-  const [isEditingTitle, setIsEditingTitle] = useState(false)
-  const [isEditingDescription, setIsEditingDescription] = useState(false)
+  const titleKey = `title_${language}` as const
+  const descriptionKey = `description_${language}` as const
 
-  const handleSave = (data: string) => {
-    if (data === 'description') {
-      setIsEditingDescription(false)
-      onSave(art.id, description, 'description')
-    } else if (data === 'title') {
-      setIsEditingTitle(false)
-      onSave(art.id, title, 'title')
-    }
-  }
+  const title = art[titleKey]
+  const description = art[descriptionKey]
 
-  //update field
-  const handleUpdate = (data: string) => {
-    if (data === 'description') {
-      setIsEditingDescription(true)
-    } else if (data === 'title') {
-      setIsEditingTitle(true)
-    }
-  }
   return (
     <Box>
       <Modal onClose={onClose} isOpen={isOpen} scrollBehavior="inside">
@@ -75,85 +54,105 @@ export const ArtApprovalModal: FC<ArtApprovalTypes> = ({
           <ModalCloseButton />
           <ModalBody p={0}>
             <SimpleGrid columns={{ base: 1, lg: 2 }} h="full">
-              <Stack>
-                <WImage src={art.image} alt={title} hasZoom={true} />
-
-                {/* ==============================*/}
-              </Stack>
-              <Stack spacing={4} p={{ base: 4, lg: 8 }} justify="space-between">
-                <Stack>
-                  {isEditingTitle ? (
-                    // // Textarea and save on edit mode
-                    <Stack w="full">
-                      <Textarea
-                        onChange={e => setTitle(e.target.value)}
-                        value={title}
-                      />
-                      <Button
-                        colorScheme="primary"
-                        onClick={() => handleSave('title')}
-                        alignSelf="end"
-                      >
-                        Save
-                      </Button>
-                    </Stack>
-                  ) : (
-                    <Stack align="start" justify={'start'} w="full">
-                      <Text color={'blue.400'} fontWeight={700}>
+              <WImage src={art.image} alt={title} hasZoom={true} />
+              {!isEditing && (
+                <Stack overflowY={'auto'}>
+                  <Stack spacing={4} p={{ base: 4, lg: 8 }} flex={1}>
+                    <ButtonGroup isAttached>
+                      {['en', 'nl', 'tr'].map(lang => (
+                        <Button
+                          textTransform={'uppercase'}
+                          colorScheme={'primary'}
+                          variant={language === lang ? 'solid' : 'outline'}
+                          onClick={() => setLanguage(lang as StrapiLocale)}
+                        >
+                          {lang}
+                        </Button>
+                      ))}
+                    </ButtonGroup>
+                    <HStack spacing={4}>
+                      <Heading color={'primary.500'} fontWeight={700}>
                         {title}
+                      </Heading>
+                      <Tag
+                        size={'lg'}
+                        colorScheme={
+                          art.approvalStatus === 'approved'
+                            ? 'green'
+                            : art.approvalStatus === 'rejected'
+                            ? 'red'
+                            : 'yellow'
+                        }
+                      >
+                        {art.approvalStatus === 'approved'
+                          ? 'Approved'
+                          : art.approvalStatus === 'rejected'
+                          ? 'Rejected'
+                          : 'Pending'}
+                      </Tag>
+                    </HStack>
+                    {artist && (
+                      <HStack spacing={3} w={'full'}>
+                        <Avatar
+                          size="md"
+                          src={artist.avatar?.url}
+                          name={artist.name || artist.username}
+                        />
+                        <Box>
+                          <Text fontWeight={700}>{artist.name}</Text>
+                          <Text>{artist.username}</Text>
+                        </Box>
+                      </HStack>
+                    )}
+                    <Stack flex={1} h={'full'}>
+                      <Text color={'black'} fontWeight={700}>
+                        Description
+                      </Text>
+                      <Text overflowY={'auto'} h={'full'}>
+                        {description || 'No description'}
                       </Text>
                     </Stack>
-                  )}
-                  <HStack spacing={3} w={'full'}>
-                    {/* TODO art owner avatar should be here*/}
-                    <Avatar size="sm" src={artistAvatar} name={artistName} />
-                    <Text fontWeight={700}>{artistName}</Text>
-                  </HStack>
-                  <Flex
-                    align="start"
-                    justify={'start'}
-                    w="full"
-                    maxH={'150px'}
-                    overflow="auto"
+                  </Stack>
+                  <Box
+                    pos={'sticky'}
+                    bottom={0}
+                    bg={'white'}
+                    p={{ base: 4, lg: 8 }}
+                    borderBottomWidth={1}
                   >
-                    {isEditingDescription ? (
-                      // // Textarea and save on edit mode
-                      <Stack w="full">
-                        <Textarea
-                          onChange={e => setDescription(e.target.value)}
-                          value={description}
-                        />
-                        <Button
-                          colorScheme="primary"
-                          onClick={() => handleSave('description')}
-                          alignSelf="end"
-                        >
-                          Save
-                        </Button>
-                      </Stack>
-                    ) : (
-                      <Stack align="start" justify={'start'} w="full">
-                        <Text color={'black'} fontWeight={700}>
-                          Description
-                        </Text>
-                        <Text>{description}</Text>
-                      </Stack>
-                    )}
-                  </Flex>
+                    <ArtFeedbackForm
+                      art={art}
+                      editor={editor}
+                      onClose={onClose}
+                      onSuccess={onSuccess}
+                      setIsEditing={setIsEditing}
+                    />
+                  </Box>
                 </Stack>
-                {/*feedback ================================= */}
-                <ArtFeedbackForm
-                  art={art}
-                  editorAvatar={editorAvatar}
-                  editorName={editorName}
-                  onApprove={onApprove}
-                  onDelete={onDelete}
-                  onPublish={onPublish}
-                  onReject={onReject}
-                  unPublish={unPublish}
-                  updateField={handleUpdate}
-                />
-              </Stack>
+              )}
+              {isEditing && (
+                <Stack spacing={4} p={{ base: 4, lg: 8 }} overflowY={'auto'}>
+                  <HStack justify={'space-between'}>
+                    <Heading color={'primary.500'} fontWeight={700}>
+                      Edit
+                    </Heading>
+                    <Button
+                      colorScheme={'primary'}
+                      onClick={() => setIsEditing(false)}
+                    >
+                      Cancel
+                    </Button>
+                  </HStack>
+                  <ModelEditForm<Art>
+                    noColumns
+                    fields={artFields}
+                    schema={artSchema}
+                    url={'api/arts'}
+                    model={art}
+                    onSuccess={() => setIsEditing(false)}
+                  />
+                </Stack>
+              )}
             </SimpleGrid>
           </ModalBody>
         </ModalContent>

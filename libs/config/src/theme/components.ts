@@ -3,18 +3,18 @@ export const components = {
     baseStyle: {
       fontFamily: 'heading',
       color: 'primary.500',
-      fontWeight: 'bold',
+      fontWeight: 700,
     },
   },
   Button: {
     baseStyle: {
-      fontWeight: 'semibold',
+      fontWeight: 600,
     },
   },
   Badge: {
     baseStyle: {
       textTransform: 'capitalize',
-      fontWeight: 'medium',
+      fontWeight: 500,
     },
   },
   Link: {
