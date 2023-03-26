@@ -14,11 +14,11 @@ export const getAccountStats = async (
       'tweet.fields': 'public_metrics',
     })
 
-    const followerCount = user.data.public_metrics.followers_count
-    const followingCount = user.data.public_metrics.following_count
-    let tweetCount = 0
-    let likeCount = 0
-    let retweetCount = 0
+    const followers = user.data.public_metrics.followers_count
+    const followings = user.data.public_metrics.following_count
+    let tweets = 0
+    let likes = 0
+    let retweets = 0
     let replies = 0
 
     const start_time = formatIso(addDays(date, -totalDays))
@@ -31,19 +31,21 @@ export const getAccountStats = async (
       'tweet.fields': 'public_metrics',
     })
 
-    timeline.data.data.forEach(item => {
-      likeCount += item.public_metrics.like_count
-      retweetCount += item.public_metrics.retweet_count
-      replies += item.public_metrics.reply_count
-      tweetCount += 1
-    })
+    if (!timeline.data?.data?.length) {
+      timeline.data.data.forEach(item => {
+        likes += item.public_metrics.like_count
+        retweets += item.public_metrics.retweet_count
+        replies += item.public_metrics.reply_count
+        tweets += 1
+      })
+    }
 
     return {
-      followers: followerCount,
-      followings: followingCount,
-      tweets: tweetCount,
-      retweets: retweetCount,
-      likes: likeCount,
+      followers,
+      followings,
+      tweets,
+      retweets,
+      likes,
       replies,
       username,
     }

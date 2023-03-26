@@ -1,14 +1,14 @@
 import { FC } from 'react'
 
-import { Art } from '@wsvvrijheid/types'
+// import { Art } from '@wsvvrijheid/types'
 import {
   AdminLayout,
-  ModelEditTranslate,
-  translateModelFields,
-  translateModelSchema,
+  // ModelEditTranslate,
+  // translateModelFields,
+  // translateModelSchema,
 } from '@wsvvrijheid/ui'
 import { InferGetServerSidePropsType } from 'next'
-import { useRouter } from 'next/router'
+// import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
 
@@ -17,21 +17,21 @@ import i18nConfig from '../../../next-i18next.config'
 type PageProps = InferGetServerSidePropsType<typeof getServerSideProps>
 
 const TranslateArtsPage: FC<PageProps> = ({ seo }) => {
-  const router = useRouter()
-  const { query } = router
+  // const router = useRouter()
+  // const { query } = router
 
-  const id = Number(query.id as string)
+  // const id = Number(query.id as string)
 
   return (
     <AdminLayout seo={seo} hasBackButton>
-      <ModelEditTranslate<Art>
+      {/* <ModelEditTranslate<Art>
         id={id}
         url="api/arts"
         pathname="arts"
         translatedFields={['title', 'description', 'content']}
         fields={translateModelFields}
         schema={translateModelSchema}
-      />
+      /> */}
     </AdminLayout>
   )
 }
