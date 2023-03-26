@@ -179,9 +179,6 @@ const NewsPage: FC<PageProps> = ({ seo }) => {
             ))}
           </>
         )}
-        {topics?.map((topic, i) => (
-          <TopicCard key={topic.url + i} topic={topic} />
-        ))}
       </SimpleGrid>
     </AdminLayout>
   )
