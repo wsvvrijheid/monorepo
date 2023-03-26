@@ -12,7 +12,6 @@ export type ChartJSData = {
 }
 
 export type AccountStatsProps = {
-  title: string
   stats: AccountStats[]
   field: keyof AccountStatsBase
 }

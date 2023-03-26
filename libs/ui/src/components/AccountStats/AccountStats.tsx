@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { ComponentProps, FC } from 'react'
 
 import { Box } from '@chakra-ui/react'
 import {
@@ -12,6 +12,7 @@ import {
   Legend,
 } from 'chart.js'
 import { Line } from 'react-chartjs-2'
+import { TypedChartComponent } from 'react-chartjs-2/dist/types'
 
 import { AccountStatsProps } from './types'
 import { getChartData } from './utils'
@@ -26,21 +27,14 @@ ChartJS.register(
   Legend,
 )
 
-export const AccountStats: FC<AccountStatsProps> = ({
-  title,
-  stats,
-  field,
-}) => {
-  const options = {
+export const AccountStats: FC<AccountStatsProps> = ({ stats, field }) => {
+  const options: ComponentProps<TypedChartComponent<'line'>>['options'] = {
     responsive: true,
     maintainAspectRatio: false,
+    aspectRatio: 1,
     plugins: {
       legend: {
         position: 'top' as const,
-      },
-      title: {
-        display: true,
-        text: title,
       },
     },
   }
