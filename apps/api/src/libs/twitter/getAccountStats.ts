@@ -31,14 +31,12 @@ export const getAccountStats = async (
       'tweet.fields': 'public_metrics',
     })
 
-    if (!timeline.data?.data?.length) {
-      timeline.data.data.forEach(item => {
-        likes += item.public_metrics.like_count
-        retweets += item.public_metrics.retweet_count
-        replies += item.public_metrics.reply_count
-        tweets += 1
-      })
-    }
+    timeline.data?.data?.forEach(item => {
+      likes += item.public_metrics.like_count
+      retweets += item.public_metrics.retweet_count
+      replies += item.public_metrics.reply_count
+      tweets += 1
+    })
 
     return {
       followers,
