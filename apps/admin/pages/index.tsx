@@ -1,8 +1,11 @@
 import { FC } from 'react'
 
-import { SimpleGrid } from '@chakra-ui/react'
-import { ACCOUNT_STATS } from '@wsvvrijheid/mocks'
-import { AccountStatsBase } from '@wsvvrijheid/types'
+import { SimpleGrid, Stack, Text } from '@chakra-ui/react'
+import { searchModel } from '@wsvvrijheid/services'
+import {
+  AccountStats as AccounStatsType,
+  AccountStatsBase,
+} from '@wsvvrijheid/types'
 import { AccountStats, AdminLayout } from '@wsvvrijheid/ui'
 import { InferGetStaticPropsType } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
@@ -12,26 +15,34 @@ import i18nConfig from '../next-i18next.config'
 
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>
 
-const Index: FC<PageProps> = ({ seo }) => {
+const Index: FC<PageProps> = ({ seo, stats }) => {
   const statsData = [
-    'followers',
     'tweets',
+    'replies',
     'retweets',
     'likes',
+    'followers',
     'followings',
-    'replies',
   ]
 
   return (
     <AdminLayout seo={seo}>
-      <SimpleGrid columns={[1, 1, 2, 2, 3]}>
+      <SimpleGrid columns={{ base: 1, lg: 2 }} gap={4}>
         {statsData?.map((field, index) => (
-          <AccountStats
-            key={index}
-            title={field}
-            field={field as keyof AccountStatsBase}
-            stats={ACCOUNT_STATS?.data}
-          />
+          <Stack key={index} p={4} bg={'white'} shadow={'md'} rounded={'md'}>
+            <Text
+              textAlign={'center'}
+              textTransform={'capitalize'}
+              fontWeight={700}
+              fontSize={'lg'}
+            >
+              {field}
+            </Text>
+            <AccountStats
+              field={field as keyof AccountStatsBase}
+              stats={stats}
+            />
+          </Stack>
         ))}
       </SimpleGrid>
     </AdminLayout>
@@ -40,6 +51,10 @@ const Index: FC<PageProps> = ({ seo }) => {
 
 export const getStaticProps = async context => {
   const { locale } = context
+
+  const statsResponse = await searchModel<AccounStatsType>({
+    url: 'api/account-statistics',
+  })
 
   const title = {
     en: 'Home',
@@ -54,12 +69,14 @@ export const getStaticProps = async context => {
   return {
     props: {
       seo,
+      stats: statsResponse?.data || [],
       ...(await serverSideTranslations(
         locale,
         ['common', 'admin'],
         i18nConfig,
       )),
     },
+    revalidate: 1,
   }
 }
 
