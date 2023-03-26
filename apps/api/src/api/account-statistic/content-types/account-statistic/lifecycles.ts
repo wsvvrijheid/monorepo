@@ -12,6 +12,8 @@ export default {
       }
     })
 
+    console.log('existing', existing)
+
     // It seems throwing an error in beforeCreate lifecycle is not working
     // There will be a duplicate entry with empty stats data
     if (!existing) {
