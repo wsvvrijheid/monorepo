@@ -1,5 +1,6 @@
 import { theme } from '@chakra-ui/react'
 import { AccountStats, AccountStatsBase } from '@wsvvrijheid/types'
+import { format } from 'date-fns'
 
 import { ChartJSData } from './types'
 
@@ -42,8 +43,11 @@ export const getChartData = (
 
   // iterate over unique usernames and create datasets for each user
   stats.forEach((d, index) => {
-    if (!chartData.labels.includes(d.date)) {
-      chartData.labels.push(d.date)
+    const date = new Date(d.date)
+    const shortDate = format(date, 'dd/MM')
+
+    if (!chartData.labels.includes(shortDate)) {
+      chartData.labels.push(shortDate)
     }
 
     const datasetIndex = chartData.datasets.findIndex(
