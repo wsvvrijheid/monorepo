@@ -1,6 +1,6 @@
 import { StrapiBase } from './strapi'
 
-export type AccountStats = StrapiBase & {
+export type AccountStatsBase = {
   username: string
   followers: number
   tweets: number
@@ -8,5 +8,7 @@ export type AccountStats = StrapiBase & {
   likes: number
   followings: number
   replies: number
-  date: number
+  date: string
 }
+
+export type AccountStats = StrapiBase & AccountStatsBase

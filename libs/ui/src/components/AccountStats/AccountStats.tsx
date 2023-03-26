@@ -13,6 +13,9 @@ import {
 } from 'chart.js'
 import { Line } from 'react-chartjs-2'
 
+import { AccountStatsProps } from './types'
+import { getChartData } from './utils'
+
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -23,13 +26,11 @@ ChartJS.register(
   Legend,
 )
 
-export type AccountStatsProps = {
-  title: string
-}
-
-export const AccountStats: FC<AccountStatsProps> = ({ title }) => {
-  const labels = ['7 Jan', '14 Jan', '21 Jan']
-
+export const AccountStats: FC<AccountStatsProps> = ({
+  title,
+  stats,
+  field,
+}) => {
   const options = {
     responsive: true,
     maintainAspectRatio: false,
@@ -44,33 +45,11 @@ export const AccountStats: FC<AccountStatsProps> = ({ title }) => {
     },
   }
 
-  const data = {
-    labels,
-    datasets: [
-      {
-        label: 'Hesap1',
-        data: [556, 678, 784],
-        borderColor: 'rgb(255, 99, 132)',
-        backgroundColor: 'rgba(255, 99, 132, 0.5)',
-      },
-      {
-        label: 'Hesap2',
-        data: [673, 865, 935],
-        borderColor: 'rgb(53, 162, 235)',
-        backgroundColor: 'rgba(53, 162, 235, 0.5)',
-      },
-      {
-        label: 'Hesap 3',
-        data: [798, 899, 999],
-        borderColor: '#b856ac',
-        backgroundColor: '#b856ac',
-      },
-    ],
-  }
+  const chartData = getChartData(stats, field)
 
   return (
     <Box p="5" minH={250}>
-      <Line options={options} data={data} />
+      <Line options={options} data={chartData} />
     </Box>
   )
 }
