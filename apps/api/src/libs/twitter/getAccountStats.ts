@@ -31,8 +31,6 @@ export const getAccountStats = async (
       'tweet.fields': 'public_metrics',
     })
 
-    console.log('timeline.data.data', timeline?.data?.data)
-
     if (!timeline.data?.data?.length) {
       timeline.data.data.forEach(item => {
         likes += item.public_metrics.like_count
