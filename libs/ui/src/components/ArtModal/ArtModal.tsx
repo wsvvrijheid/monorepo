@@ -13,7 +13,6 @@ import { ArtModalProps } from './types'
 import { ArtWithDetails } from '../ArtWithDetails'
 
 export const ArtModal: FC<ArtModalProps> = ({ art, isOpen, onClose }) => {
-  console.log('art', art)
   return (
     <Box>
       <Modal onClose={onClose} isOpen={isOpen} scrollBehavior="inside">

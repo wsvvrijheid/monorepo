@@ -34,8 +34,10 @@ export const ArtAddToCollectionModal: FC<ArtAddToCollectionModalProps> = ({
   const { data, isLoading, refetch } = useSearchModel<Art>({
     url: 'api/arts',
     searchTerm: search || undefined,
+    searchFields: ['title_en', 'title_nl', 'title_tr'],
     locale: locale as StrapiLocale,
     statuses: ['approved'],
+    page,
   })
 
   useEffect(() => {
