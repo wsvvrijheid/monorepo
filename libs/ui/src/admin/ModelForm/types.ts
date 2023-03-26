@@ -51,6 +51,7 @@ export type ModelEditFormProps<T extends StrapiModel> = {
   translatedFields?: (keyof T)[]
   fields: FormFields<T>
   schema: OptionalObjectSchema<any>
+  noColumns?: boolean
   onSuccess: () => void
 }
 

@@ -1,158 +1,133 @@
 import { FC, useState } from 'react'
 
-import {
-  Avatar,
-  Button,
-  HStack,
-  Text,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuList,
-  Stack,
-  Textarea,
-  IconButton,
-} from '@chakra-ui/react'
-import {
-  HiDotsVertical,
-  HiOutlineCheck,
-  HiOutlineX,
-  HiPencil,
-} from 'react-icons/hi'
-import { MdOutlinePublish, MdOutlineUnpublished } from 'react-icons/md'
+import { Avatar, Button, HStack, Stack, Text, Textarea } from '@chakra-ui/react'
+import { useArtFeedbackMutation } from '@wsvvrijheid/services'
+import { HiOutlineCheck, HiOutlineX, HiPencil } from 'react-icons/hi'
 
 import { ArtFeedbackFormTypes } from './types'
+import { WConfirm, WConfirmProps } from '../../components'
 
 export const ArtFeedbackForm: FC<ArtFeedbackFormTypes> = ({
-  onReject,
-  onApprove,
-  onDelete,
   art,
-  editorAvatar,
-  editorName,
-  updateField,
-  onPublish,
-  unPublish,
+  editor,
+  onSuccess,
+  onClose,
+  setIsEditing,
 }) => {
   const [feedback, setFeedback] = useState('')
 
-  const handleReject = () => onReject(art.id, feedback)
-  const handleApprove = () => onApprove(art.id, feedback)
-  const handleDelete = () => onDelete(art.id)
-  const handlePublish = () => onPublish(art.id)
-  const handleUnPublish = () => unPublish(art.id)
+  const [confirmState, setConfirmState] = useState<WConfirmProps>()
+
+  const feedbackMutation = useArtFeedbackMutation()
+
+  const handleSuccess = () => {
+    onSuccess?.()
+    setConfirmState(undefined)
+    onClose?.()
+  }
+
+  const handleReject = async () => {
+    setConfirmState({
+      isWarning: true,
+      title: 'Reject art',
+      description: 'Are you sure you want to reject this art?',
+      buttonText: 'Reject',
+      onConfirm: async () => {
+        feedbackMutation.mutate(
+          {
+            art: art.id,
+            message: feedback,
+            status: 'rejected',
+            point: 10,
+          },
+          { onSuccess: handleSuccess },
+        )
+      },
+    })
+  }
+
+  const handleApprove = () => {
+    setConfirmState({
+      title: 'Approve art',
+      description: 'Are you sure you want to approve this art?',
+      buttonText: 'Approve',
+      onConfirm: async () => {
+        feedbackMutation.mutate(
+          {
+            art: art.id,
+            message: feedback,
+            status: 'approved',
+            point: 10,
+          },
+          { onSuccess: handleSuccess },
+        )
+      },
+    })
+  }
+
+  const onEdit = () => {
+    setIsEditing(true)
+  }
 
   return (
-    <Stack w={'full'} spacing={{ base: 2, lg: 4 }}>
-      <Text color={'black'} fontWeight={700}>
-        Give Feedback
-      </Text>
+    <>
+      {confirmState && (
+        <WConfirm
+          {...confirmState}
+          onCancel={() => setConfirmState(undefined)}
+        />
+      )}
 
-      {/*feedback ================================= */}
-      <HStack align="start" spacing={{ base: 2, lg: 4 }}>
-        {/* avatar*/}
+      <Stack w={'full'} spacing={{ base: 2, lg: 4 }}>
+        <Text color={'black'} fontWeight={700}>
+          Give Feedback
+        </Text>
+        <HStack align="start" spacing={{ base: 2, lg: 4 }}>
+          <Avatar size="sm" src={editor.avatar} name={editor.name} />
 
-        <Avatar size="sm" src={editorAvatar} name={editorName} />
-
-        <Stack flex={1} spacing={{ base: 2, lg: 4 }}>
-          {/* text area, button group*/}
-          <Stack>
-            {/* text area*/}
+          <Stack flex={1} spacing={{ base: 2, lg: 4 }}>
             <Textarea
               isRequired
               onChange={e => setFeedback(e.target.value)}
               placeholder={'Type your comment here'}
             />
-          </Stack>
-          {/*button group*/}
-          <Stack direction={'row'} spacing={{ base: 2, lg: 4 }}>
-            <Button
-              isDisabled={!feedback || art.approvalStatus === 'rejected'}
-              onClick={handleReject}
-              colorScheme="red"
-              w="full"
-              leftIcon={<HiOutlineX />}
-            >
-              Reject
-            </Button>
 
-            <Button
-              isDisabled={!feedback || art.approvalStatus === 'approved'}
-              onClick={handleApprove}
-              colorScheme="purple"
-              w="full"
-              leftIcon={<HiOutlineCheck />}
-            >
-              Approve
-            </Button>
+            <Stack direction={'row'} spacing={{ base: 2, lg: 4 }}>
+              <Button
+                flex={1}
+                flexShrink={0}
+                isDisabled={!feedback || art.approvalStatus === 'rejected'}
+                onClick={handleReject}
+                colorScheme="red"
+                leftIcon={<HiOutlineX />}
+              >
+                Reject
+              </Button>
 
-            <Menu>
-              <MenuButton
-                aria-label="Open art menu"
-                as={IconButton}
-                icon={<HiDotsVertical />}
+              <Button
+                flex={1}
+                flexShrink={0}
+                isDisabled={!feedback || art.approvalStatus === 'approved'}
+                onClick={handleApprove}
                 colorScheme="primary"
-              />
-              <MenuList minWidth={32} minH={20}>
-                <MenuItem
-                  as={Button}
-                  onClick={() => updateField('title')}
-                  variant="ghost"
-                  colorScheme="primary"
-                  icon={<HiPencil />}
-                >
-                  Edit Title
-                </MenuItem>
-                <MenuItem
-                  as={Button}
-                  onClick={() => updateField('description')}
-                  variant="ghost"
-                  colorScheme="primary"
-                  icon={<HiPencil />}
-                >
-                  Edit Description
-                </MenuItem>
-                <MenuItem
-                  as={Button}
-                  onClick={() => updateField('content')}
-                  variant="ghost"
-                  colorScheme="primary"
-                  icon={<HiPencil />}
-                >
-                  Edit Content
-                </MenuItem>
-                {art.approvalStatus === 'approved' && (
-                  <MenuItem
-                    as={Button}
-                    onClick={art.publishedAt ? handleUnPublish : handlePublish}
-                    variant="ghost"
-                    colorScheme="primary"
-                    icon={
-                      art.publishedAt ? (
-                        <MdOutlineUnpublished />
-                      ) : (
-                        <MdOutlinePublish />
-                      )
-                    }
-                  >
-                    {art.publishedAt ? 'Unpublish' : 'Publish'}
-                  </MenuItem>
-                )}
+                leftIcon={<HiOutlineCheck />}
+              >
+                Approve
+              </Button>
 
-                <MenuItem
-                  as={Button}
-                  onClick={handleDelete}
-                  variant="ghost"
-                  colorScheme="red"
-                  icon={<HiOutlineX />}
-                >
-                  Delete
-                </MenuItem>
-              </MenuList>
-            </Menu>
+              <Button
+                aria-label="Edit"
+                flexShrink={0}
+                onClick={onEdit}
+                colorScheme="primary"
+                leftIcon={<HiPencil />}
+              >
+                Edit
+              </Button>
+            </Stack>
           </Stack>
-        </Stack>
-      </HStack>
-    </Stack>
+        </HStack>
+      </Stack>
+    </>
   )
 }
