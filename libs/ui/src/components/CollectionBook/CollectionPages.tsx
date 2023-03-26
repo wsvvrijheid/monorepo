@@ -27,7 +27,6 @@ export const CollectionPages = forwardRef<HTMLDivElement, CollectionPagesPops>(
                 <Heading color="red.500" fontFamily="club" textAlign="center">
                   {art[titleKey]}
                 </Heading>
-
                 {art.image && (
                   <WImage
                     rounded="sm"
@@ -36,12 +35,11 @@ export const CollectionPages = forwardRef<HTMLDivElement, CollectionPagesPops>(
                     alt={art[titleKey]}
                   />
                 )}
-
-                <Text fontFamily="club">{art[descriptionKey]}</Text>
               </VStack>
             </Page>
             <Page ref={ref} bgGradient={pageBgGdarient}>
               <Stack w="full" h="full" justify="center" fontFamily="club">
+                <Text fontFamily="club">{art[descriptionKey]}</Text>
                 <Text fontFamily="club" textAlign="right">
                   {art.artist?.name}
                 </Text>
