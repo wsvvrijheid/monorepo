@@ -1,7 +1,12 @@
 import { FC } from 'react'
 
 import { SimpleGrid, Stack, Text } from '@chakra-ui/react'
-import { searchModel } from '@wsvvrijheid/services'
+import { dehydrate, QueryClient } from '@tanstack/react-query'
+import {
+  searchModel,
+  SearchModelArgs,
+  useSearchModel,
+} from '@wsvvrijheid/services'
 import {
   AccountStats as AccounStatsType,
   AccountStatsBase,
@@ -15,7 +20,17 @@ import i18nConfig from '../next-i18next.config'
 
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>
 
-const Index: FC<PageProps> = ({ seo, stats }) => {
+const args: SearchModelArgs<AccounStatsType> = {
+  url: 'api/account-statistics',
+  sort: ['date:asc'],
+  pageSize: 100,
+}
+
+const Index: FC<PageProps> = ({ seo }) => {
+  // TODO: Add pagination with keep previous data
+  // Strapi fetches at max 100 items
+  const statsQuery = useSearchModel(args)
+
   const statsData = [
     'tweets',
     'replies',
@@ -38,10 +53,12 @@ const Index: FC<PageProps> = ({ seo, stats }) => {
             >
               {field}
             </Text>
-            <AccountStats
-              field={field as keyof AccountStatsBase}
-              stats={stats}
-            />
+            {statsQuery.data?.data && (
+              <AccountStats
+                field={field as keyof AccountStatsBase}
+                stats={statsQuery.data.data}
+              />
+            )}
           </Stack>
         ))}
       </SimpleGrid>
@@ -52,9 +69,10 @@ const Index: FC<PageProps> = ({ seo, stats }) => {
 export const getStaticProps = async context => {
   const { locale } = context
 
-  const statsResponse = await searchModel<AccounStatsType>({
-    url: 'api/account-statistics',
-    sort: ['date:asc'],
+  const queryClient = new QueryClient()
+
+  await queryClient.prefetchQuery(['account-stats'], () => {
+    return searchModel<AccounStatsType>(args)
   })
 
   const title = {
@@ -70,7 +88,7 @@ export const getStaticProps = async context => {
   return {
     props: {
       seo,
-      stats: statsResponse?.data || [],
+      dehydratedState: dehydrate(queryClient),
       ...(await serverSideTranslations(
         locale,
         ['common', 'admin'],
