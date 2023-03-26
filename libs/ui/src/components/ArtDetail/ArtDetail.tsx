@@ -2,7 +2,7 @@ import { FC } from 'react'
 
 import { Box, Button, HStack, Text } from '@chakra-ui/react'
 import { SITE_URL } from '@wsvvrijheid/config'
-import { Art } from '@wsvvrijheid/types'
+import { Art, StrapiLocale } from '@wsvvrijheid/types'
 import { useRouter } from 'next/router'
 import { AiFillHeart } from 'react-icons/ai'
 import { FaEye } from 'react-icons/fa'
@@ -23,14 +23,21 @@ export const ArtDetail: FC<ArtDetailProps> = ({
   isLoading,
   toggleLike,
 }) => {
-  const { locale } = useRouter()
+  const router = useRouter()
+  const locale = router.locale as StrapiLocale
+
   const url = `${SITE_URL}/${locale}/club/arts/${art.slug}`
 
   if (!art?.image) return null
 
   return (
     <Box bg="white" padding={4} boxShadow="base">
-      <WImage maxH={500} src={art.image} alt={art.title} hasZoom />
+      <WImage
+        maxH={500}
+        src={art.image}
+        alt={art?.[`title_${locale}`]}
+        hasZoom
+      />
 
       <HStack bg="white" justify="center" mt={4}>
         {art.views && (
@@ -57,9 +64,9 @@ export const ArtDetail: FC<ArtDetailProps> = ({
           {(art?.likes || 0) + (art.likers?.length || 0)}
         </Button>
         <ShareButtons
-          title={art?.title}
+          title={art?.[`title_${locale as StrapiLocale}`]}
           url={url}
-          quote={art.description || ''}
+          quote={art?.[`description_${locale as StrapiLocale}`] || ''}
         />
       </HStack>
     </Box>
