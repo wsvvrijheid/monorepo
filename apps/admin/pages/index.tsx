@@ -1,7 +1,12 @@
 import { FC } from 'react'
 
-import { SimpleGrid } from '@chakra-ui/react'
-import { AdminLayout, Caps } from '@wsvvrijheid/ui'
+import { SimpleGrid, Stack, Text } from '@chakra-ui/react'
+import { searchModel } from '@wsvvrijheid/services'
+import {
+  AccountStats as AccounStatsType,
+  AccountStatsBase,
+} from '@wsvvrijheid/types'
+import { AccountStats, AdminLayout } from '@wsvvrijheid/ui'
 import { InferGetStaticPropsType } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
@@ -10,39 +15,35 @@ import i18nConfig from '../next-i18next.config'
 
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>
 
-const Index: FC<PageProps> = ({ seo }) => {
-  const text =
-    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctor, nisl eget ultricies lacinia, nisl nisl aliquam nisl, eget aliquam nisl nisl eu nisl. \n\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctor, nisl eget ultricies lacinia, nisl nisl aliquam nisl, eget aliquam nisl nisl eu nisl.'
+const Index: FC<PageProps> = ({ seo, stats }) => {
+  const statsData = [
+    'tweets',
+    'replies',
+    'retweets',
+    'likes',
+    'followers',
+    'followings',
+  ]
 
   return (
     <AdminLayout seo={seo}>
-      <SimpleGrid columns={{ base: 1, md: 2 }} gap={8} shadow={'md'} p={4}>
-        <Caps
-          imageParams={{
-            title: 'Scale 1',
-            text,
-            shape: 1,
-            randomImage: true,
-            flip: true,
-            bg: 'white',
-            color: 'black',
-            hasLine: true,
-          }}
-          hasRandomImage
-        />
-        <Caps
-          imageParams={{
-            title: 'Scale 0.5',
-            text,
-            shape: 2,
-            randomImage: true,
-            flip: true,
-            bg: 'white',
-            color: 'black',
-            hasLine: true,
-          }}
-          hasRandomImage
-        />
+      <SimpleGrid columns={{ base: 1, lg: 2 }} gap={4}>
+        {statsData?.map((field, index) => (
+          <Stack key={index} p={4} bg={'white'} shadow={'md'} rounded={'md'}>
+            <Text
+              textAlign={'center'}
+              textTransform={'capitalize'}
+              fontWeight={700}
+              fontSize={'lg'}
+            >
+              {field}
+            </Text>
+            <AccountStats
+              field={field as keyof AccountStatsBase}
+              stats={stats}
+            />
+          </Stack>
+        ))}
       </SimpleGrid>
     </AdminLayout>
   )
@@ -50,6 +51,10 @@ const Index: FC<PageProps> = ({ seo }) => {
 
 export const getStaticProps = async context => {
   const { locale } = context
+
+  const statsResponse = await searchModel<AccounStatsType>({
+    url: 'api/account-statistics',
+  })
 
   const title = {
     en: 'Home',
@@ -64,12 +69,14 @@ export const getStaticProps = async context => {
   return {
     props: {
       seo,
+      stats: statsResponse?.data || [],
       ...(await serverSideTranslations(
         locale,
         ['common', 'admin'],
         i18nConfig,
       )),
     },
+    revalidate: 1,
   }
 }
 

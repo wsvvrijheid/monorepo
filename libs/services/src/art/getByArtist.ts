@@ -1,10 +1,8 @@
 import { useQuery } from '@tanstack/react-query'
 import { Request } from '@wsvvrijheid/lib'
-import { Art, PublicationState, StrapiLocale } from '@wsvvrijheid/types'
-import { useRouter } from 'next/router'
+import { Art, PublicationState } from '@wsvvrijheid/types'
 
 export const getArtByArtist = async (
-  locale: StrapiLocale,
   userId: number,
   publicationState: PublicationState = 'live',
 ) => {
@@ -21,7 +19,6 @@ export const getArtByArtist = async (
       'comments.user.avatar',
       'likers',
     ],
-    locale,
     publicationState,
   })
 
@@ -32,16 +29,8 @@ export const useArtByArtist = (
   userId?: number,
   publicationState?: PublicationState,
 ) => {
-  const router = useRouter()
-  const locale = router.locale
-
   return useQuery({
-    queryKey: ['user-art', locale, userId],
-    queryFn: () =>
-      getArtByArtist(
-        locale as StrapiLocale,
-        userId as number,
-        publicationState,
-      ),
+    queryKey: ['user-art', userId],
+    queryFn: () => getArtByArtist(userId as number, publicationState),
   })
 }

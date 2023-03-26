@@ -10,49 +10,40 @@
   "options": {
     "draftAndPublish": true
   },
-  "pluginOptions": {
-    "i18n": {
-      "localized": true
-    }
-  },
+  "pluginOptions": {},
   "attributes": {
-    "title": {
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
+    "title_tr": {
+      "pluginOptions": {},
       "type": "string",
-      "required": true
+      "required": false
+    },
+    "title_en": {
+      "pluginOptions": {},
+      "type": "string"
+    },
+    "title_nl": {
+      "pluginOptions": {},
+      "type": "string"
     },
     "slug": {
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
+      "pluginOptions": {},
       "type": "uid",
-      "targetField": "title",
-      "required": true
-    },
-    "description": {
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "type": "text",
       "required": true,
+      "targetField": "title_nl"
+    },
+    "description_tr": {
+      "pluginOptions": {},
+      "type": "text",
+      "required": false,
       "default": "Description"
     },
-    "content": {
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "type": "richtext",
-      "required": true
+    "description_en": {
+      "pluginOptions": {},
+      "type": "text"
+    },
+    "description_nl": {
+      "pluginOptions": {},
+      "type": "text"
     },
     "approvalStatus": {
       "pluginOptions": {
