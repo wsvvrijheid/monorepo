@@ -76,17 +76,17 @@ export const searchModel = async <T extends StrapiModel>({
     'api/lang-roles',
     'api/platforms',
     'api/tags',
-
     'api/users',
     'api/volunteers',
     'api/votes',
   ]
 
   const urlsWithLocalizedNames = [
+    'api/arts',
     'api/categories',
-    'api/tags',
     'api/jobs',
     'api/platforms',
+    'api/tags',
   ]
 
   const hasStatus = statuses && !urlsWithoutStatus.includes(url)
@@ -95,7 +95,7 @@ export const searchModel = async <T extends StrapiModel>({
 
   const filterFields = fields?.map(field => {
     if (urlsWithLocalizedNames.includes(url))
-      return `${String(field)}_${locale}`
+      return `${field as string}_${locale}`
 
     return field
   })
