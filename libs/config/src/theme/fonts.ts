@@ -1,4 +1,4 @@
-import { Poppins, MuseoModerno } from '@next/font/google'
+import { Poppins, MuseoModerno } from 'next/font/google'
 
 const poppins = Poppins({
   weight: ['400', '600', '700', '900'],
