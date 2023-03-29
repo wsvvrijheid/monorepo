@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
 
-import { Button, SimpleGrid } from '@chakra-ui/react'
+import { Button, SimpleGrid, Link } from '@chakra-ui/react'
 import { useQueryClient } from '@tanstack/react-query'
 import { setRandomPost, useCurrentPost } from '@wsvvrijheid/services'
 import {
@@ -12,7 +12,6 @@ import {
 import { Post, StrapiLocale } from '@wsvvrijheid/types'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
-import { TwitterShareButton } from 'next-share'
 import { FaAt, FaRandom, FaTwitter } from 'react-icons/fa'
 
 import { useItemLink } from '../../../hooks'
@@ -33,6 +32,10 @@ export const PostContainerButtons = () => {
   const { isExceeded } = useAppSelector(state => state.post)
 
   const postUrlAbsolute = useItemLink(post as Post, 'post', true)
+  const postUrl = `https://twitter.com/intent/tweet?url=https://samenvvv.nl/${locale}/hashtags/${post?.hashtag?.slug}/${post?.id}&text=${postContent}\n\n\n`
+
+  console.log('previous url', postUrlAbsolute)
+  console.log('current hashtag', post?.hashtag?.slug)
 
   const shufflePost = useCallback(
     () => setRandomPost(queryClient, locale as StrapiLocale, slug as string),
@@ -73,7 +76,7 @@ export const PostContainerButtons = () => {
       >
         {t('post.next-tweet')}
       </Button>
-      <TwitterShareButton title={postContent} url={postUrlAbsolute as string}>
+      <Link href={postUrl} isExternal>
         <Button
           data-tour="step-share-button"
           data-tour-mob="step-share-button"
@@ -88,7 +91,23 @@ export const PostContainerButtons = () => {
         >
           {t('post.share-tweet')}
         </Button>
-      </TwitterShareButton>
+      </Link>
+      {/* <TwitterShareButton title={postContent} url={postUrlAbsolute as string}>
+        <Button
+          data-tour="step-share-button"
+          data-tour-mob="step-share-button"
+          as="span"
+          w="full"
+          rounded="full"
+          colorScheme="twitter"
+          rightIcon={<FaTwitter />}
+          isDisabled={isExceeded}
+          disabled={isExceeded}
+          onClick={onAddShare}
+        >
+          {t('post.share-tweet')}
+        </Button>
+      </TwitterShareButton> */}
     </SimpleGrid>
   )
 }
