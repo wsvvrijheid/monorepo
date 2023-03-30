@@ -9,12 +9,10 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '@wsvvrijheid/store'
-import { Post, StrapiLocale } from '@wsvvrijheid/types'
+import { StrapiLocale } from '@wsvvrijheid/types'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { FaAt, FaRandom, FaTwitter } from 'react-icons/fa'
-
-import { useItemLink } from '../../../hooks'
 
 export const PostContainerButtons = () => {
   const queryClient = useQueryClient()
@@ -31,11 +29,15 @@ export const PostContainerButtons = () => {
   const dispatch = useAppDispatch()
   const { isExceeded } = useAppSelector(state => state.post)
 
-  const postUrlAbsolute = useItemLink(post as Post, 'post', true)
-  const postUrl = `https://twitter.com/intent/tweet?url=https://samenvvv.nl/${locale}/hashtags/${post?.hashtag?.slug}/${post?.id}&text=${postContent}\n\n\n`
+  const baseUrl = 'https://twitter.com/intent/tweet'
+  const params = {
+    url: `https://samenvvv.nl/${locale}/hashtags/${post?.hashtag?.slug}/${post?.id}`,
+    text: `${postContent}\n\n`,
+  }
+  const query = new URLSearchParams(params)
+  const result = query.toString()
 
-  console.log('previous url', postUrlAbsolute)
-  console.log('current hashtag', post?.hashtag?.slug)
+  const postUrl = `${baseUrl}?${result.toString()}`
 
   const shufflePost = useCallback(
     () => setRandomPost(queryClient, locale as StrapiLocale, slug as string),
