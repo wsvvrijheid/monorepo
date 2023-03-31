@@ -1,5 +1,4 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react'
-import { COMMENT_MOCKS } from '@wsvvrijheid/mocks'
 
 import { CommentItem } from './CommentItem'
 
@@ -7,7 +6,7 @@ export default {
   component: CommentItem,
   title: 'Shared/CommentItem',
   args: {
-    comment: COMMENT_MOCKS.data[0],
+    comment: {},
   },
 } as ComponentMeta<typeof CommentItem>
 
