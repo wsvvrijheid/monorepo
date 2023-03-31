@@ -10,7 +10,7 @@ import {
   VStack,
 } from '@chakra-ui/react'
 import { Story, Meta } from '@storybook/react'
-import { useGetArtCategories } from '@wsvvrijheid/services'
+import { Category } from '@wsvvrijheid/types'
 import { useRouter } from 'next/router'
 
 import { ArtSideBar, ArtSideBarProps } from './ArtSideBar'
@@ -26,14 +26,18 @@ export default {
 const Template: Story<ArtSideBarProps> = args => {
   const [isLoading, setIsLoading] = useState(false)
   const { query } = useRouter()
-  const categoryQuery = useGetArtCategories('approved')
 
   return (
     <Grid gridTemplateColumns="300px 1fr">
       <Box bg="gray.100" p={4}>
         <ArtSideBar
           {...args}
-          categoryList={categoryQuery.data || []}
+          categoryList={
+            [
+              { id: 0, name_en: 'painting' },
+              { id: 1, name_en: 'nature' },
+            ] as Category[]
+          }
           isLoading={args.isLoading || isLoading}
           setIsLoading={setIsLoading}
         />

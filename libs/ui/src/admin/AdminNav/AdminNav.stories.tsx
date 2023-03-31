@@ -4,26 +4,19 @@ import { USER_MOCKS } from '@wsvvrijheid/mocks'
 import { mapSessionUser } from '@wsvvrijheid/utils'
 import { sample } from 'lodash'
 
-import { AdminNav, getAdminNav } from './AdminNav'
+import { AdminNav } from './AdminNav'
 
 const sessionUser = mapSessionUser(sample(USER_MOCKS)!)
-const adminNav = getAdminNav(sessionUser)
-
-const navLinks = adminNav.flatMap(item => [
-  item.link,
-  ...(item.submenu?.map(sub => sub.link) ?? []),
-])
 
 export default {
   title: 'Admin/AdminNav',
   component: AdminNav,
   args: {
-    navItems: adminNav,
     user: sessionUser,
   },
   parameters: {
     nextRouter: {
-      asPath: sample(navLinks),
+      asPath: sample('/translates'),
     },
   },
   decorators: [
