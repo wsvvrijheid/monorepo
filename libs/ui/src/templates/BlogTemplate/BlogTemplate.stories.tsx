@@ -30,6 +30,7 @@ const Template: Story<BlogTemplateProps> = args => {
 
   const blogs = BLOG_MOCKS.tr?.data || []
   const seo = blogSeo.tr
+
   return <BlogTemplate seo={args.seo || seo} blogs={args.blogs || blogs} />
 }
 

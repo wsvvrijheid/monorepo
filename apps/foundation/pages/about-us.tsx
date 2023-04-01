@@ -9,6 +9,7 @@ import i18nConfig from '../next-i18next.config'
 
 const AboutUsBlock = props => {
   const { image, title, text } = props
+
   return (
     <Stack align="center" textAlign="center" maxW="lg" overflow="hidden">
       <Image src={image} alt={title} w={200} />
@@ -47,6 +48,7 @@ export const getStaticProps = async context => {
   const seo = {
     title: pageData.title,
   }
+
   return {
     props: {
       ...(await serverSideTranslations(locale, ['common'], i18nConfig)),

@@ -11,6 +11,12 @@
         "no-unused-vars": "off",
         "@typescript-eslint/no-unused-vars": ["error"],
         "prettier/prettier": "error",
+        "padding-line-between-statements": [
+          "error",
+          { "blankLine": "always", "prev": "*", "next": "return" }
+        ],
+        "spaced-comment": ["error", "always", { "markers": ["/"] }],
+        "keyword-spacing": ["error", { "before": true, "after": true }],
         "import/order": [
           "error",
           {

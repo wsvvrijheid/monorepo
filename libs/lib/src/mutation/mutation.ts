@@ -70,6 +70,7 @@ export const mutation = async <
         baseURL: API_URL,
       },
     )
+
     return response.data?.data || null
   }
 
@@ -98,6 +99,7 @@ export const mutation = async <
     return response.data?.data || null
   } catch (error) {
     console.log('Mutation error', error)
+
     return null
   }
 }

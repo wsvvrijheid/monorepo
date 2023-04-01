@@ -66,5 +66,6 @@ export const getChartData = (
       chartData.datasets[datasetIndex].data.push(d[field] as number)
     }
   })
+
   return chartData
 }

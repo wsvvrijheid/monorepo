@@ -41,6 +41,7 @@ const Template: Story<ChakraBreakpointExampleProps> = args => {
     } catch (error) {
       setIsError(true)
       setIsLoading(false)
+
       return 'Error'
     }
   }

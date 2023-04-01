@@ -26,6 +26,7 @@ export const useArtBySlug = (slug?: string) => {
   if (!slug) {
     slug = router.query['slug'] as string
   }
+
   return useQuery({
     queryKey: ['art', slug],
     queryFn: () => getArtBySlug(slug as string),

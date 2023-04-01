@@ -10,6 +10,7 @@ import { FooterNavProps } from './types'
 
 export const FooterNav: FC<FooterNavProps> = ({ menu }) => {
   const { locale } = useRouter()
+
   return (
     <>
       {menu.map((item, i) => {

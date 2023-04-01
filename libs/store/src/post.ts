@@ -101,7 +101,7 @@ export const fetchSearchedMentions = createAsyncThunk(
     return rawData.sort((a, b) => b.followers_count - a.followers_count)
   },
 )
-//?locale=${locale}&filters[hashtags][slug][$eqi]=${slug}
+// ?locale=${locale}&filters[hashtags][slug][$eqi]=${slug}
 export const fetchMentions = createAsyncThunk(
   'post/mentions',
 

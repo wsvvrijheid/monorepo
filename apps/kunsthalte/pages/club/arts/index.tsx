@@ -45,6 +45,7 @@ export const getStaticProps: GetStaticProps = async context => {
       tr: 'Sanat Kulübü',
     },
   }
+
   return {
     props: {
       ...(await serverSideTranslations(locale, ['common'], i18nConfig)),

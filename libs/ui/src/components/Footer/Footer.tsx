@@ -19,6 +19,7 @@ export const Footer: FC<FooterProps> = ({
   socialItems,
 }) => {
   const { t } = useTranslation()
+
   return (
     <Box bg={'gray.700'} color="primary.100" pos="relative">
       <Container as={Stack}>

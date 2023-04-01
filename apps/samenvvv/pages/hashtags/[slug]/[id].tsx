@@ -33,6 +33,7 @@ const Post = ({ seo, post }: PostProps) => {
   const back = () => {
     router.push('/hashtags/[slug]', `/hashtags/${post.hashtag.slug}`)
   }
+
   return (
     <>
       <NextSeo {...seo} />

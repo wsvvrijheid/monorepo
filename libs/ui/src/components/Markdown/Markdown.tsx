@@ -82,6 +82,7 @@ export const Markdown: FC<MarkdownProps> = ({ source }) => {
 
     return null
   }
+
   return (
     <MDXProvider components={{ ...MarkdownComponents }}>
       <MDXRemote {...source} />

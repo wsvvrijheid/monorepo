@@ -10,6 +10,7 @@ export const getBlogs = async (locale: StrapiLocale) => {
     locale,
     sort: ['publishedAt:desc'],
   })
+
   return response?.data || []
 }
 

@@ -52,6 +52,7 @@ const Template: Story<WTableProps<StrapiModel>> = args => {
             : -1
           : bValue.localeCompare(aValue)
       }
+
       return 0
     })
 
@@ -80,6 +81,7 @@ Arts.args = {
           pending: 'yellow',
           rejected: 'red',
         }
+
         return {
           variant: 'outline',
           colorScheme: colorScheme[value as ApprovalStatus],
@@ -115,6 +117,7 @@ Users.args = {
           Authenticated: 'purple',
           Editor: 'green',
         }
+
         return {
           variant: 'outline',
           colorScheme: colorScheme[value as RoleName],

@@ -19,6 +19,7 @@ export const MasonryGrid: FC<MasonryGridProps> = ({
   cols = [1, 2, 3, 4],
 }) => {
   const breakpointCols = useBreakpointValue(cols)
+
   return (
     <Flex
       as={Masonry}

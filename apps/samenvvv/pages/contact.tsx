@@ -45,8 +45,10 @@ const Contact = ({ seo }: ContactProps): JSX.Element => {
       text: data.message,
       from: EMAIL_SENDER,
     }
+
     return sendForm(emailData)
   }
+
   return (
     <Layout seo={seo}>
       <Box

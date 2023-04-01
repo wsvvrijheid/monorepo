@@ -109,6 +109,7 @@ export const useLikeBlog = (blog?: Blog | null, queryKey?: QueryKey) => {
       },
     )
   }
+
   return {
     toggleLike,
     isLiked: user ? isLikedByUser : isLikedStorage,

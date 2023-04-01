@@ -16,6 +16,7 @@ export default {
 
 const Template: Story<ArtModalProps> = args => {
   const { isOpen, onOpen, onClose } = useDisclosure()
+
   return (
     <Box>
       <Button onClick={() => onOpen()} m={4}>

@@ -23,6 +23,7 @@ export const mapModelLocalization = <T extends StrapiTranslatableModel>(
         [key]: model[key],
       }
     }
+
     return acc
   }, {} as Partial<TranslatableModel<T>>)
 

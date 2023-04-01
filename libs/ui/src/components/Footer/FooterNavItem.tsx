@@ -9,6 +9,7 @@ import { Navigate } from '../Navigate'
 
 export const FooterNavItem: FC<FooterNavItemProps> = ({ item }) => {
   const { locale } = useRouter()
+
   return (
     <Navigate
       color="primary.100"

@@ -49,6 +49,7 @@ const NewsPage: FC<PageProps> = ({ seo }) => {
           results.push(topicBase)
         }
       })
+
       return results
     },
     [searchTerm],

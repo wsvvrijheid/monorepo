@@ -36,6 +36,7 @@ const Template: Story<JoinFormFProps> = args => {
     console.log({ data })
     alert(JSON.stringify(data))
   }
+
   return (
     <JoinForm
       locale={args.locale || (locale as StrapiLocale)}

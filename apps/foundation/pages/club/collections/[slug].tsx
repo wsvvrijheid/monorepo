@@ -72,6 +72,7 @@ export const getStaticProps = async context => {
   const slugs =
     collection.localizations?.reduce((acc, l) => {
       acc[l.locale] = l.slug
+
       return acc
     }, {}) || {}
 
