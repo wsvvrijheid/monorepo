@@ -25,25 +25,12 @@ import { FieldErrorsImpl, useForm } from 'react-hook-form'
 import { FiArrowUpRight } from 'react-icons/fi'
 import { GrFormClose } from 'react-icons/gr'
 import stringSimilarity from 'string-similarity'
-import * as yup from 'yup'
 
-import { CreateTweetFormProps } from './types'
+import { schema } from './schema'
+import { CreateTweetFormProps, CreateTweetFormFieldValues } from './types'
 import { ModelSelect } from '../../admin/ModelForm/ModelSelect'
 import { TweetContent } from '../../admin/TweetContent'
 import { FormItem } from '../FormItem'
-
-const schema = yup.object({
-  text: yup.string().required('Title is required'),
-  image: yup.mixed(),
-  mentions: yup.array().of(
-    yup.object().shape({
-      label: yup.string(),
-      value: yup.string(),
-    }),
-  ),
-})
-
-type FormFieldValues = yup.InferType<typeof schema>
 
 export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
   isOpen,
@@ -76,7 +63,7 @@ export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
     handleSubmit,
     setValue,
     reset,
-  } = useForm<FormFieldValues>({
+  } = useForm<CreateTweetFormFieldValues>({
     resolver: yupResolver(schema),
     mode: 'all',
     values: defaultValues,
@@ -100,7 +87,7 @@ export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
     onClose()
   }
 
-  const handleRecommend = async (data: FormFieldValues) => {
+  const handleRecommend = async (data: CreateTweetFormFieldValues) => {
     const mentions = data.mentions?.map(mention => Number(mention.value)) || []
 
     await mutateAsync({
@@ -144,12 +131,12 @@ export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
                   setIsChangingImage={setIsChangingImage}
                   setValue={setValue}
                 />
-                <FormItem<FormFieldValues>
+                <FormItem<CreateTweetFormFieldValues>
                   as={Textarea}
                   name="text"
                   label="New Tweet"
                   register={register}
-                  errors={errors as FieldErrorsImpl<FormFieldValues>}
+                  errors={errors as FieldErrorsImpl<CreateTweetFormFieldValues>}
                   isRequired
                 />
 

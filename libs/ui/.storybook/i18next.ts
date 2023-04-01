@@ -23,6 +23,7 @@ i18n
   .use(Backend)
   .init({
     //debug: true,
+    returnNull: false,
     lng: 'en',
     fallbackLng: 'en',
     defaultNS: 'common',

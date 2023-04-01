@@ -9,7 +9,7 @@ export default {
   component: ArtDetail,
   title: 'Shared/ArtDetail',
   args: {
-    art: ART_MOCKS.tr.data[0],
+    art: ART_MOCKS.data[0],
   },
 } as ComponentMeta<typeof ArtDetail>
 

@@ -64,7 +64,7 @@ const Template: Story<WTableProps<StrapiModel>> = args => {
 
 export const Arts = Template.bind({})
 Arts.args = {
-  data: ART_MOCKS.tr.data,
+  data: ART_MOCKS.data,
   columns: {
     image: {
       type: 'image',
@@ -129,7 +129,7 @@ Categories.args = {
   columns: {
     name_en: {},
     arts: {
-      transform: value => (value as Art[]).length,
+      transform: (value: Art[]) => value.length,
     },
   },
 } as WTableProps<Category>
