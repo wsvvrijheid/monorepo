@@ -1,5 +1,11 @@
 import { FC, useState } from 'react'
 
+import { InferGetStaticPropsType } from 'next'
+import { useRouter } from 'next/router'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { NextSeoProps } from 'next-seo'
+import { useUpdateEffect } from 'react-use'
+
 import { useSearchModel } from '@wsvvrijheid/services'
 import { Collection, Sort, StrapiLocale } from '@wsvvrijheid/types'
 import {
@@ -8,11 +14,6 @@ import {
   DataTable,
   PageHeader,
 } from '@wsvvrijheid/ui'
-import { InferGetStaticPropsType } from 'next'
-import { useRouter } from 'next/router'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { NextSeoProps } from 'next-seo'
-import { useUpdateEffect } from 'react-use'
 
 import i18nConfig from '../../../next-i18next.config'
 

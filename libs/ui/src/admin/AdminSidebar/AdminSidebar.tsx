@@ -13,9 +13,10 @@ import {
   Button,
   Tooltip,
 } from '@chakra-ui/react'
+import { TbChevronsLeft, TbChevronsRight } from 'react-icons/tb'
+
 import { API_URL } from '@wsvvrijheid/config'
 import { SessionUser } from '@wsvvrijheid/types'
-import { TbChevronsLeft, TbChevronsRight } from 'react-icons/tb'
 
 import { AdminSidebarProfile } from './AdminSidebarProfile'
 import { AdminNav } from '../AdminNav'

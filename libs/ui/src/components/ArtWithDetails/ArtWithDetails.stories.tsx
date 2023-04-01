@@ -1,7 +1,8 @@
 import { Meta, Story } from '@storybook/react'
-import { ART_MOCKS } from '@wsvvrijheid/mocks'
 import { sample } from 'lodash'
 import { useRouter } from 'next/router'
+
+import { ART_MOCKS } from '@wsvvrijheid/mocks'
 
 import { ArtWithDetails, ArtWithDetailsProps } from './ArtWithDetails'
 

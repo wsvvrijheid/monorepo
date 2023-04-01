@@ -1,4 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react'
+
 import { MENTION_MOCKS } from '@wsvvrijheid/mocks'
 
 import MentionListItem from './MentionListItem'

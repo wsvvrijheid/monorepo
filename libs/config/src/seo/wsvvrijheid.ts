@@ -1,5 +1,6 @@
-import { Localize } from '@wsvvrijheid/types'
 import { NextSeoProps } from 'next-seo'
+
+import { Localize } from '@wsvvrijheid/types'
 
 export const wsvvrijheid: Localize<NextSeoProps> = {
   en: {

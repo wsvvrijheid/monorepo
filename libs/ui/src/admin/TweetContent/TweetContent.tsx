@@ -8,11 +8,12 @@ import {
   Text,
   useBoolean,
 } from '@chakra-ui/react'
-import { API_URL } from '@wsvvrijheid/config'
-import { RecommendedTweet, StrapiModel } from '@wsvvrijheid/types'
 import { FaPlayCircle } from 'react-icons/fa'
 import ReactPlayer from 'react-player'
 import twitterText from 'twitter-text'
+
+import { API_URL } from '@wsvvrijheid/config'
+import { RecommendedTweet, StrapiModel } from '@wsvvrijheid/types'
 
 import { TweetContentProps } from './types'
 import { WImage } from '../../components'

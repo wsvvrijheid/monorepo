@@ -1,12 +1,13 @@
 import { Box, Button, Container, useDisclosure } from '@chakra-ui/react'
 import { ComponentMeta, ComponentStory } from '@storybook/react'
+import { sample } from 'lodash'
+
 import {
   ACTIVITY_MOCKS,
   ANNOUNCEMENT_MOCKS,
   BLOG_MOCKS,
   HASHTAG_MOCKS,
 } from '@wsvvrijheid/mocks'
-import { sample } from 'lodash'
 
 import { TranslateModal } from './TranslateModal'
 

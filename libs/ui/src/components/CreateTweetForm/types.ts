@@ -1,5 +1,6 @@
-import { Tweet } from '@wsvvrijheid/types'
 import * as yup from 'yup'
+
+import { Tweet } from '@wsvvrijheid/types'
 
 import { schema } from './schema'
 

@@ -1,8 +1,9 @@
 import { FC, useEffect, useRef, useState } from 'react'
 
 import { chakra, useBoolean } from '@chakra-ui/react'
-import { setPostText, useAppDispatch, useAppSelector } from '@wsvvrijheid/store'
 import { useDebounce } from 'react-use'
+
+import { setPostText, useAppDispatch, useAppSelector } from '@wsvvrijheid/store'
 
 export type PostTextareaProps = {
   isEditable?: boolean

@@ -15,11 +15,12 @@ import {
   Wrap,
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { Job } from '@wsvvrijheid/types'
 import { useTranslation } from 'next-i18next'
 import { TFunction } from 'next-i18next'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import * as yup from 'yup'
+
+import { Job } from '@wsvvrijheid/types'
 
 import { heardFrom } from './data'
 import { JoinFormFieldValues, JoinFormFProps } from './types'

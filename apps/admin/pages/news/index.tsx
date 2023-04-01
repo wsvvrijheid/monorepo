@@ -12,9 +12,6 @@ import {
   Spinner,
   Center,
 } from '@chakra-ui/react'
-import { useTopic, useTopicSync } from '@wsvvrijheid/services'
-import { TopicBase } from '@wsvvrijheid/types'
-import { AdminLayout, PageHeader, TopicCard } from '@wsvvrijheid/ui'
 import { addHours, formatDistanceToNow, isPast } from 'date-fns'
 import { InferGetStaticPropsType } from 'next'
 import { useRouter } from 'next/router'
@@ -22,6 +19,10 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
 import { AiOutlineClear } from 'react-icons/ai'
 import { FaArrowDown, FaArrowUp, FaSyncAlt } from 'react-icons/fa'
+
+import { useTopic, useTopicSync } from '@wsvvrijheid/services'
+import { TopicBase } from '@wsvvrijheid/types'
+import { AdminLayout, PageHeader, TopicCard } from '@wsvvrijheid/ui'
 
 import i18nConfig from '../../next-i18next.config'
 

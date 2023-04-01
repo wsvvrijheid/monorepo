@@ -1,8 +1,9 @@
 import { FC } from 'react'
 
 import { Box } from '@chakra-ui/react'
-import { Art, StrapiLocale } from '@wsvvrijheid/types'
 import { useRouter } from 'next/router'
+
+import { Art, StrapiLocale } from '@wsvvrijheid/types'
 
 import { WImage } from '../../components'
 

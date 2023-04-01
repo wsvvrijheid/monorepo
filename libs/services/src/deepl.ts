@@ -1,7 +1,8 @@
 import slugify from '@sindresorhus/slugify'
-import { StrapiLocale, StrapiTranslatableModel } from '@wsvvrijheid/types'
 import axios from 'axios'
 import removeMarkdown from 'remove-markdown'
+
+import { StrapiLocale, StrapiTranslatableModel } from '@wsvvrijheid/types'
 
 export const getTranslation = async (
   content: string,

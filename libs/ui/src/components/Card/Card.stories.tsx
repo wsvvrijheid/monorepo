@@ -1,6 +1,7 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react'
-import { PLATFORM_MOCKS } from '@wsvvrijheid/mocks'
 import { sample } from 'lodash'
+
+import { PLATFORM_MOCKS } from '@wsvvrijheid/mocks'
 
 import { Card } from './Card'
 import { Container } from '../Container'

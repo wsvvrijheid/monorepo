@@ -19,12 +19,13 @@ import {
   useBoolean,
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { useRecommendTweet } from '@wsvvrijheid/services'
-import { Mention, Tweet } from '@wsvvrijheid/types'
 import { FieldErrorsImpl, useForm } from 'react-hook-form'
 import { FiArrowUpRight } from 'react-icons/fi'
 import { GrFormClose } from 'react-icons/gr'
 import stringSimilarity from 'string-similarity'
+
+import { useRecommendTweet } from '@wsvvrijheid/services'
+import { Mention, Tweet } from '@wsvvrijheid/types'
 
 import { schema } from './schema'
 import { CreateTweetFormProps, CreateTweetFormFieldValues } from './types'

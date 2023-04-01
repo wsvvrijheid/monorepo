@@ -2,6 +2,8 @@ import { FC } from 'react'
 
 import { Stack, Box, Grid } from '@chakra-ui/react'
 import { QueryKey, useQueryClient } from '@tanstack/react-query'
+import { useRouter } from 'next/router'
+
 import {
   useArtBySlug,
   useArtCommentMutation,
@@ -9,7 +11,6 @@ import {
 } from '@wsvvrijheid/services'
 import { useAuthSelector } from '@wsvvrijheid/store'
 import { Art, StrapiLocale } from '@wsvvrijheid/types'
-import { useRouter } from 'next/router'
 
 import {
   ArtContent,

@@ -9,11 +9,12 @@ import {
   DrawerOverlay,
   Stack,
 } from '@chakra-ui/react'
+import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
+
 import { Hashtag, StrapiLocale } from '@wsvvrijheid/types'
 import { Card } from '@wsvvrijheid/ui'
 import { getItemLink } from '@wsvvrijheid/utils'
-import { useRouter } from 'next/router'
-import { useTranslation } from 'next-i18next'
 
 type HashtagsDrawerProps = {
   isOpen: boolean

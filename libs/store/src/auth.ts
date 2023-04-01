@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { Auth, SessionUser } from '@wsvvrijheid/types'
 import axios from 'axios'
+
+import { Auth, SessionUser } from '@wsvvrijheid/types'
 
 export type AuthState = {
   user: SessionUser | null

@@ -3,10 +3,11 @@ import { useState } from 'react'
 import { SimpleGrid, Stack, Text } from '@chakra-ui/react'
 import { Meta, Story } from '@storybook/react'
 import { useMutation } from '@tanstack/react-query'
+import { sample, shuffle } from 'lodash'
+
 import { ART_MOCKS } from '@wsvvrijheid/mocks'
 import { Art, Collection } from '@wsvvrijheid/types'
 import { sleep } from '@wsvvrijheid/utils'
-import { sample, shuffle } from 'lodash'
 
 import { ArtAddToCollectionCard } from './ArtAddToCollectionCard'
 import { ArtAddToCollectionCardProps } from './types'

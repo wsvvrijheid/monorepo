@@ -1,8 +1,9 @@
 import { FC } from 'react'
 
 import { Spinner, Container, Stack, Heading, Box } from '@chakra-ui/react'
-import { Activity, UploadFile } from '@wsvvrijheid/types'
 import { MDXRemoteSerializeResult } from 'next-mdx-remote'
+
+import { Activity, UploadFile } from '@wsvvrijheid/types'
 
 import { Markdown } from '../Markdown'
 import { WImage } from '../WImage'

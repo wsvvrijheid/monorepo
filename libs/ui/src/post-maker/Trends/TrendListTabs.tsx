@@ -10,12 +10,13 @@ import {
   Text,
   VStack,
 } from '@chakra-ui/react'
-import { useTrends } from '@wsvvrijheid/services'
-import { StrapiLocale } from '@wsvvrijheid/types'
 import { formatDistanceToNow } from 'date-fns'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { FaInfoCircle } from 'react-icons/fa'
+
+import { useTrends } from '@wsvvrijheid/services'
+import { StrapiLocale } from '@wsvvrijheid/types'
 
 import { TrendList } from './TrendList'
 import { useFindHashtagInTrends } from './useFindHashtagsInTrend'

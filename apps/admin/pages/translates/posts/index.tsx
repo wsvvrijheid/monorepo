@@ -1,6 +1,12 @@
 import { FC, useEffect, useMemo, useState } from 'react'
 
 import { MenuItemOption, MenuOptionGroup } from '@chakra-ui/react'
+import { InferGetStaticPropsType } from 'next'
+import { useRouter } from 'next/router'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { NextSeoProps } from 'next-seo'
+import { useUpdateEffect } from 'react-use'
+
 import { useSearchModel } from '@wsvvrijheid/services'
 import {
   ApprovalStatus,
@@ -15,11 +21,6 @@ import {
   PageHeader,
   postColumns,
 } from '@wsvvrijheid/ui'
-import { InferGetStaticPropsType } from 'next'
-import { useRouter } from 'next/router'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { NextSeoProps } from 'next-seo'
-import { useUpdateEffect } from 'react-use'
 
 import i18nConfig from '../../../next-i18next.config'
 

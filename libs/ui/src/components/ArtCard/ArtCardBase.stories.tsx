@@ -1,6 +1,7 @@
 import { useState } from 'react'
 
 import { ComponentStory, ComponentMeta } from '@storybook/react'
+
 import { ART_MOCKS, USER_MOCKS } from '@wsvvrijheid/mocks'
 
 import { ArtCardBase } from './ArtCardBase'

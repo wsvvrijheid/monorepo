@@ -1,5 +1,6 @@
-import { StrapiTranslatableModel } from '@wsvvrijheid/types'
 import * as yup from 'yup'
+
+import { StrapiTranslatableModel } from '@wsvvrijheid/types'
 
 import { FormFields } from '../../admin'
 

@@ -10,6 +10,13 @@ import {
   Stack,
   Text,
 } from '@chakra-ui/react'
+import { useTranslation } from 'next-i18next'
+import { BsCollection } from 'react-icons/bs'
+import { CgHashtag } from 'react-icons/cg'
+import { FaPlus } from 'react-icons/fa'
+import { HiOutlineNewspaper } from 'react-icons/hi'
+import { TbActivity, TbBrandTwitter, TbWriting } from 'react-icons/tb'
+
 import {
   Activity,
   Blog,
@@ -19,12 +26,6 @@ import {
   RecommendedTopic,
   RecommendedTweet,
 } from '@wsvvrijheid/types'
-import { useTranslation } from 'next-i18next'
-import { BsCollection } from 'react-icons/bs'
-import { CgHashtag } from 'react-icons/cg'
-import { FaPlus } from 'react-icons/fa'
-import { HiOutlineNewspaper } from 'react-icons/hi'
-import { TbActivity, TbBrandTwitter, TbWriting } from 'react-icons/tb'
 
 import {
   activityFields,

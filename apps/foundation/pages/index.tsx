@@ -11,12 +11,13 @@ import {
   Image,
   Link,
 } from '@chakra-ui/react'
-import { searchModel } from '@wsvvrijheid/services'
-import { Platform } from '@wsvvrijheid/types'
-import { AnimatedBox, Container } from '@wsvvrijheid/ui'
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+
+import { searchModel } from '@wsvvrijheid/services'
+import { Platform } from '@wsvvrijheid/types'
+import { AnimatedBox, Container } from '@wsvvrijheid/ui'
 
 import { HomeAbout, HomeHero, HomePlatform, Layout } from '../components'
 import i18nConfig from '../next-i18next.config'

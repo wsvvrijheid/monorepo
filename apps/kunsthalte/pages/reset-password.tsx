@@ -1,6 +1,7 @@
 import { Box } from '@chakra-ui/react'
-import { ResetPasswordForm } from '@wsvvrijheid/ui'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+
+import { ResetPasswordForm } from '@wsvvrijheid/ui'
 
 import { Layout } from '../components'
 import i18nConfig from '../next-i18next.config'

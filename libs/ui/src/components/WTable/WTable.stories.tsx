@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 
 import { BadgeProps } from '@chakra-ui/react'
 import { Meta, Story } from '@storybook/react'
+
 import { ART_MOCKS, CATEGORY_MOCKS, USER_MOCKS } from '@wsvvrijheid/mocks'
 import {
   ApprovalStatus,

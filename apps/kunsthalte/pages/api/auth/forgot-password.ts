@@ -1,8 +1,9 @@
-import { API_URL } from '@wsvvrijheid/config'
-import { sessionOptions } from '@wsvvrijheid/lib'
 import axios from 'axios'
 import { withIronSessionApiRoute } from 'iron-session/next'
 import { NextApiResponse, NextApiRequest } from 'next'
+
+import { API_URL } from '@wsvvrijheid/config'
+import { sessionOptions } from '@wsvvrijheid/lib'
 
 const forgotPassRoute = async (req: NextApiRequest, res: NextApiResponse) => {
   const { email } = req.body

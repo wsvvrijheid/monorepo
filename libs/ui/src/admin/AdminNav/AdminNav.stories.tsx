@@ -1,8 +1,9 @@
 import { Box, Grid } from '@chakra-ui/react'
 import { ComponentMeta, Story } from '@storybook/react'
+import { sample } from 'lodash'
+
 import { USER_MOCKS } from '@wsvvrijheid/mocks'
 import { mapSessionUser } from '@wsvvrijheid/utils'
-import { sample } from 'lodash'
 
 import { AdminNav } from './AdminNav'
 

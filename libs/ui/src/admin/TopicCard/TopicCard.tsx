@@ -16,13 +16,6 @@ import {
   useToast,
 } from '@chakra-ui/react'
 import { useQueryClient } from '@tanstack/react-query'
-import { useDeleteModel, useRecommendTopic } from '@wsvvrijheid/services'
-import { useAuthSelector } from '@wsvvrijheid/store'
-import {
-  Post,
-  RecommendedTopicCreateInput,
-  TopicBase,
-} from '@wsvvrijheid/types'
 import { formatDistanceStrict } from 'date-fns'
 import {
   AiFillDelete,
@@ -32,6 +25,14 @@ import {
 } from 'react-icons/ai'
 import { BsBookmarkHeart } from 'react-icons/bs'
 import { useLocalStorage } from 'usehooks-ts'
+
+import { useDeleteModel, useRecommendTopic } from '@wsvvrijheid/services'
+import { useAuthSelector } from '@wsvvrijheid/store'
+import {
+  Post,
+  RecommendedTopicCreateInput,
+  TopicBase,
+} from '@wsvvrijheid/types'
 
 import { ActionButton } from './ActionButton'
 import { TopicCardProps } from './types'

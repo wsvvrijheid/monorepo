@@ -2,6 +2,11 @@ import { useCallback } from 'react'
 
 import { Button, SimpleGrid } from '@chakra-ui/react'
 import { useQueryClient } from '@tanstack/react-query'
+import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
+import { TwitterShareButton } from 'next-share'
+import { FaAt, FaRandom, FaTwitter } from 'react-icons/fa'
+
 import { setRandomPost, useCurrentPost } from '@wsvvrijheid/services'
 import {
   addSharedPost,
@@ -10,10 +15,6 @@ import {
   useAppSelector,
 } from '@wsvvrijheid/store'
 import { Post, StrapiLocale } from '@wsvvrijheid/types'
-import { useRouter } from 'next/router'
-import { useTranslation } from 'next-i18next'
-import { TwitterShareButton } from 'next-share'
-import { FaAt, FaRandom, FaTwitter } from 'react-icons/fa'
 
 import { useItemLink } from '../../../hooks'
 

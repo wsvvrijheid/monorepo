@@ -1,7 +1,8 @@
 import { useQuery } from '@tanstack/react-query'
+import { useRouter } from 'next/router'
+
 import { Request } from '@wsvvrijheid/lib'
 import { Blog, StrapiLocale } from '@wsvvrijheid/types'
-import { useRouter } from 'next/router'
 
 export const getBlogs = async (locale: StrapiLocale) => {
   const response = await Request.collection<Blog[]>({

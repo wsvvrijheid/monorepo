@@ -1,7 +1,8 @@
 import { DehydratedState } from '@tanstack/react-query'
-import { Announcement, Hashtag, Post, StrapiLocale } from '@wsvvrijheid/types'
 import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { NextSeoProps } from 'next-seo'
+
+import { Announcement, Hashtag, Post, StrapiLocale } from '@wsvvrijheid/types'
 
 export interface DynamicProps {
   locale: StrapiLocale
