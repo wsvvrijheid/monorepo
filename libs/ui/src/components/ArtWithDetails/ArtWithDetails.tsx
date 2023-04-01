@@ -101,7 +101,7 @@ export const ArtWithDetails: FC<ArtWithDetailsProps> = ({ art, queryKey }) => {
             isSuccess={artCommentMutation.isSuccess}
           />
 
-          {/*List comments of the current art */}
+          {/* List comments of the current art */}
           {/* TODO Add CommentSkeleton */}
           <CommentList comments={art.comments || []} />
         </Stack>

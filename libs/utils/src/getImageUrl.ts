@@ -24,5 +24,6 @@ export const getImageUrl = (
   }
 
   const src = format ? image.formats?.[format]?.url || image.url : image.url
+
   return `${API_URL}${src}`
 }

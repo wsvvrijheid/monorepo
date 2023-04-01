@@ -57,6 +57,7 @@ export const requestCollection = async <T extends StrapiModel[]>({
     } else {
       console.error('Request error', error.message)
     }
+
     return {
       data: [] as unknown as T,
       meta: { pagination: { page: 1, pageSize: 25, pageCount: 0, total: 0 } },

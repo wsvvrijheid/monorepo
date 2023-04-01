@@ -17,6 +17,7 @@ const CollectionsPage: NextPage<CollectionsPageProps> = ({
   collections,
 }) => {
   const { locale } = useRouter()
+
   return (
     <Layout seo={seo} isDark>
       <Hero title={seo.title} />

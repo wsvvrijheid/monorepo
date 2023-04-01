@@ -19,6 +19,7 @@ type AboutUsBlockProps = {
 
 const AboutUsBlock: FC<AboutUsBlockProps> = props => {
   const { image, title, text } = props
+
   return (
     <Stack align="center" textAlign="center" maxW="lg" overflow="hidden">
       <Image src={image} alt={title} w={200} />

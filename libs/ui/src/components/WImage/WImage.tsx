@@ -34,6 +34,7 @@ export const WImage: FC<WImageProps> = ({
 }) => {
   if (!src) {
     console.warn('No src provided to WImage')
+
     return null
   }
 

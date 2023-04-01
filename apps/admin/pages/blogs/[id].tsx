@@ -31,7 +31,7 @@ const BlogPage: FC<PageProps> = ({ seo }) => {
     isLoading,
     refetch,
   } = useModelById<Blog>({ url: 'api/blogs', id })
-  //TODO: Unpublished blogs doesn't coming
+  // TODO: Unpublished blogs doesn't coming
 
   return (
     <AdminLayout seo={seo} isLoading={isLoading} hasBackButton>

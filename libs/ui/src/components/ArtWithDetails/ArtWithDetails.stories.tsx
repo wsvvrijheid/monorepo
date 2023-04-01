@@ -15,6 +15,7 @@ export default {
 
 const Template: Story<ArtWithDetailsProps> = args => {
   const { locale } = useRouter()
+
   return (
     <ArtWithDetails
       {...args}

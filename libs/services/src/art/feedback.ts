@@ -26,6 +26,7 @@ export const createFeedback = async ({
     args as FeedbackArtCreateInput,
     token,
   )
+
   return Mutation.put<Art, ArtUpdateInput>('api/arts', args.art, body, token)
 }
 

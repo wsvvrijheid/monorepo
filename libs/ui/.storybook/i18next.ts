@@ -15,6 +15,7 @@ const resources = ns.reduce((acc, n) => {
       [n]: require(`../../../public/locales/${lng}/${n}.json`),
     }
   })
+
   return acc
 }, {} as Record<StrapiLocale, Record<string, Record<string, string>>>)
 
@@ -23,7 +24,7 @@ i18n
   .use(LanguageDetector)
   .use(Backend)
   .init({
-    //debug: true,
+    // debug: true,
     returnNull: false,
     lng: 'en',
     fallbackLng: 'en',

@@ -26,7 +26,7 @@ import { heardFrom } from './data'
 import { JoinFormFieldValues, JoinFormFProps } from './types'
 import { FormItem } from '../FormItem'
 
-//TODO: @ekrem fix yup schema add methot and reduce opt.
+// TODO: @ekrem fix yup schema add methot and reduce opt.
 // Link: https://stackoverflow.com/questions/69176340/yup-addmethod-not-working-in-typescript-yup-version
 
 function generateSchema(t: TFunction, jobs: Partial<Job>[]) {
@@ -119,6 +119,7 @@ export const JoinForm: FC<JoinFormFProps> = ({
   const onSubmit: SubmitHandler<JoinFormFieldValues> = data => {
     onSubmitHandler(data)
   }
+
   return (
     <Stack
       p={8}

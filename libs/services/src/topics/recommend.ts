@@ -19,6 +19,7 @@ export const recommendTopic = (
 
 export const useRecommendTopic = () => {
   const { token } = useAuthSelector()
+
   return useMutation({
     mutationKey: ['recommend-topic'],
     mutationFn: (createInput: RecommendedTopicCreateInput) =>

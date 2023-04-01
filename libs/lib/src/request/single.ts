@@ -42,6 +42,7 @@ export const requestSingle = async <T extends StrapiModel>({
     } else {
       console.error('Request error', error.message)
     }
+
     return {
       data: null,
       meta: {},

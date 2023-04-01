@@ -16,6 +16,7 @@ export type CollectionListProps = {
 export const CollectionList: FC<CollectionListProps> = ({ collectionData }) => {
   const { t } = useTranslation()
   const { locale } = useRouter()
+
   return (
     <div>
       <HStack py={1.5} w="full" align="center">

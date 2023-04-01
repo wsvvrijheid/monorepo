@@ -60,6 +60,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
       tr: 'Platformlar',
     },
   }
+
   return {
     props: {
       ...(await serverSideTranslations(locale, ['common'], i18nConfig)),

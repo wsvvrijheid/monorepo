@@ -39,6 +39,7 @@ const Template: Story<ActivityDetailProps> = args => {
   useEffect(() => {
     getSource(args?.activity?.content || '')
   }, [args.activity?.content])
+
   return <ActivityDetail {...args} source={source!} />
 }
 
