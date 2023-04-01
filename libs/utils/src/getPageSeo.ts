@@ -1,6 +1,7 @@
+import { NextSeoProps } from 'next-seo'
+
 import { API_URL, ROUTES } from '@wsvvrijheid/config'
 import { Hashtag, Post, StrapiLocale } from '@wsvvrijheid/types'
-import { NextSeoProps } from 'next-seo'
 
 import { getItemLink } from './getItemLink'
 

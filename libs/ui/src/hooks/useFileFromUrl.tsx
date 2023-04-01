@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
 
-import { API_URL } from '@wsvvrijheid/config'
 import axios from 'axios'
+
+import { API_URL } from '@wsvvrijheid/config'
 
 export const useFileFromUrl = (url?: string) => {
   const [imageFile, setImageFile] = useState<File>()

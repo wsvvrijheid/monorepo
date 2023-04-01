@@ -1,7 +1,8 @@
 import React from 'react'
 
-import { useAuthSelector } from '@wsvvrijheid/store'
 import { Text } from 'react-native'
+
+import { useAuthSelector } from '@wsvvrijheid/store'
 
 export const Content = () => {
   const auth = useAuthSelector()

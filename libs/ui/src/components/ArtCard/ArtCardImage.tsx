@@ -1,7 +1,8 @@
 import { FC } from 'react'
 
-import { StrapiLocale, UploadFile } from '@wsvvrijheid/types'
 import { useRouter } from 'next/router'
+
+import { StrapiLocale, UploadFile } from '@wsvvrijheid/types'
 
 import { ArtCardImageProps, CardImageProps } from './types'
 import { WImage } from '../WImage'

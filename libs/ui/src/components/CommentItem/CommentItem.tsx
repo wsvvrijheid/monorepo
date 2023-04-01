@@ -1,9 +1,10 @@
 import { FC } from 'react'
 
 import { Avatar, HStack, Stack, Text } from '@chakra-ui/react'
+import { formatDistanceStrict } from 'date-fns'
+
 import { API_URL } from '@wsvvrijheid/config'
 import { Comment } from '@wsvvrijheid/types'
-import { formatDistanceStrict } from 'date-fns'
 
 interface CommentItemProps {
   comment: Comment

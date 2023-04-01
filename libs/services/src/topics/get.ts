@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
+
 import { Request } from '@wsvvrijheid/lib'
 import { Topic } from '@wsvvrijheid/types'
 

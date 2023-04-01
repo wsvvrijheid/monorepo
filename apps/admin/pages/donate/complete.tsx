@@ -1,13 +1,14 @@
 import { FC } from 'react'
 
 import { Center } from '@chakra-ui/react'
+import { InferGetServerSidePropsType } from 'next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+
 import { TOKEN } from '@wsvvrijheid/config'
 import { Mutation, Request } from '@wsvvrijheid/lib'
 import { mollieClient } from '@wsvvrijheid/mollie'
 import { Donate, StrapiUrl } from '@wsvvrijheid/types'
 import { AdminLayout, Container, DonationResultAlert } from '@wsvvrijheid/ui'
-import { InferGetServerSidePropsType } from 'next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 type DonateCompletePageProps = InferGetServerSidePropsType<
   typeof getServerSideProps

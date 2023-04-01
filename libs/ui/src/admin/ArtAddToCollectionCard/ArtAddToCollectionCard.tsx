@@ -8,11 +8,12 @@ import {
   Text,
   useDisclosure,
 } from '@chakra-ui/react'
-import { StrapiLocale, UploadFile } from '@wsvvrijheid/types'
 import { useRouter } from 'next/router'
 import { AiOutlineEye } from 'react-icons/ai'
 import { HiPlus } from 'react-icons/hi'
 import { IoCloseSharp } from 'react-icons/io5'
+
+import { StrapiLocale, UploadFile } from '@wsvvrijheid/types'
 
 import { ArtAddToCollectionCardProps } from './types'
 import { ArtModal, WImage } from '../../components'

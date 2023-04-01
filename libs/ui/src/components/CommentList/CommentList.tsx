@@ -1,8 +1,9 @@
 import { FC } from 'react'
 
 import { Stack, Text } from '@chakra-ui/react'
-import { Comment } from '@wsvvrijheid/types'
 import { useTranslation } from 'next-i18next'
+
+import { Comment } from '@wsvvrijheid/types'
 
 import { CommentItem } from '../CommentItem'
 

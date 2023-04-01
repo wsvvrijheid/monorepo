@@ -1,6 +1,7 @@
 import { useState } from 'react'
 
 import { SimpleGrid } from '@chakra-ui/react'
+
 import { useUpdateModelMutation } from '@wsvvrijheid/services'
 import { Art } from '@wsvvrijheid/types'
 

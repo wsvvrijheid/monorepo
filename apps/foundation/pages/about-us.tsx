@@ -1,13 +1,15 @@
 import { Heading, Image, SimpleGrid, Stack, Text } from '@chakra-ui/react'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+
 import { ABOUT_US } from '@wsvvrijheid/config'
 import { AnimatedBox, Container, Hero } from '@wsvvrijheid/ui'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { Layout } from '../components'
 import i18nConfig from '../next-i18next.config'
 
 const AboutUsBlock = props => {
   const { image, title, text } = props
+
   return (
     <Stack align="center" textAlign="center" maxW="lg" overflow="hidden">
       <Image src={image} alt={title} w={200} />
@@ -46,6 +48,7 @@ export const getStaticProps = async context => {
   const seo = {
     title: pageData.title,
   }
+
   return {
     props: {
       ...(await serverSideTranslations(locale, ['common'], i18nConfig)),

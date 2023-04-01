@@ -4,9 +4,19 @@
   "plugins": ["@nrwl/nx", "prettier"],
   "overrides": [
     {
-      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
+      "files": ["*.ts", "*.tsx"],
+      "extends": ["plugin:@nrwl/nx/typescript"],
       "rules": {
+        "import/no-unused-modules": "off",
+        "no-unused-vars": "off",
+        "@typescript-eslint/no-unused-vars": ["error"],
         "prettier/prettier": "error",
+        "padding-line-between-statements": [
+          "error",
+          { "blankLine": "always", "prev": "*", "next": "return" }
+        ],
+        "spaced-comment": ["error", "always", { "markers": ["/"] }],
+        "keyword-spacing": ["error", { "before": true, "after": true }],
         "import/order": [
           "error",
           {
@@ -20,6 +30,11 @@
                 "pattern": "react",
                 "group": "external",
                 "position": "before"
+              },
+              {
+                "pattern": "@wsvvrijheid/**",
+                "group": "internal",
+                "position": "after"
               }
             ],
             "pathGroupsExcludedImportTypes": ["react"],
@@ -43,15 +58,6 @@
             ]
           }
         ]
-      }
-    },
-    {
-      "files": ["*.ts", "*.tsx"],
-      "extends": ["plugin:@nrwl/nx/typescript"],
-      "rules": {
-        "import/no-unused-modules": "off",
-        "no-unused-vars": "off",
-        "@typescript-eslint/no-unused-vars": ["error"]
       }
     },
     {

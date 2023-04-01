@@ -9,6 +9,11 @@ import {
   VStack,
 } from '@chakra-ui/react'
 import { useMutation } from '@tanstack/react-query'
+import { useRouter } from 'next/router'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { NextSeoProps } from 'next-seo'
+import { MdEmail } from 'react-icons/md'
+
 import { EMAIL_SENDER, socialLinks, TOKEN } from '@wsvvrijheid/config'
 import { sendEmail } from '@wsvvrijheid/services'
 import { EmailCreateInput } from '@wsvvrijheid/types'
@@ -18,10 +23,6 @@ import {
   SocialButtons,
   ContactFormFieldValues,
 } from '@wsvvrijheid/ui'
-import { useRouter } from 'next/router'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { NextSeoProps } from 'next-seo'
-import { MdEmail } from 'react-icons/md'
 
 import { Layout } from '../components'
 import i18nConfig from '../next-i18next.config'

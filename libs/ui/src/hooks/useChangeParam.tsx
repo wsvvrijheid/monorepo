@@ -34,6 +34,7 @@ const cleanQuery = (query: ParsedUrlQuery, args: ChangeParamArgs) => {
       delete newQuery[key]
     }
   }
+
   return newQuery
 }
 

@@ -1,10 +1,11 @@
 import { FC } from 'react'
 
 import { Box } from '@chakra-ui/react'
-import { AdminLayout } from '@wsvvrijheid/ui'
 import { InferGetStaticPropsType } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
+
+import { AdminLayout } from '@wsvvrijheid/ui'
 
 import i18nConfig from '../../next-i18next.config'
 

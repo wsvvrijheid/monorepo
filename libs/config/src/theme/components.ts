@@ -6,15 +6,10 @@ export const components = {
       fontWeight: 700,
     },
   },
-  Button: {
-    baseStyle: {
-      fontWeight: 600,
-    },
-  },
   Badge: {
     baseStyle: {
       textTransform: 'capitalize',
-      fontWeight: 500,
+      fontWeight: 400,
     },
   },
   Link: {

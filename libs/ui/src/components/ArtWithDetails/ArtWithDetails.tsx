@@ -2,6 +2,8 @@ import { FC } from 'react'
 
 import { Stack, Box, Grid } from '@chakra-ui/react'
 import { QueryKey, useQueryClient } from '@tanstack/react-query'
+import { useRouter } from 'next/router'
+
 import {
   useArtBySlug,
   useArtCommentMutation,
@@ -9,7 +11,6 @@ import {
 } from '@wsvvrijheid/services'
 import { useAuthSelector } from '@wsvvrijheid/store'
 import { Art, StrapiLocale } from '@wsvvrijheid/types'
-import { useRouter } from 'next/router'
 
 import {
   ArtContent,
@@ -88,7 +89,7 @@ export const ArtWithDetails: FC<ArtWithDetailsProps> = ({ art, queryKey }) => {
             art.artist?.name || art.artist?.username || 'Unknown Artist Name'
           }
           artistAvatar={art.artist?.avatar?.url}
-          content={art[descriptionKey] as string}
+          description={art[descriptionKey]}
           artistProfilePath={`/club/artist/${art.artist?.id}`}
         />
         {/* Single Art Comments */}
@@ -100,7 +101,7 @@ export const ArtWithDetails: FC<ArtWithDetailsProps> = ({ art, queryKey }) => {
             isSuccess={artCommentMutation.isSuccess}
           />
 
-          {/*List comments of the current art */}
+          {/* List comments of the current art */}
           {/* TODO Add CommentSkeleton */}
           <CommentList comments={art.comments || []} />
         </Stack>

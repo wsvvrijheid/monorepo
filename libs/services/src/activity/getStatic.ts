@@ -1,6 +1,7 @@
 import { QueryClient } from '@tanstack/react-query'
-import { Activity, StrapiLocale } from '@wsvvrijheid/types'
 import { GetStaticPropsContext } from 'next/types'
+
+import { Activity, StrapiLocale } from '@wsvvrijheid/types'
 
 import { getActivityBySlug } from './getBySlug'
 

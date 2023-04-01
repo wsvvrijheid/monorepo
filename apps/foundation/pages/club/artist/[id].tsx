@@ -2,12 +2,13 @@
 import { FC } from 'react'
 
 import { dehydrate, QueryClient } from '@tanstack/react-query'
-import { getArtistServerProps } from '@wsvvrijheid/services'
-import { Art, StrapiLocale, User } from '@wsvvrijheid/types'
-import { ArtistTemplate } from '@wsvvrijheid/ui'
 import { GetServerSideProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
+
+import { getArtistServerProps } from '@wsvvrijheid/services'
+import { Art, StrapiLocale, User } from '@wsvvrijheid/types'
+import { ArtistTemplate } from '@wsvvrijheid/ui'
 
 import { Layout } from '../../../components'
 import i18nConfig from '../../../next-i18next.config'

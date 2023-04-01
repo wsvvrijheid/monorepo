@@ -1,7 +1,8 @@
 import { QueryClient } from '@tanstack/react-query'
+import { GetStaticPropsContext } from 'next/types'
+
 import { API_URL, SITE_URL } from '@wsvvrijheid/config'
 import { Blog, StrapiLocale } from '@wsvvrijheid/types'
-import { GetStaticPropsContext } from 'next/types'
 
 import { getAuthorBlogs } from './get'
 import { getBlogBySlug } from './getBlogBySlug'

@@ -1,13 +1,14 @@
 import { FC } from 'react'
 
 import { SimpleGrid } from '@chakra-ui/react'
-import { useSearchModel } from '@wsvvrijheid/services'
-import { RecommendedTopic, StrapiLocale } from '@wsvvrijheid/types'
-import { AdminLayout, TopicCard } from '@wsvvrijheid/ui'
 import { InferGetStaticPropsType } from 'next'
 import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
+
+import { useSearchModel } from '@wsvvrijheid/services'
+import { RecommendedTopic, StrapiLocale } from '@wsvvrijheid/types'
+import { AdminLayout, TopicCard } from '@wsvvrijheid/ui'
 
 import i18nConfig from '../../next-i18next.config'
 

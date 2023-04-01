@@ -1,5 +1,6 @@
 import { Container } from '@chakra-ui/react'
 import { ComponentStory, ComponentMeta } from '@storybook/react'
+
 import { COLLECTION_MOCKS } from '@wsvvrijheid/mocks'
 
 import { CollectionEdit } from './CollectionEdit'

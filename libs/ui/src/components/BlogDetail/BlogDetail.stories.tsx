@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react'
 
 import { Story, Meta } from '@storybook/react'
-import { SITE_URL } from '@wsvvrijheid/config'
-import { BLOG_MOCKS } from '@wsvvrijheid/mocks'
 import { useRouter } from 'next/router'
 import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { serialize } from 'next-mdx-remote/serialize'
+
+import { SITE_URL } from '@wsvvrijheid/config'
+import { BLOG_MOCKS } from '@wsvvrijheid/mocks'
 
 import { BlogDetail, BlogDetailProps } from './BlogDetail'
 import { Container } from '../Container'
@@ -41,7 +42,7 @@ const Template: Story<BlogDetailProps> = args => {
   }
 
   useEffect(() => {
-    getSource(args.post.content)
+    getSource(args.post?.content || '')
   }, [args.post.content])
 
   const toggleLike = () => {

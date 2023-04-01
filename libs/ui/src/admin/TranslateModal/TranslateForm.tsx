@@ -8,6 +8,7 @@ import {
   Text,
   Textarea,
 } from '@chakra-ui/react'
+
 import { StrapiTranslatableModel } from '@wsvvrijheid/types'
 
 import { TranslateFormProps } from './types'

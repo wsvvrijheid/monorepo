@@ -9,10 +9,11 @@ import {
   Stack,
   Text,
 } from '@chakra-ui/react'
-import { Platform } from '@wsvvrijheid/types'
-import { AnimatedBox, Container, Navigate, WImage } from '@wsvvrijheid/ui'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
+
+import { Platform } from '@wsvvrijheid/types'
+import { AnimatedBox, Container, Navigate, WImage } from '@wsvvrijheid/ui'
 
 type HomePlatformProps = {
   platforms: Platform[]

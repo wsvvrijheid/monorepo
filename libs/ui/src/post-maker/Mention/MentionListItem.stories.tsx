@@ -1,4 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react'
+
 import { MENTION_MOCKS } from '@wsvvrijheid/mocks'
 
 import MentionListItem from './MentionListItem'
@@ -11,7 +12,7 @@ export default {
 const Template: ComponentStory<typeof MentionListItem> = () => {
   return (
     <MentionListItem
-      data={MENTION_MOCKS.data[0]}
+      data={MENTION_MOCKS.data[0] as any}
       onAddItem={alert}
       onRemoveItem={alert}
     />

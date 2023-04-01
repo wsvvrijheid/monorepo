@@ -7,7 +7,7 @@ export const styles = {
     body: {
       color: 'gray.700',
       bg: 'gray.50',
-      fontWeight: 'regular',
+      fontWeight: 400,
       lineHeight: 1.5,
     },
     iframe: {

@@ -11,13 +11,14 @@ import {
   Text,
   Wrap,
 } from '@chakra-ui/react'
-import { Blog, StrapiLocale, UploadFile } from '@wsvvrijheid/types'
-import { getReadingTime } from '@wsvvrijheid/utils'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { AiFillHeart } from 'react-icons/ai'
 import { FaCalendarDay, FaClock, FaEye } from 'react-icons/fa'
+
+import { Blog, StrapiLocale, UploadFile } from '@wsvvrijheid/types'
+import { getReadingTime } from '@wsvvrijheid/utils'
 
 import { BlogCard } from '../BlogCard'
 import { FormattedDate } from '../FormattedDate'

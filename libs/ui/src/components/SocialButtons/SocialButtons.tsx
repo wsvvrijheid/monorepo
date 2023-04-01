@@ -1,9 +1,10 @@
 import { FC } from 'react'
 
 import { HStack, IconButton } from '@chakra-ui/react'
-import { Localize, StrapiLocale } from '@wsvvrijheid/types'
 import { useRouter } from 'next/router'
 import { IconType } from 'react-icons/lib'
+
+import { Localize, StrapiLocale } from '@wsvvrijheid/types'
 
 export type SocialItem = {
   label: string

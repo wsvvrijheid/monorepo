@@ -1,6 +1,7 @@
+import { useRouter } from 'next/router'
+
 import { useSearchModel } from '@wsvvrijheid/services'
 import { StrapiLocale, StrapiModel } from '@wsvvrijheid/types'
-import { useRouter } from 'next/router'
 
 import { ModelSelectProps } from './types'
 import { mapModelsToOptions } from './utils'

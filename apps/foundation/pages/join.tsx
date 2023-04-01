@@ -1,9 +1,10 @@
 import { FC } from 'react'
 
-import { JoinTemplate, JoinTemplateProps } from '@wsvvrijheid/ui'
 import { GetStaticProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
+
+import { JoinTemplate, JoinTemplateProps } from '@wsvvrijheid/ui'
 
 import { Layout } from '../components'
 import i18nConfig from '../next-i18next.config'

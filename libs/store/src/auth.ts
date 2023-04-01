@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { Auth, SessionUser } from '@wsvvrijheid/types'
 import axios from 'axios'
+
+import { Auth, SessionUser } from '@wsvvrijheid/types'
 
 export type AuthState = {
   user: SessionUser | null
@@ -18,11 +19,13 @@ const initialState: AuthState = {
 
 export const checkAuth = createAsyncThunk('auth/check', async () => {
   const response = await axios.get<Auth>('/api/auth/user')
+
   return response.data
 })
 
 export const destroyAuth = createAsyncThunk('auth/destroy', async () => {
   await axios.post<Auth>('/api/auth/logout')
+
   return initialState
 })
 

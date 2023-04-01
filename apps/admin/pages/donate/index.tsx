@@ -25,8 +25,6 @@ import {
   VStack,
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { DONATION_ENABLED } from '@wsvvrijheid/config'
-import { AdminLayout, Container, FormItem } from '@wsvvrijheid/ui'
 import axios from 'axios'
 import { InferGetStaticPropsType } from 'next'
 import { useTranslation } from 'next-i18next'
@@ -35,6 +33,9 @@ import { useForm } from 'react-hook-form'
 import { AiOutlineEuroCircle } from 'react-icons/ai'
 import { FaDonate } from 'react-icons/fa'
 import * as yup from 'yup'
+
+import { DONATION_ENABLED } from '@wsvvrijheid/config'
+import { AdminLayout, Container, FormItem } from '@wsvvrijheid/ui'
 
 function generateSchema(t) {
   return yup.object().shape({

@@ -1,7 +1,6 @@
-import { Story, Meta } from '@storybook/react'
+import { Meta, Story } from '@storybook/react'
 
 import { PlatformTemplate, PlatformTemplateProps } from './PlatformTemplate'
-import { SOURCE_MOCKS } from '../../mocks'
 
 export default {
   component: PlatformTemplate,
@@ -20,7 +19,6 @@ Default.args = {
   seo: {
     title: 'SamenVVV',
   },
-  source: SOURCE_MOCKS.platforms.samenvvv,
   image: 'https://api.wsvvrijheid.nl/uploads/samenvvv_32898faefb.svg',
   link: '/platforms/samenvvv',
 }

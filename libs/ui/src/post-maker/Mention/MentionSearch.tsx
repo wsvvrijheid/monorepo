@@ -1,6 +1,10 @@
 import { useEffect, useState } from 'react'
 
 import { Box, Input, InputGroup, InputLeftElement } from '@chakra-ui/react'
+import { useTranslation } from 'next-i18next'
+import { FaSearch } from 'react-icons/fa'
+import { useDebounce } from 'react-use'
+
 import {
   clearSearchedMentions,
   fetchSearchedMentions,
@@ -8,9 +12,6 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '@wsvvrijheid/store'
-import { useTranslation } from 'next-i18next'
-import { FaSearch } from 'react-icons/fa'
-import { useDebounce } from 'react-use'
 
 export const MentionSearch = (): JSX.Element => {
   const { mentions } = useAppSelector(state => state.post)
