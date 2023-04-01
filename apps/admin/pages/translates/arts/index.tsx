@@ -1,9 +1,6 @@
 import { FC, useEffect, useState } from 'react'
 
 import { MenuItem } from '@chakra-ui/react'
-import { useSearchModel } from '@wsvvrijheid/services'
-import { ApprovalStatus, Art, Sort, StrapiLocale } from '@wsvvrijheid/types'
-import { AdminLayout, artColumns, DataTable, PageHeader } from '@wsvvrijheid/ui'
 import { InferGetStaticPropsType } from 'next'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
@@ -11,6 +8,10 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
 import { FaArrowDown, FaArrowUp } from 'react-icons/fa'
 import { useUpdateEffect } from 'react-use'
+
+import { useSearchModel } from '@wsvvrijheid/services'
+import { ApprovalStatus, Art, Sort, StrapiLocale } from '@wsvvrijheid/types'
+import { AdminLayout, artColumns, DataTable, PageHeader } from '@wsvvrijheid/ui'
 
 import i18nConfig from '../../../next-i18next.config'
 

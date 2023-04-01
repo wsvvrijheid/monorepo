@@ -1,11 +1,12 @@
 import { FC } from 'react'
 
 import { dehydrate, QueryClient } from '@tanstack/react-query'
+import { GetStaticProps } from 'next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+
 import { searchModel } from '@wsvvrijheid/services'
 import { Art, StrapiLocale } from '@wsvvrijheid/types'
 import { ArtClubTemplate } from '@wsvvrijheid/ui'
-import { GetStaticProps } from 'next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { Layout } from '../../../components'
 import i18nConfig from '../../../next-i18next.config'

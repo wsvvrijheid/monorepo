@@ -2,6 +2,15 @@ import { FC } from 'react'
 
 import { Box, Text } from '@chakra-ui/react'
 import { QueryClient } from '@tanstack/react-query'
+import { isPast } from 'date-fns'
+import { GetServerSideProps } from 'next'
+import Head from 'next/head'
+import { useTranslation } from 'next-i18next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { MDXRemoteSerializeResult } from 'next-mdx-remote'
+import { serialize } from 'next-mdx-remote/serialize'
+import { NextSeoProps } from 'next-seo'
+
 import { SITE_URL } from '@wsvvrijheid/config'
 import { searchModel, SearchModelArgs } from '@wsvvrijheid/services'
 import {
@@ -15,14 +24,6 @@ import {
   getOgImageSrc,
   mapHashtagToOgParams,
 } from '@wsvvrijheid/utils'
-import { isPast } from 'date-fns'
-import { GetServerSideProps } from 'next'
-import Head from 'next/head'
-import { useTranslation } from 'next-i18next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { MDXRemoteSerializeResult } from 'next-mdx-remote'
-import { serialize } from 'next-mdx-remote/serialize'
-import { NextSeoProps } from 'next-seo'
 
 import { Layout, HashtagAnnouncement } from '../components'
 import i18nConfig from '../next-i18next.config'

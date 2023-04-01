@@ -1,5 +1,6 @@
 import { Stack } from '@chakra-ui/react'
 import { ComponentMeta, ComponentStory } from '@storybook/react'
+
 import { TWEET_MOCKS } from '@wsvvrijheid/mocks'
 
 import { TweetCard } from './TweetCard'

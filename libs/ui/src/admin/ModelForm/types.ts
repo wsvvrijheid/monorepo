@@ -1,7 +1,8 @@
 import { ButtonProps } from '@chakra-ui/react'
-import { StrapiModel, StrapiUrl } from '@wsvvrijheid/types'
 import { Control, FieldErrorsImpl, FieldValues } from 'react-hook-form'
 import { AssertsShape, OptionalObjectSchema } from 'yup/lib/object'
+
+import { StrapiModel, StrapiUrl } from '@wsvvrijheid/types'
 
 import { WSelectProps } from '../../components'
 

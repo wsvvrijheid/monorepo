@@ -7,13 +7,14 @@ import {
   QueryClientProvider,
 } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
-import { defaultSeo, themes } from '@wsvvrijheid/config'
-import { checkAuth, store } from '@wsvvrijheid/store'
-import { pageview } from '@wsvvrijheid/utils'
 import { useRouter } from 'next/router'
 import { appWithTranslation } from 'next-i18next'
 import { DefaultSeo } from 'next-seo'
 import { Provider as ReduxProvider } from 'react-redux'
+
+import { defaultSeo, themes } from '@wsvvrijheid/config'
+import { checkAuth, store } from '@wsvvrijheid/store'
+import { pageview } from '@wsvvrijheid/utils'
 
 import i18nConfig from '../next-i18next.config'
 

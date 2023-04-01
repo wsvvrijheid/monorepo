@@ -1,4 +1,5 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react'
+
 import { ART_MOCKS, USER_MOCKS } from '@wsvvrijheid/mocks'
 
 import { ArtCard } from './ArtCard'

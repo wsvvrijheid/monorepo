@@ -14,8 +14,6 @@ import {
   Text,
   useDisclosure,
 } from '@chakra-ui/react'
-import { useRecommendTweet } from '@wsvvrijheid/services'
-import { Post, RecommendedTweetCreateInput, Tweet } from '@wsvvrijheid/types'
 import { formatDistanceToNow } from 'date-fns'
 import { BsThreeDots } from 'react-icons/bs'
 import {
@@ -29,6 +27,9 @@ import {
   TbThumbUp,
 } from 'react-icons/tb'
 import { useLocalStorage } from 'usehooks-ts'
+
+import { useRecommendTweet } from '@wsvvrijheid/services'
+import { Post, RecommendedTweetCreateInput, Tweet } from '@wsvvrijheid/types'
 
 import { TweetCardProps } from './types'
 import { CreateTweetForm } from '../../components'

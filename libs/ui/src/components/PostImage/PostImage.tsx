@@ -1,6 +1,7 @@
 import { FC } from 'react'
 
 import { ImageProps } from '@chakra-ui/react'
+
 import { API_URL } from '@wsvvrijheid/config'
 import { Post } from '@wsvvrijheid/types'
 

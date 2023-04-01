@@ -1,11 +1,12 @@
 import { FC } from 'react'
 
 import { Heading, Image, SimpleGrid, Stack, Text } from '@chakra-ui/react'
-import { ABOUT_US } from '@wsvvrijheid/config'
-import { AnimatedBox, Container, Hero } from '@wsvvrijheid/ui'
 import { InferGetStaticPropsType } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
+
+import { ABOUT_US } from '@wsvvrijheid/config'
+import { AnimatedBox, Container, Hero } from '@wsvvrijheid/ui'
 
 import { Layout } from '../components'
 import i18nConfig from '../next-i18next.config'

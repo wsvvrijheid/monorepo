@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react'
 
 import { Meta, Story } from '@storybook/react'
-import { ACTIVITY_MOCKS } from '@wsvvrijheid/mocks'
 import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { serialize } from 'next-mdx-remote/serialize'
+
+import { ACTIVITY_MOCKS } from '@wsvvrijheid/mocks'
 
 import { ActivityDetail, ActivityDetailProps } from './ActivitiyDetail'
 import { Container } from '../Container'

@@ -9,8 +9,9 @@ import {
   MenuList,
   Text,
 } from '@chakra-ui/react'
-import { StrapiLocale } from '@wsvvrijheid/types'
 import { useRouter } from 'next/router'
+
+import { StrapiLocale } from '@wsvvrijheid/types'
 
 import { Flags } from '../../components'
 

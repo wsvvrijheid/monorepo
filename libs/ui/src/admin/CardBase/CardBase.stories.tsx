@@ -1,5 +1,6 @@
 import { SimpleGrid } from '@chakra-ui/react'
 import { Story, Meta } from '@storybook/react'
+
 import { ART_MOCKS } from '@wsvvrijheid/mocks'
 
 import { CardBase, CardBaseProps } from './CardBase'

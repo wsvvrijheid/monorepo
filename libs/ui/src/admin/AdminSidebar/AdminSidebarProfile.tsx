@@ -14,8 +14,9 @@ import {
   Text,
   Tooltip,
 } from '@chakra-ui/react'
-import { SessionUser } from '@wsvvrijheid/types'
 import { GoSignOut } from 'react-icons/go'
+
+import { SessionUser } from '@wsvvrijheid/types'
 
 export type AdminSidebarProfileProps = {
   user: SessionUser

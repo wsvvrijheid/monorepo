@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react'
 
 import { chakra, Table, Tbody, Th, Thead, Tr } from '@chakra-ui/react'
-import { StrapiModel, StrapiModelKeys } from '@wsvvrijheid/types'
 import { camelCase, startCase } from 'lodash'
 import { FaArrowDown, FaArrowUp, FaSort } from 'react-icons/fa'
+
+import { StrapiModel, StrapiModelKeys } from '@wsvvrijheid/types'
 
 import { WTableRow } from './TableRow'
 import { CellConfig, WTableProps } from './types'

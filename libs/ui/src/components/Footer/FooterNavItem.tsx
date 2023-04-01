@@ -1,7 +1,8 @@
 import { FC } from 'react'
 
-import { StrapiLocale } from '@wsvvrijheid/types'
 import { useRouter } from 'next/router'
+
+import { StrapiLocale } from '@wsvvrijheid/types'
 
 import { FooterNavItemProps } from './types'
 import { Navigate } from '../Navigate'

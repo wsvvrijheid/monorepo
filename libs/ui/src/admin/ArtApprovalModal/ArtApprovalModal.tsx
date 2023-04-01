@@ -17,8 +17,9 @@ import {
   Tag,
   Text,
 } from '@chakra-ui/react'
-import { Art, StrapiLocale } from '@wsvvrijheid/types'
 import { useRouter } from 'next/router'
+
+import { Art, StrapiLocale } from '@wsvvrijheid/types'
 
 import { ArtFeedbackForm } from './ArtFeedbackForm'
 import { ArtApprovalTypes } from './types'

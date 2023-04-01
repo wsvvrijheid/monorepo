@@ -14,10 +14,11 @@ import {
   Tooltip,
   VStack,
 } from '@chakra-ui/react'
-import { formatNumber } from '@wsvvrijheid/utils'
 import { useTranslation } from 'next-i18next'
 import { FaPlus, FaTimes } from 'react-icons/fa'
 import { UserV1 } from 'twitter-api-v2'
+
+import { formatNumber } from '@wsvvrijheid/utils'
 
 interface MentionListItemProps {
   data: UserV1

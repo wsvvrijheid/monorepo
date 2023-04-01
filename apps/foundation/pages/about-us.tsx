@@ -1,7 +1,8 @@
 import { Heading, Image, SimpleGrid, Stack, Text } from '@chakra-ui/react'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+
 import { ABOUT_US } from '@wsvvrijheid/config'
 import { AnimatedBox, Container, Hero } from '@wsvvrijheid/ui'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { Layout } from '../components'
 import i18nConfig from '../next-i18next.config'

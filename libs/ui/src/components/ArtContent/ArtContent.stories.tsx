@@ -1,8 +1,9 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react'
+import { sample } from 'lodash'
+
 import { API_URL } from '@wsvvrijheid/config'
 import { ART_MOCKS, USER_MOCKS } from '@wsvvrijheid/mocks'
 import { Art } from '@wsvvrijheid/types'
-import { sample } from 'lodash'
 
 import { ArtContent } from './ArtContent'
 

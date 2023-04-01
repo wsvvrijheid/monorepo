@@ -1,6 +1,7 @@
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+
 import { useAuthSelector } from '@wsvvrijheid/store'
 import { AuthenticatedUserProfile } from '@wsvvrijheid/ui'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { Layout } from '../components'
 import i18nConfig from '../next-i18next.config'

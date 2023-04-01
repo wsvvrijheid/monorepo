@@ -14,11 +14,12 @@ import {
   Stack,
   useDisclosure,
 } from '@chakra-ui/react'
-import { useSearchModel } from '@wsvvrijheid/services'
-import { Art, Category, StrapiLocale } from '@wsvvrijheid/types'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { MdMenuOpen } from 'react-icons/md'
+
+import { useSearchModel } from '@wsvvrijheid/services'
+import { Art, Category, StrapiLocale } from '@wsvvrijheid/types'
 
 import {
   AnimatedBox,

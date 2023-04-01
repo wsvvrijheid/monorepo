@@ -1,8 +1,9 @@
-import { StrapiLocale } from '@wsvvrijheid/types'
 import i18n from 'i18next'
 import LanguageDetector from 'i18next-browser-languagedetector'
 import Backend from 'i18next-http-backend'
 import { initReactI18next } from 'react-i18next'
+
+import { StrapiLocale } from '@wsvvrijheid/types'
 
 const ns = ['common']
 const supportedLngs: StrapiLocale[] = ['en', 'nl', 'tr']

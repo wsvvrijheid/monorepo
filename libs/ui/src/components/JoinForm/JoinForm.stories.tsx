@@ -1,9 +1,10 @@
 import { useState } from 'react'
 
 import { Story, ComponentMeta } from '@storybook/react'
+import { useRouter } from 'next/router'
+
 import { JOB_MOCKS, PLATFORM_MOCKS } from '@wsvvrijheid/mocks'
 import { Job, StrapiLocale } from '@wsvvrijheid/types'
-import { useRouter } from 'next/router'
 
 import { JoinForm } from './JoinForm'
 import { JoinFormFieldValues, JoinFormFProps } from './types'

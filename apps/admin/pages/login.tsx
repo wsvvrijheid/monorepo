@@ -1,12 +1,13 @@
 import { FC, useEffect } from 'react'
 
 import { Box } from '@chakra-ui/react'
-import { checkAuth, useAppDispatch } from '@wsvvrijheid/store'
-import { AdminLoginForm } from '@wsvvrijheid/ui'
 import { InferGetStaticPropsType } from 'next'
 import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeo, NextSeoProps } from 'next-seo'
+
+import { checkAuth, useAppDispatch } from '@wsvvrijheid/store'
+import { AdminLoginForm } from '@wsvvrijheid/ui'
 
 import i18nConfig from '../next-i18next.config'
 

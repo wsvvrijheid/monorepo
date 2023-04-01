@@ -1,6 +1,7 @@
-import { API_URL } from '@wsvvrijheid/config'
 import axios from 'axios'
 import { UserV1 } from 'twitter-api-v2'
+
+import { API_URL } from '@wsvvrijheid/config'
 
 export const lookupTwitterUsers = async (value: string): Promise<UserV1[]> => {
   const response = await axios(`${API_URL}/mentions/search?username=${value}`)

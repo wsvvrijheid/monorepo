@@ -1,4 +1,5 @@
 import { SkeletonText, VStack, Wrap } from '@chakra-ui/react'
+
 import {
   addTrendName,
   removeTrendName,

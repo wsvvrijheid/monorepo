@@ -2,6 +2,13 @@ import { FC } from 'react'
 
 import { Container } from '@chakra-ui/react'
 import { dehydrate, QueryClient, QueryKey } from '@tanstack/react-query'
+import { useRouter } from 'next/router'
+import { GetStaticPaths, GetStaticProps } from 'next/types'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { MDXRemoteSerializeResult } from 'next-mdx-remote'
+import { serialize } from 'next-mdx-remote/serialize'
+import { NextSeoProps } from 'next-seo'
+
 import { API_URL, SITE_URL } from '@wsvvrijheid/config'
 import {
   getAuthorBlogs,
@@ -13,12 +20,6 @@ import {
 } from '@wsvvrijheid/services'
 import { Blog, StrapiLocale } from '@wsvvrijheid/types'
 import { BlogDetail } from '@wsvvrijheid/ui'
-import { useRouter } from 'next/router'
-import { GetStaticPaths, GetStaticProps } from 'next/types'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { MDXRemoteSerializeResult } from 'next-mdx-remote'
-import { serialize } from 'next-mdx-remote/serialize'
-import { NextSeoProps } from 'next-seo'
 
 import { Layout } from '../../components'
 import i18nConfig from '../../next-i18next.config'

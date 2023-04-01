@@ -1,6 +1,7 @@
 import { useState } from 'react'
 
 import { ComponentStory, ComponentMeta } from '@storybook/react'
+
 import { ART_MOCKS } from '@wsvvrijheid/mocks'
 
 import { ArtDetail } from './ArtDetail'
