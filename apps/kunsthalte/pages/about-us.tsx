@@ -1,15 +1,16 @@
 import { FC } from 'react'
 
 import { Box } from '@chakra-ui/react'
+import { GetStaticProps } from 'next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { serialize } from 'next-mdx-remote/serialize'
+
 import {
   Container,
   Hero,
   Markdown,
   PlatformTemplateProps,
 } from '@wsvvrijheid/ui'
-import { GetStaticProps } from 'next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { serialize } from 'next-mdx-remote/serialize'
 
 import { Layout } from '../components'
 import i18nConfig from '../next-i18next.config'

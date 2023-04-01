@@ -1,6 +1,11 @@
 import { FC } from 'react'
 
 import { Box, Button, Center, Stack, Text } from '@chakra-ui/react'
+import { UseFormSetValue } from 'react-hook-form'
+import { CiImageOff } from 'react-icons/ci'
+import { IoMdCloudUpload } from 'react-icons/io'
+import { AssertsShape } from 'yup/lib/object'
+
 import { API_URL } from '@wsvvrijheid/config'
 import {
   Post,
@@ -9,10 +14,6 @@ import {
   StrapiUrl,
   UploadFile,
 } from '@wsvvrijheid/types'
-import { UseFormSetValue } from 'react-hook-form'
-import { CiImageOff } from 'react-icons/ci'
-import { IoMdCloudUpload } from 'react-icons/io'
-import { AssertsShape } from 'yup/lib/object'
 
 import { Caps, FilePicker, WImage } from '../../components'
 

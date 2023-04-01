@@ -1,9 +1,10 @@
 import { Box, Grid } from '@chakra-ui/react'
 import { Story, Meta } from '@storybook/react'
+import { useRouter } from 'next/router'
+
 import { COLLECTION_MOCKS } from '@wsvvrijheid/mocks'
 import { useSearchModel } from '@wsvvrijheid/services'
 import { Collection, StrapiLocale } from '@wsvvrijheid/types'
-import { useRouter } from 'next/router'
 
 import { CollectionList, CollectionListProps } from './CollectionList'
 

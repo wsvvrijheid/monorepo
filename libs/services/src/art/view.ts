@@ -1,10 +1,11 @@
 import { useTimeout } from '@chakra-ui/react'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useRouter } from 'next/router'
+import { useLocalStorage } from 'usehooks-ts'
+
 import { Mutation } from '@wsvvrijheid/lib'
 import { useAuthSelector } from '@wsvvrijheid/store'
 import { Art, ArtUpdateInput } from '@wsvvrijheid/types'
-import { useRouter } from 'next/router'
-import { useLocalStorage } from 'usehooks-ts'
 
 import { useArtBySlug } from './getBySlug'
 

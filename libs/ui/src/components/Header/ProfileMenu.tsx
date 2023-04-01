@@ -10,15 +10,16 @@ import {
   MenuItem,
   MenuList,
 } from '@chakra-ui/react'
+import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
+import { FiLogIn, FiLogOut } from 'react-icons/fi'
+
 import { API_URL } from '@wsvvrijheid/config'
 import {
   destroyAuth,
   useAppDispatch,
   useAuthSelector,
 } from '@wsvvrijheid/store'
-import { useRouter } from 'next/router'
-import { useTranslation } from 'next-i18next'
-import { FiLogIn, FiLogOut } from 'react-icons/fi'
 
 import { ProfileMenuProps } from './types'
 import { useScroll } from '../../hooks'

@@ -1,6 +1,11 @@
 import { FC } from 'react'
 
 import { Box } from '@chakra-ui/react'
+import { InferGetServerSidePropsType } from 'next'
+import { useRouter } from 'next/router'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { NextSeoProps } from 'next-seo'
+
 import { useModelById } from '@wsvvrijheid/services'
 import { Blog } from '@wsvvrijheid/types'
 import {
@@ -11,10 +16,6 @@ import {
   ModelEditForm,
   PageHeader,
 } from '@wsvvrijheid/ui'
-import { InferGetServerSidePropsType } from 'next'
-import { useRouter } from 'next/router'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { NextSeoProps } from 'next-seo'
 
 import i18nConfig from '../../next-i18next.config'
 
@@ -30,7 +31,7 @@ const BlogPage: FC<PageProps> = ({ seo }) => {
     isLoading,
     refetch,
   } = useModelById<Blog>({ url: 'api/blogs', id })
-  //TODO: Unpublished blogs doesn't coming
+  // TODO: Unpublished blogs doesn't coming
 
   return (
     <AdminLayout seo={seo} isLoading={isLoading} hasBackButton>

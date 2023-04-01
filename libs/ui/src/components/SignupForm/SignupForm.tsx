@@ -15,20 +15,18 @@ import {
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation } from '@tanstack/react-query'
-import { checkAuth, useAppDispatch } from '@wsvvrijheid/store'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 import { TFunction, useTranslation } from 'next-i18next'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
-import { SignupFormFieldValues } from './types'
+import { checkAuth, useAppDispatch } from '@wsvvrijheid/store'
+
+import { SignupFormFieldValues, SignupFormProps } from './types'
 import { FormItem } from '../FormItem'
 import { Navigate } from '../Navigate'
-import {
-  SocialLoginButtons,
-  SocialLoginButtonsProps,
-} from '../SocialLoginButtons'
+import { SocialLoginButtons } from '../SocialLoginButtons'
 
 const schema = (t: TFunction) =>
   yup.object({
@@ -55,8 +53,6 @@ const schema = (t: TFunction) =>
       .email(t('contact.form.email-invalid') as string)
       .required(t('login.email.required') as string),
   })
-
-type SignupFormProps = Pick<SocialLoginButtonsProps, 'providersToBeShown'>
 
 export const SignupForm: FC<SignupFormProps> = ({
   providersToBeShown = [],

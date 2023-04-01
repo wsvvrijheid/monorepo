@@ -9,6 +9,11 @@ import {
   Tabs,
   VStack,
 } from '@chakra-ui/react'
+import dynamic from 'next/dynamic'
+import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
+import { UserV1 } from 'twitter-api-v2'
+
 import {
   addMentionUsername,
   clearSearchedMentions,
@@ -20,10 +25,6 @@ import {
   fetchMentions,
 } from '@wsvvrijheid/store'
 import { StrapiLocale } from '@wsvvrijheid/types'
-import dynamic from 'next/dynamic'
-import { useRouter } from 'next/router'
-import { useTranslation } from 'next-i18next'
-import { UserV1 } from 'twitter-api-v2'
 
 import { MentionListSkeleton } from './MentionListSkeleton'
 import { MentionSearch } from './MentionSearch'

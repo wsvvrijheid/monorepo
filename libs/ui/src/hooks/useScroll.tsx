@@ -18,6 +18,7 @@ export const useScroll = (scrollY?: number) => {
       // Not sure if it's necessary to remove listener
       return () => window.removeEventListener('scroll', onScrolled)
     }
+
     return
   }, [scrollY])
 

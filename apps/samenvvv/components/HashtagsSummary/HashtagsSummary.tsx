@@ -1,11 +1,12 @@
 import { FC } from 'react'
 
 import { Box, Button, Heading, Stack, Text } from '@chakra-ui/react'
+import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
+
 import { Hashtag, StrapiLocale } from '@wsvvrijheid/types'
 import { Container, Navigate, WImage } from '@wsvvrijheid/ui'
 import { getItemLink } from '@wsvvrijheid/utils'
-import { useRouter } from 'next/router'
-import { useTranslation } from 'next-i18next'
 
 import { HashtagMiniCard } from './HashtagMiniCard'
 

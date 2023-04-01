@@ -1,5 +1,6 @@
-import { Hashtag } from '@wsvvrijheid/types'
 import * as yup from 'yup'
+
+import { Hashtag } from '@wsvvrijheid/types'
 
 import { yupMultiSelect } from './common'
 import { FormFields } from '../../admin'

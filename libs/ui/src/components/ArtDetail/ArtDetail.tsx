@@ -1,11 +1,12 @@
 import { FC } from 'react'
 
 import { Box, Button, HStack, Text } from '@chakra-ui/react'
-import { SITE_URL } from '@wsvvrijheid/config'
-import { Art, StrapiLocale } from '@wsvvrijheid/types'
 import { useRouter } from 'next/router'
 import { AiFillHeart } from 'react-icons/ai'
 import { FaEye } from 'react-icons/fa'
+
+import { SITE_URL } from '@wsvvrijheid/config'
+import { Art, StrapiLocale } from '@wsvvrijheid/types'
 
 import { ShareButtons } from '../ShareButtons'
 import { WImage } from '../WImage'

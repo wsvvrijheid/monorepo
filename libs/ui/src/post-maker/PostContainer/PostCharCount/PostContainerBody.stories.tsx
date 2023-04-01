@@ -2,6 +2,7 @@ import { useState } from 'react'
 
 import { Textarea, useUpdateEffect } from '@chakra-ui/react'
 import { ComponentMeta, ComponentStory } from '@storybook/react'
+
 import {
   setPostText,
   useAppDispatch,

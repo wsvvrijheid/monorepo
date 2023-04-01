@@ -17,6 +17,22 @@ import {
 } from '@chakra-ui/react'
 import { TourProvider } from '@reactour/tour'
 import { dehydrate, QueryClient } from '@tanstack/react-query'
+import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock'
+import { GetServerSideProps } from 'next'
+import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { MDXRemoteSerializeResult } from 'next-mdx-remote'
+import { serialize } from 'next-mdx-remote/serialize'
+import { NextSeoProps } from 'next-seo'
+import {
+  FaChevronDown,
+  FaChevronUp,
+  FaHashtag,
+  FaImages,
+  FaTwitter,
+} from 'react-icons/fa'
+
 import {
   getHashtagBySlug,
   HashtagReturnType,
@@ -42,21 +58,6 @@ import {
   usePostMakerSteps,
 } from '@wsvvrijheid/ui'
 import { getPageSeo } from '@wsvvrijheid/utils'
-import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock'
-import { GetServerSideProps } from 'next'
-import { useRouter } from 'next/router'
-import { useTranslation } from 'next-i18next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { MDXRemoteSerializeResult } from 'next-mdx-remote'
-import { serialize } from 'next-mdx-remote/serialize'
-import { NextSeoProps } from 'next-seo'
-import {
-  FaChevronDown,
-  FaChevronUp,
-  FaHashtag,
-  FaImages,
-  FaTwitter,
-} from 'react-icons/fa'
 
 import { HashtagsDrawer, Layout, TimeLeft } from '../../../components'
 import i18nConfig from '../../../next-i18next.config'

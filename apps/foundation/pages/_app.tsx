@@ -7,13 +7,14 @@ import {
   QueryClientProvider,
 } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
-import { defaultSeo, themes } from '@wsvvrijheid/config'
-import { checkAuth, store } from '@wsvvrijheid/store'
-import { pageview } from '@wsvvrijheid/utils'
 import { useRouter } from 'next/router'
 import { appWithTranslation } from 'next-i18next'
 import { DefaultSeo } from 'next-seo'
 import { Provider as ReduxProvider } from 'react-redux'
+
+import { defaultSeo, themes } from '@wsvvrijheid/config'
+import { checkAuth, store } from '@wsvvrijheid/store'
+import { pageview } from '@wsvvrijheid/utils'
 
 import '@splidejs/splide/dist/css/themes/splide-default.min.css'
 import '@splidejs/react-splide/css'
@@ -39,6 +40,7 @@ function MyApp({ Component, pageProps }) {
     const handleRouteChange = url => pageview(url)
 
     router.events.on('routeChangeComplete', handleRouteChange)
+
     return () => router.events.off('routeChangeComplete', handleRouteChange)
   }, [router.events])
 

@@ -1,9 +1,10 @@
 import { FC } from 'react'
 
 import { Box } from '@chakra-ui/react'
-import { LoginForm } from '@wsvvrijheid/ui'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
+
+import { LoginForm } from '@wsvvrijheid/ui'
 
 import { Layout } from '../components'
 import i18nConfig from '../next-i18next.config'

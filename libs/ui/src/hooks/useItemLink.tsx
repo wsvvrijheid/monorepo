@@ -1,7 +1,8 @@
+import { useRouter } from 'next/router'
+
 import { ROUTES } from '@wsvvrijheid/config'
 import { Hashtag, Post, StrapiLocale } from '@wsvvrijheid/types'
 import { getItemLink } from '@wsvvrijheid/utils'
-import { useRouter } from 'next/router'
 
 export const useItemLink = (
   item: Hashtag | Post,

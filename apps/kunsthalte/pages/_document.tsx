@@ -1,6 +1,7 @@
 import { ColorModeScript } from '@chakra-ui/react'
-import { GA_MEASUREMENT_ID } from '@wsvvrijheid/config'
 import NextDocument, { Head, Html, Main, NextScript } from 'next/document'
+
+import { GA_MEASUREMENT_ID } from '@wsvvrijheid/config'
 
 export default class Document extends NextDocument {
   render() {

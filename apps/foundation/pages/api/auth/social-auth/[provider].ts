@@ -1,10 +1,11 @@
+import axios from 'axios'
+import { withIronSessionApiRoute } from 'iron-session/next'
+import { NextApiResponse, NextApiRequest } from 'next'
+
 import { API_URL } from '@wsvvrijheid/config'
 import { sessionOptions } from '@wsvvrijheid/lib'
 import { getSessionUser } from '@wsvvrijheid/services'
 import { AuthResponse } from '@wsvvrijheid/types'
-import axios from 'axios'
-import { withIronSessionApiRoute } from 'iron-session/next'
-import { NextApiResponse, NextApiRequest } from 'next'
 
 const route = async (req: NextApiRequest, res: NextApiResponse) => {
   const { provider } = req.query
@@ -45,6 +46,7 @@ const route = async (req: NextApiRequest, res: NextApiResponse) => {
         return res.status(500).json({ message: 'Internal server error', error })
       } else {
         const messages = error.response?.data?.error.message
+
         return res.status(403).json({ message: messages })
       }
     }

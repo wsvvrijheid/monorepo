@@ -18,6 +18,6 @@ export default async function handler(req, res) {
     TOKEN,
   )
 
-  //respond to Mollie with 200 or it keeps calling
+  // respond to Mollie with 200 or it keeps calling
   res.status(200).send('complete')
 }

@@ -6,6 +6,7 @@ export const DOTS = '...'
 
 const range = (start: number, end: number) => {
   const length = end - start + 1
+
   return Array.from({ length }, (_, idx) => idx + start)
 }
 
@@ -50,11 +51,13 @@ export const usePagination = ({
     if (shouldShowLeftDots && !shouldShowRightDots) {
       const rightItemCount = 3 + 2 * siblingCount
       const rightRange = range(totalCount - rightItemCount + 1, totalCount)
+
       return [firstPageIndex, DOTS, ...rightRange]
     }
 
     if (shouldShowLeftDots && shouldShowRightDots) {
       const middleRange = range(leftSiblingIndex, rightSiblingIndex)
+
       return [firstPageIndex, DOTS, ...middleRange, DOTS, lastPageIndex]
     }
 

@@ -7,6 +7,7 @@ import {
   TableProps,
   TextProps,
 } from '@chakra-ui/react'
+
 import { StrapiModel, Sort } from '@wsvvrijheid/types'
 
 import { FormattedDateProps } from '../FormattedDate'

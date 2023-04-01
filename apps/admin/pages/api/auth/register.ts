@@ -1,10 +1,11 @@
+import axios from 'axios'
+import { withIronSessionApiRoute } from 'iron-session/next'
+import { NextApiRequest, NextApiResponse } from 'next'
+
 import { API_URL } from '@wsvvrijheid/config'
 import { Mutation, sessionOptions } from '@wsvvrijheid/lib'
 import { getAuth } from '@wsvvrijheid/services'
 import { AuthResponse } from '@wsvvrijheid/types'
-import axios from 'axios'
-import { withIronSessionApiRoute } from 'iron-session/next'
-import { NextApiRequest, NextApiResponse } from 'next'
 
 const registerRoute = async (req: NextApiRequest, res: NextApiResponse) => {
   const { name, username, email, password } = req.body

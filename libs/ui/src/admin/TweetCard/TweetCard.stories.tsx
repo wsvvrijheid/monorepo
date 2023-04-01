@@ -1,5 +1,6 @@
 import { Stack } from '@chakra-ui/react'
 import { ComponentMeta, ComponentStory } from '@storybook/react'
+
 import { TWEET_MOCKS } from '@wsvvrijheid/mocks'
 
 import { TweetCard } from './TweetCard'
@@ -15,10 +16,6 @@ export default {
       </Container>
     ),
   ],
-  args: {
-    onEdit: tweet => alert(JSON.stringify(tweet)),
-    onSave: tweet => alert(JSON.stringify(tweet)),
-  },
 } as ComponentMeta<typeof TweetCard>
 
 const Template: ComponentStory<typeof TweetCard> = args => (
@@ -28,14 +25,7 @@ const Template: ComponentStory<typeof TweetCard> = args => (
 const ListTemplate = () => (
   <Stack>
     {TWEET_MOCKS.map(tweet => (
-      <TweetCard
-        key={tweet.id}
-        tweet={tweet}
-        onEdit={tweet => alert(JSON.stringify(tweet))}
-        onSave={tweet => alert(JSON.stringify(tweet))}
-        shadow="base"
-        rounded={0}
-      />
+      <TweetCard key={tweet.id} tweet={tweet} shadow="base" rounded={0} />
     ))}
   </Stack>
 )

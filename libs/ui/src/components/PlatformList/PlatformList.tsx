@@ -1,11 +1,12 @@
 import { FC } from 'react'
 
 import { Avatar, Button, Heading, Spacer, Stack, Text } from '@chakra-ui/react'
-import { API_URL } from '@wsvvrijheid/config'
-import { Platform, StrapiLocale } from '@wsvvrijheid/types'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { FaChevronRight } from 'react-icons/fa'
+
+import { API_URL } from '@wsvvrijheid/config'
+import { Platform, StrapiLocale } from '@wsvvrijheid/types'
 
 import { Navigate } from '../Navigate'
 

@@ -1,6 +1,7 @@
+import axios from 'axios'
+
 import { API_URL } from '@wsvvrijheid/config'
 import { Auth, AuthResponse } from '@wsvvrijheid/types'
-import axios from 'axios'
 
 import { getSessionUser } from './getSessionUser'
 

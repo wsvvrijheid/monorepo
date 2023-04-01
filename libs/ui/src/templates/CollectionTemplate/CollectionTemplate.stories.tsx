@@ -1,4 +1,5 @@
 import { Meta, Story } from '@storybook/react'
+
 import { COLLECTION_MOCKS } from '@wsvvrijheid/mocks'
 
 import { CollectionTemplate, CollectionTemplateProps } from './index'

@@ -4,6 +4,13 @@
     "outDir": "../../dist/out-tsc",
     "types": ["node"]
   },
+  "paths": {
+    "~/admin": ["src/admin/index.ts"],
+    "~/data": ["src/data/index.ts"],
+    "~/hooks": ["src/hooks/index.ts"],
+    "~/mocks": ["src/mocks/index.ts"],
+    "~/templates": ["src/templates/index.ts"]
+  },
   "files": [
     "../../node_modules/@nrwl/react/typings/cssmodule.d.ts",
     "../../node_modules/@nrwl/next/typings/image.d.ts"
@@ -23,11 +30,5 @@
     "**/*.stories.jsx",
     "**/*.stories.tsx"
   ],
-  "include": [
-    "**/*.js",
-    "**/*.jsx",
-    "**/*.ts",
-    "**/*.tsx",
-    "src/admin/TranslatedEdit/TranslatedData"
-  ]
+  "include": ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"]
 }

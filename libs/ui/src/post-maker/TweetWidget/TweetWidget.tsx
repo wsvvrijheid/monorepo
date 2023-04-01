@@ -1,7 +1,8 @@
 import { Box, Image, Stack, StackDivider, Text, VStack } from '@chakra-ui/react'
+import { useTranslation } from 'next-i18next'
+
 import { API_URL } from '@wsvvrijheid/config'
 import { Tweet } from '@wsvvrijheid/types'
-import { useTranslation } from 'next-i18next'
 
 import { TweetCard } from '../../admin/TweetCard'
 

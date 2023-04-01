@@ -12,6 +12,10 @@ import {
   useDisclosure,
 } from '@chakra-ui/react'
 import { QueryKey } from '@tanstack/react-query'
+import { useRouter } from 'next/router'
+import { AiFillHeart } from 'react-icons/ai'
+import { FaExternalLinkSquareAlt } from 'react-icons/fa'
+
 import { API_URL } from '@wsvvrijheid/config'
 import {
   useDeleteModel,
@@ -19,9 +23,6 @@ import {
   useUnpublishModel,
 } from '@wsvvrijheid/services'
 import { StrapiLocale } from '@wsvvrijheid/types'
-import { useRouter } from 'next/router'
-import { AiFillHeart } from 'react-icons/ai'
-import { FaExternalLinkSquareAlt } from 'react-icons/fa'
 
 import { ArtCardActions } from './ArtCardActions'
 import { ArtCardAlertDialog } from './ArtCardAlertDialog'
