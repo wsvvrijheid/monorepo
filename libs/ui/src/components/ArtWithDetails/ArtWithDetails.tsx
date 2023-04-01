@@ -88,7 +88,7 @@ export const ArtWithDetails: FC<ArtWithDetailsProps> = ({ art, queryKey }) => {
             art.artist?.name || art.artist?.username || 'Unknown Artist Name'
           }
           artistAvatar={art.artist?.avatar?.url}
-          content={art[descriptionKey] as string}
+          description={art[descriptionKey]}
           artistProfilePath={`/club/artist/${art.artist?.id}`}
         />
         {/* Single Art Comments */}

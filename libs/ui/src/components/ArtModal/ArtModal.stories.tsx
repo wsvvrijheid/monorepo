@@ -6,16 +6,11 @@ import { sample } from 'lodash'
 import { ArtModal } from './ArtModal'
 import { ArtModalProps } from './types'
 
-const sampleArt = sample(ART_MOCKS.tr.data)!
+const sampleArt = sample(ART_MOCKS.data)!
 
 export default {
   component: ArtModal,
   title: 'Shared/ArtModal',
-  parameters: {
-    nextRouter: {
-      locale: sampleArt.locale,
-    },
-  },
 } as Meta<ArtModalProps>
 
 const Template: Story<ArtModalProps> = args => {

@@ -41,7 +41,7 @@ const Template: Story<BlogDetailProps> = args => {
   }
 
   useEffect(() => {
-    getSource(args.post.content)
+    getSource(args.post?.content || '')
   }, [args.post.content])
 
   const toggleLike = () => {

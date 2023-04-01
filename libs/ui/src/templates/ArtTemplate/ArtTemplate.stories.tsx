@@ -4,7 +4,7 @@ import { sample } from 'lodash'
 
 import { ArtTemplate, ArtTemplateProps } from './ArtTemplate'
 
-const sampleArt = sample(ART_MOCKS.tr.data)!
+const sampleArt = sample(ART_MOCKS.data)!
 
 export default {
   component: ArtTemplate,
@@ -13,7 +13,6 @@ export default {
     nextRouter: {
       path: `club/art/:slug`,
       asPath: `club/art/${sampleArt.slug}`,
-      locale: sampleArt.locale,
       query: {
         slug: sampleArt.slug,
       },

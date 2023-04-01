@@ -8,7 +8,7 @@ export default {
   component: ArtCard,
   title: 'Shared/ArtCard',
   args: {
-    art: ART_MOCKS.tr.data[0],
+    art: ART_MOCKS.data[0],
     user: USER_MOCKS[0],
   },
   decorators: [Story => <Container maxW="container.sm">{Story()}</Container>],

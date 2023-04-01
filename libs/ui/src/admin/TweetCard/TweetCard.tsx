@@ -32,6 +32,7 @@ import { useLocalStorage } from 'usehooks-ts'
 
 import { TweetCardProps } from './types'
 import { CreateTweetForm } from '../../components'
+import { CreateTweetFormFieldValues } from '../../components/CreateTweetForm/types'
 import { postFields, postSchema } from '../../data'
 import { ModelCreateModal } from '../ModelForm'
 import { TweetContent } from '../TweetContent'
@@ -43,6 +44,7 @@ export const TweetCard: FC<TweetCardProps> = ({
   setValue,
   isChangingImage,
   setIsChangingImage,
+  originalTweet,
   ...rest
 }) => {
   const [storageTweets, setStorageTweets] = useLocalStorage<Tweet[]>(
@@ -74,17 +76,12 @@ export const TweetCard: FC<TweetCardProps> = ({
     onOpen()
   }
 
-  const handleSubmit = async (
-    text: string,
-    originalTweet: Partial<Tweet>,
-    mentions: number[],
-    image?: File,
-  ) => {
+  const handleSubmit = async (data: CreateTweetFormFieldValues) => {
     const recommendedTweet: RecommendedTweetCreateInput = {
       originalTweet: JSON.parse(JSON.stringify(originalTweet)),
-      image,
-      text,
-      mentions,
+      image: data.image,
+      text: data.text,
+      mentions: data.mentions?.map(m => Number(m.value)),
     }
 
     await mutateAsync(recommendedTweet)

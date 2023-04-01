@@ -5,16 +5,11 @@ import { useRouter } from 'next/router'
 
 import { ArtWithDetails, ArtWithDetailsProps } from './ArtWithDetails'
 
-const sampleArt = sample(ART_MOCKS.tr.data)!
+const sampleArt = sample(ART_MOCKS.data)!
 
 export default {
   component: ArtWithDetails,
   title: 'Shared/ArtWithDetails',
-  parameters: {
-    nextRouter: {
-      locale: sampleArt.locale,
-    },
-  },
 } as Meta<ArtWithDetailsProps>
 
 const Template: Story<ArtWithDetailsProps> = args => {

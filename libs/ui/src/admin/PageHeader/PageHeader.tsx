@@ -39,7 +39,7 @@ export const PageHeader: FC<PageHeaderProps> = ({
         <SearchForm
           onSearch={onSearch}
           variant="flushed"
-          placeholder={t('search')}
+          placeholder={searchPlaceHolder || (t('search') as string)}
         />
       ) : (
         <Spacer />
