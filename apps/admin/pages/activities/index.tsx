@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
 
+import { useUpdateEffect } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
-import { useUpdateEffect } from 'react-use'
 
 import { useSearchModel } from '@wsvvrijheid/services'
 import { Activity, Sort, StrapiLocale } from '@wsvvrijheid/types'
