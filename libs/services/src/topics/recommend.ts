@@ -1,4 +1,5 @@
 import { useMutation } from '@tanstack/react-query'
+
 import { Mutation } from '@wsvvrijheid/lib'
 import { useAuthSelector } from '@wsvvrijheid/store'
 import {
@@ -18,6 +19,7 @@ export const recommendTopic = (
 
 export const useRecommendTopic = () => {
   const { token } = useAuthSelector()
+
   return useMutation({
     mutationKey: ['recommend-topic'],
     mutationFn: (createInput: RecommendedTopicCreateInput) =>

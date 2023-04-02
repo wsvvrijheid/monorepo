@@ -1,16 +1,17 @@
 import { FC } from 'react'
 
 // import { Art } from '@wsvvrijheid/types'
+import { InferGetServerSidePropsType } from 'next'
+// import { useRouter } from 'next/router'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { NextSeoProps } from 'next-seo'
+
 import {
   AdminLayout,
   // ModelEditTranslate,
   // translateModelFields,
   // translateModelSchema,
 } from '@wsvvrijheid/ui'
-import { InferGetServerSidePropsType } from 'next'
-// import { useRouter } from 'next/router'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { NextSeoProps } from 'next-seo'
 
 import i18nConfig from '../../../next-i18next.config'
 

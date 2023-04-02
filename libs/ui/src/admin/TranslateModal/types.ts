@@ -1,9 +1,10 @@
+import { Merge } from 'type-fest'
+
 import {
   StrapiLocale,
   StrapiTranslatableModel,
   TranslatableModel,
 } from '@wsvvrijheid/types'
-import { Merge } from 'type-fest'
 
 export type TranslateModalProps<T extends StrapiTranslatableModel> = {
   onApprove: (Id: number, content: string) => void

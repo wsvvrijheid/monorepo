@@ -20,6 +20,7 @@ export const artColumns: WTableProps<Art>['columns'] = {
         pending: 'yellow',
         rejected: 'red',
       }
+
       return {
         variant: 'outline',
         colorScheme: colorScheme[value as ApprovalStatus],

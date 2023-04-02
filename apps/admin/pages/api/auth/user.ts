@@ -1,6 +1,7 @@
-import { sessionOptions } from '@wsvvrijheid/lib'
 import { withIronSessionApiRoute } from 'iron-session/next'
 import { NextApiResponse, NextApiRequest } from 'next'
+
+import { sessionOptions } from '@wsvvrijheid/lib'
 
 async function userRoute(req: NextApiRequest, res: NextApiResponse) {
   if (req.session.token) {

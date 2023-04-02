@@ -8,16 +8,17 @@ import {
   ModalOverlay,
   Stack,
 } from '@chakra-ui/react'
-import { API_URL, SITE_URL } from '@wsvvrijheid/config'
-import { getModelById } from '@wsvvrijheid/services'
-import { Post, StrapiLocale } from '@wsvvrijheid/types'
-import { PostImage } from '@wsvvrijheid/ui'
-import { getItemLink, getOgImageSrc } from '@wsvvrijheid/utils'
 import { GetServerSideProps } from 'next'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeo, NextSeoProps } from 'next-seo'
+
+import { API_URL, SITE_URL } from '@wsvvrijheid/config'
+import { getModelById } from '@wsvvrijheid/services'
+import { Post, StrapiLocale } from '@wsvvrijheid/types'
+import { PostImage } from '@wsvvrijheid/ui'
+import { getItemLink, getOgImageSrc } from '@wsvvrijheid/utils'
 
 import i18nConfig from '../../../next-i18next.config'
 
@@ -32,6 +33,7 @@ const Post = ({ seo, post }: PostProps) => {
   const back = () => {
     router.push('/hashtags/[slug]', `/hashtags/${post.hashtag.slug}`)
   }
+
   return (
     <>
       <NextSeo {...seo} />

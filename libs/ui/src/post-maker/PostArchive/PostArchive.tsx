@@ -12,11 +12,12 @@ import {
   SimpleGrid,
   useDisclosure,
 } from '@chakra-ui/react'
+import { useRouter } from 'next/router'
+import { BiExitFullscreen, BiFullscreen } from 'react-icons/bi'
+
 import { useHashtag } from '@wsvvrijheid/services'
 import { Post, StrapiLocale } from '@wsvvrijheid/types'
 import { getItemLink } from '@wsvvrijheid/utils'
-import { useRouter } from 'next/router'
-import { BiExitFullscreen, BiFullscreen } from 'react-icons/bi'
 
 import { PostSlide } from './PostSlide'
 import { AnimatedBox, PostImage, ShareButtons } from '../../components'

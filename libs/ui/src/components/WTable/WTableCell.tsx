@@ -9,6 +9,7 @@ import {
   PopoverTrigger,
   Td,
 } from '@chakra-ui/react'
+
 import { API_URL } from '@wsvvrijheid/config'
 import { StrapiModel, UploadFile } from '@wsvvrijheid/types'
 

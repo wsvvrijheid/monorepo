@@ -1,7 +1,11 @@
 import { useCallback } from 'react'
 
-import { Button, SimpleGrid } from '@chakra-ui/react'
+import { Button, Link, SimpleGrid } from '@chakra-ui/react'
 import { useQueryClient } from '@tanstack/react-query'
+import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
+import { FaAt, FaRandom, FaTwitter } from 'react-icons/fa'
+
 import { setRandomPost, useCurrentPost } from '@wsvvrijheid/services'
 import {
   addSharedPost,
@@ -9,13 +13,7 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '@wsvvrijheid/store'
-import { Post, StrapiLocale } from '@wsvvrijheid/types'
-import { useRouter } from 'next/router'
-import { useTranslation } from 'next-i18next'
-import { TwitterShareButton } from 'next-share'
-import { FaAt, FaRandom, FaTwitter } from 'react-icons/fa'
-
-import { useItemLink } from '../../../hooks'
+import { StrapiLocale } from '@wsvvrijheid/types'
 
 export const PostContainerButtons = () => {
   const queryClient = useQueryClient()
@@ -32,7 +30,15 @@ export const PostContainerButtons = () => {
   const dispatch = useAppDispatch()
   const { isExceeded } = useAppSelector(state => state.post)
 
-  const postUrlAbsolute = useItemLink(post as Post, 'post', true)
+  const baseUrl = 'https://twitter.com/intent/tweet'
+  const params = {
+    url: `https://samenvvv.nl/${locale}/hashtags/${post?.hashtag?.slug}/${post?.id}`,
+    text: `${postContent}\n\n`,
+  }
+  const query = new URLSearchParams(params)
+  const result = query.toString()
+
+  const postUrl = `${baseUrl}?${result.toString()}`
 
   const shufflePost = useCallback(
     () => setRandomPost(queryClient, locale as StrapiLocale, slug as string),
@@ -73,7 +79,7 @@ export const PostContainerButtons = () => {
       >
         {t('post.next-tweet')}
       </Button>
-      <TwitterShareButton title={postContent} url={postUrlAbsolute as string}>
+      <Link href={postUrl} isExternal>
         <Button
           data-tour="step-share-button"
           data-tour-mob="step-share-button"
@@ -88,7 +94,23 @@ export const PostContainerButtons = () => {
         >
           {t('post.share-tweet')}
         </Button>
-      </TwitterShareButton>
+      </Link>
+      {/* <TwitterShareButton title={postContent} url={postUrlAbsolute as string}>
+        <Button
+          data-tour="step-share-button"
+          data-tour-mob="step-share-button"
+          as="span"
+          w="full"
+          rounded="full"
+          colorScheme="twitter"
+          rightIcon={<FaTwitter />}
+          isDisabled={isExceeded}
+          disabled={isExceeded}
+          onClick={onAddShare}
+        >
+          {t('post.share-tweet')}
+        </Button>
+      </TwitterShareButton> */}
     </SimpleGrid>
   )
 }

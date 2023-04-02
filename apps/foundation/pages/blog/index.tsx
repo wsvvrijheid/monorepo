@@ -1,7 +1,8 @@
 import { dehydrate, QueryClient } from '@tanstack/react-query'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+
 import { getBlogs, useGetBlogs } from '@wsvvrijheid/services'
 import { BlogTemplate } from '@wsvvrijheid/ui'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { Layout } from '../../components'
 import i18nConfig from '../../next-i18next.config'

@@ -1,7 +1,6 @@
 import { FC, PropsWithChildren } from 'react'
 
 import { ButtonGroup, IconButton, ButtonGroupProps } from '@chakra-ui/react'
-import { makeSocialContent } from '@wsvvrijheid/utils'
 import {
   FacebookShareButton,
   TelegramShareButton,
@@ -16,6 +15,8 @@ import {
   FaTwitter,
   FaWhatsapp,
 } from 'react-icons/fa'
+
+import { makeSocialContent } from '@wsvvrijheid/utils'
 
 interface ShareButtonsProps extends ButtonGroupProps {
   title?: string

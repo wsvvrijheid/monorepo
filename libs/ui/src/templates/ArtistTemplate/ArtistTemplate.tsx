@@ -1,6 +1,7 @@
 import { FC } from 'react'
 
 import { Avatar, SimpleGrid, Stack, Text } from '@chakra-ui/react'
+
 import { API_URL } from '@wsvvrijheid/config'
 import { Art, User } from '@wsvvrijheid/types'
 

@@ -1,8 +1,9 @@
 import { forwardRef, Fragment } from 'react'
 
 import { Heading, Stack, Text, VStack } from '@chakra-ui/react'
-import { StrapiLocale } from '@wsvvrijheid/types'
 import { useRouter } from 'next/router'
+
+import { StrapiLocale } from '@wsvvrijheid/types'
 
 import { Page } from './Page'
 import { CollectionPagesPops } from './types'

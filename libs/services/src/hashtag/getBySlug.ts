@@ -1,8 +1,9 @@
 import { useQuery } from '@tanstack/react-query'
-import { Request } from '@wsvvrijheid/lib'
-import { Hashtag, StrapiLocale } from '@wsvvrijheid/types'
 import { addDays, isPast } from 'date-fns'
 import { useRouter } from 'next/router'
+
+import { Request } from '@wsvvrijheid/lib'
+import { Hashtag, StrapiLocale } from '@wsvvrijheid/types'
 
 export type HashtagReturnType = {
   hasPassed: boolean

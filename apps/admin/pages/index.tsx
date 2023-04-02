@@ -2,6 +2,10 @@ import { FC } from 'react'
 
 import { SimpleGrid, Stack, Text } from '@chakra-ui/react'
 import { dehydrate, QueryClient } from '@tanstack/react-query'
+import { InferGetStaticPropsType } from 'next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { NextSeoProps } from 'next-seo'
+
 import {
   searchModel,
   SearchModelArgs,
@@ -12,9 +16,6 @@ import {
   AccountStatsBase,
 } from '@wsvvrijheid/types'
 import { AccountStats, AdminLayout } from '@wsvvrijheid/ui'
-import { InferGetStaticPropsType } from 'next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { NextSeoProps } from 'next-seo'
 
 import i18nConfig from '../next-i18next.config'
 

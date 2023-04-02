@@ -10,14 +10,15 @@ import {
   Text,
   Icon,
 } from '@chakra-ui/react'
-import { ROUTES } from '@wsvvrijheid/config'
-import { Hashtag, StrapiLocale } from '@wsvvrijheid/types'
-import { FormattedDate, Navigate, WImage } from '@wsvvrijheid/ui'
-import { getItemLink } from '@wsvvrijheid/utils'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { FaArrowRight } from 'react-icons/fa'
 import { HiOutlineCalendar } from 'react-icons/hi'
+
+import { ROUTES } from '@wsvvrijheid/config'
+import { Hashtag, StrapiLocale } from '@wsvvrijheid/types'
+import { FormattedDate, Navigate, WImage } from '@wsvvrijheid/ui'
+import { getItemLink } from '@wsvvrijheid/utils'
 interface SliderHeroProps {
   item: Hashtag
   type: keyof typeof ROUTES | 'post'

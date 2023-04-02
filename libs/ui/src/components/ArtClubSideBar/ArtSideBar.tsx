@@ -1,10 +1,11 @@
 import { FC } from 'react'
 
 import { Box, Stack } from '@chakra-ui/react'
-import { useSearchModel } from '@wsvvrijheid/services'
-import { Category, Collection, StrapiLocale } from '@wsvvrijheid/types'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
+
+import { useSearchModel } from '@wsvvrijheid/services'
+import { Category, Collection, StrapiLocale } from '@wsvvrijheid/types'
 
 import { useChangeParams } from '../../hooks'
 import { CategoryFilter } from '../CategoryFilter'

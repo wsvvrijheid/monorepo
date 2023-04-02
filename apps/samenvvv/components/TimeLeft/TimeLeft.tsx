@@ -1,8 +1,9 @@
 import React, { FC } from 'react'
 
 import { Center, Heading, Stack, Text } from '@chakra-ui/react'
-import { PostMakerIcon, useLocaleTimeFormat } from '@wsvvrijheid/ui'
 import { useTranslation } from 'next-i18next'
+
+import { PostMakerIcon, useLocaleTimeFormat } from '@wsvvrijheid/ui'
 
 type TimeLeftProps = {
   date: string

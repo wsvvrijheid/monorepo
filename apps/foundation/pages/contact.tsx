@@ -11,6 +11,11 @@ import {
   Wrap,
 } from '@chakra-ui/react'
 import { useMutation } from '@tanstack/react-query'
+import { useTranslation } from 'next-i18next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { NextSeoProps } from 'next-seo'
+import { MdEmail, MdLocationOn, MdPhone } from 'react-icons/md'
+
 import { EMAIL_SENDER, socialLinks, TOKEN } from '@wsvvrijheid/config'
 import { sendEmail } from '@wsvvrijheid/services'
 import { EmailCreateInput } from '@wsvvrijheid/types'
@@ -20,10 +25,6 @@ import {
   Container,
   SocialButtons,
 } from '@wsvvrijheid/ui'
-import { useTranslation } from 'next-i18next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { NextSeoProps } from 'next-seo'
-import { MdEmail, MdLocationOn, MdPhone } from 'react-icons/md'
 
 import { Layout } from '../components'
 import i18nConfig from '../next-i18next.config'

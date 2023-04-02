@@ -1,4 +1,5 @@
 import { SkeletonText, VStack, Wrap } from '@chakra-ui/react'
+
 import {
   addTrendName,
   removeTrendName,
@@ -33,6 +34,7 @@ export const TrendList = ({
   const onRemoveTrendName = (value: string) => {
     dispatch(removeTrendName(value))
   }
+
   return (
     <VStack align="stretch">
       {isLoading || !trends ? (

@@ -1,11 +1,12 @@
 import { FC } from 'react'
 
-import { Tweet } from '@wsvvrijheid/types'
-import { AdminLayout, Container, MasonryGrid, TweetCard } from '@wsvvrijheid/ui'
 import { InferGetStaticPropsType } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
 import { useLocalStorage } from 'usehooks-ts'
+
+import { Tweet } from '@wsvvrijheid/types'
+import { AdminLayout, Container, MasonryGrid, TweetCard } from '@wsvvrijheid/ui'
 
 import i18nConfig from '../../next-i18next.config'
 

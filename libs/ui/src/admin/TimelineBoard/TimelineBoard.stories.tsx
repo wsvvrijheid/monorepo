@@ -1,5 +1,6 @@
 // import { Box, SimpleGrid } from '@chakra-ui/react'
 import { Story, Meta } from '@storybook/react'
+
 import { TİMELİNE_MOCKS } from '@wsvvrijheid/mocks'
 
 import { TimelineBoard } from './TimelineBoard'

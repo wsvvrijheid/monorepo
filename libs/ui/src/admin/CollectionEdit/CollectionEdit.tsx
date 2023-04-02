@@ -8,6 +8,7 @@ import {
   AccordionPanel,
   Text,
 } from '@chakra-ui/react'
+
 import { Collection } from '@wsvvrijheid/types'
 
 import { CollectionEditProps } from './types'

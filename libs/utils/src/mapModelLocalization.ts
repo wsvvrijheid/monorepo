@@ -1,10 +1,11 @@
+import { isEmpty } from 'lodash'
+
 import {
   LocalizedModel,
   StrapiLocale,
   StrapiTranslatableModel,
   TranslatableModel,
 } from '@wsvvrijheid/types'
-import { isEmpty } from 'lodash'
 
 export const mapModelLocalization = <T extends StrapiTranslatableModel>(
   model: TranslatableModel<T>,
@@ -22,6 +23,7 @@ export const mapModelLocalization = <T extends StrapiTranslatableModel>(
         [key]: model[key],
       }
     }
+
     return acc
   }, {} as Partial<TranslatableModel<T>>)
 

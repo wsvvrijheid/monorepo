@@ -1,6 +1,7 @@
 import { useState } from 'react'
 
 import { ComponentStory, ComponentMeta } from '@storybook/react'
+
 import { ART_MOCKS } from '@wsvvrijheid/mocks'
 
 import { ArtDetail } from './ArtDetail'
@@ -9,7 +10,7 @@ export default {
   component: ArtDetail,
   title: 'Shared/ArtDetail',
   args: {
-    art: ART_MOCKS.tr.data[0],
+    art: ART_MOCKS.data[0],
   },
 } as ComponentMeta<typeof ArtDetail>
 
