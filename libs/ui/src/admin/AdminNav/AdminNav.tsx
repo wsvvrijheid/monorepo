@@ -204,8 +204,8 @@ export const useAdminNav = (user: SessionUser): AdminNavItemProps[] => {
       visible: isEditor || isAdmin,
     },
     {
-      label: 'Donate',
-      link: '/donate',
+      label: 'Donation',
+      link: '/donation',
       icon: <BsCashCoin />,
       visible: isEditor || isAdmin,
     },

@@ -14,6 +14,7 @@ import {
   NumberInput,
   NumberInputField,
   NumberInputStepper,
+  SimpleGrid,
   Slider,
   SliderFilledTrack,
   SliderThumb,
@@ -37,7 +38,7 @@ import * as yup from 'yup'
 import { DONATION_ENABLED } from '@wsvvrijheid/config'
 import { Request } from '@wsvvrijheid/lib'
 import { Platform } from '@wsvvrijheid/types'
-import { Container, FormItem } from '@wsvvrijheid/ui'
+import { Container, FormItem, PlatformList } from '@wsvvrijheid/ui'
 
 import { Layout } from '../../components'
 
@@ -51,9 +52,9 @@ function generateSchema(t) {
   })
 }
 
-type DonatePageProps = InferGetStaticPropsType<typeof getStaticProps>
+type DonationPageProps = InferGetStaticPropsType<typeof getStaticProps>
 
-const DonatePage: FC<DonatePageProps> = ({ platforms, title }) => {
+const DonationPage: FC<DonationPageProps> = ({ platforms, title }) => {
   const [amount, setAmount] = useState(5)
   const [method, setMethod] = useState<'ideal' | 'creditcard' | 'paypal'>(
     'ideal',
@@ -108,7 +109,12 @@ const DonatePage: FC<DonatePageProps> = ({ platforms, title }) => {
             </Link>
           </VStack>
         </Center>
-        <VStack my={16} gap={16}>
+        <SimpleGrid
+          alignItems="start"
+          columns={{ base: 1, lg: 2 }}
+          my={16}
+          gap={16}
+        >
           <Stack
             px={{ base: 8, lg: 16 }}
             py={{ base: 8, lg: 12 }}
@@ -262,7 +268,7 @@ const DonatePage: FC<DonatePageProps> = ({ platforms, title }) => {
 
             <Button
               isDisabled={!amount || !method || !isValid}
-              colorScheme="primary"
+              colorScheme="green"
               type="submit"
               leftIcon={<FaDonate />}
             >
@@ -270,7 +276,8 @@ const DonatePage: FC<DonatePageProps> = ({ platforms, title }) => {
               {amount && ` €${amount}`}
             </Button>
           </Stack>
-        </VStack>
+          {platforms.data && <PlatformList platforms={platforms.data} />}
+        </SimpleGrid>
       </Container>
     </Layout>
   )
@@ -289,9 +296,9 @@ export const getStaticProps = async context => {
 
   const seo = {
     title: {
-      en: 'Donate',
-      nl: 'Doneer',
-      tr: 'Bağış Yap',
+      en: 'Donation',
+      nl: 'Donatie',
+      tr: 'Bağış',
     },
   }
 
@@ -304,4 +311,4 @@ export const getStaticProps = async context => {
   }
 }
 
-export default DonatePage
+export default DonationPage

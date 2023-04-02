@@ -1,13 +1,13 @@
 import { TOKEN, SITE_URL } from '@wsvvrijheid/config'
 import { Mutation } from '@wsvvrijheid/lib'
 import { mollieClient } from '@wsvvrijheid/mollie'
-import { Donate, DonateCreateInput } from '@wsvvrijheid/types'
+import { Donation, DonationCreateInput } from '@wsvvrijheid/types'
 
 export default async function handler(req, res) {
   const { amount, name, email, method } = req.body
 
-  // Create blank donate in database
-  const donate = await Mutation.post<Donate, DonateCreateInput>(
+  // Create blank donation in database
+  const donation = await Mutation.post<Donation, DonationCreateInput>(
     'api/donates',
     {
       name,
@@ -27,10 +27,10 @@ export default async function handler(req, res) {
     method,
     billingEmail: email,
     metadata: {
-      id: donate.id,
+      id: donation.id,
     },
     description: 'Wsvvrjheid donatie',
-    redirectUrl: `${SITE_URL}/donate/complete?id=${donate.id}`,
+    redirectUrl: `${SITE_URL}/donation/complete?id=${donation.id}`,
     webhookUrl: `${SITE_URL}/api/payment/status`,
   })
 

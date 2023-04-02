@@ -35,11 +35,7 @@ import { FaDonate } from 'react-icons/fa'
 import * as yup from 'yup'
 
 import { DONATION_ENABLED } from '@wsvvrijheid/config'
-import { Request } from '@wsvvrijheid/lib'
-import { Platform } from '@wsvvrijheid/types'
-import { Container, FormItem } from '@wsvvrijheid/ui'
-
-import { Layout } from '../../components'
+import { AdminLayout, Container, FormItem } from '@wsvvrijheid/ui'
 
 function generateSchema(t) {
   return yup.object().shape({
@@ -51,9 +47,9 @@ function generateSchema(t) {
   })
 }
 
-type DonatePageProps = InferGetStaticPropsType<typeof getStaticProps>
+type DonationPageProps = InferGetStaticPropsType<typeof getStaticProps>
 
-const DonatePage: FC<DonatePageProps> = ({ title }) => {
+const DonationPage: FC<DonationPageProps> = ({ title }) => {
   const [amount, setAmount] = useState(5)
   const [method, setMethod] = useState<'ideal' | 'creditcard' | 'paypal'>(
     'ideal',
@@ -90,7 +86,7 @@ const DonatePage: FC<DonatePageProps> = ({ title }) => {
   }
 
   return (
-    <Layout seo={{ title }}>
+    <AdminLayout seo={{ title }}>
       <Container>
         <Center m={16}>
           <VStack>
@@ -272,7 +268,7 @@ const DonatePage: FC<DonatePageProps> = ({ title }) => {
           </Stack>
         </VStack>
       </Container>
-    </Layout>
+    </AdminLayout>
   )
 }
 
@@ -283,15 +279,11 @@ export const getStaticProps = async context => {
     }
   }
 
-  const platforms = await Request.collection<Platform[]>({
-    url: 'api/platforms',
-  })
-
   const seo = {
     title: {
-      en: 'Donate',
-      nl: 'Doneer',
-      tr: 'Bağış Yap',
+      en: 'Donation',
+      nl: 'Donatie',
+      tr: 'Bağış',
     },
   }
 
@@ -299,9 +291,8 @@ export const getStaticProps = async context => {
     props: {
       ...(await serverSideTranslations(context.locale, ['common'])),
       title: seo.title[context.locale],
-      platforms,
     },
   }
 }
 
-export default DonatePage
+export default DonationPage

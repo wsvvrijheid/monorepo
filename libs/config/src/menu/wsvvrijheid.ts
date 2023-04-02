@@ -7,7 +7,7 @@ import {
   club,
   contact,
   dashboard,
-  donate,
+  donation,
   join,
   lotus,
   platform,
@@ -36,7 +36,7 @@ export const wsvvrijheid = {
       tr: 'Wsvvrijheid',
       children: [about, contact, join],
     },
-    donate,
+    donation,
   ],
   footerMenu: [
     {
@@ -58,7 +58,7 @@ export const wsvvrijheid = {
       tr: 'Menu',
     },
     {
-      children: [terms, privacy, donate],
+      children: [terms, privacy, donation],
       en: 'Support',
       nl: 'Steun',
       tr: 'Destek',

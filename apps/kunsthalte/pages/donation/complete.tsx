@@ -7,18 +7,18 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { TOKEN } from '@wsvvrijheid/config'
 import { Mutation, Request } from '@wsvvrijheid/lib'
 import { mollieClient } from '@wsvvrijheid/mollie'
-import { Donate, StrapiUrl } from '@wsvvrijheid/types'
+import { Donation, StrapiUrl } from '@wsvvrijheid/types'
 import { Container, DonationResultAlert } from '@wsvvrijheid/ui'
 
 import { Layout } from '../../components'
 
-type DonateCompletePageProps = InferGetServerSidePropsType<
+type DonationCompletePageProps = InferGetServerSidePropsType<
   typeof getServerSideProps
 >
 
 // TODO Make transaction detail messages more user friendly and create translations
 // TODO Add translations
-const PaymentComplete: FC<DonateCompletePageProps> = ({ status }) => {
+const DonationComplete: FC<DonationCompletePageProps> = ({ status }) => {
   const renderStatus = () => {
     if (status === 'paid') {
       return (
@@ -91,7 +91,7 @@ const PaymentComplete: FC<DonateCompletePageProps> = ({ status }) => {
 export const getServerSideProps = async context => {
   const { query } = context
 
-  const response = await Request.single<Donate>({
+  const response = await Request.single<Donation>({
     id: Number(query.id),
     url: `api/donates`,
     populate: [],
@@ -115,4 +115,4 @@ export const getServerSideProps = async context => {
   }
 }
 
-export default PaymentComplete
+export default DonationComplete
