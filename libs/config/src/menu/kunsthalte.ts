@@ -5,11 +5,11 @@ import {
   contact,
   privacy,
   terms,
-  donate,
+  donation,
 } from './routes'
 
 export const kunsthalte = {
-  headerMenu: [art, collection, about, contact, donate],
+  headerMenu: [art, collection, about, contact, donation],
   footerMenu: [
     {
       children: [
@@ -21,7 +21,7 @@ export const kunsthalte = {
           en: 'Foundation',
           nl: 'Stichting',
         },
-        donate,
+        donation,
       ],
       en: 'Menu',
       nl: 'Menu',
