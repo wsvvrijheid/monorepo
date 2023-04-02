@@ -7,7 +7,7 @@ export default async ({ strapi }) => {
 
   // TODO Check for tr locale
   const hashtags = await strapi.controller('api::hashtag.hashtag').find({
-    date_gte: date,
+    date: { $gte: date },
   })
 
   if (!Array.isArray(hashtags.data)) return
