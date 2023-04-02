@@ -1,13 +1,13 @@
-import { Container, useDisclosure, Button, Box } from '@chakra-ui/react'
-import { ComponentStory, ComponentMeta } from '@storybook/react'
+import { Box, Button, Container, useDisclosure } from '@chakra-ui/react'
+import { ComponentMeta, ComponentStory } from '@storybook/react'
+import { sample } from 'lodash'
+
 import {
   ACTIVITY_MOCKS,
   ANNOUNCEMENT_MOCKS,
-  ART_MOCKS,
   BLOG_MOCKS,
   HASHTAG_MOCKS,
 } from '@wsvvrijheid/mocks'
-import { sample } from 'lodash'
 
 import { TranslateModal } from './TranslateModal'
 
@@ -63,11 +63,6 @@ ActivityModel.args = {
 export const AnnouncementModel = Template.bind({})
 AnnouncementModel.args = {
   model: sample(ANNOUNCEMENT_MOCKS.tr.data),
-}
-
-export const ArtModel = Template.bind({})
-ArtModel.args = {
-  model: sample(ART_MOCKS.tr.data),
 }
 
 export const BlogModel = Template.bind({})

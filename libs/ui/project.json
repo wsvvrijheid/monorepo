@@ -11,6 +11,9 @@
         "commands": [
           {
             "command": "tsc --noEmit -p libs/ui/tsconfig.json"
+          },
+          {
+            "command": "tsc --noEmit -p libs/ui/.storybook/tsconfig.json"
           }
         ]
       }

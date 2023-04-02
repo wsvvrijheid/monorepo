@@ -1,4 +1,5 @@
 import { Tr } from '@chakra-ui/react'
+
 import { StrapiModel } from '@wsvvrijheid/types'
 
 import { CellConfig, WTableRowProps } from './types'

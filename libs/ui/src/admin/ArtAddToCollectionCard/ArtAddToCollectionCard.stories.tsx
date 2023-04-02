@@ -3,10 +3,11 @@ import { useState } from 'react'
 import { SimpleGrid, Stack, Text } from '@chakra-ui/react'
 import { Meta, Story } from '@storybook/react'
 import { useMutation } from '@tanstack/react-query'
+import { sample, shuffle } from 'lodash'
+
 import { ART_MOCKS } from '@wsvvrijheid/mocks'
 import { Art, Collection } from '@wsvvrijheid/types'
 import { sleep } from '@wsvvrijheid/utils'
-import { sample, shuffle } from 'lodash'
 
 import { ArtAddToCollectionCard } from './ArtAddToCollectionCard'
 import { ArtAddToCollectionCardProps } from './types'
@@ -18,17 +19,19 @@ const COLLECTION_MOCK: Collection = {
   approvalStatus: 'pending',
   locale: 'tr',
   description: 'Collection 1',
+  content: 'Collection Content 1',
+  date: new Date().toISOString(),
   createdAt: new Date().toISOString(),
   updatedAt: new Date().toISOString(),
   publishedAt: new Date().toISOString(),
-  arts: shuffle(ART_MOCKS.tr.data).slice(0, 3),
+  arts: shuffle(ART_MOCKS.data).slice(0, 3),
 }
 
 export default {
   title: 'Admin/ArtAddToCollectionCard',
   component: ArtAddToCollectionCard,
   args: {
-    art: sample(ART_MOCKS.tr.data),
+    art: sample(ART_MOCKS.data),
   },
 } as Meta<ArtAddToCollectionCardProps>
 
@@ -82,7 +85,7 @@ const GridTemplate: Story<ArtAddToCollectionCardProps> = args => {
         Collection has {collection.arts?.length} arts
       </Text>
       <SimpleGrid minChildWidth="300px" spacing="10px">
-        {ART_MOCKS.tr.data.map(art => {
+        {ART_MOCKS.data.map(art => {
           const isAdded = collection.arts?.some(a => a.id === art.id) || false
           const isLoading =
             artToBeMutated?.id === art.id &&

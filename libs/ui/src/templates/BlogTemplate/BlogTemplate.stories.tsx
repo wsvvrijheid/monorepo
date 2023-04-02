@@ -1,4 +1,5 @@
 import { Story, Meta } from '@storybook/react'
+
 import { BLOG_MOCKS } from '@wsvvrijheid/mocks'
 
 import { BlogTemplate, BlogTemplateProps } from './BlogTemplate'
@@ -29,6 +30,7 @@ const Template: Story<BlogTemplateProps> = args => {
 
   const blogs = BLOG_MOCKS.tr?.data || []
   const seo = blogSeo.tr
+
   return <BlogTemplate seo={args.seo || seo} blogs={args.blogs || blogs} />
 }
 

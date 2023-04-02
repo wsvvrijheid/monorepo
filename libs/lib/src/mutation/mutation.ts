@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 import { API_URL } from '@wsvvrijheid/config'
 import {
   StrapiCreateInput,
@@ -8,7 +10,6 @@ import {
   StrapiUrl,
 } from '@wsvvrijheid/types'
 import { generateFormData } from '@wsvvrijheid/utils'
-import axios from 'axios'
 
 type Method = 'post' | 'put' | 'delete' | 'localize'
 
@@ -69,6 +70,7 @@ export const mutation = async <
         baseURL: API_URL,
       },
     )
+
     return response.data?.data || null
   }
 
@@ -97,6 +99,7 @@ export const mutation = async <
     return response.data?.data || null
   } catch (error) {
     console.log('Mutation error', error)
+
     return null
   }
 }

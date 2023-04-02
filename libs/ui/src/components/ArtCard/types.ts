@@ -2,6 +2,7 @@ import { ComponentProps } from 'react'
 
 import { Button } from '@chakra-ui/react'
 import { QueryKey } from '@tanstack/react-query'
+
 import { Art, StrapiLocale, UploadFile } from '@wsvvrijheid/types'
 
 export type ArtActionType = 'delete' | 'publish' | 'unpublish'

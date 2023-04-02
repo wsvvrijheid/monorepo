@@ -1,6 +1,7 @@
 import { FC, LegacyRef } from 'react'
 
 import { Center, Spinner } from '@chakra-ui/react'
+
 import { Collection } from '@wsvvrijheid/types'
 
 import { CollectionBook, Container } from '../../components'

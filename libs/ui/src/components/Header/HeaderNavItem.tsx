@@ -9,8 +9,9 @@ import {
   PopoverTrigger,
   Stack,
 } from '@chakra-ui/react'
-import { StrapiLocale } from '@wsvvrijheid/types'
 import { useRouter } from 'next/router'
+
+import { StrapiLocale } from '@wsvvrijheid/types'
 
 import { HeaderNavItemProps, MenuTypeItemProps } from './types'
 import { useScroll } from '../../hooks'

@@ -1,6 +1,7 @@
 import { ReactElement } from 'react'
 
 import { ButtonProps } from '@chakra-ui/react'
+
 import { TopicBase } from '@wsvvrijheid/types'
 
 export type TopicCardProps = {

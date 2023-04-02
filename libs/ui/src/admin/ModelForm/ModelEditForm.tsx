@@ -10,19 +10,6 @@ import {
   Wrap,
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
-import {
-  useApproveModel,
-  useDeleteModel,
-  usePublishModel,
-  useUnpublishModel,
-  useUpdateModelMutation,
-} from '@wsvvrijheid/services'
-import {
-  StrapiModel,
-  StrapiTranslatableModel,
-  StrapiTranslatableUpdateInput,
-  StrapiUrl,
-} from '@wsvvrijheid/types'
 import { capitalize } from 'lodash'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
@@ -37,6 +24,20 @@ import {
   MdOutlineUnpublished,
 } from 'react-icons/md'
 import { InferType } from 'yup'
+
+import {
+  useApproveModel,
+  useDeleteModel,
+  usePublishModel,
+  useUnpublishModel,
+  useUpdateModelMutation,
+} from '@wsvvrijheid/services'
+import {
+  StrapiModel,
+  StrapiTranslatableModel,
+  StrapiTranslatableUpdateInput,
+  StrapiUrl,
+} from '@wsvvrijheid/types'
 
 import { ModelImage } from './ModelImage'
 import { ModelSelect } from './ModelSelect'

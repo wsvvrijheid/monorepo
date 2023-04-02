@@ -62,6 +62,7 @@ export const AdminNavItem: FC<AdminNavItemProps> = memo(
           <Collapse in={open}>
             {submenu?.map((item, index) => {
               const isSubmenuLinkActive = router.asPath === item.link
+
               return (
                 <Box key={index}>
                   <Navigate

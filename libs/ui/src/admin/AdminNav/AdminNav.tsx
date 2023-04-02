@@ -1,7 +1,6 @@
 import { FC, memo } from 'react'
 
 import { Stack } from '@chakra-ui/react'
-import { SessionUser } from '@wsvvrijheid/types'
 import { useTranslation } from 'next-i18next'
 import { BiLandscape } from 'react-icons/bi'
 import {
@@ -31,6 +30,8 @@ import {
   TbWriting,
   TbX,
 } from 'react-icons/tb'
+
+import { SessionUser } from '@wsvvrijheid/types'
 
 import { AdminNavItem } from './AdminNavItem'
 import { AdminNavItemCollapsed } from './AdminNavItemCollapsed'

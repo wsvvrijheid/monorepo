@@ -1,5 +1,8 @@
 import { useMemo } from 'react'
 
+import { format } from 'date-fns'
+import { useRouter } from 'next/router'
+
 import {
   Activity,
   Category,
@@ -11,8 +14,6 @@ import {
   StrapiTranslatableModel,
   User,
 } from '@wsvvrijheid/types'
-import { format } from 'date-fns'
-import { useRouter } from 'next/router'
 
 import { FormFields } from './types'
 

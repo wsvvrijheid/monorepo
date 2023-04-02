@@ -4,9 +4,7 @@ import {
   MenuItemOption,
   MenuOptionGroup,
 } from '@chakra-ui/react'
-import { ComponentStory, ComponentMeta } from '@storybook/react'
-import { StrapiLocale } from '@wsvvrijheid/types'
-import { useRouter } from 'next/router'
+import { ComponentMeta, ComponentStory } from '@storybook/react'
 import { FaArrowUp } from 'react-icons/fa'
 
 import { PageHeader } from './index'
@@ -17,17 +15,13 @@ export default {
 } as ComponentMeta<typeof PageHeader>
 
 const Template: ComponentStory<typeof PageHeader> = args => {
-  const { locale } = useRouter()
-  return <PageHeader {...args} defaultLocale={locale as StrapiLocale} />
+  return <PageHeader {...args} />
 }
 
 export const Default = Template.bind({})
 Default.args = {
   onSearch: (item: string | null) => {
     alert(item)
-  },
-  onLanguageSwitch: (locale: StrapiLocale) => {
-    alert('Laguage changed to ' + locale)
   },
   filterMenu: (
     <MenuOptionGroup

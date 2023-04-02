@@ -1,6 +1,7 @@
 import { useState } from 'react'
 
 import { ComponentStory, ComponentMeta } from '@storybook/react'
+
 import { ART_MOCKS, USER_MOCKS } from '@wsvvrijheid/mocks'
 
 import { ArtCardBase } from './ArtCardBase'
@@ -11,7 +12,7 @@ export default {
   component: ArtCardBase,
   title: 'Shared/ArtCardBase',
   args: {
-    art: ART_MOCKS.tr.data[0],
+    art: ART_MOCKS.data[0],
   },
   decorators: [
     Story => (
@@ -88,5 +89,5 @@ Owner.args = {
 export const Unpublished = Template.bind({})
 Unpublished.args = {
   isOwner: true,
-  art: ART_MOCKS.tr.data[1],
+  art: ART_MOCKS.data[1],
 }

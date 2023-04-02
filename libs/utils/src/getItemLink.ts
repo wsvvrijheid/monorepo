@@ -16,6 +16,7 @@ export const getItemLink = (
 
   if (!item) {
     console.error('Missing item:', type, item)
+
     return null
   }
 
@@ -23,6 +24,7 @@ export const getItemLink = (
     case 'post':
       if (!post.hashtag?.slug) {
         console.error('Missing slug for post:', type, post)
+
         return null
       }
       itemUrl = `/${locale}/${getMainPageLink('hashtag')}/${
@@ -32,6 +34,7 @@ export const getItemLink = (
     case 'hashtag':
       if (!hashtag.slug) {
         console.error('Missing slug for post:', type, hashtag)
+
         return null
       }
       itemUrl = `/${locale}/${getMainPageLink('hashtag')}/${hashtag?.slug}`

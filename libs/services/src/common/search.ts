@@ -1,4 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
+import { parse } from 'qs'
+
 import { Request } from '@wsvvrijheid/lib'
 import {
   ApprovalStatus,
@@ -7,7 +9,6 @@ import {
   StrapiModel,
   StrapiUrl,
 } from '@wsvvrijheid/types'
-import { parse } from 'qs'
 
 export type SearchModelArgs<T extends StrapiModel> = {
   capsStatuses?: ApprovalStatus[]

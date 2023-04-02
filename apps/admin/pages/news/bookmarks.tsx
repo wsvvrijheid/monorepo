@@ -1,12 +1,13 @@
 import { FC } from 'react'
 
 import { SimpleGrid } from '@chakra-ui/react'
-import { TopicBase } from '@wsvvrijheid/types'
-import { AdminLayout, TopicCard } from '@wsvvrijheid/ui'
 import { InferGetStaticPropsType } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
 import { useLocalStorage } from 'usehooks-ts'
+
+import { TopicBase } from '@wsvvrijheid/types'
+import { AdminLayout, TopicCard } from '@wsvvrijheid/ui'
 
 import i18nConfig from '../../next-i18next.config'
 

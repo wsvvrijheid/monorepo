@@ -14,9 +14,10 @@ import {
   ModalHeader,
   ModalOverlay,
 } from '@chakra-ui/react'
+import { AiOutlineArrowLeft, AiOutlineCheck } from 'react-icons/ai'
+
 import { StrapiLocale, StrapiTranslatableModel } from '@wsvvrijheid/types'
 import { mapModelLocalization } from '@wsvvrijheid/utils'
-import { AiOutlineArrowLeft, AiOutlineCheck } from 'react-icons/ai'
 
 import { TranslateAccordionItem } from './TranslateAccordionItem'
 import { TranslateForm } from './TranslateForm'

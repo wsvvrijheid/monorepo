@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 
 import { BadgeProps } from '@chakra-ui/react'
 import { Meta, Story } from '@storybook/react'
+
 import { ART_MOCKS, CATEGORY_MOCKS, USER_MOCKS } from '@wsvvrijheid/mocks'
 import {
   ApprovalStatus,
@@ -51,6 +52,7 @@ const Template: Story<WTableProps<StrapiModel>> = args => {
             : -1
           : bValue.localeCompare(aValue)
       }
+
       return 0
     })
 
@@ -64,7 +66,7 @@ const Template: Story<WTableProps<StrapiModel>> = args => {
 
 export const Arts = Template.bind({})
 Arts.args = {
-  data: ART_MOCKS.tr.data,
+  data: ART_MOCKS.data,
   columns: {
     image: {
       type: 'image',
@@ -79,6 +81,7 @@ Arts.args = {
           pending: 'yellow',
           rejected: 'red',
         }
+
         return {
           variant: 'outline',
           colorScheme: colorScheme[value as ApprovalStatus],
@@ -114,6 +117,7 @@ Users.args = {
           Authenticated: 'purple',
           Editor: 'green',
         }
+
         return {
           variant: 'outline',
           colorScheme: colorScheme[value as RoleName],
@@ -129,7 +133,7 @@ Categories.args = {
   columns: {
     name_en: {},
     arts: {
-      transform: value => (value as Art[]).length,
+      transform: (value: Art[]) => value.length,
     },
   },
 } as WTableProps<Category>

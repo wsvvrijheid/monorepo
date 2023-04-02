@@ -9,10 +9,11 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@chakra-ui/react'
+import { AiFillDelete, AiOutlineShareAlt } from 'react-icons/ai'
+
 import { API_URL } from '@wsvvrijheid/config'
 import { useDeleteModel } from '@wsvvrijheid/services'
 import { Post, RecommendedTweet } from '@wsvvrijheid/types'
-import { AiFillDelete, AiOutlineShareAlt } from 'react-icons/ai'
 
 import { ShareButtons, WConfirm, WConfirmProps } from '../../components'
 import { postFields, postSchema } from '../../data'

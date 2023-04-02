@@ -1,4 +1,5 @@
 import { createMollieClient } from '@mollie/api-client'
+
 import { MOLLIE_KEY } from '@wsvvrijheid/config'
 
 // https://github.com/mollie/mollie-api-node#a-note-on-use-outside-of-nodejs

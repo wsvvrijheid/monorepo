@@ -1,15 +1,16 @@
 import { FC } from 'react'
 
 import { Box, Button, Heading, Stack, Text } from '@chakra-ui/react'
-import { searchModel } from '@wsvvrijheid/services'
-import { Hashtag, StrapiLocale } from '@wsvvrijheid/types'
-import { Container, Navigate } from '@wsvvrijheid/ui'
-import { getItemLink } from '@wsvvrijheid/utils'
 import { isPast } from 'date-fns'
 import { GetStaticProps } from 'next'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
+
+import { searchModel } from '@wsvvrijheid/services'
+import { Hashtag, StrapiLocale } from '@wsvvrijheid/types'
+import { Container, Navigate } from '@wsvvrijheid/ui'
+import { getItemLink } from '@wsvvrijheid/utils'
 
 import { HashtagAnnouncement, Layout } from '../components'
 import { HashtagsSummary } from '../components/HashtagsSummary/HashtagsSummary'

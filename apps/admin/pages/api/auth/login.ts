@@ -1,7 +1,8 @@
-import { sessionOptions } from '@wsvvrijheid/lib'
-import { getAuth } from '@wsvvrijheid/services'
 import { withIronSessionApiRoute } from 'iron-session/next'
 import { NextApiRequest, NextApiResponse } from 'next'
+
+import { sessionOptions } from '@wsvvrijheid/lib'
+import { getAuth } from '@wsvvrijheid/services'
 const loginRoute = async (req: NextApiRequest, res: NextApiResponse) => {
   const { identifier, password } = req.body
 
@@ -14,6 +15,7 @@ const loginRoute = async (req: NextApiRequest, res: NextApiResponse) => {
   } catch (error) {
     if (error.response?.data?.error) {
       console.error('LOGIN_AUTH_ERROR', error.response.data.error)
+
       return res
         .status(error.response.data.error.status)
         .json({ message: error.response.data.error.message })

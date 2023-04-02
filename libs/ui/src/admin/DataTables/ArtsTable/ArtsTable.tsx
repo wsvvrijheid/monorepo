@@ -1,6 +1,7 @@
 import { FC, useState } from 'react'
 
 import { useDisclosure } from '@chakra-ui/react'
+
 import { useAuthSelector } from '@wsvvrijheid/store'
 import { Art } from '@wsvvrijheid/types'
 

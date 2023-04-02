@@ -13,6 +13,10 @@ import {
   Stack,
 } from '@chakra-ui/react'
 import { useTour } from '@reactour/tour'
+import _ from 'lodash'
+import { useTranslation } from 'next-i18next'
+import { FaQuestionCircle } from 'react-icons/fa'
+
 import { useCurrentPost, useHashtag } from '@wsvvrijheid/services'
 import {
   checkSharedPosts,
@@ -21,9 +25,6 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '@wsvvrijheid/store'
-import _ from 'lodash'
-import { useTranslation } from 'next-i18next'
-import { FaQuestionCircle } from 'react-icons/fa'
 
 import { MentionList } from './Mention'
 import { PostContainer } from './PostContainer'

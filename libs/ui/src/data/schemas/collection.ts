@@ -1,5 +1,6 @@
-import { Collection } from '@wsvvrijheid/types'
 import * as yup from 'yup'
+
+import { Collection } from '@wsvvrijheid/types'
 
 import { FormFields } from '../../admin'
 

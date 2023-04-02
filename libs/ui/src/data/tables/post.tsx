@@ -39,6 +39,7 @@ export const postColumns: WTableProps<Post>['columns'] = {
         pending: 'yellow',
         rejected: 'red',
       }
+
       return {
         variant: 'outline',
         colorScheme: colorScheme[value as ApprovalStatus],
