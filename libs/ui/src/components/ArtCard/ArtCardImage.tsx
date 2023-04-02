@@ -15,6 +15,11 @@ const CardImage: FC<CardImageProps> = ({ art, isMasonry, image, locale }) => (
     src={image as UploadFile}
     alt={art?.[`title_${locale}`]}
     userSelect="none"
+    ratio={
+      art.image?.width && art.image?.height
+        ? art.image.width / art.image.height
+        : 1
+    }
   />
 )
 
