@@ -131,7 +131,7 @@ export const ArtClubTemplate: FC = () => {
               />
             </HStack>
 
-            <MasonryGrid gap={1}>
+            <MasonryGrid columnGap={2} rowGap={2}>
               {artsQuery.isLoading
                 ? Array.from({ length: 12 }).map((_, i) => (
                     <ArtCardSkeleton
