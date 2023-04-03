@@ -98,6 +98,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({
           type="submit"
           isDisabled={!isValid}
           isLoading={isLoading}
+          size={'lg'}
           w="full"
         >
           {t('contact.form.button')}
