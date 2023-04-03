@@ -21,7 +21,11 @@ export const Footer: FC<FooterProps> = ({
   const { t } = useTranslation()
 
   return (
-    <Box bg={'gray.700'} color="primary.100" pos="relative">
+    <Box
+      bgGradient={'linear(to-b, primary.500, primary.700)'}
+      color="white"
+      pos="relative"
+    >
       <Container as={Stack}>
         <Stack
           direction={{ base: 'column', lg: 'row' }}

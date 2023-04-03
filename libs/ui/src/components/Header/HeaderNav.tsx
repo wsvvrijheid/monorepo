@@ -24,9 +24,9 @@ export const HeaderNav: FC<HeaderNavProps> = ({
           color={'white'}
           fontWeight={600}
           size={'sm'}
-          bgGradient={'linear(to-r, cyan.400, blue.600)'}
+          bgGradient={'linear(to-b, primary.400, primary.600)'}
           _hover={{
-            bgGradient: 'linear(to-l, cyan.400, blue.600)',
+            bgGradient: 'linear(to-t, primary.400, primary.600)',
           }}
         >
           {t('donation.title')}
