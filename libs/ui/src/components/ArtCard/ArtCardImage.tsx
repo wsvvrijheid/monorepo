@@ -1,7 +1,8 @@
 import { FC } from 'react'
 
-import { StrapiLocale, UploadFile } from '@wsvvrijheid/types'
 import { useRouter } from 'next/router'
+
+import { StrapiLocale, UploadFile } from '@wsvvrijheid/types'
 
 import { ArtCardImageProps, CardImageProps } from './types'
 import { WImage } from '../WImage'
@@ -14,6 +15,11 @@ const CardImage: FC<CardImageProps> = ({ art, isMasonry, image, locale }) => (
     src={image as UploadFile}
     alt={art?.[`title_${locale}`]}
     userSelect="none"
+    ratio={
+      art.image?.width && art.image?.height
+        ? art.image.width / art.image.height
+        : 1
+    }
   />
 )
 

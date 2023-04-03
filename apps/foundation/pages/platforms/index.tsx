@@ -1,12 +1,13 @@
 import { FC } from 'react'
 
 import { SimpleGrid } from '@chakra-ui/react'
-import { searchModel } from '@wsvvrijheid/services'
-import { Platform } from '@wsvvrijheid/types'
-import { AnimatedBox, Container, Hero, Card } from '@wsvvrijheid/ui'
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+
+import { searchModel } from '@wsvvrijheid/services'
+import { Platform } from '@wsvvrijheid/types'
+import { AnimatedBox, Container, Hero, Card } from '@wsvvrijheid/ui'
 
 import { Layout } from '../../components'
 import i18nConfig from '../../next-i18next.config'
@@ -59,6 +60,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
       tr: 'Platformlar',
     },
   }
+
   return {
     props: {
       ...(await serverSideTranslations(locale, ['common'], i18nConfig)),

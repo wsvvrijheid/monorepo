@@ -1,7 +1,8 @@
-import { StrapiLocale } from '@wsvvrijheid/types'
 import * as dateFns from 'date-fns'
 import { enIN as en, nl, tr } from 'date-fns/locale'
 import { useRouter } from 'next/router'
+
+import { StrapiLocale } from '@wsvvrijheid/types'
 export const timeLocale = { en, nl, tr }
 
 export const useLocaleTimeFormat = (time: string, format: string) => {

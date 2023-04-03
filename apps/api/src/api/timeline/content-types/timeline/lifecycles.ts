@@ -2,6 +2,8 @@ import { getUserTweets, twitterApi } from '../../../../libs'
 
 export default {
   async afterCreate({ result }) {
+    if (process.env.IMPORTING === 'true') return
+
     try {
       const userData = await twitterApi.v1.user({
         screen_name: result.username,
@@ -20,7 +22,7 @@ export default {
         },
       })
     } catch (error) {
-      console.log('Error updating user tweet', error)
+      console.log('Error updating user tweet', error.message)
     }
   },
 }

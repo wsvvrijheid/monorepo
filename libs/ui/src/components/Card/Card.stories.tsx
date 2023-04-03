@@ -1,6 +1,7 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react'
-import { PLATFORM_MOCKS } from '@wsvvrijheid/mocks'
+import { Meta, StoryFn } from '@storybook/react'
 import { sample } from 'lodash'
+
+import { PLATFORM_MOCKS } from '@wsvvrijheid/mocks'
 
 import { Card } from './Card'
 import { Container } from '../Container'
@@ -15,9 +16,9 @@ export default {
       </Container>
     ),
   ],
-} as ComponentMeta<typeof Card>
+} as Meta<typeof Card>
 
-const Template: ComponentStory<typeof Card> = args => {
+const Template: StoryFn<typeof Card> = args => {
   return <Card {...args} />
 }
 

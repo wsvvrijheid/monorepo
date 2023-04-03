@@ -1,4 +1,5 @@
 import { StackProps } from '@chakra-ui/react'
+
 import { Tweet } from '@wsvvrijheid/types'
 
 import { TweetContentProps } from '../TweetContent'

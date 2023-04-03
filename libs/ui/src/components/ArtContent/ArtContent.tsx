@@ -9,7 +9,7 @@ interface ArtContentProps {
   artistName: string
   artistAvatar?: string
   artistProfilePath: string
-  content: string
+  description: string
 }
 
 export const ArtContent: FC<ArtContentProps> = ({
@@ -17,7 +17,7 @@ export const ArtContent: FC<ArtContentProps> = ({
   artistName,
   artistAvatar,
   artistProfilePath,
-  content,
+  description,
 }) => {
   return (
     <Stack p={4} spacing={4} borderRadius="sm" bg="white" boxShadow="base">
@@ -35,7 +35,7 @@ export const ArtContent: FC<ArtContentProps> = ({
 
       {/* TODO Does it supposed to be markdown?  */}
       <Text fontSize="md" lineHeight={6}>
-        {content}
+        {description}
       </Text>
     </Stack>
   )

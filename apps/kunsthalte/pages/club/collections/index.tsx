@@ -1,10 +1,11 @@
 import { SimpleGrid } from '@chakra-ui/react'
-import { searchModel } from '@wsvvrijheid/services'
-import { Collection, StrapiLocale } from '@wsvvrijheid/types'
-import { Card, Container, Hero } from '@wsvvrijheid/ui'
 import { GetStaticPropsContext, InferGetStaticPropsType, NextPage } from 'next'
 import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+
+import { searchModel } from '@wsvvrijheid/services'
+import { Collection, StrapiLocale } from '@wsvvrijheid/types'
+import { Card, Container, Hero } from '@wsvvrijheid/ui'
 
 import { Layout } from '../../../components'
 import i18nConfig from '../../../next-i18next.config'
@@ -16,6 +17,7 @@ const CollectionsPage: NextPage<CollectionsPageProps> = ({
   collections,
 }) => {
   const { locale } = useRouter()
+
   return (
     <Layout seo={seo} isDark>
       <Hero title={seo.title} />

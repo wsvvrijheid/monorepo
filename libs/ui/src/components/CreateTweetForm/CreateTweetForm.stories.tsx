@@ -1,11 +1,12 @@
 import { Box, Button, useDisclosure } from '@chakra-ui/react'
 import { Meta, Story } from '@storybook/react'
+
 import { TWEET_MOCKS } from '@wsvvrijheid/mocks'
 import { useRecommendTweet } from '@wsvvrijheid/services'
-import { RecommendedTweetCreateInput, Tweet } from '@wsvvrijheid/types'
+import { RecommendedTweetCreateInput } from '@wsvvrijheid/types'
 
 import { CreateTweetForm } from './CreateTweetForm'
-import { CreateTweetFormProps } from './types'
+import { CreateTweetFormFieldValues, CreateTweetFormProps } from './types'
 
 export default {
   title: 'Forms/CreateTweetForm',
@@ -20,16 +21,11 @@ const Template: Story<CreateTweetFormProps> = args => {
 
   const { mutateAsync } = useRecommendTweet()
 
-  const handleSubmit = async (
-    text: string,
-    originalTweet: Tweet,
-    mentions: number[],
-    image?: File,
-  ) => {
+  const handleSubmit = async (data: CreateTweetFormFieldValues) => {
     const recommendedTweet: RecommendedTweetCreateInput = {
-      originalTweet: JSON.parse(JSON.stringify(originalTweet)),
-      image,
-      text,
+      originalTweet: JSON.parse(JSON.stringify(args.originalTweet)),
+      image: data.image,
+      text: data.text,
       mentions: [],
     }
 

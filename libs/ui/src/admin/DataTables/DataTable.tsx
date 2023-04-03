@@ -1,6 +1,7 @@
 import { Box, Spacer, Stack } from '@chakra-ui/react'
-import { StrapiModel } from '@wsvvrijheid/types'
 import { useTranslation } from 'next-i18next'
+
+import { StrapiModel } from '@wsvvrijheid/types'
 
 import { DataTableProps } from './types'
 import { Pagination, WTable } from '../../components'

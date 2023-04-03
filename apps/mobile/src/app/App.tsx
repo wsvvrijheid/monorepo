@@ -1,7 +1,6 @@
 /* eslint-disable jsx-a11y/accessible-emoji */
 import React, { useRef } from 'react'
 
-import { store } from '@wsvvrijheid/store'
 import {
   SafeAreaView,
   ScrollView,
@@ -11,6 +10,8 @@ import {
   View,
 } from 'react-native'
 import { Provider } from 'react-redux'
+
+import { store } from '@wsvvrijheid/store'
 
 import Content from './Content'
 

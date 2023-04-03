@@ -42,7 +42,7 @@ export const Pagination: FC<PaginationProps> = ({
       <IconButton
         aria-label="Previous page"
         icon={<TbChevronLeft />}
-        disabled={currentPage === 1}
+        isDisabled={currentPage === 1}
         onClick={onPrevious}
       />
       {paginationRange.map(pageNumber => {
@@ -71,7 +71,7 @@ export const Pagination: FC<PaginationProps> = ({
       <IconButton
         aria-label="Next page"
         icon={<TbChevronRight />}
-        disabled={lastPage === currentPage}
+        isDisabled={lastPage === currentPage}
         onClick={onNext}
       />
     </ButtonGroup>

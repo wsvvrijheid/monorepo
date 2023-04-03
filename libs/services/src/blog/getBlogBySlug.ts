@@ -1,8 +1,9 @@
 import { useQuery } from '@tanstack/react-query'
-import { Request } from '@wsvvrijheid/lib'
-import { Blog, StrapiLocale } from '@wsvvrijheid/types'
 import { useRouter } from 'next/router'
 import { SetRequired } from 'type-fest'
+
+import { Request } from '@wsvvrijheid/lib'
+import { Blog, StrapiLocale } from '@wsvvrijheid/types'
 
 export const getBlogBySlug = async (
   locale: StrapiLocale,

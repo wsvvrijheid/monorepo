@@ -13,9 +13,10 @@ import {
   Spinner,
   Stack,
 } from '@chakra-ui/react'
+import { useRouter } from 'next/router'
+
 import { useSearchModel } from '@wsvvrijheid/services'
 import { Art, StrapiLocale } from '@wsvvrijheid/types'
-import { useRouter } from 'next/router'
 
 import { ArtAddToCollectionGrid } from './ArtAddToCollectionGrid'
 import { ArtAddToCollectionModalProps } from './types'

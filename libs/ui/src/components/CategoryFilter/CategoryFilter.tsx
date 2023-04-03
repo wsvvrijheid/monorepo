@@ -9,9 +9,10 @@ import {
   Text,
   useCheckboxGroup,
 } from '@chakra-ui/react'
-import { Category, StrapiLocale } from '@wsvvrijheid/types'
 import { RiFilterOffLine } from 'react-icons/ri'
 import { useDebounce } from 'react-use'
+
+import { Category, StrapiLocale } from '@wsvvrijheid/types'
 
 import { CategoryFilterCheckbox } from './CategoryFilterCheckbox'
 

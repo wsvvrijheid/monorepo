@@ -1,5 +1,11 @@
 import { Box, Button, Heading, Link, Stack, VStack } from '@chakra-ui/react'
 import { useMutation } from '@tanstack/react-query'
+import { useTranslation } from 'next-i18next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { NextSeoProps } from 'next-seo'
+import { FaWhatsapp } from 'react-icons/fa'
+import { MdEmail, MdLocationOn, MdPhone } from 'react-icons/md'
+
 import { EMAIL_SENDER, socialLinks, TOKEN } from '@wsvvrijheid/config'
 import { sendEmail } from '@wsvvrijheid/services'
 import { EmailCreateInput } from '@wsvvrijheid/types'
@@ -9,11 +15,6 @@ import {
   Container,
   SocialButtons,
 } from '@wsvvrijheid/ui'
-import { useTranslation } from 'next-i18next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { NextSeoProps } from 'next-seo'
-import { FaWhatsapp } from 'react-icons/fa'
-import { MdEmail, MdLocationOn, MdPhone } from 'react-icons/md'
 
 import { Layout } from '../components'
 import i18nConfig from '../next-i18next.config'
@@ -44,8 +45,10 @@ const Contact = ({ seo }: ContactProps): JSX.Element => {
       text: data.message,
       from: EMAIL_SENDER,
     }
+
     return sendForm(emailData)
   }
+
   return (
     <Layout seo={seo}>
       <Box
@@ -61,7 +64,7 @@ const Contact = ({ seo }: ContactProps): JSX.Element => {
             minH="inherit"
           >
             <VStack
-              bg="gray.700"
+              bgGradient={'linear(to-b, primary.400, primary.600)'}
               borderRadius="lg"
               p={{ base: 8, lg: 16 }}
               w={'full'}
@@ -69,7 +72,7 @@ const Contact = ({ seo }: ContactProps): JSX.Element => {
               justify="center"
               spacing={{ base: 8, lg: 16 }}
             >
-              <Heading>{t('samenvvv')}</Heading>
+              <Heading color={'primary.50'}>{t('samenvvv')}</Heading>
               <VStack alignItems="flex-start" color="primary.50">
                 <Button
                   as={Link}
@@ -77,10 +80,8 @@ const Contact = ({ seo }: ContactProps): JSX.Element => {
                   borderWidth={2}
                   borderColor="transparent"
                   variant="ghost"
-                  _hover={{ borderColor: 'primary.400' }}
-                  leftIcon={
-                    <Box as={MdPhone} color="primary.400" size="20px" />
-                  }
+                  _hover={{ borderColor: 'primary.50' }}
+                  leftIcon={<Box as={MdPhone} color="primary.50" size="20px" />}
                   href="tel:+31685221308"
                 >
                   +31-6 85221308
@@ -91,9 +92,9 @@ const Contact = ({ seo }: ContactProps): JSX.Element => {
                   borderWidth={2}
                   borderColor="transparent"
                   variant="ghost"
-                  _hover={{ borderColor: 'primary.400' }}
+                  _hover={{ borderColor: 'primary.50' }}
                   leftIcon={
-                    <Box as={FaWhatsapp} color="primary.400" size="20px" />
+                    <Box as={FaWhatsapp} color="primary.50" size="20px" />
                   }
                   href="https://api.whatsapp.com/send?phone=31685221308"
                 >
@@ -105,10 +106,8 @@ const Contact = ({ seo }: ContactProps): JSX.Element => {
                   borderWidth={2}
                   borderColor="transparent"
                   variant="ghost"
-                  _hover={{ borderColor: 'primary.400' }}
-                  leftIcon={
-                    <Box as={MdEmail} color="primary.400" size="20px" />
-                  }
+                  _hover={{ borderColor: 'primary.50' }}
+                  leftIcon={<Box as={MdEmail} color="primary.50" size="20px" />}
                   href="mailto:info@samenvvv.nl"
                 >
                   info@samenvvv.nl
@@ -119,9 +118,9 @@ const Contact = ({ seo }: ContactProps): JSX.Element => {
                   borderWidth={2}
                   borderColor="transparent"
                   variant="ghost"
-                  _hover={{ borderColor: 'primary.400' }}
+                  _hover={{ borderColor: 'primary.50' }}
                   leftIcon={
-                    <Box as={MdLocationOn} color="primary.400" size="20px" />
+                    <Box as={MdLocationOn} color="primary.50" size="20px" />
                   }
                   href="https://goo.gl/maps/E9HaayQnXmphUWtN8"
                 >

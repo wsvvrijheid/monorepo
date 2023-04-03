@@ -2,12 +2,13 @@ import { useEffect, useState } from 'react'
 import { useRef } from 'react'
 
 import { useBreakpointValue } from '@chakra-ui/react'
-import { getCollectionBySlug, getModelStaticPaths } from '@wsvvrijheid/services'
-import { Collection, StrapiLocale } from '@wsvvrijheid/types'
-import { CollectionTemplate } from '@wsvvrijheid/ui'
 import { GetStaticPaths } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
+
+import { getCollectionBySlug, getModelStaticPaths } from '@wsvvrijheid/services'
+import { Collection, StrapiLocale } from '@wsvvrijheid/types'
+import { CollectionTemplate } from '@wsvvrijheid/ui'
 
 import { Layout } from '../../../components/Layout'
 import i18nConfig from '../../../next-i18next.config'
@@ -71,6 +72,7 @@ export const getStaticProps = async context => {
   const slugs =
     collection.localizations?.reduce((acc, l) => {
       acc[l.locale] = l.slug
+
       return acc
     }, {}) || {}
 

@@ -1,8 +1,9 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { API_URL, TOKEN } from '@wsvvrijheid/config'
-import { Mention, StrapiLocale } from '@wsvvrijheid/types'
 import axios from 'axios'
 import { UserV1 } from 'twitter-api-v2'
+
+import { API_URL, TOKEN } from '@wsvvrijheid/config'
+import { Mention, StrapiLocale } from '@wsvvrijheid/types'
 
 const LOCAL_STORAGE_MENTIONS_KEY = 'mentions'
 const LOCAL_STORAGE_SHARED_POSTS_KEY = 'sharedPosts'
@@ -100,7 +101,7 @@ export const fetchSearchedMentions = createAsyncThunk(
     return rawData.sort((a, b) => b.followers_count - a.followers_count)
   },
 )
-//?locale=${locale}&filters[hashtags][slug][$eqi]=${slug}
+// ?locale=${locale}&filters[hashtags][slug][$eqi]=${slug}
 export const fetchMentions = createAsyncThunk(
   'post/mentions',
 

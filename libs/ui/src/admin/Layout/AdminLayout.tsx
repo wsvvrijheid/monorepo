@@ -11,16 +11,17 @@ import {
   Tooltip,
   useBoolean,
 } from '@chakra-ui/react'
-import {
-  destroyAuth,
-  useAppDispatch,
-  useAuthSelector,
-} from '@wsvvrijheid/store'
 import { useRouter } from 'next/router'
 import { NextSeo, NextSeoProps } from 'next-seo'
 import { FaArrowLeft } from 'react-icons/fa'
 import { MdOutlineNotifications } from 'react-icons/md'
 import { useLocalStorage } from 'usehooks-ts'
+
+import {
+  destroyAuth,
+  useAppDispatch,
+  useAuthSelector,
+} from '@wsvvrijheid/store'
 
 import { AdminSidebar } from '../AdminSidebar'
 import { CreateModelButton } from '../CreateModelButton'

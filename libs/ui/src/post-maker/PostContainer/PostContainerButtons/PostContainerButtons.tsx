@@ -1,7 +1,11 @@
 import { useCallback } from 'react'
 
-import { Button, SimpleGrid, Link } from '@chakra-ui/react'
+import { Button, Link, SimpleGrid } from '@chakra-ui/react'
 import { useQueryClient } from '@tanstack/react-query'
+import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
+import { FaAt, FaRandom, FaTwitter } from 'react-icons/fa'
+
 import { SITE_URL } from '@wsvvrijheid/config'
 import { setRandomPost, useCurrentPost } from '@wsvvrijheid/services'
 import {
@@ -11,9 +15,6 @@ import {
   useAppSelector,
 } from '@wsvvrijheid/store'
 import { StrapiLocale } from '@wsvvrijheid/types'
-import { useRouter } from 'next/router'
-import { useTranslation } from 'next-i18next'
-import { FaAt, FaRandom, FaTwitter } from 'react-icons/fa'
 
 export const PostContainerButtons = () => {
   const queryClient = useQueryClient()
@@ -95,22 +96,6 @@ export const PostContainerButtons = () => {
           {t('post.share-tweet')}
         </Button>
       </Link>
-      {/* <TwitterShareButton title={postContent} url={postUrlAbsolute as string}>
-        <Button
-          data-tour="step-share-button"
-          data-tour-mob="step-share-button"
-          as="span"
-          w="full"
-          rounded="full"
-          colorScheme="twitter"
-          rightIcon={<FaTwitter />}
-          isDisabled={isExceeded}
-          disabled={isExceeded}
-          onClick={onAddShare}
-        >
-          {t('post.share-tweet')}
-        </Button>
-      </TwitterShareButton> */}
     </SimpleGrid>
   )
 }

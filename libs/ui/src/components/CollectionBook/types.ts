@@ -1,8 +1,9 @@
 import { ComponentProps, PropsWithChildren } from 'react'
 
 import { CenterProps } from '@chakra-ui/react'
-import { Collection } from '@wsvvrijheid/types'
 import HTMLFlipBook from 'react-pageflip'
+
+import { Collection } from '@wsvvrijheid/types'
 
 export interface CollectionBookProps {
   collection: Collection

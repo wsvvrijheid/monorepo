@@ -1,10 +1,11 @@
 import { useCallback, useEffect } from 'react'
 
+import { sample } from 'lodash'
+import { useRouter } from 'next/router'
+
 import { DEFAULT_POST_SENTENCES } from '@wsvvrijheid/config'
 import { setPostText, useAppDispatch, useAppSelector } from '@wsvvrijheid/store'
 import { StrapiLocale } from '@wsvvrijheid/types'
-import { sample } from 'lodash'
-import { useRouter } from 'next/router'
 
 export const useRandomPostContent = (text: string) => {
   const dispatch = useAppDispatch()

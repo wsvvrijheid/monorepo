@@ -44,7 +44,7 @@ import {
   CompetitionLocalizeInput,
   CompetitionUpdateInput,
 } from './competition'
-import { Donate, DonateCreateInput, DonateUpdateInput } from './donate'
+import { Donation, DonationCreateInput, DonationUpdateInput } from './donation'
 import { EmailCreateInput } from './email'
 import {
   Feedback,
@@ -137,7 +137,7 @@ export type StrapiModel =
   | Collection
   | Comment
   | Competition
-  | Donate
+  | Donation
   | Feedback
   | Hashtag
   | Job
@@ -282,7 +282,7 @@ export type StrapiCreateInput =
   | CommentArtCreateInput
   | CommentBlogCreateInput
   | CompetitionCreateInput
-  | DonateCreateInput
+  | DonationCreateInput
   | EmailCreateInput
   | FeedbackArtCreateInput
   | FeedbackApplicationCreateInput
@@ -308,7 +308,7 @@ export type StrapiUpdateInput =
   | BlogUpdateInput
   | CollectionUpdateInput
   | CompetitionUpdateInput
-  | DonateUpdateInput
+  | DonationUpdateInput
   | HashtagUpdateInput
   | PostUpdateInput
   | VolunteerUpdateInput

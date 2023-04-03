@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react'
 
 import { Meta, Story } from '@storybook/react'
-import { ACTIVITY_MOCKS } from '@wsvvrijheid/mocks'
 import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { serialize } from 'next-mdx-remote/serialize'
+
+import { ACTIVITY_MOCKS } from '@wsvvrijheid/mocks'
 
 import { ActivityDetail, ActivityDetailProps } from './ActivitiyDetail'
 import { Container } from '../Container'
@@ -38,6 +39,7 @@ const Template: Story<ActivityDetailProps> = args => {
   useEffect(() => {
     getSource(args?.activity?.content || '')
   }, [args.activity?.content])
+
   return <ActivityDetail {...args} source={source!} />
 }
 

@@ -7,9 +7,10 @@ import {
   ButtonGroupProps,
   Link,
 } from '@chakra-ui/react'
-import { API_URL } from '@wsvvrijheid/config'
 import { useTranslation } from 'next-i18next'
 import { FaFacebook, FaGoogle, FaInstagram, FaTwitter } from 'react-icons/fa'
+
+import { API_URL } from '@wsvvrijheid/config'
 
 import { SocialProvider, SocialProviderName } from './type'
 

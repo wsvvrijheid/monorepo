@@ -1,6 +1,7 @@
 import { FC } from 'react'
 
 import { Avatar, Center, Heading, Stack, Text } from '@chakra-ui/react'
+
 import { API_URL } from '@wsvvrijheid/config'
 import { UploadFile } from '@wsvvrijheid/types'
 

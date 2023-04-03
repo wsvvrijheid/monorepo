@@ -1,4 +1,5 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react'
+import { Meta, StoryFn } from '@storybook/react'
+
 import { TWEET_MOCKS } from '@wsvvrijheid/mocks'
 
 import { TweetWidget } from './TweetWidget'
@@ -6,9 +7,9 @@ import { TweetWidget } from './TweetWidget'
 export default {
   title: 'PostMaker/TweetWidget',
   component: TweetWidget,
-} as ComponentMeta<typeof TweetWidget>
+} as Meta<typeof TweetWidget>
 
-const Template: ComponentStory<typeof TweetWidget> = args => {
+const Template: StoryFn<typeof TweetWidget> = args => {
   return <TweetWidget {...args} />
 }
 

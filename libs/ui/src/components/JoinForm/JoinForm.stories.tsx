@@ -1,9 +1,10 @@
 import { useState } from 'react'
 
-import { Story, ComponentMeta } from '@storybook/react'
+import { Story, Meta } from '@storybook/react'
+import { useRouter } from 'next/router'
+
 import { JOB_MOCKS, PLATFORM_MOCKS } from '@wsvvrijheid/mocks'
 import { Job, StrapiLocale } from '@wsvvrijheid/types'
-import { useRouter } from 'next/router'
 
 import { JoinForm } from './JoinForm'
 import { JoinFormFieldValues, JoinFormFProps } from './types'
@@ -18,7 +19,7 @@ export default {
   argTypes: {
     locale: { control: { type: 'radio', options: ['en', 'nl', 'tr'] } },
   },
-} as ComponentMeta<typeof JoinForm>
+} as Meta<typeof JoinForm>
 
 const Template: Story<JoinFormFProps> = args => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -35,6 +36,7 @@ const Template: Story<JoinFormFProps> = args => {
     console.log({ data })
     alert(JSON.stringify(data))
   }
+
   return (
     <JoinForm
       locale={args.locale || (locale as StrapiLocale)}

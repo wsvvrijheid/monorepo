@@ -1,4 +1,4 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react'
+import { Meta, StoryFn } from '@storybook/react'
 
 import { PostContainerButtons } from './PostContainerButtons'
 import { Container } from '../../../components'
@@ -13,9 +13,9 @@ export default {
       </Container>
     ),
   ],
-} as ComponentMeta<typeof PostContainerButtons>
+} as Meta<typeof PostContainerButtons>
 
-const Template: ComponentStory<typeof PostContainerButtons> = () => {
+const Template: StoryFn<typeof PostContainerButtons> = () => {
   return <PostContainerButtons />
 }
 

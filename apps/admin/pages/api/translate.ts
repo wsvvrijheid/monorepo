@@ -1,6 +1,7 @@
-import { DEEPL_API_KEY } from '@wsvvrijheid/config'
 import axios from 'axios'
 import { NextApiRequest, NextApiResponse } from 'next'
+
+import { DEEPL_API_KEY } from '@wsvvrijheid/config'
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   const response = await axios({

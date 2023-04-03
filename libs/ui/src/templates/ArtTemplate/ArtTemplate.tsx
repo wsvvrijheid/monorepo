@@ -3,12 +3,13 @@ import { FC } from 'react'
 import { Heading, Stack, useBreakpointValue } from '@chakra-ui/react'
 import { Splide, SplideSlide } from '@splidejs/react-splide'
 import { QueryKey } from '@tanstack/react-query'
+import { useTranslation } from 'next-i18next'
+
 import {
   useArtBySlug,
   useArtsByCategories,
   useViewArtMutation,
 } from '@wsvvrijheid/services'
-import { useTranslation } from 'next-i18next'
 
 import { Container, ArtCardBase, ArtWithDetails } from '../../components'
 

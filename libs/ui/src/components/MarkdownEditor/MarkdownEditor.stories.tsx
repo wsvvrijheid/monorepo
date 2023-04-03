@@ -1,15 +1,15 @@
 /* eslint-disable @typescript-eslint/ban-types */
 
-import { ComponentMeta, ComponentStory } from '@storybook/react'
+import { Meta, StoryFn } from '@storybook/react'
 
 import MarkdownEditor from './MarkdownEditor'
 
 export default {
   component: MarkdownEditor,
   title: 'Shared/MarkdownEditor',
-} as ComponentMeta<typeof MarkdownEditor>
+} as Meta<typeof MarkdownEditor>
 
-const Template: ComponentStory<typeof MarkdownEditor> = () => {
+const Template: StoryFn<typeof MarkdownEditor> = () => {
   return <MarkdownEditor />
 }
 

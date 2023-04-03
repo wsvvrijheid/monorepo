@@ -1,24 +1,21 @@
 import { Meta, Story } from '@storybook/react'
-import { ART_MOCKS } from '@wsvvrijheid/mocks'
 import { sample } from 'lodash'
 import { useRouter } from 'next/router'
 
+import { ART_MOCKS } from '@wsvvrijheid/mocks'
+
 import { ArtWithDetails, ArtWithDetailsProps } from './ArtWithDetails'
 
-const sampleArt = sample(ART_MOCKS.tr.data)!
+const sampleArt = sample(ART_MOCKS.data)!
 
 export default {
   component: ArtWithDetails,
   title: 'Shared/ArtWithDetails',
-  parameters: {
-    nextRouter: {
-      locale: sampleArt.locale,
-    },
-  },
 } as Meta<ArtWithDetailsProps>
 
 const Template: Story<ArtWithDetailsProps> = args => {
   const { locale } = useRouter()
+
   return (
     <ArtWithDetails
       {...args}

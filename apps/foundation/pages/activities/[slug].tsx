@@ -2,17 +2,18 @@ import { FC } from 'react'
 
 import { Spinner } from '@chakra-ui/react'
 import { dehydrate } from '@tanstack/react-query'
+import { GetStaticPaths, GetStaticPropsContext } from 'next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { MDXRemoteSerializeResult } from 'next-mdx-remote'
+import { serialize } from 'next-mdx-remote/serialize'
+import { NextSeoProps } from 'next-seo'
+
 import {
   getActivityStaticProps,
   getModelStaticPaths,
 } from '@wsvvrijheid/services'
 import { StrapiLocale, UploadFile } from '@wsvvrijheid/types'
 import { ActivityDetail } from '@wsvvrijheid/ui'
-import { GetStaticPaths, GetStaticPropsContext } from 'next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { MDXRemoteSerializeResult } from 'next-mdx-remote'
-import { serialize } from 'next-mdx-remote/serialize'
-import { NextSeoProps } from 'next-seo'
 
 import { Layout } from '../../components/index'
 import i18nConfig from '../../next-i18next.config'

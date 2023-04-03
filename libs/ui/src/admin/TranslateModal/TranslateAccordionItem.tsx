@@ -12,8 +12,9 @@ import {
   Text,
   Tooltip,
 } from '@chakra-ui/react'
-import { StrapiTranslatableModel } from '@wsvvrijheid/types'
 import { BsTranslate } from 'react-icons/bs'
+
+import { StrapiTranslatableModel } from '@wsvvrijheid/types'
 
 import { TranslateAccordionItemProps } from './types'
 import { Flags } from '../../components'

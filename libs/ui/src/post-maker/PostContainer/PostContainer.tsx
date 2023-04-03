@@ -1,9 +1,10 @@
 import { FC } from 'react'
 
 import { Flex, IconButton, Stack, Text, VStack } from '@chakra-ui/react'
-import { Post } from '@wsvvrijheid/types'
 import { useTranslation } from 'next-i18next'
 import { FaRandom } from 'react-icons/fa'
+
+import { Post } from '@wsvvrijheid/types'
 
 import { CapsList } from './Caps'
 import { PostCharCount } from './PostCharCount'

@@ -1,5 +1,10 @@
 import { FC } from 'react'
 
+import { InferGetServerSidePropsType } from 'next'
+import { useRouter } from 'next/router'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { NextSeoProps } from 'next-seo'
+
 import { Hashtag } from '@wsvvrijheid/types'
 import {
   AdminLayout,
@@ -7,10 +12,6 @@ import {
   translateModelSchema,
   ModelEditTranslate,
 } from '@wsvvrijheid/ui'
-import { InferGetServerSidePropsType } from 'next'
-import { useRouter } from 'next/router'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { NextSeoProps } from 'next-seo'
 
 import i18nConfig from '../../../next-i18next.config'
 

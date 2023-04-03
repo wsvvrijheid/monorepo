@@ -55,6 +55,7 @@ export const AdminNavItemCollapsed: FC<AdminNavItemProps> = ({
             <Box>
               {submenu?.map(item => {
                 const isSubmenuLinkActive = router.asPath === item.link
+
                 return (
                   <Navigate
                     key={item.label}

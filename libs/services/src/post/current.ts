@@ -1,6 +1,7 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query'
-import { Post } from '@wsvvrijheid/types'
 import { useRouter } from 'next/router'
+
+import { Post } from '@wsvvrijheid/types'
 
 export const useCurrentPost = () => {
   const queryClient = useQueryClient()

@@ -1,9 +1,10 @@
 import { FC } from 'react'
 
 import { HStack, IconButton } from '@chakra-ui/react'
-import { Localize, StrapiLocale } from '@wsvvrijheid/types'
 import { useRouter } from 'next/router'
 import { IconType } from 'react-icons/lib'
+
+import { Localize, StrapiLocale } from '@wsvvrijheid/types'
 
 export type SocialItem = {
   label: string
@@ -33,7 +34,11 @@ export const SocialButtons: FC<SocialButtonsProps> = ({ items }) => {
           colorScheme="primary"
           borderColor="primary.200"
           color="primary.200"
-          _hover={{ bg: 'whiteAlpha.100' }}
+          _hover={{
+            bg: 'whiteAlpha.100',
+            borderColor: 'primary.50',
+            color: 'primary.50',
+          }}
         />
       ))}
     </HStack>

@@ -1,5 +1,4 @@
-import { ComponentStory, ComponentMeta } from '@storybook/react'
-import { COMMENT_MOCKS } from '@wsvvrijheid/mocks'
+import { StoryFn, Meta } from '@storybook/react'
 
 import { CommentItem } from './CommentItem'
 
@@ -7,12 +6,10 @@ export default {
   component: CommentItem,
   title: 'Shared/CommentItem',
   args: {
-    comment: COMMENT_MOCKS.data[0],
+    comment: {},
   },
-} as ComponentMeta<typeof CommentItem>
+} as Meta<typeof CommentItem>
 
-const Template: ComponentStory<typeof CommentItem> = args => (
-  <CommentItem {...args} />
-)
+const Template: StoryFn<typeof CommentItem> = args => <CommentItem {...args} />
 
 export const Default = Template.bind({})

@@ -10,8 +10,9 @@ import {
   ModalOverlay,
   useDisclosure,
 } from '@chakra-ui/react'
-import { StrapiModel } from '@wsvvrijheid/types'
 import { IoMdAdd } from 'react-icons/io'
+
+import { StrapiModel } from '@wsvvrijheid/types'
 
 import { ModelCreateForm } from '.'
 import { ModelCreateFormProps } from './types'

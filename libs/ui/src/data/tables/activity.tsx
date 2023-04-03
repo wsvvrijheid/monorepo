@@ -15,6 +15,7 @@ export const activityColumns: WTableProps<Activity>['columns'] = {
         pending: 'yellow',
         rejected: 'red',
       }
+
       return {
         variant: 'outline',
         colorScheme: colorScheme[value as ApprovalStatus],

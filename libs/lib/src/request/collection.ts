@@ -1,7 +1,8 @@
-import { API_URL, TOKEN } from '@wsvvrijheid/config'
-import { StrapiMeta, StrapiModel } from '@wsvvrijheid/types'
 import axios, { AxiosError } from 'axios'
 import qs from 'qs'
+
+import { API_URL, TOKEN } from '@wsvvrijheid/config'
+import { StrapiMeta, StrapiModel } from '@wsvvrijheid/types'
 
 import { RequestArgs } from './types'
 
@@ -56,6 +57,7 @@ export const requestCollection = async <T extends StrapiModel[]>({
     } else {
       console.error('Request error', error.message)
     }
+
     return {
       data: [] as unknown as T,
       meta: { pagination: { page: 1, pageSize: 25, pageCount: 0, total: 0 } },

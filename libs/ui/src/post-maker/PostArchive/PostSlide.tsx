@@ -2,6 +2,7 @@ import { FC, useEffect, useRef } from 'react'
 
 import { Box } from '@chakra-ui/react'
 import { Options, Splide, SplideSlide } from '@splidejs/react-splide'
+
 import { Post, UploadFile } from '@wsvvrijheid/types'
 
 import { PostImage, WImage } from '../../components'

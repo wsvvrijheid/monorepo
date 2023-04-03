@@ -1,6 +1,7 @@
 import { FC } from 'react'
 
 import { Box, Divider, Stack, useBreakpointValue } from '@chakra-ui/react'
+
 import { API_URL } from '@wsvvrijheid/config'
 import {
   RecommendedTweet,

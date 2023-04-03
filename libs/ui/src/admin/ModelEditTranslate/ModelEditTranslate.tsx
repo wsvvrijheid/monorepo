@@ -12,6 +12,13 @@ import {
   Wrap,
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { useTranslation } from 'next-i18next'
+import { useForm } from 'react-hook-form'
+import { AiOutlineEdit } from 'react-icons/ai'
+import { HiOutlineCheck } from 'react-icons/hi'
+import { MdClose, MdOutlineCheck } from 'react-icons/md'
+import { InferType } from 'yup'
+
 import {
   useApproveModel,
   useModelById,
@@ -22,12 +29,6 @@ import {
   StrapiTranslatableModel,
   StrapiTranslatableUpdateInput,
 } from '@wsvvrijheid/types'
-import { useTranslation } from 'next-i18next'
-import { useForm } from 'react-hook-form'
-import { AiOutlineEdit } from 'react-icons/ai'
-import { HiOutlineCheck } from 'react-icons/hi'
-import { MdClose, MdOutlineCheck } from 'react-icons/md'
-import { InferType } from 'yup'
 
 import { ModelEditTranslateProps, Option } from './types'
 import {
@@ -49,7 +50,7 @@ export const ModelEditTranslate = <T extends StrapiTranslatableModel>({
   pathname,
   schema,
 }: ModelEditTranslateProps<T>) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation('common')
 
   const { data: model, refetch } = useModelById<T>({ url, id })
 
@@ -122,9 +123,9 @@ export const ModelEditTranslate = <T extends StrapiTranslatableModel>({
 
   const onApprove = () => {
     setConfirmState({
-      title: t('model.approve'),
-      description: t('model.approve-prompt'),
-      buttonText: t('model.approve'),
+      title: t('model.approve') as string,
+      description: t('model.approve-prompt') as string,
+      buttonText: t('model.approve') as string,
       onConfirm: async () => {
         approveModelMutation.mutate({ id }, { onSuccess: handleSuccess })
         setConfirmState(undefined)

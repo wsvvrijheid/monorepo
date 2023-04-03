@@ -1,8 +1,9 @@
 import { FC } from 'react'
 
+import Image, { ImageProps } from 'next/image'
+
 import { API_URL } from '@wsvvrijheid/config'
 import { UploadFile } from '@wsvvrijheid/types'
-import Image, { ImageProps } from 'next/image'
 
 type StrapiImageProps = Omit<ImageProps, 'src'> & {
   image: UploadFile
