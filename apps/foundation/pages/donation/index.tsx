@@ -35,7 +35,6 @@ import { AiOutlineEuroCircle } from 'react-icons/ai'
 import { FaDonate } from 'react-icons/fa'
 import * as yup from 'yup'
 
-import { DONATION_ENABLED } from '@wsvvrijheid/config'
 import { Request } from '@wsvvrijheid/lib'
 import { Platform } from '@wsvvrijheid/types'
 import { Container, FormItem, PlatformList } from '@wsvvrijheid/ui'
@@ -284,12 +283,6 @@ const DonationPage: FC<DonationPageProps> = ({ platforms, title }) => {
 }
 
 export const getStaticProps = async context => {
-  if (!DONATION_ENABLED) {
-    return {
-      notFound: true,
-    }
-  }
-
   const platforms = await Request.collection<Platform[]>({
     url: 'api/platforms',
   })

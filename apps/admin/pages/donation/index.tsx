@@ -34,7 +34,6 @@ import { AiOutlineEuroCircle } from 'react-icons/ai'
 import { FaDonate } from 'react-icons/fa'
 import * as yup from 'yup'
 
-import { DONATION_ENABLED } from '@wsvvrijheid/config'
 import { AdminLayout, Container, FormItem } from '@wsvvrijheid/ui'
 
 function generateSchema(t) {
@@ -273,12 +272,6 @@ const DonationPage: FC<DonationPageProps> = ({ title }) => {
 }
 
 export const getStaticProps = async context => {
-  if (!DONATION_ENABLED) {
-    return {
-      notFound: true,
-    }
-  }
-
   const seo = {
     title: {
       en: 'Donation',
