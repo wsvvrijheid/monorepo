@@ -80,7 +80,7 @@ const Contact = ({ seo }: ContactProps): JSX.Element => {
             minH="inherit"
           >
             <VStack
-              bg="gray.700"
+              bgGradient={'linear(to-b, primary.400, primary.600)'}
               color="primary.50"
               borderRadius="lg"
               p={{ base: 8, lg: 12 }}
@@ -88,7 +88,7 @@ const Contact = ({ seo }: ContactProps): JSX.Element => {
               justify="space-evenly"
               spacing={8}
             >
-              <Heading fontWeight={900} as="h2" size="lg" color="primary.200">
+              <Heading fontWeight={900} as="h2" size="lg" color="primary.50">
                 {title[locale]}
               </Heading>
               <Text>{about[locale]}</Text>
@@ -100,8 +100,8 @@ const Contact = ({ seo }: ContactProps): JSX.Element => {
                 isExternal
                 variant="link"
                 color="primary.50"
-                _hover={{ color: 'primary.200' }}
-                leftIcon={<Box as={MdEmail} color="primary.200" size="20px" />}
+                _hover={{ color: 'primary.100' }}
+                leftIcon={<Box as={MdEmail} color="primary.50" size="20px" />}
                 href="mailto:kunsthalte@wsvvrijheid.nl"
               >
                 kunsthalte@wsvvrijheid.nl

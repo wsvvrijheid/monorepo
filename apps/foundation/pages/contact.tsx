@@ -60,7 +60,7 @@ const Contact = ({ seo }: ContactProps): JSX.Element => {
 
   return (
     <Layout seo={seo}>
-      <Box minH="inherit">
+      <Box minH="inherit" fontWeight={500}>
         <Container minH="inherit">
           <SimpleGrid
             my={{ base: 8, lg: 0 }}
@@ -70,7 +70,7 @@ const Contact = ({ seo }: ContactProps): JSX.Element => {
             minH="inherit"
           >
             <VStack
-              bg="gray.700"
+              bgGradient={'linear(to-b, primary.400, primary.600)'}
               color="primary.50"
               borderRadius="lg"
               p={{ base: 8, lg: 12 }}
@@ -78,7 +78,7 @@ const Contact = ({ seo }: ContactProps): JSX.Element => {
               justify="space-evenly"
               spacing={8}
             >
-              <Heading fontWeight={900} as="h2" size="lg" color="primary.200">
+              <Heading fontWeight={900} as="h2" size="lg" color="primary.50">
                 STICHTING <br /> WEES DE STEM VOOR VRIJHEID
               </Heading>
               <Divider borderColor="whiteAlpha.400" />
@@ -89,10 +89,8 @@ const Contact = ({ seo }: ContactProps): JSX.Element => {
                   isExternal
                   variant="link"
                   color="primary.50"
-                  _hover={{ color: 'primary.200' }}
-                  leftIcon={
-                    <Box as={MdPhone} color="primary.200" size="20px" />
-                  }
+                  _hover={{ color: 'primary.100' }}
+                  leftIcon={<Box as={MdPhone} color="primary.50" size="20px" />}
                   href="tel:+31685221308"
                 >
                   +31-6 85221308
@@ -102,9 +100,9 @@ const Contact = ({ seo }: ContactProps): JSX.Element => {
                   isExternal
                   variant="link"
                   color="primary.50"
-                  _hover={{ color: 'primary.200' }}
+                  _hover={{ color: 'primary.50' }}
                   leftIcon={
-                    <Box as={MdEmail} color="primary.200" size="20px" />
+                    <Box as={MdEmail} color="primary.100" size="20px" />
                   }
                   href="mailto:info@wsvvrijheid.nl"
                 >
@@ -115,9 +113,9 @@ const Contact = ({ seo }: ContactProps): JSX.Element => {
                   isExternal
                   variant="link"
                   color="primary.50"
-                  _hover={{ color: 'primary.200' }}
+                  _hover={{ color: 'primary.100' }}
                   leftIcon={
-                    <Box as={MdLocationOn} color="primary.200" size="20px" />
+                    <Box as={MdLocationOn} color="primary.50" size="20px" />
                   }
                   href="https://goo.gl/maps/E9HaayQnXmphUWtN8"
                   textAlign="left"
@@ -130,7 +128,7 @@ const Contact = ({ seo }: ContactProps): JSX.Element => {
 
               <Stack w="full" spacing={4}>
                 <Stack w="full">
-                  <Text color="blue.200" fontWeight={600}>
+                  <Text color="primary.50" fontWeight={600}>
                     {t('wsvvrijheid.management')}
                   </Text>
                   <Wrap justify="space-around" spacing={4}>
