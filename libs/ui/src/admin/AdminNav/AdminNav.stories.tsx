@@ -1,30 +1,19 @@
 import { Box, Grid } from '@chakra-ui/react'
-import { ComponentMeta, Story } from '@storybook/react'
-import { USER_MOCKS } from '@wsvvrijheid/mocks'
-import { mapSessionUser } from '@wsvvrijheid/utils'
+import { Meta, StoryFn } from '@storybook/react'
 import { sample } from 'lodash'
 
-import { AdminNav, getAdminNav } from './AdminNav'
+import { USER_MOCKS } from '@wsvvrijheid/mocks'
+import { mapSessionUser } from '@wsvvrijheid/utils'
+
+import { AdminNav } from './AdminNav'
 
 const sessionUser = mapSessionUser(sample(USER_MOCKS)!)
-const adminNav = getAdminNav(sessionUser)
-
-const navLinks = adminNav.flatMap(item => [
-  item.link,
-  ...(item.submenu?.map(sub => sub.link) ?? []),
-])
 
 export default {
   title: 'Admin/AdminNav',
   component: AdminNav,
   args: {
-    navItems: adminNav,
     user: sessionUser,
-  },
-  parameters: {
-    nextRouter: {
-      asPath: sample(navLinks),
-    },
   },
   decorators: [
     (Story: any) => (
@@ -35,9 +24,9 @@ export default {
       </Grid>
     ),
   ],
-} as unknown as ComponentMeta<typeof AdminNav>
+} as Meta<typeof AdminNav>
 
-const Template: Story = args => {
+const Template: StoryFn = args => {
   return <AdminNav user={sessionUser} {...args} />
 }
 

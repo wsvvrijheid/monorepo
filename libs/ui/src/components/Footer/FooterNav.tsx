@@ -1,14 +1,16 @@
 import { FC } from 'react'
 
 import { Stack, Text } from '@chakra-ui/react'
-import { StrapiLocale } from '@wsvvrijheid/types'
 import { useRouter } from 'next/router'
+
+import { StrapiLocale } from '@wsvvrijheid/types'
 
 import { FooterNavItem } from './FooterNavItem'
 import { FooterNavProps } from './types'
 
 export const FooterNav: FC<FooterNavProps> = ({ menu }) => {
   const { locale } = useRouter()
+
   return (
     <>
       {menu.map((item, i) => {
@@ -18,7 +20,7 @@ export const FooterNav: FC<FooterNavProps> = ({ menu }) => {
             align="center"
             marginX={4}
             fontSize="lg"
-            color={'primary.200'}
+            color={'primary.50'}
             py={4}
           >
             <Text

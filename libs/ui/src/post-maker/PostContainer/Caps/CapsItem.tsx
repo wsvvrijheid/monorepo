@@ -1,8 +1,9 @@
 import { FC, memo } from 'react'
 
 import { Box, Center } from '@chakra-ui/react'
-import { Post } from '@wsvvrijheid/types'
 import { FaCheck } from 'react-icons/fa'
+
+import { Post } from '@wsvvrijheid/types'
 
 import { PostImage } from '../../../components'
 

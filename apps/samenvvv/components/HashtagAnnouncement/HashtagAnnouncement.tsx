@@ -1,12 +1,13 @@
 import { FC } from 'react'
 
 import { Heading, SimpleGrid, Stack, Text } from '@chakra-ui/react'
+import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
+
 import { SITE_URL } from '@wsvvrijheid/config'
 import { StrapiLocale } from '@wsvvrijheid/types'
 import { Caps, Navigate, ShareButtons, useItemLink } from '@wsvvrijheid/ui'
 import { mapHashtagToOgParams } from '@wsvvrijheid/utils'
-import { useRouter } from 'next/router'
-import { useTranslation } from 'next-i18next'
 
 import { HashtagAnnouncementProps } from './types'
 

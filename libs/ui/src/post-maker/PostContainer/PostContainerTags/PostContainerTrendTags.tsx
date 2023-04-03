@@ -6,13 +6,14 @@ import {
   Text,
   Wrap,
 } from '@chakra-ui/react'
+import { useTranslation } from 'next-i18next'
+
 import {
   // removeDefaultHashtag,
   removeTrendName,
   useAppDispatch,
   useAppSelector,
 } from '@wsvvrijheid/store'
-import { useTranslation } from 'next-i18next'
 
 import { TagList } from '../../TagList'
 

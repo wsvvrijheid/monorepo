@@ -1,4 +1,5 @@
 import { ResponsiveValue } from '@chakra-ui/react'
+
 import { MenuType } from '@wsvvrijheid/types'
 
 export type HeaderMenu = Array<MenuType>

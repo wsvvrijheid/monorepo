@@ -1,6 +1,7 @@
 import { theme } from '@chakra-ui/react'
-import { AccountStats, AccountStatsBase } from '@wsvvrijheid/types'
 import { format } from 'date-fns'
+
+import { AccountStats, AccountStatsBase } from '@wsvvrijheid/types'
 
 import { ChartJSData } from './types'
 
@@ -65,5 +66,6 @@ export const getChartData = (
       chartData.datasets[datasetIndex].data.push(d[field] as number)
     }
   })
+
   return chartData
 }

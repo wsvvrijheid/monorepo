@@ -13,18 +13,23 @@ export const getUserTweets = async (
   //   user = await twitterApi.v1.user({ user_id: userId })
   // }
 
-  const tweetsResponse = await twitterApi.v2.userTimeline(userId, {
-    max_results: 50,
-    expansions: ['attachments.media_keys'],
-    'tweet.fields': ['created_at', 'public_metrics'],
-    'media.fields': ['preview_image_url', 'url', 'media_key', 'variants'],
-    exclude: 'retweets',
-  })
+  try {
+    const tweetsResponse = await twitterApi.v2.userTimeline(userId, {
+      max_results: 50,
+      expansions: ['attachments.media_keys'],
+      'tweet.fields': ['created_at', 'public_metrics'],
+      'media.fields': ['preview_image_url', 'url', 'media_key', 'variants'],
+      exclude: 'retweets',
+    })
 
-  const tweetsData = tweetsResponse?.data.data
-  const includes = tweetsResponse?.data.includes
+    const tweetsData = tweetsResponse?.data.data
+    const includes = tweetsResponse?.data.includes
 
-  const tweets: Tweet[] = mapTweetResponseToTweet(tweetsData, includes, user)
+    const tweets: Tweet[] = mapTweetResponseToTweet(tweetsData, includes, user)
 
-  return tweets
+    return tweets
+  } catch (error) {
+    console.error('Error getting user tweets', error.message)
+    return []
+  }
 }

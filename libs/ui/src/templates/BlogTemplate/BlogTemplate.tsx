@@ -1,10 +1,11 @@
 import { FC } from 'react'
 
 import { Image, SimpleGrid, Stack, Text } from '@chakra-ui/react'
-import { API_URL } from '@wsvvrijheid/config'
-import { Blog } from '@wsvvrijheid/types'
 import { useTranslation } from 'next-i18next'
 import { NextSeoProps } from 'next-seo'
+
+import { API_URL } from '@wsvvrijheid/config'
+import { Blog } from '@wsvvrijheid/types'
 
 import { Container, BlogCard, AnimatedBox, Hero } from '../../components'
 

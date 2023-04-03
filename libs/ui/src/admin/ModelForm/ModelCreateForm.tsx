@@ -12,6 +12,12 @@ import {
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import slugify from '@sindresorhus/slugify'
+import { capitalize } from 'lodash'
+import { useRouter } from 'next/router'
+import { useForm } from 'react-hook-form'
+import { TbPlus } from 'react-icons/tb'
+import { InferType } from 'yup'
+
 import { useCreateModelMutation } from '@wsvvrijheid/services'
 import {
   Post,
@@ -22,11 +28,6 @@ import {
   StrapiUrl,
 } from '@wsvvrijheid/types'
 import { generateOgImageParams } from '@wsvvrijheid/utils'
-import { capitalize } from 'lodash'
-import { useRouter } from 'next/router'
-import { useForm } from 'react-hook-form'
-import { TbPlus } from 'react-icons/tb'
-import { InferType } from 'yup'
 
 import { ModelImage } from './ModelImage'
 import { ModelSelect } from './ModelSelect'
@@ -151,6 +152,7 @@ export const ModelCreateForm = <T extends StrapiModel>({
                 isInvalid={Boolean(errors?.[field.name])}
                 key={index}
                 isRequired={field.isRequired}
+                zIndex={0}
               >
                 <FormLabel>{label}</FormLabel>
                 <ModelImage
@@ -179,6 +181,7 @@ export const ModelCreateForm = <T extends StrapiModel>({
                 label={label}
                 errors={errors}
                 control={control}
+                zIndex={1}
               />
             )
           }

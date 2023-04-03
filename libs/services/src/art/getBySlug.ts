@@ -1,7 +1,8 @@
 import { useQuery } from '@tanstack/react-query'
+import { useRouter } from 'next/router'
+
 import { Request } from '@wsvvrijheid/lib'
 import { Art } from '@wsvvrijheid/types'
-import { useRouter } from 'next/router'
 
 export const getArtBySlug = async (slug: string): Promise<Art | null> => {
   const response = await Request.collection<Art[]>({
@@ -25,6 +26,7 @@ export const useArtBySlug = (slug?: string) => {
   if (!slug) {
     slug = router.query['slug'] as string
   }
+
   return useQuery({
     queryKey: ['art', slug],
     queryFn: () => getArtBySlug(slug as string),

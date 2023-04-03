@@ -1,4 +1,5 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react'
+import { Meta, StoryFn } from '@storybook/react'
+
 import { POST_MOCKS } from '@wsvvrijheid/mocks'
 
 import { PostContainerBody } from './PostContainerBody'
@@ -14,10 +15,10 @@ export default {
       </Container>
     ),
   ],
-} as ComponentMeta<typeof PostContainerBody>
+} as Meta<typeof PostContainerBody>
 
-const Template: ComponentStory<typeof PostContainerBody> = () => {
-  return <PostContainerBody postImage={POST_MOCKS.tr.data[0].image?.url} />
+const Template: StoryFn<typeof PostContainerBody> = () => {
+  return <PostContainerBody post={POST_MOCKS.tr.data[0]} />
 }
 
 export const Default = Template.bind({})

@@ -1,8 +1,9 @@
 import { FC, PropsWithChildren } from 'react'
 
+import { NextSeoProps } from 'next-seo'
+
 import { API_URL, menus, socialLinks } from '@wsvvrijheid/config'
 import { Layout as AppLayout } from '@wsvvrijheid/ui'
-import { NextSeoProps } from 'next-seo'
 
 interface LayoutProps extends PropsWithChildren {
   isDark?: boolean

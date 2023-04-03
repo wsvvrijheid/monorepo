@@ -1,14 +1,14 @@
 import { TOKEN } from '@wsvvrijheid/config'
 import { Mutation } from '@wsvvrijheid/lib'
 import { mollieClient } from '@wsvvrijheid/mollie'
-import { Donate, DonateUpdateInput } from '@wsvvrijheid/types'
+import { Donation, DonationUpdateInput } from '@wsvvrijheid/types'
 
 export default async function handler(req, res) {
   const mollieId = req.body.id
   const payment = await mollieClient.payments.get(mollieId)
 
   // Update donation status and mollieId fields in database
-  await Mutation.put<Donate, DonateUpdateInput>(
+  await Mutation.put<Donation, DonationUpdateInput>(
     'api/donates',
     payment.metadata.id,
     {
@@ -18,6 +18,6 @@ export default async function handler(req, res) {
     TOKEN,
   )
 
-  //respond to Mollie with 200 or it keeps calling
+  // respond to Mollie with 200 or it keeps calling
   res.status(200).send('complete')
 }

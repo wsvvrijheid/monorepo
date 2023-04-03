@@ -1,13 +1,14 @@
 import { FC } from 'react'
 
+import { GetStaticPaths } from 'next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+
 import {
   getModelStaticPaths,
   getPlatformStaticProps,
 } from '@wsvvrijheid/services'
 import { StrapiLocale } from '@wsvvrijheid/types'
 import { PlatformTemplate, PlatformTemplateProps } from '@wsvvrijheid/ui'
-import { GetStaticPaths } from 'next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { Layout } from '../../components'
 import i18nConfig from '../../next-i18next.config'

@@ -10,10 +10,11 @@ import {
   useBreakpointValue,
   Wrap,
 } from '@chakra-ui/react'
-import { Blog, StrapiLocale, UploadFile } from '@wsvvrijheid/types'
-import { getReadingTime } from '@wsvvrijheid/utils'
 import { useRouter } from 'next/router'
 import { FaCalendarDay, FaClock, FaEye, FaHeart } from 'react-icons/fa'
+
+import { Blog, StrapiLocale, UploadFile } from '@wsvvrijheid/types'
+import { getReadingTime } from '@wsvvrijheid/utils'
 
 import { FormattedDate } from '../FormattedDate'
 import { Navigate } from '../Navigate'

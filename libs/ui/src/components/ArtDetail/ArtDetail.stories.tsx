@@ -1,6 +1,7 @@
 import { useState } from 'react'
 
-import { ComponentStory, ComponentMeta } from '@storybook/react'
+import { StoryFn, Meta } from '@storybook/react'
+
 import { ART_MOCKS } from '@wsvvrijheid/mocks'
 
 import { ArtDetail } from './ArtDetail'
@@ -9,11 +10,11 @@ export default {
   component: ArtDetail,
   title: 'Shared/ArtDetail',
   args: {
-    art: ART_MOCKS.tr.data[0],
+    art: ART_MOCKS.data[0],
   },
-} as ComponentMeta<typeof ArtDetail>
+} as Meta<typeof ArtDetail>
 
-const Template: ComponentStory<typeof ArtDetail> = args => {
+const Template: StoryFn<typeof ArtDetail> = args => {
   const [isLiked, setIsLiked] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [artData, setArtData] = useState(args.art)

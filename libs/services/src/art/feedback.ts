@@ -1,5 +1,6 @@
 import { useToast } from '@chakra-ui/react'
 import { useMutation } from '@tanstack/react-query'
+
 import { Mutation } from '@wsvvrijheid/lib'
 import { useAuthSelector } from '@wsvvrijheid/store'
 import {
@@ -25,6 +26,7 @@ export const createFeedback = async ({
     args as FeedbackArtCreateInput,
     token,
   )
+
   return Mutation.put<Art, ArtUpdateInput>('api/arts', args.art, body, token)
 }
 

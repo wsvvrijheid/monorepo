@@ -8,6 +8,13 @@ import {
   Text,
   useDisclosure,
 } from '@chakra-ui/react'
+import { InferGetServerSidePropsType } from 'next'
+import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { NextSeoProps } from 'next-seo'
+import { IoMdAdd } from 'react-icons/io'
+
 import { useModelById } from '@wsvvrijheid/services'
 import { Collection } from '@wsvvrijheid/types'
 import {
@@ -18,12 +25,6 @@ import {
   FormLocaleSwitcher,
   PageHeader,
 } from '@wsvvrijheid/ui'
-import { InferGetServerSidePropsType } from 'next'
-import { useRouter } from 'next/router'
-import { useTranslation } from 'next-i18next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { NextSeoProps } from 'next-seo'
-import { IoMdAdd } from 'react-icons/io'
 
 import i18nConfig from '../../next-i18next.config'
 

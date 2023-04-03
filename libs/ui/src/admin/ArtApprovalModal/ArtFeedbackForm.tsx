@@ -1,8 +1,9 @@
 import { FC, useState } from 'react'
 
 import { Avatar, Button, HStack, Stack, Text, Textarea } from '@chakra-ui/react'
-import { useArtFeedbackMutation } from '@wsvvrijheid/services'
 import { HiOutlineCheck, HiOutlineX, HiPencil } from 'react-icons/hi'
+
+import { useArtFeedbackMutation } from '@wsvvrijheid/services'
 
 import { ArtFeedbackFormTypes } from './types'
 import { WConfirm, WConfirmProps } from '../../components'

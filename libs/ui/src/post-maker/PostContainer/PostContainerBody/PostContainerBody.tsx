@@ -1,6 +1,7 @@
 import { FC, memo } from 'react'
 
 import { Box, Spacer, Stack } from '@chakra-ui/react'
+
 import { Post } from '@wsvvrijheid/types'
 
 import { PostImage } from '../../../components'

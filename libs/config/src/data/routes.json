@@ -95,10 +95,10 @@
     "nl": "Over Ons",
     "tr": "Hakkımızda"
   },
-  "donate": {
-    "link": "/donate",
-    "en": "Donate",
-    "nl": "Doneren",
+  "donation": {
+    "link": "/donation",
+    "en": "Donation",
+    "nl": "Donatie",
     "tr": "Bağış"
   },
   "terms": {

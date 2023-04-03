@@ -1,10 +1,11 @@
 import { FC } from 'react'
 
 import { Divider, HStack, Text, Box } from '@chakra-ui/react'
-import { Collection } from '@wsvvrijheid/types'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { MdCollectionsBookmark } from 'react-icons/md'
+
+import { Collection } from '@wsvvrijheid/types'
 
 import { Navigate } from '../Navigate'
 
@@ -15,6 +16,7 @@ export type CollectionListProps = {
 export const CollectionList: FC<CollectionListProps> = ({ collectionData }) => {
   const { t } = useTranslation()
   const { locale } = useRouter()
+
   return (
     <div>
       <HStack py={1.5} w="full" align="center">

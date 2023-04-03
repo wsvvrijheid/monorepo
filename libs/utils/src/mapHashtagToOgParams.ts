@@ -1,7 +1,8 @@
 // Ref: https://javascript.info/task/delay-promise
-import { Hashtag, OgImageParams, StrapiLocale } from '@wsvvrijheid/types'
 import { format, parse } from 'date-fns'
 import { formatInTimeZone } from 'date-fns-tz'
+
+import { Hashtag, OgImageParams, StrapiLocale } from '@wsvvrijheid/types'
 
 const capsContent = {
   en: { title: 'TAG ANNOUNCEMENT', topic: 'Topic' },

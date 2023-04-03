@@ -1,9 +1,10 @@
 import { Image, SimpleGrid, Stack, Text } from '@chakra-ui/react'
+import { useRouter } from 'next/router'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+
 import { searchModel } from '@wsvvrijheid/services'
 import { Activity } from '@wsvvrijheid/types'
 import { AnimatedBox, Card, Container, Hero } from '@wsvvrijheid/ui'
-import { useRouter } from 'next/router'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { Layout } from '../../components'
 import i18nConfig from '../../next-i18next.config'

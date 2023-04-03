@@ -1,4 +1,5 @@
 import { Meta, Story } from '@storybook/react'
+
 import { OgImageParams } from '@wsvvrijheid/types'
 
 import { Caps } from './Caps'

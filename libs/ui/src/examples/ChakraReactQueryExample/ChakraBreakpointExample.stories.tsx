@@ -1,6 +1,7 @@
 import { useState } from 'react'
 
 import { Meta, Story } from '@storybook/react'
+
 import { sleep } from '@wsvvrijheid/utils'
 
 import {
@@ -11,9 +12,9 @@ import {
 export default {
   component: ChakraBreakpointExample,
   title: 'Example/ChakraBreakpointExample',
-} as Meta<ChakraBreakpointExampleProps> // or ComponentMeta<typeof ChakraBreakpointExample>
+} as Meta<ChakraBreakpointExampleProps> // or Meta<typeof ChakraBreakpointExample>
 
-// or ComponentStory<typeof ChakraBreakpointExample>
+// or StoryFn<typeof ChakraBreakpointExample>
 const Template: Story<ChakraBreakpointExampleProps> = args => {
   const [isLoading, setIsLoading] = useState(false)
   const [isError, setIsError] = useState(false)
@@ -40,6 +41,7 @@ const Template: Story<ChakraBreakpointExampleProps> = args => {
     } catch (error) {
       setIsError(true)
       setIsLoading(false)
+
       return 'Error'
     }
   }
