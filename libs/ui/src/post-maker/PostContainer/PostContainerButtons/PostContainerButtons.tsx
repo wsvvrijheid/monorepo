@@ -6,6 +6,7 @@ import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { FaAt, FaRandom, FaTwitter } from 'react-icons/fa'
 
+import { SITE_URL } from '@wsvvrijheid/config'
 import { setRandomPost, useCurrentPost } from '@wsvvrijheid/services'
 import {
   addSharedPost,
@@ -32,7 +33,7 @@ export const PostContainerButtons = () => {
 
   const baseUrl = 'https://twitter.com/intent/tweet'
   const params = {
-    url: `https://samenvvv.nl/${locale}/hashtags/${post?.hashtag?.slug}/${post?.id}`,
+    url: `${SITE_URL}/${locale}/hashtags/${post?.hashtag?.slug}/${post?.id}`,
     text: `${postContent}\n\n`,
   }
   const query = new URLSearchParams(params)
@@ -95,22 +96,6 @@ export const PostContainerButtons = () => {
           {t('post.share-tweet')}
         </Button>
       </Link>
-      {/* <TwitterShareButton title={postContent} url={postUrlAbsolute as string}>
-        <Button
-          data-tour="step-share-button"
-          data-tour-mob="step-share-button"
-          as="span"
-          w="full"
-          rounded="full"
-          colorScheme="twitter"
-          rightIcon={<FaTwitter />}
-          isDisabled={isExceeded}
-          disabled={isExceeded}
-          onClick={onAddShare}
-        >
-          {t('post.share-tweet')}
-        </Button>
-      </TwitterShareButton> */}
     </SimpleGrid>
   )
 }
