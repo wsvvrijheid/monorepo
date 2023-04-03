@@ -15,13 +15,15 @@ export const HeaderNav: FC<HeaderNavProps> = ({
   const { t } = useTranslation()
 
   return (
-    <Stack direction={direction}>
+    <Stack direction={direction} align={'center'}>
       {menu.map((item, i) => {
         return <HeaderNavItem key={i} item={item} isDark={isDark} />
       })}
       <Navigate href={'/donation'}>
         <Button
           color={'white'}
+          fontWeight={600}
+          size={'sm'}
           bgGradient={'linear(to-r, cyan.400, blue.600)'}
           _hover={{
             bgGradient: 'linear(to-l, cyan.400, blue.600)',
