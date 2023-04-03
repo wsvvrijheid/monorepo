@@ -1,16 +1,17 @@
-import { getAccountStats } from "../../../../libs"
+import { getAccountStats } from '../../../../libs'
 
 export default {
   async beforeCreate(event) {
     const { username, date } = event.params.data
 
-
-    const existing = await strapi.db.query('api::account-statistic.account-statistic').findOne({
-      where: {
-        username,
-        date
-      }
-    })
+    const existing = await strapi.db
+      .query('api::account-statistic.account-statistic')
+      .findOne({
+        where: {
+          username,
+          date,
+        },
+      })
 
     console.log('existing', existing)
 

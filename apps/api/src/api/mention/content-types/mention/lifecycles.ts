@@ -15,34 +15,40 @@ type MentionUserData = Pick<
 
 export default {
   async afterCreate({ result }) {
-    const user = await twitterApi.v1.user({
-      screen_name: result.username as unknown as string,
-    })
+    if (process.env.IMPORTING === 'true') return
 
-    const {
-      name,
-      screen_name,
-      profile_image_url_https,
-      followers_count,
-      friends_count,
-      location,
-      verified,
-      id_str,
-    } = user
+    try {
+      const user = await twitterApi.v1.user({
+        screen_name: result.username as unknown as string,
+      })
 
-    const data = {
-      name,
-      screen_name,
-      profile_image_url_https,
-      followers_count,
-      friends_count,
-      location,
-      verified,
-      id_str,
-    } as MentionUserData
+      const {
+        name,
+        screen_name,
+        profile_image_url_https,
+        followers_count,
+        friends_count,
+        location,
+        verified,
+        id_str,
+      } = user
 
-    strapi.service('api::mention.mention').update(result.id, {
-      data: { data },
-    })
+      const data = {
+        name,
+        screen_name,
+        profile_image_url_https,
+        followers_count,
+        friends_count,
+        location,
+        verified,
+        id_str,
+      } as MentionUserData
+
+      strapi.service('api::mention.mention').update(result.id, {
+        data: { data },
+      })
+    } catch (error) {
+      console.error('Error after mention create', error.message)
+    }
   },
 }
