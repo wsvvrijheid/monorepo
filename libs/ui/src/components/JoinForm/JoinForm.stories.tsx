@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { Story, ComponentMeta } from '@storybook/react'
+import { Story, Meta } from '@storybook/react'
 import { useRouter } from 'next/router'
 
 import { JOB_MOCKS, PLATFORM_MOCKS } from '@wsvvrijheid/mocks'
@@ -19,7 +19,7 @@ export default {
   argTypes: {
     locale: { control: { type: 'radio', options: ['en', 'nl', 'tr'] } },
   },
-} as ComponentMeta<typeof JoinForm>
+} as Meta<typeof JoinForm>
 
 const Template: Story<JoinFormFProps> = args => {
   const [isLoading, setIsLoading] = useState<boolean>(false)

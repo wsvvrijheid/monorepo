@@ -1,13 +1,13 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react'
+import { Meta, StoryFn } from '@storybook/react'
 
 import { PostContainerTags } from './PostContainerTags'
 
 export default {
   title: 'PostMaker/PostContainerTags',
   component: PostContainerTags,
-} as ComponentMeta<typeof PostContainerTags>
+} as Meta<typeof PostContainerTags>
 
-const Template: ComponentStory<typeof PostContainerTags> = () => {
+const Template: StoryFn<typeof PostContainerTags> = () => {
   return <PostContainerTags />
 }
 

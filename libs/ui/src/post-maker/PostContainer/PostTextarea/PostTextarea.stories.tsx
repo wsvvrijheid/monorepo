@@ -1,13 +1,13 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react'
+import { Meta, StoryFn } from '@storybook/react'
 
 import { PostTextarea } from './PostTextarea'
 
 export default {
   title: 'PostMaker/PostTextarea',
   component: PostTextarea,
-} as ComponentMeta<typeof PostTextarea>
+} as Meta<typeof PostTextarea>
 
-const Template: ComponentStory<typeof PostTextarea> = args => {
+const Template: StoryFn<typeof PostTextarea> = args => {
   return <PostTextarea isEditable />
 }
 
