@@ -4,7 +4,6 @@ import {
   Box,
   Button,
   ButtonGroup,
-  Center,
   Heading,
   HStack,
   Image,
@@ -98,28 +97,27 @@ export const DonationTemplate: FC<DonationTemplateProps> = ({ platforms }) => {
   }
 
   return (
-    <Container>
-      <Center m={16}>
-        <VStack>
-          <Text>{t('donation.description')}</Text>
+    <Container {...(!platforms && { maxW: '2xl' })}>
+      <VStack textAlign={'center'} mt={16} maxW={'2xl'} mx={'auto'}>
+        <Link href="https://challenges.nl" isExternal>
+          <HStack align={'center'}>
+            <Image
+              alt={'Stichting Challenges'}
+              src="https://challenges.nl/wp-content/uploads/2022/12/challengeslogo-1.png"
+              w={150}
+            />
+            <Text fontSize="2xl">Stichting Challenges</Text>
+          </HStack>
+        </Link>
+        <Text>{t('donation.description')}</Text>
+      </VStack>
 
-          <Link href="https://challenges.nl" isExternal>
-            <HStack align={'center'}>
-              <Image
-                alt={'Stichting Challenges'}
-                src="https://challenges.nl/wp-content/uploads/2022/12/challengeslogo-1.png"
-                w={150}
-              />
-              <Text fontSize="xl">Stichting Challenges</Text>
-            </HStack>
-          </Link>
-        </VStack>
-      </Center>
       <SimpleGrid
         alignItems="start"
         columns={{ base: 1, lg: platforms ? 2 : 1 }}
         my={16}
         gap={16}
+        pos={'relative'}
       >
         <Stack
           px={{ base: 8, lg: 16 }}
@@ -130,6 +128,8 @@ export const DonationTemplate: FC<DonationTemplateProps> = ({ platforms }) => {
           shadow="lg"
           as="form"
           onSubmit={handleSubmit(onSubmit)}
+          pos={'sticky'}
+          top={16}
         >
           <Heading as="h3" size="lg" textAlign="center" fontWeight={900}>
             {t('donation.title')}
