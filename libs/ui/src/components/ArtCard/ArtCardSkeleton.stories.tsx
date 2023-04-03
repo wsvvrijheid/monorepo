@@ -1,4 +1,4 @@
-import { ComponentStory, ComponentMeta } from '@storybook/react'
+import { StoryFn, Meta } from '@storybook/react'
 
 import { ArtCardBase } from './ArtCardBase'
 import { ArtCardSkeleton } from './ArtCardSkeleton'
@@ -14,9 +14,9 @@ export default {
       </Container>
     ),
   ],
-} as ComponentMeta<typeof ArtCardBase>
+} as Meta<typeof ArtCardBase>
 
-const Template: ComponentStory<typeof ArtCardSkeleton> = args => {
+const Template: StoryFn<typeof ArtCardSkeleton> = args => {
   return <ArtCardSkeleton {...args} isMasonry={args.isMasonry || false} />
 }
 
