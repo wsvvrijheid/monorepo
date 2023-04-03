@@ -32,7 +32,7 @@ export const PostContainerButtons = () => {
 
   const baseUrl = 'https://twitter.com/intent/tweet'
   const params = {
-    url: `${SITE_URL}${locale}/hashtags/${post?.hashtag?.slug}/${post?.id}`,
+    url: `${SITE_URL}/${locale}/hashtags/${post?.hashtag?.slug}/${post?.id}`,
     text: `${postContent}\n\n`,
   }
   const query = new URLSearchParams(params)
