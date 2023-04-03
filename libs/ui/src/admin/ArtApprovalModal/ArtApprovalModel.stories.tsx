@@ -1,8 +1,8 @@
 import { Box, Button, Container, useDisclosure } from '@chakra-ui/react'
-import { ComponentMeta, ComponentStory } from '@storybook/react'
+import { Meta, StoryFn } from '@storybook/react'
 
 import { ART_MOCKS, USER_MOCKS } from '@wsvvrijheid/mocks'
-import { UploadFile } from '@wsvvrijheid/types'
+import { SessionUser, UploadFile, User } from '@wsvvrijheid/types'
 
 import { ArtApprovalModal } from './ArtApprovalModal'
 
@@ -13,8 +13,9 @@ export default {
   title: 'Admin/ArtApprovalModal',
   args: {
     art: artMock,
-    artist: USER_MOCKS[1],
-    editor: USER_MOCKS[0],
+    artist: USER_MOCKS[1] as User,
+    editor: USER_MOCKS[0] as unknown as SessionUser,
+    isOpen: true,
   },
   decorators: [
     (Story: any) => (
@@ -23,9 +24,9 @@ export default {
       </Container>
     ),
   ],
-} as unknown as ComponentMeta<typeof ArtApprovalModal>
+} as Meta<typeof ArtApprovalModal>
 
-const Template: ComponentStory<typeof ArtApprovalModal> = args => {
+const Template: StoryFn<typeof ArtApprovalModal> = args => {
   const { art, editor, artist } = args
   const { isOpen, onOpen, onClose } = useDisclosure()
 

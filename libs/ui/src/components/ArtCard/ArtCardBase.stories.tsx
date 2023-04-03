@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { ComponentStory, ComponentMeta } from '@storybook/react'
+import { StoryFn, Meta } from '@storybook/react'
 
 import { ART_MOCKS, USER_MOCKS } from '@wsvvrijheid/mocks'
 
@@ -21,9 +21,9 @@ export default {
       </Container>
     ),
   ],
-} as ComponentMeta<typeof ArtCardBase>
+} as Meta<typeof ArtCardBase>
 
-const Template: ComponentStory<typeof ArtCardBase> = args => {
+const Template: StoryFn<typeof ArtCardBase> = args => {
   const [isLiked, setIsLiked] = useState(args.isLiked)
   const [art, setArt] = useState(args.art)
 

@@ -1,13 +1,13 @@
-import { ComponentStory, ComponentMeta } from '@storybook/react'
+import { StoryFn, Meta } from '@storybook/react'
 
 import { SocialLoginButtons } from './SocialLoginButtons'
 
 export default {
   component: SocialLoginButtons,
   title: 'Shared/SocialLoginButtons',
-} as ComponentMeta<typeof SocialLoginButtons>
+} as Meta<typeof SocialLoginButtons>
 
-const Template: ComponentStory<typeof SocialLoginButtons> = args => (
+const Template: StoryFn<typeof SocialLoginButtons> = args => (
   <SocialLoginButtons {...args} />
 )
 

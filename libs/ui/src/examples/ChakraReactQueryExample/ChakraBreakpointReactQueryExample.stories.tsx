@@ -9,7 +9,7 @@ import {
 export default {
   component: ChakraBreakpointExample,
   title: 'Example/ChakraBreakpointReactQueryExample',
-} as Meta<ChakraBreakpointExampleProps> // or ComponentMeta<typeof ChakraBreakpointExample>
+} as Meta<ChakraBreakpointExampleProps> // or Meta<typeof ChakraBreakpointExample>
 
 // Ref: https://javascript.info/task/delay-promise
 const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
@@ -28,7 +28,7 @@ const sendMessage = async (message: string) => {
   return 'Success'
 }
 
-// or ComponentStory<typeof ChakraBreakpointExample>
+// or StoryFn<typeof ChakraBreakpointExample>
 const Template: Story<ChakraBreakpointExampleProps> = args => {
   const { mutate, isSuccess, isError, isLoading } = useMutation({
     mutationKey: ['send-message'],

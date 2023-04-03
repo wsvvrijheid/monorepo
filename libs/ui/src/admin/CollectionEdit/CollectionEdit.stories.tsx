@@ -1,5 +1,5 @@
 import { Container } from '@chakra-ui/react'
-import { ComponentStory, ComponentMeta } from '@storybook/react'
+import { StoryFn, Meta } from '@storybook/react'
 
 import { COLLECTION_MOCKS } from '@wsvvrijheid/mocks'
 
@@ -15,9 +15,9 @@ export default {
       </Container>
     ),
   ],
-} as ComponentMeta<typeof CollectionEdit>
+} as Meta<typeof CollectionEdit>
 
-const Template: ComponentStory<typeof CollectionEdit> = args => {
+const Template: StoryFn<typeof CollectionEdit> = args => {
   return <CollectionEdit {...args} collection={COLLECTION_MOCKS.tr.data[0]} />
 }
 
