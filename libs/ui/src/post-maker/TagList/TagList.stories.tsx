@@ -1,4 +1,4 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react'
+import { Meta, StoryFn } from '@storybook/react'
 
 import {
   removeMentionUsername,
@@ -11,9 +11,9 @@ import { TagList } from './TagList'
 export default {
   title: 'PostMaker/TagList',
   component: TagList,
-} as ComponentMeta<typeof TagList>
+} as Meta<typeof TagList>
 
-const Template: ComponentStory<typeof TagList> = args => {
+const Template: StoryFn<typeof TagList> = args => {
   const { mentionUsernames } = usePostSelector()
 
   const dispatch = useAppDispatch()

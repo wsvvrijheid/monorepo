@@ -12,7 +12,7 @@ export const {
   collection,
   contact,
   dashboard,
-  donate,
+  donation,
   lotus,
   join,
   platform,

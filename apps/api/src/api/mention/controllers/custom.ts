@@ -2,7 +2,11 @@ import { twitterApi } from '../../../libs'
 
 export default {
   async search(ctx) {
-    const result = await twitterApi.v1.searchUsers(ctx.query.q)
-    ctx.send(result.data)
+    try {
+      const result = await twitterApi.v1.searchUsers(ctx.query.q)
+      ctx.send(result.data)
+    } catch (error) {
+      console.error('Error searching users', error.message)
+    }
   },
 }

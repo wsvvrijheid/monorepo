@@ -1,5 +1,5 @@
 import { Box, Grid } from '@chakra-ui/react'
-import { ComponentMeta, Story } from '@storybook/react'
+import { Meta, StoryFn } from '@storybook/react'
 import { sample } from 'lodash'
 
 import { USER_MOCKS } from '@wsvvrijheid/mocks'
@@ -15,11 +15,6 @@ export default {
   args: {
     user: sessionUser,
   },
-  parameters: {
-    nextRouter: {
-      asPath: sample('/translates'),
-    },
-  },
   decorators: [
     (Story: any) => (
       <Grid gridTemplateColumns="300px 1fr" bg="gray.100">
@@ -29,9 +24,9 @@ export default {
       </Grid>
     ),
   ],
-} as unknown as ComponentMeta<typeof AdminNav>
+} as Meta<typeof AdminNav>
 
-const Template: Story = args => {
+const Template: StoryFn = args => {
   return <AdminNav user={sessionUser} {...args} />
 }
 

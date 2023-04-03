@@ -12,9 +12,9 @@ import {
 export default {
   component: ChakraBreakpointExample,
   title: 'Example/ChakraBreakpointExample',
-} as Meta<ChakraBreakpointExampleProps> // or ComponentMeta<typeof ChakraBreakpointExample>
+} as Meta<ChakraBreakpointExampleProps> // or Meta<typeof ChakraBreakpointExample>
 
-// or ComponentStory<typeof ChakraBreakpointExample>
+// or StoryFn<typeof ChakraBreakpointExample>
 const Template: Story<ChakraBreakpointExampleProps> = args => {
   const [isLoading, setIsLoading] = useState(false)
   const [isError, setIsError] = useState(false)

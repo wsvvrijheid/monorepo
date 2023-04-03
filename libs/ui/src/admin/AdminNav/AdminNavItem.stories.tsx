@@ -1,4 +1,4 @@
-import { ComponentMeta } from '@storybook/react'
+import { Meta } from '@storybook/react'
 
 import { AdminNavItem } from './AdminNavItem'
 import { AdminNavItemProps } from './types'
@@ -14,10 +14,11 @@ export default {
       {
         label: 'Test',
         link: '/test',
-        icon: 'Test',
+        icon: <></>,
+        visible: true,
+        submenu: [],
       },
     ],
-    icon: 'Test',
   },
   decorators: [
     (Story: any) => (
@@ -26,7 +27,7 @@ export default {
       </Container>
     ),
   ],
-} as unknown as ComponentMeta<typeof AdminNavItem>
+} as Meta<typeof AdminNavItem>
 
 const Template = (args: AdminNavItemProps) => {
   return <AdminNavItem {...args} />

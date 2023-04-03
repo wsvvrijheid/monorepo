@@ -1,39 +1,40 @@
-import type { StorybookConfig } from '@storybook/core-common'
+import type { StorybookConfig } from '@storybook/nextjs'
 import path from 'path'
-
-import rootMain from '../../../.storybook/main'
+import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin'
 
 const config: StorybookConfig = {
-  ...rootMain,
+  framework: {
+    name: '@storybook/nextjs',
+    options: {},
+  },
+  staticDirs: ['../public'],
+  stories: ['../**/*.stories.mdx', '../**/*.stories.@(js|jsx|ts|tsx)'],
+  addons: ['@chakra-ui/storybook-addon', 'storybook-react-i18next'],
+  webpackFinal: async config => {
+    if (config.resolve) {
+      config.resolve.fallback = {
+        os: require.resolve('os-browserify/browser'),
+        path: require.resolve('path-browserify'),
+        timers: require.resolve('timers-browserify'),
+        http: require.resolve('stream-http'),
+        https: require.resolve('https-browserify'),
+        zlib: require.resolve('browserify-zlib'),
+        stream: require.resolve('stream-browserify'),
+        crypto: require.resolve('crypto-browserify'),
+      }
 
-  core: { ...rootMain.core, builder: 'webpack5' },
+      config.resolve.alias = {
+        ...config.resolve.alias,
+        'next-i18next': 'react-i18next',
+      }
 
-  stories: [
-    ...rootMain.stories,
-    '../**/*.stories.mdx',
-    '../**/*.stories.@(js|jsx|ts|tsx)',
-  ],
-  addons: [
-    ...(rootMain.addons as string[]),
-    '@nrwl/react/plugins/storybook',
-    '@chakra-ui/storybook-addon',
-    'storybook-react-i18next',
-    {
-      name: 'storybook-addon-next',
-      options: {
-        nextConfigPath: path.resolve(__dirname, '../next.config.js'),
-      },
-    },
-  ],
-  webpackFinal: async (config, { configType }) => {
-    // apply any global webpack configs that might have been specified in .storybook/main.js
-    if (rootMain.webpackFinal) {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      config = await rootMain.webpackFinal(config, { configType })
+      config.resolve.plugins = config.resolve.plugins || []
+      config.resolve.plugins.push(
+        new TsconfigPathsPlugin({
+          configFile: path.resolve(__dirname, '../tsconfig.json'),
+        }),
+      )
     }
-
-    // add your own webpack tweaks if needed
 
     return config
   },
