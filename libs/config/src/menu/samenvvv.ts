@@ -2,7 +2,6 @@ import {
   announcement,
   about,
   contact,
-  donation,
   foundation,
   hashtag,
   privacy,
@@ -10,7 +9,7 @@ import {
 } from './routes'
 
 export const samenvvv = {
-  headerMenu: [announcement, hashtag, about, donation, contact, foundation],
+  headerMenu: [announcement, hashtag, about, contact, foundation],
   footerMenu: [
     {
       children: [foundation, about, contact],
