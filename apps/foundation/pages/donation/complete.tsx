@@ -8,7 +8,9 @@ import { TOKEN } from '@wsvvrijheid/config'
 import { Mutation, Request } from '@wsvvrijheid/lib'
 import { mollieClient } from '@wsvvrijheid/mollie'
 import { Donation, StrapiUrl } from '@wsvvrijheid/types'
-import { AdminLayout, DonationCompleteTemplate } from '@wsvvrijheid/ui'
+import { DonationCompleteTemplate } from '@wsvvrijheid/ui'
+
+import { Layout } from '../../components'
 
 type DonationCompletePageProps = InferGetServerSidePropsType<
   typeof getServerSideProps
@@ -16,9 +18,9 @@ type DonationCompletePageProps = InferGetServerSidePropsType<
 
 const DonationComplete: FC<DonationCompletePageProps> = ({ status }) => {
   return (
-    <AdminLayout seo={{ title: 'Payment' }}>
+    <Layout seo={{ title: 'Payment' }}>
       <DonationCompleteTemplate status={status} />
-    </AdminLayout>
+    </Layout>
   )
 }
 
