@@ -5,7 +5,6 @@ import {
   Button,
   ButtonGroup,
   Center,
-  Container,
   Heading,
   HStack,
   Image,
@@ -36,7 +35,7 @@ import * as yup from 'yup'
 
 import { Platform } from '@wsvvrijheid/types'
 
-import { FormItem, PlatformList } from '../../components'
+import { Container, FormItem, PlatformList } from '../../components'
 
 function generateSchema(t: TFunction) {
   return yup.object().shape({
@@ -258,7 +257,7 @@ export const DonationTemplate: FC<DonationTemplateProps> = ({ platforms }) => {
 
           <Button
             isDisabled={!amount || !method || !isValid}
-            colorScheme="green"
+            colorScheme="primary"
             type="submit"
             leftIcon={<FaDonate />}
           >

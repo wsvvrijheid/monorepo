@@ -36,7 +36,6 @@ export const wsvvrijheid = {
       tr: 'Wsvvrijheid',
       children: [about, contact, join],
     },
-    donation,
   ],
   footerMenu: [
     {
