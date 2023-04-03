@@ -1,5 +1,5 @@
 import { Box, Button, Container, useDisclosure } from '@chakra-ui/react'
-import { ComponentMeta, ComponentStory } from '@storybook/react'
+import { Meta, StoryFn } from '@storybook/react'
 import { sample } from 'lodash'
 
 import {
@@ -21,9 +21,9 @@ export default {
       </Container>
     ),
   ],
-} as ComponentMeta<typeof TranslateModal>
+} as Meta<typeof TranslateModal>
 
-const Template: ComponentStory<typeof TranslateModal> = args => {
+const Template: StoryFn<typeof TranslateModal> = args => {
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   const handleApprove = (Id: number, content: string) => {

@@ -1,4 +1,4 @@
-import { ComponentStory, ComponentMeta } from '@storybook/react'
+import { StoryFn, Meta } from '@storybook/react'
 
 import { ART_MOCKS, USER_MOCKS } from '@wsvvrijheid/mocks'
 
@@ -13,9 +13,9 @@ export default {
     user: USER_MOCKS[0],
   },
   decorators: [Story => <Container maxW="container.sm">{Story()}</Container>],
-} as ComponentMeta<typeof ArtCard>
+} as Meta<typeof ArtCard>
 
-const Template: ComponentStory<typeof ArtCard> = args => {
+const Template: StoryFn<typeof ArtCard> = args => {
   return <ArtCard {...args} />
 }
 

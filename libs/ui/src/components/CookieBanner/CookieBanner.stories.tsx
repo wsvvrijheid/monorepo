@@ -1,5 +1,5 @@
 import { Box } from '@chakra-ui/react'
-import { ComponentMeta, ComponentStory } from '@storybook/react'
+import { Meta, StoryFn } from '@storybook/react'
 
 import { CookieBanner } from './CookieBanner'
 import { Container } from '../Container'
@@ -14,9 +14,9 @@ export default {
       </Container>
     ),
   ],
-} as ComponentMeta<typeof CookieBanner>
+} as Meta<typeof CookieBanner>
 
-const Template: ComponentStory<typeof CookieBanner> = () => {
+const Template: StoryFn<typeof CookieBanner> = () => {
   // const onClose = () => alert('Close')
   const onAllow = () => alert('Allow')
   // const onReject = () => alert('Reject')

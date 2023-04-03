@@ -1,4 +1,4 @@
-import { ComponentStory, ComponentMeta } from '@storybook/react'
+import { StoryFn, Meta } from '@storybook/react'
 
 import { CommentItem } from './CommentItem'
 
@@ -8,10 +8,8 @@ export default {
   args: {
     comment: {},
   },
-} as ComponentMeta<typeof CommentItem>
+} as Meta<typeof CommentItem>
 
-const Template: ComponentStory<typeof CommentItem> = args => (
-  <CommentItem {...args} />
-)
+const Template: StoryFn<typeof CommentItem> = args => <CommentItem {...args} />
 
 export const Default = Template.bind({})

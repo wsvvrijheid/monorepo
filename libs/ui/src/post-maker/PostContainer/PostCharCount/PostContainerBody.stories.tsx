@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 import { Textarea, useUpdateEffect } from '@chakra-ui/react'
-import { ComponentMeta, ComponentStory } from '@storybook/react'
+import { Meta, StoryFn } from '@storybook/react'
 
 import {
   setPostText,
@@ -22,7 +22,7 @@ export default {
       </Container>
     ),
   ],
-} as ComponentMeta<typeof PostCharCount>
+} as Meta<typeof PostCharCount>
 
 const PostTextForm = () => {
   const { postContent } = usePostSelector()
@@ -37,7 +37,7 @@ const PostTextForm = () => {
   return <Textarea value={value} onChange={e => setValue(e.target.value)} />
 }
 
-const Template: ComponentStory<typeof PostCharCount> = () => {
+const Template: StoryFn<typeof PostCharCount> = () => {
   return (
     <>
       <PostCharCount />

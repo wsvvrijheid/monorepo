@@ -1,4 +1,4 @@
-import { ComponentStory, ComponentMeta } from '@storybook/react'
+import { StoryFn, Meta } from '@storybook/react'
 import { sample } from 'lodash'
 
 import { API_URL } from '@wsvvrijheid/config'
@@ -15,9 +15,9 @@ export default {
   args: {
     art,
   },
-} as ComponentMeta<typeof ArtContent>
+} as Meta<typeof ArtContent>
 
-const Template: ComponentStory<typeof ArtContent> = args => {
+const Template: StoryFn<typeof ArtContent> = args => {
   const { title_en, description_en, artist } = art
 
   const user = USER_MOCKS.find(user => user.avatar?.url)

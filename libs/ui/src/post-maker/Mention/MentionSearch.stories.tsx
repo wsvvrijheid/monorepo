@@ -1,13 +1,13 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react'
+import { Meta, StoryFn } from '@storybook/react'
 
 import { MentionSearch } from './MentionSearch'
 
 export default {
   title: 'PostMaker/MentionSearch',
   component: MentionSearch,
-} as ComponentMeta<typeof MentionSearch>
+} as Meta<typeof MentionSearch>
 
-const Template: ComponentStory<typeof MentionSearch> = () => {
+const Template: StoryFn<typeof MentionSearch> = () => {
   return <MentionSearch />
 }
 
