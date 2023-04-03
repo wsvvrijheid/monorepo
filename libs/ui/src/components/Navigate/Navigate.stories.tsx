@@ -1,14 +1,14 @@
 import { Button } from '@chakra-ui/react'
-import { ComponentStory, ComponentMeta } from '@storybook/react'
+import { StoryFn, Meta } from '@storybook/react'
 
 import { Navigate } from './Navigate'
 
 export default {
   component: Navigate,
   title: 'Shared/Navigate',
-} as ComponentMeta<typeof Navigate>
+} as Meta<typeof Navigate>
 
-const Template: ComponentStory<typeof Navigate> = args => <Navigate {...args} />
+const Template: StoryFn<typeof Navigate> = args => <Navigate {...args} />
 
 export const Default = Template.bind({})
 Default.args = {

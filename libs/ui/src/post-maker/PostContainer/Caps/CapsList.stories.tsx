@@ -1,4 +1,4 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react'
+import { Meta, StoryFn } from '@storybook/react'
 
 import { POST_MOCKS } from '@wsvvrijheid/mocks'
 
@@ -15,9 +15,9 @@ export default {
       </Container>
     ),
   ],
-} as ComponentMeta<typeof CapsList>
+} as Meta<typeof CapsList>
 
-const Template: ComponentStory<typeof CapsList> = () => (
+const Template: StoryFn<typeof CapsList> = () => (
   <CapsList sharedPosts={[]} posts={POST_MOCKS.tr.data} />
 )
 

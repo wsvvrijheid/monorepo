@@ -1,4 +1,4 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react'
+import { Meta, StoryFn } from '@storybook/react'
 
 import { PostArchive } from './PostArchive'
 import { Container } from '../../components'
@@ -13,8 +13,8 @@ export default {
       </Container>
     ),
   ],
-} as ComponentMeta<typeof PostArchive>
+} as Meta<typeof PostArchive>
 
-const Template: ComponentStory<typeof PostArchive> = () => <PostArchive />
+const Template: StoryFn<typeof PostArchive> = () => <PostArchive />
 
 export const Default = Template.bind({})

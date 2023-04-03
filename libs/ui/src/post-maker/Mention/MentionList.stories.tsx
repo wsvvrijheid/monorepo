@@ -1,13 +1,13 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react'
+import { Meta, StoryFn } from '@storybook/react'
 
 import { MentionList } from './MentionList'
 
 export default {
   title: 'PostMaker/MentionList',
   component: MentionList,
-} as ComponentMeta<typeof MentionList>
+} as Meta<typeof MentionList>
 
-const Template: ComponentStory<typeof MentionList> = () => {
+const Template: StoryFn<typeof MentionList> = () => {
   return <MentionList />
 }
 
