@@ -19,12 +19,7 @@
       "type": "media",
       "multiple": true,
       "required": false,
-      "allowedTypes": [
-        "images",
-        "files",
-        "videos",
-        "audios"
-      ]
+      "allowedTypes": ["images", "files", "videos", "audios"]
     },
     "description": {
       "type": "text"
@@ -40,11 +35,7 @@
     },
     "approvalStatus": {
       "type": "enumeration",
-      "enum": [
-        "pending",
-        "approved",
-        "rejected"
-      ]
+      "enum": ["pending", "approved", "rejected"]
     },
     "isOnline": {
       "type": "boolean"
