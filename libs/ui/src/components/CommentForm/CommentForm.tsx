@@ -115,7 +115,7 @@ export const CommentForm: React.FC<CommentFormProps> = ({
             />
             <IconButton
               display={{ base: 'flex', sm: 'none' }}
-              colorScheme="blue"
+              colorScheme="primary"
               aria-label="Send Comment"
               icon={<FiArrowRight />}
               isRound
@@ -128,7 +128,7 @@ export const CommentForm: React.FC<CommentFormProps> = ({
         <Button
           display={{ base: 'none', sm: 'flex' }}
           alignSelf="flex-end"
-          colorScheme="blue"
+          colorScheme="primary"
           rightIcon={<FiArrowRight />}
           isLoading={isLoading}
           isDisabled={!isValid}

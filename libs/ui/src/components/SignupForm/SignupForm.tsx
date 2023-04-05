@@ -126,7 +126,7 @@ export const SignupForm: FC<SignupFormProps> = ({
                 as={Navigate}
                 href="/login"
                 variant="link"
-                colorScheme="blue"
+                colorScheme="primary"
               >
                 {t('login.sign-up-header.button')}
               </Button>
@@ -189,7 +189,7 @@ export const SignupForm: FC<SignupFormProps> = ({
           <Stack spacing="6">
             <Button
               type="submit"
-              colorScheme="blue"
+              colorScheme="primary"
               disabled={!isTermsAccepted}
             >
               {t('login.create-account')}

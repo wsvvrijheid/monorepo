@@ -136,7 +136,7 @@ export const TranslateModal = <T extends StrapiTranslatableModel>({
                 </Button>
                 <Button
                   onClick={handleSendTranslation}
-                  colorScheme={'blue'}
+                  colorScheme={'primary'}
                   leftIcon={<AiOutlineCheck />}
                 >
                   Send Translation

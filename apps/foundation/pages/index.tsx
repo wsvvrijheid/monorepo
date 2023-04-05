@@ -53,7 +53,7 @@ const Home: FC<HomeProps> = ({ seo, platforms }) => {
           </AnimatedBox>
         </Box>
       </Flex>
-      <Center bg="blue.100" py={{ base: 16, lg: 32 }} minH="100vh">
+      <Center bg="primary.100" py={{ base: 16, lg: 32 }} minH="100vh">
         <Container>
           <HomeAbout />
         </Container>

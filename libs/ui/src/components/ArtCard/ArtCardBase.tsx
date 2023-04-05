@@ -172,7 +172,7 @@ export const ArtCardBase: FC<ArtCardBaseProps> = ({
 
           <IconButton
             onClick={onClickLink}
-            _hover={{ bg: 'blue.400' }}
+            _hover={{ bg: 'primary.400' }}
             aria-label="view art"
             borderColor="whiteAlpha.500"
             borderWidth={1}
