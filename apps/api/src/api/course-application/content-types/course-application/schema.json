@@ -1,0 +1,44 @@
+{
+  "kind": "collectionType",
+  "collectionName": "course_applications",
+  "info": {
+    "singularName": "course-application",
+    "pluralName": "course-applications",
+    "displayName": "CourseApplication"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "email": {
+      "type": "email"
+    },
+    "location": {
+      "type": "string"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "about": {
+      "type": "string"
+    },
+    "approvalStatus": {
+      "type": "enumeration",
+      "enum": ["approved", "pending", "rejected"]
+    },
+    "paymentStatus": {
+      "type": "enumeration",
+      "enum": ["paid", "pending", "unpaid"]
+    },
+    "course": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::course.course",
+      "inversedBy": "course_applications"
+    }
+  }
+}

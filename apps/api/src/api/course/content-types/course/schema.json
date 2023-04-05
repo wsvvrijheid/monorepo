@@ -12,7 +12,7 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "title": {
+    "title_nl": {
       "type": "string"
     },
     "image": {
@@ -21,7 +21,7 @@
       "required": false,
       "allowedTypes": ["images", "files", "videos", "audios"]
     },
-    "description": {
+    "description_nl": {
       "type": "text"
     },
     "quota": {
@@ -30,7 +30,7 @@
     "price": {
       "type": "decimal"
     },
-    "content": {
+    "content_nl": {
       "type": "text"
     },
     "approvalStatus": {
@@ -49,17 +49,50 @@
     "endDate": {
       "type": "date"
     },
-    "participantCount": {
-      "type": "integer"
-    },
     "slug": {
       "type": "uid",
-      "targetField": "title"
+      "targetField": "title_en"
     },
     "tags": {
       "type": "relation",
       "relation": "manyToMany",
       "target": "api::tag.tag",
+      "inversedBy": "courses"
+    },
+    "title_en": {
+      "type": "string"
+    },
+    "title_tr": {
+      "type": "string"
+    },
+    "description_en": {
+      "type": "text"
+    },
+    "description_tr": {
+      "type": "text"
+    },
+    "content_en": {
+      "type": "text"
+    },
+    "content_tr": {
+      "type": "text"
+    },
+    "course_applications": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::course-application.course-application",
+      "mappedBy": "course"
+    },
+    "platforms": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::platform.platform",
+      "mappedBy": "course"
+    },
+    "platform": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::platform.platform",
       "inversedBy": "courses"
     }
   }
