@@ -47,14 +47,14 @@ export const CookieBanner = (props: CookieBannerProps) => {
 
       {!isMobile && (
         <Square size="12" bg="lightgray" borderRadius="md">
-          <Icon as={BiCookie} boxSize="6" color={'blue.400'} />
+          <Icon as={BiCookie} boxSize="6" color={'primary.400'} />
         </Square>
       )}
       <Text color="white" fontSize={{ base: 'sm', md: 'md' }}>
         By using our website, you agree to the use of cookies as described in
         our{' '}
         <Navigate
-          _hover={{ transform: 'scale(2.1)', color: 'blue.400' }}
+          _hover={{ transform: 'scale(2.1)', color: 'primary.400' }}
           href="#"
         >
           Cookie Policy
