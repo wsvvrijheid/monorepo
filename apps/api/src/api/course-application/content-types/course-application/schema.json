@@ -4,7 +4,8 @@
   "info": {
     "singularName": "course-application",
     "pluralName": "course-applications",
-    "displayName": "CourseApplication"
+    "displayName": "CourseApplication",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -17,17 +18,17 @@
     "email": {
       "type": "email"
     },
-    "country": {
+    "city": {
       "type": "string"
     },
-    "city": {
+    "country": {
       "type": "string"
     },
     "phone": {
       "type": "string"
     },
     "message": {
-      "type": "string"
+      "type": "text"
     },
     "hasPaid": {
       "type": "boolean"
