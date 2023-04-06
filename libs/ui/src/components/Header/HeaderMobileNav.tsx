@@ -19,9 +19,9 @@ export const HeaderMobileNav: FC<HeaderMobileNavProps> = ({ headerMenu }) => {
         <Button
           w={'full'}
           color={'white'}
-          bgGradient={'linear(to-r, cyan.400, blue.600)'}
+          bgGradient={'linear(to-r, primary.400, primary.600)'}
           _hover={{
-            bgGradient: 'linear(to-l, cyan.400, blue.600)',
+            bgGradient: 'linear(to-l, primary.400, primary.600)',
           }}
         >
           {t('donation.title')}

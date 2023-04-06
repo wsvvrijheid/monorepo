@@ -97,7 +97,7 @@ export const LoginForm: FC<LoginFormProps> = ({ providersToBeShown = [] }) => {
                 as={Navigate}
                 href="/register"
                 variant="link"
-                colorScheme="blue"
+                colorScheme="primary"
               >
                 {t('login.sign-in-header.button')}
               </Button>
@@ -133,7 +133,7 @@ export const LoginForm: FC<LoginFormProps> = ({ providersToBeShown = [] }) => {
               as={Navigate}
               href="/forgot-password"
               variant="link"
-              colorScheme="blue"
+              colorScheme="primary"
               size="sm"
             >
               {t('login.password.forgot-password')}
@@ -142,7 +142,7 @@ export const LoginForm: FC<LoginFormProps> = ({ providersToBeShown = [] }) => {
           <Stack spacing="6">
             <Button
               type="submit"
-              colorScheme="blue"
+              colorScheme="primary"
               data-testid="button-submit-login"
             >
               {t('login.sign-in')}

@@ -129,7 +129,7 @@ export const ResetPasswordForm = () => {
             />
           </Stack>
           <Stack spacing="6">
-            <Button type="submit" colorScheme="blue" isLoading={isLoading}>
+            <Button type="submit" colorScheme="primary" isLoading={isLoading}>
               {t('login.forgot-pass-header.button')}
             </Button>
           </Stack>
