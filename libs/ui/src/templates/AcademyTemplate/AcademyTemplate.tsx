@@ -1,11 +1,14 @@
 import { FC } from 'react'
 
-import { Heading, Stack, Text } from '@chakra-ui/react'
+import { Heading, Stack, Text, Box } from '@chakra-ui/react'
+import { NextSeoProps } from 'next-seo'
+
+import { UploadFile } from '@wsvvrijheid/types'
 
 import { AcademyCard } from '../../academy'
-import { Container } from '../../components'
+import { Container, WImage } from '../../components'
 
-const image = 'https://placehold.co/256x256'
+const placeholder = 'https://placehold.co/256x256'
 const academyProjects = [
   {
     title: 'Courses',
@@ -21,19 +24,28 @@ const academyProjects = [
   },
 ]
 
-export const AcademyTemplate: FC = () => {
+export type AcademyTemplateProps = {
+  seo: NextSeoProps
+  image: UploadFile | string
+}
+
+export const AcademyTemplate: FC<AcademyTemplateProps> = ({ seo, image }) => {
   return (
     <Container maxW="container.lg">
       <Stack py={8} spacing={8} align="center">
+        <Box boxSize={300}>
+          <WImage
+            src={image}
+            rounded="full"
+            shadow="base"
+            alt={seo.title as string}
+            ratio={1}
+          />
+        </Box>
         <Heading as="h1" size="2xl">
-          Wees Academy
+          {seo.title}
         </Heading>
-        <Text>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore
-          placeat ex distinctio rerum consequatur amet necessitatibus voluptates
-          corporis, quod voluptatem officiis, doloremque eius natus cumque
-          facilis voluptatibus, culpa aut dolor?
-        </Text>
+        <Text>{seo.description}</Text>
         <Stack
           justifyContent="center"
           direction="row"
@@ -42,7 +54,11 @@ export const AcademyTemplate: FC = () => {
           py={10}
         >
           {academyProjects.map(project => (
-            <AcademyCard image={image} key={project.title} href={project.href}>
+            <AcademyCard
+              image={placeholder}
+              key={project.title}
+              href={project.href}
+            >
               {project.title}
             </AcademyCard>
           ))}

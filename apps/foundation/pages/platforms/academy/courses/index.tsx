@@ -1,9 +1,5 @@
 const Courses = () => {
-  return (
-    <div>
-      <h1>Courses</h1>
-    </div>
-  )
+  return <h1>Courses</h1>
 }
 
 export default Courses
