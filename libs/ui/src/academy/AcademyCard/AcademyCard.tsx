@@ -1,6 +1,6 @@
 import { FC } from 'react'
 
-import { Card, CardBody, Link, Text } from '@chakra-ui/react'
+import { Card, Link, Text } from '@chakra-ui/react'
 
 import { WImage } from '../../components'
 
@@ -17,13 +17,18 @@ export const AcademyCard: FC<AcademyCardProps> = ({
 }) => {
   return (
     <Link href={href}>
-      <Card w={64} h={64}>
-        <CardBody position="relative">
-          <WImage src={image} />
-          <Text position="absolute" bottom="5">
-            {children}
-          </Text>
-        </CardBody>
+      <Card w={{ base: 48, lg: 64 }} h={{ base: 48, lg: 64 }} overflow="hidden">
+        <WImage src={image} />
+        <Text
+          px="3"
+          fontSize="lg"
+          color="white"
+          fontWeight="medium"
+          position="absolute"
+          bottom="5"
+        >
+          {children}
+        </Text>
       </Card>
     </Link>
   )
