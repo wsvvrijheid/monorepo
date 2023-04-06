@@ -43,10 +43,6 @@
     "content_nl": {
       "type": "text"
     },
-    "language": {
-      "type": "enumeration",
-      "enum": ["en", "tr", "nl"]
-    },
     "location": {
       "type": "string"
     },
@@ -58,16 +54,6 @@
     },
     "quota": {
       "type": "integer"
-    },
-    "price": {
-      "type": "decimal"
-    },
-    "approvalStatus": {
-      "type": "enumeration",
-      "enum": ["pending", "approved", "rejected"]
-    },
-    "isOnline": {
-      "type": "boolean"
     },
     "startDate": {
       "type": "date"
