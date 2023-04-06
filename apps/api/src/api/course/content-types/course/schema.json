@@ -46,20 +46,24 @@
     "location": {
       "type": "string"
     },
+    "language": {
+      "type": "enumeration",
+      "enum": ["en", "tr", "nl"]
+    },
     "image": {
       "type": "media",
       "multiple": true,
       "required": false,
       "allowedTypes": ["images", "files", "videos", "audios"]
     },
+    "quota": {
+      "type": "integer"
+    },
     "startDate": {
       "type": "date"
     },
     "endDate": {
       "type": "date"
-    },
-    "quota": {
-      "type": "integer"
     },
     "price": {
       "type": "decimal"
