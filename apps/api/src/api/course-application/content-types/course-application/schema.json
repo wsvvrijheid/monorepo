@@ -14,9 +14,6 @@
     "name": {
       "type": "string"
     },
-    "email": {
-      "type": "email"
-    },
     "location": {
       "type": "string"
     },
@@ -25,6 +22,9 @@
     },
     "about": {
       "type": "string"
+    },
+    "email": {
+      "type": "email"
     },
     "approvalStatus": {
       "type": "enumeration",
@@ -38,7 +38,7 @@
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::course.course",
-      "inversedBy": "course_applications"
+      "inversedBy": "applications"
     }
   }
 }
