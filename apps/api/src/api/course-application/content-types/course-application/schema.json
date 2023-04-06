@@ -14,25 +14,24 @@
     "name": {
       "type": "string"
     },
-    "location": {
+    "email": {
+      "type": "email"
+    },
+    "city": {
       "type": "string"
     },
     "phone": {
       "type": "string"
     },
-    "about": {
+    "message": {
       "type": "string"
     },
-    "email": {
-      "type": "email"
+    "hasPaid": {
+      "type": "boolean"
     },
     "approvalStatus": {
       "type": "enumeration",
       "enum": ["approved", "pending", "rejected"]
-    },
-    "paymentStatus": {
-      "type": "enumeration",
-      "enum": ["paid", "pending", "unpaid"]
     },
     "course": {
       "type": "relation",
