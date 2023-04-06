@@ -1,4 +1,3 @@
-/* eslint-disable @nrwl/nx/enforce-module-boundaries */
 import { FC } from 'react'
 
 import { GetStaticPaths } from 'next'

@@ -17,9 +17,22 @@ export const AcademyCard: FC<AcademyCardProps> = ({
 }) => {
   return (
     <Link href={href}>
-      <Card w={{ base: 48, lg: 64 }} h={{ base: 48, lg: 64 }} overflow="hidden">
-        <WImage src={image} />
+      <Card
+        role="group"
+        w={{ base: 48, lg: 64 }}
+        h={{ base: 48, lg: 64 }}
+        overflow="hidden"
+      >
+        <WImage
+          src={image}
+          _groupHover={{ transform: 'scale(1.05 )' }}
+          transition={'all'}
+          transitionDuration={'0.2s'}
+        />
         <Text
+          _groupHover={{ bottom: 8 }}
+          transition={'all'}
+          transitionDuration={'0.2s'}
           w={{ base: 48, lg: 64 }}
           px="3"
           fontSize="lg"
