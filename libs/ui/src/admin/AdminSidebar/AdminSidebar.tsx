@@ -53,7 +53,7 @@ export const AdminSidebar: FC<AdminSidebarProps> = memo(
               name="Wsvvrijheid"
             />
             {expanded && (
-              <Text color={'blue.500'} fontWeight={700} fontSize="xl">
+              <Text color={'primary.500'} fontWeight={700} fontSize="xl">
                 Dashboard
               </Text>
             )}

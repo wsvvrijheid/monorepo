@@ -94,7 +94,7 @@ export const JoinTemplate: FC<JoinTemplateProps> = ({ title }) => {
         <Center h="calc(70vh)">
           <Alert
             status="success"
-            colorScheme="blue"
+            colorScheme="primary"
             variant="solid"
             flexDirection="column"
             alignItems="center"
