@@ -1,13 +1,29 @@
 import { FC } from 'react'
 
-import { HStack, Heading, Stack, Text } from '@chakra-ui/react'
+import { Heading, Stack, Text } from '@chakra-ui/react'
 
 import { AcademyCard } from '../../academy'
 import { Container } from '../../components'
 
+const image = 'https://placehold.co/256x256'
+const academyProjects = [
+  {
+    title: 'Courses',
+    href: '/platforms/academy/courses',
+  },
+  {
+    title: 'Software',
+    href: '/platforms/academy/software',
+  },
+  {
+    title: 'Seminars',
+    href: '/platforms/academy/seminars',
+  },
+]
+
 export const AcademyTemplate: FC = () => {
   return (
-    <Container maxW="container.md">
+    <Container maxW="container.lg">
       <Stack py={8} spacing={8} align="center">
         <Heading as="h1" size="2xl">
           Wees Academy
@@ -18,11 +34,19 @@ export const AcademyTemplate: FC = () => {
           corporis, quod voluptatem officiis, doloremque eius natus cumque
           facilis voluptatibus, culpa aut dolor?
         </Text>
-        <HStack>
-          <AcademyCard>Courses</AcademyCard>
-          <AcademyCard>Software Development</AcademyCard>
-          <AcademyCard>Seminar</AcademyCard>
-        </HStack>
+        <Stack
+          justifyContent="center"
+          direction="row"
+          flexWrap="wrap"
+          gap={6}
+          py={10}
+        >
+          {academyProjects.map(project => (
+            <AcademyCard image={image} key={project.title} href={project.href}>
+              {project.title}
+            </AcademyCard>
+          ))}
+        </Stack>
       </Stack>
     </Container>
   )
