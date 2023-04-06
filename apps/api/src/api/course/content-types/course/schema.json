@@ -12,63 +12,26 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "title_nl": {
-      "type": "string"
-    },
-    "image": {
-      "type": "media",
-      "multiple": true,
-      "required": false,
-      "allowedTypes": ["images", "files", "videos", "audios"]
-    },
-    "description_nl": {
-      "type": "text"
-    },
-    "quota": {
-      "type": "integer"
-    },
-    "price": {
-      "type": "decimal"
-    },
-    "content_nl": {
-      "type": "text"
-    },
-    "approvalStatus": {
-      "type": "enumeration",
-      "enum": ["pending", "approved", "rejected"]
-    },
-    "isOnline": {
-      "type": "boolean"
-    },
-    "location": {
-      "type": "string"
-    },
-    "startDate": {
-      "type": "date"
-    },
-    "endDate": {
-      "type": "date"
-    },
-    "slug": {
-      "type": "uid",
-      "targetField": "title_en"
-    },
-    "tags": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::tag.tag",
-      "inversedBy": "courses"
-    },
     "title_en": {
       "type": "string"
     },
     "title_tr": {
       "type": "string"
     },
+    "title_nl": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title_en"
+    },
     "description_en": {
       "type": "text"
     },
     "description_tr": {
+      "type": "text"
+    },
+    "description_nl": {
       "type": "text"
     },
     "content_en": {
@@ -77,16 +40,47 @@
     "content_tr": {
       "type": "text"
     },
-    "course_applications": {
+    "content_nl": {
+      "type": "text"
+    },
+    "location": {
+      "type": "string"
+    },
+    "image": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": ["images", "files", "videos", "audios"]
+    },
+    "startDate": {
+      "type": "date"
+    },
+    "endDate": {
+      "type": "date"
+    },
+    "quota": {
+      "type": "integer"
+    },
+    "price": {
+      "type": "decimal"
+    },
+    "isOnline": {
+      "type": "boolean"
+    },
+    "approvalStatus": {
+      "type": "enumeration",
+      "enum": ["pending", "approved", "rejected"]
+    },
+    "tags": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::tag.tag",
+      "inversedBy": "courses"
+    },
+    "applications": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::course-application.course-application",
-      "mappedBy": "course"
-    },
-    "platforms": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::platform.platform",
       "mappedBy": "course"
     },
     "platform": {

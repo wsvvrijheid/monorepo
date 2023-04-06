@@ -71,12 +71,6 @@
       "target": "api::job.job",
       "mappedBy": "platform"
     },
-    "course": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::course.course",
-      "inversedBy": "platforms"
-    },
     "courses": {
       "type": "relation",
       "relation": "oneToMany",
