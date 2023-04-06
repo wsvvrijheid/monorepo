@@ -47,7 +47,8 @@
       "type": "string"
     },
     "language": {
-      "type": "string"
+      "type": "enumeration",
+      "enum": ["en", "tr", "nl"]
     },
     "instructor": {
       "type": "string"
