@@ -46,14 +46,30 @@
     "location": {
       "type": "string"
     },
+    "language": {
+      "type": "string"
+    },
+    "instructor": {
+      "type": "string"
+    },
+    "price": {
+      "type": "integer"
+    },
+    "quota": {
+      "type": "integer"
+    },
+    "isOnline": {
+      "type": "boolean"
+    },
     "image": {
       "type": "media",
       "multiple": true,
       "required": false,
       "allowedTypes": ["images", "files", "videos", "audios"]
     },
-    "quota": {
-      "type": "integer"
+    "approvalStatus": {
+      "type": "enumeration",
+      "enum": ["approved", "pending", "rejected"]
     },
     "startDate": {
       "type": "date"

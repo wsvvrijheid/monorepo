@@ -19,6 +19,7 @@ type CourseBase = StrapiBase & {
   content_nl: string
   language: StrapiLocale
   location: string
+  instructor: string
   quota: number | null
   price: number | null
   approvalStatus: ApprovalStatus
