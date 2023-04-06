@@ -46,13 +46,6 @@
     "location": {
       "type": "string"
     },
-    "instructor": {
-      "type": "string"
-    },
-    "language": {
-      "type": "enumeration",
-      "enum": ["en", "tr", "nl"]
-    },
     "image": {
       "type": "media",
       "multiple": true,
@@ -67,16 +60,6 @@
     },
     "endDate": {
       "type": "date"
-    },
-    "price": {
-      "type": "decimal"
-    },
-    "isOnline": {
-      "type": "boolean"
-    },
-    "approvalStatus": {
-      "type": "enumeration",
-      "enum": ["pending", "approved", "rejected"]
     },
     "tags": {
       "type": "relation",
@@ -95,6 +78,16 @@
       "relation": "manyToOne",
       "target": "api::platform.platform",
       "inversedBy": "courses"
+    },
+    "faqs": {
+      "type": "component",
+      "repeatable": true,
+      "component": "faq.faq"
+    },
+    "curriculum": {
+      "type": "component",
+      "repeatable": true,
+      "component": "course.curriculum"
     }
   }
 }
