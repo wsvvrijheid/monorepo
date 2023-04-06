@@ -60,6 +60,12 @@
       "relation": "manyToMany",
       "target": "api::activity.activity",
       "inversedBy": "tags"
+    },
+    "courses": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::course.course",
+      "mappedBy": "tags"
     }
   }
 }
