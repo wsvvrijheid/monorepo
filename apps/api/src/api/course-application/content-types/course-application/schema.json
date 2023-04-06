@@ -17,6 +17,9 @@
     "email": {
       "type": "email"
     },
+    "country": {
+      "type": "string"
+    },
     "city": {
       "type": "string"
     },
