@@ -46,6 +46,9 @@
     "location": {
       "type": "string"
     },
+    "instructor": {
+      "type": "string"
+    },
     "language": {
       "type": "enumeration",
       "enum": ["en", "tr", "nl"]
