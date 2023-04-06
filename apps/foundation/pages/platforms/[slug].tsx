@@ -1,3 +1,4 @@
+/* eslint-disable @nrwl/nx/enforce-module-boundaries */
 import { FC } from 'react'
 
 import { GetStaticPaths } from 'next'
@@ -8,7 +9,11 @@ import {
   getPlatformStaticProps,
 } from '@wsvvrijheid/services'
 import { StrapiLocale } from '@wsvvrijheid/types'
-import { PlatformTemplate, PlatformTemplateProps } from '@wsvvrijheid/ui'
+import {
+  AcademyTemplate,
+  PlatformTemplate,
+  PlatformTemplateProps,
+} from '@wsvvrijheid/ui'
 
 import { Layout } from '../../components'
 import i18nConfig from '../../next-i18next.config'
@@ -23,7 +28,11 @@ const PlatformDetailPage: FC<PlatformTemplateProps> = ({
 
   return (
     <Layout seo={seo}>
-      <PlatformTemplate seo={seo} source={source} image={image} link={link} />
+      {seo.title === 'Wees Academy' ? (
+        <AcademyTemplate seo={seo} image={image} />
+      ) : (
+        <PlatformTemplate seo={seo} source={source} image={image} link={link} />
+      )}
     </Layout>
   )
 }
