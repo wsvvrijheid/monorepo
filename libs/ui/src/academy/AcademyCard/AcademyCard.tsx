@@ -20,6 +20,7 @@ export const AcademyCard: FC<AcademyCardProps> = ({
       <Card w={{ base: 48, lg: 64 }} h={{ base: 48, lg: 64 }} overflow="hidden">
         <WImage src={image} />
         <Text
+          w={{ base: 48, lg: 64 }}
           px="3"
           fontSize="lg"
           color="white"
