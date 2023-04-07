@@ -73,11 +73,7 @@ const CollectionPage: FC<PageProps> = ({ seo }) => {
                   {t('collection-arts')}
                 </Text>
 
-                <Button
-                  colorScheme="primary"
-                  leftIcon={<IoMdAdd />}
-                  onClick={onOpen}
-                >
+                <Button leftIcon={<IoMdAdd />} onClick={onOpen}>
                   {t('collection.add-art')}
                 </Button>
               </HStack>

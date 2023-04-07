@@ -133,12 +133,7 @@ export const AdminLoginForm = () => {
                 register={register}
                 errors={errors}
               />
-              <Button
-                isLoading={isAuthLoading}
-                w="full"
-                type="submit"
-                colorScheme="primary"
-              >
+              <Button isLoading={isAuthLoading} w="full" type="submit">
                 Sign in
               </Button>
               {loginMutation.isError && (
@@ -154,7 +149,6 @@ export const AdminLoginForm = () => {
               as={Navigate}
               href="/forgot-password"
               variant="link"
-              colorScheme="primary"
               size="sm"
             >
               Forgot your password

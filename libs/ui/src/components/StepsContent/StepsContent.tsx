@@ -27,7 +27,6 @@ export const StepsContent = (props: PopoverContentProps) => {
         justifyContent="space-between"
         alignItems="center"
         variant="ghost"
-        colorScheme="primary"
         w="full"
       >
         <IconButton

@@ -151,7 +151,7 @@ export const CreateArtForm: FC<CreateArtFormProps> = ({ queryKey }) => {
         ref={cancelRef}
       />
 
-      <Button size="lg" colorScheme="primary" onClick={formDisclosure.onOpen}>
+      <Button size="lg" onClick={formDisclosure.onOpen}>
         <Box mr={{ base: 0, lg: 4 }}>
           <FaUpload />
         </Box>
@@ -182,7 +182,7 @@ export const CreateArtForm: FC<CreateArtFormProps> = ({ queryKey }) => {
                 boxSize="full"
                 bg="whiteAlpha.900"
               >
-                <Spinner size="xl" colorScheme="primary" />
+                <Spinner size="xl" />
               </Center>
             )}
 
@@ -243,7 +243,6 @@ export const CreateArtForm: FC<CreateArtFormProps> = ({ queryKey }) => {
                     <Button
                       isDisabled={!image || image?.length === 0 || !isValid}
                       type="submit"
-                      colorScheme="primary"
                       rightIcon={<FaPlus />}
                     >
                       {t('create')}

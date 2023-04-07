@@ -38,7 +38,6 @@ export const AdminNavItemCollapsed: FC<AdminNavItemProps> = ({
               size="lg"
               variant="ghost"
               {...(isMenuLinkActive && {
-                colorScheme: 'primary',
                 variant: 'solid',
               })}
             />
