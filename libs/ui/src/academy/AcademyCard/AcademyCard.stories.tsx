@@ -25,3 +25,11 @@ Default.args = {
   image: 'https://placehold.co/256x',
   href: '/',
 }
+export const withDescription = Template.bind({})
+withDescription.args = {
+  children: 'Courses',
+  image: 'https://placehold.co/256x',
+  href: '/',
+  description:
+    'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Explicabo nulla expedita sunt magnam sequi, at veniam soluta aliquam itaque inventore id. Tempore itaque fuga cupiditate? Ea soluta iste vel sint!,Lorem ipsum dolor sit amet consectetur, adipisicing elit. Explicabo nulla expedita sunt magnam sequi, at veniam soluta aliquam itaque inventore id. Tempore itaque fuga cupiditate? Ea soluta iste vel sint!,',
+}
