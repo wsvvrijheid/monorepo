@@ -82,7 +82,6 @@ export const SearchForm: React.FC<SearchFormProps> = ({
         )}
         {mode === 'click' && (
           <IconButton
-            colorScheme="primary"
             onClick={() => onSearch(searchTerm)}
             icon={<HiOutlineSearch />}
             aria-label="Search"

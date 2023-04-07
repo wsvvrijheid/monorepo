@@ -81,12 +81,7 @@ export const CookieBanner = (props: CookieBannerProps) => {
           </Button>
         )}
 
-        <Button
-          colorScheme={'primary'}
-          size="sm"
-          flexShrink={0}
-          onClick={onAllow}
-        >
+        <Button size="sm" flexShrink={0} onClick={onAllow}>
           Allow
         </Button>
         {onClose && (

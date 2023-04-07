@@ -278,12 +278,7 @@ export const JoinForm: FC<JoinFormFProps> = ({
           )}
         </Stack>
       </Box>
-      <Button
-        isLoading={isLoading}
-        colorScheme="primary"
-        size="lg"
-        type="submit"
-      >
+      <Button isLoading={isLoading} size="lg" type="submit">
         {t('apply-form.submit')}
       </Button>
     </Stack>

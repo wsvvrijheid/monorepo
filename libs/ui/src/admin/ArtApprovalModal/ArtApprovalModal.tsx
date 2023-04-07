@@ -63,7 +63,6 @@ export const ArtApprovalModal: FC<ArtApprovalTypes> = ({
                       {['en', 'nl', 'tr'].map(lang => (
                         <Button
                           textTransform={'uppercase'}
-                          colorScheme={'primary'}
                           variant={language === lang ? 'solid' : 'outline'}
                           onClick={() => setLanguage(lang as StrapiLocale)}
                         >
@@ -137,12 +136,7 @@ export const ArtApprovalModal: FC<ArtApprovalTypes> = ({
                     <Heading color={'primary.500'} fontWeight={700}>
                       Edit
                     </Heading>
-                    <Button
-                      colorScheme={'primary'}
-                      onClick={() => setIsEditing(false)}
-                    >
-                      Cancel
-                    </Button>
+                    <Button onClick={() => setIsEditing(false)}>Cancel</Button>
                   </HStack>
                   <ModelEditForm<Art>
                     noColumns

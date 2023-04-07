@@ -16,6 +16,8 @@ export const styles = {
       height: '450px',
     },
     a: {
+      bgGradient: 'linear(to-b, primary.400, primary.500)',
+      bgClip: 'text',
       _hover: {
         textDecoration: 'none',
       },

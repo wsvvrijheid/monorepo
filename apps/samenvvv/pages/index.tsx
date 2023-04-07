@@ -31,7 +31,7 @@ const Home: FC<HomeProps> = ({ seo, link, hashtags }) => {
   return (
     <Layout seo={seo} isDark hasScroll>
       <Box
-        bg={'primary.500'}
+        bgGradient={'linear(to-b, primary.400, primary.500)'}
         mt={{ base: '-64px', lg: '-100px' }}
         pb={{ base: 16, lg: 32 }}
       >
@@ -58,7 +58,6 @@ const Home: FC<HomeProps> = ({ seo, link, hashtags }) => {
               size={'lg'}
               fontWeight={600}
               variant="solid"
-              colorScheme="primary"
               bg="white"
               color="primary.500"
               boxShadow="lg"
