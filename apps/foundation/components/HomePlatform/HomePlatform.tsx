@@ -84,6 +84,8 @@ export const HomePlatform: FC<HomePlatformProps> = ({ platforms }) => {
                       size="lg"
                       color={color.text}
                       variant="link"
+                      alignSelf={index % 2 ? 'flex-end' : 'flex-start'}
+                      fontWeight={700}
                     >
                       {t('read-more')}
                     </Button>
