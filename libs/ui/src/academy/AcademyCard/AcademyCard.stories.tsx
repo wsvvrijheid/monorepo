@@ -1,3 +1,4 @@
+import { SimpleGrid } from '@chakra-ui/react'
 import { Meta, StoryFn } from '@storybook/react'
 
 import { AcademyCard } from './AcademyCard'
@@ -8,7 +9,7 @@ export default {
   title: 'Shared/AcademyCard',
   decorators: [
     Story => (
-      <Container maxW="container.sm">
+      <Container maxW="container.lg">
         <Story />
       </Container>
     ),
@@ -16,20 +17,26 @@ export default {
 } as Meta<typeof AcademyCard>
 
 const Template: StoryFn<typeof AcademyCard> = args => {
-  return <AcademyCard {...args}>{args.children}</AcademyCard>
+  return (
+    <SimpleGrid columns={{ base: 1, md: 2, lg: 4 }} gap={4}>
+      <AcademyCard {...args}>{args.children}</AcademyCard>
+      <AcademyCard {...args}>{args.children}</AcademyCard>
+      <AcademyCard {...args}>{args.children}</AcademyCard>
+    </SimpleGrid>
+  )
 }
 
 export const Default = Template.bind({})
 Default.args = {
-  children: 'Courses',
+  children: 'Projects',
   image: 'https://placehold.co/256x',
   href: '/',
 }
 export const withDescription = Template.bind({})
 withDescription.args = {
-  children: 'Courses',
+  children: 'Projects',
   image: 'https://placehold.co/256x',
   href: '/',
   description:
-    'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Explicabo nulla expedita sunt magnam sequi, at veniam soluta aliquam itaque inventore id. Tempore itaque fuga cupiditate? Ea soluta iste vel sint!,Lorem ipsum dolor sit amet consectetur, adipisicing elit. Explicabo nulla expedita sunt magnam sequi, at veniam soluta aliquam itaque inventore id. Tempore itaque fuga cupiditate? Ea soluta iste vel sint!,',
+    'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Explicabo nulla expedita sunt magnam sequi.',
 }
