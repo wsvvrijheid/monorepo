@@ -1,6 +1,7 @@
 import { FC } from 'react'
 
-import { Card, Link, Text } from '@chakra-ui/react'
+import { AspectRatio, Card, LinkBox, LinkOverlay, Text } from '@chakra-ui/react'
+import Link from 'next/link'
 
 import { WImage } from '../../components'
 
@@ -16,34 +17,41 @@ export const AcademyCard: FC<AcademyCardProps> = ({
   image,
 }) => {
   return (
-    <Link href={href}>
-      <Card
-        role="group"
-        w={{ base: 48, lg: 64 }}
-        h={{ base: 48, lg: 64 }}
-        overflow="hidden"
-      >
-        <WImage
-          src={image}
-          _groupHover={{ transform: 'scale(1.05 )' }}
-          transition={'all'}
-          transitionDuration={'0.2s'}
-        />
-        <Text
-          _groupHover={{ bottom: 8 }}
-          transition={'all'}
-          transitionDuration={'0.2s'}
-          w={{ base: 48, lg: 64 }}
-          px="3"
-          fontSize="lg"
-          color="white"
-          fontWeight="medium"
-          position="absolute"
-          bottom="5"
-        >
-          {children}
-        </Text>
-      </Card>
-    </Link>
+    <LinkBox as="article">
+      <LinkOverlay as={Link} href={href}>
+        <AspectRatio ratio={1}>
+          <Card
+            rounded="xl"
+            position="relative"
+            role="group"
+            overflow="hidden"
+            w="100%"
+          >
+            <WImage
+              src={image}
+              _groupHover={{ transform: 'scale(1.05 )' }}
+              transition={'all'}
+              transitionDuration={'0.2s'}
+            />
+            <Text
+              w="100%"
+              p="5"
+              fontSize="lg"
+              color="white"
+              position="absolute"
+              fontWeight="medium"
+              bottom="0"
+              _groupHover={{ pb: '7' }}
+              transition="all"
+              transitionDuration={'0.2s'}
+            >
+              <LinkOverlay as={Link} href={href}>
+                {children}
+              </LinkOverlay>
+            </Text>
+          </Card>
+        </AspectRatio>
+      </LinkOverlay>
+    </LinkBox>
   )
 }
