@@ -3574,6 +3574,15 @@ axios@1.3.4:
     form-data "^4.0.0"
     proxy-from-env "^1.1.0"
 
+axios@1.3.5:
+  version "1.3.5"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-1.3.5.tgz#e07209b39a0d11848e3e341fa087acd71dadc542"
+  integrity sha512-glL/PvG/E+xCWwV8S6nCHcrfg1exGx7vxyUIivIA1iL7BIh6bePylCfVHwp6k13ao7SATxB6imau2kqY+I67kw==
+  dependencies:
+    follow-redirects "^1.15.0"
+    form-data "^4.0.0"
+    proxy-from-env "^1.1.0"
+
 babel-loader@^9.1.2:
   version "9.1.2"
   resolved "https://registry.yarnpkg.com/babel-loader/-/babel-loader-9.1.2.tgz#a16a080de52d08854ee14570469905a5fc00d39c"
@@ -9766,10 +9775,10 @@ std-env@^3.0.1:
   resolved "https://registry.yarnpkg.com/std-env/-/std-env-3.3.2.tgz#af27343b001616015534292178327b202b9ee955"
   integrity sha512-uUZI65yrV2Qva5gqE0+A7uVAvO40iPo6jGhs7s8keRfHCmtg+uB2X6EiLGCI9IgL1J17xGhvoOqSz79lzICPTA==
 
-strapi-plugin-import-export-entries@^1.18.0:
-  version "1.18.0"
-  resolved "https://registry.yarnpkg.com/strapi-plugin-import-export-entries/-/strapi-plugin-import-export-entries-1.18.0.tgz#7910244728f8c0e834b55c4b684d3e913ae31085"
-  integrity sha512-pAokLrqjd08JS7N/LUvsym3JTvja25J0xKw4zbPUDEt5Fdr/N9/N7wthKy6cv7TA7f6qJFq3q1RNtyjhJ5Cf/Q==
+strapi-plugin-import-export-entries@^1.18.1:
+  version "1.18.1"
+  resolved "https://registry.yarnpkg.com/strapi-plugin-import-export-entries/-/strapi-plugin-import-export-entries-1.18.1.tgz#f94b6a0282236cf0247342d14beb5c809874df06"
+  integrity sha512-snOkjVPq+wAFgUiM31+SsFIWNrNBiSknG1bPnee7mqYxu6gVb3lZ0UiHVbRy56x/y8q9OcRMg0nyorWCMw4fnA==
   dependencies:
     "@monaco-editor/react" "4.4.5"
     csvtojson "2.0.10"
@@ -9778,6 +9787,7 @@ strapi-plugin-import-export-entries@^1.18.0:
     lodash "4.17.21"
     monaco-editor "0.33.0"
     monaco-editor-webpack-plugin "7.0.1"
+    node-fetch "2.6.9"
     react-singleton-hook "3.3.0"
 
 strapi-plugin-transformer@^3.0.1:
