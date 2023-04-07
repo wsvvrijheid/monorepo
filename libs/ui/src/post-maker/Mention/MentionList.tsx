@@ -88,7 +88,13 @@ export const MentionList = () => {
         overflowY="auto"
         shadow="base"
       >
-        <Tabs size="sm" isFitted variant="line" bg="white">
+        <Tabs
+          size="sm"
+          colorScheme={'primary'}
+          isFitted
+          variant="line"
+          bg="white"
+        >
           <TabList pos="sticky" top="0" bg="white">
             <Tab>{t('post.mention-tab-popular')}</Tab>
             <Tab>{t('post.mention-tab-saved')}</Tab>

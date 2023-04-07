@@ -5,11 +5,6 @@ import {
   Collapse,
   Heading,
   IconButton,
-  Stack,
-  Tab,
-  TabPanel,
-  TabPanels,
-  Tabs,
   Text,
   Tooltip,
   useBreakpointValue,
@@ -25,13 +20,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { serialize } from 'next-mdx-remote/serialize'
 import { NextSeoProps } from 'next-seo'
-import {
-  FaChevronDown,
-  FaChevronUp,
-  FaHashtag,
-  FaImages,
-  FaTwitter,
-} from 'react-icons/fa'
+import { FaChevronDown, FaChevronUp, FaHashtag } from 'react-icons/fa'
 
 import {
   getHashtagBySlug,
@@ -52,7 +41,6 @@ import {
 import { Hashtag, StrapiLocale } from '@wsvvrijheid/types'
 import {
   Container,
-  PostArchive,
   PostMaker,
   StepsContent,
   usePostMakerSteps,
@@ -169,61 +157,7 @@ const Hashtag: FC<HashtagProps> = ({
             />
           </Box>
           {hasStarted ? (
-            <Tabs
-              flex={1}
-              isFitted
-              colorScheme="primary"
-              index={defaultTab || 0}
-              onChange={index => dispatch(setDefaultTab(index))}
-              isLazy
-            >
-              <Stack
-                direction={{ base: 'row', xl: 'column' }}
-                pos={{ base: 'static', xl: 'fixed' }}
-                top={256}
-                left={0}
-                spacing={1}
-                zIndex="tooltip"
-              >
-                <Tab
-                  borderWidth={1}
-                  borderColor="gray.300"
-                  mb={0}
-                  bg="white"
-                  borderRadius={{ base: 'sm', lg: 'none' }}
-                  _selected={{
-                    bg: 'primary.400',
-                    borderColor: 'primary.400',
-                    color: 'white',
-                  }}
-                >
-                  <Box as={FaTwitter} mr={2} />
-                  <Box>{t`post.tabs.share`}</Box>
-                </Tab>
-                <Tab
-                  borderWidth={1}
-                  borderColor="gray.300"
-                  bg="white"
-                  borderRadius={{ base: 'sm', lg: 'none' }}
-                  _selected={{
-                    bg: 'primary.400',
-                    borderColor: 'primary.400',
-                    color: 'white',
-                  }}
-                >
-                  <Box as={FaImages} mr={2} />
-                  <Box>{t`post.tabs.archive`}</Box>
-                </Tab>
-              </Stack>
-              <TabPanels>
-                <TabPanel px={0} py={4}>
-                  <PostMaker />
-                </TabPanel>
-                <TabPanel p={0} py={4}>
-                  <PostArchive />
-                </TabPanel>
-              </TabPanels>
-            </Tabs>
+            <PostMaker />
           ) : (
             <TimeLeft date={hashtagQuery?.data?.date as string} />
           )}
