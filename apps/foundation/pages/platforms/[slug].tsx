@@ -8,11 +8,7 @@ import {
   getPlatformStaticProps,
 } from '@wsvvrijheid/services'
 import { StrapiLocale } from '@wsvvrijheid/types'
-import {
-  AcademyTemplate,
-  PlatformTemplate,
-  PlatformTemplateProps,
-} from '@wsvvrijheid/ui'
+import { PlatformTemplate, PlatformTemplateProps } from '@wsvvrijheid/ui'
 
 import { Layout } from '../../components'
 import i18nConfig from '../../next-i18next.config'
@@ -27,11 +23,7 @@ const PlatformDetailPage: FC<PlatformTemplateProps> = ({
 
   return (
     <Layout seo={seo}>
-      {seo.title === 'Wees Academy' ? (
-        <AcademyTemplate seo={seo} image={image} />
-      ) : (
-        <PlatformTemplate seo={seo} source={source} image={image} link={link} />
-      )}
+      <PlatformTemplate seo={seo} source={source} image={image} link={link} />
     </Layout>
   )
 }
