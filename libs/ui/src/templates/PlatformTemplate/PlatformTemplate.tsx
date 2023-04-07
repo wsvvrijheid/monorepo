@@ -52,7 +52,6 @@ export const PlatformTemplate: FC<PlatformTemplateProps> = ({
               as={Link}
               isExternal
               href={link}
-              colorScheme="primary"
               size="lg"
               rightIcon={<FaExternalLinkAlt />}
             >

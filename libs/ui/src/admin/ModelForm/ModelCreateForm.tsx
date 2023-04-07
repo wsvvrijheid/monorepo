@@ -225,7 +225,6 @@ export const ModelCreateForm = <T extends StrapiModel>({
       <Button
         alignSelf={'end'}
         leftIcon={<TbPlus />}
-        colorScheme={'primary'}
         type={'submit'}
         isLoading={createModelMutation.isLoading}
       >

@@ -69,7 +69,6 @@ export const HashtagCard: FC<SliderHeroProps> = ({ item, type }) => {
           as={Navigate}
           href={link as string}
           justifySelf="end"
-          colorScheme="primary"
           rightIcon={<FaArrowRight />}
         >
           {t('read-more')}

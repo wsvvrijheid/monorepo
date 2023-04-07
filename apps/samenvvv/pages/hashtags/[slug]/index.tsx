@@ -144,7 +144,6 @@ const Hashtag: FC<HashtagProps> = ({
                   aria-label="open hashtags"
                   onClick={onOpen}
                   icon={<FaHashtag />}
-                  colorScheme="primary"
                   size="lg"
                   title={t`post.all-hashtags`}
                   rounded="full"

@@ -122,12 +122,7 @@ export const SignupForm: FC<SignupFormProps> = ({
             <HStack spacing="1" justify="center">
               <Text color="muted">{t('login.sign-up-header.text')}</Text>
 
-              <Button
-                as={Navigate}
-                href="/login"
-                variant="link"
-                colorScheme="primary"
-              >
+              <Button as={Navigate} href="/login" variant="link">
                 {t('login.sign-up-header.button')}
               </Button>
             </HStack>
@@ -187,11 +182,7 @@ export const SignupForm: FC<SignupFormProps> = ({
             </HStack>
           </Stack>
           <Stack spacing="6">
-            <Button
-              type="submit"
-              colorScheme="primary"
-              disabled={!isTermsAccepted}
-            >
+            <Button type="submit" disabled={!isTermsAccepted}>
               {t('login.create-account')}
             </Button>
             {providersToBeShown.length > 0 && (
