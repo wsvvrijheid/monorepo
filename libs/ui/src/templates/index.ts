@@ -1,4 +1,3 @@
-export * from './AcademyTemplate'
 export * from './ArtClubTemplate'
 export * from './ArtTemplate'
 export * from './ArtistTemplate'
