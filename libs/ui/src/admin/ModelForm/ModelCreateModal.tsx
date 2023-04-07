@@ -38,7 +38,6 @@ export const ModelCreateModal = <T extends StrapiModel>({
     <>
       <Button
         leftIcon={<IoMdAdd />}
-        colorScheme="primary"
         onClick={formDisclosure.onOpen}
         {...buttonProps}
       >

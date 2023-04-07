@@ -70,6 +70,12 @@
       "relation": "oneToMany",
       "target": "api::job.job",
       "mappedBy": "platform"
+    },
+    "courses": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::course.course",
+      "mappedBy": "platform"
     }
   }
 }

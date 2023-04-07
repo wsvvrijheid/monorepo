@@ -44,6 +44,11 @@ import {
   CompetitionLocalizeInput,
   CompetitionUpdateInput,
 } from './competition'
+import { Course, CourseCreateInput, CourseUpdateInput } from './course'
+import {
+  CourseApplication,
+  CourseApplicationCreateInput,
+} from './course-application'
 import { Donation, DonationCreateInput, DonationUpdateInput } from './donation'
 import { EmailCreateInput } from './email'
 import {
@@ -137,6 +142,8 @@ export type StrapiModel =
   | Collection
   | Comment
   | Competition
+  | Course
+  | CourseApplication
   | Donation
   | Feedback
   | Hashtag
@@ -222,6 +229,8 @@ export type StrapiCollectionUrl =
   | 'collections'
   | 'comments'
   | 'competitions'
+  | 'course-applications'
+  | 'courses'
   | 'donates'
   | 'donates/email'
   | 'feedbacks'
@@ -282,10 +291,12 @@ export type StrapiCreateInput =
   | CommentArtCreateInput
   | CommentBlogCreateInput
   | CompetitionCreateInput
+  | CourseApplicationCreateInput
+  | CourseCreateInput
   | DonationCreateInput
   | EmailCreateInput
-  | FeedbackArtCreateInput
   | FeedbackApplicationCreateInput
+  | FeedbackArtCreateInput
   | HashtagCreateInput
   | JobCreateInput
   | MentionCreateInput
@@ -296,8 +307,8 @@ export type StrapiCreateInput =
   | TimelineCreateInput
   | VolunteerCreateInput
   | VoteCreateApplicationInput
-  | VoteCreateArtInput
   | VoteCreateApplicationJuryInput
+  | VoteCreateArtInput
   | VoteCreateArtJuryInput
 
 export type StrapiUpdateInput =
@@ -308,6 +319,7 @@ export type StrapiUpdateInput =
   | BlogUpdateInput
   | CollectionUpdateInput
   | CompetitionUpdateInput
+  | CourseUpdateInput
   | DonationUpdateInput
   | HashtagUpdateInput
   | PostUpdateInput

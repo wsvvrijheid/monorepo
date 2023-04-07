@@ -56,8 +56,8 @@ const MarkdownComponents = {
     <Navigate
       href={props.href as any}
       fontWeight={600}
-      color="blue.500"
-      _hover={{ color: 'blue.300' }}
+      color="primary.500"
+      _hover={{ color: 'primary.300' }}
     >
       {props.children}
     </Navigate>

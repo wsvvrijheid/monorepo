@@ -93,12 +93,7 @@ export const LoginForm: FC<LoginFormProps> = ({ providersToBeShown = [] }) => {
             <HStack spacing="1" justify="center">
               <Text color="muted">{t('login.sign-in-header.text')}</Text>
 
-              <Button
-                as={Navigate}
-                href="/register"
-                variant="link"
-                colorScheme="blue"
-              >
+              <Button as={Navigate} href="/register" variant="link">
                 {t('login.sign-in-header.button')}
               </Button>
             </HStack>
@@ -133,18 +128,13 @@ export const LoginForm: FC<LoginFormProps> = ({ providersToBeShown = [] }) => {
               as={Navigate}
               href="/forgot-password"
               variant="link"
-              colorScheme="blue"
               size="sm"
             >
               {t('login.password.forgot-password')}
             </Button>
           </HStack>
           <Stack spacing="6">
-            <Button
-              type="submit"
-              colorScheme="blue"
-              data-testid="button-submit-login"
-            >
+            <Button type="submit" data-testid="button-submit-login">
               {t('login.sign-in')}
             </Button>
             {loginMutation.isError && (
