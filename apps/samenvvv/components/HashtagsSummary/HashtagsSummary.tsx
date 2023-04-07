@@ -92,11 +92,7 @@ export const HashtagsSummary: FC<HashtagsSummaryProps> = ({ hashtags }) => {
                 href={latestLink || '/'}
                 size={'lg'}
                 fontWeight={600}
-                variant="solid"
-                colorScheme="primary"
                 boxShadow="lg"
-                whiteSpace="normal"
-                _hover={{ bg: 'primary.300' }}
               >
                 {t('read-more')}
               </Button>

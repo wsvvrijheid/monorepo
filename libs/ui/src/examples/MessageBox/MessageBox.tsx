@@ -75,7 +75,7 @@ export const MessageBox: FC<MessageBoxProps> = ({
         </Button>
         <Button
           size={size}
-          colorScheme="blue"
+          colorScheme="primary"
           type="submit"
           isDisabled={!isValid}
           isLoading={isLoading}
