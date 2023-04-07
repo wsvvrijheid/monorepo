@@ -7,7 +7,7 @@ export const components = {
 
       return {
         fontFamily: 'heading',
-        bgGradient: `linear(to-b, ${colorScheme}.400, ${colorScheme}.600)`,
+        bgGradient: `linear(to-b, ${colorScheme}.300, ${colorScheme}.500)`,
         bgClip: 'text',
         fontWeight: 700,
       }
@@ -26,18 +26,21 @@ export const components = {
         return {
           ...theme.components.Button.variants?.solid(props),
           color: 'white',
-          bgGradient: `linear(to-b, ${colorScheme}.400, ${colorScheme}.600)`,
+          bgGradient: `linear(to-b, ${colorScheme}.300, ${colorScheme}.500)`,
           _hover: {
-            bgGradient: `linear(to-b, ${colorScheme}.400, ${colorScheme}.500)`,
+            bgGradient: `linear(to-b, ${colorScheme}.500, ${colorScheme}.400)`,
           },
           _active: {
-            bgGradient: `linear(to-b, ${colorScheme}.500, ${colorScheme}.400)`,
+            bgGradient: `linear(to-b, ${colorScheme}.400, ${colorScheme}.600)`,
           },
         }
       },
       outline: (props: StyleFunctionProps) => {
         return {
           ...theme.components.Button.variants?.outline(props),
+          borderColor: 'primary.500',
+          color: 'primary.500',
+          borderWidth: 1.5,
           _hover: {
             bg: 'blackAlpha.50',
           },
@@ -48,13 +51,20 @@ export const components = {
 
         return {
           ...theme.components.Button.variants?.link(props),
-          bgGradient: `linear(to-b, ${colorScheme}.400, ${colorScheme}.600)`,
+          bgGradient: `linear(to-b, ${colorScheme}.400, ${colorScheme}.500)`,
           bgClip: 'text',
         }
       },
     },
     defaultProps: {
       colorScheme: 'primary',
+    },
+  },
+  Tag: {
+    variants: {
+      outline: (props: StyleFunctionProps) => ({
+        boxShadow: '0 0 0 1px primary.500',
+      }),
     },
   },
   Badge: {
@@ -64,7 +74,7 @@ export const components = {
       return {
         ...theme.components.Button.variants?.solid(props),
         color: 'white',
-        bgGradient: `linear(to-b, ${colorScheme}.400, ${colorScheme}.600)`,
+        bgGradient: `linear(to-b, ${colorScheme}.400, ${colorScheme}.500)`,
       }
     },
     baseStyle: {
