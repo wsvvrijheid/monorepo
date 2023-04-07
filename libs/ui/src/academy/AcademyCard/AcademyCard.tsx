@@ -36,6 +36,7 @@ export const AcademyCard: FC<AcademyCardProps> = ({
               transitionDuration={'0.2s'}
             />
             <Text
+              transform={'translateY(6rem)'}
               w="100%"
               p="5"
               fontSize="lg"
@@ -43,7 +44,7 @@ export const AcademyCard: FC<AcademyCardProps> = ({
               position="absolute"
               fontWeight="medium"
               bottom="0"
-              _groupHover={{ pb: '7' }}
+              _groupHover={{ transform: 'translateY(-5px)' }}
               transition="all"
               transitionDuration="0.3s"
             >
@@ -52,8 +53,8 @@ export const AcademyCard: FC<AcademyCardProps> = ({
               </LinkOverlay>
               {description && (
                 <Text
-                  display="none"
-                  _groupHover={{ display: 'block' }}
+                  pt="2"
+                  noOfLines={3}
                   transition="all"
                   fontWeight="thin"
                   transitionDuration="0.8s"
