@@ -6,7 +6,7 @@ export default async ({ strapi }) => {
   ).toISOString()
 
   // TODO Check for tr locale
-  const hashtags = await strapi.controller('api::hashtag.hashtag').find({
+  const hashtags = await strapi.service('api::hashtag.hashtag').find({
     date: { $gte: date },
   })
 
