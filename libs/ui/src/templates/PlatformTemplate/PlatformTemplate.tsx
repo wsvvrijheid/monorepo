@@ -1,6 +1,15 @@
 import { FC } from 'react'
 
-import { Box, Button, Center, Heading, Link, Stack } from '@chakra-ui/react'
+import {
+  Box,
+  Button,
+  Center,
+  Heading,
+  Link,
+  Stack,
+  SimpleGrid,
+} from '@chakra-ui/react'
+import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { NextSeoProps } from 'next-seo'
@@ -8,6 +17,7 @@ import { FaExternalLinkAlt } from 'react-icons/fa'
 
 import { UploadFile } from '@wsvvrijheid/types'
 
+import { AcademyCard } from '../../academy'
 import { Container, Markdown, WImage } from '../../components'
 
 export type PlatformTemplateProps = {
@@ -24,6 +34,8 @@ export const PlatformTemplate: FC<PlatformTemplateProps> = ({
   link,
 }) => {
   const { t } = useTranslation()
+  const router = useRouter()
+  const { slug } = router.query
 
   if (!source) return null
 
@@ -59,6 +71,33 @@ export const PlatformTemplate: FC<PlatformTemplateProps> = ({
             </Button>
           )}
         </Center>
+        {slug === 'academy' && (
+          <Box w="100%" p={2}>
+            <SimpleGrid columns={{ base: 1, sm: 3 }} gap={6}>
+              <AcademyCard
+                image="https://api.wsvvrijheid.nl/uploads/courses_image_3c3a1382bd.png"
+                href="/platform/academy/courses"
+                // description=''
+              >
+                Courses
+              </AcademyCard>
+              <AcademyCard
+                image="https://api.wsvvrijheid.nl/uploads/software_card_f3408ac222.jpeg"
+                href="/platform/academy/software"
+                // description=''
+              >
+                Software
+              </AcademyCard>
+              <AcademyCard
+                image="https://api.wsvvrijheid.nl/uploads/Seminars_card_0a3a008777.jpeg"
+                href="/platform/academy/seminars"
+                // description=''
+              >
+                Seminars
+              </AcademyCard>
+            </SimpleGrid>
+          </Box>
+        )}
       </Stack>
     </Container>
   )

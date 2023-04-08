@@ -38,22 +38,22 @@ export const AcademyCard: FC<AcademyCardProps> = ({
             <Text
               transform={'translateY(6rem)'}
               w="100%"
-              p="5"
+              p="6"
               fontSize="lg"
               color="white"
               position="absolute"
               fontWeight="medium"
               bottom="0"
-              _groupHover={{ transform: 'translateY(-5px)' }}
+              _groupHover={{ transform: 'translateY(2px)' }}
               transition="all"
               transitionDuration="0.3s"
+              bgGradient="linear(to-t, rgba(0,0,0,0.5), rgba(0,0,0,0))"
             >
-              <LinkOverlay as={Link} href={href}>
-                {children}
-              </LinkOverlay>
+              {children}
               {description && (
                 <Text
                   pt="2"
+                  fontSize="md"
                   noOfLines={3}
                   transition="all"
                   fontWeight="thin"
