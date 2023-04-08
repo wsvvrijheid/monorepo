@@ -22,8 +22,10 @@ const nextConfig = {
     'date-fns': { transform: 'date-fns/{{member}}' },
     lodash: { transform: 'lodash/{{member}}' },
   },
-  outputFileTracingExcludes: {
-    '*': ['**swc/core**'],
+  experimental: {
+    outputFileTracingExcludes: {
+      '*': ['**swc/core**'],
+    },
   },
   nx: {
     // Set this to true if you would like to to use SVGR
