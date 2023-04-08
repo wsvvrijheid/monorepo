@@ -5,6 +5,7 @@ import {
   AccordionButton,
   AccordionItem,
   AccordionPanel,
+  Box,
   Button,
   Checkbox,
   HStack,
@@ -19,8 +20,9 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
 import { CgCalendarDates } from 'react-icons/cg'
+import { FiMinus } from 'react-icons/fi'
 import { GiSelfLove } from 'react-icons/gi'
-import { GoLocation } from 'react-icons/go'
+import { GoLocation, GoPlus } from 'react-icons/go'
 import { IoIosPeople } from 'react-icons/io'
 import { RiMoneyEuroCircleLine } from 'react-icons/ri'
 import * as yup from 'yup'
@@ -270,10 +272,35 @@ export const CourseDetailPage: FC<CourseDetailPageProps> = ({
             Sık sorulan sorular
           </AccordionButton>
           <AccordionPanel>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-            Necessitatibus enim quasi magni, dolorum illum recusandae animi
-            fugit nisi quae aliquid exercitationem aut provident modi suscipit
-            ipsam ullam nemo, ex quia?
+            <Accordion allowMultiple>
+              {[
+                {
+                  question: 'soru 1',
+                  content:
+                    'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Necessitatibus enim quasi magni, dolorum illum recusandae animi fugit nisi quae aliquid exercitationem aut provident modi suscipit ipsam ullam nemo, ex quia?',
+                },
+              ].map(item => (
+                <AccordionItem>
+                  {({ isExpanded }) => (
+                    <>
+                      <h2>
+                        <AccordionButton>
+                          <Box as="span" flex="1" textAlign="left">
+                            {item.question}
+                          </Box>
+                          {isExpanded ? (
+                            <FiMinus fontSize="12px" />
+                          ) : (
+                            <GoPlus fontSize="12px" />
+                          )}
+                        </AccordionButton>
+                      </h2>
+                      <AccordionPanel pb={4}>{item.content}</AccordionPanel>
+                    </>
+                  )}
+                </AccordionItem>
+              ))}
+            </Accordion>
           </AccordionPanel>
         </AccordionItem>
         <AccordionItem border={'none'}>
