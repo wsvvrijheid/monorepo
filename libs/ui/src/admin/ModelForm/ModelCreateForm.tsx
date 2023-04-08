@@ -1,11 +1,17 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 import {
   Box,
   Button,
+  Flex,
   FormControl,
   FormErrorMessage,
   FormLabel,
+  NumberDecrementStepper,
+  NumberIncrementStepper,
+  NumberInput,
+  NumberInputField,
+  NumberInputStepper,
   Stack,
   Textarea,
   useBoolean,
@@ -50,7 +56,8 @@ export const ModelCreateForm = <T extends StrapiModel>({
   >(url)
 
   const { locale } = useRouter()
-
+  const [amount, setAmount] = useState(0)
+  const [quota, setQuota] = useState(0)
   const postModel = model as unknown as Post
 
   const imageFile = useFileFromUrl(postModel?.image?.url)
@@ -79,7 +86,7 @@ export const ModelCreateForm = <T extends StrapiModel>({
   }, [imageFile, setValue])
 
   const onCreateModel = async (
-    data: Record<string, string | File | Option | Option[]>,
+    data: Record<string, string | number | File | Option | Option[]>,
   ) => {
     const body = Object.entries(data).reduce((acc, [key, value]) => {
       if (value === undefined || !fields.some(f => f.name === key)) {
@@ -197,6 +204,48 @@ export const ModelCreateForm = <T extends StrapiModel>({
                 control={control}
                 _disabled={disabledStyle}
               />
+            )
+          }
+
+          if (field.type === 'number' && field.name === 'price') {
+            const format = (val: number) => `€` + val
+            const parse = (val: string) => +val.replace(/^€/, '')
+
+            return (
+              <Flex align={'center'} mb={1}>
+                <FormLabel mb={0} fontSize="sm" fontWeight={600}>
+                  {label}
+                </FormLabel>
+                <NumberInput
+                  maxW={120}
+                  onChange={valueString => setAmount(parse(valueString))}
+                  value={format(amount)}
+                  size="lg"
+                >
+                  <NumberInputField />
+                  <NumberInputStepper>
+                    <NumberIncrementStepper />
+                    <NumberDecrementStepper />
+                  </NumberInputStepper>
+                </NumberInput>
+              </Flex>
+            )
+          }
+          if (field.type === 'number' && field.name === 'quota') {
+            return (
+              <Flex align={'center'} mb={1}>
+                <FormLabel mb={0} fontSize="sm" fontWeight={600}>
+                  {label}
+                </FormLabel>
+                <NumberInput
+                  maxW={120}
+                  onChange={value => setQuota(Number(value))}
+                  value={Number(quota)}
+                  size="lg"
+                >
+                  <NumberInputField />
+                </NumberInput>
+              </Flex>
             )
           }
 
