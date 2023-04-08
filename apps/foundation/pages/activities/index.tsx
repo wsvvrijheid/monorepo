@@ -65,6 +65,7 @@ export const getServerSideProps = async context => {
     locale,
     page,
     statuses: ['approved'],
+    fields: ['title', 'description', 'image', 'slug'],
   })
 
   const seo = {
