@@ -58,7 +58,6 @@ export const CourseDetailPage: FC<CourseDetailPageProps> = ({
 
   const {
     register,
-    handleSubmit,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema()),
@@ -151,7 +150,7 @@ export const CourseDetailPage: FC<CourseDetailPageProps> = ({
         >
           Senaryo Kursu Kayıt Başvuru Formu
         </Text>
-        <Stack onSubmit={handleSubmit}>
+        <Stack>
           <HStack>
             <FormItem
               name="name"
