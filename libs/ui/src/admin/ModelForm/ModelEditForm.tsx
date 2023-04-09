@@ -3,8 +3,10 @@ import { useState } from 'react'
 import {
   Button,
   FormControl,
+  FormErrorMessage,
   FormLabel,
   Stack,
+  Switch,
   Textarea,
   useBoolean,
   Wrap,
@@ -83,6 +85,7 @@ export const ModelEditForm = <T extends StrapiModel>({
     handleSubmit,
     control,
     setValue,
+    watch,
     reset: resetForm,
   } = useForm<InferType<typeof schema>>({
     resolver: yupResolver(schema),
@@ -213,7 +216,9 @@ export const ModelEditForm = <T extends StrapiModel>({
                   isRequired={field.isRequired}
                   maxW={500}
                 >
-                  <FormLabel>{t('model.image')}</FormLabel>
+                  <FormLabel fontWeight={600} fontSize={'sm'}>
+                    {t('model.image')}
+                  </FormLabel>
                   <ModelImage
                     url={url}
                     isEditing={isEditing}
@@ -222,6 +227,32 @@ export const ModelEditForm = <T extends StrapiModel>({
                     isChangingImage={isChangingImage}
                     setIsChangingImage={setIsChangingImage}
                   />
+                  <FormErrorMessage>
+                    {errors[field.name as string]?.message as string}
+                  </FormErrorMessage>
+                </FormControl>
+              )
+            }
+
+            if (field.type === 'boolean') {
+              return (
+                <FormControl key={index} isRequired={field.isRequired}>
+                  <FormLabel fontWeight={600} fontSize={'sm'}>
+                    {label}
+                  </FormLabel>
+                  <Switch
+                    colorScheme={'primary'}
+                    size={'lg'}
+                    isDisabled={!isEditing}
+                    isChecked={watch(field.name as string)}
+                    onChange={e => {
+                      setValue(field.name as string, e.target.checked)
+                    }}
+                  />
+
+                  <FormErrorMessage>
+                    {errors[field.name as string]?.message as string}
+                  </FormErrorMessage>
                 </FormControl>
               )
             }
