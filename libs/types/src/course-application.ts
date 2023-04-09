@@ -1,15 +1,16 @@
+import { ApprovalStatus } from './common'
 import { Course } from './course'
 import { StrapiBase } from './strapi'
 
 type CourseApplicationBase = StrapiBase & {
   name: string
   email: string
-  city: string
-  country: string
-  phone: string
-  motivation: string
+  city: string | null
+  country: string | null
+  phone: string | null
+  message: string | null
   hasPaid: boolean
-  approvalStatus: string
+  approvalStatus: ApprovalStatus
 }
 
 type CourseApplicationRelation = {

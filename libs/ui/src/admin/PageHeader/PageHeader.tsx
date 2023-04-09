@@ -33,8 +33,20 @@ export const PageHeader: FC<PageHeaderProps> = ({
 }) => {
   const { t } = useTranslation()
 
+  const hasChildren =
+    Boolean(children) ||
+    Boolean(filterMenu) ||
+    Boolean(sortMenu) ||
+    typeof onSearch === 'function'
+
   return (
-    <HStack align="center" bg="white" px={4} py={2} shadow="base">
+    <HStack
+      align="center"
+      bg="white"
+      px={4}
+      py={hasChildren ? 2 : 0}
+      shadow="base"
+    >
       {typeof onSearch === 'function' ? (
         <SearchForm
           onSearch={onSearch}
