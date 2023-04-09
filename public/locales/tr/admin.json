@@ -1,4 +1,5 @@
 {
+  "academy":"Akademi",
   "accounts": "Hesaplar",
   "activities": "Etkinlikler",
   "announcements": "Duyurular",
@@ -11,6 +12,7 @@
   "capsMaker": "Caps Maker",
   "collections": "Koleksiyonlar",
   "competitions": "Yarışmalar",
+  "courses":"Kurslar",
   "dashboard": "Kontrol Paneli",
   "hashtagPosts": "Hashtag Postları",
   "hashtags": "Hashtagler",
