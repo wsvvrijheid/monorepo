@@ -4,7 +4,6 @@ import { LocaleBadges, PublicationBadges } from '../../admin'
 import { WTableProps } from '../../components'
 
 export const coursesColumns: WTableProps<Course>['columns'] = {
-  id: { label: 'id' },
   image: { type: 'image' },
   title_nl: { label: 'Title' },
   description_nl: { label: 'Description' },
@@ -17,7 +16,12 @@ export const coursesColumns: WTableProps<Course>['columns'] = {
       <PublicationBadges publishedAt={value as string | null} />
     ),
   },
-  createdAt: {
+  startDate: {
+    type: 'date',
+    componentProps: { format: 'dd MMMM' },
+    sortable: true,
+  },
+  endDate: {
     type: 'date',
     componentProps: { format: 'dd MMMM' },
     sortable: true,
