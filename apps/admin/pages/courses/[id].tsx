@@ -1,6 +1,14 @@
 import { FC } from 'react'
 
-import { Box } from '@chakra-ui/react'
+import {
+  Accordion,
+  AccordionButton,
+  AccordionIcon,
+  AccordionItem,
+  AccordionPanel,
+  Box,
+  Text,
+} from '@chakra-ui/react'
 import { InferGetServerSidePropsType } from 'next'
 import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
@@ -36,15 +44,34 @@ const CoursePage: FC<PageProps> = ({ seo }) => {
   return (
     <AdminLayout seo={seo} isLoading={isLoading} hasBackButton>
       <Box p={6} rounded="md" bg="white" shadow="md">
-        {course && (
-          <ModelEditForm<Course>
-            url="api/courses"
-            model={course}
-            schema={courseSchema}
-            fields={courseFields}
-            onSuccess={refetch}
-          />
-        )}
+        <Accordion
+          size={'lg'}
+          allowToggle
+          defaultIndex={0}
+          borderColor="transparent"
+        >
+          <AccordionItem>
+            <AccordionButton
+              justifyContent="space-between"
+              cursor="pointer"
+              fontSize="xl"
+            >
+              <Text>{course?.[`title_${router.locale}`]}</Text>
+              <AccordionIcon ml={'auto'} />
+            </AccordionButton>
+            <AccordionPanel p={0} mt={4}>
+              {course && (
+                <ModelEditForm<Course>
+                  url="api/courses"
+                  model={course}
+                  schema={courseSchema}
+                  fields={courseFields}
+                  onSuccess={refetch}
+                />
+              )}
+            </AccordionPanel>
+          </AccordionItem>
+        </Accordion>
       </Box>
     </AdminLayout>
   )
