@@ -48,7 +48,6 @@ export const ModelCreateForm = <T extends StrapiModel>({
   fields,
   schema,
   model,
-  watch,
   onSuccess,
 }: ModelCreateFormProps<T>) => {
   const createModelMutation = useCreateModelMutation<
@@ -57,7 +56,7 @@ export const ModelCreateForm = <T extends StrapiModel>({
   >(url)
 
   const { locale } = useRouter()
-  // const [amount, quota] = watch(['amount', 'quota'])
+
   const postModel = model as unknown as Post
 
   const imageFile = useFileFromUrl(postModel?.image?.url)
@@ -220,7 +219,7 @@ export const ModelCreateForm = <T extends StrapiModel>({
                   <NumberInput
                     maxW={120}
                     onChange={valueString =>
-                      setValue(watch(field?.name), parse(valueString))
+                      setValue(field?.name as string, parse(valueString))
                     }
                     size="lg"
                   >
@@ -246,8 +245,7 @@ export const ModelCreateForm = <T extends StrapiModel>({
                 </FormLabel>
                 <NumberInput
                   maxW={120}
-                  onChange={value => setValue(watch(field.name), value)}
-                  //   value={quota}
+                  onChange={value => setValue(field.name as string, value)}
                   size="lg"
                 >
                   <NumberInputField />
