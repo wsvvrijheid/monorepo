@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 
 import {
   Box,
@@ -48,6 +48,7 @@ export const ModelCreateForm = <T extends StrapiModel>({
   fields,
   schema,
   model,
+  watch,
   onSuccess,
 }: ModelCreateFormProps<T>) => {
   const createModelMutation = useCreateModelMutation<
@@ -56,8 +57,7 @@ export const ModelCreateForm = <T extends StrapiModel>({
   >(url)
 
   const { locale } = useRouter()
-  const [amount, setAmount] = useState(0)
-  const [quota, setQuota] = useState(0)
+  // const [amount, quota] = watch(['amount', 'quota'])
   const postModel = model as unknown as Post
 
   const imageFile = useFileFromUrl(postModel?.image?.url)
@@ -207,45 +207,56 @@ export const ModelCreateForm = <T extends StrapiModel>({
             )
           }
 
-          if (field.type === 'number' && field.name === 'price') {
-            const format = (val: number) => `€` + val
+          if (field.name === 'price') {
+            // const format = (val: number) => `€` + val
             const parse = (val: string) => +val.replace(/^€/, '')
 
             return (
-              <Flex align={'center'} mb={1}>
-                <FormLabel mb={0} fontSize="sm" fontWeight={600}>
-                  {label}
-                </FormLabel>
-                <NumberInput
-                  maxW={120}
-                  onChange={valueString => setAmount(parse(valueString))}
-                  value={format(amount)}
-                  size="lg"
-                >
-                  <NumberInputField />
-                  <NumberInputStepper>
-                    <NumberIncrementStepper />
-                    <NumberDecrementStepper />
-                  </NumberInputStepper>
-                </NumberInput>
-              </Flex>
+              <FormControl>
+                <Flex align={'center'} mb={1}>
+                  <FormLabel mb={0} fontSize="sm" fontWeight={600}>
+                    {label}
+                  </FormLabel>
+                  <NumberInput
+                    maxW={120}
+                    onChange={valueString =>
+                      setValue(watch(field?.name), parse(valueString))
+                    }
+                    size="lg"
+                  >
+                    <NumberInputField />
+                    <NumberInputStepper>
+                      <NumberIncrementStepper />
+                      <NumberDecrementStepper />
+                    </NumberInputStepper>
+                  </NumberInput>
+
+                  <FormErrorMessage>
+                    {errors[field.name as string]?.message as string}
+                  </FormErrorMessage>
+                </Flex>
+              </FormControl>
             )
           }
-          if (field.type === 'number' && field.name === 'quota') {
+          if (field.type === 'number-input') {
             return (
-              <Flex align={'center'} mb={1}>
+              <FormControl>
                 <FormLabel mb={0} fontSize="sm" fontWeight={600}>
                   {label}
                 </FormLabel>
                 <NumberInput
                   maxW={120}
-                  onChange={value => setQuota(Number(value))}
-                  value={Number(quota)}
+                  onChange={value => setValue(watch(field.name), value)}
+                  //   value={quota}
                   size="lg"
                 >
                   <NumberInputField />
                 </NumberInput>
-              </Flex>
+
+                <FormErrorMessage>
+                  {errors[field?.name as string]?.message as string}
+                </FormErrorMessage>
+              </FormControl>
             )
           }
 
