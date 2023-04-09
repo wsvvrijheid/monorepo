@@ -179,6 +179,11 @@ export const useAdminNav = (user: SessionUser): AdminNavItemProps[] => {
       ],
     },
     {
+      label: tAdmin('courses'),
+      link: '/courses',
+      icon: <GiHumanPyramid />,
+    },
+    {
       label: tAdmin('capsMaker'),
       link: '/caps-maker',
       icon: <BiLandscape />,
