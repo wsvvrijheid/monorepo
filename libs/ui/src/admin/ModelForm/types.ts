@@ -24,7 +24,6 @@ type FormTextFields = {
     | 'date'
     | 'datetime-local'
     | 'file'
-    | 'number'
     | 'boolean'
 }
 
