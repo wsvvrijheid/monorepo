@@ -21,5 +21,12 @@ Default.args = {
     'Wees Akademi bünyesinde verilen kurslarımız gönüllülerimizin katkı verdiği alanlarda kendilerini geliştirme imkanı sağlamak amacıyla yapılmaktadır. Kurslardan kar amacı güdülmediği gibi ........amet libero aliquet. Sit sit pellentesque venenatis eu sollicitudin integer netus. Ultrices scelerisque convallis massa amet libero aliquet. amet libero aliquet. Sit sit pellentesque venenatis eu sollicitudin integer netus. Ultrices scelerisque convallis massa amet libero aliquet. amet libero aliquet. Sit sit pellentesque venenatis eu sollicitudin integer netus. Ultrices scelerisque convallis.',
   price: 100,
   startDate: '30 mayis 2023',
-  dueDate: '30 haziran 2023',
+  endDate: '30 haziran 2023',
+  faqs: [
+    {
+      question: 'soru 1',
+      answer:
+        'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Necessitatibus enim quasi magni, dolorum illum recusandae animi fugit nisi quae aliquid exercitationem aut provident modi suscipit ipsam ullam nemo, ex quia?',
+    },
+  ],
 }

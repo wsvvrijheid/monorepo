@@ -34,11 +34,12 @@ import { ShareButtons } from '../ShareButtons'
 export const CourseDetailPage: FC<CourseDetailPageProps> = ({
   content,
   description,
-  dueDate,
+  endDate,
   image,
   price,
   startDate,
   title,
+  faqs,
 }) => {
   const router = useRouter()
   const schema = () =>
@@ -78,7 +79,7 @@ export const CourseDetailPage: FC<CourseDetailPageProps> = ({
           </HStack>
           <HStack w={'100%'} justifyContent={'start'}>
             <CgCalendarDates />
-            <Text>Bitiş tarihi: {dueDate}</Text>
+            <Text>Bitiş tarihi: {endDate}</Text>
           </HStack>
         </VStack>
         <VStack display={'flex'} justifyContent={'left'}>
@@ -272,13 +273,7 @@ export const CourseDetailPage: FC<CourseDetailPageProps> = ({
           </AccordionButton>
           <AccordionPanel>
             <Accordion allowMultiple>
-              {[
-                {
-                  question: 'soru 1',
-                  content:
-                    'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Necessitatibus enim quasi magni, dolorum illum recusandae animi fugit nisi quae aliquid exercitationem aut provident modi suscipit ipsam ullam nemo, ex quia?',
-                },
-              ].map(item => (
+              {faqs.map(item => (
                 <AccordionItem>
                   {({ isExpanded }) => (
                     <>
@@ -294,7 +289,7 @@ export const CourseDetailPage: FC<CourseDetailPageProps> = ({
                           )}
                         </AccordionButton>
                       </h2>
-                      <AccordionPanel pb={4}>{item.content}</AccordionPanel>
+                      <AccordionPanel pb={4}>{item.answer}</AccordionPanel>
                     </>
                   )}
                 </AccordionItem>
