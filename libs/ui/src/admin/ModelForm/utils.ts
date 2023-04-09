@@ -6,6 +6,7 @@ import { useRouter } from 'next/router'
 import {
   Activity,
   Category,
+  Course,
   Hashtag,
   Mention,
   Post,
@@ -61,6 +62,7 @@ export const useDefaultValues = <T extends StrapiModel>(
 ) => {
   const hashtagModel = model as Hashtag
   const postModel = model as Post
+  const courseModel = model as Course
 
   const { locale } = useRouter()
 
@@ -95,6 +97,13 @@ export const useDefaultValues = <T extends StrapiModel>(
           defaults.hashtag = {
             label: postModel.hashtag?.title,
             value: postModel.hashtag?.id.toString(),
+          }
+
+          break
+        case 'platform':
+          defaults.platform = {
+            label: courseModel.platform?.[`name_${locale as StrapiLocale}`],
+            value: courseModel.platform?.id.toString(),
           }
 
           break
