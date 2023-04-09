@@ -2,9 +2,7 @@ import * as yup from 'yup'
 
 import { Course } from '@wsvvrijheid/types'
 
-
 import { yupSelect } from './common'
-
 import { FormFields } from '../../admin'
 
 export const courseSchema = yup.object({
