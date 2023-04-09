@@ -8,7 +8,7 @@ import i18nConfig from 'next-i18next.config'
 import { FaArrowDown, FaArrowUp } from 'react-icons/fa'
 
 import { useSearchModel } from '@wsvvrijheid/services'
-import { Art, Sort, StrapiLocale } from '@wsvvrijheid/types'
+import { Course, Sort, StrapiLocale } from '@wsvvrijheid/types'
 import {
   AdminLayout,
   coursesColumns,
@@ -26,15 +26,9 @@ const CoursesPage: FC<PageProps> = ({ seo }) => {
   const router = useRouter()
   const { locale } = useRouter()
 
-  const coursesQuery = useSearchModel<Art>({
+  const coursesQuery = useSearchModel<Course>({
     url: 'api/courses',
-    populate: [
-      'categories',
-      'tags',
-      'platforms',
-      'image',
-      'course-application',
-    ],
+    populate: ['categories', 'tags', 'platforms', 'image', 'applications'],
     page: currentPage || 1,
     pageSize: 10,
     searchTerm,
@@ -52,6 +46,7 @@ const CoursesPage: FC<PageProps> = ({ seo }) => {
 
   const courses = coursesQuery?.data?.data
   const totalCount = coursesQuery?.data?.meta?.pagination?.pageCount
+  console.log('courses', courses)
 
   const mappedCourses = courses?.map(course => {
     const translates = []
