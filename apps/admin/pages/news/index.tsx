@@ -140,7 +140,6 @@ const NewsPage: FC<PageProps> = ({ seo }) => {
             isLoading={syncTopic.isLoading}
             onClick={() => syncTopic.mutate()}
             disabled={!canSync}
-            colorScheme={'primary'}
             icon={<FaSyncAlt />}
           />
         </Tooltip>
@@ -152,7 +151,6 @@ const NewsPage: FC<PageProps> = ({ seo }) => {
               aria-label="Clear filters"
               icon={<AiOutlineClear />}
               size={'sm'}
-              colorScheme={'primary'}
               variant={searchTerm === '' ? 'solid' : 'outline'}
               onClick={() => setSearchTerm('')}
             />
@@ -160,7 +158,6 @@ const NewsPage: FC<PageProps> = ({ seo }) => {
               <Button
                 key={keyword}
                 onClick={() => setSearchTerm(keyword)}
-                colorScheme={'primary'}
                 variant={searchTerm === keyword ? 'solid' : 'outline'}
               >
                 {keyword}

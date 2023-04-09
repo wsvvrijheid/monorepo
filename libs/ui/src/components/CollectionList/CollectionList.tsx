@@ -32,7 +32,7 @@ export const CollectionList: FC<CollectionListProps> = ({ collectionData }) => {
           href={`/${locale}/club/collections/${collection.slug}`}
           py={2}
           lineHeight="1.15"
-          _hover={{ color: 'blue.500' }}
+          _hover={{ color: 'primary.500' }}
         >
           {collection.title}
         </Navigate>

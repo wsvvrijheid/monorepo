@@ -299,7 +299,6 @@ export const ModelEditForm = <T extends StrapiModel>({
             <Button
               onClick={setIsEditing.on}
               leftIcon={<AiOutlineEdit />}
-              colorScheme={'primary'}
               fontSize="sm"
             >
               {t('model.edit')}
@@ -314,12 +313,7 @@ export const ModelEditForm = <T extends StrapiModel>({
               >
                 {t('model.cancel')}
               </Button>
-              <Button
-                type="submit"
-                leftIcon={<MdOutlineCheck />}
-                colorScheme={'primary'}
-                fontSize="sm"
-              >
+              <Button type="submit" leftIcon={<MdOutlineCheck />} fontSize="sm">
                 {t('model.save')}
               </Button>
             </>

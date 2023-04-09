@@ -1,0 +1,34 @@
+{
+  "collectionName": "components_course_curricula",
+  "info": {
+    "displayName": "CurriculumItem",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title_en": {
+      "type": "string"
+    },
+    "title_tr": {
+      "type": "string"
+    },
+    "title_nl": {
+      "type": "string"
+    },
+    "description_en": {
+      "type": "text"
+    },
+    "description_nl": {
+      "type": "text"
+    },
+    "description_tr": {
+      "type": "text"
+    },
+    "instructor": {
+      "type": "string"
+    },
+    "date": {
+      "type": "datetime"
+    }
+  }
+}
