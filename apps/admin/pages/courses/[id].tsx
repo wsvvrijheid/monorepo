@@ -38,7 +38,7 @@ const CoursePage: FC<PageProps> = ({ seo }) => {
       <Box p={6} rounded="md" bg="white" shadow="md">
         {course && (
           <ModelEditForm<Course>
-            url="api/hashtags"
+            url="api/courses"
             model={course}
             schema={courseSchema}
             fields={courseFields}
