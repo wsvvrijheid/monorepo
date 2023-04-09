@@ -46,7 +46,6 @@ export const ProfileMenu: FC<ProfileMenuProps> = ({ isDark, menu }) => {
           as={Navigate}
           href="/login"
           size="sm"
-          colorScheme="primary"
           variant={!isScrolled && isDark ? 'solid' : 'outline'}
           rightIcon={<FiLogIn />}
         >
@@ -58,7 +57,6 @@ export const ProfileMenu: FC<ProfileMenuProps> = ({ isDark, menu }) => {
         as={Navigate}
         href="/login"
         size="sm"
-        colorScheme="primary"
         variant={!isScrolled && isDark ? 'solid' : 'outline'}
         rightIcon={<FiLogIn />}
       >

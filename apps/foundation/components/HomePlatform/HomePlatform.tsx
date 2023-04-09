@@ -20,11 +20,11 @@ type HomePlatformProps = {
 }
 
 const colors = {
-  lotus: { bg: 'black', text: 'white' },
-  samenvvv: { bg: 'samen.100', text: 'samen.500' },
-  kunsthalte: { bg: 'green.100', text: 'green.500' },
-  academy: { bg: 'blue.100', text: 'blue.500' },
-  scm: { bg: 'red.100', text: 'red.500' },
+  lotus: { bg: 'black', colorScheme: 'yellow', text: 'white' },
+  samenvvv: { bg: 'samen.100', colorScheme: 'samen' },
+  kunsthalte: { bg: 'green.100', colorScheme: 'green' },
+  academy: { bg: 'blue.100', colorScheme: 'blue' },
+  scm: { bg: 'red.100', colorScheme: 'red' },
 }
 
 export const HomePlatform: FC<HomePlatformProps> = ({ platforms }) => {
@@ -71,7 +71,11 @@ export const HomePlatform: FC<HomePlatformProps> = ({ platforms }) => {
                       lg: index % 2 ? 'right' : 'left',
                     }}
                   >
-                    <Heading size="lg" fontWeight={900} color={color.text}>
+                    <Heading
+                      size="lg"
+                      fontWeight={900}
+                      colorScheme={color.colorScheme}
+                    >
                       {platform[`name_${locale}`]}
                     </Heading>
                     <Text color={color.text}>
@@ -79,11 +83,13 @@ export const HomePlatform: FC<HomePlatformProps> = ({ platforms }) => {
                     </Text>
                     <Button
                       as={Navigate}
-                      href={platform.link || `/platforms/${platform.slug}`}
+                      href={`/platforms/${platform.slug}`}
                       w="max-content"
                       size="lg"
-                      color={color.text}
+                      colorScheme={color.colorScheme}
                       variant="link"
+                      alignSelf={index % 2 ? 'flex-end' : 'flex-start'}
+                      fontWeight={700}
                     >
                       {t('read-more')}
                     </Button>

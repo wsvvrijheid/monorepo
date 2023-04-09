@@ -90,8 +90,8 @@ export const MentionList = () => {
       >
         <Tabs
           size="sm"
+          colorScheme={'primary'}
           isFitted
-          colorScheme="primary"
           variant="line"
           bg="white"
         >

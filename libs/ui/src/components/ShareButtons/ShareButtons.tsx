@@ -68,7 +68,7 @@ export const ShareButtons: FC<PropsWithChildren<ShareButtonsProps>> = ({
         <IconButton
           as="span"
           isRound
-          _hover={{ bg: 'blue.500', color: 'white' }}
+          _hover={{ bg: 'telegram.500', color: 'white' }}
           aria-label="share on telegram"
           icon={<FaTelegram />}
         />
@@ -77,7 +77,7 @@ export const ShareButtons: FC<PropsWithChildren<ShareButtonsProps>> = ({
         <IconButton
           as="span"
           isRound
-          _hover={{ bg: 'blue.500', color: 'white' }}
+          _hover={{ bg: 'linkedin.500', color: 'white' }}
           aria-label="share on linkedin"
           icon={<FaLinkedin />}
         />

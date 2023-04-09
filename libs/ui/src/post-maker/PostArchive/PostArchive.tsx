@@ -72,7 +72,6 @@ export const PostArchive = () => {
           <ModalFooter justifyContent="space-between">
             <IconButton
               rounded="full"
-              colorScheme="primary"
               aria-label="close modal"
               icon={<BiExitFullscreen />}
               onClick={onClose}
@@ -85,7 +84,6 @@ export const PostArchive = () => {
               url={absoluteUrl as string}
               size="lg"
               spacing={4}
-              colorScheme="primary"
               variant="solid"
             />
           </ModalFooter>

@@ -120,13 +120,7 @@ export const AdminLayout: FC<AdminLayoutProps> = ({
                       />
                     </Tooltip>
                   )}
-                  <Heading
-                    textTransform="capitalize"
-                    color="blackAlpha.500"
-                    size={{ base: 'md', lg: '2xl' }}
-                  >
-                    {seo.title}
-                  </Heading>
+                  <Heading size={{ base: 'md', lg: 'xl' }}>{seo.title}</Heading>
                 </HStack>
 
                 {/* TODO Create notification component */}

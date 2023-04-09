@@ -53,7 +53,6 @@ export default function Home({ seo }) {
                 href={`/${locale}/club/arts`}
                 size="lg"
                 leftIcon={<FaPaintBrush />}
-                colorScheme="primary"
               >
                 {t('view-arts')}
               </Button>
@@ -63,7 +62,6 @@ export default function Home({ seo }) {
                 href={`/${locale}/club/collections`}
                 size="lg"
                 leftIcon={<BsCollectionFill />}
-                colorScheme="primary"
               >
                 {t('view-collections')}
               </Button>

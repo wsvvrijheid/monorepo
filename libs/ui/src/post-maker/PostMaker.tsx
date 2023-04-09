@@ -74,7 +74,6 @@ export const PostMaker = () => {
         pos="fixed"
         right={4}
         bottom={4}
-        colorScheme="primary"
         leftIcon={<FaQuestionCircle />}
         onClick={() => setIsOpen(true)}
       >
@@ -88,7 +87,6 @@ export const PostMaker = () => {
         right={2}
         bottom={2}
         rounded="full"
-        colorScheme="primary"
         aria-label="help"
         shadow="base"
         icon={<FaQuestionCircle />}
