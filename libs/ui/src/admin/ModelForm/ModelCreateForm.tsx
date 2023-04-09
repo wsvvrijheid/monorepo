@@ -13,6 +13,7 @@ import {
   NumberInputField,
   NumberInputStepper,
   Stack,
+  Switch,
   Textarea,
   useBoolean,
 } from '@chakra-ui/react'
@@ -211,8 +212,8 @@ export const ModelCreateForm = <T extends StrapiModel>({
             const parse = (val: string) => +val.replace(/^€/, '')
 
             return (
-              <FormControl>
-                <Flex align={'center'} mb={1}>
+              <Flex align={'center'} mb={1}>
+                <FormControl>
                   <FormLabel mb={0} fontSize="sm" fontWeight={600}>
                     {label}
                   </FormLabel>
@@ -233,31 +234,56 @@ export const ModelCreateForm = <T extends StrapiModel>({
                   <FormErrorMessage>
                     {errors[field.name as string]?.message as string}
                   </FormErrorMessage>
-                </Flex>
-              </FormControl>
+                </FormControl>
+              </Flex>
             )
           }
           if (field.type === 'number-input') {
             return (
-              <FormControl>
-                <FormLabel mb={0} fontSize="sm" fontWeight={600}>
+              <Flex align={'center'} mb={1}>
+                <FormControl>
+                  <FormLabel mb={0} fontSize="sm" fontWeight={600}>
+                    {label}
+                  </FormLabel>
+                  <NumberInput
+                    maxW={120}
+                    onChange={value => setValue(field.name as string, value)}
+                    size="lg"
+                  >
+                    <NumberInputField />
+                    <NumberInputStepper>
+                      <NumberIncrementStepper />
+                      <NumberDecrementStepper />
+                    </NumberInputStepper>
+                  </NumberInput>
+
+                  <FormErrorMessage>
+                    {errors[field?.name as string]?.message as string}
+                  </FormErrorMessage>
+                </FormControl>
+              </Flex>
+            )
+          }
+          if (field.type === 'boolean') {
+            return (
+              <FormControl key={index} isRequired={field.isRequired}>
+                <FormLabel fontWeight={600} fontSize={'sm'}>
                   {label}
                 </FormLabel>
-                <NumberInput
-                  maxW={120}
-                  onChange={value => setValue(field.name as string, value)}
-                  size="lg"
-                >
-                  <NumberInputField />
-                </NumberInput>
+                <Switch
+                  colorScheme={'primary'}
+                  size={'lg'}
+                  onChange={e => {
+                    setValue(field.name as string, e.target.checked)
+                  }}
+                />
 
                 <FormErrorMessage>
-                  {errors[field?.name as string]?.message as string}
+                  {errors[field.name as string]?.message as string}
                 </FormErrorMessage>
               </FormControl>
             )
           }
-
           const inputType =
             field.type === 'date'
               ? 'date'
