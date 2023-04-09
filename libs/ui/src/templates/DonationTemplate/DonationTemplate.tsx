@@ -257,7 +257,6 @@ export const DonationTemplate: FC<DonationTemplateProps> = ({ platforms }) => {
 
           <Button
             isDisabled={!amount || !method || !isValid}
-            colorScheme="primary"
             type="submit"
             leftIcon={<FaDonate />}
           >

@@ -16,16 +16,7 @@ export const HeaderMobileNav: FC<HeaderMobileNavProps> = ({ headerMenu }) => {
         return <HeaderMobileNavItem key={i} item={item} />
       })}
       <Navigate href={'/donation'}>
-        <Button
-          w={'full'}
-          color={'white'}
-          bgGradient={'linear(to-r, cyan.400, blue.600)'}
-          _hover={{
-            bgGradient: 'linear(to-l, cyan.400, blue.600)',
-          }}
-        >
-          {t('donation.title')}
-        </Button>
+        <Button w={'full'}>{t('donation.title')}</Button>
       </Navigate>
     </Stack>
   )

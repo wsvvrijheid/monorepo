@@ -2,7 +2,7 @@ import { getUserTweets, twitterApi } from '../../../../src/libs'
 
 export default async ({ strapi }) => {
   try {
-    const timelines = await strapi.controller('api::timeline.timeline').find({})
+    const timelines = await strapi.service('api::timeline.timeline').find({})
 
     if (!Array.isArray(timelines.data)) return
     if (!timelines.data[0]) return

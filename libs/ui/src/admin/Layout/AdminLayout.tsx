@@ -114,19 +114,12 @@ export const AdminLayout: FC<AdminLayoutProps> = ({
                       <IconButton
                         aria-label="back"
                         icon={<FaArrowLeft />}
-                        colorScheme={'blackAlpha'}
                         rounded="full"
                         onClick={() => router.push(`/${slug}`)}
                       />
                     </Tooltip>
                   )}
-                  <Heading
-                    textTransform="capitalize"
-                    color="blackAlpha.500"
-                    size={{ base: 'md', lg: '2xl' }}
-                  >
-                    {seo.title}
-                  </Heading>
+                  <Heading size={{ base: 'md', lg: 'xl' }}>{seo.title}</Heading>
                 </HStack>
 
                 {/* TODO Create notification component */}

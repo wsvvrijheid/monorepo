@@ -64,7 +64,7 @@ const Contact = ({ seo }: ContactProps): JSX.Element => {
             minH="inherit"
           >
             <VStack
-              bgGradient={'linear(to-b, primary.400, primary.600)'}
+              bgGradient={'linear(to-b, primary.400, primary.500)'}
               borderRadius="lg"
               p={{ base: 8, lg: 16 }}
               w={'full'}

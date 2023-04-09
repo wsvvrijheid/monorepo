@@ -4,7 +4,8 @@
   "info": {
     "singularName": "course-application",
     "pluralName": "course-applications",
-    "displayName": "CourseApplication"
+    "displayName": "CourseApplication",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -14,25 +15,27 @@
     "name": {
       "type": "string"
     },
-    "location": {
+    "email": {
+      "type": "email"
+    },
+    "city": {
+      "type": "string"
+    },
+    "country": {
       "type": "string"
     },
     "phone": {
       "type": "string"
     },
-    "about": {
-      "type": "string"
+    "message": {
+      "type": "text"
     },
-    "email": {
-      "type": "email"
+    "hasPaid": {
+      "type": "boolean"
     },
     "approvalStatus": {
       "type": "enumeration",
       "enum": ["approved", "pending", "rejected"]
-    },
-    "paymentStatus": {
-      "type": "enumeration",
-      "enum": ["paid", "pending", "unpaid"]
     },
     "course": {
       "type": "relation",

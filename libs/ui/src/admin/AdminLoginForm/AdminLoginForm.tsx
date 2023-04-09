@@ -83,7 +83,7 @@ export const AdminLoginForm = () => {
           top={0}
           left={0}
           boxSize="full"
-          bgGradient="linear(to-t, blue.500, blackAlpha.500)"
+          bgGradient="linear(to-t, primary.500, blackAlpha.500)"
           opacity={0.5}
         />
       </Box>
@@ -104,7 +104,7 @@ export const AdminLoginForm = () => {
               src={`${API_URL}/uploads/wsvvrijheid_051c420ab0.svg`}
             />
 
-            <Text fontSize="xl" color={'blue.500'} fontWeight={700}>
+            <Text fontSize="xl" color={'primary.500'} fontWeight={700}>
               WEES DE STEM <br />
               VOOR VRIJHEID
             </Text>
@@ -133,12 +133,7 @@ export const AdminLoginForm = () => {
                 register={register}
                 errors={errors}
               />
-              <Button
-                isLoading={isAuthLoading}
-                w="full"
-                type="submit"
-                colorScheme="primary"
-              >
+              <Button isLoading={isAuthLoading} w="full" type="submit">
                 Sign in
               </Button>
               {loginMutation.isError && (
@@ -154,7 +149,6 @@ export const AdminLoginForm = () => {
               as={Navigate}
               href="/forgot-password"
               variant="link"
-              colorScheme="blue"
               size="sm"
             >
               Forgot your password
