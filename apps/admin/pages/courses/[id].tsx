@@ -26,7 +26,7 @@ import {
 } from '@wsvvrijheid/types'
 import {
   AdminLayout,
-  applicatonsColumns,
+  applicationColumns,
   courseFields,
   courseSchema,
   DataTable,
@@ -46,21 +46,20 @@ const CoursePage: FC<PageProps> = ({ seo }) => {
 
   const [currentPage, setCurrentPage] = useState<number>()
   const [searchTerm, setSearchTerm] = useState<string>()
+  const [sort, setSort] = useState<Sort>()
+
   const handleSearch = (search: string) => {
     search ? setSearchTerm(search) : setSearchTerm(undefined)
   }
+
   const id = Number(query.id as string)
-  const [sort, setSort] = useState<Sort>()
+
   const applicationsQuery = useSearchModel<CourseApplication>({
     url: 'api/course-applications',
-    populate: [
-      'categories',
-      'tags',
-      'platforms',
-      'image',
-      'course-application',
-    ],
-    // filters: { course: { id: { eq: id } } },
+    relationFilter: {
+      parent: 'course',
+      ids: [id],
+    },
     page: currentPage || 1,
     pageSize: 10,
     searchTerm,
@@ -72,8 +71,6 @@ const CoursePage: FC<PageProps> = ({ seo }) => {
 
   const applications = applicationsQuery?.data?.data
   const totalCount = applicationsQuery?.data?.meta?.pagination?.pageCount
-
-  console.log('applications', applications)
 
   const {
     data: course,
@@ -134,7 +131,7 @@ const CoursePage: FC<PageProps> = ({ seo }) => {
 
         <DataTable
           // TODO: Fix type issue
-          columns={applicatonsColumns as any}
+          columns={applicationColumns as any}
           data={applications}
           totalCount={totalCount}
           currentPage={currentPage}
