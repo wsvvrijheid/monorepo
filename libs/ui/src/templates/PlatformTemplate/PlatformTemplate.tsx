@@ -76,21 +76,21 @@ export const PlatformTemplate: FC<PlatformTemplateProps> = ({
             <SimpleGrid columns={{ base: 1, sm: 3 }} gap={6}>
               <AcademyCard
                 image="https://api.wsvvrijheid.nl/uploads/courses_image_3c3a1382bd.png"
-                href="/platform/academy/courses"
+                href="/platforms/academy/courses"
                 // description=''
               >
                 Courses
               </AcademyCard>
               <AcademyCard
                 image="https://api.wsvvrijheid.nl/uploads/software_card_f3408ac222.jpeg"
-                href="/platform/academy/software"
+                href="/platforms/academy/software"
                 // description=''
               >
                 Software
               </AcademyCard>
               <AcademyCard
                 image="https://api.wsvvrijheid.nl/uploads/Seminars_card_0a3a008777.jpeg"
-                href="/platform/academy/seminars"
+                href="/platforms/academy/seminars"
                 // description=''
               >
                 Seminars
