@@ -114,7 +114,6 @@ export const AdminLayout: FC<AdminLayoutProps> = ({
                       <IconButton
                         aria-label="back"
                         icon={<FaArrowLeft />}
-                        colorScheme={'blackAlpha'}
                         rounded="full"
                         onClick={() => router.push(`/${slug}`)}
                       />
