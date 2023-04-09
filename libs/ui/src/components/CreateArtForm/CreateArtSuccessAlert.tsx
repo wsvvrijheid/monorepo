@@ -43,7 +43,7 @@ export const ArtCreateSuccessAlert = forwardRef<
           <AlertDialogBody py={4}>
             <Text>{t('art.create.success.description')}</Text>
 
-            <Button as={Navigate} href="/profile" colorScheme="blue.500">
+            <Button as={Navigate} href="/profile">
               {t('art.create.success.link')}
             </Button>
           </AlertDialogBody>

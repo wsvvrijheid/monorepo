@@ -74,7 +74,6 @@ export const PostContainerButtons = () => {
         data-tour="step-next-button"
         w="full"
         rounded="full"
-        colorScheme="primary"
         onClick={shufflePost}
         rightIcon={<FaRandom />}
       >

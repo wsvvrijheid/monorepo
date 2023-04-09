@@ -240,7 +240,6 @@ export const ModelEditTranslate = <T extends StrapiTranslatableModel>({
             <Button
               onClick={setIsEditing.on}
               leftIcon={<AiOutlineEdit />}
-              colorScheme={'primary'}
               fontSize="sm"
             >
               {t('model.edit')}
@@ -255,12 +254,7 @@ export const ModelEditTranslate = <T extends StrapiTranslatableModel>({
               >
                 {t('model.cancel')}
               </Button>
-              <Button
-                type="submit"
-                leftIcon={<MdOutlineCheck />}
-                colorScheme={'primary'}
-                fontSize="sm"
-              >
+              <Button type="submit" leftIcon={<MdOutlineCheck />} fontSize="sm">
                 {t('model.save')}
               </Button>
             </>

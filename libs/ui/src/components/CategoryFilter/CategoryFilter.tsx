@@ -80,7 +80,6 @@ export const CategoryFilter: FC<CategoryFilterProps> = ({
         ) : (
           <IconButton
             isDisabled={!value[0]}
-            colorScheme="primary"
             aria-label="clear filter"
             rounded="full"
             size="sm"

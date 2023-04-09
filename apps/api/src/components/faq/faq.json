@@ -1,0 +1,28 @@
+{
+  "collectionName": "components_faq_faqs",
+  "info": {
+    "displayName": "FaqLocale",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "question_en": {
+      "type": "string"
+    },
+    "question_tr": {
+      "type": "string"
+    },
+    "question_nl": {
+      "type": "string"
+    },
+    "answer_en": {
+      "type": "text"
+    },
+    "answer_tr": {
+      "type": "text"
+    },
+    "answer_nl": {
+      "type": "text"
+    }
+  }
+}
