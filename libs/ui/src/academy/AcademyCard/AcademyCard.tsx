@@ -58,7 +58,6 @@ export const AcademyCard: FC<AcademyCardProps> = ({
                   transition="all"
                   fontWeight="thin"
                   transitionDuration="0.8s"
-                  as="span"
                 >
                   {description}
                 </Text>
