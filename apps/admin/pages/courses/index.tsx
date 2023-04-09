@@ -11,7 +11,6 @@ import { useSearchModel } from '@wsvvrijheid/services'
 import { Art, Sort, StrapiLocale } from '@wsvvrijheid/types'
 import {
   AdminLayout,
-  ArtsTable,
   coursesColumns,
   DataTable,
   PageHeader,
@@ -86,7 +85,8 @@ const CoursesPage: FC<PageProps> = ({ seo }) => {
       />
 
       <DataTable
-        columns={coursesColumns}
+        // TODO: Fix type issue
+        columns={coursesColumns as any}
         data={mappedCourses}
         totalCount={totalCount}
         currentPage={currentPage}
