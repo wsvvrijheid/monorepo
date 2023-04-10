@@ -29,6 +29,8 @@ type FormTextFields = {
     | 'datetime-local'
     | 'file'
     | 'boolean'
+    | 'number-input'
+    | 'price'
 }
 
 type FormSelectFields = {
