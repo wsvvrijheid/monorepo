@@ -5,7 +5,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
-import { API_URL } from '@wsvvrijheid/config'
+import { API_URL, SITE_URL } from '@wsvvrijheid/config'
 import { StrapiLocale } from '@wsvvrijheid/types'
 
 import { CourseApplicationForm } from './CourseApplicationForm'
