@@ -25,6 +25,7 @@ const CourseApplicationPage: FC<PageProps> = ({ seo }) => {
   const { query } = router
 
   const id = Number(query.id as string)
+
   const {
     data: application,
     isLoading,

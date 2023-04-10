@@ -7,6 +7,7 @@ import {
   Activity,
   Category,
   Course,
+  CourseApplication,
   Hashtag,
   Mention,
   Post,
@@ -63,6 +64,7 @@ export const useDefaultValues = <T extends StrapiModel>(
   const hashtagModel = model as Hashtag
   const postModel = model as Post
   const courseModel = model as Course
+  const applicationModel = model as CourseApplication
 
   const { locale } = useRouter()
 
@@ -104,6 +106,13 @@ export const useDefaultValues = <T extends StrapiModel>(
           defaults.platform = {
             label: courseModel.platform?.[`name_${locale as StrapiLocale}`],
             value: courseModel.platform?.id.toString(),
+          }
+
+          break
+        case 'course':
+          defaults.course = {
+            label: applicationModel.course?.[`title_${locale as StrapiLocale}`],
+            value: applicationModel.course?.id.toString(),
           }
 
           break
