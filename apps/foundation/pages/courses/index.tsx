@@ -52,7 +52,7 @@ const Platforms: FC<CoursesProps> = ({ title, courses }) => {
                 <AcademyCard
                   key={course?.id}
                   title={title}
-                  image={course?.image?.url}
+                  image={API_URL + course?.image?.url}
                   href={`${SITE_URL}/${locale}/courses/${course?.slug}`}
                   description={description}
                 />
