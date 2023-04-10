@@ -1,25 +1,31 @@
 import { FC } from 'react'
 
-import { AspectRatio, Card, LinkBox, LinkOverlay, Text } from '@chakra-ui/react'
+import {
+  AspectRatio,
+  Card,
+  LinkBox,
+  LinkOverlay,
+  Stack,
+  Text,
+} from '@chakra-ui/react'
 import Link from 'next/link'
 
 import { WImage } from '../../components'
 
 type AcademyCardProps = {
-  children: React.ReactNode
+  children?: React.ReactNode
   href: string
   image: string
   description?: string
+  title: string
 }
 
 export const AcademyCard: FC<AcademyCardProps> = ({
-  children,
   href,
   image,
   description,
+  title,
 }) => {
-  const baseTranslate = description ? 'translateY(6rem)' : 'translateY(.5rem)'
-
   return (
     <LinkBox as="article">
       <LinkOverlay as={Link} href={href}>
@@ -37,34 +43,34 @@ export const AcademyCard: FC<AcademyCardProps> = ({
               transition={'all'}
               transitionDuration={'0.2s'}
             />
-            <Text
-              transform={baseTranslate}
-              w="100%"
+            <Stack
+              transform={'translateY(6rem)'}
               p="6"
-              fontSize="lg"
               color="white"
               position="absolute"
-              fontWeight="medium"
               bottom="0"
+              left="0"
+              w={'full'}
               _groupHover={{ transform: 'translateY(2px)' }}
               transition="all"
               transitionDuration="0.3s"
               bgGradient="linear(to-t, rgba(0,0,0,0.5), rgba(0,0,0,0))"
+              spacing={4}
             >
-              {children}
+              <Text fontWeight={600} fontSize={'xl'} noOfLines={1}>
+                {title}
+              </Text>
               {description && (
                 <Text
-                  pt="2"
-                  fontSize="md"
+                  opacity={0}
+                  _groupHover={{ opacity: 1 }}
                   noOfLines={3}
-                  transition="all"
-                  fontWeight="thin"
                   transitionDuration="0.8s"
                 >
                   {description}
                 </Text>
               )}
-            </Text>
+            </Stack>
           </Card>
         </AspectRatio>
       </LinkOverlay>

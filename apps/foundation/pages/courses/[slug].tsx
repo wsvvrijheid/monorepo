@@ -1,25 +1,19 @@
 import { FC } from 'react'
 
 import { dehydrate, QueryClient } from '@tanstack/react-query'
-import { GetStaticPaths, GetStaticProps } from 'next'
+import { GetServerSidePropsContext, InferGetStaticPropsType } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { serialize } from 'next-mdx-remote/serialize'
-import { NextSeoProps } from 'next-seo'
 
 import { API_URL, SITE_URL } from '@wsvvrijheid/config'
-import { getModelById, searchModel } from '@wsvvrijheid/services'
-import { Course, StrapiLocale } from '@wsvvrijheid/types'
+import { getCourseBySlug } from '@wsvvrijheid/services'
+import { StrapiLocale } from '@wsvvrijheid/types'
 import { CourseDetailPage } from '@wsvvrijheid/ui'
 
 import { Layout } from '../../components'
 import i18nConfig from '../../next-i18next.config'
 
-type CoursePageProps = {
-  seo: NextSeoProps
-  source: MDXRemoteSerializeResult
-  course: Course
-}
+type CoursePageProps = InferGetStaticPropsType<typeof getServerSideProps>
 
 const CoursePage: FC<CoursePageProps> = ({ seo, source, course }) => {
   return (
@@ -33,33 +27,15 @@ const CoursePage: FC<CoursePageProps> = ({ seo, source, course }) => {
 
 export default CoursePage
 
-export const getStaticPaths: GetStaticPaths = async context => {
-  const artsResponse = await searchModel<Course>({
-    url: 'api/courses',
-  })
-
-  const paths = artsResponse.data?.map(({ id }) => ({
-    params: { id: `${id}` },
-  }))
-
-  return { paths, fallback: true }
-}
-
-export const getStaticProps: GetStaticProps = async context => {
+export const getServerSideProps = async (
+  context: GetServerSidePropsContext,
+) => {
   const { params } = context
   const queryClient = new QueryClient()
 
   const locale = context.locale as StrapiLocale
 
-  // See: `useGetArt` (services/art/find-one.js)
-  // [art, locale, slug]
-
-  const course = await getModelById<Course>({
-    url: 'api/courses',
-    id: Number(params.id),
-  })
-
-  console.log('course', course)
+  const course = await getCourseBySlug(params.slug as string)
 
   if (!course)
     return {
@@ -72,12 +48,12 @@ export const getStaticProps: GetStaticProps = async context => {
 
   const title = course[titleKey] || null
   const description = course[descriptionKey] || null
-  const content = course[contentKey]
+  const content = course[contentKey] || null
   const slug = course.slug
 
-  const image = course.image
-
   const source = await serialize(content || '')
+
+  const image = course.image
 
   const seo = {
     title,
@@ -86,7 +62,7 @@ export const getStaticProps: GetStaticProps = async context => {
       title,
       description,
       type: 'article',
-      url: `${SITE_URL}/club/arts/${slug}`,
+      url: `${SITE_URL}/courses/${slug}`,
       images: image
         ? [
             {
@@ -111,6 +87,5 @@ export const getStaticProps: GetStaticProps = async context => {
       dehydratedState: dehydrate(queryClient),
       ...(await serverSideTranslations(locale, ['common'], i18nConfig)),
     },
-    revalidate: 1,
   }
 }
