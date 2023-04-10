@@ -1,6 +1,6 @@
 import { FC } from 'react'
 
-import { AspectRatio, Heading, Stack } from '@chakra-ui/react'
+import { AspectRatio, Box, Heading, Stack } from '@chakra-ui/react'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
@@ -53,7 +53,9 @@ export const CourseDetailPage: FC<CourseDetailPageProps> = ({
           {title}
         </Heading>
 
-        <Markdown source={source} />
+        <Box>
+          <Markdown source={source} />
+        </Box>
 
         <Stack
           spacing={8}

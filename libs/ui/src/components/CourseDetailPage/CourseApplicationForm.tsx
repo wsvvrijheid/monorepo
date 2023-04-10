@@ -82,7 +82,7 @@ export const CourseApplicationForm: FC<CourseApplicationFormProps> = ({
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Stack spacing={8}>
-        <SimpleGrid columns={{ base: 1, md: 2 }} gap={4}>
+        <SimpleGrid columns={{ base: 1, lg: 2 }} gap={4}>
           <FormItem
             name="name"
             register={register}
@@ -121,7 +121,7 @@ export const CourseApplicationForm: FC<CourseApplicationFormProps> = ({
             label={t('apply-form.phone.input') as string}
           />
 
-          <Box gridColumn={'span 2'}>
+          <Box gridColumn={{ lg: 'span 2' }}>
             <FormItem
               as={Textarea}
               name="message"
