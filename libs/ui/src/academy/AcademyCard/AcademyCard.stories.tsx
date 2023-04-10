@@ -19,22 +19,22 @@ export default {
 const Template: StoryFn<typeof AcademyCard> = args => {
   return (
     <SimpleGrid columns={{ base: 1, md: 2, lg: 4 }} gap={4}>
-      <AcademyCard {...args}>{args.children}</AcademyCard>
-      <AcademyCard {...args}>{args.children}</AcademyCard>
-      <AcademyCard {...args}>{args.children}</AcademyCard>
+      <AcademyCard {...args} />
+      <AcademyCard {...args} />
+      <AcademyCard {...args} />
     </SimpleGrid>
   )
 }
 
 export const Default = Template.bind({})
 Default.args = {
-  children: 'Projects',
+  title: 'Projects',
   image: 'https://placehold.co/256x',
   href: '/',
 }
 export const withDescription = Template.bind({})
 withDescription.args = {
-  children: 'Projects',
+  title: 'Projects',
   image: 'https://placehold.co/256x',
   href: '/',
   description:
