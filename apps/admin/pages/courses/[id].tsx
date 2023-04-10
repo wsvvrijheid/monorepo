@@ -130,8 +130,7 @@ const CoursePage: FC<PageProps> = ({ seo }) => {
         />
 
         <DataTable
-          // TODO: Fix type issue
-          columns={applicationColumns as any}
+          columns={applicationColumns}
           data={applications}
           totalCount={totalCount}
           currentPage={currentPage}

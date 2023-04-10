@@ -16,7 +16,6 @@ export const courseSchema = yup.object({
   content_nl: yup.string().required('Content is required'),
   content_en: yup.string().required('Content is required'),
   location: yup.string().required('Location is required'),
-
   instructor: yup.string().required('Instructor is required'),
   quota: yup.string(),
   price: yup.string(),
@@ -31,7 +30,6 @@ export const courseFields: FormFields<Course> = [
   { name: 'title_tr', label: 'Title Turkish', isRequired: true },
   { name: 'title_nl', label: 'Title Dutch', isRequired: true },
   { name: 'title_en', label: 'Title English', isRequired: true },
-
   {
     name: 'description_tr',
     label: 'Description Turkish',
@@ -86,7 +84,7 @@ export const courseFields: FormFields<Course> = [
   },
   { name: 'instructor', isRequired: true },
   { name: 'quota', isRequired: true, type: 'number-input' },
-  { name: 'price', isRequired: true },
+  { name: 'price', isRequired: true, type: 'price' },
   {
     name: 'tags',
     type: 'select',

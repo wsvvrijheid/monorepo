@@ -80,8 +80,7 @@ const CoursesPage: FC<PageProps> = ({ seo }) => {
       />
 
       <DataTable
-        // TODO: Fix type issue
-        columns={coursesColumns as any}
+        columns={coursesColumns}
         data={mappedCourses}
         totalCount={totalCount}
         currentPage={currentPage}
