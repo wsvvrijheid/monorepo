@@ -21,11 +21,17 @@ export const CourseDetailPage: FC<CourseDetailPageProps> = ({
   courses,
   source,
 }) => {
-  const { locale, pathname, query } = useRouter()
+  const { locale, query, asPath } = useRouter()
   const { t } = useTranslation()
 
   const title = course[`title_${(locale as StrapiLocale) || 'nl'}`]
   const description = course[`description_${(locale as StrapiLocale) || 'nl'}`]
+
+  const origin =
+    typeof window !== 'undefined' && window.location.origin
+      ? window.location.origin
+      : ''
+  const URL = `${origin}${asPath}`
 
   return (
     <Container maxW={'6xl'}>
@@ -44,7 +50,7 @@ export const CourseDetailPage: FC<CourseDetailPageProps> = ({
               size={'md'}
               title={title}
               quote={description}
-              url={pathname}
+              url={URL}
             />
           </Stack>
         </Stack>
