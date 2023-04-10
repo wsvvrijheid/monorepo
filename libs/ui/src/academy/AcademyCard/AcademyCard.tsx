@@ -1,25 +1,30 @@
 import { FC } from 'react'
 
-import { AspectRatio, Card, LinkBox, LinkOverlay, Text } from '@chakra-ui/react'
+import {
+  AspectRatio,
+  Card,
+  LinkBox,
+  LinkOverlay,
+  Stack,
+  Text,
+} from '@chakra-ui/react'
 import Link from 'next/link'
-
-import { UploadFile } from '@wsvvrijheid/types'
 
 import { WImage } from '../../components'
 
 type AcademyCardProps = {
   children?: React.ReactNode
   href: string
-  image: UploadFile
+  image: string
   description?: string
-  title?: string
+  title: string
 }
 
 export const AcademyCard: FC<AcademyCardProps> = ({
-  children,
   href,
   image,
   description,
+  title,
 }) => {
   return (
     <LinkBox as="article">
@@ -38,35 +43,32 @@ export const AcademyCard: FC<AcademyCardProps> = ({
               transition={'all'}
               transitionDuration={'0.2s'}
             />
-            <Text
+            <Stack
               transform={'translateY(6rem)'}
-              w="100%"
               p="6"
-              fontSize="lg"
               color="white"
               position="absolute"
-              fontWeight="medium"
               bottom="0"
               _groupHover={{ transform: 'translateY(2px)' }}
               transition="all"
               transitionDuration="0.3s"
               bgGradient="linear(to-t, rgba(0,0,0,0.5), rgba(0,0,0,0))"
+              spacing={4}
             >
-              {children}
+              <Text fontWeight={600} fontSize={'xl'} noOfLines={1}>
+                {title}
+              </Text>
               {description && (
                 <Text
-                  pt="2"
-                  fontSize="md"
+                  opacity={0}
+                  _groupHover={{ opacity: 1 }}
                   noOfLines={3}
-                  transition="all"
-                  fontWeight="thin"
                   transitionDuration="0.8s"
-                  as="span"
                 >
                   {description}
                 </Text>
               )}
-            </Text>
+            </Stack>
           </Card>
         </AspectRatio>
       </LinkOverlay>

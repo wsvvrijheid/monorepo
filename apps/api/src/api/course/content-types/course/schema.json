@@ -64,11 +64,7 @@
     },
     "image": {
       "type": "media",
-<<<<<<< HEAD
       "multiple": false,
-=======
-      "multiple": true,
->>>>>>> 9d2378d2 (merge dev to current branch)
       "required": false,
       "allowedTypes": ["images", "files", "videos", "audios"]
     },
