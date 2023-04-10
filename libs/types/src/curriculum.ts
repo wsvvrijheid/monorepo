@@ -1,4 +1,5 @@
 export type Curriculum = {
+  id: number
   title_en: string
   title_tr: string
   title_nl: string

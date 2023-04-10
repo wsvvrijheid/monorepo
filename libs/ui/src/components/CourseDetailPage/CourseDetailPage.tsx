@@ -1,313 +1,103 @@
 import { FC } from 'react'
 
-import {
-  Accordion,
-  AccordionButton,
-  AccordionItem,
-  AccordionPanel,
-  Box,
-  Button,
-  Checkbox,
-  HStack,
-  Image,
-  Link,
-  Stack,
-  Text,
-  Textarea,
-  VStack,
-} from '@chakra-ui/react'
-import { yupResolver } from '@hookform/resolvers/yup'
+import { AspectRatio, Button, Heading, HStack, Stack } from '@chakra-ui/react'
+import Image from 'next/image'
 import { useRouter } from 'next/router'
-import { useForm } from 'react-hook-form'
-import { CgCalendarDates } from 'react-icons/cg'
-import { FiMinus } from 'react-icons/fi'
+import { useTranslation } from 'next-i18next'
 import { GiSelfLove } from 'react-icons/gi'
-import { GoLocation, GoPlus } from 'react-icons/go'
-import { IoIosPeople } from 'react-icons/io'
-import { RiMoneyEuroCircleLine } from 'react-icons/ri'
-import * as yup from 'yup'
 
+import { API_URL } from '@wsvvrijheid/config'
+import { StrapiLocale } from '@wsvvrijheid/types'
+
+import { CourseApplicationForm } from './CourseApplicationForm'
+import { CourseFaqs } from './CourseFaqs'
+import { CourseInfo } from './CourseInfo'
 import { CourseDetailPageProps } from './types'
-import { FormItem } from '../FormItem'
+import { Container } from '../Container'
+import { Markdown } from '../Markdown'
 import { ShareButtons } from '../ShareButtons'
 
 export const CourseDetailPage: FC<CourseDetailPageProps> = ({
-  content,
-  description,
-  endDate,
-  image,
-  price,
-  startDate,
-  title,
-  faqs,
+  course,
+  courses,
+  source,
 }) => {
-  const router = useRouter()
-  const schema = () =>
-    yup.object({
-      name: yup.string().required(),
-      surname: yup.string().required(),
-      city: yup.string().required(),
-      phone: yup.string(),
-      job: yup.string(),
-      email: yup
-        .string()
-        .email('Field should contain a valid e-mail')
-        .max(255)
-        .required('E-mail is required'),
-      terms: yup.array().required().min(2),
-    })
+  const { locale, pathname, query } = useRouter()
+  const { t } = useTranslation()
 
-  const {
-    register,
-    formState: { errors },
-  } = useForm({
-    resolver: yupResolver(schema()),
-    mode: 'all',
-  })
+  const title = course[`title_${(locale as StrapiLocale) || 'nl'}`]
+  const description = course[`description_${(locale as StrapiLocale) || 'nl'}`]
 
   return (
-    <Stack mx={5}>
-      <Image src={image} alt="" />
-      <Stack
-        justifyContent={'space-between'}
-        flexDirection={{ base: 'column', sm: 'column', md: 'row', lg: 'row' }}
-      >
-        <VStack w={'100'} justifyContent={'left'}>
-          <HStack w={'100%'} justifyContent={'start'}>
-            <CgCalendarDates />
-            <Text>Başlama tarihi: {startDate}</Text>
-          </HStack>
-          <HStack w={'100%'} justifyContent={'start'}>
-            <CgCalendarDates />
-            <Text>Bitiş tarihi: {endDate}</Text>
-          </HStack>
-        </VStack>
-        <VStack display={'flex'} justifyContent={'left'}>
-          <HStack w={'100%'} justifyContent={'start'}>
-            <GoLocation />
-            <Text>Toplam süre: 10 hafta</Text>
-          </HStack>
-          <HStack w={'100%'} justifyContent={'start'}>
-            <RiMoneyEuroCircleLine />
-            <Text>Ucret: {price}</Text>
-          </HStack>
-        </VStack>
-        <VStack>
-          <HStack w={'100%'} justifyContent={'start'}>
-            <GoLocation />
-            <Text>Eğitim dili: Türkçe</Text>
-          </HStack>
-          <HStack w={'100%'} justifyContent={'start'}>
-            <IoIosPeople />
-            <Text>Kontenjan: 100</Text>
-          </HStack>
-        </VStack>
-        <HStack>
-          <Button
-            backgroundColor={'transparent'}
-            border={'1px solid lightgray'}
-            borderRadius={'50%'}
-            w={'40px'}
-            h={'40px'}
-            p={0}
+    <Container maxW={'6xl'}>
+      <Stack spacing={12} pb={16}>
+        <Stack spacing={4}>
+          <AspectRatio ratio={16 / 9}>
+            <Image fill src={API_URL + course.image.url} alt="" />
+          </AspectRatio>
+          <Stack
+            justify={'space-between'}
+            flexDir={{ base: 'column', md: 'row' }}
           >
-            <GiSelfLove />
-          </Button>
-          <ShareButtons
-            size={'md'}
-            title={title}
-            quote={description}
-            url={router.pathname}
-          />
-        </HStack>
-      </Stack>
-      <VStack>
-        <Text
-          color={'blue.500'}
-          fontWeight={'700'}
-          fontSize={'36px'}
-          lineHeight={'40px'}
-          textAlign={'center'}
-          my={5}
-        >
-          {title}
-        </Text>
-        <Text
-          fontWeight={'500'}
-          fontSize={'18px'}
-          lineHeight={'28px'}
-          textAlign={'justify'}
-        >
-          {description}
-        </Text>
-      </VStack>
-      <Stack>
-        <Text
-          color={'blue.400'}
-          fontWeight={'800'}
-          fontSize={'24px'}
-          lineHeight={'32px'}
-          mt={3}
-        >
-          Senaryo Kursu Kayıt Başvuru Formu
-        </Text>
-        <Stack>
-          <HStack>
-            <FormItem
-              name="name"
-              register={register}
-              errors={errors}
-              hideLabel
-              label="Adınız"
-              bgColor={'white'}
-              my={3}
-            />
-            <FormItem
-              name="surname"
-              register={register}
-              errors={errors}
-              hideLabel
-              label="Soyadınız"
-              bgColor={'white'}
-              my={3}
-            />
-          </HStack>
-          <HStack>
-            <FormItem
-              name="city"
-              register={register}
-              errors={errors}
-              hideLabel
-              label="Şehir"
-              bgColor={'white'}
-              my={3}
-            />
-            <FormItem
-              name="phone"
-              register={register}
-              errors={errors}
-              hideLabel
-              label="Teefon Numaranız"
-              bgColor={'white'}
-              my={3}
-            />
-          </HStack>
-          <HStack>
-            <FormItem
-              name="job"
-              register={register}
-              errors={errors}
-              hideLabel
-              label="Mesleğiniz"
-              bgColor={'white'}
-              my={3}
-            />
-            <FormItem
-              name="email"
-              type="email"
-              register={register}
-              errors={errors}
-              hideLabel
-              label="E-mail"
-              bgColor={'white'}
-              my={3}
-            />
-          </HStack>
-          <FormItem
-            as={Textarea}
-            name="description"
-            register={register}
-            errors={errors}
-            hideLabel
-            label="Kendinden bahset"
-            bgColor={'white'}
-            my={3}
-          />
-
-          <Stack my={5}>
-            <Checkbox
-              fontSize={'14px'}
-              fontWeight={'400'}
-              lineHeight={'20px'}
-              {...register('terms')}
-            >
-              <Link href={'/'} color="red.500">
-                Ön Bilgilendirme Formu’nu
-              </Link>{' '}
-              okudum, Kabul ediyorum
-            </Checkbox>
-            <Checkbox
-              fontSize={'14px'}
-              fontWeight={'400'}
-              lineHeight={'20px'}
-              {...register('terms')}
-            >
-              <Link href={'/'} color="red.500">
-                Kullanici Sözleşme metnini
-              </Link>{' '}
-              okudum, Kabul ediyorum{' '}
-            </Checkbox>
+            <CourseInfo course={course} />
+            <HStack>
+              <Button
+                backgroundColor={'transparent'}
+                border={'1px solid lightgray'}
+                borderRadius={'50%'}
+                w={'40px'}
+                h={'40px'}
+                p={0}
+              >
+                <GiSelfLove />
+              </Button>
+              <ShareButtons
+                size={'md'}
+                title={title}
+                quote={description}
+                url={pathname}
+              />
+            </HStack>
           </Stack>
-          <Button
-            backgroundColor={'blue.500'}
-            display={'flex'}
-            flexDirection={'row'}
-            alignItems={'center'}
-            w={'100%'}
-            color={'white'}
-            padding={'0px 24px'}
-          >
-            Kayıt ol
-          </Button>
         </Stack>
+
+        <Heading as={'h1'} size={'2xl'} textAlign={'center'} py={8}>
+          {title}
+        </Heading>
+
+        <Markdown source={source} />
+
+        <Stack
+          spacing={8}
+          maxW={'3xl'}
+          w={'full'}
+          p={8}
+          borderWidth={1}
+          rounded={'md'}
+          alignSelf={'center'}
+        >
+          <Heading as={'h3'} size={'lg'}>
+            {t('course.application-title')}
+          </Heading>
+          <CourseApplicationForm courseId={Number(query['id'])} />
+        </Stack>
+
+        <Stack spacing={4}>
+          <Heading as={'h3'} size={'lg'}>
+            {t('faq')}
+          </Heading>
+          <CourseFaqs faqs={course.faqs} />
+        </Stack>
+
+        {courses?.length > 0 && (
+          <Stack spacing={4}>
+            <Heading as={'h3'} size={'lg'}>
+              {t('course.other-courses')}
+            </Heading>
+            {/* TODO: Add courses grid */}
+          </Stack>
+        )}
       </Stack>
-      <Accordion allowMultiple>
-        <AccordionItem border={'none'}>
-          <AccordionButton
-            color={'blue.500'}
-            fontWeight={'700'}
-            fontSize={'30px'}
-            lineHeight={'36px'}
-          >
-            Sık sorulan sorular
-          </AccordionButton>
-          <AccordionPanel>
-            <Accordion allowMultiple>
-              {faqs.map(item => (
-                <AccordionItem>
-                  {({ isExpanded }) => (
-                    <>
-                      <h2>
-                        <AccordionButton>
-                          <Box as="span" flex="1" textAlign="left">
-                            {item.question}
-                          </Box>
-                          {isExpanded ? (
-                            <FiMinus fontSize="12px" />
-                          ) : (
-                            <GoPlus fontSize="12px" />
-                          )}
-                        </AccordionButton>
-                      </h2>
-                      <AccordionPanel pb={4}>{item.answer}</AccordionPanel>
-                    </>
-                  )}
-                </AccordionItem>
-              ))}
-            </Accordion>
-          </AccordionPanel>
-        </AccordionItem>
-        <AccordionItem border={'none'}>
-          <AccordionButton
-            color={'blue.500'}
-            fontWeight={'700'}
-            fontSize={'30px'}
-            lineHeight={'36px'}
-          >
-            Diğer Kurslar
-          </AccordionButton>
-        </AccordionItem>
-      </Accordion>
-    </Stack>
+    </Container>
   )
 }
