@@ -8,6 +8,7 @@ import {
   AccordionPanel,
   Box,
   MenuItem,
+  Stack,
   Text,
   useUpdateEffect,
 } from '@chakra-ui/react'
@@ -15,7 +16,7 @@ import { InferGetServerSidePropsType } from 'next'
 import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
-import { FaArrowUp, FaArrowDown } from 'react-icons/fa'
+import { FaArrowDown, FaArrowUp } from 'react-icons/fa'
 
 import { useModelById, useSearchModel } from '@wsvvrijheid/services'
 import {
@@ -87,7 +88,7 @@ const CoursePage: FC<PageProps> = ({ seo }) => {
 
   return (
     <AdminLayout seo={seo} isLoading={isLoading} hasBackButton>
-      <Box p={6} rounded="md" bg="white" shadow="md">
+      <Stack spacing={8} p={6} rounded="md" bg="white" shadow="md">
         <Accordion
           size={'lg'}
           allowToggle
@@ -116,29 +117,31 @@ const CoursePage: FC<PageProps> = ({ seo }) => {
             </AccordionPanel>
           </AccordionItem>
         </Accordion>
-        <PageHeader
-          onSearch={handleSearch}
-          searchPlaceHolder={'Search courses by title'}
-          sortMenu={[
-            <MenuItem key="asc" icon={<FaArrowUp />}>
-              Name Asc
-            </MenuItem>,
-            <MenuItem key="desc" icon={<FaArrowDown />}>
-              Name Desc
-            </MenuItem>,
-          ]}
-        />
+        <Box>
+          <PageHeader
+            onSearch={handleSearch}
+            searchPlaceHolder={'Search courses by title'}
+            sortMenu={[
+              <MenuItem key="asc" icon={<FaArrowUp />}>
+                Name Asc
+              </MenuItem>,
+              <MenuItem key="desc" icon={<FaArrowDown />}>
+                Name Desc
+              </MenuItem>,
+            ]}
+          />
 
-        <DataTable
-          columns={applicationColumns}
-          data={applications}
-          totalCount={totalCount}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-          onSort={setSort}
-          onClickRow={handleRowClick}
-        />
-      </Box>
+          <DataTable
+            columns={applicationColumns}
+            data={applications}
+            totalCount={totalCount}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            onSort={setSort}
+            onClickRow={handleRowClick}
+          />
+        </Box>
+      </Stack>
     </AdminLayout>
   )
 }

@@ -18,7 +18,6 @@ export type MentionSelectProps = {
 
 type FormTextFields = {
   type?:
-    | 'price'
     | 'boolean'
     | 'date'
     | 'datetime-local'
@@ -52,6 +51,7 @@ export type ModelCreateFormProps<T extends StrapiModel> = {
   model?: Partial<T>
   schema: OptionalObjectSchema<any>
   buttonProps?: ButtonProps
+  hideLanguageSwitcher?: boolean
   onSuccess?: () => void
 }
 
