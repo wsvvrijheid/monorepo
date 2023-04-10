@@ -1,13 +1,43 @@
+import { ReactNode } from 'react'
+
+import { MDXRemoteSerializeResult } from 'next-mdx-remote'
+
+import {
+  Course,
+  CourseApplicationCreateInput,
+  FaqLocale,
+} from '@wsvvrijheid/types'
+
 export type CourseDetailPageProps = {
-  title: string
-  description: string
-  content?: string
-  location: string
-  instructor?: string
-  price: number
-  quota?: number
-  image: string
-  startDate: string
-  endDate: string
-  faqs: { question: string; answer: string }[]
+  course: Course
+  courses: Course[]
+  source: MDXRemoteSerializeResult
+}
+
+export type CourseInfoProps = {
+  course: Course
+}
+
+export type CourseFaqsProps = {
+  faqs: FaqLocale[]
+}
+
+export type CourseFaqItemProps = {
+  item: FaqLocale
+  isExpanded: boolean
+}
+
+export type CourseInfoItemProps = {
+  label: string
+  value: string
+  icon: ReactNode
+}
+
+export type ApplicationFormFields = Pick<
+  CourseApplicationCreateInput,
+  'name' | 'email' | 'country' | 'city' | 'message' | 'phone' | 'course'
+>
+
+export type CourseApplicationFormProps = {
+  courseId: number
 }
