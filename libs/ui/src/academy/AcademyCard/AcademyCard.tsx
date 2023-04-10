@@ -18,8 +18,6 @@ export const AcademyCard: FC<AcademyCardProps> = ({
   image,
   description,
 }) => {
-  const baseTranslate = description ? 'translateY(6rem)' : 'translateY(.5rem)'
-
   return (
     <LinkBox as="article">
       <LinkOverlay as={Link} href={href}>
@@ -38,7 +36,7 @@ export const AcademyCard: FC<AcademyCardProps> = ({
               transitionDuration={'0.2s'}
             />
             <Text
-              transform={baseTranslate}
+              transform={'translateY(6rem)'}
               w="100%"
               p="6"
               fontSize="lg"
