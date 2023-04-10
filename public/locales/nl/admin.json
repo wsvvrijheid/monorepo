@@ -1,4 +1,5 @@
 {
+  "academy":"Akademie",
   "accounts": "Accounts",
   "activities": "Activiteiten",
   "announcements": "Aankondigingen",
@@ -11,6 +12,7 @@
   "capsMaker": "Caps Maker",
   "collections": "Collecties",
   "competitions": "Wedstrijden",
+  "courses":"Courses",
   "dashboard": "Dashboard",
   "hashtagPosts": "Hashtag Posts",
   "hashtags": "Hashtags",

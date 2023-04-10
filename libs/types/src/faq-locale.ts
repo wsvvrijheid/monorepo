@@ -1,4 +1,5 @@
 export type FaqLocale = {
+  id: number
   question_en: string
   question_tr: string
   question_nl: string
