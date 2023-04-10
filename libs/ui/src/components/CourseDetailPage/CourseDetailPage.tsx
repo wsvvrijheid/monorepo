@@ -1,10 +1,9 @@
 import { FC } from 'react'
 
-import { AspectRatio, Button, Heading, HStack, Stack } from '@chakra-ui/react'
+import { AspectRatio, Heading, Stack } from '@chakra-ui/react'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
-import { GiSelfLove } from 'react-icons/gi'
 
 import { API_URL } from '@wsvvrijheid/config'
 import { StrapiLocale } from '@wsvvrijheid/types'
@@ -30,7 +29,7 @@ export const CourseDetailPage: FC<CourseDetailPageProps> = ({
 
   return (
     <Container maxW={'6xl'}>
-      <Stack spacing={12} pb={16}>
+      <Stack spacing={12} pb={16} pt={4}>
         <Stack spacing={4}>
           <AspectRatio ratio={16 / 9}>
             <Image fill src={API_URL + course.image.url} alt="" />
@@ -40,24 +39,13 @@ export const CourseDetailPage: FC<CourseDetailPageProps> = ({
             flexDir={{ base: 'column', md: 'row' }}
           >
             <CourseInfo course={course} />
-            <HStack>
-              <Button
-                backgroundColor={'transparent'}
-                border={'1px solid lightgray'}
-                borderRadius={'50%'}
-                w={'40px'}
-                h={'40px'}
-                p={0}
-              >
-                <GiSelfLove />
-              </Button>
-              <ShareButtons
-                size={'md'}
-                title={title}
-                quote={description}
-                url={pathname}
-              />
-            </HStack>
+
+            <ShareButtons
+              size={'md'}
+              title={title}
+              quote={description}
+              url={pathname}
+            />
           </Stack>
         </Stack>
 
@@ -75,6 +63,7 @@ export const CourseDetailPage: FC<CourseDetailPageProps> = ({
           borderWidth={1}
           rounded={'md'}
           alignSelf={'center'}
+          bg={'white'}
         >
           <Heading as={'h3'} size={'lg'}>
             {t('course.application-title')}
