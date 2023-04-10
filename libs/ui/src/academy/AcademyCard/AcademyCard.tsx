@@ -13,7 +13,6 @@ import Link from 'next/link'
 import { WImage } from '../../components'
 
 type AcademyCardProps = {
-  children?: React.ReactNode
   href: string
   image: string
   description?: string
@@ -26,6 +25,8 @@ export const AcademyCard: FC<AcademyCardProps> = ({
   description,
   title,
 }) => {
+  const baseTranslate = description ? 'translateY(6rem)' : 'translateY(.5rem)'
+
   return (
     <LinkBox as="article">
       <LinkOverlay as={Link} href={href}>
@@ -44,7 +45,7 @@ export const AcademyCard: FC<AcademyCardProps> = ({
               transitionDuration={'0.2s'}
             />
             <Stack
-              transform={'translateY(6rem)'}
+              transform={baseTranslate}
               p="6"
               color="white"
               position="absolute"

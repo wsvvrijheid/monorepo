@@ -15,6 +15,7 @@ import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { NextSeoProps } from 'next-seo'
 import { FaExternalLinkAlt } from 'react-icons/fa'
 
+import { API_URL } from '@wsvvrijheid/config'
 import { UploadFile } from '@wsvvrijheid/types'
 
 import { AcademyCard } from '../../academy'
@@ -75,17 +76,17 @@ export const PlatformTemplate: FC<PlatformTemplateProps> = ({
           <Box w="100%" p={2}>
             <SimpleGrid columns={{ base: 1, sm: 3 }} gap={6}>
               <AcademyCard
-                image="https://api.wsvvrijheid.nl/uploads/courses_image_3c3a1382bd.png"
+                image={`${API_URL}/uploads/courses_image_3c3a1382bd.png`}
                 href="/courses"
                 title={t('courses')}
               />
               <AcademyCard
-                image="https://api.wsvvrijheid.nl/uploads/software_card_f3408ac222.jpeg"
+                image={`${API_URL}/uploads/software_card_f3408ac222.jpeg`}
                 href="/platforms/academy/software"
                 title={t('software')}
               />
               <AcademyCard
-                image="https://api.wsvvrijheid.nl/uploads/Seminars_card_0a3a008777.jpeg"
+                image={`${API_URL}/uploads/Seminars_card_0a3a008777.jpeg`}
                 href="/platforms/academy/seminars"
                 title={t('seminars')}
               />
