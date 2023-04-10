@@ -21,7 +21,7 @@ export const CourseDetailPage: FC<CourseDetailPageProps> = ({
   courses,
   source,
 }) => {
-  const { locale, pathname, query } = useRouter()
+  const { locale, pathname } = useRouter()
   const { t } = useTranslation()
 
   const title = course[`title_${(locale as StrapiLocale) || 'nl'}`]
@@ -70,7 +70,7 @@ export const CourseDetailPage: FC<CourseDetailPageProps> = ({
           <Heading as={'h3'} size={'lg'}>
             {t('course.application-title')}
           </Heading>
-          <CourseApplicationForm courseId={Number(query['id'])} />
+          <CourseApplicationForm courseId={course.id} />
         </Stack>
 
         <Stack spacing={4}>
