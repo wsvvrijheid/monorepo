@@ -21,7 +21,15 @@ export type MentionSelectProps = {
 }
 
 type FormTextFields = {
-  type?: 'text' | 'textarea' | 'markdown' | 'date' | 'datetime-local' | 'file'
+  type?:
+    | 'boolean'
+    | 'date'
+    | 'datetime-local'
+    | 'file'
+    | 'markdown'
+    | 'number-input'
+    | 'text'
+    | 'textarea'
 }
 
 type FormSelectFields = {

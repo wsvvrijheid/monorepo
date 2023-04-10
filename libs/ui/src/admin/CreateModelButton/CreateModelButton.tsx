@@ -15,12 +15,14 @@ import { BsCollection } from 'react-icons/bs'
 import { CgHashtag } from 'react-icons/cg'
 import { FaPlus } from 'react-icons/fa'
 import { HiOutlineNewspaper } from 'react-icons/hi'
+import { MdOutlineCastForEducation } from 'react-icons/md'
 import { TbActivity, TbBrandTwitter, TbWriting } from 'react-icons/tb'
 
 import {
   Activity,
   Blog,
   Collection,
+  Course,
   Hashtag,
   Post,
   RecommendedTopic,
@@ -43,6 +45,7 @@ import {
   topicFields,
   topicSchema,
 } from '../../data'
+import { courseFields, courseSchema } from '../../data/schemas/course'
 import { ModelCreateModal } from '../ModelForm'
 
 export const CreateModelButton = () => {
@@ -86,6 +89,19 @@ export const CreateModelButton = () => {
                   buttonProps={{ variant: 'outline', leftIcon: <TbWriting /> }}
                 >
                   {t('create-blog')}
+                </ModelCreateModal>
+                <ModelCreateModal<Course>
+                  title="Create Course"
+                  url="api/courses"
+                  schema={courseSchema}
+                  fields={courseFields}
+                  hideLanguageSwitcher
+                  buttonProps={{
+                    variant: 'outline',
+                    leftIcon: <MdOutlineCastForEducation />,
+                  }}
+                >
+                  {t('create-course')}
                 </ModelCreateModal>
                 <ModelCreateModal<Collection>
                   title="Create Collection"

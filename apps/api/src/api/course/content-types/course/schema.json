@@ -35,13 +35,13 @@
       "type": "text"
     },
     "content_en": {
-      "type": "text"
+      "type": "richtext"
     },
     "content_tr": {
-      "type": "text"
+      "type": "richtext"
     },
     "content_nl": {
-      "type": "text"
+      "type": "richtext"
     },
     "location": {
       "type": "string"
@@ -64,7 +64,7 @@
     },
     "image": {
       "type": "media",
-      "multiple": true,
+      "multiple": false,
       "required": false,
       "allowedTypes": ["images", "files", "videos", "audios"]
     },
