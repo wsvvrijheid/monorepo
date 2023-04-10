@@ -20,7 +20,12 @@ export const ModelSelect = <T extends StrapiModel>({
     populate: [],
   })
 
-  const models = modelsQuery.data?.data
+  const models = modelsQuery.data?.data?.map((model: any) => ({
+    name_en: model.title_en || model.name_en,
+    name_tr: model.title_tr || model.name_tr,
+    name_nl: model.title_nl || model.name_nl,
+    ...model,
+  }))
 
   return (
     <WSelect

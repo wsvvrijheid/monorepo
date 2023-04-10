@@ -83,7 +83,7 @@ const CoursePage: FC<PageProps> = ({ seo }) => {
   })
 
   const handleRowClick = (index: number, id: number) => {
-    router.push(`/courses/applicatons/${id}`)
+    router.push(`/courses/applications/${id}`)
   }
 
   return (
