@@ -35,7 +35,8 @@
     },
     "approvalStatus": {
       "type": "enumeration",
-      "enum": ["approved", "pending", "rejected"]
+      "enum": ["approved", "pending", "rejected"],
+      "default": "pending"
     },
     "course": {
       "type": "relation",
