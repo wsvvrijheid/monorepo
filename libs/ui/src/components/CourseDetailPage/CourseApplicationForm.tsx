@@ -1,10 +1,8 @@
-import { FC, useState } from 'react'
+import { FC } from 'react'
 
 import {
   Box,
   Button,
-  Checkbox,
-  Link,
   SimpleGrid,
   Stack,
   Textarea,
@@ -12,7 +10,7 @@ import {
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation } from '@tanstack/react-query'
-import { TFunction, Trans, useTranslation } from 'next-i18next'
+import { TFunction, useTranslation } from 'next-i18next'
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
@@ -27,8 +25,8 @@ export const CourseApplicationForm: FC<CourseApplicationFormProps> = ({
   courseId,
 }) => {
   const { t } = useTranslation()
-  const [termsAccepted, setTermsAccepted] = useState(false)
-  const [privacyAccepted, setPrivacyAccepted] = useState(false)
+  // const [termsAccepted, setTermsAccepted] = useState(false)
+  // const [privacyAccepted, setPrivacyAccepted] = useState(false)
 
   const toast = useToast()
 
@@ -79,7 +77,7 @@ export const CourseApplicationForm: FC<CourseApplicationFormProps> = ({
     )
   }
 
-  const valid = isValid && termsAccepted && privacyAccepted
+  // const valid = isValid && termsAccepted && privacyAccepted
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -135,7 +133,7 @@ export const CourseApplicationForm: FC<CourseApplicationFormProps> = ({
           </Box>
         </SimpleGrid>
 
-        <Stack spacing={2}>
+        {/* <Stack spacing={2}>
           <Checkbox
             fontSize={'14px'}
             fontWeight={'400'}
@@ -158,8 +156,8 @@ export const CourseApplicationForm: FC<CourseApplicationFormProps> = ({
               components={{ a: <Link href={'/'} color="primary.500" /> }}
             />
           </Checkbox>
-        </Stack>
-        <Button w={'100%'} type="submit" isDisabled={!valid}>
+        </Stack> */}
+        <Button w={'100%'} type="submit" isDisabled={!isValid}>
           {t('apply-form.apply')}
         </Button>
       </Stack>
