@@ -1,4 +1,5 @@
 {
+  "academy":"Academy",
   "accounts": "Accounts",
   "activities": "Activities",
   "announcements": "Announcements",
@@ -11,6 +12,7 @@
   "capsMaker": "Caps Maker",
   "collections": "Collections",
   "competitions": "Competitions",
+  "courses":"Courses",
   "dashboard": "Dashboard",
   "hashtagPosts": "Hashtag Posts",
   "hashtags": "Hashtags",

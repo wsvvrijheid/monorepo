@@ -12,6 +12,7 @@ type CourseBase = StrapiBase & {
   title_en: string
   title_tr: string
   title_nl: string
+  slug: string
   description_en: string
   description_tr: string
   description_nl: string

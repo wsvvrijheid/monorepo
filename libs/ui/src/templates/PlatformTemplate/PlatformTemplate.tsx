@@ -79,21 +79,21 @@ export const PlatformTemplate: FC<PlatformTemplateProps> = ({
                 href="/platform/academy/courses"
                 // description=''
               >
-                Courses
+                {t('courses')}
               </AcademyCard>
               <AcademyCard
                 image="https://api.wsvvrijheid.nl/uploads/software_card_f3408ac222.jpeg"
                 href="/platform/academy/software"
                 // description=''
               >
-                Software
+                {t('software')}
               </AcademyCard>
               <AcademyCard
                 image="https://api.wsvvrijheid.nl/uploads/Seminars_card_0a3a008777.jpeg"
                 href="/platform/academy/seminars"
                 // description=''
               >
-                Seminars
+                {t('seminars')}
               </AcademyCard>
             </SimpleGrid>
           </Box>

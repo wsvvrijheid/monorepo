@@ -24,14 +24,14 @@ const CollectionPage = ({
   const centerRef = useRef(null)
   const [height, setHeight] = useState(0)
   const [width, setWidth] = useState(0)
-  const [isLoading, setIsloading] = useState(true)
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     if (centerRef.current && pageShow) {
       setTimeout(() => {
         setHeight(centerRef.current.offsetHeight - 60)
         setWidth(centerRef.current.offsetWidth)
-        setIsloading(false)
+        setIsLoading(false)
       }, 1000)
     }
   }, [centerRef, pageShow])
