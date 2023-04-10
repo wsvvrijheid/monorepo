@@ -3,13 +3,16 @@ import { FC } from 'react'
 import { AspectRatio, Card, LinkBox, LinkOverlay, Text } from '@chakra-ui/react'
 import Link from 'next/link'
 
+import { UploadFile } from '@wsvvrijheid/types'
+
 import { WImage } from '../../components'
 
 type AcademyCardProps = {
-  children: React.ReactNode
+  children?: React.ReactNode
   href: string
-  image: string
+  image: UploadFile
   description?: string
+  title?: string
 }
 
 export const AcademyCard: FC<AcademyCardProps> = ({
