@@ -64,7 +64,7 @@ const MarkdownComponents = {
   ),
   p: (props: HtmlHTMLAttributes<HTMLElement>) => <chakra.p mb={4} {...props} />,
   ul: (props: HtmlHTMLAttributes<HTMLElement>) => (
-    <chakra.ul mt={6} ml={4} {...props} />
+    <chakra.ul my={6} ml={8} {...props} />
   ),
   ol: (props: HtmlHTMLAttributes<HTMLElement>) => (
     <chakra.ol apply="mdx.ul" {...props} />

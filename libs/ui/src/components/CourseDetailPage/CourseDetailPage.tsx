@@ -1,6 +1,6 @@
 import { FC } from 'react'
 
-import { AspectRatio, Heading, Stack } from '@chakra-ui/react'
+import { AspectRatio, Box, Heading, Stack } from '@chakra-ui/react'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
@@ -21,7 +21,9 @@ export const CourseDetailPage: FC<CourseDetailPageProps> = ({
   courses,
   source,
 }) => {
+
   const { locale, query, asPath } = useRouter()
+
   const { t } = useTranslation()
 
   const title = course[`title_${(locale as StrapiLocale) || 'nl'}`]
@@ -55,7 +57,9 @@ export const CourseDetailPage: FC<CourseDetailPageProps> = ({
           {title}
         </Heading>
 
-        <Markdown source={source} />
+        <Box>
+          <Markdown source={source} />
+        </Box>
 
         <Stack
           spacing={8}
@@ -70,7 +74,7 @@ export const CourseDetailPage: FC<CourseDetailPageProps> = ({
           <Heading as={'h3'} size={'lg'}>
             {t('course.application-title')}
           </Heading>
-          <CourseApplicationForm courseId={Number(query['id'])} />
+          <CourseApplicationForm courseId={course.id} />
         </Stack>
 
         <Stack spacing={4}>
