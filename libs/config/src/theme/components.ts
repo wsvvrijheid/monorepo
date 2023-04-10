@@ -36,10 +36,12 @@ export const components = {
         }
       },
       outline: (props: StyleFunctionProps) => {
+        const colorScheme = props.colorScheme || 'primary'
+
         return {
           ...theme.components.Button.variants?.outline(props),
-          borderColor: 'primary.500',
-          color: 'primary.500',
+          borderColor: `${colorScheme}.500`,
+          color: `${colorScheme}.500`,
           borderWidth: 1.5,
           _hover: {
             bg: 'blackAlpha.50',
