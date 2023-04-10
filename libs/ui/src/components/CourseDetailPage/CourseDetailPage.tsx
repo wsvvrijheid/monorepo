@@ -1,11 +1,11 @@
 import { FC } from 'react'
 
-import { AspectRatio, Heading, Stack } from '@chakra-ui/react'
+import { AspectRatio, Box, Heading, Stack } from '@chakra-ui/react'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
-import { API_URL } from '@wsvvrijheid/config'
+import { API_URL, SITE_URL } from '@wsvvrijheid/config'
 import { StrapiLocale } from '@wsvvrijheid/types'
 
 import { CourseApplicationForm } from './CourseApplicationForm'
@@ -21,11 +21,15 @@ export const CourseDetailPage: FC<CourseDetailPageProps> = ({
   courses,
   source,
 }) => {
-  const { locale, pathname, query } = useRouter()
+
+  const { locale, query, asPath } = useRouter()
+
   const { t } = useTranslation()
 
   const title = course[`title_${(locale as StrapiLocale) || 'nl'}`]
   const description = course[`description_${(locale as StrapiLocale) || 'nl'}`]
+
+  const URL = `${SITE_URL}${asPath}`
 
   return (
     <Container maxW={'6xl'}>
@@ -44,7 +48,7 @@ export const CourseDetailPage: FC<CourseDetailPageProps> = ({
               size={'md'}
               title={title}
               quote={description}
-              url={pathname}
+              url={URL}
             />
           </Stack>
         </Stack>
@@ -53,7 +57,9 @@ export const CourseDetailPage: FC<CourseDetailPageProps> = ({
           {title}
         </Heading>
 
-        <Markdown source={source} />
+        <Box>
+          <Markdown source={source} />
+        </Box>
 
         <Stack
           spacing={8}
@@ -68,7 +74,7 @@ export const CourseDetailPage: FC<CourseDetailPageProps> = ({
           <Heading as={'h3'} size={'lg'}>
             {t('course.application-title')}
           </Heading>
-          <CourseApplicationForm courseId={Number(query['id'])} />
+          <CourseApplicationForm courseId={course.id} />
         </Stack>
 
         <Stack spacing={4}>
