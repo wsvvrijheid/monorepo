@@ -95,6 +95,7 @@ export const CreateModelButton = () => {
                   url="api/courses"
                   schema={courseSchema}
                   fields={courseFields}
+                  hideLanguageSwitcher
                   buttonProps={{
                     variant: 'outline',
                     leftIcon: <MdOutlineCastForEducation />,

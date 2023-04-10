@@ -50,6 +50,7 @@ export const ModelCreateForm = <T extends StrapiModel>({
   schema,
   model,
   onSuccess,
+  hideLanguageSwitcher,
 }: ModelCreateFormProps<T>) => {
   const createModelMutation = useCreateModelMutation<
     T,
@@ -147,9 +148,11 @@ export const ModelCreateForm = <T extends StrapiModel>({
   return (
     <Stack as={'form'} onSubmit={handleSubmit(onCreateModel)}>
       <MasonryGrid cols={[1, 1, 1, 2]} columnGap={8} rowGap={4}>
-        <Box mb={8}>
-          <LanguageSwitcher />
-        </Box>
+        {!hideLanguageSwitcher && (
+          <Box mb={8}>
+            <LanguageSwitcher />
+          </Box>
+        )}
         {fields.map((field, index) => {
           const label = field.label || capitalize(field.name as string)
 
@@ -207,37 +210,6 @@ export const ModelCreateForm = <T extends StrapiModel>({
             )
           }
 
-          if (field.name === 'price') {
-            // const format = (val: number) => `€` + val
-            const parse = (val: string) => +val.replace(/^€/, '')
-
-            return (
-              <Flex align={'center'} mb={1}>
-                <FormControl>
-                  <FormLabel mb={0} fontSize="sm" fontWeight={600}>
-                    {label}
-                  </FormLabel>
-                  <NumberInput
-                    maxW={120}
-                    onChange={valueString =>
-                      setValue(field?.name as string, parse(valueString))
-                    }
-                    size="lg"
-                  >
-                    <NumberInputField />
-                    <NumberInputStepper>
-                      <NumberIncrementStepper />
-                      <NumberDecrementStepper />
-                    </NumberInputStepper>
-                  </NumberInput>
-
-                  <FormErrorMessage>
-                    {errors[field.name as string]?.message as string}
-                  </FormErrorMessage>
-                </FormControl>
-              </Flex>
-            )
-          }
           if (field.type === 'number-input') {
             return (
               <Flex align={'center'} mb={1}>
