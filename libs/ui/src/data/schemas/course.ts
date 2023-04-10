@@ -83,8 +83,8 @@ export const courseFields: FormFields<Course> = [
     label: 'End Date',
   },
   { name: 'instructor', isRequired: true },
-  { name: 'quota', isRequired: true },
-  { name: 'price', isRequired: true },
+  { name: 'quota', isRequired: true, type: 'number-input' },
+  { name: 'price', isRequired: true, type: 'price' },
   {
     name: 'tags',
     type: 'select',
