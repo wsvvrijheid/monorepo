@@ -27,11 +27,7 @@ export const CourseDetailPage: FC<CourseDetailPageProps> = ({
   const title = course[`title_${(locale as StrapiLocale) || 'nl'}`]
   const description = course[`description_${(locale as StrapiLocale) || 'nl'}`]
 
-  const origin =
-    typeof window !== 'undefined' && window.location.origin
-      ? window.location.origin
-      : ''
-  const URL = `${origin}${asPath}`
+  const URL = `${SITE_URL}${asPath}`
 
   return (
     <Container maxW={'6xl'}>
