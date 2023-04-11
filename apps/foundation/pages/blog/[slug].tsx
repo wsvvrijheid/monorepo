@@ -1,6 +1,5 @@
 import { FC } from 'react'
 
-import { Container } from '@chakra-ui/react'
 import { dehydrate, QueryClient, QueryKey } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
 import { GetStaticPaths, GetStaticProps } from 'next/types'
@@ -19,7 +18,7 @@ import {
   useViewBlog,
 } from '@wsvvrijheid/services'
 import { Blog, StrapiLocale } from '@wsvvrijheid/types'
-import { BlogDetail } from '@wsvvrijheid/ui'
+import { BlogDetail, Container } from '@wsvvrijheid/ui'
 
 import { Layout } from '../../components'
 import i18nConfig from '../../next-i18next.config'

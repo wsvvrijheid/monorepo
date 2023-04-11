@@ -10,5 +10,6 @@
     "Strapi",
     "tanstack",
     "wsvvrijheid"
-  ]
+  ],
+  "typescript.tsdk": "node_modules/typescript/lib"
 }

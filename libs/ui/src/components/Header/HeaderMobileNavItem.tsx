@@ -2,7 +2,7 @@ import { FC } from 'react'
 
 import { Box } from '@chakra-ui/react'
 
-import { ChildMenuItem } from './HeaderNavItem'
+import { ChildMenuItem } from './ChildMenuItem'
 import { HeaderMobileNavItemProps } from './types'
 
 export const HeaderMobileNavItem: FC<HeaderMobileNavItemProps> = ({ item }) => {

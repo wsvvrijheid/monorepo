@@ -1,4 +1,4 @@
-import * as React from 'react'
+import { FC } from 'react'
 
 import {
   Alert,
@@ -14,12 +14,12 @@ import {
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { TFunction, useTranslation } from 'next-i18next'
-import { useForm, SubmitHandler } from 'react-hook-form'
+import { SubmitHandler, useForm } from 'react-hook-form'
 import { BsPerson } from 'react-icons/bs'
 import { MdEmail } from 'react-icons/md'
 import * as yup from 'yup'
 
-import { ContactFormProps, ContactFormFieldValues } from './types'
+import { ContactFormFieldValues, ContactFormProps } from './types'
 import { FormItem } from '../FormItem'
 
 const schema = (t: TFunction) =>
@@ -36,7 +36,7 @@ const schema = (t: TFunction) =>
       .required(t('contact.form.message-required') as string),
   })
 
-export const ContactForm: React.FC<ContactFormProps> = ({
+export const ContactForm: FC<ContactFormProps> = ({
   onSubmitHandler,
   isLoading,
   isSuccess,
