@@ -37,7 +37,7 @@ import { AdminNavItem } from './AdminNavItem'
 import { AdminNavItemCollapsed } from './AdminNavItemCollapsed'
 import { AdminNavItemProps } from './types'
 
-export const useAdminNav = (user: SessionUser): AdminNavItemProps[] => {
+const useAdminNav = (user: SessionUser): AdminNavItemProps[] => {
   const { isEditor, isAdmin } = user
 
   const { t: tAdmin } = useTranslation('admin')

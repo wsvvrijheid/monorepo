@@ -13,7 +13,7 @@ type AboutItem = {
   description: Localize<string>
 }
 
-export const HomeAboutItem: FC<{ item: AboutItem }> = ({ item }) => {
+const HomeAboutItem: FC<{ item: AboutItem }> = ({ item }) => {
   const { locale } = useRouter()
 
   return (
