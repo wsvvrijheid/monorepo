@@ -5,7 +5,7 @@ import { useAnimation, Transition, Variants } from 'framer-motion'
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 
-export const MotionBox = motion(Box)
+const MotionBox = motion(Box)
 
 interface AnimatedBoxProps
   extends PropsWithChildren,

@@ -40,5 +40,3 @@ export const ArtContent: FC<ArtContentProps> = ({
     </Stack>
   )
 }
-
-export default ArtContent
