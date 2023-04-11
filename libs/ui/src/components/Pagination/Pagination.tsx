@@ -4,8 +4,9 @@ import { Button, ButtonGroup, IconButton } from '@chakra-ui/react'
 import { BsThreeDots } from 'react-icons/bs'
 import { TbChevronLeft, TbChevronRight } from 'react-icons/tb'
 
+import { DOTS } from './dots'
 import { PaginationProps } from './types'
-import { usePagination, DOTS } from './usePagination'
+import { usePagination } from './usePagination'
 
 // https://stackblitz.com/edit/react-1zaeqk
 export const Pagination: FC<PaginationProps> = ({
