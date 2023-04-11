@@ -99,4 +99,3 @@ export const MessageBox: FC<MessageBoxProps> = ({
     </VStack>
   )
 }
-export default MessageBox

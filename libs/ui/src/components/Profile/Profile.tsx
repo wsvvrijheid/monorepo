@@ -25,6 +25,17 @@ import { Container } from '../Container'
 import { CreateArtForm } from '../CreateArtForm'
 import { Hero } from '../Hero'
 
+const Settings = () => {
+  const { user } = useAuthSelector()
+
+  return (
+    <Stack>
+      <Text>Username: {user?.username}</Text>
+      <Text>Email: {user?.email}</Text>
+    </Stack>
+  )
+}
+
 export const AuthenticatedUserProfile = () => {
   const { t } = useTranslation('common')
 
@@ -132,16 +143,5 @@ export const AuthenticatedUserProfile = () => {
         </Tabs>
       </Container>
     </>
-  )
-}
-
-export const Settings = () => {
-  const { user } = useAuthSelector()
-
-  return (
-    <Stack>
-      <Text>Username: {user?.username}</Text>
-      <Text>Email: {user?.email}</Text>
-    </Stack>
   )
 }

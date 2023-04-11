@@ -1,8 +1,7 @@
 import { useMemo } from 'react'
 
+import { DOTS } from './dots'
 import { UsePaginationProps } from './types'
-
-export const DOTS = '...'
 
 const range = (start: number, end: number) => {
   const length = end - start + 1

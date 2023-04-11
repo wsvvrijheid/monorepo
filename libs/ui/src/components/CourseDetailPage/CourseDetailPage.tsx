@@ -1,11 +1,10 @@
 import { FC } from 'react'
 
-import { AspectRatio, Box, Heading, Stack } from '@chakra-ui/react'
-import Image from 'next/image'
+import { Box, Heading, Stack } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
-import { API_URL, SITE_URL } from '@wsvvrijheid/config'
+import { SITE_URL } from '@wsvvrijheid/config'
 import { StrapiLocale } from '@wsvvrijheid/types'
 
 import { CourseApplicationForm } from './CourseApplicationForm'
@@ -15,14 +14,14 @@ import { CourseDetailPageProps } from './types'
 import { Container } from '../Container'
 import { Markdown } from '../Markdown'
 import { ShareButtons } from '../ShareButtons'
+import { WImage } from '../WImage'
 
 export const CourseDetailPage: FC<CourseDetailPageProps> = ({
   course,
   courses,
   source,
 }) => {
-
-  const { locale, query, asPath } = useRouter()
+  const { locale, asPath } = useRouter()
 
   const { t } = useTranslation()
 
@@ -35,9 +34,8 @@ export const CourseDetailPage: FC<CourseDetailPageProps> = ({
     <Container maxW={'6xl'}>
       <Stack spacing={12} pb={16} pt={4}>
         <Stack spacing={4}>
-          <AspectRatio ratio={16 / 9}>
-            <Image fill src={API_URL + course.image.url} alt="" />
-          </AspectRatio>
+          <WImage ratio={16 / 9} fill src={course.image} alt="" />
+
           <Stack
             justify={'space-between'}
             flexDir={{ base: 'column', md: 'row' }}
