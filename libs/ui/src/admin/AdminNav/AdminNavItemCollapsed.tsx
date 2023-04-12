@@ -13,6 +13,7 @@ import {
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 
+import { NavLink } from './NavLink'
 import { AdminNavItemProps } from './types'
 import { Navigate } from '../../components'
 
@@ -31,7 +32,7 @@ export const AdminNavItemCollapsed: FC<AdminNavItemProps> = ({
     <Popover placement="right-start" trigger="hover">
       <PopoverTrigger>
         <Box>
-          <Navigate href={link as string}>
+          <NavLink href={link}>
             <IconButton
               aria-label={label}
               icon={icon}
@@ -41,7 +42,7 @@ export const AdminNavItemCollapsed: FC<AdminNavItemProps> = ({
                 variant: 'solid',
               })}
             />
-          </Navigate>
+          </NavLink>
         </Box>
       </PopoverTrigger>
 

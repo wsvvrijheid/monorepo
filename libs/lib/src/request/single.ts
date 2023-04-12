@@ -1,7 +1,8 @@
 import axios, { AxiosError, AxiosResponse } from 'axios'
 import qs from 'qs'
 
-import { API_URL, TOKEN } from '@wsvvrijheid/config'
+import { API_URL } from '@wsvvrijheid/config'
+import { TOKEN } from '@wsvvrijheid/secrets'
 import { StrapiModel, StrapiSingleResponse } from '@wsvvrijheid/types'
 
 import { RequestSingleArgs } from './types'

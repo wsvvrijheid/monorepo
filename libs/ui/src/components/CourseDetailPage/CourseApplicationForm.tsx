@@ -14,8 +14,8 @@ import { TFunction, useTranslation } from 'next-i18next'
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
-import { TOKEN } from '@wsvvrijheid/config'
 import { Mutation } from '@wsvvrijheid/lib'
+import { TOKEN } from '@wsvvrijheid/secrets'
 import { CourseApplicationCreateInput } from '@wsvvrijheid/types'
 
 import { ApplicationFormFields, CourseApplicationFormProps } from './types'

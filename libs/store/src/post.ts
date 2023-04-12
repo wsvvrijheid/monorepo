@@ -2,7 +2,8 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import axios from 'axios'
 import { UserV1 } from 'twitter-api-v2'
 
-import { API_URL, TOKEN } from '@wsvvrijheid/config'
+import { API_URL } from '@wsvvrijheid/config'
+import { TOKEN } from '@wsvvrijheid/secrets'
 import { Mention, StrapiLocale } from '@wsvvrijheid/types'
 
 const LOCAL_STORAGE_MENTIONS_KEY = 'mentions'

@@ -26,7 +26,8 @@
       "@wsvvrijheid/store": ["libs/store/src/index.ts"],
       "@wsvvrijheid/types": ["libs/types/src/index.ts"],
       "@wsvvrijheid/ui": ["libs/ui/src/index.ts"],
-      "@wsvvrijheid/utils": ["libs/utils/src/index.ts"]
+      "@wsvvrijheid/utils": ["libs/utils/src/index.ts"],
+      "@wsvvrijheid/secrets": ["libs/config/src/secrets.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

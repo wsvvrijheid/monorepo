@@ -1,8 +1,8 @@
 import { createMollieClient } from '@mollie/api-client'
 
-import { MOLLIE_KEY } from '@wsvvrijheid/config'
+import { getSecret } from '@wsvvrijheid/secrets'
 
 // https://github.com/mollie/mollie-api-node#a-note-on-use-outside-of-nodejs
-export const mollieClient =
-  typeof window === 'undefined' &&
-  createMollieClient({ apiKey: MOLLIE_KEY as string })
+export const mollieClient = createMollieClient({
+  apiKey: getSecret('MOLLIE_KEY') as string,
+})
