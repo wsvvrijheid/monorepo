@@ -42,6 +42,9 @@ export const AdminSidebarProfile: FC<AdminSidebarProfileProps> = ({
             <Text w={175} noOfLines={1}>
               {user?.email}
             </Text>
+            <Text w={160} noOfLines={1} fontWeight={600}>
+              {user?.roles}
+            </Text>
           </Box>
 
           <Tooltip label="Logout" bg="white" color="initial">

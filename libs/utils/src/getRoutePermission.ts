@@ -36,7 +36,7 @@ export const getRoutePermission = (
     translatoreditor: [],
   }
 
-  return roles.some(role => {
+  return roles?.some(role => {
     const routes = roleRoutes[role]
 
     if (

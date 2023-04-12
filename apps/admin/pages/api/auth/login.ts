@@ -11,7 +11,9 @@ const loginRoute = async (req: NextApiRequest, res: NextApiResponse) => {
     const auth = await getAuth(identifier, password)
 
     if (auth.user.roles.includes('authenticated')) {
-      return res.status(401).json({ message: 'You are not allowed to login!' })
+      return res.status(401).json({
+        message: `You are not allowed to login! If you are thinking that is wrong please contact us ${'https://www.wsvvrijheid.nl/tr/contact'}`,
+      })
     }
 
     req.session = { ...req.session, ...auth }
