@@ -18,16 +18,18 @@
     "baseUrl": ".",
     "typeRoots": ["node_modules/@types"],
     "paths": {
-      "@wsvvrijheid/config": ["libs/config/src/index.ts"],
+      "@wsvvrijheid/config": ["libs/config/src"],
+      "@wsvvrijheid/config/*": ["libs/config/src/*"],
       "@wsvvrijheid/lib": ["libs/lib/src/index.ts"],
       "@wsvvrijheid/mocks": ["libs/mocks/src/index.ts"],
       "@wsvvrijheid/mollie": ["libs/lib/src/mollie.ts"],
+      "@wsvvrijheid/secrets": ["libs/secrets/src/index.ts"],
       "@wsvvrijheid/services": ["libs/services/src/index.ts"],
       "@wsvvrijheid/store": ["libs/store/src/index.ts"],
       "@wsvvrijheid/types": ["libs/types/src/index.ts"],
       "@wsvvrijheid/ui": ["libs/ui/src/index.ts"],
-      "@wsvvrijheid/utils": ["libs/utils/src/index.ts"],
-      "@wsvvrijheid/secrets": ["libs/config/src/secrets.ts"]
+      "@wsvvrijheid/utils": ["libs/utils/src"],
+      "@wsvvrijheid/utils/*": ["libs/utils/src/*"]
     }
   },
   "exclude": ["node_modules", "tmp"]

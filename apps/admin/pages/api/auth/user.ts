@@ -1,7 +1,7 @@
 import { withIronSessionApiRoute } from 'iron-session/next'
 import { NextApiResponse, NextApiRequest } from 'next'
 
-import { sessionOptions } from '@wsvvrijheid/lib'
+import { sessionOptions } from '@wsvvrijheid/secrets'
 
 async function userRoute(req: NextApiRequest, res: NextApiResponse) {
   if (req.session.token) {
@@ -21,6 +21,6 @@ async function userRoute(req: NextApiRequest, res: NextApiResponse) {
   })
 }
 
-const handler = withIronSessionApiRoute(userRoute, sessionOptions)
+const handler = withIronSessionApiRoute(userRoute, sessionOptions('api/user'))
 
 export default handler

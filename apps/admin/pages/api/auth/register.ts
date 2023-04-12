@@ -3,7 +3,8 @@ import { withIronSessionApiRoute } from 'iron-session/next'
 import { NextApiRequest, NextApiResponse } from 'next'
 
 import { API_URL } from '@wsvvrijheid/config'
-import { Mutation, sessionOptions } from '@wsvvrijheid/lib'
+import { Mutation } from '@wsvvrijheid/lib'
+import { sessionOptions } from '@wsvvrijheid/secrets'
 import { getAuth } from '@wsvvrijheid/services'
 import { AuthResponse } from '@wsvvrijheid/types'
 
@@ -43,6 +44,9 @@ const registerRoute = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 }
 
-const handler = withIronSessionApiRoute(registerRoute, sessionOptions)
+const handler = withIronSessionApiRoute(
+  registerRoute,
+  sessionOptions('/api/auth'),
+)
 
 export default handler

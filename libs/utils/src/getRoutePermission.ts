@@ -2,7 +2,7 @@ import {
   AdminCommonRoutes,
   adminCommonRoutes,
   AdminRoutes,
-} from '@wsvvrijheid/config'
+} from '@wsvvrijheid/config/adminRoutes'
 import { Role } from '@wsvvrijheid/types'
 
 export const getRoutePermission = (

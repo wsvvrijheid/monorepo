@@ -3,7 +3,7 @@ import { withIronSessionApiRoute } from 'iron-session/next'
 import { NextApiResponse, NextApiRequest } from 'next'
 
 import { API_URL } from '@wsvvrijheid/config'
-import { sessionOptions } from '@wsvvrijheid/lib'
+import { sessionOptions } from '@wsvvrijheid/secrets'
 import { getSessionUser } from '@wsvvrijheid/services'
 
 const resetPassRoute = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -39,6 +39,9 @@ const resetPassRoute = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 }
 
-const handler = withIronSessionApiRoute(resetPassRoute, sessionOptions)
+const handler = withIronSessionApiRoute(
+  resetPassRoute,
+  sessionOptions('api/reset'),
+)
 
 export default handler

@@ -10,10 +10,19 @@ const secrets = {
 
 type Secrets = keyof typeof secrets
 
-export const getSecret = (key: Secrets) => {
+export const getSecret = (key: Secrets, path?: string) => {
   if (typeof window !== 'undefined') {
-    throw new Error('Secrets should only be used on the server')
+    throw new Error(key + path + ' secret should only be used on the server')
   }
 
   return secrets[key]
 }
+
+export const sessionOptions = (path: string) => ({
+  password:
+    getSecret('COOKIE_PASSWORD', path) || '12345678901234567890123456789012',
+  cookieName: 'iron-session',
+  cookieOptions: {
+    secure: process.env['NODE_ENV'] === 'production',
+  },
+})
