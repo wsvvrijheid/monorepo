@@ -147,7 +147,7 @@ export const AdminLoginForm = () => {
                       {(loginMutation.error as any)?.response?.data?.message ||
                         'An error occured'}
                     </Text>
-                    <Text color="blue.500" fontSize="sm">
+                    <Text color="red.500" fontSize="sm">
                       If you are thinking something wrong
                     </Text>
                     <Link
