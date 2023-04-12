@@ -16,6 +16,7 @@
     "ios": "npx nx run-ios mobile",
     "tsc": "nx affected --target=tsc",
     "lint": "nx affected --target=lint --fix=true",
+    "format": "yarn --cwd apps/api format",
     "build": "npx nx affected --target=build --exclude=@strapi/admin,api",
     "build:api": "yarn --cwd apps/api build",
     "install:api": "yarn --cwd apps/api install",
