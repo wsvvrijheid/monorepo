@@ -2,6 +2,7 @@ import {
   Avatar,
   Box,
   Button,
+  Link,
   SimpleGrid,
   Stack,
   Text,
@@ -69,6 +70,7 @@ export const AdminLoginForm = () => {
   const handleSubmitSign: SubmitHandler<LoginFormFieldValues> = async data => {
     loginMutation.mutate(data)
   }
+  console.log('login mutation', loginMutation.error)
 
   return (
     <SimpleGrid columns={{ base: 1, lg: 2 }} h="full">
@@ -136,12 +138,31 @@ export const AdminLoginForm = () => {
               <Button isLoading={isAuthLoading} w="full" type="submit">
                 Sign in
               </Button>
-              {loginMutation.isError && (
-                <Text color="red.500" fontSize="sm">
-                  {(loginMutation.error as any)?.response?.data?.message ||
-                    'An error occured'}
-                </Text>
-              )}
+              {loginMutation.isError &&
+                ((loginMutation.error as any)?.response?.data?.type ===
+                'unauthorized' ? (
+                  <>
+                    {' '}
+                    <Text color="red.500" fontSize="sm">
+                      {(loginMutation.error as any)?.response?.data?.message ||
+                        'An error occured'}
+                    </Text>
+                    <Text color="blue.500" fontSize="sm">
+                      If you are thinking something wrong
+                    </Text>
+                    <Link
+                      href={'https://www.wsvvrijheid.nl/tr/contact'}
+                      color="blue.500"
+                    >
+                      Please Contact us
+                    </Link>
+                  </>
+                ) : (
+                  <Text color="red.500" fontSize="sm">
+                    {(loginMutation.error as any)?.response?.data?.message ||
+                      'An error occured'}
+                  </Text>
+                ))}
             </Stack>
             {/* TODO Set session exp time */}
 
