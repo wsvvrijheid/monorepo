@@ -12,7 +12,7 @@ const loginRoute = async (req: NextApiRequest, res: NextApiResponse) => {
 
     if (auth.user.roles.includes('authenticated')) {
       return res.status(401).json({
-        message: `You are not allowed to login! If you are thinking that is wrong please contact us ${'https://www.wsvvrijheid.nl/tr/contact'}`,
+        message: `You are not allowed to login!`,
       })
     }
 
