@@ -38,7 +38,7 @@ import { AdminNavItemCollapsed } from './AdminNavItemCollapsed'
 import { AdminNavItemProps } from './types'
 
 const useAdminNav = (user: SessionUser): AdminNavItemProps[] => {
-  const { isEditor, isAdmin } = user
+  const { roles } = user
 
   const { t: tAdmin } = useTranslation('admin')
 
@@ -53,7 +53,10 @@ const useAdminNav = (user: SessionUser): AdminNavItemProps[] => {
       label: tAdmin('translates'),
       icon: <BsTranslate />,
       link: '#',
-      visible: isAdmin,
+      visible:
+        roles.includes('admin') ||
+        roles.includes('editor') ||
+        roles.includes('translator'),
       submenu: [
         {
           label: tAdmin('activities'),
@@ -91,13 +94,16 @@ const useAdminNav = (user: SessionUser): AdminNavItemProps[] => {
       label: tAdmin('activities'),
       icon: <FiActivity />,
       link: '/activities',
-      visible: !!isEditor || !!isAdmin,
+      visible: roles.includes('admin') || roles.includes('editor'),
     },
     {
       label: tAdmin('arts'),
       icon: <TbBrush />,
       link: '#',
-      visible: !!isEditor || !!isAdmin,
+      visible:
+        roles.includes('admin') ||
+        roles.includes('editor') ||
+        roles.includes('arteditor'),
       submenu: [
         {
           label: tAdmin('pendingArts'),
@@ -120,24 +126,26 @@ const useAdminNav = (user: SessionUser): AdminNavItemProps[] => {
       label: tAdmin('artCollections'),
       link: '/collections',
       icon: <BsCollection />,
+      visible:
+        roles.includes('admin') ||
+        roles.includes('editor') ||
+        roles.includes('arteditor'),
     },
     {
       label: tAdmin('hashtags'),
       icon: <CgHashtag />,
       link: '/hashtags',
-      visible: isEditor || isAdmin,
+      visible: roles.includes('admin') || roles.includes('editor'),
     },
     {
       label: tAdmin('hashtagPosts'),
       icon: <TbBrandTwitter />,
       link: '/posts',
-      visible: !!Boolean || !!isAdmin,
     },
     {
       label: tAdmin('news'),
       icon: <HiOutlineNewspaper />,
       link: '#',
-      visible: isEditor || isAdmin,
       submenu: [
         {
           label: tAdmin('news'),
@@ -187,32 +195,31 @@ const useAdminNav = (user: SessionUser): AdminNavItemProps[] => {
       label: tAdmin('capsMaker'),
       link: '/caps-maker',
       icon: <BiLandscape />,
-      visible: isEditor || isAdmin,
+      visible: roles.includes('admin') || roles.includes('editor'),
     },
 
     {
       label: tAdmin('blogs'),
       icon: <TbWriting />,
       link: '/blogs',
-      visible: !!Boolean || !!isAdmin,
+      visible: roles.includes('admin') || roles.includes('editor'),
     },
     {
       label: tAdmin('accounts'),
       link: '/accounts',
       icon: <MdOutlineSupervisorAccount />,
-      visible: isAdmin,
+      visible: roles.includes('admin'),
     },
     {
       label: tAdmin('competitions'),
       link: '/competitions',
       icon: <BsCommand />,
-      visible: isEditor || isAdmin,
+      visible: roles.includes('admin') || roles.includes('editor'),
     },
     {
       label: 'Donation',
       link: '/donation',
       icon: <BsCashCoin />,
-      visible: isEditor || isAdmin,
     },
   ]
 }
