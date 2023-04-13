@@ -23,17 +23,24 @@ export const getRoutePermission = (
       '/news/recommended',
     ],
     authenticated: [],
-    author: [],
-    jury: [],
+    author: ['/blogs'],
+    jury: ['/competitions'],
     public: [],
-    translator: [],
+    translator: [
+      '/translates',
+      '/translates/activities',
+      '/translates/announcements',
+      '/translates/blogs',
+      '/translates/collections',
+      '/translates/hashtags',
+      '/translates/posts',
+    ],
     arteditor: [
       '/arts',
       '/arts?status=approved',
       '/arts?status=rejected',
       '/collections',
     ],
-    translatoreditor: [],
   }
 
   return roles?.some(role => {

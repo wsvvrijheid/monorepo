@@ -12,7 +12,6 @@ export type RoleName =
   | 'Jury'
   | 'Public'
   | 'Translator'
-  | 'Translator Editor'
 
 export type Role = Omit<StrapiBase, 'publishedAt'> & {
   description: string
