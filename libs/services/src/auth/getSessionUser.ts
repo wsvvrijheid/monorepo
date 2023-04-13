@@ -13,8 +13,6 @@ export const getSessionUser = async (token: string) => {
     return null
   }
 
-  console.log('userData.data', userData.data)
-
   const user = mapSessionUser(userData.data as User)
 
   return user

@@ -10,7 +10,25 @@ export const getRoutePermission = (
   route: AdminRoutes,
 ) => {
   const roleRoutes: Record<Role['type'], AdminRoutes[]> = {
+    academyeditor: ['/courses'],
+    accountmanager: ['/news/recommended', '/timelines/recommended'],
     admin: ['all'],
+    arteditor: [
+      '/arts',
+      '/arts?status=approved',
+      '/arts?status=rejected',
+      '/collections',
+      '/translates/arts',
+    ],
+    authenticated: [],
+    author: ['/blogs'],
+    contentmanager: [
+      '/posts',
+      '/hashtags',
+      '/announcements',
+      '/activities',
+      '/blogs',
+    ],
     editor: [
       '/accounts',
       '/activities',
@@ -22,8 +40,6 @@ export const getRoutePermission = (
       '/hashtags',
       '/news/recommended',
     ],
-    authenticated: [],
-    author: ['/blogs'],
     jury: ['/competitions'],
     public: [],
     translator: [
@@ -35,22 +51,6 @@ export const getRoutePermission = (
       '/translates/hashtags',
       '/translates/posts',
     ],
-    arteditor: [
-      '/arts',
-      '/arts?status=approved',
-      '/arts?status=rejected',
-      '/collections',
-      '/translates/arts',
-    ],
-    contentmanager: [
-      '/posts',
-      '/hashtags',
-      '/announcements',
-      '/activities',
-      '/blogs',
-    ],
-    academyeditor: ['/courses'],
-    accountmanager: ['/news/recommended', '/timelines/recommended'],
   }
 
   return roles?.some(role => {

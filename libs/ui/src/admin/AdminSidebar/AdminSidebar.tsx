@@ -1,21 +1,18 @@
-// import { FC } from 'react'
-
 import { FC, memo } from 'react'
 
 import {
+  Avatar,
+  Box,
+  Button,
+  Divider,
+  HStack,
   Link,
   Stack,
   Text,
-  HStack,
-  Avatar,
-  Divider,
-  Box,
-  Button,
   Tooltip,
 } from '@chakra-ui/react'
 import { TbChevronsLeft, TbChevronsRight } from 'react-icons/tb'
 
-import { API_URL } from '@wsvvrijheid/config'
 import { SessionUser } from '@wsvvrijheid/types'
 
 import { AdminSidebarProfile } from './AdminSidebarProfile'
@@ -49,11 +46,11 @@ export const AdminSidebar: FC<AdminSidebarProps> = memo(
           >
             <Avatar
               size={expanded ? 'lg' : 'md'}
-              src={`${API_URL}/uploads/wsvvrijheid_3916828b44.svg`}
+              src={`https://api.wsvvrijheid.nl/uploads/wsvvrijheid_3916828b44.svg`}
               name="Wsvvrijheid"
             />
             {expanded && (
-              <Text color={'primary.500'} fontWeight={700} fontSize="xl">
+              <Text color={'blue.500'} fontWeight={700} fontSize="xl">
                 Dashboard
               </Text>
             )}

@@ -2,7 +2,7 @@ import { ButtonProps } from '@chakra-ui/react'
 import { Control, FieldErrorsImpl, FieldValues } from 'react-hook-form'
 import { AssertsShape, OptionalObjectSchema } from 'yup/lib/object'
 
-import { StrapiModel, StrapiUrl } from '@wsvvrijheid/types'
+import { Role, StrapiModel, StrapiUrl } from '@wsvvrijheid/types'
 
 import { WSelectProps } from '../../components'
 
@@ -63,6 +63,10 @@ export type ModelEditFormProps<T extends StrapiModel> = {
   schema: OptionalObjectSchema<any>
   noColumns?: boolean
   onSuccess: () => void
+  approveRoles?: Role['type'][]
+  deleteRoles?: Role['type'][]
+  editRoles?: Role['type'][]
+  publishRoles?: Role['type'][]
 }
 
 export type ModelSelectProps = WSelectProps<FieldValues> & {

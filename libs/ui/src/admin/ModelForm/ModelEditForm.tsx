@@ -47,6 +47,7 @@ import { ModelEditFormProps, Option } from './types'
 import { useDefaultValues } from './utils'
 import { FormItem, MasonryGrid, MdFormItem } from '../../components'
 import { WConfirm, WConfirmProps } from '../../components/WConfirm'
+import { useHasPermission } from '../../hooks'
 
 export const ModelEditForm = <T extends StrapiModel>({
   url,
@@ -56,6 +57,10 @@ export const ModelEditForm = <T extends StrapiModel>({
   schema,
   onSuccess,
   noColumns,
+  approveRoles = [],
+  editRoles = [],
+  deleteRoles = [],
+  publishRoles = [],
 }: ModelEditFormProps<T>) => {
   const translatableModel = model as StrapiTranslatableModel
 
@@ -78,6 +83,8 @@ export const ModelEditForm = <T extends StrapiModel>({
   )
 
   const defaultValues = useDefaultValues(model, fields)
+
+  const { getPermission } = useHasPermission()
 
   const {
     register,
@@ -315,7 +322,8 @@ export const ModelEditForm = <T extends StrapiModel>({
         <Wrap alignSelf={'end'} justify={'end'}>
           {translatableModel.approvalStatus === 'approved'
             ? null
-            : translatableModel.approvalStatus && (
+            : translatableModel.approvalStatus &&
+              getPermission(approveRoles) && (
                 <Button
                   onClick={onApprove}
                   leftIcon={<HiOutlineCheck />}
@@ -326,46 +334,55 @@ export const ModelEditForm = <T extends StrapiModel>({
                   {t('model.approve')}
                 </Button>
               )}
-          {!isEditing ? (
-            <Button
-              onClick={setIsEditing.on}
-              leftIcon={<AiOutlineEdit />}
-              fontSize="sm"
-            >
-              {t('model.edit')}
-            </Button>
-          ) : (
-            <>
+          {getPermission(editRoles) &&
+            (!isEditing ? (
               <Button
-                onClick={onCancel}
-                leftIcon={<MdClose />}
-                colorScheme={'gray'}
+                onClick={setIsEditing.on}
+                leftIcon={<AiOutlineEdit />}
                 fontSize="sm"
               >
-                {t('model.cancel')}
+                {t('model.edit')}
               </Button>
-              <Button type="submit" leftIcon={<MdOutlineCheck />} fontSize="sm">
-                {t('model.save')}
-              </Button>
-            </>
+            ) : (
+              <>
+                <Button
+                  onClick={onCancel}
+                  leftIcon={<MdClose />}
+                  colorScheme={'gray'}
+                  fontSize="sm"
+                >
+                  {t('model.cancel')}
+                </Button>
+                <Button
+                  type="submit"
+                  leftIcon={<MdOutlineCheck />}
+                  fontSize="sm"
+                >
+                  {t('model.save')}
+                </Button>
+              </>
+            ))}
+          {getPermission(publishRoles) && (
+            <Button
+              onClick={isPublished ? onUnPublish : onPublish}
+              colorScheme={isPublished ? 'yellow' : 'green'}
+              fontSize="sm"
+              leftIcon={
+                isPublished ? (
+                  <MdOutlineUnpublished />
+                ) : (
+                  <MdOutlinePublishedWithChanges />
+                )
+              }
+            >
+              {isPublished ? t('model.unpublish') : t('model.publish')}
+            </Button>
           )}
-          <Button
-            onClick={isPublished ? onUnPublish : onPublish}
-            colorScheme={isPublished ? 'yellow' : 'green'}
-            fontSize="sm"
-            leftIcon={
-              isPublished ? (
-                <MdOutlineUnpublished />
-              ) : (
-                <MdOutlinePublishedWithChanges />
-              )
-            }
-          >
-            {isPublished ? t('model.unpublish') : t('model.publish')}
-          </Button>
-          <Button onClick={onDelete} leftIcon={<BsTrash />} colorScheme="red">
-            {t('model.delete')}
-          </Button>
+          {getPermission(deleteRoles) && (
+            <Button onClick={onDelete} leftIcon={<BsTrash />} colorScheme="red">
+              {t('model.delete')}
+            </Button>
+          )}
         </Wrap>
       </Stack>
     </>

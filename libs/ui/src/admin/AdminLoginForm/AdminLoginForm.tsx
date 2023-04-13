@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 import {
   Avatar,
   Box,
@@ -12,11 +14,10 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation } from '@tanstack/react-query'
 import axios from 'axios'
 import { useRouter } from 'next/router'
-import { TFunction, useTranslation } from 'next-i18next'
+import { TFunction, Trans, useTranslation } from 'next-i18next'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
-import { API_URL } from '@wsvvrijheid/config'
 import { checkAuth, useAppDispatch, useAuthSelector } from '@wsvvrijheid/store'
 
 import {
@@ -30,10 +31,9 @@ import {
 const schema = (t: TFunction) =>
   yup.object({
     password: yup.string().required(t('login.password.required') as string),
-    email: yup
+    identifier: yup
       .string()
-      .email(t('contact.form.email-invalid') as string)
-      .required(t('login.email.required') as string),
+      .required(t('login.email-or-username.required') as string),
   })
 
 export const AdminLoginForm = () => {
@@ -48,6 +48,8 @@ export const AdminLoginForm = () => {
     mode: 'all',
   })
 
+  const [isRedirecting, setIsRedirecting] = useState(false)
+
   const { isAuthLoading } = useAuthSelector()
 
   const router = useRouter()
@@ -57,13 +59,15 @@ export const AdminLoginForm = () => {
     mutationKey: ['login'],
     mutationFn: (body: LoginFormFieldValues) =>
       axios.post('/api/auth/login', {
-        identifier: body.email,
+        identifier: body.identifier,
         password: body.password,
       }),
     onSuccess: async data => {
+      setIsRedirecting(true)
       await dispatch(checkAuth()).unwrap()
       reset()
-      router.push('/')
+      await router.push('/')
+      setIsRedirecting(false)
     },
   })
 
@@ -73,10 +77,10 @@ export const AdminLoginForm = () => {
 
   return (
     <SimpleGrid columns={{ base: 1, lg: 2 }} h="full">
-      <Box pos="relative">
+      <Box pos="relative" h={{ base: 200, lg: 'full' }}>
         <WImage
           style={{ objectFit: 'cover' }}
-          src={`${API_URL}/uploads/smartmockups_l7y9bzqx_256149ef40.jpeg`}
+          src={`https://images.unsplash.com/photo-1433321768402-897b0324c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=50`}
           alt={'admin'}
         />
         <Box
@@ -84,7 +88,7 @@ export const AdminLoginForm = () => {
           top={0}
           left={0}
           boxSize="full"
-          bgGradient="linear(to-t, primary.500, blackAlpha.500)"
+          bgGradient="linear(to-tl, blackAlpha.700, green.500)"
           opacity={0.5}
         />
       </Box>
@@ -102,10 +106,10 @@ export const AdminLoginForm = () => {
           <VStack textAlign="center" w={'full'}>
             <Avatar
               size="2xl"
-              src={`${API_URL}/uploads/wsvvrijheid_051c420ab0.svg`}
+              src={`https://api.wsvvrijheid.nl/uploads/android_chrome_192x192_2a6a31278b.png`}
             />
 
-            <Text fontSize="xl" color={'primary.500'} fontWeight={700}>
+            <Text fontSize="xl" color={'blue.500'} fontWeight={900}>
               WEES DE STEM <br />
               VOOR VRIJHEID
             </Text>
@@ -119,9 +123,8 @@ export const AdminLoginForm = () => {
             >
               <FormItem
                 w="full"
-                name="email"
-                label={'Email'}
-                type="email"
+                name="identifier"
+                label={t('login.email-or-username.title') as string}
                 register={register}
                 errors={errors}
               />
@@ -129,33 +132,35 @@ export const AdminLoginForm = () => {
                 w="full"
                 name="password"
                 type="password"
-                label={'Password'}
+                label={t('login.password.title') as string}
                 autoComplete="current-password"
                 register={register}
                 errors={errors}
               />
-              <Button isLoading={isAuthLoading} w="full" type="submit">
-                Sign in
+              <Button
+                isLoading={isAuthLoading || isRedirecting}
+                w="full"
+                type="submit"
+              >
+                {t('login.sign-in')}
               </Button>
               {loginMutation.isError &&
                 ((loginMutation.error as any)?.response?.data?.type ===
                 'unauthorized' ? (
-                  <>
-                    {' '}
-                    <Text color="red.500" fontSize="sm">
-                      {(loginMutation.error as any)?.response?.data?.message ||
-                        'An error occured'}
-                    </Text>
-                    <Text color="red.500" fontSize="sm">
-                      If you are thinking something wrong
-                    </Text>
-                    <Link
-                      href={'https://www.wsvvrijheid.nl/tr/contact'}
-                      color="blue.500"
-                    >
-                      Please Contact us
-                    </Link>
-                  </>
+                  <Text fontSize={'sm'} color={'red.500'}>
+                    <Trans
+                      i18nKey="login.error.unauthorized"
+                      components={{
+                        a: (
+                          <Link
+                            isExternal
+                            href={'https://www.wsvvrijheid.nl/tr/contact'}
+                            color="blue.500"
+                          />
+                        ),
+                      }}
+                    />
+                  </Text>
                 ) : (
                   <Text color="red.500" fontSize="sm">
                     {(loginMutation.error as any)?.response?.data?.message ||
@@ -171,7 +176,7 @@ export const AdminLoginForm = () => {
               variant="link"
               size="sm"
             >
-              Forgot your password
+              {t('login.forgot-pass-header.title')}
             </Button>
           </Stack>
 
