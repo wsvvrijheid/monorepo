@@ -70,7 +70,6 @@ export const AdminLoginForm = () => {
   const handleSubmitSign: SubmitHandler<LoginFormFieldValues> = async data => {
     loginMutation.mutate(data)
   }
-  console.log('login mutation', loginMutation.error)
 
   return (
     <SimpleGrid columns={{ base: 1, lg: 2 }} h="full">

@@ -42,6 +42,15 @@ export const getRoutePermission = (
       '/collections',
       '/translates/arts',
     ],
+    contentmanager: [
+      '/posts',
+      '/hashtags',
+      '/announcements',
+      '/activities',
+      '/blogs',
+    ],
+    academyeditor: ['/courses'],
+    accountmanager: ['/news/recommended', '/timelines/recommended'],
   }
 
   return roles?.some(role => {
