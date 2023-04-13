@@ -40,6 +40,7 @@ export const getRoutePermission = (
       '/arts?status=approved',
       '/arts?status=rejected',
       '/collections',
+      '/translates/arts',
     ],
   }
 
