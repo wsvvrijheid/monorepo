@@ -70,7 +70,8 @@ export const AdminLayout: FC<AdminLayoutProps> = ({
     )
   }
 
-  const slug = router.asPath.split('/')[1]
+  const slugs = router.asPath.split('/')
+  const parentSlug = slugs.slice(0, slugs.length - 1).join('/')
 
   return (
     <>
@@ -115,7 +116,7 @@ export const AdminLayout: FC<AdminLayoutProps> = ({
                         aria-label="back"
                         icon={<FaArrowLeft />}
                         rounded="full"
-                        onClick={() => router.push(`/${slug}`)}
+                        onClick={() => router.push(`/${parentSlug}`)}
                       />
                     </Tooltip>
                   )}

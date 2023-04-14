@@ -24,6 +24,7 @@ import {
   CollectionEdit,
   FormLocaleSwitcher,
   PageHeader,
+  useHasPermission,
 } from '@wsvvrijheid/ui'
 
 import i18nConfig from '../../next-i18next.config'
@@ -44,6 +45,8 @@ const CollectionPage: FC<PageProps> = ({ seo }) => {
     id,
   })
   const { isOpen, onOpen, onClose } = useDisclosure()
+
+  const { getPermission } = useHasPermission()
 
   return (
     <AdminLayout seo={seo} isLoading={isLoading} hasBackButton>
@@ -73,9 +76,11 @@ const CollectionPage: FC<PageProps> = ({ seo }) => {
                   {t('collection-arts')}
                 </Text>
 
-                <Button leftIcon={<IoMdAdd />} onClick={onOpen}>
-                  {t('collection.add-art')}
-                </Button>
+                {getPermission(['arteditor']) && (
+                  <Button leftIcon={<IoMdAdd />} onClick={onOpen}>
+                    {t('collection.add-art')}
+                  </Button>
+                )}
               </HStack>
               {collection.arts && (
                 <ArtAddToCollectionGrid

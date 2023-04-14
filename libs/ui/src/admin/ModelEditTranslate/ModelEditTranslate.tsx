@@ -38,7 +38,7 @@ import {
   WConfirm,
   WConfirmProps,
 } from '../../components'
-import { useReferenceModel } from '../../hooks'
+import { useHasPermission, useReferenceModel } from '../../hooks'
 import { FormLocaleSwitcher } from '../FormLocaleSwitcher'
 import { useDefaultValues } from '../ModelForm'
 
@@ -49,6 +49,8 @@ export const ModelEditTranslate = <T extends StrapiTranslatableModel>({
   fields,
   pathname,
   schema,
+  approveRoles = [],
+  editRoles = [],
 }: ModelEditTranslateProps<T>) => {
   const { t } = useTranslation('common')
 
@@ -80,6 +82,8 @@ export const ModelEditTranslate = <T extends StrapiTranslatableModel>({
     mode: 'all',
     values: defaultValues,
   })
+
+  const { getPermission } = useHasPermission()
 
   const handleSuccess = () => {
     refetch()
@@ -225,7 +229,8 @@ export const ModelEditTranslate = <T extends StrapiTranslatableModel>({
         <Wrap alignSelf={'end'} justify={'end'}>
           {model.approvalStatus !== 'approved' &&
             (isReferenceSelf ||
-              referenceModel?.approvalStatus === 'approved') && (
+              referenceModel?.approvalStatus === 'approved') &&
+            getPermission(approveRoles) && (
               <Button
                 onClick={onApprove}
                 leftIcon={<HiOutlineCheck />}
@@ -236,27 +241,36 @@ export const ModelEditTranslate = <T extends StrapiTranslatableModel>({
                 {t('model.approve')}
               </Button>
             )}
-          {!isEditing ? (
-            <Button
-              onClick={setIsEditing.on}
-              leftIcon={<AiOutlineEdit />}
-              fontSize="sm"
-            >
-              {t('model.edit')}
-            </Button>
-          ) : (
+          {getPermission(editRoles) && (
             <>
-              <Button
-                onClick={onCancel}
-                leftIcon={<MdClose />}
-                colorScheme={'gray'}
-                fontSize="sm"
-              >
-                {t('model.cancel')}
-              </Button>
-              <Button type="submit" leftIcon={<MdOutlineCheck />} fontSize="sm">
-                {t('model.save')}
-              </Button>
+              {!isEditing && (
+                <Button
+                  onClick={setIsEditing.on}
+                  leftIcon={<AiOutlineEdit />}
+                  fontSize="sm"
+                >
+                  {t('model.edit')}
+                </Button>
+              )}
+              {isEditing && (
+                <Button
+                  onClick={onCancel}
+                  leftIcon={<MdClose />}
+                  colorScheme={'gray'}
+                  fontSize="sm"
+                >
+                  {t('model.cancel')}
+                </Button>
+              )}
+              {isEditing && (
+                <Button
+                  type="submit"
+                  leftIcon={<MdOutlineCheck />}
+                  fontSize="sm"
+                >
+                  {t('model.save')}
+                </Button>
+              )}
             </>
           )}
         </Wrap>

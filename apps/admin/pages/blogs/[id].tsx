@@ -47,6 +47,9 @@ const BlogPage: FC<PageProps> = ({ seo }) => {
             schema={blogSchema}
             fields={blogFields}
             onSuccess={refetch}
+            approveRoles={['contentmanager', 'translator']}
+            editRoles={['contentmanager', 'translator']}
+            publishRoles={['contentmanager']}
           />
         )}
       </Box>

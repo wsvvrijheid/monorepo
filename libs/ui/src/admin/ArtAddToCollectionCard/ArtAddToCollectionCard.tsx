@@ -17,6 +17,7 @@ import { StrapiLocale, UploadFile } from '@wsvvrijheid/types'
 
 import { ArtAddToCollectionCardProps } from './types'
 import { ArtModal, WImage } from '../../components'
+import { useHasPermission } from '../../hooks'
 
 export const ArtAddToCollectionCard: FC<ArtAddToCollectionCardProps> = ({
   isAdded,
@@ -30,6 +31,8 @@ export const ArtAddToCollectionCard: FC<ArtAddToCollectionCardProps> = ({
   const router = useRouter()
 
   const titleKey = `title_${router.locale as StrapiLocale}` as const
+
+  const { getPermission } = useHasPermission()
 
   return (
     <Stack boxShadow="md" rounded="md" direction={'column'} overflow="hidden">
@@ -57,18 +60,20 @@ export const ArtAddToCollectionCard: FC<ArtAddToCollectionCardProps> = ({
 
           <Spacer />
 
-          <Button
-            variant={'outline'}
-            colorScheme={isAdded ? 'red' : 'green'}
-            leftIcon={isAdded ? <IoCloseSharp /> : <HiPlus />}
-            size="xs"
-            isLoading={isLoading}
-            onClick={() => {
-              isAdded ? onRemove(art) : onAdd(art)
-            }}
-          >
-            {isAdded ? 'Remove' : 'Add to Collection'}
-          </Button>
+          {getPermission(['arteditor']) && (
+            <Button
+              variant={'outline'}
+              colorScheme={isAdded ? 'red' : 'green'}
+              leftIcon={isAdded ? <IoCloseSharp /> : <HiPlus />}
+              size="xs"
+              isLoading={isLoading}
+              onClick={() => {
+                isAdded ? onRemove(art) : onAdd(art)
+              }}
+            >
+              {isAdded ? 'Remove' : 'Add to Collection'}
+            </Button>
+          )}
         </HStack>
       </Stack>
       <ArtModal art={art} isOpen={isOpen} onClose={onClose} />

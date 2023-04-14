@@ -49,6 +49,9 @@ const MainHashtagPage: FC<PageProps> = ({ seo }) => {
             translatedFields={['title', 'description', 'content']}
             fields={mainHashtagFields}
             onSuccess={refetch}
+            approveRoles={['contentmanager', 'translator', 'accountmanager']}
+            editRoles={['contentmanager', 'translator', 'accountmanager']}
+            publishRoles={['accountmanager']}
           />
         )}
       </Box>

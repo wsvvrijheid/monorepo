@@ -32,6 +32,8 @@ const TranslateMainHashtagPage: FC<PageProps> = ({ seo }) => {
         translatedFields={['title', 'description', 'content']}
         fields={translateModelFields}
         schema={translateModelSchema}
+        approveRoles={['translator']}
+        editRoles={['translator']}
       />
     </AdminLayout>
   )

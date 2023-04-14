@@ -5,6 +5,7 @@ import {
   FormControl,
   FormErrorMessage,
   FormLabel,
+  HStack,
   Stack,
   Switch,
   Textarea,
@@ -334,17 +335,18 @@ export const ModelEditForm = <T extends StrapiModel>({
                   {t('model.approve')}
                 </Button>
               )}
-          {getPermission(editRoles) &&
-            (!isEditing ? (
-              <Button
-                onClick={setIsEditing.on}
-                leftIcon={<AiOutlineEdit />}
-                fontSize="sm"
-              >
-                {t('model.edit')}
-              </Button>
-            ) : (
-              <>
+          {getPermission(editRoles) && (
+            <HStack>
+              {!isEditing && (
+                <Button
+                  onClick={setIsEditing.on}
+                  leftIcon={<AiOutlineEdit />}
+                  fontSize="sm"
+                >
+                  {t('model.edit')}
+                </Button>
+              )}
+              {isEditing && (
                 <Button
                   onClick={onCancel}
                   leftIcon={<MdClose />}
@@ -353,6 +355,8 @@ export const ModelEditForm = <T extends StrapiModel>({
                 >
                   {t('model.cancel')}
                 </Button>
+              )}
+              {isEditing && (
                 <Button
                   type="submit"
                   leftIcon={<MdOutlineCheck />}
@@ -360,8 +364,9 @@ export const ModelEditForm = <T extends StrapiModel>({
                 >
                   {t('model.save')}
                 </Button>
-              </>
-            ))}
+              )}
+            </HStack>
+          )}
           {getPermission(publishRoles) && (
             <Button
               onClick={isPublished ? onUnPublish : onPublish}

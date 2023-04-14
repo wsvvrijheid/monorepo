@@ -46,6 +46,9 @@ const CourseApplicationPage: FC<PageProps> = ({ seo }) => {
             schema={courseApplicationSchema}
             fields={courseApplicationFields}
             onSuccess={refetch}
+            approveRoles={['academyeditor']}
+            editRoles={['academyeditor']}
+            publishRoles={['academyeditor']}
           />
         )}
       </Box>

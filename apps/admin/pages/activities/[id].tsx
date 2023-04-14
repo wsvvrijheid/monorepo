@@ -52,6 +52,9 @@ const ActivityPage: FC<PageProps> = ({ seo }) => {
             translatedFields={['title', 'description', 'content']}
             fields={activityFields}
             onSuccess={refetch}
+            approveRoles={['contentmanager', 'translator']}
+            editRoles={['contentmanager', 'translator']}
+            publishRoles={['contentmanager']}
           />
         )}
       </Box>
