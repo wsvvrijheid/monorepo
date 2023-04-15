@@ -66,8 +66,8 @@ export type ModelEditTranslateProps<T extends StrapiTranslatableModel> = {
   fields: FormFields<T>
   pathname: string
   schema: OptionalObjectSchema<any>
-  approveRoles?: Role['type'][]
-  editRoles?: Role['type'][]
+  approverRoles?: Role['type'][]
+  editorRoles?: Role['type'][]
 }
 
 export type ModelSelectProps = WSelectProps<FieldValues> & {

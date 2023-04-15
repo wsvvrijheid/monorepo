@@ -49,9 +49,9 @@ const PostPage: FC<PageProps> = ({ seo }) => {
             translatedFields={['description', 'content']}
             fields={postFields}
             onSuccess={refetch}
-            approveRoles={['accountmanager', 'translator']}
-            editRoles={['contentmanager', 'translator', 'accountmanager']}
-            publishRoles={['contentmanager', 'accountmanager']}
+            approverRoles={['accountmanager', 'translator']}
+            editorRoles={['contentmanager', 'translator', 'accountmanager']}
+            publisherRoles={['contentmanager', 'accountmanager']}
           />
         )}
       </Box>

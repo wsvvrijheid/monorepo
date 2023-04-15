@@ -112,13 +112,17 @@ const CoursePage: FC<PageProps> = ({ seo }) => {
                   schema={courseSchema}
                   fields={courseFields}
                   onSuccess={refetch}
-                  approveRoles={[
+                  approverRoles={[
                     'contentmanager',
                     'academyeditor',
                     'translator',
                   ]}
-                  editRoles={['contentmanager', 'academyeditor', 'translator']}
-                  publishRoles={['contentmanager', 'academyeditor']}
+                  editorRoles={[
+                    'contentmanager',
+                    'academyeditor',
+                    'translator',
+                  ]}
+                  publisherRoles={['contentmanager', 'academyeditor']}
                 />
               )}
             </AccordionPanel>

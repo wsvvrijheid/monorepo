@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import { useUpdateEffect } from '@chakra-ui/react'
+import { useDisclosure, useUpdateEffect } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
@@ -10,19 +10,24 @@ import { useSearchModel } from '@wsvvrijheid/services'
 import { Activity, Sort, StrapiLocale } from '@wsvvrijheid/types'
 import {
   activityColumns,
+  activityFields,
+  activitySchema,
   AdminLayout,
   DataTable,
+  ModelEditModal,
   PageHeader,
 } from '@wsvvrijheid/ui'
 
-import i18nConfig from '../../next-i18next.config'
+import i18nConfig from '../next-i18next.config'
 
 const ActivitiesPage = ({ seo }) => {
   const { t } = useTranslation()
   const [currentPage, setCurrentPage] = useState<number>()
+  const [selectedId, setSelectedId] = useState<number>()
+  const { isOpen, onClose, onOpen } = useDisclosure()
 
   const [searchTerm, setSearchTerm] = useState<string>()
-  const { locale, push } = useRouter()
+  const { locale } = useRouter()
 
   const [sort, setSort] = useState<Sort>()
 
@@ -55,8 +60,19 @@ const ActivitiesPage = ({ seo }) => {
   }))
 
   const handleClick = (index: number, id: number) => {
-    push(`/activities/${id}`)
+    setSelectedId(id)
   }
+
+  const handleClose = () => {
+    setSelectedId(undefined)
+    onClose()
+  }
+
+  useEffect(() => {
+    if (selectedId) {
+      onOpen()
+    }
+  }, [selectedId])
 
   return (
     <AdminLayout seo={seo}>
@@ -64,7 +80,15 @@ const ActivitiesPage = ({ seo }) => {
         onSearch={handleSearch}
         searchPlaceHolder={t('search-placeholder')}
       />
-
+      <ModelEditModal<Activity>
+        url={'api/activities'}
+        id={selectedId}
+        isOpen={isOpen}
+        onClose={handleClose}
+        fields={activityFields}
+        schema={activitySchema}
+        title={'Edit activity'}
+      />
       <DataTable
         columns={activityColumns}
         data={mappedActivities}

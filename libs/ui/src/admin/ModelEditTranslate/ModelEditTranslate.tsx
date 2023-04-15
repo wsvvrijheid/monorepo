@@ -49,8 +49,8 @@ export const ModelEditTranslate = <T extends StrapiTranslatableModel>({
   fields,
   pathname,
   schema,
-  approveRoles = [],
-  editRoles = [],
+  approverRoles = [],
+  editorRoles = [],
 }: ModelEditTranslateProps<T>) => {
   const { t } = useTranslation('common')
 
@@ -230,7 +230,7 @@ export const ModelEditTranslate = <T extends StrapiTranslatableModel>({
           {model.approvalStatus !== 'approved' &&
             (isReferenceSelf ||
               referenceModel?.approvalStatus === 'approved') &&
-            getPermission(approveRoles) && (
+            getPermission(approverRoles) && (
               <Button
                 onClick={onApprove}
                 leftIcon={<HiOutlineCheck />}
@@ -241,7 +241,7 @@ export const ModelEditTranslate = <T extends StrapiTranslatableModel>({
                 {t('model.approve')}
               </Button>
             )}
-          {getPermission(editRoles) && (
+          {getPermission(editorRoles) && (
             <>
               {!isEditing && (
                 <Button
