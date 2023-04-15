@@ -26,37 +26,36 @@ export const AdminNavItem: FC<AdminNavItemProps> = memo(
 
     return (
       <Box w="full">
-        <NavLink href={link}>
-          <Button
-            justifyContent={'start'}
-            leftIcon={icon}
-            variant="ghost"
-            color={'initial'}
-            rounded="0"
-            w="full"
-            px={4}
-            _hover={{ color: 'primary.500', bg: 'blackAlpha.50' }}
-            {...(isMenuLinkActive && {
-              color: 'primary.500',
-              _hover: { color: 'primary.400', bg: 'blackAlpha.50' },
-            })}
-            {...(submenu && {
-              onClick: setOpen.toggle,
-              rightIcon: (
-                <Box
-                  as={GoChevronDown}
-                  transition="all 0.2s"
-                  {...(open && {
-                    transform: 'rotate(180deg)',
-                  })}
-                />
-              ),
-            })}
-          >
-            <chakra.span flex={1} textAlign="left">
-              {label}
-            </chakra.span>
-          </Button>
+        <NavLink
+          href={link}
+          justifyContent={'start'}
+          leftIcon={icon}
+          variant="ghost"
+          color={'initial'}
+          rounded="0"
+          w="full"
+          px={4}
+          _hover={{ color: 'primary.500', bg: 'blackAlpha.50' }}
+          {...(isMenuLinkActive && {
+            color: 'primary.500',
+            _hover: { color: 'primary.400', bg: 'blackAlpha.50' },
+          })}
+          {...(submenu && {
+            onClick: setOpen.toggle,
+            rightIcon: (
+              <Box
+                as={GoChevronDown}
+                transition="all 0.2s"
+                {...(open && {
+                  transform: 'rotate(180deg)',
+                })}
+              />
+            ),
+          })}
+        >
+          <chakra.span flex={1} textAlign="left">
+            {label}
+          </chakra.span>
         </NavLink>
 
         {/* Submenu */}

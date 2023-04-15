@@ -5,11 +5,15 @@ import { Button } from '@chakra-ui/react'
 import { NavLinkProps } from './types'
 import { Navigate } from '../../components'
 
-export const NavLink: FC<NavLinkProps> = ({ href, children }) =>
+export const NavLink: FC<NavLinkProps> = ({ href, as, children, ...rest }) =>
   href ? (
-    <Navigate href={href}>{children}</Navigate>
+    <Navigate href={href}>
+      <Button variant={'unstyled'} w={'full'} {...rest}>
+        {children}
+      </Button>
+    </Navigate>
   ) : (
-    <Button variant={'unstyled'} w={'full'}>
+    <Button variant={'unstyled'} w={'full'} {...rest}>
       {children}
     </Button>
   )

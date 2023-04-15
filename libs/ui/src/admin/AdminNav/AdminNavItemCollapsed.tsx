@@ -3,7 +3,6 @@ import { FC } from 'react'
 import {
   Box,
   Button,
-  IconButton,
   Popover,
   PopoverArrow,
   PopoverBody,
@@ -32,17 +31,17 @@ export const AdminNavItemCollapsed: FC<AdminNavItemProps> = ({
     <Popover placement="right-start" trigger="hover">
       <PopoverTrigger>
         <Box>
-          <NavLink href={link}>
-            <IconButton
-              aria-label={label}
-              icon={icon}
-              size="lg"
-              variant="ghost"
-              {...(isMenuLinkActive && {
-                variant: 'solid',
-              })}
-            />
-          </NavLink>
+          <NavLink
+            href={link}
+            aria-label={label}
+            leftIcon={icon}
+            iconSpacing={0}
+            size="lg"
+            variant="ghost"
+            {...(isMenuLinkActive && {
+              variant: 'solid',
+            })}
+          />
         </Box>
       </PopoverTrigger>
 

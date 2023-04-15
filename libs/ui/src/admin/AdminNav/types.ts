@@ -37,7 +37,7 @@ export type AdminNAvProps = {
   expanded?: boolean
 }
 
-export type NavLinkProps = {
+export type NavLinkProps = ButtonProps & {
   href?: AdminRoutes
-  children: ReactNode
+  children?: ReactNode
 }
