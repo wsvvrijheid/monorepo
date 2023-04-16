@@ -1,7 +1,9 @@
 import { useState } from 'react'
 
 import {
+  Box,
   Button,
+  Flex,
   FormControl,
   FormErrorMessage,
   FormLabel,
@@ -58,12 +60,12 @@ export const ModelEditForm = <T extends StrapiModel>({
   schema,
   onSuccess,
   noColumns,
-  approveRoles = [],
-  editRoles = [],
-  deleteRoles = [],
-  publishRoles = [],
+  approverRoles = [],
+  editorRoles = [],
+  removerRoles = [],
+  publisherRoles = [],
 }: ModelEditFormProps<T>) => {
-  const translatableModel = model as StrapiTranslatableModel
+  const translatableModel = model as unknown as StrapiTranslatableModel
 
   const id = model.id
   const isPublished = translatableModel.publishedAt
@@ -208,187 +210,204 @@ export const ModelEditForm = <T extends StrapiModel>({
           onCancel={() => setConfirmState(undefined)}
         />
       )}
-      <Stack spacing={8} as="form" onSubmit={handleSubmit(onSaveModel)}>
-        <MasonryGrid
-          cols={noColumns ? [1] : [1, 1, 1, 2]}
-          columnGap={8}
-          rowGap={4}
-        >
-          {fields.map((field, index) => {
-            const label = field.label || capitalize(field.name as string)
+      <Stack as="form" onSubmit={handleSubmit(onSaveModel)} h={'full'}>
+        <Flex p={8} shadow={'sm'} flex={1}>
+          <MasonryGrid
+            cols={noColumns ? [1] : [1, 1, 1, 2]}
+            columnGap={8}
+            rowGap={4}
+          >
+            {fields.map((field, index) => {
+              const label = field.label || capitalize(field.name as string)
 
-            if (field.type === 'file') {
-              return (
-                <FormControl
-                  key={index}
-                  isRequired={field.isRequired}
-                  maxW={500}
-                >
-                  <FormLabel fontWeight={600} fontSize={'sm'}>
-                    {t('model.image')}
-                  </FormLabel>
-                  <ModelImage
-                    url={url}
-                    isEditing={isEditing}
-                    model={model}
-                    setValue={setValue}
-                    isChangingImage={isChangingImage}
-                    setIsChangingImage={setIsChangingImage}
-                  />
-                  <FormErrorMessage>
-                    {errors[field.name as string]?.message as string}
-                  </FormErrorMessage>
-                </FormControl>
-              )
-            }
-
-            if (field.type === 'boolean') {
-              return (
-                <FormControl key={index} isRequired={field.isRequired}>
-                  <FormLabel fontWeight={600} fontSize={'sm'}>
-                    {label}
-                  </FormLabel>
-                  <Switch
-                    colorScheme={'primary'}
-                    size={'lg'}
-                    isDisabled={!isEditing}
-                    isChecked={watch(field.name as string)}
-                    onChange={e => {
-                      setValue(field.name as string, e.target.checked)
-                    }}
-                  />
-
-                  <FormErrorMessage>
-                    {errors[field.name as string]?.message as string}
-                  </FormErrorMessage>
-                </FormControl>
-              )
-            }
-
-            if (field.type === 'select') {
-              return (
-                <ModelSelect<T>
-                  key={index}
-                  url={field.url as StrapiUrl}
-                  isMulti={field.isMulti}
-                  isRequired={field.isRequired}
-                  name={field.name as string}
-                  isDisabled={!isEditing}
-                  label={label}
-                  errors={errors}
-                  control={control}
-                  _disabled={disabledStyle}
-                />
-              )
-            }
-
-            if (field.type === 'markdown') {
-              return (
-                <MdFormItem
-                  key={index}
-                  name={field.name as string}
-                  label={label}
-                  isDisabled={!isEditing}
-                  isRequired={field.isRequired}
-                  errors={errors}
-                  control={control}
-                  _disabled={disabledStyle}
-                />
-              )
-            }
-
-            const inputType =
-              field.type === 'date'
-                ? 'date'
-                : field.type === 'datetime-local'
-                ? 'datetime-local'
-                : 'text'
-
-            return (
-              <FormItem
-                {...(field.type === 'textarea' && { as: Textarea })}
-                key={index}
-                name={field.name as string}
-                type={inputType}
-                label={label}
-                isRequired={field.isRequired}
-                errors={errors}
-                register={register}
-                isDisabled={!isEditing}
-                _disabled={disabledStyle}
-              />
-            )
-          })}
-        </MasonryGrid>
-        <Wrap alignSelf={'end'} justify={'end'}>
-          {translatableModel.approvalStatus === 'approved'
-            ? null
-            : translatableModel.approvalStatus &&
-              getPermission(approveRoles) && (
-                <Button
-                  onClick={onApprove}
-                  leftIcon={<HiOutlineCheck />}
-                  fontSize="sm"
-                  colorScheme={'purple'}
-                  isLoading={approveModelMutation.isLoading}
-                >
-                  {t('model.approve')}
-                </Button>
-              )}
-          {getPermission(editRoles) && (
-            <HStack>
-              {!isEditing && (
-                <Button
-                  onClick={setIsEditing.on}
-                  leftIcon={<AiOutlineEdit />}
-                  fontSize="sm"
-                >
-                  {t('model.edit')}
-                </Button>
-              )}
-              {isEditing && (
-                <Button
-                  onClick={onCancel}
-                  leftIcon={<MdClose />}
-                  colorScheme={'gray'}
-                  fontSize="sm"
-                >
-                  {t('model.cancel')}
-                </Button>
-              )}
-              {isEditing && (
-                <Button
-                  type="submit"
-                  leftIcon={<MdOutlineCheck />}
-                  fontSize="sm"
-                >
-                  {t('model.save')}
-                </Button>
-              )}
-            </HStack>
-          )}
-          {getPermission(publishRoles) && (
-            <Button
-              onClick={isPublished ? onUnPublish : onPublish}
-              colorScheme={isPublished ? 'yellow' : 'green'}
-              fontSize="sm"
-              leftIcon={
-                isPublished ? (
-                  <MdOutlineUnpublished />
-                ) : (
-                  <MdOutlinePublishedWithChanges />
+              if (field.type === 'file') {
+                return (
+                  <FormControl
+                    key={index}
+                    isRequired={field.isRequired}
+                    maxW={400}
+                  >
+                    <FormLabel fontWeight={600} fontSize={'sm'}>
+                      {t('model.image')}
+                    </FormLabel>
+                    <ModelImage
+                      url={url}
+                      isEditing={isEditing}
+                      model={model}
+                      setValue={setValue}
+                      isChangingImage={isChangingImage}
+                      setIsChangingImage={setIsChangingImage}
+                    />
+                    <FormErrorMessage>
+                      {errors[field.name as string]?.message as string}
+                    </FormErrorMessage>
+                  </FormControl>
                 )
               }
-            >
-              {isPublished ? t('model.unpublish') : t('model.publish')}
-            </Button>
-          )}
-          {getPermission(deleteRoles) && (
-            <Button onClick={onDelete} leftIcon={<BsTrash />} colorScheme="red">
-              {t('model.delete')}
-            </Button>
-          )}
-        </Wrap>
+
+              if (field.type === 'boolean') {
+                return (
+                  <FormControl key={index} isRequired={field.isRequired}>
+                    <FormLabel fontWeight={600} fontSize={'sm'}>
+                      {label}
+                    </FormLabel>
+                    <Switch
+                      colorScheme={'primary'}
+                      size={'lg'}
+                      isDisabled={!isEditing}
+                      isChecked={watch(field.name as string)}
+                      onChange={e => {
+                        setValue(field.name as string, e.target.checked)
+                      }}
+                    />
+
+                    <FormErrorMessage>
+                      {errors[field.name as string]?.message as string}
+                    </FormErrorMessage>
+                  </FormControl>
+                )
+              }
+
+              if (field.type === 'select') {
+                return (
+                  <ModelSelect<T>
+                    key={index}
+                    url={field.url as StrapiUrl}
+                    isMulti={field.isMulti}
+                    isRequired={field.isRequired}
+                    name={field.name as string}
+                    isDisabled={!isEditing}
+                    label={label}
+                    errors={errors}
+                    control={control}
+                    _disabled={disabledStyle}
+                  />
+                )
+              }
+
+              if (field.type === 'markdown') {
+                return (
+                  <Box maxH={400} overflowY={'auto'}>
+                    <MdFormItem
+                      key={index}
+                      name={field.name as string}
+                      label={label}
+                      isDisabled={!isEditing}
+                      isRequired={field.isRequired}
+                      errors={errors}
+                      control={control}
+                      _disabled={disabledStyle}
+                    />
+                  </Box>
+                )
+              }
+
+              const inputType =
+                field.type === 'date'
+                  ? 'date'
+                  : field.type === 'datetime-local'
+                  ? 'datetime-local'
+                  : 'text'
+
+              return (
+                <FormItem
+                  {...(field.type === 'textarea' && { as: Textarea })}
+                  key={index}
+                  name={field.name as string}
+                  type={inputType}
+                  label={label}
+                  isRequired={field.isRequired}
+                  errors={errors}
+                  register={register}
+                  isDisabled={!isEditing}
+                  _disabled={disabledStyle}
+                />
+              )
+            })}
+          </MasonryGrid>
+        </Flex>
+        <Flex
+          justify={'end'}
+          px={8}
+          py={4}
+          pos={'sticky'}
+          bottom={0}
+          bg={'white'}
+        >
+          <Wrap>
+            {translatableModel.approvalStatus === 'approved'
+              ? null
+              : translatableModel.approvalStatus &&
+                getPermission(approverRoles) && (
+                  <Button
+                    onClick={onApprove}
+                    leftIcon={<HiOutlineCheck />}
+                    fontSize="sm"
+                    colorScheme={'purple'}
+                    isLoading={approveModelMutation.isLoading}
+                  >
+                    {t('model.approve')}
+                  </Button>
+                )}
+            {getPermission(editorRoles) && (
+              <HStack>
+                {!isEditing && (
+                  <Button
+                    onClick={setIsEditing.on}
+                    leftIcon={<AiOutlineEdit />}
+                    fontSize="sm"
+                  >
+                    {t('model.edit')}
+                  </Button>
+                )}
+                {isEditing && (
+                  <Button
+                    onClick={onCancel}
+                    leftIcon={<MdClose />}
+                    colorScheme={'gray'}
+                    fontSize="sm"
+                  >
+                    {t('model.cancel')}
+                  </Button>
+                )}
+                {isEditing && (
+                  <Button
+                    type="submit"
+                    leftIcon={<MdOutlineCheck />}
+                    fontSize="sm"
+                  >
+                    {t('model.save')}
+                  </Button>
+                )}
+              </HStack>
+            )}
+            {getPermission(publisherRoles) && (
+              <Button
+                onClick={isPublished ? onUnPublish : onPublish}
+                colorScheme={isPublished ? 'yellow' : 'green'}
+                fontSize="sm"
+                leftIcon={
+                  isPublished ? (
+                    <MdOutlineUnpublished />
+                  ) : (
+                    <MdOutlinePublishedWithChanges />
+                  )
+                }
+              >
+                {isPublished ? t('model.unpublish') : t('model.publish')}
+              </Button>
+            )}
+            {getPermission(removerRoles) && (
+              <Button
+                onClick={onDelete}
+                leftIcon={<BsTrash />}
+                colorScheme="red"
+              >
+                {t('model.delete')}
+              </Button>
+            )}
+          </Wrap>
+        </Flex>
       </Stack>
     </>
   )

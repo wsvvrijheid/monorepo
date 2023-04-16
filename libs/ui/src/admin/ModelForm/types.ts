@@ -61,12 +61,23 @@ export type ModelEditFormProps<T extends StrapiModel> = {
   translatedFields?: (keyof T)[]
   fields: FormFields<T>
   schema: OptionalObjectSchema<any>
+  hideLanguageSwitcher?: boolean
   noColumns?: boolean
   onSuccess: () => void
-  approveRoles?: Role['type'][]
-  deleteRoles?: Role['type'][]
-  editRoles?: Role['type'][]
-  publishRoles?: Role['type'][]
+  approverRoles?: Role['type'][]
+  removerRoles?: Role['type'][]
+  editorRoles?: Role['type'][]
+  publisherRoles?: Role['type'][]
+}
+
+export type ModelEditModalProps<T extends StrapiModel> = Omit<
+  ModelEditFormProps<T>,
+  'model' | 'onSuccess'
+> & {
+  title: string
+  id: number
+  isOpen: boolean
+  onClose: () => void
 }
 
 export type ModelSelectProps = WSelectProps<FieldValues> & {
