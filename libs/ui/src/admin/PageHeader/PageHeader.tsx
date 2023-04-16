@@ -39,13 +39,16 @@ export const PageHeader: FC<PageHeaderProps> = ({
     Boolean(sortMenu) ||
     typeof onSearch === 'function'
 
+  if (!hasChildren) return null
+
   return (
     <HStack
       align="center"
       bg="white"
       px={4}
-      py={hasChildren ? 2 : 0}
+      py={2}
       shadow="base"
+      rounded={'sm'}
     >
       {typeof onSearch === 'function' ? (
         <SearchForm
@@ -65,6 +68,7 @@ export const PageHeader: FC<PageHeaderProps> = ({
             icon={<HiOutlineFilter />}
             variant="outline"
             rounded="full"
+            colorScheme="gray"
           />
           <MenuList>{filterMenu}</MenuList>
         </Menu>
@@ -78,6 +82,7 @@ export const PageHeader: FC<PageHeaderProps> = ({
             icon={<VscListFilter />}
             variant="outline"
             rounded="full"
+            colorScheme="gray"
           />
           <MenuList>{sortMenu}</MenuList>
         </Menu>

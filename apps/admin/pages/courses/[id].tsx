@@ -135,6 +135,7 @@ const CoursePage: FC<PageProps> = ({ seo }) => {
               bg={'white'}
               rounded={'md'}
               fontWeight={600}
+              shadow={'sm'}
             >
               <Text>{course?.[`title_${router.locale}`]}</Text>
               <AccordionIcon ml={'auto'} />
@@ -170,6 +171,7 @@ const CoursePage: FC<PageProps> = ({ seo }) => {
               bg={'white'}
               rounded={'md'}
               fontWeight={600}
+              shadow={'sm'}
             >
               <Text>Applications</Text>
               <AccordionIcon ml={'auto'} />

@@ -3,6 +3,7 @@ import { FC, ReactNode } from 'react'
 import {
   Box,
   Center,
+  Flex,
   Heading,
   HStack,
   IconButton,
@@ -76,15 +77,14 @@ export const AdminLayout: FC<AdminLayoutProps> = ({
   return (
     <>
       <NextSeo {...seo} />
-      <Box bg="gray.50">
+      <Flex h={'full'}>
         {/* Sidebar */}
         <Box
-          pos="fixed"
-          zIndex="sticky"
           top={0}
           left={0}
-          h="100vh"
           w={expanded ? 300 : 16}
+          h="full"
+          overflowY={'auto'}
         >
           <AdminSidebar
             user={user}
@@ -95,20 +95,21 @@ export const AdminLayout: FC<AdminLayoutProps> = ({
         </Box>
 
         <Stack
+          spacing={0}
           as="main"
-          ml={expanded ? 300 : 16}
-          spacing={4}
-          minH="100vh"
-          overflow="auto"
-          pb={8}
+          bg="gray.50"
+          h="full"
+          overflowY={'auto'}
+          flex={1}
+          pb={4}
         >
           {isLoading ? (
-            <Center h="100vh">
+            <Center h="full">
               <Spinner size="xl" />
             </Center>
           ) : (
             <>
-              <HStack px={4} mt={10} justify="space-between">
+              <HStack px={4} justify="space-between" h={20}>
                 <HStack>
                   {hasBackButton && (
                     <Tooltip label={'Go back'}>
@@ -130,6 +131,7 @@ export const AdminLayout: FC<AdminLayoutProps> = ({
                     icon={<MdOutlineNotifications />}
                     variant="outline"
                     rounded="full"
+                    colorScheme={'gray'}
                   />
                   <LanguageSwitcher responsive />
                   <CreateModelButton />
@@ -137,13 +139,13 @@ export const AdminLayout: FC<AdminLayoutProps> = ({
               </HStack>
 
               {/* Page Content */}
-              <Stack spacing={4} px={4}>
+              <Stack px={4} h={'full'} flex={1} spacing={4} overflowY={'auto'}>
                 {children}
               </Stack>
             </>
           )}
         </Stack>
-      </Box>
+      </Flex>
     </>
   )
 }

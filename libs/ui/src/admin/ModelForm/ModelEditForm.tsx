@@ -288,9 +288,8 @@ export const ModelEditForm = <T extends StrapiModel>({
 
               if (field.type === 'markdown') {
                 return (
-                  <Box maxH={400} overflowY={'auto'}>
+                  <Box key={index} maxH={400} overflowY={'auto'}>
                     <MdFormItem
-                      key={index}
                       name={field.name as string}
                       label={label}
                       isDisabled={!isEditing}
