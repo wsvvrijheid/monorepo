@@ -6,7 +6,6 @@ import {
   AccordionIcon,
   AccordionItem,
   AccordionPanel,
-  Box,
   MenuItem,
   Stack,
   Text,
@@ -61,8 +60,9 @@ const CoursePage: FC<PageProps> = ({ seo }) => {
       parent: 'course',
       ids: [id],
     },
+    sort,
     page: currentPage || 1,
-    pageSize: 10,
+    pageSize: 100,
     searchTerm,
     locale: router.locale as StrapiLocale,
   })
@@ -88,23 +88,28 @@ const CoursePage: FC<PageProps> = ({ seo }) => {
 
   return (
     <AdminLayout seo={seo} isLoading={isLoading} hasBackButton>
-      <Stack spacing={8} p={6} rounded="md" bg="white" shadow="md">
+      <Stack spacing={8} p={6}>
         <Accordion
           size={'lg'}
           allowToggle
+          allowMultiple={false}
           defaultIndex={0}
           borderColor="transparent"
+          defaultValue={0}
         >
-          <AccordionItem>
+          <AccordionItem _notLast={{ mb: 2 }}>
             <AccordionButton
               justifyContent="space-between"
               cursor="pointer"
-              fontSize="xl"
+              fontSize="lg"
+              bg={'white'}
+              rounded={'md'}
+              fontWeight={600}
             >
               <Text>{course?.[`title_${router.locale}`]}</Text>
               <AccordionIcon ml={'auto'} />
             </AccordionButton>
-            <AccordionPanel p={0} mt={4}>
+            <AccordionPanel mt={4} bg={'white'} rounded={'md'}>
               {course && (
                 <ModelEditForm<Course>
                   url="api/courses"
@@ -123,31 +128,44 @@ const CoursePage: FC<PageProps> = ({ seo }) => {
               )}
             </AccordionPanel>
           </AccordionItem>
-        </Accordion>
-        <Box>
-          <PageHeader
-            onSearch={handleSearch}
-            searchPlaceHolder={'Search courses by title'}
-            sortMenu={[
-              <MenuItem key="asc" icon={<FaArrowUp />}>
-                Name Asc
-              </MenuItem>,
-              <MenuItem key="desc" icon={<FaArrowDown />}>
-                Name Desc
-              </MenuItem>,
-            ]}
-          />
+          <AccordionItem>
+            <AccordionButton
+              justifyContent="space-between"
+              cursor="pointer"
+              fontSize="lg"
+              bg={'white'}
+              rounded={'md'}
+              fontWeight={600}
+            >
+              <Text>Applications</Text>
+              <AccordionIcon ml={'auto'} />
+            </AccordionButton>
+            <AccordionPanel mt={4} bg={'white'} rounded={'md'}>
+              <PageHeader
+                onSearch={handleSearch}
+                searchPlaceHolder={'Search courses by title'}
+                sortMenu={[
+                  <MenuItem key="asc" icon={<FaArrowUp />}>
+                    Name Asc
+                  </MenuItem>,
+                  <MenuItem key="desc" icon={<FaArrowDown />}>
+                    Name Desc
+                  </MenuItem>,
+                ]}
+              />
 
-          <DataTable
-            columns={applicationColumns}
-            data={applications}
-            totalCount={totalCount}
-            currentPage={currentPage}
-            setCurrentPage={setCurrentPage}
-            onSort={setSort}
-            onClickRow={handleRowClick}
-          />
-        </Box>
+              <DataTable
+                columns={applicationColumns}
+                data={applications}
+                totalCount={totalCount}
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage}
+                onSort={setSort}
+                onClickRow={handleRowClick}
+              />
+            </AccordionPanel>
+          </AccordionItem>
+        </Accordion>
       </Stack>
     </AdminLayout>
   )

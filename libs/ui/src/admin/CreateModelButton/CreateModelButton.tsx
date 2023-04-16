@@ -75,7 +75,7 @@ export const CreateModelButton = () => {
 
             <PopoverBody>
               <Stack>
-                {getPermission(['editor']) && (
+                {getPermission(['contentmanager']) && (
                   <ModelCreateModal<Activity>
                     title="Create Activity"
                     url="api/activities"
@@ -89,7 +89,7 @@ export const CreateModelButton = () => {
                     {t('create-activity')}
                   </ModelCreateModal>
                 )}
-                {getPermission(['author', 'editor']) && (
+                {getPermission(['author', 'contentmanager']) && (
                   <ModelCreateModal<Blog>
                     title="Create Blog"
                     url="api/blogs"
@@ -103,7 +103,7 @@ export const CreateModelButton = () => {
                     {t('create-blog')}
                   </ModelCreateModal>
                 )}
-                {getPermission(['editor']) && (
+                {getPermission(['academyeditor']) && (
                   <ModelCreateModal<Course>
                     title="Create Course"
                     url="api/courses"
@@ -132,7 +132,7 @@ export const CreateModelButton = () => {
                     {t('create-collection')}
                   </ModelCreateModal>
                 )}
-                {getPermission(['editor']) && (
+                {getPermission(['accountmanager']) && (
                   <ModelCreateModal<Hashtag>
                     title="Create Hashtag"
                     url="api/hashtags"

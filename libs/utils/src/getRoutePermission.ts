@@ -23,13 +23,6 @@ export const getRoutePermission = (
     authenticated: [],
     author: ['/blogs'],
     contentmanager: [
-      '/posts',
-      '/hashtags',
-      '/announcements',
-      '/activities',
-      '/blogs',
-    ],
-    editor: [
       '/accounts',
       '/activities',
       '/announcements',

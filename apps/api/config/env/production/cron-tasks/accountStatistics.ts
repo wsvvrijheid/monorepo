@@ -15,8 +15,9 @@ export default async ({ strapi }) => {
       // After create lifecycle will update it with the stats
       await strapi.service('api::account-statistic.account-statistic').create({
         data: {
-          username,
+          username: username.toLowerCase(),
           date,
+          publishedAt: new Date(),
         },
       })
     })

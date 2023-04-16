@@ -8,7 +8,6 @@ export type RoleName =
   | 'Authenticated'
   | 'Art Editor'
   | 'Author'
-  | 'Editor'
   | 'Jury'
   | 'Public'
   | 'Translator'

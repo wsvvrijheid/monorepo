@@ -79,7 +79,6 @@ const Index: FC<PageProps> = ({ seo }) => {
 
               return (
                 <Checkbox
-                  size={'sm'}
                   key={account}
                   variant={isSelected ? 'solid' : 'outline'}
                   colorScheme={isSelected ? 'primary' : 'gray'}
