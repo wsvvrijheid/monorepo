@@ -64,6 +64,7 @@ export type ModelEditFormProps<T extends StrapiModel> = {
   hideLanguageSwitcher?: boolean
   noColumns?: boolean
   onSuccess: () => void
+  onClose?: () => void
   approverRoles?: Role['type'][]
   removerRoles?: Role['type'][]
   editorRoles?: Role['type'][]

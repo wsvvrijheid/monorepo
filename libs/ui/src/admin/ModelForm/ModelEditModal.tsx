@@ -69,6 +69,7 @@ export const ModelEditModal = <T extends StrapiModel>({
               model={model}
               onSuccess={handleSuccess}
               hideLanguageSwitcher={hideLanguageSwitcher}
+              onClose={onClose}
             />
           </ModalBody>
         )}

@@ -87,7 +87,7 @@ const ActivitiesPage = ({ seo }) => {
         onClose={handleClose}
         fields={activityFields}
         schema={activitySchema}
-        title={'Edit activity'}
+        title={'Edit Activity'}
       />
       <DataTable
         columns={activityColumns}

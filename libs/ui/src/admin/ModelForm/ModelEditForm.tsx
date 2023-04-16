@@ -59,6 +59,7 @@ export const ModelEditForm = <T extends StrapiModel>({
   fields,
   schema,
   onSuccess,
+  onClose,
   noColumns,
   approverRoles = [],
   editorRoles = [],
@@ -404,6 +405,11 @@ export const ModelEditForm = <T extends StrapiModel>({
                 colorScheme="red"
               >
                 {t('model.delete')}
+              </Button>
+            )}
+            {onClose && (
+              <Button onClick={onClose} colorScheme="gray">
+                {t('dismiss')}
               </Button>
             )}
           </Wrap>

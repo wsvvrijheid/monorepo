@@ -1,36 +1,37 @@
-import { FC, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
-import { useUpdateEffect } from '@chakra-ui/react'
-import { InferGetStaticPropsType } from 'next'
+import { useDisclosure, useUpdateEffect } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
 
 import { useSearchModel } from '@wsvvrijheid/services'
-import { Activity, Blog, Sort, StrapiLocale } from '@wsvvrijheid/types'
+import { Blog, Sort, StrapiLocale } from '@wsvvrijheid/types'
 import {
+  activityColumns,
   AdminLayout,
-  blogColumns,
   blogFields,
   blogSchema,
   DataTable,
-  ModelCreateModal,
+  ModelEditModal,
   PageHeader,
 } from '@wsvvrijheid/ui'
 
-import i18nConfig from '../../next-i18next.config'
+import i18nConfig from '../next-i18next.config'
 
-type PageProps = InferGetStaticPropsType<typeof getStaticProps>
-
-const BlogsPage: FC<PageProps> = ({ seo }) => {
+const BlogsPage = ({ seo }) => {
+  const { t } = useTranslation()
   const [currentPage, setCurrentPage] = useState<number>()
+  const [selectedId, setSelectedId] = useState<number>()
+  const { isOpen, onClose, onOpen } = useDisclosure()
 
   const [searchTerm, setSearchTerm] = useState<string>()
-  const { locale, push } = useRouter()
+  const { locale } = useRouter()
 
   const [sort, setSort] = useState<Sort>()
 
-  const blogsQuery = useSearchModel<Activity>({
+  const blogsQuery = useSearchModel<Blog>({
     url: 'api/blogs',
     page: currentPage || 1,
     pageSize: 10,
@@ -53,31 +54,44 @@ const BlogsPage: FC<PageProps> = ({ seo }) => {
   const blogs = blogsQuery?.data?.data
   const totalCount = blogsQuery?.data?.meta?.pagination?.pageCount
 
+  const mappedBlogs = blogs?.map(blog => ({
+    ...blog,
+    translates: blog.localizations?.map(l => l.locale),
+  }))
+
   const handleClick = (index: number, id: number) => {
-    push(`/blogs/${id}`)
+    setSelectedId(id)
   }
+
+  const handleClose = () => {
+    setSelectedId(undefined)
+    onClose()
+  }
+
+  useEffect(() => {
+    if (selectedId) {
+      onOpen()
+    }
+  }, [selectedId])
 
   return (
     <AdminLayout seo={seo}>
       <PageHeader
         onSearch={handleSearch}
-        searchPlaceHolder={'Search by title or description'}
-      >
-        <ModelCreateModal<Blog>
-          title="Create Blog"
-          url="api/blogs"
-          schema={blogSchema}
-          fields={blogFields}
-          onSuccess={() => blogsQuery.refetch()}
-          buttonProps={{ mb: 4 }}
-        >
-          New Blog
-        </ModelCreateModal>
-      </PageHeader>
-
+        searchPlaceHolder={t('search-placeholder')}
+      />
+      <ModelEditModal<Blog>
+        url={'api/blogs'}
+        id={selectedId}
+        isOpen={isOpen}
+        onClose={handleClose}
+        fields={blogFields}
+        schema={blogSchema}
+        title={'Edit Blog'}
+      />
       <DataTable
-        columns={blogColumns}
-        data={blogs}
+        columns={activityColumns}
+        data={mappedBlogs}
         totalCount={totalCount}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
