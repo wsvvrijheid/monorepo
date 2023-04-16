@@ -22,8 +22,12 @@ export const ModelEditModal = <T extends StrapiModel>({
   title,
   hideLanguageSwitcher,
   id,
+  isFullHeight,
   isOpen,
   onClose,
+  size = '6xl',
+  maxW,
+  ...rest
 }: ModelEditModalProps<T>) => {
   const { data: model, isLoading, refetch } = useModelById<T>({ url, id })
 
@@ -36,13 +40,19 @@ export const ModelEditModal = <T extends StrapiModel>({
       isCentered
       isOpen={isOpen}
       onClose={onClose}
-      size="6xl"
+      size={size}
       scrollBehavior="inside"
       closeOnOverlayClick={false}
       closeOnEsc={false}
+      {...rest}
     >
       <ModalOverlay />
-      <ModalContent maxW="95vw" h="full" p={0} overflow={'hidden'}>
+      <ModalContent
+        maxW={maxW}
+        p={0}
+        overflow={'hidden'}
+        {...(isFullHeight && { h: 'full' })}
+      >
         <ModalHeader color={'primary.500'}>{title}</ModalHeader>
         <ModalCloseButton />
         {isLoading && (

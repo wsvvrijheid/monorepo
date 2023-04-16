@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 
 import {
   Accordion,
@@ -9,6 +9,7 @@ import {
   MenuItem,
   Stack,
   Text,
+  useDisclosure,
   useUpdateEffect,
 } from '@chakra-ui/react'
 import { InferGetServerSidePropsType } from 'next'
@@ -27,10 +28,13 @@ import {
 import {
   AdminLayout,
   applicationColumns,
+  courseApplicationFields,
+  courseApplicationSchema,
   courseFields,
   courseSchema,
   DataTable,
   ModelEditForm,
+  ModelEditModal,
   PageHeader,
 } from '@wsvvrijheid/ui'
 
@@ -40,10 +44,12 @@ type PageProps = InferGetServerSidePropsType<typeof getServerSideProps>
 
 const CoursePage: FC<PageProps> = ({ seo }) => {
   const router = useRouter()
+  const { isOpen, onOpen, onClose } = useDisclosure()
 
   const { locale } = useRouter()
   const { query } = router
 
+  const [selectedApplicationId, setSelectedApplicationId] = useState<number>()
   const [currentPage, setCurrentPage] = useState<number>()
   const [searchTerm, setSearchTerm] = useState<string>()
   const [sort, setSort] = useState<Sort>()
@@ -83,11 +89,35 @@ const CoursePage: FC<PageProps> = ({ seo }) => {
   })
 
   const handleRowClick = (index: number, id: number) => {
-    router.push(`/courses/applications/${id}`)
+    setSelectedApplicationId(id)
+  }
+
+  useEffect(() => {
+    if (selectedApplicationId) {
+      onOpen()
+    }
+  }, [selectedApplicationId])
+
+  const handleClose = () => {
+    onClose()
+    setSelectedApplicationId(undefined)
   }
 
   return (
     <AdminLayout seo={seo} isLoading={isLoading} hasBackButton>
+      <ModelEditModal<CourseApplication>
+        title={'Application'}
+        url="api/course-applications"
+        id={selectedApplicationId}
+        schema={courseApplicationSchema}
+        fields={courseApplicationFields}
+        approverRoles={['academyeditor']}
+        editorRoles={['academyeditor']}
+        publisherRoles={['academyeditor']}
+        isOpen={isOpen}
+        onClose={handleClose}
+        size={'5xl'}
+      />
       <Stack spacing={8} p={6}>
         <Accordion
           size={'lg'}

@@ -1,4 +1,4 @@
-import { ButtonProps } from '@chakra-ui/react'
+import { ButtonProps, ModalProps } from '@chakra-ui/react'
 import { Control, FieldErrorsImpl, FieldValues } from 'react-hook-form'
 import { AssertsShape, OptionalObjectSchema } from 'yup/lib/object'
 
@@ -71,14 +71,17 @@ export type ModelEditFormProps<T extends StrapiModel> = {
 }
 
 export type ModelEditModalProps<T extends StrapiModel> = Omit<
-  ModelEditFormProps<T>,
-  'model' | 'onSuccess'
-> & {
-  title: string
-  id: number
-  isOpen: boolean
-  onClose: () => void
-}
+  ModalProps,
+  'id' | 'children'
+> &
+  Omit<ModelEditFormProps<T>, 'model' | 'onSuccess'> & {
+    title: string
+    id: number
+    isOpen: boolean
+    isFullHeight?: boolean
+    onClose: () => void
+    maxW?: string
+  }
 
 export type ModelSelectProps = WSelectProps<FieldValues> & {
   url: StrapiUrl

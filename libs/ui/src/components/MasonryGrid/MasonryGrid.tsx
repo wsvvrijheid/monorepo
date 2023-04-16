@@ -26,6 +26,7 @@ export const MasonryGrid: FC<MasonryGridProps> = ({
       breakpointCols={breakpointCols}
       className="masonry-grid"
       columnClassName="masonry-grid_column"
+      w={'full'}
       sx={{
         '& .masonry-grid_column': {
           display: 'flex',
