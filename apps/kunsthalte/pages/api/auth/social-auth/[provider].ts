@@ -53,6 +53,6 @@ const route = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 }
 
-const handler = withIronSessionApiRoute(route, sessionOptions('api/social'))
+const handler = withIronSessionApiRoute(route, sessionOptions)
 
 export default handler

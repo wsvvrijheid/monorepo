@@ -39,9 +39,6 @@ const resetPassRoute = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 }
 
-const handler = withIronSessionApiRoute(
-  resetPassRoute,
-  sessionOptions('api/reset'),
-)
+const handler = withIronSessionApiRoute(resetPassRoute, sessionOptions)
 
 export default handler

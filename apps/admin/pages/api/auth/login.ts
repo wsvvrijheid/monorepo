@@ -32,6 +32,6 @@ const loginRoute = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 }
 
-const handler = withIronSessionApiRoute(loginRoute, sessionOptions('api/login'))
+const handler = withIronSessionApiRoute(loginRoute, sessionOptions)
 
 export default handler

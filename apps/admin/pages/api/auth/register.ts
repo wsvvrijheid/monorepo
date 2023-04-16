@@ -44,9 +44,6 @@ const registerRoute = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 }
 
-const handler = withIronSessionApiRoute(
-  registerRoute,
-  sessionOptions('/api/auth'),
-)
+const handler = withIronSessionApiRoute(registerRoute, sessionOptions)
 
 export default handler

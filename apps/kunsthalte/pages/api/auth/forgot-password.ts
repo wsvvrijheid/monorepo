@@ -24,9 +24,6 @@ const forgotPassRoute = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 }
 
-const handler = withIronSessionApiRoute(
-  forgotPassRoute,
-  sessionOptions('api/forgot'),
-)
+const handler = withIronSessionApiRoute(forgotPassRoute, sessionOptions)
 
 export default handler
