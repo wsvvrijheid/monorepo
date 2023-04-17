@@ -15,7 +15,7 @@ export const DataTable = <T extends StrapiModel>({
   const { t } = useTranslation()
 
   return (
-    <Stack spacing={4} h={`calc(100vh - 200px)`}>
+    <Stack spacing={4} h={`calc(100vh - 180px)`}>
       <Box bg="white" shadow="base" p={4} overflow="auto">
         {tableProps.data?.length > 0 ? (
           <WTable {...tableProps} />

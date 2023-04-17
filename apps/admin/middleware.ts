@@ -1,6 +1,7 @@
 import { getIronSession } from 'iron-session/edge'
-import type { NextRequest } from 'next/server'
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
+
+import { getRoutePermission } from '@wsvvrijheid/utils/getRoutePermission'
 
 const PUBLIC_FILE = /\.(.*)$/
 
@@ -32,6 +33,23 @@ export const middleware = async (req: NextRequest) => {
 
   if (session.user && nextUrl.pathname.includes('/login')) {
     return NextResponse.redirect(new URL(`/`, url)) // redirect to /login page
+  }
+
+  let route = nextUrl.pathname
+
+  const breadcrumbs = route.split('/')
+  const lastBreadcrumb = breadcrumbs[breadcrumbs.length - 1]
+  const hasId = !isNaN(Number(lastBreadcrumb))
+  const paramId = hasId ? Number(lastBreadcrumb) : null
+
+  if (paramId) {
+    route = breadcrumbs.slice(0, breadcrumbs.length - 1).join('/')
+  }
+
+  const hasPermission = getRoutePermission(session.user?.roles, route as any)
+
+  if (session.user && !hasPermission && nextUrl.pathname !== '/not-allowed') {
+    return NextResponse.redirect(new URL('/not-allowed', url))
   }
 
   return res

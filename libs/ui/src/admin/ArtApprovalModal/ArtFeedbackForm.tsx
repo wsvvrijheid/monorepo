@@ -7,6 +7,7 @@ import { useArtFeedbackMutation } from '@wsvvrijheid/services'
 
 import { ArtFeedbackFormTypes } from './types'
 import { WConfirm, WConfirmProps } from '../../components'
+import { useHasPermission } from '../../hooks'
 
 export const ArtFeedbackForm: FC<ArtFeedbackFormTypes> = ({
   art,
@@ -20,6 +21,8 @@ export const ArtFeedbackForm: FC<ArtFeedbackFormTypes> = ({
   const [confirmState, setConfirmState] = useState<WConfirmProps>()
 
   const feedbackMutation = useArtFeedbackMutation()
+
+  const { getPermission } = useHasPermission()
 
   const handleSuccess = () => {
     onSuccess?.()
@@ -93,39 +96,41 @@ export const ArtFeedbackForm: FC<ArtFeedbackFormTypes> = ({
               placeholder={'Type your comment here'}
             />
 
-            <Stack direction={'row'} spacing={{ base: 2, lg: 4 }}>
-              <Button
-                flex={1}
-                flexShrink={0}
-                isDisabled={!feedback || art.approvalStatus === 'rejected'}
-                onClick={handleReject}
-                colorScheme="red"
-                leftIcon={<HiOutlineX />}
-              >
-                Reject
-              </Button>
+            {getPermission(['arteditor']) && (
+              <Stack direction={'row'} spacing={{ base: 2, lg: 4 }}>
+                <Button
+                  flex={1}
+                  flexShrink={0}
+                  isDisabled={!feedback || art.approvalStatus === 'rejected'}
+                  onClick={handleReject}
+                  colorScheme="red"
+                  leftIcon={<HiOutlineX />}
+                >
+                  Reject
+                </Button>
 
-              <Button
-                flex={1}
-                flexShrink={0}
-                isDisabled={!feedback || art.approvalStatus === 'approved'}
-                onClick={handleApprove}
-                colorScheme="primary"
-                leftIcon={<HiOutlineCheck />}
-              >
-                Approve
-              </Button>
+                <Button
+                  flex={1}
+                  flexShrink={0}
+                  isDisabled={!feedback || art.approvalStatus === 'approved'}
+                  onClick={handleApprove}
+                  colorScheme="primary"
+                  leftIcon={<HiOutlineCheck />}
+                >
+                  Approve
+                </Button>
 
-              <Button
-                aria-label="Edit"
-                flexShrink={0}
-                onClick={onEdit}
-                colorScheme="primary"
-                leftIcon={<HiPencil />}
-              >
-                Edit
-              </Button>
-            </Stack>
+                <Button
+                  aria-label="Edit"
+                  flexShrink={0}
+                  onClick={onEdit}
+                  colorScheme="primary"
+                  leftIcon={<HiPencil />}
+                >
+                  Edit
+                </Button>
+              </Stack>
+            )}
           </Stack>
         </HStack>
       </Stack>

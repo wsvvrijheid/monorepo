@@ -1,7 +1,7 @@
 import { withIronSessionApiRoute } from 'iron-session/next'
 import { NextApiRequest, NextApiResponse } from 'next'
 
-import { sessionOptions } from '@wsvvrijheid/lib'
+import { sessionOptions } from '@wsvvrijheid/secrets'
 import { getAuth } from '@wsvvrijheid/services'
 const loginRoute = async (req: NextApiRequest, res: NextApiResponse) => {
   const { identifier, password } = req.body

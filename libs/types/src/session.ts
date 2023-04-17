@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-empty-interface */
 
 import 'iron-session'
+import { Role } from './role'
 import { User } from './user'
 
 export type SessionUser = Pick<
@@ -10,12 +11,7 @@ export type SessionUser = Pick<
   applicantId?: number
   artistId?: number
   avatar?: string
-  isAdmin?: boolean
-  isAuthenticated: boolean
-  isAuthor?: boolean
-  isEditor?: boolean
-  isJury?: boolean
-  isTranslator?: boolean
+  roles: Role['type'][]
   name?: string
   volunteerId?: number
 }

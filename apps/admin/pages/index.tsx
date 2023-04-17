@@ -1,6 +1,13 @@
 import { FC, useMemo, useState } from 'react'
 
-import { Button, SimpleGrid, Stack, Text, Wrap } from '@chakra-ui/react'
+import {
+  Checkbox,
+  CheckboxGroup,
+  SimpleGrid,
+  Stack,
+  Text,
+  Wrap,
+} from '@chakra-ui/react'
 import { dehydrate, QueryClient } from '@tanstack/react-query'
 import { InferGetStaticPropsType } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
@@ -52,14 +59,6 @@ const Index: FC<PageProps> = ({ seo }) => {
 
   const [selectedAccounts, setSelectedAccounts] = useState(accounts)
 
-  const onSelectAccount = (account: string, isSelected: boolean) => {
-    if (isSelected) {
-      setSelectedAccounts(selectedAccounts.filter(item => item !== account))
-    } else {
-      setSelectedAccounts([...selectedAccounts, account])
-    }
-  }
-
   const filteredStats = stats.filter(item =>
     selectedAccounts.includes(item.username?.toLowerCase()),
   )
@@ -67,25 +66,30 @@ const Index: FC<PageProps> = ({ seo }) => {
   return (
     <AdminLayout seo={seo}>
       <PageHeader>
-        <Wrap>
-          {accounts?.map((account, index) => {
-            const isSelected = selectedAccounts.includes(account)
+        <CheckboxGroup
+          defaultValue={accounts}
+          value={selectedAccounts}
+          onChange={selected => {
+            setSelectedAccounts(selected as string[])
+          }}
+        >
+          <Wrap>
+            {accounts?.map((account, index) => {
+              const isSelected = selectedAccounts.includes(account)
 
-            return (
-              <Button
-                size={'sm'}
-                key={account}
-                variant={isSelected ? 'solid' : 'outline'}
-                colorScheme={isSelected ? 'primary' : 'gray'}
-                borderWidth={1}
-                borderColor={isSelected ? 'primary.500' : 'gray.500'}
-                onClick={() => onSelectAccount(account, isSelected)}
-              >
-                {account}
-              </Button>
-            )
-          })}
-        </Wrap>
+              return (
+                <Checkbox
+                  key={account}
+                  variant={isSelected ? 'solid' : 'outline'}
+                  colorScheme={isSelected ? 'primary' : 'gray'}
+                  value={account}
+                >
+                  {account}
+                </Checkbox>
+              )
+            })}
+          </Wrap>
+        </CheckboxGroup>
       </PageHeader>
       <SimpleGrid columns={{ base: 1, lg: 2 }} gap={4}>
         {statsData?.map((field, index) => (

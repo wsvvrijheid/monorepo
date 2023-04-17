@@ -115,7 +115,7 @@ Users.args = {
         const colorScheme: { [x in RoleName]?: BadgeProps['colorScheme'] } = {
           Admin: 'blue',
           Authenticated: 'purple',
-          Editor: 'green',
+          'Content Manager': 'green',
         }
 
         return {

@@ -37,10 +37,10 @@ export const AdminSidebarProfile: FC<AdminSidebarProfileProps> = ({
 
           <Box flex={1} fontSize="sm" lineHeight={1.25}>
             <Text w={160} noOfLines={1} fontWeight={600}>
-              {user?.username}
+              {user?.name || user?.username}
             </Text>
-            <Text w={175} noOfLines={1}>
-              {user?.email}
+            <Text w={160} noOfLines={1} textTransform={'capitalize'}>
+              {user?.roles.join(' - ')}
             </Text>
           </Box>
 

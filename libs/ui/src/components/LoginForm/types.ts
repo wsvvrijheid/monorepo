@@ -1,4 +1,4 @@
 export type LoginFormFieldValues = {
-  email: string
+  identifier: string
   password: string
 }

@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
 
-import { Activity } from '@wsvvrijheid/types'
+import { Collection } from '@wsvvrijheid/types'
 import {
   AdminLayout,
   ModelEditTranslate,
@@ -25,13 +25,15 @@ const TranslateCollectionPage: FC<PageProps> = ({ seo }) => {
 
   return (
     <AdminLayout seo={seo} hasBackButton>
-      <ModelEditTranslate<Activity>
+      <ModelEditTranslate<Collection>
         id={id}
         url="api/collections"
         pathname="collections"
         translatedFields={['title', 'description', 'content']}
         fields={translateModelFields}
         schema={translateModelSchema}
+        approverRoles={['translator']}
+        editorRoles={['translator']}
       />
     </AdminLayout>
   )

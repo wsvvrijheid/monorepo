@@ -3,10 +3,12 @@ import { ApprovalStatus, Art, StrapiLocale, User } from '@wsvvrijheid/types'
 import { LocaleBadges, PublicationBadges } from '../../admin'
 import { WTableProps } from '../../components'
 
-export const artColumns: WTableProps<Art>['columns'] = {
+export const artColumns = (
+  locale: StrapiLocale,
+): WTableProps<Art>['columns'] => ({
   image: { type: 'image' },
-  title_nl: { label: 'Title' },
-  description_nl: { label: 'Description' },
+  [`title_${locale}`]: { label: 'Title' },
+  [`description_${locale}`]: { label: 'Description' },
   artist: {
     transform: value => (value as User)?.username,
     sortKey: 'username',
@@ -41,4 +43,4 @@ export const artColumns: WTableProps<Art>['columns'] = {
     componentProps: { format: 'dd MMMM' },
     sortable: true,
   },
-}
+})
