@@ -1,6 +1,5 @@
 import { getIronSession } from 'iron-session/edge'
-import { NextRequest } from 'next/server'
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 
 import { getRoutePermission } from '@wsvvrijheid/utils/getRoutePermission'
 
