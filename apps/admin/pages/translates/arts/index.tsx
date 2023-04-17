@@ -91,7 +91,7 @@ const ArtsTranslatesPage: FC<PageProps> = ({ seo }) => {
         ]}
       />
       <DataTable
-        columns={artColumns}
+        columns={artColumns(locale as StrapiLocale)}
         data={mappedArts}
         totalCount={totalCount}
         currentPage={currentPage}

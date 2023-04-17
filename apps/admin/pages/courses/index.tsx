@@ -46,7 +46,6 @@ const CoursesPage: FC<PageProps> = ({ seo }) => {
 
   const courses = coursesQuery?.data?.data
   const totalCount = coursesQuery?.data?.meta?.pagination?.pageCount
-  console.log('courses', courses)
 
   const mappedCourses = courses?.map(course => {
     const translates = []

@@ -16,7 +16,7 @@ const DonationPage = () => {
 export const getStaticProps = async context => {
   return {
     props: {
-      ...(await serverSideTranslations(context.locale, ['common'])),
+      ...(await serverSideTranslations(context.locale, ['admin', 'common'])),
     },
   }
 }

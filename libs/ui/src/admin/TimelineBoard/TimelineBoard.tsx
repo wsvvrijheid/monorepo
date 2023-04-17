@@ -7,7 +7,7 @@ import { TweetCard } from '../TweetCard'
 
 export const TimelineBoard: FC<TimelineBoardProps> = ({ timelines }) => {
   return (
-    <HStack gap={4} overflowY="auto" shouldWrapChildren={true}>
+    <HStack gap={4} overflowY="auto" shouldWrapChildren>
       {timelines?.map(timeline => (
         <Box
           key={timeline.id}
@@ -30,7 +30,11 @@ export const TimelineBoard: FC<TimelineBoardProps> = ({ timelines }) => {
             </Box>
           </Link>
 
-          <Stack overflowY="auto" h="720px" divider={<Divider />}>
+          <Stack
+            overflowY="auto"
+            h={'calc(100vh - 148px)'}
+            divider={<Divider />}
+          >
             {timeline?.tweets?.map((tweet, key) => {
               // FIXME: Why image is not showing up?
               return (

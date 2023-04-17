@@ -1,33 +1,38 @@
 import { useEffect, useState } from 'react'
 
-import { useUpdateEffect } from '@chakra-ui/react'
+import { useDisclosure, useUpdateEffect } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
 
 import { useSearchModel } from '@wsvvrijheid/services'
-import { Activity, Sort, StrapiLocale } from '@wsvvrijheid/types'
+import { Blog, Sort, StrapiLocale } from '@wsvvrijheid/types'
 import {
   activityColumns,
   AdminLayout,
+  blogFields,
+  blogSchema,
   DataTable,
+  ModelEditModal,
   PageHeader,
 } from '@wsvvrijheid/ui'
 
-import i18nConfig from '../../next-i18next.config'
+import i18nConfig from '../next-i18next.config'
 
-const ActivitiesPage = ({ seo }) => {
+const BlogsPage = ({ seo }) => {
   const { t } = useTranslation()
   const [currentPage, setCurrentPage] = useState<number>()
+  const [selectedId, setSelectedId] = useState<number>()
+  const { isOpen, onClose, onOpen } = useDisclosure()
 
   const [searchTerm, setSearchTerm] = useState<string>()
-  const { locale, push } = useRouter()
+  const { locale } = useRouter()
 
   const [sort, setSort] = useState<Sort>()
 
-  const activitiesQuery = useSearchModel<Activity>({
-    url: 'api/activities',
+  const blogsQuery = useSearchModel<Blog>({
+    url: 'api/blogs',
     page: currentPage || 1,
     pageSize: 10,
     searchTerm,
@@ -43,20 +48,31 @@ const ActivitiesPage = ({ seo }) => {
   }
 
   useUpdateEffect(() => {
-    activitiesQuery.refetch()
+    blogsQuery.refetch()
   }, [locale, searchTerm, sort])
 
-  const activities = activitiesQuery?.data?.data
-  const totalCount = activitiesQuery?.data?.meta?.pagination?.pageCount
+  const blogs = blogsQuery?.data?.data
+  const totalCount = blogsQuery?.data?.meta?.pagination?.pageCount
 
-  const mappedActivities = activities?.map(activity => ({
-    ...activity,
-    translates: activity.localizations?.map(l => l.locale),
+  const mappedBlogs = blogs?.map(blog => ({
+    ...blog,
+    translates: blog.localizations?.map(l => l.locale),
   }))
 
   const handleClick = (index: number, id: number) => {
-    push(`/activities/${id}`)
+    setSelectedId(id)
   }
+
+  const handleClose = () => {
+    setSelectedId(undefined)
+    onClose()
+  }
+
+  useEffect(() => {
+    if (selectedId) {
+      onOpen()
+    }
+  }, [selectedId])
 
   return (
     <AdminLayout seo={seo}>
@@ -64,10 +80,18 @@ const ActivitiesPage = ({ seo }) => {
         onSearch={handleSearch}
         searchPlaceHolder={t('search-placeholder')}
       />
-
+      <ModelEditModal<Blog>
+        url={'api/blogs'}
+        id={selectedId}
+        isOpen={isOpen}
+        onClose={handleClose}
+        fields={blogFields}
+        schema={blogSchema}
+        title={'Edit Blog'}
+      />
       <DataTable
         columns={activityColumns}
-        data={mappedActivities}
+        data={mappedBlogs}
         totalCount={totalCount}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
@@ -82,9 +106,9 @@ export const getStaticProps = async context => {
   const { locale } = context
 
   const title = {
-    en: 'Activities',
-    tr: 'Aktiviteler',
-    nl: 'Activiteiten',
+    en: 'Blogs',
+    tr: 'Bloglar',
+    nl: 'Blogs',
   }
 
   const seo: NextSeoProps = {
@@ -103,4 +127,4 @@ export const getStaticProps = async context => {
   }
 }
 
-export default ActivitiesPage
+export default BlogsPage

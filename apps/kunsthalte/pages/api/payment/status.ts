@@ -1,6 +1,6 @@
-import { TOKEN } from '@wsvvrijheid/config'
 import { Mutation } from '@wsvvrijheid/lib'
 import { mollieClient } from '@wsvvrijheid/mollie'
+import { TOKEN } from '@wsvvrijheid/secrets'
 import { Donation, DonationUpdateInput } from '@wsvvrijheid/types'
 
 export default async function handler(req, res) {

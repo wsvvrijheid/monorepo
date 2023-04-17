@@ -9,11 +9,12 @@ export default {
   component: AdminNavItem,
   args: {
     label: 'Test',
-    link: '/test',
+    link: '/',
+    visible: true,
     submenu: [
       {
         label: 'Test',
-        link: '/test',
+        link: '/',
         icon: <></>,
         visible: true,
         submenu: [],

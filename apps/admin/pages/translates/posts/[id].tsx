@@ -32,6 +32,8 @@ const TranslatePostPage: FC<PageProps> = ({ seo }) => {
         translatedFields={['description', 'content']}
         fields={translatePostModelFields}
         schema={translatePostModelSchema}
+        approverRoles={['translator']}
+        editorRoles={['translator']}
       />
     </AdminLayout>
   )

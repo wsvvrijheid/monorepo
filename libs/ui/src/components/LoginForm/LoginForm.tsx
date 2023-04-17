@@ -60,7 +60,7 @@ export const LoginForm: FC<LoginFormProps> = ({ providersToBeShown = [] }) => {
     mutationKey: ['login'],
     mutationFn: (body: LoginFormFieldValues) =>
       axios.post('/api/auth/login', {
-        identifier: body.email,
+        identifier: body.identifier,
         password: body.password,
       }),
     onSuccess: async data => {
@@ -103,7 +103,7 @@ export const LoginForm: FC<LoginFormProps> = ({ providersToBeShown = [] }) => {
           <Stack spacing="5">
             <FormItem
               data-testid="input-email"
-              name="email"
+              name="identifier"
               label={t('login.email.title') as string}
               type="email"
               register={register}

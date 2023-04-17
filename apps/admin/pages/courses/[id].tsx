@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 
 import {
   Accordion,
@@ -6,10 +6,10 @@ import {
   AccordionIcon,
   AccordionItem,
   AccordionPanel,
-  Box,
   MenuItem,
   Stack,
   Text,
+  useDisclosure,
   useUpdateEffect,
 } from '@chakra-ui/react'
 import { InferGetServerSidePropsType } from 'next'
@@ -28,10 +28,13 @@ import {
 import {
   AdminLayout,
   applicationColumns,
+  courseApplicationFields,
+  courseApplicationSchema,
   courseFields,
   courseSchema,
   DataTable,
   ModelEditForm,
+  ModelEditModal,
   PageHeader,
 } from '@wsvvrijheid/ui'
 
@@ -41,10 +44,12 @@ type PageProps = InferGetServerSidePropsType<typeof getServerSideProps>
 
 const CoursePage: FC<PageProps> = ({ seo }) => {
   const router = useRouter()
+  const { isOpen, onOpen, onClose } = useDisclosure()
 
   const { locale } = useRouter()
   const { query } = router
 
+  const [selectedApplicationId, setSelectedApplicationId] = useState<number>()
   const [currentPage, setCurrentPage] = useState<number>()
   const [searchTerm, setSearchTerm] = useState<string>()
   const [sort, setSort] = useState<Sort>()
@@ -61,8 +66,9 @@ const CoursePage: FC<PageProps> = ({ seo }) => {
       parent: 'course',
       ids: [id],
     },
+    sort,
     page: currentPage || 1,
-    pageSize: 10,
+    pageSize: 100,
     searchTerm,
     locale: router.locale as StrapiLocale,
   })
@@ -83,28 +89,58 @@ const CoursePage: FC<PageProps> = ({ seo }) => {
   })
 
   const handleRowClick = (index: number, id: number) => {
-    router.push(`/courses/applications/${id}`)
+    setSelectedApplicationId(id)
+  }
+
+  useEffect(() => {
+    if (selectedApplicationId) {
+      onOpen()
+    }
+  }, [selectedApplicationId])
+
+  const handleClose = () => {
+    onClose()
+    setSelectedApplicationId(undefined)
   }
 
   return (
     <AdminLayout seo={seo} isLoading={isLoading} hasBackButton>
-      <Stack spacing={8} p={6} rounded="md" bg="white" shadow="md">
+      <ModelEditModal<CourseApplication>
+        title={'Application'}
+        url="api/course-applications"
+        id={selectedApplicationId}
+        schema={courseApplicationSchema}
+        fields={courseApplicationFields}
+        approverRoles={['academyeditor']}
+        editorRoles={['academyeditor']}
+        publisherRoles={['academyeditor']}
+        isOpen={isOpen}
+        onClose={handleClose}
+        size={'5xl'}
+      />
+      <Stack spacing={8} p={6}>
         <Accordion
           size={'lg'}
           allowToggle
+          allowMultiple={false}
           defaultIndex={0}
           borderColor="transparent"
+          defaultValue={0}
         >
-          <AccordionItem>
+          <AccordionItem _notLast={{ mb: 2 }}>
             <AccordionButton
               justifyContent="space-between"
               cursor="pointer"
-              fontSize="xl"
+              fontSize="lg"
+              bg={'white'}
+              rounded={'md'}
+              fontWeight={600}
+              shadow={'sm'}
             >
               <Text>{course?.[`title_${router.locale}`]}</Text>
               <AccordionIcon ml={'auto'} />
             </AccordionButton>
-            <AccordionPanel p={0} mt={4}>
+            <AccordionPanel mt={4} bg={'white'} rounded={'md'}>
               {course && (
                 <ModelEditForm<Course>
                   url="api/courses"
@@ -112,35 +148,60 @@ const CoursePage: FC<PageProps> = ({ seo }) => {
                   schema={courseSchema}
                   fields={courseFields}
                   onSuccess={refetch}
+                  approverRoles={[
+                    'contentmanager',
+                    'academyeditor',
+                    'translator',
+                  ]}
+                  editorRoles={[
+                    'contentmanager',
+                    'academyeditor',
+                    'translator',
+                  ]}
+                  publisherRoles={['contentmanager', 'academyeditor']}
                 />
               )}
             </AccordionPanel>
           </AccordionItem>
-        </Accordion>
-        <Box>
-          <PageHeader
-            onSearch={handleSearch}
-            searchPlaceHolder={'Search courses by title'}
-            sortMenu={[
-              <MenuItem key="asc" icon={<FaArrowUp />}>
-                Name Asc
-              </MenuItem>,
-              <MenuItem key="desc" icon={<FaArrowDown />}>
-                Name Desc
-              </MenuItem>,
-            ]}
-          />
+          <AccordionItem>
+            <AccordionButton
+              justifyContent="space-between"
+              cursor="pointer"
+              fontSize="lg"
+              bg={'white'}
+              rounded={'md'}
+              fontWeight={600}
+              shadow={'sm'}
+            >
+              <Text>Applications</Text>
+              <AccordionIcon ml={'auto'} />
+            </AccordionButton>
+            <AccordionPanel mt={4} bg={'white'} rounded={'md'}>
+              <PageHeader
+                onSearch={handleSearch}
+                searchPlaceHolder={'Search courses by title'}
+                sortMenu={[
+                  <MenuItem key="asc" icon={<FaArrowUp />}>
+                    Name Asc
+                  </MenuItem>,
+                  <MenuItem key="desc" icon={<FaArrowDown />}>
+                    Name Desc
+                  </MenuItem>,
+                ]}
+              />
 
-          <DataTable
-            columns={applicationColumns}
-            data={applications}
-            totalCount={totalCount}
-            currentPage={currentPage}
-            setCurrentPage={setCurrentPage}
-            onSort={setSort}
-            onClickRow={handleRowClick}
-          />
-        </Box>
+              <DataTable
+                columns={applicationColumns}
+                data={applications}
+                totalCount={totalCount}
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage}
+                onSort={setSort}
+                onClickRow={handleRowClick}
+              />
+            </AccordionPanel>
+          </AccordionItem>
+        </Accordion>
       </Stack>
     </AdminLayout>
   )

@@ -4,9 +4,9 @@ import { PaymentStatus } from '@mollie/api-client'
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import { TOKEN } from '@wsvvrijheid/config'
 import { Mutation, Request } from '@wsvvrijheid/lib'
 import { mollieClient } from '@wsvvrijheid/mollie'
+import { TOKEN } from '@wsvvrijheid/secrets'
 import { Donation, StrapiUrl } from '@wsvvrijheid/types'
 import { DonationCompleteTemplate } from '@wsvvrijheid/ui'
 

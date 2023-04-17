@@ -1,7 +1,7 @@
 import { withIronSessionApiRoute } from 'iron-session/next'
 import { NextApiRequest, NextApiResponse } from 'next'
 
-import { sessionOptions } from '@wsvvrijheid/lib'
+import { sessionOptions } from '@wsvvrijheid/secrets'
 
 async function logoutRoute(req: NextApiRequest, res: NextApiResponse) {
   req.session.destroy()

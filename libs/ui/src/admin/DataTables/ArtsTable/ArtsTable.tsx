@@ -1,9 +1,10 @@
 import { FC, useState } from 'react'
 
 import { useDisclosure } from '@chakra-ui/react'
+import { useRouter } from 'next/router'
 
 import { useAuthSelector } from '@wsvvrijheid/store'
-import { Art } from '@wsvvrijheid/types'
+import { Art, StrapiLocale } from '@wsvvrijheid/types'
 
 import { artColumns } from '../../../data'
 import { ArtApprovalModal } from '../../ArtApprovalModal'
@@ -23,6 +24,8 @@ export const ArtsTable: FC<ArtsTableProps> = ({
   setCurrentPage,
 }) => {
   const { user } = useAuthSelector()
+
+  const { locale } = useRouter()
 
   const approvalDisclosure = useDisclosure()
 
@@ -50,7 +53,7 @@ export const ArtsTable: FC<ArtsTableProps> = ({
       )}
       <DataTable
         data={arts}
-        columns={artColumns}
+        columns={artColumns(locale as StrapiLocale)}
         onClickRow={handleClickRow}
         totalCount={totalCount}
         currentPage={currentPage}

@@ -3,6 +3,7 @@ import { Control, FieldErrorsImpl, FieldValues } from 'react-hook-form'
 import { AssertsShape, OptionalObjectSchema } from 'yup/lib/object'
 
 import {
+  Role,
   StrapiModel,
   StrapiTranslatableModel,
   StrapiUrl,
@@ -65,6 +66,8 @@ export type ModelEditTranslateProps<T extends StrapiTranslatableModel> = {
   fields: FormFields<T>
   pathname: string
   schema: OptionalObjectSchema<any>
+  approverRoles?: Role['type'][]
+  editorRoles?: Role['type'][]
 }
 
 export type ModelSelectProps = WSelectProps<FieldValues> & {

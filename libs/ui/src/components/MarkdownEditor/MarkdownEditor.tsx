@@ -29,12 +29,17 @@ const MarkdownEditor = forwardRef<MarkdownEditorProps, any>((props, ref) => {
         '.section-container': { p: '0 !important' },
         '.custom-html-style': {
           color: 'gray.500',
+          bg: 'gray.50',
+          p: '2',
+          rounded: 'sm',
           '& p': { fontSize: 'md', m: 0 },
         },
         borderColor: 'transparent',
         _hover: { borderColor: 'transparent' },
         color: 'gray.500',
         userSelect: 'none',
+        maxH: 500,
+        overflowY: 'auto',
       }
     : {}
 

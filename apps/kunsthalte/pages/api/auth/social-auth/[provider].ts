@@ -3,7 +3,7 @@ import { withIronSessionApiRoute } from 'iron-session/next'
 import { NextApiResponse, NextApiRequest } from 'next'
 
 import { API_URL } from '@wsvvrijheid/config'
-import { sessionOptions } from '@wsvvrijheid/lib'
+import { sessionOptions } from '@wsvvrijheid/secrets'
 import { getSessionUser } from '@wsvvrijheid/services'
 import { AuthResponse } from '@wsvvrijheid/types'
 
