@@ -11,6 +11,7 @@ import {
   QueryClientProvider,
 } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import { Analytics } from '@vercel/analytics/react'
 import { merge } from 'lodash'
 import { useRouter } from 'next/router'
 import { appWithTranslation } from 'next-i18next'
@@ -70,6 +71,7 @@ function MyApp({ Component, pageProps }) {
           <ChakraProvider theme={extendTheme(theme)}>
             <DefaultSeo {...defaultSeo.admin[locale]} />
             <Component {...pageProps} />
+            <Analytics />
             <ToastContainer />
           </ChakraProvider>
         </ReduxProvider>
