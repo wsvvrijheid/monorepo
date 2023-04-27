@@ -6289,6 +6289,11 @@
   dependencies:
     lodash.throttle "^4.1.1"
 
+"@vercel/analytics@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@vercel/analytics/-/analytics-1.0.0.tgz#7041bf3f14d65ab685f053b2fab09c605d12543e"
+  integrity sha512-RQmj7pv82JwGDHrnKeRc6TtSw2U7rWNubc2IH0ernTzWTj02yr9zvIYiYJeztsBzrJtWv7m8Nz6vxxb+cdEtJw==
+
 "@vercel/og@^0.5.2":
   version "0.5.2"
   resolved "https://registry.yarnpkg.com/@vercel/og/-/og-0.5.2.tgz#4b2011de01835e40dffd97d2fb6fea0439f5b31e"

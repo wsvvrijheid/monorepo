@@ -7,6 +7,7 @@ import {
   QueryClientProvider,
 } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import { Analytics } from '@vercel/analytics/react'
 import { useRouter } from 'next/router'
 import { appWithTranslation } from 'next-i18next'
 import { DefaultSeo } from 'next-seo'
@@ -51,6 +52,7 @@ function MyApp({ Component, pageProps }) {
           <ChakraProvider theme={themes.wsvvrijheid}>
             <DefaultSeo {...defaultSeo.wsvvrijheid[router.locale]} />
             <Component {...pageProps} />
+            <Analytics />
             <ToastContainer />
           </ChakraProvider>
         </ReduxProvider>
