@@ -1,23 +1,18 @@
 import { FC } from 'react'
 
 import { truncate } from 'lodash'
+import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { serialize } from 'next-mdx-remote/serialize'
-import { NextSeoProps } from 'next-seo'
 
 import { Request } from '@wsvvrijheid/lib'
-import { Privacy } from '@wsvvrijheid/types'
+import { Privacy, StrapiLocale } from '@wsvvrijheid/types'
 import { Container, Hero, Markdown } from '@wsvvrijheid/ui'
 
 import { Layout } from '../components'
 import i18nConfig from '../next-i18next.config'
 
-type PrivacyProps = {
-  seo: NextSeoProps
-  privacy: Privacy
-  source: MDXRemoteSerializeResult
-}
+type PrivacyProps = InferGetStaticPropsType<typeof getStaticProps>
 
 const Privacy: FC<PrivacyProps> = ({ privacy, seo, source }) => {
   return (
@@ -32,8 +27,8 @@ const Privacy: FC<PrivacyProps> = ({ privacy, seo, source }) => {
 
 export default Privacy
 
-export const getStaticProps = async context => {
-  const { locale } = context
+export const getStaticProps = async (context: GetStaticPropsContext) => {
+  const locale = context.locale as StrapiLocale
 
   const response = await Request.single<Privacy>({
     url: 'api/privacy',
@@ -62,5 +57,6 @@ export const getStaticProps = async context => {
       seo,
       ...(await serverSideTranslations(locale, ['common'], i18nConfig)),
     },
+    revalidate: 1,
   }
 }

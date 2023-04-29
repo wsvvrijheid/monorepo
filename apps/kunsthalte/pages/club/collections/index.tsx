@@ -65,5 +65,6 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
       seo,
       collections,
     },
+    revalidate: 1,
   }
 }

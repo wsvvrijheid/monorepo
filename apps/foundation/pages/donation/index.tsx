@@ -32,6 +32,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
       ...(await serverSideTranslations(context.locale, ['common'])),
       platforms,
     },
+    revalidate: 1,
   }
 }
 

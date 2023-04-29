@@ -45,5 +45,6 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
       title: seo.title[locale],
       platforms,
     },
+    revalidate: 1,
   }
 }

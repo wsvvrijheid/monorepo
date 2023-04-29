@@ -62,5 +62,6 @@ export const getStaticProps = async context => {
       seo,
       ...(await serverSideTranslations(locale, ['common'], i18nConfig)),
     },
+    revalidate: 1,
   }
 }
