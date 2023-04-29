@@ -66,7 +66,7 @@ const Platforms: FC<CoursesProps> = ({ title, courses }) => {
 }
 
 export default Platforms
-// course.content_en`content_${locale as StrapiLocale}`
+
 export const getStaticProps = async (context: GetStaticPropsContext) => {
   const { locale } = context
 
@@ -89,5 +89,6 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
       title: seo.title[locale],
       courses,
     },
+    revalidate: 1,
   }
 }

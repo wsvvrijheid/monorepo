@@ -1,5 +1,5 @@
 import { Box, Stack } from '@chakra-ui/react'
-import { QueryClient } from '@tanstack/react-query'
+import { dehydrate, QueryClient } from '@tanstack/react-query'
 import { GetStaticProps } from 'next'
 import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
@@ -19,7 +19,6 @@ import i18nConfig from '../..//next-i18next.config'
 import { HashtagCard, Layout } from '../../components'
 
 interface HashtagEventsProps {
-  hashtags: Hashtag[]
   seo: NextSeoProps
   source: MDXRemoteSerializeResult<Record<string, unknown>>
 }
@@ -76,8 +75,6 @@ export const getStaticProps: GetStaticProps = async context => {
 
   await queryClient.prefetchQuery(queryKey, () => searchModel<Hashtag>(args))
 
-  const hashtags = queryClient.getQueryData<Hashtag[]>(queryKey)
-
   const title = {
     en: 'Hashtags',
     nl: 'Hashtags',
@@ -105,12 +102,12 @@ export const getStaticProps: GetStaticProps = async context => {
 
   return {
     props: {
+      dehydratedState: dehydrate(queryClient),
       ...(await serverSideTranslations(
         locale as StrapiLocale,
         ['common'],
         i18nConfig,
       )),
-      hashtags,
       seo,
       source,
     },

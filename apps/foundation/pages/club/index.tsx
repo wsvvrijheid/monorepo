@@ -52,5 +52,6 @@ export const getStaticProps: GetStaticProps = async context => {
       title: seo.title[locale],
       dehydratedState: dehydrate(queryClient),
     },
+    revalidate: 1,
   }
 }
