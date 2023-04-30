@@ -70,7 +70,7 @@
     "i18next-http-backend": "^2.2.0",
     "iron-session": "^6.3.1",
     "lodash": "^4.17.21",
-    "next": "13.3.0",
+    "next": "13.3.2",
     "next-i18next": "^13.2.2",
     "next-mdx-remote": "^4.4.1",
     "next-seo": "^6.0.0",
