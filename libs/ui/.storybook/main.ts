@@ -3,13 +3,16 @@ import path from 'path'
 import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin'
 
 const config: StorybookConfig = {
+  stories: ['../**/*.stories.@(js|jsx|ts|tsx)'],
+  addons: [
+    '@storybook/addon-essentials',
+    '@chakra-ui/storybook-addon',
+    'storybook-react-i18next',
+  ],
   framework: {
     name: '@storybook/nextjs',
     options: {},
   },
-  staticDirs: ['../public'],
-  stories: ['../**/*.stories.mdx', '../**/*.stories.@(js|jsx|ts|tsx)'],
-  addons: ['@chakra-ui/storybook-addon', 'storybook-react-i18next'],
   webpackFinal: async config => {
     if (config.resolve) {
       config.resolve.fallback = {
@@ -41,3 +44,7 @@ const config: StorybookConfig = {
 }
 
 export default config
+
+// To customize your webpack configuration you can use the webpackFinal field.
+// Check https://storybook.js.org/docs/react/builders/webpack#extending-storybooks-webpack-config
+// and https://nx.dev/packages/storybook/documents/custom-builder-configs
