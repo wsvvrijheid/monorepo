@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup'
-import { Story, Meta } from '@storybook/react'
-import { useForm } from 'react-hook-form'
+import { StoryObj, StoryFn, Meta } from '@storybook/react'
+import { FieldValues, useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
 import { WSelect, WSelectProps } from './WSelect'
@@ -34,7 +34,11 @@ type SelectFormFieldValues = {
   }
 }
 
-const Template: Story<WSelectProps<SelectFormFieldValues>> = args => {
+type Story<T extends FieldValues> = StoryObj<WSelectProps<T>>
+
+const StoryWithHooksSingle: StoryFn<
+  WSelectProps<SelectFormFieldValues>
+> = args => {
   const {
     control,
     formState: { errors },
@@ -56,22 +60,28 @@ const Template: Story<WSelectProps<SelectFormFieldValues>> = args => {
   )
 }
 
-export const Default = Template.bind({})
-Default.args = {
-  label: 'Default',
+export const Default: Story<SelectFormFieldValues> = {
+  render: StoryWithHooksSingle,
+  args: {
+    label: 'Default',
+  },
 }
 
-export const Check = Template.bind({})
-Check.args = {
-  label: 'Check',
-  selectedOptionStyle: 'check',
+export const Check: Story<SelectFormFieldValues> = {
+  render: StoryWithHooksSingle,
+  args: {
+    label: 'Check',
+    selectedOptionStyle: 'check',
+  },
 }
 
-export const Color = Template.bind({})
-Color.args = {
-  label: 'Color',
-  selectedOptionStyle: 'color',
-  selectedOptionColor: 'red',
+export const Color: Story<SelectFormFieldValues> = {
+  render: StoryWithHooksSingle,
+  args: {
+    label: 'Color',
+    selectedOptionStyle: 'color',
+    selectedOptionColor: 'green',
+  },
 }
 
 // MULTISELECT COMPONENT
@@ -87,7 +97,9 @@ type SelectFormMultiFieldValues = {
   }[]
 }
 
-const MultiTemplate: Story<WSelectProps<SelectFormMultiFieldValues>> = args => {
+const StoryWithHooksMultiple: StoryFn<
+  WSelectProps<SelectFormMultiFieldValues>
+> = args => {
   const {
     control,
     formState: { errors },
@@ -110,24 +122,30 @@ const MultiTemplate: Story<WSelectProps<SelectFormMultiFieldValues>> = args => {
   )
 }
 
-export const Multi = MultiTemplate.bind({})
-Multi.args = {
-  label: 'Multi',
+export const Multi: Story<SelectFormMultiFieldValues> = {
+  render: StoryWithHooksMultiple,
+  args: {
+    label: 'Multi',
+  },
 }
 
-export const MultiCheck = MultiTemplate.bind({})
-MultiCheck.args = {
-  label: 'Multi Check',
-  selectedOptionStyle: 'check',
-  closeMenuOnSelect: false,
-  hideSelectedOptions: false,
+export const MultiCheck: Story<SelectFormMultiFieldValues> = {
+  render: StoryWithHooksMultiple,
+  args: {
+    label: 'Multi Check',
+    selectedOptionStyle: 'check',
+    closeMenuOnSelect: false,
+    hideSelectedOptions: false,
+  },
 }
 
-export const MultiColor = MultiTemplate.bind({})
-MultiColor.args = {
-  label: 'Multi Color',
-  selectedOptionStyle: 'color',
-  selectedOptionColor: 'purple',
-  closeMenuOnSelect: false,
-  hideSelectedOptions: false,
+export const MultiColor: Story<SelectFormMultiFieldValues> = {
+  render: StoryWithHooksMultiple,
+  args: {
+    label: 'Multi Color',
+    selectedOptionStyle: 'color',
+    selectedOptionColor: 'purple',
+    closeMenuOnSelect: false,
+    hideSelectedOptions: false,
+  },
 }

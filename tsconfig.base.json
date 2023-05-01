@@ -32,5 +32,6 @@
       "@wsvvrijheid/utils/*": ["libs/utils/src/*"]
     }
   },
+  "files": ["./libs/types/src/session/iron.ts"],
   "exclude": ["node_modules", "tmp"]
 }

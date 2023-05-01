@@ -1,4 +1,4 @@
-import { Story, Meta } from '@storybook/react'
+import { StoryObj, Meta } from '@storybook/react'
 
 import { Header } from './Header'
 import { HeaderProps } from './types'
@@ -14,12 +14,13 @@ export default {
   },
 } as Meta<HeaderProps>
 
-const Template: Story<HeaderProps> = args => <Header {...args} />
+type Story = StoryObj<HeaderProps>
 
-export const Default = Template.bind({})
+export const Default: Story = {}
 
-export const IsLoggedIn = Template.bind({})
-IsLoggedIn.args = {
-  profileMenu: { ...PROFILE },
-  isLoggedIn: true,
+export const IsLoggedIn: Story = {
+  args: {
+    profileMenu: { ...PROFILE },
+    isLoggedIn: true,
+  },
 }

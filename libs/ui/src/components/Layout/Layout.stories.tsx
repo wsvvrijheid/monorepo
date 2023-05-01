@@ -1,4 +1,4 @@
-import { Story, Meta } from '@storybook/react'
+import { StoryObj, StoryFn, Meta } from '@storybook/react'
 
 import { Layout, LayoutProps } from './Layout'
 import { FOOTER_MENU, HEADER_MENU, PROFILE, SOCIAL_LINKS } from '../../mocks'
@@ -21,9 +21,12 @@ export default {
   },
 } as Meta<LayoutProps>
 
-const Template: Story<LayoutProps> = args => <Layout {...args} />
-const TemplateHero: Story<LayoutProps> = args => (
-  <Layout {...args} isDark>
+type Story = StoryObj<LayoutProps>
+
+export const Default: Story = {}
+
+const StoryWithHero: StoryFn<LayoutProps> = args => (
+  <Layout {...args}>
     <Hero
       title="Title"
       image="https://img.freepik.com/free-vector/hand-painted-watercolor-pastel-sky-background_23-2148902771.jpg?w=2000"
@@ -31,5 +34,9 @@ const TemplateHero: Story<LayoutProps> = args => (
   </Layout>
 )
 
-export const Default = Template.bind({})
-export const WithHero = TemplateHero.bind({})
+export const WithHero: Story = {
+  render: StoryWithHero,
+  args: {
+    isDark: true,
+  },
+}

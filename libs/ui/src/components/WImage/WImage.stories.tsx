@@ -1,5 +1,5 @@
 import { Box, Flex, SimpleGrid, Text, VStack } from '@chakra-ui/react'
-import { Story, Meta } from '@storybook/react'
+import { Meta, StoryObj } from '@storybook/react'
 
 import { FILE_MOCKS, IMAGE_MOCK } from '@wsvvrijheid/mocks'
 
@@ -29,34 +29,57 @@ export default {
   },
 } as Meta<WImageProps>
 
-// DEFAULT TEMPLATE
-const Template: Story<WImageProps> = args => <WImage {...args} />
+type Story = StoryObj<WImageProps>
 
-export const Default = Template.bind({})
+export const Default: Story = {}
 
-export const Zoom = Template.bind({})
-Zoom.args = { hasZoom: true }
+export const Zoom: Story = {
+  args: {
+    hasZoom: true,
+  },
+}
 
-export const Local = Template.bind({})
-Local.args = { src: '/images/samen.jpg' }
+export const Local: Story = {
+  args: {
+    src: '/images/no-blog.svg',
+  },
+}
 
-export const External = Template.bind({})
-External.args = { src: 'https://picsum.photos/200/300' }
+export const External: Story = {
+  args: {
+    src: 'https://picsum.photos/200/300',
+  },
+}
 
-export const Width300 = Template.bind({})
-Width300.args = { w: 300 }
+export const Width300: Story = {
+  args: {
+    w: 300,
+  },
+}
 
-export const Height300 = Template.bind({})
-Height300.args = { h: 300 }
+export const Height300: Story = {
+  args: {
+    h: 300,
+  },
+}
 
-export const BoxSize250 = Template.bind({})
-BoxSize250.args = { boxSize: 300 }
+export const BoxSize250 = {
+  args: {
+    boxSize: 250,
+  },
+}
 
-export const Twitter = Template.bind({})
-Twitter.args = { ratio: 'twitter' }
+export const Twitter = {
+  args: {
+    ratio: 'twitter',
+  },
+}
 
-export const Rounded = Template.bind({})
-Rounded.args = { rounded: 'lg' }
+export const Rounded = {
+  args: {
+    rounded: true,
+  },
+}
 
 // CUSTOM
 export const Card = () => (

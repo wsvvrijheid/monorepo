@@ -1,7 +1,8 @@
-import { Meta, StoryFn } from '@storybook/react'
+import { Meta, StoryObj } from '@storybook/react'
 import { sample } from 'lodash'
 
 import { PLATFORM_MOCKS } from '@wsvvrijheid/mocks'
+import { Platform } from '@wsvvrijheid/types'
 
 import { Card } from './Card'
 import { Container } from '../Container'
@@ -18,23 +19,25 @@ export default {
   ],
 } as Meta<typeof Card>
 
-const Template: StoryFn<typeof Card> = args => {
-  return <Card {...args} />
+type Story = StoryObj<typeof Card>
+
+const { name_en, description_en, image } = sample(
+  PLATFORM_MOCKS.data,
+) as Platform
+
+export const Default: Story = {
+  args: {
+    title: name_en,
+    description: description_en,
+    image,
+  },
 }
 
-const { name_en, description_en, image } = sample(PLATFORM_MOCKS.data)!
-
-export const Default = Template.bind({})
-Default.args = {
-  title: name_en,
-  description: description_en,
-  image,
-}
-
-export const Rounded = Template.bind({})
-Rounded.args = {
-  title: name_en,
-  description: description_en,
-  image,
-  rounded: true,
+export const Rounded: Story = {
+  args: {
+    title: name_en,
+    description: description_en,
+    image,
+    rounded: true,
+  },
 }

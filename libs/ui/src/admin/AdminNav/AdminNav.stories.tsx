@@ -1,13 +1,14 @@
 import { Box, Grid } from '@chakra-ui/react'
-import { Meta, StoryFn } from '@storybook/react'
+import { Meta, StoryObj } from '@storybook/react'
 import { sample } from 'lodash'
 
 import { USER_MOCKS } from '@wsvvrijheid/mocks'
+import { User } from '@wsvvrijheid/types'
 import { mapSessionUser } from '@wsvvrijheid/utils'
 
 import { AdminNav } from './AdminNav'
 
-const sessionUser = mapSessionUser(sample(USER_MOCKS)!)
+const sessionUser = mapSessionUser(sample(USER_MOCKS) as User)
 
 export default {
   title: 'Admin/AdminNav',
@@ -26,12 +27,11 @@ export default {
   ],
 } as Meta<typeof AdminNav>
 
-const Template: StoryFn = args => {
-  return <AdminNav user={sessionUser} {...args} />
-}
+type Story = StoryObj<typeof AdminNav>
 
-export const Default = Template.bind({})
-export const Expanded = Template.bind({})
-Expanded.args = {
-  expanded: true,
+export const Default: Story = {}
+export const Expanded: Story = {
+  args: {
+    expanded: true,
+  },
 }

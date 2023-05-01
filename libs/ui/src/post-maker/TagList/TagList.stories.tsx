@@ -1,4 +1,4 @@
-import { Meta, StoryFn } from '@storybook/react'
+import { Meta, StoryObj, StoryFn } from '@storybook/react'
 
 import {
   removeMentionUsername,
@@ -13,7 +13,9 @@ export default {
   component: TagList,
 } as Meta<typeof TagList>
 
-const Template: StoryFn<typeof TagList> = args => {
+type Story = StoryObj<typeof TagList>
+
+const StoryWithHooks: StoryFn<typeof TagList> = args => {
   const { mentionUsernames } = usePostSelector()
 
   const dispatch = useAppDispatch()
@@ -29,4 +31,6 @@ const Template: StoryFn<typeof TagList> = args => {
   return <TagList tags={mentionUsernames} onClickButton={handleClick} />
 }
 
-export const Default = Template.bind({})
+export const Default: Story = {
+  render: StoryWithHooks,
+}

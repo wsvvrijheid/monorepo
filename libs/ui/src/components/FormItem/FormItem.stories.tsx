@@ -1,6 +1,6 @@
 import { Textarea } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { Story, Meta } from '@storybook/react'
+import { StoryFn, StoryObj, Meta } from '@storybook/react'
 import { useForm } from 'react-hook-form'
 import { FaEnvelope } from 'react-icons/fa'
 import * as yup from 'yup'
@@ -20,7 +20,9 @@ const schema = yup.object({
   email: yup.string().email().required(),
 })
 
-const Template: Story<FormItemComponent> = args => {
+type Story = StoryObj<FormItemComponent>
+
+const StoryWithHook: StoryFn<FormItemComponent> = args => {
   const {
     register,
     formState: { errors },
@@ -32,17 +34,22 @@ const Template: Story<FormItemComponent> = args => {
   return <FormItem {...args} name="email" errors={errors} register={register} />
 }
 
-export const Default = Template.bind({})
-Default.args = {}
-
-export const LeftElement = Template.bind({})
-LeftElement.args = {
-  leftElement: <FaEnvelope />,
+export const Default: Story = {
+  render: StoryWithHook,
 }
 
-export const AsTextarea = Template.bind({})
-AsTextarea.args = {
-  label: 'Textarea',
-  placeholder: 'Enter text',
-  as: Textarea,
+export const LeftElement: Story = {
+  render: StoryWithHook,
+  args: {
+    leftElement: <FaEnvelope />,
+  },
+}
+
+export const AsTextarea: Story = {
+  render: StoryWithHook,
+  args: {
+    as: Textarea,
+    label: 'Textarea',
+    placeholder: 'Enter text',
+  },
 }

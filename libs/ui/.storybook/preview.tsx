@@ -1,8 +1,10 @@
 // eslint-disable @nx/enforce-module-boundaries
-import React from 'react'
+import React, { Suspense, useEffect } from 'react'
 
-import { Box } from '@chakra-ui/react'
+import { Decorator } from '@storybook/react'
+import { GlobalTypes, Parameters } from '@storybook/types'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { I18nextProvider } from 'react-i18next'
 import { Provider as ReduxProvider } from 'react-redux'
 
 import i18n from './i18next'
@@ -11,7 +13,7 @@ import { store, themes } from '../src/exports'
 import '@splidejs/react-splide/css'
 import '@splidejs/splide/dist/css/themes/splide-default.min.css'
 
-export const parameters = {
+export const parameters: Parameters = {
   i18n,
   chakra: {
     theme: themes.wsvvrijheid,
@@ -21,7 +23,7 @@ export const parameters = {
 
 // Create a global variable called locale in storybook
 // and add a menu in the toolbar to change your locale
-export const globalTypes = {
+export const globalTypes: GlobalTypes = {
   locale: {
     name: 'Locale',
     description: 'Internationalization locale',
@@ -37,24 +39,29 @@ export const globalTypes = {
   },
 }
 
-i18n.on('languageChanged', locale => {
-  const direction = i18n.dir(locale)
-  document.dir = direction
-})
-
 const queryClient = new QueryClient()
 
 /**
  * adds a Storybook decorator to get the cache and dev tools showing for each story
  */
-export const decorators = [
-  Story => (
-    <ReduxProvider store={store}>
-      <QueryClientProvider client={queryClient}>
-        <Box>
-          <Story />
-        </Box>
-      </QueryClientProvider>
-    </ReduxProvider>
-  ),
+export const decorators: Decorator[] = [
+  (Story, context) => {
+    const { locale } = context.globals
+
+    useEffect(() => {
+      i18n.changeLanguage(locale)
+    }, [locale])
+
+    return (
+      <ReduxProvider store={store}>
+        <QueryClientProvider client={queryClient}>
+          <Suspense fallback={<div>Loading</div>}>
+            <I18nextProvider i18n={i18n}>
+              <Story />
+            </I18nextProvider>
+          </Suspense>
+        </QueryClientProvider>
+      </ReduxProvider>
+    )
+  },
 ]
