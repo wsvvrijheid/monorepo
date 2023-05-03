@@ -7,9 +7,7 @@ import { useInView } from 'react-intersection-observer'
 
 const MotionBox = motion(Box)
 
-interface AnimatedBoxProps
-  extends PropsWithChildren,
-    ComponentProps<typeof MotionBox> {
+type AnimatedBoxProps = PropsWithChildren<ComponentProps<typeof MotionBox>> & {
   directing?: 'to-down' | 'to-up' | 'to-left' | 'to-right'
   distance?: number
   hasHover?: boolean

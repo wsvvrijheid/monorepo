@@ -42,13 +42,13 @@ const StoryWithHooks: StoryFn<WTableProps<StrapiModel>> = args => {
       const bValue = b[field as keyof StrapiModel] as StrapiModelKeys
 
       if (sort === 'asc') {
-        return typeof aValue === 'number'
+        return typeof aValue === 'number' && typeof bValue === 'number'
           ? aValue > bValue
             ? 1
             : -1
           : aValue.localeCompare(bValue)
       } else if (sort === 'desc') {
-        return typeof aValue === 'number'
+        return typeof aValue === 'number' && typeof bValue === 'number'
           ? aValue < bValue
             ? 1
             : -1
