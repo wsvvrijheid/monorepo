@@ -1,8 +1,7 @@
 /* eslint-disable @typescript-eslint/no-empty-interface */
 
-import 'iron-session'
-import { Role } from './role'
-import { User } from './user'
+import { Role } from '../role'
+import { User } from '../user'
 
 export type SessionUser = Pick<
   User,
@@ -34,8 +33,4 @@ export type AuthResponse = {
     createdAt: string | null
     updatedAt: string | null
   }
-}
-
-declare module 'iron-session' {
-  interface IronSessionData extends Auth {}
 }

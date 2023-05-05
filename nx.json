@@ -3,7 +3,7 @@
   "npmScope": "monorepo",
   "tasksRunnerOptions": {
     "default": {
-      "runner": "nx/tasks-runners/default",
+      "runner": "nx-cloud",
       "options": {
         "cacheableOperations": [
           "build",
@@ -11,7 +11,8 @@
           "test",
           "e2e",
           "build-storybook"
-        ]
+        ],
+        "accessToken": "MDg0ZmIzMTQtOTE5My00MzhhLWIwZTgtZDE4OTQ4MWNlZWMyfHJlYWQtd3JpdGU="
       }
     }
   },

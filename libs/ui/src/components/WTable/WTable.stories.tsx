@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 
 import { BadgeProps } from '@chakra-ui/react'
-import { Meta, Story } from '@storybook/react'
+import { Meta, StoryFn, StoryObj } from '@storybook/react'
 
 import { ART_MOCKS, CATEGORY_MOCKS, USER_MOCKS } from '@wsvvrijheid/mocks'
 import {
@@ -18,12 +18,14 @@ import {
 import { WTableProps } from './types'
 import { WTable } from './WTable'
 
+type Story<T extends StrapiModel> = StoryObj<WTableProps<T>>
+
 export default {
   component: WTable,
   title: 'Shared/WTable',
 } as Meta<WTableProps<StrapiModel>>
 
-const Template: Story<WTableProps<StrapiModel>> = args => {
+const StoryWithHooks: StoryFn<WTableProps<StrapiModel>> = args => {
   const [sortKey, setSortKey] = useState<[string] | null>(null)
   const [data, setData] = useState<StrapiModel[]>(args.data)
   const initialData = useRef(data)
@@ -40,13 +42,13 @@ const Template: Story<WTableProps<StrapiModel>> = args => {
       const bValue = b[field as keyof StrapiModel] as StrapiModelKeys
 
       if (sort === 'asc') {
-        return typeof aValue === 'number'
+        return typeof aValue === 'number' && typeof bValue === 'number'
           ? aValue > bValue
             ? 1
             : -1
           : aValue.localeCompare(bValue)
       } else if (sort === 'desc') {
-        return typeof aValue === 'number'
+        return typeof aValue === 'number' && typeof bValue === 'number'
           ? aValue < bValue
             ? 1
             : -1
@@ -64,76 +66,82 @@ const Template: Story<WTableProps<StrapiModel>> = args => {
   )
 }
 
-export const Arts = Template.bind({})
-Arts.args = {
-  data: ART_MOCKS.data,
-  columns: {
-    image: {
-      type: 'image',
-    },
-    title: {}, // default type is text
-    approvalStatus: {
-      type: 'badge',
-      // Custom props based on value
-      componentProps: value => {
-        const colorScheme = {
-          approved: 'primary',
-          pending: 'yellow',
-          rejected: 'red',
-        }
-
-        return {
-          variant: 'outline',
-          colorScheme: colorScheme[value as ApprovalStatus],
-        }
+export const Arts: Story<Art> = {
+  render: StoryWithHooks,
+  args: {
+    data: ART_MOCKS.data,
+    columns: {
+      image: {
+        type: 'image',
       },
-    },
-    publishedAt: {
-      type: 'date',
-      componentProps: {
-        format: 'dd MMMM',
+      title_en: {}, // default type is text
+      approvalStatus: {
+        type: 'badge',
+        // Custom props based on value
+        componentProps: value => {
+          const colorScheme = {
+            approved: 'primary',
+            pending: 'yellow',
+            rejected: 'red',
+          }
+
+          return {
+            variant: 'outline',
+            colorScheme: colorScheme[value as ApprovalStatus],
+          }
+        },
       },
-      sortable: true,
-    },
-  },
-} as WTableProps<Art>
-
-export const Users = Template.bind({})
-Users.args = {
-  data: USER_MOCKS,
-  columns: {
-    avatar: {
-      type: 'image',
-    },
-    username: {
-      sortable: true,
-    },
-    role: {
-      type: 'badge',
-      transform: value => (value as Role).name,
-      componentProps: value => {
-        const colorScheme: { [x in RoleName]?: BadgeProps['colorScheme'] } = {
-          Admin: 'blue',
-          Authenticated: 'purple',
-          'Content Manager': 'green',
-        }
-
-        return {
-          variant: 'outline',
-          colorScheme: colorScheme[value as RoleName],
-        }
+      publishedAt: {
+        type: 'date',
+        componentProps: {
+          format: 'dd MMMM',
+        },
+        sortable: true,
       },
     },
   },
-} as WTableProps<User>
+}
 
-export const Categories = Template.bind({})
-Categories.args = {
-  data: CATEGORY_MOCKS.data,
-  columns: {
-    name_en: {},
-    arts: {
-      transform: (value: Art[]) => value.length,
+export const Users: Story<User> = {
+  render: StoryWithHooks,
+  args: {
+    data: USER_MOCKS,
+    columns: {
+      avatar: {
+        type: 'image',
+      },
+      username: {
+        sortable: true,
+      },
+      role: {
+        type: 'badge',
+        transform: value => (value as Role).name,
+        componentProps: value => {
+          const colorScheme: { [x in RoleName]?: BadgeProps['colorScheme'] } = {
+            Admin: 'blue',
+            Authenticated: 'purple',
+            'Content Manager': 'green',
+          }
+
+          return {
+            variant: 'outline',
+            colorScheme: colorScheme[value as RoleName],
+          }
+        },
+      },
     },
   },
-} as WTableProps<Category>
+}
+
+export const Categories: Story<Category> = {
+  render: StoryWithHooks,
+  args: {
+    data: CATEGORY_MOCKS.data,
+    columns: {
+      name_en: {},
+      name_nl: {},
+      name_tr: {},
+      slug: {},
+    },
+  },
+}

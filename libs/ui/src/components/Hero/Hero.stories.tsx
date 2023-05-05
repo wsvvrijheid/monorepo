@@ -1,4 +1,4 @@
-import { Story, Meta } from '@storybook/react'
+import { StoryObj, Meta } from '@storybook/react'
 
 import { Hero, HeroProps } from './Hero'
 
@@ -11,11 +11,12 @@ export default {
   },
 } as Meta<HeroProps>
 
-const Template: Story<HeroProps> = args => <Hero {...args} />
+type Story = StoryObj<HeroProps>
 
-export const Default = Template.bind({})
+export const Default: Story = {}
 
-export const FullHeight = Template.bind({})
-FullHeight.args = {
-  isFullHeight: true,
+export const FullHeight: Story = {
+  args: {
+    isFullHeight: true,
+  },
 }

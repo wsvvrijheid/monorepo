@@ -1,5 +1,5 @@
 import { Box, Flex } from '@chakra-ui/react'
-import { Meta, Story } from '@storybook/react'
+import { Meta, StoryObj } from '@storybook/react'
 
 import { Footer } from './Footer'
 import { FooterProps } from './types'
@@ -19,12 +19,13 @@ export default {
   ],
 } as Meta<FooterProps>
 
-const Template: Story<FooterProps> = args => <Footer {...args} />
+type Story = StoryObj<FooterProps>
 
-export const Default = Template.bind({})
-Default.args = {
-  menu: FOOTER_MENU,
-  about: 'samenvvv',
-  logo: 'https://wsvvrijheid.nl/images/logo.svg',
-  socialItems: SOCIAL_LINKS,
+export const Default: Story = {
+  args: {
+    menu: FOOTER_MENU,
+    about: 'samenvvv',
+    logo: 'https://wsvvrijheid.nl/images/logo.svg',
+    socialItems: SOCIAL_LINKS,
+  },
 }
