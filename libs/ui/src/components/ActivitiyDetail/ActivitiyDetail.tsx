@@ -1,11 +1,21 @@
 import { FC } from 'react'
 
-import { Spinner, Container, Stack, Heading, Box } from '@chakra-ui/react'
+import {
+  Spinner,
+  Container,
+  Stack,
+  Heading,
+  Box,
+  HStack,
+} from '@chakra-ui/react'
+import { useRouter } from 'next/router'
 import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 
+import { SITE_URL } from '@wsvvrijheid/config'
 import { Activity, UploadFile } from '@wsvvrijheid/types'
 
 import { Markdown } from '../Markdown'
+import { ShareButtons } from '../ShareButtons'
 import { WImage } from '../WImage'
 
 export type ActivityDetailProps = {
@@ -19,7 +29,12 @@ export const ActivityDetail: FC<ActivityDetailProps> = ({
   source,
   title,
   image,
+  activity,
 }) => {
+  const { asPath } = useRouter()
+
+  const URL = `${SITE_URL}${asPath}`
+
   if (!source) return <Spinner />
 
   return (
@@ -27,6 +42,13 @@ export const ActivityDetail: FC<ActivityDetailProps> = ({
       <Stack py={8} spacing={8}>
         <WImage ratio="twitter" src={image} rounded="lg" />
         <Heading textAlign="center">{title}</Heading>
+        <HStack justifyContent={'end'}>
+          <ShareButtons
+            url={URL}
+            title={title}
+            quote={activity?.description || ''}
+          />
+        </HStack>
         <Box textAlign={{ base: 'left', lg: 'justify' }}>
           <Markdown source={source} />
         </Box>
