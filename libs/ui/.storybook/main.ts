@@ -1,6 +1,5 @@
 import type { StorybookConfig } from '@storybook/nextjs'
 import path from 'path'
-import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin'
 
 const config: StorybookConfig = {
   stories: ['../**/*.stories.@(js|jsx|ts|tsx)'],
@@ -25,15 +24,19 @@ const config: StorybookConfig = {
 
       config.resolve.alias = {
         ...config.resolve.alias,
+        '@wsvvrijheid/config': path.resolve(__dirname, '../src/config'),
+        '@wsvvrijheid/hooks': path.resolve(__dirname, '../src/hooks'),
+        '@wsvvrijheid/lib': path.resolve(__dirname, '../src/lib'),
+        '@wsvvrijheid/mocks': path.resolve(__dirname, '../src/mocks'),
+        '@wsvvrijheid/mollie': path.resolve(__dirname, '../src/mollie'),
+        '@wsvvrijheid/secrets': path.resolve(__dirname, '../src/secrets'),
+        '@wsvvrijheid/services': path.resolve(__dirname, '../src/services'),
+        '@wsvvrijheid/store': path.resolve(__dirname, '../src/store'),
+        '@wsvvrijheid/types': path.resolve(__dirname, '../src/types'),
+        '@wsvvrijheid/ui': path.resolve(__dirname, '../src/ui'),
+        '@wsvvrijheid/utils': path.resolve(__dirname, '../src/utils'),
         'next-i18next': 'react-i18next',
       }
-
-      config.resolve.plugins = config.resolve.plugins || []
-      config.resolve.plugins.push(
-        new TsconfigPathsPlugin({
-          configFile: path.resolve(__dirname, '../tsconfig.json'),
-        }),
-      )
     }
 
     return config
