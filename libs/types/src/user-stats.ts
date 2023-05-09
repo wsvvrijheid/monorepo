@@ -2,9 +2,9 @@ import { StrapiBase } from './strapi'
 import { User } from './user'
 
 export type UserStatsBase = StrapiBase & {
-    date: string
-    count: number
-    type: 'creator' | 'approver'
+  date: string
+  count: number
+  type: 'creator' | 'approver'
 }
 
 type UserStatsRelation = {

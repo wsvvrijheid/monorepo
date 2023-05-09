@@ -19,10 +19,7 @@
     },
     "type": {
       "type": "enumeration",
-      "enum": [
-        "creator",
-        "approver"
-      ]
+      "enum": ["creator", "approver"]
     },
     "blog": {
       "type": "integer"
