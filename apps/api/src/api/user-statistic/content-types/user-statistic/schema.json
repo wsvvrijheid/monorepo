@@ -1,0 +1,34 @@
+{
+  "kind": "collectionType",
+  "collectionName": "user_statistics",
+  "info": {
+    "singularName": "user-statistic",
+    "pluralName": "user-statistics",
+    "displayName": "User Statistic",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "user": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "creator",
+        "approver"
+      ]
+    },
+    "blog": {
+      "type": "integer"
+    },
+    "date": {
+      "type": "date"
+    }
+  }
+}
