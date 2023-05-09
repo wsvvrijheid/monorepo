@@ -183,7 +183,6 @@
     "stream-browserify": "^3.0.0",
     "ts-jest": "29.1.0",
     "ts-node": "~10.9.1",
-    "tsconfig-paths-webpack-plugin": "^4.0.1",
     "tslib": "^2.5.0",
     "type-fest": "^3.10.0",
     "typescript": "5.0.4",
