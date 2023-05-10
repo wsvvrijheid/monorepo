@@ -3,6 +3,7 @@ import { FC } from 'react'
 import { Stack, Box, Grid } from '@chakra-ui/react'
 import { QueryKey, useQueryClient } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
+import { useReCaptcha } from 'next-recaptcha-v3'
 
 import {
   useArtBySlug,
@@ -26,6 +27,8 @@ export type ArtWithDetailsProps = {
 }
 
 export const ArtWithDetails: FC<ArtWithDetailsProps> = ({ art, queryKey }) => {
+  const { executeRecaptcha } = useReCaptcha()
+
   const { toggleLike, isLiked, isLoading } = useLikeArt(art, queryKey)
   const queryClient = useQueryClient()
 
@@ -41,9 +44,16 @@ export const ArtWithDetails: FC<ArtWithDetailsProps> = ({ art, queryKey }) => {
     art = data as Art
   }
 
-  const handleSendForm = ({ name, content, email }: CommentFormFieldValues) => {
+  const handleSendForm = async ({
+    name,
+    content,
+    email,
+  }: CommentFormFieldValues) => {
     if (art?.id) {
+      const recaptchaToken = await executeRecaptcha('comment-form')
+
       const body = {
+        recaptcha: recaptchaToken,
         name: name as string,
         content,
         email: email as string,

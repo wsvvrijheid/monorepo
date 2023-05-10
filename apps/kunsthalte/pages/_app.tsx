@@ -10,10 +10,12 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { Analytics } from '@vercel/analytics/react'
 import { useRouter } from 'next/router'
 import { appWithTranslation } from 'next-i18next'
+import { ReCaptchaProvider } from 'next-recaptcha-v3'
 import { DefaultSeo } from 'next-seo'
 import { Provider as ReduxProvider } from 'react-redux'
 
 import { defaultSeo, themes } from '@wsvvrijheid/config'
+import { NX_KUNSTHALTE_RECAPTCHA_SITE_KEY } from '@wsvvrijheid/secrets'
 import { checkAuth, store } from '@wsvvrijheid/store'
 import { pageview } from '@wsvvrijheid/utils'
 
@@ -48,14 +50,19 @@ function MyApp({ Component, pageProps }) {
   return (
     <QueryClientProvider client={queryClient}>
       <Hydrate state={pageProps.dehydratedState}>
-        <ReduxProvider store={store}>
-          <ChakraProvider theme={themes.kunsthalte}>
-            <DefaultSeo {...defaultSeo.kunsthalte[router.locale]} />
-            <Component {...pageProps} />
-            <Analytics />
-            <ToastContainer />
-          </ChakraProvider>
-        </ReduxProvider>
+        <ReCaptchaProvider
+          useEnterprise
+          reCaptchaKey={NX_KUNSTHALTE_RECAPTCHA_SITE_KEY}
+        >
+          <ReduxProvider store={store}>
+            <ChakraProvider theme={themes.kunsthalte}>
+              <DefaultSeo {...defaultSeo.kunsthalte[router.locale]} />
+              <Component {...pageProps} />
+              <Analytics />
+              <ToastContainer />
+            </ChakraProvider>
+          </ReduxProvider>
+        </ReCaptchaProvider>
       </Hydrate>
       <ReactQueryDevtools />
     </QueryClientProvider>
