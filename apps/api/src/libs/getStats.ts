@@ -160,6 +160,7 @@ export async function getStats(userId: number) {
     postApproverCount
 
   return {
+    userId: userId,
     creatorCount: totalCreatorCount,
     approverCount: totalApproverCount,
   }
