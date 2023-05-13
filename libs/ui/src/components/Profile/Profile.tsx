@@ -16,7 +16,7 @@ import { FaPaintBrush, FaSpinner } from 'react-icons/fa'
 import { IoMdSettings } from 'react-icons/io'
 import { MdRemoveModerator } from 'react-icons/md'
 
-import { API_URL } from '@wsvvrijheid/config'
+import { ASSETS_URL } from '@wsvvrijheid/config'
 import { useArtByArtist } from '@wsvvrijheid/services'
 import { useAuthSelector } from '@wsvvrijheid/store'
 
@@ -52,7 +52,7 @@ export const AuthenticatedUserProfile = () => {
         <Stack>
           <Avatar
             size="lg"
-            src={`${API_URL}${user?.avatar}`}
+            src={`${ASSETS_URL}${user?.avatar}`}
             name={user?.username}
           />
           <HStack

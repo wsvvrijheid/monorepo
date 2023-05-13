@@ -6,7 +6,7 @@ import { CiImageOff } from 'react-icons/ci'
 import { IoMdCloudUpload } from 'react-icons/io'
 import { AssertsShape } from 'yup/lib/object'
 
-import { API_URL } from '@wsvvrijheid/config'
+import { ASSETS_URL } from '@wsvvrijheid/config'
 import {
   Post,
   StrapiModel,
@@ -45,7 +45,7 @@ export const ModelImage: FC<ModelImageProps> = ({
   const imageUrl =
     modelImageUrl && modelImageUrl.startsWith('http')
       ? modelImageUrl
-      : `${API_URL}${modelImageUrl}`
+      : `${ASSETS_URL}${modelImageUrl}`
 
   const renderImage = () => {
     if (isChangingImage || (isEditing && !image)) {

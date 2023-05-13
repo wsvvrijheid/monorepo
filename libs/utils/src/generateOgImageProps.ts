@@ -1,7 +1,7 @@
 import { theme } from '@chakra-ui/react'
 import { sample } from 'lodash'
 
-import { API_URL } from '@wsvvrijheid/config'
+import { ASSETS_URL } from '@wsvvrijheid/config'
 import { OgImageParams } from '@wsvvrijheid/types'
 
 export const generateOgImageParams = (props?: OgImageParams) => {
@@ -28,7 +28,7 @@ export const generateOgImageParams = (props?: OgImageParams) => {
   const flip = props?.flip ?? Math.random() > 0.5
   const hasLine = props?.hasLine ?? Math.random() > 0.5
 
-  const src = image?.startsWith('/uploads') ? API_URL + image : image
+  const src = image?.startsWith('/uploads') ? ASSETS_URL + image : image
 
   return {
     bg,

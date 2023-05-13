@@ -14,7 +14,7 @@ import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeo, NextSeoProps } from 'next-seo'
 
-import { API_URL, SITE_URL } from '@wsvvrijheid/config'
+import { ASSETS_URL, SITE_URL } from '@wsvvrijheid/config'
 import { getModelById } from '@wsvvrijheid/services'
 import { Post, StrapiLocale } from '@wsvvrijheid/types'
 import { PostImage } from '@wsvvrijheid/ui'
@@ -95,7 +95,7 @@ export const getServerSideProps: GetServerSideProps = async context => {
     getOgImageSrc({
       title: post.title,
       text: post.description,
-      image: src ? `${API_URL}${src}` : undefined,
+      image: src ? `${ASSETS_URL}${src}` : undefined,
       ...post.imageParams,
     })
 

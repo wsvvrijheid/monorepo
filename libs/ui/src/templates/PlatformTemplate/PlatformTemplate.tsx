@@ -6,8 +6,8 @@ import {
   Center,
   Heading,
   Link,
-  Stack,
   SimpleGrid,
+  Stack,
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
@@ -15,7 +15,7 @@ import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { NextSeoProps } from 'next-seo'
 import { FaExternalLinkAlt } from 'react-icons/fa'
 
-import { API_URL } from '@wsvvrijheid/config'
+import { ASSETS_URL } from '@wsvvrijheid/config'
 import { UploadFile } from '@wsvvrijheid/types'
 
 import { AcademyCard } from '../../academy'
@@ -76,17 +76,17 @@ export const PlatformTemplate: FC<PlatformTemplateProps> = ({
           <Box w="100%" p={2}>
             <SimpleGrid columns={{ base: 1, sm: 3 }} gap={6}>
               <AcademyCard
-                image={`${API_URL}/uploads/courses_image_3c3a1382bd.png`}
+                image={`${ASSETS_URL}/uploads/courses_image_3c3a1382bd.png`}
                 href="/courses"
                 title={t('courses')}
               />
               <AcademyCard
-                image={`${API_URL}/uploads/software_card_f3408ac222.jpeg`}
+                image={`${ASSETS_URL}/uploads/software_card_f3408ac222.jpeg`}
                 href="/platforms/academy/software"
                 title={t('software')}
               />
               <AcademyCard
-                image={`${API_URL}/uploads/Seminars_card_0a3a008777.jpeg`}
+                image={`${ASSETS_URL}/uploads/Seminars_card_0a3a008777.jpeg`}
                 href="/platforms/academy/seminars"
                 title={t('seminars')}
               />

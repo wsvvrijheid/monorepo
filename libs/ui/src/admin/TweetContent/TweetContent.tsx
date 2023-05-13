@@ -12,7 +12,7 @@ import { FaPlayCircle } from 'react-icons/fa'
 import ReactPlayer from 'react-player'
 import twitterText from 'twitter-text'
 
-import { API_URL } from '@wsvvrijheid/config'
+import { ASSETS_URL } from '@wsvvrijheid/config'
 import { RecommendedTweet, StrapiModel } from '@wsvvrijheid/types'
 
 import { TweetContentProps } from './types'
@@ -36,7 +36,7 @@ export const TweetContent: FC<TweetContentProps> = ({
   const imageUrl =
     tweet.image && tweet.image.startsWith('http')
       ? tweet.image
-      : `${API_URL}${tweet.image}`
+      : `${ASSETS_URL}${tweet.image}`
 
   return (
     <Stack spacing={4}>
