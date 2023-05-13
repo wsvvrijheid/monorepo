@@ -2,36 +2,14 @@ import i18n from 'i18next'
 import LanguageDetector from 'i18next-browser-languagedetector'
 import Backend from 'i18next-http-backend'
 
-import { StrapiLocale } from '@wsvvrijheid/types'
-
-const ns = ['common']
-const supportedLngs: StrapiLocale[] = ['en', 'nl', 'tr']
-const resources = ns.reduce((acc, n) => {
-  supportedLngs.forEach(lng => {
-    if (!acc[lng]) acc[lng] = {}
-    acc[lng] = {
-      ...acc[lng],
-      [n]: require(`../../../public/locales/${lng}/${n}.json`),
-    }
-  })
-
-  return acc
-}, {} as Record<StrapiLocale, Record<string, Record<string, string>>>)
-
 i18n
   .use(Backend)
   .use(LanguageDetector)
   .init({
-    // debug: true,
-    returnNull: false,
-    lng: 'en',
+    debug: true,
     fallbackLng: 'en',
-    defaultNS: 'common',
-    ns,
     interpolation: { escapeValue: false },
-    react: { useSuspense: false },
-    supportedLngs,
-    resources,
+    defaultNS: 'common',
   })
 
 export default i18n

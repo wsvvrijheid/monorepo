@@ -179,7 +179,6 @@
     "react-native-svg-transformer": "1.0.0",
     "react-test-renderer": "18.2.0",
     "regenerator-runtime": "0.13.11",
-    "storybook-react-i18next": "^2.0.1",
     "stream-browserify": "^3.0.0",
     "ts-jest": "29.1.0",
     "ts-node": "~10.9.1",
