@@ -2,7 +2,7 @@ import { FC } from 'react'
 
 import { Avatar, Center, Heading, Stack, Text } from '@chakra-ui/react'
 
-import { API_URL } from '@wsvvrijheid/config'
+import { ASSETS_URL } from '@wsvvrijheid/config'
 import { UploadFile } from '@wsvvrijheid/types'
 
 import { Navigate } from '../Navigate'
@@ -39,7 +39,7 @@ export const Card: FC<CardProps> = ({
             <Avatar
               objectFit="cover"
               boxSize={48}
-              src={`${API_URL}${image}`}
+              src={`${ASSETS_URL}${image}`}
               transition="transform 0.5s ease-in-out"
               _groupHover={{ transform: 'scale(1.1)' }}
             />

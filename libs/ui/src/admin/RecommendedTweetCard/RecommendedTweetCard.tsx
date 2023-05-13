@@ -2,7 +2,7 @@ import { FC } from 'react'
 
 import { Box, Divider, Stack, useBreakpointValue } from '@chakra-ui/react'
 
-import { API_URL } from '@wsvvrijheid/config'
+import { ASSETS_URL } from '@wsvvrijheid/config'
 import {
   RecommendedTweet,
   Tweet,
@@ -38,7 +38,7 @@ export const RecommendedTweetCard: FC<RecommendedTweetCardProps> = ({
     let image: string | undefined
 
     if (recommendedTweet?.image?.url) {
-      image = API_URL + recommendedTweet?.image?.url
+      image = ASSETS_URL + recommendedTweet?.image?.url
     }
 
     if (recommendedTweet?.originalTweet?.image) {

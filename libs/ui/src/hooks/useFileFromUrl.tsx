@@ -2,14 +2,14 @@ import { useEffect, useState } from 'react'
 
 import axios from 'axios'
 
-import { API_URL } from '@wsvvrijheid/config'
+import { ASSETS_URL } from '@wsvvrijheid/config'
 
 export const useFileFromUrl = (url?: string) => {
   const [imageFile, setImageFile] = useState<File>()
 
   useEffect(() => {
     const createFileFromUrl = async (url: string) => {
-      const imageUrl = url.startsWith('http') ? url : `${API_URL}${url}`
+      const imageUrl = url.startsWith('http') ? url : `${ASSETS_URL}${url}`
       const response = await axios.get(`/api/images?url=${imageUrl}`, {
         responseType: 'blob',
       })

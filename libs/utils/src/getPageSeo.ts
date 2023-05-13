@@ -1,6 +1,6 @@
 import { NextSeoProps } from 'next-seo'
 
-import { API_URL, ROUTES } from '@wsvvrijheid/config'
+import { ASSETS_URL, ROUTES } from '@wsvvrijheid/config'
 import { Hashtag, Post, StrapiLocale } from '@wsvvrijheid/types'
 
 import { getItemLink } from './getItemLink'
@@ -18,7 +18,7 @@ export const getPageSeo = (
   const title = page.title ?? post.hashtag?.title ?? ''
   const description = page.description ?? post.description ?? ''
   const image = data.image
-  const adminUrl = API_URL as string
+  const adminUrl = ASSETS_URL as string
 
   const images = image && [
     {

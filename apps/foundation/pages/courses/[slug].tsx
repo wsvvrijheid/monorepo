@@ -5,7 +5,7 @@ import { GetServerSidePropsContext, InferGetStaticPropsType } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { serialize } from 'next-mdx-remote/serialize'
 
-import { API_URL, SITE_URL } from '@wsvvrijheid/config'
+import { ASSETS_URL, SITE_URL } from '@wsvvrijheid/config'
 import { getCourseBySlug } from '@wsvvrijheid/services'
 import { StrapiLocale } from '@wsvvrijheid/types'
 import { CourseDetailPage } from '@wsvvrijheid/ui'
@@ -66,8 +66,8 @@ export const getServerSideProps = async (
       images: image
         ? [
             {
-              url: API_URL + image.url,
-              secureUrl: API_URL + image.url,
+              url: ASSETS_URL + image.url,
+              secureUrl: ASSETS_URL + image.url,
               type: image.mime,
               width: image.width,
               height: image.height,

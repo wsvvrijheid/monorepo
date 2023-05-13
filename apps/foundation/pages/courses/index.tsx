@@ -5,7 +5,7 @@ import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import { API_URL, COURSES, SITE_URL } from '@wsvvrijheid/config'
+import { ASSETS_URL, COURSES, SITE_URL } from '@wsvvrijheid/config'
 import { searchModel } from '@wsvvrijheid/services'
 import { Course, StrapiLocale } from '@wsvvrijheid/types'
 import { AcademyCard, Container, Hero } from '@wsvvrijheid/ui'
@@ -24,7 +24,7 @@ const Platforms: FC<CoursesProps> = ({ title, courses }) => {
 
   return (
     <Layout seo={{ title }}>
-      <Hero image={`${API_URL}/uploads/courses_image_3c3a1382bd.png`} />
+      <Hero image={`${ASSETS_URL}/uploads/courses_image_3c3a1382bd.png`} />
       <Container>
         <Stack mb={4}>
           <Box>
@@ -52,7 +52,7 @@ const Platforms: FC<CoursesProps> = ({ title, courses }) => {
                 <AcademyCard
                   key={course?.id}
                   title={title}
-                  image={API_URL + course?.image?.url}
+                  image={ASSETS_URL + course?.image?.url}
                   href={`${SITE_URL}/${locale}/courses/${course?.slug}`}
                   description={description}
                 />

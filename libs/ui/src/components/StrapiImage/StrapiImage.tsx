@@ -2,7 +2,7 @@ import { FC } from 'react'
 
 import Image, { ImageProps } from 'next/image'
 
-import { API_URL } from '@wsvvrijheid/config'
+import { ASSETS_URL } from '@wsvvrijheid/config'
 import { UploadFile } from '@wsvvrijheid/types'
 
 type StrapiImageProps = Omit<ImageProps, 'src'> & {
@@ -29,11 +29,11 @@ const mapStrapiImage = (width: number, image: UploadFile) => {
   }, images[0])
 
   if (!imageToUse)
-    return image.url.startsWith('http') ? image.url : API_URL + image.url
+    return image.url.startsWith('http') ? image.url : ASSETS_URL + image.url
 
   return imageToUse.url.startsWith('http')
     ? imageToUse.url
-    : API_URL + imageToUse.url
+    : ASSETS_URL + imageToUse.url
 }
 
 export const StrapiImage: FC<StrapiImageProps> = ({
@@ -45,7 +45,7 @@ export const StrapiImage: FC<StrapiImageProps> = ({
 }) => {
   return (
     <Image
-      src={image.url.startsWith('http') ? image.url : API_URL + image.url}
+      src={image.url.startsWith('http') ? image.url : ASSETS_URL + image.url}
       alt={alt || image.name}
       fill
       loader={({ width }) => mapStrapiImage(width, image)}

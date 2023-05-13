@@ -8,7 +8,7 @@ import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { serialize } from 'next-mdx-remote/serialize'
 import { NextSeoProps } from 'next-seo'
 
-import { API_URL, SITE_URL } from '@wsvvrijheid/config'
+import { ASSETS_URL, SITE_URL } from '@wsvvrijheid/config'
 import {
   getAuthorBlogs,
   getBlogBySlug,
@@ -92,7 +92,7 @@ export const getStaticProps: GetStaticProps = async context => {
 
   const title = blog?.title || null
   const description = blog?.description || null
-  const adminUrl = API_URL
+  const adminUrl = ASSETS_URL
   const siteUrl = SITE_URL
   const image = blog.image
   const url = `${siteUrl}/${locale}/blog/${locale}`
