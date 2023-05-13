@@ -1,9 +1,22 @@
-export async function getStats(userId: number) {
+import addDays from 'date-fns/addDays'
+import formatIso from 'date-fns/formatISO'
+
+export async function getStats(
+  userId: number,
+  date = new Date(),
+  totalDays = 7,
+) {
+  const start_time = formatIso(addDays(date, -totalDays))
+  const end_time = formatIso(date)
+
   const activityCreatorCount = await strapi.db
     .query('api::activity.activity')
     .count({
       where: {
         creator: userId,
+        createdAt: {
+          $between: [start_time, end_time],
+        },
       },
     })
 
@@ -12,6 +25,9 @@ export async function getStats(userId: number) {
     .count({
       where: {
         approver: userId,
+        createdAt: {
+          $between: [start_time, end_time],
+        },
       },
     })
 
@@ -20,6 +36,9 @@ export async function getStats(userId: number) {
     .count({
       where: {
         creator: userId,
+        createdAt: {
+          $between: [start_time, end_time],
+        },
       },
     })
 
@@ -28,6 +47,9 @@ export async function getStats(userId: number) {
     .count({
       where: {
         approver: userId,
+        createdAt: {
+          $between: [start_time, end_time],
+        },
       },
     })
 
@@ -36,6 +58,9 @@ export async function getStats(userId: number) {
     .count({
       where: {
         creator: userId,
+        createdAt: {
+          $between: [start_time, end_time],
+        },
       },
     })
 
@@ -44,18 +69,27 @@ export async function getStats(userId: number) {
     .count({
       where: {
         approver: userId,
+        createdAt: {
+          $between: [start_time, end_time],
+        },
       },
     })
 
   const blogCreatorCount = await strapi.db.query('api::blog.blog').count({
     where: {
       creator: userId,
+      createdAt: {
+        $between: [start_time, end_time],
+      },
     },
   })
 
   const blogApproverCount = await strapi.db.query('api::blog.blog').count({
     where: {
       approver: userId,
+      createdAt: {
+        $between: [start_time, end_time],
+      },
     },
   })
 
@@ -64,6 +98,9 @@ export async function getStats(userId: number) {
     .count({
       where: {
         creator: userId,
+        createdAt: {
+          $between: [start_time, end_time],
+        },
       },
     })
 
@@ -72,6 +109,9 @@ export async function getStats(userId: number) {
     .count({
       where: {
         approver: userId,
+        createdAt: {
+          $between: [start_time, end_time],
+        },
       },
     })
 
@@ -80,6 +120,9 @@ export async function getStats(userId: number) {
     .count({
       where: {
         creator: userId,
+        createdAt: {
+          $between: [start_time, end_time],
+        },
       },
     })
 
@@ -88,6 +131,9 @@ export async function getStats(userId: number) {
     .count({
       where: {
         approver: userId,
+        createdAt: {
+          $between: [start_time, end_time],
+        },
       },
     })
 
@@ -96,6 +142,9 @@ export async function getStats(userId: number) {
     .count({
       where: {
         creator: userId,
+        createdAt: {
+          $between: [start_time, end_time],
+        },
       },
     })
 
@@ -104,18 +153,27 @@ export async function getStats(userId: number) {
     .count({
       where: {
         approver: userId,
+        createdAt: {
+          $between: [start_time, end_time],
+        },
       },
     })
 
   const postCreatorCount = await strapi.db.query('api::post.post').count({
     where: {
       creator: userId,
+      createdAt: {
+        $between: [start_time, end_time],
+      },
     },
   })
 
   const postApproverCount = await strapi.db.query('api::post.post').count({
     where: {
       approver: userId,
+      createdAt: {
+        $between: [start_time, end_time],
+      },
     },
   })
 
@@ -124,6 +182,9 @@ export async function getStats(userId: number) {
     .count({
       where: {
         creator: userId,
+        createdAt: {
+          $between: [start_time, end_time],
+        },
       },
     })
 
@@ -132,6 +193,9 @@ export async function getStats(userId: number) {
     .count({
       where: {
         creator: userId,
+        createdAt: {
+          $between: [start_time, end_time],
+        },
       },
     })
 
