@@ -3,7 +3,22 @@ import formatIso from 'date-fns/formatISO'
 import { kebabCase } from 'lodash'
 import { KebabCase } from 'type-fest'
 
-const models = {
+type ModelKey =
+  | 'activity'
+  | 'announcement'
+  | 'application'
+  | 'blog'
+  | 'collection'
+  | 'competition'
+  | 'hashtag'
+  | 'post'
+  | 'recommendedTopic'
+  | 'recommendedTweet'
+type ModelApiKey<T extends ModelKey> = `api::${KebabCase<T>}.${KebabCase<T>}`
+type StatsType = 'creator' | 'approver'
+
+// Some models might not have approvers
+const models: Record<ModelKey, StatsType[]> = {
   activity: ['creator', 'approver'],
   announcement: ['creator', 'approver'],
   application: ['creator', 'approver'],
@@ -15,11 +30,6 @@ const models = {
   recommendedTopic: ['creator'],
   recommendedTweet: ['creator'],
 }
-
-const modelKeys = Object.keys(models) as Array<keyof typeof models>
-
-type ModelKey = keyof typeof models
-type ModelApiKey<T extends ModelKey> = `api::${KebabCase<T>}.${KebabCase<T>}`
 
 const getModelStats = async <T extends ModelKey>(
   type: 'creator' | 'approver',
@@ -46,12 +56,9 @@ export async function getStats(
   const start = formatIso(addDays(date, -totalDays))
   const end = formatIso(date)
 
-  const statsTypes = ['creator', 'approver'] as ['creator', 'approver']
-
-  const stats = {} as Record<
-    (typeof statsTypes)[number],
-    Record<ModelKey | 'total', number>
-  >
+  const statsTypes = ['creator', 'approver'] as StatsType[]
+  const modelKeys = Object.keys(models) as ModelKey[]
+  const stats = {} as Record<StatsType, Record<ModelKey | 'total', number>>
 
   for (const type of statsTypes) {
     for (const modelKey of modelKeys) {
