@@ -248,6 +248,8 @@ export type StrapiCollectionUrl =
   | 'timelines'
   | 'tweet-users'
   | 'tweets'
+  | 'user-stats'
+  | 'user-stats/me'
   | 'users'
   | 'users/me'
   | 'volunteers'

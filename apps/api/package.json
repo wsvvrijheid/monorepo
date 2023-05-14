@@ -13,7 +13,9 @@
     "docker-up": "docker compose up --remove-orphans",
     "docker-db": "docker exec -i strapiDB bash < ./scripts/docker-db-update.sh"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "type-fest": "^3.10.0"
+  },
   "dependencies": {
     "@strapi/plugin-graphql": "4.10.5",
     "@strapi/plugin-i18n": "4.10.5",

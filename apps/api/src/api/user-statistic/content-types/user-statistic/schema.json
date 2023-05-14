@@ -17,15 +17,11 @@
       "relation": "oneToOne",
       "target": "plugin::users-permissions.user"
     },
-    "type": {
-      "type": "enumeration",
-      "enum": ["creator", "approver"]
-    },
-    "blog": {
-      "type": "integer"
-    },
     "date": {
       "type": "date"
+    },
+    "stats": {
+      "type": "json"
     }
   }
 }
