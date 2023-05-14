@@ -1,14 +1,34 @@
+import { format } from 'date-fns'
 import { getStats } from '../../../../src/libs'
 
 export default async ({ strapi }) => {
-  let userStatArr = []
-  const users = await strapi.plugins[
-    'users-permissions'
-  ].services.user.fetchAll()
+  const users = await strapi.entityService.findMany(
+    'plugin::users-permissions.user',
+    {
+      filters: {
+        role: {
+          type: {
+            $not: {
+              $in: ['public', 'authenticated'],
+            },
+          },
+        },
+      },
+      fields: ['id'],
+    },
+  )
 
   for (const user of users) {
-    userStatArr.push(await getStats(user.id))
-  }
+    const stats = await getStats(user.id)
+    const date = format(new Date(), 'yyyy-MM-dd')
 
-  return userStatArr
+    await strapi.service('api::user-statistic.user-statistic').create({
+      data: {
+        user: user.id,
+        date,
+        publishedAt: new Date(),
+        stats,
+      },
+    })
+  }
 }

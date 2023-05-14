@@ -2,29 +2,54 @@ import { Context } from 'koa'
 import { getStats } from '../../../libs'
 
 export default {
-  async findCustom(ctx: Context) {
+  async getMyStats(ctx: Context) {
+    const { date, days } = ctx.query
+
     const { user } = ctx.state
-    const stats = await getStats(user.id)
-
-    const postsCreatedByUser = {
-      user: user.id,
-      type: 'creator',
-      count: stats.creatorCount,
-      date: new Date(),
-    }
-
-    const postsApprovedByUser = {
-      user: user.id,
-      type: 'approver',
-      count: stats.approverCount,
-      date: new Date(),
-    }
+    const stats = await getStats(
+      user.id,
+      date && new Date(date as string),
+      days && parseInt(days as string),
+    )
 
     return {
-      data: {
-        postsCreatedByUser,
-        postsApprovedByUser,
-      },
+      data: stats,
     }
+  },
+  async getStats(ctx: Context) {
+    const users = await strapi.entityService.findMany(
+      'plugin::users-permissions.user',
+      {
+        filters: {
+          role: {
+            type: {
+              $not: {
+                $in: ['public', 'authenticated'],
+              },
+            },
+          },
+        },
+        // Don't expose sensitive data
+        fields: ['id', 'name', 'username'],
+      },
+    )
+
+    const { date, days } = ctx.query
+
+    const result = await Promise.all(
+      users.map(async user => {
+        const stats = await getStats(
+          user.id,
+          date && new Date(date as string),
+          days && parseInt(days as string),
+        )
+        return {
+          user,
+          stats,
+        }
+      }),
+    )
+
+    return result
   },
 }

@@ -1,231 +1,89 @@
 import addDays from 'date-fns/addDays'
 import formatIso from 'date-fns/formatISO'
+import { kebabCase } from 'lodash'
+import { KebabCase } from 'type-fest'
+
+type ModelKey =
+  | 'activity'
+  | 'announcement'
+  | 'application'
+  | 'blog'
+  | 'collection'
+  | 'competition'
+  | 'hashtag'
+  | 'post'
+  | 'recommendedTopic'
+  | 'recommendedTweet'
+type ModelApiKey<T extends ModelKey> = `api::${KebabCase<T>}.${KebabCase<T>}`
+type StatsType = 'creator' | 'approver'
+
+// Some models might not have approvers
+const models: Record<ModelKey, StatsType[]> = {
+  activity: ['creator', 'approver'],
+  announcement: ['creator', 'approver'],
+  application: ['creator', 'approver'],
+  blog: ['creator', 'approver'],
+  collection: ['creator', 'approver'],
+  competition: ['creator', 'approver'],
+  hashtag: ['creator', 'approver'],
+  post: ['creator', 'approver'],
+  recommendedTopic: ['creator'],
+  recommendedTweet: ['creator'],
+}
+
+const getModelStats = async <T extends ModelKey>(
+  type: 'creator' | 'approver',
+  modelKey: ModelApiKey<T>,
+  userId: number,
+  start: string,
+  end: string,
+) => {
+  return await strapi.db.query(modelKey).count({
+    where: {
+      [type]: userId,
+      createdAt: {
+        $between: [start, end],
+      },
+    },
+  })
+}
 
 export async function getStats(
   userId: number,
   date = new Date(),
   totalDays = 7,
 ) {
-  const start_time = formatIso(addDays(date, -totalDays))
-  const end_time = formatIso(date)
+  const start = formatIso(addDays(date, -totalDays))
+  const end = formatIso(date)
 
-  const activityCreatorCount = await strapi.db
-    .query('api::activity.activity')
-    .count({
-      where: {
-        creator: userId,
-        createdAt: {
-          $between: [start_time, end_time],
-        },
-      },
-    })
+  const statsTypes = ['creator', 'approver'] as StatsType[]
+  const modelKeys = Object.keys(models) as ModelKey[]
+  const stats = {} as Record<StatsType, Record<ModelKey | 'total', number>>
 
-  const activityApproverCount = await strapi.db
-    .query('api::activity.activity')
-    .count({
-      where: {
-        approver: userId,
-        createdAt: {
-          $between: [start_time, end_time],
-        },
-      },
-    })
+  for (const type of statsTypes) {
+    for (const modelKey of modelKeys) {
+      if (!models[modelKey].includes(type)) continue
 
-  const announcementCreatorCount = await strapi.db
-    .query('api::announcement.announcement')
-    .count({
-      where: {
-        creator: userId,
-        createdAt: {
-          $between: [start_time, end_time],
-        },
-      },
-    })
+      const apiPath = kebabCase(modelKey) as KebabCase<ModelKey>
 
-  const announcementApproverCount = await strapi.db
-    .query('api::announcement.announcement')
-    .count({
-      where: {
-        approver: userId,
-        createdAt: {
-          $between: [start_time, end_time],
-        },
-      },
-    })
+      const count = await getModelStats(
+        type,
+        `api::${apiPath}.${apiPath}`,
+        userId,
+        start,
+        end,
+      )
 
-  const applicationCreatorCount = await strapi.db
-    .query('api::application.application')
-    .count({
-      where: {
-        creator: userId,
-        createdAt: {
-          $between: [start_time, end_time],
-        },
-      },
-    })
-
-  const applicationApproverCount = await strapi.db
-    .query('api::application.application')
-    .count({
-      where: {
-        approver: userId,
-        createdAt: {
-          $between: [start_time, end_time],
-        },
-      },
-    })
-
-  const blogCreatorCount = await strapi.db.query('api::blog.blog').count({
-    where: {
-      creator: userId,
-      createdAt: {
-        $between: [start_time, end_time],
-      },
-    },
-  })
-
-  const blogApproverCount = await strapi.db.query('api::blog.blog').count({
-    where: {
-      approver: userId,
-      createdAt: {
-        $between: [start_time, end_time],
-      },
-    },
-  })
-
-  const collectionCreatorCount = await strapi.db
-    .query('api::collection.collection')
-    .count({
-      where: {
-        creator: userId,
-        createdAt: {
-          $between: [start_time, end_time],
-        },
-      },
-    })
-
-  const collectionApproverCount = await strapi.db
-    .query('api::collection.collection')
-    .count({
-      where: {
-        approver: userId,
-        createdAt: {
-          $between: [start_time, end_time],
-        },
-      },
-    })
-
-  const competitionCreatorCount = await strapi.db
-    .query('api::competition.competition')
-    .count({
-      where: {
-        creator: userId,
-        createdAt: {
-          $between: [start_time, end_time],
-        },
-      },
-    })
-
-  const competitionApproverCount = await strapi.db
-    .query('api::competition.competition')
-    .count({
-      where: {
-        approver: userId,
-        createdAt: {
-          $between: [start_time, end_time],
-        },
-      },
-    })
-
-  const hashtagCreatorCount = await strapi.db
-    .query('api::hashtag.hashtag')
-    .count({
-      where: {
-        creator: userId,
-        createdAt: {
-          $between: [start_time, end_time],
-        },
-      },
-    })
-
-  const hashtagApproverCount = await strapi.db
-    .query('api::hashtag.hashtag')
-    .count({
-      where: {
-        approver: userId,
-        createdAt: {
-          $between: [start_time, end_time],
-        },
-      },
-    })
-
-  const postCreatorCount = await strapi.db.query('api::post.post').count({
-    where: {
-      creator: userId,
-      createdAt: {
-        $between: [start_time, end_time],
-      },
-    },
-  })
-
-  const postApproverCount = await strapi.db.query('api::post.post').count({
-    where: {
-      approver: userId,
-      createdAt: {
-        $between: [start_time, end_time],
-      },
-    },
-  })
-
-  const recommendedTopicCreatorCount = await strapi.db
-    .query('api::recommended-topic.recommended-topic')
-    .count({
-      where: {
-        creator: userId,
-        createdAt: {
-          $between: [start_time, end_time],
-        },
-      },
-    })
-
-  const recommendedTweetCreatorCount = await strapi.db
-    .query('api::recommended-tweet.recommended-tweet')
-    .count({
-      where: {
-        creator: userId,
-        createdAt: {
-          $between: [start_time, end_time],
-        },
-      },
-    })
-
-  // add more queries as new collections get added with approver/creator fields
-
-  const totalCreatorCount =
-    activityCreatorCount +
-    announcementCreatorCount +
-    applicationCreatorCount +
-    blogCreatorCount +
-    collectionCreatorCount +
-    competitionCreatorCount +
-    hashtagCreatorCount +
-    postCreatorCount +
-    recommendedTopicCreatorCount +
-    recommendedTweetCreatorCount
-
-  const totalApproverCount =
-    activityApproverCount +
-    announcementApproverCount +
-    applicationApproverCount +
-    blogApproverCount +
-    collectionApproverCount +
-    competitionApproverCount +
-    hashtagApproverCount +
-    postApproverCount
+      stats[type] = {
+        ...stats[type],
+        [modelKey]: count,
+        total: (stats[type]?.total ?? 0) + count,
+      }
+    }
+  }
 
   return {
-    userId: userId,
-    creatorCount: totalCreatorCount,
-    approverCount: totalApproverCount,
+    approves: stats.approver,
+    creations: stats.creator,
   }
 }
