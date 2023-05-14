@@ -52,5 +52,10 @@ export const getPlatformStaticProps = async (
     image,
     link,
     source,
+    slugs: {
+      en: platform.slug,
+      nl: platform.slug,
+      tr: platform.slug,
+    },
   }
 }
