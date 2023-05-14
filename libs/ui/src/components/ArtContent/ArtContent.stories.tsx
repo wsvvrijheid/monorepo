@@ -1,7 +1,7 @@
 import { StoryFn, Meta } from '@storybook/react'
 import { sample } from 'lodash'
 
-import { API_URL } from '@wsvvrijheid/config'
+import { ASSETS_URL } from '@wsvvrijheid/config'
 import { ART_MOCKS, USER_MOCKS } from '@wsvvrijheid/mocks'
 import { Art } from '@wsvvrijheid/types'
 
@@ -28,7 +28,7 @@ const Template: StoryFn<typeof ArtContent> = args => {
       title={title_en}
       description={description_en}
       artistName={artist?.name || user?.username || 'Unknown'}
-      artistAvatar={`${API_URL}${user?.avatar?.url}`}
+      artistAvatar={`${ASSETS_URL}${user?.avatar?.url}`}
       artistProfilePath={`/artist/${user?.username}`}
     />
   )

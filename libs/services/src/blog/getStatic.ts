@@ -1,7 +1,7 @@
 import { QueryClient } from '@tanstack/react-query'
 import { GetStaticPropsContext } from 'next/types'
 
-import { API_URL, SITE_URL } from '@wsvvrijheid/config'
+import { ASSETS_URL, SITE_URL } from '@wsvvrijheid/config'
 import { Blog, StrapiLocale } from '@wsvvrijheid/types'
 
 import { getAuthorBlogs } from './get'
@@ -24,7 +24,7 @@ export const getBlogStaticProps = async (context: GetStaticPropsContext) => {
 
   const title = blog?.title || null
   const description = blog?.description || null
-  const adminUrl = API_URL
+  const adminUrl = ASSETS_URL
   const siteUrl = SITE_URL
   const image = blog.image
   const url = `${siteUrl}/${locale}/blog/${locale}`

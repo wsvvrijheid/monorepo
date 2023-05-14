@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { FaChevronRight } from 'react-icons/fa'
 
-import { API_URL } from '@wsvvrijheid/config'
+import { ASSETS_URL } from '@wsvvrijheid/config'
 import { Platform, StrapiLocale } from '@wsvvrijheid/types'
 
 import { Navigate } from '../Navigate'
@@ -32,7 +32,7 @@ export const PlatformList: FC<PlatformListProps> = ({ platforms }) => {
           shadow="base"
         >
           {/* TODO Create image component to handle internal/external image paths */}
-          <Avatar size="2xl" src={`${API_URL}${platform.image?.url}`} />
+          <Avatar size="2xl" src={`${ASSETS_URL}${platform.image?.url}`} />
           <Stack align={{ base: 'center', lg: 'start' }}>
             <Heading textAlign="center" size="md" as="h3" fontWeight={900}>
               {platform[`name_${locale as StrapiLocale}`]}

@@ -2,7 +2,7 @@ import { FC, PropsWithChildren } from 'react'
 
 import { NextSeoProps } from 'next-seo'
 
-import { API_URL, menus, socialLinks } from '@wsvvrijheid/config'
+import { ASSETS_URL, menus, socialLinks } from '@wsvvrijheid/config'
 import { Layout as AppLayout } from '@wsvvrijheid/ui'
 
 interface LayoutProps extends PropsWithChildren {
@@ -22,7 +22,7 @@ export const Layout: FC<LayoutProps> = ({
   return (
     <AppLayout
       seo={seo}
-      logo={`${API_URL}/uploads/samenvvv_32898faefb.svg`}
+      logo={`${ASSETS_URL}/uploads/samenvvv_32898faefb.svg`}
       headerProps={{
         headerMenu: menus.samenvvv.headerMenu,
         animated: false,

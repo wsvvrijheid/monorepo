@@ -2,7 +2,7 @@ import { FC } from 'react'
 
 import { ImageProps } from '@chakra-ui/react'
 
-import { API_URL } from '@wsvvrijheid/config'
+import { ASSETS_URL } from '@wsvvrijheid/config'
 import { Post } from '@wsvvrijheid/types'
 
 import { Caps } from '../Caps'
@@ -20,13 +20,13 @@ export const PostImage: FC<PostImageProps> = ({
   let src: string | undefined
 
   if (post?.image?.formats?.small) {
-    src = `${API_URL}${post.image.formats.small.url}`
+    src = `${ASSETS_URL}${post.image.formats.small.url}`
   } else if (post?.image?.formats?.medium) {
-    src = `${API_URL}${post.image.formats.medium.url}`
+    src = `${ASSETS_URL}${post.image.formats.medium.url}`
   } else if (post?.image?.formats?.large) {
-    src = `${API_URL}${post.image.formats.large.url}`
+    src = `${ASSETS_URL}${post.image.formats.large.url}`
   } else {
-    src = post.image?.url && `${API_URL}${post.image?.url}`
+    src = post.image?.url && `${ASSETS_URL}${post.image?.url}`
   }
 
   const scales = {

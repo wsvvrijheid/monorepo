@@ -1,4 +1,4 @@
-import { API_URL, SITE_URL } from '@wsvvrijheid/config'
+import { ASSETS_URL, SITE_URL } from '@wsvvrijheid/config'
 import { FileFormatsType, UploadFile } from '@wsvvrijheid/types'
 
 export const getImageUrl = (
@@ -17,7 +17,7 @@ export const getImageUrl = (
     }
 
     if (image?.startsWith('/uploads')) {
-      return `${API_URL}${image}`
+      return `${ASSETS_URL}${image}`
     }
 
     return `${SITE_URL}${image}`
@@ -25,5 +25,5 @@ export const getImageUrl = (
 
   const src = format ? image.formats?.[format]?.url || image.url : image.url
 
-  return `${API_URL}${src}`
+  return `${ASSETS_URL}${src}`
 }

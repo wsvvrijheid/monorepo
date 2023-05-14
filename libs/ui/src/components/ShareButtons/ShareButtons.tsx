@@ -1,12 +1,16 @@
 import { FC, PropsWithChildren } from 'react'
 
-import { ButtonGroup, IconButton, ButtonGroupProps } from '@chakra-ui/react'
+import {
+  ButtonGroup,
+  ButtonGroupProps,
+  IconButton,
+  Link,
+} from '@chakra-ui/react'
 import {
   FacebookShareButton,
-  TelegramShareButton,
-  TwitterShareButton,
-  WhatsappShareButton,
   LinkedinShareButton,
+  TelegramShareButton,
+  WhatsappShareButton,
 } from 'next-share'
 import {
   FaFacebook,
@@ -34,6 +38,16 @@ export const ShareButtons: FC<PropsWithChildren<ShareButtonsProps>> = ({
 }) => {
   const { twitterContent, content } = makeSocialContent(quote, title)
 
+  const baseUrl = 'https://twitter.com/intent/tweet'
+  const params = {
+    url,
+    text: `${twitterContent}\n\n`,
+  }
+  const query = new URLSearchParams(params)
+  const result = query.toString()
+
+  const postUrl = `${baseUrl}?${result.toString()}`
+
   return (
     <ButtonGroup variant="outline" size={size} alignItems="center" {...rest}>
       {children}
@@ -46,7 +60,7 @@ export const ShareButtons: FC<PropsWithChildren<ShareButtonsProps>> = ({
           icon={<FaFacebook />}
         />
       </FacebookShareButton>
-      <TwitterShareButton title={twitterContent} url={url}>
+      <Link href={postUrl} isExternal>
         <IconButton
           as="span"
           isRound
@@ -54,7 +68,7 @@ export const ShareButtons: FC<PropsWithChildren<ShareButtonsProps>> = ({
           aria-label="share on twitter"
           icon={<FaTwitter />}
         />
-      </TwitterShareButton>
+      </Link>
       <WhatsappShareButton title={content} url={url}>
         <IconButton
           as="span"

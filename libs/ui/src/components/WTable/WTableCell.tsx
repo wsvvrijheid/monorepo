@@ -10,7 +10,7 @@ import {
   Td,
 } from '@chakra-ui/react'
 
-import { API_URL } from '@wsvvrijheid/config'
+import { ASSETS_URL } from '@wsvvrijheid/config'
 import { StrapiModel, UploadFile } from '@wsvvrijheid/types'
 
 import { WTableCellProps } from './types'
@@ -52,7 +52,7 @@ export const WTableCell = <T extends StrapiModel>({
     cellContent = (
       <Popover trigger="hover" isLazy placement="right">
         <PopoverTrigger>
-          <Avatar size="md" src={`${API_URL}${thumbnail}`} />
+          <Avatar size="md" src={`${ASSETS_URL}${thumbnail}`} />
         </PopoverTrigger>
         <PopoverContent p={0} w={'auto'} overflow={'hidden'}>
           <WImage w={'50vw'} src={image} sizes={'400px'} />

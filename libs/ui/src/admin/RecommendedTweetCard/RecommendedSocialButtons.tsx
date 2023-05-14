@@ -11,7 +11,7 @@ import {
 } from '@chakra-ui/react'
 import { AiFillDelete, AiOutlineShareAlt } from 'react-icons/ai'
 
-import { API_URL } from '@wsvvrijheid/config'
+import { ASSETS_URL } from '@wsvvrijheid/config'
 import { useDeleteModel } from '@wsvvrijheid/services'
 import { Post, RecommendedTweet } from '@wsvvrijheid/types'
 
@@ -64,7 +64,7 @@ export const RecommendedSocialButtons: FC<RecommendedSocialButtonsProps> = ({
   let imageUrl: string | unknown
 
   if (tweet?.image?.url) {
-    imageUrl = API_URL + tweet?.image?.url
+    imageUrl = ASSETS_URL + tweet?.image?.url
   }
 
   if (tweet?.originalTweet?.image) {
