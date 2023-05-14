@@ -28,7 +28,6 @@ export type CommentArtCreateInputPublic = Expand<
     content: string
     name: string
     email: string
-    recaptcha: string | undefined
   } & PickRequired<CommentRelationInput, 'art'>
 >
 export type CommentArtCreateInputUser = Expand<

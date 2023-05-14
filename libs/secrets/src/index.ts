@@ -2,8 +2,10 @@
 // TODO: Use READONLY API token in the browser
 export const TOKEN = process.env['NX_API_TOKEN']
 export const COMMENT_TOKEN = process.env['NX_CREATE_COMMENT_API_KEY']
-export const NX_KUNSTHALTE_RECAPTCHA_SITE_KEY =
-  process.env['NX_KUNSTHALTE_RECAPTCHA_SITE_KEY']
+
+export const NX_RECAPTCHA_SITE_KEY = process.env['NX_RECAPTCHA_SITE_KEY']
+
+export const NX_RECAPTCHA_SECRET_KEY = process.env['NX_RECAPTCHA_SECRET_KEY']
 
 const secrets = {
   COOKIE_PASSWORD: process.env['NX_SECRET_COOKIE_PASSWORD'],

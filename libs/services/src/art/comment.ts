@@ -27,7 +27,6 @@ const createArtComment = ({
   art,
   user,
   token,
-  recaptcha,
 }: CreateArtCommentProps) => {
   if (user) {
     const body = { content, art, user }
@@ -43,7 +42,7 @@ const createArtComment = ({
     throw new Error('Name or email is required')
   }
 
-  const body = { content, name, email, art, recaptcha }
+  const body = { content, name, email, art }
   console.log(body)
 
   return Mutation.post<Comment, CommentArtCreateInputPublic>(

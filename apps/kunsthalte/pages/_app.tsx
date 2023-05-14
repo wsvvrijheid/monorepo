@@ -15,7 +15,7 @@ import { DefaultSeo } from 'next-seo'
 import { Provider as ReduxProvider } from 'react-redux'
 
 import { defaultSeo, themes } from '@wsvvrijheid/config'
-import { NX_KUNSTHALTE_RECAPTCHA_SITE_KEY } from '@wsvvrijheid/secrets'
+import { NX_RECAPTCHA_SITE_KEY } from '@wsvvrijheid/secrets'
 import { checkAuth, store } from '@wsvvrijheid/store'
 import { pageview } from '@wsvvrijheid/utils'
 
@@ -50,10 +50,7 @@ function MyApp({ Component, pageProps }) {
   return (
     <QueryClientProvider client={queryClient}>
       <Hydrate state={pageProps.dehydratedState}>
-        <ReCaptchaProvider
-          useEnterprise
-          reCaptchaKey={NX_KUNSTHALTE_RECAPTCHA_SITE_KEY}
-        >
+        <ReCaptchaProvider useEnterprise reCaptchaKey={NX_RECAPTCHA_SITE_KEY}>
           <ReduxProvider store={store}>
             <ChakraProvider theme={themes.kunsthalte}>
               <DefaultSeo {...defaultSeo.kunsthalte[router.locale]} />

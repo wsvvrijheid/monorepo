@@ -5,6 +5,7 @@ import { QueryKey, useQueryClient } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
 import { useReCaptcha } from 'next-recaptcha-v3'
 
+import { NX_RECAPTCHA_SECRET_KEY } from '@wsvvrijheid/secrets'
 import {
   useArtBySlug,
   useArtCommentMutation,
@@ -20,7 +21,6 @@ import {
   CommentList,
 } from '../../components'
 import { CommentFormFieldValues } from '../CommentForm/types'
-
 export type ArtWithDetailsProps = {
   art: Art
   queryKey?: QueryKey
@@ -50,10 +50,22 @@ export const ArtWithDetails: FC<ArtWithDetailsProps> = ({ art, queryKey }) => {
     email,
   }: CommentFormFieldValues) => {
     if (art?.id) {
-      const recaptchaToken = await executeRecaptcha('comment-form')
+      const recaptchaToken = await executeRecaptcha('comment')
+      // console.log(recaptchaToken)
+
+      fetch('https://www.google.com/recaptcha/api/siteverify', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        mode: 'no-cors',
+        body: `secret=${NX_RECAPTCHA_SECRET_KEY}&response=${recaptchaToken}`,
+      })
+        .then(res => res.json())
+        .then(data => console.log(data))
+        .catch(error => console.error(error))
 
       const body = {
-        recaptcha: recaptchaToken,
         name: name as string,
         content,
         email: email as string,
