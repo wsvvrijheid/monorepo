@@ -3,7 +3,7 @@ import { useAppSelector } from '@wsvvrijheid/store'
 import { TwitterTrend } from '@wsvvrijheid/types'
 
 export const useFindHashtagInTrends = () => {
-  const { defaultHashtags } = useAppSelector(state => state.post)
+  const { defaultHashtags } = useAppSelector(state => state.hashtag)
   const { data: trendsData } = useTrends()
 
   return defaultHashtags.map(hashtag => {

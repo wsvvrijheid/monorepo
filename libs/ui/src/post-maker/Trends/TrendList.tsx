@@ -1,8 +1,8 @@
 import { SkeletonText, VStack, Wrap } from '@chakra-ui/react'
 
 import {
-  addTrendName,
-  removeTrendName,
+  addTrendToPost,
+  removeTrendFromPost,
   useAppDispatch,
   useAppSelector,
 } from '@wsvvrijheid/store'
@@ -23,16 +23,32 @@ export const TrendList = ({
   hashtagInTrends,
   hashtagExtraInTrends,
 }: TrendListProps): JSX.Element => {
-  const { trendNames, defaultHashtags } = useAppSelector(state => state.post)
+  const { trendNames, defaultHashtags, currentPostId } = useAppSelector(
+    state => state.hashtag,
+  )
 
   const dispatch = useAppDispatch()
 
   const onAddTrendName = (value: string) => {
-    dispatch(addTrendName(value))
+    if (!currentPostId) return
+
+    dispatch(
+      addTrendToPost({
+        postId: currentPostId,
+        trend: value,
+      }),
+    )
   }
 
   const onRemoveTrendName = (value: string) => {
-    dispatch(removeTrendName(value))
+    if (!currentPostId) return
+
+    dispatch(
+      removeTrendFromPost({
+        postId: currentPostId,
+        trend: value,
+      }),
+    )
   }
 
   return (

@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react'
+import { FC, useState } from 'react'
 
 import {
   Box,
@@ -27,17 +27,9 @@ import {
   HashtagReturnType,
   searchModel,
   SearchModelArgs,
-  setRandomPost,
   useHashtag,
   useSearchModel,
 } from '@wsvvrijheid/services'
-import {
-  checkSharedPosts,
-  setDefaultHashtags,
-  setDefaultTab,
-  useAppDispatch,
-  useAppSelector,
-} from '@wsvvrijheid/store'
 import { Hashtag, StrapiLocale } from '@wsvvrijheid/types'
 import {
   Container,
@@ -64,8 +56,6 @@ const Hashtag: FC<HashtagProps> = ({
   hasStarted,
   defaultHashtags,
 }) => {
-  const { defaultTab } = useAppSelector(state => state.post)
-  const dispatch = useAppDispatch()
   const { locale } = useRouter()
 
   const hashtagsQuery = useSearchModel<Hashtag>({
@@ -89,16 +79,10 @@ const Hashtag: FC<HashtagProps> = ({
   const enableBody = (target: Element | null) =>
     target && enableBodyScroll(target)
 
-  useEffect(() => {
-    if (defaultHashtags.length > 0)
-      dispatch(setDefaultHashtags(defaultHashtags))
+  const hashtags = hashtagsQuery.data?.data
+  const hashtag = hashtagQuery.data
 
-    if (hasPassed && defaultTab === null) dispatch(setDefaultTab(1))
-  }, [defaultHashtags, dispatch, hasPassed, defaultTab])
-
-  useEffect(() => {
-    dispatch(checkSharedPosts())
-  }, [dispatch])
+  if (!hashtags?.length || !hashtag) return null
 
   return (
     <TourProvider
@@ -117,16 +101,12 @@ const Hashtag: FC<HashtagProps> = ({
       }}
     >
       <Layout seo={seo}>
-        <HashtagsDrawer
-          isOpen={isOpen}
-          onClose={onClose}
-          hashtags={hashtagsQuery.data?.data}
-        />
+        <HashtagsDrawer isOpen={isOpen} onClose={onClose} hashtags={hashtags} />
 
         <Container py={4} pos="relative">
           <Box flex={1} textAlign="center">
             <Heading>
-              {hashtagQuery.data?.title}
+              {hashtag.title}
               <Tooltip label={t`post.all-hashtags`} hasArrow bg="primary.400">
                 <IconButton
                   aria-label="open hashtags"
@@ -144,7 +124,7 @@ const Hashtag: FC<HashtagProps> = ({
 
             <Collapse startingHeight={50} in={show}>
               <Text my={4} maxW="container.md" mx="auto">
-                {hashtagQuery.data?.content}
+                {hashtag.content}
               </Text>
             </Collapse>
             <IconButton
@@ -159,7 +139,7 @@ const Hashtag: FC<HashtagProps> = ({
           {hasStarted ? (
             <PostMaker />
           ) : (
-            <TimeLeft date={hashtagQuery?.data?.date as string} />
+            <TimeLeft date={hashtag.date as string} />
           )}
         </Container>
       </Layout>
@@ -208,8 +188,6 @@ export const getServerSideProps: GetServerSideProps = async context => {
       },
       { en: '', nl: '', tr: '' },
     ) || {}
-
-  setRandomPost(queryClient, locale, slug)
 
   const seo: NextSeoProps = getPageSeo(hashtag, locale, 'hashtag')
 

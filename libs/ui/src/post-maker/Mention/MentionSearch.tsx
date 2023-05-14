@@ -6,15 +6,14 @@ import { FaSearch } from 'react-icons/fa'
 import { useDebounce } from 'react-use'
 
 import {
-  clearSearchedMentions,
-  fetchSearchedMentions,
-  resetMentions,
+  clearMentionSearches,
+  searchMentions,
   useAppDispatch,
   useAppSelector,
 } from '@wsvvrijheid/store'
 
 export const MentionSearch = (): JSX.Element => {
-  const { mentions } = useAppSelector(state => state.post)
+  const { mentions } = useAppSelector(state => state.hashtag)
   const dispatch = useAppDispatch()
   const { t } = useTranslation()
   const [searchArea, setSearchArea] = useState<string>('')
@@ -31,17 +30,16 @@ export const MentionSearch = (): JSX.Element => {
   useEffect(() => {
     if (debouncedSearchArea.length > 1) {
       const filteredData =
-        mentions?.filter(m =>
+        mentions.data?.filter(m =>
           m.data?.screen_name
             .toLowerCase()
             .includes(debouncedSearchArea.toLowerCase()),
         ) ?? []
       if (filteredData.length === 0) {
-        dispatch(fetchSearchedMentions(debouncedSearchArea))
+        dispatch(searchMentions(debouncedSearchArea))
       }
     } else {
-      dispatch(clearSearchedMentions())
-      dispatch(resetMentions())
+      dispatch(clearMentionSearches())
     }
   }, [debouncedSearchArea, dispatch, mentions])
 
