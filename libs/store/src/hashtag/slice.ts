@@ -61,14 +61,14 @@ export const hashtagSlice = createSlice({
     },
     removeMentionFromPost: (
       state,
-      action: PayloadAction<{ postId: number; username: string }>,
+      action: PayloadAction<{ postId: number; mention: string }>,
     ) => {
-      const { postId, username } = action.payload
+      const { postId, mention } = action.payload
       const post = state.posts.find(p => p.data?.id === postId)
 
       if (!post?.data) return
 
-      post.mentionUsernames = post.mentionUsernames.filter(m => m !== username)
+      post.mentionUsernames = post.mentionUsernames.filter(m => m !== mention)
       updatePostContent(state, postId)
     },
     // Saved Mention

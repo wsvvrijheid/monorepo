@@ -5,17 +5,23 @@ export type PostMakerTweetShareProps = {
   content: string
 }
 
-export type PostMakerTweetTagsProps = {
-  mentions: string[]
-  trends: string[]
-  onMentionClick: (mention: string) => void
-  onTrendClick: (trend: string) => void
-}
-
 export type PostMakerTweetCardProps = {
   post: PostState
-  onAddMention: (mention: string) => void
-  onAddTrend: (mention: string) => void
+  onMentionClick: (mention: string) => void
+  onTrendClick: (mention: string) => void
   toggleMentionsModal: () => void
   toggleTrendsModal: () => void
 }
+
+export type PostMakerTweetTagsProps = Pick<
+  PostMakerTweetCardProps,
+  'onMentionClick' | 'onTrendClick'
+> & {
+  mentions: string[]
+  trends: string[]
+}
+
+export type PostMakerTweetButtonsProps = Pick<
+  PostMakerTweetCardProps,
+  'post' | 'toggleMentionsModal' | 'toggleTrendsModal'
+>

@@ -4,8 +4,8 @@ import { Divider, Stack } from '@chakra-ui/react'
 
 import {
   PostState,
-  addMentionToPost,
-  addTrendToPost,
+  removeMentionFromPost,
+  removeTrendFromPost,
   useAppDispatch,
 } from '@wsvvrijheid/store'
 
@@ -18,12 +18,12 @@ export type PostMakerTweetListProps = {
 export const PostMakerTweetList: FC<PostMakerTweetListProps> = ({ posts }) => {
   const dispatch = useAppDispatch()
 
-  const handleAddMention = (postId: number, mention: string) => {
-    dispatch(addMentionToPost({ postId, mention }))
+  const handleRemoveMention = (postId: number, mention: string) => {
+    dispatch(removeMentionFromPost({ postId, mention }))
   }
 
-  const handleAddTrend = (postId: number, trend: string) => {
-    dispatch(addTrendToPost({ postId, trend }))
+  const handleRemoveTrend = (postId: number, trend: string) => {
+    dispatch(removeTrendFromPost({ postId, trend }))
   }
 
   return (
@@ -35,8 +35,8 @@ export const PostMakerTweetList: FC<PostMakerTweetListProps> = ({ posts }) => {
           <PostMakerTweetCard
             key={postId}
             post={post}
-            onAddMention={mention => handleAddMention(postId, mention)}
-            onAddTrend={trend => handleAddTrend(postId, trend)}
+            onMentionClick={mention => handleRemoveMention(postId, mention)}
+            onTrendClick={trend => handleRemoveTrend(postId, trend)}
             toggleMentionsModal={() => null}
             toggleTrendsModal={() => null}
           />

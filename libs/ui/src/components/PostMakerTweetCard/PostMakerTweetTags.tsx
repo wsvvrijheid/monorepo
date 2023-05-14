@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 
-import { Stack, Tag, Wrap } from '@chakra-ui/react'
+import { Stack, Tag, TagCloseButton, TagLabel, Wrap } from '@chakra-ui/react'
 
 import { PostMakerTweetTagsProps } from './types'
 
@@ -15,12 +15,13 @@ export const PostMakerTweetTags: FC<PostMakerTweetTagsProps> = ({
       <Wrap>
         {mentions.map(mention => (
           <Tag
+            colorScheme={'primary'}
             variant={'outline'}
             rounded={'full'}
             px={2}
-            onClick={() => onMentionClick(mention)}
           >
-            @{mention}
+            <TagLabel>@{mention}</TagLabel>
+            <TagCloseButton onClick={() => onMentionClick(mention)} />
           </Tag>
         ))}
       </Wrap>
@@ -32,7 +33,8 @@ export const PostMakerTweetTags: FC<PostMakerTweetTagsProps> = ({
             px={2}
             onClick={() => onTrendClick(trend)}
           >
-            {trend}
+            <TagLabel>{trend}</TagLabel>
+            <TagCloseButton onClick={() => onTrendClick(trend)} />
           </Tag>
         ))}
       </Wrap>

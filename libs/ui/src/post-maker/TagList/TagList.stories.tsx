@@ -29,7 +29,7 @@ const StoryWithHooks: StoryFn<typeof TagList> = args => {
     dispatch(
       removeMentionFromPost({
         postId: currentPostId,
-        username: tag,
+        mention: tag,
       }),
     )
   }
