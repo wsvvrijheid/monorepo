@@ -43,6 +43,7 @@ export type PostMakerTweetCardProps = {
   addMention: () => void
   addTrend: () => void
   showStats: () => void
+  borderTop?: string
 }
 
 export const PostMakerTweetCard: FC<PostMakerTweetCardProps> = ({
@@ -55,7 +56,7 @@ export const PostMakerTweetCard: FC<PostMakerTweetCardProps> = ({
   addMention,
   addTrend,
   showStats,
-  ...rest
+  borderTop,
 }) => {
   const { twitterContent } = makeSocialContent(content)
 
@@ -78,7 +79,7 @@ export const PostMakerTweetCard: FC<PostMakerTweetCardProps> = ({
   const postUrl = `${baseUrl}?${result.toString()}`
 
   return (
-    <Stack border={'1px solid gray'} p={1} {...rest}>
+    <Stack border={'1px solid gray'} p={1} borderTop={borderTop}>
       <Text>{content}</Text>
       <ButtonGroup>
         {mentions.map(mention => (
