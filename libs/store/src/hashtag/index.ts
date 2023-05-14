@@ -1,3 +1,3 @@
+export * from './actions'
 export * from './slice'
-export * from './searchMentions'
-export * from './fetchMentions'
+export * from './types'

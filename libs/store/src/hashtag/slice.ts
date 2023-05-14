@@ -1,9 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { UserV1 } from 'twitter-api-v2'
 
+import { fetchMentions, searchMentions } from './actions'
 import { LOCAL_STORAGE_MENTIONS_KEY } from './constants'
-import { fetchMentions } from './fetchMentions'
-import { searchMentions } from './searchMentions'
 import { HashtagState } from './types'
 import { updatePostContent } from './updatePostContent'
 

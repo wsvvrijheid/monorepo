@@ -1,25 +1,47 @@
 import { FC } from 'react'
 
-import { VStack } from '@chakra-ui/react'
+import { Divider, Stack } from '@chakra-ui/react'
 
 import {
-  PostMakerTweetCard,
-  PostMakerTweetCardProps,
-} from './PostMakerTweetCard'
+  PostState,
+  addMentionToPost,
+  addTrendToPost,
+  useAppDispatch,
+} from '@wsvvrijheid/store'
+
+import { PostMakerTweetCard } from './PostMakerTweetCard'
 
 export type PostMakerTweetListProps = {
-  tweets: PostMakerTweetCardProps[]
+  posts: PostState[]
 }
 
-export const PostMakerTweetList: FC<PostMakerTweetListProps> = ({ tweets }) => {
+export const PostMakerTweetList: FC<PostMakerTweetListProps> = ({ posts }) => {
+  const dispatch = useAppDispatch()
+
+  const handleAddMention = (postId: number, mention: string) => {
+    dispatch(addMentionToPost({ postId, mention }))
+  }
+
+  const handleAddTrend = (postId: number, trend: string) => {
+    dispatch(addTrendToPost({ postId, trend }))
+  }
+
   return (
-    <VStack spacing={0}>
-      {tweets.map((tweet, i) => (
-        <PostMakerTweetCard
-          {...tweet}
-          borderTop={i !== 0 ? 'none' : '1px solid gray'}
-        />
-      ))}
-    </VStack>
+    <Stack borderWidth={1} spacing={0} divider={<Divider />}>
+      {posts.map(post => {
+        const postId = post.data?.id as number
+
+        return (
+          <PostMakerTweetCard
+            key={postId}
+            post={post}
+            onAddMention={mention => handleAddMention(postId, mention)}
+            onAddTrend={trend => handleAddTrend(postId, trend)}
+            toggleMentionsModal={() => null}
+            toggleTrendsModal={() => null}
+          />
+        )
+      })}
+    </Stack>
   )
 }
