@@ -1,18 +1,18 @@
 import { StoryObj, StoryFn, Meta } from '@storybook/react'
 
 import {
-  GridPostMakerTweetCard,
-  GridPostMakerTweetCardProps,
-} from './GridPostMakerTweetCard'
+  PostMakerTweetList,
+  PostMakerTweetListProps,
+} from './PostMakerTweetList'
 export default {
-  title: 'Admin/GridPostMakerTweetCard',
-  component: GridPostMakerTweetCard,
-} as Meta<GridPostMakerTweetCardProps>
+  title: 'Admin/PostMakerTweetList',
+  component: PostMakerTweetList,
+} as Meta<PostMakerTweetListProps>
 
-type Story = StoryObj<GridPostMakerTweetCardProps>
+type Story = StoryObj<PostMakerTweetListProps>
 
-const Template: StoryFn<GridPostMakerTweetCardProps> = args => (
-  <GridPostMakerTweetCard {...args} />
+const Template: StoryFn<PostMakerTweetListProps> = args => (
+  <PostMakerTweetList {...args} />
 )
 
 export const Default: Story = {

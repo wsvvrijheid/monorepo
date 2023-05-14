@@ -7,13 +7,11 @@ import {
   PostMakerTweetCardProps,
 } from './PostMakerTweetCard'
 
-export type GridPostMakerTweetCardProps = {
+export type PostMakerTweetListProps = {
   tweets: PostMakerTweetCardProps[]
 }
 
-export const GridPostMakerTweetCard: FC<GridPostMakerTweetCardProps> = ({
-  tweets,
-}) => {
+export const PostMakerTweetList: FC<PostMakerTweetListProps> = ({ tweets }) => {
   return (
     <VStack spacing={0}>
       {tweets.map((tweet, i) => (
