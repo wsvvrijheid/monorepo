@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC } from 'react'
 
 import {
   Box,
@@ -8,10 +8,23 @@ import {
   Image,
   Stack,
   Text,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverBody,
+  PopoverArrow,
+  IconButton,
 } from '@chakra-ui/react'
+import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { TwitterShareButton } from 'next-share'
-import { BsThreeDotsVertical, BsTwitter } from 'react-icons/bs'
+import {
+  FacebookShareButton,
+  LinkedinShareButton,
+  TelegramShareButton,
+  WhatsappShareButton,
+} from 'next-share'
+import { BsChat, BsThreeDotsVertical, BsTwitter } from 'react-icons/bs'
+import { FaFacebook, FaLinkedin, FaTelegram, FaWhatsapp } from 'react-icons/fa'
 import { GoMention } from 'react-icons/go'
 import { MdTrendingUp } from 'react-icons/md'
 import { RiHashtag } from 'react-icons/ri'
@@ -25,6 +38,11 @@ export type PostMakerTweetCardProps = {
   mentions: string[]
   trends: string[]
   image?: string
+  handleMentionClick: (mention: string) => void
+  handleTrendClick: (trend: string) => void
+  addMention: () => void
+  addTrend: () => void
+  showStats: () => void
 }
 
 export const PostMakerTweetCard: FC<PostMakerTweetCardProps> = ({
@@ -32,40 +50,45 @@ export const PostMakerTweetCard: FC<PostMakerTweetCardProps> = ({
   mentions,
   trends,
   image,
+  handleMentionClick,
+  handleTrendClick,
+  addMention,
+  addTrend,
+  showStats,
+  ...rest
 }) => {
-  const [related, setRelated] = useState<string[]>(mentions)
-  const [hashtags, setHashtags] = useState<string[]>(trends)
   const { twitterContent } = makeSocialContent(content)
-  const twitterContentWithMentions = related.length
-    ? twitterContent + ' @' + related.join(' @')
-    : twitterContent
-  const { asPath } = useRouter()
+
+  const {
+    asPath,
+    locale,
+    query: { slug },
+  } = useRouter()
 
   const URL = `${SITE_URL}${asPath}`
 
-  const handleMention = (m: string) => {
-    const filteredMention = related.filter(mention => mention !== m)
-
-    setRelated(filteredMention)
+  const baseUrl = 'https://twitter.com/intent/tweet'
+  const params = {
+    url: `${SITE_URL}/${locale}/hashtags/${slug}/`,
+    text: `${twitterContent}\n\n`,
   }
-  const handleTrend = (t: string) => {
-    const filteredTrend = hashtags.filter(trend => trend !== t)
+  const query = new URLSearchParams(params)
+  const result = query.toString()
 
-    setHashtags(filteredTrend)
-  }
+  const postUrl = `${baseUrl}?${result.toString()}`
 
   return (
-    <Stack border={'1px solid orange'} p={1}>
+    <Stack border={'1px solid gray'} p={1} {...rest}>
       <Text>{content}</Text>
       <ButtonGroup>
-        {related.map(mention => (
+        {mentions.map(mention => (
           <Button
             border={'1px solid orange'}
             color={'orange'}
             variant={'link'}
             rounded={'lg'}
             px={2}
-            onClick={() => handleMention(mention)}
+            onClick={() => handleMentionClick(mention)}
           >
             <GoMention />
             {mention}
@@ -73,14 +96,14 @@ export const PostMakerTweetCard: FC<PostMakerTweetCardProps> = ({
         ))}
       </ButtonGroup>
       <ButtonGroup>
-        {hashtags.map(trend => (
+        {trends.map(trend => (
           <Button
             border={'1px solid gray'}
             color={'gray'}
             variant={'link'}
             rounded={'lg'}
             px={2}
-            onClick={() => handleTrend(trend)}
+            onClick={() => handleTrendClick(trend)}
           >
             <RiHashtag />
             {trend}
@@ -91,28 +114,38 @@ export const PostMakerTweetCard: FC<PostMakerTweetCardProps> = ({
         <Image src={image} alt={''} rounded="md" />
       </Box>
       <HStack justifyContent={'space-evenly'}>
-        <Button color={'orange'} variant={'ghost'} colorScheme={'orange'}>
+        <Button
+          color={'orange'}
+          variant={'ghost'}
+          colorScheme={'orange'}
+          onClick={() => addMention()}
+        >
           <GoMention />
           <Text display={{ base: 'none', sm: 'none', md: 'flex', lg: 'flex' }}>
             Add Mention
           </Text>
         </Button>
-        <Button color={'orange'} variant={'ghost'} colorScheme={'orange'}>
+        <Button
+          color={'orange'}
+          variant={'ghost'}
+          colorScheme={'orange'}
+          onClick={() => addTrend()}
+        >
           <MdTrendingUp />
           <Text display={{ base: 'none', sm: 'none', md: 'flex', lg: 'flex' }}>
             Add Trend
           </Text>
         </Button>
-        <Button color={'orange'} variant={'ghost'} colorScheme={'orange'}>
+        <Button
+          color={'orange'}
+          variant={'ghost'}
+          colorScheme={'orange'}
+          onClick={() => showStats()}
+        >
           <TbCircleDashed />
         </Button>
 
-        <TwitterShareButton
-          title={twitterContentWithMentions}
-          url={URL}
-          related={related}
-          hashtags={hashtags}
-        >
+        <Link href={postUrl} target={'_blank'}>
           <Button color={'orange'} variant={'ghost'} colorScheme={'orange'}>
             <BsTwitter />
             <Text
@@ -121,10 +154,100 @@ export const PostMakerTweetCard: FC<PostMakerTweetCardProps> = ({
               Tweet
             </Text>
           </Button>
-        </TwitterShareButton>
-        <Button color={'orange'} variant={'ghost'} colorScheme={'orange'}>
-          <BsThreeDotsVertical />
-        </Button>
+        </Link>
+
+        <Popover>
+          <PopoverTrigger>
+            <Button color={'orange'} variant={'ghost'} colorScheme={'orange'}>
+              <BsThreeDotsVertical />
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent>
+            <PopoverArrow />
+            <PopoverBody display={'flex'} justifyContent={'space-evenly'}>
+              <IconButton
+                as="span"
+                isRound
+                bg="none"
+                border={'1px solid orange'}
+                color="orange"
+                _hover={{
+                  bg: 'facebook.500',
+                  color: 'white',
+                  border: 'none',
+                  cursor: 'pointer',
+                }}
+                aria-label="share on whatsapp"
+                icon={<BsChat />}
+              />
+              <FacebookShareButton quote={content} url={URL}>
+                <IconButton
+                  as="span"
+                  isRound
+                  bg="none"
+                  border={'1px solid orange'}
+                  color="orange"
+                  _hover={{
+                    bg: 'facebook.500',
+                    color: 'white',
+                    border: 'none',
+                  }}
+                  aria-label="share on whatsapp"
+                  icon={<FaFacebook />}
+                />
+              </FacebookShareButton>
+
+              <WhatsappShareButton title={content} url={URL}>
+                <IconButton
+                  as="span"
+                  isRound
+                  bg="none"
+                  border={'1px solid orange'}
+                  color="orange"
+                  _hover={{
+                    bg: 'whatsapp.500',
+                    color: 'white',
+                    border: 'none',
+                  }}
+                  aria-label="share on whatsapp"
+                  icon={<FaWhatsapp />}
+                />
+              </WhatsappShareButton>
+              <TelegramShareButton url={URL} title={content}>
+                <IconButton
+                  as="span"
+                  isRound
+                  bg="none"
+                  border={'1px solid orange'}
+                  color="orange"
+                  _hover={{
+                    bg: 'telegram.500',
+                    color: 'white',
+                    border: 'none',
+                  }}
+                  aria-label="share on telegram"
+                  icon={<FaTelegram />}
+                />
+              </TelegramShareButton>
+              <LinkedinShareButton url={URL} title={content} about={content}>
+                <IconButton
+                  as="span"
+                  isRound
+                  bg="none"
+                  border={'1px solid orange'}
+                  color="orange"
+                  _hover={{
+                    bg: 'linkedin.500',
+                    color: 'white',
+                    border: 'none',
+                  }}
+                  aria-label="share on linkedin"
+                  icon={<FaLinkedin />}
+                />
+              </LinkedinShareButton>
+            </PopoverBody>
+          </PopoverContent>
+        </Popover>
       </HStack>
     </Stack>
   )
