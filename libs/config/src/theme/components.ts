@@ -59,7 +59,7 @@ export const components = {
       },
     },
     defaultProps: {
-      colorScheme: 'gray',
+      colorScheme: 'primary',
     },
   },
   Tag: {

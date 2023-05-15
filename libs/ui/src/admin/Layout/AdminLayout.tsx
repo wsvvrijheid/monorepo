@@ -18,11 +18,7 @@ import { FaArrowLeft } from 'react-icons/fa'
 import { MdOutlineNotifications } from 'react-icons/md'
 import { useLocalStorage } from 'usehooks-ts'
 
-import {
-  destroyAuth,
-  useAppDispatch,
-  useAuthSelector,
-} from '@wsvvrijheid/store'
+import { useAuth } from '@wsvvrijheid/context'
 
 import { AdminSidebar } from '../AdminSidebar'
 import { CreateModelButton } from '../CreateModelButton'
@@ -41,10 +37,9 @@ export const AdminLayout: FC<AdminLayoutProps> = ({
   hasBackButton,
   seo,
 }) => {
-  const { user } = useAuthSelector()
+  const { user, logout } = useAuth()
 
   const router = useRouter()
-  const dispatch = useAppDispatch()
 
   const [expandedStorage, setExpandedStorage] = useLocalStorage(
     'adminSidebarExpanded',
@@ -58,7 +53,7 @@ export const AdminLayout: FC<AdminLayoutProps> = ({
   }
 
   const handleLogout = async () => {
-    await dispatch(destroyAuth()).unwrap()
+    await logout()
 
     router.push('/login')
   }

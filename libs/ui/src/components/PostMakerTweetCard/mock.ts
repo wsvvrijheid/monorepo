@@ -1,4 +1,4 @@
-import { PostState } from '@wsvvrijheid/store'
+import { PostState } from '@wsvvrijheid/context'
 
 export const postMock: PostState = {
   data: {

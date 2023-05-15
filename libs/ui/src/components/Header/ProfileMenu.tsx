@@ -15,25 +15,20 @@ import { useTranslation } from 'next-i18next'
 import { FiLogIn, FiLogOut } from 'react-icons/fi'
 
 import { ASSETS_URL } from '@wsvvrijheid/config'
-import {
-  destroyAuth,
-  useAppDispatch,
-  useAuthSelector,
-} from '@wsvvrijheid/store'
+import { useAuth } from '@wsvvrijheid/context'
 
 import { ProfileMenuProps } from './types'
 import { useScroll } from '../../hooks'
 import { Navigate } from '../Navigate'
 
 export const ProfileMenu: FC<ProfileMenuProps> = ({ isDark, menu }) => {
-  const dispatch = useAppDispatch()
   const isScrolled = useScroll()
   const router = useRouter()
   const { t } = useTranslation()
-  const { user, isLoggedIn } = useAuthSelector()
+  const { user, isLoggedIn, logout } = useAuth()
 
   const handleLogout = async () => {
-    await dispatch(destroyAuth()).unwrap()
+    await logout()
     console.log('Destroyed auth')
 
     router.push('/login')

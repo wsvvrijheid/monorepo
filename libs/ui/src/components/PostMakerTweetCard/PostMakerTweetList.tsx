@@ -1,13 +1,8 @@
-import { FC } from 'react'
+import { FC, useContext } from 'react'
 
 import { Divider, Stack } from '@chakra-ui/react'
 
-import {
-  PostState,
-  removeMentionFromPost,
-  removeTrendFromPost,
-  useAppDispatch,
-} from '@wsvvrijheid/store'
+import { HashtagContext, PostState } from '@wsvvrijheid/context'
 
 import { PostMakerTweetCard } from './PostMakerTweetCard'
 
@@ -16,15 +11,18 @@ export type PostMakerTweetListProps = {
 }
 
 export const PostMakerTweetList: FC<PostMakerTweetListProps> = ({ posts }) => {
-  const dispatch = useAppDispatch()
+  const { removeMentionFromPost, removeTrendFromPost } =
+    useContext(HashtagContext)
 
   const handleRemoveMention = (postId: number, mention: string) => {
-    dispatch(removeMentionFromPost({ postId, mention }))
+    removeMentionFromPost(postId, mention)
   }
 
   const handleRemoveTrend = (postId: number, trend: string) => {
-    dispatch(removeTrendFromPost({ postId, trend }))
+    removeTrendFromPost(postId, trend)
   }
+
+  console.log('posts', posts)
 
   return (
     <Stack borderWidth={1} spacing={0} divider={<Divider />}>

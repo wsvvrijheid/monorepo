@@ -4,12 +4,12 @@ import { Stack, Box, Grid } from '@chakra-ui/react'
 import { QueryKey, useQueryClient } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
 
+import { useAuth } from '@wsvvrijheid/context'
 import {
   useArtBySlug,
   useArtCommentMutation,
   useLikeArt,
 } from '@wsvvrijheid/services'
-import { useAuthSelector } from '@wsvvrijheid/store'
 import { Art, StrapiLocale } from '@wsvvrijheid/types'
 
 import {
@@ -32,7 +32,7 @@ export const ArtWithDetails: FC<ArtWithDetailsProps> = ({ art, queryKey }) => {
   const router = useRouter()
   const locale = router.locale as StrapiLocale
 
-  const auth = useAuthSelector()
+  const auth = useAuth()
 
   const artCommentMutation = useArtCommentMutation()
   const { data } = useArtBySlug(art.slug)

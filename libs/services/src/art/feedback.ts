@@ -1,8 +1,8 @@
 import { useToast } from '@chakra-ui/react'
 import { useMutation } from '@tanstack/react-query'
 
+import { useAuth } from '@wsvvrijheid/context'
 import { Mutation } from '@wsvvrijheid/lib'
-import { useAuthSelector } from '@wsvvrijheid/store'
 import {
   Art,
   ArtUpdateInput,
@@ -33,7 +33,7 @@ export const createFeedback = async ({
 export const useArtFeedbackMutation = () => {
   const toast = useToast()
 
-  const { token } = useAuthSelector()
+  const { token } = useAuth()
 
   return useMutation({
     mutationKey: ['art-feedback'],

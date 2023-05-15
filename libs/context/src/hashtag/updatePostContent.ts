@@ -15,7 +15,7 @@ export const updatePostContent = (
 
   const defaultHashtag = state.data?.hashtagDefault || []
 
-  const trendsStr = [...defaultHashtag, ...state.trends]
+  const trendsStr = [...defaultHashtag, ...post.trendNames]
     .filter(a => !!a)
     .join('\n')
 

@@ -3,8 +3,8 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
 import { useLocalStorage } from 'usehooks-ts'
 
+import { useAuth } from '@wsvvrijheid/context'
 import { Mutation } from '@wsvvrijheid/lib'
-import { useAuthSelector } from '@wsvvrijheid/store'
 import { Art, ArtUpdateInput } from '@wsvvrijheid/types'
 
 import { useArtBySlug } from './getBySlug'
@@ -23,7 +23,7 @@ export const useViewArtMutation = async () => {
   } = useRouter()
 
   const { data: art } = useArtBySlug()
-  const { token } = useAuthSelector()
+  const { token } = useAuth()
 
   const [artStorage, setArtStorage] = useLocalStorage<number[]>('view-art', [])
 

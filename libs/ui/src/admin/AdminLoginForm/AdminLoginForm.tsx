@@ -12,13 +12,12 @@ import {
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation } from '@tanstack/react-query'
-import axios from 'axios'
 import { useRouter } from 'next/router'
 import { TFunction, Trans, useTranslation } from 'next-i18next'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
-import { checkAuth, useAppDispatch, useAuthSelector } from '@wsvvrijheid/store'
+import { useAuth } from '@wsvvrijheid/context'
 
 import {
   Container,
@@ -50,21 +49,17 @@ export const AdminLoginForm = () => {
 
   const [isRedirecting, setIsRedirecting] = useState(false)
 
-  const { isAuthLoading } = useAuthSelector()
+  const { isLoading: isAuthLoading, checkAuth, login } = useAuth()
 
   const router = useRouter()
-  const dispatch = useAppDispatch()
 
   const loginMutation = useMutation({
     mutationKey: ['login'],
     mutationFn: (body: LoginFormFieldValues) =>
-      axios.post('/api/auth/login', {
-        identifier: body.identifier,
-        password: body.password,
-      }),
+      login(body.identifier, body.password),
     onSuccess: async data => {
       setIsRedirecting(true)
-      await dispatch(checkAuth()).unwrap()
+      await checkAuth()
       reset()
       await router.push('/')
       setIsRedirecting(false)

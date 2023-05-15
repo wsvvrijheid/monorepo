@@ -3,7 +3,7 @@ import { FC, useState } from 'react'
 import { useDisclosure } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 
-import { useAuthSelector } from '@wsvvrijheid/store'
+import { useAuth } from '@wsvvrijheid/context'
 import { Art, StrapiLocale } from '@wsvvrijheid/types'
 
 import { artColumns } from '../../../data'
@@ -23,7 +23,7 @@ export const ArtsTable: FC<ArtsTableProps> = ({
   onSort,
   setCurrentPage,
 }) => {
-  const { user } = useAuthSelector()
+  const { user } = useAuth()
 
   const { locale } = useRouter()
 

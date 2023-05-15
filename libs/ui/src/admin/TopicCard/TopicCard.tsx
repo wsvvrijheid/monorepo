@@ -26,8 +26,8 @@ import {
 import { BsBookmarkHeart } from 'react-icons/bs'
 import { useLocalStorage } from 'usehooks-ts'
 
+import { useAuth } from '@wsvvrijheid/context'
 import { useDeleteModel, useRecommendTopic } from '@wsvvrijheid/services'
-import { useAuthSelector } from '@wsvvrijheid/store'
 import {
   Post,
   RecommendedTopicCreateInput,
@@ -63,7 +63,7 @@ const domains = [
 ]
 
 export const TopicCard: FC<TopicCardProps> = ({ topic }) => {
-  const { user } = useAuthSelector()
+  const { user } = useAuth()
   const ImageComponent = domains.some(d => topic.image?.includes(d))
     ? WImage
     : Image

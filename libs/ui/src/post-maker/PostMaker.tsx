@@ -1,18 +1,21 @@
+import { useContext } from 'react'
+
 import { Box, Button, Grid, IconButton } from '@chakra-ui/react'
 import { useTour } from '@reactour/tour'
 import { useTranslation } from 'next-i18next'
 import { FaQuestionCircle } from 'react-icons/fa'
 
-import { useHashtag } from '@wsvvrijheid/services'
+import { HashtagContext } from '@wsvvrijheid/context'
 
 import { MentionList } from './Mention'
 import { TrendListTabs } from './Trends'
 import { TweetWidget } from './TweetWidget'
+import { PostMakerTweetList } from '../components/PostMakerTweetCard'
 
 export const PostMaker = () => {
   const { t } = useTranslation()
 
-  const { data: hashtag } = useHashtag()
+  const { data: hashtag, posts } = useContext(HashtagContext)
 
   const { setIsOpen } = useTour()
 
@@ -52,6 +55,7 @@ export const PostMaker = () => {
           <MentionList />
           <TrendListTabs />
         </Box>
+        {posts && <PostMakerTweetList posts={posts} />}
         <Box>
           <TweetWidget
             title={t('post.latest-tweets-label')}

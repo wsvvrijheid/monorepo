@@ -15,6 +15,7 @@ export const PostMakerTweetCard: FC<PostMakerTweetCardProps> = ({
   toggleMentionsModal,
   toggleTrendsModal,
 }) => {
+  console.log('post', post)
   if (!post.data) return null
 
   return (

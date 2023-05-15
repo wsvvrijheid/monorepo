@@ -5,16 +5,7 @@ import { useTranslation } from 'next-i18next'
 import { FaSearch } from 'react-icons/fa'
 import { useDebounce } from 'react-use'
 
-import {
-  clearMentionSearches,
-  searchMentions,
-  useAppDispatch,
-  useAppSelector,
-} from '@wsvvrijheid/store'
-
 export const MentionSearch = (): JSX.Element => {
-  const { mentions } = useAppSelector(state => state.hashtag)
-  const dispatch = useAppDispatch()
   const { t } = useTranslation()
   const [searchArea, setSearchArea] = useState<string>('')
   const [debouncedSearchArea, setDebouncedSearchArea] = useState<string>('')
@@ -30,18 +21,18 @@ export const MentionSearch = (): JSX.Element => {
   useEffect(() => {
     if (debouncedSearchArea.length > 1) {
       const filteredData =
-        mentions.data?.filter(m =>
-          m.data?.screen_name
-            .toLowerCase()
-            .includes(debouncedSearchArea.toLowerCase()),
-        ) ?? []
+        // mentions.data?.filter(m =>
+        //   m.data?.screen_name
+        //     .toLowerCase()
+        //     .includes(debouncedSearchArea.toLowerCase()))
+        []
       if (filteredData.length === 0) {
-        dispatch(searchMentions(debouncedSearchArea))
+        // searchMentions(debouncedSearchArea)
       }
     } else {
-      dispatch(clearMentionSearches())
+      // clearMentionSearches()
     }
-  }, [debouncedSearchArea, dispatch, mentions])
+  }, [debouncedSearchArea])
 
   return (
     <InputGroup data-tour="step-search">

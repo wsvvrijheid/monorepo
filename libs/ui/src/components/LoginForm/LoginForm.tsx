@@ -12,13 +12,12 @@ import {
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation } from '@tanstack/react-query'
-import axios from 'axios'
 import { useRouter } from 'next/router'
 import { TFunction, useTranslation } from 'next-i18next'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
-import { checkAuth, useAppDispatch } from '@wsvvrijheid/store'
+import { useAuth } from '@wsvvrijheid/context'
 
 import { LoginFormFieldValues } from './types'
 import { FormItem } from '../FormItem'
@@ -52,19 +51,15 @@ export const LoginForm: FC<LoginFormProps> = ({ providersToBeShown = [] }) => {
     mode: 'all',
   })
 
-  const dispatch = useAppDispatch()
-
   const router = useRouter()
+  const { checkAuth, login } = useAuth()
 
   const loginMutation = useMutation({
     mutationKey: ['login'],
     mutationFn: (body: LoginFormFieldValues) =>
-      axios.post('/api/auth/login', {
-        identifier: body.identifier,
-        password: body.password,
-      }),
+      login(body.identifier, body.password),
     onSuccess: async data => {
-      await dispatch(checkAuth()).unwrap()
+      await checkAuth()
       reset()
       router.push('/')
     },

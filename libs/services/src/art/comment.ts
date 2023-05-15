@@ -1,14 +1,13 @@
 import { useMutation } from '@tanstack/react-query'
 
+import { useAuth } from '@wsvvrijheid/context'
 import { Mutation } from '@wsvvrijheid/lib'
-import { useAuthSelector } from '@wsvvrijheid/store'
 import {
   Comment,
   CommentArtCreateInput,
   CommentArtCreateInputPublic,
   CommentArtCreateInputUser,
 } from '@wsvvrijheid/types'
-
 type CreateArtCommentProps = {
   content: string
   name?: string
@@ -50,7 +49,7 @@ const createArtComment = ({
 }
 
 export const useArtCommentMutation = () => {
-  const { token } = useAuthSelector()
+  const { token } = useAuth()
 
   return useMutation({
     mutationKey: ['create-comment'],
