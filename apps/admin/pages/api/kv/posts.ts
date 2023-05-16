@@ -1,33 +1,48 @@
 import kv from '@vercel/kv'
-import { NextApiRequest, NextApiResponse } from 'next'
+import { NextRequest, NextResponse } from 'next/server'
 
-const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+export const config = {
+  runtime: 'edge',
+}
+
+const handler = async (req: NextRequest) => {
   const method = req.method
 
-  if (method === 'POST') {
-    const result = await kv.rpush('postExample', req.body)
-
-    return res.status(200).json({ result })
-  }
-
-  if (method === 'PUT') {
-    const result = await kv.lset('postExample', req.body.index, req.body.value)
-
-    return res.status(200).json({ result })
-  }
-
-  if (method === 'DELETE') {
-    const result = await kv.lrem('postExample', 0, req.body.value)
-
-    return res.status(200).json({ result })
-  }
-
   try {
-    const result = await kv.lrange('postExample', 0, -1)
+    if (method === 'POST') {
+      const { id, value } = await req.json()
 
-    return res.status(200).json({ result })
+      const response = await kv.rpush(`post-${id}`, value)
+
+      return NextResponse.json(response)
+    }
+
+    if (method === 'PUT') {
+      const { id, value, index } = await req.json()
+
+      const response = await kv.lset(`post-${id}`, index, value)
+
+      return NextResponse.json(response)
+    }
+
+    if (method === 'DELETE') {
+      const id = req.nextUrl.searchParams.get('id').toString()
+      const value = req.nextUrl.searchParams.get('value').toString()
+
+      const result = await kv.lrem(`post-${id}`, 0, value)
+
+      return NextResponse.json(result)
+    }
+
+    const id = req.nextUrl.searchParams.get('id').toString()
+
+    const result = await kv.lrange(`post-${id}`, 0, -1)
+
+    return NextResponse.json(result)
   } catch (error) {
-    return res.status(500).json({ error })
+    console.error(error)
+
+    return NextResponse.error()
   }
 }
 
