@@ -1,8 +1,8 @@
-import { useAuth } from '@wsvvrijheid/context'
+import { useAuthContext } from '@wsvvrijheid/context'
 import { Role } from '@wsvvrijheid/types'
 
 export const useHasPermission = () => {
-  const { user } = useAuth()
+  const { user } = useAuthContext()
 
   const getPermission = (roles: Role['type'][]) => {
     if (!user) return false

@@ -20,7 +20,7 @@ import { TFunction, useTranslation } from 'next-i18next'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
-import { useAuth } from '@wsvvrijheid/context'
+import { useAuthContext } from '@wsvvrijheid/context'
 
 import { SignupFormFieldValues, SignupFormProps } from './types'
 import { FormItem } from '../FormItem'
@@ -63,7 +63,6 @@ export const SignupForm: FC<SignupFormProps> = ({
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm<SignupFormFieldValues>({
     resolver: yupResolver(schema(t)),
@@ -71,7 +70,7 @@ export const SignupForm: FC<SignupFormProps> = ({
   })
 
   const router = useRouter()
-  const { register: registerAuth, checkAuth, error } = useAuth()
+  const { register: registerAuth, error } = useAuthContext()
 
   useEffect(() => {
     if (error) {
@@ -87,8 +86,6 @@ export const SignupForm: FC<SignupFormProps> = ({
       if (data.error) {
         return setErrorMessage(data.error)
       }
-      await checkAuth()
-      reset()
       router.push('/')
     },
   })

@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC, createContext, useState } from 'react'
 
 import { useDisclosure } from '@chakra-ui/react'
 import { useQuery } from '@tanstack/react-query'
@@ -8,8 +8,16 @@ import { UserV1 } from 'twitter-api-v2'
 import { API_URL } from '@wsvvrijheid/config'
 import { StrapiSingleResponse, Trend } from '@wsvvrijheid/types'
 
-import { HashtagContext } from './HashtagContext'
-import { HashtagProviderProps, PostState, RedisQuote } from './types'
+import { initialHashtagState } from './state'
+import {
+  HashtagContextType,
+  HashtagProviderProps,
+  PostState,
+  RedisQuote,
+} from './types'
+
+export const HashtagContext =
+  createContext<HashtagContextType>(initialHashtagState)
 
 export const HashtagProvider: FC<HashtagProviderProps> = ({
   initialQuotes,

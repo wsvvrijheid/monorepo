@@ -15,7 +15,7 @@ import { useTranslation } from 'next-i18next'
 import { FiLogIn, FiLogOut } from 'react-icons/fi'
 
 import { ASSETS_URL } from '@wsvvrijheid/config'
-import { useAuth } from '@wsvvrijheid/context'
+import { useAuthContext } from '@wsvvrijheid/context'
 
 import { ProfileMenuProps } from './types'
 import { useScroll } from '../../hooks'
@@ -25,7 +25,7 @@ export const ProfileMenu: FC<ProfileMenuProps> = ({ isDark, menu }) => {
   const isScrolled = useScroll()
   const router = useRouter()
   const { t } = useTranslation()
-  const { user, isLoggedIn, logout } = useAuth()
+  const { user, isLoggedIn, logout } = useAuthContext()
 
   const handleLogout = async () => {
     await logout()

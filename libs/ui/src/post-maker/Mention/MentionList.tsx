@@ -31,7 +31,7 @@ export const MentionList = () => {
   //   addMentionToPost,
   //   updateStoredMentions,
   //   removeStoredMention,
-  // } = useContext(HashtagContext)
+  // } = useHashtagContext()
   // const { t } = useTranslation()
   // const onAddMention = (value: UserV1) => {
   //   if (value.screen_name && currentPostId) {

@@ -1,7 +1,7 @@
 import { useToast } from '@chakra-ui/react'
 import { useMutation } from '@tanstack/react-query'
 
-import { useAuth } from '@wsvvrijheid/context'
+import { useAuthContext } from '@wsvvrijheid/context'
 import { Mutation } from '@wsvvrijheid/lib'
 import {
   RecommendedTweet,
@@ -21,7 +21,7 @@ export const recommendTweet = (
 
 export const useRecommendTweet = () => {
   const toast = useToast()
-  const { token } = useAuth()
+  const { token } = useAuthContext()
 
   return useMutation({
     mutationKey: ['create-recommended-tweet'],

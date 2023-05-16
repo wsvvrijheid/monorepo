@@ -1,6 +1,6 @@
 import { FC } from 'react'
 
-import { useAuth } from '@wsvvrijheid/context'
+import { useAuthContext } from '@wsvvrijheid/context'
 import { useLikeArt } from '@wsvvrijheid/services'
 
 import { ArtCardBase } from './ArtCardBase'
@@ -14,7 +14,7 @@ export const ArtCard: FC<ArtCardProps> = ({
   isModal,
 }) => {
   const { toggleLike, isLiked } = useLikeArt(art, queryKey)
-  const { user } = useAuth()
+  const { user } = useAuthContext()
 
   return (
     <ArtCardBase

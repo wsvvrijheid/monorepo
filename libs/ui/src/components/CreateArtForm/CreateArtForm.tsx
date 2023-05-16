@@ -29,7 +29,7 @@ import useFormPersist from 'react-hook-form-persist'
 import { FaPlus, FaUpload } from 'react-icons/fa'
 import * as yup from 'yup'
 
-import { useAuth } from '@wsvvrijheid/context'
+import { useAuthContext } from '@wsvvrijheid/context'
 import { useCreateModelMutation, useSearchModel } from '@wsvvrijheid/services'
 import { ArtCreateInput, Category, StrapiLocale } from '@wsvvrijheid/types'
 
@@ -63,7 +63,7 @@ export const CreateArtForm: FC<CreateArtFormProps> = ({ queryKey }) => {
     url: 'api/categories',
   })
 
-  const { user, isLoggedIn } = useAuth()
+  const { user, isLoggedIn } = useAuthContext()
 
   const cancelRef = useRef<HTMLButtonElement>(null)
   const formDisclosure = useDisclosure()

@@ -15,7 +15,7 @@ import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { v4 as uuidV4 } from 'uuid'
 
-import { useAuth } from '@wsvvrijheid/context'
+import { useAuthContext } from '@wsvvrijheid/context'
 import { Mutation } from '@wsvvrijheid/lib'
 import { useSearchModel } from '@wsvvrijheid/services'
 import {
@@ -40,7 +40,7 @@ export const JoinTemplate: FC<JoinTemplateProps> = ({ title }) => {
   const { t } = useTranslation()
   const { locale } = useRouter()
 
-  const { token } = useAuth()
+  const { token } = useAuthContext()
 
   const platformsResult = useSearchModel<Platform>({
     url: 'api/platforms',

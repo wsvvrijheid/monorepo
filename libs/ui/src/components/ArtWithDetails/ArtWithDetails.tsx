@@ -4,7 +4,7 @@ import { Stack, Box, Grid } from '@chakra-ui/react'
 import { QueryKey, useQueryClient } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
 
-import { useAuth } from '@wsvvrijheid/context'
+import { useAuthContext } from '@wsvvrijheid/context'
 import {
   useArtBySlug,
   useArtCommentMutation,
@@ -32,7 +32,7 @@ export const ArtWithDetails: FC<ArtWithDetailsProps> = ({ art, queryKey }) => {
   const router = useRouter()
   const locale = router.locale as StrapiLocale
 
-  const auth = useAuth()
+  const auth = useAuthContext()
 
   const artCommentMutation = useArtCommentMutation()
   const { data } = useArtBySlug(art.slug)

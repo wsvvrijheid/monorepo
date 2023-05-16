@@ -1,8 +1,8 @@
-import { FC, useContext } from 'react'
+import { FC } from 'react'
 
 import { Divider, Stack } from '@chakra-ui/react'
 
-import { HashtagContext, PostState } from '@wsvvrijheid/context'
+import { PostState, useHashtagContext } from '@wsvvrijheid/context'
 
 import { PostMakerTweetCard } from './PostMakerTweetCard'
 
@@ -11,8 +11,7 @@ export type PostMakerTweetListProps = {
 }
 
 export const PostMakerTweetList: FC<PostMakerTweetListProps> = ({ posts }) => {
-  const { removeMentionFromPost, removeTrendFromPost } =
-    useContext(HashtagContext)
+  const { removeMentionFromPost, removeTrendFromPost } = useHashtagContext()
 
   const handleRemoveMention = (postId: number, mention: string) => {
     removeMentionFromPost(postId, mention)

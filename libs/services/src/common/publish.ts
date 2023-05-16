@@ -1,7 +1,7 @@
 import { useToast } from '@chakra-ui/react'
 import { useMutation, useQueryClient, QueryKey } from '@tanstack/react-query'
 
-import { useAuth } from '@wsvvrijheid/context'
+import { useAuthContext } from '@wsvvrijheid/context'
 import { Mutation } from '@wsvvrijheid/lib'
 import { StrapiModel, StrapiUrl } from '@wsvvrijheid/types'
 
@@ -21,7 +21,7 @@ export const usePublishModel = <T extends StrapiModel>(
 ) => {
   const queryClient = useQueryClient()
   const toast = useToast()
-  const { token } = useAuth()
+  const { token } = useAuthContext()
 
   return useMutation({
     mutationKey: [`publish-${url}`],

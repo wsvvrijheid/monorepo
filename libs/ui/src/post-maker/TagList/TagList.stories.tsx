@@ -1,8 +1,6 @@
-import { useContext } from 'react'
+import { Meta, StoryFn, StoryObj } from '@storybook/react'
 
-import { Meta, StoryObj, StoryFn } from '@storybook/react'
-
-import { HashtagContext } from '@wsvvrijheid/context'
+import { useHashtagContext } from '@wsvvrijheid/context'
 
 import { TagList } from './TagList'
 
@@ -14,7 +12,7 @@ export default {
 type Story = StoryObj<typeof TagList>
 
 const StoryWithHooks: StoryFn<typeof TagList> = args => {
-  const { activePostId, removeMentionFromPost } = useContext(HashtagContext)
+  const { activePostId, removeMentionFromPost } = useHashtagContext()
 
   const handleClick = (tag: string) => {
     if (!activePostId) return

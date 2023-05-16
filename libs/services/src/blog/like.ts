@@ -1,7 +1,7 @@
 import { QueryKey, useMutation, useQueryClient } from '@tanstack/react-query'
 import { useLocalStorage } from 'usehooks-ts'
 
-import { useAuth } from '@wsvvrijheid/context'
+import { useAuthContext } from '@wsvvrijheid/context'
 import { Mutation } from '@wsvvrijheid/lib'
 import { Blog, BlogUpdateInput, SessionUser } from '@wsvvrijheid/types'
 
@@ -54,7 +54,7 @@ const useLikeBlogPublicMutation = () => {
 export const useLikeBlog = (blog?: Blog | null, queryKey?: QueryKey) => {
   const queryClient = useQueryClient()
 
-  const { user, token } = useAuth()
+  const { user, token } = useAuthContext()
 
   const likeBlogByUserMutation = useLikeBlogByUserMutation()
   const likeBlogPublicMutation = useLikeBlogPublicMutation()

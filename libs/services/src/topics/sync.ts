@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
-import { useAuth } from '@wsvvrijheid/context'
+import { useAuthContext } from '@wsvvrijheid/context'
 import { Mutation } from '@wsvvrijheid/lib'
 import { StrapiCreateInput } from '@wsvvrijheid/types'
 
@@ -11,7 +11,7 @@ export const syncTopics = async (token: string) => {
 export const useTopicSync = () => {
   const queryClient = useQueryClient()
 
-  const { token } = useAuth()
+  const { token } = useAuthContext()
 
   return useMutation({
     mutationKey: ['topics-sync'],

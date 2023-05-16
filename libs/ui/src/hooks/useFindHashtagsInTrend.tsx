@@ -1,11 +1,9 @@
-import { useContext } from 'react'
-
-import { HashtagContext } from '@wsvvrijheid/context'
+import { useHashtagContext } from '@wsvvrijheid/context'
 import { useTrends } from '@wsvvrijheid/services'
 import { TwitterTrend } from '@wsvvrijheid/types'
 
 export const useFindHashtagInTrends = () => {
-  const { data } = useContext(HashtagContext)
+  const { data } = useHashtagContext()
   const { data: trendsData } = useTrends()
 
   return [data?.hashtagDefault, data?.hashtagExtra]

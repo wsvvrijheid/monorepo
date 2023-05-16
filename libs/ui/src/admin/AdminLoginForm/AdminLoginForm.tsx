@@ -17,7 +17,7 @@ import { TFunction, Trans, useTranslation } from 'next-i18next'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
-import { useAuth } from '@wsvvrijheid/context'
+import { useAuthContext } from '@wsvvrijheid/context'
 
 import {
   Container,
@@ -49,7 +49,7 @@ export const AdminLoginForm = () => {
 
   const [isRedirecting, setIsRedirecting] = useState(false)
 
-  const { isLoading: isAuthLoading, checkAuth, login } = useAuth()
+  const { isLoading: isAuthLoading, login } = useAuthContext()
 
   const router = useRouter()
 
@@ -59,7 +59,6 @@ export const AdminLoginForm = () => {
       login(body.identifier, body.password),
     onSuccess: async data => {
       setIsRedirecting(true)
-      await checkAuth()
       reset()
       await router.push('/')
       setIsRedirecting(false)

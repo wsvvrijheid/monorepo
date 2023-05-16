@@ -1,7 +1,7 @@
 import { useToast } from '@chakra-ui/react'
 import { useMutation } from '@tanstack/react-query'
 
-import { useAuth } from '@wsvvrijheid/context'
+import { useAuthContext } from '@wsvvrijheid/context'
 import { Mutation } from '@wsvvrijheid/lib'
 import {
   StrapiCreateInput,
@@ -25,7 +25,7 @@ export const useCreateModelMutation = <
   url: StrapiUrl,
 ) => {
   const toast = useToast()
-  const { token } = useAuth()
+  const { token } = useAuthContext()
 
   return useMutation({
     mutationKey: ['update-model', url],

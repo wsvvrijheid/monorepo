@@ -13,7 +13,7 @@ import { appWithTranslation } from 'next-i18next'
 import { DefaultSeo } from 'next-seo'
 
 import { defaultSeo, themes } from '@wsvvrijheid/config'
-import { AuthProvider, useAuth } from '@wsvvrijheid/context'
+import { AuthProvider } from '@wsvvrijheid/context'
 import { pageview } from '@wsvvrijheid/utils'
 
 import i18nConfig from '../next-i18next.config'
@@ -31,11 +31,6 @@ const { ToastContainer } = createStandaloneToast()
 function MyApp({ Component, pageProps }) {
   const [queryClient] = useState(() => new QueryClient())
   const router = useRouter()
-  const { checkAuth } = useAuth()
-
-  useEffect(() => {
-    checkAuth()
-  }, [])
 
   useEffect(() => {
     const handleRouteChange = url => pageview(url)

@@ -1,12 +1,13 @@
-import { FC, useEffect, useState } from 'react'
+import { FC, createContext, useEffect, useState } from 'react'
 
 import axios from 'axios'
 
 import { Auth, SessionUser } from '@wsvvrijheid/types'
 
-import { AuthContext } from './AuthContext'
 import { initialAuthState } from './state'
-import { AuthProviderProps, AuthState } from './types'
+import { AuthContextType, AuthProviderProps, AuthState } from './types'
+
+export const AuthContext = createContext<AuthContextType>(initialAuthState)
 
 export const AuthProvider: FC<AuthProviderProps> = ({
   children,

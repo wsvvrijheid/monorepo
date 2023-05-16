@@ -17,7 +17,7 @@ import { TFunction, useTranslation } from 'next-i18next'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
-import { useAuth } from '@wsvvrijheid/context'
+import { useAuthContext } from '@wsvvrijheid/context'
 
 import { LoginFormFieldValues } from './types'
 import { FormItem } from '../FormItem'
@@ -44,7 +44,6 @@ export const LoginForm: FC<LoginFormProps> = ({ providersToBeShown = [] }) => {
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm<LoginFormFieldValues>({
     resolver: yupResolver(schema(t)),
@@ -52,15 +51,13 @@ export const LoginForm: FC<LoginFormProps> = ({ providersToBeShown = [] }) => {
   })
 
   const router = useRouter()
-  const { checkAuth, login, isLoading } = useAuth()
+  const { login, isLoading } = useAuthContext()
 
   const loginMutation = useMutation({
     mutationKey: ['login'],
     mutationFn: (body: LoginFormFieldValues) =>
       login(body.identifier, body.password),
     onSuccess: async data => {
-      await checkAuth()
-      reset()
       router.push('/')
     },
   })
