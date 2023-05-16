@@ -1,8 +1,9 @@
-import { FC, PropsWithChildren } from 'react'
+import { FC, PropsWithChildren, useEffect } from 'react'
 
 import { NextSeoProps } from 'next-seo'
 
 import { menus, socialLinks } from '@wsvvrijheid/config'
+import { useAuth } from '@wsvvrijheid/context'
 import { Layout as AppLayout } from '@wsvvrijheid/ui'
 
 interface LayoutProps extends PropsWithChildren {
@@ -19,6 +20,12 @@ export const Layout: FC<LayoutProps> = ({
   hasScroll,
   seo,
 }) => {
+  const { checkAuth } = useAuth()
+
+  useEffect(() => {
+    checkAuth()
+  }, [])
+
   return (
     <AppLayout
       seo={seo}

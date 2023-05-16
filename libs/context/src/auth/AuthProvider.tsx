@@ -1,8 +1,8 @@
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 
 import axios from 'axios'
 
-import { Auth } from '@wsvvrijheid/types'
+import { Auth, SessionUser } from '@wsvvrijheid/types'
 
 import { AuthContext } from './AuthContext'
 import { initialAuthState } from './state'
@@ -12,62 +12,85 @@ export const AuthProvider: FC<AuthProviderProps> = ({
   children,
   initialState = initialAuthState,
 }) => {
-  const [state, setState] = useState<AuthState>(initialState)
+  const [user, setUser] = useState<SessionUser | null>(null)
+  const [token, setToken] = useState<string | null>(null)
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false)
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [error, setError] = useState<string | null>(null)
 
-  const checkAuth = async () => {
+  useEffect(() => {
+    if (initialState) {
+      setUser(initialState.user)
+      setToken(initialState.token)
+      setIsLoggedIn(initialState.isLoggedIn)
+    }
+  }, [initialState])
+
+  const checkAuth = async (): Promise<AuthState> => {
+    setIsLoading(true)
     try {
       const response = await axios.get<Auth>('/api/auth/user')
 
-      const newState: AuthState = {
-        ...state,
+      setUser(response.data?.user)
+      setToken(response.data?.token)
+      setIsLoggedIn(response.data?.isLoggedIn)
+
+      return {
         ...response.data,
+        error: null,
+        isLoading: false,
       }
-
-      setState(newState)
-
-      return newState
     } catch (error: any) {
-      setState({
-        ...initialAuthState,
-        error: error.message,
-      })
+      setError(error.message)
 
       return initialAuthState
+    } finally {
+      setIsLoading(false)
     }
   }
 
-  const logout = async () => {
-    await axios.post<Auth>('/api/auth/logout')
+  const logout = async (): Promise<AuthState> => {
+    setIsLoading(true)
 
-    setState(initialAuthState)
+    try {
+      await axios.post<Auth>('/api/auth/logout')
+    } catch (error: any) {
+      return initialAuthState
+    } finally {
+      setUser(null)
+      setToken(null)
+      setIsLoggedIn(false)
+      setIsLoading(false)
+    }
 
     return initialAuthState
   }
 
-  const login = async (identifier: string, password: string) => {
+  const login = async (
+    identifier: string,
+    password: string,
+  ): Promise<AuthState> => {
+    setIsLoading(true)
+
     try {
-      const response = await axios.post('/api/auth/login', {
+      const response = await axios.post<Auth>('/api/auth/login', {
         identifier,
         password,
       })
 
-      const newState = {
-        ...state,
-        user: response.data.user,
-        isLoggedIn: true,
-        token: response.data.token,
+      if (response.data) {
+        setUser(response.data.user)
+        setToken(response.data.token)
+        setIsLoggedIn(response.data.isLoggedIn)
       }
 
-      setState(newState)
-
-      return newState
+      return { ...response.data, error: null, isLoading: false }
     } catch (error: any) {
-      setState({
-        ...initialAuthState,
-        error: error.message,
-      })
+      setError(error.message)
 
       return initialAuthState
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -76,39 +99,45 @@ export const AuthProvider: FC<AuthProviderProps> = ({
     password: string,
     username: string,
     name: string,
-  ) => {
+  ): Promise<AuthState> => {
+    setIsLoading(true)
+
     try {
-      const response = await axios.post('/api/auth/register', {
+      const response = await axios.post<Auth>('/api/auth/register', {
         email,
         password,
         username,
         name,
       })
 
-      const newState = {
-        ...state,
-        user: response.data.user,
-        isLoggedIn: true,
-        token: response.data.token,
+      if (response.data) {
+        setUser(response.data.user)
+        setToken(response.data.token)
+        setIsLoggedIn(response.data.isLoggedIn)
       }
 
-      setState(newState)
-
-      return newState
+      return {
+        ...response.data,
+        error: null,
+        isLoading: false,
+      }
     } catch (error: any) {
-      setState({
-        ...initialAuthState,
-        error: error.message,
-      })
+      setError(error.message)
 
       return initialAuthState
+    } finally {
+      setIsLoading(false)
     }
   }
 
   return (
     <AuthContext.Provider
       value={{
-        ...state,
+        user,
+        token,
+        isLoggedIn,
+        isLoading,
+        error,
         checkAuth,
         logout,
         login,

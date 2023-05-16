@@ -30,7 +30,7 @@ import {
 const schema = (t: TFunction) =>
   yup.object({
     password: yup.string().required(t('login.password.required') as string),
-    email: yup
+    identifier: yup
       .string()
       .email(t('contact.form.email-invalid') as string)
       .required(t('login.email.required') as string),
@@ -52,7 +52,7 @@ export const LoginForm: FC<LoginFormProps> = ({ providersToBeShown = [] }) => {
   })
 
   const router = useRouter()
-  const { checkAuth, login } = useAuth()
+  const { checkAuth, login, isLoading } = useAuth()
 
   const loginMutation = useMutation({
     mutationKey: ['login'],
@@ -129,7 +129,11 @@ export const LoginForm: FC<LoginFormProps> = ({ providersToBeShown = [] }) => {
             </Button>
           </HStack>
           <Stack spacing="6">
-            <Button type="submit" data-testid="button-submit-login">
+            <Button
+              type="submit"
+              data-testid="button-submit-login"
+              isLoading={isLoading}
+            >
               {t('login.sign-in')}
             </Button>
             {loginMutation.isError && (

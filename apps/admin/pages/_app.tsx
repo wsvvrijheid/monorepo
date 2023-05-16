@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import {
   ChakraProvider,
@@ -18,7 +18,7 @@ import { appWithTranslation } from 'next-i18next'
 import { DefaultSeo } from 'next-seo'
 
 import { defaultSeo, themes } from '@wsvvrijheid/config'
-import { AuthProvider, useAuth } from '@wsvvrijheid/context'
+import { AuthProvider } from '@wsvvrijheid/context'
 
 import i18nConfig from '../next-i18next.config'
 
@@ -58,11 +58,6 @@ function MyApp({ Component, pageProps }) {
       }),
   )
   const { locale } = useRouter()
-  const { checkAuth } = useAuth()
-
-  useEffect(() => {
-    checkAuth()
-  }, [])
 
   return (
     <QueryClientProvider client={queryClient}>

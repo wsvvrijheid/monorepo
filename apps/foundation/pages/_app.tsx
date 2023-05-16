@@ -13,7 +13,7 @@ import { appWithTranslation } from 'next-i18next'
 import { DefaultSeo } from 'next-seo'
 
 import { defaultSeo, themes } from '@wsvvrijheid/config'
-import { AuthProvider, useAuth } from '@wsvvrijheid/context'
+import { AuthProvider } from '@wsvvrijheid/context'
 import { pageview } from '@wsvvrijheid/utils'
 
 import '@splidejs/react-splide/css'
@@ -32,12 +32,6 @@ function MyApp({ Component, pageProps }) {
   const [queryClient] = useState(() => new QueryClient())
   const router = useRouter()
 
-  const { checkAuth } = useAuth()
-
-  useEffect(() => {
-    checkAuth()
-  }, [])
-
   useEffect(() => {
     const handleRouteChange = url => pageview(url)
 
@@ -47,19 +41,19 @@ function MyApp({ Component, pageProps }) {
   }, [router.events])
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <Hydrate state={pageProps.dehydratedState}>
-        <AuthProvider initialState={pageProps.authState}>
+    <AuthProvider initialState={pageProps.authState}>
+      <QueryClientProvider client={queryClient}>
+        <Hydrate state={pageProps.dehydratedState}>
           <ChakraProvider theme={themes.wsvvrijheid}>
             <DefaultSeo {...defaultSeo.wsvvrijheid[router.locale]} />
             <Component {...pageProps} />
             <Analytics />
             <ToastContainer />
           </ChakraProvider>
-        </AuthProvider>
-      </Hydrate>
-      <ReactQueryDevtools />
-    </QueryClientProvider>
+        </Hydrate>
+        <ReactQueryDevtools />
+      </QueryClientProvider>
+    </AuthProvider>
   )
 }
 

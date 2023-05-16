@@ -1,4 +1,4 @@
-import { FC, ReactNode } from 'react'
+import { FC, ReactNode, useEffect } from 'react'
 
 import {
   Box,
@@ -37,7 +37,7 @@ export const AdminLayout: FC<AdminLayoutProps> = ({
   hasBackButton,
   seo,
 }) => {
-  const { user, logout } = useAuth()
+  const { user, logout, checkAuth } = useAuth()
 
   const router = useRouter()
 
@@ -46,6 +46,10 @@ export const AdminLayout: FC<AdminLayoutProps> = ({
     true,
   )
   const [expanded, { toggle }] = useBoolean(expandedStorage)
+
+  useEffect(() => {
+    checkAuth()
+  }, [])
 
   const toggleSidebarExpanded = () => {
     setExpandedStorage(!expanded)
