@@ -23,7 +23,7 @@ export default {
         filters: {
           role: {
             type: {
-                $notIn: ['public', 'authenticated'],
+              $notIn: ['public', 'authenticated'],
             },
           },
         },
