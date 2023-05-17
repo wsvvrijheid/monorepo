@@ -2,7 +2,7 @@ export default {
   routes: [
     {
       method: 'GET',
-      path: '/user-statistics/',
+      path: '/user-statistics/get-user-stats',
       handler: 'custom.getMyStats',
     },
     {
