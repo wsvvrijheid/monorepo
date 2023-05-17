@@ -8,9 +8,7 @@ export default async ({ strapi }) => {
       filters: {
         role: {
           type: {
-            $not: {
-              $in: ['public', 'authenticated'],
-            },
+            $notIn: ['public', 'authenticated'],
           },
         },
       },
