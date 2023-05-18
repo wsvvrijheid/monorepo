@@ -5,8 +5,6 @@ import { FaQuestionCircle } from 'react-icons/fa'
 
 import { useHashtagContext } from '@wsvvrijheid/context'
 
-import { MentionList } from './Mention'
-import { TrendListTabs } from './Trends'
 import { TweetWidget } from './TweetWidget'
 import { PostMakerTweetList } from '../components/PostMakerTweetCard'
 
@@ -51,10 +49,7 @@ export const PostMaker = () => {
         h={{ base: 'auto', lg: 640 }}
         alignItems="stretch"
       >
-        <Box display={{ base: 'none', lg: 'block' }} h="inherit">
-          <MentionList />
-          <TrendListTabs />
-        </Box>
+        <Box display={{ base: 'none', lg: 'block' }} h="inherit"></Box>
         {hashtag.posts && <PostMakerTweetList posts={hashtag.posts} />}
         <Box>
           <TweetWidget

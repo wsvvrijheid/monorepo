@@ -1,6 +1,5 @@
 import { ReactNode } from 'react'
 
-import { UseDisclosureReturn } from '@chakra-ui/react'
 import { UseQueryResult } from '@tanstack/react-query'
 
 import {
@@ -9,7 +8,6 @@ import {
   Post,
   RedisPost,
   RedisQuote,
-  Trend,
 } from '@wsvvrijheid/types'
 
 export type PostState = {
@@ -43,12 +41,9 @@ export type HashtagState = {
   activePostId: number | null
   data: Hashtag | null
   posts: Record<number, PostState>
-  mentionsDisclosure: UseDisclosureReturn
   quotesQuery: UseQueryResult<RedisQuote[]>
   savedMentions: MentionUserData[]
   searchMentionsQuery: UseQueryResult<MentionUserData[]>
-  trendQuery: UseQueryResult<Trend>
-  trendsDisclosure: UseDisclosureReturn
   mentionSearchKey: string
 }
 

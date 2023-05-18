@@ -1,5 +1,6 @@
 import { SkeletonText, VStack, Wrap } from '@chakra-ui/react'
 
+import { useHashtagContext } from '@wsvvrijheid/context'
 import { TwitterTrend } from '@wsvvrijheid/types'
 
 import { TrendListItem } from './TrendListItem'
@@ -17,33 +18,20 @@ export const TrendList = ({
   hashtagInTrends,
   hashtagExtraInTrends,
 }: TrendListProps): JSX.Element => {
-  // const { trendNames, defaultHashtags, currentPostId } = useAppSelector(
-  //   state => state.hashtag,
-  // )
+  const { activePostId, addTrendToPost, removeTrendFromPost } =
+    useHashtagContext()
 
-  // const dispatch = useAppDispatch()
+  const onAddTrendName = (value: string) => {
+    if (!activePostId) return
 
-  // const onAddTrendName = (value: string) => {
-  //   if (!currentPostId) return
+    addTrendToPost(activePostId, value)
+  }
 
-  //   dispatch(
-  //     addTrendToPost({
-  //       postId: currentPostId,
-  //       trend: value,
-  //     }),
-  //   )
-  // }
+  const onRemoveTrendName = (value: string) => {
+    if (!activePostId) return
 
-  // const onRemoveTrendName = (value: string) => {
-  //   if (!currentPostId) return
-
-  //   dispatch(
-  //     removeTrendFromPost({
-  //       postId: currentPostId,
-  //       trend: value,
-  //     }),
-  //   )
-  // }
+    removeTrendFromPost(activePostId, value)
+  }
 
   return (
     <VStack align="stretch">
@@ -61,8 +49,8 @@ export const TrendList = ({
               hashtagExtraInTrends={hashtagExtraInTrends?.name}
               trendNames={[]}
               defaultHashtags={[]}
-              addTrend={() => null}
-              removeTrend={() => null}
+              addTrend={onAddTrendName}
+              removeTrend={onRemoveTrendName}
             />
           ))}
         </Wrap>

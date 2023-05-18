@@ -1,35 +1,36 @@
-// import { useTrends } from '@wsvvrijheid/services'
-// import { useAppSelector } from '@wsvvrijheid/store'
-// import { TwitterTrend } from '@wsvvrijheid/types'
+import { useHashtagContext } from '@wsvvrijheid/context'
+import { useTrends } from '@wsvvrijheid/services'
+import { TwitterTrend } from '@wsvvrijheid/types'
 
 export const useFindHashtagInTrends = () => {
-  // const { defaultHashtags } = useAppSelector(state => state.hashtag)
-  // const { data: trendsData } = useTrends()
+  const { data } = useHashtagContext()
+  const { data: trendsData } = useTrends()
 
-  // return defaultHashtags.map(hashtag => {
-  //   const { nl, tr, en } = trendsData ?? {}
+  const defaultHashtags = [data?.hashtagDefault, data?.hashtagExtra].filter(
+    Boolean,
+  )
 
-  //   if (!hashtag || !nl || !tr || !en) return null
+  return defaultHashtags.map(hashtag => {
+    const { nl, tr, en } = trendsData ?? {}
 
-  //   const indexEn = en?.findIndex(
-  //     (trend: TwitterTrend) => trend.name === hashtag,
-  //   )
-  //   const indexNl = nl?.findIndex(
-  //     (trend: TwitterTrend) => trend.name === hashtag,
-  //   )
-  //   const indexTr = tr?.findIndex(
-  //     (trend: TwitterTrend) => trend.name === hashtag,
-  //   )
+    if (!hashtag || !nl || !tr || !en) return null
 
-  //   if (!indexEn || !indexNl || !indexTr) return null
+    const indexEn = en?.findIndex(
+      (trend: TwitterTrend) => trend.name === hashtag,
+    )
+    const indexNl = nl?.findIndex(
+      (trend: TwitterTrend) => trend.name === hashtag,
+    )
+    const indexTr = tr?.findIndex(
+      (trend: TwitterTrend) => trend.name === hashtag,
+    )
 
-  return {
-    // nl: { ...nl[indexNl], indexNl },
-    // tr: { ...tr[indexTr], indexTr },
-    // en: { ...en[indexEn], indexEn },
-    tr: {},
-    nl: {},
-    en: {},
-  }
-  // })
+    if (!indexEn || !indexNl || !indexTr) return null
+
+    return {
+      nl: { ...nl[indexNl], indexNl },
+      tr: { ...tr[indexTr], indexTr },
+      en: { ...en[indexEn], indexEn },
+    }
+  })
 }

@@ -24,8 +24,10 @@ export const MentionListPanel = () => {
     // clearMentionSearches()
   }
 
+  console.log('searchMentionsQuery', searchMentionsQuery)
+
   const content = () => {
-    if (searchMentionsQuery.isLoading) {
+    if (searchMentionsQuery.isLoading && !searchMentionsQuery.data) {
       return <MentionListSkeleton />
     }
 

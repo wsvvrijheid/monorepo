@@ -1,18 +1,12 @@
 import { FC, createContext, useContext, useEffect, useState } from 'react'
 
-import { useDisclosure } from '@chakra-ui/react'
 import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 import { sampleSize } from 'lodash'
 
 import { API_URL } from '@wsvvrijheid/config'
 import { TOKEN } from '@wsvvrijheid/secrets'
-import {
-  MentionUserData,
-  RedisQuote,
-  StrapiSingleResponse,
-  Trend,
-} from '@wsvvrijheid/types'
+import { MentionUserData, RedisQuote } from '@wsvvrijheid/types'
 
 import { TWITTER_CHAR_LIMIT, TWITTER_LINK_CHAR_COUNT } from './constants'
 import { initialHashtagContext, initialPostState } from './state'
@@ -28,8 +22,6 @@ export const HashtagProvider: FC<HashtagProviderProps> = ({
 }) => {
   const [activePostId, setActivePostId] = useState<number | null>(null)
   const [mentionSearchKey, setMentionSearchKey] = useState<string>('')
-  const mentionsDisclosure = useDisclosure()
-  const trendsDisclosure = useDisclosure()
   const [posts, setPosts] = useState<Record<number, PostState>>({})
 
   const updatePostContent = (postId: number, newState: Partial<PostState>) => {
@@ -83,14 +75,6 @@ export const HashtagProvider: FC<HashtagProviderProps> = ({
   const quotesQuery = useQuery<RedisQuote[]>({
     queryKey: ['quotes'],
     queryFn: () => fetch('/api/kv/quotes').then(res => res.json()),
-  })
-
-  const trendQuery = useQuery<Trend>({
-    queryKey: ['trend'],
-    queryFn: () =>
-      axios<StrapiSingleResponse<Trend>>(`${API_URL}/api/trend`).then(
-        res => res.data?.data,
-      ),
   })
 
   const searchMentions = async (value: string) => {
@@ -193,13 +177,10 @@ export const HashtagProvider: FC<HashtagProviderProps> = ({
         activePostId,
         data: hashtag,
         mentionSearchKey,
-        mentionsDisclosure,
         posts,
         quotesQuery,
         savedMentions: [],
         searchMentionsQuery,
-        trendQuery,
-        trendsDisclosure,
         // actions
         addMentionToPost,
         addTrendToPost,

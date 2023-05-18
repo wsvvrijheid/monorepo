@@ -1,10 +1,13 @@
-import { UseDisclosureReturn } from '@chakra-ui/react'
 import { UseQueryResult } from '@tanstack/react-query'
 
-import { RedisQuote, Trend } from '@wsvvrijheid/types'
+import { RedisQuote } from '@wsvvrijheid/types'
 
-import { HashtagContextType, HashtagState, PostState } from './types'
-import { HashtagActions } from './types'
+import {
+  HashtagActions,
+  HashtagContextType,
+  HashtagState,
+  PostState,
+} from './types'
 
 export const initialPostState: PostState = {
   post: null,
@@ -24,13 +27,10 @@ export const initialHashtagState: HashtagState = {
   activePostId: null,
   data: null,
   mentionSearchKey: '',
-  mentionsDisclosure: {} as UseDisclosureReturn,
   posts: { 0: initialPostState },
   quotesQuery: {} as UseQueryResult<RedisQuote[]>,
   savedMentions: [],
   searchMentionsQuery: {} as UseQueryResult<any>,
-  trendQuery: {} as UseQueryResult<Trend>,
-  trendsDisclosure: {} as UseDisclosureReturn,
 }
 
 export const initialHashtagActions: HashtagActions = {

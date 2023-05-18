@@ -41,15 +41,8 @@ export const MentionList = () => {
   if (!data) return null
 
   return (
-    <VStack align="stretch" h="60%" data-tour="step-mention-list">
-      <VStack
-        minH="0"
-        h="full"
-        align="stretch"
-        bg="white"
-        overflowY="auto"
-        shadow="base"
-      >
+    <VStack align="stretch" h={300} data-tour="step-mention-list">
+      <VStack minH="0" h="full" align="stretch" bg="white" overflowY="auto">
         <Tabs
           size="sm"
           colorScheme={'primary'}

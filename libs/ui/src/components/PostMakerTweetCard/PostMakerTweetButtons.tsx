@@ -1,4 +1,13 @@
-import { Button, HStack, Link, Text } from '@chakra-ui/react'
+import {
+  Button,
+  HStack,
+  Link,
+  Popover,
+  PopoverBody,
+  PopoverContent,
+  PopoverTrigger,
+  Text,
+} from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { GoMention } from 'react-icons/go'
@@ -10,10 +19,12 @@ import { useHashtagContext, usePostContext } from '@wsvvrijheid/context'
 
 import { PostMakerTweetProgress } from './PostMakerTweetProgress'
 import { PostMakerTweetShare } from './PostMakerTweetShare'
+import { MentionList } from '../../post-maker/Mention'
+import { TrendListTabs } from '../../post-maker/Trends'
 
 export const PostMakerTweetButtons = ({ id }: { id: number }) => {
   const router = useRouter()
-  const { trendsDisclosure, mentionsDisclosure } = useHashtagContext()
+  const { setActivePostId } = useHashtagContext()
   const { post } = usePostContext(id)
 
   const { asPath, locale, query } = router
@@ -39,26 +50,44 @@ export const PostMakerTweetButtons = ({ id }: { id: number }) => {
 
   return (
     <HStack justifyContent={'space-between'}>
-      <Button
-        variant={'ghost'}
-        onClick={mentionsDisclosure.onOpen}
-        iconSpacing={{ base: 0, md: 2 }}
-        leftIcon={<GoMention />}
-      >
-        <Text display={{ base: 'none', md: 'block' }}>
-          {t('post.add-mention')}
-        </Text>
-      </Button>
-      <Button
-        variant={'ghost'}
-        onClick={trendsDisclosure.onOpen}
-        iconSpacing={{ base: 0, md: 2 }}
-        leftIcon={<MdTrendingUp />}
-      >
-        <Text display={{ base: 'none', md: 'block' }}>
-          {t('post.add-trend')}
-        </Text>
-      </Button>
+      <Popover placement="top">
+        <PopoverTrigger>
+          <Button
+            variant={'ghost'}
+            onClick={() => setActivePostId(id)}
+            iconSpacing={{ base: 0, md: 2 }}
+            leftIcon={<GoMention />}
+          >
+            <Text display={{ base: 'none', md: 'block' }}>
+              {t('post.add-mention')}
+            </Text>
+          </Button>
+        </PopoverTrigger>
+        <PopoverContent>
+          <PopoverBody>
+            <MentionList />
+          </PopoverBody>
+        </PopoverContent>
+      </Popover>
+      <Popover placement="top">
+        <PopoverTrigger>
+          <Button
+            variant={'ghost'}
+            onClick={() => setActivePostId(id)}
+            iconSpacing={{ base: 0, md: 2 }}
+            leftIcon={<MdTrendingUp />}
+          >
+            <Text display={{ base: 'none', md: 'block' }}>
+              {t('post.add-trend')}
+            </Text>
+          </Button>
+        </PopoverTrigger>
+        <PopoverContent>
+          <PopoverBody>
+            <TrendListTabs />
+          </PopoverBody>
+        </PopoverContent>
+      </Popover>
 
       <PostMakerTweetProgress />
 
