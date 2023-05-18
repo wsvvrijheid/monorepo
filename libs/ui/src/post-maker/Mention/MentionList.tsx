@@ -26,12 +26,15 @@ export const MentionList = () => {
     removeStoredMention,
     addMentionToPost,
   } = useHashtagContext()
+
   const { t } = useTranslation()
+
   const onAddMention = (value: MentionUserData) => {
     if (value.screen_name && activePostId) {
       addMentionToPost(activePostId, value.screen_name)
     }
   }
+
   const onRemoveMention = (value: MentionUserData) => {
     if (value.screen_name) {
       removeStoredMention(value.screen_name)
@@ -41,7 +44,7 @@ export const MentionList = () => {
   if (!data) return null
 
   return (
-    <VStack align="stretch" h={300} data-tour="step-mention-list">
+    <VStack align="stretch" h={400} data-tour="step-mention-list">
       <VStack minH="0" h="full" align="stretch" bg="white" overflowY="auto">
         <Tabs
           size="sm"

@@ -1,17 +1,38 @@
-import { Box, Button, Grid, IconButton } from '@chakra-ui/react'
+import {
+  Box,
+  Button,
+  Drawer,
+  DrawerBody,
+  DrawerContent,
+  DrawerOverlay,
+  Grid,
+  IconButton,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalOverlay,
+  useBreakpointValue,
+} from '@chakra-ui/react'
 import { useTour } from '@reactour/tour'
 import { useTranslation } from 'next-i18next'
 import { FaQuestionCircle } from 'react-icons/fa'
 
 import { useHashtagContext } from '@wsvvrijheid/context'
 
+import { MentionList } from './Mention'
+import { TrendListTabs } from './Trends'
 import { TweetWidget } from './TweetWidget'
 import { PostMakerTweetList } from '../components/PostMakerTweetCard'
 
 export const PostMaker = () => {
   const { t } = useTranslation()
+  const isMobile = useBreakpointValue({ base: true, lg: false }) ?? true
 
-  const { data: hashtag } = useHashtagContext()
+  const {
+    data: hashtag,
+    mentionsDisclosure,
+    trendsDisclosure,
+  } = useHashtagContext()
 
   const { setIsOpen } = useTour()
 
@@ -19,6 +40,54 @@ export const PostMaker = () => {
 
   return (
     <>
+      <Modal
+        closeOnOverlayClick={true}
+        isOpen={!isMobile && mentionsDisclosure.isOpen}
+        onClose={mentionsDisclosure.onClose}
+      >
+        <ModalOverlay />
+        <ModalContent>
+          <ModalBody>
+            <MentionList />
+          </ModalBody>
+        </ModalContent>
+      </Modal>
+      <Modal
+        closeOnOverlayClick={true}
+        isOpen={!isMobile && trendsDisclosure.isOpen}
+        onClose={trendsDisclosure.onClose}
+      >
+        <ModalOverlay />
+        <ModalContent>
+          <ModalBody>
+            <TrendListTabs />
+          </ModalBody>
+        </ModalContent>
+      </Modal>
+      <Drawer
+        isOpen={isMobile && mentionsDisclosure.isOpen}
+        onClose={mentionsDisclosure.onClose}
+        placement={'bottom'}
+      >
+        <DrawerOverlay />
+        <DrawerContent>
+          <DrawerBody>
+            <MentionList />
+          </DrawerBody>
+        </DrawerContent>
+      </Drawer>
+      <Drawer
+        isOpen={isMobile && trendsDisclosure.isOpen}
+        onClose={trendsDisclosure.onClose}
+        placement={'bottom'}
+      >
+        <DrawerOverlay />
+        <DrawerContent>
+          <DrawerBody>
+            <TrendListTabs />
+          </DrawerBody>
+        </DrawerContent>
+      </Drawer>
       <Button
         display={{ base: 'none', lg: 'flex' }}
         zIndex="sticky"

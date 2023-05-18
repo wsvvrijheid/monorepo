@@ -1,11 +1,9 @@
 import { FC, createContext, useContext, useEffect, useState } from 'react'
 
+import { useDisclosure } from '@chakra-ui/react'
 import { useQuery } from '@tanstack/react-query'
-import axios from 'axios'
 import { sampleSize } from 'lodash'
 
-import { API_URL } from '@wsvvrijheid/config'
-import { TOKEN } from '@wsvvrijheid/secrets'
 import { MentionUserData, RedisQuote } from '@wsvvrijheid/types'
 
 import { TWITTER_CHAR_LIMIT, TWITTER_LINK_CHAR_COUNT } from './constants'
@@ -23,6 +21,9 @@ export const HashtagProvider: FC<HashtagProviderProps> = ({
   const [activePostId, setActivePostId] = useState<number | null>(null)
   const [mentionSearchKey, setMentionSearchKey] = useState<string>('')
   const [posts, setPosts] = useState<Record<number, PostState>>({})
+
+  const mentionsDisclosure = useDisclosure()
+  const trendsDisclosure = useDisclosure()
 
   const updatePostContent = (postId: number, newState: Partial<PostState>) => {
     console.log('Updating post...', Object.keys(newState).join(', '))
@@ -75,26 +76,6 @@ export const HashtagProvider: FC<HashtagProviderProps> = ({
   const quotesQuery = useQuery<RedisQuote[]>({
     queryKey: ['quotes'],
     queryFn: () => fetch('/api/kv/quotes').then(res => res.json()),
-  })
-
-  const searchMentions = async (value: string) => {
-    const response = await axios<MentionUserData[]>(
-      `${API_URL}/api/mentions/search?q=${value}`,
-      {
-        headers: { Authorization: `Bearer ${TOKEN}` },
-      },
-    )
-    const rawData = response.data
-
-    const result = rawData.sort((a, b) => b.followers_count - a.followers_count)
-
-    return result
-  }
-
-  const searchMentionsQuery = useQuery({
-    queryKey: ['mentions', mentionSearchKey],
-    queryFn: () => searchMentions(mentionSearchKey),
-    enabled: mentionSearchKey.length > 0,
   })
 
   const removeStoredMention = (mention: string) => {
@@ -180,12 +161,12 @@ export const HashtagProvider: FC<HashtagProviderProps> = ({
         posts,
         quotesQuery,
         savedMentions: [],
-        searchMentionsQuery,
+        mentionsDisclosure,
+        trendsDisclosure,
         // actions
         addMentionToPost,
         addTrendToPost,
         removeStoredMention,
-        searchMentions,
         setActivePostId,
         setMentionSearchKey,
         updateStoredMentions,

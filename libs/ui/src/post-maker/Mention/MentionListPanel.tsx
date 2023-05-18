@@ -1,6 +1,7 @@
 import { Box } from '@chakra-ui/react'
 
 import { useHashtagContext } from '@wsvvrijheid/context'
+import { useLookupTwitterUsers } from '@wsvvrijheid/services'
 import { MentionUserData } from '@wsvvrijheid/types'
 
 import MentionListItem from './MentionListItem'
@@ -9,8 +10,8 @@ import { MentionSearch } from './MentionSearch'
 
 export const MentionListPanel = () => {
   const {
+    mentionSearchKey,
     activePostId,
-    searchMentionsQuery,
     data,
     addMentionToPost,
     updateStoredMentions,
@@ -24,14 +25,14 @@ export const MentionListPanel = () => {
     // clearMentionSearches()
   }
 
-  console.log('searchMentionsQuery', searchMentionsQuery)
+  const searchMentionsQuery = useLookupTwitterUsers(mentionSearchKey)
 
   const content = () => {
-    if (searchMentionsQuery.isLoading && !searchMentionsQuery.data) {
+    if (searchMentionsQuery.isFetching) {
       return <MentionListSkeleton />
     }
 
-    if (searchMentionsQuery.data?.length) {
+    if (searchMentionsQuery.data?.length && mentionSearchKey.length > 2) {
       return searchMentionsQuery.data.map((data, i) => (
         <MentionListItem key={i} data={data} onAddItem={onAddUserMention} />
       ))

@@ -19,7 +19,7 @@ export const TrendListTabs = () => {
   const { data: trends, isLoading } = useTrends()
 
   return (
-    <Stack h={200} data-tour="step-trends">
+    <Stack h={400} data-tour="step-trends">
       <Box overflowY="auto" bg="white">
         <Tabs colorScheme="primary" isFitted size="sm">
           <TabList pos="sticky" top="0" bg="white">

@@ -22,7 +22,11 @@ export const PostMakerTweetList: FC<PostMakerTweetListProps> = () => {
       overflow={'auto'}
     >
       {Object.values(posts).map(post => {
-        return post.post && <PostMakerTweetCard id={post.post.id} />
+        return (
+          post.post && (
+            <PostMakerTweetCard key={post.post.id} id={post.post.id} />
+          )
+        )
       })}
     </Stack>
   )

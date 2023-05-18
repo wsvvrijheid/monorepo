@@ -1,8 +1,15 @@
 import { useEffect, useMemo, useState } from 'react'
 
-import { Box, Input, InputGroup, InputLeftElement } from '@chakra-ui/react'
+import {
+  Box,
+  IconButton,
+  Input,
+  InputGroup,
+  InputLeftElement,
+  InputRightElement,
+} from '@chakra-ui/react'
 import { useTranslation } from 'next-i18next'
-import { FaSearch } from 'react-icons/fa'
+import { FaSearch, FaTimes } from 'react-icons/fa'
 import { useDebounce } from 'react-use'
 
 import { useHashtagContext } from '@wsvvrijheid/context'
@@ -30,8 +37,6 @@ export const MentionSearch = (): JSX.Element => {
     [value],
   )
 
-  console.log('filteredMentions', filteredMentions)
-
   useEffect(() => {
     if (filteredMentions.length === 0) {
       setMentionSearchKey(value)
@@ -56,11 +61,20 @@ export const MentionSearch = (): JSX.Element => {
           setValue(event.target.value)
         }}
         value={value}
-        _focus={{
-          borderBottomWidth: 2,
-          borderBottomColor: 'gray.300',
+        _focusVisible={{
+          outline: 'none',
         }}
       />
+      <InputRightElement>
+        <IconButton
+          aria-label={'Clear mention search'}
+          onClick={() => setValue('')}
+          icon={<FaTimes />}
+          variant={'ghost'}
+          size={'sm'}
+          colorScheme={'blackAlpha'}
+        />
+      </InputRightElement>
     </InputGroup>
   )
 }

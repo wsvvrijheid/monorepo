@@ -6,6 +6,7 @@ import {
   PopoverBody,
   PopoverContent,
   PopoverTrigger,
+  Portal,
   Text,
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
@@ -19,12 +20,12 @@ import { useHashtagContext, usePostContext } from '@wsvvrijheid/context'
 
 import { PostMakerTweetProgress } from './PostMakerTweetProgress'
 import { PostMakerTweetShare } from './PostMakerTweetShare'
-import { MentionList } from '../../post-maker/Mention'
 import { TrendListTabs } from '../../post-maker/Trends'
 
 export const PostMakerTweetButtons = ({ id }: { id: number }) => {
   const router = useRouter()
-  const { setActivePostId } = useHashtagContext()
+  const { setActivePostId, mentionsDisclosure, trendsDisclosure } =
+    useHashtagContext()
   const { post } = usePostContext(id)
 
   const { asPath, locale, query } = router
@@ -50,30 +51,28 @@ export const PostMakerTweetButtons = ({ id }: { id: number }) => {
 
   return (
     <HStack justifyContent={'space-between'}>
+      <Button
+        variant={'ghost'}
+        onClick={() => {
+          setActivePostId(id)
+          mentionsDisclosure.onOpen()
+        }}
+        iconSpacing={{ base: 0, md: 2 }}
+        leftIcon={<GoMention />}
+      >
+        <Text display={{ base: 'none', md: 'block' }}>
+          {t('post.add-mention')}
+        </Text>
+      </Button>
+
       <Popover placement="top">
         <PopoverTrigger>
           <Button
             variant={'ghost'}
-            onClick={() => setActivePostId(id)}
-            iconSpacing={{ base: 0, md: 2 }}
-            leftIcon={<GoMention />}
-          >
-            <Text display={{ base: 'none', md: 'block' }}>
-              {t('post.add-mention')}
-            </Text>
-          </Button>
-        </PopoverTrigger>
-        <PopoverContent>
-          <PopoverBody>
-            <MentionList />
-          </PopoverBody>
-        </PopoverContent>
-      </Popover>
-      <Popover placement="top">
-        <PopoverTrigger>
-          <Button
-            variant={'ghost'}
-            onClick={() => setActivePostId(id)}
+            onClick={() => {
+              setActivePostId(id)
+              trendsDisclosure.onOpen()
+            }}
             iconSpacing={{ base: 0, md: 2 }}
             leftIcon={<MdTrendingUp />}
           >
@@ -82,11 +81,13 @@ export const PostMakerTweetButtons = ({ id }: { id: number }) => {
             </Text>
           </Button>
         </PopoverTrigger>
-        <PopoverContent>
-          <PopoverBody>
-            <TrendListTabs />
-          </PopoverBody>
-        </PopoverContent>
+        <Portal>
+          <PopoverContent>
+            <PopoverBody>
+              <TrendListTabs />
+            </PopoverBody>
+          </PopoverContent>
+        </Portal>
       </Popover>
 
       <PostMakerTweetProgress />
