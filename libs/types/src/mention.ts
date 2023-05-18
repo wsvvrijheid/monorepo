@@ -8,14 +8,15 @@ import { StrapiBase } from './strapi'
 
 export type MentionUserData = Pick<
   UserV1,
-  | 'id'
-  | 'id_str'
-  | 'name'
-  | 'screen_name'
-  | 'profile_image_url_https'
+  | 'description'
   | 'followers_count'
   | 'friends_count'
+  | 'id'
+  | 'id_str'
   | 'location'
+  | 'name'
+  | 'profile_image_url_https'
+  | 'screen_name'
   | 'verified'
 >
 

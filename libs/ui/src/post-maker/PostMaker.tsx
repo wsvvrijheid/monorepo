@@ -13,9 +13,11 @@ import { PostMakerTweetList } from '../components/PostMakerTweetCard'
 export const PostMaker = () => {
   const { t } = useTranslation()
 
-  const { data: hashtag, posts } = useHashtagContext()
+  const { data: hashtag } = useHashtagContext()
 
   const { setIsOpen } = useTour()
+
+  if (!hashtag) return null
 
   return (
     <>
@@ -53,7 +55,7 @@ export const PostMaker = () => {
           <MentionList />
           <TrendListTabs />
         </Box>
-        {posts && <PostMakerTweetList posts={posts} />}
+        {hashtag.posts && <PostMakerTweetList posts={hashtag.posts} />}
         <Box>
           <TweetWidget
             title={t('post.latest-tweets-label')}

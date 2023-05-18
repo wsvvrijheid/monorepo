@@ -1,4 +1,4 @@
-import kv from '@vercel/kv'
+import { kv } from '@vercel/kv'
 import { NextRequest, NextResponse } from 'next/server'
 
 export const config = {

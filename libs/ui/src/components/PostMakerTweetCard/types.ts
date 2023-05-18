@@ -1,27 +1,16 @@
-import { PostState } from '@wsvvrijheid/context'
+import { Post } from '@wsvvrijheid/types'
 
 export type PostMakerTweetShareProps = {
   url: string
   content: string
 }
 
-export type PostMakerTweetCardProps = {
-  post: PostState
-  onMentionClick: (mention: string) => void
-  onTrendClick: (mention: string) => void
-  toggleMentionsModal: () => void
-  toggleTrendsModal: () => void
+export type PostMakerTweetButtonsProps = {
+  post: Post
+  content: string
+  onTweet: () => void
 }
 
-export type PostMakerTweetTagsProps = Pick<
-  PostMakerTweetCardProps,
-  'onMentionClick' | 'onTrendClick'
-> & {
-  mentions: string[]
-  trends: string[]
+export type PostMakerTweetListProps = {
+  posts: Post[]
 }
-
-export type PostMakerTweetButtonsProps = Pick<
-  PostMakerTweetCardProps,
-  'post' | 'toggleMentionsModal' | 'toggleTrendsModal'
->

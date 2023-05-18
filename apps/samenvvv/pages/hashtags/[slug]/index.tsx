@@ -17,8 +17,7 @@ import { serialize } from 'next-mdx-remote/serialize'
 import { NextSeoProps } from 'next-seo'
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa'
 
-import { HashtagProvider, RedisQuote } from '@wsvvrijheid/context'
-import { PostState } from '@wsvvrijheid/context'
+import { HashtagProvider } from '@wsvvrijheid/context'
 import {
   HashtagReturnType,
   getHashtagBySlug,
@@ -38,13 +37,7 @@ import i18nConfig from '../../../next-i18next.config'
 
 type HashtagProps = InferGetServerSidePropsType<typeof getServerSideProps>
 
-const HashtagPage: FC<HashtagProps> = ({
-  hasStarted,
-  initialPosts,
-  initialQuotes,
-  initialTrend,
-  seo,
-}) => {
+const HashtagPage: FC<HashtagProps> = ({ hasStarted, seo }) => {
   const hashtagQuery = useHashtag()
 
   const hashtag = hashtagQuery.data
@@ -64,12 +57,7 @@ const HashtagPage: FC<HashtagProps> = ({
   if (!hashtag) return null
 
   return (
-    <HashtagProvider
-      hashtag={hashtag}
-      initialPosts={initialPosts}
-      initialQuotes={initialQuotes}
-      initialTrend={initialTrend}
-    >
+    <HashtagProvider hashtag={hashtag}>
       <TourProvider
         steps={steps}
         components={{}}
@@ -159,8 +147,6 @@ export const getServerSideProps = async (
       seo,
       slugs: { ...slugs, [locale]: slug },
       initialTrend: {} as Trend,
-      initialQuotes: [] as RedisQuote[],
-      initialPosts: [] as PostState[],
       hasStarted: hashtag.hasStarted,
       dehydratedState: dehydrate(queryClient),
       ...(await serverSideTranslations(

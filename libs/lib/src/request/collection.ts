@@ -35,13 +35,13 @@ export const requestCollection = async <T extends StrapiModel[]>({
   const requestUrl = `${API_URL}/${url}?${query}`
 
   try {
-    const response = await fetch(requestUrl, {
+    const response = await axios(requestUrl, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     })
 
-    const data = (await response.json()) as { data: T; meta: StrapiMeta }
+    const data = (await response.data) as { data: T; meta: StrapiMeta }
 
     if (!data || (data && !data.data)) {
       return {

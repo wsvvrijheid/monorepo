@@ -16,14 +16,14 @@ import {
 } from '@chakra-ui/react'
 import { useTranslation } from 'next-i18next'
 import { FaPlus, FaTimes } from 'react-icons/fa'
-import { UserV1 } from 'twitter-api-v2'
 
+import { MentionUserData } from '@wsvvrijheid/types'
 import { formatNumber } from '@wsvvrijheid/utils'
 
 interface MentionListItemProps {
-  data: UserV1
-  onAddItem: (value: UserV1) => void
-  onRemoveItem?: (value: UserV1) => void
+  data: MentionUserData
+  onAddItem: (value: MentionUserData) => void
+  onRemoveItem?: (value: MentionUserData) => void
 }
 
 const MentionListItem: FC<MentionListItemProps> = ({

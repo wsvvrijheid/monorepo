@@ -1,5 +1,3 @@
-import React, { FC } from 'react'
-
 import { Button, HStack, Link, Text } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
@@ -8,21 +6,17 @@ import { MdTrendingUp } from 'react-icons/md'
 import { RxTwitterLogo } from 'react-icons/rx'
 
 import { SITE_URL } from '@wsvvrijheid/config'
+import { useHashtagContext, usePostContext } from '@wsvvrijheid/context'
 
 import { PostMakerTweetProgress } from './PostMakerTweetProgress'
 import { PostMakerTweetShare } from './PostMakerTweetShare'
-import { PostMakerTweetButtonsProps } from './types'
 
-export const PostMakerTweetButtons: FC<PostMakerTweetButtonsProps> = ({
-  post,
-  toggleMentionsModal,
-  toggleTrendsModal,
-}) => {
-  const {
-    asPath,
-    locale,
-    query: { slug },
-  } = useRouter()
+export const PostMakerTweetButtons = ({ id }: { id: number }) => {
+  const router = useRouter()
+  const { trendsDisclosure, mentionsDisclosure } = useHashtagContext()
+  const { post } = usePostContext(id)
+
+  const { asPath, locale, query } = router
 
   const { t } = useTranslation()
 
@@ -30,19 +24,24 @@ export const PostMakerTweetButtons: FC<PostMakerTweetButtonsProps> = ({
 
   const baseUrl = 'https://twitter.com/intent/tweet'
   const params = {
-    url: `${SITE_URL}/${locale}/hashtags/${slug}/`,
+    url: `${SITE_URL}/${locale}/hashtags/${query['slug']}/`,
     text: `${post.postContent}\n\n`,
   }
-  const query = new URLSearchParams(params)
-  const result = query.toString()
+  const queryParams = new URLSearchParams(params)
 
-  const postUrl = `${baseUrl}?${result.toString()}`
+  const postUrl = `${baseUrl}?${queryParams.toString()}`
+
+  const onTweet = () => {
+    console.log('tweet')
+  }
+
+  if (!post) return null
 
   return (
     <HStack justifyContent={'space-between'}>
       <Button
         variant={'ghost'}
-        onClick={toggleMentionsModal}
+        onClick={mentionsDisclosure.onOpen}
         iconSpacing={{ base: 0, md: 2 }}
         leftIcon={<GoMention />}
       >
@@ -52,7 +51,7 @@ export const PostMakerTweetButtons: FC<PostMakerTweetButtonsProps> = ({
       </Button>
       <Button
         variant={'ghost'}
-        onClick={toggleTrendsModal}
+        onClick={trendsDisclosure.onOpen}
         iconSpacing={{ base: 0, md: 2 }}
         leftIcon={<MdTrendingUp />}
       >
@@ -68,12 +67,16 @@ export const PostMakerTweetButtons: FC<PostMakerTweetButtonsProps> = ({
           variant={'ghost'}
           iconSpacing={{ base: 0, md: 2 }}
           leftIcon={<RxTwitterLogo />}
+          onClick={onTweet}
         >
           <Text display={{ base: 'none', md: 'block' }}>Tweet</Text>
         </Button>
       </Link>
 
-      <PostMakerTweetShare url={url} content={post.postText} />
+      <PostMakerTweetShare
+        url={url}
+        content={post.post?.description as string}
+      />
     </HStack>
   )
 }

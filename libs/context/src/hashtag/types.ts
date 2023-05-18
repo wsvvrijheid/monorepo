@@ -2,50 +2,54 @@ import { ReactNode } from 'react'
 
 import { UseDisclosureReturn } from '@chakra-ui/react'
 import { UseQueryResult } from '@tanstack/react-query'
-import { UserV1 } from 'twitter-api-v2'
 
-import { Hashtag, Post, Trend } from '@wsvvrijheid/types'
-
-// Redis key format: <postId>::<content>::<shareCount>
-export type RedisPost = `${number}::${string}::${number}`
-export type RedisQuote = RedisPost
+import {
+  Hashtag,
+  MentionUserData,
+  Post,
+  RedisPost,
+  RedisQuote,
+  Trend,
+} from '@wsvvrijheid/types'
 
 export type PostState = {
-  data: Post | null
+  post: Post | null
   availableCount: number
   count: number
-  hashtags: string[]
   defaultHashtags: string[]
-  text: string
   isExceeded: boolean
   mentionUsernames: string[]
   postContent: string
-  postText: string
-  list: RedisPost[]
+  sentence: string
+  sentences: RedisPost[]
   threshold: number
   trendNames: string[]
 }
 
 export type HashtagActions = {
+  removeStoredMention: (mention: string) => void
+  setActivePostId: (postId: number) => void
+  updateStoredMentions: (mention: MentionUserData) => void
   addMentionToPost: (postId: number, mention: string) => void
   addTrendToPost: (postId: number, trend: string) => void
+  searchMentions: (q: string) => void
+  setMentionSearchKey: (key: string) => void
   removeMentionFromPost: (postId: number, mention: string) => void
-  removeStoredMention: (mention: string) => void
   removeTrendFromPost: (postId: number, trend: string) => void
-  setActivePostId: (postId: number) => void
-  setPostText: (postId: number, content: string) => void
-  updateStoredMentions: (mention: UserV1) => void
+  updatePostContent: (postId: number, state: Partial<PostState>) => void
 }
 
 export type HashtagState = {
   activePostId: number | null
   data: Hashtag | null
+  posts: Record<number, PostState>
   mentionsDisclosure: UseDisclosureReturn
-  posts: PostState[]
   quotesQuery: UseQueryResult<RedisQuote[]>
-  savedMentions: UserV1[]
-  trendsDisclosure: UseDisclosureReturn
+  savedMentions: MentionUserData[]
+  searchMentionsQuery: UseQueryResult<MentionUserData[]>
   trendQuery: UseQueryResult<Trend>
+  trendsDisclosure: UseDisclosureReturn
+  mentionSearchKey: string
 }
 
 export type HashtagContextType = HashtagState & HashtagActions
@@ -53,7 +57,4 @@ export type HashtagContextType = HashtagState & HashtagActions
 export type HashtagProviderProps = {
   children: ReactNode
   hashtag: Hashtag
-  initialPosts: PostState[]
-  initialQuotes: RedisQuote[]
-  initialTrend: Trend
 }

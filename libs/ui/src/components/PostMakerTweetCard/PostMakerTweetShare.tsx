@@ -39,6 +39,7 @@ export const PostMakerTweetShare: FC<PostMakerTweetShareProps> = ({
           <HStack spacing={2}>
             <FacebookShareButton quote={content} url={url}>
               <IconButton
+                as="span"
                 isRound
                 aria-label="share on whatsapp"
                 icon={<FaFacebook />}
@@ -46,6 +47,7 @@ export const PostMakerTweetShare: FC<PostMakerTweetShareProps> = ({
             </FacebookShareButton>
             <WhatsappShareButton title={content} url={url}>
               <IconButton
+                as="span"
                 isRound
                 variant={'outline'}
                 aria-label="share on whatsapp"
@@ -54,6 +56,7 @@ export const PostMakerTweetShare: FC<PostMakerTweetShareProps> = ({
             </WhatsappShareButton>
             <TelegramShareButton url={url} title={content}>
               <IconButton
+                as="span"
                 isRound
                 bg="none"
                 variant={'outline'}
@@ -63,6 +66,7 @@ export const PostMakerTweetShare: FC<PostMakerTweetShareProps> = ({
             </TelegramShareButton>
             <LinkedinShareButton url={url} title={content} about={content}>
               <IconButton
+                as="span"
                 isRound
                 aria-label="share on linkedin"
                 variant={'outline'}

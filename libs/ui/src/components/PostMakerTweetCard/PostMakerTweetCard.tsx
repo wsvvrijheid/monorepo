@@ -1,38 +1,29 @@
-import { FC } from 'react'
-
 import { Stack } from '@chakra-ui/react'
+
+import { useHashtagContext } from '@wsvvrijheid/context'
 
 import { PostMakerTweetButtons } from './PostMakerTweetButtons'
 import { PostMakerTweetContent } from './PostMakerTweetContent'
 import { PostMakerTweetTags } from './PostMakerTweetTags'
-import { PostMakerTweetCardProps } from './types'
 import { PostImage } from '../PostImage'
 
-export const PostMakerTweetCard: FC<PostMakerTweetCardProps> = ({
-  post,
-  onMentionClick,
-  onTrendClick,
-  toggleMentionsModal,
-  toggleTrendsModal,
-}) => {
-  console.log('post', post)
-  if (!post.data) return null
+export const PostMakerTweetCard = ({ id }: { id: number }) => {
+  const { activePostId, setActivePostId } = useHashtagContext()
+
+  const isActive = id === activePostId
 
   return (
-    <Stack p={2} _hover={{ bg: 'blackAlpha.100' }}>
-      <PostMakerTweetContent />
-      <PostMakerTweetTags
-        mentions={post.mentionUsernames}
-        trends={post.trendNames}
-        onMentionClick={onMentionClick}
-        onTrendClick={onTrendClick}
-      />
-      <PostImage post={post.data} rounded="md" />
-      <PostMakerTweetButtons
-        post={post}
-        toggleMentionsModal={toggleMentionsModal}
-        toggleTrendsModal={toggleTrendsModal}
-      />
+    <Stack
+      p={4}
+      bg={'white'}
+      spacing={4}
+      onMouseEnter={() => setActivePostId(id)}
+      {...(isActive && { bg: 'primary.50' })}
+    >
+      <PostMakerTweetContent id={id} />
+      <PostMakerTweetTags id={id} />
+      <PostImage rounded="lg" borderWidth={1} overflow={'hidden'} id={id} />
+      <PostMakerTweetButtons id={id} />
     </Stack>
   )
 }

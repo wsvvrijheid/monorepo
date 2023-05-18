@@ -1,7 +1,7 @@
 import { PostState } from '@wsvvrijheid/context'
 
 export const postMock: PostState = {
-  data: {
+  post: {
     id: 1,
     title: 'Post title',
     description: 'Post description',
@@ -23,13 +23,11 @@ export const postMock: PostState = {
   availableCount: 10,
   count: 7,
   defaultHashtags: ['NOS', 'BedelliOzgurluk'],
-  hashtags: ['NOS', 'BedelliOzgurluk'],
   isExceeded: false,
-  list: ['1::A::1', '1::B::2', '1::C::3'],
+  sentences: ['1::A::1', '1::B::2', '1::C::3'],
   mentionUsernames: ['@wsvvrijheid'],
   postContent: 'Post postContent',
-  postText: 'Post postText',
-  text: 'Post text',
+  sentence: 'Post postText',
   threshold: 0,
   trendNames: ['Askeriogrenciler ozgurluk'],
 }

@@ -1,7 +1,7 @@
 import { useMutation, useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 
-import { RedisPost } from '@wsvvrijheid/context'
+import { RedisPost } from '@wsvvrijheid/types'
 
 type UpdateArgs = { id: number; index: number; value: RedisPost }
 type CreateArgs = { id: number; value: RedisPost }
@@ -39,24 +39,24 @@ export const getPostSentences = async (id: number) => {
 
 export const useUpdatePostSentence = () =>
   useMutation({
-    mutationKey: ['postListUpdate'],
+    mutationKey: ['kv-posts-update'],
     mutationFn: updatePostSentences,
   })
 
 export const useDeletePostSentence = () =>
   useMutation({
-    mutationKey: ['postListDelete'],
+    mutationKey: ['kv-posts-delete'],
     mutationFn: deletePostSentence,
   })
 
 export const useCreatePostSentence = () =>
   useMutation({
-    mutationKey: ['postListCreate'],
+    mutationKey: ['kv-posts-create'],
     mutationFn: createPostSentence,
   })
 
 export const useGetPostSentences = (id: number) =>
   useQuery({
-    queryKey: ['postListGet', id],
+    queryKey: ['kv-posts', id],
     queryFn: () => getPostSentences(id),
   })

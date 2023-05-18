@@ -1,40 +1,34 @@
-import React, { FC } from 'react'
-
 import { Stack, Tag, TagCloseButton, TagLabel, Wrap } from '@chakra-ui/react'
 
-import { PostMakerTweetTagsProps } from './types'
+import { useHashtagContext, usePostContext } from '@wsvvrijheid/context'
 
-export const PostMakerTweetTags: FC<PostMakerTweetTagsProps> = ({
-  mentions,
-  trends,
-  onMentionClick,
-  onTrendClick,
-}) => {
+export const PostMakerTweetTags = ({ id }: { id: number }) => {
+  const { post } = usePostContext(id)
+  const { removeMentionFromPost, removeTrendFromPost } = useHashtagContext()
+
   return (
     <Stack>
       <Wrap>
-        {mentions.map(mention => (
+        {post.mentionUsernames.map(mention => (
           <Tag
+            key={mention}
             colorScheme={'primary'}
             variant={'outline'}
             rounded={'full'}
             px={2}
           >
             <TagLabel>@{mention}</TagLabel>
-            <TagCloseButton onClick={() => onMentionClick(mention)} />
+            <TagCloseButton
+              onClick={() => removeMentionFromPost(id, mention)}
+            />
           </Tag>
         ))}
       </Wrap>
       <Wrap>
-        {trends.map(trend => (
-          <Tag
-            variant={'outline'}
-            rounded={'full'}
-            px={2}
-            onClick={() => onTrendClick(trend)}
-          >
+        {post.trendNames.map(trend => (
+          <Tag key={trend} variant={'outline'} rounded={'full'} px={2}>
             <TagLabel>{trend}</TagLabel>
-            <TagCloseButton onClick={() => onTrendClick(trend)} />
+            <TagCloseButton onClick={() => removeTrendFromPost(id, trend)} />
           </Tag>
         ))}
       </Wrap>

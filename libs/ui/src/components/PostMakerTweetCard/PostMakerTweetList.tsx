@@ -1,43 +1,28 @@
 import { FC } from 'react'
 
 import { Divider, Stack } from '@chakra-ui/react'
+import { isEmpty } from 'lodash'
 
-import { PostState, useHashtagContext } from '@wsvvrijheid/context'
+import { useHashtagContext } from '@wsvvrijheid/context'
 
 import { PostMakerTweetCard } from './PostMakerTweetCard'
+import { PostMakerTweetListProps } from './types'
 
-export type PostMakerTweetListProps = {
-  posts: PostState[]
-}
+export const PostMakerTweetList: FC<PostMakerTweetListProps> = () => {
+  const { posts } = useHashtagContext()
 
-export const PostMakerTweetList: FC<PostMakerTweetListProps> = ({ posts }) => {
-  const { removeMentionFromPost, removeTrendFromPost } = useHashtagContext()
-
-  const handleRemoveMention = (postId: number, mention: string) => {
-    removeMentionFromPost(postId, mention)
-  }
-
-  const handleRemoveTrend = (postId: number, trend: string) => {
-    removeTrendFromPost(postId, trend)
-  }
-
-  console.log('posts', posts)
+  if (isEmpty(posts)) return null
 
   return (
-    <Stack borderWidth={1} spacing={0} divider={<Divider />}>
-      {posts.map(post => {
-        const postId = post.data?.id as number
-
-        return (
-          <PostMakerTweetCard
-            key={postId}
-            post={post}
-            onMentionClick={mention => handleRemoveMention(postId, mention)}
-            onTrendClick={trend => handleRemoveTrend(postId, trend)}
-            toggleMentionsModal={() => null}
-            toggleTrendsModal={() => null}
-          />
-        )
+    <Stack
+      borderWidth={1}
+      spacing={0}
+      divider={<Divider />}
+      h={800}
+      overflow={'auto'}
+    >
+      {Object.values(posts).map(post => {
+        return post.post && <PostMakerTweetCard id={post.post.id} />
       })}
     </Stack>
   )

@@ -159,6 +159,7 @@ export const Caps = forwardRef<CapsProps, 'div'>(
                     : dimensions.image + dimensions.shape
                 }
                 spacing={`${dimensions.font / 2}px`}
+                userSelect={'none'}
               >
                 {title && (
                   <Text

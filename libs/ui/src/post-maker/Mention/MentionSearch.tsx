@@ -1,38 +1,44 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 import { Box, Input, InputGroup, InputLeftElement } from '@chakra-ui/react'
 import { useTranslation } from 'next-i18next'
 import { FaSearch } from 'react-icons/fa'
 import { useDebounce } from 'react-use'
 
+import { useHashtagContext } from '@wsvvrijheid/context'
+
 export const MentionSearch = (): JSX.Element => {
   const { t } = useTranslation()
-  const [searchArea, setSearchArea] = useState<string>('')
-  const [debouncedSearchArea, setDebouncedSearchArea] = useState<string>('')
+  const [value, setValue] = useState('')
+  const { setMentionSearchKey, data } = useHashtagContext()
+
+  const filteredMentions = useMemo(
+    () =>
+      data?.mentions?.filter(m =>
+        m.data?.screen_name.toLowerCase().includes(value.toLowerCase()),
+      ) || [],
+    [data?.mentions, value],
+  )
 
   useDebounce(
     () => {
-      setDebouncedSearchArea(searchArea)
+      if (filteredMentions.length === 0) {
+        setMentionSearchKey(value)
+      }
     },
     600,
-    [searchArea],
+    [value],
   )
 
+  console.log('filteredMentions', filteredMentions)
+
   useEffect(() => {
-    if (debouncedSearchArea.length > 1) {
-      const filteredData =
-        // mentions.data?.filter(m =>
-        //   m.data?.screen_name
-        //     .toLowerCase()
-        //     .includes(debouncedSearchArea.toLowerCase()))
-        []
-      if (filteredData.length === 0) {
-        // searchMentions(debouncedSearchArea)
-      }
+    if (filteredMentions.length === 0) {
+      setMentionSearchKey(value)
     } else {
-      // clearMentionSearches()
+      setMentionSearchKey('')
     }
-  }, [debouncedSearchArea])
+  }, [filteredMentions])
 
   return (
     <InputGroup data-tour="step-search">
@@ -47,9 +53,9 @@ export const MentionSearch = (): JSX.Element => {
         id="mention-search"
         placeholder={t('post.search-label') as string}
         onChange={event => {
-          setSearchArea(event.target.value)
+          setValue(event.target.value)
         }}
-        value={searchArea}
+        value={value}
         _focus={{
           borderBottomWidth: 2,
           borderBottomColor: 'gray.300',

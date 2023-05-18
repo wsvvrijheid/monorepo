@@ -15,21 +15,24 @@ import {
   TagLeftIcon,
   Wrap,
 } from '@chakra-ui/react'
+import { useQueryClient } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
 import { FaShareAlt } from 'react-icons/fa'
 
-import { RedisPost } from '@wsvvrijheid/context'
 import {
   useCreatePostSentence,
   useDeletePostSentence,
   useGetPostSentences,
   useUpdatePostSentence,
 } from '@wsvvrijheid/services'
+import { RedisPost } from '@wsvvrijheid/types'
 import { AdminLayout } from '@wsvvrijheid/ui'
 
 const TestPage = () => {
   const [input, setInput] = useState('')
   const [value, setValue] = useState<RedisPost>()
+
+  const queryClient = useQueryClient()
 
   const router = useRouter()
 
@@ -48,8 +51,6 @@ const TestPage = () => {
   const postSentencesQuery = useGetPostSentences(
     router.query.id ? Number(router.query.id) : 1,
   )
-
-  const onSuccess = () => postSentencesQuery.refetch()
 
   return (
     <AdminLayout seo={{ title: 'Test' }}>
@@ -72,7 +73,21 @@ const TestPage = () => {
                     id,
                     value,
                   },
-                  { onSuccess },
+                  {
+                    onSuccess: () => {
+                      const cachePosts = queryClient.getQueryData<string[]>([
+                        'kv-posts',
+                        id,
+                      ])
+
+                      queryClient.setQueryData<string[]>(
+                        ['kv-posts', id],
+                        [...cachePosts, value],
+                      )
+
+                      setInput('')
+                    },
+                  },
                 )
               }
             >
@@ -86,9 +101,10 @@ const TestPage = () => {
               const count = Number(item.split('::')[2])
 
               return (
-                <Tag size={'lg'} key={item} cursor={'pointer'}>
+                <Tag size={'lg'} key={item}>
                   <Center mr={2}>{count}</Center>
                   <TagLeftIcon
+                    cursor={'pointer'}
                     as={FaShareAlt}
                     onClick={() => {
                       const newValue = `${id}::${value}::${
@@ -100,7 +116,26 @@ const TestPage = () => {
                           index,
                           value: newValue,
                         },
-                        { onSuccess },
+                        {
+                          onSuccess: () => {
+                            const cachePosts = queryClient.getQueryData<
+                              string[]
+                            >(['kv-posts', id])
+
+                            const newCachePosts = cachePosts.map((item, i) => {
+                              if (i === index) {
+                                return newValue
+                              }
+
+                              return item
+                            })
+
+                            queryClient.setQueryData<string[]>(
+                              ['kv-posts', id],
+                              newCachePosts,
+                            )
+                          },
+                        },
                       )
                     }}
                   />
@@ -114,7 +149,22 @@ const TestPage = () => {
                           id: Number(id),
                           value: newValue,
                         },
-                        { onSuccess },
+                        {
+                          onSuccess: () => {
+                            const cachePosts = queryClient.getQueryData<
+                              string[]
+                            >(['kv-posts', id])
+
+                            const newCachePosts = cachePosts.filter(
+                              item => item !== newValue,
+                            )
+
+                            queryClient.setQueryData<string[]>(
+                              ['kv-posts', id],
+                              newCachePosts,
+                            )
+                          },
+                        },
                       )
                     }}
                   />

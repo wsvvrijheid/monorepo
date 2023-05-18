@@ -1,19 +1,11 @@
 import { Meta, StoryObj } from '@storybook/react'
 
-import { postMock } from './mock'
-import {
-  PostMakerTweetList,
-  PostMakerTweetListProps,
-} from './PostMakerTweetList'
+import { PostMakerTweetList } from './PostMakerTweetList'
 export default {
   title: 'Admin/PostMakerTweetList',
   component: PostMakerTweetList,
-} as Meta<PostMakerTweetListProps>
+} as Meta<typeof PostMakerTweetList>
 
-type Story = StoryObj<PostMakerTweetListProps>
+type Story = StoryObj<typeof PostMakerTweetList>
 
-export const Default: Story = {
-  args: {
-    posts: [postMock, postMock, postMock],
-  },
-}
+export const Default: Story = {}

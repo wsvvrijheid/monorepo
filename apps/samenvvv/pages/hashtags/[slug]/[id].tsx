@@ -48,7 +48,7 @@ const Post = ({ seo, post }: PostProps) => {
         <ModalContent>
           <ModalBody p={0}>
             <Stack>
-              <PostImage size="sm" post={post} />
+              <PostImage size="sm" post={post} id={post.id} />
               <Box p={8}>{post.description}</Box>
             </Stack>
           </ModalBody>
