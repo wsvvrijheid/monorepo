@@ -30,4 +30,5 @@ export const postMock: PostState = {
   sentence: 'Post postText',
   threshold: 0,
   trendNames: ['Askeriogrenciler ozgurluk'],
+  percentage: 0,
 }
