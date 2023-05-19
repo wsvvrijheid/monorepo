@@ -1,14 +1,4 @@
-import {
-  Button,
-  HStack,
-  Link,
-  Popover,
-  PopoverBody,
-  PopoverContent,
-  PopoverTrigger,
-  Portal,
-  Text,
-} from '@chakra-ui/react'
+import { Button, HStack, Link, Text } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { GoMention } from 'react-icons/go'
@@ -20,7 +10,6 @@ import { useHashtagContext, usePostContext } from '@wsvvrijheid/context'
 
 import { PostMakerTweetProgress } from './PostMakerTweetProgress'
 import { PostMakerTweetShare } from './PostMakerTweetShare'
-import { TrendListTabs } from '../../post-maker/Trends'
 
 export const PostMakerTweetButtons = () => {
   const router = useRouter()
@@ -65,30 +54,19 @@ export const PostMakerTweetButtons = () => {
         </Text>
       </Button>
 
-      <Popover placement="top">
-        <PopoverTrigger>
-          <Button
-            variant={'ghost'}
-            onClick={() => {
-              setActivePostId(post.id)
-              trendsDisclosure.onOpen()
-            }}
-            iconSpacing={{ base: 0, md: 2 }}
-            leftIcon={<MdTrendingUp />}
-          >
-            <Text display={{ base: 'none', md: 'block' }}>
-              {t('post.add-trend')}
-            </Text>
-          </Button>
-        </PopoverTrigger>
-        <Portal>
-          <PopoverContent>
-            <PopoverBody>
-              <TrendListTabs />
-            </PopoverBody>
-          </PopoverContent>
-        </Portal>
-      </Popover>
+      <Button
+        variant={'ghost'}
+        onClick={() => {
+          setActivePostId(post.id)
+          trendsDisclosure.onOpen()
+        }}
+        iconSpacing={{ base: 0, md: 2 }}
+        leftIcon={<MdTrendingUp />}
+      >
+        <Text display={{ base: 'none', md: 'block' }}>
+          {t('post.add-trend')}
+        </Text>
+      </Button>
 
       <PostMakerTweetProgress />
 

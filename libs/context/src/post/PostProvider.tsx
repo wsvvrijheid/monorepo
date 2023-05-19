@@ -26,12 +26,12 @@ export const PostProvider: FC<PostProviderProps> = ({ post, children }) => {
 
     const state = { ...postState, ...newState }
     const { mentionUsernames = [], trendNames = [], sentence = '' } = state
-    const mentionsStr = mentionUsernames.filter(a => !!a).join('\n')
+    const mentionsStr = mentionUsernames.filter(Boolean).join('\n')
 
-    const trendsStr = trendNames.filter(a => !!a).join('\n')
+    const trendsStr = trendNames.filter(Boolean).join('\n')
 
     const postContent = [sentence, mentionsStr, trendsStr]
-      .filter(a => !!a)
+      .filter(Boolean)
       .join('\n\n')
 
     const count = TWITTER_LINK_CHAR_COUNT + postContent.length

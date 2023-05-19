@@ -39,7 +39,7 @@ const TestPage = () => {
   const id = router.query.id ? Number(router.query.id) : 1
 
   useEffect(() => {
-    setValue(`${id}::${input}::1`)
+    setValue(`${id}::${input}::0`)
   }, [input, id])
 
   const onAddMutation = useCreatePostSentence()
@@ -97,7 +97,7 @@ const TestPage = () => {
           <Wrap p={2}>
             {postSentencesQuery.data?.map((item: string, index: number) => {
               const id = Number(item.split('::')[0])
-              const value = item.split('::')[1] as RedisPost
+              const sentence = item.split('::')[1] as RedisPost
               const count = Number(item.split('::')[2])
 
               return (
@@ -107,7 +107,7 @@ const TestPage = () => {
                     cursor={'pointer'}
                     as={FaShareAlt}
                     onClick={() => {
-                      const newValue = `${id}::${value}::${
+                      const newValue = `${id}::${sentence}::${
                         count + 1
                       }` as RedisPost
                       onUpdateMutation.mutate(
@@ -139,10 +139,11 @@ const TestPage = () => {
                       )
                     }}
                   />
-                  <TagLabel>{value}</TagLabel>
+                  <TagLabel>{sentence}</TagLabel>
                   <TagCloseButton
                     onClick={() => {
-                      const newValue = `${id}::${value}::${count}` as RedisPost
+                      const newValue =
+                        `${id}::${sentence}::${count}` as RedisPost
 
                       return onDeleteMutation.mutate(
                         {
