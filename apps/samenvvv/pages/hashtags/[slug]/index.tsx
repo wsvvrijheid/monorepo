@@ -1,13 +1,6 @@
-import { FC, useState } from 'react'
+import { FC } from 'react'
 
-import {
-  Box,
-  Collapse,
-  Heading,
-  IconButton,
-  Text,
-  useBreakpointValue,
-} from '@chakra-ui/react'
+import { useBreakpointValue } from '@chakra-ui/react'
 import { TourProvider } from '@reactour/tour'
 import { QueryClient, dehydrate } from '@tanstack/react-query'
 import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock'
@@ -15,7 +8,6 @@ import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { serialize } from 'next-mdx-remote/serialize'
 import { NextSeoProps } from 'next-seo'
-import { FaChevronDown, FaChevronUp } from 'react-icons/fa'
 
 import { HashtagProvider } from '@wsvvrijheid/context'
 import {
@@ -41,10 +33,6 @@ const HashtagPage: FC<HashtagProps> = ({ hasStarted, seo }) => {
   const hashtagQuery = useHashtag()
 
   const hashtag = hashtagQuery.data
-
-  const [show, setShow] = useState<boolean>(false)
-
-  const handleToggle = () => setShow(!show)
 
   const isMobile = useBreakpointValue({ base: true, lg: false })
   const postMakerSteps = usePostMakerSteps()
@@ -75,23 +63,6 @@ const HashtagPage: FC<HashtagProps> = ({ hasStarted, seo }) => {
       >
         <Layout seo={seo}>
           <Container py={4} pos="relative">
-            <Box flex={1} textAlign="center">
-              <Heading>{hashtag.title}</Heading>
-
-              <Collapse startingHeight={50} in={show}>
-                <Text my={4} maxW="container.md" mx="auto">
-                  {hashtag.content}
-                </Text>
-              </Collapse>
-              <IconButton
-                variant="ghost"
-                size="sm"
-                icon={show ? <FaChevronUp /> : <FaChevronDown />}
-                aria-label={show ? 'up' : 'down'}
-                _hover={{ bg: 'transparent' }}
-                onClick={handleToggle}
-              />
-            </Box>
             {hasStarted ? (
               <PostMaker />
             ) : (

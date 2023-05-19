@@ -115,12 +115,17 @@ export const PostMaker = () => {
       <Grid
         gap={4}
         gridTemplateColumns={{ base: '1fr', lg: '300px 1fr 300px' }}
-        h={{ base: 'auto', lg: 640 }}
+        h={{ base: 'auto', lg: 'calc(100vh - 130px)' }}
         alignItems="stretch"
       >
         <Box display={{ base: 'none', lg: 'block' }} h="inherit"></Box>
-        {hashtag.posts && <PostMakerTweetList posts={hashtag.posts} />}
-        <Box>
+        {/* TODO: Skeleton */}
+        {hashtag.posts && (
+          <Box h={'inherit'} overflowY={'auto'}>
+            <PostMakerTweetList posts={hashtag.posts} />
+          </Box>
+        )}
+        <Box h={'inherit'} overflowY={'auto'}>
           <TweetWidget
             title={t('post.latest-tweets-label')}
             tweets={hashtag?.tweets}

@@ -13,13 +13,7 @@ export const PostMakerTweetList: FC<PostMakerTweetListProps> = () => {
   if (!data) return null
 
   return (
-    <Stack
-      borderWidth={1}
-      spacing={0}
-      divider={<Divider />}
-      h={800}
-      overflow={'auto'}
-    >
+    <Stack borderWidth={1} spacing={0} divider={<Divider />}>
       {data.posts?.map(post => {
         return (
           <PostProvider key={post.id} post={post}>
