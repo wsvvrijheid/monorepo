@@ -1,29 +1,8 @@
 import { ReactNode } from 'react'
 
 import { UseDisclosureReturn } from '@chakra-ui/react'
-import { UseQueryResult } from '@tanstack/react-query'
 
-import {
-  Hashtag,
-  MentionUserData,
-  Post,
-  RedisPost,
-  RedisQuote,
-} from '@wsvvrijheid/types'
-
-export type PostState = {
-  availableCount: number
-  count: number
-  defaultHashtags: string[]
-  isExceeded: boolean
-  mentionUsernames: string[]
-  post: Post | null
-  postContent: string
-  sentence: string
-  sentences: RedisPost[]
-  threshold: number
-  trendNames: string[]
-}
+import { Hashtag, MentionUserData } from '@wsvvrijheid/types'
 
 export type HashtagActions = {
   addMentionToPost: (postId: number, mention: string) => void
@@ -33,7 +12,6 @@ export type HashtagActions = {
   removeTrendFromPost: (postId: number, trend: string) => void
   setActivePostId: (postId: number) => void
   setMentionSearchKey: (key: string) => void
-  updatePostContent: (postId: number, state: Partial<PostState>) => void
   updateStoredMentions: (mention: MentionUserData) => void
 }
 
@@ -42,10 +20,10 @@ export type HashtagState = {
   data: Hashtag | null
   mentionSearchKey: string
   mentionsDisclosure: UseDisclosureReturn
-  posts: Record<number, PostState>
-  quotesQuery: UseQueryResult<RedisQuote[]>
   savedMentions: MentionUserData[]
   trendsDisclosure: UseDisclosureReturn
+  postTrends: Record<number, string[]>
+  postMentions: Record<number, string[]>
 }
 
 export type HashtagContextType = HashtagState & HashtagActions

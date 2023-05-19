@@ -1,17 +1,16 @@
 import { FC } from 'react'
 
 import { Divider, Stack } from '@chakra-ui/react'
-import { isEmpty } from 'lodash'
 
-import { useHashtagContext } from '@wsvvrijheid/context'
+import { PostProvider, useHashtagContext } from '@wsvvrijheid/context'
 
 import { PostMakerTweetCard } from './PostMakerTweetCard'
 import { PostMakerTweetListProps } from './types'
 
 export const PostMakerTweetList: FC<PostMakerTweetListProps> = () => {
-  const { posts } = useHashtagContext()
+  const { data } = useHashtagContext()
 
-  if (isEmpty(posts)) return null
+  if (!data) return null
 
   return (
     <Stack
@@ -21,11 +20,11 @@ export const PostMakerTweetList: FC<PostMakerTweetListProps> = () => {
       h={800}
       overflow={'auto'}
     >
-      {Object.values(posts).map(post => {
+      {data.posts?.map(post => {
         return (
-          post.post && (
-            <PostMakerTweetCard key={post.post.id} id={post.post.id} />
-          )
+          <PostProvider key={post.id} post={post}>
+            {post && <PostMakerTweetCard />}
+          </PostProvider>
         )
       })}
     </Stack>

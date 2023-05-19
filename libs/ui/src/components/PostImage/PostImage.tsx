@@ -3,26 +3,23 @@ import { FC } from 'react'
 import { ImageProps } from '@chakra-ui/react'
 
 import { ASSETS_URL } from '@wsvvrijheid/config'
-import { PostState, usePostContext } from '@wsvvrijheid/context'
+import { usePostContext } from '@wsvvrijheid/context'
 import { Post, UploadFile } from '@wsvvrijheid/types'
 
 import { Caps } from '../Caps'
 
 type PostImageProps = Omit<ImageProps, 'id'> & {
-  id: number
   post?: Post
   size?: 'xs' | 'sm' | 'md' | 'lg'
 }
 
 export const PostImage: FC<PostImageProps> = ({
-  id,
   post: defaultPost,
   size = 'lg',
   ...rest
 }) => {
-  const postContext = usePostContext(id)
+  const postState = usePostContext()
 
-  const postState = postContext.post as PostState
   const post = defaultPost || (postState?.post as Post)
 
   let src: string | undefined

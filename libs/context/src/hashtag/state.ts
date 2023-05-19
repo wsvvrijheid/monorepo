@@ -1,38 +1,16 @@
 import { UseDisclosureReturn } from '@chakra-ui/react'
-import { UseQueryResult } from '@tanstack/react-query'
 
-import { RedisQuote } from '@wsvvrijheid/types'
-
-import {
-  HashtagActions,
-  HashtagContextType,
-  HashtagState,
-  PostState,
-} from './types'
-
-export const initialPostState: PostState = {
-  post: null,
-  availableCount: 0,
-  count: 0,
-  defaultHashtags: [],
-  isExceeded: false,
-  sentences: [],
-  mentionUsernames: [],
-  postContent: '',
-  sentence: '',
-  threshold: 0,
-  trendNames: [],
-}
+import { HashtagActions, HashtagContextType, HashtagState } from './types'
 
 export const initialHashtagState: HashtagState = {
   activePostId: null,
   data: null,
   mentionSearchKey: '',
-  posts: { 0: initialPostState },
-  quotesQuery: {} as UseQueryResult<RedisQuote[]>,
   savedMentions: [],
   mentionsDisclosure: {} as UseDisclosureReturn,
   trendsDisclosure: {} as UseDisclosureReturn,
+  postTrends: {},
+  postMentions: {},
 }
 
 export const initialHashtagActions: HashtagActions = {
@@ -43,7 +21,6 @@ export const initialHashtagActions: HashtagActions = {
   removeTrendFromPost: () => null,
   setActivePostId: () => null,
   setMentionSearchKey: () => null,
-  updatePostContent: () => null,
   updateStoredMentions: () => null,
 }
 

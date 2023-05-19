@@ -22,11 +22,11 @@ import { PostMakerTweetProgress } from './PostMakerTweetProgress'
 import { PostMakerTweetShare } from './PostMakerTweetShare'
 import { TrendListTabs } from '../../post-maker/Trends'
 
-export const PostMakerTweetButtons = ({ id }: { id: number }) => {
+export const PostMakerTweetButtons = () => {
   const router = useRouter()
   const { setActivePostId, mentionsDisclosure, trendsDisclosure } =
     useHashtagContext()
-  const { post } = usePostContext(id)
+  const { postContent, post } = usePostContext()
 
   const { asPath, locale, query } = router
 
@@ -37,7 +37,7 @@ export const PostMakerTweetButtons = ({ id }: { id: number }) => {
   const baseUrl = 'https://twitter.com/intent/tweet'
   const params = {
     url: `${SITE_URL}/${locale}/hashtags/${query['slug']}/`,
-    text: `${post.postContent}\n\n`,
+    text: `${postContent}\n\n`,
   }
   const queryParams = new URLSearchParams(params)
 
@@ -54,7 +54,7 @@ export const PostMakerTweetButtons = ({ id }: { id: number }) => {
       <Button
         variant={'ghost'}
         onClick={() => {
-          setActivePostId(id)
+          setActivePostId(post.id)
           mentionsDisclosure.onOpen()
         }}
         iconSpacing={{ base: 0, md: 2 }}
@@ -70,7 +70,7 @@ export const PostMakerTweetButtons = ({ id }: { id: number }) => {
           <Button
             variant={'ghost'}
             onClick={() => {
-              setActivePostId(id)
+              setActivePostId(post.id)
               trendsDisclosure.onOpen()
             }}
             iconSpacing={{ base: 0, md: 2 }}
@@ -103,10 +103,7 @@ export const PostMakerTweetButtons = ({ id }: { id: number }) => {
         </Button>
       </Link>
 
-      <PostMakerTweetShare
-        url={url}
-        content={post.post?.description as string}
-      />
+      <PostMakerTweetShare url={url} content={post?.description as string} />
     </HStack>
   )
 }

@@ -4,23 +4,23 @@ import { Box } from '@chakra-ui/react'
 
 import { usePostContext } from '@wsvvrijheid/context'
 
-export const PostMakerTweetContent = ({ id }: { id: number }) => {
-  const { post, updatePost } = usePostContext(id)
+export const PostMakerTweetContent = () => {
+  const { sentence, updatePostContent, threshold } = usePostContext()
 
   const contentRef = useRef<HTMLDivElement>(null)
   const caretPos = useRef<number>(0)
 
   const getCaret = (el: HTMLDivElement) => {
     let caretAt = 0
-    const sel = window.getSelection()
+    const selection = window.getSelection()
 
-    if (!sel) return 0
+    if (!selection) return 0
 
-    if (sel.rangeCount === 0) {
+    if (selection.rangeCount === 0) {
       return caretAt
     }
 
-    const range = sel.getRangeAt(0)
+    const range = selection.getRangeAt(0)
     const preRange = range.cloneRange()
     preRange.selectNodeContents(el)
     preRange.setEnd(range.endContainer, range.endOffset)
@@ -42,7 +42,7 @@ export const PostMakerTweetContent = ({ id }: { id: number }) => {
   }
 
   const handleInput: FormEventHandler<HTMLDivElement> = e => {
-    updatePost({ sentence: e.currentTarget.textContent ?? '' })
+    updatePostContent({ sentence: e.currentTarget.textContent ?? '' })
 
     if (contentRef.current) {
       caretPos.current = getCaret(contentRef.current) as number
@@ -54,20 +54,36 @@ export const PostMakerTweetContent = ({ id }: { id: number }) => {
       setCaret(contentRef.current, caretPos.current)
       contentRef.current.focus()
     }
-  }, [post.sentence])
+  }, [sentence])
+
+  const normalSentence = sentence.slice(0, threshold)
+  const redSentence = sentence.slice(threshold)
 
   return (
-    <Box
-      p={2}
-      ref={contentRef}
-      _focusVisible={{
-        outline: 'none',
-      }}
-      suppressContentEditableWarning
-      contentEditable
-      onInput={handleInput}
-    >
-      {post.sentence}
+    <Box pos={'relative'}>
+      <Box p={2} pos={'absolute'} top={0} left={0} boxSize={'full'}>
+        {normalSentence}
+        <Box as={'span'} color={'red'}>
+          {redSentence}
+        </Box>
+      </Box>
+      <Box
+        pos={'relative'}
+        bg={'transparent'}
+        sx={{
+          WebkitTextFillColor: 'transparent',
+        }}
+        p={2}
+        ref={contentRef}
+        _focusVisible={{
+          outline: 'none',
+        }}
+        suppressContentEditableWarning
+        contentEditable
+        onInput={handleInput}
+      >
+        {sentence}
+      </Box>
     </Box>
   )
 }
