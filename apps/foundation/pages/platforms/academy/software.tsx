@@ -1,26 +1,25 @@
 import { FC } from 'react'
 
-import { Box, Heading, Stack, Text } from '@chakra-ui/react'
-import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
-import { useRouter } from 'next/router'
+import { Box, Heading, Stack } from '@chakra-ui/react'
+import { GetStaticPropsContext } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { MDXRemoteSerializeResult } from 'next-mdx-remote'
+import { serialize } from 'next-mdx-remote/serialize'
 
 import { ASSETS_URL } from '@wsvvrijheid/config'
-import { StrapiLocale } from '@wsvvrijheid/types'
-import { Container, Hero } from '@wsvvrijheid/ui'
+import { Container, Hero, Markdown } from '@wsvvrijheid/ui'
 
 import { Layout } from '../../../components'
 import i18nConfig from '../../../next-i18next.config'
 
-type SoftwareProps = InferGetStaticPropsType<typeof getStaticProps>
+export type SoftwareProps = {
+  source: MDXRemoteSerializeResult
+  title: string
+}
 
-const Platforms: FC<SoftwareProps> = ({ title, content }) => {
-  const { locale } = useRouter()
-
-  const contentBody = content[locale as StrapiLocale]
-
+const SoftwarePage: FC<SoftwareProps> = ({ title, source }) => {
   return (
-    <Layout seo={{ title }}>
+    <Layout seo={{ title }} isDark>
       <Hero image={`${ASSETS_URL}/uploads/software_card_f3408ac222.jpeg`} />
       <Container>
         <Stack mb={4}>
@@ -30,7 +29,7 @@ const Platforms: FC<SoftwareProps> = ({ title, content }) => {
             </Heading>
           </Box>
           <Box>
-            <Text>{contentBody}</Text>
+            <Markdown source={source} />
           </Box>
         </Stack>
       </Container>
@@ -38,7 +37,7 @@ const Platforms: FC<SoftwareProps> = ({ title, content }) => {
   )
 }
 
-export default Platforms
+export default SoftwarePage
 
 export const getStaticProps = async (context: GetStaticPropsContext) => {
   const { locale } = context
@@ -49,6 +48,8 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
 
     tr: 'Gelişen teknolojiyle birlikte en büyük ihtiyaç yazılım olmaktadır. Yazılımdan ne kadar etkin bir şekilde faydalanabilirseniz amaçlarınızı yerine getirmede de o kadar başarılı olursunuz. Biz de bu amaçlarla gönüllü yazılımcılarımızdan oluşan yazılım ekibi kurduk. Kendileri fedakarca bize destek olmaktadırlar. Aşağıda vakfımız bünyesinde üretilen yazılım projelerini ve buna katkı verenleri göreceksiniz. <br/>Yazılım projelerimizde javascript, react, next.js, strapi, chakra-ui gibi teknolojileri kullanmaktayız. Eğer bu alanlarda temel seviyede eğitim aldınız ve tecrübe kazanmak istiyorsanız ekibimize bekleriz.',
   }
+
+  const source = await serialize(content[locale])
 
   const seo = {
     title: {
@@ -62,7 +63,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
     props: {
       ...(await serverSideTranslations(locale, ['common'], i18nConfig)),
       title: seo.title[locale],
-      content,
+      source,
     },
     revalidate: 1,
   }
