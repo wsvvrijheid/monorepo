@@ -7,9 +7,12 @@ export const initialPostState: PostState = {
   percentage: 0,
   post: null,
   postContent: '',
-  sentence: '',
-  sentences: [],
-  shareCount: 0,
+  sentence: {
+    value: '',
+    index: 0,
+    isPublished: false,
+    shareCount: 0,
+  },
   threshold: 0,
 }
 

@@ -4,7 +4,6 @@ import {
   useCallback,
   useContext,
   useEffect,
-  useRef,
   useState,
 } from 'react'
 
@@ -24,26 +23,25 @@ export const PostProvider: FC<PostProviderProps> = ({ post, children }) => {
   })
 
   const { postMentions, postTrends, defaultTrends } = useHashtagContext()
-  const { data: sentences = [] } = useGetPostSentences(post.id)
-
-  const hasUpdated = useRef(false)
+  const sentences = useGetPostSentences(post.id)
 
   const updatePostContent = useCallback((newState: Partial<PostState>) => {
     const mentionUsernames = postMentions[post.id] ?? []
     const trendNames = postTrends[post.id] ?? []
-    const defaultTrendnames = defaultTrends[post.id] ?? []
+    const defaultTrendNames = defaultTrends[post.id] ?? []
 
     const state = { ...postState, ...newState }
-    const { sentence = '' } = state
+    const { sentence } = state
+
+    if (!sentence?.value) return
+
     const mentionsStr = mentionUsernames.filter(Boolean).join('\n')
 
-    // console.log('UpdatePost', Object.keys(newState))
-
-    const trendsStr = [...defaultTrendnames, ...trendNames]
+    const trendsStr = [...defaultTrendNames, ...trendNames]
       .filter(Boolean)
       .join('\n')
 
-    const postContent = [sentence, mentionsStr, trendsStr]
+    const postContent = [sentence.value, mentionsStr, trendsStr]
       .filter(Boolean)
       .join('\n\n')
 
@@ -54,7 +52,7 @@ export const PostProvider: FC<PostProviderProps> = ({ post, children }) => {
     const exceededCharacters =
       count - TWITTER_CHAR_LIMIT > 0 ? count - TWITTER_CHAR_LIMIT : 0
 
-    const threshold = sentence.length - exceededCharacters
+    const threshold = sentence.value.length - exceededCharacters
     const availableCount = TWITTER_CHAR_LIMIT - count
 
     const updatedState: PostState = {
@@ -72,37 +70,19 @@ export const PostProvider: FC<PostProviderProps> = ({ post, children }) => {
   }, [])
 
   useEffect(() => {
-    if (!sentences.length && !postState.sentence) {
-      const sampleDescription =
-        post.description?.slice(0, 100) ?? 'Add a description to your post'
-
-      updatePostContent({
-        sentence: sampleDescription,
-        shareCount: 0,
-        sentences,
-      })
-
+    if (!sentences.length) {
       return
     }
 
-    const leastSharedSentence = sentences.reduce((prev, current) => {
-      const [, prevShareCount] = prev
-      const [, currentShareCount] = current
+    const leastSharedSentence = sentences[0]
 
-      return Number(prevShareCount) < Number(currentShareCount) ? prev : current
-    }, sentences[0] ?? '::')
-
-    const [sentence, shareCount] = leastSharedSentence.split('::')
-
-    if (hasUpdated.current) return
+    // if (hasSaved.current) return
 
     updatePostContent({
-      sentences,
-      sentence,
-      shareCount: Number(shareCount) ?? 0,
+      sentence: leastSharedSentence,
     })
 
-    hasUpdated.current = true
+    // hasSaved.current = true
   }, [sentences, post])
 
   return (

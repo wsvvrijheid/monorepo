@@ -1,6 +1,6 @@
 import { FC } from 'react'
 
-import { Box } from '@chakra-ui/react'
+import { Box, Stack } from '@chakra-ui/react'
 import { InferGetServerSidePropsType } from 'next'
 import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
@@ -13,6 +13,7 @@ import {
   FormLocaleSwitcher,
   ModelEditForm,
   PageHeader,
+  PostSentenceForm,
   postFields,
   postSchema,
 } from '@wsvvrijheid/ui'
@@ -40,21 +41,26 @@ const PostPage: FC<PageProps> = ({ seo }) => {
       <PageHeader>
         <FormLocaleSwitcher models={post?.localizations} slug={'posts'} />
       </PageHeader>
-      <Box p={6} rounded="md" bg="white" shadow="md">
+      <Stack spacing={4}>
         {post && (
-          <ModelEditForm<Post>
-            url="api/posts"
-            model={post}
-            schema={postSchema}
-            translatedFields={['description', 'content']}
-            fields={postFields}
-            onSuccess={refetch}
-            approverRoles={['accountmanager', 'translator']}
-            editorRoles={['contentmanager', 'translator', 'accountmanager']}
-            publisherRoles={['contentmanager', 'accountmanager']}
-          />
+          <Box p={4} rounded="md" bg="white" shadow="md">
+            <ModelEditForm<Post>
+              url="api/posts"
+              model={post}
+              schema={postSchema}
+              translatedFields={['description', 'content']}
+              fields={postFields}
+              onSuccess={refetch}
+              approverRoles={['accountmanager', 'translator']}
+              editorRoles={['contentmanager', 'translator', 'accountmanager']}
+              publisherRoles={['contentmanager', 'accountmanager']}
+            />
+          </Box>
         )}
-      </Box>
+        <Box p={4} rounded="md" bg="white" shadow="md">
+          <PostSentenceForm id={id} />
+        </Box>
+      </Stack>
     </AdminLayout>
   )
 }

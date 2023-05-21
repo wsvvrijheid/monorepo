@@ -47,3 +47,10 @@ export type PostLocalizeInput = Pick<
 >
 
 export type Post = StrapiBase & PostBase & PostRelation & StrapiCreatorRelation
+
+export type PostSentence = {
+  value: string
+  index: number
+  shareCount: number
+  isPublished: boolean
+}

@@ -1,4 +1,5 @@
-import { Button, HStack, Link, Text } from '@chakra-ui/react'
+import { Button, HStack, Text } from '@chakra-ui/react'
+import { useQueryClient } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { GoMention } from 'react-icons/go'
@@ -6,6 +7,7 @@ import { MdTrendingUp } from 'react-icons/md'
 import { RxTwitterLogo } from 'react-icons/rx'
 
 import { SITE_URL } from '@wsvvrijheid/config'
+import { useUpdatePostSentence } from '@wsvvrijheid/services'
 
 import { PostMakerTweetProgress } from './PostMakerTweetProgress'
 import { PostMakerTweetShare } from './PostMakerTweetShare'
@@ -16,11 +18,15 @@ export const PostMakerTweetButtons = () => {
   const router = useRouter()
   const { setActivePostId, mentionsDisclosure, trendsDisclosure } =
     useHashtagContext()
-  const { postContent, post } = usePostContext()
+  const { postContent, post, sentence } = usePostContext()
 
   const { asPath, locale, query } = router
+  const queryClient = useQueryClient()
+  const updatePostSentence = useUpdatePostSentence()
 
   const { t } = useTranslation()
+
+  if (!sentence) return null
 
   const url = `${SITE_URL}${asPath}`
 
@@ -33,8 +39,23 @@ export const PostMakerTweetButtons = () => {
 
   const postUrl = `${baseUrl}?${queryParams.toString()}`
 
-  const onTweet = () => {
-    console.log('tweet')
+  const onTweet = async () => {
+    if (post && sentence?.index !== undefined) {
+      try {
+        await updatePostSentence.mutateAsync({
+          id: post.id,
+          index: sentence.index,
+          value: `${sentence.value}::${sentence.shareCount + 1}::${
+            sentence.isPublished ? 1 : 0
+          }`,
+        })
+        queryClient.invalidateQueries(['kv-posts', post.id])
+      } catch (error) {
+        console.log('Error', error)
+      }
+    }
+
+    window.open(postUrl, '_blank')
   }
 
   if (!post) return null
@@ -71,16 +92,16 @@ export const PostMakerTweetButtons = () => {
 
       <PostMakerTweetProgress />
 
-      <Link href={postUrl} target={'_blank'}>
-        <Button
-          variant={'ghost'}
-          iconSpacing={{ base: 0, md: 2 }}
-          leftIcon={<RxTwitterLogo />}
-          onClick={onTweet}
-        >
-          <Text display={{ base: 'none', md: 'block' }}>Tweet</Text>
-        </Button>
-      </Link>
+      <Button
+        variant={'ghost'}
+        iconSpacing={{ base: 0, md: 2 }}
+        leftIcon={<RxTwitterLogo />}
+        onClick={onTweet}
+      >
+        <Text display={{ base: 'none', md: 'block' }}>
+          Tweet{sentence.shareCount ? ` ${sentence.shareCount}` : ''}
+        </Text>
+      </Button>
 
       <PostMakerTweetShare url={url} content={post?.description as string} />
     </HStack>

@@ -29,9 +29,10 @@ export const getHashtagBySlug = async (
       ) as string[])) ||
     []
 
-  const posts = hashtag.posts
-    ?.filter(p => p.image)
-    .map(p => ({ ...p, hashtag }))
+  const posts =
+    hashtag.posts
+      ?.filter(p => p.image)
+      .map((p, index) => ({ ...p, index, hashtag })) || []
 
   return { ...hashtag, posts, hasPassed, hasStarted, defaultHashtags }
 }

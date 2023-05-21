@@ -1,7 +1,7 @@
 import { useMutation, useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 
-import { RedisPost } from '@wsvvrijheid/types'
+import { PostSentence, RedisPost } from '@wsvvrijheid/types'
 
 type UpdateArgs = { id: number; index: number; value: RedisPost }
 type CreateArgs = { id: number; value: RedisPost }
@@ -59,8 +59,28 @@ export const useCreatePostSentence = () =>
     mutationFn: createPostSentence,
   })
 
-export const useGetPostSentences = (id: number) =>
-  useQuery({
+export const useGetPostSentences = (id: number) => {
+  const result = useQuery({
     queryKey: ['kv-posts', id],
     queryFn: () => getPostSentences(id),
   })
+
+  if (!result.data?.length) return []
+
+  const sentences: PostSentence[] = result.data
+    .map((s, index) => {
+      const [sentence, shareCount, published] = s.split('::')
+
+      return {
+        value: sentence,
+        shareCount: Number(shareCount),
+        isPublished: published === '1',
+        index,
+      }
+    })
+    .sort((a, b) => {
+      return a.shareCount - b.shareCount
+    })
+
+  return sentences
+}

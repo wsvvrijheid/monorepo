@@ -1,18 +1,16 @@
 import { ReactNode } from 'react'
 
-import { Post, RedisPost } from '@wsvvrijheid/types'
+import { Post, PostSentence } from '@wsvvrijheid/types'
 
 export type PostState = {
   availableCount: number
   count: number
   isExceeded: boolean
+  percentage: number
   post: Post | null
   postContent: string
-  sentence: string
-  shareCount: number
-  sentences: RedisPost[]
+  sentence: PostSentence | null
   threshold: number
-  percentage: number
 }
 
 export type PostActions = {

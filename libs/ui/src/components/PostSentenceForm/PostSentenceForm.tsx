@@ -1,6 +1,6 @@
-import { FC, FormEventHandler, useState } from 'react'
+import { FC, useState } from 'react'
 
-import { HStack, IconButton, Input, Stack } from '@chakra-ui/react'
+import { HStack, IconButton, Stack, Textarea } from '@chakra-ui/react'
 import { useQueryClient } from '@tanstack/react-query'
 import { FaPlus } from 'react-icons/fa'
 
@@ -13,7 +13,7 @@ import { PostSentenceFormItem } from './PostSentenceFormItem'
 import { PostSentenceFormProps } from './types'
 
 export const PostSentenceForm: FC<PostSentenceFormProps> = ({ id }) => {
-  const { data } = useGetPostSentences(id ?? 0)
+  const sentences = useGetPostSentences(id ?? 0)
 
   const queryClient = useQueryClient()
 
@@ -21,11 +21,9 @@ export const PostSentenceForm: FC<PostSentenceFormProps> = ({ id }) => {
 
   const onAddMutation = useCreatePostSentence()
 
-  const handleAdd: FormEventHandler<HTMLFormElement> = e => {
-    e.preventDefault()
-
+  const handleAdd = () => {
     onAddMutation.mutate(
-      { id, value: `${value}::0` },
+      { id, value: `${value}::${0}::${0}` },
       {
         onSuccess: () => queryClient.invalidateQueries(['kv-posts', id]),
       },
@@ -35,22 +33,21 @@ export const PostSentenceForm: FC<PostSentenceFormProps> = ({ id }) => {
 
   return (
     <Stack p={4} spacing={4}>
-      <form onSubmit={handleAdd}>
-        <HStack>
-          <Input
-            value={value}
-            onChange={e => setValue(e.target.value)}
-            placeholder="Add sentence"
-          />
-          <IconButton
-            aria-label="Add sentence"
-            icon={<FaPlus />}
-            type={'submit'}
-          />
-        </HStack>
-      </form>
-      {data?.map((sentence, index) => {
-        const [value, shareCount] = sentence.split('::')
+      <HStack>
+        <Textarea
+          value={value}
+          onChange={e => setValue(e.target.value)}
+          placeholder="Add sentence"
+        />
+        <IconButton
+          aria-label="Add sentence"
+          icon={<FaPlus />}
+          onClick={handleAdd}
+        />
+      </HStack>
+
+      {sentences.map((s, index) => {
+        const { value, shareCount, isPublished } = s
 
         return (
           <PostSentenceFormItem
@@ -59,6 +56,7 @@ export const PostSentenceForm: FC<PostSentenceFormProps> = ({ id }) => {
             index={index}
             sentence={value}
             shareCount={Number(shareCount)}
+            isPublished={isPublished}
           />
         )
       })}

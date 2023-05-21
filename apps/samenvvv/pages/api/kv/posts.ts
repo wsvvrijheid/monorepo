@@ -10,28 +10,45 @@ const handler = async (req: NextRequest) => {
 
   try {
     if (method === 'POST') {
-      const { id, value } = await req.json()
+      try {
+        const { id, value } = await req.json()
 
-      const response = await kv.rpush(`post_${id}`, value)
+        const response = await kv.rpush(`post_${id}`, value)
 
-      return NextResponse.json(response)
+        return NextResponse.json(response)
+      } catch (error) {
+        console.log(error)
+        throw error
+      }
     }
 
     if (method === 'PUT') {
-      const { id, value, index } = await req.json()
+      try {
+        const { id, value, index } = await req.json()
 
-      const response = await kv.lset(`post_${id}`, index, value)
+        console.log('PUT', id, value, index)
 
-      return NextResponse.json(response)
+        const response = await kv.lset(`post_${id}`, index, value)
+
+        return NextResponse.json(response)
+      } catch (error) {
+        console.log(error)
+        throw error
+      }
     }
 
     if (method === 'DELETE') {
-      const id = req.nextUrl.searchParams.get('id').toString()
-      const value = req.nextUrl.searchParams.get('value').toString()
+      try {
+        const id = req.nextUrl.searchParams.get('id').toString()
+        const value = req.nextUrl.searchParams.get('value').toString()
 
-      const result = await kv.lrem(`post_${id}`, 0, value)
+        const result = await kv.lrem(`post_${id}`, 0, value)
 
-      return NextResponse.json(result)
+        return NextResponse.json(result)
+      } catch (error) {
+        console.log(error)
+        throw error
+      }
     }
 
     const id = req.nextUrl.searchParams.get('id').toString()
@@ -40,7 +57,7 @@ const handler = async (req: NextRequest) => {
 
     return NextResponse.json(result)
   } catch (error) {
-    return NextResponse.error()
+    return NextResponse.json({ error: error.message })
   }
 }
 

@@ -7,4 +7,5 @@ export type PostSentenceFormItemProps = {
   index: number
   sentence: string
   shareCount: number
+  isPublished: boolean
 }
