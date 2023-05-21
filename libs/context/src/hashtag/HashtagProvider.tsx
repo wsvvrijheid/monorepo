@@ -81,24 +81,34 @@ export const HashtagProvider: FC<HashtagProviderProps> = ({
   }
 
   useEffect(() => {
-    const trends = [hashtag.hashtagDefault, hashtag.hashtagExtra].filter(
-      Boolean,
-    ) as string[]
-
-    const mentions = hashtag.mentions?.map(m => m.username) ?? []
-
     if (hashtag?.posts?.length) {
-      hashtag.posts.forEach(post => {
-        setPostMentions({
-          ...postMentions,
-          [post.id]: sampleSize(mentions, 1),
-        })
+      const hashtagMentions = hashtag.mentions?.map(m => m.username) ?? []
+      const defaultTrends = [
+        hashtag.hashtagDefault,
+        hashtag.hashtagExtra,
+      ].filter(Boolean) as string[]
 
-        setPostTrends({
-          ...postTrends,
-          [post.id]: trends,
-        })
-      })
+      const initialTags = hashtag.posts.reduce(
+        (acc, post) => {
+          const mentions = {
+            ...acc.mentions,
+            [post.id]: sampleSize(hashtagMentions, 1),
+          }
+
+          const trends = {
+            ...acc.trends,
+            [post.id]: defaultTrends,
+          }
+
+          return { ...acc, mentions, trends }
+        },
+        {
+          trends: {},
+          mentions: {},
+        },
+      )
+      setPostMentions(initialTags.mentions)
+      setPostTrends(initialTags.trends)
     }
   }, [])
 

@@ -1,9 +1,5 @@
 import { FC, createContext, useContext, useEffect, useState } from 'react'
 
-import { sampleSize } from 'lodash'
-
-import { Hashtag } from '@wsvvrijheid/types'
-
 import { TWITTER_CHAR_LIMIT, TWITTER_LINK_CHAR_COUNT } from './constants'
 import { initialPostContext, initialPostState } from './state'
 import { PostContextType, PostProviderProps, PostState } from './types'
@@ -17,13 +13,9 @@ export const PostProvider: FC<PostProviderProps> = ({ post, children }) => {
     post,
   })
 
-  const { data, postMentions, postTrends } = useHashtagContext()
-
-  const hashtag = data as Hashtag
+  const { postMentions, postTrends } = useHashtagContext()
 
   const updatePostContent = (newState: Partial<PostState>) => {
-    console.log('Updating post...', Object.keys(newState).join(', '))
-
     const state = { ...postState, ...newState }
     const { mentionUsernames = [], trendNames = [], sentence = '' } = state
     const mentionsStr = mentionUsernames.filter(Boolean).join('\n')
@@ -35,8 +27,6 @@ export const PostProvider: FC<PostProviderProps> = ({ post, children }) => {
       .join('\n\n')
 
     const count = TWITTER_LINK_CHAR_COUNT + postContent.length
-
-    console.log('count', count)
 
     const percentage = Math.round((count / TWITTER_CHAR_LIMIT) * 100)
     const isExceeded = count > TWITTER_CHAR_LIMIT
@@ -76,20 +66,6 @@ export const PostProvider: FC<PostProviderProps> = ({ post, children }) => {
       trendNames: postTrends[post.id] ?? [],
     })
   }, [postTrends, post.id])
-
-  useEffect(() => {
-    const trends = [hashtag.hashtagDefault, hashtag.hashtagExtra].filter(
-      Boolean,
-    ) as string[]
-
-    const mentions = hashtag.mentions?.map(m => m.username) ?? []
-
-    updatePostContent({
-      trendNames: trends,
-      mentionUsernames: sampleSize(mentions, 1),
-      sentence: post.description || '',
-    })
-  }, [])
 
   return (
     <PostContext.Provider
