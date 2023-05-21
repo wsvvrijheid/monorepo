@@ -1,4 +1,4 @@
-import { PostState } from '@wsvvrijheid/context'
+import { PostState } from '../PostProvider'
 
 export const postMock: PostState = {
   post: {
@@ -22,13 +22,14 @@ export const postMock: PostState = {
   },
   availableCount: 10,
   count: 7,
-  defaultHashtags: ['NOS', 'BedelliOzgurluk'],
   isExceeded: false,
-  sentences: ['1::A::1', '1::B::2', '1::C::3'],
-  mentionUsernames: ['@wsvvrijheid'],
   postContent: 'Post postContent',
-  sentence: 'Post postText',
+  sentence: {
+    value: 'Post postText',
+    index: 0,
+    isPublished: true,
+    shareCount: 0,
+  },
   threshold: 0,
-  trendNames: ['Askeriogrenciler ozgurluk'],
   percentage: 0,
 }
