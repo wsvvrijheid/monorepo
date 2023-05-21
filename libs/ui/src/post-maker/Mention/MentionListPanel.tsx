@@ -1,12 +1,12 @@
 import { Box } from '@chakra-ui/react'
 
-import { useHashtagContext } from '@wsvvrijheid/context'
 import { useLookupTwitterUsers } from '@wsvvrijheid/services'
 import { MentionUserData } from '@wsvvrijheid/types'
 
 import MentionListItem from './MentionListItem'
 import { MentionListSkeleton } from './MentionListSkeleton'
 import { MentionSearch } from './MentionSearch'
+import { useHashtagContext } from '../../components/HashtagProvider'
 
 export const MentionListPanel = () => {
   const {

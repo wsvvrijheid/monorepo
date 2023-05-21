@@ -1,18 +1,16 @@
 import { PostState } from './types'
 
 export const initialPostState: PostState = {
-  post: null,
   availableCount: 0,
   count: 0,
-  defaultHashtags: [],
   isExceeded: false,
-  sentences: [],
-  mentionUsernames: [],
+  percentage: 0,
+  post: null,
   postContent: '',
   sentence: '',
+  sentences: [],
+  shareCount: 0,
   threshold: 0,
-  trendNames: [],
-  percentage: 0,
 }
 
 export const initialPostActions = {

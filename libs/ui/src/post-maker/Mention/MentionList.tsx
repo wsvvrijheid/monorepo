@@ -9,10 +9,10 @@ import {
 import dynamic from 'next/dynamic'
 import { useTranslation } from 'next-i18next'
 
-import { useHashtagContext } from '@wsvvrijheid/context'
 import { MentionUserData } from '@wsvvrijheid/types'
 
 import { MentionListPanel } from './MentionListPanel'
+import { useHashtagContext } from '../../components/HashtagProvider'
 
 const MentionListItem = dynamic(() => import('./MentionListItem'), {
   ssr: false,

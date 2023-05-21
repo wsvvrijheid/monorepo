@@ -3,10 +3,10 @@ import { FC } from 'react'
 import { ImageProps } from '@chakra-ui/react'
 
 import { ASSETS_URL } from '@wsvvrijheid/config'
-import { usePostContext } from '@wsvvrijheid/context'
 import { Post, UploadFile } from '@wsvvrijheid/types'
 
 import { Caps } from '../Caps'
+import { usePostContext } from '../PostProvider'
 
 type PostImageProps = Omit<ImageProps, 'id'> & {
   post?: Post

@@ -6,10 +6,11 @@ import { MdTrendingUp } from 'react-icons/md'
 import { RxTwitterLogo } from 'react-icons/rx'
 
 import { SITE_URL } from '@wsvvrijheid/config'
-import { useHashtagContext, usePostContext } from '@wsvvrijheid/context'
 
 import { PostMakerTweetProgress } from './PostMakerTweetProgress'
 import { PostMakerTweetShare } from './PostMakerTweetShare'
+import { useHashtagContext } from '../HashtagProvider'
+import { usePostContext } from '../PostProvider'
 
 export const PostMakerTweetButtons = () => {
   const router = useRouter()

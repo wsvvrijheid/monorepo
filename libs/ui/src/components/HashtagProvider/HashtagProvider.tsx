@@ -20,6 +20,9 @@ export const HashtagProvider: FC<HashtagProviderProps> = ({
   const [mentionSearchKey, setMentionSearchKey] = useState<string>('')
   const [postMentions, setPostMentions] = useState<Record<number, string[]>>({})
   const [postTrends, setPostTrends] = useState<Record<number, string[]>>({})
+  const [defaultTrends, setDefaultTrends] = useState<Record<number, string[]>>(
+    {},
+  )
 
   const mentionsDisclosure = useDisclosure()
   const trendsDisclosure = useDisclosure()
@@ -80,6 +83,18 @@ export const HashtagProvider: FC<HashtagProviderProps> = ({
     })
   }
 
+  const removeDefaultTrendFromPost = (postId: number, trend: string) => {
+    if (!postId) return
+
+    const trends = defaultTrends[postId] ?? []
+    const updatedTrends = trends.filter(m => m !== trend)
+
+    setDefaultTrends({
+      ...defaultTrends,
+      [postId]: updatedTrends,
+    })
+  }
+
   useEffect(() => {
     if (hashtag?.posts?.length) {
       const hashtagMentions = hashtag.mentions?.map(m => m.username) ?? []
@@ -108,7 +123,7 @@ export const HashtagProvider: FC<HashtagProviderProps> = ({
         },
       )
       setPostMentions(initialTags.mentions)
-      setPostTrends(initialTags.trends)
+      setDefaultTrends(initialTags.trends)
     }
   }, [])
 
@@ -118,21 +133,23 @@ export const HashtagProvider: FC<HashtagProviderProps> = ({
         // state
         activePostId,
         data: hashtag,
+        defaultTrends,
         mentionSearchKey,
-        savedMentions: [],
         mentionsDisclosure,
-        trendsDisclosure,
         postMentions,
         postTrends,
+        savedMentions: [],
+        trendsDisclosure,
         // actions
         addMentionToPost,
         addTrendToPost,
+        removeDefaultTrendFromPost,
+        removeMentionFromPost,
         removeStoredMention,
+        removeTrendFromPost,
         setActivePostId,
         setMentionSearchKey,
         updateStoredMentions,
-        removeMentionFromPost,
-        removeTrendFromPost,
       }}
     >
       {children}

@@ -5,17 +5,19 @@ import { HashtagActions, HashtagContextType, HashtagState } from './types'
 export const initialHashtagState: HashtagState = {
   activePostId: null,
   data: null,
+  defaultTrends: {},
   mentionSearchKey: '',
-  savedMentions: [],
   mentionsDisclosure: {} as UseDisclosureReturn,
-  trendsDisclosure: {} as UseDisclosureReturn,
-  postTrends: {},
   postMentions: {},
+  postTrends: {},
+  savedMentions: [],
+  trendsDisclosure: {} as UseDisclosureReturn,
 }
 
 export const initialHashtagActions: HashtagActions = {
   addMentionToPost: () => null,
   addTrendToPost: () => null,
+  removeDefaultTrendFromPost: () => null,
   removeMentionFromPost: () => null,
   removeStoredMention: () => null,
   removeTrendFromPost: () => null,

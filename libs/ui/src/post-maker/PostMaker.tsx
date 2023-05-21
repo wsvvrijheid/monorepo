@@ -17,11 +17,10 @@ import { useTour } from '@reactour/tour'
 import { useTranslation } from 'next-i18next'
 import { FaQuestionCircle } from 'react-icons/fa'
 
-import { useHashtagContext } from '@wsvvrijheid/context'
-
 import { MentionList } from './Mention'
 import { TrendListTabs } from './Trends'
 import { TweetWidget } from './TweetWidget'
+import { useHashtagContext } from '../components/HashtagProvider'
 import { PostMakerTweetList } from '../components/PostMakerTweetCard'
 
 export const PostMaker = () => {

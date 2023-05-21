@@ -54,3 +54,9 @@ export type Hashtag = StrapiBase &
   HashtagBase &
   HashtagRelation &
   StrapiCreatorRelation
+
+export type HashtagReturnType = {
+  hasPassed: boolean
+  hasStarted: boolean
+  defaultHashtags?: string[]
+} & Hashtag

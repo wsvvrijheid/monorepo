@@ -5,15 +5,13 @@ import { Post, RedisPost } from '@wsvvrijheid/types'
 export type PostState = {
   availableCount: number
   count: number
-  defaultHashtags: string[]
   isExceeded: boolean
-  mentionUsernames: string[]
   post: Post | null
   postContent: string
   sentence: string
+  shareCount: number
   sentences: RedisPost[]
   threshold: number
-  trendNames: string[]
   percentage: number
 }
 

@@ -9,15 +9,11 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { serialize } from 'next-mdx-remote/serialize'
 import { NextSeoProps } from 'next-seo'
 
-import { HashtagProvider } from '@wsvvrijheid/context'
-import {
-  HashtagReturnType,
-  getHashtagBySlug,
-  useHashtag,
-} from '@wsvvrijheid/services'
-import { StrapiLocale, Trend } from '@wsvvrijheid/types'
+import { getHashtagBySlug, useHashtag } from '@wsvvrijheid/services'
+import { HashtagReturnType, StrapiLocale, Trend } from '@wsvvrijheid/types'
 import {
   Container,
+  HashtagProvider,
   PostMaker,
   StepsContent,
   usePostMakerSteps,

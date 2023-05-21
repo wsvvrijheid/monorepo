@@ -3,13 +3,7 @@ import { addDays, isPast } from 'date-fns'
 import { useRouter } from 'next/router'
 
 import { Request } from '@wsvvrijheid/lib'
-import { Hashtag, StrapiLocale } from '@wsvvrijheid/types'
-
-export type HashtagReturnType = {
-  hasPassed: boolean
-  hasStarted: boolean
-  defaultHashtags?: string[]
-} & Hashtag
+import { Hashtag, HashtagReturnType, StrapiLocale } from '@wsvvrijheid/types'
 
 export const getHashtagBySlug = async (
   locale: StrapiLocale,

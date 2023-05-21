@@ -1,6 +1,6 @@
 import { CircularProgress, CircularProgressLabel } from '@chakra-ui/react'
 
-import { usePostContext } from '@wsvvrijheid/context'
+import { usePostContext } from '../PostProvider'
 
 export const PostMakerTweetProgress = () => {
   const { isExceeded, percentage, availableCount } = usePostContext()
