@@ -70,10 +70,13 @@ export const PostProvider: FC<PostProviderProps> = ({ post, children }) => {
 
     const counts = sentences.reduce(
       (acc, sentence) => {
+        const currentUnsharedCount = sentence.shareCount > 0 ? 0 : 1
+        const previousUnsharedCount = acc.unsharedCount
+        const unsharedCount = currentUnsharedCount + previousUnsharedCount
+
         return {
           ...acc,
-          unsharedCount:
-            (acc.unsharedCount || 0) + sentence.shareCount === 0 ? 1 : 0,
+          unsharedCount,
           shareCount: (acc.shareCount || 0) + sentence.shareCount,
         }
       },
