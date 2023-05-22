@@ -3,7 +3,7 @@ import { StyleFunctionProps, theme } from '@chakra-ui/react'
 export const components = {
   Heading: {
     baseStyle: (props: StyleFunctionProps) => {
-      const colorScheme = props.colorScheme || 'primary'
+      const colorScheme = props.colorScheme
 
       return {
         fontFamily: 'heading',
@@ -21,7 +21,7 @@ export const components = {
     },
     variants: {
       solid: (props: StyleFunctionProps) => {
-        const colorScheme = props.colorScheme || 'primary'
+        const colorScheme = props.colorScheme
 
         return {
           ...theme.components.Button.variants?.solid(props),
@@ -36,7 +36,7 @@ export const components = {
         }
       },
       outline: (props: StyleFunctionProps) => {
-        const colorScheme = props.colorScheme || 'primary'
+        const colorScheme = props.colorScheme
 
         return {
           ...theme.components.Button.variants?.outline(props),
@@ -49,7 +49,7 @@ export const components = {
         }
       },
       link: (props: StyleFunctionProps) => {
-        const colorScheme = props.colorScheme || 'primary'
+        const colorScheme = props.colorScheme
 
         return {
           ...theme.components.Button.variants?.link(props),
@@ -71,7 +71,7 @@ export const components = {
   },
   Badge: {
     solid: (props: StyleFunctionProps) => {
-      const colorScheme = props.colorScheme || 'primary'
+      const colorScheme = props.colorScheme
 
       return {
         ...theme.components.Button.variants?.solid(props),
@@ -84,7 +84,7 @@ export const components = {
       fontWeight: 400,
     },
     defaultProps: {
-      colorScheme: 'primary',
+      colorScheme: 'gray',
     },
   },
   Link: {

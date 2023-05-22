@@ -3,8 +3,8 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
 import { useLocalStorage } from 'usehooks-ts'
 
+import { useAuthContext } from '@wsvvrijheid/context'
 import { Mutation } from '@wsvvrijheid/lib'
-import { useAuthSelector } from '@wsvvrijheid/store'
 import { Blog, BlogUpdateInput } from '@wsvvrijheid/types'
 
 import { useGetBlogSlug } from './getBlogBySlug'
@@ -22,7 +22,7 @@ export const useViewBlog = async () => {
     query: { slug },
   } = useRouter()
 
-  const { token } = useAuthSelector()
+  const { token } = useAuthContext()
 
   const { data: blog } = useGetBlogSlug(slug as string)
 

@@ -1,8 +1,8 @@
 import { useToast } from '@chakra-ui/react'
 import { useMutation, useQueryClient, QueryKey } from '@tanstack/react-query'
 
+import { useAuthContext } from '@wsvvrijheid/context'
 import { Mutation } from '@wsvvrijheid/lib'
-import { useAuthSelector } from '@wsvvrijheid/store'
 import { StrapiModel, StrapiUrl } from '@wsvvrijheid/types'
 
 export const unpublishModel = <T extends StrapiModel>(
@@ -21,7 +21,7 @@ export const useUnpublishModel = <T extends StrapiModel>(
 ) => {
   const queryClient = useQueryClient()
   const toast = useToast()
-  const { token } = useAuthSelector()
+  const { token } = useAuthContext()
 
   return useMutation({
     mutationKey: [`unpublish-${url}`],

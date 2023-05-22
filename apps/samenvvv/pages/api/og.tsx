@@ -7,8 +7,6 @@ export const config = {
   runtime: 'edge',
 }
 
-const sample = (arr: any[]) => arr[Math.floor(Math.random() * arr.length)]
-
 const paths = [
   'M50 337.5L0 0H50V337.5Z',
   'M50 337.5L0 675H50V337.5Z',
@@ -21,17 +19,13 @@ async function handler(req: NextRequest) {
   const title = params.get('title')
   const text = params.get('text')
   const image = params.get('image') || null
-  const shape = params.get('shape') || sample([0, 1, 2, 3])
+  const shape = params.get('shape') || 0
   const bg = params.get('bg') || 'white'
   const color = params.get('color') || '#FF4F00'
   const scale = Number(params.get('scale')) || 1
-  const flip = params.get('flip')
-    ? params.get('flip') === 'true'
-    : sample([true, false])
+  const flip = params.get('flip') ? params.get('flip') === 'true' : false
   const hasLine =
-    title && params.get('hasLine')
-      ? params.get('hasLine') === 'true'
-      : sample([true, false])
+    title && params.get('hasLine') ? params.get('hasLine') === 'true' : false
 
   const absoluteStyle: CSSProperties = {
     position: 'absolute',

@@ -5,10 +5,9 @@ import { Decorator } from '@storybook/react'
 import { GlobalTypes, Parameters } from '@storybook/types'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { I18nextProvider } from 'react-i18next'
-import { Provider as ReduxProvider } from 'react-redux'
 
 import i18n from './i18next'
-import { store, themes } from '../src/exports'
+import { themes } from '../src/exports'
 
 import '@splidejs/react-splide/css'
 import '@splidejs/splide/dist/css/themes/splide-default.min.css'
@@ -53,15 +52,13 @@ export const decorators: Decorator[] = [
     }, [locale])
 
     return (
-      <ReduxProvider store={store}>
-        <QueryClientProvider client={queryClient}>
-          <Suspense fallback={<div>Loading</div>}>
-            <I18nextProvider i18n={i18n}>
-              <Story />
-            </I18nextProvider>
-          </Suspense>
-        </QueryClientProvider>
-      </ReduxProvider>
+      <QueryClientProvider client={queryClient}>
+        <Suspense fallback={<div>Loading</div>}>
+          <I18nextProvider i18n={i18n}>
+            <Story />
+          </I18nextProvider>
+        </Suspense>
+      </QueryClientProvider>
     )
   },
 ]

@@ -3,13 +3,14 @@ import { twitterApi } from '../../../../libs'
 
 type MentionUserData = Pick<
   UserV1,
-  | 'id_str'
-  | 'name'
-  | 'screen_name'
-  | 'profile_image_url_https'
+  | 'description'
   | 'followers_count'
   | 'friends_count'
+  | 'id_str'
   | 'location'
+  | 'name'
+  | 'profile_image_url_https'
+  | 'screen_name'
   | 'verified'
 >
 
@@ -23,25 +24,27 @@ export default {
       })
 
       const {
-        name,
-        screen_name,
-        profile_image_url_https,
+        description,
         followers_count,
         friends_count,
-        location,
-        verified,
         id_str,
+        location,
+        name,
+        profile_image_url_https,
+        screen_name,
+        verified,
       } = user
 
       const data = {
-        name,
-        screen_name,
-        profile_image_url_https,
+        description,
         followers_count,
         friends_count,
-        location,
-        verified,
         id_str,
+        location,
+        name,
+        profile_image_url_https,
+        screen_name,
+        verified,
       } as MentionUserData
 
       strapi.service('api::mention.mention').update(result.id, {

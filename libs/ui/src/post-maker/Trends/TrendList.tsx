@@ -1,14 +1,9 @@
 import { SkeletonText, VStack, Wrap } from '@chakra-ui/react'
 
-import {
-  addTrendName,
-  removeTrendName,
-  useAppDispatch,
-  useAppSelector,
-} from '@wsvvrijheid/store'
 import { TwitterTrend } from '@wsvvrijheid/types'
 
 import { TrendListItem } from './TrendListItem'
+import { useHashtagContext } from '../HashtagProvider'
 
 interface TrendListProps {
   trends?: TwitterTrend[] | null
@@ -23,16 +18,19 @@ export const TrendList = ({
   hashtagInTrends,
   hashtagExtraInTrends,
 }: TrendListProps): JSX.Element => {
-  const { trendNames, defaultHashtags } = useAppSelector(state => state.post)
-
-  const dispatch = useAppDispatch()
+  const { activePostId, addTrendToPost, removeTrendFromPost } =
+    useHashtagContext()
 
   const onAddTrendName = (value: string) => {
-    dispatch(addTrendName(value))
+    if (!activePostId) return
+
+    addTrendToPost(activePostId, value)
   }
 
   const onRemoveTrendName = (value: string) => {
-    dispatch(removeTrendName(value))
+    if (!activePostId) return
+
+    removeTrendFromPost(activePostId, value)
   }
 
   return (
@@ -49,8 +47,8 @@ export const TrendList = ({
               tweetsCount={tag.tweet_volume}
               hashtagInTrends={hashtagInTrends?.name}
               hashtagExtraInTrends={hashtagExtraInTrends?.name}
-              trendNames={trendNames}
-              defaultHashtags={defaultHashtags}
+              trendNames={[]}
+              defaultHashtags={[]}
               addTrend={onAddTrendName}
               removeTrend={onRemoveTrendName}
             />

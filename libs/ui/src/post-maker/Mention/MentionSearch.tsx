@@ -1,49 +1,49 @@
-import { useEffect, useState } from 'react'
-
-import { Box, Input, InputGroup, InputLeftElement } from '@chakra-ui/react'
-import { useTranslation } from 'next-i18next'
-import { FaSearch } from 'react-icons/fa'
-import { useDebounce } from 'react-use'
+import { useEffect, useMemo, useState } from 'react'
 
 import {
-  clearSearchedMentions,
-  fetchSearchedMentions,
-  resetMentions,
-  useAppDispatch,
-  useAppSelector,
-} from '@wsvvrijheid/store'
+  Box,
+  IconButton,
+  Input,
+  InputGroup,
+  InputLeftElement,
+  InputRightElement,
+} from '@chakra-ui/react'
+import { useTranslation } from 'next-i18next'
+import { FaSearch, FaTimes } from 'react-icons/fa'
+import { useDebounce } from 'react-use'
+
+import { useHashtagContext } from '../HashtagProvider'
 
 export const MentionSearch = (): JSX.Element => {
-  const { mentions } = useAppSelector(state => state.post)
-  const dispatch = useAppDispatch()
   const { t } = useTranslation()
-  const [searchArea, setSearchArea] = useState<string>('')
-  const [debouncedSearchArea, setDebouncedSearchArea] = useState<string>('')
+  const [value, setValue] = useState('')
+  const { setMentionSearchKey, data } = useHashtagContext()
+
+  const filteredMentions = useMemo(
+    () =>
+      data?.mentions?.filter(m =>
+        m.data?.screen_name.toLowerCase().includes(value.toLowerCase()),
+      ) || [],
+    [data?.mentions, value],
+  )
 
   useDebounce(
     () => {
-      setDebouncedSearchArea(searchArea)
+      if (filteredMentions.length === 0) {
+        setMentionSearchKey(value)
+      }
     },
     600,
-    [searchArea],
+    [value],
   )
 
   useEffect(() => {
-    if (debouncedSearchArea.length > 1) {
-      const filteredData =
-        mentions?.filter(m =>
-          m.data?.screen_name
-            .toLowerCase()
-            .includes(debouncedSearchArea.toLowerCase()),
-        ) ?? []
-      if (filteredData.length === 0) {
-        dispatch(fetchSearchedMentions(debouncedSearchArea))
-      }
+    if (filteredMentions.length === 0) {
+      setMentionSearchKey(value)
     } else {
-      dispatch(clearSearchedMentions())
-      dispatch(resetMentions())
+      setMentionSearchKey('')
     }
-  }, [debouncedSearchArea, dispatch, mentions])
+  }, [filteredMentions])
 
   return (
     <InputGroup data-tour="step-search">
@@ -58,14 +58,23 @@ export const MentionSearch = (): JSX.Element => {
         id="mention-search"
         placeholder={t('post.search-label') as string}
         onChange={event => {
-          setSearchArea(event.target.value)
+          setValue(event.target.value)
         }}
-        value={searchArea}
-        _focus={{
-          borderBottomWidth: 2,
-          borderBottomColor: 'gray.300',
+        value={value}
+        _focusVisible={{
+          outline: 'none',
         }}
       />
+      <InputRightElement>
+        <IconButton
+          aria-label={'Clear mention search'}
+          onClick={() => setValue('')}
+          icon={<FaTimes />}
+          variant={'ghost'}
+          size={'sm'}
+          colorScheme={'blackAlpha'}
+        />
+      </InputRightElement>
     </InputGroup>
   )
 }

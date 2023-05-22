@@ -15,8 +15,6 @@ import { useElementSize } from 'usehooks-ts'
 
 import { CapsProps } from './types'
 
-const sample = (arr: any[]) => arr[Math.floor(Math.random() * arr.length)]
-
 const paths = [
   'M50 337.5L0 0H50V337.5Z',
   'M50 337.5L0 675H50V337.5Z',
@@ -30,11 +28,11 @@ export const Caps = forwardRef<CapsProps, 'div'>(
       title,
       text,
       image,
-      shape = sample([0, 1, 2, 3]),
+      shape = 0,
       bg,
       color,
-      flip = sample([true, false]),
-      hasLine = sample([true, false]),
+      flip = false,
+      hasLine = false,
       // scale = 1,
     } = imageParams
 
@@ -159,6 +157,7 @@ export const Caps = forwardRef<CapsProps, 'div'>(
                     : dimensions.image + dimensions.shape
                 }
                 spacing={`${dimensions.font / 2}px`}
+                userSelect={'none'}
               >
                 {title && (
                   <Text

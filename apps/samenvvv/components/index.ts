@@ -1,5 +1,4 @@
+export * from './HashtagAnnouncement'
 export * from './HashtagCard'
-export * from './HashtagsDrawer'
 export * from './Layout'
 export * from './TimeLeft'
-export * from './HashtagAnnouncement'

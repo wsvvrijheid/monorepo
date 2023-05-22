@@ -1,7 +1,4 @@
-import { useEffect } from 'react'
-
 import {
-  Box,
   Tab,
   TabList,
   TabPanel,
@@ -10,24 +7,12 @@ import {
   VStack,
 } from '@chakra-ui/react'
 import dynamic from 'next/dynamic'
-import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
-import { UserV1 } from 'twitter-api-v2'
 
-import {
-  addMentionUsername,
-  clearSearchedMentions,
-  removeSavedMention,
-  resetMentions,
-  updateSavedSearchedMentions,
-  useAppDispatch,
-  useAppSelector,
-  fetchMentions,
-} from '@wsvvrijheid/store'
-import { StrapiLocale } from '@wsvvrijheid/types'
+import { MentionUserData } from '@wsvvrijheid/types'
 
-import { MentionListSkeleton } from './MentionListSkeleton'
-import { MentionSearch } from './MentionSearch'
+import { MentionListPanel } from './MentionListPanel'
+import { useHashtagContext } from '../HashtagProvider'
 
 const MentionListItem = dynamic(() => import('./MentionListItem'), {
   ssr: false,
@@ -35,59 +20,32 @@ const MentionListItem = dynamic(() => import('./MentionListItem'), {
 
 export const MentionList = () => {
   const {
-    mentions,
-    mentionUsernames,
-    isMentionListLoading,
-    isSearchedMentionsLoading,
-    searchedMentions,
+    data,
+    activePostId,
     savedMentions,
-    initialMentions,
-  } = useAppSelector(state => state.post)
+    removeStoredMention,
+    addMentionToPost,
+  } = useHashtagContext()
 
-  const dispatch = useAppDispatch()
-  const { query, locale } = useRouter()
   const { t } = useTranslation()
 
-  useEffect(() => {
-    if (!initialMentions || initialMentions.length === 0) {
-      const payload = {
-        slug: query?.['slug'] as string,
-        locale: locale as StrapiLocale,
-      }
-      dispatch(fetchMentions(payload))
+  const onAddMention = (value: MentionUserData) => {
+    if (value.screen_name && activePostId) {
+      addMentionToPost(activePostId, value.screen_name)
     }
-  }, [initialMentions, dispatch, locale, query])
+  }
 
-  const onAddMention = (value: UserV1) => {
+  const onRemoveMention = (value: MentionUserData) => {
     if (value.screen_name) {
-      dispatch(addMentionUsername(value.screen_name))
-      dispatch(resetMentions())
+      removeStoredMention(value.screen_name)
     }
   }
 
-  const onRemoveMention = (value: UserV1) => {
-    if (value.screen_name) {
-      dispatch(removeSavedMention(value.screen_name))
-      dispatch(resetMentions())
-    }
-  }
-
-  const onAddUserMention = (value: UserV1) => {
-    onAddMention(value)
-    dispatch(updateSavedSearchedMentions(value))
-    dispatch(clearSearchedMentions())
-  }
+  if (!data) return null
 
   return (
-    <VStack align="stretch" h="60%" data-tour="step-mention-list">
-      <VStack
-        minH="0"
-        h="full"
-        align="stretch"
-        bg="white"
-        overflowY="auto"
-        shadow="base"
-      >
+    <VStack align="stretch" h={400} data-tour="step-mention-list">
+      <VStack minH="0" h="full" align="stretch" bg="white" overflowY="auto">
         <Tabs
           size="sm"
           colorScheme={'primary'}
@@ -101,47 +59,17 @@ export const MentionList = () => {
           </TabList>
           <TabPanels>
             <TabPanel p={0}>
-              <Box pos="sticky" top="31px">
-                <MentionSearch />
-              </Box>
-              {isSearchedMentionsLoading || isMentionListLoading ? (
-                <MentionListSkeleton />
-              ) : searchedMentions.length > 0 ? (
-                searchedMentions.map((data, i) => (
-                  <MentionListItem
-                    key={i}
-                    data={data}
-                    onAddItem={onAddUserMention}
-                  />
-                ))
-              ) : (
-                mentions
-                  ?.filter(
-                    mention =>
-                      !mentionUsernames.includes('@' + mention.username),
-                  )
-                  ?.map(({ data }, i) => (
-                    <MentionListItem
-                      key={i}
-                      data={data as UserV1}
-                      onAddItem={onAddMention}
-                    />
-                  ))
-              )}
+              <MentionListPanel />
             </TabPanel>
             <TabPanel p={0}>
-              {savedMentions
-                .filter(
-                  data => !mentionUsernames.includes('@' + data.screen_name),
-                )
-                ?.map((data, i) => (
-                  <MentionListItem
-                    key={i}
-                    data={data}
-                    onRemoveItem={onRemoveMention}
-                    onAddItem={onAddMention}
-                  />
-                ))}
+              {savedMentions?.map((data, i) => (
+                <MentionListItem
+                  key={i}
+                  data={data}
+                  onRemoveItem={onRemoveMention}
+                  onAddItem={onAddMention}
+                />
+              ))}
             </TabPanel>
           </TabPanels>
         </Tabs>

@@ -27,7 +27,6 @@ const config: StorybookConfig = {
         '@wsvvrijheid/mollie': path.resolve(__dirname, '../src/mollie'),
         '@wsvvrijheid/secrets': path.resolve(__dirname, '../src/secrets'),
         '@wsvvrijheid/services': path.resolve(__dirname, '../src/services'),
-        '@wsvvrijheid/store': path.resolve(__dirname, '../src/store'),
         '@wsvvrijheid/types': path.resolve(__dirname, '../src/types'),
         '@wsvvrijheid/ui': path.resolve(__dirname, '../src/ui'),
         '@wsvvrijheid/utils': path.resolve(__dirname, '../src/utils'),
