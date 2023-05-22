@@ -36,10 +36,6 @@ export const createPostSentence = async (args: CreateArgs) => {
 export const getPostSentences = async (id: number) => {
   const result = await axios.get<RedisPost[]>(`/api/kv/posts?id=${id}`)
 
-  if (result.data.length) {
-    console.log('result', result.data)
-  }
-
   return result.data
 }
 

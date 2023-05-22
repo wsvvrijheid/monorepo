@@ -59,5 +59,5 @@ export type HashtagReturnType = Hashtag & {
   hasPassed: boolean
   hasStarted: boolean
   defaultHashtags?: string[]
-  posts: Array<Post & { index: number }>
+  posts: Post[]
 }
