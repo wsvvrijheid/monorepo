@@ -26,8 +26,6 @@ const handler = async (req: NextRequest) => {
       try {
         const { id, value, index } = await req.json()
 
-        console.log('PUT', id, value, index)
-
         const response = await kv.lset(`post_${id}`, index, value)
 
         return NextResponse.json(response)

@@ -98,9 +98,10 @@ export const PostMakerTweetButtons = () => {
         leftIcon={<RxTwitterLogo />}
         onClick={onTweet}
       >
-        <Text display={{ base: 'none', md: 'block' }}>
-          Tweet{sentence.shareCount ? ` ${sentence.shareCount}` : ''}
+        <Text mr={2} display={{ base: 'none', md: 'block' }}>
+          Tweet
         </Text>
+        <Text>{sentence.shareCount}</Text>
       </Button>
 
       <PostMakerTweetShare url={url} content={post?.description as string} />

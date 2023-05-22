@@ -14,17 +14,19 @@ export const PostMakerTweetList: FC<PostMakerTweetListProps> = () => {
 
   const posts = data.posts || []
 
-  const sortedPosts = posts.sort((a, b) => {
-    const difference = postSentenceShares[a.id] - postSentenceShares[b.id]
+  const sortedPosts = posts
+    .sort((a, b) => postSentenceShares[a.id] - postSentenceShares[b.id])
+    .sort((a, b) => {
+      const difference = postSentenceShares[a.id] - postSentenceShares[b.id]
 
-    // If posts have the same share count
-    // we want to randomly sort them
-    if (difference === 0) {
-      return Math.random() < 0.5 ? -1 : 1
-    }
+      // If posts have the same share count
+      // we want to randomly sort them
+      if (difference === 0) {
+        return Math.random() < 0.5 ? -1 : 1
+      }
 
-    return difference
-  })
+      return difference
+    })
 
   return (
     <Stack borderWidth={1} spacing={0} divider={<Divider />}>
