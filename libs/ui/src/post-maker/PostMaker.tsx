@@ -17,11 +17,12 @@ import { useTour } from '@reactour/tour'
 import { useTranslation } from 'next-i18next'
 import { FaQuestionCircle } from 'react-icons/fa'
 
+import { useHashtagContext } from './HashtagProvider'
+import { HashtagStats } from './HashtagStats'
 import { MentionList } from './Mention'
+import { PostMakerTweetList } from './PostMakerTweetCard'
 import { TrendListTabs } from './Trends'
 import { TweetWidget } from './TweetWidget'
-import { useHashtagContext } from '../components/HashtagProvider'
-import { PostMakerTweetList } from '../components/PostMakerTweetCard'
 
 export const PostMaker = () => {
   const { t } = useTranslation()
@@ -117,7 +118,9 @@ export const PostMaker = () => {
         h={{ base: 'auto', lg: 'calc(100vh - 130px)' }}
         alignItems="stretch"
       >
-        <Box display={{ base: 'none', lg: 'block' }} h="inherit"></Box>
+        <Box display={{ base: 'none', lg: 'block' }} h="inherit">
+          <HashtagStats />
+        </Box>
         {/* TODO: Skeleton */}
         {hashtag.posts && (
           <Box h={'inherit'} overflowY={'auto'}>

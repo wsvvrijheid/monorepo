@@ -9,8 +9,8 @@ import {
 } from '@chakra-ui/react'
 import { FaCogs } from 'react-icons/fa'
 
+import { PostSentenceForm } from '../../components'
 import { usePostContext } from '../PostProvider'
-import { PostSentenceForm } from '../PostSentenceForm'
 
 export const PostSentencesModal = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()

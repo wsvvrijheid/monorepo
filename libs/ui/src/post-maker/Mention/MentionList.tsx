@@ -12,7 +12,7 @@ import { useTranslation } from 'next-i18next'
 import { MentionUserData } from '@wsvvrijheid/types'
 
 import { MentionListPanel } from './MentionListPanel'
-import { useHashtagContext } from '../../components/HashtagProvider'
+import { useHashtagContext } from '../HashtagProvider'
 
 const MentionListItem = dynamic(() => import('./MentionListItem'), {
   ssr: false,

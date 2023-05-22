@@ -4,6 +4,16 @@ import { UseDisclosureReturn } from '@chakra-ui/react'
 
 import { HashtagReturnType, MentionUserData } from '@wsvvrijheid/types'
 
+export type HashtagStats = {
+  unsharedCount: number
+  totalSentences: number
+  totalShares: number
+}
+
+export type PostStats = HashtagStats & {
+  leastShareCount: number
+}
+
 export type HashtagActions = {
   addMentionToPost: (postId: number, mention: string) => void
   addTrendToPost: (postId: number, trend: string) => void
@@ -14,7 +24,7 @@ export type HashtagActions = {
   setActivePostId: (postId: number) => void
   setMentionSearchKey: (key: string) => void
   updateStoredMentions: (mention: MentionUserData) => void
-  updatePostSentenceShares: (postId: number, shares: number) => void
+  updatePostSentenceShares: (args: { postId: number } & PostStats) => void
 }
 
 export type HashtagState = {
@@ -24,9 +34,10 @@ export type HashtagState = {
   mentionSearchKey: string
   mentionsDisclosure: UseDisclosureReturn
   postMentions: Record<number, string[]>
-  postSentenceShares: Record<number, number>
+  postSentenceShares: Record<number, PostStats>
   postTrends: Record<number, string[]>
   savedMentions: MentionUserData[]
+  hashtagStats: HashtagStats
   trendsDisclosure: UseDisclosureReturn
 }
 

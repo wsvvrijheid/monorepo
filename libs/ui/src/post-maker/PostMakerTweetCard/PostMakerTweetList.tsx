@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useMemo } from 'react'
 
 import { Divider, Stack } from '@chakra-ui/react'
 
@@ -10,14 +10,13 @@ import { PostProvider } from '../PostProvider'
 export const PostMakerTweetList: FC<PostMakerTweetListProps> = () => {
   const { data, postSentenceShares } = useHashtagContext()
 
-  if (!data) return null
+  const sortedPosts = useMemo(() => {
+    if (!data?.posts) return []
 
-  const posts = data.posts || []
-
-  const sortedPosts = posts
-    .sort((a, b) => postSentenceShares[a.id] - postSentenceShares[b.id])
-    .sort((a, b) => {
-      const difference = postSentenceShares[a.id] - postSentenceShares[b.id]
+    return data.posts.sort((a, b) => {
+      const difference =
+        (postSentenceShares[a.id]?.leastShareCount || 0) -
+        (postSentenceShares[b.id]?.leastShareCount || 0)
 
       // If posts have the same share count
       // we want to randomly sort them
@@ -27,16 +26,19 @@ export const PostMakerTweetList: FC<PostMakerTweetListProps> = () => {
 
       return difference
     })
+  }, [postSentenceShares, data?.posts])
 
   return (
-    <Stack borderWidth={1} spacing={0} divider={<Divider />}>
-      {sortedPosts.map(post => {
-        return (
-          <PostProvider key={post.id} post={post}>
-            {post && <PostMakerTweetCard />}
-          </PostProvider>
-        )
-      })}
+    <Stack>
+      <Stack borderWidth={1} spacing={0} divider={<Divider />}>
+        {sortedPosts.map(post => {
+          return (
+            <PostProvider key={post.id} post={post}>
+              {post && <PostMakerTweetCard />}
+            </PostProvider>
+          )
+        })}
+      </Stack>
     </Stack>
   )
 }

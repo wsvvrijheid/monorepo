@@ -3,7 +3,7 @@ import { SkeletonText, VStack, Wrap } from '@chakra-ui/react'
 import { TwitterTrend } from '@wsvvrijheid/types'
 
 import { TrendListItem } from './TrendListItem'
-import { useHashtagContext } from '../../components/HashtagProvider'
+import { useHashtagContext } from '../HashtagProvider'
 
 interface TrendListProps {
   trends?: TwitterTrend[] | null

@@ -64,13 +64,32 @@ export const PostProvider: FC<PostProviderProps> = ({ post, children }) => {
   }
 
   useEffect(() => {
-    if (!sentences.length) {
-      return
-    }
+    if (!sentences.length) return
 
     const leastSharedSentence = sentences[0]
 
-    updatePostSentenceShares(post.id, leastSharedSentence.shareCount)
+    const counts = sentences.reduce(
+      (acc, sentence) => {
+        return {
+          ...acc,
+          unsharedCount:
+            (acc.unsharedCount || 0) + sentence.shareCount === 0 ? 1 : 0,
+          shareCount: (acc.shareCount || 0) + sentence.shareCount,
+        }
+      },
+      {
+        unsharedCount: 0,
+        shareCount: 0,
+      },
+    )
+
+    updatePostSentenceShares({
+      postId: post.id,
+      leastShareCount: leastSharedSentence.shareCount,
+      unsharedCount: counts.unsharedCount,
+      totalShares: counts.shareCount,
+      totalSentences: sentences.length,
+    })
 
     // if (hasSaved.current) return
 
@@ -79,7 +98,7 @@ export const PostProvider: FC<PostProviderProps> = ({ post, children }) => {
     })
 
     // hasSaved.current = true
-  }, [sentences, post])
+  }, [sentences, post.id])
 
   return (
     <PostContext.Provider

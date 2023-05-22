@@ -6,7 +6,7 @@ import { MentionUserData } from '@wsvvrijheid/types'
 import MentionListItem from './MentionListItem'
 import { MentionListSkeleton } from './MentionListSkeleton'
 import { MentionSearch } from './MentionSearch'
-import { useHashtagContext } from '../../components/HashtagProvider'
+import { useHashtagContext } from '../HashtagProvider'
 
 export const MentionListPanel = () => {
   const {

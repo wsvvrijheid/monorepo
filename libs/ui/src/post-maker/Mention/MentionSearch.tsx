@@ -12,7 +12,7 @@ import { useTranslation } from 'next-i18next'
 import { FaSearch, FaTimes } from 'react-icons/fa'
 import { useDebounce } from 'react-use'
 
-import { useHashtagContext } from '../../components/HashtagProvider'
+import { useHashtagContext } from '../HashtagProvider'
 
 export const MentionSearch = (): JSX.Element => {
   const { t } = useTranslation()

@@ -1,7 +1,7 @@
 import { useTrends } from '@wsvvrijheid/services'
 import { TwitterTrend } from '@wsvvrijheid/types'
 
-import { useHashtagContext } from '../../components/HashtagProvider'
+import { useHashtagContext } from '../HashtagProvider'
 
 export const useFindHashtagInTrends = () => {
   const { data } = useHashtagContext()

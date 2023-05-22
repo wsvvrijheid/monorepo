@@ -1,4 +1,4 @@
-import { ContentEditable } from '../ContentEditable'
+import { ContentEditable } from '../../components'
 import { usePostContext } from '../PostProvider'
 
 export const PostMakerTweetContent = () => {

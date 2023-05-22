@@ -7,6 +7,7 @@ import { MentionUserData } from '@wsvvrijheid/types'
 
 import { initialHashtagContext } from './state'
 import { HashtagContextType, HashtagProviderProps } from './types'
+import { PostStats } from './types'
 
 export const HashtagContext = createContext<HashtagContextType>(
   initialHashtagContext,
@@ -24,7 +25,7 @@ export const HashtagProvider: FC<HashtagProviderProps> = ({
     {},
   )
   const [postSentenceShares, setPostSentenceShares] = useState<
-    Record<number, number>
+    Record<number, PostStats>
   >({})
 
   const mentionsDisclosure = useDisclosure()
@@ -34,11 +35,14 @@ export const HashtagProvider: FC<HashtagProviderProps> = ({
     return
   }
 
-  const updatePostSentenceShares = (postId: number, shares: number) => {
-    return setPostSentenceShares({
-      ...postSentenceShares,
-      [postId]: shares,
-    })
+  const updatePostSentenceShares = ({
+    postId,
+    ...args
+  }: { postId: number } & PostStats) => {
+    setPostSentenceShares(prev => ({
+      ...prev,
+      [postId]: args,
+    }))
   }
 
   const updateStoredMentions = (mention: MentionUserData) => {
@@ -56,6 +60,22 @@ export const HashtagProvider: FC<HashtagProviderProps> = ({
       [postId]: updatedMentions,
     })
   }
+
+  const hashtagStats = Object.values(postSentenceShares).reduce(
+    (acc, curr) => {
+      return {
+        ...acc,
+        unsharedCount: (acc.unsharedCount || 0) + (curr.unsharedCount || 0),
+        totalSentences: (acc.totalSentences || 0) + (curr.totalSentences || 0),
+        totalShares: (acc.totalShares || 0) + (curr.totalShares || 0),
+      }
+    },
+    {
+      unsharedCount: 0,
+      totalSentences: 0,
+      totalShares: 0,
+    },
+  )
 
   const addTrendToPost = (postId: number, trend: string) => {
     if (!postId) return
@@ -150,6 +170,7 @@ export const HashtagProvider: FC<HashtagProviderProps> = ({
         postSentenceShares,
         postTrends,
         savedMentions: [],
+        hashtagStats,
         trendsDisclosure,
 
         // actions
