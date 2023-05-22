@@ -11,10 +11,8 @@ import { Analytics } from '@vercel/analytics/react'
 import { useRouter } from 'next/router'
 import { appWithTranslation } from 'next-i18next'
 import { DefaultSeo } from 'next-seo'
-import { Provider as ReduxProvider } from 'react-redux'
 
 import { defaultSeo, themes } from '@wsvvrijheid/config'
-import { store } from '@wsvvrijheid/store'
 
 import i18nConfig from '../next-i18next.config'
 
@@ -35,14 +33,12 @@ function MyApp({ Component, pageProps }) {
   return (
     <QueryClientProvider client={queryClient}>
       <Hydrate state={pageProps.dehydratedState}>
-        <ReduxProvider store={store}>
-          <ChakraProvider theme={themes.samenvvv}>
-            <DefaultSeo {...defaultSeo.admin[locale]} />
-            <Component {...pageProps} />
-            <Analytics />
-            <ToastContainer />
-          </ChakraProvider>
-        </ReduxProvider>
+        <ChakraProvider theme={themes.samenvvv}>
+          <DefaultSeo {...defaultSeo.admin[locale]} />
+          <Component {...pageProps} />
+          <Analytics />
+          <ToastContainer />
+        </ChakraProvider>
       </Hydrate>
       <ReactQueryDevtools />
     </QueryClientProvider>

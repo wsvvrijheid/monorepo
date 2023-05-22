@@ -18,7 +18,7 @@ export const TweetWidget = ({
   const { t } = useTranslation()
 
   return (
-    <VStack align="stretch" justify="stretch" h={640}>
+    <Stack h={'inherit'}>
       <Text color="gray.500" fontSize="sm">
         {title}
       </Text>
@@ -43,6 +43,6 @@ export const TweetWidget = ({
           )}
         </VStack>
       </Box>
-    </VStack>
+    </Stack>
   )
 }

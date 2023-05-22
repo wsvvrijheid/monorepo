@@ -12,13 +12,12 @@ import {
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation } from '@tanstack/react-query'
-import axios from 'axios'
 import { useRouter } from 'next/router'
 import { TFunction, useTranslation } from 'next-i18next'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
-import { checkAuth, useAppDispatch } from '@wsvvrijheid/store'
+import { useAuthContext } from '@wsvvrijheid/context'
 
 import { LoginFormFieldValues } from './types'
 import { FormItem } from '../FormItem'
@@ -31,7 +30,7 @@ import {
 const schema = (t: TFunction) =>
   yup.object({
     password: yup.string().required(t('login.password.required') as string),
-    email: yup
+    identifier: yup
       .string()
       .email(t('contact.form.email-invalid') as string)
       .required(t('login.email.required') as string),
@@ -45,27 +44,20 @@ export const LoginForm: FC<LoginFormProps> = ({ providersToBeShown = [] }) => {
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm<LoginFormFieldValues>({
     resolver: yupResolver(schema(t)),
     mode: 'all',
   })
 
-  const dispatch = useAppDispatch()
-
   const router = useRouter()
+  const { login, isLoading } = useAuthContext()
 
   const loginMutation = useMutation({
     mutationKey: ['login'],
     mutationFn: (body: LoginFormFieldValues) =>
-      axios.post('/api/auth/login', {
-        identifier: body.identifier,
-        password: body.password,
-      }),
+      login(body.identifier, body.password),
     onSuccess: async data => {
-      await dispatch(checkAuth()).unwrap()
-      reset()
       router.push('/')
     },
   })
@@ -134,7 +126,11 @@ export const LoginForm: FC<LoginFormProps> = ({ providersToBeShown = [] }) => {
             </Button>
           </HStack>
           <Stack spacing="6">
-            <Button type="submit" data-testid="button-submit-login">
+            <Button
+              type="submit"
+              data-testid="button-submit-login"
+              isLoading={isLoading}
+            >
               {t('login.sign-in')}
             </Button>
             {loginMutation.isError && (

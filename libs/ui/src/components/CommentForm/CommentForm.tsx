@@ -18,7 +18,7 @@ import { useForm } from 'react-hook-form'
 import { FiArrowRight } from 'react-icons/fi'
 import * as yup from 'yup'
 
-import { useAuthSelector } from '@wsvvrijheid/store'
+import { useAuthContext } from '@wsvvrijheid/context'
 
 import { CommentFormFieldValues, CommentFormProps } from './types'
 import { FormItem } from '../FormItem'
@@ -48,7 +48,7 @@ export const CommentForm: React.FC<CommentFormProps> = ({
   isSuccess,
 }) => {
   const { t } = useTranslation()
-  const { user, isLoggedIn } = useAuthSelector()
+  const { user, isLoggedIn } = useAuthContext()
 
   const {
     register,
