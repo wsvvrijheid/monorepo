@@ -5,7 +5,6 @@ export const PostMakerTweetContent = () => {
   const { sentence, updatePostContent, threshold } = usePostContext()
 
   const handleChange = (value: string) => {
-    console.log('value', value)
     if (!sentence) return
 
     updatePostContent({

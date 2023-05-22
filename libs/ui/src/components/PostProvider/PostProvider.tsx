@@ -1,11 +1,4 @@
-import {
-  FC,
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useState,
-} from 'react'
+import { FC, createContext, useContext, useEffect, useState } from 'react'
 
 import { useGetPostSentences } from '@wsvvrijheid/services'
 
@@ -22,10 +15,11 @@ export const PostProvider: FC<PostProviderProps> = ({ post, children }) => {
     post,
   })
 
-  const { postMentions, postTrends, defaultTrends } = useHashtagContext()
+  const { postMentions, postTrends, defaultTrends, updatePostSentenceShares } =
+    useHashtagContext()
   const sentences = useGetPostSentences(post.id)
 
-  const updatePostContent = useCallback((newState: Partial<PostState>) => {
+  const updatePostContent = (newState: Partial<PostState>) => {
     const mentionUsernames = postMentions[post.id] ?? []
     const trendNames = postTrends[post.id] ?? []
     const defaultTrendNames = defaultTrends[post.id] ?? []
@@ -67,7 +61,7 @@ export const PostProvider: FC<PostProviderProps> = ({ post, children }) => {
     }
 
     setPostState(updatedState)
-  }, [])
+  }
 
   useEffect(() => {
     if (!sentences.length) {
@@ -75,6 +69,8 @@ export const PostProvider: FC<PostProviderProps> = ({ post, children }) => {
     }
 
     const leastSharedSentence = sentences[0]
+
+    updatePostSentenceShares(post.id, leastSharedSentence.shareCount)
 
     // if (hasSaved.current) return
 

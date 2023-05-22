@@ -9,6 +9,7 @@ export const initialHashtagState: HashtagState = {
   mentionSearchKey: '',
   mentionsDisclosure: {} as UseDisclosureReturn,
   postMentions: {},
+  postSentenceShares: {},
   postTrends: {},
   savedMentions: [],
   trendsDisclosure: {} as UseDisclosureReturn,
@@ -23,6 +24,7 @@ export const initialHashtagActions: HashtagActions = {
   removeTrendFromPost: () => null,
   setActivePostId: () => null,
   setMentionSearchKey: () => null,
+  updatePostSentenceShares: () => null,
   updateStoredMentions: () => null,
 }
 

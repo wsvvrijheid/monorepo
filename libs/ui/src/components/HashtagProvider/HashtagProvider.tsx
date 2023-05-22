@@ -23,12 +23,22 @@ export const HashtagProvider: FC<HashtagProviderProps> = ({
   const [defaultTrends, setDefaultTrends] = useState<Record<number, string[]>>(
     {},
   )
+  const [postSentenceShares, setPostSentenceShares] = useState<
+    Record<number, number>
+  >({})
 
   const mentionsDisclosure = useDisclosure()
   const trendsDisclosure = useDisclosure()
 
   const removeStoredMention = (mention: string) => {
     return
+  }
+
+  const updatePostSentenceShares = (postId: number, shares: number) => {
+    return setPostSentenceShares({
+      ...postSentenceShares,
+      [postId]: shares,
+    })
   }
 
   const updateStoredMentions = (mention: MentionUserData) => {
@@ -137,9 +147,11 @@ export const HashtagProvider: FC<HashtagProviderProps> = ({
         mentionSearchKey,
         mentionsDisclosure,
         postMentions,
+        postSentenceShares,
         postTrends,
         savedMentions: [],
         trendsDisclosure,
+
         // actions
         addMentionToPost,
         addTrendToPost,
@@ -149,6 +161,7 @@ export const HashtagProvider: FC<HashtagProviderProps> = ({
         removeTrendFromPost,
         setActivePostId,
         setMentionSearchKey,
+        updatePostSentenceShares,
         updateStoredMentions,
       }}
     >

@@ -14,18 +14,20 @@ export type HashtagActions = {
   setActivePostId: (postId: number) => void
   setMentionSearchKey: (key: string) => void
   updateStoredMentions: (mention: MentionUserData) => void
+  updatePostSentenceShares: (postId: number, shares: number) => void
 }
 
 export type HashtagState = {
   activePostId: number | null
   data: HashtagReturnType | null
+  defaultTrends: Record<number, string[]>
   mentionSearchKey: string
   mentionsDisclosure: UseDisclosureReturn
+  postMentions: Record<number, string[]>
+  postSentenceShares: Record<number, number>
+  postTrends: Record<number, string[]>
   savedMentions: MentionUserData[]
   trendsDisclosure: UseDisclosureReturn
-  defaultTrends: Record<number, string[]>
-  postTrends: Record<number, string[]>
-  postMentions: Record<number, string[]>
 }
 
 export type HashtagContextType = HashtagState & HashtagActions

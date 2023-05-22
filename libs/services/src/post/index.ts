@@ -1,3 +1,5 @@
+import { useMemo } from 'react'
+
 import { useMutation, useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 
@@ -65,22 +67,22 @@ export const useGetPostSentences = (id: number) => {
     queryFn: () => getPostSentences(id),
   })
 
-  if (!result.data?.length) return []
+  return useMemo(
+    () =>
+      result.data
+        ?.map((s, index) => {
+          const [sentence, shareCount, published] = s.split('::')
 
-  const sentences: PostSentence[] = result.data
-    .map((s, index) => {
-      const [sentence, shareCount, published] = s.split('::')
-
-      return {
-        value: sentence,
-        shareCount: Number(shareCount),
-        isPublished: published === '1',
-        index,
-      }
-    })
-    .sort((a, b) => {
-      return a.shareCount - b.shareCount
-    })
-
-  return sentences
+          return {
+            value: sentence,
+            shareCount: Number(shareCount),
+            isPublished: published === '1',
+            index,
+          }
+        })
+        .sort((a, b) => {
+          return a.shareCount - b.shareCount
+        }) || ([] as PostSentence[]),
+    [result.data],
+  )
 }
