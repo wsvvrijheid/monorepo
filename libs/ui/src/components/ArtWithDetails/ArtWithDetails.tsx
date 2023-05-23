@@ -2,6 +2,7 @@ import { FC } from 'react'
 
 import { Stack, Box, Grid } from '@chakra-ui/react'
 import { QueryKey, useQueryClient } from '@tanstack/react-query'
+import axios from 'axios'
 import { useRouter } from 'next/router'
 import { useReCaptcha } from 'next-recaptcha-v3'
 
@@ -13,6 +14,7 @@ import {
   useLikeArt,
 } from '@wsvvrijheid/services'
 import { Art, StrapiLocale } from '@wsvvrijheid/types'
+import { toastMessage } from '@wsvvrijheid/utils'
 
 import {
   ArtContent,
@@ -49,20 +51,20 @@ export const ArtWithDetails: FC<ArtWithDetailsProps> = ({ art, queryKey }) => {
     content,
     email,
   }: CommentFormFieldValues) => {
-    if (art?.id) {
+    if (!art?.id) return
+
+    try {
       const recaptchaToken = await executeRecaptcha('comment')
 
-      fetch('https://www.google.com/recaptcha/api/siteverify', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        mode: 'no-cors',
-        body: `secret=${NX_RECAPTCHA_SECRET_KEY}&response=${recaptchaToken}`,
-      })
-        .then(res => res.json())
-        .then(data => console.log(data))
-        .catch(error => console.error(error))
+      const response = await axios.post(
+        `https://www.google.com/recaptcha/api/siteverify?secret=${NX_RECAPTCHA_SECRET_KEY}&response=${recaptchaToken}`,
+      )
+
+      console.log('response', response.data)
+
+      if (!response.data.success) {
+        throw new Error('Recaptcha failed')
+      }
 
       const body = {
         name: name as string,
@@ -72,11 +74,19 @@ export const ArtWithDetails: FC<ArtWithDetailsProps> = ({ art, queryKey }) => {
         art: art.id,
       }
 
-      return artCommentMutation.mutate(body, {
+      artCommentMutation.mutateAsync(body, {
         onSuccess: async comment => {
           queryClient.invalidateQueries(queryKey)
         },
       })
+    } catch (error) {
+      console.error(error)
+
+      toastMessage(
+        'Error',
+        "Couldn't send comment. Please try again later.",
+        'error',
+      )
     }
   }
 
