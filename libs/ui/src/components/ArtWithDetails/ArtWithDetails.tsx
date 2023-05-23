@@ -1,18 +1,12 @@
 import { FC } from 'react'
 
-import { Stack, Box, Grid } from '@chakra-ui/react'
-import { QueryKey, useQueryClient } from '@tanstack/react-query'
+import { Box, Grid, Stack } from '@chakra-ui/react'
+import { QueryKey, useMutation, useQueryClient } from '@tanstack/react-query'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 import { useReCaptcha } from 'next-recaptcha-v3'
 
-import { useAuthContext } from '@wsvvrijheid/context'
-import { NX_RECAPTCHA_SECRET_KEY } from '@wsvvrijheid/secrets'
-import {
-  useArtBySlug,
-  useArtCommentMutation,
-  useLikeArt,
-} from '@wsvvrijheid/services'
+import { useArtBySlug, useLikeArt } from '@wsvvrijheid/services'
 import { Art, StrapiLocale } from '@wsvvrijheid/types'
 import { toastMessage } from '@wsvvrijheid/utils'
 
@@ -37,9 +31,16 @@ export const ArtWithDetails: FC<ArtWithDetailsProps> = ({ art, queryKey }) => {
   const router = useRouter()
   const locale = router.locale as StrapiLocale
 
-  const auth = useAuthContext()
-
-  const artCommentMutation = useArtCommentMutation()
+  const artCommentMutation = useMutation({
+    mutationKey: ['art-comment'],
+    mutationFn: (body: {
+      name?: string
+      content: string
+      email?: string
+      art: number
+      recaptchaToken?: string
+    }) => axios.post('/api/comments', body),
+  })
   const { data } = useArtBySlug(art.slug)
 
   if (!art.comments) {
@@ -54,35 +55,37 @@ export const ArtWithDetails: FC<ArtWithDetailsProps> = ({ art, queryKey }) => {
     if (!art?.id) return
 
     try {
-      const recaptchaToken = await executeRecaptcha('comment')
+      const recaptchaToken = await executeRecaptcha('comment').catch(error => {
+        console.error(error)
 
-      const response = await axios.post(
-        `https://www.google.com/recaptcha/api/siteverify?secret=${NX_RECAPTCHA_SECRET_KEY}&response=${recaptchaToken}`,
-        {},
-        {
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
-          },
-        },
-      )
-
-      console.log('response', response.data)
-
-      if (!response.data.success) {
-        throw new Error('Recaptcha failed')
-      }
+        return undefined
+      })
 
       const body = {
-        name: name as string,
+        name,
         content,
-        email: email as string,
-        user: auth?.user?.id,
+        email,
         art: art.id,
+        recaptchaToken,
       }
 
-      artCommentMutation.mutateAsync(body, {
+      artCommentMutation.mutate(body, {
         onSuccess: async comment => {
-          queryClient.invalidateQueries(queryKey)
+          await queryClient.invalidateQueries(queryKey)
+          toastMessage(
+            'Success',
+            'Your comment has been sent successfully.',
+            'success',
+          )
+        },
+        onError: error => {
+          console.error('Mutation error', error)
+
+          toastMessage(
+            'Error',
+            "Couldn't send comment. Please try again later.",
+            'error',
+          )
         },
       })
     } catch (error) {
