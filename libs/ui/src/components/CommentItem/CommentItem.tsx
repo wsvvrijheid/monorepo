@@ -3,7 +3,7 @@ import { FC } from 'react'
 import { Avatar, HStack, Stack, Text } from '@chakra-ui/react'
 import { formatDistanceStrict } from 'date-fns'
 
-import { API_URL } from '@wsvvrijheid/config'
+import { ASSETS_URL } from '@wsvvrijheid/config'
 import { Comment } from '@wsvvrijheid/types'
 
 interface CommentItemProps {
@@ -17,7 +17,7 @@ export const CommentItem: FC<CommentItemProps> = ({ comment }) => {
     <HStack align="start">
       <Avatar
         size="sm"
-        src={`${API_URL}${comment.user?.avatar?.url}`}
+        src={`${ASSETS_URL}${comment.user?.avatar?.url}`}
         name={name}
       />
       <Stack fontSize="sm">

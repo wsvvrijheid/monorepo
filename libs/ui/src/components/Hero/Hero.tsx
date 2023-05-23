@@ -2,7 +2,7 @@ import { FC, memo, PropsWithChildren } from 'react'
 
 import { Box, Heading, Text, VStack } from '@chakra-ui/react'
 
-import { API_URL } from '@wsvvrijheid/config'
+import { ASSETS_URL } from '@wsvvrijheid/config'
 import { UploadFile } from '@wsvvrijheid/types'
 
 import { Container } from '../Container'
@@ -20,7 +20,7 @@ export const Hero: FC<PropsWithChildren<HeroProps>> = memo(function Hero({
   title,
   description,
   video,
-  image = `${API_URL}/uploads/human_rights_752e221112.webp`,
+  image = `${ASSETS_URL}/uploads/human_rights_752e221112.webp`,
   isFullHeight = false,
   children,
 }) {

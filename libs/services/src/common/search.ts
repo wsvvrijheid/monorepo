@@ -29,6 +29,7 @@ export type SearchModelArgs<T extends StrapiModel> = {
   statuses?: ApprovalStatus[]
   url: StrapiUrl
   username?: string
+  params?: Record<string, unknown>
 }
 
 export const searchModel = async <T extends StrapiModel>({

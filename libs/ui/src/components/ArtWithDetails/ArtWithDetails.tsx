@@ -5,13 +5,13 @@ import { QueryKey, useQueryClient } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
 import { useReCaptcha } from 'next-recaptcha-v3'
 
+import { useAuthContext } from '@wsvvrijheid/context'
 import { NX_RECAPTCHA_SECRET_KEY } from '@wsvvrijheid/secrets'
 import {
   useArtBySlug,
   useArtCommentMutation,
   useLikeArt,
 } from '@wsvvrijheid/services'
-import { useAuthSelector } from '@wsvvrijheid/store'
 import { Art, StrapiLocale } from '@wsvvrijheid/types'
 
 import {
@@ -35,7 +35,7 @@ export const ArtWithDetails: FC<ArtWithDetailsProps> = ({ art, queryKey }) => {
   const router = useRouter()
   const locale = router.locale as StrapiLocale
 
-  const auth = useAuthSelector()
+  const auth = useAuthContext()
 
   const artCommentMutation = useArtCommentMutation()
   const { data } = useArtBySlug(art.slug)
@@ -51,7 +51,6 @@ export const ArtWithDetails: FC<ArtWithDetailsProps> = ({ art, queryKey }) => {
   }: CommentFormFieldValues) => {
     if (art?.id) {
       const recaptchaToken = await executeRecaptcha('comment')
-      // console.log(recaptchaToken)
 
       fetch('https://www.google.com/recaptcha/api/siteverify', {
         method: 'POST',

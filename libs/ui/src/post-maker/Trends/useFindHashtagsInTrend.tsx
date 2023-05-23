@@ -1,10 +1,15 @@
 import { useTrends } from '@wsvvrijheid/services'
-import { useAppSelector } from '@wsvvrijheid/store'
 import { TwitterTrend } from '@wsvvrijheid/types'
 
+import { useHashtagContext } from '../HashtagProvider'
+
 export const useFindHashtagInTrends = () => {
-  const { defaultHashtags } = useAppSelector(state => state.post)
+  const { data } = useHashtagContext()
   const { data: trendsData } = useTrends()
+
+  const defaultHashtags = [data?.hashtagDefault, data?.hashtagExtra].filter(
+    Boolean,
+  )
 
   return defaultHashtags.map(hashtag => {
     const { nl, tr, en } = trendsData ?? {}

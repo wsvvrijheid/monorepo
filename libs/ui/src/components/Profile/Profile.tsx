@@ -16,9 +16,9 @@ import { FaPaintBrush, FaSpinner } from 'react-icons/fa'
 import { IoMdSettings } from 'react-icons/io'
 import { MdRemoveModerator } from 'react-icons/md'
 
-import { API_URL } from '@wsvvrijheid/config'
+import { ASSETS_URL } from '@wsvvrijheid/config'
+import { useAuthContext } from '@wsvvrijheid/context'
 import { useArtByArtist } from '@wsvvrijheid/services'
-import { useAuthSelector } from '@wsvvrijheid/store'
 
 import { ArtCard } from '../ArtCard'
 import { Container } from '../Container'
@@ -26,7 +26,7 @@ import { CreateArtForm } from '../CreateArtForm'
 import { Hero } from '../Hero'
 
 const Settings = () => {
-  const { user } = useAuthSelector()
+  const { user } = useAuthContext()
 
   return (
     <Stack>
@@ -39,7 +39,7 @@ const Settings = () => {
 export const AuthenticatedUserProfile = () => {
   const { t } = useTranslation('common')
 
-  const { user } = useAuthSelector()
+  const { user } = useAuthContext()
 
   const { data } = useArtByArtist(user?.id, 'preview')
   const rejected = data?.filter(art => art?.approvalStatus === 'rejected')
@@ -52,7 +52,7 @@ export const AuthenticatedUserProfile = () => {
         <Stack>
           <Avatar
             size="lg"
-            src={`${API_URL}${user?.avatar}`}
+            src={`${ASSETS_URL}${user?.avatar}`}
             name={user?.username}
           />
           <HStack

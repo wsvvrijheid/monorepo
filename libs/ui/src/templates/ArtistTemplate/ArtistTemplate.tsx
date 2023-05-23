@@ -2,7 +2,7 @@ import { FC } from 'react'
 
 import { Avatar, SimpleGrid, Stack, Text } from '@chakra-ui/react'
 
-import { API_URL } from '@wsvvrijheid/config'
+import { ASSETS_URL } from '@wsvvrijheid/config'
 import { Art, User } from '@wsvvrijheid/types'
 
 import { ArtCard, Container, Hero } from '../../components'
@@ -19,7 +19,7 @@ export const ArtistTemplate: FC<ArtistTemplateProps> = ({ artist, arts }) => {
         <Stack align="center" cursor="default" userSelect="none">
           <Avatar
             size="lg"
-            src={`${API_URL}${artist?.avatar?.formats?.thumbnail?.url}`}
+            src={`${ASSETS_URL}${artist?.avatar?.formats?.thumbnail?.url}`}
             name={artist?.name || artist?.username}
           />
 

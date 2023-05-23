@@ -1,7 +1,7 @@
 import { Box, Image, Stack, StackDivider, Text, VStack } from '@chakra-ui/react'
 import { useTranslation } from 'next-i18next'
 
-import { API_URL } from '@wsvvrijheid/config'
+import { ASSETS_URL } from '@wsvvrijheid/config'
 import { Tweet } from '@wsvvrijheid/types'
 
 import { TweetCard } from '../../admin/TweetCard'
@@ -18,7 +18,7 @@ export const TweetWidget = ({
   const { t } = useTranslation()
 
   return (
-    <VStack align="stretch" justify="stretch" h={640}>
+    <Stack h={'inherit'}>
       <Text color="gray.500" fontSize="sm">
         {title}
       </Text>
@@ -35,7 +35,7 @@ export const TweetWidget = ({
           ) : (
             <Stack textAlign="center">
               <Image
-                src={`${API_URL}/uploads/tweet_widget_5577e761e4.svg`}
+                src={`${ASSETS_URL}/uploads/tweet_widget_5577e761e4.svg`}
                 alt="no tweets"
               />
               <Text>{t('post.no-tweet')}</Text>
@@ -43,6 +43,6 @@ export const TweetWidget = ({
           )}
         </VStack>
       </Box>
-    </VStack>
+    </Stack>
   )
 }

@@ -5,7 +5,7 @@ import { GetStaticPaths, GetStaticProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
 
-import { API_URL, SITE_URL } from '@wsvvrijheid/config'
+import { ASSETS_URL, SITE_URL } from '@wsvvrijheid/config'
 import { getArtBySlug, searchModel } from '@wsvvrijheid/services'
 import { Art, StrapiLocale } from '@wsvvrijheid/types'
 import { ArtTemplate } from '@wsvvrijheid/ui'
@@ -88,8 +88,8 @@ export const getStaticProps: GetStaticProps = async context => {
       images: image
         ? [
             {
-              url: API_URL + image.url,
-              secureUrl: API_URL + image.url,
+              url: ASSETS_URL + image.url,
+              secureUrl: ASSETS_URL + image.url,
               type: image.mime,
               width: image.width,
               height: image.height,

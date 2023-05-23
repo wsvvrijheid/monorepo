@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import {
   ChakraProvider,
@@ -16,10 +16,9 @@ import { merge } from 'lodash'
 import { useRouter } from 'next/router'
 import { appWithTranslation } from 'next-i18next'
 import { DefaultSeo } from 'next-seo'
-import { Provider as ReduxProvider } from 'react-redux'
 
 import { defaultSeo, themes } from '@wsvvrijheid/config'
-import { checkAuth, store } from '@wsvvrijheid/store'
+import { AuthProvider } from '@wsvvrijheid/context'
 
 import i18nConfig from '../next-i18next.config'
 
@@ -60,21 +59,17 @@ function MyApp({ Component, pageProps }) {
   )
   const { locale } = useRouter()
 
-  useEffect(() => {
-    store.dispatch(checkAuth())
-  }, [])
-
   return (
     <QueryClientProvider client={queryClient}>
       <Hydrate state={pageProps.dehydratedState}>
-        <ReduxProvider store={store}>
+        <AuthProvider initialState={pageProps.authState}>
           <ChakraProvider theme={extendTheme(theme)}>
             <DefaultSeo {...defaultSeo.admin[locale]} />
             <Component {...pageProps} />
             <Analytics />
             <ToastContainer />
           </ChakraProvider>
-        </ReduxProvider>
+        </AuthProvider>
       </Hydrate>
       <ReactQueryDevtools />
     </QueryClientProvider>

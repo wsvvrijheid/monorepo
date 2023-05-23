@@ -11,18 +11,17 @@ import { Analytics } from '@vercel/analytics/react'
 import { useRouter } from 'next/router'
 import { appWithTranslation } from 'next-i18next'
 import { DefaultSeo } from 'next-seo'
-import { Provider as ReduxProvider } from 'react-redux'
 
 import { defaultSeo, themes } from '@wsvvrijheid/config'
-import { checkAuth, store } from '@wsvvrijheid/store'
+import { AuthProvider } from '@wsvvrijheid/context'
 import { pageview } from '@wsvvrijheid/utils'
 
-import '@splidejs/splide/dist/css/themes/splide-default.min.css'
 import '@splidejs/react-splide/css'
+import '@splidejs/splide/dist/css/themes/splide-default.min.css'
 import '@uppy/core/dist/style.css'
 import '@uppy/dashboard/dist/style.css'
-import '@uppy/url/dist/style.css'
 import '@uppy/image-editor/dist/style.css'
+import '@uppy/url/dist/style.css'
 import 'react-medium-image-zoom/dist/styles.css'
 
 import i18nConfig from '../next-i18next.config'
@@ -34,10 +33,6 @@ function MyApp({ Component, pageProps }) {
   const router = useRouter()
 
   useEffect(() => {
-    store.dispatch(checkAuth())
-  }, [])
-
-  useEffect(() => {
     const handleRouteChange = url => pageview(url)
 
     router.events.on('routeChangeComplete', handleRouteChange)
@@ -46,19 +41,19 @@ function MyApp({ Component, pageProps }) {
   }, [router.events])
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <Hydrate state={pageProps.dehydratedState}>
-        <ReduxProvider store={store}>
+    <AuthProvider initialState={pageProps.authState}>
+      <QueryClientProvider client={queryClient}>
+        <Hydrate state={pageProps.dehydratedState}>
           <ChakraProvider theme={themes.wsvvrijheid}>
             <DefaultSeo {...defaultSeo.wsvvrijheid[router.locale]} />
             <Component {...pageProps} />
             <Analytics />
             <ToastContainer />
           </ChakraProvider>
-        </ReduxProvider>
-      </Hydrate>
-      <ReactQueryDevtools />
-    </QueryClientProvider>
+        </Hydrate>
+        <ReactQueryDevtools />
+      </QueryClientProvider>
+    </AuthProvider>
   )
 }
 

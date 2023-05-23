@@ -1,5 +1,5 @@
 {
-  "editor.formatOnSave": true,
+  // "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   },
@@ -11,5 +11,6 @@
     "tanstack",
     "wsvvrijheid"
   ],
-  "typescript.tsdk": "node_modules/typescript/lib"
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "search.useIgnoreFiles": true
 }

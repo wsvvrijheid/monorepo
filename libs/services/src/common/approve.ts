@@ -1,8 +1,8 @@
 import { useToast } from '@chakra-ui/react'
 import { useMutation } from '@tanstack/react-query'
 
+import { useAuthContext } from '@wsvvrijheid/context'
 import { Mutation } from '@wsvvrijheid/lib'
-import { useAuthSelector } from '@wsvvrijheid/store'
 import {
   StrapiModel,
   StrapiTranslatableModel,
@@ -29,7 +29,7 @@ export const useApproveModel = <T extends StrapiTranslatableModel>(
   translatedFields?: (keyof T)[],
 ) => {
   const toast = useToast()
-  const { token } = useAuthSelector()
+  const { token } = useAuthContext()
 
   return useMutation({
     mutationKey: [`approve-${url}`],

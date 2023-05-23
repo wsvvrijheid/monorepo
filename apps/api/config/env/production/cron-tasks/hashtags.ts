@@ -67,10 +67,7 @@ export default async ({ strapi }) => {
           .update(id, { data: { tweets: mappedTweets } })
       }
     } catch (error) {
-      console.error(
-        `Error while searching tweets`,
-        error?.response || error.message,
-      )
+      console.error(`Error while searching tweets`, error.message)
     }
   })
 }

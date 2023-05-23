@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 
 import {
   Alert,
@@ -15,13 +15,12 @@ import {
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation } from '@tanstack/react-query'
-import axios from 'axios'
 import { useRouter } from 'next/router'
 import { TFunction, useTranslation } from 'next-i18next'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
-import { checkAuth, useAppDispatch } from '@wsvvrijheid/store'
+import { useAuthContext } from '@wsvvrijheid/context'
 
 import { SignupFormFieldValues, SignupFormProps } from './types'
 import { FormItem } from '../FormItem'
@@ -59,41 +58,35 @@ export const SignupForm: FC<SignupFormProps> = ({
 }) => {
   const { t } = useTranslation()
   const [isTermsAccepted, setIsTermsAccepted] = useState<boolean>(true)
-  const [errorMessage, setErrorMessage] = useState('')
+  const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm<SignupFormFieldValues>({
     resolver: yupResolver(schema(t)),
     mode: 'all',
   })
 
-  const dispatch = useAppDispatch()
-
   const router = useRouter()
+  const { register: registerAuth, error } = useAuthContext()
+
+  useEffect(() => {
+    if (error) {
+      setErrorMessage(error)
+    }
+  }, [error])
 
   const signupMutation = useMutation({
     mutationKey: ['login'],
     mutationFn: (body: SignupFormFieldValues) =>
-      axios.post('/api/auth/register', body),
+      registerAuth(body.email, body.password, body.username, body.name),
     onSuccess: async data => {
-      if (data.data?.error) {
-        return setErrorMessage(data.data.error.message)
+      if (data.error) {
+        return setErrorMessage(data.error)
       }
-      await dispatch(checkAuth()).unwrap()
-      reset()
       router.push('/')
-    },
-    onError: (error: any) => {
-      if (error?.response?.data?.error?.message) {
-        setErrorMessage(error?.response?.data?.error?.message)
-      } else {
-        console.error('An unexpected error happened:', error)
-        setErrorMessage('An unexpected error happened')
-      }
     },
   })
 

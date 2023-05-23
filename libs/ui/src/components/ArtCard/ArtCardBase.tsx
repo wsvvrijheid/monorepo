@@ -16,7 +16,7 @@ import { useRouter } from 'next/router'
 import { AiFillHeart } from 'react-icons/ai'
 import { FaExternalLinkSquareAlt } from 'react-icons/fa'
 
-import { API_URL } from '@wsvvrijheid/config'
+import { ASSETS_URL } from '@wsvvrijheid/config'
 import {
   useDeleteModel,
   usePublishModel,
@@ -232,7 +232,7 @@ export const ArtCardBase: FC<ArtCardBaseProps> = ({
                 <Avatar
                   size="xs"
                   name={artistName || artistUsername}
-                  src={`${API_URL}${artistAvatar}`}
+                  src={`${ASSETS_URL}${artistAvatar}`}
                 />
                 <Text noOfLines={1}>{artistName || artistUsername}</Text>
               </HStack>

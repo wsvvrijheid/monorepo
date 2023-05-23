@@ -2,31 +2,39 @@ import { FC } from 'react'
 
 import { ImageProps } from '@chakra-ui/react'
 
-import { API_URL } from '@wsvvrijheid/config'
-import { Post } from '@wsvvrijheid/types'
+import { ASSETS_URL } from '@wsvvrijheid/config'
+import { Post, UploadFile } from '@wsvvrijheid/types'
 
+import { usePostContext } from '../../post-maker/PostProvider'
 import { Caps } from '../Caps'
 
-type PostImageProps = ImageProps & {
-  post: Post
+type PostImageProps = Omit<ImageProps, 'id'> & {
+  post?: Post
   size?: 'xs' | 'sm' | 'md' | 'lg'
 }
 
 export const PostImage: FC<PostImageProps> = ({
-  post,
+  post: defaultPost,
   size = 'lg',
   ...rest
 }) => {
+  const postState = usePostContext()
+
+  const post = defaultPost || (postState?.post as Post)
+
   let src: string | undefined
 
-  if (post?.image?.formats?.small) {
-    src = `${API_URL}${post.image.formats.small.url}`
-  } else if (post?.image?.formats?.medium) {
-    src = `${API_URL}${post.image.formats.medium.url}`
-  } else if (post?.image?.formats?.large) {
-    src = `${API_URL}${post.image.formats.large.url}`
+  const image = post?.image ?? ({} as UploadFile)
+  const formats = image?.formats ?? {}
+
+  if (formats.small) {
+    src = `${ASSETS_URL}${formats.small.url}`
+  } else if (formats.medium) {
+    src = `${ASSETS_URL}${formats.medium.url}`
+  } else if (formats.large) {
+    src = `${ASSETS_URL}${formats.large.url}`
   } else {
-    src = post.image?.url && `${API_URL}${post.image?.url}`
+    src = image.url && `${ASSETS_URL}${image.url}`
   }
 
   const scales = {
@@ -35,6 +43,8 @@ export const PostImage: FC<PostImageProps> = ({
     md: 900 / 1200,
     lg: 1200 / 1200,
   }
+
+  if (!post) return null
 
   return (
     <Caps

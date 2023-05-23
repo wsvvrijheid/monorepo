@@ -3,11 +3,7 @@ import path from 'path'
 
 const config: StorybookConfig = {
   stories: ['../**/*.stories.@(js|jsx|ts|tsx)'],
-  addons: [
-    '@storybook/addon-essentials',
-    '@chakra-ui/storybook-addon',
-    'storybook-react-i18next',
-  ],
+  addons: ['@storybook/addon-essentials', '@chakra-ui/storybook-addon'],
   framework: {
     name: '@storybook/nextjs',
     options: {},
@@ -31,7 +27,6 @@ const config: StorybookConfig = {
         '@wsvvrijheid/mollie': path.resolve(__dirname, '../src/mollie'),
         '@wsvvrijheid/secrets': path.resolve(__dirname, '../src/secrets'),
         '@wsvvrijheid/services': path.resolve(__dirname, '../src/services'),
-        '@wsvvrijheid/store': path.resolve(__dirname, '../src/store'),
         '@wsvvrijheid/types': path.resolve(__dirname, '../src/types'),
         '@wsvvrijheid/ui': path.resolve(__dirname, '../src/ui'),
         '@wsvvrijheid/utils': path.resolve(__dirname, '../src/utils'),
