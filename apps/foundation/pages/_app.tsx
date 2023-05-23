@@ -10,12 +10,10 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { Analytics } from '@vercel/analytics/react'
 import { useRouter } from 'next/router'
 import { appWithTranslation } from 'next-i18next'
-import { ReCaptchaProvider } from 'next-recaptcha-v3'
 import { DefaultSeo } from 'next-seo'
 
 import { defaultSeo, themes } from '@wsvvrijheid/config'
 import { AuthProvider } from '@wsvvrijheid/context'
-import { NX_RECAPTCHA_SITE_KEY } from '@wsvvrijheid/secrets'
 import { pageview } from '@wsvvrijheid/utils'
 
 import '@splidejs/react-splide/css'
@@ -46,14 +44,12 @@ function MyApp({ Component, pageProps }) {
     <AuthProvider initialState={pageProps.authState}>
       <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps.dehydratedState}>
-          <ReCaptchaProvider useEnterprise reCaptchaKey={NX_RECAPTCHA_SITE_KEY}>
-            <ChakraProvider theme={themes.wsvvrijheid}>
-              <DefaultSeo {...defaultSeo.wsvvrijheid[router.locale]} />
-              <Component {...pageProps} />
-              <Analytics />
-              <ToastContainer />
-            </ChakraProvider>
-          </ReCaptchaProvider>
+          <ChakraProvider theme={themes.wsvvrijheid}>
+            <DefaultSeo {...defaultSeo.wsvvrijheid[router.locale]} />
+            <Component {...pageProps} />
+            <Analytics />
+            <ToastContainer />
+          </ChakraProvider>
         </Hydrate>
         <ReactQueryDevtools />
       </QueryClientProvider>

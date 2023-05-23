@@ -10,12 +10,10 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { Analytics } from '@vercel/analytics/react'
 import { useRouter } from 'next/router'
 import { appWithTranslation } from 'next-i18next'
-import { ReCaptchaProvider } from 'next-recaptcha-v3'
 import { DefaultSeo } from 'next-seo'
 
 import { defaultSeo, themes } from '@wsvvrijheid/config'
 import { AuthProvider } from '@wsvvrijheid/context'
-import { NX_RECAPTCHA_SITE_KEY } from '@wsvvrijheid/secrets'
 import { pageview } from '@wsvvrijheid/utils'
 
 import i18nConfig from '../next-i18next.config'
@@ -45,16 +43,14 @@ function MyApp({ Component, pageProps }) {
   return (
     <QueryClientProvider client={queryClient}>
       <Hydrate state={pageProps.dehydratedState}>
-        <ReCaptchaProvider useEnterprise reCaptchaKey={NX_RECAPTCHA_SITE_KEY}>
-          <AuthProvider initialState={pageProps.authState}>
-            <ChakraProvider theme={themes.kunsthalte}>
-              <DefaultSeo {...defaultSeo.kunsthalte[router.locale]} />
-              <Component {...pageProps} />
-              <Analytics />
-              <ToastContainer />
-            </ChakraProvider>
-          </AuthProvider>
-        </ReCaptchaProvider>
+        <AuthProvider initialState={pageProps.authState}>
+          <ChakraProvider theme={themes.kunsthalte}>
+            <DefaultSeo {...defaultSeo.kunsthalte[router.locale]} />
+            <Component {...pageProps} />
+            <Analytics />
+            <ToastContainer />
+          </ChakraProvider>
+        </AuthProvider>
       </Hydrate>
       <ReactQueryDevtools />
     </QueryClientProvider>
