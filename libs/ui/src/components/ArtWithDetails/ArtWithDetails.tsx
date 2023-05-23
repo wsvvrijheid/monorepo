@@ -58,6 +58,12 @@ export const ArtWithDetails: FC<ArtWithDetailsProps> = ({ art, queryKey }) => {
 
       const response = await axios.post(
         `https://www.google.com/recaptcha/api/siteverify?secret=${NX_RECAPTCHA_SECRET_KEY}&response=${recaptchaToken}`,
+        {},
+        {
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
+          },
+        },
       )
 
       console.log('response', response.data)
