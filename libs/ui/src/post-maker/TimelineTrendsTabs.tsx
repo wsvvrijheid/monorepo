@@ -26,7 +26,6 @@ export const TimelineTrendsTabs = () => {
         <Tabs colorScheme="primary" isFitted size="sm">
           <TabList pos="sticky" top="0" bg="white">
             <Tab>Timeline</Tab>
-            {hashtag?.tweets?.length}
             <Tab>{t('post.trends-label')}</Tab>
           </TabList>
           <TabPanels>
@@ -36,7 +35,6 @@ export const TimelineTrendsTabs = () => {
                 tweets={hashtag?.tweets}
               />
             </TabPanel>
-
             <TabPanel>
               <TrendListTabs />
             </TabPanel>
