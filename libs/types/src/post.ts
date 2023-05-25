@@ -14,6 +14,8 @@ export type PostBase = Omit<StrapiEntityBase, 'slug'> & {
 
 export type PostRelation = {
   image?: UploadFile
+  video?: UploadFile
+  caps?: UploadFile
   hashtag?: Hashtag
   tags?: Array<Tag>
   translator?: User | null
@@ -22,6 +24,8 @@ export type PostRelation = {
 
 export type PostRelationInput = {
   image: File
+  video: File
+  caps: File
   hashtag: number
   tags?: Array<number>
   translator?: number

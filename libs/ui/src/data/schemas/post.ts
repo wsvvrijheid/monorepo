@@ -24,7 +24,9 @@ export const postFields: FormFields<Post> = [
     type: 'select',
     url: 'api/hashtags',
   },
-  { name: 'image', type: 'file', isRequired: true },
+  { name: 'image', type: 'file' },
+  { name: 'video', type: 'file' },
+  { name: 'caps', type: 'file' },
   { name: 'content', type: 'markdown' },
   { name: 'reference' },
   {

@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 import {
   Box,
@@ -7,6 +7,7 @@ import {
   FormControl,
   FormErrorMessage,
   FormLabel,
+  HStack,
   NumberDecrementStepper,
   NumberIncrementStepper,
   NumberInput,
@@ -16,6 +17,13 @@ import {
   Switch,
   Textarea,
   useBoolean,
+  useRadio,
+  useRadioGroup,
+  Tabs,
+  Tab,
+  TabList,
+  TabPanel,
+  TabPanels,
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import slugify from '@sindresorhus/slugify'
@@ -145,6 +153,18 @@ export const ModelCreateForm = <T extends StrapiModel>({
     color: 'gray.500',
   }
 
+  const options = ['Otomatik Caps', 'video', 'caps yukle']
+  const [media, setMedia] = useState('Otomatik Caps')
+
+  const { getRootProps, getRadioProps } = useRadioGroup({
+    name: 'framework',
+    defaultValue: 'Otomatik Caps',
+    onChange: value => setMedia(value),
+  })
+
+  const group = getRootProps()
+  console.log('options', media)
+
   return (
     <Stack as={'form'} onSubmit={handleSubmit(onCreateModel)}>
       <MasonryGrid cols={[1, 1, 1, 2]} columnGap={8} rowGap={4}>
@@ -158,25 +178,135 @@ export const ModelCreateForm = <T extends StrapiModel>({
 
           if (field.type === 'file') {
             return (
-              <FormControl
-                isInvalid={Boolean(errors?.[field.name])}
-                key={index}
-                isRequired={field.isRequired}
-                zIndex={0}
-              >
-                <FormLabel>{label}</FormLabel>
-                <ModelImage
-                  isEditing={!!postModel?.image?.url}
-                  model={model as T}
-                  setValue={setValue}
-                  isChangingImage={isChangingImage}
-                  setIsChangingImage={setIsChangingImage}
-                />
+              <>
+                {media === 'Otomatik Caps' && field.name === 'image' && (
+                  <>
+                    <HStack {...group}>
+                      {options.map(value => {
+                        const radio = getRadioProps({ value })
 
-                <FormErrorMessage>
-                  {errors?.[field.name]?.message as string}
-                </FormErrorMessage>
-              </FormControl>
+                        return (
+                          <RadioCard key={value} {...radio}>
+                            {value}
+                          </RadioCard>
+                        )
+                      })}
+                    </HStack>
+
+                    <FormControl
+                      isInvalid={Boolean(errors?.[field.name])}
+                      key={index}
+                      isRequired={field.isRequired}
+                      zIndex={0}
+                    >
+                      <FormLabel>{label}</FormLabel>
+                      <ModelImage
+                        isEditing={!!postModel?.video?.url}
+                        model={model as T}
+                        setValue={setValue}
+                        isChangingImage={isChangingImage}
+                        setIsChangingImage={setIsChangingImage}
+                      />
+                      <FormErrorMessage>
+                        {errors?.[field.name]?.message as string}
+                      </FormErrorMessage>
+                    </FormControl>
+                  </>
+                )}
+                {media === 'video' && field.name === 'video' && (
+                  <>
+                    {' '}
+                    <HStack {...group}>
+                      {options.map(value => {
+                        const radio = getRadioProps({ value })
+
+                        return (
+                          <RadioCard key={value} {...radio}>
+                            {value}
+                          </RadioCard>
+                        )
+                      })}{' '}
+                    </HStack>
+                    <Tabs>
+                      <TabList>
+                        <Tab>Upload Video</Tab>
+                        <Tab>Video Url</Tab>
+                      </TabList>
+
+                      <TabPanels>
+                        <TabPanel>
+                          <FormControl
+                            isInvalid={Boolean(errors?.[field.name])}
+                            key={index}
+                            isRequired={field.isRequired}
+                            zIndex={0}
+                          >
+                            <FormLabel>{label}</FormLabel>
+                            <ModelImage
+                              isEditing={!!postModel?.video?.url}
+                              model={model as T}
+                              setValue={setValue}
+                              isChangingImage={isChangingImage}
+                              setIsChangingImage={setIsChangingImage}
+                            />
+                            <FormErrorMessage>
+                              {errors?.[field.name]?.message as string}
+                            </FormErrorMessage>
+                          </FormControl>
+                        </TabPanel>
+                        <TabPanel>
+                          {
+                            <FormItem
+                              key={index}
+                              name={field.name as string}
+                              type={'Textarea'}
+                              label={label}
+                              isRequired={field.isRequired}
+                              errors={errors}
+                              register={register}
+                              _disabled={disabledStyle}
+                            />
+                          }
+                        </TabPanel>
+                      </TabPanels>
+                    </Tabs>
+                  </>
+                )}
+                {media === 'caps yukle' && field.name === 'caps' && (
+                  <>
+                    <HStack {...group}>
+                      {options.map(value => {
+                        const radio = getRadioProps({ value })
+
+                        return (
+                          <RadioCard key={value} {...radio}>
+                            {value}
+                          </RadioCard>
+                        )
+                      })}
+                    </HStack>
+                    <FormControl
+                      isInvalid={Boolean(errors?.[field.name])}
+                      key={index}
+                      isRequired={field.isRequired}
+                      zIndex={0}
+                    >
+                      <FormLabel>{label}</FormLabel>
+                      <ModelImage
+                        isEditing={!!postModel?.image?.url}
+                        model={model as T}
+                        setValue={setValue}
+                        isChangingImage={isChangingImage}
+                        setIsChangingImage={setIsChangingImage}
+                      />
+
+                      <FormErrorMessage>
+                        {errors?.[field.name]?.message as string}
+                      </FormErrorMessage>
+                    </FormControl>
+                  </>
+                )}
+              </>
             )
           }
 
@@ -287,5 +417,36 @@ export const ModelCreateForm = <T extends StrapiModel>({
         Create
       </Button>
     </Stack>
+  )
+}
+export const RadioCard = (props: any) => {
+  const { getInputProps, getRadioProps } = useRadio(props)
+
+  const input = getInputProps()
+  const checkbox = getRadioProps()
+
+  return (
+    <Box as="label">
+      <input {...input} />
+      <Box
+        {...checkbox}
+        cursor="pointer"
+        borderWidth="1px"
+        borderRadius="md"
+        boxShadow="md"
+        _checked={{
+          bg: 'teal.600',
+          color: 'white',
+          borderColor: 'teal.600',
+        }}
+        _focus={{
+          boxShadow: 'outline',
+        }}
+        px={5}
+        py={3}
+      >
+        {props.children}
+      </Box>
+    </Box>
   )
 }
