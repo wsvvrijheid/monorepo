@@ -17,7 +17,6 @@ import {
   Switch,
   Textarea,
   useBoolean,
-  useRadio,
   useRadioGroup,
   Tabs,
   Tab,
@@ -46,10 +45,11 @@ import { generateOgImageParams } from '@wsvvrijheid/utils'
 
 import { ModelImage } from './ModelImage'
 import { ModelSelect } from './ModelSelect'
+import { RadioCard } from './RadioCard'
 import { ModelCreateFormProps, Option } from './types'
 import { useDefaultValues } from './utils'
 import { FormItem, MasonryGrid, MdFormItem } from '../../components'
-import { useFileFromUrl } from '../../hooks'
+import { useFileFromUrl, useFileVideoFromUrl } from '../../hooks'
 import { LanguageSwitcher } from '../LanguageSwitcher'
 
 export const ModelCreateForm = <T extends StrapiModel>({
@@ -70,6 +70,10 @@ export const ModelCreateForm = <T extends StrapiModel>({
   const postModel = model as unknown as Post
 
   const imageFile = useFileFromUrl(postModel?.image?.url)
+  const capsFile = useFileFromUrl(postModel?.caps?.url)
+  const videoFile = useFileVideoFromUrl(postModel?.video?.url)
+
+  console.log('caps and video url', capsFile, videoFile)
 
   const [isChangingImage, setIsChangingImage] = useBoolean(
     postModel?.image ? false : true,
@@ -91,8 +95,12 @@ export const ModelCreateForm = <T extends StrapiModel>({
   useEffect(() => {
     if (imageFile) {
       setValue('image', imageFile)
+    } else if (capsFile) {
+      setValue('caps', capsFile)
+    } else if (videoFile) {
+      setValue('video', videoFile)
     }
-  }, [imageFile, setValue])
+  }, [imageFile, capsFile, videoFile, setValue])
 
   const onCreateModel = async (
     data: Record<string, string | number | File | Option | Option[]>,
@@ -192,7 +200,6 @@ export const ModelCreateForm = <T extends StrapiModel>({
                         )
                       })}
                     </HStack>
-
                     <FormControl
                       isInvalid={Boolean(errors?.[field.name])}
                       key={index}
@@ -232,7 +239,6 @@ export const ModelCreateForm = <T extends StrapiModel>({
                         <Tab>Upload Video</Tab>
                         <Tab>Video Url</Tab>
                       </TabList>
-
                       <TabPanels>
                         <TabPanel>
                           <FormControl
@@ -261,7 +267,6 @@ export const ModelCreateForm = <T extends StrapiModel>({
                               name={field.name as string}
                               type={'Textarea'}
                               label={label}
-                              isRequired={field.isRequired}
                               errors={errors}
                               register={register}
                               _disabled={disabledStyle}
@@ -293,7 +298,7 @@ export const ModelCreateForm = <T extends StrapiModel>({
                     >
                       <FormLabel>{label}</FormLabel>
                       <ModelImage
-                        isEditing={!!postModel?.image?.url}
+                        isEditing={!!postModel?.caps?.url}
                         model={model as T}
                         setValue={setValue}
                         isChangingImage={isChangingImage}
@@ -417,36 +422,5 @@ export const ModelCreateForm = <T extends StrapiModel>({
         Create
       </Button>
     </Stack>
-  )
-}
-export const RadioCard = (props: any) => {
-  const { getInputProps, getRadioProps } = useRadio(props)
-
-  const input = getInputProps()
-  const checkbox = getRadioProps()
-
-  return (
-    <Box as="label">
-      <input {...input} />
-      <Box
-        {...checkbox}
-        cursor="pointer"
-        borderWidth="1px"
-        borderRadius="md"
-        boxShadow="md"
-        _checked={{
-          bg: 'teal.600',
-          color: 'white',
-          borderColor: 'teal.600',
-        }}
-        _focus={{
-          boxShadow: 'outline',
-        }}
-        px={5}
-        py={3}
-      >
-        {props.children}
-      </Box>
-    </Box>
   )
 }

@@ -14,7 +14,9 @@ export const postSchema = yup.object({
     label: yup.string(),
     value: yup.string(),
   }),
-  image: yup.mixed().required('Image is required'),
+  image: yup.mixed(),
+  caps: yup.mixed(),
+  video: yup.mixed(),
 })
 
 export const postFields: FormFields<Post> = [

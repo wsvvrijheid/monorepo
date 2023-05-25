@@ -221,7 +221,7 @@ export const ModelEditForm = <T extends StrapiModel>({
             {fields.map((field, index) => {
               const label = field.label || capitalize(field.name as string)
 
-              if (field.type === 'file') {
+              if (field.type === 'file' && field.name === 'image') {
                 return (
                   <FormControl
                     key={index}
