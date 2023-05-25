@@ -48,7 +48,11 @@
         }
       },
       "type": "enumeration",
-      "enum": ["pending", "approved", "rejected"],
+      "enum": [
+        "pending",
+        "approved",
+        "rejected"
+      ],
       "default": "pending",
       "required": false
     },
@@ -59,7 +63,11 @@
         }
       },
       "type": "enumeration",
-      "enum": ["pending", "approved", "rejected"],
+      "enum": [
+        "pending",
+        "approved",
+        "rejected"
+      ],
       "default": "pending"
     },
     "imageParams": {
@@ -74,7 +82,9 @@
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": ["images", "videos"],
+      "allowedTypes": [
+        "images"
+      ],
       "pluginOptions": {
         "i18n": {
           "localized": false
@@ -112,9 +122,12 @@
       "target": "plugin::users-permissions.user"
     },
     "video": {
-      "allowedTypes": ["images", "files", "videos", "audios"],
       "type": "media",
       "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "videos"
+      ],
       "pluginOptions": {
         "i18n": {
           "localized": true
@@ -122,14 +135,25 @@
       }
     },
     "caps": {
-      "allowedTypes": ["images", "files", "videos", "audios"],
       "type": "media",
       "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ],
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
       }
+    },
+    "videoUrl": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "string"
     }
   }
 }

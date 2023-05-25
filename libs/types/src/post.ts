@@ -10,6 +10,7 @@ export type PostBase = Omit<StrapiEntityBase, 'slug'> & {
   twitterMedia?: string | null
   reference?: string | null
   imageParams?: OgImageParams
+  videoUrl?: string
 }
 
 export type PostRelation = {
@@ -26,6 +27,7 @@ export type PostRelationInput = {
   image: File
   video: File
   caps: File
+
   hashtag: number
   tags?: Array<number>
   translator?: number
@@ -34,7 +36,7 @@ export type PostRelationInput = {
 export type PostCreateInput = Expand<
   { publishedAt?: Date | string | null } & Omit<
     PostBase,
-    'approvalStatus' | 'capsStatus'
+    'approvalStatus' | 'capsStatus' | 'videoUrl'
   > &
     Pick<PostRelationInput, 'image' | 'hashtag' | 'tags'>
 >

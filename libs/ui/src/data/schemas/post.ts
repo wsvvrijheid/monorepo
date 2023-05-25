@@ -17,6 +17,7 @@ export const postSchema = yup.object({
   image: yup.mixed(),
   caps: yup.mixed(),
   video: yup.mixed(),
+  videoUrl: yup.string(),
 })
 
 export const postFields: FormFields<Post> = [
@@ -26,9 +27,30 @@ export const postFields: FormFields<Post> = [
     type: 'select',
     url: 'api/hashtags',
   },
-  { name: 'image', type: 'file' },
-  { name: 'video', type: 'file' },
-  { name: 'caps', type: 'file' },
+  {
+    name: 'image',
+    type: 'file',
+    group: { label: 'Image', value: 'image', name: 'media' },
+  },
+  {
+    name: 'video',
+    type: 'file',
+    group: { label: 'Video', value: 'video', name: 'media' },
+  },
+  {
+    name: 'videoUrl',
+    type: 'mediaUrl',
+    group: {
+      label: 'VideoUrl',
+      value: 'videoUrl',
+      name: 'media',
+    },
+  },
+  {
+    name: 'caps',
+    type: 'file',
+    group: { label: 'Caps', value: 'caps', name: 'media' },
+  },
   { name: 'content', type: 'markdown' },
   { name: 'reference' },
   {
