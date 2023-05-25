@@ -21,8 +21,8 @@ import { useHashtagContext } from './HashtagProvider'
 import { HashtagStats } from './HashtagStats'
 import { MentionList } from './Mention'
 import { PostMakerTweetList } from './PostMakerTweetCard'
+import { TimelineTrendsTabs } from './TimelineTrendsTabs'
 import { TrendListTabs } from './Trends'
-import { TweetWidget } from './TweetWidget'
 
 export const PostMaker = () => {
   const { t } = useTranslation()
@@ -127,11 +127,9 @@ export const PostMaker = () => {
             <PostMakerTweetList posts={hashtag.posts} />
           </Box>
         )}
+
         <Box h={'inherit'} overflowY={'auto'}>
-          <TweetWidget
-            title={t('post.latest-tweets-label')}
-            tweets={hashtag?.tweets}
-          />
+          <TimelineTrendsTabs />
         </Box>
       </Grid>
     </>
