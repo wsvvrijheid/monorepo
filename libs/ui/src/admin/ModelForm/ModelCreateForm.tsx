@@ -18,11 +18,8 @@ import {
   Textarea,
   useBoolean,
   useRadioGroup,
-  Tabs,
-  Tab,
-  TabList,
-  TabPanel,
-  TabPanels,
+  AspectRatio,
+  Input,
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import slugify from '@sindresorhus/slugify'
@@ -49,7 +46,7 @@ import { RadioCard } from './RadioCard'
 import { ModelCreateFormProps, Option } from './types'
 import { useDefaultValues } from './utils'
 import { FormItem, MasonryGrid, MdFormItem } from '../../components'
-import { useFileFromUrl, useFileVideoFromUrl } from '../../hooks'
+import { useFileFromUrl } from '../../hooks'
 import { LanguageSwitcher } from '../LanguageSwitcher'
 
 export const ModelCreateForm = <T extends StrapiModel>({
@@ -68,18 +65,15 @@ export const ModelCreateForm = <T extends StrapiModel>({
   const { locale } = useRouter()
 
   const postModel = model as unknown as Post
+  const [videoUrl, setVideoUrl] = useState('')
 
   const imageFile = useFileFromUrl(postModel?.image?.url)
   const capsFile = useFileFromUrl(postModel?.caps?.url)
-  const videoFile = useFileVideoFromUrl(postModel?.video?.url)
-
-  console.log('caps and video url', capsFile, videoFile)
 
   const [isChangingImage, setIsChangingImage] = useBoolean(
     postModel?.image ? false : true,
   )
   const defaultValues = useDefaultValues(model as T, fields)
-
   const {
     register,
     formState: { errors },
@@ -97,10 +91,8 @@ export const ModelCreateForm = <T extends StrapiModel>({
       setValue('image', imageFile)
     } else if (capsFile) {
       setValue('caps', capsFile)
-    } else if (videoFile) {
-      setValue('video', videoFile)
     }
-  }, [imageFile, capsFile, videoFile, setValue])
+  }, [imageFile, capsFile, setValue])
 
   const onCreateModel = async (
     data: Record<string, string | number | File | Option | Option[]>,
@@ -171,7 +163,6 @@ export const ModelCreateForm = <T extends StrapiModel>({
   })
 
   const group = getRootProps()
-  console.log('options', media)
 
   return (
     <Stack as={'form'} onSubmit={handleSubmit(onCreateModel)}>
@@ -222,7 +213,6 @@ export const ModelCreateForm = <T extends StrapiModel>({
                 )}
                 {media === 'video' && field.name === 'video' && (
                   <>
-                    {' '}
                     <HStack {...group}>
                       {options.map(value => {
                         const radio = getRadioProps({ value })
@@ -232,49 +222,41 @@ export const ModelCreateForm = <T extends StrapiModel>({
                             {value}
                           </RadioCard>
                         )
-                      })}{' '}
+                      })}
                     </HStack>
-                    <Tabs>
-                      <TabList>
-                        <Tab>Upload Video</Tab>
-                        <Tab>Video Url</Tab>
-                      </TabList>
-                      <TabPanels>
-                        <TabPanel>
-                          <FormControl
-                            isInvalid={Boolean(errors?.[field.name])}
-                            key={index}
-                            isRequired={field.isRequired}
-                            zIndex={0}
-                          >
-                            <FormLabel>{label}</FormLabel>
-                            <ModelImage
-                              isEditing={!!postModel?.video?.url}
-                              model={model as T}
-                              setValue={setValue}
-                              isChangingImage={isChangingImage}
-                              setIsChangingImage={setIsChangingImage}
+                    <FormControl
+                      isInvalid={Boolean(errors?.[field.name])}
+                      key={index}
+                      zIndex={0}
+                    >
+                      <FormLabel>{label}</FormLabel>
+                      <Box>
+                        <Input
+                          type="text"
+                          placeholder="video url"
+                          onChange={event => {
+                            const videoUrl = event?.target.value.split('/')
+                            const videoId = videoUrl[3]
+                            const newVideoUrl = `https://www.youtube.com/embed/${videoId}`
+                            setVideoUrl(newVideoUrl)
+                          }}
+                        />
+                      </Box>
+                      <Box mt={5}>
+                        {videoUrl && (
+                          <AspectRatio maxW="560px" ratio={1}>
+                            <iframe
+                              src={videoUrl}
+                              title="video"
+                              allowFullScreen
                             />
-                            <FormErrorMessage>
-                              {errors?.[field.name]?.message as string}
-                            </FormErrorMessage>
-                          </FormControl>
-                        </TabPanel>
-                        <TabPanel>
-                          {
-                            <FormItem
-                              key={index}
-                              name={field.name as string}
-                              type={'Textarea'}
-                              label={label}
-                              errors={errors}
-                              register={register}
-                              _disabled={disabledStyle}
-                            />
-                          }
-                        </TabPanel>
-                      </TabPanels>
-                    </Tabs>
+                          </AspectRatio>
+                        )}
+                      </Box>
+                    </FormControl>{' '}
+                    <FormErrorMessage>
+                      {errors?.[field.name]?.message as string}
+                    </FormErrorMessage>
                   </>
                 )}
                 {media === 'caps yukle' && field.name === 'caps' && (
