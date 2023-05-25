@@ -35,7 +35,6 @@ const PostPage: FC<PageProps> = ({ seo }) => {
     url: 'api/posts',
     id,
   })
-  console.log('posts', post)
 
   return (
     <AdminLayout seo={seo} isLoading={isLoading} hasBackButton>

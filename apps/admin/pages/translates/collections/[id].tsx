@@ -30,7 +30,7 @@ const TranslateCollectionPage: FC<PageProps> = ({ seo }) => {
         url="api/collections"
         pathname="collections"
         translatedFields={['title', 'description', 'content']}
-        fields={translateModelFields}
+        fields={translateModelFields as any}
         schema={translateModelSchema}
         approverRoles={['translator']}
         editorRoles={['translator']}
