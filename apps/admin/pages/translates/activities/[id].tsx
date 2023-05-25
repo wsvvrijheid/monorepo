@@ -30,7 +30,7 @@ const TranslateActivityPage: FC<PageProps> = ({ seo }) => {
         url="api/activities"
         pathname="activities"
         translatedFields={['title', 'description', 'content']}
-        fields={translateModelFields}
+        fields={translateModelFields as any}
         schema={translateModelSchema}
         approverRoles={['translator']}
         editorRoles={['translator']}

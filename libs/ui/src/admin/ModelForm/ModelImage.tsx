@@ -19,7 +19,7 @@ import { Caps, FilePicker, WImage } from '../../components'
 
 export type ModelImageProps = {
   model: StrapiModel
-  name: string
+  name?: string
   isEditing: boolean
   isChangingImage: boolean
   setIsChangingImage: {
@@ -38,7 +38,7 @@ export const ModelImage: FC<ModelImageProps> = ({
   isChangingImage,
   setIsChangingImage,
   url,
-  name,
+  name = 'image',
 }) => {
   const { image, title, description } = (model || {}) as StrapiTranslatableModel
 
