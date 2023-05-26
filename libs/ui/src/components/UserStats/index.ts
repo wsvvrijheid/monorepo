@@ -1,1 +1,1 @@
-export * from './UserStatistics'
+export * from './UserStats'

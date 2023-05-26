@@ -33,4 +33,4 @@ type UserStatsRelation = {
   user: Pick<User, 'id' | 'name' | 'username'>
 }
 
-export type UserStats = UserStatsBase & UserStatsRelation
+export type UserStatsProps = UserStatsBase & UserStatsRelation
