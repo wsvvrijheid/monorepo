@@ -1,5 +1,10 @@
 import { ButtonProps, ModalProps } from '@chakra-ui/react'
-import { Control, FieldErrorsImpl, FieldValues } from 'react-hook-form'
+import {
+  Control,
+  FieldErrorsImpl,
+  FieldValues,
+  UseFormReturn,
+} from 'react-hook-form'
 import { AssertsShape, OptionalObjectSchema } from 'yup/lib/object'
 
 import { Role, StrapiModel, StrapiUrl } from '@wsvvrijheid/types'
@@ -26,6 +31,7 @@ type FormTextFields = {
     | 'number-input'
     | 'text'
     | 'textarea'
+    | 'mediaUrl'
 }
 
 type FormSelectFields = {
@@ -38,6 +44,7 @@ type FormCommonFields<T extends StrapiModel> = {
   name: keyof T
   label?: string
   isRequired?: boolean
+  group?: { value: string; label: string; name: string }
 }
 
 export type FormFields<T extends StrapiModel> = Array<
@@ -53,6 +60,12 @@ export type ModelCreateFormProps<T extends StrapiModel> = {
   buttonProps?: ButtonProps
   hideLanguageSwitcher?: boolean
   onSuccess?: () => void
+}
+export type ModelCreateFormBodyProps<T extends StrapiModel> = {
+  fields: FormFields<T>
+  activeOption?: string
+  formProps: UseFormReturn<AssertsShape<any>, any>
+  model?: Partial<T>
 }
 
 export type ModelEditFormProps<T extends StrapiModel> = {

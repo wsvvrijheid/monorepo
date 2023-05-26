@@ -30,7 +30,7 @@ const TranslateMainHashtagPage: FC<PageProps> = ({ seo }) => {
         url="api/hashtags"
         pathname="hashtags"
         translatedFields={['title', 'description', 'content']}
-        fields={translateModelFields}
+        fields={translateModelFields as any}
         schema={translateModelSchema}
         approverRoles={['translator']}
         editorRoles={['translator']}
