@@ -52,9 +52,7 @@
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": [
-        "videos"
-      ],
+      "allowedTypes": ["videos"],
       "pluginOptions": {
         "i18n": {
           "localized": true
@@ -65,9 +63,7 @@
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": [
-        "images"
-      ],
+      "allowedTypes": ["images"],
       "pluginOptions": {
         "i18n": {
           "localized": true
@@ -88,9 +84,7 @@
       "type": "string"
     },
     "caps": {
-      "allowedTypes": [
-        "images"
-      ],
+      "allowedTypes": ["images"],
       "type": "media",
       "multiple": false,
       "pluginOptions": {
