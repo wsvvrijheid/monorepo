@@ -30,7 +30,7 @@ const TranslatePostPage: FC<PageProps> = ({ seo }) => {
         url="api/posts"
         pathname="posts"
         translatedFields={['description', 'content']}
-        fields={translatePostModelFields}
+        fields={translatePostModelFields as any}
         schema={translatePostModelSchema}
         approverRoles={['translator']}
         editorRoles={['translator']}

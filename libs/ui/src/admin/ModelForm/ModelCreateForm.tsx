@@ -1,25 +1,8 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
-import {
-  Box,
-  Button,
-  Flex,
-  FormControl,
-  FormErrorMessage,
-  FormLabel,
-  NumberDecrementStepper,
-  NumberIncrementStepper,
-  NumberInput,
-  NumberInputField,
-  NumberInputStepper,
-  Stack,
-  Switch,
-  Textarea,
-  useBoolean,
-} from '@chakra-ui/react'
+import { Box, Button, Divider, Stack } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import slugify from '@sindresorhus/slugify'
-import { capitalize } from 'lodash'
 import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
 import { TbPlus } from 'react-icons/tb'
@@ -32,17 +15,16 @@ import {
   StrapiLocale,
   StrapiModel,
   StrapiTranslatableCreateInput,
-  StrapiUrl,
 } from '@wsvvrijheid/types'
 import { generateOgImageParams } from '@wsvvrijheid/utils'
 
-import { ModelImage } from './ModelImage'
-import { ModelSelect } from './ModelSelect'
+import { ModelCreateFormBody } from './ModelCreateFormBody'
 import { ModelCreateFormProps, Option } from './types'
 import { useDefaultValues } from './utils'
-import { FormItem, MasonryGrid, MdFormItem } from '../../components'
+import { MasonryGrid } from '../../components'
 import { useFileFromUrl } from '../../hooks'
 import { LanguageSwitcher } from '../LanguageSwitcher'
+import { RadioCards } from '../RadioCards'
 
 export const ModelCreateForm = <T extends StrapiModel>({
   url,
@@ -61,34 +43,42 @@ export const ModelCreateForm = <T extends StrapiModel>({
 
   const postModel = model as unknown as Post
 
-  const imageFile = useFileFromUrl(postModel?.image?.url)
-
-  const [isChangingImage, setIsChangingImage] = useBoolean(
-    postModel?.image ? false : true,
+  const imageFile = useFileFromUrl(
+    postModel?.image?.url,
+    postModel?.image?.mime,
   )
-  const defaultValues = useDefaultValues(model as T, fields)
+  const capsFile = useFileFromUrl(postModel?.caps?.url, postModel?.caps?.mime)
+  const videoFile = useFileFromUrl(
+    postModel?.video?.url,
+    postModel?.video?.mime,
+  )
 
-  const {
-    register,
-    formState: { errors },
-    handleSubmit,
-    control,
-    setValue,
-  } = useForm<InferType<typeof schema>>({
+  const defaultValues = useDefaultValues(model as T, fields)
+  const formProps = useForm<InferType<typeof schema>>({
     resolver: yupResolver(schema),
     mode: 'all',
     values: model ? defaultValues : {},
   })
+  const { handleSubmit, setValue } = formProps
 
   useEffect(() => {
     if (imageFile) {
       setValue('image', imageFile)
     }
-  }, [imageFile, setValue])
+
+    if (capsFile) {
+      setValue('caps', capsFile)
+    }
+
+    if (videoFile) {
+      setValue('video', videoFile)
+    }
+  }, [imageFile, capsFile, videoFile, setValue])
 
   const onCreateModel = async (
     data: Record<string, string | number | File | Option | Option[]>,
   ) => {
+    console.log('Data', data)
     const body = Object.entries(data).reduce((acc, [key, value]) => {
       if (value === undefined || !fields.some(f => f.name === key)) {
         return acc
@@ -139,11 +129,14 @@ export const ModelCreateForm = <T extends StrapiModel>({
     })
   }
 
-  const disabledStyle = {
-    borderColor: 'transparent',
-    _hover: { borderColor: 'transparent' },
-    color: 'gray.500',
-  }
+  const groupedFields = fields.filter(value => value.group)
+  const ungroupedFields = fields.filter(value => !value.group)
+
+  const options = groupedFields.map(field => ({
+    value: field.group?.value as string,
+    label: field?.group?.label as string,
+  }))
+  const [activeOption, setActiveOption] = useState(options[0]?.value)
 
   return (
     <Stack as={'form'} onSubmit={handleSubmit(onCreateModel)}>
@@ -153,130 +146,23 @@ export const ModelCreateForm = <T extends StrapiModel>({
             <LanguageSwitcher />
           </Box>
         )}
-        {fields.map((field, index) => {
-          const label = field.label || capitalize(field.name as string)
+        <ModelCreateFormBody fields={ungroupedFields} formProps={formProps} />
 
-          if (field.type === 'file') {
-            return (
-              <FormControl
-                isInvalid={Boolean(errors?.[field.name])}
-                key={index}
-                isRequired={field.isRequired}
-                zIndex={0}
-              >
-                <FormLabel>{label}</FormLabel>
-                <ModelImage
-                  isEditing={!!postModel?.image?.url}
-                  model={model as T}
-                  setValue={setValue}
-                  isChangingImage={isChangingImage}
-                  setIsChangingImage={setIsChangingImage}
-                />
-
-                <FormErrorMessage>
-                  {errors?.[field.name]?.message as string}
-                </FormErrorMessage>
-              </FormControl>
-            )
-          }
-
-          if (field.type === 'select') {
-            return (
-              <ModelSelect
-                key={index}
-                url={field.url as StrapiUrl}
-                isMulti={field.isMulti}
-                isRequired={field.isRequired}
-                name={field.name as string}
-                label={label}
-                errors={errors}
-                control={control}
-                zIndex={1}
-              />
-            )
-          }
-
-          if (field.type === 'markdown') {
-            return (
-              <MdFormItem
-                key={index}
-                name={field.name as string}
-                label={label}
-                isRequired={field.isRequired}
-                errors={errors}
-                control={control}
-                _disabled={disabledStyle}
-              />
-            )
-          }
-
-          if (field.type === 'number-input') {
-            return (
-              <Flex align={'center'} mb={1}>
-                <FormControl>
-                  <FormLabel mb={0} fontSize="sm" fontWeight={600}>
-                    {label}
-                  </FormLabel>
-                  <NumberInput
-                    maxW={120}
-                    onChange={value => setValue(field.name as string, value)}
-                    size="lg"
-                  >
-                    <NumberInputField />
-                    <NumberInputStepper>
-                      <NumberIncrementStepper />
-                      <NumberDecrementStepper />
-                    </NumberInputStepper>
-                  </NumberInput>
-
-                  <FormErrorMessage>
-                    {errors[field?.name as string]?.message as string}
-                  </FormErrorMessage>
-                </FormControl>
-              </Flex>
-            )
-          }
-          if (field.type === 'boolean') {
-            return (
-              <FormControl key={index} isRequired={field.isRequired}>
-                <FormLabel fontWeight={600} fontSize={'sm'}>
-                  {label}
-                </FormLabel>
-                <Switch
-                  colorScheme={'primary'}
-                  size={'lg'}
-                  onChange={e => {
-                    setValue(field.name as string, e.target.checked)
-                  }}
-                />
-
-                <FormErrorMessage>
-                  {errors[field.name as string]?.message as string}
-                </FormErrorMessage>
-              </FormControl>
-            )
-          }
-          const inputType =
-            field.type === 'date'
-              ? 'date'
-              : field.type === 'datetime-local'
-              ? 'datetime-local'
-              : 'text'
-
-          return (
-            <FormItem
-              {...(field.type === 'textarea' && { as: Textarea })}
-              key={index}
-              name={field.name as string}
-              type={inputType}
-              label={label}
-              isRequired={field.isRequired}
-              errors={errors}
-              register={register}
-              _disabled={disabledStyle}
+        {groupedFields && (
+          <>
+            <Divider my={6} />
+            <RadioCards
+              defaultValue={groupedFields[0]?.group?.value}
+              options={options}
+              setActiveOption={setActiveOption}
             />
-          )
-        })}
+            <ModelCreateFormBody
+              fields={groupedFields}
+              activeOption={activeOption}
+              formProps={formProps}
+            />
+          </>
+        )}
       </MasonryGrid>
       <Button
         alignSelf={'end'}
