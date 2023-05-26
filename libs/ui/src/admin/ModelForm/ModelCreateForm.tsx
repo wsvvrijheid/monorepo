@@ -1,13 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import {
-  Box,
-  Button,
-  Divider,
-  HStack,
-  Stack,
-  useRadioGroup,
-} from '@chakra-ui/react'
+import { Box, Button, Divider, Stack } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import slugify from '@sindresorhus/slugify'
 import { useRouter } from 'next/router'
@@ -26,12 +19,12 @@ import {
 import { generateOgImageParams } from '@wsvvrijheid/utils'
 
 import { ModelCreateFormBody } from './ModelCreateFormBody'
-import { RadioCard } from './RadioCard'
 import { ModelCreateFormProps, Option } from './types'
 import { useDefaultValues } from './utils'
 import { MasonryGrid } from '../../components'
 import { useFileFromUrl } from '../../hooks'
 import { LanguageSwitcher } from '../LanguageSwitcher'
+import { RadioCards } from '../RadioCards'
 
 export const ModelCreateForm = <T extends StrapiModel>({
   url,
@@ -50,8 +43,15 @@ export const ModelCreateForm = <T extends StrapiModel>({
 
   const postModel = model as unknown as Post
 
-  const imageFile = useFileFromUrl(postModel?.image?.url)
-  const capsFile = useFileFromUrl(postModel?.caps?.url)
+  const imageFile = useFileFromUrl(
+    postModel?.image?.url,
+    postModel?.image?.mime,
+  )
+  const capsFile = useFileFromUrl(postModel?.caps?.url, postModel?.caps?.mime)
+  const videoFile = useFileFromUrl(
+    postModel?.video?.url,
+    postModel?.video?.mime,
+  )
 
   const defaultValues = useDefaultValues(model as T, fields)
   const formProps = useForm<InferType<typeof schema>>({
@@ -64,10 +64,16 @@ export const ModelCreateForm = <T extends StrapiModel>({
   useEffect(() => {
     if (imageFile) {
       setValue('image', imageFile)
-    } else if (capsFile) {
+    }
+
+    if (capsFile) {
       setValue('caps', capsFile)
     }
-  }, [imageFile, capsFile, setValue])
+
+    if (videoFile) {
+      setValue('video', videoFile)
+    }
+  }, [imageFile, capsFile, videoFile, setValue])
 
   const onCreateModel = async (
     data: Record<string, string | number | File | Option | Option[]>,
@@ -127,17 +133,10 @@ export const ModelCreateForm = <T extends StrapiModel>({
   const ungroupedFields = fields.filter(value => !value.group)
 
   const options = groupedFields.map(field => ({
-    value: field.group?.value,
-    label: field?.group?.label,
+    value: field.group?.value as string,
+    label: field?.group?.label as string,
   }))
   const [activeOption, setActiveOption] = useState(options[0]?.value)
-
-  const { getRootProps, getRadioProps } = useRadioGroup({
-    name: 'framework',
-    defaultValue: groupedFields[0]?.group?.value,
-    onChange: value => setActiveOption(value),
-  })
-  const group = getRootProps()
 
   return (
     <Stack as={'form'} onSubmit={handleSubmit(onCreateModel)}>
@@ -152,17 +151,11 @@ export const ModelCreateForm = <T extends StrapiModel>({
         {groupedFields && (
           <>
             <Divider my={6} />
-            <HStack {...group}>
-              {options.map(option => {
-                const radio = getRadioProps({ value: option.value })
-
-                return (
-                  <RadioCard key={option.value} {...radio}>
-                    {option.label}
-                  </RadioCard>
-                )
-              })}
-            </HStack>
+            <RadioCards
+              defaultValue={groupedFields[0]?.group?.value}
+              options={options}
+              setActiveOption={setActiveOption}
+            />
             <ModelCreateFormBody
               fields={groupedFields}
               activeOption={activeOption}

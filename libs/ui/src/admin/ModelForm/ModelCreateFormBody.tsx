@@ -15,6 +15,7 @@ import {
   useBoolean,
 } from '@chakra-ui/react'
 import { capitalize } from 'lodash'
+import ReactPlayer from 'react-player'
 
 import { Post, StrapiModel, StrapiUrl } from '@wsvvrijheid/types'
 
@@ -55,17 +56,6 @@ export const ModelCreateFormBody = <T extends StrapiModel>({
           !activeOption || !field.group || field?.group?.value === activeOption
         const videoUrl = watch(field.name as string)
 
-        const getVideoUrl = () => {
-          if (!videoUrl) {
-            return
-          }
-          const videoLink = videoUrl.split('/')
-          const videoId = videoLink[3]
-          const newVideoUrl = `https://www.youtube.com/embed/${videoId}`
-
-          return newVideoUrl
-        }
-
         if (field.type === 'mediaUrl') {
           return (
             <Box key={index} {...(!isActive && { display: 'none' })}>
@@ -79,9 +69,20 @@ export const ModelCreateFormBody = <T extends StrapiModel>({
               />
 
               <Box mt={5}>
-                {getVideoUrl() && (
-                  <AspectRatio maxW="560px" ratio={1}>
-                    <iframe src={getVideoUrl()} title="video" allowFullScreen />
+                {videoUrl && (
+                  <AspectRatio
+                    w={'full'}
+                    ratio={16 / 9}
+                    bg={'gray.100'}
+                    overflow={'hidden'}
+                    sx={{ iframe: { h: 'full' } }}
+                  >
+                    <ReactPlayer
+                      width={'100%'}
+                      height={'auto'}
+                      url={videoUrl}
+                      allowFullScreen
+                    />
                   </AspectRatio>
                 )}
               </Box>
@@ -98,7 +99,9 @@ export const ModelCreateFormBody = <T extends StrapiModel>({
               zIndex={0}
               {...(!isActive && { display: 'none' })}
             >
-              <FormLabel>{label}</FormLabel>
+              <FormLabel fontSize={'sm'} fontWeight={600}>
+                {label}
+              </FormLabel>
               <ModelImage
                 isEditing={!!postModel?.video?.url}
                 model={model as T}

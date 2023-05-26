@@ -1,3 +1,4 @@
+export * from './AcademyCard'
 export * from './AccountStats'
 export * from './ActivityDetail'
 export * from './AnimatedBox'
