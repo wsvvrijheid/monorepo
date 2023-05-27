@@ -10,22 +10,10 @@
       "cache": false,
       "persistent": true
     },
-    "dashboard": {
-      "cache": false,
-      "persistent": true
-    },
-    "foundation": {
-      "cache": false,
-      "persistent": true
-    },
-    "kunsthalte": {
-      "cache": false,
-      "persistent": true
-    },
-    "samenvvv": {
-      "cache": false,
-      "persistent": true
-    },
+    "dashboard": {},
+    "foundation": {},
+    "kunsthalte": {},
+    "samenvvv": {},
     "clean": {},
     "storybook": {},
     "storybook-build": {}

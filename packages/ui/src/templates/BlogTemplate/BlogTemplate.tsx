@@ -20,11 +20,7 @@ export const BlogTemplate: FC<BlogTemplateProps> = ({ seo, blogs }) => {
   if (!blogs.length) {
     return (
       <Stack minH="inherit" justify="center" align="center" spacing={8}>
-        <Image
-          h={200}
-          src={`${ASSETS_URL}/uploads/no_blog_1eaf8feac1.svg`}
-          alt="no blog"
-        />
+        <Image h={200} src={'/images/no-blog.svg'} alt="no blog" />
         <Text textAlign="center" fontSize="lg">
           {t('blog-no-content')}
         </Text>
@@ -34,10 +30,7 @@ export const BlogTemplate: FC<BlogTemplateProps> = ({ seo, blogs }) => {
 
   return (
     <>
-      <Hero
-        title={seo.title as string}
-        image={`${ASSETS_URL}/uploads/blog_bg_ffd7164ce7.jpeg`}
-      />
+      <Hero title={seo.title as string} image={'/images/blog-bg.jpeg'} />
       <Container maxW="container.lg">
         <SimpleGrid gap={8} py={8} columns={{ base: 1, lg: 2 }}>
           {blogs.map((blog, index) => (

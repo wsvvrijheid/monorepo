@@ -46,11 +46,7 @@ export const middleware = async (req: NextRequest) => {
     route = breadcrumbs.slice(0, breadcrumbs.length - 1).join('/')
   }
 
-  console.log('session.user', session)
-
   const hasPermission = getRoutePermission(session.user?.roles, route as any)
-
-  console.log('hasPermission', hasPermission)
 
   if (session.user && !hasPermission && nextUrl.pathname !== '/not-allowed') {
     return NextResponse.redirect(new URL('/not-allowed', url))
