@@ -1,7 +1,7 @@
 {
   "private": true,
   "scripts": {
-    "build": "turbo run build",
+    "build": "turbo run build --filter=!api",
     "dev": "turbo run dev --concurrency=20",
     "lint": "turbo run lint",
     "clean": "turbo run clean && rm -rf node_modules",
