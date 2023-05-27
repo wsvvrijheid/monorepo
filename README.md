@@ -1,81 +1,68 @@
-# Turborepo starter
+# Wees Turborepo
 
-This is an official starter Turborepo.
-
-## Using this example
-
-Run the following command:
-
-```sh
-npx create-turbo@latest
-```
+<div style="display:flex">
+<img src="https://user-images.githubusercontent.com/4060187/196936104-5797972c-ab10-4834-bd61-0d1e5f442c9c.png" height="150px" width="150px" />
+<img style="margin-left:30px" height="150px" width="150px" src="https://api.wsvvrijheid.nl/uploads/wsvvrijheid_3916828b44.svg" />
+</div>
 
 ## What's inside?
 
 This Turborepo includes the following packages/apps:
 
-### Apps and Packages
+### Apps
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `ui`: a stub React component library shared by both `web` and `docs` applications
-- `eslint-config-custom`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `tsconfig`: `tsconfig.json`s used throughout the monorepo
+- `api`: Strapi Backend
+- `dashboard`: https://dashboard.wsvvrijheid.nl
+- `foundation`: https://wsvvrijheid.nl
+- `kunsthalte`: https://kunsthalte.com
+- `samenvvv`: https://samenvvv.nl
+
+### Packages
+
+- `config`: `@wsvvrijheid/config` Menus, Seo, Theme, Constants
+- `context`: `@wsvvrijheid/context` AuthContext
+- `eslint-config-custom`: Eslint
+- `lib`: `@wsvvrijheid/lib` Fetchers
+- `mocks`: `@wsvvrijheid/mocks` Strapi Mock Data
+- `mollie`: `@wsvvrijheid/mollie` Mollie Client
+- `secrets`: `@wsvvrijheid/secrets` Secret Env Variables
+- `services`: `@wsvvrijheid/services` Queries, Mutations, Fetch Functions
+- `tsconfig`: Tsconfig
+- `types`: `@wsvvrijheid/types` All Strapi Model Types
+- `ui`: `@wsvvrijheid/ui` Components, Storybook
+- `utils`: `@wsvvrijheid/utils` Utility Functions
 
 Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
 
-### Utilities
+### Start Project
 
-This Turborepo has some additional tools already setup for you:
+```bash
+yarn install
+# Start all apps
+yarn dev
 
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-### Build
-
-To build all apps and packages, run the following command:
-
-```
-cd my-turborepo
-pnpm build
-```
-
-### Develop
-
-To develop all apps and packages, run the following command:
-
-```
-cd my-turborepo
-pnpm dev
+# Start Individual App
+yarn dashboard
+yarn foundation
+yarn kunsthalte
+yarn samenvvv
+yarn storybook
+# The backend (api) will always be accessible via localhost:1337 for dev mode.
 ```
 
-### Remote Caching
+### Scripts
 
-Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup), then enter the following commands:
-
-```
-cd my-turborepo
-npx turbo login
+```bash
+yarn lint # Checks lint issues
+yarn clean # Deletes node_module and build folders
+yarn format # Formats all files
 ```
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
+### Install Packages
 
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
+```bash
+# Apps
+yarn workspace foundation add recharts
+# Packages
+yarn workspace @wsvvrijheid/ui add recharts
 ```
-npx turbo link
-```
-
-## Useful Links
-
-Learn more about the power of Turborepo:
-
-- [Tasks](https://turbo.build/repo/docs/core-concepts/monorepos/running-tasks)
-- [Caching](https://turbo.build/repo/docs/core-concepts/caching)
-- [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching)
-- [Filtering](https://turbo.build/repo/docs/core-concepts/monorepos/filtering)
-- [Configuration Options](https://turbo.build/repo/docs/reference/configuration)
-- [CLI Usage](https://turbo.build/repo/docs/reference/command-line-reference)
