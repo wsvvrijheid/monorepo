@@ -1,9 +1,8 @@
 import { Box, Stack } from '@chakra-ui/react'
 import { dehydrate, QueryClient } from '@tanstack/react-query'
-import { GetStaticProps } from 'next'
+import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { serialize } from 'next-mdx-remote/serialize'
 import { NextSeoProps } from 'next-seo'
 
@@ -13,15 +12,18 @@ import {
   useSearchModel,
 } from '@wsvvrijheid/services'
 import { Hashtag, StrapiLocale } from '@wsvvrijheid/types'
-import { AnimatedBox, Container, Hero, Markdown } from '@wsvvrijheid/ui'
+import {
+  AnimatedBox,
+  Container,
+  HashtagCard,
+  Hero,
+  Markdown,
+} from '@wsvvrijheid/ui'
 
 import i18nConfig from '../..//next-i18next.config'
-import { HashtagCard, Layout } from '../../components'
+import { Layout } from '../../components'
 
-interface HashtagEventsProps {
-  seo: NextSeoProps
-  source: MDXRemoteSerializeResult<Record<string, unknown>>
-}
+type HashtagEventsProps = InferGetStaticPropsType<typeof getStaticProps>
 
 const HashtagEvents = ({ seo, source }: HashtagEventsProps) => {
   const router = useRouter()
@@ -29,6 +31,7 @@ const HashtagEvents = ({ seo, source }: HashtagEventsProps) => {
   const hashtagsQuery = useSearchModel<Hashtag>({
     url: 'api/hashtags',
     locale: router.locale as StrapiLocale,
+    statuses: ['approved'],
   })
 
   return (
@@ -61,7 +64,7 @@ const HashtagEvents = ({ seo, source }: HashtagEventsProps) => {
 
 export default HashtagEvents
 
-export const getStaticProps: GetStaticProps = async context => {
+export const getStaticProps = async (context: GetStaticPropsContext) => {
   const locale = context.locale as StrapiLocale
   const queryClient = new QueryClient()
 

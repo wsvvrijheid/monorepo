@@ -76,8 +76,8 @@ export const getServerSideProps: GetServerSideProps = async context => {
     return { notFound: true }
   }
 
-  const title = post?.description.slice(0, 20)
-  const description = post.description
+  const title = post?.description?.slice(0, 20) || ''
+  const description = post.description || ''
   const image = post?.image
   let src = image?.url
   const link = getItemLink(post, locale, 'post') as string

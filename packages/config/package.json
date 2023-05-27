@@ -1,0 +1,21 @@
+{
+  "name": "@wsvvrijheid/config",
+  "version": "0.0.0",
+  "main": "./index.ts",
+  "types": "./index.ts",
+  "license": "MIT",
+  "scripts": {
+    "lint": "eslint \"**/*.ts*\"",
+    "clean": "rm -rf .turbo node_modules dist"
+  },
+  "devDependencies": {
+    "eslint": "^8.41.0",
+    "eslint-config-custom": "*",
+    "tsconfig": "*",
+    "typescript": "^5.0.4"
+  },
+  "dependencies": {
+    "next-seo": "^6.0.0",
+    "react-icons": "^4.8.0"
+  }
+}

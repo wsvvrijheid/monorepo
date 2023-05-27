@@ -1,100 +1,68 @@
-# Wsvvrijheid Monorepo
+# Wees Turborepo
 
-<img style="text-align: center;" src="https://api.wsvvrijheid.nl/uploads/wsvvrijheid_3916828b44.svg" width="150" />
+<div style="display:flex">
+<img src="https://user-images.githubusercontent.com/4060187/196936104-5797972c-ab10-4834-bd61-0d1e5f442c9c.png" height="150px" width="150px" />
+<img style="margin-left:30px" height="150px" width="150px" src="https://api.wsvvrijheid.nl/uploads/wsvvrijheid_3916828b44.svg" />
+</div>
 
-This project was generated using [Nx](https://nx.dev).
+## What's inside?
 
-<img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="150" />
+This Turborepo includes the following packages/apps:
 
-🔎 **Smart, Fast and Extensible Build System**
+### Apps
 
-## Projects
+- `api`: Strapi Backend
+- `dashboard`: https://dashboard.wsvvrijheid.nl
+- `foundation`: https://wsvvrijheid.nl
+- `kunsthalte`: https://kunsthalte.com
+- `samenvvv`: https://samenvvv.nl
 
-- Foundation [wsvvrijheid.nl](https://wsvvrijheid.nl)
-- Kunsthalte [kunsthalte.com](https://kunsthalte.com)
-- PostMaker [samenvvv.nl](https://samenvvv.nl)
-- Admin [dashboard.wsvvrijheid.nl](https://dashboard.wsvvrijheid.nl)
+### Packages
 
-# Libs
+- `config`: `@wsvvrijheid/config` Menus, Seo, Theme, Constants
+- `context`: `@wsvvrijheid/context` AuthContext
+- `eslint-config-custom`: Eslint
+- `lib`: `@wsvvrijheid/lib` Fetchers
+- `mocks`: `@wsvvrijheid/mocks` Strapi Mock Data
+- `mollie`: `@wsvvrijheid/mollie` Mollie Client
+- `secrets`: `@wsvvrijheid/secrets` Secret Env Variables
+- `services`: `@wsvvrijheid/services` Queries, Mutations, Fetch Functions
+- `tsconfig`: Tsconfig
+- `types`: `@wsvvrijheid/types` All Strapi Model Types
+- `ui`: `@wsvvrijheid/ui` Components, Storybook
+- `utils`: `@wsvvrijheid/utils` Utility Functions
 
-- Config (@wsvvrijheid/config)
-- Lib (@wsvvrijheid/lib)
-- Mocks (@wsvvrijheid/mocks)
-- Services (@wsvvrijheid/services)
-- Store (@wsvvrijheid/store)
-- Types (@wsvvrijheid/types)
-- UI (@wsvvrijheid/ui) [ui.wsvvrijheid.nl](https://ui.wsvvrijheid.nl)
-- Utils (@wsvvrijheid/utils)
+Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
 
-## Scripts
+### Start Project
 
-Install packages `yarn`
+```bash
+yarn install
+# Start all apps
+yarn dev
 
-Install api packages `yarn install:api`
-
-Prepare db: `yarn db` _(you need .env and database.dump.sql)_
-
-Start api: `yarn api`
-
-Start storybook: `yarn storybook`
-
-Start apps `yarn foundation|kunsthalte|admin|samenvvv`
-
-Start mobile aps `yarn android|ios`
-
-## Android for Mac
-
-Add the following block in your `.zshrc`. Change `<username>`.
-
-```
-export ANDROID_HOME=/Users/<username>/Library/Android/sdk
-export PATH=$ANDROID_HOME/emulator:$PATH
-export PATH=$ANDROID_HOME/platform-tools:$PATH
-export PATH=$ANDROID_HOME/tools:$PATH
-export PATH=$ANDROID_HOME/tools/bin:$PATH
+# Start Individual App
+yarn dashboard
+yarn foundation
+yarn kunsthalte
+yarn samenvvv
+yarn storybook
+# The backend (api) will always be accessible via localhost:1337 for dev mode.
 ```
 
-## Recommended VSCode Plugins
+### Scripts
 
-- [Nx Console](https://marketplace.visualstudio.com/items?itemName=nrwl.angular-console)
-
-## Environement Variables
-
-```
-NX_API_URL=http://localhost:1337
-VERCEL_URL=localhost:4200
-NX_API_TOKEN=
-NX_EMAIL_SENDER=
-NX_EMAIL_RECEIVER=
-NX_SECRET_COOKIE_PASSWORD
+```bash
+yarn lint # Checks lint issues
+yarn clean # Deletes node_module and build folders
+yarn format # Formats all files
 ```
 
-API env
+### Install Packages
 
-```
-# Strapi
-HOST=0.0.0.0
-PORT=1337
-ADMIN_JWT_SECRET=
-APP_KEYS=
-JWT_SECRET=
-API_TOKEN_SALT=
-TRANSFER_TOKEN_SALT=
-
-# Plugins
-BEARER_TOKEN=
-SMTP_USERNAME=info@wsvvrijheid.nl
-SMTP_PASSWORD=
-ENABLE_LOCAL_CRON=false
-
-# Database
-DATABASE_URL=postgres://wsvv_user:Wsvv123@localhost/wsvv_db
-DATABASE_USERNAMe=wsvv_user
-DATABASE_PASSWORD=Samen123
-DATABASE_NAME=wsvv_db
-DATABASE_HOST=localhost
-DATABASE_PORT=5432
-DATABASE_CLIENT=postgres
-
-NODE_ENV=development
+```bash
+# Apps
+yarn workspace foundation add recharts
+# Packages
+yarn workspace @wsvvrijheid/ui add recharts
 ```
