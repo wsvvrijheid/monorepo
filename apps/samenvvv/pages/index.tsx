@@ -12,9 +12,9 @@ import { Hashtag, StrapiLocale } from '@wsvvrijheid/types'
 import { Container, Navigate } from '@wsvvrijheid/ui'
 import { getItemLink } from '@wsvvrijheid/utils'
 
-import { HashtagAnnouncement, Layout } from '../components'
-import { HashtagsSummary } from '../components/HashtagsSummary/HashtagsSummary'
+import { HashtagAnnouncement, HashtagsSummary } from '@wsvvrijheid/ui'
 import i18nConfig from '../next-i18next.config'
+import { Layout } from '../components'
 
 interface HomeProps {
   seo: NextSeoProps

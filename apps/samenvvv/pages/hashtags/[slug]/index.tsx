@@ -17,10 +17,11 @@ import {
   PostMaker,
   StepsContent,
   usePostMakerSteps,
+  TimeLeft,
 } from '@wsvvrijheid/ui'
 import { getPageSeo } from '@wsvvrijheid/utils'
 
-import { Layout, TimeLeft } from '../../../components'
+import { Layout } from '../../../components'
 import i18nConfig from '../../../next-i18next.config'
 
 type HashtagProps = InferGetServerSidePropsType<typeof getServerSideProps>

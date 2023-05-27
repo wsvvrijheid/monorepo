@@ -1,100 +1,81 @@
-# Wsvvrijheid Monorepo
+# Turborepo starter
 
-<img style="text-align: center;" src="https://api.wsvvrijheid.nl/uploads/wsvvrijheid_3916828b44.svg" width="150" />
+This is an official starter Turborepo.
 
-This project was generated using [Nx](https://nx.dev).
+## Using this example
 
-<img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="150" />
+Run the following command:
 
-🔎 **Smart, Fast and Extensible Build System**
-
-## Projects
-
-- Foundation [wsvvrijheid.nl](https://wsvvrijheid.nl)
-- Kunsthalte [kunsthalte.com](https://kunsthalte.com)
-- PostMaker [samenvvv.nl](https://samenvvv.nl)
-- Admin [dashboard.wsvvrijheid.nl](https://dashboard.wsvvrijheid.nl)
-
-# Libs
-
-- Config (@wsvvrijheid/config)
-- Lib (@wsvvrijheid/lib)
-- Mocks (@wsvvrijheid/mocks)
-- Services (@wsvvrijheid/services)
-- Store (@wsvvrijheid/store)
-- Types (@wsvvrijheid/types)
-- UI (@wsvvrijheid/ui) [ui.wsvvrijheid.nl](https://ui.wsvvrijheid.nl)
-- Utils (@wsvvrijheid/utils)
-
-## Scripts
-
-Install packages `yarn`
-
-Install api packages `yarn install:api`
-
-Prepare db: `yarn db` _(you need .env and database.dump.sql)_
-
-Start api: `yarn api`
-
-Start storybook: `yarn storybook`
-
-Start apps `yarn foundation|kunsthalte|admin|samenvvv`
-
-Start mobile aps `yarn android|ios`
-
-## Android for Mac
-
-Add the following block in your `.zshrc`. Change `<username>`.
-
-```
-export ANDROID_HOME=/Users/<username>/Library/Android/sdk
-export PATH=$ANDROID_HOME/emulator:$PATH
-export PATH=$ANDROID_HOME/platform-tools:$PATH
-export PATH=$ANDROID_HOME/tools:$PATH
-export PATH=$ANDROID_HOME/tools/bin:$PATH
+```sh
+npx create-turbo@latest
 ```
 
-## Recommended VSCode Plugins
+## What's inside?
 
-- [Nx Console](https://marketplace.visualstudio.com/items?itemName=nrwl.angular-console)
+This Turborepo includes the following packages/apps:
 
-## Environement Variables
+### Apps and Packages
+
+- `docs`: a [Next.js](https://nextjs.org/) app
+- `web`: another [Next.js](https://nextjs.org/) app
+- `ui`: a stub React component library shared by both `web` and `docs` applications
+- `eslint-config-custom`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
+- `tsconfig`: `tsconfig.json`s used throughout the monorepo
+
+Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+
+### Utilities
+
+This Turborepo has some additional tools already setup for you:
+
+- [TypeScript](https://www.typescriptlang.org/) for static type checking
+- [ESLint](https://eslint.org/) for code linting
+- [Prettier](https://prettier.io) for code formatting
+
+### Build
+
+To build all apps and packages, run the following command:
 
 ```
-NX_API_URL=http://localhost:1337
-VERCEL_URL=localhost:4200
-NX_API_TOKEN=
-NX_EMAIL_SENDER=
-NX_EMAIL_RECEIVER=
-NX_SECRET_COOKIE_PASSWORD
+cd my-turborepo
+pnpm build
 ```
 
-API env
+### Develop
+
+To develop all apps and packages, run the following command:
 
 ```
-# Strapi
-HOST=0.0.0.0
-PORT=1337
-ADMIN_JWT_SECRET=
-APP_KEYS=
-JWT_SECRET=
-API_TOKEN_SALT=
-TRANSFER_TOKEN_SALT=
-
-# Plugins
-BEARER_TOKEN=
-SMTP_USERNAME=info@wsvvrijheid.nl
-SMTP_PASSWORD=
-ENABLE_LOCAL_CRON=false
-
-# Database
-DATABASE_URL=postgres://wsvv_user:Wsvv123@localhost/wsvv_db
-DATABASE_USERNAMe=wsvv_user
-DATABASE_PASSWORD=Samen123
-DATABASE_NAME=wsvv_db
-DATABASE_HOST=localhost
-DATABASE_PORT=5432
-DATABASE_CLIENT=postgres
-
-NODE_ENV=development
+cd my-turborepo
+pnpm dev
 ```
+
+### Remote Caching
+
+Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
+
+By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup), then enter the following commands:
+
+```
+cd my-turborepo
+npx turbo login
+```
+
+This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
+
+Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
+
+```
+npx turbo link
+```
+
+## Useful Links
+
+Learn more about the power of Turborepo:
+
+- [Tasks](https://turbo.build/repo/docs/core-concepts/monorepos/running-tasks)
+- [Caching](https://turbo.build/repo/docs/core-concepts/caching)
+- [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching)
+- [Filtering](https://turbo.build/repo/docs/core-concepts/monorepos/filtering)
+- [Configuration Options](https://turbo.build/repo/docs/reference/configuration)
+- [CLI Usage](https://turbo.build/repo/docs/reference/command-line-reference)

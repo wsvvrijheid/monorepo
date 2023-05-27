@@ -1,38 +1,36 @@
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const withNx = require('@nx/next/plugins/with-nx')
-const path = require('path')
+// @ts-check
+const withPWA = require("next-pwa");
+const { i18n } = require("./next-i18next.config");
 
-const { i18n } = require('./next-i18next.config')
-
+ 
 /**
- * @type {import('@nx/next/plugins/with-nx').WithNxOptions}
+ * @type {import('next').NextConfig}
  **/
 const nextConfig = {
+  reactStrictMode: true,
+  transpilePackages: ["ui"],
   i18n,
   images: {
     deviceSizes: [320, 480, 720, 1080],
     imageSizes: [150],
     domains: [
-      'api.samenvvv.nl',
-      'api.wsvvrijheid.nl',
-      'kunsthalte.com',
-      'localhost',
+      "api.samenvvv.nl",
+      "api.wsvvrijheid.nl",
+      "pbs.twimg.com",
+      "samenvvv.nl",
+      "localhost",
     ],
   },
   modularizeImports: {
-    'date-fns': { transform: 'date-fns/{{member}}' },
-    lodash: { transform: 'lodash/{{member}}' },
+    "date-fns": { transform: "date-fns/{{member}}" },
+    lodash: { transform: "lodash/{{member}}" },
   },
-  experimental: {
-    outputFileTracingExcludes: {
-      '*': ['**swc/core**'],
-    },
-  },
-  nx: {
-    // Set this to true if you would like to to use SVGR
-    // See: https://github.com/gregberge/svgr
-    svgr: false,
-  },
-}
+  outputFileTracing: true, 
+};
 
-module.exports = withNx(nextConfig)
+module.exports = withPWA({
+  dest: "public",
+  // eslint-disable-next-line turbo/no-undeclared-env-vars
+  disable: process.env.NODE_ENV === "development",
+})(nextConfig);
+
