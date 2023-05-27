@@ -16,6 +16,7 @@
     "samenvvv": {},
     "clean": {},
     "storybook": {},
-    "storybook-build": {}
+    "storybook-build": {},
+    "db": {}
   }
 }

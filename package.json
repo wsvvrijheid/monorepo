@@ -7,6 +7,7 @@
     "foundation": "turbo run foundation --concurrency=20",
     "kunsthalte": "turbo run kunsthalte --concurrency=20",
     "samenvvv": "turbo run samenvvv --concurrency=20",
+    "db": "turbo run db --concurrency=20",
     "lint": "turbo run lint",
     "clean": "turbo run clean && rm -rf node_modules",
     "storybook": "turbo run storybook",
