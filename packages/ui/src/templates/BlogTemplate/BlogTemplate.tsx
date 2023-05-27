@@ -4,10 +4,9 @@ import { Image, SimpleGrid, Stack, Text } from '@chakra-ui/react'
 import { useTranslation } from 'next-i18next'
 import { NextSeoProps } from 'next-seo'
 
-import { ASSETS_URL } from '@wsvvrijheid/config'
 import { Blog } from '@wsvvrijheid/types'
 
-import { Container, BlogCard, AnimatedBox, Hero } from '../../components'
+import { AnimatedBox, BlogCard, Container, Hero } from '../../components'
 
 export type BlogTemplateProps = {
   seo: NextSeoProps
@@ -15,6 +14,7 @@ export type BlogTemplateProps = {
 }
 
 export const BlogTemplate: FC<BlogTemplateProps> = ({ seo, blogs }) => {
+  // @ts-ignore
   const { t } = useTranslation()
 
   if (!blogs.length) {
