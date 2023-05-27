@@ -71,6 +71,7 @@
     "next": "13.3.4",
     "next-i18next": "^13.2.2",
     "next-mdx-remote": "^4.4.1",
+    "next-recaptcha-v3": "^1.1.5",
     "next-seo": "^6.0.0",
     "next-share": "^0.20.0",
     "qs": "^6.11.2",

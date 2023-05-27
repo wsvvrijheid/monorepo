@@ -1,10 +1,6 @@
-import { useMutation } from '@tanstack/react-query'
-
-import { useAuthContext } from '@wsvvrijheid/context'
 import { Mutation } from '@wsvvrijheid/lib'
 import {
   Comment,
-  CommentArtCreateInput,
   CommentArtCreateInputPublic,
   CommentArtCreateInputUser,
 } from '@wsvvrijheid/types'
@@ -17,7 +13,7 @@ type CreateArtCommentProps = {
   token: string
 }
 
-const createArtComment = ({
+export const createArtComment = ({
   content,
   name,
   email,
@@ -40,20 +36,11 @@ const createArtComment = ({
   }
 
   const body = { content, name, email, art }
+  console.log(body)
 
   return Mutation.post<Comment, CommentArtCreateInputPublic>(
     'api/comments',
     body,
     token,
   )
-}
-
-export const useArtCommentMutation = () => {
-  const { token } = useAuthContext()
-
-  return useMutation({
-    mutationKey: ['create-comment'],
-    mutationFn: (args: CommentArtCreateInput) =>
-      createArtComment({ ...args, token: token as string }),
-  })
 }
