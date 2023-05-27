@@ -10,11 +10,11 @@ import { NextSeoProps } from 'next-seo'
 import { searchModel } from '@wsvvrijheid/services'
 import { Hashtag, StrapiLocale } from '@wsvvrijheid/types'
 import { Container, Navigate } from '@wsvvrijheid/ui'
+import { HashtagAnnouncement, HashtagsSummary } from '@wsvvrijheid/ui'
 import { getItemLink } from '@wsvvrijheid/utils'
 
-import { HashtagAnnouncement, HashtagsSummary } from '@wsvvrijheid/ui'
-import i18nConfig from '../next-i18next.config'
 import { Layout } from '../components'
+import i18nConfig from '../next-i18next.config'
 
 interface HomeProps {
   seo: NextSeoProps

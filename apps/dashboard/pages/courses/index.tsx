@@ -4,7 +4,6 @@ import { MenuItem, useUpdateEffect } from '@chakra-ui/react'
 import { InferGetStaticPropsType } from 'next'
 import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-
 import { FaArrowDown, FaArrowUp } from 'react-icons/fa'
 
 import { useSearchModel } from '@wsvvrijheid/services'

@@ -8,8 +8,8 @@ import { NextSeoProps } from 'next-seo'
 import { ABOUT_US } from '@wsvvrijheid/config'
 import { AnimatedBox, Container, Hero } from '@wsvvrijheid/ui'
 
-import i18nConfig from '../next-i18next.config'
 import { Layout } from '../components'
+import i18nConfig from '../next-i18next.config'
 
 type AboutUsBlockProps = {
   title: string

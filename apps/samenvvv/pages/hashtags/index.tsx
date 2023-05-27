@@ -1,10 +1,10 @@
 import { Box, Stack } from '@chakra-ui/react'
 import { dehydrate, QueryClient } from '@tanstack/react-query'
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
+import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { serialize } from 'next-mdx-remote/serialize'
 import { NextSeoProps } from 'next-seo'
-import { useRouter } from 'next/router'
 
 import {
   searchModel,
