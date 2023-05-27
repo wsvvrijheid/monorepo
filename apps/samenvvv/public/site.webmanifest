@@ -3,17 +3,23 @@
   "short_name": "samenvvv",
   "icons": [
     {
-      "src": "https://api.wsvvrijheid.nl/uploads/android_chrome_192x192_52f5f8d998.png",
+      "src": "/uploads/android_chrome_192x192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     },
     {
-      "src": "https://api.wsvvrijheid.nl/uploads/android_chrome_512x512_32ea723875.png",
+      "src": "/uploads/android_chrome_512x512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ],
+  "start_url": "/",
   "theme_color": "#ffffff",
   "background_color": "#ffffff",
+  "scope": "/",
+  "manifest_version": 2,
+  "description": "Silence is the worst enemy of freedom.",
   "display": "standalone"
 }

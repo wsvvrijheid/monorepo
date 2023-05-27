@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
 import { FC } from 'react'
 
 import { dehydrate, QueryClient } from '@tanstack/react-query'

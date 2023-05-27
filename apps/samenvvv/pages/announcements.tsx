@@ -18,14 +18,14 @@ import {
   StrapiCollectionResponse,
   StrapiLocale,
 } from '@wsvvrijheid/types'
-import { Container, Hero, Navigate } from '@wsvvrijheid/ui'
+import { Container, Hero, Navigate, HashtagAnnouncement } from '@wsvvrijheid/ui'
 import {
   getItemLink,
   getOgImageSrc,
   mapHashtagToOgParams,
 } from '@wsvvrijheid/utils'
 
-import { Layout, HashtagAnnouncement } from '../components'
+import { Layout } from '../components'
 import i18nConfig from '../next-i18next.config'
 
 type HashtagEventsProps = {

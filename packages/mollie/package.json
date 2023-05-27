@@ -1,0 +1,20 @@
+{
+  "name": "@wsvvrijheid/mollie",
+  "version": "0.0.0",
+  "main": "./index.tsx",
+  "types": "./index.tsx",
+  "license": "MIT",
+  "scripts": {
+    "lint": "eslint \"**/*.ts*\"",
+    "clean": "rm -rf .turbo node_modules dist"
+  },
+  "dependencies": {
+    "@mollie/api-client": "^3.7.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.41.0",
+    "eslint-config-custom": "*",
+    "tsconfig": "*",
+    "typescript": "^5.0.4"
+  }
+}
