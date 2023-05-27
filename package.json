@@ -5,6 +5,8 @@
     "dev": "turbo run dev --concurrency=20",
     "lint": "turbo run lint",
     "clean": "turbo run clean && rm -rf node_modules",
+    "storybook": "turbo run storybook",
+    "storybook-build": "turbo run storybook-build",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {

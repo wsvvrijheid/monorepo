@@ -6,7 +6,9 @@
   "license": "MIT",
   "scripts": {
     "lint": "eslint \"**/*.ts*\"",
-    "clean": "rm -rf .turbo && rm -rf node_modules"
+    "clean": "rm -rf .turbo && rm -rf node_modules",
+    "storybook": "storybook dev",
+    "storybook-build": "storybook build"
   },
   "dependencies": {
     "@chakra-ui/react": "^2.6.1",
@@ -57,15 +59,31 @@
     "yup": "^0.32.11"
   },
   "devDependencies": {
+    "@chakra-ui/storybook-addon": "^4.0.16",
+    "@storybook/addon-essentials": "^7.0.18",
+    "@storybook/builder-webpack5": "^7.0.18",
+    "@storybook/core-common": "^7.0.18",
+    "@storybook/core-server": "^7.0.18",
+    "@storybook/nextjs": "^7.0.18",
+    "@storybook/react": "^7.0.18",
+    "@storybook/types": "^7.0.18",
     "@types/node": "^20.2.5",
     "@types/react": "18.2.2",
     "@types/react-dom": "^18.2.4",
     "@types/react-headroom": "^3.2.0",
     "@types/string-similarity": "^4.0.0",
     "@types/twitter-text": "^3.1.5",
+    "browserify-fs": "^1.0.0",
     "eslint": "^8.41.0",
     "eslint-config-custom": "*",
+    "i18next": "^22.5.0",
+    "i18next-browser-languagedetector": "^7.0.1",
+    "i18next-http-backend": "^2.2.1",
+    "os-browserify": "^0.3.0",
+    "path-browserify": "^1.0.1",
     "react": "^18.2.0",
+    "storybook": "^7.0.18",
+    "stream-browserify": "^3.0.0",
     "tsconfig": "*",
     "typescript": "^5.0.4"
   },
