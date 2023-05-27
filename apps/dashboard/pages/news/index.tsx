@@ -76,7 +76,9 @@ const NewsPage: FC<PageProps> = ({ seo }) => {
     const filteredData = localeData?.filter(d =>
       filter.length > 0 ? filter.includes(d.publisher) : true,
     )
-    setSources(localeData?.map(d => d.publisher).filter((v, i, a) => a.indexOf(v) === i))
+    setSources(
+      localeData?.map(d => d.publisher).filter((v, i, a) => a.indexOf(v) === i),
+    )
     setTopics((searchTerm ? search(filteredData) : filteredData)?.sort(sortFn))
   }, [data, filter, locale, search, searchTerm, sortDirection, sortFn])
 

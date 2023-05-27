@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "kunsthalte": "next dev",
     "build": "next build",
     "start": "next start",
     "clean": "rm -rf node_modules .turbo .next",

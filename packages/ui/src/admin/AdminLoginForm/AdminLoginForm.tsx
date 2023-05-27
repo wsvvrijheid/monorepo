@@ -57,16 +57,18 @@ export const AdminLoginForm = () => {
     mutationKey: ['login'],
     mutationFn: (body: LoginFormFieldValues) =>
       login(body.identifier, body.password),
-    onSuccess: async data => {
-      setIsRedirecting(true)
-      reset()
-      await router.push('/')
-      setIsRedirecting(false)
-    },
   })
 
   const handleSubmitSign: SubmitHandler<LoginFormFieldValues> = async data => {
-    loginMutation.mutate(data)
+    loginMutation.mutate(data, {
+      onError: e => console.log('Login error', e),
+      onSuccess: async () => {
+        setIsRedirecting(true)
+        reset()
+        await router.push('/')
+        setIsRedirecting(false)
+      },
+    })
   }
 
   return (
@@ -74,16 +76,8 @@ export const AdminLoginForm = () => {
       <Box pos="relative" h={{ base: 200, lg: 'full' }}>
         <WImage
           style={{ objectFit: 'cover' }}
-          src={`https://images.unsplash.com/photo-1433321768402-897b0324c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=50`}
+          src={`/images/freedom-bird.jpeg`}
           alt={'admin'}
-        />
-        <Box
-          pos="absolute"
-          top={0}
-          left={0}
-          boxSize="full"
-          bgGradient="linear(to-tl, blackAlpha.700, green.500)"
-          opacity={0.5}
         />
       </Box>
       <Container maxW={{ base: 'full', lg: 300 }}>
@@ -98,10 +92,7 @@ export const AdminLoginForm = () => {
           pt={{ base: 8, lg: '50%' }}
         >
           <VStack textAlign="center" w={'full'}>
-            <Avatar
-              size="2xl"
-              src={`/images/wsvvrijheid-logo.svg`}
-            />
+            <Avatar size="2xl" src={`/images/wsvvrijheid-logo.svg`} />
 
             <Text fontSize="xl" color={'blue.500'} fontWeight={900}>
               WEES DE STEM <br />

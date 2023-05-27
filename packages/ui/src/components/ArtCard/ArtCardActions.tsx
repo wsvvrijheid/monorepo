@@ -23,7 +23,7 @@ export const ArtCardActions: FC<ArtCardActionsProps> = ({
   onHandleAction,
 }) => {
   // @ts-ignore
-  const { t } = useTranslation("common")
+  const { t } = useTranslation('common')
 
   return (
     <Menu>

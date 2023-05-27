@@ -3,6 +3,10 @@
   "scripts": {
     "build": "turbo run build --filter=!api",
     "dev": "turbo run dev --concurrency=20",
+    "dashboard": "turbo run dev --concurrency=20 --filter=dashboard --filter=api",
+    "foundation": "turbo run dev --concurrency=20 --filter=foundation --filter=api",
+    "kunsthalte": "turbo run dev --concurrency=20 --filter=kunsthalte --filter=api",
+    "samenvvv": "turbo run dev --concurrency=20 --filter=samenvvv --filter=api",
     "lint": "turbo run lint",
     "clean": "turbo run clean && rm -rf node_modules",
     "storybook": "turbo run storybook",

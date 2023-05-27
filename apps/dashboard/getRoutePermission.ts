@@ -44,7 +44,6 @@ type AdminRoleRoutes = (typeof adminRoleRoutes)[number]
 type AdminCommonRoutes = (typeof adminCommonRoutes)[number]
 type AdminRoutes = AdminRoleRoutes | AdminCommonRoutes
 
-
 export const getRoutePermission = (
   roles: Role['type'][],
   route: AdminRoutes,

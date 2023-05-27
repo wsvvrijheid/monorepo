@@ -5,7 +5,10 @@
   "description": "A Strapi application",
   "scripts": {
     "dev": "strapi dev",
-    "start": "strapi start",
+    "dashboard": "strapi dev",
+    "foundation": "strapi dev",
+    "kunsthalte": "strapi dev",
+    "samenvvv": "strapi start",
     "build": "strapi build",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
     "strapi": "strapi",

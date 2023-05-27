@@ -17,8 +17,12 @@ const loginRoute = async (req: NextApiRequest, res: NextApiResponse) => {
       })
     }
 
-    req.session = { ...req.session, ...auth }
+    req.session.user = auth.user
+    req.session.token = auth.token
+    req.session.isLoggedIn = true
+
     await req.session.save()
+
     res.json(auth)
   } catch (error) {
     if (error.response?.data?.error) {

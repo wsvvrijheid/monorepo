@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import { ChakraProvider, createStandaloneToast } from '@chakra-ui/react'
 import {
@@ -14,7 +14,6 @@ import { DefaultSeo } from 'next-seo'
 
 import { defaultSeo, themes } from '@wsvvrijheid/config'
 import { AuthProvider } from '@wsvvrijheid/context'
-import { pageview } from '@wsvvrijheid/utils'
 
 import '@splidejs/react-splide/css'
 import '@splidejs/splide/dist/css/themes/splide-default.min.css'
@@ -31,14 +30,6 @@ const { ToastContainer } = createStandaloneToast()
 function MyApp({ Component, pageProps }) {
   const [queryClient] = useState(() => new QueryClient())
   const router = useRouter()
-
-  useEffect(() => {
-    const handleRouteChange = url => pageview(url)
-
-    router.events.on('routeChangeComplete', handleRouteChange)
-
-    return () => router.events.off('routeChangeComplete', handleRouteChange)
-  }, [router.events])
 
   return (
     <AuthProvider initialState={pageProps.authState}>

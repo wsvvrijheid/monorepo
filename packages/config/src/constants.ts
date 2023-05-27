@@ -1,7 +1,7 @@
 export const SITE_URL =
   process.env['NEXT_PUBLIC_SITE_URL'] || `https://${process.env['VERCEL_URL']}`
 
-export const API_URL =  process.env['NEXT_PUBLIC_API_URL']
+export const API_URL = process.env['NEXT_PUBLIC_API_URL']
 export const ASSETS_URL = process.env['NEXT_PUBLIC_ASSETS_URL']
 export const EMAIL_SENDER = process.env['NEXT_PUBLIC_EMAIL_SENDER']
 export const EMAIL_RECEIVER = process.env['NEXT_PUBLIC_EMAIL_RECEIVER']

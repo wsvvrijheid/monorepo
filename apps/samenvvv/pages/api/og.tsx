@@ -65,7 +65,6 @@ async function handler(req: NextRequest) {
             position: 'relative',
           }}
         >
-
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             style={{

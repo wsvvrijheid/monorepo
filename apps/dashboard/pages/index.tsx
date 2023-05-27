@@ -54,12 +54,8 @@ const Index: FC<PageProps> = ({ seo }) => {
   )
 
   const accounts = stats
-  .map(item => item.username?.toLowerCase())
-  .filter(
-    (value, index, self) =>
-      self.indexOf(value) === index
-  )
-  
+    .map(item => item.username?.toLowerCase())
+    .filter((value, index, self) => self.indexOf(value) === index)
 
   const [selectedAccounts, setSelectedAccounts] = useState(accounts)
 

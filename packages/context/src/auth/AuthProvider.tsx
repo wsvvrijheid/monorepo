@@ -1,6 +1,5 @@
-'use client'
-
 import { FC, createContext, useEffect, useState } from 'react'
+import { useContext } from 'react'
 
 import axios from 'axios'
 
@@ -151,3 +150,5 @@ export const AuthProvider: FC<AuthProviderProps> = ({
     </AuthContext.Provider>
   )
 }
+
+export const useAuthContext = () => useContext(AuthContext)

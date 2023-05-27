@@ -1,5 +1,6 @@
 import { getIronSession } from 'iron-session/edge'
 import { NextRequest, NextResponse } from 'next/server'
+
 import { getRoutePermission } from './getRoutePermission'
 
 const PUBLIC_FILE = /\.(.*)$/
@@ -15,7 +16,7 @@ export const middleware = async (req: NextRequest) => {
 
   const session = await getIronSession(req, res, {
     password:
-      process.env['NX_SECRET_COOKIE_PASSWORD'] ||
+      process.env['SECRET_COOKIE_PASSWORD'] ||
       '12345678901234567890123456789012',
     cookieName: 'iron-session',
     cookieOptions: {
@@ -45,7 +46,11 @@ export const middleware = async (req: NextRequest) => {
     route = breadcrumbs.slice(0, breadcrumbs.length - 1).join('/')
   }
 
+  console.log('session.user', session)
+
   const hasPermission = getRoutePermission(session.user?.roles, route as any)
+
+  console.log('hasPermission', hasPermission)
 
   if (session.user && !hasPermission && nextUrl.pathname !== '/not-allowed') {
     return NextResponse.redirect(new URL('/not-allowed', url))

@@ -6,11 +6,7 @@ export default class Document extends NextDocument {
     return (
       <Html>
         <Head>
-          <link
-            rel="icon"
-            type="image/x-icon"
-            href="/uploads/favicon.ico"
-          />
+          <link rel="icon" type="image/x-icon" href="/uploads/favicon.ico" />
           <link
             rel="apple-touch-icon"
             sizes="180x180"
@@ -28,11 +24,8 @@ export default class Document extends NextDocument {
             sizes="16x16"
             href="/favicon-16x16.png"
           />
-          <link
-            rel="manifest"
-            href="/site.webmanifest"
-          />
-          <meta name="theme-color" content='#ffffff' />
+          <link rel="manifest" href="/site.webmanifest" />
+          <meta name="theme-color" content="#ffffff" />
         </Head>
         <body>
           <ColorModeScript initialColorMode="light" />

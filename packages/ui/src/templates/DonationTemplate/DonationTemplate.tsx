@@ -145,11 +145,7 @@ export const DonationTemplate: FC<DonationTemplateProps> = ({ platforms }) => {
                 h="auto"
                 size="lg"
               >
-                <Image
-                  src={`/images/ideal-logo.svg`}
-                  h={50}
-                  alt="ideal"
-                />
+                <Image src={`/images/ideal-logo.svg`} h={50} alt="ideal" />
               </Button>
               <Tooltip label={'Not available yet'}>
                 <Button
