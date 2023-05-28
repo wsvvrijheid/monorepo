@@ -21,8 +21,6 @@ export const lookupTwitterUsers = async (
 }
 
 export const useLookupTwitterUsers = (q?: string) => {
-  console.log('q', q)
-
   return useQuery({
     queryKey: ['mentions-search', q],
     queryFn: () => lookupTwitterUsers(q),

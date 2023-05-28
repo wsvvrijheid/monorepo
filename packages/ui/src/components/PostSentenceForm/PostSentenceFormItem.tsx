@@ -9,11 +9,13 @@ import {
 } from 'react-icons/md'
 
 import {
-  useDeletePostSentence,
-  useUpdatePostSentence,
+  useDeleteHashtagSentence,
+  useHashtag,
+  useUpdateHashtagSentence,
 } from '@wsvvrijheid/services'
 
 import { PostSentenceFormItemProps } from './types'
+import { useHashtagContext } from '../../post-maker'
 import { WConfirm, WConfirmProps } from '../WConfirm'
 
 export const PostSentenceFormItem: FC<PostSentenceFormItemProps> = ({
@@ -26,23 +28,28 @@ export const PostSentenceFormItem: FC<PostSentenceFormItemProps> = ({
   const [value, setValue] = useState(defaultSentence)
   const [editMode, setEditMode] = useState(false)
   const [confirmState, setConfirmState] = useState<WConfirmProps>()
+  const hashtag = useHashtag()
 
   const queryClient = useQueryClient()
 
-  const onUpdateMutation = useUpdatePostSentence()
+  const onUpdateMutation = useUpdateHashtagSentence()
 
-  const onDeleteMutation = useDeletePostSentence()
+  const onDeleteMutation = useDeleteHashtagSentence()
 
   const isChanged = value !== defaultSentence
 
   const onSuccess = async () => {
-    await queryClient.invalidateQueries(['kv-posts', id])
+    await queryClient.refetchQueries(['kv-hashtag-sentences', hashtag.id])
     setEditMode(false)
   }
 
   const handleUpdate = () => {
     onUpdateMutation.mutate(
-      { id, index, value: `${value}::${shareCount}::${isPublished ? 1 : 0}` },
+      {
+        hashtagId: hashtag.id,
+        index,
+        value: `${value}::${id}::${shareCount}::${isPublished ? 1 : 0}`,
+      },
       { onSuccess },
     )
   }
@@ -55,7 +62,12 @@ export const PostSentenceFormItem: FC<PostSentenceFormItemProps> = ({
       isWarning: true,
       onConfirm: () => {
         onDeleteMutation.mutate(
-          { id, value: `${value}::${shareCount}::${isPublished ? 1 : 0}` },
+          {
+            hashtagId: hashtag.id,
+            value: `${defaultSentence}::${id}::${shareCount}::${
+              isPublished ? 1 : 0
+            }`,
+          },
           { onSuccess },
         )
         setConfirmState(undefined)
@@ -66,9 +78,9 @@ export const PostSentenceFormItem: FC<PostSentenceFormItemProps> = ({
   const handlePublish = (approve: 0 | 1) =>
     onUpdateMutation.mutate(
       {
-        id,
+        hashtagId: hashtag.id,
         index,
-        value: `${value}::${shareCount}::${approve}`,
+        value: `${value}::${id}::${shareCount}::${approve}`,
       },
       { onSuccess },
     )

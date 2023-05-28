@@ -12,19 +12,23 @@ import { useTranslation } from 'next-i18next'
 import { FaSearch, FaTimes } from 'react-icons/fa'
 import { useDebounce } from 'react-use'
 
+import { useHashtag } from '@wsvvrijheid/services'
+
 import { useHashtagContext } from '../HashtagProvider'
 
 export const MentionSearch = (): JSX.Element => {
+  // @ts-ignore
   const { t } = useTranslation()
   const [value, setValue] = useState('')
-  const { setMentionSearchKey, data } = useHashtagContext()
+  const { setMentionSearchKey } = useHashtagContext()
+  const hashtag = useHashtag()
 
   const filteredMentions = useMemo(
     () =>
-      data?.mentions?.filter(m =>
+      hashtag.mentions?.filter(m =>
         m.data?.screen_name.toLowerCase().includes(value.toLowerCase()),
       ) || [],
-    [data?.mentions, value],
+    [hashtag.mentions, value],
   )
 
   useDebounce(

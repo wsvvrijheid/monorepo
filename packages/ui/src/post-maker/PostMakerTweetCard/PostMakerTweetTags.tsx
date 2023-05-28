@@ -1,5 +1,7 @@
 import { Stack, Tag, TagCloseButton, TagLabel, Wrap } from '@chakra-ui/react'
 
+import { useHashtag } from '@wsvvrijheid/services'
+
 import { useHashtagContext } from '../HashtagProvider'
 import { usePostContext } from '../PostProvider'
 
@@ -12,8 +14,8 @@ export const PostMakerTweetTags = () => {
     removeDefaultTrendFromPost,
     removeMentionFromPost,
     removeTrendFromPost,
-    data,
   } = useHashtagContext()
+  const hashtag = useHashtag()
 
   if (!post) return null
 
@@ -47,10 +49,10 @@ export const PostMakerTweetTags = () => {
             variant={'outline'}
             rounded={'full'}
             px={2}
-            colorScheme={data?.hasPassed ? 'gray' : 'twitter'}
+            colorScheme={hashtag.hasPassed ? 'gray' : 'twitter'}
           >
             <TagLabel>{trend}</TagLabel>
-            {data?.hasPassed && (
+            {hashtag.hasPassed && (
               <TagCloseButton
                 onClick={() => removeDefaultTrendFromPost(post.id, trend)}
               />

@@ -9,7 +9,12 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { serialize } from 'next-mdx-remote/serialize'
 import { NextSeoProps } from 'next-seo'
 
-import { getHashtagBySlug, useHashtag } from '@wsvvrijheid/services'
+import { SITE_URL } from '@wsvvrijheid/config'
+import {
+  getHashtagBySlug,
+  getHashtagSentences,
+  useHashtag,
+} from '@wsvvrijheid/services'
 import { HashtagReturnType, StrapiLocale, Trend } from '@wsvvrijheid/types'
 import {
   Container,
@@ -27,9 +32,7 @@ import i18nConfig from '../../../next-i18next.config'
 type HashtagProps = InferGetServerSidePropsType<typeof getServerSideProps>
 
 const HashtagPage: FC<HashtagProps> = ({ hasStarted, seo }) => {
-  const hashtagQuery = useHashtag()
-
-  const hashtag = hashtagQuery.data
+  const hashtag = useHashtag()
 
   const isMobile = useBreakpointValue({ base: true, lg: false })
   const postMakerSteps = usePostMakerSteps()
@@ -42,7 +45,7 @@ const HashtagPage: FC<HashtagProps> = ({ hasStarted, seo }) => {
   if (!hashtag) return null
 
   return (
-    <HashtagProvider hashtag={hashtag}>
+    <HashtagProvider>
       <TourProvider
         steps={steps}
         components={{}}
@@ -93,6 +96,12 @@ export const getServerSideProps = async (
   if (!hashtag) {
     return { notFound: true }
   }
+
+  await queryClient.prefetchQuery({
+    queryKey: ['kv-hashtag-sentences', hashtag.id],
+    queryFn: () => getHashtagSentences(hashtag.id),
+    staleTime: 1000 * 60,
+  })
 
   const slugs =
     hashtag.localizations?.reduce(

@@ -19,13 +19,8 @@ const MentionListItem = dynamic(() => import('./MentionListItem'), {
 })
 
 export const MentionList = () => {
-  const {
-    data,
-    activePostId,
-    savedMentions,
-    removeStoredMention,
-    addMentionToPost,
-  } = useHashtagContext()
+  const { activePostId, savedMentions, removeStoredMention, addMentionToPost } =
+    useHashtagContext()
 
   const { t } = useTranslation()
 
@@ -40,8 +35,6 @@ export const MentionList = () => {
       removeStoredMention(value.screen_name)
     }
   }
-
-  if (!data) return null
 
   return (
     <VStack align="stretch" h={400} data-tour="step-mention-list">

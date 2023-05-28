@@ -7,7 +7,8 @@ import { MdTrendingUp } from 'react-icons/md'
 import { RxTwitterLogo } from 'react-icons/rx'
 
 import { SITE_URL } from '@wsvvrijheid/config'
-import { useUpdatePostSentence } from '@wsvvrijheid/services'
+import { useHashtag, useUpdateHashtagSentence } from '@wsvvrijheid/services'
+import { RedisPost } from '@wsvvrijheid/types'
 
 import { PostMakerTweetProgress } from './PostMakerTweetProgress'
 import { PostMakerTweetShare } from './PostMakerTweetShare'
@@ -18,12 +19,14 @@ export const PostMakerTweetButtons = () => {
   const router = useRouter()
   const { setActivePostId, mentionsDisclosure, trendsDisclosure } =
     useHashtagContext()
+  const hashtag = useHashtag()
   const { postContent, post, sentence } = usePostContext()
 
   const { asPath, locale, query } = router
   const queryClient = useQueryClient()
-  const updatePostSentence = useUpdatePostSentence()
+  const updatePostSentence = useUpdateHashtagSentence()
 
+  // @ts-ignore
   const { t } = useTranslation()
 
   if (!sentence) return null
@@ -40,16 +43,29 @@ export const PostMakerTweetButtons = () => {
   const postUrl = `${baseUrl}?${queryParams.toString()}`
 
   const onTweet = async () => {
-    if (post && sentence?.index !== undefined) {
+    const { value, index, shareCount = 0, isPublished } = sentence || {}
+
+    const published = isPublished ? 1 : 0
+    const shares = shareCount + 1
+    const sentenceValue =
+      `${value}::${post.id}::${shares}::${published}` as RedisPost
+    if (post && !Number.isNaN(index)) {
       try {
-        await updatePostSentence.mutateAsync({
-          id: post.id,
-          index: sentence.index,
-          value: `${sentence.value}::${sentence.shareCount + 1}::${
-            sentence.isPublished ? 1 : 0
-          }`,
-        })
-        queryClient.invalidateQueries(['kv-posts', post.id])
+        await updatePostSentence.mutateAsync(
+          {
+            hashtagId: hashtag.id,
+            index,
+            value: sentenceValue,
+          },
+          {
+            onSuccess: () => {
+              queryClient.invalidateQueries([
+                'kv-hashtag-sentences',
+                hashtag.id,
+              ])
+            },
+          },
+        )
       } catch (error) {
         console.log('Error', error)
       }

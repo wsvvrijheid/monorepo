@@ -13,6 +13,7 @@ export const initialHashtagState: HashtagState = {
   postTrends: {},
   savedMentions: [],
   trendsDisclosure: {} as UseDisclosureReturn,
+  hashtagSentences: {},
   hashtagStats: {
     totalSentences: 0,
     totalShares: 0,

@@ -17,6 +17,8 @@ import { useTour } from '@reactour/tour'
 import { useTranslation } from 'next-i18next'
 import { FaQuestionCircle } from 'react-icons/fa'
 
+import { useHashtag } from '@wsvvrijheid/services'
+
 import { useHashtagContext } from './HashtagProvider'
 import { HashtagStats } from './HashtagStats'
 import { MentionList } from './Mention'
@@ -28,11 +30,9 @@ export const PostMaker = () => {
   const { t } = useTranslation()
   const isMobile = useBreakpointValue({ base: true, lg: false }) ?? true
 
-  const {
-    data: hashtag,
-    mentionsDisclosure,
-    trendsDisclosure,
-  } = useHashtagContext()
+  const { mentionsDisclosure, trendsDisclosure } = useHashtagContext()
+
+  const hashtag = useHashtag()
 
   const { setIsOpen } = useTour()
 

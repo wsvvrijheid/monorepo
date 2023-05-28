@@ -8,6 +8,7 @@ export const initialPostState: PostState = {
   post: null,
   postContent: '',
   sentence: {
+    postId: 0,
     value: '',
     index: 0,
     isPublished: false,

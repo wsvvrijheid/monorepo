@@ -5,27 +5,36 @@ import { useQueryClient } from '@tanstack/react-query'
 import { FaPlus } from 'react-icons/fa'
 
 import {
-  useCreatePostSentence,
-  useGetPostSentences,
+  useCreateHashtagSentence,
+  useGetHashtagSentences,
+  useHashtag,
 } from '@wsvvrijheid/services'
 
 import { PostSentenceFormItem } from './PostSentenceFormItem'
 import { PostSentenceFormProps } from './types'
+import { usePostContext } from '../../post-maker/PostProvider'
 
-export const PostSentenceForm: FC<PostSentenceFormProps> = ({ id }) => {
-  const sentences = useGetPostSentences(id ?? 0)
+export const PostSentenceForm: FC<PostSentenceFormProps> = ({
+  id,
+  hashtag,
+}) => {
+  const hashtagSentences = useGetHashtagSentences(hashtag?.id) ?? []
+  const sentences = hashtagSentences?.[id] ?? []
 
   const queryClient = useQueryClient()
 
   const [value, setValue] = useState('')
 
-  const onAddMutation = useCreatePostSentence()
+  const onAddMutation = useCreateHashtagSentence()
 
   const handleAdd = () => {
+    console.log('hashtagId', hashtag.id)
+    console.log('id', id)
     onAddMutation.mutate(
-      { id, value: `${value}::${0}::${0}` },
+      { hashtagId: hashtag.id, value: `${value}::${id}::${0}::${0}` },
       {
-        onSuccess: () => queryClient.invalidateQueries(['kv-posts', id]),
+        onSuccess: () =>
+          queryClient.invalidateQueries(['kv-hashtag-sentences', hashtag.id]),
       },
     )
     setValue('')
@@ -46,8 +55,8 @@ export const PostSentenceForm: FC<PostSentenceFormProps> = ({ id }) => {
         />
       </HStack>
 
-      {sentences.map((s, index) => {
-        const { value, shareCount, isPublished } = s
+      {sentences.map(s => {
+        const { value, shareCount, isPublished, index } = s
 
         return (
           <PostSentenceFormItem

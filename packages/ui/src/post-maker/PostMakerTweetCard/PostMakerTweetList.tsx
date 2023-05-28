@@ -2,18 +2,21 @@ import { FC, useMemo } from 'react'
 
 import { Divider, Stack } from '@chakra-ui/react'
 
+import { useHashtag } from '@wsvvrijheid/services'
+
 import { PostMakerTweetCard } from './PostMakerTweetCard'
 import { PostMakerTweetListProps } from './types'
 import { useHashtagContext } from '../HashtagProvider'
 import { PostProvider } from '../PostProvider'
 
 export const PostMakerTweetList: FC<PostMakerTweetListProps> = () => {
-  const { data, postSentenceShares } = useHashtagContext()
+  const { postSentenceShares } = useHashtagContext()
+  const hashtag = useHashtag()
 
   const sortedPosts = useMemo(() => {
-    if (!data?.posts) return []
+    if (!hashtag?.posts) return []
 
-    return data.posts.sort((a, b) => {
+    return hashtag.posts.sort((a, b) => {
       const difference =
         (postSentenceShares[a.id]?.leastShareCount || 0) -
         (postSentenceShares[b.id]?.leastShareCount || 0)
@@ -26,7 +29,7 @@ export const PostMakerTweetList: FC<PostMakerTweetListProps> = () => {
 
       return difference
     })
-  }, [postSentenceShares, data?.posts])
+  }, [postSentenceShares, hashtag?.posts])
 
   return (
     <Stack>
