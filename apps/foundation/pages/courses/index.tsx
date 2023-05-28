@@ -24,7 +24,7 @@ const Platforms: FC<CoursesProps> = ({ title, courses }) => {
 
   return (
     <Layout seo={{ title }}>
-      <Hero image={`${ASSETS_URL}/uploads/courses_image_3c3a1382bd.png`} />
+      <Hero image={'/images/courses.png'} />
       <Container>
         <Stack mb={4}>
           <Box>

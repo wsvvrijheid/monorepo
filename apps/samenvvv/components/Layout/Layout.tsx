@@ -22,7 +22,7 @@ export const Layout: FC<LayoutProps> = ({
   return (
     <AppLayout
       seo={seo}
-      logo={`${ASSETS_URL}/uploads/samenvvv_32898faefb.svg`}
+      logo={'/images/samen-logo.svg'}
       headerProps={{
         headerMenu: menus.samenvvv.headerMenu,
         animated: false,

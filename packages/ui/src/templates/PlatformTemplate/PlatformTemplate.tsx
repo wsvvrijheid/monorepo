@@ -76,17 +76,17 @@ export const PlatformTemplate: FC<PlatformTemplateProps> = ({
           <Box w="100%" p={2}>
             <SimpleGrid columns={{ base: 1, sm: 3 }} gap={6}>
               <AcademyCard
-                image={`${ASSETS_URL}/uploads/courses_image_3c3a1382bd.png`}
+                image={'/images/courses.png'}
                 href="/courses"
                 title={t('courses')}
               />
               <AcademyCard
-                image={`${ASSETS_URL}/uploads/software_card_f3408ac222.jpeg`}
+                image={'/images/software-card.jpeg'}
                 href="/platforms/academy/software"
                 title={t('software')}
               />
               <AcademyCard
-                image={`${ASSETS_URL}/uploads/Seminars_card_0a3a008777.jpeg`}
+                image={'/images/seminar.jpeg'}
                 href="/platforms/academy/seminars"
                 title={t('seminars')}
               />
