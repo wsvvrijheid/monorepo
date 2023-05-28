@@ -20,7 +20,7 @@ export type SoftwareProps = {
 const SoftwarePage: FC<SoftwareProps> = ({ title, source }) => {
   return (
     <Layout seo={{ title }} isDark>
-      <Hero image={`${ASSETS_URL}/uploads/software_card_f3408ac222.jpeg`} />
+      <Hero image={'/images/software-card.jpeg'} />
       <Container>
         <Stack mb={4}>
           <Box>

@@ -25,7 +25,7 @@ export default function Home({ seo }) {
         pt={100}
         pos="relative"
         zIndex={0}
-        backgroundImage={`url(${ASSETS_URL}/uploads/kunsthalte_home_bg_79d33962e7_95c9ce377d.jpg)`}
+        backgroundImage={`url(/images/kunsthalte-home.jpeg)`}
         backgroundSize="cover"
       >
         <Container

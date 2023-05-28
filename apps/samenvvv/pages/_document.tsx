@@ -6,7 +6,7 @@ export default class Document extends NextDocument {
     return (
       <Html>
         <Head>
-          <link rel="icon" type="image/x-icon" href="/uploads/favicon.ico" />
+          <link rel="icon" type="image/x-icon" href="/favicon.ico" />
           <link
             rel="apple-touch-icon"
             sizes="180x180"

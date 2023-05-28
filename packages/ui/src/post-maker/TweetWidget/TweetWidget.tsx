@@ -34,10 +34,7 @@ export const TweetWidget = ({
             })
           ) : (
             <Stack textAlign="center">
-              <Image
-                src={`${ASSETS_URL}/uploads/tweet_widget_5577e761e4.svg`}
-                alt="no tweets"
-              />
+              <Image src={'/images/tweet-widget.svg'} alt="no tweets" />
               <Text>{t('post.no-tweet')}</Text>
             </Stack>
           )}
