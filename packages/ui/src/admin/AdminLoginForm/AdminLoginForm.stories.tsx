@@ -1,4 +1,4 @@
-import { StoryFn, Meta } from '@storybook/react'
+import { Meta, StoryObj } from '@storybook/react'
 
 import { AdminLoginForm } from './AdminLoginForm'
 
@@ -7,6 +7,6 @@ export default {
   title: 'Admin/AdminLoginForm',
 } as Meta<typeof AdminLoginForm>
 
-const Template: StoryFn<typeof AdminLoginForm> = () => <AdminLoginForm />
+type Story = StoryObj<typeof AdminLoginForm>
 
-export const Default = Template.bind({})
+export const Default: Story = {}
