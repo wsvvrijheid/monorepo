@@ -19,12 +19,12 @@ import {
   Legend,
 } from 'recharts'
 
-import { UserStatsProps } from '@wsvvrijheid/types'
+import { UserStats as UserStatsType } from '@wsvvrijheid/types'
 
 import { getColor, getKeys, groupStats } from './utils'
 
 type UserStatsProp = {
-  userStats: UserStatsProps[]
+  userStats: UserStatsType[]
 }
 
 export const UserStatistics: FC<UserStatsProp> = ({ userStats }) => {
@@ -79,7 +79,7 @@ export const UserStatistics: FC<UserStatsProp> = ({ userStats }) => {
         ref={parentElement}
       >
         {keys.map(key => (
-          <VStack>
+          <VStack key={key}>
             <Text fontWeight={'bold'}>{key.toUpperCase()}</Text>
             <LineChart
               width={chartWidth}
@@ -98,6 +98,7 @@ export const UserStatistics: FC<UserStatsProp> = ({ userStats }) => {
               <Legend iconType="square" />
               {displayedNames.map((name, i) => (
                 <Line
+                  key={name}
                   type="monotone"
                   dataKey={`stats.${type}.${key}`}
                   data={
