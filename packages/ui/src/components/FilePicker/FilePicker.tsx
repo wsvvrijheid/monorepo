@@ -14,10 +14,10 @@ export type FilePickerProps = Omit<ComponentProps<typeof Dashboard>, 'uppy'> & {
 }
 
 export const FilePicker: FC<FilePickerProps> = ({
-  maxNumberOfFiles = 1,
+  maxNumberOfFiles,
   setFiles,
   setPreviews,
-  allowedFileTypes = ['image/*'],
+  allowedFileTypes = ['image/*', 'video/*'],
   ...props
 }) => {
   const uppy = useMemo(() => {

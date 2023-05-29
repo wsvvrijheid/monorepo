@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import { useDisclosure, useUpdateEffect } from '@chakra-ui/react'
+import { Button, useDisclosure, useUpdateEffect } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
@@ -17,11 +17,18 @@ import {
   ModelEditModal,
   PageHeader,
 } from '@wsvvrijheid/ui'
+import { CreatePostFromCapsModal } from '@wsvvrijheid/ui'
 
 import i18nConfig from '../next-i18next.config'
 
 const HashtagsPage = ({ seo }) => {
   const { t } = useTranslation()
+  const {
+    isOpen: isOpenPost,
+    onOpen: onOpenPost,
+    onClose: onClosePost,
+  } = useDisclosure()
+
   const [currentPage, setCurrentPage] = useState<number>()
   const [selectedId, setSelectedId] = useState<number>()
   const { isOpen, onClose, onOpen } = useDisclosure()
@@ -80,6 +87,10 @@ const HashtagsPage = ({ seo }) => {
         onSearch={handleSearch}
         searchPlaceHolder={t('search-placeholder')}
       />
+      <CreatePostFromCapsModal isOpen={isOpenPost} onClose={onClosePost} />
+      <Button colorScheme="green" onClick={onOpenPost}>
+        Create
+      </Button>
       <ModelEditModal<Hashtag>
         url={'api/hashtags'}
         id={selectedId}
