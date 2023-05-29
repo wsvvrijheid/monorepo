@@ -5,6 +5,7 @@ import { useHashtagContext } from '../HashtagProvider'
 
 export const HashtagStats = () => {
   const { hashtagStats } = useHashtagContext()
+  // @ts-ignore
   const { t } = useTranslation()
 
   return (
