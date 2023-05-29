@@ -9,7 +9,7 @@ import {
   HStack,
   VStack,
 } from '@chakra-ui/react'
-import { Story, Meta } from '@storybook/react'
+import { StoryFn, Meta, StoryObj } from '@storybook/react'
 import { useRouter } from 'next/router'
 
 import { Category } from '@wsvvrijheid/types'
@@ -24,7 +24,9 @@ export default {
   },
 } as Meta<ArtSideBarProps>
 
-const Template: Story<ArtSideBarProps> = args => {
+type Story = StoryObj<ArtSideBarProps>
+
+const StoryWithHook: StoryFn<ArtSideBarProps> = args => {
   const [isLoading, setIsLoading] = useState(false)
   const { query } = useRouter()
 
@@ -62,13 +64,17 @@ const Template: Story<ArtSideBarProps> = args => {
   )
 }
 
-export const Default = Template.bind({})
+export const Default: Story = {
+  render: StoryWithHook,
+}
 
-export const InitialCategories = Template.bind({})
-InitialCategories.parameters = {
-  nextRouter: {
-    query: {
-      categories: '0=painting&1=nature',
+export const InitialCategories: Story = {
+  render: StoryWithHook,
+  parameters: {
+    nextRouter: {
+      query: {
+        categories: '0=painting&1=nature',
+      },
     },
   },
 }

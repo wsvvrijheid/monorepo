@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 
-import { Meta, Story } from '@storybook/react'
+import { Meta, StoryFn, StoryObj } from '@storybook/react'
 import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { serialize } from 'next-mdx-remote/serialize'
 
@@ -28,7 +28,9 @@ export default {
   ],
 } as Meta<ActivityDetailProps>
 
-const Template: Story<ActivityDetailProps> = args => {
+type Story = StoryObj<ActivityDetailProps>
+
+const StoryWithHook: StoryFn<ActivityDetailProps> = args => {
   const [source, setSource] = useState<MDXRemoteSerializeResult>()
 
   const getSource = async (content: string) => {
@@ -43,5 +45,6 @@ const Template: Story<ActivityDetailProps> = args => {
   return <ActivityDetail {...args} source={source!} />
 }
 
-export const Default = Template.bind({})
-Default.args = {}
+export const Default: Story = {
+  render: StoryWithHook,
+}
