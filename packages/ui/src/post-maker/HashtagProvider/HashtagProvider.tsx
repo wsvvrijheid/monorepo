@@ -3,20 +3,17 @@ import { FC, createContext, useContext, useEffect, useState } from 'react'
 import { useDisclosure } from '@chakra-ui/react'
 import { sampleSize } from 'lodash'
 
+import { useGetHashtagSentences, useHashtag } from '@wsvvrijheid/services'
 import { MentionUserData } from '@wsvvrijheid/types'
 
 import { initialHashtagContext } from './state'
-import { HashtagContextType, HashtagProviderProps } from './types'
-import { PostStats } from './types'
+import { HashtagContextType, HashtagProviderProps, PostStats } from './types'
 
 export const HashtagContext = createContext<HashtagContextType>(
   initialHashtagContext,
 )
 
-export const HashtagProvider: FC<HashtagProviderProps> = ({
-  hashtag,
-  children,
-}) => {
+export const HashtagProvider: FC<HashtagProviderProps> = ({ children }) => {
   const [activePostId, setActivePostId] = useState<number | null>(null)
   const [mentionSearchKey, setMentionSearchKey] = useState<string>('')
   const [postMentions, setPostMentions] = useState<Record<number, string[]>>({})
@@ -24,9 +21,12 @@ export const HashtagProvider: FC<HashtagProviderProps> = ({
   const [defaultTrends, setDefaultTrends] = useState<Record<number, string[]>>(
     {},
   )
+  const hashtag = useHashtag()
   const [postSentenceShares, setPostSentenceShares] = useState<
     Record<number, PostStats>
   >({})
+
+  const hashtagSentences = useGetHashtagSentences(hashtag?.id)
 
   const mentionsDisclosure = useDisclosure()
   const trendsDisclosure = useDisclosure()
@@ -162,15 +162,15 @@ export const HashtagProvider: FC<HashtagProviderProps> = ({
       value={{
         // state
         activePostId,
-        data: hashtag,
         defaultTrends,
+        hashtagSentences,
+        hashtagStats,
         mentionSearchKey,
         mentionsDisclosure,
         postMentions,
         postSentenceShares,
         postTrends,
         savedMentions: [],
-        hashtagStats,
         trendsDisclosure,
 
         // actions

@@ -61,8 +61,11 @@ export const useHashtag = () => {
     query: { slug },
   } = useRouter()
 
-  return useQuery({
+  const hashtagQuery = useQuery({
     queryKey: ['hashtag', locale, slug],
     queryFn: () => getHashtagBySlug(locale as StrapiLocale, slug as string),
+    staleTime: 1000 * 60,
   })
+
+  return hashtagQuery.data as HashtagReturnType
 }

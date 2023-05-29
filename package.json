@@ -22,7 +22,7 @@
     "prettier": "^2.8.8",
     "turbo": "^1.9.9"
   },
-  "name": "turborepo",
+  "name": "wees-turbo",
   "packageManager": "yarn@1.22.19",
   "workspaces": [
     "apps/*",

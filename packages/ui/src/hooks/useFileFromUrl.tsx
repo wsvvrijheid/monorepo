@@ -4,7 +4,11 @@ import axios from 'axios'
 
 import { ASSETS_URL } from '@wsvvrijheid/config'
 
-export const useFileFromUrl = (url?: string) => {
+export const useFileFromUrl = (
+  url?: string,
+  filename = 'image.png',
+  mime = 'image/png',
+) => {
   const [imageFile, setImageFile] = useState<File>()
 
   useEffect(() => {
@@ -13,14 +17,14 @@ export const useFileFromUrl = (url?: string) => {
       const response = await axios.get(`/api/images?url=${imageUrl}`, {
         responseType: 'blob',
       })
-      const file = new File([response.data], 'image.png', {
-        type: 'image/png',
+      const file = new File([response.data], filename, {
+        type: mime,
       })
       setImageFile(file)
     }
 
     if (url) createFileFromUrl(url)
-  }, [url])
+  }, [url, mime, filename])
 
   return imageFile
 }

@@ -18,7 +18,7 @@ export default {
   },
 } as Meta<typeof ArtClubTemplate>
 
-const Template: Story<typeof ArtClubTemplate> = _ => {
+const Template: Story<typeof ArtClubTemplate> = () => {
   return <ArtClubTemplate />
 }
 

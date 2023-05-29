@@ -11,9 +11,9 @@ const handler = async (req: NextRequest) => {
   try {
     if (method === 'POST') {
       try {
-        const { id, value } = await req.json()
+        const { hashtagId, value } = await req.json()
 
-        const response = await kv.rpush(`post_${id}`, value)
+        const response = await kv.rpush(`hashtag:${hashtagId}`, value)
 
         return NextResponse.json(response)
       } catch (error) {
@@ -24,9 +24,11 @@ const handler = async (req: NextRequest) => {
 
     if (method === 'PUT') {
       try {
-        const { id, value, index } = await req.json()
+        const { hashtagId, value, index } = await req.json()
 
-        const response = await kv.lset(`post_${id}`, index, value)
+        console.log('{ hashtagId, value, index }', { hashtagId, value, index })
+
+        const response = await kv.lset(`hashtag:${hashtagId}`, index, value)
 
         return NextResponse.json(response)
       } catch (error) {
@@ -37,10 +39,10 @@ const handler = async (req: NextRequest) => {
 
     if (method === 'DELETE') {
       try {
-        const id = req.nextUrl.searchParams.get('id').toString()
+        const hashtagId = req.nextUrl.searchParams.get('hashtagId').toString()
         const value = req.nextUrl.searchParams.get('value').toString()
 
-        const result = await kv.lrem(`post_${id}`, 0, value)
+        const result = await kv.lrem(`hashtag:${hashtagId}`, 0, value)
 
         return NextResponse.json(result)
       } catch (error) {
@@ -49,9 +51,9 @@ const handler = async (req: NextRequest) => {
       }
     }
 
-    const id = req.nextUrl.searchParams.get('id').toString()
+    const hashtagId = req.nextUrl.searchParams.get('hashtagId').toString()
 
-    const result = await kv.lrange(`post_${id}`, 0, -1)
+    const result = await kv.lrange(`hashtag:${hashtagId}`, 0, -1)
 
     return NextResponse.json(result)
   } catch (error) {

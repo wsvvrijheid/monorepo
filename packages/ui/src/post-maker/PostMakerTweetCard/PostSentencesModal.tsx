@@ -9,12 +9,15 @@ import {
 } from '@chakra-ui/react'
 import { FaCogs } from 'react-icons/fa'
 
+import { useHashtag } from '@wsvvrijheid/services'
+
 import { PostSentenceForm } from '../../components'
 import { usePostContext } from '../PostProvider'
 
 export const PostSentencesModal = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const { post } = usePostContext()
+  const hashtag = useHashtag()
 
   return (
     <div>
@@ -23,7 +26,7 @@ export const PostSentencesModal = () => {
         <ModalContent>
           <ModalHeader>Manage Post Sentences</ModalHeader>
           <ModalBody>
-            <PostSentenceForm id={post?.id || 0} />
+            <PostSentenceForm id={post?.id || 0} hashtag={hashtag} />
           </ModalBody>
         </ModalContent>
       </Modal>

@@ -1,13 +1,13 @@
-import { useTrends } from '@wsvvrijheid/services'
+import { useHashtag, useTrends } from '@wsvvrijheid/services'
 import { TwitterTrend } from '@wsvvrijheid/types'
 
 import { useHashtagContext } from '../post-maker'
 
 export const useFindHashtagInTrends = () => {
-  const { data } = useHashtagContext()
+  const hashtag = useHashtag()
   const { data: trendsData } = useTrends()
 
-  return [data?.hashtagDefault, data?.hashtagExtra]
+  return [hashtag.hashtagDefault, hashtag.hashtagExtra]
     .filter(Boolean)
     .map(hashtag => {
       const { nl, tr, en } = trendsData ?? {}

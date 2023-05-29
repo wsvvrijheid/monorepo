@@ -1,6 +1,6 @@
 import { Box } from '@chakra-ui/react'
 
-import { useLookupTwitterUsers } from '@wsvvrijheid/services'
+import { useHashtag, useLookupTwitterUsers } from '@wsvvrijheid/services'
 import { MentionUserData } from '@wsvvrijheid/types'
 
 import MentionListItem from './MentionListItem'
@@ -12,10 +12,11 @@ export const MentionListPanel = () => {
   const {
     mentionSearchKey,
     activePostId,
-    data,
     addMentionToPost,
     updateStoredMentions,
   } = useHashtagContext()
+
+  const hashtag = useHashtag()
 
   const onAddUserMention = (value: MentionUserData) => {
     if (activePostId) {
@@ -38,7 +39,7 @@ export const MentionListPanel = () => {
       ))
     }
 
-    return data?.mentions?.map(({ data }, i) => (
+    return hashtag.mentions?.map(({ data }, i) => (
       <MentionListItem key={i} data={data} onAddItem={onAddUserMention} />
     ))
   }

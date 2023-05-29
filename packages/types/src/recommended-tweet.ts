@@ -7,11 +7,13 @@ import { Tweet } from './tweet'
 export type RecommendedTweetBase = {
   isShared: boolean
   text: string
+  videoUrl?: string
 }
 
 type RecommendedTweetRelation = {
-  video: UploadFile
-  image: UploadFile
+  video?: UploadFile
+  image?: UploadFile
+  caps?: UploadFile
   originalTweet: Tweet
   mentions: Mention[]
 }
@@ -19,6 +21,7 @@ type RecommendedTweetRelation = {
 type RecommendedTweetRelationInput = {
   video?: File
   image?: File
+  caps?: File
   originalTweet?: JSON
   mentions?: number[]
 }
@@ -26,7 +29,7 @@ type RecommendedTweetRelationInput = {
 export type RecommendedTweetCreateInput = Expand<
   { publishedAt?: Date | string | null } & Omit<
     RecommendedTweetBase,
-    'isShared'
+    'isShared' | 'videoUrl'
   > &
     RecommendedTweetRelationInput
 >

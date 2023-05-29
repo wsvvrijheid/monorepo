@@ -11,6 +11,7 @@ export type PostState = {
   postContent: string
   sentence: PostSentence | null
   threshold: number
+  sentences: PostSentence[]
 }
 
 export type PostActions = {

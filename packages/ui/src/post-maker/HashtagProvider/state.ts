@@ -4,7 +4,6 @@ import { HashtagActions, HashtagContextType, HashtagState } from './types'
 
 export const initialHashtagState: HashtagState = {
   activePostId: null,
-  data: null,
   defaultTrends: {},
   mentionSearchKey: '',
   mentionsDisclosure: {} as UseDisclosureReturn,
@@ -13,6 +12,7 @@ export const initialHashtagState: HashtagState = {
   postTrends: {},
   savedMentions: [],
   trendsDisclosure: {} as UseDisclosureReturn,
+  hashtagSentences: {},
   hashtagStats: {
     totalSentences: 0,
     totalShares: 0,

@@ -7,7 +7,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
 
 import { useModelById } from '@wsvvrijheid/services'
-import { Post } from '@wsvvrijheid/types'
+import { HashtagReturnType, Post } from '@wsvvrijheid/types'
 import {
   AdminLayout,
   FormLocaleSwitcher,
@@ -57,9 +57,14 @@ const PostPage: FC<PageProps> = ({ seo }) => {
             />
           </Box>
         )}
-        <Box p={4} rounded="md" bg="white" shadow="md">
-          <PostSentenceForm id={id} />
-        </Box>
+        {post?.hashtag && (
+          <Box p={4} rounded="md" bg="white" shadow="md">
+            <PostSentenceForm
+              id={id}
+              hashtag={post.hashtag as HashtagReturnType}
+            />
+          </Box>
+        )}
       </Stack>
     </AdminLayout>
   )

@@ -1,7 +1,5 @@
 import { FC, createContext, useContext, useEffect, useState } from 'react'
 
-import { useGetPostSentences } from '@wsvvrijheid/services'
-
 import { TWITTER_CHAR_LIMIT, TWITTER_LINK_CHAR_COUNT } from './constants'
 import { initialPostContext, initialPostState } from './state'
 import { PostContextType, PostProviderProps, PostState } from './types'
@@ -15,9 +13,15 @@ export const PostProvider: FC<PostProviderProps> = ({ post, children }) => {
     post,
   })
 
-  const { postMentions, postTrends, defaultTrends, updatePostSentenceShares } =
-    useHashtagContext()
-  const sentences = useGetPostSentences(post.id)
+  const {
+    postMentions,
+    postTrends,
+    defaultTrends,
+    updatePostSentenceShares,
+    hashtagSentences,
+  } = useHashtagContext()
+
+  const sentences = hashtagSentences[post.id] ?? []
 
   const updatePostContent = (newState: Partial<PostState>) => {
     const mentionUsernames = postMentions[post.id] ?? []
@@ -108,6 +112,7 @@ export const PostProvider: FC<PostProviderProps> = ({ post, children }) => {
       value={{
         // state
         ...postState,
+        sentences,
         // actions
         updatePostContent,
       }}
