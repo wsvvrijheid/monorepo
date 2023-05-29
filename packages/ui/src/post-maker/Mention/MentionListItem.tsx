@@ -20,6 +20,8 @@ import { FaPlus, FaTimes } from 'react-icons/fa'
 import { MentionUserData } from '@wsvvrijheid/types'
 import { formatNumber } from '@wsvvrijheid/utils'
 
+import { useHashtagContext } from '../HashtagProvider'
+
 interface MentionListItemProps {
   data: MentionUserData
   onAddItem: (value: MentionUserData) => void
@@ -31,7 +33,13 @@ const MentionListItem: FC<MentionListItemProps> = ({
   onAddItem,
   onRemoveItem,
 }) => {
+  // @ts-ignore
   const { t } = useTranslation()
+  const { activePostId, postMentions } = useHashtagContext()
+
+  const activeMentions = postMentions?.[activePostId]
+
+  const isAdded = activeMentions?.includes(data.screen_name)
 
   if (!data) return null
 
@@ -47,6 +55,7 @@ const MentionListItem: FC<MentionListItemProps> = ({
             shadow: 'base',
             pl: 6,
           }}
+          opacity={isAdded ? 0.5 : 1}
         >
           <HStack flex="1" fontSize="sm">
             <Avatar
@@ -89,6 +98,8 @@ const MentionListItem: FC<MentionListItemProps> = ({
                 rounded="full"
                 size="sm"
                 icon={<FaPlus />}
+                isDisabled={isAdded}
+                disabled={isAdded}
               />
             </Tooltip>
           </ButtonGroup>

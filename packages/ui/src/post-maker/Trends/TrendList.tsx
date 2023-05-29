@@ -47,8 +47,6 @@ export const TrendList = ({
               tweetsCount={tag.tweet_volume}
               hashtagInTrends={hashtagInTrends?.name}
               hashtagExtraInTrends={hashtagExtraInTrends?.name}
-              trendNames={[]}
-              defaultHashtags={[]}
               addTrend={onAddTrendName}
               removeTrend={onRemoveTrendName}
             />

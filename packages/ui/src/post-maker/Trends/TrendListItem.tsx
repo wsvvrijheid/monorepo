@@ -4,6 +4,8 @@ import { Box, HStack, Tag, TagLabel } from '@chakra-ui/react'
 
 import { formatNumber } from '@wsvvrijheid/utils'
 
+import { useHashtagContext } from '../HashtagProvider'
+
 interface TrendListItemProps {
   trendName: string
   tweetsCount: number | null
@@ -12,8 +14,6 @@ interface TrendListItemProps {
   order: number
   addTrend: (value: string) => void
   removeTrend: (value: string) => void
-  trendNames: string[]
-  defaultHashtags: string[]
 }
 
 export const TrendListItem: FC<TrendListItemProps> = ({
@@ -24,19 +24,18 @@ export const TrendListItem: FC<TrendListItemProps> = ({
   order,
   addTrend,
   removeTrend,
-  trendNames,
-  defaultHashtags,
 }) => {
   const isCurrentHashtag =
     hashtagInTrends === trendName || hashtagExtraInTrends === trendName
 
-  const isSelectedHashtag = [...trendNames, ...defaultHashtags].includes(
-    trendName,
-  )
+  const { postTrends, activePostId } = useHashtagContext()
+
+  const activeTrends = postTrends?.[activePostId]
+  const isAdded = activeTrends?.includes(trendName)
 
   const colorScheme = isCurrentHashtag
     ? 'twitter'
-    : isSelectedHashtag
+    : isAdded
     ? 'blackAlpha'
     : 'primary'
 
@@ -44,7 +43,7 @@ export const TrendListItem: FC<TrendListItemProps> = ({
     if (isCurrentHashtag) {
       return
     }
-    if (isSelectedHashtag) {
+    if (isAdded) {
       return removeTrend(trendName)
     }
     addTrend(trendName)
