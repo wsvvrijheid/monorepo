@@ -28,7 +28,7 @@ export const Header: FC<HeaderProps> = ({
   isLoggedIn,
 }) => {
   const isScrolled = useScroll()
-  const isMobile = false
+  const isMobile = useBreakpointValue({ base: true, lg: false }) ?? true
 
   return (
     <Headroom>

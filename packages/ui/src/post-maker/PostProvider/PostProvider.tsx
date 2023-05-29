@@ -1,4 +1,11 @@
-import { FC, createContext, useContext, useEffect, useState } from 'react'
+import {
+  FC,
+  createContext,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react'
 
 import { TWITTER_CHAR_LIMIT, TWITTER_LINK_CHAR_COUNT } from './constants'
 import { initialPostContext, initialPostState } from './state'
@@ -8,10 +15,7 @@ import { useHashtagContext } from '../HashtagProvider'
 export const PostContext = createContext<PostContextType>(initialPostContext)
 
 export const PostProvider: FC<PostProviderProps> = ({ post, children }) => {
-  const [postState, setPostState] = useState<PostState>({
-    ...initialPostState,
-    post,
-  })
+  const [sentence, setSentence] = useState(initialPostState.sentence)
 
   const {
     postMentions,
@@ -23,23 +27,18 @@ export const PostProvider: FC<PostProviderProps> = ({ post, children }) => {
 
   const sentences = hashtagSentences[post.id] ?? []
 
-  const updatePostContent = (newState: Partial<PostState>) => {
+  const postState = useMemo<Omit<PostState, 'sentence' | 'sentences'>>(() => {
     const mentionUsernames = postMentions[post.id] ?? []
+    const mentionsStr = mentionUsernames.filter(Boolean).join('\n')
+
     const trendNames = postTrends[post.id] ?? []
     const defaultTrendNames = defaultTrends[post.id] ?? []
-
-    const state = { ...postState, ...newState }
-    const { sentence } = state
-
-    if (!sentence?.value) return
-
-    const mentionsStr = mentionUsernames.filter(Boolean).join('\n')
 
     const trendsStr = [...defaultTrendNames, ...trendNames]
       .filter(Boolean)
       .join('\n')
 
-    const postContent = [sentence.value, mentionsStr, trendsStr]
+    const postContent = [sentence?.value, mentionsStr, trendsStr]
       .filter(Boolean)
       .join('\n\n')
 
@@ -50,22 +49,19 @@ export const PostProvider: FC<PostProviderProps> = ({ post, children }) => {
     const exceededCharacters =
       count - TWITTER_CHAR_LIMIT > 0 ? count - TWITTER_CHAR_LIMIT : 0
 
-    const threshold = sentence.value.length - exceededCharacters
+    const threshold = sentence.value?.length - exceededCharacters
     const availableCount = TWITTER_CHAR_LIMIT - count
 
-    const updatedState: PostState = {
-      ...state,
-      post: state.post || null,
-      postContent,
+    return {
+      availableCount,
       count,
       isExceeded,
-      threshold,
-      availableCount,
       percentage,
+      post,
+      postContent,
+      threshold,
     }
-
-    setPostState(updatedState)
-  }
+  }, [postMentions, postTrends, defaultTrends, sentence?.value, post])
 
   useEffect(() => {
     if (!sentences.length) return
@@ -100,21 +96,20 @@ export const PostProvider: FC<PostProviderProps> = ({ post, children }) => {
 
     // if (hasSaved.current) return
 
-    updatePostContent({
-      sentence: leastSharedSentence,
-    })
+    setSentence(leastSharedSentence)
 
     // hasSaved.current = true
-  }, [sentences, post.id])
+  }, [sentences])
 
   return (
     <PostContext.Provider
       value={{
         // state
         ...postState,
+        post,
+        sentence,
         sentences,
-        // actions
-        updatePostContent,
+        setSentence,
       }}
     >
       {children}

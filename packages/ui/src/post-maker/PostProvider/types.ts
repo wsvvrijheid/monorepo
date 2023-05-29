@@ -15,7 +15,7 @@ export type PostState = {
 }
 
 export type PostActions = {
-  updatePostContent: (state: Partial<PostState>) => void
+  setSentence: (sentence: PostSentence) => void
 }
 
 export type PostContextType = PostState & PostActions

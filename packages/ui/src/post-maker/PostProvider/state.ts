@@ -19,7 +19,7 @@ export const initialPostState: PostState = {
 }
 
 export const initialPostActions = {
-  updatePostContent: () => null,
+  setSentence: () => null,
 }
 
 export const initialPostContext = {
