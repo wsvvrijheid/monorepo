@@ -24,11 +24,11 @@ export const TimelineTrendsTabs = () => {
 
   return (
     <Stack h={780} data-tour="step-trends">
-      <Box overflowY="auto" bg="white">
+      <Box overflowY="auto" bg="white" borderWidth={1}>
         <Tabs colorScheme="primary" isFitted size="sm">
           <TabList pos="sticky" top="0" bg="white">
-            <Tab>Timeline</Tab>
-            <Tab>{t('post.trends-label')}</Tab>
+            <Tab py={2}>Timeline</Tab>
+            <Tab py={2}>{t('post.trends-label')}</Tab>
           </TabList>
           <TabPanels>
             <TabPanel>

@@ -11,6 +11,7 @@ import {
   ModalBody,
   ModalContent,
   ModalOverlay,
+  Skeleton,
   useBreakpointValue,
 } from '@chakra-ui/react'
 import { useTour } from '@reactour/tour'
@@ -113,22 +114,24 @@ export const PostMaker = () => {
         onClick={() => setIsOpen(true)}
       />
       <Grid
-        gap={4}
+        gap={2}
         gridTemplateColumns={{ base: '1fr', lg: '300px 1fr 300px' }}
         h={{ base: 'auto', lg: 'calc(100vh - 130px)' }}
         alignItems="stretch"
       >
-        <Box display={{ base: 'none', lg: 'block' }} h="inherit">
+        <Box order={{ base: 1, lg: 0 }} h="inherit">
           <HashtagStats />
         </Box>
         {/* TODO: Skeleton */}
-        {hashtag.posts && (
-          <Box h={'inherit'} overflowY={'auto'}>
+        {hashtag.posts ? (
+          <Box order={{ base: 0, lg: 1 }} h={'inherit'} overflowY={'auto'}>
             <PostMakerTweetList posts={hashtag.posts} />
           </Box>
+        ) : (
+          <Skeleton />
         )}
 
-        <Box h={'inherit'} overflowY={'auto'}>
+        <Box order={{ base: 2, lg: 2 }} h={'inherit'} overflowY={'auto'}>
           <TimelineTrendsTabs />
         </Box>
       </Grid>

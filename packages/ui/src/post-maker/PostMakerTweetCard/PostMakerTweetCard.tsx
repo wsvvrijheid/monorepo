@@ -7,7 +7,14 @@ import { PostImage } from '../../components'
 
 export const PostMakerTweetCard = () => {
   return (
-    <Stack p={4} bg={'white'} spacing={4} _hover={{ bg: 'primary.50' }}>
+    <Stack
+      p={4}
+      bg={'white'}
+      spacing={4}
+      _hover={{
+        bg: 'whiteAlpha.700',
+      }}
+    >
       <PostMakerTweetContent />
       <PostMakerTweetTags />
       <PostImage rounded="lg" borderWidth={1} overflow={'hidden'} />
