@@ -13,11 +13,37 @@ export const recommendedTweetSchema = yup.object({
     }),
   ),
   image: yup.mixed(),
+  caps: yup.mixed(),
+  video: yup.mixed(),
+  videoUrl: yup.string(),
 })
 
 export const recommendedTweetFields: FormFields<RecommendedTweet> = [
   { name: 'text', isRequired: true, type: 'textarea' },
-  { name: 'image', type: 'file' },
+  {
+    name: 'image',
+    type: 'file',
+    group: { label: 'Image', value: 'image', name: 'media' },
+  },
+  {
+    name: 'video',
+    type: 'file',
+    group: { label: 'Video', value: 'video', name: 'media' },
+  },
+  {
+    name: 'videoUrl',
+    type: 'mediaUrl',
+    group: {
+      label: 'VideoUrl',
+      value: 'videoUrl',
+      name: 'media',
+    },
+  },
+  {
+    name: 'caps',
+    type: 'file',
+    group: { label: 'Caps', value: 'caps', name: 'media' },
+  },
   {
     name: 'mentions',
     type: 'select',

@@ -2,6 +2,7 @@ import { PostState } from './types'
 
 export const initialPostState: PostState = {
   availableCount: 0,
+  sentences: [],
   count: 0,
   isExceeded: false,
   percentage: 0,
