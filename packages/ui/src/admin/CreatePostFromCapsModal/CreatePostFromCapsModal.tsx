@@ -23,7 +23,6 @@ import { TbBrandTwitter } from 'react-icons/tb'
 import { createWorker, PSM } from 'tesseract.js'
 import * as yup from 'yup'
 
-
 import { Post, UploadFile } from '@wsvvrijheid/types'
 
 import { FilePicker, WImage } from '../../components'
@@ -55,7 +54,7 @@ export const CreatePostFromCapsModal = ({ isOpen, onClose }) => {
     setPreviews([])
     setRecognizedText([])
     setRecognized(false)
-  } 
+  }
   console.log('\nrecognizedText', recognizedText)
   // const postFromCapsFields: FormFields<Post> = [
   //   { name: 'description', isRequired: true, type: 'textarea' },
@@ -81,7 +80,7 @@ export const CreatePostFromCapsModal = ({ isOpen, onClose }) => {
   // ]
 
   // const postFromCapsSchema = yup.object({
-    
+
   //   tags: yupMultiSelect,
   //   description: yup.string().required('Description is required'),
   //   content: yup.string(),
@@ -94,9 +93,6 @@ export const CreatePostFromCapsModal = ({ isOpen, onClose }) => {
   //   video: yup.mixed(),
   //   videoUrl: yup.string(),
   // })
- 
-
-
 
   return (
     <Modal
@@ -110,7 +106,6 @@ export const CreatePostFromCapsModal = ({ isOpen, onClose }) => {
       <ModalContent>
         <ModalHeader>Create Hashtag Post</ModalHeader>
         <ModalBody>
-         
           <Stack>
             {files && files?.length <= 0 && (
               <FilePicker
