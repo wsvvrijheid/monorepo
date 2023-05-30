@@ -110,8 +110,10 @@ export const CreatePostFromCapsModal = ({ isOpen, onClose }) => {
             {files && files?.length <= 0 && (
               <FilePicker
                 maxNumberOfFiles={50}
-                setFiles={setFiles}
-                setPreviews={setPreviews}
+                onLoaded={(files, previews) => {
+                  setFiles(files)
+                  setPreviews(previews)
+                }}
               />
             )}
           </Stack>

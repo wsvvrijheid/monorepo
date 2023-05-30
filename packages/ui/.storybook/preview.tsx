@@ -10,6 +10,10 @@ import i18n from './i18next'
 
 import '@splidejs/react-splide/css'
 import '@splidejs/splide/dist/css/themes/splide-default.min.css'
+import '@uppy/core/dist/style.css'
+import '@uppy/dashboard/dist/style.css'
+import '@uppy/image-editor/dist/style.css'
+import '@uppy/url/dist/style.css'
 
 export const parameters: Parameters = {
   i18n,

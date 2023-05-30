@@ -200,7 +200,7 @@ export const CreateArtForm: FC<CreateArtFormProps> = ({ queryKey }) => {
             {/* CREATE FORM */}
             {isLoggedIn && (
               <SimpleGrid columns={{ base: 1, lg: 2 }} gap={4}>
-                <FilePicker setFiles={files => setImage(files[0])} />
+                <FilePicker onLoaded={files => setImage(files[0])} />
                 <Stack
                   spacing={4}
                   as="form"
