@@ -1,4 +1,4 @@
-import { StoryFn, Meta } from '@storybook/react'
+import { StoryObj, Meta } from '@storybook/react'
 
 import { SocialLoginButtons } from './SocialLoginButtons'
 
@@ -7,12 +7,11 @@ export default {
   title: 'Shared/SocialLoginButtons',
 } as Meta<typeof SocialLoginButtons>
 
-const Template: StoryFn<typeof SocialLoginButtons> = args => (
-  <SocialLoginButtons {...args} />
-)
+type Story = StoryObj<typeof SocialLoginButtons>
 
-export const Default = Template.bind({})
-export const Disabled = Template.bind({})
-Disabled.args = {
-  providersToBeShown: ['twitter'],
+export const Default: Story = {}
+export const Disabled: Story = {
+  args: {
+    providersToBeShown: ['twitter'],
+  },
 }

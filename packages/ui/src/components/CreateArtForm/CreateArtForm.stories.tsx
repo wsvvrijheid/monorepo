@@ -1,4 +1,4 @@
-import { Meta, Story } from '@storybook/react'
+import { Meta, StoryObj } from '@storybook/react'
 
 import { CreateArtForm } from './CreateArtForm'
 import { CreateArtFormProps } from './types'
@@ -8,9 +8,6 @@ export default {
   component: CreateArtForm,
 } as Meta<CreateArtFormProps>
 
-const Template: Story<CreateArtFormProps> = args => {
-  return <CreateArtForm {...args} />
-}
+type Story = StoryObj<CreateArtFormProps>
 
-export const Default = Template.bind({})
-Default.args = {}
+export const Default: Story = {}

@@ -1,5 +1,5 @@
 import { Box, Grid } from '@chakra-ui/react'
-import { Story, Meta } from '@storybook/react'
+import { StoryFn, Meta, StoryObj } from '@storybook/react'
 import { useRouter } from 'next/router'
 
 import { COLLECTION_MOCKS } from '@wsvvrijheid/mocks'
@@ -19,7 +19,9 @@ export default {
   },
 } as Meta<CollectionListProps>
 
-const Template: Story<CollectionListProps> = args => {
+type Story = StoryObj<CollectionListProps>
+
+const StoryWithHook: StoryFn<CollectionListProps> = args => {
   const router = useRouter()
 
   const { data } = useSearchModel<Collection>({
@@ -36,4 +38,6 @@ const Template: Story<CollectionListProps> = args => {
   )
 }
 
-export const Default = Template.bind({})
+export const Default: Story = {
+  render: StoryWithHook,
+}

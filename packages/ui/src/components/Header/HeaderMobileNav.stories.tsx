@@ -1,4 +1,4 @@
-import { Story, Meta } from '@storybook/react'
+import { StoryObj, Meta } from '@storybook/react'
 
 import { HeaderMobileNav } from './HeaderMobileNav'
 import { HeaderMobileNavProps } from './types'
@@ -9,11 +9,10 @@ export default {
   title: 'Layout/HeaderMobileNav',
 } as Meta<HeaderMobileNavProps>
 
-const Template: Story<HeaderMobileNavProps> = args => (
-  <HeaderMobileNav {...args} />
-)
+type Story = StoryObj<HeaderMobileNavProps>
 
-export const Default = Template.bind({})
-Default.args = {
-  headerMenu: HEADER_MENU,
+export const Default: Story = {
+  args: {
+    headerMenu: HEADER_MENU,
+  },
 }

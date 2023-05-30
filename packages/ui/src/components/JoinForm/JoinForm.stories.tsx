@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { Story, Meta } from '@storybook/react'
+import { StoryFn, Meta, StoryObj } from '@storybook/react'
 import { useRouter } from 'next/router'
 
 import { JOB_MOCKS, PLATFORM_MOCKS } from '@wsvvrijheid/mocks'
@@ -21,7 +21,9 @@ export default {
   },
 } as Meta<typeof JoinForm>
 
-const Template: Story<JoinFormFProps> = args => {
+type Story = StoryObj<typeof JoinForm>
+
+const StoryWithHook: StoryFn<JoinFormFProps> = args => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const { locale } = useRouter()
@@ -48,5 +50,6 @@ const Template: Story<JoinFormFProps> = args => {
   )
 }
 
-export const Default = Template.bind({})
-Default.args = {}
+export const Default: Story = {
+  render: StoryWithHook,
+}

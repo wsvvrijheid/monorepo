@@ -1,4 +1,4 @@
-import { Story, Meta } from '@storybook/react'
+import { StoryFn, Meta, StoryObj } from '@storybook/react'
 
 import { ContactForm } from '.'
 import { ContactFormProps } from './types'
@@ -9,7 +9,9 @@ export default {
   component: ContactForm,
 } as Meta<typeof ContactForm>
 
-const Template: Story<ContactFormProps> = args => {
+type Story = StoryObj<ContactFormProps>
+
+const StoryWithHook: StoryFn<ContactFormProps> = args => {
   const handleSubmitContact = async (data: ContactFormFieldValues) => {
     alert(JSON.stringify(data))
   }
@@ -17,10 +19,13 @@ const Template: Story<ContactFormProps> = args => {
   return <ContactForm {...args} onSubmitHandler={handleSubmitContact} />
 }
 
-export const Default = Template.bind({})
-Default.args = {}
+export const Default: Story = {
+  render: StoryWithHook,
+}
 
-export const ErrorMessage = Template.bind({})
-ErrorMessage.args = {
-  errorMessage: 'There is a error',
+export const ErrorMessage: Story = {
+  render: StoryWithHook,
+  args: {
+    errorMessage: 'There is a error',
+  },
 }

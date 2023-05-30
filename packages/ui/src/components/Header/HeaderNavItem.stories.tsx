@@ -1,4 +1,4 @@
-import { Story, Meta } from '@storybook/react'
+import { StoryObj, Meta } from '@storybook/react'
 
 import { HeaderNavItem } from './HeaderNavItem'
 import { HeaderNavItemProps } from './types'
@@ -8,22 +8,29 @@ export default {
   title: 'Layout/HeaderNavItem',
 } as Meta<HeaderNavItemProps>
 
-const Template: Story<HeaderNavItemProps> = args => <HeaderNavItem {...args} />
+type Story = StoryObj<HeaderNavItemProps>
 
-export const Default = Template.bind({})
-Default.args = {
-  item: { link: '/events', en: 'Events', nl: 'Evenementen', tr: 'Etkinlikler' },
+export const Default: Story = {
+  args: {
+    item: {
+      link: '/events',
+      en: 'Events',
+      nl: 'Evenementen',
+      tr: 'Etkinlikler',
+    },
+  },
 }
 
-export const Parent = Template.bind({})
-Parent.args = {
-  item: {
-    en: 'Events',
-    nl: 'Evenementen',
-    tr: 'Etkinlikler',
+export const Parent: Story = {
+  args: {
+    item: {
+      en: 'Events',
+      nl: 'Evenementen',
+      tr: 'Etkinlikler',
 
-    children: [
-      { link: '/events', en: 'Events', nl: 'Evenementen', tr: 'Etkinlikler' },
-    ],
+      children: [
+        { link: '/events', en: 'Events', nl: 'Evenementen', tr: 'Etkinlikler' },
+      ],
+    },
   },
 }
