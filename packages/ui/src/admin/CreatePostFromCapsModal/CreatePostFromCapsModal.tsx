@@ -4,7 +4,6 @@ import {
   Alert,
   AlertDescription,
   AlertIcon,
-  Text,
   Button,
   Modal,
   ModalBody,
@@ -14,15 +13,10 @@ import {
   ModalOverlay,
   Stack,
   Divider,
-  HStack,
 } from '@chakra-ui/react'
-import { yupResolver } from '@hookform/resolvers/yup'
 import slugify from '@sindresorhus/slugify'
 import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
-import { TbBrandTwitter } from 'react-icons/tb'
-import { createWorker, PSM } from 'tesseract.js'
-import * as yup from 'yup'
 
 import { useCreateModelMutation } from '@wsvvrijheid/services'
 import {
@@ -35,18 +29,10 @@ import {
 } from '@wsvvrijheid/types'
 import { generateOgImageParams } from '@wsvvrijheid/utils'
 
-import { FilePicker, WImage } from '../../components'
-import { yupMultiSelect } from '../../data/schemas/common'
 import { ImageRecognizer } from '../ImageRecognizer/ImageRecognizer'
 import { RecognizedImage } from '../ImageRecognizer/types'
-import { FormFields, ModelCreateModal, useDefaultValues } from '../ModelForm'
 import { ModelSelect } from '../ModelForm/ModelSelect'
 
-const languages = {
-  en: 'eng',
-  nl: 'nld',
-  tr: 'tur',
-}
 export const CreatePostFromCapsModal = ({ isOpen, onClose }) => {
   const [state, setState] = useState<Record<number, RecognizedImage>>({})
   const createPostMutation = useCreateModelMutation<
@@ -55,16 +41,20 @@ export const CreatePostFromCapsModal = ({ isOpen, onClose }) => {
   >('api/posts')
   const { locale } = useRouter()
   const [recognized, setRecognized] = useState<boolean>(false)
- 
-  const { register, formState: { errors }, watch, setValue, control, handleSubmit } = useForm()
+
+  const {
+    formState: { errors },
+    watch,
+    control,
+    handleSubmit,
+    setValue,
+  } = useForm()
 
   const onCreate = () => {
     const hashtags = watch('hashtags')
 
-    console.log('hashtags',hashtags?.value)
-
     Object?.values(state).map(item => {
-      const {text, file } = item
+      const { text, file, id } = item
 
       const body = {
         description: text,
@@ -72,11 +62,11 @@ export const CreatePostFromCapsModal = ({ isOpen, onClose }) => {
         publishedAt: null,
         content: text,
         caps: file as unknown as UploadFile,
-       
         hashtag: Number(hashtags.value) as number,
       } as unknown as StrapiTranslatableCreateInput
 
-      const slug = body.description.slice(0,10) && slugify(body.description.slice(0,10))
+      const slug =
+        body.description.slice(0, 10) && slugify(body.description.slice(0, 10))
 
       const bodyData = {
         ...body,
@@ -87,46 +77,53 @@ export const CreatePostFromCapsModal = ({ isOpen, onClose }) => {
       const postBody = bodyData as PostCreateInput
       postBody.imageParams = imageProps
 
-      console.log('post body', bodyData, '\n\n')
-
       createPostMutation.mutate(body, {
-        onSuccess: (value) => {
-          console.log('onsuccess',value)
+        onSuccess: value => {
+          console.log('onsuccess', value)
+          if (text === value.description) {
+            setState(prev => {
+              const prevState = { ...prev }
+              delete prevState[id]
+
+              return { ...prevState }
+            })
+          }
         },
         onError: error => {
           console.log('error', error)
         },
       })
-     
     })
   }
-  
+
   const onReset = () => {
     setState({})
     setRecognized(false)
+    setValue('hashtags', undefined)
   }
 
-
+  const handleClose = () => {
+    onReset()
+    onClose()
+  }
 
   return (
     <Modal
       isOpen={isOpen}
-      onClose={onClose}
+      onClose={handleClose}
       isCentered
       size="xl"
       closeOnOverlayClick={false}
     >
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Create Hashtag Post</ModalHeader>
+        <ModalHeader>Create Multiple Hashtag Post</ModalHeader>
         <Stack m={10} as={'form'} onSubmit={handleSubmit(onCreate)}>
-         
           <ModelSelect
-            // key={index}
             url={'api/hashtags' as StrapiUrl}
             isRequired={true}
             name={'hashtags' as string}
-            label={'hashtags'}
+            label={'Hashtags'}
             errors={errors}
             control={control}
             zIndex={1}
@@ -143,27 +140,24 @@ export const CreatePostFromCapsModal = ({ isOpen, onClose }) => {
           <Divider />
         </ModalBody>
         <ModalFooter justifyContent="space-between">
-          <Button colorScheme="red" onClick={onClose}>
+          <Button colorScheme="red" onClick={handleClose}>
             Cancel
           </Button>
           <Button colorScheme="red" onClick={onReset}>
             Reset
           </Button>
           {/* isDisabled={!files} */}
-          <Button colorScheme="blue" onClick={onCreate}>
+          <Button isDisabled={!state} colorScheme="blue" onClick={onCreate}>
             Create
           </Button>
         </ModalFooter>
         {Object?.values(state).map(item => {
-          const { id, preview, text, isLoading, isError, isProcessed, file } =
-            item
-
-          // console.log('value state text', text,'\n\n','file',file)
+          const { id, isError } = item
           if (isError) {
             return (
               <Alert status="error" key={id}>
                 <AlertIcon />
-                <AlertDescription>An error occured</AlertDescription>
+                <AlertDescription>An error occured </AlertDescription>
               </Alert>
             )
           }

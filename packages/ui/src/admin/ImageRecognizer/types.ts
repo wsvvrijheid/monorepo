@@ -24,6 +24,7 @@ export type ImageRecognizerProps = {
 }
 
 export type ImageRecognizeItemProps = {
+  key: number
   onUpdate: (value: string) => void
   onRemove: () => void
   value: string

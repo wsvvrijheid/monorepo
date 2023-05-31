@@ -93,10 +93,11 @@ export const ImageRecognizer: FC<ImageRecognizerProps> = ({
   return (
     <Stack>
       {!recognized && (
-        <FilePicker maxNumberOfFiles={20} onLoaded={handleLoaded} />
+        <>
+          <FilePicker maxNumberOfFiles={20} onLoaded={handleLoaded} />
+          <Button onClick={handleRecognize}>Recognize</Button>
+        </>
       )}
-
-      <Button onClick={handleRecognize}>Recognize</Button>
       <Stack spacing={4}>
         {Object?.values(state).map(item => {
           const { id, preview, text, isLoading, isError, isProcessed } = item

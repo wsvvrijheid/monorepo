@@ -9,6 +9,7 @@ import {
   Portal,
   Stack,
   Text,
+  useDisclosure,
 } from '@chakra-ui/react'
 import { useTranslation } from 'next-i18next'
 import { BsCollection } from 'react-icons/bs'
@@ -47,10 +48,16 @@ import {
 } from '../../data'
 import { courseFields, courseSchema } from '../../data/schemas/course'
 import { useHasPermission } from '../../hooks'
+import { CreatePostFromCapsModal } from '../CreatePostFromCapsModal'
 import { ModelCreateModal } from '../ModelForm'
 
 export const CreateModelButton = () => {
   const { t } = useTranslation()
+  const {
+    isOpen: isOpenPost,
+    onOpen: onOpenPost,
+    onClose: onClosePost,
+  } = useDisclosure()
 
   const { getPermission } = useHasPermission()
 
@@ -158,6 +165,13 @@ export const CreateModelButton = () => {
                 >
                   {t('create-post')}
                 </ModelCreateModal>
+                <CreatePostFromCapsModal
+                  isOpen={isOpenPost}
+                  onClose={onClosePost}
+                />
+                <Button colorScheme="green"  variant= 'outline' onClick={onOpenPost} >
+                {t('create-multiple-post')}
+                </Button>
                 <ModelCreateModal<RecommendedTopic>
                   title="Create News"
                   url="api/recommended-topics"
