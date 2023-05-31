@@ -15,9 +15,9 @@
     "typescript": "^5.0.4"
   },
   "dependencies": {
-    "@chakra-ui/react": "^2.6.1",
+    "@chakra-ui/react": "^2.7.0",
     "@sindresorhus/slugify": "^2.2.1",
-    "@tanstack/react-query": "^4.29.11",
+    "@tanstack/react-query": "^4.29.12",
     "date-fns": "^2.30.0",
     "next": "13.4.4",
     "next-mdx-remote": "^4.4.1",
