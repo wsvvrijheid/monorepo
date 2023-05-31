@@ -17,7 +17,6 @@ import {
   ModelEditModal,
   PageHeader,
 } from '@wsvvrijheid/ui'
-import { CreatePostFromCapsModal } from '@wsvvrijheid/ui'
 
 import i18nConfig from '../next-i18next.config'
 
