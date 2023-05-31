@@ -17,6 +17,8 @@ export enum Languages {
 }
 
 export type ImageRecognizerProps = {
+  recognized?: boolean
+  setRecognized?: (recognized: boolean) => void
   state: Record<number, RecognizedImage>
   setState: Dispatch<SetStateAction<Record<number, RecognizedImage>>>
 }

@@ -87,7 +87,10 @@ const HashtagsPage = ({ seo }) => {
         onSearch={handleSearch}
         searchPlaceHolder={t('search-placeholder')}
       />
-      <CreatePostFromCapsModal isOpen={isOpenPost} onClose={onClosePost} />
+      <CreatePostFromCapsModal
+        isOpen={isOpenPost}
+        onClose={onClosePost}
+      />
       <Button colorScheme="green" onClick={onOpenPost}>
         Create
       </Button>

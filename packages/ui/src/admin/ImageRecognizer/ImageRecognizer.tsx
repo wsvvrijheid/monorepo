@@ -11,6 +11,8 @@ import { FilePicker } from '../../components'
 export const ImageRecognizer: FC<ImageRecognizerProps> = ({
   state,
   setState,
+  recognized,
+  setRecognized,
 }) => {
   const handleLoaded = (files: File[], previews: string[]) => {
     const newState = files.reduce((acc, file, index) => {
@@ -43,7 +45,7 @@ export const ImageRecognizer: FC<ImageRecognizerProps> = ({
     await worker.initialize(Languages[router.locale])
     await worker.setParameters({ tessedit_pageseg_mode: PSM.AUTO_OSD })
 
-    const items = Object.values(state)
+    const items = Object?.values(state)
 
     for (const item of items) {
       const { id, preview } = item
@@ -85,14 +87,18 @@ export const ImageRecognizer: FC<ImageRecognizerProps> = ({
     }
 
     await worker.terminate()
+    setRecognized(true)
   }
 
   return (
     <Stack>
-      <FilePicker maxNumberOfFiles={20} onLoaded={handleLoaded} />
+      {!recognized && (
+        <FilePicker maxNumberOfFiles={20} onLoaded={handleLoaded} />
+      )}
+
       <Button onClick={handleRecognize}>Recognize</Button>
       <Stack spacing={4}>
-        {Object.values(state).map(item => {
+        {Object?.values(state).map(item => {
           const { id, preview, text, isLoading, isError, isProcessed } = item
 
           const value = isLoading

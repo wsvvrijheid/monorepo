@@ -17,17 +17,30 @@ import {
   HStack,
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
+import slugify from '@sindresorhus/slugify'
 import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
 import { TbBrandTwitter } from 'react-icons/tb'
 import { createWorker, PSM } from 'tesseract.js'
 import * as yup from 'yup'
 
-import { Post, UploadFile } from '@wsvvrijheid/types'
+import { useCreateModelMutation } from '@wsvvrijheid/services'
+import {
+  Post,
+  PostCreateInput,
+  StrapiLocale,
+  StrapiTranslatableCreateInput,
+  StrapiUrl,
+  UploadFile,
+} from '@wsvvrijheid/types'
+import { generateOgImageParams } from '@wsvvrijheid/utils'
 
 import { FilePicker, WImage } from '../../components'
 import { yupMultiSelect } from '../../data/schemas/common'
+import { ImageRecognizer } from '../ImageRecognizer/ImageRecognizer'
+import { RecognizedImage } from '../ImageRecognizer/types'
 import { FormFields, ModelCreateModal, useDefaultValues } from '../ModelForm'
+import { ModelSelect } from '../ModelForm/ModelSelect'
 
 const languages = {
   en: 'eng',
@@ -35,64 +48,65 @@ const languages = {
   tr: 'tur',
 }
 export const CreatePostFromCapsModal = ({ isOpen, onClose }) => {
-  const [files, setFiles] = useState([])
-  const [previews, setPreviews] = useState([])
+  const [state, setState] = useState<Record<number, RecognizedImage>>({})
+  const createPostMutation = useCreateModelMutation<
+    Post,
+    StrapiTranslatableCreateInput
+  >('api/posts')
   const { locale } = useRouter()
-  const [lang, setLang] = useState(locale)
-  const [progress, setProgress] = useState()
-  const [recognizedText, setRecognizedText] = useState([])
-  const [recognized, setRecognized] = useState(false)
-  console.log('files', files)
-  console.log('\npreviews', previews)
+  const [recognized, setRecognized] = useState<boolean>(false)
+ 
+  const { register, formState: { errors }, watch, setValue, control, handleSubmit } = useForm()
 
-  const onCreate = value => {
-    console.log('value', value.target.value)
+  const onCreate = () => {
+    const hashtags = watch('hashtags')
+
+    console.log('hashtags',hashtags?.value)
+
+    Object?.values(state).map(item => {
+      const {text, file } = item
+
+      const body = {
+        description: text,
+        locale: locale as StrapiLocale,
+        publishedAt: null,
+        content: text,
+        caps: file as unknown as UploadFile,
+       
+        hashtag: Number(hashtags.value) as number,
+      } as unknown as StrapiTranslatableCreateInput
+
+      const slug = body.description.slice(0,10) && slugify(body.description.slice(0,10))
+
+      const bodyData = {
+        ...body,
+        slug,
+      } as StrapiTranslatableCreateInput
+
+      const imageProps = generateOgImageParams()
+      const postBody = bodyData as PostCreateInput
+      postBody.imageParams = imageProps
+
+      console.log('post body', bodyData, '\n\n')
+
+      createPostMutation.mutate(body, {
+        onSuccess: (value) => {
+          console.log('onsuccess',value)
+        },
+        onError: error => {
+          console.log('error', error)
+        },
+      })
+     
+    })
   }
-
+  
   const onReset = () => {
-    setFiles([])
-    setPreviews([])
-    setRecognizedText([])
+    setState({})
     setRecognized(false)
   }
-  console.log('\nrecognizedText', recognizedText)
-  // const postFromCapsFields: FormFields<Post> = [
-  //   { name: 'description', isRequired: true, type: 'textarea' },
-  //   {
-  //     name: 'hashtag',
-  //     type: 'select',
-  //     url: 'api/hashtags',
-  //   },
 
-  //   {
-  //     name: 'caps',
-  //     type: 'file',
-  //     group: { label: 'Caps', value: 'caps', name: 'media' },
-  //   },
-  //   { name: 'content', type: 'markdown' },
 
-  //   {
-  //     name: 'tags',
-  //     type: 'select',
-  //     url: 'api/tags',
-  //     isMulti: true,
-  //   },
-  // ]
-
-  // const postFromCapsSchema = yup.object({
-
-  //   tags: yupMultiSelect,
-  //   description: yup.string().required('Description is required'),
-  //   content: yup.string(),
-  //   hashtag: yup.object().shape({
-  //     label: yup.string(),
-  //     value: yup.string(),
-  //   }),
-  //   image: yup.mixed(),
-  //   caps: yup.mixed(),
-  //   video: yup.mixed(),
-  //   videoUrl: yup.string(),
-  // })
 
   return (
     <Modal
@@ -105,53 +119,27 @@ export const CreatePostFromCapsModal = ({ isOpen, onClose }) => {
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>Create Hashtag Post</ModalHeader>
+        <Stack m={10} as={'form'} onSubmit={handleSubmit(onCreate)}>
+         
+          <ModelSelect
+            // key={index}
+            url={'api/hashtags' as StrapiUrl}
+            isRequired={true}
+            name={'hashtags' as string}
+            label={'hashtags'}
+            errors={errors}
+            control={control}
+            zIndex={1}
+          />
+        </Stack>
         <ModalBody>
-          <Stack>
-            {files && files?.length <= 0 && (
-              <FilePicker
-                maxNumberOfFiles={50}
-                onLoaded={(files, previews) => {
-                  setFiles(files)
-                  setPreviews(previews)
-                }}
-              />
-            )}
-          </Stack>
-          <Stack>
-            {!recognized &&
-              previews?.map((image, index) => {
-                return (
-                  <Stack key={index}>
-                    <WImage
-                      src={image as UploadFile}
-                      // alt={title}
-                      hasZoom
-                      objectFit="contain"
-                      sizes="(max-width: 480) 80vw, 33vw"
-                    />{' '}
-                  </Stack>
-                )
-              })}
-            <Divider />
-            {recognizedText &&
-              recognizedText?.map((medias, index) => {
-                // {
-                //   console.log('map in map', medias[1])
-                // }
-                return (
-                  <HStack key={index}>
-                    <WImage
-                      src={previews[index] as UploadFile}
-                      // alt={title}
-                      hasZoom
-                      objectFit="contain"
-                      sizes="(max-width: 480) 80vw, 33vw"
-                    />
-                    <Text key={index}>{medias[1]}</Text>
-                  </HStack>
-                )
-              })}
-          </Stack>{' '}
+          <ImageRecognizer
+            state={state}
+            setState={setState}
+            recognized={recognized}
+            setRecognized={setRecognized}
+          />
+
           <Divider />
         </ModalBody>
         <ModalFooter justifyContent="space-between">
@@ -161,78 +149,26 @@ export const CreatePostFromCapsModal = ({ isOpen, onClose }) => {
           <Button colorScheme="red" onClick={onReset}>
             Reset
           </Button>
-          <Button
-            colorScheme="green"
-            onClick={() =>
-              OnRecognize({
-                setRecognized,
-                setRecognizedText,
-                setProgress,
-                files,
-                lang,
-              })
-            }
-          >
-            Recognize
-          </Button>
-          <Button colorScheme="blue" isDisabled={!files} onClick={onCreate}>
+          {/* isDisabled={!files} */}
+          <Button colorScheme="blue" onClick={onCreate}>
             Create
           </Button>
         </ModalFooter>
+        {Object?.values(state).map(item => {
+          const { id, preview, text, isLoading, isError, isProcessed, file } =
+            item
 
-        {/* <Alert status='error'>
-            <AlertIcon />
-            <AlertDescription>An error occured</AlertDescription>
-          </Alert> */}
+          // console.log('value state text', text,'\n\n','file',file)
+          if (isError) {
+            return (
+              <Alert status="error" key={id}>
+                <AlertIcon />
+                <AlertDescription>An error occured</AlertDescription>
+              </Alert>
+            )
+          }
+        })}
       </ModalContent>
     </Modal>
   )
-}
-
-export const OnRecognize = async ({
-  setRecognizedText,
-  setProgress,
-  files,
-  lang,
-  setRecognized,
-}) => {
-  // const [text,setText]=useState([])
-  const newArray = []
-  if (files) {
-    files.forEach(async element => {
-      const image = new Image()
-      image.src = URL.createObjectURL(files[0])
-      image.crossOrigin = 'anonymous'
-      const worker = await createWorker({
-        logger: m => {
-          if (m.status === 'recognizing text' && m.jobId)
-            setProgress(m.progress * 100)
-        },
-      })
-
-      try {
-        // setIsRecognizing(true)
-        await worker.load()
-        await worker.loadLanguage(languages[lang])
-        await worker.initialize(languages[lang])
-        await worker.setParameters({ tessedit_pageseg_mode: PSM.AUTO_OSD })
-        const result = await worker.recognize(element)
-
-        const text = result.data.text.replace(/\n/g, ' ').trim()
-        newArray.push([image, text])
-        console.log('text in loop >>>\n', '>>>>>>>>>>>>', text)
-        // onRecognizeText?.(text)
-      } catch (error) {
-        console.log('error', error)
-      } finally {
-        // setIsRecognizing(false)
-        await worker.terminate()
-      }
-      console.log('array icin image', newArray)
-      setRecognized(true)
-      setRecognizedText(newArray)
-    })
-  }
-
-  return newArray
 }
