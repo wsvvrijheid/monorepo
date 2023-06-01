@@ -1,4 +1,4 @@
-import { Meta, Story } from '@storybook/react'
+import { Meta, StoryObj } from '@storybook/react'
 
 import { PlatformTemplate, PlatformTemplateProps } from './PlatformTemplate'
 
@@ -10,15 +10,14 @@ export default {
   },
 } as Meta<PlatformTemplateProps>
 
-const Template: Story<PlatformTemplateProps> = args => {
-  return <PlatformTemplate {...args} />
-}
+type Story = StoryObj<PlatformTemplateProps>
 
-export const Default = Template.bind({})
-Default.args = {
-  seo: {
-    title: 'SamenVVV',
+export const Default: Story = {
+  args: {
+    seo: {
+      title: 'SamenVVV',
+    },
+    image: '/images/samen-logo.svg',
+    link: '/platforms/samenvvv',
   },
-  image: '/images/samen-logo.svg',
-  link: '/platforms/samenvvv',
 }

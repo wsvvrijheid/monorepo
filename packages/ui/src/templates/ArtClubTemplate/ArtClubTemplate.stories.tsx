@@ -1,4 +1,4 @@
-import { Meta, Story } from '@storybook/react'
+import { Meta, StoryObj } from '@storybook/react'
 
 import { ArtClubTemplate } from './ArtClubTemplate'
 
@@ -18,19 +18,18 @@ export default {
   },
 } as Meta<typeof ArtClubTemplate>
 
-const Template: Story<typeof ArtClubTemplate> = () => {
-  return <ArtClubTemplate />
-}
+type Story = StoryObj<typeof ArtClubTemplate>
 
-export const Default = Template.bind({})
+export const Default: Story = {}
 
-export const InitialCategories = Template.bind({})
-InitialCategories.parameters = {
-  nextRouter: {
-    locale: 'en',
-    query: {
-      page: 3,
-      categories: '0=photo&1=nature',
+export const InitialCategories: Story = {
+  parameters: {
+    nextRouter: {
+      locale: 'en',
+      query: {
+        page: 3,
+        categories: '0=photo&1=nature',
+      },
     },
   },
 }
