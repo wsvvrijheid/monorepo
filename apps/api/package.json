@@ -19,14 +19,14 @@
     "clean": "rm -rf node_modules .cache .turbo dist"
   },
   "devDependencies": {
-    "type-fest": "^3.10.0"
+    "type-fest": "^3.11.1"
   },
   "dependencies": {
-    "@strapi/plugin-graphql": "4.10.6",
-    "@strapi/plugin-i18n": "4.10.6",
-    "@strapi/plugin-users-permissions": "4.10.6",
-    "@strapi/provider-email-nodemailer": "4.10.6",
-    "@strapi/strapi": "4.10.6",
+    "@strapi/plugin-graphql": "4.10.7",
+    "@strapi/plugin-i18n": "4.10.7",
+    "@strapi/plugin-users-permissions": "4.10.7",
+    "@strapi/provider-email-nodemailer": "4.10.7",
+    "@strapi/strapi": "4.10.7",
     "axios": "1.4.0",
     "cheerio": "^1.0.0-rc.12",
     "date-fns": "^2.30.0",
@@ -37,7 +37,7 @@
     "sharp": "^0.32.1",
     "strapi-plugin-import-export-entries": "^1.19.2",
     "strapi-plugin-transformer": "^3.1.0",
-    "twitter-api-v2": "^1.14.3"
+    "twitter-api-v2": "^1.15.0"
   },
   "author": {
     "name": "A Strapi developer"
