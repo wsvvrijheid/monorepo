@@ -31,11 +31,11 @@ export const PostMakerTweetButtons = () => {
 
   if (!sentence) return null
 
-  const url = `${SITE_URL}${asPath}`
+  const url = `${SITE_URL}${asPath}/${post.id}`
 
   const baseUrl = 'https://twitter.com/intent/tweet'
   const params = {
-    url: `${SITE_URL}/${locale}/hashtags/${query['slug']}/`,
+    url,
     text: `${postContent}\n\n`,
   }
   const queryParams = new URLSearchParams(params)
