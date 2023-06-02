@@ -1,4 +1,4 @@
-import { Meta, StoryFn } from '@storybook/react'
+import { Meta, StoryObj } from '@storybook/react'
 
 import { LanguageSwitcher } from './LanguageSwitcher'
 
@@ -7,8 +7,6 @@ export default {
   title: 'Admin/LanguageSwitcher',
 } as Meta<typeof LanguageSwitcher>
 
-const Template: StoryFn<typeof LanguageSwitcher> = args => {
-  return <LanguageSwitcher />
-}
+type Story = StoryObj<typeof LanguageSwitcher>
 
-export const Default = Template.bind({})
+export const Default: Story = {}

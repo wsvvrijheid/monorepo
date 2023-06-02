@@ -1,10 +1,12 @@
+import { Meta, StoryObj } from '@storybook/react'
+
 import { LoginForm } from './LoginForm'
 
 export default {
   title: 'Forms/LoginForm',
   component: LoginForm,
-}
+} as Meta<typeof LoginForm>
 
-const Template = () => <LoginForm />
+type Story = StoryObj<typeof LoginForm>
 
-export const Default = Template.bind({})
+export const Default: Story = {}

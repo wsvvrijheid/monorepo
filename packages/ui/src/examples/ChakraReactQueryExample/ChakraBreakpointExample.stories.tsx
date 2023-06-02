@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { Meta, Story } from '@storybook/react'
+import { Meta, StoryFn, StoryObj } from '@storybook/react'
 
 import { sleep } from '@wsvvrijheid/utils'
 
@@ -14,8 +14,9 @@ export default {
   title: 'Example/ChakraBreakpointExample',
 } as Meta<ChakraBreakpointExampleProps> // or Meta<typeof ChakraBreakpointExample>
 
-// or StoryFn<typeof ChakraBreakpointExample>
-const Template: Story<ChakraBreakpointExampleProps> = args => {
+type Story = StoryObj<ChakraBreakpointExampleProps> // or StoryObj<typeof ChakraBreakpointExample>
+
+const StoryWithHook: StoryFn<ChakraBreakpointExampleProps> = args => {
   const [isLoading, setIsLoading] = useState(false)
   const [isError, setIsError] = useState(false)
   const [isSuccess, setIsSuccess] = useState(false)
@@ -56,15 +57,20 @@ const Template: Story<ChakraBreakpointExampleProps> = args => {
   )
 }
 
-export const Default = Template.bind({})
-Default.args = {}
-
-export const Loading = Template.bind({})
-Loading.args = {
-  isLoading: true,
+export const Default: Story = {
+  render: StoryWithHook,
 }
 
-export const Error = Template.bind({})
-Error.args = {
-  isError: true,
+export const Loading: Story = {
+  render: StoryWithHook,
+  args: {
+    isLoading: true,
+  },
+}
+
+export const Error: Story = {
+  render: StoryWithHook,
+  args: {
+    isError: true,
+  },
 }

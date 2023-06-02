@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { StoryFn, Meta } from '@storybook/react'
+import { StoryFn, StoryObj, Meta } from '@storybook/react'
 
 import { ART_MOCKS } from '@wsvvrijheid/mocks'
 
@@ -14,7 +14,9 @@ export default {
   },
 } as Meta<typeof ArtDetail>
 
-const Template: StoryFn<typeof ArtDetail> = args => {
+type Story = StoryObj<typeof ArtDetail>
+
+const StoryWithHook: StoryFn<typeof ArtDetail> = args => {
   const [isLiked, setIsLiked] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [artData, setArtData] = useState(args.art)
@@ -42,5 +44,6 @@ const Template: StoryFn<typeof ArtDetail> = args => {
   )
 }
 
-export const Default = Template.bind({})
-Default.args = {}
+export const Default: Story = {
+  render: StoryWithHook,
+}

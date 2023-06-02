@@ -1,5 +1,5 @@
 import { Box } from '@chakra-ui/react'
-import { Meta, Story } from '@storybook/react'
+import { Meta, StoryObj } from '@storybook/react'
 
 import { FooterNav } from './FooterNav'
 import { FooterNavProps } from './types'
@@ -17,9 +17,10 @@ export default {
   ],
 } as Meta<FooterNavProps>
 
-const Template: Story<FooterNavProps> = args => <FooterNav {...args} />
+type Story = StoryObj<FooterNavProps>
 
-export const Default = Template.bind({})
-Default.args = {
-  menu: FOOTER_MENU,
+export const Default: Story = {
+  args: {
+    menu: FOOTER_MENU,
+  },
 }

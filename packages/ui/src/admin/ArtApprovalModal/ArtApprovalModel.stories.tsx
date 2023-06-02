@@ -1,5 +1,5 @@
 import { Box, Button, Container, useDisclosure } from '@chakra-ui/react'
-import { Meta, StoryFn } from '@storybook/react'
+import { Meta, StoryFn, StoryObj } from '@storybook/react'
 
 import { ART_MOCKS, USER_MOCKS } from '@wsvvrijheid/mocks'
 import { SessionUser, UploadFile, User } from '@wsvvrijheid/types'
@@ -26,7 +26,9 @@ export default {
   ],
 } as Meta<typeof ArtApprovalModal>
 
-const Template: StoryFn<typeof ArtApprovalModal> = args => {
+type Story = StoryObj<typeof ArtApprovalModal>
+
+const StoryWithHooks: StoryFn<typeof ArtApprovalModal> = args => {
   const { art, editor, artist } = args
   const { isOpen, onOpen, onClose } = useDisclosure()
 
@@ -47,55 +49,67 @@ const Template: StoryFn<typeof ArtApprovalModal> = args => {
   )
 }
 
-export const Default = Template.bind({})
-Default.args = {}
-export const LongDescription = Template.bind({})
-LongDescription.args = {
-  art: {
-    ...artMock,
-    description_en: `Lorem ipsum odor amet, consectetuer adipiscing elit. Primis eros nunc fringilla id rutrum nibh.
-    Orci convallis pulvinar urna fusce at purus neque nam leo? Suspendisse semper facilisi
-    parturient sit euismod placerat. Orci ante luctus praesent torquent orci commodo aptent blandit.
-    Placerat arcu dui potenti; nullam taciti taciti amet.`,
+export const Default: Story = {
+  render: StoryWithHooks,
+}
+export const LongDescription: Story = {
+  render: StoryWithHooks,
+  args: {
+    art: {
+      ...artMock,
+      description_en: `Lorem ipsum odor amet, consectetuer adipiscing elit. Primis eros nunc fringilla id rutrum nibh.
+      Orci convallis pulvinar urna fusce at purus neque nam leo? Suspendisse semper facilisi
+      parturient sit euismod placerat. Orci ante luctus praesent torquent orci commodo aptent blandit.
+      Placerat arcu dui potenti; nullam taciti taciti amet.`,
+    },
   },
 }
-export const VerticalArts = Template.bind({})
-VerticalArts.args = {
-  art: {
-    ...artMock,
-    image: {
-      ...artMock.image,
-      url: 'https://i.picsum.photos/id/852/540/960.jpg?hmac=AQA_lg0_rXzCOj29d_MPuZx1xUF9WEj2NdaNFdvQ3Ak',
-    } as UploadFile,
+
+export const VerticalArts: Story = {
+  render: StoryWithHooks,
+  args: {
+    art: {
+      ...artMock,
+      image: {
+        ...artMock.image,
+        url: 'https://i.picsum.photos/id/852/540/960.jpg?hmac=AQA_lg0_rXzCOj29d_MPuZx1xUF9WEj2NdaNFdvQ3Ak',
+      } as UploadFile,
+    },
   },
 }
-export const MultiVerticalArts = Template.bind({})
-MultiVerticalArts.args = {
-  art: {
-    ...artMock,
-    image: {
-      ...artMock.image,
-      url: 'https://i.picsum.photos/id/852/540/960.jpg?hmac=AQA_lg0_rXzCOj29d_MPuZx1xUF9WEj2NdaNFdvQ3Ak',
-    } as UploadFile,
+export const MultiVerticalArts: Story = {
+  render: StoryWithHooks,
+  args: {
+    art: {
+      ...artMock,
+      image: {
+        ...artMock.image,
+        url: 'https://i.picsum.photos/id/852/540/960.jpg?hmac=AQA_lg0_rXzCOj29d_MPuZx1xUF9WEj2NdaNFdvQ3Ak',
+      } as UploadFile,
+    },
   },
 }
-export const HorizontalArts = Template.bind({})
-HorizontalArts.args = {
-  art: {
-    ...artMock,
-    image: {
-      ...artMock.image,
-      url: 'https://i.picsum.photos/id/399/960/540.jpg?hmac=LO1r_Qur7tph6YG2YHUEF5bNTidhcuf38MBkgNhACOo',
-    } as UploadFile,
+export const HorizontalArts: Story = {
+  render: StoryWithHooks,
+  args: {
+    art: {
+      ...artMock,
+      image: {
+        ...artMock.image,
+        url: 'https://i.picsum.photos/id/399/960/540.jpg?hmac=LO1r_Qur7tph6YG2YHUEF5bNTidhcuf38MBkgNhACOo',
+      } as UploadFile,
+    },
   },
 }
-export const MultiHorizontalArts = Template.bind({})
-MultiHorizontalArts.args = {
-  art: {
-    ...artMock,
-    image: {
-      ...artMock.image,
-      url: 'https://i.picsum.photos/id/399/960/540.jpg?hmac=LO1r_Qur7tph6YG2YHUEF5bNTidhcuf38MBkgNhACOo',
-    } as UploadFile,
+export const MultiHorizontalArts: Story = {
+  render: StoryWithHooks,
+  args: {
+    art: {
+      ...artMock,
+      image: {
+        ...artMock.image,
+        url: 'https://i.picsum.photos/id/399/960/540.jpg?hmac=LO1r_Qur7tph6YG2YHUEF5bNTidhcuf38MBkgNhACOo',
+      } as UploadFile,
+    },
   },
 }

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 import { SimpleGrid, Stack, Text } from '@chakra-ui/react'
-import { Meta, Story } from '@storybook/react'
+import { Meta, StoryFn, StoryObj } from '@storybook/react'
 import { useMutation } from '@tanstack/react-query'
 import { sample, shuffle } from 'lodash'
 
@@ -35,13 +35,11 @@ export default {
   },
 } as Meta<ArtAddToCollectionCardProps>
 
-const Template: Story<ArtAddToCollectionCardProps> = args => (
-  <ArtAddToCollectionCard {...args} />
-)
+type Story = StoryObj<ArtAddToCollectionCardProps>
 
-export const Default = Template.bind({})
+export const Default: Story = {}
 
-const GridTemplate: Story<ArtAddToCollectionCardProps> = args => {
+const StoryWithHooks: StoryFn<ArtAddToCollectionCardProps> = args => {
   const [collection, setCollection] = useState<Collection>(COLLECTION_MOCK)
   const [artToBeMutated, setArtToBeMutated] = useState<Art | null>(null)
 
@@ -108,13 +106,6 @@ const GridTemplate: Story<ArtAddToCollectionCardProps> = args => {
   )
 }
 
-export const Grid = GridTemplate.bind({})
-Grid.args = {
-  onAdd: () => {
-    alert('Added')
-  },
-  onRemove: () => {
-    alert('Removed')
-  },
-  isAdded: true,
+export const Grid: Story = {
+  render: StoryWithHooks,
 }

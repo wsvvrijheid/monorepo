@@ -1,5 +1,5 @@
 import { Box } from '@chakra-ui/react'
-import { Story, Meta } from '@storybook/react'
+import { StoryObj, Meta } from '@storybook/react'
 import { sample } from 'lodash'
 
 import { USER_MOCKS } from '@wsvvrijheid/mocks'
@@ -25,13 +25,12 @@ export default {
   ],
 } as Meta<AdminLayoutProps>
 
-const Template: Story<AdminLayoutProps> = args => {
-  return <AdminLayout {...args} />
+type Story = StoryObj<AdminLayoutProps>
+
+export const Default: Story = {}
+
+export const Loading: Story = {
+  args: {
+    isLoading: true,
+  },
 }
-
-export const Default = Template.bind({})
-
-export const Loading = Template.bind({})
-Loading.args = {
-  isLoading: true,
-} as AdminLayoutProps

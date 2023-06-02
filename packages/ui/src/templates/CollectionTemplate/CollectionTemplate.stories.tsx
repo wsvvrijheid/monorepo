@@ -1,4 +1,4 @@
-import { Meta, Story } from '@storybook/react'
+import { Meta, StoryObj } from '@storybook/react'
 
 import { COLLECTION_MOCKS } from '@wsvvrijheid/mocks'
 
@@ -17,8 +17,6 @@ export default {
   },
 } as Meta<CollectionTemplateProps>
 
-const Template: Story<CollectionTemplateProps> = args => (
-  <CollectionTemplate {...args} />
-)
+type Story = StoryObj<CollectionTemplateProps>
 
-export const Default = Template.bind({})
+export const Default: Story = {}

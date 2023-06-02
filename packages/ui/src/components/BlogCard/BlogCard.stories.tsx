@@ -1,4 +1,4 @@
-import { Story, Meta } from '@storybook/react'
+import { StoryObj, Meta } from '@storybook/react'
 
 import { BLOG_MOCKS } from '@wsvvrijheid/mocks'
 
@@ -23,12 +23,11 @@ export default {
   ],
 } as Meta<BlogCardProps>
 
-const Template: Story<BlogCardProps> = args => {
-  return <BlogCard {...args} />
-}
+type Story = StoryObj<BlogCardProps>
 
-export const Default = Template.bind({})
-export const Featured = Template.bind({})
-Featured.args = {
-  isFeatured: true,
+export const Default: Story = {}
+export const Featured = {
+  args: {
+    isFeatured: true,
+  },
 }

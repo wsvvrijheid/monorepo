@@ -1,4 +1,4 @@
-import { StoryFn, Meta } from '@storybook/react'
+import { StoryObj, Meta } from '@storybook/react'
 
 import { CommentItem } from './CommentItem'
 
@@ -10,6 +10,6 @@ export default {
   },
 } as Meta<typeof CommentItem>
 
-const Template: StoryFn<typeof CommentItem> = args => <CommentItem {...args} />
+type Story = StoryObj<typeof CommentItem>
 
-export const Default = Template.bind({})
+export const Default: Story = {}

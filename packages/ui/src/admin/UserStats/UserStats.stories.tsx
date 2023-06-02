@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import { StoryObj, Meta } from '@storybook/react'
-import { StoryFn } from '@storybook/react'
+import { StoryObj, Meta, StoryFn } from '@storybook/react'
 import qs from 'qs'
 
 import { TOKEN } from '@wsvvrijheid/secrets'

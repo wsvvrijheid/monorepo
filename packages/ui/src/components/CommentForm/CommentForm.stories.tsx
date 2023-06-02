@@ -1,4 +1,4 @@
-import { Story, Meta } from '@storybook/react'
+import { StoryFn, Meta, StoryObj } from '@storybook/react'
 
 import { CommentForm } from '.'
 import { CommentFormProps } from './types'
@@ -9,7 +9,9 @@ export default {
   component: CommentForm,
 } as Meta<typeof CommentForm>
 
-const Template: Story<CommentFormProps> = args => {
+type Story = StoryObj<CommentFormProps>
+
+const StoryWithHook: StoryFn<CommentFormProps> = args => {
   const onSendForm = async (data: CommentFormFieldValues) => {
     alert(JSON.stringify(data))
   }
@@ -17,10 +19,13 @@ const Template: Story<CommentFormProps> = args => {
   return <CommentForm {...args} onSendForm={onSendForm} />
 }
 
-export const Default = Template.bind({})
-Default.args = {}
+export const Default: Story = {
+  render: StoryWithHook,
+}
 
-export const ErrorMessage = Template.bind({})
-ErrorMessage.args = {
-  errorMessage: 'There is a error',
+export const ErrorMessage: Story = {
+  render: StoryWithHook,
+  args: {
+    errorMessage: 'There is a error',
+  },
 }

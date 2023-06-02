@@ -1,4 +1,4 @@
-import { Story, Meta } from '@storybook/react'
+import { StoryObj, Meta } from '@storybook/react'
 
 import { JoinTemplate, JoinTemplateProps } from '.'
 
@@ -10,11 +10,10 @@ export default {
   },
 } as Meta<JoinTemplateProps>
 
-const Template: Story<JoinTemplateProps> = args => {
-  return <JoinTemplate {...args} />
-}
+type Story = StoryObj<JoinTemplateProps>
 
-export const Default = Template.bind({})
-Default.args = {
-  title: 'SamenVVV',
+export const Default: Story = {
+  args: {
+    title: 'SamenVVV',
+  },
 }

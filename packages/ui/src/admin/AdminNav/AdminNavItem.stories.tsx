@@ -1,7 +1,6 @@
-import { Meta } from '@storybook/react'
+import { Meta, StoryObj } from '@storybook/react'
 
 import { AdminNavItem } from './AdminNavItem'
-import { AdminNavItemProps } from './types'
 import { Container } from '../../components'
 
 export default {
@@ -30,8 +29,6 @@ export default {
   ],
 } as Meta<typeof AdminNavItem>
 
-const Template = (args: AdminNavItemProps) => {
-  return <AdminNavItem {...args} />
-}
+type Story = StoryObj<typeof AdminNavItem>
 
-export const Default = Template.bind({})
+export const Default: Story = {}

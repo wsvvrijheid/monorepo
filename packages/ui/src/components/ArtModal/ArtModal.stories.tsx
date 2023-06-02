@@ -1,5 +1,5 @@
 import { Box, Button, useDisclosure } from '@chakra-ui/react'
-import { Meta, Story } from '@storybook/react'
+import { Meta, StoryFn, StoryObj } from '@storybook/react'
 import { sample } from 'lodash'
 
 import { ART_MOCKS } from '@wsvvrijheid/mocks'
@@ -14,7 +14,9 @@ export default {
   title: 'Shared/ArtModal',
 } as Meta<ArtModalProps>
 
-const Template: Story<ArtModalProps> = args => {
+type Story = StoryObj<ArtModalProps>
+
+const StoryWithHooks: StoryFn<ArtModalProps> = args => {
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   return (
@@ -27,5 +29,6 @@ const Template: Story<ArtModalProps> = args => {
   )
 }
 
-export const Default = Template.bind({})
-Default.args = {}
+export const Default: Story = {
+  render: StoryWithHooks,
+}
