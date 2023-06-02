@@ -1,4 +1,4 @@
-import { Meta, StoryFn } from '@storybook/react'
+import { Meta, StoryObj } from '@storybook/react'
 
 import MarkdownEditor from './MarkdownEditor'
 
@@ -7,9 +7,6 @@ export default {
   title: 'Shared/MarkdownEditor',
 } as Meta<typeof MarkdownEditor>
 
-const Template: StoryFn<typeof MarkdownEditor> = () => {
-  return <MarkdownEditor />
-}
+type Story = StoryObj<typeof MarkdownEditor>
 
-export const Default = Template.bind({})
-Default.args = {}
+export const Default: Story = {}

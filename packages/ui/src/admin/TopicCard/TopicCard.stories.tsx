@@ -1,5 +1,4 @@
-// import { Box, SimpleGrid } from '@chakra-ui/react'
-import { Story, Meta } from '@storybook/react'
+import { StoryObj, Meta } from '@storybook/react'
 
 import { TopicCard } from './TopicCard'
 import { TopicCardProps } from './types'
@@ -21,8 +20,6 @@ export default {
   ],
 } as Meta<TopicCardProps>
 
-const Template: Story<TopicCardProps> = args => {
-  return <TopicCard {...args} />
-}
+type Story = StoryObj<TopicCardProps>
 
-export const Default = Template.bind({})
+export const Default: Story = {}

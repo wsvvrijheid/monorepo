@@ -1,5 +1,5 @@
 import { Button } from '@chakra-ui/react'
-import { StoryFn, Meta } from '@storybook/react'
+import { StoryObj, Meta } from '@storybook/react'
 
 import { Navigate } from './Navigate'
 
@@ -8,25 +8,28 @@ export default {
   title: 'Shared/Navigate',
 } as Meta<typeof Navigate>
 
-const Template: StoryFn<typeof Navigate> = args => <Navigate {...args} />
+type Story = StoryObj<typeof Navigate>
 
-export const Default = Template.bind({})
-Default.args = {
-  children: 'Default',
-  href: '/',
+export const Default: Story = {
+  args: {
+    children: 'Default',
+    href: '/',
+  },
 }
 
-export const AsButtonInternalLink = Template.bind({})
-AsButtonInternalLink.args = {
-  children: 'Button',
-  href: '/button',
-  as: Button,
+export const AsButtonInternalLink: Story = {
+  args: {
+    children: 'Button',
+    href: '/button',
+    as: Button,
+  },
 }
 
-export const AsButtonExternalLink = Template.bind({})
-AsButtonExternalLink.args = {
-  children: 'Button',
-  href: 'https://www.google.com',
-  as: Button,
-  colorScheme: 'primary',
+export const AsButtonExternalLink: Story = {
+  args: {
+    children: 'Button',
+    href: 'https://www.google.com',
+    as: Button,
+    colorScheme: 'primary',
+  },
 }

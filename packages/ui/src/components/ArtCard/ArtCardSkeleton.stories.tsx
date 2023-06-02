@@ -1,4 +1,4 @@
-import { StoryFn, Meta } from '@storybook/react'
+import { StoryObj, Meta } from '@storybook/react'
 
 import { ArtCardBase } from './ArtCardBase'
 import { ArtCardSkeleton } from './ArtCardSkeleton'
@@ -16,14 +16,12 @@ export default {
   ],
 } as Meta<typeof ArtCardBase>
 
-const Template: StoryFn<typeof ArtCardSkeleton> = args => {
-  return <ArtCardSkeleton {...args} isMasonry={args.isMasonry || false} />
-}
+type Story = StoryObj<typeof ArtCardBase>
 
-export const Default = Template.bind({})
-Default.args = {}
+export const Default: Story = {}
 
-export const Masonry = Template.bind({})
-Masonry.args = {
-  isMasonry: true,
+export const Masonry: Story = {
+  args: {
+    isMasonry: true,
+  },
 }

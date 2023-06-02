@@ -8,7 +8,14 @@ const { i18n } = require('./next-i18next.config')
  **/
 const nextConfig = {
   reactStrictMode: true,
-  transpilePackages: ['ui'],
+  transpilePackages: [
+    '@wsvvrijheid/config',
+    '@wsvvrijheid/context',
+    '@wsvvrijheid/lib',
+    '@wsvvrijheid/services',
+    '@wsvvrijheid/ui',
+    '@wsvvrijheid/utils',
+  ],
   i18n,
   images: {
     deviceSizes: [320, 480, 720, 1080],

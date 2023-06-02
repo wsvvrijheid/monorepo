@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import { Story, Meta } from '@storybook/react'
+import { StoryFn, Meta, StoryObj } from '@storybook/react'
 
 import { Pagination } from './Pagination'
 import { PaginationProps } from './types'
@@ -18,7 +18,9 @@ export default {
   },
 } as Meta<PaginationProps>
 
-const Template: Story<PaginationProps> = args => {
+type Story = StoryObj<PaginationProps>
+
+const StoryWithHook: StoryFn<PaginationProps> = args => {
   const [currentPage, setCurrentPage] = useState<number>(args.currentPage)
 
   useEffect(() => {
@@ -34,20 +36,26 @@ const Template: Story<PaginationProps> = args => {
   )
 }
 
-export const Default = Template.bind({})
-Default.args = {}
-
-export const NotAttached = Template.bind({})
-NotAttached.args = {
-  isAttached: false,
+export const Default: Story = {
+  render: StoryWithHook,
 }
 
-export const Variant = Template.bind({})
-Variant.args = {
-  variant: 'ghost',
+export const NotAttached: Story = {
+  render: StoryWithHook,
+  args: {
+    isAttached: false,
+  },
+}
+export const Variant: Story = {
+  render: StoryWithHook,
+  args: {
+    variant: 'ghost',
+  },
 }
 
-export const Size = Template.bind({})
-Size.args = {
-  size: 'sm',
+export const Size: Story = {
+  render: StoryWithHook,
+  args: {
+    size: 'sm',
+  },
 }

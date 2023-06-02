@@ -1,14 +1,13 @@
 // @ts-check
-const withPWA = require("next-pwa");
-const { i18n } = require("./next-i18next.config");
+const withPWA = require('next-pwa')
 
- 
+const { i18n } = require('./next-i18next.config')
+
 /**
  * @type {import('next').NextConfig}
  **/
 const nextConfig = {
   reactStrictMode: true,
-  transpilePackages: ["ui"],
   i18n,
   images: {
     deviceSizes: [320, 480, 720, 1080],
@@ -36,15 +35,14 @@ const nextConfig = {
     ],
   },
   modularizeImports: {
-    "date-fns": { transform: "date-fns/{{member}}" },
-    lodash: { transform: "lodash/{{member}}" },
+    'date-fns': { transform: 'date-fns/{{member}}' },
+    lodash: { transform: 'lodash/{{member}}' },
   },
-  outputFileTracing: true, 
-};
+  outputFileTracing: true,
+}
 
 module.exports = withPWA({
-  dest: "public",
+  dest: 'public',
   // eslint-disable-next-line turbo/no-undeclared-env-vars
-  disable: process.env.NODE_ENV === "development",
-})(nextConfig);
-
+  disable: process.env.NODE_ENV === 'development',
+})(nextConfig)

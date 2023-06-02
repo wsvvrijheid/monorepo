@@ -1,4 +1,4 @@
-import { Meta, Story } from '@storybook/react'
+import { Meta, StoryObj } from '@storybook/react'
 
 import { COURSE_MOCKS } from '@wsvvrijheid/mocks'
 
@@ -10,13 +10,10 @@ export default {
   component: CourseDetailPage,
 } as Meta<CourseDetailPageProps>
 
-const Template: Story<CourseDetailPageProps> = args => (
-  <CourseDetailPage {...args} />
-)
+type Story = StoryObj<CourseDetailPageProps>
 
-export const Default = Template.bind({})
-
-Default.args = {
-  course: COURSE_MOCKS.data[0],
-  // source: SOURCE_MOCKS.platforms.academy,
+export const Default: Story = {
+  args: {
+    course: COURSE_MOCKS.data[0],
+  },
 }

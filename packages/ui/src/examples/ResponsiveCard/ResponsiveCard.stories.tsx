@@ -1,10 +1,12 @@
+import { Meta, StoryObj } from '@storybook/react'
+
 import { ResponsiveCard } from './ResponsiveCard'
 
 export default {
   component: ResponsiveCard,
   title: 'Example/ResponsiveCard',
-}
+} as Meta<typeof ResponsiveCard>
 
-const Template = () => <ResponsiveCard />
+type Story = StoryObj<typeof ResponsiveCard>
 
-export const Default = Template.bind({})
+export const Default: Story = {}

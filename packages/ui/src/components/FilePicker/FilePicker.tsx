@@ -1,4 +1,4 @@
-import { ComponentProps, FC, useEffect } from 'react'
+import { ComponentProps, FC, useEffect, useMemo } from 'react'
 
 import { Stack } from '@chakra-ui/react'
 import Compressor from '@uppy/compressor'
@@ -7,6 +7,7 @@ import ImageEditor from '@uppy/image-editor'
 import { Dashboard, useUppy } from '@uppy/react'
 
 export type FilePickerProps = Omit<ComponentProps<typeof Dashboard>, 'uppy'> & {
+  allowedFileTypes?: string[]
   maxNumberOfFiles?: number
   setFiles: (files: File[]) => void
   setPreviews?: (urls: string[]) => void
@@ -16,12 +17,13 @@ export const FilePicker: FC<FilePickerProps> = ({
   maxNumberOfFiles = 1,
   setFiles,
   setPreviews,
+  allowedFileTypes = ['image/*'],
   ...props
 }) => {
-  const uppy = useUppy(() => {
+  const uppy = useMemo(() => {
     return new Uppy({
       meta: { type: 'avatar' },
-      restrictions: { maxNumberOfFiles },
+      restrictions: { maxNumberOfFiles, allowedFileTypes },
       autoProceed: true,
     })
       .use(Compressor, {
@@ -51,7 +53,7 @@ export const FilePicker: FC<FilePickerProps> = ({
           cropWidescreenVertical: true,
         },
       })
-  })
+  }, [maxNumberOfFiles, allowedFileTypes])
 
   uppy.on('complete', result => {
     const files = result.successful.map(file => file.data)

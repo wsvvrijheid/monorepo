@@ -1,4 +1,4 @@
-import { Meta, Story } from '@storybook/react'
+import { Meta, StoryFn, StoryObj } from '@storybook/react'
 import { sample } from 'lodash'
 import { useRouter } from 'next/router'
 
@@ -13,7 +13,9 @@ export default {
   title: 'Shared/ArtWithDetails',
 } as Meta<ArtWithDetailsProps>
 
-const Template: Story<ArtWithDetailsProps> = args => {
+type Story = StoryObj<ArtWithDetailsProps>
+
+const StoryWithHook: StoryFn<ArtWithDetailsProps> = args => {
   const { locale } = useRouter()
 
   return (
@@ -25,4 +27,6 @@ const Template: Story<ArtWithDetailsProps> = args => {
   )
 }
 
-export const Default = Template.bind({})
+export const Default: Story = {
+  render: StoryWithHook,
+}

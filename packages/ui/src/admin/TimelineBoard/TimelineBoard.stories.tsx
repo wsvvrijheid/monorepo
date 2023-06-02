@@ -1,5 +1,5 @@
 // import { Box, SimpleGrid } from '@chakra-ui/react'
-import { Story, Meta } from '@storybook/react'
+import { StoryObj, Meta } from '@storybook/react'
 
 import { TİMELİNE_MOCKS } from '@wsvvrijheid/mocks'
 
@@ -21,9 +21,6 @@ export default {
   ],
 } as Meta
 
-const Template: Story = args => {
-  return <TimelineBoard timelines={args['timeline']} {...args} />
-}
+type Story = StoryObj<typeof TimelineBoard>
 
-export const Default = Template.bind({})
-Default.args = {}
+export const Default: Story = {}

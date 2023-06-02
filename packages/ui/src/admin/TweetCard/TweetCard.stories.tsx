@@ -1,5 +1,5 @@
 import { Stack } from '@chakra-ui/react'
-import { Meta, StoryFn } from '@storybook/react'
+import { Meta, StoryObj, StoryFn } from '@storybook/react'
 
 import { TWEET_MOCKS } from '@wsvvrijheid/mocks'
 
@@ -18,9 +18,9 @@ export default {
   ],
 } as Meta<typeof TweetCard>
 
-const Template: StoryFn<typeof TweetCard> = args => <TweetCard {...args} />
+type Story = StoryObj<typeof TweetCard>
 
-const ListTemplate = () => (
+const ListTemplate: StoryFn<typeof TweetCard> = () => (
   <Stack>
     {TWEET_MOCKS.map(tweet => (
       <TweetCard key={tweet.id} tweet={tweet} shadow="base" rounded={0} />
@@ -28,19 +28,24 @@ const ListTemplate = () => (
   </Stack>
 )
 
-export const Default = Template.bind({})
-Default.args = {
-  tweet: TWEET_MOCKS[2],
+export const Default: Story = {
+  args: {
+    tweet: TWEET_MOCKS[2],
+  },
 }
 
-export const Image = Template.bind({})
-Image.args = {
-  tweet: TWEET_MOCKS[1],
+export const Image: Story = {
+  args: {
+    tweet: TWEET_MOCKS[1],
+  },
 }
 
-export const Video = Template.bind({})
-Video.args = {
-  tweet: TWEET_MOCKS[0],
+export const Video: Story = {
+  args: {
+    tweet: TWEET_MOCKS[0],
+  },
 }
 
-export const List = ListTemplate.bind({})
+export const List: Story = {
+  render: ListTemplate,
+}

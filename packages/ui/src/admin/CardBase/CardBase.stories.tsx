@@ -1,5 +1,5 @@
 import { SimpleGrid } from '@chakra-ui/react'
-import { Story, Meta } from '@storybook/react'
+import { StoryObj, StoryFn, Meta } from '@storybook/react'
 
 import { ART_MOCKS } from '@wsvvrijheid/mocks'
 
@@ -21,11 +21,9 @@ export default {
   ],
 } as Meta<CardBaseProps>
 
-const Template: Story<CardBaseProps> = args => {
-  return <CardBase onClick={() => alert('art click')} {...args} />
-}
+type Story = StoryObj<CardBaseProps>
 
-const GridTemplate: Story = () => {
+const GridTemplate: StoryFn = () => {
   return (
     <SimpleGrid columns={{ base: 1, md: 2, lg: 4 }} gap={4}>
       {ART_MOCKS.data.map((art, i) => (
@@ -35,6 +33,8 @@ const GridTemplate: Story = () => {
   )
 }
 
-export const Default = Template.bind({})
+export const Default: Story = {}
 
-export const Grid = GridTemplate.bind({})
+export const Grid: Story = {
+  render: GridTemplate,
+}

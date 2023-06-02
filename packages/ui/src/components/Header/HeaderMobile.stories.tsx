@@ -1,4 +1,4 @@
-import { Story, Meta } from '@storybook/react'
+import { StoryObj, Meta } from '@storybook/react'
 
 import { HeaderMobile } from './HeaderMobile'
 import { HeaderMobileProps } from './types'
@@ -9,17 +9,19 @@ export default {
   title: 'Layout/HeaderMobile',
 } as Meta<HeaderMobileProps>
 
-const Template: Story<HeaderMobileProps> = args => <HeaderMobile {...args} />
+type Story = StoryObj<HeaderMobileProps>
 
-export const Default = Template.bind({})
-Default.args = {
-  headerMenu: HEADER_MENU,
-  profileMenu: PROFILE,
+export const Default: Story = {
+  args: {
+    headerMenu: HEADER_MENU,
+    profileMenu: PROFILE,
+  },
 }
 
-export const IsLoggedIn = Template.bind({})
-IsLoggedIn.args = {
-  isLoggedIn: true,
-  headerMenu: HEADER_MENU,
-  profileMenu: { ...PROFILE },
+export const IsLoggedIn: Story = {
+  args: {
+    isLoggedIn: true,
+    headerMenu: HEADER_MENU,
+    profileMenu: { ...PROFILE },
+  },
 }

@@ -1,4 +1,4 @@
-import { Meta, StoryFn } from '@storybook/react'
+import { Meta, StoryObj } from '@storybook/react'
 
 import { TWEET_MOCKS } from '@wsvvrijheid/mocks'
 
@@ -9,18 +9,18 @@ export default {
   component: TweetWidget,
 } as Meta<typeof TweetWidget>
 
-const Template: StoryFn<typeof TweetWidget> = args => {
-  return <TweetWidget {...args} />
+type Story = StoryObj<typeof TweetWidget>
+
+export const Default: Story = {
+  args: {
+    title: 'TweetWidget',
+    tweets: TWEET_MOCKS,
+  },
 }
 
-export const Default = Template.bind({})
-Default.args = {
-  title: 'TweetWidget',
-  tweets: TWEET_MOCKS,
-}
-
-export const Empty = Template.bind({})
-Empty.args = {
-  title: 'TweetWidget',
-  tweets: null,
+export const Empty: Story = {
+  args: {
+    title: 'TweetWidget',
+    tweets: null,
+  },
 }

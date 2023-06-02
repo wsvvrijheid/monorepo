@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { StoryFn, Meta } from '@storybook/react'
+import { StoryFn, Meta, StoryObj } from '@storybook/react'
 
 import { ART_MOCKS, USER_MOCKS } from '@wsvvrijheid/mocks'
 
@@ -23,7 +23,9 @@ export default {
   ],
 } as Meta<typeof ArtCardBase>
 
-const Template: StoryFn<typeof ArtCardBase> = args => {
+type Story = StoryObj<typeof ArtCardBase>
+
+const StoryWithHook: StoryFn<typeof ArtCardBase> = args => {
   const [isLiked, setIsLiked] = useState(args.isLiked)
   const [art, setArt] = useState(args.art)
 
@@ -68,26 +70,26 @@ const Template: StoryFn<typeof ArtCardBase> = args => {
   )
 }
 
-export const Default = Template.bind({})
-Default.args = {}
-
-export const Liked = Template.bind({})
-Liked.args = {
-  isLiked: true,
+export const Default: Story = {
+  render: StoryWithHook,
 }
 
-export const Masonry = Template.bind({})
-Masonry.args = {
-  isMasonry: true,
+export const Liked: Story = {
+  render: StoryWithHook,
+  args: { isLiked: true },
 }
 
-export const Owner = Template.bind({})
-Owner.args = {
-  isOwner: true,
+export const Masonry: Story = {
+  render: StoryWithHook,
+  args: { isMasonry: true },
 }
 
-export const Unpublished = Template.bind({})
-Unpublished.args = {
-  isOwner: true,
-  art: ART_MOCKS.data[1],
+export const Owner: Story = {
+  render: StoryWithHook,
+  args: { isOwner: true },
+}
+
+export const Unpublished: Story = {
+  render: StoryWithHook,
+  args: { isOwner: true, art: ART_MOCKS.data[1] },
 }

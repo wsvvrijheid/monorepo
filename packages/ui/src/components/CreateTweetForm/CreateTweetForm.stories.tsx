@@ -1,5 +1,5 @@
 import { Box, Button, useDisclosure } from '@chakra-ui/react'
-import { Meta, Story } from '@storybook/react'
+import { Meta, StoryFn, StoryObj } from '@storybook/react'
 
 import { TWEET_MOCKS } from '@wsvvrijheid/mocks'
 import { useRecommendTweet } from '@wsvvrijheid/services'
@@ -16,7 +16,9 @@ export default {
   },
 } as Meta<typeof CreateTweetForm>
 
-const Template: Story<CreateTweetFormProps> = args => {
+type Story = StoryObj<CreateTweetFormProps>
+
+const StoryWithHook: StoryFn<CreateTweetFormProps> = args => {
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   const { mutateAsync } = useRecommendTweet()
@@ -56,5 +58,6 @@ const Template: Story<CreateTweetFormProps> = args => {
   )
 }
 
-export const Default = Template.bind({})
-Default.args = {}
+export const Default: Story = {
+  render: StoryWithHook,
+}

@@ -1,4 +1,4 @@
-import { Meta, StoryFn } from '@storybook/react'
+import { Meta, StoryObj } from '@storybook/react'
 
 import { MentionListSkeleton } from './MentionListSkeleton'
 
@@ -7,8 +7,6 @@ export default {
   component: MentionListSkeleton,
 } as Meta<typeof MentionListSkeleton>
 
-const Template: StoryFn<typeof MentionListSkeleton> = () => {
-  return <MentionListSkeleton />
-}
+type Story = StoryObj<typeof MentionListSkeleton>
 
-export const Default = Template.bind({})
+export const Default: Story = {}

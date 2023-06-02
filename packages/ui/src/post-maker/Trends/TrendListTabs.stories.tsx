@@ -1,4 +1,4 @@
-import { Meta, StoryFn } from '@storybook/react'
+import { Meta, StoryObj } from '@storybook/react'
 
 import { TrendListTabs } from './TrendListTabs'
 
@@ -7,8 +7,6 @@ export default {
   component: TrendListTabs,
 } as Meta<typeof TrendListTabs>
 
-const Template: StoryFn<typeof TrendListTabs> = () => {
-  return <TrendListTabs />
-}
+type Story = StoryObj<typeof TrendListTabs>
 
-export const Default = Template.bind({})
+export const Default: Story = {}
