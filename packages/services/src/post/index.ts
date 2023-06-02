@@ -11,8 +11,9 @@ type CreateArgs = { hashtagId: number; value: RedisPost }
 type DeleteArgs = { hashtagId: number; value: RedisPost }
 
 export const updateHashtagSentences = async (args: UpdateArgs) => {
-  console.log('args', args)
-  const result = await axios.put<'OK'>('/api/kv/hashtag-sentences', args)
+  const result = await axios.put<'OK'>('/api/kv/hashtag-sentences', args, {
+    baseURL: SITE_URL,
+  })
 
   return result.data
 }
@@ -30,6 +31,7 @@ export const deleteHashtagSentence = async (args: DeleteArgs) => {
 
   const result = await axios.delete<number>(
     `/api/kv/hashtag-sentences?${params.toString()}`,
+    { baseURL: SITE_URL },
   )
 
   return result.data
@@ -42,7 +44,9 @@ export const useDeleteHashtagSentence = () =>
   })
 
 export const createHashtagSentence = async (args: CreateArgs) => {
-  const result = await axios.post<number>('/api/kv/hashtag-sentences', args)
+  const result = await axios.post<number>('/api/kv/hashtag-sentences', args, {
+    baseURL: SITE_URL,
+  })
 
   return result.data
 }
