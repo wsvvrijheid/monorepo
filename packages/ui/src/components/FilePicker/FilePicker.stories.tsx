@@ -5,12 +5,11 @@ import { FilePicker, FilePickerProps } from './FilePicker'
 export default {
   component: FilePicker,
   title: 'Shared/FilePicker',
+  argTypes: {
+    setFiles: { action: 'setFiles' },
+  },
 } as Meta<FilePickerProps>
 
 type Story = StoryObj<FilePickerProps>
 
-export const Default: Story = {
-  args: {
-    setFiles: x => console.log(x),
-  },
-}
+export const Default: Story = {}

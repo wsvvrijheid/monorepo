@@ -71,9 +71,11 @@ export const Default: Story = {
 export const InitialCategories: Story = {
   render: StoryWithHook,
   parameters: {
-    nextRouter: {
-      query: {
-        categories: '0=painting&1=nature',
+    nextjs: {
+      router: {
+        query: {
+          categories: '0=painting&1=nature',
+        },
       },
     },
   },

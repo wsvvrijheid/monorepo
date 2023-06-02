@@ -24,11 +24,13 @@ export const Default: Story = {}
 
 export const InitialCategories: Story = {
   parameters: {
-    nextRouter: {
-      locale: 'en',
-      query: {
-        page: 3,
-        categories: '0=photo&1=nature',
+    nextjs: {
+      router: {
+        locale: 'en',
+        query: {
+          page: 3,
+          categories: '0=photo&1=nature',
+        },
       },
     },
   },
