@@ -52,8 +52,8 @@ export const CreatePostFromCapsModal = ({ isOpen, onClose }) => {
 
   const onCreate = () => {
     const hashtags = watch('hashtags')
-
-    Object?.values(state).map(item => {
+console.log("hashtags",hashtags)
+    Object?.values(state).map(async item => {
       const { text, file, id } = item
 
       const body = {
@@ -62,7 +62,7 @@ export const CreatePostFromCapsModal = ({ isOpen, onClose }) => {
         publishedAt: null,
         content: text,
         caps: file as unknown as UploadFile,
-        hashtag: Number(hashtags.value) as number,
+        hashtag: Number(hashtags?.value) as number,
       } as unknown as StrapiTranslatableCreateInput
 
       const slug =
@@ -77,23 +77,22 @@ export const CreatePostFromCapsModal = ({ isOpen, onClose }) => {
       const postBody = bodyData as PostCreateInput
       postBody.imageParams = imageProps
 
-      createPostMutation.mutate(body, {
-        onSuccess: value => {
-          console.log('onsuccess', value)
-          if (text === value.description) {
-            setState(prev => {
-              const prevState = { ...prev }
-              delete prevState[id]
+     try {
+       const value = await createPostMutation.mutateAsync(body)
+      if (text === value.description) {
+        setState(prev => {
+          const prevState = { ...prev }
+          delete prevState[id]
 
-              return { ...prevState }
-            })
-          }
-        },
-        onError: error => {
-          console.log('error', error)
-        },
-      })
+          return { ...prevState }
+        })
+      }
+     } catch (error) {
+      console.log("error",error)
+     }
+     
     })
+    setRecognized(false)
   }
 
   const onReset = () => {
