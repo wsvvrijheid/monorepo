@@ -21,7 +21,7 @@ This Turborepo includes the following packages/apps:
 
 - `config`: `@wsvvrijheid/config` Menus, Seo, Theme, Constants
 - `context`: `@wsvvrijheid/context` AuthContext
-- `eslint-config-custom`: Eslint
+- `eslint-config-wsvvrijheid`: Eslint
 - `lib`: `@wsvvrijheid/lib` Fetchers
 - `mocks`: `@wsvvrijheid/mocks` Strapi Mock Data
 - `mollie`: `@wsvvrijheid/mollie` Mollie Client

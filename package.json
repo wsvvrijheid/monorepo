@@ -17,9 +17,10 @@
   "devDependencies": {
     "@turbo/gen": "^1.10.1",
     "dotenv-cli": "^7.2.1",
-    "eslint": "^8.41.0",
-    "eslint-config-custom": "*",
+    "eslint": "^8.42.0",
+    "eslint-config-wsvvrijheid": "*",
     "prettier": "^2.8.8",
+    "tsconfig": "*",
     "turbo": "^1.10.1"
   },
   "name": "wees-turbo",
