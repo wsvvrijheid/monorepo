@@ -6,14 +6,14 @@ INIT_FILE=sql/init.sql
 
 # CREATE DATABASE
 echo "Creating database..."
-dropdb --if-exists -U mustafa $DATABASE_NAME && createdb -U mustafa $DATABASE_NAME
+dropdb --if-exists -U postgres $DATABASE_NAME && createdb -U postgres $DATABASE_NAME
 echo "Database created!"
 
 echo "\n_________________________________________________________\n"
 
 if test -f "${INIT_FILE}"; then
     echo "Initializing database..."
-    psql -U mustafa $DATABASE_NAME < sql/init.sql
+    psql -U postgres $DATABASE_NAME < sql/init.sql
     echo "Database initialized!"
 else
     echo "No init.sql file found!"
@@ -34,7 +34,7 @@ echo "\n_________________________________________________________\n"
 
 if test -f "$DUMP_FILE"; then
     echo "Restoring database..."
-    psql -U mustafa $DATABASE_NAME -Fc < sql/database.dump.sql
+    psql -U postgres $DATABASE_NAME -Fc < sql/database.dump.sql
     echo "Database restored!"
 else
     echo "No database dump found. Skipping database restore."
