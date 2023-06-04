@@ -1,4 +1,4 @@
-import { StoryFn, Meta } from '@storybook/react'
+import { StoryObj, Meta } from '@storybook/react'
 import { sample } from 'lodash'
 
 import { ASSETS_URL } from '@wsvvrijheid/config'
@@ -8,6 +8,7 @@ import { Art } from '@wsvvrijheid/types'
 import { ArtContent } from './ArtContent'
 
 const art = sample(ART_MOCKS.data) as Art
+const user = USER_MOCKS.find(user => user.avatar?.url)
 
 export default {
   component: ArtContent,
@@ -17,21 +18,14 @@ export default {
   },
 } as Meta<typeof ArtContent>
 
-const Template: StoryFn<typeof ArtContent> = args => {
-  const { title_en, description_en, artist } = art
+type Story = StoryObj<typeof ArtContent>
 
-  const user = USER_MOCKS.find(user => user.avatar?.url)
-
-  return (
-    <ArtContent
-      {...args}
-      title={title_en}
-      description={description_en}
-      artistName={artist?.name || user?.username || 'Unknown'}
-      artistAvatar={`${ASSETS_URL}${user?.avatar?.url}`}
-      artistProfilePath={`/artist/${user?.username}`}
-    />
-  )
+export const Default: Story = {
+  args: {
+    title: art.title_en,
+    description: art.description_en,
+    artistName: art.artist?.name || art.artist?.username || 'Unknown',
+    artistAvatar: `${ASSETS_URL}${user?.avatar?.url}`,
+    artistProfilePath: `/artist/${art.artist?.username}`,
+  },
 }
-
-export const Default = Template.bind({})

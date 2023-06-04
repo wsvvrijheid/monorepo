@@ -1,4 +1,4 @@
-import { Story, Meta } from '@storybook/react'
+import { StoryObj, Meta } from '@storybook/react'
 
 import { SearchForm, SearchFormProps } from '.'
 
@@ -7,9 +7,6 @@ export default {
   component: SearchForm,
 } as Meta<typeof SearchForm>
 
-const Template: Story<SearchFormProps> = args => {
-  return <SearchForm {...args} />
-}
+type Story = StoryObj<SearchFormProps>
 
-export const Default = Template.bind({})
-Default.args = {}
+export const Default: Story = {}

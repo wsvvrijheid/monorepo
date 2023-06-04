@@ -10,11 +10,5 @@
   },
   "dependencies": {
     "@mollie/api-client": "^3.7.0"
-  },
-  "devDependencies": {
-    "eslint": "^8.41.0",
-    "eslint-config-custom": "*",
-    "tsconfig": "*",
-    "typescript": "^5.1.3"
   }
 }

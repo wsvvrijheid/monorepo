@@ -2,7 +2,7 @@
   "private": true,
   "scripts": {
     "build": "turbo run build --filter=!api",
-    "dev": "turbo run dev --concurrency=20",
+    "dev": "dotenv -- turbo run dev --concurrency=20",
     "dashboard": "turbo run dashboard --concurrency=20",
     "foundation": "turbo run foundation --concurrency=20",
     "kunsthalte": "turbo run kunsthalte --concurrency=20",
@@ -17,9 +17,10 @@
   "devDependencies": {
     "@turbo/gen": "^1.10.1",
     "dotenv-cli": "^7.2.1",
-    "eslint": "^8.41.0",
-    "eslint-config-custom": "*",
+    "eslint": "^8.42.0",
+    "eslint-config-wsvvrijheid": "*",
     "prettier": "^2.8.8",
+    "tsconfig": "*",
     "turbo": "^1.10.1"
   },
   "name": "wees-turbo",

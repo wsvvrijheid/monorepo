@@ -1,18 +1,15 @@
-import { Meta, Story } from '@storybook/react'
+import { Meta, StoryObj } from '@storybook/react'
 
 import { FilePicker, FilePickerProps } from './FilePicker'
 
 export default {
   component: FilePicker,
   title: 'Shared/FilePicker',
+  argTypes: {
+    setFiles: { action: 'setFiles' },
+  },
 } as Meta<FilePickerProps>
 
-const Template: Story<FilePickerProps> = args => (
-  <FilePicker
-    {...args}
-    onLoaded={(files, previews) => console.log(files, previews)}
-  />
-)
+type Story = StoryObj<FilePickerProps>
 
-export const Default = Template.bind({})
-Default.args = {}
+export const Default: Story = {}

@@ -1,4 +1,4 @@
-import { Story, Meta } from '@storybook/react'
+import { StoryObj, Meta } from '@storybook/react'
 
 import { ProfileMenu } from './ProfileMenu'
 import { ProfileMenuProps } from './types'
@@ -10,7 +10,6 @@ export default {
   args: PROFILE,
 } as Meta<ProfileMenuProps>
 
-const Template: Story<ProfileMenuProps> = args => <ProfileMenu {...args} />
+type Story = StoryObj<ProfileMenuProps>
 
-export const Default = Template.bind({})
-Default.args = {}
+export const Default: Story = {}

@@ -1,5 +1,5 @@
 import { Box, Grid } from '@chakra-ui/react'
-import { StoryFn, Meta } from '@storybook/react'
+import { StoryFn, Meta, StoryObj } from '@storybook/react'
 
 import { CategoryFilterSkeleton } from './CategoryFilterSkeleton'
 import { Container } from '../Container'
@@ -16,6 +16,8 @@ export default {
   ],
 } as Meta<typeof CategoryFilterSkeleton>
 
+type Story = StoryObj<typeof CategoryFilterSkeleton>
+
 const Template: StoryFn<typeof CategoryFilterSkeleton> = args => {
   return (
     <Grid gridTemplateColumns="300px 1fr">
@@ -26,5 +28,6 @@ const Template: StoryFn<typeof CategoryFilterSkeleton> = args => {
   )
 }
 
-export const Default = Template.bind({})
-Default.args = {}
+export const Default: Story = {
+  render: Template,
+}

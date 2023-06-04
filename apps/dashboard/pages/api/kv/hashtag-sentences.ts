@@ -26,8 +26,6 @@ const handler = async (req: NextRequest) => {
       try {
         const { hashtagId, value, index } = await req.json()
 
-        console.log('{ hashtagId, value, index }', { hashtagId, value, index })
-
         const response = await kv.lset(`hashtag:${hashtagId}`, index, value)
 
         return NextResponse.json(response)

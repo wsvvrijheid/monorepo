@@ -10,7 +10,7 @@ import {
   Spinner,
   VStack,
 } from '@chakra-ui/react'
-import { Story, Meta } from '@storybook/react'
+import { StoryFn, Meta, StoryObj } from '@storybook/react'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
@@ -31,7 +31,9 @@ export default {
   },
 } as Meta<CategoryFilterProps>
 
-const Template: Story<CategoryFilterProps> = args => {
+type Story = StoryObj<CategoryFilterProps>
+
+const StoryWithHook: StoryFn<CategoryFilterProps> = args => {
   const changeParam = useChangeParams()
   const [selectedCategories, setSelectedCategories] = useState<string[]>([])
   const [isLoading, setIsLoading] = useState(false)
@@ -76,18 +78,26 @@ const Template: Story<CategoryFilterProps> = args => {
   )
 }
 
-export const Default = Template.bind({})
+export const Default: Story = {
+  render: StoryWithHook,
+}
 
-export const InitialCategories = Template.bind({})
-InitialCategories.parameters = {
-  nextRouter: {
-    query: {
-      categories: '0=painting&1=nature',
+export const InitialCategories: Story = {
+  render: StoryWithHook,
+  parameters: {
+    nextjs: {
+      router: {
+        query: {
+          categories: '0=painting&1=nature',
+        },
+      },
     },
   },
 }
 
-export const Debounced = Template.bind({})
-Debounced.args = {
-  debounce: 3000,
+export const Debounced: Story = {
+  render: StoryWithHook,
+  args: {
+    debounce: 3000,
+  },
 }

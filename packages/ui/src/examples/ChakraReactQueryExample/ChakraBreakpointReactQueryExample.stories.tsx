@@ -1,4 +1,4 @@
-import { Meta, Story } from '@storybook/react'
+import { Meta, StoryFn, StoryObj } from '@storybook/react'
 import { useMutation } from '@tanstack/react-query'
 
 import {
@@ -10,6 +10,8 @@ export default {
   component: ChakraBreakpointExample,
   title: 'Example/ChakraBreakpointReactQueryExample',
 } as Meta<ChakraBreakpointExampleProps> // or Meta<typeof ChakraBreakpointExample>
+
+type Story = StoryObj<ChakraBreakpointExampleProps> // or StoryObj<typeof ChakraBreakpointExample>
 
 // Ref: https://javascript.info/task/delay-promise
 const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
@@ -28,8 +30,7 @@ const sendMessage = async (message: string) => {
   return 'Success'
 }
 
-// or StoryFn<typeof ChakraBreakpointExample>
-const Template: Story<ChakraBreakpointExampleProps> = args => {
+const StoryWithHook: StoryFn<ChakraBreakpointExampleProps> = args => {
   const { mutate, isSuccess, isError, isLoading } = useMutation({
     mutationKey: ['send-message'],
     mutationFn: ({ message }: { message: string }) => sendMessage(message),
@@ -45,15 +46,21 @@ const Template: Story<ChakraBreakpointExampleProps> = args => {
   )
 }
 
-export const Default = Template.bind({})
+export const Default: Story = {
+  render: StoryWithHook,
+}
 Default.args = {}
 
-export const Loading = Template.bind({})
-Loading.args = {
-  isLoading: true,
+export const Loading = {
+  render: StoryWithHook,
+  args: {
+    isLoading: true,
+  },
 }
 
-export const Error = Template.bind({})
-Error.args = {
-  isError: true,
+export const Error = {
+  render: StoryWithHook,
+  args: {
+    isError: true,
+  },
 }

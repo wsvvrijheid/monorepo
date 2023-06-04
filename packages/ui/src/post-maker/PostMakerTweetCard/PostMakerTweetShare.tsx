@@ -44,7 +44,7 @@ export const PostMakerTweetShare: FC<PostMakerTweetShareProps> = ({
               <IconButton
                 as="span"
                 isRound
-                aria-label="share on whatsapp"
+                aria-label="share on facebook"
                 icon={<FaFacebook />}
               />
             </FacebookShareButton>

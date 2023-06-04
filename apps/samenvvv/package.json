@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "samenvvv": "next dev",
+    "dev": "dotenv -e ../../.env.local next dev",
+    "samenvvv": "dotenv -e ../../.env.local next dev",
     "build": "next build",
     "start": "next start",
     "clean": "rm -rf node_modules .turbo .next",
@@ -37,10 +37,7 @@
   "devDependencies": {
     "@types/node": "^20.2.5",
     "@types/react": "18.2.2",
-    "@types/react-dom": "18.2.4",
-    "eslint-config-custom": "*",
-    "tsconfig": "*",
-    "typescript": "^5.1.3"
+    "@types/react-dom": "18.2.4"
   },
   "resolutions": {
     "@types/react": "18.2.2"

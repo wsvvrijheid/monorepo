@@ -1,4 +1,4 @@
-import { Story, Meta } from '@storybook/react'
+import { StoryObj, Meta, StoryFn } from '@storybook/react'
 
 import { BLOG_MOCKS } from '@wsvvrijheid/mocks'
 
@@ -12,7 +12,9 @@ export default {
   },
 } as Meta<BlogTemplateProps>
 
-const Template: Story<BlogTemplateProps> = args => {
+type Story = StoryObj<BlogTemplateProps>
+
+const Template: StoryFn<BlogTemplateProps> = args => {
   const blogSeo = {
     en: {
       title: 'Blog',
@@ -34,6 +36,6 @@ const Template: Story<BlogTemplateProps> = args => {
   return <BlogTemplate seo={args.seo || seo} blogs={args.blogs || blogs} />
 }
 
-export const Default = Template.bind({})
-
-Default.args = {}
+export const Default: Story = {
+  render: Template,
+}

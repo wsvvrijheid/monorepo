@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import { Story, Meta } from '@storybook/react'
+import { StoryFn, Meta, StoryObj } from '@storybook/react'
 import { useRouter } from 'next/router'
 import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { serialize } from 'next-mdx-remote/serialize'
@@ -30,7 +30,9 @@ export default {
   ],
 } as Meta<BlogDetailProps>
 
-const Template: Story<BlogDetailProps> = args => {
+type Story = StoryObj<BlogDetailProps>
+
+const StoryWithHook: StoryFn<BlogDetailProps> = args => {
   const { locale } = useRouter()
   const [isLiked, setIsLiked] = useState(false)
   const [source, setSource] = useState<MDXRemoteSerializeResult>()
@@ -69,4 +71,6 @@ const Template: Story<BlogDetailProps> = args => {
   )
 }
 
-export const Default = Template.bind({})
+export const Default: Story = {
+  render: StoryWithHook,
+}

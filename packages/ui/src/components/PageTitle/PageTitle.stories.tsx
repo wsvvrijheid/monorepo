@@ -1,4 +1,4 @@
-import { StoryFn, Meta } from '@storybook/react'
+import { StoryObj, Meta } from '@storybook/react'
 
 import { PageTitle } from './PageTitle'
 
@@ -7,9 +7,10 @@ export default {
   title: 'Shared/PageTitle',
 } as Meta<typeof PageTitle>
 
-const Template: StoryFn<typeof PageTitle> = args => <PageTitle {...args} />
+type Story = StoryObj<typeof PageTitle>
 
-export const Default = Template.bind({})
-Default.args = {
-  children: 'Page Title',
+export const Default: Story = {
+  args: {
+    children: 'Page Title',
+  },
 }

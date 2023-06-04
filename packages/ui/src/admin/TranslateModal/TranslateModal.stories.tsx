@@ -1,5 +1,5 @@
 import { Box, Button, Container, useDisclosure } from '@chakra-ui/react'
-import { Meta, StoryFn } from '@storybook/react'
+import { Meta, StoryFn, StoryObj } from '@storybook/react'
 import { sample } from 'lodash'
 
 import {
@@ -23,7 +23,9 @@ export default {
   ],
 } as Meta<typeof TranslateModal>
 
-const Template: StoryFn<typeof TranslateModal> = args => {
+type Story = StoryObj<typeof TranslateModal>
+
+const StoryWithHooks: StoryFn<typeof TranslateModal> = args => {
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   const handleApprove = (Id: number, content: string) => {
@@ -55,22 +57,30 @@ const Template: StoryFn<typeof TranslateModal> = args => {
   )
 }
 
-export const ActivityModel = Template.bind({})
-ActivityModel.args = {
-  model: sample(ACTIVITY_MOCKS.tr.data),
+export const ActivityModel: Story = {
+  render: StoryWithHooks,
+  args: {
+    model: sample(ACTIVITY_MOCKS.tr.data),
+  },
 }
 
-export const AnnouncementModel = Template.bind({})
-AnnouncementModel.args = {
-  model: sample(ANNOUNCEMENT_MOCKS.tr.data),
+export const AnnouncementModel: Story = {
+  render: StoryWithHooks,
+  args: {
+    model: sample(ANNOUNCEMENT_MOCKS.tr.data),
+  },
 }
 
-export const BlogModel = Template.bind({})
-BlogModel.args = {
-  model: sample(BLOG_MOCKS.tr.data),
+export const BlogModel: Story = {
+  render: StoryWithHooks,
+  args: {
+    model: sample(BLOG_MOCKS.tr.data),
+  },
 }
 
-export const HashtagModel = Template.bind({})
-HashtagModel.args = {
-  model: sample(HASHTAG_MOCKS.tr.data),
+export const HashtagModel: Story = {
+  render: StoryWithHooks,
+  args: {
+    model: sample(HASHTAG_MOCKS.tr.data),
+  },
 }

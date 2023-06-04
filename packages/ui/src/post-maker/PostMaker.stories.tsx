@@ -1,6 +1,6 @@
 import { useBreakpointValue } from '@chakra-ui/react'
 import { TourProvider } from '@reactour/tour'
-import { Meta, StoryFn } from '@storybook/react'
+import { Meta, StoryFn, StoryObj } from '@storybook/react'
 
 import { PostMaker } from './PostMaker'
 import { StepsContent } from '../components'
@@ -11,7 +11,9 @@ export default {
   component: PostMaker,
 } as Meta<typeof PostMaker>
 
-const Template: StoryFn<typeof PostMaker> = () => {
+type Story = StoryObj<typeof PostMaker>
+
+const StoryWithHook: StoryFn<typeof PostMaker> = () => {
   const isMobile = useBreakpointValue({ base: true, lg: false })
   const postMakerSteps = usePostMakerSteps()
 
@@ -36,4 +38,6 @@ const Template: StoryFn<typeof PostMaker> = () => {
   )
 }
 
-export const Default = Template.bind({})
+export const Default: Story = {
+  render: StoryWithHook,
+}

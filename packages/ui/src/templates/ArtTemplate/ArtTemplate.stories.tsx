@@ -1,4 +1,4 @@
-import { Meta, Story } from '@storybook/react'
+import { Meta, StoryObj } from '@storybook/react'
 import { sample } from 'lodash'
 
 import { ART_MOCKS } from '@wsvvrijheid/mocks'
@@ -21,9 +21,6 @@ export default {
   },
 } as Meta<ArtTemplateProps>
 
-const Template: Story<ArtTemplateProps> = args => {
-  return <ArtTemplate {...args} />
-}
+type Story = StoryObj<ArtTemplateProps>
 
-export const Default = Template.bind({})
-Default.args = {} as ArtTemplateProps
+export const Default: Story = {}
