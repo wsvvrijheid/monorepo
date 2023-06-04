@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "samenvvv": "next dev",
+    "dev": "dotenv -e ../../.env.local next dev",
+    "samenvvv": "dotenv -e ../../.env.local next dev",
     "build": "next build",
     "start": "next start",
     "clean": "rm -rf node_modules .turbo .next",
