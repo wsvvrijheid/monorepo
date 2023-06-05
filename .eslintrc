@@ -1,0 +1,12 @@
+{
+  "root": true,
+  "extends": ["wsvvrijheid"],
+  "settings": {
+    "next": {
+      "rootDir": ["apps/*/"]
+    }
+  },
+  "rules": {
+    "import/no-anonymous-default-export": "off"
+  }
+}

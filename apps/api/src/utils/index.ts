@@ -1,2 +1,3 @@
 export * from './getReferenceModel'
-export * from './mapTweetResponseToTweet'
+export * from './mapTweetV1ResponseToTweet'
+export * from './mapTweetV2ResponseToTweet'

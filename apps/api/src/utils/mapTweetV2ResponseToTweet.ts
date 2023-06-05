@@ -1,7 +1,8 @@
 import { ApiV2Includes, TweetV2, UserV1 } from 'twitter-api-v2'
+
 import { Tweet } from '../libs'
 
-export const mapTweetResponseToTweet = (
+export const mapTweetV2ResponseToTweet = (
   tweetsData: TweetV2[],
   includes: ApiV2Includes,
   userData?: UserV1,
