@@ -54,7 +54,7 @@ export const ModelImage: FC<ModelImageProps> = ({
       return (
         <Stack>
           {image && <Button onClick={setIsChangingImage.off}>Cancel</Button>}
-          <FilePicker setFiles={files => setValue(name, files[0])} />
+          <FilePicker onLoaded={files => setValue(name, files[0])} />
         </Stack>
       )
     } else if (!image) {
