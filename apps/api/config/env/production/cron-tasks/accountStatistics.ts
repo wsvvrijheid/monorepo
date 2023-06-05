@@ -6,6 +6,7 @@ export default async ({ strapi }) => {
 
     if (!accounts) {
       console.log('No accounts found')
+
       return
     }
 

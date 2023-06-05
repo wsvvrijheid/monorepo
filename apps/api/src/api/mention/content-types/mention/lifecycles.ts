@@ -1,4 +1,5 @@
 import { UserV1 } from 'twitter-api-v2'
+
 import { twitterApi } from '../../../../libs'
 
 type MentionUserData = Pick<
@@ -16,8 +17,6 @@ type MentionUserData = Pick<
 
 export default {
   async afterCreate({ result }) {
-    if (process.env.IMPORTING === 'true') return
-
     try {
       const user = await twitterApi.v1.user({
         screen_name: result.username as unknown as string,

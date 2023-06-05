@@ -169,8 +169,12 @@ export const CreateModelButton = () => {
                   isOpen={isOpenPost}
                   onClose={onClosePost}
                 />
-                <Button colorScheme="green"  variant= 'outline' onClick={onOpenPost} >
-                {t('create-multiple-post')}
+                <Button
+                  colorScheme="green"
+                  variant="outline"
+                  onClick={onOpenPost}
+                >
+                  {t('create-multiple-post')}
                 </Button>
                 <ModelCreateModal<RecommendedTopic>
                   title="Create News"

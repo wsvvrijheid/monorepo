@@ -52,7 +52,7 @@ export const CreatePostFromCapsModal = ({ isOpen, onClose }) => {
 
   const onCreate = () => {
     const hashtags = watch('hashtags')
-console.log("hashtags",hashtags)
+
     Object?.values(state).map(async item => {
       const { text, file, id } = item
 
@@ -77,20 +77,19 @@ console.log("hashtags",hashtags)
       const postBody = bodyData as PostCreateInput
       postBody.imageParams = imageProps
 
-     try {
-       const value = await createPostMutation.mutateAsync(body)
-      if (text === value.description) {
-        setState(prev => {
-          const prevState = { ...prev }
-          delete prevState[id]
+      try {
+        const value = await createPostMutation.mutateAsync(body)
+        if (text === value.description) {
+          setState(prev => {
+            const prevState = { ...prev }
+            delete prevState[id]
 
-          return { ...prevState }
-        })
+            return { ...prevState }
+          })
+        }
+      } catch (error) {
+        console.log('error', error)
       }
-     } catch (error) {
-      console.log("error",error)
-     }
-     
     })
     setRecognized(false)
   }

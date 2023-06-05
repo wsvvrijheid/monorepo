@@ -9,6 +9,7 @@
     "foundation": "strapi dev",
     "kunsthalte": "strapi dev",
     "samenvvv": "strapi dev",
+    "lint": "eslint .",
     "start": "strapi start",
     "build": "strapi build",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",

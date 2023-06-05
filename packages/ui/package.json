@@ -34,7 +34,7 @@
     "chart.js": "^4.3.0",
     "framer-motion": "^10.12.16",
     "i18next": "^22.5.0",
-    "next-i18next": "^13.2.2",
+    "next-i18next": "^13.3.0",
     "next-mdx-remote": "^4.4.1",
     "next-recaptcha-v3": "^1.1.5",
     "next-seo": "^6.0.0",

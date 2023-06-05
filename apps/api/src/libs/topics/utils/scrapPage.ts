@@ -1,5 +1,6 @@
-import { load } from 'cheerio'
 import axios from 'axios'
+import { load } from 'cheerio'
+
 import { ScrapPage, Topic } from './types'
 
 export const scrapPage: ScrapPage = async ({
