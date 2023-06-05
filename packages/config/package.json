@@ -7,9 +7,5 @@
   "scripts": {
     "lint": "eslint \"**/*.ts*\"",
     "clean": "rm -rf .turbo node_modules"
-  },
-  "dependencies": {
-    "next-seo": "^6.0.0",
-    "react-icons": "^4.9.0"
   }
 }

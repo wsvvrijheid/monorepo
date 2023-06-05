@@ -7,9 +7,5 @@
   "scripts": {
     "lint": "eslint \"**/*.ts*\"",
     "clean": "rm -rf .turbo node_modules"
-  },
-  "dependencies": {
-    "date-fns-tz": "^2.0.0",
-    "next-seo": "^6.0.0"
   }
 }

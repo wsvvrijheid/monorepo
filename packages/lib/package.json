@@ -7,9 +7,5 @@
   "scripts": {
     "lint": "eslint \"**/*.ts*\"",
     "clean": "rm -rf .turbo node_modules"
-  },
-  "dependencies": {
-    "axios": "^1.4.0",
-    "qs": "^6.11.2"
   }
 }

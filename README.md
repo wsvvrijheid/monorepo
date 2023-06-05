@@ -61,8 +61,5 @@ yarn format # Formats all files
 ### Install Packages
 
 ```bash
-# Apps
-yarn workspace foundation add recharts
-# Packages
-yarn workspace @wsvvrijheid/ui add recharts
+yarn add -W <package-name>
 ```

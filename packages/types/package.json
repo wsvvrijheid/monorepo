@@ -7,9 +7,5 @@
   "scripts": {
     "lint": "eslint \"**/*.ts*\"",
     "clean": "rm -rf .turbo node_modules"
-  },
-  "dependencies": {
-    "iron-session": "^6.3.1",
-    "twitter-api-v2": "^1.15.0"
   }
 }
