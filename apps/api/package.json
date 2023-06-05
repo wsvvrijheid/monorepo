@@ -28,17 +28,13 @@
     "@strapi/plugin-users-permissions": "4.10.7",
     "@strapi/provider-email-nodemailer": "4.10.7",
     "@strapi/strapi": "4.10.7",
-    "axios": "1.4.0",
     "cheerio": "^1.0.0-rc.12",
-    "date-fns": "^2.30.0",
-    "lodash": "^4.17.21",
     "pg": "^8.11.0",
     "pg-connection-string": "^2.6.0",
     "request": "^2.88.2",
     "sharp": "^0.32.1",
     "strapi-plugin-import-export-entries": "^1.20.0",
-    "strapi-plugin-transformer": "^3.1.0",
-    "twitter-api-v2": "^1.15.0"
+    "strapi-plugin-transformer": "^3.1.0"
   },
   "author": {
     "name": "A Strapi developer"
