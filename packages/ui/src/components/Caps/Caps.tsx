@@ -146,16 +146,16 @@ export const Caps = forwardRef<CapsProps, 'div'>(
                 pos={'absolute'}
                 top={dimensions.padding}
                 bottom={dimensions.padding}
-                left={
-                  `${flip
+                left={`${
+                  flip
                     ? dimensions.image + dimensions.shape
-                    : dimensions.padding}px`
-                }
-                right={
-                  `${flip
+                    : dimensions.padding
+                }px`}
+                right={`${
+                  flip
                     ? dimensions.padding
-                    : dimensions.image + dimensions.shape}px`
-                }
+                    : dimensions.image + dimensions.shape
+                }px`}
                 spacing={`${dimensions.font / 2}px`}
                 userSelect={'none'}
               >
