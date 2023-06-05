@@ -1,7 +1,7 @@
-import tweets from './tweets'
+import accountStatistics from './accountStatistics'
 import hashtags from './hashtags'
 import timeline from './timeline'
-import accountStatistics from './accountStatistics'
+import tweets from './tweets'
 import userStats from './userStats'
 
 export default {

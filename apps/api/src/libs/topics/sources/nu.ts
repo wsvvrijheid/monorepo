@@ -1,4 +1,5 @@
 import { AxiosHeaders } from 'axios'
+
 import { scrapTopics } from '../utils/scrapTopics'
 import { FormatTopic, Locale, Publisher, PageSelectors } from '../utils/types'
 

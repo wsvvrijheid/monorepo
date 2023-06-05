@@ -1,4 +1,5 @@
 import { factories } from '@strapi/strapi'
+
 import { getReferenceModel } from '../../../utils'
 
 export default factories.createCoreController(

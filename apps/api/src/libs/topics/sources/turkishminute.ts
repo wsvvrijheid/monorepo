@@ -29,6 +29,7 @@ export const getTurkishMinuteNews = async () => {
     })
   } catch (error) {
     console.error('Scrap topics error', error)
+
     return []
   }
 }
