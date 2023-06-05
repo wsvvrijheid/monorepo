@@ -8,7 +8,11 @@ import {
   ModalOverlay,
   Stack,
 } from '@chakra-ui/react'
-import { GetServerSideProps } from 'next'
+import {
+  GetServerSideProps,
+  GetServerSidePropsContext,
+  InferGetServerSidePropsType,
+} from 'next'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
@@ -22,12 +26,9 @@ import { getItemLink, getOgImageSrc } from '@wsvvrijheid/utils'
 
 import i18nConfig from '../../../next-i18next.config'
 
-interface PostProps {
-  seo: NextSeoProps
-  post: Post
-}
+type PostProps = InferGetServerSidePropsType<typeof getServerSideProps>
 
-const Post = ({ seo, post }: PostProps) => {
+const Post = ({ seo, post, imgSrc }: PostProps) => {
   const router = useRouter()
 
   const back = () => {
@@ -38,10 +39,7 @@ const Post = ({ seo, post }: PostProps) => {
     <>
       <NextSeo {...seo} />
       <Head>
-        <meta
-          property="twitter:image:src"
-          content={seo.openGraph.images[0].url}
-        />
+        <meta property="twitter:image:src" content={imgSrc} />
       </Head>
       <Modal isCentered isOpen={true} onClose={() => null}>
         <ModalOverlay />
@@ -63,7 +61,9 @@ const Post = ({ seo, post }: PostProps) => {
 
 export default Post
 
-export const getServerSideProps: GetServerSideProps = async context => {
+export const getServerSideProps = async (
+  context: GetServerSidePropsContext,
+) => {
   const locale = context.locale as StrapiLocale
   const id = context.params?.id as string
 
@@ -79,25 +79,33 @@ export const getServerSideProps: GetServerSideProps = async context => {
   const title = post?.description?.slice(0, 20) || ''
   const description = post.description || ''
   const image = post?.image
+  const caps = post?.caps?.url
+
   let src = image?.url
   const link = getItemLink(post, locale, 'post') as string
 
-  if (image?.formats?.small) {
-    src = image.formats.small.url
-  } else if (image?.formats?.medium) {
-    src = image.formats.medium.url
-  } else if (image?.formats?.large) {
-    src = image.formats.large.url
-  }
+  let imgSrc: string
 
-  const imgSrc =
-    SITE_URL +
-    getOgImageSrc({
-      title: post.title,
-      text: post.description,
-      image: src ? `${ASSETS_URL}${src}` : undefined,
-      ...post.imageParams,
-    })
+  if (caps) {
+    imgSrc = `${ASSETS_URL}${caps}`
+  } else {
+    if (image?.formats?.small) {
+      src = image.formats.small.url
+    } else if (image?.formats?.medium) {
+      src = image.formats.medium.url
+    } else if (image?.formats?.large) {
+      src = image.formats.large.url
+    }
+
+    imgSrc =
+      SITE_URL +
+      getOgImageSrc({
+        title: post.title,
+        text: post.description,
+        image: src ? `${ASSETS_URL}${src}` : undefined,
+        ...post.imageParams,
+      })
+  }
 
   const images = image && [
     {
