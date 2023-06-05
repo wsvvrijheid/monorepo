@@ -1,7 +1,7 @@
 import { Context } from 'koa'
 
 import { twitterApi } from '../../../libs'
-import { getReferenceModel, mapTweetResponseToTweet } from '../../../utils'
+import { getReferenceModel, mapTweetV2ResponseToTweet } from '../../../utils'
 
 export default {
   async search(ctx) {
@@ -17,7 +17,7 @@ export default {
       const tweetsData = result?.data.data
       const includes = result?.data.includes
 
-      const tweets = mapTweetResponseToTweet(tweetsData, includes)
+      const tweets = mapTweetV2ResponseToTweet(tweetsData, includes)
 
       ctx.send(tweets)
     } catch (error) {

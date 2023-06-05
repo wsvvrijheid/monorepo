@@ -1,4 +1,5 @@
 import { format } from 'date-fns'
+
 import { getStats } from '../../../../src/libs'
 
 export default async ({ strapi }) => {

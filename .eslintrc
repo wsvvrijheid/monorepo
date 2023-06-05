@@ -1,0 +1,9 @@
+{
+  "root": true,
+  "extends": ["wsvvrijheid"],
+  "settings": {
+    "next": {
+      "rootDir": ["apps/*/"]
+    }
+  }
+}

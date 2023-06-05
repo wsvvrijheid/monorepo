@@ -1,5 +1,6 @@
-import { load } from 'cheerio'
 import axios from 'axios'
+import { load } from 'cheerio'
+
 import { ScrapLinks } from './types'
 
 export const scrapLinks: ScrapLinks = async ({

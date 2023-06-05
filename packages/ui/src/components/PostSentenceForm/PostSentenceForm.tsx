@@ -28,8 +28,6 @@ export const PostSentenceForm: FC<PostSentenceFormProps> = ({
   const onAddMutation = useCreateHashtagSentence()
 
   const handleAdd = () => {
-    console.log('hashtagId', hashtag.id)
-    console.log('id', id)
     onAddMutation.mutate(
       { hashtagId: hashtag.id, value: `${value}::${id}::${0}::${0}` },
       {

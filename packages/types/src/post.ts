@@ -27,7 +27,6 @@ export type PostRelationInput = {
   image: File
   video: File
   caps: File
-
   hashtag: number
   tags?: Array<number>
   translator?: number
