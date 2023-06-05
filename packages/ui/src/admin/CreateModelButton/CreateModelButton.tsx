@@ -52,6 +52,7 @@ import { CreatePostFromCapsModal } from '../CreatePostFromCapsModal'
 import { ModelCreateModal } from '../ModelForm'
 
 export const CreateModelButton = () => {
+  // @ts-ignore
   const { t } = useTranslation()
   const {
     isOpen: isOpenPost,
