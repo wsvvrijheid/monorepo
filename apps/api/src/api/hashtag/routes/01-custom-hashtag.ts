@@ -15,5 +15,15 @@ export default {
       path: '/hashtags/relation/:id',
       handler: 'custom.relation',
     },
+    {
+      method: 'POST',
+      path: '/hashtags/events',
+      handler: 'custom.hashtagEventStats',
+    },
+    {
+      method: 'GET',
+      path: '/hashtags/stats',
+      handler: 'custom.getHashtagStats',
+    },
   ],
 }
