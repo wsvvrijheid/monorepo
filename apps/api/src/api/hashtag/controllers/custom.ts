@@ -1,13 +1,26 @@
+import { addHours } from 'date-fns'
 import { Context } from 'koa'
-import { ETwitterStreamEvent } from 'twitter-api-v2'
+import { ETwitterStreamEvent, TweetV2SingleResult } from 'twitter-api-v2'
+
+import { Hashtag } from '@wsvvrijheid/types'
 
 import { twitterApi } from '../../../libs'
 import { getReferenceModel, mapTweetV2ResponseToTweet } from '../../../utils'
 
 let isStarted = false
 
+type TweetStats = {
+  retweet: number
+  tweet: number
+  getRetweeted: number
+  replies: number
+  getReplies: number
+  total: number
+  username: string
+}
+
 class Store {
-  store: object
+  store: Record<string, TweetStats>
   totalActivity: number
   constructor() {
     this.store = {}
@@ -82,7 +95,7 @@ class Store {
 const store = new Store()
 
 export default {
-  async search(ctx) {
+  async search(ctx: Context) {
     try {
       const result = await twitterApi.v2.search({
         query: ctx.query.q as string,
@@ -134,9 +147,8 @@ export default {
 
     return { data: result }
   },
-
   async hashtagEventStats(ctx: Context) {
-    const { duration } = ctx.query
+    const duration = parseInt(ctx.query.duration as string)
 
     // check if stream is started
     if (isStarted) {
@@ -149,35 +161,37 @@ export default {
     }
 
     // check if duration is a number
-    if (Number.isNaN(parseInt(duration as string))) {
+    if (Number.isNaN(duration)) {
       return { message: 'Duration is not a number' }
     }
 
     try {
-      const sixHoursAgo = new Date(
-        Date.now() - 0.5 * 60 * 60 * 1000,
-      ).toISOString()
+      const sixHoursAgo = addHours(new Date(), -6).toISOString()
 
       // get hashtags
-      const data = await strapi.entityService.findMany('api::hashtag.hashtag', {
-        filters: {
-          publishedAt: {
-            $gte: sixHoursAgo,
+      const data = (await strapi.entityService.findMany(
+        'api::hashtag.hashtag',
+        {
+          filters: {
+            date: {
+              $gte: sixHoursAgo,
+            },
           },
         },
-      })
+      )) as Hashtag[]
 
       // check if there is no hashtags
       if (!data || data.length === 0) return 'No hashtags in the last 6 hours'
 
       // convert hashtags to rule format
-      const hashtags = data.map(hashtag => ({
+      const hashtagRules = data.map(hashtag => ({
         value: hashtag.hashtagDefault,
         tag: hashtag.hashtagDefault,
       }))
 
       // reset rules
       const rules = await twitterApi.v2.streamRules()
+
       if (rules.data?.length) {
         await twitterApi.v2.updateStreamRules({
           delete: { ids: rules.data.map(rule => rule.id) },
@@ -186,27 +200,30 @@ export default {
 
       // add your rules here
       await twitterApi.v2.updateStreamRules({
-        add: hashtags,
+        add: hashtagRules,
       })
 
       // start stream
-      const stream = await twitterApi.v2.getStream('tweets/search/stream', {
-        'tweet.fields': [
-          'entities',
-          'text',
-          'public_metrics',
-          'created_at',
-          'referenced_tweets',
-          'in_reply_to_user_id',
-          'reply_settings',
-        ],
-        'user.fields': ['username', 'name', 'profile_image_url'],
-        expansions: [
-          'author_id',
-          'referenced_tweets.id',
-          'in_reply_to_user_id',
-        ],
-      })
+      const stream = await twitterApi.v2.getStream<TweetV2SingleResult>(
+        'tweets/search/stream',
+        {
+          'tweet.fields': [
+            'entities',
+            'text',
+            'public_metrics',
+            'created_at',
+            'referenced_tweets',
+            'in_reply_to_user_id',
+            'reply_settings',
+          ],
+          'user.fields': ['username', 'name', 'profile_image_url'],
+          expansions: [
+            'author_id',
+            'referenced_tweets.id',
+            'in_reply_to_user_id',
+          ],
+        },
+      )
 
       // auto reconnect
       stream.autoReconnect = true
@@ -229,6 +246,7 @@ export default {
           ),
           isReply: tweet.data.in_reply_to_user_id,
         }
+
         store.increment(groupedTweet.user, groupedTweet)
       })
 
@@ -253,12 +271,16 @@ export default {
           getReplies: tweet.getReplies,
           getRetweeted: tweet.getRetweeted,
         }))
+
         // update tweets
-        await strapi.service('api::hashtag.hashtag').update(data[0].id, {
-          data: {
-            tweets,
-          },
-        })
+        await strapi
+          .service('api::hashtag.hashtag')
+          // TODO: Why strapi needs id as string?
+          .update(data[0].id as unknown as string, {
+            data: {
+              tweets,
+            },
+          })
       }, 30 * 60 * 1000)
 
       // close the stream after the duration(hours)
@@ -267,7 +289,7 @@ export default {
         isStarted = false
         store.reset()
         clearInterval(saveTweets)
-      }, parseInt(duration as string) * 60 * 60 * 1000)
+      }, duration * 60 * 60 * 1000)
 
       return { message: 'Stream is open' }
     } catch (error) {
@@ -281,7 +303,6 @@ export default {
       return { message: 'Something went wrong.', error }
     }
   },
-
   async getHashtagStats() {
     const lengthOfUsers = Object.keys(store.store).length
     const mostActiveFiveUsers = Object.values(store.store)
