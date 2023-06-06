@@ -1,5 +1,6 @@
-import { load } from 'cheerio'
 import axios from 'axios'
+import { load } from 'cheerio'
+
 import { ScrapFrontPage, Topic } from './types'
 
 export const scrapFrontPage: ScrapFrontPage = async ({
@@ -33,6 +34,7 @@ export const scrapFrontPage: ScrapFrontPage = async ({
               'News skipped. There is no url in the selector!',
               `publisher: ${publisher}`,
             )
+
             return null
           }
 
@@ -85,6 +87,7 @@ export const scrapFrontPage: ScrapFrontPage = async ({
     ]
 
     console.log(` ${distinctResults.length} ${publisher} news fetched.`)
+
     return distinctResults.map(item => formatTopic(item))
   } catch (error: any) {
     console.error(

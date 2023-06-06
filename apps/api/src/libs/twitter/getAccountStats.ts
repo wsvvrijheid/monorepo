@@ -1,6 +1,6 @@
 import addDays from 'date-fns/addDays'
-import format from 'date-fns/format'
 import formatIso from 'date-fns/formatISO'
+
 import { twitterApi } from './client'
 
 export const getAccountStats = async (

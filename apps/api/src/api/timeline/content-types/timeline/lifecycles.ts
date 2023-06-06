@@ -2,8 +2,6 @@ import { getUserTweets, twitterApi } from '../../../../libs'
 
 export default {
   async afterCreate({ result }) {
-    if (process.env.IMPORTING === 'true') return
-
     try {
       const userData = await twitterApi.v1.user({
         screen_name: result.username,
