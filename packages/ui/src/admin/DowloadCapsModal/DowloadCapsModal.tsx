@@ -70,6 +70,8 @@ export const DowloadCapsModal = () => {
         const capsSrc = post.caps?.url && ASSETS_URL + post.caps?.url
         const imageParams = post.imageParams && {
           image: imageSrc,
+          title,
+          text:description,
           ...post.imageParams,
         }
         const autoCapsSrc = imageParams && SITE_URL + getOgImageSrc(imageParams)
