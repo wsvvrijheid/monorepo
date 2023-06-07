@@ -29,9 +29,9 @@ import { useRouter } from 'next/router'
 import { AiOutlineDownload } from 'react-icons/ai'
 
 import { ASSETS_URL, SITE_URL } from '@wsvvrijheid/config'
-import { useModelById, useSearchModel } from '@wsvvrijheid/services'
+import {  useSearchModel } from '@wsvvrijheid/services'
 import { Post, StrapiLocale } from '@wsvvrijheid/types'
-import { getImageUrl, getOgImageSrc } from '@wsvvrijheid/utils'
+import { getOgImageSrc } from '@wsvvrijheid/utils'
 
 import { Caps, WImage } from '../../components'
 
@@ -39,7 +39,6 @@ export const DowloadCapsModal = ({ hashtagsQuery }) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const btnRef = React.useRef()
   const [hashtagsId, setHashtagId] = useState<number[]>([])
-  const [urls, setUrls] = useState([])
 
   const { locale } = useRouter()
 
@@ -54,8 +53,6 @@ export const DowloadCapsModal = ({ hashtagsQuery }) => {
     publicationState: 'preview',
   })
 
-  console.log('hashtag post query', postsQuery?.data?.data)
-  // console.log("hashtags Id",hashtagsId)
 
   const handleClose = () => {
     setHashtagId([])
@@ -85,10 +82,14 @@ export const DowloadCapsModal = ({ hashtagsQuery }) => {
         const imageUrl = media.caps || media.autoCaps || media.image?.url
 
         if (imageUrl) return
-        setUrls([...urls, imageUrl])
-        const response = await fetch(imageUrl)
-        const blob = await response.blob()
-        imgFolder.file(`image-${index}.jpeg`, blob)
+
+        try {
+          const response = await fetch(imageUrl, { mode: 'no-cors' })
+          const blob = await response.blob()
+          imgFolder.file(`image-${index}.jpeg`, blob)
+        } catch (error) {
+          console.log('try error', error)
+        }
       }),
     )
 
@@ -96,7 +97,6 @@ export const DowloadCapsModal = ({ hashtagsQuery }) => {
 
     saveAs(allImages)
   }
-  console.log('urls', urls)
 
   const hashtagFilter = (
     <MenuOptionGroup
