@@ -66,12 +66,12 @@ export const DowloadCapsModal = () => {
       ?.map(post => {
         const imageSrc = post.image?.url && ASSETS_URL + post.image?.url
         const title = post?.title
-        const description = post?.description
+        const text = post?.description
         const capsSrc = post.caps?.url && ASSETS_URL + post.caps?.url
         const imageParams = post.imageParams && {
           image: imageSrc,
           title,
-          text:description,
+          text,
           ...post.imageParams,
         }
         const autoCapsSrc = imageParams && SITE_URL + getOgImageSrc(imageParams)
@@ -82,7 +82,7 @@ export const DowloadCapsModal = () => {
           autoCapsSrc,
           imageParams,
           title,
-          description,
+          text,
         }
       })
       .filter(Boolean) || []
@@ -187,7 +187,7 @@ export const DowloadCapsModal = () => {
                       imageParams={{
                         image: media.imageSrc,
                         title: media.title,
-                        text: media.description,
+                        text: media.text,
                         ...media.imageParams,
                       }}
                     />
