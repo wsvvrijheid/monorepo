@@ -166,12 +166,6 @@ export const DowloadCapsModal = () => {
                 </Menu>
               )}
               {postMedias.map((media, index) => {
-                const imageParams = {
-                  image: media.imageSrc,
-                  title: media.title,
-                  description: media.description,
-                }
-                console.log('media', media)
                 if (media.capsSrc) {
                   return (
                     <WImage
