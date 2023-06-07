@@ -1,29 +1,24 @@
 import { FC, useEffect, useMemo, useState } from 'react'
 
 import {
-  Button,
-  IconButton,
-  Menu,
-  MenuButton,
   MenuItemOption,
-  MenuList,
   MenuOptionGroup,
+  Stack,
   useUpdateEffect,
 } from '@chakra-ui/react'
 import { InferGetStaticPropsType } from 'next'
 import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
-import { AiOutlineDownload } from 'react-icons/ai'
 
 import { useSearchModel } from '@wsvvrijheid/services'
 import { Hashtag, Post, Sort, StrapiLocale } from '@wsvvrijheid/types'
 import {
   AdminLayout,
   DataTable,
+  DowloadCapsModal,
   PageHeader,
   postColumns,
-  DowloadCapsModal,
 } from '@wsvvrijheid/ui'
 
 import i18nConfig from '../../next-i18next.config'
@@ -109,9 +104,10 @@ const PostsPage: FC<PageProps> = ({ seo }) => {
         onSearch={handleSearch}
         searchPlaceHolder={'Search by title or description'}
       />
-      {/* <Button onClick={handleHashtagId}>Dowload Caps</Button> */}
 
-      <DowloadCapsModal hashtagsQuery={hashtagsQuery} />
+      <Stack>
+        <DowloadCapsModal />
+      </Stack>
       <DataTable<Post>
         columns={postColumns}
         data={posts}

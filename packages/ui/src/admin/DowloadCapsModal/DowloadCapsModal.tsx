@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 
 import {
   Button,
@@ -9,16 +9,11 @@ import {
   DrawerFooter,
   DrawerHeader,
   DrawerOverlay,
-  IconButton,
-  Input,
   Menu,
   MenuButton,
   MenuItemOption,
   MenuList,
   MenuOptionGroup,
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
   Stack,
   useDisclosure,
   useUpdateEffect,
@@ -26,66 +21,88 @@ import {
 import { saveAs } from 'file-saver'
 import JSZip from 'jszip'
 import { useRouter } from 'next/router'
-import { AiOutlineDownload } from 'react-icons/ai'
+import { FaAngleDown, FaDownload } from 'react-icons/fa'
 
 import { ASSETS_URL, SITE_URL } from '@wsvvrijheid/config'
-import {  useSearchModel } from '@wsvvrijheid/services'
-import { Post, StrapiLocale } from '@wsvvrijheid/types'
+import { useSearchModel } from '@wsvvrijheid/services'
+import { Hashtag, Post, StrapiLocale } from '@wsvvrijheid/types'
 import { getOgImageSrc } from '@wsvvrijheid/utils'
 
 import { Caps, WImage } from '../../components'
 
-export const DowloadCapsModal = ({ hashtagsQuery }) => {
+export const DowloadCapsModal = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const btnRef = React.useRef()
-  const [hashtagsId, setHashtagId] = useState<number[]>([])
+  const [hashtagsId, setHashtagId] = useState<number>(0)
 
   const { locale } = useRouter()
+
+  const hashtagsQuery = useSearchModel<Hashtag>({
+    url: 'api/hashtags',
+    locale: locale as StrapiLocale,
+    publicationState: 'preview',
+    fields: ['id', 'title'],
+  })
 
   const postsQuery = useSearchModel<Post>({
     url: 'api/posts',
     relationFilter: {
       parent: 'hashtag',
-      ids: hashtagsId,
+      ids: [hashtagsId],
     },
     locale: locale as StrapiLocale,
     statuses: ['approved'],
     publicationState: 'preview',
   })
 
-
   const handleClose = () => {
-    setHashtagId([])
+    setHashtagId(0)
 
     onClose()
   }
+
+  const postMedias =
+    postsQuery?.data?.data
+      ?.map(post => {
+        const imageSrc = post.image?.url && ASSETS_URL + post.image?.url
+        const capsSrc = post.caps?.url && ASSETS_URL + post.caps?.url
+        const imageParams = post.imageParams && {
+          image: imageSrc,
+          ...post.imageParams,
+        }
+        const autoCapsSrc = imageParams && SITE_URL + getOgImageSrc(imageParams)
+
+        return {
+          imageSrc,
+          capsSrc,
+          autoCapsSrc,
+          imageParams,
+        }
+      })
+      .filter(Boolean) || []
+
   useUpdateEffect(() => {
     postsQuery.refetch()
   }, [hashtagsId])
+
   const onDownload = async () => {
-    const postMedias = postsQuery?.data?.data.map(post => {
-      const autoCaps =
-        post.imageParams && SITE_URL + getOgImageSrc(post.imageParams)
-
-      return {
-        caps: post.caps?.url,
-        autoCaps,
-        image: post.image,
-      }
-    })
-
     const zip = new JSZip()
     const imgFolder = zip.folder('hashtag-images')
 
     await Promise.all(
       postMedias.map(async (media, index) => {
-        const imageUrl = media.caps || media.autoCaps || media.image?.url
+        if (!media.capsSrc && !media.autoCapsSrc && !media.imageSrc) return
 
-        if (imageUrl) return
+        const imageSrc = media.capsSrc || media.autoCapsSrc || media.imageSrc
 
         try {
-          const response = await fetch(imageUrl, { mode: 'no-cors' })
-          const blob = await response.blob()
+          const response = await fetch(imageSrc, { mode: 'no-cors' })
+          const blob = response && (await response.blob())
+
+          if (!blob) return
+
+          if (!blob.size) return
+
           imgFolder.file(`image-${index}.jpeg`, blob)
         } catch (error) {
           console.log('try error', error)
@@ -101,8 +118,8 @@ export const DowloadCapsModal = ({ hashtagsQuery }) => {
   const hashtagFilter = (
     <MenuOptionGroup
       title="Hastags"
-      type="checkbox"
-      onChange={(value: string[]) => setHashtagId(value.map(v => +v))}
+      type="radio"
+      onChange={(value: string) => setHashtagId(+value)}
     >
       {hashtagsQuery.data?.data?.map(hashtag => (
         <MenuItemOption key={hashtag.id} value={`${hashtag.id}`}>
@@ -115,7 +132,7 @@ export const DowloadCapsModal = ({ hashtagsQuery }) => {
   return (
     <>
       <Button ref={btnRef} onClick={onOpen}>
-        Caps
+        Download Caps
       </Button>
       <Drawer
         isOpen={isOpen}
@@ -126,78 +143,72 @@ export const DowloadCapsModal = ({ hashtagsQuery }) => {
         <DrawerOverlay />
         <DrawerContent>
           <DrawerCloseButton />
-          <DrawerHeader>Chose hashtags and dowload caps</DrawerHeader>
+          <DrawerHeader>Download Caps</DrawerHeader>
           <DrawerBody>
-            {hashtagFilter && (
-              <Menu closeOnSelect={false}>
-                <MenuButton
-                  aria-label="choose caps"
-                  as={IconButton}
-                  icon={<AiOutlineDownload />}
-                  variant="outline"
-                  rounded="full"
-                  colorScheme="gray"
-                />
-                <MenuList>{hashtagFilter}</MenuList>
-              </Menu>
-            )}
             <Stack>
-              {postsQuery?.data?.data?.map((post, index) => {
-                let newUrl = ''
-                if (post?.image) {
-                  newUrl = `${
-                    post?.image.url.startsWith('http')
-                      ? post?.image.url
-                      : ASSETS_URL + post?.image.url
-                  }`
-                  console.log('urls ><<<<<<<<', newUrl)
-                } else if (post?.caps) {
-                  newUrl = `${
-                    post?.caps.url.startsWith('http')
-                      ? post?.caps.url
-                      : ASSETS_URL + post?.caps.url
-                  }`
-                  console.log('urls ><<<<<<<<', newUrl)
-                } else {
-                  const autoCaps =
-                    post.imageParams &&
-                    SITE_URL + getOgImageSrc(post.imageParams)
-                  newUrl = autoCaps
+              {hashtagFilter && (
+                <Menu closeOnSelect={false}>
+                  <MenuButton
+                    as={Button}
+                    w={'full'}
+                    leftIcon={<FaAngleDown />}
+                    variant="outline"
+                    rounded="full"
+                    colorScheme="gray"
+                  >
+                    Select Hashtag
+                  </MenuButton>
+                  <MenuList>{hashtagFilter}</MenuList>
+                </Menu>
+              )}
+              {postMedias.map((media, index) => {
+                console.log('media', media)
+                if (media.capsSrc) {
+                  return (
+                    <WImage
+                      key={index}
+                      h={48}
+                      src={media.capsSrc}
+                      alt={'image'}
+                    />
+                  )
                 }
 
-                return (
-                  <>
-                    {post?.caps && (
-                      <WImage
-                        key={index}
-                        alignSelf="center"
-                        boxSize={48}
-                        src={newUrl}
-                        alt={post?.title}
-                      />
-                    )}
+                if (media.imageParams) {
+                  return (
+                    <Caps key={index} h={48} imageParams={media.imageParams} />
+                  )
+                }
 
-                    {post && (
-                      <Caps
-                        imageParams={{
-                          title: post?.title,
-                          text: post?.description as string,
-                          image: newUrl,
-                          ...(post as Post)?.imageParams,
-                        }}
-                      />
-                    )}
-                  </>
-                )
+                if (media.imageSrc) {
+                  return (
+                    <WImage
+                      key={index}
+                      h={48}
+                      src={media.imageSrc}
+                      alt={'image'}
+                    />
+                  )
+                }
               })}
             </Stack>
           </DrawerBody>
 
           <DrawerFooter>
-            <Button variant="outline" mr={3} onClick={handleClose}>
+            <Button
+              variant="outline"
+              colorScheme={'gray'}
+              mr={3}
+              onClick={handleClose}
+            >
               Cancel
             </Button>
-            <Button onClick={onDownload} colorScheme="blue">
+            <Button
+              leftIcon={<FaDownload />}
+              w={'full'}
+              onClick={onDownload}
+              colorScheme={'primary'}
+            >
               Dowload Caps
             </Button>
           </DrawerFooter>
