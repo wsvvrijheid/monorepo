@@ -18,7 +18,13 @@ export const getHashtagBySlug = async (
     url: 'api/hashtags',
     filters: { slug: { $eq: slug } },
     locale,
-    populate: ['image', 'mentions', 'posts.image', 'localizations'],
+    populate: [
+      'image',
+      'mentions',
+      'posts.image',
+      'posts.caps',
+      'localizations',
+    ],
   })
 
   if (!response || !response?.data || !response.data.length) return null
