@@ -337,7 +337,7 @@ export const ModelEditForm = <T extends StrapiModel>({
           bg={'white'}
         >
           <Wrap>
-            {url === 'api/hashtags' && <DowloadCapsModal />}
+            {url === 'api/hashtags' && <DowloadCapsModal id={id} />}
             {translatableModel.approvalStatus === 'approved'
               ? null
               : translatableModel.approvalStatus &&

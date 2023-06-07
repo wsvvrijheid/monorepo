@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { FC, useState } from 'react'
 
 import {
   Button,
@@ -21,7 +21,7 @@ import {
 import { saveAs } from 'file-saver'
 import JSZip from 'jszip'
 import { useRouter } from 'next/router'
-import { FaAngleDown, FaDownload } from 'react-icons/fa'
+import {  FaDownload } from 'react-icons/fa'
 
 import { ASSETS_URL, SITE_URL } from '@wsvvrijheid/config'
 import { useSearchModel } from '@wsvvrijheid/services'
@@ -30,34 +30,28 @@ import { getOgImageSrc } from '@wsvvrijheid/utils'
 
 import { Caps, WImage } from '../../components'
 
-export const DowloadCapsModal = () => {
+      
+type DowloadCapsModalType={
+  id:number
+}
+
+export const DowloadCapsModal: FC<DowloadCapsModalType> = ({id} ) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const btnRef = React.useRef()
-  const [hashtagsId, setHashtagId] = useState<number>(0)
 
   const { locale } = useRouter()
-
-  const hashtagsQuery = useSearchModel<Hashtag>({
-    url: 'api/hashtags',
-    locale: locale as StrapiLocale,
-    publicationState: 'preview',
-    fields: ['id', 'title'],
-  })
 
   const postsQuery = useSearchModel<Post>({
     url: 'api/posts',
     relationFilter: {
       parent: 'hashtag',
-      ids: [hashtagsId],
+      ids: [id],
     },
     locale: locale as StrapiLocale,
     statuses: ['approved'],
     publicationState: 'preview',
   })
-
   const handleClose = () => {
-    setHashtagId(0)
-
     onClose()
   }
 
@@ -89,7 +83,7 @@ export const DowloadCapsModal = () => {
 
   useUpdateEffect(() => {
     postsQuery.refetch()
-  }, [hashtagsId])
+  }, [id])
 
   const onDownload = async () => {
     const zip = new JSZip()
@@ -121,20 +115,6 @@ export const DowloadCapsModal = () => {
     saveAs(allImages)
   }
 
-  const hashtagFilter = (
-    <MenuOptionGroup
-      title="Hastags"
-      type="radio"
-      onChange={(value: string) => setHashtagId(+value)}
-    >
-      {hashtagsQuery.data?.data?.map(hashtag => (
-        <MenuItemOption key={hashtag.id} value={`${hashtag.id}`}>
-          {hashtag.title}
-        </MenuItemOption>
-      ))}
-    </MenuOptionGroup>
-  )
-
   return (
     <>
       <Button ref={btnRef} onClick={onOpen}>
@@ -152,21 +132,6 @@ export const DowloadCapsModal = () => {
           <DrawerHeader>Download Caps</DrawerHeader>
           <DrawerBody>
             <Stack>
-              {hashtagFilter && (
-                <Menu closeOnSelect={false}>
-                  <MenuButton
-                    as={Button}
-                    w={'full'}
-                    leftIcon={<FaAngleDown />}
-                    variant="outline"
-                    rounded="full"
-                    colorScheme="gray"
-                  >
-                    Select Hashtag
-                  </MenuButton>
-                  <MenuList>{hashtagFilter}</MenuList>
-                </Menu>
-              )}
               {postMedias.map((media, index) => {
                 if (media.capsSrc) {
                   return (
@@ -207,7 +172,6 @@ export const DowloadCapsModal = () => {
               })}
             </Stack>
           </DrawerBody>
-
           <DrawerFooter>
             <Button
               variant="outline"
