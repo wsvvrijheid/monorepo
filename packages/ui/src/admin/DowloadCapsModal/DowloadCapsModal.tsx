@@ -33,7 +33,7 @@ import { useModelById, useSearchModel } from '@wsvvrijheid/services'
 import { Post, StrapiLocale } from '@wsvvrijheid/types'
 import { getImageUrl, getOgImageSrc } from '@wsvvrijheid/utils'
 
-import { WImage } from '../../components'
+import { Caps, WImage } from '../../components'
 
 export const DowloadCapsModal = ({ hashtagsQuery }) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -93,7 +93,7 @@ export const DowloadCapsModal = ({ hashtagsQuery }) => {
     )
 
     const allImages = await zip.generateAsync({ type: 'blob' })
- 
+
     saveAs(allImages)
   }
   console.log('urls', urls)
@@ -127,7 +127,6 @@ export const DowloadCapsModal = ({ hashtagsQuery }) => {
         <DrawerContent>
           <DrawerCloseButton />
           <DrawerHeader>Chose hashtags and dowload caps</DrawerHeader>
-
           <DrawerBody>
             {hashtagFilter && (
               <Menu closeOnSelect={false}>
@@ -145,11 +144,14 @@ export const DowloadCapsModal = ({ hashtagsQuery }) => {
             <Stack>
               {postsQuery?.data?.data?.map((post, index) => {
                 let newUrl = ''
-                //         if (post?.image){
-                //             newUrl =`${post?.image.url.startsWith('http')? post?.image.url: ASSETS_URL+post?.image.url}`
-                // console.log("urls ><<<<<<<<",newUrl)
-                //         } else
-                if (post?.caps) {
+                if (post?.image) {
+                  newUrl = `${
+                    post?.image.url.startsWith('http')
+                      ? post?.image.url
+                      : ASSETS_URL + post?.image.url
+                  }`
+                  console.log('urls ><<<<<<<<', newUrl)
+                } else if (post?.caps) {
                   newUrl = `${
                     post?.caps.url.startsWith('http')
                       ? post?.caps.url
@@ -164,13 +166,28 @@ export const DowloadCapsModal = ({ hashtagsQuery }) => {
                 }
 
                 return (
-                  <WImage
-                    key={index}
-                    alignSelf="center"
-                    boxSize={48}
-                    src={newUrl}
-                    alt={post?.title}
-                  />
+                  <>
+                    {post?.caps && (
+                      <WImage
+                        key={index}
+                        alignSelf="center"
+                        boxSize={48}
+                        src={newUrl}
+                        alt={post?.title}
+                      />
+                    )}
+
+                    {post && (
+                      <Caps
+                        imageParams={{
+                          title: post?.title,
+                          text: post?.description as string,
+                          image: newUrl,
+                          ...(post as Post)?.imageParams,
+                        }}
+                      />
+                    )}
+                  </>
                 )
               })}
             </Stack>
