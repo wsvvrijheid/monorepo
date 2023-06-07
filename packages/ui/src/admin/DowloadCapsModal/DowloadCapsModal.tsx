@@ -82,7 +82,7 @@ export const DowloadCapsModal = ({ hashtagsQuery }) => {
 
     await Promise.all(
       postMedias.map(async (media, index) => {
-        const imageUrl = media.caps || media.autoCaps || media.image
+        const imageUrl = media.caps || media.autoCaps || media.image?.url
 
         if (imageUrl) return
         setUrls([...urls, imageUrl])
