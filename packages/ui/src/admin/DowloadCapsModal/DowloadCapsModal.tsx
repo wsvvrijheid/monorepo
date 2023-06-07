@@ -65,6 +65,8 @@ export const DowloadCapsModal = () => {
     postsQuery?.data?.data
       ?.map(post => {
         const imageSrc = post.image?.url && ASSETS_URL + post.image?.url
+        const title=post?.title
+        const description=post?.description
         const capsSrc = post.caps?.url && ASSETS_URL + post.caps?.url
         const imageParams = post.imageParams && {
           image: imageSrc,
@@ -77,6 +79,8 @@ export const DowloadCapsModal = () => {
           capsSrc,
           autoCapsSrc,
           imageParams,
+          title,
+          description
         }
       })
       .filter(Boolean) || []
@@ -162,6 +166,12 @@ export const DowloadCapsModal = () => {
                 </Menu>
               )}
               {postMedias.map((media, index) => {
+                const imageParams = {
+                  image: media.imageSrc,
+                  title: media.title,
+                  description: media.description,
+                 
+                }
                 console.log('media', media)
                 if (media.capsSrc) {
                   return (
@@ -176,7 +186,15 @@ export const DowloadCapsModal = () => {
 
                 if (media.imageParams) {
                   return (
-                    <Caps key={index} h={48} imageParams={media.imageParams} />
+                    <Caps key={index} h={48} imageParams={  
+                      {
+                        image: media.imageSrc,
+                        title: media.title,
+                        text: media.description,
+                        ...media.imageParams
+                       
+                      }
+                    } />
                   )
                 }
 
