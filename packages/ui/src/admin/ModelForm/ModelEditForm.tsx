@@ -51,6 +51,7 @@ import { useDefaultValues } from './utils'
 import { FormItem, MasonryGrid, MdFormItem } from '../../components'
 import { WConfirm, WConfirmProps } from '../../components/WConfirm'
 import { useHasPermission } from '../../hooks'
+import { DowloadCapsModal } from '../DowloadCapsModal'
 
 export const ModelEditForm = <T extends StrapiModel>({
   url,
@@ -336,6 +337,7 @@ export const ModelEditForm = <T extends StrapiModel>({
           bg={'white'}
         >
           <Wrap>
+            {url === 'api/hashtags' && <DowloadCapsModal />}
             {translatableModel.approvalStatus === 'approved'
               ? null
               : translatableModel.approvalStatus &&

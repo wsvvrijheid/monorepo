@@ -16,7 +16,6 @@ import { Hashtag, Post, Sort, StrapiLocale } from '@wsvvrijheid/types'
 import {
   AdminLayout,
   DataTable,
-  DowloadCapsModal,
   PageHeader,
   postColumns,
 } from '@wsvvrijheid/ui'
@@ -104,10 +103,6 @@ const PostsPage: FC<PageProps> = ({ seo }) => {
         onSearch={handleSearch}
         searchPlaceHolder={'Search by title or description'}
       />
-
-      <Stack>
-        <DowloadCapsModal />
-      </Stack>
       <DataTable<Post>
         columns={postColumns}
         data={posts}
