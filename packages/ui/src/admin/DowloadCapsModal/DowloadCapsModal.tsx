@@ -21,7 +21,7 @@ import {
 import { saveAs } from 'file-saver'
 import JSZip from 'jszip'
 import { useRouter } from 'next/router'
-import {  FaDownload } from 'react-icons/fa'
+import { FaDownload } from 'react-icons/fa'
 
 import { ASSETS_URL, SITE_URL } from '@wsvvrijheid/config'
 import { useSearchModel } from '@wsvvrijheid/services'
@@ -30,12 +30,11 @@ import { getOgImageSrc } from '@wsvvrijheid/utils'
 
 import { Caps, WImage } from '../../components'
 
-      
-type DowloadCapsModalType={
-  id:number
+type DowloadCapsModalType = {
+  id: number
 }
 
-export const DowloadCapsModal: FC<DowloadCapsModalType> = ({id} ) => {
+export const DowloadCapsModal: FC<DowloadCapsModalType> = ({ id }) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const btnRef = React.useRef()
 
@@ -58,6 +57,7 @@ export const DowloadCapsModal: FC<DowloadCapsModalType> = ({id} ) => {
   const postMedias =
     postsQuery?.data?.data
       ?.map(post => {
+        console.log('post', post)
         const imageSrc = post.image?.url && ASSETS_URL + post.image?.url
         const title = post?.title
         const text = post?.description
@@ -66,14 +66,18 @@ export const DowloadCapsModal: FC<DowloadCapsModalType> = ({id} ) => {
           image: imageSrc,
           title,
           text,
+          scale: 1.5,
           ...post.imageParams,
         }
-        const autoCapsSrc = imageParams && SITE_URL + getOgImageSrc(imageParams)
+        const autoCapsPath = imageParams && getOgImageSrc(imageParams)
+        const autoCapsSrc =
+          autoCapsPath && SITE_URL + getOgImageSrc(imageParams)
 
         return {
           imageSrc,
           capsSrc,
           autoCapsSrc,
+          autoCapsPath,
           imageParams,
           title,
           text,
@@ -93,10 +97,10 @@ export const DowloadCapsModal: FC<DowloadCapsModalType> = ({id} ) => {
       postMedias.map(async (media, index) => {
         if (!media.capsSrc && !media.autoCapsSrc && !media.imageSrc) return
 
-        const imageSrc = media.capsSrc || media.autoCapsSrc || media.imageSrc
+        const imageSrc = media.capsSrc || media.autoCapsPath || media.imageSrc
 
         try {
-          const response = await fetch(imageSrc, { mode: 'no-cors' })
+          const response = await fetch(imageSrc)
           const blob = response && (await response.blob())
 
           if (!blob) return
