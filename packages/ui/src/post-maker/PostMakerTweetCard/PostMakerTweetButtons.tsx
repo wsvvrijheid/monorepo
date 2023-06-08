@@ -50,29 +50,30 @@ export const PostMakerTweetButtons = ({ isAdminMode }) => {
     const shares = shareCount + 1
     const sentenceValue =
       `${value}::${post.id}::${shares}::${published}` as RedisPost
-    if (post && !Number.isNaN(index)) {
-      try {
-        await updatePostSentence.mutateAsync(
-          {
-            hashtagId: hashtag.id,
-            index,
-            value: sentenceValue,
-          },
-          {
-            onSuccess: () => {
-              queryClient.invalidateQueries([
-                'kv-hashtag-sentences',
-                hashtag.id,
-              ])
-            },
-          },
-        )
-      } catch (error) {
-        console.log('Error', error)
-      }
-    }
 
-    window.open(postUrl, '_blank')
+    if (post && !Number.isNaN(index)) {
+      updatePostSentence.mutate(
+        {
+          hashtagId: hashtag.id,
+          index,
+          value: sentenceValue,
+        },
+        {
+          onSuccess: async () => {
+            await queryClient.invalidateQueries([
+              'kv-hashtag-sentences',
+              hashtag.id,
+            ])
+          },
+          onError: error => {
+            console.log('Error', error)
+          },
+          onSettled: () => {
+            window.open(postUrl, '_blank')
+          },
+        },
+      )
+    }
   }
 
   if (!post) return null
