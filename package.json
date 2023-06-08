@@ -39,7 +39,7 @@
     "@uppy/url": "^3.3.1",
     "@vercel/analytics": "^1.0.1",
     "@vercel/kv": "^0.2.1",
-    "@vercel/og": "^0.5.6",
+    "@vercel/og": "^0.5.7",
     "@wsvvrijheid/config": "*",
     "@wsvvrijheid/types": "*",
     "@wsvvrijheid/ui": "*",

@@ -36,7 +36,11 @@ const HashtagEvents = ({ seo, source }: HashtagEventsProps) => {
 
   return (
     <Layout seo={seo} isDark>
-      <Hero title={seo.title as string} isFullHeight={false} />
+      <Hero
+        title={seo.title as string}
+        isFullHeight={false}
+        image={'/images/hashtags-bg.jpeg'}
+      />
       <Container overflowX="hidden">
         {source && (
           <Box my={8} maxW="container.md" mx="auto" textAlign="center">
