@@ -24,7 +24,7 @@ export const PostMakerTweetButtons = ({ isAdminMode }) => {
   const hashtag = useHashtag()
   const { postContent, post, sentence } = usePostContext()
 
-  const { asPath, locale, query } = router
+  const { asPath } = router
   const queryClient = useQueryClient()
   const updatePostSentence = useUpdateHashtagSentence()
 
