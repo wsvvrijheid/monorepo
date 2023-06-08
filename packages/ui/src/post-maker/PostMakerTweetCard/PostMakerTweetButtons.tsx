@@ -1,5 +1,6 @@
 import { Button, HStack, Text } from '@chakra-ui/react'
 import { useQueryClient } from '@tanstack/react-query'
+import { track } from '@vercel/analytics'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { GoMention } from 'react-icons/go'
@@ -45,6 +46,7 @@ export const PostMakerTweetButtons = ({ isAdminMode }) => {
 
   const onTweet = async () => {
     const { value, index, shareCount = 0, isPublished } = sentence || {}
+    track('post_maker', { action: 'tweet' })
 
     const published = isPublished ? 1 : 0
     const shares = shareCount + 1
@@ -83,6 +85,7 @@ export const PostMakerTweetButtons = ({ isAdminMode }) => {
       <Button
         variant={'ghost'}
         onClick={() => {
+          track('post_maker', { action: 'add_mentions' })
           setActivePostId(post.id)
           mentionsDisclosure.onOpen()
         }}
@@ -97,6 +100,7 @@ export const PostMakerTweetButtons = ({ isAdminMode }) => {
       <Button
         variant={'ghost'}
         onClick={() => {
+          track('post_maker', { action: 'add_trends' })
           setActivePostId(post.id)
           trendsDisclosure.onOpen()
         }}

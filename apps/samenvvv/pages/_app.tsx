@@ -27,7 +27,15 @@ import 'react-medium-image-zoom/dist/styles.css'
 const { ToastContainer } = createStandaloneToast()
 
 function MyApp({ Component, pageProps }) {
-  const [queryClient] = useState(() => new QueryClient())
+  const [queryClient] = useState(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          mutations: { networkMode: 'always' },
+          queries: { networkMode: 'always' },
+        },
+      }),
+  )
   const { locale } = useRouter()
 
   return (
