@@ -96,6 +96,7 @@ export const getStaticProps: GetStaticProps = async context => {
     url: 'api/hashtags',
     locale,
     statuses: ['approved'],
+    sort: ['date:desc'],
     pageSize: 4,
   })
 
