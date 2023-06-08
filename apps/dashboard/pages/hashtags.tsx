@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import { Button, useDisclosure, useUpdateEffect } from '@chakra-ui/react'
+import { useDisclosure, useUpdateEffect } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'

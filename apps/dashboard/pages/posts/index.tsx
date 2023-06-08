@@ -3,6 +3,7 @@ import { FC, useEffect, useMemo, useState } from 'react'
 import {
   MenuItemOption,
   MenuOptionGroup,
+  Stack,
   useUpdateEffect,
 } from '@chakra-ui/react'
 import { InferGetStaticPropsType } from 'next'
@@ -102,7 +103,6 @@ const PostsPage: FC<PageProps> = ({ seo }) => {
         onSearch={handleSearch}
         searchPlaceHolder={'Search by title or description'}
       />
-
       <DataTable<Post>
         columns={postColumns}
         data={posts}
