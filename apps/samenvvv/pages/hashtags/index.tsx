@@ -78,7 +78,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
     statuses: ['approved'],
   }
 
-  const queryKey = Object.values(args)
+  const queryKey = Object.entries(args)
 
   await queryClient.prefetchQuery(queryKey, () => searchModel<Hashtag>(args))
 

@@ -9,6 +9,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@chakra-ui/react'
+import { useRouter } from 'next/router'
 import {
   FacebookShareButton,
   LinkedinShareButton,
@@ -27,6 +28,8 @@ export const PostMakerTweetShare: FC<PostMakerTweetShareProps> = ({
   url,
   content,
 }) => {
+  const { query } = useRouter()
+
   return (
     <Popover placement="top">
       <PopoverTrigger>
@@ -76,7 +79,7 @@ export const PostMakerTweetShare: FC<PostMakerTweetShareProps> = ({
                 icon={<FaLinkedin />}
               />
             </LinkedinShareButton>
-            {ADMIN_MODE && <PostSentencesModal />}
+            {query.edit === 'wsvv' && <PostSentencesModal />}
           </HStack>
         </PopoverBody>
       </PopoverContent>
