@@ -32,6 +32,7 @@ const HashtagEvents = ({ seo, source }: HashtagEventsProps) => {
     url: 'api/hashtags',
     locale: router.locale as StrapiLocale,
     statuses: ['approved'],
+    sort: ['date:desc'],
   })
 
   return (
@@ -76,6 +77,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
     url: 'api/hashtags',
     locale,
     statuses: ['approved'],
+    sort: ['date:desc'],
   }
 
   const queryKey = Object.entries(args)

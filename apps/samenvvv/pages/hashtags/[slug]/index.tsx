@@ -4,12 +4,12 @@ import { useBreakpointValue } from '@chakra-ui/react'
 import { TourProvider } from '@reactour/tour'
 import { QueryClient, dehydrate } from '@tanstack/react-query'
 import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock'
+import { getCookie } from 'cookies-next'
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { serialize } from 'next-mdx-remote/serialize'
 import { NextSeoProps } from 'next-seo'
 
-import { SITE_URL } from '@wsvvrijheid/config'
 import {
   getHashtagBySlug,
   getHashtagSentences,
@@ -21,8 +21,8 @@ import {
   HashtagProvider,
   PostMaker,
   StepsContent,
-  usePostMakerSteps,
   TimeLeft,
+  usePostMakerSteps,
 } from '@wsvvrijheid/ui'
 import { getPageSeo } from '@wsvvrijheid/utils'
 
@@ -31,7 +31,7 @@ import i18nConfig from '../../../next-i18next.config'
 
 type HashtagProps = InferGetServerSidePropsType<typeof getServerSideProps>
 
-const HashtagPage: FC<HashtagProps> = ({ hasStarted, seo }) => {
+const HashtagPage: FC<HashtagProps> = ({ hasStarted, seo, isAdminMode }) => {
   const hashtag = useHashtag()
 
   const isMobile = useBreakpointValue({ base: true, lg: false })
@@ -63,8 +63,8 @@ const HashtagPage: FC<HashtagProps> = ({ hasStarted, seo }) => {
       >
         <Layout seo={seo}>
           <Container py={4} pos="relative">
-            {hasStarted ? (
-              <PostMaker />
+            {hasStarted || isAdminMode ? (
+              <PostMaker isAdminMode={isAdminMode} />
             ) : (
               <TimeLeft date={hashtag.date as string} />
             )}
@@ -82,6 +82,8 @@ export const getServerSideProps = async (
 ) => {
   const locale = context.locale as StrapiLocale
   const slug = context.params?.slug as string
+  const { req, res } = context
+  const adminMode = getCookie('admin-mode', { req, res })
 
   const queryClient = new QueryClient()
   const queryKey = ['hashtag', locale, slug]
@@ -122,6 +124,7 @@ export const getServerSideProps = async (
     props: {
       source,
       seo,
+      isAdminMode: adminMode === true,
       slugs: { ...slugs, [locale]: slug },
       initialTrend: {} as Trend,
       hasStarted: hashtag.hasStarted,
