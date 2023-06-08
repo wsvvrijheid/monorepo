@@ -29,7 +29,10 @@ export const PostProvider: FC<PostProviderProps> = ({ post, children }) => {
 
   const postState = useMemo<Omit<PostState, 'sentence' | 'sentences'>>(() => {
     const mentionUsernames = postMentions[post.id] ?? []
-    const mentionsStr = mentionUsernames.filter(Boolean).join('\n')
+    const mentionsStr = mentionUsernames
+      .filter(Boolean)
+      ?.map(username => `@${username}`)
+      .join('\n')
 
     const trendNames = postTrends[post.id] ?? []
     const defaultTrendNames = defaultTrends[post.id] ?? []

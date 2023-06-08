@@ -15,7 +15,6 @@ import {
 } from '@wsvvrijheid/services'
 
 import { PostSentenceFormItemProps } from './types'
-import { useHashtagContext } from '../../post-maker'
 import { WConfirm, WConfirmProps } from '../WConfirm'
 
 export const PostSentenceFormItem: FC<PostSentenceFormItemProps> = ({
