@@ -44,16 +44,6 @@ export const HashtagCard: FC<SliderHeroProps> = ({ item, type }) => {
       >
         <Box>
           <Heading size="lg">{item.title}</Heading>
-          {(item as Hashtag).hashtagDefault && (
-            <Heading size="md" color="gray.900">
-              {(item as Hashtag).hashtagDefault}
-            </Heading>
-          )}
-          {(item as Hashtag).hashtagExtra && (
-            <Heading size="md" color="gray.900">
-              {(item as Hashtag).hashtagExtra}
-            </Heading>
-          )}
         </Box>
         <HStack>
           <Icon as={HiOutlineCalendar} mr={1} mb={1} />

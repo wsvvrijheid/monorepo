@@ -8,8 +8,8 @@ import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { serialize } from 'next-mdx-remote/serialize'
 import { NextSeoProps } from 'next-seo'
+import { useCookie } from 'react-use'
 
-import { SITE_URL } from '@wsvvrijheid/config'
 import {
   getHashtagBySlug,
   getHashtagSentences,
@@ -21,8 +21,8 @@ import {
   HashtagProvider,
   PostMaker,
   StepsContent,
-  usePostMakerSteps,
   TimeLeft,
+  usePostMakerSteps,
 } from '@wsvvrijheid/ui'
 import { getPageSeo } from '@wsvvrijheid/utils'
 
@@ -33,6 +33,8 @@ type HashtagProps = InferGetServerSidePropsType<typeof getServerSideProps>
 
 const HashtagPage: FC<HashtagProps> = ({ hasStarted, seo }) => {
   const hashtag = useHashtag()
+
+  const [adminMode] = useCookie('admin-mode')
 
   const isMobile = useBreakpointValue({ base: true, lg: false })
   const postMakerSteps = usePostMakerSteps()
@@ -63,7 +65,7 @@ const HashtagPage: FC<HashtagProps> = ({ hasStarted, seo }) => {
       >
         <Layout seo={seo}>
           <Container py={4} pos="relative">
-            {hasStarted ? (
+            {hasStarted || adminMode === 'true' ? (
               <PostMaker />
             ) : (
               <TimeLeft date={hashtag.date as string} />
