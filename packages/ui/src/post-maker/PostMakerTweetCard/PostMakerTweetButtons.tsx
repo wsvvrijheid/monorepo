@@ -15,10 +15,11 @@ import { PostMakerTweetShare } from './PostMakerTweetShare'
 import { useHashtagContext } from '../HashtagProvider'
 import { usePostContext } from '../PostProvider'
 
-export const PostMakerTweetButtons = () => {
+export const PostMakerTweetButtons = ({ isAdminMode }) => {
   const router = useRouter()
   const { setActivePostId, mentionsDisclosure, trendsDisclosure } =
     useHashtagContext()
+
   const hashtag = useHashtag()
   const { postContent, post, sentence } = usePostContext()
 
@@ -120,7 +121,11 @@ export const PostMakerTweetButtons = () => {
         <Text>{sentence.shareCount}</Text>
       </Button>
 
-      <PostMakerTweetShare url={url} content={post?.description as string} />
+      <PostMakerTweetShare
+        url={url}
+        content={post?.description as string}
+        isAdminMode={isAdminMode}
+      />
     </HStack>
   )
 }

@@ -9,7 +9,9 @@ import { PostMakerTweetListProps } from './types'
 import { useHashtagContext } from '../HashtagProvider'
 import { PostProvider } from '../PostProvider'
 
-export const PostMakerTweetList: FC<PostMakerTweetListProps> = () => {
+export const PostMakerTweetList: FC<PostMakerTweetListProps> = ({
+  isAdminMode,
+}) => {
   const { postSentenceShares } = useHashtagContext()
   const hashtag = useHashtag()
 
@@ -37,7 +39,7 @@ export const PostMakerTweetList: FC<PostMakerTweetListProps> = () => {
         {sortedPosts.map(post => {
           return (
             <PostProvider key={post.id} post={post}>
-              {post && <PostMakerTweetCard />}
+              {post && <PostMakerTweetCard isAdminMode={isAdminMode} />}
             </PostProvider>
           )
         })}
