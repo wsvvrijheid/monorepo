@@ -2,6 +2,7 @@ import { FC, createContext, useContext, useEffect, useState } from 'react'
 
 import { useDisclosure } from '@chakra-ui/react'
 import { sampleSize } from 'lodash'
+import { useRouter } from 'next/router'
 
 import { useGetHashtagSentences, useHashtag } from '@wsvvrijheid/services'
 import { MentionUserData } from '@wsvvrijheid/types'
@@ -25,6 +26,8 @@ export const HashtagProvider: FC<HashtagProviderProps> = ({ children }) => {
   const [postSentenceShares, setPostSentenceShares] = useState<
     Record<number, PostStats>
   >({})
+
+  const { locale } = useRouter()
 
   const hashtagSentences = useGetHashtagSentences(hashtag?.id)
 
@@ -155,7 +158,7 @@ export const HashtagProvider: FC<HashtagProviderProps> = ({ children }) => {
       setPostMentions(initialTags.mentions)
       setDefaultTrends(initialTags.trends)
     }
-  }, [])
+  }, [locale])
 
   return (
     <HashtagContext.Provider

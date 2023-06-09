@@ -24,7 +24,7 @@ export const PostMakerTweetButtons = ({ isAdminMode }) => {
   const hashtag = useHashtag()
   const { postContent, post, sentence } = usePostContext()
 
-  const { asPath, locale, query } = router
+  const { asPath } = router
   const queryClient = useQueryClient()
   const updatePostSentence = useUpdateHashtagSentence()
 
@@ -33,12 +33,12 @@ export const PostMakerTweetButtons = ({ isAdminMode }) => {
 
   if (!sentence) return null
 
-  const url = `${SITE_URL}${asPath}/${post.id}`
+  const url = `\n\n${SITE_URL}${asPath}/${post.id}`
 
   const baseUrl = 'https://twitter.com/intent/tweet'
   const params = {
     url,
-    text: `${postContent}\n\n`,
+    text: `${postContent}`,
   }
   const queryParams = new URLSearchParams(params)
 

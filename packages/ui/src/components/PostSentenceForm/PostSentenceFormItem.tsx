@@ -1,6 +1,6 @@
 import { FC, useState } from 'react'
 
-import { HStack, IconButton, Textarea, Tooltip } from '@chakra-ui/react'
+import { Box, HStack, IconButton, Textarea, Tooltip } from '@chakra-ui/react'
 import { useQueryClient } from '@tanstack/react-query'
 import { FaPencilAlt, FaSave, FaTimes } from 'react-icons/fa'
 import {
@@ -15,7 +15,6 @@ import {
 } from '@wsvvrijheid/services'
 
 import { PostSentenceFormItemProps } from './types'
-import { useHashtagContext } from '../../post-maker'
 import { WConfirm, WConfirmProps } from '../WConfirm'
 
 export const PostSentenceFormItem: FC<PostSentenceFormItemProps> = ({
@@ -49,6 +48,17 @@ export const PostSentenceFormItem: FC<PostSentenceFormItemProps> = ({
         hashtagId: hashtag.id,
         index,
         value: `${value}::${id}::${shareCount}::${isPublished ? 1 : 0}`,
+      },
+      { onSuccess },
+    )
+  }
+
+  const handleResetShared = () => {
+    onUpdateMutation.mutate(
+      {
+        hashtagId: hashtag.id,
+        index,
+        value: `${defaultSentence}::${id}::${0}::${isPublished ? 1 : 0}`,
       },
       { onSuccess },
     )
@@ -126,6 +136,18 @@ export const PostSentenceFormItem: FC<PostSentenceFormItemProps> = ({
             />
           </Tooltip>
         )}
+
+        <Tooltip label="Reset shared" placement="top">
+          <IconButton
+            aria-label={'reset shared'}
+            colorScheme={'gray'}
+            icon={<Box>{shareCount}</Box>}
+            isRound
+            onClick={handleResetShared}
+            size={'sm'}
+            isDisabled={shareCount === 0}
+          />
+        </Tooltip>
 
         <Tooltip label={isPublished ? 'Unpublish' : 'Publish'} placement="top">
           <IconButton
