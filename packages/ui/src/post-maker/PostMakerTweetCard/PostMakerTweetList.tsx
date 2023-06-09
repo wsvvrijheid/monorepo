@@ -11,6 +11,7 @@ import { PostProvider } from '../PostProvider'
 
 export const PostMakerTweetList: FC<PostMakerTweetListProps> = ({
   isAdminMode,
+  isIosSafari,
 }) => {
   const { postSentenceShares } = useHashtagContext()
   const hashtag = useHashtag()
@@ -39,7 +40,12 @@ export const PostMakerTweetList: FC<PostMakerTweetListProps> = ({
         {sortedPosts.map(post => {
           return (
             <PostProvider key={post.id} post={post}>
-              {post && <PostMakerTweetCard isAdminMode={isAdminMode} />}
+              {post && (
+                <PostMakerTweetCard
+                  isAdminMode={isAdminMode}
+                  isIosSafari={isIosSafari}
+                />
+              )}
             </PostProvider>
           )
         })}

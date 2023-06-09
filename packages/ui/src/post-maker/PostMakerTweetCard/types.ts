@@ -15,4 +15,5 @@ export type PostMakerTweetButtonsProps = {
 export type PostMakerTweetListProps = {
   posts: Post[]
   isAdminMode: boolean
+  isIosSafari: boolean
 }

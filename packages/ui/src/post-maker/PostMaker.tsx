@@ -31,9 +31,10 @@ import { TrendListTabs } from './Trends'
 
 type PostMakerProps = {
   isAdminMode?: boolean
+  isIosSafari?: boolean
 }
 
-export const PostMaker: FC<PostMakerProps> = ({ isAdminMode }) => {
+export const PostMaker: FC<PostMakerProps> = ({ isAdminMode, isIosSafari }) => {
   const { t } = useTranslation()
   const isMobile = useBreakpointValue({ base: true, lg: false }) ?? true
 
@@ -134,6 +135,7 @@ export const PostMaker: FC<PostMakerProps> = ({ isAdminMode }) => {
             <PostMakerTweetList
               posts={hashtag.posts}
               isAdminMode={isAdminMode}
+              isIosSafari={isIosSafari}
             />
           </Box>
         ) : (
