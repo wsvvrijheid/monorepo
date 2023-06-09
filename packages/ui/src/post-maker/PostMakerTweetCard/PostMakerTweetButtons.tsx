@@ -134,7 +134,7 @@ export const PostMakerTweetButtons = ({ isAdminMode, isIosSafari }) => {
       )}
 
       {isIosSafari && (
-        <TwitterShareButton url={postUrl} content={postContent}>
+        <TwitterShareButton url={url} title={postContent}>
           <Button
             as={'span'}
             variant={'ghost'}
