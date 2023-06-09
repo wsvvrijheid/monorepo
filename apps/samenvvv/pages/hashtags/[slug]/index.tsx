@@ -31,7 +31,12 @@ import i18nConfig from '../../../next-i18next.config'
 
 type HashtagProps = InferGetServerSidePropsType<typeof getServerSideProps>
 
-const HashtagPage: FC<HashtagProps> = ({ hasStarted, seo, isAdminMode }) => {
+const HashtagPage: FC<HashtagProps> = ({
+  hasStarted,
+  seo,
+  isAdminMode,
+  isIosSafari,
+}) => {
   const hashtag = useHashtag()
 
   const isMobile = useBreakpointValue({ base: true, lg: false })
@@ -64,7 +69,7 @@ const HashtagPage: FC<HashtagProps> = ({ hasStarted, seo, isAdminMode }) => {
         <Layout seo={seo}>
           <Container py={4} pos="relative">
             {hasStarted || isAdminMode ? (
-              <PostMaker isAdminMode={isAdminMode} />
+              <PostMaker isAdminMode={isAdminMode} isIosSafari={isIosSafari} />
             ) : (
               <TimeLeft date={hashtag.date as string} />
             )}
@@ -84,6 +89,11 @@ export const getServerSideProps = async (
   const slug = context.params?.slug as string
   const { req, res } = context
   const adminMode = getCookie('admin-mode', { req, res })
+
+  const userAgent = req.headers['user-agent']
+  const isIOS = /iPad|iPhone|iPod/.test(userAgent)
+  const isSafari = /Safari/.test(userAgent) && !/Chrome/.test(userAgent)
+  const isIosSafari = isIOS && isSafari
 
   const queryClient = new QueryClient()
   const queryKey = ['hashtag', locale, slug]
@@ -124,6 +134,7 @@ export const getServerSideProps = async (
     props: {
       source,
       seo,
+      isIosSafari,
       isAdminMode: adminMode === true,
       slugs: { ...slugs, [locale]: slug },
       initialTrend: {} as Trend,

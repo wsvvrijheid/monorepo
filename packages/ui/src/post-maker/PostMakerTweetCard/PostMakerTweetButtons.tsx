@@ -3,6 +3,7 @@ import { useQueryClient } from '@tanstack/react-query'
 import { track } from '@vercel/analytics'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
+import { TwitterShareButton } from 'next-share'
 import { GoMention } from 'react-icons/go'
 import { MdTrendingUp } from 'react-icons/md'
 import { RxTwitterLogo } from 'react-icons/rx'
@@ -16,7 +17,7 @@ import { PostMakerTweetShare } from './PostMakerTweetShare'
 import { useHashtagContext } from '../HashtagProvider'
 import { usePostContext } from '../PostProvider'
 
-export const PostMakerTweetButtons = ({ isAdminMode }) => {
+export const PostMakerTweetButtons = ({ isAdminMode, isIosSafari }) => {
   const router = useRouter()
   const { setActivePostId, mentionsDisclosure, trendsDisclosure } =
     useHashtagContext()
@@ -45,6 +46,10 @@ export const PostMakerTweetButtons = ({ isAdminMode }) => {
   const postUrl = `${baseUrl}?${queryParams.toString()}`
 
   const onTweet = async () => {
+    window.open(postUrl, '_blank')
+  }
+
+  const onShare = async () => {
     const { value, index, shareCount = 0, isPublished } = sentence || {}
     track('post_maker', { action: 'tweet' })
 
@@ -54,27 +59,25 @@ export const PostMakerTweetButtons = ({ isAdminMode }) => {
       `${value}::${post.id}::${shares}::${published}` as RedisPost
 
     if (post && !Number.isNaN(index)) {
-      updatePostSentence.mutate(
-        {
-          hashtagId: hashtag.id,
-          index,
-          value: sentenceValue,
-        },
-        {
-          onSuccess: async () => {
-            await queryClient.invalidateQueries([
-              'kv-hashtag-sentences',
-              hashtag.id,
-            ])
+      try {
+        await updatePostSentence.mutateAsync(
+          {
+            hashtagId: hashtag.id,
+            index,
+            value: sentenceValue,
           },
-          onError: error => {
-            console.log('Error', error)
+          {
+            onSuccess: async () => {
+              await queryClient.invalidateQueries([
+                'kv-hashtag-sentences',
+                hashtag.id,
+              ])
+            },
           },
-          onSettled: () => {
-            window.open(postUrl, '_blank')
-          },
-        },
-      )
+        )
+      } catch (error) {
+        console.log('Error', error)
+      }
     }
   }
 
@@ -114,17 +117,38 @@ export const PostMakerTweetButtons = ({ isAdminMode }) => {
 
       <PostMakerTweetProgress />
 
-      <Button
-        variant={'ghost'}
-        iconSpacing={{ base: 0, md: 2 }}
-        leftIcon={<RxTwitterLogo />}
-        onClick={onTweet}
-      >
-        <Text mr={2} display={{ base: 'none', md: 'block' }}>
-          Tweet
-        </Text>
-        <Text>{sentence.shareCount}</Text>
-      </Button>
+      {!isIosSafari && (
+        <Button
+          variant={'ghost'}
+          iconSpacing={{ base: 0, md: 2 }}
+          leftIcon={<RxTwitterLogo />}
+          onClick={() => {
+            onShare().then(() => onTweet())
+          }}
+          rightIcon={<Text>{sentence.shareCount}</Text>}
+        >
+          <Text mr={2} display={{ base: 'none', md: 'block' }}>
+            Tweet
+          </Text>
+        </Button>
+      )}
+
+      {isIosSafari && (
+        <TwitterShareButton url={postUrl} content={postContent}>
+          <Button
+            as={'span'}
+            variant={'ghost'}
+            iconSpacing={{ base: 0, md: 2 }}
+            leftIcon={<RxTwitterLogo />}
+            onClick={onShare}
+          >
+            <Text mr={2} display={{ base: 'none', md: 'block' }}>
+              Tweet
+            </Text>
+            <Text>{sentence.shareCount}</Text>
+          </Button>
+        </TwitterShareButton>
+      )}
 
       <PostMakerTweetShare
         url={url}

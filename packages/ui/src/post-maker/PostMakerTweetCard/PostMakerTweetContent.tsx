@@ -15,6 +15,7 @@ export const PostMakerTweetContent = () => {
       value={sentence?.value ?? ''}
       onUpdate={handleChange}
       threshold={threshold}
+      contentEditable={false}
     />
   )
 }
