@@ -3,18 +3,31 @@ import { getUserTweets, twitterApi } from '../../../../libs'
 export default {
   async afterCreate({ result }) {
     try {
-      const userData = await twitterApi.v1.user({
-        screen_name: result.username,
-      })
+      const userResult = await twitterApi.v2.userByUsername(
+        result.username as unknown as string,
+        {
+          'user.fields': [
+            'public_metrics',
+            'profile_image_url',
+            'location',
+            'verified',
+            'description',
+          ],
+        },
+      )
 
-      const tweets = await getUserTweets(userData.id_str)
+      const user = userResult?.data
+
+      if (!user) return
+
+      const tweets = (await getUserTweets(user.id)) || []
 
       await strapi.service('api::timeline.timeline').update(result.id, {
         data: {
           userData: {
-            name: userData.name,
-            username: userData.screen_name,
-            profile: userData.profile_image_url_https,
+            name: user.name,
+            username: user.username,
+            profile: user.profile_image_url,
           },
           tweets,
         },

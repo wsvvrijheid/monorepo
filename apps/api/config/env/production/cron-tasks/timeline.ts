@@ -8,20 +8,28 @@ export default async ({ strapi }) => {
     if (!timelines.data[0]) return
 
     timelines.data.map(async ({ id, attributes }) => {
-      const userData = await twitterApi.v1.user({
-        screen_name: attributes.username,
-      })
+      const userResponse = await twitterApi.v2.userByUsername(
+        attributes.username as unknown as string,
+        {
+          'user.fields': ['public_metrics', 'username', 'name'],
+        },
+      )
 
-      const tweets = await getUserTweets(userData.id_str)
+      const userData = userResponse?.data
+
+      if (!userData) return
+
+      // const tweets =
+      //   (await getUserTweets(userData.id).catch(e => console.log(e))) || []
 
       await strapi.service('api::timeline.timeline').update(id, {
         data: {
           userData: {
             name: userData.name,
-            username: userData.screen_name,
-            profile: userData.profile_image_url_https,
+            username: userData.username,
+            profile: userData.profile_image_url,
           },
-          tweets,
+          tweets: [],
         },
       })
     })

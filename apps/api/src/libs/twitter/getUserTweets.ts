@@ -8,11 +8,11 @@ export const getUserTweets = async (
   userId: string,
   userData?: UserV1,
 ): Promise<Tweet[]> => {
-  const user: UserV1 = userData
+  let user: UserV1 = userData
 
-  // if (!user) {
-  //   user = await twitterApi.v1.user({ user_id: userId })
-  // }
+  if (!user) {
+    user = await twitterApi.v1.user({ user_id: userId })
+  }
 
   try {
     const tweetsResponse = await twitterApi.v1.userTimeline(userId, {
