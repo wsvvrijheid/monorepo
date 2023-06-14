@@ -117,33 +117,41 @@ export default {
     }
   },
   async approve(ctx: Context) {
-    const result = await strapi
-      .service('api::hashtag.hashtag')
-      .update(ctx.params.id, {
+    const result = await strapi.entityService.update(
+      'api::hashtag.hashtag',
+      ctx.params.id,
+      {
         data: {
           approvalStatus: 'approved',
           publishedAt: new Date(),
           approver: ctx.state.user.id,
         },
         populate: ['localizations'],
-      })
+      },
+    )
 
     return { data: result }
   },
   async relation(ctx: Context) {
     const id = ctx.params.id
 
-    const currentHashtag = await strapi
-      .service('api::hashtag.hashtag')
-      .findOne(id, {
+    const currentHashtag = await strapi.entityService.findOne(
+      'api::hashtag.hashtag',
+      id,
+      {
         populate: ['localizations.image'],
-      })
+      },
+    )
 
     const referenceHashtag = getReferenceModel(currentHashtag)
 
-    const result = await strapi.service('api::hashtag.hashtag').update(id, {
-      data: { image: referenceHashtag.image?.id },
-    })
+    const result = await strapi.entityService.update(
+      'api::hashtag.hashtag',
+      id,
+      {
+        data: { image: referenceHashtag.image?.id },
+      },
+    )
 
     return { data: result }
   },
@@ -273,14 +281,11 @@ export default {
         }))
 
         // update tweets
-        await strapi
-          .service('api::hashtag.hashtag')
-          // TODO: Why strapi needs id as string?
-          .update(data[0].id as unknown as string, {
-            data: {
-              tweets,
-            },
-          })
+        await strapi.entityService.update('api::hashtag.hashtag', data[0].id, {
+          data: {
+            tweets,
+          },
+        })
       }, 30 * 60 * 1000)
 
       // close the stream after the duration(hours)

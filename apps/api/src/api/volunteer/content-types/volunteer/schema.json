@@ -331,6 +331,12 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::job.job"
+    },
+    "age": {
+      "type": "integer"
+    },
+    "city": {
+      "type": "string"
     }
   }
 }

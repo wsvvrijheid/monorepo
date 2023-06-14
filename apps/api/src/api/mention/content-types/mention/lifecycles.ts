@@ -49,7 +49,7 @@ export default {
         verified,
       } as MentionUserData
 
-      strapi.service('api::mention.mention').update(result.id, {
+      strapi.entityService.update('api::mention.mention', result.id, {
         data: { data },
       })
     } catch (error) {

@@ -1,6 +1,8 @@
+import type { Strapi } from '@strapi/strapi'
+
 import { twitterApi } from '../../../../src/libs'
 
-export default async ({ strapi }) => {
+export default async ({ strapi }: { strapi: Strapi }) => {
   try {
     const woeids = {
       en: 1,
@@ -17,9 +19,9 @@ export default async ({ strapi }) => {
 
         const data = result[0].trends
 
-        await strapi
-          .service('api::trend.trend')
-          .createOrUpdate({ data: { [locale]: data } })
+        await strapi.entityService.create('api::trend.trend', {
+          data: { [locale]: data },
+        })
       }),
     )
   } catch (error) {
