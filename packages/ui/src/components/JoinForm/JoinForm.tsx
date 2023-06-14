@@ -71,7 +71,6 @@ function generateSchema(t: TFunction, jobs: Partial<Job>[]) {
       .array()
       .required(t('apply-form.jobs.required') as string)
       .min(1),
-    
   })
 }
 
@@ -93,8 +92,8 @@ export const JoinForm: FC<JoinFormFProps> = ({
     mode: 'onTouched',
     defaultValues: {
       name: '',
-      age:null,
-      city:'',
+      age: null,
+      city: '',
       email: '',
       phone: '',
       availableHours: 0,
@@ -111,7 +110,7 @@ export const JoinForm: FC<JoinFormFProps> = ({
     onSubmitHandler(data)
   }
 
-// age, name=surname, city
+  // age, name=surname, city
   return (
     <Stack
       p={8}
@@ -162,7 +161,7 @@ export const JoinForm: FC<JoinFormFProps> = ({
           defaultValue={1}
           isRequired
         />
-          <FormItem
+        <FormItem
           type="number"
           register={register}
           id="age"
@@ -180,7 +179,7 @@ export const JoinForm: FC<JoinFormFProps> = ({
         name="occupation"
         label={t('apply-form.occupation') as string}
       />
-       <FormItem
+      <FormItem
         register={register}
         errors={errors}
         id="city"

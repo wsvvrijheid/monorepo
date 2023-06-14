@@ -2,8 +2,8 @@ import { Job, Platform, StrapiLocale } from '@wsvvrijheid/types'
 
 export type JoinFormFieldValues = {
   name: string
-  age:number
-  city:string
+  age: number
+  city: string
   email: string
   phone: string
   availableHours: number
