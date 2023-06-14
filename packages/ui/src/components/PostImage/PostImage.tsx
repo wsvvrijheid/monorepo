@@ -1,12 +1,13 @@
 import { FC } from 'react'
 
-import { ImageProps } from '@chakra-ui/react'
+import { ImageProps, Image } from '@chakra-ui/react'
 
 import { ASSETS_URL } from '@wsvvrijheid/config'
 import { Post, UploadFile } from '@wsvvrijheid/types'
 
 import { usePostContext } from '../../post-maker/PostProvider'
 import { Caps } from '../Caps'
+import { WImage } from '../WImage'
 
 type PostImageProps = Omit<ImageProps, 'id'> & {
   post?: Post
@@ -22,9 +23,15 @@ export const PostImage: FC<PostImageProps> = ({
 
   const post = defaultPost || (postState?.post as Post)
 
+  if (!post) return null
+
+  if (post.caps) {
+    return <WImage ratio={'twitter'} src={ASSETS_URL + post.caps?.url} />
+  }
+
   let src: string | undefined
 
-  const image = post?.image ?? ({} as UploadFile)
+  const image = post?.image || ({} as UploadFile)
   const formats = image?.formats ?? {}
 
   if (formats.small) {
@@ -43,8 +50,6 @@ export const PostImage: FC<PostImageProps> = ({
     md: 900 / 1200,
     lg: 1200 / 1200,
   }
-
-  if (!post) return null
 
   return (
     <Caps

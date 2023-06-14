@@ -1,3 +1,5 @@
+import { FC } from 'react'
+
 import {
   Box,
   Button,
@@ -27,7 +29,12 @@ import { PostMakerTweetList } from './PostMakerTweetCard'
 import { TimelineTrendsTabs } from './TimelineTrendsTabs'
 import { TrendListTabs } from './Trends'
 
-export const PostMaker = () => {
+type PostMakerProps = {
+  isAdminMode?: boolean
+  isIosSafari?: boolean
+}
+
+export const PostMaker: FC<PostMakerProps> = ({ isAdminMode, isIosSafari }) => {
   const { t } = useTranslation()
   const isMobile = useBreakpointValue({ base: true, lg: false }) ?? true
 
@@ -125,7 +132,11 @@ export const PostMaker = () => {
         {/* TODO: Skeleton */}
         {hashtag.posts ? (
           <Box order={{ base: 0, lg: 1 }} h={'inherit'} overflowY={'auto'}>
-            <PostMakerTweetList posts={hashtag.posts} />
+            <PostMakerTweetList
+              posts={hashtag.posts}
+              isAdminMode={isAdminMode}
+              isIosSafari={isIosSafari}
+            />
           </Box>
         ) : (
           <Skeleton />

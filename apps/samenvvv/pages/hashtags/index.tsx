@@ -32,11 +32,16 @@ const HashtagEvents = ({ seo, source }: HashtagEventsProps) => {
     url: 'api/hashtags',
     locale: router.locale as StrapiLocale,
     statuses: ['approved'],
+    sort: ['date:desc'],
   })
 
   return (
     <Layout seo={seo} isDark>
-      <Hero title={seo.title as string} isFullHeight={false} />
+      <Hero
+        title={seo.title as string}
+        isFullHeight={false}
+        image={'/images/hashtags-bg.jpeg'}
+      />
       <Container overflowX="hidden">
         {source && (
           <Box my={8} maxW="container.md" mx="auto" textAlign="center">
@@ -72,9 +77,10 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
     url: 'api/hashtags',
     locale,
     statuses: ['approved'],
+    sort: ['date:desc'],
   }
 
-  const queryKey = Object.values(args)
+  const queryKey = Object.entries(args)
 
   await queryClient.prefetchQuery(queryKey, () => searchModel<Hashtag>(args))
 

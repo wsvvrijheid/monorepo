@@ -10,7 +10,7 @@ export const ContentEditable: FC<ContentEditableProps> = props => {
     onUpdate,
     threshold,
     thresholdStyles = {},
-
+    contentEditable = true,
     ...rest
   } = props
 
@@ -90,7 +90,7 @@ export const ContentEditable: FC<ContentEditableProps> = props => {
           outline: 'none',
         }}
         suppressContentEditableWarning
-        contentEditable
+        contentEditable={contentEditable}
         onInput={handleInput}
       >
         {value}

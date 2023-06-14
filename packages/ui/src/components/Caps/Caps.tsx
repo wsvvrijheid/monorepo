@@ -89,8 +89,8 @@ export const Caps = forwardRef<CapsProps, 'div'>(
                 position={'absolute'}
                 top={'0px'}
                 height={'full'}
-                w={dimensions.shape}
-                h={dimensions.height}
+                w={`${dimensions.shape}px`}
+                h={`${dimensions.height}px`}
                 left={
                   flip
                     ? `${dimensions.image - dimensions.shape}px`
@@ -106,8 +106,8 @@ export const Caps = forwardRef<CapsProps, 'div'>(
               {/* Logo */}
               <chakra.svg
                 xmlns="http://www.w3.org/2000/svg"
-                width={dimensions.logo}
-                height={dimensions.logo}
+                width={`${dimensions.logo}px`}
+                height={`${dimensions.logo}px`}
                 position={'absolute'}
                 bottom={`${dimensions.padding}px`}
                 left={
@@ -146,16 +146,16 @@ export const Caps = forwardRef<CapsProps, 'div'>(
                 pos={'absolute'}
                 top={dimensions.padding}
                 bottom={dimensions.padding}
-                left={
+                left={`${
                   flip
                     ? dimensions.image + dimensions.shape
                     : dimensions.padding
-                }
-                right={
+                }px`}
+                right={`${
                   flip
                     ? dimensions.padding
                     : dimensions.image + dimensions.shape
-                }
+                }px`}
                 spacing={`${dimensions.font / 2}px`}
                 userSelect={'none'}
               >

@@ -1,0 +1,8 @@
+{
+  "root": true,
+  "extends": ["wsvvrijheid"],
+  "rules": {
+    "import/no-anonymous-default-export": "off",
+    "turbo/no-undeclared-env-vars": "off"
+  }
+}

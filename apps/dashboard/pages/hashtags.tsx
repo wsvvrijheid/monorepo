@@ -22,6 +22,7 @@ import i18nConfig from '../next-i18next.config'
 
 const HashtagsPage = ({ seo }) => {
   const { t } = useTranslation()
+
   const [currentPage, setCurrentPage] = useState<number>()
   const [selectedId, setSelectedId] = useState<number>()
   const { isOpen, onClose, onOpen } = useDisclosure()
@@ -80,6 +81,7 @@ const HashtagsPage = ({ seo }) => {
         onSearch={handleSearch}
         searchPlaceHolder={t('search-placeholder')}
       />
+
       <ModelEditModal<Hashtag>
         url={'api/hashtags'}
         id={selectedId}

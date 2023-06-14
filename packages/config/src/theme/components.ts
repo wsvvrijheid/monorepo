@@ -12,6 +12,9 @@ export const components = {
         fontWeight: 700,
       }
     },
+    defaultProps: {
+      colorScheme: 'primary',
+    },
   },
   Button: {
     baseStyle: (props: StyleFunctionProps) => {

@@ -18,14 +18,13 @@ import {
 import { BsThreeDotsVertical } from 'react-icons/bs'
 import { FaFacebook, FaLinkedin, FaTelegram, FaWhatsapp } from 'react-icons/fa'
 
-import { ADMIN_MODE } from '@wsvvrijheid/config'
-
 import { PostSentencesModal } from './PostSentencesModal'
 import { PostMakerTweetShareProps } from './types'
 
 export const PostMakerTweetShare: FC<PostMakerTweetShareProps> = ({
   url,
   content,
+  isAdminMode,
 }) => {
   return (
     <Popover placement="top">
@@ -76,7 +75,7 @@ export const PostMakerTweetShare: FC<PostMakerTweetShareProps> = ({
                 icon={<FaLinkedin />}
               />
             </LinkedinShareButton>
-            {ADMIN_MODE && <PostSentencesModal />}
+            {isAdminMode && <PostSentencesModal />}
           </HStack>
         </PopoverBody>
       </PopoverContent>

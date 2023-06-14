@@ -1,4 +1,5 @@
 import isEmpty from 'lodash/isEmpty'
+
 import {
   getAktifHaber,
   getAmnesty,
@@ -73,6 +74,7 @@ export const syncNews = async ({ strapi }) => {
     return updatedTopics.length
   } catch (error) {
     console.error('error', error)
+
     return error
   }
 }

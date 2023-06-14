@@ -18,7 +18,13 @@ export const getHashtagBySlug = async (
     url: 'api/hashtags',
     filters: { slug: { $eq: slug } },
     locale,
-    populate: ['image', 'mentions', 'posts.image', 'localizations'],
+    populate: [
+      'image',
+      'mentions',
+      'posts.image',
+      'posts.caps',
+      'localizations',
+    ],
   })
 
   if (!response || !response?.data || !response.data.length) return null
@@ -33,11 +39,11 @@ export const getHashtagBySlug = async (
 
   const posts =
     hashtag.posts
-      ?.filter(p => p.image)
+      ?.filter(p => p.image || p.caps)
       .map((p, index) => ({
         ...p,
         index,
-        image: { url: p.image?.url } as UploadFile,
+        image: { url: p.image?.url || p.caps?.url } as UploadFile,
       })) || []
 
   const localizations = (hashtag.localizations?.map(l => ({

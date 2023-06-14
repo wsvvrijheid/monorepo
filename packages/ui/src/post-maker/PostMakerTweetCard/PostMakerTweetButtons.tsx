@@ -1,7 +1,9 @@
 import { Button, HStack, Text } from '@chakra-ui/react'
 import { useQueryClient } from '@tanstack/react-query'
+import { track } from '@vercel/analytics'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
+import { TwitterShareButton } from 'next-share'
 import { GoMention } from 'react-icons/go'
 import { MdTrendingUp } from 'react-icons/md'
 import { RxTwitterLogo } from 'react-icons/rx'
@@ -15,14 +17,15 @@ import { PostMakerTweetShare } from './PostMakerTweetShare'
 import { useHashtagContext } from '../HashtagProvider'
 import { usePostContext } from '../PostProvider'
 
-export const PostMakerTweetButtons = () => {
+export const PostMakerTweetButtons = ({ isAdminMode, isIosSafari }) => {
   const router = useRouter()
   const { setActivePostId, mentionsDisclosure, trendsDisclosure } =
     useHashtagContext()
+
   const hashtag = useHashtag()
   const { postContent, post, sentence } = usePostContext()
 
-  const { asPath, locale, query } = router
+  const { asPath } = router
   const queryClient = useQueryClient()
   const updatePostSentence = useUpdateHashtagSentence()
 
@@ -31,24 +34,30 @@ export const PostMakerTweetButtons = () => {
 
   if (!sentence) return null
 
-  const url = `${SITE_URL}${asPath}/${post.id}`
+  const url = `\n\n${SITE_URL}${asPath}/${post.id}`
 
   const baseUrl = 'https://twitter.com/intent/tweet'
   const params = {
     url,
-    text: `${postContent}\n\n`,
+    text: `${postContent}`,
   }
   const queryParams = new URLSearchParams(params)
 
   const postUrl = `${baseUrl}?${queryParams.toString()}`
 
   const onTweet = async () => {
+    window.open(postUrl, '_blank')
+  }
+
+  const onShare = async () => {
     const { value, index, shareCount = 0, isPublished } = sentence || {}
+    track('post_maker', { action: 'tweet' })
 
     const published = isPublished ? 1 : 0
     const shares = shareCount + 1
     const sentenceValue =
       `${value}::${post.id}::${shares}::${published}` as RedisPost
+
     if (post && !Number.isNaN(index)) {
       try {
         await updatePostSentence.mutateAsync(
@@ -58,8 +67,8 @@ export const PostMakerTweetButtons = () => {
             value: sentenceValue,
           },
           {
-            onSuccess: () => {
-              queryClient.invalidateQueries([
+            onSuccess: async () => {
+              await queryClient.invalidateQueries([
                 'kv-hashtag-sentences',
                 hashtag.id,
               ])
@@ -70,8 +79,6 @@ export const PostMakerTweetButtons = () => {
         console.log('Error', error)
       }
     }
-
-    window.open(postUrl, '_blank')
   }
 
   if (!post) return null
@@ -81,6 +88,7 @@ export const PostMakerTweetButtons = () => {
       <Button
         variant={'ghost'}
         onClick={() => {
+          track('post_maker', { action: 'add_mentions' })
           setActivePostId(post.id)
           mentionsDisclosure.onOpen()
         }}
@@ -95,6 +103,7 @@ export const PostMakerTweetButtons = () => {
       <Button
         variant={'ghost'}
         onClick={() => {
+          track('post_maker', { action: 'add_trends' })
           setActivePostId(post.id)
           trendsDisclosure.onOpen()
         }}
@@ -108,19 +117,44 @@ export const PostMakerTweetButtons = () => {
 
       <PostMakerTweetProgress />
 
-      <Button
-        variant={'ghost'}
-        iconSpacing={{ base: 0, md: 2 }}
-        leftIcon={<RxTwitterLogo />}
-        onClick={onTweet}
-      >
-        <Text mr={2} display={{ base: 'none', md: 'block' }}>
-          Tweet
-        </Text>
-        <Text>{sentence.shareCount}</Text>
-      </Button>
+      {!isIosSafari && (
+        <Button
+          variant={'ghost'}
+          iconSpacing={{ base: 0, md: 2 }}
+          leftIcon={<RxTwitterLogo />}
+          onClick={() => {
+            onShare().then(() => onTweet())
+          }}
+          rightIcon={<Text>{sentence.shareCount}</Text>}
+        >
+          <Text mr={2} display={{ base: 'none', md: 'block' }}>
+            Tweet
+          </Text>
+        </Button>
+      )}
 
-      <PostMakerTweetShare url={url} content={post?.description as string} />
+      {isIosSafari && (
+        <TwitterShareButton url={url} title={postContent}>
+          <Button
+            as={'span'}
+            variant={'ghost'}
+            iconSpacing={{ base: 0, md: 2 }}
+            leftIcon={<RxTwitterLogo />}
+            onClick={onShare}
+          >
+            <Text mr={2} display={{ base: 'none', md: 'block' }}>
+              Tweet
+            </Text>
+            <Text>{sentence.shareCount}</Text>
+          </Button>
+        </TwitterShareButton>
+      )}
+
+      <PostMakerTweetShare
+        url={url}
+        content={post?.description as string}
+        isAdminMode={isAdminMode}
+      />
     </HStack>
   )
 }

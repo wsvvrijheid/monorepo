@@ -1,4 +1,5 @@
 import { twitterApi } from '../../../../src/libs'
+import { mapTweetV2ResponseToTweet } from '../../../../src/utils'
 
 export default async ({ strapi }) => {
   const date = new Date(
@@ -17,46 +18,38 @@ export default async ({ strapi }) => {
     try {
       const { id, attributes } = h
 
-      const result = await twitterApi.v1.get('search/tweets.json', {
-        q: `${attributes.hashtag} -filter:retweets`,
+      const result = await twitterApi.v2.search({
+        query: attributes.hashtagDefault as string,
+        max_results: 50,
+        expansions: ['attachments.media_keys'],
+        'media.fields': ['url', 'preview_image_url', 'variants'],
+        'tweet.fields': ['attachments'],
       })
 
-      if (result && result.statuses) {
-        const tweets = result.statuses
-        const mappedTweets = tweets.map(data => {
-          let image = undefined
-          let videos = undefined
+      const tweetsData = result?.data.data
+      const includes = result?.data.includes
 
-          const id = data.id_str
-          const { name, screen_name, profile_image_url_https } = data.user
+      const tweets = mapTweetV2ResponseToTweet(tweetsData, includes)
+
+      if (tweets?.length) {
+        const mappedTweets = tweets.map(data => {
+          const id = data.id
+
           const user = {
-            name,
-            username: screen_name,
-            profile: profile_image_url_https,
+            name: data.user.name,
+            username: data.user.username,
+            profile: data.user.profile,
           }
           const text = data.text
-          const likes = data.favorite_count
-          const retweets = data.retweet_count
-
-          if (
-            data &&
-            data.extended_entities &&
-            data.extended_entities.media &&
-            data.extended_entities.media[0]
-          ) {
-            image = data.extended_entities.media[0].media_url_https
-            videos =
-              (data.extended_entities.media[0].video_info &&
-                data.extended_entities.media[0].video_info.variants) ||
-              undefined
-          }
+          const likes = data.likes
+          const retweets = data.retweets
 
           return {
             id,
             user,
             text,
-            image,
-            videos,
+            image: data.image || null,
+            videos: data.video || null,
             likes,
             retweets,
           }

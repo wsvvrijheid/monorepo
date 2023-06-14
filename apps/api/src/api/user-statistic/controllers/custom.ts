@@ -1,4 +1,5 @@
 import { Context } from 'koa'
+
 import { getStats } from '../../../libs'
 
 export default {
@@ -41,6 +42,7 @@ export default {
           date && new Date(date as string),
           days && parseInt(days as string),
         )
+
         return {
           user,
           stats,

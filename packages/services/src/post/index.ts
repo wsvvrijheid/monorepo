@@ -3,7 +3,6 @@ import { useMemo } from 'react'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 
-import { SITE_URL } from '@wsvvrijheid/config'
 import { PostSentence, RedisPost } from '@wsvvrijheid/types'
 
 type UpdateArgs = { hashtagId: number; index: number; value: RedisPost }
@@ -11,9 +10,7 @@ type CreateArgs = { hashtagId: number; value: RedisPost }
 type DeleteArgs = { hashtagId: number; value: RedisPost }
 
 export const updateHashtagSentences = async (args: UpdateArgs) => {
-  const result = await axios.put<'OK'>('/api/kv/hashtag-sentences', args, {
-    baseURL: SITE_URL,
-  })
+  const result = await axios.put<'OK'>('/api/kv/hashtag-sentences', args)
 
   return result.data
 }
@@ -31,7 +28,6 @@ export const deleteHashtagSentence = async (args: DeleteArgs) => {
 
   const result = await axios.delete<number>(
     `/api/kv/hashtag-sentences?${params.toString()}`,
-    { baseURL: SITE_URL },
   )
 
   return result.data
@@ -44,9 +40,7 @@ export const useDeleteHashtagSentence = () =>
   })
 
 export const createHashtagSentence = async (args: CreateArgs) => {
-  const result = await axios.post<number>('/api/kv/hashtag-sentences', args, {
-    baseURL: SITE_URL,
-  })
+  const result = await axios.post<number>('/api/kv/hashtag-sentences', args, {})
 
   return result.data
 }
@@ -60,7 +54,6 @@ export const useCreateHashtagSentence = () =>
 export const getHashtagSentences = async (hashtagId: number) => {
   const result = await axios.get<RedisPost[]>(
     `/api/kv/hashtag-sentences?hashtagId=${hashtagId}`,
-    { baseURL: SITE_URL },
   )
 
   return result.data

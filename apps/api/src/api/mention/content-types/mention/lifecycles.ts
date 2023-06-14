@@ -1,37 +1,39 @@
-import { UserV1 } from 'twitter-api-v2'
-import { twitterApi } from '../../../../libs'
+import { UserV1, UserV2 } from 'twitter-api-v2'
 
-type MentionUserData = Pick<
-  UserV1,
-  | 'description'
-  | 'followers_count'
-  | 'friends_count'
-  | 'id_str'
-  | 'location'
-  | 'name'
-  | 'profile_image_url_https'
-  | 'screen_name'
-  | 'verified'
->
+import { MentionUserData } from '@wsvvrijheid/types'
+
+import { twitterApi } from '../../../../libs'
 
 export default {
   async afterCreate({ result }) {
-    if (process.env.IMPORTING === 'true') return
-
     try {
-      const user = await twitterApi.v1.user({
-        screen_name: result.username as unknown as string,
-      })
+      const userResult = await twitterApi.v2.userByUsername(
+        result.username as unknown as string,
+        {
+          'user.fields': [
+            'public_metrics',
+            'profile_image_url',
+            'location',
+            'verified',
+            'description',
+          ],
+        },
+      )
+
+      console.log('userResult', userResult)
+
+      const user = userResult?.data
+
+      if (!user) return
 
       const {
         description,
-        followers_count,
-        friends_count,
-        id_str,
+        username,
+        public_metrics: { followers_count, following_count: friends_count },
+        id,
         location,
         name,
-        profile_image_url_https,
-        screen_name,
+        profile_image_url,
         verified,
       } = user
 
@@ -39,11 +41,11 @@ export default {
         description,
         followers_count,
         friends_count,
-        id_str,
+        id_str: `${id}`,
         location,
         name,
-        profile_image_url_https,
-        screen_name,
+        profile_image_url_https: profile_image_url,
+        screen_name: username,
         verified,
       } as MentionUserData
 

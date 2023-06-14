@@ -11,7 +11,6 @@ export type MentionUserData = Pick<
   | 'description'
   | 'followers_count'
   | 'friends_count'
-  | 'id'
   | 'id_str'
   | 'location'
   | 'name'

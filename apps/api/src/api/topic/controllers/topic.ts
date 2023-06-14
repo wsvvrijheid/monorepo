@@ -24,6 +24,7 @@ export default factories.createCoreController(
 
       const result = await super.find(ctx)
       result.meta.count = count
+
       return result
     },
   }),

@@ -5,7 +5,7 @@ import { PostMakerTweetContent } from './PostMakerTweetContent'
 import { PostMakerTweetTags } from './PostMakerTweetTags'
 import { PostImage } from '../../components'
 
-export const PostMakerTweetCard = () => {
+export const PostMakerTweetCard = ({ isAdminMode, isIosSafari }) => {
   return (
     <Stack
       p={4}
@@ -18,7 +18,10 @@ export const PostMakerTweetCard = () => {
       <PostMakerTweetContent />
       <PostMakerTweetTags />
       <PostImage rounded="lg" borderWidth={1} overflow={'hidden'} />
-      <PostMakerTweetButtons />
+      <PostMakerTweetButtons
+        isAdminMode={isAdminMode}
+        isIosSafari={isIosSafari}
+      />
     </Stack>
   )
 }

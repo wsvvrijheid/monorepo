@@ -5,6 +5,7 @@
  */
 
 import { factories } from '@strapi/strapi'
+
 import { RecommendedTopic } from '../../../libs'
 
 export default factories.createCoreController(
@@ -26,6 +27,7 @@ export default factories.createCoreController(
           if (topic.url === result?.data?.attributes?.url) {
             topic.isRecommended = true
           }
+
           return topic
         },
       )
