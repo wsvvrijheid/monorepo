@@ -18,14 +18,7 @@ const adminRoleRoutes = [
   '/news/recommended',
   '/posts',
   '/timelines/recommended',
-  '/translates/activities',
   '/translates',
-  '/translates/announcements',
-  '/translates/arts',
-  '/translates/blogs',
-  '/translates/collections',
-  '/translates/hashtags',
-  '/translates/posts',
   '/users',
   'all',
 ] as const
@@ -57,7 +50,7 @@ export const getRoutePermission = (
       '/arts?status=approved',
       '/arts?status=rejected',
       '/collections',
-      '/translates/arts',
+      '/translates',
     ],
     authenticated: [],
     author: ['/blogs'],
@@ -74,15 +67,7 @@ export const getRoutePermission = (
     ],
     jury: ['/competitions'],
     public: [],
-    translator: [
-      '/translates',
-      '/translates/activities',
-      '/translates/announcements',
-      '/translates/blogs',
-      '/translates/collections',
-      '/translates/hashtags',
-      '/translates/posts',
-    ],
+    translator: ['/translates'],
   }
 
   return roles?.some(role => {

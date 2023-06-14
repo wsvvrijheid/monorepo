@@ -64,7 +64,6 @@ export type ModelEditTranslateProps<T extends StrapiTranslatableModel> = {
   url: StrapiUrl
   translatedFields: (keyof T)[]
   fields: FormFields<T>
-  pathname: string
   schema: OptionalObjectSchema<any>
   approverRoles?: Role['type'][]
   editorRoles?: Role['type'][]

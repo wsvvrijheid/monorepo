@@ -47,7 +47,6 @@ export const ModelEditTranslate = <T extends StrapiTranslatableModel>({
   url,
   translatedFields,
   fields,
-  pathname,
   schema,
   approverRoles = [],
   editorRoles = [],
@@ -162,7 +161,6 @@ export const ModelEditTranslate = <T extends StrapiTranslatableModel>({
       <Stack spacing={8} as="form" onSubmit={handleSubmit(onSaveModel)}>
         <FormLocaleSwitcher
           models={model?.localizations as StrapiTranslatableModel[]}
-          slug={`translates/${pathname}`}
         />
         {fields.map((field, index) => {
           return (
