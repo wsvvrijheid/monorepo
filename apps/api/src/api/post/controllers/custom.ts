@@ -6,7 +6,7 @@ export default {
   async approve(ctx: Context) {
     const id = ctx.params.id
 
-    const result = await strapi.service('api::post.post').update(id, {
+    const result = await strapi.entityService.update('api::post.post', id, {
       data: {
         approvalStatus: 'approved',
         publishedAt: new Date(),
@@ -20,9 +20,16 @@ export default {
   async relation(ctx: Context) {
     const id = ctx.params.id
 
-    const currentPost = await strapi.service('api::post.post').findOne(id, {
-      populate: ['localizations.hashtag.localizations', 'localizations.image'],
-    })
+    const currentPost = await strapi.entityService.findOne(
+      'api::post.post',
+      id,
+      {
+        populate: [
+          'localizations.hashtag.localizations',
+          'localizations.image',
+        ],
+      },
+    )
 
     const referencePost = getReferenceModel(currentPost)
 
@@ -36,7 +43,7 @@ export default {
       )
     }
 
-    const result = await strapi.service('api::post.post').update(id, {
+    const result = await strapi.entityService.update('api::post.post', id, {
       data: { hashtag: targetHashtag?.id, image: referencePost.image?.id },
     })
 

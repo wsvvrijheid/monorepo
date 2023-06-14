@@ -1,3 +1,4 @@
+import type { Strapi } from '@strapi/strapi'
 import isEmpty from 'lodash/isEmpty'
 
 import {
@@ -19,7 +20,7 @@ import { RecommendedTopic } from './utils/types'
 
 // import getTurkishMinuteNews from './sources/turkishminute'
 
-export const syncNews = async ({ strapi }) => {
+export const syncNews = async ({ strapi }: { strapi: Strapi }) => {
   try {
     const sources = [
       getAktifHaber,
@@ -40,9 +41,9 @@ export const syncNews = async ({ strapi }) => {
     console.log('-----------------------------------')
     console.log('All news fetching... ' + new Date())
 
-    const recommendedTopics = await strapi
-      .service('api::recommended-topic.recommended-topic')
-      .find()
+    const recommendedTopics = await strapi.entityService.findMany(
+      'api::recommended-topic.recommended-topic',
+    )
 
     const topics = await Promise.all(sources.map(source => source()))
     const result = topics.flat().filter(topic => !isEmpty(topic))
@@ -67,7 +68,7 @@ export const syncNews = async ({ strapi }) => {
     console.log('All news fetched. ' + new Date())
     console.log('-----------------------------------')
 
-    await strapi.service('api::topic.topic').createOrUpdate({
+    await strapi.entityService.create('api::topic.topic', {
       data: { data: updatedTopics },
     })
 

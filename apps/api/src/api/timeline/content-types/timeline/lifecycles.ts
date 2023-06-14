@@ -22,7 +22,7 @@ export default {
 
       const tweets = (await getUserTweets(user.id)) || []
 
-      await strapi.service('api::timeline.timeline').update(result.id, {
+      await strapi.entityService.update('api::timeline.timeline', result.id, {
         data: {
           userData: {
             name: user.name,
