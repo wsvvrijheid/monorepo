@@ -47,6 +47,8 @@ function generateSchema(t: TFunction, jobs: Partial<Job>[]) {
 
   return yup.object().shape({
     name: yup.string().required(t('apply-form.name.required') as string),
+    age: yup.number().required(t('apply-form.age.required') as string),
+    city: yup.string().required(t('apply-form.city.required') as string),
     email: yup
       .string()
       .email(t('apply-form.email.invalid') as string)
@@ -69,20 +71,6 @@ function generateSchema(t: TFunction, jobs: Partial<Job>[]) {
       .array()
       .required(t('apply-form.jobs.required') as string)
       .min(1),
-    // heardFrom: yup.object().shape(
-    //   heardFrom.reduce((acc, h) => {
-    //     acc[h as any] = yup.bool()
-    //     return acc
-    //   }, {} as any),
-    // ),
-    // jobs: (
-    //   yup.object().shape(
-    //     jobs.reduce((acc, h) => {
-    //       acc[h as any] = yup.bool()
-    //       return acc
-    //     }, {} as any),
-    //   ) as any
-    // ).atLeastOneRequired(jobs, t`apply-form.jobs.required`),
   })
 }
 
@@ -104,6 +92,8 @@ export const JoinForm: FC<JoinFormFProps> = ({
     mode: 'onTouched',
     defaultValues: {
       name: '',
+      age: null,
+      city: '',
       email: '',
       phone: '',
       availableHours: 0,
@@ -120,6 +110,7 @@ export const JoinForm: FC<JoinFormFProps> = ({
     onSubmitHandler(data)
   }
 
+  // age, name=surname, city
   return (
     <Stack
       p={8}
@@ -170,6 +161,16 @@ export const JoinForm: FC<JoinFormFProps> = ({
           defaultValue={1}
           isRequired
         />
+        <FormItem
+          type="number"
+          register={register}
+          id="age"
+          name="age"
+          errors={errors}
+          label={t('apply-form.age.input') as string}
+          defaultValue={1}
+          isRequired
+        />
       </Stack>
       <FormItem
         register={register}
@@ -177,6 +178,13 @@ export const JoinForm: FC<JoinFormFProps> = ({
         id="occupation"
         name="occupation"
         label={t('apply-form.occupation') as string}
+      />
+      <FormItem
+        register={register}
+        errors={errors}
+        id="city"
+        name="city"
+        label={t('apply-form.city') as string}
       />
 
       <FormItem
