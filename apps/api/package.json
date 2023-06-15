@@ -19,21 +19,18 @@
     "docker-db": "docker exec -i strapiDB bash < ./scripts/docker-db-update.sh",
     "clean": "rm -rf node_modules .cache .turbo dist"
   },
-  "devDependencies": {
-    "type-fest": "^3.11.1"
-  },
   "dependencies": {
-    "@strapi/plugin-graphql": "4.11.0",
-    "@strapi/plugin-i18n": "4.11.0",
-    "@strapi/plugin-users-permissions": "4.11.0",
-    "@strapi/provider-email-nodemailer": "4.11.0",
-    "@strapi/strapi": "4.11.0",
+    "@strapi/plugin-graphql": "4.11.1",
+    "@strapi/plugin-i18n": "4.11.1",
+    "@strapi/plugin-users-permissions": "4.11.1",
+    "@strapi/provider-email-nodemailer": "4.11.1",
+    "@strapi/strapi": "4.11.1",
     "cheerio": "^1.0.0-rc.12",
     "pg": "^8.11.0",
     "pg-connection-string": "^2.6.0",
     "request": "^2.88.2",
     "sharp": "^0.32.1",
-    "strapi-plugin-import-export-entries": "^1.20.0",
+    "strapi-plugin-import-export-entries": "^1.21.0",
     "strapi-plugin-transformer": "^3.1.0"
   },
   "author": {

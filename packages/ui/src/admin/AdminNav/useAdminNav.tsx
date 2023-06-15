@@ -28,6 +28,7 @@ import {
   TbX,
 } from 'react-icons/tb'
 
+import { AdminRoutes } from '@wsvvrijheid/config'
 import { SessionUser } from '@wsvvrijheid/types'
 import { getRoutePermission } from '@wsvvrijheid/utils'
 
@@ -52,39 +53,39 @@ export const useAdminNav = (user: SessionUser): AdminNavItemProps[] => {
       submenu: [
         {
           label: tAdmin('activities'),
-          link: '/translates/activities',
+          link: '/translates?slug=activities' as AdminRoutes,
           icon: <TbActivity />,
-          visible: getRoutePermission(roles, '/translates/activities'),
+          visible: getRoutePermission(roles, '/translates'),
         },
         {
           label: tAdmin('announcements'),
-          link: '/translates/announcements',
+          link: '/translates?slug=announcements' as AdminRoutes,
           icon: <TbVolume />,
-          visible: getRoutePermission(roles, '/translates/announcements'),
+          visible: getRoutePermission(roles, '/translates'),
         },
         {
           label: tAdmin('arts'),
-          link: '/translates/arts',
+          link: '/translates?slug=arts' as AdminRoutes,
           icon: <TbBrush />,
-          visible: getRoutePermission(roles, '/translates/arts'),
+          visible: getRoutePermission(roles, '/translates'),
         },
         {
           label: tAdmin('collections'),
-          link: '/translates/collections',
+          link: '/translates?slug=collections' as AdminRoutes,
           icon: <BsCollection />,
-          visible: getRoutePermission(roles, '/translates/collections'),
+          visible: getRoutePermission(roles, '/translates'),
         },
         {
           label: tAdmin('hashtags'),
-          link: '/translates/hashtags',
+          link: '/translates?slug=hashtags' as AdminRoutes,
           icon: <CgHashtag />,
-          visible: getRoutePermission(roles, '/translates/hashtags'),
+          visible: getRoutePermission(roles, '/translates'),
         },
         {
           label: tAdmin('posts'),
-          link: '/translates/posts',
+          link: '/translates?slug=posts' as AdminRoutes,
           icon: <TbBrandTwitter />,
-          visible: getRoutePermission(roles, '/translates/posts'),
+          visible: getRoutePermission(roles, '/translates'),
         },
       ],
     },

@@ -17,10 +17,15 @@ export default factories.createCoreController(
       if (data.attributes.isSyncing || now - updatedAt < oneHour) {
         return { data, meta }
       }
-      data.attributes.isSyncing = true
-      await strapi.service('api::topic.topic').createOrUpdate({ data, meta })
 
-      const count = await strapi.service('api::topic.topic').sync()
+      data.attributes.isSyncing = true
+
+      await strapi.entityService.update('api::topic.topic', {
+        data,
+        meta,
+      })
+
+      const count = await strapi.entityService('api::topic.topic').sync()
 
       const result = await super.find(ctx)
       result.meta.count = count

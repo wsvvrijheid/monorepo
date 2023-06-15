@@ -58,12 +58,14 @@ export default factories.createCoreController('api::art.art', ({ strapi }) => {
     async create(ctx) {
       const result = await super.create(ctx)
 
-      const updatedArt = await strapi
-        .service('api::art.art')
-        .update(result.data.id, {
+      const updatedArt = await strapi.entityService.update(
+        'api::art.art',
+        result.data.id,
+        {
           data: { artist: ctx.state.user.id },
           populate: 'artist',
-        })
+        },
+      )
 
       await sendEmail(updatedArt)
 
