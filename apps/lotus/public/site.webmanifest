@@ -1,6 +1,6 @@
 {
-  "name": "Lotus vd Media",
-  "short_name": "LotusvdMedia",
+  "name": "",
+  "short_name": "",
   "icons": [
     {
       "src": "/android-chrome-192x192.png",
@@ -20,6 +20,6 @@
   "background_color": "#ffffff",
   "scope": "/",
   "manifest_version": 2,
-  "description": "Leave a mark on life",
+  "description": "Silence is the worst enemy of freedom.",
   "display": "standalone"
 }

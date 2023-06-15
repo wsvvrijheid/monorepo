@@ -1,0 +1,13 @@
+{
+  "name": "lotus",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "dotenv -e ../../.env.local next dev",
+    "lotus": "dotenv -e ../../.env.local next dev",
+    "build": "next build",
+    "start": "next start",
+    "clean": "rm -rf node_modules .turbo .next",
+    "lint": "next lint"
+  }
+}

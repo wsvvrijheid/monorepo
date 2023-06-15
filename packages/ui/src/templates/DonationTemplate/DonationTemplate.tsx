@@ -53,9 +53,13 @@ type FormFieldValues = {
 
 type DonationTemplateProps = {
   platforms?: Platform[]
+  isDark?: boolean
 }
 
-export const DonationTemplate: FC<DonationTemplateProps> = ({ platforms }) => {
+export const DonationTemplate: FC<DonationTemplateProps> = ({
+  platforms,
+  isDark,
+}) => {
   const [amount, setAmount] = useState(5)
   const [method, setMethod] = useState<'ideal' | 'creditcard' | 'paypal'>(
     'ideal',
@@ -123,7 +127,12 @@ export const DonationTemplate: FC<DonationTemplateProps> = ({ platforms }) => {
           px={{ base: 8, lg: 16 }}
           py={{ base: 8, lg: 12 }}
           spacing={8}
-          bg="white"
+          bg={'white'}
+          {...(isDark && {
+            borderColor: 'whiteAlpha.200',
+            borderWidth: 2,
+            bg: 'whiteAlpha.200',
+          })}
           rounded="lg"
           shadow="lg"
           as="form"
