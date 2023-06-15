@@ -18,7 +18,7 @@ export const getRoutePermission = (
       '/arts?status=approved',
       '/arts?status=rejected',
       '/collections',
-      '/translates/arts',
+      '/translates',
     ],
     authenticated: [],
     author: ['/blogs'],
@@ -35,15 +35,7 @@ export const getRoutePermission = (
     ],
     jury: ['/competitions'],
     public: [],
-    translator: [
-      '/translates',
-      '/translates/activities',
-      '/translates/announcements',
-      '/translates/blogs',
-      '/translates/collections',
-      '/translates/hashtags',
-      '/translates/posts',
-    ],
+    translator: ['/translates'],
   }
 
   return roles?.some(role => {

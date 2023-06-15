@@ -14,13 +14,15 @@ export default factories.createCoreController(
     async create(ctx) {
       const result = await super.create(ctx)
 
-      await strapi
-        .service('api::recommended-topic.recommended-topic')
-        .update(result.data.id, {
+      await strapi.entityService.update(
+        'api::recommended-topic.recommended-topic',
+        result.data.id,
+        {
           data: { creator: ctx.state.user.id },
-        })
+        },
+      )
 
-      const topics = await strapi.service('api::topic.topic').find({})
+      const topics = await strapi.entityService.findMany('api::topic.topic')
 
       const newTopics = (topics as { data: RecommendedTopic[] }).data.map(
         topic => {
@@ -32,7 +34,7 @@ export default factories.createCoreController(
         },
       )
 
-      await strapi.service('api::topic.topic').createOrUpdate({
+      await strapi.entityService.create('api::topic.topic', {
         data: { data: newTopics },
         meta: {},
       })

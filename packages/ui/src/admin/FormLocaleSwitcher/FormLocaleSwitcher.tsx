@@ -1,32 +1,39 @@
 import { Button, ButtonGroup } from '@chakra-ui/react'
+import Link from 'next/link'
 import { useRouter } from 'next/router'
 
-import { StrapiLocale, StrapiTranslatableModel } from '@wsvvrijheid/types'
+import { StrapiTranslatableModel } from '@wsvvrijheid/types'
 
 export const FormLocaleSwitcher = <T extends StrapiTranslatableModel>({
   models,
-  slug,
 }: {
   models: T[]
-  slug: string
+  slug?: string
 }) => {
   const router = useRouter()
-
-  const navigate = (id: number, locale: StrapiLocale) => {
-    router.push(`/${slug}/${id}`, undefined, { locale })
-  }
+  const slug = router.query.slug as string
 
   return (
     <ButtonGroup>
-      {models?.map(model => (
-        <Button
-          key={model.id}
-          textTransform={'uppercase'}
-          onClick={() => navigate(model.id, model.locale)}
-        >
-          {model.locale}
-        </Button>
-      ))}
+      {models?.map(model => {
+        const href = slug
+          ? `/${slug}/${model.id}`
+          : {
+              pathname: router.pathname,
+              query: { ...router.query, id: model.id },
+            }
+
+        return (
+          <Button
+            as={Link}
+            key={model.id}
+            textTransform={'uppercase'}
+            href={href}
+          >
+            {model.locale}
+          </Button>
+        )
+      })}
     </ButtonGroup>
   )
 }

@@ -1,6 +1,7 @@
+import type { Strapi } from '@strapi/strapi'
 import { format } from 'date-fns'
 
-export default async ({ strapi }) => {
+export default async ({ strapi }: { strapi: Strapi }) => {
   try {
     const accounts = process.env['STATS_ACCOUNTS']
 
@@ -14,13 +15,16 @@ export default async ({ strapi }) => {
       const date = format(new Date(), 'yyyy-MM-dd')
 
       // After create lifecycle will update it with the stats
-      await strapi.service('api::account-statistic.account-statistic').create({
-        data: {
-          username: username.toLowerCase(),
-          date,
-          publishedAt: new Date(),
+      await strapi.entityService.create(
+        'api::account-statistic.account-statistic',
+        {
+          data: {
+            username: username.toLowerCase(),
+            date,
+            publishedAt: new Date(),
+          },
         },
-      })
+      )
     })
   } catch (error) {
     console.log('Error updating account statistics', error.message)

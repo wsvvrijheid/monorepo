@@ -7,9 +7,11 @@ export default factories.createCoreController(
       async create(ctx) {
         const result = await super.create(ctx)
 
-        await strapi
-          .service('api::applicant.applicant')
-          .update(result.data.id, { data: { user: ctx.state.user.id } })
+        await strapi.entityService.update(
+          'api::applicant.applicant',
+          result.data.id,
+          { data: { user: ctx.state.user.id } },
+        )
 
         return result
       },
