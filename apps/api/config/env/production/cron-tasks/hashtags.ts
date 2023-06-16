@@ -1,15 +1,13 @@
-import type { Strapi } from '@strapi/strapi'
-
 import { twitterApi } from '../../../../src/libs'
 import { mapTweetV2ResponseToTweet } from '../../../../src/utils'
 
-export default async ({ strapi }: { strapi: Strapi }) => {
+export default async ({ strapi }) => {
   const date = new Date(
     new Date(Date.now() - 7 * 24 * 60 * 60 * 1000),
   ).toISOString()
 
   // TODO Check for tr locale
-  const hashtags = await strapi.entityService.findMany('api::hashtag.hashtag')({
+  const hashtags = await strapi.entityManager.findMany('api::hashtag.hashtag')({
     date: { $gte: date },
   })
 
@@ -57,7 +55,7 @@ export default async ({ strapi }: { strapi: Strapi }) => {
           }
         })
 
-        await strapi.entityService.update('api::hashtag.hashtag', id, {
+        await strapi.entityManager.update('api::hashtag.hashtag', id, {
           data: { tweets: mappedTweets },
         })
       }

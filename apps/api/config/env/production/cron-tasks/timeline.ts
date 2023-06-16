@@ -1,10 +1,8 @@
-import type { Strapi } from '@strapi/strapi'
-
 import { getUserTweets, twitterApi } from '../../../../src/libs'
 
-export default async ({ strapi }: { strapi: Strapi }) => {
+export default async ({ strapi }) => {
   try {
-    const timelines = await strapi.entityService.findMany(
+    const timelines = await strapi.entityManager.findMany(
       'api::timeline.timeline',
     )
 
@@ -26,7 +24,7 @@ export default async ({ strapi }: { strapi: Strapi }) => {
       // const tweets =
       //   (await getUserTweets(userData.id).catch(e => console.log(e))) || []
 
-      await strapi.entityService.update('api::timeline.timeline', id, {
+      await strapi.entityManager.update('api::timeline.timeline', id, {
         data: {
           userData: {
             name: userData.name,
