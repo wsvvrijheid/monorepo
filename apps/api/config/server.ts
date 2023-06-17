@@ -2,6 +2,7 @@ import tasks from './cron'
 
 export default ({ env }) => {
   const isDev = env('NODE_ENV') === 'development'
+  const isProd = env('NODE_ENV') === 'production'
 
   return {
     host: env('HOST', '0.0.0.0'),
@@ -9,7 +10,7 @@ export default ({ env }) => {
       keys: env.array('APP_KEYS'),
     },
     cron: {
-      enabled: isDev ? env('ENABLE_LOCAL_CRON') === 'true' : true,
+      enabled: isProd || env('ENABLE_LOCAL_CRON'),
       tasks,
     },
     ...(isDev && {
