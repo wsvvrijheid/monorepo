@@ -4,7 +4,7 @@ import { getAccountStats } from '../../src/libs'
 
 export default async ({ strapi }) => {
   try {
-    const accounts = process.env['STATS_ACCOUNTSs']
+    const accounts = process.env['STATS_ACCOUNTS']
 
     if (!accounts) {
       strapi.log.warn('STATS_ACCOUNTS env variable is not set')
