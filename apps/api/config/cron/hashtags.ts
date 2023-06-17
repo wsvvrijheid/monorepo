@@ -1,5 +1,5 @@
-import { twitterApi } from '../../../../src/libs'
-import { mapTweetV2ResponseToTweet } from '../../../../src/utils'
+import { getTwitterClient } from '../../src/libs'
+import { mapTweetResponseToTweet } from '../../src/utils'
 
 export default async ({ strapi }) => {
   const date = new Date(
@@ -7,29 +7,29 @@ export default async ({ strapi }) => {
   ).toISOString()
 
   // TODO Check for tr locale
-  const hashtags = await strapi.entityManager.findMany('api::hashtag.hashtag')({
+  const hashtags = await strapi.entityService.findMany('api::hashtag.hashtag', {
     date: { $gte: date },
   })
 
-  if (!Array.isArray(hashtags.data)) return
-  if (!hashtags.data[0]) return
+  if (!Array.isArray(hashtags)) return
+  if (!hashtags[0]) return
 
-  hashtags.data.map(async h => {
+  const twitterClient = await getTwitterClient()
+
+  for (const hashtag of hashtags) {
     try {
-      const { id, attributes } = h
+      const { id, hashtagDefault } = hashtag
 
-      const result = await twitterApi.v2.search({
-        query: attributes.hashtagDefault as string,
+      const result = await twitterClient.v2.search({
+        query: hashtagDefault as string,
         max_results: 50,
-        expansions: ['attachments.media_keys'],
+        expansions: ['attachments.media_keys', 'author_id'],
         'media.fields': ['url', 'preview_image_url', 'variants'],
-        'tweet.fields': ['attachments'],
+        'tweet.fields': ['attachments', 'public_metrics'],
+        'user.fields': ['name', 'username', 'profile_image_url'],
       })
 
-      const tweetsData = result?.data.data
-      const includes = result?.data.includes
-
-      const tweets = mapTweetV2ResponseToTweet(tweetsData, includes)
+      const tweets = mapTweetResponseToTweet(result?.data)
 
       if (tweets?.length) {
         const mappedTweets = tweets.map(data => {
@@ -49,18 +49,18 @@ export default async ({ strapi }) => {
             user,
             text,
             image: data.image || null,
-            videos: data.video || null,
+            video: data.video || null,
             likes,
             retweets,
           }
         })
 
-        await strapi.entityManager.update('api::hashtag.hashtag', id, {
+        await strapi.entityService.update('api::hashtag.hashtag', id, {
           data: { tweets: mappedTweets },
         })
       }
     } catch (error) {
-      console.error(`Error while searching tweets`, error.message)
+      console.log('error', error)
     }
-  })
+  }
 }

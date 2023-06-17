@@ -1,12 +1,12 @@
-import accountStatistics from './accountStatistics'
+import accountStats from './accountStats'
 import hashtags from './hashtags'
 import timeline from './timeline'
-import tweets from './tweets'
+import trends from './trends'
 import userStats from './userStats'
 
 export default {
-  tweets: {
-    task: tweets,
+  trends: {
+    task: trends,
     options: {
       rule: '*/10 * * * *',
       tz: 'Europe/Amsterdam',
@@ -26,8 +26,8 @@ export default {
       tz: 'Europe/Amsterdam',
     },
   },
-  accountStatistics: {
-    task: accountStatistics,
+  accountStats: {
+    task: accountStats,
     options: {
       rule: '0 0 * * SUN',
       tz: 'Europe/Amsterdam',
