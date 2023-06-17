@@ -2,12 +2,12 @@ import { UserV1, UserV2 } from 'twitter-api-v2'
 
 import { MentionUserData } from '@wsvvrijheid/types'
 
-import { twitterApi } from '../../../../libs'
+import { twitterApiBearer } from '../../../../libs'
 
 export default {
   async afterCreate({ result }) {
     try {
-      const userResult = await twitterApi.v2.userByUsername(
+      const userResult = await twitterApiBearer.v2.userByUsername(
         result.username as unknown as string,
         {
           'user.fields': [
@@ -19,8 +19,6 @@ export default {
           ],
         },
       )
-
-      console.log('userResult', userResult)
 
       const user = userResult?.data
 

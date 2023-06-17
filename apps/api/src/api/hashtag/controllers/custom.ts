@@ -4,8 +4,8 @@ import { ETwitterStreamEvent, TweetV2SingleResult } from 'twitter-api-v2'
 
 import { Hashtag } from '@wsvvrijheid/types'
 
-import { twitterApi } from '../../../libs'
-import { getReferenceModel, mapTweetV2ResponseToTweet } from '../../../utils'
+import { twitterApiBearer } from '../../../libs'
+import { getReferenceModel, mapTweetResponseToTweet } from '../../../utils'
 
 let isStarted = false
 
@@ -97,18 +97,16 @@ const store = new Store()
 export default {
   async search(ctx: Context) {
     try {
-      const result = await twitterApi.v2.search({
+      const result = await twitterApiBearer.v2.search({
         query: ctx.query.q as string,
         max_results: 50,
-        expansions: ['attachments.media_keys'],
+        expansions: ['attachments.media_keys', 'author_id'],
         'media.fields': ['url', 'preview_image_url', 'variants'],
-        'tweet.fields': ['attachments'],
+        'tweet.fields': ['attachments', 'public_metrics'],
+        'user.fields': ['name', 'username', 'profile_image_url'],
       })
 
-      const tweetsData = result?.data.data
-      const includes = result?.data.includes
-
-      const tweets = mapTweetV2ResponseToTweet(tweetsData, includes)
+      const tweets = mapTweetResponseToTweet(result?.data)
 
       ctx.send(tweets)
     } catch (error) {
@@ -198,21 +196,21 @@ export default {
       }))
 
       // reset rules
-      const rules = await twitterApi.v2.streamRules()
+      const rules = await twitterApiBearer.v2.streamRules()
 
       if (rules.data?.length) {
-        await twitterApi.v2.updateStreamRules({
+        await twitterApiBearer.v2.updateStreamRules({
           delete: { ids: rules.data.map(rule => rule.id) },
         })
       }
 
       // add your rules here
-      await twitterApi.v2.updateStreamRules({
+      await twitterApiBearer.v2.updateStreamRules({
         add: hashtagRules,
       })
 
       // start stream
-      const stream = await twitterApi.v2.getStream<TweetV2SingleResult>(
+      const stream = await twitterApiBearer.v2.getStream<TweetV2SingleResult>(
         'tweets/search/stream',
         {
           'tweet.fields': [

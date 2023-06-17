@@ -1,30 +1,20 @@
-import { getUserTweets, twitterApi } from '../../../../libs'
+import { getUserByUsername, getUserTweets } from '../../../../libs'
 
 export default {
   async afterCreate({ result }) {
     try {
-      const userResult = await twitterApi.v2.userByUsername(
-        result.username as unknown as string,
-        {
-          'user.fields': [
-            'public_metrics',
-            'profile_image_url',
-            'location',
-            'verified',
-            'description',
-          ],
-        },
-      )
+      const userResult = await getUserByUsername(result.username as string)
 
       const user = userResult?.data
 
       if (!user) return
 
-      const tweets = (await getUserTweets(user.id)) || []
+      const tweets = (await getUserTweets(user.id, user)) || []
 
       await strapi.entityService.update('api::timeline.timeline', result.id, {
         data: {
           userData: {
+            id: user.id,
             name: user.name,
             username: user.username,
             profile: user.profile_image_url,

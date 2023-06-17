@@ -1,34 +1,41 @@
-import { UserV1 } from 'twitter-api-v2'
+import { UserV2 } from 'twitter-api-v2'
 
-import { twitterApi } from './client'
-import { Tweet } from './types'
-import { mapTweetV1ResponseToTweet } from '../../utils'
+import { Tweet } from '@wsvvrijheid/types'
+
+import { getTwitterClient } from './client'
+import { mapTweetResponseToTweet } from '../../utils'
 
 export const getUserTweets = async (
   userId: string,
-  userData?: UserV1,
+  userData?: UserV2,
 ): Promise<Tweet[]> => {
-  let user: UserV1 = userData
-
-  if (!user) {
-    user = await twitterApi.v1.user({ user_id: userId })
-  }
+  let user: UserV2 = userData
 
   try {
-    const tweetsResponse = await twitterApi.v1.userTimeline(userId, {
-      count: 50,
-      include_rts: false,
-      exclude_replies: true,
-      tweet_mode: 'extended',
+    const twitterClient = await getTwitterClient()
+
+    if (!user) {
+      const result = await twitterClient.v2.user(userId, {
+        'user.fields': ['profile_image_url', 'username'],
+      })
+      user = result?.data
+    }
+
+    const tweetsResponse = await twitterClient.v2.userTimeline(userId, {
+      exclude: ['retweets', 'replies'],
+      max_results: 20,
+      'media.fields': ['url', 'preview_image_url', 'variants'],
+      'tweet.fields': ['attachments', 'public_metrics'],
+      expansions: ['attachments.media_keys'],
     })
 
-    const tweetsData = tweetsResponse?.data
+    if (!tweetsResponse?.data) return []
 
-    const tweets: Tweet[] = mapTweetV1ResponseToTweet(tweetsData, user)
+    const tweets: Tweet[] = mapTweetResponseToTweet(tweetsResponse.data, user)
 
     return tweets
   } catch (error) {
-    console.error('Error getting user tweets', error.message)
+    console.error('Error getting user tweets', error)
 
     return []
   }
