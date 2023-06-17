@@ -1,28 +1,36 @@
+import { addHours } from 'date-fns'
+
 import { getTwitterClient } from '../../src/libs'
 import { mapTweetResponseToTweet } from '../../src/utils'
 
 export default async ({ strapi }) => {
-  const date = new Date(
-    new Date(Date.now() - 7 * 24 * 60 * 60 * 1000),
-  ).toISOString()
+  // Consider server timezone
+  const date = addHours(new Date(), -6)
 
   // TODO Check for tr locale
-  const hashtags = await strapi.entityService.findMany('api::hashtag.hashtag', {
-    date: { $gte: date },
+  const hashtags = await strapi.db.query('api::hashtag.hashtag').findMany({
+    where: {
+      $and: [
+        { date: { $gt: date } },
+        { date: { $lt: new Date() } },
+        { locale: 'tr' },
+      ],
+    },
   })
 
-  if (!Array.isArray(hashtags)) return
-  if (!hashtags[0]) return
+  if (!hashtags?.length) return
 
   const twitterClient = await getTwitterClient()
 
-  for (const hashtag of hashtags) {
+  for await (const hashtag of hashtags) {
     try {
       const { id, hashtagDefault } = hashtag
 
+      if (!hashtagDefault) continue
+
       const result = await twitterClient.v2.search({
         query: hashtagDefault as string,
-        max_results: 50,
+        max_results: 20,
         expansions: ['attachments.media_keys', 'author_id'],
         'media.fields': ['url', 'preview_image_url', 'variants'],
         'tweet.fields': ['attachments', 'public_metrics'],
@@ -58,6 +66,10 @@ export default async ({ strapi }) => {
         await strapi.entityService.update('api::hashtag.hashtag', id, {
           data: { tweets: mappedTweets },
         })
+
+        strapi.log.info(
+          `Hashtag ${hashtagDefault} tweets fetched: ${tweets?.length}}`,
+        )
       }
     } catch (error) {
       console.log('error', error)
