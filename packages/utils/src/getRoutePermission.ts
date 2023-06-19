@@ -29,7 +29,6 @@ export const getRoutePermission = (
       '/blogs',
       '/caps-maker',
       '/competitions',
-      '/courses',
       '/hashtags',
       '/news/recommended',
     ],
