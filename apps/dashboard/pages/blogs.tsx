@@ -38,7 +38,7 @@ const BlogsPage = ({ seo }) => {
     searchTerm,
     sort,
     locale: locale as StrapiLocale,
-    statuses: ['approved'],
+    statuses: ['approved', 'pending'],
     publicationState: 'preview',
   })
 
