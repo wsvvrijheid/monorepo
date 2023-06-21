@@ -53,7 +53,8 @@ export const MdFormItem = <T extends FieldValues>({
       <MarkdownEditor
         placeholder={placeholder || label}
         onChange={(value: { text: string; html: string }) =>
-          onChange(value.text)
+          // TODO: Fix this type
+          onChange(value.text as any)
         }
         value={value}
         isDisabled={isDisabled}

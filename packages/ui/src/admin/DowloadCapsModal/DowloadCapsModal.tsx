@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react'
+import React, { FC } from 'react'
 
 import {
   Button,
@@ -9,11 +9,6 @@ import {
   DrawerFooter,
   DrawerHeader,
   DrawerOverlay,
-  Menu,
-  MenuButton,
-  MenuItemOption,
-  MenuList,
-  MenuOptionGroup,
   Stack,
   useDisclosure,
   useUpdateEffect,
@@ -25,7 +20,7 @@ import { FaDownload } from 'react-icons/fa'
 
 import { ASSETS_URL, SITE_URL } from '@wsvvrijheid/config'
 import { useSearchModel } from '@wsvvrijheid/services'
-import { Hashtag, Post, StrapiLocale } from '@wsvvrijheid/types'
+import { Post, StrapiLocale } from '@wsvvrijheid/types'
 import { getOgImageSrc } from '@wsvvrijheid/utils'
 
 import { Caps, WImage } from '../../components'
@@ -57,7 +52,6 @@ export const DowloadCapsModal: FC<DowloadCapsModalType> = ({ id }) => {
   const postMedias =
     postsQuery?.data?.data
       ?.map(post => {
-        console.log('post', post)
         const imageSrc = post.image?.url && ASSETS_URL + post.image?.url
         const title = post?.title
         const text = post?.description
