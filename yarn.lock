@@ -10531,10 +10531,10 @@ i18next-http-backend@^2.2.1:
   dependencies:
     cross-fetch "3.1.6"
 
-i18next@^23.2.1:
-  version "23.2.1"
-  resolved "https://registry.yarnpkg.com/i18next/-/i18next-23.2.1.tgz#1117d0fdeb10e5db68f5f404d31e68b11e1196cf"
-  integrity sha512-BAWWqXYM1OtgA2hkGvnXWTs9wg0g3qx0SoiJoVTiL5Ia2EDZK0Veyuq4m2YtZeSs9D/9cwrNFxCKJi2/gdjZ4A==
+i18next@^23.2.2:
+  version "23.2.2"
+  resolved "https://registry.yarnpkg.com/i18next/-/i18next-23.2.2.tgz#8092f0cf596f07ba54705f16834877f4892d2348"
+  integrity sha512-z4fKvPkAs2i5wwALjwBCirwc+Wx6YyToioozvkCgm3o8qW31IDdjHdq0jfFMpB16jIVbINHaOvvF1XXgSEqygA==
   dependencies:
     "@babel/runtime" "^7.22.5"
 
@@ -14478,10 +14478,10 @@ react-hook-form-persist@^3.0.0:
   version "3.0.0"
   resolved "https://registry.npmjs.org/react-hook-form-persist/-/react-hook-form-persist-3.0.0.tgz"
 
-react-hook-form@^7.45.0:
-  version "7.45.0"
-  resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-7.45.0.tgz#df2bbc8cee598855a63ba446e0bb06f7c8120ccf"
-  integrity sha512-AbHeZ4ad+0dEIknSW9dBgIwcvRDfZ1O97sgj75WaMdOX0eg8TBiUf9wxzVkIjZbk76BBIE9lmFOzyD4PN80ZQg==
+react-hook-form@7.44.3:
+  version "7.44.3"
+  resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-7.44.3.tgz#a99e560c6ef2b668db1daaebc4f98267331b6828"
+  integrity sha512-/tHId6p2ViAka1wECMw8FEPn/oz/w226zehHrJyQ1oIzCBNMIJCaj6ZkQcv+MjDxYh9MWR7RQic7Qqwe4a5nkw==
 
 react-i18next@^13.0.0:
   version "13.0.0"
@@ -16338,9 +16338,10 @@ tesseract.js-core@^4.0.4:
   version "4.0.4"
   resolved "https://registry.npmjs.org/tesseract.js-core/-/tesseract.js-core-4.0.4.tgz"
 
-tesseract.js@^4.1.0:
-  version "4.1.0"
-  resolved "https://registry.npmjs.org/tesseract.js/-/tesseract.js-4.1.0.tgz"
+tesseract.js@^4.1.1:
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/tesseract.js/-/tesseract.js-4.1.1.tgz#8bf21d080121faf512d197d3a14dcfed5afb8c0c"
+  integrity sha512-2a9ej6FmtNtRKdFpjvjUpz0zGJRQgPlj/oyJxRBzMN7+2dXKeZwrIDF1b4B7xslrhlE5xpL0TYLpwhpMwsb/rw==
   dependencies:
     bmp-js "^0.1.0"
     idb-keyval "^6.2.0"
