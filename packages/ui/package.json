@@ -12,19 +12,19 @@
   },
   "devDependencies": {
     "@chakra-ui/storybook-addon": "^5.0.0",
-    "@storybook/addon-essentials": "^7.0.22",
-    "@storybook/builder-webpack5": "^7.0.22",
-    "@storybook/core-common": "^7.0.22",
-    "@storybook/core-server": "^7.0.22",
-    "@storybook/nextjs": "^7.0.22",
-    "@storybook/react": "^7.0.22",
-    "@storybook/types": "^7.0.22",
+    "@storybook/addon-essentials": "^7.0.23",
+    "@storybook/builder-webpack5": "^7.0.23",
+    "@storybook/core-common": "^7.0.23",
+    "@storybook/core-server": "^7.0.23",
+    "@storybook/nextjs": "^7.0.23",
+    "@storybook/react": "^7.0.23",
+    "@storybook/types": "^7.0.23",
     "browserify-fs": "^1.0.0",
     "i18next-browser-languagedetector": "^7.0.2",
     "i18next-http-backend": "^2.2.1",
     "os-browserify": "^0.3.0",
     "path-browserify": "^1.0.1",
-    "storybook": "^7.0.22",
+    "storybook": "^7.0.23",
     "stream-browserify": "^3.0.0"
   }
 }
