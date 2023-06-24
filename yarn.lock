@@ -4982,10 +4982,10 @@
   version "1.0.4"
   resolved "https://registry.npmjs.org/@tsconfig/node16/-/node16-1.0.4.tgz"
 
-"@turbo/gen@^1.10.4":
-  version "1.10.4"
-  resolved "https://registry.yarnpkg.com/@turbo/gen/-/gen-1.10.4.tgz#ecbe1a1e40dbf6e2de6bbec95215521be229c5ba"
-  integrity sha512-d+lfqJouTbiqDaCiNN3SHDThE92WAQy63O9fosAc02ydOKm/z8xyNFiivU88T9Ny7pf0Ju9l6YEh4iak/Lqc7w==
+"@turbo/gen@^1.10.6":
+  version "1.10.6"
+  resolved "https://registry.yarnpkg.com/@turbo/gen/-/gen-1.10.6.tgz#653c3de810065b11b82022e3cd6941cea6486404"
+  integrity sha512-sZWqL7VVBaLz4iFdMUpGg0n8agl7aLauGAVsrwC/0EQSmCh4tHzNeJQA4GSOjMwDBpa2ZO46/8KKdl2m0zDFRA==
   dependencies:
     chalk "2.4.2"
     commander "^10.0.0"
@@ -5507,10 +5507,10 @@
     "@types/scheduler" "*"
     csstype "^3.0.2"
 
-"@types/react@18.2.13":
-  version "18.2.13"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-18.2.13.tgz#a98c09bde8b18f80021935b11d2d29ef5f4dcb2f"
-  integrity sha512-vJ+zElvi/Zn9cVXB5slX2xL8PZodPCwPRDpittQdw43JR2AJ5k3vKdgJJyneV/cYgIbLQUwXa9JVDvUZXGba+Q==
+"@types/react@18.2.14":
+  version "18.2.14"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-18.2.14.tgz#fa7a6fecf1ce35ca94e74874f70c56ce88f7a127"
+  integrity sha512-A0zjq+QN/O0Kpe30hA1GidzyFjatVvrpIvWLxD+xv67Vt91TWWgco9IvrJBkeyHm1trGaFS/FSGqPlhyeZRm0g==
   dependencies:
     "@types/prop-types" "*"
     "@types/scheduler" "*"
@@ -8856,12 +8856,12 @@ eslint-config-prettier@^8.8.0:
   version "8.8.0"
   resolved "https://registry.npmjs.org/eslint-config-prettier/-/eslint-config-prettier-8.8.0.tgz"
 
-eslint-config-turbo@^1.10.4:
-  version "1.10.4"
-  resolved "https://registry.yarnpkg.com/eslint-config-turbo/-/eslint-config-turbo-1.10.4.tgz#b2e804bf7852c7eec2cb2ede0ea07f284e4fda6e"
-  integrity sha512-hmcN373hjDF8sXAJcptL15PCKsDSc3ImcIiH6Q3H0cGbbQgeHpTIwd9WeUbs+9b6xV1jO5rgpNORiJ6Hu20kRg==
+eslint-config-turbo@^1.10.6:
+  version "1.10.6"
+  resolved "https://registry.yarnpkg.com/eslint-config-turbo/-/eslint-config-turbo-1.10.6.tgz#31a52d30a5799d6d567cb3cc206edfe5de2e10f9"
+  integrity sha512-iZ63etePRUdEIDY5MxdUhU2ekV9TDbVdHg0BK00QqVFgQTXUYuJ7rsQj/wUKTsw3jwhbLfaY6H5sknAgYyWZ2g==
   dependencies:
-    eslint-plugin-turbo "1.10.4"
+    eslint-plugin-turbo "1.10.6"
 
 eslint-import-resolver-node@^0.3.6, eslint-import-resolver-node@^0.3.7:
   version "0.3.7"
@@ -8955,10 +8955,10 @@ eslint-plugin-react@7.32.2, eslint-plugin-react@^7.31.7:
     semver "^6.3.0"
     string.prototype.matchall "^4.0.8"
 
-eslint-plugin-turbo@1.10.4:
-  version "1.10.4"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-turbo/-/eslint-plugin-turbo-1.10.4.tgz#9f9091111ab77d0ebdf6f77342a88b0b2b9453e0"
-  integrity sha512-FmwJ/s8vqE4COoAxT9oZfZfl4yDDBTnVkAZtkwIRv5QtudeC0vD8fAkLyM3YdBKlHf5nu+qs7zZZW14v8LpnVg==
+eslint-plugin-turbo@1.10.6:
+  version "1.10.6"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-turbo/-/eslint-plugin-turbo-1.10.6.tgz#8d9985b92174348e4c2e054e79910691cbff3ac7"
+  integrity sha512-jlzfxYaK8hcz1DTk8Glxxi1r0kgdy85191a4CbFOTiiBulmKHMLJgzhsyE9Ong796MA62n91KFpc20BiKjlHwg==
   dependencies:
     dotenv "16.0.3"
 
@@ -9644,9 +9644,10 @@ fragment-cache@^0.2.1:
   dependencies:
     map-cache "^0.2.2"
 
-framer-motion@^10.12.16:
-  version "10.12.16"
-  resolved "https://registry.npmjs.org/framer-motion/-/framer-motion-10.12.16.tgz"
+framer-motion@^10.12.17:
+  version "10.12.17"
+  resolved "https://registry.yarnpkg.com/framer-motion/-/framer-motion-10.12.17.tgz#0e891aaddbe6049267c413449945af95585cbc87"
+  integrity sha512-IR+aAYntsyu6ofyxqQV4QYotmOqzcuKxhqNpfc3DXJjNWOPpOeSyH0A+In3IEBu49Yx/+PNht+YMeZSdCNaYbw==
   dependencies:
     tslib "^2.4.0"
   optionalDependencies:
@@ -16618,47 +16619,47 @@ tunnel-agent@^0.6.0:
   dependencies:
     safe-buffer "^5.0.1"
 
-turbo-darwin-64@1.10.4:
-  version "1.10.4"
-  resolved "https://registry.yarnpkg.com/turbo-darwin-64/-/turbo-darwin-64-1.10.4.tgz#ee902a1ded21c2dae1deb24b940ec31d07ec9c46"
-  integrity sha512-oAILq0QZUvOxYZU71SXRsL7DFpqZutPl9CX7+rD48tReHrmhcm3HMeuAFY0S5FD/9fKub04UfAQwVtJSlhvISg==
+turbo-darwin-64@1.10.6:
+  version "1.10.6"
+  resolved "https://registry.yarnpkg.com/turbo-darwin-64/-/turbo-darwin-64-1.10.6.tgz#0473a8d95347614dbb5f19d1b0fd8daa554739cf"
+  integrity sha512-s2Gc7i9Ud+H9GDcrGJjPIyscJfzDGQ6il4Sl2snfvwngJs4/TaqKuBoX3HNt/7F4NiFRs7ZhlLV1/Yu9zGBRhw==
 
-turbo-darwin-arm64@1.10.4:
-  version "1.10.4"
-  resolved "https://registry.yarnpkg.com/turbo-darwin-arm64/-/turbo-darwin-arm64-1.10.4.tgz#015cecf7224fa66cc823c0795792b9600b183779"
-  integrity sha512-N0XPFLXsZRLE6gKDa5MREpPQp0drOz9PrADaaMXTlspxWS/tmmxyH+ZQ/uGqKC/0mqsNIhZuSFsEVZe1PGaqxw==
+turbo-darwin-arm64@1.10.6:
+  version "1.10.6"
+  resolved "https://registry.yarnpkg.com/turbo-darwin-arm64/-/turbo-darwin-arm64-1.10.6.tgz#2f1f43f83866e44b86f0e7c5073a0954ee2d8ea5"
+  integrity sha512-tgl70t5PBLyRcNTdP9N6NjvdvQ5LUk8Z60JGUhBhnc+oCOdA4pltrDJNPyel3tQAXXt1dDpl8pp9vUrbwoVyGg==
 
-turbo-linux-64@1.10.4:
-  version "1.10.4"
-  resolved "https://registry.yarnpkg.com/turbo-linux-64/-/turbo-linux-64-1.10.4.tgz#9e70ac014e764268180f1f93dfc8e7c3d004fa66"
-  integrity sha512-S8ZVNCPnrBU+GMKKUWcgg4MaTOdL1reOU1XQtDiHfEPskXjLE+10vr65xJJQb6CqO8ARFXUlFSAUfxZRX6WVNA==
+turbo-linux-64@1.10.6:
+  version "1.10.6"
+  resolved "https://registry.yarnpkg.com/turbo-linux-64/-/turbo-linux-64-1.10.6.tgz#ca9f035803e2cef802f11be2fb793df4b3857b07"
+  integrity sha512-h7eyAA3xtAVpamcYJYUwe0xm0LWdbv7/I7QiM09AZ67TTNpyUgqW8giFN3h793BHEQ2Rcnk9FNkpIbjWBbyamg==
 
-turbo-linux-arm64@1.10.4:
-  version "1.10.4"
-  resolved "https://registry.yarnpkg.com/turbo-linux-arm64/-/turbo-linux-arm64-1.10.4.tgz#c81f9b7a03259ab17cc21514d146695a4a414272"
-  integrity sha512-/C6vpo7kd2ae6dR0iZyRuvfjijuixidhwLzV026A+/1gmAMRXYkslBfgOGfoOquHmvqjCeDVTsMWwCY2NRQqtw==
+turbo-linux-arm64@1.10.6:
+  version "1.10.6"
+  resolved "https://registry.yarnpkg.com/turbo-linux-arm64/-/turbo-linux-arm64-1.10.6.tgz#f2400fcf4d5b996190a580bb60f199b784a4b0d7"
+  integrity sha512-8cZhOeLqu3QZ27yLd6bw4FNaB8y5pLdWeRLJeiWHkIb/cptKnRKJFP+keBJzJi8ovaMqdBpabrxiBRN2lhau5Q==
 
-turbo-windows-64@1.10.4:
-  version "1.10.4"
-  resolved "https://registry.yarnpkg.com/turbo-windows-64/-/turbo-windows-64-1.10.4.tgz#fc35c9cdf48411224c67c3ac03f237be591d7e5a"
-  integrity sha512-fh6X/fJl9gNTu3r7zMmwCychxMlpQMFn32bpioPNIBxrTHCbQYeGSQuw2XWa/RswgNzCY3Xo34emYAKu9btrsw==
+turbo-windows-64@1.10.6:
+  version "1.10.6"
+  resolved "https://registry.yarnpkg.com/turbo-windows-64/-/turbo-windows-64-1.10.6.tgz#d8eaed239a96ad2d151d3e5e3281eb694ecaea15"
+  integrity sha512-qx5jcfCJodN1Mh0KtSVQau7pK8CxDvtif7+joPHI2HbQPAADgdUl0LHfA5tFHh6aWgfvhxbvIXqJd6v7Mqkj9g==
 
-turbo-windows-arm64@1.10.4:
-  version "1.10.4"
-  resolved "https://registry.yarnpkg.com/turbo-windows-arm64/-/turbo-windows-arm64-1.10.4.tgz#baa18ba2b8843983d68a9c9a5fce040f13c23b1b"
-  integrity sha512-KzcKGl+bjwaSkxMNTutuoIM+xPuTBA13zJiC2vFM7fQ6XYM0/ZmUekfoxpMnWgSav8vlTk5tRYaPniLcVzLnTQ==
+turbo-windows-arm64@1.10.6:
+  version "1.10.6"
+  resolved "https://registry.yarnpkg.com/turbo-windows-arm64/-/turbo-windows-arm64-1.10.6.tgz#1e43480584106568df196d0d10964a4eae9b5752"
+  integrity sha512-vTQaRG3/s2XTreOBr6J9HKFtjzusvwGQg0GtuW2+9Z7fizdzP8MuhaDbN6FhKHcWC81PQPD61TBIKTVTsYOEZg==
 
-turbo@^1.10.4:
-  version "1.10.4"
-  resolved "https://registry.yarnpkg.com/turbo/-/turbo-1.10.4.tgz#f7e268203ea3278230d27cdf318b6abb628dd0af"
-  integrity sha512-EVBt762wVGyZAXtp1UWQptRG2N/9TThUJ1tRawvt/pmB62VmdzgDuz80SQYXK5U5yKEID6OJdqAzq8HnIQVA6g==
+turbo@^1.10.6:
+  version "1.10.6"
+  resolved "https://registry.yarnpkg.com/turbo/-/turbo-1.10.6.tgz#021c410d1598bb2c75090cb97e152953de5e2759"
+  integrity sha512-0/wbjw4HvmPP1abVWHTdeFRfCA9cn5oxCPP5bDixagLzvDgGWE3xfdlsyGmq779Ekr9vjtDPgC2Y4JlXEhyryw==
   optionalDependencies:
-    turbo-darwin-64 "1.10.4"
-    turbo-darwin-arm64 "1.10.4"
-    turbo-linux-64 "1.10.4"
-    turbo-linux-arm64 "1.10.4"
-    turbo-windows-64 "1.10.4"
-    turbo-windows-arm64 "1.10.4"
+    turbo-darwin-64 "1.10.6"
+    turbo-darwin-arm64 "1.10.6"
+    turbo-linux-64 "1.10.6"
+    turbo-linux-arm64 "1.10.6"
+    turbo-windows-64 "1.10.6"
+    turbo-windows-arm64 "1.10.6"
 
 tweetnacl@^0.14.3, tweetnacl@~0.14.0:
   version "0.14.5"
