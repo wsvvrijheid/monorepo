@@ -8,6 +8,8 @@ import { FileFormatsType, UploadFile } from '@wsvvrijheid/types'
 
 import { StrapiImage } from '../StrapiImage'
 
+import 'react-medium-image-zoom/dist/styles.css'
+
 export type WImageProps = {
   ratio?: number | 'twitter'
   format?: FileFormatsType
