@@ -21,7 +21,7 @@ export const TweetWidget = ({
       <Text color="gray.500" fontSize="sm">
         {title}
       </Text>
-      <Box bg="white" p={4} overflow="auto" shadow="base">
+      <Box bg="white" overflow="auto">
         <VStack
           divider={<StackDivider borderColor="gray.200" />}
           spacing={4}
@@ -29,7 +29,7 @@ export const TweetWidget = ({
         >
           {tweets && tweets.length > 0 ? (
             tweets.map((tweet, index) => {
-              return <TweetCard key={index} tweet={tweet} />
+              return <TweetCard key={index} tweet={tweet} px={0} />
             })
           ) : (
             <Stack textAlign="center">
