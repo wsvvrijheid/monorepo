@@ -20,8 +20,6 @@ import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
 import Head from 'next/head'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { serialize } from 'next-mdx-remote/serialize'
-import { NextSeoProps } from 'next-seo'
 
 import { ASSETS_URL, SITE_URL } from '@wsvvrijheid/config'
 import {
@@ -144,6 +142,20 @@ export const getServerSideProps = async (
   const { req, res, query } = context
   const adminMode = getCookie('admin-mode', { req, res })
 
+  const queryClient = new QueryClient()
+  const queryKey = ['hashtag', locale, slug]
+
+  await queryClient.prefetchQuery({
+    queryKey,
+    queryFn: () => getHashtagBySlug(locale, slug),
+  })
+
+  const hashtag = queryClient.getQueryData<HashtagReturnType>(queryKey)
+
+  if (!hashtag) {
+    return { notFound: true }
+  }
+
   const post: Post = query.id
     ? await getModelById<Post>({
         url: 'api/posts',
@@ -151,7 +163,7 @@ export const getServerSideProps = async (
       })
     : null
 
-  let seo: NextSeoProps = {}
+  let seo = getPageSeo(hashtag, locale, 'hashtag')
   let capsSrc: string
 
   if (post) {
@@ -223,20 +235,6 @@ export const getServerSideProps = async (
   const isSafari = /Safari/.test(userAgent) && !/Chrome/.test(userAgent)
   const isIosSafari = isIOS && isSafari
 
-  const queryClient = new QueryClient()
-  const queryKey = ['hashtag', locale, slug]
-
-  await queryClient.prefetchQuery({
-    queryKey,
-    queryFn: () => getHashtagBySlug(locale, slug),
-  })
-
-  const hashtag = queryClient.getQueryData<HashtagReturnType>(queryKey)
-
-  if (!hashtag) {
-    return { notFound: true }
-  }
-
   await queryClient.prefetchQuery({
     queryKey: ['kv-hashtag-sentences', hashtag.id],
     queryFn: () => getHashtagSentences(hashtag.id),
@@ -254,20 +252,16 @@ export const getServerSideProps = async (
       { en: '', nl: '', tr: '' },
     ) || {}
 
-  seo = getPageSeo(hashtag, locale, 'hashtag')
-
-  const source = await serialize(hashtag?.content || '')
-
   return {
     props: {
-      source,
-      seo,
+      seo: {
+        ...seo,
+      },
       capsSrc: capsSrc || null,
       post: post || null,
       isIosSafari,
       isAdminMode: adminMode === true,
       slugs: { ...slugs, [locale]: slug },
-      initialTrend: {} as Trend,
       hasStarted: hashtag.hasStarted,
       dehydratedState: dehydrate(queryClient),
       ...(await serverSideTranslations(
