@@ -5,7 +5,7 @@ import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import { ASSETS_URL, COURSES, SITE_URL } from '@wsvvrijheid/config'
+import { ASSETS_URL, COURSES } from '@wsvvrijheid/config'
 import { searchModel } from '@wsvvrijheid/services'
 import { Course, StrapiLocale } from '@wsvvrijheid/types'
 import { AcademyCard, Container, Hero } from '@wsvvrijheid/ui'
@@ -53,7 +53,7 @@ const Platforms: FC<CoursesProps> = ({ title, courses }) => {
                   key={course?.id}
                   title={title}
                   image={ASSETS_URL + course?.image?.url}
-                  href={`${SITE_URL}/${locale}/courses/${course?.slug}`}
+                  href={`/courses/${course?.slug}`}
                   description={description}
                 />
               )
