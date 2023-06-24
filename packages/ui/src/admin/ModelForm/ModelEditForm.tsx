@@ -12,6 +12,7 @@ import {
   Switch,
   Textarea,
   useBoolean,
+  useDisclosure,
   Wrap,
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -21,7 +22,7 @@ import { useTranslation } from 'next-i18next'
 import { useForm } from 'react-hook-form'
 import { AiOutlineEdit } from 'react-icons/ai'
 import { BsTrash } from 'react-icons/bs'
-import { HiOutlineCheck } from 'react-icons/hi'
+import { HiOutlineCheck, HiPlus } from 'react-icons/hi'
 import {
   MdClose,
   MdOutlineCheck,
@@ -51,6 +52,7 @@ import { useDefaultValues } from './utils'
 import { FormItem, MasonryGrid, MdFormItem } from '../../components'
 import { WConfirm, WConfirmProps } from '../../components/WConfirm'
 import { useHasPermission } from '../../hooks'
+import { ArtAddToCollectionModal } from '../ArtAddToCollectionCard'
 import { DowloadCapsModal } from '../DowloadCapsModal'
 
 export const ModelEditForm = <T extends StrapiModel>({
@@ -74,6 +76,8 @@ export const ModelEditForm = <T extends StrapiModel>({
   const [isEditing, setIsEditing] = useBoolean(false)
   const [isChangingImage, setIsChangingImage] = useBoolean(false)
   const [confirmState, setConfirmState] = useState<WConfirmProps>()
+
+  const artModalDisclosure = useDisclosure()
 
   const router = useRouter()
   const { t } = useTranslation()
@@ -337,6 +341,27 @@ export const ModelEditForm = <T extends StrapiModel>({
           bg={'white'}
         >
           <Wrap>
+            {url === 'api/collections' && (
+              <>
+                <ArtAddToCollectionModal
+                  collection={model as any}
+                  isOpen={artModalDisclosure.isOpen}
+                  onClose={artModalDisclosure.onClose}
+                />
+                {getPermission(editorRoles) && (
+                  <Button
+                    onClick={artModalDisclosure.onOpen}
+                    leftIcon={<HiPlus />}
+                    fontSize="sm"
+                    colorScheme={'purple'}
+                    isLoading={approveModelMutation.isLoading}
+                  >
+                    {/* TODO: Add translation */}
+                    Add Arts
+                  </Button>
+                )}
+              </>
+            )}
             {url === 'api/hashtags' && <DowloadCapsModal id={id} />}
             {translatableModel.approvalStatus === 'approved'
               ? null
