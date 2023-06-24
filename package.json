@@ -34,7 +34,6 @@
     "@uppy/dashboard": "^3.4.1",
     "@uppy/drag-drop": "^3.0.2",
     "@uppy/file-input": "^3.0.2",
-    "@uppy/image-editor": "^2.1.2",
     "@uppy/progress-bar": "^3.0.2",
     "@uppy/react": "^3.1.2",
     "@uppy/url": "^3.3.2",

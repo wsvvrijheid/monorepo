@@ -18,6 +18,7 @@ import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock'
 import { getCookie } from 'cookies-next'
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
 import Head from 'next/head'
+import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
@@ -61,6 +62,7 @@ const HashtagPage: FC<HashtagProps> = ({
   const hashtag = useHashtag()
 
   const { isOpen, onClose, onOpen } = useDisclosure()
+  const { query, push } = useRouter()
 
   const { t } = useTranslation()
 
@@ -77,6 +79,14 @@ const HashtagPage: FC<HashtagProps> = ({
       onOpen()
     }
   }, [post])
+
+  const handleClose = () => {
+    onClose()
+    if (query.id) {
+      const { id, ...q } = query
+      push({ query: q }, undefined, { shallow: true })
+    }
+  }
 
   if (!hashtag) return null
 
@@ -103,7 +113,7 @@ const HashtagPage: FC<HashtagProps> = ({
           </Head>
         )}
         {post && (
-          <Modal isCentered isOpen={isOpen} onClose={onClose}>
+          <Modal isCentered isOpen={isOpen} onClose={handleClose}>
             <ModalOverlay />
             <ModalContent>
               <ModalBody p={0}>
@@ -113,7 +123,9 @@ const HashtagPage: FC<HashtagProps> = ({
                 </Stack>
               </ModalBody>
               <ModalFooter>
-                <Button onClick={onClose}>{t('post.see-other-posts')}</Button>
+                <Button onClick={handleClose}>
+                  {t('post.see-other-posts')}
+                </Button>
               </ModalFooter>
             </ModalContent>
           </Modal>
