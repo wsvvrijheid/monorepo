@@ -17,14 +17,6 @@ import { AuthProvider } from '@wsvvrijheid/context'
 
 import i18nConfig from '../next-i18next.config'
 
-import '@splidejs/react-splide/css'
-import '@splidejs/splide/dist/css/themes/splide-default.min.css'
-import '@uppy/core/dist/style.css'
-import '@uppy/dashboard/dist/style.css'
-import '@uppy/image-editor/dist/style.css'
-import '@uppy/url/dist/style.css'
-import 'react-medium-image-zoom/dist/styles.css'
-
 const { ToastContainer } = createStandaloneToast()
 
 function MyApp({ Component, pageProps }) {

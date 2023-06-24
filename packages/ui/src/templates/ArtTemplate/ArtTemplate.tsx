@@ -14,6 +14,9 @@ import {
 
 import { Container, ArtCardBase, ArtWithDetails } from '../../components'
 
+import '@splidejs/react-splide/css'
+import '@splidejs/splide/dist/css/themes/splide-default.min.css'
+
 export type ArtTemplateProps = {
   queryKey: QueryKey
 }
