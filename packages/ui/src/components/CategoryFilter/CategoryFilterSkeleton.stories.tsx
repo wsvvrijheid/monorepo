@@ -18,7 +18,7 @@ export default {
 
 type Story = StoryObj<typeof CategoryFilterSkeleton>
 
-const Template: StoryFn<typeof CategoryFilterSkeleton> = args => {
+const Template: StoryFn<typeof CategoryFilterSkeleton> = () => {
   return (
     <Grid gridTemplateColumns="300px 1fr">
       <Box bg="gray.100" p={4}>

@@ -90,7 +90,7 @@ export const AuthenticatedUserProfile = () => {
                 <>{t('profile.general-settings')}</>
               </Tab>
               <Box my={1} ml={2}>
-                <CreateArtForm queryKey={['user-art']} />
+                <CreateArtForm />
               </Box>
             </TabList>
           </Box>

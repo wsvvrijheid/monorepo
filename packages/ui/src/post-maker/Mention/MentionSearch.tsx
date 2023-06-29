@@ -17,7 +17,6 @@ import { useHashtag } from '@wsvvrijheid/services'
 import { useHashtagContext } from '../HashtagProvider'
 
 export const MentionSearch = (): JSX.Element => {
-  // @ts-ignore
   const { t } = useTranslation()
   const [value, setValue] = useState('')
   const { setMentionSearchKey } = useHashtagContext()

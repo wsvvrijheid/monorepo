@@ -19,7 +19,7 @@ const NewsBookmarkedPage: FC<PageProps> = ({ seo }) => {
   return (
     <AdminLayout seo={seo}>
       <SimpleGrid columns={{ base: 1 }} gap={4}>
-        {bookmarksStorage?.map((topic, i) => (
+        {bookmarksStorage?.map(topic => (
           <TopicCard key={topic.url} topic={topic} />
         ))}
       </SimpleGrid>

@@ -34,7 +34,7 @@ export const CourseDetailPage: FC<CourseDetailPageProps> = ({
     <Container maxW={'6xl'}>
       <Stack spacing={12} pb={16} pt={4}>
         <Stack spacing={4}>
-          <WImage ratio={16 / 9} fill src={course.image} alt="" />
+          <WImage ratio={16 / 9} src={course.image} alt="" />
 
           <Stack
             justify={'space-between'}

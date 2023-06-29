@@ -14,7 +14,6 @@ import { useMutation } from '@tanstack/react-query'
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { NextSeoProps } from 'next-seo'
 import { MdEmail } from 'react-icons/md'
 
 import { EMAIL_SENDER, socialLinks } from '@wsvvrijheid/config'
@@ -23,9 +22,9 @@ import { sendEmail } from '@wsvvrijheid/services'
 import { EmailCreateInput, StrapiLocale } from '@wsvvrijheid/types'
 import {
   ContactForm,
+  ContactFormFieldValues,
   Container,
   SocialButtons,
-  ContactFormFieldValues,
 } from '@wsvvrijheid/ui'
 
 import { Layout } from '../components'

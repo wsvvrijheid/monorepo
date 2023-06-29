@@ -3,7 +3,6 @@ import { FC, useEffect, useMemo, useState } from 'react'
 import {
   MenuItemOption,
   MenuOptionGroup,
-  Stack,
   useUpdateEffect,
 } from '@chakra-ui/react'
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'

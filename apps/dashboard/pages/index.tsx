@@ -75,7 +75,7 @@ const Index: FC<PageProps> = ({ seo }) => {
           }}
         >
           <Wrap>
-            {accounts?.map((account, index) => {
+            {accounts?.map(account => {
               const isSelected = selectedAccounts.includes(account)
 
               return (

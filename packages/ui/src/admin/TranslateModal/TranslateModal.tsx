@@ -26,9 +26,7 @@ import { TranslateModalProps, TranslationKey } from './types'
 export const TranslateModal = <T extends StrapiTranslatableModel>({
   isOpen,
   model,
-  onApprove,
   onClose,
-  onSave,
 }: TranslateModalProps<T>) => {
   const [translationKey, setTranslationKey] = useState<TranslationKey>()
   const [step, setStep] = useState(0)

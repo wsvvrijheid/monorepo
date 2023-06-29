@@ -3,7 +3,6 @@ import { FC } from 'react'
 import { Box } from '@chakra-ui/react'
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { NextSeoProps } from 'next-seo'
 
 import { StrapiLocale } from '@wsvvrijheid/types'
 import { LoginForm } from '@wsvvrijheid/ui'

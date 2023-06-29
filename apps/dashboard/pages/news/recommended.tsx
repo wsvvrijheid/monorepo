@@ -25,7 +25,7 @@ const NewsBookmarkedPage: FC<PageProps> = ({ seo }) => {
   return (
     <AdminLayout seo={seo}>
       <SimpleGrid columns={{ base: 1 }} gap={4}>
-        {data?.data?.map((topic, i) => (
+        {data?.data?.map(topic => (
           <TopicCard
             key={topic.url}
             topic={{ ...topic, isRecommended: true }}

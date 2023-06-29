@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { AxiosRequestHeaders } from 'axios'
 
 export enum Publisher {

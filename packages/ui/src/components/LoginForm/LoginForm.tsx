@@ -13,9 +13,8 @@ import {
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
-import { TFunction, useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import * as yup from 'yup'
 
 import { useAuthContext } from '@wsvvrijheid/context'
 
@@ -49,7 +48,7 @@ export const LoginForm: FC<LoginFormProps> = ({ providersToBeShown = [] }) => {
     mutationKey: ['login'],
     mutationFn: (body: LoginFormFieldValues) =>
       login(body.identifier, body.password),
-    onSuccess: async data => {
+    onSuccess: async () => {
       router.push('/')
     },
   })

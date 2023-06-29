@@ -72,6 +72,7 @@ const TranslateDataTable: FC<TranslateDataTableProps> = ({ searchTerm }) => {
   const status = query.status as ApprovalStatus
   const slug = query.slug as Partial<StrapiCollectionUrl>
 
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   const columns = dataColumns[slug]
 
@@ -121,7 +122,7 @@ const TranslateDataTable: FC<TranslateDataTableProps> = ({ searchTerm }) => {
 const ActivitiesTranslatePage: FC<PageProps> = ({ seo }) => {
   const [searchTerm, setSearchTerm] = useState<string>()
 
-  const { query, locale, push } = useRouter()
+  const { query } = useRouter()
   const id = Number(query.id as string)
   const slug = query.slug as StrapiCollectionUrl
 

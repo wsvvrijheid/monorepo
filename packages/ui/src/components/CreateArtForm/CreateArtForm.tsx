@@ -1,4 +1,4 @@
-import { FC, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 
 import {
   Box,
@@ -34,14 +34,13 @@ import { ArtCreateInput, Category, StrapiLocale } from '@wsvvrijheid/types'
 
 import { ArtCreateSuccessAlert } from './CreateArtSuccessAlert'
 import { createArtSchema } from './schema'
-import { CreateArtFormFieldValues, CreateArtFormProps } from './types'
+import { CreateArtFormFieldValues } from './types'
 import { FilePicker } from '../FilePicker'
 import { FormItem } from '../FormItem'
 import { Navigate } from '../Navigate'
 import { WSelect } from '../WSelect'
 
-// TODO Consider adding modal form instead of a new page
-export const CreateArtForm: FC<CreateArtFormProps> = ({ queryKey }) => {
+export const CreateArtForm = () => {
   const [image, setImage] = useState<File>()
   const { locale } = useRouter()
   const { t } = useTranslation()

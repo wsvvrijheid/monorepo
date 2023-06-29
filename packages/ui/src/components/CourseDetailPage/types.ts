@@ -3,11 +3,7 @@ import { ReactNode } from 'react'
 import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { InferType } from 'yup'
 
-import {
-  Course,
-  CourseApplicationCreateInput,
-  FaqLocale,
-} from '@wsvvrijheid/types'
+import { Course, FaqLocale } from '@wsvvrijheid/types'
 
 import { applicationSchema } from './schema'
 

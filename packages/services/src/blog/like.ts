@@ -86,7 +86,7 @@ export const useLikeBlog = (blog?: Blog | null, queryKey?: QueryKey) => {
       return likeBlogByUserMutation.mutate(
         { id: blog.id, likers, token: token as string, user },
         {
-          onSuccess: async data => {
+          onSuccess: async () => {
             await queryClient.invalidateQueries(queryKey)
           },
         },

@@ -3,7 +3,6 @@ import { Control, FieldErrorsImpl, FieldValues } from 'react-hook-form'
 import { ObjectSchema } from 'yup'
 
 import {
-  Role,
   RoleType,
   StrapiModel,
   StrapiTranslatableModel,

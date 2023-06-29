@@ -28,16 +28,8 @@ type Story = StoryObj<typeof TranslateModal>
 const StoryWithHooks: StoryFn<typeof TranslateModal> = args => {
   const { isOpen, onOpen, onClose } = useDisclosure()
 
-  const handleApprove = (Id: number, content: string) => {
-    console.log('Approve data here')
-    onClose()
-  }
-
   const handleSizeClick = () => {
     onOpen()
-  }
-  const onSave = (data: string) => {
-    alert(`${data} saved`)
   }
 
   return (
@@ -46,13 +38,7 @@ const StoryWithHooks: StoryFn<typeof TranslateModal> = args => {
         {`Open Modal`}
       </Button>
 
-      <TranslateModal
-        {...args}
-        isOpen={isOpen}
-        onApprove={handleApprove}
-        onClose={onClose}
-        onSave={onSave}
-      />
+      <TranslateModal {...args} isOpen={isOpen} onClose={onClose} />
     </Box>
   )
 }

@@ -1,4 +1,5 @@
-import { Dispatch, ReactNode, SetStateAction } from 'react'
+/* eslint-disable no-unused-vars */
+import { ReactNode } from 'react'
 
 import {
   AvatarProps,
@@ -8,7 +9,7 @@ import {
   TextProps,
 } from '@chakra-ui/react'
 
-import { StrapiModel, Sort } from '@wsvvrijheid/types'
+import { Sort, StrapiModel } from '@wsvvrijheid/types'
 
 import { FormattedDateProps } from '../FormattedDate'
 

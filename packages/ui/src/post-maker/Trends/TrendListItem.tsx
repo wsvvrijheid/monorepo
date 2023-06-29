@@ -6,13 +6,15 @@ import { formatNumber } from '@wsvvrijheid/utils'
 
 import { useHashtagContext } from '../HashtagProvider'
 
-interface TrendListItemProps {
+type TrendListItemProps = {
   trendName: string
   tweetsCount: number | null
   hashtagInTrends?: string
   hashtagExtraInTrends?: string
   order: number
+
   addTrend: (value: string) => void
+
   removeTrend: (value: string) => void
 }
 

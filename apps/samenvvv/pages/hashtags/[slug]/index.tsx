@@ -29,12 +29,7 @@ import {
   getModelById,
   useHashtag,
 } from '@wsvvrijheid/services'
-import {
-  HashtagReturnType,
-  Post,
-  StrapiLocale,
-  Trend,
-} from '@wsvvrijheid/types'
+import { HashtagReturnType, Post, StrapiLocale } from '@wsvvrijheid/types'
 import {
   Container,
   HashtagProvider,
@@ -83,6 +78,7 @@ const HashtagPage: FC<HashtagProps> = ({
   const handleClose = () => {
     onClose()
     if (query.id) {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { id, ...q } = query
       push({ query: q }, undefined, { shallow: true })
     }

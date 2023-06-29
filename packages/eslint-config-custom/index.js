@@ -1,9 +1,16 @@
 module.exports = {
-  extends: ['next', 'turbo', 'prettier'],
+  extends: [
+    'next',
+    'turbo',
+    'plugin:@typescript-eslint/recommended',
+    'prettier',
+  ],
+  plugins: ['@typescript-eslint'],
   rules: {
     '@next/next/no-html-link-for-pages': 'off',
-    'import/no-unused-modules': 'off',
+    'import/no-unused-modules': 'error',
     'no-unused-vars': 'off',
+    '@typescript-eslint/no-unused-vars': 'error',
     'padding-line-between-statements': [
       'error',
       { blankLine: 'always', prev: '*', next: 'return' },

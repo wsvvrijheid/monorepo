@@ -70,7 +70,7 @@ export const ArtWithDetails: FC<ArtWithDetailsProps> = ({ art, queryKey }) => {
       }
 
       artCommentMutation.mutate(body, {
-        onSuccess: async comment => {
+        onSuccess: async () => {
           await queryClient.invalidateQueries(queryKey)
           toastMessage(
             'Success',

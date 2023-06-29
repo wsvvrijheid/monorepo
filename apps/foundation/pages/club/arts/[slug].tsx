@@ -28,7 +28,7 @@ const ArtPage: FC<ArtPageProps> = ({ seo, queryKey }) => {
 
 export default ArtPage
 
-export const getStaticPaths: GetStaticPaths = async context => {
+export const getStaticPaths: GetStaticPaths = async () => {
   const artsResponse = await searchModel<Art>({
     url: 'api/arts',
   })

@@ -7,10 +7,8 @@ import {
 } from '@wsvvrijheid/types'
 
 export type TranslateModalProps<T extends StrapiTranslatableModel> = {
-  onApprove: (Id: number, content: string) => void
   isOpen: boolean
   onClose: () => void
-  onSave: (data: string) => void
   model: TranslatableModel<T>
 }
 

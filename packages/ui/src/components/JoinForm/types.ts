@@ -1,6 +1,6 @@
 import { InferType } from 'yup'
 
-import { Job, Platform, StrapiLocale } from '@wsvvrijheid/types'
+import { Platform, StrapiLocale } from '@wsvvrijheid/types'
 
 import { joinSchema } from './schema'
 

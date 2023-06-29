@@ -1,8 +1,7 @@
 import { FC } from 'react'
 
-import { Button, IconButton, Image, SimpleGrid } from '@chakra-ui/react'
+import { IconButton, Image, SimpleGrid } from '@chakra-ui/react'
 import { FaTimes } from 'react-icons/fa'
-import { FiRefreshCcw } from 'react-icons/fi'
 
 import { ImageRecognizeItemProps } from './types'
 import { ContentEditable } from '../../components'

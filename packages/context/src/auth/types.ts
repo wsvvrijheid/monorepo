@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { ReactNode } from 'react'
 
 import { SessionUser } from '@wsvvrijheid/types'

@@ -11,10 +11,7 @@ const emptyAuth: Auth = {
   token: null,
 }
 
-export const getAuth: (
-  identifier: string,
-  password: string,
-) => Promise<Auth> = async (identifier: string, password: string) => {
+export const getAuth = async (identifier: string, password: string) => {
   // TODO Can we populate the AuthResponse with the user data from the backend?
   // Why do we need to make a new request to get populated user data?
   const response = await axios.post<AuthResponse>(
