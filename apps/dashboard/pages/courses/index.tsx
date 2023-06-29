@@ -1,13 +1,13 @@
 import { FC, useState } from 'react'
 
 import { MenuItem, useUpdateEffect } from '@chakra-ui/react'
-import { InferGetStaticPropsType } from 'next'
+import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { FaArrowDown, FaArrowUp } from 'react-icons/fa'
 
 import { useSearchModel } from '@wsvvrijheid/services'
-import { Course, Sort, StrapiLocale } from '@wsvvrijheid/types'
+import { Course, Sort, StrapiLocale, StrapiModel } from '@wsvvrijheid/types'
 import {
   AdminLayout,
   coursesColumns,
@@ -20,7 +20,7 @@ import i18nConfig from '../../next-i18next.config'
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>
 
 const CoursesPage: FC<PageProps> = ({ seo }) => {
-  const [currentPage, setCurrentPage] = useState<number>()
+  const [currentPage, setCurrentPage] = useState<number>(1)
   const [searchTerm, setSearchTerm] = useState<string>()
 
   const [sort, setSort] = useState<Sort>()
@@ -37,7 +37,7 @@ const CoursesPage: FC<PageProps> = ({ seo }) => {
     locale: locale as StrapiLocale,
   })
 
-  const handleSearch = (search: string) => {
+  const handleSearch = (search?: string) => {
     search ? setSearchTerm(search) : setSearchTerm(undefined)
   }
 
@@ -46,20 +46,22 @@ const CoursesPage: FC<PageProps> = ({ seo }) => {
   }, [locale, searchTerm, sort])
 
   const courses = coursesQuery?.data?.data
-  const totalCount = coursesQuery?.data?.meta?.pagination?.pageCount
+  const totalCount = coursesQuery?.data?.meta?.pagination?.pageCount || 0
 
-  const mappedCourses = courses?.map(course => {
-    const translates = []
+  const mappedCourses =
+    courses?.map(course => {
+      const translates = []
 
-    if (course.title_en) translates.push('en')
-    if (course.title_tr) translates.push('tr')
-    if (course.title_nl) translates.push('nl')
+      if (course.title_en) translates.push('en')
+      if (course.title_tr) translates.push('tr')
+      if (course.title_nl) translates.push('nl')
 
-    return {
-      ...course,
-      translates,
-    }
-  })
+      return {
+        ...course,
+        translates,
+      }
+    }) || []
+
   const handleRowClick = (index: number, id: number) => {
     router.push(`/courses/${id}`)
   }
@@ -81,7 +83,7 @@ const CoursesPage: FC<PageProps> = ({ seo }) => {
 
       <DataTable
         columns={coursesColumns}
-        data={mappedCourses}
+        data={mappedCourses as StrapiModel[]}
         totalCount={totalCount}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
@@ -92,8 +94,8 @@ const CoursesPage: FC<PageProps> = ({ seo }) => {
   )
 }
 
-export const getStaticProps = async context => {
-  const { locale } = context
+export const getStaticProps = async (context: GetStaticPropsContext) => {
+  const locale = context.locale as StrapiLocale
 
   const title = {
     en: 'Courses',

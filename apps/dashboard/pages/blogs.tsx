@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 
 import { useDisclosure, useUpdateEffect } from '@chakra-ui/react'
+import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
@@ -9,20 +10,22 @@ import { NextSeoProps } from 'next-seo'
 import { useSearchModel } from '@wsvvrijheid/services'
 import { Blog, Sort, StrapiLocale } from '@wsvvrijheid/types'
 import {
-  activityColumns,
   AdminLayout,
-  blogFields,
-  blogSchema,
   DataTable,
   ModelEditModal,
   PageHeader,
+  blogColumns,
+  blogFields,
+  blogSchema,
 } from '@wsvvrijheid/ui'
 
 import i18nConfig from '../next-i18next.config'
 
-const BlogsPage = ({ seo }) => {
+type BlogsPageProps = InferGetStaticPropsType<typeof getStaticProps>
+
+const BlogsPage: FC<BlogsPageProps> = ({ seo }) => {
   const { t } = useTranslation()
-  const [currentPage, setCurrentPage] = useState<number>()
+  const [currentPage, setCurrentPage] = useState<number>(1)
   const [selectedId, setSelectedId] = useState<number>()
   const { isOpen, onClose, onOpen } = useDisclosure()
 
@@ -43,7 +46,7 @@ const BlogsPage = ({ seo }) => {
   })
 
   useEffect(() => setCurrentPage(1), [])
-  const handleSearch = (search: string) => {
+  const handleSearch = (search?: string) => {
     search ? setSearchTerm(search) : setSearchTerm(undefined)
   }
 
@@ -52,12 +55,13 @@ const BlogsPage = ({ seo }) => {
   }, [locale, searchTerm, sort])
 
   const blogs = blogsQuery?.data?.data
-  const totalCount = blogsQuery?.data?.meta?.pagination?.pageCount
+  const totalCount = blogsQuery?.data?.meta?.pagination?.pageCount || 0
 
-  const mappedBlogs = blogs?.map(blog => ({
-    ...blog,
-    translates: blog.localizations?.map(l => l.locale),
-  }))
+  const mappedBlogs =
+    blogs?.map(blog => ({
+      ...blog,
+      translates: blog.localizations?.map(l => l.locale),
+    })) || []
 
   const handleClick = (index: number, id: number) => {
     setSelectedId(id)
@@ -80,17 +84,19 @@ const BlogsPage = ({ seo }) => {
         onSearch={handleSearch}
         searchPlaceHolder={t('search-placeholder')}
       />
-      <ModelEditModal<Blog>
-        url={'api/blogs'}
-        id={selectedId}
-        isOpen={isOpen}
-        onClose={handleClose}
-        fields={blogFields}
-        schema={blogSchema}
-        title={'Edit Blog'}
-      />
-      <DataTable
-        columns={activityColumns}
+      {selectedId && (
+        <ModelEditModal<Blog>
+          url={'api/blogs'}
+          id={selectedId}
+          isOpen={isOpen}
+          onClose={handleClose}
+          fields={blogFields}
+          schema={blogSchema}
+          title={'Edit Blog'}
+        />
+      )}
+      <DataTable<Blog>
+        columns={blogColumns}
         data={mappedBlogs}
         totalCount={totalCount}
         currentPage={currentPage}
@@ -102,8 +108,8 @@ const BlogsPage = ({ seo }) => {
   )
 }
 
-export const getStaticProps = async context => {
-  const { locale } = context
+export const getStaticProps = async (context: GetStaticPropsContext) => {
+  const locale = context.locale as StrapiLocale
 
   const title = {
     en: 'Blogs',

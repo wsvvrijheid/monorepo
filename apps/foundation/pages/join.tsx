@@ -1,9 +1,10 @@
 import { FC } from 'react'
 
-import { GetStaticProps } from 'next'
+import { GetStaticPropsContext } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
 
+import { StrapiLocale } from '@wsvvrijheid/types'
 import { JoinTemplate, JoinTemplateProps } from '@wsvvrijheid/ui'
 
 import { Layout } from '../components'
@@ -21,8 +22,8 @@ const JoinPage: FC<JoinTemplateProps & { seo: NextSeoProps }> = ({
 }
 export default JoinPage
 
-export const getStaticProps: GetStaticProps = async context => {
-  const { locale } = context
+export const getStaticProps = async (context: GetStaticPropsContext) => {
+  const locale = context.locale as StrapiLocale
 
   const title = {
     en: 'Join us',

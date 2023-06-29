@@ -28,7 +28,7 @@ export const ArtAddToCollectionModal: FC<ArtAddToCollectionModalProps> = ({
   onClose,
   collection,
 }) => {
-  const [search, setSearch] = useState<string | null>('')
+  const [search, setSearch] = useState<string>()
   const [page, setPage] = useState(1)
   const { locale } = useRouter()
 

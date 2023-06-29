@@ -1,18 +1,22 @@
+import { FC } from 'react'
+
 import { Button, Center, Heading, Stack, Text, VStack } from '@chakra-ui/react'
-import { GetStaticProps } from 'next'
+import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { BsCollectionFill } from 'react-icons/bs'
 import { FaPaintBrush } from 'react-icons/fa'
 
-import { ASSETS_URL } from '@wsvvrijheid/config'
+import { StrapiLocale } from '@wsvvrijheid/types'
 import { AnimatedBox, Container, Navigate } from '@wsvvrijheid/ui'
 
 import { Layout } from '../components'
 import i18nConfig from '../next-i18next.config'
 
-export default function Home({ seo }) {
+type HomeProps = InferGetStaticPropsType<typeof getStaticProps>
+
+const Home: FC<HomeProps> = ({ seo }) => {
   const { t } = useTranslation()
   const { locale } = useRouter()
 
@@ -73,8 +77,10 @@ export default function Home({ seo }) {
   )
 }
 
-export const getStaticProps: GetStaticProps = async context => {
-  const { locale } = context
+export default Home
+
+export const getStaticProps = async (context: GetStaticPropsContext) => {
+  const locale = context.locale as StrapiLocale
 
   const title = {
     en: 'Homepage',

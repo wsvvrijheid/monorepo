@@ -35,20 +35,16 @@ export const getServerSideProps = async (
 
   const locale = context.locale as StrapiLocale
 
-  const course = await getCourseBySlug(params.slug as string)
+  const course = await getCourseBySlug(params?.slug as string)
 
   if (!course)
     return {
       notFound: true,
     }
 
-  const titleKey = `title_${locale}`
-  const descriptionKey = `description_${locale}`
-  const contentKey = `content_${locale}`
-
-  const title = course[titleKey] || null
-  const description = course[descriptionKey] || null
-  const content = course[contentKey] || null
+  const title = course[`title_${locale}`] || ''
+  const description = course[`description_${locale}`] || ''
+  const content = course[`content_${locale}`] || ''
   const slug = course.slug
 
   const source = await serialize(content || '')

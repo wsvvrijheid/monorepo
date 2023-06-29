@@ -1,7 +1,7 @@
 import { FC } from 'react'
 
 import { SimpleGrid } from '@chakra-ui/react'
-import { InferGetStaticPropsType } from 'next'
+import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
@@ -36,8 +36,8 @@ const NewsBookmarkedPage: FC<PageProps> = ({ seo }) => {
   )
 }
 
-export const getStaticProps = async context => {
-  const { locale } = context
+export const getStaticProps = async (context: GetStaticPropsContext) => {
+  const locale = context.locale as StrapiLocale
 
   const title = {
     en: 'Recommended News',

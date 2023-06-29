@@ -1,7 +1,7 @@
 import { FC } from 'react'
 
 import { dehydrate, QueryClient } from '@tanstack/react-query'
-import { GetStaticProps } from 'next'
+import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { searchModel } from '@wsvvrijheid/services'
@@ -11,7 +11,9 @@ import { ArtClubTemplate } from '@wsvvrijheid/ui'
 import { Layout } from '../../components'
 import i18nConfig from '../../next-i18next.config'
 
-const ClubPage: FC<{ title: string }> = ({ title }) => {
+type ClubPageProps = InferGetStaticPropsType<typeof getStaticProps>
+
+const ClubPage: FC<ClubPageProps> = ({ title }) => {
   return (
     <Layout seo={{ title }}>
       <ArtClubTemplate />
@@ -20,8 +22,8 @@ const ClubPage: FC<{ title: string }> = ({ title }) => {
 }
 export default ClubPage
 
-export const getStaticProps: GetStaticProps = async context => {
-  const { locale } = context
+export const getStaticProps = async (context: GetStaticPropsContext) => {
+  const locale = context.locale as StrapiLocale
   const queryClient = new QueryClient()
 
   await queryClient.prefetchQuery({

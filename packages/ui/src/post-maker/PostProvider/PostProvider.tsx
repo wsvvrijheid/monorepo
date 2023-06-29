@@ -52,7 +52,8 @@ export const PostProvider: FC<PostProviderProps> = ({ post, children }) => {
     const exceededCharacters =
       count - TWITTER_CHAR_LIMIT > 0 ? count - TWITTER_CHAR_LIMIT : 0
 
-    const threshold = sentence.value?.length - exceededCharacters
+    const threshold =
+      (sentence && sentence.value?.length - exceededCharacters) || 0
     const availableCount = TWITTER_CHAR_LIMIT - count
 
     return {

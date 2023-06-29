@@ -1,9 +1,9 @@
-export type ContactFormFieldValues = {
-  email: string
-  fullname: string
-  message: string
-  reset: string
-}
+import { InferType } from 'yup'
+
+import { contactSchema } from './schema'
+
+export type ContactFormFieldValues = InferType<ReturnType<typeof contactSchema>>
+
 export type ContactFormProps = {
   onSubmitHandler: (data: ContactFormFieldValues) => Promise<void>
   errorMessage?: string

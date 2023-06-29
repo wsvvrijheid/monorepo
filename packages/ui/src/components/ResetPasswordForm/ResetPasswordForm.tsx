@@ -3,40 +3,15 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation } from '@tanstack/react-query'
 import axios from 'axios'
 import { useRouter } from 'next/router'
-import { TFunction, useTranslation } from 'next-i18next'
-import { useForm, SubmitHandler } from 'react-hook-form'
-import * as yup from 'yup'
+import { useTranslation } from 'next-i18next'
+import { SubmitHandler, useForm } from 'react-hook-form'
+import { ObjectSchema } from 'yup'
 
 import { toastMessage } from '@wsvvrijheid/utils'
 
+import { resetPasswordSchema } from './schema'
 import { ResetPasswordFieldValues } from './types'
 import { FormItem } from '../FormItem'
-
-const schema = (t: TFunction) =>
-  yup.object({
-    password: yup
-      .string()
-      .min(8, t('login.password.warning', { count: 8 }) as string)
-      .required(t('login.password.required') as string)
-      .matches(
-        RegExp('(.*[a-z].*)'),
-        t('login.password.matches.lowercase') as string,
-      )
-      .matches(
-        RegExp('(.*[A-Z].*)'),
-        t('login.password.matches.uppercase') as string,
-      )
-      .matches(
-        RegExp('(.*\\d.*)'),
-        t('login.password.matches.number') as string,
-      ),
-    passwordConfirmation: yup
-      .string()
-      .oneOf(
-        [yup.ref('password'), null],
-        t('login.password.matches.password-match') as string,
-      ),
-  })
 
 export const ResetPasswordForm = () => {
   const { t } = useTranslation()
@@ -54,7 +29,9 @@ export const ResetPasswordForm = () => {
       password: '',
       passwordConfirmation: '',
     },
-    resolver: yupResolver(schema(t)),
+    resolver: yupResolver(
+      resetPasswordSchema(t) as ObjectSchema<ResetPasswordFieldValues>,
+    ),
     mode: 'all',
   })
 

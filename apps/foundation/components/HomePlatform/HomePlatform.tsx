@@ -12,7 +12,7 @@ import {
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
-import { Platform } from '@wsvvrijheid/types'
+import { Platform, StrapiLocale } from '@wsvvrijheid/types'
 import { AnimatedBox, Container, Navigate, WImage } from '@wsvvrijheid/ui'
 
 type HomePlatformProps = {
@@ -21,20 +21,22 @@ type HomePlatformProps = {
 
 const colors = {
   lotus: { bg: 'black', colorScheme: 'yellow', text: 'white' },
-  samenvvv: { bg: 'samen.100', colorScheme: 'samen' },
-  kunsthalte: { bg: 'green.100', colorScheme: 'green' },
-  academy: { bg: 'blue.100', colorScheme: 'blue' },
-  scm: { bg: 'red.100', colorScheme: 'red' },
+  samenvvv: { bg: 'samen.100', colorScheme: 'samen', text: 'initial' },
+  kunsthalte: { bg: 'green.100', colorScheme: 'green', text: 'initial' },
+  academy: { bg: 'blue.100', colorScheme: 'blue', text: 'initial' },
+  scm: { bg: 'red.100', colorScheme: 'red', text: 'initial' },
 }
 
 export const HomePlatform: FC<HomePlatformProps> = ({ platforms }) => {
-  const { locale } = useRouter()
+  const router = useRouter()
+  const locale = router.locale as StrapiLocale
+
   const { t } = useTranslation()
 
   return (
     <Box>
       {platforms.map((platform, index) => {
-        const color = colors[platform.slug]
+        const color = colors[platform.slug as keyof typeof colors]
 
         return (
           <Center

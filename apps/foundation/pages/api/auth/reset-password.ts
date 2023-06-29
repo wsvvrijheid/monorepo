@@ -29,7 +29,7 @@ const resetPassRoute = async (req: NextApiRequest, res: NextApiResponse) => {
     req.session = { ...req.session, ...auth }
     await req.session.save()
     res.json(auth)
-  } catch (error) {
+  } catch (error: any) {
     console.error('error', error.response?.data)
     if (!error.response?.data?.error.message) {
       return res.status(500).json({ message: 'Internal server error' })

@@ -14,6 +14,8 @@ const handler = async (req: NextRequest) => {
 
   const readableStream = new ReadableStream({
     async start(controller) {
+      if (!reader) return controller.close()
+
       // eslint-disable-next-line no-constant-condition
       while (true) {
         const { done, value } = await reader.read()

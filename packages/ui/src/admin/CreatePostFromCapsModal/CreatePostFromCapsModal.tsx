@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { FC, useState } from 'react'
 
 import {
   Alert,
@@ -33,7 +33,15 @@ import { ImageRecognizer } from '../ImageRecognizer/ImageRecognizer'
 import { RecognizedImage } from '../ImageRecognizer/types'
 import { ModelSelect } from '../ModelForm/ModelSelect'
 
-export const CreatePostFromCapsModal = ({ isOpen, onClose }) => {
+type CreatePostFromCapsModalProps = {
+  isOpen: boolean
+  onClose: () => void
+}
+
+export const CreatePostFromCapsModal: FC<CreatePostFromCapsModalProps> = ({
+  isOpen,
+  onClose,
+}) => {
   const [state, setState] = useState<Record<number, RecognizedImage>>({})
   const createPostMutation = useCreateModelMutation<
     Post,
@@ -66,7 +74,7 @@ export const CreatePostFromCapsModal = ({ isOpen, onClose }) => {
       } as unknown as StrapiTranslatableCreateInput
 
       const slug =
-        body.description.slice(0, 10) && slugify(body.description.slice(0, 10))
+        body.description?.slice(0, 10) && slugify(body.description.slice(0, 10))
 
       const bodyData = {
         ...body,

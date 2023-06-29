@@ -1,6 +1,6 @@
 import { FC } from 'react'
 
-import { GetStaticPaths } from 'next'
+import { GetStaticPaths, GetStaticPropsContext } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import {
@@ -36,9 +36,9 @@ export const getStaticPaths: GetStaticPaths = async context => {
   )
 }
 
-export const getStaticProps = async context => {
+export const getStaticProps = async (context: GetStaticPropsContext) => {
   const props = await getPlatformStaticProps(context)
-  const { locale } = context
+  const locale = context.locale as StrapiLocale
 
   return {
     props: {

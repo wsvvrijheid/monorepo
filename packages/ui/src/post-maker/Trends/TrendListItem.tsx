@@ -30,7 +30,7 @@ export const TrendListItem: FC<TrendListItemProps> = ({
 
   const { postTrends, activePostId } = useHashtagContext()
 
-  const activeTrends = postTrends?.[activePostId]
+  const activeTrends = activePostId ? postTrends?.[activePostId] : []
   const isAdded = activeTrends?.includes(trendName)
 
   const colorScheme = isCurrentHashtag

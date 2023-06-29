@@ -10,7 +10,7 @@ const loginRoute = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const auth = await getAuth(identifier, password)
 
-    if (auth.user.roles.includes('authenticated')) {
+    if (auth.user?.roles.includes('authenticated')) {
       return res.status(401).json({
         message: `You are not allowed to login!`,
         type: 'unauthorized',
@@ -24,7 +24,7 @@ const loginRoute = async (req: NextApiRequest, res: NextApiResponse) => {
     await req.session.save()
 
     res.json(auth)
-  } catch (error) {
+  } catch (error: any) {
     if (error.response?.data?.error) {
       console.error('LOGIN_AUTH_ERROR', error.response.data.error)
 

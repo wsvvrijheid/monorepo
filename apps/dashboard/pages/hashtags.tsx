@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 
 import { useDisclosure, useUpdateEffect } from '@chakra-ui/react'
+import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
@@ -11,19 +12,21 @@ import { Hashtag, Sort, StrapiLocale } from '@wsvvrijheid/types'
 import {
   AdminLayout,
   DataTable,
+  ModelEditModal,
+  PageHeader,
   mainHashtagColumns,
   mainHashtagFields,
   mainHashtagSchema,
-  ModelEditModal,
-  PageHeader,
 } from '@wsvvrijheid/ui'
 
 import i18nConfig from '../next-i18next.config'
 
-const HashtagsPage = ({ seo }) => {
+type HashtagsPageProps = InferGetStaticPropsType<typeof getStaticProps>
+
+const HashtagsPage: FC<HashtagsPageProps> = ({ seo }) => {
   const { t } = useTranslation()
 
-  const [currentPage, setCurrentPage] = useState<number>()
+  const [currentPage, setCurrentPage] = useState<number>(1)
   const [selectedId, setSelectedId] = useState<number>()
   const { isOpen, onClose, onOpen } = useDisclosure()
 
@@ -44,7 +47,7 @@ const HashtagsPage = ({ seo }) => {
   })
 
   useEffect(() => setCurrentPage(1), [])
-  const handleSearch = (search: string) => {
+  const handleSearch = (search?: string) => {
     search ? setSearchTerm(search) : setSearchTerm(undefined)
   }
 
@@ -53,12 +56,13 @@ const HashtagsPage = ({ seo }) => {
   }, [locale, searchTerm, sort])
 
   const hashtags = hashtagsQuery?.data?.data
-  const totalCount = hashtagsQuery?.data?.meta?.pagination?.pageCount
+  const totalCount = hashtagsQuery?.data?.meta?.pagination?.pageCount || 0
 
-  const mappedHashtags = hashtags?.map(hashtag => ({
-    ...hashtag,
-    translates: hashtag.localizations?.map(l => l.locale),
-  }))
+  const mappedHashtags =
+    hashtags?.map(hashtag => ({
+      ...hashtag,
+      translates: hashtag.localizations?.map(l => l.locale),
+    })) || []
 
   const handleClick = (index: number, id: number) => {
     setSelectedId(id)
@@ -82,15 +86,17 @@ const HashtagsPage = ({ seo }) => {
         searchPlaceHolder={t('search-placeholder')}
       />
 
-      <ModelEditModal<Hashtag>
-        url={'api/hashtags'}
-        id={selectedId}
-        isOpen={isOpen}
-        onClose={handleClose}
-        fields={mainHashtagFields}
-        schema={mainHashtagSchema}
-        title={'Edit Hashtag'}
-      />
+      {selectedId && (
+        <ModelEditModal<Hashtag>
+          url={'api/hashtags'}
+          id={selectedId}
+          isOpen={isOpen}
+          onClose={handleClose}
+          fields={mainHashtagFields}
+          schema={mainHashtagSchema}
+          title={'Edit Hashtag'}
+        />
+      )}
       <DataTable
         columns={mainHashtagColumns}
         data={mappedHashtags}
@@ -104,8 +110,8 @@ const HashtagsPage = ({ seo }) => {
   )
 }
 
-export const getStaticProps = async context => {
-  const { locale } = context
+export const getStaticProps = async (context: GetStaticPropsContext) => {
+  const locale = context.locale as StrapiLocale
 
   const title = {
     en: 'Hashtags',

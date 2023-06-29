@@ -9,7 +9,7 @@ import {
   Wrap,
 } from '@chakra-ui/react'
 import { dehydrate, QueryClient } from '@tanstack/react-query'
-import { InferGetStaticPropsType } from 'next'
+import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
 
@@ -21,6 +21,7 @@ import {
 import {
   AccountStats as AccounStatsType,
   AccountStatsBase,
+  StrapiLocale,
 } from '@wsvvrijheid/types'
 import { AccountStats, AdminLayout, PageHeader } from '@wsvvrijheid/ui'
 
@@ -115,8 +116,8 @@ const Index: FC<PageProps> = ({ seo }) => {
   )
 }
 
-export const getStaticProps = async context => {
-  const { locale } = context
+export const getStaticProps = async (context: GetStaticPropsContext) => {
+  const locale = context.locale as StrapiLocale
 
   const queryClient = new QueryClient()
 

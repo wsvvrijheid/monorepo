@@ -3,6 +3,7 @@ import React, { Suspense, useEffect } from 'react'
 
 import { Decorator } from '@storybook/react'
 import { GlobalTypes, Parameters } from '@storybook/types'
+import { StrapiLocale } from '@wsvvrijheid/types'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { I18nextProvider } from 'react-i18next'
 
@@ -39,7 +40,7 @@ const queryClient = new QueryClient()
  */
 export const decorators: Decorator[] = [
   (Story, context) => {
-    const { locale } = context.globals
+    const locale = context.locale as StrapiLocale
 
     useEffect(() => {
       i18n.changeLanguage(locale)

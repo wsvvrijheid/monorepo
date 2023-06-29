@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { searchModel } from '@wsvvrijheid/services'
-import { Collection, StrapiLocale } from '@wsvvrijheid/types'
+import { Collection, StrapiLocale, UploadFile } from '@wsvvrijheid/types'
 import { Card, Container, Hero } from '@wsvvrijheid/ui'
 
 import { Layout } from '../../../components'
@@ -27,8 +27,8 @@ const CollectionsPage: NextPage<CollectionsPageProps> = ({
             <Card
               key={i}
               title={collection.title}
-              image={collection.image}
-              description={collection.description}
+              image={collection.image as UploadFile}
+              description={collection.description as string}
               link={`/${locale}/club/collections/${collection.slug}`}
             />
           ))}

@@ -3,7 +3,7 @@ import { FC } from 'react'
 import { Box, Text } from '@chakra-ui/react'
 import { QueryClient } from '@tanstack/react-query'
 import { isPast } from 'date-fns'
-import { GetServerSideProps } from 'next'
+import { GetServerSidePropsContext } from 'next'
 import Head from 'next/head'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
@@ -18,7 +18,7 @@ import {
   StrapiCollectionResponse,
   StrapiLocale,
 } from '@wsvvrijheid/types'
-import { Container, Hero, Navigate, HashtagAnnouncement } from '@wsvvrijheid/ui'
+import { Container, HashtagAnnouncement, Hero, Navigate } from '@wsvvrijheid/ui'
 import {
   getItemLink,
   getOgImageSrc,
@@ -50,7 +50,7 @@ const AnnouncementEvent: FC<HashtagEventsProps> = ({
         {seo?.openGraph && (
           <meta
             property="twitter:image:src"
-            content={seo.openGraph.images[0].url}
+            content={seo.openGraph.images?.[0]?.url}
           />
         )}
       </Head>
@@ -79,7 +79,9 @@ const AnnouncementEvent: FC<HashtagEventsProps> = ({
 
 export default AnnouncementEvent
 
-export const getServerSideProps: GetServerSideProps = async context => {
+export const getServerSideProps = async (
+  context: GetServerSidePropsContext,
+) => {
   const locale = context.locale as StrapiLocale
   const queryClient = new QueryClient()
 
@@ -171,7 +173,7 @@ export const getServerSideProps: GetServerSideProps = async context => {
     },
   }
 
-  const source = (await serialize(hashtag.content)) || null
+  const source = await serialize(hashtag.content || '')
   const hasStarted = hashtag.date
     ? isPast(new Date(hashtag.date as string))
     : false

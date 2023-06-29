@@ -1,1 +1,1 @@
-export * from './getStatic'
+export * from './getBySlug'

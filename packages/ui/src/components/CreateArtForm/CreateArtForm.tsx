@@ -23,36 +23,22 @@ import {
 import { yupResolver } from '@hookform/resolvers/yup'
 import slugify from '@sindresorhus/slugify'
 import { useRouter } from 'next/router'
-import { TFunction, useTranslation } from 'next-i18next'
-import { useForm } from 'react-hook-form'
+import { useTranslation } from 'next-i18next'
+import { FieldErrorsImpl, useForm } from 'react-hook-form'
 import useFormPersist from 'react-hook-form-persist'
 import { FaPlus, FaUpload } from 'react-icons/fa'
-import * as yup from 'yup'
 
 import { useAuthContext } from '@wsvvrijheid/context'
 import { useCreateModelMutation, useSearchModel } from '@wsvvrijheid/services'
 import { ArtCreateInput, Category, StrapiLocale } from '@wsvvrijheid/types'
 
 import { ArtCreateSuccessAlert } from './CreateArtSuccessAlert'
+import { createArtSchema } from './schema'
 import { CreateArtFormFieldValues, CreateArtFormProps } from './types'
 import { FilePicker } from '../FilePicker'
 import { FormItem } from '../FormItem'
 import { Navigate } from '../Navigate'
 import { WSelect } from '../WSelect'
-
-const schema = (t: TFunction) =>
-  yup.object({
-    title: yup.string().required(t('art.create.form.title-required') as string),
-    description: yup
-      .string()
-      .required(t('art.create.form.description-required') as string),
-    categories: yup.array().of(
-      yup.object().shape({
-        label: yup.string(),
-        value: yup.string(),
-      }),
-    ),
-  })
 
 // TODO Consider adding modal form instead of a new page
 export const CreateArtForm: FC<CreateArtFormProps> = ({ queryKey }) => {
@@ -74,12 +60,12 @@ export const CreateArtForm: FC<CreateArtFormProps> = ({ queryKey }) => {
     register,
     watch,
     setValue,
-    formState: { errors, isValid },
+    formState,
     handleSubmit,
     reset: resetForm,
     control,
   } = useForm<CreateArtFormFieldValues>({
-    resolver: yupResolver(schema(t)),
+    resolver: yupResolver(createArtSchema(t) as any),
     mode: 'all',
   })
 
@@ -88,6 +74,9 @@ export const CreateArtForm: FC<CreateArtFormProps> = ({ queryKey }) => {
     setValue,
     ...(typeof window !== 'undefined' && { storage: window.sessionStorage }),
   })
+
+  const errors = formState.errors as FieldErrorsImpl<CreateArtFormFieldValues>
+  const isValid = formState.isValid
 
   const { mutate, isLoading } = useCreateModelMutation('api/arts')
 

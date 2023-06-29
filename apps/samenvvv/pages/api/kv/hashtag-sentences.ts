@@ -37,8 +37,8 @@ const handler = async (req: NextRequest) => {
 
     if (method === 'DELETE') {
       try {
-        const hashtagId = req.nextUrl.searchParams.get('hashtagId').toString()
-        const value = req.nextUrl.searchParams.get('value').toString()
+        const hashtagId = req.nextUrl.searchParams.get('hashtagId')?.toString()
+        const value = req.nextUrl.searchParams.get('value')?.toString()
 
         const result = await kv.lrem(`hashtag:${hashtagId}`, 0, value)
 
@@ -49,12 +49,12 @@ const handler = async (req: NextRequest) => {
       }
     }
 
-    const hashtagId = req.nextUrl.searchParams.get('hashtagId').toString()
+    const hashtagId = req.nextUrl.searchParams.get('hashtagId')?.toString()
 
     const result = await kv.lrange(`hashtag:${hashtagId}`, 0, -1)
 
     return NextResponse.json(result)
-  } catch (error) {
+  } catch (error: any) {
     return NextResponse.json({ error: error.message })
   }
 }

@@ -1,12 +1,15 @@
 import { ReactNode } from 'react'
 
 import { MDXRemoteSerializeResult } from 'next-mdx-remote'
+import { InferType } from 'yup'
 
 import {
   Course,
   CourseApplicationCreateInput,
   FaqLocale,
 } from '@wsvvrijheid/types'
+
+import { applicationSchema } from './schema'
 
 export type CourseDetailPageProps = {
   course: Course
@@ -33,9 +36,8 @@ export type CourseInfoItemProps = {
   icon: ReactNode
 }
 
-export type ApplicationFormFields = Pick<
-  CourseApplicationCreateInput,
-  'name' | 'email' | 'country' | 'city' | 'message' | 'phone' | 'course'
+export type ApplicationFormFields = InferType<
+  ReturnType<typeof applicationSchema>
 >
 
 export type CourseApplicationFormProps = {

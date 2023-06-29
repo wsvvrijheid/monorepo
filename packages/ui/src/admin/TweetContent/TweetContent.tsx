@@ -1,5 +1,3 @@
-import { FC } from 'react'
-
 import {
   AspectRatio,
   Box,
@@ -8,6 +6,7 @@ import {
   Text,
   useBoolean,
 } from '@chakra-ui/react'
+import { FieldValues } from 'react-hook-form'
 import { FaPlayCircle } from 'react-icons/fa'
 import ReactPlayer from 'react-player'
 import twitterText from 'twitter-text'
@@ -19,13 +18,13 @@ import { TweetContentProps } from './types'
 import { WImage } from '../../components'
 import { ModelImage } from '../ModelForm/ModelImage'
 
-export const TweetContent: FC<TweetContentProps> = ({
+export const TweetContent = <T extends FieldValues>({
   tweet,
   horizontal,
   isChangingImage,
   setIsChangingImage,
   setValue,
-}) => {
+}: TweetContentProps<T>) => {
   const [isPlaying, setIsPlaying] = useBoolean()
 
   if (!tweet) return null
@@ -51,7 +50,7 @@ export const TweetContent: FC<TweetContentProps> = ({
         />
         <Box boxSize={'full'}>
           {setValue && isChangingImage != null && setIsChangingImage ? (
-            <ModelImage
+            <ModelImage<T>
               isEditing={true}
               model={
                 {

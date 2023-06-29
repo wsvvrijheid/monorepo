@@ -1,13 +1,11 @@
 import { QueryKey } from '@tanstack/react-query'
+import { InferType } from 'yup'
 
-export type CreateArtFormFieldValues = {
-  title: string
-  description: string
-  categories: {
-    label: string
-    value: string
-  }[]
-}
+import { createArtSchema } from './schema'
+
+export type CreateArtFormFieldValues = InferType<
+  ReturnType<typeof createArtSchema>
+>
 
 export type CreateArtFormProps = {
   queryKey?: QueryKey

@@ -2,15 +2,19 @@ import { FC } from 'react'
 
 import { Box, Button, Heading, Stack, Text } from '@chakra-ui/react'
 import { isPast } from 'date-fns'
-import { GetStaticProps } from 'next'
+import { GetStaticPropsContext } from 'next'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
 
 import { searchModel } from '@wsvvrijheid/services'
 import { Hashtag, StrapiLocale } from '@wsvvrijheid/types'
-import { Container, Navigate } from '@wsvvrijheid/ui'
-import { HashtagAnnouncement, HashtagsSummary } from '@wsvvrijheid/ui'
+import {
+  Container,
+  HashtagAnnouncement,
+  HashtagsSummary,
+  Navigate,
+} from '@wsvvrijheid/ui'
 import { getItemLink } from '@wsvvrijheid/utils'
 
 import { Layout } from '../components'
@@ -83,7 +87,7 @@ const Home: FC<HomeProps> = ({ seo, link, hashtags }) => {
   )
 }
 
-export const getStaticProps: GetStaticProps = async context => {
+export const getStaticProps = async (context: GetStaticPropsContext) => {
   const locale = context.locale as StrapiLocale
 
   const title: Record<string, string> = {

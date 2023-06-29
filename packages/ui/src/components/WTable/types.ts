@@ -1,4 +1,4 @@
-import { ReactNode } from 'react'
+import { Dispatch, ReactNode, SetStateAction } from 'react'
 
 import {
   AvatarProps,
@@ -51,5 +51,5 @@ export type WTableProps<T extends StrapiModel> = {
   data: T[]
   columns: WTableRowProps<T>['columns']
   onClickRow?: WTableRowProps<T>['onClick']
-  onSort?: (key: Sort | null) => void
+  onSort?: (key?: Sort) => void
 } & TableProps

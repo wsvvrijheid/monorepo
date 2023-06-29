@@ -1,16 +1,35 @@
+import { FC } from 'react'
+
 import { Image, SimpleGrid, Stack, Text } from '@chakra-ui/react'
+import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
 import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { searchModel } from '@wsvvrijheid/services'
-import { Activity } from '@wsvvrijheid/types'
-import { AnimatedBox, Card, Container, Hero } from '@wsvvrijheid/ui'
+import { Activity, StrapiLocale, UploadFile } from '@wsvvrijheid/types'
+import {
+  AnimatedBox,
+  Card,
+  Container,
+  Hero,
+  Pagination,
+  useChangeParams,
+} from '@wsvvrijheid/ui'
 
 import { Layout } from '../../components'
 import i18nConfig from '../../next-i18next.config'
 
-export default function Activities({ activities, query, title, pagination }) {
+type ActivitiesProps = InferGetServerSidePropsType<typeof getServerSideProps>
+
+const Activities: FC<ActivitiesProps> = ({
+  activities,
+  query,
+  title,
+  pagination,
+}) => {
   const { locale } = useRouter()
+
+  const changeParam = useChangeParams()
 
   return (
     <Layout seo={{ title }} isDark>
@@ -31,18 +50,20 @@ export default function Activities({ activities, query, title, pagination }) {
                 >
                   <Card
                     title={activity.title}
-                    description={activity.description}
-                    image={activity.image}
+                    description={activity.description || ''}
+                    image={activity.image as UploadFile}
                     link={`/${locale}/activities/${activity.slug}`}
                   />
                 </AnimatedBox>
               ))}
             </SimpleGrid>
-            {/* <Pagination
-              totalCount={pagination.pageCount}
-              currentPage={+query.page}
-              onPageChange={(page) => changeParam({ page })}
-            /> */}
+            {pagination && (
+              <Pagination
+                totalCount={pagination.pageCount}
+                currentPage={+(query.page || 1)}
+                onPageChange={page => changeParam({ page })}
+              />
+            )}
           </Container>
         </>
       ) : (
@@ -56,9 +77,15 @@ export default function Activities({ activities, query, title, pagination }) {
     </Layout>
   )
 }
-export const getServerSideProps = async context => {
-  const { locale, query } = context
-  const { page } = query
+
+export default Activities
+
+export const getServerSideProps = async (
+  context: GetServerSidePropsContext,
+) => {
+  const locale = context.locale as StrapiLocale
+  const query = context.query as { page: string }
+  const page = Number(query.page)
 
   const activities = await searchModel<Activity>({
     url: 'api/activities',

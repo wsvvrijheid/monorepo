@@ -1,7 +1,7 @@
 import { FC } from 'react'
 
 import { dehydrate, QueryClient } from '@tanstack/react-query'
-import { GetStaticProps } from 'next'
+import { GetStaticPropsContext } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { searchModel } from '@wsvvrijheid/services'
@@ -20,8 +20,8 @@ const ClubPage: FC<{ title: string }> = ({ title }) => {
 }
 export default ClubPage
 
-export const getStaticProps: GetStaticProps = async context => {
-  const { locale } = context
+export const getStaticProps = async (context: GetStaticPropsContext) => {
+  const locale = context.locale as StrapiLocale
   const queryClient = new QueryClient()
 
   await queryClient.prefetchQuery({
@@ -33,7 +33,7 @@ export const getStaticProps: GetStaticProps = async context => {
     queryFn: () =>
       searchModel<Art>({
         url: 'api/arts',
-        locale: locale as StrapiLocale,
+        locale,
         statuses: ['approved'],
       }),
   })

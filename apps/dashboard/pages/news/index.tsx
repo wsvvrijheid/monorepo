@@ -13,7 +13,7 @@ import {
   Center,
 } from '@chakra-ui/react'
 import { addHours, formatDistanceToNow, isPast } from 'date-fns'
-import { InferGetStaticPropsType } from 'next'
+import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
@@ -21,7 +21,7 @@ import { AiOutlineClear } from 'react-icons/ai'
 import { FaArrowDown, FaArrowUp, FaSyncAlt } from 'react-icons/fa'
 
 import { useTopic, useTopicSync } from '@wsvvrijheid/services'
-import { TopicBase } from '@wsvvrijheid/types'
+import { StrapiLocale, TopicBase } from '@wsvvrijheid/types'
 import { AdminLayout, PageHeader, TopicCard } from '@wsvvrijheid/ui'
 
 import i18nConfig from '../../next-i18next.config'
@@ -37,13 +37,15 @@ const NewsPage: FC<PageProps> = ({ seo }) => {
   const [searchTerm, setSearchTerm] = useState<string>()
   const [sortDirection, setSortDirection] = useState<'DESC' | 'ASC'>('DESC')
 
-  const { locale } = useRouter()
+  const router = useRouter()
+  const locale = router.locale as StrapiLocale
 
   const search = useCallback(
     (topics: TopicBase[]) => {
-      const results = []
-      const keywords = searchTerm.split(' ')
+      const results: TopicBase[] = []
+      const keywords = searchTerm?.split(' ') || []
       const searchRegex = new RegExp(keywords.join('|'), 'gi')
+
       topics?.forEach(topicBase => {
         if (Object.values(topicBase).join(' ').match(searchRegex)) {
           results.push(topicBase)
@@ -72,13 +74,18 @@ const NewsPage: FC<PageProps> = ({ seo }) => {
   )
 
   useEffect(() => {
-    const localeData = data?.data?.filter(d => d.locale === locale)
+    const localeData = data?.data?.filter(d => d.locale === locale) || []
+
     const filteredData = localeData?.filter(d =>
       filter.length > 0 ? filter.includes(d.publisher) : true,
     )
-    setSources(
-      localeData?.map(d => d.publisher).filter((v, i, a) => a.indexOf(v) === i),
-    )
+
+    const sources = localeData
+      ?.map(d => d.publisher)
+      .filter((v, i, a) => a.indexOf(v) === i)
+
+    setSources(sources)
+
     setTopics((searchTerm ? search(filteredData) : filteredData)?.sort(sortFn))
   }, [data, filter, locale, search, searchTerm, sortDirection, sortFn])
 
@@ -86,7 +93,7 @@ const NewsPage: FC<PageProps> = ({ seo }) => {
     <MenuOptionGroup
       title="Order by Date"
       type="radio"
-      onChange={(direction: 'ASC' | 'DESC') => setSortDirection(direction)}
+      onChange={direction => setSortDirection(direction as 'ASC' | 'DESC')}
       value={sortDirection}
     >
       <MenuItemOption key="asc" icon={<FaArrowUp />} value="ASC">
@@ -102,7 +109,7 @@ const NewsPage: FC<PageProps> = ({ seo }) => {
     <MenuOptionGroup
       title="Publishers"
       type="checkbox"
-      onChange={(value: string[]) => setFilter(value)}
+      onChange={value => setFilter(value as string[])}
     >
       {sources?.map(source => (
         <MenuItemOption key={source} value={source}>
@@ -185,8 +192,8 @@ const NewsPage: FC<PageProps> = ({ seo }) => {
   )
 }
 
-export const getStaticProps = async context => {
-  const { locale } = context
+export const getStaticProps = async (context: GetStaticPropsContext) => {
+  const locale = context.locale as StrapiLocale
 
   const title = {
     en: 'News',

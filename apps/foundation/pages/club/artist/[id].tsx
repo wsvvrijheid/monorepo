@@ -1,7 +1,7 @@
 import { FC } from 'react'
 
 import { dehydrate, QueryClient } from '@tanstack/react-query'
-import { GetServerSideProps } from 'next'
+import { GetServerSidePropsContext } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
 
@@ -27,7 +27,9 @@ const ArtistPage: FC<ArtistPageProps> = ({ seo, artist, arts }) => {
 }
 export default ArtistPage
 
-export const getServerSideProps: GetServerSideProps = async context => {
+export const getServerSideProps = async (
+  context: GetServerSidePropsContext,
+) => {
   const queryClient = new QueryClient()
   const { artist, arts } = await getArtistServerProps(context)
   const locale = context.locale as StrapiLocale

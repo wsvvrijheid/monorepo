@@ -1,3 +1,5 @@
+import { FC } from 'react'
+
 import { Stack } from '@chakra-ui/react'
 
 import { PostMakerTweetButtons } from './PostMakerTweetButtons'
@@ -5,7 +7,15 @@ import { PostMakerTweetContent } from './PostMakerTweetContent'
 import { PostMakerTweetTags } from './PostMakerTweetTags'
 import { PostImage } from '../../components'
 
-export const PostMakerTweetCard = ({ isAdminMode, isIosSafari }) => {
+type PostMakerTweetCardProps = {
+  isAdminMode?: boolean
+  isIosSafari?: boolean
+}
+
+export const PostMakerTweetCard: FC<PostMakerTweetCardProps> = ({
+  isAdminMode,
+  isIosSafari,
+}) => {
   return (
     <Stack
       p={4}

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { FC, useState } from 'react'
 
 import {
   ChakraProvider,
@@ -13,12 +13,14 @@ import {
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { Analytics } from '@vercel/analytics/react'
 import { merge } from 'lodash'
+import { AppProps } from 'next/app'
 import { useRouter } from 'next/router'
 import { appWithTranslation } from 'next-i18next'
 import { DefaultSeo } from 'next-seo'
 
 import { defaultSeo, themes } from '@wsvvrijheid/config'
 import { AuthProvider } from '@wsvvrijheid/context'
+import { StrapiLocale } from '@wsvvrijheid/types'
 
 import i18nConfig from '../next-i18next.config'
 
@@ -38,7 +40,7 @@ const theme = merge(themes.admin, {
 
 const { ToastContainer } = createStandaloneToast()
 
-function MyApp({ Component, pageProps }) {
+const MyApp: FC<AppProps> = ({ Component, pageProps }) => {
   const [queryClient] = useState(
     () =>
       new QueryClient({
@@ -55,7 +57,7 @@ function MyApp({ Component, pageProps }) {
       <Hydrate state={pageProps.dehydratedState}>
         <AuthProvider initialState={pageProps.authState}>
           <ChakraProvider theme={extendTheme(theme)}>
-            <DefaultSeo {...defaultSeo.admin[locale]} />
+            <DefaultSeo {...defaultSeo.admin[locale as StrapiLocale]} />
             <Component {...pageProps} />
             <Analytics />
             <ToastContainer />

@@ -54,7 +54,7 @@ export const HashtagsSummary: FC<HashtagsSummaryProps> = ({ hashtags }) => {
                 <HashtagMiniCard
                   key={hashtag.id}
                   hashtag={hashtag}
-                  link={prevLinks[i]}
+                  link={prevLinks[i] as string}
                 />
               ))}
           </Stack>
