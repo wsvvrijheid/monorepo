@@ -1,13 +1,13 @@
 import { FC } from 'react'
 
 import { Box, Stack } from '@chakra-ui/react'
-import { InferGetServerSidePropsType } from 'next'
+import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
 import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
 
 import { useModelById } from '@wsvvrijheid/services'
-import { HashtagReturnType, Post } from '@wsvvrijheid/types'
+import { HashtagReturnType, Post, StrapiLocale } from '@wsvvrijheid/types'
 import {
   AdminLayout,
   FormLocaleSwitcher,
@@ -39,7 +39,9 @@ const PostPage: FC<PageProps> = ({ seo }) => {
   return (
     <AdminLayout seo={seo} isLoading={isLoading} hasBackButton>
       <PageHeader>
-        <FormLocaleSwitcher models={post?.localizations} slug={'posts'} />
+        {post?.localizations && (
+          <FormLocaleSwitcher models={post?.localizations} slug={'posts'} />
+        )}
       </PageHeader>
       <Stack spacing={4}>
         {post && (
@@ -70,8 +72,10 @@ const PostPage: FC<PageProps> = ({ seo }) => {
   )
 }
 
-export const getServerSideProps = async context => {
-  const { locale } = context
+export const getServerSideProps = async (
+  context: GetServerSidePropsContext,
+) => {
+  const locale = context.locale as StrapiLocale
 
   const title = {
     en: 'Post',

@@ -4,6 +4,8 @@ import { Button, Stack } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { PSM, createWorker } from 'tesseract.js'
 
+import { StrapiLocale } from '@wsvvrijheid/types'
+
 import { ImageRecognizeItem } from './ImageRecognizeItem'
 import { ImageRecognizerProps, Languages, RecognizedImage } from './types'
 import { FilePicker } from '../../components'
@@ -34,6 +36,7 @@ export const ImageRecognizer: FC<ImageRecognizerProps> = ({
   }
 
   const router = useRouter()
+  const locale = router.locale as StrapiLocale
 
   const handleRecognize = async () => {
     const worker = await createWorker({
@@ -41,8 +44,8 @@ export const ImageRecognizer: FC<ImageRecognizerProps> = ({
     })
 
     await worker.load()
-    await worker.loadLanguage(Languages[router.locale])
-    await worker.initialize(Languages[router.locale])
+    await worker.loadLanguage(Languages[locale])
+    await worker.initialize(Languages[locale])
     await worker.setParameters({ tessedit_pageseg_mode: PSM.AUTO_OSD })
 
     const items = Object?.values(state)
@@ -87,7 +90,7 @@ export const ImageRecognizer: FC<ImageRecognizerProps> = ({
     }
 
     await worker.terminate()
-    setRecognized(true)
+    setRecognized?.(true)
   }
 
   return (

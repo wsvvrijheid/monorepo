@@ -23,12 +23,13 @@ import { FieldErrorsImpl, useForm } from 'react-hook-form'
 import { FiArrowUpRight } from 'react-icons/fi'
 import { GrFormClose } from 'react-icons/gr'
 import stringSimilarity from 'string-similarity'
+import { ObjectSchema } from 'yup'
 
 import { useRecommendTweet } from '@wsvvrijheid/services'
 import { Mention, Tweet } from '@wsvvrijheid/types'
 
-import { schema } from './schema'
-import { CreateTweetFormProps, CreateTweetFormFieldValues } from './types'
+import { createTweetSchema } from './schema'
+import { CreateTweetFormFieldValues, CreateTweetFormProps } from './types'
 import { ModelSelect } from '../../admin/ModelForm/ModelSelect'
 import { TweetContent } from '../../admin/TweetContent'
 import { FormItem } from '../FormItem'
@@ -65,7 +66,9 @@ export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
     setValue,
     reset,
   } = useForm<CreateTweetFormFieldValues>({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(
+      createTweetSchema as ObjectSchema<CreateTweetFormFieldValues>,
+    ),
     mode: 'all',
     values: defaultValues,
   })
@@ -125,7 +128,7 @@ export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
             >
               <Stack>
                 <FormLabel fontWeight={600}>Original Tweet</FormLabel>
-                <TweetContent
+                <TweetContent<CreateTweetFormFieldValues>
                   horizontal
                   tweet={originalTweet as Tweet}
                   isChangingImage={isChangingImage}

@@ -3,10 +3,9 @@ import { FC, useEffect, useMemo, useState } from 'react'
 import {
   MenuItemOption,
   MenuOptionGroup,
-  Stack,
   useUpdateEffect,
 } from '@chakra-ui/react'
-import { InferGetStaticPropsType } from 'next'
+import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
@@ -25,7 +24,7 @@ import i18nConfig from '../../next-i18next.config'
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>
 
 const PostsPage: FC<PageProps> = ({ seo }) => {
-  const [currentPage, setCurrentPage] = useState<number>()
+  const [currentPage, setCurrentPage] = useState<number>(1)
 
   const [searchTerm, setSearchTerm] = useState<string>()
   const { locale, push } = useRouter()
@@ -57,12 +56,12 @@ const PostsPage: FC<PageProps> = ({ seo }) => {
 
   useEffect(() => setCurrentPage(1), [hashtagsFilter])
 
-  const handleSearch = (search: string) => {
+  const handleSearch = (search?: string) => {
     search ? setSearchTerm(search) : setSearchTerm(undefined)
   }
 
   const postsData = postsQuery?.data?.data
-  const totalCount = postsQuery?.data?.meta?.pagination?.pageCount
+  const totalCount = postsQuery?.data?.meta?.pagination?.pageCount || 0
 
   const posts = useMemo(
     () =>
@@ -81,7 +80,9 @@ const PostsPage: FC<PageProps> = ({ seo }) => {
     <MenuOptionGroup
       title="Hastags"
       type="checkbox"
-      onChange={(value: string[]) => setHashtagsFilter(value.map(v => +v))}
+      onChange={(value: string | string[]) =>
+        setHashtagsFilter((value as string[]).map(v => +v))
+      }
     >
       {hashtagsQuery.data?.data?.map(hashtag => (
         <MenuItemOption key={hashtag.id} value={`${hashtag.id}`}>
@@ -103,21 +104,23 @@ const PostsPage: FC<PageProps> = ({ seo }) => {
         onSearch={handleSearch}
         searchPlaceHolder={'Search by title or description'}
       />
-      <DataTable<Post>
-        columns={postColumns}
-        data={posts}
-        totalCount={totalCount}
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-        onSort={setSort}
-        onClickRow={handleClick}
-      />
+      {posts && (
+        <DataTable<Post>
+          columns={postColumns}
+          data={posts}
+          totalCount={totalCount}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          onSort={setSort}
+          onClickRow={handleClick}
+        />
+      )}
     </AdminLayout>
   )
 }
 
-export const getStaticProps = async context => {
-  const { locale } = context
+export const getStaticProps = async (context: GetStaticPropsContext) => {
+  const locale = context.locale as StrapiLocale
 
   const title = {
     en: 'Posts',

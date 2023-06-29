@@ -1,12 +1,9 @@
+/* eslint-disable no-unused-vars */
 import { ReactNode } from 'react'
 
 import { UseDisclosureReturn } from '@chakra-ui/react'
 
-import {
-  HashtagReturnType,
-  MentionUserData,
-  PostSentence,
-} from '@wsvvrijheid/types'
+import { MentionUserData, PostSentence } from '@wsvvrijheid/types'
 
 export type HashtagStats = {
   unsharedCount: number

@@ -13,12 +13,12 @@ import {
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
-import { TFunction, useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import * as yup from 'yup'
 
 import { useAuthContext } from '@wsvvrijheid/context'
 
+import { loginSchema } from './schema'
 import { LoginFormFieldValues } from './types'
 import { FormItem } from '../FormItem'
 import { Navigate } from '../Navigate'
@@ -26,15 +26,6 @@ import {
   SocialLoginButtons,
   SocialLoginButtonsProps,
 } from '../SocialLoginButtons'
-
-const schema = (t: TFunction) =>
-  yup.object({
-    password: yup.string().required(t('login.password.required') as string),
-    identifier: yup
-      .string()
-      .email(t('contact.form.email-invalid') as string)
-      .required(t('login.email.required') as string),
-  })
 
 type LoginFormProps = Pick<SocialLoginButtonsProps, 'providersToBeShown'>
 
@@ -46,7 +37,7 @@ export const LoginForm: FC<LoginFormProps> = ({ providersToBeShown = [] }) => {
     handleSubmit,
     formState: { errors },
   } = useForm<LoginFormFieldValues>({
-    resolver: yupResolver(schema(t)),
+    resolver: yupResolver(loginSchema(t)),
     mode: 'all',
   })
 
@@ -57,7 +48,7 @@ export const LoginForm: FC<LoginFormProps> = ({ providersToBeShown = [] }) => {
     mutationKey: ['login'],
     mutationFn: (body: LoginFormFieldValues) =>
       login(body.identifier, body.password),
-    onSuccess: async data => {
+    onSuccess: async () => {
       router.push('/')
     },
   })

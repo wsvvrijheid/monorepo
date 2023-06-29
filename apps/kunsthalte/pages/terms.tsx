@@ -1,13 +1,14 @@
 import { FC } from 'react'
 
 import { truncate } from 'lodash'
+import { GetStaticPropsContext } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { serialize } from 'next-mdx-remote/serialize'
 import { NextSeoProps } from 'next-seo'
 
 import { Request } from '@wsvvrijheid/lib'
-import { Term } from '@wsvvrijheid/types'
+import { StrapiLocale, Term } from '@wsvvrijheid/types'
 import { Container, Hero, Markdown } from '@wsvvrijheid/ui'
 
 import { Layout } from '../components'
@@ -32,8 +33,8 @@ const Terms: FC<TermsProps> = ({ terms, seo, source }) => {
 
 export default Terms
 
-export const getStaticProps = async context => {
-  const { locale } = context
+export const getStaticProps = async (context: GetStaticPropsContext) => {
+  const locale = context.locale as StrapiLocale
 
   const response = await Request.single<Term>({
     url: 'api/term',

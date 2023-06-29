@@ -45,8 +45,9 @@ const Platforms: FC<CoursesProps> = ({ title, courses }) => {
             gap={{ base: 6, lg: 8 }}
           >
             {coursesData?.map(course => {
-              const title = course?.[`title_${locale}`]
-              const description = course?.[`description_${locale}`]
+              const title = course?.[`title_${locale as StrapiLocale}`]
+              const description =
+                course?.[`description_${locale as StrapiLocale}`]
 
               return (
                 <AcademyCard
@@ -68,7 +69,7 @@ const Platforms: FC<CoursesProps> = ({ title, courses }) => {
 export default Platforms
 
 export const getStaticProps = async (context: GetStaticPropsContext) => {
-  const { locale } = context
+  const locale = context.locale as StrapiLocale
 
   const courses = await searchModel<Course>({
     url: 'api/courses',

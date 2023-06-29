@@ -13,11 +13,11 @@ export const generateOgImageParams = (props?: OgImageParams) => {
 
   const bgs = Object.entries(theme.colors)
     .filter(([key]) => key !== 'black' && key !== 'white')
-    .map(([key, val]) => val[50])
+    .map(([, val]) => val[50])
 
   const colors = Object.entries(theme.colors)
     .filter(([key]) => key !== 'black' && key !== 'white')
-    .map(([key, val]) => val[500])
+    .map(([, val]) => val[500])
 
   const index = Math.floor(Math.random() * bgs.length)
   const bg = sample([bgs[index], 'white'])

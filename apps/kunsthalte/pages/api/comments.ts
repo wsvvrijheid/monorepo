@@ -35,12 +35,12 @@ const commentRoute = async (req: NextApiRequest, res: NextApiResponse) => {
       name,
       user: user?.id,
       art,
-      token: COMMENT_TOKEN,
+      token: COMMENT_TOKEN as string,
       email,
     })
 
     return res.status(200).json(commentResponse)
-  } catch (error) {
+  } catch (error: any) {
     if (error.response?.data?.error) {
       console.error('COMMENT ERROR', error.response.data.error)
 

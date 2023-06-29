@@ -5,7 +5,7 @@ import {
   FieldValues,
   UseFormReturn,
 } from 'react-hook-form'
-import { AssertsShape, OptionalObjectSchema } from 'yup/lib/object'
+import { AnyObjectSchema } from 'yup'
 
 import { Role, StrapiModel, StrapiUrl } from '@wsvvrijheid/types'
 
@@ -13,7 +13,7 @@ import { WSelectProps } from '../../components'
 
 export type MentionSelectProps = {
   isEditing: boolean
-  control: Control<AssertsShape<any>, any>
+  control: Control
   errors: Partial<
     FieldErrorsImpl<{
       [x: string]: any
@@ -56,7 +56,7 @@ export type ModelCreateFormProps<T extends StrapiModel> = {
   url: StrapiUrl
   fields: FormFields<T>
   model?: Partial<T>
-  schema: OptionalObjectSchema<any>
+  schema: AnyObjectSchema
   buttonProps?: ButtonProps
   hideLanguageSwitcher?: boolean
   onSuccess?: () => void
@@ -64,7 +64,7 @@ export type ModelCreateFormProps<T extends StrapiModel> = {
 export type ModelCreateFormBodyProps<T extends StrapiModel> = {
   fields: FormFields<T>
   activeOption?: string
-  formProps: UseFormReturn<AssertsShape<any>, any>
+  formProps: UseFormReturn
   model?: Partial<T>
 }
 
@@ -73,7 +73,7 @@ export type ModelEditFormProps<T extends StrapiModel> = {
   model: T
   translatedFields?: (keyof T)[]
   fields: FormFields<T>
-  schema: OptionalObjectSchema<any>
+  schema: AnyObjectSchema
   hideLanguageSwitcher?: boolean
   noColumns?: boolean
   onSuccess: () => void
@@ -99,7 +99,7 @@ export type ModelEditModalProps<T extends StrapiModel> = Omit<
 
 export type ModelSelectProps = WSelectProps<FieldValues> & {
   url: StrapiUrl
-  control: Control<AssertsShape<any>, any>
+  control: Control
   tooltip?: string
   errors: Partial<
     FieldErrorsImpl<{

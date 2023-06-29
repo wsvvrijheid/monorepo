@@ -1,6 +1,6 @@
 import { FC } from 'react'
 
-import { InferGetStaticPropsType } from 'next'
+import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
@@ -23,13 +23,13 @@ const Timelines: FC<PageProps> = ({ seo }) => {
 
   return (
     <AdminLayout seo={seo} isLoading={isLoading}>
-      <TimelineBoard timelines={timelines?.data} />
+      {timelines?.data && <TimelineBoard timelines={timelines?.data} />}
     </AdminLayout>
   )
 }
 
-export const getStaticProps = async context => {
-  const { locale } = context
+export const getStaticProps = async (context: GetStaticPropsContext) => {
+  const locale = context.locale as StrapiLocale
 
   const title = {
     en: 'Timelines',

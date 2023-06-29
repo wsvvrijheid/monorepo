@@ -17,7 +17,7 @@ import { SearchForm } from '../../components'
 export type PageHeaderProps = {
   filterMenu?: ReactNode
   sortMenu?: ReactNode
-  onSearch?: (value: string | null) => number | void
+  onSearch?: (value?: string) => number | void
   children?: ReactNode
   filterMenuCloseOnSelect?: boolean
   searchPlaceHolder?: string

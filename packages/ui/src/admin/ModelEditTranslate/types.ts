@@ -1,9 +1,9 @@
 import { ButtonProps } from '@chakra-ui/react'
 import { Control, FieldErrorsImpl, FieldValues } from 'react-hook-form'
-import { AssertsShape, OptionalObjectSchema } from 'yup/lib/object'
+import { ObjectSchema } from 'yup'
 
 import {
-  Role,
+  RoleType,
   StrapiModel,
   StrapiTranslatableModel,
   StrapiUrl,
@@ -13,7 +13,7 @@ import { WSelectProps } from '../../components'
 
 export type MentionSelectProps = {
   isEditing: boolean
-  control: Control<AssertsShape<any>, any>
+  control: Control
   errors: Partial<
     FieldErrorsImpl<{
       [x: string]: any
@@ -54,7 +54,7 @@ export type ModelCreateFormProps<T extends StrapiModel> = {
   url: StrapiUrl
   fields: FormFields<T>
   model?: Partial<T>
-  schema: OptionalObjectSchema<any>
+  schema: ObjectSchema<any>
   buttonProps?: ButtonProps
   onSuccess?: () => void
 }
@@ -64,14 +64,14 @@ export type ModelEditTranslateProps<T extends StrapiTranslatableModel> = {
   url: StrapiUrl
   translatedFields: (keyof T)[]
   fields: FormFields<T>
-  schema: OptionalObjectSchema<any>
-  approverRoles?: Role['type'][]
-  editorRoles?: Role['type'][]
+  schema: ObjectSchema<any>
+  approverRoles?: RoleType[]
+  editorRoles?: RoleType[]
 }
 
 export type ModelSelectProps = WSelectProps<FieldValues> & {
   url: StrapiUrl
-  control: Control<AssertsShape<any>, any>
+  control: Control
   errors: Partial<
     FieldErrorsImpl<{
       [x: string]: any

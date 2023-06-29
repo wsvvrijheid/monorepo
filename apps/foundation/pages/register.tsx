@@ -1,9 +1,11 @@
 import { FC } from 'react'
 
 import { Box } from '@chakra-ui/react'
+import { GetStaticPropsContext } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
 
+import { StrapiLocale } from '@wsvvrijheid/types'
 import { SignupForm } from '@wsvvrijheid/ui'
 
 import { Layout } from '../components'
@@ -21,8 +23,8 @@ const RegisterPage: FC<{ seo: NextSeoProps }> = ({ seo }) => {
 
 export default RegisterPage
 
-export const getStaticProps = async context => {
-  const { locale } = context
+export const getStaticProps = async (context: GetStaticPropsContext) => {
+  const locale = context.locale as StrapiLocale
 
   const title = {
     en: 'Register',

@@ -1,21 +1,19 @@
+import { NextApiHandler } from 'next'
+
 import { SITE_URL } from '@wsvvrijheid/config'
 import { Mutation } from '@wsvvrijheid/lib'
 import { mollieClient } from '@wsvvrijheid/mollie'
 import { TOKEN } from '@wsvvrijheid/secrets'
 import { Donation, DonationCreateInput } from '@wsvvrijheid/types'
 
-export default async function handler(req, res) {
+const handler: NextApiHandler = async (req, res) => {
   const { amount, name, email, method } = req.body
 
   // Create blank donation in database
   const donation = await Mutation.post<Donation, DonationCreateInput>(
     'api/donates',
-    {
-      name,
-      email,
-      amount,
-    },
-    TOKEN,
+    { name, email, amount },
+    TOKEN as string,
   )
 
   // Create mollie payment
@@ -35,5 +33,7 @@ export default async function handler(req, res) {
     webhookUrl: `${SITE_URL}/api/payment/status`,
   })
 
-  await res.status(200).send(payment.getCheckoutUrl())
+  res.status(200).send(payment.getCheckoutUrl())
 }
+
+export default handler

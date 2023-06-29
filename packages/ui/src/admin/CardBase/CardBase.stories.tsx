@@ -26,7 +26,7 @@ type Story = StoryObj<CardBaseProps>
 const GridTemplate: StoryFn = () => {
   return (
     <SimpleGrid columns={{ base: 1, md: 2, lg: 4 }} gap={4}>
-      {ART_MOCKS.data.map((art, i) => (
+      {ART_MOCKS.data.map(art => (
         <CardBase onClick={() => alert('art click')} key={art.id} art={art} />
       ))}
     </SimpleGrid>

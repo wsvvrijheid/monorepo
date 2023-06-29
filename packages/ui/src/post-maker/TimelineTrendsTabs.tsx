@@ -11,7 +11,6 @@ import { useTranslation } from 'next-i18next'
 
 import { useHashtag } from '@wsvvrijheid/services'
 
-import { useHashtagContext } from './HashtagProvider'
 import { TrendListTabs } from './Trends'
 import { TweetWidget } from './TweetWidget'
 

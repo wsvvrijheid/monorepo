@@ -23,7 +23,7 @@ const registerRoute = async (req: NextApiRequest, res: NextApiResponse) => {
     )
 
     const token = response.data.jwt
-    const userId = response.data.user?.id
+    const userId = response.data.user?.id as number
 
     const body = { user: userId, name: trimmedName }
 
@@ -35,7 +35,7 @@ const registerRoute = async (req: NextApiRequest, res: NextApiResponse) => {
 
     await req.session.save()
     res.json(auth)
-  } catch (error) {
+  } catch (error: any) {
     if (!error.response?.data?.error.message) {
       return res.status(500).json({ message: 'Internal server error' })
     } else {

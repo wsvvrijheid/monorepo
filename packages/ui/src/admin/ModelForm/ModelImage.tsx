@@ -1,10 +1,7 @@
-import { FC } from 'react'
-
 import { Box, Button, Center, Stack, Text } from '@chakra-ui/react'
-import { UseFormSetValue } from 'react-hook-form'
+import { FieldValues, Path, PathValue, UseFormSetValue } from 'react-hook-form'
 import { CiImageOff } from 'react-icons/ci'
 import { IoMdCloudUpload } from 'react-icons/io'
-import { AssertsShape } from 'yup/lib/object'
 
 import { ASSETS_URL } from '@wsvvrijheid/config'
 import {
@@ -17,9 +14,9 @@ import {
 
 import { Caps, FilePicker, WImage } from '../../components'
 
-export type ModelImageProps = {
+export type ModelImageProps<T extends FieldValues = FieldValues> = {
   model: StrapiModel
-  name?: string
+  name?: Path<T>
   isEditing: boolean
   isChangingImage: boolean
   setIsChangingImage: {
@@ -27,19 +24,19 @@ export type ModelImageProps = {
     off: () => void
     toggle: () => void
   }
-  setValue: UseFormSetValue<AssertsShape<any>>
+  setValue: UseFormSetValue<T>
   url?: StrapiUrl
 }
 
-export const ModelImage: FC<ModelImageProps> = ({
+export const ModelImage = <T extends FieldValues = FieldValues>({
   setValue,
   model,
   isEditing,
   isChangingImage,
   setIsChangingImage,
   url,
-  name = 'image',
-}) => {
+  name,
+}: ModelImageProps<T>) => {
   const { image, title, description } = (model || {}) as StrapiTranslatableModel
 
   const modelImageUrl = image?.url
@@ -54,7 +51,11 @@ export const ModelImage: FC<ModelImageProps> = ({
       return (
         <Stack>
           {image && <Button onClick={setIsChangingImage.off}>Cancel</Button>}
-          <FilePicker onLoaded={files => setValue(name, files[0])} />
+          <FilePicker
+            onLoaded={files =>
+              setValue(name as Path<T>, files[0] as PathValue<T, Path<T>>)
+            }
+          />
         </Stack>
       )
     } else if (!image) {

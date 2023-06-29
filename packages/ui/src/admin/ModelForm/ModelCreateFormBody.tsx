@@ -93,7 +93,7 @@ export const ModelCreateFormBody = <T extends StrapiModel>({
         if (field.type === 'file') {
           return (
             <FormControl
-              isInvalid={Boolean(errors?.[field.name])}
+              isInvalid={Boolean(errors?.[field.name as string])}
               key={index}
               isRequired={field.isRequired}
               zIndex={0}

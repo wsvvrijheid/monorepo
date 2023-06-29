@@ -1,9 +1,9 @@
-import { Activity, ApprovalStatus } from '@wsvvrijheid/types'
+import { ApprovalStatus, Blog } from '@wsvvrijheid/types'
 
 import { PublicationBadges } from '../../admin'
 import { WTableProps } from '../../components'
 
-export const blogColumns: WTableProps<Activity>['columns'] = {
+export const blogColumns: WTableProps<Blog>['columns'] = {
   image: { type: 'image' },
   title: { sortable: true },
   description: {},
@@ -32,11 +32,6 @@ export const blogColumns: WTableProps<Activity>['columns'] = {
   createdAt: {
     type: 'date',
     componentProps: { format: 'dd MMMM' },
-    sortable: true,
-  },
-  date: {
-    type: 'date',
-    componentProps: { format: 'dd MMMM yyyy' },
     sortable: true,
   },
 }

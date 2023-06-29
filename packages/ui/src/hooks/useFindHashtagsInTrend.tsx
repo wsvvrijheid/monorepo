@@ -1,8 +1,6 @@
 import { useHashtag, useTrends } from '@wsvvrijheid/services'
 import { TwitterTrend } from '@wsvvrijheid/types'
 
-import { useHashtagContext } from '../post-maker'
-
 export const useFindHashtagInTrends = () => {
   const hashtag = useHashtag()
   const { data: trendsData } = useTrends()

@@ -5,7 +5,6 @@ import { sampleSize } from 'lodash'
 import { useRouter } from 'next/router'
 
 import { useGetHashtagSentences, useHashtag } from '@wsvvrijheid/services'
-import { MentionUserData } from '@wsvvrijheid/types'
 
 import { initialHashtagContext } from './state'
 import { HashtagContextType, HashtagProviderProps, PostStats } from './types'
@@ -34,7 +33,7 @@ export const HashtagProvider: FC<HashtagProviderProps> = ({ children }) => {
   const mentionsDisclosure = useDisclosure()
   const trendsDisclosure = useDisclosure()
 
-  const removeStoredMention = (mention: string) => {
+  const removeStoredMention = () => {
     return
   }
 
@@ -48,7 +47,7 @@ export const HashtagProvider: FC<HashtagProviderProps> = ({ children }) => {
     }))
   }
 
-  const updateStoredMentions = (mention: MentionUserData) => {
+  const updateStoredMentions = () => {
     return
   }
 

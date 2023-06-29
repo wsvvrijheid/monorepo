@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 
 import { useDisclosure, useUpdateEffect } from '@chakra-ui/react'
+import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
@@ -20,9 +21,11 @@ import {
 
 import i18nConfig from '../next-i18next.config'
 
-const ActivitiesPage = ({ seo }) => {
+type ActivitiesPageProps = InferGetStaticPropsType<typeof getStaticProps>
+
+const ActivitiesPage: FC<ActivitiesPageProps> = ({ seo }) => {
   const { t } = useTranslation()
-  const [currentPage, setCurrentPage] = useState<number>()
+  const [currentPage, setCurrentPage] = useState<number>(1)
   const [selectedId, setSelectedId] = useState<number>()
   const { isOpen, onClose, onOpen } = useDisclosure()
 
@@ -43,7 +46,7 @@ const ActivitiesPage = ({ seo }) => {
   })
 
   useEffect(() => setCurrentPage(1), [])
-  const handleSearch = (search: string) => {
+  const handleSearch = (search?: string | null) => {
     search ? setSearchTerm(search) : setSearchTerm(undefined)
   }
 
@@ -57,7 +60,7 @@ const ActivitiesPage = ({ seo }) => {
   const mappedActivities = activities?.map(activity => ({
     ...activity,
     translates: activity.localizations?.map(l => l.locale),
-  }))
+  })) as Activity[]
 
   const handleClick = (index: number, id: number) => {
     setSelectedId(id)
@@ -80,19 +83,21 @@ const ActivitiesPage = ({ seo }) => {
         onSearch={handleSearch}
         searchPlaceHolder={t('search-placeholder')}
       />
-      <ModelEditModal<Activity>
-        url={'api/activities'}
-        id={selectedId}
-        isOpen={isOpen}
-        onClose={handleClose}
-        fields={activityFields}
-        schema={activitySchema}
-        title={'Edit Activity'}
-      />
+      {selectedId && (
+        <ModelEditModal<Activity>
+          url={'api/activities'}
+          id={selectedId}
+          isOpen={isOpen}
+          onClose={handleClose}
+          fields={activityFields}
+          schema={activitySchema}
+          title={'Edit Activity'}
+        />
+      )}
       <DataTable
         columns={activityColumns}
         data={mappedActivities}
-        totalCount={totalCount}
+        totalCount={totalCount as number}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
         onSort={setSort}
@@ -102,8 +107,8 @@ const ActivitiesPage = ({ seo }) => {
   )
 }
 
-export const getStaticProps = async context => {
-  const { locale } = context
+export const getStaticProps = async (context: GetStaticPropsContext) => {
+  const locale = context.locale as StrapiLocale
 
   const title = {
     en: 'Activities',

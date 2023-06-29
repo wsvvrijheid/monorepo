@@ -24,15 +24,14 @@ import {
   Volunteer,
   VolunteerCreateInput,
 } from '@wsvvrijheid/types'
-import { Job } from '@wsvvrijheid/types'
 import { toastMessage } from '@wsvvrijheid/utils'
 
 import { JoinTemplateProps } from './types'
 import {
   Container,
   JoinForm,
-  PageTitle,
   JoinFormFieldValues,
+  PageTitle,
   PlatformList,
 } from '../../components'
 
@@ -48,7 +47,6 @@ export const JoinTemplate: FC<JoinTemplateProps> = ({ title }) => {
   })
 
   const platforms = platformsResult.data?.data || []
-  const jobs = (platforms?.flatMap(p => p.jobs) as Job[]) || []
 
   const { mutate, isLoading, isSuccess } = useMutation(
     ['create-volunteer'],
@@ -129,7 +127,6 @@ export const JoinTemplate: FC<JoinTemplateProps> = ({ title }) => {
               <JoinForm
                 onSubmitHandler={onSubmit}
                 isLoading={isLoading}
-                jobs={jobs}
                 platforms={platforms}
                 locale={(locale as StrapiLocale) || 'en'}
               />

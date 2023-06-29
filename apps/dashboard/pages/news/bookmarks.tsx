@@ -1,12 +1,12 @@
 import { FC } from 'react'
 
 import { SimpleGrid } from '@chakra-ui/react'
-import { InferGetStaticPropsType } from 'next'
+import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
 import { useLocalStorage } from 'usehooks-ts'
 
-import { TopicBase } from '@wsvvrijheid/types'
+import { StrapiLocale, TopicBase } from '@wsvvrijheid/types'
 import { AdminLayout, TopicCard } from '@wsvvrijheid/ui'
 
 import i18nConfig from '../../next-i18next.config'
@@ -19,7 +19,7 @@ const NewsBookmarkedPage: FC<PageProps> = ({ seo }) => {
   return (
     <AdminLayout seo={seo}>
       <SimpleGrid columns={{ base: 1 }} gap={4}>
-        {bookmarksStorage?.map((topic, i) => (
+        {bookmarksStorage?.map(topic => (
           <TopicCard key={topic.url} topic={topic} />
         ))}
       </SimpleGrid>
@@ -27,8 +27,8 @@ const NewsBookmarkedPage: FC<PageProps> = ({ seo }) => {
   )
 }
 
-export const getStaticProps = async context => {
-  const { locale } = context
+export const getStaticProps = async (context: GetStaticPropsContext) => {
+  const locale = context.locale as StrapiLocale
 
   const title = {
     en: 'Bookmarked News',

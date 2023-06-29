@@ -22,7 +22,6 @@ export const ArtCardActions: FC<ArtCardActionsProps> = ({
   isPublished,
   onHandleAction,
 }) => {
-  // @ts-ignore
   const { t } = useTranslation('common')
 
   return (

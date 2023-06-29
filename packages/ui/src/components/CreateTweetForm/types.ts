@@ -2,9 +2,9 @@ import * as yup from 'yup'
 
 import { Tweet } from '@wsvvrijheid/types'
 
-import { schema } from './schema'
+import { createTweetSchema } from './schema'
 
-export type CreateTweetFormFieldValues = yup.InferType<typeof schema>
+export type CreateTweetFormFieldValues = yup.InferType<typeof createTweetSchema>
 
 export type CreateTweetFormProps = {
   onSubmit?: (data: CreateTweetFormFieldValues) => void

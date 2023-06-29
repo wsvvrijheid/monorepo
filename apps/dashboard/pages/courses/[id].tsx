@@ -12,7 +12,7 @@ import {
   useDisclosure,
   useUpdateEffect,
 } from '@chakra-ui/react'
-import { InferGetServerSidePropsType } from 'next'
+import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
 import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
@@ -50,11 +50,11 @@ const CoursePage: FC<PageProps> = ({ seo }) => {
   const { query } = router
 
   const [selectedApplicationId, setSelectedApplicationId] = useState<number>()
-  const [currentPage, setCurrentPage] = useState<number>()
+  const [currentPage, setCurrentPage] = useState<number>(1)
   const [searchTerm, setSearchTerm] = useState<string>()
   const [sort, setSort] = useState<Sort>()
 
-  const handleSearch = (search: string) => {
+  const handleSearch = (search?: string) => {
     search ? setSearchTerm(search) : setSearchTerm(undefined)
   }
 
@@ -76,8 +76,8 @@ const CoursePage: FC<PageProps> = ({ seo }) => {
     applicationsQuery.refetch()
   }, [locale, searchTerm, sort])
 
-  const applications = applicationsQuery?.data?.data
-  const totalCount = applicationsQuery?.data?.meta?.pagination?.pageCount
+  const applications = applicationsQuery?.data?.data || []
+  const totalCount = applicationsQuery?.data?.meta?.pagination?.pageCount || 0
 
   const {
     data: course,
@@ -105,19 +105,21 @@ const CoursePage: FC<PageProps> = ({ seo }) => {
 
   return (
     <AdminLayout seo={seo} isLoading={isLoading} hasBackButton>
-      <ModelEditModal<CourseApplication>
-        title={'Application'}
-        url="api/course-applications"
-        id={selectedApplicationId}
-        schema={courseApplicationSchema}
-        fields={courseApplicationFields}
-        approverRoles={['academyeditor']}
-        editorRoles={['academyeditor']}
-        publisherRoles={['academyeditor']}
-        isOpen={isOpen}
-        onClose={handleClose}
-        size={'5xl'}
-      />
+      {selectedApplicationId && (
+        <ModelEditModal<CourseApplication>
+          title={'Application'}
+          url="api/course-applications"
+          id={selectedApplicationId}
+          schema={courseApplicationSchema}
+          fields={courseApplicationFields}
+          approverRoles={['academyeditor']}
+          editorRoles={['academyeditor']}
+          publisherRoles={['academyeditor']}
+          isOpen={isOpen}
+          onClose={handleClose}
+          size={'5xl'}
+        />
+      )}
       <Stack spacing={8} p={6}>
         <Accordion
           size={'lg'}
@@ -137,7 +139,7 @@ const CoursePage: FC<PageProps> = ({ seo }) => {
               fontWeight={600}
               shadow={'sm'}
             >
-              <Text>{course?.[`title_${router.locale}`]}</Text>
+              <Text>{course?.[`title_${router.locale as StrapiLocale}`]}</Text>
               <AccordionIcon ml={'auto'} />
             </AccordionButton>
             <AccordionPanel mt={4} bg={'white'} rounded={'md'}>
@@ -207,8 +209,10 @@ const CoursePage: FC<PageProps> = ({ seo }) => {
   )
 }
 
-export const getServerSideProps = async context => {
-  const { locale } = context
+export const getServerSideProps = async (
+  context: GetServerSidePropsContext,
+) => {
+  const locale = context.locale as StrapiLocale
 
   const title = {
     en: 'Course',

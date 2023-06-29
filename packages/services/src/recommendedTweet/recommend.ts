@@ -28,7 +28,7 @@ export const useRecommendTweet = () => {
     mutationFn: (recommendedTweet: RecommendedTweetCreateInput) => {
       return recommendTweet(recommendedTweet, token as string)
     },
-    onSuccess: res => {
+    onSuccess: () => {
       toast({
         title: 'Recommended',
         description: 'Recommended Tweet Created',

@@ -1,11 +1,12 @@
 import { FC } from 'react'
 
 import { Heading, Image, SimpleGrid, Stack, Text } from '@chakra-ui/react'
-import { InferGetStaticPropsType } from 'next'
+import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
 
 import { ABOUT_US } from '@wsvvrijheid/config'
+import { StrapiLocale } from '@wsvvrijheid/types'
 import { AnimatedBox, Container, Hero } from '@wsvvrijheid/ui'
 
 import { Layout } from '../components'
@@ -55,8 +56,8 @@ const AboutUs: FC<AboutUsProps> = ({ title, content, seo }) => {
 
 export default AboutUs
 
-export const getStaticProps = async context => {
-  const { locale } = context
+export const getStaticProps = async (context: GetStaticPropsContext) => {
+  const locale = context.locale as StrapiLocale
 
   const pageData = ABOUT_US[locale] as typeof ABOUT_US.en
 

@@ -1,28 +1,23 @@
 import { FC } from 'react'
 
 import { Spinner } from '@chakra-ui/react'
-import { dehydrate } from '@tanstack/react-query'
-import { GetStaticPaths, GetStaticPropsContext } from 'next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { MDXRemoteSerializeResult } from 'next-mdx-remote'
-import { serialize } from 'next-mdx-remote/serialize'
-import { NextSeoProps } from 'next-seo'
-
+import { QueryClient, dehydrate } from '@tanstack/react-query'
 import {
-  getActivityStaticProps,
-  getModelStaticPaths,
-} from '@wsvvrijheid/services'
-import { StrapiLocale, UploadFile } from '@wsvvrijheid/types'
+  GetStaticPaths,
+  GetStaticPropsContext,
+  InferGetStaticPropsType,
+} from 'next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { serialize } from 'next-mdx-remote/serialize'
+
+import { getActivityBySlug, getModelStaticPaths } from '@wsvvrijheid/services'
+import { Activity, StrapiLocale } from '@wsvvrijheid/types'
 import { ActivityDetail } from '@wsvvrijheid/ui'
 
 import { Layout } from '../../components/index'
 import i18nConfig from '../../next-i18next.config'
 
-type ActivityDetailPageProps = {
-  seo: NextSeoProps
-  source: MDXRemoteSerializeResult
-  image: UploadFile | string
-}
+type ActivityDetailPageProps = InferGetStaticPropsType<typeof getStaticProps>
 
 const ActivityDetailPage: FC<ActivityDetailPageProps> = ({
   seo,
@@ -47,10 +42,29 @@ export const getStaticPaths: GetStaticPaths = async context => {
 }
 
 export const getStaticProps = async (context: GetStaticPropsContext) => {
-  const { content, image, seo, queryClient } = await getActivityStaticProps(
-    context,
-  )
+  const queryClient = new QueryClient()
+
   const locale = context.locale as StrapiLocale
+  const slug = context.params?.['slug'] as string
+
+  await queryClient.prefetchQuery({
+    queryKey: ['activity', locale, slug],
+    queryFn: () => getActivityBySlug(locale, slug),
+  })
+
+  const activity = queryClient.getQueryData<Activity>([
+    'activity',
+    locale,
+    slug,
+  ])
+
+  if (!activity) return { notFound: true }
+
+  const title = activity.title || ''
+  const content = activity.content || ''
+  const image = activity.image || ''
+
+  const seo = { title, content }
 
   const source = await serialize(content || '')
 

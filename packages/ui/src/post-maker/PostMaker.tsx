@@ -134,8 +134,8 @@ export const PostMaker: FC<PostMakerProps> = ({ isAdminMode, isIosSafari }) => {
           <Box order={{ base: 0, lg: 1 }} h={'inherit'} overflowY={'auto'}>
             <PostMakerTweetList
               posts={hashtag.posts}
-              isAdminMode={isAdminMode}
-              isIosSafari={isIosSafari}
+              isAdminMode={Boolean(isAdminMode)}
+              isIosSafari={Boolean(isIosSafari)}
             />
           </Box>
         ) : (

@@ -13,28 +13,14 @@ import {
   VStack,
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { TFunction, useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { BsPerson } from 'react-icons/bs'
 import { MdEmail } from 'react-icons/md'
-import * as yup from 'yup'
 
+import { contactSchema } from './schema'
 import { ContactFormFieldValues, ContactFormProps } from './types'
 import { FormItem } from '../FormItem'
-
-const schema = (t: TFunction) =>
-  yup.object({
-    fullname: yup
-      .string()
-      .required(t('contact.form.fullname-required') as string),
-    email: yup
-      .string()
-      .email(t('contact.form.email-invalid') as string)
-      .required(t('contact.form.email-required') as string),
-    message: yup
-      .string()
-      .required(t('contact.form.message-required') as string),
-  })
 
 export const ContactForm: FC<ContactFormProps> = ({
   onSubmitHandler,
@@ -51,7 +37,7 @@ export const ContactForm: FC<ContactFormProps> = ({
     reset,
     formState: { errors, isValid },
   } = useForm<ContactFormFieldValues>({
-    resolver: yupResolver(schema(t)),
+    resolver: yupResolver(contactSchema(t)),
     mode: 'all',
   })
 

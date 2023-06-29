@@ -1,13 +1,13 @@
 import { FC } from 'react'
 
-import { PaymentStatus } from '@mollie/api-client'
+import { Payment, PaymentStatus } from '@mollie/api-client'
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { Mutation, Request } from '@wsvvrijheid/lib'
 import { mollieClient } from '@wsvvrijheid/mollie'
 import { TOKEN } from '@wsvvrijheid/secrets'
-import { Donation, StrapiUrl } from '@wsvvrijheid/types'
+import { Donation, StrapiLocale, StrapiUrl } from '@wsvvrijheid/types'
 import { AdminLayout, DonationCompleteTemplate } from '@wsvvrijheid/ui'
 
 type DonationCompletePageProps = InferGetServerSidePropsType<
@@ -37,16 +37,22 @@ export const getServerSideProps = async (
     response.data?.mollieId &&
     (await mollieClient.payments.get(response.data.mollieId))
 
-  const status = payment?.status || null
+  const status = (payment as Payment)?.status || null
 
   if (status === PaymentStatus.paid) {
-    await Mutation.post(`api/donates/email/${query.id}` as StrapiUrl, {}, TOKEN)
+    await Mutation.post(
+      `api/donates/email/${query.id}` as StrapiUrl,
+      {},
+      TOKEN as string,
+    )
   }
 
   return {
     props: {
       status,
-      ...(await serverSideTranslations(context.locale, ['common'])),
+      ...(await serverSideTranslations(context.locale as StrapiLocale, [
+        'common',
+      ])),
     },
   }
 }

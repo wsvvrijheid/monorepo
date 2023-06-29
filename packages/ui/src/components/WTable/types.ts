@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { ReactNode } from 'react'
 
 import {
@@ -8,7 +9,7 @@ import {
   TextProps,
 } from '@chakra-ui/react'
 
-import { StrapiModel, Sort } from '@wsvvrijheid/types'
+import { Sort, StrapiModel } from '@wsvvrijheid/types'
 
 import { FormattedDateProps } from '../FormattedDate'
 
@@ -51,5 +52,5 @@ export type WTableProps<T extends StrapiModel> = {
   data: T[]
   columns: WTableRowProps<T>['columns']
   onClickRow?: WTableRowProps<T>['onClick']
-  onSort?: (key: Sort | null) => void
+  onSort?: (key?: Sort) => void
 } & TableProps

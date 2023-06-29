@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 
 import { useDisclosure, useUpdateEffect } from '@chakra-ui/react'
+import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
@@ -20,9 +21,11 @@ import {
 
 import i18nConfig from '../next-i18next.config'
 
-const CollectionsPage = ({ seo }) => {
+type CollectionsPageProps = InferGetStaticPropsType<typeof getStaticProps>
+
+const CollectionsPage: FC<CollectionsPageProps> = ({ seo }) => {
   const { t } = useTranslation()
-  const [currentPage, setCurrentPage] = useState<number>()
+  const [currentPage, setCurrentPage] = useState<number>(1)
   const [selectedId, setSelectedId] = useState<number>()
   const { isOpen, onClose, onOpen } = useDisclosure()
 
@@ -43,7 +46,7 @@ const CollectionsPage = ({ seo }) => {
   })
 
   useEffect(() => setCurrentPage(1), [])
-  const handleSearch = (search: string) => {
+  const handleSearch = (search?: string) => {
     search ? setSearchTerm(search) : setSearchTerm(undefined)
   }
 
@@ -52,12 +55,13 @@ const CollectionsPage = ({ seo }) => {
   }, [locale, searchTerm, sort])
 
   const collections = collectionsQuery?.data?.data
-  const totalCount = collectionsQuery?.data?.meta?.pagination?.pageCount
+  const totalCount = collectionsQuery?.data?.meta?.pagination?.pageCount || 0
 
-  const mappedCollections = collections?.map(collection => ({
-    ...collection,
-    translates: collection.localizations?.map(l => l.locale),
-  }))
+  const mappedCollections =
+    collections?.map(collection => ({
+      ...collection,
+      translates: collection.localizations?.map(l => l.locale),
+    })) || []
 
   const handleClick = (index: number, id: number) => {
     setSelectedId(id)
@@ -80,15 +84,17 @@ const CollectionsPage = ({ seo }) => {
         onSearch={handleSearch}
         searchPlaceHolder={t('search-placeholder')}
       />
-      <ModelEditModal<Collection>
-        url={'api/collections'}
-        id={selectedId}
-        isOpen={isOpen}
-        onClose={handleClose}
-        fields={collectionFields}
-        schema={collectionSchema}
-        title={'Edit Collection'}
-      />
+      {selectedId && (
+        <ModelEditModal<Collection>
+          url={'api/collections'}
+          id={selectedId}
+          isOpen={isOpen}
+          onClose={handleClose}
+          fields={collectionFields}
+          schema={collectionSchema}
+          title={'Edit Collection'}
+        />
+      )}
       <DataTable
         columns={collectionColumns}
         data={mappedCollections}
@@ -102,8 +108,8 @@ const CollectionsPage = ({ seo }) => {
   )
 }
 
-export const getStaticProps = async context => {
-  const { locale } = context
+export const getStaticProps = async (context: GetStaticPropsContext) => {
+  const locale = context.locale as StrapiLocale
 
   const title = {
     en: 'Collections',

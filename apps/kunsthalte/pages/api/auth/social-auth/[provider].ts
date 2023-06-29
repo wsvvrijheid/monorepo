@@ -41,7 +41,7 @@ const route = async (req: NextApiRequest, res: NextApiResponse) => {
       req.session = { ...auth, ...req.session }
       await req.session.save()
       res.json(auth)
-    } catch (error) {
+    } catch (error: any) {
       if (!error.response?.data?.error.message) {
         return res.status(500).json({ message: 'Internal server error', error })
       } else {

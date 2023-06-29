@@ -1,5 +1,6 @@
 import { Box, Button, Heading, Link, Stack, VStack } from '@chakra-ui/react'
 import { useMutation } from '@tanstack/react-query'
+import { GetStaticPropsContext } from 'next'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
@@ -9,7 +10,7 @@ import { MdEmail, MdLocationOn, MdPhone } from 'react-icons/md'
 import { EMAIL_SENDER, socialLinks } from '@wsvvrijheid/config'
 import { TOKEN } from '@wsvvrijheid/secrets'
 import { sendEmail } from '@wsvvrijheid/services'
-import { EmailCreateInput } from '@wsvvrijheid/types'
+import { EmailCreateInput, StrapiLocale } from '@wsvvrijheid/types'
 import {
   ContactForm,
   ContactFormFieldValues,
@@ -147,8 +148,8 @@ const Contact = ({ seo }: ContactProps): JSX.Element => {
   )
 }
 export default Contact
-export const getStaticProps = async context => {
-  const { locale } = context
+export const getStaticProps = async (context: GetStaticPropsContext) => {
+  const locale = context.locale as StrapiLocale
 
   const title = {
     en: 'Contact',

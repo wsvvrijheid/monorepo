@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from 'react'
 
 import { MenuItem, useUpdateEffect } from '@chakra-ui/react'
-import { InferGetStaticPropsType } from 'next'
+import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { FaArrowDown, FaArrowUp } from 'react-icons/fa'
@@ -16,7 +16,7 @@ type PageProps = InferGetStaticPropsType<typeof getStaticProps>
 
 const ArtsPage: FC<PageProps> = ({ seo }) => {
   const { query } = useRouter()
-  const [currentPage, setCurrentPage] = useState<number>()
+  const [currentPage, setCurrentPage] = useState<number>(1)
   const [searchTerm, setSearchTerm] = useState<string>()
 
   // Client side query params (?status=pending)
@@ -45,7 +45,7 @@ const ArtsPage: FC<PageProps> = ({ seo }) => {
   })
 
   useEffect(() => setCurrentPage(1), [status])
-  const handleSearch = (search: string) => {
+  const handleSearch = (search?: string) => {
     search ? setSearchTerm(search) : setSearchTerm(undefined)
   }
 
@@ -54,7 +54,7 @@ const ArtsPage: FC<PageProps> = ({ seo }) => {
   }, [locale, searchTerm, sort, status])
 
   const arts = artsQuery?.data?.data
-  const totalCount = artsQuery?.data?.meta?.pagination?.pageCount
+  const totalCount = artsQuery?.data?.meta?.pagination?.pageCount || 0
 
   const mappedArts = arts?.map(art => {
     const translates = []
@@ -67,7 +67,7 @@ const ArtsPage: FC<PageProps> = ({ seo }) => {
       ...art,
       translates,
     }
-  })
+  }) as Art[]
 
   return (
     <AdminLayout seo={seo}>
@@ -95,8 +95,8 @@ const ArtsPage: FC<PageProps> = ({ seo }) => {
   )
 }
 
-export const getStaticProps = async context => {
-  const { locale } = context
+export const getStaticProps = async (context: GetStaticPropsContext) => {
+  const locale = context.locale as StrapiLocale
 
   const title = {
     en: 'Arts',

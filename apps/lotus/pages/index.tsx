@@ -1,7 +1,7 @@
 import { FC } from 'react'
 
 import { Button, Heading, Image, VStack } from '@chakra-ui/react'
-import { GetStaticProps } from 'next'
+import { GetStaticPropsContext } from 'next'
 import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
@@ -42,7 +42,7 @@ const Home: FC<HomeProps> = ({ seo }) => {
   )
 }
 
-export const getStaticProps: GetStaticProps = async context => {
+export const getStaticProps = async (context: GetStaticPropsContext) => {
   const locale = context.locale as StrapiLocale
 
   const title: Record<string, string> = {

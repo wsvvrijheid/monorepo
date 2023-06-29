@@ -29,12 +29,7 @@ import {
   getModelById,
   useHashtag,
 } from '@wsvvrijheid/services'
-import {
-  HashtagReturnType,
-  Post,
-  StrapiLocale,
-  Trend,
-} from '@wsvvrijheid/types'
+import { HashtagReturnType, Post, StrapiLocale } from '@wsvvrijheid/types'
 import {
   Container,
   HashtagProvider,
@@ -83,6 +78,7 @@ const HashtagPage: FC<HashtagProps> = ({
   const handleClose = () => {
     onClose()
     if (query.id) {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { id, ...q } = query
       push({ query: q }, undefined, { shallow: true })
     }
@@ -168,7 +164,7 @@ export const getServerSideProps = async (
     return { notFound: true }
   }
 
-  const post: Post = query.id
+  const post = query.id
     ? await getModelById<Post>({
         url: 'api/posts',
         id: Number(query.id),
@@ -176,7 +172,7 @@ export const getServerSideProps = async (
     : null
 
   let seo = getPageSeo(hashtag, locale, 'hashtag')
-  let capsSrc: string
+  let capsSrc = ''
 
   if (post) {
     const title = post?.description?.slice(0, 20) || ''
@@ -202,7 +198,7 @@ export const getServerSideProps = async (
         SITE_URL +
         getOgImageSrc({
           title: post.title,
-          text: post.description,
+          text: post.description || undefined,
           image: src ? `${ASSETS_URL}${src}` : undefined,
           ...post.imageParams,
         })
@@ -242,7 +238,7 @@ export const getServerSideProps = async (
     }
   }
 
-  const userAgent = req.headers['user-agent']
+  const userAgent = req.headers['user-agent'] as string
   const isIOS = /iPad|iPhone|iPod/.test(userAgent)
   const isSafari = /Safari/.test(userAgent) && !/Chrome/.test(userAgent)
   const isIosSafari = isIOS && isSafari

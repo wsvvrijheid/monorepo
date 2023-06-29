@@ -1,12 +1,18 @@
+import { FC } from 'react'
+
 import { Box } from '@chakra-ui/react'
+import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
+import { StrapiLocale } from '@wsvvrijheid/types'
 import { ForgotPasswordForm } from '@wsvvrijheid/ui'
 
 import { Layout } from '../components'
 import i18nConfig from '../next-i18next.config'
 
-const ForgotPassword = ({ seo }) => {
+type ForgotPasswordProps = InferGetStaticPropsType<typeof getStaticProps>
+
+const ForgotPassword: FC<ForgotPasswordProps> = ({ seo }) => {
   return (
     <Layout seo={seo}>
       <Box minH="inherit">
@@ -18,8 +24,8 @@ const ForgotPassword = ({ seo }) => {
 
 export default ForgotPassword
 
-export const getStaticProps = async context => {
-  const { locale } = context
+export const getStaticProps = async (context: GetStaticPropsContext) => {
+  const locale = context.locale as StrapiLocale
 
   const title = {
     en: 'Forgot Password',

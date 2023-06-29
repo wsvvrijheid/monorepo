@@ -1,5 +1,7 @@
+import { FC } from 'react'
+
 import { AspectRatio, Box } from '@chakra-ui/react'
-import { GetStaticProps } from 'next'
+import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { StrapiLocale } from '@wsvvrijheid/types'
@@ -7,7 +9,9 @@ import { StrapiLocale } from '@wsvvrijheid/types'
 import { Layout } from '../components'
 import i18nConfig from '../next-i18next.config'
 
-const Yol = ({ seo }) => {
+type YolProps = InferGetStaticPropsType<typeof getStaticProps>
+
+const Yol: FC<YolProps> = ({ seo }) => {
   return (
     <Layout seo={seo}>
       <AspectRatio ratio={16 / 9} boxSize={'full'} h={'100vh'}>
@@ -24,7 +28,7 @@ const Yol = ({ seo }) => {
 
 export default Yol
 
-export const getStaticProps: GetStaticProps = async context => {
+export const getStaticProps = async (context: GetStaticPropsContext) => {
   const locale = context.locale as StrapiLocale
 
   const title: Record<string, string> = {

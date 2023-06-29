@@ -26,7 +26,7 @@ const handler = async (req: NextRequest) => {
     }
 
     if (method === 'DELETE') {
-      const value = req.nextUrl.searchParams.get('value').toString()
+      const value = req.nextUrl.searchParams.get('value')?.toString()
 
       const result = await kv.lrem(`quotes`, 0, value)
 

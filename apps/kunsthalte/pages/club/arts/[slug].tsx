@@ -1,7 +1,7 @@
 import { FC } from 'react'
 
 import { dehydrate, QueryClient, QueryKey } from '@tanstack/react-query'
-import { GetStaticPaths, GetStaticProps } from 'next'
+import { GetStaticPaths, GetStaticPropsContext } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
 
@@ -28,7 +28,7 @@ const ArtPage: FC<ArtPageProps> = ({ seo, queryKey }) => {
 
 export default ArtPage
 
-export const getStaticPaths: GetStaticPaths = async context => {
+export const getStaticPaths: GetStaticPaths = async () => {
   const artsResponse = await searchModel<Art>({
     url: 'api/arts',
   })
@@ -40,7 +40,7 @@ export const getStaticPaths: GetStaticPaths = async context => {
   return { paths, fallback: true }
 }
 
-export const getStaticProps: GetStaticProps = async context => {
+export const getStaticProps = async (context: GetStaticPropsContext) => {
   const { params } = context
   const queryClient = new QueryClient()
 
@@ -48,11 +48,11 @@ export const getStaticProps: GetStaticProps = async context => {
 
   // See: `useGetArt` (services/art/find-one.js)
   // [art, locale, slug]
-  const queryKey = ['art', params.slug]
+  const queryKey = ['art', params?.slug]
 
   await queryClient.prefetchQuery({
     queryKey,
-    queryFn: () => getArtBySlug(params.slug as string),
+    queryFn: () => getArtBySlug(params?.slug as string),
   })
 
   const art = queryClient.getQueryData<Art>(queryKey)
@@ -62,8 +62,8 @@ export const getStaticProps: GetStaticProps = async context => {
       notFound: true,
     }
 
-  const titleKey = `title_${locale}`
-  const descriptionKey = `description_${locale}`
+  const titleKey = `title_${locale}` as keyof Art
+  const descriptionKey = `description_${locale}` as keyof Art
 
   const title = art[titleKey] || null
   const description = art[descriptionKey] || null

@@ -18,7 +18,7 @@ export const getServerSideProps = async (
     id: Number(id),
   })
 
-  if (!post) {
+  if (!post?.hashtag) {
     return { notFound: true }
   }
 

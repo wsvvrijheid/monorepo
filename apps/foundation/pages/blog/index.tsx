@@ -1,15 +1,21 @@
+import { FC } from 'react'
+
 import { dehydrate, QueryClient } from '@tanstack/react-query'
+import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { getBlogs, useGetBlogs } from '@wsvvrijheid/services'
+import { StrapiLocale } from '@wsvvrijheid/types'
 import { BlogTemplate } from '@wsvvrijheid/ui'
 
 import { Layout } from '../../components'
 import i18nConfig from '../../next-i18next.config'
 
+type BlogsProps = InferGetStaticPropsType<typeof getStaticProps>
+
 // TODO: Implement author filter
-const Blogs = ({ seo }) => {
-  const { data: blogs } = useGetBlogs()
+const Blogs: FC<BlogsProps> = ({ seo }) => {
+  const { data: blogs = [] } = useGetBlogs()
 
   return (
     <Layout seo={seo} isDark>
@@ -20,10 +26,10 @@ const Blogs = ({ seo }) => {
 
 export default Blogs
 
-export const getStaticProps = async context => {
+export const getStaticProps = async (context: GetStaticPropsContext) => {
   const queryClient = new QueryClient()
 
-  const locale = context.locale
+  const locale = context.locale as StrapiLocale
 
   await queryClient.prefetchQuery({
     queryKey: ['blogs', locale],

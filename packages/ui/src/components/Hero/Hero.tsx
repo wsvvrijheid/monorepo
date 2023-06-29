@@ -2,7 +2,6 @@ import { FC, memo, PropsWithChildren } from 'react'
 
 import { Box, Heading, Text, VStack } from '@chakra-ui/react'
 
-import { ASSETS_URL } from '@wsvvrijheid/config'
 import { UploadFile } from '@wsvvrijheid/types'
 
 import { Container } from '../Container'

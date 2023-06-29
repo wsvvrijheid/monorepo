@@ -16,7 +16,7 @@ import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { searchModel } from '@wsvvrijheid/services'
-import { Platform } from '@wsvvrijheid/types'
+import { Platform, StrapiLocale } from '@wsvvrijheid/types'
 import { AnimatedBox, Container } from '@wsvvrijheid/ui'
 
 import { HomeAbout, HomeHero, HomePlatform, Layout } from '../components'
@@ -83,7 +83,7 @@ const Home: FC<HomeProps> = ({ seo, platforms }) => {
 export default Home
 
 export const getStaticProps = async (context: GetStaticPropsContext) => {
-  const { locale } = context
+  const locale = context.locale as StrapiLocale
 
   const platforms = await searchModel<Platform>({
     url: 'api/platforms',

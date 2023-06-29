@@ -23,7 +23,7 @@ const HomeAboutItem: FC<{ item: AboutItem }> = ({ item }) => {
         alignSelf="center"
         boxSize={48}
         src={item.image}
-        alt={item.title[locale]}
+        alt={item.title[locale as StrapiLocale]}
       />
       <Text fontSize="xl" fontWeight={600}>
         {item.title[locale as StrapiLocale]}
