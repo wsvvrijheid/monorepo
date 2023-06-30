@@ -17,8 +17,7 @@ import { FaExternalLinkAlt } from 'react-icons/fa'
 
 import { UploadFile } from '@wsvvrijheid/types'
 
-import { AcademyCard } from '../../academy'
-import { Container, Markdown, WImage } from '../../components'
+import { AcademyCard, Container, Markdown, WImage } from '../../components'
 
 export type PlatformTemplateProps = {
   seo: NextSeoProps
