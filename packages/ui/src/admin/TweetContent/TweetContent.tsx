@@ -1,21 +1,12 @@
-import {
-  AspectRatio,
-  Box,
-  SimpleGrid,
-  Stack,
-  Text,
-  useBoolean,
-} from '@chakra-ui/react'
+import { Box, SimpleGrid, Stack, Text } from '@chakra-ui/react'
 import { FieldValues } from 'react-hook-form'
-import { FaPlayCircle } from 'react-icons/fa'
-import ReactPlayer from 'react-player'
 import twitterText from 'twitter-text'
 
 import { ASSETS_URL } from '@wsvvrijheid/config'
 import { RecommendedTweet, StrapiModel } from '@wsvvrijheid/types'
 
 import { TweetContentProps } from './types'
-import { WImage } from '../../components'
+import { VideoPlayer, WImage } from '../../components'
 import { ModelImage } from '../ModelForm/ModelImage'
 
 export const TweetContent = <T extends FieldValues>({
@@ -25,8 +16,6 @@ export const TweetContent = <T extends FieldValues>({
   setIsChangingImage,
   setValue,
 }: TweetContentProps<T>) => {
-  const [isPlaying, setIsPlaying] = useBoolean()
-
   if (!tweet) return null
 
   const originalTweetUrl = (tweet as unknown as RecommendedTweet).originalTweet
@@ -65,28 +54,7 @@ export const TweetContent = <T extends FieldValues>({
             <>
               {/* Video */}
               {tweet.video && (
-                <AspectRatio
-                  ratio={16 / 9}
-                  w="full"
-                  rounded={'lg'}
-                  overflow="hidden"
-                  onClick={setIsPlaying.toggle}
-                >
-                  <ReactPlayer
-                    playing={isPlaying}
-                    url={tweet.video}
-                    width="100%"
-                    height="100%"
-                    light={tweet.image}
-                    playIcon={
-                      <Box
-                        boxSize={12}
-                        color="whiteAlpha.700"
-                        as={FaPlayCircle}
-                      />
-                    }
-                  />
-                </AspectRatio>
+                <VideoPlayer url={tweet.video} light={tweet.image as string} />
               )}
               {/* Image */}
               {!tweet.video && tweet.image && (
