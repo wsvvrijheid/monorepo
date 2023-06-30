@@ -1,5 +1,4 @@
 import {
-  AspectRatio,
   Box,
   Flex,
   FormControl,
@@ -15,14 +14,13 @@ import {
   useBoolean,
 } from '@chakra-ui/react'
 import { capitalize } from 'lodash'
-import ReactPlayer from 'react-player'
 
 import { Post, StrapiModel, StrapiUrl } from '@wsvvrijheid/types'
 
 import { ModelImage } from './ModelImage'
 import { ModelSelect } from './ModelSelect'
 import { ModelCreateFormBodyProps } from './types'
-import { FormItem, MdFormItem } from '../../components'
+import { FormItem, MdFormItem, VideoPlayer } from '../../components'
 
 export const ModelCreateFormBody = <T extends StrapiModel>({
   fields,
@@ -68,24 +66,7 @@ export const ModelCreateFormBody = <T extends StrapiModel>({
                 _disabled={disabledStyle}
               />
 
-              <Box mt={5}>
-                {videoUrl && (
-                  <AspectRatio
-                    w={'full'}
-                    ratio={16 / 9}
-                    bg={'gray.100'}
-                    overflow={'hidden'}
-                    sx={{ iframe: { h: 'full' } }}
-                  >
-                    <ReactPlayer
-                      width={'100%'}
-                      height={'auto'}
-                      url={videoUrl}
-                      allowFullScreen
-                    />
-                  </AspectRatio>
-                )}
-              </Box>
+              <Box mt={5}>{videoUrl && <VideoPlayer url={videoUrl} />}</Box>
             </Box>
           )
         }
