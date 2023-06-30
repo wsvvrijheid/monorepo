@@ -1,4 +1,3 @@
-export * from './academy'
 export * from './admin'
 export * from './components'
 export * from './data'
