@@ -14,7 +14,7 @@ import { appWithTranslation } from 'next-i18next'
 import { DefaultSeo } from 'next-seo'
 
 import { defaultSeo, themes } from '@wsvvrijheid/config'
-import i18nConfig from '@wsvvrijheid/config/next-i18next.config'
+import { i18nConfig } from '@wsvvrijheid/config'
 import { StrapiLocale } from '@wsvvrijheid/types'
 
 const { ToastContainer } = createStandaloneToast()

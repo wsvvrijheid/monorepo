@@ -6,7 +6,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
 
 import { ASSETS_URL, SITE_URL } from '@wsvvrijheid/config'
-import i18nConfig from '@wsvvrijheid/config/next-i18next.config'
+import { i18nConfig } from '@wsvvrijheid/config'
 import { getArtBySlug, searchModel } from '@wsvvrijheid/services'
 import { Art, StrapiLocale } from '@wsvvrijheid/types'
 import { ArtTemplate } from '@wsvvrijheid/ui'

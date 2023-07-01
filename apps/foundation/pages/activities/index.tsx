@@ -5,7 +5,7 @@ import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
 import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import i18nConfig from '@wsvvrijheid/config/next-i18next.config'
+import { i18nConfig } from '@wsvvrijheid/config'
 import { searchModel } from '@wsvvrijheid/services'
 import { Activity, StrapiLocale, UploadFile } from '@wsvvrijheid/types'
 import {

@@ -5,7 +5,7 @@ import { GetServerSidePropsContext } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
 
-import i18nConfig from '@wsvvrijheid/config/next-i18next.config'
+import { i18nConfig } from '@wsvvrijheid/config'
 import { getArtistServerProps } from '@wsvvrijheid/services'
 import { Art, StrapiLocale, User } from '@wsvvrijheid/types'
 import { ArtistTemplate } from '@wsvvrijheid/ui'

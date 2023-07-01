@@ -3,7 +3,7 @@ import { FC } from 'react'
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import i18nConfig from '@wsvvrijheid/config/next-i18next.config'
+import { i18nConfig } from '@wsvvrijheid/config'
 import { searchModel } from '@wsvvrijheid/services'
 import { Platform, StrapiLocale } from '@wsvvrijheid/types'
 import { Hero } from '@wsvvrijheid/ui'

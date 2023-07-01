@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
 
-import i18nConfig from '@wsvvrijheid/config/next-i18next.config'
+import { i18nConfig } from '@wsvvrijheid/config'
 import { useSearchModel } from '@wsvvrijheid/services'
 import { StrapiLocale, Timeline } from '@wsvvrijheid/types'
 import { AdminLayout, TimelineBoard } from '@wsvvrijheid/ui'
