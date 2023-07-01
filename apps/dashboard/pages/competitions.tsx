@@ -4,10 +4,9 @@ import { Box } from '@chakra-ui/react'
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
+import i18nConfig from '@wsvvrijheid/config/next-i18next.config'
 import { StrapiLocale } from '@wsvvrijheid/types'
 import { AdminLayout } from '@wsvvrijheid/ui'
-
-import i18nConfig from '../next-i18next.config'
 
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>
 

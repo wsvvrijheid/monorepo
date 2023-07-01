@@ -2,6 +2,7 @@ import { GetStaticPropsContext } from 'next'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
+import i18nConfig from '@wsvvrijheid/config/next-i18next.config'
 import { StrapiLocale } from '@wsvvrijheid/types'
 import { DonationTemplate } from '@wsvvrijheid/ui'
 
@@ -20,9 +21,11 @@ const DonationPage = () => {
 export const getStaticProps = async (context: GetStaticPropsContext) => {
   return {
     props: {
-      ...(await serverSideTranslations(context.locale as StrapiLocale, [
-        'common',
-      ])),
+      ...(await serverSideTranslations(
+        context.locale as StrapiLocale,
+        ['common'],
+        i18nConfig,
+      )),
     },
   }
 }

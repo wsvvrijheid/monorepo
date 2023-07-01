@@ -18,6 +18,7 @@ import { NextSeoProps } from 'next-seo'
 import { MdEmail, MdLocationOn, MdPhone } from 'react-icons/md'
 
 import { EMAIL_SENDER, socialLinks } from '@wsvvrijheid/config'
+import i18nConfig from '@wsvvrijheid/config/next-i18next.config'
 import { TOKEN } from '@wsvvrijheid/secrets'
 import { sendEmail } from '@wsvvrijheid/services'
 import { EmailCreateInput, StrapiLocale } from '@wsvvrijheid/types'
@@ -29,7 +30,6 @@ import {
 } from '@wsvvrijheid/ui'
 
 import { Layout } from '../components'
-import i18nConfig from '../next-i18next.config'
 
 interface ContactProps {
   seo: NextSeoProps

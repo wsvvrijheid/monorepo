@@ -10,12 +10,12 @@ import {
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { serialize } from 'next-mdx-remote/serialize'
 
+import i18nConfig from '@wsvvrijheid/config/next-i18next.config'
 import { getActivityBySlug, getModelStaticPaths } from '@wsvvrijheid/services'
 import { Activity, StrapiLocale } from '@wsvvrijheid/types'
 import { ActivityDetail } from '@wsvvrijheid/ui'
 
 import { Layout } from '../../components/index'
-import i18nConfig from '../../next-i18next.config'
 
 type ActivityDetailPageProps = InferGetStaticPropsType<typeof getStaticProps>
 

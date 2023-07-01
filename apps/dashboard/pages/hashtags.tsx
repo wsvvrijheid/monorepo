@@ -7,6 +7,7 @@ import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
 
+import i18nConfig from '@wsvvrijheid/config/next-i18next.config'
 import { useSearchModel } from '@wsvvrijheid/services'
 import { Hashtag, Sort, StrapiLocale } from '@wsvvrijheid/types'
 import {
@@ -18,8 +19,6 @@ import {
   mainHashtagFields,
   mainHashtagSchema,
 } from '@wsvvrijheid/ui'
-
-import i18nConfig from '../next-i18next.config'
 
 type HashtagsPageProps = InferGetStaticPropsType<typeof getStaticProps>
 

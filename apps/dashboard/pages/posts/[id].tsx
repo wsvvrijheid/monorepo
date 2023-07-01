@@ -6,6 +6,7 @@ import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
 
+import i18nConfig from '@wsvvrijheid/config/next-i18next.config'
 import { useModelById } from '@wsvvrijheid/services'
 import { HashtagReturnType, Post, StrapiLocale } from '@wsvvrijheid/types'
 import {
@@ -17,8 +18,6 @@ import {
   postFields,
   postSchema,
 } from '@wsvvrijheid/ui'
-
-import i18nConfig from '../../next-i18next.config'
 
 type PageProps = InferGetServerSidePropsType<typeof getServerSideProps>
 

@@ -6,6 +6,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { serialize } from 'next-mdx-remote/serialize'
 import { NextSeoProps } from 'next-seo'
 
+import i18nConfig from '@wsvvrijheid/config/next-i18next.config'
 import {
   searchModel,
   SearchModelArgs,
@@ -20,7 +21,6 @@ import {
   Markdown,
 } from '@wsvvrijheid/ui'
 
-import i18nConfig from '../..//next-i18next.config'
 import { Layout } from '../../components'
 
 type HashtagEventsProps = InferGetStaticPropsType<typeof getStaticProps>

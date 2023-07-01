@@ -4,12 +4,12 @@ import { dehydrate, QueryClient } from '@tanstack/react-query'
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
+import i18nConfig from '@wsvvrijheid/config/next-i18next.config'
 import { searchModel } from '@wsvvrijheid/services'
 import { Art, StrapiLocale } from '@wsvvrijheid/types'
 import { ArtClubTemplate } from '@wsvvrijheid/ui'
 
 import { Layout } from '../../components'
-import i18nConfig from '../../next-i18next.config'
 
 type ClubPageProps = InferGetStaticPropsType<typeof getStaticProps>
 

@@ -1,4 +1,5 @@
 module.exports = {
+  root: true,
   extends: [
     'next',
     'turbo',
@@ -11,6 +12,7 @@ module.exports = {
     'import/no-unused-modules': 'error',
     'no-unused-vars': 'off',
     '@typescript-eslint/no-unused-vars': 'error',
+    '@typescript-eslint/no-empty-interface': 'off',
     'padding-line-between-statements': [
       'error',
       { blankLine: 'always', prev: '*', next: 'return' },

@@ -11,6 +11,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { serialize } from 'next-mdx-remote/serialize'
 
 import { ASSETS_URL, SITE_URL } from '@wsvvrijheid/config'
+import i18nConfig from '@wsvvrijheid/config/next-i18next.config'
 import {
   getAuthorBlogs,
   getBlogBySlug,
@@ -23,7 +24,6 @@ import { Blog, StrapiLocale } from '@wsvvrijheid/types'
 import { BlogDetail, Container } from '@wsvvrijheid/ui'
 
 import { Layout } from '../../components'
-import i18nConfig from '../../next-i18next.config'
 
 type BlogPageProps = InferGetStaticPropsType<typeof getStaticProps>
 

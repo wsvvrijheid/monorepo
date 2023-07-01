@@ -1,5 +1,5 @@
 {
-  "extends": "tsconfig/react-library.json",
+  "extends": "@wsvvrijheid/config/tsconfig.react.json",
   "include": ["."],
   "exclude": ["dist", "build", "node_modules"]
 }

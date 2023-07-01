@@ -3,12 +3,12 @@ import { GetStaticPropsContext, InferGetStaticPropsType, NextPage } from 'next'
 import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
+import i18nConfig from '@wsvvrijheid/config/next-i18next.config'
 import { searchModel } from '@wsvvrijheid/services'
 import { Collection, StrapiLocale, UploadFile } from '@wsvvrijheid/types'
 import { Card, Container, Hero } from '@wsvvrijheid/ui'
 
 import { Layout } from '../../../components'
-import i18nConfig from '../../../next-i18next.config'
 
 type CollectionsPageProps = InferGetStaticPropsType<typeof getStaticProps>
 

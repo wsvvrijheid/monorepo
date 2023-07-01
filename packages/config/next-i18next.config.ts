@@ -1,8 +1,5 @@
-const { resolve } = require('path')
+import { resolve } from 'path'
 
-/**
- * @type {import('next-i18next').UserConfig}
- **/
 const i18nConfig = {
   i18n: {
     defaultLocale: 'en',
@@ -11,4 +8,4 @@ const i18nConfig = {
   localePath: resolve('public/locales'),
 }
 
-module.exports = i18nConfig
+export default i18nConfig

@@ -5,12 +5,12 @@ import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { serialize } from 'next-mdx-remote/serialize'
 
+import i18nConfig from '@wsvvrijheid/config/next-i18next.config'
 import { Request } from '@wsvvrijheid/lib'
 import { Privacy, StrapiLocale } from '@wsvvrijheid/types'
 import { Container, Hero, Markdown } from '@wsvvrijheid/ui'
 
 import { Layout } from '../components'
-import i18nConfig from '../next-i18next.config'
 
 type PrivacyProps = InferGetStaticPropsType<typeof getStaticProps>
 

@@ -1,9 +1,15 @@
 {
-  "extends": "tsconfig/nextjs.json",
+  "extends": "@wsvvrijheid/config/tsconfig.nextjs.json",
   "compilerOptions": {
     "plugins": [{ "name": "next" }],
     "types": ["./i18next.d.ts"]
   },
-  "include": ["next-env.d.ts", "./types/**/*.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": [
+    "next-env.d.ts",
+    "./types/**/*.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts"
+  ],
   "exclude": ["node_modules"]
 }

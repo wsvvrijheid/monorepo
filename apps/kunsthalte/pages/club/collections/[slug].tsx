@@ -8,12 +8,12 @@ import {
 } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
+import i18nConfig from '@wsvvrijheid/config/next-i18next.config'
 import { getCollectionBySlug, getModelStaticPaths } from '@wsvvrijheid/services'
 import { Localize, StrapiLocale } from '@wsvvrijheid/types'
 import { CollectionTemplate } from '@wsvvrijheid/ui'
 
 import { Layout } from '../../../components/Layout'
-import i18nConfig from '../../../next-i18next.config'
 
 type CollectionPageProps = InferGetStaticPropsType<typeof getStaticProps>
 

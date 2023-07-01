@@ -6,6 +6,7 @@ import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { FaArrowDown, FaArrowUp } from 'react-icons/fa'
 
+import i18nConfig from '@wsvvrijheid/config/next-i18next.config'
 import { useSearchModel } from '@wsvvrijheid/services'
 import { Course, Sort, StrapiLocale, StrapiModel } from '@wsvvrijheid/types'
 import {
@@ -14,8 +15,6 @@ import {
   DataTable,
   PageHeader,
 } from '@wsvvrijheid/ui'
-
-import i18nConfig from '../../next-i18next.config'
 
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>
 

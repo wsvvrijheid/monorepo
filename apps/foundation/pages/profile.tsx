@@ -3,12 +3,12 @@ import { FC } from 'react'
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
+import i18nConfig from '@wsvvrijheid/config/next-i18next.config'
 import { useAuthContext } from '@wsvvrijheid/context'
 import { StrapiLocale } from '@wsvvrijheid/types'
 import { AuthenticatedUserProfile } from '@wsvvrijheid/ui'
 
 import { Layout } from '../components'
-import i18nConfig from '../next-i18next.config'
 
 type ProfileProps = InferGetStaticPropsType<typeof getStaticProps>
 

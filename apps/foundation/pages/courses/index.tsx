@@ -6,12 +6,12 @@ import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { ASSETS_URL, COURSES } from '@wsvvrijheid/config'
+import i18nConfig from '@wsvvrijheid/config/next-i18next.config'
 import { searchModel } from '@wsvvrijheid/services'
 import { Course, StrapiLocale } from '@wsvvrijheid/types'
 import { AcademyCard, Container, Hero } from '@wsvvrijheid/ui'
 
 import { Layout } from '../../components'
-import i18nConfig from '../../next-i18next.config'
 
 type CoursesProps = InferGetStaticPropsType<typeof getStaticProps>
 

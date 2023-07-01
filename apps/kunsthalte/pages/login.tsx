@@ -4,11 +4,11 @@ import { Box } from '@chakra-ui/react'
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
+import i18nConfig from '@wsvvrijheid/config/next-i18next.config'
 import { StrapiLocale } from '@wsvvrijheid/types'
 import { LoginForm } from '@wsvvrijheid/ui'
 
 import { Layout } from '../components'
-import i18nConfig from '../next-i18next.config'
 
 type LoginPageProps = InferGetStaticPropsType<typeof getStaticProps>
 
