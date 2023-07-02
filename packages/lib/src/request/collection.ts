@@ -17,11 +17,11 @@ export const requestCollection = async <T extends StrapiModel[]>({
   sort,
   page = 1,
   pageSize = 25,
-  publicationState = 'live',
+  includeDrafts = false,
 }: RequestArgs<T[number]>): Promise<{ data: T; meta: StrapiMeta }> => {
   const query = qs.stringify(
     {
-      publicationState,
+      ...(includeDrafts && { publicationState: 'preview' }),
       locale,
       populate,
       fields,

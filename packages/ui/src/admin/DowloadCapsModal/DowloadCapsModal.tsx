@@ -20,7 +20,7 @@ import { FaDownload } from 'react-icons/fa'
 
 import { ASSETS_URL, SITE_URL } from '@wsvvrijheid/config'
 import { useSearchModel } from '@wsvvrijheid/services'
-import { Post, StrapiLocale } from '@wsvvrijheid/types'
+import { Post } from '@wsvvrijheid/types'
 import { getOgImageSrc } from '@wsvvrijheid/utils'
 
 import { Caps, WImage } from '../../components'
@@ -41,9 +41,9 @@ export const DowloadCapsModal: FC<DowloadCapsModalType> = ({ id }) => {
       parent: 'hashtag',
       ids: [id],
     },
-    locale: locale as StrapiLocale,
+    locale,
     statuses: ['approved'],
-    publicationState: 'preview',
+    includeDrafts: true,
   })
   const handleClose = () => {
     onClose()

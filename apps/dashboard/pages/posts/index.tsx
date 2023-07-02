@@ -41,15 +41,15 @@ const PostsPage: FC<PageProps> = ({ seo }) => {
       ids: hashtagsFilter,
     },
     sort,
-    locale: locale as StrapiLocale,
+    locale,
     statuses: ['approved'],
-    publicationState: 'preview',
+    includeDrafts: true,
   })
 
   const hashtagsQuery = useSearchModel<Hashtag>({
     url: 'api/hashtags',
-    locale: locale as StrapiLocale,
-    publicationState: 'preview',
+    locale,
+    includeDrafts: true,
     fields: ['id', 'title'],
   })
 

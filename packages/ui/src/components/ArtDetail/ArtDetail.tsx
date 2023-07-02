@@ -6,7 +6,7 @@ import { AiFillHeart } from 'react-icons/ai'
 import { FaEye } from 'react-icons/fa'
 
 import { SITE_URL } from '@wsvvrijheid/config'
-import { Art, StrapiLocale } from '@wsvvrijheid/types'
+import { Art } from '@wsvvrijheid/types'
 
 import { ShareButtons } from '../ShareButtons'
 import { WImage } from '../WImage'
@@ -25,7 +25,7 @@ export const ArtDetail: FC<ArtDetailProps> = ({
   toggleLike,
 }) => {
   const router = useRouter()
-  const locale = router.locale as StrapiLocale
+  const locale = router.locale
 
   const url = `${SITE_URL}/${locale}/club/arts/${art.slug}`
 
@@ -65,9 +65,9 @@ export const ArtDetail: FC<ArtDetailProps> = ({
           {(art?.likes || 0) + (art.likers?.length || 0)}
         </Button>
         <ShareButtons
-          title={art?.[`title_${locale as StrapiLocale}`]}
+          title={art?.[`title_${locale}`]}
           url={url}
-          quote={art?.[`description_${locale as StrapiLocale}`] || ''}
+          quote={art?.[`description_${locale}`] || ''}
         />
       </HStack>
     </Box>

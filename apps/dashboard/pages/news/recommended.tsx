@@ -18,7 +18,7 @@ const NewsBookmarkedPage: FC<PageProps> = ({ seo }) => {
 
   const { data } = useSearchModel<RecommendedTopic>({
     url: 'api/recommended-topics',
-    locale: locale as StrapiLocale,
+    locale,
   })
 
   return (

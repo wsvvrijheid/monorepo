@@ -27,6 +27,7 @@ export const getServerSideProps = async (
   context: GetServerSidePropsContext,
 ) => {
   const { query } = context
+  const locale = context.locale as StrapiLocale
 
   const response = await Request.single<Donation>({
     id: Number(query.id),
@@ -51,11 +52,7 @@ export const getServerSideProps = async (
   return {
     props: {
       status,
-      ...(await serverSideTranslations(
-        context.locale as StrapiLocale,
-        ['common'],
-        i18nConfig,
-      )),
+      ...(await serverSideTranslations(locale, ['common'], i18nConfig)),
     },
   }
 }

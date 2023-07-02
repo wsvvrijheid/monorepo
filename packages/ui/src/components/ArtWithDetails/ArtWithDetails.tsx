@@ -7,7 +7,7 @@ import { useRouter } from 'next/router'
 import { useReCaptcha } from 'next-recaptcha-v3'
 
 import { useArtBySlug, useLikeArt } from '@wsvvrijheid/services'
-import { Art, StrapiLocale } from '@wsvvrijheid/types'
+import { Art } from '@wsvvrijheid/types'
 import { toastMessage } from '@wsvvrijheid/utils'
 
 import {
@@ -29,7 +29,7 @@ export const ArtWithDetails: FC<ArtWithDetailsProps> = ({ art, queryKey }) => {
   const queryClient = useQueryClient()
 
   const router = useRouter()
-  const locale = router.locale as StrapiLocale
+  const locale = router.locale
 
   const artCommentMutation = useMutation({
     mutationKey: ['art-comment'],

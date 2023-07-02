@@ -16,13 +16,11 @@ const DonationPage = () => {
 }
 
 export const getStaticProps = async (context: GetStaticPropsContext) => {
+  const locale = context.locale as StrapiLocale
+
   return {
     props: {
-      ...(await serverSideTranslations(
-        context.locale as StrapiLocale,
-        ['common'],
-        i18nConfig,
-      )),
+      ...(await serverSideTranslations(locale, ['common'], i18nConfig)),
     },
   }
 }

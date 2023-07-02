@@ -17,7 +17,7 @@ const RecommendedTweetPage: FC<PageProps> = ({ seo }) => {
 
   const { data: tweets, isLoading } = useSearchModel<RecommendedTweet>({
     url: 'api/recommended-tweets',
-    locale: locale as StrapiLocale,
+    locale,
   })
 
   return (

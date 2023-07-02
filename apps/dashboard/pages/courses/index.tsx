@@ -33,7 +33,7 @@ const CoursesPage: FC<PageProps> = ({ seo }) => {
     pageSize: 10,
     searchTerm,
     sort,
-    locale: locale as StrapiLocale,
+    locale,
   })
 
   const handleSearch = (search?: string) => {

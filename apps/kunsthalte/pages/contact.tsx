@@ -90,9 +90,9 @@ const Contact: FC<ContactProps> = ({ seo }) => {
               spacing={8}
             >
               <Heading fontWeight={900} as="h2" size="lg" color="primary.50">
-                {title[locale as StrapiLocale]}
+                {title[locale]}
               </Heading>
-              <Text>{about[locale as StrapiLocale]}</Text>
+              <Text>{about[locale]}</Text>
 
               <Divider borderColor="whiteAlpha.400" />
 

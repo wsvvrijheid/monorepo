@@ -39,9 +39,9 @@ const BlogsPage: FC<BlogsPageProps> = ({ seo }) => {
     pageSize: 10,
     searchTerm,
     sort,
-    locale: locale as StrapiLocale,
+    locale,
     statuses: ['approved', 'pending'],
-    publicationState: 'preview',
+    includeDrafts: true,
   })
 
   useEffect(() => setCurrentPage(1), [])

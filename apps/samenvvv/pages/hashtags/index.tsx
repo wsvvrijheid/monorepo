@@ -30,7 +30,7 @@ const HashtagEvents = ({ seo, source }: HashtagEventsProps) => {
 
   const hashtagsQuery = useSearchModel<Hashtag>({
     url: 'api/hashtags',
-    locale: router.locale as StrapiLocale,
+    locale: router.locale,
     statuses: ['approved'],
     sort: ['date:desc'],
   })
@@ -112,11 +112,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
   return {
     props: {
       dehydratedState: dehydrate(queryClient),
-      ...(await serverSideTranslations(
-        locale as StrapiLocale,
-        ['common'],
-        i18nConfig,
-      )),
+      ...(await serverSideTranslations(locale, ['common'], i18nConfig)),
       seo,
       source,
     },

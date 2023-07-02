@@ -4,6 +4,7 @@
     "plugins": [{ "name": "next" }]
   },
   "include": [
+    "next-router.d.ts",
     "next-env.d.ts",
     "./types/**/*.ts",
     "**/*.ts",

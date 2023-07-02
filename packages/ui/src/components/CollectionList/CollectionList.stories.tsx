@@ -1,10 +1,10 @@
 import { Box, Grid } from '@chakra-ui/react'
-import { StoryFn, Meta, StoryObj } from '@storybook/react'
+import { Meta, StoryFn, StoryObj } from '@storybook/react'
 import { useRouter } from 'next/router'
 
 import { COLLECTION_MOCKS } from '@wsvvrijheid/mocks'
 import { useSearchModel } from '@wsvvrijheid/services'
-import { Collection, StrapiLocale } from '@wsvvrijheid/types'
+import { Collection } from '@wsvvrijheid/types'
 
 import { CollectionList, CollectionListProps } from './CollectionList'
 
@@ -26,7 +26,7 @@ const StoryWithHook: StoryFn<CollectionListProps> = args => {
 
   const { data } = useSearchModel<Collection>({
     url: 'api/collections',
-    locale: router.locale as StrapiLocale,
+    locale: router.locale,
   })
 
   return (

@@ -1,29 +1,15 @@
 import { FC } from 'react'
 
 import { Button, ButtonGroup } from '@chakra-ui/react'
-import { NextRouter, useRouter } from 'next/router'
+import { useRouter } from 'next/router'
 
 import { StrapiLocale } from '@wsvvrijheid/types'
 
-import { DynamicProps, LocaleSwitcherProps } from './types'
+import { LocaleSwitcherProps } from './types'
 import { useScroll } from '../../hooks'
 
-type RouterType = {
-  locales: StrapiLocale[]
-  locale: StrapiLocale
-  components: Record<
-    string,
-    {
-      props: {
-        pageProps: DynamicProps
-      }
-    }
-  >
-} & Omit<NextRouter, 'locales' | 'locale'>
-
 const LocaleSwitcher: FC<LocaleSwitcherProps> = ({ isDark }) => {
-  const { push, pathname, locale, asPath, components, query } =
-    useRouter() as RouterType
+  const { push, pathname, locale, asPath, components, query } = useRouter()
   const isScrolled = useScroll()
 
   const slugs = components?.[pathname].props.pageProps?.slugs
@@ -33,11 +19,13 @@ const LocaleSwitcher: FC<LocaleSwitcherProps> = ({ isDark }) => {
     await push(pathname, slugs?.[locale] || asPath, { locale })
   }
 
+  const locales = ['en', 'nl', 'tr'] as StrapiLocale[]
+
   return (
     <ButtonGroup spacing={0} size="sm" alignItems="center">
       {/* TODO: Remove after storybook test */}
-      {['en', 'nl', 'tr'].map(code => {
-        if (query['slug'] && !slugs?.[code as StrapiLocale]) return null
+      {locales.map(code => {
+        if (query['slug'] && !slugs?.[code]) return null
 
         let variant = 'ghost'
         if (locale === code) {
@@ -49,7 +37,7 @@ const LocaleSwitcher: FC<LocaleSwitcherProps> = ({ isDark }) => {
           <Button
             key={code}
             px={2}
-            onClick={() => handleChangeLanguage(code as StrapiLocale)}
+            onClick={() => handleChangeLanguage(code)}
             colorScheme={
               locale === code
                 ? 'primary'
@@ -65,7 +53,7 @@ const LocaleSwitcher: FC<LocaleSwitcherProps> = ({ isDark }) => {
           <Button
             key={code}
             px={2}
-            onClick={() => handleChangeLanguage(code as StrapiLocale)}
+            onClick={() => handleChangeLanguage(code)}
             colorScheme={
               locale === code
                 ? 'primary'

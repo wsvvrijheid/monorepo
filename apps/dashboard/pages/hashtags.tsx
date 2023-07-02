@@ -40,9 +40,9 @@ const HashtagsPage: FC<HashtagsPageProps> = ({ seo }) => {
     pageSize: 10,
     searchTerm,
     sort,
-    locale: locale as StrapiLocale,
+    locale,
     statuses: ['approved', 'pending', 'rejected'],
-    publicationState: 'preview',
+    includeDrafts: true,
   })
 
   useEffect(() => setCurrentPage(1), [])

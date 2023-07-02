@@ -12,7 +12,7 @@ import {
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
-import { Platform, StrapiLocale } from '@wsvvrijheid/types'
+import { Platform } from '@wsvvrijheid/types'
 import { AnimatedBox, Container, Navigate, WImage } from '@wsvvrijheid/ui'
 
 type HomePlatformProps = {
@@ -29,7 +29,7 @@ const colors = {
 
 export const HomePlatform: FC<HomePlatformProps> = ({ platforms }) => {
   const router = useRouter()
-  const locale = router.locale as StrapiLocale
+  const locale = router.locale
 
   const { t } = useTranslation()
 

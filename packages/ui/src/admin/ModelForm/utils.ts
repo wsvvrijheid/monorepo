@@ -104,14 +104,14 @@ export const useDefaultValues = <T extends StrapiModel>(
           break
         case 'platform':
           defaults.platform = {
-            label: courseModel.platform?.[`name_${locale as StrapiLocale}`],
+            label: courseModel.platform?.[`name_${locale}`],
             value: courseModel.platform?.id.toString(),
           }
 
           break
         case 'course':
           defaults.course = {
-            label: applicationModel.course?.[`title_${locale as StrapiLocale}`],
+            label: applicationModel.course?.[`title_${locale}`],
             value: applicationModel.course?.id.toString(),
           }
 
@@ -119,14 +119,14 @@ export const useDefaultValues = <T extends StrapiModel>(
         case 'categories':
           defaults.categories =
             hashtagModel?.categories?.map(c => ({
-              label: c[`name_${locale as StrapiLocale}`],
+              label: c[`name_${locale}`],
               value: c.id.toString(),
             })) || []
           break
         case 'tags':
           defaults.tags =
             postModel?.tags?.map(c => ({
-              label: c[`name_${locale as StrapiLocale}`],
+              label: c[`name_${locale}`],
               value: c.id.toString(),
             })) || []
           break

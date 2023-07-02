@@ -86,7 +86,7 @@ export const getServerSideProps = async (
   const queryClient = new QueryClient()
 
   const ssrTranslations = await serverSideTranslations(
-    locale as StrapiLocale,
+    locale,
     ['common'],
     i18nConfig,
   )

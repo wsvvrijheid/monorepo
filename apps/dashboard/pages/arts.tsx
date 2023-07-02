@@ -37,9 +37,9 @@ const ArtsPage: FC<PageProps> = ({ seo }) => {
     page: currentPage || 1,
     pageSize: 10,
     searchTerm,
-    searchFields: [`title_${locale as StrapiLocale}`],
+    searchFields: [`title_${locale}`],
     sort,
-    locale: locale as StrapiLocale,
+    locale,
     statuses: [status],
   })
 

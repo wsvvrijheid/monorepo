@@ -87,9 +87,9 @@ const TranslateDataTable: FC<TranslateDataTableProps> = ({ searchTerm }) => {
     pageSize: 10,
     searchTerm,
     sort,
-    locale: locale as StrapiLocale,
+    locale,
     statuses: ['pending'],
-    publicationState: 'preview',
+    includeDrafts: true,
   })
 
   const items = dataQuery?.data?.data

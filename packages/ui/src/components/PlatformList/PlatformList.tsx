@@ -6,7 +6,7 @@ import { useTranslation } from 'next-i18next'
 import { FaChevronRight } from 'react-icons/fa'
 
 import { ASSETS_URL } from '@wsvvrijheid/config'
-import { Platform, StrapiLocale } from '@wsvvrijheid/types'
+import { Platform } from '@wsvvrijheid/types'
 
 import { Navigate } from '../Navigate'
 
@@ -35,11 +35,9 @@ export const PlatformList: FC<PlatformListProps> = ({ platforms }) => {
           <Avatar size="2xl" src={`${ASSETS_URL}${platform.image?.url}`} />
           <Stack align={{ base: 'center', lg: 'start' }}>
             <Heading textAlign="center" size="md" as="h3" fontWeight={900}>
-              {platform[`name_${locale as StrapiLocale}`]}
+              {platform[`name_${locale}`]}
             </Heading>
-            <Text fontSize="sm">
-              {platform[`description_${locale as StrapiLocale}`]}
-            </Text>
+            <Text fontSize="sm">{platform[`description_${locale}`]}</Text>
             <Spacer />
 
             <Button

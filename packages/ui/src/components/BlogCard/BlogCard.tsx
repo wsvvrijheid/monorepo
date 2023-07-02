@@ -13,7 +13,7 @@ import {
 import { useRouter } from 'next/router'
 import { FaCalendarDay, FaClock, FaEye, FaHeart } from 'react-icons/fa'
 
-import { Blog, StrapiLocale, UploadFile } from '@wsvvrijheid/types'
+import { Blog, UploadFile } from '@wsvvrijheid/types'
 import { getReadingTime } from '@wsvvrijheid/utils'
 
 import { FormattedDate } from '../FormattedDate'
@@ -51,7 +51,7 @@ export const BlogCard: FC<BlogCardProps> = ({ post, isFeatured }) => {
   const isMobile = useBreakpointValue({ base: true, lg: false })
 
   const featured = isFeatured && !isMobile
-  const readingTime = getReadingTime(post.content || '', locale as StrapiLocale)
+  const readingTime = getReadingTime(post.content || '', locale)
 
   return (
     <Navigate

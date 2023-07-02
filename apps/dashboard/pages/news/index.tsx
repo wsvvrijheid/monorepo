@@ -37,7 +37,7 @@ const NewsPage: FC<PageProps> = ({ seo }) => {
   const [sortDirection, setSortDirection] = useState<'DESC' | 'ASC'>('DESC')
 
   const router = useRouter()
-  const locale = router.locale as StrapiLocale
+  const locale = router.locale
 
   const search = useCallback(
     (topics: TopicBase[]) => {

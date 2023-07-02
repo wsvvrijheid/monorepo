@@ -39,9 +39,9 @@ const ActivitiesPage: FC<ActivitiesPageProps> = ({ seo }) => {
     pageSize: 10,
     searchTerm,
     sort,
-    locale: locale as StrapiLocale,
+    locale,
     statuses: ['approved'],
-    publicationState: 'preview',
+    includeDrafts: true,
   })
 
   useEffect(() => setCurrentPage(1), [])

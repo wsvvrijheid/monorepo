@@ -13,10 +13,8 @@ import { useRouter } from 'next/router'
 import { appWithTranslation } from 'next-i18next'
 import { DefaultSeo } from 'next-seo'
 
-import { defaultSeo, themes } from '@wsvvrijheid/config'
-import { i18nConfig } from '@wsvvrijheid/config'
+import { defaultSeo, i18nConfig, themes } from '@wsvvrijheid/config'
 import { AuthProvider } from '@wsvvrijheid/context'
-import { StrapiLocale } from '@wsvvrijheid/types'
 
 const { ToastContainer } = createStandaloneToast()
 
@@ -29,7 +27,7 @@ const MyApp: FC<AppProps> = ({ Component, pageProps }) => {
       <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps.dehydratedState}>
           <ChakraProvider theme={themes.wsvvrijheid}>
-            <DefaultSeo {...defaultSeo.wsvvrijheid[locale as StrapiLocale]} />
+            <DefaultSeo {...defaultSeo.wsvvrijheid[locale]} />
             <Component {...pageProps} />
             <Analytics />
             <ToastContainer />

@@ -19,7 +19,7 @@ import { useTranslation } from 'next-i18next'
 import { MdMenuOpen } from 'react-icons/md'
 
 import { useSearchModel } from '@wsvvrijheid/services'
-import { Art, Category, StrapiLocale } from '@wsvvrijheid/types'
+import { Art, Category } from '@wsvvrijheid/types'
 
 import {
   AnimatedBox,
@@ -61,7 +61,7 @@ export const ArtClubTemplate: FC = () => {
     categories: categories as string,
     page: parseInt(page as string) || 1,
     searchTerm: searchTerm as string,
-    locale: locale as StrapiLocale,
+    locale,
     statuses: ['approved'],
   })
 

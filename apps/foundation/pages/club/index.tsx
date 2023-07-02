@@ -35,7 +35,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
     queryFn: () =>
       searchModel<Art>({
         url: 'api/arts',
-        locale: locale as StrapiLocale,
+        locale,
         statuses: ['approved'],
       }),
   })

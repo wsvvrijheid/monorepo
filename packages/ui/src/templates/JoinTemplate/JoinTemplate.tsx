@@ -18,12 +18,7 @@ import { v4 as uuidV4 } from 'uuid'
 import { useAuthContext } from '@wsvvrijheid/context'
 import { Mutation } from '@wsvvrijheid/lib'
 import { useSearchModel } from '@wsvvrijheid/services'
-import {
-  Platform,
-  StrapiLocale,
-  Volunteer,
-  VolunteerCreateInput,
-} from '@wsvvrijheid/types'
+import { Platform, Volunteer, VolunteerCreateInput } from '@wsvvrijheid/types'
 import { toastMessage } from '@wsvvrijheid/utils'
 
 import { JoinTemplateProps } from './types'
@@ -43,7 +38,7 @@ export const JoinTemplate: FC<JoinTemplateProps> = ({ title }) => {
 
   const platformsResult = useSearchModel<Platform>({
     url: 'api/platforms',
-    locale: locale as StrapiLocale,
+    locale,
   })
 
   const platforms = platformsResult.data?.data || []
@@ -128,7 +123,7 @@ export const JoinTemplate: FC<JoinTemplateProps> = ({ title }) => {
                 onSubmitHandler={onSubmit}
                 isLoading={isLoading}
                 platforms={platforms}
-                locale={(locale as StrapiLocale) || 'en'}
+                locale={locale || 'en'}
               />
             </Box>
 

@@ -3,8 +3,6 @@ import { forwardRef, Fragment } from 'react'
 import { Heading, Stack, Text, VStack } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 
-import { StrapiLocale } from '@wsvvrijheid/types'
-
 import { Page } from './Page'
 import { CollectionPagesPops } from './types'
 import { WImage } from '../WImage'
@@ -12,7 +10,7 @@ import { WImage } from '../WImage'
 export const CollectionPages = forwardRef<HTMLDivElement, CollectionPagesPops>(
   function CollectionPages({ collection, pageBgGdarient }, ref) {
     const router = useRouter()
-    const locale = router.locale as StrapiLocale
+    const locale = router.locale
 
     const titleKey = `title_${locale}` as const
     const descriptionKey = `description_${locale}` as const

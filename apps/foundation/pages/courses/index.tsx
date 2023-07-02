@@ -17,8 +17,8 @@ type CoursesProps = InferGetStaticPropsType<typeof getStaticProps>
 
 const Platforms: FC<CoursesProps> = ({ title, courses }) => {
   const { locale } = useRouter()
-  const courseBody = COURSES.info?.[locale as StrapiLocale]?.title
-  const courseMainTitle = COURSES.info?.[locale as StrapiLocale]?.pagetitle
+  const courseBody = COURSES.info?.[locale]?.title
+  const courseMainTitle = COURSES.info?.[locale]?.pagetitle
 
   const coursesData = courses?.data
 
@@ -45,9 +45,8 @@ const Platforms: FC<CoursesProps> = ({ title, courses }) => {
             gap={{ base: 6, lg: 8 }}
           >
             {coursesData?.map(course => {
-              const title = course?.[`title_${locale as StrapiLocale}`]
-              const description =
-                course?.[`description_${locale as StrapiLocale}`]
+              const title = course?.[`title_${locale}`]
+              const description = course?.[`description_${locale}`]
 
               return (
                 <AcademyCard

@@ -17,7 +17,7 @@ const Timelines: FC<PageProps> = ({ seo }) => {
 
   const { data: timelines, isLoading } = useSearchModel<Timeline>({
     url: 'api/timelines',
-    locale: locale as StrapiLocale,
+    locale,
   })
 
   return (

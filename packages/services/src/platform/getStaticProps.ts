@@ -33,9 +33,9 @@ export const getPlatformStaticProps = async (
     },
   }
 
-  const title = platformData.title[locale as StrapiLocale]
-  const description = platformData.description[locale as StrapiLocale]
-  const content = platformData.content[locale as StrapiLocale]
+  const title = platformData.title[locale]
+  const description = platformData.description[locale]
+  const content = platformData.content[locale]
   const image = platform.image
   const link = platform.link
 

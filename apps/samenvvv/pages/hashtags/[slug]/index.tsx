@@ -254,7 +254,7 @@ export const getServerSideProps = async (
       (acc, l) => {
         return {
           ...acc,
-          [l.locale as StrapiLocale]: l.slug,
+          [l.locale]: l.slug,
         }
       },
       { en: '', nl: '', tr: '' },
@@ -272,11 +272,7 @@ export const getServerSideProps = async (
       slugs: { ...slugs, [locale]: slug },
       hasStarted: hashtag.hasStarted,
       dehydratedState: dehydrate(queryClient),
-      ...(await serverSideTranslations(
-        locale as StrapiLocale,
-        ['common'],
-        i18nConfig,
-      )),
+      ...(await serverSideTranslations(locale, ['common'], i18nConfig)),
     },
   }
 }

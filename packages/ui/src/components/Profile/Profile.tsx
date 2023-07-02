@@ -41,7 +41,7 @@ export const AuthenticatedUserProfile = () => {
 
   const { user } = useAuthContext()
 
-  const { data } = useArtByArtist(user?.id, 'preview')
+  const { data } = useArtByArtist(user?.id, true)
   const rejected = data?.filter(art => art?.approvalStatus === 'rejected')
   const approved = data?.filter(art => art?.approvalStatus === 'approved')
   const pending = data?.filter(art => art?.approvalStatus === 'pending')
