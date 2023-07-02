@@ -45,7 +45,7 @@ import {
   mainHashtagSchema,
 } from '@wsvvrijheid/ui'
 
-const schema: { [x in StrapiCollectionUrl]?: any } = {
+const schemas: { [x in StrapiCollectionUrl]?: any } = {
   activities: activitySchema,
   blogs: blogSchema,
   hashtags: mainHashtagSchema,
@@ -80,17 +80,17 @@ const ModelPage: FC<ModelPageProps> = ({ seo, model }) => {
   const sort = query.sort as Sort
   const currentPage = query.page ? parseInt(query.page as string) : 1
   const selectedId = query.id ? parseInt(query.id as string) : undefined
-  const publicationState = query.publicationState as string
+  const includeDrafts = query.drafts === 'true'
 
   const setRouteQuery = (
-    key: 'id' | 'page' | 'sort' | 'status' | 'publicationState',
+    key: 'id' | 'page' | 'sort' | 'status' | 'drafts',
     value?: string | number | Sort | ApprovalStatus,
   ) => {
     if (
       !value ||
       (key === 'page' && value === 1) ||
       (key === 'status' && value === 'all') ||
-      (Array.isArray(value) && !value.length)
+      (key === 'drafts' && value === 'false')
     ) {
       const q = { ...query }
       delete q[key]
@@ -106,8 +106,7 @@ const ModelPage: FC<ModelPageProps> = ({ seo, model }) => {
   const setCurrentPage = (page?: number) => setRouteQuery('page', page)
   const setSort = (sort?: Sort) => setRouteQuery('sort', sort)
   const setStatus = (status?: ApprovalStatus) => setRouteQuery('status', status)
-  const setPublicationState = (state?: string) =>
-    setRouteQuery('publicationState', state)
+  const setShowDrafts = (state?: string) => setRouteQuery('drafts', state)
 
   const modelQuery = useSearchModel<StrapiModel>({
     url: `api/${model}`,
@@ -120,7 +119,7 @@ const ModelPage: FC<ModelPageProps> = ({ seo, model }) => {
       status && status !== 'all'
         ? [status]
         : ['approved', 'pending', 'rejected'],
-    includeDrafts: publicationState === 'draft',
+    includeDrafts,
   })
 
   useEffect(() => setCurrentPage(1), [])
@@ -169,7 +168,7 @@ const ModelPage: FC<ModelPageProps> = ({ seo, model }) => {
           isOpen={isOpen}
           onClose={handleClose}
           fields={fields[model]}
-          schema={schema[model]}
+          schema={schemas[model]}
           title={'Edit Model'}
         />
       )}
@@ -206,10 +205,10 @@ const ModelPage: FC<ModelPageProps> = ({ seo, model }) => {
           as={HStack}
           spacing={4}
           defaultValue={'live'}
-          onChange={val => setPublicationState(val)}
+          onChange={val => setShowDrafts(val)}
         >
-          <Radio value={'live'}>Live</Radio>
-          <Radio value={'draft'}>Draft</Radio>
+          <Radio value={'false'}>Live</Radio>
+          <Radio value={'true'}>Show drafts</Radio>
         </RadioGroup>
       </Stack>
       <DataTable
