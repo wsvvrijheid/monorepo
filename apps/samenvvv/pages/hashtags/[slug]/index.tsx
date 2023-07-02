@@ -262,7 +262,7 @@ export const getServerSideProps = async (
     ) || {}
 
   return {
-    _props: {
+    props: {
       seo: {
         ...seo,
       },
@@ -274,18 +274,6 @@ export const getServerSideProps = async (
       hasStarted: hashtag.hasStarted,
       dehydratedState: dehydrate(queryClient),
       ...(await ssrTranslations(locale)),
-    },
-    get props_1() {
-      return this._props
-    },
-    set props_1(value) {
-      this._props = value
-    },
-    get props() {
-      return this._props
-    },
-    set props(value) {
-      this._props = value
     },
   }
 }
