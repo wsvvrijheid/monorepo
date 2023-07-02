@@ -2,7 +2,7 @@ import { FC } from 'react'
 
 import { useRouter } from 'next/router'
 
-import { StrapiLocale, UploadFile } from '@wsvvrijheid/types'
+import { UploadFile } from '@wsvvrijheid/types'
 
 import { ArtCardImageProps, CardImageProps } from './types'
 import { WImage } from '../WImage'
@@ -25,7 +25,7 @@ const CardImage: FC<CardImageProps> = ({ art, isMasonry, image, locale }) => (
 
 export const ArtCardImage: FC<ArtCardImageProps> = ({ art, isMasonry }) => {
   const router = useRouter()
-  const locale = router.locale as StrapiLocale
+  const locale = router.locale
 
   return (
     <CardImage

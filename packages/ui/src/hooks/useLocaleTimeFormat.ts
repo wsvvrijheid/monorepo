@@ -1,8 +1,6 @@
 import * as dateFns from 'date-fns'
 import { useRouter } from 'next/router'
 
-import { StrapiLocale } from '@wsvvrijheid/types'
-
 import { timeLocale } from './timeLocale'
 
 export const useLocaleTimeFormat = (time: string, format: string) => {
@@ -23,13 +21,13 @@ export const useLocaleTimeFormat = (time: string, format: string) => {
   const formattedDateDistance = dateFns.formatDistanceToNowStrict(
     new Date(date),
     {
-      locale: timeLocale[locale as StrapiLocale],
+      locale: timeLocale[locale],
       unit: differenceInHours > 1 ? 'hour' : 'minute',
     },
   )
 
   const formattedDate = dateFns.format(date, format || 'dd MMMM yyyy', {
-    locale: timeLocale[locale as StrapiLocale],
+    locale: timeLocale[locale],
   })
 
   return { formattedDate, formattedDateDistance, date, timeZone }

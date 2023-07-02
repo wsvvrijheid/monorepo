@@ -22,7 +22,7 @@ export type SearchModelArgs<T extends StrapiModel> = {
   page?: number
   pageSize?: number
   populate?: string | string[]
-  publicationState?: 'live' | 'preview'
+  includeDrafts?: boolean
   searchFields?: (keyof T)[]
   searchTerm?: string
   sort?: Sort
@@ -41,7 +41,7 @@ export const searchModel = async <T extends StrapiModel>({
   page = 1,
   pageSize,
   populate,
-  publicationState = 'preview',
+  includeDrafts = false,
   searchFields = ['title', 'description'] as unknown as (keyof StrapiModel)[],
   searchTerm,
   sort = ['publishedAt:desc'],
@@ -163,7 +163,7 @@ export const searchModel = async <T extends StrapiModel>({
     pageSize,
     locale: hasLocale && locale ? locale : undefined,
     sort: sort || undefined,
-    publicationState,
+    includeDrafts,
   })
 }
 

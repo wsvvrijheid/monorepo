@@ -4,8 +4,6 @@ import { Button, Stack } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { PSM, createWorker } from 'tesseract.js'
 
-import { StrapiLocale } from '@wsvvrijheid/types'
-
 import { ImageRecognizeItem } from './ImageRecognizeItem'
 import { ImageRecognizerProps, Languages, RecognizedImage } from './types'
 import { FilePicker } from '../../components'
@@ -36,7 +34,7 @@ export const ImageRecognizer: FC<ImageRecognizerProps> = ({
   }
 
   const router = useRouter()
-  const locale = router.locale as StrapiLocale
+  const locale = router.locale
 
   const handleRecognize = async () => {
     const worker = await createWorker({

@@ -1,6 +1,5 @@
 import { Mutation } from '@wsvvrijheid/lib'
 import {
-  StrapiLocale,
   StrapiLocalizeInput,
   StrapiTranslatableModel,
   StrapiUrl,
@@ -34,18 +33,12 @@ export const createLocalizations = async <T extends StrapiTranslatableModel>({
   const firstTranslationResponse = await Mutation.localize<
     T,
     StrapiLocalizeInput
-  >(
-    url,
-    model.id,
-    firstTranslation.locale as StrapiLocale,
-    firstTranslation,
-    token,
-  )
+  >(url, model.id, firstTranslation.locale, firstTranslation, token)
 
   const secondTranslationResponse = await Mutation.localize(
     url,
     firstTranslationResponse?.id as number,
-    secondTranslation.locale as StrapiLocale,
+    secondTranslation.locale,
     secondTranslation,
     token,
   )

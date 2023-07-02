@@ -5,7 +5,6 @@ import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
 import { SITE_URL } from '@wsvvrijheid/config'
-import { StrapiLocale } from '@wsvvrijheid/types'
 import { Caps, Navigate, ShareButtons, useItemLink } from '@wsvvrijheid/ui'
 import { mapHashtagToOgParams } from '@wsvvrijheid/utils'
 
@@ -23,7 +22,7 @@ export const HashtagAnnouncement: FC<HashtagAnnouncementProps> = ({
   if (!hashtag) {
     return null
   }
-  const capsParams = mapHashtagToOgParams(hashtag, locale as StrapiLocale)
+  const capsParams = mapHashtagToOgParams(hashtag, locale)
 
   return (
     <SimpleGrid gap={8}>

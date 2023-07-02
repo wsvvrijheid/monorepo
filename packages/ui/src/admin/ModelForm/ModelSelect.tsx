@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 
 import { useSearchModel } from '@wsvvrijheid/services'
-import { StrapiLocale, StrapiModel } from '@wsvvrijheid/types'
+import { StrapiModel } from '@wsvvrijheid/types'
 
 import { ModelSelectProps } from './types'
 import { mapModelsToOptions } from './utils'
@@ -15,7 +15,7 @@ export const ModelSelect = <T extends StrapiModel>({
 
   const modelsQuery = useSearchModel<T>({
     url,
-    locale: locale as StrapiLocale,
+    locale,
     statuses: ['approved'],
     populate: [],
   })
@@ -28,9 +28,6 @@ export const ModelSelect = <T extends StrapiModel>({
   }))
 
   return (
-    <WSelect
-      options={models && mapModelsToOptions(models, locale as StrapiLocale)}
-      {...rest}
-    />
+    <WSelect options={models && mapModelsToOptions(models, locale)} {...rest} />
   )
 }

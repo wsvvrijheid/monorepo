@@ -22,6 +22,6 @@ export const useActivity = (slug: string) => {
 
   return useQuery({
     queryKey: ['activity', slug],
-    queryFn: () => getActivityBySlug(locale as StrapiLocale, slug),
+    queryFn: () => getActivityBySlug(locale, slug),
   })
 }

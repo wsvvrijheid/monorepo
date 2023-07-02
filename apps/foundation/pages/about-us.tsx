@@ -5,11 +5,11 @@ import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { ABOUT_US } from '@wsvvrijheid/config'
+import { i18nConfig } from '@wsvvrijheid/config'
 import { StrapiLocale } from '@wsvvrijheid/types'
 import { AnimatedBox, Container, Hero } from '@wsvvrijheid/ui'
 
 import { Layout } from '../components'
-import i18nConfig from '../next-i18next.config'
 
 type AboutUsProps = InferGetStaticPropsType<typeof getStaticProps>
 type AboutUsBlockProps = Pick<

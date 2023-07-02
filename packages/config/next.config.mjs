@@ -1,14 +1,22 @@
-// @ts-check
-const withPWA = require('next-pwa')
-
-const { i18n } = require('./next-i18next.config')
+import withPWA from 'next-pwa'
 
 /**
  * @type {import('next').NextConfig}
  **/
 const nextConfig = {
   reactStrictMode: true,
-  i18n,
+  transpilePackages: [
+    '@wsvvrijheid/config',
+    '@wsvvrijheid/context',
+    '@wsvvrijheid/lib',
+    '@wsvvrijheid/services',
+    '@wsvvrijheid/ui',
+    '@wsvvrijheid/utils',
+  ],
+  i18n: {
+    defaultLocale: 'en',
+    locales: ['en', 'nl', 'tr'],
+  },
   images: {
     deviceSizes: [320, 480, 720, 1080],
     imageSizes: [150],
@@ -41,8 +49,9 @@ const nextConfig = {
   outputFileTracing: true,
 }
 
-module.exports = withPWA({
+export default withPWA({
   dest: 'public',
+  register: true,
   // eslint-disable-next-line turbo/no-undeclared-env-vars
   disable: process.env.NODE_ENV === 'development',
 })(nextConfig)

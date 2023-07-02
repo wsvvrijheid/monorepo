@@ -1,10 +1,11 @@
-import React, { FC, useState } from 'react'
+import { FC, useState } from 'react'
 
 import {
   Alert,
   AlertDescription,
   AlertIcon,
   Button,
+  Divider,
   Modal,
   ModalBody,
   ModalContent,
@@ -12,7 +13,6 @@ import {
   ModalHeader,
   ModalOverlay,
   Stack,
-  Divider,
 } from '@chakra-ui/react'
 import slugify from '@sindresorhus/slugify'
 import { useRouter } from 'next/router'
@@ -22,7 +22,6 @@ import { useCreateModelMutation } from '@wsvvrijheid/services'
 import {
   Post,
   PostCreateInput,
-  StrapiLocale,
   StrapiTranslatableCreateInput,
   StrapiUrl,
   UploadFile,
@@ -66,7 +65,7 @@ export const CreatePostFromCapsModal: FC<CreatePostFromCapsModalProps> = ({
 
       const body = {
         description: text,
-        locale: locale as StrapiLocale,
+        locale,
         publishedAt: null,
         content: text,
         caps: file as unknown as UploadFile,

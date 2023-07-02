@@ -8,11 +8,11 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { BsCollectionFill } from 'react-icons/bs'
 import { FaPaintBrush } from 'react-icons/fa'
 
+import { i18nConfig } from '@wsvvrijheid/config'
 import { StrapiLocale } from '@wsvvrijheid/types'
 import { AnimatedBox, Container, Navigate } from '@wsvvrijheid/ui'
 
 import { Layout } from '../components'
-import i18nConfig from '../next-i18next.config'
 
 type HomeProps = InferGetStaticPropsType<typeof getStaticProps>
 

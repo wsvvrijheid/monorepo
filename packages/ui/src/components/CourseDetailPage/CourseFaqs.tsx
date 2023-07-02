@@ -10,15 +10,13 @@ import {
 import { useRouter } from 'next/router'
 import { FaMinus, FaPlus } from 'react-icons/fa'
 
-import { StrapiLocale } from '@wsvvrijheid/types'
-
 import { CourseFaqItemProps, CourseFaqsProps } from './types'
 
 const CourseFaqItem: FC<CourseFaqItemProps> = ({ item, isExpanded }) => {
   const { locale } = useRouter()
 
-  const question = item[`question_${(locale as StrapiLocale) || 'nl'}`]
-  const answer = item[`answer_${(locale as StrapiLocale) || 'nl'}`]
+  const question = item[`question_${locale || 'nl'}`]
+  const answer = item[`answer_${locale || 'nl'}`]
 
   return (
     <>

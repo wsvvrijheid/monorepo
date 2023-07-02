@@ -4,7 +4,7 @@ import { useDisclosure } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 
 import { useAuthContext } from '@wsvvrijheid/context'
-import { Art, StrapiLocale } from '@wsvvrijheid/types'
+import { Art } from '@wsvvrijheid/types'
 
 import { artColumns } from '../../../data'
 import { ArtApprovalModal } from '../../ArtApprovalModal'
@@ -53,7 +53,7 @@ export const ArtsTable: FC<ArtsTableProps> = ({
       )}
       <DataTable
         data={arts}
-        columns={artColumns(locale as StrapiLocale)}
+        columns={artColumns(locale)}
         onClickRow={handleClickRow}
         totalCount={totalCount}
         currentPage={currentPage}

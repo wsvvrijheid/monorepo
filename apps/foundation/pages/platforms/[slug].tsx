@@ -3,6 +3,7 @@ import { FC } from 'react'
 import { GetStaticPaths, GetStaticPropsContext } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
+import { i18nConfig } from '@wsvvrijheid/config'
 import {
   getModelStaticPaths,
   getPlatformStaticProps,
@@ -11,7 +12,6 @@ import { StrapiLocale } from '@wsvvrijheid/types'
 import { PlatformTemplate, PlatformTemplateProps } from '@wsvvrijheid/ui'
 
 import { Layout } from '../../components'
-import i18nConfig from '../../next-i18next.config'
 
 const PlatformDetailPage: FC<PlatformTemplateProps> = ({
   seo,

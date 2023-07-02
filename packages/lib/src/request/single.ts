@@ -14,10 +14,15 @@ export const requestSingle = async <T extends StrapiModel>({
   fields,
   locale,
   populate = '*',
-  publicationState,
+  includeDrafts = false,
 }: RequestSingleArgs<T>) => {
   const query = qs.stringify(
-    { publicationState, locale, populate, fields },
+    {
+      ...(includeDrafts && { publicationState: 'preview' }),
+      locale,
+      populate,
+      fields,
+    },
     { encodeValuesOnly: true },
   )
 

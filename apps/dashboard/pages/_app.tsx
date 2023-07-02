@@ -19,10 +19,8 @@ import { appWithTranslation } from 'next-i18next'
 import { DefaultSeo } from 'next-seo'
 
 import { defaultSeo, themes } from '@wsvvrijheid/config'
+import { i18nConfig } from '@wsvvrijheid/config'
 import { AuthProvider } from '@wsvvrijheid/context'
-import { StrapiLocale } from '@wsvvrijheid/types'
-
-import i18nConfig from '../next-i18next.config'
 
 const theme = merge(themes.admin, {
   styles: {
@@ -57,7 +55,7 @@ const MyApp: FC<AppProps> = ({ Component, pageProps }) => {
       <Hydrate state={pageProps.dehydratedState}>
         <AuthProvider initialState={pageProps.authState}>
           <ChakraProvider theme={extendTheme(theme)}>
-            <DefaultSeo {...defaultSeo.admin[locale as StrapiLocale]} />
+            <DefaultSeo {...defaultSeo.admin[locale]} />
             <Component {...pageProps} />
             <Analytics />
             <ToastContainer />

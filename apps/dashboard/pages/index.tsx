@@ -13,6 +13,7 @@ import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
 
+import { i18nConfig } from '@wsvvrijheid/config'
 import {
   searchModel,
   SearchModelArgs,
@@ -24,8 +25,6 @@ import {
   StrapiLocale,
 } from '@wsvvrijheid/types'
 import { AccountStats, AdminLayout, PageHeader } from '@wsvvrijheid/ui'
-
-import i18nConfig from '../next-i18next.config'
 
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>
 

@@ -17,7 +17,7 @@ import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { AiFillHeart } from 'react-icons/ai'
 import { FaCalendarDay, FaClock, FaEye } from 'react-icons/fa'
 
-import { Blog, StrapiLocale, UploadFile } from '@wsvvrijheid/types'
+import { Blog, UploadFile } from '@wsvvrijheid/types'
 import { getReadingTime } from '@wsvvrijheid/utils'
 
 import { BlogCard } from '../BlogCard'
@@ -46,7 +46,7 @@ export const BlogDetail: FC<BlogDetailProps> = ({
   const { locale } = useRouter()
   const { t } = useTranslation()
 
-  const readingTime = getReadingTime(post.content || '', locale as StrapiLocale)
+  const readingTime = getReadingTime(post.content || '', locale)
 
   return (
     <Stack py={8} spacing={8}>

@@ -4,6 +4,7 @@ import { Payment, PaymentStatus } from '@mollie/api-client'
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
+import { i18nConfig } from '@wsvvrijheid/config'
 import { Mutation, Request } from '@wsvvrijheid/lib'
 import { mollieClient } from '@wsvvrijheid/mollie'
 import { TOKEN } from '@wsvvrijheid/secrets'
@@ -26,6 +27,7 @@ export const getServerSideProps = async (
   context: GetServerSidePropsContext,
 ) => {
   const { query } = context
+  const locale = context.locale as StrapiLocale
 
   const response = await Request.single<Donation>({
     id: Number(query.id),
@@ -50,9 +52,7 @@ export const getServerSideProps = async (
   return {
     props: {
       status,
-      ...(await serverSideTranslations(context.locale as StrapiLocale, [
-        'common',
-      ])),
+      ...(await serverSideTranslations(locale, ['common'], i18nConfig)),
     },
   }
 }

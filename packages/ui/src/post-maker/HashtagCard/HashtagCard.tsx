@@ -16,7 +16,7 @@ import { FaArrowRight } from 'react-icons/fa'
 import { HiOutlineCalendar } from 'react-icons/hi'
 
 import { ROUTES } from '@wsvvrijheid/config'
-import { Hashtag, StrapiLocale } from '@wsvvrijheid/types'
+import { Hashtag } from '@wsvvrijheid/types'
 import { FormattedDate, Navigate, WImage } from '@wsvvrijheid/ui'
 import { getItemLink } from '@wsvvrijheid/utils'
 interface SliderHeroProps {
@@ -27,7 +27,7 @@ interface SliderHeroProps {
 export const HashtagCard: FC<SliderHeroProps> = ({ item, type }) => {
   const { locale } = useRouter()
   const { t } = useTranslation(['common'])
-  const link = getItemLink(item, locale as StrapiLocale, type)
+  const link = getItemLink(item, locale, type)
 
   return (
     <Grid

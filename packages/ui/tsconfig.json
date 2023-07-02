@@ -1,5 +1,5 @@
 {
-  "extends": "tsconfig/nextjs.json",
-  "include": [".", "./i18next.d.ts"],
+  "extends": "@wsvvrijheid/config/tsconfig.nextjs.json",
+  "include": ["."],
   "exclude": ["dist", "build", "node_modules"]
 }

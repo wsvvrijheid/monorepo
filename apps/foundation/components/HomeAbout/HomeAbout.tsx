@@ -4,7 +4,7 @@ import { SimpleGrid, Text, VStack } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 
 import { ABOUT_DATA } from '@wsvvrijheid/config'
-import { Localize, StrapiLocale } from '@wsvvrijheid/types'
+import { Localize } from '@wsvvrijheid/types'
 import { AnimatedBox, WImage } from '@wsvvrijheid/ui'
 
 type AboutItem = {
@@ -23,12 +23,12 @@ const HomeAboutItem: FC<{ item: AboutItem }> = ({ item }) => {
         alignSelf="center"
         boxSize={48}
         src={item.image}
-        alt={item.title[locale as StrapiLocale]}
+        alt={item.title[locale]}
       />
       <Text fontSize="xl" fontWeight={600}>
-        {item.title[locale as StrapiLocale]}
+        {item.title[locale]}
       </Text>
-      <Text>{item.description[locale as StrapiLocale]}</Text>
+      <Text>{item.description[locale]}</Text>
     </VStack>
   )
 }

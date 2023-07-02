@@ -1,4 +1,5 @@
 module.exports = {
+  root: true,
   extends: [
     'next',
     'turbo',
@@ -10,7 +11,9 @@ module.exports = {
     '@next/next/no-html-link-for-pages': 'off',
     'import/no-unused-modules': 'error',
     'no-unused-vars': 'off',
+    'object-shorthand': ['error', 'always', { avoidQuotes: true }],
     '@typescript-eslint/no-unused-vars': 'error',
+    '@typescript-eslint/no-empty-interface': 'off',
     'padding-line-between-statements': [
       'error',
       { blankLine: 'always', prev: '*', next: 'return' },

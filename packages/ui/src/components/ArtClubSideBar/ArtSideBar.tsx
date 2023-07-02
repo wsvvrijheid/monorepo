@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
 import { useSearchModel } from '@wsvvrijheid/services'
-import { Category, Collection, StrapiLocale } from '@wsvvrijheid/types'
+import { Category, Collection } from '@wsvvrijheid/types'
 
 import { useChangeParams } from '../../hooks'
 import { CategoryFilter } from '../CategoryFilter'
@@ -31,7 +31,7 @@ export const ArtSideBar: FC<ArtSideBarProps> = ({
 
   const collectionsQuery = useSearchModel<Collection>({
     url: 'api/collections',
-    locale: locale as StrapiLocale,
+    locale,
   })
 
   const initialCategories = (categories as string)
@@ -49,7 +49,7 @@ export const ArtSideBar: FC<ArtSideBarProps> = ({
             selectCategories={value => changeParam({ categories: value })}
             setIsLoading={setIsLoading}
             title={t('categories')}
-            locale={locale as StrapiLocale}
+            locale={locale}
           />
         </Box>
       )}
