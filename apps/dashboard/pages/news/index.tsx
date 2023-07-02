@@ -1,27 +1,26 @@
 import { FC, useCallback, useEffect, useState } from 'react'
 
 import {
+  Box,
+  Button,
+  ButtonGroup,
+  Center,
   IconButton,
   MenuItemOption,
   MenuOptionGroup,
   SimpleGrid,
-  Tooltip,
-  Button,
-  ButtonGroup,
-  Box,
   Spinner,
-  Center,
+  Tooltip,
 } from '@chakra-ui/react'
 import { addHours, formatDistanceToNow, isPast } from 'date-fns'
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { useRouter } from 'next/router'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
 import { AiOutlineClear } from 'react-icons/ai'
 import { FaArrowDown, FaArrowUp, FaSyncAlt } from 'react-icons/fa'
 
-import { i18nConfig } from '@wsvvrijheid/config'
 import { useTopic, useTopicSync } from '@wsvvrijheid/services'
+import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import { StrapiLocale, TopicBase } from '@wsvvrijheid/types'
 import { AdminLayout, PageHeader, TopicCard } from '@wsvvrijheid/ui'
 
@@ -207,11 +206,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
   return {
     props: {
       seo,
-      ...(await serverSideTranslations(
-        locale,
-        ['common', 'admin'],
-        i18nConfig,
-      )),
+      ...(await ssrTranslations(locale, ['admin'])),
     },
   }
 }

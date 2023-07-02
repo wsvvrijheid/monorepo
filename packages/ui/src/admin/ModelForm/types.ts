@@ -7,7 +7,7 @@ import {
 } from 'react-hook-form'
 import { AnyObjectSchema } from 'yup'
 
-import { Role, StrapiCollectionUrl, StrapiModel } from '@wsvvrijheid/types'
+import { RoleType, StrapiCollectionUrl, StrapiModel } from '@wsvvrijheid/types'
 
 import { WSelectProps } from '../../components'
 
@@ -78,10 +78,10 @@ export type ModelEditFormProps<T extends StrapiModel> = {
   noColumns?: boolean
   onSuccess: () => void
   onClose?: () => void
-  approverRoles?: Role['type'][]
-  removerRoles?: Role['type'][]
-  editorRoles?: Role['type'][]
-  publisherRoles?: Role['type'][]
+  approverRoles?: RoleType[]
+  removerRoles?: RoleType[]
+  editorRoles?: RoleType[]
+  publisherRoles?: RoleType[]
 }
 
 export type ModelEditModalProps<T extends StrapiModel> = Omit<

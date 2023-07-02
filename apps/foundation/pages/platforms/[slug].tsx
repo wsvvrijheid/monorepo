@@ -1,13 +1,12 @@
 import { FC } from 'react'
 
 import { GetStaticPropsContext } from 'next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import { i18nConfig } from '@wsvvrijheid/config'
 import {
   getModelStaticPaths,
   getPlatformStaticProps,
 } from '@wsvvrijheid/services'
+import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import { StrapiLocale } from '@wsvvrijheid/types'
 import { PlatformTemplate, PlatformTemplateProps } from '@wsvvrijheid/ui'
 
@@ -39,7 +38,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
 
   return {
     props: {
-      ...(await serverSideTranslations(locale, ['common'], i18nConfig)),
+      ...(await ssrTranslations(locale)),
       ...props,
     },
     revalidate: 1,

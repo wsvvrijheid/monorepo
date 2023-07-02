@@ -3,11 +3,10 @@ import { FC, useEffect, useState } from 'react'
 import { MenuItem, useUpdateEffect } from '@chakra-ui/react'
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { useRouter } from 'next/router'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { FaArrowDown, FaArrowUp } from 'react-icons/fa'
 
-import { i18nConfig } from '@wsvvrijheid/config'
 import { useStrapiRequest } from '@wsvvrijheid/services'
+import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import { ApprovalStatus, Art, Sort, StrapiLocale } from '@wsvvrijheid/types'
 import { AdminLayout, ArtsTable, PageHeader } from '@wsvvrijheid/ui'
 
@@ -111,11 +110,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
   return {
     props: {
       seo,
-      ...(await serverSideTranslations(
-        locale,
-        ['common', 'admin'],
-        i18nConfig,
-      )),
+      ...(await ssrTranslations(locale, ['admin'])),
     },
   }
 }

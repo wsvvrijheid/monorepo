@@ -13,10 +13,9 @@ import {
 } from '@chakra-ui/react'
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { useTranslation } from 'next-i18next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import { i18nConfig } from '@wsvvrijheid/config'
 import { strapiRequest } from '@wsvvrijheid/lib'
+import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import { Platform, StrapiLocale } from '@wsvvrijheid/types'
 import { AnimatedBox, Container } from '@wsvvrijheid/ui'
 
@@ -110,7 +109,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
     props: {
       seo,
       platforms,
-      ...(await serverSideTranslations(locale, ['common'], i18nConfig)),
+      ...(await ssrTranslations(locale)),
     },
   }
 }

@@ -3,12 +3,11 @@ import { FC } from 'react'
 import { Spinner } from '@chakra-ui/react'
 import { QueryClient, dehydrate } from '@tanstack/react-query'
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { serialize } from 'next-mdx-remote/serialize'
 
-import { i18nConfig } from '@wsvvrijheid/config'
 import { strapiRequest } from '@wsvvrijheid/lib'
 import { getModelStaticPaths } from '@wsvvrijheid/services'
+import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import { Activity, StrapiLocale } from '@wsvvrijheid/types'
 import { ActivityDetail } from '@wsvvrijheid/ui'
 
@@ -73,7 +72,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
       image,
       source,
       dehydratedState: dehydrate(queryClient),
-      ...(await serverSideTranslations(locale, ['common'], i18nConfig)),
+      ...(await ssrTranslations(locale)),
     },
     revalidate: 1,
   }

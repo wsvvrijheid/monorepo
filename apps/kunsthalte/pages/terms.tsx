@@ -2,13 +2,12 @@ import { FC } from 'react'
 
 import { truncate } from 'lodash'
 import { GetStaticPropsContext } from 'next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { serialize } from 'next-mdx-remote/serialize'
 import { NextSeoProps } from 'next-seo'
 
-import { i18nConfig } from '@wsvvrijheid/config'
 import { strapiRequest } from '@wsvvrijheid/lib'
+import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import { StrapiLocale, Term } from '@wsvvrijheid/types'
 import { Container, Hero, Markdown } from '@wsvvrijheid/ui'
 
@@ -61,7 +60,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
       terms,
       source,
       seo,
-      ...(await serverSideTranslations(locale, ['common'], i18nConfig)),
+      ...(await ssrTranslations(locale)),
     },
   }
 }

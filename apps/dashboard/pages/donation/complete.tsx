@@ -2,12 +2,11 @@ import { FC } from 'react'
 
 import { Payment, PaymentStatus } from '@mollie/api-client'
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import { i18nConfig } from '@wsvvrijheid/config'
 import { Mutation, strapiRequest } from '@wsvvrijheid/lib'
 import { mollieClient } from '@wsvvrijheid/mollie'
 import { TOKEN } from '@wsvvrijheid/secrets'
+import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import { Donation, StrapiLocale, StrapiUrl } from '@wsvvrijheid/types'
 import { AdminLayout, DonationCompleteTemplate } from '@wsvvrijheid/ui'
 
@@ -52,7 +51,7 @@ export const getServerSideProps = async (
   return {
     props: {
       status,
-      ...(await serverSideTranslations(locale, ['common'], i18nConfig)),
+      ...(await ssrTranslations(locale, ['admin'])),
     },
   }
 }

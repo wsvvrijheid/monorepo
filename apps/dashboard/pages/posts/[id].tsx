@@ -3,11 +3,10 @@ import { FC } from 'react'
 import { Box, Stack } from '@chakra-ui/react'
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
 import { useRouter } from 'next/router'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
 
-import { i18nConfig } from '@wsvvrijheid/config'
 import { useStrapiRequest } from '@wsvvrijheid/services'
+import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import { HashtagReturnType, Post, StrapiLocale } from '@wsvvrijheid/types'
 import {
   AdminLayout,
@@ -87,11 +86,7 @@ export const getServerSideProps = async (
   return {
     props: {
       seo,
-      ...(await serverSideTranslations(
-        locale,
-        ['common', 'admin'],
-        i18nConfig,
-      )),
+      ...(await ssrTranslations(locale, ['admin'])),
     },
   }
 }

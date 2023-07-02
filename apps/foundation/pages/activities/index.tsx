@@ -3,10 +3,9 @@ import { FC } from 'react'
 import { Image, SimpleGrid, Stack, Text } from '@chakra-ui/react'
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
 import { useRouter } from 'next/router'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import { i18nConfig } from '@wsvvrijheid/config'
 import { strapiRequest } from '@wsvvrijheid/lib'
+import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import { Activity, StrapiLocale, UploadFile } from '@wsvvrijheid/types'
 import {
   AnimatedBox,
@@ -107,7 +106,7 @@ export const getServerSideProps = async (
 
   return {
     props: {
-      ...(await serverSideTranslations(locale, ['common'], i18nConfig)),
+      ...(await ssrTranslations(locale)),
       title: seo.title[locale],
       query: context.query,
       activities: activities.data.sort(

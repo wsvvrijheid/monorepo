@@ -4,12 +4,12 @@ import { useDisclosure } from '@chakra-ui/react'
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
 import { ObjectSchema } from 'yup'
 
-import { i18nConfig, urlsWithLocalizedTitle } from '@wsvvrijheid/config'
+import { urlsWithLocalizedTitle } from '@wsvvrijheid/config'
 import { useStrapiRequest } from '@wsvvrijheid/services'
+import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import {
   ApprovalStatus,
   Localize,
@@ -224,11 +224,7 @@ export const getServerSideProps = async (
     props: {
       model,
       seo,
-      ...(await serverSideTranslations(
-        locale,
-        ['common', 'admin'],
-        i18nConfig,
-      )),
+      ...(await ssrTranslations(locale, ['admin'])),
     },
   }
 }

@@ -14,12 +14,11 @@ import {
 } from '@chakra-ui/react'
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
 import { useRouter } from 'next/router'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
 import { FaArrowDown, FaArrowUp } from 'react-icons/fa'
 
-import { i18nConfig } from '@wsvvrijheid/config'
 import { useStrapiRequest } from '@wsvvrijheid/services'
+import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import {
   Course,
   CourseApplication,
@@ -221,11 +220,7 @@ export const getServerSideProps = async (
   return {
     props: {
       seo,
-      ...(await serverSideTranslations(
-        locale,
-        ['common', 'admin'],
-        i18nConfig,
-      )),
+      ...(await ssrTranslations(locale, ['admin'])),
     },
   }
 }

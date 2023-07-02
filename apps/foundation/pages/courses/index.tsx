@@ -3,10 +3,10 @@ import { FC } from 'react'
 import { Box, Heading, SimpleGrid, Stack, Text } from '@chakra-ui/react'
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { useRouter } from 'next/router'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import { ASSETS_URL, COURSES, i18nConfig } from '@wsvvrijheid/config'
+import { ASSETS_URL, COURSES } from '@wsvvrijheid/config'
 import { strapiRequest } from '@wsvvrijheid/lib'
+import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import { Course, StrapiLocale } from '@wsvvrijheid/types'
 import { AcademyCard, Container, Hero } from '@wsvvrijheid/ui'
 
@@ -84,7 +84,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
 
   return {
     props: {
-      ...(await serverSideTranslations(locale, ['common'], i18nConfig)),
+      ...(await ssrTranslations(locale)),
       title: seo.title[locale],
       courses,
     },

@@ -1,14 +1,13 @@
 import { Box, Stack } from '@chakra-ui/react'
-import { dehydrate, QueryClient } from '@tanstack/react-query'
+import { QueryClient, dehydrate } from '@tanstack/react-query'
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { useRouter } from 'next/router'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { serialize } from 'next-mdx-remote/serialize'
 import { NextSeoProps } from 'next-seo'
 
-import { i18nConfig } from '@wsvvrijheid/config'
 import { RequestCollectionArgs, strapiRequest } from '@wsvvrijheid/lib'
 import { useStrapiRequest } from '@wsvvrijheid/services'
+import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import { Hashtag, StrapiLocale } from '@wsvvrijheid/types'
 import {
   AnimatedBox,
@@ -113,7 +112,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
   return {
     props: {
       dehydratedState: dehydrate(queryClient),
-      ...(await serverSideTranslations(locale, ['common'], i18nConfig)),
+      ...(await ssrTranslations(locale)),
       seo,
       source,
     },

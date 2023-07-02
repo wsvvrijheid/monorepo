@@ -10,12 +10,11 @@ import {
 } from '@chakra-ui/react'
 import { QueryClient, dehydrate } from '@tanstack/react-query'
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
 
-import { i18nConfig } from '@wsvvrijheid/config'
 import { RequestCollectionArgs, strapiRequest } from '@wsvvrijheid/lib'
 import { useStrapiRequest } from '@wsvvrijheid/services'
+import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import {
   AccountStats as AccounStatsType,
   AccountStatsBase,
@@ -135,11 +134,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
     props: {
       seo,
       dehydratedState: dehydrate(queryClient),
-      ...(await serverSideTranslations(
-        locale,
-        ['common', 'admin'],
-        i18nConfig,
-      )),
+      ...(await ssrTranslations(locale, ['admin'])),
     },
     revalidate: 1,
   }

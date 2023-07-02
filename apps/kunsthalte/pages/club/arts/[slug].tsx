@@ -2,12 +2,12 @@ import { FC } from 'react'
 
 import { dehydrate, QueryClient, QueryKey } from '@tanstack/react-query'
 import { GetStaticPaths, GetStaticPropsContext } from 'next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
 
-import { ASSETS_URL, i18nConfig, SITE_URL } from '@wsvvrijheid/config'
+import { ASSETS_URL, SITE_URL } from '@wsvvrijheid/config'
 import { strapiRequest } from '@wsvvrijheid/lib'
 import { getArtBySlug } from '@wsvvrijheid/services'
+import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import { Art, StrapiLocale } from '@wsvvrijheid/types'
 import { ArtTemplate } from '@wsvvrijheid/ui'
 
@@ -106,7 +106,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
       queryKey,
       slugs: { en: slug, nl: slug, tr: slug },
       dehydratedState: dehydrate(queryClient),
-      ...(await serverSideTranslations(locale, ['common'], i18nConfig)),
+      ...(await ssrTranslations(locale)),
     },
     revalidate: 1,
   }

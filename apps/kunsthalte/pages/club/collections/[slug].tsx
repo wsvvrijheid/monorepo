@@ -2,10 +2,9 @@ import { FC, useEffect, useRef, useState } from 'react'
 
 import { useBreakpointValue } from '@chakra-ui/react'
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import { i18nConfig } from '@wsvvrijheid/config'
 import { getCollectionBySlug, getModelStaticPaths } from '@wsvvrijheid/services'
+import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import { Localize, StrapiLocale } from '@wsvvrijheid/types'
 import { CollectionTemplate } from '@wsvvrijheid/ui'
 
@@ -77,7 +76,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
 
   return {
     props: {
-      ...(await serverSideTranslations(locale, ['common'], i18nConfig)),
+      ...(await ssrTranslations(locale)),
       seo,
       slugs: { ...slugs, [locale]: slug },
       collection,

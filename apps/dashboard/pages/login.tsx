@@ -2,10 +2,9 @@ import { FC } from 'react'
 
 import { Box } from '@chakra-ui/react'
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeo, NextSeoProps } from 'next-seo'
 
-import { i18nConfig } from '@wsvvrijheid/config'
+import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import { StrapiLocale } from '@wsvvrijheid/types'
 import { AdminLoginForm } from '@wsvvrijheid/ui'
 
@@ -40,7 +39,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
   return {
     props: {
       seo,
-      ...(await serverSideTranslations(locale, ['common'], i18nConfig)),
+      ...(await ssrTranslations(locale, ['admin'])),
     },
   }
 }

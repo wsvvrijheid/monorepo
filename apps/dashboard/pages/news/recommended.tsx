@@ -3,11 +3,10 @@ import { FC } from 'react'
 import { SimpleGrid } from '@chakra-ui/react'
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { useRouter } from 'next/router'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
 
-import { i18nConfig } from '@wsvvrijheid/config'
 import { useStrapiRequest } from '@wsvvrijheid/services'
+import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import { RecommendedTopic, StrapiLocale } from '@wsvvrijheid/types'
 import { AdminLayout, TopicCard } from '@wsvvrijheid/ui'
 
@@ -51,11 +50,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
   return {
     props: {
       seo,
-      ...(await serverSideTranslations(
-        locale,
-        ['common', 'admin'],
-        i18nConfig,
-      )),
+      ...(await ssrTranslations(locale, ['admin'])),
     },
   }
 }

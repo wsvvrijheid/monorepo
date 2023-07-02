@@ -1,4 +1,4 @@
-import { Role } from '@wsvvrijheid/types'
+import { RoleType } from '@wsvvrijheid/types'
 
 const adminRoleRoutes = [
   '/',
@@ -37,11 +37,8 @@ type AdminRoleRoutes = (typeof adminRoleRoutes)[number]
 type AdminCommonRoutes = (typeof adminCommonRoutes)[number]
 type AdminRoutes = AdminRoleRoutes | AdminCommonRoutes
 
-export const getRoutePermission = (
-  roles: Role['type'][],
-  route: AdminRoutes,
-) => {
-  const roleRoutes: Record<Role['type'], AdminRoutes[]> = {
+export const getRoutePermission = (roles: RoleType[], route: AdminRoutes) => {
+  const roleRoutes: Record<RoleType, AdminRoutes[]> = {
     academyeditor: ['/courses'],
     accountmanager: ['/news/recommended', '/timelines/recommended'],
     admin: ['all'],

@@ -4,11 +4,10 @@ import { Box, Button, Heading, Stack, Text } from '@chakra-ui/react'
 import { isPast } from 'date-fns'
 import { GetStaticPropsContext } from 'next'
 import { useTranslation } from 'next-i18next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
 
-import { i18nConfig } from '@wsvvrijheid/config'
 import { strapiRequest } from '@wsvvrijheid/lib'
+import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import { Hashtag, StrapiLocale } from '@wsvvrijheid/types'
 import {
   Container,
@@ -116,7 +115,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
 
   return {
     props: {
-      ...(await serverSideTranslations(locale, ['common'], i18nConfig)),
+      ...(await ssrTranslations(locale)),
       link,
       seo,
       hashtags,
