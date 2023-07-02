@@ -8,7 +8,7 @@ import { NextSeoProps } from 'next-seo'
 
 import { i18nConfig } from '@wsvvrijheid/config'
 import { RequestCollectionArgs, strapiRequest } from '@wsvvrijheid/lib'
-import { useRequestCollection } from '@wsvvrijheid/services'
+import { useStrapiRequest } from '@wsvvrijheid/services'
 import { Hashtag, StrapiLocale } from '@wsvvrijheid/types'
 import {
   AnimatedBox,
@@ -25,7 +25,7 @@ type HashtagEventsProps = InferGetStaticPropsType<typeof getStaticProps>
 const HashtagEvents = ({ seo, source }: HashtagEventsProps) => {
   const router = useRouter()
 
-  const hashtagsQuery = useRequestCollection<Hashtag>({
+  const hashtagsQuery = useStrapiRequest<Hashtag>({
     url: 'api/hashtags',
     locale: router.locale,
     filters: {

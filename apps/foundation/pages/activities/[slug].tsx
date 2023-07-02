@@ -7,7 +7,8 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { serialize } from 'next-mdx-remote/serialize'
 
 import { i18nConfig } from '@wsvvrijheid/config'
-import { getActivityBySlug, getModelStaticPaths } from '@wsvvrijheid/services'
+import { strapiRequest } from '@wsvvrijheid/lib'
+import { getModelStaticPaths } from '@wsvvrijheid/services'
 import { Activity, StrapiLocale } from '@wsvvrijheid/types'
 import { ActivityDetail } from '@wsvvrijheid/ui'
 
@@ -42,7 +43,12 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
 
   await queryClient.prefetchQuery({
     queryKey: ['activity', locale, slug],
-    queryFn: () => getActivityBySlug(locale, slug),
+    queryFn: () =>
+      strapiRequest<Activity>({
+        url: 'api/activities',
+        filters: { slug: { $eq: slug } },
+        locale,
+      }),
   })
 
   const activity = queryClient.getQueryData<Activity>([

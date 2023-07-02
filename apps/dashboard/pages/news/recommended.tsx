@@ -7,7 +7,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
 
 import { i18nConfig } from '@wsvvrijheid/config'
-import { useRequestCollection } from '@wsvvrijheid/services'
+import { useStrapiRequest } from '@wsvvrijheid/services'
 import { RecommendedTopic, StrapiLocale } from '@wsvvrijheid/types'
 import { AdminLayout, TopicCard } from '@wsvvrijheid/ui'
 
@@ -16,7 +16,7 @@ type PageProps = InferGetStaticPropsType<typeof getStaticProps>
 const NewsBookmarkedPage: FC<PageProps> = ({ seo }) => {
   const { locale } = useRouter()
 
-  const { data } = useRequestCollection<RecommendedTopic>({
+  const { data } = useStrapiRequest<RecommendedTopic>({
     url: 'api/recommended-topics',
     locale,
   })

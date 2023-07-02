@@ -7,7 +7,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { FaArrowDown, FaArrowUp } from 'react-icons/fa'
 
 import { i18nConfig } from '@wsvvrijheid/config'
-import { useRequestCollection } from '@wsvvrijheid/services'
+import { useStrapiRequest } from '@wsvvrijheid/services'
 import { ApprovalStatus, Art, Sort, StrapiLocale } from '@wsvvrijheid/types'
 import { AdminLayout, ArtsTable, PageHeader } from '@wsvvrijheid/ui'
 
@@ -25,7 +25,7 @@ const ArtsPage: FC<PageProps> = ({ seo }) => {
 
   const { locale } = useRouter()
 
-  const artsQuery = useRequestCollection<Art>({
+  const artsQuery = useStrapiRequest<Art>({
     url: 'api/arts',
     populate: [
       'artist.user.avatar',

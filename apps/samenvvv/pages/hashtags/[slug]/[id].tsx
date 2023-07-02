@@ -1,6 +1,6 @@
 import { GetServerSidePropsContext } from 'next'
 
-import { getModelById } from '@wsvvrijheid/services'
+import { strapiRequest } from '@wsvvrijheid/lib'
 import { Post, StrapiLocale } from '@wsvvrijheid/types'
 
 const Page = () => null
@@ -13,10 +13,12 @@ export const getServerSideProps = async (
   const locale = context.locale as StrapiLocale
   const id = context.params?.id as string
 
-  const post = await getModelById<Post>({
+  const response = await strapiRequest<Post>({
     url: 'api/posts',
     id: Number(id),
   })
+
+  const post = response.data
 
   if (!post?.hashtag) {
     return { notFound: true }

@@ -11,7 +11,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
 
 import { i18nConfig } from '@wsvvrijheid/config'
-import { useRequestCollection } from '@wsvvrijheid/services'
+import { useStrapiRequest } from '@wsvvrijheid/services'
 import { Hashtag, Post, Sort, StrapiLocale } from '@wsvvrijheid/types'
 import {
   AdminLayout,
@@ -32,7 +32,7 @@ const PostsPage: FC<PageProps> = ({ seo }) => {
 
   const [hashtagIds, setHashtagIds] = useState<number[]>([])
 
-  const postsQuery = useRequestCollection<Post>({
+  const postsQuery = useStrapiRequest<Post>({
     url: 'api/posts',
     page: currentPage || 1,
     filters: {
@@ -47,7 +47,7 @@ const PostsPage: FC<PageProps> = ({ seo }) => {
     includeDrafts: true,
   })
 
-  const hashtagsQuery = useRequestCollection<Hashtag>({
+  const hashtagsQuery = useStrapiRequest<Hashtag>({
     url: 'api/hashtags',
     locale,
     includeDrafts: true,

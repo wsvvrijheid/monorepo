@@ -6,7 +6,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
 
 import { i18nConfig } from '@wsvvrijheid/config'
-import { useRequestCollection } from '@wsvvrijheid/services'
+import { useStrapiRequest } from '@wsvvrijheid/services'
 import { StrapiLocale, Timeline } from '@wsvvrijheid/types'
 import { AdminLayout, TimelineBoard } from '@wsvvrijheid/ui'
 
@@ -15,7 +15,7 @@ type PageProps = InferGetStaticPropsType<typeof getStaticProps>
 const Timelines: FC<PageProps> = ({ seo }) => {
   const { locale } = useRouter()
 
-  const { data: timelines, isLoading } = useRequestCollection<Timeline>({
+  const { data: timelines, isLoading } = useStrapiRequest<Timeline>({
     url: 'api/timelines',
     locale,
   })

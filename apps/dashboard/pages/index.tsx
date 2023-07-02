@@ -15,7 +15,7 @@ import { NextSeoProps } from 'next-seo'
 
 import { i18nConfig } from '@wsvvrijheid/config'
 import { RequestCollectionArgs, strapiRequest } from '@wsvvrijheid/lib'
-import { useRequestCollection } from '@wsvvrijheid/services'
+import { useStrapiRequest } from '@wsvvrijheid/services'
 import {
   AccountStats as AccounStatsType,
   AccountStatsBase,
@@ -34,7 +34,7 @@ const args: RequestCollectionArgs = {
 const Index: FC<PageProps> = ({ seo }) => {
   // TODO: Add pagination with keep previous data
   // Strapi fetches at max 100 items
-  const statsQuery = useRequestCollection<AccounStatsType>(args)
+  const statsQuery = useStrapiRequest<AccounStatsType>(args)
 
   const statsData = [
     'tweets',

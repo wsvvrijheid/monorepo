@@ -9,7 +9,7 @@ import {
   Spinner,
 } from '@chakra-ui/react'
 
-import { useModelById } from '@wsvvrijheid/services'
+import { useStrapiRequest } from '@wsvvrijheid/services'
 import { StrapiModel } from '@wsvvrijheid/types'
 
 import { ModelEditForm } from './ModelEditForm'
@@ -29,7 +29,9 @@ export const ModelEditModal = <T extends StrapiModel>({
   maxW,
   ...rest
 }: ModelEditModalProps<T>) => {
-  const { data: model, isLoading, refetch } = useModelById<T>({ url, id })
+  const { data, isLoading, refetch } = useStrapiRequest<T>({ url, id })
+
+  const model = data?.data
 
   const handleSuccess = () => {
     refetch()

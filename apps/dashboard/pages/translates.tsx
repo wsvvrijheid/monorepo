@@ -7,7 +7,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
 
 import { i18nConfig } from '@wsvvrijheid/config'
-import { useRequestCollection } from '@wsvvrijheid/services'
+import { useStrapiRequest } from '@wsvvrijheid/services'
 import {
   Activity,
   ApprovalStatus,
@@ -81,7 +81,7 @@ const TranslateDataTable: FC<TranslateDataTableProps> = ({ searchTerm }) => {
     dataQuery.refetch()
   }, [locale, searchTerm, sort, status])
 
-  const dataQuery = useRequestCollection<Activity>({
+  const dataQuery = useStrapiRequest<Activity>({
     url: `api/${slug}`,
     page: currentPage || 1,
     pageSize: 10,

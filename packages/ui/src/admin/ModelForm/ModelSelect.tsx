@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
 
-import { useRequestCollection } from '@wsvvrijheid/services'
+import { useStrapiRequest } from '@wsvvrijheid/services'
 import { StrapiModel } from '@wsvvrijheid/types'
 
 import { ModelSelectProps } from './types'
@@ -13,7 +13,7 @@ export const ModelSelect = <T extends StrapiModel>({
 }: ModelSelectProps) => {
   const { locale } = useRouter()
 
-  const modelsQuery = useRequestCollection<T>({
+  const modelsQuery = useStrapiRequest<T>({
     url,
     locale,
     filters: {
