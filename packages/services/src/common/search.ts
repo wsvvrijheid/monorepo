@@ -1,7 +1,14 @@
 import { useQuery } from '@tanstack/react-query'
 
+import { urlsWithLocalizedTitle, urlsWithoutLocale } from '@wsvvrijheid/config'
 import { Request } from '@wsvvrijheid/lib'
-import { Sort, StrapiLocale, StrapiModel, StrapiUrl } from '@wsvvrijheid/types'
+import {
+  Sort,
+  StrapiCollectionUrl,
+  StrapiLocale,
+  StrapiModel,
+  StrapiUrl,
+} from '@wsvvrijheid/types'
 
 export type SearchModelArgs<T extends StrapiModel> = {
   fields?: (keyof T)[]
@@ -26,34 +33,11 @@ export const searchModel = async <T extends StrapiModel>({
   sort = ['publishedAt:desc'],
   url,
 }: SearchModelArgs<T>) => {
-  const urlsWithoutLocale = [
-    'api/applicants',
-    'api/categories',
-    'api/comments',
-    'api/donates',
-    'api/feedbacks',
-    'api/jobs',
-    'api/lang-roles',
-    'api/platforms',
-    'api/tags',
-    'api/users',
-    'api/volunteers',
-    'api/votes',
-  ]
-
-  const urlsWithLocalizedNames = [
-    'api/arts',
-    'api/categories',
-    'api/jobs',
-    'api/platforms',
-    'api/tags',
-  ]
-
-  // const hasStatus = statuses && !urlsWithoutStatus.includes(url)
-  const hasLocale = !urlsWithoutLocale.includes(url)
+  const slug = url.split('/')[1] as StrapiCollectionUrl
+  const hasLocale = !urlsWithoutLocale.includes(slug)
 
   const filterFields = fields?.map(field => {
-    if (urlsWithLocalizedNames.includes(url))
+    if (urlsWithLocalizedTitle.includes(slug))
       return `${field as string}_${locale}`
 
     return field

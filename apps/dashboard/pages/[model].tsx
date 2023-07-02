@@ -15,7 +15,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
 import { ObjectSchema } from 'yup'
 
-import { i18nConfig } from '@wsvvrijheid/config'
+import { i18nConfig, urlsWithLocalizedTitle } from '@wsvvrijheid/config'
 import { useSearchModel } from '@wsvvrijheid/services'
 import {
   ApprovalStatus,
@@ -70,14 +70,6 @@ const columns: {
   hashtags: mainHashtagColumns,
 }
 
-const urlsWithLocalizedNames: StrapiCollectionUrl[] = [
-  'arts',
-  'categories',
-  'jobs',
-  'platforms',
-  'tags',
-]
-
 type ModelPageProps = InferGetServerSidePropsType<typeof getServerSideProps>
 
 const ModelPage: FC<ModelPageProps> = ({ seo, model }) => {
@@ -120,7 +112,7 @@ const ModelPage: FC<ModelPageProps> = ({ seo, model }) => {
   const setStatus = (status?: ApprovalStatus) => setRouteQuery('status', status)
   const setPublished = (state?: string) => setRouteQuery('published', state)
 
-  const titleKey = urlsWithLocalizedNames.includes(model)
+  const titleKey = urlsWithLocalizedTitle.includes(model)
     ? `title_${locale}`
     : 'title'
 
