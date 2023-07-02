@@ -27,7 +27,7 @@ export const searchModel = async <T extends StrapiModel>({
   filters,
   includeDrafts = false,
   locale = 'tr',
-  page = 1,
+  page,
   pageSize,
   populate,
   sort = ['publishedAt:desc'],
@@ -37,21 +37,22 @@ export const searchModel = async <T extends StrapiModel>({
   const hasLocale = !urlsWithoutLocale.includes(slug)
 
   const filterFields = fields?.map(field => {
-    if (urlsWithLocalizedTitle.includes(slug))
+    if (urlsWithLocalizedTitle.includes(slug)) {
       return `${field as string}_${locale}`
+    }
 
     return field
   })
 
   return Request.collection<T[]>({
     url,
-    filters,
-    page,
-    populate,
-    fields: filterFields as (keyof T)[],
-    pageSize,
-    locale: hasLocale && locale ? locale : undefined,
-    sort: sort || undefined,
+    ...(page && { page }),
+    ...(filterFields && { fields: filterFields as (keyof T)[] }),
+    ...(hasLocale && { locale }),
+    ...(filters && { filters }),
+    ...(populate && { populate }),
+    ...(pageSize && { pageSize }),
+    sort,
     includeDrafts,
   })
 }
