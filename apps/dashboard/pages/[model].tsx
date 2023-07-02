@@ -7,13 +7,13 @@ import {
   RadioGroup,
   Stack,
   useDisclosure,
-  useUpdateEffect,
 } from '@chakra-ui/react'
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
+import { ObjectSchema } from 'yup'
 
 import { i18nConfig } from '@wsvvrijheid/config'
 import { useSearchModel } from '@wsvvrijheid/services'
@@ -29,8 +29,10 @@ import {
 import {
   AdminLayout,
   DataTable,
+  FormFields,
   ModelEditModal,
   PageHeader,
+  WTableProps,
   activityColumns,
   activityFields,
   activitySchema,
@@ -45,21 +47,23 @@ import {
   mainHashtagSchema,
 } from '@wsvvrijheid/ui'
 
-const schemas: { [x in StrapiCollectionUrl]?: any } = {
+const schemas: { [x in StrapiCollectionUrl]?: unknown } = {
   activities: activitySchema,
   blogs: blogSchema,
   hashtags: mainHashtagSchema,
   collections: collectionSchema,
 }
 
-const fields: { [x in StrapiCollectionUrl]?: any } = {
+const fields: { [x in StrapiCollectionUrl]?: unknown } = {
   activities: activityFields,
   blogs: blogFields,
   collections: collectionFields,
   hashtags: mainHashtagFields,
 }
 
-const columns: { [x in StrapiCollectionUrl]?: any } = {
+const columns: {
+  [x in StrapiCollectionUrl]?: WTableProps<StrapiModel>['columns']
+} = {
   activities: activityColumns,
   blogs: blogColumns,
   collections: collectionColumns,
@@ -122,15 +126,6 @@ const ModelPage: FC<ModelPageProps> = ({ seo, model }) => {
     includeDrafts,
   })
 
-  useEffect(() => setCurrentPage(1), [])
-  const handleSearch = (search?: string | null) => {
-    search ? setSearchTerm(search) : setSearchTerm(undefined)
-  }
-
-  useUpdateEffect(() => {
-    modelQuery.refetch()
-  }, [locale, searchTerm, sort])
-
   const models = modelQuery?.data?.data
   const totalCount = modelQuery?.data?.meta?.pagination?.pageCount
 
@@ -148,6 +143,12 @@ const ModelPage: FC<ModelPageProps> = ({ seo, model }) => {
     setSelectedId(undefined)
     onClose()
   }
+
+  const handleSearch = (search?: string | null) => {
+    search ? setSearchTerm(search) : setSearchTerm(undefined)
+  }
+
+  useEffect(() => setCurrentPage(1), [])
 
   useEffect(() => {
     if (selectedId) {
@@ -167,8 +168,8 @@ const ModelPage: FC<ModelPageProps> = ({ seo, model }) => {
           id={selectedId}
           isOpen={isOpen}
           onClose={handleClose}
-          fields={fields[model]}
-          schema={schemas[model]}
+          fields={fields[model] as FormFields<StrapiModel>}
+          schema={schemas[model] as ObjectSchema<StrapiModel>}
           title={'Edit Model'}
         />
       )}
@@ -212,7 +213,7 @@ const ModelPage: FC<ModelPageProps> = ({ seo, model }) => {
         </RadioGroup>
       </Stack>
       <DataTable
-        columns={columns[model]}
+        columns={columns[model] as WTableProps<StrapiModel>['columns']}
         data={mappedModels}
         totalCount={totalCount as number}
         currentPage={currentPage}
