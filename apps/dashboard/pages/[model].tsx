@@ -70,6 +70,14 @@ const columns: {
   hashtags: mainHashtagColumns,
 }
 
+const urlsWithLocalizedNames: StrapiCollectionUrl[] = [
+  'arts',
+  'categories',
+  'jobs',
+  'platforms',
+  'tags',
+]
+
 type ModelPageProps = InferGetServerSidePropsType<typeof getServerSideProps>
 
 const ModelPage: FC<ModelPageProps> = ({ seo, model }) => {
@@ -84,17 +92,17 @@ const ModelPage: FC<ModelPageProps> = ({ seo, model }) => {
   const sort = query.sort as Sort
   const currentPage = query.page ? parseInt(query.page as string) : 1
   const selectedId = query.id ? parseInt(query.id as string) : undefined
-  const includeDrafts = query.drafts === 'true'
+  const published = (query.published as string) || 'all'
 
   const setRouteQuery = (
-    key: 'id' | 'page' | 'sort' | 'status' | 'drafts',
+    key: 'id' | 'page' | 'sort' | 'status' | 'published',
     value?: string | number | Sort | ApprovalStatus,
   ) => {
     if (
       !value ||
       (key === 'page' && value === 1) ||
       (key === 'status' && value === 'all') ||
-      (key === 'drafts' && value === 'false')
+      (key === 'published' && value === 'all')
     ) {
       const q = { ...query }
       delete q[key]
@@ -110,20 +118,27 @@ const ModelPage: FC<ModelPageProps> = ({ seo, model }) => {
   const setCurrentPage = (page?: number) => setRouteQuery('page', page)
   const setSort = (sort?: Sort) => setRouteQuery('sort', sort)
   const setStatus = (status?: ApprovalStatus) => setRouteQuery('status', status)
-  const setShowDrafts = (state?: string) => setRouteQuery('drafts', state)
+  const setPublished = (state?: string) => setRouteQuery('published', state)
+
+  const titleKey = urlsWithLocalizedNames.includes(model)
+    ? `title_${locale}`
+    : 'title'
 
   const modelQuery = useSearchModel<StrapiModel>({
     url: `api/${model}`,
     page: currentPage || 1,
     pageSize: 10,
-    searchTerm,
+    filters: {
+      ...(searchTerm && { [titleKey]: { $eq: searchTerm } }),
+      ...(published === 'false' && { publishedAt: { $null: true } }),
+      approvalStatus:
+        status && status !== 'all'
+          ? { $eq: status }
+          : { $in: ['approved', 'pending', 'rejected'] },
+    },
+    includeDrafts: published !== 'true',
     sort,
     locale,
-    statuses:
-      status && status !== 'all'
-        ? [status]
-        : ['approved', 'pending', 'rejected'],
-    includeDrafts,
   })
 
   const models = modelQuery?.data?.data
@@ -185,7 +200,7 @@ const ModelPage: FC<ModelPageProps> = ({ seo, model }) => {
           as={HStack}
           spacing={4}
           colorScheme={'primary'}
-          defaultValue={'approved'}
+          value={status || 'all'}
           onChange={val => setStatus(val as ApprovalStatus)}
         >
           <Radio value={'all'}>All</Radio>
@@ -205,11 +220,12 @@ const ModelPage: FC<ModelPageProps> = ({ seo, model }) => {
           colorScheme={'primary'}
           as={HStack}
           spacing={4}
-          defaultValue={'live'}
-          onChange={val => setShowDrafts(val)}
+          value={published || 'true'}
+          onChange={val => setPublished(val)}
         >
-          <Radio value={'false'}>Live</Radio>
-          <Radio value={'true'}>Show drafts</Radio>
+          <Radio value={'all'}>All</Radio>
+          <Radio value={'true'}>Live</Radio>
+          <Radio value={'false'}>Draft</Radio>
         </RadioGroup>
       </Stack>
       <DataTable

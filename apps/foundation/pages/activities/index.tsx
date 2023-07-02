@@ -91,7 +91,9 @@ export const getServerSideProps = async (
     url: 'api/activities',
     locale,
     page,
-    statuses: ['approved'],
+    filters: {
+      approvalStatus: { $eq: 'approved' },
+    },
     fields: ['title', 'description', 'image', 'slug'],
   })
 

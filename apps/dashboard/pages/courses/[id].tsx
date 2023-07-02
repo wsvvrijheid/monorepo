@@ -59,14 +59,13 @@ const CoursePage: FC<PageProps> = ({ seo }) => {
 
   const applicationsQuery = useSearchModel<CourseApplication>({
     url: 'api/course-applications',
-    relationFilter: {
-      parent: 'course',
-      ids: [id],
+    filters: {
+      course: { id: { $eq: id } },
+      ...(searchTerm && { [`title_${locale}`]: { $containsi: searchTerm } }),
     },
     sort,
     page: currentPage || 1,
     pageSize: 100,
-    searchTerm,
     locale,
   })
   useUpdateEffect(() => {

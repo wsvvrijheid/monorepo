@@ -36,11 +36,12 @@ const ArtsPage: FC<PageProps> = ({ seo }) => {
     ],
     page: currentPage || 1,
     pageSize: 10,
-    searchTerm,
-    searchFields: [`title_${locale}`],
+    filters: {
+      ...(status ? { approvalStatus: { $eq: status } } : {}),
+      ...(searchTerm && { [`title_${locale}`]: { $containsi: searchTerm } }),
+    },
     sort,
     locale,
-    statuses: [status],
   })
 
   useEffect(() => setCurrentPage(1), [status])

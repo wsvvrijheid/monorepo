@@ -31,7 +31,9 @@ const HashtagEvents = ({ seo, source }: HashtagEventsProps) => {
   const hashtagsQuery = useSearchModel<Hashtag>({
     url: 'api/hashtags',
     locale: router.locale,
-    statuses: ['approved'],
+    filters: {
+      approvalStatus: { $eq: 'approved' },
+    },
     sort: ['date:desc'],
   })
 
@@ -76,7 +78,9 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
   const args: SearchModelArgs<Hashtag> = {
     url: 'api/hashtags',
     locale,
-    statuses: ['approved'],
+    filters: {
+      status: { $eq: 'approved' },
+    },
     sort: ['date:desc'],
   }
 

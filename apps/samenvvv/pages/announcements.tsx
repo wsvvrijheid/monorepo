@@ -94,7 +94,9 @@ export const getServerSideProps = async (
   const args: SearchModelArgs<Hashtag> = {
     url: 'api/hashtags',
     locale,
-    statuses: ['approved'],
+    filters: {
+      approvalStatus: { eq: 'approved' },
+    },
     pageSize: 1,
   }
 

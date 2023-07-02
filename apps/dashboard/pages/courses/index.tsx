@@ -31,7 +31,9 @@ const CoursesPage: FC<PageProps> = ({ seo }) => {
     populate: ['categories', 'tags', 'platforms', 'image', 'applications'],
     page: currentPage || 1,
     pageSize: 10,
-    searchTerm,
+    filters: {
+      ...(searchTerm && { [`title_${locale}`]: { $containsi: searchTerm } }),
+    },
     sort,
     locale,
   })

@@ -34,10 +34,11 @@ export const ArtAddToCollectionModal: FC<ArtAddToCollectionModalProps> = ({
 
   const { data, isLoading, refetch } = useSearchModel<Art>({
     url: 'api/arts',
-    searchTerm: search || undefined,
-    searchFields: ['title_en', 'title_nl', 'title_tr'],
+    filters: {
+      ...(search ? { [`title_${locale}`]: { $containsi: search } } : {}),
+      approvalStatus: { $eq: 'approved' },
+    },
     locale,
-    statuses: ['approved'],
     page,
   })
 

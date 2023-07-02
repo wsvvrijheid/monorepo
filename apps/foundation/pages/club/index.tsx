@@ -36,7 +36,9 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
       searchModel<Art>({
         url: 'api/arts',
         locale,
-        statuses: ['approved'],
+        filters: {
+          approvalStatus: { $eq: 'approved' },
+        },
       }),
   })
 

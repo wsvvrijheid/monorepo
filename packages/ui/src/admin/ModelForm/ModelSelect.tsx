@@ -16,7 +16,9 @@ export const ModelSelect = <T extends StrapiModel>({
   const modelsQuery = useSearchModel<T>({
     url,
     locale,
-    statuses: ['approved'],
+    filters: {
+      approvalStatus: { $eq: 'approved' },
+    },
     populate: [],
   })
 

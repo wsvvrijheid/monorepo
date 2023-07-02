@@ -30,19 +30,20 @@ const PostsPage: FC<PageProps> = ({ seo }) => {
 
   const [sort, setSort] = useState<Sort>()
 
-  const [hashtagsFilter, setHashtagsFilter] = useState<number[]>([])
+  const [hashtagIds, setHashtagIds] = useState<number[]>([])
 
   const postsQuery = useSearchModel<Post>({
     url: 'api/posts',
     page: currentPage || 1,
-    searchTerm,
-    relationFilter: {
-      parent: 'hashtag',
-      ids: hashtagsFilter,
+    filters: {
+      ...(hashtagIds.length > 0 && {
+        hashtag: { id: { $eq: hashtagIds } },
+      }),
+      ...(searchTerm && { [`title_${locale}`]: { $containsi: searchTerm } }),
+      approvalStatus: { $eq: 'approved' },
     },
     sort,
     locale,
-    statuses: ['approved'],
     includeDrafts: true,
   })
 
@@ -53,7 +54,7 @@ const PostsPage: FC<PageProps> = ({ seo }) => {
     fields: ['id', 'title'],
   })
 
-  useEffect(() => setCurrentPage(1), [hashtagsFilter])
+  useEffect(() => setCurrentPage(1), [hashtagIds])
 
   const handleSearch = (search?: string) => {
     search ? setSearchTerm(search) : setSearchTerm(undefined)
@@ -73,14 +74,14 @@ const PostsPage: FC<PageProps> = ({ seo }) => {
 
   useUpdateEffect(() => {
     postsQuery.refetch()
-  }, [locale, searchTerm, sort, hashtagsFilter])
+  }, [locale, searchTerm, sort, hashtagIds])
 
   const filterMenu = (
     <MenuOptionGroup
       title="Hastags"
       type="checkbox"
       onChange={(value: string | string[]) =>
-        setHashtagsFilter((value as string[]).map(v => +v))
+        setHashtagIds((value as string[]).map(v => +v))
       }
     >
       {hashtagsQuery.data?.data?.map(hashtag => (

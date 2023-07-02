@@ -99,7 +99,9 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
   const { data: hashtags } = await searchModel<Hashtag>({
     url: 'api/hashtags',
     locale,
-    statuses: ['approved'],
+    filters: {
+      approvalStatus: { $eq: 'approved' },
+    },
     sort: ['date:desc'],
     pageSize: 4,
   })

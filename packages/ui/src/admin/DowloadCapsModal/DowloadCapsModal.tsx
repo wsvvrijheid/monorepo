@@ -37,12 +37,11 @@ export const DowloadCapsModal: FC<DowloadCapsModalType> = ({ id }) => {
 
   const postsQuery = useSearchModel<Post>({
     url: 'api/posts',
-    relationFilter: {
-      parent: 'hashtag',
-      ids: [id],
+    filters: {
+      ...(id && { hashtag: { id: { $eq: id } } }),
+      approvalStatus: { $eq: 'approved' },
     },
     locale,
-    statuses: ['approved'],
     includeDrafts: true,
   })
   const handleClose = () => {

@@ -85,10 +85,17 @@ const TranslateDataTable: FC<TranslateDataTableProps> = ({ searchTerm }) => {
     url: `api/${slug}`,
     page: currentPage || 1,
     pageSize: 10,
-    searchTerm,
+    filters: {
+      ...(searchTerm && {
+        $or: [
+          { title: { $containsi: searchTerm } },
+          { description: { $containsi: searchTerm } },
+        ],
+      }),
+      approvalStatus: { $eq: 'pending' },
+    },
     sort,
     locale,
-    statuses: ['pending'],
     includeDrafts: true,
   })
 

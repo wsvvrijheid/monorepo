@@ -16,6 +16,7 @@ import {
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
+import { parse } from 'querystring'
 import { MdMenuOpen } from 'react-icons/md'
 
 import { useSearchModel } from '@wsvvrijheid/services'
@@ -58,11 +59,21 @@ export const ArtClubTemplate: FC = () => {
   // Custom useQuery hook or fetching arts
   const artsQuery = useSearchModel<Art>({
     url: 'api/arts',
-    categories: categories as string,
+    filters: {
+      ...(categories && {
+        categories: {
+          slug: {
+            $in: Object.values(parse(categories as string)),
+          },
+        },
+      }),
+      ...(searchTerm && {
+        [`title_${locale}`]: { $containsi: searchTerm as string },
+      }),
+      approvalStatus: { $eq: 'approved' },
+    },
     page: parseInt(page as string) || 1,
-    searchTerm: searchTerm as string,
     locale,
-    statuses: ['approved'],
   })
 
   return (
