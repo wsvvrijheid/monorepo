@@ -1,17 +1,18 @@
 import { FC } from 'react'
 
 import { dehydrate, QueryClient } from '@tanstack/react-query'
-import { GetStaticProps } from 'next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 
-import { searchModel } from '@wsvvrijheid/services'
+import { strapiRequest } from '@wsvvrijheid/lib'
+import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import { Art, StrapiLocale } from '@wsvvrijheid/types'
 import { ArtClubTemplate } from '@wsvvrijheid/ui'
 
 import { Layout } from '../../components'
-import i18nConfig from '../../next-i18next.config'
 
-const ClubPage: FC<{ title: string }> = ({ title }) => {
+type ClubPageProps = InferGetStaticPropsType<typeof getStaticProps>
+
+const ClubPage: FC<ClubPageProps> = ({ title }) => {
   return (
     <Layout seo={{ title }}>
       <ArtClubTemplate />
@@ -20,8 +21,8 @@ const ClubPage: FC<{ title: string }> = ({ title }) => {
 }
 export default ClubPage
 
-export const getStaticProps: GetStaticProps = async context => {
-  const { locale } = context
+export const getStaticProps = async (context: GetStaticPropsContext) => {
+  const locale = context.locale as StrapiLocale
   const queryClient = new QueryClient()
 
   await queryClient.prefetchQuery({
@@ -31,10 +32,12 @@ export const getStaticProps: GetStaticProps = async context => {
     // queryKey: [arts, locale, searchTerm, category, page]
     queryKey: ['arts', locale, null, null, '1'],
     queryFn: () =>
-      searchModel<Art>({
+      strapiRequest<Art>({
         url: 'api/arts',
-        locale: locale as StrapiLocale,
-        statuses: ['approved'],
+        locale,
+        filters: {
+          approvalStatus: { $eq: 'approved' },
+        },
       }),
   })
 
@@ -48,7 +51,7 @@ export const getStaticProps: GetStaticProps = async context => {
 
   return {
     props: {
-      ...(await serverSideTranslations(locale, ['common'], i18nConfig)),
+      ...(await ssrTranslations(locale)),
       title: seo.title[locale],
       dehydratedState: dehydrate(queryClient),
     },

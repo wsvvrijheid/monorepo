@@ -18,7 +18,7 @@ import { useDebounce } from 'react-use'
  */
 export type SearchFormProps = {
   delay?: number
-  onSearch: (value: string | null) => void
+  onSearch: (value?: string) => void
   onReset?: () => void
   mode?: 'change' | 'click'
   isFetching?: boolean
@@ -51,7 +51,7 @@ export const SearchForm: React.FC<SearchFormProps> = ({
       onSearch?.(debouncedSearchTerm)
     }
     if (debouncedSearchTerm === '') {
-      onSearch?.(null)
+      onSearch?.(undefined)
     }
   }, [debouncedSearchTerm, onSearch, onReset])
 

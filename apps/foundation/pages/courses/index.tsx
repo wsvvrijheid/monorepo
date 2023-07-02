@@ -3,22 +3,21 @@ import { FC } from 'react'
 import { Box, Heading, SimpleGrid, Stack, Text } from '@chakra-ui/react'
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { useRouter } from 'next/router'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import { ASSETS_URL, COURSES, SITE_URL } from '@wsvvrijheid/config'
-import { searchModel } from '@wsvvrijheid/services'
+import { ASSETS_URL, COURSES } from '@wsvvrijheid/config'
+import { strapiRequest } from '@wsvvrijheid/lib'
+import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import { Course, StrapiLocale } from '@wsvvrijheid/types'
 import { AcademyCard, Container, Hero } from '@wsvvrijheid/ui'
 
 import { Layout } from '../../components'
-import i18nConfig from '../../next-i18next.config'
 
 type CoursesProps = InferGetStaticPropsType<typeof getStaticProps>
 
 const Platforms: FC<CoursesProps> = ({ title, courses }) => {
   const { locale } = useRouter()
-  const courseBody = COURSES.info?.[locale as StrapiLocale]?.title
-  const courseMainTitle = COURSES.info?.[locale as StrapiLocale]?.pagetitle
+  const courseBody = COURSES.info?.[locale]?.title
+  const courseMainTitle = COURSES.info?.[locale]?.pagetitle
 
   const coursesData = courses?.data
 
@@ -53,7 +52,7 @@ const Platforms: FC<CoursesProps> = ({ title, courses }) => {
                   key={course?.id}
                   title={title}
                   image={ASSETS_URL + course?.image?.url}
-                  href={`${SITE_URL}/${locale}/courses/${course?.slug}`}
+                  href={`/courses/${course?.slug}`}
                   description={description}
                 />
               )
@@ -68,9 +67,9 @@ const Platforms: FC<CoursesProps> = ({ title, courses }) => {
 export default Platforms
 
 export const getStaticProps = async (context: GetStaticPropsContext) => {
-  const { locale } = context
+  const locale = context.locale as StrapiLocale
 
-  const courses = await searchModel<Course>({
+  const courses = await strapiRequest<Course>({
     url: 'api/courses',
     populate: '*',
   })
@@ -85,7 +84,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
 
   return {
     props: {
-      ...(await serverSideTranslations(locale, ['common'], i18nConfig)),
+      ...(await ssrTranslations(locale)),
       title: seo.title[locale],
       courses,
     },

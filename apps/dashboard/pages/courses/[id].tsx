@@ -12,13 +12,13 @@ import {
   useDisclosure,
   useUpdateEffect,
 } from '@chakra-ui/react'
-import { InferGetServerSidePropsType } from 'next'
+import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
 import { useRouter } from 'next/router'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
 import { FaArrowDown, FaArrowUp } from 'react-icons/fa'
 
-import { useModelById, useSearchModel } from '@wsvvrijheid/services'
+import { useStrapiRequest } from '@wsvvrijheid/services'
+import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import {
   Course,
   CourseApplication,
@@ -27,66 +27,59 @@ import {
 } from '@wsvvrijheid/types'
 import {
   AdminLayout,
+  DataTable,
+  ModelEditForm,
+  ModelEditModal,
+  PageHeader,
   applicationColumns,
   courseApplicationFields,
   courseApplicationSchema,
   courseFields,
   courseSchema,
-  DataTable,
-  ModelEditForm,
-  ModelEditModal,
-  PageHeader,
 } from '@wsvvrijheid/ui'
-
-import i18nConfig from '../../next-i18next.config'
 
 type PageProps = InferGetServerSidePropsType<typeof getServerSideProps>
 
 const CoursePage: FC<PageProps> = ({ seo }) => {
-  const router = useRouter()
   const { isOpen, onOpen, onClose } = useDisclosure()
 
-  const { locale } = useRouter()
-  const { query } = router
+  const { locale, query } = useRouter()
 
   const [selectedApplicationId, setSelectedApplicationId] = useState<number>()
-  const [currentPage, setCurrentPage] = useState<number>()
+  const [currentPage, setCurrentPage] = useState<number>(1)
   const [searchTerm, setSearchTerm] = useState<string>()
   const [sort, setSort] = useState<Sort>()
 
-  const handleSearch = (search: string) => {
+  const handleSearch = (search?: string) => {
     search ? setSearchTerm(search) : setSearchTerm(undefined)
   }
 
   const id = Number(query.id as string)
 
-  const applicationsQuery = useSearchModel<CourseApplication>({
+  const applicationsQuery = useStrapiRequest<CourseApplication>({
     url: 'api/course-applications',
-    relationFilter: {
-      parent: 'course',
-      ids: [id],
+    filters: {
+      course: { id: { $eq: id } },
+      ...(searchTerm && { [`title_${locale}`]: { $containsi: searchTerm } }),
     },
     sort,
     page: currentPage || 1,
     pageSize: 100,
-    searchTerm,
-    locale: router.locale as StrapiLocale,
+    locale,
   })
   useUpdateEffect(() => {
     applicationsQuery.refetch()
   }, [locale, searchTerm, sort])
 
-  const applications = applicationsQuery?.data?.data
-  const totalCount = applicationsQuery?.data?.meta?.pagination?.pageCount
+  const applications = applicationsQuery?.data?.data || []
+  const totalCount = applicationsQuery?.data?.meta?.pagination?.pageCount || 0
 
-  const {
-    data: course,
-    isLoading,
-    refetch,
-  } = useModelById<Course>({
+  const { data, isLoading, refetch } = useStrapiRequest<Course>({
     url: 'api/courses',
     id,
   })
+
+  const course = data?.data
 
   const handleRowClick = (index: number, id: number) => {
     setSelectedApplicationId(id)
@@ -105,19 +98,21 @@ const CoursePage: FC<PageProps> = ({ seo }) => {
 
   return (
     <AdminLayout seo={seo} isLoading={isLoading} hasBackButton>
-      <ModelEditModal<CourseApplication>
-        title={'Application'}
-        url="api/course-applications"
-        id={selectedApplicationId}
-        schema={courseApplicationSchema}
-        fields={courseApplicationFields}
-        approverRoles={['academyeditor']}
-        editorRoles={['academyeditor']}
-        publisherRoles={['academyeditor']}
-        isOpen={isOpen}
-        onClose={handleClose}
-        size={'5xl'}
-      />
+      {selectedApplicationId && (
+        <ModelEditModal<CourseApplication>
+          title={'Application'}
+          url="api/course-applications"
+          id={selectedApplicationId}
+          schema={courseApplicationSchema}
+          fields={courseApplicationFields}
+          approverRoles={['academyeditor']}
+          editorRoles={['academyeditor']}
+          publisherRoles={['academyeditor']}
+          isOpen={isOpen}
+          onClose={handleClose}
+          size={'5xl'}
+        />
+      )}
       <Stack spacing={8} p={6}>
         <Accordion
           size={'lg'}
@@ -137,7 +132,7 @@ const CoursePage: FC<PageProps> = ({ seo }) => {
               fontWeight={600}
               shadow={'sm'}
             >
-              <Text>{course?.[`title_${router.locale}`]}</Text>
+              <Text>{course?.[`title_${locale}`]}</Text>
               <AccordionIcon ml={'auto'} />
             </AccordionButton>
             <AccordionPanel mt={4} bg={'white'} rounded={'md'}>
@@ -207,8 +202,10 @@ const CoursePage: FC<PageProps> = ({ seo }) => {
   )
 }
 
-export const getServerSideProps = async context => {
-  const { locale } = context
+export const getServerSideProps = async (
+  context: GetServerSidePropsContext,
+) => {
+  const locale = context.locale as StrapiLocale
 
   const title = {
     en: 'Course',
@@ -223,11 +220,7 @@ export const getServerSideProps = async context => {
   return {
     props: {
       seo,
-      ...(await serverSideTranslations(
-        locale,
-        ['common', 'admin'],
-        i18nConfig,
-      )),
+      ...(await ssrTranslations(locale, ['admin'])),
     },
   }
 }

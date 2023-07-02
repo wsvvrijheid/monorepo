@@ -1,7 +1,5 @@
 import { useHashtag, useTrends } from '@wsvvrijheid/services'
-import { TwitterTrend } from '@wsvvrijheid/types'
-
-import { useHashtagContext } from '../post-maker'
+import { Trend, TwitterTrend } from '@wsvvrijheid/types'
 
 export const useFindHashtagInTrends = () => {
   const hashtag = useHashtag()
@@ -10,7 +8,7 @@ export const useFindHashtagInTrends = () => {
   return [hashtag.hashtagDefault, hashtag.hashtagExtra]
     .filter(Boolean)
     .map(hashtag => {
-      const { nl, tr, en } = trendsData ?? {}
+      const { nl, tr, en } = (trendsData ?? {}) as Trend
 
       if (!hashtag || !nl || !tr || !en) return null
 

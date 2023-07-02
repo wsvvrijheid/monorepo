@@ -14,12 +14,14 @@ import {
 
 import { Container, ArtCardBase, ArtWithDetails } from '../../components'
 
+import '@splidejs/react-splide/css'
+import '@splidejs/splide/dist/css/themes/splide-default.min.css'
+
 export type ArtTemplateProps = {
   queryKey: QueryKey
 }
 
 export const ArtTemplate: FC<ArtTemplateProps> = ({ queryKey }) => {
-  // @ts-ignore
   const { t } = useTranslation()
   const perPage = useBreakpointValue({ base: 1, sm: 2, md: 3, lg: 4 })
   const { data: art } = useArtBySlug()

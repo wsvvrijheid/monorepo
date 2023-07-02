@@ -35,7 +35,7 @@ async function handler(req: NextRequest) {
 
   const transform = flip ? 'scale(1)' : 'scaleX(-1)'
 
-  const path = paths[shape]
+  const path = paths[shape as number]
 
   const dimensions = {
     width: 1200 * scale,
@@ -65,17 +65,19 @@ async function handler(req: NextRequest) {
             position: 'relative',
           }}
         >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            style={{
-              ...absoluteStyle,
-              width: `${dimensions.image}px`,
-              objectFit: 'cover',
-              left: flip ? '0px' : `${dimensions.width - dimensions.image}px`,
-            }}
-            src={image}
-            alt={''}
-          />
+          {image && (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              style={{
+                ...absoluteStyle,
+                width: `${dimensions.image}px`,
+                objectFit: 'cover',
+                left: flip ? '0px' : `${dimensions.width - dimensions.image}px`,
+              }}
+              src={image}
+              alt={''}
+            />
+          )}
           <svg
             width={dimensions.shape}
             height={dimensions.height}

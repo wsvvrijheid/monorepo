@@ -4,7 +4,7 @@ import { HStack, IconButton } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { IconType } from 'react-icons/lib'
 
-import { Localize, StrapiLocale } from '@wsvvrijheid/types'
+import { Localize } from '@wsvvrijheid/types'
 
 export type SocialItem = {
   label: string
@@ -29,7 +29,7 @@ export const SocialButtons: FC<SocialButtonsProps> = ({ items }) => {
           size="sm"
           target="_blank"
           icon={<item.icon />}
-          href={item.link[locale as StrapiLocale]}
+          href={item.link[locale]}
           variant="outline"
           colorScheme="primary"
           borderColor="primary.200"

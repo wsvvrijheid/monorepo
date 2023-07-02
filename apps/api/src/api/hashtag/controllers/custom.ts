@@ -4,111 +4,26 @@ import { ETwitterStreamEvent, TweetV2SingleResult } from 'twitter-api-v2'
 
 import { Hashtag } from '@wsvvrijheid/types'
 
-import { twitterApi } from '../../../libs'
-import { getReferenceModel, mapTweetV2ResponseToTweet } from '../../../utils'
+import { hashtagStatsStore, getTwitterClient } from '../../../libs'
+import { getReferenceModel, mapTweetResponseToTweet } from '../../../utils'
 
 let isStarted = false
 
-type TweetStats = {
-  retweet: number
-  tweet: number
-  getRetweeted: number
-  replies: number
-  getReplies: number
-  total: number
-  username: string
-}
-
-class Store {
-  store: Record<string, TweetStats>
-  totalActivity: number
-  constructor() {
-    this.store = {}
-    this.totalActivity = 0
-  }
-
-  reset() {
-    this.store = {}
-    this.totalActivity = 0
-  }
-
-  isUserExist(username: string) {
-    if (!this.store[username]) {
-      this.store[username] = {
-        retweet: 0,
-        tweet: 0,
-        getRetweeted: 0,
-        replies: 0,
-        getReplies: 0,
-        total: 0,
-        username,
-      }
-    }
-  }
-
-  increaseTotal(username: string) {
-    this.store[username].total =
-      this.store[username].retweet +
-      this.store[username].tweet +
-      this.store[username].getRetweeted +
-      this.store[username].replies +
-      this.store[username].getReplies
-  }
-
-  increment(
-    username: string,
-    tweet: {
-      user: string
-      tweet: string
-      isRetweeted: { username: string }
-      isRetweet: boolean
-      isReply: string
-    },
-  ) {
-    this.isUserExist(username)
-
-    if (!tweet.isReply && !tweet.isRetweet && !tweet.isRetweeted) {
-      this.store[username].tweet += 1
-    } else if (tweet.isReply) {
-      if (tweet.isRetweeted) {
-        this.store[username].replies += 1
-        this.isUserExist(tweet.isRetweeted.username)
-        this.store[tweet.isRetweeted.username].getReplies += 1
-        this.increaseTotal(tweet.isRetweeted.username)
-        this.totalActivity += 1
-      } else {
-        this.store[username].replies += 1
-      }
-    } else if (tweet.isRetweet && tweet.isRetweeted) {
-      this.store[username].retweet += 1
-      this.isUserExist(tweet.isRetweeted.username)
-      this.store[tweet.isRetweeted.username].getRetweeted += 1
-      this.increaseTotal(tweet.isRetweeted.username)
-      this.totalActivity += 1
-    }
-
-    this.increaseTotal(username)
-    this.totalActivity += 1
-  }
-}
-
-const store = new Store()
-
 export default {
   async search(ctx: Context) {
+    const twitterClient = await getTwitterClient()
+
     try {
-      const result = await twitterApi.v2.search({
+      const result = await twitterClient.v2.search({
         query: ctx.query.q as string,
         max_results: 50,
-        expansions: ['attachments.media_keys'],
+        expansions: ['attachments.media_keys', 'author_id'],
         'media.fields': ['url', 'preview_image_url', 'variants'],
-        'tweet.fields': ['attachments'],
+        'tweet.fields': ['attachments', 'public_metrics'],
+        'user.fields': ['name', 'username', 'profile_image_url'],
       })
 
-      const tweetsData = result?.data.data
-      const includes = result?.data.includes
-
-      const tweets = mapTweetV2ResponseToTweet(tweetsData, includes)
+      const tweets = mapTweetResponseToTweet(result?.data)
 
       ctx.send(tweets)
     } catch (error) {
@@ -156,7 +71,7 @@ export default {
     return { data: result }
   },
   async hashtagEventStats(ctx: Context) {
-    const duration = parseInt(ctx.query.duration as string)
+    const duration = parseFloat(ctx.query.duration as string)
 
     // check if stream is started
     if (isStarted) {
@@ -175,6 +90,7 @@ export default {
 
     try {
       const sixHoursAgo = addHours(new Date(), -6).toISOString()
+      const twitterClient = await getTwitterClient()
 
       // get hashtags
       const data = (await strapi.entityService.findMany(
@@ -198,21 +114,21 @@ export default {
       }))
 
       // reset rules
-      const rules = await twitterApi.v2.streamRules()
+      const rules = await twitterClient.v2.streamRules()
 
       if (rules.data?.length) {
-        await twitterApi.v2.updateStreamRules({
+        await twitterClient.v2.updateStreamRules({
           delete: { ids: rules.data.map(rule => rule.id) },
         })
       }
 
       // add your rules here
-      await twitterApi.v2.updateStreamRules({
+      await twitterClient.v2.updateStreamRules({
         add: hashtagRules,
       })
 
       // start stream
-      const stream = await twitterApi.v2.getStream<TweetV2SingleResult>(
+      const stream = await twitterClient.v2.getStream<TweetV2SingleResult>(
         'tweets/search/stream',
         {
           'tweet.fields': [
@@ -255,7 +171,7 @@ export default {
           isReply: tweet.data.in_reply_to_user_id,
         }
 
-        store.increment(groupedTweet.user, groupedTweet)
+        hashtagStatsStore.increment(groupedTweet.user, groupedTweet)
       })
 
       // to prevent starting the stream again
@@ -269,7 +185,7 @@ export default {
 
       // send stored tweets to db every 30 minutes
       const saveTweets = setInterval(async () => {
-        const storedData = Object.values(store.store)
+        const storedData = Object.values(hashtagStatsStore.store)
         const tweets = storedData.map(tweet => ({
           username: tweet.username,
           total: tweet.total,
@@ -292,7 +208,7 @@ export default {
       setTimeout(() => {
         stream.destroy()
         isStarted = false
-        store.reset()
+        hashtagStatsStore.reset()
         clearInterval(saveTweets)
       }, duration * 60 * 60 * 1000)
 
@@ -309,32 +225,32 @@ export default {
     }
   },
   async getHashtagStats() {
-    const lengthOfUsers = Object.keys(store.store).length
-    const mostActiveFiveUsers = Object.values(store.store)
+    const lengthOfUsers = Object.keys(hashtagStatsStore.store).length
+    const mostActiveFiveUsers = Object.values(hashtagStatsStore.store)
       .sort((a, b) => b.total - a.total)
       .slice(0, 5)
-    const mostRetweetedFiveUsers = Object.values(store.store)
+    const mostRetweetedFiveUsers = Object.values(hashtagStatsStore.store)
       .sort((a, b) => b.retweet - a.retweet)
       .slice(0, 5)
 
-    const mostTweetedFiveUsers = Object.values(store.store)
+    const mostTweetedFiveUsers = Object.values(hashtagStatsStore.store)
       .sort((a, b) => b.tweet - a.tweet)
       .slice(0, 5)
 
-    const mostretweetedByOther = Object.values(store.store)
+    const mostretweetedByOther = Object.values(hashtagStatsStore.store)
       .sort((a, b) => b.getRetweeted - a.getRetweeted)
       .slice(0, 5)
 
-    const mostRepliedFiveUsers = Object.values(store.store)
+    const mostRepliedFiveUsers = Object.values(hashtagStatsStore.store)
       .sort((a, b) => b.replies - a.replies)
       .slice(0, 5)
-    const fiveUsersWithMostReplies = Object.values(store.store)
+    const fiveUsersWithMostReplies = Object.values(hashtagStatsStore.store)
       .sort((a, b) => b.getReplies - a.getReplies)
       .slice(0, 5)
 
     return {
       activeUsers: lengthOfUsers,
-      totalActivity: store.totalActivity,
+      totalActivity: hashtagStatsStore.totalActivity,
       mostActiveFiveUsers,
       mostRetweetedFiveUsers,
       mostTweetedFiveUsers,

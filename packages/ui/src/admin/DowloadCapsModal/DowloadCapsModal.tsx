@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react'
+import React, { FC } from 'react'
 
 import {
   Button,
@@ -9,11 +9,6 @@ import {
   DrawerFooter,
   DrawerHeader,
   DrawerOverlay,
-  Menu,
-  MenuButton,
-  MenuItemOption,
-  MenuList,
-  MenuOptionGroup,
   Stack,
   useDisclosure,
   useUpdateEffect,
@@ -24,8 +19,8 @@ import { useRouter } from 'next/router'
 import { FaDownload } from 'react-icons/fa'
 
 import { ASSETS_URL, SITE_URL } from '@wsvvrijheid/config'
-import { useSearchModel } from '@wsvvrijheid/services'
-import { Hashtag, Post, StrapiLocale } from '@wsvvrijheid/types'
+import { useStrapiRequest } from '@wsvvrijheid/services'
+import { Post } from '@wsvvrijheid/types'
 import { getOgImageSrc } from '@wsvvrijheid/utils'
 
 import { Caps, WImage } from '../../components'
@@ -36,19 +31,18 @@ type DowloadCapsModalType = {
 
 export const DowloadCapsModal: FC<DowloadCapsModalType> = ({ id }) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const btnRef = React.useRef()
+  const btnRef = React.useRef<HTMLButtonElement>(null)
 
   const { locale } = useRouter()
 
-  const postsQuery = useSearchModel<Post>({
+  const postsQuery = useStrapiRequest<Post>({
     url: 'api/posts',
-    relationFilter: {
-      parent: 'hashtag',
-      ids: [id],
+    filters: {
+      ...(id && { hashtag: { id: { $eq: id } } }),
+      approvalStatus: { $eq: 'approved' },
     },
-    locale: locale as StrapiLocale,
-    statuses: ['approved'],
-    publicationState: 'preview',
+    locale,
+    includeDrafts: true,
   })
   const handleClose = () => {
     onClose()
@@ -57,10 +51,9 @@ export const DowloadCapsModal: FC<DowloadCapsModalType> = ({ id }) => {
   const postMedias =
     postsQuery?.data?.data
       ?.map(post => {
-        console.log('post', post)
         const imageSrc = post.image?.url && ASSETS_URL + post.image?.url
         const title = post?.title
-        const text = post?.description
+        const text = post?.description || undefined
         const capsSrc = post.caps?.url && ASSETS_URL + post.caps?.url
         const imageParams = post.imageParams && {
           image: imageSrc,
@@ -100,14 +93,14 @@ export const DowloadCapsModal: FC<DowloadCapsModalType> = ({ id }) => {
         const imageSrc = media.capsSrc || media.autoCapsPath || media.imageSrc
 
         try {
-          const response = await fetch(imageSrc)
+          const response = await fetch(imageSrc as string)
           const blob = response && (await response.blob())
 
           if (!blob) return
 
           if (!blob.size) return
 
-          imgFolder.file(`image-${index}.jpeg`, blob)
+          imgFolder?.file(`image-${index}.jpeg`, blob)
         } catch (error) {
           console.log('try error', error)
         }
@@ -154,10 +147,10 @@ export const DowloadCapsModal: FC<DowloadCapsModalType> = ({ id }) => {
                       key={index}
                       h={48}
                       imageParams={{
+                        ...media.imageParams,
                         image: media.imageSrc,
                         title: media.title,
                         text: media.text,
-                        ...media.imageParams,
                       }}
                     />
                   )

@@ -9,22 +9,5 @@
     "clean": "rm -rf .turbo && rm -rf node_modules",
     "storybook": "storybook dev",
     "storybook-build": "storybook build"
-  },
-  "devDependencies": {
-    "@chakra-ui/storybook-addon": "^4.0.16",
-    "@storybook/addon-essentials": "^7.0.20",
-    "@storybook/builder-webpack5": "^7.0.20",
-    "@storybook/core-common": "^7.0.20",
-    "@storybook/core-server": "^7.0.20",
-    "@storybook/nextjs": "^7.0.20",
-    "@storybook/react": "^7.0.20",
-    "@storybook/types": "^7.0.20",
-    "browserify-fs": "^1.0.0",
-    "i18next-browser-languagedetector": "^7.0.2",
-    "i18next-http-backend": "^2.2.1",
-    "os-browserify": "^0.3.0",
-    "path-browserify": "^1.0.1",
-    "storybook": "^7.0.20",
-    "stream-browserify": "^3.0.0"
   }
 }

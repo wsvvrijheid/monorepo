@@ -16,68 +16,17 @@ import {
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useTranslation } from 'next-i18next'
-import { TFunction } from 'next-i18next'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import * as yup from 'yup'
-
-import { Job } from '@wsvvrijheid/types'
+import { ObjectSchema } from 'yup'
 
 import { heardFrom } from './data'
+import { joinSchema } from './schema'
 import { JoinFormFieldValues, JoinFormFProps } from './types'
 import { FormItem } from '../FormItem'
-
-// TODO: @ekrem fix yup schema add methot and reduce opt.
-// Link: https://stackoverflow.com/questions/69176340/yup-addmethod-not-working-in-typescript-yup-version
-
-function generateSchema(t: TFunction, jobs: Partial<Job>[]) {
-  yup.addMethod(
-    yup.object,
-    'atLeastOneRequired',
-    function (list: Array<any>, message) {
-      return this.test({
-        name: 'atLeastOneRequired',
-        message,
-        exclusive: true,
-        params: { keys: list.join(', ') },
-        test: value =>
-          value == null || list.some(f => !!value[`${f.id}_${f.slug}`]),
-      })
-    },
-  )
-
-  return yup.object().shape({
-    name: yup.string().required(t('apply-form.name.required') as string),
-    age: yup.number().required(t('apply-form.age.required') as string),
-    city: yup.string().required(t('apply-form.city.required') as string),
-    email: yup
-      .string()
-      .email(t('apply-form.email.invalid') as string)
-      .required(t('apply-form.email.required') as string),
-    phone: yup.string().required(t('apply-form.phone.required') as string),
-    occupation: yup.string(),
-    comment: yup.string(),
-    inMailingList: yup.boolean(),
-    isPublic: yup.boolean(),
-    availableHours: yup
-      .number()
-      .min(1)
-      .max(40)
-      .required(t('apply-form.available-hours.required') as string),
-    heardFrom: yup
-      .array()
-      .required(t('apply-form.jobs.required') as string)
-      .min(1),
-    jobs: yup
-      .array()
-      .required(t('apply-form.jobs.required') as string)
-      .min(1),
-  })
-}
 
 export const JoinForm: FC<JoinFormFProps> = ({
   onSubmitHandler,
   isLoading,
-  jobs = [],
   platforms = [],
   locale,
 }) => {
@@ -88,11 +37,11 @@ export const JoinForm: FC<JoinFormFProps> = ({
     handleSubmit,
     formState: { errors },
   } = useForm<JoinFormFieldValues>({
-    resolver: yupResolver(generateSchema(t, jobs)),
+    resolver: yupResolver(joinSchema(t) as ObjectSchema<JoinFormFieldValues>),
     mode: 'onTouched',
     defaultValues: {
       name: '',
-      age: null,
+      age: 0,
       city: '',
       email: '',
       phone: '',

@@ -2,15 +2,14 @@ import { FC } from 'react'
 
 import { Box, Heading, Stack } from '@chakra-ui/react'
 import { GetStaticPropsContext } from 'next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { serialize } from 'next-mdx-remote/serialize'
 
-import { ASSETS_URL } from '@wsvvrijheid/config'
+import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
+import { StrapiLocale } from '@wsvvrijheid/types'
 import { Container, Hero, Markdown } from '@wsvvrijheid/ui'
 
 import { Layout } from '../../../components'
-import i18nConfig from '../../../next-i18next.config'
 
 export type SoftwareProps = {
   source: MDXRemoteSerializeResult
@@ -40,7 +39,7 @@ const SoftwarePage: FC<SoftwareProps> = ({ title, source }) => {
 export default SoftwarePage
 
 export const getStaticProps = async (context: GetStaticPropsContext) => {
-  const { locale } = context
+  const locale = context.locale as StrapiLocale
 
   const content = {
     en: 'With the developing technology, the biggest need is software. The more effectively you can use the software, the more successful you will be in fulfilling your goals. For these purposes, we have established a software team consisting of our volunteer software developers. They selflessly support us. Below you will see the software projects produced by our foundation and those who contributed to it. <br/>We use technologies such as javascript, react, next.js, strapi, chakra-ui in our software projects. If you have received basic education in these areas and want to gain experience, we welcome you to our team.',
@@ -61,7 +60,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
 
   return {
     props: {
-      ...(await serverSideTranslations(locale, ['common'], i18nConfig)),
+      ...(await ssrTranslations(locale)),
       title: seo.title[locale],
       source,
     },

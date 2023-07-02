@@ -2,10 +2,10 @@ import { FC } from 'react'
 
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { useTranslation } from 'next-i18next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import { Request } from '@wsvvrijheid/lib'
-import { Platform } from '@wsvvrijheid/types'
+import { strapiRequest } from '@wsvvrijheid/lib'
+import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
+import { Platform, StrapiLocale } from '@wsvvrijheid/types'
 import { DonationTemplate } from '@wsvvrijheid/ui'
 
 import { Layout } from '../../components'
@@ -23,13 +23,15 @@ const DonationPage: FC<DonationPageProps> = ({ platforms }) => {
 }
 
 export const getStaticProps = async (context: GetStaticPropsContext) => {
-  const platforms = await Request.collection<Platform[]>({
+  const locale = context.locale as StrapiLocale
+
+  const platforms = await strapiRequest<Platform>({
     url: 'api/platforms',
   })
 
   return {
     props: {
-      ...(await serverSideTranslations(context.locale, ['common'])),
+      ...(await ssrTranslations(locale)),
       platforms,
     },
     revalidate: 1,

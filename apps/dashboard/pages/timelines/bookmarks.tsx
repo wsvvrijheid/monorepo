@@ -1,14 +1,12 @@
 import { FC } from 'react'
 
-import { InferGetStaticPropsType } from 'next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { NextSeoProps } from 'next-seo'
 import { useLocalStorage } from 'usehooks-ts'
 
-import { Tweet } from '@wsvvrijheid/types'
+import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
+import { StrapiLocale, Tweet } from '@wsvvrijheid/types'
 import { AdminLayout, Container, MasonryGrid, TweetCard } from '@wsvvrijheid/ui'
-
-import i18nConfig from '../../next-i18next.config'
 
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>
 
@@ -28,8 +26,8 @@ const TweetBookmarkedPage: FC<PageProps> = ({ seo }) => {
   )
 }
 
-export const getStaticProps = async context => {
-  const { locale } = context
+export const getStaticProps = async (context: GetStaticPropsContext) => {
+  const locale = context.locale as StrapiLocale
 
   const title = {
     en: 'Bookmarked Tweets',
@@ -44,11 +42,7 @@ export const getStaticProps = async context => {
   return {
     props: {
       seo,
-      ...(await serverSideTranslations(
-        locale,
-        ['common', 'admin'],
-        i18nConfig,
-      )),
+      ...(await ssrTranslations(locale, ['admin'])),
     },
   }
 }

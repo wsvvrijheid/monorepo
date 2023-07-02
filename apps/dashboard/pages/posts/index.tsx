@@ -3,15 +3,14 @@ import { FC, useEffect, useMemo, useState } from 'react'
 import {
   MenuItemOption,
   MenuOptionGroup,
-  Stack,
   useUpdateEffect,
 } from '@chakra-ui/react'
-import { InferGetStaticPropsType } from 'next'
+import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { useRouter } from 'next/router'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
 
-import { useSearchModel } from '@wsvvrijheid/services'
+import { useStrapiRequest } from '@wsvvrijheid/services'
+import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import { Hashtag, Post, Sort, StrapiLocale } from '@wsvvrijheid/types'
 import {
   AdminLayout,
@@ -20,49 +19,51 @@ import {
   postColumns,
 } from '@wsvvrijheid/ui'
 
-import i18nConfig from '../../next-i18next.config'
-
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>
 
 const PostsPage: FC<PageProps> = ({ seo }) => {
-  const [currentPage, setCurrentPage] = useState<number>()
+  const [currentPage, setCurrentPage] = useState<number>(1)
 
   const [searchTerm, setSearchTerm] = useState<string>()
   const { locale, push } = useRouter()
 
   const [sort, setSort] = useState<Sort>()
 
-  const [hashtagsFilter, setHashtagsFilter] = useState<number[]>([])
+  const [hashtagIds, setHashtagIds] = useState<number[]>([])
 
-  const postsQuery = useSearchModel<Post>({
+  const postsQuery = useStrapiRequest<Post>({
     url: 'api/posts',
     page: currentPage || 1,
-    searchTerm,
-    relationFilter: {
-      parent: 'hashtag',
-      ids: hashtagsFilter,
+    filters: {
+      ...(hashtagIds.length > 0 && {
+        hashtag: { id: { $eq: hashtagIds } },
+      }),
+      ...(searchTerm && { [`title_${locale}`]: { $containsi: searchTerm } }),
+      approvalStatus: { $eq: 'approved' },
     },
     sort,
-    locale: locale as StrapiLocale,
-    statuses: ['approved'],
-    publicationState: 'preview',
+    locale,
+    includeDrafts: true,
   })
 
-  const hashtagsQuery = useSearchModel<Hashtag>({
+  const hashtagsQuery = useStrapiRequest<Hashtag>({
     url: 'api/hashtags',
-    locale: locale as StrapiLocale,
-    publicationState: 'preview',
+    locale,
+    includeDrafts: true,
     fields: ['id', 'title'],
+    queryOptions: {
+      enabled: hashtagIds.length > 0,
+    },
   })
 
-  useEffect(() => setCurrentPage(1), [hashtagsFilter])
+  useEffect(() => setCurrentPage(1), [hashtagIds])
 
-  const handleSearch = (search: string) => {
+  const handleSearch = (search?: string) => {
     search ? setSearchTerm(search) : setSearchTerm(undefined)
   }
 
   const postsData = postsQuery?.data?.data
-  const totalCount = postsQuery?.data?.meta?.pagination?.pageCount
+  const totalCount = postsQuery?.data?.meta?.pagination?.pageCount || 0
 
   const posts = useMemo(
     () =>
@@ -75,13 +76,15 @@ const PostsPage: FC<PageProps> = ({ seo }) => {
 
   useUpdateEffect(() => {
     postsQuery.refetch()
-  }, [locale, searchTerm, sort, hashtagsFilter])
+  }, [locale, searchTerm, sort, hashtagIds])
 
   const filterMenu = (
     <MenuOptionGroup
       title="Hastags"
       type="checkbox"
-      onChange={(value: string[]) => setHashtagsFilter(value.map(v => +v))}
+      onChange={(value: string | string[]) =>
+        setHashtagIds((value as string[]).map(v => +v))
+      }
     >
       {hashtagsQuery.data?.data?.map(hashtag => (
         <MenuItemOption key={hashtag.id} value={`${hashtag.id}`}>
@@ -103,21 +106,23 @@ const PostsPage: FC<PageProps> = ({ seo }) => {
         onSearch={handleSearch}
         searchPlaceHolder={'Search by title or description'}
       />
-      <DataTable<Post>
-        columns={postColumns}
-        data={posts}
-        totalCount={totalCount}
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-        onSort={setSort}
-        onClickRow={handleClick}
-      />
+      {posts && (
+        <DataTable<Post>
+          columns={postColumns}
+          data={posts}
+          totalCount={totalCount}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          onSort={setSort}
+          onClickRow={handleClick}
+        />
+      )}
     </AdminLayout>
   )
 }
 
-export const getStaticProps = async context => {
-  const { locale } = context
+export const getStaticProps = async (context: GetStaticPropsContext) => {
+  const locale = context.locale as StrapiLocale
 
   const title = {
     en: 'Posts',
@@ -132,11 +137,7 @@ export const getStaticProps = async context => {
   return {
     props: {
       seo,
-      ...(await serverSideTranslations(
-        locale,
-        ['common', 'admin'],
-        i18nConfig,
-      )),
+      ...(await ssrTranslations(locale, ['admin'])),
     },
   }
 }

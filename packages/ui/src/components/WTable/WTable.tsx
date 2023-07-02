@@ -41,7 +41,7 @@ export const WTable = <T extends StrapiModel>({
         onSort?.([`${selectedColumn}:${sortMode}`])
       }
     } else if (!sortMode && selectedColumn) {
-      onSort?.(null)
+      onSort?.(undefined)
     }
   }, [sortMode, selectedColumn])
 

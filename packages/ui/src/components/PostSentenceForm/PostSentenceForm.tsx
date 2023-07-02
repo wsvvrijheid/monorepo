@@ -7,12 +7,10 @@ import { FaPlus } from 'react-icons/fa'
 import {
   useCreateHashtagSentence,
   useGetHashtagSentences,
-  useHashtag,
 } from '@wsvvrijheid/services'
 
 import { PostSentenceFormItem } from './PostSentenceFormItem'
 import { PostSentenceFormProps } from './types'
-import { usePostContext } from '../../post-maker/PostProvider'
 
 export const PostSentenceForm: FC<PostSentenceFormProps> = ({
   id,

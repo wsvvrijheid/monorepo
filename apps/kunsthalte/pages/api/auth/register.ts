@@ -49,7 +49,7 @@ const registerRoute = async (req: NextApiRequest, res: NextApiResponse) => {
 
     await req.session.save()
     res.json(auth)
-  } catch (error) {
+  } catch (error: any) {
     if (!error.response?.data?.error.message) {
       return res.status(500).json({ message: 'Internal server error' })
     } else {

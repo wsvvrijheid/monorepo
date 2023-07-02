@@ -1,12 +1,14 @@
+import { FC } from 'react'
+
 import { Button, HStack, Text } from '@chakra-ui/react'
 import { useQueryClient } from '@tanstack/react-query'
 import { track } from '@vercel/analytics'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { TwitterShareButton } from 'next-share'
+import { FaTwitter } from 'react-icons/fa'
 import { GoMention } from 'react-icons/go'
 import { MdTrendingUp } from 'react-icons/md'
-import { RxTwitterLogo } from 'react-icons/rx'
 
 import { SITE_URL } from '@wsvvrijheid/config'
 import { useHashtag, useUpdateHashtagSentence } from '@wsvvrijheid/services'
@@ -17,7 +19,15 @@ import { PostMakerTweetShare } from './PostMakerTweetShare'
 import { useHashtagContext } from '../HashtagProvider'
 import { usePostContext } from '../PostProvider'
 
-export const PostMakerTweetButtons = ({ isAdminMode, isIosSafari }) => {
+type PostMakerTweetButtonsProps = {
+  isAdminMode?: boolean
+  isIosSafari?: boolean
+}
+
+export const PostMakerTweetButtons: FC<PostMakerTweetButtonsProps> = ({
+  isAdminMode,
+  isIosSafari,
+}) => {
   const router = useRouter()
   const { setActivePostId, mentionsDisclosure, trendsDisclosure } =
     useHashtagContext()
@@ -29,12 +39,11 @@ export const PostMakerTweetButtons = ({ isAdminMode, isIosSafari }) => {
   const queryClient = useQueryClient()
   const updatePostSentence = useUpdateHashtagSentence()
 
-  // @ts-ignore
   const { t } = useTranslation()
 
-  if (!sentence) return null
+  if (!sentence || !post) return null
 
-  const url = `\n\n${SITE_URL}${asPath}/${post.id}`
+  const url = `\n\n${SITE_URL}${asPath}?id=${post.id}`
 
   const baseUrl = 'https://twitter.com/intent/tweet'
   const params = {
@@ -84,7 +93,7 @@ export const PostMakerTweetButtons = ({ isAdminMode, isIosSafari }) => {
   if (!post) return null
 
   return (
-    <HStack justifyContent={'space-between'}>
+    <HStack justifyContent={'space-between'} spacing={4}>
       <Button
         variant={'ghost'}
         onClick={() => {
@@ -95,7 +104,7 @@ export const PostMakerTweetButtons = ({ isAdminMode, isIosSafari }) => {
         iconSpacing={{ base: 0, md: 2 }}
         leftIcon={<GoMention />}
       >
-        <Text display={{ base: 'none', md: 'block' }}>
+        <Text isTruncated display={{ base: 'none', md: 'block' }}>
           {t('post.add-mention')}
         </Text>
       </Button>
@@ -110,7 +119,7 @@ export const PostMakerTweetButtons = ({ isAdminMode, isIosSafari }) => {
         iconSpacing={{ base: 0, md: 2 }}
         leftIcon={<MdTrendingUp />}
       >
-        <Text display={{ base: 'none', md: 'block' }}>
+        <Text isTruncated display={{ base: 'none', md: 'block' }}>
           {t('post.add-trend')}
         </Text>
       </Button>
@@ -119,17 +128,15 @@ export const PostMakerTweetButtons = ({ isAdminMode, isIosSafari }) => {
 
       {!isIosSafari && (
         <Button
-          variant={'ghost'}
           iconSpacing={{ base: 0, md: 2 }}
-          leftIcon={<RxTwitterLogo />}
+          leftIcon={<FaTwitter />}
           onClick={() => {
             onShare().then(() => onTweet())
           }}
           rightIcon={<Text>{sentence.shareCount}</Text>}
+          fontWeight={600}
         >
-          <Text mr={2} display={{ base: 'none', md: 'block' }}>
-            Tweet
-          </Text>
+          <Text mr={2}>Tweet</Text>
         </Button>
       )}
 
@@ -137,14 +144,12 @@ export const PostMakerTweetButtons = ({ isAdminMode, isIosSafari }) => {
         <TwitterShareButton url={url} title={postContent}>
           <Button
             as={'span'}
-            variant={'ghost'}
             iconSpacing={{ base: 0, md: 2 }}
-            leftIcon={<RxTwitterLogo />}
+            leftIcon={<FaTwitter />}
             onClick={onShare}
+            fontWeight={600}
           >
-            <Text mr={2} display={{ base: 'none', md: 'block' }}>
-              Tweet
-            </Text>
+            <Text mr={2}>Tweet</Text>
             <Text>{sentence.shareCount}</Text>
           </Button>
         </TwitterShareButton>
@@ -153,7 +158,7 @@ export const PostMakerTweetButtons = ({ isAdminMode, isIosSafari }) => {
       <PostMakerTweetShare
         url={url}
         content={post?.description as string}
-        isAdminMode={isAdminMode}
+        isAdminMode={Boolean(isAdminMode)}
       />
     </HStack>
   )

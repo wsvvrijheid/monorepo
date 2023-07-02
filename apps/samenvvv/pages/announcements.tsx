@@ -3,22 +3,22 @@ import { FC } from 'react'
 import { Box, Text } from '@chakra-ui/react'
 import { QueryClient } from '@tanstack/react-query'
 import { isPast } from 'date-fns'
-import { GetServerSideProps } from 'next'
+import { GetServerSidePropsContext } from 'next'
 import Head from 'next/head'
 import { useTranslation } from 'next-i18next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { serialize } from 'next-mdx-remote/serialize'
 import { NextSeoProps } from 'next-seo'
 
 import { SITE_URL } from '@wsvvrijheid/config'
-import { searchModel, SearchModelArgs } from '@wsvvrijheid/services'
+import { RequestCollectionArgs, strapiRequest } from '@wsvvrijheid/lib'
+import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import {
   Hashtag,
   StrapiCollectionResponse,
   StrapiLocale,
 } from '@wsvvrijheid/types'
-import { Container, Hero, Navigate, HashtagAnnouncement } from '@wsvvrijheid/ui'
+import { Container, HashtagAnnouncement, Hero, Navigate } from '@wsvvrijheid/ui'
 import {
   getItemLink,
   getOgImageSrc,
@@ -26,7 +26,6 @@ import {
 } from '@wsvvrijheid/utils'
 
 import { Layout } from '../components'
-import i18nConfig from '../next-i18next.config'
 
 type HashtagEventsProps = {
   seo: NextSeoProps
@@ -50,7 +49,7 @@ const AnnouncementEvent: FC<HashtagEventsProps> = ({
         {seo?.openGraph && (
           <meta
             property="twitter:image:src"
-            content={seo.openGraph.images[0].url}
+            content={seo.openGraph.images?.[0]?.url}
           />
         )}
       </Head>
@@ -79,26 +78,24 @@ const AnnouncementEvent: FC<HashtagEventsProps> = ({
 
 export default AnnouncementEvent
 
-export const getServerSideProps: GetServerSideProps = async context => {
+export const getServerSideProps = async (
+  context: GetServerSidePropsContext,
+) => {
   const locale = context.locale as StrapiLocale
   const queryClient = new QueryClient()
 
-  const ssrTranslations = await serverSideTranslations(
-    locale as StrapiLocale,
-    ['common'],
-    i18nConfig,
-  )
-
-  const args: SearchModelArgs<Hashtag> = {
+  const args: RequestCollectionArgs = {
     url: 'api/hashtags',
     locale,
-    statuses: ['approved'],
+    filters: {
+      approvalStatus: { eq: 'approved' },
+    },
     pageSize: 1,
   }
 
   const queryKey = Object.values(args)
 
-  await queryClient.prefetchQuery(queryKey, () => searchModel<Hashtag>(args))
+  await queryClient.prefetchQuery(queryKey, () => strapiRequest<Hashtag>(args))
 
   const hashtagsResponse =
     queryClient.getQueryData<StrapiCollectionResponse<Hashtag[]>>(queryKey)
@@ -126,7 +123,7 @@ export const getServerSideProps: GetServerSideProps = async context => {
   if (!hashtag) {
     return {
       props: {
-        ...ssrTranslations,
+        ...(await ssrTranslations(locale)),
         seo: { title: title[locale] },
         hashtag: null,
       },
@@ -171,14 +168,14 @@ export const getServerSideProps: GetServerSideProps = async context => {
     },
   }
 
-  const source = (await serialize(hashtag.content)) || null
+  const source = await serialize(hashtag.content || '')
   const hasStarted = hashtag.date
     ? isPast(new Date(hashtag.date as string))
     : false
 
   return {
     props: {
-      ...ssrTranslations,
+      ...(await ssrTranslations(locale)),
       seo,
       source,
       hashtag,

@@ -1,24 +1,34 @@
 import {
-  PublicationState,
+  Sort,
+  StrapiCollectionUrl,
   StrapiLocale,
-  StrapiModel,
-  StrapiUrl,
+  StrapiSingleUrl,
 } from '@wsvvrijheid/types'
 
-export type RequestArgs<T extends StrapiModel> = {
-  url: StrapiUrl
-  token?: string
-  locale?: StrapiLocale
-  fields?: (keyof T)[]
-  filters?: { [key: string]: unknown }
+export type RequestCommonArgs = {
+  fields?: string[]
+  includeDrafts?: boolean
   populate?: string | string[]
-  sort?: string | string[]
-  page?: number
-  pageSize?: number
-  publicationState?: PublicationState
+  token?: string
 }
 
-export type RequestSingleArgs<T extends StrapiModel> = Pick<
-  RequestArgs<T>,
-  'url' | 'token' | 'locale' | 'fields' | 'populate' | 'publicationState'
-> & { id?: number }
+export type RequestCollectionArgs = RequestCommonArgs & {
+  filters?: { [key: string]: unknown }
+  locale?: StrapiLocale
+  page?: number
+  pageSize?: number
+  sort?: Sort
+  url: StrapiCollectionUrl
+}
+
+export type RequestByIdArgs = RequestCommonArgs & {
+  id: number
+  url: StrapiCollectionUrl
+}
+
+export type SingleTypeArgs = RequestCommonArgs & {
+  url: StrapiSingleUrl
+  locale?: StrapiLocale
+}
+
+export type RequestSingleArgs = RequestByIdArgs | SingleTypeArgs

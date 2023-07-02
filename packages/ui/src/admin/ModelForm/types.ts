@@ -5,15 +5,15 @@ import {
   FieldValues,
   UseFormReturn,
 } from 'react-hook-form'
-import { AssertsShape, OptionalObjectSchema } from 'yup/lib/object'
+import { AnyObjectSchema } from 'yup'
 
-import { Role, StrapiModel, StrapiUrl } from '@wsvvrijheid/types'
+import { RoleType, StrapiCollectionUrl, StrapiModel } from '@wsvvrijheid/types'
 
 import { WSelectProps } from '../../components'
 
 export type MentionSelectProps = {
   isEditing: boolean
-  control: Control<AssertsShape<any>, any>
+  control: Control
   errors: Partial<
     FieldErrorsImpl<{
       [x: string]: any
@@ -37,7 +37,7 @@ type FormTextFields = {
 type FormSelectFields = {
   type: 'select'
   isMulti?: boolean
-  url: StrapiUrl
+  url: StrapiCollectionUrl
 }
 
 type FormCommonFields<T extends StrapiModel> = {
@@ -53,10 +53,10 @@ export type FormFields<T extends StrapiModel> = Array<
 >
 
 export type ModelCreateFormProps<T extends StrapiModel> = {
-  url: StrapiUrl
+  url: StrapiCollectionUrl
   fields: FormFields<T>
   model?: Partial<T>
-  schema: OptionalObjectSchema<any>
+  schema: AnyObjectSchema
   buttonProps?: ButtonProps
   hideLanguageSwitcher?: boolean
   onSuccess?: () => void
@@ -64,24 +64,24 @@ export type ModelCreateFormProps<T extends StrapiModel> = {
 export type ModelCreateFormBodyProps<T extends StrapiModel> = {
   fields: FormFields<T>
   activeOption?: string
-  formProps: UseFormReturn<AssertsShape<any>, any>
+  formProps: UseFormReturn
   model?: Partial<T>
 }
 
 export type ModelEditFormProps<T extends StrapiModel> = {
-  url: StrapiUrl
+  url: StrapiCollectionUrl
   model: T
   translatedFields?: (keyof T)[]
   fields: FormFields<T>
-  schema: OptionalObjectSchema<any>
+  schema: AnyObjectSchema
   hideLanguageSwitcher?: boolean
   noColumns?: boolean
   onSuccess: () => void
   onClose?: () => void
-  approverRoles?: Role['type'][]
-  removerRoles?: Role['type'][]
-  editorRoles?: Role['type'][]
-  publisherRoles?: Role['type'][]
+  approverRoles?: RoleType[]
+  removerRoles?: RoleType[]
+  editorRoles?: RoleType[]
+  publisherRoles?: RoleType[]
 }
 
 export type ModelEditModalProps<T extends StrapiModel> = Omit<
@@ -98,8 +98,8 @@ export type ModelEditModalProps<T extends StrapiModel> = Omit<
   }
 
 export type ModelSelectProps = WSelectProps<FieldValues> & {
-  url: StrapiUrl
-  control: Control<AssertsShape<any>, any>
+  url: StrapiCollectionUrl
+  control: Control
   tooltip?: string
   errors: Partial<
     FieldErrorsImpl<{

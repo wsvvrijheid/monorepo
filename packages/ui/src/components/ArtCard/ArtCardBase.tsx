@@ -22,7 +22,6 @@ import {
   usePublishModel,
   useUnpublishModel,
 } from '@wsvvrijheid/services'
-import { StrapiLocale } from '@wsvvrijheid/types'
 
 import { ArtCardActions } from './ArtCardActions'
 import { ArtCardAlertDialog } from './ArtCardAlertDialog'
@@ -54,7 +53,7 @@ export const ArtCardBase: FC<ArtCardBaseProps> = ({
   const [color, setColor] = useState('white')
 
   const router = useRouter()
-  const locale = router.locale as StrapiLocale
+  const locale = router.locale
 
   const deleteMutation = useDeleteModel('api/arts', queryKey)
   const publishMutation = usePublishModel('api/arts', queryKey)
@@ -217,7 +216,7 @@ export const ArtCardBase: FC<ArtCardBaseProps> = ({
               p={2}
               pb={0}
             >
-              {art?.[`title_${router.locale as StrapiLocale}`]}
+              {art?.[`title_${router.locale}`]}
             </Text>
             <Navigate href={`/club/artist/${art.artist?.id}`}>
               <HStack

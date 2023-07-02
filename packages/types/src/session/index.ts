@@ -1,4 +1,4 @@
-import { Role } from '../role'
+import { RoleType } from '../role'
 import { User } from '../user'
 
 export type SessionUser = Pick<
@@ -8,7 +8,7 @@ export type SessionUser = Pick<
   applicantId?: number
   artistId?: number
   avatar?: string
-  roles: Role['type'][]
+  roles: RoleType[]
   name?: string
   volunteerId?: number
 }

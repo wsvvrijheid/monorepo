@@ -1,12 +1,17 @@
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { FC } from 'react'
+
+import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 
 import { useAuthContext } from '@wsvvrijheid/context'
+import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
+import { StrapiLocale } from '@wsvvrijheid/types'
 import { AuthenticatedUserProfile } from '@wsvvrijheid/ui'
 
 import { Layout } from '../components'
-import i18nConfig from '../next-i18next.config'
 
-const Profile = ({ seo }) => {
+type ProfileProps = InferGetStaticPropsType<typeof getStaticProps>
+
+const Profile: FC<ProfileProps> = ({ seo }) => {
   const { isLoggedIn } = useAuthContext()
 
   return (
@@ -18,8 +23,8 @@ const Profile = ({ seo }) => {
 
 export default Profile
 
-export const getStaticProps = async context => {
-  const { locale } = context
+export const getStaticProps = async (context: GetStaticPropsContext) => {
+  const locale = context.locale as StrapiLocale
 
   const title = {
     en: 'Profile',
@@ -41,7 +46,7 @@ export const getStaticProps = async context => {
   return {
     props: {
       seo,
-      ...(await serverSideTranslations(locale, ['common'], i18nConfig)),
+      ...(await ssrTranslations(locale)),
     },
   }
 }

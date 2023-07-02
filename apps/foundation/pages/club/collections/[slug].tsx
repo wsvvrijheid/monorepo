@@ -1,34 +1,31 @@
 import { FC, useEffect, useRef, useState } from 'react'
 
 import { useBreakpointValue } from '@chakra-ui/react'
-import {
-  GetStaticPaths,
-  GetStaticPropsContext,
-  InferGetStaticPropsType,
-} from 'next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 
 import { getCollectionBySlug, getModelStaticPaths } from '@wsvvrijheid/services'
-import { StrapiLocale } from '@wsvvrijheid/types'
+import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
+import { Localize, StrapiLocale } from '@wsvvrijheid/types'
 import { CollectionTemplate } from '@wsvvrijheid/ui'
 
 import { Layout } from '../../../components/Layout'
-import i18nConfig from '../../../next-i18next.config'
 
 type CollectionPageProps = InferGetStaticPropsType<typeof getStaticProps>
 
 const CollectionPage: FC<CollectionPageProps> = ({ seo, collection }) => {
-  const pageShow = useBreakpointValue({ base: 1, lg: 2 })
-  const centerRef = useRef(null)
+  const pageShow = useBreakpointValue({ base: 1, lg: 2 }) as number
+  const centerRef = useRef<HTMLDivElement>(null)
   const [height, setHeight] = useState(0)
   const [width, setWidth] = useState(0)
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     if (centerRef.current && pageShow) {
+      const center = centerRef.current
+
       setTimeout(() => {
-        setHeight(centerRef.current.offsetHeight - 60)
-        setWidth(centerRef.current.offsetWidth)
+        setHeight(center.offsetHeight - 60)
+        setWidth(center.offsetWidth)
         setIsLoading(false)
       }, 1000)
     }
@@ -51,11 +48,8 @@ const CollectionPage: FC<CollectionPageProps> = ({ seo, collection }) => {
 }
 export default CollectionPage
 
-export const getStaticPaths: GetStaticPaths = async context => {
-  return await getModelStaticPaths(
-    'api/collections',
-    context.locales as StrapiLocale[],
-  )
+export const getStaticPaths = async () => {
+  return await getModelStaticPaths('api/collections')
 }
 
 export const getStaticProps = async (context: GetStaticPropsContext) => {
@@ -72,9 +66,9 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
       acc[l.locale] = l.slug
 
       return acc
-    }, {}) || {}
+    }, {} as Localize<string>) || {}
 
-  const title = collection.title || null
+  const title = collection.title || ''
 
   const seo = {
     title,
@@ -82,7 +76,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
 
   return {
     props: {
-      ...(await serverSideTranslations(locale, ['common'], i18nConfig)),
+      ...(await ssrTranslations(locale)),
       seo,
       slugs: { ...slugs, [locale]: slug },
       collection,

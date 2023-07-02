@@ -1,26 +1,11 @@
-import { UserV1, UserV2 } from 'twitter-api-v2'
-
 import { MentionUserData } from '@wsvvrijheid/types'
 
-import { twitterApi } from '../../../../libs'
+import { getUserByUsername } from '../../../../libs'
 
 export default {
   async afterCreate({ result }) {
     try {
-      const userResult = await twitterApi.v2.userByUsername(
-        result.username as unknown as string,
-        {
-          'user.fields': [
-            'public_metrics',
-            'profile_image_url',
-            'location',
-            'verified',
-            'description',
-          ],
-        },
-      )
-
-      console.log('userResult', userResult)
+      const userResult = await getUserByUsername(result.username)
 
       const user = userResult?.data
 

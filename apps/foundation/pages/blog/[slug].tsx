@@ -1,12 +1,9 @@
 import { FC } from 'react'
 
-import { dehydrate, QueryClient, QueryKey } from '@tanstack/react-query'
+import { dehydrate, QueryClient } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
-import { GetStaticPaths, GetStaticProps } from 'next/types'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { MDXRemoteSerializeResult } from 'next-mdx-remote'
+import { GetStaticPropsContext, InferGetStaticPropsType } from 'next/types'
 import { serialize } from 'next-mdx-remote/serialize'
-import { NextSeoProps } from 'next-seo'
 
 import { ASSETS_URL, SITE_URL } from '@wsvvrijheid/config'
 import {
@@ -17,18 +14,13 @@ import {
   useLikeBlog,
   useViewBlog,
 } from '@wsvvrijheid/services'
+import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import { Blog, StrapiLocale } from '@wsvvrijheid/types'
 import { BlogDetail, Container } from '@wsvvrijheid/ui'
 
 import { Layout } from '../../components'
-import i18nConfig from '../../next-i18next.config'
 
-type BlogPageProps = {
-  seo: NextSeoProps
-  queryKey: QueryKey
-  source: MDXRemoteSerializeResult
-  authorBlogs: Blog[]
-}
+type BlogPageProps = InferGetStaticPropsType<typeof getStaticProps>
 
 const BlogDetailPage: FC<BlogPageProps> = ({
   seo,
@@ -68,30 +60,28 @@ const BlogDetailPage: FC<BlogPageProps> = ({
 
 export default BlogDetailPage
 
-export const getStaticPaths: GetStaticPaths = async context => {
-  return await getModelStaticPaths(
-    'api/blogs',
-    context.locales as StrapiLocale[],
-  )
+export const getStaticPaths = async () => {
+  return await getModelStaticPaths('api/blogs')
 }
 
-export const getStaticProps: GetStaticProps = async context => {
+export const getStaticProps = async (context: GetStaticPropsContext) => {
   const queryClient = new QueryClient()
 
   const locale = context.locale as StrapiLocale
   const slug = context.params?.['slug'] as string
+  const queryKey = ['blog', locale, slug]
 
   await queryClient.prefetchQuery({
-    queryKey: ['blog', locale, slug],
+    queryKey,
     queryFn: () => getBlogBySlug(locale, slug),
   })
 
-  const blog = queryClient.getQueryData<Blog>(['blog', locale, slug])
+  const blog = queryClient.getQueryData<Blog>(queryKey)
 
   if (!blog) return { notFound: true }
 
-  const title = blog?.title || null
-  const description = blog?.description || null
+  const title = blog?.title || ''
+  const description = blog?.description || ''
   const adminUrl = ASSETS_URL
   const siteUrl = SITE_URL
   const image = blog.image
@@ -109,8 +99,8 @@ export const getStaticProps: GetStaticProps = async context => {
       type: 'article',
       url,
       article: {
-        publishedTime: blog.publishedAt,
-        modifiedTime: blog.updatedAt,
+        publishedTime: blog.publishedAt as string,
+        modifiedTime: blog.updatedAt as string,
         authors: [blog?.author?.name || blog?.author?.username || ''],
       },
       images: image
@@ -134,9 +124,10 @@ export const getStaticProps: GetStaticProps = async context => {
     props: {
       source,
       seo,
+      queryKey,
       dehydrateState: dehydrate(queryClient),
       authorBlogs,
-      ...(await serverSideTranslations(locale, ['common'], i18nConfig)),
+      ...(await ssrTranslations(locale)),
     },
     revalidate: 1,
   }

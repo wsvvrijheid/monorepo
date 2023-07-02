@@ -4,6 +4,8 @@ import { Box, BoxProps, forwardRef } from '@chakra-ui/react'
 import ReactMarkdown from 'react-markdown'
 import MdEditor from 'react-markdown-editor-lite'
 
+import 'react-markdown-editor-lite/lib/index.css'
+
 const hiddenButtons = [
   'underline',
   'strikethrough',

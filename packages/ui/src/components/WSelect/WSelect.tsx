@@ -23,11 +23,7 @@ export type WSelectProps<T extends FieldValues> = {
 } & Omit<FormItemProps<T>, 'register' | 'leftElement'> &
   SelectProps<SelectOption, boolean, GroupBase<SelectOption>>
 
-export type WSelectComponent = <T extends FieldValues>(
-  props: WSelectProps<T>,
-) => JSX.Element
-
-export const WSelect: WSelectComponent = ({
+export const WSelect = <T extends FieldValues = FieldValues>({
   control,
   name,
   label,
@@ -39,8 +35,8 @@ export const WSelect: WSelectComponent = ({
   options,
   tooltip,
   ...rest
-}) => {
-  const { field } = useController({
+}: WSelectProps<T>) => {
+  const { field } = useController<T>({
     name,
     control,
   })
@@ -81,6 +77,7 @@ export const WSelect: WSelectComponent = ({
         options={options}
         placeholder={placeholder || label}
         {...field}
+        onChange={val => field.onChange(val as any)}
         {...rest}
       />
 

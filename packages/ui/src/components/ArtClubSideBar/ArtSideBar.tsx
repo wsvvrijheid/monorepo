@@ -4,8 +4,8 @@ import { Box, Stack } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
-import { useSearchModel } from '@wsvvrijheid/services'
-import { Category, Collection, StrapiLocale } from '@wsvvrijheid/types'
+import { useStrapiRequest } from '@wsvvrijheid/services'
+import { Category, Collection } from '@wsvvrijheid/types'
 
 import { useChangeParams } from '../../hooks'
 import { CategoryFilter } from '../CategoryFilter'
@@ -29,9 +29,9 @@ export const ArtSideBar: FC<ArtSideBarProps> = ({
     query: { categories },
   } = useRouter()
 
-  const collectionsQuery = useSearchModel<Collection>({
+  const collectionsQuery = useStrapiRequest<Collection>({
     url: 'api/collections',
-    locale: locale as StrapiLocale,
+    locale,
   })
 
   const initialCategories = (categories as string)
@@ -49,7 +49,7 @@ export const ArtSideBar: FC<ArtSideBarProps> = ({
             selectCategories={value => changeParam({ categories: value })}
             setIsLoading={setIsLoading}
             title={t('categories')}
-            locale={locale as StrapiLocale}
+            locale={locale}
           />
         </Box>
       )}

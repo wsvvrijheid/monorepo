@@ -13,12 +13,12 @@ import {
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
-import { TFunction, Trans, useTranslation } from 'next-i18next'
+import { Trans, useTranslation } from 'next-i18next'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import * as yup from 'yup'
 
 import { useAuthContext } from '@wsvvrijheid/context'
 
+import { adminLoginSchema } from './schema'
 import {
   Container,
   FormItem,
@@ -26,14 +26,6 @@ import {
   Navigate,
   WImage,
 } from '../../components'
-
-const schema = (t: TFunction) =>
-  yup.object({
-    password: yup.string().required(t('login.password.required') as string),
-    identifier: yup
-      .string()
-      .required(t('login.email-or-username.required') as string),
-  })
 
 export const AdminLoginForm = () => {
   const { t } = useTranslation()
@@ -43,7 +35,7 @@ export const AdminLoginForm = () => {
     reset,
     formState: { errors },
   } = useForm<LoginFormFieldValues>({
-    resolver: yupResolver(schema(t)),
+    resolver: yupResolver(adminLoginSchema(t)),
     mode: 'all',
   })
 

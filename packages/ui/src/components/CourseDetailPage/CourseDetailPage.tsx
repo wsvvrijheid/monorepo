@@ -5,7 +5,6 @@ import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
 import { SITE_URL } from '@wsvvrijheid/config'
-import { StrapiLocale } from '@wsvvrijheid/types'
 
 import { CourseApplicationForm } from './CourseApplicationForm'
 import { CourseFaqs } from './CourseFaqs'
@@ -25,8 +24,8 @@ export const CourseDetailPage: FC<CourseDetailPageProps> = ({
 
   const { t } = useTranslation()
 
-  const title = course[`title_${(locale as StrapiLocale) || 'nl'}`]
-  const description = course[`description_${(locale as StrapiLocale) || 'nl'}`]
+  const title = course[`title_${locale || 'nl'}`]
+  const description = course[`description_${locale || 'nl'}`]
 
   const URL = `${SITE_URL}${asPath}`
 
@@ -34,7 +33,7 @@ export const CourseDetailPage: FC<CourseDetailPageProps> = ({
     <Container maxW={'6xl'}>
       <Stack spacing={12} pb={16} pt={4}>
         <Stack spacing={4}>
-          <WImage ratio={16 / 9} fill src={course.image} alt="" />
+          <WImage ratio={16 / 9} src={course.image} alt="" />
 
           <Stack
             justify={'space-between'}

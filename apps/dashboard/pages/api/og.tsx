@@ -71,17 +71,19 @@ async function handler(req: NextRequest) {
             position: 'relative',
           }}
         >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            style={{
-              ...absoluteStyle,
-              width: `${dimensions.image}px`,
-              objectFit: 'cover',
-              left: flip ? '0px' : `${dimensions.width - dimensions.image}px`,
-            }}
-            src={image}
-            alt={''}
-          />
+          {image && (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              style={{
+                ...absoluteStyle,
+                width: `${dimensions.image}px`,
+                objectFit: 'cover',
+                left: flip ? '0px' : `${dimensions.width - dimensions.image}px`,
+              }}
+              src={image}
+              alt={''}
+            />
+          )}
           <svg
             width={dimensions.shape}
             height={dimensions.height}

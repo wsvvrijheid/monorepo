@@ -1,3 +1,5 @@
+import { FC } from 'react'
+
 import {
   Box,
   Button,
@@ -9,28 +11,25 @@ import {
   VStack,
 } from '@chakra-ui/react'
 import { useMutation } from '@tanstack/react-query'
+import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { useRouter } from 'next/router'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { NextSeoProps } from 'next-seo'
 import { MdEmail } from 'react-icons/md'
 
 import { EMAIL_SENDER, socialLinks } from '@wsvvrijheid/config'
 import { TOKEN } from '@wsvvrijheid/secrets'
 import { sendEmail } from '@wsvvrijheid/services'
-import { EmailCreateInput } from '@wsvvrijheid/types'
+import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
+import { EmailCreateInput, StrapiLocale } from '@wsvvrijheid/types'
 import {
   ContactForm,
+  ContactFormFieldValues,
   Container,
   SocialButtons,
-  ContactFormFieldValues,
 } from '@wsvvrijheid/ui'
 
 import { Layout } from '../components'
-import i18nConfig from '../next-i18next.config'
 
-interface ContactProps {
-  seo: NextSeoProps
-}
+type ContactProps = InferGetStaticPropsType<typeof getStaticProps>
 
 const about = {
   tr: `Sanata ilgi duyan Hollanda’ya göç etmiş kişilerin hem online hem fiziki olarak buluştuğu, modern ve geleneksel sanatlar üzerine bilgi paylaşımı yaptıkları, aynı zamanda sanatsal aktiviteler organize ettikleri bir gruptur.`,
@@ -38,7 +37,7 @@ const about = {
   nl: `Kunsthalte is een groep waar mensen die naar Nederland zijn geëmigreerd, geïnteresseerd zijn in kunst, elkaar online en fysiek ontmoeten, hun ervaringen met elkaar delen, informatie delen over moderne en traditionele kunst en tegelijkertijd artistieke activiteiten organiseren.`,
 }
 
-const Contact = ({ seo }: ContactProps): JSX.Element => {
+const Contact: FC<ContactProps> = ({ seo }) => {
   const { locale } = useRouter()
 
   const {
@@ -126,8 +125,8 @@ const Contact = ({ seo }: ContactProps): JSX.Element => {
 
 export default Contact
 
-export const getStaticProps = async context => {
-  const { locale } = context
+export const getStaticProps = async (context: GetStaticPropsContext) => {
+  const locale = context.locale as StrapiLocale
 
   const title = {
     en: 'Contact',
@@ -149,7 +148,7 @@ export const getStaticProps = async context => {
   return {
     props: {
       seo,
-      ...(await serverSideTranslations(locale, ['common'], i18nConfig)),
+      ...(await ssrTranslations(locale)),
     },
   }
 }

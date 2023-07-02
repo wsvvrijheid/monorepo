@@ -12,7 +12,6 @@ import { useCreateModelMutation } from '@wsvvrijheid/services'
 import {
   Post,
   PostCreateInput,
-  StrapiLocale,
   StrapiModel,
   StrapiTranslatableCreateInput,
 } from '@wsvvrijheid/types'
@@ -112,7 +111,7 @@ export const ModelCreateForm = <T extends StrapiModel>({
       ...body,
       slug,
       publishedAt: url !== 'api/recommended-topics' ? null : new Date(),
-      locale: locale as StrapiLocale,
+      locale,
     } as StrapiTranslatableCreateInput
 
     if (url === 'api/posts') {

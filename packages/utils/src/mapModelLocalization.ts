@@ -2,7 +2,6 @@ import { isEmpty } from 'lodash'
 
 import {
   LocalizedModel,
-  StrapiLocale,
   StrapiTranslatableModel,
   TranslatableModel,
 } from '@wsvvrijheid/types'
@@ -11,7 +10,7 @@ export const mapModelLocalization = <T extends StrapiTranslatableModel>(
   model: TranslatableModel<T>,
   untranslatedFields?: (keyof TranslatableModel<T>)[],
 ) => {
-  const locale = model?.locale as StrapiLocale
+  const locale = model?.locale
   const defaultLocalizedModel = {
     [locale]: model,
   } as LocalizedModel<T>

@@ -1,13 +1,14 @@
 import { FC } from 'react'
 
 import { Box } from '@chakra-ui/react'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { GetStaticPropsContext } from 'next'
 import { NextSeoProps } from 'next-seo'
 
+import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
+import { StrapiLocale } from '@wsvvrijheid/types'
 import { SignupForm } from '@wsvvrijheid/ui'
 
 import { Layout } from '../components'
-import i18nConfig from '../next-i18next.config'
 
 const RegisterPage: FC<{ seo: NextSeoProps }> = ({ seo }) => {
   return (
@@ -21,8 +22,8 @@ const RegisterPage: FC<{ seo: NextSeoProps }> = ({ seo }) => {
 
 export default RegisterPage
 
-export const getStaticProps = async context => {
-  const { locale } = context
+export const getStaticProps = async (context: GetStaticPropsContext) => {
+  const locale = context.locale as StrapiLocale
 
   const title = {
     en: 'Register',
@@ -43,7 +44,7 @@ export const getStaticProps = async context => {
   return {
     props: {
       seo,
-      ...(await serverSideTranslations(locale, ['common'], i18nConfig)),
+      ...(await ssrTranslations(locale)),
     },
   }
 }

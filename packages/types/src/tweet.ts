@@ -1,4 +1,5 @@
 export type TweetUserBase = {
+  id: string
   name: string
   username: string
   profile: string

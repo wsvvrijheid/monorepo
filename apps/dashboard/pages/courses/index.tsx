@@ -1,43 +1,43 @@
 import { FC, useState } from 'react'
 
 import { MenuItem, useUpdateEffect } from '@chakra-ui/react'
-import { InferGetStaticPropsType } from 'next'
+import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { useRouter } from 'next/router'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { FaArrowDown, FaArrowUp } from 'react-icons/fa'
 
-import { useSearchModel } from '@wsvvrijheid/services'
-import { Course, Sort, StrapiLocale } from '@wsvvrijheid/types'
+import { useStrapiRequest } from '@wsvvrijheid/services'
+import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
+import { Course, Sort, StrapiLocale, StrapiModel } from '@wsvvrijheid/types'
 import {
   AdminLayout,
-  coursesColumns,
   DataTable,
   PageHeader,
+  coursesColumns,
 } from '@wsvvrijheid/ui'
-
-import i18nConfig from '../../next-i18next.config'
 
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>
 
 const CoursesPage: FC<PageProps> = ({ seo }) => {
-  const [currentPage, setCurrentPage] = useState<number>()
+  const [currentPage, setCurrentPage] = useState<number>(1)
   const [searchTerm, setSearchTerm] = useState<string>()
 
   const [sort, setSort] = useState<Sort>()
   const router = useRouter()
   const { locale } = useRouter()
 
-  const coursesQuery = useSearchModel<Course>({
+  const coursesQuery = useStrapiRequest<Course>({
     url: 'api/courses',
     populate: ['categories', 'tags', 'platforms', 'image', 'applications'],
     page: currentPage || 1,
     pageSize: 10,
-    searchTerm,
+    filters: {
+      ...(searchTerm && { [`title_${locale}`]: { $containsi: searchTerm } }),
+    },
     sort,
-    locale: locale as StrapiLocale,
+    locale,
   })
 
-  const handleSearch = (search: string) => {
+  const handleSearch = (search?: string) => {
     search ? setSearchTerm(search) : setSearchTerm(undefined)
   }
 
@@ -46,20 +46,22 @@ const CoursesPage: FC<PageProps> = ({ seo }) => {
   }, [locale, searchTerm, sort])
 
   const courses = coursesQuery?.data?.data
-  const totalCount = coursesQuery?.data?.meta?.pagination?.pageCount
+  const totalCount = coursesQuery?.data?.meta?.pagination?.pageCount || 0
 
-  const mappedCourses = courses?.map(course => {
-    const translates = []
+  const mappedCourses =
+    courses?.map(course => {
+      const translates = []
 
-    if (course.title_en) translates.push('en')
-    if (course.title_tr) translates.push('tr')
-    if (course.title_nl) translates.push('nl')
+      if (course.title_en) translates.push('en')
+      if (course.title_tr) translates.push('tr')
+      if (course.title_nl) translates.push('nl')
 
-    return {
-      ...course,
-      translates,
-    }
-  })
+      return {
+        ...course,
+        translates,
+      }
+    }) || []
+
   const handleRowClick = (index: number, id: number) => {
     router.push(`/courses/${id}`)
   }
@@ -81,7 +83,7 @@ const CoursesPage: FC<PageProps> = ({ seo }) => {
 
       <DataTable
         columns={coursesColumns}
-        data={mappedCourses}
+        data={mappedCourses as StrapiModel[]}
         totalCount={totalCount}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
@@ -92,8 +94,8 @@ const CoursesPage: FC<PageProps> = ({ seo }) => {
   )
 }
 
-export const getStaticProps = async context => {
-  const { locale } = context
+export const getStaticProps = async (context: GetStaticPropsContext) => {
+  const locale = context.locale as StrapiLocale
 
   const title = {
     en: 'Courses',
@@ -108,11 +110,7 @@ export const getStaticProps = async context => {
   return {
     props: {
       seo,
-      ...(await serverSideTranslations(
-        locale,
-        ['common', 'admin'],
-        i18nConfig,
-      )),
+      ...(await ssrTranslations(locale, ['admin'])),
     },
   }
 }

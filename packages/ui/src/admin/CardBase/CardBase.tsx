@@ -3,7 +3,7 @@ import { FC } from 'react'
 import { Box } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 
-import { Art, StrapiLocale } from '@wsvvrijheid/types'
+import { Art } from '@wsvvrijheid/types'
 
 import { WImage } from '../../components'
 
@@ -12,7 +12,7 @@ export type CardBaseProps = { art: Art; onClick?: () => void }
 export const CardBase: FC<CardBaseProps> = ({ art, onClick }) => {
   const router = useRouter()
 
-  const titleKey = `title_${router.locale as StrapiLocale}` as const
+  const titleKey = `title_${router.locale}` as const
 
   return (
     <Box shadow="base" onClick={onClick} borderRadius="lg" overflow="hidden">

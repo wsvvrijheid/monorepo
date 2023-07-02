@@ -1,21 +1,18 @@
 import { FC } from 'react'
 
 import { Box } from '@chakra-ui/react'
-import { GetStaticProps } from 'next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { serialize } from 'next-mdx-remote/serialize'
 
-import {
-  Container,
-  Hero,
-  Markdown,
-  PlatformTemplateProps,
-} from '@wsvvrijheid/ui'
+import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
+import { StrapiLocale } from '@wsvvrijheid/types'
+import { Container, Hero, Markdown } from '@wsvvrijheid/ui'
 
 import { Layout } from '../components'
-import i18nConfig from '../next-i18next.config'
 
-const AboutUsPage: FC<PlatformTemplateProps> = ({ seo, source }) => {
+type AboutUsProps = InferGetStaticPropsType<typeof getStaticProps>
+
+const AboutUsPage: FC<AboutUsProps> = ({ seo, source }) => {
   return (
     <Layout seo={seo} isDark>
       <Hero title={seo.title} />
@@ -27,10 +24,11 @@ const AboutUsPage: FC<PlatformTemplateProps> = ({ seo, source }) => {
     </Layout>
   )
 }
+
 export default AboutUsPage
 
-export const getStaticProps: GetStaticProps = async context => {
-  const { locale } = context
+export const getStaticProps = async (context: GetStaticPropsContext) => {
+  const locale = context.locale as StrapiLocale
 
   const markdown = {
     tr: `## Sanat Durağı Kimdir?
@@ -73,7 +71,7 @@ export const getStaticProps: GetStaticProps = async context => {
   return {
     props: {
       source,
-      ...(await serverSideTranslations(locale, ['common'], i18nConfig)),
+      ...(await ssrTranslations(locale)),
       seo: seo[locale],
     },
     revalidate: 1,

@@ -6,13 +6,15 @@ import { formatNumber } from '@wsvvrijheid/utils'
 
 import { useHashtagContext } from '../HashtagProvider'
 
-interface TrendListItemProps {
+type TrendListItemProps = {
   trendName: string
   tweetsCount: number | null
   hashtagInTrends?: string
   hashtagExtraInTrends?: string
   order: number
+
   addTrend: (value: string) => void
+
   removeTrend: (value: string) => void
 }
 
@@ -30,7 +32,7 @@ export const TrendListItem: FC<TrendListItemProps> = ({
 
   const { postTrends, activePostId } = useHashtagContext()
 
-  const activeTrends = postTrends?.[activePostId]
+  const activeTrends = activePostId ? postTrends?.[activePostId] : []
   const isAdded = activeTrends?.includes(trendName)
 
   const colorScheme = isCurrentHashtag

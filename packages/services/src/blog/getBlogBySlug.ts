@@ -2,15 +2,15 @@ import { useQuery } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
 import { SetRequired } from 'type-fest'
 
-import { Request } from '@wsvvrijheid/lib'
+import { strapiRequest } from '@wsvvrijheid/lib'
 import { Blog, StrapiLocale } from '@wsvvrijheid/types'
 
 export const getBlogBySlug = async (
   locale: StrapiLocale,
   slug: string,
 ): Promise<Blog | null> => {
-  const response = await Request.collection<
-    SetRequired<Blog, 'author' | 'image' | 'likers'>[]
+  const response = await strapiRequest<
+    SetRequired<Blog, 'author' | 'image' | 'likers'>
   >({
     url: 'api/blogs',
     populate: ['author', 'image', 'likers'],
@@ -26,6 +26,6 @@ export const useGetBlogSlug = (slug: string) => {
 
   return useQuery({
     queryKey: ['blog', locale, slug],
-    queryFn: () => getBlogBySlug(locale as StrapiLocale, slug),
+    queryFn: () => getBlogBySlug(locale, slug),
   })
 }

@@ -4,7 +4,7 @@ import { Box, Button, Heading, Stack, Text } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
-import { Hashtag, StrapiLocale } from '@wsvvrijheid/types'
+import { Hashtag } from '@wsvvrijheid/types'
 import { Container, Navigate, WImage } from '@wsvvrijheid/ui'
 import { getItemLink } from '@wsvvrijheid/utils'
 
@@ -19,7 +19,7 @@ export const HashtagsSummary: FC<HashtagsSummaryProps> = ({ hashtags }) => {
   const { t } = useTranslation()
 
   const links = hashtags.map(hashtag => {
-    return getItemLink(hashtag, locale as StrapiLocale, 'hashtag')
+    return getItemLink(hashtag, locale, 'hashtag')
   })
 
   const [latestHashtag, ...prevHashtags] = hashtags
@@ -54,7 +54,7 @@ export const HashtagsSummary: FC<HashtagsSummaryProps> = ({ hashtags }) => {
                 <HashtagMiniCard
                   key={hashtag.id}
                   hashtag={hashtag}
-                  link={prevLinks[i]}
+                  link={prevLinks[i] as string}
                 />
               ))}
           </Stack>

@@ -1,13 +1,13 @@
 import { FC } from 'react'
 
-import { GetStaticProps } from 'next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { GetStaticPropsContext } from 'next'
 import { NextSeoProps } from 'next-seo'
 
+import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
+import { StrapiLocale } from '@wsvvrijheid/types'
 import { JoinTemplate, JoinTemplateProps } from '@wsvvrijheid/ui'
 
 import { Layout } from '../components'
-import i18nConfig from '../next-i18next.config'
 
 const JoinPage: FC<JoinTemplateProps & { seo: NextSeoProps }> = ({
   seo,
@@ -21,8 +21,8 @@ const JoinPage: FC<JoinTemplateProps & { seo: NextSeoProps }> = ({
 }
 export default JoinPage
 
-export const getStaticProps: GetStaticProps = async context => {
-  const { locale } = context
+export const getStaticProps = async (context: GetStaticPropsContext) => {
+  const locale = context.locale as StrapiLocale
 
   const title = {
     en: 'Join us',
@@ -45,7 +45,7 @@ export const getStaticProps: GetStaticProps = async context => {
     props: {
       seo,
       title: title[locale],
-      ...(await serverSideTranslations(locale, ['common'], i18nConfig)),
+      ...(await ssrTranslations(locale)),
     },
   }
 }

@@ -1,13 +1,13 @@
 import { FC } from 'react'
 
-import { PaymentStatus } from '@mollie/api-client'
+import { Payment, PaymentStatus } from '@mollie/api-client'
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import { Mutation, Request } from '@wsvvrijheid/lib'
+import { Mutation, strapiRequest } from '@wsvvrijheid/lib'
 import { mollieClient } from '@wsvvrijheid/mollie'
 import { TOKEN } from '@wsvvrijheid/secrets'
-import { Donation, StrapiUrl } from '@wsvvrijheid/types'
+import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
+import { Donation, StrapiLocale, StrapiUrl } from '@wsvvrijheid/types'
 import { DonationCompleteTemplate } from '@wsvvrijheid/ui'
 
 import { Layout } from '../../components'
@@ -28,8 +28,9 @@ export const getServerSideProps = async (
   context: GetServerSidePropsContext,
 ) => {
   const { query } = context
+  const locale = context.locale as StrapiLocale
 
-  const response = await Request.single<Donation>({
+  const response = await strapiRequest<Donation>({
     id: Number(query.id),
     url: `api/donates`,
     populate: [],
@@ -39,16 +40,20 @@ export const getServerSideProps = async (
     response.data?.mollieId &&
     (await mollieClient.payments.get(response.data.mollieId))
 
-  const status = payment?.status || null
+  const status = (payment as Payment)?.status || null
 
   if (status === PaymentStatus.paid) {
-    await Mutation.post(`api/donates/email/${query.id}` as StrapiUrl, {}, TOKEN)
+    await Mutation.post(
+      `api/donates/email/${query.id}` as StrapiUrl,
+      {},
+      TOKEN as string,
+    )
   }
 
   return {
     props: {
       status,
-      ...(await serverSideTranslations(context.locale, ['common'])),
+      ...(await ssrTranslations(locale)),
     },
   }
 }

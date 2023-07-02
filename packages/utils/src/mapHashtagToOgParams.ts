@@ -1,5 +1,5 @@
 // Ref: https://javascript.info/task/delay-promise
-import { format, parse } from 'date-fns'
+import { format } from 'date-fns'
 import { formatInTimeZone } from 'date-fns-tz'
 
 import { Hashtag, OgImageParams, StrapiLocale } from '@wsvvrijheid/types'
@@ -14,17 +14,15 @@ export const mapHashtagToOgParams = (
   hashtag: Hashtag,
   locale: StrapiLocale,
 ): OgImageParams => {
-  // https://github.com/date-fns/date-fns/issues/1788#issuecomment-763070661
-  const newDate = parse(
-    hashtag.date,
-    "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",
-    new Date(),
-  )
+  const newDate = new Date(hashtag.date)
 
-  const euDate = newDate && format(newDate, 'dd MMMM yyyy')
-  const euTime = newDate && format(newDate, 'HH:mm')
-  const trTime =
-    newDate && formatInTimeZone(newDate, 'Europe/Istanbul', 'HH:mm')
+  const euDate = newDate ? format(newDate, 'dd MMMM yyyy') : ''
+  const euTime = newDate
+    ? formatInTimeZone(newDate, 'Europe/Amsterdam', 'HH:mm')
+    : ''
+  const trTime = newDate
+    ? formatInTimeZone(newDate, 'Europe/Istanbul', 'HH:mm')
+    : ''
 
   const TITLE = capsContent[locale].title
   const TOPIC = capsContent[locale].topic

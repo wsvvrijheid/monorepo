@@ -22,7 +22,7 @@ type LanguageSwitcherProps = {
 export const LanguageSwitcher: FC<LanguageSwitcherProps> = ({ responsive }) => {
   const router = useRouter()
 
-  const CurrentFlag = Flags[router.locale as StrapiLocale]
+  const CurrentFlag = Flags[router.locale]
 
   const currentLanguage = {
     en: 'English',
@@ -63,12 +63,12 @@ export const LanguageSwitcher: FC<LanguageSwitcherProps> = ({ responsive }) => {
             display: { base: 'none', lg: 'block' },
           })}
         >
-          {currentLanguage[router.locale as StrapiLocale]}
+          {currentLanguage[router.locale]}
         </Text>
       </MenuButton>
       <MenuList>
         {Object.entries(Flags)
-          .filter(([language]) => language !== (router.locale as StrapiLocale))
+          .filter(([language]) => language !== router.locale)
           .map(([language, Flag]) => (
             <MenuItem
               key={language}

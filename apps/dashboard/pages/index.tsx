@@ -8,27 +8,23 @@ import {
   Text,
   Wrap,
 } from '@chakra-ui/react'
-import { dehydrate, QueryClient } from '@tanstack/react-query'
-import { InferGetStaticPropsType } from 'next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { QueryClient, dehydrate } from '@tanstack/react-query'
+import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { NextSeoProps } from 'next-seo'
 
-import {
-  searchModel,
-  SearchModelArgs,
-  useSearchModel,
-} from '@wsvvrijheid/services'
+import { RequestCollectionArgs, strapiRequest } from '@wsvvrijheid/lib'
+import { useStrapiRequest } from '@wsvvrijheid/services'
+import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import {
   AccountStats as AccounStatsType,
   AccountStatsBase,
+  StrapiLocale,
 } from '@wsvvrijheid/types'
 import { AccountStats, AdminLayout, PageHeader } from '@wsvvrijheid/ui'
 
-import i18nConfig from '../next-i18next.config'
-
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>
 
-const args: SearchModelArgs<AccounStatsType> = {
+const args: RequestCollectionArgs = {
   url: 'api/account-statistics',
   sort: ['date:asc'],
   pageSize: 100,
@@ -37,7 +33,7 @@ const args: SearchModelArgs<AccounStatsType> = {
 const Index: FC<PageProps> = ({ seo }) => {
   // TODO: Add pagination with keep previous data
   // Strapi fetches at max 100 items
-  const statsQuery = useSearchModel(args)
+  const statsQuery = useStrapiRequest<AccounStatsType>(args)
 
   const statsData = [
     'tweets',
@@ -74,7 +70,7 @@ const Index: FC<PageProps> = ({ seo }) => {
           }}
         >
           <Wrap>
-            {accounts?.map((account, index) => {
+            {accounts?.map(account => {
               const isSelected = selectedAccounts.includes(account)
 
               return (
@@ -115,13 +111,13 @@ const Index: FC<PageProps> = ({ seo }) => {
   )
 }
 
-export const getStaticProps = async context => {
-  const { locale } = context
+export const getStaticProps = async (context: GetStaticPropsContext) => {
+  const locale = context.locale as StrapiLocale
 
   const queryClient = new QueryClient()
 
   await queryClient.prefetchQuery(['account-stats'], () => {
-    return searchModel<AccounStatsType>(args)
+    return strapiRequest<AccounStatsType>(args)
   })
 
   const title = {
@@ -138,11 +134,7 @@ export const getStaticProps = async context => {
     props: {
       seo,
       dehydratedState: dehydrate(queryClient),
-      ...(await serverSideTranslations(
-        locale,
-        ['common', 'admin'],
-        i18nConfig,
-      )),
+      ...(await ssrTranslations(locale, ['admin'])),
     },
     revalidate: 1,
   }

@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import { FC, useState } from 'react'
 
 import {
   Alert,
   AlertDescription,
   AlertIcon,
   Button,
+  Divider,
   Modal,
   ModalBody,
   ModalContent,
@@ -12,7 +13,6 @@ import {
   ModalHeader,
   ModalOverlay,
   Stack,
-  Divider,
 } from '@chakra-ui/react'
 import slugify from '@sindresorhus/slugify'
 import { useRouter } from 'next/router'
@@ -22,9 +22,7 @@ import { useCreateModelMutation } from '@wsvvrijheid/services'
 import {
   Post,
   PostCreateInput,
-  StrapiLocale,
   StrapiTranslatableCreateInput,
-  StrapiUrl,
   UploadFile,
 } from '@wsvvrijheid/types'
 import { generateOgImageParams } from '@wsvvrijheid/utils'
@@ -33,7 +31,15 @@ import { ImageRecognizer } from '../ImageRecognizer/ImageRecognizer'
 import { RecognizedImage } from '../ImageRecognizer/types'
 import { ModelSelect } from '../ModelForm/ModelSelect'
 
-export const CreatePostFromCapsModal = ({ isOpen, onClose }) => {
+type CreatePostFromCapsModalProps = {
+  isOpen: boolean
+  onClose: () => void
+}
+
+export const CreatePostFromCapsModal: FC<CreatePostFromCapsModalProps> = ({
+  isOpen,
+  onClose,
+}) => {
   const [state, setState] = useState<Record<number, RecognizedImage>>({})
   const createPostMutation = useCreateModelMutation<
     Post,
@@ -58,7 +64,7 @@ export const CreatePostFromCapsModal = ({ isOpen, onClose }) => {
 
       const body = {
         description: text,
-        locale: locale as StrapiLocale,
+        locale,
         publishedAt: null,
         content: text,
         caps: file as unknown as UploadFile,
@@ -66,7 +72,7 @@ export const CreatePostFromCapsModal = ({ isOpen, onClose }) => {
       } as unknown as StrapiTranslatableCreateInput
 
       const slug =
-        body.description.slice(0, 10) && slugify(body.description.slice(0, 10))
+        body.description?.slice(0, 10) && slugify(body.description.slice(0, 10))
 
       const bodyData = {
         ...body,
@@ -118,7 +124,7 @@ export const CreatePostFromCapsModal = ({ isOpen, onClose }) => {
         <ModalHeader>Create Multiple Hashtag Post</ModalHeader>
         <Stack m={10} as={'form'} onSubmit={handleSubmit(onCreate)}>
           <ModelSelect
-            url={'api/hashtags' as StrapiUrl}
+            url={'api/hashtags'}
             isRequired={true}
             name={'hashtags' as string}
             label={'Hashtags'}

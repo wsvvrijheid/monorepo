@@ -84,7 +84,7 @@ export const useLikeArt = (art?: Art | null, queryKey?: QueryKey) => {
       return likeArtByUserMutation.mutate(
         { id: art.id, likers, token: token as string },
         {
-          onSuccess: async data => {
+          onSuccess: async () => {
             await queryClient.invalidateQueries(queryKey)
           },
         },

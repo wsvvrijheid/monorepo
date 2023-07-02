@@ -2,19 +2,22 @@ import { FC } from 'react'
 
 import { Box, Button, Heading, Stack, Text } from '@chakra-ui/react'
 import { isPast } from 'date-fns'
-import { GetStaticProps } from 'next'
+import { GetStaticPropsContext } from 'next'
 import { useTranslation } from 'next-i18next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
 
-import { searchModel } from '@wsvvrijheid/services'
+import { strapiRequest } from '@wsvvrijheid/lib'
+import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import { Hashtag, StrapiLocale } from '@wsvvrijheid/types'
-import { Container, Navigate } from '@wsvvrijheid/ui'
-import { HashtagAnnouncement, HashtagsSummary } from '@wsvvrijheid/ui'
+import {
+  Container,
+  HashtagAnnouncement,
+  HashtagsSummary,
+  Navigate,
+} from '@wsvvrijheid/ui'
 import { getItemLink } from '@wsvvrijheid/utils'
 
 import { Layout } from '../components'
-import i18nConfig from '../next-i18next.config'
 
 interface HomeProps {
   seo: NextSeoProps
@@ -83,7 +86,7 @@ const Home: FC<HomeProps> = ({ seo, link, hashtags }) => {
   )
 }
 
-export const getStaticProps: GetStaticProps = async context => {
+export const getStaticProps = async (context: GetStaticPropsContext) => {
   const locale = context.locale as StrapiLocale
 
   const title: Record<string, string> = {
@@ -92,10 +95,12 @@ export const getStaticProps: GetStaticProps = async context => {
     tr: 'Anasayfa',
   }
 
-  const { data: hashtags } = await searchModel<Hashtag>({
+  const { data: hashtags } = await strapiRequest<Hashtag>({
     url: 'api/hashtags',
     locale,
-    statuses: ['approved'],
+    filters: {
+      approvalStatus: { $eq: 'approved' },
+    },
     sort: ['date:desc'],
     pageSize: 4,
   })
@@ -110,7 +115,7 @@ export const getStaticProps: GetStaticProps = async context => {
 
   return {
     props: {
-      ...(await serverSideTranslations(locale, ['common'], i18nConfig)),
+      ...(await ssrTranslations(locale)),
       link,
       seo,
       hashtags,

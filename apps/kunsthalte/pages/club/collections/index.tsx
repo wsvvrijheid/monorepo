@@ -1,14 +1,13 @@
 import { SimpleGrid } from '@chakra-ui/react'
 import { GetStaticPropsContext, InferGetStaticPropsType, NextPage } from 'next'
 import { useRouter } from 'next/router'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import { searchModel } from '@wsvvrijheid/services'
-import { Collection, StrapiLocale } from '@wsvvrijheid/types'
+import { strapiRequest } from '@wsvvrijheid/lib'
+import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
+import { Collection, StrapiLocale, UploadFile } from '@wsvvrijheid/types'
 import { Card, Container, Hero } from '@wsvvrijheid/ui'
 
 import { Layout } from '../../../components'
-import i18nConfig from '../../../next-i18next.config'
 
 type CollectionsPageProps = InferGetStaticPropsType<typeof getStaticProps>
 
@@ -27,8 +26,8 @@ const CollectionsPage: NextPage<CollectionsPageProps> = ({
             <Card
               key={i}
               title={collection.title}
-              image={collection.image}
-              description={collection.description}
+              image={collection.image as UploadFile}
+              description={collection.description as string}
               link={`/${locale}/club/collections/${collection.slug}`}
             />
           ))}
@@ -42,7 +41,7 @@ export default CollectionsPage
 export const getStaticProps = async (context: GetStaticPropsContext) => {
   const locale = context.locale as StrapiLocale
 
-  const collections = await searchModel<Collection>({
+  const collections = await strapiRequest<Collection>({
     url: 'api/collections',
     locale,
   })
@@ -61,7 +60,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
 
   return {
     props: {
-      ...(await serverSideTranslations(locale, ['common'], i18nConfig)),
+      ...(await ssrTranslations(locale)),
       seo,
       collections,
     },

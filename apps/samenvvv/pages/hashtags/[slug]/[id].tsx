@@ -1,65 +1,11 @@
-import {
-  Box,
-  Button,
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalFooter,
-  ModalOverlay,
-  Stack,
-} from '@chakra-ui/react'
-import {
-  GetServerSideProps,
-  GetServerSidePropsContext,
-  InferGetServerSidePropsType,
-} from 'next'
-import Head from 'next/head'
-import { useRouter } from 'next/router'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { NextSeo, NextSeoProps } from 'next-seo'
+import { GetServerSidePropsContext } from 'next'
 
-import { ASSETS_URL, SITE_URL } from '@wsvvrijheid/config'
-import { getModelById } from '@wsvvrijheid/services'
+import { strapiRequest } from '@wsvvrijheid/lib'
 import { Post, StrapiLocale } from '@wsvvrijheid/types'
-import { PostImage } from '@wsvvrijheid/ui'
-import { getItemLink, getOgImageSrc } from '@wsvvrijheid/utils'
 
-import i18nConfig from '../../../next-i18next.config'
+const Page = () => null
 
-type PostProps = InferGetServerSidePropsType<typeof getServerSideProps>
-
-const Post = ({ seo, post, imgSrc }: PostProps) => {
-  const router = useRouter()
-
-  const back = () => {
-    router.push('/hashtags/[slug]', `/hashtags/${post.hashtag.slug}`)
-  }
-
-  return (
-    <>
-      <NextSeo {...seo} />
-      <Head>
-        <meta property="twitter:image:src" content={imgSrc} />
-      </Head>
-      <Modal isCentered isOpen={true} onClose={() => null}>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalBody p={0}>
-            <Stack>
-              <PostImage size="sm" post={post} />
-              <Box p={8}>{post.description}</Box>
-            </Stack>
-          </ModalBody>
-          <ModalFooter>
-            <Button onClick={back}>See other posts</Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
-    </>
-  )
-}
-
-export default Post
+export default Page
 
 export const getServerSideProps = async (
   context: GetServerSidePropsContext,
@@ -67,90 +13,25 @@ export const getServerSideProps = async (
   const locale = context.locale as StrapiLocale
   const id = context.params?.id as string
 
-  const post = await getModelById<Post>({
+  const response = await strapiRequest<Post>({
     url: 'api/posts',
     id: Number(id),
   })
 
-  if (!post) {
+  const post = response.data
+
+  if (!post?.hashtag) {
     return { notFound: true }
   }
 
-  const title = post?.description?.slice(0, 20) || ''
-  const description = post.description || ''
-  const image = post?.image
-  const caps = post?.caps?.url
+  const destination = `/${locale}/hashtags/${post.hashtag.slug}?id=${post.id}`
 
-  let src = image?.url
-  const link = getItemLink(post, locale, 'post') as string
-
-  let imgSrc: string
-
-  if (caps) {
-    imgSrc = `${ASSETS_URL}${caps}`
-  } else {
-    if (image?.formats?.small) {
-      src = image.formats.small.url
-    } else if (image?.formats?.medium) {
-      src = image.formats.medium.url
-    } else if (image?.formats?.large) {
-      src = image.formats.large.url
-    }
-
-    imgSrc =
-      SITE_URL +
-      getOgImageSrc({
-        title: post.title,
-        text: post.description,
-        image: src ? `${ASSETS_URL}${src}` : undefined,
-        ...post.imageParams,
-      })
-  }
-
-  const images = image && [
-    {
-      url: imgSrc,
-      secureUrl: imgSrc,
-      type: image.mime as string,
-      width: 1200,
-      height: 675,
-      alt: title,
-    },
-  ]
-
-  const twitterHandle = {
-    en: '@samenvvvEn',
-    nl: '@samenvvv',
-    tr: '@samenvvvTr',
-  }
-
-  const seo: NextSeoProps = {
-    title,
-    description,
-    twitter: {
-      cardType: 'summary_large_image',
-      site: twitterHandle[locale],
-      handle: twitterHandle[locale],
-    },
-    openGraph: {
-      title,
-      description,
-      url: link,
-      images,
-    },
-  }
-
+  // We don't need to use a dynamic page just for a single post.
+  // It's probably best to keep this page for a while because we shared latest hashtags with this url.
+  // We will remove this page when we are sure that we don't need it anymore.
   return {
-    props: {
-      link,
-      seo,
-      imgSrc,
-      post,
-      ...(await serverSideTranslations(
-        locale as StrapiLocale,
-        ['common'],
-        i18nConfig,
-      )),
+    redirect: {
+      destination,
     },
   }
 }

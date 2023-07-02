@@ -1,28 +1,19 @@
 import { FC } from 'react'
 
 import { Spinner } from '@chakra-ui/react'
-import { dehydrate } from '@tanstack/react-query'
-import { GetStaticPaths, GetStaticPropsContext } from 'next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { MDXRemoteSerializeResult } from 'next-mdx-remote'
+import { QueryClient, dehydrate } from '@tanstack/react-query'
+import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { serialize } from 'next-mdx-remote/serialize'
-import { NextSeoProps } from 'next-seo'
 
-import {
-  getActivityStaticProps,
-  getModelStaticPaths,
-} from '@wsvvrijheid/services'
-import { StrapiLocale, UploadFile } from '@wsvvrijheid/types'
+import { strapiRequest } from '@wsvvrijheid/lib'
+import { getModelStaticPaths } from '@wsvvrijheid/services'
+import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
+import { Activity, StrapiLocale } from '@wsvvrijheid/types'
 import { ActivityDetail } from '@wsvvrijheid/ui'
 
 import { Layout } from '../../components/index'
-import i18nConfig from '../../next-i18next.config'
 
-type ActivityDetailPageProps = {
-  seo: NextSeoProps
-  source: MDXRemoteSerializeResult
-  image: UploadFile | string
-}
+type ActivityDetailPageProps = InferGetStaticPropsType<typeof getStaticProps>
 
 const ActivityDetailPage: FC<ActivityDetailPageProps> = ({
   seo,
@@ -39,18 +30,39 @@ const ActivityDetailPage: FC<ActivityDetailPageProps> = ({
 }
 export default ActivityDetailPage
 
-export const getStaticPaths: GetStaticPaths = async context => {
-  return await getModelStaticPaths(
-    'api/activities',
-    context.locales as StrapiLocale[],
-  )
+export const getStaticPaths = async () => {
+  return await getModelStaticPaths('api/activities')
 }
 
 export const getStaticProps = async (context: GetStaticPropsContext) => {
-  const { content, image, seo, queryClient } = await getActivityStaticProps(
-    context,
-  )
+  const queryClient = new QueryClient()
+
   const locale = context.locale as StrapiLocale
+  const slug = context.params?.['slug'] as string
+
+  await queryClient.prefetchQuery({
+    queryKey: ['activity', locale, slug],
+    queryFn: () =>
+      strapiRequest<Activity>({
+        url: 'api/activities',
+        filters: { slug: { $eq: slug } },
+        locale,
+      }),
+  })
+
+  const activity = queryClient.getQueryData<Activity>([
+    'activity',
+    locale,
+    slug,
+  ])
+
+  if (!activity) return { notFound: true }
+
+  const title = activity.title || ''
+  const content = activity.content || ''
+  const image = activity.image || ''
+
+  const seo = { title, content }
 
   const source = await serialize(content || '')
 
@@ -60,7 +72,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
       image,
       source,
       dehydratedState: dehydrate(queryClient),
-      ...(await serverSideTranslations(locale, ['common'], i18nConfig)),
+      ...(await ssrTranslations(locale)),
     },
     revalidate: 1,
   }

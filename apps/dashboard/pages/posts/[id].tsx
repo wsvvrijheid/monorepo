@@ -1,13 +1,13 @@
 import { FC } from 'react'
 
 import { Box, Stack } from '@chakra-ui/react'
-import { InferGetServerSidePropsType } from 'next'
+import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
 import { useRouter } from 'next/router'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
 
-import { useModelById } from '@wsvvrijheid/services'
-import { HashtagReturnType, Post } from '@wsvvrijheid/types'
+import { useStrapiRequest } from '@wsvvrijheid/services'
+import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
+import { HashtagReturnType, Post, StrapiLocale } from '@wsvvrijheid/types'
 import {
   AdminLayout,
   FormLocaleSwitcher,
@@ -18,8 +18,6 @@ import {
   postSchema,
 } from '@wsvvrijheid/ui'
 
-import i18nConfig from '../../next-i18next.config'
-
 type PageProps = InferGetServerSidePropsType<typeof getServerSideProps>
 
 const PostPage: FC<PageProps> = ({ seo }) => {
@@ -27,19 +25,19 @@ const PostPage: FC<PageProps> = ({ seo }) => {
   const { query } = router
 
   const id = Number(query.id as string)
-  const {
-    data: post,
-    isLoading,
-    refetch,
-  } = useModelById<Post>({
+  const { data, isLoading, refetch } = useStrapiRequest<Post>({
     url: 'api/posts',
     id,
   })
 
+  const post = data?.data
+
   return (
     <AdminLayout seo={seo} isLoading={isLoading} hasBackButton>
       <PageHeader>
-        <FormLocaleSwitcher models={post?.localizations} slug={'posts'} />
+        {post?.localizations && (
+          <FormLocaleSwitcher models={post?.localizations} slug={'posts'} />
+        )}
       </PageHeader>
       <Stack spacing={4}>
         {post && (
@@ -70,8 +68,10 @@ const PostPage: FC<PageProps> = ({ seo }) => {
   )
 }
 
-export const getServerSideProps = async context => {
-  const { locale } = context
+export const getServerSideProps = async (
+  context: GetServerSidePropsContext,
+) => {
+  const locale = context.locale as StrapiLocale
 
   const title = {
     en: 'Post',
@@ -86,11 +86,7 @@ export const getServerSideProps = async context => {
   return {
     props: {
       seo,
-      ...(await serverSideTranslations(
-        locale,
-        ['common', 'admin'],
-        i18nConfig,
-      )),
+      ...(await ssrTranslations(locale, ['admin'])),
     },
   }
 }

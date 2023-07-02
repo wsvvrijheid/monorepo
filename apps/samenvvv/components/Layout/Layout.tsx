@@ -2,7 +2,7 @@ import { FC, PropsWithChildren } from 'react'
 
 import { NextSeoProps } from 'next-seo'
 
-import { ASSETS_URL, menus, socialLinks } from '@wsvvrijheid/config'
+import { menus, socialLinks } from '@wsvvrijheid/config'
 import { Layout as AppLayout } from '@wsvvrijheid/ui'
 
 interface LayoutProps extends PropsWithChildren {

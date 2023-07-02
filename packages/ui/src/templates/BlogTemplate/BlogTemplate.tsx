@@ -14,7 +14,6 @@ export type BlogTemplateProps = {
 }
 
 export const BlogTemplate: FC<BlogTemplateProps> = ({ seo, blogs }) => {
-  // @ts-ignore
   const { t } = useTranslation()
 
   if (!blogs.length) {

@@ -1,35 +1,33 @@
 import { FC } from 'react'
 
-import { InferGetStaticPropsType } from 'next'
+import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { useRouter } from 'next/router'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
 
-import { useSearchModel } from '@wsvvrijheid/services'
+import { useStrapiRequest } from '@wsvvrijheid/services'
+import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import { StrapiLocale, Timeline } from '@wsvvrijheid/types'
 import { AdminLayout, TimelineBoard } from '@wsvvrijheid/ui'
-
-import i18nConfig from '../../next-i18next.config'
 
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>
 
 const Timelines: FC<PageProps> = ({ seo }) => {
   const { locale } = useRouter()
 
-  const { data: timelines, isLoading } = useSearchModel<Timeline>({
+  const { data: timelines, isLoading } = useStrapiRequest<Timeline>({
     url: 'api/timelines',
-    locale: locale as StrapiLocale,
+    locale,
   })
 
   return (
     <AdminLayout seo={seo} isLoading={isLoading}>
-      <TimelineBoard timelines={timelines?.data} />
+      {timelines?.data && <TimelineBoard timelines={timelines?.data} />}
     </AdminLayout>
   )
 }
 
-export const getStaticProps = async context => {
-  const { locale } = context
+export const getStaticProps = async (context: GetStaticPropsContext) => {
+  const locale = context.locale as StrapiLocale
 
   const title = {
     en: 'Timelines',
@@ -44,11 +42,7 @@ export const getStaticProps = async context => {
   return {
     props: {
       seo,
-      ...(await serverSideTranslations(
-        locale,
-        ['common', 'admin'],
-        i18nConfig,
-      )),
+      ...(await ssrTranslations(locale, ['admin'])),
     },
   }
 }

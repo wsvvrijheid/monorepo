@@ -15,11 +15,13 @@ export type RoleName =
   | 'Academy Editor'
   | 'Content Manager'
 
+export type RoleType = Lowercase<PascalCase<RoleName>>
+
 export type Role = Omit<StrapiBase, 'publishedAt'> & {
   description: string
   name: RoleName
   permissions?: Permission
-  type: Lowercase<PascalCase<RoleName>>
+  type: RoleType
   users?: User
 }
 

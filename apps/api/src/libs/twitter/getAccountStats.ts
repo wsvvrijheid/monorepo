@@ -1,7 +1,7 @@
 import addDays from 'date-fns/addDays'
 import formatIso from 'date-fns/formatISO'
 
-import { twitterApi } from './client'
+import { getTwitterClient } from './client'
 
 export const getAccountStats = async (
   username: string,
@@ -9,7 +9,8 @@ export const getAccountStats = async (
   totalDays = 7,
 ) => {
   try {
-    const user = await twitterApi.v2.userByUsername(username, {
+    const twitterClient = await getTwitterClient()
+    const user = await twitterClient.v2.userByUsername(username, {
       'user.fields': 'public_metrics',
       'tweet.fields': 'public_metrics',
     })
@@ -24,7 +25,7 @@ export const getAccountStats = async (
     const start_time = formatIso(addDays(date, -totalDays))
     const end_time = formatIso(date)
 
-    const timeline = await twitterApi.v2.userTimeline(user.data.id, {
+    const timeline = await twitterClient.v2.userTimeline(user.data.id, {
       start_time,
       end_time,
       exclude: ['retweets', 'replies'],

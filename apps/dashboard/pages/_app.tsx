@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { FC, useState } from 'react'
 
 import {
   ChakraProvider,
@@ -13,23 +13,14 @@ import {
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { Analytics } from '@vercel/analytics/react'
 import { merge } from 'lodash'
+import { AppProps } from 'next/app'
 import { useRouter } from 'next/router'
 import { appWithTranslation } from 'next-i18next'
 import { DefaultSeo } from 'next-seo'
 
 import { defaultSeo, themes } from '@wsvvrijheid/config'
+import { i18nConfig } from '@wsvvrijheid/config'
 import { AuthProvider } from '@wsvvrijheid/context'
-
-import i18nConfig from '../next-i18next.config'
-
-import '@splidejs/react-splide/css'
-import '@splidejs/splide/dist/css/themes/splide-default.min.css'
-import '@uppy/core/dist/style.css'
-import '@uppy/dashboard/dist/style.css'
-import '@uppy/image-editor/dist/style.css'
-import '@uppy/url/dist/style.css'
-import 'react-markdown-editor-lite/lib/index.css'
-import 'react-medium-image-zoom/dist/styles.css'
 
 const theme = merge(themes.admin, {
   styles: {
@@ -47,7 +38,7 @@ const theme = merge(themes.admin, {
 
 const { ToastContainer } = createStandaloneToast()
 
-function MyApp({ Component, pageProps }) {
+const MyApp: FC<AppProps> = ({ Component, pageProps }) => {
   const [queryClient] = useState(
     () =>
       new QueryClient({

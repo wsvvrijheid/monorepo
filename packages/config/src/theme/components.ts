@@ -17,7 +17,7 @@ export const components = {
     },
   },
   Button: {
-    baseStyle: (props: StyleFunctionProps) => {
+    baseStyle: () => {
       return {
         fontWeight: 500,
       }
@@ -67,7 +67,7 @@ export const components = {
   },
   Tag: {
     variants: {
-      outline: (props: StyleFunctionProps) => ({
+      outline: () => ({
         boxShadow: '0 0 0 1px primary.500',
       }),
     },

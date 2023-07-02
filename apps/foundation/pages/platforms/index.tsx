@@ -1,14 +1,13 @@
 import { FC } from 'react'
 
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import { searchModel } from '@wsvvrijheid/services'
-import { Platform } from '@wsvvrijheid/types'
+import { strapiRequest } from '@wsvvrijheid/lib'
+import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
+import { Platform, StrapiLocale } from '@wsvvrijheid/types'
 import { Hero } from '@wsvvrijheid/ui'
 
 import { HomePlatform, Layout } from '../../components'
-import i18nConfig from '../../next-i18next.config'
 
 type PlatformsProps = InferGetStaticPropsType<typeof getStaticProps>
 
@@ -25,9 +24,9 @@ const Platforms: FC<PlatformsProps> = ({ title, platforms }) => {
 export default Platforms
 
 export const getStaticProps = async (context: GetStaticPropsContext) => {
-  const { locale } = context
+  const locale = context.locale as StrapiLocale
 
-  const platforms = await searchModel<Platform>({
+  const platforms = await strapiRequest<Platform>({
     url: 'api/platforms',
   })
 
@@ -41,7 +40,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
 
   return {
     props: {
-      ...(await serverSideTranslations(locale, ['common'], i18nConfig)),
+      ...(await ssrTranslations(locale)),
       title: seo.title[locale],
       platforms,
     },

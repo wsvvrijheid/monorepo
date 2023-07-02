@@ -1,16 +1,13 @@
 import { Box, Stack } from '@chakra-ui/react'
-import { dehydrate, QueryClient } from '@tanstack/react-query'
+import { QueryClient, dehydrate } from '@tanstack/react-query'
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { useRouter } from 'next/router'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { serialize } from 'next-mdx-remote/serialize'
 import { NextSeoProps } from 'next-seo'
 
-import {
-  searchModel,
-  SearchModelArgs,
-  useSearchModel,
-} from '@wsvvrijheid/services'
+import { RequestCollectionArgs, strapiRequest } from '@wsvvrijheid/lib'
+import { useStrapiRequest } from '@wsvvrijheid/services'
+import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import { Hashtag, StrapiLocale } from '@wsvvrijheid/types'
 import {
   AnimatedBox,
@@ -20,7 +17,6 @@ import {
   Markdown,
 } from '@wsvvrijheid/ui'
 
-import i18nConfig from '../..//next-i18next.config'
 import { Layout } from '../../components'
 
 type HashtagEventsProps = InferGetStaticPropsType<typeof getStaticProps>
@@ -28,10 +24,12 @@ type HashtagEventsProps = InferGetStaticPropsType<typeof getStaticProps>
 const HashtagEvents = ({ seo, source }: HashtagEventsProps) => {
   const router = useRouter()
 
-  const hashtagsQuery = useSearchModel<Hashtag>({
+  const hashtagsQuery = useStrapiRequest<Hashtag>({
     url: 'api/hashtags',
-    locale: router.locale as StrapiLocale,
-    statuses: ['approved'],
+    locale: router.locale,
+    filters: {
+      approvalStatus: { $eq: 'approved' },
+    },
     sort: ['date:desc'],
   })
 
@@ -73,16 +71,18 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
   const locale = context.locale as StrapiLocale
   const queryClient = new QueryClient()
 
-  const args: SearchModelArgs<Hashtag> = {
+  const args: RequestCollectionArgs = {
     url: 'api/hashtags',
     locale,
-    statuses: ['approved'],
+    filters: {
+      status: { $eq: 'approved' },
+    },
     sort: ['date:desc'],
   }
 
   const queryKey = Object.entries(args)
 
-  await queryClient.prefetchQuery(queryKey, () => searchModel<Hashtag>(args))
+  await queryClient.prefetchQuery(queryKey, () => strapiRequest<Hashtag>(args))
 
   const title = {
     en: 'Hashtags',
@@ -112,11 +112,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
   return {
     props: {
       dehydratedState: dehydrate(queryClient),
-      ...(await serverSideTranslations(
-        locale as StrapiLocale,
-        ['common'],
-        i18nConfig,
-      )),
+      ...(await ssrTranslations(locale)),
       seo,
       source,
     },

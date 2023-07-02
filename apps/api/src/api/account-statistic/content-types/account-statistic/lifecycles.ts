@@ -6,14 +6,7 @@ export default {
 
     const existing = await strapi.db
       .query('api::account-statistic.account-statistic')
-      .findOne({
-        where: {
-          username,
-          date,
-        },
-      })
-
-    console.log('existing', existing)
+      .findOne({ where: { username, date } })
 
     // It seems throwing an error in beforeCreate lifecycle is not working
     // There will be a duplicate entry with empty stats data

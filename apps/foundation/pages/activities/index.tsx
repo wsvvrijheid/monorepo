@@ -1,16 +1,34 @@
-import { Image, SimpleGrid, Stack, Text } from '@chakra-ui/react'
-import { useRouter } from 'next/router'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { FC } from 'react'
 
-import { searchModel } from '@wsvvrijheid/services'
-import { Activity } from '@wsvvrijheid/types'
-import { AnimatedBox, Card, Container, Hero } from '@wsvvrijheid/ui'
+import { Image, SimpleGrid, Stack, Text } from '@chakra-ui/react'
+import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
+import { useRouter } from 'next/router'
+
+import { strapiRequest } from '@wsvvrijheid/lib'
+import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
+import { Activity, StrapiLocale, UploadFile } from '@wsvvrijheid/types'
+import {
+  AnimatedBox,
+  Card,
+  Container,
+  Hero,
+  Pagination,
+  useChangeParams,
+} from '@wsvvrijheid/ui'
 
 import { Layout } from '../../components'
-import i18nConfig from '../../next-i18next.config'
 
-export default function Activities({ activities, query, title, pagination }) {
+type ActivitiesProps = InferGetServerSidePropsType<typeof getServerSideProps>
+
+const Activities: FC<ActivitiesProps> = ({
+  activities,
+  query,
+  title,
+  pagination,
+}) => {
   const { locale } = useRouter()
+
+  const changeParam = useChangeParams()
 
   return (
     <Layout seo={{ title }} isDark>
@@ -31,18 +49,20 @@ export default function Activities({ activities, query, title, pagination }) {
                 >
                   <Card
                     title={activity.title}
-                    description={activity.description}
-                    image={activity.image}
+                    description={activity.description || ''}
+                    image={activity.image as UploadFile}
                     link={`/${locale}/activities/${activity.slug}`}
                   />
                 </AnimatedBox>
               ))}
             </SimpleGrid>
-            {/* <Pagination
-              totalCount={pagination.pageCount}
-              currentPage={+query.page}
-              onPageChange={(page) => changeParam({ page })}
-            /> */}
+            {pagination && (
+              <Pagination
+                totalCount={pagination.pageCount}
+                currentPage={+(query.page || 1)}
+                onPageChange={page => changeParam({ page })}
+              />
+            )}
           </Container>
         </>
       ) : (
@@ -56,15 +76,23 @@ export default function Activities({ activities, query, title, pagination }) {
     </Layout>
   )
 }
-export const getServerSideProps = async context => {
-  const { locale, query } = context
-  const { page } = query
 
-  const activities = await searchModel<Activity>({
+export default Activities
+
+export const getServerSideProps = async (
+  context: GetServerSidePropsContext,
+) => {
+  const locale = context.locale as StrapiLocale
+  const query = context.query as { page: string }
+  const page = Number(query.page)
+
+  const activities = await strapiRequest<Activity>({
     url: 'api/activities',
     locale,
     page,
-    statuses: ['approved'],
+    filters: {
+      approvalStatus: { $eq: 'approved' },
+    },
     fields: ['title', 'description', 'image', 'slug'],
   })
 
@@ -78,7 +106,7 @@ export const getServerSideProps = async context => {
 
   return {
     props: {
-      ...(await serverSideTranslations(locale, ['common'], i18nConfig)),
+      ...(await ssrTranslations(locale)),
       title: seo.title[locale],
       query: context.query,
       activities: activities.data.sort(

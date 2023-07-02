@@ -36,7 +36,7 @@ export const HashtagMiniCard: FC<HashtagMiniCardProps> = ({
         <Heading as={'h4'} fontSize={{ base: 'md', md: 'xl' }}>
           {hashtag.title}
         </Heading>
-        <Text>{hashtag.description.substring(0, 45).concat('...')}</Text>
+        <Text>{hashtag.description?.substring(0, 45).concat('...')}</Text>
       </Stack>
     </Card>
   )

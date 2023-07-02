@@ -21,11 +21,10 @@ import { InferType } from 'yup'
 
 import {
   useApproveModel,
-  useModelById,
+  useStrapiRequest,
   useUpdateModelMutation,
 } from '@wsvvrijheid/services'
 import {
-  StrapiLocale,
   StrapiTranslatableModel,
   StrapiTranslatableUpdateInput,
 } from '@wsvvrijheid/types'
@@ -53,7 +52,9 @@ export const ModelEditTranslate = <T extends StrapiTranslatableModel>({
 }: ModelEditTranslateProps<T>) => {
   const { t } = useTranslation('common')
 
-  const { data: model, refetch } = useModelById<T>({ url, id })
+  const { data, refetch } = useStrapiRequest<T>({ url, id })
+
+  const model = data?.data
 
   const referenceModel = useReferenceModel<T>(model)
 
@@ -178,7 +179,7 @@ export const ModelEditTranslate = <T extends StrapiTranslatableModel>({
               <Stack direction={{ base: 'column', lg: 'row' }}>
                 {!isReferenceSelf && referenceModel && (
                   <HStack w={{ base: 'full', lg: 400 }} align="baseline">
-                    <Box as={Flags[referenceModel.locale as StrapiLocale]} />
+                    <Box as={Flags[referenceModel.locale]} />
                     <Text>
                       {
                         referenceModel[
@@ -189,7 +190,7 @@ export const ModelEditTranslate = <T extends StrapiTranslatableModel>({
                   </HStack>
                 )}
                 <HStack flex={1} align="baseline" w={{ base: 'full', lg: 400 }}>
-                  <Box as={Flags[model?.locale as StrapiLocale]} />
+                  <Box as={Flags[model?.locale]} />
                   {field.type === 'markdown' ? (
                     <MdFormItem
                       id={`${model?.id}`}

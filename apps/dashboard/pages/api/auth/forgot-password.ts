@@ -14,7 +14,7 @@ const forgotPassRoute = async (req: NextApiRequest, res: NextApiResponse) => {
       { baseURL: API_URL },
     )
     res.json(response.data)
-  } catch (error) {
+  } catch (error: any) {
     console.error('error', error.response?.data)
     if (!error.response?.data?.error.message) {
       return res.status(500).json({ message: 'Internal server error' })

@@ -33,11 +33,10 @@ const MentionListItem: FC<MentionListItemProps> = ({
   onAddItem,
   onRemoveItem,
 }) => {
-  // @ts-ignore
   const { t } = useTranslation()
   const { activePostId, postMentions } = useHashtagContext()
 
-  const activeMentions = postMentions?.[activePostId]
+  const activeMentions = activePostId ? postMentions?.[activePostId] : []
 
   const isAdded = activeMentions?.includes(data.screen_name)
 

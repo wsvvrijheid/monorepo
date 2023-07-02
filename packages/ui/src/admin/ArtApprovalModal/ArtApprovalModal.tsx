@@ -36,7 +36,7 @@ export const ArtApprovalModal: FC<ArtApprovalTypes> = ({
   editor,
 }) => {
   const router = useRouter()
-  const locale = router.locale as StrapiLocale
+  const locale = router.locale
   const [isEditing, setIsEditing] = useState(false)
 
   const [language, setLanguage] = useState<StrapiLocale>(locale)

@@ -1,13 +1,12 @@
 import { FC } from 'react'
 
 import { Box } from '@chakra-ui/react'
-import { InferGetStaticPropsType } from 'next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { NextSeo, NextSeoProps } from 'next-seo'
 
+import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
+import { StrapiLocale } from '@wsvvrijheid/types'
 import { AdminLoginForm } from '@wsvvrijheid/ui'
-
-import i18nConfig from '../next-i18next.config'
 
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>
 
@@ -24,8 +23,8 @@ const LoginPage: FC<PageProps> = ({ seo }) => {
 
 export default LoginPage
 
-export const getStaticProps = async context => {
-  const { locale } = context
+export const getStaticProps = async (context: GetStaticPropsContext) => {
+  const locale = context.locale as StrapiLocale
 
   const title = {
     en: 'Login',
@@ -40,7 +39,7 @@ export const getStaticProps = async context => {
   return {
     props: {
       seo,
-      ...(await serverSideTranslations(locale, ['common'], i18nConfig)),
+      ...(await ssrTranslations(locale, ['admin'])),
     },
   }
 }

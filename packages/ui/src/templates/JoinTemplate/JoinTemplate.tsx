@@ -17,22 +17,16 @@ import { v4 as uuidV4 } from 'uuid'
 
 import { useAuthContext } from '@wsvvrijheid/context'
 import { Mutation } from '@wsvvrijheid/lib'
-import { useSearchModel } from '@wsvvrijheid/services'
-import {
-  Platform,
-  StrapiLocale,
-  Volunteer,
-  VolunteerCreateInput,
-} from '@wsvvrijheid/types'
-import { Job } from '@wsvvrijheid/types'
+import { useStrapiRequest } from '@wsvvrijheid/services'
+import { Platform, Volunteer, VolunteerCreateInput } from '@wsvvrijheid/types'
 import { toastMessage } from '@wsvvrijheid/utils'
 
 import { JoinTemplateProps } from './types'
 import {
   Container,
   JoinForm,
-  PageTitle,
   JoinFormFieldValues,
+  PageTitle,
   PlatformList,
 } from '../../components'
 
@@ -42,13 +36,12 @@ export const JoinTemplate: FC<JoinTemplateProps> = ({ title }) => {
 
   const { token } = useAuthContext()
 
-  const platformsResult = useSearchModel<Platform>({
+  const platformsResult = useStrapiRequest<Platform>({
     url: 'api/platforms',
-    locale: locale as StrapiLocale,
+    locale,
   })
 
   const platforms = platformsResult.data?.data || []
-  const jobs = (platforms?.flatMap(p => p.jobs) as Job[]) || []
 
   const { mutate, isLoading, isSuccess } = useMutation(
     ['create-volunteer'],
@@ -129,9 +122,8 @@ export const JoinTemplate: FC<JoinTemplateProps> = ({ title }) => {
               <JoinForm
                 onSubmitHandler={onSubmit}
                 isLoading={isLoading}
-                jobs={jobs}
                 platforms={platforms}
-                locale={(locale as StrapiLocale) || 'en'}
+                locale={locale || 'en'}
               />
             </Box>
 

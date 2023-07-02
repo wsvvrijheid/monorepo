@@ -2,7 +2,10 @@ import { useRouter } from 'next/router'
 import qs from 'qs'
 import { ParsedUrlQuery } from 'querystring'
 
-export type ChangeParamArgs = Record<string, string | string[] | undefined>
+export type ChangeParamArgs = Record<
+  string,
+  string | string[] | number | undefined
+>
 
 export const useChangeParams = () => {
   const { query, push } = useRouter()
@@ -29,7 +32,7 @@ const cleanQuery = (query: ParsedUrlQuery, args: ChangeParamArgs) => {
       param === '' ||
       param === null ||
       param === undefined ||
-      param.length === 0
+      (param as string).length === 0
     ) {
       delete newQuery[key]
     }

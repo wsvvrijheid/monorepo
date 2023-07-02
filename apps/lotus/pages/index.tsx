@@ -1,17 +1,16 @@
 import { FC } from 'react'
 
 import { Button, Heading, Image, VStack } from '@chakra-ui/react'
-import { GetStaticProps } from 'next'
+import { GetStaticPropsContext } from 'next'
 import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
 
+import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import { StrapiLocale } from '@wsvvrijheid/types'
 import { Container } from '@wsvvrijheid/ui'
 
 import { Layout } from '../components'
-import i18nConfig from '../next-i18next.config'
 
 interface HomeProps {
   seo: NextSeoProps
@@ -42,7 +41,7 @@ const Home: FC<HomeProps> = ({ seo }) => {
   )
 }
 
-export const getStaticProps: GetStaticProps = async context => {
+export const getStaticProps = async (context: GetStaticPropsContext) => {
   const locale = context.locale as StrapiLocale
 
   const title: Record<string, string> = {
@@ -54,7 +53,7 @@ export const getStaticProps: GetStaticProps = async context => {
   return {
     props: {
       seo: { title: title[locale] },
-      ...(await serverSideTranslations(locale, ['common'], i18nConfig)),
+      ...(await ssrTranslations(locale)),
     },
     revalidate: 1,
   }

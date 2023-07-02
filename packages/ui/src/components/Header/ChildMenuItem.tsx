@@ -2,8 +2,6 @@ import { FC } from 'react'
 
 import { useRouter } from 'next/router'
 
-import { StrapiLocale } from '@wsvvrijheid/types'
-
 import { MenuTypeItemProps } from './types'
 import { useScroll } from '../../hooks'
 import { Navigate } from '../Navigate'
@@ -28,7 +26,7 @@ export const ChildMenuItem: FC<MenuTypeItemProps> = ({ item, isDark }) => {
         color: !isScrolled && isDark ? 'whiteAlpha.800' : 'primary.500',
       }}
     >
-      {item[(locale as StrapiLocale) || 'en']}
+      {item[locale || 'en']}
     </Navigate>
   )
 }

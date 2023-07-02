@@ -10,14 +10,14 @@ import {
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation } from '@tanstack/react-query'
-import { TFunction, useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next'
 import { useForm } from 'react-hook-form'
-import * as yup from 'yup'
 
 import { Mutation } from '@wsvvrijheid/lib'
 import { TOKEN } from '@wsvvrijheid/secrets'
 import { CourseApplicationCreateInput } from '@wsvvrijheid/types'
 
+import { applicationSchema } from './schema'
 import { ApplicationFormFields, CourseApplicationFormProps } from './types'
 import { FormItem } from '../FormItem'
 
@@ -30,27 +30,13 @@ export const CourseApplicationForm: FC<CourseApplicationFormProps> = ({
 
   const toast = useToast()
 
-  const schema = (t: TFunction) =>
-    yup.object({
-      name: yup.string().required(t('apply-form.name.required') as string),
-      email: yup
-        .string()
-        .email(t('apply-form.email.invalid') as string)
-        .max(255)
-        .required(t('apply-form.email.required') as string),
-      country: yup.string(),
-      city: yup.string(),
-      phone: yup.string(),
-      message: yup.string(),
-    })
-
   const {
     register,
     reset,
     handleSubmit,
     formState: { errors, isValid },
   } = useForm<ApplicationFormFields>({
-    resolver: yupResolver(schema(t)),
+    resolver: yupResolver(applicationSchema(t)),
     mode: 'all',
   })
 

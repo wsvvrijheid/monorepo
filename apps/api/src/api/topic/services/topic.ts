@@ -1,11 +1,14 @@
+import { factories } from '@strapi/strapi'
+
 import { syncNews } from '../../../libs'
 
-const { createCoreService } = require('@strapi/strapi').factories
+export default factories.createCoreService(
+  'api::topic.topic',
+  ({ strapi }) => ({
+    async sync() {
+      const response = await syncNews({ strapi })
 
-export default createCoreService('api::topic.topic', ({ strapi }) => ({
-  async sync(...args: any[]) {
-    const response = await syncNews({ strapi })
-
-    return response
-  },
-}))
+      return response
+    },
+  }),
+)

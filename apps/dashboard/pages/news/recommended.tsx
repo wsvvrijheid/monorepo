@@ -1,31 +1,29 @@
 import { FC } from 'react'
 
 import { SimpleGrid } from '@chakra-ui/react'
-import { InferGetStaticPropsType } from 'next'
+import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { useRouter } from 'next/router'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
 
-import { useSearchModel } from '@wsvvrijheid/services'
+import { useStrapiRequest } from '@wsvvrijheid/services'
+import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import { RecommendedTopic, StrapiLocale } from '@wsvvrijheid/types'
 import { AdminLayout, TopicCard } from '@wsvvrijheid/ui'
-
-import i18nConfig from '../../next-i18next.config'
 
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>
 
 const NewsBookmarkedPage: FC<PageProps> = ({ seo }) => {
   const { locale } = useRouter()
 
-  const { data } = useSearchModel<RecommendedTopic>({
+  const { data } = useStrapiRequest<RecommendedTopic>({
     url: 'api/recommended-topics',
-    locale: locale as StrapiLocale,
+    locale,
   })
 
   return (
     <AdminLayout seo={seo}>
       <SimpleGrid columns={{ base: 1 }} gap={4}>
-        {data?.data?.map((topic, i) => (
+        {data?.data?.map(topic => (
           <TopicCard
             key={topic.url}
             topic={{ ...topic, isRecommended: true }}
@@ -36,8 +34,8 @@ const NewsBookmarkedPage: FC<PageProps> = ({ seo }) => {
   )
 }
 
-export const getStaticProps = async context => {
-  const { locale } = context
+export const getStaticProps = async (context: GetStaticPropsContext) => {
+  const locale = context.locale as StrapiLocale
 
   const title = {
     en: 'Recommended News',
@@ -52,11 +50,7 @@ export const getStaticProps = async context => {
   return {
     props: {
       seo,
-      ...(await serverSideTranslations(
-        locale,
-        ['common', 'admin'],
-        i18nConfig,
-      )),
+      ...(await ssrTranslations(locale, ['admin'])),
     },
   }
 }

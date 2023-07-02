@@ -1,23 +1,17 @@
 import { FC } from 'react'
 
 import { truncate } from 'lodash'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { MDXRemoteSerializeResult } from 'next-mdx-remote'
+import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { serialize } from 'next-mdx-remote/serialize'
-import { NextSeoProps } from 'next-seo'
 
-import { Request } from '@wsvvrijheid/lib'
-import { Term } from '@wsvvrijheid/types'
+import { strapiRequest } from '@wsvvrijheid/lib'
+import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
+import { StrapiLocale, Term } from '@wsvvrijheid/types'
 import { Container, Hero, Markdown } from '@wsvvrijheid/ui'
 
 import { Layout } from '../components'
-import i18nConfig from '../next-i18next.config'
 
-type TermsProps = {
-  seo: NextSeoProps
-  terms: Term
-  source: MDXRemoteSerializeResult
-}
+type TermsProps = InferGetStaticPropsType<typeof getStaticProps>
 
 const Terms: FC<TermsProps> = ({ terms, seo, source }) => {
   return (
@@ -32,10 +26,10 @@ const Terms: FC<TermsProps> = ({ terms, seo, source }) => {
 
 export default Terms
 
-export const getStaticProps = async context => {
-  const { locale } = context
+export const getStaticProps = async (context: GetStaticPropsContext) => {
+  const locale = context.locale as StrapiLocale
 
-  const response = await Request.single<Term>({
+  const response = await strapiRequest<Term>({
     url: 'api/term',
     locale,
   })
@@ -60,7 +54,7 @@ export const getStaticProps = async context => {
       terms,
       source,
       seo,
-      ...(await serverSideTranslations(locale, ['common'], i18nConfig)),
+      ...(await ssrTranslations(locale)),
     },
     revalidate: 1,
   }

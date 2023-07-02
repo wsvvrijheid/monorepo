@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 
 import { ROUTES } from '@wsvvrijheid/config'
-import { Hashtag, Post, StrapiLocale } from '@wsvvrijheid/types'
+import { Hashtag, Post } from '@wsvvrijheid/types'
 import { getItemLink } from '@wsvvrijheid/utils'
 
 export const useItemLink = (
@@ -13,5 +13,5 @@ export const useItemLink = (
 
   if (!item) return null
 
-  return getItemLink(item, locale as StrapiLocale, type, isAbsolute)
+  return getItemLink(item, locale, type, isAbsolute)
 }

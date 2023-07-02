@@ -2,16 +2,15 @@ import { FC } from 'react'
 
 import { dehydrate, QueryClient } from '@tanstack/react-query'
 import { GetServerSidePropsContext, InferGetStaticPropsType } from 'next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { serialize } from 'next-mdx-remote/serialize'
 
 import { ASSETS_URL, SITE_URL } from '@wsvvrijheid/config'
 import { getCourseBySlug } from '@wsvvrijheid/services'
+import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import { StrapiLocale } from '@wsvvrijheid/types'
 import { CourseDetailPage } from '@wsvvrijheid/ui'
 
 import { Layout } from '../../components'
-import i18nConfig from '../../next-i18next.config'
 
 type CoursePageProps = InferGetStaticPropsType<typeof getServerSideProps>
 
@@ -35,20 +34,16 @@ export const getServerSideProps = async (
 
   const locale = context.locale as StrapiLocale
 
-  const course = await getCourseBySlug(params.slug as string)
+  const course = await getCourseBySlug(params?.slug as string)
 
   if (!course)
     return {
       notFound: true,
     }
 
-  const titleKey = `title_${locale}`
-  const descriptionKey = `description_${locale}`
-  const contentKey = `content_${locale}`
-
-  const title = course[titleKey] || null
-  const description = course[descriptionKey] || null
-  const content = course[contentKey] || null
+  const title = course[`title_${locale}`] || ''
+  const description = course[`description_${locale}`] || ''
+  const content = course[`content_${locale}`] || ''
   const slug = course.slug
 
   const source = await serialize(content || '')
@@ -85,7 +80,7 @@ export const getServerSideProps = async (
       course,
       slugs: { en: slug, nl: slug, tr: slug },
       dehydratedState: dehydrate(queryClient),
-      ...(await serverSideTranslations(locale, ['common'], i18nConfig)),
+      ...(await ssrTranslations(locale)),
     },
   }
 }
