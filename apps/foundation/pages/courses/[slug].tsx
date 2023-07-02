@@ -2,12 +2,11 @@ import { FC } from 'react'
 
 import { dehydrate, QueryClient } from '@tanstack/react-query'
 import { GetServerSidePropsContext, InferGetStaticPropsType } from 'next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { serialize } from 'next-mdx-remote/serialize'
 
 import { ASSETS_URL, SITE_URL } from '@wsvvrijheid/config'
-import { i18nConfig } from '@wsvvrijheid/config'
 import { getCourseBySlug } from '@wsvvrijheid/services'
+import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import { StrapiLocale } from '@wsvvrijheid/types'
 import { CourseDetailPage } from '@wsvvrijheid/ui'
 
@@ -81,7 +80,7 @@ export const getServerSideProps = async (
       course,
       slugs: { en: slug, nl: slug, tr: slug },
       dehydratedState: dehydrate(queryClient),
-      ...(await serverSideTranslations(locale, ['common'], i18nConfig)),
+      ...(await ssrTranslations(locale)),
     },
   }
 }

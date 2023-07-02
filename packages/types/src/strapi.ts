@@ -203,22 +203,33 @@ export type StrapiCollectionResponse<T extends StrapiModel[]> = {
   meta: StrapiMeta
 }
 
+export type StrapiResponse<T extends StrapiModel> =
+  | StrapiSingleResponse<T>
+  | StrapiCollectionResponse<T[]>
+
 /**
  * STRAPI API URL TYPES
  */
-export type StrapiEmailUrl = 'email'
 export type StrapiProviders = 'instagram' | 'facebook' | 'google' | 'twitter'
-export type StrapiSingleUrl =
+
+export type StrapiEmailEndpoint = 'email'
+export type StrapiEmailUrl = `api/${StrapiEmailEndpoint}`
+
+export type StrapiSingleEndpoint =
   | 'term'
   | 'privacy'
   | 'trend'
   | 'topic'
   | 'topic/sync'
-export type StrapiAuthUrl =
+export type StrapiSingleUrl = `api/${StrapiSingleEndpoint}`
+
+export type StrapiAuthEndpoint =
   | 'auth/local/register'
   | 'auth/local'
   | `connect/${StrapiProviders}/callback`
-export type StrapiCollectionUrl =
+export type StrapiAuthUrl = `api/${StrapiAuthEndpoint}`
+
+export type StrapiCollectionEndpoint =
   | 'account-statistics'
   | 'activities'
   | 'announcements'
@@ -254,12 +265,13 @@ export type StrapiCollectionUrl =
   | 'users/me'
   | 'volunteers'
   | 'votes'
+export type StrapiCollectionUrl = `api/${StrapiCollectionEndpoint}`
 
-export type StrapiUrl = Expand<`api/${
+export type StrapiUrl =
   | StrapiSingleUrl
   | StrapiCollectionUrl
   | StrapiAuthUrl
-  | StrapiEmailUrl}`>
+  | StrapiEmailUrl
 
 export type StrapiLocalizeInput =
   | ActivityLocalizeInput

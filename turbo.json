@@ -6,18 +6,15 @@
       "outputs": [".next/**", "!.next/cache/**"]
     },
     "lint": {},
-    "dev": {
-      "cache": false,
-      "persistent": true
-    },
-    "dashboard": {},
-    "foundation": {},
-    "kunsthalte": {},
-    "lotus": {},
-    "samenvvv": {},
+    "dev": { "cache": false, "persistent": true },
+    "dashboard": { "cache": false, "persistent": true },
+    "foundation": { "cache": false, "persistent": true },
+    "kunsthalte": { "cache": false, "persistent": true },
+    "lotus": { "cache": false, "persistent": true },
+    "samenvvv": { "cache": false, "persistent": true },
     "clean": {},
-    "storybook": {},
+    "storybook": { "cache": false, "persistent": true },
     "storybook-build": {},
-    "db": {}
+    "db": { "cache": false, "persistent": true }
   }
 }

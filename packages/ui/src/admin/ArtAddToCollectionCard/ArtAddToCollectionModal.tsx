@@ -15,7 +15,7 @@ import {
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 
-import { useSearchModel } from '@wsvvrijheid/services'
+import { useStrapiRequest } from '@wsvvrijheid/services'
 import { Art } from '@wsvvrijheid/types'
 
 import { ArtAddToCollectionGrid } from './ArtAddToCollectionGrid'
@@ -32,12 +32,13 @@ export const ArtAddToCollectionModal: FC<ArtAddToCollectionModalProps> = ({
   const [page, setPage] = useState(1)
   const { locale } = useRouter()
 
-  const { data, isLoading, refetch } = useSearchModel<Art>({
+  const { data, isLoading, refetch } = useStrapiRequest<Art>({
     url: 'api/arts',
-    searchTerm: search || undefined,
-    searchFields: ['title_en', 'title_nl', 'title_tr'],
+    filters: {
+      ...(search ? { [`title_${locale}`]: { $containsi: search } } : {}),
+      approvalStatus: { $eq: 'approved' },
+    },
     locale,
-    statuses: ['approved'],
     page,
   })
 

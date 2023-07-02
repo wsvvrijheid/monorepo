@@ -7,11 +7,10 @@ import {
 } from '@chakra-ui/react'
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { useRouter } from 'next/router'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
 
-import { i18nConfig } from '@wsvvrijheid/config'
-import { useSearchModel } from '@wsvvrijheid/services'
+import { useStrapiRequest } from '@wsvvrijheid/services'
+import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import { Hashtag, Post, Sort, StrapiLocale } from '@wsvvrijheid/types'
 import {
   AdminLayout,
@@ -30,30 +29,34 @@ const PostsPage: FC<PageProps> = ({ seo }) => {
 
   const [sort, setSort] = useState<Sort>()
 
-  const [hashtagsFilter, setHashtagsFilter] = useState<number[]>([])
+  const [hashtagIds, setHashtagIds] = useState<number[]>([])
 
-  const postsQuery = useSearchModel<Post>({
+  const postsQuery = useStrapiRequest<Post>({
     url: 'api/posts',
     page: currentPage || 1,
-    searchTerm,
-    relationFilter: {
-      parent: 'hashtag',
-      ids: hashtagsFilter,
+    filters: {
+      ...(hashtagIds.length > 0 && {
+        hashtag: { id: { $eq: hashtagIds } },
+      }),
+      ...(searchTerm && { [`title_${locale}`]: { $containsi: searchTerm } }),
+      approvalStatus: { $eq: 'approved' },
     },
     sort,
     locale,
-    statuses: ['approved'],
     includeDrafts: true,
   })
 
-  const hashtagsQuery = useSearchModel<Hashtag>({
+  const hashtagsQuery = useStrapiRequest<Hashtag>({
     url: 'api/hashtags',
     locale,
     includeDrafts: true,
     fields: ['id', 'title'],
+    queryOptions: {
+      enabled: hashtagIds.length > 0,
+    },
   })
 
-  useEffect(() => setCurrentPage(1), [hashtagsFilter])
+  useEffect(() => setCurrentPage(1), [hashtagIds])
 
   const handleSearch = (search?: string) => {
     search ? setSearchTerm(search) : setSearchTerm(undefined)
@@ -73,14 +76,14 @@ const PostsPage: FC<PageProps> = ({ seo }) => {
 
   useUpdateEffect(() => {
     postsQuery.refetch()
-  }, [locale, searchTerm, sort, hashtagsFilter])
+  }, [locale, searchTerm, sort, hashtagIds])
 
   const filterMenu = (
     <MenuOptionGroup
       title="Hastags"
       type="checkbox"
       onChange={(value: string | string[]) =>
-        setHashtagsFilter((value as string[]).map(v => +v))
+        setHashtagIds((value as string[]).map(v => +v))
       }
     >
       {hashtagsQuery.data?.data?.map(hashtag => (
@@ -134,11 +137,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
   return {
     props: {
       seo,
-      ...(await serverSideTranslations(
-        locale,
-        ['common', 'admin'],
-        i18nConfig,
-      )),
+      ...(await ssrTranslations(locale, ['admin'])),
     },
   }
 }

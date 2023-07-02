@@ -42,7 +42,6 @@ import {
   StrapiModel,
   StrapiTranslatableModel,
   StrapiTranslatableUpdateInput,
-  StrapiUrl,
 } from '@wsvvrijheid/types'
 
 import { ModelImage } from './ModelImage'
@@ -279,7 +278,7 @@ export const ModelEditForm = <T extends StrapiModel>({
                 return (
                   <ModelSelect<T>
                     key={index}
-                    url={field.url as StrapiUrl}
+                    url={field.url}
                     isMulti={field.isMulti}
                     isRequired={field.isRequired}
                     name={field.name as string}

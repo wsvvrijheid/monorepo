@@ -2,10 +2,9 @@ import { FC } from 'react'
 
 import { dehydrate, QueryClient } from '@tanstack/react-query'
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import { i18nConfig } from '@wsvvrijheid/config'
 import { getBlogs, useGetBlogs } from '@wsvvrijheid/services'
+import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import { StrapiLocale } from '@wsvvrijheid/types'
 import { BlogTemplate } from '@wsvvrijheid/ui'
 
@@ -57,7 +56,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
     props: {
       seo,
       dehydratedState: dehydrate(queryClient),
-      ...(await serverSideTranslations(locale, ['common'], i18nConfig)),
+      ...(await ssrTranslations(locale)),
     },
     revalidate: 1,
   }

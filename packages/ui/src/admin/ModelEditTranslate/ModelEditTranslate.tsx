@@ -21,7 +21,7 @@ import { InferType } from 'yup'
 
 import {
   useApproveModel,
-  useModelById,
+  useStrapiRequest,
   useUpdateModelMutation,
 } from '@wsvvrijheid/services'
 import {
@@ -52,7 +52,9 @@ export const ModelEditTranslate = <T extends StrapiTranslatableModel>({
 }: ModelEditTranslateProps<T>) => {
   const { t } = useTranslation('common')
 
-  const { data: model, refetch } = useModelById<T>({ url, id })
+  const { data, refetch } = useStrapiRequest<T>({ url, id })
+
+  const model = data?.data
 
   const referenceModel = useReferenceModel<T>(model)
 

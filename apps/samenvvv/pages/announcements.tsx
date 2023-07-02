@@ -6,14 +6,13 @@ import { isPast } from 'date-fns'
 import { GetServerSidePropsContext } from 'next'
 import Head from 'next/head'
 import { useTranslation } from 'next-i18next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { serialize } from 'next-mdx-remote/serialize'
 import { NextSeoProps } from 'next-seo'
 
 import { SITE_URL } from '@wsvvrijheid/config'
-import { i18nConfig } from '@wsvvrijheid/config'
-import { searchModel, SearchModelArgs } from '@wsvvrijheid/services'
+import { RequestCollectionArgs, strapiRequest } from '@wsvvrijheid/lib'
+import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import {
   Hashtag,
   StrapiCollectionResponse,
@@ -85,22 +84,18 @@ export const getServerSideProps = async (
   const locale = context.locale as StrapiLocale
   const queryClient = new QueryClient()
 
-  const ssrTranslations = await serverSideTranslations(
-    locale,
-    ['common'],
-    i18nConfig,
-  )
-
-  const args: SearchModelArgs<Hashtag> = {
+  const args: RequestCollectionArgs = {
     url: 'api/hashtags',
     locale,
-    statuses: ['approved'],
+    filters: {
+      approvalStatus: { eq: 'approved' },
+    },
     pageSize: 1,
   }
 
   const queryKey = Object.values(args)
 
-  await queryClient.prefetchQuery(queryKey, () => searchModel<Hashtag>(args))
+  await queryClient.prefetchQuery(queryKey, () => strapiRequest<Hashtag>(args))
 
   const hashtagsResponse =
     queryClient.getQueryData<StrapiCollectionResponse<Hashtag[]>>(queryKey)
@@ -128,7 +123,7 @@ export const getServerSideProps = async (
   if (!hashtag) {
     return {
       props: {
-        ...ssrTranslations,
+        ...(await ssrTranslations(locale)),
         seo: { title: title[locale] },
         hashtag: null,
       },
@@ -180,7 +175,7 @@ export const getServerSideProps = async (
 
   return {
     props: {
-      ...ssrTranslations,
+      ...(await ssrTranslations(locale)),
       seo,
       source,
       hashtag,

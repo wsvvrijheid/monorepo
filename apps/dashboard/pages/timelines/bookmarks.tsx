@@ -1,11 +1,10 @@
 import { FC } from 'react'
 
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
 import { useLocalStorage } from 'usehooks-ts'
 
-import { i18nConfig } from '@wsvvrijheid/config'
+import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import { StrapiLocale, Tweet } from '@wsvvrijheid/types'
 import { AdminLayout, Container, MasonryGrid, TweetCard } from '@wsvvrijheid/ui'
 
@@ -43,11 +42,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
   return {
     props: {
       seo,
-      ...(await serverSideTranslations(
-        locale,
-        ['common', 'admin'],
-        i18nConfig,
-      )),
+      ...(await ssrTranslations(locale, ['admin'])),
     },
   }
 }

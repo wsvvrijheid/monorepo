@@ -3,29 +3,28 @@ import { FC, useEffect, useState } from 'react'
 import { useUpdateEffect } from '@chakra-ui/react'
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { useRouter } from 'next/router'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
 
-import { i18nConfig } from '@wsvvrijheid/config'
-import { useSearchModel } from '@wsvvrijheid/services'
+import { useStrapiRequest } from '@wsvvrijheid/services'
+import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import {
   Activity,
   ApprovalStatus,
   RoleType,
   Sort,
-  StrapiCollectionUrl,
+  StrapiCollectionEndpoint,
   StrapiLocale,
   StrapiTranslatableModel,
 } from '@wsvvrijheid/types'
 import {
-  activityColumns,
   AdminLayout,
-  artColumns,
-  collectionColumns,
   DataTable,
-  mainHashtagColumns,
   ModelEditTranslate,
   PageHeader,
+  activityColumns,
+  artColumns,
+  collectionColumns,
+  mainHashtagColumns,
   postColumns,
   translateModelFields,
   translateModelSchema,
@@ -43,7 +42,7 @@ const dataColumns = {
   posts: postColumns,
 }
 
-const approverRoles: { [x in StrapiCollectionUrl]?: RoleType[] } = {
+const approverRoles: { [x in StrapiCollectionEndpoint]?: RoleType[] } = {
   activities: ['translator'],
   arts: ['translator'],
   collections: ['translator'],
@@ -51,7 +50,7 @@ const approverRoles: { [x in StrapiCollectionUrl]?: RoleType[] } = {
   posts: ['translator'],
 }
 
-const editRoles: { [x in StrapiCollectionUrl]?: RoleType[] } = {
+const editRoles: { [x in StrapiCollectionEndpoint]?: RoleType[] } = {
   activities: ['translator'],
   arts: ['translator'],
   collections: ['translator'],
@@ -69,7 +68,7 @@ const TranslateDataTable: FC<TranslateDataTableProps> = ({ searchTerm }) => {
 
   const { query, locale, push } = useRouter()
   const status = query.status as ApprovalStatus
-  const slug = query.slug as Partial<StrapiCollectionUrl>
+  const slug = query.slug as Partial<StrapiCollectionEndpoint>
 
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
@@ -81,14 +80,21 @@ const TranslateDataTable: FC<TranslateDataTableProps> = ({ searchTerm }) => {
     dataQuery.refetch()
   }, [locale, searchTerm, sort, status])
 
-  const dataQuery = useSearchModel<Activity>({
+  const dataQuery = useStrapiRequest<Activity>({
     url: `api/${slug}`,
     page: currentPage || 1,
     pageSize: 10,
-    searchTerm,
+    filters: {
+      ...(searchTerm && {
+        $or: [
+          { title: { $containsi: searchTerm } },
+          { description: { $containsi: searchTerm } },
+        ],
+      }),
+      approvalStatus: { $eq: 'pending' },
+    },
     sort,
     locale,
-    statuses: ['pending'],
     includeDrafts: true,
   })
 
@@ -123,7 +129,7 @@ const ActivitiesTranslatePage: FC<PageProps> = ({ seo }) => {
 
   const { query } = useRouter()
   const id = Number(query.id as string)
-  const slug = query.slug as StrapiCollectionUrl
+  const slug = query.slug as StrapiCollectionEndpoint
 
   const handleSearch = (search?: string) => {
     search ? setSearchTerm(search) : setSearchTerm(undefined)
@@ -176,11 +182,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
   return {
     props: {
       seo,
-      ...(await serverSideTranslations(
-        locale,
-        ['common', 'admin'],
-        i18nConfig,
-      )),
+      ...(await ssrTranslations(locale, ['admin'])),
     },
   }
 }

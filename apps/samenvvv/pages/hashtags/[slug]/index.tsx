@@ -20,16 +20,15 @@ import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { ASSETS_URL, SITE_URL } from '@wsvvrijheid/config'
-import { i18nConfig } from '@wsvvrijheid/config'
+import { strapiRequest } from '@wsvvrijheid/lib'
 import {
   getHashtagBySlug,
   getHashtagSentences,
-  getModelById,
   useHashtag,
 } from '@wsvvrijheid/services'
+import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import { HashtagReturnType, Post, StrapiLocale } from '@wsvvrijheid/types'
 import {
   Container,
@@ -164,12 +163,14 @@ export const getServerSideProps = async (
     return { notFound: true }
   }
 
-  const post = query.id
-    ? await getModelById<Post>({
+  const response = query.id
+    ? await strapiRequest<Post>({
         url: 'api/posts',
         id: Number(query.id),
       })
     : null
+
+  const post = response?.data
 
   let seo = getPageSeo(hashtag, locale, 'hashtag')
   let capsSrc = ''
@@ -272,7 +273,7 @@ export const getServerSideProps = async (
       slugs: { ...slugs, [locale]: slug },
       hasStarted: hashtag.hasStarted,
       dehydratedState: dehydrate(queryClient),
-      ...(await serverSideTranslations(locale, ['common'], i18nConfig)),
+      ...(await ssrTranslations(locale)),
     },
   }
 }

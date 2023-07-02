@@ -1,10 +1,9 @@
 import { FC } from 'react'
 
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import { i18nConfig } from '@wsvvrijheid/config'
-import { searchModel } from '@wsvvrijheid/services'
+import { strapiRequest } from '@wsvvrijheid/lib'
+import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import { Platform, StrapiLocale } from '@wsvvrijheid/types'
 import { Hero } from '@wsvvrijheid/ui'
 
@@ -27,7 +26,7 @@ export default Platforms
 export const getStaticProps = async (context: GetStaticPropsContext) => {
   const locale = context.locale as StrapiLocale
 
-  const platforms = await searchModel<Platform>({
+  const platforms = await strapiRequest<Platform>({
     url: 'api/platforms',
   })
 
@@ -41,7 +40,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
 
   return {
     props: {
-      ...(await serverSideTranslations(locale, ['common'], i18nConfig)),
+      ...(await ssrTranslations(locale)),
       title: seo.title[locale],
       platforms,
     },

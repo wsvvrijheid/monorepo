@@ -13,13 +13,12 @@ import {
 import { useMutation } from '@tanstack/react-query'
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { useRouter } from 'next/router'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { MdEmail } from 'react-icons/md'
 
 import { EMAIL_SENDER, socialLinks } from '@wsvvrijheid/config'
-import { i18nConfig } from '@wsvvrijheid/config'
 import { TOKEN } from '@wsvvrijheid/secrets'
 import { sendEmail } from '@wsvvrijheid/services'
+import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import { EmailCreateInput, StrapiLocale } from '@wsvvrijheid/types'
 import {
   ContactForm,
@@ -149,7 +148,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
   return {
     props: {
       seo,
-      ...(await serverSideTranslations(locale, ['common'], i18nConfig)),
+      ...(await ssrTranslations(locale)),
     },
   }
 }

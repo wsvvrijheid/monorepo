@@ -23,7 +23,6 @@ import {
   Post,
   PostCreateInput,
   StrapiTranslatableCreateInput,
-  StrapiUrl,
   UploadFile,
 } from '@wsvvrijheid/types'
 import { generateOgImageParams } from '@wsvvrijheid/utils'
@@ -125,7 +124,7 @@ export const CreatePostFromCapsModal: FC<CreatePostFromCapsModalProps> = ({
         <ModalHeader>Create Multiple Hashtag Post</ModalHeader>
         <Stack m={10} as={'form'} onSubmit={handleSubmit(onCreate)}>
           <ModelSelect
-            url={'api/hashtags' as StrapiUrl}
+            url={'api/hashtags'}
             isRequired={true}
             name={'hashtags' as string}
             label={'Hashtags'}

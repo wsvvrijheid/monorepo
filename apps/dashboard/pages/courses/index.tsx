@@ -3,17 +3,16 @@ import { FC, useState } from 'react'
 import { MenuItem, useUpdateEffect } from '@chakra-ui/react'
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { useRouter } from 'next/router'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { FaArrowDown, FaArrowUp } from 'react-icons/fa'
 
-import { i18nConfig } from '@wsvvrijheid/config'
-import { useSearchModel } from '@wsvvrijheid/services'
+import { useStrapiRequest } from '@wsvvrijheid/services'
+import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import { Course, Sort, StrapiLocale, StrapiModel } from '@wsvvrijheid/types'
 import {
   AdminLayout,
-  coursesColumns,
   DataTable,
   PageHeader,
+  coursesColumns,
 } from '@wsvvrijheid/ui'
 
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>
@@ -26,12 +25,14 @@ const CoursesPage: FC<PageProps> = ({ seo }) => {
   const router = useRouter()
   const { locale } = useRouter()
 
-  const coursesQuery = useSearchModel<Course>({
+  const coursesQuery = useStrapiRequest<Course>({
     url: 'api/courses',
     populate: ['categories', 'tags', 'platforms', 'image', 'applications'],
     page: currentPage || 1,
     pageSize: 10,
-    searchTerm,
+    filters: {
+      ...(searchTerm && { [`title_${locale}`]: { $containsi: searchTerm } }),
+    },
     sort,
     locale,
   })
@@ -109,11 +110,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
   return {
     props: {
       seo,
-      ...(await serverSideTranslations(
-        locale,
-        ['common', 'admin'],
-        i18nConfig,
-      )),
+      ...(await ssrTranslations(locale, ['admin'])),
     },
   }
 }

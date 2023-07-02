@@ -2,16 +2,10 @@ import { FC } from 'react'
 
 import { dehydrate, QueryClient } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
-import {
-  GetStaticPathsContext,
-  GetStaticPropsContext,
-  InferGetStaticPropsType,
-} from 'next/types'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { GetStaticPropsContext, InferGetStaticPropsType } from 'next/types'
 import { serialize } from 'next-mdx-remote/serialize'
 
 import { ASSETS_URL, SITE_URL } from '@wsvvrijheid/config'
-import { i18nConfig } from '@wsvvrijheid/config'
 import {
   getAuthorBlogs,
   getBlogBySlug,
@@ -20,6 +14,7 @@ import {
   useLikeBlog,
   useViewBlog,
 } from '@wsvvrijheid/services'
+import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import { Blog, StrapiLocale } from '@wsvvrijheid/types'
 import { BlogDetail, Container } from '@wsvvrijheid/ui'
 
@@ -65,11 +60,8 @@ const BlogDetailPage: FC<BlogPageProps> = ({
 
 export default BlogDetailPage
 
-export const getStaticPaths = async (context: GetStaticPathsContext) => {
-  return await getModelStaticPaths(
-    'api/blogs',
-    context.locales as StrapiLocale[],
-  )
+export const getStaticPaths = async () => {
+  return await getModelStaticPaths('api/blogs')
 }
 
 export const getStaticProps = async (context: GetStaticPropsContext) => {
@@ -135,7 +127,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
       queryKey,
       dehydrateState: dehydrate(queryClient),
       authorBlogs,
-      ...(await serverSideTranslations(locale, ['common'], i18nConfig)),
+      ...(await ssrTranslations(locale)),
     },
     revalidate: 1,
   }

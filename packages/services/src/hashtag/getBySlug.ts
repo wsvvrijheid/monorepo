@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import { addDays, isPast } from 'date-fns'
 import { useRouter } from 'next/router'
 
-import { Request } from '@wsvvrijheid/lib'
+import { strapiRequest } from '@wsvvrijheid/lib'
 import {
   Hashtag,
   HashtagReturnType,
@@ -14,7 +14,7 @@ export const getHashtagBySlug = async (
   locale: StrapiLocale,
   slug: string,
 ): Promise<HashtagReturnType | null> => {
-  const response = await Request.collection<Hashtag[]>({
+  const response = await strapiRequest<Hashtag>({
     url: 'api/hashtags',
     filters: { slug: { $eq: slug } },
     locale,
