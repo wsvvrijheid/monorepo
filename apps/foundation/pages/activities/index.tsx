@@ -6,7 +6,7 @@ import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { i18nConfig } from '@wsvvrijheid/config'
-import { searchModel } from '@wsvvrijheid/services'
+import { Request } from '@wsvvrijheid/lib'
 import { Activity, StrapiLocale, UploadFile } from '@wsvvrijheid/types'
 import {
   AnimatedBox,
@@ -87,7 +87,7 @@ export const getServerSideProps = async (
   const query = context.query as { page: string }
   const page = Number(query.page)
 
-  const activities = await searchModel<Activity>({
+  const activities = await Request.collection<Activity>({
     url: 'api/activities',
     locale,
     page,

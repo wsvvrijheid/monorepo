@@ -5,7 +5,7 @@ import { Request } from '@wsvvrijheid/lib'
 import { Art } from '@wsvvrijheid/types'
 
 export const getArtBySlug = async (slug: string): Promise<Art | null> => {
-  const response = await Request.collection<Art[]>({
+  const response = await Request.collection<Art>({
     url: 'api/arts',
     filters: { slug: { $eq: slug } },
     populate: [

@@ -1,19 +1,13 @@
-import { Request, RequestArgs } from '@wsvvrijheid/lib'
+import { Request } from '@wsvvrijheid/lib'
 import { StrapiLocale, StrapiModel, StrapiUrl } from '@wsvvrijheid/types'
 
-const getModelPaths = async <T extends StrapiModel>(
-  url: StrapiUrl,
-  locales: StrapiLocale[],
-  args: Omit<RequestArgs<T>, 'url'> = {},
-) =>
-  (
+const getModelPaths = async <T extends StrapiModel>(url: StrapiUrl) => {
+  const locales = ['tr', 'en', 'nl'] as StrapiLocale[]
+
+  return (
     await Promise.all(
       locales.flatMap(async locale => {
-        const responses = await Request.collection<T[]>({
-          url,
-          locale,
-          ...args,
-        })
+        const responses = await Request.collection<T>({ url })
 
         const models = responses?.data
 
@@ -24,13 +18,12 @@ const getModelPaths = async <T extends StrapiModel>(
       }),
     )
   ).flat()
+}
 
 export const getModelStaticPaths = async <T extends StrapiModel>(
   url: StrapiUrl,
-  locales: StrapiLocale[],
-  args: Omit<RequestArgs<T>, 'url'> = {},
 ) => {
-  const paths = await getModelPaths<T>(url, locales, args)
+  const paths = await getModelPaths<T>(url)
 
   return { paths, fallback: true }
 }

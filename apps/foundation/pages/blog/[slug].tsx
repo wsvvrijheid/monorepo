@@ -2,16 +2,11 @@ import { FC } from 'react'
 
 import { dehydrate, QueryClient } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
-import {
-  GetStaticPathsContext,
-  GetStaticPropsContext,
-  InferGetStaticPropsType,
-} from 'next/types'
+import { GetStaticPropsContext, InferGetStaticPropsType } from 'next/types'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { serialize } from 'next-mdx-remote/serialize'
 
-import { ASSETS_URL, SITE_URL } from '@wsvvrijheid/config'
-import { i18nConfig } from '@wsvvrijheid/config'
+import { ASSETS_URL, i18nConfig, SITE_URL } from '@wsvvrijheid/config'
 import {
   getAuthorBlogs,
   getBlogBySlug,
@@ -65,11 +60,8 @@ const BlogDetailPage: FC<BlogPageProps> = ({
 
 export default BlogDetailPage
 
-export const getStaticPaths = async (context: GetStaticPathsContext) => {
-  return await getModelStaticPaths(
-    'api/blogs',
-    context.locales as StrapiLocale[],
-  )
+export const getStaticPaths = async () => {
+  return await getModelStaticPaths('api/blogs')
 }
 
 export const getStaticProps = async (context: GetStaticPropsContext) => {

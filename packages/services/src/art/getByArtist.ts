@@ -7,7 +7,7 @@ export const getArtByArtist = async (
   userId: number,
   includeDrafts?: boolean,
 ) => {
-  const response = await Request.collection<Art[]>({
+  const response = await Request.collection<Art>({
     url: 'api/arts',
     filters: {
       artist: { id: { $eq: userId || null } },

@@ -5,7 +5,7 @@ export const getCollectionBySlug = async (
   locale: StrapiLocale,
   slug: string,
 ) => {
-  const response = await Request.collection<Collection[]>({
+  const response = await Request.collection<Collection>({
     url: 'api/collections',
     filters: { slug: { $eq: slug } },
     populate: ['localizations', 'image', 'arts.image', 'arts.artist'],

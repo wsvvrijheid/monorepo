@@ -26,7 +26,7 @@ const DonationPage: FC<DonationPageProps> = ({ platforms }) => {
 export const getStaticProps = async (context: GetStaticPropsContext) => {
   const locale = context.locale as StrapiLocale
 
-  const platforms = await Request.collection<Platform[]>({
+  const platforms = await Request.collection<Platform>({
     url: 'api/platforms',
   })
 

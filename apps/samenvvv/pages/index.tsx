@@ -8,7 +8,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
 
 import { i18nConfig } from '@wsvvrijheid/config'
-import { searchModel } from '@wsvvrijheid/services'
+import { Request } from '@wsvvrijheid/lib'
 import { Hashtag, StrapiLocale } from '@wsvvrijheid/types'
 import {
   Container,
@@ -96,7 +96,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
     tr: 'Anasayfa',
   }
 
-  const { data: hashtags } = await searchModel<Hashtag>({
+  const { data: hashtags } = await Request.collection<Hashtag>({
     url: 'api/hashtags',
     locale,
     filters: {

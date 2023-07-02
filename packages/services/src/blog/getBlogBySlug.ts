@@ -10,7 +10,7 @@ export const getBlogBySlug = async (
   slug: string,
 ): Promise<Blog | null> => {
   const response = await Request.collection<
-    SetRequired<Blog, 'author' | 'image' | 'likers'>[]
+    SetRequired<Blog, 'author' | 'image' | 'likers'>
   >({
     url: 'api/blogs',
     populate: ['author', 'image', 'likers'],

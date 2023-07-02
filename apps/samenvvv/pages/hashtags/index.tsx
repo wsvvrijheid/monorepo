@@ -7,11 +7,8 @@ import { serialize } from 'next-mdx-remote/serialize'
 import { NextSeoProps } from 'next-seo'
 
 import { i18nConfig } from '@wsvvrijheid/config'
-import {
-  searchModel,
-  SearchModelArgs,
-  useSearchModel,
-} from '@wsvvrijheid/services'
+import { Request, RequestArgs } from '@wsvvrijheid/lib'
+import { useRequestCollection } from '@wsvvrijheid/services'
 import { Hashtag, StrapiLocale } from '@wsvvrijheid/types'
 import {
   AnimatedBox,
@@ -28,7 +25,7 @@ type HashtagEventsProps = InferGetStaticPropsType<typeof getStaticProps>
 const HashtagEvents = ({ seo, source }: HashtagEventsProps) => {
   const router = useRouter()
 
-  const hashtagsQuery = useSearchModel<Hashtag>({
+  const hashtagsQuery = useRequestCollection<Hashtag>({
     url: 'api/hashtags',
     locale: router.locale,
     filters: {
@@ -75,7 +72,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
   const locale = context.locale as StrapiLocale
   const queryClient = new QueryClient()
 
-  const args: SearchModelArgs<Hashtag> = {
+  const args: RequestArgs<Hashtag> = {
     url: 'api/hashtags',
     locale,
     filters: {
@@ -86,7 +83,9 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
 
   const queryKey = Object.entries(args)
 
-  await queryClient.prefetchQuery(queryKey, () => searchModel<Hashtag>(args))
+  await queryClient.prefetchQuery(queryKey, () =>
+    Request.collection<Hashtag>(args),
+  )
 
   const title = {
     en: 'Hashtags',

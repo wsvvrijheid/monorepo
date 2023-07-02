@@ -5,7 +5,7 @@ import { GetStaticPropsContext } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { i18nConfig } from '@wsvvrijheid/config'
-import { searchModel } from '@wsvvrijheid/services'
+import { Request } from '@wsvvrijheid/lib'
 import { Art, StrapiLocale } from '@wsvvrijheid/types'
 import { ArtClubTemplate } from '@wsvvrijheid/ui'
 
@@ -31,7 +31,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
     // queryKey: [arts, locale, searchTerm, category, page]
     queryKey: ['arts', locale, null, null, '1'],
     queryFn: () =>
-      searchModel<Art>({
+      Request.collection<Art>({
         url: 'api/arts',
         locale,
         filters: {

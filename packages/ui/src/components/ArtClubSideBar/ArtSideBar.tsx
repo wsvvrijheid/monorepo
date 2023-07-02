@@ -4,7 +4,7 @@ import { Box, Stack } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
-import { useSearchModel } from '@wsvvrijheid/services'
+import { useRequestCollection } from '@wsvvrijheid/services'
 import { Category, Collection } from '@wsvvrijheid/types'
 
 import { useChangeParams } from '../../hooks'
@@ -29,7 +29,7 @@ export const ArtSideBar: FC<ArtSideBarProps> = ({
     query: { categories },
   } = useRouter()
 
-  const collectionsQuery = useSearchModel<Collection>({
+  const collectionsQuery = useRequestCollection<Collection>({
     url: 'api/collections',
     locale,
   })

@@ -5,7 +5,7 @@ import { Request } from '@wsvvrijheid/lib'
 import { Course } from '@wsvvrijheid/types'
 
 export const getCourseBySlug = async (slug: string): Promise<Course | null> => {
-  const response = await Request.collection<Course[]>({
+  const response = await Request.collection<Course>({
     url: 'api/courses',
     filters: { slug: { $eq: slug } },
   })

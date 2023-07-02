@@ -7,7 +7,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { ASSETS_URL, COURSES } from '@wsvvrijheid/config'
 import { i18nConfig } from '@wsvvrijheid/config'
-import { searchModel } from '@wsvvrijheid/services'
+import { Request } from '@wsvvrijheid/lib'
 import { Course, StrapiLocale } from '@wsvvrijheid/types'
 import { AcademyCard, Container, Hero } from '@wsvvrijheid/ui'
 
@@ -70,7 +70,7 @@ export default Platforms
 export const getStaticProps = async (context: GetStaticPropsContext) => {
   const locale = context.locale as StrapiLocale
 
-  const courses = await searchModel<Course>({
+  const courses = await Request.collection<Course>({
     url: 'api/courses',
     populate: '*',
   })

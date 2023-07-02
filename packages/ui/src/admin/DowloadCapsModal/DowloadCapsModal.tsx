@@ -19,7 +19,7 @@ import { useRouter } from 'next/router'
 import { FaDownload } from 'react-icons/fa'
 
 import { ASSETS_URL, SITE_URL } from '@wsvvrijheid/config'
-import { useSearchModel } from '@wsvvrijheid/services'
+import { useRequestCollection } from '@wsvvrijheid/services'
 import { Post } from '@wsvvrijheid/types'
 import { getOgImageSrc } from '@wsvvrijheid/utils'
 
@@ -35,7 +35,7 @@ export const DowloadCapsModal: FC<DowloadCapsModalType> = ({ id }) => {
 
   const { locale } = useRouter()
 
-  const postsQuery = useSearchModel<Post>({
+  const postsQuery = useRequestCollection<Post>({
     url: 'api/posts',
     filters: {
       ...(id && { hashtag: { id: { $eq: id } } }),

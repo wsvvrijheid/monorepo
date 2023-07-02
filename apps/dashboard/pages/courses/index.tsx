@@ -7,7 +7,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { FaArrowDown, FaArrowUp } from 'react-icons/fa'
 
 import { i18nConfig } from '@wsvvrijheid/config'
-import { useSearchModel } from '@wsvvrijheid/services'
+import { useRequestCollection } from '@wsvvrijheid/services'
 import { Course, Sort, StrapiLocale, StrapiModel } from '@wsvvrijheid/types'
 import {
   AdminLayout,
@@ -26,7 +26,7 @@ const CoursesPage: FC<PageProps> = ({ seo }) => {
   const router = useRouter()
   const { locale } = useRouter()
 
-  const coursesQuery = useSearchModel<Course>({
+  const coursesQuery = useRequestCollection<Course>({
     url: 'api/courses',
     populate: ['categories', 'tags', 'platforms', 'image', 'applications'],
     page: currentPage || 1,

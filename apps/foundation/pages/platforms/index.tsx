@@ -4,7 +4,7 @@ import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { i18nConfig } from '@wsvvrijheid/config'
-import { searchModel } from '@wsvvrijheid/services'
+import { Request } from '@wsvvrijheid/lib'
 import { Platform, StrapiLocale } from '@wsvvrijheid/types'
 import { Hero } from '@wsvvrijheid/ui'
 
@@ -27,7 +27,7 @@ export default Platforms
 export const getStaticProps = async (context: GetStaticPropsContext) => {
   const locale = context.locale as StrapiLocale
 
-  const platforms = await searchModel<Platform>({
+  const platforms = await Request.collection<Platform>({
     url: 'api/platforms',
   })
 

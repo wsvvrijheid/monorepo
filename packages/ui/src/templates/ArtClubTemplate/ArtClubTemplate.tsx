@@ -19,7 +19,7 @@ import { useTranslation } from 'next-i18next'
 import { parse } from 'querystring'
 import { MdMenuOpen } from 'react-icons/md'
 
-import { useSearchModel } from '@wsvvrijheid/services'
+import { useRequestCollection } from '@wsvvrijheid/services'
 import { Art, Category } from '@wsvvrijheid/types'
 
 import {
@@ -47,7 +47,7 @@ export const ArtClubTemplate: FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const { t } = useTranslation()
 
-  const categoryQuery = useSearchModel<Category>({
+  const categoryQuery = useRequestCollection<Category>({
     url: 'api/categories',
     pageSize: 100,
   })
@@ -57,7 +57,7 @@ export const ArtClubTemplate: FC = () => {
   const queryKey = ['arts', locale, searchTerm, categories || null, page || '1']
 
   // Custom useQuery hook or fetching arts
-  const artsQuery = useSearchModel<Art>({
+  const artsQuery = useRequestCollection<Art>({
     url: 'api/arts',
     filters: {
       ...(categories && {

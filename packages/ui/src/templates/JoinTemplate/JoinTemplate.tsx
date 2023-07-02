@@ -17,7 +17,7 @@ import { v4 as uuidV4 } from 'uuid'
 
 import { useAuthContext } from '@wsvvrijheid/context'
 import { Mutation } from '@wsvvrijheid/lib'
-import { useSearchModel } from '@wsvvrijheid/services'
+import { useRequestCollection } from '@wsvvrijheid/services'
 import { Platform, Volunteer, VolunteerCreateInput } from '@wsvvrijheid/types'
 import { toastMessage } from '@wsvvrijheid/utils'
 
@@ -36,7 +36,7 @@ export const JoinTemplate: FC<JoinTemplateProps> = ({ title }) => {
 
   const { token } = useAuthContext()
 
-  const platformsResult = useSearchModel<Platform>({
+  const platformsResult = useRequestCollection<Platform>({
     url: 'api/platforms',
     locale,
   })

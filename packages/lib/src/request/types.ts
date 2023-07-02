@@ -1,19 +1,19 @@
-import { StrapiLocale, StrapiModel, StrapiUrl } from '@wsvvrijheid/types'
+import { Sort, StrapiLocale, StrapiModel, StrapiUrl } from '@wsvvrijheid/types'
 
 export type RequestArgs<T extends StrapiModel> = {
-  url: StrapiUrl
-  token?: string
-  locale?: StrapiLocale
   fields?: (keyof T)[]
   filters?: { [key: string]: unknown }
-  populate?: string | string[]
-  sort?: string | string[]
+  includeDrafts?: boolean
+  locale?: StrapiLocale
   page?: number
   pageSize?: number
-  includeDrafts?: boolean
+  populate?: string | string[]
+  sort?: Sort
+  token?: string
+  url: StrapiUrl
 }
 
-export type RequestSingleArgs<T extends StrapiModel> = Pick<
+export type RequestSingleArgs<T extends StrapiModel> = Omit<
   RequestArgs<T>,
-  'url' | 'token' | 'locale' | 'fields' | 'populate' | 'includeDrafts'
+  'filters' | 'page' | 'pageSize' | 'sort'
 > & { id?: number }

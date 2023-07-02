@@ -8,7 +8,7 @@ export const getActivityBySlug = async (
   locale: StrapiLocale,
   slug: string,
 ): Promise<Activity | null> => {
-  const response = await Request.collection<Activity[]>({
+  const response = await Request.collection<Activity>({
     url: 'api/activities',
     filters: { slug: { $eq: slug } },
     locale,

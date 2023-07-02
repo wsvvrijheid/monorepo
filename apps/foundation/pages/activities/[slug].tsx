@@ -2,11 +2,7 @@ import { FC } from 'react'
 
 import { Spinner } from '@chakra-ui/react'
 import { QueryClient, dehydrate } from '@tanstack/react-query'
-import {
-  GetStaticPaths,
-  GetStaticPropsContext,
-  InferGetStaticPropsType,
-} from 'next'
+import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { serialize } from 'next-mdx-remote/serialize'
 
@@ -34,11 +30,8 @@ const ActivityDetailPage: FC<ActivityDetailPageProps> = ({
 }
 export default ActivityDetailPage
 
-export const getStaticPaths: GetStaticPaths = async context => {
-  return await getModelStaticPaths(
-    'api/activities',
-    context.locales as StrapiLocale[],
-  )
+export const getStaticPaths = async () => {
+  return await getModelStaticPaths('api/activities')
 }
 
 export const getStaticProps = async (context: GetStaticPropsContext) => {

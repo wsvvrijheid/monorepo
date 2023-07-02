@@ -13,7 +13,7 @@ import { NextSeoProps } from 'next-seo'
 
 import { SITE_URL } from '@wsvvrijheid/config'
 import { i18nConfig } from '@wsvvrijheid/config'
-import { searchModel, SearchModelArgs } from '@wsvvrijheid/services'
+import { Request, RequestArgs } from '@wsvvrijheid/lib'
 import {
   Hashtag,
   StrapiCollectionResponse,
@@ -91,7 +91,7 @@ export const getServerSideProps = async (
     i18nConfig,
   )
 
-  const args: SearchModelArgs<Hashtag> = {
+  const args: RequestArgs<Hashtag> = {
     url: 'api/hashtags',
     locale,
     filters: {
@@ -102,7 +102,9 @@ export const getServerSideProps = async (
 
   const queryKey = Object.values(args)
 
-  await queryClient.prefetchQuery(queryKey, () => searchModel<Hashtag>(args))
+  await queryClient.prefetchQuery(queryKey, () =>
+    Request.collection<Hashtag>(args),
+  )
 
   const hashtagsResponse =
     queryClient.getQueryData<StrapiCollectionResponse<Hashtag[]>>(queryKey)

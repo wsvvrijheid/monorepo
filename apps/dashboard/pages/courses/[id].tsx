@@ -19,7 +19,7 @@ import { NextSeoProps } from 'next-seo'
 import { FaArrowDown, FaArrowUp } from 'react-icons/fa'
 
 import { i18nConfig } from '@wsvvrijheid/config'
-import { useModelById, useSearchModel } from '@wsvvrijheid/services'
+import { useModelById, useRequestCollection } from '@wsvvrijheid/services'
 import {
   Course,
   CourseApplication,
@@ -57,7 +57,7 @@ const CoursePage: FC<PageProps> = ({ seo }) => {
 
   const id = Number(query.id as string)
 
-  const applicationsQuery = useSearchModel<CourseApplication>({
+  const applicationsQuery = useRequestCollection<CourseApplication>({
     url: 'api/course-applications',
     filters: {
       course: { id: { $eq: id } },

@@ -16,7 +16,7 @@ import { NextSeoProps } from 'next-seo'
 import { ObjectSchema } from 'yup'
 
 import { i18nConfig, urlsWithLocalizedTitle } from '@wsvvrijheid/config'
-import { useSearchModel } from '@wsvvrijheid/services'
+import { useRequestCollection } from '@wsvvrijheid/services'
 import {
   ApprovalStatus,
   Localize,
@@ -116,7 +116,7 @@ const ModelPage: FC<ModelPageProps> = ({ seo, model }) => {
     ? `title_${locale}`
     : 'title'
 
-  const modelQuery = useSearchModel<StrapiModel>({
+  const modelQuery = useRequestCollection<StrapiModel>({
     url: `api/${model}`,
     page: currentPage || 1,
     pageSize: 10,

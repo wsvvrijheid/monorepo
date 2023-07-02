@@ -7,7 +7,8 @@ import { NextSeoProps } from 'next-seo'
 
 import { ASSETS_URL, SITE_URL } from '@wsvvrijheid/config'
 import { i18nConfig } from '@wsvvrijheid/config'
-import { getArtBySlug, searchModel } from '@wsvvrijheid/services'
+import { Request } from '@wsvvrijheid/lib'
+import { getArtBySlug } from '@wsvvrijheid/services'
 import { Art, StrapiLocale } from '@wsvvrijheid/types'
 import { ArtTemplate } from '@wsvvrijheid/ui'
 
@@ -29,7 +30,7 @@ const ArtPage: FC<ArtPageProps> = ({ seo, queryKey }) => {
 export default ArtPage
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const artsResponse = await searchModel<Art>({
+  const artsResponse = await Request.collection<Art>({
     url: 'api/arts',
   })
 

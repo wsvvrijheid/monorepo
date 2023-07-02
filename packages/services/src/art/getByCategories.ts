@@ -7,7 +7,7 @@ export const getArtsByCategories = async (
   categories: string[],
   id?: number,
 ) => {
-  const response = await Request.collection<Art[]>({
+  const response = await Request.collection<Art>({
     url: 'api/arts',
     filters: {
       categories: { slug: { $in: categories } },
@@ -15,8 +15,6 @@ export const getArtsByCategories = async (
       approvalStatus: { $eq: 'approved' },
     },
     populate: ['artist.avatar', 'categories', 'image', 'likers'],
-    sort: 'publishedAt:desc',
-    pageSize: 4, // TODO: Change this
   })
 
   return response?.data
