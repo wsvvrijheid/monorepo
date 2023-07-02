@@ -1,9 +1,9 @@
-import { Request } from '@wsvvrijheid/lib'
+import { strapiRequest } from '@wsvvrijheid/lib'
 import { User } from '@wsvvrijheid/types'
 import { mapSessionUser } from '@wsvvrijheid/utils'
 
 export const getSessionUser = async (token: string) => {
-  const userData = await Request.single<User>({
+  const userData = await strapiRequest<User>({
     url: 'api/users/me',
     token,
     populate: '*',
@@ -13,7 +13,7 @@ export const getSessionUser = async (token: string) => {
     return null
   }
 
-  const user = mapSessionUser(userData.data as User)
+  const user = mapSessionUser(userData.data as unknown as User)
 
   return user
 }

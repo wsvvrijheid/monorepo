@@ -1,12 +1,12 @@
 import { useQuery } from '@tanstack/react-query'
 
-import { Request } from '@wsvvrijheid/lib'
+import { strapiRequest } from '@wsvvrijheid/lib'
 import { Course } from '@wsvvrijheid/types'
 
 export const getCourseById = async (
   id: string,
 ): Promise<{ course: Course } | null> => {
-  const coursesResponse = await Request.single<Course>({
+  const coursesResponse = await strapiRequest<Course>({
     url: 'api/courses',
     id: Number(id),
   })

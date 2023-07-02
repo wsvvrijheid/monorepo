@@ -8,13 +8,13 @@ import {
   Text,
   Wrap,
 } from '@chakra-ui/react'
-import { dehydrate, QueryClient } from '@tanstack/react-query'
+import { QueryClient, dehydrate } from '@tanstack/react-query'
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
 
 import { i18nConfig } from '@wsvvrijheid/config'
-import { Request, RequestArgs } from '@wsvvrijheid/lib'
+import { RequestCollectionArgs, strapiRequest } from '@wsvvrijheid/lib'
 import { useRequestCollection } from '@wsvvrijheid/services'
 import {
   AccountStats as AccounStatsType,
@@ -25,7 +25,7 @@ import { AccountStats, AdminLayout, PageHeader } from '@wsvvrijheid/ui'
 
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>
 
-const args: RequestArgs<AccounStatsType> = {
+const args: RequestCollectionArgs = {
   url: 'api/account-statistics',
   sort: ['date:asc'],
   pageSize: 100,
@@ -34,7 +34,7 @@ const args: RequestArgs<AccounStatsType> = {
 const Index: FC<PageProps> = ({ seo }) => {
   // TODO: Add pagination with keep previous data
   // Strapi fetches at max 100 items
-  const statsQuery = useRequestCollection(args)
+  const statsQuery = useRequestCollection<AccounStatsType>(args)
 
   const statsData = [
     'tweets',
@@ -118,7 +118,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
   const queryClient = new QueryClient()
 
   await queryClient.prefetchQuery(['account-stats'], () => {
-    return Request.collection<AccounStatsType>(args)
+    return strapiRequest<AccounStatsType>(args)
   })
 
   const title = {

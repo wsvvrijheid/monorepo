@@ -13,19 +13,19 @@ import {
   ApprovalStatus,
   RoleType,
   Sort,
-  StrapiCollectionUrl,
+  StrapiCollectionEndpoint,
   StrapiLocale,
   StrapiTranslatableModel,
 } from '@wsvvrijheid/types'
 import {
-  activityColumns,
   AdminLayout,
-  artColumns,
-  collectionColumns,
   DataTable,
-  mainHashtagColumns,
   ModelEditTranslate,
   PageHeader,
+  activityColumns,
+  artColumns,
+  collectionColumns,
+  mainHashtagColumns,
   postColumns,
   translateModelFields,
   translateModelSchema,
@@ -43,7 +43,7 @@ const dataColumns = {
   posts: postColumns,
 }
 
-const approverRoles: { [x in StrapiCollectionUrl]?: RoleType[] } = {
+const approverRoles: { [x in StrapiCollectionEndpoint]?: RoleType[] } = {
   activities: ['translator'],
   arts: ['translator'],
   collections: ['translator'],
@@ -51,7 +51,7 @@ const approverRoles: { [x in StrapiCollectionUrl]?: RoleType[] } = {
   posts: ['translator'],
 }
 
-const editRoles: { [x in StrapiCollectionUrl]?: RoleType[] } = {
+const editRoles: { [x in StrapiCollectionEndpoint]?: RoleType[] } = {
   activities: ['translator'],
   arts: ['translator'],
   collections: ['translator'],
@@ -69,7 +69,7 @@ const TranslateDataTable: FC<TranslateDataTableProps> = ({ searchTerm }) => {
 
   const { query, locale, push } = useRouter()
   const status = query.status as ApprovalStatus
-  const slug = query.slug as Partial<StrapiCollectionUrl>
+  const slug = query.slug as Partial<StrapiCollectionEndpoint>
 
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
@@ -130,7 +130,7 @@ const ActivitiesTranslatePage: FC<PageProps> = ({ seo }) => {
 
   const { query } = useRouter()
   const id = Number(query.id as string)
-  const slug = query.slug as StrapiCollectionUrl
+  const slug = query.slug as StrapiCollectionEndpoint
 
   const handleSearch = (search?: string) => {
     search ? setSearchTerm(search) : setSearchTerm(undefined)

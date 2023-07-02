@@ -5,9 +5,8 @@ import { GetStaticPaths, GetStaticPropsContext } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
 
-import { ASSETS_URL, SITE_URL } from '@wsvvrijheid/config'
-import { i18nConfig } from '@wsvvrijheid/config'
-import { Request } from '@wsvvrijheid/lib'
+import { ASSETS_URL, i18nConfig, SITE_URL } from '@wsvvrijheid/config'
+import { strapiRequest } from '@wsvvrijheid/lib'
 import { getArtBySlug } from '@wsvvrijheid/services'
 import { Art, StrapiLocale } from '@wsvvrijheid/types'
 import { ArtTemplate } from '@wsvvrijheid/ui'
@@ -30,7 +29,7 @@ const ArtPage: FC<ArtPageProps> = ({ seo, queryKey }) => {
 export default ArtPage
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const artsResponse = await Request.collection<Art>({
+  const artsResponse = await strapiRequest<Art>({
     url: 'api/arts',
   })
 

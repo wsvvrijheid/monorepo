@@ -6,7 +6,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { serialize } from 'next-mdx-remote/serialize'
 
 import { i18nConfig } from '@wsvvrijheid/config'
-import { Request } from '@wsvvrijheid/lib'
+import { strapiRequest } from '@wsvvrijheid/lib'
 import { StrapiLocale, Term } from '@wsvvrijheid/types'
 import { Container, Hero, Markdown } from '@wsvvrijheid/ui'
 
@@ -30,7 +30,7 @@ export default Terms
 export const getStaticProps = async (context: GetStaticPropsContext) => {
   const locale = context.locale as StrapiLocale
 
-  const response = await Request.single<Term>({
+  const response = await strapiRequest<Term>({
     url: 'api/term',
     locale,
   })

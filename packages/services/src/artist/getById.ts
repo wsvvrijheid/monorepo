@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 
-import { Request } from '@wsvvrijheid/lib'
+import { strapiRequest } from '@wsvvrijheid/lib'
 import { Art, User } from '@wsvvrijheid/types'
 
 import { getArtByArtist } from '../art/getByArtist'
@@ -8,7 +8,7 @@ import { getArtByArtist } from '../art/getByArtist'
 export const getArtistById = async (
   id: string,
 ): Promise<(User & { arts: Art[] }) | null> => {
-  const artistResponse = await Request.single<User>({
+  const artistResponse = await strapiRequest<User>({
     url: 'api/users',
     id: Number(id),
   })

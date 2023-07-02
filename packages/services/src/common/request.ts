@@ -1,14 +1,16 @@
-import { useQuery } from '@tanstack/react-query'
+import { UseQueryOptions, useQuery } from '@tanstack/react-query'
 
-import { Request, RequestArgs } from '@wsvvrijheid/lib'
+import { RequestCollectionArgs, strapiRequest } from '@wsvvrijheid/lib'
 import { StrapiModel } from '@wsvvrijheid/types'
 
 export const useRequestCollection = <T extends StrapiModel>(
-  args: RequestArgs<T>,
+  args: RequestCollectionArgs & {
+    queryOptions?: UseQueryOptions<unknown, unknown>
+  },
 ) => {
   return useQuery({
     queryKey: Object.entries(args),
-    queryFn: () => Request.collection<T>(args),
+    queryFn: () => strapiRequest<T>(args),
     keepPreviousData: true,
   })
 }

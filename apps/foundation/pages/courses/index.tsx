@@ -5,9 +5,8 @@ import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import { ASSETS_URL, COURSES } from '@wsvvrijheid/config'
-import { i18nConfig } from '@wsvvrijheid/config'
-import { Request } from '@wsvvrijheid/lib'
+import { ASSETS_URL, COURSES, i18nConfig } from '@wsvvrijheid/config'
+import { strapiRequest } from '@wsvvrijheid/lib'
 import { Course, StrapiLocale } from '@wsvvrijheid/types'
 import { AcademyCard, Container, Hero } from '@wsvvrijheid/ui'
 
@@ -70,7 +69,7 @@ export default Platforms
 export const getStaticProps = async (context: GetStaticPropsContext) => {
   const locale = context.locale as StrapiLocale
 
-  const courses = await Request.collection<Course>({
+  const courses = await strapiRequest<Course>({
     url: 'api/courses',
     populate: '*',
   })

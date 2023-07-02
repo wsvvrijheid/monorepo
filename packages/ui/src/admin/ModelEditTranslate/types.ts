@@ -4,9 +4,9 @@ import { ObjectSchema } from 'yup'
 
 import {
   RoleType,
+  StrapiCollectionUrl,
   StrapiModel,
   StrapiTranslatableModel,
-  StrapiUrl,
 } from '@wsvvrijheid/types'
 
 import { WSelectProps } from '../../components'
@@ -36,7 +36,7 @@ type FormTextFields = {
 type FormSelectFields = {
   type: 'select'
   isMulti?: boolean
-  url: StrapiUrl
+  url: StrapiCollectionUrl
 }
 
 type FormCommonFields<T extends StrapiModel> = {
@@ -51,7 +51,7 @@ export type FormFields<T extends StrapiModel> = Array<
 >
 
 export type ModelCreateFormProps<T extends StrapiModel> = {
-  url: StrapiUrl
+  url: StrapiCollectionUrl
   fields: FormFields<T>
   model?: Partial<T>
   schema: ObjectSchema<any>
@@ -61,7 +61,7 @@ export type ModelCreateFormProps<T extends StrapiModel> = {
 
 export type ModelEditTranslateProps<T extends StrapiTranslatableModel> = {
   id: number
-  url: StrapiUrl
+  url: StrapiCollectionUrl
   translatedFields: (keyof T)[]
   fields: FormFields<T>
   schema: ObjectSchema<any>
@@ -70,7 +70,7 @@ export type ModelEditTranslateProps<T extends StrapiTranslatableModel> = {
 }
 
 export type ModelSelectProps = WSelectProps<FieldValues> & {
-  url: StrapiUrl
+  url: StrapiCollectionUrl
   control: Control
   errors: Partial<
     FieldErrorsImpl<{

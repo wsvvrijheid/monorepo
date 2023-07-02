@@ -1,13 +1,6 @@
-import { FC, useEffect, useState } from 'react'
+import { FC, useEffect } from 'react'
 
-import {
-  Divider,
-  HStack,
-  Radio,
-  RadioGroup,
-  Stack,
-  useDisclosure,
-} from '@chakra-ui/react'
+import { useDisclosure } from '@chakra-ui/react'
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
@@ -21,7 +14,7 @@ import {
   ApprovalStatus,
   Localize,
   Sort,
-  StrapiCollectionUrl,
+  StrapiCollectionEndpoint,
   StrapiLocale,
   StrapiModel,
   StrapiTranslatableModel,
@@ -31,6 +24,7 @@ import {
   DataTable,
   FormFields,
   ModelEditModal,
+  ModelFiltersBar,
   PageHeader,
   WTableProps,
   activityColumns,
@@ -47,14 +41,14 @@ import {
   mainHashtagSchema,
 } from '@wsvvrijheid/ui'
 
-const schemas: { [x in StrapiCollectionUrl]?: unknown } = {
+const schemas: { [x in StrapiCollectionEndpoint]?: unknown } = {
   activities: activitySchema,
   blogs: blogSchema,
   hashtags: mainHashtagSchema,
   collections: collectionSchema,
 }
 
-const fields: { [x in StrapiCollectionUrl]?: unknown } = {
+const fields: { [x in StrapiCollectionEndpoint]?: unknown } = {
   activities: activityFields,
   blogs: blogFields,
   collections: collectionFields,
@@ -62,7 +56,7 @@ const fields: { [x in StrapiCollectionUrl]?: unknown } = {
 }
 
 const columns: {
-  [x in StrapiCollectionUrl]?: WTableProps<StrapiModel>['columns']
+  [x in StrapiCollectionEndpoint]?: WTableProps<StrapiModel>['columns']
 } = {
   activities: activityColumns,
   blogs: blogColumns,
@@ -77,7 +71,6 @@ const ModelPage: FC<ModelPageProps> = ({ seo, model }) => {
 
   const { isOpen, onClose, onOpen } = useDisclosure()
 
-  const [searchTerm, setSearchTerm] = useState<string>()
   const { locale, query, push } = useRouter()
 
   const status = query.status as ApprovalStatus | 'all'
@@ -85,9 +78,10 @@ const ModelPage: FC<ModelPageProps> = ({ seo, model }) => {
   const currentPage = query.page ? parseInt(query.page as string) : 1
   const selectedId = query.id ? parseInt(query.id as string) : undefined
   const published = (query.published as string) || 'all'
+  const q = query.q as string
 
-  const setRouteQuery = (
-    key: 'id' | 'page' | 'sort' | 'status' | 'published',
+  const changeRoute = (
+    key: 'id' | 'page' | 'sort' | 'status' | 'published' | 'q',
     value?: string | number | Sort | ApprovalStatus,
   ) => {
     if (
@@ -96,23 +90,26 @@ const ModelPage: FC<ModelPageProps> = ({ seo, model }) => {
       (key === 'status' && value === 'all') ||
       (key === 'published' && value === 'all')
     ) {
-      const q = { ...query }
-      delete q[key]
-      push({ query: q })
+      const _query = { ...query }
+      delete _query[key]
+      push({ query: _query })
 
       return
     }
 
-    push({ query: { ...query, [key]: value } })
+    // Shallow allows us to change the query without calling getServerSideProps
+    // Because we do fetch the data on the client side
+    push({ query: { ...query, [key]: value } }, undefined, { shallow: true })
   }
 
-  const setSelectedId = (id?: number) => setRouteQuery('id', id)
-  const setCurrentPage = (page?: number) => setRouteQuery('page', page)
-  const setSort = (sort?: Sort) => setRouteQuery('sort', sort)
-  const setStatus = (status?: ApprovalStatus) => setRouteQuery('status', status)
-  const setPublished = (state?: string) => setRouteQuery('published', state)
+  const setSelectedId = (id?: number) => changeRoute('id', id)
+  const setCurrentPage = (page?: number) => changeRoute('page', page)
+  const setSort = (sort?: Sort) => changeRoute('sort', sort)
+  const setStatus = (status?: ApprovalStatus) => changeRoute('status', status)
+  const setPublished = (state?: string) => changeRoute('published', state)
+  const setQ = (q?: string) => changeRoute('q', q)
 
-  const titleKey = urlsWithLocalizedTitle.includes(model)
+  const titleKey = urlsWithLocalizedTitle.includes(`api/${model}`)
     ? `title_${locale}`
     : 'title'
 
@@ -121,7 +118,7 @@ const ModelPage: FC<ModelPageProps> = ({ seo, model }) => {
     page: currentPage || 1,
     pageSize: 10,
     filters: {
-      ...(searchTerm && { [titleKey]: { $eq: searchTerm } }),
+      ...(q && { [titleKey]: { $eq: q } }),
       ...(published === 'false' && { publishedAt: { $null: true } }),
       approvalStatus:
         status && status !== 'all'
@@ -151,10 +148,6 @@ const ModelPage: FC<ModelPageProps> = ({ seo, model }) => {
     onClose()
   }
 
-  const handleSearch = (search?: string | null) => {
-    search ? setSearchTerm(search) : setSearchTerm(undefined)
-  }
-
   useEffect(() => setCurrentPage(1), [])
 
   useEffect(() => {
@@ -165,10 +158,7 @@ const ModelPage: FC<ModelPageProps> = ({ seo, model }) => {
 
   return (
     <AdminLayout seo={seo}>
-      <PageHeader
-        onSearch={handleSearch}
-        searchPlaceHolder={t('search-placeholder')}
-      />
+      <PageHeader onSearch={setQ} searchPlaceHolder={t('search-placeholder')} />
       {selectedId && (
         <ModelEditModal<StrapiModel>
           url={`api/${model}`}
@@ -180,46 +170,12 @@ const ModelPage: FC<ModelPageProps> = ({ seo, model }) => {
           title={'Edit Model'}
         />
       )}
-      <Stack
-        direction={{ base: 'column', lg: 'row' }}
-        p={2}
-        bg={'white'}
-        rounded={'sm'}
-        shadow={'sm'}
-        overflowX={'auto'}
-      >
-        <RadioGroup
-          as={HStack}
-          spacing={4}
-          colorScheme={'primary'}
-          value={status || 'all'}
-          onChange={val => setStatus(val as ApprovalStatus)}
-        >
-          <Radio value={'all'}>All</Radio>
-          <Radio value={'approved'}>Approved</Radio>
-          <Radio value={'pending'}>Pending</Radio>
-          <Radio value={'rejected'}>Rejected</Radio>
-        </RadioGroup>
-
-        <Divider
-          display={{ base: 'none', lg: 'block' }}
-          mx={8}
-          orientation="vertical"
-        />
-        <Divider display={{ base: 'block', lg: 'none' }} />
-
-        <RadioGroup
-          colorScheme={'primary'}
-          as={HStack}
-          spacing={4}
-          value={published || 'true'}
-          onChange={val => setPublished(val)}
-        >
-          <Radio value={'all'}>All</Radio>
-          <Radio value={'true'}>Live</Radio>
-          <Radio value={'false'}>Draft</Radio>
-        </RadioGroup>
-      </Stack>
+      <ModelFiltersBar
+        status={status}
+        setStatus={setStatus}
+        published={published}
+        setPublished={setPublished}
+      />
       <DataTable
         columns={columns[model] as WTableProps<StrapiModel>['columns']}
         data={mappedModels}
@@ -237,9 +193,9 @@ export const getServerSideProps = async (
   context: GetServerSidePropsContext,
 ) => {
   const locale = context.locale as StrapiLocale
-  const model = (context.params as any).model as StrapiCollectionUrl
+  const model = (context.params as any).model as StrapiCollectionEndpoint
 
-  const title: Localize<{ [x in StrapiCollectionUrl]?: string }> = {
+  const title: Localize<{ [x in StrapiCollectionEndpoint]?: string }> = {
     en: {
       activities: 'Activities',
       blogs: 'Blogs',

@@ -15,7 +15,7 @@ import {
 } from '@chakra-ui/react'
 import { capitalize } from 'lodash'
 
-import { Post, StrapiModel, StrapiUrl } from '@wsvvrijheid/types'
+import { Post, StrapiModel } from '@wsvvrijheid/types'
 
 import { ModelImage } from './ModelImage'
 import { ModelSelect } from './ModelSelect'
@@ -102,7 +102,7 @@ export const ModelCreateFormBody = <T extends StrapiModel>({
           return (
             <ModelSelect
               key={index}
-              url={field.url as StrapiUrl}
+              url={field.url}
               isMulti={field.isMulti}
               isRequired={field.isRequired}
               name={field.name as string}

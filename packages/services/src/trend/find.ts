@@ -1,11 +1,11 @@
 import { useQuery } from '@tanstack/react-query'
 
-import { Request } from '@wsvvrijheid/lib'
-import { Trend } from '@wsvvrijheid/types'
+import { strapiRequest } from '@wsvvrijheid/lib'
+import { StrapiSingleUrl, Trend } from '@wsvvrijheid/types'
 
 export const getTrends = async () => {
-  const response = await Request.single<Trend>({
-    url: 'api/trend',
+  const response = await strapiRequest<Trend>({
+    url: 'api/trend' as StrapiSingleUrl,
   })
 
   return response?.data || null

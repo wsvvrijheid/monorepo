@@ -7,7 +7,7 @@ import { serialize } from 'next-mdx-remote/serialize'
 import { NextSeoProps } from 'next-seo'
 
 import { i18nConfig } from '@wsvvrijheid/config'
-import { Request, RequestArgs } from '@wsvvrijheid/lib'
+import { RequestCollectionArgs, strapiRequest } from '@wsvvrijheid/lib'
 import { useRequestCollection } from '@wsvvrijheid/services'
 import { Hashtag, StrapiLocale } from '@wsvvrijheid/types'
 import {
@@ -72,7 +72,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
   const locale = context.locale as StrapiLocale
   const queryClient = new QueryClient()
 
-  const args: RequestArgs<Hashtag> = {
+  const args: RequestCollectionArgs = {
     url: 'api/hashtags',
     locale,
     filters: {
@@ -83,9 +83,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
 
   const queryKey = Object.entries(args)
 
-  await queryClient.prefetchQuery(queryKey, () =>
-    Request.collection<Hashtag>(args),
-  )
+  await queryClient.prefetchQuery(queryKey, () => strapiRequest<Hashtag>(args))
 
   const title = {
     en: 'Hashtags',

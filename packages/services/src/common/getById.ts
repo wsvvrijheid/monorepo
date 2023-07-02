@@ -1,21 +1,23 @@
 import { useQuery } from '@tanstack/react-query'
 
-import { Request, RequestSingleArgs } from '@wsvvrijheid/lib'
+import {
+  RequestSingleArgs,
+  RequestByIdArgs,
+  strapiRequest,
+} from '@wsvvrijheid/lib'
 import { StrapiModel } from '@wsvvrijheid/types'
 
 export const getModelById = async <T extends StrapiModel>(
-  args: RequestSingleArgs<T>,
+  args: RequestByIdArgs,
 ) => {
-  const response = await Request.single<T>(args)
+  const response = await strapiRequest<T>(args)
 
   return response?.data || null
 }
 
-export const useModelById = <T extends StrapiModel>(
-  args: RequestSingleArgs<T>,
-) => {
+export const useModelById = <T extends StrapiModel>(args: RequestByIdArgs) => {
   return useQuery({
     queryKey: [args.url, args.id],
-    queryFn: () => getModelById(args),
+    queryFn: () => getModelById<T>(args),
   })
 }

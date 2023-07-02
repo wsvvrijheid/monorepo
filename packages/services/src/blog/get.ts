@@ -1,11 +1,11 @@
 import { useQuery } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
 
-import { Request } from '@wsvvrijheid/lib'
+import { strapiRequest } from '@wsvvrijheid/lib'
 import { Blog, StrapiLocale } from '@wsvvrijheid/types'
 
 export const getBlogs = async (locale: StrapiLocale) => {
-  const response = await Request.collection<Blog>({
+  const response = await strapiRequest<Blog>({
     url: 'api/blogs',
     locale,
   })
@@ -18,7 +18,7 @@ export const getAuthorBlogs = async (
   authorID: number,
   blogId: number,
 ) => {
-  const response = await Request.collection<Blog>({
+  const response = await strapiRequest<Blog>({
     url: 'api/blogs',
     filters: {
       $and: [{ author: { id: { $eq: authorID } } }, { id: { $ne: blogId } }],

@@ -6,7 +6,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { serialize } from 'next-mdx-remote/serialize'
 
 import { i18nConfig } from '@wsvvrijheid/config'
-import { Request } from '@wsvvrijheid/lib'
+import { strapiRequest } from '@wsvvrijheid/lib'
 import { Privacy, StrapiLocale } from '@wsvvrijheid/types'
 import { Container, Hero, Markdown } from '@wsvvrijheid/ui'
 
@@ -30,7 +30,7 @@ export default Privacy
 export const getStaticProps = async (context: GetStaticPropsContext) => {
   const locale = context.locale as StrapiLocale
 
-  const response = await Request.single<Privacy>({
+  const response = await strapiRequest<Privacy>({
     url: 'api/privacy',
     locale,
   })

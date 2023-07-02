@@ -11,9 +11,8 @@ import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { serialize } from 'next-mdx-remote/serialize'
 import { NextSeoProps } from 'next-seo'
 
-import { SITE_URL } from '@wsvvrijheid/config'
-import { i18nConfig } from '@wsvvrijheid/config'
-import { Request, RequestArgs } from '@wsvvrijheid/lib'
+import { SITE_URL, i18nConfig } from '@wsvvrijheid/config'
+import { RequestCollectionArgs, strapiRequest } from '@wsvvrijheid/lib'
 import {
   Hashtag,
   StrapiCollectionResponse,
@@ -91,7 +90,7 @@ export const getServerSideProps = async (
     i18nConfig,
   )
 
-  const args: RequestArgs<Hashtag> = {
+  const args: RequestCollectionArgs = {
     url: 'api/hashtags',
     locale,
     filters: {
@@ -102,9 +101,7 @@ export const getServerSideProps = async (
 
   const queryKey = Object.values(args)
 
-  await queryClient.prefetchQuery(queryKey, () =>
-    Request.collection<Hashtag>(args),
-  )
+  await queryClient.prefetchQuery(queryKey, () => strapiRequest<Hashtag>(args))
 
   const hashtagsResponse =
     queryClient.getQueryData<StrapiCollectionResponse<Hashtag[]>>(queryKey)

@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { i18nConfig } from '@wsvvrijheid/config'
-import { Request } from '@wsvvrijheid/lib'
+import { strapiRequest } from '@wsvvrijheid/lib'
 import { Collection, StrapiLocale, UploadFile } from '@wsvvrijheid/types'
 import { Card, Container, Hero } from '@wsvvrijheid/ui'
 
@@ -42,7 +42,7 @@ export default CollectionsPage
 export const getStaticProps = async (context: GetStaticPropsContext) => {
   const locale = context.locale as StrapiLocale
 
-  const collections = await Request.collection<Collection>({
+  const collections = await strapiRequest<Collection>({
     url: 'api/collections',
     locale,
   })
