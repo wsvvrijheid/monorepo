@@ -16,7 +16,7 @@ const LocaleSwitcher: FC<LocaleSwitcherProps> = ({ isDark }) => {
 
   // TODO: Redirect to localized path for static pages
   const handleChangeLanguage = async (locale: StrapiLocale) => {
-    await push(pathname, slugs?.[locale] || asPath, { locale })
+    await push(pathname, slugs?.[locale] || asPath, { locale, scroll: false })
   }
 
   const locales = ['en', 'nl', 'tr'] as StrapiLocale[]
