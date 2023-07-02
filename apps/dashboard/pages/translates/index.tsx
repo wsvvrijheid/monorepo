@@ -6,6 +6,7 @@ import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
 
+import { i18nConfig } from '@wsvvrijheid/config'
 import { useSearchModel } from '@wsvvrijheid/services'
 import {
   Activity,
@@ -31,8 +32,6 @@ import {
   translatePostModelFields,
   translatePostModelSchema,
 } from '@wsvvrijheid/ui'
-
-import i18nConfig from '../../next-i18next.config'
 
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>
 
@@ -88,9 +87,9 @@ const TranslateDataTable: FC<TranslateDataTableProps> = ({ searchTerm }) => {
     pageSize: 10,
     searchTerm,
     sort,
-    locale: locale as StrapiLocale,
+    locale,
     statuses: ['pending'],
-    publicationState: 'preview',
+    includeDrafts: true,
   })
 
   const items = dataQuery?.data?.data

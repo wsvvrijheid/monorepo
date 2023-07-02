@@ -10,12 +10,11 @@ import {
   Spinner,
   VStack,
 } from '@chakra-ui/react'
-import { StoryFn, Meta, StoryObj } from '@storybook/react'
+import { Meta, StoryFn, StoryObj } from '@storybook/react'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
 import { CATEGORY_MOCKS } from '@wsvvrijheid/mocks'
-import { StrapiLocale } from '@wsvvrijheid/types'
 
 import { CategoryFilter, CategoryFilterProps } from './CategoryFilter'
 import { useChangeParams } from '../../hooks'
@@ -59,7 +58,7 @@ const StoryWithHook: StoryFn<CategoryFilterProps> = args => {
           {...args}
           initialCategories={args.initialCategories || initialCategories}
           isLoading={args.isLoading || isLoading}
-          locale={args.locale || (locale as StrapiLocale)}
+          locale={args.locale || locale}
           title={args.title || t('categories')}
           setIsLoading={setIsLoading}
           selectCategories={setSelectedCategories}

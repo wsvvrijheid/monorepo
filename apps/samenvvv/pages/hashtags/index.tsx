@@ -6,6 +6,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { serialize } from 'next-mdx-remote/serialize'
 import { NextSeoProps } from 'next-seo'
 
+import { i18nConfig } from '@wsvvrijheid/config'
 import {
   searchModel,
   SearchModelArgs,
@@ -20,7 +21,6 @@ import {
   Markdown,
 } from '@wsvvrijheid/ui'
 
-import i18nConfig from '../..//next-i18next.config'
 import { Layout } from '../../components'
 
 type HashtagEventsProps = InferGetStaticPropsType<typeof getStaticProps>
@@ -30,7 +30,7 @@ const HashtagEvents = ({ seo, source }: HashtagEventsProps) => {
 
   const hashtagsQuery = useSearchModel<Hashtag>({
     url: 'api/hashtags',
-    locale: router.locale as StrapiLocale,
+    locale: router.locale,
     statuses: ['approved'],
     sort: ['date:desc'],
   })
@@ -112,11 +112,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
   return {
     props: {
       dehydratedState: dehydrate(queryClient),
-      ...(await serverSideTranslations(
-        locale as StrapiLocale,
-        ['common'],
-        i18nConfig,
-      )),
+      ...(await serverSideTranslations(locale, ['common'], i18nConfig)),
       seo,
       source,
     },

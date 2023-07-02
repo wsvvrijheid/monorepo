@@ -1,11 +1,11 @@
 import { useQuery } from '@tanstack/react-query'
 
 import { Request } from '@wsvvrijheid/lib'
-import { Art, PublicationState } from '@wsvvrijheid/types'
+import { Art } from '@wsvvrijheid/types'
 
 export const getArtByArtist = async (
   userId: number,
-  publicationState: PublicationState = 'live',
+  includeDrafts?: boolean,
 ) => {
   const response = await Request.collection<Art[]>({
     url: 'api/arts',
@@ -20,18 +20,15 @@ export const getArtByArtist = async (
       'comments.user.avatar',
       'likers',
     ],
-    publicationState,
+    includeDrafts,
   })
 
   return response?.data
 }
 
-export const useArtByArtist = (
-  userId?: number,
-  publicationState?: PublicationState,
-) => {
+export const useArtByArtist = (userId?: number, includeDrafts?: boolean) => {
   return useQuery({
     queryKey: ['user-art', userId],
-    queryFn: () => getArtByArtist(userId as number, publicationState),
+    queryFn: () => getArtByArtist(userId as number, includeDrafts),
   })
 }

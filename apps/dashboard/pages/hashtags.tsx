@@ -7,6 +7,7 @@ import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
 
+import { i18nConfig } from '@wsvvrijheid/config'
 import { useSearchModel } from '@wsvvrijheid/services'
 import { Hashtag, Sort, StrapiLocale } from '@wsvvrijheid/types'
 import {
@@ -18,8 +19,6 @@ import {
   mainHashtagFields,
   mainHashtagSchema,
 } from '@wsvvrijheid/ui'
-
-import i18nConfig from '../next-i18next.config'
 
 type HashtagsPageProps = InferGetStaticPropsType<typeof getStaticProps>
 
@@ -41,9 +40,9 @@ const HashtagsPage: FC<HashtagsPageProps> = ({ seo }) => {
     pageSize: 10,
     searchTerm,
     sort,
-    locale: locale as StrapiLocale,
+    locale,
     statuses: ['approved', 'pending', 'rejected'],
-    publicationState: 'preview',
+    includeDrafts: true,
   })
 
   useEffect(() => setCurrentPage(1), [])

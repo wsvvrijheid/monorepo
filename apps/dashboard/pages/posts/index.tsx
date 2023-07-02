@@ -10,6 +10,7 @@ import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
 
+import { i18nConfig } from '@wsvvrijheid/config'
 import { useSearchModel } from '@wsvvrijheid/services'
 import { Hashtag, Post, Sort, StrapiLocale } from '@wsvvrijheid/types'
 import {
@@ -18,8 +19,6 @@ import {
   PageHeader,
   postColumns,
 } from '@wsvvrijheid/ui'
-
-import i18nConfig from '../../next-i18next.config'
 
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>
 
@@ -42,15 +41,15 @@ const PostsPage: FC<PageProps> = ({ seo }) => {
       ids: hashtagsFilter,
     },
     sort,
-    locale: locale as StrapiLocale,
+    locale,
     statuses: ['approved'],
-    publicationState: 'preview',
+    includeDrafts: true,
   })
 
   const hashtagsQuery = useSearchModel<Hashtag>({
     url: 'api/hashtags',
-    locale: locale as StrapiLocale,
-    publicationState: 'preview',
+    locale,
+    includeDrafts: true,
     fields: ['id', 'title'],
   })
 

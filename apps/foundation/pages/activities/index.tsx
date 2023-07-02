@@ -5,6 +5,7 @@ import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
 import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
+import { i18nConfig } from '@wsvvrijheid/config'
 import { searchModel } from '@wsvvrijheid/services'
 import { Activity, StrapiLocale, UploadFile } from '@wsvvrijheid/types'
 import {
@@ -17,7 +18,6 @@ import {
 } from '@wsvvrijheid/ui'
 
 import { Layout } from '../../components'
-import i18nConfig from '../../next-i18next.config'
 
 type ActivitiesProps = InferGetServerSidePropsType<typeof getServerSideProps>
 

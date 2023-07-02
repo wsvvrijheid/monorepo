@@ -30,7 +30,7 @@ import { FaPlus, FaUpload } from 'react-icons/fa'
 
 import { useAuthContext } from '@wsvvrijheid/context'
 import { useCreateModelMutation, useSearchModel } from '@wsvvrijheid/services'
-import { ArtCreateInput, Category, StrapiLocale } from '@wsvvrijheid/types'
+import { ArtCreateInput, Category } from '@wsvvrijheid/types'
 
 import { ArtCreateSuccessAlert } from './CreateArtSuccessAlert'
 import { createArtSchema } from './schema'
@@ -210,7 +210,7 @@ export const CreateArtForm = () => {
                     options={
                       categories.data?.data?.map(c => ({
                         value: c.id.toString(),
-                        label: c[`name_${locale as StrapiLocale}`],
+                        label: c[`name_${locale}`],
                       })) || []
                     }
                   />

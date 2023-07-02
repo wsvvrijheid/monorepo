@@ -37,6 +37,6 @@ export const useGetBlogs = () => {
 
   return useQuery({
     queryKey: ['blogs', locale],
-    queryFn: () => getBlogs(locale as StrapiLocale),
+    queryFn: () => getBlogs(locale),
   })
 }

@@ -1,9 +1,4 @@
-import {
-  PublicationState,
-  StrapiLocale,
-  StrapiModel,
-  StrapiUrl,
-} from '@wsvvrijheid/types'
+import { StrapiLocale, StrapiModel, StrapiUrl } from '@wsvvrijheid/types'
 
 export type RequestArgs<T extends StrapiModel> = {
   url: StrapiUrl
@@ -15,10 +10,10 @@ export type RequestArgs<T extends StrapiModel> = {
   sort?: string | string[]
   page?: number
   pageSize?: number
-  publicationState?: PublicationState
+  includeDrafts?: boolean
 }
 
 export type RequestSingleArgs<T extends StrapiModel> = Pick<
   RequestArgs<T>,
-  'url' | 'token' | 'locale' | 'fields' | 'populate' | 'publicationState'
+  'url' | 'token' | 'locale' | 'fields' | 'populate' | 'includeDrafts'
 > & { id?: number }

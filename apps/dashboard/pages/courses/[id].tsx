@@ -18,6 +18,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
 import { FaArrowDown, FaArrowUp } from 'react-icons/fa'
 
+import { i18nConfig } from '@wsvvrijheid/config'
 import { useModelById, useSearchModel } from '@wsvvrijheid/services'
 import {
   Course,
@@ -38,16 +39,12 @@ import {
   PageHeader,
 } from '@wsvvrijheid/ui'
 
-import i18nConfig from '../../next-i18next.config'
-
 type PageProps = InferGetServerSidePropsType<typeof getServerSideProps>
 
 const CoursePage: FC<PageProps> = ({ seo }) => {
-  const router = useRouter()
   const { isOpen, onOpen, onClose } = useDisclosure()
 
-  const { locale } = useRouter()
-  const { query } = router
+  const { locale, query } = useRouter()
 
   const [selectedApplicationId, setSelectedApplicationId] = useState<number>()
   const [currentPage, setCurrentPage] = useState<number>(1)
@@ -70,7 +67,7 @@ const CoursePage: FC<PageProps> = ({ seo }) => {
     page: currentPage || 1,
     pageSize: 100,
     searchTerm,
-    locale: router.locale as StrapiLocale,
+    locale,
   })
   useUpdateEffect(() => {
     applicationsQuery.refetch()
@@ -139,7 +136,7 @@ const CoursePage: FC<PageProps> = ({ seo }) => {
               fontWeight={600}
               shadow={'sm'}
             >
-              <Text>{course?.[`title_${router.locale as StrapiLocale}`]}</Text>
+              <Text>{course?.[`title_${locale}`]}</Text>
               <AccordionIcon ml={'auto'} />
             </AccordionButton>
             <AccordionPanel mt={4} bg={'white'} rounded={'md'}>

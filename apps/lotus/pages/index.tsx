@@ -7,11 +7,11 @@ import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
 
+import { i18nConfig } from '@wsvvrijheid/config'
 import { StrapiLocale } from '@wsvvrijheid/types'
 import { Container } from '@wsvvrijheid/ui'
 
 import { Layout } from '../components'
-import i18nConfig from '../next-i18next.config'
 
 interface HomeProps {
   seo: NextSeoProps

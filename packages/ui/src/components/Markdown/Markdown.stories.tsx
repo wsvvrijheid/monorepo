@@ -19,6 +19,6 @@ const source: MDXRemoteSerializeResult = {
 
 export const Default: Story = {
   args: {
-    source: source,
+    source,
   },
 }

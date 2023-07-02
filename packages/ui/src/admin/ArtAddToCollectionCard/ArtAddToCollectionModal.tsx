@@ -16,7 +16,7 @@ import {
 import { useRouter } from 'next/router'
 
 import { useSearchModel } from '@wsvvrijheid/services'
-import { Art, StrapiLocale } from '@wsvvrijheid/types'
+import { Art } from '@wsvvrijheid/types'
 
 import { ArtAddToCollectionGrid } from './ArtAddToCollectionGrid'
 import { ArtAddToCollectionModalProps } from './types'
@@ -36,7 +36,7 @@ export const ArtAddToCollectionModal: FC<ArtAddToCollectionModalProps> = ({
     url: 'api/arts',
     searchTerm: search || undefined,
     searchFields: ['title_en', 'title_nl', 'title_tr'],
-    locale: locale as StrapiLocale,
+    locale,
     statuses: ['approved'],
     page,
   })

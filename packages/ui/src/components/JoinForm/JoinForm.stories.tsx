@@ -1,10 +1,10 @@
 import { useState } from 'react'
 
-import { StoryFn, Meta, StoryObj } from '@storybook/react'
+import { Meta, StoryFn, StoryObj } from '@storybook/react'
 import { useRouter } from 'next/router'
 
 import { JOB_MOCKS, PLATFORM_MOCKS } from '@wsvvrijheid/mocks'
-import { Job, StrapiLocale } from '@wsvvrijheid/types'
+import { Job } from '@wsvvrijheid/types'
 
 import { JoinForm } from './JoinForm'
 import { JoinFormFieldValues, JoinFormFProps } from './types'
@@ -41,7 +41,7 @@ const StoryWithHook: StoryFn<JoinFormFProps> = args => {
 
   return (
     <JoinForm
-      locale={args.locale || (locale as StrapiLocale)}
+      locale={args.locale || locale}
       onSubmitHandler={onSubmit}
       isLoading={isLoading}
       platforms={platforms}

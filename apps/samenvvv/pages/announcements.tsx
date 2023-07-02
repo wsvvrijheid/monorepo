@@ -12,6 +12,7 @@ import { serialize } from 'next-mdx-remote/serialize'
 import { NextSeoProps } from 'next-seo'
 
 import { SITE_URL } from '@wsvvrijheid/config'
+import { i18nConfig } from '@wsvvrijheid/config'
 import { searchModel, SearchModelArgs } from '@wsvvrijheid/services'
 import {
   Hashtag,
@@ -26,7 +27,6 @@ import {
 } from '@wsvvrijheid/utils'
 
 import { Layout } from '../components'
-import i18nConfig from '../next-i18next.config'
 
 type HashtagEventsProps = {
   seo: NextSeoProps
@@ -86,7 +86,7 @@ export const getServerSideProps = async (
   const queryClient = new QueryClient()
 
   const ssrTranslations = await serverSideTranslations(
-    locale as StrapiLocale,
+    locale,
     ['common'],
     i18nConfig,
   )

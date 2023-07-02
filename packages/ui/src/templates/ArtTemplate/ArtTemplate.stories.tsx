@@ -2,10 +2,11 @@ import { Meta, StoryObj } from '@storybook/react'
 import { sample } from 'lodash'
 
 import { ART_MOCKS } from '@wsvvrijheid/mocks'
+import { Art } from '@wsvvrijheid/types'
 
 import { ArtTemplate, ArtTemplateProps } from './ArtTemplate'
 
-const sampleArt = sample(ART_MOCKS.data)!
+const sampleArt = sample(ART_MOCKS.data) as Art
 
 export default {
   component: ArtTemplate,

@@ -71,7 +71,7 @@ export const AnimatedBox: FC<AnimatedBoxProps> = ({
       }
       initial="inactive"
       w="full"
-      {...(variants && { variants: variants })}
+      {...(variants && { variants })}
       {...(directing && { variants: initialVariants[directing] })}
       {...rest}
     >

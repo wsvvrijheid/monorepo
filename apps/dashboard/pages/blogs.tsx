@@ -7,6 +7,7 @@ import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
 
+import { i18nConfig } from '@wsvvrijheid/config'
 import { useSearchModel } from '@wsvvrijheid/services'
 import { Blog, Sort, StrapiLocale } from '@wsvvrijheid/types'
 import {
@@ -18,8 +19,6 @@ import {
   blogFields,
   blogSchema,
 } from '@wsvvrijheid/ui'
-
-import i18nConfig from '../next-i18next.config'
 
 type BlogsPageProps = InferGetStaticPropsType<typeof getStaticProps>
 
@@ -40,9 +39,9 @@ const BlogsPage: FC<BlogsPageProps> = ({ seo }) => {
     pageSize: 10,
     searchTerm,
     sort,
-    locale: locale as StrapiLocale,
+    locale,
     statuses: ['approved', 'pending'],
-    publicationState: 'preview',
+    includeDrafts: true,
   })
 
   useEffect(() => setCurrentPage(1), [])

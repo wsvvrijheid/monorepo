@@ -23,6 +23,7 @@ import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { ASSETS_URL, SITE_URL } from '@wsvvrijheid/config'
+import { i18nConfig } from '@wsvvrijheid/config'
 import {
   getHashtagBySlug,
   getHashtagSentences,
@@ -42,7 +43,6 @@ import {
 import { getItemLink, getOgImageSrc, getPageSeo } from '@wsvvrijheid/utils'
 
 import { Layout } from '../../../components'
-import i18nConfig from '../../../next-i18next.config'
 
 type HashtagProps = InferGetServerSidePropsType<typeof getServerSideProps>
 
@@ -254,7 +254,7 @@ export const getServerSideProps = async (
       (acc, l) => {
         return {
           ...acc,
-          [l.locale as StrapiLocale]: l.slug,
+          [l.locale]: l.slug,
         }
       },
       { en: '', nl: '', tr: '' },
@@ -272,11 +272,7 @@ export const getServerSideProps = async (
       slugs: { ...slugs, [locale]: slug },
       hasStarted: hashtag.hasStarted,
       dehydratedState: dehydrate(queryClient),
-      ...(await serverSideTranslations(
-        locale as StrapiLocale,
-        ['common'],
-        i18nConfig,
-      )),
+      ...(await serverSideTranslations(locale, ['common'], i18nConfig)),
     },
   }
 }
