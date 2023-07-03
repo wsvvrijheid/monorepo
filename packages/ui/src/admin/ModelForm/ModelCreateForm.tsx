@@ -4,6 +4,7 @@ import { Box, Button, Divider, Stack, useBoolean } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import slugify from '@sindresorhus/slugify'
 import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
 import { useForm } from 'react-hook-form'
 import { TbPlus } from 'react-icons/tb'
 import { InferType } from 'yup'
@@ -39,6 +40,7 @@ export const ModelCreateForm = <T extends StrapiModel>({
   >(url)
 
   const { locale } = useRouter()
+  const { t: tCommon } = useTranslation()
 
   const postModel = model as unknown as Post
   const [isChangingImage, setIsChangingImage] = useBoolean(
@@ -155,7 +157,7 @@ export const ModelCreateForm = <T extends StrapiModel>({
           setIsChangingImage,
         })}
 
-        {groupedFields && (
+        {groupedFields?.length > 0 && (
           <>
             <Divider my={6} />
             <RadioCards
@@ -164,7 +166,7 @@ export const ModelCreateForm = <T extends StrapiModel>({
               setActiveOption={setActiveOption}
             />
             {renderCreateFormBody({
-              fields: ungroupedFields,
+              fields: groupedFields,
               formProps,
               activeOption,
               isChangingImage,
@@ -179,7 +181,7 @@ export const ModelCreateForm = <T extends StrapiModel>({
         type={'submit'}
         isLoading={createModelMutation.isLoading}
       >
-        Create
+        {tCommon('create')}
       </Button>
     </Stack>
   )
