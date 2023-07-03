@@ -92,14 +92,30 @@ async function strapiRequest<T extends StrapiModel>(
       },
     })
 
-    const result = (await response.data) as StrapiResponse<T>
+    const result = response.data as StrapiResponse<T>
 
     if (!result?.data) {
       if (id || isSingleType) {
+        if (url === 'api/users') {
+          return {
+            data: result as unknown as T,
+            meta: { pagination: null },
+          } as StrapiSingleResponse<T>
+        }
+
         return {
           data: null as unknown as T,
           meta: { pagination: null },
         } as StrapiSingleResponse<T>
+      }
+
+      if (url === 'api/users') {
+        return {
+          data: result as unknown as T[],
+          meta: {
+            pagination: { page: 1, pageSize: 25, pageCount: 1, total: 0 },
+          },
+        }
       }
 
       return {

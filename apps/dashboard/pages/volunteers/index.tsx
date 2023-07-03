@@ -1,96 +1,57 @@
-import { FC, useEffect, useMemo, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 
-import {
-  MenuItemOption,
-  MenuOptionGroup,
-  Stack,
-  useUpdateEffect,
-} from '@chakra-ui/react'
-import { InferGetStaticPropsType } from 'next'
+import { MenuItemOption, MenuOptionGroup } from '@chakra-ui/react'
+import { GetServerSidePropsContext, InferGetStaticPropsType } from 'next'
 import { useRouter } from 'next/router'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
 
-import { useSearchModel } from '@wsvvrijheid/services'
-import {
-  Hashtag,
-  Job,
-  Sort,
-  StrapiLocale,
-  User,
-  Volunteer,
-} from '@wsvvrijheid/types'
+import { useStrapiRequest } from '@wsvvrijheid/services'
+import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
+import { Job, Sort, StrapiLocale, Volunteer } from '@wsvvrijheid/types'
 import {
   AdminLayout,
   DataTable,
   PageHeader,
-  postColumns,
   volunteerColumns,
 } from '@wsvvrijheid/ui'
-
-import i18nConfig from '../../next-i18next.config'
 
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>
 
 const VolunteersPage: FC<PageProps> = ({ seo }) => {
-  const [currentPage, setCurrentPage] = useState<number>()
+  const [currentPage, setCurrentPage] = useState<number>(1)
 
-  const [searchTerm, setSearchTerm] = useState<string>()
+  const [q, setQ] = useState<string>()
   const { locale, push } = useRouter()
 
   const [sort, setSort] = useState<Sort>()
 
   const [jobsFilter, setJobsFilter] = useState<number[]>([])
 
-  const volunteersQuery = useSearchModel<Volunteer>({
+  const volunteersQuery = useStrapiRequest<Volunteer>({
     url: 'api/volunteers',
     page: currentPage || 1,
-    searchTerm,
+    filters: { name: { $containsi: q } },
     sort,
   })
-  const usersQuery = useSearchModel<User>({
-    url: 'api/users',
-    page: currentPage || 1,
-    searchTerm,
-    sort,
-  })
-  const jobsQuery = useSearchModel<Job>({
+
+  const jobsQuery = useStrapiRequest<Job>({
     url: 'api/jobs',
     // publicationState: 'preview',
-    searchTerm,
+    filters: { [`name_${locale}`]: { $containsi: q } },
     sort,
     fields: ['id', `name_${locale as StrapiLocale}`],
   })
-  console.log('volunteers\n', volunteersQuery?.data?.data)
-  console.log('users', usersQuery?.data?.data)
-  // const jobsFilter = jobsQuery?.data?.data.filter(name_${locale} =>(name_`${locale}`))
-  console.log('jobs', jobsQuery?.data?.data)
-
-  // const hashtagsQuery = useSearchModel<Hashtag>({
-  //   url: 'api/hashtags',
-  //   locale: locale as StrapiLocale,
-  //   publicationState: 'preview',
-  //   fields: ['id', 'title'],
-  // })
 
   useEffect(() => setCurrentPage(1), [jobsFilter])
 
-  const handleSearch = (search: string) => {
-    search ? setSearchTerm(search) : setSearchTerm(undefined)
-  }
-
   const volunteersData = volunteersQuery?.data?.data
-  const totalCount = volunteersQuery?.data?.meta?.pagination?.pageCount
-
-  useUpdateEffect(() => {
-    volunteersQuery.refetch()
-  }, [locale, searchTerm, sort, jobsFilter])
+  const totalCount = volunteersQuery?.data?.meta?.pagination?.pageCount || 0
 
   const filterMenu = (
     <MenuOptionGroup
       title="Jobs"
       type="checkbox"
-      onChange={(value: string[]) => setJobsFilter(value.map(v => +v))}
+      onChange={value => setJobsFilter((value as string[]).map(v => +v))}
     >
       {jobsQuery.data?.data?.map(job => (
         <MenuItemOption key={job.id} value={`${job.id}`}>
@@ -109,12 +70,13 @@ const VolunteersPage: FC<PageProps> = ({ seo }) => {
       <PageHeader
         filterMenu={filterMenu}
         filterMenuCloseOnSelect={false}
-        onSearch={handleSearch}
+        onSearch={setQ}
         searchPlaceHolder={'Search by title or description'}
       />
+
       <DataTable<Volunteer>
-        columns={volunteerColumns(locale as StrapiLocale)}
-        data={volunteersData}
+        columns={volunteerColumns}
+        data={volunteersData || []}
         totalCount={totalCount}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
@@ -125,8 +87,8 @@ const VolunteersPage: FC<PageProps> = ({ seo }) => {
   )
 }
 
-export const getStaticProps = async context => {
-  const { locale } = context
+export const getStaticProps = async (context: GetServerSidePropsContext) => {
+  const locale = context.locale as StrapiLocale
 
   const title = {
     en: 'Volunteers',
@@ -141,11 +103,7 @@ export const getStaticProps = async context => {
   return {
     props: {
       seo,
-      ...(await serverSideTranslations(
-        locale,
-        ['common', 'admin'],
-        i18nConfig,
-      )),
+      ...(await ssrTranslations(locale, ['admin'])),
     },
   }
 }

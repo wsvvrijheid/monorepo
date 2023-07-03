@@ -2,13 +2,14 @@ import * as yup from 'yup'
 
 import { User } from '@wsvvrijheid/types'
 
+import { yupSelect } from './common'
 import { FormFields } from '../../admin'
 
 export const userSchema = yup.object({
   avatar: yup.string(),
   name: yup.string().required('Name is required'),
   username: yup.string().required('Username is required'),
-  role: yup.string(),
+  role: yupSelect,
   email: yup.string().email('Not a valid email').required('Email is required'),
 })
 export const userFields: FormFields<User> = [
@@ -30,6 +31,10 @@ export const userFields: FormFields<User> = [
     type: 'date',
     label: 'Updated Date',
   },
-  { name: 'role', label: 'Role' },
- 
+  {
+    name: 'role',
+    label: 'Role',
+    type: 'select',
+    url: 'api/roles',
+  },
 ]

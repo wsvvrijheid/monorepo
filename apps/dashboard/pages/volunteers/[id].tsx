@@ -1,13 +1,13 @@
 import { FC } from 'react'
 
 import { Box, Stack } from '@chakra-ui/react'
-import { InferGetServerSidePropsType } from 'next'
+import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
 import { useRouter } from 'next/router'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
 
-import { useModelById } from '@wsvvrijheid/services'
-import { Volunteer } from '@wsvvrijheid/types'
+import { useStrapiRequest } from '@wsvvrijheid/services'
+import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
+import { StrapiLocale, Volunteer } from '@wsvvrijheid/types'
 import {
   AdminLayout,
   ModelEditForm,
@@ -16,8 +16,6 @@ import {
   volunteerSchema,
 } from '@wsvvrijheid/ui'
 
-import i18nConfig from '../../next-i18next.config'
-
 type PageProps = InferGetServerSidePropsType<typeof getServerSideProps>
 
 const VolunteerPage: FC<PageProps> = ({ seo }) => {
@@ -25,23 +23,17 @@ const VolunteerPage: FC<PageProps> = ({ seo }) => {
   const { query } = router
 
   const id = Number(query.id as string)
-  const {
-    data: volunteer,
-    isLoading,
-    refetch,
-  } = useModelById<Volunteer>({
+  const { data, isLoading, refetch } = useStrapiRequest<Volunteer>({
     url: 'api/volunteers',
     id,
   })
 
-  console.log('volunteer>>>>', volunteer)
+  const volunteer = data?.data
 
   return (
     <AdminLayout seo={seo} isLoading={isLoading} hasBackButton>
-     <PageHeader>
-       
-      </PageHeader>
-     <Stack spacing={4}>
+      <PageHeader></PageHeader>
+      <Stack spacing={4}>
         {volunteer && (
           <Box p={4} rounded="md" bg="white" shadow="md">
             <ModelEditForm<Volunteer>
@@ -61,8 +53,10 @@ const VolunteerPage: FC<PageProps> = ({ seo }) => {
   )
 }
 
-export const getServerSideProps = async context => {
-  const { locale } = context
+export const getServerSideProps = async (
+  context: GetServerSidePropsContext,
+) => {
+  const locale = context.locale as StrapiLocale
 
   const title = {
     en: 'Volunteer',
@@ -77,11 +71,7 @@ export const getServerSideProps = async context => {
   return {
     props: {
       seo,
-      ...(await serverSideTranslations(
-        locale,
-        ['common', 'admin'],
-        i18nConfig,
-      )),
+      ...(await ssrTranslations(locale, ['admin'])),
     },
   }
 }

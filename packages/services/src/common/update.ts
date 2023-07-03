@@ -39,7 +39,7 @@ export const useUpdateModelMutation = <
       toast({
         title: `Model updated`,
         description: `Model ${
-          (res as StrapiTranslatableModel).title
+          (res as StrapiTranslatableModel)?.title
         } has been updated`,
         status: 'success',
         duration: 5000,

@@ -1,18 +1,8 @@
-import {
-  Hashtag,
-  Post,
-  StrapiLocale,
-  ApprovalStatus,
-  User,
-  Volunteer,
-  Job,
-} from '@wsvvrijheid/types'
+import { Volunteer } from '@wsvvrijheid/types'
 
 import { WTableProps } from '../../components'
 
-export const volunteerColumns = (
-  locale: StrapiLocale,
-): WTableProps<Volunteer>['columns'] => ({
+export const volunteerColumns: WTableProps<Volunteer>['columns'] = {
   name: {},
   availableHours: {},
   phone: {},
@@ -24,4 +14,4 @@ export const volunteerColumns = (
     componentProps: { format: 'dd MMMM' },
     sortable: true,
   },
-})
+}

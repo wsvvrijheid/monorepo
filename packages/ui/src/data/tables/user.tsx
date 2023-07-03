@@ -1,4 +1,4 @@
-import { Role, User, Volunteer } from '@wsvvrijheid/types'
+import { Role, User } from '@wsvvrijheid/types'
 
 import { WTableProps } from '../../components'
 

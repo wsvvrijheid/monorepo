@@ -221,6 +221,7 @@ export type StrapiSingleEndpoint =
   | 'trend'
   | 'topic'
   | 'topic/sync'
+  | 'users/me'
 export type StrapiSingleUrl = `api/${StrapiSingleEndpoint}`
 
 export type StrapiAuthEndpoint =
@@ -262,7 +263,7 @@ export type StrapiCollectionEndpoint =
   | 'user-statistics/get-user-stats'
   | 'user-statistics/get-stats'
   | 'users'
-  | 'users/me'
+  | 'roles'
   | 'volunteers'
   | 'votes'
 export type StrapiCollectionUrl = `api/${StrapiCollectionEndpoint}`

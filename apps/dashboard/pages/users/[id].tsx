@@ -1,13 +1,13 @@
 import { FC } from 'react'
 
 import { Box, Stack } from '@chakra-ui/react'
-import { InferGetServerSidePropsType } from 'next'
+import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
 import { useRouter } from 'next/router'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
 
-import { useModelById } from '@wsvvrijheid/services'
-import { User } from '@wsvvrijheid/types'
+import { useStrapiRequest } from '@wsvvrijheid/services'
+import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
+import { StrapiLocale, User } from '@wsvvrijheid/types'
 import {
   AdminLayout,
   ModelEditForm,
@@ -16,8 +16,6 @@ import {
   userSchema,
 } from '@wsvvrijheid/ui'
 
-import i18nConfig from '../../next-i18next.config'
-
 type PageProps = InferGetServerSidePropsType<typeof getServerSideProps>
 
 const UserPage: FC<PageProps> = ({ seo }) => {
@@ -25,14 +23,12 @@ const UserPage: FC<PageProps> = ({ seo }) => {
   const { query } = router
 
   const id = Number(query.id as string)
-  const {
-    data: user,
-    isLoading,
-    refetch,
-  } = useModelById<User>({
+  const { data, isLoading, refetch } = useStrapiRequest<User>({
     url: 'api/users',
     id,
   })
+
+  const user = data?.data
 
   return (
     <AdminLayout seo={seo} isLoading={isLoading} hasBackButton>
@@ -52,14 +48,15 @@ const UserPage: FC<PageProps> = ({ seo }) => {
             />
           </Box>
         )}
-       
       </Stack>
     </AdminLayout>
   )
 }
 
-export const getServerSideProps = async context => {
-  const { locale } = context
+export const getServerSideProps = async (
+  context: GetServerSidePropsContext,
+) => {
+  const locale = context.locale as StrapiLocale
 
   const title = {
     en: 'User',
@@ -74,11 +71,7 @@ export const getServerSideProps = async context => {
   return {
     props: {
       seo,
-      ...(await serverSideTranslations(
-        locale,
-        ['common', 'admin'],
-        i18nConfig,
-      )),
+      ...(await ssrTranslations(locale, ['admin'])),
     },
   }
 }
