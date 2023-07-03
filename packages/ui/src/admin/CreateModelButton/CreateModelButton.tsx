@@ -84,7 +84,7 @@ export const CreateModelButton = () => {
               <Stack>
                 {getPermission(['contentmanager']) && (
                   <ModelCreateModal<Activity>
-                    title="Create Activity"
+                    title={t('create-activity')}
                     url="api/activities"
                     schema={activitySchema}
                     fields={activityFields}
@@ -98,7 +98,7 @@ export const CreateModelButton = () => {
                 )}
                 {getPermission(['author', 'contentmanager']) && (
                   <ModelCreateModal<Blog>
-                    title="Create Blog"
+                    title={t('create-blog')}
                     url="api/blogs"
                     schema={blogSchema}
                     fields={blogFields}
@@ -112,7 +112,7 @@ export const CreateModelButton = () => {
                 )}
                 {getPermission(['academyeditor']) && (
                   <ModelCreateModal<Course>
-                    title="Create Course"
+                    title={t('create-course')}
                     url="api/courses"
                     schema={courseSchema}
                     fields={courseFields}
@@ -127,7 +127,7 @@ export const CreateModelButton = () => {
                 )}
                 {getPermission(['arteditor']) && (
                   <ModelCreateModal<Collection>
-                    title="Create Collection"
+                    title={t('create-collection')}
                     url="api/collections"
                     schema={collectionSchema}
                     fields={collectionFields}
@@ -141,7 +141,7 @@ export const CreateModelButton = () => {
                 )}
                 {getPermission(['accountmanager']) && (
                   <ModelCreateModal<Hashtag>
-                    title="Create Hashtag"
+                    title={t('create-hashtag')}
                     url="api/hashtags"
                     schema={mainHashtagSchema}
                     fields={mainHashtagFields}
@@ -154,7 +154,7 @@ export const CreateModelButton = () => {
                   </ModelCreateModal>
                 )}
                 <ModelCreateModal<Post>
-                  title="Create Post"
+                  title={t('create-post')}
                   url="api/posts"
                   schema={postSchema}
                   fields={postFields}
@@ -177,7 +177,7 @@ export const CreateModelButton = () => {
                   {t('create-multiple-post')}
                 </Button>
                 <ModelCreateModal<RecommendedTopic>
-                  title="Create News"
+                  title={t('create-news')}
                   url="api/recommended-topics"
                   schema={topicSchema}
                   fields={topicFields}
@@ -189,7 +189,7 @@ export const CreateModelButton = () => {
                   {t('create-news')}
                 </ModelCreateModal>
                 <ModelCreateModal<RecommendedTweet>
-                  title="Create Recommended Tweet"
+                  title={t('create-recommended-tweet')}
                   url="api/recommended-tweets"
                   schema={recommendedTweetSchema}
                   fields={recommendedTweetFields}
