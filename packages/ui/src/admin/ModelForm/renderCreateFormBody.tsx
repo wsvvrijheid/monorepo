@@ -11,7 +11,6 @@ import {
   NumberInputStepper,
   Switch,
   Textarea,
-  useBoolean,
 } from '@chakra-ui/react'
 import { capitalize } from 'lodash'
 
@@ -22,11 +21,13 @@ import { ModelSelect } from './ModelSelect'
 import { ModelCreateFormBodyProps } from './types'
 import { FormItem, MdFormItem, VideoPlayer } from '../../components'
 
-export const ModelCreateFormBody = <T extends StrapiModel>({
+export const renderCreateFormBody = <T extends StrapiModel>({
   fields,
   activeOption,
   formProps,
   model,
+  isChangingImage,
+  setIsChangingImage,
 }: ModelCreateFormBodyProps<T>) => {
   const {
     register,
@@ -42,9 +43,6 @@ export const ModelCreateFormBody = <T extends StrapiModel>({
     color: 'gray.500',
   }
   const postModel = model as unknown as Post
-  const [isChangingImage, setIsChangingImage] = useBoolean(
-    postModel?.image ? false : true,
-  )
 
   return (
     <>
