@@ -1,13 +1,13 @@
 import { useQuery } from '@tanstack/react-query'
 
-import { Request } from '@wsvvrijheid/lib'
+import { strapiRequest } from '@wsvvrijheid/lib'
 import { Art } from '@wsvvrijheid/types'
 
 export const getArtByArtist = async (
   userId: number,
   includeDrafts?: boolean,
 ) => {
-  const response = await Request.collection<Art[]>({
+  const response = await strapiRequest<Art>({
     url: 'api/arts',
     filters: {
       artist: { id: { $eq: userId || null } },

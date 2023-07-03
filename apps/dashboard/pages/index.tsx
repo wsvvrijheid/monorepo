@@ -8,17 +8,13 @@ import {
   Text,
   Wrap,
 } from '@chakra-ui/react'
-import { dehydrate, QueryClient } from '@tanstack/react-query'
+import { QueryClient, dehydrate } from '@tanstack/react-query'
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
 
-import { i18nConfig } from '@wsvvrijheid/config'
-import {
-  searchModel,
-  SearchModelArgs,
-  useSearchModel,
-} from '@wsvvrijheid/services'
+import { RequestCollectionArgs, strapiRequest } from '@wsvvrijheid/lib'
+import { useStrapiRequest } from '@wsvvrijheid/services'
+import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import {
   AccountStats as AccounStatsType,
   AccountStatsBase,
@@ -28,7 +24,7 @@ import { AccountStats, AdminLayout, PageHeader } from '@wsvvrijheid/ui'
 
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>
 
-const args: SearchModelArgs<AccounStatsType> = {
+const args: RequestCollectionArgs = {
   url: 'api/account-statistics',
   sort: ['date:asc'],
   pageSize: 100,
@@ -37,7 +33,7 @@ const args: SearchModelArgs<AccounStatsType> = {
 const Index: FC<PageProps> = ({ seo }) => {
   // TODO: Add pagination with keep previous data
   // Strapi fetches at max 100 items
-  const statsQuery = useSearchModel(args)
+  const statsQuery = useStrapiRequest<AccounStatsType>(args)
 
   const statsData = [
     'tweets',
@@ -121,7 +117,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
   const queryClient = new QueryClient()
 
   await queryClient.prefetchQuery(['account-stats'], () => {
-    return searchModel<AccounStatsType>(args)
+    return strapiRequest<AccounStatsType>(args)
   })
 
   const title = {
@@ -138,11 +134,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
     props: {
       seo,
       dehydratedState: dehydrate(queryClient),
-      ...(await serverSideTranslations(
-        locale,
-        ['common', 'admin'],
-        i18nConfig,
-      )),
+      ...(await ssrTranslations(locale, ['admin'])),
     },
     revalidate: 1,
   }

@@ -3,11 +3,10 @@ import { FC, useEffect, useState } from 'react'
 import { MenuItem, useUpdateEffect } from '@chakra-ui/react'
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { useRouter } from 'next/router'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { FaArrowDown, FaArrowUp } from 'react-icons/fa'
 
-import { i18nConfig } from '@wsvvrijheid/config'
-import { useSearchModel } from '@wsvvrijheid/services'
+import { useStrapiRequest } from '@wsvvrijheid/services'
+import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import { ApprovalStatus, Art, Sort, StrapiLocale } from '@wsvvrijheid/types'
 import { AdminLayout, ArtsTable, PageHeader } from '@wsvvrijheid/ui'
 
@@ -25,7 +24,7 @@ const ArtsPage: FC<PageProps> = ({ seo }) => {
 
   const { locale } = useRouter()
 
-  const artsQuery = useSearchModel<Art>({
+  const artsQuery = useStrapiRequest<Art>({
     url: 'api/arts',
     populate: [
       'artist.user.avatar',
@@ -36,11 +35,12 @@ const ArtsPage: FC<PageProps> = ({ seo }) => {
     ],
     page: currentPage || 1,
     pageSize: 10,
-    searchTerm,
-    searchFields: [`title_${locale}`],
+    filters: {
+      ...(status ? { approvalStatus: { $eq: status } } : {}),
+      ...(searchTerm && { [`title_${locale}`]: { $containsi: searchTerm } }),
+    },
     sort,
     locale,
-    statuses: [status],
   })
 
   useEffect(() => setCurrentPage(1), [status])
@@ -110,11 +110,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
   return {
     props: {
       seo,
-      ...(await serverSideTranslations(
-        locale,
-        ['common', 'admin'],
-        i18nConfig,
-      )),
+      ...(await ssrTranslations(locale, ['admin'])),
     },
   }
 }

@@ -2,11 +2,10 @@ import { FC } from 'react'
 
 import { truncate } from 'lodash'
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { serialize } from 'next-mdx-remote/serialize'
 
-import { i18nConfig } from '@wsvvrijheid/config'
-import { Request } from '@wsvvrijheid/lib'
+import { strapiRequest } from '@wsvvrijheid/lib'
+import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import { Privacy, StrapiLocale } from '@wsvvrijheid/types'
 import { Container, Hero, Markdown } from '@wsvvrijheid/ui'
 
@@ -30,7 +29,7 @@ export default Privacy
 export const getStaticProps = async (context: GetStaticPropsContext) => {
   const locale = context.locale as StrapiLocale
 
-  const response = await Request.single<Privacy>({
+  const response = await strapiRequest<Privacy>({
     url: 'api/privacy',
     locale,
   })
@@ -55,7 +54,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
       privacy,
       source,
       seo,
-      ...(await serverSideTranslations(locale, ['common'], i18nConfig)),
+      ...(await ssrTranslations(locale)),
     },
     revalidate: 1,
   }

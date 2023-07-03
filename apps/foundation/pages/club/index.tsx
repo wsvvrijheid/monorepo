@@ -2,10 +2,9 @@ import { FC } from 'react'
 
 import { dehydrate, QueryClient } from '@tanstack/react-query'
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import { i18nConfig } from '@wsvvrijheid/config'
-import { searchModel } from '@wsvvrijheid/services'
+import { strapiRequest } from '@wsvvrijheid/lib'
+import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import { Art, StrapiLocale } from '@wsvvrijheid/types'
 import { ArtClubTemplate } from '@wsvvrijheid/ui'
 
@@ -33,10 +32,12 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
     // queryKey: [arts, locale, searchTerm, category, page]
     queryKey: ['arts', locale, null, null, '1'],
     queryFn: () =>
-      searchModel<Art>({
+      strapiRequest<Art>({
         url: 'api/arts',
         locale,
-        statuses: ['approved'],
+        filters: {
+          approvalStatus: { $eq: 'approved' },
+        },
       }),
   })
 
@@ -50,7 +51,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
 
   return {
     props: {
-      ...(await serverSideTranslations(locale, ['common'], i18nConfig)),
+      ...(await ssrTranslations(locale)),
       title: seo.title[locale],
       dehydratedState: dehydrate(queryClient),
     },

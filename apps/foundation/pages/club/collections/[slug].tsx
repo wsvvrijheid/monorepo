@@ -1,15 +1,10 @@
 import { FC, useEffect, useRef, useState } from 'react'
 
 import { useBreakpointValue } from '@chakra-ui/react'
-import {
-  GetStaticPaths,
-  GetStaticPropsContext,
-  InferGetStaticPropsType,
-} from 'next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 
-import { i18nConfig } from '@wsvvrijheid/config'
 import { getCollectionBySlug, getModelStaticPaths } from '@wsvvrijheid/services'
+import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import { Localize, StrapiLocale } from '@wsvvrijheid/types'
 import { CollectionTemplate } from '@wsvvrijheid/ui'
 
@@ -53,11 +48,8 @@ const CollectionPage: FC<CollectionPageProps> = ({ seo, collection }) => {
 }
 export default CollectionPage
 
-export const getStaticPaths: GetStaticPaths = async context => {
-  return await getModelStaticPaths(
-    'api/collections',
-    context.locales as StrapiLocale[],
-  )
+export const getStaticPaths = async () => {
+  return await getModelStaticPaths('api/collections')
 }
 
 export const getStaticProps = async (context: GetStaticPropsContext) => {
@@ -84,7 +76,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
 
   return {
     props: {
-      ...(await serverSideTranslations(locale, ['common'], i18nConfig)),
+      ...(await ssrTranslations(locale)),
       seo,
       slugs: { ...slugs, [locale]: slug },
       collection,

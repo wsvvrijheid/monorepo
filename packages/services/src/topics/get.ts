@@ -1,10 +1,10 @@
 import { useQuery } from '@tanstack/react-query'
 
-import { Request } from '@wsvvrijheid/lib'
+import { strapiRequest } from '@wsvvrijheid/lib'
 import { Topic } from '@wsvvrijheid/types'
 
 export const getTopics = async () => {
-  const response = await Request.single<Topic>({
+  const response = await strapiRequest<Topic>({
     url: 'api/topic',
   })
 

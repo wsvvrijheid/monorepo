@@ -14,12 +14,11 @@ import {
 } from '@chakra-ui/react'
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
 import { useRouter } from 'next/router'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
 import { FaArrowDown, FaArrowUp } from 'react-icons/fa'
 
-import { i18nConfig } from '@wsvvrijheid/config'
-import { useModelById, useSearchModel } from '@wsvvrijheid/services'
+import { useStrapiRequest } from '@wsvvrijheid/services'
+import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import {
   Course,
   CourseApplication,
@@ -28,15 +27,15 @@ import {
 } from '@wsvvrijheid/types'
 import {
   AdminLayout,
+  DataTable,
+  ModelEditForm,
+  ModelEditModal,
+  PageHeader,
   applicationColumns,
   courseApplicationFields,
   courseApplicationSchema,
   courseFields,
   courseSchema,
-  DataTable,
-  ModelEditForm,
-  ModelEditModal,
-  PageHeader,
 } from '@wsvvrijheid/ui'
 
 type PageProps = InferGetServerSidePropsType<typeof getServerSideProps>
@@ -57,16 +56,15 @@ const CoursePage: FC<PageProps> = ({ seo }) => {
 
   const id = Number(query.id as string)
 
-  const applicationsQuery = useSearchModel<CourseApplication>({
+  const applicationsQuery = useStrapiRequest<CourseApplication>({
     url: 'api/course-applications',
-    relationFilter: {
-      parent: 'course',
-      ids: [id],
+    filters: {
+      course: { id: { $eq: id } },
+      ...(searchTerm && { [`title_${locale}`]: { $containsi: searchTerm } }),
     },
     sort,
     page: currentPage || 1,
     pageSize: 100,
-    searchTerm,
     locale,
   })
   useUpdateEffect(() => {
@@ -76,14 +74,12 @@ const CoursePage: FC<PageProps> = ({ seo }) => {
   const applications = applicationsQuery?.data?.data || []
   const totalCount = applicationsQuery?.data?.meta?.pagination?.pageCount || 0
 
-  const {
-    data: course,
-    isLoading,
-    refetch,
-  } = useModelById<Course>({
+  const { data, isLoading, refetch } = useStrapiRequest<Course>({
     url: 'api/courses',
     id,
   })
+
+  const course = data?.data
 
   const handleRowClick = (index: number, id: number) => {
     setSelectedApplicationId(id)
@@ -224,11 +220,7 @@ export const getServerSideProps = async (
   return {
     props: {
       seo,
-      ...(await serverSideTranslations(
-        locale,
-        ['common', 'admin'],
-        i18nConfig,
-      )),
+      ...(await ssrTranslations(locale, ['admin'])),
     },
   }
 }

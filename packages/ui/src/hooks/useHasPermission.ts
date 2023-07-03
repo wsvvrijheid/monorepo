@@ -1,10 +1,10 @@
 import { useAuthContext } from '@wsvvrijheid/context'
-import { Role } from '@wsvvrijheid/types'
+import { RoleType } from '@wsvvrijheid/types'
 
 export const useHasPermission = () => {
   const { user } = useAuthContext()
 
-  const getPermission = (roles: Role['type'][]) => {
+  const getPermission = (roles: RoleType[]) => {
     if (!user) return false
 
     if (user.roles?.includes('admin')) return true

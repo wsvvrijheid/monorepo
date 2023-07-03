@@ -1,10 +1,10 @@
 import { useQuery } from '@tanstack/react-query'
 
-import { Request } from '@wsvvrijheid/lib'
+import { strapiRequest } from '@wsvvrijheid/lib'
 import { Activity } from '@wsvvrijheid/types'
 
 export const getArtById = async (id: number) => {
-  const response = await Request.single<Activity>({
+  const response = await strapiRequest<Activity>({
     url: 'api/arts',
     id,
     populate: ['localizations', 'image', 'artist.avatar'],

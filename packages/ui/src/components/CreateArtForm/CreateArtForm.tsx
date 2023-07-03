@@ -29,7 +29,7 @@ import useFormPersist from 'react-hook-form-persist'
 import { FaPlus, FaUpload } from 'react-icons/fa'
 
 import { useAuthContext } from '@wsvvrijheid/context'
-import { useCreateModelMutation, useSearchModel } from '@wsvvrijheid/services'
+import { useCreateModelMutation, useStrapiRequest } from '@wsvvrijheid/services'
 import { ArtCreateInput, Category } from '@wsvvrijheid/types'
 
 import { ArtCreateSuccessAlert } from './CreateArtSuccessAlert'
@@ -44,7 +44,7 @@ export const CreateArtForm = () => {
   const [image, setImage] = useState<File>()
   const { locale } = useRouter()
   const { t } = useTranslation()
-  const categories = useSearchModel<Category>({
+  const categories = useStrapiRequest<Category>({
     url: 'api/categories',
   })
 

@@ -3,11 +3,10 @@ import { FC } from 'react'
 import { Box, Stack } from '@chakra-ui/react'
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
 import { useRouter } from 'next/router'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { NextSeoProps } from 'next-seo'
 
-import { i18nConfig } from '@wsvvrijheid/config'
-import { useModelById } from '@wsvvrijheid/services'
+import { useStrapiRequest } from '@wsvvrijheid/services'
+import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import { HashtagReturnType, Post, StrapiLocale } from '@wsvvrijheid/types'
 import {
   AdminLayout,
@@ -26,14 +25,12 @@ const PostPage: FC<PageProps> = ({ seo }) => {
   const { query } = router
 
   const id = Number(query.id as string)
-  const {
-    data: post,
-    isLoading,
-    refetch,
-  } = useModelById<Post>({
+  const { data, isLoading, refetch } = useStrapiRequest<Post>({
     url: 'api/posts',
     id,
   })
+
+  const post = data?.data
 
   return (
     <AdminLayout seo={seo} isLoading={isLoading} hasBackButton>
@@ -89,11 +86,7 @@ export const getServerSideProps = async (
   return {
     props: {
       seo,
-      ...(await serverSideTranslations(
-        locale,
-        ['common', 'admin'],
-        i18nConfig,
-      )),
+      ...(await ssrTranslations(locale, ['admin'])),
     },
   }
 }

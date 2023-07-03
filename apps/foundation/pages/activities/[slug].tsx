@@ -2,16 +2,12 @@ import { FC } from 'react'
 
 import { Spinner } from '@chakra-ui/react'
 import { QueryClient, dehydrate } from '@tanstack/react-query'
-import {
-  GetStaticPaths,
-  GetStaticPropsContext,
-  InferGetStaticPropsType,
-} from 'next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { serialize } from 'next-mdx-remote/serialize'
 
-import { i18nConfig } from '@wsvvrijheid/config'
-import { getActivityBySlug, getModelStaticPaths } from '@wsvvrijheid/services'
+import { strapiRequest } from '@wsvvrijheid/lib'
+import { getModelStaticPaths } from '@wsvvrijheid/services'
+import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import { Activity, StrapiLocale } from '@wsvvrijheid/types'
 import { ActivityDetail } from '@wsvvrijheid/ui'
 
@@ -34,11 +30,8 @@ const ActivityDetailPage: FC<ActivityDetailPageProps> = ({
 }
 export default ActivityDetailPage
 
-export const getStaticPaths: GetStaticPaths = async context => {
-  return await getModelStaticPaths(
-    'api/activities',
-    context.locales as StrapiLocale[],
-  )
+export const getStaticPaths = async () => {
+  return await getModelStaticPaths('api/activities')
 }
 
 export const getStaticProps = async (context: GetStaticPropsContext) => {
@@ -49,7 +42,12 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
 
   await queryClient.prefetchQuery({
     queryKey: ['activity', locale, slug],
-    queryFn: () => getActivityBySlug(locale, slug),
+    queryFn: () =>
+      strapiRequest<Activity>({
+        url: 'api/activities',
+        filters: { slug: { $eq: slug } },
+        locale,
+      }),
   })
 
   const activity = queryClient.getQueryData<Activity>([
@@ -74,7 +72,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
       image,
       source,
       dehydratedState: dehydrate(queryClient),
-      ...(await serverSideTranslations(locale, ['common'], i18nConfig)),
+      ...(await ssrTranslations(locale)),
     },
     revalidate: 1,
   }

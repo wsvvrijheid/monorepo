@@ -3,7 +3,7 @@ import { Meta, StoryFn, StoryObj } from '@storybook/react'
 import { useRouter } from 'next/router'
 
 import { COLLECTION_MOCKS } from '@wsvvrijheid/mocks'
-import { useSearchModel } from '@wsvvrijheid/services'
+import { useStrapiRequest } from '@wsvvrijheid/services'
 import { Collection } from '@wsvvrijheid/types'
 
 import { CollectionList, CollectionListProps } from './CollectionList'
@@ -24,7 +24,7 @@ type Story = StoryObj<CollectionListProps>
 const StoryWithHook: StoryFn<CollectionListProps> = args => {
   const router = useRouter()
 
-  const { data } = useSearchModel<Collection>({
+  const { data } = useStrapiRequest<Collection>({
     url: 'api/collections',
     locale: router.locale,
   })
