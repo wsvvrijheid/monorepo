@@ -15,20 +15,23 @@ export const ImageRecognizer: FC<ImageRecognizerProps> = ({
   setRecognized,
 }) => {
   const handleLoaded = (files: File[], previews: string[]) => {
-    const newState = files.reduce((acc, file, index) => {
-      const id = Math.random()
-      acc[id] = {
-        id,
-        file,
-        preview: previews[index],
-        text: '',
-        isLoading: false,
-        isError: false,
-        isProcessed: false,
-      }
+    const newState = files.reduce(
+      (acc, file, index) => {
+        const id = Math.random()
+        acc[id] = {
+          id,
+          file,
+          preview: previews[index],
+          text: '',
+          isLoading: false,
+          isError: false,
+          isProcessed: false,
+        }
 
-      return acc
-    }, {} as Record<number, RecognizedImage>)
+        return acc
+      },
+      {} as Record<number, RecognizedImage>,
+    )
 
     setState(newState)
   }

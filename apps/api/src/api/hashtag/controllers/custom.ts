@@ -184,33 +184,43 @@ export default {
       })
 
       // send stored tweets to db every 30 minutes
-      const saveTweets = setInterval(async () => {
-        const storedData = Object.values(hashtagStatsStore.store)
-        const tweets = storedData.map(tweet => ({
-          username: tweet.username,
-          total: tweet.total,
-          retweet: tweet.retweet,
-          tweets: tweet.tweet,
-          replies: tweet.replies,
-          getReplies: tweet.getReplies,
-          getRetweeted: tweet.getRetweeted,
-        }))
+      const saveTweets = setInterval(
+        async () => {
+          const storedData = Object.values(hashtagStatsStore.store)
+          const tweets = storedData.map(tweet => ({
+            username: tweet.username,
+            total: tweet.total,
+            retweet: tweet.retweet,
+            tweets: tweet.tweet,
+            replies: tweet.replies,
+            getReplies: tweet.getReplies,
+            getRetweeted: tweet.getRetweeted,
+          }))
 
-        // update tweets
-        await strapi.entityService.update('api::hashtag.hashtag', data[0].id, {
-          data: {
-            tweets,
-          },
-        })
-      }, 30 * 60 * 1000)
+          // update tweets
+          await strapi.entityService.update(
+            'api::hashtag.hashtag',
+            data[0].id,
+            {
+              data: {
+                tweets,
+              },
+            },
+          )
+        },
+        30 * 60 * 1000,
+      )
 
       // close the stream after the duration(hours)
-      setTimeout(() => {
-        stream.destroy()
-        isStarted = false
-        hashtagStatsStore.reset()
-        clearInterval(saveTweets)
-      }, duration * 60 * 60 * 1000)
+      setTimeout(
+        () => {
+          stream.destroy()
+          isStarted = false
+          hashtagStatsStore.reset()
+          clearInterval(saveTweets)
+        },
+        duration * 60 * 60 * 1000,
+      )
 
       return { message: 'Stream is open' }
     } catch (error) {

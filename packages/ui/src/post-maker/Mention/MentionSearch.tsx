@@ -24,8 +24,8 @@ export const MentionSearch = (): JSX.Element => {
 
   const filteredMentions = useMemo(
     () =>
-      hashtag.mentions?.filter(m =>
-        m.data?.screen_name.toLowerCase().includes(value.toLowerCase()),
+      hashtag.mentions?.filter(
+        m => m.data?.screen_name.toLowerCase().includes(value.toLowerCase()),
       ) || [],
     [hashtag.mentions, value],
   )
