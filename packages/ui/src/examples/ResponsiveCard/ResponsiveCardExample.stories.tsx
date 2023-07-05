@@ -1,12 +1,12 @@
-import {Meta, StoryObj} from "@storybook/react";
+import { Meta, StoryObj } from '@storybook/react'
 
-import {ResponsiveCardExample} from "./ResponsiveCardExample"
+import { ResponsiveCardExample } from './ResponsiveCardExample'
 
 export default {
-    component: ResponsiveCardExample,
-    title: 'Example/ResponsiveCardExample',
-} as Meta<typeof ResponsiveCardExample>;
+  component: ResponsiveCardExample,
+  title: 'Example/ResponsiveCardExample',
+} as Meta<typeof ResponsiveCardExample>
 
-type Temple =  StoryObj<typeof ResponsiveCardExample>
+type Story = StoryObj<typeof ResponsiveCardExample>
 
-export const Default: Temple = {}
+export const Default: Story = {}

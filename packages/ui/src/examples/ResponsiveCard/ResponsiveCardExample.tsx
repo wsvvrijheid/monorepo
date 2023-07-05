@@ -4,10 +4,10 @@ export const ResponsiveCardExample = () => {
   return (
     <Flex
       flexDirection={['column', null, 'row']}
-      gap={3}
+      gap={2}
       bg="white"
-      m={3}
-      p={5}
+      m={4}
+      p={6}
     >
       <Stack>
         <Image
@@ -18,7 +18,7 @@ export const ResponsiveCardExample = () => {
           m="auto"
         ></Image>
       </Stack>
-      <Stack spacing={7} w={['full', null]} p={3}>
+      <Stack spacing={6} w={['full', null]} p={2}>
         <Heading as="h1">Heading</Heading>
         <Text>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam,
