@@ -12,7 +12,7 @@
     "db": "turbo run db --concurrency=20",
     "lint": "turbo run lint",
     "clean": "turbo run clean && rm -rf node_modules",
-    "storybook": "turbo run storybook",
+    "storybook": "turbo run storybook --concurrency=20",
     "storybook-build": "turbo run storybook-build",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },

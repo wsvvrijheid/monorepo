@@ -17,6 +17,7 @@ export const FetchWithFilters: FC<RequestFilterProps> = ({ initialValue }) => {
     // TODO: fetch blogs with filterValue by using strapiRequest
     // NOTE: Changing filteredValue should trigger a new fetch.
     // REF: https://docs.strapi.io/dev-docs/api/rest/filters-locale-publication#filtering
+    // BONUS: You can play by using other arguments of strapiRequest to sort, populate, to use fields etc.
   }, [])
 
   // TODO Add Input to change titleFilter

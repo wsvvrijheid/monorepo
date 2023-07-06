@@ -9,7 +9,7 @@ import { TOKEN } from '@wsvvrijheid/secrets'
 
 const BLOG_URL = `${API_URL}/api/blogs` // https://api.samenvvv.nl/api/blogs
 
-export const FetcAxios = () => {
+export const FetcWithAxios = () => {
   const [blogs, setBlogs] = useState([])
   const { locale } = useRouter()
 
