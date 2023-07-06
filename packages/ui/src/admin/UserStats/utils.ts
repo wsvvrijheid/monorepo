@@ -51,17 +51,20 @@ export const groupStats = (
   groupedUserStats: { name: string; data: UserStatsProps[] }[]
   names: string[]
 } => {
-  const groupedStats = stats.reduce((result, stat) => {
-    const { name } = stat.user
-    if (name && !result[name]) {
-      result[name] = { name, data: [] }
-    }
-    if (name) {
-      result[name].data.push(stat)
-    }
+  const groupedStats = stats.reduce(
+    (result, stat) => {
+      const { name } = stat.user
+      if (name && !result[name]) {
+        result[name] = { name, data: [] }
+      }
+      if (name) {
+        result[name].data.push(stat)
+      }
 
-    return result
-  }, {} as { [name: string]: { name: string; data: UserStatsProps[] } })
+      return result
+    },
+    {} as { [name: string]: { name: string; data: UserStatsProps[] } },
+  )
 
   const groupedUserStats: { name: string; data: UserStatsProps[] }[] =
     Object.values(groupedStats).map(({ name, data }) => ({
