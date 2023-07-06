@@ -258,7 +258,8 @@ export const DonationTemplate: FC<DonationTemplateProps> = ({
             />
           </Stack>
 
-          <Button
+          <Stack>
+            <Button
             isDisabled={!amount || !method || !isValid}
             type="submit"
             leftIcon={<FaDonate />}
@@ -278,6 +279,7 @@ export const DonationTemplate: FC<DonationTemplateProps> = ({
             {t('donation.monthly')}
             {amount && ` €${amount}`}
           </Button>
+          </Stack>
         </Stack>
         {platforms && <PlatformList platforms={platforms} />}
       </SimpleGrid>
