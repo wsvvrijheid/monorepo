@@ -5,7 +5,7 @@ import { Center, Container } from '@chakra-ui/react'
 import { DonationResultAlert } from '../../components'
 
 type DonationCompleteTemplateProps = {
-  status: 'paid' | 'unpaid'
+  status: string
 }
 
 // TODO Make transaction detail messages more user friendly and create translations
@@ -52,6 +52,14 @@ export const DonationCompleteTemplate: FC<DonationCompleteTemplateProps> = ({
         />
       )
     }
+
+    return (
+      <DonationResultAlert
+        status="error"
+        title="Something went wrong"
+        description="We could not process your donation"
+      />
+    )
   }
 
   return (

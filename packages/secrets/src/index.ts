@@ -5,7 +5,6 @@ export const TOKEN = process.env['NEXT_PUBLIC_API_TOKEN']
 const secrets = {
   COOKIE_PASSWORD: process.env['SECRET_COOKIE_PASSWORD'],
   DEEPL_API_KEY: process.env['DEEPL_API_KEY'],
-  MOLLIE_KEY: process.env['MOLLIE_KEY'],
   RECAPTCHA_SECRET_KEY: process.env['RECAPTCHA_SECRET_KEY'],
   STRIPE_KEY: process.env['STRIPE_KEY'],
 }

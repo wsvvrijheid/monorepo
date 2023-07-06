@@ -5,11 +5,11 @@ type DonationBase = {
   amount: number
   createdAt: string
   email: string
-  mollieId: string
   name: string
   phone: string
   status: string
   updatedAt: string
+  checkoutSessionId: string
 }
 
 export type DonationCreateInput = Pick<
@@ -17,6 +17,9 @@ export type DonationCreateInput = Pick<
   'name' | 'email' | 'amount'
 >
 
-export type DonationUpdateInput = Pick<DonationBase, 'status' | 'mollieId'>
+export type DonationUpdateInput = Pick<
+  DonationBase,
+  'status' | 'checkoutSessionId'
+>
 
 export type Donation = DonationBase & StrapiBase

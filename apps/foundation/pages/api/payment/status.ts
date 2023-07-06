@@ -15,19 +15,18 @@ const handler: NextApiHandler = async (req, res) => {
     const checkoutSessionId = event.data.object.id
     const donationId = event.data.object.success_url.split('=')[1]
 
-    // Update donation status and mollieId fields in database
+    // Update donation status and stripe fields in database
     await Mutation.put<Donation, DonationUpdateInput>(
       'api/donates',
       donationId,
       {
         status,
-        checkoutSessionId,
+        checkoutSessionId: checkoutSessionId as string,
       },
       TOKEN as string,
     )
   }
 
-  // respond to Mollie with 200 or it keeps calling
   res.status(200).send('complete')
 }
 

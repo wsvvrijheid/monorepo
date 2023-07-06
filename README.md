@@ -24,7 +24,7 @@ This Turborepo includes the following packages/apps:
 - `eslint-config-wsvvrijheid`: Eslint
 - `lib`: `@wsvvrijheid/lib` Fetchers
 - `mocks`: `@wsvvrijheid/mocks` Strapi Mock Data
-- `mollie`: `@wsvvrijheid/mollie` Mollie Client
+- `stripe`: `@wsvvrijheid/stripe` Stripe
 - `secrets`: `@wsvvrijheid/secrets` Secret Env Variables
 - `services`: `@wsvvrijheid/services` Queries, Mutations, Fetch Functions
 - `tsconfig`: Tsconfig

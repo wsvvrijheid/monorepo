@@ -15,10 +15,6 @@
     "status": {
       "type": "string"
     },
-    "mollieId": {
-      "type": "string",
-      "unique": true
-    },
     "amount": {
       "type": "decimal"
     },
@@ -35,7 +31,8 @@
       "type": "text"
     },
     "checkoutSessionId": {
-      "type": "string"
+      "type": "string",
+      "unique": true
     }
   }
 }
