@@ -21,11 +21,11 @@
     "clean": "rm -rf node_modules .cache .turbo dist"
   },
   "dependencies": {
-    "@strapi/plugin-graphql": "4.11.3",
-    "@strapi/plugin-i18n": "4.11.3",
-    "@strapi/plugin-users-permissions": "4.11.3",
-    "@strapi/provider-email-nodemailer": "4.11.3",
-    "@strapi/strapi": "4.11.3",
+    "@strapi/plugin-graphql": "4.11.4",
+    "@strapi/plugin-i18n": "4.11.4",
+    "@strapi/plugin-users-permissions": "4.11.4",
+    "@strapi/provider-email-nodemailer": "4.11.4",
+    "@strapi/strapi": "4.11.4",
     "cheerio": "^1.0.0-rc.12",
     "pg": "^8.11.1",
     "pg-connection-string": "^2.6.1",
