@@ -61,9 +61,8 @@ export const DonationTemplate: FC<DonationTemplateProps> = ({
   isDark,
 }) => {
   const [amount, setAmount] = useState(5)
-  const [method, setMethod] = useState<'ideal' | 'creditcard' | 'paypal'>(
-    'ideal',
-  )
+  const [method, setMethod] = useState<'ideal' | 'card' | 'paypal'>('ideal')
+  const [type, setType] = useState<'one-time' | 'monthly'>('one-time')
   const { t } = useTranslation()
 
   const donationAmounts = useBreakpointValue({
@@ -92,6 +91,7 @@ export const DonationTemplate: FC<DonationTemplateProps> = ({
         method,
         name,
         email,
+        type,
       })
 
       window.location = result.data
@@ -153,27 +153,25 @@ export const DonationTemplate: FC<DonationTemplateProps> = ({
                 onClick={() => setMethod('ideal')}
                 h="auto"
                 size="lg"
+                disabled={method !== 'ideal'}
               >
                 <Image src={`/images/ideal-logo.svg`} h={50} alt="ideal" />
               </Button>
-              <Tooltip label={'Not available yet'}>
-                <Button
-                  py={4}
-                  colorScheme={method === 'creditcard' ? 'primary' : 'gray'}
-                  variant={method === 'creditcard' ? 'solid' : 'outline'}
-                  onClick={() => setMethod('creditcard')}
-                  h="auto"
-                  size="lg"
-                  disabled
-                  isDisabled
-                >
-                  <Image
-                    src={`/images/visa-master-logo.svg`}
-                    h={50}
-                    alt="ideal"
-                  />
-                </Button>
-              </Tooltip>
+              <Button
+                py={4}
+                colorScheme={method === 'card' ? 'primary' : 'gray'}
+                variant={method === 'card' ? 'solid' : 'outline'}
+                onClick={() => setMethod('card')}
+                h="auto"
+                size="lg"
+                disabled={method !== 'card'}
+              >
+                <Image
+                  src={`/images/visa-master-logo.svg`}
+                  h={50}
+                  alt="ideal"
+                />
+              </Button>
             </ButtonGroup>
             <Text textAlign="center" fontSize="md" color="gray.500">
               {t('donation.check-payment-method')} *
@@ -264,8 +262,20 @@ export const DonationTemplate: FC<DonationTemplateProps> = ({
             isDisabled={!amount || !method || !isValid}
             type="submit"
             leftIcon={<FaDonate />}
+            onClick={() => setType('one-time')}
+            colorScheme="primary"
           >
-            {t('donation.title')}
+            {t('donation.one-time')}
+            {amount && ` €${amount}`}
+          </Button>
+          <Button
+            isDisabled={!amount || !method || !isValid}
+            type="submit"
+            leftIcon={<FaDonate />}
+            onClick={() => setType('monthly')}
+            colorScheme="purple"
+          >
+            {t('donation.monthly')}
             {amount && ` €${amount}`}
           </Button>
         </Stack>

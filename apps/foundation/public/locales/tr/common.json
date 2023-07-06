@@ -107,6 +107,8 @@
   "donation.check-payment-method": "Ödeme yönteminizi seçin",
   "donation.description": "Vakfımız bağış kabulleri Stichting Challenges Vakfı ile mevcut protokol çervesinde birlikte yürütülmektedir. Bağışlarınız Stichting Challenges bünyesinde vakfımız için ayrılmaktadır.",
   "donation.title": "Bağış",
+  "donation.one-time": "Tek Seferlik Bağış",
+  "donation.monthly": "Aylık Bağış",
   "edit": "Düzenle",
   "education-language": "Eğitim Dili",
   "error": "Hata",

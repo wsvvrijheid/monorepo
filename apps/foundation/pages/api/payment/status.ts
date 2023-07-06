@@ -1,24 +1,31 @@
 import { NextApiHandler } from 'next'
 
 import { Mutation } from '@wsvvrijheid/lib'
-import { mollieClient } from '@wsvvrijheid/mollie'
 import { TOKEN } from '@wsvvrijheid/secrets'
 import { Donation, DonationUpdateInput } from '@wsvvrijheid/types'
 
 const handler: NextApiHandler = async (req, res) => {
-  const mollieId = req.body.id
-  const payment = await mollieClient.payments.get(mollieId)
+  const event = req.body
+  if (!event) res.status(500).send('Something went wrong')
+  console.log('event', event)
 
-  // Update donation status and mollieId fields in database
-  await Mutation.put<Donation, DonationUpdateInput>(
-    'api/donates',
-    payment.metadata.id,
-    {
-      status: payment.status,
-      mollieId,
-    },
-    TOKEN as string,
-  )
+  // check the checkout session status, if it's paid then update the donation status
+  if (event?.data?.object?.object === 'checkout.session') {
+    const status = event.data.object.payment_status
+    const checkoutSessionId = event.data.object.id
+    const donationId = event.data.object.success_url.split('=')[1]
+
+    // Update donation status and mollieId fields in database
+    await Mutation.put<Donation, DonationUpdateInput>(
+      'api/donates',
+      donationId,
+      {
+        status,
+        checkoutSessionId,
+      },
+      TOKEN as string,
+    )
+  }
 
   // respond to Mollie with 200 or it keeps calling
   res.status(200).send('complete')

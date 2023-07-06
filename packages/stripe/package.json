@@ -1,0 +1,11 @@
+{
+  "name": "@wsvvrijheid/stripe",
+  "version": "0.0.0",
+  "main": "./index.tsx",
+  "types": "./index.tsx",
+  "license": "MIT",
+  "scripts": {
+    "lint": "eslint \"**/*.ts*\"",
+    "clean": "rm -rf .turbo node_modules"
+  }
+}

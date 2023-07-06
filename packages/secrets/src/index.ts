@@ -7,6 +7,7 @@ const secrets = {
   DEEPL_API_KEY: process.env['DEEPL_API_KEY'],
   MOLLIE_KEY: process.env['MOLLIE_KEY'],
   RECAPTCHA_SECRET_KEY: process.env['RECAPTCHA_SECRET_KEY'],
+  STRIPE_KEY: process.env['STRIPE_KEY'],
 }
 
 type Secrets = keyof typeof secrets

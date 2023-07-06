@@ -8,6 +8,7 @@ import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import { Platform, StrapiLocale } from '@wsvvrijheid/types'
 import { DonationTemplate } from '@wsvvrijheid/ui'
 
+
 import { Layout } from '../../components'
 
 type DonationPageProps = InferGetStaticPropsType<typeof getStaticProps>
