@@ -3,9 +3,9 @@ import { GetStaticPropsContext } from 'next'
 import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import { StrapiLocale } from '@wsvvrijheid/types'
 import { Container } from '@wsvvrijheid/ui'
+import { ResponsiveCardExample } from '@wsvvrijheid/ui/src/examples/ResponsiveCard/ResponsiveCardExample'
 
 import { Layout } from '../components'
-import {ResponsiveCardExample} from '../../../packages/ui/src/examples/ResponsiveCard/ResponsiveCardExample'
 
 
 const Test = () => {
