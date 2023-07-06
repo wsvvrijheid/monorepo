@@ -17,16 +17,18 @@ const handler: NextApiHandler = async (req, res) => {
 
   if (type === 'monthly') {
     // Check if customer exists
-    let customer = await stripe.customers.list({
+    const customer = await stripe.customers.list({
       email,
     })
+
+    let customerID = customer.data.length > 0 ? customer.data[0].id : ''
     // Create customer if not exists
     if (customer.data.length === 0) {
       const newCustomer = await stripe.customers.create({
         email,
         name,
       })
-      customer = { data: [newCustomer] }
+      customerID = newCustomer.id
     }
     // Create checkout session for subscription
     const payment = await stripe.checkout.sessions.create({
@@ -50,7 +52,7 @@ const handler: NextApiHandler = async (req, res) => {
         },
       ],
       mode: 'subscription',
-      customer: customer.data[0].id,
+      customer: customerID,
       success_url: `${SITE_URL}/donation/complete?id=${donation.id}`,
       cancel_url: `${SITE_URL}/donation/complete?id=cancel`,
     })
