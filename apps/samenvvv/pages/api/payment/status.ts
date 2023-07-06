@@ -7,7 +7,6 @@ import { Donation, DonationUpdateInput } from '@wsvvrijheid/types'
 const handler: NextApiHandler = async (req, res) => {
   const event = req.body
   if (!event) res.status(500).send('Something went wrong')
-  console.log('event', event)
 
   // check the checkout session status, if it's paid then update the donation status
   if (event?.data?.object?.object === 'checkout.session') {
