@@ -7,15 +7,15 @@ import { stripe } from '@wsvvrijheid/stripe'
 import { Donation, DonationCreateInput } from '@wsvvrijheid/types'
 
 const handler: NextApiHandler = async (req, res) => {
-  const { amount, name, email, method, type } = req.body
-  // Create blank donation in database
-  const donation = await Mutation.post<Donation, DonationCreateInput>(
-    'api/donates',
-    { name, email, amount },
-    TOKEN as string,
-  )
+  try {
+    const { amount, name, email, method, type } = req.body
+    // Create blank donation in database
+    const donation = await Mutation.post<Donation, DonationCreateInput>(
+      'api/donates',
+      { name, email, amount },
+      TOKEN as string,
+    )
 
-  if (type === 'monthly') {
     // Check if customer exists
     const customer = await stripe.customers.list({
       email,
@@ -44,43 +44,20 @@ const handler: NextApiHandler = async (req, res) => {
               },
             },
             unit_amount: amount * 100,
-            recurring: {
-              interval: 'month',
-            },
+            recurring: type === 'monthly' ? { interval: 'month' } : undefined,
           },
           quantity: 1,
         },
       ],
-      mode: 'subscription',
+      mode: type === 'monthly' ? 'subscription' : 'payment',
       customer: customerID,
       success_url: `${SITE_URL}/donation/complete?id=${donation.id}`,
       cancel_url: `${SITE_URL}/donation/complete?id=cancel`,
     })
 
     res.status(200).send(payment.url)
-  } else {
-    const payment = await stripe.checkout.sessions.create({
-      payment_method_types: [method],
-      line_items: [
-        {
-          price_data: {
-            currency: 'eur',
-            product_data: {
-              name: 'Donatie',
-              metadata: {
-                strapi_id: donation.id,
-              },
-            },
-            unit_amount: amount * 100,
-          },
-          quantity: 1,
-        },
-      ],
-      mode: 'payment',
-      success_url: `${SITE_URL}/donation/complete?id=${donation.id}`,
-      cancel_url: `${SITE_URL}/donation/complete?id=cancel`,
-    })
-    res.status(200).send(payment.url)
+  } catch (err) {
+    res.status(500).json(err)
   }
 }
 
