@@ -52,10 +52,7 @@ const Contact = ({ seo }: ContactProps): JSX.Element => {
 
   return (
     <Layout seo={seo}>
-      <Box
-        minH="inherit"
-        // background="url('https://api.samenvvv.nl/uploads/...') no-repeat bottom"
-      >
+      <Box minH="inherit">
         <Container minH="inherit" maxW="container.xl">
           <Stack
             justify="center"
