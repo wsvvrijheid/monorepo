@@ -11,13 +11,13 @@ export type RequestFilterProps = {
 
 export const FetchWithFilters: FC<RequestFilterProps> = ({ initialValue }) => {
   const [blogs, setBlogs] = useState([])
-  const [titleFIlter, setTitleFilter] = useState(initialValue)
+  const [title, setTitle] = useState(initialValue)
 
   useEffect(() => {
-    // TODO: fetch blogs with filterValue by using strapiRequest
-    // NOTE: Changing filteredValue should trigger a new fetch.
     // REF: https://docs.strapi.io/dev-docs/api/rest/filters-locale-publication#filtering
-    // BONUS: You can play by using other arguments of strapiRequest to sort, populate, to use fields etc.
+    // TODO: Fetch blogs with by providing `title` filter to strapiRequest (title: { $containsi: title })
+    // NOTE: Changing `title` should trigger a new fetch.
+    // BONUS: You can play by using other arguments of strapiRequest (sort, populate,  fields etc).
   }, [])
 
   // TODO Add Input to change titleFilter

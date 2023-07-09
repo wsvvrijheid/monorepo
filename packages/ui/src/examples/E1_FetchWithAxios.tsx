@@ -7,7 +7,7 @@ import { useRouter } from 'next/router'
 import { API_URL } from '@wsvvrijheid/config'
 import { TOKEN } from '@wsvvrijheid/secrets'
 
-const BLOG_URL = `${API_URL}/api/blogs` // https://api.samenvvv.nl/api/blogs
+const BLOG_URL = `${API_URL}/api/blogs` // https://api.wsvvrijheid.nl/api/blogs?locale=tr
 
 export const FetcWithAxios = () => {
   const [blogs, setBlogs] = useState([])
