@@ -15,7 +15,7 @@ export const viewBlog = async (blog: Blog, token: string) => {
   return Mutation.put<Blog, BlogUpdateInput>('api/blogs', blog.id, body, token)
 }
 
-export const useViewBlog = async () => {
+export const useViewBlog = () => {
   const queryClient = useQueryClient()
   const {
     locale,
