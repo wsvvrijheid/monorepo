@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react'
+import { FC, useCallback, useEffect } from 'react'
 
 import { useDisclosure } from '@chakra-ui/react'
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
@@ -80,27 +80,30 @@ const ModelPage: FC<ModelPageProps> = ({ seo, model }) => {
   const published = (query.published as string) || 'all'
   const q = query.q as string
 
-  const changeRoute = (
-    key: 'id' | 'page' | 'sort' | 'status' | 'published' | 'q',
-    value?: string | number | Sort | ApprovalStatus,
-  ) => {
-    if (
-      !value ||
-      (key === 'page' && value === 1) ||
-      (key === 'status' && value === 'all') ||
-      (key === 'published' && value === 'all')
-    ) {
-      const _query = { ...query }
-      delete _query[key]
-      push({ query: _query })
+  const changeRoute = useCallback(
+    (
+      key: 'id' | 'page' | 'sort' | 'status' | 'published' | 'q',
+      value?: string | number | Sort | ApprovalStatus,
+    ) => {
+      if (
+        !value ||
+        (key === 'page' && value === 1) ||
+        (key === 'status' && value === 'all') ||
+        (key === 'published' && value === 'all')
+      ) {
+        const _query = { ...query }
+        delete _query[key]
+        push({ query: _query }, undefined, { shallow: true })
 
-      return
-    }
+        return
+      }
 
-    // Shallow allows us to change the query without calling getServerSideProps
-    // Because we do fetch the data on the client side
-    push({ query: { ...query, [key]: value } }, undefined, { shallow: true })
-  }
+      // Shallow allows us to change the query without calling getServerSideProps
+      // Because we do fetch the data on the client side
+      push({ query: { ...query, [key]: value } }, undefined, { shallow: true })
+    },
+    [query],
+  )
 
   const setSelectedId = (id?: number) => changeRoute('id', id)
   const setCurrentPage = (page?: number) => changeRoute('page', page)
