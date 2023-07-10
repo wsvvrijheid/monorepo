@@ -69,7 +69,7 @@ export const syncNews = async ({ strapi }: { strapi: Strapi }) => {
     console.log('-----------------------------------')
 
     await strapi.entityService.create('api::topic.topic', {
-      data: { data: updatedTopics },
+      data: updatedTopics,
     })
 
     return updatedTopics.length
