@@ -1,4 +1,4 @@
-import { FC, useCallback, useEffect } from 'react'
+import { FC, useEffect } from 'react'
 
 import { useDisclosure } from '@chakra-ui/react'
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
@@ -80,37 +80,36 @@ const ModelPage: FC<ModelPageProps> = ({ seo, model }) => {
   const published = (query.published as string) || 'all'
   const q = query.q as string
 
-  const changeRoute = useCallback(
-    (
-      key: 'id' | 'page' | 'sort' | 'status' | 'published' | 'q',
-      value?: string | number | Sort | ApprovalStatus,
-    ) => {
-      if (
-        !value ||
-        (key === 'page' && value === 1) ||
-        (key === 'status' && value === 'all') ||
-        (key === 'published' && value === 'all')
-      ) {
-        const _query = { ...query }
-        delete _query[key]
-        push({ query: _query }, undefined, { shallow: true })
+  const changeRoute = (
+    key: 'id' | 'page' | 'sort' | 'status' | 'published' | 'q',
+    value?: string | number | Sort | ApprovalStatus,
+  ) => {
+    if (
+      !value ||
+      (key === 'page' && value === 1) ||
+      (key === 'status' && value === 'all') ||
+      (key === 'published' && value === 'all')
+    ) {
+      const _query = { ...query }
+      delete _query[key]
+      push({ query: _query }, undefined, { shallow: true })
 
-        return
-      }
+      return
+    }
 
-      // Shallow allows us to change the query without calling getServerSideProps
-      // Because we do fetch the data on the client side
-      push({ query: { ...query, [key]: value } }, undefined, { shallow: true })
-    },
-    [query],
-  )
+    // Shallow allows us to change the query without calling getServerSideProps
+    // Because we do fetch the data on the client side
+    push({ query: { ...query, [key]: value } }, undefined, { shallow: true })
+  }
 
   const setSelectedId = (id?: number) => changeRoute('id', id)
   const setCurrentPage = (page?: number) => changeRoute('page', page)
   const setSort = (sort?: Sort) => changeRoute('sort', sort)
   const setStatus = (status?: ApprovalStatus) => changeRoute('status', status)
   const setPublished = (state?: string) => changeRoute('published', state)
-  const setQ = (q?: string) => changeRoute('q', q)
+  const setQ = (q?: string) => {
+    if (q?.length) changeRoute('q', q)
+  }
 
   const titleKey = urlsWithLocalizedTitle.includes(`api/${model}`)
     ? `title_${locale}`
