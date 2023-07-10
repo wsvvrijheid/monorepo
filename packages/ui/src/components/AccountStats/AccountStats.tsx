@@ -31,7 +31,6 @@ export const AccountStats: FC<AccountStatsProps> = ({ stats, field }) => {
             key={index}
             dataKey={name.username}
             stroke={name.stroke}
-            fill={name.fill}
           />
         ))}
       </LineChart>

@@ -4,7 +4,6 @@ import { AccountStats } from '@wsvvrijheid/types'
 export type ChartJSData = {
   labels: Array<{
     username: string
-    fill: string
     stroke: string
   }>
   datasets: Array<{

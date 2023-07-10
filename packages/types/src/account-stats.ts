@@ -2,7 +2,6 @@ import { StrapiBase } from './strapi'
 
 export type AccountStatsBase = {
   username: string
-  dataKey: string
   followers: number
   tweets: number
   retweets: number

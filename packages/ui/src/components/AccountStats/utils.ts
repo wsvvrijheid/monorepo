@@ -12,18 +12,6 @@ export const getChartData = (
   const { blue, red, green, purple, pink, orange, yellow, cyan, teal } =
     theme.colors
 
-  const bgColors = [
-    blue[300],
-    green[300],
-    purple[300],
-    red[300],
-    pink[300],
-    orange[300],
-    yellow[300],
-    cyan[300],
-    teal[300],
-  ]
-
   const borderColors = [
     blue[500],
     green[500],
@@ -70,7 +58,6 @@ export const getChartData = (
     if (userNameIndex == -1) {
       chartData.labels.push({
         username: d.username,
-        fill: bgColors[index],
         stroke: borderColors[index],
       })
     }
