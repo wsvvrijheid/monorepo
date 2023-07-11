@@ -19,7 +19,7 @@ export const Hero: FC<PropsWithChildren<HeroProps>> = memo(function Hero({
   title,
   description,
   video,
-  image = '/images/human-rights.webp',
+  image,
   isFullHeight = false,
   children,
 }) {
