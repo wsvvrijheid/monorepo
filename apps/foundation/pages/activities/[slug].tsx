@@ -8,7 +8,11 @@ import { serialize } from 'next-mdx-remote/serialize'
 import { strapiRequest } from '@wsvvrijheid/lib'
 import { getModelStaticPaths } from '@wsvvrijheid/services'
 import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
-import { Activity, StrapiLocale } from '@wsvvrijheid/types'
+import {
+  Activity,
+  StrapiCollectionResponse,
+  StrapiLocale,
+} from '@wsvvrijheid/types'
 import { ActivityDetail } from '@wsvvrijheid/ui'
 
 import { Layout } from '../../components/index'
@@ -50,13 +54,13 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
       }),
   })
 
-  const activity = queryClient.getQueryData<Activity>([
-    'activity',
-    locale,
-    slug,
-  ])
+  const activityData = queryClient.getQueryData<
+    StrapiCollectionResponse<Activity[]>
+  >(['activity', locale, slug])
 
-  if (!activity) return { notFound: true }
+  if (!activityData?.data?.length) return { notFound: true }
+
+  const activity = activityData.data[0]
 
   const title = activity.title || ''
   const content = activity.content || ''
