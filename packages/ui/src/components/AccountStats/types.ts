@@ -2,12 +2,12 @@ import { AccountStatsBase } from '@wsvvrijheid/types'
 import { AccountStats } from '@wsvvrijheid/types'
 
 export type ChartJSData = {
-  labels: string[]
+  labels: Array<{
+    username: string
+    stroke: string
+  }>
   datasets: Array<{
-    label: string
-    data: number[]
-    borderColor: string
-    backgroundColor: string
+    name: string
   }>
 }
 

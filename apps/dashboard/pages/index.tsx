@@ -16,7 +16,7 @@ import { RequestCollectionArgs, strapiRequest } from '@wsvvrijheid/lib'
 import { useStrapiRequest } from '@wsvvrijheid/services'
 import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import {
-  AccountStats as AccounStatsType,
+  AccountStats as AccountStatsType,
   AccountStatsBase,
   StrapiLocale,
 } from '@wsvvrijheid/types'
@@ -31,10 +31,7 @@ const args: RequestCollectionArgs = {
 }
 
 const Index: FC<PageProps> = ({ seo }) => {
-  // TODO: Add pagination with keep previous data
-  // Strapi fetches at max 100 items
-  const statsQuery = useStrapiRequest<AccounStatsType>(args)
-
+  const statsQuery = useStrapiRequest<AccountStatsType>(args)
   const statsData = [
     'tweets',
     'replies',
@@ -45,7 +42,7 @@ const Index: FC<PageProps> = ({ seo }) => {
   ]
 
   const stats = useMemo(
-    () => statsQuery.data?.data ?? ([] as AccounStatsType[]),
+    () => statsQuery.data?.data ?? ([] as AccountStatsType[]),
     [statsQuery.data?.data],
   )
 
@@ -117,7 +114,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
   const queryClient = new QueryClient()
 
   await queryClient.prefetchQuery(['account-stats'], () => {
-    return strapiRequest<AccounStatsType>(args)
+    return strapiRequest<AccountStatsType>(args)
   })
 
   const title = {
