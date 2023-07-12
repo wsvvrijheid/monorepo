@@ -1,12 +1,7 @@
 import axios, { AxiosError } from 'axios'
 import qs from 'qs'
 
-import {
-  API_URL,
-  urlsSingleType,
-  urlsWithLocalizedTitle,
-  urlsWithoutLocale,
-} from '@wsvvrijheid/config'
+import { API_URL, urlsSingleType, urlsWithoutLocale } from '@wsvvrijheid/config'
 import { TOKEN } from '@wsvvrijheid/secrets'
 import {
   StrapiCollectionResponse,
@@ -18,9 +13,9 @@ import {
 } from '@wsvvrijheid/types'
 
 import {
+  RequestByIdArgs,
   RequestCollectionArgs,
   RequestSingleArgs,
-  RequestByIdArgs,
 } from './types'
 
 function strapiRequest<T extends StrapiModel>(
