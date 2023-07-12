@@ -1,6 +1,14 @@
 import { FC } from 'react'
 
-import { Avatar, Center, Heading, Stack, Text } from '@chakra-ui/react'
+import {
+  Avatar,
+  Center,
+  Heading,
+  LinkBox,
+  LinkOverlay,
+  Stack,
+  Text,
+} from '@chakra-ui/react'
 
 import { ASSETS_URL } from '@wsvvrijheid/config'
 import { UploadFile } from '@wsvvrijheid/types'
@@ -24,7 +32,7 @@ export const Card: FC<CardProps> = ({
   rounded,
 }) => {
   return (
-    <Navigate href={link || '#'}>
+    <LinkBox h={'full'}>
       <Stack
         h="full"
         bg="white"
@@ -54,20 +62,22 @@ export const Card: FC<CardProps> = ({
         </Center>
 
         <Stack spacing={4} flex={1} p={4} align="center" textAlign="center">
-          <Heading
-            as="h3"
-            textTransform="uppercase"
-            fontSize="lg"
-            letterSpacing="wide"
-            color="primary.500"
-          >
-            {title}
-          </Heading>
+          <LinkOverlay as={Navigate} href={link}>
+            <Heading
+              as="h3"
+              textTransform="uppercase"
+              fontSize="lg"
+              letterSpacing="wide"
+              noOfLines={3}
+            >
+              {title}
+            </Heading>
+          </LinkOverlay>
           <Text fontSize="md" lineHeight="base" noOfLines={3}>
             {description}
           </Text>
         </Stack>
       </Stack>
-    </Navigate>
+    </LinkBox>
   )
 }

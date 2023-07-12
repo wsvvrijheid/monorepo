@@ -1,10 +1,11 @@
 import { FC } from 'react'
 
-import { Image, SimpleGrid, Stack, Text } from '@chakra-ui/react'
-import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
+import { Image, SimpleGrid, Skeleton, Stack, Text } from '@chakra-ui/react'
+import { GetStaticPropsContext, InferGetServerSidePropsType } from 'next'
 import { useRouter } from 'next/router'
 
-import { strapiRequest } from '@wsvvrijheid/lib'
+import { RequestCollectionArgs } from '@wsvvrijheid/lib'
+import { useStrapiRequest } from '@wsvvrijheid/services'
 import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import { Activity, StrapiLocale, UploadFile } from '@wsvvrijheid/types'
 import {
@@ -18,22 +19,39 @@ import {
 
 import { Layout } from '../../components'
 
-type ActivitiesProps = InferGetServerSidePropsType<typeof getServerSideProps>
+const args: RequestCollectionArgs = {
+  url: 'api/activities',
+  sort: ['date:desc'],
+  filters: { approvalStatus: { $eq: 'approved' } },
+  populate: ['image'],
+  fields: ['title', 'description', 'slug'],
+}
 
-const Activities: FC<ActivitiesProps> = ({
-  activities,
-  query,
-  title,
-  pagination,
-}) => {
-  const { locale } = useRouter()
+type ActivitiesProps = InferGetServerSidePropsType<typeof getStaticProps>
+
+const Activities: FC<ActivitiesProps> = ({ title }) => {
+  const { locale, query } = useRouter()
+
+  const page = +(query.page || 1)
 
   const changeParam = useChangeParams()
+
+  const activitiesQuery = useStrapiRequest<Activity>({
+    ...args,
+    locale,
+    page,
+  })
+
+  const { data, isLoading } = activitiesQuery
+
+  const pagination = data?.meta?.pagination
+  const activities = data?.data || []
 
   return (
     <Layout seo={{ title }} isDark>
       <Hero title={title} />
-      {activities?.[0] ? (
+
+      {activities[0] || isLoading ? (
         <>
           <Container>
             <SimpleGrid
@@ -41,12 +59,8 @@ const Activities: FC<ActivitiesProps> = ({
               gap={{ base: 6, lg: 8 }}
               my={16}
             >
-              {activities?.map((activity, i) => (
-                <AnimatedBox
-                  directing="to-down"
-                  delay={i * 3}
-                  key={activity.id}
-                >
+              {activities.map((activity, i) => (
+                <AnimatedBox directing="to-down" delay={i} key={activity.id}>
                   <Card
                     title={activity.title}
                     description={activity.description || ''}
@@ -79,22 +93,8 @@ const Activities: FC<ActivitiesProps> = ({
 
 export default Activities
 
-export const getServerSideProps = async (
-  context: GetServerSidePropsContext,
-) => {
+export const getStaticProps = async (context: GetStaticPropsContext) => {
   const locale = context.locale as StrapiLocale
-  const query = context.query as { page: string }
-  const page = Number(query.page)
-
-  const activities = await strapiRequest<Activity>({
-    url: 'api/activities',
-    locale,
-    page,
-    filters: {
-      approvalStatus: { $eq: 'approved' },
-    },
-    fields: ['title', 'description', 'image', 'slug'],
-  })
 
   const seo = {
     title: {
@@ -108,11 +108,7 @@ export const getServerSideProps = async (
     props: {
       ...(await ssrTranslations(locale)),
       title: seo.title[locale],
-      query: context.query,
-      activities: activities.data.sort(
-        (a, b) => +new Date(b.createdAt) - +new Date(a.createdAt),
-      ),
-      pagination: activities.meta.pagination,
     },
+    revalidate: 1,
   }
 }
