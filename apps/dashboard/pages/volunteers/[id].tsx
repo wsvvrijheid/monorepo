@@ -42,9 +42,6 @@ const VolunteerPage: FC<PageProps> = ({ seo }) => {
               schema={volunteerSchema}
               fields={volunteerFields}
               onSuccess={refetch}
-              approverRoles={['admin']}
-              editorRoles={['admin']}
-              publisherRoles={['admin']}
             />
           </Box>
         )}

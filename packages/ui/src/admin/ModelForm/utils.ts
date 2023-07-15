@@ -65,6 +65,7 @@ export const useDefaultValues = <T extends StrapiModel>(
   const postModel = model as Post
   const courseModel = model as Course
   const applicationModel = model as CourseApplication
+  const userModel = model as User
 
   const { locale } = useRouter()
 
@@ -72,20 +73,32 @@ export const useDefaultValues = <T extends StrapiModel>(
     if (!model || !fields) return {} as T
 
     const defaults = {} as any
-    const { date } = model as Activity
+    const { date, createdAt, updatedAt, publishedAt } = model as Activity
 
-    const dateString = date ? format(new Date(date), 'yyyy-MM-dd') : undefined
-    const dateTimeString = date
-      ? new Date(date).toISOString().replace('Z', '')
-      : undefined
+    const getDate = (date?: string | null, isDateTime?: boolean) =>
+      date
+        ? isDateTime
+          ? new Date(date).toISOString().replace('Z', '')
+          : format(new Date(date), 'yyyy-MM-dd')
+        : ''
+
+    const dateFields: Record<string, [string, string]> = {
+      date: [getDate(date), getDate(date, true)],
+      createdAt: [getDate(createdAt), getDate(createdAt, true)],
+      updatedAt: [getDate(updatedAt), getDate(updatedAt, true)],
+      publishedAt: [getDate(publishedAt), getDate(publishedAt, true)],
+    }
 
     fields.forEach(field => {
       switch (field.name) {
         case 'date':
+        case 'createdAt':
+        case 'updatedAt':
+        case 'publishedAt':
           if (field.type === 'date') {
-            defaults[field.name] = dateString
+            defaults[field.name] = dateFields[field.name as string][0]
           } else if (field.type === 'datetime-local') {
-            defaults[field.name] = dateTimeString
+            defaults[field.name] = dateFields[field.name as string][1]
           }
           break
         case 'mentions':
@@ -113,6 +126,13 @@ export const useDefaultValues = <T extends StrapiModel>(
           defaults.course = {
             label: applicationModel.course?.[`title_${locale}`],
             value: applicationModel.course?.id.toString(),
+          }
+
+          break
+        case 'role':
+          defaults.role = {
+            label: userModel.role?.name || '',
+            value: userModel.role?.id.toString(),
           }
 
           break

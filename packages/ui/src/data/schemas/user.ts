@@ -12,6 +12,7 @@ export const userSchema = yup.object({
   role: yupSelect,
   email: yup.string().email('Not a valid email').required('Email is required'),
 })
+
 export const userFields: FormFields<User> = [
   { name: 'name', label: 'Name', isRequired: true },
   { name: 'avatar', isRequired: true, type: 'file' },
