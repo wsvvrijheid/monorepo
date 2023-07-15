@@ -1,12 +1,7 @@
 import axios, { AxiosError } from 'axios'
 import qs from 'qs'
 
-import {
-  API_URL,
-  urlsSingleType,
-  urlsWithLocalizedTitle,
-  urlsWithoutLocale,
-} from '@wsvvrijheid/config'
+import { API_URL, urlsSingleType, urlsWithoutLocale } from '@wsvvrijheid/config'
 import { TOKEN } from '@wsvvrijheid/secrets'
 import {
   StrapiCollectionResponse,
@@ -18,9 +13,9 @@ import {
 } from '@wsvvrijheid/types'
 
 import {
+  RequestByIdArgs,
   RequestCollectionArgs,
   RequestSingleArgs,
-  RequestByIdArgs,
 } from './types'
 
 function strapiRequest<T extends StrapiModel>(
@@ -60,18 +55,10 @@ async function strapiRequest<T extends StrapiModel>(
     !id && !urlsWithoutLocale.includes(url as StrapiCollectionUrl)
   const isSingleType = urlsSingleType.includes(url as StrapiSingleUrl)
 
-  const filterFields = fields?.map(field => {
-    if (urlsWithLocalizedTitle.includes(url as StrapiCollectionUrl)) {
-      return `${field as string}_${locale}`
-    }
-
-    return field
-  })
-
   const query = qs.stringify(
     {
       ...(!id && { pagination: { page, pageSize } }),
-      ...(filterFields && { fields: filterFields as string[] }),
+      ...(fields && { fields }),
       ...(filters && { filters }),
       ...(hasLocale && { locale }),
       ...(includeDrafts && { publicationState: 'preview' }),

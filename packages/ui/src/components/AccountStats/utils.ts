@@ -12,22 +12,9 @@ export const getChartData = (
   const { blue, red, green, purple, pink, orange, yellow, cyan, teal } =
     theme.colors
 
-  const bgColors = [
-    blue[300],
-    green[300],
-    purple[300],
-    red[300],
-    pink[300],
-    orange[300],
-    yellow[300],
-    cyan[300],
-    teal[300],
-  ]
-
   const borderColors = [
     blue[500],
     green[500],
-
     purple[500],
     red[500],
     pink[500],
@@ -47,23 +34,32 @@ export const getChartData = (
     const date = new Date(d.date)
     const shortDate = format(date, 'dd/MM')
 
-    if (!chartData.labels.includes(shortDate)) {
-      chartData.labels.push(shortDate)
-    }
-
     const datasetIndex = chartData.datasets.findIndex(
-      ds => ds.label === d.username,
+      ds => ds.name === shortDate,
     )
 
     if (datasetIndex === -1) {
       chartData.datasets.push({
-        label: d.username,
-        data: [d[field] as number],
-        backgroundColor: bgColors[index],
-        borderColor: borderColors[index],
+        name: shortDate,
+        [d.username]: d[field] as number,
       })
     } else {
-      chartData.datasets[datasetIndex].data.push(d[field] as number)
+      const existingData = chartData.datasets[datasetIndex] as Record<
+        string,
+        unknown
+      >
+      existingData[d.username] = d[field]
+    }
+
+    const userNameIndex = chartData.labels.findIndex(
+      ds => ds.username === d.username,
+    )
+
+    if (userNameIndex == -1) {
+      chartData.labels.push({
+        username: d.username,
+        stroke: borderColors[index],
+      })
     }
   })
 

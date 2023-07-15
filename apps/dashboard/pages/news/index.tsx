@@ -146,7 +146,7 @@ const NewsPage: FC<PageProps> = ({ seo }) => {
             aria-label="Sync news"
             isLoading={syncTopic.isLoading}
             onClick={() => syncTopic.mutate()}
-            disabled={!canSync}
+            isDisabled={!canSync || syncTopic.isLoading}
             icon={<FaSyncAlt />}
           />
         </Tooltip>

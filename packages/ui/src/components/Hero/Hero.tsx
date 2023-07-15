@@ -19,7 +19,7 @@ export const Hero: FC<PropsWithChildren<HeroProps>> = memo(function Hero({
   title,
   description,
   video,
-  image = '/images/human-rights.webp',
+  image,
   isFullHeight = false,
   children,
 }) {
@@ -69,8 +69,8 @@ export const Hero: FC<PropsWithChildren<HeroProps>> = memo(function Hero({
         left={0}
         w="full"
         h="full"
-        bg="blackAlpha.600"
-        blendMode="multiply"
+        bgGradient={'linear(to-b, primary.600, primary.400)'}
+        blendMode={'multiply'}
       />
       <Container h="full">
         <VStack

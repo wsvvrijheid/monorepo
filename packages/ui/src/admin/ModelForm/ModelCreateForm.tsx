@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react'
 
-import { Box, Button, Divider, Stack } from '@chakra-ui/react'
+import { Box, Button, Divider, Stack, useBoolean } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import slugify from '@sindresorhus/slugify'
 import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
 import { useForm } from 'react-hook-form'
 import { TbPlus } from 'react-icons/tb'
 import { InferType } from 'yup'
@@ -17,7 +18,7 @@ import {
 } from '@wsvvrijheid/types'
 import { generateOgImageParams } from '@wsvvrijheid/utils'
 
-import { ModelCreateFormBody } from './ModelCreateFormBody'
+import { renderCreateFormBody } from './renderCreateFormBody'
 import { ModelCreateFormProps, Option } from './types'
 import { useDefaultValues } from './utils'
 import { MasonryGrid } from '../../components'
@@ -39,8 +40,12 @@ export const ModelCreateForm = <T extends StrapiModel>({
   >(url)
 
   const { locale } = useRouter()
+  const { t: tCommon } = useTranslation()
 
   const postModel = model as unknown as Post
+  const [isChangingImage, setIsChangingImage] = useBoolean(
+    postModel?.image ? false : true,
+  )
 
   const imageFile = useFileFromUrl(
     postModel?.image?.url,
@@ -145,9 +150,14 @@ export const ModelCreateForm = <T extends StrapiModel>({
             <LanguageSwitcher />
           </Box>
         )}
-        <ModelCreateFormBody fields={ungroupedFields} formProps={formProps} />
+        {renderCreateFormBody({
+          fields: ungroupedFields,
+          formProps,
+          isChangingImage,
+          setIsChangingImage,
+        })}
 
-        {groupedFields && (
+        {groupedFields?.length > 0 && (
           <>
             <Divider my={6} />
             <RadioCards
@@ -155,11 +165,13 @@ export const ModelCreateForm = <T extends StrapiModel>({
               options={options}
               setActiveOption={setActiveOption}
             />
-            <ModelCreateFormBody
-              fields={groupedFields}
-              activeOption={activeOption}
-              formProps={formProps}
-            />
+            {renderCreateFormBody({
+              fields: groupedFields,
+              formProps,
+              activeOption,
+              isChangingImage,
+              setIsChangingImage,
+            })}
           </>
         )}
       </MasonryGrid>
@@ -169,7 +181,7 @@ export const ModelCreateForm = <T extends StrapiModel>({
         type={'submit'}
         isLoading={createModelMutation.isLoading}
       >
-        Create
+        {tCommon('create')}
       </Button>
     </Stack>
   )

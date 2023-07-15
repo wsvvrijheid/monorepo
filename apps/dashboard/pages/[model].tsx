@@ -92,7 +92,7 @@ const ModelPage: FC<ModelPageProps> = ({ seo, model }) => {
     ) {
       const _query = { ...query }
       delete _query[key]
-      push({ query: _query })
+      push({ query: _query }, undefined, { shallow: true })
 
       return
     }
@@ -107,7 +107,9 @@ const ModelPage: FC<ModelPageProps> = ({ seo, model }) => {
   const setSort = (sort?: Sort) => changeRoute('sort', sort)
   const setStatus = (status?: ApprovalStatus) => changeRoute('status', status)
   const setPublished = (state?: string) => changeRoute('published', state)
-  const setQ = (q?: string) => changeRoute('q', q)
+  const setQ = (q?: string) => {
+    if (q?.length) changeRoute('q', q)
+  }
 
   const titleKey = urlsWithLocalizedTitle.includes(`api/${model}`)
     ? `title_${locale}`

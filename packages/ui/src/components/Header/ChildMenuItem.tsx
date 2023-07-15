@@ -9,6 +9,7 @@ import { Navigate } from '../Navigate'
 export const ChildMenuItem: FC<MenuTypeItemProps> = ({ item, isDark }) => {
   const { asPath, locale } = useRouter()
   const isScrolled = useScroll()
+  const isActive = item.link !== '/' && asPath.includes(item.link as string)
 
   return (
     <Navigate
@@ -16,8 +17,10 @@ export const ChildMenuItem: FC<MenuTypeItemProps> = ({ item, isDark }) => {
       fontWeight={600}
       p={2}
       color={
-        item.link !== '/' && asPath.includes(item.link as string)
-          ? 'primary.500'
+        isActive
+          ? isDark
+            ? 'primary.200'
+            : 'primary.500'
           : !isScrolled && isDark
           ? 'white'
           : 'gray.700'

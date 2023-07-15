@@ -10,6 +10,7 @@ export type RequestCommonArgs = {
   includeDrafts?: boolean
   populate?: string | string[]
   token?: string
+  sort?: Sort
 }
 
 export type RequestCollectionArgs = RequestCommonArgs & {
@@ -17,7 +18,6 @@ export type RequestCollectionArgs = RequestCommonArgs & {
   locale?: StrapiLocale
   page?: number
   pageSize?: number
-  sort?: Sort
   url: StrapiCollectionUrl
 }
 
