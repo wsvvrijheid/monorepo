@@ -15,6 +15,7 @@ import {
   StrapiModel,
   StrapiTranslatableModel,
   User,
+  Volunteer,
 } from '@wsvvrijheid/types'
 
 import { FormFields } from './types'
@@ -62,6 +63,7 @@ export const useDefaultValues = <T extends StrapiModel>(
   fields?: FormFields<T>,
 ) => {
   const hashtagModel = model as Hashtag
+  const volunteerModel = model as Volunteer
   const postModel = model as Post
   const courseModel = model as Course
   const applicationModel = model as CourseApplication
@@ -106,6 +108,13 @@ export const useDefaultValues = <T extends StrapiModel>(
             hashtagModel.mentions?.map(m => ({
               label: m.username,
               value: m.id.toString(),
+            })) || []
+          break
+        case 'jobs':
+          defaults.jobs =
+            volunteerModel.jobs?.map(j => ({
+              label: j[`name_${locale}`],
+              value: j.id.toString(),
             })) || []
           break
         case 'hashtag':
