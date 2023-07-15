@@ -15,23 +15,15 @@ export const userSchema = yup.object({
 
 export const userFields: FormFields<User> = [
   { name: 'name', label: 'Name', isRequired: true },
-  { name: 'avatar', isRequired: true, type: 'file' },
-  { name: 'username', label: 'Username', isRequired: true },
   { name: 'email', label: 'Email', isRequired: true },
+  { name: 'username', label: 'Username', isRequired: true },
   {
     name: 'volunteer',
     label: 'Volunteer',
+    type: 'select',
+    url: 'api/volunteers',
   },
-  {
-    name: 'createdAt',
-    type: 'date',
-    label: 'Created Date',
-  },
-  {
-    name: 'updatedAt',
-    type: 'date',
-    label: 'Updated Date',
-  },
+  { name: 'avatar', isRequired: true, type: 'file' },
   {
     name: 'role',
     label: 'Role',

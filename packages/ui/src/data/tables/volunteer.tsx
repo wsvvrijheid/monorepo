@@ -1,13 +1,18 @@
-import { Volunteer } from '@wsvvrijheid/types'
+import { User, Volunteer } from '@wsvvrijheid/types'
 
 import { WTableProps } from '../../components'
 
 export const volunteerColumns: WTableProps<Volunteer>['columns'] = {
+  user: {
+    label: 'User',
+    transform: value => (value as User)?.username,
+  },
   name: {},
-  availableHours: {},
+  availableHours: {
+    label: 'Hours',
+  },
   phone: {},
   country: {},
-  comment: {},
   occupation: {},
   createdAt: {
     type: 'date',
