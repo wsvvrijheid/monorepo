@@ -42,9 +42,9 @@ const UserPage: FC<PageProps> = ({ seo }) => {
               schema={userSchema}
               fields={userFields}
               onSuccess={refetch}
-              approverRoles={['accountmanager', 'translator']}
-              editorRoles={['contentmanager', 'translator', 'accountmanager']}
-              publisherRoles={['contentmanager', 'accountmanager']}
+              approverRoles={['admin']}
+              editorRoles={['admin']}
+              publisherRoles={['admin' ]}
             />
           </Box>
         )}
