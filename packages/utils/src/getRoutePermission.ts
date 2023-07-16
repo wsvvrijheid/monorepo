@@ -26,7 +26,6 @@ export const getRoutePermission = (roles: RoleType[], route: AdminRoutes) => {
       '/blogs',
       '/caps-maker',
       '/competitions',
-      '/courses',
       '/hashtags',
       '/news/recommended',
     ],

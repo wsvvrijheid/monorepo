@@ -4,6 +4,7 @@ import COUNTRIES from './countries.json'
 import COURSES from './courses.json'
 import DEFAULT_POST_SENTENCES from './defaultPostSentences.json'
 import PLATFORMS from './platforms.json'
+import ROLES from './roles.json'
 import ROUTES from './routes.json'
 
 export {
@@ -13,5 +14,6 @@ export {
   COURSES,
   DEFAULT_POST_SENTENCES,
   PLATFORMS,
+  ROLES,
   ROUTES,
 }

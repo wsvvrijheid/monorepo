@@ -8,6 +8,8 @@ import { User } from './user'
 export type VolunteerBase = {
   username: string
   email: string
+  city: string
+  age: number
   availableHours: number
   approved: boolean | null
   bio: string | null
