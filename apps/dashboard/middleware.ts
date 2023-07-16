@@ -1,10 +1,12 @@
 import { getIronSession } from 'iron-session/edge'
 import { NextRequest, NextResponse } from 'next/server'
 
+import { adminCommonRoutes } from '@wsvvrijheid/config/src/adminRoutes'
+
 import { getRoutePermission } from './getRoutePermission'
 
 const PUBLIC_FILE = /\.(.*)$/
-const PUBLIC_PAGES = ['/login', '/not-allowed', '/news']
+const PUBLIC_PAGES = ['/login', '/not-allowed', ...adminCommonRoutes]
 
 export const middleware = async (req: NextRequest) => {
   const { nextUrl, url } = req

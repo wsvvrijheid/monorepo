@@ -2,6 +2,7 @@ import { FC, ReactNode, useEffect } from 'react'
 
 import {
   Box,
+  Button,
   Center,
   Flex,
   Heading,
@@ -10,19 +11,24 @@ import {
   Spinner,
   Stack,
   Tooltip,
-  useBoolean,
 } from '@chakra-ui/react'
+import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import { NextSeo, NextSeoProps } from 'next-seo'
-import { FaArrowLeft } from 'react-icons/fa'
+import { FaArrowLeft, FaUser } from 'react-icons/fa'
 import { MdOutlineNotifications } from 'react-icons/md'
 import { useLocalStorage } from 'usehooks-ts'
 
 import { useAuthContext } from '@wsvvrijheid/context'
 
-import { AdminSidebar } from '../AdminSidebar'
+import { Navigate } from '../../components'
 import { CreateModelButton } from '../CreateModelButton'
 import { LanguageSwitcher } from '../LanguageSwitcher'
+
+const AdminSidebar = dynamic(
+  () => import('../AdminSidebar').then(mod => mod.AdminSidebar),
+  { ssr: false },
+)
 
 export type AdminLayoutProps = {
   children: ReactNode
@@ -41,11 +47,10 @@ export const AdminLayout: FC<AdminLayoutProps> = ({
 
   const router = useRouter()
 
-  const [expandedStorage, setExpandedStorage] = useLocalStorage(
+  const [expanded, setExpandedStorage] = useLocalStorage<boolean | null>(
     'adminSidebarExpanded',
-    true,
+    null,
   )
-  const [expanded, { toggle }] = useBoolean(expandedStorage)
 
   useEffect(() => {
     checkAuth()
@@ -53,7 +58,6 @@ export const AdminLayout: FC<AdminLayoutProps> = ({
 
   const toggleSidebarExpanded = () => {
     setExpandedStorage(!expanded)
-    toggle()
   }
 
   const handleLogout = async () => {
@@ -85,12 +89,14 @@ export const AdminLayout: FC<AdminLayoutProps> = ({
           h="full"
           overflowY={'auto'}
         >
-          <AdminSidebar
-            user={user}
-            onLogout={handleLogout}
-            expanded={expanded}
-            onToggleExpand={toggleSidebarExpanded}
-          />
+          {expanded !== null && (
+            <AdminSidebar
+              user={user}
+              onLogout={handleLogout}
+              expanded={expanded}
+              onToggleExpand={toggleSidebarExpanded}
+            />
+          )}
         </Box>
 
         <Stack
@@ -125,15 +131,28 @@ export const AdminLayout: FC<AdminLayoutProps> = ({
 
                 {/* TODO Create notification component */}
                 <HStack>
-                  <IconButton
-                    aria-label="notifications"
-                    icon={<MdOutlineNotifications />}
-                    variant="outline"
-                    rounded="full"
-                    colorScheme={'gray'}
-                  />
+                  {user && (
+                    <IconButton
+                      aria-label="notifications"
+                      icon={<MdOutlineNotifications />}
+                      variant="outline"
+                      rounded="full"
+                      colorScheme={'gray'}
+                    />
+                  )}
                   <LanguageSwitcher responsive />
                   <CreateModelButton />
+                  {!user && (
+                    <Navigate href={'/login'}>
+                      <Button
+                        colorScheme={'blue'}
+                        leftIcon={<FaUser />}
+                        rounded={'full'}
+                      >
+                        Login
+                      </Button>
+                    </Navigate>
+                  )}
                 </HStack>
               </HStack>
 

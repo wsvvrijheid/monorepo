@@ -13,21 +13,20 @@ import {
 } from '@chakra-ui/react'
 import { TbChevronsLeft, TbChevronsRight } from 'react-icons/tb'
 
-import { useAuthContext } from '@wsvvrijheid/context'
+import { SessionUser } from '@wsvvrijheid/types'
 
 import { AdminSidebarProfile } from './AdminSidebarProfile'
 import { AdminNav } from '../AdminNav'
 
 type AdminSidebarProps = {
+  user: SessionUser | null
   onLogout: () => void
   onToggleExpand: () => void
   expanded: boolean
 }
 
 export const AdminSidebar: FC<AdminSidebarProps> = memo(
-  ({ onLogout, onToggleExpand, expanded }) => {
-    const { user } = useAuthContext()
-
+  ({ user, onLogout, onToggleExpand, expanded }) => {
     return (
       <Stack
         bg="white"
@@ -69,7 +68,7 @@ export const AdminSidebar: FC<AdminSidebarProps> = memo(
         )}
 
         {/* Menu */}
-        <Box flex={1} overflow="auto">
+        <Box mt={2} flex={1} overflow="auto">
           <Stack>
             {expanded && (
               <Box pos="sticky" top={0} px={4} bg="white" zIndex={1}>
