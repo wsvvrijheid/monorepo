@@ -7,12 +7,13 @@ import {
   BsTranslate,
 } from 'react-icons/bs'
 import { CgHashtag } from 'react-icons/cg'
-import { FiActivity } from 'react-icons/fi'
+import { FiActivity, FiUsers } from 'react-icons/fi'
 import { GiHumanPyramid } from 'react-icons/gi'
 import { HiOutlineNewspaper } from 'react-icons/hi'
 import {
   MdOutlineSpaceDashboard,
   MdOutlineSupervisorAccount,
+  MdOutlineVolunteerActivism,
 } from 'react-icons/md'
 import {
   TbActivity,
@@ -187,6 +188,18 @@ export const useAdminNav = (user: SessionUser): AdminNavItemProps[] => {
       link: '/courses',
       icon: <GiHumanPyramid />,
       visible: getRoutePermission(roles, '/courses'),
+    },
+    {
+      label: tAdmin('volunteers'),
+      link: '/volunteers',
+      icon: <MdOutlineVolunteerActivism />,
+      visible: getRoutePermission(roles, '/volunteers'),
+    },
+    {
+      label: tAdmin('users'),
+      link: '/users',
+      icon: <FiUsers />,
+      visible: getRoutePermission(roles, '/users'),
     },
     {
       label: tAdmin('capsMaker'),

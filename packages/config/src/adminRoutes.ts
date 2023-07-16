@@ -18,6 +18,8 @@ export const adminRoleRoutes = [
   '/timelines/recommended',
   '/translates',
   '/users',
+  '/volunteers',
+  '/users',
   'all',
 ] as const
 

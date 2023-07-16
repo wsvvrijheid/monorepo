@@ -1,5 +1,5 @@
 {
-  "academy":"Academy",
+  "academy": "Academy",
   "accounts": "Accounts",
   "activities": "Activities",
   "announcements": "Announcements",
@@ -12,7 +12,7 @@
   "capsMaker": "Caps Maker",
   "collections": "Collections",
   "competitions": "Competitions",
-  "courses":"Courses",
+  "courses": "Courses",
   "dashboard": "Dashboard",
   "hashtagPosts": "Hashtag Posts",
   "hashtags": "Hashtags",
@@ -23,5 +23,7 @@
   "recommendedTweets": "Recommended Tweets",
   "rejectedArts": "Rejected Arts",
   "timelines": "Timelines",
-  "translates": "Translates"
+  "translates": "Translates",
+  "users": "Users",
+  "volunteers": "Volunteers"
 }
