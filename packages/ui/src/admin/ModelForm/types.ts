@@ -60,6 +60,7 @@ export type ModelCreateFormProps<T extends StrapiModel> = {
   buttonProps?: ButtonProps
   hideLanguageSwitcher?: boolean
   onSuccess?: () => void
+  allowedRoles?: RoleType[]
 }
 export type ModelCreateFormBodyProps<T extends StrapiModel> = {
   fields: FormFields<T>

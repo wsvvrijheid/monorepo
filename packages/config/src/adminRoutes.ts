@@ -4,11 +4,7 @@ export const adminRoleRoutes = [
   '/activities',
   '/announcements',
   '/arts',
-  '/arts?status=pending',
-  '/arts?status=approved',
-  '/arts?status=rejected',
   '/blogs',
-  '/caps-maker',
   '/collections',
   '/competitions',
   '/courses',
@@ -33,6 +29,10 @@ export const adminCommonRoutes = [
   '/timelines/bookmarks',
 ] as const
 
-export type AdminRoleRoutes = (typeof adminRoleRoutes)[number]
-export type AdminCommonRoutes = (typeof adminCommonRoutes)[number]
-export type AdminRoutes = AdminRoleRoutes | AdminCommonRoutes
+export type AdminRoleRoute = (typeof adminRoleRoutes)[number]
+export type AdminCommonRoute = (typeof adminCommonRoutes)[number]
+export type AdminRoute =
+  | AdminRoleRoute
+  | AdminCommonRoute
+  | `${AdminCommonRoute}?${string}`
+  | `${AdminRoleRoute}?${string}`

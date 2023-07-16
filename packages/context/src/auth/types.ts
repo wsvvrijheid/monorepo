@@ -1,10 +1,11 @@
 /* eslint-disable no-unused-vars */
 import { ReactNode } from 'react'
 
-import { SessionUser } from '@wsvvrijheid/types'
+import { RoleType, SessionUser } from '@wsvvrijheid/types'
 
 export type AuthState = {
   user: SessionUser | null
+  roles: RoleType[]
   isLoading: boolean
   token: string | null
   isLoggedIn: boolean

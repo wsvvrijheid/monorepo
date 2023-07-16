@@ -4,6 +4,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getRoutePermission } from './getRoutePermission'
 
 const PUBLIC_FILE = /\.(.*)$/
+const PUBLIC_PAGES = ['/login', '/not-allowed', '/news']
 
 export const middleware = async (req: NextRequest) => {
   const { nextUrl, url } = req
@@ -26,7 +27,7 @@ export const middleware = async (req: NextRequest) => {
 
   if (notPage) return res
 
-  if (!session.user && !nextUrl.pathname.includes('/login')) {
+  if (!session.user && !PUBLIC_PAGES.includes(nextUrl.pathname)) {
     // unauthorized to see pages inside admin/
     return NextResponse.redirect(new URL(`/login`, url)) // redirect to /login page
   }

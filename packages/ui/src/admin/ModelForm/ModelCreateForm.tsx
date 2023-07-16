@@ -82,7 +82,6 @@ export const ModelCreateForm = <T extends StrapiModel>({
   const onCreateModel = async (
     data: Record<string, string | number | File | Option | Option[]>,
   ) => {
-    console.log('Data', data)
     const body = Object.entries(data).reduce((acc, [key, value]) => {
       if (value === undefined || !fields.some(f => f.name === key)) {
         return acc
@@ -166,6 +165,7 @@ export const ModelCreateForm = <T extends StrapiModel>({
               setActiveOption={setActiveOption}
             />
             {renderCreateFormBody({
+              model,
               fields: groupedFields,
               formProps,
               activeOption,

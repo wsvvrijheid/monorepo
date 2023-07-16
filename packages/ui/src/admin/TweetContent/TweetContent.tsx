@@ -39,7 +39,7 @@ export const TweetContent = <T extends FieldValues>({
         />
         <Box boxSize={'full'}>
           {setValue && isChangingImage != null && setIsChangingImage ? (
-            <ModelImage<T>
+            <ModelImage
               isEditing={true}
               model={
                 {

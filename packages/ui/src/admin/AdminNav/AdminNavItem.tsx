@@ -24,6 +24,10 @@ export const AdminNavItem: FC<AdminNavItemProps> = memo(
       }
     }, [isMenuLinkActive, open, setOpen, submenu])
 
+    if (Array.isArray(submenu) && submenu.length === 0) {
+      return null
+    }
+
     return (
       <Box w="full">
         <NavLink

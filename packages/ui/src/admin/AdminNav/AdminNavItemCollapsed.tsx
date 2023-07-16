@@ -27,6 +27,10 @@ export const AdminNavItemCollapsed: FC<AdminNavItemProps> = ({
   const isMenuLinkActive =
     router.asPath === link || submenu?.some(item => item.link === router.asPath)
 
+  if (Array.isArray(submenu) && submenu.length === 0) {
+    return null
+  }
+
   return (
     <Popover placement="right-start" trigger="hover">
       <PopoverTrigger>

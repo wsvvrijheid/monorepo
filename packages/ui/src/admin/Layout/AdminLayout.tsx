@@ -62,13 +62,13 @@ export const AdminLayout: FC<AdminLayoutProps> = ({
     router.push('/login')
   }
 
-  if (!user) {
-    return (
-      <Center h={'100vh'}>
-        <Spinner size={'lg'} />
-      </Center>
-    )
-  }
+  // if (!user) {
+  //   return (
+  //     <Center h={'100vh'}>
+  //       <Spinner size={'lg'} />
+  //     </Center>
+  //   )
+  // }
 
   const slugs = router.asPath.split('/')
   const parentSlug = slugs.slice(0, slugs.length - 1).join('/')
