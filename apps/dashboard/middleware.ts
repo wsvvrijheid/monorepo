@@ -31,7 +31,7 @@ export const middleware = async (req: NextRequest) => {
 
   if (!session.user && !PUBLIC_PAGES.includes(nextUrl.pathname)) {
     // unauthorized to see pages inside admin/
-    return NextResponse.redirect(new URL(`/login`, url)) // redirect to /login page
+    return NextResponse.redirect(new URL(`/news`, url)) // redirect to /login page
   }
 
   if (session.user && nextUrl.pathname.includes('/login')) {

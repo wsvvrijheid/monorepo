@@ -20,7 +20,6 @@ export const adminRoleRoutes = [
 ] as const
 
 export const adminCommonRoutes = [
-  '/',
   '/donation',
   '/settings',
   '/news',

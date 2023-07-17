@@ -35,6 +35,8 @@ export const AdminSidebar: FC<AdminSidebarProps> = memo(
         h="100%"
         shadow="base"
         align={expanded ? 'stretch' : 'center'}
+        w={expanded ? 300 : 16}
+        pos={{ base: 'absolute', lg: 'relative' }}
       >
         {/* Logo */}
         <Link href="/">

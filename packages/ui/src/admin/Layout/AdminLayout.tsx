@@ -1,4 +1,4 @@
-import { FC, ReactNode, useEffect } from 'react'
+import { FC, ReactNode, useEffect, useRef, useState } from 'react'
 
 import {
   Box,
@@ -11,24 +11,20 @@ import {
   Spinner,
   Stack,
   Tooltip,
+  useBreakpointValue,
+  useOutsideClick,
 } from '@chakra-ui/react'
-import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import { NextSeo, NextSeoProps } from 'next-seo'
 import { FaArrowLeft, FaUser } from 'react-icons/fa'
 import { MdOutlineNotifications } from 'react-icons/md'
-import { useLocalStorage } from 'usehooks-ts'
 
 import { useAuthContext } from '@wsvvrijheid/context'
 
 import { Navigate } from '../../components'
+import { AdminSidebar } from '../AdminSidebar'
 import { CreateModelButton } from '../CreateModelButton'
 import { LanguageSwitcher } from '../LanguageSwitcher'
-
-const AdminSidebar = dynamic(
-  () => import('../AdminSidebar').then(mod => mod.AdminSidebar),
-  { ssr: false },
-)
 
 export type AdminLayoutProps = {
   children: ReactNode
@@ -47,14 +43,26 @@ export const AdminLayout: FC<AdminLayoutProps> = ({
 
   const router = useRouter()
 
-  const [expanded, setExpandedStorage] = useLocalStorage<boolean | null>(
-    'adminSidebarExpanded',
-    null,
-  )
+  const sidebarRef = useRef<HTMLDivElement>(null)
+
+  const isMobile = useBreakpointValue({ base: true, lg: false })
+
+  const [expanded, setExpandedStorage] = useState(true)
+
+  useOutsideClick({
+    ref: sidebarRef,
+    handler: () => setExpandedStorage(false),
+  })
 
   useEffect(() => {
     checkAuth()
   }, [])
+
+  useEffect(() => {
+    if (isMobile) {
+      setExpandedStorage(false)
+    }
+  }, [isMobile])
 
   const toggleSidebarExpanded = () => {
     setExpandedStorage(!expanded)
@@ -66,37 +74,28 @@ export const AdminLayout: FC<AdminLayoutProps> = ({
     router.push('/login')
   }
 
-  // if (!user) {
-  //   return (
-  //     <Center h={'100vh'}>
-  //       <Spinner size={'lg'} />
-  //     </Center>
-  //   )
-  // }
-
   const slugs = router.asPath.split('/')
   const parentSlug = slugs.slice(0, slugs.length - 1).join('/')
 
   return (
     <>
       <NextSeo {...seo} />
-      <Flex h={'full'}>
+      <Flex h={'full'} pos={'relative'}>
         {/* Sidebar */}
         <Box
           top={0}
           left={0}
-          w={expanded ? 300 : 16}
           h="full"
           overflowY={'auto'}
+          zIndex={1}
+          ref={sidebarRef}
         >
-          {expanded !== null && (
-            <AdminSidebar
-              user={user}
-              onLogout={handleLogout}
-              expanded={expanded}
-              onToggleExpand={toggleSidebarExpanded}
-            />
-          )}
+          <AdminSidebar
+            user={user}
+            onLogout={handleLogout}
+            expanded={expanded}
+            onToggleExpand={toggleSidebarExpanded}
+          />
         </Box>
 
         <Stack
@@ -107,6 +106,7 @@ export const AdminLayout: FC<AdminLayoutProps> = ({
           overflowY={'auto'}
           flex={1}
           pb={4}
+          ml={{ base: 16, lg: 0 }}
         >
           {isLoading ? (
             <Center h="full">
