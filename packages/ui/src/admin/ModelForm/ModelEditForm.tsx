@@ -46,9 +46,14 @@ import {
 
 import { ModelImage } from './ModelImage'
 import { ModelSelect } from './ModelSelect'
+import { ModelVideo } from './ModelVideo'
 import { ModelEditFormProps, Option } from './types'
 import { useDefaultValues } from './utils'
-import { FormItem, MasonryGrid, MdFormItem } from '../../components'
+import {
+  FormItem,
+  MasonryGrid,
+  MdFormItem,
+} from '../../components'
 import { WConfirm, WConfirmProps } from '../../components/WConfirm'
 import { useHasPermission } from '../../hooks'
 import { ArtAddToCollectionModal } from '../ArtAddToCollectionCard'
@@ -74,6 +79,7 @@ export const ModelEditForm = <T extends StrapiModel>({
   const isPublished = translatableModel.publishedAt
   const [isEditing, setIsEditing] = useBoolean(false)
   const [isChangingImage, setIsChangingImage] = useBoolean(false)
+  const [isChangingVideo, setIsChangingVideo] = useBoolean(false)
   const [confirmState, setConfirmState] = useState<WConfirmProps>()
 
   const artModalDisclosure = useDisclosure()
@@ -112,6 +118,7 @@ export const ModelEditForm = <T extends StrapiModel>({
     onSuccess?.()
     setIsEditing.off()
     setIsChangingImage.off()
+    setIsChangingVideo.off()
     setConfirmState(undefined)
   }
 
@@ -150,6 +157,7 @@ export const ModelEditForm = <T extends StrapiModel>({
     resetForm()
     setIsEditing.off()
     setIsChangingImage.off()
+    setIsChangingVideo.off()
     setConfirmState(undefined)
   }
 
@@ -227,7 +235,9 @@ export const ModelEditForm = <T extends StrapiModel>({
 
               if (
                 field.type === 'file' &&
-                (field.name === 'image' || field.name === 'avatar')
+                (field.name === 'image' ||
+                  field.name === 'avatar' ||
+                  field.name === 'caps')
               ) {
                 return (
                   <FormControl
@@ -236,7 +246,7 @@ export const ModelEditForm = <T extends StrapiModel>({
                     maxW={400}
                   >
                     <FormLabel fontWeight={600} fontSize={'sm'}>
-                      {t('model.image')}
+                      {field?.name === 'caps' ? 'Caps' : t('model.image')}
                     </FormLabel>
                     <ModelImage
                       url={url}
@@ -253,7 +263,33 @@ export const ModelEditForm = <T extends StrapiModel>({
                   </FormControl>
                 )
               }
+              if (field.type === 'file' && field.name === 'video') {
+             
+                return (
+                  <FormControl
+                    key={index}
+                    isRequired={field.isRequired}
+                    maxW={400}
+                  >
+                    <FormLabel fontWeight={600} fontSize={'sm'}>
+                      {field?.name}
+                    </FormLabel>
+                    <ModelVideo
+                      url={url}
+                      isEditing={isEditing}
+                      model={model}
+                      name={field.name as string}
+                      setValue={setValue}
+                      isChangingVideo={isChangingVideo}
+                      setIsChangingVideo={setIsChangingVideo}
+                    />
 
+                    <FormErrorMessage>
+                      {errors[field.name as string]?.message as string}
+                    </FormErrorMessage>
+                  </FormControl>
+                )
+              }
               if (field.type === 'boolean') {
                 return (
                   <FormControl key={index} isRequired={field.isRequired}>

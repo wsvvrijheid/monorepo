@@ -33,8 +33,9 @@ export const useCreateModelMutation = <
     onSuccess: res => {
       toast({
         title: `Model created`,
-        description: `Model ${(res as StrapiTranslatableModel)
-          ?.title} has been created`,
+        description: `Model ${
+          (res as StrapiTranslatableModel)?.title
+        } has been created`,
         status: 'success',
         duration: 5000,
         isClosable: true,

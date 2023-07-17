@@ -27,8 +27,9 @@ export const getItemLink = (
 
         return null
       }
-      itemUrl = `/${locale}/${getMainPageLink('hashtag')}/${post.hashtag
-        ?.slug}/${post.id}`
+      itemUrl = `/${locale}/${getMainPageLink('hashtag')}/${
+        post.hashtag?.slug
+      }/${post.id}`
       break
     case 'hashtag':
       if (!hashtag.slug) {

@@ -28,7 +28,9 @@ export const ArtistTemplate: FC<ArtistTemplateProps> = ({ artist, arts }) => {
       </Hero>
       <Container mt={'80px'}>
         <SimpleGrid m={4} gap={8} columns={{ base: 1, md: 2, lg: 4 }}>
-          {arts?.map(art => <ArtCard key={art.id} art={art} />)}
+          {arts?.map(art => (
+            <ArtCard key={art.id} art={art} />
+          ))}
         </SimpleGrid>
       </Container>
     </>

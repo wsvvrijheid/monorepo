@@ -86,23 +86,20 @@ export const useGetHashtagSentences = (hashtagId: number) => {
         return a.shareCount - b.shareCount
       }) || []) as PostSentence[]
 
-    const sentencesByPostId = sortedSentences.reduce(
-      (acc, cur) => {
-        const { postId, ...rest } = cur
+    const sentencesByPostId = sortedSentences.reduce((acc, cur) => {
+      const { postId, ...rest } = cur
 
-        if (!acc[postId]) {
-          acc[postId] = []
-        }
+      if (!acc[postId]) {
+        acc[postId] = []
+      }
 
-        acc[postId].push({
-          postId,
-          ...rest,
-        })
+      acc[postId].push({
+        postId,
+        ...rest,
+      })
 
-        return acc
-      },
-      {} as Record<number, PostSentence[]>,
-    )
+      return acc
+    }, {} as Record<number, PostSentence[]>)
 
     return sentencesByPostId
   }, [data])
