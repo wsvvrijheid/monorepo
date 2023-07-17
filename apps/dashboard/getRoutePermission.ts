@@ -63,6 +63,7 @@ export const getRoutePermission = (roles: RoleType[], route: AdminRoutes) => {
     jury: ['/competitions'],
     public: [],
     translator: ['/translates'],
+    all: [],
   }
 
   return roles?.some(role => {
