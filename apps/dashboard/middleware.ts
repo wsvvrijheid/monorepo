@@ -29,7 +29,10 @@ export const middleware = async (req: NextRequest) => {
 
   if (notPage) return res
 
-  if (!session.user && !PUBLIC_PAGES.includes(nextUrl.pathname)) {
+  if (
+    !session.user &&
+    (!PUBLIC_PAGES.includes(nextUrl.pathname) || nextUrl.pathname === '/')
+  ) {
     // unauthorized to see pages inside admin/
     return NextResponse.redirect(new URL(`/news`, url)) // redirect to /login page
   }
