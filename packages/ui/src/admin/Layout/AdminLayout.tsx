@@ -1,7 +1,6 @@
 import { FC, ReactNode, useEffect } from 'react'
 
 import { Box, Center, Flex, Spinner, Stack } from '@chakra-ui/react'
-import { useRouter } from 'next/router'
 import { NextSeo, NextSeoProps } from 'next-seo'
 
 import { useAuthContext } from '@wsvvrijheid/context'
