@@ -241,7 +241,7 @@ export const getServerSideProps = async (
   }
 
   const seo: NextSeoProps = {
-    title: title[locale][model],
+    title: title[locale][model] || 'Dashboard',
   }
 
   return {

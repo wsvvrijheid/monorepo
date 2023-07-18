@@ -83,14 +83,16 @@ export const AdminLoginForm = () => {
           pb={8}
           pt={{ base: 8, lg: '50%' }}
         >
-          <VStack textAlign="center" w={'full'}>
-            <Avatar size="2xl" src={`/images/wsvvrijheid-logo.svg`} />
+          <Navigate href="/">
+            <VStack textAlign="center" w={'full'}>
+              <Avatar size="2xl" src={`/images/wsvvrijheid-logo.svg`} />
 
-            <Text fontSize="xl" color={'blue.500'} fontWeight={900}>
-              WEES DE STEM <br />
-              VOOR VRIJHEID
-            </Text>
-          </VStack>
+              <Text fontSize="xl" color={'blue.500'} fontWeight={900}>
+                WEES DE STEM <br />
+                VOOR VRIJHEID
+              </Text>
+            </VStack>
+          </Navigate>
 
           <Stack spacing={4} flex={1}>
             <Stack

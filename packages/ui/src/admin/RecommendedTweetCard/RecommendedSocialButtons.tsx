@@ -9,6 +9,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@chakra-ui/react'
+import { useTranslation } from 'next-i18next'
 import { AiFillDelete, AiOutlineShareAlt } from 'react-icons/ai'
 
 import { ASSETS_URL } from '@wsvvrijheid/config'
@@ -32,6 +33,8 @@ export const RecommendedSocialButtons: FC<RecommendedSocialButtonsProps> = ({
   const deleteModelMutation = useDeleteModel('api/recommended-tweets')
   const [confirmState, setConfirmState] = useState<WConfirmProps>()
   const id = tweet?.id
+
+  const { t } = useTranslation()
 
   const onDelete = () => {
     setConfirmState({
@@ -125,7 +128,7 @@ export const RecommendedSocialButtons: FC<RecommendedSocialButtonsProps> = ({
       </Popover>
 
       <ModelCreateModal
-        title="Create Post"
+        title={t('create-post')}
         url="api/posts"
         schema={postSchema}
         fields={postFields}
@@ -137,7 +140,7 @@ export const RecommendedSocialButtons: FC<RecommendedSocialButtonsProps> = ({
           size: 'sm',
         }}
       >
-        {!isVertical && 'Create Post'}
+        {!isVertical && t('create-post')}
       </ModelCreateModal>
 
       <ActionButton

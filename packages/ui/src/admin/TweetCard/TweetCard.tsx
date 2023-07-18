@@ -15,6 +15,7 @@ import {
   useDisclosure,
 } from '@chakra-ui/react'
 import { formatDistanceToNow } from 'date-fns'
+import { useTranslation } from 'next-i18next'
 import { BsThreeDots } from 'react-icons/bs'
 import {
   TbBookmark,
@@ -53,6 +54,7 @@ export const TweetCard: FC<TweetCardProps> = ({
     [],
   )
   const { isOpen, onOpen, onClose } = useDisclosure()
+  const { t } = useTranslation()
 
   const isBookmarked = storageTweets?.some(t => t.id === tweet.id)
 
@@ -138,7 +140,7 @@ export const TweetCard: FC<TweetCardProps> = ({
                     Recommend
                   </MenuItem>
                   <ModelCreateModal<Post>
-                    title="Create Post"
+                    title={t('create-post')}
                     url="api/posts"
                     schema={postSchema}
                     fields={postFields}
@@ -154,7 +156,7 @@ export const TweetCard: FC<TweetCardProps> = ({
                       px: 3,
                     }}
                   >
-                    Create Post
+                    {t('create-post')}
                   </ModelCreateModal>
                   <MenuItem
                     icon={<TbBookmark color={isBookmarked ? 'red' : ''} />}
