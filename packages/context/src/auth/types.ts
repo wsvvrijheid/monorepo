@@ -14,7 +14,7 @@ export type AuthState = {
 
 export type AuthActions = {
   login: (identifier: string, password: string) => Promise<AuthState>
-  logout: () => Promise<AuthState>
+  logout: () => Promise<void>
   checkAuth: () => Promise<AuthState>
   register: (
     email: string,

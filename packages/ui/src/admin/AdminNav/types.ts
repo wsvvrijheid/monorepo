@@ -20,17 +20,17 @@ export type NavItemWithoutSubmenuProps = {
 
 export type NavItemProps = NavItemWithSubmenuProps | NavItemWithoutSubmenuProps
 
+export type AdminNavProps = {
+  mobile?: boolean
+}
+
 export type AdminNavItemProps = {
   label: string
   link?: AdminRoute
   submenu?: AdminNavItemProps[]
   icon: JSX.Element
-  expanded?: boolean
+  mobile?: boolean
 } & ButtonProps
-
-export type AdminNAvProps = {
-  expanded?: boolean
-}
 
 export type NavLinkProps = ButtonProps & {
   href?: AdminRoute

@@ -2,6 +2,7 @@ import { FC, createContext, useEffect, useState } from 'react'
 import { useContext } from 'react'
 
 import axios from 'axios'
+import { useRouter } from 'next/router'
 
 import { Auth, RoleType, SessionUser } from '@wsvvrijheid/types'
 
@@ -14,12 +15,15 @@ export const AuthProvider: FC<AuthProviderProps> = ({
   children,
   initialState = initialAuthState,
 }) => {
+  // TODO: Use useReducer instead of useState
   const [user, setUser] = useState<SessionUser | null>(null)
   const [roles, setRoles] = useState<RoleType[]>(initialAuthState.roles)
   const [token, setToken] = useState<string | null>(null)
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false)
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [error, setError] = useState<string | null>(null)
+
+  const router = useRouter()
 
   useEffect(() => {
     if (initialState) {
@@ -57,21 +61,22 @@ export const AuthProvider: FC<AuthProviderProps> = ({
     }
   }
 
-  const logout = async (): Promise<AuthState> => {
+  const logout = async (): Promise<void> => {
     setIsLoading(true)
 
     try {
       await axios.post<Auth>('/api/auth/logout')
     } catch (error: any) {
-      return initialAuthState
+      setError(error.message)
     } finally {
       setUser(null)
       setToken(null)
+      setRoles(initialAuthState.roles)
       setIsLoggedIn(false)
       setIsLoading(false)
-    }
 
-    return initialAuthState
+      router.push('/news')
+    }
   }
 
   const login = async (

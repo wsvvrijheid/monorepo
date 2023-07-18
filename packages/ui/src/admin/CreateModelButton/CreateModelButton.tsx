@@ -19,6 +19,7 @@ import { HiOutlineNewspaper } from 'react-icons/hi'
 import { MdOutlineCastForEducation } from 'react-icons/md'
 import { TbActivity, TbBrandTwitter, TbWriting } from 'react-icons/tb'
 
+import { useAuthContext } from '@wsvvrijheid/context'
 import {
   Activity,
   Blog,
@@ -59,7 +60,11 @@ export const CreateModelButton = () => {
     onClose: onClosePost,
   } = useDisclosure()
 
+  const { user } = useAuthContext()
+
   const { getPermission } = useHasPermission()
+
+  if (!user) return null
 
   return (
     <Popover placement="bottom-start">

@@ -23,16 +23,8 @@ import { Navigate } from '../Navigate'
 
 export const ProfileMenu: FC<ProfileMenuProps> = ({ isDark, menu }) => {
   const isScrolled = useScroll()
-  const router = useRouter()
   const { t } = useTranslation()
   const { user, isLoggedIn, logout } = useAuthContext()
-
-  const handleLogout = async () => {
-    await logout()
-    console.log('Destroyed auth')
-
-    router.push('/login')
-  }
 
   if (!isLoggedIn)
     return !isScrolled && isDark ? (
@@ -81,7 +73,7 @@ export const ProfileMenu: FC<ProfileMenuProps> = ({ isDark, menu }) => {
         ))}
 
         <MenuDivider />
-        <MenuItem icon={<FiLogOut />} color="red.400" onClick={handleLogout}>
+        <MenuItem icon={<FiLogOut />} color="red.400" onClick={logout}>
           {t('profile.logout')}
         </MenuItem>
       </MenuList>
