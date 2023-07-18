@@ -170,9 +170,9 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
   const locale = context.locale as StrapiLocale
 
   const title = {
-    en: 'Activities',
-    tr: 'Aktiviteler',
-    nl: 'Activiteiten',
+    en: 'Translates',
+    tr: 'Ceviriler',
+    nl: 'Vertalingen',
   }
 
   const seo: NextSeoProps = {

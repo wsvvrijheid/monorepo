@@ -39,6 +39,12 @@ import {
   mainHashtagColumns,
   mainHashtagFields,
   mainHashtagSchema,
+  userFields,
+  userSchema,
+  usersColumns,
+  volunteerColumns,
+  volunteerFields,
+  volunteerSchema,
 } from '@wsvvrijheid/ui'
 
 const schemas: { [x in StrapiCollectionEndpoint]?: unknown } = {
@@ -46,6 +52,8 @@ const schemas: { [x in StrapiCollectionEndpoint]?: unknown } = {
   blogs: blogSchema,
   hashtags: mainHashtagSchema,
   collections: collectionSchema,
+  users: userSchema,
+  volunteers: volunteerSchema,
 }
 
 const fields: { [x in StrapiCollectionEndpoint]?: unknown } = {
@@ -53,6 +61,8 @@ const fields: { [x in StrapiCollectionEndpoint]?: unknown } = {
   blogs: blogFields,
   collections: collectionFields,
   hashtags: mainHashtagFields,
+  users: userFields,
+  volunteers: volunteerFields,
 }
 
 const columns: {
@@ -62,6 +72,8 @@ const columns: {
   blogs: blogColumns,
   collections: collectionColumns,
   hashtags: mainHashtagColumns,
+  users: usersColumns,
+  volunteers: volunteerColumns,
 }
 
 type ModelPageProps = InferGetServerSidePropsType<typeof getServerSideProps>
@@ -92,7 +104,7 @@ const ModelPage: FC<ModelPageProps> = ({ seo, model }) => {
     ) {
       const _query = { ...query }
       delete _query[key]
-      push({ query: _query })
+      push({ query: _query }, undefined, { shallow: true })
 
       return
     }
@@ -107,7 +119,9 @@ const ModelPage: FC<ModelPageProps> = ({ seo, model }) => {
   const setSort = (sort?: Sort) => changeRoute('sort', sort)
   const setStatus = (status?: ApprovalStatus) => changeRoute('status', status)
   const setPublished = (state?: string) => changeRoute('published', state)
-  const setQ = (q?: string) => changeRoute('q', q)
+  const setQ = (q?: string) => {
+    if (q?.length) changeRoute('q', q)
+  }
 
   const titleKey = urlsWithLocalizedTitle.includes(`api/${model}`)
     ? `title_${locale}`
@@ -156,6 +170,8 @@ const ModelPage: FC<ModelPageProps> = ({ seo, model }) => {
     }
   }, [selectedId])
 
+  const hideFilters = model === 'users' || model === 'volunteers'
+
   return (
     <AdminLayout seo={seo}>
       <PageHeader onSearch={setQ} searchPlaceHolder={t('search-placeholder')} />
@@ -170,12 +186,14 @@ const ModelPage: FC<ModelPageProps> = ({ seo, model }) => {
           title={'Edit Model'}
         />
       )}
-      <ModelFiltersBar
-        status={status}
-        setStatus={setStatus}
-        published={published}
-        setPublished={setPublished}
-      />
+      {!hideFilters && (
+        <ModelFiltersBar
+          status={status}
+          setStatus={setStatus}
+          published={published}
+          setPublished={setPublished}
+        />
+      )}
       <DataTable
         columns={columns[model] as WTableProps<StrapiModel>['columns']}
         data={mappedModels}
@@ -201,23 +219,29 @@ export const getServerSideProps = async (
       blogs: 'Blogs',
       hashtags: 'Hashtags',
       collections: 'Collections',
+      users: 'Users',
+      volunteers: 'Volunteers',
     },
     tr: {
       activities: 'Aktiviteler',
       blogs: 'Bloglar',
       hashtags: 'Hashtagler',
       collections: 'Koleksiyonlar',
+      users: 'Kullanicilar',
+      volunteers: 'Gonulluler',
     },
     nl: {
       activities: 'Activiteiten',
       blogs: 'Blogs',
       hashtags: 'Hashtags',
       collections: 'Collecties',
+      users: 'Gebruikers',
+      volunteers: 'Vrijwilligers',
     },
   }
 
   const seo: NextSeoProps = {
-    title: title[locale][model],
+    title: title[locale][model] || 'Dashboard',
   }
 
   return {

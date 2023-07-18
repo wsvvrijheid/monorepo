@@ -8,6 +8,7 @@ module.exports = {
   ],
   plugins: ['@typescript-eslint'],
   rules: {
+    '@typescript-eslint/no-explicit-any': 'off',
     '@next/next/no-html-link-for-pages': 'off',
     'import/no-unused-modules': 'error',
     'no-unused-vars': 'off',

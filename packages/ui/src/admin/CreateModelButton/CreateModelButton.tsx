@@ -19,6 +19,7 @@ import { HiOutlineNewspaper } from 'react-icons/hi'
 import { MdOutlineCastForEducation } from 'react-icons/md'
 import { TbActivity, TbBrandTwitter, TbWriting } from 'react-icons/tb'
 
+import { useAuthContext } from '@wsvvrijheid/context'
 import {
   Activity,
   Blog,
@@ -59,7 +60,11 @@ export const CreateModelButton = () => {
     onClose: onClosePost,
   } = useDisclosure()
 
+  const { user } = useAuthContext()
+
   const { getPermission } = useHasPermission()
+
+  if (!user) return null
 
   return (
     <Popover placement="bottom-start">
@@ -82,77 +87,77 @@ export const CreateModelButton = () => {
 
             <PopoverBody>
               <Stack>
-                {getPermission(['contentmanager']) && (
-                  <ModelCreateModal<Activity>
-                    title={t('create-activity')}
-                    url="api/activities"
-                    schema={activitySchema}
-                    fields={activityFields}
-                    buttonProps={{
-                      variant: 'outline',
-                      leftIcon: <TbActivity />,
-                    }}
-                  >
-                    {t('create-activity')}
-                  </ModelCreateModal>
-                )}
-                {getPermission(['author', 'contentmanager']) && (
-                  <ModelCreateModal<Blog>
-                    title={t('create-blog')}
-                    url="api/blogs"
-                    schema={blogSchema}
-                    fields={blogFields}
-                    buttonProps={{
-                      variant: 'outline',
-                      leftIcon: <TbWriting />,
-                    }}
-                  >
-                    {t('create-blog')}
-                  </ModelCreateModal>
-                )}
-                {getPermission(['academyeditor']) && (
-                  <ModelCreateModal<Course>
-                    title={t('create-course')}
-                    url="api/courses"
-                    schema={courseSchema}
-                    fields={courseFields}
-                    hideLanguageSwitcher
-                    buttonProps={{
-                      variant: 'outline',
-                      leftIcon: <MdOutlineCastForEducation />,
-                    }}
-                  >
-                    {t('create-course')}
-                  </ModelCreateModal>
-                )}
-                {getPermission(['arteditor']) && (
-                  <ModelCreateModal<Collection>
-                    title={t('create-collection')}
-                    url="api/collections"
-                    schema={collectionSchema}
-                    fields={collectionFields}
-                    buttonProps={{
-                      variant: 'outline',
-                      leftIcon: <BsCollection />,
-                    }}
-                  >
-                    {t('create-collection')}
-                  </ModelCreateModal>
-                )}
-                {getPermission(['accountmanager']) && (
-                  <ModelCreateModal<Hashtag>
-                    title={t('create-hashtag')}
-                    url="api/hashtags"
-                    schema={mainHashtagSchema}
-                    fields={mainHashtagFields}
-                    buttonProps={{
-                      variant: 'outline',
-                      leftIcon: <CgHashtag />,
-                    }}
-                  >
-                    {t('create-hashtag')}
-                  </ModelCreateModal>
-                )}
+                <ModelCreateModal<Activity>
+                  title={t('create-activity')}
+                  url="api/activities"
+                  schema={activitySchema}
+                  fields={activityFields}
+                  buttonProps={{
+                    variant: 'outline',
+                    leftIcon: <TbActivity />,
+                  }}
+                  allowedRoles={['contentmanager']}
+                >
+                  {t('create-activity')}
+                </ModelCreateModal>
+
+                <ModelCreateModal<Blog>
+                  title={t('create-blog')}
+                  url="api/blogs"
+                  schema={blogSchema}
+                  fields={blogFields}
+                  buttonProps={{
+                    variant: 'outline',
+                    leftIcon: <TbWriting />,
+                  }}
+                  allowedRoles={['author', 'contentmanager']}
+                >
+                  {t('create-blog')}
+                </ModelCreateModal>
+
+                <ModelCreateModal<Course>
+                  title={t('create-course')}
+                  url="api/courses"
+                  schema={courseSchema}
+                  fields={courseFields}
+                  hideLanguageSwitcher
+                  buttonProps={{
+                    variant: 'outline',
+                    leftIcon: <MdOutlineCastForEducation />,
+                  }}
+                  allowedRoles={['academyeditor']}
+                >
+                  {t('create-course')}
+                </ModelCreateModal>
+
+                <ModelCreateModal<Collection>
+                  title={t('create-collection')}
+                  url="api/collections"
+                  schema={collectionSchema}
+                  fields={collectionFields}
+                  buttonProps={{
+                    variant: 'outline',
+                    leftIcon: <BsCollection />,
+                  }}
+                  allowedRoles={['arteditor']}
+                >
+                  {t('create-collection')}
+                </ModelCreateModal>
+
+                <ModelCreateModal<Hashtag>
+                  title={t('create-hashtag')}
+                  url="api/hashtags"
+                  schema={mainHashtagSchema}
+                  fields={mainHashtagFields}
+                  buttonProps={{
+                    variant: 'outline',
+                    leftIcon: <CgHashtag />,
+                  }}
+                  allowedRoles={['accountmanager']}
+                >
+                  {t('create-hashtag')}
+                </ModelCreateModal>
+
                 <ModelCreateModal<Post>
                   title={t('create-post')}
                   url="api/posts"
@@ -162,20 +167,26 @@ export const CreateModelButton = () => {
                     variant: 'outline',
                     leftIcon: <TbBrandTwitter />,
                   }}
+                  allowedRoles={['all']}
                 >
                   {t('create-post')}
                 </ModelCreateModal>
-                <CreatePostFromCapsModal
-                  isOpen={isOpenPost}
-                  onClose={onClosePost}
-                />
-                <Button
-                  colorScheme="green"
-                  variant="outline"
-                  onClick={onOpenPost}
-                >
-                  {t('create-multiple-post')}
-                </Button>
+
+                {getPermission(['all']) && (
+                  <>
+                    <CreatePostFromCapsModal
+                      isOpen={isOpenPost}
+                      onClose={onClosePost}
+                    />
+                    <Button
+                      colorScheme="green"
+                      variant="outline"
+                      onClick={onOpenPost}
+                    >
+                      {t('create-multiple-post')}
+                    </Button>
+                  </>
+                )}
                 <ModelCreateModal<RecommendedTopic>
                   title={t('create-news')}
                   url="api/recommended-topics"

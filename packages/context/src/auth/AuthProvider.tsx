@@ -2,8 +2,9 @@ import { FC, createContext, useEffect, useState } from 'react'
 import { useContext } from 'react'
 
 import axios from 'axios'
+import { useRouter } from 'next/router'
 
-import { Auth, SessionUser } from '@wsvvrijheid/types'
+import { Auth, RoleType, SessionUser } from '@wsvvrijheid/types'
 
 import { initialAuthState } from './state'
 import { AuthContextType, AuthProviderProps, AuthState } from './types'
@@ -14,15 +15,20 @@ export const AuthProvider: FC<AuthProviderProps> = ({
   children,
   initialState = initialAuthState,
 }) => {
+  // TODO: Use useReducer instead of useState
   const [user, setUser] = useState<SessionUser | null>(null)
+  const [roles, setRoles] = useState<RoleType[]>(initialAuthState.roles)
   const [token, setToken] = useState<string | null>(null)
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false)
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [error, setError] = useState<string | null>(null)
 
+  const router = useRouter()
+
   useEffect(() => {
     if (initialState) {
       setUser(initialState.user)
+      setRoles(initialState.roles)
       setToken(initialState.token)
       setIsLoggedIn(initialState.isLoggedIn)
     }
@@ -33,12 +39,16 @@ export const AuthProvider: FC<AuthProviderProps> = ({
     try {
       const response = await axios.get<Auth>('/api/auth/user')
 
-      setUser(response.data?.user)
-      setToken(response.data?.token)
-      setIsLoggedIn(response.data?.isLoggedIn)
+      if (response.data?.user) {
+        setUser(response.data?.user)
+        setRoles(response.data?.user?.roles)
+        setToken(response.data?.token)
+        setIsLoggedIn(response.data?.isLoggedIn)
+      }
 
       return {
         ...response.data,
+        roles: response.data?.user?.roles || initialAuthState.roles,
         error: null,
         isLoading: false,
       }
@@ -51,21 +61,22 @@ export const AuthProvider: FC<AuthProviderProps> = ({
     }
   }
 
-  const logout = async (): Promise<AuthState> => {
+  const logout = async (): Promise<void> => {
     setIsLoading(true)
 
     try {
       await axios.post<Auth>('/api/auth/logout')
     } catch (error: any) {
-      return initialAuthState
+      setError(error.message)
     } finally {
       setUser(null)
       setToken(null)
+      setRoles(initialAuthState.roles)
       setIsLoggedIn(false)
       setIsLoading(false)
-    }
 
-    return initialAuthState
+      router.push('/news')
+    }
   }
 
   const login = async (
@@ -86,7 +97,12 @@ export const AuthProvider: FC<AuthProviderProps> = ({
         setIsLoggedIn(response.data.isLoggedIn)
       }
 
-      return { ...response.data, error: null, isLoading: false }
+      return {
+        ...response.data,
+        roles: initialAuthState.roles,
+        error: null,
+        isLoading: false,
+      }
     } catch (error: any) {
       setError(error.message)
 
@@ -120,6 +136,7 @@ export const AuthProvider: FC<AuthProviderProps> = ({
 
       return {
         ...response.data,
+        roles: initialAuthState.roles,
         error: null,
         isLoading: false,
       }
@@ -136,6 +153,7 @@ export const AuthProvider: FC<AuthProviderProps> = ({
     <AuthContext.Provider
       value={{
         user,
+        roles,
         token,
         isLoggedIn,
         isLoading,

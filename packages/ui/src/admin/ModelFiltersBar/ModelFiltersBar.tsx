@@ -25,6 +25,7 @@ export const ModelFiltersBar: FC<ModelFiltersBarProps> = ({
       rounded={'sm'}
       shadow={'sm'}
       overflowX={'auto'}
+      flexShrink={0}
     >
       <RadioGroup
         as={HStack}

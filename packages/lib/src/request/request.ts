@@ -1,12 +1,7 @@
 import axios, { AxiosError } from 'axios'
 import qs from 'qs'
 
-import {
-  API_URL,
-  urlsSingleType,
-  urlsWithLocalizedTitle,
-  urlsWithoutLocale,
-} from '@wsvvrijheid/config'
+import { API_URL, urlsSingleType, urlsWithoutLocale } from '@wsvvrijheid/config'
 import { TOKEN } from '@wsvvrijheid/secrets'
 import {
   StrapiCollectionResponse,
@@ -18,9 +13,9 @@ import {
 } from '@wsvvrijheid/types'
 
 import {
+  RequestByIdArgs,
   RequestCollectionArgs,
   RequestSingleArgs,
-  RequestByIdArgs,
 } from './types'
 
 function strapiRequest<T extends StrapiModel>(
@@ -60,18 +55,10 @@ async function strapiRequest<T extends StrapiModel>(
     !id && !urlsWithoutLocale.includes(url as StrapiCollectionUrl)
   const isSingleType = urlsSingleType.includes(url as StrapiSingleUrl)
 
-  const filterFields = fields?.map(field => {
-    if (urlsWithLocalizedTitle.includes(url as StrapiCollectionUrl)) {
-      return `${field as string}_${locale}`
-    }
-
-    return field
-  })
-
   const query = qs.stringify(
     {
       ...(!id && { pagination: { page, pageSize } }),
-      ...(filterFields && { fields: filterFields as string[] }),
+      ...(fields && { fields }),
       ...(filters && { filters }),
       ...(hasLocale && { locale }),
       ...(includeDrafts && { publicationState: 'preview' }),
@@ -92,14 +79,30 @@ async function strapiRequest<T extends StrapiModel>(
       },
     })
 
-    const result = (await response.data) as StrapiResponse<T>
+    const result = response.data as StrapiResponse<T>
 
     if (!result?.data) {
       if (id || isSingleType) {
+        if (url === 'api/users') {
+          return {
+            data: result as unknown as T,
+            meta: { pagination: null },
+          } as StrapiSingleResponse<T>
+        }
+
         return {
           data: null as unknown as T,
           meta: { pagination: null },
         } as StrapiSingleResponse<T>
+      }
+
+      if (url === 'api/users') {
+        return {
+          data: result as unknown as T[],
+          meta: {
+            pagination: { page: 1, pageSize: 25, pageCount: 1, total: 0 },
+          },
+        }
       }
 
       return {

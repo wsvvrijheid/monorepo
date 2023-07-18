@@ -14,13 +14,15 @@ export default factories.createCoreController(
     async create(ctx) {
       const result = await super.create(ctx)
 
-      await strapi.entityService.update(
-        'api::recommended-topic.recommended-topic',
-        result.data.id,
-        {
-          data: { creator: ctx.state.user.id },
-        },
-      )
+      if (ctx.state?.user?.id) {
+        await strapi.entityService.update(
+          'api::recommended-topic.recommended-topic',
+          result.data.id,
+          {
+            data: { creator: ctx.state.user.id },
+          },
+        )
+      }
 
       const topics = await strapi.entityService.findMany('api::topic.topic')
 

@@ -37,7 +37,10 @@ export const ModelImage = <T extends FieldValues = FieldValues>({
   url,
   name,
 }: ModelImageProps<T>) => {
-  const { image, title, description } = (model || {}) as StrapiTranslatableModel
+  const { title, description } = (model || {}) as StrapiTranslatableModel
+
+  // Name can be image or avatar
+  const image = (model as any)?.[(name as string) || 'image']
 
   const modelImageUrl = image?.url
 
