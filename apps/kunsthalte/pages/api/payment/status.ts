@@ -13,7 +13,7 @@ const handler: NextApiHandler = async (req, res) => {
     if (event?.data?.object?.object === 'checkout.session') {
       const status = event.data.object.payment_status
       const checkoutSessionId = event.data.object.id
-      const donationId = event.data.object.success_url.split('=')[1]
+      const donationId = event.data.object.success_url.split('&')[1].slice(3)
 
       // Update donation status and stripe fields in database
       await Mutation.put<Donation, DonationUpdateInput>(

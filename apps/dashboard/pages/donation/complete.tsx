@@ -26,29 +26,55 @@ export const getServerSideProps = async (
 ) => {
   const { query } = context
   const locale = context.locale as StrapiLocale
+  try {
+    if (!query.id || !query.status || !query.session_id) {
+      return {
+        props: {
+          status: 'error',
+          ...(await ssrTranslations(locale)),
+        },
+      }
+    }
 
-  if (query.id === 'cancel') {
+    if (query.status === 'cancel') {
+      return {
+        props: {
+          status: 'cancel',
+          ...(await ssrTranslations(locale)),
+        },
+      }
+    }
+
+    const response = await strapiRequest<Donation>({
+      id: Number(query.id),
+      url: `api/donates`,
+      populate: [],
+    })
+
+    if (response?.data?.checkoutSessionId !== query.session_id) {
+      return {
+        props: {
+          status: 'error',
+          ...(await ssrTranslations(locale)),
+        },
+      }
+    }
+
+    const status = response?.data?.status
+
     return {
       props: {
-        status: 'cancel',
+        status,
         ...(await ssrTranslations(locale)),
       },
     }
-  }
-
-  const response = await strapiRequest<Donation>({
-    id: Number(query.id),
-    url: `api/donates`,
-    populate: [],
-  })
-
-  const status = response?.data?.status
-
-  return {
-    props: {
-      status,
-      ...(await ssrTranslations(locale)),
-    },
+  } catch (error) {
+    return {
+      props: {
+        status: 'error',
+        ...(await ssrTranslations(locale)),
+      },
+    }
   }
 }
 

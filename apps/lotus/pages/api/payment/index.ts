@@ -51,8 +51,8 @@ const handler: NextApiHandler = async (req, res) => {
       ],
       mode: type === 'monthly' ? 'subscription' : 'payment',
       customer: customerID,
-      success_url: `${SITE_URL}/donation/complete?id=${donation.id}`,
-      cancel_url: `${SITE_URL}/donation/complete?id=cancel`,
+      success_url: `${SITE_URL}/donation/complete?status=success&id=${donation.id}&session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${SITE_URL}/donation/complete?status=cancel`,
     })
 
     res.status(200).send(payment.url)
