@@ -36,6 +36,7 @@ function useStrapiRequest<T extends StrapiModel>(
     queryKey: Object.entries(args),
     queryFn: () => strapiRequest<T>(args as any),
     keepPreviousData: true,
+    ...args.queryOptions,
   })
 }
 

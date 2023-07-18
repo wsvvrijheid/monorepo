@@ -48,10 +48,6 @@ export const syncNews = async ({ strapi }: { strapi: Strapi }) => {
     const topics = await Promise.all(sources.map(source => source()))
     const result = topics.flat().filter(topic => !isEmpty(topic))
 
-    // const distinctResults = [
-    //   ...new Map(result.map(item => [item['url'], item])).values(),
-    // ]
-
     const updatedTopics = result.map(topic => {
       const isRecommended = recommendedTopics?.results?.some(
         (recommendedTopic: RecommendedTopic) =>
@@ -68,8 +64,12 @@ export const syncNews = async ({ strapi }: { strapi: Strapi }) => {
     console.log('All news fetched. ' + new Date())
     console.log('-----------------------------------')
 
-    await strapi.entityService.create('api::topic.topic', {
-      data: { data: updatedTopics },
+    await strapi.db.query('api::topic.topic').update({
+      where: { id: 1 },
+      data: {
+        data: updatedTopics,
+        isSyncing: false,
+      },
     })
 
     return updatedTopics.length

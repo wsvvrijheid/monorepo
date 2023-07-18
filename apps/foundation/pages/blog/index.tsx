@@ -17,7 +17,7 @@ const Blogs: FC<BlogsProps> = ({ seo }) => {
   const { data: blogs = [] } = useGetBlogs()
 
   return (
-    <Layout seo={seo} isDark>
+    <Layout seo={seo} isDark={!!blogs?.length}>
       <BlogTemplate blogs={blogs} seo={seo} />
     </Layout>
   )

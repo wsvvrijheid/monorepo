@@ -15,7 +15,7 @@ export const viewArt = async (art: Art, token: string) => {
   return Mutation.put<Art, ArtUpdateInput>('api/arts', art.id, body, token)
 }
 
-export const useViewArtMutation = async () => {
+export const useViewArtMutation = () => {
   const queryClient = useQueryClient()
   const {
     locale,

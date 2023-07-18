@@ -39,7 +39,13 @@ export const Pagination: FC<PaginationProps> = ({
   const lastPage = paginationRange[paginationRange.length - 1]
 
   return (
-    <ButtonGroup variant="outline" isAttached {...rest}>
+    <ButtonGroup
+      display={'flex'}
+      justifyContent={'center'}
+      variant="outline"
+      isAttached
+      {...rest}
+    >
       <IconButton
         aria-label="Previous page"
         icon={<TbChevronLeft />}

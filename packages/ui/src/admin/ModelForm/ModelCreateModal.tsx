@@ -16,6 +16,7 @@ import { StrapiModel } from '@wsvvrijheid/types'
 
 import { ModelCreateForm } from '.'
 import { ModelCreateFormProps } from './types'
+import { useHasPermission } from '../../hooks'
 
 export const ModelCreateModal = <T extends StrapiModel>({
   fields,
@@ -27,12 +28,19 @@ export const ModelCreateModal = <T extends StrapiModel>({
   model,
   buttonProps,
   hideLanguageSwitcher,
+  allowedRoles,
 }: PropsWithChildren<ModelCreateFormProps<T> & { title: string }>) => {
   const formDisclosure = useDisclosure()
+
+  const { getPermission } = useHasPermission()
 
   const handleSuccess = () => {
     formDisclosure.onClose()
     onSuccess?.()
+  }
+
+  if (allowedRoles && !getPermission(allowedRoles)) {
+    return null
   }
 
   return (

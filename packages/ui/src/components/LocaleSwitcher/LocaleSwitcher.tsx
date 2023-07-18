@@ -41,8 +41,10 @@ const LocaleSwitcher: FC<LocaleSwitcherProps> = ({ isDark }) => {
             colorScheme={
               locale === code
                 ? 'primary'
-                : !isScrolled && isDark
-                ? 'gray'
+                : !isScrolled
+                ? isDark
+                  ? 'whiteAlpha'
+                  : 'blackAlpha'
                 : 'blackAlpha'
             }
             variant={variant}

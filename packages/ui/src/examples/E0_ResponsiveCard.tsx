@@ -4,27 +4,13 @@ export const ResponsiveCard = () => {
   const randomPic = 'https://picsum.photos/600/400'
 
   return (
-    <Flex
-      boxShadow="sm"
-      bg="white"
-      p={10}
-      gap={8}
-      borderRadius="8px"
-      flexDirection={['column', null, 'row']}
-      m={5}
-    >
+    <Flex>
       <Stack>
-        <Image
-          w={['300px', null, 'full']}
-          h={['300px', null, 'full']}
-          src={randomPic}
-          borderRadius={['full', null, 'none']}
-          m="auto"
-        />
+        <Image src={randomPic} alt="random pic" />
       </Stack>
 
-      <Stack spacing={2} w={['full', null]}>
-        <Heading as="h1" size="lg" mb={5} color="#000" fontWeight="medium">
+      <Stack>
+        <Heading as="h1" size="lg" mb={5} color="#000" fontWeight="500">
           This is Heading...
         </Heading>
         <Text>
