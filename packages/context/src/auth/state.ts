@@ -6,8 +6,9 @@ export const initialAuthState: AuthContextType = {
   error: null,
   token: null,
   user: null,
+  roles: ['public'],
   checkAuth: () => Promise.resolve(initialAuthState),
   login: () => Promise.resolve(initialAuthState),
-  logout: () => Promise.resolve(initialAuthState),
+  logout: () => Promise.resolve(),
   register: () => Promise.resolve(initialAuthState),
 }

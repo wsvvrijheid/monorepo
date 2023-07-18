@@ -3,7 +3,6 @@ import { FC, useState } from 'react'
 import {
   Box,
   ButtonGroup,
-  Image,
   Popover,
   PopoverArrow,
   PopoverBody,
@@ -17,6 +16,7 @@ import {
 } from '@chakra-ui/react'
 import { useQueryClient } from '@tanstack/react-query'
 import { formatDistanceStrict } from 'date-fns'
+import { useTranslation } from 'next-i18next'
 import {
   AiFillDelete,
   AiOutlineEye,
@@ -38,40 +38,20 @@ import { ActionButton } from './ActionButton'
 import { TopicCardProps } from './types'
 import { ShareButtons, WConfirm, WConfirmProps, WImage } from '../../components'
 import { postFields, postSchema } from '../../data'
+import { useHasPermission } from '../../hooks'
 import { ModelCreateModal } from '../ModelForm'
-
-const domains = [
-  'aktifhaber.com',
-  'turkishminute.com',
-  'api.samenvvv.nl',
-  'pbs.twimg.com',
-  'api.wsvvrijheid.nl',
-  'admin.wsvvrijheid.nl',
-  'localhost',
-  'amnesty.imgix.net',
-  'boldmedya.com',
-  'dekanttekening.nl',
-  'cdn.nos.nl',
-  'rtlnieuws.nl',
-  'image.writeclouds.com',
-  'tr724.com',
-  'images0.persgroep.net',
-  'image.shaber3.com',
-  'ipa.news',
-  'static.wixstatic.com',
-  'amnesty.org',
-]
 
 export const TopicCard: FC<TopicCardProps> = ({ topic }) => {
   const { user } = useAuthContext()
-  const ImageComponent = domains.some(d => topic.image?.includes(d))
-    ? WImage
-    : Image
+
+  const { t } = useTranslation()
 
   const isVertical = useBreakpointValue({
     base: true,
     lg: false,
   })
+
+  const { getPermission } = useHasPermission()
 
   const time = topic.time
     ? formatDistanceStrict(new Date(topic.time), new Date()) + ' - '
@@ -178,7 +158,7 @@ export const TopicCard: FC<TopicCardProps> = ({ topic }) => {
         />
       )}
       {topic.image && (
-        <ImageComponent
+        <WImage
           w={isVertical ? '100%' : '300px'}
           h={isVertical ? '200px' : '100%'}
           src={topic.image}
@@ -215,19 +195,21 @@ export const TopicCard: FC<TopicCardProps> = ({ topic }) => {
           </Text>
 
           <ButtonGroup size={'sm'}>
-            <ModelCreateModal
-              title="Create Post"
-              url="api/posts"
-              schema={postSchema}
-              fields={postFields}
-              model={postContent}
-              buttonProps={{
-                variant: 'ghost',
-                colorScheme: 'gray',
-              }}
-            >
-              {isVertical ? '' : 'Create Post'}
-            </ModelCreateModal>
+            {getPermission(['all']) && (
+              <ModelCreateModal
+                title={t('create-post')}
+                url="api/posts"
+                schema={postSchema}
+                fields={postFields}
+                model={postContent}
+                buttonProps={{
+                  variant: 'ghost',
+                  colorScheme: 'gray',
+                }}
+              >
+                {isVertical ? '' : t('create-post')}
+              </ModelCreateModal>
+            )}
             <ActionButton
               onClick={() => handleView()}
               icon={<AiOutlineEye />}

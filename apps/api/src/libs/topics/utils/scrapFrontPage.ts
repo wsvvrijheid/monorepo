@@ -89,6 +89,7 @@ export const scrapFrontPage: ScrapFrontPage = async ({
     console.log(` ${distinctResults.length} ${publisher} news fetched.`)
 
     return distinctResults.map(item => formatTopic(item))
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     console.error(
       `Error while scraping ${url}`,

@@ -1,36 +1,40 @@
-import { FC, memo } from 'react'
+import { FC } from 'react'
 
 import { Stack } from '@chakra-ui/react'
 
+import { useAuthContext } from '@wsvvrijheid/context'
+import { getRoutePermission } from '@wsvvrijheid/utils'
+
 import { AdminNavItem } from './AdminNavItem'
-import { AdminNavItemCollapsed } from './AdminNavItemCollapsed'
-import { AdminNAvProps } from './types'
+import { AdminNavItemProps, AdminNavProps } from './types'
 import { useAdminNav } from './useAdminNav'
 
-export const AdminNav: FC<AdminNAvProps> = memo(({ user, expanded }) => {
-  const navItems = useAdminNav(user)
+export const AdminNav: FC<AdminNavProps> = ({ mobile }) => {
+  const navItems = useAdminNav()
+  const { roles } = useAuthContext()
+
+  const filterNavs = (item: AdminNavItemProps) => {
+    return item.link ? getRoutePermission(roles, item.link) : true
+  }
 
   return (
     <Stack spacing={0}>
-      {navItems
-        .filter(item => item.visible) // TODO enable this when we are ready to release
-        .map((item, index) => {
-          const NavItem = expanded ? AdminNavItem : AdminNavItemCollapsed
+      {navItems.filter(filterNavs).map((item, index) => {
+        const submenu = item.submenu?.filter(filterNavs)
 
-          return (
-            <NavItem
-              icon={item.icon}
-              key={index}
-              label={item.label}
-              link={item.link}
-              submenu={item.submenu}
-              expanded={expanded}
-              visible={item.visible}
-            />
-          )
-        })}
+        return (
+          <AdminNavItem
+            icon={item.icon}
+            key={index}
+            label={item.label}
+            link={item.link}
+            submenu={submenu}
+            mobile={mobile}
+          />
+        )
+      })}
     </Stack>
   )
-})
+}
 
 AdminNav.displayName = 'AdminNav'

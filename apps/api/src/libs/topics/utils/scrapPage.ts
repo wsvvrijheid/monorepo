@@ -51,6 +51,7 @@ export const scrapPage: ScrapPage = async ({
       url: url.toString(),
       category,
     }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     console.error(`Error while scraping ${url}`, error.response || error)
 

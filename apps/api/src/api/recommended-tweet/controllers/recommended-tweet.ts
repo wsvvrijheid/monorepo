@@ -7,11 +7,13 @@ export default factories.createCoreController(
       async create(ctx) {
         const result = await super.create(ctx)
 
-        await strapi.entityService.update(
-          'api::recommended-tweet.recommended-tweet',
-          result.data.id,
-          { data: { creator: ctx.state.user.id } },
-        )
+        if (ctx.state?.user?.id) {
+          await strapi.entityService.update(
+            'api::recommended-tweet.recommended-tweet',
+            result.data.id,
+            { data: { creator: ctx.state.user.id } },
+          )
+        }
 
         return result
       },
