@@ -15,16 +15,19 @@ export const mapModelLocalization = <T extends StrapiTranslatableModel>(
     [locale]: model,
   } as LocalizedModel<T>
 
-  const commonFields = untranslatedFields?.reduce((acc, key) => {
-    if (model[key]) {
-      return {
-        ...acc,
-        [key]: model[key],
+  const commonFields = untranslatedFields?.reduce(
+    (acc, key) => {
+      if (model[key]) {
+        return {
+          ...acc,
+          [key]: model[key],
+        }
       }
-    }
 
-    return acc
-  }, {} as Partial<TranslatableModel<T>>)
+      return acc
+    },
+    {} as Partial<TranslatableModel<T>>,
+  )
 
   const localizedModels =
     Array.isArray(model?.localizations) &&

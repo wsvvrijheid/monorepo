@@ -49,11 +49,7 @@ import { ModelSelect } from './ModelSelect'
 import { ModelVideo } from './ModelVideo'
 import { ModelEditFormProps, Option } from './types'
 import { useDefaultValues } from './utils'
-import {
-  FormItem,
-  MasonryGrid,
-  MdFormItem,
-} from '../../components'
+import { FormItem, MasonryGrid, MdFormItem } from '../../components'
 import { WConfirm, WConfirmProps } from '../../components/WConfirm'
 import { useHasPermission } from '../../hooks'
 import { ArtAddToCollectionModal } from '../ArtAddToCollectionCard'
@@ -264,7 +260,6 @@ export const ModelEditForm = <T extends StrapiModel>({
                 )
               }
               if (field.type === 'file' && field.name === 'video') {
-             
                 return (
                   <FormControl
                     key={index}

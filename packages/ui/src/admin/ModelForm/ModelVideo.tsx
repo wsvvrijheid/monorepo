@@ -4,12 +4,9 @@ import { CiImageOff } from 'react-icons/ci'
 import { IoMdCloudUpload } from 'react-icons/io'
 
 import { ASSETS_URL } from '@wsvvrijheid/config'
-import {
-  StrapiModel,
-  StrapiUrl,
-} from '@wsvvrijheid/types'
+import { StrapiModel, StrapiUrl } from '@wsvvrijheid/types'
 
-import {  FilePicker, VideoPlayer } from '../../components'
+import { FilePicker, VideoPlayer } from '../../components'
 
 export type ModelVideoProps<T extends FieldValues = FieldValues> = {
   model: StrapiModel
@@ -45,7 +42,6 @@ export const ModelVideo = <T extends FieldValues = FieldValues>({
       ? modelVideoUrl
       : `${ASSETS_URL}${modelVideoUrl}`
 
-  
   const renderVideo = () => {
     if (isChangingVideo || (isEditing && !video)) {
       return (
@@ -73,9 +69,7 @@ export const ModelVideo = <T extends FieldValues = FieldValues>({
       )
     }
 
-    return (
-        <VideoPlayer url={videoUrl} light={model as unknown as string} />
-    )
+    return <VideoPlayer url={videoUrl} light={model as unknown as string} />
   }
 
   return (
