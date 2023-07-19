@@ -24,7 +24,7 @@ const colors = {
   samenvvv: { bg: 'samen.100', colorScheme: 'samen', text: 'initial' },
   kunsthalte: { bg: 'green.100', colorScheme: 'green', text: 'initial' },
   academy: { bg: 'blue.100', colorScheme: 'blue', text: 'initial' },
-  scm: { bg: 'red.100', colorScheme: 'red', text: 'initial' },
+  weesmusic: { bg: 'red.100', colorScheme: 'red', text: 'initial' },
 }
 
 export const HomePlatform: FC<HomePlatformProps> = ({ platforms }) => {
