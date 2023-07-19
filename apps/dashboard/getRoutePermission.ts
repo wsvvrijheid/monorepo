@@ -10,7 +10,6 @@ const adminRoleRoutes = [
   '/arts?status=approved',
   '/arts?status=rejected',
   '/blogs',
-  '/caps-maker',
   '/collections',
   '/competitions',
   '/courses',
@@ -56,7 +55,6 @@ export const getRoutePermission = (roles: RoleType[], route: AdminRoutes) => {
       '/activities',
       '/announcements',
       '/blogs',
-      '/caps-maker',
       '/competitions',
       '/courses',
       '/hashtags',
@@ -65,6 +63,7 @@ export const getRoutePermission = (roles: RoleType[], route: AdminRoutes) => {
     jury: ['/competitions'],
     public: [],
     translator: ['/translates'],
+    all: [],
   }
 
   return roles?.some(role => {

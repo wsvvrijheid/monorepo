@@ -41,6 +41,7 @@ export const mapTweetResponseToTweet = (
     const likes = public_metrics.like_count
     const retweets = public_metrics.retweet_count
     const replies = public_metrics.reply_count
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const impressions = (public_metrics as any).impression_count
 
     return {

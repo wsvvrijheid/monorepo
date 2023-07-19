@@ -10,7 +10,6 @@ import {
   MenuItem,
   MenuList,
 } from '@chakra-ui/react'
-import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { FiLogIn, FiLogOut } from 'react-icons/fi'
 
@@ -23,16 +22,8 @@ import { Navigate } from '../Navigate'
 
 export const ProfileMenu: FC<ProfileMenuProps> = ({ isDark, menu }) => {
   const isScrolled = useScroll()
-  const router = useRouter()
   const { t } = useTranslation()
   const { user, isLoggedIn, logout } = useAuthContext()
-
-  const handleLogout = async () => {
-    await logout()
-    console.log('Destroyed auth')
-
-    router.push('/login')
-  }
 
   if (!isLoggedIn)
     return !isScrolled && isDark ? (
@@ -81,7 +72,7 @@ export const ProfileMenu: FC<ProfileMenuProps> = ({ isDark, menu }) => {
         ))}
 
         <MenuDivider />
-        <MenuItem icon={<FiLogOut />} color="red.400" onClick={handleLogout}>
+        <MenuItem icon={<FiLogOut />} color="red.400" onClick={logout}>
           {t('profile.logout')}
         </MenuItem>
       </MenuList>

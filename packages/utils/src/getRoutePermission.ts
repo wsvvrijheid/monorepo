@@ -1,22 +1,19 @@
 import {
-  AdminCommonRoutes,
+  AdminCommonRoute,
   adminCommonRoutes,
-  AdminRoutes,
+  AdminRoute,
 } from '@wsvvrijheid/config'
 import { RoleType } from '@wsvvrijheid/types'
 
-export const getRoutePermission = (roles: RoleType[], route: AdminRoutes) => {
-  const roleRoutes: Record<RoleType, AdminRoutes[]> = {
+export const getRoutePermission = (roles: RoleType[], route: AdminRoute) => {
+  const roleRoutes: Record<
+    RoleType,
+    (AdminRoute | `${AdminRoute}?${string}`)[]
+  > = {
     academyeditor: ['/courses'],
     accountmanager: ['/news/recommended', '/timelines/recommended'],
     admin: ['all'],
-    arteditor: [
-      '/arts',
-      '/arts?status=approved',
-      '/arts?status=rejected',
-      '/collections',
-      '/translates',
-    ],
+    arteditor: ['/arts', '/collections', '/translates'],
     authenticated: [],
     author: ['/blogs'],
     contentmanager: [
@@ -24,22 +21,26 @@ export const getRoutePermission = (roles: RoleType[], route: AdminRoutes) => {
       '/activities',
       '/announcements',
       '/blogs',
-      '/caps-maker',
       '/competitions',
       '/hashtags',
       '/news/recommended',
     ],
     jury: ['/competitions'],
-    public: [],
+    public: ['/timelines', '/news'],
     translator: ['/translates'],
+    all: [],
   }
 
   return roles?.some(role => {
     const routes = roleRoutes[role]
 
+    if (roles?.includes('public') && route === '/') {
+      return false
+    }
+
     if (
       routes.includes('all') ||
-      adminCommonRoutes.includes(route as AdminCommonRoutes)
+      adminCommonRoutes.includes(route as AdminCommonRoute)
     ) {
       return true
     } else {

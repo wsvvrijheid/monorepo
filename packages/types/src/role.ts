@@ -14,6 +14,7 @@ export type RoleName =
   | 'Account Manager'
   | 'Academy Editor'
   | 'Content Manager'
+  | 'All'
 
 export type RoleType = Lowercase<PascalCase<RoleName>>
 
