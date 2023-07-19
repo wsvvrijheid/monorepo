@@ -24,7 +24,7 @@ const colors = {
   samenvvv: { bg: 'samen.100', colorScheme: 'samen', text: 'initial' },
   kunsthalte: { bg: 'green.100', colorScheme: 'green', text: 'initial' },
   academy: { bg: 'blue.100', colorScheme: 'blue', text: 'initial' },
-  scm: { bg: 'red.100', colorScheme: 'red', text: 'initial' },
+  weesmusic: { bg: 'red.100', colorScheme: 'red', text: 'initial' },
 }
 
 export const HomePlatform: FC<HomePlatformProps> = ({ platforms }) => {
@@ -36,14 +36,15 @@ export const HomePlatform: FC<HomePlatformProps> = ({ platforms }) => {
   return (
     <Box>
       {platforms.map((platform, index) => {
-        const color = colors[platform.slug as keyof typeof colors]
+        const color =
+          colors[platform.slug as keyof typeof colors] || colors.academy
 
         return (
           <Center
             key={index}
             py={{ base: 16, lg: 32 }}
             minH={{ base: '100vh', lg: '50vh' }}
-            bg={color?.bg}
+            bg={color.bg}
           >
             <Container>
               <SimpleGrid
