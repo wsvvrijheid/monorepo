@@ -1,5 +1,5 @@
 import { Box, SimpleGrid, Stack, Text } from '@chakra-ui/react'
-import { FieldValues } from 'react-hook-form'
+import { FieldValues, Path } from 'react-hook-form'
 import twitterText from 'twitter-text'
 
 import { ASSETS_URL } from '@wsvvrijheid/config'
@@ -54,7 +54,7 @@ export const TweetContent = <T extends FieldValues>({
               setValue={setValue}
               isChangingMedia={tweet?.image ? isChangingMedia : true}
               toggleChangingMedia={toggleChangingMedia}
-              type={tweet?.video ? 'video' : 'image'}
+              name={(tweet?.video ? 'video' : 'image') as Path<T>}
             />
           ) : (
             <>

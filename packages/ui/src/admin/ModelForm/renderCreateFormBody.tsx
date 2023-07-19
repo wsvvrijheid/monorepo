@@ -86,7 +86,6 @@ export const renderCreateFormBody = <T extends StrapiModel>({
             name={field.name as string}
             isChangingMedia={isChangingMedia}
             toggleChangingMedia={toggleChangingMedia}
-            type={field.name === 'video' ? 'video' : 'image'}
           />
           <FormErrorMessage>
             {errors?.[field.name]?.message as string}

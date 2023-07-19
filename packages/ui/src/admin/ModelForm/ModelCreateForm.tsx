@@ -149,11 +149,11 @@ export const ModelCreateForm = <T extends StrapiModel>({
             <LanguageSwitcher />
           </Box>
         )}
-        {renderCreateFormBody({
+        {renderCreateFormBody<T>({
           fields: ungroupedFields,
           formProps,
-          isChangingImage,
-          setIsChangingImage,
+          isChangingMedia: isChangingImage,
+          toggleChangingMedia: setIsChangingImage.toggle,
         })}
 
         {groupedFields?.length > 0 && (
@@ -164,13 +164,13 @@ export const ModelCreateForm = <T extends StrapiModel>({
               options={options}
               setActiveOption={setActiveOption}
             />
-            {renderCreateFormBody({
+            {renderCreateFormBody<T>({
               model,
               fields: groupedFields,
               formProps,
               activeOption,
-              isChangingImage,
-              setIsChangingImage,
+              isChangingMedia: isChangingImage,
+              toggleChangingMedia: setIsChangingImage.toggle,
             })}
           </>
         )}
