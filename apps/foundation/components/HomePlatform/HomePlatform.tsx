@@ -36,14 +36,15 @@ export const HomePlatform: FC<HomePlatformProps> = ({ platforms }) => {
   return (
     <Box>
       {platforms.map((platform, index) => {
-        const color = colors[platform.slug as keyof typeof colors]
+        const color =
+          colors[platform.slug as keyof typeof colors] || colors.academy
 
         return (
           <Center
             key={index}
             py={{ base: 16, lg: 32 }}
             minH={{ base: '100vh', lg: '50vh' }}
-            bg={color?.bg}
+            bg={color.bg}
           >
             <Container>
               <SimpleGrid
