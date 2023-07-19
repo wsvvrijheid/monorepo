@@ -44,8 +44,8 @@ export const TweetCard: FC<TweetCardProps> = ({
   bookmarkable,
   editable,
   setValue,
-  isChangingImage,
-  setIsChangingImage,
+  isChangingMedia,
+  toggleChangingMedia,
   originalTweet,
   ...rest
 }) => {
@@ -172,8 +172,8 @@ export const TweetCard: FC<TweetCardProps> = ({
           <TweetContent
             tweet={tweet}
             setValue={setValue}
-            isChangingImage={isChangingImage}
-            setIsChangingImage={setIsChangingImage}
+            isChangingMedia={isChangingMedia}
+            toggleChangingMedia={toggleChangingMedia}
           />
           <HStack justify={'space-between'}>
             {tweet.likes != null && (

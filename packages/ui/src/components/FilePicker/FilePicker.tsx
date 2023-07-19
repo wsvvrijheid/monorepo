@@ -14,14 +14,15 @@ export type FilePickerProps = Omit<ComponentProps<typeof Dashboard>, 'uppy'> & {
   onLoaded: (files: File[], previews: string[]) => void
 }
 
-const uppy = new Uppy({
-  meta: { type: 'avatar' },
-  autoProceed: true,
-}).use(Compressor, {
-  id: 'Compressor',
-  quality: 0.9,
-  limit: 2,
-})
+const getUppy = () =>
+  new Uppy({
+    meta: { type: 'avatar' },
+    autoProceed: true,
+  }).use(Compressor, {
+    id: 'Compressor',
+    quality: 0.9,
+    limit: 2,
+  })
 
 export const FilePicker: FC<FilePickerProps> = ({
   maxNumberOfFiles,
@@ -29,6 +30,8 @@ export const FilePicker: FC<FilePickerProps> = ({
   allowedFileTypes = ['image/*', 'video/*'],
   ...props
 }) => {
+  const uppy = getUppy()
+
   uppy.on('complete', result => {
     const files = result.successful.map(file => file.data)
     const previews = result.successful.map(file => file.preview)
