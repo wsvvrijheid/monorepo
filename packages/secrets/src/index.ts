@@ -1,6 +1,7 @@
 // TODO: Never use Full API token in the browser, only use it on the server
 // TODO: Use READONLY API token in the browser
 export const TOKEN = process.env['NEXT_PUBLIC_API_TOKEN']
+export const VOLUNTEER_TOKEN = process.env['NEXT_PUBLIC_VOLUNTEER_TOKEN']
 
 const secrets = {
   COOKIE_PASSWORD: process.env['SECRET_COOKIE_PASSWORD'],

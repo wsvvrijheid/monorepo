@@ -15,8 +15,8 @@ import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { v4 as uuidV4 } from 'uuid'
 
-import { useAuthContext } from '@wsvvrijheid/context'
 import { Mutation } from '@wsvvrijheid/lib'
+import { VOLUNTEER_TOKEN } from '@wsvvrijheid/secrets'
 import { useStrapiRequest } from '@wsvvrijheid/services'
 import { Platform, Volunteer, VolunteerCreateInput } from '@wsvvrijheid/types'
 import { toastMessage } from '@wsvvrijheid/utils'
@@ -34,8 +34,6 @@ export const JoinTemplate: FC<JoinTemplateProps> = ({ title }) => {
   const { t } = useTranslation()
   const { locale } = useRouter()
 
-  const { token } = useAuthContext()
-
   const platformsResult = useStrapiRequest<Platform>({
     url: 'api/platforms',
     locale,
@@ -49,7 +47,7 @@ export const JoinTemplate: FC<JoinTemplateProps> = ({ title }) => {
       Mutation.post<Volunteer, VolunteerCreateInput>(
         'api/volunteers',
         body,
-        token as string,
+        VOLUNTEER_TOKEN as string,
       ),
   )
 
