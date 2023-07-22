@@ -1,7 +1,6 @@
 import { FC } from 'react'
 
 import {
-  Avatar,
   Box,
   HStack,
   IconButton,
@@ -33,7 +32,7 @@ import { useRecommendTweet } from '@wsvvrijheid/services'
 import { Post, RecommendedTweetCreateInput, Tweet } from '@wsvvrijheid/types'
 
 import { TweetCardProps } from './types'
-import { CreateTweetForm } from '../../components'
+import { CreateTweetForm, WAvatar } from '../../components'
 import { CreateTweetFormFieldValues } from '../../components/CreateTweetForm/types'
 import { postFields, postSchema } from '../../data'
 import { ModelCreateModal } from '../ModelForm'
@@ -104,7 +103,7 @@ export const TweetCard: FC<TweetCardProps> = ({
       )}
       <HStack align={'start'} bg={'white'} rounded={'md'} p={4} {...rest}>
         {tweet.user && (
-          <Avatar
+          <WAvatar
             size={'sm'}
             flexShrink={0}
             name={tweet.user.name}

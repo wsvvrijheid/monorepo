@@ -1,7 +1,6 @@
 import { ReactNode, useState } from 'react'
 
 import {
-  Avatar,
   Badge,
   Box,
   Popover,
@@ -11,10 +10,11 @@ import {
 } from '@chakra-ui/react'
 
 import { StrapiModel, UploadFile } from '@wsvvrijheid/types'
-import { getImageUrl } from '@wsvvrijheid/utils'
+import { getMediaUrl } from '@wsvvrijheid/utils'
 
 import { WTableCellProps } from './types'
 import { FormattedDate } from '../FormattedDate'
+import { WAvatar } from '../WAvatar'
 import { WImage } from '../WImage'
 
 export const WTableCell = <T extends StrapiModel>({
@@ -54,10 +54,10 @@ export const WTableCell = <T extends StrapiModel>({
     cellContent = (
       <Popover trigger="hover" isLazy placement="right">
         <PopoverTrigger>
-          <Avatar
+          <WAvatar
             size="md"
-            src={getImageUrl(cellImage) || getImageUrl(thumbnail)}
-            onError={() => setCellImage(getImageUrl(thumbnail, true))}
+            src={getMediaUrl(cellImage) || getMediaUrl(thumbnail)}
+            onError={() => setCellImage(getMediaUrl(thumbnail, true))}
           />
         </PopoverTrigger>
         <PopoverContent p={0} w={'auto'} overflow={'hidden'}>

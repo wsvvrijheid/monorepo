@@ -1,10 +1,11 @@
+import { useState } from 'react'
+
 import {
   AspectRatio,
   Box,
   chakra,
   Flex,
   forwardRef,
-  Image,
   ImageProps,
   Skeleton,
   Stack,
@@ -13,7 +14,10 @@ import {
 } from '@chakra-ui/react'
 import { useElementSize } from 'usehooks-ts'
 
+import { getMediaUrl } from '@wsvvrijheid/utils'
+
 import { CapsProps } from './types'
+import { WImage } from '../WImage'
 
 const paths = [
   'M50 337.5L0 0H50V337.5Z',
@@ -43,6 +47,7 @@ export const Caps = forwardRef<CapsProps, 'div'>(
     }
 
     const [divRef, { width }] = useElementSize()
+    const [fallbackSrc, setFallbackSrc] = useState<string>()
 
     const mergedRef = useMergeRefs(ref, divRef)
 
@@ -73,16 +78,18 @@ export const Caps = forwardRef<CapsProps, 'div'>(
         <Flex ref={mergedRef}>
           {dimensions.width > 0 ? (
             <Flex boxSize={'full'} bg={bg} pos={'relative'}>
-              <Image
+              <WImage
                 loading={'lazy'}
                 {...absoluteStyle}
                 w={`${dimensions.image}px`}
                 objectFit={'cover'}
                 left={flip ? '0px' : `${dimensions.width - dimensions.image}px`}
                 src={
+                  fallbackSrc ||
                   image ||
                   (hasRandomImage ? 'https://picsum.photos/300/675' : undefined)
                 }
+                onError={() => setFallbackSrc(getMediaUrl(image, true))}
                 alt={''}
               />
               <chakra.svg

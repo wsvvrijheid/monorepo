@@ -255,8 +255,12 @@ export const ModelEditForm = <T extends StrapiModel>({
                     isRequired={field.isRequired}
                     maxW={400}
                   >
-                    <FormLabel fontWeight={600} fontSize={'sm'}>
-                      {field?.name === 'caps' ? 'Caps' : t('model.image')}
+                    <FormLabel
+                      fontWeight={600}
+                      fontSize={'sm'}
+                      textTransform={'capitalize'}
+                    >
+                      {field?.name}
                     </FormLabel>
                     <ModelMedia
                       url={url}

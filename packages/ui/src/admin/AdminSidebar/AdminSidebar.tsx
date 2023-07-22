@@ -1,11 +1,11 @@
 import { FC } from 'react'
 
-import { Avatar, Box, Divider, HStack, Stack, Text } from '@chakra-ui/react'
+import { Box, Divider, HStack, Stack, Text } from '@chakra-ui/react'
 
 import { useAuthContext } from '@wsvvrijheid/context'
 
 import { AdminSidebarProfile } from './AdminSidebarProfile'
-import { Navigate } from '../../components'
+import { Navigate, WAvatar } from '../../components'
 import { AdminNav } from '../AdminNav'
 
 type AdminSidebarProps = {
@@ -31,7 +31,7 @@ export const AdminSidebar: FC<AdminSidebarProps> = ({ mobile }) => {
       {/* Logo */}
       <Navigate href="/">
         <HStack align="center" spacing={4} alignItems="center" justify="center">
-          <Avatar
+          <WAvatar
             size={'lg'}
             src={`/images/wsvvrijheid-logo.svg`}
             name="Wsvvrijheid"

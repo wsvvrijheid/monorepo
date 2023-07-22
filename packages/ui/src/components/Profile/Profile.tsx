@@ -1,5 +1,4 @@
 import {
-  Avatar,
   Box,
   HStack,
   SimpleGrid,
@@ -24,6 +23,7 @@ import { ArtCard } from '../ArtCard'
 import { Container } from '../Container'
 import { CreateArtForm } from '../CreateArtForm'
 import { Hero } from '../Hero'
+import { WAvatar } from '../WAvatar'
 
 const Settings = () => {
   const { user } = useAuthContext()
@@ -50,7 +50,7 @@ export const AuthenticatedUserProfile = () => {
     <>
       <Hero>
         <Stack>
-          <Avatar
+          <WAvatar
             size="lg"
             src={`${ASSETS_URL}${user?.avatar}`}
             name={user?.username}

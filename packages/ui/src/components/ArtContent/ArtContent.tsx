@@ -1,8 +1,9 @@
 import { FC } from 'react'
 
-import { Avatar, Heading, HStack, Stack, Text } from '@chakra-ui/react'
+import { Heading, HStack, Stack, Text } from '@chakra-ui/react'
 
 import { Navigate } from '../Navigate'
+import { WAvatar } from '../WAvatar'
 
 interface ArtContentProps {
   title: string
@@ -26,7 +27,7 @@ export const ArtContent: FC<ArtContentProps> = ({
       </Heading>
       <Navigate href={artistProfilePath}>
         <HStack>
-          <Avatar size="sm" src={artistAvatar} name={artistName} />
+          <WAvatar size="sm" src={artistAvatar} name={artistName} />
           <Text fontWeight={600} lineHeight={6} fontSize="md">
             {artistName}
           </Text>

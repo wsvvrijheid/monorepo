@@ -18,7 +18,6 @@ export type WImageProps = {
   unoptimized?: boolean
 } & Omit<ChakraImageProps, 'objectFit' | 'src' | 'fill'>
 
-// TODO: add loader
 export const WImage: FC<WImageProps> = ({
   src,
   alt,

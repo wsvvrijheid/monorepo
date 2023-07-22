@@ -1,7 +1,6 @@
 import { useState } from 'react'
 
 import {
-  Avatar,
   Box,
   Button,
   Link,
@@ -24,6 +23,7 @@ import {
   FormItem,
   LoginFormFieldValues,
   Navigate,
+  WAvatar,
   WImage,
 } from '../../components'
 
@@ -85,7 +85,7 @@ export const AdminLoginForm = () => {
         >
           <Navigate href="/">
             <VStack textAlign="center" w={'full'}>
-              <Avatar size="2xl" src={`/images/wsvvrijheid-logo.svg`} />
+              <WAvatar size="2xl" src={`/images/wsvvrijheid-logo.svg`} />
 
               <Text fontSize="xl" color={'blue.500'} fontWeight={900}>
                 WEES DE STEM <br />

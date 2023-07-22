@@ -3,7 +3,7 @@ import { NextSeoProps } from 'next-seo'
 import { ROUTES } from '@wsvvrijheid/config'
 import { Blog, Hashtag, Post, StrapiLocale } from '@wsvvrijheid/types'
 
-import { getImageUrl } from './getImageUrl'
+import { getMediaUrl } from './getMediaUrl'
 import { getItemLink } from './getItemLink'
 
 export const getPageSeo = (
@@ -23,8 +23,8 @@ export const getPageSeo = (
 
   const images = image && [
     {
-      url: getImageUrl(image),
-      secureUrl: getImageUrl(image),
+      url: getMediaUrl(image),
+      secureUrl: getMediaUrl(image),
       type: image.mime as string,
       width: image.width as number,
       height: image.height as number,

@@ -3,13 +3,13 @@ import { FieldValues, Path, PathValue, UseFormSetValue } from 'react-hook-form'
 import { CiImageOff } from 'react-icons/ci'
 import { IoMdCloudUpload } from 'react-icons/io'
 
-import { ASSETS_URL } from '@wsvvrijheid/config'
 import {
   Post,
   StrapiModel,
   StrapiTranslatableModel,
   StrapiUrl,
 } from '@wsvvrijheid/types'
+import { getMediaUrl } from '@wsvvrijheid/utils'
 
 import { Caps, FilePicker, VideoPlayer, WImage } from '../../components'
 
@@ -37,12 +37,7 @@ export const ModelMedia = <T extends FieldValues = FieldValues>({
   // Name can be image or avatar
   const media = (model as any)?.[(name as string) || 'image']
 
-  const modelMediaUrl = media?.url
-
-  const mediaUrl =
-    modelMediaUrl && modelMediaUrl.startsWith('http')
-      ? modelMediaUrl
-      : `${ASSETS_URL}${modelMediaUrl}`
+  const mediaUrl = getMediaUrl(media)
 
   const renderMedia = () => {
     if (isChangingImage || (isEditing && !media)) {
@@ -74,7 +69,7 @@ export const ModelMedia = <T extends FieldValues = FieldValues>({
     }
 
     if (name === 'video') {
-      return <VideoPlayer url={mediaUrl} light={model as unknown as string} />
+      return <VideoPlayer url={mediaUrl} />
     }
 
     if (url === 'api/posts' && mediaUrl && name === 'image') {
@@ -83,7 +78,7 @@ export const ModelMedia = <T extends FieldValues = FieldValues>({
           imageParams={{
             title,
             text: description as string,
-            image: mediaUrl,
+            image: media,
             ...(model as Post)?.imageParams,
           }}
         />
@@ -92,7 +87,8 @@ export const ModelMedia = <T extends FieldValues = FieldValues>({
 
     return (
       <WImage
-        src={mediaUrl}
+        bg={'gray.50'}
+        src={media}
         alt={title}
         hasZoom
         objectFit="contain"
@@ -125,7 +121,7 @@ export const ModelMedia = <T extends FieldValues = FieldValues>({
             size="lg"
             colorScheme={'blackAlpha'}
           >
-            Change Image
+            {name === 'video' ? 'Change video' : 'Change image'}
           </Button>
         </Center>
       )}
