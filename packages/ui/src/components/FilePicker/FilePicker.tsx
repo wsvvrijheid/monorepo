@@ -1,4 +1,4 @@
-import { ComponentProps, FC, useEffect, useId } from 'react'
+import { ComponentProps, FC, useEffect, useId, useMemo } from 'react'
 
 import { Stack } from '@chakra-ui/react'
 import Compressor from '@uppy/compressor'
@@ -30,7 +30,7 @@ export const FilePicker: FC<FilePickerProps> = ({
   allowedFileTypes = ['image/*', 'video/*'],
   ...props
 }) => {
-  const uppy = getUppy()
+  const uppy = useMemo(() => getUppy(), [])
 
   uppy.on('complete', result => {
     const files = result.successful.map(file => file.data)
@@ -46,7 +46,7 @@ export const FilePicker: FC<FilePickerProps> = ({
         allowedFileTypes,
       },
     })
-  }, [maxNumberOfFiles, allowedFileTypes])
+  }, [maxNumberOfFiles, allowedFileTypes, uppy])
 
   return (
     <Stack>
