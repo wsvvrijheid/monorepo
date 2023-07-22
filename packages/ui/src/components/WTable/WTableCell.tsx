@@ -56,7 +56,7 @@ export const WTableCell = <T extends StrapiModel>({
         <PopoverTrigger>
           <WAvatar
             size="md"
-            src={getMediaUrl(cellImage) || getMediaUrl(thumbnail)}
+            src={cellImage || getMediaUrl(thumbnail)}
             onError={() => setCellImage(getMediaUrl(thumbnail, true))}
           />
         </PopoverTrigger>

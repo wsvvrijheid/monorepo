@@ -1,9 +1,8 @@
-import { FC, useState } from 'react'
+import { FC } from 'react'
 
 import { SimpleGrid, Stack, Text } from '@chakra-ui/react'
 
 import { Art, User } from '@wsvvrijheid/types'
-import { getMediaUrl } from '@wsvvrijheid/utils'
 
 import { ArtCard, Container, Hero, WAvatar } from '../../components'
 
@@ -13,16 +12,13 @@ type ArtistTemplateProps = {
 }
 
 export const ArtistTemplate: FC<ArtistTemplateProps> = ({ artist, arts }) => {
-  const [imgSrc, setImgSrc] = useState(getMediaUrl(artist.avatar))
-
   return (
     <>
       <Hero>
         <Stack align="center" cursor="default" userSelect="none">
           <WAvatar
             size="lg"
-            src={imgSrc}
-            onError={() => setImgSrc(getMediaUrl(artist.avatar, true))}
+            src={artist.avatar}
             name={artist?.name || artist?.username}
           />
 

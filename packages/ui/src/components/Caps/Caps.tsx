@@ -1,5 +1,3 @@
-import { useState } from 'react'
-
 import {
   AspectRatio,
   Box,
@@ -13,8 +11,6 @@ import {
   useMergeRefs,
 } from '@chakra-ui/react'
 import { useElementSize } from 'usehooks-ts'
-
-import { getMediaUrl } from '@wsvvrijheid/utils'
 
 import { CapsProps } from './types'
 import { WImage } from '../WImage'
@@ -47,7 +43,6 @@ export const Caps = forwardRef<CapsProps, 'div'>(
     }
 
     const [divRef, { width }] = useElementSize()
-    const [fallbackSrc, setFallbackSrc] = useState<string>()
 
     const mergedRef = useMergeRefs(ref, divRef)
 
@@ -85,11 +80,9 @@ export const Caps = forwardRef<CapsProps, 'div'>(
                 objectFit={'cover'}
                 left={flip ? '0px' : `${dimensions.width - dimensions.image}px`}
                 src={
-                  fallbackSrc ||
                   image ||
                   (hasRandomImage ? 'https://picsum.photos/300/675' : undefined)
                 }
-                onError={() => setFallbackSrc(getMediaUrl(image, true))}
                 alt={''}
               />
               <chakra.svg
