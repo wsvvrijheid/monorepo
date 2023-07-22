@@ -1,7 +1,6 @@
-import { ReactNode } from 'react'
+import { ReactNode, useState } from 'react'
 
 import {
-  Avatar,
   Badge,
   Box,
   Popover,
@@ -10,11 +9,12 @@ import {
   Td,
 } from '@chakra-ui/react'
 
-import { ASSETS_URL } from '@wsvvrijheid/config'
 import { StrapiModel, UploadFile } from '@wsvvrijheid/types'
+import { getMediaUrl } from '@wsvvrijheid/utils'
 
 import { WTableCellProps } from './types'
 import { FormattedDate } from '../FormattedDate'
+import { WAvatar } from '../WAvatar'
 import { WImage } from '../WImage'
 
 export const WTableCell = <T extends StrapiModel>({
@@ -22,6 +22,8 @@ export const WTableCell = <T extends StrapiModel>({
   cellConfig,
   field,
 }: WTableCellProps<T>) => {
+  const [cellImage, setCellImage] = useState<string>()
+
   const { type, transform, componentProps, cellProps } = cellConfig
   const data = (
     typeof transform === 'function' ? transform(value as T[keyof T]) : value
@@ -52,7 +54,11 @@ export const WTableCell = <T extends StrapiModel>({
     cellContent = (
       <Popover trigger="hover" isLazy placement="right">
         <PopoverTrigger>
-          <Avatar size="md" src={`${ASSETS_URL}${thumbnail}`} />
+          <WAvatar
+            size="md"
+            src={cellImage || getMediaUrl(thumbnail)}
+            onError={() => setCellImage(getMediaUrl(thumbnail, true))}
+          />
         </PopoverTrigger>
         <PopoverContent p={0} w={'auto'} overflow={'hidden'}>
           <WImage w={'50vw'} src={image} sizes={'400px'} />

@@ -2,12 +2,12 @@ import { FieldValues } from 'react-hook-form'
 
 import { Tweet } from '@wsvvrijheid/types'
 
-import { ModelImageProps } from '../ModelForm/ModelImage'
+import { ModelMediaProps } from '../ModelForm/ModelMedia'
 
 export type TweetContentProps<T extends FieldValues = FieldValues> = Partial<
   Pick<
-    ModelImageProps<T>,
-    'isChangingImage' | 'setIsChangingImage' | 'setValue'
+    ModelMediaProps<T>,
+    'isChangingMedia' | 'toggleChangingMedia' | 'setValue'
   >
 > & {
   tweet: Tweet

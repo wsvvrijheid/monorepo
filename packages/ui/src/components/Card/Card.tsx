@@ -1,7 +1,6 @@
 import { FC } from 'react'
 
 import {
-  Avatar,
   Center,
   Heading,
   LinkBox,
@@ -10,10 +9,10 @@ import {
   Text,
 } from '@chakra-ui/react'
 
-import { ASSETS_URL } from '@wsvvrijheid/config'
 import { UploadFile } from '@wsvvrijheid/types'
 
 import { Navigate } from '../Navigate'
+import { WAvatar } from '../WAvatar'
 import { WImage } from '../WImage'
 
 interface CardProps {
@@ -44,10 +43,10 @@ export const Card: FC<CardProps> = ({
         <Center overflow="hidden">
           {/* TODO Create shared image component */}
           {rounded ? (
-            <Avatar
+            <WAvatar
               objectFit="cover"
               boxSize={48}
-              src={`${ASSETS_URL}${image}`}
+              src={image}
               transition="transform 0.5s ease-in-out"
               _groupHover={{ transform: 'scale(1.1)' }}
             />

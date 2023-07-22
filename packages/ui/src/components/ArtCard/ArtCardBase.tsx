@@ -1,7 +1,6 @@
 import { FC, useEffect, useState } from 'react'
 
 import {
-  Avatar,
   Badge,
   Box,
   HStack,
@@ -16,7 +15,6 @@ import { useRouter } from 'next/router'
 import { AiFillHeart } from 'react-icons/ai'
 import { FaExternalLinkSquareAlt } from 'react-icons/fa'
 
-import { ASSETS_URL } from '@wsvvrijheid/config'
 import {
   useDeleteModel,
   usePublishModel,
@@ -29,6 +27,7 @@ import { ArtCardImage } from './ArtCardImage'
 import { ArtActionType, ArtCardBaseProps } from './types'
 import { ArtModal } from '../ArtModal'
 import { Navigate } from '../Navigate'
+import { WAvatar } from '../WAvatar'
 
 export const ArtCardBase: FC<ArtCardBaseProps> = ({
   art,
@@ -228,10 +227,10 @@ export const ArtCardBase: FC<ArtCardBaseProps> = ({
                 rounded="lg"
                 w="max-content"
               >
-                <Avatar
+                <WAvatar
                   size="xs"
                   name={artistName || artistUsername}
-                  src={`${ASSETS_URL}${artistAvatar}`}
+                  src={artistAvatar}
                 />
                 <Text noOfLines={1}>{artistName || artistUsername}</Text>
               </HStack>
