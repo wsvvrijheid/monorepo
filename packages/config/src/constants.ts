@@ -11,7 +11,7 @@ const assetUrls: Record<string, string> = {
 
 export const ADMIN_MODE = process.env['NEXT_PUBLIC_ADMIN_MODE'] === 'true'
 export const API_URL = process.env['NEXT_PUBLIC_API_URL'] as string
-export const ASSETS_URL = process.env['NEXT_PUBLIC_ASSETS_URL'] as string
+export const ASSETS_URL = assetUrls.production
 export const ASSETS_CALLBACK_URL = assetUrls[VERCEL_ENV] as string
 export const COMMENT_TOKEN = process.env['NEXT_PUBLIC_COMMENT_TOKEN'] as string
 export const EMAIL_RECEIVER = process.env[
