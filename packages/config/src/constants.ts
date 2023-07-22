@@ -6,7 +6,7 @@ export const VERCEL_ENV = process.env['VERCEL_ENV'] || 'development'
 const assetUrls: Record<string, string> = {
   development: 'http://localhost:1337',
   production: 'https://api.wsvvrijheid.nl',
-  staging: 'https://wsvv-api-staging.onrender.com',
+  preview: 'https://wsvv-api-staging.onrender.com',
 }
 
 export const ADMIN_MODE = process.env['NEXT_PUBLIC_ADMIN_MODE'] === 'true'

@@ -1,7 +1,7 @@
 import { FC, useState } from 'react'
 
 import { AspectRatio, Box, useBoolean } from '@chakra-ui/react'
-import { FaPlayCircle } from 'react-icons/fa'
+import { FaPauseCircle, FaPlayCircle } from 'react-icons/fa'
 import ReactPlayer from 'react-player'
 
 import { getMediaUrl } from '@wsvvrijheid/utils'
@@ -17,26 +17,44 @@ const VideoPlayer: FC<VideoPlayerProps> = ({ ratio = 16 / 9, url, light }) => {
   const [fallbackUrl, setFallbackUrl] = useState<string>()
 
   return (
-    <AspectRatio
-      ratio={ratio}
-      w="full"
-      rounded={'lg'}
-      overflow="hidden"
-      onClick={setIsPlaying.toggle}
-    >
-      <ReactPlayer
-        playing={isPlaying}
-        url={fallbackUrl || url}
-        width="100%"
-        height="100%"
-        light={light}
-        onError={() => {
-          const fallback = getMediaUrl(url, true)
-          setFallbackUrl(fallback)
-        }}
-        playIcon={<Box boxSize={12} color="whiteAlpha.700" as={FaPlayCircle} />}
+    <Box pos={'relative'} role={'group'}>
+      <AspectRatio
+        ratio={ratio}
+        w="full"
+        rounded={'lg'}
+        overflow="hidden"
+        onClick={setIsPlaying.toggle}
+        cursor="pointer"
+      >
+        <ReactPlayer
+          playing={isPlaying}
+          url={fallbackUrl || url}
+          width="100%"
+          height="100%"
+          light={light}
+          onError={() => {
+            const fallback = getMediaUrl(url, true)
+            setFallbackUrl(fallback)
+          }}
+          // playIcon={}
+        />
+      </AspectRatio>
+      <Box
+        visibility={'hidden'}
+        _groupHover={{ visibility: 'visible' }}
+        boxSize={12}
+        color="whiteAlpha.700"
+        as={isPlaying ? FaPauseCircle : FaPlayCircle}
+        pos={'absolute'}
+        top={'50%'}
+        left={'50%'}
+        transform={'translate(-50%, -50%)'}
+        transition={'all .2s ease-in-out'}
+        // Pointer events are disabled so that the video can be played
+        // when clicking on the play icon
+        pointerEvents={'none'}
       />
-    </AspectRatio>
+    </Box>
   )
 }
 
