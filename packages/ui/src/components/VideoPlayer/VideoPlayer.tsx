@@ -40,8 +40,8 @@ const VideoPlayer: FC<VideoPlayerProps> = ({ ratio = 16 / 9, url, light }) => {
         />
       </AspectRatio>
       <Box
-        visibility={'hidden'}
-        _groupHover={{ visibility: 'visible' }}
+        opacity={0}
+        _groupHover={{ opacity: 1 }}
         boxSize={12}
         color="whiteAlpha.700"
         as={isPlaying ? FaPauseCircle : FaPlayCircle}
@@ -49,7 +49,7 @@ const VideoPlayer: FC<VideoPlayerProps> = ({ ratio = 16 / 9, url, light }) => {
         top={'50%'}
         left={'50%'}
         transform={'translate(-50%, -50%)'}
-        transition={'all .2s ease-in-out'}
+        transition={'opacity .2s ease-in-out'}
         // Pointer events are disabled so that the video can be played
         // when clicking on the play icon
         pointerEvents={'none'}

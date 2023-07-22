@@ -1,4 +1,4 @@
-import { ASSETS_CALLBACK_URL, ASSETS_URL } from '@wsvvrijheid/config'
+import { ASSETS_FALLBACK_URL, ASSETS_URL } from '@wsvvrijheid/config'
 import { FileFormats, UploadFile } from '@wsvvrijheid/types'
 
 const getFormattedMedia = (media: UploadFile, size?: keyof FileFormats) => {
@@ -20,7 +20,7 @@ export const getMediaUrl = (
     return ''
   }
 
-  const prefix = fallback ? ASSETS_CALLBACK_URL : ASSETS_URL
+  const prefix = fallback ? ASSETS_FALLBACK_URL : ASSETS_URL
 
   if (typeof src === 'string') {
     if ((src as string).startsWith('/uploads')) {
@@ -28,7 +28,7 @@ export const getMediaUrl = (
     }
 
     if (fallback) {
-      return src?.replace(ASSETS_URL, ASSETS_CALLBACK_URL)
+      return src?.replace(ASSETS_URL, ASSETS_FALLBACK_URL)
     }
 
     return src
@@ -39,7 +39,7 @@ export const getMediaUrl = (
   }
 
   if (fallback) {
-    return src.url?.replace(ASSETS_URL, ASSETS_CALLBACK_URL)
+    return src.url?.replace(ASSETS_URL, ASSETS_FALLBACK_URL)
   }
 
   return src.url

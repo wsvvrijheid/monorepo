@@ -1,10 +1,10 @@
 export const SITE_URL =
   process.env['NEXT_PUBLIC_SITE_URL'] || `https://${process.env['VERCEL_URL']}`
 
-export const VERCEL_ENV = process.env['VERCEL_ENV'] || 'development'
+export const VERCEL_ENV = process.env['VERCEL_ENV']
 
 const assetUrls: Record<string, string> = {
-  development: 'http://localhost:1337',
+  development: 'https://wsvv-api-staging.onrender.com',
   production: 'https://api.wsvvrijheid.nl',
   preview: 'https://wsvv-api-staging.onrender.com',
 }
@@ -12,7 +12,7 @@ const assetUrls: Record<string, string> = {
 export const ADMIN_MODE = process.env['NEXT_PUBLIC_ADMIN_MODE'] === 'true'
 export const API_URL = process.env['NEXT_PUBLIC_API_URL'] as string
 export const ASSETS_URL = assetUrls.production
-export const ASSETS_CALLBACK_URL = assetUrls[VERCEL_ENV] as string
+export const ASSETS_FALLBACK_URL = VERCEL_ENV ? assetUrls[VERCEL_ENV] : API_URL
 export const COMMENT_TOKEN = process.env['NEXT_PUBLIC_COMMENT_TOKEN'] as string
 export const EMAIL_RECEIVER = process.env[
   'NEXT_PUBLIC_EMAIL_RECEIVER'
