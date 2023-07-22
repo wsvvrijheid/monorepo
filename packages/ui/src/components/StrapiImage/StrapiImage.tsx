@@ -48,6 +48,7 @@ export const StrapiImage: FC<StrapiImageProps> = ({
     : getMediaUrl(src)
 
   const isFile = typeof src !== 'string'
+  const isSvg = isFile ? src.mime.includes('svg') : src.includes('.svg')
 
   return (
     <Image
@@ -57,10 +58,11 @@ export const StrapiImage: FC<StrapiImageProps> = ({
       // We use fallback only in development and staging
       // Because when we import the database from production
       // The images are not available in the staging environment or locally
-      {...(isFile && {
-        loader: ({ width }) =>
-          mapStrapiImage(width, src as UploadFile, fallback),
-      })}
+      {...(isFile &&
+        !isSvg && {
+          loader: ({ width }) =>
+            mapStrapiImage(width, src as UploadFile, fallback),
+        })}
       sizes={sizes || '100vw'}
       unoptimized
       onError={() => {
