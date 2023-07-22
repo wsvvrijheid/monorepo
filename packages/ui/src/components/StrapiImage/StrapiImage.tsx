@@ -1,12 +1,12 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 
 import Image, { ImageProps } from 'next/image'
 
-import { ASSETS_URL } from '@wsvvrijheid/config'
 import { UploadFile } from '@wsvvrijheid/types'
+import { getImageUrl } from '@wsvvrijheid/utils'
 
 type StrapiImageProps = Omit<ImageProps, 'src'> & {
-  image: UploadFile
+  src: UploadFile | string
 }
 
 const mapStrapiImage = (width: number, image: UploadFile) => {
@@ -28,29 +28,34 @@ const mapStrapiImage = (width: number, image: UploadFile) => {
       : prev
   }, images[0])
 
-  if (!imageToUse)
-    return image.url.startsWith('http') ? image.url : ASSETS_URL + image.url
-
-  return imageToUse.url.startsWith('http')
-    ? imageToUse.url
-    : ASSETS_URL + imageToUse.url
+  return getImageUrl(imageToUse.url) || getImageUrl(image)
 }
 
 export const StrapiImage: FC<StrapiImageProps> = ({
-  image,
+  src,
   alt,
   sizes,
   unoptimized,
   ...rest
 }) => {
+  const [imgSrc, setImgSrc] = useState(getImageUrl(src))
+
+  const isFile = typeof src !== 'string'
+  const isSvg = isFile ? src.url?.includes('.svg') : src?.includes('.svg')
+
   return (
     <Image
-      src={image.url.startsWith('http') ? image.url : ASSETS_URL + image.url}
-      alt={alt || image.name}
+      src={imgSrc}
+      alt={alt || (src as UploadFile).name}
       fill
-      loader={({ width }) => mapStrapiImage(width, image)}
+      {...(isFile && {
+        loader: ({ width }) => mapStrapiImage(width, src as UploadFile),
+      })}
       sizes={sizes || '100vw'}
-      unoptimized={image.url.includes('.svg') ? true : unoptimized}
+      unoptimized={isSvg || unoptimized}
+      onError={() => {
+        setImgSrc(getImageUrl(src, true))
+      }}
       {...rest}
     />
   )

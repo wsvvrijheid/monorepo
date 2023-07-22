@@ -1,29 +1,27 @@
-import { ASSETS_URL, SITE_URL } from '@wsvvrijheid/config'
-import { FileFormatsType, UploadFile } from '@wsvvrijheid/types'
+import { ASSETS_CALLBACK_URL, ASSETS_URL } from '@wsvvrijheid/config'
+import { UploadFile } from '@wsvvrijheid/types'
 
 export const getImageUrl = (
-  image: UploadFile | string,
-  format?: FileFormatsType,
+  src?: string | UploadFile | null,
+  callback?: boolean,
 ) => {
-  if (!image) return ''
+  if (!src) {
+    console.warn('No src provided to WImage')
 
-  if (typeof image === 'string') {
-    if (
-      image?.startsWith('http') ||
-      image?.startsWith('data:') ||
-      image?.startsWith('blob:')
-    ) {
-      return image
-    }
-
-    if (image?.startsWith('/uploads')) {
-      return `${ASSETS_URL}${image}`
-    }
-
-    return `${SITE_URL}${image}`
+    return ''
   }
 
-  const src = format ? image.formats?.[format]?.url || image.url : image.url
+  if (typeof src === 'string') {
+    if (src.startsWith('/uploads')) {
+      return (callback ? ASSETS_CALLBACK_URL : ASSETS_URL) + src
+    }
 
-  return `${ASSETS_URL}${src}`
+    return src
+  }
+
+  if (src.url?.startsWith('/uploads')) {
+    return (callback ? ASSETS_CALLBACK_URL : ASSETS_URL) + src?.url
+  }
+
+  return src.url
 }

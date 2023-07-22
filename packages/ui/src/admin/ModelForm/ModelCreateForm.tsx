@@ -58,6 +58,7 @@ export const ModelCreateForm = <T extends StrapiModel>({
   )
 
   const defaultValues = useDefaultValues(model as T, fields)
+
   const formProps = useForm<InferType<typeof schema>>({
     resolver: yupResolver(schema),
     mode: 'all',
