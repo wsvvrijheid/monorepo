@@ -108,7 +108,6 @@ export const ModelMedia = <T extends FieldValues = FieldValues>({
       {isEditing && media && !isChangingImage && (
         <Center
           pos="absolute"
-          zIndex={1}
           top={0}
           left={0}
           boxSize="full"
