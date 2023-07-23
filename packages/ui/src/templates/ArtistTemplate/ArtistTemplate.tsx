@@ -1,11 +1,10 @@
 import { FC } from 'react'
 
-import { Avatar, SimpleGrid, Stack, Text } from '@chakra-ui/react'
+import { SimpleGrid, Stack, Text } from '@chakra-ui/react'
 
-import { ASSETS_URL } from '@wsvvrijheid/config'
 import { Art, User } from '@wsvvrijheid/types'
 
-import { ArtCard, Container, Hero } from '../../components'
+import { ArtCard, Container, Hero, WAvatar } from '../../components'
 
 type ArtistTemplateProps = {
   artist: User
@@ -17,9 +16,9 @@ export const ArtistTemplate: FC<ArtistTemplateProps> = ({ artist, arts }) => {
     <>
       <Hero>
         <Stack align="center" cursor="default" userSelect="none">
-          <Avatar
+          <WAvatar
             size="lg"
-            src={`${ASSETS_URL}${artist?.avatar?.formats?.thumbnail?.url}`}
+            src={artist.avatar}
             name={artist?.name || artist?.username}
           />
 

@@ -1,6 +1,6 @@
 import { FC } from 'react'
 
-import { Avatar, Button, Heading, Spacer, Stack, Text } from '@chakra-ui/react'
+import { Button, Heading, Spacer, Stack, Text } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { FaChevronRight } from 'react-icons/fa'
@@ -9,6 +9,7 @@ import { ASSETS_URL } from '@wsvvrijheid/config'
 import { Platform } from '@wsvvrijheid/types'
 
 import { Navigate } from '../Navigate'
+import { WAvatar } from '../WAvatar'
 
 export interface PlatformListProps {
   platforms: Platform[]
@@ -32,7 +33,7 @@ export const PlatformList: FC<PlatformListProps> = ({ platforms }) => {
           shadow="base"
         >
           {/* TODO Create image component to handle internal/external image paths */}
-          <Avatar size="2xl" src={`${ASSETS_URL}${platform.image?.url}`} />
+          <WAvatar size="2xl" src={`${ASSETS_URL}${platform.image?.url}`} />
           <Stack align={{ base: 'center', lg: 'start' }}>
             <Heading textAlign="center" size="md" as="h3" fontWeight={900}>
               {platform[`name_${locale}`]}

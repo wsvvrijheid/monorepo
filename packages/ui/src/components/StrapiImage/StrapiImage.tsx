@@ -1,21 +1,25 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 
 import Image, { ImageProps } from 'next/image'
 
-import { ASSETS_URL } from '@wsvvrijheid/config'
 import { UploadFile } from '@wsvvrijheid/types'
+import { getMediaUrl } from '@wsvvrijheid/utils'
 
 type StrapiImageProps = Omit<ImageProps, 'src'> & {
-  image: UploadFile
+  src: UploadFile | string
 }
 
-const mapStrapiImage = (width: number, image: UploadFile) => {
+const mapStrapiImage = (
+  width: number,
+  image: UploadFile,
+  fallback: boolean,
+) => {
   const images = []
 
   if (image.formats) {
     const formats = Object.values(image.formats)
       .filter(f => !!f)
-      .map(({ url, width }) => ({ url, width }))
+      .map(({ url, width }) => ({ url: getMediaUrl(url, fallback), width }))
       .sort((a, b) => a.width - b.width)
 
     images.unshift(...formats)
@@ -28,29 +32,42 @@ const mapStrapiImage = (width: number, image: UploadFile) => {
       : prev
   }, images[0])
 
-  if (!imageToUse)
-    return image.url.startsWith('http') ? image.url : ASSETS_URL + image.url
-
-  return imageToUse.url.startsWith('http')
-    ? imageToUse.url
-    : ASSETS_URL + imageToUse.url
+  return getMediaUrl(imageToUse.url, fallback) || getMediaUrl(image, fallback)
 }
 
 export const StrapiImage: FC<StrapiImageProps> = ({
-  image,
+  src,
   alt,
   sizes,
-  unoptimized,
   ...rest
 }) => {
+  const [fallback, setFallback] = useState<boolean>(false)
+
+  const url = fallback
+    ? getMediaUrl(src, true) || getMediaUrl(src)
+    : getMediaUrl(src)
+
+  const isFile = typeof src !== 'string'
+  const isSvg = isFile ? src.mime.includes('svg') : src.includes('.svg')
+
   return (
     <Image
-      src={image.url.startsWith('http') ? image.url : ASSETS_URL + image.url}
-      alt={alt || image.name}
+      src={url}
+      alt={alt || (src as UploadFile).name}
       fill
-      loader={({ width }) => mapStrapiImage(width, image)}
+      // We use fallback only in development and staging
+      // Because when we import the database from production
+      // The images are not available in the staging environment or locally
+      {...(isFile &&
+        !isSvg && {
+          loader: ({ width }) =>
+            mapStrapiImage(width, src as UploadFile, fallback),
+        })}
       sizes={sizes || '100vw'}
-      unoptimized={image.url.includes('.svg') ? true : unoptimized}
+      unoptimized
+      onError={() => {
+        setFallback(true)
+      }}
       {...rest}
     />
   )

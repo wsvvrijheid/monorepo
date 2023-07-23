@@ -16,12 +16,13 @@ export const FormLocaleSwitcher = <T extends StrapiTranslatableModel>({
   return (
     <ButtonGroup>
       {models?.map(model => {
-        const href = slug
-          ? `/${slug}/${model.id}`
-          : {
-              pathname: router.pathname,
-              query: { ...router.query, id: model.id },
-            }
+        const href =
+          slug && router.pathname !== '/translates'
+            ? `/${slug}/${model.id}`
+            : {
+                pathname: router.pathname,
+                query: { ...router.query, id: model.id },
+              }
 
         return (
           <Button

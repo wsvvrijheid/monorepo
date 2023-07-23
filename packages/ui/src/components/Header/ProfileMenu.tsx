@@ -1,7 +1,6 @@
 import { FC } from 'react'
 
 import {
-  Avatar,
   Button,
   DarkMode,
   Menu,
@@ -19,6 +18,7 @@ import { useAuthContext } from '@wsvvrijheid/context'
 import { ProfileMenuProps } from './types'
 import { useScroll } from '../../hooks'
 import { Navigate } from '../Navigate'
+import { WAvatar } from '../WAvatar'
 
 export const ProfileMenu: FC<ProfileMenuProps> = ({ isDark, menu }) => {
   const isScrolled = useScroll()
@@ -53,7 +53,7 @@ export const ProfileMenu: FC<ProfileMenuProps> = ({ isDark, menu }) => {
   return (
     <Menu placement="bottom">
       <MenuButton>
-        <Avatar
+        <WAvatar
           boxSize={{ base: 10, lg: 12 }}
           src={`${ASSETS_URL}${user?.avatar}`}
           name={user?.name || user?.username}

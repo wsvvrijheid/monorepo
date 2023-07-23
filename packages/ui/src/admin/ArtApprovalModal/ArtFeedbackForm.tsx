@@ -1,12 +1,12 @@
 import { FC, useState } from 'react'
 
-import { Avatar, Button, HStack, Stack, Text, Textarea } from '@chakra-ui/react'
+import { Button, HStack, Stack, Text, Textarea } from '@chakra-ui/react'
 import { HiOutlineCheck, HiOutlineX, HiPencil } from 'react-icons/hi'
 
 import { useArtFeedbackMutation } from '@wsvvrijheid/services'
 
 import { ArtFeedbackFormTypes } from './types'
-import { WConfirm, WConfirmProps } from '../../components'
+import { WAvatar, WConfirm, WConfirmProps } from '../../components'
 import { useHasPermission } from '../../hooks'
 
 export const ArtFeedbackForm: FC<ArtFeedbackFormTypes> = ({
@@ -87,7 +87,7 @@ export const ArtFeedbackForm: FC<ArtFeedbackFormTypes> = ({
           Give Feedback
         </Text>
         <HStack align="start" spacing={{ base: 2, lg: 4 }}>
-          <Avatar size="sm" src={editor.avatar} name={editor.name} />
+          <WAvatar size="sm" src={editor.avatar} name={editor.name} />
 
           <Stack flex={1} spacing={{ base: 2, lg: 4 }}>
             <Textarea

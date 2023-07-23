@@ -1,12 +1,13 @@
 import { NextSeoProps } from 'next-seo'
 
-import { ASSETS_URL, ROUTES } from '@wsvvrijheid/config'
-import { Hashtag, Post, StrapiLocale } from '@wsvvrijheid/types'
+import { ROUTES } from '@wsvvrijheid/config'
+import { Blog, Hashtag, Post, StrapiLocale } from '@wsvvrijheid/types'
 
+import { getMediaUrl } from './getMediaUrl'
 import { getItemLink } from './getItemLink'
 
 export const getPageSeo = (
-  data: Hashtag | Post,
+  data: Hashtag | Post | Blog,
   locale: StrapiLocale,
   type: keyof typeof ROUTES | 'post',
 ): NextSeoProps => {
@@ -14,16 +15,16 @@ export const getPageSeo = (
 
   const page = data as Hashtag
   const post = data as Post
+  const blog = data as Blog
 
   const title = page.title ?? post.hashtag?.title ?? ''
   const description = page.description ?? post.description ?? ''
   const image = data.image
-  const adminUrl = ASSETS_URL as string
 
   const images = image && [
     {
-      url: adminUrl + image.url,
-      secureUrl: adminUrl + image.url,
+      url: getMediaUrl(image),
+      secureUrl: getMediaUrl(image),
       type: image.mime as string,
       width: image.width as number,
       height: image.height as number,
@@ -39,6 +40,14 @@ export const getPageSeo = (
       description,
       url,
       images,
+      ...(blog.author && {
+        type: 'article',
+        article: {
+          publishedTime: blog.publishedAt as string,
+          modifiedTime: blog.updatedAt as string,
+          authors: [blog.author.name || blog.author.username || ''],
+        },
+      }),
     },
   }
 }
