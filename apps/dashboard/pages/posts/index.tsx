@@ -51,9 +51,6 @@ const PostsPage: FC<PageProps> = ({ seo }) => {
     locale,
     includeDrafts: true,
     fields: ['id', 'title'],
-    queryOptions: {
-      enabled: hashtagIds.length > 0,
-    },
   })
 
   useEffect(() => setCurrentPage(1), [hashtagIds])
