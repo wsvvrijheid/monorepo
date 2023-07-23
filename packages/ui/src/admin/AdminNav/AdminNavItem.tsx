@@ -48,6 +48,9 @@ export const AdminNavItem: FC<AdminNavItemProps> = ({
           _hover: { color: 'primary.400', bg: 'blackAlpha.50' },
         })}
         isDisabled={!submenu && isMenuLinkActive}
+        _disabled={{
+          color: 'primary.500',
+        }}
         {...(submenu && {
           onClick: setOpen.toggle,
           rightIcon: (

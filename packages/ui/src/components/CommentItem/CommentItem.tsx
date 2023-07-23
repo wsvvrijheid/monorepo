@@ -1,10 +1,12 @@
 import { FC } from 'react'
 
-import { Avatar, HStack, Stack, Text } from '@chakra-ui/react'
+import { HStack, Stack, Text } from '@chakra-ui/react'
 import { formatDistanceStrict } from 'date-fns'
 
 import { ASSETS_URL } from '@wsvvrijheid/config'
 import { Comment } from '@wsvvrijheid/types'
+
+import { WAvatar } from '../WAvatar'
 
 interface CommentItemProps {
   comment: Comment
@@ -15,7 +17,7 @@ export const CommentItem: FC<CommentItemProps> = ({ comment }) => {
 
   return (
     <HStack align="start">
-      <Avatar
+      <WAvatar
         size="sm"
         src={`${ASSETS_URL}${comment.user?.avatar?.url}`}
         name={name}

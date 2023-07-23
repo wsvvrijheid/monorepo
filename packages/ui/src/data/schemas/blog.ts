@@ -7,7 +7,7 @@ import { FormFields } from '../../admin'
 
 export const blogSchema = yup.object({
   title: yup.string().required('Title is required'),
-  desription: yup.string().required('Description is required'),
+  description: yup.string().required('Description is required'),
   content: yup.string().required('Content is required'),
   categories: yupMultiSelect,
   tags: yupMultiSelect,

@@ -131,8 +131,8 @@ export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
                 <TweetContent<CreateTweetFormFieldValues>
                   horizontal
                   tweet={originalTweet as Tweet}
-                  isChangingImage={isChangingImage}
-                  setIsChangingImage={setIsChangingImage}
+                  isChangingMedia={isChangingImage}
+                  toggleChangingMedia={setIsChangingImage.toggle}
                   setValue={setValue}
                 />
                 <FormItem<CreateTweetFormFieldValues>

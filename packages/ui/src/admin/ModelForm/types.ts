@@ -67,12 +67,8 @@ export type ModelCreateFormBodyProps<T extends StrapiModel> = {
   activeOption?: string
   formProps: UseFormReturn
   model?: Partial<T>
-  isChangingImage: boolean
-  setIsChangingImage: {
-    on: () => void
-    off: () => void
-    toggle: () => void
-  }
+  isChangingMedia: boolean
+  toggleChangingMedia: () => void
 }
 
 export type ModelEditFormProps<T extends StrapiModel> = {

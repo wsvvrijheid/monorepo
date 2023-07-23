@@ -1,7 +1,6 @@
 import { FC } from 'react'
 
 import {
-  Avatar,
   Box,
   ButtonGroup,
   Divider,
@@ -20,6 +19,7 @@ import { FaPlus, FaTimes } from 'react-icons/fa'
 import { MentionUserData } from '@wsvvrijheid/types'
 import { formatNumber } from '@wsvvrijheid/utils'
 
+import { WAvatar } from '../../components'
 import { useHashtagContext } from '../HashtagProvider'
 
 interface MentionListItemProps {
@@ -57,7 +57,7 @@ const MentionListItem: FC<MentionListItemProps> = ({
           opacity={isAdded ? 0.5 : 1}
         >
           <HStack flex="1" fontSize="sm">
-            <Avatar
+            <WAvatar
               name={data.screen_name}
               src={data.profile_image_url_https}
               size="sm"
@@ -114,7 +114,7 @@ const MentionListItem: FC<MentionListItemProps> = ({
         textAlign="center"
       >
         <VStack w="full" fontSize="sm">
-          <Avatar
+          <WAvatar
             name={data.screen_name}
             size="lg"
             src={data.profile_image_url_https}

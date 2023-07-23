@@ -2,10 +2,8 @@ import { FC } from 'react'
 
 import { GetStaticPropsContext } from 'next'
 
-import {
-  getModelStaticPaths,
-  getPlatformStaticProps,
-} from '@wsvvrijheid/services'
+import { getModelStaticPaths } from '@wsvvrijheid/services'
+import { getPlatformStaticProps } from '@wsvvrijheid/services/src/platform/getStaticProps'
 import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import { StrapiLocale } from '@wsvvrijheid/types'
 import { PlatformTemplate, PlatformTemplateProps } from '@wsvvrijheid/ui'

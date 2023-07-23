@@ -1,5 +1,5 @@
 import { Box, SimpleGrid, Stack, Text } from '@chakra-ui/react'
-import { FieldValues } from 'react-hook-form'
+import { FieldValues, Path } from 'react-hook-form'
 import twitterText from 'twitter-text'
 
 import { ASSETS_URL } from '@wsvvrijheid/config'
@@ -7,13 +7,13 @@ import { RecommendedTweet, StrapiModel } from '@wsvvrijheid/types'
 
 import { TweetContentProps } from './types'
 import { VideoPlayer, WImage } from '../../components'
-import { ModelImage } from '../ModelForm/ModelImage'
+import { ModelMedia } from '../ModelForm/ModelMedia'
 
 export const TweetContent = <T extends FieldValues>({
   tweet,
   horizontal,
-  isChangingImage,
-  setIsChangingImage,
+  isChangingMedia,
+  toggleChangingMedia,
   setValue,
 }: TweetContentProps<T>) => {
   if (!tweet) return null
@@ -25,6 +25,10 @@ export const TweetContent = <T extends FieldValues>({
     tweet.image && tweet.image.startsWith('http')
       ? tweet.image
       : `${ASSETS_URL}${tweet.image}`
+  const videoUrl =
+    tweet.video && tweet.video.startsWith('http')
+      ? tweet.video
+      : `${ASSETS_URL}${tweet.video}`
 
   return (
     <Stack spacing={4}>
@@ -38,17 +42,19 @@ export const TweetContent = <T extends FieldValues>({
           }}
         />
         <Box boxSize={'full'}>
-          {setValue && isChangingImage != null && setIsChangingImage ? (
-            <ModelImage
+          {setValue && isChangingMedia && toggleChangingMedia ? (
+            <ModelMedia
               isEditing={true}
               model={
                 {
                   image: { url: imageUrl || originalTweetUrl },
+                  video: { url: videoUrl },
                 } as unknown as StrapiModel
               }
               setValue={setValue}
-              isChangingImage={tweet?.image ? isChangingImage : true}
-              setIsChangingImage={setIsChangingImage}
+              isChangingMedia={tweet?.image ? isChangingMedia : true}
+              toggleChangingMedia={toggleChangingMedia}
+              name={(tweet?.video ? 'video' : 'image') as Path<T>}
             />
           ) : (
             <>
