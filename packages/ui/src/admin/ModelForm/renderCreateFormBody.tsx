@@ -16,7 +16,7 @@ import { capitalize } from 'lodash'
 
 import { Post, StrapiModel } from '@wsvvrijheid/types'
 
-import { ModelImage } from './ModelImage'
+import { ModelMedia } from './ModelMedia'
 import { ModelSelect } from './ModelSelect'
 import { ModelCreateFormBodyProps } from './types'
 import { FormItem, MdFormItem, VideoPlayer } from '../../components'
@@ -26,8 +26,8 @@ export const renderCreateFormBody = <T extends StrapiModel>({
   activeOption,
   formProps,
   model,
-  isChangingImage,
-  setIsChangingImage,
+  isChangingMedia,
+  toggleChangingMedia,
 }: ModelCreateFormBodyProps<T>) => {
   const {
     register,
@@ -79,13 +79,13 @@ export const renderCreateFormBody = <T extends StrapiModel>({
           <FormLabel fontSize={'sm'} fontWeight={600}>
             {label}
           </FormLabel>
-          <ModelImage
+          <ModelMedia
             isEditing={!!postModel?.video?.url}
             model={model as T}
             setValue={setValue}
             name={field.name as string}
-            isChangingImage={isChangingImage}
-            setIsChangingImage={setIsChangingImage}
+            isChangingMedia={isChangingMedia}
+            toggleChangingMedia={toggleChangingMedia}
           />
           <FormErrorMessage>
             {errors?.[field.name]?.message as string}

@@ -18,8 +18,7 @@ import { useRouter } from 'next/router'
 import { appWithTranslation } from 'next-i18next'
 import { DefaultSeo } from 'next-seo'
 
-import { defaultSeo, themes } from '@wsvvrijheid/config'
-import { i18nConfig } from '@wsvvrijheid/config'
+import { defaultSeo, i18nConfig, themes } from '@wsvvrijheid/config'
 import { AuthProvider } from '@wsvvrijheid/context'
 
 const theme = merge(themes.admin, {
@@ -39,6 +38,8 @@ const theme = merge(themes.admin, {
 const { ToastContainer } = createStandaloneToast()
 
 const MyApp: FC<AppProps> = ({ Component, pageProps }) => {
+  // TODO: Remove this
+
   const [queryClient] = useState(
     () =>
       new QueryClient({

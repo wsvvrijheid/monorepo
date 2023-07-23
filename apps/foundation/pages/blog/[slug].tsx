@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next/types'
 import { serialize } from 'next-mdx-remote/serialize'
 
-import { ASSETS_URL, SITE_URL } from '@wsvvrijheid/config'
+import { SITE_URL } from '@wsvvrijheid/config'
 import {
   getAuthorBlogs,
   getBlogBySlug,
@@ -17,6 +17,7 @@ import {
 import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import { Blog, StrapiLocale } from '@wsvvrijheid/types'
 import { BlogDetail, Container } from '@wsvvrijheid/ui'
+import { getPageSeo } from '@wsvvrijheid/utils'
 
 import { Layout } from '../../components'
 
@@ -80,43 +81,10 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
 
   if (!blog) return { notFound: true }
 
-  const title = blog?.title || ''
-  const description = blog?.description || ''
-  const adminUrl = ASSETS_URL
-  const siteUrl = SITE_URL
-  const image = blog.image
-  const url = `${siteUrl}/${locale}/blog/${locale}`
-
   const authorBlogs =
     (await getAuthorBlogs(locale, blog?.author?.id as number, blog.id)) || []
 
-  const seo = {
-    title,
-    description,
-    openGraph: {
-      title,
-      description,
-      type: 'article',
-      url,
-      article: {
-        publishedTime: blog.publishedAt as string,
-        modifiedTime: blog.updatedAt as string,
-        authors: [blog?.author?.name || blog?.author?.username || ''],
-      },
-      images: image
-        ? [
-            {
-              url: adminUrl + image?.url,
-              secureUrl: adminUrl + image?.url,
-              type: image.mime,
-              width: image.width,
-              height: image.height,
-              alt: title,
-            },
-          ]
-        : [],
-    },
-  }
+  const seo = getPageSeo(blog, locale, 'blog')
 
   const source = await serialize(blog?.content || '')
 

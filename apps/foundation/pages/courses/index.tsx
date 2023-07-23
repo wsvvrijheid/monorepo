@@ -4,11 +4,12 @@ import { Box, Heading, SimpleGrid, Stack, Text } from '@chakra-ui/react'
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { useRouter } from 'next/router'
 
-import { ASSETS_URL, COURSES } from '@wsvvrijheid/config'
+import { COURSES } from '@wsvvrijheid/config'
 import { strapiRequest } from '@wsvvrijheid/lib'
 import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import { Course, StrapiLocale } from '@wsvvrijheid/types'
 import { AcademyCard, Container, Hero } from '@wsvvrijheid/ui'
+import { getMediaUrl } from '@wsvvrijheid/utils'
 
 import { Layout } from '../../components'
 
@@ -51,7 +52,7 @@ const Platforms: FC<CoursesProps> = ({ title, courses }) => {
                 <AcademyCard
                   key={course?.id}
                   title={title}
-                  image={ASSETS_URL + course?.image?.url}
+                  image={getMediaUrl(course?.image)}
                   href={`/courses/${course?.slug}`}
                   description={description}
                 />

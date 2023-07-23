@@ -28,19 +28,15 @@ export const getItemLink = (
         return null
       }
       itemUrl = `/${locale}/${getMainPageLink('hashtag')}/${post.hashtag
-        ?.slug}/${post.id}`
+        ?.slug}?id=${post.id}`
       break
-    case 'hashtag':
+    default:
       if (!hashtag.slug) {
         console.error('Missing slug for post:', type, hashtag)
 
         return null
       }
-      itemUrl = `/${locale}/${getMainPageLink('hashtag')}/${hashtag?.slug}`
-      break
-    default:
-      console.error('Missing slug for item:', type, item)
-      itemUrl = null
+      itemUrl = `/${locale}/${getMainPageLink(type)}/${hashtag?.slug}`
       break
   }
 

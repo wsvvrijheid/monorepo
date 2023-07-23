@@ -1,7 +1,6 @@
 import { useEffect } from 'react'
 
 import {
-  Avatar,
   Button,
   HStack,
   IconButton,
@@ -12,8 +11,7 @@ import {
   VStack,
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { useTranslation } from 'next-i18next'
-import { TFunction } from 'next-i18next'
+import { TFunction, useTranslation } from 'next-i18next'
 import { useForm } from 'react-hook-form'
 import { FiArrowRight } from 'react-icons/fi'
 import * as yup from 'yup'
@@ -22,6 +20,7 @@ import { useAuthContext } from '@wsvvrijheid/context'
 
 import { CommentFormFieldValues, CommentFormProps } from './types'
 import { FormItem } from '../FormItem'
+import { WAvatar } from '../WAvatar'
 
 const userSchema = (t: TFunction) =>
   yup.object({
@@ -102,7 +101,11 @@ export const CommentForm: React.FC<CommentFormProps> = ({
           )}
           <HStack w="full" align="start">
             {isLoggedIn && (
-              <Avatar size="sm" src={`${user?.avatar}`} name={user?.username} />
+              <WAvatar
+                size="sm"
+                src={`${user?.avatar}`}
+                name={user?.username}
+              />
             )}
             <FormItem
               as={Textarea}

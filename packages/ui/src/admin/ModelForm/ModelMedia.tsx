@@ -3,57 +3,47 @@ import { FieldValues, Path, PathValue, UseFormSetValue } from 'react-hook-form'
 import { CiImageOff } from 'react-icons/ci'
 import { IoMdCloudUpload } from 'react-icons/io'
 
-import { ASSETS_URL } from '@wsvvrijheid/config'
 import {
   Post,
   StrapiModel,
   StrapiTranslatableModel,
   StrapiUrl,
-  UploadFile,
 } from '@wsvvrijheid/types'
+import { getMediaUrl } from '@wsvvrijheid/utils'
 
-import { Caps, FilePicker, WImage } from '../../components'
+import { Caps, FilePicker, VideoPlayer, WImage } from '../../components'
 
-export type ModelImageProps<T extends FieldValues = FieldValues> = {
+export type ModelMediaProps<T extends FieldValues = FieldValues> = {
   model: StrapiModel
   name?: Path<T>
   isEditing: boolean
-  isChangingImage: boolean
-  setIsChangingImage: {
-    on: () => void
-    off: () => void
-    toggle: () => void
-  }
+  isChangingMedia: boolean
+  toggleChangingMedia: () => void
   setValue: UseFormSetValue<T>
   url?: StrapiUrl
 }
 
-export const ModelImage = <T extends FieldValues = FieldValues>({
+export const ModelMedia = <T extends FieldValues = FieldValues>({
   setValue,
   model,
   isEditing,
-  isChangingImage,
-  setIsChangingImage,
+  isChangingMedia: isChangingImage,
+  toggleChangingMedia: toggleChangingImage,
   url,
   name,
-}: ModelImageProps<T>) => {
+}: ModelMediaProps<T>) => {
   const { title, description } = (model || {}) as StrapiTranslatableModel
 
   // Name can be image or avatar
-  const image = (model as any)?.[(name as string) || 'image']
+  const media = (model as any)?.[(name as string) || 'image']
 
-  const modelImageUrl = image?.url
+  const mediaUrl = getMediaUrl(media)
 
-  const imageUrl =
-    modelImageUrl && modelImageUrl.startsWith('http')
-      ? modelImageUrl
-      : `${ASSETS_URL}${modelImageUrl}`
-
-  const renderImage = () => {
-    if (isChangingImage || (isEditing && !image)) {
+  const renderMedia = () => {
+    if (isChangingImage || (isEditing && !media)) {
       return (
         <Stack>
-          {image && <Button onClick={setIsChangingImage.off}>Cancel</Button>}
+          {media && <Button onClick={toggleChangingImage}>Cancel</Button>}
           <FilePicker
             onLoaded={files =>
               setValue(name as Path<T>, files[0] as PathValue<T, Path<T>>)
@@ -61,7 +51,9 @@ export const ModelImage = <T extends FieldValues = FieldValues>({
           />
         </Stack>
       )
-    } else if (!image) {
+    }
+
+    if (!media) {
       return (
         <Stack
           borderWidth={1}
@@ -71,18 +63,22 @@ export const ModelImage = <T extends FieldValues = FieldValues>({
           justify={'center'}
         >
           <Box as={CiImageOff} boxSize={100} />
-          <Text>No image available</Text>
+          <Text>No media available</Text>
         </Stack>
       )
     }
 
-    if (url === 'api/posts' && imageUrl) {
+    if (name === 'video') {
+      return <VideoPlayer url={mediaUrl} />
+    }
+
+    if (url === 'api/posts' && mediaUrl && name === 'image') {
       return (
         <Caps
           imageParams={{
             title,
             text: description as string,
-            image: imageUrl,
+            image: media,
             ...(model as Post)?.imageParams,
           }}
         />
@@ -91,7 +87,8 @@ export const ModelImage = <T extends FieldValues = FieldValues>({
 
     return (
       <WImage
-        src={image as UploadFile}
+        bg={'gray.50'}
+        src={media}
         alt={title}
         hasZoom
         objectFit="contain"
@@ -107,16 +104,15 @@ export const ModelImage = <T extends FieldValues = FieldValues>({
       pos={'relative'}
       overflow="hidden"
     >
-      {renderImage()}
-      {isEditing && image && !isChangingImage && (
+      {renderMedia()}
+      {isEditing && media && !isChangingImage && (
         <Center
           pos="absolute"
-          zIndex={1}
           top={0}
           left={0}
           boxSize="full"
           bg="blackAlpha.500"
-          onClick={setIsChangingImage?.toggle}
+          onClick={toggleChangingImage}
           cursor="pointer"
         >
           <Button
@@ -124,7 +120,7 @@ export const ModelImage = <T extends FieldValues = FieldValues>({
             size="lg"
             colorScheme={'blackAlpha'}
           >
-            Change Image
+            {name === 'video' ? 'Change video' : 'Change image'}
           </Button>
         </Center>
       )}

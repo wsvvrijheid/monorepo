@@ -1,7 +1,6 @@
 import { FC, useState } from 'react'
 
 import {
-  Avatar,
   Box,
   Button,
   ButtonGroup,
@@ -23,7 +22,7 @@ import { Art, StrapiLocale } from '@wsvvrijheid/types'
 
 import { ArtFeedbackForm } from './ArtFeedbackForm'
 import { ArtApprovalTypes } from './types'
-import { WImage } from '../../components'
+import { WAvatar, WImage } from '../../components'
 import { artFields, artSchema } from '../../data'
 import { ModelEditForm } from '../ModelForm'
 
@@ -94,7 +93,7 @@ export const ArtApprovalModal: FC<ArtApprovalTypes> = ({
                     </HStack>
                     {artist && (
                       <HStack spacing={3} w={'full'}>
-                        <Avatar
+                        <WAvatar
                           size="md"
                           src={artist.avatar?.url}
                           name={artist.name || artist.username}

@@ -4,7 +4,6 @@ import {
   chakra,
   Flex,
   forwardRef,
-  Image,
   ImageProps,
   Skeleton,
   Stack,
@@ -14,6 +13,7 @@ import {
 import { useElementSize } from 'usehooks-ts'
 
 import { CapsProps } from './types'
+import { WImage } from '../WImage'
 
 const paths = [
   'M50 337.5L0 0H50V337.5Z',
@@ -73,7 +73,7 @@ export const Caps = forwardRef<CapsProps, 'div'>(
         <Flex ref={mergedRef}>
           {dimensions.width > 0 ? (
             <Flex boxSize={'full'} bg={bg} pos={'relative'}>
-              <Image
+              <WImage
                 loading={'lazy'}
                 {...absoluteStyle}
                 w={`${dimensions.image}px`}
