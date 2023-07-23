@@ -25,34 +25,49 @@ export const CreateCategory: FC<CreateCategoryWithAxiosProps> = ({
     setSlug(slugify(name_en ?? ''))
   }, [name_en])
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e: { preventDefault: () => void }) => {
+    e.preventDefault()
     let blogs
-
     // TODO: Provide category body
-
-    if (fetcher === 'axios') {
-      // const response = await createCategoryWithAxios(categoryBody)
-      // blogs = response.data
-    } else if (fetcher === 'mutation') {
-      // blogs = await createCategoryWithMutation(categoryBody)
+    const categoryBody = {
+      slug,
+      name_en,
+      name_nl,
+      name_tr,
     }
 
+    if (fetcher === 'axios') {
+      const response = await createCategoryWithAxios(categoryBody)
+      blogs = response.data
+    } else if (fetcher === 'mutation') {
+      blogs = await createCategoryWithMutation(categoryBody)
+    }
     setCreatedCategory(blogs)
+    // console.log(blogs);
   }
 
   return (
     <Stack>
       <Heading as={'h2'}>Create category with {fetcher}</Heading>
       <Code as={'pre'}>{JSON.stringify(createdCategory, null, 2)}</Code>
-      <Stack as={'form'}>
+      <Stack as={'form'} onSubmit={handleSubmit}>
         <Input
           placeholder="Category name (en)"
           value={name_en}
           onChange={e => setNameEn(e.target.value)}
         />
         {/* TODO: Add all inputs */}
-
-        <Button onClick={handleSubmit}>Submit</Button>
+        <Input
+          placeholder="Category name (tr)"
+          value={name_tr}
+          onChange={e => setNameTr(e.target.value)}
+        />
+        <Input
+          placeholder="Category name (nl)"
+          value={name_nl}
+          onChange={e => setNameNl(e.target.value)}
+        />
+        <Button type="submit">Submit</Button>
       </Stack>
     </Stack>
   )

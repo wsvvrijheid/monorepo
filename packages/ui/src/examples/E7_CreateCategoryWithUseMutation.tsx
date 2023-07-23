@@ -18,7 +18,8 @@ export const CreateCategoryWithUseMutation = () => {
 
   useEffect(() => {
     // TODO: Update slug with slugify on name_en change
-  }, [])
+    setSlug(slugify(name_en ?? ''))
+  }, [name_en])
 
   const { mutate, data, isLoading } = useMutation({
     mutationKey: ['create-category'],
@@ -29,6 +30,14 @@ export const CreateCategoryWithUseMutation = () => {
     e.preventDefault()
 
     // TODO: Call mutate with category body
+    const categoryBody = {
+      slug,
+      name_en,
+      name_nl,
+      name_tr,
+    }
+    mutate(categoryBody)
+
   }
 
   return (
@@ -42,6 +51,16 @@ export const CreateCategoryWithUseMutation = () => {
             onChange={e => setNameEn(e.target.value)}
           />
           {/* TODO: Add all inputs */}
+          <Input
+            placeholder="Category name (tr)"
+            value={name_tr}
+            onChange={e => setNameTr(e.target.value)}
+          />
+          <Input
+            placeholder="Category name (nl)"
+            value={name_nl}
+            onChange={e => setNameNl(e.target.value)}
+          />
 
           <Button
             isLoading={isLoading}
