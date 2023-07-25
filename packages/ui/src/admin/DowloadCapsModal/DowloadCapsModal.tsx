@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import { FC, useRef, useState } from 'react'
 
 import {
   Button,
@@ -31,7 +31,8 @@ type DowloadCapsModalType = {
 
 export const DowloadCapsModal: FC<DowloadCapsModalType> = ({ id }) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const btnRef = React.useRef<HTMLButtonElement>(null)
+  const [isLoading, setIsLoading] = useState(false)
+  const btnRef = useRef<HTMLButtonElement>(null)
 
   const { locale } = useRouter()
 
@@ -83,6 +84,7 @@ export const DowloadCapsModal: FC<DowloadCapsModalType> = ({ id }) => {
   }, [id])
 
   const onDownload = async () => {
+    setIsLoading(true)
     const zip = new JSZip()
     const imgFolder = zip.folder('hashtag-images')
 
@@ -100,7 +102,7 @@ export const DowloadCapsModal: FC<DowloadCapsModalType> = ({ id }) => {
 
           if (!blob.size) return
 
-          imgFolder?.file(`image-${index}.jpeg`, blob)
+          imgFolder?.file(`${locale}_image_${index}.jpeg`, blob)
         } catch (error) {
           console.log('try error', error)
         }
@@ -109,7 +111,8 @@ export const DowloadCapsModal: FC<DowloadCapsModalType> = ({ id }) => {
 
     const allImages = await zip.generateAsync({ type: 'blob' })
 
-    saveAs(allImages)
+    saveAs(allImages, `hashtag-images_${locale}.zip`)
+    setIsLoading(false)
   }
 
   return (
@@ -183,6 +186,7 @@ export const DowloadCapsModal: FC<DowloadCapsModalType> = ({ id }) => {
               w={'full'}
               onClick={onDownload}
               colorScheme={'primary'}
+              isLoading={isLoading}
             >
               Dowload Caps
             </Button>
