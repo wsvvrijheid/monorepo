@@ -228,10 +228,10 @@ export default {
         error.code === 429 &&
         error.data?.connection_issue === 'TooManyConnections'
       ) {
-        return { message: 'Connection is already open', error }
+        return { message: 'Connection is already open', error: error.message }
       }
 
-      return { message: 'Something went wrong.', error }
+      return { message: 'Something went wrong.', error: error.message }
     }
   },
   async getHashtagStats() {

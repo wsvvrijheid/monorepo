@@ -1,6 +1,7 @@
 import { useState } from 'react'
 
 import {
+  AspectRatio,
   Box,
   Button,
   Flex,
@@ -114,6 +115,35 @@ export const ModelEditForm = <T extends StrapiModel>({
     mode: 'all',
     values: defaultValues,
   })
+
+  const convertToYoutubeEmbedUrl = (videoUrl: string) => {
+    if (!videoUrl) return ''
+
+    if (!videoUrl.includes('youtube.com')) return videoUrl
+
+    if (videoUrl.includes('embed')) return videoUrl
+
+    const videoId = videoUrl.split('v=')[1]
+
+    return `https://www.youtube.com/embed/${videoId}`
+  }
+
+  const getVideoUrl = () => {
+    try {
+      const urState = watch('videoUrl')
+      const url = new URL(urState).href
+
+      return convertToYoutubeEmbedUrl(url)
+    } catch (error) {
+      console.log('error', error)
+
+      return null
+    }
+  }
+
+  const videoUrl = getVideoUrl()
+
+  console.log('mediaUrl', videoUrl)
 
   const handleSuccess = () => {
     onSuccess?.()
@@ -349,18 +379,24 @@ export const ModelEditForm = <T extends StrapiModel>({
                   : 'text'
 
               return (
-                <FormItem
-                  {...(field.type === 'textarea' && { as: Textarea })}
-                  key={index}
-                  name={field.name as string}
-                  type={inputType}
-                  label={label}
-                  isRequired={field.isRequired}
-                  errors={errors}
-                  register={register}
-                  isDisabled={!isEditing}
-                  _disabled={disabledStyle}
-                />
+                <Stack key={index}>
+                  <FormItem
+                    {...(field.type === 'textarea' && { as: Textarea })}
+                    name={field.name as string}
+                    type={inputType}
+                    label={label}
+                    isRequired={field.isRequired}
+                    errors={errors}
+                    register={register}
+                    isDisabled={!isEditing}
+                    _disabled={disabledStyle}
+                  />
+                  {field.type === 'mediaUrl' && videoUrl && (
+                    <AspectRatio ratio={16 / 9}>
+                      <Box as="iframe" src={videoUrl} title={label} />
+                    </AspectRatio>
+                  )}
+                </Stack>
               )
             })}
           </MasonryGrid>

@@ -35,7 +35,7 @@ export const PostMakerTweetButtons: FC<PostMakerTweetButtonsProps> = ({
   const hashtag = useHashtag()
   const { postContent, post, sentence } = usePostContext()
 
-  const { asPath } = router
+  const { asPath, locale } = router
   const queryClient = useQueryClient()
   const updatePostSentence = useUpdateHashtagSentence()
 
@@ -43,7 +43,7 @@ export const PostMakerTweetButtons: FC<PostMakerTweetButtonsProps> = ({
 
   if (!sentence || !post) return null
 
-  const url = `\n\n${SITE_URL}${asPath}?id=${post.id}`
+  const url = `\n\n${SITE_URL}/${locale}${asPath}?id=${post.id}`
 
   const baseUrl = 'https://twitter.com/intent/tweet'
   const params = {
