@@ -35,7 +35,7 @@ export const getUserTweets = async (
 
     return tweets
   } catch (error) {
-    console.error('Error getting user tweets', error)
+    console.error('Error getting user tweets', error.message)
 
     return []
   }
