@@ -1,12 +1,11 @@
 import { FC } from 'react'
 
 import { Center, Container } from '@chakra-ui/react'
-import { PaymentStatus } from '@mollie/api-client'
 
 import { DonationResultAlert } from '../../components'
 
 type DonationCompleteTemplateProps = {
-  status: PaymentStatus
+  status: string
 }
 
 // TODO Make transaction detail messages more user friendly and create translations
@@ -15,7 +14,7 @@ export const DonationCompleteTemplate: FC<DonationCompleteTemplateProps> = ({
   status,
 }) => {
   const renderStatus = () => {
-    if (status === PaymentStatus.paid) {
+    if (status === 'paid') {
       return (
         <DonationResultAlert
           title="Thank you"
@@ -25,7 +24,7 @@ export const DonationCompleteTemplate: FC<DonationCompleteTemplateProps> = ({
       )
     }
 
-    if (status === PaymentStatus.open) {
+    if (status === 'unpaid') {
       return (
         <DonationResultAlert
           status="warning"
@@ -35,17 +34,7 @@ export const DonationCompleteTemplate: FC<DonationCompleteTemplateProps> = ({
       )
     }
 
-    if (status === PaymentStatus.expired) {
-      return (
-        <DonationResultAlert
-          status="warning"
-          title="Expired"
-          description="Payment link has been expired"
-        />
-      )
-    }
-
-    if (status === PaymentStatus.canceled) {
+    if (status === 'cancel') {
       return (
         <DonationResultAlert
           status="info"
@@ -54,22 +43,21 @@ export const DonationCompleteTemplate: FC<DonationCompleteTemplateProps> = ({
         />
       )
     }
-
-    if (status === PaymentStatus.failed) {
+    if (status === 'Transaction not found') {
       return (
         <DonationResultAlert
-          status="error"
-          title="Failed"
-          description="Transaction failed"
+          status="warning"
+          title="Transaction not found"
+          description="We could not find your transaction"
         />
       )
     }
 
     return (
       <DonationResultAlert
-        status="warning"
-        title="Not found"
-        description="Transaction could not be found. Please contact!"
+        status="error"
+        title="Something went wrong"
+        description="We could not process your donation"
       />
     )
   }
