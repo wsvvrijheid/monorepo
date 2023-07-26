@@ -1,16 +1,6 @@
 import { FC } from 'react'
 
-import {
-  Box,
-  Center,
-  Flex,
-  HStack,
-  Heading,
-  Image,
-  Link,
-  Text,
-  VStack,
-} from '@chakra-ui/react'
+import { Box, Center, Flex, Heading, Text, VStack } from '@chakra-ui/react'
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { useTranslation } from 'next-i18next'
 

@@ -5,9 +5,7 @@ import {
   Button,
   ButtonGroup,
   Heading,
-  HStack,
   Image,
-  Link,
   NumberDecrementStepper,
   NumberIncrementStepper,
   NumberInput,
@@ -22,7 +20,6 @@ import {
   Text,
   Tooltip,
   useBreakpointValue,
-  VStack,
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import axios from 'axios'
