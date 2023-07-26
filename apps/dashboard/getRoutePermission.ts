@@ -58,6 +58,7 @@ export const getRoutePermission = (roles: RoleType[], route: AdminRoutes) => {
       '/competitions',
       '/courses',
       '/hashtags',
+      '/posts',
       '/news/recommended',
     ],
     jury: ['/competitions'],

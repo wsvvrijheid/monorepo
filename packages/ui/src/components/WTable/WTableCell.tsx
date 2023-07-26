@@ -54,11 +54,13 @@ export const WTableCell = <T extends StrapiModel>({
     cellContent = (
       <Popover trigger="hover" isLazy placement="right">
         <PopoverTrigger>
-          <WAvatar
-            size="md"
-            src={cellImage || getMediaUrl(thumbnail)}
-            onError={() => setCellImage(getMediaUrl(thumbnail, true))}
-          />
+          <Box>
+            <WAvatar
+              size="md"
+              src={cellImage || getMediaUrl(thumbnail)}
+              onError={() => setCellImage(getMediaUrl(thumbnail, true))}
+            />
+          </Box>
         </PopoverTrigger>
         <PopoverContent p={0} w={'auto'} overflow={'hidden'}>
           <WImage w={'50vw'} src={image} sizes={'400px'} />

@@ -22,6 +22,8 @@ export default async ({ strapi }) => {
 
   const twitterClient = await getTwitterClient()
 
+  if (!twitterClient) return
+
   for await (const hashtag of hashtags) {
     try {
       const { id, hashtagDefault } = hashtag
@@ -72,7 +74,7 @@ export default async ({ strapi }) => {
         )
       }
     } catch (error) {
-      console.log('error', error)
+      console.log('error', error.message)
     }
   }
 }

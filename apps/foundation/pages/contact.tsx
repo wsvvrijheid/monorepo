@@ -133,12 +133,12 @@ const Contact = ({ seo }: ContactProps): JSX.Element => {
                     {t('wsvvrijheid.management')}
                   </Text>
                   <Wrap justify="space-around" spacing={4}>
-                    <Box>
+                    {/* <Box>
                       <Text fontSize="sm">{t('wsvvrijheid.chairman')}</Text>
                       <Text>Sümeyye Ateş</Text>
-                    </Box>
+                    </Box> */}
                     <Box>
-                      <Text fontSize="sm">{t('wsvvrijheid.treasurer')}</Text>
+                      <Text fontSize="sm">{t('wsvvrijheid.chairman')}</Text>
                       <Text>Ahmet Nurettin Kara</Text>
                     </Box>
                   </Wrap>
