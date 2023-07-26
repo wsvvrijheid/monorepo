@@ -102,20 +102,6 @@ export const DonationTemplate: FC<DonationTemplateProps> = ({
 
   return (
     <Container {...(!platforms && { maxW: '2xl' })}>
-      <VStack textAlign={'center'} mt={16} maxW={'2xl'} mx={'auto'}>
-        <Link href="https://challenges.nl" isExternal>
-          <HStack align={'center'}>
-            <Image
-              alt={'Stichting Challenges'}
-              src="https://challenges.nl/wp-content/uploads/2022/12/challengeslogo-1.png"
-              w={150}
-            />
-            <Text fontSize="2xl">Stichting Challenges</Text>
-          </HStack>
-        </Link>
-        <Text>{t('donation.description')}</Text>
-      </VStack>
-
       <SimpleGrid
         alignItems="start"
         columns={{ base: 1, lg: platforms ? 2 : 1 }}
@@ -260,25 +246,25 @@ export const DonationTemplate: FC<DonationTemplateProps> = ({
 
           <Stack>
             <Button
-            isDisabled={!amount || !method || !isValid}
-            type="submit"
-            leftIcon={<FaDonate />}
-            onClick={() => setType('one-time')}
-            colorScheme="primary"
-          >
-            {t('donation.one-time')}
-            {amount && ` €${amount}`}
-          </Button>
-          <Button
-            isDisabled={!amount || !method || !isValid}
-            type="submit"
-            leftIcon={<FaDonate />}
-            onClick={() => setType('monthly')}
-            colorScheme="purple"
-          >
-            {t('donation.monthly')}
-            {amount && ` €${amount}`}
-          </Button>
+              isDisabled={!amount || !method || !isValid}
+              type="submit"
+              leftIcon={<FaDonate />}
+              onClick={() => setType('one-time')}
+              colorScheme="primary"
+            >
+              {t('donation.one-time')}
+              {amount && ` €${amount}`}
+            </Button>
+            <Button
+              isDisabled={!amount || !method || !isValid}
+              type="submit"
+              leftIcon={<FaDonate />}
+              onClick={() => setType('monthly')}
+              colorScheme="purple"
+            >
+              {t('donation.monthly')}
+              {amount && ` €${amount}`}
+            </Button>
           </Stack>
         </Stack>
         {platforms && <PlatformList platforms={platforms} />}
