@@ -5,9 +5,7 @@ import {
   Button,
   ButtonGroup,
   Heading,
-  HStack,
   Image,
-  Link,
   NumberDecrementStepper,
   NumberIncrementStepper,
   NumberInput,
@@ -22,7 +20,6 @@ import {
   Text,
   Tooltip,
   useBreakpointValue,
-  VStack,
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import axios from 'axios'
@@ -61,9 +58,8 @@ export const DonationTemplate: FC<DonationTemplateProps> = ({
   isDark,
 }) => {
   const [amount, setAmount] = useState(5)
-  const [method, setMethod] = useState<'ideal' | 'creditcard' | 'paypal'>(
-    'ideal',
-  )
+  const [method, setMethod] = useState<'ideal' | 'card' | 'paypal'>('ideal')
+  const [type, setType] = useState<'one-time' | 'monthly'>('one-time')
   const { t } = useTranslation()
 
   const donationAmounts = useBreakpointValue({
@@ -92,6 +88,7 @@ export const DonationTemplate: FC<DonationTemplateProps> = ({
         method,
         name,
         email,
+        type,
       })
 
       window.location = result.data
@@ -102,20 +99,6 @@ export const DonationTemplate: FC<DonationTemplateProps> = ({
 
   return (
     <Container {...(!platforms && { maxW: '2xl' })}>
-      <VStack textAlign={'center'} mt={16} maxW={'2xl'} mx={'auto'}>
-        <Link href="https://challenges.nl" isExternal>
-          <HStack align={'center'}>
-            <Image
-              alt={'Stichting Challenges'}
-              src="https://challenges.nl/wp-content/uploads/2022/12/challengeslogo-1.png"
-              w={150}
-            />
-            <Text fontSize="2xl">Stichting Challenges</Text>
-          </HStack>
-        </Link>
-        <Text>{t('donation.description')}</Text>
-      </VStack>
-
       <SimpleGrid
         alignItems="start"
         columns={{ base: 1, lg: platforms ? 2 : 1 }}
@@ -153,27 +136,25 @@ export const DonationTemplate: FC<DonationTemplateProps> = ({
                 onClick={() => setMethod('ideal')}
                 h="auto"
                 size="lg"
+                disabled={method !== 'ideal'}
               >
                 <Image src={`/images/ideal-logo.svg`} h={50} alt="ideal" />
               </Button>
-              <Tooltip label={'Not available yet'}>
-                <Button
-                  py={4}
-                  colorScheme={method === 'creditcard' ? 'primary' : 'gray'}
-                  variant={method === 'creditcard' ? 'solid' : 'outline'}
-                  onClick={() => setMethod('creditcard')}
-                  h="auto"
-                  size="lg"
-                  disabled
-                  isDisabled
-                >
-                  <Image
-                    src={`/images/visa-master-logo.svg`}
-                    h={50}
-                    alt="ideal"
-                  />
-                </Button>
-              </Tooltip>
+              <Button
+                py={4}
+                colorScheme={method === 'card' ? 'primary' : 'gray'}
+                variant={method === 'card' ? 'solid' : 'outline'}
+                onClick={() => setMethod('card')}
+                h="auto"
+                size="lg"
+                disabled={method !== 'card'}
+              >
+                <Image
+                  src={`/images/visa-master-logo.svg`}
+                  h={50}
+                  alt="ideal"
+                />
+              </Button>
             </ButtonGroup>
             <Text textAlign="center" fontSize="md" color="gray.500">
               {t('donation.check-payment-method')} *
@@ -260,14 +241,28 @@ export const DonationTemplate: FC<DonationTemplateProps> = ({
             />
           </Stack>
 
-          <Button
-            isDisabled={!amount || !method || !isValid}
-            type="submit"
-            leftIcon={<FaDonate />}
-          >
-            {t('donation.title')}
-            {amount && ` €${amount}`}
-          </Button>
+          <Stack>
+            <Button
+              isDisabled={!amount || !method || !isValid}
+              type="submit"
+              leftIcon={<FaDonate />}
+              onClick={() => setType('one-time')}
+              colorScheme="primary"
+            >
+              {t('donation.one-time')}
+              {amount && ` €${amount}`}
+            </Button>
+            <Button
+              isDisabled={!amount || !method || !isValid}
+              type="submit"
+              leftIcon={<FaDonate />}
+              onClick={() => setType('monthly')}
+              colorScheme="purple"
+            >
+              {t('donation.monthly')}
+              {amount && ` €${amount}`}
+            </Button>
+          </Stack>
         </Stack>
         {platforms && <PlatformList platforms={platforms} />}
       </SimpleGrid>

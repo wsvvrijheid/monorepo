@@ -3,8 +3,8 @@ import { NextSeoProps } from 'next-seo'
 import { ROUTES } from '@wsvvrijheid/config'
 import { Blog, Hashtag, Post, StrapiLocale } from '@wsvvrijheid/types'
 
-import { getMediaUrl } from './getMediaUrl'
 import { getItemLink } from './getItemLink'
+import { getMediaUrl } from './getMediaUrl'
 
 export const getPageSeo = (
   data: Hashtag | Post | Blog,

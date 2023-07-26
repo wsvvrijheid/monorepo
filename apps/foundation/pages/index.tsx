@@ -1,16 +1,6 @@
 import { FC } from 'react'
 
-import {
-  Box,
-  Center,
-  Flex,
-  HStack,
-  Heading,
-  Image,
-  Link,
-  Text,
-  VStack,
-} from '@chakra-ui/react'
+import { Box, Center, Flex, Heading, Text, VStack } from '@chakra-ui/react'
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { useTranslation } from 'next-i18next'
 
@@ -58,23 +48,6 @@ const Home: FC<HomeProps> = ({ seo, platforms }) => {
         </Container>
       </Center>
       <HomePlatform platforms={platforms?.data} />
-      <Center py={{ base: 16, lg: 32 }} bg={'gray.100'}>
-        <Container>
-          <VStack spacing={8}>
-            <Heading fontWeight={900}>{t('home.partners')}</Heading>
-            <Link href="https://challenges.nl" isExternal>
-              <HStack align={'center'}>
-                <Image
-                  alt={'Stichting Challenges'}
-                  src="https://challenges.nl/wp-content/uploads/2022/12/challengeslogo-1.png"
-                  w={150}
-                />
-                <Text fontSize="xl">Stichting Challenges</Text>
-              </HStack>
-            </Link>
-          </VStack>
-        </Container>
-      </Center>
     </Layout>
   )
 }
