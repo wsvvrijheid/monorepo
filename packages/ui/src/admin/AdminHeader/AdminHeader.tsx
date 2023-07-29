@@ -1,15 +1,15 @@
-import React, { FC } from 'react'
+import { FC } from 'react'
 
 import {
-  HStack,
-  Tooltip,
-  IconButton,
-  Heading,
   Button,
   Drawer,
-  DrawerOverlay,
-  DrawerContent,
   DrawerBody,
+  DrawerContent,
+  DrawerOverlay,
+  HStack,
+  Heading,
+  IconButton,
+  Tooltip,
   useDisclosure,
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
@@ -29,7 +29,7 @@ type AdminHeaderProps = {
 }
 
 export const AdminHeader: FC<AdminHeaderProps> = ({ hasBackButton, title }) => {
-  const { user, authModalDisclosure } = useAuthContext()
+  const { user, openAuthModal } = useAuthContext()
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   const router = useRouter()
@@ -77,7 +77,7 @@ export const AdminHeader: FC<AdminHeaderProps> = ({ hasBackButton, title }) => {
         <CreateModelButton />
         {!user && (
           <Button
-            onClick={authModalDisclosure.onOpen}
+            onClick={openAuthModal}
             colorScheme={'blue'}
             leftIcon={<FaUser />}
             rounded={'full'}

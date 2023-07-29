@@ -1,24 +1,22 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 import {
   Button,
-  Container,
   Link,
   Modal,
   ModalBody,
   ModalCloseButton,
   ModalContent,
-  ModalHeader,
   ModalOverlay,
   Stack,
-  VStack,
   Text,
+  VStack,
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
-import { useForm, SubmitHandler } from 'react-hook-form'
-import { useTranslation, Trans } from 'react-i18next'
+import { SubmitHandler, useForm } from 'react-hook-form'
+import { Trans, useTranslation } from 'react-i18next'
 
 import { useAuthContext } from '@wsvvrijheid/context'
 
@@ -47,7 +45,8 @@ export const AuthModal = () => {
   const {
     isLoading: isAuthLoading,
     login,
-    authModalDisclosure,
+    closeAuthModal,
+    isAuthModalOpen,
   } = useAuthContext()
 
   const router = useRouter()
@@ -64,7 +63,7 @@ export const AuthModal = () => {
       onSuccess: async () => {
         setIsRedirecting(true)
         reset()
-        authModalDisclosure.onClose()
+        closeAuthModal()
         await router.push('/')
         setIsRedirecting(false)
       },
@@ -74,8 +73,8 @@ export const AuthModal = () => {
   return (
     <Modal
       isCentered
-      isOpen={authModalDisclosure.isOpen}
-      onClose={authModalDisclosure.onClose}
+      isOpen={isAuthModalOpen}
+      onClose={closeAuthModal}
       closeOnOverlayClick={false}
       closeOnEsc={false}
     >
