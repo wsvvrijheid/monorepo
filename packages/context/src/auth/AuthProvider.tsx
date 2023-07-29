@@ -1,6 +1,7 @@
 import { FC, createContext, useEffect, useState } from 'react'
 import { useContext } from 'react'
 
+import { useDisclosure } from '@chakra-ui/react'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 
@@ -8,6 +9,7 @@ import { Auth, RoleType, SessionUser } from '@wsvvrijheid/types'
 
 import { initialAuthState } from './state'
 import { AuthContextType, AuthProviderProps, AuthState } from './types'
+import { AuthModal } from '../../../ui/src/admin'
 
 export const AuthContext = createContext<AuthContextType>(initialAuthState)
 
@@ -22,6 +24,7 @@ export const AuthProvider: FC<AuthProviderProps> = ({
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false)
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [error, setError] = useState<string | null>(null)
+  const authModalDisclosure = useDisclosure()
 
   const router = useRouter()
 
@@ -162,8 +165,10 @@ export const AuthProvider: FC<AuthProviderProps> = ({
         logout,
         login,
         register,
+        authModalDisclosure,
       }}
     >
+      <AuthModal />
       {children}
     </AuthContext.Provider>
   )

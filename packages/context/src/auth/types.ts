@@ -1,6 +1,8 @@
 /* eslint-disable no-unused-vars */
 import { ReactNode } from 'react'
 
+import { UseDisclosureReturn } from '@chakra-ui/react'
+
 import { RoleType, SessionUser } from '@wsvvrijheid/types'
 
 export type AuthState = {
@@ -15,6 +17,7 @@ export type AuthState = {
 export type AuthActions = {
   login: (identifier: string, password: string) => Promise<AuthState>
   logout: () => Promise<void>
+  authModalDisclosur: UseDisclosureReturn
   checkAuth: () => Promise<AuthState>
   register: (
     email: string,
@@ -27,6 +30,7 @@ export type AuthActions = {
 export type AuthContextType = AuthState & AuthActions
 
 export type AuthProviderProps = {
+  authModalDisclosur: UseDisclosureReturn
   children: ReactNode
   initialState?: AuthState
 }

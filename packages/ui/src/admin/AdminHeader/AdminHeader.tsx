@@ -30,12 +30,13 @@ type AdminHeaderProps = {
 }
 
 export const AdminHeader: FC<AdminHeaderProps> = ({ hasBackButton, title }) => {
-  const { user } = useAuthContext()
+  const { user, authModalDisclosure } = useAuthContext()
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   const router = useRouter()
   const slugs = router.asPath.split('/')
   const parentSlug = slugs.slice(0, slugs.length - 1).join('/')
+  // const { authModalDisclosure } = useAuthContext()
 
   return (
     <HStack
@@ -77,11 +78,23 @@ export const AdminHeader: FC<AdminHeaderProps> = ({ hasBackButton, title }) => {
         <LanguageSwitcher responsive />
         <CreateModelButton />
         {!user && (
-          <Navigate href={'/login'}>
-            <Button colorScheme={'blue'} leftIcon={<FaUser />} rounded={'full'}>
-              Login
-            </Button>
-          </Navigate>
+          <Button
+            onClick={authModalDisclosure.onOpen}
+            colorScheme={'blue'}
+            leftIcon={<FaUser />}
+            rounded={'full'}
+          >
+            {' '}
+            Login
+          </Button>
+
+          // <Navigate href={'/login'}>
+
+          //   {/* <Button colorScheme={'blue'} leftIcon={<FaUser />} rounded={'full'}>
+          //     Loginxx
+          //   </Button> */}
+
+          // </Navigate>
         )}
         <IconButton
           aria-label="Open Menu"
