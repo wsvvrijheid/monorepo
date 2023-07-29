@@ -17,7 +17,7 @@ export type AuthState = {
 export type AuthActions = {
   login: (identifier: string, password: string) => Promise<AuthState>
   logout: () => Promise<void>
-  authModalDisclosur: UseDisclosureReturn
+  authModalDisclosure: UseDisclosureReturn
   checkAuth: () => Promise<AuthState>
   register: (
     email: string,

@@ -19,7 +19,6 @@ import { MdOutlineNotifications } from 'react-icons/md'
 
 import { useAuthContext } from '@wsvvrijheid/context'
 
-import { Navigate } from '../../components'
 import { AdminSidebar } from '../AdminSidebar'
 import { CreateModelButton } from '../CreateModelButton'
 import { LanguageSwitcher } from '../LanguageSwitcher'
@@ -36,7 +35,6 @@ export const AdminHeader: FC<AdminHeaderProps> = ({ hasBackButton, title }) => {
   const router = useRouter()
   const slugs = router.asPath.split('/')
   const parentSlug = slugs.slice(0, slugs.length - 1).join('/')
-  // const { authModalDisclosure } = useAuthContext()
 
   return (
     <HStack
@@ -84,17 +82,8 @@ export const AdminHeader: FC<AdminHeaderProps> = ({ hasBackButton, title }) => {
             leftIcon={<FaUser />}
             rounded={'full'}
           >
-            {' '}
             Login
           </Button>
-
-          // <Navigate href={'/login'}>
-
-          //   {/* <Button colorScheme={'blue'} leftIcon={<FaUser />} rounded={'full'}>
-          //     Loginxx
-          //   </Button> */}
-
-          // </Navigate>
         )}
         <IconButton
           aria-label="Open Menu"

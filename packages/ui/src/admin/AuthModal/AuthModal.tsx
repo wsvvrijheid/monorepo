@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 
 import {
-
   Button,
   Center,
   Container,
@@ -34,8 +33,6 @@ import {
 import { adminLoginSchema } from '../AdminLoginForm/schema'
 
 export const AuthModal = () => {
-  // const { authModalDisclosure,isLoading } = useAuthContext()
-
   const { t } = useTranslation()
   const {
     register,

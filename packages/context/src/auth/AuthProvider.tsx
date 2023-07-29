@@ -6,10 +6,10 @@ import axios from 'axios'
 import { useRouter } from 'next/router'
 
 import { Auth, RoleType, SessionUser } from '@wsvvrijheid/types'
+import { AuthModal } from '@wsvvrijheid/ui'
 
 import { initialAuthState } from './state'
 import { AuthContextType, AuthProviderProps, AuthState } from './types'
-import { AuthModal } from '../../../ui/src/admin'
 
 export const AuthContext = createContext<AuthContextType>(initialAuthState)
 
