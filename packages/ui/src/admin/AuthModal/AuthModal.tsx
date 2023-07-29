@@ -78,13 +78,13 @@ export const AuthModal = () => {
       isCentered
       isOpen={authModalDisclosure.isOpen}
       onClose={authModalDisclosure.onClose}
-      size={'sm'}
+      size={'xs'}
       scrollBehavior="inside"
       closeOnOverlayClick={false}
       closeOnEsc={false}
     >
       <ModalOverlay />
-      <ModalContent maxW="95vw" h="full" p={{ base: 2, lg: 4 }}>
+      <ModalContent p={{ base: 2, lg: 4 }}>
         <ModalHeader color={'primary.500'}>Login</ModalHeader>
         <ModalCloseButton />
         {isAuthLoading && (
@@ -101,7 +101,7 @@ export const AuthModal = () => {
               spacing={4}
               justify="center"
               pb={8}
-              pt={{ base: 8, lg: '50%' }}
+              pt={{ base: 4, lg: '50%' }}
             >
               <Navigate href="/">
                 <VStack textAlign="center" w={'full'}>
