@@ -54,14 +54,14 @@ const MyApp: FC<AppProps> = ({ Component, pageProps }) => {
   return (
     <QueryClientProvider client={queryClient}>
       <Hydrate state={pageProps.dehydratedState}>
-        <AuthProvider initialState={pageProps.authState}>
-          <ChakraProvider theme={extendTheme(theme)}>
+        <ChakraProvider theme={extendTheme(theme)}>
+          <AuthProvider initialState={pageProps.authState}>
             <DefaultSeo {...defaultSeo.admin[locale]} />
             <Component {...pageProps} />
             <Analytics />
             <ToastContainer />
-          </ChakraProvider>
-        </AuthProvider>
+          </AuthProvider>
+        </ChakraProvider>
       </Hydrate>
       <ReactQueryDevtools />
     </QueryClientProvider>

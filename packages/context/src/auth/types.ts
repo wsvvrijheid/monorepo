@@ -30,7 +30,6 @@ export type AuthActions = {
 export type AuthContextType = AuthState & AuthActions
 
 export type AuthProviderProps = {
-  authModalDisclosur: UseDisclosureReturn
   children: ReactNode
   initialState?: AuthState
 }
