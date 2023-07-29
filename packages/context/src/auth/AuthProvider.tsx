@@ -1,12 +1,10 @@
-import { FC, createContext, useEffect, useState } from 'react'
-import { useContext } from 'react'
+import { FC, createContext, useContext, useEffect, useState } from 'react'
 
 import { useDisclosure } from '@chakra-ui/react'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 
 import { Auth, RoleType, SessionUser } from '@wsvvrijheid/types'
-import { AuthModal } from '@wsvvrijheid/ui'
 
 import { initialAuthState } from './state'
 import { AuthContextType, AuthProviderProps, AuthState } from './types'
@@ -173,7 +171,6 @@ export const AuthProvider: FC<AuthProviderProps> = ({
         closeAuthModal: authModalDisclosure.onClose,
       }}
     >
-      <AuthModal />
       {children}
     </AuthContext.Provider>
   )

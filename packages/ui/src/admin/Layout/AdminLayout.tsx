@@ -7,6 +7,7 @@ import { useAuthContext } from '@wsvvrijheid/context'
 
 import { AdminHeader } from '../AdminHeader'
 import { AdminSidebar } from '../AdminSidebar'
+import { AuthModal } from '../AuthModal'
 
 export type AdminLayoutProps = {
   children: ReactNode
@@ -30,6 +31,7 @@ export const AdminLayout: FC<AdminLayoutProps> = ({
   return (
     <>
       <NextSeo {...seo} />
+      <AuthModal />
       <Flex h={'full'} pos={'relative'}>
         {/* Sidebar */}
         <Box top={0} left={0} h="full" overflowY={'auto'} zIndex={1}>
