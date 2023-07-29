@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 
 import {
   Button,
-  Center,
   Container,
   Link,
   Modal,
@@ -11,7 +10,6 @@ import {
   ModalContent,
   ModalHeader,
   ModalOverlay,
-  Spinner,
   Stack,
   VStack,
   Text,
@@ -87,11 +85,6 @@ export const AuthModal = () => {
       <ModalContent p={{ base: 2, lg: 4 }}>
         <ModalHeader color={'primary.500'}>Login</ModalHeader>
         <ModalCloseButton />
-        {isAuthLoading && (
-          <Center>
-            <Spinner />
-          </Center>
-        )}
         <ModalBody>
           <Container maxW={{ base: 'full', lg: 300 }}>
             <Stack
@@ -106,14 +99,12 @@ export const AuthModal = () => {
               <Navigate href="/">
                 <VStack textAlign="center" w={'full'}>
                   <WAvatar size="2xl" src={`/images/wsvvrijheid-logo.svg`} />
-
                   <Text fontSize="xl" color={'blue.500'} fontWeight={900}>
                     WEES DE STEM <br />
                     VOOR VRIJHEID
                   </Text>
                 </VStack>
               </Navigate>
-
               <Stack spacing={4} flex={1}>
                 <Stack
                   spacing={4}
@@ -168,7 +159,6 @@ export const AuthModal = () => {
                     ))}
                 </Stack>
                 {/* TODO Set session exp time */}
-
                 <Button
                   as={Navigate}
                   href="/forgot-password"
@@ -178,7 +168,6 @@ export const AuthModal = () => {
                   {t('login.forgot-pass-header.title')}
                 </Button>
               </Stack>
-
               <Text fontSize={'xs'}>
                 Wsvvrijheid &copy; {new Date().getFullYear()} All rights
                 reserved
