@@ -60,6 +60,12 @@
       "relation": "manyToMany",
       "target": "api::activity.activity",
       "inversedBy": "categories"
+    },
+    "arts": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::art.art",
+      "mappedBy": "categories"
     }
   }
 }

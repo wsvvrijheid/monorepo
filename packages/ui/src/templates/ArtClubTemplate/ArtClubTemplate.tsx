@@ -50,6 +50,13 @@ export const ArtClubTemplate: FC = () => {
   const categoryQuery = useStrapiRequest<Category>({
     url: 'api/categories',
     pageSize: 100,
+    filters: {
+      arts: {
+        id: {
+          $gt: 0,
+        },
+      },
+    },
   })
 
   // As mentioned in `getStaticProps`, we need to keep the same order for queryKey
