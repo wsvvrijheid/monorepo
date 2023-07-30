@@ -9,12 +9,15 @@ export type AuthState = {
   isLoading: boolean
   token: string | null
   isLoggedIn: boolean
+  isAuthModalOpen: boolean
   error: string | null
 }
 
 export type AuthActions = {
   login: (identifier: string, password: string) => Promise<AuthState>
   logout: () => Promise<void>
+  openAuthModal: () => void
+  closeAuthModal: () => void
   checkAuth: () => Promise<AuthState>
   register: (
     email: string,
