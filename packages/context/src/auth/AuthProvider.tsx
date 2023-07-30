@@ -1,6 +1,6 @@
-import { FC, createContext, useEffect, useState } from 'react'
-import { useContext } from 'react'
+import { FC, createContext, useContext, useEffect, useState } from 'react'
 
+import { useDisclosure } from '@chakra-ui/react'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 
@@ -22,6 +22,7 @@ export const AuthProvider: FC<AuthProviderProps> = ({
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false)
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [error, setError] = useState<string | null>(null)
+  const authModalDisclosure = useDisclosure()
 
   const router = useRouter()
 
@@ -50,6 +51,7 @@ export const AuthProvider: FC<AuthProviderProps> = ({
         ...response.data,
         roles: response.data?.user?.roles || initialAuthState.roles,
         error: null,
+        isAuthModalOpen: false,
         isLoading: false,
       }
     } catch (error: any) {
@@ -100,6 +102,7 @@ export const AuthProvider: FC<AuthProviderProps> = ({
       return {
         ...response.data,
         roles: initialAuthState.roles,
+        isAuthModalOpen: false,
         error: null,
         isLoading: false,
       }
@@ -137,6 +140,7 @@ export const AuthProvider: FC<AuthProviderProps> = ({
       return {
         ...response.data,
         roles: initialAuthState.roles,
+        isAuthModalOpen: false,
         error: null,
         isLoading: false,
       }
@@ -162,6 +166,9 @@ export const AuthProvider: FC<AuthProviderProps> = ({
         logout,
         login,
         register,
+        isAuthModalOpen: authModalDisclosure.isOpen,
+        openAuthModal: authModalDisclosure.onOpen,
+        closeAuthModal: authModalDisclosure.onClose,
       }}
     >
       {children}

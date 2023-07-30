@@ -1,15 +1,15 @@
-import React, { FC } from 'react'
+import { FC } from 'react'
 
 import {
-  HStack,
-  Tooltip,
-  IconButton,
-  Heading,
   Button,
   Drawer,
-  DrawerOverlay,
-  DrawerContent,
   DrawerBody,
+  DrawerContent,
+  DrawerOverlay,
+  HStack,
+  Heading,
+  IconButton,
+  Tooltip,
   useDisclosure,
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
@@ -19,7 +19,6 @@ import { MdOutlineNotifications } from 'react-icons/md'
 
 import { useAuthContext } from '@wsvvrijheid/context'
 
-import { Navigate } from '../../components'
 import { AdminSidebar } from '../AdminSidebar'
 import { CreateModelButton } from '../CreateModelButton'
 import { LanguageSwitcher } from '../LanguageSwitcher'
@@ -30,7 +29,7 @@ type AdminHeaderProps = {
 }
 
 export const AdminHeader: FC<AdminHeaderProps> = ({ hasBackButton, title }) => {
-  const { user } = useAuthContext()
+  const { user, openAuthModal } = useAuthContext()
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   const router = useRouter()
@@ -77,11 +76,14 @@ export const AdminHeader: FC<AdminHeaderProps> = ({ hasBackButton, title }) => {
         <LanguageSwitcher responsive />
         <CreateModelButton />
         {!user && (
-          <Navigate href={'/login'}>
-            <Button colorScheme={'blue'} leftIcon={<FaUser />} rounded={'full'}>
-              Login
-            </Button>
-          </Navigate>
+          <Button
+            onClick={openAuthModal}
+            colorScheme={'blue'}
+            leftIcon={<FaUser />}
+            rounded={'full'}
+          >
+            Login
+          </Button>
         )}
         <IconButton
           aria-label="Open Menu"
