@@ -37,4 +37,21 @@ export default {
 
     return { data: result }
   },
+   async author() {
+    console.log("author ");
+    
+
+    // const authors = await strapi.entityService.findMany('plugin::users-permissions.user')
+
+    // const id = ctx.params.id;
+
+    const user = await strapi.plugins['users-permissions'].controller('user')
+    
+    console.log(user);
+    
+
+    return {data: []}
+    
+  }
+
 }

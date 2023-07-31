@@ -11,6 +11,7 @@ export const blogSchema = yup.object({
   content: yup.string().required('Content is required'),
   categories: yupMultiSelect,
   tags: yupMultiSelect,
+  authors: yupMultiSelect,
   image: yup.mixed().required('Image is required'),
 })
 
@@ -31,4 +32,11 @@ export const blogFields: FormFields<Blog> = [
     isMulti: true,
     url: 'api/tags',
   },
+  {
+    name: 'author',
+    type: 'select',
+    isMulti: true,
+    url: 'api/blogs/authors'
+
+  }
 ]

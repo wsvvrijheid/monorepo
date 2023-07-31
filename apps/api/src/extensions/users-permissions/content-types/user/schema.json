@@ -110,6 +110,12 @@
       "relation": "oneToOne",
       "target": "api::volunteer.volunteer",
       "inversedBy": "user"
+    },
+    "blogs": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::blog.blog",
+      "mappedBy": "author"
     }
   }
 }
