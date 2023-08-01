@@ -12,8 +12,8 @@ export default {
     },
     {
       method: 'GET',
-      path: '/blogs/authors',
-      handler: 'custom.author',
-    }
+      path: '/authors',
+      handler: 'custom.getAuthors',
+    },
   ],
 }

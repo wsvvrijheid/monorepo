@@ -2,7 +2,7 @@ import * as yup from 'yup'
 
 import { Blog } from '@wsvvrijheid/types'
 
-import { yupMultiSelect } from './common'
+import { yupMultiSelect, yupSelect } from './common'
 import { FormFields } from '../../admin'
 
 export const blogSchema = yup.object({
@@ -11,7 +11,7 @@ export const blogSchema = yup.object({
   content: yup.string().required('Content is required'),
   categories: yupMultiSelect,
   tags: yupMultiSelect,
-  authors: yupMultiSelect,
+  author: yupSelect,
   image: yup.mixed().required('Image is required'),
 })
 
@@ -36,7 +36,6 @@ export const blogFields: FormFields<Blog> = [
     name: 'author',
     type: 'select',
     isMulti: true,
-    url: 'api/blogs/authors'
-
-  }
+    url: 'api/authors',
+  },
 ]
