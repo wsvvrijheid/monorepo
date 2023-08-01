@@ -41,7 +41,6 @@ export default {
     const user = await strapi.entityService.findMany(
       'plugin::users-permissions.user',
       {
-        populate: ['role'],
         filters: {
           role: {
             type: {
