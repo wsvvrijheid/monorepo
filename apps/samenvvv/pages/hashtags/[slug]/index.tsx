@@ -9,12 +9,9 @@ import {
   ModalFooter,
   ModalOverlay,
   Stack,
-  useBreakpointValue,
   useDisclosure,
 } from '@chakra-ui/react'
-import { TourProvider } from '@reactour/tour'
 import { QueryClient, dehydrate } from '@tanstack/react-query'
-import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock'
 import { getCookie } from 'cookies-next'
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
 import Head from 'next/head'
@@ -35,9 +32,7 @@ import {
   HashtagProvider,
   PostImage,
   PostMaker,
-  StepsContent,
   TimeLeft,
-  usePostMakerSteps,
 } from '@wsvvrijheid/ui'
 import { getItemLink, getOgImageSrc, getPageSeo } from '@wsvvrijheid/utils'
 
@@ -60,14 +55,6 @@ const HashtagPage: FC<HashtagProps> = ({
 
   const { t } = useTranslation()
 
-  const isMobile = useBreakpointValue({ base: true, lg: false })
-  const postMakerSteps = usePostMakerSteps()
-  const steps = isMobile ? postMakerSteps.mobile : postMakerSteps.desktop
-  const disableBody = (target: Element | null) =>
-    target && disableBodyScroll(target)
-  const enableBody = (target: Element | null) =>
-    target && enableBodyScroll(target)
-
   useEffect(() => {
     if (post) {
       onOpen()
@@ -87,54 +74,36 @@ const HashtagPage: FC<HashtagProps> = ({
 
   return (
     <HashtagProvider>
-      <TourProvider
-        steps={steps}
-        components={{}}
-        afterOpen={disableBody}
-        beforeClose={enableBody}
-        ContentComponent={StepsContent}
-        padding={{ mask: 6 }}
-        styles={{
-          popover: base => ({
-            ...base,
-            padding: 4,
-            backgroundColor: 'transparent',
-          }),
-        }}
-      >
-        {capsSrc && (
-          <Head>
-            <meta property="twitter:image:src" content={capsSrc} />
-          </Head>
-        )}
-        {post && (
-          <Modal isCentered isOpen={isOpen} onClose={handleClose}>
-            <ModalOverlay />
-            <ModalContent>
-              <ModalBody p={0}>
-                <Stack>
-                  <PostImage size="sm" post={post} />
-                  <Box p={8}>{post.description}</Box>
-                </Stack>
-              </ModalBody>
-              <ModalFooter>
-                <Button onClick={handleClose}>
-                  {t('post.see-other-posts')}
-                </Button>
-              </ModalFooter>
-            </ModalContent>
-          </Modal>
-        )}
-        <Layout seo={seo}>
-          <Container py={4} pos="relative">
-            {hasStarted || isAdminMode ? (
-              <PostMaker isAdminMode={isAdminMode} isIosSafari={isIosSafari} />
-            ) : (
-              <TimeLeft date={hashtag.date as string} />
-            )}
-          </Container>
-        </Layout>
-      </TourProvider>
+      {capsSrc && (
+        <Head>
+          <meta property="twitter:image:src" content={capsSrc} />
+        </Head>
+      )}
+      {post && (
+        <Modal isCentered isOpen={isOpen} onClose={handleClose}>
+          <ModalOverlay />
+          <ModalContent>
+            <ModalBody p={0}>
+              <Stack>
+                <PostImage size="sm" post={post} />
+                <Box p={8}>{post.description}</Box>
+              </Stack>
+            </ModalBody>
+            <ModalFooter>
+              <Button onClick={handleClose}>{t('post.see-other-posts')}</Button>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
+      )}
+      <Layout seo={seo}>
+        <Container py={4} pos="relative">
+          {hasStarted || isAdminMode ? (
+            <PostMaker isAdminMode={isAdminMode} isIosSafari={isIosSafari} />
+          ) : (
+            <TimeLeft date={hashtag.date as string} />
+          )}
+        </Container>
+      </Layout>
     </HashtagProvider>
   )
 }
