@@ -37,4 +37,20 @@ export default {
 
     return { data: result }
   },
+  async getAuthors() {
+    const user = await strapi.entityService.findMany(
+      'plugin::users-permissions.user',
+      {
+        filters: {
+          role: {
+            type: {
+              $containsi: 'author',
+            },
+          },
+        },
+      },
+    )
+
+    return { data: user }
+  },
 }

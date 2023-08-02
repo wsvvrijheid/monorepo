@@ -237,6 +237,7 @@ export type StrapiCollectionEndpoint =
   | 'applicants'
   | 'arts'
   | 'blogs'
+  | 'authors'
   | 'categories'
   | 'collections'
   | 'comments'
