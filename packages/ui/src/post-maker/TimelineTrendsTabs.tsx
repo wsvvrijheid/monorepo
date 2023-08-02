@@ -22,7 +22,7 @@ export const TimelineTrendsTabs = () => {
   if (!hashtag) return null
 
   return (
-    <Stack h={780} data-tour="step-trends">
+    <Stack h={780}>
       <Box overflowY="auto" bg="white" borderWidth={1}>
         <Tabs colorScheme="primary" isFitted size="sm">
           <TabList pos="sticky" top="0" bg="white">
