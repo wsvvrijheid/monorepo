@@ -10,5 +10,10 @@ export default {
       path: '/blogs/relation/:id',
       handler: 'custom.relation',
     },
+    {
+      method: 'GET',
+      path: '/authors',
+      handler: 'custom.getAuthors',
+    },
   ],
 }
