@@ -69,8 +69,6 @@ export const AuthModal = () => {
     })
   }
 
-  console.log('login mutation error', loginMutation?.error)
-
   return (
     <Modal
       isCentered
