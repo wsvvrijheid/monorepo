@@ -167,6 +167,7 @@
   "login.terms-use": "Accepteert u de gebruiksvoorwaarden?",
   "login.username.required": "Gebruikersnaam is verplicht",
   "login.username.title": "Gebruikersnaam",
+  "login.wrong-password-username":"Gebruikersnaam of wachtwoord verkeerd. Probeer het later opnieuw.",
   "model.approve": "Goedkeuren",
   "model.approve-prompt": "Weet u zeker dat u dit model wilt goedkeuren?",
   "model.cancel": "Annuleer",

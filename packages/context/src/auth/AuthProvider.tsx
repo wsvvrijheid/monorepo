@@ -3,6 +3,7 @@ import { FC, createContext, useContext, useEffect, useState } from 'react'
 import { useDisclosure } from '@chakra-ui/react'
 import axios from 'axios'
 import { useRouter } from 'next/router'
+import {  useTranslation } from 'react-i18next'
 
 import { Auth, RoleType, SessionUser } from '@wsvvrijheid/types'
 
@@ -23,7 +24,7 @@ export const AuthProvider: FC<AuthProviderProps> = ({
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [error, setError] = useState<string | null>(null)
   const authModalDisclosure = useDisclosure()
-
+ const { t } = useTranslation()
   const router = useRouter()
 
   useEffect(() => {
@@ -86,6 +87,7 @@ export const AuthProvider: FC<AuthProviderProps> = ({
     identifier: string,
     password: string,
   ): Promise<AuthState> => {
+   
     setIsLoading(true)
     try {
       const response = await axios.post<Auth>('/api/auth/login', {
@@ -108,8 +110,11 @@ export const AuthProvider: FC<AuthProviderProps> = ({
       }
     } catch (error: any) {
       setError(error.message)
-
-      return initialAuthState
+      if (error.response.status === 400) {
+        throw t('login.wrong-password-username')
+      } else {
+        throw error.message
+      }
     } finally {
       setIsLoading(false)
     }
@@ -162,7 +167,6 @@ export const AuthProvider: FC<AuthProviderProps> = ({
         isLoggedIn,
         isLoading,
         error,
-        setError,
         checkAuth,
         logout,
         login,

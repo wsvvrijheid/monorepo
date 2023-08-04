@@ -45,8 +45,6 @@ export const AuthModal = () => {
   const {
     isLoading: isAuthLoading,
     login,
-    error,
-    setError,
     closeAuthModal,
     isAuthModalOpen,
   } = useAuthContext()
@@ -57,31 +55,21 @@ export const AuthModal = () => {
     mutationKey: ['login'],
     mutationFn: (body: LoginFormFieldValues) =>
       login(body.identifier, body.password),
-    onError: err => setError(err),
   })
 
   const handleSubmitSign: SubmitHandler<LoginFormFieldValues> = async data => {
-      // if (error) {
-      //       loginMutation.isError = true
-      //       loginMutation.error = error
-
-      //       return
-      //     }
-    loginMutation.mutate(
-      data,
-      {
-        onSuccess: async () => {
-        
-          setIsRedirecting(true)
-          reset()
-          closeAuthModal()
-          await router.push('/')
-          setIsRedirecting(false)
-        },
-        onError: er => console.log('on Error mutation', er),
+    loginMutation.mutate(data, {
+      onSuccess: async () => {
+        setIsRedirecting(true)
+        reset()
+        closeAuthModal()
+        await router.push('/')
+        setIsRedirecting(false)
       },
-    )
+    })
   }
+
+  console.log('login mutation error', loginMutation?.error)
 
   return (
     <Modal
@@ -153,16 +141,9 @@ export const AuthModal = () => {
                     </Text>
                   ) : (
                     <Text color="red.500" fontSize="sm">
-                      {(loginMutation.data?.error as any) || 'An error occured'}
+                      {(loginMutation.error as any) || 'An error occured'}
                     </Text>
                   ))}
-                {error && (
-                  <Text color="red.500" fontSize="sm">
-                    {error ||
-                      (loginMutation.data?.error as any) ||
-                      'Kullanici adi veya sifre hatali'}
-                  </Text>
-                )}
               </Stack>
               {/* TODO Set session exp time */}
               <Button
