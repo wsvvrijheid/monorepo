@@ -45,6 +45,8 @@ export const AuthModal = () => {
   const {
     isLoading: isAuthLoading,
     login,
+    error,
+    setError,
     closeAuthModal,
     isAuthModalOpen,
   } = useAuthContext()
@@ -55,19 +57,30 @@ export const AuthModal = () => {
     mutationKey: ['login'],
     mutationFn: (body: LoginFormFieldValues) =>
       login(body.identifier, body.password),
+    onError: err => setError(err),
   })
 
   const handleSubmitSign: SubmitHandler<LoginFormFieldValues> = async data => {
-    loginMutation.mutate(data, {
-      onError: e => console.log('Login error', e),
-      onSuccess: async () => {
-        setIsRedirecting(true)
-        reset()
-        closeAuthModal()
-        await router.push('/')
-        setIsRedirecting(false)
+      // if (error) {
+      //       loginMutation.isError = true
+      //       loginMutation.error = error
+
+      //       return
+      //     }
+    loginMutation.mutate(
+      data,
+      {
+        onSuccess: async () => {
+        
+          setIsRedirecting(true)
+          reset()
+          closeAuthModal()
+          await router.push('/')
+          setIsRedirecting(false)
+        },
+        onError: er => console.log('on Error mutation', er),
       },
-    })
+    )
   }
 
   return (
@@ -140,10 +153,16 @@ export const AuthModal = () => {
                     </Text>
                   ) : (
                     <Text color="red.500" fontSize="sm">
-                      {(loginMutation.error as any)?.response?.data?.message ||
-                        'An error occured'}
+                      {(loginMutation.data?.error as any) || 'An error occured'}
                     </Text>
                   ))}
+                {error && (
+                  <Text color="red.500" fontSize="sm">
+                    {error ||
+                      (loginMutation.data?.error as any) ||
+                      'Kullanici adi veya sifre hatali'}
+                  </Text>
+                )}
               </Stack>
               {/* TODO Set session exp time */}
               <Button

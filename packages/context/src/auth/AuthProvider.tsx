@@ -32,6 +32,7 @@ export const AuthProvider: FC<AuthProviderProps> = ({
       setRoles(initialState.roles)
       setToken(initialState.token)
       setIsLoggedIn(initialState.isLoggedIn)
+      setError(initialState.error)
     }
   }, [initialState])
 
@@ -86,7 +87,6 @@ export const AuthProvider: FC<AuthProviderProps> = ({
     password: string,
   ): Promise<AuthState> => {
     setIsLoading(true)
-
     try {
       const response = await axios.post<Auth>('/api/auth/login', {
         identifier,
@@ -162,6 +162,7 @@ export const AuthProvider: FC<AuthProviderProps> = ({
         isLoggedIn,
         isLoading,
         error,
+        setError,
         checkAuth,
         logout,
         login,
