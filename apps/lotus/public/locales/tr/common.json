@@ -166,6 +166,7 @@
   "login.terms-use": "Kullanım koşullarını kabul ediyor musunuz?",
   "login.username.required": "Kullanıcı adı alanı zorunludur",
   "login.username.title": "Kullanıcı Adı",
+  "login.wrong-password-username": "Kullanıcı adı veya şifre hatalı. Lütfen tekrar deneyiniz.",
   "model.approve": "Onayla",
   "model.approve-prompt": "Bu modeli onaylamak istediğinizden emin misiniz?",
   "model.cancel": "İptal",

@@ -59,7 +59,6 @@ export const AuthModal = () => {
 
   const handleSubmitSign: SubmitHandler<LoginFormFieldValues> = async data => {
     loginMutation.mutate(data, {
-      onError: e => console.log('Login error', e),
       onSuccess: async () => {
         setIsRedirecting(true)
         reset()
@@ -140,8 +139,7 @@ export const AuthModal = () => {
                     </Text>
                   ) : (
                     <Text color="red.500" fontSize="sm">
-                      {(loginMutation.error as any)?.response?.data?.message ||
-                        'An error occured'}
+                      {(loginMutation.error as any) || 'An error occured'}
                     </Text>
                   ))}
               </Stack>
