@@ -37,7 +37,7 @@ export const MentionList = () => {
   }
 
   return (
-    <VStack align="stretch" h={400} data-tour="step-mention-list">
+    <VStack align="stretch" h={400}>
       <VStack minH="0" h="full" align="stretch" bg="white" overflowY="auto">
         <Tabs
           size="sm"

@@ -2,13 +2,11 @@ import { FC } from 'react'
 
 import {
   Box,
-  Button,
   Drawer,
   DrawerBody,
   DrawerContent,
   DrawerOverlay,
   Grid,
-  IconButton,
   Modal,
   ModalBody,
   ModalContent,
@@ -16,9 +14,6 @@ import {
   Skeleton,
   useBreakpointValue,
 } from '@chakra-ui/react'
-import { useTour } from '@reactour/tour'
-import { useTranslation } from 'next-i18next'
-import { FaQuestionCircle } from 'react-icons/fa'
 
 import { useHashtag } from '@wsvvrijheid/services'
 
@@ -35,14 +30,11 @@ type PostMakerProps = {
 }
 
 export const PostMaker: FC<PostMakerProps> = ({ isAdminMode, isIosSafari }) => {
-  const { t } = useTranslation()
   const isMobile = useBreakpointValue({ base: true, lg: false }) ?? true
 
   const { mentionsDisclosure, trendsDisclosure } = useHashtagContext()
 
   const hashtag = useHashtag()
-
-  const { setIsOpen } = useTour()
 
   if (!hashtag) return null
 
@@ -96,30 +88,6 @@ export const PostMaker: FC<PostMakerProps> = ({ isAdminMode, isIosSafari }) => {
           </DrawerBody>
         </DrawerContent>
       </Drawer>
-      <Button
-        display={{ base: 'none', lg: 'flex' }}
-        zIndex="sticky"
-        pos="fixed"
-        right={4}
-        bottom={4}
-        leftIcon={<FaQuestionCircle />}
-        onClick={() => setIsOpen(true)}
-      >
-        {t('post.help')}
-      </Button>
-      <IconButton
-        display={{ base: 'flex', lg: 'none' }}
-        zIndex="sticky"
-        pos="fixed"
-        size="lg"
-        right={2}
-        bottom={2}
-        rounded="full"
-        aria-label="help"
-        shadow="base"
-        icon={<FaQuestionCircle />}
-        onClick={() => setIsOpen(true)}
-      />
       <Grid
         gap={2}
         gridTemplateColumns={{ base: '1fr', lg: '300px 1fr 300px' }}
