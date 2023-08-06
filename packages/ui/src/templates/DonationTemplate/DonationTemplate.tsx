@@ -3,6 +3,7 @@ import { FC, useState } from 'react'
 import {
   Box,
   Button,
+  HStack,
   ButtonGroup,
   Heading,
   Image,
@@ -126,54 +127,18 @@ export const DonationTemplate: FC<DonationTemplateProps> = ({
           </Heading>
 
           <Stack align="center">
-            <ButtonGroup>
-              <Button
-                py={4}
-                colorScheme={'gray'}
-                variant={'outline'}
-                h="auto"
-                size="lg"
-                cursor={'unset'}
-              >
-                <Image src={`/images/ideal-logo.svg`} h={50} alt="ideal" />
-              </Button>
+            <HStack spacing={4}>
+              <Image src={`/images/ideal-logo.svg`} h={50} alt="ideal" />
 
-              <Button
-                py={4}
-                colorScheme={'gray'}
-                variant={'outline'}
-                h="auto"
-                size="lg"
-                cursor={'unset'}
-              >
-                <Image src={`/images/apple-pay.svg`} h={50} alt="apple pay" />
-              </Button>
+              <Image
+                src={`/images/visa-master-logo.svg`}
+                h={50}
+                alt="visa mastercard"
+              />
+              <Image src={`/images/apple-pay.svg`} h={50} alt="apple pay" />
 
-              <Button
-                py={4}
-                colorScheme={'gray'}
-                variant={'outline'}
-                h="auto"
-                size="lg"
-                cursor={'unset'}
-              >
-                <Image src={`/images/google-pay.svg`} h={50} alt="google pay" />
-              </Button>
-              <Button
-                py={4}
-                colorScheme={'gray'}
-                variant={'outline'}
-                h="auto"
-                size="lg"
-                cursor={'unset'}
-              >
-                <Image
-                  src={`/images/visa-master-logo.svg`}
-                  h={50}
-                  alt="visa mastercard"
-                />
-              </Button>
-            </ButtonGroup>
+              <Image src={`/images/google-pay.svg`} h={50} alt="google pay" />
+            </HStack>
             <Text textAlign="center" fontSize="md" color="gray.500">
               {t('donation.check-payment-method')}
             </Text>
