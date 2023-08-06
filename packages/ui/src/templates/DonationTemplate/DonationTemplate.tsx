@@ -58,7 +58,9 @@ export const DonationTemplate: FC<DonationTemplateProps> = ({
   isDark,
 }) => {
   const [amount, setAmount] = useState(5)
-  const [method, setMethod] = useState<'ideal' | 'card' | 'paypal'>('ideal')
+  const [method, setMethod] = useState<
+    'ideal' | 'card' | 'paypal' | 'apple-pay' | 'google-pay'
+  >('ideal')
   const [type, setType] = useState<'one-time' | 'monthly'>('one-time')
   const { t } = useTranslation()
 
@@ -136,9 +138,31 @@ export const DonationTemplate: FC<DonationTemplateProps> = ({
                 onClick={() => setMethod('ideal')}
                 h="auto"
                 size="lg"
-                disabled={method !== 'ideal'}
               >
                 <Image src={`/images/ideal-logo.svg`} h={50} alt="ideal" />
+              </Button>
+              <Tooltip label="Not yet available">
+                <Button
+                  py={4}
+                  colorScheme={method === 'apple-pay' ? 'primary' : 'gray'}
+                  variant={method === 'apple-pay' ? 'solid' : 'outline'}
+                  onClick={() => setMethod('apple-pay')}
+                  h="auto"
+                  size="lg"
+                  isDisabled={true}
+                >
+                  <Image src={`/images/apple-pay.svg`} h={50} alt="apple pay" />
+                </Button>
+              </Tooltip>
+              <Button
+                py={4}
+                colorScheme={method === 'google-pay' ? 'primary' : 'gray'}
+                variant={method === 'google-pay' ? 'solid' : 'outline'}
+                onClick={() => setMethod('google-pay')}
+                h="auto"
+                size="lg"
+              >
+                <Image src={`/images/google-pay.svg`} h={50} alt="google pay" />
               </Button>
               <Button
                 py={4}
@@ -147,12 +171,11 @@ export const DonationTemplate: FC<DonationTemplateProps> = ({
                 onClick={() => setMethod('card')}
                 h="auto"
                 size="lg"
-                disabled={method !== 'card'}
               >
                 <Image
                   src={`/images/visa-master-logo.svg`}
                   h={50}
-                  alt="ideal"
+                  alt="visa mastercard"
                 />
               </Button>
             </ButtonGroup>

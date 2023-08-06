@@ -32,7 +32,7 @@ const handler: NextApiHandler = async (req, res) => {
     }
     // Create checkout session for subscription
     const payment = await stripe.checkout.sessions.create({
-      payment_method_types: [method],
+      payment_method_types: [method === 'ideal' ? 'ideal' : 'card'],
       line_items: [
         {
           price_data: {
