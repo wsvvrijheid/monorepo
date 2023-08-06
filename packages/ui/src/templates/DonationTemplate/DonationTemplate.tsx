@@ -58,9 +58,6 @@ export const DonationTemplate: FC<DonationTemplateProps> = ({
   isDark,
 }) => {
   const [amount, setAmount] = useState(5)
-  const [method, setMethod] = useState<
-    'ideal' | 'card' | 'paypal' | 'apple-pay' | 'google-pay'
-  >('ideal')
   const [type, setType] = useState<'one-time' | 'monthly'>('one-time')
   const { t } = useTranslation()
 
@@ -87,7 +84,6 @@ export const DonationTemplate: FC<DonationTemplateProps> = ({
 
       const result = await axios.post('/api/payment', {
         amount,
-        method,
         name,
         email,
         type,
@@ -133,44 +129,43 @@ export const DonationTemplate: FC<DonationTemplateProps> = ({
             <ButtonGroup>
               <Button
                 py={4}
-                colorScheme={method === 'ideal' ? 'primary' : 'gray'}
-                variant={method === 'ideal' ? 'solid' : 'outline'}
-                onClick={() => setMethod('ideal')}
+                colorScheme={'gray'}
+                variant={'outline'}
                 h="auto"
                 size="lg"
+                cursor={'unset'}
               >
                 <Image src={`/images/ideal-logo.svg`} h={50} alt="ideal" />
               </Button>
-              <Tooltip label="Not yet available">
-                <Button
-                  py={4}
-                  colorScheme={method === 'apple-pay' ? 'primary' : 'gray'}
-                  variant={method === 'apple-pay' ? 'solid' : 'outline'}
-                  onClick={() => setMethod('apple-pay')}
-                  h="auto"
-                  size="lg"
-                  isDisabled={true}
-                >
-                  <Image src={`/images/apple-pay.svg`} h={50} alt="apple pay" />
-                </Button>
-              </Tooltip>
+
               <Button
                 py={4}
-                colorScheme={method === 'google-pay' ? 'primary' : 'gray'}
-                variant={method === 'google-pay' ? 'solid' : 'outline'}
-                onClick={() => setMethod('google-pay')}
+                colorScheme={'gray'}
+                variant={'outline'}
                 h="auto"
                 size="lg"
+                cursor={'unset'}
+              >
+                <Image src={`/images/apple-pay.svg`} h={50} alt="apple pay" />
+              </Button>
+
+              <Button
+                py={4}
+                colorScheme={'gray'}
+                variant={'outline'}
+                h="auto"
+                size="lg"
+                cursor={'unset'}
               >
                 <Image src={`/images/google-pay.svg`} h={50} alt="google pay" />
               </Button>
               <Button
                 py={4}
-                colorScheme={method === 'card' ? 'primary' : 'gray'}
-                variant={method === 'card' ? 'solid' : 'outline'}
-                onClick={() => setMethod('card')}
+                colorScheme={'gray'}
+                variant={'outline'}
                 h="auto"
                 size="lg"
+                cursor={'unset'}
               >
                 <Image
                   src={`/images/visa-master-logo.svg`}
@@ -180,7 +175,7 @@ export const DonationTemplate: FC<DonationTemplateProps> = ({
               </Button>
             </ButtonGroup>
             <Text textAlign="center" fontSize="md" color="gray.500">
-              {t('donation.check-payment-method')} *
+              {t('donation.check-payment-method')}
             </Text>
           </Stack>
 
@@ -266,7 +261,7 @@ export const DonationTemplate: FC<DonationTemplateProps> = ({
 
           <Stack>
             <Button
-              isDisabled={!amount || !method || !isValid}
+              isDisabled={!amount || !isValid}
               type="submit"
               leftIcon={<FaDonate />}
               onClick={() => setType('one-time')}
@@ -276,7 +271,7 @@ export const DonationTemplate: FC<DonationTemplateProps> = ({
               {amount && ` €${amount}`}
             </Button>
             <Button
-              isDisabled={!amount || !method || !isValid}
+              isDisabled={!amount || !isValid}
               type="submit"
               leftIcon={<FaDonate />}
               onClick={() => setType('monthly')}
