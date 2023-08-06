@@ -28,6 +28,7 @@ export const CategoryFilterCheckbox = (props: UseCheckboxProps) => {
       <input {...getInputProps()} hidden />
       <Box
         maxW={state.isChecked ? 'auto' : 0}
+        ml={state.isChecked ? 2 : 0}
         transition="all 0.2s"
         as={FaCheck}
       />

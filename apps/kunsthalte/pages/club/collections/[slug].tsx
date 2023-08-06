@@ -5,8 +5,9 @@ import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 
 import { getCollectionBySlug, getModelStaticPaths } from '@wsvvrijheid/services'
 import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
-import { Localize, StrapiLocale } from '@wsvvrijheid/types'
+import { StrapiLocale } from '@wsvvrijheid/types'
 import { CollectionTemplate } from '@wsvvrijheid/ui'
+import { getLocalizedSlugs } from '@wsvvrijheid/utils'
 
 import { Layout } from '../../../components/Layout'
 
@@ -61,12 +62,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
 
   if (!collection) return { notFound: true }
 
-  const slugs =
-    collection.localizations?.reduce((acc, l) => {
-      acc[l.locale] = l.slug
-
-      return acc
-    }, {} as Localize<string>) || {}
+  const slugs = getLocalizedSlugs(collection, locale)
 
   const title = collection.title || ''
 
@@ -78,7 +74,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
     props: {
       ...(await ssrTranslations(locale)),
       seo,
-      slugs: { ...slugs, [locale]: slug },
+      slugs,
       collection,
     },
     revalidate: 1,

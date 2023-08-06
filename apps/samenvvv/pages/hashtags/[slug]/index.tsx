@@ -34,7 +34,12 @@ import {
   PostMaker,
   TimeLeft,
 } from '@wsvvrijheid/ui'
-import { getItemLink, getOgImageSrc, getPageSeo } from '@wsvvrijheid/utils'
+import {
+  getItemLink,
+  getLocalizedSlugs,
+  getOgImageSrc,
+  getPageSeo,
+} from '@wsvvrijheid/utils'
 
 import { Layout } from '../../../components'
 
@@ -219,16 +224,7 @@ export const getServerSideProps = async (
     staleTime: 1000 * 60,
   })
 
-  const slugs =
-    hashtag.localizations?.reduce(
-      (acc, l) => {
-        return {
-          ...acc,
-          [l.locale]: l.slug,
-        }
-      },
-      { en: '', nl: '', tr: '' },
-    ) || {}
+  const slugs = getLocalizedSlugs(hashtag, locale)
 
   return {
     props: {
@@ -239,7 +235,7 @@ export const getServerSideProps = async (
       post: post || null,
       isIosSafari,
       isAdminMode: adminMode === true,
-      slugs: { ...slugs, [locale]: slug },
+      slugs,
       hasStarted: hashtag.hasStarted,
       dehydratedState: dehydrate(queryClient),
       ...(await ssrTranslations(locale)),

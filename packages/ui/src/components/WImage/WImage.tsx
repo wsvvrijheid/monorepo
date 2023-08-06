@@ -29,7 +29,9 @@ export const WImage: FC<WImageProps> = ({
   ...rest
 }) => {
   if (!src) {
-    console.warn('No src provided to WImage')
+    if (process.env.NODE_ENV === 'production') {
+      console.warn('No src provided to WImage')
+    }
 
     return null
   }
