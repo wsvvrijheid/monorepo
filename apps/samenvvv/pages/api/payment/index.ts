@@ -8,7 +8,7 @@ import { Donation, DonationCreateInput } from '@wsvvrijheid/types'
 
 const handler: NextApiHandler = async (req, res) => {
   try {
-    const { amount, name, email, method, type } = req.body
+    const { amount, name, email, type } = req.body
     // Create blank donation in database
     const donation = await Mutation.post<Donation, DonationCreateInput>(
       'api/donates',
@@ -32,7 +32,7 @@ const handler: NextApiHandler = async (req, res) => {
     }
     // Create checkout session for subscription
     const payment = await stripe.checkout.sessions.create({
-      payment_method_types: [method],
+      payment_method_types: ['ideal', 'card'],
       line_items: [
         {
           price_data: {

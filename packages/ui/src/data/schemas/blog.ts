@@ -33,9 +33,9 @@ export const blogFields: FormFields<Blog> = [
     url: 'api/tags',
   },
   {
-    name: "author",
-    type: "select",
+    name: 'author',
+    type: 'select',
     isMulti: false,
     url: 'api/authors',
-  }
+  },
 ]

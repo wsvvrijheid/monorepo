@@ -3,6 +3,7 @@ import { FC, useState } from 'react'
 import {
   Box,
   Button,
+  HStack,
   ButtonGroup,
   Heading,
   Image,
@@ -58,7 +59,6 @@ export const DonationTemplate: FC<DonationTemplateProps> = ({
   isDark,
 }) => {
   const [amount, setAmount] = useState(5)
-  const [method, setMethod] = useState<'ideal' | 'card' | 'paypal'>('ideal')
   const [type, setType] = useState<'one-time' | 'monthly'>('one-time')
   const { t } = useTranslation()
 
@@ -85,7 +85,6 @@ export const DonationTemplate: FC<DonationTemplateProps> = ({
 
       const result = await axios.post('/api/payment', {
         amount,
-        method,
         name,
         email,
         type,
@@ -128,36 +127,20 @@ export const DonationTemplate: FC<DonationTemplateProps> = ({
           </Heading>
 
           <Stack align="center">
-            <ButtonGroup>
-              <Button
-                py={4}
-                colorScheme={method === 'ideal' ? 'primary' : 'gray'}
-                variant={method === 'ideal' ? 'solid' : 'outline'}
-                onClick={() => setMethod('ideal')}
-                h="auto"
-                size="lg"
-                disabled={method !== 'ideal'}
-              >
-                <Image src={`/images/ideal-logo.svg`} h={50} alt="ideal" />
-              </Button>
-              <Button
-                py={4}
-                colorScheme={method === 'card' ? 'primary' : 'gray'}
-                variant={method === 'card' ? 'solid' : 'outline'}
-                onClick={() => setMethod('card')}
-                h="auto"
-                size="lg"
-                disabled={method !== 'card'}
-              >
-                <Image
-                  src={`/images/visa-master-logo.svg`}
-                  h={50}
-                  alt="ideal"
-                />
-              </Button>
-            </ButtonGroup>
+            <HStack spacing={4}>
+              <Image src={`/images/ideal-logo.svg`} h={50} alt="ideal" />
+
+              <Image
+                src={`/images/visa-master-logo.svg`}
+                h={50}
+                alt="visa mastercard"
+              />
+              <Image src={`/images/apple-pay.svg`} h={50} alt="apple pay" />
+
+              <Image src={`/images/google-pay.svg`} h={50} alt="google pay" />
+            </HStack>
             <Text textAlign="center" fontSize="md" color="gray.500">
-              {t('donation.check-payment-method')} *
+              {t('donation.check-payment-method')}
             </Text>
           </Stack>
 
@@ -243,7 +226,7 @@ export const DonationTemplate: FC<DonationTemplateProps> = ({
 
           <Stack>
             <Button
-              isDisabled={!amount || !method || !isValid}
+              isDisabled={!amount || !isValid}
               type="submit"
               leftIcon={<FaDonate />}
               onClick={() => setType('one-time')}
@@ -253,7 +236,7 @@ export const DonationTemplate: FC<DonationTemplateProps> = ({
               {amount && ` €${amount}`}
             </Button>
             <Button
-              isDisabled={!amount || !method || !isValid}
+              isDisabled={!amount || !isValid}
               type="submit"
               leftIcon={<FaDonate />}
               onClick={() => setType('monthly')}

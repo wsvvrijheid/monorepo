@@ -15,7 +15,9 @@ export const getMediaUrl = (
   size?: keyof FileFormats,
 ) => {
   if (!src) {
-    console.warn('No src provided to WImage')
+    if (process.env.NODE_ENV === 'production') {
+      console.warn('No src provided to WImage')
+    }
 
     return ''
   }
