@@ -12,11 +12,13 @@ const LocaleSwitcher: FC<LocaleSwitcherProps> = ({ isDark }) => {
   const { push, pathname, locale, asPath, components, query } = useRouter()
   const isScrolled = useScroll()
 
+  // We pass localized slugs to pageProps from getStaticProps or getServerSideProps
   const slugs = components?.[pathname].props.pageProps?.slugs
 
   // TODO: Redirect to localized path for static pages
   const handleChangeLanguage = async (locale: StrapiLocale) => {
-    await push(pathname, slugs?.[locale] || asPath, { locale, scroll: false })
+    const targetSlug = slugs?.[locale] || asPath
+    push(targetSlug, undefined, { locale, scroll: false })
   }
 
   const locales = ['en', 'nl', 'tr'] as StrapiLocale[]

@@ -14,6 +14,7 @@ import {
   StrapiLocale,
 } from '@wsvvrijheid/types'
 import { ActivityDetail } from '@wsvvrijheid/ui'
+import { getLocalizedSlugs } from '@wsvvrijheid/utils'
 
 import { Layout } from '../../components/index'
 
@@ -62,6 +63,8 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
 
   const activity = activityData.data[0]
 
+  const slugs = getLocalizedSlugs(activity, locale)
+
   const title = activity.title || ''
   const content = activity.content || ''
   const image = activity.image || ''
@@ -75,6 +78,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
       seo,
       image,
       source,
+      slugs,
       dehydratedState: dehydrate(queryClient),
       ...(await ssrTranslations(locale)),
     },
