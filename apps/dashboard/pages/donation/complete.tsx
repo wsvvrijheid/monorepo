@@ -5,9 +5,7 @@ import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
 import { strapiRequest } from '@wsvvrijheid/lib'
 import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import { Donation, StrapiLocale } from '@wsvvrijheid/types'
-import { DonationCompleteTemplate } from '@wsvvrijheid/ui'
-
-import { Layout } from '../../components'
+import { AdminLayout, DonationCompleteTemplate } from '@wsvvrijheid/ui'
 
 type DonationCompletePageProps = InferGetServerSidePropsType<
   typeof getServerSideProps
@@ -15,9 +13,9 @@ type DonationCompletePageProps = InferGetServerSidePropsType<
 
 const DonationComplete: FC<DonationCompletePageProps> = ({ status }) => {
   return (
-    <Layout seo={{ title: 'Payment' }}>
+    <AdminLayout seo={{ title: 'Payment' }}>
       <DonationCompleteTemplate status={status} />
-    </Layout>
+    </AdminLayout>
   )
 }
 
