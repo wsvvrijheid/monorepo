@@ -27,7 +27,7 @@ export const CourseDetailPage: FC<CourseDetailPageProps> = ({
   const title = course[`title_${locale || 'nl'}`]
   const description = course[`description_${locale || 'nl'}`]
 
-  const URL = `${SITE_URL}${asPath}`
+  const URL = `${SITE_URL}/${locale}${asPath}`
 
   return (
     <Container maxW={'6xl'}>

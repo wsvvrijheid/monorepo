@@ -119,7 +119,7 @@ export const DonationTemplate: FC<DonationTemplateProps> = ({
           shadow="lg"
           as="form"
           onSubmit={handleSubmit(onSubmit)}
-          pos={'sticky'}
+          pos={{ lg: 'sticky' }}
           top={16}
         >
           <Heading as="h3" size="lg" textAlign="center" fontWeight={900}>
