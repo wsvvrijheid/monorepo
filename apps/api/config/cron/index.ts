@@ -22,7 +22,7 @@ export default {
   timelines: {
     task: timeline,
     options: {
-      rule: '0 */23 * * *',
+      rule: '0 0 * * *',
       tz: 'Europe/Amsterdam',
     },
   },
