@@ -12,6 +12,8 @@ import { HomePlatform, Layout } from '../../components'
 type PlatformsProps = InferGetStaticPropsType<typeof getStaticProps>
 
 const Platforms: FC<PlatformsProps> = ({ title, platforms }) => {
+  console.log("platforms BBBBBB",platforms)
+
   return (
     <Layout seo={{ title }} isDark>
       <Hero title={title} />
