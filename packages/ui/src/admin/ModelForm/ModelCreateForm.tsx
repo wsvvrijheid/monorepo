@@ -115,7 +115,7 @@ export const ModelCreateForm = <T extends StrapiModel>({
     const bodyData = {
       ...body,
       slug,
-      publishedAt: url !== 'api/recommended-topics' ? null : new Date(),
+      publishedAt: url !== ('api/recommended-topics' ) ? url !=='api/recommended-tweets'?null:new Date() : new Date(),
       locale,
     } as StrapiTranslatableCreateInput
 
