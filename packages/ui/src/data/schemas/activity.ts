@@ -13,6 +13,8 @@ export const activitySchema = yup.object({
   description: yup.string().required('Description is required'),
   content: yup.string().required('Content is required'),
   image: yup.mixed().required('Image is required'),
+  forKunsthalte: yup.bool(),
+  forLotus: yup.bool(),
 })
 
 export const activityFields: FormFields<Activity> = [
@@ -22,6 +24,8 @@ export const activityFields: FormFields<Activity> = [
 
   { name: 'content', isRequired: true, type: 'markdown' },
   { name: 'image', type: 'file', isRequired: true },
+  { name: 'forKunsthalte', type: 'boolean',label: 'Publish to Kunsthalte', },
+  { name: 'forLotus', type: 'boolean',label:'Publish to Lotus vd Media' },
   {
     name: 'categories',
     type: 'select',
