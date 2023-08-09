@@ -118,6 +118,22 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::platform.platform"
+    },
+    "forKunsthalte": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "boolean"
+    },
+    "forLotus": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "boolean"
     }
   }
 }

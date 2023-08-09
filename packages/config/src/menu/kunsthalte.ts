@@ -6,10 +6,11 @@ import {
   privacy,
   terms,
   donation,
+  activity,
 } from './routes'
 
 export const kunsthalte = {
-  headerMenu: [art, collection, about, contact],
+  headerMenu: [art, collection,activity, about, contact],
   footerMenu: [
     {
       children: [

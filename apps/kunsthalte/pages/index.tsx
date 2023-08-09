@@ -4,7 +4,7 @@ import { Button, Center, Heading, Stack, Text, VStack } from '@chakra-ui/react'
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
-import { BsCollectionFill } from 'react-icons/bs'
+import { BsActivity, BsCollectionFill } from 'react-icons/bs'
 import { FaPaintBrush } from 'react-icons/fa'
 
 import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
@@ -67,6 +67,14 @@ const Home: FC<HomeProps> = ({ seo }) => {
                 leftIcon={<BsCollectionFill />}
               >
                 {t('view-collections')}
+              </Button>
+              <Button
+                as={Navigate}
+                href={`/${locale}/activities`}
+                size="lg"
+                leftIcon={<BsActivity />}
+              >
+                {t('view-activities')}
               </Button>
             </Stack>
           </AnimatedBox>

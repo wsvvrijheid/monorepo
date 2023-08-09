@@ -40,13 +40,14 @@ const Activities: FC<ActivitiesProps> = ({ title }) => {
     ...args,
     locale,
     page,
-   
+    filters: { forKunsthalte: { $eq: true }}
   })
 
   const { data, isLoading } = activitiesQuery
 
   const pagination = data?.meta?.pagination
   const activities = data?.data || []
+console.log("aktivities :::",activities)
 
   return (
     <Layout seo={{ title }} isDark>

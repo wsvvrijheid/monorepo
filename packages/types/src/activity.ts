@@ -6,6 +6,8 @@ import { Tag } from './tag'
 
 type ActivityBase = StrapiEntityBase & {
   date: string
+  forKunsthalte:boolean
+  forLotus:boolean
 }
 
 type ActivityRelation = {
