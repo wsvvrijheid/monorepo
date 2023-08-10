@@ -40,7 +40,6 @@ const Activities: FC<ActivitiesProps> = ({ title }) => {
     ...args,
     locale,
     page,
-   
   })
 
   const { data, isLoading } = activitiesQuery

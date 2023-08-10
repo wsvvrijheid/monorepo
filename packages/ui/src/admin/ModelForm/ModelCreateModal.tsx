@@ -29,7 +29,7 @@ export const ModelCreateModal = <T extends StrapiModel>({
   buttonProps,
   hideLanguageSwitcher,
   allowedRoles,
-  shouldPublish
+  shouldPublish,
 }: PropsWithChildren<ModelCreateFormProps<T> & { title: string }>) => {
   const formDisclosure = useDisclosure()
 
