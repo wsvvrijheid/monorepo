@@ -10,6 +10,7 @@ type TimelineRelation = {
   userData: TweetUserBase
   tweets: Array<Omit<Tweet, 'user'>>
   creator?: User
+  locale?: 'en' | 'nl' | 'tr'
 }
 
 export type TimelineCreateInput = Omit<

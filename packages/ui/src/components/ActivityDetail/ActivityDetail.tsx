@@ -31,9 +31,9 @@ export const ActivityDetail: FC<ActivityDetailProps> = ({
   image,
   activity,
 }) => {
-  const { asPath } = useRouter()
+  const { locale, asPath } = useRouter()
 
-  const URL = `${SITE_URL}${asPath}`
+  const URL = `${SITE_URL}/${locale}${asPath}`
 
   if (!source) return <Spinner />
 

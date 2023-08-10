@@ -59,6 +59,7 @@ export type ModelCreateFormProps<T extends StrapiModel> = {
   schema: AnyObjectSchema
   buttonProps?: ButtonProps
   hideLanguageSwitcher?: boolean
+  shouldPublish?: boolean
   onSuccess?: () => void
   allowedRoles?: RoleType[]
 }
