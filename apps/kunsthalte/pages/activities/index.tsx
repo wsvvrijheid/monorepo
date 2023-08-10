@@ -22,8 +22,11 @@ import { Layout } from '../../components'
 const args: RequestCollectionArgs = {
   url: 'api/activities',
   sort: ['date:desc'],
-  filters: { approvalStatus: { $eq: 'approved' }, platforms: { id: { $in: [1] } } },
- populate: ['image', 'platforms'],
+  filters: {
+    approvalStatus: { $eq: 'approved' },
+    platforms: { id: { $in: [1] } },
+  },
+  populate: ['image', 'platforms'],
   fields: ['title', 'description', 'slug'],
 }
 
@@ -40,14 +43,12 @@ const Activities: FC<ActivitiesProps> = ({ title }) => {
     ...args,
     locale,
     page,
-  //  filters:  { platforms: { $id: [1] }  },
   })
 
   const { data, isLoading } = activitiesQuery
 
   const pagination = data?.meta?.pagination
   const activities = data?.data || []
-  console.log('aktivities :::', activities)
 
   return (
     <Layout seo={{ title }} isDark>

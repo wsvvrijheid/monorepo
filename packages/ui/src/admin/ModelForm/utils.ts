@@ -155,9 +155,9 @@ export const useDefaultValues = <T extends StrapiModel>(
           break
         case 'platforms':
           defaults.platforms =
-            activityModel?.platforms?.map(c => ({
-              label: c[`name_${locale}`],
-              value: c.id.toString(),
+            activityModel?.platforms?.map(p => ({
+              label: p[`name_${locale}`],
+              value: p.id.toString(),
             })) || []
           break
         case 'tags':
