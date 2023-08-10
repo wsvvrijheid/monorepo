@@ -33,6 +33,7 @@ export const ModelCreateForm = <T extends StrapiModel>({
   model,
   onSuccess,
   hideLanguageSwitcher,
+  shouldPublish
 }: ModelCreateFormProps<T>) => {
   const createModelMutation = useCreateModelMutation<
     T,
@@ -115,7 +116,7 @@ export const ModelCreateForm = <T extends StrapiModel>({
     const bodyData = {
       ...body,
       slug,
-      publishedAt: url !== 'api/recommended-topics' ? null : new Date(),
+      publishedAt: shouldPublish?new Date() : null,
       locale,
     } as StrapiTranslatableCreateInput
 
