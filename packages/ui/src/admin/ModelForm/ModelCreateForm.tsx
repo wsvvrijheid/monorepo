@@ -118,6 +118,8 @@ export const ModelCreateForm = <T extends StrapiModel>({
       publishedAt: url !== 'api/recommended-topics' ? null : new Date(),
       locale,
     } as StrapiTranslatableCreateInput
+console.log("body data",bodyData)
+
 
     if (url === 'api/posts') {
       const imageProps = generateOgImageParams()
