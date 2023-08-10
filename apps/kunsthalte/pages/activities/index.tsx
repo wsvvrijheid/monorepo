@@ -40,7 +40,7 @@ const Activities: FC<ActivitiesProps> = ({ title }) => {
     ...args,
     locale,
     page,
-    //  filters:  { platforms: { $id: [1] }  },
+    filters: { platforms: { id: { $in: [1] } } },
   })
 
   const { data, isLoading } = activitiesQuery
