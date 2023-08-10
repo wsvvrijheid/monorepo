@@ -21,7 +21,7 @@ type ActivityRelationInput = {
   categories?: number
   tags?: Array<number>
   image: File
-  platforms?:number
+  platforms?: number
 }
 
 export type ActivityCreateInput = Expand<

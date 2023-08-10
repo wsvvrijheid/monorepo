@@ -10,7 +10,7 @@ import {
 } from './routes'
 
 export const kunsthalte = {
-  headerMenu: [art, collection,activity, about, contact],
+  headerMenu: [art, collection, activity, about, contact],
   footerMenu: [
     {
       children: [
