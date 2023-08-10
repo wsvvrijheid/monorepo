@@ -63,6 +63,7 @@ export const useDefaultValues = <T extends StrapiModel>(
   fields?: FormFields<T>,
 ) => {
   const hashtagModel = model as Hashtag
+  const activityModel = model as Activity
   const volunteerModel = model as Volunteer
   const postModel = model as Post
   const courseModel = model as Course
@@ -148,6 +149,13 @@ export const useDefaultValues = <T extends StrapiModel>(
         case 'categories':
           defaults.categories =
             hashtagModel?.categories?.map(c => ({
+              label: c[`name_${locale}`],
+              value: c.id.toString(),
+            })) || []
+          break
+        case 'platforms':
+          defaults.platforms =
+            activityModel?.platforms?.map(c => ({
               label: c[`name_${locale}`],
               value: c.id.toString(),
             })) || []
