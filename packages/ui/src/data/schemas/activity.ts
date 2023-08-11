@@ -13,6 +13,7 @@ export const activitySchema = yup.object({
   description: yup.string().required('Description is required'),
   content: yup.string().required('Content is required'),
   image: yup.mixed().required('Image is required'),
+  platforms: yupMultiSelect,
 })
 
 export const activityFields: FormFields<Activity> = [
@@ -22,6 +23,12 @@ export const activityFields: FormFields<Activity> = [
 
   { name: 'content', isRequired: true, type: 'markdown' },
   { name: 'image', type: 'file', isRequired: true },
+  {
+    name: 'platforms',
+    type: 'select',
+    isMulti: true,
+    url: 'api/platforms',
+  },
   {
     name: 'categories',
     type: 'select',

@@ -32,7 +32,7 @@ const mapStrapiImage = (
       : prev
   }, images[0])
 
-  return getMediaUrl(imageToUse.url, fallback) || getMediaUrl(image, fallback)
+  return getMediaUrl(imageToUse?.url, fallback) || getMediaUrl(image, fallback)
 }
 
 export const StrapiImage: FC<StrapiImageProps> = ({
@@ -48,7 +48,7 @@ export const StrapiImage: FC<StrapiImageProps> = ({
     : getMediaUrl(src)
 
   const isFile = typeof src !== 'string'
-  const isSvg = isFile ? src.mime.includes('svg') : src.includes('.svg')
+  const isSvg = isFile ? src?.mime.includes('svg') : src.includes('.svg')
 
   return (
     <Image
