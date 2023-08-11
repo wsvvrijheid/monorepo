@@ -27,7 +27,6 @@ const args: RequestCollectionArgs = {
     platforms: { id: { $in: [1] } },
   },
   populate: ['image', 'platforms'],
-  fields: ['title', 'description', 'slug'],
 }
 
 type ActivitiesProps = InferGetServerSidePropsType<typeof getStaticProps>
