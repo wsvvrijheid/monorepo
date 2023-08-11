@@ -1,6 +1,7 @@
 import { Category } from './category'
 import { Expand } from './common'
 import { UploadFile } from './file'
+import { Platform } from './platform'
 import { StrapiBase, StrapiCreatorRelation, StrapiEntityBase } from './strapi'
 import { Tag } from './tag'
 
@@ -13,12 +14,14 @@ type ActivityRelation = {
   tags?: Array<Tag>
   image?: UploadFile
   localizations?: Array<Activity>
+  platforms?: Array<Platform>
 }
 
 type ActivityRelationInput = {
   categories?: number
   tags?: Array<number>
   image: File
+  platforms?: number[]
 }
 
 export type ActivityCreateInput = Expand<

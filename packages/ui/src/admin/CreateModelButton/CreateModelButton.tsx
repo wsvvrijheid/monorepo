@@ -121,6 +121,7 @@ export const CreateModelButton = () => {
                   schema={courseSchema}
                   fields={courseFields}
                   hideLanguageSwitcher
+                  shouldPublish
                   buttonProps={{
                     variant: 'outline',
                     leftIcon: <MdOutlineCastForEducation />,
@@ -135,6 +136,7 @@ export const CreateModelButton = () => {
                   url="api/collections"
                   schema={collectionSchema}
                   fields={collectionFields}
+                  shouldPublish
                   buttonProps={{
                     variant: 'outline',
                     leftIcon: <BsCollection />,
@@ -192,6 +194,7 @@ export const CreateModelButton = () => {
                   url="api/recommended-topics"
                   schema={topicSchema}
                   fields={topicFields}
+                  shouldPublish
                   buttonProps={{
                     variant: 'outline',
                     leftIcon: <HiOutlineNewspaper />,
@@ -204,6 +207,7 @@ export const CreateModelButton = () => {
                   url="api/recommended-tweets"
                   schema={recommendedTweetSchema}
                   fields={recommendedTweetFields}
+                  shouldPublish
                   buttonProps={{
                     variant: 'outline',
                     leftIcon: <TbBrandTwitter />,

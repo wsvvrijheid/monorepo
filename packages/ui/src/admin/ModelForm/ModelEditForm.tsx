@@ -143,8 +143,6 @@ export const ModelEditForm = <T extends StrapiModel>({
 
   const videoUrl = getVideoUrl()
 
-  console.log('mediaUrl', videoUrl)
-
   const handleSuccess = () => {
     onSuccess?.()
     setIsEditing.off()
