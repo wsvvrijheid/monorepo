@@ -14,6 +14,7 @@ import {
   useDisclosure,
 } from '@chakra-ui/react'
 import { formatDistanceToNow } from 'date-fns'
+import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { BsThreeDots } from 'react-icons/bs'
 import {
@@ -54,6 +55,7 @@ export const TweetCard: FC<TweetCardProps> = ({
   )
   const { isOpen, onOpen, onClose } = useDisclosure()
   const { t } = useTranslation()
+  const { locale } = useRouter()
 
   const isBookmarked = storageTweets?.some(t => t.id === tweet.id)
 
@@ -84,6 +86,7 @@ export const TweetCard: FC<TweetCardProps> = ({
       image: data.image,
       text: data.text,
       mentions: data.mentions?.map(m => Number(m.value)),
+      locale,
     }
 
     await mutateAsync(recommendedTweet)

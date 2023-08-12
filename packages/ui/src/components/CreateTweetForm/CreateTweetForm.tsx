@@ -19,6 +19,7 @@ import {
   useBoolean,
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { useRouter } from 'next/router'
 import { FieldErrorsImpl, useForm } from 'react-hook-form'
 import { FiArrowUpRight } from 'react-icons/fi'
 import { GrFormClose } from 'react-icons/gr'
@@ -43,6 +44,7 @@ export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
   const TWEET_LENGTH = 280
   const SIMILARITY_LIMIT = 60
 
+  const { locale } = useRouter()
   const [isChangingImage, setIsChangingImage] = useBoolean(false)
 
   const { mutateAsync } = useRecommendTweet()
@@ -99,6 +101,7 @@ export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
       text: data.text,
       mentions,
       image,
+      locale
     })
 
     closeModal()

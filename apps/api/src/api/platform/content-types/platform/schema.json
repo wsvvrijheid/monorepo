@@ -76,6 +76,12 @@
       "relation": "oneToMany",
       "target": "api::course.course",
       "mappedBy": "platform"
+    },
+    "activities": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::activity.activity",
+      "inversedBy": "platforms"
     }
   }
 }
