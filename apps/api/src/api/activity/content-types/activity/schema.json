@@ -112,7 +112,7 @@
       "type": "relation",
       "relation": "manyToMany",
       "target": "api::platform.platform",
-      "inversedBy": "activities"
+      "mappedBy": "activities"
     }
   }
 }
