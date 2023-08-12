@@ -48,7 +48,7 @@ export const StrapiImage: FC<StrapiImageProps> = ({
     : getMediaUrl(src)
 
   const isFile = typeof src !== 'string'
-  console.log("src>>>>>>",src)
+  
   const isSvg = isFile ? src?.mime?.includes('svg') : src.includes('.svg')
 
   return (
