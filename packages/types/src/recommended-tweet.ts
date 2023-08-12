@@ -1,5 +1,6 @@
 import { Expand } from './common'
 import { UploadFile } from './file'
+import { StrapiLocale } from './locale'
 import { Mention } from './mention'
 import { StrapiBase, StrapiCreatorRelation } from './strapi'
 import { Tweet } from './tweet'
@@ -8,6 +9,7 @@ export type RecommendedTweetBase = {
   isShared: boolean
   text: string
   videoUrl?: string
+  locale:StrapiLocale
 }
 
 type RecommendedTweetRelation = {
