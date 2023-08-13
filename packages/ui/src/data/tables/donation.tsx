@@ -5,7 +5,7 @@ import { WTableProps } from '../../components'
 
 export const donationColumns: WTableProps<Donation>['columns'] = {
   amount: { sortable: true },
-  email: {},
+  email: {sortable: true},
   // translates: {
   //   transform: value => <LocaleBadges locales={value as StrapiLocale[]} />,
   // },
