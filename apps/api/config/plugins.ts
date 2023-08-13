@@ -2,18 +2,6 @@ export default ({ env }) => ({
   'import-export-entries': {
     enabled: true,
   },
-  graphql: {
-    config: {
-      endpoint: '/graphql',
-      shadowCRUD: true,
-      playgroundAlways: true,
-      depthLimit: 10,
-      amountLimit: 100,
-      apolloServer: {
-        tracing: false,
-      },
-    },
-  },
   email: {
     enabled: true,
     config: {

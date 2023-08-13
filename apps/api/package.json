@@ -21,7 +21,6 @@
     "clean": "rm -rf node_modules .cache .turbo dist"
   },
   "dependencies": {
-    "@strapi/plugin-graphql": "4.12.4",
     "@strapi/plugin-i18n": "4.12.4",
     "@strapi/plugin-users-permissions": "4.12.4",
     "@strapi/provider-email-nodemailer": "4.12.4",
