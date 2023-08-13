@@ -1,4 +1,4 @@
-import { Donation, ApprovalStatus } from '@wsvvrijheid/types'
+import { Donation } from '@wsvvrijheid/types'
 
 // import { LocaleBadges} from '../../admin'
 import { WTableProps } from '../../components'
@@ -17,15 +17,9 @@ export const donationColumns: WTableProps<Donation>['columns'] = {
   status: {
     type: 'badge',
     componentProps: value => {
-      const colorScheme = {
-        approved: 'green',
-        pending: 'yellow',
-        rejected: 'red',
-      }
-
       return {
         variant: 'outline',
-        colorScheme: colorScheme[value as ApprovalStatus],
+        colorScheme: (value as string) === 'paid' ? 'green' : 'yellow',
       }
     },
   },

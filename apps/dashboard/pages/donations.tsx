@@ -1,24 +1,24 @@
 import { FC, useEffect, useState } from 'react'
 
-import { MenuItem, useUpdateEffect } from '@chakra-ui/react'
+import { useUpdateEffect } from '@chakra-ui/react'
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { useRouter } from 'next/router'
-import { FaArrowDown, FaArrowUp } from 'react-icons/fa'
 
 import { useStrapiRequest } from '@wsvvrijheid/services'
 import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
-import { ApprovalStatus, Donation, Sort, StrapiLocale } from '@wsvvrijheid/types'
-import { AdminLayout, DataTable, PageHeader, donationColumns } from '@wsvvrijheid/ui'
+import { Donation, Sort, StrapiLocale } from '@wsvvrijheid/types'
+import {
+  AdminLayout,
+  DataTable,
+  PageHeader,
+  donationColumns,
+} from '@wsvvrijheid/ui'
 
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>
 
 const DonationsPage: FC<PageProps> = ({ seo }) => {
-  const { query } = useRouter()
   const [currentPage, setCurrentPage] = useState<number>(1)
   const [searchTerm, setSearchTerm] = useState<string>()
-
-  // Client side query params (?status=pending)
-  const status = query.status as ApprovalStatus
 
   const [sort, setSort] = useState<Sort>()
 
@@ -27,52 +27,34 @@ const DonationsPage: FC<PageProps> = ({ seo }) => {
   const donationsQuery = useStrapiRequest<Donation>({
     url: 'api/donates',
     page: currentPage || 1,
-    pageSize: 10,
-    // filters: {
-    //   ...(status ? { approvalStatus: { $eq: status } } : {}),
-    //   ...(searchTerm && { [`title_${locale}`]: { $containsi: searchTerm } }),
-    // },
+    pageSize: 50,
+    filters: {
+      ...(searchTerm && { email: { $containsi: searchTerm } }),
+    },
     sort,
-    // locale,
   })
 
-  useEffect(() => setCurrentPage(1), [status])
+  useEffect(() => setCurrentPage(1))
   const handleSearch = (search?: string) => {
     search ? setSearchTerm(search) : setSearchTerm(undefined)
   }
 
   useUpdateEffect(() => {
     donationsQuery.refetch()
-  }, [locale, searchTerm, sort, status])
+  }, [locale, searchTerm, sort])
 
-  const donations = donationsQuery?.data?.data
+  const donations = donationsQuery?.data?.data as Donation[]
   const totalCount = donationsQuery?.data?.meta?.pagination?.pageCount || 0
-
-  const mappedDonations = donations?.map(donation => {
-
-    return {
-      ...donation,
-    }
-  }) as Donation[]
 
   return (
     <AdminLayout seo={seo}>
       <PageHeader
         onSearch={handleSearch}
         searchPlaceHolder={'Search arts by title or artist'}
-        sortMenu={[
-          <MenuItem key="asc" icon={<FaArrowUp />}>
-            Name Asc
-          </MenuItem>,
-          <MenuItem key="desc" icon={<FaArrowDown />}>
-            Name Desc
-          </MenuItem>,
-        ]}
       />
       <DataTable
         columns={donationColumns}
-        data={mappedDonations}
-        // onSuccess={artsQuery.refetch}
+        data={donations}
         totalCount={totalCount}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
