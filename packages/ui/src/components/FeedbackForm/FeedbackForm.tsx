@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import {
   Box,
   Button,
   ButtonGroup,
+  HStack,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -14,28 +15,50 @@ import {
   Text,
   Textarea,
 } from '@chakra-ui/react'
-import { FiArrowUpRight } from 'react-icons/fi'
-import { GrFormClose } from 'react-icons/gr'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { FieldErrorsImpl, useForm } from 'react-hook-form'
+import { IoSend } from 'react-icons/io5'
+import { ObjectSchema } from 'yup'
 
+import { createFeedbackSchema } from './schema'
 import { CreateFeedbackFormFieldValues, CreateFeedbackFormProps } from './types'
 import { FormItem } from '../FormItem'
-
-// type CreateFeedbackFormProps = {
-//   image: UploadFile
-//   comment: string
-//   point: number
-// }
 
 export const FeedbackForm: React.FC<CreateFeedbackFormProps> = ({
   isOpen,
   onClose,
+  onSubmit,
 }) => {
+  const [point, setPoint] = useState<number>()
+
   const handleFeedback = data => {
-    console.log('handle feedback', data)
+    const feedbackData = {
+      comment: data,
+      point,
+    }
+    onSubmit(feedbackData)
+    console.log('handle feedback', feedbackData)
   }
+
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+    reset,
+  } = useForm<CreateFeedbackFormFieldValues>({
+    resolver: yupResolver(
+      createFeedbackSchema as ObjectSchema<CreateFeedbackFormFieldValues>,
+    ),
+    mode: 'all',
+  })
+
   const closeModal = () => {
-  //  reset()
+    reset()
     onClose()
+  }
+  const handlePoint = (data: number) => {
+    console.log('data', data)
+    setPoint(data)
   }
 
   return (
@@ -58,38 +81,94 @@ export const FeedbackForm: React.FC<CreateFeedbackFormProps> = ({
             <Stack
               spacing={4}
               as="form"
-              onSubmit={handleFeedback}
-              // onSubmit={handleSubmit(handleFeedback)}
-              //
+              onSubmit={handleSubmit(handleFeedback)}
             >
-              <Stack>
-                {/* <FormItem<CreateFeedbackFormFieldValues>
+              <HStack>
+                <ButtonGroup>
+                  <Button
+                    bg={'transparent'}
+                    border="2px"
+                    borderRadius="20px"
+                    mr={3}
+                    _focus={{
+                      bg: 'orange',
+                      border: 'none',
+                    }}
+                    onClick={() => handlePoint(1)}
+                  >
+                    1
+                  </Button>
+                  <Button
+                    bg={'transparent'}
+                    border="2px"
+                    borderRadius="20px"
+                    mr={3}
+                    _focus={{
+                      bg: 'orange',
+                      border: 'none',
+                    }}
+                    onClick={() => handlePoint(2)}
+                  >
+                    2
+                  </Button>
+                  <Button
+                    bg={'transparent'}
+                    border="2px"
+                    borderRadius="20px"
+                    mr={3}
+                    _focus={{
+                      bg: 'orange',
+                      border: 'none',
+                    }}
+                    onClick={() => handlePoint(3)}
+                  >
+                    3
+                  </Button>
+                  <Button
+                    bg={'transparent'}
+                    border="2px"
+                    borderRadius="20px"
+                    mr={3}
+                    _focus={{
+                      bg: 'orange',
+                      border: 'none',
+                    }}
+                    onClick={() => handlePoint(4)}
+                  >
+                    4
+                  </Button>
+                  <Button
+                    bg={'transparent'}
+                    border="2px"
+                    borderRadius="20px"
+                    mr={3}
+                    _focus={{
+                      bg: 'orange',
+                      border: 'none',
+                    }}
+                    onClick={() => handlePoint(5)}
+                  >
+                    5
+                  </Button>
+                </ButtonGroup>
+              </HStack>
+              <HStack>
+                <FormItem<CreateFeedbackFormFieldValues>
                   as={Textarea}
                   name="commend"
-                  label="Feedback"
-                  //  register={register}
-                  //  errors={errors as FieldErrorsImpl<CreateTweetFormFieldValues>}
+                  register={register}
+                  errors={
+                    errors as FieldErrorsImpl<CreateFeedbackFormFieldValues>
+                  }
                   isRequired
-                /> */}
+                />
 
-              </Stack>
-              <ButtonGroup alignSelf="end">
                 <Button
                   bg={'transparent'}
-                  mr={3}
-                  leftIcon={<GrFormClose />}
-                  onClick={closeModal}
-                >
-                  Cancel
-                </Button>
-                <Button
                   type={'submit'}
-                  colorScheme="purple"
-                  leftIcon={<FiArrowUpRight />}
-                >
-                  Send Feedback
-                </Button>
-              </ButtonGroup>
+                  leftIcon={<IoSend />}
+                ></Button>
+              </HStack>
             </Stack>
           </ModalBody>
         </ModalContent>
