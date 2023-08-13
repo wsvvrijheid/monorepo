@@ -194,5 +194,10 @@ export const useAdminNav = (): AdminNavItemProps[] => {
       link: '/donation',
       icon: <BsCashCoin />,
     },
+    {
+      label: tAdmin('donationList'),
+      link: '/donations',
+      icon: <BsCashCoin />,
+    },
   ]
 }

@@ -2,6 +2,7 @@ export const adminRoleRoutes = [
   '/',
   '/accounts',
   '/activities',
+  '/donations',
   '/announcements',
   '/arts',
   '/blogs',
