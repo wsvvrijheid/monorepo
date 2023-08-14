@@ -90,6 +90,7 @@ import { Timeline, TimelineCreateInput } from './timeline'
 import { Topic } from './topic'
 import { Trend } from './trend'
 import { User } from './user'
+import { UserFeedback, UserFeedbackCreateInput } from './user-feedback'
 import {
   Volunteer,
   VolunteerCreateInput,
@@ -146,6 +147,7 @@ export type StrapiModel =
   | CourseApplication
   | Donation
   | Feedback
+  | UserFeedback
   | Hashtag
   | Job
   | LangRole
@@ -247,6 +249,7 @@ export type StrapiCollectionEndpoint =
   | 'donates'
   | 'donates/email'
   | 'feedbacks'
+  | 'user-feedbacks'
   | 'hashtags'
   | 'jobs'
   | 'lang-roles'
@@ -312,6 +315,7 @@ export type StrapiCreateInput =
   | DonationCreateInput
   | EmailCreateInput
   | FeedbackApplicationCreateInput
+  | UserFeedbackCreateInput
   | FeedbackArtCreateInput
   | HashtagCreateInput
   | JobCreateInput
