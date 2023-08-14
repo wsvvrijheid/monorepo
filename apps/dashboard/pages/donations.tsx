@@ -34,7 +34,7 @@ const DonationsPage: FC<PageProps> = ({ seo }) => {
     sort,
   })
 
-  useEffect(() => setCurrentPage(1))
+  useEffect(() => setCurrentPage(1), [])
   const handleSearch = (search?: string) => {
     search ? setSearchTerm(search) : setSearchTerm(undefined)
   }
