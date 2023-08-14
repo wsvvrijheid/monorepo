@@ -36,7 +36,7 @@ export const UserFeedbackForm: React.FC<CreateUserFeedbackFormProps> = ({
   onClose,
 }) => {
   const { mutateAsync } = useUserFeedbackMutation()
-  const site = window.origin
+  const site = window.location.href
 
   const handleUserFeedback = async (
     data: CreateUserFeedbackFormFieldValues,
