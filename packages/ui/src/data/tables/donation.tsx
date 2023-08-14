@@ -1,14 +1,10 @@
 import { Donation } from '@wsvvrijheid/types'
 
-// import { LocaleBadges} from '../../admin'
 import { WTableProps } from '../../components'
 
 export const donationColumns: WTableProps<Donation>['columns'] = {
   amount: { sortable: true },
-  email: {sortable: true},
-  // translates: {
-  //   transform: value => <LocaleBadges locales={value as StrapiLocale[]} />,
-  // },
+  email: { sortable: true },
   createdAt: {
     type: 'date',
     componentProps: { format: 'dd MMMM' },
