@@ -4,6 +4,7 @@ const adminRoleRoutes = [
   '/',
   '/accounts',
   '/activities',
+  '/donations',
   '/announcements',
   '/arts',
   '/arts?status=pending',
