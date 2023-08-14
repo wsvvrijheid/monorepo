@@ -46,7 +46,6 @@ export const UserFeedbackForm: React.FC<CreateUserFeedbackFormProps> = ({
       point: data?.point as number,
       site,
     }
-
     await mutateAsync(userFeedback)
     reset()
     onClose()
