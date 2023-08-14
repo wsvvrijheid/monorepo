@@ -20,13 +20,7 @@ const DonationsPage: FC<PageProps> = ({ seo }) => {
   const [currentPage, setCurrentPage] = useState<number>(1)
   const [searchTerm, setSearchTerm] = useState<string>()
 
-  const [sort, setSort] = useState<Sort>(['createdAt:desc'])
-
-  const handleSort: (key?: Sort) => void = (key) => {
-    if (key) {
-      setSort(key);
-    }
-  };
+  const [sort, setSort] = useState<Sort | undefined>(['createdAt:desc'])
 
   const { locale } = useRouter()
 
@@ -64,7 +58,7 @@ const DonationsPage: FC<PageProps> = ({ seo }) => {
         totalCount={totalCount}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
-        onSort={handleSort}
+        onSort={setSort}
       />
     </AdminLayout>
   )
