@@ -43,6 +43,7 @@ export const UserFeedbackForm: React.FC<CreateUserFeedbackFormProps> = ({
       comment: data?.comment,
       point: data?.point as number,
     }
+     
     await mutateAsync(userFeedback)
     reset()
     onClose()
@@ -67,9 +68,7 @@ export const UserFeedbackForm: React.FC<CreateUserFeedbackFormProps> = ({
     onClose()
   }
   const handlePoint = (data: number) => {
-    console.log('data', data)
     setValue('point', data)
-    //  setPoint(data)
   }
 
   return (
@@ -99,11 +98,9 @@ export const UserFeedbackForm: React.FC<CreateUserFeedbackFormProps> = ({
                   {[1, 2, 3, 4, 5].map(p => (
                     <Button
                       key={p}
-                      bg={point === p ? 'orange' : 'transparent'}
-                      border={point === p ? 'none' : '2px'}
-                      borderRadius="20px"
-                      _hover={{ color: 'primary.100' }}
-                      mr={3}
+                      colorScheme={point === p ? 'primary' : 'gray'}
+                      variant={point === p ? 'solid' : 'outline'}
+                      rounded={'full'}
                       onClick={() => handlePoint(p)}
                     >
                       {p}
