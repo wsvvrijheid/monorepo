@@ -31,8 +31,8 @@ export const useUserFeedbackMutation = () => {
     },
     onSuccess: () => {
       toast({
-        title: `We recieved your feedback. Thank you for your opinion.`,
-        description: `Feedback has been recieved`,
+        title: `Feedback.`,
+        description: `We recieved your feedback. Thank you for your opinion.`,
         status: 'success',
         duration: 5000,
         isClosable: true,
