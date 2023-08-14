@@ -6,7 +6,7 @@ import { useRouter } from 'next/router'
 
 import { useStrapiRequest } from '@wsvvrijheid/services'
 import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
-import { Donation, StrapiLocale } from '@wsvvrijheid/types'
+import { Donation, Sort, StrapiLocale } from '@wsvvrijheid/types'
 import {
   AdminLayout,
   DataTable,
@@ -20,7 +20,13 @@ const DonationsPage: FC<PageProps> = ({ seo }) => {
   const [currentPage, setCurrentPage] = useState<number>(1)
   const [searchTerm, setSearchTerm] = useState<string>()
 
-  const [sort, setSort] = useState(['createdAt:desc'] as any)
+  const [sort, setSort] = useState<Sort>(['createdAt:desc'])
+
+  const handleSort: (key?: Sort) => void = (key) => {
+    if (key) {
+      setSort(key);
+    }
+  };
 
   const { locale } = useRouter()
 
@@ -58,7 +64,7 @@ const DonationsPage: FC<PageProps> = ({ seo }) => {
         totalCount={totalCount}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
-        onSort={setSort}
+        onSort={handleSort}
       />
     </AdminLayout>
   )
