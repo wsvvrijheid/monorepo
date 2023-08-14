@@ -5,6 +5,7 @@ import {
   Button,
   ButtonGroup,
   HStack,
+  IconButton,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -35,6 +36,7 @@ export const UserFeedbackForm: React.FC<CreateUserFeedbackFormProps> = ({
   onClose,
 }) => {
   const { mutateAsync } = useUserFeedbackMutation()
+  const site = window.origin
 
   const handleUserFeedback = async (
     data: CreateUserFeedbackFormFieldValues,
@@ -42,8 +44,9 @@ export const UserFeedbackForm: React.FC<CreateUserFeedbackFormProps> = ({
     const userFeedback: UserFeedbackCreateInput = {
       comment: data?.comment,
       point: data?.point as number,
+      site,
     }
-     
+
     await mutateAsync(userFeedback)
     reset()
     onClose()
@@ -119,11 +122,12 @@ export const UserFeedbackForm: React.FC<CreateUserFeedbackFormProps> = ({
                   isRequired
                 />
 
-                <Button
-                  bg={'transparent'}
+                <IconButton
+                  aria-label={'Send feedback'}
+                  variant={'ghost'}
                   type={'submit'}
-                  leftIcon={<IoSend />}
-                ></Button>
+                  icon={<IoSend />}
+                />
               </HStack>
             </Stack>
           </ModalBody>

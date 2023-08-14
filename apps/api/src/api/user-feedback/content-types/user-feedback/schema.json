@@ -4,7 +4,8 @@
   "info": {
     "singularName": "user-feedback",
     "pluralName": "user-feedbacks",
-    "displayName": "UserFeedback"
+    "displayName": "UserFeedback",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -17,15 +18,14 @@
     "point": {
       "type": "integer"
     },
-    "users_permissions_users": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "plugin::users-permissions.user"
-    },
     "image": {
-      "allowedTypes": ["images", "files", "videos", "audios"],
       "type": "media",
-      "multiple": false
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images", "files", "videos", "audios"]
+    },
+    "site": {
+      "type": "string"
     }
   }
 }
