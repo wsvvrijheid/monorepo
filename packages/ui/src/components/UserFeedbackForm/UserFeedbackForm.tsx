@@ -94,21 +94,20 @@ export const UserFeedbackForm: React.FC<CreateUserFeedbackFormProps> = ({
               as="form"
               onSubmit={handleSubmit(handleUserFeedback)}
             >
-              <HStack>
-                <ButtonGroup>
-                  {[1, 2, 3, 4, 5].map(p => (
-                    <Button
-                      key={p}
-                      colorScheme={point === p ? 'primary' : 'gray'}
-                      variant={point === p ? 'solid' : 'outline'}
-                      rounded={'full'}
-                      onClick={() => handlePoint(p)}
-                    >
-                      {p}
-                    </Button>
-                  ))}
-                </ButtonGroup>
-              </HStack>
+              <ButtonGroup>
+                {[1, 2, 3, 4, 5].map(p => (
+                  <IconButton
+                    key={p}
+                    colorScheme={point === p ? 'primary' : 'gray'}
+                    variant={point === p ? 'solid' : 'outline'}
+                    isRound
+                    onClick={() => handlePoint(p)}
+                    aria-label={`Give ${p} point`}
+                    icon={<Text fontSize={'lg'}>{p}</Text>}
+                    size={'lg'}
+                  />
+                ))}
+              </ButtonGroup>
               <HStack>
                 <FormItem<CreateUserFeedbackFormFieldValues>
                   as={Textarea}
