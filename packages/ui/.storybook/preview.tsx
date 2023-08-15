@@ -6,12 +6,15 @@ import { GlobalTypes, Parameters } from '@storybook/types'
 import { StrapiLocale } from '@wsvvrijheid/types'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { I18nextProvider } from 'react-i18next'
+import { themes } from '@wsvvrijheid/config'
 
 import i18n from './i18next'
 
 export const parameters: Parameters = {
   i18n,
-  chakra: {},
+  chakra: {
+    theme: themes.admin,
+  },
   actions: { argTypesRegex: '^on[A-Z].*' },
 }
 

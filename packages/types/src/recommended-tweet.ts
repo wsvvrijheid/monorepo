@@ -9,7 +9,7 @@ export type RecommendedTweetBase = {
   isShared: boolean
   text: string
   videoUrl?: string
-  locale:StrapiLocale
+  locale: StrapiLocale
 }
 
 type RecommendedTweetRelation = {

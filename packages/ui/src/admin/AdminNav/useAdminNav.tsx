@@ -1,6 +1,7 @@
 import { useTranslation } from 'next-i18next'
 import {
   BsCashCoin,
+  BsCashStack,
   BsCollection,
   BsCommand,
   BsTranslate,
@@ -193,6 +194,11 @@ export const useAdminNav = (): AdminNavItemProps[] => {
       label: 'Donation',
       link: '/donation',
       icon: <BsCashCoin />,
+    },
+    {
+      label: tAdmin('donations'),
+      link: '/donations',
+      icon: <BsCashStack />,
     },
   ]
 }

@@ -101,7 +101,7 @@ export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
       text: data.text,
       mentions,
       image,
-      locale
+      locale,
     })
 
     closeModal()
