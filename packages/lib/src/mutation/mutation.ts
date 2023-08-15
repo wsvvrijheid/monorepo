@@ -47,12 +47,19 @@ export const mutation = async <
     throw new Error(`Id is required for ${method} method`)
   }
 
+  const config = {
+    baseURL: API_URL,
+    ...(token && {
+      headers: { Authorization: `Bearer ${token}` },
+    }),
+  }
+
   if (method === 'localize') {
     // https://docs.strapi.io/developer-docs/latest/plugins/i18n.html#creating-a-localization-for-an-existing-entry
     const response = await axios.post<T>(
       `${url}/${id}/localizations`,
       { ...body, locale }, // TODO localization body doesn't seem to have data key. Double check this
-      { baseURL: API_URL, headers: { Authorization: `Bearer ${token}` } },
+      config,
     )
 
     return response.data || null
@@ -65,10 +72,7 @@ export const mutation = async <
   if (method === 'delete') {
     const response = await axios[method]<StrapiMutationResponse<T>>(
       requestUrl,
-      {
-        headers: { Authorization: `Bearer ${token}` },
-        baseURL: API_URL,
-      },
+      config,
     )
 
     return response.data?.data || null
@@ -90,10 +94,7 @@ export const mutation = async <
     const response = await axios[method]<StrapiMutationResponse<T>>(
       requestUrl,
       requestBody,
-      {
-        baseURL: API_URL,
-        headers: { Authorization: `Bearer ${token}` },
-      },
+      config,
     )
 
     return response.data?.data || null
