@@ -43,7 +43,7 @@ export const UserFeedbackForm: React.FC<CreateUserFeedbackFormProps> = ({
     const userFeedback: UserFeedbackCreateInput = {
       comment: data?.comment,
       point: data?.point as number,
-      site:window.location.href,
+      site: window.location.href,
     }
     await mutateAsync(userFeedback)
     reset()
