@@ -17,6 +17,7 @@ export const adminRoleRoutes = [
   '/users',
   '/volunteers',
   '/users',
+  '/userfeedbacks',
   'all',
 ] as const
 

@@ -21,7 +21,7 @@ const CoursesPage: FC<PageProps> = ({ seo }) => {
   const [currentPage, setCurrentPage] = useState<number>(1)
   const [searchTerm, setSearchTerm] = useState<string>()
 
-  const [sort, setSort] = useState<Sort>()
+  const [sort, setSort] = useState<Sort >()
   const router = useRouter()
   const { locale } = useRouter()
 
