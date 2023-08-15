@@ -19,13 +19,11 @@ import {
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>
 
 const UserFeedbackPage: FC<PageProps> = ({ seo }) => {
-  // const { locale } = useRouter()
   const { push } = useRouter()
   const [currentPage, setCurrentPage] = useState<number>(1)
-
   const [searchTerm, setSearchTerm] = useState<string>()
-
   const [sort, setSort] = useState<Sort | undefined>(['createdAt:desc'])
+
   const userFeedbacksQuery = useStrapiRequest<UserFeedback>({
     url: 'api/user-feedbacks',
     page: currentPage || 1,
@@ -38,7 +36,6 @@ const UserFeedbackPage: FC<PageProps> = ({ seo }) => {
   const feedbacks = userFeedbacksQuery?.data?.data
   const totalCount = userFeedbacksQuery?.data?.meta?.pagination?.pageCount || 0
 
-  console.log('user-feedbacks', userFeedbacksQuery)
   useUpdateEffect(() => {
     userFeedbacksQuery.refetch()
   }, [searchTerm, sort])
@@ -54,8 +51,6 @@ const UserFeedbackPage: FC<PageProps> = ({ seo }) => {
   return (
     <AdminLayout seo={seo}>
       <PageHeader
-        //  filterMenu={filterMenu}
-        filterMenuCloseOnSelect={false}
         onSearch={handleSearch}
         searchPlaceHolder={'Search by title or description'}
         sortMenu={[
