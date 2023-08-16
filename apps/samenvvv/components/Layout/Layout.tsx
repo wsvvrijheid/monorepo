@@ -5,6 +5,8 @@ import { NextSeoProps } from 'next-seo'
 import { menus, socialLinks } from '@wsvvrijheid/config'
 import { Layout as AppLayout } from '@wsvvrijheid/ui'
 
+import { PlusButton } from '../PlusButton'
+
 interface LayoutProps extends PropsWithChildren {
   isDark?: boolean
   isLoading?: boolean
@@ -20,26 +22,29 @@ export const Layout: FC<LayoutProps> = ({
   seo,
 }) => {
   return (
-    <AppLayout
-      seo={seo}
-      logo={'/images/samen-logo.svg'}
-      headerProps={{
-        headerMenu: menus.samenvvv.headerMenu,
-        animated: false,
-        isDark,
-        hasScroll,
-      }}
-      footerProps={{
-        name: 'samenvvv',
-        animated: false,
-        menu: menus.samenvvv.footerMenu,
-        about: 'samenvvv',
-        socialItems: socialLinks.samenvvv,
-      }}
-      isDark={isDark}
-      isLoading={isLoading}
-    >
-      {children}
-    </AppLayout>
+    <>
+      <AppLayout
+        seo={seo}
+        logo={'/images/samen-logo.svg'}
+        headerProps={{
+          headerMenu: menus.samenvvv.headerMenu,
+          animated: false,
+          isDark,
+          hasScroll,
+        }}
+        footerProps={{
+          name: 'samenvvv',
+          animated: false,
+          menu: menus.samenvvv.footerMenu,
+          about: 'samenvvv',
+          socialItems: socialLinks.samenvvv,
+        }}
+        isDark={isDark}
+        isLoading={isLoading}
+      >
+        {children}
+      </AppLayout>
+      <PlusButton />
+    </>
   )
 }
