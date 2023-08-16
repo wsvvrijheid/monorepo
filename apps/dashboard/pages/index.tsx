@@ -24,7 +24,6 @@ import {
   AccountStats,
   AdminLayout,
   PageHeader,
-  UserFeedback,
 } from '@wsvvrijheid/ui'
 
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>
@@ -111,7 +110,6 @@ const Index: FC<PageProps> = ({ seo }) => {
           ))}
         </SimpleGrid>
       </AdminLayout>
-      <UserFeedback />
     </>
   )
 }
