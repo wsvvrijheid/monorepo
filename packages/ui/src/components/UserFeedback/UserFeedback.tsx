@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Button, useDisclosure } from '@chakra-ui/react'
+import { Box, Button, useDisclosure } from '@chakra-ui/react'
 
 import { UserFeedbackForm } from '../UserFeedbackForm'
 
@@ -9,6 +9,9 @@ export const UserFeedback = () => {
 
   return (
     <Button
+      role="button"
+      as={'div'}
+      cursor={'pointer'}
       top={'50%'}
       h={'fit-content'}
       position={'fixed'}
@@ -22,8 +25,14 @@ export const UserFeedback = () => {
       sx={{ writingMode: 'vertical-rl' }}
       borderBottomLeftRadius={0}
       borderTopLeftRadius={0}
+      transition={'all 0.2s'}
+      pr={3}
+      pl={3}
+      _hover={{
+        pl: 5,
+      }}
     >
-      Feedback
+      <Box>Feedback</Box>
       <UserFeedbackForm isOpen={isOpen} onClose={onClose} />
     </Button>
   )
