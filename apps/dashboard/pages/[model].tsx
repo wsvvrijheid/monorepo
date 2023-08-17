@@ -39,6 +39,9 @@ import {
   mainHashtagColumns,
   mainHashtagFields,
   mainHashtagSchema,
+  userFeedbackFields,
+  userFeedbackSchema,
+  userFeedbacksColumns,
   userFields,
   userSchema,
   usersColumns,
@@ -54,6 +57,7 @@ const schemas: { [x in StrapiCollectionEndpoint]?: unknown } = {
   collections: collectionSchema,
   users: userSchema,
   volunteers: volunteerSchema,
+  'user-feedbacks': userFeedbackSchema,
 }
 
 const fields: { [x in StrapiCollectionEndpoint]?: unknown } = {
@@ -63,6 +67,7 @@ const fields: { [x in StrapiCollectionEndpoint]?: unknown } = {
   hashtags: mainHashtagFields,
   users: userFields,
   volunteers: volunteerFields,
+  'user-feedbacks': userFeedbackFields,
 }
 
 const columns: {
@@ -74,6 +79,7 @@ const columns: {
   hashtags: mainHashtagColumns,
   users: usersColumns,
   volunteers: volunteerColumns,
+  'user-feedbacks': userFeedbacksColumns,
 }
 
 type ModelPageProps = InferGetServerSidePropsType<typeof getServerSideProps>
@@ -212,7 +218,7 @@ export const getServerSideProps = async (
 ) => {
   const locale = context.locale as StrapiLocale
   const model = (context.params as any).model as StrapiCollectionEndpoint
-
+ 
   const title: Localize<{ [x in StrapiCollectionEndpoint]?: string }> = {
     en: {
       activities: 'Activities',
@@ -221,6 +227,7 @@ export const getServerSideProps = async (
       collections: 'Collections',
       users: 'Users',
       volunteers: 'Volunteers',
+      'user-feedbacks': 'User Feedbacks',
     },
     tr: {
       activities: 'Aktiviteler',
@@ -228,7 +235,8 @@ export const getServerSideProps = async (
       hashtags: 'Hashtagler',
       collections: 'Koleksiyonlar',
       users: 'Kullanicilar',
-      volunteers: 'Gonulluler',
+      volunteers: 'Gönüllüler',
+      'user-feedbacks': 'Kullanıcı Geri Bildirimleri',
     },
     nl: {
       activities: 'Activiteiten',
@@ -237,6 +245,7 @@ export const getServerSideProps = async (
       collections: 'Collecties',
       users: 'Gebruikers',
       volunteers: 'Vrijwilligers',
+      'user-feedbacks': 'Gebruiker Feedbacks',
     },
   }
 

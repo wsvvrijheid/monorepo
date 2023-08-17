@@ -3,7 +3,7 @@ import { FC, PropsWithChildren } from 'react'
 import { NextSeoProps } from 'next-seo'
 
 import { menus, socialLinks } from '@wsvvrijheid/config'
-import { Layout as AppLayout } from '@wsvvrijheid/ui'
+import { Layout as AppLayout, UserFeedback } from '@wsvvrijheid/ui'
 
 interface LayoutProps extends PropsWithChildren {
   isDark?: boolean
@@ -20,29 +20,32 @@ export const Layout: FC<LayoutProps> = ({
   seo,
 }) => {
   return (
-    <AppLayout
-      seo={seo}
-      logo={'/images/kunsthalte-logo.svg'}
-      headerProps={{
-        headerMenu: menus.kunsthalte.headerMenu,
-        animated: false,
-        profileMenu: {
-          ...menus.kunsthalte.profileMenu,
-        },
-        isDark,
-        hasScroll,
-      }}
-      footerProps={{
-        name: 'Kunsthalte',
-        animated: false,
-        menu: menus.kunsthalte.footerMenu,
-        about: 'kunsthalte',
-        socialItems: socialLinks.kunsthalte,
-      }}
-      isDark={isDark}
-      isLoading={isLoading}
-    >
-      {children}
-    </AppLayout>
+    <>
+      <AppLayout
+        seo={seo}
+        logo={'/images/kunsthalte-logo.svg'}
+        headerProps={{
+          headerMenu: menus.kunsthalte.headerMenu,
+          animated: false,
+          profileMenu: {
+            ...menus.kunsthalte.profileMenu,
+          },
+          isDark,
+          hasScroll,
+        }}
+        footerProps={{
+          name: 'Kunsthalte',
+          animated: false,
+          menu: menus.kunsthalte.footerMenu,
+          about: 'kunsthalte',
+          socialItems: socialLinks.kunsthalte,
+        }}
+        isDark={isDark}
+        isLoading={isLoading}
+      >
+        {children}
+      </AppLayout>
+      <UserFeedback />
+    </>
   )
 }

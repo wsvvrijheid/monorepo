@@ -11,6 +11,7 @@ import { FiActivity, FiUsers } from 'react-icons/fi'
 import { GiHumanPyramid } from 'react-icons/gi'
 import { HiOutlineNewspaper } from 'react-icons/hi'
 import {
+  MdOutlineFeedback,
   MdOutlineSpaceDashboard,
   MdOutlineSupervisorAccount,
   MdOutlineVolunteerActivism,
@@ -199,6 +200,11 @@ export const useAdminNav = (): AdminNavItemProps[] => {
       label: tAdmin('donations'),
       link: '/donations',
       icon: <BsCashStack />,
+    },
+    {
+      label: tAdmin('userFeedbacks'),
+      link: '/user-feedbacks',
+      icon: <MdOutlineFeedback />,
     },
   ]
 }

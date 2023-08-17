@@ -19,6 +19,7 @@ import { MdOutlineNotifications } from 'react-icons/md'
 
 import { useAuthContext } from '@wsvvrijheid/context'
 
+import { UserFeedback } from '../../components'
 import { AdminSidebar } from '../AdminSidebar'
 import { CreateModelButton } from '../CreateModelButton'
 import { LanguageSwitcher } from '../LanguageSwitcher'
@@ -102,6 +103,7 @@ export const AdminHeader: FC<AdminHeaderProps> = ({ hasBackButton, title }) => {
             </DrawerBody>
           </DrawerContent>
         </Drawer>
+        <UserFeedback />
       </HStack>
     </HStack>
   )
