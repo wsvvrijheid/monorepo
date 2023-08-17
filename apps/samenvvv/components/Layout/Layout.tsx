@@ -44,7 +44,7 @@ export const Layout: FC<LayoutProps> = ({
       >
         {children}
       </AppLayout>
-      <PlusButton />
+      {/* <PlusButton /> */}
     </>
   )
 }

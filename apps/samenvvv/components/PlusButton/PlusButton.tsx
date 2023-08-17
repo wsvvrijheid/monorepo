@@ -34,10 +34,9 @@ export const PlusButton = () => {
           <IconButton
             position={'fixed'}
             zIndex={'modal'}
-            // value={4,8,4,8}
             isRound
-            right={0}
-            bottom={50}
+            right={1}
+            bottom={1}
             borderRadius={'100px'}
             colorScheme="primary"
             aria-label="Plus"
