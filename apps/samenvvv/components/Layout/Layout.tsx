@@ -3,7 +3,7 @@ import { FC, PropsWithChildren } from 'react'
 import { NextSeoProps } from 'next-seo'
 
 import { menus, socialLinks } from '@wsvvrijheid/config'
-import { Layout as AppLayout } from '@wsvvrijheid/ui'
+import { Layout as AppLayout, UserFeedback } from '@wsvvrijheid/ui'
 
 import { PlusButton } from '../PlusButton'
 
@@ -44,6 +44,7 @@ export const Layout: FC<LayoutProps> = ({
       >
         {children}
       </AppLayout>
+      <UserFeedback/>
       {/* <PlusButton /> */}
     </>
   )
