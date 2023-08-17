@@ -4,7 +4,7 @@ import { NextSeoProps } from 'next-seo'
 
 import { menus, socialLinks } from '@wsvvrijheid/config'
 import { useAuthContext } from '@wsvvrijheid/context'
-import { Layout as AppLayout } from '@wsvvrijheid/ui'
+import { Layout as AppLayout, UserFeedback } from '@wsvvrijheid/ui'
 
 interface LayoutProps extends PropsWithChildren {
   isDark?: boolean
@@ -27,27 +27,30 @@ export const Layout: FC<LayoutProps> = ({
   }, [])
 
   return (
-    <AppLayout
-      seo={seo}
-      logo={`/images/wsvvrijheid-logo.svg`}
-      headerProps={{
-        headerMenu: menus.wsvvrijheid.headerMenu,
-        profileMenu: {
-          ...menus.wsvvrijheid.profileMenu,
-        },
-        isDark,
-        hasScroll,
-      }}
-      footerProps={{
-        menu: menus.wsvvrijheid.footerMenu,
-        name: 'Wsvvrijheid',
-        about: 'wsvvrijheid',
-        socialItems: socialLinks.wsvvrijheid,
-      }}
-      isDark={isDark}
-      isLoading={isLoading}
-    >
-      {children}
-    </AppLayout>
+    <>
+      <AppLayout
+        seo={seo}
+        logo={`/images/wsvvrijheid-logo.svg`}
+        headerProps={{
+          headerMenu: menus.wsvvrijheid.headerMenu,
+          profileMenu: {
+            ...menus.wsvvrijheid.profileMenu,
+          },
+          isDark,
+          hasScroll,
+        }}
+        footerProps={{
+          menu: menus.wsvvrijheid.footerMenu,
+          name: 'Wsvvrijheid',
+          about: 'wsvvrijheid',
+          socialItems: socialLinks.wsvvrijheid,
+        }}
+        isDark={isDark}
+        isLoading={isLoading}
+      >
+        {children}
+      </AppLayout>
+      <UserFeedback />
+    </>
   )
 }

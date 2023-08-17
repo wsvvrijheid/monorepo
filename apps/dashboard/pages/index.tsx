@@ -57,54 +57,56 @@ const Index: FC<PageProps> = ({ seo }) => {
   )
 
   return (
-    <AdminLayout seo={seo}>
-      <PageHeader>
-        <CheckboxGroup
-          defaultValue={accounts}
-          value={selectedAccounts}
-          onChange={selected => {
-            setSelectedAccounts(selected as string[])
-          }}
-        >
-          <Wrap>
-            {accounts?.map(account => {
-              const isSelected = selectedAccounts.includes(account)
+    <>
+      <AdminLayout seo={seo}>
+        <PageHeader>
+          <CheckboxGroup
+            defaultValue={accounts}
+            value={selectedAccounts}
+            onChange={selected => {
+              setSelectedAccounts(selected as string[])
+            }}
+          >
+            <Wrap>
+              {accounts?.map(account => {
+                const isSelected = selectedAccounts.includes(account)
 
-              return (
-                <Checkbox
-                  key={account}
-                  variant={isSelected ? 'solid' : 'outline'}
-                  colorScheme={isSelected ? 'primary' : 'gray'}
-                  value={account}
-                >
-                  {account}
-                </Checkbox>
-              )
-            })}
-          </Wrap>
-        </CheckboxGroup>
-      </PageHeader>
-      <SimpleGrid columns={{ base: 1, lg: 2 }} gap={4}>
-        {statsData?.map((field, index) => (
-          <Stack key={index} p={4} bg={'white'} shadow={'md'} rounded={'md'}>
-            <Text
-              textAlign={'center'}
-              textTransform={'capitalize'}
-              fontWeight={700}
-              fontSize={'lg'}
-            >
-              {field}
-            </Text>
-            {filteredStats && (
-              <AccountStats
-                field={field as keyof AccountStatsBase}
-                stats={filteredStats}
-              />
-            )}
-          </Stack>
-        ))}
-      </SimpleGrid>
-    </AdminLayout>
+                return (
+                  <Checkbox
+                    key={account}
+                    variant={isSelected ? 'solid' : 'outline'}
+                    colorScheme={isSelected ? 'primary' : 'gray'}
+                    value={account}
+                  >
+                    {account}
+                  </Checkbox>
+                )
+              })}
+            </Wrap>
+          </CheckboxGroup>
+        </PageHeader>
+        <SimpleGrid columns={{ base: 1, lg: 2 }} gap={4}>
+          {statsData?.map((field, index) => (
+            <Stack key={index} p={4} bg={'white'} shadow={'md'} rounded={'md'}>
+              <Text
+                textAlign={'center'}
+                textTransform={'capitalize'}
+                fontWeight={700}
+                fontSize={'lg'}
+              >
+                {field}
+              </Text>
+              {filteredStats && (
+                <AccountStats
+                  field={field as keyof AccountStatsBase}
+                  stats={filteredStats}
+                />
+              )}
+            </Stack>
+          ))}
+        </SimpleGrid>
+      </AdminLayout>
+    </>
   )
 }
 
