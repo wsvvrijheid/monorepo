@@ -218,7 +218,7 @@ export const getServerSideProps = async (
 ) => {
   const locale = context.locale as StrapiLocale
   const model = (context.params as any).model as StrapiCollectionEndpoint
-console.log('model',model)
+ 
   const title: Localize<{ [x in StrapiCollectionEndpoint]?: string }> = {
     en: {
       activities: 'Activities',
