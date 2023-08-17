@@ -20,8 +20,8 @@ export const UserFeedback = () => {
       aria-label="Give feedback"
       transform="rotate(180deg)"
       sx={{ writingMode: 'vertical-rl' }}
-      borderBottomRightRadius={0}
       borderBottomLeftRadius={0}
+      borderTopLeftRadius={0}
     >
       Feedback
       <UserFeedbackForm isOpen={isOpen} onClose={onClose} />
