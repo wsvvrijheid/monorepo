@@ -203,7 +203,7 @@ export const useAdminNav = (): AdminNavItemProps[] => {
     },
     {
       label: tAdmin('userFeedbacks'),
-      link: '/userfeedbacks',
+      link: '/user-feedbacks',
       icon: <MdOutlineFeedback />,
     },
   ]
