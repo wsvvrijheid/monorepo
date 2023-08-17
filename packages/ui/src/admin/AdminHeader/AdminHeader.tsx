@@ -103,7 +103,7 @@ export const AdminHeader: FC<AdminHeaderProps> = ({ hasBackButton, title }) => {
             </DrawerBody>
           </DrawerContent>
         </Drawer>
-          <UserFeedback />
+        <UserFeedback />
       </HStack>
     </HStack>
   )

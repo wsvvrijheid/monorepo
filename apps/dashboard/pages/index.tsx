@@ -20,11 +20,7 @@ import {
   AccountStatsBase,
   StrapiLocale,
 } from '@wsvvrijheid/types'
-import {
-  AccountStats,
-  AdminLayout,
-  PageHeader,
-} from '@wsvvrijheid/ui'
+import { AccountStats, AdminLayout, PageHeader } from '@wsvvrijheid/ui'
 
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>
 

@@ -2,7 +2,6 @@ import React from 'react'
 
 import {
   Box,
-  Button,
   IconButton,
   Popover,
   PopoverBody,
@@ -13,7 +12,8 @@ import {
   useBoolean,
   useDisclosure,
 } from '@chakra-ui/react'
-import { AiOutlineClose, AiOutlinePlus } from 'react-icons/ai'
+import { AiOutlineClose } from 'react-icons/ai'
+import { FaPlus } from 'react-icons/fa'
 import { MdFeedback } from 'react-icons/md'
 
 import { UserFeedbackForm } from '@wsvvrijheid/ui'
@@ -31,15 +31,18 @@ export const PlusButton = () => {
         onClose={setIsEditing.off}
       >
         <PopoverTrigger>
-          <Button
+          <IconButton
             position={'fixed'}
             zIndex={'modal'}
+            // value={4,8,4,8}
+            isRound
             right={0}
             bottom={50}
             borderRadius={'100px'}
             colorScheme="primary"
             aria-label="Plus"
-            rightIcon={isEditing ? <AiOutlineClose /> : <AiOutlinePlus />}
+            size={'lg'}
+            icon={isEditing ? <AiOutlineClose /> : <FaPlus />}
           />
         </PopoverTrigger>
         <Portal>
