@@ -5,8 +5,6 @@ import { NextSeoProps } from 'next-seo'
 import { menus, socialLinks } from '@wsvvrijheid/config'
 import { Layout as AppLayout, UserFeedback } from '@wsvvrijheid/ui'
 
-import { PlusButton } from '../PlusButton'
-
 interface LayoutProps extends PropsWithChildren {
   isDark?: boolean
   isLoading?: boolean
@@ -44,7 +42,7 @@ export const Layout: FC<LayoutProps> = ({
       >
         {children}
       </AppLayout>
-      <UserFeedback/>
+      <UserFeedback />
       {/* <PlusButton /> */}
     </>
   )
