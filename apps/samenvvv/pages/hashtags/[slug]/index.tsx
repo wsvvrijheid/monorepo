@@ -234,7 +234,7 @@ export const getServerSideProps = async (
       capsSrc: capsSrc || null,
       post: post || null,
       isIosSafari,
-      isAdminMode: adminMode === true,
+      isAdminMode: adminMode?.toString() === 'true',
       slugs,
       hasStarted: hashtag.hasStarted,
       dehydratedState: dehydrate(queryClient),
