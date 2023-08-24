@@ -1,7 +1,7 @@
 import { ComponentProps, FC } from 'react'
 
 import { Heading, VStack } from '@chakra-ui/react'
-import TinyColor from '@ctrl/tinycolor'
+import { TinyColor } from '@ctrl/tinycolor'
 import { IFlipSetting } from 'react-pageflip/build/html-flip-book/settings'
 
 import { CollectionPages } from './CollectionPages'
@@ -30,8 +30,8 @@ const CollectionBook: FC<CollectionBookProps> = ({
   bg: pageBg = '#F5F3EB',
   flipboxProps,
 }) => {
-  const shadowColor = TinyColor(pageBg).darken(5).toHexString()
-  const coverShadow = TinyColor(coverBg).darken(5).toHexString()
+  const shadowColor = new TinyColor(pageBg).darken(5).toHexString()
+  const coverShadow = new TinyColor(coverBg).darken(5).toHexString()
   const pageBgGdarient = `linear(to-r, ${shadowColor} 0%, ${pageBg} 5%, ${pageBg} 95%, ${shadowColor} 100%)`
   const coverBgGdarient = `linear(to-r, ${coverShadow} 0%, ${coverBg} 5%, ${coverBg} 95%, ${coverShadow} 100%)`
   const flipboxOverrideProps = {
