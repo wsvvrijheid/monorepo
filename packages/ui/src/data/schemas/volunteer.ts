@@ -14,6 +14,7 @@ export const volunteerSchema = yup.object({
   phone: yup.string(),
   city: yup.string(),
   country: yup.string(),
+  platforms: yupMultiSelect,
 })
 export const volunteerFields: FormFields<Volunteer> = [
   { name: 'name', label: 'Name', isRequired: true },
@@ -55,4 +56,10 @@ export const volunteerFields: FormFields<Volunteer> = [
     url: 'api/users',
   },
   { name: 'comment', label: 'Comment' },
+  {
+    name: 'platform',
+    type: 'select',
+    isMulti: true,
+    url: 'api/platforms',
+  },
 ]

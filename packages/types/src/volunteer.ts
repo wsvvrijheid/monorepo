@@ -25,6 +25,7 @@ export type VolunteerBase = {
   occupation: string | null
   phone: string | null
   twitter: string | null
+  platform: string | null
 }
 
 type VolinteerRelation = {
