@@ -57,7 +57,7 @@ export const volunteerFields: FormFields<Volunteer> = [
   },
   { name: 'comment', label: 'Comment' },
   {
-    name: 'platform',
+    name: 'platforms',
     type: 'select',
     isMulti: true,
     url: 'api/platforms',
