@@ -337,6 +337,12 @@
     },
     "city": {
       "type": "string"
+    },
+    "platforms": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::platform.platform",
+      "inversedBy": "volunteers"
     }
   }
 }
