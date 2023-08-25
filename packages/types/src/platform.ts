@@ -33,4 +33,4 @@ export type PlatformUpdateInput = Expand<
     PlatformRelationInput
 >
 
-export type Platform = StrapiBase & PlatformBase & PlatformRelation & PlatformRelationInput
+export type Platform = StrapiBase & PlatformBase & PlatformRelation
