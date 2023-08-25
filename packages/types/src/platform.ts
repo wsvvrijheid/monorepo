@@ -1,6 +1,8 @@
+import { Expand } from './common'
 import { UploadFile } from './file'
 import { Job } from './job'
 import { StrapiBase } from './strapi'
+import { Volunteer } from './volunteer'
 
 export type PlatformBase = {
   slug: string
@@ -19,6 +21,16 @@ export type PlatformBase = {
 type PlatformRelation = {
   image?: UploadFile
   jobs?: Array<Job>
+  volunteers?: Array<Volunteer>
 }
 
-export type Platform = StrapiBase & PlatformBase & PlatformRelation
+type PlatformRelationInput = {
+  volunteers?: Array<number>
+}
+
+export type PlatformUpdateInput = Expand<
+  { publishedAt?: Date | string | null } & Partial<PlatformBase> &
+    PlatformRelationInput
+>
+
+export type Platform = StrapiBase & PlatformBase & PlatformRelation & PlatformRelationInput
