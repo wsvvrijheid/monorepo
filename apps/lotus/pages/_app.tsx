@@ -12,8 +12,10 @@ import { AppProps } from 'next/app'
 import { useRouter } from 'next/router'
 import { appWithTranslation } from 'next-i18next'
 import { DefaultSeo } from 'next-seo'
+import { useCookie } from 'react-use'
 
 import { defaultSeo, i18nConfig, themes } from '@wsvvrijheid/config'
+import { CookieBanner } from '@wsvvrijheid/ui'
 
 const { ToastContainer } = createStandaloneToast()
 
@@ -28,6 +30,11 @@ const MyApp: FC<AppProps> = ({ Component, pageProps }) => {
       }),
   )
   const { locale } = useRouter()
+  const [cookie, updateCookie] = useCookie('lotus-cookiesAccepted')
+
+  const onAllow = () => {
+    updateCookie('true')
+  }
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -35,6 +42,7 @@ const MyApp: FC<AppProps> = ({ Component, pageProps }) => {
         <ChakraProvider theme={themes.lotus}>
           <DefaultSeo {...defaultSeo.lotus[locale]} />
           <Component {...pageProps} />
+          {!cookie && <CookieBanner onAllow={onAllow} />}
           <Analytics />
           <ToastContainer />
         </ChakraProvider>
