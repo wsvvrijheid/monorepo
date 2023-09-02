@@ -7,7 +7,7 @@ import {
   Text,
   useBreakpointValue,
 } from '@chakra-ui/react'
-import { useTranslation } from 'next-i18next'
+import { Trans, useTranslation } from 'next-i18next'
 import { BiCookie } from 'react-icons/bi'
 
 import { Navigate } from '../Navigate'
@@ -28,29 +28,26 @@ const CookieBanner = (props: CookieBannerProps) => {
       spacing="4"
       p="4"
       direction={{ base: 'column', sm: 'row' }}
-      bg="gray.700"
+      bg="gray.900"
       rounded={'md'}
       boxShadow="sm"
       position="fixed"
-      bottom="0"
-      right="0"
-      left="0"
+      bottom="2"
+      right="2"
+      left="2"
     >
       {!isMobile && (
-        <Square size="12" bg="lightgray" borderRadius="md">
+        <Square size="12" borderRadius="md">
           <Icon as={BiCookie} boxSize="6" color={'primary.400'} />
         </Square>
       )}
       <Text color="white" fontSize={{ base: 'sm', md: 'md' }}>
-        {t('cookie.text')}
-        {''}
-        <Navigate
-          _hover={{ transform: 'scale(2.1)', color: 'primary.400' }}
-          href="/privacy"
-          pl="2"
-        >
-          {t('cookie.policy-url')}
-        </Navigate>
+        <Trans
+          i18nKey={'cookie.text'}
+          components={{
+            a: <Navigate href="/privacy" />,
+          }}
+        />
       </Text>
       <Stack
         direction={{ base: 'column', sm: 'row' }}
