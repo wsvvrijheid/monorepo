@@ -1,11 +1,11 @@
 import {
   Button,
+  Center,
   Icon,
   Square,
   Stack,
   StackProps,
   Text,
-  useBreakpointValue,
 } from '@chakra-ui/react'
 import { Trans, useTranslation } from 'next-i18next'
 import { BiCookie } from 'react-icons/bi'
@@ -17,13 +17,12 @@ export type CookieBannerProps = StackProps & {
 }
 
 const CookieBanner = (props: CookieBannerProps) => {
-  const isMobile = useBreakpointValue({ base: true, md: false })
   const { onAllow } = props
   const { t } = useTranslation()
 
   return (
     <Stack
-      justify="center"
+      justify={'center'}
       align={'center'}
       spacing="4"
       p="4"
@@ -36,11 +35,16 @@ const CookieBanner = (props: CookieBannerProps) => {
       right="2"
       left="2"
     >
-      {!isMobile && (
-        <Square size="12" borderRadius="md">
+      <Square
+        display={{ base: 'none', md: 'block' }}
+        size="12"
+        borderRadius="md"
+      >
+        <Center w="43px" h="43px">
           <Icon as={BiCookie} boxSize="6" color={'primary.400'} />
-        </Square>
-      )}
+        </Center>
+      </Square>
+
       <Text color="white" fontSize={{ base: 'sm', md: 'md' }}>
         <Trans
           i18nKey={'cookie.text'}
@@ -53,9 +57,7 @@ const CookieBanner = (props: CookieBannerProps) => {
         direction={{ base: 'column', sm: 'row' }}
         spacing={{ base: '3', sm: '2' }}
         align={{ base: 'stretch', sm: 'center' }}
-        sx={{
-          ...(isMobile && { width: '100%' }),
-        }}
+        width={{ base: 'full', sm: 'auto' }}
       >
         <Button size="sm" flexShrink={0} onClick={onAllow}>
           {t('cookie.button')}
