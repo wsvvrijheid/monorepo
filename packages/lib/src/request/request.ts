@@ -43,13 +43,7 @@ async function strapiRequest<T extends StrapiModel>(
     token = TOKEN,
   } = singleArgs
 
-  const {
-    locale,
-    filters,
-    sort = ['publishedAt:desc'],
-    page = 1,
-    pageSize = 25,
-  } = collectionArgs
+  const { locale, filters, sort, page = 1, pageSize = 25 } = collectionArgs
 
   const hasLocale =
     !id && !urlsWithoutLocale.includes(url as StrapiCollectionUrl)
@@ -63,7 +57,7 @@ async function strapiRequest<T extends StrapiModel>(
       ...(hasLocale && { locale }),
       ...(includeDrafts && { publicationState: 'preview' }),
       populate,
-      sort,
+      ...(sort && { sort }),
     },
     { encodeValuesOnly: true },
   )
