@@ -7,10 +7,7 @@ import { defaultTheme } from './theme'
 
 export const samenvvv = extendTheme(
   merge(defaultTheme, {
-    fonts: {
-      body: fonts.body,
-      heading: fonts.body,
-    },
+    fonts,
     colors: {
       primary: colors.samen,
     },

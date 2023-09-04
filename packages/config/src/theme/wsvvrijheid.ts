@@ -6,10 +6,7 @@ import { defaultTheme } from './theme'
 
 export const wsvvrijheid = extendTheme(
   merge(defaultTheme, {
-    fonts: {
-      body: fonts.body,
-      heading: fonts.body,
-    },
+    fonts,
     colors: {
       primary: defaultTheme['colors'].blue,
     },
