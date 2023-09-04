@@ -9,6 +9,9 @@ export const getBoldMedyaNews = async () => {
   }
 
   const formatTopic: FormatTopic = topic => {
+    // TODO: Fix boldmedya description selector
+    if (!topic?.description) return topic
+
     const description = topic.description.replace('BOLD - ', '')
 
     return {
