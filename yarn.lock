@@ -5589,10 +5589,10 @@
   version "17.0.45"
   resolved "https://registry.npmjs.org/@types/node/-/node-17.0.45.tgz"
 
-"@types/node@^20.5.7":
-  version "20.5.7"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.5.7.tgz#4b8ecac87fbefbc92f431d09c30e176fc0a7c377"
-  integrity sha512-dP7f3LdZIysZnmvP3ANJYTSwg+wLLl8p7RqniVlV7j+oXSXAbt9h0WIBFmJy5inWZoX9wZN6eXx+YXd9Rh3RBA==
+"@types/node@^20.5.9":
+  version "20.5.9"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.5.9.tgz#a70ec9d8fa0180a314c3ede0e20ea56ff71aed9a"
+  integrity sha512-PcGNd//40kHAS3sTlzKB9C9XL4K0sTup8nbG5lC14kzEteTNuAFh9u5nA0o5TWnSG2r/JNPRXFVcHJIIeRlmqQ==
 
 "@types/normalize-package-data@^2.4.0":
   version "2.4.1"
@@ -6116,13 +6116,13 @@
   dependencies:
     "@upstash/redis" "1.21.0"
 
-"@vercel/og@^0.5.11":
-  version "0.5.11"
-  resolved "https://registry.yarnpkg.com/@vercel/og/-/og-0.5.11.tgz#d64b87cddf46804e31c459c7eba4ff9dae6d6f42"
-  integrity sha512-07SDyClsPXod1dReV9wuwk5uEHvJH42V12Ovy005Zp+Hwq3CZEyWa2gRi12HlXCqoIupOG0//LAFBp1Tt2EwjQ==
+"@vercel/og@^0.5.13":
+  version "0.5.13"
+  resolved "https://registry.yarnpkg.com/@vercel/og/-/og-0.5.13.tgz#0c28794d5a3f1aa3c0e211c4c5ea7552cdbecc84"
+  integrity sha512-okWQ2Jt+155Hn518Y8Tt4Iqb7QdNFoPvH/n4sMpC4K4bcijjo2RAEwXwlhTYHAAkoiJ0AEEeWeknZj1aBgOOqw==
   dependencies:
     "@resvg/resvg-wasm" "2.4.1"
-    satori "0.10.3"
+    satori "0.10.4"
     yoga-wasm-web "0.3.3"
 
 "@webassemblyjs/ast@1.11.6", "@webassemblyjs/ast@^1.11.5":
@@ -10676,9 +10676,10 @@ i18next-fs-backend@^2.1.5:
   resolved "https://registry.yarnpkg.com/i18next-fs-backend/-/i18next-fs-backend-2.1.5.tgz#03347eacde6a35b599da1889a048ae63bcf0c687"
   integrity sha512-7fgSH8nVhXSBYPHR/W3tEXXhcnwHwNiND4Dfx9knzPzdsWTUTL/TdDVV+DY0dL0asHKLbdoJaXS4LdVW6R8MVQ==
 
-i18next-http-backend@^2.2.1:
-  version "2.2.1"
-  resolved "https://registry.npmjs.org/i18next-http-backend/-/i18next-http-backend-2.2.1.tgz"
+i18next-http-backend@^2.2.2:
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/i18next-http-backend/-/i18next-http-backend-2.2.2.tgz#3ee16dfe5fe33524ec8925d4f0bf1508ebbbfadf"
+  integrity sha512-mJu4ZqzDtBiU3O4GV9AbK5ekEqoDMdMnCl3pkdXmb5b8yoIH//u8FsmIe6C5qXb3teZu+j6VMi20tjUgzeABiw==
   dependencies:
     cross-fetch "3.1.6"
 
@@ -13096,10 +13097,10 @@ netmask@^2.0.2:
   resolved "https://registry.yarnpkg.com/netmask/-/netmask-2.0.2.tgz#8b01a07644065d536383835823bc52004ebac5e7"
   integrity sha512-dBpDMdxv9Irdq66304OLfEmQ9tbNRFnFTuZiLo+bD+r332bBmMJ8GBLXklIXXgxd3+v9+KUnZaUR5PJMa75Gsg==
 
-next-i18next@^14.0.0:
-  version "14.0.0"
-  resolved "https://registry.yarnpkg.com/next-i18next/-/next-i18next-14.0.0.tgz#fd637c81df96c9d6f2cc4716037130ac4e5d6968"
-  integrity sha512-umv8hOZoSoAA+td3ErfemyO/5Ib2pnYCdQ8/Oy+fncS2skFIL3hHKRer3Oa3Nfm4Xbv5p6DHWzm3NhT1j4tWwg==
+next-i18next@^14.0.2:
+  version "14.0.2"
+  resolved "https://registry.yarnpkg.com/next-i18next/-/next-i18next-14.0.2.tgz#684a715abb9ea23ba704c11a83f2383a9da53929"
+  integrity sha512-IK4IPQU7GvWMjJ400HBxmGEKiyPBRR4wn2fUdhP1va58bJH0pFxD0iMDFRYYZ/clQmHYBFo594+HAZFfH/fmTg==
   dependencies:
     "@babel/runtime" "^7.20.13"
     "@types/hoist-non-react-statics" "^3.3.1"
@@ -14596,15 +14597,15 @@ react-hook-form-persist@^3.0.0:
   version "3.0.0"
   resolved "https://registry.npmjs.org/react-hook-form-persist/-/react-hook-form-persist-3.0.0.tgz"
 
-react-hook-form@7.45.4:
-  version "7.45.4"
-  resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-7.45.4.tgz#73d228b704026ae95d7e5f7b207a681b173ec62a"
-  integrity sha512-HGDV1JOOBPZj10LB3+OZgfDBTn+IeEsNOKiq/cxbQAIbKaiJUe/KV8DBUzsx0Gx/7IG/orWqRRm736JwOfUSWQ==
+react-hook-form@7.46.0:
+  version "7.46.0"
+  resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-7.46.0.tgz#dba3491e4bc0968346e5615d9d669af780b47cd4"
+  integrity sha512-sc22pXwuKgbWBR5/EYWOVoFw4i/w893tDRUgQY2/Xb7wlpajJBrqAMFhb4z1CDhZ0TSFFfX62+iKx3gCXnCHHw==
 
-react-i18next@^13.2.1:
-  version "13.2.1"
-  resolved "https://registry.yarnpkg.com/react-i18next/-/react-i18next-13.2.1.tgz#57cf7c07778281bdb1e0a1fd60ca5fcc35c0a786"
-  integrity sha512-XhMsnGgJnytWfi2Q70HMYfm+zysPUu1Pz+It6I87WwaeclGY+W8W1c11uENEMNg+Xb+mNrGuo8GEDuQDOgO+oQ==
+react-i18next@^13.2.2:
+  version "13.2.2"
+  resolved "https://registry.yarnpkg.com/react-i18next/-/react-i18next-13.2.2.tgz#b1e78ed66a54f4bc819616f68b98221e1b1a1936"
+  integrity sha512-+nFUkbRByFwnrfDcYqvzBuaeZb+nACHx+fAWN/pZMddWOCJH5hoc21+Sa/N/Lqi6ne6/9wC/qRGOoQhJa6IkEQ==
   dependencies:
     "@babel/runtime" "^7.22.5"
     html-parse-stringify "^3.0.1"
@@ -15474,10 +15475,10 @@ sass-loader@^12.4.0:
     klona "^2.0.4"
     neo-async "^2.6.2"
 
-satori@0.10.3:
-  version "0.10.3"
-  resolved "https://registry.yarnpkg.com/satori/-/satori-0.10.3.tgz#acb52506efca88b911295935e2eaae792e5722ca"
-  integrity sha512-8tZPu7AGiRWimbOyja1s2HK0hEC4DacZ8cAKDITxlVI5tKQZbOuMiVgSB50CABwc0I4Imgtkq7o9Egj1WOJTKg==
+satori@0.10.4:
+  version "0.10.4"
+  resolved "https://registry.yarnpkg.com/satori/-/satori-0.10.4.tgz#ba2b050b5cd00757e02dede45710d8b0a58aac04"
+  integrity sha512-GJNIsuiXhiC9kWGLvz04Op5DZy2UFYZAWsuUtkTlQt3r15o0K96PeD+FMfGN4luMPUHc4uV9gXqAoPxOK0omSw==
   dependencies:
     "@shuding/opentype.js" "1.4.0-beta.0"
     css-background-parser "^0.1.0"
@@ -16258,10 +16259,10 @@ strip-json-comments@~2.0.1:
   version "2.0.1"
   resolved "https://registry.npmjs.org/strip-json-comments/-/strip-json-comments-2.0.1.tgz"
 
-stripe@^13.3.0:
-  version "13.3.0"
-  resolved "https://registry.yarnpkg.com/stripe/-/stripe-13.3.0.tgz#da52e53a3bbf22e5e06f652cf074618ed8cf421f"
-  integrity sha512-saDZBvk8fCBz9GigKpVXAaAo0K+TQe+DwVmucAzpJq503Y44P2ehMqulfaRoK8a+etuwIUlgsXD+am6YSMxepg==
+stripe@^13.4.0:
+  version "13.4.0"
+  resolved "https://registry.yarnpkg.com/stripe/-/stripe-13.4.0.tgz#5ac9cb412c70eb647ebebd7da3b849f2a098a980"
+  integrity sha512-UxvRzu46AJALIueMH3/jn++qJlOoM5s+uoHXagr36xTFOj7Knrh28WFiI73dMDkngBElK68cG3WI+LgRulHw6g==
   dependencies:
     "@types/node" ">=8.1.0"
     qs "^6.11.0"
