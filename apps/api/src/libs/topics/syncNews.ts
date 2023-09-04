@@ -62,9 +62,9 @@ export const syncNews = async ({ strapi }: { strapi: Strapi }) => {
     const result = topics.flat().filter(topic => !isEmpty(topic))
 
     const updatedTopics = result.map(topic => {
-      const isRecommended = recommendedTopics
-        ?.flat()
-        ?.some(recommendedTopic => recommendedTopic.url === topic.url)
+      const isRecommended = recommendedTopics?.some(
+        recommendedTopic => recommendedTopic.url === topic.url,
+      )
 
       return {
         ...topic,
