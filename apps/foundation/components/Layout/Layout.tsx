@@ -1,10 +1,15 @@
 import { FC, PropsWithChildren, useEffect } from 'react'
 
 import { NextSeoProps } from 'next-seo'
+import { useCookie } from 'react-use'
 
 import { menus, socialLinks } from '@wsvvrijheid/config'
 import { useAuthContext } from '@wsvvrijheid/context'
-import { Layout as AppLayout, UserFeedback } from '@wsvvrijheid/ui'
+import {
+  Layout as AppLayout,
+  CookieBanner,
+  UserFeedback,
+} from '@wsvvrijheid/ui'
 
 interface LayoutProps extends PropsWithChildren {
   isDark?: boolean
@@ -21,6 +26,12 @@ export const Layout: FC<LayoutProps> = ({
   seo,
 }) => {
   const { checkAuth } = useAuthContext()
+
+  const [cookie, updateCookie] = useCookie('wsvvrijheid-cookiesAccepted')
+
+  const onAllow = () => {
+    updateCookie('true')
+  }
 
   useEffect(() => {
     checkAuth()
@@ -51,6 +62,7 @@ export const Layout: FC<LayoutProps> = ({
         {children}
       </AppLayout>
       <UserFeedback />
+      {!cookie && <CookieBanner onAllow={onAllow} />}
     </>
   )
 }

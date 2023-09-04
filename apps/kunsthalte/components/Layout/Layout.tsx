@@ -1,9 +1,14 @@
 import { FC, PropsWithChildren } from 'react'
 
 import { NextSeoProps } from 'next-seo'
+import { useCookie } from 'react-use'
 
 import { menus, socialLinks } from '@wsvvrijheid/config'
-import { Layout as AppLayout, UserFeedback } from '@wsvvrijheid/ui'
+import {
+  Layout as AppLayout,
+  CookieBanner,
+  UserFeedback,
+} from '@wsvvrijheid/ui'
 
 interface LayoutProps extends PropsWithChildren {
   isDark?: boolean
@@ -19,6 +24,12 @@ export const Layout: FC<LayoutProps> = ({
   hasScroll,
   seo,
 }) => {
+  const [cookie, updateCookie] = useCookie('kunsthalte-cookiesAccepted')
+
+  const onAllow = () => {
+    updateCookie('true')
+  }
+
   return (
     <>
       <AppLayout
@@ -46,6 +57,7 @@ export const Layout: FC<LayoutProps> = ({
         {children}
       </AppLayout>
       <UserFeedback />
+      {!cookie && <CookieBanner onAllow={onAllow} />}
     </>
   )
 }
