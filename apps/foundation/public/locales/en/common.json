@@ -83,6 +83,8 @@
   "content": "Content",
   "contributors.filter": "Filter by team: Total contributors",
   "contributors.header": "Contributors",
+  "cookie.text": "By using our website, you agree to the use of cookies as described in our <a>Cookie Policy</a>.",
+  "cookie.button": "Allow",
   "copyright": "{{year}} {{name}}. All rights reserved.",
   "country": "Country",
   "course.application-title": "Application Form",

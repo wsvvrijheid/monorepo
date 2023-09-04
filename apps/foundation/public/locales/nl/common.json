@@ -83,6 +83,8 @@
   "content": "Inhoud",
   "contributors.filter": "Filter op team: Totaal aantal bijdragers ",
   "contributors.header": "Bijdragers",
+  "cookie.text": "Door onze website te gebruiken, gaat u akkoord met het gebruik van cookies zoals beschreven in ons <a>Cookiebeleid</a>.",
+  "cookie.button": "Accepteren",
   "copyright": "{{year}} {{name}}. Alle rechten voorbehouden.",
   "country": "Land",
   "course.application-title": "Aanmelden voor cursus",
