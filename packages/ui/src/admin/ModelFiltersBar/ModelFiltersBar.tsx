@@ -48,7 +48,7 @@ export const ModelFiltersBar: FC<ModelFiltersBarProps> = ({
         </RadioGroup>
       )}
 
-      {showPublicationState && (
+      {showApprovalStatus && showPublicationState && (
         <>
           <Divider
             display={{ base: 'none', lg: 'block' }}
@@ -56,19 +56,21 @@ export const ModelFiltersBar: FC<ModelFiltersBarProps> = ({
             orientation="vertical"
           />
           <Divider display={{ base: 'block', lg: 'none' }} />
-
-          <RadioGroup
-            colorScheme={'primary'}
-            as={HStack}
-            spacing={4}
-            value={published || 'true'}
-            onChange={val => setPublished(val)}
-          >
-            <Radio value={'all'}>All</Radio>
-            <Radio value={'true'}>Live</Radio>
-            <Radio value={'false'}>Draft</Radio>
-          </RadioGroup>
         </>
+      )}
+
+      {showPublicationState && (
+        <RadioGroup
+          colorScheme={'primary'}
+          as={HStack}
+          spacing={4}
+          value={published || 'true'}
+          onChange={val => setPublished(val)}
+        >
+          <Radio value={'all'}>All</Radio>
+          <Radio value={'true'}>Live</Radio>
+          <Radio value={'false'}>Draft</Radio>
+        </RadioGroup>
       )}
     </Stack>
   )
