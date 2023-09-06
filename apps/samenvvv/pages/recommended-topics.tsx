@@ -9,10 +9,7 @@ import { NextSeo } from 'next-seo'
 import { ASSETS_URL, SITE_URL } from '@wsvvrijheid/config'
 import { strapiRequest } from '@wsvvrijheid/lib'
 import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
-import {
-  RecommendedTopic,
-  StrapiLocale,
-} from '@wsvvrijheid/types'
+import { RecommendedTopic, StrapiLocale } from '@wsvvrijheid/types'
 import { TopicCard } from '@wsvvrijheid/ui'
 import {
   getItemLink,
