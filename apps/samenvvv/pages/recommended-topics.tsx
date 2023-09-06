@@ -1,16 +1,16 @@
-import { Modal } from '@chakra-ui/react'
+import { useEffect } from 'react'
+
+import { Modal, useDisclosure } from '@chakra-ui/react'
 import { QueryClient, dehydrate } from '@tanstack/react-query'
-import { getCookie } from 'cookies-next'
 import { GetServerSidePropsContext } from 'next'
+import { useRouter } from 'next/router'
 import { NextSeo } from 'next-seo'
 
 import { ASSETS_URL, SITE_URL } from '@wsvvrijheid/config'
 import { strapiRequest } from '@wsvvrijheid/lib'
-import { getHashtagSentences } from '@wsvvrijheid/services'
 import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import {
   RecommendedTopic,
-  RecommendedTweet,
   StrapiLocale,
 } from '@wsvvrijheid/types'
 import { TopicCard } from '@wsvvrijheid/ui'
