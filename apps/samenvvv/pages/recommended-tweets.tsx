@@ -19,14 +19,13 @@ export const getServerSideProps = async (
   })
 
   const tweet = response.data
-console.log("tweet", tweet)
+  console.log('tweet', tweet)
   if (!tweet) {
     return { notFound: true }
   }
 
   const destination = `/${locale}/recommmends/tweets/?id=${tweet.id}`
 
-  
   return {
     redirect: {
       destination,

@@ -1,86 +1,124 @@
+import { Modal } from '@chakra-ui/react'
 import { QueryClient, dehydrate } from '@tanstack/react-query'
 import { getCookie } from 'cookies-next'
 import { GetServerSidePropsContext } from 'next'
+import { NextSeo } from 'next-seo'
 
 import { ASSETS_URL, SITE_URL } from '@wsvvrijheid/config'
 import { strapiRequest } from '@wsvvrijheid/lib'
 import { getHashtagSentences } from '@wsvvrijheid/services'
 import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
-import { RecommendedTopic, RecommendedTweet, StrapiLocale } from '@wsvvrijheid/types'
-import { getItemLink, getLocalizedSlugs, getOgImageSrc, getPageSeo } from '@wsvvrijheid/utils'
+import {
+  RecommendedTopic,
+  RecommendedTweet,
+  StrapiLocale,
+} from '@wsvvrijheid/types'
+import { TopicCard } from '@wsvvrijheid/ui'
+import {
+  getItemLink,
+  getLocalizedSlugs,
+  getOgImageSrc,
+  getPageSeo,
+} from '@wsvvrijheid/utils'
 
-const Page = () => null
+const Page = ({ topic, topics, seo }) => {
+  const { query, push } = useRouter()
+  const { isOpen, onOpen, onClose } = useDisclosure()
 
+  useEffect(() => {
+    if (query.id) {
+      onOpen()
+    }
+  }, [query.id])
+
+  const handleClose = () => {
+    onClose()
+    // Remove ?id from url
+  }
+
+  // Modal for single topic /topics?id=23
+  return (
+    <>
+      <NextSeo {...seo} />
+
+      <Modal isOpen={isOpen} onClose={handleClose} />
+      {topics.map(topic => (
+        <TopicCard key={topic.id} topic={topic} />
+      ))}
+    </>
+  )
+}
 export default Page
 
 export const getServerSideProps = async (
   context: GetServerSidePropsContext,
 ) => {
- const locale = context.locale as StrapiLocale
+  const locale = context.locale as StrapiLocale
   // const slug = context.params?.slug as string
   const { req, res, query } = context
-  const adminMode = getCookie('admin-mode', { req, res })
 
   const queryClient = new QueryClient()
   // const queryKey = ['news', locale, slug]
 
-  
-  const id = context.params?.id as string
+  const id = context.query.id as string
 
-  const response = await strapiRequest<RecommendedTopic>({
-    url: 'api/recommended-topics',
-    id: Number(id),
-  })
+  let recommendedTopic: RecommendedTopic | null = null
+  let seo = getPageSeo(recommendedTopic, locale, 'news')
 
-  const news = response.data
-console.log("news", news)
-
-  if (!news) {
-    return { notFound: true }
+  if (id) {
+    // Fetch recommended-topic by id
+    const topic = await strapiRequest<RecommendedTopic>({
+      url: 'api/recommended-topics',
+      id: Number(id),
+    })
+    recommendedTopic = topic.data
+    // seo => If id is provided seo will be single topic seo
   }
 
- // const destination = `/${locale}/recommmends/news/?id=${news.id}`
- // arrange seo
+  // fetch topics
+  const response = await strapiRequest<RecommendedTopic>({
+    url: 'api/recommended-topics',
+  })
+  const recommendedTopics = response.data
+  // const destination = `/${locale}/recommmends/news/?id=${news.id}`
 
- 
-let seo = getPageSeo(news, locale, 'news')
   let capsSrc = ''
 
-  if (news) {
-    const title = news?.description?.slice(0, 20) || ''
-    const description = news.description || ''
-    const image = news?.image
-   // const caps = news?.image?.url
+  if (recommendedTopic) {
+    const title = recommendedTopic?.description?.slice(0, 20) || ''
+    const description = recommendedTopic.description || ''
+    const image = recommendedTopic?.image
 
     let src = image
-    const link = getItemLink(news, locale, 'news') as string
+    const link = getItemLink(
+      recommendedTopic,
+      locale,
+      'recommendedTopic',
+    ) as string
 
-    //  if (caps) {
-    //    capsSrc = `${ASSETS_URL}${caps}`
-    //  } else {
-      if (image?.formats?.small) {
-        src = image.formats.small.url
-      } else if (image?.formats?.medium) {
-        src = image.formats.medium.url
-      } else if (image?.formats?.large) {
-        src = image.formats.large.url
-      }
+    if (image?.formats?.small) {
+      src = image.formats.small.url
+    } else if (image?.formats?.medium) {
+      src = image.formats.medium.url
+    } else if (image?.formats?.large) {
+      src = image.formats.large.url
+    }
 
-      capsSrc =
-        SITE_URL +
-        getOgImageSrc({
-          title: news.title,
-          text: news.description || undefined,
-          image: src ? `${ASSETS_URL}${src}` : undefined,
-          ...news.imageParams,
-        })
-   // }
+    capsSrc =
+      SITE_URL +
+      getOgImageSrc({
+        title: recommendedTopic.title,
+        text: recommendedTopic.description || undefined,
+        image: src ? `${ASSETS_URL}${src}` : undefined,
+        ...recommendedTopic.imageParams,
+      })
+    // }
 
     const images = image && [
       {
         url: capsSrc,
         secureUrl: capsSrc,
-        type: image.mime as string,
+        type: image?.mime as string,
         width: 1200,
         height: 675,
         alt: title,
@@ -115,25 +153,18 @@ let seo = getPageSeo(news, locale, 'news')
   const isSafari = /Safari/.test(userAgent) && !/Chrome/.test(userAgent)
   const isIosSafari = isIOS && isSafari
 
-  await queryClient.prefetchQuery({
-    queryKey: ['kv-hashtag-sentences', news.id],
-    queryFn: () => getHashtagSentences(news.id),
-    staleTime: 1000 * 60,
-  })
-
-  const slugs = getLocalizedSlugs(news, locale)
+  const slugs = getLocalizedSlugs(recommendedTopics, locale)
 
   return {
     props: {
       seo: {
         ...seo,
       },
+      topic: recommendedTopic,
+      topics: recommendedTopics,
       capsSrc: capsSrc || null,
-      news: news || null,
       isIosSafari,
-      isAdminMode: adminMode === true,
       slugs,
-     // hasStarted: hashtag.hasStarted,
       dehydratedState: dehydrate(queryClient),
       ...(await ssrTranslations(locale)),
     },
