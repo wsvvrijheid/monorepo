@@ -7,7 +7,11 @@ import { useTranslation } from 'next-i18next'
 import { NextSeoProps } from 'next-seo'
 import { ObjectSchema } from 'yup'
 
-import { urlsWithLocalizedTitle } from '@wsvvrijheid/config'
+import {
+  urlsWithApprovalStatus,
+  urlsWithLocalizedTitle,
+  urlsWithPublicationState,
+} from '@wsvvrijheid/config'
 import { useStrapiRequest } from '@wsvvrijheid/services'
 import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import {
@@ -133,6 +137,9 @@ const ModelPage: FC<ModelPageProps> = ({ seo, model }) => {
     ? `title_${locale}`
     : 'title'
 
+  const hasApprovalStatus = urlsWithApprovalStatus.includes(`api/${model}`)
+  const hasPublicationState = urlsWithPublicationState.includes(`api/${model}`)
+
   const modelQuery = useStrapiRequest<StrapiModel>({
     url: `api/${model}`,
     page: currentPage || 1,
@@ -176,8 +183,6 @@ const ModelPage: FC<ModelPageProps> = ({ seo, model }) => {
     }
   }, [selectedId])
 
-  const hideFilters = model === 'users' || model === 'volunteers'
-
   return (
     <AdminLayout seo={seo}>
       <PageHeader onSearch={setQ} searchPlaceHolder={t('search-placeholder')} />
@@ -192,14 +197,16 @@ const ModelPage: FC<ModelPageProps> = ({ seo, model }) => {
           title={'Edit Model'}
         />
       )}
-      {!hideFilters && (
-        <ModelFiltersBar
-          status={status}
-          setStatus={setStatus}
-          published={published}
-          setPublished={setPublished}
-        />
-      )}
+
+      <ModelFiltersBar
+        status={status}
+        setStatus={setStatus}
+        published={published}
+        setPublished={setPublished}
+        showApprovalStatus={hasApprovalStatus}
+        showPublicationState={hasPublicationState}
+      />
+
       <DataTable
         columns={columns[model] as WTableProps<StrapiModel>['columns']}
         data={mappedModels}
