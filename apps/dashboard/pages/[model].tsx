@@ -5,7 +5,6 @@ import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { NextSeoProps } from 'next-seo'
-import { ObjectSchema } from 'yup'
 
 import {
   urlsWithApprovalStatus,
@@ -17,6 +16,7 @@ import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import {
   ApprovalStatus,
   Localize,
+  PartialStrapiEndpointMap,
   Sort,
   StrapiCollectionEndpoint,
   StrapiLocale,
@@ -26,65 +26,14 @@ import {
 import {
   AdminLayout,
   DataTable,
-  FormFields,
   ModelEditModal,
   ModelFiltersBar,
   PageHeader,
   WTableProps,
-  activityColumns,
-  activityFields,
-  activitySchema,
-  blogColumns,
-  blogFields,
-  blogSchema,
-  collectionColumns,
-  collectionFields,
-  collectionSchema,
-  mainHashtagColumns,
-  mainHashtagFields,
-  mainHashtagSchema,
-  userFeedbackFields,
-  userFeedbackSchema,
-  userFeedbacksColumns,
-  userFields,
-  userSchema,
-  usersColumns,
-  volunteerColumns,
-  volunteerFields,
-  volunteerSchema,
+  useColumns,
+  useFields,
+  useSchema,
 } from '@wsvvrijheid/ui'
-
-const schemas: { [x in StrapiCollectionEndpoint]?: unknown } = {
-  activities: activitySchema,
-  blogs: blogSchema,
-  hashtags: mainHashtagSchema,
-  collections: collectionSchema,
-  users: userSchema,
-  volunteers: volunteerSchema,
-  'user-feedbacks': userFeedbackSchema,
-}
-
-const fields: { [x in StrapiCollectionEndpoint]?: unknown } = {
-  activities: activityFields,
-  blogs: blogFields,
-  collections: collectionFields,
-  hashtags: mainHashtagFields,
-  users: userFields,
-  volunteers: volunteerFields,
-  'user-feedbacks': userFeedbackFields,
-}
-
-const columns: {
-  [x in StrapiCollectionEndpoint]?: WTableProps<StrapiModel>['columns']
-} = {
-  activities: activityColumns,
-  blogs: blogColumns,
-  collections: collectionColumns,
-  hashtags: mainHashtagColumns,
-  users: usersColumns,
-  volunteers: volunteerColumns,
-  'user-feedbacks': userFeedbacksColumns,
-}
 
 type ModelPageProps = InferGetServerSidePropsType<typeof getServerSideProps>
 
@@ -102,6 +51,10 @@ const ModelPage: FC<ModelPageProps> = ({ seo, model }) => {
   const published = (query.published as string) || 'all'
   const q = query.q as string
 
+  const columns = useColumns()
+  const fields = useFields()
+  const schemas = useSchema()
+
   const changeRoute = (
     key: 'id' | 'page' | 'sort' | 'status' | 'published' | 'q',
     value?: string | number | Sort | ApprovalStatus,
@@ -114,14 +67,12 @@ const ModelPage: FC<ModelPageProps> = ({ seo, model }) => {
     ) {
       const _query = { ...query }
       delete _query[key]
-      push({ query: _query }, undefined, { shallow: true })
+      push({ query: _query })
 
       return
     }
 
-    // Shallow allows us to change the query without calling getServerSideProps
-    // Because we do fetch the data on the client side
-    push({ query: { ...query, [key]: value } }, undefined, { shallow: true })
+    push({ query: { ...query, [key]: value } })
   }
 
   const setSelectedId = (id?: number) => changeRoute('id', id)
@@ -192,8 +143,8 @@ const ModelPage: FC<ModelPageProps> = ({ seo, model }) => {
           id={selectedId}
           isOpen={isOpen}
           onClose={handleClose}
-          fields={fields[model] as FormFields<StrapiModel>}
-          schema={schemas[model] as ObjectSchema<StrapiModel>}
+          fields={fields[model]!}
+          schema={schemas[model]!}
           title={'Edit Model'}
         />
       )}
@@ -226,7 +177,7 @@ export const getServerSideProps = async (
   const locale = context.locale as StrapiLocale
   const model = (context.params as any).model as StrapiCollectionEndpoint
 
-  const title: Localize<{ [x in StrapiCollectionEndpoint]?: string }> = {
+  const title: Localize<PartialStrapiEndpointMap<string>> = {
     en: {
       activities: 'Activities',
       blogs: 'Blogs',
@@ -264,7 +215,7 @@ export const getServerSideProps = async (
     props: {
       model,
       seo,
-      ...(await ssrTranslations(locale, ['admin'])),
+      ...(await ssrTranslations(locale, ['admin', 'model'])),
     },
   }
 }

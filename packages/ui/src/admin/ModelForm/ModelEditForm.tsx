@@ -88,6 +88,7 @@ export const ModelEditForm = <T extends StrapiModel>({
 
   const router = useRouter()
   const { t } = useTranslation()
+  const { t: tModel } = useTranslation('model')
 
   const updateModelMutation = useUpdateModelMutation(url)
   const unpublishModelMutation = useUnpublishModel(url)
@@ -131,6 +132,9 @@ export const ModelEditForm = <T extends StrapiModel>({
   const getVideoUrl = () => {
     try {
       const urState = watch('videoUrl')
+
+      if (!urState) return null
+
       const url = new URL(urState).href
 
       return convertToYoutubeEmbedUrl(url)
@@ -288,7 +292,7 @@ export const ModelEditForm = <T extends StrapiModel>({
                       fontSize={'sm'}
                       textTransform={'capitalize'}
                     >
-                      {field?.name}
+                      {tModel(field.name)}
                     </FormLabel>
                     <ModelMedia
                       url={url}

@@ -5,15 +5,17 @@ import { Art } from '@wsvvrijheid/types'
 import { yupMultiSelect } from './common'
 import { FormFields } from '../../admin'
 
-export const artSchema = yup.object({
-  title_en: yup.string().required('Title is required'),
-  title_nl: yup.string().required('Title is required'),
-  title_tr: yup.string().required('Title is required'),
-  description_en: yup.string().required('Description is required'),
-  description_nl: yup.string().required('Description is required'),
-  description_tr: yup.string().required('Description is required'),
-  categories: yupMultiSelect,
-})
+export const useArtSchema = () => {
+  return yup.object({
+    title_en: yup.string().required(),
+    title_nl: yup.string().required(),
+    title_tr: yup.string().required(),
+    description_en: yup.string().required(),
+    description_nl: yup.string().required(),
+    description_tr: yup.string().required(),
+    categories: yupMultiSelect,
+  })
+}
 
 export const artFields: FormFields<Art> = [
   { name: 'title_en', label: 'Title English', isRequired: true },

@@ -4,6 +4,7 @@ import {
   FormHelperText,
   FormLabel,
 } from '@chakra-ui/react'
+import { useTranslation } from 'next-i18next'
 import { Control, FieldValues, useController } from 'react-hook-form'
 
 import { MarkdownEditor } from '.'
@@ -32,6 +33,8 @@ export const MdFormItem = <T extends FieldValues>({
     control,
   })
 
+  const { t: tModel } = useTranslation('model')
+
   const errorMessage = errors?.[name]?.['message'] as unknown as string
 
   return (
@@ -46,12 +49,14 @@ export const MdFormItem = <T extends FieldValues>({
     >
       {label && !hideLabel && (
         <FormLabel mb={1} htmlFor={name} fontSize="sm" fontWeight={600}>
-          {label}
+          {tModel(name as string, { defaultValue: label })}
         </FormLabel>
       )}
 
       <MarkdownEditor
-        placeholder={placeholder || label}
+        placeholder={tModel(name as string, {
+          defaultValue: placeholder || label,
+        })}
         onChange={(value: { text: string; html: string }) =>
           // TODO: Fix this type
           onChange(value.text as any)

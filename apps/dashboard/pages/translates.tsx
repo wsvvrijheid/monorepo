@@ -10,10 +10,12 @@ import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import {
   Activity,
   ApprovalStatus,
+  PartialStrapiEndpointMap,
   RoleType,
   Sort,
   StrapiCollectionEndpoint,
   StrapiLocale,
+  StrapiModel,
   StrapiTranslatableModel,
 } from '@wsvvrijheid/types'
 import {
@@ -21,28 +23,15 @@ import {
   DataTable,
   ModelEditTranslate,
   PageHeader,
-  activityColumns,
-  artColumns,
-  collectionColumns,
-  mainHashtagColumns,
-  postColumns,
-  translateModelFields,
-  translateModelSchema,
-  translatePostModelFields,
-  translatePostModelSchema,
+  WTableProps,
+  useColumns,
+  useFields,
+  useSchema,
 } from '@wsvvrijheid/ui'
 
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>
 
-const dataColumns = {
-  activities: activityColumns,
-  arts: artColumns,
-  collections: collectionColumns,
-  hashtags: mainHashtagColumns,
-  posts: postColumns,
-}
-
-const approverRoles: { [x in StrapiCollectionEndpoint]?: RoleType[] } = {
+const approverRoles: PartialStrapiEndpointMap<RoleType[]> = {
   activities: ['translator'],
   arts: ['translator'],
   collections: ['translator'],
@@ -50,7 +39,7 @@ const approverRoles: { [x in StrapiCollectionEndpoint]?: RoleType[] } = {
   posts: ['translator'],
 }
 
-const editRoles: { [x in StrapiCollectionEndpoint]?: RoleType[] } = {
+const editRoles: PartialStrapiEndpointMap<RoleType[]> = {
   activities: ['translator'],
   arts: ['translator'],
   collections: ['translator'],
@@ -70,9 +59,7 @@ const TranslateDataTable: FC<TranslateDataTableProps> = ({ searchTerm }) => {
   const status = query.status as ApprovalStatus
   const slug = query.slug as Partial<StrapiCollectionEndpoint>
 
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  const columns = dataColumns[slug]
+  const columns = useColumns()
 
   useEffect(() => setCurrentPage(1), [status])
 
@@ -112,8 +99,8 @@ const TranslateDataTable: FC<TranslateDataTableProps> = ({ searchTerm }) => {
     })) || []
 
   return (
-    <DataTable
-      columns={columns}
+    <DataTable<StrapiModel>
+      columns={columns[slug] as WTableProps<StrapiModel>['columns']}
       data={mappedActivities}
       totalCount={totalCount}
       currentPage={currentPage}
@@ -131,14 +118,21 @@ const ActivitiesTranslatePage: FC<PageProps> = ({ seo }) => {
   const id = Number(query.id as string)
   const slug = query.slug as StrapiCollectionEndpoint
 
+  const modelFields = useFields()
+  const modelSchemas = useSchema()
+
   const handleSearch = (search?: string) => {
     search ? setSearchTerm(search) : setSearchTerm(undefined)
   }
 
   const fields =
-    slug === 'posts' ? translatePostModelFields : translateModelFields
+    slug === 'posts'
+      ? modelFields['translate-post-model']
+      : modelFields['translate-model']
   const schema =
-    slug === 'posts' ? translatePostModelSchema : translateModelSchema
+    slug === 'posts'
+      ? modelSchemas['translate-post-model']
+      : modelSchemas['translate-model']
 
   return (
     <AdminLayout seo={seo}>
@@ -146,9 +140,9 @@ const ActivitiesTranslatePage: FC<PageProps> = ({ seo }) => {
         <ModelEditTranslate<StrapiTranslatableModel>
           id={id}
           url={`api/${slug}`}
-          translatedFields={fields.map(f => f.name)}
+          translatedFields={fields?.map(f => f.name) || []}
           fields={fields as any}
-          schema={schema}
+          schema={schema!}
           approverRoles={approverRoles[slug]}
           editorRoles={editRoles[slug] as RoleType[]}
         />
@@ -182,7 +176,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
   return {
     props: {
       seo,
-      ...(await ssrTranslations(locale, ['admin'])),
+      ...(await ssrTranslations(locale, ['admin', 'model'])),
     },
   }
 }

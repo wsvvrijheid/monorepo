@@ -7,7 +7,8 @@ import {
   FormLabel,
   Tooltip,
 } from '@chakra-ui/react'
-import { Select, Props as SelectProps, GroupBase } from 'chakra-react-select'
+import { GroupBase, Select, Props as SelectProps } from 'chakra-react-select'
+import { useTranslation } from 'next-i18next'
 import { Control, FieldValues, useController } from 'react-hook-form'
 import { TbInfoCircle } from 'react-icons/tb'
 
@@ -41,6 +42,8 @@ export const WSelect = <T extends FieldValues = FieldValues>({
     control,
   })
 
+  const { t: tModel } = useTranslation('model')
+
   const errorMessage = errors?.[name]?.['message'] as unknown as string
 
   return (
@@ -53,7 +56,7 @@ export const WSelect = <T extends FieldValues = FieldValues>({
       {label && !hideLabel && (
         <Flex align={'center'} mb={1}>
           <FormLabel mb={0} htmlFor={name} fontSize="sm" fontWeight={600}>
-            {label}
+            {tModel(name, { defaultValue: label })}
           </FormLabel>
           {tooltip && (
             <Tooltip
@@ -75,7 +78,9 @@ export const WSelect = <T extends FieldValues = FieldValues>({
 
       <Select<SelectOption, boolean, GroupBase<SelectOption>>
         options={options}
-        placeholder={placeholder || label}
+        placeholder={tModel(name as string, {
+          defaultValue: placeholder || label,
+        })}
         {...field}
         onChange={val => field.onChange(val as any)}
         {...rest}

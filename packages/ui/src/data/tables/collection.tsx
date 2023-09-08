@@ -1,3 +1,5 @@
+import { useRouter } from 'next/router'
+
 import {
   Collection,
   StrapiLocale,
@@ -8,39 +10,43 @@ import {
 import { LocaleBadges, PublicationBadges } from '../../admin'
 import { WTableProps } from '../../components'
 
-export const collectionColumns: WTableProps<Collection>['columns'] = {
-  image: { type: 'image' },
-  title: { sortable: true },
-  slug: { label: 'Slug' },
-  description: {},
-  approvalStatus: {
-    type: 'badge',
-    componentProps: value => {
-      const colorScheme = {
-        approved: 'green',
-        pending: 'yellow',
-        rejected: 'red',
-      }
+export const useCollectionColumns = (): WTableProps<Collection>['columns'] => {
+  const { locale } = useRouter()
 
-      return {
-        variant: 'outline',
-        colorScheme: colorScheme[value as ApprovalStatus],
-      }
+  return {
+    image: { type: 'image' },
+    [`title_${locale}`]: { sortable: true },
+    slug: { label: 'Slug' },
+    [`description_${locale}`]: {},
+    approvalStatus: {
+      type: 'badge',
+      componentProps: value => {
+        const colorScheme = {
+          approved: 'green',
+          pending: 'yellow',
+          rejected: 'red',
+        }
+
+        return {
+          variant: 'outline',
+          colorScheme: colorScheme[value as ApprovalStatus],
+        }
+      },
     },
-  },
-  arts: { label: 'Arts', transform: value => (value as Art[])?.length },
-  translates: {
-    transform: value => <LocaleBadges locales={value as StrapiLocale[]} />,
-  },
-  publishedAt: {
-    label: 'Published',
-    transform: value => (
-      <PublicationBadges publishedAt={value as string | null} />
-    ),
-  },
-  createdAt: {
-    type: 'date',
-    componentProps: { format: 'dd MMMM' },
-    sortable: true,
-  },
+    arts: { transform: value => (value as Art[])?.length },
+    translates: {
+      transform: value => <LocaleBadges locales={value as StrapiLocale[]} />,
+    },
+    publishedAt: {
+      label: 'Published',
+      transform: value => (
+        <PublicationBadges publishedAt={value as string | null} />
+      ),
+    },
+    createdAt: {
+      type: 'date',
+      componentProps: { format: 'dd MMMM' },
+      sortable: true,
+    },
+  }
 }

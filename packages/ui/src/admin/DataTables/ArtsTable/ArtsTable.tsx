@@ -6,7 +6,8 @@ import { useRouter } from 'next/router'
 import { useAuthContext } from '@wsvvrijheid/context'
 import { Art } from '@wsvvrijheid/types'
 
-import { artColumns } from '../../../data'
+import { WTableProps } from '../../../components'
+import { useColumns } from '../../../data'
 import { ArtApprovalModal } from '../../ArtApprovalModal'
 import { DataTable } from '../DataTable'
 import { DataTableProps } from '../types'
@@ -24,20 +25,18 @@ export const ArtsTable: FC<ArtsTableProps> = ({
   setCurrentPage,
 }) => {
   const { user } = useAuthContext()
+  const [selectedIndex, setSelectedIndex] = useState<number>()
 
-  const { locale } = useRouter()
+  const columns = useColumns()
 
+  const selectedArt =
+    typeof selectedIndex === 'number' ? arts?.[selectedIndex] : null
   const approvalDisclosure = useDisclosure()
 
   const handleClickRow = (index: number) => {
     setSelectedIndex(index)
     approvalDisclosure.onOpen()
   }
-
-  const [selectedIndex, setSelectedIndex] = useState<number>()
-
-  const selectedArt =
-    typeof selectedIndex === 'number' ? arts?.[selectedIndex] : null
 
   return (
     <>
@@ -51,9 +50,9 @@ export const ArtsTable: FC<ArtsTableProps> = ({
           onSuccess={onSuccess}
         />
       )}
-      <DataTable
+      <DataTable<Art>
         data={arts}
-        columns={artColumns(locale)}
+        columns={columns.arts as WTableProps<Art>['columns']}
         onClickRow={handleClickRow}
         totalCount={totalCount}
         currentPage={currentPage}

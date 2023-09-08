@@ -17860,6 +17860,11 @@ yoga-wasm-web@0.3.3, yoga-wasm-web@^0.3.3:
   version "0.3.3"
   resolved "https://registry.npmjs.org/yoga-wasm-web/-/yoga-wasm-web-0.3.3.tgz"
 
+yup-locales@^1.2.16:
+  version "1.2.16"
+  resolved "https://registry.yarnpkg.com/yup-locales/-/yup-locales-1.2.16.tgz#d76585ed446171d9a9cf6365d3bcc4edf68c9bcf"
+  integrity sha512-JaBCzgp/7taLnDiQNjGWeECg1Xjem8sCuNTmxYhXlRyYNyLQV32A1fwHYRwv3E86dj//UG0mMfNK14Asvp7now==
+
 yup@0.32.9:
   version "0.32.9"
   resolved "https://registry.npmjs.org/yup/-/yup-0.32.9.tgz"

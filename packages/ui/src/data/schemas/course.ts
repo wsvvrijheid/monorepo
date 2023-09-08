@@ -5,27 +5,30 @@ import { Course } from '@wsvvrijheid/types'
 import { yupSelect } from './common'
 import { FormFields } from '../../admin'
 
-export const courseSchema = yup.object({
-  title_tr: yup.string().required('Title is required'),
-  title_en: yup.string().required('Title is required'),
-  title_nl: yup.string().required('Title is required'),
-  description_tr: yup.string().required('Description is required'),
-  description_nl: yup.string().required('Description is required'),
-  description_en: yup.string().required('Description is required'),
-  content_tr: yup.string().required('Content is required'),
-  content_nl: yup.string().required('Content is required'),
-  content_en: yup.string().required('Content is required'),
-  location: yup.string().required('Location is required'),
-  instructor: yup.string().required('Instructor is required'),
-  quota: yup.number(),
-  price: yup.number(),
-  startDate: yup.date().required('Start date is required'),
-  endDate: yup.date().required('Start date is required'),
-  isOnline: yup.bool(),
-  image: yup.mixed().required('Image is required'),
-  platform: yupSelect,
-  language: yup.mixed().oneOf(['tr', 'nl', 'en']),
-})
+export const useCourseSchema = () => {
+  return yup.object({
+    title_tr: yup.string().required(),
+    title_en: yup.string().required(),
+    title_nl: yup.string().required(),
+    description_tr: yup.string().required(),
+    description_nl: yup.string().required(),
+    description_en: yup.string().required(),
+    content_tr: yup.string().required(),
+    content_nl: yup.string().required(),
+    content_en: yup.string().required(),
+    location: yup.string().required(),
+    instructor: yup.string().required(),
+    quota: yup.number(),
+    price: yup.number(),
+    startDate: yup.date().required(),
+    endDate: yup.date().required(),
+    isOnline: yup.bool(),
+    image: yup.mixed().required(),
+    platform: yupSelect,
+    language: yup.mixed().oneOf(['tr', 'nl', 'en']),
+  })
+}
+
 export const courseFields: FormFields<Course> = [
   { name: 'title_tr', label: 'Title Turkish', isRequired: true },
   { name: 'title_nl', label: 'Title Dutch', isRequired: true },

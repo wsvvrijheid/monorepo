@@ -1,4 +1,5 @@
 import { ButtonProps, ModalProps } from '@chakra-ui/react'
+import { TFunction } from 'i18next'
 import {
   Control,
   FieldErrorsImpl,
@@ -70,6 +71,7 @@ export type ModelCreateFormBodyProps<T extends StrapiModel> = {
   model?: Partial<T>
   isChangingMedia: boolean
   toggleChangingMedia: () => void
+  tModel: TFunction<'model'>
 }
 
 export type ModelEditFormProps<T extends StrapiModel> = {

@@ -5,17 +5,20 @@ import { Volunteer } from '@wsvvrijheid/types'
 import { yupMultiSelect, yupSelect } from './common'
 import { FormFields } from '../../admin'
 
-export const volunteerSchema = yup.object({
-  name: yup.string().required('Name is required'),
-  username: yup.string().required('Username is required'),
-  jobs: yupMultiSelect,
-  user: yupSelect,
-  email: yup.string().email('Not a valid email').required('Email is required'),
-  phone: yup.string(),
-  city: yup.string(),
-  country: yup.string(),
-  platforms: yupMultiSelect,
-})
+export const useVolunteerSchema = () => {
+  return yup.object({
+    name: yup.string().required(),
+    username: yup.string().required(),
+    jobs: yupMultiSelect,
+    user: yupSelect,
+    email: yup.string().email().required(),
+    phone: yup.string(),
+    city: yup.string(),
+    country: yup.string(),
+    platforms: yupMultiSelect,
+  })
+}
+
 export const volunteerFields: FormFields<Volunteer> = [
   { name: 'name', label: 'Name', isRequired: true },
   { name: 'availableHours', label: 'Available Hours' },

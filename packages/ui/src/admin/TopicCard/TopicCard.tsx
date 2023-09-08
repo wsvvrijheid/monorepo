@@ -37,9 +37,9 @@ import {
 import { ActionButton } from './ActionButton'
 import { TopicCardProps } from './types'
 import { ShareButtons, WConfirm, WConfirmProps, WImage } from '../../components'
-import { postFields, postSchema } from '../../data'
+import { useFields, useSchema } from '../../data'
 import { useHasPermission } from '../../hooks'
-import { ModelCreateModal } from '../ModelForm'
+import { FormFields, ModelCreateModal } from '../ModelForm'
 
 export const TopicCard: FC<TopicCardProps> = ({ topic }) => {
   const { user } = useAuthContext()
@@ -50,6 +50,9 @@ export const TopicCard: FC<TopicCardProps> = ({ topic }) => {
     base: true,
     lg: false,
   })
+
+  const fields = useFields()
+  const schemas = useSchema()
 
   const { getPermission } = useHasPermission()
 
@@ -196,11 +199,11 @@ export const TopicCard: FC<TopicCardProps> = ({ topic }) => {
 
           <ButtonGroup size={'sm'}>
             {getPermission(['all']) && (
-              <ModelCreateModal
+              <ModelCreateModal<Post>
                 title={t('create-post')}
                 url="api/posts"
-                schema={postSchema}
-                fields={postFields}
+                schema={schemas.posts!}
+                fields={fields.posts!}
                 model={postContent}
                 buttonProps={{
                   variant: 'ghost',

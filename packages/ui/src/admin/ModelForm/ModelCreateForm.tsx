@@ -42,6 +42,7 @@ export const ModelCreateForm = <T extends StrapiModel>({
 
   const { locale } = useRouter()
   const { t: tCommon } = useTranslation()
+  const { t: tModel } = useTranslation('model')
 
   const postModel = model as unknown as Post
   const [isChangingImage, setIsChangingImage] = useBoolean(
@@ -156,6 +157,7 @@ export const ModelCreateForm = <T extends StrapiModel>({
           formProps,
           isChangingMedia: isChangingImage,
           toggleChangingMedia: setIsChangingImage.toggle,
+          tModel,
         })}
 
         {groupedFields?.length > 0 && (
@@ -173,6 +175,7 @@ export const ModelCreateForm = <T extends StrapiModel>({
               activeOption,
               isChangingMedia: isChangingImage,
               toggleChangingMedia: setIsChangingImage.toggle,
+              tModel,
             })}
           </>
         )}

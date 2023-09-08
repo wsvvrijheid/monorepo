@@ -12,12 +12,7 @@ import { NextSeoProps } from 'next-seo'
 import { useStrapiRequest } from '@wsvvrijheid/services'
 import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import { Hashtag, Post, Sort, StrapiLocale } from '@wsvvrijheid/types'
-import {
-  AdminLayout,
-  DataTable,
-  PageHeader,
-  postColumns,
-} from '@wsvvrijheid/ui'
+import { AdminLayout, DataTable, PageHeader, useColumns } from '@wsvvrijheid/ui'
 
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>
 
@@ -30,6 +25,8 @@ const PostsPage: FC<PageProps> = ({ seo }) => {
   const [sort, setSort] = useState<Sort>()
 
   const [hashtagIds, setHashtagIds] = useState<number[]>([])
+
+  const columns = useColumns<Post>()
 
   const postsQuery = useStrapiRequest<Post>({
     url: 'api/posts',
@@ -105,7 +102,7 @@ const PostsPage: FC<PageProps> = ({ seo }) => {
       />
       {posts && (
         <DataTable<Post>
-          columns={postColumns}
+          columns={columns.posts!}
           data={posts}
           totalCount={totalCount}
           currentPage={currentPage}
@@ -134,7 +131,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
   return {
     props: {
       seo,
-      ...(await ssrTranslations(locale, ['admin'])),
+      ...(await ssrTranslations(locale, ['admin', 'model'])),
     },
   }
 }

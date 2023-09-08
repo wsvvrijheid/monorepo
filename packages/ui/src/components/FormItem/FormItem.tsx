@@ -1,4 +1,4 @@
-import { ReactNode, RefAttributes, ReactElement } from 'react'
+import { ReactElement, ReactNode, RefAttributes } from 'react'
 
 import {
   Box,
@@ -18,6 +18,7 @@ import {
   useBoolean,
   useMergeRefs,
 } from '@chakra-ui/react'
+import { useTranslation } from 'next-i18next'
 import {
   FieldErrorsImpl,
   FieldValues,
@@ -58,11 +59,14 @@ export const FormItem: FormItemComponent = forwardRef(
       isRequired,
       hideLabel,
       tooltip,
+      placeholder,
       ...rest
     },
     formItemRef,
   ) => {
     const [isOpen, setIsOpen] = useBoolean(false)
+
+    const { t: tModel } = useTranslation('model')
 
     const Tag = as || Input
     const errorMessage = errors?.[name]?.['message'] as unknown as string
@@ -75,7 +79,7 @@ export const FormItem: FormItemComponent = forwardRef(
         {label && !hideLabel && (
           <Flex align={'center'} mb={1}>
             <FormLabel mb={0} htmlFor={name} fontSize="sm" fontWeight={600}>
-              {label}
+              {tModel(name, { defaultValue: label })}
             </FormLabel>
             {tooltip && (
               <Tooltip
@@ -114,7 +118,9 @@ export const FormItem: FormItemComponent = forwardRef(
             ref={ref}
             id={name}
             type={type === 'password' ? (isOpen ? 'text' : 'password') : type}
-            placeholder={label}
+            placeholder={tModel(name as string, {
+              defaultValue: placeholder || label,
+            })}
             _placeholder={{ color: 'gray.300' }}
             {...registerRest}
             {...rest}
