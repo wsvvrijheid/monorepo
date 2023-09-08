@@ -67,12 +67,12 @@ const ModelPage: FC<ModelPageProps> = ({ seo, model }) => {
     ) {
       const _query = { ...query }
       delete _query[key]
-      push({ query: _query })
+      push({ query: _query }, undefined, { shallow: true })
 
       return
     }
 
-    push({ query: { ...query, [key]: value } })
+    push({ query: { ...query, [key]: value } }, undefined, { shallow: true })
   }
 
   const setSelectedId = (id?: number) => changeRoute('id', id)

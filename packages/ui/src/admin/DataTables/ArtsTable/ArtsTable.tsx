@@ -1,12 +1,10 @@
 import { FC, useState } from 'react'
 
 import { useDisclosure } from '@chakra-ui/react'
-import { useRouter } from 'next/router'
 
 import { useAuthContext } from '@wsvvrijheid/context'
 import { Art } from '@wsvvrijheid/types'
 
-import { WTableProps } from '../../../components'
 import { useColumns } from '../../../data'
 import { ArtApprovalModal } from '../../ArtApprovalModal'
 import { DataTable } from '../DataTable'
@@ -27,7 +25,7 @@ export const ArtsTable: FC<ArtsTableProps> = ({
   const { user } = useAuthContext()
   const [selectedIndex, setSelectedIndex] = useState<number>()
 
-  const columns = useColumns()
+  const columns = useColumns<Art>()
 
   const selectedArt =
     typeof selectedIndex === 'number' ? arts?.[selectedIndex] : null
@@ -52,7 +50,7 @@ export const ArtsTable: FC<ArtsTableProps> = ({
       )}
       <DataTable<Art>
         data={arts}
-        columns={columns.arts as WTableProps<Art>['columns']}
+        columns={columns.arts!}
         onClickRow={handleClickRow}
         totalCount={totalCount}
         currentPage={currentPage}

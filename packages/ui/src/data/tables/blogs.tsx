@@ -1,17 +1,13 @@
-import { useRouter } from 'next/router'
-
 import { ApprovalStatus, Blog } from '@wsvvrijheid/types'
 
 import { PublicationBadges } from '../../admin'
 import { WTableProps } from '../../components'
 
 export const useBlogColumns = (): WTableProps<Blog>['columns'] => {
-  const { locale } = useRouter()
-
   return {
     image: { type: 'image' },
-    [`title_${locale}`]: { sortable: true },
-    [`description_${locale}`]: {},
+    title: { sortable: true },
+    description: {},
     approvalStatus: {
       type: 'badge',
       componentProps: value => {

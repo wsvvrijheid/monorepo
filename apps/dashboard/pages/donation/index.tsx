@@ -1,6 +1,7 @@
 import { FC } from 'react'
 
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
+import { useTranslation } from 'next-i18next'
 
 import { strapiRequest } from '@wsvvrijheid/lib'
 import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
@@ -10,8 +11,10 @@ import { AdminLayout, DonationTemplate } from '@wsvvrijheid/ui'
 type DonationPageProps = InferGetStaticPropsType<typeof getStaticProps>
 
 const DonationPage: FC<DonationPageProps> = ({ platforms }) => {
+  const { t } = useTranslation()
+
   return (
-    <AdminLayout seo={{ title: 'Donations' }}>
+    <AdminLayout seo={{ title: t('donation.title') }}>
       <DonationTemplate platforms={platforms.data} />
     </AdminLayout>
   )

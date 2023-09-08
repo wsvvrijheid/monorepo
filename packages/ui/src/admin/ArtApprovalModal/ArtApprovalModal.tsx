@@ -39,7 +39,7 @@ export const ArtApprovalModal: FC<ArtApprovalTypes> = ({
   const [isEditing, setIsEditing] = useState(false)
 
   const fields = useFields()
-  const schema = useSchema()
+  const schemas = useSchema()
 
   const [language, setLanguage] = useState<StrapiLocale>(locale)
 
@@ -144,7 +144,7 @@ export const ArtApprovalModal: FC<ArtApprovalTypes> = ({
                   <ModelEditForm<Art>
                     noColumns
                     fields={fields.arts!}
-                    schema={schema.arts!}
+                    schema={schemas.arts!}
                     url={'api/arts'}
                     model={art}
                     onSuccess={() => setIsEditing(false)}

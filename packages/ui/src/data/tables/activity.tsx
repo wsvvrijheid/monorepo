@@ -1,17 +1,13 @@
-import { useRouter } from 'next/router'
-
 import { Activity, ApprovalStatus, StrapiLocale } from '@wsvvrijheid/types'
 
 import { LocaleBadges, PublicationBadges } from '../../admin'
 import { WTableProps } from '../../components'
 
 export const useActivityColumns = (): WTableProps<Activity>['columns'] => {
-  const { locale } = useRouter()
-
   return {
     image: { type: 'image' },
-    [`title_${locale}`]: { sortable: true },
-    [`description_${locale}`]: {},
+    title: { sortable: true },
+    description: {},
     approvalStatus: {
       type: 'badge',
       componentProps: value => {

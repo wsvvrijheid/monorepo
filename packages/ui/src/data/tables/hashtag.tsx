@@ -1,5 +1,3 @@
-import { useRouter } from 'next/router'
-
 import {
   ApprovalStatus,
   Hashtag,
@@ -12,11 +10,9 @@ import { LocaleBadges, PublicationBadges } from '../../admin'
 import { WTableProps } from '../../components'
 
 export const useHashtagColumns = (): WTableProps<Hashtag>['columns'] => {
-  const { locale } = useRouter()
-
   return {
     image: { type: 'image' },
-    [`title_${locale}`]: { sortable: true },
+    title: { sortable: true },
     approvalStatus: {
       type: 'badge',
       componentProps: value => {
