@@ -32,12 +32,12 @@ export const postFields: FormFields<Post> = [
   {
     name: 'image',
     type: 'file',
-    group: { label: 'Image', value: 'image', name: 'media' },
+    group: { value: 'image', name: 'media' },
   },
   {
     name: 'video',
     type: 'file',
-    group: { label: 'Video', value: 'video', name: 'media' },
+    group: { value: 'video', name: 'media' },
   },
   {
     name: 'videoUrl',

@@ -20,33 +20,28 @@ export const useVolunteerSchema = () => {
 }
 
 export const volunteerFields: FormFields<Volunteer> = [
-  { name: 'name', label: 'Name', isRequired: true },
-  { name: 'availableHours', label: 'Available Hours' },
-  { name: 'username', label: 'Username', isRequired: true },
-  { name: 'email', label: 'Email', isRequired: true },
+  { name: 'name', isRequired: true },
+  { name: 'availableHours' },
+  { name: 'username', isRequired: true },
+  { name: 'email', isRequired: true },
   {
     name: 'city',
-    label: 'City',
   },
   {
     name: 'country',
-    label: 'Country',
   },
   {
     name: 'phone',
-    label: 'Phone',
   },
   {
     name: 'createdAt',
     type: 'date',
-    label: 'Created Date',
   },
   {
     name: 'updatedAt',
     type: 'date',
-    label: 'Updated Date',
   },
-  { name: 'age', label: 'Age' },
+  { name: 'age' },
   {
     name: 'jobs',
     type: 'select',
@@ -58,7 +53,7 @@ export const volunteerFields: FormFields<Volunteer> = [
     type: 'select',
     url: 'api/users',
   },
-  { name: 'comment', label: 'Comment' },
+  { name: 'comment' },
   {
     name: 'platforms',
     type: 'select',

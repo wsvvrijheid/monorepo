@@ -16,19 +16,17 @@ export const useUserSchema = () => {
 }
 
 export const userFields: FormFields<User> = [
-  { name: 'name', label: 'Name', isRequired: true },
-  { name: 'email', label: 'Email', isRequired: true },
-  { name: 'username', label: 'Username', isRequired: true },
+  { name: 'name', isRequired: true },
+  { name: 'email', isRequired: true },
+  { name: 'username', isRequired: true },
   {
     name: 'volunteer',
-    label: 'Volunteer',
     type: 'select',
     url: 'api/volunteers',
   },
   { name: 'avatar', isRequired: true, type: 'file' },
   {
     name: 'role',
-    label: 'Role',
     type: 'select',
     url: 'api/roles',
   },

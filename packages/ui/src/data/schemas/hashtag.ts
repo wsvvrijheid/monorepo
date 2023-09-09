@@ -27,10 +27,9 @@ export const hashtagFields: FormFields<Hashtag> = [
   { name: 'content', type: 'markdown' },
   {
     name: 'hashtagDefault',
-    label: 'Default Hashtag',
     isRequired: true,
   },
-  { name: 'hashtagExtra', label: 'Extra Hashtag' },
+  { name: 'hashtagExtra' },
   {
     name: 'mentions',
     type: 'select',

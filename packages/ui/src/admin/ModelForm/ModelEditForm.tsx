@@ -17,7 +17,6 @@ import {
   Wrap,
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { capitalize } from 'lodash'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { useForm } from 'react-hook-form'
@@ -273,7 +272,7 @@ export const ModelEditForm = <T extends StrapiModel>({
             rowGap={4}
           >
             {fields.map((field, index) => {
-              const label = field.label || capitalize(field.name as string)
+              const label = tModel(field.name as keyof I18nNamespaces['model'])
 
               if (
                 field.type === 'file' &&
@@ -293,7 +292,7 @@ export const ModelEditForm = <T extends StrapiModel>({
                       fontSize={'sm'}
                       textTransform={'capitalize'}
                     >
-                      {tModel(field.name as keyof I18nNamespaces['model'])}
+                      {label}
                     </FormLabel>
                     <ModelMedia
                       url={url}

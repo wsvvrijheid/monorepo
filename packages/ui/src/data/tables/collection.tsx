@@ -34,7 +34,6 @@ export const useCollectionColumns = (): WTableProps<Collection>['columns'] => {
       transform: value => <LocaleBadges locales={value as StrapiLocale[]} />,
     },
     publishedAt: {
-      label: 'Published',
       transform: value => (
         <PublicationBadges publishedAt={value as string | null} />
       ),

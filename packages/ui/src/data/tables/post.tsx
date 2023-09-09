@@ -46,7 +46,6 @@ export const usePostColumns = (): WTableProps<Post>['columns'] => {
       },
     },
     publishedAt: {
-      label: 'Published',
       transform: value => (
         <PublicationBadges publishedAt={value as string | null} />
       ),

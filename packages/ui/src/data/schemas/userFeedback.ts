@@ -20,6 +20,6 @@ export const userFeedbackFields: FormFields<UserFeedback> = [
   {
     name: 'image',
     type: 'file',
-    group: { label: 'Image', value: 'image', name: 'media' },
+    group: { value: 'image', name: 'media' },
   },
 ]

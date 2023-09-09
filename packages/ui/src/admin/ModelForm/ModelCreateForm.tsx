@@ -140,7 +140,9 @@ export const ModelCreateForm = <T extends StrapiModel>({
 
   const options = groupedFields.map(field => ({
     value: field.group?.value as string,
-    label: field?.group?.label as string,
+    label: tModel(field.group?.name as keyof I18nNamespaces['model'], {
+      defaultValue: field.group?.label,
+    }),
   }))
   const [activeOption, setActiveOption] = useState(options[0]?.value)
 

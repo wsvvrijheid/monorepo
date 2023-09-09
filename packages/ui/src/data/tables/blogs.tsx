@@ -24,7 +24,6 @@ export const useBlogColumns = (): WTableProps<Blog>['columns'] => {
       },
     },
     publishedAt: {
-      label: 'Published',
       transform: value => (
         <PublicationBadges publishedAt={value as string | null} />
       ),
