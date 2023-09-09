@@ -15,8 +15,8 @@ import { DefaultSeo } from 'next-seo'
 import { useCookie } from 'react-use'
 
 import { defaultSeo, i18nConfig, themes } from '@wsvvrijheid/config'
-import { CookieBanner } from '@wsvvrijheid/ui'
 import { AuthProvider } from '@wsvvrijheid/context'
+import { CookieBanner } from '@wsvvrijheid/ui'
 
 const { ToastContainer } = createStandaloneToast()
 

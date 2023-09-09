@@ -1,7 +1,8 @@
 import { kv } from '@vercel/kv'
-import { RoleType, User } from '@wsvvrijheid/types'
 import { unsealData } from 'iron-session/edge'
 import { NextRequest, NextResponse } from 'next/server'
+
+import { RoleType, User } from '@wsvvrijheid/types'
 
 export const config = {
   runtime: 'edge',

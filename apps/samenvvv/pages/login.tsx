@@ -6,7 +6,7 @@ import { NextSeo, NextSeoProps } from 'next-seo'
 
 import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import { StrapiLocale } from '@wsvvrijheid/types'
-import { AdminLoginForm, LoginForm } from '@wsvvrijheid/ui'
+import { LoginForm } from '@wsvvrijheid/ui'
 
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>
 

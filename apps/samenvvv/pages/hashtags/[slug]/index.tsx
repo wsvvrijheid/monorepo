@@ -12,6 +12,7 @@ import {
   useDisclosure,
 } from '@chakra-ui/react'
 import { QueryClient, dehydrate } from '@tanstack/react-query'
+import { unsealData } from 'iron-session'
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
@@ -41,7 +42,6 @@ import {
 } from '@wsvvrijheid/utils'
 
 import { Layout } from '../../../components'
-import { unsealData } from 'iron-session'
 
 type HashtagProps = InferGetServerSidePropsType<typeof getServerSideProps>
 
@@ -120,7 +120,7 @@ export const getServerSideProps = async (
 ) => {
   const locale = context.locale as StrapiLocale
   const slug = context.params?.slug as string
-  const { req, res, query } = context
+  const { req, query } = context
   const adminMode: Auth | null = context.req.cookies['iron-session']
     ? await unsealData(context.req.cookies['iron-session'] as string, {
         password: process.env['SECRET_COOKIE_PASSWORD'] as string,
