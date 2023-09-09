@@ -26,7 +26,12 @@ import {
   useHashtag,
 } from '@wsvvrijheid/services'
 import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
-import { HashtagReturnType, Post, StrapiLocale } from '@wsvvrijheid/types'
+import {
+  HashtagReturnType,
+  Post,
+  RoleType,
+  StrapiLocale,
+} from '@wsvvrijheid/types'
 import {
   Container,
   HashtagProvider,
@@ -42,6 +47,9 @@ import {
 } from '@wsvvrijheid/utils'
 
 import { Layout } from '../../../components'
+import { unsealData } from 'iron-session'
+import { admin } from '@wsvvrijheid/config/src/seo/admin'
+import { useAuthContext } from '@wsvvrijheid/context'
 
 type HashtagProps = InferGetServerSidePropsType<typeof getServerSideProps>
 
@@ -121,7 +129,13 @@ export const getServerSideProps = async (
   const locale = context.locale as StrapiLocale
   const slug = context.params?.slug as string
   const { req, res, query } = context
-  const adminMode = getCookie('admin-mode', { req, res })
+  const adminMode: { roles: RoleType } | null = context.req.cookies[
+    'iron-session'
+  ]
+    ? await unsealData(context.req.cookies['iron-session'] as string, {
+        password: process.env['SECRET_COOKIE_PASSWORD'] as string,
+      })
+    : null
 
   const queryClient = new QueryClient()
   const queryKey = ['hashtag', locale, slug]
@@ -234,7 +248,7 @@ export const getServerSideProps = async (
       capsSrc: capsSrc || null,
       post: post || null,
       isIosSafari,
-      isAdminMode: adminMode?.toString() === 'true',
+      isAdminMode: adminMode ? adminMode.roles.includes('admin') : false,
       slugs,
       hasStarted: hashtag.hasStarted,
       dehydratedState: dehydrate(queryClient),
