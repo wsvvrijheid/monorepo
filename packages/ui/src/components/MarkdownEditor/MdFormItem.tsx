@@ -8,6 +8,7 @@ import { useTranslation } from 'next-i18next'
 import { Control, FieldValues, useController } from 'react-hook-form'
 
 import { MarkdownEditor } from '.'
+import { I18nNamespaces } from '../../../@types/i18next'
 import { FormItemProps } from '../FormItem'
 
 type MdFormItemProps<T extends FieldValues> = {
@@ -28,7 +29,7 @@ export const MdFormItem = <T extends FieldValues>({
 }: MdFormItemProps<T>) => {
   const {
     field: { onChange, value, ...fieldProps },
-  } = useController({
+  } = useController<T>({
     name,
     control,
   })
@@ -49,17 +50,18 @@ export const MdFormItem = <T extends FieldValues>({
     >
       {label && !hideLabel && (
         <FormLabel mb={1} htmlFor={name} fontSize="sm" fontWeight={600}>
-          {tModel(name as string, { defaultValue: label })}
+          {tModel(name as keyof I18nNamespaces['model'], {
+            defaultValue: label,
+          })}
         </FormLabel>
       )}
 
       <MarkdownEditor
-        placeholder={tModel(name as string, {
+        placeholder={tModel(name as keyof I18nNamespaces['model'], {
           defaultValue: placeholder || label,
         })}
         onChange={(value: { text: string; html: string }) =>
-          // TODO: Fix this type
-          onChange(value.text as any)
+          onChange(value.text)
         }
         value={value}
         isDisabled={isDisabled}

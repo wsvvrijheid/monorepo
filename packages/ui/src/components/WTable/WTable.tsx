@@ -9,6 +9,7 @@ import { StrapiModel, StrapiModelKeys } from '@wsvvrijheid/types'
 
 import { WTableRow } from './TableRow'
 import { CellConfig, WTableProps } from './types'
+import { I18nNamespaces } from '../../../@types/i18next'
 
 export const WTable = <T extends StrapiModel>({
   data,
@@ -57,9 +58,12 @@ export const WTable = <T extends StrapiModel>({
               .sortable
 
             const { label } = columns[key as keyof T] as CellConfig<T>
-            const translationLabel = tModel(label || key, {
-              defaultValue: label || startCase(camelCase(key)),
-            })
+            const translationLabel = tModel(
+              (label || key) as keyof I18nNamespaces['model'],
+              {
+                defaultValue: label || startCase(camelCase(key)),
+              },
+            )
 
             const getSortIcon = () => {
               if (!isSortable) return

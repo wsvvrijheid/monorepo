@@ -14,6 +14,7 @@
   "competitions": "Yarışmalar",
   "courses": "Kurslar",
   "dashboard": "Kontrol Paneli",
+  "donations": "Bağışlar",
   "hashtagPosts": "Hashtag Postları",
   "hashtags": "Hashtagler",
   "news": "Haberler",
@@ -24,6 +25,7 @@
   "rejectedArts": "Reddedilen Sanatlar",
   "timelines": "Timelinelar",
   "translates": "Çeviriler",
+  "userFeedbacks": "Kullanıcı geri bildirimler",
   "users": "Kullanıcılar",
   "volunteers": "Gönüllüler"
 }

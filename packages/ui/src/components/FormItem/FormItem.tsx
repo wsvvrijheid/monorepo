@@ -28,6 +28,8 @@ import {
 import { HiEye, HiEyeOff } from 'react-icons/hi'
 import { TbInfoCircle } from 'react-icons/tb'
 
+import { I18nNamespaces } from '../../../@types/i18next'
+
 export type FormItemProps<T extends FieldValues> = InputProps & {
   name: Path<T>
   label?: string
@@ -118,7 +120,7 @@ export const FormItem: FormItemComponent = forwardRef(
             ref={ref}
             id={name}
             type={type === 'password' ? (isOpen ? 'text' : 'password') : type}
-            placeholder={tModel(name as string, {
+            placeholder={tModel(name as keyof I18nNamespaces['model'], {
               defaultValue: placeholder || label,
             })}
             _placeholder={{ color: 'gray.300' }}

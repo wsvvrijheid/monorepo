@@ -49,6 +49,7 @@ import { ModelMedia } from './ModelMedia'
 import { ModelSelect } from './ModelSelect'
 import { ModelEditFormProps, Option } from './types'
 import { useDefaultValues } from './utils'
+import { I18nNamespaces } from '../../../@types/i18next'
 import { FormItem, MasonryGrid, MdFormItem } from '../../components'
 import { WConfirm, WConfirmProps } from '../../components/WConfirm'
 import { useHasPermission } from '../../hooks'
@@ -292,7 +293,7 @@ export const ModelEditForm = <T extends StrapiModel>({
                       fontSize={'sm'}
                       textTransform={'capitalize'}
                     >
-                      {tModel(field.name)}
+                      {tModel(field.name as keyof I18nNamespaces['model'])}
                     </FormLabel>
                     <ModelMedia
                       url={url}

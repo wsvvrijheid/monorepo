@@ -12,6 +12,7 @@ import { useTranslation } from 'next-i18next'
 import { Control, FieldValues, useController } from 'react-hook-form'
 import { TbInfoCircle } from 'react-icons/tb'
 
+import { I18nNamespaces } from '../../../@types/i18next'
 import { FormItemProps } from '../FormItem'
 
 type SelectOption = {
@@ -78,7 +79,7 @@ export const WSelect = <T extends FieldValues = FieldValues>({
 
       <Select<SelectOption, boolean, GroupBase<SelectOption>>
         options={options}
-        placeholder={tModel(name as string, {
+        placeholder={tModel(name as keyof I18nNamespaces['model'], {
           defaultValue: placeholder || label,
         })}
         {...field}
