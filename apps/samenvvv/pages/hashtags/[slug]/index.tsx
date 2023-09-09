@@ -12,7 +12,6 @@ import {
   useDisclosure,
 } from '@chakra-ui/react'
 import { QueryClient, dehydrate } from '@tanstack/react-query'
-import { getCookie } from 'cookies-next'
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
@@ -26,12 +25,7 @@ import {
   useHashtag,
 } from '@wsvvrijheid/services'
 import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
-import {
-  HashtagReturnType,
-  Post,
-  RoleType,
-  StrapiLocale,
-} from '@wsvvrijheid/types'
+import { Auth, HashtagReturnType, Post, StrapiLocale } from '@wsvvrijheid/types'
 import {
   Container,
   HashtagProvider,
@@ -48,8 +42,6 @@ import {
 
 import { Layout } from '../../../components'
 import { unsealData } from 'iron-session'
-import { admin } from '@wsvvrijheid/config/src/seo/admin'
-import { useAuthContext } from '@wsvvrijheid/context'
 
 type HashtagProps = InferGetServerSidePropsType<typeof getServerSideProps>
 
@@ -129,9 +121,7 @@ export const getServerSideProps = async (
   const locale = context.locale as StrapiLocale
   const slug = context.params?.slug as string
   const { req, res, query } = context
-  const adminMode: { roles: RoleType } | null = context.req.cookies[
-    'iron-session'
-  ]
+  const adminMode: Auth | null = context.req.cookies['iron-session']
     ? await unsealData(context.req.cookies['iron-session'] as string, {
         password: process.env['SECRET_COOKIE_PASSWORD'] as string,
       })
@@ -248,7 +238,7 @@ export const getServerSideProps = async (
       capsSrc: capsSrc || null,
       post: post || null,
       isIosSafari,
-      isAdminMode: adminMode ? adminMode.roles.includes('admin') : false,
+      isAdminMode: adminMode ? adminMode.user?.roles?.includes('admin') : false,
       slugs,
       hasStarted: hashtag.hasStarted,
       dehydratedState: dehydrate(queryClient),

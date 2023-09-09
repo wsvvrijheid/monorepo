@@ -17,10 +17,10 @@ const loginRoute = async (req: NextApiRequest, res: NextApiResponse) => {
       })
     }
 
-    req.session.user = auth.user
-    req.session.token = auth.token
-    req.session.isLoggedIn = true
-    req.session.roles = auth.user.roles
+    req.session = {
+      ...req.session,
+      ...auth,
+    }
 
     await req.session.save()
 
