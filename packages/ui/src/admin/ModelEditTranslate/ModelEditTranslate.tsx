@@ -29,7 +29,7 @@ import {
   StrapiTranslatableUpdateInput,
 } from '@wsvvrijheid/types'
 
-import { ModelEditTranslateProps, Option } from './types'
+import { ModelEditTranslateProps } from './types'
 import {
   Flags,
   FormItem,
@@ -39,7 +39,7 @@ import {
 } from '../../components'
 import { useHasPermission, useReferenceModel } from '../../hooks'
 import { FormLocaleSwitcher } from '../FormLocaleSwitcher'
-import { useDefaultValues } from '../ModelForm'
+import { useDefaultValues, Option } from '../ModelForm'
 
 export const ModelEditTranslate = <T extends StrapiTranslatableModel>({
   id,

@@ -5,16 +5,18 @@ import { CourseApplication } from '@wsvvrijheid/types'
 import { yupSelect } from './common'
 import { FormFields } from '../../admin'
 
-export const courseApplicationSchema = yup.object({
-  name: yup.string().required('Name is required'),
-  email: yup.string().email('Not a valid email').required('Email is required'),
-  city: yup.string(),
-  country: yup.string().required('Country is required'),
-  phone: yup.string().required('Phone is required'),
-  message: yup.string().required('Message is required'),
-  hasPaid: yup.boolean(),
-  course: yupSelect,
-})
+export const useCourseApplicationSchema = () => {
+  return yup.object({
+    name: yup.string().required(),
+    email: yup.string().email().required(),
+    city: yup.string(),
+    country: yup.string().required(),
+    phone: yup.string().required(),
+    message: yup.string().required(),
+    hasPaid: yup.boolean(),
+    course: yupSelect,
+  })
+}
 
 export const courseApplicationFields: FormFields<CourseApplication> = [
   { name: 'name', isRequired: true },

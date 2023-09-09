@@ -38,8 +38,6 @@ const theme = merge(themes.admin, {
 const { ToastContainer } = createStandaloneToast()
 
 const MyApp: FC<AppProps> = ({ Component, pageProps }) => {
-  // TODO: Remove this
-
   const [queryClient] = useState(
     () =>
       new QueryClient({

@@ -21,6 +21,7 @@ import { generateOgImageParams } from '@wsvvrijheid/utils'
 import { renderCreateFormBody } from './renderCreateFormBody'
 import { ModelCreateFormProps, Option } from './types'
 import { useDefaultValues } from './utils'
+import { I18nNamespaces } from '../../../@types/i18next'
 import { MasonryGrid } from '../../components'
 import { useFileFromUrl } from '../../hooks'
 import { LanguageSwitcher } from '../LanguageSwitcher'
@@ -42,6 +43,7 @@ export const ModelCreateForm = <T extends StrapiModel>({
 
   const { locale } = useRouter()
   const { t: tCommon } = useTranslation()
+  const { t: tModel } = useTranslation('model')
 
   const postModel = model as unknown as Post
   const [isChangingImage, setIsChangingImage] = useBoolean(
@@ -139,7 +141,9 @@ export const ModelCreateForm = <T extends StrapiModel>({
 
   const options = groupedFields.map(field => ({
     value: field.group?.value as string,
-    label: field?.group?.label as string,
+    label: tModel(field.group?.name as keyof I18nNamespaces['model'], {
+      defaultValue: field.group?.label,
+    }),
   }))
   const [activeOption, setActiveOption] = useState(options[0]?.value)
 
@@ -156,6 +160,7 @@ export const ModelCreateForm = <T extends StrapiModel>({
           formProps,
           isChangingMedia: isChangingImage,
           toggleChangingMedia: setIsChangingImage.toggle,
+          tModel,
         })}
 
         {groupedFields?.length > 0 && (
@@ -173,6 +178,7 @@ export const ModelCreateForm = <T extends StrapiModel>({
               activeOption,
               isChangingMedia: isChangingImage,
               toggleChangingMedia: setIsChangingImage.toggle,
+              tModel,
             })}
           </>
         )}

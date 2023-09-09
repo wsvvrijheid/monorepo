@@ -1,4 +1,5 @@
 import { ButtonProps, ModalProps } from '@chakra-ui/react'
+import { TFunction } from 'i18next'
 import {
   Control,
   FieldErrorsImpl,
@@ -23,15 +24,15 @@ export type MentionSelectProps = {
 
 type FormTextFields = {
   type?:
-    | 'boolean'
-    | 'date'
-    | 'datetime-local'
-    | 'file'
-    | 'markdown'
-    | 'number-input'
-    | 'text'
-    | 'textarea'
-    | 'mediaUrl'
+  | 'boolean'
+  | 'date'
+  | 'datetime-local'
+  | 'file'
+  | 'markdown'
+  | 'number-input'
+  | 'text'
+  | 'textarea'
+  | 'mediaUrl'
 }
 
 type FormSelectFields = {
@@ -44,7 +45,7 @@ type FormCommonFields<T extends StrapiModel> = {
   name: keyof T
   label?: string
   isRequired?: boolean
-  group?: { value: string; label: string; name: string }
+  group?: { value: string; label?: string; name: string }
 }
 
 export type FormFields<T extends StrapiModel> = Array<
@@ -70,6 +71,7 @@ export type ModelCreateFormBodyProps<T extends StrapiModel> = {
   model?: Partial<T>
   isChangingMedia: boolean
   toggleChangingMedia: () => void
+  tModel: TFunction<'model'>
 }
 
 export type ModelEditFormProps<T extends StrapiModel> = {

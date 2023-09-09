@@ -7,12 +7,7 @@ import { useRouter } from 'next/router'
 import { useStrapiRequest } from '@wsvvrijheid/services'
 import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import { Donation, Sort, StrapiLocale } from '@wsvvrijheid/types'
-import {
-  AdminLayout,
-  DataTable,
-  PageHeader,
-  donationColumns,
-} from '@wsvvrijheid/ui'
+import { AdminLayout, DataTable, PageHeader, useColumns } from '@wsvvrijheid/ui'
 
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>
 
@@ -23,6 +18,7 @@ const DonationsPage: FC<PageProps> = ({ seo }) => {
   const [sort, setSort] = useState<Sort | undefined>(['createdAt:desc'])
 
   const { locale } = useRouter()
+  const columns = useColumns<Donation>()
 
   const donationsQuery = useStrapiRequest<Donation>({
     url: 'api/donates',
@@ -52,8 +48,8 @@ const DonationsPage: FC<PageProps> = ({ seo }) => {
         onSearch={handleSearch}
         searchPlaceHolder={'Search arts by title or artist'}
       />
-      <DataTable
-        columns={donationColumns}
+      <DataTable<Donation>
+        columns={columns.donates!}
         data={donations}
         totalCount={totalCount}
         currentPage={currentPage}
@@ -80,7 +76,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
   return {
     props: {
       seo,
-      ...(await ssrTranslations(locale, ['admin'])),
+      ...(await ssrTranslations(locale, ['admin', 'model'])),
     },
   }
 }

@@ -25,11 +25,12 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
 
   const platforms = await strapiRequest<Platform>({
     url: 'api/platforms',
+    locale,
   })
 
   return {
     props: {
-      ...(await ssrTranslations(locale), ['admin']),
+      ...(await ssrTranslations(locale), ['admin', 'model']),
       platforms,
     },
     revalidate: 1,

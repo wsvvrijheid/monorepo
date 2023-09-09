@@ -5,15 +5,17 @@ import { Blog } from '@wsvvrijheid/types'
 import { yupMultiSelect, yupSelect } from './common'
 import { FormFields } from '../../admin'
 
-export const blogSchema = yup.object({
-  title: yup.string().required('Title is required'),
-  description: yup.string().required('Description is required'),
-  content: yup.string().required('Content is required'),
-  categories: yupMultiSelect,
-  tags: yupMultiSelect,
-  author: yupSelect,
-  image: yup.mixed().required('Image is required'),
-})
+export const useBlogSchema = () => {
+  return yup.object({
+    title: yup.string().required(),
+    description: yup.string().required(),
+    content: yup.string().required(),
+    categories: yupMultiSelect,
+    tags: yupMultiSelect,
+    author: yupSelect,
+    image: yup.mixed().required(),
+  })
+}
 
 export const blogFields: FormFields<Blog> = [
   { name: 'title', isRequired: true },
