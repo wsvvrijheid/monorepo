@@ -24,15 +24,15 @@ export type MentionSelectProps = {
 
 type FormTextFields = {
   type?:
-    | 'boolean'
-    | 'date'
-    | 'datetime-local'
-    | 'file'
-    | 'markdown'
-    | 'number-input'
-    | 'text'
-    | 'textarea'
-    | 'mediaUrl'
+  | 'boolean'
+  | 'date'
+  | 'datetime-local'
+  | 'file'
+  | 'markdown'
+  | 'number-input'
+  | 'text'
+  | 'textarea'
+  | 'mediaUrl'
 }
 
 type FormSelectFields = {
@@ -45,7 +45,7 @@ type FormCommonFields<T extends StrapiModel> = {
   name: keyof T
   label?: string
   isRequired?: boolean
-  group?: { value: string; label: string; name: string }
+  group?: { value: string; label?: string; name: string }
 }
 
 export type FormFields<T extends StrapiModel> = Array<
