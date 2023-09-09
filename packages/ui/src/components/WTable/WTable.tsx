@@ -2,12 +2,14 @@ import { useEffect, useState } from 'react'
 
 import { chakra, Table, Tbody, Th, Thead, Tr } from '@chakra-ui/react'
 import { camelCase, startCase } from 'lodash'
+import { useTranslation } from 'next-i18next'
 import { FaArrowDown, FaArrowUp, FaSort } from 'react-icons/fa'
 
 import { StrapiModel, StrapiModelKeys } from '@wsvvrijheid/types'
 
 import { WTableRow } from './TableRow'
 import { CellConfig, WTableProps } from './types'
+import { I18nNamespaces } from '../../../@types/i18next'
 
 export const WTable = <T extends StrapiModel>({
   data,
@@ -18,6 +20,8 @@ export const WTable = <T extends StrapiModel>({
 }: WTableProps<T>) => {
   const [sortMode, setSortMode] = useState<'desc' | 'asc' | null>(null)
   const [selectedColumn, setSelectedColumn] = useState<string | null>(null)
+
+  const { t: tModel } = useTranslation('model')
 
   const toggleSort = (columnKey: string) => {
     setSelectedColumn(columnKey)
@@ -53,7 +57,13 @@ export const WTable = <T extends StrapiModel>({
             const isSortable = (columns[key as keyof T] as CellConfig<T>)
               .sortable
 
-            const label = (columns[key as keyof T] as CellConfig<T>).label
+            const { label } = columns[key as keyof T] as CellConfig<T>
+            const translationLabel = tModel(
+              (label || key) as keyof I18nNamespaces['model'],
+              {
+                defaultValue: label || startCase(camelCase(key)),
+              },
+            )
 
             const getSortIcon = () => {
               if (!isSortable) return
@@ -79,7 +89,7 @@ export const WTable = <T extends StrapiModel>({
                   onClick: () => toggleSort(key as StrapiModelKeys),
                 })}
               >
-                {label || startCase(camelCase(key))}
+                {translationLabel}
 
                 <chakra.span ml={2} display="inline" as={getSortIcon()} />
               </Th>

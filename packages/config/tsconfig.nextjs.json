@@ -15,6 +15,6 @@
     "resolveJsonModule": true,
     "target": "es5"
   },
-  "include": ["src", "next-env.d.ts"],
+  "include": ["next-env.d.ts", "@types/**/*.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]
 }

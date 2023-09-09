@@ -12,13 +12,13 @@ import {
   Switch,
   Textarea,
 } from '@chakra-ui/react'
-import { capitalize } from 'lodash'
 
 import { Post, StrapiModel } from '@wsvvrijheid/types'
 
 import { ModelMedia } from './ModelMedia'
 import { ModelSelect } from './ModelSelect'
 import { ModelCreateFormBodyProps } from './types'
+import { I18nNamespaces } from '../../../@types/i18next'
 import { FormItem, MdFormItem, VideoPlayer } from '../../components'
 
 export const renderCreateFormBody = <T extends StrapiModel>({
@@ -28,6 +28,7 @@ export const renderCreateFormBody = <T extends StrapiModel>({
   model,
   isChangingMedia,
   toggleChangingMedia,
+  tModel,
 }: ModelCreateFormBodyProps<T>) => {
   const {
     register,
@@ -45,7 +46,9 @@ export const renderCreateFormBody = <T extends StrapiModel>({
   const postModel = model as unknown as Post
 
   return fields.map((field, index) => {
-    const label = field.label || capitalize(field.name as string)
+    const label = tModel(field.name as keyof I18nNamespaces['model'], {
+      defaultValue: field.label,
+    })
     const isActive =
       !activeOption || !field.group || field?.group?.value === activeOption
     const videoUrl = watch(field.name as string)

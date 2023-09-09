@@ -14,8 +14,8 @@ import {
   ModelEditForm,
   PageHeader,
   PostSentenceForm,
-  postFields,
-  postSchema,
+  useFields,
+  useSchema,
 } from '@wsvvrijheid/ui'
 
 type PageProps = InferGetServerSidePropsType<typeof getServerSideProps>
@@ -23,6 +23,9 @@ type PageProps = InferGetServerSidePropsType<typeof getServerSideProps>
 const PostPage: FC<PageProps> = ({ seo }) => {
   const router = useRouter()
   const { query } = router
+
+  const fields = useFields<Post>()
+  const schemas = useSchema()
 
   const id = Number(query.id as string)
   const { data, isLoading, refetch } = useStrapiRequest<Post>({
@@ -45,9 +48,9 @@ const PostPage: FC<PageProps> = ({ seo }) => {
             <ModelEditForm<Post>
               url="api/posts"
               model={post}
-              schema={postSchema}
+              schema={schemas.posts!}
               translatedFields={['description', 'content']}
-              fields={postFields}
+              fields={fields.posts!}
               onSuccess={refetch}
               approverRoles={['accountmanager', 'translator']}
               editorRoles={['contentmanager', 'translator', 'accountmanager']}
@@ -86,7 +89,7 @@ export const getServerSideProps = async (
   return {
     props: {
       seo,
-      ...(await ssrTranslations(locale, ['admin'])),
+      ...(await ssrTranslations(locale, ['admin', 'model'])),
     },
   }
 }

@@ -9,6 +9,7 @@ export const translateModelSchema = yup.object({
   description: yup.string(),
   content: yup.string(),
 })
+
 export const translatePostModelSchema = yup.object({
   description: yup.string(),
   content: yup.string(),

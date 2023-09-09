@@ -7,13 +7,8 @@ import { FaArrowDown, FaArrowUp } from 'react-icons/fa'
 
 import { useStrapiRequest } from '@wsvvrijheid/services'
 import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
-import { Course, Sort, StrapiLocale, StrapiModel } from '@wsvvrijheid/types'
-import {
-  AdminLayout,
-  DataTable,
-  PageHeader,
-  coursesColumns,
-} from '@wsvvrijheid/ui'
+import { Course, Sort, StrapiLocale } from '@wsvvrijheid/types'
+import { AdminLayout, DataTable, PageHeader, useColumns } from '@wsvvrijheid/ui'
 
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>
 
@@ -24,6 +19,8 @@ const CoursesPage: FC<PageProps> = ({ seo }) => {
   const [sort, setSort] = useState<Sort>()
   const router = useRouter()
   const { locale } = useRouter()
+
+  const columns = useColumns<Course>()
 
   const coursesQuery = useStrapiRequest<Course>({
     url: 'api/courses',
@@ -81,9 +78,9 @@ const CoursesPage: FC<PageProps> = ({ seo }) => {
         ]}
       />
 
-      <DataTable
-        columns={coursesColumns}
-        data={mappedCourses as StrapiModel[]}
+      <DataTable<Course>
+        columns={columns.courses!}
+        data={mappedCourses as Course[]}
         totalCount={totalCount}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
@@ -110,7 +107,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
   return {
     props: {
       seo,
-      ...(await ssrTranslations(locale, ['admin'])),
+      ...(await ssrTranslations(locale, ['admin', 'model'])),
     },
   }
 }

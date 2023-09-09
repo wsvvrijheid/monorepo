@@ -1,4 +1,7 @@
+import { DehydratedState } from '@tanstack/react-query'
 import { NextRouter } from 'next/router'
+import { MDXRemoteSerializeResult } from 'next-mdx-remote'
+import { NextSeoProps } from 'next-seo'
 
 import { Localize, StrapiLocale } from '@wsvvrijheid/types'
 
