@@ -232,10 +232,11 @@ export const DonationTemplate: FC<DonationTemplateProps> = ({
               onClick={() => setType('one-time')}
               colorScheme="primary"
             >
-              {t('donation.one-time')}
+              {t('donation.title')}
               {amount && ` €${amount}`}
             </Button>
-            <Button
+            {/* TODO: Enable it once we have Sepa payment method activated */}
+            {/* <Button
               isDisabled={!amount || !isValid}
               type="submit"
               leftIcon={<FaDonate />}
@@ -244,7 +245,7 @@ export const DonationTemplate: FC<DonationTemplateProps> = ({
             >
               {t('donation.monthly')}
               {amount && ` €${amount}`}
-            </Button>
+            </Button> */}
           </Stack>
         </Stack>
         {platforms && <PlatformList platforms={platforms} />}
