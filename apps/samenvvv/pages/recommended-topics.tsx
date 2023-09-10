@@ -10,7 +10,7 @@ import { ASSETS_URL, SITE_URL } from '@wsvvrijheid/config'
 import { strapiRequest } from '@wsvvrijheid/lib'
 import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import { RecommendedTopic, StrapiLocale } from '@wsvvrijheid/types'
-import { TopicCard } from '@wsvvrijheid/ui'
+import { Layout, TopicCard } from '@wsvvrijheid/ui'
 import {
   getItemLink,
   getLocalizedSlugs,
@@ -30,19 +30,19 @@ const Page = ({ topic, topics, seo }) => {
 
   const handleClose = () => {
     onClose()
-    // Remove ?id from url
+   
   }
 
-  // Modal for single topic /topics?id=23
+// It is for single topic
   return (
-    <>
+    <Layout seo={seo} >
       <NextSeo {...seo} />
 
       <Modal isOpen={isOpen} onClose={handleClose} />
-      {topics.map(topic => (
+      {topics?.map(topic => (
         <TopicCard key={topic.id} topic={topic} />
       ))}
-    </>
+    </Layout>
   )
 }
 export default Page
@@ -52,7 +52,7 @@ export const getServerSideProps = async (
 ) => {
   const locale = context.locale as StrapiLocale
   // const slug = context.params?.slug as string
-  const { req, res, query } = context
+  const { req } = context
 
   const queryClient = new QueryClient()
   // const queryKey = ['news', locale, slug]
@@ -66,7 +66,6 @@ export const getServerSideProps = async (
     // Fetch recommended-topic by id
     const topic = await strapiRequest<RecommendedTopic>({
       url: 'api/recommended-topics',
-      id: Number(id),
     })
     recommendedTopic = topic.data
     // seo => If id is provided seo will be single topic seo
@@ -84,9 +83,9 @@ export const getServerSideProps = async (
   if (recommendedTopic) {
     const title = recommendedTopic?.description?.slice(0, 20) || ''
     const description = recommendedTopic.description || ''
-    const image = recommendedTopic?.image
+    const image = recommendedTopic?.image 
 
-    let src = image
+    let src = image 
     const link = getItemLink(
       recommendedTopic,
       locale,
@@ -154,9 +153,7 @@ export const getServerSideProps = async (
 
   return {
     props: {
-      seo: {
-        ...seo,
-      },
+      seo,
       topic: recommendedTopic,
       topics: recommendedTopics,
       capsSrc: capsSrc || null,
