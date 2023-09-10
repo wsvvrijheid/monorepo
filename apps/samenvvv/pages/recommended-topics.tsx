@@ -30,18 +30,16 @@ const Page = ({ topic, topics, seo }) => {
 
   const handleClose = () => {
     onClose()
-   
   }
 
-// It is for single topic
+  // It is for single topic
   return (
-    <Layout seo={seo} >
+    <Layout seo={seo}>
       <NextSeo {...seo} />
 
       <Modal isOpen={isOpen} onClose={handleClose} />
-      {topics?.map(topic => (
-        <TopicCard key={topic.id} topic={topic} />
-      ))}
+      {topics?.map(topic => <TopicCard key={topic.id} topic={topic} />)}
+      {topic && <TopicCard key={topic.id} topic={topic} />}
     </Layout>
   )
 }
@@ -66,6 +64,7 @@ export const getServerSideProps = async (
     // Fetch recommended-topic by id
     const topic = await strapiRequest<RecommendedTopic>({
       url: 'api/recommended-topics',
+      id: Number(id),
     })
     recommendedTopic = topic.data
     // seo => If id is provided seo will be single topic seo
@@ -83,9 +82,9 @@ export const getServerSideProps = async (
   if (recommendedTopic) {
     const title = recommendedTopic?.description?.slice(0, 20) || ''
     const description = recommendedTopic.description || ''
-    const image = recommendedTopic?.image 
+    const image = recommendedTopic?.image
 
-    let src = image 
+    let src = image
     const link = getItemLink(
       recommendedTopic,
       locale,
