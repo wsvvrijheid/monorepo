@@ -12,15 +12,15 @@ export const actionRolesEndpoints: PartialStrapiEndpointMap<
 > = {
   activities: {
     create: ['contentmanager'],
-    approve: ['contentmanager'],
-    update: ['contentmanager'],
+    approve: ['contentmanager', 'translator'],
+    update: ['contentmanager', 'translator'],
     delete: [],
     publish: ['contentmanager'],
   },
   announcements: {
     create: ['contentmanager'],
-    approve: ['contentmanager'],
-    update: ['contentmanager'],
+    approve: ['contentmanager', 'translator'],
+    update: ['contentmanager', 'translator'],
     delete: [],
     publish: ['contentmanager'],
   },
@@ -33,8 +33,8 @@ export const actionRolesEndpoints: PartialStrapiEndpointMap<
   },
   blogs: {
     create: ['author'],
-    approve: [],
-    update: ['author'],
+    approve: ['contentmanager', 'translator'],
+    update: ['author', 'contentmanager', 'translator'],
     delete: ['author'],
     publish: [],
   },
@@ -47,7 +47,7 @@ export const actionRolesEndpoints: PartialStrapiEndpointMap<
   },
   courses: {
     create: ['academyeditor'],
-    approve: ['academyeditor'],
+    approve: ['academyeditor', 'contentmanager', 'translator'],
     update: ['academyeditor'],
     delete: [],
     publish: ['academyeditor'],
