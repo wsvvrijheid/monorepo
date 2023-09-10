@@ -15,7 +15,7 @@ const LoginPage: FC<PageProps> = ({ seo }) => {
     <>
       <NextSeo {...seo} />
       <Box minH="inherit" h="full">
-        <LoginForm isSamenvvv={true} />
+        <LoginForm isLoginOnly={true} />
       </Box>
     </>
   )

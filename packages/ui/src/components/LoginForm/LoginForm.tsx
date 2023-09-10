@@ -27,13 +27,13 @@ import {
   SocialLoginButtonsProps,
 } from '../SocialLoginButtons'
 
-type LoginFormProps = { isSamenvvv?: boolean } & Pick<
+type LoginFormProps = { isLoginOnly?: boolean } & Pick<
   SocialLoginButtonsProps,
   'providersToBeShown'
 >
 
 export const LoginForm: FC<LoginFormProps> = ({
-  isSamenvvv = false,
+  isLoginOnly = false,
   providersToBeShown = [],
 }) => {
   const { t } = useTranslation()
@@ -79,7 +79,7 @@ export const LoginForm: FC<LoginFormProps> = ({
         <Stack spacing="6">
           <Stack spacing={{ base: '2', md: '3' }} textAlign="center">
             <Heading>{t('login.sign-in-header.title')}</Heading>
-            {!isSamenvvv && (
+            {!isLoginOnly && (
               <HStack spacing="1" justify="center">
                 <Text color="muted">{t('login.sign-in-header.text')}</Text>
 

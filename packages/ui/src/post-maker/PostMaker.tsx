@@ -25,11 +25,10 @@ import { TimelineTrendsTabs } from './TimelineTrendsTabs'
 import { TrendListTabs } from './Trends'
 
 type PostMakerProps = {
-  isAdminMode?: boolean
   isIosSafari?: boolean
 }
 
-export const PostMaker: FC<PostMakerProps> = ({ isAdminMode, isIosSafari }) => {
+export const PostMaker: FC<PostMakerProps> = ({ isIosSafari }) => {
   const isMobile = useBreakpointValue({ base: true, lg: false }) ?? true
 
   const { mentionsDisclosure, trendsDisclosure } = useHashtagContext()
@@ -102,7 +101,6 @@ export const PostMaker: FC<PostMakerProps> = ({ isAdminMode, isIosSafari }) => {
           <Box order={{ base: 0, lg: 1 }} h={'inherit'} overflowY={'auto'}>
             <PostMakerTweetList
               posts={hashtag.posts}
-              isAdminMode={Boolean(isAdminMode)}
               isIosSafari={Boolean(isIosSafari)}
             />
           </Box>

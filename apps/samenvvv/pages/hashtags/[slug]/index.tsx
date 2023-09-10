@@ -12,7 +12,6 @@ import {
   useDisclosure,
 } from '@chakra-ui/react'
 import { QueryClient, dehydrate } from '@tanstack/react-query'
-import { unsealData } from 'iron-session'
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
@@ -26,7 +25,7 @@ import {
   useHashtag,
 } from '@wsvvrijheid/services'
 import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
-import { Auth, HashtagReturnType, Post, StrapiLocale } from '@wsvvrijheid/types'
+import { HashtagReturnType, Post, StrapiLocale } from '@wsvvrijheid/types'
 import {
   Container,
   HashtagProvider,
@@ -50,7 +49,6 @@ const HashtagPage: FC<HashtagProps> = ({
   seo,
   post,
   capsSrc,
-  isAdminMode,
   isIosSafari,
 }) => {
   const hashtag = useHashtag()
@@ -102,8 +100,8 @@ const HashtagPage: FC<HashtagProps> = ({
       )}
       <Layout seo={seo}>
         <Container py={4} pos="relative">
-          {hasStarted || isAdminMode ? (
-            <PostMaker isAdminMode={isAdminMode} isIosSafari={isIosSafari} />
+          {hasStarted ? (
+            <PostMaker isIosSafari={isIosSafari} />
           ) : (
             <TimeLeft date={hashtag.date as string} />
           )}
@@ -121,11 +119,6 @@ export const getServerSideProps = async (
   const locale = context.locale as StrapiLocale
   const slug = context.params?.slug as string
   const { req, query } = context
-  const adminMode: Auth | null = context.req.cookies['iron-session']
-    ? await unsealData(context.req.cookies['iron-session'] as string, {
-        password: process.env['SECRET_COOKIE_PASSWORD'] as string,
-      })
-    : null
 
   const queryClient = new QueryClient()
   const queryKey = ['hashtag', locale, slug]
@@ -238,7 +231,6 @@ export const getServerSideProps = async (
       capsSrc: capsSrc || null,
       post: post || null,
       isIosSafari,
-      isAdminMode: adminMode ? adminMode.user?.roles?.includes('admin') : false,
       slugs,
       hasStarted: hashtag.hasStarted,
       dehydratedState: dehydrate(queryClient),

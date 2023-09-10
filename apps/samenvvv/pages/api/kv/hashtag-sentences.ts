@@ -2,6 +2,7 @@ import { kv } from '@vercel/kv'
 import { unsealData } from 'iron-session/edge'
 import { NextRequest, NextResponse } from 'next/server'
 
+import { sessionOptions } from '@wsvvrijheid/secrets'
 import { RoleType, User } from '@wsvvrijheid/types'
 
 export const config = {
@@ -11,16 +12,14 @@ export const config = {
 const handler = async (req: NextRequest) => {
   const method = req.method
   try {
-    const { user, roles }: { user: User; roles: RoleType } = await unsealData(
+    const { user }: { user: User & { roles: RoleType } } = await unsealData(
       req.cookies.get('iron-session')?.value as string,
       {
-        password:
-          process.env['SECRET_COOKIE_PASSWORD'] ||
-          '12345678901234567890123456789012',
+        password: sessionOptions.password,
       },
     )
 
-    if (!user || !roles || !roles?.includes('admin')) {
+    if (!user || !user.roles?.includes('admin')) {
       return
     }
 
