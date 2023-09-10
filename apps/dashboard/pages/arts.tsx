@@ -25,7 +25,7 @@ const ArtsPage: FC<PageProps> = ({ seo }) => {
   const { locale } = useRouter()
 
   const artsQuery = useStrapiRequest<Art>({
-    url: 'api/arts',
+    endpoint: 'arts',
     populate: [
       'artist.user.avatar',
       'categories',

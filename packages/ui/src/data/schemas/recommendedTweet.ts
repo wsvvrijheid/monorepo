@@ -49,7 +49,7 @@ export const recommendedTweetFields: FormFields<RecommendedTweet> = [
   {
     name: 'mentions',
     type: 'select',
-    url: 'api/mentions',
+    endpoint: 'mentions',
     isMulti: true,
   },
 ]

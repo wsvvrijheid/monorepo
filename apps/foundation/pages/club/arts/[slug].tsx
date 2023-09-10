@@ -30,7 +30,7 @@ export default ArtPage
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const artsResponse = await strapiRequest<Art>({
-    url: 'api/arts',
+    endpoint: 'arts',
   })
 
   const paths = artsResponse.data?.map(({ slug }) => ({

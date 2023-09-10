@@ -13,7 +13,7 @@ import { Collection } from '@wsvvrijheid/types'
 
 import { CollectionEditProps } from './types'
 import { useFields, useSchema } from '../../data'
-import { FormFields, ModelEditForm } from '../ModelForm'
+import { ModelEditForm } from '../ModelForm'
 
 export const CollectionEdit: FC<CollectionEditProps> = ({
   collection,
@@ -43,7 +43,7 @@ export const CollectionEdit: FC<CollectionEditProps> = ({
         </AccordionButton>
         <AccordionPanel p={0} mt={4}>
           <ModelEditForm<Collection>
-            url="api/collections"
+            endpoint="collections"
             model={collection}
             translatedFields={['title', 'description', 'content']}
             fields={fields.collections!}

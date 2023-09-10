@@ -43,7 +43,7 @@ export const CourseApplicationForm: FC<CourseApplicationFormProps> = ({
   const { mutate } = useMutation({
     mutationKey: ['course-apply'],
     mutationFn: (data: CourseApplicationCreateInput) =>
-      Mutation.post('api/course-applications', data, TOKEN as string),
+      Mutation.post('course-applications', data, TOKEN as string),
   })
 
   const onSubmit = (data: ApplicationFormFields) => {

@@ -96,7 +96,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
   }
 
   const { data: hashtags } = await strapiRequest<Hashtag>({
-    url: 'api/hashtags',
+    endpoint: 'hashtags',
     locale,
     filters: {
       approvalStatus: { $eq: 'approved' },

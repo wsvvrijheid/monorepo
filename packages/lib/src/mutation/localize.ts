@@ -1,8 +1,8 @@
 import {
+  StrapiEndpoint,
   StrapiLocale,
   StrapiLocalizeInput,
   StrapiTranslatableModel,
-  StrapiUrl,
 } from '@wsvvrijheid/types'
 
 import { mutation } from './mutation'
@@ -11,14 +11,14 @@ export const localizeMutation = <
   T extends StrapiTranslatableModel,
   D extends StrapiLocalizeInput,
 >(
-  url: StrapiUrl,
+  endpoint: StrapiEndpoint,
   id: number,
   locale: StrapiLocale,
   body: D,
   token: string,
 ) =>
   mutation<T, D>({
-    url,
+    endpoint,
     method: 'localize',
     id,
     locale,

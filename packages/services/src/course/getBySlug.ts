@@ -6,7 +6,7 @@ import { Course } from '@wsvvrijheid/types'
 
 export const getCourseBySlug = async (slug: string): Promise<Course | null> => {
   const response = await strapiRequest<Course>({
-    url: 'api/courses',
+    endpoint: 'courses',
     filters: { slug: { $eq: slug } },
   })
 

@@ -37,7 +37,7 @@ export const DowloadCapsModal: FC<DowloadCapsModalType> = ({ id }) => {
   const { locale } = useRouter()
 
   const postsQuery = useStrapiRequest<Post>({
-    url: 'api/posts',
+    endpoint: 'posts',
     filters: {
       ...(id && { hashtag: { id: { $eq: id } } }),
       approvalStatus: { $eq: 'approved' },

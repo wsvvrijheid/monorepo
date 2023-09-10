@@ -9,5 +9,5 @@ export const sendEmail = async (data: EmailCreateInput, token: string) => {
     from: EMAIL_SENDER as string,
   }
 
-  Mutation.post('api/email', body, token)
+  Mutation.post('email', body, token)
 }

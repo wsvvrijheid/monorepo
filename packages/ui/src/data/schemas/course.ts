@@ -84,11 +84,11 @@ export const courseFields: FormFields<Course> = [
     name: 'tags',
     type: 'select',
     isMulti: true,
-    url: 'api/tags',
+    endpoint: 'tags',
   },
   {
     name: 'platform',
     type: 'select',
-    url: 'api/platforms',
+    endpoint: 'platforms',
   },
 ]

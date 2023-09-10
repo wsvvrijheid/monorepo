@@ -14,7 +14,7 @@ export const createCheckout = async (
   const { amount, name, email, type } = req.body
   // Create blank donation in database
   const donation = await Mutation.post<Donation, DonationCreateInput>(
-    'api/donates',
+    'donates',
     { name, email, amount },
     TOKEN as string,
   )

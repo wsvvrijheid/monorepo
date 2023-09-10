@@ -29,7 +29,7 @@ const PostPage: FC<PageProps> = ({ seo }) => {
 
   const id = Number(query.id as string)
   const { data, isLoading, refetch } = useStrapiRequest<Post>({
-    url: 'api/posts',
+    endpoint: 'posts',
     id,
   })
 
@@ -46,15 +46,12 @@ const PostPage: FC<PageProps> = ({ seo }) => {
         {post && (
           <Box p={4} rounded="md" bg="white" shadow="md">
             <ModelEditForm<Post>
-              url="api/posts"
+              endpoint="posts"
               model={post}
               schema={schemas.posts!}
               translatedFields={['description', 'content']}
               fields={fields.posts!}
               onSuccess={refetch}
-              approverRoles={['accountmanager', 'translator']}
-              editorRoles={['contentmanager', 'translator', 'accountmanager']}
-              publisherRoles={['contentmanager', 'accountmanager']}
             />
           </Box>
         )}

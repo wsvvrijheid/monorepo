@@ -138,7 +138,7 @@ export const getServerSideProps = async (
 
   const response = query.id
     ? await strapiRequest<Post>({
-        url: 'api/posts',
+        endpoint: 'posts',
         id: Number(query.id),
       })
     : null

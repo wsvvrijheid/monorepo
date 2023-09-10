@@ -15,7 +15,7 @@ const RecommendedTweetPage: FC<PageProps> = ({ seo }) => {
   const { locale } = useRouter()
 
   const { data: tweets, isLoading } = useStrapiRequest<RecommendedTweet>({
-    url: 'api/recommended-tweets',
+    endpoint: 'recommended-tweets',
     locale,
   })
 

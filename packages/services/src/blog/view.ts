@@ -12,7 +12,7 @@ import { useGetBlogSlug } from './getBlogBySlug'
 export const viewBlog = async (blog: Blog, token: string) => {
   const body = { views: (blog.views || 0) + 1, token }
 
-  return Mutation.put<Blog, BlogUpdateInput>('api/blogs', blog.id, body, token)
+  return Mutation.put<Blog, BlogUpdateInput>('blogs', blog.id, body, token)
 }
 
 export const useViewBlog = () => {

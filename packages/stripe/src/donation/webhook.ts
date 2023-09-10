@@ -1,6 +1,10 @@
 import { Mutation } from '@wsvvrijheid/lib'
 import { TOKEN } from '@wsvvrijheid/secrets'
-import { Donation, DonationUpdateInput, StrapiUrl } from '@wsvvrijheid/types'
+import {
+  Donation,
+  DonationUpdateInput,
+  StrapiEndpoint,
+} from '@wsvvrijheid/types'
 
 export const donationWebhook = async (event: any) => {
   // check the checkout session status, if it's paid then update the donation status
@@ -12,7 +16,7 @@ export const donationWebhook = async (event: any) => {
 
     // Update donation status and stripe fields in database
     await Mutation.put<Donation, DonationUpdateInput>(
-      'api/donates',
+      'donates',
       donationId,
       {
         status,
@@ -23,7 +27,7 @@ export const donationWebhook = async (event: any) => {
     // Send email to customer
     if (status === 'paid') {
       await Mutation.post(
-        `api/donates/email/${donationId}` as StrapiUrl,
+        `donates/email/${donationId}` as StrapiEndpoint,
         {},
         TOKEN as string,
       )

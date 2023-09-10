@@ -37,22 +37,20 @@ import {
   WConfirm,
   WConfirmProps,
 } from '../../components'
-import { useHasPermission, useReferenceModel } from '../../hooks'
+import { usePermission, useReferenceModel } from '../../hooks'
 import { FormLocaleSwitcher } from '../FormLocaleSwitcher'
-import { useDefaultValues, Option } from '../ModelForm'
+import { Option, useDefaultValues } from '../ModelForm'
 
 export const ModelEditTranslate = <T extends StrapiTranslatableModel>({
   id,
-  url,
+  endpoint,
   translatedFields,
   fields,
   schema,
-  approverRoles = [],
-  editorRoles = [],
 }: ModelEditTranslateProps<T>) => {
   const { t } = useTranslation('common')
 
-  const { data, refetch } = useStrapiRequest<T>({ url, id })
+  const { data, refetch } = useStrapiRequest<T>({ endpoint, id })
 
   const model = data?.data
 
@@ -65,9 +63,9 @@ export const ModelEditTranslate = <T extends StrapiTranslatableModel>({
   const [isEditing, setIsEditing] = useBoolean(false)
   const [confirmState, setConfirmState] = useState<WConfirmProps>()
 
-  const updateModelMutation = useUpdateModelMutation(url)
+  const updateModelMutation = useUpdateModelMutation(endpoint)
   const approveModelMutation = useApproveModel(
-    url,
+    endpoint,
     translatedFields as Array<keyof StrapiTranslatableModel>,
   )
 
@@ -83,7 +81,7 @@ export const ModelEditTranslate = <T extends StrapiTranslatableModel>({
     values: defaultValues,
   })
 
-  const { getPermission } = useHasPermission()
+  const { allowEndpointAction } = usePermission()
 
   const handleSuccess = () => {
     refetch()
@@ -229,7 +227,7 @@ export const ModelEditTranslate = <T extends StrapiTranslatableModel>({
           {model.approvalStatus !== 'approved' &&
             (isReferenceSelf ||
               referenceModel?.approvalStatus === 'approved') &&
-            getPermission(approverRoles) && (
+            allowEndpointAction(endpoint, 'approve') && (
               <Button
                 onClick={onApprove}
                 leftIcon={<HiOutlineCheck />}
@@ -240,7 +238,7 @@ export const ModelEditTranslate = <T extends StrapiTranslatableModel>({
                 {t('model.approve')}
               </Button>
             )}
-          {getPermission(editorRoles) && (
+          {allowEndpointAction(endpoint, 'update') && (
             <>
               {!isEditing && (
                 <Button

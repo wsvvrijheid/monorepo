@@ -24,7 +24,7 @@ export const createCategoryWithMutation = async (data: CategoryCreateInput) => {
   await sleep(2000)
 
   return await Mutation.post<Category, CategoryCreateInput>(
-    'api/categories',
+    'categories',
     data,
     TOKEN as string,
   )

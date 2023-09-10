@@ -21,7 +21,7 @@ const DonationsPage: FC<PageProps> = ({ seo }) => {
   const columns = useColumns<Donation>()
 
   const donationsQuery = useStrapiRequest<Donation>({
-    url: 'api/donates',
+    endpoint: 'donates',
     page: currentPage || 1,
     pageSize: 50,
     filters: {

@@ -27,7 +27,7 @@ const registerRoute = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const body = { user: userId, name: trimmedName }
 
-    await Mutation.put('api/users', userId, body, token)
+    await Mutation.put('users', userId, body, token)
 
     const auth = await getAuth(email, password)
 

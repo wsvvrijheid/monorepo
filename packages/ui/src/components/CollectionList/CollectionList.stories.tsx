@@ -25,7 +25,7 @@ const StoryWithHook: StoryFn<CollectionListProps> = args => {
   const router = useRouter()
 
   const { data } = useStrapiRequest<Collection>({
-    url: 'api/collections',
+    endpoint: 'collections',
     locale: router.locale,
   })
 

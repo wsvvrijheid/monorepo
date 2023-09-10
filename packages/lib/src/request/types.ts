@@ -1,8 +1,9 @@
 import {
   Sort,
-  StrapiCollectionUrl,
+  StrapiCollectionEndpoint,
+  StrapiEndpoint,
   StrapiLocale,
-  StrapiSingleUrl,
+  StrapiSingleEndpoint,
 } from '@wsvvrijheid/types'
 
 export type RequestCommonArgs = {
@@ -18,16 +19,16 @@ export type RequestCollectionArgs = RequestCommonArgs & {
   locale?: StrapiLocale
   page?: number
   pageSize?: number
-  url: StrapiCollectionUrl
+  endpoint: StrapiCollectionEndpoint
 }
 
 export type RequestByIdArgs = RequestCommonArgs & {
   id: number
-  url: StrapiCollectionUrl
+  endpoint: StrapiEndpoint
 }
 
 export type SingleTypeArgs = RequestCommonArgs & {
-  url: StrapiSingleUrl
+  endpoint: StrapiSingleEndpoint
   locale?: StrapiLocale
 }
 

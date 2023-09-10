@@ -25,7 +25,7 @@ const HashtagEvents = ({ seo, source }: HashtagEventsProps) => {
   const router = useRouter()
 
   const hashtagsQuery = useStrapiRequest<Hashtag>({
-    url: 'api/hashtags',
+    endpoint: 'hashtags',
     locale: router.locale,
     filters: {
       approvalStatus: { $eq: 'approved' },
@@ -72,7 +72,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
   const queryClient = new QueryClient()
 
   const args: RequestCollectionArgs = {
-    url: 'api/hashtags',
+    endpoint: 'hashtags',
     locale,
     filters: {
       status: { $eq: 'approved' },

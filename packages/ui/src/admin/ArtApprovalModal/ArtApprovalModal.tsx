@@ -145,16 +145,9 @@ export const ArtApprovalModal: FC<ArtApprovalTypes> = ({
                     noColumns
                     fields={fields.arts!}
                     schema={schemas.arts!}
-                    url={'api/arts'}
+                    endpoint={'arts'}
                     model={art}
                     onSuccess={() => setIsEditing(false)}
-                    approverRoles={[
-                      'contentmanager',
-                      'arteditor',
-                      'translator',
-                    ]}
-                    editorRoles={['contentmanager', 'arteditor', 'translator']}
-                    publisherRoles={['contentmanager', 'arteditor']}
                   />
                 </Stack>
               )}

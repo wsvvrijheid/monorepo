@@ -40,6 +40,6 @@ export const artFields: FormFields<Art> = [
     name: 'categories',
     type: 'select',
     isMulti: true,
-    url: 'api/categories',
+    endpoint: 'categories',
   },
 ]

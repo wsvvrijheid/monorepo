@@ -46,18 +46,18 @@ export const volunteerFields: FormFields<Volunteer> = [
     name: 'jobs',
     type: 'select',
     isMulti: true,
-    url: 'api/jobs',
+    endpoint: 'jobs',
   },
   {
     name: 'user',
     type: 'select',
-    url: 'api/users',
+    endpoint: 'users',
   },
   { name: 'comment' },
   {
     name: 'platforms',
     type: 'select',
     isMulti: true,
-    url: 'api/platforms',
+    endpoint: 'platforms',
   },
 ]

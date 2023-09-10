@@ -45,7 +45,7 @@ export const CreateArtForm = () => {
   const { locale } = useRouter()
   const { t } = useTranslation()
   const categories = useStrapiRequest<Category>({
-    url: 'api/categories',
+    endpoint: 'categories',
   })
 
   const { user, isLoggedIn } = useAuthContext()
@@ -77,7 +77,7 @@ export const CreateArtForm = () => {
   const errors = formState.errors as FieldErrorsImpl<CreateArtFormFieldValues>
   const isValid = formState.isValid
 
-  const { mutate, isLoading } = useCreateModelMutation('api/arts')
+  const { mutate, isLoading } = useCreateModelMutation('arts')
 
   const createArt = async (
     data: CreateArtFormFieldValues & { image: File },

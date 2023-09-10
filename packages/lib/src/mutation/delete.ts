@@ -1,9 +1,9 @@
-import { StrapiModel, StrapiUrl } from '@wsvvrijheid/types'
+import { StrapiEndpoint, StrapiModel } from '@wsvvrijheid/types'
 
 import { mutation } from './mutation'
 
 export const deleteMutation = <T extends StrapiModel>(
-  url: StrapiUrl,
+  endpoint: StrapiEndpoint,
   id: number,
   token: string,
-) => mutation<T, any>({ url, method: 'delete', id, token })
+) => mutation<T, any>({ endpoint, method: 'delete', id, token })

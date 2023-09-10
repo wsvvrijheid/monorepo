@@ -5,31 +5,32 @@ import { useAuthContext } from '@wsvvrijheid/context'
 import { Mutation } from '@wsvvrijheid/lib'
 import {
   StrapiCreateInput,
+  StrapiEndpoint,
   StrapiModel,
   StrapiTranslatableModel,
-  StrapiUrl,
 } from '@wsvvrijheid/types'
 
 export const createModel = <T extends StrapiModel, D extends StrapiCreateInput>(
-  url: StrapiUrl,
+  endpoint: StrapiEndpoint,
   args: D,
   token: string,
 ) => {
-  return Mutation.post<T, D>(url, args, token)
+  return Mutation.post<T, D>(endpoint, args, token)
 }
 
 export const useCreateModelMutation = <
   T extends StrapiModel,
   D extends StrapiCreateInput,
 >(
-  url: StrapiUrl,
+  endpoint: StrapiEndpoint,
 ) => {
   const toast = useToast()
   const { token } = useAuthContext()
 
   return useMutation({
-    mutationKey: ['update-model', url],
-    mutationFn: (args: D) => createModel<T, D>(url, args as D, token as string),
+    mutationKey: ['update-model', endpoint],
+    mutationFn: (args: D) =>
+      createModel<T, D>(endpoint, args as D, token as string),
     onSuccess: res => {
       toast({
         title: `Model created`,
