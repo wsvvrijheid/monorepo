@@ -18,6 +18,7 @@ import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
 import { ASSETS_URL, SITE_URL } from '@wsvvrijheid/config'
+import { useAuthContext } from '@wsvvrijheid/context'
 import { strapiRequest } from '@wsvvrijheid/lib'
 import {
   getHashtagBySlug,
@@ -55,6 +56,7 @@ const HashtagPage: FC<HashtagProps> = ({
 
   const { isOpen, onClose, onOpen } = useDisclosure()
   const { query, push } = useRouter()
+  const { roles } = useAuthContext()
 
   const { t } = useTranslation()
 
@@ -100,7 +102,7 @@ const HashtagPage: FC<HashtagProps> = ({
       )}
       <Layout seo={seo}>
         <Container py={4} pos="relative">
-          {hasStarted ? (
+          {hasStarted || roles.includes('admin') ? (
             <PostMaker isIosSafari={isIosSafari} />
           ) : (
             <TimeLeft date={hashtag.date as string} />
