@@ -29,7 +29,7 @@ const PostsPage: FC<PageProps> = ({ seo }) => {
   const columns = useColumns<Post>()
 
   const postsQuery = useStrapiRequest<Post>({
-    url: 'api/posts',
+    endpoint: 'posts',
     page: currentPage || 1,
     filters: {
       ...(hashtagIds.length > 0 && {
@@ -44,7 +44,7 @@ const PostsPage: FC<PageProps> = ({ seo }) => {
   })
 
   const hashtagsQuery = useStrapiRequest<Hashtag>({
-    url: 'api/hashtags',
+    endpoint: 'hashtags',
     locale,
     includeDrafts: true,
     fields: ['id', 'title'],

@@ -5,7 +5,7 @@ import { Mutation } from '@wsvvrijheid/lib'
 import { StrapiCreateInput } from '@wsvvrijheid/types'
 
 export const syncTopics = async (token: string) => {
-  Mutation.post('api/topic/sync', {} as StrapiCreateInput, token)
+  Mutation.post('topic/sync', {} as StrapiCreateInput, token)
 }
 
 export const useTopicSync = () => {

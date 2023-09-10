@@ -17,7 +17,7 @@ export const ArtAddToCollectionGrid = ({
   const [artToBeMutated, setArtToBeMutated] = useState<Art | null>(null)
   const [confirmState, setConfirmState] = useState<WConfirmProps>()
 
-  const updateArtMutation = useUpdateModelMutation('api/arts')
+  const updateArtMutation = useUpdateModelMutation('arts')
 
   const handleAdd = (art: Art) => {
     setArtToBeMutated(art)

@@ -51,12 +51,12 @@ import { useDefaultValues } from './utils'
 import { I18nNamespaces } from '../../../@types/i18next'
 import { FormItem, MasonryGrid, MdFormItem } from '../../components'
 import { WConfirm, WConfirmProps } from '../../components/WConfirm'
-import { useHasPermission } from '../../hooks'
+import { usePermission } from '../../hooks'
 import { ArtAddToCollectionModal } from '../ArtAddToCollectionCard'
 import { DowloadCapsModal } from '../DowloadCapsModal'
 
 export const ModelEditForm = <T extends StrapiModel>({
-  url,
+  endpoint,
   model,
   translatedFields,
   fields,
@@ -64,10 +64,6 @@ export const ModelEditForm = <T extends StrapiModel>({
   onSuccess,
   onClose,
   noColumns,
-  approverRoles = [],
-  editorRoles = [],
-  removerRoles = [],
-  publisherRoles = [],
 }: ModelEditFormProps<T>) => {
   const translatableModel = model as unknown as StrapiTranslatableModel
 
@@ -90,18 +86,18 @@ export const ModelEditForm = <T extends StrapiModel>({
   const { t } = useTranslation()
   const { t: tModel } = useTranslation('model')
 
-  const updateModelMutation = useUpdateModelMutation(url)
-  const unpublishModelMutation = useUnpublishModel(url)
-  const publishModelMutation = usePublishModel(url)
-  const deleteModelMutation = useDeleteModel(url)
+  const updateModelMutation = useUpdateModelMutation(endpoint)
+  const unpublishModelMutation = useUnpublishModel(endpoint)
+  const publishModelMutation = usePublishModel(endpoint)
+  const deleteModelMutation = useDeleteModel(endpoint)
   const approveModelMutation = useApproveModel(
-    url,
+    endpoint,
     translatedFields as Array<keyof StrapiTranslatableModel>,
   )
 
   const defaultValues = useDefaultValues(model, fields)
 
-  const { getPermission } = useHasPermission()
+  const { allowEndpointAction } = usePermission()
 
   const {
     register,
@@ -295,7 +291,7 @@ export const ModelEditForm = <T extends StrapiModel>({
                       {label}
                     </FormLabel>
                     <ModelMedia
-                      url={url}
+                      endpoint={endpoint}
                       isEditing={isEditing}
                       model={model}
                       name={field.name as string}
@@ -344,7 +340,7 @@ export const ModelEditForm = <T extends StrapiModel>({
                 return (
                   <ModelSelect<T>
                     key={index}
-                    url={field.url}
+                    endpoint={field.endpoint}
                     isMulti={field.isMulti}
                     isRequired={field.isRequired}
                     name={field.name as string}
@@ -412,14 +408,14 @@ export const ModelEditForm = <T extends StrapiModel>({
           bg={'white'}
         >
           <Wrap>
-            {url === 'api/collections' && (
+            {endpoint === 'collections' && (
               <>
                 <ArtAddToCollectionModal
                   collection={model as any}
                   isOpen={artModalDisclosure.isOpen}
                   onClose={artModalDisclosure.onClose}
                 />
-                {getPermission(editorRoles) && (
+                {allowEndpointAction('collections', 'update') && (
                   <Button
                     onClick={artModalDisclosure.onOpen}
                     leftIcon={<HiPlus />}
@@ -433,10 +429,10 @@ export const ModelEditForm = <T extends StrapiModel>({
                 )}
               </>
             )}
-            {url === 'api/hashtags' && <DowloadCapsModal id={id} />}
+            {endpoint === 'hashtags' && <DowloadCapsModal id={id} />}
             {translatableModel.approvalStatus &&
               translatableModel.approvalStatus !== 'approved' &&
-              getPermission(approverRoles) && (
+              allowEndpointAction(endpoint, 'approve') && (
                 <Button
                   onClick={onApprove}
                   leftIcon={<HiOutlineCheck />}
@@ -447,7 +443,7 @@ export const ModelEditForm = <T extends StrapiModel>({
                   {t('model.approve')}
                 </Button>
               )}
-            {getPermission(editorRoles) && (
+            {allowEndpointAction(endpoint, 'update') && (
               <HStack>
                 {!isEditing && (
                   <Button
@@ -479,7 +475,7 @@ export const ModelEditForm = <T extends StrapiModel>({
                 )}
               </HStack>
             )}
-            {getPermission(publisherRoles) && (
+            {allowEndpointAction(endpoint, 'publish') && (
               <Button
                 onClick={isPublished ? onUnPublish : onPublish}
                 colorScheme={isPublished ? 'yellow' : 'green'}
@@ -495,7 +491,7 @@ export const ModelEditForm = <T extends StrapiModel>({
                 {isPublished ? t('model.unpublish') : t('model.publish')}
               </Button>
             )}
-            {getPermission(removerRoles) && (
+            {allowEndpointAction(endpoint, 'delete') && (
               <Button
                 onClick={onDelete}
                 leftIcon={<BsTrash />}

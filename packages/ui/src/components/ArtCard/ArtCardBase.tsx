@@ -54,9 +54,9 @@ export const ArtCardBase: FC<ArtCardBaseProps> = ({
   const router = useRouter()
   const locale = router.locale
 
-  const deleteMutation = useDeleteModel('api/arts', queryKey)
-  const publishMutation = usePublishModel('api/arts', queryKey)
-  const unpublishMutation = useUnpublishModel('api/arts', queryKey)
+  const deleteMutation = useDeleteModel('arts', queryKey)
+  const publishMutation = usePublishModel('arts', queryKey)
+  const unpublishMutation = useUnpublishModel('arts', queryKey)
 
   useEffect(() => {
     setHover({ color: isLiked ? 'red.200' : 'gray.100' })

@@ -16,39 +16,38 @@ import { StrapiModel } from '@wsvvrijheid/types'
 
 import { ModelCreateForm } from '.'
 import { ModelCreateFormProps } from './types'
-import { useHasPermission } from '../../hooks'
+import { usePermission } from '../../hooks'
 
 export const ModelCreateModal = <T extends StrapiModel>({
   fields,
   onSuccess,
   schema,
-  url,
+  endpoint,
   children,
   title,
   model,
   buttonProps,
   hideLanguageSwitcher,
-  allowedRoles,
   shouldPublish,
 }: PropsWithChildren<ModelCreateFormProps<T> & { title: string }>) => {
   const formDisclosure = useDisclosure()
 
-  const { getPermission } = useHasPermission()
+  const { allowEndpointAction } = usePermission()
 
   const handleSuccess = () => {
     formDisclosure.onClose()
     onSuccess?.()
   }
 
-  if (allowedRoles && !getPermission(allowedRoles)) {
-    return null
-  }
+  const hasPermission = allowEndpointAction(endpoint, 'create')
 
   return (
     <>
       <Button
         leftIcon={<IoMdAdd />}
         onClick={formDisclosure.onOpen}
+        disabled={!hasPermission}
+        isDisabled={!hasPermission}
         {...buttonProps}
       >
         {children}
@@ -68,7 +67,7 @@ export const ModelCreateModal = <T extends StrapiModel>({
           <ModalCloseButton />
           <ModalBody pos="relative" py={6}>
             <ModelCreateForm<T>
-              url={url}
+              endpoint={endpoint}
               schema={schema}
               fields={fields}
               model={model}

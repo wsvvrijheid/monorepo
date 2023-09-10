@@ -36,7 +36,7 @@ const ActivityDetailPage: FC<ActivityDetailPageProps> = ({
 export default ActivityDetailPage
 
 export const getStaticPaths = async () => {
-  return await getModelStaticPaths('api/activities')
+  return await getModelStaticPaths('activities')
 }
 
 export const getStaticProps = async (context: GetStaticPropsContext) => {
@@ -49,7 +49,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
     queryKey: ['activity', locale, slug],
     queryFn: () =>
       strapiRequest<Activity>({
-        url: 'api/activities',
+        endpoint: 'activities',
         filters: { slug: { $eq: slug } },
         locale,
       }),

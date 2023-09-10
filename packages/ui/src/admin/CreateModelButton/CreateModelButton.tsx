@@ -32,7 +32,7 @@ import {
 } from '@wsvvrijheid/types'
 
 import { useFields, useSchema } from '../../data'
-import { useHasPermission } from '../../hooks'
+import { usePermission } from '../../hooks'
 import { CreatePostFromCapsModal } from '../CreatePostFromCapsModal'
 import { ModelCreateModal } from '../ModelForm'
 
@@ -49,7 +49,7 @@ export const CreateModelButton = () => {
 
   const { user } = useAuthContext()
 
-  const { getPermission } = useHasPermission()
+  const { allowEndpointAction } = usePermission()
 
   if (!user) return null
 
@@ -76,35 +76,33 @@ export const CreateModelButton = () => {
               <Stack>
                 <ModelCreateModal<Activity>
                   title={t('create-activity')}
-                  url="api/activities"
+                  endpoint="activities"
                   schema={schemas.activities!}
                   fields={fields.activities!}
                   buttonProps={{
                     variant: 'outline',
                     leftIcon: <TbActivity />,
                   }}
-                  allowedRoles={['contentmanager']}
                 >
                   {t('create-activity')}
                 </ModelCreateModal>
 
                 <ModelCreateModal<Blog>
                   title={t('create-blog')}
-                  url="api/blogs"
+                  endpoint="blogs"
                   schema={schemas.blogs!}
                   fields={fields.blogs!}
                   buttonProps={{
                     variant: 'outline',
                     leftIcon: <TbWriting />,
                   }}
-                  allowedRoles={['author', 'contentmanager']}
                 >
                   {t('create-blog')}
                 </ModelCreateModal>
 
                 <ModelCreateModal<Course>
                   title={t('create-course')}
-                  url="api/courses"
+                  endpoint="courses"
                   schema={schemas.courses!}
                   fields={fields.courses!}
                   hideLanguageSwitcher
@@ -113,14 +111,13 @@ export const CreateModelButton = () => {
                     variant: 'outline',
                     leftIcon: <MdOutlineCastForEducation />,
                   }}
-                  allowedRoles={['academyeditor']}
                 >
                   {t('create-course')}
                 </ModelCreateModal>
 
                 <ModelCreateModal<Collection>
                   title={t('create-collection')}
-                  url="api/collections"
+                  endpoint="collections"
                   schema={schemas.collections!}
                   fields={fields.collections!}
                   shouldPublish
@@ -128,40 +125,37 @@ export const CreateModelButton = () => {
                     variant: 'outline',
                     leftIcon: <BsCollection />,
                   }}
-                  allowedRoles={['arteditor']}
                 >
                   {t('create-collection')}
                 </ModelCreateModal>
 
                 <ModelCreateModal<Hashtag>
                   title={t('create-hashtag')}
-                  url="api/hashtags"
+                  endpoint="hashtags"
                   schema={schemas.hashtags!}
                   fields={fields.hashtags!}
                   buttonProps={{
                     variant: 'outline',
                     leftIcon: <CgHashtag />,
                   }}
-                  allowedRoles={['accountmanager']}
                 >
                   {t('create-hashtag')}
                 </ModelCreateModal>
 
                 <ModelCreateModal<Post>
                   title={t('create-post')}
-                  url="api/posts"
+                  endpoint="posts"
                   schema={schemas.posts!}
                   fields={fields.posts!}
                   buttonProps={{
                     variant: 'outline',
                     leftIcon: <TbBrandTwitter />,
                   }}
-                  allowedRoles={['all']}
                 >
                   {t('create-post')}
                 </ModelCreateModal>
 
-                {getPermission(['all']) && (
+                {allowEndpointAction('posts', 'create') && (
                   <>
                     <CreatePostFromCapsModal
                       isOpen={isOpenPost}
@@ -178,7 +172,7 @@ export const CreateModelButton = () => {
                 )}
                 <ModelCreateModal<RecommendedTopic>
                   title={t('create-news')}
-                  url="api/recommended-topics"
+                  endpoint="recommended-topics"
                   schema={schemas.topic!}
                   fields={fields.topic!}
                   shouldPublish
@@ -191,7 +185,7 @@ export const CreateModelButton = () => {
                 </ModelCreateModal>
                 <ModelCreateModal<RecommendedTweet>
                   title={t('create-recommended-tweet')}
-                  url="api/recommended-tweets"
+                  endpoint="recommended-tweets"
                   schema={schemas['recommended-tweets']!}
                   fields={fields['recommended-tweets']!}
                   shouldPublish

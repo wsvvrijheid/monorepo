@@ -5,12 +5,7 @@ import { useRouter } from 'next/router'
 import { NextSeoProps } from 'next-seo'
 
 import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
-import {
-  PartialStrapiEndpointMap,
-  RoleType,
-  StrapiCollectionEndpoint,
-  StrapiLocale,
-} from '@wsvvrijheid/types'
+import { StrapiCollectionEndpoint, StrapiLocale } from '@wsvvrijheid/types'
 import {
   AdminLayout,
   ModelEditTranslate,
@@ -21,22 +16,6 @@ import {
 } from '@wsvvrijheid/ui'
 
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>
-
-const approverRoles: PartialStrapiEndpointMap<RoleType[]> = {
-  activities: ['translator'],
-  arts: ['translator'],
-  collections: ['translator'],
-  hashtags: ['translator'],
-  posts: ['translator'],
-}
-
-const editRoles: PartialStrapiEndpointMap<RoleType[]> = {
-  activities: ['translator'],
-  arts: ['translator'],
-  collections: ['translator'],
-  hashtags: ['translator'],
-  posts: ['translator'],
-}
 
 const ActivitiesTranslatePage: FC<PageProps> = ({ seo }) => {
   const [searchTerm, setSearchTerm] = useState<string>()
@@ -66,12 +45,10 @@ const ActivitiesTranslatePage: FC<PageProps> = ({ seo }) => {
       {id ? (
         <ModelEditTranslate
           id={id}
-          url={`api/${slug}`}
+          endpoint={slug}
           translatedFields={fields?.map(f => f.name) || []}
           fields={fields as any}
           schema={schema!}
-          approverRoles={approverRoles[slug]}
-          editorRoles={editRoles[slug] as RoleType[]}
         />
       ) : (
         <>

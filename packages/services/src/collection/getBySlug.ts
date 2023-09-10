@@ -6,7 +6,7 @@ export const getCollectionBySlug = async (
   slug: string,
 ) => {
   const response = await strapiRequest<Collection>({
-    url: 'api/collections',
+    endpoint: 'collections',
     filters: { slug: { $eq: slug } },
     populate: ['localizations', 'image', 'arts.image', 'arts.artist'],
     locale,

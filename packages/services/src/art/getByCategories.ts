@@ -8,7 +8,7 @@ export const getArtsByCategories = async (
   id?: number,
 ) => {
   const response = await strapiRequest<Art>({
-    url: 'api/arts',
+    endpoint: 'arts',
     filters: {
       categories: { slug: { $in: categories } },
       id: { $ne: id },

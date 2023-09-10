@@ -23,7 +23,7 @@ const CoursesPage: FC<PageProps> = ({ seo }) => {
   const columns = useColumns<Course>()
 
   const coursesQuery = useStrapiRequest<Course>({
-    url: 'api/courses',
+    endpoint: 'courses',
     populate: ['categories', 'tags', 'platforms', 'image', 'applications'],
     page: currentPage || 1,
     pageSize: 10,

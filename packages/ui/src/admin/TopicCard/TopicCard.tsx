@@ -38,8 +38,8 @@ import { ActionButton } from './ActionButton'
 import { TopicCardProps } from './types'
 import { ShareButtons, WConfirm, WConfirmProps, WImage } from '../../components'
 import { useFields, useSchema } from '../../data'
-import { useHasPermission } from '../../hooks'
-import { FormFields, ModelCreateModal } from '../ModelForm'
+import { usePermission } from '../../hooks'
+import { ModelCreateModal } from '../ModelForm'
 
 export const TopicCard: FC<TopicCardProps> = ({ topic }) => {
   const { user } = useAuthContext()
@@ -54,7 +54,7 @@ export const TopicCard: FC<TopicCardProps> = ({ topic }) => {
   const fields = useFields()
   const schemas = useSchema()
 
-  const { getPermission } = useHasPermission()
+  const { allowEndpointAction } = usePermission()
 
   const time = topic.time
     ? formatDistanceStrict(new Date(topic.time), new Date()) + ' - '
@@ -65,7 +65,7 @@ export const TopicCard: FC<TopicCardProps> = ({ topic }) => {
     [],
   )
 
-  const deleteModelMutation = useDeleteModel('api/recommended-topics')
+  const deleteModelMutation = useDeleteModel('recommended-topics')
 
   const queryClient = useQueryClient()
 
@@ -198,10 +198,10 @@ export const TopicCard: FC<TopicCardProps> = ({ topic }) => {
           </Text>
 
           <ButtonGroup size={'sm'}>
-            {getPermission(['all']) && (
+            {allowEndpointAction('posts', 'create') && (
               <ModelCreateModal<Post>
                 title={t('create-post')}
-                url="api/posts"
+                endpoint={'posts'}
                 schema={schemas.posts!}
                 fields={fields.posts!}
                 model={postContent}

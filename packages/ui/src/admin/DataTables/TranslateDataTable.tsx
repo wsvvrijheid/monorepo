@@ -36,7 +36,7 @@ export const TranslateDataTable: FC<TranslateDataTableProps> = ({
   }, [locale, searchTerm, sort, status])
 
   const dataQuery = useStrapiRequest<Activity>({
-    url: `api/${slug}`,
+    endpoint: slug,
     page: currentPage || 1,
     pageSize: 10,
     filters: {

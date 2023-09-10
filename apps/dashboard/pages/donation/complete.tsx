@@ -45,7 +45,7 @@ export const getServerSideProps = async (
 
     const response = await strapiRequest<Donation>({
       id: Number(query.id),
-      url: `api/donates`,
+      endpoint: 'donates',
       populate: [],
     })
 

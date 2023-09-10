@@ -15,7 +15,7 @@ export const getHashtagBySlug = async (
   slug: string,
 ): Promise<HashtagReturnType | null> => {
   const response = await strapiRequest<Hashtag>({
-    url: 'api/hashtags',
+    endpoint: 'hashtags',
     filters: { slug: { $eq: slug } },
     locale,
     populate: [

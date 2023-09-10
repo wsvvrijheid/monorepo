@@ -16,7 +16,7 @@ const NewsBookmarkedPage: FC<PageProps> = ({ seo }) => {
   const { locale } = useRouter()
 
   const { data } = useStrapiRequest<RecommendedTopic>({
-    url: 'api/recommended-topics',
+    endpoint: 'recommended-topics',
     locale,
   })
 

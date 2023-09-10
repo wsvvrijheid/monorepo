@@ -15,7 +15,7 @@ const Timelines: FC<PageProps> = ({ seo }) => {
   const { locale } = useRouter()
 
   const { data: timelines, isLoading } = useStrapiRequest<Timeline>({
-    url: 'api/timelines',
+    endpoint: 'timelines',
     locale,
   })
 

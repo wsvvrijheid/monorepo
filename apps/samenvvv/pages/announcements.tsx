@@ -83,7 +83,7 @@ export const getServerSideProps = async (
   const queryClient = new QueryClient()
 
   const args: RequestCollectionArgs = {
-    url: 'api/hashtags',
+    endpoint: 'hashtags',
     locale,
     filters: {
       approvalStatus: { eq: 'approved' },

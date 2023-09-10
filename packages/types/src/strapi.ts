@@ -215,7 +215,6 @@ export type StrapiResponse<T extends StrapiModel> =
 export type StrapiProviders = 'instagram' | 'facebook' | 'google' | 'twitter'
 
 export type StrapiEmailEndpoint = 'email'
-export type StrapiEmailUrl = `api/${StrapiEmailEndpoint}`
 
 export type StrapiCustomEndpoint = 'translate-model' | 'translate-post-model'
 
@@ -226,13 +225,11 @@ export type StrapiSingleEndpoint =
   | 'topic'
   | 'topic/sync'
   | 'users/me'
-export type StrapiSingleUrl = `api/${StrapiSingleEndpoint}`
 
 export type StrapiAuthEndpoint =
   | 'auth/local/register'
   | 'auth/local'
   | `connect/${StrapiProviders}/callback`
-export type StrapiAuthUrl = `api/${StrapiAuthEndpoint}`
 
 export type StrapiCollectionEndpoint =
   | 'account-statistics'
@@ -274,7 +271,6 @@ export type StrapiCollectionEndpoint =
   | 'volunteers'
   | 'votes'
 
-export type StrapiCollectionUrl = `api/${StrapiCollectionEndpoint}`
 export type StrapiEndpoint =
   | StrapiSingleEndpoint
   | StrapiCollectionEndpoint
@@ -283,12 +279,6 @@ export type StrapiEndpoint =
   | StrapiCustomEndpoint
 
 export type PartialStrapiEndpointMap<T> = { [x in StrapiEndpoint]?: T }
-
-export type StrapiUrl =
-  | StrapiSingleUrl
-  | StrapiCollectionUrl
-  | StrapiAuthUrl
-  | StrapiEmailUrl
 
 export type StrapiLocalizeInput =
   | ActivityLocalizeInput

@@ -28,7 +28,7 @@ import { LanguageSwitcher } from '../LanguageSwitcher'
 import { RadioCards } from '../RadioCards'
 
 export const ModelCreateForm = <T extends StrapiModel>({
-  url,
+  endpoint,
   fields,
   schema,
   model,
@@ -39,7 +39,7 @@ export const ModelCreateForm = <T extends StrapiModel>({
   const createModelMutation = useCreateModelMutation<
     T,
     StrapiTranslatableCreateInput
-  >(url)
+  >(endpoint)
 
   const { locale } = useRouter()
   const { t: tCommon } = useTranslation()
@@ -122,7 +122,7 @@ export const ModelCreateForm = <T extends StrapiModel>({
       locale,
     } as StrapiTranslatableCreateInput
 
-    if (url === 'api/posts') {
+    if (endpoint === 'posts') {
       const imageProps = generateOgImageParams()
       const postBody = bodyData as PostCreateInput
       postBody.imageParams = imageProps

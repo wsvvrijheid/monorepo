@@ -29,6 +29,6 @@ export const courseApplicationFields: FormFields<CourseApplication> = [
   {
     name: 'course',
     type: 'select',
-    url: 'api/courses',
+    endpoint: 'courses',
   },
 ]

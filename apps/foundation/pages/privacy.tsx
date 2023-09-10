@@ -30,7 +30,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
   const locale = context.locale as StrapiLocale
 
   const response = await strapiRequest<Privacy>({
-    url: 'api/privacy',
+    endpoint: 'privacy',
     locale,
   })
 

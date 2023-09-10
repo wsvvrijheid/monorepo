@@ -48,7 +48,7 @@ export const ArtClubTemplate: FC = () => {
   const { t } = useTranslation()
 
   const categoryQuery = useStrapiRequest<Category>({
-    url: 'api/categories',
+    endpoint: 'categories',
     pageSize: 100,
     filters: {
       arts: {
@@ -65,7 +65,7 @@ export const ArtClubTemplate: FC = () => {
 
   // Custom useQuery hook or fetching arts
   const artsQuery = useStrapiRequest<Art>({
-    url: 'api/arts',
+    endpoint: 'arts',
     filters: {
       ...(categories && {
         categories: {

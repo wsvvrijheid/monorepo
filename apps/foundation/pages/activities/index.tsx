@@ -20,7 +20,7 @@ import {
 import { Layout } from '../../components'
 
 const args: RequestCollectionArgs = {
-  url: 'api/activities',
+  endpoint: 'activities',
   sort: ['date:desc'],
   filters: { approvalStatus: { $eq: 'approved' } },
   populate: ['image'],

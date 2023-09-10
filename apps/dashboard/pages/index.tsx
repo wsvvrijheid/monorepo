@@ -25,7 +25,7 @@ import { AccountStats, AdminLayout, PageHeader } from '@wsvvrijheid/ui'
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>
 
 const args: RequestCollectionArgs = {
-  url: 'api/account-statistics',
+  endpoint: 'account-statistics',
   sort: ['date:asc'],
   pageSize: 100,
 }

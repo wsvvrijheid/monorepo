@@ -33,7 +33,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
     queryKey: ['arts', locale, null, null, '1'],
     queryFn: () =>
       strapiRequest<Art>({
-        url: 'api/arts',
+        endpoint: 'arts',
         locale,
         filters: {
           approvalStatus: { $eq: 'approved' },

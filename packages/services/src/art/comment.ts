@@ -25,7 +25,7 @@ export const createArtComment = ({
     const body = { content, art, user }
 
     return Mutation.post<Comment, CommentArtCreateInputUser>(
-      'api/comments',
+      'comments',
       body,
       token,
     )
@@ -38,7 +38,7 @@ export const createArtComment = ({
   const body = { content, name, email, art }
 
   return Mutation.post<Comment, CommentArtCreateInputPublic>(
-    'api/comments',
+    'comments',
     body,
     token,
   )

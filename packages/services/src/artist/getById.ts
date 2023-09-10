@@ -9,7 +9,7 @@ export const getArtistById = async (
   id: string,
 ): Promise<(User & { arts: Art[] }) | null> => {
   const artistResponse = await strapiRequest<User>({
-    url: 'api/users',
+    endpoint: 'users',
     id: Number(id),
   })
 

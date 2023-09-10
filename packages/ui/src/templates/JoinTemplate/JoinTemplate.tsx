@@ -35,7 +35,7 @@ export const JoinTemplate: FC<JoinTemplateProps> = ({ title }) => {
   const { locale } = useRouter()
 
   const platformsResult = useStrapiRequest<Platform>({
-    url: 'api/platforms',
+    endpoint: 'platforms',
     locale,
   })
 
@@ -45,7 +45,7 @@ export const JoinTemplate: FC<JoinTemplateProps> = ({ title }) => {
     ['create-volunteer'],
     (body: VolunteerCreateInput) =>
       Mutation.post<Volunteer, VolunteerCreateInput>(
-        'api/volunteers',
+        'volunteers',
         body,
         VOLUNTEER_TOKEN as string,
       ),

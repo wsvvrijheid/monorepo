@@ -8,7 +8,7 @@ export const getArtByArtist = async (
   includeDrafts?: boolean,
 ) => {
   const response = await strapiRequest<Art>({
-    url: 'api/arts',
+    endpoint: 'arts',
     filters: {
       artist: { id: { $eq: userId || null } },
     },

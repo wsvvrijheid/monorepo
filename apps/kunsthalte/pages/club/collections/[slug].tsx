@@ -50,7 +50,7 @@ const CollectionPage: FC<CollectionPageProps> = ({ seo, collection }) => {
 export default CollectionPage
 
 export const getStaticPaths = async () => {
-  return await getModelStaticPaths('api/collections')
+  return await getModelStaticPaths('collections')
 }
 
 export const getStaticProps = async (context: GetStaticPropsContext) => {

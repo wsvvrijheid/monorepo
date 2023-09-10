@@ -101,7 +101,7 @@ export const renderCreateFormBody = <T extends StrapiModel>({
       return (
         <ModelSelect
           key={index}
-          url={field.url}
+          endpoint={field.endpoint}
           isMulti={field.isMulti}
           isRequired={field.isRequired}
           name={field.name as string}

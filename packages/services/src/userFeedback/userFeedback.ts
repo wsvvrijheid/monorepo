@@ -14,7 +14,7 @@ export const createUserFeedback = async (
   }
 
   await Mutation.post<UserFeedback, UserFeedbackCreateInput>(
-    'api/user-feedbacks',
+    'user-feedbacks',
     userFeedback,
     token,
   )

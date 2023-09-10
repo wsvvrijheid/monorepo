@@ -18,7 +18,7 @@ import { ModelEditModalProps } from './types'
 export const ModelEditModal = <T extends StrapiModel>({
   fields,
   schema,
-  url,
+  endpoint,
   title,
   hideLanguageSwitcher,
   id,
@@ -29,7 +29,7 @@ export const ModelEditModal = <T extends StrapiModel>({
   maxW,
   ...rest
 }: ModelEditModalProps<T>) => {
-  const { data, isLoading, refetch } = useStrapiRequest<T>({ url, id })
+  const { data, isLoading, refetch } = useStrapiRequest<T>({ endpoint, id })
 
   const model = data?.data
 
@@ -65,7 +65,7 @@ export const ModelEditModal = <T extends StrapiModel>({
         {model && (
           <ModalBody pos="relative" p={0}>
             <ModelEditForm<T>
-              url={url}
+              endpoint={endpoint}
               schema={schema}
               fields={fields}
               model={model}

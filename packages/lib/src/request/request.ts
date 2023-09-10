@@ -4,18 +4,18 @@ import qs from 'qs'
 
 import {
   API_URL,
-  urlsSingleType,
-  urlsWithApprovalStatus,
-  urlsWithPublicationState,
-  urlsWithoutLocale,
+  endpointsSingleType,
+  endpointsWithApprovalStatus,
+  endpointsWithPublicationState,
+  endpointsWithoutLocale,
 } from '@wsvvrijheid/config'
 import { TOKEN } from '@wsvvrijheid/secrets'
 import {
   StrapiCollectionResponse,
   StrapiModel,
   StrapiResponse,
+  StrapiSingleEndpoint,
   StrapiSingleResponse,
-  StrapiSingleUrl,
 } from '@wsvvrijheid/types'
 
 import {
@@ -42,7 +42,7 @@ async function strapiRequest<T extends StrapiModel>(
   const { id } = idArgs
 
   const {
-    url,
+    endpoint,
     fields,
     includeDrafts,
     populate = '*',
@@ -57,10 +57,12 @@ async function strapiRequest<T extends StrapiModel>(
     pageSize = 25,
   } = collectionArgs
 
-  const hasLocale = !id && !urlsWithoutLocale.includes(url)
-  const isSingleType = urlsSingleType.includes(url as StrapiSingleUrl)
-  const hasApprovalStatus = urlsWithApprovalStatus.includes(url)
-  const hasPublicationState = urlsWithPublicationState.includes(url)
+  const hasLocale = !id && !endpointsWithoutLocale.includes(endpoint)
+  const isSingleType = endpointsSingleType.includes(
+    endpoint as StrapiSingleEndpoint,
+  )
+  const hasApprovalStatus = endpointsWithApprovalStatus.includes(endpoint)
+  const hasPublicationState = endpointsWithPublicationState.includes(endpoint)
 
   const filters = produce(initialFilters, draft => {
     if (!hasApprovalStatus) {
@@ -87,8 +89,8 @@ async function strapiRequest<T extends StrapiModel>(
   )
 
   const requestUrl = id
-    ? `${API_URL}/${url}/${id}?${query}`
-    : `${API_URL}/${url}?${query}`
+    ? `${API_URL}/api/${endpoint}/${id}?${query}`
+    : `${API_URL}/api/${endpoint}?${query}`
 
   try {
     const response = await axios(requestUrl, {
@@ -101,7 +103,7 @@ async function strapiRequest<T extends StrapiModel>(
 
     if (!result?.data) {
       if (id || isSingleType) {
-        if (url === 'api/users') {
+        if (endpoint === 'users') {
           return {
             data: result as unknown as T,
             meta: { pagination: null },
@@ -114,7 +116,7 @@ async function strapiRequest<T extends StrapiModel>(
         } as StrapiSingleResponse<T>
       }
 
-      if (url === 'api/users') {
+      if (endpoint === 'users') {
         return {
           data: result as unknown as T[],
           meta: {

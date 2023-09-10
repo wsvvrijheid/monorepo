@@ -4,20 +4,20 @@ import { useMutation } from '@tanstack/react-query'
 import { useAuthContext } from '@wsvvrijheid/context'
 import { Mutation } from '@wsvvrijheid/lib'
 import {
+  StrapiEndpoint,
   StrapiModel,
   StrapiTranslatableModel,
-  StrapiUrl,
 } from '@wsvvrijheid/types'
 
 import { createLocalizations } from '../createLocalizations'
 
 export const approveModel = async <T extends StrapiModel>(
   id: number,
-  url: StrapiUrl,
+  endpoint: StrapiEndpoint,
   token?: string,
 ) => {
   return Mutation.put<T, any>(
-    `${url}/approve` as StrapiUrl,
+    `${endpoint}/approve` as StrapiEndpoint,
     id,
     {},
     token as string,
@@ -25,16 +25,16 @@ export const approveModel = async <T extends StrapiModel>(
 }
 
 export const useApproveModel = <T extends StrapiTranslatableModel>(
-  url: StrapiUrl,
+  endpoint: StrapiEndpoint,
   translatedFields?: (keyof T)[],
 ) => {
   const toast = useToast()
   const { token } = useAuthContext()
 
   return useMutation({
-    mutationKey: [`approve-${url}`],
+    mutationKey: [`approve-${endpoint}`],
     mutationFn: ({ id }: { id: number }) =>
-      approveModel<T>(id, url, token ?? undefined),
+      approveModel<T>(id, endpoint, token ?? undefined),
     onSuccess: async model => {
       const hasLocalizations = !!model?.localizations?.[0]
 
@@ -43,9 +43,9 @@ export const useApproveModel = <T extends StrapiTranslatableModel>(
           model,
           translatedFields:
             translatedFields as (keyof StrapiTranslatableModel)[],
-          url,
+          endpoint,
           token: token as string,
-          hasSlug: url !== 'api/posts',
+          hasSlug: endpoint !== 'posts',
         })
 
         // Fixes translated relation fields
@@ -53,7 +53,7 @@ export const useApproveModel = <T extends StrapiTranslatableModel>(
           localizedModel =>
             localizedModel &&
             Mutation.put(
-              `${url}/relation` as StrapiUrl,
+              `${endpoint}/relation` as StrapiEndpoint,
               localizedModel.id,
               {},
               token as string,

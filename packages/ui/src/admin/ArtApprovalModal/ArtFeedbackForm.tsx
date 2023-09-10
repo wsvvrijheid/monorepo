@@ -7,7 +7,7 @@ import { useArtFeedbackMutation } from '@wsvvrijheid/services'
 
 import { ArtFeedbackFormTypes } from './types'
 import { WAvatar, WConfirm, WConfirmProps } from '../../components'
-import { useHasPermission } from '../../hooks'
+import { usePermission } from '../../hooks'
 
 export const ArtFeedbackForm: FC<ArtFeedbackFormTypes> = ({
   art,
@@ -22,7 +22,7 @@ export const ArtFeedbackForm: FC<ArtFeedbackFormTypes> = ({
 
   const feedbackMutation = useArtFeedbackMutation()
 
-  const { getPermission } = useHasPermission()
+  const { allowEndpointAction } = usePermission()
 
   const handleSuccess = () => {
     onSuccess?.()
@@ -96,7 +96,7 @@ export const ArtFeedbackForm: FC<ArtFeedbackFormTypes> = ({
               placeholder={'Type your comment here'}
             />
 
-            {getPermission(['arteditor']) && (
+            {allowEndpointAction('arts', 'approve') && (
               <Stack direction={'row'} spacing={{ base: 2, lg: 4 }}>
                 <Button
                   flex={1}

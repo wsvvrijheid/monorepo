@@ -62,7 +62,7 @@ const BlogDetailPage: FC<BlogPageProps> = ({
 export default BlogDetailPage
 
 export const getStaticPaths = async () => {
-  return await getModelStaticPaths('api/blogs')
+  return await getModelStaticPaths('blogs')
 }
 
 export const getStaticProps = async (context: GetStaticPropsContext) => {

@@ -59,7 +59,7 @@ const CoursePage: FC<PageProps> = ({ seo }) => {
   const id = Number(query.id as string)
 
   const applicationsQuery = useStrapiRequest<CourseApplication>({
-    url: 'api/course-applications',
+    endpoint: 'course-applications',
     filters: {
       course: { id: { $eq: id } },
       ...(searchTerm && { [`title_${locale}`]: { $containsi: searchTerm } }),
@@ -77,7 +77,7 @@ const CoursePage: FC<PageProps> = ({ seo }) => {
   const totalCount = applicationsQuery?.data?.meta?.pagination?.pageCount || 0
 
   const { data, isLoading, refetch } = useStrapiRequest<Course>({
-    url: 'api/courses',
+    endpoint: 'courses',
     id,
   })
 
@@ -103,13 +103,10 @@ const CoursePage: FC<PageProps> = ({ seo }) => {
       {selectedApplicationId && (
         <ModelEditModal<CourseApplication>
           title={'Application'}
-          url="api/course-applications"
+          endpoint="course-applications"
           id={selectedApplicationId}
           schema={schemas['course-applications']!}
           fields={fields['course-applications']!}
-          approverRoles={['academyeditor']}
-          editorRoles={['academyeditor']}
-          publisherRoles={['academyeditor']}
           isOpen={isOpen}
           onClose={handleClose}
           size={'5xl'}
@@ -140,22 +137,11 @@ const CoursePage: FC<PageProps> = ({ seo }) => {
             <AccordionPanel mt={4} bg={'white'} rounded={'md'}>
               {course && (
                 <ModelEditForm<Course>
-                  url="api/courses"
+                  endpoint="courses"
                   model={course}
                   schema={schemas.courses!}
                   fields={fields.courses!}
                   onSuccess={refetch}
-                  approverRoles={[
-                    'contentmanager',
-                    'academyeditor',
-                    'translator',
-                  ]}
-                  editorRoles={[
-                    'contentmanager',
-                    'academyeditor',
-                    'translator',
-                  ]}
-                  publisherRoles={['contentmanager', 'academyeditor']}
                 />
               )}
             </AccordionPanel>

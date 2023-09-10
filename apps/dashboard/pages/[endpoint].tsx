@@ -4,19 +4,17 @@ import { useDisclosure } from '@chakra-ui/react'
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
-import { NextSeoProps } from 'next-seo'
 
 import {
-  urlsWithApprovalStatus,
-  urlsWithLocalizedTitle,
-  urlsWithPublicationState,
+  endpointsWithApprovalStatus,
+  endpointsWithLocalizedTitle,
+  endpointsWithPublicationState,
 } from '@wsvvrijheid/config'
+import { useAuthContext } from '@wsvvrijheid/context'
 import { useStrapiRequest } from '@wsvvrijheid/services'
 import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import {
   ApprovalStatus,
-  Localize,
-  PartialStrapiEndpointMap,
   Sort,
   StrapiCollectionEndpoint,
   StrapiLocale,
@@ -35,10 +33,18 @@ import {
   useSchema,
 } from '@wsvvrijheid/ui'
 
+import { I18nNamespaces } from '../@types/i18next'
+
 type ModelPageProps = InferGetServerSidePropsType<typeof getServerSideProps>
 
-const ModelPage: FC<ModelPageProps> = ({ seo, model }) => {
+const ModelPage: FC<ModelPageProps> = ({ endpoint }) => {
   const { t } = useTranslation()
+  const { t: tModel } = useTranslation('model')
+  const { roles, user } = useAuthContext()
+
+  const title = tModel(endpoint as keyof I18nNamespaces['model'])
+
+  const isOnlyAuthor = roles?.length === 1 && roles[0] === 'author'
 
   const { isOpen, onClose, onOpen } = useDisclosure()
 
@@ -84,18 +90,19 @@ const ModelPage: FC<ModelPageProps> = ({ seo, model }) => {
     if (q?.length) changeRoute('q', q)
   }
 
-  const titleKey = urlsWithLocalizedTitle.includes(`api/${model}`)
+  const titleKey = endpointsWithLocalizedTitle.includes(endpoint)
     ? `title_${locale}`
     : 'title'
 
-  const hasApprovalStatus = urlsWithApprovalStatus.includes(`api/${model}`)
-  const hasPublicationState = urlsWithPublicationState.includes(`api/${model}`)
+  const hasApprovalStatus = endpointsWithApprovalStatus.includes(endpoint)
+  const hasPublicationState = endpointsWithPublicationState.includes(endpoint)
 
-  const modelQuery = useStrapiRequest<StrapiModel>({
-    url: `api/${model}`,
+  const endpointQuery = useStrapiRequest<StrapiModel>({
+    endpoint,
     page: currentPage || 1,
     pageSize: 10,
     filters: {
+      ...(isOnlyAuthor && user && { author: { id: { $eq: user.id } } }),
       ...(q && { [titleKey]: { $eq: q } }),
       ...(published === 'false' && { publishedAt: { $null: true } }),
       approvalStatus:
@@ -108,8 +115,8 @@ const ModelPage: FC<ModelPageProps> = ({ seo, model }) => {
     locale,
   })
 
-  const models = modelQuery?.data?.data
-  const totalCount = modelQuery?.data?.meta?.pagination?.pageCount
+  const models = endpointQuery?.data?.data
+  const totalCount = endpointQuery?.data?.meta?.pagination?.pageCount
 
   const mappedModels = models?.map(m => ({
     ...m,
@@ -135,16 +142,16 @@ const ModelPage: FC<ModelPageProps> = ({ seo, model }) => {
   }, [selectedId])
 
   return (
-    <AdminLayout seo={seo}>
+    <AdminLayout seo={{ title }}>
       <PageHeader onSearch={setQ} searchPlaceHolder={t('search-placeholder')} />
       {selectedId && (
         <ModelEditModal<StrapiModel>
-          url={`api/${model}`}
+          endpoint={endpoint}
           id={selectedId}
           isOpen={isOpen}
           onClose={handleClose}
-          fields={fields[model]!}
-          schema={schemas[model]!}
+          fields={fields[endpoint]!}
+          schema={schemas[endpoint]!}
           title={'Edit Model'}
         />
       )}
@@ -159,7 +166,7 @@ const ModelPage: FC<ModelPageProps> = ({ seo, model }) => {
       />
 
       <DataTable
-        columns={columns[model] as WTableProps<StrapiModel>['columns']}
+        columns={columns[endpoint] as WTableProps<StrapiModel>['columns']}
         data={mappedModels}
         totalCount={totalCount as number}
         currentPage={currentPage}
@@ -175,46 +182,11 @@ export const getServerSideProps = async (
   context: GetServerSidePropsContext,
 ) => {
   const locale = context.locale as StrapiLocale
-  const model = (context.params as any).model as StrapiCollectionEndpoint
-
-  const title: Localize<PartialStrapiEndpointMap<string>> = {
-    en: {
-      activities: 'Activities',
-      blogs: 'Blogs',
-      hashtags: 'Hashtags',
-      collections: 'Collections',
-      users: 'Users',
-      volunteers: 'Volunteers',
-      'user-feedbacks': 'User Feedbacks',
-    },
-    tr: {
-      activities: 'Aktiviteler',
-      blogs: 'Bloglar',
-      hashtags: 'Hashtagler',
-      collections: 'Koleksiyonlar',
-      users: 'Kullanicilar',
-      volunteers: 'Gönüllüler',
-      'user-feedbacks': 'Kullanıcı Geri Bildirimleri',
-    },
-    nl: {
-      activities: 'Activiteiten',
-      blogs: 'Blogs',
-      hashtags: 'Hashtags',
-      collections: 'Collecties',
-      users: 'Gebruikers',
-      volunteers: 'Vrijwilligers',
-      'user-feedbacks': 'Gebruiker Feedbacks',
-    },
-  }
-
-  const seo: NextSeoProps = {
-    title: title[locale][model] || 'Dashboard',
-  }
+  const endpoint = (context.params as any).endpoint as StrapiCollectionEndpoint
 
   return {
     props: {
-      model,
-      seo,
+      endpoint,
       ...(await ssrTranslations(locale, ['admin', 'model'])),
     },
   }

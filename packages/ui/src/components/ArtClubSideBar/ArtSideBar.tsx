@@ -30,7 +30,7 @@ export const ArtSideBar: FC<ArtSideBarProps> = ({
   } = useRouter()
 
   const collectionsQuery = useStrapiRequest<Collection>({
-    url: 'api/collections',
+    endpoint: 'collections',
     locale,
   })
 

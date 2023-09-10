@@ -18,7 +18,7 @@ import { Post, RecommendedTweet } from '@wsvvrijheid/types'
 
 import { ShareButtons, WConfirm, WConfirmProps } from '../../components'
 import { useFields, useSchema } from '../../data'
-import { FormFields, ModelCreateModal } from '../ModelForm'
+import { ModelCreateModal } from '../ModelForm'
 import { ActionButton } from '../TopicCard'
 
 export interface RecommendedSocialButtonsProps {
@@ -30,7 +30,7 @@ export const RecommendedSocialButtons: FC<RecommendedSocialButtonsProps> = ({
   tweet,
   isVertical,
 }) => {
-  const deleteModelMutation = useDeleteModel('api/recommended-tweets')
+  const deleteModelMutation = useDeleteModel('recommended-tweets')
   const [confirmState, setConfirmState] = useState<WConfirmProps>()
   const id = tweet?.id
 
@@ -132,7 +132,7 @@ export const RecommendedSocialButtons: FC<RecommendedSocialButtonsProps> = ({
 
       <ModelCreateModal<Post>
         title={t('create-post')}
-        url="api/posts"
+        endpoint={'posts'}
         schema={schemas.posts!}
         fields={fields.posts!}
         model={postContent}

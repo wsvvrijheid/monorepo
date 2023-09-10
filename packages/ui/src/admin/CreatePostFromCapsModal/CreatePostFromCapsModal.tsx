@@ -44,7 +44,7 @@ export const CreatePostFromCapsModal: FC<CreatePostFromCapsModalProps> = ({
   const createPostMutation = useCreateModelMutation<
     Post,
     StrapiTranslatableCreateInput
-  >('api/posts')
+  >('posts')
   const { locale } = useRouter()
   const [recognized, setRecognized] = useState<boolean>(false)
 
@@ -124,7 +124,7 @@ export const CreatePostFromCapsModal: FC<CreatePostFromCapsModalProps> = ({
         <ModalHeader>Create Multiple Hashtag Post</ModalHeader>
         <Stack m={10} as={'form'} onSubmit={handleSubmit(onCreate)}>
           <ModelSelect
-            url={'api/hashtags'}
+            endpoint={'hashtags'}
             isRequired={true}
             name={'hashtags' as string}
             label={'Hashtags'}

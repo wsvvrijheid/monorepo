@@ -6,7 +6,7 @@ import { Art } from '@wsvvrijheid/types'
 
 export const getArtBySlug = async (slug: string): Promise<Art | null> => {
   const response = await strapiRequest<Art>({
-    url: 'api/arts',
+    endpoint: 'arts',
     filters: { slug: { $eq: slug } },
     populate: [
       'artist.avatar',
