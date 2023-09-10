@@ -45,7 +45,7 @@ export const AdminLayout: FC<AdminLayoutProps> = ({
           h="full"
           overflowY={'auto'}
           flex={1}
-          pb={4}
+          pb={{ base: 12, lg: 4 }}
         >
           {isLoading ? (
             <Center h="full">
