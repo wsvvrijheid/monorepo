@@ -15,6 +15,7 @@ import { DefaultSeo } from 'next-seo'
 import { useCookie } from 'react-use'
 
 import { defaultSeo, i18nConfig, themes } from '@wsvvrijheid/config'
+import { AuthProvider } from '@wsvvrijheid/context'
 import { CookieBanner } from '@wsvvrijheid/ui'
 
 const { ToastContainer } = createStandaloneToast()
@@ -39,13 +40,15 @@ const MyApp: FC<AppProps> = ({ Component, pageProps }) => {
   return (
     <QueryClientProvider client={queryClient}>
       <Hydrate state={pageProps.dehydratedState}>
-        <ChakraProvider theme={themes.samenvvv}>
-          <DefaultSeo {...defaultSeo.admin[locale]} />
-          <Component {...pageProps} />
-          {!cookie && <CookieBanner onAllow={onAllow} />}
-          <Analytics />
-          <ToastContainer />
-        </ChakraProvider>
+        <AuthProvider initialState={pageProps.authState}>
+          <ChakraProvider theme={themes.samenvvv}>
+            <DefaultSeo {...defaultSeo.admin[locale]} />
+            <Component {...pageProps} />
+            {!cookie && <CookieBanner onAllow={onAllow} />}
+            <Analytics />
+            <ToastContainer />
+          </ChakraProvider>
+        </AuthProvider>
       </Hydrate>
       <ReactQueryDevtools />
     </QueryClientProvider>

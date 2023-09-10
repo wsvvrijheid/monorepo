@@ -34,7 +34,7 @@ import {
 import { useFields, useSchema } from '../../data'
 import { useHasPermission } from '../../hooks'
 import { CreatePostFromCapsModal } from '../CreatePostFromCapsModal'
-import { FormFields, ModelCreateModal } from '../ModelForm'
+import { ModelCreateModal } from '../ModelForm'
 
 export const CreateModelButton = () => {
   const { t } = useTranslation()

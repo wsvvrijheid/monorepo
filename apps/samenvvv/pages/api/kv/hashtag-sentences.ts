@@ -1,5 +1,9 @@
 import { kv } from '@vercel/kv'
+import { unsealData } from 'iron-session/edge'
 import { NextRequest, NextResponse } from 'next/server'
+
+import { sessionOptions } from '@wsvvrijheid/secrets'
+import { RoleType, User } from '@wsvvrijheid/types'
 
 export const config = {
   runtime: 'edge',
@@ -7,8 +11,18 @@ export const config = {
 
 const handler = async (req: NextRequest) => {
   const method = req.method
-
   try {
+    const { user }: { user: User & { roles: RoleType } } = await unsealData(
+      req.cookies.get('iron-session')?.value as string,
+      {
+        password: sessionOptions.password,
+      },
+    )
+
+    if (!user || !user.roles?.includes('admin')) {
+      return
+    }
+
     if (method === 'POST') {
       try {
         const { hashtagId, value } = await req.json()

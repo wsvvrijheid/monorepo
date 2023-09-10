@@ -12,13 +12,13 @@ import {
   useDisclosure,
 } from '@chakra-ui/react'
 import { QueryClient, dehydrate } from '@tanstack/react-query'
-import { getCookie } from 'cookies-next'
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
 import { ASSETS_URL, SITE_URL } from '@wsvvrijheid/config'
+import { useAuthContext } from '@wsvvrijheid/context'
 import { strapiRequest } from '@wsvvrijheid/lib'
 import {
   getHashtagBySlug,
@@ -50,13 +50,13 @@ const HashtagPage: FC<HashtagProps> = ({
   seo,
   post,
   capsSrc,
-  isAdminMode,
   isIosSafari,
 }) => {
   const hashtag = useHashtag()
 
   const { isOpen, onClose, onOpen } = useDisclosure()
   const { query, push } = useRouter()
+  const { roles } = useAuthContext()
 
   const { t } = useTranslation()
 
@@ -102,8 +102,8 @@ const HashtagPage: FC<HashtagProps> = ({
       )}
       <Layout seo={seo}>
         <Container py={4} pos="relative">
-          {hasStarted || isAdminMode ? (
-            <PostMaker isAdminMode={isAdminMode} isIosSafari={isIosSafari} />
+          {hasStarted || roles.includes('admin') ? (
+            <PostMaker isIosSafari={isIosSafari} />
           ) : (
             <TimeLeft date={hashtag.date as string} />
           )}
@@ -120,8 +120,7 @@ export const getServerSideProps = async (
 ) => {
   const locale = context.locale as StrapiLocale
   const slug = context.params?.slug as string
-  const { req, res, query } = context
-  const adminMode = getCookie('admin-mode', { req, res })
+  const { req, query } = context
 
   const queryClient = new QueryClient()
   const queryKey = ['hashtag', locale, slug]
@@ -234,7 +233,6 @@ export const getServerSideProps = async (
       capsSrc: capsSrc || null,
       post: post || null,
       isIosSafari,
-      isAdminMode: adminMode?.toString() === 'true',
       slugs,
       hasStarted: hashtag.hasStarted,
       dehydratedState: dehydrate(queryClient),
