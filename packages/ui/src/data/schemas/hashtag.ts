@@ -5,19 +5,21 @@ import { Hashtag } from '@wsvvrijheid/types'
 import { yupMultiSelect } from './common'
 import { FormFields } from '../../admin'
 
-export const mainHashtagSchema = yup.object({
-  title: yup.string().required('Title is required'),
-  date: yup.date().required('Date is required'),
-  description: yup.string().required('Description is required'),
-  content: yup.string(),
-  hashtagDefault: yup.string().required('Hashtag is required'),
-  hashtagExtra: yup.string(),
-  categories: yupMultiSelect,
-  mentions: yupMultiSelect,
-  image: yup.mixed().required('Image is required'),
-})
+export const useHashtagSchema = () => {
+  return yup.object({
+    title: yup.string().required(),
+    date: yup.date().required(),
+    description: yup.string().required(),
+    content: yup.string(),
+    hashtagDefault: yup.string().required(),
+    hashtagExtra: yup.string(),
+    categories: yupMultiSelect,
+    mentions: yupMultiSelect,
+    image: yup.mixed().required(),
+  })
+}
 
-export const mainHashtagFields: FormFields<Hashtag> = [
+export const hashtagFields: FormFields<Hashtag> = [
   { name: 'title', isRequired: true },
   { name: 'date', type: 'datetime-local', isRequired: true },
   { name: 'description', isRequired: true, type: 'textarea' },
@@ -25,10 +27,9 @@ export const mainHashtagFields: FormFields<Hashtag> = [
   { name: 'content', type: 'markdown' },
   {
     name: 'hashtagDefault',
-    label: 'Default Hashtag',
     isRequired: true,
   },
-  { name: 'hashtagExtra', label: 'Extra Hashtag' },
+  { name: 'hashtagExtra' },
   {
     name: 'mentions',
     type: 'select',

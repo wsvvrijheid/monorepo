@@ -7,3 +7,7 @@ export type DataTableProps<T extends StrapiModel> = {
   currentPage: number
   setCurrentPage: (page: number) => void
 } & Pick<WTableProps<T>, 'data' | 'columns' | 'onClickRow' | 'onSort'>
+
+export type TranslateDataTableProps = {
+  searchTerm?: string
+}

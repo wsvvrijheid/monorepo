@@ -16,7 +16,7 @@ import {
   getTrouwNews,
   // getTurkishMinuteNews,
 } from './sources'
-import { RecommendedTopic } from './utils/types'
+import { AnyEntity } from '@strapi/strapi/lib/services/entity-service'
 
 // import getTurkishMinuteNews from './sources/turkishminute'
 
@@ -41,17 +41,29 @@ export const syncNews = async ({ strapi }: { strapi: Strapi }) => {
     console.log('-----------------------------------')
     console.log('All news fetching... ' + new Date())
 
-    const recommendedTopics = await strapi.entityService.findMany(
-      'api::recommended-topic.recommended-topic',
+    const recommendedTopics = (
+      await Promise.all(
+        ['tr', 'en', 'nl'].map(
+          locale =>
+            strapi.entityService.findMany(
+              'api::recommended-topic.recommended-topic',
+              {
+                locale,
+                fields: ['url', 'locale'],
+              },
+            ) as Promise<AnyEntity>,
+        ),
+      )
     )
+      ?.flat()
+      ?.filter(t => !isEmpty(t))
 
     const topics = await Promise.all(sources.map(source => source()))
     const result = topics.flat().filter(topic => !isEmpty(topic))
 
     const updatedTopics = result.map(topic => {
-      const isRecommended = recommendedTopics?.results?.some(
-        (recommendedTopic: RecommendedTopic) =>
-          recommendedTopic.url === topic.url,
+      const isRecommended = recommendedTopics?.some(
+        recommendedTopic => recommendedTopic.url === topic.url,
       )
 
       return {

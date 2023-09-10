@@ -31,11 +31,9 @@ import {
   ModelEditForm,
   ModelEditModal,
   PageHeader,
-  applicationColumns,
-  courseApplicationFields,
-  courseApplicationSchema,
-  courseFields,
-  courseSchema,
+  useFields,
+  useColumns,
+  useSchema,
 } from '@wsvvrijheid/ui'
 
 type PageProps = InferGetServerSidePropsType<typeof getServerSideProps>
@@ -44,6 +42,10 @@ const CoursePage: FC<PageProps> = ({ seo }) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   const { locale, query } = useRouter()
+
+  const columns = useColumns<CourseApplication>()
+  const fields = useFields()
+  const schemas = useSchema()
 
   const [selectedApplicationId, setSelectedApplicationId] = useState<number>()
   const [currentPage, setCurrentPage] = useState<number>(1)
@@ -103,8 +105,8 @@ const CoursePage: FC<PageProps> = ({ seo }) => {
           title={'Application'}
           url="api/course-applications"
           id={selectedApplicationId}
-          schema={courseApplicationSchema}
-          fields={courseApplicationFields}
+          schema={schemas['course-applications']!}
+          fields={fields['course-applications']!}
           approverRoles={['academyeditor']}
           editorRoles={['academyeditor']}
           publisherRoles={['academyeditor']}
@@ -140,8 +142,8 @@ const CoursePage: FC<PageProps> = ({ seo }) => {
                 <ModelEditForm<Course>
                   url="api/courses"
                   model={course}
-                  schema={courseSchema}
-                  fields={courseFields}
+                  schema={schemas.courses!}
+                  fields={fields.courses!}
                   onSuccess={refetch}
                   approverRoles={[
                     'contentmanager',
@@ -185,8 +187,8 @@ const CoursePage: FC<PageProps> = ({ seo }) => {
                 ]}
               />
 
-              <DataTable
-                columns={applicationColumns}
+              <DataTable<CourseApplication>
+                columns={columns['course-applications']!}
                 data={applications}
                 totalCount={totalCount}
                 currentPage={currentPage}
@@ -220,7 +222,7 @@ export const getServerSideProps = async (
   return {
     props: {
       seo,
-      ...(await ssrTranslations(locale, ['admin'])),
+      ...(await ssrTranslations(locale, ['admin', 'model'])),
     },
   }
 }

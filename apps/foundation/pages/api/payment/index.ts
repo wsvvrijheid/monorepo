@@ -9,6 +9,7 @@ const handler: NextApiHandler = async (
   try {
     await createCheckout(req, res)
   } catch (err) {
+    console.log('err', err)
     res.status(500).json(err)
   }
 }

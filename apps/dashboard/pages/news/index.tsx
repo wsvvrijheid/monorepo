@@ -19,6 +19,7 @@ import { NextSeoProps } from 'next-seo'
 import { AiOutlineClear } from 'react-icons/ai'
 import { FaArrowDown, FaArrowUp, FaSyncAlt } from 'react-icons/fa'
 
+import { useAuthContext } from '@wsvvrijheid/context'
 import { useTopic, useTopicSync } from '@wsvvrijheid/services'
 import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import { StrapiLocale, TopicBase } from '@wsvvrijheid/types'
@@ -34,6 +35,9 @@ const NewsPage: FC<PageProps> = ({ seo }) => {
   const [topics, setTopics] = useState<TopicBase[]>([])
   const [searchTerm, setSearchTerm] = useState<string>()
   const [sortDirection, setSortDirection] = useState<'DESC' | 'ASC'>('DESC')
+  const { roles } = useAuthContext()
+
+  const isAdmin = roles?.includes('admin')
 
   const router = useRouter()
   const locale = router.locale
@@ -146,7 +150,7 @@ const NewsPage: FC<PageProps> = ({ seo }) => {
             aria-label="Sync news"
             isLoading={syncTopic.isLoading}
             onClick={() => syncTopic.mutate()}
-            isDisabled={!canSync || syncTopic.isLoading}
+            isDisabled={!isAdmin && (!canSync || syncTopic.isLoading)}
             icon={<FaSyncAlt />}
           />
         </Tooltip>
@@ -206,7 +210,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
   return {
     props: {
       seo,
-      ...(await ssrTranslations(locale, ['admin'])),
+      ...(await ssrTranslations(locale, ['admin', 'model'])),
     },
   }
 }

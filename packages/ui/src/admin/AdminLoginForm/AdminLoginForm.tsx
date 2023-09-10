@@ -41,7 +41,7 @@ export const AdminLoginForm = () => {
 
   const [isRedirecting, setIsRedirecting] = useState(false)
 
-  const { isLoading: isAuthLoading, login } = useAuthContext()
+  const { isLoading: isAuthLoading, login, checkAuth } = useAuthContext()
 
   const router = useRouter()
 
@@ -55,6 +55,7 @@ export const AdminLoginForm = () => {
     loginMutation.mutate(data, {
       onError: e => console.log('Login error', e),
       onSuccess: async () => {
+        checkAuth()
         setIsRedirecting(true)
         reset()
         await router.push('/')

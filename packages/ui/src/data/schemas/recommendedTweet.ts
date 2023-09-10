@@ -4,31 +4,33 @@ import { RecommendedTweet } from '@wsvvrijheid/types'
 
 import { FormFields } from '../../admin'
 
-export const recommendedTweetSchema = yup.object({
-  text: yup.string().required('Text is required'),
-  mentions: yup.array().of(
-    yup.object().shape({
-      label: yup.string(),
-      value: yup.string(),
-    }),
-  ),
-  image: yup.mixed(),
-  caps: yup.mixed(),
-  video: yup.mixed(),
-  videoUrl: yup.string(),
-})
+export const useRecommendedTweetSchema = () => {
+  return yup.object({
+    text: yup.string().required(),
+    mentions: yup.array().of(
+      yup.object().shape({
+        label: yup.string(),
+        value: yup.string(),
+      }),
+    ),
+    image: yup.mixed(),
+    caps: yup.mixed(),
+    video: yup.mixed(),
+    videoUrl: yup.string(),
+  })
+}
 
 export const recommendedTweetFields: FormFields<RecommendedTweet> = [
   { name: 'text', isRequired: true, type: 'textarea' },
   {
     name: 'image',
     type: 'file',
-    group: { label: 'Image', value: 'image', name: 'media' },
+    group: { value: 'image', name: 'media' },
   },
   {
     name: 'video',
     type: 'file',
-    group: { label: 'Video', value: 'video', name: 'media' },
+    group: { value: 'video', name: 'media' },
   },
   {
     name: 'videoUrl',

@@ -2,6 +2,7 @@ import { SetRequired } from 'type-fest'
 
 import { Expand } from './common'
 import { Job } from './job'
+import { Platform } from './platform'
 import { StrapiBase } from './strapi'
 import { User } from './user'
 
@@ -30,11 +31,13 @@ export type VolunteerBase = {
 type VolinteerRelation = {
   user?: User | null
   jobs?: Array<Job>
+  platforms?: Array<Platform>
 }
 
 type VolinteerRelationInput = {
   user?: number
   jobs?: Array<number>
+  platforms?: Array<number>
 }
 
 export type VolunteerCreateInput = Expand<

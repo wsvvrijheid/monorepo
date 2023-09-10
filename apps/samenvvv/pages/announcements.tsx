@@ -1,6 +1,6 @@
 import { FC } from 'react'
 
-import { Box, Text } from '@chakra-ui/react'
+import { Box, Button, Text, VStack } from '@chakra-ui/react'
 import { QueryClient } from '@tanstack/react-query'
 import { isPast } from 'date-fns'
 import { GetServerSidePropsContext } from 'next'
@@ -59,16 +59,14 @@ const AnnouncementEvent: FC<HashtagEventsProps> = ({
           {hashtag && !hasStarted ? (
             <HashtagAnnouncement hashtag={hashtag} link={link} />
           ) : (
-            <>
-              <Text color={'primary'} m={4}>
+            <VStack mx={'auto'} maxW={'2xl'} textAlign={'center'} spacing={8}>
+              <Text fontSize={'lg'} color={'primary'}>
                 {t('join-previous-hashtag')}
               </Text>
               <Navigate href={link || `/hashtags`}>
-                <Text fontWeight={'bold'} color={'primary'} m={4}>
-                  {t('join-link')}
-                </Text>
+                <Button>{t('join-link')}</Button>
               </Navigate>
-            </>
+            </VStack>
           )}
         </Container>
       </Box>

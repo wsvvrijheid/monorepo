@@ -14,6 +14,7 @@
   "competitions": "Wedstrijden",
   "courses": "Courses",
   "dashboard": "Dashboard",
+  "donations": "Donaties",
   "hashtagPosts": "Hashtag Posts",
   "hashtags": "Hashtags",
   "news": "Nieuws",
@@ -24,6 +25,7 @@
   "rejectedArts": "Afgewezen kunstwerken",
   "timelines": "Tijdlijnen",
   "translates": "Vertalen",
-  "users": "Gebruikers",
+  "userFeedbacks": "Gebruker Feedbacks",
+  "users": "Gebrukers",
   "volunteers": "Vrijveligers"
 }

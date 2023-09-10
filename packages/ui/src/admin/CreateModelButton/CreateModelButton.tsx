@@ -31,23 +31,7 @@ import {
   RecommendedTweet,
 } from '@wsvvrijheid/types'
 
-import {
-  activityFields,
-  activitySchema,
-  blogFields,
-  blogSchema,
-  collectionFields,
-  collectionSchema,
-  mainHashtagFields,
-  mainHashtagSchema,
-  postFields,
-  postSchema,
-  recommendedTweetFields,
-  recommendedTweetSchema,
-  topicFields,
-  topicSchema,
-} from '../../data'
-import { courseFields, courseSchema } from '../../data/schemas/course'
+import { useFields, useSchema } from '../../data'
 import { useHasPermission } from '../../hooks'
 import { CreatePostFromCapsModal } from '../CreatePostFromCapsModal'
 import { ModelCreateModal } from '../ModelForm'
@@ -59,6 +43,9 @@ export const CreateModelButton = () => {
     onOpen: onOpenPost,
     onClose: onClosePost,
   } = useDisclosure()
+
+  const fields = useFields()
+  const schemas = useSchema()
 
   const { user } = useAuthContext()
 
@@ -90,8 +77,8 @@ export const CreateModelButton = () => {
                 <ModelCreateModal<Activity>
                   title={t('create-activity')}
                   url="api/activities"
-                  schema={activitySchema}
-                  fields={activityFields}
+                  schema={schemas.activities!}
+                  fields={fields.activities!}
                   buttonProps={{
                     variant: 'outline',
                     leftIcon: <TbActivity />,
@@ -104,8 +91,8 @@ export const CreateModelButton = () => {
                 <ModelCreateModal<Blog>
                   title={t('create-blog')}
                   url="api/blogs"
-                  schema={blogSchema}
-                  fields={blogFields}
+                  schema={schemas.blogs!}
+                  fields={fields.blogs!}
                   buttonProps={{
                     variant: 'outline',
                     leftIcon: <TbWriting />,
@@ -118,8 +105,8 @@ export const CreateModelButton = () => {
                 <ModelCreateModal<Course>
                   title={t('create-course')}
                   url="api/courses"
-                  schema={courseSchema}
-                  fields={courseFields}
+                  schema={schemas.courses!}
+                  fields={fields.courses!}
                   hideLanguageSwitcher
                   shouldPublish
                   buttonProps={{
@@ -134,8 +121,8 @@ export const CreateModelButton = () => {
                 <ModelCreateModal<Collection>
                   title={t('create-collection')}
                   url="api/collections"
-                  schema={collectionSchema}
-                  fields={collectionFields}
+                  schema={schemas.collections!}
+                  fields={fields.collections!}
                   shouldPublish
                   buttonProps={{
                     variant: 'outline',
@@ -149,8 +136,8 @@ export const CreateModelButton = () => {
                 <ModelCreateModal<Hashtag>
                   title={t('create-hashtag')}
                   url="api/hashtags"
-                  schema={mainHashtagSchema}
-                  fields={mainHashtagFields}
+                  schema={schemas.hashtags!}
+                  fields={fields.hashtags!}
                   buttonProps={{
                     variant: 'outline',
                     leftIcon: <CgHashtag />,
@@ -163,8 +150,8 @@ export const CreateModelButton = () => {
                 <ModelCreateModal<Post>
                   title={t('create-post')}
                   url="api/posts"
-                  schema={postSchema}
-                  fields={postFields}
+                  schema={schemas.posts!}
+                  fields={fields.posts!}
                   buttonProps={{
                     variant: 'outline',
                     leftIcon: <TbBrandTwitter />,
@@ -192,8 +179,8 @@ export const CreateModelButton = () => {
                 <ModelCreateModal<RecommendedTopic>
                   title={t('create-news')}
                   url="api/recommended-topics"
-                  schema={topicSchema}
-                  fields={topicFields}
+                  schema={schemas.topic!}
+                  fields={fields.topic!}
                   shouldPublish
                   buttonProps={{
                     variant: 'outline',
@@ -205,8 +192,8 @@ export const CreateModelButton = () => {
                 <ModelCreateModal<RecommendedTweet>
                   title={t('create-recommended-tweet')}
                   url="api/recommended-tweets"
-                  schema={recommendedTweetSchema}
-                  fields={recommendedTweetFields}
+                  schema={schemas['recommended-tweets']!}
+                  fields={fields['recommended-tweets']!}
                   shouldPublish
                   buttonProps={{
                     variant: 'outline',

@@ -4,9 +4,11 @@ import {
   FormHelperText,
   FormLabel,
 } from '@chakra-ui/react'
+import { useTranslation } from 'next-i18next'
 import { Control, FieldValues, useController } from 'react-hook-form'
 
 import { MarkdownEditor } from '.'
+import { I18nNamespaces } from '../../../@types/i18next'
 import { FormItemProps } from '../FormItem'
 
 type MdFormItemProps<T extends FieldValues> = {
@@ -27,10 +29,12 @@ export const MdFormItem = <T extends FieldValues>({
 }: MdFormItemProps<T>) => {
   const {
     field: { onChange, value, ...fieldProps },
-  } = useController({
+  } = useController<T>({
     name,
     control,
   })
+
+  const { t: tModel } = useTranslation('model')
 
   const errorMessage = errors?.[name]?.['message'] as unknown as string
 
@@ -46,15 +50,18 @@ export const MdFormItem = <T extends FieldValues>({
     >
       {label && !hideLabel && (
         <FormLabel mb={1} htmlFor={name} fontSize="sm" fontWeight={600}>
-          {label}
+          {tModel(name as keyof I18nNamespaces['model'], {
+            defaultValue: label,
+          })}
         </FormLabel>
       )}
 
       <MarkdownEditor
-        placeholder={placeholder || label}
+        placeholder={tModel(name as keyof I18nNamespaces['model'], {
+          defaultValue: placeholder || label,
+        })}
         onChange={(value: { text: string; html: string }) =>
-          // TODO: Fix this type
-          onChange(value.text as any)
+          onChange(value.text)
         }
         value={value}
         isDisabled={isDisabled}

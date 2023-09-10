@@ -4,13 +4,15 @@ import { Collection } from '@wsvvrijheid/types'
 
 import { FormFields } from '../../admin'
 
-export const collectionSchema = yup.object({
-  title: yup.string().required('Title is required'),
-  date: yup.date().required('Date is required'),
-  description: yup.string().required('Description is required'),
-  content: yup.string().required('Content is required'),
-  image: yup.mixed().required('Image is required'),
-})
+export const useCollectionSchema = () => {
+  return yup.object({
+    title: yup.string().required(),
+    date: yup.date().required(),
+    description: yup.string().required(),
+    content: yup.string().required(),
+    image: yup.mixed().required(),
+  })
+}
 
 export const collectionFields: FormFields<Collection> = [
   { name: 'title', isRequired: true },

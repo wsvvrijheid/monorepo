@@ -217,6 +217,8 @@ export type StrapiProviders = 'instagram' | 'facebook' | 'google' | 'twitter'
 export type StrapiEmailEndpoint = 'email'
 export type StrapiEmailUrl = `api/${StrapiEmailEndpoint}`
 
+export type StrapiCustomEndpoint = 'translate-model' | 'translate-post-model'
+
 export type StrapiSingleEndpoint =
   | 'term'
   | 'privacy'
@@ -236,6 +238,7 @@ export type StrapiCollectionEndpoint =
   | 'account-statistics'
   | 'activities'
   | 'announcements'
+  | 'applications'
   | 'applicants'
   | 'arts'
   | 'blogs'
@@ -270,7 +273,16 @@ export type StrapiCollectionEndpoint =
   | 'roles'
   | 'volunteers'
   | 'votes'
+
 export type StrapiCollectionUrl = `api/${StrapiCollectionEndpoint}`
+export type StrapiEndpoint =
+  | StrapiSingleEndpoint
+  | StrapiCollectionEndpoint
+  | StrapiAuthEndpoint
+  | StrapiEmailEndpoint
+  | StrapiCustomEndpoint
+
+export type PartialStrapiEndpointMap<T> = { [x in StrapiEndpoint]?: T }
 
 export type StrapiUrl =
   | StrapiSingleUrl

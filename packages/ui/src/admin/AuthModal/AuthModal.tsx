@@ -15,8 +15,8 @@ import {
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
+import { Trans, useTranslation } from 'next-i18next'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { Trans, useTranslation } from 'react-i18next'
 
 import { useAuthContext } from '@wsvvrijheid/context'
 

@@ -5,16 +5,18 @@ import { Activity } from '@wsvvrijheid/types'
 import { yupMultiSelect } from './common'
 import { FormFields } from '../../admin'
 
-export const activitySchema = yup.object({
-  title: yup.string().required('Title is required'),
-  date: yup.date().required('Date is required'),
-  categories: yupMultiSelect,
-  tags: yupMultiSelect,
-  description: yup.string().required('Description is required'),
-  content: yup.string().required('Content is required'),
-  image: yup.mixed().required('Image is required'),
-  platforms: yupMultiSelect,
-})
+export const useActivitySchema = () => {
+  return yup.object({
+    title: yup.string().required(),
+    date: yup.date().required(),
+    categories: yupMultiSelect,
+    tags: yupMultiSelect,
+    description: yup.string().required(),
+    content: yup.string().required(),
+    image: yup.mixed().required(),
+    platforms: yupMultiSelect,
+  })
+}
 
 export const activityFields: FormFields<Activity> = [
   { name: 'title', isRequired: true },
