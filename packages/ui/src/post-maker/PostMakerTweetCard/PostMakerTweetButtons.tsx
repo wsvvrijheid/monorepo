@@ -20,12 +20,10 @@ import { useHashtagContext } from '../HashtagProvider'
 import { usePostContext } from '../PostProvider'
 
 type PostMakerTweetButtonsProps = {
-  isAdminMode?: boolean
   isIosSafari?: boolean
 }
 
 export const PostMakerTweetButtons: FC<PostMakerTweetButtonsProps> = ({
-  isAdminMode,
   isIosSafari,
 }) => {
   const router = useRouter()
@@ -155,11 +153,7 @@ export const PostMakerTweetButtons: FC<PostMakerTweetButtonsProps> = ({
         </TwitterShareButton>
       )}
 
-      <PostMakerTweetShare
-        url={url}
-        content={post?.description as string}
-        isAdminMode={Boolean(isAdminMode)}
-      />
+      <PostMakerTweetShare url={url} content={post?.description as string} />
     </HStack>
   )
 }

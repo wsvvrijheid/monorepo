@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useEffect } from 'react'
 
 import {
   HStack,
@@ -18,14 +18,20 @@ import {
 import { BsThreeDotsVertical } from 'react-icons/bs'
 import { FaFacebook, FaLinkedin, FaTelegram, FaWhatsapp } from 'react-icons/fa'
 
+import { useAuthContext } from '@wsvvrijheid/context'
+
 import { PostSentencesModal } from './PostSentencesModal'
 import { PostMakerTweetShareProps } from './types'
 
 export const PostMakerTweetShare: FC<PostMakerTweetShareProps> = ({
   url,
   content,
-  isAdminMode,
 }) => {
+  const { roles, checkAuth } = useAuthContext()
+  useEffect(() => {
+    checkAuth()
+  }, [])
+
   return (
     <Popover placement="top">
       <PopoverTrigger>
@@ -75,7 +81,7 @@ export const PostMakerTweetShare: FC<PostMakerTweetShareProps> = ({
                 icon={<FaLinkedin />}
               />
             </LinkedinShareButton>
-            {isAdminMode && <PostSentencesModal />}
+            {roles.includes('admin') && <PostSentencesModal />}
           </HStack>
         </PopoverBody>
       </PopoverContent>

@@ -27,9 +27,15 @@ import {
   SocialLoginButtonsProps,
 } from '../SocialLoginButtons'
 
-type LoginFormProps = Pick<SocialLoginButtonsProps, 'providersToBeShown'>
+type LoginFormProps = { isLoginOnly?: boolean } & Pick<
+  SocialLoginButtonsProps,
+  'providersToBeShown'
+>
 
-export const LoginForm: FC<LoginFormProps> = ({ providersToBeShown = [] }) => {
+export const LoginForm: FC<LoginFormProps> = ({
+  isLoginOnly = false,
+  providersToBeShown = [],
+}) => {
   const { t } = useTranslation()
 
   const {
@@ -73,13 +79,15 @@ export const LoginForm: FC<LoginFormProps> = ({ providersToBeShown = [] }) => {
         <Stack spacing="6">
           <Stack spacing={{ base: '2', md: '3' }} textAlign="center">
             <Heading>{t('login.sign-in-header.title')}</Heading>
-            <HStack spacing="1" justify="center">
-              <Text color="muted">{t('login.sign-in-header.text')}</Text>
+            {!isLoginOnly && (
+              <HStack spacing="1" justify="center">
+                <Text color="muted">{t('login.sign-in-header.text')}</Text>
 
-              <Button as={Navigate} href="/register" variant="link">
-                {t('login.sign-in-header.button')}
-              </Button>
-            </HStack>
+                <Button as={Navigate} href="/register" variant="link">
+                  {t('login.sign-in-header.button')}
+                </Button>
+              </HStack>
+            )}
           </Stack>
         </Stack>
         <Stack spacing="6" as="form" onSubmit={handleSubmit(handleSubmitSign)}>
