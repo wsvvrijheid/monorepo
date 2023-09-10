@@ -1,11 +1,17 @@
 import axios, { AxiosError } from 'axios'
+import { produce } from 'immer'
 import qs from 'qs'
 
-import { API_URL, urlsSingleType, urlsWithoutLocale } from '@wsvvrijheid/config'
+import {
+  API_URL,
+  urlsSingleType,
+  urlsWithApprovalStatus,
+  urlsWithPublicationState,
+  urlsWithoutLocale,
+} from '@wsvvrijheid/config'
 import { TOKEN } from '@wsvvrijheid/secrets'
 import {
   StrapiCollectionResponse,
-  StrapiCollectionUrl,
   StrapiModel,
   StrapiResponse,
   StrapiSingleResponse,
@@ -43,11 +49,28 @@ async function strapiRequest<T extends StrapiModel>(
     token = TOKEN,
   } = singleArgs
 
-  const { locale, filters, sort, page = 1, pageSize = 25 } = collectionArgs
+  const {
+    locale,
+    filters: initialFilters = {},
+    sort,
+    page = 1,
+    pageSize = 25,
+  } = collectionArgs
 
-  const hasLocale =
-    !id && !urlsWithoutLocale.includes(url as StrapiCollectionUrl)
+  const hasLocale = !id && !urlsWithoutLocale.includes(url)
   const isSingleType = urlsSingleType.includes(url as StrapiSingleUrl)
+  const hasApprovalStatus = urlsWithApprovalStatus.includes(url)
+  const hasPublicationState = urlsWithPublicationState.includes(url)
+
+  const filters = produce(initialFilters, draft => {
+    if (!hasApprovalStatus) {
+      delete draft.approvalStatus
+    }
+
+    if (!hasPublicationState) {
+      delete draft.publishedAt
+    }
+  })
 
   const query = qs.stringify(
     {
@@ -55,7 +78,8 @@ async function strapiRequest<T extends StrapiModel>(
       ...(fields && { fields }),
       ...(filters && { filters }),
       ...(hasLocale && { locale }),
-      ...(includeDrafts && { publicationState: 'preview' }),
+      ...(hasPublicationState &&
+        includeDrafts && { publicationState: 'preview' }),
       populate,
       ...(sort && { sort }),
     },

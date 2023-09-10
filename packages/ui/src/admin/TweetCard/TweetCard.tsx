@@ -35,8 +35,8 @@ import { Post, RecommendedTweetCreateInput, Tweet } from '@wsvvrijheid/types'
 import { TweetCardProps } from './types'
 import { CreateTweetForm, WAvatar } from '../../components'
 import { CreateTweetFormFieldValues } from '../../components/CreateTweetForm/types'
-import { postFields, postSchema } from '../../data'
-import { ModelCreateModal } from '../ModelForm'
+import { useFields, useSchema } from '../../data'
+import { FormFields, ModelCreateModal } from '../ModelForm'
 import { TweetContent } from '../TweetContent'
 
 export const TweetCard: FC<TweetCardProps> = ({
@@ -56,6 +56,9 @@ export const TweetCard: FC<TweetCardProps> = ({
   const { isOpen, onOpen, onClose } = useDisclosure()
   const { t } = useTranslation()
   const { locale } = useRouter()
+
+  const fields = useFields()
+  const schemas = useSchema()
 
   const isBookmarked = storageTweets?.some(t => t.id === tweet.id)
 
@@ -144,8 +147,8 @@ export const TweetCard: FC<TweetCardProps> = ({
                   <ModelCreateModal<Post>
                     title={t('create-post')}
                     url="api/posts"
-                    schema={postSchema}
-                    fields={postFields}
+                    schema={schemas.posts!}
+                    fields={fields.posts!}
                     model={newPost}
                     buttonProps={{
                       variant: 'ghost',

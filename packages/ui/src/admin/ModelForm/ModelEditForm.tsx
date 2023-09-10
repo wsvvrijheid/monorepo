@@ -17,7 +17,6 @@ import {
   Wrap,
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { capitalize } from 'lodash'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { useForm } from 'react-hook-form'
@@ -49,6 +48,7 @@ import { ModelMedia } from './ModelMedia'
 import { ModelSelect } from './ModelSelect'
 import { ModelEditFormProps, Option } from './types'
 import { useDefaultValues } from './utils'
+import { I18nNamespaces } from '../../../@types/i18next'
 import { FormItem, MasonryGrid, MdFormItem } from '../../components'
 import { WConfirm, WConfirmProps } from '../../components/WConfirm'
 import { useHasPermission } from '../../hooks'
@@ -88,6 +88,7 @@ export const ModelEditForm = <T extends StrapiModel>({
 
   const router = useRouter()
   const { t } = useTranslation()
+  const { t: tModel } = useTranslation('model')
 
   const updateModelMutation = useUpdateModelMutation(url)
   const unpublishModelMutation = useUnpublishModel(url)
@@ -131,6 +132,9 @@ export const ModelEditForm = <T extends StrapiModel>({
   const getVideoUrl = () => {
     try {
       const urState = watch('videoUrl')
+
+      if (!urState) return null
+
       const url = new URL(urState).href
 
       return convertToYoutubeEmbedUrl(url)
@@ -268,7 +272,7 @@ export const ModelEditForm = <T extends StrapiModel>({
             rowGap={4}
           >
             {fields.map((field, index) => {
-              const label = field.label || capitalize(field.name as string)
+              const label = tModel(field.name as keyof I18nNamespaces['model'])
 
               if (
                 field.type === 'file' &&
@@ -288,7 +292,7 @@ export const ModelEditForm = <T extends StrapiModel>({
                       fontSize={'sm'}
                       textTransform={'capitalize'}
                     >
-                      {field?.name}
+                      {label}
                     </FormLabel>
                     <ModelMedia
                       url={url}

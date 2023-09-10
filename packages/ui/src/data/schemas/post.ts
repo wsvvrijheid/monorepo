@@ -5,20 +5,22 @@ import { Post } from '@wsvvrijheid/types'
 import { yupMultiSelect } from './common'
 import { FormFields } from '../../admin'
 
-export const postSchema = yup.object({
-  reference: yup.string(),
-  tags: yupMultiSelect,
-  description: yup.string().required('Description is required'),
-  content: yup.string(),
-  hashtag: yup.object().shape({
-    label: yup.string(),
-    value: yup.string(),
-  }),
-  image: yup.mixed(),
-  caps: yup.mixed(),
-  video: yup.mixed(),
-  videoUrl: yup.string(),
-})
+export const usePostSchema = () => {
+  return yup.object({
+    reference: yup.string(),
+    tags: yupMultiSelect,
+    description: yup.string().required(),
+    content: yup.string(),
+    hashtag: yup.object().shape({
+      label: yup.string(),
+      value: yup.string(),
+    }),
+    image: yup.mixed(),
+    caps: yup.mixed(),
+    video: yup.mixed(),
+    videoUrl: yup.string(),
+  })
+}
 
 export const postFields: FormFields<Post> = [
   { name: 'description', isRequired: true, type: 'textarea' },
@@ -30,12 +32,12 @@ export const postFields: FormFields<Post> = [
   {
     name: 'image',
     type: 'file',
-    group: { label: 'Image', value: 'image', name: 'media' },
+    group: { value: 'image', name: 'media' },
   },
   {
     name: 'video',
     type: 'file',
-    group: { label: 'Video', value: 'video', name: 'media' },
+    group: { value: 'video', name: 'media' },
   },
   {
     name: 'videoUrl',
