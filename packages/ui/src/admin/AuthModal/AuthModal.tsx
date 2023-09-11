@@ -36,7 +36,7 @@ export const AuthModal = () => {
     reset,
     formState: { errors },
   } = useForm<LoginFormFieldValues>({
-    resolver: yupResolver(adminLoginSchema(t)),
+    resolver: yupResolver(adminLoginSchema),
     mode: 'all',
   })
 
@@ -100,7 +100,7 @@ export const AuthModal = () => {
                 <FormItem
                   w="full"
                   name="identifier"
-                  label={t('login.email-or-username.title') as string}
+                  label={t('login.email-or-username') as string}
                   register={register}
                   errors={errors}
                 />
@@ -108,7 +108,6 @@ export const AuthModal = () => {
                   w="full"
                   name="password"
                   type="password"
-                  label={t('login.password.title') as string}
                   autoComplete="current-password"
                   register={register}
                   errors={errors}
@@ -118,7 +117,7 @@ export const AuthModal = () => {
                   w="full"
                   type="submit"
                 >
-                  {t('login.sign-in')}
+                  {t('login.signin')}
                 </Button>
                 {loginMutation.isError &&
                   ((loginMutation.error as any)?.response?.data?.type ===
@@ -150,7 +149,7 @@ export const AuthModal = () => {
                 variant="link"
                 size="sm"
               >
-                {t('login.forgot-pass-header.title')}
+                {t('forgot-pass.link')}
               </Button>
             </Stack>
             <Text fontSize={'xs'}>

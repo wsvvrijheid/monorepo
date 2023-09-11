@@ -15,8 +15,8 @@ import { Layout } from '../../components'
 const HashtagEvents = () => {
   const router = useRouter()
 
-  const { t: tModel } = useTranslation('model')
-  const title = tModel('hashtags')
+  const { t } = useTranslation()
+  const title = t('hashtags')
 
   const hashtagsQuery = useStrapiRequest<Hashtag>({
     endpoint: 'hashtags',

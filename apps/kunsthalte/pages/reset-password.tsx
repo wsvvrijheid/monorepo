@@ -12,7 +12,7 @@ const ForgotPassword = () => {
   const { t } = useTranslation()
 
   return (
-    <Layout seo={{ title: t('login.reset-pass-header.title') }}>
+    <Layout seo={{ title: t('reset-pass.title') }}>
       <Box minH="inherit">
         <ResetPasswordForm />
       </Box>

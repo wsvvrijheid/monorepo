@@ -13,9 +13,9 @@ import { Layout } from '../../components'
 const Blogs = () => {
   const { data: blogs = [] } = useGetBlogs()
 
-  const { t: tModel } = useTranslation('model')
+  const { t } = useTranslation()
 
-  const seo = { title: tModel('blogs') }
+  const seo = { title: t('blogs') }
 
   return (
     <Layout seo={seo} isDark={!!blogs?.length}>

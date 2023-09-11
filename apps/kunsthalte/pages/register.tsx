@@ -12,7 +12,7 @@ const RegisterPage = () => {
   const { t } = useTranslation()
 
   return (
-    <Layout seo={{ title: t('login.sign-up-header.title') }}>
+    <Layout seo={{ title: t('login.create-account') }}>
       <Box minH="inherit">
         <SignupForm providersToBeShown={['google']} />
       </Box>
@@ -27,7 +27,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
 
   return {
     props: {
-      ...(await ssrTranslations(locale, ['admin', 'model'])),
+      ...(await ssrTranslations(locale)),
     },
   }
 }

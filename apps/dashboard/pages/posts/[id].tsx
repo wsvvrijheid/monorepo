@@ -20,7 +20,7 @@ const PostPage = () => {
   const router = useRouter()
   const { query } = router
 
-  const { t: tModel } = useTranslation('model')
+  const { t } = useTranslation()
 
   const fields = useFields<Post>()
   const schemas = useSchema()
@@ -35,7 +35,7 @@ const PostPage = () => {
 
   return (
     <AdminLayout
-      seo={{ title: tModel('posts') }}
+      seo={{ title: t('posts') }}
       isLoading={isLoading}
       hasBackButton
     >
@@ -77,7 +77,7 @@ export const getServerSideProps = async (
 
   return {
     props: {
-      ...(await ssrTranslations(locale, ['admin', 'model'])),
+      ...(await ssrTranslations(locale)),
     },
   }
 }

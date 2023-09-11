@@ -43,7 +43,7 @@ export const LoginForm: FC<LoginFormProps> = ({
     handleSubmit,
     formState: { errors },
   } = useForm<LoginFormFieldValues>({
-    resolver: yupResolver(loginSchema(t)),
+    resolver: yupResolver(loginSchema),
     mode: 'all',
   })
 
@@ -78,13 +78,13 @@ export const LoginForm: FC<LoginFormProps> = ({
       >
         <Stack spacing="6">
           <Stack spacing={{ base: '2', md: '3' }} textAlign="center">
-            <Heading>{t('login.sign-in-header.title')}</Heading>
+            <Heading>{t('login.title')}</Heading>
             {!isLoginOnly && (
               <HStack spacing="1" justify="center">
-                <Text color="muted">{t('login.sign-in-header.text')}</Text>
+                <Text color="muted">{t('login.no-account')}</Text>
 
                 <Button as={Navigate} href="/register" variant="link">
-                  {t('login.sign-in-header.button')}
+                  {t('login.signup')}
                 </Button>
               </HStack>
             )}
@@ -95,7 +95,6 @@ export const LoginForm: FC<LoginFormProps> = ({
             <FormItem
               data-testid="input-email"
               name="identifier"
-              label={t('login.email.title') as string}
               type="email"
               register={register}
               errors={errors}
@@ -104,7 +103,6 @@ export const LoginForm: FC<LoginFormProps> = ({
               data-testid="input-password"
               name="password"
               type="password"
-              label={t('login.password.title') as string}
               autoComplete="current-password"
               register={register}
               errors={errors}
@@ -121,7 +119,7 @@ export const LoginForm: FC<LoginFormProps> = ({
               variant="link"
               size="sm"
             >
-              {t('login.password.forgot-password')}
+              {t('forgot-pass.title')}
             </Button>
           </HStack>
           <Stack spacing="6">
@@ -130,7 +128,7 @@ export const LoginForm: FC<LoginFormProps> = ({
               data-testid="button-submit-login"
               isLoading={isLoading}
             >
-              {t('login.sign-in')}
+              {t('login.signin')}
             </Button>
             {loginMutation.isError && (
               <Text color="red.500" fontSize="sm">
@@ -142,7 +140,7 @@ export const LoginForm: FC<LoginFormProps> = ({
               <HStack>
                 <Divider />
                 <Text fontSize="sm" whiteSpace="nowrap" color="muted">
-                  {t('login.sign-in-with')}
+                  {t('login.with')}
                 </Text>
                 <Divider />
               </HStack>

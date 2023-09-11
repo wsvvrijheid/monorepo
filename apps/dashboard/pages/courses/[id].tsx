@@ -38,7 +38,7 @@ import {
 
 const CoursePage = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const { t: tModel } = useTranslation('model')
+  const { t } = useTranslation()
 
   const { locale, query } = useRouter()
 
@@ -99,7 +99,7 @@ const CoursePage = () => {
 
   return (
     <AdminLayout
-      seo={{ title: tModel('course') }}
+      seo={{ title: t('course') }}
       isLoading={isLoading}
       hasBackButton
     >
@@ -200,7 +200,7 @@ export const getServerSideProps = async (
 
   return {
     props: {
-      ...(await ssrTranslations(locale, ['admin', 'model'])),
+      ...(await ssrTranslations(locale)),
     },
   }
 }

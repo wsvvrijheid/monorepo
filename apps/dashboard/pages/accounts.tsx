@@ -7,10 +7,10 @@ import { StrapiLocale } from '@wsvvrijheid/types'
 import { AdminLayout } from '@wsvvrijheid/ui'
 
 const AccountsPage = () => {
-  const { t: tAdmin } = useTranslation('admin')
+  const { t } = useTranslation()
 
   return (
-    <AdminLayout seo={{ title: tAdmin('accounts') }}>
+    <AdminLayout seo={{ title: t('accounts') }}>
       <Box>Accounts</Box>
     </AdminLayout>
   )
@@ -21,7 +21,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
 
   return {
     props: {
-      ...(await ssrTranslations(locale, ['admin', 'model'])),
+      ...(await ssrTranslations(locale)),
     },
   }
 }

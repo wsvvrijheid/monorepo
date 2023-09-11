@@ -68,7 +68,7 @@ export const ModelEditForm = <T extends StrapiModel>({
   const translatableModel = model as unknown as StrapiTranslatableModel
 
   const id = model.id
-  const isPublished = translatableModel.publishedAt
+  const isPublished = !!translatableModel.publishedAt
   const [isEditing, setIsEditing] = useBoolean(false)
   const [isChangingImage, setIsChangingImage] = useState<{
     [x: string]: boolean
@@ -84,7 +84,6 @@ export const ModelEditForm = <T extends StrapiModel>({
 
   const router = useRouter()
   const { t } = useTranslation()
-  const { t: tModel } = useTranslation('model')
 
   const updateModelMutation = useUpdateModelMutation(endpoint)
   const unpublishModelMutation = useUnpublishModel(endpoint)
@@ -268,7 +267,7 @@ export const ModelEditForm = <T extends StrapiModel>({
             rowGap={4}
           >
             {fields.map((field, index) => {
-              const label = tModel(field.name as keyof I18nNamespaces['model'])
+              const label = t(field.name as keyof I18nNamespaces['common'])
 
               if (
                 field.type === 'file' &&
@@ -440,7 +439,7 @@ export const ModelEditForm = <T extends StrapiModel>({
                   colorScheme={'purple'}
                   isLoading={approveModelMutation.isLoading}
                 >
-                  {t('model.approve')}
+                  {t('approve')}
                 </Button>
               )}
             {allowEndpointAction(endpoint, 'update') && (
@@ -451,7 +450,7 @@ export const ModelEditForm = <T extends StrapiModel>({
                     leftIcon={<AiOutlineEdit />}
                     fontSize="sm"
                   >
-                    {t('model.edit')}
+                    {t('edit')}
                   </Button>
                 )}
                 {isEditing && (
@@ -461,7 +460,7 @@ export const ModelEditForm = <T extends StrapiModel>({
                     colorScheme={'gray'}
                     fontSize="sm"
                   >
-                    {t('model.cancel')}
+                    {t('cancel')}
                   </Button>
                 )}
                 {isEditing && (
@@ -470,7 +469,7 @@ export const ModelEditForm = <T extends StrapiModel>({
                     leftIcon={<MdOutlineCheck />}
                     fontSize="sm"
                   >
-                    {t('model.save')}
+                    {t('save')}
                   </Button>
                 )}
               </HStack>
@@ -488,7 +487,7 @@ export const ModelEditForm = <T extends StrapiModel>({
                   )
                 }
               >
-                {isPublished ? t('model.unpublish') : t('model.publish')}
+                {isPublished ? t('unpublish') : t('publish')}
               </Button>
             )}
             {allowEndpointAction(endpoint, 'delete') && (
@@ -497,7 +496,7 @@ export const ModelEditForm = <T extends StrapiModel>({
                 leftIcon={<BsTrash />}
                 colorScheme="red"
               >
-                {t('model.delete')}
+                {t('delete')}
               </Button>
             )}
             {onClose && (

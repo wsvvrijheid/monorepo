@@ -122,7 +122,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
   return {
     props: {
       dehydratedState: dehydrate(queryClient),
-      ...(await ssrTranslations(locale, ['admin'])),
+      ...(await ssrTranslations(locale)),
     },
     revalidate: 1,
   }

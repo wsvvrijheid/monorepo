@@ -17,7 +17,7 @@ import { AdminLayout, DataTable, PageHeader, useColumns } from '@wsvvrijheid/ui'
 const PostsPage = () => {
   const [currentPage, setCurrentPage] = useState<number>(1)
 
-  const { t: tModel } = useTranslation('model')
+  const { t } = useTranslation()
 
   const [searchTerm, setSearchTerm] = useState<string>()
   const { locale, push } = useRouter()
@@ -74,7 +74,7 @@ const PostsPage = () => {
 
   const filterMenu = (
     <MenuOptionGroup
-      title={tModel('hashtags')}
+      title={t('hashtags')}
       type="checkbox"
       onChange={(value: string | string[]) =>
         setHashtagIds((value as string[]).map(v => +v))
@@ -93,7 +93,7 @@ const PostsPage = () => {
   }
 
   return (
-    <AdminLayout seo={{ title: tModel('posts') }}>
+    <AdminLayout seo={{ title: t('posts') }}>
       <PageHeader
         filterMenu={filterMenu}
         filterMenuCloseOnSelect={false}
@@ -120,7 +120,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
 
   return {
     props: {
-      ...(await ssrTranslations(locale, ['admin', 'model'])),
+      ...(await ssrTranslations(locale)),
     },
   }
 }

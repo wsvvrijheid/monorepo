@@ -17,7 +17,7 @@ import {
 
 const ActivitiesTranslatePage = () => {
   const [searchTerm, setSearchTerm] = useState<string>()
-  const { t: tAdmin } = useTranslation('admin')
+  const { t } = useTranslation()
 
   const { query } = useRouter()
   const id = Number(query.id as string)
@@ -40,7 +40,7 @@ const ActivitiesTranslatePage = () => {
       : modelSchemas['translate-model']
 
   return (
-    <AdminLayout seo={{ title: tAdmin('translates') }}>
+    <AdminLayout seo={{ title: t('translates') }}>
       {id ? (
         <ModelEditTranslate
           id={id}
@@ -68,7 +68,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
 
   return {
     props: {
-      ...(await ssrTranslations(locale, ['admin', 'model'])),
+      ...(await ssrTranslations(locale)),
     },
   }
 }

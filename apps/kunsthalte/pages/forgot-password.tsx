@@ -12,7 +12,7 @@ const ForgotPassword = () => {
   const { t } = useTranslation()
 
   return (
-    <Layout seo={{ title: t('login.password.title') }}>
+    <Layout seo={{ title: t('password') }}>
       <Box minH="inherit">
         <ForgotPasswordForm />
       </Box>
@@ -27,7 +27,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
 
   return {
     props: {
-      ...(await ssrTranslations(locale, ['admin', 'model'])),
+      ...(await ssrTranslations(locale)),
     },
   }
 }

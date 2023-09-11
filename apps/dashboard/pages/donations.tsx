@@ -14,7 +14,7 @@ const DonationsPage = () => {
   const [currentPage, setCurrentPage] = useState<number>(1)
   const [searchTerm, setSearchTerm] = useState<string>()
 
-  const { t: tModel } = useTranslation()
+  const { t } = useTranslation()
 
   const [sort, setSort] = useState<Sort | undefined>(['createdAt:desc'])
 
@@ -44,7 +44,7 @@ const DonationsPage = () => {
   const totalCount = donationsQuery?.data?.meta?.pagination?.pageCount || 0
 
   return (
-    <AdminLayout seo={{ title: tModel('donations') }}>
+    <AdminLayout seo={{ title: t('donations') }}>
       <PageHeader
         onSearch={handleSearch}
         searchPlaceHolder={'Search arts by title or artist'}
@@ -68,7 +68,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
 
   return {
     props: {
-      ...(await ssrTranslations(locale, ['admin', 'model'])),
+      ...(await ssrTranslations(locale)),
     },
   }
 }

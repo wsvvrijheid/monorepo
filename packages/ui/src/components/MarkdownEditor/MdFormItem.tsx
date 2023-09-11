@@ -34,7 +34,7 @@ export const MdFormItem = <T extends FieldValues>({
     control,
   })
 
-  const { t: tModel } = useTranslation('model')
+  const { t } = useTranslation()
 
   const errorMessage = errors?.[name]?.['message'] as unknown as string
 
@@ -50,14 +50,14 @@ export const MdFormItem = <T extends FieldValues>({
     >
       {label && !hideLabel && (
         <FormLabel mb={1} htmlFor={name} fontSize="sm" fontWeight={600}>
-          {tModel(name as keyof I18nNamespaces['model'], {
+          {t(name as keyof I18nNamespaces['common'], {
             defaultValue: label,
           })}
         </FormLabel>
       )}
 
       <MarkdownEditor
-        placeholder={tModel(name as keyof I18nNamespaces['model'], {
+        placeholder={t(name as keyof I18nNamespaces['common'], {
           defaultValue: placeholder || label,
         })}
         onChange={(value: { text: string; html: string }) =>

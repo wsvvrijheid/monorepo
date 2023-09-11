@@ -13,7 +13,7 @@ const Profile = () => {
   const { t } = useTranslation()
 
   return (
-    <Layout seo={{ title: t('profile.title') }} isDark>
+    <Layout seo={{ title: t('profile') }} isDark>
       {isLoggedIn && <AuthenticatedUserProfile />}
     </Layout>
   )
@@ -24,7 +24,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
 
   return {
     props: {
-      ...(await ssrTranslations(locale, ['admin', 'model'])),
+      ...(await ssrTranslations(locale)),
     },
   }
 }

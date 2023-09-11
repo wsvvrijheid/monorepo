@@ -35,7 +35,7 @@ export const ProfileMenu: FC<ProfileMenuProps> = ({ isDark, menu }) => {
           variant={!isScrolled && isDark ? 'solid' : 'outline'}
           rightIcon={<FiLogIn />}
         >
-          {t('login.sign-in')}
+          {t('login.signin')}
         </Button>
       </DarkMode>
     ) : (
@@ -46,7 +46,7 @@ export const ProfileMenu: FC<ProfileMenuProps> = ({ isDark, menu }) => {
         variant={!isScrolled && isDark ? 'solid' : 'outline'}
         rightIcon={<FiLogIn />}
       >
-        {t('login.sign-in')}
+        {t('login.signin')}
       </Button>
     )
 
@@ -73,7 +73,7 @@ export const ProfileMenu: FC<ProfileMenuProps> = ({ isDark, menu }) => {
 
         <MenuDivider />
         <MenuItem icon={<FiLogOut />} color="red.400" onClick={logout}>
-          {t('profile.logout')}
+          {t('logout')}
         </MenuItem>
       </MenuList>
     </Menu>

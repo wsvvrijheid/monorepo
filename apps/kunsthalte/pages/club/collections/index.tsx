@@ -14,8 +14,8 @@ type CollectionsPageProps = InferGetStaticPropsType<typeof getStaticProps>
 
 const CollectionsPage: NextPage<CollectionsPageProps> = ({ collections }) => {
   const { locale } = useRouter()
-  const { t: tModel } = useTranslation('model')
-  const title = tModel('collections')
+  const { t } = useTranslation()
+  const title = t('collections')
 
   return (
     <Layout seo={{ title }} isDark>

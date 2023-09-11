@@ -39,10 +39,9 @@ type ModelPageProps = InferGetServerSidePropsType<typeof getServerSideProps>
 
 const ModelPage: FC<ModelPageProps> = ({ endpoint }) => {
   const { t } = useTranslation()
-  const { t: tModel } = useTranslation('model')
   const { roles, user } = useAuthContext()
 
-  const title = tModel(endpoint as keyof I18nNamespaces['model'])
+  const title = t(endpoint as keyof I18nNamespaces['common'])
 
   const isOnlyAuthor = roles?.length === 1 && roles[0] === 'author'
 
@@ -187,7 +186,7 @@ export const getServerSideProps = async (
   return {
     props: {
       endpoint,
-      ...(await ssrTranslations(locale, ['admin', 'model'])),
+      ...(await ssrTranslations(locale)),
     },
   }
 }

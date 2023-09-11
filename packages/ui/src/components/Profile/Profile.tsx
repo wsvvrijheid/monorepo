@@ -76,12 +76,11 @@ export const AuthenticatedUserProfile = () => {
                     <>{t('profile.approved-arts')}</>
                   </Tab>
                   <Tab fontWeight={600}>
-                    <Box as={FaSpinner} mr={1} />{' '}
-                    <>{t('profile.pending-arts')}</>
+                    <Box as={FaSpinner} mr={1} /> <>{t('pending-arts')}</>
                   </Tab>
                   <Tab fontWeight={600}>
                     <Box as={MdRemoveModerator} mr={1} />{' '}
-                    <>{t('profile.rejected-arts')}</>
+                    <>{t('rejected-arts')}</>
                   </Tab>
                 </>
               )}

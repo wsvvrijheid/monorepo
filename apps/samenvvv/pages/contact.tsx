@@ -90,7 +90,7 @@ const Contact = () => {
                   }
                   href="https://api.whatsapp.com/send?phone=31685221308"
                 >
-                  {t('contact.form.message-label')}
+                  {t('contact.form.message')}
                 </Button>
                 <Button
                   as={Link}
@@ -144,7 +144,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
 
   return {
     props: {
-      ...(await ssrTranslations(locale, ['admin', 'model'])),
+      ...(await ssrTranslations(locale)),
     },
   }
 }

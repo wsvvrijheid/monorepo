@@ -68,7 +68,7 @@ export const FormItem: FormItemComponent = forwardRef(
   ) => {
     const [isOpen, setIsOpen] = useBoolean(false)
 
-    const { t: tModel } = useTranslation('model')
+    const { t } = useTranslation()
 
     const Tag = as || Input
     const errorMessage = errors?.[name]?.['message'] as unknown as string
@@ -81,7 +81,7 @@ export const FormItem: FormItemComponent = forwardRef(
         {label && !hideLabel && (
           <Flex align={'center'} mb={1}>
             <FormLabel mb={0} htmlFor={name} fontSize="sm" fontWeight={600}>
-              {tModel(name, { defaultValue: label })}
+              {t(name, { defaultValue: label })}
             </FormLabel>
             {tooltip && (
               <Tooltip
@@ -120,7 +120,7 @@ export const FormItem: FormItemComponent = forwardRef(
             ref={ref}
             id={name}
             type={type === 'password' ? (isOpen ? 'text' : 'password') : type}
-            placeholder={tModel(name as keyof I18nNamespaces['model'], {
+            placeholder={t(name as keyof I18nNamespaces['common'], {
               defaultValue: placeholder || label,
             })}
             _placeholder={{ color: 'gray.300' }}

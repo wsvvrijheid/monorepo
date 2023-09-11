@@ -12,7 +12,7 @@ const LoginPage = () => {
 
   return (
     <>
-      <NextSeo title={t('login.sign-in')} />
+      <NextSeo title={t('login.signin')} />
       <Box minH="inherit" h="full">
         <AdminLoginForm />
       </Box>
@@ -27,7 +27,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
 
   return {
     props: {
-      ...(await ssrTranslations(locale, ['admin', 'model'])),
+      ...(await ssrTranslations(locale)),
     },
   }
 }

@@ -37,7 +37,7 @@ export const JoinForm: FC<JoinFormFProps> = ({
     handleSubmit,
     formState: { errors },
   } = useForm<JoinFormFieldValues>({
-    resolver: yupResolver(joinSchema(t) as ObjectSchema<JoinFormFieldValues>),
+    resolver: yupResolver(joinSchema() as ObjectSchema<JoinFormFieldValues>),
     mode: 'onTouched',
     defaultValues: {
       name: '',
@@ -79,7 +79,6 @@ export const JoinForm: FC<JoinFormFProps> = ({
           id="name"
           name="name"
           errors={errors}
-          label={t('apply-form.name.input') as string}
           isRequired
         />
         <FormItem
@@ -87,7 +86,6 @@ export const JoinForm: FC<JoinFormFProps> = ({
           register={register}
           id="email"
           errors={errors}
-          label={t('apply-form.email.input') as string}
           isRequired
         />
       </Stack>
@@ -97,7 +95,6 @@ export const JoinForm: FC<JoinFormFProps> = ({
           id="phone"
           name="phone"
           errors={errors}
-          label={t('apply-form.phone.input') as string}
           isRequired
         />
         <FormItem
@@ -106,7 +103,6 @@ export const JoinForm: FC<JoinFormFProps> = ({
           id="availableHours"
           name="availableHours"
           errors={errors}
-          label={t('apply-form.available-hours.input') as string}
           defaultValue={1}
           isRequired
         />
@@ -116,7 +112,6 @@ export const JoinForm: FC<JoinFormFProps> = ({
           id="age"
           name="age"
           errors={errors}
-          label={t('apply-form.age.input') as string}
           defaultValue={1}
           isRequired
         />
@@ -126,15 +121,8 @@ export const JoinForm: FC<JoinFormFProps> = ({
         errors={errors}
         id="occupation"
         name="occupation"
-        label={t('apply-form.occupation') as string}
       />
-      <FormItem
-        register={register}
-        errors={errors}
-        id="city"
-        name="city"
-        label={t('apply-form.city') as string}
-      />
+      <FormItem register={register} errors={errors} id="city" name="city" />
 
       <FormItem
         as={Textarea}
@@ -142,7 +130,6 @@ export const JoinForm: FC<JoinFormFProps> = ({
         errors={errors}
         id="comment"
         name="comment"
-        label={t('apply-form.comment') as string}
       />
 
       <Stack justify="space-between" direction={{ base: 'column', md: 'row' }}>
@@ -196,7 +183,7 @@ export const JoinForm: FC<JoinFormFProps> = ({
       {/* JOBS */}
       <Box>
         <FormLabel fontSize="sm" fontWeight={600}>
-          <>{t('apply-form.jobs.title')}</>
+          {t('jobs')}
           <chakra.span color="red.500">*</chakra.span>
         </FormLabel>
         <Stack
@@ -236,7 +223,7 @@ export const JoinForm: FC<JoinFormFProps> = ({
         </Stack>
       </Box>
       <Button isLoading={isLoading} size="lg" type="submit">
-        {t('apply-form.submit')}
+        {t('submit')}
       </Button>
     </Stack>
   )

@@ -12,7 +12,7 @@ const LoginPage = () => {
   const { t } = useTranslation()
 
   return (
-    <Layout seo={{ title: t('login.sign-in') }}>
+    <Layout seo={{ title: t('login.signin') }}>
       <Box minH="inherit">
         <LoginForm providersToBeShown={['google']} />
       </Box>
@@ -27,7 +27,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
 
   return {
     props: {
-      ...(await ssrTranslations(locale, ['admin', 'model'])),
+      ...(await ssrTranslations(locale)),
     },
   }
 }

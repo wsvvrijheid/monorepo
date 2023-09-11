@@ -3,9 +3,10 @@ import React, { FC } from 'react'
 import { HStack, useRadioGroup } from '@chakra-ui/react'
 
 import { RadioCard } from './RadioCard'
+import { Option } from '../ModelForm'
 
 type RadioCardsProps = {
-  options: { label: string; value: string }[]
+  options: Option[]
   defaultValue?: string
   setActiveOption: (value: string) => void
 }

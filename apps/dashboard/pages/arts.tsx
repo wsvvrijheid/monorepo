@@ -15,7 +15,7 @@ const ArtsPage = () => {
   const { query } = useRouter()
   const [currentPage, setCurrentPage] = useState<number>(1)
   const [searchTerm, setSearchTerm] = useState<string>()
-  const { t: tModel } = useTranslation('model')
+  const { t } = useTranslation()
 
   // Client side query params (?status=pending)
   const status = query.status as ApprovalStatus
@@ -69,7 +69,7 @@ const ArtsPage = () => {
   }) as Art[]
 
   return (
-    <AdminLayout seo={{ title: tModel('arts') }}>
+    <AdminLayout seo={{ title: t('arts') }}>
       <PageHeader
         onSearch={handleSearch}
         searchPlaceHolder={'Search arts by title or artist'}
@@ -99,7 +99,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
 
   return {
     props: {
-      ...(await ssrTranslations(locale, ['admin', 'model'])),
+      ...(await ssrTranslations(locale)),
     },
   }
 }

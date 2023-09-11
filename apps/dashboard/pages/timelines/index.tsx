@@ -9,7 +9,7 @@ import { AdminLayout, TimelineBoard } from '@wsvvrijheid/ui'
 
 const Timelines = () => {
   const { locale } = useRouter()
-  const { t: tAdmin } = useTranslation('admin')
+  const { t } = useTranslation()
 
   const { data: timelines, isLoading } = useStrapiRequest<Timeline>({
     endpoint: 'timelines',
@@ -17,7 +17,7 @@ const Timelines = () => {
   })
 
   return (
-    <AdminLayout seo={{ title: tAdmin('timelines') }} isLoading={isLoading}>
+    <AdminLayout seo={{ title: t('timelines') }} isLoading={isLoading}>
       {timelines?.data && <TimelineBoard timelines={timelines?.data} />}
     </AdminLayout>
   )
@@ -28,7 +28,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
 
   return {
     props: {
-      ...(await ssrTranslations(locale, ['admin', 'model'])),
+      ...(await ssrTranslations(locale)),
     },
   }
 }

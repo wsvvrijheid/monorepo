@@ -125,9 +125,9 @@ export const ModelEditTranslate = <T extends StrapiTranslatableModel>({
 
   const onApprove = () => {
     setConfirmState({
-      title: t('model.approve') as string,
-      description: t('model.approve-prompt') as string,
-      buttonText: t('model.approve') as string,
+      title: t('approve') as string,
+      description: t('approve.prompt') as string,
+      buttonText: t('approve') as string,
       onConfirm: async () => {
         approveModelMutation.mutate({ id }, { onSuccess: handleSuccess })
         setConfirmState(undefined)
@@ -235,7 +235,7 @@ export const ModelEditTranslate = <T extends StrapiTranslatableModel>({
                 colorScheme={'purple'}
                 isLoading={approveModelMutation.isLoading}
               >
-                {t('model.approve')}
+                {t('approve')}
               </Button>
             )}
           {allowEndpointAction(endpoint, 'update') && (
@@ -246,7 +246,7 @@ export const ModelEditTranslate = <T extends StrapiTranslatableModel>({
                   leftIcon={<AiOutlineEdit />}
                   fontSize="sm"
                 >
-                  {t('model.edit')}
+                  {t('edit')}
                 </Button>
               )}
               {isEditing && (
@@ -256,7 +256,7 @@ export const ModelEditTranslate = <T extends StrapiTranslatableModel>({
                   colorScheme={'gray'}
                   fontSize="sm"
                 >
-                  {t('model.cancel')}
+                  {t('cancel')}
                 </Button>
               )}
               {isEditing && (
@@ -265,7 +265,7 @@ export const ModelEditTranslate = <T extends StrapiTranslatableModel>({
                   leftIcon={<MdOutlineCheck />}
                   fontSize="sm"
                 >
-                  {t('model.save')}
+                  {t('save')}
                 </Button>
               )}
             </>
