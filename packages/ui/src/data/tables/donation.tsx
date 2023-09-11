@@ -4,12 +4,12 @@ import { WTableProps } from '../../components'
 
 export const useDonationColumns = (): WTableProps<Donation>['columns'] => {
   return {
-    amount: { sortable: true },
     email: { sortable: true },
     createdAt: {
       type: 'date',
       sortable: true,
     },
+    amount: { sortable: true },
     status: {
       type: 'badge',
       componentProps: value => {
