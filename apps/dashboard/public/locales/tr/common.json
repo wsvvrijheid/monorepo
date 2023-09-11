@@ -150,7 +150,7 @@
   "location": "Konum",
   "login": "Şimdi giriş yapın",
   "login.create-account": "Hesap oluştur",
-  "login.email-or-username": "Email veya kullanıcı adı",
+  "identifier": "Email veya kullanıcı adı",
   "login.email-taken.description": "Bu email adresi ile daha önce kayıt oldunuz. Lütfen daha önce giriş yaptığınız sağlayıcıyı kullanın.",
   "login.email-taken.title": "E-posta zaten kullanılıyor",
   "login.error.unauthorized": "Bir hata oluştu. Bir sorun olduğunu düşünüyorsanız, <a>bizimle iletişime geçin</a>",

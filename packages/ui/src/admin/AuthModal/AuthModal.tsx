@@ -100,7 +100,6 @@ export const AuthModal = () => {
                 <FormItem
                   w="full"
                   name="identifier"
-                  label={t('login.email-or-username') as string}
                   register={register}
                   errors={errors}
                 />

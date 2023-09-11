@@ -3,9 +3,8 @@ import { FC } from 'react'
 import { Box, Button, Text, VStack } from '@chakra-ui/react'
 import { QueryClient } from '@tanstack/react-query'
 import { isPast } from 'date-fns'
-import { GetServerSidePropsContext } from 'next'
+import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
 import { useTranslation } from 'next-i18next'
-import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { serialize } from 'next-mdx-remote/serialize'
 import { NextSeoProps } from 'next-seo'
 
@@ -21,13 +20,7 @@ import { getItemLink, getPageSeo } from '@wsvvrijheid/utils'
 
 import { Layout } from '../components'
 
-type HashtagEventsProps = {
-  seo: NextSeoProps
-  source: MDXRemoteSerializeResult
-  hashtag: Hashtag
-  hasStarted: boolean
-  link: string
-}
+type HashtagEventsProps = InferGetServerSidePropsType<typeof getServerSideProps>
 
 const AnnouncementEvent: FC<HashtagEventsProps> = ({
   seo,
@@ -43,7 +36,7 @@ const AnnouncementEvent: FC<HashtagEventsProps> = ({
       <Hero title={title} isFullHeight={false} />
       <Box py={16}>
         <Container maxW={'4xl'}>
-          {hashtag && !hasStarted ? (
+          {hashtag && link && !hasStarted ? (
             <HashtagAnnouncement hashtag={hashtag} link={link} />
           ) : (
             <VStack mx={'auto'} maxW={'2xl'} textAlign={'center'} spacing={8}>
@@ -92,12 +85,15 @@ export const getServerSideProps = async (
     return {
       props: {
         ...(await ssrTranslations(locale)),
+        seo: {} as NextSeoProps,
+        hasStarted: true,
         hashtag: null,
+        link: null,
       },
     }
   }
 
-  const link = getItemLink(hashtag, 'hashtags') as string
+  const link = getItemLink(hashtag, 'hashtags')
 
   const seo = getPageSeo(hashtag, 'hashtags', locale, true)
 
