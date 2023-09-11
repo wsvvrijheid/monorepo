@@ -15,11 +15,11 @@ const Blogs = () => {
 
   const { t } = useTranslation()
 
-  const seo = { title: t('blogs') }
+  const title = t('blogs')
 
   return (
-    <Layout seo={seo} isDark={!!blogs?.length}>
-      <BlogTemplate blogs={blogs} seo={seo} />
+    <Layout seo={{ title }} isDark={!!blogs?.length}>
+      <BlogTemplate blogs={blogs} seo={{ title }} />
     </Layout>
   )
 }
