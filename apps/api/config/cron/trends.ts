@@ -15,8 +15,6 @@ export default async ({ strapi }) => {
     Object.entries(woeids).forEach(async ([locale, id]) => {
       const result = await twitterClient.v1.get('trends/place.json', { id })
 
-      console.log('result', result)
-
       if (!Array.isArray(result)) return
       if (!result[0]) return
 

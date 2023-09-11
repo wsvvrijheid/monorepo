@@ -21,15 +21,14 @@ const DonationPage: FC<DonationPageProps> = () => {
   )
 }
 
+export default DonationPage
+
 export const getStaticProps = async (context: GetStaticPropsContext) => {
   const locale = context.locale as StrapiLocale
 
   return {
     props: {
-      ...(await ssrTranslations(locale)),
+      ...(await ssrTranslations(locale, ['admin', 'model'])),
     },
-    revalidate: 1,
   }
 }
-
-export default DonationPage

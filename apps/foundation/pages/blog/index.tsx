@@ -1,7 +1,6 @@
-import { FC } from 'react'
-
 import { dehydrate, QueryClient } from '@tanstack/react-query'
-import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
+import { GetStaticPropsContext } from 'next'
+import { useTranslation } from 'next-i18next'
 
 import { getBlogs, useGetBlogs } from '@wsvvrijheid/services'
 import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
@@ -10,11 +9,13 @@ import { BlogTemplate } from '@wsvvrijheid/ui'
 
 import { Layout } from '../../components'
 
-type BlogsProps = InferGetStaticPropsType<typeof getStaticProps>
-
 // TODO: Implement author filter
-const Blogs: FC<BlogsProps> = ({ seo }) => {
+const Blogs = () => {
   const { data: blogs = [] } = useGetBlogs()
+
+  const { t: tModel } = useTranslation('model')
+
+  const seo = { title: tModel('blogs') }
 
   return (
     <Layout seo={seo} isDark={!!blogs?.length}>
@@ -35,26 +36,8 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
     queryFn: () => getBlogs(locale),
   })
 
-  const blogSeo = {
-    en: {
-      title: 'Blog',
-      description: 'Posts',
-    },
-    nl: {
-      title: 'Blog',
-      description: 'Posts',
-    },
-    tr: {
-      title: 'Blog',
-      description: 'Yazılar',
-    },
-  }
-
-  const seo = blogSeo[locale]
-
   return {
     props: {
-      seo,
       dehydratedState: dehydrate(queryClient),
       ...(await ssrTranslations(locale)),
     },

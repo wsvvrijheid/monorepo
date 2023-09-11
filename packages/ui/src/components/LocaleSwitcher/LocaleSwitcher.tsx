@@ -23,6 +23,8 @@ const LocaleSwitcher: FC<LocaleSwitcherProps> = ({ isDark }) => {
 
   const locales = ['en', 'nl', 'tr'] as StrapiLocale[]
 
+  console.log('slugs', slugs)
+
   return (
     <ButtonGroup spacing={0} size="sm" alignItems="center">
       {/* TODO: Remove after storybook test */}

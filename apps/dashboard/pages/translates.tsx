@@ -1,8 +1,8 @@
-import { FC, useState } from 'react'
+import { useState } from 'react'
 
-import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
+import { GetStaticPropsContext } from 'next'
 import { useRouter } from 'next/router'
-import { NextSeoProps } from 'next-seo'
+import { useTranslation } from 'next-i18next'
 
 import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import { StrapiCollectionEndpoint, StrapiLocale } from '@wsvvrijheid/types'
@@ -15,10 +15,9 @@ import {
   useSchema,
 } from '@wsvvrijheid/ui'
 
-type PageProps = InferGetStaticPropsType<typeof getStaticProps>
-
-const ActivitiesTranslatePage: FC<PageProps> = ({ seo }) => {
+const ActivitiesTranslatePage = () => {
   const [searchTerm, setSearchTerm] = useState<string>()
+  const { t: tAdmin } = useTranslation('admin')
 
   const { query } = useRouter()
   const id = Number(query.id as string)
@@ -41,7 +40,7 @@ const ActivitiesTranslatePage: FC<PageProps> = ({ seo }) => {
       : modelSchemas['translate-model']
 
   return (
-    <AdminLayout seo={seo}>
+    <AdminLayout seo={{ title: tAdmin('translates') }}>
       {id ? (
         <ModelEditTranslate
           id={id}
@@ -67,19 +66,8 @@ const ActivitiesTranslatePage: FC<PageProps> = ({ seo }) => {
 export const getStaticProps = async (context: GetStaticPropsContext) => {
   const locale = context.locale as StrapiLocale
 
-  const title = {
-    en: 'Translates',
-    tr: 'Ceviriler',
-    nl: 'Vertalingen',
-  }
-
-  const seo: NextSeoProps = {
-    title: title[locale],
-  }
-
   return {
     props: {
-      seo,
       ...(await ssrTranslations(locale, ['admin', 'model'])),
     },
   }

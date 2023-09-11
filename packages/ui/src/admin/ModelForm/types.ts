@@ -93,7 +93,7 @@ export type ModelEditModalProps<T extends StrapiModel> = Omit<
   ModalProps,
   'id' | 'children'
 > &
-  Omit<ModelEditFormProps<T>, 'model' | 'onSuccess'> & {
+  Omit<ModelEditFormProps<T>, 'onSuccess' | 'model'> & {
     title: string
     id: number
     isOpen: boolean

@@ -1,8 +1,9 @@
-import { FC, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { MenuItem, useUpdateEffect } from '@chakra-ui/react'
-import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
+import { GetStaticPropsContext } from 'next'
 import { useRouter } from 'next/router'
+import { useTranslation } from 'react-i18next'
 import { FaArrowDown, FaArrowUp } from 'react-icons/fa'
 
 import { useStrapiRequest } from '@wsvvrijheid/services'
@@ -10,12 +11,11 @@ import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import { ApprovalStatus, Art, Sort, StrapiLocale } from '@wsvvrijheid/types'
 import { AdminLayout, ArtsTable, PageHeader } from '@wsvvrijheid/ui'
 
-type PageProps = InferGetStaticPropsType<typeof getStaticProps>
-
-const ArtsPage: FC<PageProps> = ({ seo }) => {
+const ArtsPage = () => {
   const { query } = useRouter()
   const [currentPage, setCurrentPage] = useState<number>(1)
   const [searchTerm, setSearchTerm] = useState<string>()
+  const { t: tModel } = useTranslation('model')
 
   // Client side query params (?status=pending)
   const status = query.status as ApprovalStatus
@@ -69,7 +69,7 @@ const ArtsPage: FC<PageProps> = ({ seo }) => {
   }) as Art[]
 
   return (
-    <AdminLayout seo={seo}>
+    <AdminLayout seo={{ title: tModel('arts') }}>
       <PageHeader
         onSearch={handleSearch}
         searchPlaceHolder={'Search arts by title or artist'}
@@ -97,19 +97,8 @@ const ArtsPage: FC<PageProps> = ({ seo }) => {
 export const getStaticProps = async (context: GetStaticPropsContext) => {
   const locale = context.locale as StrapiLocale
 
-  const title = {
-    en: 'Arts',
-    tr: 'Eserler',
-    nl: 'Arts',
-  }
-
-  const seo = {
-    title: title[locale],
-  }
-
   return {
     props: {
-      seo,
       ...(await ssrTranslations(locale, ['admin', 'model'])),
     },
   }

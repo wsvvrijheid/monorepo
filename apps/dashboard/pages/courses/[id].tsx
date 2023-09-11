@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import {
   Accordion,
@@ -12,9 +12,9 @@ import {
   useDisclosure,
   useUpdateEffect,
 } from '@chakra-ui/react'
-import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
+import { GetServerSidePropsContext } from 'next'
 import { useRouter } from 'next/router'
-import { NextSeoProps } from 'next-seo'
+import { useTranslation } from 'next-i18next'
 import { FaArrowDown, FaArrowUp } from 'react-icons/fa'
 
 import { useStrapiRequest } from '@wsvvrijheid/services'
@@ -31,15 +31,14 @@ import {
   ModelEditForm,
   ModelEditModal,
   PageHeader,
-  useFields,
   useColumns,
+  useFields,
   useSchema,
 } from '@wsvvrijheid/ui'
 
-type PageProps = InferGetServerSidePropsType<typeof getServerSideProps>
-
-const CoursePage: FC<PageProps> = ({ seo }) => {
+const CoursePage = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
+  const { t: tModel } = useTranslation('model')
 
   const { locale, query } = useRouter()
 
@@ -99,7 +98,11 @@ const CoursePage: FC<PageProps> = ({ seo }) => {
   }
 
   return (
-    <AdminLayout seo={seo} isLoading={isLoading} hasBackButton>
+    <AdminLayout
+      seo={{ title: tModel('course') }}
+      isLoading={isLoading}
+      hasBackButton
+    >
       {selectedApplicationId && (
         <ModelEditModal<CourseApplication>
           title={'Application'}
@@ -195,19 +198,8 @@ export const getServerSideProps = async (
 ) => {
   const locale = context.locale as StrapiLocale
 
-  const title = {
-    en: 'Course',
-    tr: 'Kurs',
-    nl: 'Course',
-  }
-
-  const seo: NextSeoProps = {
-    title: title[locale],
-  }
-
   return {
     props: {
-      seo,
       ...(await ssrTranslations(locale, ['admin', 'model'])),
     },
   }

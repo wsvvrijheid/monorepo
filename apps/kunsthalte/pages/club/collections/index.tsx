@@ -1,6 +1,7 @@
 import { SimpleGrid } from '@chakra-ui/react'
 import { GetStaticPropsContext, InferGetStaticPropsType, NextPage } from 'next'
 import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
 
 import { strapiRequest } from '@wsvvrijheid/lib'
 import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
@@ -11,15 +12,14 @@ import { Layout } from '../../../components'
 
 type CollectionsPageProps = InferGetStaticPropsType<typeof getStaticProps>
 
-const CollectionsPage: NextPage<CollectionsPageProps> = ({
-  seo,
-  collections,
-}) => {
+const CollectionsPage: NextPage<CollectionsPageProps> = ({ collections }) => {
   const { locale } = useRouter()
+  const { t: tModel } = useTranslation('model')
+  const title = tModel('collections')
 
   return (
-    <Layout seo={seo} isDark>
-      <Hero title={seo.title} />
+    <Layout seo={{ title }} isDark>
+      <Hero title={title} />
       <Container minH="inherit" py={{ base: 8, lg: 16 }}>
         <SimpleGrid columns={{ base: 1, md: 2, lg: 4 }} gap={4}>
           {collections?.data?.map((collection, i) => (
@@ -48,20 +48,9 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
 
   if (!collections?.data) return { notFound: true }
 
-  const title = {
-    en: 'Collections',
-    nl: 'Collecties',
-    tr: 'Koleksiyonlar',
-  }
-
-  const seo = {
-    title: title[locale],
-  }
-
   return {
     props: {
       ...(await ssrTranslations(locale)),
-      seo,
       collections,
     },
     revalidate: 1,

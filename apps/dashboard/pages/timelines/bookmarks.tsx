@@ -1,20 +1,18 @@
-import { FC } from 'react'
-
-import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
-import { NextSeoProps } from 'next-seo'
+import { GetStaticPropsContext } from 'next'
+import { useTranslation } from 'next-i18next'
 import { useLocalStorage } from 'usehooks-ts'
 
 import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import { StrapiLocale, Tweet } from '@wsvvrijheid/types'
 import { AdminLayout, Container, MasonryGrid, TweetCard } from '@wsvvrijheid/ui'
 
-type PageProps = InferGetStaticPropsType<typeof getStaticProps>
-
-const TweetBookmarkedPage: FC<PageProps> = ({ seo }) => {
+const TweetBookmarkedPage = () => {
   const [storageTweets] = useLocalStorage<Tweet[]>('bookmarked-tweets', [])
 
+  const { t } = useTranslation()
+
   return (
-    <AdminLayout seo={seo}>
+    <AdminLayout seo={{ title: t('bookmarked-tweets') }}>
       <Container>
         <MasonryGrid cols={[1, 1, 1, 2, 3]}>
           {storageTweets.map((tweet, key) => (
@@ -29,19 +27,8 @@ const TweetBookmarkedPage: FC<PageProps> = ({ seo }) => {
 export const getStaticProps = async (context: GetStaticPropsContext) => {
   const locale = context.locale as StrapiLocale
 
-  const title = {
-    en: 'Bookmarked Tweets',
-    tr: 'Yer İşaretli Tweetler',
-    nl: 'Bladwijzer Tweets',
-  }
-
-  const seo: NextSeoProps = {
-    title: title[locale],
-  }
-
   return {
     props: {
-      seo,
       ...(await ssrTranslations(locale, ['admin', 'model'])),
     },
   }

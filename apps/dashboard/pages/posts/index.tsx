@@ -1,23 +1,23 @@
-import { FC, useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 import {
   MenuItemOption,
   MenuOptionGroup,
   useUpdateEffect,
 } from '@chakra-ui/react'
-import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
+import { GetStaticPropsContext } from 'next'
 import { useRouter } from 'next/router'
-import { NextSeoProps } from 'next-seo'
+import { useTranslation } from 'next-i18next'
 
 import { useStrapiRequest } from '@wsvvrijheid/services'
 import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import { Hashtag, Post, Sort, StrapiLocale } from '@wsvvrijheid/types'
 import { AdminLayout, DataTable, PageHeader, useColumns } from '@wsvvrijheid/ui'
 
-type PageProps = InferGetStaticPropsType<typeof getStaticProps>
-
-const PostsPage: FC<PageProps> = ({ seo }) => {
+const PostsPage = () => {
   const [currentPage, setCurrentPage] = useState<number>(1)
+
+  const { t: tModel } = useTranslation('model')
 
   const [searchTerm, setSearchTerm] = useState<string>()
   const { locale, push } = useRouter()
@@ -74,7 +74,7 @@ const PostsPage: FC<PageProps> = ({ seo }) => {
 
   const filterMenu = (
     <MenuOptionGroup
-      title="Hastags"
+      title={tModel('hashtags')}
       type="checkbox"
       onChange={(value: string | string[]) =>
         setHashtagIds((value as string[]).map(v => +v))
@@ -93,7 +93,7 @@ const PostsPage: FC<PageProps> = ({ seo }) => {
   }
 
   return (
-    <AdminLayout seo={seo}>
+    <AdminLayout seo={{ title: tModel('posts') }}>
       <PageHeader
         filterMenu={filterMenu}
         filterMenuCloseOnSelect={false}
@@ -118,19 +118,8 @@ const PostsPage: FC<PageProps> = ({ seo }) => {
 export const getStaticProps = async (context: GetStaticPropsContext) => {
   const locale = context.locale as StrapiLocale
 
-  const title = {
-    en: 'Posts',
-    tr: 'Posts',
-    nl: 'Posts',
-  }
-
-  const seo: NextSeoProps = {
-    title: title[locale],
-  }
-
   return {
     props: {
-      seo,
       ...(await ssrTranslations(locale, ['admin', 'model'])),
     },
   }

@@ -1,5 +1,3 @@
-import { FC } from 'react'
-
 import {
   Box,
   Button,
@@ -11,8 +9,9 @@ import {
   VStack,
 } from '@chakra-ui/react'
 import { useMutation } from '@tanstack/react-query'
-import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
+import { GetStaticPropsContext } from 'next'
 import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
 import { MdEmail } from 'react-icons/md'
 
 import { EMAIL_SENDER, socialLinks } from '@wsvvrijheid/config'
@@ -29,16 +28,16 @@ import {
 
 import { Layout } from '../components'
 
-type ContactProps = InferGetStaticPropsType<typeof getStaticProps>
-
+// TODO: Move to translations
 const about = {
   tr: `Sanata ilgi duyan Hollanda’ya göç etmiş kişilerin hem online hem fiziki olarak buluştuğu, modern ve geleneksel sanatlar üzerine bilgi paylaşımı yaptıkları, aynı zamanda sanatsal aktiviteler organize ettikleri bir gruptur.`,
   en: `Art Station is a group where people who took emigrated in the Netherlands, who are interested in art, meet both online and physically, share their experiences with each other, share information on modern and traditional arts, and organize artistic activities at the same time.`,
   nl: `Kunsthalte is een groep waar mensen die naar Nederland zijn geëmigreerd, geïnteresseerd zijn in kunst, elkaar online en fysiek ontmoeten, hun ervaringen met elkaar delen, informatie delen over moderne en traditionele kunst en tegelijkertijd artistieke activiteiten organiseren.`,
 }
 
-const Contact: FC<ContactProps> = ({ seo }) => {
+const Contact = () => {
   const { locale } = useRouter()
+  const { t } = useTranslation()
 
   const {
     isError,
@@ -62,14 +61,8 @@ const Contact: FC<ContactProps> = ({ seo }) => {
     return sendForm(emailData)
   }
 
-  const title = {
-    tr: 'Sanat Durağı',
-    en: 'Art Station',
-    nl: 'Kunsthalte',
-  }
-
   return (
-    <Layout seo={seo}>
+    <Layout seo={{ title: t('contact.title') }}>
       <Box minH="inherit">
         <Container minH="inherit">
           <SimpleGrid
@@ -89,7 +82,7 @@ const Contact: FC<ContactProps> = ({ seo }) => {
               spacing={8}
             >
               <Heading fontWeight={900} as="h2" size="lg" color="primary.50">
-                {title[locale]}
+                {t('art-stop')}
               </Heading>
               <Text>{about[locale]}</Text>
 
@@ -123,32 +116,14 @@ const Contact: FC<ContactProps> = ({ seo }) => {
   )
 }
 
-export default Contact
-
 export const getStaticProps = async (context: GetStaticPropsContext) => {
   const locale = context.locale as StrapiLocale
 
-  const title = {
-    en: 'Contact',
-    tr: 'İletişim',
-    nl: 'Contact',
-  }
-
-  const description = {
-    en: '',
-    tr: '',
-    nl: '',
-  }
-
-  const seo = {
-    title: title[locale],
-    description: description[locale],
-  }
-
   return {
     props: {
-      seo,
-      ...(await ssrTranslations(locale)),
+      ...(await ssrTranslations(locale, ['admin', 'model'])),
     },
   }
 }
+
+export default Contact

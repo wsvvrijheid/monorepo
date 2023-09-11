@@ -4,13 +4,11 @@ import { Box, Button, Text, VStack } from '@chakra-ui/react'
 import { QueryClient } from '@tanstack/react-query'
 import { isPast } from 'date-fns'
 import { GetServerSidePropsContext } from 'next'
-import Head from 'next/head'
 import { useTranslation } from 'next-i18next'
 import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { serialize } from 'next-mdx-remote/serialize'
 import { NextSeoProps } from 'next-seo'
 
-import { SITE_URL } from '@wsvvrijheid/config'
 import { RequestCollectionArgs, strapiRequest } from '@wsvvrijheid/lib'
 import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import {
@@ -19,11 +17,7 @@ import {
   StrapiLocale,
 } from '@wsvvrijheid/types'
 import { Container, HashtagAnnouncement, Hero, Navigate } from '@wsvvrijheid/ui'
-import {
-  getItemLink,
-  getOgImageSrc,
-  mapHashtagToOgParams,
-} from '@wsvvrijheid/utils'
+import { getItemLink, getPageSeo } from '@wsvvrijheid/utils'
 
 import { Layout } from '../components'
 
@@ -42,18 +36,11 @@ const AnnouncementEvent: FC<HashtagEventsProps> = ({
   link,
 }) => {
   const { t } = useTranslation()
+  const title = seo?.title || t('hashtag-announcements')
 
   return (
-    <Layout seo={seo} isDark>
-      <Head>
-        {seo?.openGraph && (
-          <meta
-            property="twitter:image:src"
-            content={seo.openGraph.images?.[0]?.url}
-          />
-        )}
-      </Head>
-      <Hero title={seo.title as string} isFullHeight={false} />
+    <Layout seo={{ title }} isDark>
+      <Hero title={title} isFullHeight={false} />
       <Box py={16}>
         <Container maxW={'4xl'}>
           {hashtag && !hasStarted ? (
@@ -85,6 +72,7 @@ export const getServerSideProps = async (
   const args: RequestCollectionArgs = {
     endpoint: 'hashtags',
     locale,
+    sort: ['date:desc'],
     filters: {
       approvalStatus: { eq: 'approved' },
     },
@@ -98,73 +86,20 @@ export const getServerSideProps = async (
   const hashtagsResponse =
     queryClient.getQueryData<StrapiCollectionResponse<Hashtag[]>>(queryKey)
 
-  const hashtag = hashtagsResponse?.data[0]
-
-  const title = {
-    en: 'Hashtag Announcement',
-    nl: 'Hashtag Announcement',
-    tr: 'Hashtag Duyurulari',
-  }
-
-  const description = {
-    en: '',
-    nl: '',
-    tr: '',
-  }
-
-  const twitterHandle = {
-    en: '@samenvvvEn',
-    nl: '@samenvvv',
-    tr: '@samenvvvTr',
-  }
+  const hashtag = hashtagsResponse?.data?.[0]
 
   if (!hashtag) {
     return {
       props: {
         ...(await ssrTranslations(locale)),
-        seo: { title: title[locale] },
         hashtag: null,
       },
     }
   }
 
-  const announcementTitle = hashtag?.title.slice(0, 20) || ''
-  const announcementDescription = hashtag?.description || ''
+  const link = getItemLink(hashtag, 'hashtags') as string
 
-  const link = getItemLink(hashtag, locale, 'hashtag') as string
-
-  const ogParams = mapHashtagToOgParams(hashtag, locale)
-
-  const imgSrc = SITE_URL + getOgImageSrc(ogParams)
-
-  const images = imgSrc
-    ? [
-        {
-          url: imgSrc,
-          secureUrl: imgSrc,
-          type: 'image/jpg',
-          width: 1200,
-          height: 675,
-          alt: title[locale],
-        },
-      ]
-    : []
-
-  const seo: NextSeoProps = {
-    title: title[locale],
-    description: description[locale],
-    twitter: {
-      cardType: 'summary_large_image',
-      site: twitterHandle[locale],
-      handle: twitterHandle[locale],
-    },
-    openGraph: {
-      title: announcementTitle,
-      description: announcementDescription,
-      url: link,
-      images,
-    },
-  }
+  const seo = getPageSeo(hashtag, 'hashtags', locale, true)
 
   const source = await serialize(hashtag.content || '')
   const hasStarted = hashtag.date

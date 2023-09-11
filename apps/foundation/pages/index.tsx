@@ -13,11 +13,11 @@ import { HomeAbout, HomeHero, HomePlatform, Layout } from '../components'
 
 type HomeProps = InferGetStaticPropsType<typeof getStaticProps>
 
-const Home: FC<HomeProps> = ({ seo, platforms }) => {
+const Home: FC<HomeProps> = ({ platforms }) => {
   const { t } = useTranslation()
 
   return (
-    <Layout seo={seo}>
+    <Layout seo={{ title: t('home') }}>
       <Flex
         flexDir="column"
         justify="space-between"
@@ -61,26 +61,8 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
     endpoint: 'platforms',
   })
 
-  const title = {
-    en: 'Homepage',
-    tr: 'Anasayfa',
-    nl: 'Home',
-  }
-
-  const description = {
-    en: '',
-    tr: '',
-    nl: '',
-  }
-
-  const seo = {
-    title: title[locale],
-    description: description[locale],
-  }
-
   return {
     props: {
-      seo,
       platforms,
       ...(await ssrTranslations(locale)),
     },

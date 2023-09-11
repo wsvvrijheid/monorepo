@@ -1,8 +1,6 @@
-import { FC } from 'react'
-
 import { Box } from '@chakra-ui/react'
 import { GetStaticPropsContext } from 'next'
-import { NextSeoProps } from 'next-seo'
+import { useTranslation } from 'next-i18next'
 
 import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import { StrapiLocale } from '@wsvvrijheid/types'
@@ -10,9 +8,11 @@ import { SignupForm } from '@wsvvrijheid/ui'
 
 import { Layout } from '../components'
 
-const RegisterPage: FC<{ seo: NextSeoProps }> = ({ seo }) => {
+const RegisterPage = () => {
+  const { t } = useTranslation()
+
   return (
-    <Layout seo={seo}>
+    <Layout seo={{ title: t('login.sign-up-header.title') }}>
       <Box minH="inherit">
         <SignupForm />
       </Box>
@@ -20,31 +20,14 @@ const RegisterPage: FC<{ seo: NextSeoProps }> = ({ seo }) => {
   )
 }
 
-export default RegisterPage
-
 export const getStaticProps = async (context: GetStaticPropsContext) => {
   const locale = context.locale as StrapiLocale
 
-  const title = {
-    en: 'Register',
-    tr: 'Kayıt Ol',
-    nl: 'Inschrijven',
-  }
-
-  const description = {
-    en: '',
-    tr: '',
-    nl: '',
-  }
-  const seo = {
-    title: title[locale],
-    description: description[locale],
-  }
-
   return {
     props: {
-      seo,
-      ...(await ssrTranslations(locale)),
+      ...(await ssrTranslations(locale, ['admin', 'model'])),
     },
   }
 }
+
+export default RegisterPage

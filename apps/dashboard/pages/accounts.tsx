@@ -1,17 +1,16 @@
-import { FC } from 'react'
-
 import { Box } from '@chakra-ui/react'
-import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
+import { GetStaticPropsContext } from 'next'
+import { useTranslation } from 'next-i18next'
 
 import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import { StrapiLocale } from '@wsvvrijheid/types'
 import { AdminLayout } from '@wsvvrijheid/ui'
 
-type PageProps = InferGetStaticPropsType<typeof getStaticProps>
+const AccountsPage = () => {
+  const { t: tAdmin } = useTranslation('admin')
 
-const AccountsPage: FC<PageProps> = ({ seo }) => {
   return (
-    <AdminLayout seo={seo}>
+    <AdminLayout seo={{ title: tAdmin('accounts') }}>
       <Box>Accounts</Box>
     </AdminLayout>
   )
@@ -20,19 +19,8 @@ const AccountsPage: FC<PageProps> = ({ seo }) => {
 export const getStaticProps = async (context: GetStaticPropsContext) => {
   const locale = context.locale as StrapiLocale
 
-  const title = {
-    en: 'Accounts',
-    tr: 'Hesaplar',
-    nl: 'Accounts',
-  }
-
-  const seo = {
-    title: title[locale],
-  }
-
   return {
     props: {
-      seo,
       ...(await ssrTranslations(locale, ['admin', 'model'])),
     },
   }

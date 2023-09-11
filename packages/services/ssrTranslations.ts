@@ -6,4 +6,4 @@ import { StrapiLocale } from '@wsvvrijheid/types'
 export const ssrTranslations = async (
   locale: StrapiLocale,
   ns: string[] = [],
-) => serverSideTranslations(locale, ['common', ...ns], i18nConfig)
+) => serverSideTranslations(locale, ['common', 'model', ...ns], i18nConfig)
