@@ -1,7 +1,5 @@
-import { FC } from 'react'
-
 import { Image, SimpleGrid, Stack, Text } from '@chakra-ui/react'
-import { GetStaticPropsContext, InferGetServerSidePropsType } from 'next'
+import { GetStaticPropsContext } from 'next'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
