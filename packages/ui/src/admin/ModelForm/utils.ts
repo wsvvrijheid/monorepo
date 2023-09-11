@@ -47,7 +47,7 @@ export const mapModelToOption = (
 
   // User
   else if (user.email) {
-    label = user.name || user.username
+    label = user.email || user.name || user.username
   }
 
   // Category, Tag etc.
@@ -136,6 +136,13 @@ export const useDefaultValues = <T extends StrapiModel>(
           defaults.course = {
             label: applicationModel.course?.[`title_${locale}`],
             value: applicationModel.course?.id.toString(),
+          }
+
+          break
+        case 'user':
+          defaults.user = {
+            label: volunteerModel.user?.email,
+            value: volunteerModel.user?.id.toString(),
           }
 
           break
