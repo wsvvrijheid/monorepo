@@ -6,7 +6,7 @@ export const resetPasswordSchema = (t: TFunction) =>
     password: yup
       .string()
       .min(8, t('login.password.warning', { count: 8 }) as string)
-      .required(t('login.password.required') as string)
+      .required()
       .matches(
         RegExp('(.*[a-z].*)'),
         t('login.password.matches.lowercase') as string,

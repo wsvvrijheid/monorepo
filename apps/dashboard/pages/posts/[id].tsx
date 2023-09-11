@@ -1,9 +1,7 @@
-import { FC } from 'react'
-
 import { Box, Stack } from '@chakra-ui/react'
-import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
+import { GetServerSidePropsContext } from 'next'
 import { useRouter } from 'next/router'
-import { NextSeoProps } from 'next-seo'
+import { useTranslation } from 'next-i18next'
 
 import { useStrapiRequest } from '@wsvvrijheid/services'
 import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
@@ -18,11 +16,11 @@ import {
   useSchema,
 } from '@wsvvrijheid/ui'
 
-type PageProps = InferGetServerSidePropsType<typeof getServerSideProps>
-
-const PostPage: FC<PageProps> = ({ seo }) => {
+const PostPage = () => {
   const router = useRouter()
   const { query } = router
+
+  const { t } = useTranslation()
 
   const fields = useFields<Post>()
   const schemas = useSchema()
@@ -36,10 +34,14 @@ const PostPage: FC<PageProps> = ({ seo }) => {
   const post = data?.data
 
   return (
-    <AdminLayout seo={seo} isLoading={isLoading} hasBackButton>
+    <AdminLayout
+      seo={{ title: t('posts') }}
+      isLoading={isLoading}
+      hasBackButton
+    >
       <PageHeader>
-        {post?.localizations && (
-          <FormLocaleSwitcher models={post?.localizations} slug={'posts'} />
+        {(post?.localizations?.length || 0) > 0 && (
+          <FormLocaleSwitcher<Post> model={post!} />
         )}
       </PageHeader>
       <Stack spacing={4}>
@@ -73,20 +75,9 @@ export const getServerSideProps = async (
 ) => {
   const locale = context.locale as StrapiLocale
 
-  const title = {
-    en: 'Post',
-    tr: 'Post',
-    nl: 'Post',
-  }
-
-  const seo: NextSeoProps = {
-    title: title[locale],
-  }
-
   return {
     props: {
-      seo,
-      ...(await ssrTranslations(locale, ['admin', 'model'])),
+      ...(await ssrTranslations(locale)),
     },
   }
 }

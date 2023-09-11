@@ -139,9 +139,13 @@ async function strapiRequest<T extends StrapiModel>(
   } catch (errr) {
     const error = errr as Error | AxiosError
     if (axios.isAxiosError(error)) {
-      console.error('Request error', error.response?.data || error.message)
+      console.error(
+        'Request error',
+        args,
+        error.response?.data || error.message,
+      )
     } else {
-      console.error('Request error', error.message)
+      console.error('Request error', args, error.message)
     }
 
     if (id || isSingleType) {

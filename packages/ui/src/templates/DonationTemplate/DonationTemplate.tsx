@@ -3,8 +3,8 @@ import { FC, useState } from 'react'
 import {
   Box,
   Button,
-  HStack,
   ButtonGroup,
+  HStack,
   Heading,
   Image,
   NumberDecrementStepper,
@@ -24,7 +24,7 @@ import {
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import axios from 'axios'
-import { TFunction, useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next'
 import { useForm } from 'react-hook-form'
 import { AiOutlineEuroCircle } from 'react-icons/ai'
 import { FaDonate } from 'react-icons/fa'
@@ -34,13 +34,10 @@ import { Platform } from '@wsvvrijheid/types'
 
 import { Container, FormItem, PlatformList } from '../../components'
 
-function generateSchema(t: TFunction) {
+function generateSchema() {
   return yup.object().shape({
-    name: yup.string().required(t('apply-form.name.required')),
-    email: yup
-      .string()
-      .email(t('apply-form.email.invalid'))
-      .required(t('apply-form.email.required')),
+    name: yup.string().required(),
+    email: yup.string().email().required(),
   })
 }
 
@@ -75,7 +72,7 @@ export const DonationTemplate: FC<DonationTemplateProps> = ({
     handleSubmit,
     formState: { errors, isValid },
   } = useForm<FormFieldValues>({
-    resolver: yupResolver(generateSchema(t)),
+    resolver: yupResolver(generateSchema()),
     mode: 'onTouched',
   })
 
@@ -213,14 +210,12 @@ export const DonationTemplate: FC<DonationTemplateProps> = ({
               register={register}
               name="name"
               errors={errors}
-              label={t`apply-form.name.input`}
             />
             <FormItem
               isRequired
               register={register}
               name="email"
               errors={errors}
-              label={t`apply-form.email.input`}
             />
           </Stack>
 

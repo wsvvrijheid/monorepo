@@ -5,33 +5,38 @@ import { useRouter } from 'next/router'
 import { StrapiTranslatableModel } from '@wsvvrijheid/types'
 
 export const FormLocaleSwitcher = <T extends StrapiTranslatableModel>({
-  models,
+  model,
 }: {
-  models: T[]
-  slug?: string
+  model: T
 }) => {
   const router = useRouter()
   const slug = router.query.slug as string
 
+  const models = [model, ...(model.localizations || [])].sort((a, b) =>
+    a.locale.localeCompare(b.locale),
+  )
+
   return (
     <ButtonGroup>
-      {models?.map(model => {
+      {models?.map(m => {
         const href =
           slug && router.pathname !== '/translates'
-            ? `/${slug}/${model.id}`
+            ? `/${slug}/${m.id}`
             : {
                 pathname: router.pathname,
-                query: { ...router.query, id: model.id },
+                query: { ...router.query, id: m.id },
               }
 
         return (
           <Button
             as={Link}
-            key={model.id}
+            key={m.id}
             textTransform={'uppercase'}
             href={href}
+            isDisabled={m.locale === model.locale}
+            variant={m.locale === model.locale ? 'solid' : 'outline'}
           >
-            {model.locale}
+            {m.locale}
           </Button>
         )
       })}

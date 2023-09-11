@@ -168,9 +168,22 @@ export type StrapiModel =
   | Volunteer
   | Vote
 
-export type StrapiAllModels = Expand<UnionToIntersection<StrapiModel>>
+export type StrapiSeoModel =
+  | Activity
+  | Announcement
+  | Art
+  | Blog
+  | Collection
+  | Course
+  | Hashtag
+  | Post
+  | RecommendedTopic
+  | RecommendedTweet
+  | Platform
 
-export type StrapiModelKeys = keyof StrapiAllModels
+export type StrapiMergedModels = Expand<UnionToIntersection<StrapiModel>>
+
+export type StrapiModelKeys = keyof StrapiMergedModels
 
 /**
  * STRAPI RESPONSE TYPES

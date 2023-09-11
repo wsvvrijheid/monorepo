@@ -84,7 +84,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
   const authorBlogs =
     (await getAuthorBlogs(locale, blog?.author?.id as number, blog.id)) || []
 
-  const seo = getPageSeo(blog, locale, 'blog')
+  const seo = getPageSeo(blog, 'blogs', locale)
 
   const source = await serialize(blog?.content || '')
 

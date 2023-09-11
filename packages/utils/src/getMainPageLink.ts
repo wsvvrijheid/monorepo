@@ -1,5 +1,5 @@
 import { ROUTES } from '@wsvvrijheid/config'
+import { StrapiEndpoint } from '@wsvvrijheid/types'
 
-export const getMainPageLink = (
-  type: keyof typeof ROUTES | 'post' | 'hashtag',
-): string => (ROUTES as any)[type].link.replace('/', '')
+export const getMainPageLink = (endpoint: StrapiEndpoint): string =>
+  (ROUTES as any)[endpoint].link.replace('/', '')

@@ -4,30 +4,26 @@ import {
   Box,
   Button,
   Grid,
-  Heading,
   HStack,
+  Heading,
+  Icon,
   Stack,
   Text,
-  Icon,
 } from '@chakra-ui/react'
-import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { FaArrowRight } from 'react-icons/fa'
 import { HiOutlineCalendar } from 'react-icons/hi'
 
-import { ROUTES } from '@wsvvrijheid/config'
 import { Hashtag } from '@wsvvrijheid/types'
 import { FormattedDate, Navigate, WImage } from '@wsvvrijheid/ui'
 import { getItemLink } from '@wsvvrijheid/utils'
 interface SliderHeroProps {
   item: Hashtag
-  type: keyof typeof ROUTES | 'post'
 }
 
-export const HashtagCard: FC<SliderHeroProps> = ({ item, type }) => {
-  const { locale } = useRouter()
+export const HashtagCard: FC<SliderHeroProps> = ({ item }) => {
   const { t } = useTranslation(['common'])
-  const link = getItemLink(item, locale, type)
+  const link = getItemLink(item, 'hashtags')
 
   return (
     <Grid

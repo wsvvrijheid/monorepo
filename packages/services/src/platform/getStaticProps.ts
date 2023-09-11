@@ -2,6 +2,7 @@ import { GetStaticPropsContext } from 'next/types'
 import { serialize } from 'next-mdx-remote/serialize'
 
 import { StrapiLocale } from '@wsvvrijheid/types'
+import { getMediaUrl } from '@wsvvrijheid/utils'
 
 import { getPlatformBySlug } from './getBySlug'
 
@@ -36,7 +37,7 @@ export const getPlatformStaticProps = async (
   const title = platformData.title[locale]
   const description = platformData.description[locale]
   const content = platformData.content[locale]
-  const image = platform.image
+  const image = getMediaUrl(platform.image)
   const link = platform.link
 
   const seo = {

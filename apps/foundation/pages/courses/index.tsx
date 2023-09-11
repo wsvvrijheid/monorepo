@@ -3,6 +3,7 @@ import { FC } from 'react'
 import { Box, Heading, SimpleGrid, Stack, Text } from '@chakra-ui/react'
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
 
 import { COURSES } from '@wsvvrijheid/config'
 import { strapiRequest } from '@wsvvrijheid/lib'
@@ -15,10 +16,14 @@ import { Layout } from '../../components'
 
 type CoursesProps = InferGetStaticPropsType<typeof getStaticProps>
 
-const Platforms: FC<CoursesProps> = ({ title, courses }) => {
+const Platforms: FC<CoursesProps> = ({ courses }) => {
   const { locale } = useRouter()
   const courseBody = COURSES.info?.[locale]?.title
   const courseMainTitle = COURSES.info?.[locale]?.pagetitle
+
+  const { t } = useTranslation()
+
+  const title = t('courses')
 
   const coursesData = courses?.data
 
@@ -72,21 +77,11 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
 
   const courses = await strapiRequest<Course>({
     endpoint: 'courses',
-    populate: '*',
   })
-
-  const seo = {
-    title: {
-      en: 'Courses',
-      nl: 'Curssusen',
-      tr: 'Kurslar',
-    },
-  }
 
   return {
     props: {
       ...(await ssrTranslations(locale)),
-      title: seo.title[locale],
       courses,
     },
     revalidate: 1,

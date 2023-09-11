@@ -1,7 +1,6 @@
-import { FC } from 'react'
-
 import { dehydrate, QueryClient } from '@tanstack/react-query'
-import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
+import { GetStaticPropsContext } from 'next'
+import { useTranslation } from 'next-i18next'
 
 import { strapiRequest } from '@wsvvrijheid/lib'
 import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
@@ -10,11 +9,11 @@ import { ArtClubTemplate } from '@wsvvrijheid/ui'
 
 import { Layout } from '../../components'
 
-type ClubPageProps = InferGetStaticPropsType<typeof getStaticProps>
+const ClubPage = () => {
+  const { t } = useTranslation()
 
-const ClubPage: FC<ClubPageProps> = ({ title }) => {
   return (
-    <Layout seo={{ title }}>
+    <Layout seo={{ title: t('art-stop') }}>
       <ArtClubTemplate />
     </Layout>
   )
@@ -41,18 +40,9 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
       }),
   })
 
-  const seo = {
-    title: {
-      en: 'Art Club',
-      nl: 'Kunst Club',
-      tr: 'Sanat Kulübü',
-    },
-  }
-
   return {
     props: {
       ...(await ssrTranslations(locale)),
-      title: seo.title[locale],
       dehydratedState: dehydrate(queryClient),
     },
     revalidate: 1,

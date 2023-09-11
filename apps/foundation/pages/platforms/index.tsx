@@ -1,6 +1,7 @@
 import { FC } from 'react'
 
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
+import { useTranslation } from 'next-i18next'
 
 import { strapiRequest } from '@wsvvrijheid/lib'
 import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
@@ -11,7 +12,11 @@ import { HomePlatform, Layout } from '../../components'
 
 type PlatformsProps = InferGetStaticPropsType<typeof getStaticProps>
 
-const Platforms: FC<PlatformsProps> = ({ title, platforms }) => {
+const Platforms: FC<PlatformsProps> = ({ platforms }) => {
+  const { t } = useTranslation()
+
+  const title = t('platforms')
+
   return (
     <Layout seo={{ title }} isDark>
       <Hero title={title} />
@@ -30,18 +35,9 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
     endpoint: 'platforms',
   })
 
-  const seo = {
-    title: {
-      en: 'Platforms',
-      nl: 'Platforms',
-      tr: 'Platformlar',
-    },
-  }
-
   return {
     props: {
       ...(await ssrTranslations(locale)),
-      title: seo.title[locale],
       platforms,
     },
     revalidate: 1,

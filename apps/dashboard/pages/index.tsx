@@ -1,4 +1,4 @@
-import { FC, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 
 import {
   Checkbox,
@@ -9,20 +9,18 @@ import {
   Wrap,
 } from '@chakra-ui/react'
 import { QueryClient, dehydrate } from '@tanstack/react-query'
-import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
-import { NextSeoProps } from 'next-seo'
+import { GetStaticPropsContext } from 'next'
+import { useTranslation } from 'next-i18next'
 
 import { RequestCollectionArgs, strapiRequest } from '@wsvvrijheid/lib'
 import { useStrapiRequest } from '@wsvvrijheid/services'
 import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import {
-  AccountStats as AccountStatsType,
   AccountStatsBase,
+  AccountStats as AccountStatsType,
   StrapiLocale,
 } from '@wsvvrijheid/types'
 import { AccountStats, AdminLayout, PageHeader } from '@wsvvrijheid/ui'
-
-type PageProps = InferGetStaticPropsType<typeof getStaticProps>
 
 const args: RequestCollectionArgs = {
   endpoint: 'account-statistics',
@@ -30,7 +28,9 @@ const args: RequestCollectionArgs = {
   pageSize: 100,
 }
 
-const Index: FC<PageProps> = ({ seo }) => {
+const Index = () => {
+  const { t } = useTranslation()
+
   const statsQuery = useStrapiRequest<AccountStatsType>(args)
   const statsData = [
     'tweets',
@@ -58,7 +58,7 @@ const Index: FC<PageProps> = ({ seo }) => {
 
   return (
     <>
-      <AdminLayout seo={seo}>
+      <AdminLayout seo={{ title: t('home') }}>
         <PageHeader>
           <CheckboxGroup
             defaultValue={accounts}
@@ -119,21 +119,10 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
     return strapiRequest<AccountStatsType>(args)
   })
 
-  const title = {
-    en: 'Home',
-    tr: 'Anasayfa',
-    nl: 'Home',
-  }
-
-  const seo: NextSeoProps = {
-    title: title[locale],
-  }
-
   return {
     props: {
-      seo,
       dehydratedState: dehydrate(queryClient),
-      ...(await ssrTranslations(locale, ['admin', 'model'])),
+      ...(await ssrTranslations(locale)),
     },
     revalidate: 1,
   }

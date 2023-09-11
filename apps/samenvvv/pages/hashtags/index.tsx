@@ -1,28 +1,22 @@
 import { Box, Stack } from '@chakra-ui/react'
 import { QueryClient, dehydrate } from '@tanstack/react-query'
-import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
+import { GetStaticPropsContext } from 'next'
 import { useRouter } from 'next/router'
-import { serialize } from 'next-mdx-remote/serialize'
-import { NextSeoProps } from 'next-seo'
+import { useTranslation } from 'next-i18next'
 
 import { RequestCollectionArgs, strapiRequest } from '@wsvvrijheid/lib'
 import { useStrapiRequest } from '@wsvvrijheid/services'
 import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import { Hashtag, StrapiLocale } from '@wsvvrijheid/types'
-import {
-  AnimatedBox,
-  Container,
-  HashtagCard,
-  Hero,
-  Markdown,
-} from '@wsvvrijheid/ui'
+import { AnimatedBox, Container, HashtagCard, Hero } from '@wsvvrijheid/ui'
 
 import { Layout } from '../../components'
 
-type HashtagEventsProps = InferGetStaticPropsType<typeof getStaticProps>
-
-const HashtagEvents = ({ seo, source }: HashtagEventsProps) => {
+const HashtagEvents = () => {
   const router = useRouter()
+
+  const { t } = useTranslation()
+  const title = t('hashtags')
 
   const hashtagsQuery = useStrapiRequest<Hashtag>({
     endpoint: 'hashtags',
@@ -34,19 +28,13 @@ const HashtagEvents = ({ seo, source }: HashtagEventsProps) => {
   })
 
   return (
-    <Layout seo={seo} isDark>
+    <Layout seo={{ title }} isDark>
       <Hero
-        title={seo.title as string}
+        title={title}
         isFullHeight={false}
         image={'/images/hashtags-bg.jpeg'}
       />
       <Container overflowX="hidden">
-        {source && (
-          <Box my={8} maxW="container.md" mx="auto" textAlign="center">
-            <Markdown source={source} />
-          </Box>
-        )}
-
         <Stack spacing={12} mb={12}>
           {hashtagsQuery.data?.data?.map((hashtag, i) => (
             <AnimatedBox
@@ -55,7 +43,7 @@ const HashtagEvents = ({ seo, source }: HashtagEventsProps) => {
               key={i}
             >
               <Box rounded="lg" overflow="hidden" bg="white" shadow="primary">
-                <HashtagCard item={hashtag} type="hashtag" />
+                <HashtagCard item={hashtag} />
               </Box>
             </AnimatedBox>
           ))}
@@ -75,7 +63,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
     endpoint: 'hashtags',
     locale,
     filters: {
-      status: { $eq: 'approved' },
+      approvalStatus: { $eq: 'approved' },
     },
     sort: ['date:desc'],
   }
@@ -84,37 +72,10 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
 
   await queryClient.prefetchQuery(queryKey, () => strapiRequest<Hashtag>(args))
 
-  const title = {
-    en: 'Hashtags',
-    nl: 'Hashtags',
-    tr: 'Hashtag Etiketleri',
-  }
-
-  const description = {
-    en: '',
-    nl: '',
-    tr: '',
-  }
-
-  const content = {
-    en: ``,
-    nl: ``,
-    tr: ``,
-  }
-
-  const seo: NextSeoProps = {
-    title: title[locale],
-    description: description[locale],
-  }
-
-  const source = (await serialize(content[locale].trim())) || null
-
   return {
     props: {
       dehydratedState: dehydrate(queryClient),
       ...(await ssrTranslations(locale)),
-      seo,
-      source,
     },
   }
 }

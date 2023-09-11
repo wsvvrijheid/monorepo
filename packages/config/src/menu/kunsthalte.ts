@@ -1,16 +1,16 @@
 import {
   about,
-  art,
-  collection,
+  arts,
+  collections,
   contact,
   privacy,
-  terms,
+  term,
   donation,
-  activity,
+  activities,
 } from './routes'
 
 export const kunsthalte = {
-  headerMenu: [art, collection, activity, about, contact],
+  headerMenu: [arts, collections, activities, about, contact],
   footerMenu: [
     {
       children: [
@@ -29,13 +29,13 @@ export const kunsthalte = {
       tr: 'Menu',
     },
     {
-      children: [art, collection],
+      children: [arts, collections],
       en: 'Menu',
       nl: 'Menu',
       tr: 'Menu',
     },
     {
-      children: [terms, privacy],
+      children: [term, privacy],
       en: 'Support',
       nl: 'Steun',
       tr: 'Destek',

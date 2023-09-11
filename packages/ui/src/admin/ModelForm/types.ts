@@ -74,7 +74,7 @@ export type ModelCreateFormBodyProps<T extends StrapiModel> = {
   model?: Partial<T>
   isChangingMedia: boolean
   toggleChangingMedia: () => void
-  tModel: TFunction<'model'>
+  t: TFunction<'common'>
 }
 
 export type ModelEditFormProps<T extends StrapiModel> = {
@@ -93,7 +93,7 @@ export type ModelEditModalProps<T extends StrapiModel> = Omit<
   ModalProps,
   'id' | 'children'
 > &
-  Omit<ModelEditFormProps<T>, 'model' | 'onSuccess'> & {
+  Omit<ModelEditFormProps<T>, 'onSuccess' | 'model'> & {
     title: string
     id: number
     isOpen: boolean

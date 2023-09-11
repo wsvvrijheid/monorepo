@@ -9,7 +9,8 @@ import { LocaleSwitcherProps } from './types'
 import { useScroll } from '../../hooks'
 
 const LocaleSwitcher: FC<LocaleSwitcherProps> = ({ isDark }) => {
-  const { push, pathname, locale, asPath, components, query } = useRouter()
+  const { push, pathname, locale, asPath, components, query, locales } =
+    useRouter()
   const isScrolled = useScroll()
 
   // We pass localized slugs to pageProps from getStaticProps or getServerSideProps
@@ -20,8 +21,6 @@ const LocaleSwitcher: FC<LocaleSwitcherProps> = ({ isDark }) => {
     const targetSlug = slugs?.[locale] || asPath
     push(targetSlug, undefined, { locale, scroll: false })
   }
-
-  const locales = ['en', 'nl', 'tr'] as StrapiLocale[]
 
   return (
     <ButtonGroup spacing={0} size="sm" alignItems="center">

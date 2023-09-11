@@ -37,7 +37,7 @@ export const ContactForm: FC<ContactFormProps> = ({
     reset,
     formState: { errors, isValid },
   } = useForm<ContactFormFieldValues>({
-    resolver: yupResolver(contactSchema(t)),
+    resolver: yupResolver(contactSchema),
     mode: 'all',
   })
 
@@ -50,13 +50,12 @@ export const ContactForm: FC<ContactFormProps> = ({
     <Stack rounded="lg" p={{ base: 8, lg: 16 }} shadow="base" spacing={4}>
       <Stack>
         <Heading size="lg">{t('contact.title')}</Heading>
-        <Text fontSize="sm">{t('contact.fill-form')}</Text>
+        <Text fontSize="sm">{t('contact.form.fill')}</Text>
       </Stack>
       <Divider />
       <VStack spacing={5} as="form" onSubmit={handleSubmit(onSubmit)}>
         <FormItem
           name="fullname"
-          label={t('contact.form.fullname-label') as string}
           leftElement={<BsPerson color="gray.800" />}
           errors={errors}
           register={register}
@@ -73,7 +72,7 @@ export const ContactForm: FC<ContactFormProps> = ({
         <FormItem
           as={Textarea}
           name="message"
-          label={t('contact.form.message-label') as string}
+          label={t('contact.form.message') as string}
           errors={errors}
           register={register}
         />
@@ -92,9 +91,7 @@ export const ContactForm: FC<ContactFormProps> = ({
         {isSuccess && (
           <Alert status="success">
             <AlertIcon />
-            <AlertDescription>
-              {t('contact.form.message-delivered')}
-            </AlertDescription>
+            <AlertDescription>{t('contact.form.success')}</AlertDescription>
           </Alert>
         )}
         {isError && (

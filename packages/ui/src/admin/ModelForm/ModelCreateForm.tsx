@@ -42,8 +42,7 @@ export const ModelCreateForm = <T extends StrapiModel>({
   >(endpoint)
 
   const { locale } = useRouter()
-  const { t: tCommon } = useTranslation()
-  const { t: tModel } = useTranslation('model')
+  const { t } = useTranslation()
 
   const postModel = model as unknown as Post
   const [isChangingImage, setIsChangingImage] = useBoolean(
@@ -139,12 +138,16 @@ export const ModelCreateForm = <T extends StrapiModel>({
   const groupedFields = fields.filter(value => value.group)
   const ungroupedFields = fields.filter(value => !value.group)
 
-  const options = groupedFields.map(field => ({
-    value: field.group?.value as string,
-    label: tModel(field.group?.name as keyof I18nNamespaces['model'], {
-      defaultValue: field.group?.label,
-    }),
-  }))
+  const options = groupedFields.map(field => {
+    const value = field.group?.value as string
+    const name = field.group?.name as keyof I18nNamespaces['common']
+    const label = field.group?.label as string
+
+    return {
+      value,
+      label: t(name, { defaultValue: label }),
+    }
+  })
   const [activeOption, setActiveOption] = useState(options[0]?.value)
 
   return (
@@ -160,7 +163,7 @@ export const ModelCreateForm = <T extends StrapiModel>({
           formProps,
           isChangingMedia: isChangingImage,
           toggleChangingMedia: setIsChangingImage.toggle,
-          tModel,
+          t,
         })}
 
         {groupedFields?.length > 0 && (
@@ -168,7 +171,7 @@ export const ModelCreateForm = <T extends StrapiModel>({
             <Divider my={6} />
             <RadioCards
               defaultValue={groupedFields[0]?.group?.value}
-              options={options}
+              options={options as Option[]}
               setActiveOption={setActiveOption}
             />
             {renderCreateFormBody<T>({
@@ -178,7 +181,7 @@ export const ModelCreateForm = <T extends StrapiModel>({
               activeOption,
               isChangingMedia: isChangingImage,
               toggleChangingMedia: setIsChangingImage.toggle,
-              tModel,
+              t,
             })}
           </>
         )}
@@ -189,7 +192,7 @@ export const ModelCreateForm = <T extends StrapiModel>({
         type={'submit'}
         isLoading={createModelMutation.isLoading}
       >
-        {tCommon('create')}
+        {t('create')}
       </Button>
     </Stack>
   )

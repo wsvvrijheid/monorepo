@@ -31,9 +31,9 @@ const AboutUsBlock: FC<AboutUsBlockProps> = ({ image, title, description }) => {
   )
 }
 
-const AboutUs: FC<AboutUsProps> = ({ title, content, seo }) => {
+const AboutUs: FC<AboutUsProps> = ({ title, content }) => {
   return (
-    <Layout seo={seo} isDark>
+    <Layout seo={{ title }} isDark>
       <Hero title={title} />
       <Container>
         <SimpleGrid py={16} gap={8} columns={{ base: 1, lg: 3 }}>
@@ -58,16 +58,12 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
   const locale = context.locale as StrapiLocale
 
   const pageData = ABOUT_US[locale]
-  const seo = {
-    title: pageData.title,
-  }
 
   return {
     props: {
       ...(await ssrTranslations(locale)),
       title: pageData.title,
       content: pageData.content,
-      seo,
     },
   }
 }

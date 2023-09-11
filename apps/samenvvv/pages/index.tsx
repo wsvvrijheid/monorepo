@@ -21,18 +21,18 @@ import { Layout } from '../components'
 
 interface HomeProps {
   seo: NextSeoProps
-  link: string
   hashtags: Hashtag[]
 }
 
-const Home: FC<HomeProps> = ({ seo, link, hashtags }) => {
+const Home: FC<HomeProps> = ({ hashtags }) => {
   const { t } = useTranslation()
+  const link = getItemLink(hashtags?.[0], 'hashtags')
 
   const hashtag = hashtags?.[0]
   const hasStarted = isPast(new Date(hashtag?.date as string))
 
   return (
-    <Layout seo={seo} isDark hasScroll>
+    <Layout seo={{ title: t('home') }} isDark hasScroll>
       <Box
         bgGradient={'linear(to-b, primary.400, primary.500)'}
         mt={{ base: '-64px', lg: '-100px' }}
@@ -74,7 +74,7 @@ const Home: FC<HomeProps> = ({ seo, link, hashtags }) => {
           </Stack>
         </Container>
       </Box>
-      {!hasStarted && (
+      {!hasStarted && link && (
         <Box bg={'primary.50'} py={16} borderBottomWidth={1}>
           <Container maxW={'4xl'}>
             <HashtagAnnouncement hashtag={hashtag} link={link} />
@@ -89,12 +89,6 @@ const Home: FC<HomeProps> = ({ seo, link, hashtags }) => {
 export const getStaticProps = async (context: GetStaticPropsContext) => {
   const locale = context.locale as StrapiLocale
 
-  const title: Record<string, string> = {
-    en: 'Home',
-    nl: 'Home',
-    tr: 'Anasayfa',
-  }
-
   const { data: hashtags } = await strapiRequest<Hashtag>({
     endpoint: 'hashtags',
     locale,
@@ -105,19 +99,9 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
     pageSize: 4,
   })
 
-  const latestHashtag = hashtags?.[0] || null
-
-  const link = getItemLink(latestHashtag, locale, 'hashtag')
-
-  const seo: NextSeoProps = {
-    title: title[locale],
-  }
-
   return {
     props: {
       ...(await ssrTranslations(locale)),
-      link,
-      seo,
       hashtags,
     },
     revalidate: 1,

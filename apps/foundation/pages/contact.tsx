@@ -164,32 +164,14 @@ const Contact = ({ seo }: ContactProps): JSX.Element => {
   )
 }
 
-export default Contact
-
 export const getStaticProps = async (context: GetStaticPropsContext) => {
   const locale = context.locale as StrapiLocale
 
-  const title = {
-    en: 'Contact',
-    tr: 'İletişim',
-    nl: 'Contact',
-  }
-
-  const description = {
-    en: '',
-    tr: '',
-    nl: '',
-  }
-
-  const seo = {
-    title: title[locale],
-    description: description[locale],
-  }
-
   return {
     props: {
-      seo,
       ...(await ssrTranslations(locale)),
     },
   }
 }
+
+export default Contact

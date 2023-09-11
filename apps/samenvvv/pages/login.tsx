@@ -1,19 +1,18 @@
-import { FC } from 'react'
-
 import { Box } from '@chakra-ui/react'
-import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
-import { NextSeo, NextSeoProps } from 'next-seo'
+import { GetStaticPropsContext } from 'next'
+import { useTranslation } from 'next-i18next'
+import { NextSeo } from 'next-seo'
 
 import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import { StrapiLocale } from '@wsvvrijheid/types'
 import { LoginForm } from '@wsvvrijheid/ui'
 
-type PageProps = InferGetStaticPropsType<typeof getStaticProps>
+const LoginPage = () => {
+  const { t } = useTranslation()
 
-const LoginPage: FC<PageProps> = ({ seo }) => {
   return (
     <>
-      <NextSeo {...seo} />
+      <NextSeo title={t('login.signin')} />
       <Box minH="inherit" h="full">
         <LoginForm isLoginOnly={true} />
       </Box>
@@ -21,25 +20,14 @@ const LoginPage: FC<PageProps> = ({ seo }) => {
   )
 }
 
-export default LoginPage
-
 export const getStaticProps = async (context: GetStaticPropsContext) => {
   const locale = context.locale as StrapiLocale
 
-  const title = {
-    en: 'Login',
-    tr: 'Giriş',
-    nl: 'Login',
-  }
-
-  const seo: NextSeoProps = {
-    title: title[locale],
-  }
-
   return {
     props: {
-      seo,
-      ...(await ssrTranslations(locale, ['admin'])),
+      ...(await ssrTranslations(locale)),
     },
   }
 }
+
+export default LoginPage

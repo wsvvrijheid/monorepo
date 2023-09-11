@@ -18,13 +18,13 @@ type MdFormItemProps<T extends FieldValues> = {
 export const MdFormItem = <T extends FieldValues>({
   control,
   name,
-  label,
+  label: initialLabel,
   hideLabel,
   errors,
   isRequired,
   helperText,
   isDisabled,
-  placeholder,
+  placeholder: initialPlaceholder,
   ...rest
 }: MdFormItemProps<T>) => {
   const {
@@ -34,7 +34,11 @@ export const MdFormItem = <T extends FieldValues>({
     control,
   })
 
-  const { t: tModel } = useTranslation('model')
+  const { t } = useTranslation()
+
+  const translatedName = t(name as keyof I18nNamespaces['common'])
+  const label = initialLabel || translatedName
+  const placeholder = initialPlaceholder || translatedName
 
   const errorMessage = errors?.[name]?.['message'] as unknown as string
 
@@ -50,16 +54,12 @@ export const MdFormItem = <T extends FieldValues>({
     >
       {label && !hideLabel && (
         <FormLabel mb={1} htmlFor={name} fontSize="sm" fontWeight={600}>
-          {tModel(name as keyof I18nNamespaces['model'], {
-            defaultValue: label,
-          })}
+          {label}
         </FormLabel>
       )}
 
       <MarkdownEditor
-        placeholder={tModel(name as keyof I18nNamespaces['model'], {
-          defaultValue: placeholder || label,
-        })}
+        placeholder={placeholder}
         onChange={(value: { text: string; html: string }) =>
           onChange(value.text)
         }
