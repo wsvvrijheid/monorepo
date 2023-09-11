@@ -63,7 +63,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
     endpoint: 'hashtags',
     locale,
     filters: {
-      status: { $eq: 'approved' },
+      approvalStatus: { $eq: 'approved' },
     },
     sort: ['date:desc'],
   }
