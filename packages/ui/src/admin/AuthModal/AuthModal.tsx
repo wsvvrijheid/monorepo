@@ -47,6 +47,7 @@ export const AuthModal = () => {
     login,
     closeAuthModal,
     isAuthModalOpen,
+    checkAuth,
   } = useAuthContext()
 
   const router = useRouter()
@@ -60,11 +61,12 @@ export const AuthModal = () => {
   const handleSubmitSign: SubmitHandler<LoginFormFieldValues> = async data => {
     loginMutation.mutate(data, {
       onSuccess: async () => {
+        await checkAuth()
         setIsRedirecting(true)
-        reset()
-        closeAuthModal()
         await router.push('/')
         setIsRedirecting(false)
+        closeAuthModal()
+        reset()
       },
     })
   }
