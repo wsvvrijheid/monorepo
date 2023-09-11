@@ -9,7 +9,6 @@ export const useUserFeedbacksColumns =
       point: {},
       createdAt: {
         type: 'date',
-        componentProps: { format: 'dd MMMM' },
         sortable: true,
       },
       site: {},

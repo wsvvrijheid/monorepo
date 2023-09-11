@@ -5,7 +5,7 @@ import { Activity } from '@wsvvrijheid/types'
 
 export const getArtById = async (id: number) => {
   const response = await strapiRequest<Activity>({
-    url: 'api/arts',
+    endpoint: 'arts',
     id,
     populate: ['localizations', 'image', 'artist.avatar'],
   })

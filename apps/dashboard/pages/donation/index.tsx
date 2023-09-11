@@ -24,7 +24,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
   const locale = context.locale as StrapiLocale
 
   const platforms = await strapiRequest<Platform>({
-    url: 'api/platforms',
+    endpoint: 'platforms',
     locale,
   })
 

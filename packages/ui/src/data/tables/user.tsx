@@ -10,7 +10,6 @@ export const useUserColumns = (): WTableProps<User>['columns'] => {
     role: { transform: value => (value as Role)?.name },
     createdAt: {
       type: 'date',
-      componentProps: { format: 'dd MMMM' },
       sortable: true,
     },
   }

@@ -1,8 +1,9 @@
-import { FC, useState } from 'react'
+import { useState } from 'react'
 
 import { MenuItem, useUpdateEffect } from '@chakra-ui/react'
-import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
+import { GetStaticPropsContext } from 'next'
 import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
 import { FaArrowDown, FaArrowUp } from 'react-icons/fa'
 
 import { useStrapiRequest } from '@wsvvrijheid/services'
@@ -10,11 +11,11 @@ import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import { Course, Sort, StrapiLocale } from '@wsvvrijheid/types'
 import { AdminLayout, DataTable, PageHeader, useColumns } from '@wsvvrijheid/ui'
 
-type PageProps = InferGetStaticPropsType<typeof getStaticProps>
-
-const CoursesPage: FC<PageProps> = ({ seo }) => {
+const CoursesPage = () => {
   const [currentPage, setCurrentPage] = useState<number>(1)
   const [searchTerm, setSearchTerm] = useState<string>()
+
+  const { t } = useTranslation()
 
   const [sort, setSort] = useState<Sort>()
   const router = useRouter()
@@ -23,7 +24,7 @@ const CoursesPage: FC<PageProps> = ({ seo }) => {
   const columns = useColumns<Course>()
 
   const coursesQuery = useStrapiRequest<Course>({
-    url: 'api/courses',
+    endpoint: 'courses',
     populate: ['categories', 'tags', 'platforms', 'image', 'applications'],
     page: currentPage || 1,
     pageSize: 10,
@@ -64,7 +65,7 @@ const CoursesPage: FC<PageProps> = ({ seo }) => {
   }
 
   return (
-    <AdminLayout seo={seo}>
+    <AdminLayout seo={{ title: t('courses') }}>
       <PageHeader
         onSearch={handleSearch}
         searchPlaceHolder={'Search courses by title'}
@@ -94,20 +95,9 @@ const CoursesPage: FC<PageProps> = ({ seo }) => {
 export const getStaticProps = async (context: GetStaticPropsContext) => {
   const locale = context.locale as StrapiLocale
 
-  const title = {
-    en: 'Courses',
-    tr: 'Kurslar',
-    nl: 'Courses',
-  }
-
-  const seo = {
-    title: title[locale],
-  }
-
   return {
     props: {
-      seo,
-      ...(await ssrTranslations(locale, ['admin', 'model'])),
+      ...(await ssrTranslations(locale)),
     },
   }
 }

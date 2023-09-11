@@ -1,22 +1,22 @@
 import { useToast } from '@chakra-ui/react'
-import { useMutation, useQueryClient, QueryKey } from '@tanstack/react-query'
+import { QueryKey, useMutation, useQueryClient } from '@tanstack/react-query'
 
 import { useAuthContext } from '@wsvvrijheid/context'
 import { Mutation } from '@wsvvrijheid/lib'
-import { StrapiModel, StrapiUrl } from '@wsvvrijheid/types'
+import { StrapiEndpoint, StrapiModel } from '@wsvvrijheid/types'
 
 export const publishModel = <T extends StrapiModel>(
   id: number,
-  url: StrapiUrl,
+  endpoint: StrapiEndpoint,
   token: string,
 ) => {
   const body = { publishedAt: new Date() }
 
-  return Mutation.put<T, typeof body>(url, id, body, token)
+  return Mutation.put<T, typeof body>(endpoint, id, body, token)
 }
 
 export const usePublishModel = <T extends StrapiModel>(
-  url: StrapiUrl,
+  endpoint: StrapiEndpoint,
   queryKey?: QueryKey,
 ) => {
   const queryClient = useQueryClient()
@@ -24,9 +24,9 @@ export const usePublishModel = <T extends StrapiModel>(
   const { token } = useAuthContext()
 
   return useMutation({
-    mutationKey: [`publish-${url}`],
+    mutationKey: [`publish-${endpoint}`],
     mutationFn: ({ id }: { id: number }) =>
-      publishModel<T>(id, url, token as string),
+      publishModel<T>(id, endpoint, token as string),
     onSettled: () => {
       // It's difficult to invalidate cache for paginated or filtering queries
       // Cache invalidation strategy might differ depending on where the mutation is called

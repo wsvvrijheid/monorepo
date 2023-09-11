@@ -11,7 +11,7 @@ import {
   VStack,
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { TFunction, useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next'
 import { useForm } from 'react-hook-form'
 import { FiArrowRight } from 'react-icons/fi'
 import * as yup from 'yup'
@@ -22,24 +22,15 @@ import { CommentFormFieldValues, CommentFormProps } from './types'
 import { FormItem } from '../FormItem'
 import { WAvatar } from '../WAvatar'
 
-const userSchema = (t: TFunction) =>
-  yup.object({
-    content: yup
-      .string()
-      .required(t('comment-form.content.required') as string),
-  })
+const userSchema = yup.object({
+  content: yup.string().required(),
+})
 
-const publicSchema = (t: TFunction) =>
-  yup.object({
-    name: yup.string().required(t('comment-form.name.required') as string),
-    email: yup
-      .string()
-      .email(t('comment-form.email.invalid') as string)
-      .required(t('comment-form.email.required') as string),
-    content: yup
-      .string()
-      .required(t('comment-form.content.required') as string),
-  })
+const publicSchema = yup.object({
+  name: yup.string().required(),
+  email: yup.string().email().required(),
+  content: yup.string().required(),
+})
 
 export const CommentForm: React.FC<CommentFormProps> = ({
   onSendForm,
@@ -55,7 +46,7 @@ export const CommentForm: React.FC<CommentFormProps> = ({
     reset,
     formState: { errors, isValid },
   } = useForm<CommentFormFieldValues>({
-    resolver: yupResolver(isLoggedIn ? userSchema(t) : publicSchema(t)),
+    resolver: yupResolver(isLoggedIn ? userSchema : publicSchema),
     mode: 'all',
   })
 
@@ -71,7 +62,7 @@ export const CommentForm: React.FC<CommentFormProps> = ({
         fontWeight={600}
         textTransform="capitalize"
       >
-        {t('apply-form.comment-placeholder')}
+        {t('comments')}
       </Text>
       <VStack
         as="form"
@@ -85,7 +76,6 @@ export const CommentForm: React.FC<CommentFormProps> = ({
               <FormItem
                 name="name"
                 hideLabel
-                label={t('comment-form.name.placeholder') as string}
                 register={register}
                 errors={errors}
               />
@@ -93,7 +83,6 @@ export const CommentForm: React.FC<CommentFormProps> = ({
                 name="email"
                 type="email"
                 hideLabel
-                label={t('comment-form.email.placeholder') as string}
                 register={register}
                 errors={errors}
               />
@@ -111,7 +100,6 @@ export const CommentForm: React.FC<CommentFormProps> = ({
               as={Textarea}
               name="content"
               hideLabel
-              label={t('comment-form.content.placeholder') as string}
               register={register}
               errors={errors}
               {...useBreakpointValue({ base: { rows: 1 }, sm: { rows: 3 } })}

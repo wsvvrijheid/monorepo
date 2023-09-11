@@ -35,8 +35,6 @@ const StoryWithHooks: StoryFn<WTableProps<StrapiModel>> = args => {
 
     const [field, sort] = sortKey[0].split(':')
 
-    console.log('sortKey', sortKey)
-
     const sortedData = [...data].sort((a, b) => {
       const aValue = a[field as keyof StrapiModel] as StrapiModelKeys
       const bValue = b[field as keyof StrapiModel] as StrapiModelKeys

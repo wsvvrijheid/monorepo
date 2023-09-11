@@ -27,7 +27,7 @@ export const postFields: FormFields<Post> = [
   {
     name: 'hashtag',
     type: 'select',
-    url: 'api/hashtags',
+    endpoint: 'hashtags',
   },
   {
     name: 'image',
@@ -58,7 +58,7 @@ export const postFields: FormFields<Post> = [
   {
     name: 'tags',
     type: 'select',
-    url: 'api/tags',
+    endpoint: 'tags',
     isMulti: true,
   },
 ]

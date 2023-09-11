@@ -33,12 +33,10 @@ export const useActivityColumns = (): WTableProps<Activity>['columns'] => {
     },
     createdAt: {
       type: 'date',
-      componentProps: { format: 'dd MMMM' },
       sortable: true,
     },
     date: {
       type: 'date',
-      componentProps: { format: 'dd MMMM yyyy' },
       sortable: true,
     },
   }

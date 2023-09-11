@@ -1,19 +1,20 @@
-import { FC, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { useUpdateEffect } from '@chakra-ui/react'
-import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
+import { GetStaticPropsContext } from 'next'
 import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
 
 import { useStrapiRequest } from '@wsvvrijheid/services'
 import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import { Donation, Sort, StrapiLocale } from '@wsvvrijheid/types'
 import { AdminLayout, DataTable, PageHeader, useColumns } from '@wsvvrijheid/ui'
 
-type PageProps = InferGetStaticPropsType<typeof getStaticProps>
-
-const DonationsPage: FC<PageProps> = ({ seo }) => {
+const DonationsPage = () => {
   const [currentPage, setCurrentPage] = useState<number>(1)
   const [searchTerm, setSearchTerm] = useState<string>()
+
+  const { t } = useTranslation()
 
   const [sort, setSort] = useState<Sort | undefined>(['createdAt:desc'])
 
@@ -21,7 +22,7 @@ const DonationsPage: FC<PageProps> = ({ seo }) => {
   const columns = useColumns<Donation>()
 
   const donationsQuery = useStrapiRequest<Donation>({
-    url: 'api/donates',
+    endpoint: 'donates',
     page: currentPage || 1,
     pageSize: 50,
     filters: {
@@ -43,7 +44,7 @@ const DonationsPage: FC<PageProps> = ({ seo }) => {
   const totalCount = donationsQuery?.data?.meta?.pagination?.pageCount || 0
 
   return (
-    <AdminLayout seo={seo}>
+    <AdminLayout seo={{ title: t('donations') }}>
       <PageHeader
         onSearch={handleSearch}
         searchPlaceHolder={'Search arts by title or artist'}
@@ -60,25 +61,14 @@ const DonationsPage: FC<PageProps> = ({ seo }) => {
   )
 }
 
+export default DonationsPage
+
 export const getStaticProps = async (context: GetStaticPropsContext) => {
   const locale = context.locale as StrapiLocale
 
-  const title = {
-    en: 'Donations',
-    tr: 'Bağışlar',
-    nl: 'Donaties',
-  }
-
-  const seo = {
-    title: title[locale],
-  }
-
   return {
     props: {
-      seo,
-      ...(await ssrTranslations(locale, ['admin', 'model'])),
+      ...(await ssrTranslations(locale)),
     },
   }
 }
-
-export default DonationsPage

@@ -48,7 +48,7 @@ export const ResetPasswordForm = () => {
         passwordConfirmation: data.passwordConfirmation,
       }),
     onSuccess: () => {
-      toastMessage(null, t('login.reset-pass-header.text'), 'success')
+      toastMessage(null, t('reset-pass.text'), 'success')
       reset()
       setTimeout(() => {
         router.push('/login')
@@ -81,7 +81,7 @@ export const ResetPasswordForm = () => {
       >
         <Stack spacing="6">
           <Stack spacing={{ base: '2', md: '3' }} textAlign="center">
-            <Heading>{t('login.reset-pass-header.title')}</Heading>
+            <Heading>{t('reset-pass.title')}</Heading>
           </Stack>
         </Stack>
         <Stack spacing="6" as="form" onSubmit={handleSubmit(onSubmit)}>
@@ -89,7 +89,6 @@ export const ResetPasswordForm = () => {
             <FormItem
               id="password"
               type="password"
-              label={t('login.password.title') as string}
               autoComplete="current-password"
               register={register}
               errors={errors}
@@ -107,7 +106,7 @@ export const ResetPasswordForm = () => {
           </Stack>
           <Stack spacing="6">
             <Button type="submit" isLoading={isLoading}>
-              {t('login.forgot-pass-header.button')}
+              {t('submit')}
             </Button>
           </Stack>
         </Stack>

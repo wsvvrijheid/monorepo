@@ -40,7 +40,6 @@ export const useCollectionColumns = (): WTableProps<Collection>['columns'] => {
     },
     createdAt: {
       type: 'date',
-      componentProps: { format: 'dd MMMM' },
       sortable: true,
     },
   }

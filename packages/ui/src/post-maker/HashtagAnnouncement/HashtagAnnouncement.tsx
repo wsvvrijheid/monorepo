@@ -1,12 +1,11 @@
 import { FC } from 'react'
 
 import { Heading, SimpleGrid, Stack, Text } from '@chakra-ui/react'
-import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
 import { SITE_URL } from '@wsvvrijheid/config'
-import { Caps, Navigate, ShareButtons, useItemLink } from '@wsvvrijheid/ui'
-import { mapHashtagToOgParams } from '@wsvvrijheid/utils'
+import { Caps, Navigate, ShareButtons } from '@wsvvrijheid/ui'
+import { getItemLink, mapHashtagToOgParams } from '@wsvvrijheid/utils'
 
 import { HashtagAnnouncementProps } from './types'
 
@@ -15,14 +14,14 @@ export const HashtagAnnouncement: FC<HashtagAnnouncementProps> = ({
   link,
 }) => {
   const { t } = useTranslation()
-  const { locale } = useRouter()
-
-  const linkCaps = useItemLink(hashtag, 'hashtag')
 
   if (!hashtag) {
     return null
   }
-  const capsParams = mapHashtagToOgParams(hashtag, locale)
+
+  const linkCaps = getItemLink(hashtag, 'hashtags')
+
+  const capsParams = mapHashtagToOgParams(hashtag)
 
   return (
     <SimpleGrid gap={8}>

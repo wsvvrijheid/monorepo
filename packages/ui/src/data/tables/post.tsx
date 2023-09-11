@@ -24,7 +24,6 @@ export const usePostColumns = (): WTableProps<Post>['columns'] => {
     },
     createdAt: {
       type: 'date',
-      componentProps: { format: 'dd MMMM' },
       sortable: true,
     },
     translates: {

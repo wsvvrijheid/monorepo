@@ -1,15 +1,19 @@
-import { StrapiModel, StrapiUpdateInput, StrapiUrl } from '@wsvvrijheid/types'
+import {
+  StrapiEndpoint,
+  StrapiModel,
+  StrapiUpdateInput,
+} from '@wsvvrijheid/types'
 
 import { mutation } from './mutation'
 
 export const putMutation = <T extends StrapiModel, D extends StrapiUpdateInput>(
-  url: StrapiUrl,
+  endpoint: StrapiEndpoint,
   id: number,
   body: D,
   token: string,
 ) =>
   mutation<T, D>({
-    url,
+    endpoint,
     method: 'put',
     id,
     body,

@@ -22,12 +22,12 @@ export const userFields: FormFields<User> = [
   {
     name: 'volunteer',
     type: 'select',
-    url: 'api/volunteers',
+    endpoint: 'volunteers',
   },
   { name: 'avatar', isRequired: true, type: 'file' },
   {
     name: 'role',
     type: 'select',
-    url: 'api/roles',
+    endpoint: 'roles',
   },
 ]

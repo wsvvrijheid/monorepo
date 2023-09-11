@@ -2,7 +2,7 @@
 import { format } from 'date-fns'
 import { formatInTimeZone } from 'date-fns-tz'
 
-import { Hashtag, OgImageParams, StrapiLocale } from '@wsvvrijheid/types'
+import { Hashtag, OgImageParams } from '@wsvvrijheid/types'
 
 const capsContent = {
   en: { title: 'TAG ANNOUNCEMENT', topic: 'Topic' },
@@ -10,11 +10,9 @@ const capsContent = {
   tr: { title: 'ETİKET DUYURUSU', topic: 'Konu' },
 }
 
-export const mapHashtagToOgParams = (
-  hashtag: Hashtag,
-  locale: StrapiLocale,
-): OgImageParams => {
+export const mapHashtagToOgParams = (hashtag: Hashtag): OgImageParams => {
   const newDate = new Date(hashtag.date)
+  const locale = hashtag.locale
 
   const euDate = newDate ? format(newDate, 'dd MMMM yyyy') : ''
   const euTime = newDate

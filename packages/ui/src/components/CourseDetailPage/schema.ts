@@ -1,14 +1,9 @@
-import { TFunction } from 'next-i18next'
 import * as yup from 'yup'
 
-export const applicationSchema = (t: TFunction) =>
+export const applicationSchema = () =>
   yup.object({
-    name: yup.string().required(t('apply-form.name.required')),
-    email: yup
-      .string()
-      .email(t('apply-form.email.invalid'))
-      .max(255)
-      .required(t('apply-form.email.required')),
+    name: yup.string().required(),
+    email: yup.string().email().max(255).required(),
     country: yup.string().defined(),
     city: yup.string().defined(),
     phone: yup.string().defined(),

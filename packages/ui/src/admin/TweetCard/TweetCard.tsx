@@ -36,7 +36,7 @@ import { TweetCardProps } from './types'
 import { CreateTweetForm, WAvatar } from '../../components'
 import { CreateTweetFormFieldValues } from '../../components/CreateTweetForm/types'
 import { useFields, useSchema } from '../../data'
-import { FormFields, ModelCreateModal } from '../ModelForm'
+import { ModelCreateModal } from '../ModelForm'
 import { TweetContent } from '../TweetContent'
 
 export const TweetCard: FC<TweetCardProps> = ({
@@ -146,7 +146,7 @@ export const TweetCard: FC<TweetCardProps> = ({
                   </MenuItem>
                   <ModelCreateModal<Post>
                     title={t('create-post')}
-                    url="api/posts"
+                    endpoint={'posts'}
                     schema={schemas.posts!}
                     fields={fields.posts!}
                     model={newPost}

@@ -30,7 +30,6 @@ export const useHashtagColumns = (): WTableProps<Hashtag>['columns'] => {
     },
     createdAt: {
       type: 'date',
-      componentProps: { format: 'dd MMMM' },
       sortable: true,
     },
     posts: {

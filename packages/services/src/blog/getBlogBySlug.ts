@@ -12,7 +12,7 @@ export const getBlogBySlug = async (
   const response = await strapiRequest<
     SetRequired<Blog, 'author' | 'image' | 'likers'>
   >({
-    url: 'api/blogs',
+    endpoint: 'blogs',
     populate: ['author', 'image', 'likers'],
     filters: { slug: { $eq: slug } },
     locale,

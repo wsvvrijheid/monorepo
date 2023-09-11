@@ -138,14 +138,14 @@ export const getServerSideProps = async (
 
   const response = query.id
     ? await strapiRequest<Post>({
-        url: 'api/posts',
+        endpoint: 'posts',
         id: Number(query.id),
       })
     : null
 
   const post = response?.data
 
-  let seo = getPageSeo(hashtag, locale, 'hashtag')
+  let seo = getPageSeo(hashtag, 'hashtags', locale)
   let capsSrc = ''
 
   if (post) {
@@ -155,7 +155,7 @@ export const getServerSideProps = async (
     const caps = post?.caps?.url
 
     let src = image?.url
-    const link = getItemLink(post, locale, 'post') as string
+    const link = getItemLink(post, 'posts') as string
 
     if (caps) {
       capsSrc = `${ASSETS_URL}${caps}`
@@ -227,9 +227,7 @@ export const getServerSideProps = async (
 
   return {
     props: {
-      seo: {
-        ...seo,
-      },
+      seo,
       capsSrc: capsSrc || null,
       post: post || null,
       isIosSafari,

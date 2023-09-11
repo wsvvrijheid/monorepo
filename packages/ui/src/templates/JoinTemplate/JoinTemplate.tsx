@@ -35,7 +35,7 @@ export const JoinTemplate: FC<JoinTemplateProps> = ({ title }) => {
   const { locale } = useRouter()
 
   const platformsResult = useStrapiRequest<Platform>({
-    url: 'api/platforms',
+    endpoint: 'platforms',
     locale,
   })
 
@@ -45,7 +45,7 @@ export const JoinTemplate: FC<JoinTemplateProps> = ({ title }) => {
     ['create-volunteer'],
     (body: VolunteerCreateInput) =>
       Mutation.post<Volunteer, VolunteerCreateInput>(
-        'api/volunteers',
+        'volunteers',
         body,
         VOLUNTEER_TOKEN as string,
       ),
@@ -68,11 +68,7 @@ export const JoinTemplate: FC<JoinTemplateProps> = ({ title }) => {
 
       mutate(body, {
         onError: () =>
-          toastMessage(
-            t`apply-form.error.title`,
-            t`apply-form.error.description`,
-            'error',
-          ),
+          toastMessage(t`error`, t`apply-form.error.description`, 'error'),
       })
     } catch (error) {
       console.error('Submit volunteer form error', error)
@@ -99,7 +95,7 @@ export const JoinTemplate: FC<JoinTemplateProps> = ({ title }) => {
             <VStack spacing={4}>
               <AlertIcon boxSize="60px" mr={0} />
               <AlertTitle mt={4} mb={1} fontSize="2xl">
-                {t('apply-form.thanks.title')}
+                {t('thank-you')}
               </AlertTitle>
               <AlertDescription maxWidth="sm">
                 {t('apply-form.thanks.description')}

@@ -33,7 +33,7 @@ export const ArtAddToCollectionModal: FC<ArtAddToCollectionModalProps> = ({
   const { locale } = useRouter()
 
   const { data, isLoading, refetch } = useStrapiRequest<Art>({
-    url: 'api/arts',
+    endpoint: 'arts',
     filters: {
       ...(search ? { [`title_${locale}`]: { $containsi: search } } : {}),
       approvalStatus: { $eq: 'approved' },

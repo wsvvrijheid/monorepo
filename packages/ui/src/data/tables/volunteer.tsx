@@ -14,7 +14,6 @@ export const useVolunteerColumns = (): WTableProps<Volunteer>['columns'] => {
     occupation: {},
     createdAt: {
       type: 'date',
-      componentProps: { format: 'dd MMMM' },
       sortable: true,
     },
   }

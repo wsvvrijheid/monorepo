@@ -1,4 +1,4 @@
-import { FC, useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
 import {
   Box,
@@ -13,9 +13,9 @@ import {
   Tooltip,
 } from '@chakra-ui/react'
 import { addHours, formatDistanceToNow, isPast } from 'date-fns'
-import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
+import { GetStaticPropsContext } from 'next'
 import { useRouter } from 'next/router'
-import { NextSeoProps } from 'next-seo'
+import { useTranslation } from 'next-i18next'
 import { AiOutlineClear } from 'react-icons/ai'
 import { FaArrowDown, FaArrowUp, FaSyncAlt } from 'react-icons/fa'
 
@@ -25,9 +25,7 @@ import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import { StrapiLocale, TopicBase } from '@wsvvrijheid/types'
 import { AdminLayout, PageHeader, TopicCard } from '@wsvvrijheid/ui'
 
-type PageProps = InferGetStaticPropsType<typeof getStaticProps>
-
-const NewsPage: FC<PageProps> = ({ seo }) => {
+const NewsPage = () => {
   const { data, isLoading } = useTopic()
   const syncTopic = useTopicSync()
   const [sources, setSources] = useState<string[]>([])
@@ -36,6 +34,8 @@ const NewsPage: FC<PageProps> = ({ seo }) => {
   const [searchTerm, setSearchTerm] = useState<string>()
   const [sortDirection, setSortDirection] = useState<'DESC' | 'ASC'>('DESC')
   const { roles } = useAuthContext()
+
+  const { t } = useTranslation()
 
   const isAdmin = roles?.includes('admin')
 
@@ -137,7 +137,7 @@ const NewsPage: FC<PageProps> = ({ seo }) => {
   }
 
   return (
-    <AdminLayout seo={seo}>
+    <AdminLayout seo={{ title: t('news') }}>
       <PageHeader
         searchPlaceHolder="Search news"
         onSearch={setSearchTerm}
@@ -197,20 +197,9 @@ const NewsPage: FC<PageProps> = ({ seo }) => {
 export const getStaticProps = async (context: GetStaticPropsContext) => {
   const locale = context.locale as StrapiLocale
 
-  const title = {
-    en: 'News',
-    tr: 'Haberler',
-    nl: 'Nieuws',
-  }
-
-  const seo: NextSeoProps = {
-    title: title[locale],
-  }
-
   return {
     props: {
-      seo,
-      ...(await ssrTranslations(locale, ['admin', 'model'])),
+      ...(await ssrTranslations(locale)),
     },
   }
 }

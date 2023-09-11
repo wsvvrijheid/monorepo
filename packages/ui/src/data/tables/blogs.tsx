@@ -30,7 +30,6 @@ export const useBlogColumns = (): WTableProps<Blog>['columns'] => {
     },
     createdAt: {
       type: 'date',
-      componentProps: { format: 'dd MMMM' },
       sortable: true,
     },
   }

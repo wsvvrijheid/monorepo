@@ -29,18 +29,18 @@ export const activityFields: FormFields<Activity> = [
     name: 'platforms',
     type: 'select',
     isMulti: true,
-    url: 'api/platforms',
+    endpoint: 'platforms',
   },
   {
     name: 'categories',
     type: 'select',
     isMulti: true,
-    url: 'api/categories',
+    endpoint: 'categories',
   },
   {
     name: 'tags',
     type: 'select',
     isMulti: true,
-    url: 'api/tags',
+    endpoint: 'tags',
   },
 ]

@@ -13,7 +13,7 @@ export const recommendTweet = (
   token: string,
 ) => {
   return Mutation.post<RecommendedTweet, RecommendedTweetCreateInput>(
-    'api/recommended-tweets',
+    'recommended-tweets',
     recommendedTweet,
     token,
   )

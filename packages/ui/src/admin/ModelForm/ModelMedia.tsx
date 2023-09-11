@@ -5,9 +5,9 @@ import { IoMdCloudUpload } from 'react-icons/io'
 
 import {
   Post,
+  StrapiEndpoint,
   StrapiModel,
   StrapiTranslatableModel,
-  StrapiUrl,
 } from '@wsvvrijheid/types'
 import { getMediaUrl } from '@wsvvrijheid/utils'
 
@@ -20,7 +20,7 @@ export type ModelMediaProps<T extends FieldValues = FieldValues> = {
   isChangingMedia: boolean
   toggleChangingMedia: () => void
   setValue: UseFormSetValue<T>
-  url?: StrapiUrl
+  endpoint?: StrapiEndpoint
 }
 
 export const ModelMedia = <T extends FieldValues = FieldValues>({
@@ -29,7 +29,7 @@ export const ModelMedia = <T extends FieldValues = FieldValues>({
   isEditing,
   isChangingMedia: isChangingImage,
   toggleChangingMedia: toggleChangingImage,
-  url,
+  endpoint,
   name,
 }: ModelMediaProps<T>) => {
   const { title, description } = (model || {}) as StrapiTranslatableModel
@@ -72,7 +72,7 @@ export const ModelMedia = <T extends FieldValues = FieldValues>({
       return <VideoPlayer url={mediaUrl} />
     }
 
-    if (url === 'api/posts' && mediaUrl && name === 'image') {
+    if (endpoint === 'posts' && mediaUrl && name === 'image') {
       return (
         <Caps
           imageParams={{

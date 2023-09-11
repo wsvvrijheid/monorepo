@@ -60,7 +60,7 @@ const CookieBanner = (props: CookieBannerProps) => {
         width={{ base: 'full', sm: 'auto' }}
       >
         <Button size="sm" flexShrink={0} onClick={onAllow}>
-          {t('cookie.button')}
+          {t('allow')}
         </Button>
       </Stack>
     </Stack>

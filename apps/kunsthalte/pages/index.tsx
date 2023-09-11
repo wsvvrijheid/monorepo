@@ -1,7 +1,5 @@
-import { FC } from 'react'
-
 import { Button, Center, Heading, Stack, Text, VStack } from '@chakra-ui/react'
-import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
+import { GetStaticPropsContext } from 'next'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { BsActivity, BsCollectionFill } from 'react-icons/bs'
@@ -13,14 +11,12 @@ import { AnimatedBox, Container, Navigate } from '@wsvvrijheid/ui'
 
 import { Layout } from '../components'
 
-type HomeProps = InferGetStaticPropsType<typeof getStaticProps>
-
-const Home: FC<HomeProps> = ({ seo }) => {
+const Home = () => {
   const { t } = useTranslation()
   const { locale } = useRouter()
 
   return (
-    <Layout seo={seo}>
+    <Layout seo={{ title: t('home') }}>
       <Center
         minH="100vh"
         bg="gray.100"
@@ -39,7 +35,7 @@ const Home: FC<HomeProps> = ({ seo }) => {
         >
           <AnimatedBox directing="to-down">
             <VStack flex={1} py={16} spacing={4} textAlign="center">
-              <Heading fontWeight={900}>{t('art-station')}</Heading>
+              <Heading fontWeight={900}>{t('art-stop')}</Heading>
               <Text fontSize={{ base: 'md', lg: 'xl' }}>
                 &quot;<>{t('footer-about.kunsthalte')}</>&quot;
               </Text>
@@ -89,26 +85,8 @@ export default Home
 export const getStaticProps = async (context: GetStaticPropsContext) => {
   const locale = context.locale as StrapiLocale
 
-  const title = {
-    en: 'Homepage',
-    tr: 'Anasayfa',
-    nl: 'Home',
-  }
-
-  const description = {
-    en: '',
-    tr: '',
-    nl: '',
-  }
-
-  const seo = {
-    title: title[locale],
-    description: description[locale],
-  }
-
   return {
     props: {
-      seo,
       ...(await ssrTranslations(locale)),
     },
   }

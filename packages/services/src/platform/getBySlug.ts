@@ -3,7 +3,7 @@ import { Platform } from '@wsvvrijheid/types'
 
 export const getPlatformBySlug = async (slug: string) => {
   const response = await strapiRequest<Platform>({
-    url: 'api/platforms',
+    endpoint: 'platforms',
     filters: { slug: { $eq: slug } },
   })
 

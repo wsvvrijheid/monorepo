@@ -5,7 +5,7 @@ import { Topic } from '@wsvvrijheid/types'
 
 export const getTopics = async () => {
   const response = await strapiRequest<Topic>({
-    url: 'api/topic',
+    endpoint: 'topic',
   })
 
   return response?.data || ({} as Topic)
