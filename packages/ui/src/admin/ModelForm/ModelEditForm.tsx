@@ -344,7 +344,6 @@ export const ModelEditForm = <T extends StrapiModel>({
                     isRequired={field.isRequired}
                     name={field.name as string}
                     isDisabled={!isEditing}
-                    label={label}
                     errors={errors}
                     control={control}
                     _disabled={disabledStyle}
@@ -357,7 +356,6 @@ export const ModelEditForm = <T extends StrapiModel>({
                   <Box key={index} maxH={400} overflowY={'auto'}>
                     <MdFormItem
                       name={field.name as string}
-                      label={label}
                       isDisabled={!isEditing}
                       isRequired={field.isRequired}
                       errors={errors}
@@ -381,7 +379,6 @@ export const ModelEditForm = <T extends StrapiModel>({
                     {...(field.type === 'textarea' && { as: Textarea })}
                     name={field.name as string}
                     type={inputType}
-                    label={label}
                     isRequired={field.isRequired}
                     errors={errors}
                     register={register}

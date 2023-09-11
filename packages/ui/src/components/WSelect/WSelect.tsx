@@ -28,7 +28,7 @@ export type WSelectProps<T extends FieldValues> = {
 export const WSelect = <T extends FieldValues = FieldValues>({
   control,
   name,
-  label,
+  label: initialLabel,
   hideLabel,
   errors,
   isRequired,
@@ -45,6 +45,8 @@ export const WSelect = <T extends FieldValues = FieldValues>({
 
   const { t } = useTranslation()
 
+  const label = initialLabel || t(name)
+
   const errorMessage = errors?.[name]?.['message'] as unknown as string
 
   return (
@@ -57,7 +59,7 @@ export const WSelect = <T extends FieldValues = FieldValues>({
       {label && !hideLabel && (
         <Flex align={'center'} mb={1}>
           <FormLabel mb={0} htmlFor={name} fontSize="sm" fontWeight={600}>
-            {t(name, { defaultValue: label })}
+            {label}
           </FormLabel>
           {tooltip && (
             <Tooltip

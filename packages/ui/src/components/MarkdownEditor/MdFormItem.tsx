@@ -18,7 +18,7 @@ type MdFormItemProps<T extends FieldValues> = {
 export const MdFormItem = <T extends FieldValues>({
   control,
   name,
-  label,
+  label: initialLabel,
   hideLabel,
   errors,
   isRequired,
@@ -36,6 +36,8 @@ export const MdFormItem = <T extends FieldValues>({
 
   const { t } = useTranslation()
 
+  const label = initialLabel || t(name)
+
   const errorMessage = errors?.[name]?.['message'] as unknown as string
 
   return (
@@ -50,9 +52,7 @@ export const MdFormItem = <T extends FieldValues>({
     >
       {label && !hideLabel && (
         <FormLabel mb={1} htmlFor={name} fontSize="sm" fontWeight={600}>
-          {t(name as keyof I18nNamespaces['common'], {
-            defaultValue: label,
-          })}
+          {label}
         </FormLabel>
       )}
 

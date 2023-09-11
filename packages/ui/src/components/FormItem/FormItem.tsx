@@ -54,7 +54,7 @@ export const FormItem: FormItemComponent = forwardRef(
       type,
       as,
       leftElement,
-      label,
+      label: initialLabel,
       helperText,
       errors,
       register,
@@ -76,12 +76,14 @@ export const FormItem: FormItemComponent = forwardRef(
     const { ref: registerRef, ...registerRest } = register(name)
     const ref = useMergeRefs(formItemRef, registerRef)
 
+    const label = initialLabel || t(name)
+
     return (
       <FormControl isInvalid={Boolean(errors?.[name])} isRequired={isRequired}>
         {label && !hideLabel && (
           <Flex align={'center'} mb={1}>
             <FormLabel mb={0} htmlFor={name} fontSize="sm" fontWeight={600}>
-              {t(name, { defaultValue: label })}
+              {label}
             </FormLabel>
             {tooltip && (
               <Tooltip
