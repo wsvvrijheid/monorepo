@@ -33,7 +33,7 @@ export const WSelect = <T extends FieldValues = FieldValues>({
   errors,
   isRequired,
   helperText,
-  placeholder,
+  placeholder: initialPlaceholder,
   options,
   tooltip,
   ...rest
@@ -45,7 +45,9 @@ export const WSelect = <T extends FieldValues = FieldValues>({
 
   const { t } = useTranslation()
 
-  const label = initialLabel || t(name)
+  const translatedName = t(name as keyof I18nNamespaces['common'])
+  const label = initialLabel || translatedName
+  const placeholder = initialPlaceholder || translatedName
 
   const errorMessage = errors?.[name]?.['message'] as unknown as string
 
@@ -81,9 +83,7 @@ export const WSelect = <T extends FieldValues = FieldValues>({
 
       <Select<SelectOption, boolean, GroupBase<SelectOption>>
         options={options}
-        placeholder={t(name as keyof I18nNamespaces['common'], {
-          defaultValue: placeholder || label,
-        })}
+        placeholder={placeholder}
         {...field}
         onChange={val => field.onChange(val as any)}
         {...rest}

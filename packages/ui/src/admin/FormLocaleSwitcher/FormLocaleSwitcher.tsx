@@ -2,40 +2,41 @@ import { Button, ButtonGroup } from '@chakra-ui/react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
-import { StrapiLocale, StrapiTranslatableModel } from '@wsvvrijheid/types'
+import { StrapiTranslatableModel } from '@wsvvrijheid/types'
 
 export const FormLocaleSwitcher = <T extends StrapiTranslatableModel>({
-  models,
-  currentLocale,
+  model,
 }: {
-  models: T[]
-  currentLocale: StrapiLocale
+  model: T
 }) => {
   const router = useRouter()
   const slug = router.query.slug as string
 
+  const models = [model, ...(model.localizations || [])].sort((a, b) =>
+    a.locale.localeCompare(b.locale),
+  )
+
   return (
     <ButtonGroup>
-      {router.locales?.map(locale => {
-        const model = models.find(model => model.locale === locale) as T
-
+      {models?.map(m => {
         const href =
           slug && router.pathname !== '/translates'
-            ? `/${slug}/${model.id}`
+            ? `/${slug}/${m.id}`
             : {
                 pathname: router.pathname,
-                query: { ...router.query, id: model.id },
+                query: { ...router.query, id: m.id },
               }
 
         return (
           <Button
             as={Link}
-            key={model.id}
+            key={m.id}
             textTransform={'uppercase'}
             href={href}
-            variant={model.locale === currentLocale ? 'solid' : 'outline'}
+            isDisabled={m.locale === model.locale}
+            variant={m.locale === model.locale ? 'solid' : 'outline'}
           >
-            {model.locale}
+            {m.locale}
           </Button>
         )
       })}

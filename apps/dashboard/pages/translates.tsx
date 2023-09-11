@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 
 import {
+  Button,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -131,18 +132,28 @@ const ActivitiesTranslatePage = () => {
         onClickRow={handleClick}
         onSort={setSort}
       />
-      <Modal isCentered isOpen={isOpen} onClose={handleClose} size={'6xl'}>
+      <Modal
+        isCentered
+        isOpen={isOpen}
+        onClose={handleClose}
+        size={'full'}
+        scrollBehavior={'inside'}
+      >
         <ModalOverlay />
         <ModalContent>
           <ModalCloseButton />
-          <ModalBody py={8} h={'80vh'}>
+          <ModalBody p={0} h={'80vh'}>
             <ModelEditTranslate
               id={id}
               endpoint={slug}
               translatedFields={fields?.map(f => f.name) || []}
               fields={fields as any}
               schema={schema!}
-            />
+            >
+              <Button onClick={handleClose} colorScheme={'gray'}>
+                {t('dismiss')}
+              </Button>
+            </ModelEditTranslate>
           </ModalBody>
         </ModalContent>
       </Modal>

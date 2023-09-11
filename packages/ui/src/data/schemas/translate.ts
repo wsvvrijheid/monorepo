@@ -16,7 +16,7 @@ export const translatePostModelSchema = yup.object({
 })
 
 export const translateModelFields: FormFields<StrapiTranslatableModel> = [
-  { name: 'title', type: 'textarea' },
+  { name: 'title' },
   { name: 'description', type: 'textarea' },
   { name: 'content', type: 'markdown' },
 ]

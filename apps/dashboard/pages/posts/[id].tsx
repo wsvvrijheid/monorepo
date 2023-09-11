@@ -40,11 +40,8 @@ const PostPage = () => {
       hasBackButton
     >
       <PageHeader>
-        {post?.localizations && (
-          <FormLocaleSwitcher
-            models={post?.localizations}
-            currentLocale={post.locale}
-          />
+        {(post?.localizations?.length || 0) > 0 && (
+          <FormLocaleSwitcher<Post> model={post!} />
         )}
       </PageHeader>
       <Stack spacing={4}>

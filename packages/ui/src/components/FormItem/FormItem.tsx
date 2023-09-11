@@ -61,7 +61,7 @@ export const FormItem: FormItemComponent = forwardRef(
       isRequired,
       hideLabel,
       tooltip,
-      placeholder,
+      placeholder: initialPlaceholder,
       ...rest
     },
     formItemRef,
@@ -76,7 +76,9 @@ export const FormItem: FormItemComponent = forwardRef(
     const { ref: registerRef, ...registerRest } = register(name)
     const ref = useMergeRefs(formItemRef, registerRef)
 
-    const label = initialLabel || t(name)
+    const translatedName = t(name as keyof I18nNamespaces['common'])
+    const label = initialLabel || translatedName
+    const placeholder = initialPlaceholder || translatedName
 
     return (
       <FormControl isInvalid={Boolean(errors?.[name])} isRequired={isRequired}>
@@ -122,9 +124,7 @@ export const FormItem: FormItemComponent = forwardRef(
             ref={ref}
             id={name}
             type={type === 'password' ? (isOpen ? 'text' : 'password') : type}
-            placeholder={t(name as keyof I18nNamespaces['common'], {
-              defaultValue: placeholder || label,
-            })}
+            placeholder={placeholder}
             _placeholder={{ color: 'gray.300' }}
             {...registerRest}
             {...rest}

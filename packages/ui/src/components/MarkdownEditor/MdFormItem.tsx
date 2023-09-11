@@ -24,7 +24,7 @@ export const MdFormItem = <T extends FieldValues>({
   isRequired,
   helperText,
   isDisabled,
-  placeholder,
+  placeholder: initialPlaceholder,
   ...rest
 }: MdFormItemProps<T>) => {
   const {
@@ -36,7 +36,9 @@ export const MdFormItem = <T extends FieldValues>({
 
   const { t } = useTranslation()
 
-  const label = initialLabel || t(name)
+  const translatedName = t(name as keyof I18nNamespaces['common'])
+  const label = initialLabel || translatedName
+  const placeholder = initialPlaceholder || translatedName
 
   const errorMessage = errors?.[name]?.['message'] as unknown as string
 
@@ -57,9 +59,7 @@ export const MdFormItem = <T extends FieldValues>({
       )}
 
       <MarkdownEditor
-        placeholder={t(name as keyof I18nNamespaces['common'], {
-          defaultValue: placeholder || label,
-        })}
+        placeholder={placeholder}
         onChange={(value: { text: string; html: string }) =>
           onChange(value.text)
         }
