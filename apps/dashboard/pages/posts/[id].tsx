@@ -41,7 +41,10 @@ const PostPage = () => {
     >
       <PageHeader>
         {post?.localizations && (
-          <FormLocaleSwitcher models={post?.localizations} slug={'posts'} />
+          <FormLocaleSwitcher
+            models={post?.localizations}
+            currentLocale={post.locale}
+          />
         )}
       </PageHeader>
       <Stack spacing={4}>

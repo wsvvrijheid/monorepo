@@ -3,7 +3,6 @@ import { useState } from 'react'
 import {
   Box,
   Button,
-  FormLabel,
   HStack,
   Stack,
   Text,
@@ -159,7 +158,13 @@ export const ModelEditTranslate = <T extends StrapiTranslatableModel>({
       )}
       <Stack spacing={8} as="form" onSubmit={handleSubmit(onSaveModel)}>
         <FormLocaleSwitcher
-          models={model?.localizations as StrapiTranslatableModel[]}
+          currentLocale={model.locale}
+          models={
+            [
+              model,
+              ...(model?.localizations || []),
+            ] as StrapiTranslatableModel[]
+          }
         />
         {fields.map((field, index) => {
           return (
@@ -171,9 +176,6 @@ export const ModelEditTranslate = <T extends StrapiTranslatableModel>({
               shadow={'md'}
               bg={'white'}
             >
-              <FormLabel htmlFor={`${model?.id}`} textTransform={'capitalize'}>
-                {field?.name as string}
-              </FormLabel>
               <Stack direction={{ base: 'column', lg: 'row' }}>
                 {!isReferenceSelf && referenceModel && (
                   <HStack w={{ base: 'full', lg: 400 }} align="baseline">
@@ -195,7 +197,6 @@ export const ModelEditTranslate = <T extends StrapiTranslatableModel>({
                       {...(!isEditing && { p: 0 })}
                       key={index}
                       name={field.name as string}
-                      label={field?.label}
                       isDisabled={!isEditing}
                       isRequired={field.isRequired}
                       errors={errors}
