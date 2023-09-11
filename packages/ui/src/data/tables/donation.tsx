@@ -8,7 +8,6 @@ export const useDonationColumns = (): WTableProps<Donation>['columns'] => {
     email: { sortable: true },
     createdAt: {
       type: 'date',
-      componentProps: { format: 'dd MMMM' },
       sortable: true,
     },
     status: {

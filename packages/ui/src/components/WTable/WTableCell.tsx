@@ -43,7 +43,9 @@ export const WTableCell = <T extends StrapiModel>({
 
   // Date
   else if (type === 'date') {
-    cellContent = <FormattedDate {...props} date={data as string} />
+    cellContent = (
+      <FormattedDate format={'dd MMM yy'} {...props} date={data as string} />
+    )
   }
 
   // Image

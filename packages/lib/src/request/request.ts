@@ -83,7 +83,7 @@ async function strapiRequest<T extends StrapiModel>(
       ...(hasPublicationState &&
         includeDrafts && { publicationState: 'preview' }),
       populate,
-      ...(sort && { sort }),
+      sort: sort || ['createdAt:desc'],
     },
     { encodeValuesOnly: true },
   )

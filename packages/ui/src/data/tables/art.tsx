@@ -42,7 +42,6 @@ export const useArtColumns = (): WTableProps<Art>['columns'] => {
     },
     createdAt: {
       type: 'date',
-      componentProps: { format: 'dd MMMM' },
       sortable: true,
     },
   }
