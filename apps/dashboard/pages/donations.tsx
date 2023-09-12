@@ -7,13 +7,21 @@ import { useRouter } from 'next/router'
 import { useStrapiRequest } from '@wsvvrijheid/services'
 import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import { Donation, Sort, StrapiLocale } from '@wsvvrijheid/types'
+import { MonthPicker } from '@wsvvrijheid/ui'
 import { AdminLayout, DataTable, PageHeader, useColumns } from '@wsvvrijheid/ui'
 
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>
+type Month = {
+  startYear: number
+  startMonth: number
+  endYear: number
+  endMonth: number
+}
 
 const DonationsPage: FC<PageProps> = ({ seo }) => {
   const [currentPage, setCurrentPage] = useState<number>(1)
   const [searchTerm, setSearchTerm] = useState<string>()
+  const [month, setMonth] = useState<Month>()
 
   const [sort, setSort] = useState<Sort | undefined>(['createdAt:desc'])
 
@@ -26,6 +34,16 @@ const DonationsPage: FC<PageProps> = ({ seo }) => {
     pageSize: 50,
     filters: {
       ...(searchTerm && { email: { $containsi: searchTerm } }),
+      ...(month && {
+        createdAt: {
+          $gte: `${month?.startYear}-${month?.startMonth
+            .toString()
+            .padStart(2, '0')}-01T00:00:00.000Z`,
+          $lte: `${month?.endYear}-${month?.endMonth
+            .toString()
+            .padStart(2, '0')}-01T00:00:00.000Z`,
+        },
+      }),
     },
     sort,
   })
@@ -33,6 +51,10 @@ const DonationsPage: FC<PageProps> = ({ seo }) => {
   useEffect(() => setCurrentPage(1), [])
   const handleSearch = (search?: string) => {
     search ? setSearchTerm(search) : setSearchTerm(undefined)
+  }
+
+  const handleSelect = (selectedDate?: Month) => {
+    selectedDate ? setMonth(selectedDate) : setMonth(undefined)
   }
 
   useUpdateEffect(() => {
@@ -48,6 +70,7 @@ const DonationsPage: FC<PageProps> = ({ seo }) => {
         onSearch={handleSearch}
         searchPlaceHolder={'Search arts by title or artist'}
       />
+      <MonthPicker onRangeSelect={handleSelect} />
       <DataTable<Donation>
         columns={columns.donates!}
         data={donations}
