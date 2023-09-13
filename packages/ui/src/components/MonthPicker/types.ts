@@ -30,6 +30,7 @@ export type YearProps = Omit<MonthProps, 'monthIndex'> & {
 export type MonthPickerProps = {
   onRangeSelect?: (params: RangeParams) => void
   onSelect?: (params: PickParams) => void
+  onClear?: () => void
   columns?: SimpleGridProps['columns']
   disableFuture?: boolean
   children?: ReactNode
