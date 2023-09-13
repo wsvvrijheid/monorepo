@@ -9,24 +9,24 @@ import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import { Donation, Sort, StrapiLocale } from '@wsvvrijheid/types'
 import { MonthPicker } from '@wsvvrijheid/ui'
 import { AdminLayout, DataTable, PageHeader, useColumns } from '@wsvvrijheid/ui'
+import { RangeParams } from '@wsvvrijheid/ui/src/components/MonthPicker/types'
 
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>
-type Month = {
-  startYear: number
-  startMonth: number
-  endYear: number
-  endMonth: number
-}
 
 const DonationsPage: FC<PageProps> = ({ seo }) => {
   const [currentPage, setCurrentPage] = useState<number>(1)
   const [searchTerm, setSearchTerm] = useState<string>()
-  const [month, setMonth] = useState<Month>()
+  const [date, setDate] = useState<RangeParams>()
 
   const [sort, setSort] = useState<Sort | undefined>(['createdAt:desc'])
 
   const { locale } = useRouter()
   const columns = useColumns<Donation>()
+
+  const startDate =
+    date && new Date(date.startYear, date.startMonth).toISOString()
+
+  const endDate = date && new Date(date.endYear, date.endMonth).toISOString()
 
   const donationsQuery = useStrapiRequest<Donation>({
     endpoint: 'donates',
@@ -34,14 +34,10 @@ const DonationsPage: FC<PageProps> = ({ seo }) => {
     pageSize: 50,
     filters: {
       ...(searchTerm && { email: { $containsi: searchTerm } }),
-      ...(month && {
+      ...(date && {
         createdAt: {
-          $gte: `${month?.startYear}-${month?.startMonth
-            .toString()
-            .padStart(2, '0')}-01T00:00:00.000Z`,
-          $lte: `${month?.endYear}-${month?.endMonth
-            .toString()
-            .padStart(2, '0')}-01T00:00:00.000Z`,
+          $gte: startDate,
+          $lte: endDate,
         },
       }),
     },
@@ -53,8 +49,12 @@ const DonationsPage: FC<PageProps> = ({ seo }) => {
     search ? setSearchTerm(search) : setSearchTerm(undefined)
   }
 
-  const handleSelect = (selectedDate?: Month) => {
-    selectedDate ? setMonth(selectedDate) : setMonth(undefined)
+  const handleSelect = (selectedDate?: RangeParams) => {
+    selectedDate ? setDate(selectedDate) : setDate(undefined)
+  }
+
+  const handleClear = () => {
+    setDate(undefined)
   }
 
   useUpdateEffect(() => {
@@ -69,8 +69,10 @@ const DonationsPage: FC<PageProps> = ({ seo }) => {
       <PageHeader
         onSearch={handleSearch}
         searchPlaceHolder={'Search arts by title or artist'}
-      />
-      <MonthPicker onRangeSelect={handleSelect} />
+      >
+        <MonthPicker onClear={handleClear} onRangeSelect={handleSelect} />
+      </PageHeader>
+
       <DataTable<Donation>
         columns={columns.donates!}
         data={donations}
