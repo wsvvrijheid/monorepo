@@ -37,7 +37,7 @@ const DonationsPage: FC<PageProps> = ({ seo }) => {
       ...(date && {
         createdAt: {
           $gte: startDate,
-          $lte: endDate,
+          $lt: endDate,
         },
       }),
     },
