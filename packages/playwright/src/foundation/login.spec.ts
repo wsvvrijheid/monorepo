@@ -8,12 +8,8 @@ dotenv.config({ path: '.env.local' })
 // Error: Process from config.webServer was not able to start. Exit code: 1
 // To kill the process run the following command:
 // kill -9 $(lsof -t -i:PORT) on mac
-test('login foundation', async () => {
-  const browser = await chromium.launch()
-  const context = await browser.newContext()
-  const page = await context.newPage()
+test('login foundation', async ({ page }) => {
   await page.goto('http://localhost:3000/', { waitUntil: 'domcontentloaded' })
-
   await page.getByRole('button', { name: 'Allow' }).click()
   await page.getByRole('link', { name: 'Sign in' }).click()
   await page.getByTestId('input-email').click()
@@ -25,6 +21,4 @@ test('login foundation', async () => {
   await page.getByTestId('button-submit-login').click()
   await page.waitForNavigation()
   await expect(page).toHaveURL('http://localhost:3000/')
-
-  await browser.close()
 })
