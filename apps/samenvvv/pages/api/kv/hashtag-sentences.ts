@@ -3,7 +3,7 @@ import { unsealData } from 'iron-session/edge'
 import { NextRequest, NextResponse } from 'next/server'
 
 import { sessionOptions } from '@wsvvrijheid/secrets'
-import { RoleType, User } from '@wsvvrijheid/types'
+import { Auth, RoleType } from '@wsvvrijheid/types'
 
 export const config = {
   runtime: 'edge',
@@ -12,15 +12,20 @@ export const config = {
 const handler = async (req: NextRequest) => {
   const method = req.method
   try {
-    const { user }: { user: User & { roles: RoleType } } = await unsealData(
-      req.cookies.get('iron-session')?.value as string,
-      {
-        password: sessionOptions.password,
-      },
-    )
+    // Allow users to read the data without authentication
+    // but require admin role for all other mutations
+    if (method !== 'GET') {
+      const { user } = await unsealData<Auth>(
+        req.cookies.get('iron-session')?.value as string,
+        { password: sessionOptions.password },
+      )
 
-    if (!user || !user.roles?.includes('admin')) {
-      return
+      const allowedRoles: RoleType[] = ['admin', 'contentmanager']
+      const isAllowed = user?.roles?.some(role => allowedRoles.includes(role))
+
+      if (!isAllowed) {
+        throw new Error('Unauthorized')
+      }
     }
 
     if (method === 'POST') {

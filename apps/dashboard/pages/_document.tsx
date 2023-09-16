@@ -26,13 +26,6 @@ export default class Document extends NextDocument {
           />
           <link rel="manifest" href="/site.webmanifest" />
           <meta name="theme-color" content="#ffffff" />
-          {process.env.VERCEL_ENV === 'preview' && (
-            // eslint-disable-next-line @next/next/no-sync-scripts
-            <script
-              data-project-id="qOgGKhQfKQkreAvMYBda0CWkoPB9z7d4mqJqSYPD"
-              src="https://snippet.meticulous.ai/v1/meticulous.js"
-            />
-          )}
         </Head>
         <body>
           <ColorModeScript initialColorMode="light" />
