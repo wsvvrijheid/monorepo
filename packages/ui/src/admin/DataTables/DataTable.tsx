@@ -10,6 +10,7 @@ export const DataTable = <T extends StrapiModel>({
   currentPage,
   setCurrentPage,
   totalCount,
+  children,
   ...tableProps
 }: DataTableProps<T>) => {
   const { t } = useTranslation()
@@ -23,6 +24,7 @@ export const DataTable = <T extends StrapiModel>({
           <Box>{t('no-data')}</Box>
         )}
       </Box>
+      {children}
       <Spacer />
       <Box alignSelf="center">
         <Pagination
