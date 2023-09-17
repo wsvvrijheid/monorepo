@@ -8,7 +8,7 @@ export const ResponsiveCard = () => {
         <Stack w={{base: "100%", sm: "30%"}} display="flex" justify="center" align="center">
           <Image
             boxSize={{base: "2xs", sm: "xs"}}
-            objectFit="contain"
+            objectFit={{base: "none", sm: "cover"}}
             borderRadius={{base: "full", sm: "none"}}
             p={1}
             src={randomPic} 
