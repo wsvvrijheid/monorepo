@@ -87,9 +87,7 @@ const DonationsPage = () => {
         setCurrentPage={setCurrentPage}
         onSort={setSort}
       >
-        <Spacer />
-        <Flex textAlign={'right'}>
-          <Spacer />
+        <Flex justify={'end'}>
           <Box paddingY={2} paddingX={5} bg="white" shadow="base">
             Total Amount: <Text as="b">{totalAmount}</Text>
           </Box>

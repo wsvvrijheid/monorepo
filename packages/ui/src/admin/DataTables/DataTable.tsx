@@ -24,7 +24,7 @@ export const DataTable = <T extends StrapiModel>({
           <Box>{t('no-data')}</Box>
         )}
       </Box>
-      {children}
+      {tableProps.data.length > 0 && children}
       <Spacer />
       <Box alignSelf="center">
         <Pagination
