@@ -87,11 +87,13 @@ const DonationsPage = () => {
         setCurrentPage={setCurrentPage}
         onSort={setSort}
       >
-        <Flex justify={'end'}>
-          <Box paddingY={2} paddingX={5} bg="white" shadow="base">
-            Total Amount: <Text as="b">{totalAmount}</Text>
-          </Box>
-        </Flex>
+        {totalAmount && (
+          <Flex justify={'end'}>
+            <Box paddingY={2} paddingX={5} bg="white" shadow="base">
+              Total Amount: <Text as="b">{totalAmount}</Text>
+            </Box>
+          </Flex>
+        )}
       </DataTable>
     </AdminLayout>
   )
