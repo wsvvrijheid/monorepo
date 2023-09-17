@@ -6,7 +6,7 @@ import { Container } from '../components'
 export default {
   component: ResponsiveCard,
   title: 'Examples/ResponsiveCard',
-  decorators: [Story => <Container maxW="container.sm">{Story()}</Container>],
+  decorators: [Story => <Container maxW="container.md">{Story()}</Container>],
 } as Meta<typeof ResponsiveCard>
 
 type Story = StoryObj<typeof ResponsiveCard>
