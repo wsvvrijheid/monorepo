@@ -1,5 +1,8 @@
 {
   "extends": "@wsvvrijheid/config/tsconfig.nextjs.json",
   "include": ["next-env.d.ts", "@types/**/*.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["dist", "build", "node_modules"]
+  "exclude": ["dist", "build", "node_modules"],
+  "compilerOptions": {
+    "jsx": "react-jsx"
+  }
 }
