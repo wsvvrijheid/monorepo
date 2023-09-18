@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "dotenv -e ../../.env.local next dev",
-    "lotus": "dotenv -e ../../.env.local next dev",
+    "dev": "dotenv -e ../../.env.local next dev -- -p 3003",
+    "lotus": "dotenv -e ../../.env.local next dev -- -p 3003",
     "build": "next build",
     "start": "next start",
     "clean": "rm -rf node_modules .turbo .next",

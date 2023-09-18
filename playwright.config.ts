@@ -6,7 +6,7 @@ dotenv.config()
 const PORT = process.env.PORT || 3000
 
 // Set webServer.url and use.baseURL with the location of the WebServer respecting the correct set port
-const baseURL = `http://127.0.0.1:${PORT}`
+// const baseURL = `http://127.0.0.1:${PORT}`
 
 // Reference: https://playwright.dev/docs/test-configuration
 export default defineConfig({
@@ -21,14 +21,8 @@ export default defineConfig({
   // https://playwright.dev/docs/test-advanced#launching-a-development-web-server-during-the-tests
   webServer: [
     {
-      command: 'yarn foundation',
-      url: baseURL,
-      timeout: 120 * 1000,
-      reuseExistingServer: true,
-    },
-    {
-      command: 'cd apps/api && strapi dev"',
-      url: 'http://127.0.0.1:1337',
+      command: 'yarn dev',
+      url: 'http://localhost:3000',
       timeout: 120 * 1000,
       reuseExistingServer: true,
     },
@@ -37,7 +31,6 @@ export default defineConfig({
   use: {
     // Use baseURL so to make navigations relative.
     // More information: https://playwright.dev/docs/api/class-testoptions#test-options-base-url
-    // baseURL,
 
     // Retry a test if its failing with enabled tracing. This allows you to analyse the DOM, console logs, network traffic etc.
     // More information: https://playwright.dev/docs/trace-viewer
