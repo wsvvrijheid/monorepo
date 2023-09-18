@@ -41,6 +41,7 @@ export default defineConfig({
     //   ignoreHTTPSErrors: true,
     // },
   },
+  workers: process.env.CI ? 1 : undefined,
 
   projects: [
     {
