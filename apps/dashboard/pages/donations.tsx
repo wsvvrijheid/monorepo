@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import { useUpdateEffect, Box, Spacer, Text, Flex } from '@chakra-ui/react'
+import { useUpdateEffect, Box, Text, Flex } from '@chakra-ui/react'
 import { GetStaticPropsContext } from 'next'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
