@@ -40,3 +40,7 @@ yarn-error.log*
 # workbox-*.js
 
 storybook-static
+
+#playwright
+
+test-results
