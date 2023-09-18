@@ -13,7 +13,11 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 18
+      - name: Install yarn
+        run: npm install -g yarn
       - name: Install dependencies
+        run: yarn install
+      - name: Install ci dependencies
         run: yarn ci
       - name: Install Playwright Browsers
         run: yarn playwright install --with-deps
