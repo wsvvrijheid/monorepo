@@ -13,16 +13,12 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 18
-      - name: Install yarn
-        run: npm install -g yarn
       - name: Install dependencies
-        run: yarn install
-      - name: Install ci dependencies
-        run: yarn ci
+        run: npm ci
       - name: Install Playwright Browsers
-        run: yarn playwright install --with-deps
+        run: npx playwright install --with-deps
       - name: Run Playwright tests
-        run: yarn test
+        run: npx playwright test
       - uses: actions/upload-artifact@v3
         if: always()
         with:
