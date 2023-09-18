@@ -13,11 +13,11 @@ import { Blog } from '@wsvvrijheid/types'
 // const BLOG_URL = `${API_URL}/api/blogs` // https://api.wsvvrijheid.nl/api/blogs?locale=tr
 const BLOG_URL = `https://api.wsvvrijheid.nl/api/blogs?locale=tr` // https://api.wsvvrijheid.nl/api/blogs?locale=tr
 
-const headers = {Authorization: `Bearer ${TOKEN}`}
+const headers = { Authorization: `Bearer ${TOKEN}` }
 
 const getBlogs = async () => {
   try {
-    const res = await axios.get(`${BLOG_URL}`, {headers})
+    const res = await axios.get(`${BLOG_URL}`, { headers })
     if (res.status === 200) {
       console.log(res.data)
 
