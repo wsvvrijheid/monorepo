@@ -16,6 +16,8 @@ jobs:
       - name: Yarn install
         run: npm install -g yarn
       - name: Install dependencies
+        run: yarn install
+      - name: Install dependencies
         run: yarn ci
       - name: Install Playwright Browsers
         run: yarn playwright install --with-deps
