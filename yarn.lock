@@ -7554,6 +7554,11 @@ ci-info@3.8.0, ci-info@^3.2.0:
   version "3.8.0"
   resolved "https://registry.npmjs.org/ci-info/-/ci-info-3.8.0.tgz"
 
+ci@^2.3.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/ci/-/ci-2.3.0.tgz#ff4afaee68a3257359f870f94658ebd4a8efa0d6"
+  integrity sha512-0MGXkzJKkwV3enG7RUxjJKdiAkbaZ7visCjitfpCN2BQjv02KGRMxCHLv4RPokkjJ4xR33FLMAXweS+aQ0pFSQ==
+
 cipher-base@^1.0.0, cipher-base@^1.0.1, cipher-base@^1.0.3:
   version "1.0.4"
   resolved "https://registry.npmjs.org/cipher-base/-/cipher-base-1.0.4.tgz"
