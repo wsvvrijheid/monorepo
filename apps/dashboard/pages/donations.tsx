@@ -64,11 +64,21 @@ const DonationsPage = () => {
 
   const donations = donationsQuery?.data?.data as Donation[]
   const totalCount = donationsQuery?.data?.meta?.pagination?.pageCount || 0
-  const totalAmount =
+  const totalPaid =
     donations &&
-    donations.reduce((acc, donation) => {
-      return acc + (donation.amount || 0)
-    }, 0)
+    donations
+      .filter(donation => donation.status === 'paid')
+      .reduce((acc, donation) => {
+        return acc + (donation.amount || 0)
+      }, 0)
+
+  const totalUnpaid =
+    donations &&
+    donations
+      .filter(donation => donation.status !== 'paid')
+      .reduce((acc, donation) => {
+        return acc + (donation.amount || 0)
+      }, 0)
 
   return (
     <AdminLayout seo={{ title: t('donations') }}>
@@ -87,10 +97,12 @@ const DonationsPage = () => {
         setCurrentPage={setCurrentPage}
         onSort={setSort}
       >
-        {totalAmount && (
+        {donations && (
           <Flex justify={'end'}>
             <Box paddingY={2} paddingX={5} bg="white" shadow="base">
-              Total Amount: <Text as="b">{totalAmount}</Text>
+              Total Paid: <Text as="b">{totalPaid}</Text>
+              <br />
+              Total Unpaid: <Text as="b">{totalUnpaid}</Text>
             </Box>
           </Flex>
         )}
