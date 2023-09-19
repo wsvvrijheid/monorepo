@@ -3,6 +3,8 @@
   "private": true,
   "scripts": {
     "build": "turbo run build --filter=!api",
+    "start": "turbo run start",
+    "build:api": "turbo run build --filter=api",
     "dev": "dotenv -- turbo run dev --concurrency=20",
     "dashboard": "turbo run dashboard --concurrency=20",
     "foundation": "turbo run foundation --concurrency=20",

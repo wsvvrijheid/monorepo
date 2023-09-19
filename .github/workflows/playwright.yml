@@ -6,33 +6,48 @@ on:
     branches: [playwright-github-actions]
 
 jobs:
-  get_branch_name:
+  build-and-test:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Extract branch name
-        shell: bash
-        run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}"
-        id: extract_branch
+        # Install dependencies for all apps
+      - name: Install dependencies
+        run: yarn install
 
-  test_e2e:
-    needs: get_branch_name
-    name: Playwright tests
-    timeout-minutes: 5
-    runs-on: ubuntu-latest
-    steps:
-      - name: Prepare testing env
-        uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: '18'
+        # Build all frontend apps
+      - name: Build frontend apps
+        run: yarn build && yarn build:api
+
+      # Start the Strapi backend app
+      - name: Start Strapi backend
+        run: yarn start-api &
         env:
-          PLAYWRIGHT_TEST_BASE_URL: ${{ steps.extract_branch.outputs.branch }}
-      - run: npm install ci
-      - run: npm ci
-      - run: npx playwright install --with-deps
+          NODE_ENV: production
+
+      # Wait for the backend app to start
+      - name: Wait for Strapi backend to start
+        run: |
+          while ! nc -z localhost 1337; do sleep 1; done
+
+      # Start all frontend apps
+      - name: Start frontend apps
+        run: |
+          yarn start-frontend-1 &
+          yarn start-frontend-2 &
+          yarn start-frontend-3 &
+          yarn start-frontend-4
+
+      # Wait for all frontend apps to start
+      - name: Wait for frontend apps to start
+        run: |
+          while ! nc -z localhost 3000; do sleep 1; done
+          while ! nc -z localhost 3001; do sleep 1; done
+          while ! nc -z localhost 3002; do sleep 1; done
+          while ! nc -z localhost 3003; do sleep 1; done
+
+      # Run tests
       - name: Run tests
-        run: npx playwright test
+        run: yarn test
