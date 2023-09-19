@@ -34,11 +34,10 @@ jobs:
 
       # Start all frontend apps
       - name: Start frontend apps
-        run: |
-          yarn start-frontend-1 &
-          yarn start-frontend-2 &
-          yarn start-frontend-3 &
-          yarn start-frontend-4
+        run: yarn start
+        env:
+          USERNAME: ${{ secrets.username }}
+          PASSWORD: ${{ secrets.password }}
 
       # Wait for all frontend apps to start
       - name: Wait for frontend apps to start

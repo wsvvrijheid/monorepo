@@ -8,6 +8,7 @@
     },
     "lint": {},
     "dev": { "cache": false, "persistent": true },
+    "start": { "cache": false, "persistent": true },
     "dashboard": { "cache": false, "persistent": true },
     "foundation": { "cache": false, "persistent": true },
     "kunsthalte": { "cache": false, "persistent": true },

@@ -6,7 +6,7 @@
     "dev": "dotenv -e ../../.env.local next dev -- -p 3004",
     "samenvvv": "dotenv -e ../../.env.local next dev -- -p 3004",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p 3004",
     "clean": "rm -rf node_modules .turbo .next",
     "lint": "next lint"
   }

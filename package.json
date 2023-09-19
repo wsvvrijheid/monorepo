@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "build": "turbo run build --filter=!api",
-    "start": "turbo run start",
+    "start": "yarn kill-port && turbo run start --concurrency=20",
     "build:api": "turbo run build --filter=api",
     "dev": "dotenv -- turbo run dev --concurrency=20",
     "dashboard": "turbo run dashboard --concurrency=20",
@@ -17,7 +17,8 @@
     "storybook": "turbo run storybook --concurrency=20",
     "storybook-build": "turbo run storybook-build",
     "format": "prettier --write \"**/*.{ts,tsx,md,json}\"",
-    "test": "kill-port 3000 3001 3002 3003 3004 1337 && playwright test"
+    "kill-ports": "kill-port 3000 3001 3002 3003 3004 1337",
+    "test": "yarn kill-port && playwright test"
   },
   "dependencies": {
     "@chakra-ui/react": "^2.8.1",
