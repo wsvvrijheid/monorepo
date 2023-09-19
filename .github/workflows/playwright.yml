@@ -29,10 +29,10 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: '18'
+        env:
+          PLAYWRIGHT_TEST_BASE_URL: ${{ steps.extract_branch.outputs.branch }}
       - run: npm install ci
       - run: npm ci
       - run: npx playwright install --with-deps
       - name: Run tests
         run: npx playwright test
-        env:
-          PLAYWRIGHT_TEST_BASE_URL: ${{ steps.extract_branch.outputs.branch }}
