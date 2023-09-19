@@ -13,9 +13,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Get branch name
-        id: branch_name
-        run: echo "::set-output name=branch_name::$(echo ${GITHUB_REF#refs/heads/})"
+      - name: Extract branch name
+        shell: bash
+        run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}"
+        id: extract_branch
 
   test_e2e:
     needs: get_branch_name
@@ -34,4 +35,4 @@ jobs:
       - name: Run tests
         run: npx playwright test
         env:
-          PLAYWRIGHT_TEST_BASE_URL: ${{ steps.branch_name.outputs }}
+          PLAYWRIGHT_TEST_BASE_URL: ${{ steps.extract_branch.outputs.branch }}

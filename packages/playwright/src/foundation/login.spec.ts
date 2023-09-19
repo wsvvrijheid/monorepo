@@ -1,11 +1,13 @@
 import { expect, test } from '@playwright/test'
 import dotenv from 'dotenv'
-dotenv.config({ path: '.env.local' })
+dotenv.config()
 console.log('url', process.env['PLAYWRIGHT_TEST_BASE_URL'])
 
 test('login foundation', async ({ page }) => {
   console.log('url', process.env['PLAYWRIGHT_TEST_BASE_URL'])
-  await page.goto('http://localhost:3001/', { waitUntil: 'domcontentloaded' })
+  await page.goto(process.env['PLAYWRIGHT_TEST_BASE_URL'] as string, {
+    waitUntil: 'domcontentloaded',
+  })
   await page.getByRole('button', { name: 'Allow' }).click()
   await page.getByRole('link', { name: 'Sign in' }).click()
   await page.getByTestId('input-email').click()
@@ -16,5 +18,7 @@ test('login foundation', async ({ page }) => {
     .fill(process.env['password'] as string)
   await page.getByTestId('button-submit-login').click()
   await page.waitForNavigation()
-  await expect(page).toHaveURL('http://localhost:3001/')
+  await expect(page).toHaveURL(
+    process.env['PLAYWRIGHT_TEST_BASE_URL'] as string,
+  )
 })
