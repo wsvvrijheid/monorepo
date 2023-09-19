@@ -6,20 +6,18 @@ on:
     branches: [playwright-github-actions]
 
 jobs:
-  test_setup:
-    name: Test setup
+  get_branch_name:
     runs-on: ubuntu-latest
-    outputs:
-      preview_url: ${{ steps.waitForVercelPreviewDeployment.outputs.url }}
+
     steps:
-      - name: Wait for Vercel preview deployment to be ready
-        uses: wsvvrijheid/monorepo@playwright-github-actions
-        id: waitForVercelPreviewDeployment
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          max_timeout: 300
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Get branch name
+        id: branch_name
+        run: 'Branch name is: ${{ github.ref }}'
+
   test_e2e:
-    needs: test_setup
     name: Playwright tests
     timeout-minutes: 5
     runs-on: ubuntu-latest
@@ -35,4 +33,4 @@ jobs:
       - name: Run tests
         run: yarn playwright test
         env:
-          PLAYWRIGHT_TEST_BASE_URL: ${{ needs.test_setup.outputs.preview_url }}
+          PLAYWRIGHT_TEST_BASE_URL: ${{ steps.branch_name.outputs }}
