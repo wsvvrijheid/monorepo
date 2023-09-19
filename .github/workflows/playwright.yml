@@ -29,9 +29,10 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: '18'
-      - run: npm ci
-      - run: npx playwright install --with-deps
+      - run: npm install -g yarn
+      - run: yarn ci
+      - run: yarn playwright install --with-deps
       - name: Run tests
-        run: npm run test:e2e
+        run: yarn playwright test
         env:
           PLAYWRIGHT_TEST_BASE_URL: ${{ needs.test_setup.outputs.preview_url }}
