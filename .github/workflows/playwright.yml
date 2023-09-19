@@ -33,7 +33,6 @@ jobs:
       # Wait for all frontend apps to start
       - name: Wait for all apps to start
         run: |
-          while ! nc -z localhost 1337; do sleep 1; done
           while ! nc -z localhost 3000; do sleep 1; done
           while ! nc -z localhost 3001; do sleep 1; done
           while ! nc -z localhost 3002; do sleep 1; done
