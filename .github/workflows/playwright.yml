@@ -18,6 +18,7 @@ jobs:
         run: echo "::set-output name=branch_name::$(echo ${GITHUB_REF#refs/heads/})"
 
   test_e2e:
+    needs: get_branch_name
     name: Playwright tests
     timeout-minutes: 5
     runs-on: ubuntu-latest
@@ -28,7 +29,6 @@ jobs:
         with:
           node-version: '18'
       - run: npm install -g yarn
-      - run: yarn ci
       - run: yarn playwright install --with-deps
       - name: Run tests
         run: yarn playwright test
