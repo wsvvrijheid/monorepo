@@ -1,9 +1,9 @@
 name: Playwright Tests
 on:
   push:
-    branches: [playwright-github-actions]
+    branches: [playwright-github-actions, pr]
   pull_request:
-    branches: [playwright-github-actions]
+    branches: [dev]
 
 jobs:
   build-and-test:
