@@ -19,7 +19,7 @@ jobs:
 
         # Build all frontend apps
       - name: Build all apps
-        run: yarn build && yarn build:api
+        run: yarn build
 
       # Start all frontend apps
       - name: Start all apps
@@ -28,6 +28,7 @@ jobs:
           NODE_ENV: production
           USERNAME: ${{ secrets.username }}
           PASSWORD: ${{ secrets.password }}
+          NEXT_PUBLIC_API_URL: https://wsvv-api-staging.onrender.com
 
       # Wait for all frontend apps to start
       - name: Wait for all apps to start
