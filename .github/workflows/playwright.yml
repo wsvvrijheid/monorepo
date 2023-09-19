@@ -18,30 +18,21 @@ jobs:
         run: yarn install
 
         # Build all frontend apps
-      - name: Build frontend apps
+      - name: Build all apps
         run: yarn build && yarn build:api
 
-      # Start the Strapi backend app
-      - name: Start Strapi backend
-        run: yarn start-api &
-        env:
-          NODE_ENV: production
-
-      # Wait for the backend app to start
-      - name: Wait for Strapi backend to start
-        run: |
-          while ! nc -z localhost 1337; do sleep 1; done
-
       # Start all frontend apps
-      - name: Start frontend apps
+      - name: Start all apps
         run: yarn start
         env:
+          NODE_ENV: production
           USERNAME: ${{ secrets.username }}
           PASSWORD: ${{ secrets.password }}
 
       # Wait for all frontend apps to start
-      - name: Wait for frontend apps to start
+      - name: Wait for all apps to start
         run: |
+          while ! nc -z localhost 1337; do sleep 1; done
           while ! nc -z localhost 3000; do sleep 1; done
           while ! nc -z localhost 3001; do sleep 1; done
           while ! nc -z localhost 3002; do sleep 1; done
