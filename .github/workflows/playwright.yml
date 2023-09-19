@@ -15,7 +15,7 @@ jobs:
 
       - name: Get branch name
         id: branch_name
-        run: echo 'Branch name is: ${{ github.ref }}'
+        run: echo "::set-output name=branch_name::$(echo ${GITHUB_REF#refs/heads/})"
 
   test_e2e:
     name: Playwright tests
