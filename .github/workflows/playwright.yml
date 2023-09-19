@@ -1,17 +1,21 @@
 name: Playwright Tests
 on:
-  push:
-    branches: [playwright-github-actions, pr]
   pull_request:
     branches: [dev]
 
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+      TURBO_TEAM: ${{ vars.TURBO_TEAM }}
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
 
         # Install dependencies for all apps
       - name: Install dependencies
