@@ -2,7 +2,7 @@
 
 import { FC, useEffect, useState } from 'react'
 
-import { Button, Code, Heading, Input, Stack } from '@chakra-ui/react'
+import { Alert, AlertIcon, AlertTitle, Button, Code, Heading, Input, Stack } from '@chakra-ui/react'
 import slugify from '@sindresorhus/slugify'
 
 import { createCategoryWithAxios, createCategoryWithMutation } from './utils'
@@ -21,6 +21,8 @@ export const CreateCategory: FC<CreateCategoryWithAxiosProps> = ({
 
   const [createdCategory, setCreatedCategory] = useState()
 
+  const [showAlert, setShowAlert] = useState<boolean>(false)
+
   useEffect(() => {
     setSlug(slugify(name_en ?? ''))
   }, [name_en])
@@ -29,12 +31,28 @@ export const CreateCategory: FC<CreateCategoryWithAxiosProps> = ({
     let blogs
 
     // TODO: Provide category body
+    const categoryBody = {
+      slug,
+      name_en,
+      name_nl,
+      name_tr,
+    }
+
+    // ? I assumed that at least one field would be required?
+    const isFormValid = slug.trim() || '' && name_en.trim() || '' && name_tr.trim() || '' && name_nl.trim() || ''
+    if (!isFormValid) {
+      setShowAlert(true)
+
+      return
+    } else {
+      setShowAlert(false)
+    }
 
     if (fetcher === 'axios') {
-      // const response = await createCategoryWithAxios(categoryBody)
-      // blogs = response.data
+      const response = await createCategoryWithAxios(categoryBody)
+      blogs = response.data
     } else if (fetcher === 'mutation') {
-      // blogs = await createCategoryWithMutation(categoryBody)
+      blogs = await createCategoryWithMutation(categoryBody)
     }
 
     setCreatedCategory(blogs)
@@ -51,8 +69,25 @@ export const CreateCategory: FC<CreateCategoryWithAxiosProps> = ({
           onChange={e => setNameEn(e.target.value)}
         />
         {/* TODO: Add all inputs */}
+        <Input
+          placeholder="Category name (tr)"
+          value={name_tr}
+          onChange={e => setNameTr(e.target.value)}
+        />
+        <Input
+          placeholder="Category name (nl)"
+          value={name_nl}
+          onChange={e => setNameNl(e.target.value)}
+        />
 
         <Button onClick={handleSubmit}>Submit</Button>
+
+        {showAlert &&
+          <Alert status='error'>
+            <AlertIcon />
+            <AlertTitle>Please provide a category name!</AlertTitle>
+          </Alert>
+        }
       </Stack>
     </Stack>
   )
