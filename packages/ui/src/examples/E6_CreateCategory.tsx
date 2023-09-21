@@ -5,6 +5,8 @@ import { FC, useEffect, useState } from 'react'
 import { Alert, AlertIcon, AlertTitle, Button, Code, Heading, Input, Stack } from '@chakra-ui/react'
 import slugify from '@sindresorhus/slugify'
 
+import { Category } from '@wsvvrijheid/types'
+
 import { createCategoryWithAxios, createCategoryWithMutation } from './utils'
 
 type CreateCategoryWithAxiosProps = {
@@ -19,7 +21,7 @@ export const CreateCategory: FC<CreateCategoryWithAxiosProps> = ({
   const [name_nl, setNameNl] = useState<string>('')
   const [slug, setSlug] = useState<string>('')
 
-  const [createdCategory, setCreatedCategory] = useState()
+  const [createdCategory, setCreatedCategory] = useState<Category>()
 
   const [showAlert, setShowAlert] = useState<boolean>(false)
 
@@ -39,14 +41,13 @@ export const CreateCategory: FC<CreateCategoryWithAxiosProps> = ({
     }
 
     // ? I assumed that at least one field would be required?
-    const isFormValid = slug.trim() || '' && name_en.trim() || '' && name_tr.trim() || '' && name_nl.trim() || ''
+    const isFormValid = slug.trim() !== '' && name_en.trim() !== '' && name_tr.trim() !== '' && name_nl.trim() !== ''
     if (!isFormValid) {
       setShowAlert(true)
 
       return
-    } else {
-      setShowAlert(false)
     }
+    setShowAlert(false)
 
     if (fetcher === 'axios') {
       const response = await createCategoryWithAxios(categoryBody)

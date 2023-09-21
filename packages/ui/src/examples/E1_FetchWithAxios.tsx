@@ -10,21 +10,16 @@ import { TOKEN } from '@wsvvrijheid/secrets'
 import { Blog } from '@wsvvrijheid/types'
 
 
-// const BLOG_URL = `${API_URL}/api/blogs` // https://api.wsvvrijheid.nl/api/blogs?locale=tr
-const BLOG_URL = `https://api.wsvvrijheid.nl/api/blogs?locale=tr` // https://api.wsvvrijheid.nl/api/blogs?locale=tr
+const BLOG_URL = `${API_URL}/api/blogs?locale=tr`
 
 const headers = { Authorization: `Bearer ${TOKEN}` }
 
 const getBlogs = async () => {
   try {
     const res = await axios.get(`${BLOG_URL}`, { headers })
-    if (res.status === 200) {
-      console.log(res.data)
+    if (res.status !== 200) throw new Error("Failed to fetch")
 
-      return res.data.data
-    } else {
-      console.error("Failed to fetch: ", res.statusText)
-    }
+    return res.data.data
   } catch (error) {
     console.error("Error fetching data: ", error)
   }
