@@ -40,7 +40,7 @@ export const CreateCategory: FC<CreateCategoryWithAxiosProps> = ({
       name_tr,
     }
 
-    // ? I assumed that at least one field would be required?
+    // Each field would be required... (as per feedback)
     const isFormValid = slug.trim() !== '' && name_en.trim() !== '' && name_tr.trim() !== '' && name_nl.trim() !== ''
     if (!isFormValid) {
       setShowAlert(true)
