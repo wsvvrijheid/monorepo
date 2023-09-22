@@ -5,7 +5,7 @@ import { FC, useEffect, useState } from 'react'
 import { Alert, AlertIcon, AlertTitle, Button, Code, Heading, Input, Stack } from '@chakra-ui/react'
 import slugify from '@sindresorhus/slugify'
 
-import { Category } from '@wsvvrijheid/types'
+import { Category, CategoryCreateInput } from '@wsvvrijheid/types'
 
 import { createCategoryWithAxios, createCategoryWithMutation } from './utils'
 
@@ -33,7 +33,7 @@ export const CreateCategory: FC<CreateCategoryWithAxiosProps> = ({
     let blogs
 
     // TODO: Provide category body
-    const categoryBody = {
+    const categoryBody: CategoryCreateInput = {
       slug,
       name_en,
       name_nl,

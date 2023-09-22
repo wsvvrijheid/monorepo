@@ -40,7 +40,7 @@ export const CreateCategoryWithUseMutation = () => {
     setShowAlert(false)
 
     // TODO: Call mutate with category body
-    const categoryBody = {
+    const categoryBody: CategoryCreateInput = {
       name_en,
       name_tr,
       name_nl,
