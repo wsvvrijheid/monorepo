@@ -43,15 +43,14 @@ export const syncNews = async ({ strapi }: { strapi: Strapi }) => {
 
     const recommendedTopics = (
       await Promise.all(
-        ['tr', 'en', 'nl'].map(
-          locale =>
-            strapi.entityService.findMany(
-              'api::recommended-topic.recommended-topic',
-              {
-                locale,
-                fields: ['url', 'locale'],
-              },
-            ) as Promise<AnyEntity>,
+        ['tr', 'en', 'nl'].map(locale =>
+          strapi.entityService.findMany(
+            'api::recommended-topic.recommended-topic',
+            {
+              locale,
+              fields: ['url', 'locale'],
+            },
+          ),
         ),
       )
     )

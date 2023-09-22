@@ -22,7 +22,7 @@ export default {
     const id = ctx.params.id
 
     const currentBlog = await strapi.entityService.findOne(
-      'api::blogs.blogs',
+      'api::blog.blog',
       id,
       {
         populate: ['localizations.image'],
@@ -31,7 +31,7 @@ export default {
 
     const referenceBlog = getReferenceModel(currentBlog)
 
-    const result = await strapi.entityService.update('api::blogs.blogs', id, {
+    const result = await strapi.entityService.update('api::blog.blog', id, {
       data: { image: referenceBlog.image?.id },
     })
 

@@ -9,7 +9,7 @@ export default {
         data: {
           approvalStatus: 'approved',
           publishedAt: new Date(),
-          approver: ctx.state.user.id,
+          // approver: ctx.state.user.id,
         },
       },
     )
