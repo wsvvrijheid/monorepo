@@ -159,8 +159,8 @@ export const ModelEditTranslate = <T extends StrapiTranslatableModel>({
           onCancel={() => setConfirmState(undefined)}
         />
       )}
-      <Stack>
-        <Stack p={8} spacing={8} as="form" onSubmit={handleSubmit(onSaveModel)}>
+      <Stack as="form" onSubmit={handleSubmit(onSaveModel)}>
+        <Stack p={8} spacing={8}>
           {(model?.localizations?.length || 0) > 0 && (
             <FormLocaleSwitcher model={model} />
           )}
