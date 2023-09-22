@@ -20,7 +20,7 @@ export default {
           to: artist.email,
           from: 'info@wsvvrijheid.nl',
           subject: `Dear ${artist.name || artist.username} your art "${
-            art.title
+            art.title_en
           }" has been ${result.status}`,
           html: `<div>
                   <p>Editor note: ${result.message}</p>

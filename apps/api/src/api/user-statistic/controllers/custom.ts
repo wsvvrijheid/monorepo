@@ -38,7 +38,7 @@ export default {
     const result = await Promise.all(
       users.map(async user => {
         const stats = await getStats(
-          user.id,
+          Number(user.id),
           date && new Date(date as string),
           days && parseInt(days as string),
         )
