@@ -55,8 +55,8 @@ export const ProfileMenu: FC<ProfileMenuProps> = ({ isDark, menu }) => {
       <MenuButton>
         <WAvatar
           boxSize={{ base: 10, lg: 12 }}
-          src={`${ASSETS_URL}${user?.avatar}`}
-          name={user?.name || user?.username}
+          src={`${ASSETS_URL}${user?.profile?.avatar}`}
+          name={user?.profile?.name || user?.username}
         />
       </MenuButton>
       <MenuList>

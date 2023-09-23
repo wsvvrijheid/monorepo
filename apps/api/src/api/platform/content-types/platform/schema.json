@@ -58,7 +58,9 @@
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": ["images"],
+      "allowedTypes": [
+        "images"
+      ],
       "pluginOptions": {}
     },
     "link": {
@@ -86,7 +88,7 @@
     "volunteers": {
       "type": "relation",
       "relation": "manyToMany",
-      "target": "api::volunteer.volunteer",
+      "target": "api::profile.profile",
       "mappedBy": "platforms"
     }
   }

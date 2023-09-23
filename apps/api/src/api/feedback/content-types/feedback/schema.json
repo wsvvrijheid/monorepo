@@ -24,7 +24,10 @@
     },
     "status": {
       "type": "enumeration",
-      "enum": ["approved", "rejected"],
+      "enum": [
+        "approved",
+        "rejected"
+      ],
       "required": true
     },
     "art": {
@@ -42,7 +45,7 @@
     "editor": {
       "type": "relation",
       "relation": "manyToOne",
-      "target": "plugin::users-permissions.user",
+      "target": "api::profile.profile",
       "inversedBy": "feedbacks"
     }
   }

@@ -1,9 +1,12 @@
-import { User, Volunteer } from '@wsvvrijheid/types'
+import { User, Profile } from '@wsvvrijheid/types'
 
 import { WTableProps } from '../../components'
 
-export const useVolunteerColumns = (): WTableProps<Volunteer>['columns'] => {
+export const useProfileColumns = (): WTableProps<Profile>['columns'] => {
   return {
+    avatar: {
+      type: 'image',
+    },
     user: {
       transform: value => (value as User)?.username,
     },

@@ -9,14 +9,9 @@
     "displayName": "User"
   },
   "options": {
-    "draftAndPublish": false,
-    "timestamps": true
+    "draftAndPublish": false
   },
   "attributes": {
-    "name": {
-      "type": "string",
-      "required": false
-    },
     "username": {
       "type": "string",
       "minLength": 3,
@@ -60,60 +55,12 @@
       "default": false,
       "configurable": false
     },
-    "avatar": {
-      "type": "media",
-      "multiple": false,
-      "required": false,
-      "allowedTypes": ["images"]
-    },
     "role": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "plugin::users-permissions.role",
       "inversedBy": "users",
       "configurable": false
-    },
-    "applicant": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::applicant.applicant",
-      "inversedBy": "user"
-    },
-    "comments": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::comment.comment",
-      "mappedBy": "user"
-    },
-    "feedbacks": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::feedback.feedback",
-      "mappedBy": "editor"
-    },
-    "juryVotes": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::vote.vote",
-      "mappedBy": "jury"
-    },
-    "langRoles": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::lang-role.lang-role",
-      "mappedBy": "translator"
-    },
-    "volunteer": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::volunteer.volunteer",
-      "inversedBy": "user"
-    },
-    "blogs": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::blog.blog",
-      "mappedBy": "author"
     }
   }
 }

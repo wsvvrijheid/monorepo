@@ -1,11 +1,11 @@
 import * as yup from 'yup'
 
-import { Volunteer } from '@wsvvrijheid/types'
+import { Profile } from '@wsvvrijheid/types'
 
 import { yupMultiSelect, yupSelect } from './common'
 import { FormFields } from '../../admin'
 
-export const useVolunteerSchema = () => {
+export const useProfileSchema = () => {
   return yup.object({
     name: yup.string().required(),
     username: yup.string().required(),
@@ -19,7 +19,7 @@ export const useVolunteerSchema = () => {
   })
 }
 
-export const volunteerFields: FormFields<Volunteer> = [
+export const profileFields: FormFields<Profile> = [
   { name: 'name', isRequired: true },
   { name: 'availableHours' },
   { name: 'username', isRequired: true },

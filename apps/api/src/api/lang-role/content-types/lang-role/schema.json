@@ -14,13 +14,20 @@
   "attributes": {
     "role": {
       "type": "enumeration",
-      "enum": ["en_tr", "en_nl", "tr_en", "tr_nl", "nl_en", "nl_tr"],
+      "enum": [
+        "en_tr",
+        "en_nl",
+        "tr_en",
+        "tr_nl",
+        "nl_en",
+        "nl_tr"
+      ],
       "required": true
     },
     "translator": {
       "type": "relation",
       "relation": "manyToOne",
-      "target": "plugin::users-permissions.user",
+      "target": "api::profile.profile",
       "inversedBy": "langRoles"
     }
   }

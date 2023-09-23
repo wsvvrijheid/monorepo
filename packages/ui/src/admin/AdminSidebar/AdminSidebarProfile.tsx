@@ -19,11 +19,11 @@ export const AdminSidebarProfile: FC<AdminSidebarProfileProps> = ({
   return (
     <Stack p={4} shadow="base">
       <HStack>
-        <WAvatar size="sm" src={user?.avatar} name={user?.username} />
+        <WAvatar size="sm" src={user?.profile?.avatar} name={user?.username} />
 
         <Box flex={1} fontSize="sm" lineHeight={1.25}>
           <Text w={160} noOfLines={1} fontWeight={600}>
-            {user?.name || user?.username}
+            {user?.profile?.name || user?.username}
           </Text>
           <Text w={160} noOfLines={1} textTransform={'capitalize'}>
             {user?.roles.join(' - ')}

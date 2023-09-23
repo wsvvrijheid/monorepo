@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
 
-import { ApprovalStatus, Art, StrapiLocale, User } from '@wsvvrijheid/types'
+import { ApprovalStatus, Art, Profile, StrapiLocale } from '@wsvvrijheid/types'
 
 import { LocaleBadges, PublicationBadges } from '../../admin'
 import { WTableProps } from '../../components'
@@ -13,7 +13,7 @@ export const useArtColumns = (): WTableProps<Art>['columns'] => {
     [`title_${locale}`]: {},
     [`description_${locale}`]: {},
     artist: {
-      transform: value => (value as User)?.username,
+      transform: value => (value as Profile)?.username,
       sortKey: 'username',
       sortable: true,
     },

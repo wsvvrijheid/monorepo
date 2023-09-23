@@ -20,8 +20,9 @@
     },
     "voter": {
       "type": "relation",
-      "relation": "oneToOne",
-      "target": "plugin::users-permissions.user"
+      "relation": "manyToOne",
+      "target": "api::profile.profile",
+      "inversedBy": "votes"
     },
     "application": {
       "type": "relation",
@@ -29,17 +30,17 @@
       "target": "api::application.application",
       "inversedBy": "votes"
     },
-    "jury": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "plugin::users-permissions.user",
-      "inversedBy": "juryVotes"
-    },
     "art": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::art.art",
       "inversedBy": "votes"
+    },
+    "jury": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::profile.profile",
+      "inversedBy": "juryVotes"
     }
   }
 }

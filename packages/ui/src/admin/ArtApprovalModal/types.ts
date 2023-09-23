@@ -1,8 +1,8 @@
-import { Art, SessionUser, User } from '@wsvvrijheid/types'
+import { Art, Profile, SessionUser } from '@wsvvrijheid/types'
 
 export type ArtApprovalTypes = {
   art: Art
-  artist?: User
+  artist?: Profile
   editor: SessionUser
   isOpen: boolean
   onClose: () => void

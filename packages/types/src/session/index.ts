@@ -1,3 +1,4 @@
+import { Profile } from '../profile'
 import { RoleType } from '../role'
 import { User } from '../user'
 
@@ -5,16 +6,14 @@ export type SessionUser = Pick<
   User,
   'id' | 'username' | 'email' | 'confirmed' | 'blocked'
 > & {
-  applicantId?: number
-  artistId?: number
-  avatar?: string
   roles: RoleType[]
-  name?: string
-  volunteerId?: number
+  profile?: Profile
+  profileId?: number
 }
 
 export type Auth = {
   user: SessionUser | null
+  profile: Profile | null
   isLoggedIn: boolean
   token: string | null
 }

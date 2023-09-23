@@ -2,6 +2,7 @@ import { Category } from './category'
 import { Expand } from './common'
 import { UploadFile } from './file'
 import { Platform } from './platform'
+import { Profile } from './profile'
 import { StrapiBase, StrapiCreatorRelation, StrapiEntityBase } from './strapi'
 import { Tag } from './tag'
 

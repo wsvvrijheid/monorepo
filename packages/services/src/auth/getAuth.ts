@@ -9,6 +9,7 @@ const emptyAuth: Auth = {
   user: null,
   isLoggedIn: false,
   token: null,
+  profile: null,
 }
 
 export const getAuth = async (identifier: string, password: string) => {
@@ -32,7 +33,8 @@ export const getAuth = async (identifier: string, password: string) => {
     return emptyAuth
   }
 
-  const auth: Auth = { user, token, isLoggedIn: true }
+  // TODO: Extend this with the profile data from the backend
+  const auth: Auth = { user, token, isLoggedIn: true, profile: null }
 
   return auth
 }

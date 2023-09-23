@@ -92,7 +92,7 @@ export const CommentForm: React.FC<CommentFormProps> = ({
             {isLoggedIn && (
               <WAvatar
                 size="sm"
-                src={`${user?.avatar}`}
+                src={`${user?.profile?.avatar}`}
                 name={user?.username}
               />
             )}

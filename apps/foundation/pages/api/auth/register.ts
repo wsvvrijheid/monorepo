@@ -30,6 +30,7 @@ const registerRoute = async (req: NextApiRequest, res: NextApiResponse) => {
       user: null,
       isLoggedIn: false,
       token: null,
+      profile: null,
     }
     const token = response.data?.jwt
 
@@ -43,7 +44,8 @@ const registerRoute = async (req: NextApiRequest, res: NextApiResponse) => {
       return emptyAuth
     }
 
-    const auth: Auth = { user, token, isLoggedIn: true }
+    // TODO: Extend this with the profile data from the backend
+    const auth: Auth = { user, token, isLoggedIn: true, profile: null }
 
     req.session = { ...auth, ...req.session }
 

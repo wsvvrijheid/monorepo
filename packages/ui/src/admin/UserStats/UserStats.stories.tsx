@@ -19,7 +19,6 @@ const makeStats = () => {
   const getStats = () => ({
     activity: getRandom(),
     total: getRandom(),
-    announcement: getRandom(),
     application: getRandom(),
     blog: getRandom(),
     collection: getRandom(),

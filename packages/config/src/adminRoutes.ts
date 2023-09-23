@@ -3,7 +3,6 @@ export const adminRoleRoutes = [
   '/accounts',
   '/activities',
   '/donations',
-  '/announcements',
   '/arts',
   '/blogs',
   '/collections',
@@ -14,10 +13,9 @@ export const adminRoleRoutes = [
   '/posts',
   '/timelines/recommended',
   '/translates',
-  '/users',
-  '/volunteers',
-  '/users',
+  '/profiles',
   '/user-feedbacks',
+  '/volunteers',
   'all',
 ] as const
 

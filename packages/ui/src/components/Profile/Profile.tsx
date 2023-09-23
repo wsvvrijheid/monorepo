@@ -52,7 +52,7 @@ export const AuthenticatedUserProfile = () => {
         <Stack>
           <WAvatar
             size="lg"
-            src={`${ASSETS_URL}${user?.avatar}`}
+            src={`${ASSETS_URL}${user?.profile?.avatar}`}
             name={user?.username}
           />
           <HStack
@@ -61,7 +61,7 @@ export const AuthenticatedUserProfile = () => {
             alignContent={'flex-end'}
             bg="transparent"
           >
-            <Text color={'white'}>{user?.name || user?.username}</Text>
+            <Text color={'white'}>{user?.profile?.name || user?.username}</Text>
           </HStack>
         </Stack>
       </Hero>
