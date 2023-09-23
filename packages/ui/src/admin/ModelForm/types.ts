@@ -45,7 +45,7 @@ type FormSelectFields = {
   endpoint: StrapiCollectionEndpoint
 }
 
-type FormCommonFields<T extends StrapiModel> = {
+export type FormCommonFields<T extends StrapiModel> = {
   name: keyof T
   label?: string
   isRequired?: boolean

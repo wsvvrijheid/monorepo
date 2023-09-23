@@ -46,7 +46,7 @@ import {
 
 import { ModelMedia } from './ModelMedia'
 import { ModelSelect } from './ModelSelect'
-import { ModelEditFormProps, Option } from './types'
+import { FormCommonFields, ModelEditFormProps, Option } from './types'
 import { useDefaultValues } from './utils'
 import { I18nNamespaces } from '../../../@types/i18next'
 import { FormItem, MasonryGrid, MdFormItem } from '../../components'
@@ -157,6 +157,7 @@ export const ModelEditForm = <T extends StrapiModel>({
   const onSaveModel = async (
     data: Record<string, string | File | Option | Option[]>,
   ) => {
+    console.log('data', data)
     const body = Object.entries(data).reduce((acc, [key, value]) => {
       if (value === undefined || !fields.some(f => f.name === key)) {
         return acc
@@ -182,7 +183,13 @@ export const ModelEditForm = <T extends StrapiModel>({
       }
     }, {} as StrapiTranslatableUpdateInput)
 
-    updateModelMutation.mutate({ id, ...body }, { onSuccess: handleSuccess })
+    // TODO: Why avatar comes as string? "[data: Blob]"
+    const avatar = endpoint === 'users' ? watch('avatar') : undefined
+
+    updateModelMutation.mutate(
+      { id, ...body, ...(avatar && { avatar }) },
+      { onSuccess: handleSuccess },
+    )
   }
 
   const onCancel = () => {
@@ -245,6 +252,12 @@ export const ModelEditForm = <T extends StrapiModel>({
     })
   }
 
+  const toggleChangingMedia = (field: FormCommonFields<T>) =>
+    setIsChangingImage(prev => ({
+      ...prev,
+      [field.name]: isChangingImage[field.name as string] ? false : true,
+    }))
+
   const disabledStyle = {
     borderColor: 'transparent',
     _hover: { borderColor: 'transparent' },
@@ -296,14 +309,7 @@ export const ModelEditForm = <T extends StrapiModel>({
                       name={field.name as string}
                       setValue={setValue}
                       isChangingMedia={isChangingImage[field.name as string]}
-                      toggleChangingMedia={() =>
-                        setIsChangingImage(prev => ({
-                          ...prev,
-                          [field.name]: isChangingImage[field.name as string]
-                            ? false
-                            : true,
-                        }))
-                      }
+                      toggleChangingMedia={() => toggleChangingMedia(field)}
                     />
                     <FormErrorMessage>
                       {errors[field.name as string]?.message as string}

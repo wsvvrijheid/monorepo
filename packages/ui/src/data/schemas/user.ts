@@ -24,7 +24,7 @@ export const userFields: FormFields<User> = [
     type: 'select',
     endpoint: 'volunteers',
   },
-  { name: 'avatar', isRequired: true, type: 'file' },
+  { name: 'avatar', type: 'file' },
   {
     name: 'role',
     type: 'select',
