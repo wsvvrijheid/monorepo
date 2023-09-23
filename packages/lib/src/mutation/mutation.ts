@@ -86,8 +86,6 @@ export const mutation = async <
     throw new Error(`Body is required for ${method} method`)
   }
 
-  console.log('body', body)
-
   const endpointsWithoutDataField: StrapiEndpoint[] = ['users', 'users/me']
   const hasBodyDataField = !endpointsWithoutDataField.includes(endpoint)
 
@@ -95,15 +93,12 @@ export const mutation = async <
     ? ({ data: body } as { data: D })
     : body
 
-  console.log('A', requestBody)
-
   const hasBodyFile = Object.values(body).some(
     value => value instanceof File || value instanceof Blob,
   )
 
   if (hasBodyFile) {
     requestBody = generateFormData<D>(body, hasBodyDataField)
-    console.log('B', requestBody)
   }
 
   try {

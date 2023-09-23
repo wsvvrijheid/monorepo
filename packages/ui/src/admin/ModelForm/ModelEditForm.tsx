@@ -157,7 +157,6 @@ export const ModelEditForm = <T extends StrapiModel>({
   const onSaveModel = async (
     data: Record<string, string | File | Option | Option[]>,
   ) => {
-    console.log('data', data)
     const body = Object.entries(data).reduce((acc, [key, value]) => {
       if (value === undefined || !fields.some(f => f.name === key)) {
         return acc
