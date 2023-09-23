@@ -5,9 +5,6 @@ dotenv.config({ path: '.env.local' })
 // Use process.env.PORT by default and fallback to port 3000
 const PORT = process.env.PORT || 3000
 
-// Set webServer.url and use.baseURL with the location of the WebServer respecting the correct set port
-// const baseURL = `http://127.0.0.1:${PORT}`
-
 // Reference: https://playwright.dev/docs/test-configuration
 export default defineConfig({
   // Test directory

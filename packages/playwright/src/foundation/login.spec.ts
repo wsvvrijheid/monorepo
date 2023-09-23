@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test'
 import dotenv from 'dotenv'
-import { getVercelUrl } from '../..'
+import { getVercelUrl } from '@wsvvrijheid/playwright'
 dotenv.config({ path: '.env.local' })
 
 test('login foundation', async ({ page }) => {
