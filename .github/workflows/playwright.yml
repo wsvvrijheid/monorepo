@@ -1,9 +1,9 @@
 name: Playwright Tests
 on:
   push:
-    branches: [playwright-github-actions]
+    branches: [main]
   pull_request:
-    branches: [playwright-github-actions]
+    branches: [main]
 
 jobs:
   test_e2e:
@@ -14,7 +14,7 @@ jobs:
       - name: Wait / Sleep Action
         uses: GuillaumeFalourd/wait-sleep-action@v1
         with:
-          time: '10s'
+          time: '10m'
       - name: Prepare testing env
         uses: actions/checkout@v2
       - uses: actions/setup-node@v2
