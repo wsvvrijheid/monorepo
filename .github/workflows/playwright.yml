@@ -22,13 +22,13 @@ jobs:
   test_e2e:
     needs: get_branch_name
     name: Playwright tests
-    timeout-minutes: 5
+    timeout-minutes: 15
     runs-on: ubuntu-latest
     steps:
       - name: Wait / Sleep Action
         uses: GuillaumeFalourd/wait-sleep-action@v1
         with:
-          time: '10m'
+          time: '7m'
       - name: Prepare testing env
         uses: actions/checkout@v2
       - uses: actions/setup-node@v2
