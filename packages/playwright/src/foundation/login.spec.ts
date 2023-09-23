@@ -1,11 +1,10 @@
 import { expect, test } from '@playwright/test'
 import dotenv from 'dotenv'
-dotenv.config()
-console.log('url', process.env['BASE_URL'])
+import { getVercelUrl } from '../..'
+dotenv.config({ path: '.env.local' })
 
 test('login foundation', async ({ page }) => {
-  console.log('url', process.env['BASE'])
-  await page.goto(`https://wsvvrijheid-git-dev-wsvvrijheid.vercel.app/`, {
+  await page.goto(getVercelUrl('wsvvrijheid'), {
     waitUntil: 'domcontentloaded',
   })
   await page.getByRole('button', { name: 'Allow' }).click()
@@ -18,7 +17,5 @@ test('login foundation', async ({ page }) => {
     .fill(process.env['password'] as string)
   await page.getByTestId('button-submit-login').click()
   await page.waitForNavigation()
-  await expect(page).toHaveURL(
-    `https://wsvvrijheid-git-dev-wsvvrijheid.vercel.app/`,
-  )
+  await expect(page).toHaveURL(getVercelUrl('wsvvrijheid'))
 })

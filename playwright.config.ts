@@ -1,6 +1,6 @@
 import { defineConfig, devices } from '@playwright/test'
 import dotenv from 'dotenv'
-dotenv.config()
+dotenv.config({ path: '.env.local' })
 
 // Use process.env.PORT by default and fallback to port 3000
 const PORT = process.env.PORT || 3000
@@ -19,14 +19,16 @@ export default defineConfig({
 
   // Run your local dev server before starting the tests:
   // https://playwright.dev/docs/test-advanced#launching-a-development-web-server-during-the-tests
-  // webServer: [
-  //   {
-  //     command: 'yarn dev',
-  //     url: 'http://localhost:3000',
-  //     timeout: 120 * 1000,
-  //     reuseExistingServer: true,
-  //   },
-  // ],
+  webServer: process.env['isDev']
+    ? [
+        {
+          command: 'yarn dev',
+          url: 'http://localhost:3000',
+          timeout: 120 * 1000,
+          reuseExistingServer: true,
+        },
+      ]
+    : undefined,
 
   use: {
     // Use baseURL so to make navigations relative.
