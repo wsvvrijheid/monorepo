@@ -15,7 +15,8 @@
     "storybook": "turbo run storybook --concurrency=20",
     "storybook-build": "turbo run storybook-build",
     "format": "prettier --write \"**/*.{ts,tsx,md,json}\"",
-    "playwright": "kill-port 3000 3001 3002 3003 3004 1337 && playwright test"
+    "kill-ports": "kill-port 3000 3001 3002 3003 3004 1337",
+    "test": "yarn kill-ports && playwright test"
   },
   "dependencies": {
     "@chakra-ui/react": "^2.8.1",
