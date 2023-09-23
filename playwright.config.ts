@@ -2,9 +2,6 @@ import { defineConfig, devices } from '@playwright/test'
 import dotenv from 'dotenv'
 dotenv.config({ path: '.env.local' })
 
-// Use process.env.PORT by default and fallback to port 3000
-const PORT = process.env.PORT || 3000
-
 // Reference: https://playwright.dev/docs/test-configuration
 export default defineConfig({
   // Test directory

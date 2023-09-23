@@ -1,4 +1,4 @@
-const isDevMode = process.env['isDev']
+const isDevMode = process.env['CI']
 type platform =
   | 'wsvvrijheid'
   | 'samenvvv'
