@@ -29,12 +29,11 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: '18'
-        env:
-          PLAYWRIGHT_TEST_BASE_URL: 'testttt'
       - run: npm install ci
       - run: npm ci
       - run: npx playwright install --with-deps
       - name: Run tests
         env:
-          PLAYWRIGHT_TEST_BASE_URL: 'testttt'
+          username: ${{ vars.USERNAME}}
+          password: ${{ vars.PASSWORD}}
         run: npx playwright test
