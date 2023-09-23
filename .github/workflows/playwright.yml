@@ -4,6 +4,7 @@ on:
     branches: [playwright-github-actions]
   pull_request:
     branches: [playwright-github-actions]
+  deployment_status:
 
 jobs:
   get_branch_name:
