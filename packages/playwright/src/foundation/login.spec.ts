@@ -5,12 +5,9 @@ console.log('url', process.env['PLAYWRIGHT_TEST_BASE_URL'])
 
 test('login foundation', async ({ page }) => {
   console.log('url', process.env['PLAYWRIGHT_TEST_BASE_URL'])
-  await page.goto(
-    `https://wsvvrijheid-git-${process.env['PLAYWRIGHT_TEST_BASE_URL']}-wsvvrijheid.vercel.app/`,
-    {
-      waitUntil: 'domcontentloaded',
-    },
-  )
+  await page.goto(`https://wsvvrijheid-git-dev-wsvvrijheid.vercel.app/`, {
+    waitUntil: 'domcontentloaded',
+  })
   await page.getByRole('button', { name: 'Allow' }).click()
   await page.getByRole('link', { name: 'Sign in' }).click()
   await page.getByTestId('input-email').click()
@@ -22,6 +19,6 @@ test('login foundation', async ({ page }) => {
   await page.getByTestId('button-submit-login').click()
   await page.waitForNavigation()
   await expect(page).toHaveURL(
-    `https://wsvvrijheid-git-${process.env['PLAYWRIGHT_TEST_BASE_URL']}-wsvvrijheid.vercel.app/`,
+    `https://wsvvrijheid-git-dev-wsvvrijheid.vercel.app/`,
   )
 })

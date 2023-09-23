@@ -30,7 +30,7 @@ jobs:
         with:
           node-version: '18'
         env:
-          PLAYWRIGHT_TEST_BASE_URL: ${{ steps.get_branch_name.outputs.extract_branch }}
+          PLAYWRIGHT_TEST_BASE_URL: 'testttt'
       - run: npm install ci
       - run: npm ci
       - run: npx playwright install --with-deps
