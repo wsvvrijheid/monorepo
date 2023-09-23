@@ -1,11 +1,6 @@
 const isDevMode = process.env['CI']
-type platform =
-  | 'wsvvrijheid'
-  | 'samenvvv'
-  | 'kunsthalte'
-  | 'lotus'
-  | 'dashboard'
-export const getVercelUrl = (platform: platform) => {
+type Project = 'wsvvrijheid' | 'samenvvv' | 'kunsthalte' | 'lotus' | 'dashboard'
+export const getVercelUrl = (platform: Project) => {
   if (!isDevMode) {
     switch (platform) {
       case 'dashboard':
