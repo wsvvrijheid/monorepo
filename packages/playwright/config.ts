@@ -6,7 +6,7 @@ type platform =
   | 'lotus'
   | 'dashboard'
 export const getVercelUrl = (platform: platform) => {
-  if (isDevMode) {
+  if (!isDevMode) {
     switch (platform) {
       case 'dashboard':
         return 'http://localhost:3000/'
