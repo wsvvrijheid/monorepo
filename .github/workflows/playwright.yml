@@ -19,6 +19,7 @@ jobs:
         id: extract_branch
 
   test_e2e:
+    if: github.event_name == 'deployment_status' && github.event.deployment_status.state == 'success'
     needs: get_branch_name
     name: Playwright tests
     timeout-minutes: 5
@@ -36,4 +37,5 @@ jobs:
         env:
           username: ${{ vars.USERNAME}}
           password: ${{ vars.PASSWORD}}
+          BASE_URL: ${{ github.event.deployment_status.target_url }}
         run: npx playwright test

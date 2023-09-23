@@ -1,10 +1,10 @@
 import { expect, test } from '@playwright/test'
 import dotenv from 'dotenv'
 dotenv.config()
-console.log('url', process.env['PLAYWRIGHT_TEST_BASE_URL'])
+console.log('url', process.env['BASE_URL'])
 
 test('login foundation', async ({ page }) => {
-  console.log('url', process.env['PLAYWRIGHT_TEST_BASE_URL'])
+  console.log('url', process.env['BASE'])
   await page.goto(`https://wsvvrijheid-git-dev-wsvvrijheid.vercel.app/`, {
     waitUntil: 'domcontentloaded',
   })
