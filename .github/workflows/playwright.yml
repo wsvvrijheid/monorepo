@@ -20,12 +20,15 @@ jobs:
         id: extract_branch
 
   test_e2e:
-    if: github.event_name == 'deployment_status' && github.event.deployment_status.state == 'success'
     needs: get_branch_name
     name: Playwright tests
     timeout-minutes: 5
     runs-on: ubuntu-latest
     steps:
+      - name: Wait / Sleep Action
+        uses: GuillaumeFalourd/wait-sleep-action@v1
+        with:
+          time: '10m'
       - name: Prepare testing env
         uses: actions/checkout@v2
       - uses: actions/setup-node@v2
