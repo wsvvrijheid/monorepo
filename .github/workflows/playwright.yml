@@ -35,4 +35,6 @@ jobs:
       - run: npm ci
       - run: npx playwright install --with-deps
       - name: Run tests
+        env:
+          PLAYWRIGHT_TEST_BASE_URL: ${{ needs.get_branch_name.outputs.extract_branch }}
         run: npx playwright test
