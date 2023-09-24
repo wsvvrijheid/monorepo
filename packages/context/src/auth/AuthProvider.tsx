@@ -81,7 +81,7 @@ export const AuthProvider: FC<AuthProviderProps> = ({
       setIsLoggedIn(false)
       setIsLoading(false)
 
-      router.push('/news')
+      router.push('/')
     }
   }
 
