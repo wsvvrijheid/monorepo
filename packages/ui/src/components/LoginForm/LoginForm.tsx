@@ -95,7 +95,6 @@ export const LoginForm: FC<LoginFormProps> = ({
             <FormItem
               data-testid="input-email"
               name="identifier"
-              type="email"
               register={register}
               errors={errors}
             />
