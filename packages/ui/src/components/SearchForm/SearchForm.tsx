@@ -53,7 +53,7 @@ export const SearchForm: React.FC<SearchFormProps> = ({
     if (debouncedSearchTerm === '') {
       onSearch?.(undefined)
     }
-  }, [debouncedSearchTerm, onSearch, onReset])
+  }, [debouncedSearchTerm, onReset])
 
   return (
     <InputGroup size="lg" flex="1">

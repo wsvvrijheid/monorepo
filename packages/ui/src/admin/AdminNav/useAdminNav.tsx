@@ -50,11 +50,6 @@ export const useAdminNav = (): AdminNavItemProps[] => {
           icon: <TbActivity />,
         },
         {
-          label: t('arts'),
-          link: '/translates?slug=arts',
-          icon: <TbBrush />,
-        },
-        {
           label: t('collections'),
           link: '/translates?slug=collections',
           icon: <BsCollection />,

@@ -106,6 +106,7 @@ const CoursePage = () => {
           id={selectedApplicationId}
           isOpen={isOpen}
           onClose={handleClose}
+          onSuccess={refetch}
           size={'5xl'}
         />
       )}

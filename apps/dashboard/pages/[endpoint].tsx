@@ -82,11 +82,15 @@ const ModelPage: FC<ModelPageProps> = ({ endpoint }) => {
   const setStatus = (status?: ApprovalStatus) => changeRoute('status', status)
   const setPublished = (state?: string) => changeRoute('published', state)
   const setQ = (q?: string) => {
-    if (q?.length) changeRoute('q', q)
+    changeRoute('q', q)
   }
 
   const titleKey = endpointsWithLocalizedTitle.includes(endpoint)
     ? `title_${locale}`
+    : endpoint === 'users'
+    ? 'email'
+    : endpoint === 'profiles'
+    ? 'username'
     : 'title'
 
   const hasApprovalStatus = endpointsWithApprovalStatus.includes(endpoint)
@@ -146,6 +150,7 @@ const ModelPage: FC<ModelPageProps> = ({ endpoint }) => {
           isOpen={isOpen}
           onClose={handleClose}
           title={'Edit Model'}
+          onSuccess={endpointQuery.refetch}
         />
       )}
 

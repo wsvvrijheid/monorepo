@@ -8,7 +8,7 @@ import { FormFields, ModelEditFormProps } from '../ModelForm'
 
 export type ModelEditTranslateProps<T extends StrapiTranslatableModel> = Omit<
   ModelEditFormProps<T>,
-  'model' | 'onSuccess'
+  'model'
 > & {
   id: number
   children?: ReactNode

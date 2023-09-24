@@ -141,7 +141,10 @@ export const ArtApprovalModal: FC<ArtApprovalTypes> = ({
                     noColumns
                     endpoint={'arts'}
                     model={art}
-                    onSuccess={() => setIsEditing(false)}
+                    onSuccess={() => {
+                      setIsEditing(false)
+                      onSuccess?.()
+                    }}
                   />
                 </Stack>
               )}

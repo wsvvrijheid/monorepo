@@ -25,6 +25,7 @@ export const ModelEditModal = <T extends StrapiModel>({
   onClose,
   size = '6xl',
   maxW,
+  onSuccess,
   ...rest
 }: ModelEditModalProps<T>) => {
   const { data, isLoading, refetch } = useStrapiRequest<T>({ endpoint, id })
@@ -32,6 +33,7 @@ export const ModelEditModal = <T extends StrapiModel>({
   const model = data?.data
 
   const handleSuccess = () => {
+    onSuccess?.()
     refetch()
   }
 

@@ -44,6 +44,7 @@ const ActivitiesTranslatePage = () => {
 
   const id = Number(query.id as string)
 
+  const modelColumns = useColumns()
   const modelFields = useFields()
   const modelSchemas = useSchema()
 
@@ -57,8 +58,6 @@ const ActivitiesTranslatePage = () => {
   const status = query.status as ApprovalStatus
   const slug = query.slug as Partial<StrapiCollectionEndpoint>
   const translateKey = slug as any
-
-  const columns = useColumns()
 
   useEffect(() => setCurrentPage(1), [status])
 
@@ -82,6 +81,9 @@ const ActivitiesTranslatePage = () => {
     sort,
     locale,
     includeDrafts: true,
+    queryOptions: {
+      enabled: !!slug,
+    },
   })
 
   const items = dataQuery?.data?.data
@@ -107,6 +109,7 @@ const ActivitiesTranslatePage = () => {
     }
   }
 
+  const columns = modelColumns[slug]
   const fields =
     slug === 'posts'
       ? modelFields['translate-post-model']
@@ -123,15 +126,17 @@ const ActivitiesTranslatePage = () => {
         searchPlaceHolder={'Search by title or description'}
       />
 
-      <DataTable<StrapiModel>
-        columns={columns[slug] as WTableProps<StrapiModel>['columns']}
-        currentPage={currentPage}
-        totalCount={totalCount}
-        data={mappedModels}
-        setCurrentPage={setCurrentPage}
-        onClickRow={handleClick}
-        onSort={setSort}
-      />
+      {mappedModels && (
+        <DataTable<StrapiModel>
+          columns={columns as WTableProps<StrapiModel>['columns']}
+          currentPage={currentPage}
+          totalCount={totalCount}
+          data={mappedModels}
+          setCurrentPage={setCurrentPage}
+          onClickRow={handleClick}
+          onSort={setSort}
+        />
+      )}
       <Modal
         isCentered
         isOpen={isOpen}
@@ -149,6 +154,7 @@ const ActivitiesTranslatePage = () => {
               translatedFields={fields?.map(f => f.name) || []}
               schema={schema!}
               fields={fields!}
+              onSuccess={dataQuery.refetch}
             >
               <Button onClick={handleClose} colorScheme={'gray'}>
                 {t('dismiss')}
