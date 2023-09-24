@@ -1,0 +1,30 @@
+name: Playwright Tests
+on:
+  push:
+    branches: [dev]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test_e2e:
+    name: Playwright tests
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+    steps:
+      - name: Wait / Sleep Action
+        uses: GuillaumeFalourd/wait-sleep-action@v1
+        with:
+          time: '10m'
+      - name: Prepare testing env
+        uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '18'
+      - run: npm install ci
+      - run: npm ci
+      - run: npx playwright install --with-deps
+      - name: Run tests
+        env:
+          username: ${{ vars.USERNAME}}
+          password: ${{ vars.PASSWORD}}
+        run: npx playwright test
