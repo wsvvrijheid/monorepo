@@ -50,6 +50,7 @@ export type FormCommonFields<T extends StrapiModel> = {
   label?: string
   isRequired?: boolean
   group?: { value: string; label?: string; name: string }
+  blockEdit?: boolean
 }
 
 export type FormFields<T extends StrapiModel> = Array<
@@ -81,8 +82,6 @@ export type ModelEditFormProps<T extends StrapiModel> = {
   endpoint: StrapiEndpoint
   model: T
   translatedFields?: (keyof T)[]
-  fields: FormFields<T>
-  schema: AnyObjectSchema
   hideLanguageSwitcher?: boolean
   noColumns?: boolean
   onSuccess: () => void

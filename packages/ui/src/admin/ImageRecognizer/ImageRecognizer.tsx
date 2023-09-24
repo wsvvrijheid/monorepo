@@ -41,7 +41,7 @@ export const ImageRecognizer: FC<ImageRecognizerProps> = ({
 
   const handleRecognize = async () => {
     const worker = await createWorker({
-      //   logger: console.log,
+      //   logger: console.info,
     })
 
     await worker.load()

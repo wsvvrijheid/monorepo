@@ -83,7 +83,7 @@ export const PostMakerTweetButtons: FC<PostMakerTweetButtonsProps> = ({
           },
         )
       } catch (error) {
-        console.log('Error', error)
+        console.error('Update sentence error', error)
       }
     }
   }

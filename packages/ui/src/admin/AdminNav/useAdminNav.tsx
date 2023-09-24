@@ -161,13 +161,13 @@ export const useAdminNav = (): AdminNavItemProps[] => {
       icon: <GiHumanPyramid />,
     },
     {
-      label: t('volunteers'),
-      link: '/volunteers',
+      label: t('profiles'),
+      link: '/profiles',
       icon: <MdOutlineVolunteerActivism />,
     },
     {
       label: t('users'),
-      link: '/profiles',
+      link: '/users',
       icon: <FiUsers />,
     },
     {

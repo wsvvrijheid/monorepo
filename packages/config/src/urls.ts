@@ -25,6 +25,7 @@ export const endpointsWithoutLocale: StrapiEndpoint[] = [
   'users',
   'profiles',
   'votes',
+  'users-permissions/roles',
 ]
 
 export const endpointsWithApprovalStatus: StrapiEndpoint[] = [

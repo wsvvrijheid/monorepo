@@ -11,11 +11,12 @@ import {
   Hashtag,
   Mention,
   Post,
+  Profile,
+  Role,
   StrapiLocale,
   StrapiModel,
   StrapiTranslatableModel,
   User,
-  Profile,
 } from '@wsvvrijheid/types'
 
 import { FormFields } from './types'
@@ -31,9 +32,11 @@ export const mapModelToOption = (
 ) => {
   if (!model) return { value: '', label: '' }
 
-  const mention = model as unknown as Mention
-  const user = model as unknown as User
-  const modelWithLocalizedName = model as unknown as Category
+  const mention = model as Mention
+  const user = model as User
+  const role = model as unknown as Role
+  const modelWithLocalizedName = model as Category
+
   const localizedName = locale
     ? modelWithLocalizedName[`name_${locale}`]
     : 'name'
@@ -47,7 +50,12 @@ export const mapModelToOption = (
 
   // User
   else if (user.email) {
-    label = user.email || user.name || user.username
+    label = user.email || user.username
+  }
+
+  // Role
+  else if (role.nb_users) {
+    label = role.name
   }
 
   // Category, Tag etc.
@@ -148,8 +156,8 @@ export const useDefaultValues = <T extends StrapiModel>(
           break
         case 'role':
           defaults.role = {
-            label: userModel.role?.name || '',
-            value: userModel.role?.id.toString(),
+            label: userModel?.role?.name || '',
+            value: userModel?.role?.id.toString(),
           }
 
           break

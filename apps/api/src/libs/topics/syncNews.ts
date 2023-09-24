@@ -14,9 +14,7 @@ import {
   getSolidaritywithothersNews,
   getTr724News,
   getTrouwNews,
-  // getTurkishMinuteNews,
 } from './sources'
-import { AnyEntity } from '@strapi/strapi/lib/services/entity-service'
 
 // import getTurkishMinuteNews from './sources/turkishminute'
 
@@ -38,8 +36,8 @@ export const syncNews = async ({ strapi }: { strapi: Strapi }) => {
       // getTurkishMinuteNews,
     ]
 
-    console.log('-----------------------------------')
-    console.log('All news fetching... ' + new Date())
+    console.info('-----------------------------------')
+    console.info('All news fetching... ' + new Date())
 
     const recommendedTopics = (
       await Promise.all(
@@ -71,9 +69,9 @@ export const syncNews = async ({ strapi }: { strapi: Strapi }) => {
       }
     })
 
-    console.log(` ${updatedTopics.length} total news fetched.`)
-    console.log('All news fetched. ' + new Date())
-    console.log('-----------------------------------')
+    console.info(` ${updatedTopics.length} total news fetched.`)
+    console.info('All news fetched. ' + new Date())
+    console.info('-----------------------------------')
 
     await strapi.db.query('api::topic.topic').update({
       where: { id: 1 },

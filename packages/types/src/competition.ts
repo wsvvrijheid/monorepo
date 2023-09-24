@@ -2,7 +2,6 @@ import { Application } from './application'
 import { Category } from './category'
 import { Expand } from './common'
 import { UploadFile } from './file'
-import { Profile } from './profile'
 import { StrapiBase, StrapiCreatorRelation, StrapiEntityBase } from './strapi'
 
 type CompetitionBase = StrapiEntityBase & {

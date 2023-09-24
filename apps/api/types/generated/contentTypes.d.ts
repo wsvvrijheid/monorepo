@@ -2662,6 +2662,11 @@ export interface ApiProfileProfile extends Schema.CollectionType {
       'oneToOne',
       'plugin::users-permissions.user'
     >
+    role: Attribute.Relation<
+      'api::profile.profile',
+      'manyToOne',
+      'plugin::users-permissions.role'
+    >
     createdAt: Attribute.DateTime
     updatedAt: Attribute.DateTime
     publishedAt: Attribute.DateTime

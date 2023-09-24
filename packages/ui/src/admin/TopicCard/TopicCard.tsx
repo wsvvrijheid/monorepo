@@ -136,7 +136,7 @@ export const TopicCard: FC<TopicCardProps> = ({ topic }) => {
               setConfirmState(undefined)
             },
             onError: async errors => {
-              console.log('error delete mutation', errors)
+              console.error('Delete news error', errors)
             },
           },
         )

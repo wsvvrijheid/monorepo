@@ -259,7 +259,6 @@ export type StrapiCollectionEndpoint =
   | 'profiles'
   | 'recommended-topics'
   | 'recommended-tweets'
-  | 'roles'
   | 'saved-tweets'
   | 'tags'
   | 'timelines'
@@ -268,6 +267,7 @@ export type StrapiCollectionEndpoint =
   | 'user-feedbacks'
   | 'user-statistics/get-stats'
   | 'user-statistics/get-user-stats'
+  | 'users-permissions/roles'
   | 'users'
   | 'votes'
 

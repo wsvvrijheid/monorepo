@@ -1,14 +1,17 @@
-import { User, Profile } from '@wsvvrijheid/types'
+import { User, Profile, Role } from '@wsvvrijheid/types'
 
 import { WTableProps } from '../../components'
 
-export const useProfileColumns = (): WTableProps<Profile>['columns'] => {
+export const useProfileColumns = (): WTableProps<
+  Profile & { role: Role }
+>['columns'] => {
   return {
     avatar: {
       type: 'image',
     },
     user: {
-      transform: value => (value as User)?.username,
+      label: 'user',
+      transform: value => (value as User)?.email,
     },
     name: {},
     availableHours: {},

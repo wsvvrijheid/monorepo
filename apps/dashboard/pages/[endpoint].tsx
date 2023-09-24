@@ -29,8 +29,6 @@ import {
   PageHeader,
   WTableProps,
   useColumns,
-  useFields,
-  useSchema,
 } from '@wsvvrijheid/ui'
 
 import { I18nNamespaces } from '../@types/i18next'
@@ -57,8 +55,6 @@ const ModelPage: FC<ModelPageProps> = ({ endpoint }) => {
   const q = query.q as string
 
   const columns = useColumns()
-  const fields = useFields()
-  const schemas = useSchema()
 
   const changeRoute = (
     key: 'id' | 'page' | 'sort' | 'status' | 'published' | 'q',
@@ -149,8 +145,6 @@ const ModelPage: FC<ModelPageProps> = ({ endpoint }) => {
           id={selectedId}
           isOpen={isOpen}
           onClose={handleClose}
-          fields={fields[endpoint]!}
-          schema={schemas[endpoint]!}
           title={'Edit Model'}
         />
       )}

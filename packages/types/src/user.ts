@@ -4,7 +4,6 @@ import { Role } from './role'
 import { StrapiBase } from './strapi'
 
 export type UserBase = {
-  name: string | null
   email: string
   username: string
   blocked: boolean

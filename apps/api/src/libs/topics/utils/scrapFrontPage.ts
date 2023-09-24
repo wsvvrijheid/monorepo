@@ -30,7 +30,7 @@ export const scrapFrontPage: ScrapFrontPage = async ({
         if (link) {
           const urlText = $(el).find(link).attr('href')
           if (!urlText) {
-            console.log(
+            console.info(
               'News skipped. There is no url in the selector!',
               `publisher: ${publisher}`,
             )
@@ -86,7 +86,7 @@ export const scrapFrontPage: ScrapFrontPage = async ({
       ...new Map(result.map(item => [item['url'], item])).values(),
     ]
 
-    console.log(` ${distinctResults.length} ${publisher} news fetched.`)
+    console.info(` ${distinctResults.length} ${publisher} news fetched.`)
 
     return distinctResults.map(item => formatTopic(item))
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

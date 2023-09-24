@@ -147,8 +147,8 @@ const ActivitiesTranslatePage = () => {
               id={id}
               endpoint={slug}
               translatedFields={fields?.map(f => f.name) || []}
-              fields={fields as any}
               schema={schema!}
+              fields={fields!}
             >
               <Button onClick={handleClose} colorScheme={'gray'}>
                 {t('dismiss')}

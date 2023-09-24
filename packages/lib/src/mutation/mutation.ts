@@ -110,7 +110,7 @@ export const mutation = async <
 
     return response.data?.data || null
   } catch (error: any) {
-    console.log('Mutation error', error)
+    console.error('Mutation error', error)
 
     throw new Error(error.response?.data?.message || error.message)
   }

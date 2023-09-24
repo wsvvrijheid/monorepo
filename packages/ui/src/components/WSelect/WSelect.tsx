@@ -90,7 +90,9 @@ export const WSelect = <T extends FieldValues = FieldValues>({
       />
 
       <FormErrorMessage>{errorMessage}</FormErrorMessage>
-      {helperText && <FormHelperText>{helperText}</FormHelperText>}
+      {helperText && (
+        <FormHelperText color={'orange.400'}>{helperText}</FormHelperText>
+      )}
     </FormControl>
   )
 }

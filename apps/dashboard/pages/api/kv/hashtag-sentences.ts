@@ -37,7 +37,7 @@ const handler = async (req: NextRequest) => {
 
         return NextResponse.json(response)
       } catch (error) {
-        console.log(error)
+        console.error(error)
         throw error
       }
     }
@@ -50,7 +50,7 @@ const handler = async (req: NextRequest) => {
 
         return NextResponse.json(response)
       } catch (error) {
-        console.log(error)
+        console.error(error)
         throw error
       }
     }
@@ -64,7 +64,7 @@ const handler = async (req: NextRequest) => {
 
         return NextResponse.json(result)
       } catch (error) {
-        console.log(error)
+        console.error(error)
         throw error
       }
     }

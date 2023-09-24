@@ -49,7 +49,7 @@ const sendEmail = async art => {
   </table>`,
     })
   } else {
-    console.log('no editor email exists')
+    console.error('No editor email exists')
   }
 }
 

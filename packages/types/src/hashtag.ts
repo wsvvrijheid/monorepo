@@ -5,7 +5,6 @@ import { Expand } from './common'
 import { UploadFile } from './file'
 import { Mention } from './mention'
 import { Post } from './post'
-import { Profile } from './profile'
 import { StrapiBase, StrapiCreatorRelation, StrapiEntityBase } from './strapi'
 import { Tweet } from './tweet'
 
