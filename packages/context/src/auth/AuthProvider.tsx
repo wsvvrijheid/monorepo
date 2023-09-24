@@ -103,16 +103,9 @@ export const AuthProvider: FC<AuthProviderProps> = ({
         setProfile(response.data.profile)
       }
 
-      return {
-        ...response.data,
-        roles: initialAuthState.roles,
-        isAuthModalOpen: false,
-        error: null,
-        isLoading: false,
-      }
+      throw response.data
     } catch (error: any) {
-      setError(error.message)
-      if (error.response.status === 400) {
+      if (error.response?.data?.message === 'Invalid identifier or password') {
         throw t('login.wrong-password-username')
       } else {
         throw error.message
@@ -145,17 +138,11 @@ export const AuthProvider: FC<AuthProviderProps> = ({
         setProfile(response.data.profile)
       }
 
-      return {
-        ...response.data,
-        roles: initialAuthState.roles,
-        isAuthModalOpen: false,
-        error: null,
-        isLoading: false,
-      }
+      throw response.data
     } catch (error: any) {
       setError(error.message)
 
-      return initialAuthState
+      throw error?.error?.message || error.message
     } finally {
       setIsLoading(false)
     }

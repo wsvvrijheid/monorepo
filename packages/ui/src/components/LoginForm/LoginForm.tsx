@@ -131,8 +131,10 @@ export const LoginForm: FC<LoginFormProps> = ({
             </Button>
             {loginMutation.isError && (
               <Text color="red.500" fontSize="sm">
-                {(loginMutation.error as any)?.response?.data?.message ||
-                  'An error occured'}
+                {typeof loginMutation.error === 'string'
+                  ? loginMutation.error
+                  : (loginMutation.error as any)?.response?.data?.message ||
+                    'An error occured'}
               </Text>
             )}
             {providersToBeShown.length > 0 && (

@@ -171,7 +171,7 @@
   "login.terms-use": "Do you accept the terms of use?",
   "login.title": "Log in to your account",
   "login.with": "or continue with",
-  "login.wrong-password-username": "Username or password wrong. Please try again later.",
+  "login.wrong-password-username": "Username or password wrong. Please try again.",
   "logout": "Sign Out",
   "mentions": "Mentions",
   "message": "Message",

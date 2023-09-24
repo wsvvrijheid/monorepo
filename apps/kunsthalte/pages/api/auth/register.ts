@@ -45,11 +45,12 @@ const registerRoute = async (req: NextApiRequest, res: NextApiResponse) => {
     await req.session.save()
     res.json({ ...auth, profile })
   } catch (error: any) {
-    if (!error.response?.data?.error.message) {
-      return res.status(500).json({ message: 'Internal server error' })
-    } else {
-      res.json(error.response?.data)
+    if (error.response?.data?.error) {
+      console.error('REGISTER_AUTH_ERROR', error.response.data.error)
+
+      return res.json(error.response.data.error)
     }
+    res.status(500).json({ message: 'Something went wrong' })
   }
 }
 
