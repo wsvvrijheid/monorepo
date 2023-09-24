@@ -1,6 +1,9 @@
-import { FC } from 'react'
+import { FC, useEffect, useState } from 'react'
 
 import {
+  Alert,
+  AlertDescription,
+  AlertIcon,
   Button,
   Checkbox,
   Container,
@@ -16,7 +19,7 @@ import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
-import { useAuthContext } from '@wsvvrijheid/context'
+import { AuthState, useAuthContext } from '@wsvvrijheid/context'
 
 import { loginSchema } from './schema'
 import { LoginFormFieldValues } from './types'
@@ -37,6 +40,7 @@ export const LoginForm: FC<LoginFormProps> = ({
   providersToBeShown = [],
 }) => {
   const { t } = useTranslation()
+  const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
   const {
     register,
@@ -48,7 +52,13 @@ export const LoginForm: FC<LoginFormProps> = ({
   })
 
   const router = useRouter()
-  const { login, isLoading } = useAuthContext()
+  const { login, isLoading, error } = useAuthContext()
+
+  useEffect(() => {
+    if (error) {
+      setErrorMessage(error)
+    }
+  }, [error])
 
   const loginMutation = useMutation({
     mutationKey: ['login'],
@@ -91,6 +101,12 @@ export const LoginForm: FC<LoginFormProps> = ({
           </Stack>
         </Stack>
         <Stack spacing="6" as="form" onSubmit={handleSubmit(handleSubmitSign)}>
+          {errorMessage && (
+            <Alert status="error">
+              <AlertIcon />
+              <AlertDescription>{errorMessage}</AlertDescription>
+            </Alert>
+          )}
           <Stack spacing="5">
             <FormItem
               data-testid="input-email"
@@ -129,14 +145,6 @@ export const LoginForm: FC<LoginFormProps> = ({
             >
               {t('login.signin')}
             </Button>
-            {loginMutation.isError && (
-              <Text color="red.500" fontSize="sm">
-                {typeof loginMutation.error === 'string'
-                  ? loginMutation.error
-                  : (loginMutation.error as any)?.response?.data?.message ||
-                    'An error occured'}
-              </Text>
-            )}
             {providersToBeShown.length > 0 && (
               <HStack>
                 <Divider />

@@ -88,7 +88,7 @@ export const AuthProvider: FC<AuthProviderProps> = ({
   const login = async (
     identifier: string,
     password: string,
-  ): Promise<AuthState> => {
+  ): Promise<AuthState | void> => {
     setIsLoading(true)
     try {
       const response = await axios.post<Auth>('/api/auth/login', {
@@ -96,18 +96,20 @@ export const AuthProvider: FC<AuthProviderProps> = ({
         password,
       })
 
-      if (response.data) {
-        setUser(response.data.user)
-        setToken(response.data.token)
-        setIsLoggedIn(response.data.isLoggedIn)
-        setProfile(response.data.profile)
+      if (!response.data?.user) {
+        throw response.data
       }
 
-      throw response.data
+      setUser(response.data.user)
+      setToken(response.data.token)
+      setIsLoggedIn(response.data.isLoggedIn)
+      setProfile(response.data.profile)
     } catch (error: any) {
       if (error.response?.data?.message === 'Invalid identifier or password') {
+        setError(t('login.wrong-password-username'))
         throw t('login.wrong-password-username')
       } else {
+        setError(error.message)
         throw error.message
       }
     } finally {
@@ -120,7 +122,7 @@ export const AuthProvider: FC<AuthProviderProps> = ({
     password: string,
     username: string,
     name: string,
-  ): Promise<AuthState> => {
+  ): Promise<AuthState | void> => {
     setIsLoading(true)
 
     try {
@@ -131,14 +133,14 @@ export const AuthProvider: FC<AuthProviderProps> = ({
         name,
       })
 
-      if (response.data) {
-        setUser(response.data.user)
-        setToken(response.data.token)
-        setIsLoggedIn(response.data.isLoggedIn)
-        setProfile(response.data.profile)
+      if (!response.data?.user) {
+        throw response.data
       }
 
-      throw response.data
+      setUser(response.data.user)
+      setToken(response.data.token)
+      setIsLoggedIn(response.data.isLoggedIn)
+      setProfile(response.data.profile)
     } catch (error: any) {
       setError(error.message)
 
