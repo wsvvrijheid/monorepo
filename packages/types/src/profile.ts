@@ -26,7 +26,7 @@ export type ProfileBase = {
   email: string
   city: string | null
   age: number | null
-  availableHours: number
+  availableHours: number | null
   approved: boolean | null
   bio: string | null
   comment: string | null
@@ -90,7 +90,7 @@ type ProfileRelationInput = {
 export type ProfileCreateInput = Expand<
   { publishedAt?: Date | string | null } & SetRequired<
     Partial<Omit<ProfileBase, 'approved'>>,
-    'username' | 'name' | 'email' | 'phone' | 'availableHours'
+    'username' | 'name' | 'email'
   > &
     ProfileRelationInput
 >

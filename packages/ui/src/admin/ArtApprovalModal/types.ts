@@ -1,9 +1,9 @@
-import { Art, Profile, SessionUser } from '@wsvvrijheid/types'
+import { Art, Profile } from '@wsvvrijheid/types'
 
 export type ArtApprovalTypes = {
   art: Art
   artist?: Profile
-  editor: SessionUser
+  editor: Profile
   isOpen: boolean
   onClose: () => void
   onSuccess?: () => void
@@ -11,7 +11,7 @@ export type ArtApprovalTypes = {
 
 export type ArtFeedbackFormTypes = {
   art: Art
-  editor: SessionUser
+  editor: Profile
   onClose: () => void
   onSuccess?: () => void
   setIsEditing: (isEditing: boolean) => void

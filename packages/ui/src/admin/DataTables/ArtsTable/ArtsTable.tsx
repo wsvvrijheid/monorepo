@@ -22,7 +22,7 @@ export const ArtsTable: FC<ArtsTableProps> = ({
   onSort,
   setCurrentPage,
 }) => {
-  const { user } = useAuthContext()
+  const { profile } = useAuthContext()
   const [selectedIndex, setSelectedIndex] = useState<number>()
 
   const columns = useColumns<Art>()
@@ -38,10 +38,10 @@ export const ArtsTable: FC<ArtsTableProps> = ({
 
   return (
     <>
-      {selectedArt && user && (
+      {selectedArt && profile && (
         <ArtApprovalModal
           art={selectedArt}
-          editor={user}
+          editor={profile}
           isOpen={approvalDisclosure.isOpen}
           onClose={approvalDisclosure.onClose}
           artist={selectedArt.artist}

@@ -6,7 +6,7 @@ import { API_URL } from '@wsvvrijheid/config'
 import { Mutation } from '@wsvvrijheid/lib'
 import { sessionOptions } from '@wsvvrijheid/secrets'
 import { getAuth } from '@wsvvrijheid/services'
-import { AuthResponse } from '@wsvvrijheid/types'
+import { AuthResponse, ProfileCreateInput } from '@wsvvrijheid/types'
 
 const registerRoute = async (req: NextApiRequest, res: NextApiResponse) => {
   const { name, username, email, password } = req.body
@@ -25,16 +25,25 @@ const registerRoute = async (req: NextApiRequest, res: NextApiResponse) => {
     const token = response.data.jwt
     const userId = response.data.user?.id as number
 
-    const body = { user: userId, name: trimmedName }
+    const body: ProfileCreateInput = {
+      user: userId,
+      name: trimmedName,
+      email: trimmedEmail,
+      username: trimmedUsername,
+    }
 
-    await Mutation.put('users', userId, body, token)
+    await Mutation.post('profiles', body, token)
 
-    const auth = await getAuth(email, password)
+    const { profile, ...auth } = await getAuth(email, password)
 
-    req.session = { ...auth, ...req.session }
+    req.session = {
+      ...auth,
+      ...req.session,
+      profileId: profile?.id || null,
+    }
 
     await req.session.save()
-    res.json(auth)
+    res.json({ ...auth, profile })
   } catch (error: any) {
     if (!error.response?.data?.error.message) {
       return res.status(500).json({ message: 'Internal server error' })

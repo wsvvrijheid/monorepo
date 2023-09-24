@@ -39,7 +39,7 @@ const Settings = () => {
 export const AuthenticatedUserProfile = () => {
   const { t } = useTranslation('common')
 
-  const { user } = useAuthContext()
+  const { user, profile } = useAuthContext()
 
   const { data } = useArtByArtist(user?.id, true)
   const rejected = data?.filter(art => art?.approvalStatus === 'rejected')
@@ -52,7 +52,7 @@ export const AuthenticatedUserProfile = () => {
         <Stack>
           <WAvatar
             size="lg"
-            src={`${ASSETS_URL}${user?.profile?.avatar}`}
+            src={`${ASSETS_URL}${profile?.avatar}`}
             name={user?.username}
           />
           <HStack
@@ -61,7 +61,7 @@ export const AuthenticatedUserProfile = () => {
             alignContent={'flex-end'}
             bg="transparent"
           >
-            <Text color={'white'}>{user?.profile?.name || user?.username}</Text>
+            <Text color={'white'}>{profile?.name || user?.username}</Text>
           </HStack>
         </Stack>
       </Hero>

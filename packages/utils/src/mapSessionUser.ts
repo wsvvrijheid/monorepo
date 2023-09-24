@@ -1,18 +1,10 @@
-import { Profile, RoleType, SessionUser, User } from '@wsvvrijheid/types'
+import { RoleType, SessionUser, User } from '@wsvvrijheid/types'
 
-export const mapSessionUser = (
-  user: User,
-  profile: Profile | null,
-): SessionUser => {
-  const { blocked, confirmed, email, id, role, username } = user
+export const mapSessionUser = (user: User): SessionUser => {
+  const { role, ...rest } = user
 
   return {
-    id,
-    username,
-    email,
-    confirmed,
-    blocked,
+    ...rest,
     roles: (role?.type?.split('_') || []) as RoleType[],
-    profileId: profile?.id,
   }
 }

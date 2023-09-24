@@ -1,11 +1,12 @@
 import axios from 'axios'
 import { withIronSessionApiRoute } from 'iron-session/next'
-import { NextApiResponse, NextApiRequest } from 'next'
+import { NextApiRequest, NextApiResponse } from 'next'
 
 import { API_URL } from '@wsvvrijheid/config'
+import { Mutation } from '@wsvvrijheid/lib'
 import { sessionOptions } from '@wsvvrijheid/secrets'
-import { getSessionUser } from '@wsvvrijheid/services'
-import { Auth, AuthResponse } from '@wsvvrijheid/types'
+import { getAuth } from '@wsvvrijheid/services'
+import { AuthResponse, ProfileCreateInput } from '@wsvvrijheid/types'
 
 const registerRoute = async (req: NextApiRequest, res: NextApiResponse) => {
   const { name, username, email, password } = req.body
@@ -17,40 +18,32 @@ const registerRoute = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const response = await axios.post<AuthResponse>(
       'api/auth/local/register',
-      {
-        name: trimmedName,
-        username: trimmedUsername,
-        email: trimmedEmail,
-        password,
-      },
+      { username: trimmedUsername, email: trimmedEmail, password },
       { baseURL: API_URL },
     )
 
-    const emptyAuth: Auth = {
-      user: null,
-      isLoggedIn: false,
-      token: null,
-      profile: null,
-    }
-    const token = response.data?.jwt
+    const token = response.data.jwt
+    const userId = response.data.user?.id as number
 
-    if (!token) {
-      return emptyAuth
+    const body: ProfileCreateInput = {
+      user: userId,
+      name: trimmedName,
+      email: trimmedEmail,
+      username: trimmedUsername,
     }
 
-    const user = await getSessionUser(token)
+    await Mutation.post('profiles', body, token)
 
-    if (!user) {
-      return emptyAuth
+    const { profile, ...auth } = await getAuth(email, password)
+
+    req.session = {
+      ...auth,
+      ...req.session,
+      profileId: profile?.id || null,
     }
-
-    // TODO: Extend this with the profile data from the backend
-    const auth: Auth = { user, token, isLoggedIn: true, profile: null }
-
-    req.session = { ...auth, ...req.session }
 
     await req.session.save()
-    res.json(auth)
+    res.json({ ...auth, profile })
   } catch (error: any) {
     if (!error.response?.data?.error.message) {
       return res.status(500).json({ message: 'Internal server error' })

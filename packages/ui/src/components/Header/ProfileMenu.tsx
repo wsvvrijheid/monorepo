@@ -24,7 +24,7 @@ import { WAvatar } from '../WAvatar'
 export const ProfileMenu: FC<ProfileMenuProps> = ({ isDark, menu }) => {
   const isScrolled = useScroll()
   const { t } = useTranslation()
-  const { user, isLoggedIn, logout } = useAuthContext()
+  const { user, profile, isLoggedIn, logout } = useAuthContext()
 
   const Wrapper = !isScrolled && isDark ? DarkMode : Fragment
 
@@ -49,8 +49,8 @@ export const ProfileMenu: FC<ProfileMenuProps> = ({ isDark, menu }) => {
       <MenuButton>
         <WAvatar
           boxSize={{ base: 10, lg: 12 }}
-          src={`${ASSETS_URL}${user?.profile?.avatar}`}
-          name={user?.profile?.name || user?.username}
+          src={`${ASSETS_URL}${profile?.avatar}`}
+          name={profile?.name || user?.username}
         />
       </MenuButton>
       <MenuList>

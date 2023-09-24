@@ -5,7 +5,7 @@ import axios from 'axios'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
-import { Auth, RoleType, SessionUser } from '@wsvvrijheid/types'
+import { Auth, Profile, RoleType, SessionUser } from '@wsvvrijheid/types'
 
 import { initialAuthState } from './state'
 import { AuthContextType, AuthProviderProps, AuthState } from './types'
@@ -18,6 +18,7 @@ export const AuthProvider: FC<AuthProviderProps> = ({
 }) => {
   // TODO: Use useReducer instead of useState
   const [user, setUser] = useState<SessionUser | null>(null)
+  const [profile, setProfile] = useState<Profile | null>(null)
   const [roles, setRoles] = useState<RoleType[]>(initialAuthState.roles)
   const [token, setToken] = useState<string | null>(null)
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false)
@@ -47,6 +48,7 @@ export const AuthProvider: FC<AuthProviderProps> = ({
         setRoles(response.data?.user?.roles)
         setToken(response.data?.token)
         setIsLoggedIn(response.data?.isLoggedIn)
+        setProfile(response.data?.profile)
       }
 
       return {
@@ -98,6 +100,7 @@ export const AuthProvider: FC<AuthProviderProps> = ({
         setUser(response.data.user)
         setToken(response.data.token)
         setIsLoggedIn(response.data.isLoggedIn)
+        setProfile(response.data.profile)
       }
 
       return {
@@ -139,6 +142,7 @@ export const AuthProvider: FC<AuthProviderProps> = ({
         setUser(response.data.user)
         setToken(response.data.token)
         setIsLoggedIn(response.data.isLoggedIn)
+        setProfile(response.data.profile)
       }
 
       return {
@@ -161,6 +165,7 @@ export const AuthProvider: FC<AuthProviderProps> = ({
     <AuthContext.Provider
       value={{
         user,
+        profile,
         roles,
         token,
         isLoggedIn,
