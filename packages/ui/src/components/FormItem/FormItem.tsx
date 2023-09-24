@@ -114,6 +114,7 @@ export const FormItem: FormItemComponent = forwardRef(
             <InputRightElement>
               <IconButton
                 variant="link"
+                color={'inherit'}
                 aria-label={isOpen ? 'Mask password' : 'Reveal password'}
                 icon={isOpen ? <HiEyeOff /> : <HiEye />}
                 onClick={setIsOpen.toggle}
