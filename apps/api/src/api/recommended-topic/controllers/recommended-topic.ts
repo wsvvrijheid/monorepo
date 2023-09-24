@@ -7,22 +7,19 @@
 import { factories } from '@strapi/strapi'
 
 import { RecommendedTopic } from '../../../libs'
+import { assignCreator } from '../../../utils'
 
 export default factories.createCoreController(
   'api::recommended-topic.recommended-topic',
-  ({ strapi }) => ({
+  () => ({
     async create(ctx) {
       const result = await super.create(ctx)
 
-      if (ctx.state?.user?.id) {
-        await strapi.entityService.update(
-          'api::recommended-topic.recommended-topic',
-          result.data.id,
-          {
-            data: { creator: ctx.state.user.id },
-          },
-        )
-      }
+      await assignCreator(
+        ctx,
+        result.id,
+        'api::recommended-topic.recommended-topic',
+      )
 
       const topics = await strapi.entityService.findMany('api::topic.topic')
 

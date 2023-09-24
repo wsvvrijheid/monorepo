@@ -1,19 +1,18 @@
 import { factories } from '@strapi/strapi'
+import { assignCreator } from '../../../utils'
 
 export default factories.createCoreController(
   'api::recommended-tweet.recommended-tweet',
-  ({ strapi }) => {
+  () => {
     return {
       async create(ctx) {
         const result = await super.create(ctx)
 
-        if (ctx.state?.user?.id) {
-          await strapi.entityService.update(
-            'api::recommended-tweet.recommended-tweet',
-            result.data.id,
-            { data: { creator: ctx.state.user.id } },
-          )
-        }
+        await assignCreator(
+          ctx,
+          result.id,
+          'api::recommended-tweet.recommended-tweet',
+        )
 
         return result
       },

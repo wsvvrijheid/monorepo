@@ -49,6 +49,7 @@ export const useApproveModel = <T extends StrapiTranslatableModel>(
         })
 
         // Fixes translated relation fields
+        // TODO: Handle this in backend
         const promises = localizations?.map(
           localizedModel =>
             localizedModel &&

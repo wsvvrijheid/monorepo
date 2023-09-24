@@ -1,20 +1,14 @@
 import { factories } from '@strapi/strapi'
+import { assignCreator } from '../../../utils'
 
-export default factories.createCoreController(
-  'api::activity.activity',
-  ({ strapi }) => {
-    return {
-      async create(ctx) {
-        const result = await super.create(ctx)
+export default factories.createCoreController('api::activity.activity', () => {
+  return {
+    async create(ctx) {
+      const result = await super.create(ctx)
 
-        await strapi.entityService.update(
-          'api::activity.activity',
-          result.data.id,
-          { data: { creator: ctx.state.user.id } },
-        )
+      await assignCreator(ctx, result.id, 'api::activity.activity')
 
-        return result
-      },
-    }
-  },
-)
+      return result
+    },
+  }
+})

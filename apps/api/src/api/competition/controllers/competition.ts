@@ -1,19 +1,15 @@
 import { factories } from '@strapi/strapi'
 
-import { getReferenceModel } from '../../../utils'
+import { assignCreator, getReferenceModel } from '../../../utils'
 
 export default factories.createCoreController(
   'api::competition.competition',
-  ({ strapi }) => {
+  () => {
     return {
       async create(ctx) {
         const result = await super.create(ctx)
 
-        await strapi.entityService.update(
-          'api::competition.competition',
-          result.data.id,
-          { data: { creator: ctx.state.user.id } },
-        )
+        await assignCreator(ctx, result.id, 'api::competition.competition')
 
         return result
       },
