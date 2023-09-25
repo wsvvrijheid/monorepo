@@ -9,7 +9,6 @@ export const useProfileSchema = () => {
   return yup.object({
     name: yup.string().required(),
     availableHours: yup.number().min(1),
-    username: yup.string().required(),
     email: yup.string().email().required(),
     city: yup.string(),
     country: yup.string(),
@@ -25,7 +24,6 @@ export const useProfileSchema = () => {
 
 export const profileFields: FormFields<Profile & { role: Role }> = [
   { name: 'name', isRequired: true },
-  { name: 'username', isRequired: true },
   { name: 'email', isRequired: true, blockEdit: true },
   { name: 'phone' },
   { name: 'age' },

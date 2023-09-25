@@ -276,7 +276,6 @@ export const ModelEditForm = <T extends StrapiModel>({
       {
         email: userModel.email,
         user: userModel.id,
-        username: userModel.username,
         publishedAt: new Date().toISOString(),
         name: userModel.username,
         availableHours: 1,

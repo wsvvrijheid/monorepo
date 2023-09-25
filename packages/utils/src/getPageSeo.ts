@@ -88,7 +88,7 @@ export const getPageSeo = (
         article: {
           publishedTime: blog.publishedAt as string,
           modifiedTime: blog.updatedAt as string,
-          authors: [blog.author?.name || blog.author?.username || ''],
+          authors: [blog.author?.name || blog.author?.email || ''],
         },
       }),
     },

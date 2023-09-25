@@ -12,17 +12,15 @@ type ArtistTemplateProps = {
 }
 
 export const ArtistTemplate: FC<ArtistTemplateProps> = ({ artist, arts }) => {
+  const name = artist?.name || artist?.email
+
   return (
     <>
       <Hero>
         <Stack align="center" cursor="default" userSelect="none">
-          <WAvatar
-            size="lg"
-            src={artist.avatar}
-            name={artist?.name || artist?.username}
-          />
+          <WAvatar size="lg" src={artist.avatar} name={name} />
 
-          <Text color={'white'}>{artist?.name || artist?.username}</Text>
+          <Text color={'white'}>{name}</Text>
         </Stack>
       </Hero>
       <Container mt={'80px'}>

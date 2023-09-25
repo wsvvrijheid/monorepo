@@ -22,7 +22,7 @@ export type Role = Omit<StrapiBase, 'publishedAt'> & {
   name: RoleName
   permissions?: Permission
   type: RoleType
-  nb_users: number
+  nb_users?: number
 }
 
 export type Permission = Omit<StrapiBase, 'publishedAt'> & {

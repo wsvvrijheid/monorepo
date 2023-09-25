@@ -2243,7 +2243,6 @@ export interface ApiProfileProfile extends Schema.CollectionType {
     draftAndPublish: true
   }
   attributes: {
-    username: Attribute.String & Attribute.Required & Attribute.Unique
     name: Attribute.String & Attribute.Required
     email: Attribute.Email & Attribute.Required & Attribute.Unique
     bio: Attribute.Text

@@ -149,7 +149,7 @@ const ModelPage: FC<ModelPageProps> = ({ endpoint }) => {
           id={selectedId}
           isOpen={isOpen}
           onClose={handleClose}
-          title={'Edit Model'}
+          title={`Edit ${endpoint}`}
           onSuccess={endpointQuery.refetch}
         />
       )}

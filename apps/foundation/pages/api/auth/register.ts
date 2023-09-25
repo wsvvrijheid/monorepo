@@ -29,7 +29,6 @@ const registerRoute = async (req: NextApiRequest, res: NextApiResponse) => {
       user: userId,
       name: trimmedName,
       email: trimmedEmail,
-      username: trimmedUsername,
     }
 
     await Mutation.post('profiles', body, token)
