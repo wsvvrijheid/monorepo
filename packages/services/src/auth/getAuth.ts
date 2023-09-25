@@ -1,7 +1,8 @@
 import axios from 'axios'
 
 import { API_URL } from '@wsvvrijheid/config'
-import { Auth, AuthResponse } from '@wsvvrijheid/types'
+import { strapiRequest } from '@wsvvrijheid/lib'
+import { Auth, AuthResponse, Profile } from '@wsvvrijheid/types'
 
 import { getSessionUser } from './getSessionUser'
 
@@ -9,6 +10,8 @@ const emptyAuth: Auth = {
   user: null,
   isLoggedIn: false,
   token: null,
+  profile: null,
+  profileId: null,
 }
 
 export const getAuth = async (identifier: string, password: string) => {
@@ -32,7 +35,22 @@ export const getAuth = async (identifier: string, password: string) => {
     return emptyAuth
   }
 
-  const auth: Auth = { user, token, isLoggedIn: true }
+  const profileResponse = await strapiRequest<Profile>({
+    endpoint: 'profiles',
+    filters: {
+      user: { id: user.id },
+    },
+  })
+
+  const profile = profileResponse?.data?.[0] || null
+
+  const auth: Auth = {
+    user,
+    token,
+    isLoggedIn: true,
+    profile,
+    profileId: profile?.id || null,
+  }
 
   return auth
 }

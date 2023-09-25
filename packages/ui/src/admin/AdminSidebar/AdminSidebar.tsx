@@ -13,7 +13,7 @@ type AdminSidebarProps = {
 }
 
 export const AdminSidebar: FC<AdminSidebarProps> = ({ mobile }) => {
-  const { user, logout } = useAuthContext()
+  const { user, profile, logout } = useAuthContext()
 
   return (
     <Stack
@@ -45,7 +45,11 @@ export const AdminSidebar: FC<AdminSidebarProps> = ({ mobile }) => {
       {/* User */}
       {user && (
         <Box py={4}>
-          <AdminSidebarProfile user={user} onLogout={logout} />
+          <AdminSidebarProfile
+            user={user}
+            profile={profile}
+            onLogout={logout}
+          />
         </Box>
       )}
 

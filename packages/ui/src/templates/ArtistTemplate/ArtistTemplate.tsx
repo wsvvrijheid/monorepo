@@ -2,12 +2,12 @@ import { FC } from 'react'
 
 import { SimpleGrid, Stack, Text } from '@chakra-ui/react'
 
-import { Art, User } from '@wsvvrijheid/types'
+import { Art, Profile } from '@wsvvrijheid/types'
 
 import { ArtCard, Container, Hero, WAvatar } from '../../components'
 
 type ArtistTemplateProps = {
-  artist: User
+  artist: Profile
   arts: Art[]
 }
 

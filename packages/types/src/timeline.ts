@@ -1,6 +1,6 @@
+import { Profile } from './profile'
 import { StrapiBase } from './strapi'
 import { Tweet, TweetUserBase } from './tweet'
-import { User } from './user'
 
 export type TimelineBase = StrapiBase & {
   username: string
@@ -9,7 +9,7 @@ export type TimelineBase = StrapiBase & {
 type TimelineRelation = {
   userData: TweetUserBase
   tweets: Array<Omit<Tweet, 'user'>>
-  creator?: User
+  creator?: Profile
   locale?: 'en' | 'nl' | 'tr'
 }
 

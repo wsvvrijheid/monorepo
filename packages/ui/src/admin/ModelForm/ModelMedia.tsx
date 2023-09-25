@@ -27,8 +27,8 @@ export const ModelMedia = <T extends FieldValues = FieldValues>({
   setValue,
   model,
   isEditing,
-  isChangingMedia: isChangingImage,
-  toggleChangingMedia: toggleChangingImage,
+  isChangingMedia,
+  toggleChangingMedia,
   endpoint,
   name,
 }: ModelMediaProps<T>) => {
@@ -40,10 +40,10 @@ export const ModelMedia = <T extends FieldValues = FieldValues>({
   const mediaUrl = getMediaUrl(media)
 
   const renderMedia = () => {
-    if (isChangingImage || (isEditing && !media)) {
+    if (isChangingMedia || (isEditing && !media)) {
       return (
         <Stack>
-          {media && <Button onClick={toggleChangingImage}>Cancel</Button>}
+          {media && <Button onClick={toggleChangingMedia}>Cancel</Button>}
           <FilePicker
             onLoaded={files =>
               setValue(name as Path<T>, files[0] as PathValue<T, Path<T>>)
@@ -105,14 +105,14 @@ export const ModelMedia = <T extends FieldValues = FieldValues>({
       overflow="hidden"
     >
       {renderMedia()}
-      {isEditing && media && !isChangingImage && (
+      {isEditing && media && !isChangingMedia && (
         <Center
           pos="absolute"
           top={0}
           left={0}
           boxSize="full"
           bg="blackAlpha.500"
-          onClick={toggleChangingImage}
+          onClick={toggleChangingMedia}
           cursor="pointer"
         >
           <Button

@@ -5,7 +5,6 @@ const adminRoleRoutes = [
   '/accounts',
   '/activities',
   '/donations',
-  '/announcements',
   '/arts',
   '/arts?status=pending',
   '/arts?status=approved',
@@ -54,7 +53,6 @@ export const getRoutePermission = (roles: RoleType[], route: AdminRoutes) => {
     contentmanager: [
       '/accounts',
       '/activities',
-      '/announcements',
       '/blogs',
       '/competitions',
       '/courses',

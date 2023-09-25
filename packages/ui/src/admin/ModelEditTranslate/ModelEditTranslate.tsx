@@ -49,6 +49,7 @@ export const ModelEditTranslate = <T extends StrapiTranslatableModel>({
   fields,
   schema,
   children,
+  onSuccess,
 }: ModelEditTranslateProps<T>) => {
   const { t } = useTranslation('common')
 
@@ -86,6 +87,7 @@ export const ModelEditTranslate = <T extends StrapiTranslatableModel>({
   const { allowEndpointAction } = usePermission()
 
   const handleSuccess = () => {
+    onSuccess?.()
     refetch()
     setIsEditing.off()
     setConfirmState(undefined)
@@ -217,6 +219,7 @@ export const ModelEditTranslate = <T extends StrapiTranslatableModel>({
                         _disabled={disabledStyle}
                         minH={300}
                         hideLabel
+                        whiteSpace={'pre-wrap'}
                       />
                     ) : (
                       <FormItem
@@ -232,6 +235,7 @@ export const ModelEditTranslate = <T extends StrapiTranslatableModel>({
                         name={field?.name as string}
                         h={'full'}
                         type={'text'}
+                        whiteSpace={'pre-wrap'}
                         errors={errors}
                         register={register}
                         isDisabled={!isEditing}

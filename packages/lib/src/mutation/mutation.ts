@@ -13,6 +13,12 @@ import { generateFormData } from '@wsvvrijheid/utils'
 
 type Method = 'post' | 'put' | 'delete' | 'localize'
 
+type MutationBody =
+  | StrapiCreateInput
+  | StrapiUpdateInput
+  | { data: StrapiCreateInput | StrapiUpdateInput }
+  | FormData
+
 type MutationParams<D> = {
   body?: D
   id?: number
@@ -37,11 +43,6 @@ export const mutation = async <
   endpoint,
   queryParameters,
 }: MutationParams<D>) => {
-  //  Throw an error if the body is not provided
-  if (method !== 'delete' && !body) {
-    throw new Error(`Body is required for ${method} method`)
-  }
-
   //  Throw an error if the id is not provided
   if (method !== 'post' && !id) {
     throw new Error(`Id is required for ${method} method`)
@@ -80,16 +81,24 @@ export const mutation = async <
     return response.data?.data || null
   }
 
-  let requestBody = { data: body } as unknown as FormData
+  //  Throw an error if the body is not provided
+  if (!body) {
+    throw new Error(`Body is required for ${method} method`)
+  }
 
-  if (
-    typeof window !== 'undefined' &&
-    body &&
-    Object.values(body).some(
-      value => value instanceof File || value instanceof Blob,
-    )
-  ) {
-    requestBody = generateFormData<D>(body)
+  const endpointsWithoutDataField: StrapiEndpoint[] = ['users', 'users/me']
+  const hasBodyDataField = !endpointsWithoutDataField.includes(endpoint)
+
+  let requestBody: MutationBody = hasBodyDataField
+    ? ({ data: body } as { data: D })
+    : body
+
+  const hasBodyFile = Object.values(body).some(
+    value => value instanceof File || value instanceof Blob,
+  )
+
+  if (hasBodyFile) {
+    requestBody = generateFormData<D>(body, hasBodyDataField)
   }
 
   try {
@@ -101,7 +110,7 @@ export const mutation = async <
 
     return response.data?.data || null
   } catch (error: any) {
-    console.log('Mutation error', error)
+    console.error('Mutation error', error)
 
     throw new Error(error.response?.data?.message || error.message)
   }

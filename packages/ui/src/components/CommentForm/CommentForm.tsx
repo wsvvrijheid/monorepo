@@ -38,7 +38,7 @@ export const CommentForm: React.FC<CommentFormProps> = ({
   isSuccess,
 }) => {
   const { t } = useTranslation()
-  const { user, isLoggedIn } = useAuthContext()
+  const { user, profile, isLoggedIn } = useAuthContext()
 
   const {
     register,
@@ -92,7 +92,7 @@ export const CommentForm: React.FC<CommentFormProps> = ({
             {isLoggedIn && (
               <WAvatar
                 size="sm"
-                src={`${user?.avatar}`}
+                src={`${profile?.avatar}`}
                 name={user?.username}
               />
             )}

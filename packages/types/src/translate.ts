@@ -1,11 +1,6 @@
 // Only title, description and locale is required for all models
 
 import { Activity, ActivityCreateInput, ActivityUpdateInput } from './activity'
-import {
-  Announcement,
-  AnnouncementCreateInput,
-  AnnouncementUpdateInput,
-} from './announcement'
 import { Blog, BlogCreateInput, BlogUpdateInput } from './blog'
 import {
   Collection,
@@ -29,7 +24,6 @@ import { RecommendedTopicCreateInput } from './recommended-topic'
  */
 export type StrapiTranslatableModel =
   | Activity
-  | Announcement
   | Blog
   | Collection
   | Competition
@@ -38,7 +32,6 @@ export type StrapiTranslatableModel =
 
 export type StrapiTranslatableUpdateInput =
   | ActivityUpdateInput
-  | AnnouncementUpdateInput
   | BlogUpdateInput
   | CollectionUpdateInput
   | CompetitionUpdateInput
@@ -47,7 +40,6 @@ export type StrapiTranslatableUpdateInput =
 
 export type StrapiTranslatableCreateInput =
   | ActivityCreateInput
-  | AnnouncementCreateInput
   | BlogCreateInput
   | CollectionCreateInput
   | CompetitionCreateInput

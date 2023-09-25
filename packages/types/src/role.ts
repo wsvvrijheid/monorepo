@@ -1,7 +1,6 @@
 import { PascalCase } from 'type-fest'
 
 import { StrapiBase } from './strapi'
-import { User } from './user'
 
 export type RoleName =
   | 'Admin'
@@ -23,7 +22,7 @@ export type Role = Omit<StrapiBase, 'publishedAt'> & {
   name: RoleName
   permissions?: Permission
   type: RoleType
-  users?: User
+  nb_users: number
 }
 
 export type Permission = Omit<StrapiBase, 'publishedAt'> & {

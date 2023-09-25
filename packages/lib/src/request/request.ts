@@ -123,6 +123,11 @@ async function strapiRequest<T extends StrapiModel>(
             pagination: { page: 1, pageSize: 25, pageCount: 1, total: 0 },
           },
         }
+      } else if (endpoint === 'users-permissions/roles') {
+        return {
+          data: (result as any).roles as unknown as T,
+          meta: { pagination: null },
+        } as StrapiSingleResponse<T>
       }
 
       return {

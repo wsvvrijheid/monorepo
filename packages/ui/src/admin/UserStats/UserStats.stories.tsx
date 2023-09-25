@@ -19,7 +19,6 @@ const makeStats = () => {
   const getStats = () => ({
     activity: getRandom(),
     total: getRandom(),
-    announcement: getRandom(),
     application: getRandom(),
     blog: getRandom(),
     collection: getRandom(),
@@ -196,7 +195,7 @@ const DataFetch: StoryFn<UserStatasType> = args => {
           encodeValuesOnly: true, // prettify URL
         },
       )
-      console.log(query)
+
       const response = await fetch(
         `http://localhost:1337/api/user-statistics?${query}`,
         {
@@ -208,7 +207,7 @@ const DataFetch: StoryFn<UserStatasType> = args => {
         },
       )
       const data = await response.json()
-      console.log(data)
+
       setUserStats(data.data)
     }
 

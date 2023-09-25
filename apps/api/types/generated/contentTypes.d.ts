@@ -628,10 +628,8 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   }
   options: {
     draftAndPublish: false
-    timestamps: true
   }
   attributes: {
-    name: Attribute.String
     username: Attribute.String &
       Attribute.Required &
       Attribute.Unique &
@@ -653,46 +651,10 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
     confirmationToken: Attribute.String & Attribute.Private
     confirmed: Attribute.Boolean & Attribute.DefaultTo<false>
     blocked: Attribute.Boolean & Attribute.DefaultTo<false>
-    avatar: Attribute.Media
     role: Attribute.Relation<
       'plugin::users-permissions.user',
       'manyToOne',
       'plugin::users-permissions.role'
-    >
-    applicant: Attribute.Relation<
-      'plugin::users-permissions.user',
-      'oneToOne',
-      'api::applicant.applicant'
-    >
-    comments: Attribute.Relation<
-      'plugin::users-permissions.user',
-      'oneToMany',
-      'api::comment.comment'
-    >
-    feedbacks: Attribute.Relation<
-      'plugin::users-permissions.user',
-      'oneToMany',
-      'api::feedback.feedback'
-    >
-    juryVotes: Attribute.Relation<
-      'plugin::users-permissions.user',
-      'oneToMany',
-      'api::vote.vote'
-    >
-    langRoles: Attribute.Relation<
-      'plugin::users-permissions.user',
-      'oneToMany',
-      'api::lang-role.lang-role'
-    >
-    volunteer: Attribute.Relation<
-      'plugin::users-permissions.user',
-      'oneToOne',
-      'api::volunteer.volunteer'
-    >
-    blogs: Attribute.Relation<
-      'plugin::users-permissions.user',
-      'oneToMany',
-      'api::blog.blog'
     >
     createdAt: Attribute.DateTime
     updatedAt: Attribute.DateTime
@@ -830,13 +792,13 @@ export interface ApiActivityActivity extends Schema.CollectionType {
     >
     approver: Attribute.Relation<
       'api::activity.activity',
-      'oneToOne',
-      'plugin::users-permissions.user'
+      'manyToOne',
+      'api::profile.profile'
     >
     creator: Attribute.Relation<
       'api::activity.activity',
-      'oneToOne',
-      'plugin::users-permissions.user'
+      'manyToOne',
+      'api::profile.profile'
     >
     platforms: Attribute.Relation<
       'api::activity.activity',
@@ -867,122 +829,6 @@ export interface ApiActivityActivity extends Schema.CollectionType {
   }
 }
 
-export interface ApiAnnouncementAnnouncement extends Schema.CollectionType {
-  collectionName: 'announcements'
-  info: {
-    singularName: 'announcement'
-    pluralName: 'announcements'
-    displayName: 'Announcement'
-    description: ''
-  }
-  options: {
-    draftAndPublish: true
-  }
-  pluginOptions: {
-    i18n: {
-      localized: true
-    }
-  }
-  attributes: {
-    title: Attribute.String &
-      Attribute.Required &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true
-        }
-      }>
-    slug: Attribute.UID<'api::announcement.announcement', 'title'> &
-      Attribute.Required &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true
-        }
-      }>
-    description: Attribute.Text &
-      Attribute.Required &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true
-        }
-      }> &
-      Attribute.DefaultTo<'Description'>
-    content: Attribute.RichText &
-      Attribute.Required &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true
-        }
-      }>
-    approvalStatus: Attribute.Enumeration<['pending', 'approved', 'rejected']> &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true
-        }
-      }> &
-      Attribute.DefaultTo<'pending'>
-    image: Attribute.Media &
-      Attribute.Required &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: false
-        }
-      }>
-    date: Attribute.DateTime &
-      Attribute.Required &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: false
-        }
-      }>
-    tags: Attribute.Relation<
-      'api::announcement.announcement',
-      'manyToMany',
-      'api::tag.tag'
-    >
-    categories: Attribute.Relation<
-      'api::announcement.announcement',
-      'manyToMany',
-      'api::category.category'
-    >
-    approver: Attribute.Relation<
-      'api::announcement.announcement',
-      'oneToOne',
-      'plugin::users-permissions.user'
-    >
-    creator: Attribute.Relation<
-      'api::announcement.announcement',
-      'oneToOne',
-      'plugin::users-permissions.user'
-    >
-    platforms: Attribute.Relation<
-      'api::announcement.announcement',
-      'oneToMany',
-      'api::platform.platform'
-    >
-    createdAt: Attribute.DateTime
-    updatedAt: Attribute.DateTime
-    publishedAt: Attribute.DateTime
-    createdBy: Attribute.Relation<
-      'api::announcement.announcement',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private
-    updatedBy: Attribute.Relation<
-      'api::announcement.announcement',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private
-    localizations: Attribute.Relation<
-      'api::announcement.announcement',
-      'oneToMany',
-      'api::announcement.announcement'
-    >
-    locale: Attribute.String
-  }
-}
-
 export interface ApiApplicantApplicant extends Schema.CollectionType {
   collectionName: 'applicants'
   info: {
@@ -1001,10 +847,10 @@ export interface ApiApplicantApplicant extends Schema.CollectionType {
       'oneToMany',
       'api::application.application'
     >
-    user: Attribute.Relation<
+    profile: Attribute.Relation<
       'api::applicant.applicant',
       'oneToOne',
-      'plugin::users-permissions.user'
+      'api::profile.profile'
     >
     createdAt: Attribute.DateTime
     updatedAt: Attribute.DateTime
@@ -1103,13 +949,13 @@ export interface ApiApplicationApplication extends Schema.CollectionType {
     >
     approver: Attribute.Relation<
       'api::application.application',
-      'oneToOne',
-      'plugin::users-permissions.user'
+      'manyToOne',
+      'api::profile.profile'
     >
     creator: Attribute.Relation<
       'api::application.application',
-      'oneToOne',
-      'plugin::users-permissions.user'
+      'manyToOne',
+      'api::profile.profile'
     >
     createdAt: Attribute.DateTime
     updatedAt: Attribute.DateTime
@@ -1211,14 +1057,14 @@ export interface ApiArtArt extends Schema.CollectionType {
     >
     likers: Attribute.Relation<
       'api::art.art',
-      'oneToMany',
-      'plugin::users-permissions.user'
+      'manyToMany',
+      'api::profile.profile'
     >
     votes: Attribute.Relation<'api::art.art', 'oneToMany', 'api::vote.vote'>
     artist: Attribute.Relation<
       'api::art.art',
-      'oneToOne',
-      'plugin::users-permissions.user'
+      'manyToOne',
+      'api::profile.profile'
     >
     createdAt: Attribute.DateTime
     updatedAt: Attribute.DateTime
@@ -1318,23 +1164,23 @@ export interface ApiBlogBlog extends Schema.CollectionType {
     >
     likers: Attribute.Relation<
       'api::blog.blog',
-      'oneToMany',
-      'plugin::users-permissions.user'
+      'manyToMany',
+      'api::profile.profile'
     >
     author: Attribute.Relation<
       'api::blog.blog',
       'manyToOne',
-      'plugin::users-permissions.user'
+      'api::profile.profile'
     >
     approver: Attribute.Relation<
       'api::blog.blog',
-      'oneToOne',
-      'plugin::users-permissions.user'
+      'manyToOne',
+      'api::profile.profile'
     >
     creator: Attribute.Relation<
       'api::blog.blog',
-      'oneToOne',
-      'plugin::users-permissions.user'
+      'manyToOne',
+      'api::profile.profile'
     >
     createdAt: Attribute.DateTime
     updatedAt: Attribute.DateTime
@@ -1383,11 +1229,6 @@ export interface ApiCategoryCategory extends Schema.CollectionType {
       'api::category.category',
       'manyToMany',
       'api::competition.competition'
-    >
-    announcements: Attribute.Relation<
-      'api::category.category',
-      'manyToMany',
-      'api::announcement.announcement'
     >
     activities: Attribute.Relation<
       'api::category.category',
@@ -1484,13 +1325,13 @@ export interface ApiCollectionCollection extends Schema.CollectionType {
     >
     approver: Attribute.Relation<
       'api::collection.collection',
-      'oneToOne',
-      'plugin::users-permissions.user'
+      'manyToOne',
+      'api::profile.profile'
     >
     creator: Attribute.Relation<
       'api::collection.collection',
-      'oneToOne',
-      'plugin::users-permissions.user'
+      'manyToOne',
+      'api::profile.profile'
     >
     createdAt: Attribute.DateTime
     updatedAt: Attribute.DateTime
@@ -1531,10 +1372,10 @@ export interface ApiCommentComment extends Schema.CollectionType {
     content: Attribute.Text & Attribute.Required
     name: Attribute.String
     email: Attribute.Email
-    user: Attribute.Relation<
+    profile: Attribute.Relation<
       'api::comment.comment',
       'manyToOne',
-      'plugin::users-permissions.user'
+      'api::profile.profile'
     >
     blog: Attribute.Relation<
       'api::comment.comment',
@@ -1648,13 +1489,13 @@ export interface ApiCompetitionCompetition extends Schema.CollectionType {
     >
     approver: Attribute.Relation<
       'api::competition.competition',
-      'oneToOne',
-      'plugin::users-permissions.user'
+      'manyToOne',
+      'api::profile.profile'
     >
     creator: Attribute.Relation<
       'api::competition.competition',
-      'oneToOne',
-      'plugin::users-permissions.user'
+      'manyToOne',
+      'api::profile.profile'
     >
     createdAt: Attribute.DateTime
     updatedAt: Attribute.DateTime
@@ -1857,7 +1698,7 @@ export interface ApiFeedbackFeedback extends Schema.CollectionType {
     editor: Attribute.Relation<
       'api::feedback.feedback',
       'manyToOne',
-      'plugin::users-permissions.user'
+      'api::profile.profile'
     >
     createdAt: Attribute.DateTime
     updatedAt: Attribute.DateTime
@@ -1981,13 +1822,13 @@ export interface ApiHashtagHashtag extends Schema.CollectionType {
     >
     approver: Attribute.Relation<
       'api::hashtag.hashtag',
-      'oneToOne',
-      'plugin::users-permissions.user'
+      'manyToOne',
+      'api::profile.profile'
     >
     creator: Attribute.Relation<
       'api::hashtag.hashtag',
-      'oneToOne',
-      'plugin::users-permissions.user'
+      'manyToOne',
+      'api::profile.profile'
     >
     createdAt: Attribute.DateTime
     updatedAt: Attribute.DateTime
@@ -2066,7 +1907,7 @@ export interface ApiLangRoleLangRole extends Schema.CollectionType {
     translator: Attribute.Relation<
       'api::lang-role.lang-role',
       'manyToOne',
-      'plugin::users-permissions.user'
+      'api::profile.profile'
     >
     createdAt: Attribute.DateTime
     updatedAt: Attribute.DateTime
@@ -2187,7 +2028,7 @@ export interface ApiPlatformPlatform extends Schema.CollectionType {
     volunteers: Attribute.Relation<
       'api::platform.platform',
       'manyToMany',
-      'api::volunteer.volunteer'
+      'api::profile.profile'
     >
     createdAt: Attribute.DateTime
     updatedAt: Attribute.DateTime
@@ -2283,13 +2124,13 @@ export interface ApiPostPost extends Schema.CollectionType {
     tags: Attribute.Relation<'api::post.post', 'manyToMany', 'api::tag.tag'>
     approver: Attribute.Relation<
       'api::post.post',
-      'oneToOne',
-      'plugin::users-permissions.user'
+      'manyToOne',
+      'api::profile.profile'
     >
     creator: Attribute.Relation<
       'api::post.post',
-      'oneToOne',
-      'plugin::users-permissions.user'
+      'manyToOne',
+      'api::profile.profile'
     >
     video: Attribute.Media &
       Attribute.SetPluginOptions<{
@@ -2390,514 +2231,12 @@ export interface ApiPrivacyPrivacy extends Schema.SingleType {
   }
 }
 
-export interface ApiRecommendedTopicRecommendedTopic
-  extends Schema.CollectionType {
-  collectionName: 'recommended_topics'
+export interface ApiProfileProfile extends Schema.CollectionType {
+  collectionName: 'profiles'
   info: {
-    singularName: 'recommended-topic'
-    pluralName: 'recommended-topics'
-    displayName: 'Recommended Topic'
-    description: ''
-  }
-  options: {
-    draftAndPublish: true
-  }
-  pluginOptions: {
-    i18n: {
-      localized: true
-    }
-  }
-  attributes: {
-    title: Attribute.String &
-      Attribute.Required &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true
-        }
-      }>
-    description: Attribute.Text &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true
-        }
-      }> &
-      Attribute.DefaultTo<'Description'>
-    image: Attribute.String &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true
-        }
-      }>
-    url: Attribute.String &
-      Attribute.Required &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true
-        }
-      }>
-    category: Attribute.String &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true
-        }
-      }>
-    publisher: Attribute.String &
-      Attribute.Required &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true
-        }
-      }>
-    time: Attribute.DateTime &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true
-        }
-      }>
-    skipped: Attribute.Boolean &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true
-        }
-      }> &
-      Attribute.DefaultTo<false>
-    posted: Attribute.Boolean &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true
-        }
-      }> &
-      Attribute.DefaultTo<false>
-    creator: Attribute.Relation<
-      'api::recommended-topic.recommended-topic',
-      'oneToOne',
-      'plugin::users-permissions.user'
-    >
-    createdAt: Attribute.DateTime
-    updatedAt: Attribute.DateTime
-    publishedAt: Attribute.DateTime
-    createdBy: Attribute.Relation<
-      'api::recommended-topic.recommended-topic',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private
-    updatedBy: Attribute.Relation<
-      'api::recommended-topic.recommended-topic',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private
-    localizations: Attribute.Relation<
-      'api::recommended-topic.recommended-topic',
-      'oneToMany',
-      'api::recommended-topic.recommended-topic'
-    >
-    locale: Attribute.String
-  }
-}
-
-export interface ApiRecommendedTweetRecommendedTweet
-  extends Schema.CollectionType {
-  collectionName: 'recommended_tweets'
-  info: {
-    singularName: 'recommended-tweet'
-    pluralName: 'recommended-tweets'
-    displayName: 'Recommended Tweet'
-    description: ''
-  }
-  options: {
-    draftAndPublish: true
-  }
-  pluginOptions: {
-    i18n: {
-      localized: true
-    }
-  }
-  attributes: {
-    text: Attribute.Text &
-      Attribute.Required &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true
-        }
-      }>
-    isShared: Attribute.Boolean &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true
-        }
-      }> &
-      Attribute.DefaultTo<false>
-    originalTweet: Attribute.JSON &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true
-        }
-      }>
-    mentions: Attribute.Relation<
-      'api::recommended-tweet.recommended-tweet',
-      'oneToMany',
-      'api::mention.mention'
-    >
-    video: Attribute.Media &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true
-        }
-      }>
-    image: Attribute.Media &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true
-        }
-      }>
-    creator: Attribute.Relation<
-      'api::recommended-tweet.recommended-tweet',
-      'oneToOne',
-      'plugin::users-permissions.user'
-    >
-    videoUrl: Attribute.String &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true
-        }
-      }>
-    caps: Attribute.Media &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true
-        }
-      }>
-    createdAt: Attribute.DateTime
-    updatedAt: Attribute.DateTime
-    publishedAt: Attribute.DateTime
-    createdBy: Attribute.Relation<
-      'api::recommended-tweet.recommended-tweet',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private
-    updatedBy: Attribute.Relation<
-      'api::recommended-tweet.recommended-tweet',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private
-    localizations: Attribute.Relation<
-      'api::recommended-tweet.recommended-tweet',
-      'oneToMany',
-      'api::recommended-tweet.recommended-tweet'
-    >
-    locale: Attribute.String
-  }
-}
-
-export interface ApiTagTag extends Schema.CollectionType {
-  collectionName: 'tags'
-  info: {
-    singularName: 'tag'
-    pluralName: 'tags'
-    displayName: 'Tag'
-    description: ''
-  }
-  options: {
-    draftAndPublish: true
-  }
-  attributes: {
-    slug: Attribute.UID<'api::tag.tag', 'name_en'> & Attribute.Required
-    name_en: Attribute.String & Attribute.Required
-    name_nl: Attribute.String & Attribute.Required
-    name_tr: Attribute.String & Attribute.Required
-    blogs: Attribute.Relation<'api::tag.tag', 'manyToMany', 'api::blog.blog'>
-    announcements: Attribute.Relation<
-      'api::tag.tag',
-      'manyToMany',
-      'api::announcement.announcement'
-    >
-    applications: Attribute.Relation<
-      'api::tag.tag',
-      'manyToMany',
-      'api::application.application'
-    >
-    posts: Attribute.Relation<'api::tag.tag', 'manyToMany', 'api::post.post'>
-    activities: Attribute.Relation<
-      'api::tag.tag',
-      'manyToMany',
-      'api::activity.activity'
-    >
-    courses: Attribute.Relation<
-      'api::tag.tag',
-      'manyToMany',
-      'api::course.course'
-    >
-    createdAt: Attribute.DateTime
-    updatedAt: Attribute.DateTime
-    publishedAt: Attribute.DateTime
-    createdBy: Attribute.Relation<'api::tag.tag', 'oneToOne', 'admin::user'> &
-      Attribute.Private
-    updatedBy: Attribute.Relation<'api::tag.tag', 'oneToOne', 'admin::user'> &
-      Attribute.Private
-  }
-}
-
-export interface ApiTermTerm extends Schema.SingleType {
-  collectionName: 'terms'
-  info: {
-    singularName: 'term'
-    pluralName: 'terms'
-    displayName: 'Term'
-  }
-  options: {
-    draftAndPublish: true
-  }
-  pluginOptions: {
-    i18n: {
-      localized: true
-    }
-  }
-  attributes: {
-    title: Attribute.String &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true
-        }
-      }>
-    slug: Attribute.UID<'api::term.term', 'title'> &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true
-        }
-      }>
-    image: Attribute.Media &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: false
-        }
-      }>
-    content: Attribute.RichText &
-      Attribute.Required &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true
-        }
-      }>
-    createdAt: Attribute.DateTime
-    updatedAt: Attribute.DateTime
-    publishedAt: Attribute.DateTime
-    createdBy: Attribute.Relation<'api::term.term', 'oneToOne', 'admin::user'> &
-      Attribute.Private
-    updatedBy: Attribute.Relation<'api::term.term', 'oneToOne', 'admin::user'> &
-      Attribute.Private
-    localizations: Attribute.Relation<
-      'api::term.term',
-      'oneToMany',
-      'api::term.term'
-    >
-    locale: Attribute.String
-  }
-}
-
-export interface ApiTimelineTimeline extends Schema.CollectionType {
-  collectionName: 'user_tweets'
-  info: {
-    singularName: 'timeline'
-    pluralName: 'timelines'
-    displayName: 'Timeline'
-    description: ''
-  }
-  options: {
-    draftAndPublish: true
-  }
-  pluginOptions: {
-    i18n: {
-      localized: true
-    }
-  }
-  attributes: {
-    username: Attribute.UID &
-      Attribute.Required &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true
-        }
-      }>
-    userData: Attribute.JSON &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true
-        }
-      }>
-    tweets: Attribute.JSON &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true
-        }
-      }>
-    createdAt: Attribute.DateTime
-    updatedAt: Attribute.DateTime
-    publishedAt: Attribute.DateTime
-    createdBy: Attribute.Relation<
-      'api::timeline.timeline',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private
-    updatedBy: Attribute.Relation<
-      'api::timeline.timeline',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private
-    localizations: Attribute.Relation<
-      'api::timeline.timeline',
-      'oneToMany',
-      'api::timeline.timeline'
-    >
-    locale: Attribute.String
-  }
-}
-
-export interface ApiTopicTopic extends Schema.SingleType {
-  collectionName: 'topics'
-  info: {
-    singularName: 'topic'
-    pluralName: 'topics'
-    displayName: 'Topic'
-    description: ''
-  }
-  options: {
-    draftAndPublish: true
-  }
-  attributes: {
-    data: Attribute.JSON
-    isSyncing: Attribute.Boolean & Attribute.DefaultTo<false>
-    createdAt: Attribute.DateTime
-    updatedAt: Attribute.DateTime
-    publishedAt: Attribute.DateTime
-    createdBy: Attribute.Relation<
-      'api::topic.topic',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private
-    updatedBy: Attribute.Relation<
-      'api::topic.topic',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private
-  }
-}
-
-export interface ApiTrendTrend extends Schema.SingleType {
-  collectionName: 'trends'
-  info: {
-    singularName: 'trend'
-    pluralName: 'trends'
-    displayName: 'Trend'
-  }
-  options: {
-    draftAndPublish: false
-  }
-  attributes: {
-    en: Attribute.JSON
-    nl: Attribute.JSON
-    tr: Attribute.JSON
-    createdAt: Attribute.DateTime
-    updatedAt: Attribute.DateTime
-    createdBy: Attribute.Relation<
-      'api::trend.trend',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private
-    updatedBy: Attribute.Relation<
-      'api::trend.trend',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private
-  }
-}
-
-export interface ApiUserFeedbackUserFeedback extends Schema.CollectionType {
-  collectionName: 'user_feedbacks'
-  info: {
-    singularName: 'user-feedback'
-    pluralName: 'user-feedbacks'
-    displayName: 'UserFeedback'
-    description: ''
-  }
-  options: {
-    draftAndPublish: true
-  }
-  attributes: {
-    comment: Attribute.Text
-    point: Attribute.Integer
-    image: Attribute.Media
-    site: Attribute.String
-    createdAt: Attribute.DateTime
-    updatedAt: Attribute.DateTime
-    publishedAt: Attribute.DateTime
-    createdBy: Attribute.Relation<
-      'api::user-feedback.user-feedback',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private
-    updatedBy: Attribute.Relation<
-      'api::user-feedback.user-feedback',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private
-  }
-}
-
-export interface ApiUserStatisticUserStatistic extends Schema.CollectionType {
-  collectionName: 'user_statistics'
-  info: {
-    singularName: 'user-statistic'
-    pluralName: 'user-statistics'
-    displayName: 'User Statistic'
-    description: ''
-  }
-  options: {
-    draftAndPublish: true
-  }
-  attributes: {
-    user: Attribute.Relation<
-      'api::user-statistic.user-statistic',
-      'oneToOne',
-      'plugin::users-permissions.user'
-    >
-    date: Attribute.Date
-    stats: Attribute.JSON
-    createdAt: Attribute.DateTime
-    updatedAt: Attribute.DateTime
-    publishedAt: Attribute.DateTime
-    createdBy: Attribute.Relation<
-      'api::user-statistic.user-statistic',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private
-    updatedBy: Attribute.Relation<
-      'api::user-statistic.user-statistic',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private
-  }
-}
-
-export interface ApiVolunteerVolunteer extends Schema.CollectionType {
-  collectionName: 'volunteers'
-  info: {
-    singularName: 'volunteer'
-    pluralName: 'volunteers'
-    displayName: 'Volunteer'
+    singularName: 'profile'
+    pluralName: 'profiles'
+    displayName: 'Profile'
     description: ''
   }
   options: {
@@ -3174,34 +2513,668 @@ export interface ApiVolunteerVolunteer extends Schema.CollectionType {
     inMailingList: Attribute.Boolean & Attribute.DefaultTo<false>
     approved: Attribute.Boolean & Attribute.DefaultTo<false>
     isPublic: Attribute.Boolean & Attribute.DefaultTo<false>
-    user: Attribute.Relation<
-      'api::volunteer.volunteer',
-      'oneToOne',
-      'plugin::users-permissions.user'
-    >
     jobs: Attribute.Relation<
-      'api::volunteer.volunteer',
+      'api::profile.profile',
       'oneToMany',
       'api::job.job'
     >
     age: Attribute.Integer
     city: Attribute.String
     platforms: Attribute.Relation<
-      'api::volunteer.volunteer',
+      'api::profile.profile',
       'manyToMany',
       'api::platform.platform'
+    >
+    avatar: Attribute.Media
+    isVolunteer: Attribute.Boolean
+    approvedActivities: Attribute.Relation<
+      'api::profile.profile',
+      'oneToMany',
+      'api::activity.activity'
+    >
+    createdActivities: Attribute.Relation<
+      'api::profile.profile',
+      'oneToMany',
+      'api::activity.activity'
+    >
+    applicant: Attribute.Relation<
+      'api::profile.profile',
+      'oneToOne',
+      'api::applicant.applicant'
+    >
+    approvedApplications: Attribute.Relation<
+      'api::profile.profile',
+      'oneToMany',
+      'api::application.application'
+    >
+    createdApplications: Attribute.Relation<
+      'api::profile.profile',
+      'oneToMany',
+      'api::application.application'
+    >
+    likedArts: Attribute.Relation<
+      'api::profile.profile',
+      'manyToMany',
+      'api::art.art'
+    >
+    ownedArts: Attribute.Relation<
+      'api::profile.profile',
+      'oneToMany',
+      'api::art.art'
+    >
+    likedBlogs: Attribute.Relation<
+      'api::profile.profile',
+      'manyToMany',
+      'api::blog.blog'
+    >
+    ownedBlogs: Attribute.Relation<
+      'api::profile.profile',
+      'oneToMany',
+      'api::blog.blog'
+    >
+    createdBlogs: Attribute.Relation<
+      'api::profile.profile',
+      'oneToMany',
+      'api::blog.blog'
+    >
+    approvedCollections: Attribute.Relation<
+      'api::profile.profile',
+      'oneToMany',
+      'api::collection.collection'
+    >
+    createdCollections: Attribute.Relation<
+      'api::profile.profile',
+      'oneToMany',
+      'api::collection.collection'
+    >
+    comments: Attribute.Relation<
+      'api::profile.profile',
+      'oneToMany',
+      'api::comment.comment'
+    >
+    approvedCompetitions: Attribute.Relation<
+      'api::profile.profile',
+      'oneToMany',
+      'api::competition.competition'
+    >
+    createdCompetitions: Attribute.Relation<
+      'api::profile.profile',
+      'oneToMany',
+      'api::competition.competition'
+    >
+    feedbacks: Attribute.Relation<
+      'api::profile.profile',
+      'oneToMany',
+      'api::feedback.feedback'
+    >
+    approvedHashtags: Attribute.Relation<
+      'api::profile.profile',
+      'oneToMany',
+      'api::hashtag.hashtag'
+    >
+    createdHashtags: Attribute.Relation<
+      'api::profile.profile',
+      'oneToMany',
+      'api::hashtag.hashtag'
+    >
+    langRoles: Attribute.Relation<
+      'api::profile.profile',
+      'oneToMany',
+      'api::lang-role.lang-role'
+    >
+    approvedPosts: Attribute.Relation<
+      'api::profile.profile',
+      'oneToMany',
+      'api::post.post'
+    >
+    createdPosts: Attribute.Relation<
+      'api::profile.profile',
+      'oneToMany',
+      'api::post.post'
+    >
+    createdTopics: Attribute.Relation<
+      'api::profile.profile',
+      'oneToMany',
+      'api::recommended-topic.recommended-topic'
+    >
+    createdTweets: Attribute.Relation<
+      'api::profile.profile',
+      'oneToMany',
+      'api::recommended-tweet.recommended-tweet'
+    >
+    stats: Attribute.Relation<
+      'api::profile.profile',
+      'oneToMany',
+      'api::user-statistic.user-statistic'
+    >
+    votes: Attribute.Relation<
+      'api::profile.profile',
+      'oneToMany',
+      'api::vote.vote'
+    >
+    juryVotes: Attribute.Relation<
+      'api::profile.profile',
+      'oneToMany',
+      'api::vote.vote'
+    >
+    user: Attribute.Relation<
+      'api::profile.profile',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >
+    role: Attribute.Relation<
+      'api::profile.profile',
+      'manyToOne',
+      'plugin::users-permissions.role'
     >
     createdAt: Attribute.DateTime
     updatedAt: Attribute.DateTime
     publishedAt: Attribute.DateTime
     createdBy: Attribute.Relation<
-      'api::volunteer.volunteer',
+      'api::profile.profile',
       'oneToOne',
       'admin::user'
     > &
       Attribute.Private
     updatedBy: Attribute.Relation<
-      'api::volunteer.volunteer',
+      'api::profile.profile',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private
+  }
+}
+
+export interface ApiRecommendedTopicRecommendedTopic
+  extends Schema.CollectionType {
+  collectionName: 'recommended_topics'
+  info: {
+    singularName: 'recommended-topic'
+    pluralName: 'recommended-topics'
+    displayName: 'Recommended Topic'
+    description: ''
+  }
+  options: {
+    draftAndPublish: true
+  }
+  pluginOptions: {
+    i18n: {
+      localized: true
+    }
+  }
+  attributes: {
+    title: Attribute.String &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true
+        }
+      }>
+    description: Attribute.Text &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true
+        }
+      }> &
+      Attribute.DefaultTo<'Description'>
+    image: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true
+        }
+      }>
+    url: Attribute.String &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true
+        }
+      }>
+    category: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true
+        }
+      }>
+    publisher: Attribute.String &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true
+        }
+      }>
+    time: Attribute.DateTime &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true
+        }
+      }>
+    skipped: Attribute.Boolean &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true
+        }
+      }> &
+      Attribute.DefaultTo<false>
+    posted: Attribute.Boolean &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true
+        }
+      }> &
+      Attribute.DefaultTo<false>
+    creator: Attribute.Relation<
+      'api::recommended-topic.recommended-topic',
+      'manyToOne',
+      'api::profile.profile'
+    >
+    createdAt: Attribute.DateTime
+    updatedAt: Attribute.DateTime
+    publishedAt: Attribute.DateTime
+    createdBy: Attribute.Relation<
+      'api::recommended-topic.recommended-topic',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private
+    updatedBy: Attribute.Relation<
+      'api::recommended-topic.recommended-topic',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private
+    localizations: Attribute.Relation<
+      'api::recommended-topic.recommended-topic',
+      'oneToMany',
+      'api::recommended-topic.recommended-topic'
+    >
+    locale: Attribute.String
+  }
+}
+
+export interface ApiRecommendedTweetRecommendedTweet
+  extends Schema.CollectionType {
+  collectionName: 'recommended_tweets'
+  info: {
+    singularName: 'recommended-tweet'
+    pluralName: 'recommended-tweets'
+    displayName: 'Recommended Tweet'
+    description: ''
+  }
+  options: {
+    draftAndPublish: true
+  }
+  pluginOptions: {
+    i18n: {
+      localized: true
+    }
+  }
+  attributes: {
+    text: Attribute.Text &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true
+        }
+      }>
+    isShared: Attribute.Boolean &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true
+        }
+      }> &
+      Attribute.DefaultTo<false>
+    originalTweet: Attribute.JSON &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true
+        }
+      }>
+    mentions: Attribute.Relation<
+      'api::recommended-tweet.recommended-tweet',
+      'oneToMany',
+      'api::mention.mention'
+    >
+    video: Attribute.Media &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true
+        }
+      }>
+    image: Attribute.Media &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true
+        }
+      }>
+    creator: Attribute.Relation<
+      'api::recommended-tweet.recommended-tweet',
+      'manyToOne',
+      'api::profile.profile'
+    >
+    videoUrl: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true
+        }
+      }>
+    caps: Attribute.Media &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true
+        }
+      }>
+    createdAt: Attribute.DateTime
+    updatedAt: Attribute.DateTime
+    publishedAt: Attribute.DateTime
+    createdBy: Attribute.Relation<
+      'api::recommended-tweet.recommended-tweet',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private
+    updatedBy: Attribute.Relation<
+      'api::recommended-tweet.recommended-tweet',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private
+    localizations: Attribute.Relation<
+      'api::recommended-tweet.recommended-tweet',
+      'oneToMany',
+      'api::recommended-tweet.recommended-tweet'
+    >
+    locale: Attribute.String
+  }
+}
+
+export interface ApiTagTag extends Schema.CollectionType {
+  collectionName: 'tags'
+  info: {
+    singularName: 'tag'
+    pluralName: 'tags'
+    displayName: 'Tag'
+    description: ''
+  }
+  options: {
+    draftAndPublish: true
+  }
+  attributes: {
+    slug: Attribute.UID<'api::tag.tag', 'name_en'> & Attribute.Required
+    name_en: Attribute.String & Attribute.Required
+    name_nl: Attribute.String & Attribute.Required
+    name_tr: Attribute.String & Attribute.Required
+    blogs: Attribute.Relation<'api::tag.tag', 'manyToMany', 'api::blog.blog'>
+    applications: Attribute.Relation<
+      'api::tag.tag',
+      'manyToMany',
+      'api::application.application'
+    >
+    posts: Attribute.Relation<'api::tag.tag', 'manyToMany', 'api::post.post'>
+    activities: Attribute.Relation<
+      'api::tag.tag',
+      'manyToMany',
+      'api::activity.activity'
+    >
+    courses: Attribute.Relation<
+      'api::tag.tag',
+      'manyToMany',
+      'api::course.course'
+    >
+    createdAt: Attribute.DateTime
+    updatedAt: Attribute.DateTime
+    publishedAt: Attribute.DateTime
+    createdBy: Attribute.Relation<'api::tag.tag', 'oneToOne', 'admin::user'> &
+      Attribute.Private
+    updatedBy: Attribute.Relation<'api::tag.tag', 'oneToOne', 'admin::user'> &
+      Attribute.Private
+  }
+}
+
+export interface ApiTermTerm extends Schema.SingleType {
+  collectionName: 'terms'
+  info: {
+    singularName: 'term'
+    pluralName: 'terms'
+    displayName: 'Term'
+  }
+  options: {
+    draftAndPublish: true
+  }
+  pluginOptions: {
+    i18n: {
+      localized: true
+    }
+  }
+  attributes: {
+    title: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true
+        }
+      }>
+    slug: Attribute.UID<'api::term.term', 'title'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true
+        }
+      }>
+    image: Attribute.Media &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false
+        }
+      }>
+    content: Attribute.RichText &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true
+        }
+      }>
+    createdAt: Attribute.DateTime
+    updatedAt: Attribute.DateTime
+    publishedAt: Attribute.DateTime
+    createdBy: Attribute.Relation<'api::term.term', 'oneToOne', 'admin::user'> &
+      Attribute.Private
+    updatedBy: Attribute.Relation<'api::term.term', 'oneToOne', 'admin::user'> &
+      Attribute.Private
+    localizations: Attribute.Relation<
+      'api::term.term',
+      'oneToMany',
+      'api::term.term'
+    >
+    locale: Attribute.String
+  }
+}
+
+export interface ApiTimelineTimeline extends Schema.CollectionType {
+  collectionName: 'user_tweets'
+  info: {
+    singularName: 'timeline'
+    pluralName: 'timelines'
+    displayName: 'Timeline'
+    description: ''
+  }
+  options: {
+    draftAndPublish: true
+  }
+  pluginOptions: {
+    i18n: {
+      localized: true
+    }
+  }
+  attributes: {
+    username: Attribute.UID &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true
+        }
+      }>
+    userData: Attribute.JSON &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true
+        }
+      }>
+    tweets: Attribute.JSON &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true
+        }
+      }>
+    createdAt: Attribute.DateTime
+    updatedAt: Attribute.DateTime
+    publishedAt: Attribute.DateTime
+    createdBy: Attribute.Relation<
+      'api::timeline.timeline',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private
+    updatedBy: Attribute.Relation<
+      'api::timeline.timeline',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private
+    localizations: Attribute.Relation<
+      'api::timeline.timeline',
+      'oneToMany',
+      'api::timeline.timeline'
+    >
+    locale: Attribute.String
+  }
+}
+
+export interface ApiTopicTopic extends Schema.SingleType {
+  collectionName: 'topics'
+  info: {
+    singularName: 'topic'
+    pluralName: 'topics'
+    displayName: 'Topic'
+    description: ''
+  }
+  options: {
+    draftAndPublish: true
+  }
+  attributes: {
+    data: Attribute.JSON
+    isSyncing: Attribute.Boolean & Attribute.DefaultTo<false>
+    createdAt: Attribute.DateTime
+    updatedAt: Attribute.DateTime
+    publishedAt: Attribute.DateTime
+    createdBy: Attribute.Relation<
+      'api::topic.topic',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private
+    updatedBy: Attribute.Relation<
+      'api::topic.topic',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private
+  }
+}
+
+export interface ApiTrendTrend extends Schema.SingleType {
+  collectionName: 'trends'
+  info: {
+    singularName: 'trend'
+    pluralName: 'trends'
+    displayName: 'Trend'
+  }
+  options: {
+    draftAndPublish: false
+  }
+  attributes: {
+    en: Attribute.JSON
+    nl: Attribute.JSON
+    tr: Attribute.JSON
+    createdAt: Attribute.DateTime
+    updatedAt: Attribute.DateTime
+    createdBy: Attribute.Relation<
+      'api::trend.trend',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private
+    updatedBy: Attribute.Relation<
+      'api::trend.trend',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private
+  }
+}
+
+export interface ApiUserFeedbackUserFeedback extends Schema.CollectionType {
+  collectionName: 'user_feedbacks'
+  info: {
+    singularName: 'user-feedback'
+    pluralName: 'user-feedbacks'
+    displayName: 'UserFeedback'
+    description: ''
+  }
+  options: {
+    draftAndPublish: true
+  }
+  attributes: {
+    comment: Attribute.Text
+    point: Attribute.Integer
+    image: Attribute.Media
+    site: Attribute.String
+    createdAt: Attribute.DateTime
+    updatedAt: Attribute.DateTime
+    publishedAt: Attribute.DateTime
+    createdBy: Attribute.Relation<
+      'api::user-feedback.user-feedback',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private
+    updatedBy: Attribute.Relation<
+      'api::user-feedback.user-feedback',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private
+  }
+}
+
+export interface ApiUserStatisticUserStatistic extends Schema.CollectionType {
+  collectionName: 'user_statistics'
+  info: {
+    singularName: 'user-statistic'
+    pluralName: 'user-statistics'
+    displayName: 'User Statistic'
+    description: ''
+  }
+  options: {
+    draftAndPublish: true
+  }
+  attributes: {
+    date: Attribute.Date
+    stats: Attribute.JSON
+    profile: Attribute.Relation<
+      'api::user-statistic.user-statistic',
+      'manyToOne',
+      'api::profile.profile'
+    >
+    createdAt: Attribute.DateTime
+    updatedAt: Attribute.DateTime
+    publishedAt: Attribute.DateTime
+    createdBy: Attribute.Relation<
+      'api::user-statistic.user-statistic',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private
+    updatedBy: Attribute.Relation<
+      'api::user-statistic.user-statistic',
       'oneToOne',
       'admin::user'
     > &
@@ -3229,20 +3202,20 @@ export interface ApiVoteVote extends Schema.CollectionType {
       }>
     voter: Attribute.Relation<
       'api::vote.vote',
-      'oneToOne',
-      'plugin::users-permissions.user'
+      'manyToOne',
+      'api::profile.profile'
     >
     application: Attribute.Relation<
       'api::vote.vote',
       'manyToOne',
       'api::application.application'
     >
+    art: Attribute.Relation<'api::vote.vote', 'manyToOne', 'api::art.art'>
     jury: Attribute.Relation<
       'api::vote.vote',
       'manyToOne',
-      'plugin::users-permissions.user'
+      'api::profile.profile'
     >
-    art: Attribute.Relation<'api::vote.vote', 'manyToOne', 'api::art.art'>
     createdAt: Attribute.DateTime
     updatedAt: Attribute.DateTime
     publishedAt: Attribute.DateTime
@@ -3271,7 +3244,6 @@ declare module '@strapi/strapi' {
       'plugin::users-permissions.user': PluginUsersPermissionsUser
       'api::account-statistic.account-statistic': ApiAccountStatisticAccountStatistic
       'api::activity.activity': ApiActivityActivity
-      'api::announcement.announcement': ApiAnnouncementAnnouncement
       'api::applicant.applicant': ApiApplicantApplicant
       'api::application.application': ApiApplicationApplication
       'api::art.art': ApiArtArt
@@ -3291,6 +3263,7 @@ declare module '@strapi/strapi' {
       'api::platform.platform': ApiPlatformPlatform
       'api::post.post': ApiPostPost
       'api::privacy.privacy': ApiPrivacyPrivacy
+      'api::profile.profile': ApiProfileProfile
       'api::recommended-topic.recommended-topic': ApiRecommendedTopicRecommendedTopic
       'api::recommended-tweet.recommended-tweet': ApiRecommendedTweetRecommendedTweet
       'api::tag.tag': ApiTagTag
@@ -3300,7 +3273,6 @@ declare module '@strapi/strapi' {
       'api::trend.trend': ApiTrendTrend
       'api::user-feedback.user-feedback': ApiUserFeedbackUserFeedback
       'api::user-statistic.user-statistic': ApiUserStatisticUserStatistic
-      'api::volunteer.volunteer': ApiVolunteerVolunteer
       'api::vote.vote': ApiVoteVote
     }
   }

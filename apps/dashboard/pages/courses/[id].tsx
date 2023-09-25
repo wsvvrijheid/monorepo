@@ -32,8 +32,6 @@ import {
   ModelEditModal,
   PageHeader,
   useColumns,
-  useFields,
-  useSchema,
 } from '@wsvvrijheid/ui'
 
 const CoursePage = () => {
@@ -43,8 +41,6 @@ const CoursePage = () => {
   const { locale, query } = useRouter()
 
   const columns = useColumns<CourseApplication>()
-  const fields = useFields()
-  const schemas = useSchema()
 
   const [selectedApplicationId, setSelectedApplicationId] = useState<number>()
   const [currentPage, setCurrentPage] = useState<number>(1)
@@ -108,10 +104,9 @@ const CoursePage = () => {
           title={'Application'}
           endpoint="course-applications"
           id={selectedApplicationId}
-          schema={schemas['course-applications']!}
-          fields={fields['course-applications']!}
           isOpen={isOpen}
           onClose={handleClose}
+          onSuccess={refetch}
           size={'5xl'}
         />
       )}
@@ -142,8 +137,6 @@ const CoursePage = () => {
                 <ModelEditForm<Course>
                   endpoint="courses"
                   model={course}
-                  schema={schemas.courses!}
-                  fields={fields.courses!}
                   onSuccess={refetch}
                 />
               )}

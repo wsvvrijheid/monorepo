@@ -7,8 +7,22 @@ export default {
     const { date, days } = ctx.query
 
     const { user } = ctx.state
+
+    const getProfiles = await strapi.entityService.findMany(
+      'api::profile.profile',
+      { filters: { user: { id: { $eq: user.id } } } },
+    )
+
+    const profile = getProfiles[0]
+
+    if (!profile) {
+      return {
+        data: null,
+      }
+    }
+
     const stats = await getStats(
-      user.id,
+      Number(profile.id),
       date && new Date(date as string),
       days && parseInt(days as string),
     )
@@ -18,20 +32,18 @@ export default {
     }
   },
   async getStats(ctx: Context) {
-    const users = await strapi.entityService.findMany(
-      'plugin::users-permissions.user',
-      {
-        filters: {
+    const users = await strapi.entityService.findMany('api::profile.profile', {
+      filters: {
+        user: {
           role: {
             type: {
               $notIn: ['public', 'authenticated'],
             },
           },
         },
-        // Don't expose sensitive data
-        fields: ['id', 'name', 'username'],
       },
-    )
+      populate: ['user.role'],
+    })
 
     const { date, days } = ctx.query
 

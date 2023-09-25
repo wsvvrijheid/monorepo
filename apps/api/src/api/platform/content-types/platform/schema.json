@@ -86,7 +86,7 @@
     "volunteers": {
       "type": "relation",
       "relation": "manyToMany",
-      "target": "api::volunteer.volunteer",
+      "target": "api::profile.profile",
       "mappedBy": "platforms"
     }
   }

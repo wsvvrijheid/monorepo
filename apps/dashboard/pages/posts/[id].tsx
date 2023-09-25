@@ -12,8 +12,6 @@ import {
   ModelEditForm,
   PageHeader,
   PostSentenceForm,
-  useFields,
-  useSchema,
 } from '@wsvvrijheid/ui'
 
 const PostPage = () => {
@@ -21,9 +19,6 @@ const PostPage = () => {
   const { query } = router
 
   const { t } = useTranslation()
-
-  const fields = useFields<Post>()
-  const schemas = useSchema()
 
   const id = Number(query.id as string)
   const { data, isLoading, refetch } = useStrapiRequest<Post>({
@@ -50,9 +45,7 @@ const PostPage = () => {
             <ModelEditForm<Post>
               endpoint="posts"
               model={post}
-              schema={schemas.posts!}
               translatedFields={['description', 'content']}
-              fields={fields.posts!}
               onSuccess={refetch}
             />
           </Box>

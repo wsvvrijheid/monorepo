@@ -1,22 +1,16 @@
 import { factories } from '@strapi/strapi'
+import { assignCreator, getProfile } from '../../../utils'
 
-export default factories.createCoreController(
-  'api::blog.blog',
-  ({ strapi }) => {
-    return {
-      async create(ctx) {
-        const result = await super.create(ctx)
+export default factories.createCoreController('api::blog.blog', () => {
+  return {
+    async create(ctx) {
+      const profile = await getProfile(ctx, true)
 
-        if (!ctx.state.user) {
-          return result
-        }
+      const result = await super.create(ctx)
 
-        await strapi.entityService.update('api::blog.blog', result.data.id, {
-          data: { creator: ctx.state.user.id },
-        })
+      await assignCreator(profile, result?.data?.id, 'api::blog.blog')
 
-        return result
-      },
-    }
-  },
-)
+      return result
+    },
+  }
+})

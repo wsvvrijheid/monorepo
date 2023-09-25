@@ -20,7 +20,7 @@ export const USER_MOCKS: Array<User> = [
       createdAt: '2022-03-31T18:54:29.468Z',
       updatedAt: '2022-09-14T02:07:31.634Z',
     },
-    volunteer: null,
+    profile: null,
     votes: [],
   },
   {
@@ -95,7 +95,7 @@ export const USER_MOCKS: Array<User> = [
         blocked: null,
       },
     ],
-    volunteer: null,
+    profile: null,
     votes: [],
   },
   {
@@ -181,7 +181,7 @@ export const USER_MOCKS: Array<User> = [
         blocked: null,
       },
     ],
-    volunteer: null,
+    profile: null,
     votes: [],
   },
   {
@@ -203,7 +203,7 @@ export const USER_MOCKS: Array<User> = [
       createdAt: '2022-09-14T01:21:03.391Z',
       updatedAt: '2022-09-14T01:58:07.254Z',
     },
-    volunteer: null,
+    profile: null,
     votes: [],
   },
   {
@@ -237,7 +237,7 @@ export const USER_MOCKS: Array<User> = [
         blocked: null,
       },
     ],
-    volunteer: null,
+    profile: null,
     votes: [],
   },
   {
@@ -259,7 +259,7 @@ export const USER_MOCKS: Array<User> = [
       createdAt: '2022-09-14T01:53:13.306Z',
       updatedAt: '2022-09-14T01:53:13.306Z',
     },
-    volunteer: null,
+    profile: null,
     votes: [],
   },
   {
@@ -281,7 +281,7 @@ export const USER_MOCKS: Array<User> = [
       createdAt: '2022-03-31T18:54:29.468Z',
       updatedAt: '2022-09-14T02:07:31.634Z',
     },
-    volunteer: null,
+    profile: null,
     votes: [],
   },
   {
@@ -303,7 +303,7 @@ export const USER_MOCKS: Array<User> = [
       createdAt: '2022-03-31T18:54:29.468Z',
       updatedAt: '2022-09-14T02:07:31.634Z',
     },
-    volunteer: null,
+    profile: null,
     votes: [],
   },
   {
@@ -325,7 +325,7 @@ export const USER_MOCKS: Array<User> = [
       createdAt: '2022-03-31T18:54:29.468Z',
       updatedAt: '2022-09-14T02:07:31.634Z',
     },
-    volunteer: null,
+    profile: null,
     votes: [],
   },
   {
@@ -347,7 +347,7 @@ export const USER_MOCKS: Array<User> = [
       createdAt: '2022-03-31T18:54:29.468Z',
       updatedAt: '2022-09-14T02:07:31.634Z',
     },
-    volunteer: null,
+    profile: null,
     votes: [],
   },
   {
@@ -421,7 +421,7 @@ export const USER_MOCKS: Array<User> = [
         blocked: null,
       },
     ],
-    volunteer: null,
+    profile: null,
     votes: [],
   },
   {
@@ -474,7 +474,7 @@ export const USER_MOCKS: Array<User> = [
       updatedAt: '2022-09-14T02:07:31.634Z',
     },
     comments: [],
-    volunteer: {
+    profile: {
       id: 16,
       username: 'umut',
       name: 'Umut Esen',

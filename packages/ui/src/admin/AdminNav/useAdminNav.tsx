@@ -25,7 +25,6 @@ import {
   TbClock,
   TbThumbUp,
   TbTimeline,
-  TbVolume,
   TbWriting,
   TbX,
 } from 'react-icons/tb'
@@ -49,16 +48,6 @@ export const useAdminNav = (): AdminNavItemProps[] => {
           label: t('activities'),
           link: '/translates?slug=activities',
           icon: <TbActivity />,
-        },
-        {
-          label: t('announcements'),
-          link: '/translates?slug=announcements',
-          icon: <TbVolume />,
-        },
-        {
-          label: t('arts'),
-          link: '/translates?slug=arts',
-          icon: <TbBrush />,
         },
         {
           label: t('collections'),
@@ -167,8 +156,8 @@ export const useAdminNav = (): AdminNavItemProps[] => {
       icon: <GiHumanPyramid />,
     },
     {
-      label: t('volunteers'),
-      link: '/volunteers',
+      label: t('profiles'),
+      link: '/profiles',
       icon: <MdOutlineVolunteerActivism />,
     },
     {

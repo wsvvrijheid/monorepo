@@ -8,7 +8,7 @@ const loginRoute = async (req: NextApiRequest, res: NextApiResponse) => {
   const { identifier, password } = req.body
 
   try {
-    const auth = await getAuth(identifier, password)
+    const { profile, ...auth } = await getAuth(identifier, password)
 
     if (auth.user?.roles.includes('authenticated')) {
       return res.status(401).json({
@@ -20,10 +20,11 @@ const loginRoute = async (req: NextApiRequest, res: NextApiResponse) => {
     req.session.user = auth.user
     req.session.token = auth.token
     req.session.isLoggedIn = true
+    req.session.profileId = profile?.id || null
 
     await req.session.save()
 
-    res.json(auth)
+    res.json({ ...auth, profile })
   } catch (error: any) {
     if (error.response?.data?.error) {
       console.error('LOGIN_AUTH_ERROR', error.response.data.error)

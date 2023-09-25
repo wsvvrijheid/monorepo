@@ -23,7 +23,7 @@ export default {
         },
       })
     } catch (error) {
-      console.log('Error updating user tweet', error.message)
+      console.error('Error updating user tweet', error.message)
     }
   },
 }

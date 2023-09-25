@@ -53,7 +53,7 @@ export const RecommendedSocialButtons: FC<RecommendedSocialButtonsProps> = ({
               setConfirmState(undefined)
             },
             onError: async errors => {
-              console.log('error delete mutation', errors)
+              console.error('Delete tweet mutation error', errors)
             },
           },
         )

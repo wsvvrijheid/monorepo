@@ -18,7 +18,7 @@ import { v4 as uuidV4 } from 'uuid'
 import { Mutation } from '@wsvvrijheid/lib'
 import { VOLUNTEER_TOKEN } from '@wsvvrijheid/secrets'
 import { useStrapiRequest } from '@wsvvrijheid/services'
-import { Platform, Volunteer, VolunteerCreateInput } from '@wsvvrijheid/types'
+import { Platform, Profile, ProfileCreateInput } from '@wsvvrijheid/types'
 import { toastMessage } from '@wsvvrijheid/utils'
 
 import { JoinTemplateProps } from './types'
@@ -43,10 +43,10 @@ export const JoinTemplate: FC<JoinTemplateProps> = ({ title }) => {
 
   const { mutate, isLoading, isSuccess } = useMutation(
     ['create-volunteer'],
-    (body: VolunteerCreateInput) =>
-      Mutation.post<Volunteer, VolunteerCreateInput>(
-        'volunteers',
-        body,
+    (body: ProfileCreateInput) =>
+      Mutation.post<Profile, ProfileCreateInput>(
+        'profiles',
+        { ...body, isVolunteer: true },
         VOLUNTEER_TOKEN as string,
       ),
   )
@@ -58,7 +58,7 @@ export const JoinTemplate: FC<JoinTemplateProps> = ({ title }) => {
       const heardFrom = data.heardFrom.join(', ')
       const jobs = data.jobs
 
-      const body: VolunteerCreateInput = {
+      const body: ProfileCreateInput = {
         ...data,
         username: uuidV4(),
         availableHours,

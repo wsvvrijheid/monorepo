@@ -79,10 +79,7 @@ export const SignupForm: FC<SignupFormProps> = ({
     mutationKey: ['login'],
     mutationFn: (body: SignupFormFieldValues) =>
       registerAuth(body.email, body.password, body.username, body.name),
-    onSuccess: async data => {
-      if (data.error) {
-        return setErrorMessage(data.error)
-      }
+    onSuccess: async () => {
       router.push('/')
     },
   })

@@ -19,7 +19,6 @@ export const getRoutePermission = (roles: RoleType[], route: AdminRoute) => {
     contentmanager: [
       '/accounts',
       '/activities',
-      '/announcements',
       '/blogs',
       '/competitions',
       '/hashtags',
