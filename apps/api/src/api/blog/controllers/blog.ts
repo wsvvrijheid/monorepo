@@ -1,12 +1,14 @@
 import { factories } from '@strapi/strapi'
-import { assignCreator } from '../../../utils'
+import { assignCreator, getProfile } from '../../../utils'
 
 export default factories.createCoreController('api::blog.blog', () => {
   return {
     async create(ctx) {
+      const profile = await getProfile(ctx, true)
+
       const result = await super.create(ctx)
 
-      await assignCreator(ctx, result.id, 'api::blog.blog')
+      await assignCreator(profile, result?.data?.id, 'api::blog.blog')
 
       return result
     },

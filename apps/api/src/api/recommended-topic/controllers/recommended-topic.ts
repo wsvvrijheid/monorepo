@@ -7,17 +7,19 @@
 import { factories } from '@strapi/strapi'
 
 import { RecommendedTopic } from '../../../libs'
-import { assignCreator } from '../../../utils'
+import { assignCreator, getProfile } from '../../../utils'
 
 export default factories.createCoreController(
   'api::recommended-topic.recommended-topic',
   () => ({
     async create(ctx) {
+      const profile = await getProfile(ctx, true)
+
       const result = await super.create(ctx)
 
       await assignCreator(
-        ctx,
-        result.id,
+        profile,
+        result?.data?.id,
         'api::recommended-topic.recommended-topic',
       )
 

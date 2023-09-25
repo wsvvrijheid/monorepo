@@ -1,23 +1,23 @@
 import { Common } from '@strapi/strapi'
-import { getProfile } from './getProfile'
-import { errors } from '@strapi/utils'
-import { Context } from 'koa'
-
-const { ApplicationError } = errors
+import {
+  GetNonPopulatableKeys,
+  GetValues,
+} from '@strapi/strapi/lib/types/core/attributes'
 
 export const assignCreator = async <T extends Common.UID.ContentType>(
-  ctx: Context,
+  profile: GetValues<
+    'api::profile.profile',
+    GetNonPopulatableKeys<'api::profile.profile'>
+  >,
   id: number,
   uid: T,
 ) => {
-  const profile = await getProfile(ctx)
-
-  if (!profile) {
-    throw new ApplicationError('Profile required')
-  }
-
-  await strapi.entityService.update(uid, id, {
-    // TODO: Fix type
-    data: { creator: profile?.id } as never,
-  })
+  await strapi.entityService
+    .update(uid, id, {
+      // TODO: Fix type
+      data: { creator: profile?.id } as never,
+    })
+    .catch(error => {
+      console.error('ERROR', error)
+    })
 }
