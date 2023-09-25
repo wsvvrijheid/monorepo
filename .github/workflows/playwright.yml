@@ -10,6 +10,10 @@ jobs:
     name: Playwright tests
     timeout-minutes: 15
     runs-on: ubuntu-latest
+    env:
+      TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+      TURBO_TEAM: ${{ vars.TURBO_TEAM }}
+
     steps:
       - name: Wait / Sleep Action
         uses: GuillaumeFalourd/wait-sleep-action@v1

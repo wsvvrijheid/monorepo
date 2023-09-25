@@ -1,20 +1,10 @@
 import { Context } from 'koa'
 
-import { getReferenceModel } from '../../../utils'
+import { assignApprover, getReferenceModel } from '../../../utils'
 
 export default {
   async approve(ctx: Context) {
-    const result = await strapi.entityService.update(
-      'api::blog.blog',
-      ctx.params.id,
-      {
-        data: {
-          approvalStatus: 'approved',
-          publishedAt: new Date(),
-          approver: ctx.state.user.id,
-        },
-      },
-    )
+    const result = await assignApprover(ctx, 'api::blog.blog', true)
 
     return { data: result }
   },

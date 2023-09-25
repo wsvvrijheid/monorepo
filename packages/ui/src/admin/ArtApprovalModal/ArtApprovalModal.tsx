@@ -23,7 +23,6 @@ import { Art, StrapiLocale } from '@wsvvrijheid/types'
 import { ArtFeedbackForm } from './ArtFeedbackForm'
 import { ArtApprovalTypes } from './types'
 import { WAvatar, WImage } from '../../components'
-import { useFields, useSchema } from '../../data'
 import { ModelEditForm } from '../ModelForm'
 
 export const ArtApprovalModal: FC<ArtApprovalTypes> = ({
@@ -37,9 +36,6 @@ export const ArtApprovalModal: FC<ArtApprovalTypes> = ({
   const router = useRouter()
   const locale = router.locale
   const [isEditing, setIsEditing] = useState(false)
-
-  const fields = useFields()
-  const schemas = useSchema()
 
   const [language, setLanguage] = useState<StrapiLocale>(locale)
 
@@ -143,11 +139,12 @@ export const ArtApprovalModal: FC<ArtApprovalTypes> = ({
                   </HStack>
                   <ModelEditForm<Art>
                     noColumns
-                    fields={fields.arts!}
-                    schema={schemas.arts!}
                     endpoint={'arts'}
                     model={art}
-                    onSuccess={() => setIsEditing(false)}
+                    onSuccess={() => {
+                      setIsEditing(false)
+                      onSuccess?.()
+                    }}
                   />
                 </Stack>
               )}

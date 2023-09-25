@@ -49,7 +49,7 @@ export const getAccountStats = async (
       username,
     }
   } catch (error) {
-    console.log('Error getting account statistics', error.message)
+    console.error('Error getting account statistics', error.message)
 
     return null
   }

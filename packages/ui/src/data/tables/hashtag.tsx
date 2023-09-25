@@ -3,6 +3,7 @@ import {
   Hashtag,
   Mention,
   Post,
+  Profile,
   StrapiLocale,
 } from '@wsvvrijheid/types'
 
@@ -12,6 +13,11 @@ import { WTableProps } from '../../components'
 export const useHashtagColumns = (): WTableProps<Hashtag>['columns'] => {
   return {
     image: { type: 'image' },
+    creator: {
+      transform: value => (value as Profile)?.username,
+      sortKey: 'username',
+      sortable: true,
+    },
     title: { sortable: true },
     approvalStatus: {
       type: 'badge',

@@ -11,11 +11,12 @@ import {
   Hashtag,
   Mention,
   Post,
+  Profile,
+  Role,
   StrapiLocale,
   StrapiModel,
   StrapiTranslatableModel,
   User,
-  Volunteer,
 } from '@wsvvrijheid/types'
 
 import { FormFields } from './types'
@@ -31,9 +32,11 @@ export const mapModelToOption = (
 ) => {
   if (!model) return { value: '', label: '' }
 
-  const mention = model as unknown as Mention
-  const user = model as unknown as User
-  const modelWithLocalizedName = model as unknown as Category
+  const mention = model as Mention
+  const user = model as User
+  const role = model as unknown as Role
+  const modelWithLocalizedName = model as Category
+
   const localizedName = locale
     ? modelWithLocalizedName[`name_${locale}`]
     : 'name'
@@ -47,7 +50,12 @@ export const mapModelToOption = (
 
   // User
   else if (user.email) {
-    label = user.email || user.name || user.username
+    label = user.email || user.username
+  }
+
+  // Role
+  else if (role.nb_users) {
+    label = role.name
   }
 
   // Category, Tag etc.
@@ -64,7 +72,7 @@ export const useDefaultValues = <T extends StrapiModel>(
 ) => {
   const hashtagModel = model as Hashtag
   const activityModel = model as Activity
-  const volunteerModel = model as Volunteer
+  const profileModel = model as Profile
   const postModel = model as Post
   const courseModel = model as Course
   const applicationModel = model as CourseApplication
@@ -113,7 +121,7 @@ export const useDefaultValues = <T extends StrapiModel>(
           break
         case 'jobs':
           defaults.jobs =
-            volunteerModel.jobs?.map(j => ({
+            profileModel.jobs?.map(j => ({
               label: j[`name_${locale}`],
               value: j.id.toString(),
             })) || []
@@ -141,15 +149,15 @@ export const useDefaultValues = <T extends StrapiModel>(
           break
         case 'user':
           defaults.user = {
-            label: volunteerModel.user?.email,
-            value: volunteerModel.user?.id.toString(),
+            label: profileModel.user?.email,
+            value: profileModel.user?.id.toString(),
           }
 
           break
         case 'role':
           defaults.role = {
-            label: userModel.role?.name || '',
-            value: userModel.role?.id.toString(),
+            label: userModel?.role?.name || '',
+            value: userModel?.role?.id.toString(),
           }
 
           break

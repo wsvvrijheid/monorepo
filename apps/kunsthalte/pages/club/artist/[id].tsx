@@ -1,21 +1,16 @@
 import { FC } from 'react'
 
 import { dehydrate, QueryClient } from '@tanstack/react-query'
-import { GetServerSidePropsContext } from 'next'
-import { NextSeoProps } from 'next-seo'
+import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
 
 import { getArtistServerProps } from '@wsvvrijheid/services'
 import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
-import { Art, StrapiLocale, User } from '@wsvvrijheid/types'
+import { StrapiLocale } from '@wsvvrijheid/types'
 import { ArtistTemplate } from '@wsvvrijheid/ui'
 
 import { Layout } from '../../../components'
 
-type ArtistPageProps = {
-  seo: NextSeoProps
-  artist: User
-  arts: Art[]
-}
+type ArtistPageProps = InferGetServerSidePropsType<typeof getServerSideProps>
 
 const ArtistPage: FC<ArtistPageProps> = ({ seo, artist, arts }) => {
   return (

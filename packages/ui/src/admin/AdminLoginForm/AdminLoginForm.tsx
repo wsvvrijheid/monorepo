@@ -53,7 +53,7 @@ export const AdminLoginForm = () => {
 
   const handleSubmitSign: SubmitHandler<LoginFormFieldValues> = async data => {
     loginMutation.mutate(data, {
-      onError: e => console.log('Login error', e),
+      onError: e => console.error('Login error', e),
       onSuccess: async () => {
         checkAuth()
         setIsRedirecting(true)

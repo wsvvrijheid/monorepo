@@ -6,6 +6,7 @@ export const initialAuthState: AuthContextType = {
   error: null,
   token: null,
   user: null,
+  profile: null,
   roles: ['public'],
   openAuthModal: () => {},
   closeAuthModal: () => {},

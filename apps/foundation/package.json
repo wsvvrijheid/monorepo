@@ -6,6 +6,7 @@
     "dev": "dotenv -e ../../.env.local next dev -- -p 3001",
     "foundation": "dotenv -e ../../.env.local next dev -- -p 3001",
     "build": "next build",
+    "build:dev": "next build",
     "start": "next start",
     "clean": "rm -rf node_modules .turbo .next",
     "lint": "next lint"

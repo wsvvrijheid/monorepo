@@ -16,8 +16,6 @@ import { ModelEditForm } from './ModelEditForm'
 import { ModelEditModalProps } from './types'
 
 export const ModelEditModal = <T extends StrapiModel>({
-  fields,
-  schema,
   endpoint,
   title,
   hideLanguageSwitcher,
@@ -27,6 +25,7 @@ export const ModelEditModal = <T extends StrapiModel>({
   onClose,
   size = '6xl',
   maxW,
+  onSuccess,
   ...rest
 }: ModelEditModalProps<T>) => {
   const { data, isLoading, refetch } = useStrapiRequest<T>({ endpoint, id })
@@ -34,6 +33,7 @@ export const ModelEditModal = <T extends StrapiModel>({
   const model = data?.data
 
   const handleSuccess = () => {
+    onSuccess?.()
     refetch()
   }
 
@@ -66,8 +66,6 @@ export const ModelEditModal = <T extends StrapiModel>({
           <ModalBody pos="relative" p={0}>
             <ModelEditForm<T>
               endpoint={endpoint}
-              schema={schema}
-              fields={fields}
               model={model}
               onSuccess={handleSuccess}
               hideLanguageSwitcher={hideLanguageSwitcher}

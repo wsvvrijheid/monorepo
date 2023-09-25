@@ -1,9 +1,9 @@
 import { ApprovalStatus, Expand, OgImageParams } from './common'
 import { UploadFile } from './file'
 import { Hashtag } from './hashtag'
+import { Profile } from './profile'
 import { StrapiBase, StrapiCreatorRelation, StrapiEntityBase } from './strapi'
 import { Tag } from './tag'
-import { User } from './user'
 
 export type PostBase = Omit<StrapiEntityBase, 'slug'> & {
   capsStatus: ApprovalStatus
@@ -19,7 +19,7 @@ export type PostRelation = {
   caps?: UploadFile
   hashtag?: Hashtag
   tags?: Array<Tag>
-  translator?: User | null
+  translator?: Profile | null
   localizations?: Array<Post>
 }
 

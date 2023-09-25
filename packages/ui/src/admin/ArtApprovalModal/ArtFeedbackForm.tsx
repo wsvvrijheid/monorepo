@@ -87,7 +87,11 @@ export const ArtFeedbackForm: FC<ArtFeedbackFormTypes> = ({
           Give Feedback
         </Text>
         <HStack align="start" spacing={{ base: 2, lg: 4 }}>
-          <WAvatar size="sm" src={editor.avatar} name={editor.name} />
+          <WAvatar
+            size="sm"
+            src={editor?.avatar}
+            name={editor?.name || editor.username}
+          />
 
           <Stack flex={1} spacing={{ base: 2, lg: 4 }}>
             <Textarea

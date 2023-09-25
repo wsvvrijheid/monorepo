@@ -35,7 +35,7 @@ const StoryWithHook: StoryFn<JoinFormFProps> = args => {
     setTimeout(() => {
       setIsLoading(false)
     }, 2000)
-    console.log({ data })
+
     alert(JSON.stringify(data))
   }
 

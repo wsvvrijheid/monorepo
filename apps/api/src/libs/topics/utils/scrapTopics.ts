@@ -75,7 +75,7 @@ export const scrapTopics: ScrapTopics = async ({
     }
   }
 
-  console.log(` ${topics.length} ${publisher} news fetched.`)
+  console.info(` ${topics.length} ${publisher} news fetched.`)
 
   return topics
 }

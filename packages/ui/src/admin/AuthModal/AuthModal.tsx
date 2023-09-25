@@ -121,8 +121,8 @@ export const AuthModal = () => {
                   {t('login.signin')}
                 </Button>
                 {loginMutation.isError &&
-                  ((loginMutation.error as any)?.response?.data?.type ===
-                  'unauthorized' ? (
+                  (loginMutation.error ===
+                  'Request failed with status code 401' ? (
                     <Text fontSize={'sm'} color={'red.500'}>
                       <Trans
                         i18nKey="login.error.unauthorized"

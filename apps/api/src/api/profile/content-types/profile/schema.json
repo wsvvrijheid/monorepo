@@ -1,10 +1,10 @@
 {
   "kind": "collectionType",
-  "collectionName": "volunteers",
+  "collectionName": "profiles",
   "info": {
-    "singularName": "volunteer",
-    "pluralName": "volunteers",
-    "displayName": "Volunteer",
+    "singularName": "profile",
+    "pluralName": "profiles",
+    "displayName": "Profile",
     "description": ""
   },
   "options": {
@@ -321,12 +321,6 @@
       "type": "boolean",
       "default": false
     },
-    "user": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "plugin::users-permissions.user",
-      "mappedBy": "volunteer"
-    },
     "jobs": {
       "type": "relation",
       "relation": "oneToMany",
@@ -343,6 +337,183 @@
       "relation": "manyToMany",
       "target": "api::platform.platform",
       "inversedBy": "volunteers"
+    },
+    "avatar": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
+    },
+    "isVolunteer": {
+      "type": "boolean"
+    },
+    "approvedActivities": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::activity.activity",
+      "mappedBy": "approver"
+    },
+    "createdActivities": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::activity.activity",
+      "mappedBy": "creator"
+    },
+    "applicant": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::applicant.applicant",
+      "mappedBy": "profile"
+    },
+    "approvedApplications": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::application.application",
+      "mappedBy": "approver"
+    },
+    "createdApplications": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::application.application",
+      "mappedBy": "creator"
+    },
+    "likedArts": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::art.art",
+      "inversedBy": "likers"
+    },
+    "ownedArts": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::art.art",
+      "mappedBy": "artist"
+    },
+    "likedBlogs": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::blog.blog",
+      "inversedBy": "likers"
+    },
+    "ownedBlogs": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::blog.blog",
+      "mappedBy": "author"
+    },
+    "createdBlogs": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::blog.blog",
+      "mappedBy": "creator"
+    },
+    "approvedCollections": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::collection.collection",
+      "mappedBy": "approver"
+    },
+    "createdCollections": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::collection.collection",
+      "mappedBy": "creator"
+    },
+    "comments": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::comment.comment",
+      "mappedBy": "profile"
+    },
+    "approvedCompetitions": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::competition.competition",
+      "mappedBy": "approver"
+    },
+    "createdCompetitions": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::competition.competition",
+      "mappedBy": "creator"
+    },
+    "feedbacks": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::feedback.feedback",
+      "mappedBy": "editor"
+    },
+    "approvedHashtags": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::hashtag.hashtag",
+      "mappedBy": "approver"
+    },
+    "createdHashtags": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::hashtag.hashtag",
+      "mappedBy": "creator"
+    },
+    "langRoles": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::lang-role.lang-role",
+      "mappedBy": "translator"
+    },
+    "approvedPosts": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::post.post",
+      "mappedBy": "approver"
+    },
+    "createdPosts": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::post.post",
+      "mappedBy": "creator"
+    },
+    "createdTopics": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::recommended-topic.recommended-topic",
+      "mappedBy": "creator"
+    },
+    "createdTweets": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::recommended-tweet.recommended-tweet",
+      "mappedBy": "creator"
+    },
+    "stats": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::user-statistic.user-statistic",
+      "mappedBy": "profile"
+    },
+    "votes": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::vote.vote",
+      "mappedBy": "voter"
+    },
+    "juryVotes": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::vote.vote",
+      "mappedBy": "jury"
+    },
+    "user": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "role": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.role",
+      "inversedBy": "users",
+      "configurable": false
     }
   }
 }
