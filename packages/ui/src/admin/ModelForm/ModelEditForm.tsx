@@ -492,8 +492,7 @@ export const ModelEditForm = <T extends StrapiModel>({
                     colorScheme={'purple'}
                     isLoading={approveModelMutation.isLoading}
                   >
-                    {/* TODO: Add translation */}
-                    Add Arts
+                    {t('collection.add-art')}
                   </Button>
                 )}
               </>
