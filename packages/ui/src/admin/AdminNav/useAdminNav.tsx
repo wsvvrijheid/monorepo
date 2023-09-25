@@ -6,7 +6,7 @@ import {
   BsCommand,
   BsTranslate,
 } from 'react-icons/bs'
-import { CgHashtag } from 'react-icons/cg'
+import { CgHashtag, CgProfile } from 'react-icons/cg'
 import { FiActivity, FiUsers } from 'react-icons/fi'
 import { GiHumanPyramid } from 'react-icons/gi'
 import { HiOutlineNewspaper } from 'react-icons/hi'
@@ -14,7 +14,6 @@ import {
   MdOutlineFeedback,
   MdOutlineSpaceDashboard,
   MdOutlineSupervisorAccount,
-  MdOutlineVolunteerActivism,
 } from 'react-icons/md'
 import {
   TbActivity,
@@ -158,7 +157,7 @@ export const useAdminNav = (): AdminNavItemProps[] => {
     {
       label: t('profiles'),
       link: '/profiles',
-      icon: <MdOutlineVolunteerActivism />,
+      icon: <CgProfile />,
     },
     {
       label: t('users'),

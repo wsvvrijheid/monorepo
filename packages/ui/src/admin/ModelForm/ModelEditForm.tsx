@@ -302,6 +302,7 @@ export const ModelEditForm = <T extends StrapiModel>({
     borderColor: 'transparent',
     _hover: { borderColor: 'transparent' },
     color: 'gray.500',
+    pl: 0,
   }
 
   return (

@@ -42,6 +42,7 @@ export const renderCreateFormBody = <T extends StrapiModel>({
     borderColor: 'transparent',
     _hover: { borderColor: 'transparent' },
     color: 'gray.500',
+    pl: 0,
   }
   const postModel = model as unknown as Post
 
