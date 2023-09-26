@@ -1,5 +1,5 @@
 import { kv } from '@vercel/kv'
-import { unsealData } from 'iron-session'
+import { unsealData } from 'iron-session/edge'
 import { NextRequest, NextResponse } from 'next/server'
 
 import { sessionOptions } from '@wsvvrijheid/secrets'
