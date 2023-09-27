@@ -1,3 +1,5 @@
+import { ReactNode } from 'react'
+
 import { ButtonProps, ModalProps } from '@chakra-ui/react'
 import { TFunction } from 'i18next'
 import {
@@ -101,6 +103,7 @@ export type ModelEditModalProps<T extends StrapiModel> = Omit<
     isFullHeight?: boolean
     onClose: () => void
     maxW?: string
+    children?: ReactNode
   }
 
 export type ModelSelectProps = WSelectProps<FieldValues> & {

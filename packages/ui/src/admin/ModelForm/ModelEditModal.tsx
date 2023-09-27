@@ -1,5 +1,6 @@
 import {
   Center,
+  Divider,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -26,6 +27,7 @@ export const ModelEditModal = <T extends StrapiModel>({
   size = '6xl',
   maxW,
   onSuccess,
+  children = null,
   ...rest
 }: ModelEditModalProps<T>) => {
   const { data, isLoading, refetch } = useStrapiRequest<T>({ endpoint, id })
@@ -71,6 +73,12 @@ export const ModelEditModal = <T extends StrapiModel>({
               hideLanguageSwitcher={hideLanguageSwitcher}
               onClose={onClose}
             />
+            {children && (
+              <>
+                <Divider />
+                {children}
+              </>
+            )}
           </ModalBody>
         )}
       </ModalContent>

@@ -1,6 +1,6 @@
-import { FC, useEffect } from 'react'
+import { FC, useEffect, useState } from 'react'
 
-import { useDisclosure } from '@chakra-ui/react'
+import { Box, Heading, useDisclosure } from '@chakra-ui/react'
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
@@ -15,6 +15,8 @@ import { useStrapiRequest } from '@wsvvrijheid/services'
 import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import {
   ApprovalStatus,
+  HashtagReturnType,
+  Post,
   Sort,
   StrapiCollectionEndpoint,
   StrapiLocale,
@@ -24,9 +26,11 @@ import {
 import {
   AdminLayout,
   DataTable,
+  FilterMenu,
   ModelEditModal,
   ModelFiltersBar,
   PageHeader,
+  PostSentenceForm,
   WTableProps,
   useColumns,
 } from '@wsvvrijheid/ui'
@@ -38,6 +42,33 @@ type ModelPageProps = InferGetServerSidePropsType<typeof getServerSideProps>
 const ModelPage: FC<ModelPageProps> = ({ endpoint }) => {
   const { t } = useTranslation()
   const { roles, profile } = useAuthContext()
+  const [parentIds, setParentIds] = useState<number[]>([])
+
+  const parentKeys: Partial<
+    Record<
+      StrapiCollectionEndpoint,
+      { endpoint: StrapiCollectionEndpoint; key: string }
+    >
+  > = {
+    posts: {
+      endpoint: 'hashtags',
+      key: 'hashtag',
+    },
+    courses: {
+      endpoint: 'platforms',
+      key: 'platform',
+    },
+    blogs: {
+      endpoint: 'profiles',
+      key: 'author',
+    },
+    profiles: {
+      endpoint: 'platforms',
+      key: 'platforms',
+    },
+  }
+
+  const parentRelation = parentKeys[endpoint as StrapiCollectionEndpoint]
 
   const title = t(endpoint as keyof I18nNamespaces['common'])
 
@@ -104,6 +135,10 @@ const ModelPage: FC<ModelPageProps> = ({ endpoint }) => {
     endpoint,
     page: currentPage || 1,
     filters: {
+      ...(parentIds.length > 0 &&
+        parentRelation && {
+          [parentRelation.key]: { id: { $eq: parentIds } },
+        }),
       ...(isBlogAuthor && profile && { author: { id: { $eq: profile.id } } }),
       ...(q && { [titleKey]: { $eq: q } }),
       ...(published === 'false' && { publishedAt: { $null: true } }),
@@ -131,6 +166,8 @@ const ModelPage: FC<ModelPageProps> = ({ endpoint }) => {
       (m as StrapiTranslatableModel)?.localizations?.map(l => l.locale) || [],
   })) as StrapiModel[]
 
+  const selectedModel = mappedModels?.find(m => m.id === selectedId)
+
   const handleClick = (index: number, id: number) => {
     setSelectedId(id)
   }
@@ -150,7 +187,23 @@ const ModelPage: FC<ModelPageProps> = ({ endpoint }) => {
 
   return (
     <AdminLayout seo={{ title }}>
-      <PageHeader onSearch={setQ} />
+      <PageHeader
+        onSearch={setQ}
+        {...(parentRelation && {
+          filterMenu: (
+            <FilterMenu
+              endpoint={parentRelation.endpoint}
+              ids={parentIds}
+              setIds={setParentIds}
+              {...(endpoint === 'blogs' && {
+                filters: {
+                  ownedBlogs: { id: { $gt: 0 } },
+                },
+              })}
+            />
+          ),
+        })}
+      />
       {selectedId && (
         <ModelEditModal<StrapiModel>
           endpoint={endpoint}
@@ -159,7 +212,17 @@ const ModelPage: FC<ModelPageProps> = ({ endpoint }) => {
           onClose={handleClose}
           title={`Edit ${endpoint}`}
           onSuccess={endpointQuery.refetch}
-        />
+        >
+          {endpoint === 'posts' && selectedModel && (
+            <Box p={4} rounded="md" bg="white" shadow="md">
+              <Heading p={4}>{t('sentences')}</Heading>
+              <PostSentenceForm
+                id={selectedModel.id}
+                hashtag={(selectedModel as Post).hashtag as HashtagReturnType}
+              />
+            </Box>
+          )}
+        </ModelEditModal>
       )}
 
       <ModelFiltersBar

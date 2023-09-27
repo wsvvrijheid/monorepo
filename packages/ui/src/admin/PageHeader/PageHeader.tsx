@@ -61,7 +61,11 @@ export const PageHeader: FC<PageHeaderProps> = ({
       )}
 
       {filterMenu && (
-        <Menu closeOnSelect={filterMenuCloseOnSelect}>
+        <Menu
+          closeOnSelect={filterMenuCloseOnSelect}
+          isLazy
+          lazyBehavior="keepMounted"
+        >
           <MenuButton
             aria-label="Open filter menu"
             as={IconButton}
@@ -75,7 +79,7 @@ export const PageHeader: FC<PageHeaderProps> = ({
       )}
 
       {sortMenu && (
-        <Menu>
+        <Menu isLazy lazyBehavior="keepMounted">
           <MenuButton
             aria-label="Open sort menu"
             as={IconButton}
