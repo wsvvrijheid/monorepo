@@ -16,6 +16,7 @@ import { AdminLayout, DataTable, PageHeader, useColumns } from '@wsvvrijheid/ui'
 
 const PostsPage = () => {
   const [currentPage, setCurrentPage] = useState<number>(1)
+  const [pageSize, setPageSize] = useState<number>(20)
 
   const { t } = useTranslation()
 
@@ -57,7 +58,8 @@ const PostsPage = () => {
   }
 
   const postsData = postsQuery?.data?.data
-  const totalCount = postsQuery?.data?.meta?.pagination?.pageCount || 0
+  const pageCount = postsQuery?.data?.meta?.pagination?.pageCount || 0
+  const totalCount = postsQuery?.data?.meta?.pagination?.total || 0
 
   const posts = useMemo(
     () =>
@@ -98,17 +100,19 @@ const PostsPage = () => {
         filterMenu={filterMenu}
         filterMenuCloseOnSelect={false}
         onSearch={handleSearch}
-        searchPlaceHolder={'Search by title or description'}
       />
       {posts && (
         <DataTable<Post>
           columns={columns.posts!}
-          data={posts}
-          totalCount={totalCount}
           currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-          onSort={setSort}
+          data={posts}
           onClickRow={handleClick}
+          onSort={setSort}
+          pageCount={pageCount}
+          pageSize={pageSize}
+          setCurrentPage={setCurrentPage}
+          setPageSize={setPageSize}
+          totalCount={totalCount as number}
         />
       )}
     </AdminLayout>

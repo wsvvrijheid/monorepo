@@ -14,6 +14,7 @@ import { AdminLayout, ArtsTable, PageHeader } from '@wsvvrijheid/ui'
 const ArtsPage = () => {
   const { query } = useRouter()
   const [currentPage, setCurrentPage] = useState<number>(1)
+  const [pageSize, setPageSize] = useState<number>(20)
   const [searchTerm, setSearchTerm] = useState<string>()
   const { t } = useTranslation()
 
@@ -34,7 +35,7 @@ const ArtsPage = () => {
       'localizations',
     ],
     page: currentPage || 1,
-    pageSize: 10,
+    pageSize,
     filters: {
       ...(status ? { approvalStatus: { $eq: status } } : {}),
       ...(searchTerm && { [`title_${locale}`]: { $containsi: searchTerm } }),
@@ -53,7 +54,8 @@ const ArtsPage = () => {
   }, [locale, searchTerm, sort, status])
 
   const arts = artsQuery?.data?.data
-  const totalCount = artsQuery?.data?.meta?.pagination?.pageCount || 0
+  const pageCount = artsQuery?.data?.meta?.pagination?.pageCount || 0
+  const totalCount = artsQuery?.data?.meta?.pagination?.total || 0
 
   const mappedArts = arts?.map(art => {
     const translates = []
@@ -72,7 +74,6 @@ const ArtsPage = () => {
     <AdminLayout seo={{ title: t('arts') }}>
       <PageHeader
         onSearch={handleSearch}
-        searchPlaceHolder={'Search arts by title or artist'}
         sortMenu={[
           <MenuItem key="asc" icon={<FaArrowUp />}>
             Name Asc
@@ -83,12 +84,15 @@ const ArtsPage = () => {
         ]}
       />
       <ArtsTable
-        data={mappedArts}
-        onSuccess={artsQuery.refetch}
-        totalCount={totalCount}
         currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
+        data={mappedArts}
         onSort={setSort}
+        onSuccess={artsQuery.refetch}
+        pageCount={pageCount}
+        pageSize={pageSize}
+        setCurrentPage={setCurrentPage}
+        setPageSize={setPageSize}
+        totalCount={totalCount}
       />
     </AdminLayout>
   )

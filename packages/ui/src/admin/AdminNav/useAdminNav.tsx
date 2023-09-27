@@ -190,7 +190,7 @@ export const useAdminNav = (): AdminNavItemProps[] => {
       icon: <BsCashStack />,
     },
     {
-      label: t('userFeedbacks'),
+      label: t('user-feedbacks'),
       link: '/user-feedbacks',
       icon: <MdOutlineFeedback />,
     },

@@ -53,6 +53,7 @@ const ActivitiesTranslatePage = () => {
   }
 
   const [currentPage, setCurrentPage] = useState<number>(1)
+  const [pageSize, setPageSize] = useState<number>(20)
   const [sort, setSort] = useState<Sort>()
 
   const status = query.status as ApprovalStatus
@@ -68,7 +69,7 @@ const ActivitiesTranslatePage = () => {
   const dataQuery = useStrapiRequest<Activity>({
     endpoint: slug,
     page: currentPage || 1,
-    pageSize: 10,
+    pageSize,
     filters: {
       ...(searchTerm && {
         $or: [
@@ -87,7 +88,8 @@ const ActivitiesTranslatePage = () => {
   })
 
   const items = dataQuery?.data?.data
-  const totalCount = dataQuery?.data?.meta?.pagination?.pageCount || 0
+  const pageCount = dataQuery?.data?.meta?.pagination?.pageCount || 0
+  const totalCount = dataQuery?.data?.meta?.pagination?.total || 0
 
   const mappedModels =
     items?.map(item => ({
@@ -121,20 +123,20 @@ const ActivitiesTranslatePage = () => {
 
   return (
     <AdminLayout seo={{ title: t(translateKey || 'translates') }}>
-      <PageHeader
-        onSearch={handleSearch}
-        searchPlaceHolder={'Search by title or description'}
-      />
+      <PageHeader onSearch={handleSearch} />
 
       {mappedModels && (
         <DataTable<StrapiModel>
           columns={columns as WTableProps<StrapiModel>['columns']}
           currentPage={currentPage}
-          totalCount={totalCount}
           data={mappedModels}
-          setCurrentPage={setCurrentPage}
           onClickRow={handleClick}
           onSort={setSort}
+          pageCount={pageCount}
+          pageSize={pageSize}
+          setCurrentPage={setCurrentPage}
+          setPageSize={setPageSize}
+          totalCount={totalCount}
         />
       )}
       <Modal

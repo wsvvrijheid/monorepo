@@ -6,24 +6,33 @@ import {
 import { RoleType } from '@wsvvrijheid/types'
 
 export const getRoutePermission = (roles: RoleType[], route: AdminRoute) => {
-  const roleRoutes: Record<
-    RoleType,
-    (AdminRoute | `${AdminRoute}?${string}`)[]
-  > = {
+  const roleRoutes: Record<RoleType, AdminRoute[]> = {
     academyeditor: ['/courses'],
     accountmanager: ['/news/recommended', '/timelines/recommended'],
     admin: ['all'],
-    arteditor: ['/arts', '/collections', '/translates'],
+    arteditor: ['/arts', '/collections'],
+    arteditor_translator: ['/arts', '/collections', '/translates'],
     authenticated: [],
     author: ['/blogs'],
+    author_translator: ['/blogs', '/translates'],
     contentmanager: [
       '/accounts',
       '/activities',
       '/blogs',
       '/competitions',
       '/hashtags',
-      '/posts',
       '/news/recommended',
+      '/posts',
+    ],
+    contentmanager_translator: [
+      '/accounts',
+      '/activities',
+      '/blogs',
+      '/competitions',
+      '/hashtags',
+      '/news/recommended',
+      '/posts',
+      '/translates',
     ],
     jury: ['/competitions'],
     public: ['/timelines', '/news'],
@@ -44,7 +53,7 @@ export const getRoutePermission = (roles: RoleType[], route: AdminRoute) => {
     ) {
       return true
     } else {
-      return routes.includes(route)
+      return routes.includes(route?.split('?')[0] as AdminRoute)
     }
   })
 }

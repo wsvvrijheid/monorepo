@@ -1,14 +1,11 @@
 import { RoleType } from '@wsvvrijheid/types'
 
-const adminRoleRoutes = [
+export const adminRoleRoutes = [
   '/',
   '/accounts',
   '/activities',
   '/donations',
   '/arts',
-  '/arts?status=pending',
-  '/arts?status=approved',
-  '/arts?status=rejected',
   '/blogs',
   '/collections',
   '/competitions',
@@ -18,12 +15,13 @@ const adminRoleRoutes = [
   '/posts',
   '/timelines/recommended',
   '/translates',
+  '/profiles',
+  '/user-feedbacks',
   '/users',
   'all',
 ] as const
 
-const adminCommonRoutes = [
-  '/',
+export const adminCommonRoutes = [
   '/donation',
   '/settings',
   '/news',
@@ -32,36 +30,41 @@ const adminCommonRoutes = [
   '/timelines/bookmarks',
 ] as const
 
-type AdminRoleRoutes = (typeof adminRoleRoutes)[number]
-type AdminCommonRoutes = (typeof adminCommonRoutes)[number]
-type AdminRoutes = AdminRoleRoutes | AdminCommonRoutes
+type AdminRoleRoute = (typeof adminRoleRoutes)[number]
+type AdminCommonRoute = (typeof adminCommonRoutes)[number]
+type AdminRoute = AdminRoleRoute | AdminCommonRoute
 
-export const getRoutePermission = (roles: RoleType[], route: AdminRoutes) => {
-  const roleRoutes: Record<RoleType, AdminRoutes[]> = {
+export const getRoutePermission = (roles: RoleType[], route: AdminRoute) => {
+  const roleRoutes: Record<RoleType, AdminRoute[]> = {
     academyeditor: ['/courses'],
     accountmanager: ['/news/recommended', '/timelines/recommended'],
     admin: ['all'],
-    arteditor: [
-      '/arts',
-      '/arts?status=approved',
-      '/arts?status=rejected',
-      '/collections',
-      '/translates',
-    ],
+    arteditor: ['/arts', '/collections'],
+    arteditor_translator: ['/arts', '/collections', '/translates'],
     authenticated: [],
     author: ['/blogs'],
+    author_translator: ['/blogs', '/translates'],
     contentmanager: [
       '/accounts',
       '/activities',
       '/blogs',
       '/competitions',
-      '/courses',
       '/hashtags',
-      '/posts',
       '/news/recommended',
+      '/posts',
+    ],
+    contentmanager_translator: [
+      '/accounts',
+      '/activities',
+      '/blogs',
+      '/competitions',
+      '/hashtags',
+      '/news/recommended',
+      '/posts',
+      '/translates',
     ],
     jury: ['/competitions'],
-    public: [],
+    public: ['/timelines', '/news'],
     translator: ['/translates'],
     all: [],
   }
@@ -69,13 +72,17 @@ export const getRoutePermission = (roles: RoleType[], route: AdminRoutes) => {
   return roles?.some(role => {
     const routes = roleRoutes[role]
 
+    if (roles?.includes('public') && route === '/') {
+      return false
+    }
+
     if (
       routes.includes('all') ||
-      adminCommonRoutes.includes(route as AdminCommonRoutes)
+      adminCommonRoutes.includes(route as AdminCommonRoute)
     ) {
       return true
     } else {
-      return routes.includes(route)
+      return routes.includes(route?.split('?')[0] as AdminRoute)
     }
   })
 }
