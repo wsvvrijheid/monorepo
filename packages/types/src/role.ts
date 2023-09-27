@@ -1,28 +1,43 @@
-import { PascalCase } from 'type-fest'
-
 import { StrapiBase } from './strapi'
 
 export type RoleName =
+  | 'AcademyEditor'
+  | 'AccountManager'
   | 'Admin'
+  | 'All'
+  | 'ArtEditor Translator'
+  | 'ArtEditor'
   | 'Authenticated'
-  | 'Art Editor'
+  | 'Author Translator'
   | 'Author'
+  | 'ContentManager Translator'
+  | 'ContentManager'
   | 'Jury'
   | 'Public'
   | 'Translator'
-  | 'Account Manager'
-  | 'Academy Editor'
-  | 'Content Manager'
-  | 'All'
 
-export type RoleType = Lowercase<PascalCase<RoleName>>
+export type RoleType =
+  | 'academyeditor'
+  | 'accountmanager'
+  | 'admin'
+  | 'all'
+  | 'arteditor'
+  | 'arteditor_translator'
+  | 'authenticated'
+  | 'author'
+  | 'author_translator'
+  | 'contentmanager'
+  | 'contentmanager_translator'
+  | 'jury'
+  | 'public'
+  | 'translator'
 
 export type Role = Omit<StrapiBase, 'publishedAt'> & {
   description: string
   name: RoleName
   permissions?: Permission
   type: RoleType
-  nb_users: number
+  nb_users?: number
 }
 
 export type Permission = Omit<StrapiBase, 'publishedAt'> & {

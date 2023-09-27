@@ -37,11 +37,12 @@ type ModelPageProps = InferGetServerSidePropsType<typeof getServerSideProps>
 
 const ModelPage: FC<ModelPageProps> = ({ endpoint }) => {
   const { t } = useTranslation()
-  const { roles, user } = useAuthContext()
+  const { roles, profile } = useAuthContext()
 
   const title = t(endpoint as keyof I18nNamespaces['common'])
 
-  const isOnlyAuthor = roles?.length === 1 && roles[0] === 'author'
+  const isBlogAuthor =
+    roles?.length === 1 && roles[0] === 'author' && endpoint === 'blogs'
 
   const { isOpen, onClose, onOpen } = useDisclosure()
 
@@ -53,18 +54,20 @@ const ModelPage: FC<ModelPageProps> = ({ endpoint }) => {
   const selectedId = query.id ? parseInt(query.id as string) : undefined
   const published = (query.published as string) || 'all'
   const q = query.q as string
+  const pageSize = query.pageSize ? parseInt(query.pageSize as string) : 20
 
   const columns = useColumns()
 
   const changeRoute = (
-    key: 'id' | 'page' | 'sort' | 'status' | 'published' | 'q',
+    key: 'id' | 'page' | 'sort' | 'status' | 'published' | 'q' | 'pageSize',
     value?: string | number | Sort | ApprovalStatus,
   ) => {
     if (
       !value ||
       (key === 'page' && value === 1) ||
       (key === 'status' && value === 'all') ||
-      (key === 'published' && value === 'all')
+      (key === 'published' && value === 'all') ||
+      (key === 'pageSize' && value === 20)
     ) {
       const _query = { ...query }
       delete _query[key]
@@ -78,6 +81,7 @@ const ModelPage: FC<ModelPageProps> = ({ endpoint }) => {
 
   const setSelectedId = (id?: number) => changeRoute('id', id)
   const setCurrentPage = (page?: number) => changeRoute('page', page)
+  const setPageSize = (size?: number) => changeRoute('pageSize', size)
   const setSort = (sort?: Sort) => changeRoute('sort', sort)
   const setStatus = (status?: ApprovalStatus) => changeRoute('status', status)
   const setPublished = (state?: string) => changeRoute('published', state)
@@ -99,9 +103,8 @@ const ModelPage: FC<ModelPageProps> = ({ endpoint }) => {
   const endpointQuery = useStrapiRequest<StrapiModel>({
     endpoint,
     page: currentPage || 1,
-    pageSize: 10,
     filters: {
-      ...(isOnlyAuthor && user && { author: { id: { $eq: user.id } } }),
+      ...(isBlogAuthor && profile && { author: { id: { $eq: profile.id } } }),
       ...(q && { [titleKey]: { $eq: q } }),
       ...(published === 'false' && { publishedAt: { $null: true } }),
       approvalStatus:
@@ -109,13 +112,18 @@ const ModelPage: FC<ModelPageProps> = ({ endpoint }) => {
           ? { $eq: status }
           : { $in: ['approved', 'pending', 'rejected'] },
     },
+    ...(endpoint === 'profiles' && {
+      populate: ['user.role'],
+    }),
+    pageSize,
     includeDrafts: published !== 'true',
     sort,
     locale,
   })
 
   const models = endpointQuery?.data?.data
-  const totalCount = endpointQuery?.data?.meta?.pagination?.pageCount
+  const pageCount = endpointQuery?.data?.meta?.pagination?.pageCount
+  const totalCount = endpointQuery?.data?.meta?.pagination?.total
 
   const mappedModels = models?.map(m => ({
     ...m,
@@ -142,14 +150,14 @@ const ModelPage: FC<ModelPageProps> = ({ endpoint }) => {
 
   return (
     <AdminLayout seo={{ title }}>
-      <PageHeader onSearch={setQ} searchPlaceHolder={t('search-placeholder')} />
+      <PageHeader onSearch={setQ} />
       {selectedId && (
         <ModelEditModal<StrapiModel>
           endpoint={endpoint}
           id={selectedId}
           isOpen={isOpen}
           onClose={handleClose}
-          title={'Edit Model'}
+          title={`Edit ${endpoint}`}
           onSuccess={endpointQuery.refetch}
         />
       )}
@@ -166,11 +174,14 @@ const ModelPage: FC<ModelPageProps> = ({ endpoint }) => {
       <DataTable
         columns={columns[endpoint] as WTableProps<StrapiModel>['columns']}
         data={mappedModels}
+        pageCount={pageCount as number}
         totalCount={totalCount as number}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
         onSort={setSort}
         onClickRow={handleClick}
+        pageSize={pageSize}
+        setPageSize={setPageSize}
       />
     </AdminLayout>
   )

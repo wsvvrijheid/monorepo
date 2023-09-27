@@ -126,7 +126,7 @@ export const ArtWithDetails: FC<ArtWithDetailsProps> = ({ art, queryKey }) => {
         <ArtContent
           title={art[titleKey]}
           artistName={
-            art.artist?.name || art.artist?.username || 'Unknown Artist Name'
+            art.artist?.name || art.artist?.email || 'Unknown Artist Name'
           }
           artistAvatar={art.artist?.avatar?.url}
           description={art[descriptionKey]}

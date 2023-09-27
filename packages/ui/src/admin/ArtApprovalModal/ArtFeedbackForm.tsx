@@ -1,6 +1,7 @@
 import { FC, useState } from 'react'
 
 import { Button, HStack, Stack, Text, Textarea } from '@chakra-ui/react'
+import { useTranslation } from 'next-i18next'
 import { HiOutlineCheck, HiOutlineX, HiPencil } from 'react-icons/hi'
 
 import { useArtFeedbackMutation } from '@wsvvrijheid/services'
@@ -24,6 +25,8 @@ export const ArtFeedbackForm: FC<ArtFeedbackFormTypes> = ({
 
   const { allowEndpointAction } = usePermission()
 
+  const { t } = useTranslation()
+
   const handleSuccess = () => {
     onSuccess?.()
     setConfirmState(undefined)
@@ -35,7 +38,7 @@ export const ArtFeedbackForm: FC<ArtFeedbackFormTypes> = ({
       isWarning: true,
       title: 'Reject art',
       description: 'Are you sure you want to reject this art?',
-      buttonText: 'Reject',
+      buttonText: t('reject'),
       onConfirm: async () => {
         feedbackMutation.mutate(
           {
@@ -84,13 +87,13 @@ export const ArtFeedbackForm: FC<ArtFeedbackFormTypes> = ({
 
       <Stack w={'full'} spacing={{ base: 2, lg: 4 }}>
         <Text color={'black'} fontWeight={700}>
-          Give Feedback
+          {t('give-feedback')}
         </Text>
         <HStack align="start" spacing={{ base: 2, lg: 4 }}>
           <WAvatar
             size="sm"
             src={editor?.avatar}
-            name={editor?.name || editor.username}
+            name={editor?.name || editor.email}
           />
 
           <Stack flex={1} spacing={{ base: 2, lg: 4 }}>
@@ -110,7 +113,7 @@ export const ArtFeedbackForm: FC<ArtFeedbackFormTypes> = ({
                   colorScheme="red"
                   leftIcon={<HiOutlineX />}
                 >
-                  Reject
+                  {t('reject')}
                 </Button>
 
                 <Button
@@ -121,7 +124,7 @@ export const ArtFeedbackForm: FC<ArtFeedbackFormTypes> = ({
                   colorScheme="primary"
                   leftIcon={<HiOutlineCheck />}
                 >
-                  Approve
+                  {t('approve')}
                 </Button>
 
                 <Button
@@ -131,7 +134,7 @@ export const ArtFeedbackForm: FC<ArtFeedbackFormTypes> = ({
                   colorScheme="primary"
                   leftIcon={<HiPencil />}
                 >
-                  Edit
+                  {t('edit')}
                 </Button>
               </Stack>
             )}

@@ -139,7 +139,6 @@ const NewsPage = () => {
   return (
     <AdminLayout seo={{ title: t('news') }}>
       <PageHeader
-        searchPlaceHolder="Search news"
         onSearch={setSearchTerm}
         sortMenu={sortMenu}
         filterMenu={filterMenu}

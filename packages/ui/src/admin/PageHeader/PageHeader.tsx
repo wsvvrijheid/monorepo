@@ -20,7 +20,7 @@ export type PageHeaderProps = {
   onSearch?: (value?: string) => number | void
   children?: ReactNode
   filterMenuCloseOnSelect?: boolean
-  searchPlaceHolder?: string
+  searchPlaceholder?: string
 }
 
 export const PageHeader: FC<PageHeaderProps> = ({
@@ -29,7 +29,7 @@ export const PageHeader: FC<PageHeaderProps> = ({
   onSearch,
   children,
   filterMenuCloseOnSelect,
-  searchPlaceHolder,
+  searchPlaceholder,
 }) => {
   const { t } = useTranslation()
 
@@ -54,7 +54,7 @@ export const PageHeader: FC<PageHeaderProps> = ({
         <SearchForm
           onSearch={onSearch}
           variant="flushed"
-          placeholder={searchPlaceHolder || (t('search') as string)}
+          placeholder={searchPlaceholder || (t('search') as string)}
         />
       ) : (
         <Spacer />

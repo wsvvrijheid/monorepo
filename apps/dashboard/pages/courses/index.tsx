@@ -13,6 +13,7 @@ import { AdminLayout, DataTable, PageHeader, useColumns } from '@wsvvrijheid/ui'
 
 const CoursesPage = () => {
   const [currentPage, setCurrentPage] = useState<number>(1)
+  const [pageSize, setPageSize] = useState<number>(20)
   const [searchTerm, setSearchTerm] = useState<string>()
 
   const { t } = useTranslation()
@@ -27,7 +28,7 @@ const CoursesPage = () => {
     endpoint: 'courses',
     populate: ['categories', 'tags', 'platforms', 'image', 'applications'],
     page: currentPage || 1,
-    pageSize: 10,
+    pageSize,
     filters: {
       ...(searchTerm && { [`title_${locale}`]: { $containsi: searchTerm } }),
     },
@@ -44,7 +45,8 @@ const CoursesPage = () => {
   }, [locale, searchTerm, sort])
 
   const courses = coursesQuery?.data?.data
-  const totalCount = coursesQuery?.data?.meta?.pagination?.pageCount || 0
+  const pageCount = coursesQuery?.data?.meta?.pagination?.pageCount || 0
+  const totalCount = coursesQuery?.data?.meta?.pagination?.total || 0
 
   const mappedCourses =
     courses?.map(course => {
@@ -68,7 +70,6 @@ const CoursesPage = () => {
     <AdminLayout seo={{ title: t('courses') }}>
       <PageHeader
         onSearch={handleSearch}
-        searchPlaceHolder={'Search courses by title'}
         sortMenu={[
           <MenuItem key="asc" icon={<FaArrowUp />}>
             Name Asc
@@ -81,12 +82,15 @@ const CoursesPage = () => {
 
       <DataTable<Course>
         columns={columns.courses!}
-        data={mappedCourses as Course[]}
-        totalCount={totalCount}
         currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-        onSort={setSort}
+        data={mappedCourses as Course[]}
         onClickRow={handleRowClick}
+        onSort={setSort}
+        pageCount={pageCount}
+        pageSize={pageSize}
+        setCurrentPage={setCurrentPage}
+        setPageSize={setPageSize}
+        totalCount={totalCount}
       />
     </AdminLayout>
   )

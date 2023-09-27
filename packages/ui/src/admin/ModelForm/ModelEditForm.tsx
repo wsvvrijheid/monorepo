@@ -276,7 +276,6 @@ export const ModelEditForm = <T extends StrapiModel>({
       {
         email: userModel.email,
         user: userModel.id,
-        username: userModel.username,
         publishedAt: new Date().toISOString(),
         name: userModel.username,
         availableHours: 1,
@@ -302,6 +301,7 @@ export const ModelEditForm = <T extends StrapiModel>({
     borderColor: 'transparent',
     _hover: { borderColor: 'transparent' },
     color: 'gray.500',
+    pl: 0,
   }
 
   return (

@@ -22,7 +22,7 @@ export const RecommendedTweetCard: FC<RecommendedTweetCardProps> = ({
 
     return {
       name: creator.name as string,
-      username: creator.username,
+      username: creator.user?.username || creator.email,
       profile: creator.avatar?.url,
     }
   }

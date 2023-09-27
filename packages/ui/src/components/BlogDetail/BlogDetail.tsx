@@ -103,7 +103,7 @@ export const BlogDetail: FC<BlogDetailProps> = ({
         <Markdown source={source} />
         <Text>
           <>
-            {t('author')}: {post?.author?.name || post?.author?.username}
+            {t('author')}: {post?.author?.name || post?.author?.email}
           </>
         </Text>
       </Box>

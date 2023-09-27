@@ -30,8 +30,3 @@ export default {
 type Story = StoryObj<typeof AdminNav>
 
 export const Default: Story = {}
-export const Expanded: Story = {
-  args: {
-    expanded: true,
-  },
-}

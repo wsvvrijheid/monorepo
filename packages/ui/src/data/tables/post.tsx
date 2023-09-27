@@ -13,8 +13,8 @@ export const usePostColumns = (): WTableProps<Post>['columns'] => {
   return {
     image: { type: 'image' },
     creator: {
-      transform: value => (value as Profile)?.username,
-      sortKey: 'username',
+      transform: value => (value as Profile)?.email,
+      sortKey: 'email',
       sortable: true,
     },
     content: {},

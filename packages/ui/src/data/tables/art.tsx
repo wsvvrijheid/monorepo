@@ -13,8 +13,8 @@ export const useArtColumns = (): WTableProps<Art>['columns'] => {
     [`title_${locale}`]: {},
     [`description_${locale}`]: {},
     artist: {
-      transform: value => (value as Profile)?.username,
-      sortKey: 'username',
+      transform: value => (value as Profile)?.email,
+      sortKey: 'email',
       sortable: true,
     },
     approvalStatus: {

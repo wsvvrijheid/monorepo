@@ -13,7 +13,6 @@ import {
 import { useMutation } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
-import { v4 as uuidV4 } from 'uuid'
 
 import { Mutation } from '@wsvvrijheid/lib'
 import { VOLUNTEER_TOKEN } from '@wsvvrijheid/secrets'
@@ -60,7 +59,6 @@ export const JoinTemplate: FC<JoinTemplateProps> = ({ title }) => {
 
       const body: ProfileCreateInput = {
         ...data,
-        username: uuidV4(),
         availableHours,
         heardFrom,
         jobs,

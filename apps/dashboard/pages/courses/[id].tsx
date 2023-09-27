@@ -44,6 +44,7 @@ const CoursePage = () => {
 
   const [selectedApplicationId, setSelectedApplicationId] = useState<number>()
   const [currentPage, setCurrentPage] = useState<number>(1)
+  const [pageSize, setPageSize] = useState<number>(20)
   const [searchTerm, setSearchTerm] = useState<string>()
   const [sort, setSort] = useState<Sort>()
 
@@ -69,7 +70,8 @@ const CoursePage = () => {
   }, [locale, searchTerm, sort])
 
   const applications = applicationsQuery?.data?.data || []
-  const totalCount = applicationsQuery?.data?.meta?.pagination?.pageCount || 0
+  const pageCount = applicationsQuery?.data?.meta?.pagination?.pageCount || 0
+  const totalCount = applicationsQuery?.data?.meta?.pagination?.total || 0
 
   const { data, isLoading, refetch } = useStrapiRequest<Course>({
     endpoint: 'courses',
@@ -117,7 +119,7 @@ const CoursePage = () => {
           allowMultiple={false}
           defaultIndex={0}
           borderColor="transparent"
-          defaultValue={0}
+          defaultValue={1}
         >
           <AccordionItem _notLast={{ mb: 2 }}>
             <AccordionButton
@@ -145,6 +147,7 @@ const CoursePage = () => {
           <AccordionItem>
             <AccordionButton
               justifyContent="space-between"
+              _activeStep={{ bg: 'gray.200' }}
               cursor="pointer"
               fontSize="lg"
               bg={'white'}
@@ -158,7 +161,6 @@ const CoursePage = () => {
             <AccordionPanel mt={4} bg={'white'} rounded={'md'}>
               <PageHeader
                 onSearch={handleSearch}
-                searchPlaceHolder={'Search courses by title'}
                 sortMenu={[
                   <MenuItem key="asc" icon={<FaArrowUp />}>
                     Name Asc
@@ -171,12 +173,15 @@ const CoursePage = () => {
 
               <DataTable<CourseApplication>
                 columns={columns['course-applications']!}
-                data={applications}
-                totalCount={totalCount}
                 currentPage={currentPage}
-                setCurrentPage={setCurrentPage}
-                onSort={setSort}
+                data={applications}
                 onClickRow={handleRowClick}
+                onSort={setSort}
+                pageCount={pageCount}
+                pageSize={pageSize}
+                setCurrentPage={setCurrentPage}
+                setPageSize={setPageSize}
+                totalCount={totalCount}
               />
             </AccordionPanel>
           </AccordionItem>
