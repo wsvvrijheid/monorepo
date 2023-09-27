@@ -5,6 +5,7 @@ import { useRouter } from 'next/router'
 
 import {
   Activity,
+  Art,
   Category,
   Course,
   CourseApplication,
@@ -70,12 +71,13 @@ export const useDefaultValues = <T extends StrapiModel>(
   model?: T | null,
   fields?: FormFields<T>,
 ) => {
-  const hashtagModel = model as Hashtag
   const activityModel = model as Activity
-  const profileModel = model as Profile
-  const postModel = model as Post
-  const courseModel = model as Course
   const applicationModel = model as CourseApplication
+  const artModel = model as Art
+  const courseModel = model as Course
+  const hashtagModel = model as Hashtag
+  const postModel = model as Post
+  const profileModel = model as Profile
   const userModel = model as User
 
   const { locale } = useRouter()
@@ -125,6 +127,15 @@ export const useDefaultValues = <T extends StrapiModel>(
               label: j[`name_${locale}`],
               value: j.id.toString(),
             })) || []
+          break
+        case 'artist':
+          defaults.artist = {
+            label: `${artModel.artist?.name} (${artModel.artist?.email})`,
+            value: profileModel?.id.toString(),
+          }
+
+          console.log('profileModel', profileModel)
+
           break
         case 'hashtag':
           defaults.hashtag = {

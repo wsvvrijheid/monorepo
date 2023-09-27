@@ -65,7 +65,7 @@ export const endpointsWithPublicationState: StrapiEndpoint[] = [
   'term',
   'timelines',
   'topic',
-  'user-feedbacks',
-  'profiles',
+  // 'user-feedbacks',
+  // 'profiles',
   'votes',
 ]

@@ -84,8 +84,10 @@ export type ModelEditFormProps<T extends StrapiModel> = {
   translatedFields?: (keyof T)[]
   hideLanguageSwitcher?: boolean
   noColumns?: boolean
+  defaultIsEditing?: boolean
   onSuccess: () => void
   onClose?: () => void
+  onCancel?: () => void
 }
 
 export type ModelEditModalProps<T extends StrapiModel> = Omit<
