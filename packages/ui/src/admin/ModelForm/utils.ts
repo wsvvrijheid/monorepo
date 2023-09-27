@@ -35,6 +35,7 @@ export const mapModelToOption = (
 
   const mention = model as Mention
   const user = model as User
+  const profile = model as Profile
   const role = model as unknown as Role
   const modelWithLocalizedName = model as Category
 
@@ -49,9 +50,9 @@ export const mapModelToOption = (
     label = `@${mention.username}`
   }
 
-  // User
+  // User / Profile
   else if (user.email) {
-    label = user.email || user.username
+    label = profile.name || user.username || user.email
   }
 
   // Role
@@ -133,8 +134,6 @@ export const useDefaultValues = <T extends StrapiModel>(
             label: `${artModel.artist?.name} (${artModel.artist?.email})`,
             value: profileModel?.id.toString(),
           }
-
-          console.log('profileModel', profileModel)
 
           break
         case 'hashtag':
