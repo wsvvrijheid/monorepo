@@ -20,7 +20,11 @@ const handler = async (req: NextRequest) => {
       { password: sessionOptions.password },
     )
 
-    const allowedRoles: RoleType[] = ['admin', 'contentmanager']
+    const allowedRoles: RoleType[] = [
+      'admin',
+      'contentmanager',
+      'contentmanager_translator',
+    ]
     const isAllowed = user?.roles?.some(role => allowedRoles.includes(role))
 
     if (!isAllowed) {
