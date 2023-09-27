@@ -29,7 +29,7 @@ export type UserStatsBase = StrapiBase & {
 }
 
 type UserStatsRelation = {
-  profile: Pick<Profile, 'id' | 'name' | 'username'>
+  profile: Pick<Profile, 'id' | 'name' | 'email'>
 }
 
 export type UserStats = UserStatsBase & UserStatsRelation

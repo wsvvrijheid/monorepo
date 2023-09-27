@@ -21,7 +21,7 @@ export const CardBase: FC<CardBaseProps> = ({ art, onClick }) => {
       <Box px="4" py="2">
         <Box>{art[titleKey]}</Box>
 
-        <Box>{art.artist?.name || art.artist?.username}</Box>
+        <Box>{art.artist?.name || art.artist?.email}</Box>
       </Box>
     </Box>
   )

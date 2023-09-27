@@ -12,11 +12,6 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "username": {
-      "type": "string",
-      "unique": true,
-      "required": true
-    },
     "name": {
       "type": "string",
       "required": true

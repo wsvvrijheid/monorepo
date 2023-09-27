@@ -12,9 +12,9 @@ import { Layout } from '../../../components'
 
 type ArtistPageProps = InferGetServerSidePropsType<typeof getServerSideProps>
 
-const ArtistPage: FC<ArtistPageProps> = ({ seo, artist, arts }) => {
+const ArtistPage: FC<ArtistPageProps> = ({ artist, arts }) => {
   return (
-    <Layout seo={seo} isDark hasScroll>
+    <Layout seo={{ title: artist.name || 'Artist' }} isDark hasScroll>
       <ArtistTemplate artist={artist} arts={arts} />
     </Layout>
   )
@@ -30,15 +30,8 @@ export const getServerSideProps = async (
 
   if (!artist) return { notFound: true }
 
-  const title = artist.name || 'Artist'
-
-  const seo = {
-    title,
-  }
-
   return {
     props: {
-      seo,
       artist,
       arts,
       dehydratedState: dehydrate(queryClient),

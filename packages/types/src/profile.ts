@@ -22,7 +22,6 @@ import { UserStats } from './user-stats'
 import { Vote } from './vote'
 
 export type ProfileBase = {
-  username: string
   email: string
   city: string | null
   age: number | null
@@ -90,7 +89,7 @@ type ProfileRelationInput = {
 export type ProfileCreateInput = Expand<
   { publishedAt?: Date | string | null } & SetRequired<
     Partial<Omit<ProfileBase, 'approved'>>,
-    'username' | 'name' | 'email'
+    'name' | 'email'
   > &
     ProfileRelationInput
 >

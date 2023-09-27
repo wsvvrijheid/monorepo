@@ -7,8 +7,8 @@ export const useBlogColumns = (): WTableProps<Blog>['columns'] => {
   return {
     image: { type: 'image' },
     author: {
-      transform: value => (value as Profile)?.username,
-      sortKey: 'username',
+      transform: value => (value as Profile)?.email,
+      sortKey: 'email',
       sortable: true,
     },
     title: { sortable: true },

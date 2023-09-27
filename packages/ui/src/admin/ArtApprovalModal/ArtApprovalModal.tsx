@@ -95,11 +95,11 @@ export const ArtApprovalModal: FC<ArtApprovalTypes> = ({
                         <WAvatar
                           size="md"
                           src={artist.avatar?.url}
-                          name={artist.name || artist.username}
+                          name={artist.name || artist.email}
                         />
                         <Box>
                           <Text fontWeight={700}>{artist.name}</Text>
-                          <Text>{artist.username}</Text>
+                          <Text>{artist.email}</Text>
                         </Box>
                       </HStack>
                     )}

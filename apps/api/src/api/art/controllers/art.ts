@@ -15,12 +15,13 @@ const sendEmail = async art => {
     {
       populate: {
         artist: {
-          fields: ['name', 'username'],
+          fields: ['name'],
         },
       },
     },
   )
   const artist = populatedArtist.artist
+  const name = artist.name || artist?.email || 'an artist'
 
   const title = art.title_tr || art.title_nl || art.title_en
   const description =
@@ -30,9 +31,7 @@ const sendEmail = async art => {
     strapi.plugins['email'].services.email.send({
       to: editorEmails,
       from: 'info@wsvvrijheid.nl',
-      subject: `New Art ${title} has been created by ${
-        artist.name || artist.username
-      }`,
+      subject: `New Art ${title} has been created by ${name}`,
       html: `<table>
       <tr>
         <td>Title:</td>
@@ -44,7 +43,7 @@ const sendEmail = async art => {
       </tr>
       <tr>
         <td>Artist:</td>
-        <td>${artist.name || artist.username}</td>
+        <td>${name}</td>
       </tr>
       <tr>
         <td>Link:</td>

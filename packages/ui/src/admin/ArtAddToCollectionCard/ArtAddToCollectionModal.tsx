@@ -54,10 +54,7 @@ export const ArtAddToCollectionModal: FC<ArtAddToCollectionModalProps> = ({
           <ModalHeader>
             <HStack pos="sticky" top={0} zIndex="modal">
               <Box flex={1}>
-                <PageHeader
-                  onSearch={setSearch}
-                  searchPlaceHolder={'Search by art title or artist name'}
-                >
+                <PageHeader onSearch={setSearch}>
                   <ModalCloseButton pos="static" />
                 </PageHeader>
               </Box>
