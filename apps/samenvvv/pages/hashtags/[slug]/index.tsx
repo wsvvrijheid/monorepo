@@ -102,7 +102,10 @@ const HashtagPage: FC<HashtagProps> = ({
       )}
       <Layout seo={seo}>
         <Container py={4} pos="relative">
-          {hasStarted || roles.includes('admin') ? (
+          {hasStarted ||
+          roles.includes('admin') ||
+          roles.includes('contentmanager') ||
+          roles.includes('contentmanager_translator') ? (
             <PostMaker isIosSafari={isIosSafari} />
           ) : (
             <TimeLeft date={hashtag.date as string} />
