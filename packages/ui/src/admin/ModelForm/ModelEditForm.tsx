@@ -70,14 +70,16 @@ export const ModelEditForm = <T extends StrapiModel>({
   model,
   translatedFields,
   onSuccess,
+  onCancel: onCancelProp,
   onClose,
   noColumns,
+  defaultIsEditing = false,
 }: ModelEditFormProps<T>) => {
   const translatableModel = model as unknown as StrapiTranslatableModel
 
   const id = model.id
   const isPublished = !!translatableModel.publishedAt
-  const [isEditing, setIsEditing] = useBoolean(false)
+  const [isEditing, setIsEditing] = useBoolean(defaultIsEditing)
   const [isChangingImage, setIsChangingImage] = useState<{
     [x: string]: boolean
   }>({
@@ -210,6 +212,7 @@ export const ModelEditForm = <T extends StrapiModel>({
   }
 
   const onCancel = () => {
+    onCancelProp?.()
     resetForm()
     setIsEditing.off()
     setIsChangingImage({

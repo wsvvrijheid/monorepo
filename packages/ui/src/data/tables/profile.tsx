@@ -1,6 +1,6 @@
 import { ThemeTypings } from '@chakra-ui/react'
 
-import { Profile, Role, RoleName, User } from '@wsvvrijheid/types'
+import { Platform, Profile, Role, RoleName, User } from '@wsvvrijheid/types'
 
 import { WTableProps } from '../../components'
 
@@ -41,8 +41,13 @@ export const useProfileColumns = (): WTableProps<
         }
       },
     },
-    name: {},
-    email: {},
+    platforms: {
+      transform: value => (value as Platform[])?.map(p => p.slug).join(', '),
+      sortable: true,
+      sortKey: `slug`,
+    },
+    name: { sortable: true },
+    email: { sortable: true },
     availableHours: { sortable: true },
     phone: {},
     country: { sortable: true },

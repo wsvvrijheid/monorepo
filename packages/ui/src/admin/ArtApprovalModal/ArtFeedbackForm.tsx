@@ -85,18 +85,18 @@ export const ArtFeedbackForm: FC<ArtFeedbackFormTypes> = ({
         />
       )}
 
-      <Stack w={'full'} spacing={{ base: 2, lg: 4 }}>
+      <Stack w={'full'} spacing={2}>
         <Text color={'black'} fontWeight={700}>
           {t('give-feedback')}
         </Text>
-        <HStack align="start" spacing={{ base: 2, lg: 4 }}>
+        <HStack align="start" spacing={2}>
           <WAvatar
             size="sm"
             src={editor?.avatar}
             name={editor?.name || editor.email}
           />
 
-          <Stack flex={1} spacing={{ base: 2, lg: 4 }}>
+          <Stack flex={1} spacing={2}>
             <Textarea
               isRequired
               onChange={e => setFeedback(e.target.value)}
@@ -104,7 +104,7 @@ export const ArtFeedbackForm: FC<ArtFeedbackFormTypes> = ({
             />
 
             {allowEndpointAction('arts', 'approve') && (
-              <Stack direction={'row'} spacing={{ base: 2, lg: 4 }}>
+              <Stack direction={'row'} spacing={2}>
                 <Button
                   flex={1}
                   flexShrink={0}
@@ -135,6 +135,14 @@ export const ArtFeedbackForm: FC<ArtFeedbackFormTypes> = ({
                   leftIcon={<HiPencil />}
                 >
                   {t('edit')}
+                </Button>
+                <Button
+                  aria-label="Close"
+                  flexShrink={0}
+                  onClick={onClose}
+                  colorScheme="gray"
+                >
+                  {t('dismiss')}
                 </Button>
               </Stack>
             )}

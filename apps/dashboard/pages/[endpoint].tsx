@@ -113,7 +113,7 @@ const ModelPage: FC<ModelPageProps> = ({ endpoint }) => {
           : { $in: ['approved', 'pending', 'rejected'] },
     },
     ...(endpoint === 'profiles' && {
-      populate: ['user.role'],
+      populate: ['user.role', 'platforms'],
     }),
     pageSize,
     includeDrafts: published !== 'true',

@@ -22,6 +22,7 @@ export const ModelSelect = <T extends StrapiModel>({
         approvalStatus: { $eq: 'approved' },
       },
     }),
+    pageSize: 100,
     populate: [],
   })
 
