@@ -1,6 +1,6 @@
 import { FC, createContext, useContext, useEffect, useState } from 'react'
 
-import { useDisclosure } from '@chakra-ui/react'
+import { useDisclosure, usePrevious } from '@chakra-ui/react'
 import { sampleSize } from 'lodash'
 import { useRouter } from 'next/router'
 
@@ -27,6 +27,7 @@ export const HashtagProvider: FC<HashtagProviderProps> = ({ children }) => {
   >({})
 
   const { locale } = useRouter()
+  const previousLocale = usePrevious(locale)
 
   const hashtagSentences = useGetHashtagSentences(hashtag?.id)
 
@@ -158,6 +159,13 @@ export const HashtagProvider: FC<HashtagProviderProps> = ({ children }) => {
       setDefaultTrends(initialTags.trends)
     }
   }, [locale])
+
+  useEffect(() => {
+    if (previousLocale && locale === previousLocale) return
+
+    // Reset postSentenceShares when locale changes
+    setPostSentenceShares({})
+  }, [locale, previousLocale])
 
   return (
     <HashtagContext.Provider
