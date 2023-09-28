@@ -40,13 +40,9 @@ export const ImageRecognizer: FC<ImageRecognizerProps> = ({
   const locale = router.locale
 
   const handleRecognize = async () => {
-    const worker = await createWorker({
-      //   logger: console.info,
-    })
+    const worker = await createWorker(Languages[locale])
 
     await worker.load()
-    await worker.loadLanguage(Languages[locale])
-    await worker.initialize(Languages[locale])
     await worker.setParameters({ tessedit_pageseg_mode: PSM.AUTO_OSD })
 
     const items = Object?.values(state)
