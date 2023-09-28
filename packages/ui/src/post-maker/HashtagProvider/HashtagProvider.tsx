@@ -161,6 +161,9 @@ export const HashtagProvider: FC<HashtagProviderProps> = ({ children }) => {
   }, [locale])
 
   useEffect(() => {
+    // Don't reset for initial render
+    if (!previousLocale) return
+
     if (previousLocale && locale === previousLocale) return
 
     // Reset postSentenceShares when locale changes
