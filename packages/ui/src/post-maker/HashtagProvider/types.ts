@@ -3,7 +3,7 @@ import { ReactNode } from 'react'
 
 import { UseDisclosureReturn } from '@chakra-ui/react'
 
-import { MentionUserData, PostSentence } from '@wsvvrijheid/types'
+import { MentionUserData, PostSentence, StrapiLocale } from '@wsvvrijheid/types'
 
 export type HashtagStats = {
   unsharedCount: number
@@ -31,7 +31,7 @@ export type HashtagActions = {
 export type HashtagState = {
   activePostId: number | null
   defaultTrends: Record<number, string[]>
-  hashtagStats: HashtagStats
+  hashtagStats: Record<StrapiLocale, HashtagStats>
   mentionSearchKey: string
   mentionsDisclosure: UseDisclosureReturn
   postMentions: Record<number, string[]>
