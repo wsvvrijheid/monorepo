@@ -49,7 +49,7 @@ export const getAccountStats = async (
       username,
     }
   } catch (error) {
-    strapi.log.error('Error getting account statistics', error.message)
+    console.error('Error getting account statistics', error)
 
     return null
   }

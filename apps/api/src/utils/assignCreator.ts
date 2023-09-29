@@ -15,6 +15,6 @@ export const assignCreator = async <T extends Common.UID.ContentType>(
       data: { creator: profile?.id as number } as never,
     })
     .catch(error => {
-      strapi.log.error(`Assign Creator: ${error.message}`)
+      console.error(`Assign Creator: ${error.message}`)
     })
 }

@@ -40,10 +40,10 @@ export default {
           isActive: true,
         })
 
-        strapi.log.info(`✅ Admin ${createdAdmin.email.toUpperCase()} created`)
+        strapi.log.info(`✅ Admin ${createdAdmin.email?.toUpperCase()} created`)
       } else {
         strapi.log.info(
-          `🟡 Admin ${existingAdmin.email.toUpperCase()} already exists`,
+          `🟡 Admin ${existingAdmin.email?.toUpperCase()} already exists`,
         )
       }
 
@@ -51,29 +51,82 @@ export default {
         await strapi.plugins['users-permissions'].services.role.find()
 
       for (const role of roles) {
-        const existingUser = await strapi.plugins[
+        const userResponse = await strapi.plugins[
           'users-permissions'
         ].services.user.fetchAll({ filters: { username: role.type } })
 
+        const existingUser = userResponse?.[0]
+
         if (existingUser) {
-          strapi.log.info(`🟡 User ${role.type.toUpperCase()} already exists`)
+          strapi.log.info(
+            `🟡 User ${existingUser.username?.toUpperCase()} already exists`,
+          )
+
+          const profileResponse = await strapi.entityService.findMany(
+            'api::profile.profile',
+            {
+              filters: { email: { $eq: existingUser.email } },
+            },
+          )
+
+          const existingProfile = profileResponse?.[0]
+
+          if (!existingProfile) {
+            await strapi.entityService.create('api::profile.profile', {
+              data: {
+                name: role.name,
+                email: existingUser.email,
+                availableHours: 1,
+                user: existingUser.id,
+              },
+            })
+
+            strapi.log.info(`✅ Profile ${role.name?.toUpperCase()} created`)
+          } else {
+            strapi.log.info(
+              `🟡 Profile ${existingProfile.name?.toUpperCase()} already exists`,
+            )
+          }
+
           continue
         }
+
+        const email = `${role.type}@wsvvrijheid.nl`
 
         const result = await strapi.plugins[
           'users-permissions'
         ].services.user.add({
           username: role.type,
-          email: `${role.type}@wsvvrijheid.nl`,
+          email,
           password: STRAPI_ADMIN_PASSWORD,
           confirmed: true,
           role: role.id,
         })
 
-        strapi.log.info(`✅ User ${result.type.toUpperCase()} created`)
+        const profileResponse = await strapi.entityService.findMany(
+          'api::profile.profile',
+          {
+            filters: { email: { $eq: result.email } },
+          },
+        )
+
+        const existingProfile = profileResponse?.[0]
+
+        if (!existingProfile) {
+          await strapi.entityService.create('api::profile.profile', {
+            data: {
+              name: role.name,
+              email: email,
+              availableHours: 1,
+              user: result.id,
+            },
+          })
+        }
+
+        strapi.log.info(`✅ User ${result.email?.toUpperCase()} created`)
       }
     } catch (error) {
-      strapi.log.error(`Bootstrap error: ${error.message}`)
+      console.error('Bootstrap error', JSON.stringify(error, null, 2))
     }
   },
 }

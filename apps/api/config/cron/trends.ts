@@ -25,6 +25,6 @@ export default async ({ strapi }) => {
       })
     })
   } catch (error) {
-    strapi.log.error(`Error while fetching trends: ${error.message}`)
+    console.error('Error while fetching trends', error.message)
   }
 }

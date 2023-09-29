@@ -38,7 +38,7 @@ export default {
         data: { data },
       })
     } catch (error) {
-      strapi.log.error(`Error after mention create: ${error.message}`)
+      console.error('Error after mention create', error)
     }
   },
 }
