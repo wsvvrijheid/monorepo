@@ -30,12 +30,12 @@ export default {
 
     try {
       const existingAdmin =
-        await strapi.admin.services.user.findOneByEmail('dev@wsvvrijheid.nl')
+        await strapi.admin.services.user.findOneByEmail(STRAPI_ADMIN_EMAIL)
 
       if (!existingAdmin) {
         const createdAdmin = await strapi.admin.services.user.create({
-          password: 'Test?123',
-          email: 'dev@wsvvrijheid.nl',
+          password: STRAPI_ADMIN_PASSWORD,
+          email: STRAPI_ADMIN_EMAIL,
           roles: [1],
           isActive: true,
         })
@@ -65,7 +65,7 @@ export default {
         ].services.user.add({
           username: role.type,
           email: `${role.type}@wsvvrijheid.nl`,
-          password: 'Test?123',
+          password: STRAPI_ADMIN_PASSWORD,
           confirmed: true,
           role: role.id,
         })
