@@ -7,7 +7,7 @@ export type UserFeedbackBase = {
   image?: UploadFile
   comment: string
   site: string
-  processed: boolean
+  processed?: boolean
   issueLink?: string
 }
 
