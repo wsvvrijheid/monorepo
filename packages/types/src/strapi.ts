@@ -85,7 +85,11 @@ import { Timeline, TimelineCreateInput } from './timeline'
 import { Topic } from './topic'
 import { Trend } from './trend'
 import { User } from './user'
-import { UserFeedback, UserFeedbackCreateInput } from './user-feedback'
+import {
+  UserFeedback,
+  UserFeedbackCreateInput,
+  UserFeedbackUpdateInput,
+} from './user-feedback'
 import {
   Vote,
   VoteCreateApplicationInput,
@@ -343,3 +347,4 @@ export type StrapiUpdateInput =
   | HashtagUpdateInput
   | PostUpdateInput
   | ProfileUpdateInput
+  | UserFeedbackUpdateInput

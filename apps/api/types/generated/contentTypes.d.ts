@@ -3126,6 +3126,8 @@ export interface ApiUserFeedbackUserFeedback extends Schema.CollectionType {
     point: Attribute.Integer
     image: Attribute.Media
     site: Attribute.String
+    processed: Attribute.Boolean
+    issueLink: Attribute.String
     createdAt: Attribute.DateTime
     updatedAt: Attribute.DateTime
     publishedAt: Attribute.DateTime

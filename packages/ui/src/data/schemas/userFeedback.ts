@@ -10,16 +10,21 @@ export const useUserFeedbackSchema = () => {
     point: yup.string(),
     site: yup.string(),
     image: yup.mixed(),
+    processed: yup.boolean(),
+    issueLink: yup.string(),
   })
 }
 
 export const userFeedbackFields: FormFields<UserFeedback> = [
-  { name: 'comment' },
-  { name: 'point' },
-  { name: 'site' },
+  { name: 'comment', type: 'textarea', blockEdit: true },
+  { name: 'point', blockEdit: true },
+  { name: 'site', blockEdit: true },
+  { name: 'processed', type: 'boolean' },
+  { name: 'issueLink' },
   {
     name: 'image',
     type: 'file',
     group: { value: 'image', name: 'media' },
+    blockEdit: true,
   },
 ]
