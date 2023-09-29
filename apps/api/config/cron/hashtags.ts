@@ -74,7 +74,7 @@ export default async ({ strapi }) => {
         )
       }
     } catch (error) {
-      strapi.log.error(error.message)
+      console.error('Hashtag cron error', error)
     }
   }
 }

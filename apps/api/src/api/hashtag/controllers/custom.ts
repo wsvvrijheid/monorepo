@@ -31,7 +31,7 @@ export default {
 
       ctx.send(tweets)
     } catch (error) {
-      strapi.log.error(`Error searching hashtags: ${error.message}`)
+      console.error('Error searching hashtags', error)
       ctx.send([])
     }
   },
@@ -172,7 +172,7 @@ export default {
 
       // reconnect on error
       stream.on(ETwitterStreamEvent.Error, error => {
-        strapi.log.error(`HashtagEventStats: ${error.message}`)
+        console.error('HashtagEventStream', error)
         stream.reconnect()
       })
 

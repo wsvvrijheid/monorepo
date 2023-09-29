@@ -90,7 +90,7 @@ export const scrapFrontPage: ScrapFrontPage = async ({
     return distinctResults.map(item => formatTopic(item))
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
-    strapi.log.error(`Error while scraping: ${url} - ${error.message}`)
+    console.error(`Error while scraping: ${url} - ${error.message}`)
 
     return []
   }

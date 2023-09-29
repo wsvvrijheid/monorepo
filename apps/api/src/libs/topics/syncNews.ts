@@ -66,7 +66,7 @@ export const syncNews = async () => {
 
     return topics.length
   } catch (error) {
-    strapi.log.error(error.message)
+    console.error('Sync news', error)
 
     return error
   }

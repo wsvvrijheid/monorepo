@@ -52,7 +52,7 @@ export const scrapPage: ScrapPage = async ({
       category,
     }
   } catch (error) {
-    strapi.log.error(
+    console.error(
       'Error while scrapping the page.',
       url.href,
       error.message,

@@ -35,7 +35,7 @@ export const getUserTweets = async (
 
     return tweets
   } catch (error) {
-    strapi.log.error('Error getting user tweets', error.message)
+    console.error('Error getting user tweets', error)
 
     return []
   }
