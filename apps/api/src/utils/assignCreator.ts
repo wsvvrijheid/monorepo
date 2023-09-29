@@ -1,8 +1,12 @@
-import { Common } from '@strapi/strapi'
-import { ApiProfileProfile } from '../../types/generated/contentTypes'
+import { Common, Attribute } from '@strapi/strapi'
+
+type Profile = Attribute.GetValues<
+  'api::profile.profile',
+  Attribute.GetKeys<'api::profile.profile'>
+>
 
 export const assignCreator = async <T extends Common.UID.ContentType>(
-  profile: ApiProfileProfile['attributes'],
+  profile: Profile,
   id: number,
   uid: T,
 ) => {

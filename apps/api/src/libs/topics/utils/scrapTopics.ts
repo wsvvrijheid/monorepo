@@ -42,7 +42,7 @@ export const scrapTopics: ScrapTopics = async ({
       url,
     })
   } catch (error) {
-    console.error('Scrap links error', error)
+    console.error('Scrap links error', url.href, error.message)
   }
 
   const topics: Topic[] = []
@@ -66,12 +66,12 @@ export const scrapTopics: ScrapTopics = async ({
 
       topics.push(formatTopic(topic))
     } catch (error) {
-      console.error(link, error)
-      topics.push({
-        url: link.toString(),
-        locale,
-        publisher,
-      })
+      console.log(
+        'Error while scrapping the page.',
+        url.href,
+        error.message,
+        link?.href,
+      )
     }
   }
 
