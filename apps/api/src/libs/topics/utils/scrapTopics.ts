@@ -56,12 +56,14 @@ export const scrapTopics: ScrapTopics = async ({
 
       return typeof formatTopic === 'function' ? formatTopic(topic) : topic
     } catch (error) {
-      console.log(
+      console.error(
         'Error while scrapping the page.',
         url.href,
         error.message,
         link?.href,
       )
+
+      return null
     }
   })
 

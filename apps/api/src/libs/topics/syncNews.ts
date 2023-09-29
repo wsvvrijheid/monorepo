@@ -43,26 +43,28 @@ export const syncNews = async () => {
 
     console.info('All news fetched. ' + new Date())
 
-    // const updatedTopics = topics.map(topic => {
-    //   const isRecommended = strapi.entityService.findMany(
-    //     'api::recommended-topic.recommended-topic',
-    //     {
-    //       filters: {
-    //         locale: { $in: ['tr', 'en', 'nl'] },
-    //         url: topic.url,
-    //       },
-    //     },
-    //   )
+    const updatedTopics = topics.map(topic => {
+      const isRecommended = strapi.entityService.findMany(
+        'api::recommended-topic.recommended-topic',
+        {
+          filters: {
+            locale: { $in: ['tr', 'en', 'nl'] },
+            url: topic.url,
+          },
+        },
+      )
 
-    //   return {
-    //     ...topic,
-    //     isRecommended: !isEmpty(isRecommended),
-    //   }
-    // })
+      return {
+        ...topic,
+        isRecommended: !isEmpty(isRecommended),
+      }
+    })
 
-    await strapi.entityService.update('api::topic.topic', 1, {
+    const targetTopic = await strapi.entityService.findMany('api::topic.topic')
+
+    await strapi.entityService.update('api::topic.topic', targetTopic.id, {
       data: {
-        data: topics,
+        data: updatedTopics,
         isSyncing: false,
       },
     })
