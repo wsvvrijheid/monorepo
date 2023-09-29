@@ -23,7 +23,7 @@ export default {
         },
       })
     } catch (error) {
-      console.error('Error updating user tweet', error.message)
+      strapi.log.error(`Error updating user tweet: ${error.message}`)
     }
   },
 }

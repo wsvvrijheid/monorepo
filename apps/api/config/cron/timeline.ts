@@ -48,6 +48,6 @@ export default async ({ strapi }) => {
       })
     })
   } catch (error) {
-    console.error('Error updating timeline tweet', error.message)
+    strapi.log.error(`Error updating timeline tweet:  ${error.message}`)
   }
 }

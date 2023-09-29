@@ -52,7 +52,7 @@ const sendEmail = async art => {
   </table>`,
     })
   } else {
-    console.error('No editor email exists')
+    strapi.log.error('No editor email exists')
   }
 }
 

@@ -38,7 +38,7 @@ export const scrapTopics: ScrapTopics = async ({
       url,
     })
   } catch (error) {
-    console.error('Scrap links error', url.href, error.message)
+    strapi.log.error('Scrap links error', url.href, error.message)
   }
 
   const topics: Topic[] = []
@@ -56,7 +56,7 @@ export const scrapTopics: ScrapTopics = async ({
 
       return typeof formatTopic === 'function' ? formatTopic(topic) : topic
     } catch (error) {
-      console.error(
+      strapi.log.error(
         'Error while scrapping the page.',
         url.href,
         error.message,
@@ -75,7 +75,7 @@ export const scrapTopics: ScrapTopics = async ({
     }
   }
 
-  console.info(` ${topics.length} ${publisher} news fetched.`)
+  strapi.log.info(` ${topics.length} ${publisher} news fetched.`)
 
   return topics
 }

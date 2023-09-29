@@ -30,9 +30,8 @@ export const scrapFrontPage: ScrapFrontPage = async ({
         if (link) {
           const urlText = $(el).find(link).attr('href')
           if (!urlText) {
-            console.info(
-              'News skipped. There is no url in the selector!',
-              `publisher: ${publisher}`,
+            strapi.log.warn(
+              `${publisher} skipped. There is no url in the selector!`,
             )
 
             return null
@@ -86,12 +85,12 @@ export const scrapFrontPage: ScrapFrontPage = async ({
       ...new Map(result.map(item => [item['url'], item])).values(),
     ]
 
-    console.info(` ${distinctResults.length} ${publisher} news fetched.`)
+    strapi.log.info(` ${distinctResults.length} ${publisher} news fetched.`)
 
     return distinctResults.map(item => formatTopic(item))
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
-    console.error(`Error while scraping ${url}`, error.message)
+    strapi.log.error(`Error while scraping: ${url} - ${error.message}`)
 
     return []
   }

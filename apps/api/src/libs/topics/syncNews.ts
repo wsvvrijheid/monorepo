@@ -35,13 +35,13 @@ export const syncNews = async () => {
       // getTurkishMinuteNews,
     ]
 
-    console.info('-----------------------------------')
-    console.info('All news fetching... ' + new Date())
+    strapi.log.info('-----------------------------------')
+    strapi.log.info('All news fetching... ' + new Date())
 
     const topicsResponse = await Promise.all(sources.map(source => source()))
     const topics = topicsResponse.flat().filter(topic => !isEmpty(topic))
 
-    console.info('All news fetched. ' + new Date())
+    strapi.log.info('All news fetched. ' + new Date())
 
     const targetTopic = await strapi.entityService.findMany('api::topic.topic')
 
@@ -62,11 +62,11 @@ export const syncNews = async () => {
       })
     }
 
-    console.info(` ${topics.length} total news saved.`)
+    strapi.log.info(` ${topics.length} total news saved.`)
 
     return topics.length
   } catch (error) {
-    console.error('error', error)
+    strapi.log.error(error.message)
 
     return error
   }
