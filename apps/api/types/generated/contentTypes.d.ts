@@ -3057,14 +3057,13 @@ export interface ApiTopicTopic extends Schema.SingleType {
     description: ''
   }
   options: {
-    draftAndPublish: true
+    draftAndPublish: false
   }
   attributes: {
     data: Attribute.JSON
     isSyncing: Attribute.Boolean & Attribute.DefaultTo<false>
     createdAt: Attribute.DateTime
     updatedAt: Attribute.DateTime
-    publishedAt: Attribute.DateTime
     createdBy: Attribute.Relation<
       'api::topic.topic',
       'oneToOne',

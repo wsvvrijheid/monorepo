@@ -43,12 +43,24 @@ export const syncNews = async () => {
 
     console.info('All news fetched. ' + new Date())
 
-    await strapi.entityService.create('api::topic.topic', {
-      data: {
-        data: topics,
-        isSyncing: false,
-      },
-    })
+    const targetTopic = await strapi.entityService.findMany('api::topic.topic')
+
+    if (targetTopic) {
+      await strapi.query('api::topic.topic').update({
+        where: { id: targetTopic.id },
+        data: {
+          data: topics,
+          isSyncing: false,
+        },
+      })
+    } else {
+      await strapi.query('api::topic.topic').create({
+        data: {
+          data: topics,
+          isSyncing: false,
+        },
+      })
+    }
 
     console.info(` ${topics.length} total news saved.`)
 
