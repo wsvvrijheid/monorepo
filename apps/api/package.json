@@ -22,17 +22,17 @@
     "clean": "rm -rf node_modules .cache .turbo dist"
   },
   "dependencies": {
-    "@strapi/plugin-i18n": "4.13.7",
-    "@strapi/plugin-users-permissions": "4.13.7",
-    "@strapi/provider-email-nodemailer": "4.13.7",
-    "@strapi/strapi": "4.13.7",
+    "@strapi/plugin-i18n": "4.14.0",
+    "@strapi/plugin-users-permissions": "4.14.0",
+    "@strapi/provider-email-nodemailer": "4.14.0",
+    "@strapi/strapi": "4.14.0",
     "apify-client": "^2.8.0",
     "cheerio": "^1.0.0-rc.12",
     "pg": "^8.11.3",
     "pg-connection-string": "^2.6.2",
     "sharp": "^0.32.6",
     "strapi-plugin-import-export-entries": "^1.21.1",
-    "strapi-plugin-transformer": "^3.1.1"
+    "strapi-plugin-transformer": "^3.1.2"
   },
   "author": {
     "name": "A Strapi developer"
