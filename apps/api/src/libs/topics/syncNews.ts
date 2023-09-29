@@ -1,4 +1,3 @@
-import type { Strapi } from '@strapi/strapi'
 import isEmpty from 'lodash/isEmpty'
 
 import {
@@ -18,7 +17,7 @@ import {
 
 // import getTurkishMinuteNews from './sources/turkishminute'
 
-export const syncNews = async ({ strapi }: { strapi: Strapi }) => {
+export const syncNews = async () => {
   try {
     const sources = [
       getAktifHaber,

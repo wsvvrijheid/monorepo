@@ -34,7 +34,7 @@ export interface FaqFaq extends Schema.Component {
   }
 }
 
-declare module '@strapi/strapi' {
+declare module '@strapi/types' {
   export module Shared {
     export interface Components {
       'course.curriculum': CourseCurriculum

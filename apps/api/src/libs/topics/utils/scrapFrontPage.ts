@@ -91,21 +91,8 @@ export const scrapFrontPage: ScrapFrontPage = async ({
     return distinctResults.map(item => formatTopic(item))
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
-    console.error(
-      `Error while scraping ${url}`,
-      error.response?.data || error.message,
-    )
+    console.error(`Error while scraping ${url}`, error.message)
 
-    return [
-      <Topic>{
-        publisher,
-        locale,
-        url: url.toString(),
-        category: 'SCRAPING ERROR',
-        time: new Date().toDateString(),
-        title: 'ERROR',
-        description: 'An error ocurred while scraping topics from : ' + url,
-      },
-    ]
+    return []
   }
 }

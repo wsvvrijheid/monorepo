@@ -1,21 +1,18 @@
-import { Common } from '@strapi/strapi'
-import {
-  GetNonPopulatableKeys,
-  GetValues,
-} from '@strapi/strapi/lib/types/core/attributes'
+import { Common, Attribute } from '@strapi/strapi'
+
+type Profile = Attribute.GetValues<
+  'api::profile.profile',
+  Attribute.GetKeys<'api::profile.profile'>
+>
 
 export const assignCreator = async <T extends Common.UID.ContentType>(
-  profile: GetValues<
-    'api::profile.profile',
-    GetNonPopulatableKeys<'api::profile.profile'>
-  >,
+  profile: Profile,
   id: number,
   uid: T,
 ) => {
   await strapi.entityService
     .update(uid, id, {
-      // TODO: Fix type
-      data: { creator: profile?.id } as never,
+      data: { creator: profile?.id as number } as never,
     })
     .catch(error => {
       console.error('ERROR', error)

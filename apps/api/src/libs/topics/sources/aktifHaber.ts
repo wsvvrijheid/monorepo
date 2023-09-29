@@ -1,5 +1,5 @@
 import { scrapTopics } from '../utils/scrapTopics'
-import { FormatTopic, Publisher, Locale, PageSelectors } from '../utils/types'
+import { Locale, PageSelectors, Publisher } from '../utils/types'
 
 export const getAktifHaber = async () => {
   const url = new URL('https://aktifhaber.com/category/gundem')
@@ -9,17 +9,10 @@ export const getAktifHaber = async () => {
     link: '.jeg_post > .jeg_thumb > a',
   }
 
-  const formatTopic: FormatTopic = topic => {
-    return {
-      ...topic,
-    }
-  }
-
   return await scrapTopics({
     publisher: Publisher.AKTIF_HABER,
     locale: Locale.TR,
     url,
     selectors,
-    formatTopic,
   })
 }

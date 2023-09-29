@@ -1,5 +1,5 @@
 import { scrapTopics } from '../utils/scrapTopics'
-import { FormatTopic, Locale, PageSelectors, Publisher } from '../utils/types'
+import { Locale, PageSelectors, Publisher } from '../utils/types'
 
 export const getSamanyoluNews = async () => {
   const url = new URL('https://www.samanyoluhaber.com')
@@ -10,17 +10,10 @@ export const getSamanyoluNews = async () => {
     time: 'meta[itemProp="datePublished"]',
   }
 
-  const formatTopic: FormatTopic = topic => {
-    return {
-      ...topic,
-    }
-  }
-
   return await scrapTopics({
     publisher: Publisher.SAMANYOLU,
     locale: Locale.TR,
     url,
     selectors,
-    formatTopic,
   })
 }

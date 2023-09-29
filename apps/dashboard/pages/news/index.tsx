@@ -131,7 +131,7 @@ const NewsPage = () => {
     })}`
 
   const keywords = {
-    tr: ['insan haklari', 'işkence', 'adalet', 'özgürlük'],
+    tr: ['insan hakları', 'işkence', 'adalet', 'özgürlük'],
     en: ['human rights', 'torture', 'justice', 'freedom'],
     nl: ['mensenrechten', 'marteling', 'gerechtigheid', 'vrijheid'],
   }
@@ -154,14 +154,14 @@ const NewsPage = () => {
           />
         </Tooltip>
       </PageHeader>
-      <Box overflow={'hidden'} mb={4}>
+      <Box overflow={'hidden'} flexShrink={0}>
         <Box overflowX={'auto'}>
-          <ButtonGroup size={'sm'} overflowX={'auto'}>
+          <ButtonGroup size={'sm'} overflowX={'auto'} colorScheme={'gray'}>
             <IconButton
               aria-label="Clear filters"
               icon={<AiOutlineClear />}
               size={'sm'}
-              variant={searchTerm === '' ? 'solid' : 'outline'}
+              variant={'outline'}
               onClick={() => setSearchTerm('')}
             />
             {keywords[locale].map(keyword => (

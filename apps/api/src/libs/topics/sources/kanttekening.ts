@@ -1,5 +1,5 @@
 import { scrapTopics } from '../utils/scrapTopics'
-import { FormatTopic, Publisher, Locale, PageSelectors } from '../utils/types'
+import { Locale, PageSelectors, Publisher } from '../utils/types'
 
 export const getKanttekeningNews = async () => {
   const url = new URL('https://dekanttekening.nl')
@@ -9,17 +9,10 @@ export const getKanttekeningNews = async () => {
     category: '.tdb-entry-category',
   }
 
-  const formatTopic: FormatTopic = topic => {
-    return {
-      ...topic,
-    }
-  }
-
   return await scrapTopics({
     publisher: Publisher.KATTENKENING,
     locale: Locale.NL,
     url,
     selectors,
-    formatTopic,
   })
 }

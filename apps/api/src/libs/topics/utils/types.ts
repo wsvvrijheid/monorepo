@@ -73,12 +73,12 @@ export type ScrapPageArgs = {
 }
 
 export type ScrapFrontPageArgs = {
-  formatTopic: FormatTopic
+  formatTopic?: FormatTopic
   selectors: FrontPageSelectors
 } & Omit<ScrapPageArgs, 'selectors'>
 
 export type ScrapTopicsArgs = {
-  formatTopic: FormatTopic
+  formatTopic?: FormatTopic
 } & Pick<
   ScrapPageArgs,
   'publisher' | 'locale' | 'url' | 'proxy' | 'headers' | 'selectors'

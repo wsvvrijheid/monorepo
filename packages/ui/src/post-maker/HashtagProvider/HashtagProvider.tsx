@@ -1,13 +1,19 @@
 import { FC, createContext, useContext, useEffect, useState } from 'react'
 
-import { useDisclosure } from '@chakra-ui/react'
+import { useDisclosure, usePrevious } from '@chakra-ui/react'
 import { sampleSize } from 'lodash'
 import { useRouter } from 'next/router'
 
 import { useGetHashtagSentences, useHashtag } from '@wsvvrijheid/services'
+import { StrapiLocale } from '@wsvvrijheid/types'
 
 import { initialHashtagContext } from './state'
-import { HashtagContextType, HashtagProviderProps, PostStats } from './types'
+import {
+  HashtagContextType,
+  HashtagProviderProps,
+  HashtagStats,
+  PostStats,
+} from './types'
 
 export const HashtagContext = createContext<HashtagContextType>(
   initialHashtagContext,
@@ -23,8 +29,12 @@ export const HashtagProvider: FC<HashtagProviderProps> = ({ children }) => {
   )
   const hashtag = useHashtag()
   const [postSentenceShares, setPostSentenceShares] = useState<
-    Record<number, PostStats>
-  >({})
+    Record<StrapiLocale, Record<number, PostStats>>
+  >({
+    en: {},
+    nl: {},
+    tr: {},
+  })
 
   const { locale } = useRouter()
 
@@ -43,7 +53,13 @@ export const HashtagProvider: FC<HashtagProviderProps> = ({ children }) => {
   }: { postId: number } & PostStats) => {
     setPostSentenceShares(prev => ({
       ...prev,
-      [postId]: args,
+      [locale]: {
+        ...prev[locale],
+        [postId]: {
+          ...prev[locale]?.[postId],
+          ...args,
+        },
+      },
     }))
   }
 
@@ -63,19 +79,37 @@ export const HashtagProvider: FC<HashtagProviderProps> = ({ children }) => {
     })
   }
 
-  const hashtagStats = Object.values(postSentenceShares).reduce(
+  const hashtagStats: Record<StrapiLocale, HashtagStats> = Object.values(
+    postSentenceShares[locale],
+  ).reduce(
     (acc, curr) => {
       return {
         ...acc,
-        unsharedCount: (acc.unsharedCount || 0) + (curr.unsharedCount || 0),
-        totalSentences: (acc.totalSentences || 0) + (curr.totalSentences || 0),
-        totalShares: (acc.totalShares || 0) + (curr.totalShares || 0),
+        [locale]: {
+          unsharedCount:
+            (acc[locale].unsharedCount || 0) + (curr.unsharedCount || 0),
+          totalSentences:
+            (acc[locale].totalSentences || 0) + (curr.totalSentences || 0),
+          totalShares: (acc[locale].totalShares || 0) + (curr.totalShares || 0),
+        },
       }
     },
     {
-      unsharedCount: 0,
-      totalSentences: 0,
-      totalShares: 0,
+      en: {
+        unsharedCount: 0,
+        totalSentences: 0,
+        totalShares: 0,
+      },
+      nl: {
+        unsharedCount: 0,
+        totalSentences: 0,
+        totalShares: 0,
+      },
+      tr: {
+        unsharedCount: 0,
+        totalSentences: 0,
+        totalShares: 0,
+      },
     },
   )
 
