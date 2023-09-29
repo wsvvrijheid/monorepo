@@ -74,7 +74,7 @@ export default async ({ strapi }) => {
         )
       }
     } catch (error) {
-      console.error('error', error.message)
+      strapi.log.error(error.message)
     }
   }
 }

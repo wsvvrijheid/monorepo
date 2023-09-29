@@ -35,54 +35,38 @@ export const syncNews = async () => {
       // getTurkishMinuteNews,
     ]
 
-    console.info('-----------------------------------')
-    console.info('All news fetching... ' + new Date())
+    strapi.log.info('-----------------------------------')
+    strapi.log.info('All news fetching... ' + new Date())
 
-    const recommendedTopics = (
-      await Promise.all(
-        ['tr', 'en', 'nl'].map(locale =>
-          strapi.entityService.findMany(
-            'api::recommended-topic.recommended-topic',
-            {
-              locale,
-              fields: ['url', 'locale'],
-            },
-          ),
-        ),
-      )
-    )
-      ?.flat()
-      ?.filter(t => !isEmpty(t))
+    const topicsResponse = await Promise.all(sources.map(source => source()))
+    const topics = topicsResponse.flat().filter(topic => !isEmpty(topic))
 
-    const topics = await Promise.all(sources.map(source => source()))
-    const result = topics.flat().filter(topic => !isEmpty(topic))
+    strapi.log.info('All news fetched. ' + new Date())
 
-    const updatedTopics = result.map(topic => {
-      const isRecommended = recommendedTopics?.some(
-        recommendedTopic => recommendedTopic.url === topic.url,
-      )
+    const targetTopic = await strapi.entityService.findMany('api::topic.topic')
 
-      return {
-        ...topic,
-        isRecommended,
-      }
-    })
+    if (targetTopic) {
+      await strapi.query('api::topic.topic').update({
+        where: { id: targetTopic.id },
+        data: {
+          data: topics,
+          isSyncing: false,
+        },
+      })
+    } else {
+      await strapi.query('api::topic.topic').create({
+        data: {
+          data: topics,
+          isSyncing: false,
+        },
+      })
+    }
 
-    console.info(` ${updatedTopics.length} total news fetched.`)
-    console.info('All news fetched. ' + new Date())
-    console.info('-----------------------------------')
+    strapi.log.info(` ${topics.length} total news saved.`)
 
-    await strapi.db.query('api::topic.topic').update({
-      where: { id: 1 },
-      data: {
-        data: updatedTopics,
-        isSyncing: false,
-      },
-    })
-
-    return updatedTopics.length
+    return topics.length
   } catch (error) {
-    console.error('error', error)
+    strapi.log.error(error.message)
 
     return error
   }

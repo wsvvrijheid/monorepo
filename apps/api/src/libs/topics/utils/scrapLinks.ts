@@ -20,7 +20,7 @@ export const scrapLinks: ScrapLinks = async ({
     .get()
 
   const result = links
-    .slice(0, 10)
+    .slice(0, 5)
     .map(link =>
       link.startsWith('https')
         ? new URL(link)

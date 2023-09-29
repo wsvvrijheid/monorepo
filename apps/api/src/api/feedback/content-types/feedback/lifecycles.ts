@@ -29,7 +29,7 @@ export default {
         return `artist does not exist for ${result.id}`
       }
     } catch (error) {
-      console.error('Error after feedback create', error.message)
+      strapi.log.error(`Error after feedback create: ${error.message}`)
     }
   },
 }
