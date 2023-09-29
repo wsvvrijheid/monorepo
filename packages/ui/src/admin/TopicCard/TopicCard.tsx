@@ -149,6 +149,7 @@ export const TopicCard: FC<TopicCardProps> = ({ topic }) => {
     <Stack
       h={isVertical ? 'auto' : '200px'}
       boxShadow="md"
+      bg={'white'}
       rounded="md"
       align={isVertical ? 'stretch' : 'flex-start'}
       direction={isVertical ? 'column' : 'row'}

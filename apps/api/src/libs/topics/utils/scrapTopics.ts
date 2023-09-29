@@ -28,10 +28,6 @@ export const scrapTopics: ScrapTopics = async ({
   url,
   formatTopic,
 }) => {
-  /**
-    First stage of scraping. It gets links from front page of the site. We send 
-    another request to the news detail page to fulfill the topic object.
-  */
   let links = []
 
   try {
@@ -47,14 +43,8 @@ export const scrapTopics: ScrapTopics = async ({
 
   const topics: Topic[] = []
 
-  for (const link of links.slice(0, 15)) {
+  const promises = links.map(async link => {
     try {
-      /**
-      After getting URLs of news from the front page, 
-      we sent requests for the details one by one, and then format responses and 
-      turn a fully populated topic list. we don't send the request asynchronous 
-      way to the same domain so that not to be blocked by the source.
-     */
       const topic = await scrapPage({
         publisher,
         locale,
@@ -64,7 +54,7 @@ export const scrapTopics: ScrapTopics = async ({
         headers,
       })
 
-      topics.push(formatTopic(topic))
+      return typeof formatTopic === 'function' ? formatTopic(topic) : topic
     } catch (error) {
       console.log(
         'Error while scrapping the page.',
@@ -72,6 +62,14 @@ export const scrapTopics: ScrapTopics = async ({
         error.message,
         link?.href,
       )
+    }
+  })
+
+  const results = await Promise.all(promises)
+
+  for (const topic of results) {
+    if (topic) {
+      topics.push(topic)
     }
   }
 
