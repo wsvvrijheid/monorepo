@@ -27,20 +27,25 @@ export default factories.createCoreController(
 
       const newTopics = (topics.data as RecommendedTopic[])?.map(topic => {
         if (topic.url === result?.data?.attributes?.url) {
-          topic.isRecommended = true
+          return {
+            ...topic,
+            isRecommended: true,
+          }
         }
 
         return topic
       })
 
-      if (newTopics) {
-        await strapi.entityService.create('api::topic.topic', {
-          data: { data: newTopics },
-          meta: {},
-        })
+      return {
+        ...result,
+        data: {
+          ...result.data,
+          attributes: {
+            ...result.data.attributes,
+            data: newTopics,
+          },
+        },
       }
-
-      return result
     },
   }),
 )
