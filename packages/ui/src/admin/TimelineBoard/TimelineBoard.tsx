@@ -18,7 +18,7 @@ export const TimelineBoard: FC<TimelineBoardProps> = ({ timelines }) => {
           shadow={'md'}
         >
           <Link
-            href={`https://twitter.com/${timeline?.userData?.username}`}
+            href={`https://x.com/${timeline?.userData?.username}`}
             target="_blank"
             rel="noreferrer noopener"
             cursor="pointer"

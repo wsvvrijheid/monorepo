@@ -19,7 +19,7 @@ import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
-import { AuthState, useAuthContext } from '@wsvvrijheid/context'
+import { useAuthContext } from '@wsvvrijheid/context'
 
 import { loginSchema } from './schema'
 import { LoginFormFieldValues } from './types'

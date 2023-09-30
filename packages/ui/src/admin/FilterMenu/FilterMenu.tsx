@@ -16,7 +16,7 @@ import { StrapiCollectionEndpoint, StrapiModel } from '@wsvvrijheid/types'
 import { I18nNamespaces } from '../../../@types/i18next'
 import { mapModelsToOptions } from '../ModelForm'
 
-type Props<T extends StrapiCollectionEndpoint, D extends StrapiModel> = {
+type Props<T extends StrapiCollectionEndpoint> = {
   endpoint: T
   setIds: (ids: number[]) => void
   ids: number[]
@@ -31,11 +31,11 @@ export const FilterMenu = <
   setIds,
   ids,
   filters = {},
-}: Props<T, D>) => {
+}: Props<T>) => {
   const { t } = useTranslation()
   const { locale } = useRouter()
 
-  const modelsQuery = useStrapiRequest<D>({
+  const modelsQuery = useStrapiRequest<StrapiModel>({
     endpoint,
     populate: [],
     locale,

@@ -12,13 +12,8 @@ import {
   TelegramShareButton,
   WhatsappShareButton,
 } from 'next-share'
-import {
-  FaFacebook,
-  FaLinkedin,
-  FaTelegram,
-  FaTwitter,
-  FaWhatsapp,
-} from 'react-icons/fa'
+import { FaFacebook, FaLinkedin, FaTelegram, FaWhatsapp } from 'react-icons/fa'
+import { FaXTwitter } from 'react-icons/fa6'
 
 import { makeSocialContent } from '@wsvvrijheid/utils'
 
@@ -38,7 +33,7 @@ export const ShareButtons: FC<PropsWithChildren<ShareButtonsProps>> = ({
 }) => {
   const { twitterContent, content } = makeSocialContent(quote, title)
 
-  const baseUrl = 'https://twitter.com/intent/tweet'
+  const baseUrl = 'https://x.com/intent/tweet'
   const params = {
     url,
     text: `${twitterContent}\n\n`,
@@ -56,7 +51,11 @@ export const ShareButtons: FC<PropsWithChildren<ShareButtonsProps>> = ({
           as="span"
           isRound
           aria-label="share on faceobok"
-          _hover={{ bg: 'facebook.500', color: 'white' }}
+          _hover={{
+            bg: 'facebook.500',
+            borderColor: 'facebook.500',
+            color: 'white',
+          }}
           icon={<FaFacebook />}
         />
       </FacebookShareButton>
@@ -64,16 +63,20 @@ export const ShareButtons: FC<PropsWithChildren<ShareButtonsProps>> = ({
         <IconButton
           as="span"
           isRound
-          _hover={{ bg: 'twitter.500', color: 'white' }}
-          aria-label="share on twitter"
-          icon={<FaTwitter />}
+          _hover={{ bg: 'black', borderColor: 'black', color: 'white' }}
+          aria-label="share on X"
+          icon={<FaXTwitter />}
         />
       </Link>
       <WhatsappShareButton title={content} url={url}>
         <IconButton
           as="span"
           isRound
-          _hover={{ bg: 'whatsapp.500', color: 'white' }}
+          _hover={{
+            bg: 'whatsapp.500',
+            borderColor: 'whatsapp.500',
+            color: 'white',
+          }}
           aria-label="share on whatsapp"
           icon={<FaWhatsapp />}
         />
@@ -82,7 +85,11 @@ export const ShareButtons: FC<PropsWithChildren<ShareButtonsProps>> = ({
         <IconButton
           as="span"
           isRound
-          _hover={{ bg: 'telegram.500', color: 'white' }}
+          _hover={{
+            bg: 'telegram.500',
+            borderColor: 'telegram.500',
+            color: 'white',
+          }}
           aria-label="share on telegram"
           icon={<FaTelegram />}
         />
@@ -91,7 +98,11 @@ export const ShareButtons: FC<PropsWithChildren<ShareButtonsProps>> = ({
         <IconButton
           as="span"
           isRound
-          _hover={{ bg: 'linkedin.500', color: 'white' }}
+          _hover={{
+            bg: 'linkedin.500',
+            borderColor: 'linkedin.500',
+            color: 'white',
+          }}
           aria-label="share on linkedin"
           icon={<FaLinkedin />}
         />

@@ -11,6 +11,7 @@ export const useUserFeedbacksColumns =
       comment: {},
       point: {
         cellProps: { textAlign: 'center' },
+        sortable: true,
       },
       issueLink: {
         transform: value => value && <Icon as={FaCheck} />,
@@ -18,13 +19,9 @@ export const useUserFeedbacksColumns =
       },
       processed: {
         type: 'badge',
+        transform: value => value && <Icon as={FaCheck} />,
         cellProps: { textAlign: 'center' },
-        componentProps: value => {
-          return {
-            variant: 'outline',
-            colorScheme: (value as string) ? 'green' : 'yellow',
-          }
-        },
+        sortable: true,
       },
       createdAt: {
         type: 'date',
