@@ -2,8 +2,9 @@ import { withIronSessionApiRoute } from 'iron-session/next'
 import { NextApiRequest, NextApiResponse } from 'next'
 
 import { COMMENT_TOKEN } from '@wsvvrijheid/config'
+import { Mutation } from '@wsvvrijheid/lib'
 import { getSecret, sessionOptions } from '@wsvvrijheid/secrets'
-import { createArtComment } from '@wsvvrijheid/services'
+import { Comment, CommentArtCreateInput } from '@wsvvrijheid/types'
 
 const commentRoute = async (req: NextApiRequest, res: NextApiResponse) => {
   const { profileId } = req.session
@@ -31,14 +32,17 @@ const commentRoute = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   try {
-    const commentResponse = await createArtComment({
-      content,
-      name,
-      ...(profileId && { profile: profileId }),
-      art,
-      token: COMMENT_TOKEN as string,
-      email,
-    })
+    const commentResponse = await Mutation.post<Comment, CommentArtCreateInput>(
+      'comments',
+      {
+        ...(profileId && { profile: profileId }),
+        content,
+        name,
+        art,
+        email,
+      },
+      COMMENT_TOKEN,
+    )
 
     return res.status(200).json(commentResponse)
   } catch (error: any) {
