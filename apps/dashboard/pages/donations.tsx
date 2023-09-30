@@ -41,6 +41,7 @@ const DonationsPage = () => {
           $lt: endDate,
         },
       }),
+      status: { $eq: 'paid' },
     },
     sort,
   })
@@ -64,21 +65,11 @@ const DonationsPage = () => {
 
   const donations = donationsQuery?.data?.data as Donation[]
   const totalCount = donationsQuery?.data?.meta?.pagination?.pageCount || 0
-  const totalPaid =
+  const totalAmount =
     donations &&
-    donations
-      .filter(donation => donation.status === 'paid')
-      .reduce((acc, donation) => {
-        return acc + (donation.amount || 0)
-      }, 0)
-
-  const totalUnpaid =
-    donations &&
-    donations
-      .filter(donation => donation.status !== 'paid')
-      .reduce((acc, donation) => {
-        return acc + (donation.amount || 0)
-      }, 0)
+    donations.reduce((acc, donation) => {
+      return acc + (donation.amount || 0)
+    }, 0)
 
   return (
     <AdminLayout seo={{ title: t('donations') }}>
@@ -100,9 +91,7 @@ const DonationsPage = () => {
         {donations && (
           <Flex justify={'end'}>
             <Box paddingY={2} paddingX={5} bg="white" shadow="base">
-              Total Paid: <Text as="b">{totalPaid}</Text>
-              <br />
-              Total Unpaid: <Text as="b">{totalUnpaid}</Text>
+              Total Paid: <Text as="b">{totalAmount}</Text>
             </Box>
           </Flex>
         )}
