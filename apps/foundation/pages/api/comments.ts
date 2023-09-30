@@ -6,34 +6,35 @@ import { getSecret, sessionOptions } from '@wsvvrijheid/secrets'
 import { createArtComment } from '@wsvvrijheid/services'
 
 const commentRoute = async (req: NextApiRequest, res: NextApiResponse) => {
-  const { user } = req.session
+  const { profileId } = req.session
   const { name, content, email, art, recaptchaToken } = req.body
+
+  const secret = getSecret('RECAPTCHA_SECRET_KEY')
+  const body = `secret=${secret}&response=${recaptchaToken}`
 
   const response = await fetch(
     'https://www.google.com/recaptcha/api/siteverify',
     {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       mode: 'no-cors',
-      body: `secret=${getSecret(
-        'RECAPTCHA_SECRET_KEY',
-      )}&response=${recaptchaToken}`,
+      body,
     },
   )
 
   const recaptchaResponse = await response.json()
 
   if (!recaptchaResponse.success || recaptchaResponse.score < 0.5) {
-    return res.status(400).json({ message: 'Recaptcha failed' })
+    return res
+      .status(400)
+      .json({ message: 'Recaptcha failed', response: recaptchaResponse })
   }
 
   try {
     const commentResponse = await createArtComment({
       content,
       name,
-      user: user?.id,
+      ...(profileId && { profile: profileId }),
       art,
       token: COMMENT_TOKEN as string,
       email,
@@ -48,7 +49,10 @@ const commentRoute = async (req: NextApiRequest, res: NextApiResponse) => {
         .status(error.response.data.error.status)
         .json({ message: error.response.data.error.message })
     }
-    res.status(500).json({ message: 'Something went wrong' })
+
+    console.error('COMMENT ERROR', error)
+
+    res.status(500).json(error)
   }
 }
 

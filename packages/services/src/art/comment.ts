@@ -4,12 +4,13 @@ import {
   CommentArtCreateInputPublic,
   CommentArtCreateInputUser,
 } from '@wsvvrijheid/types'
+
 type CreateArtCommentProps = {
   content: string
   name?: string
   email?: string
   art: number
-  user?: number
+  profile?: number
   token: string
 }
 
@@ -18,28 +19,19 @@ export const createArtComment = ({
   name,
   email,
   art,
-  user,
+  profile,
   token,
 }: CreateArtCommentProps) => {
-  if (user) {
-    const body = { content, art, user }
-
-    return Mutation.post<Comment, CommentArtCreateInputUser>(
-      'comments',
-      body,
-      token,
-    )
+  if (!profile && !name && !email) {
+    throw new Error('Profile, name or email is required')
   }
 
-  if (!name || !email) {
-    throw new Error('Name or email is required')
-  }
+  const body = profile
+    ? { content, art, profile }
+    : { content, art, name, email }
 
-  const body = { content, name, email, art }
-
-  return Mutation.post<Comment, CommentArtCreateInputPublic>(
-    'comments',
-    body,
-    token,
-  )
+  return Mutation.post<
+    Comment,
+    CommentArtCreateInputPublic | CommentArtCreateInputUser
+  >('comments', body, token)
 }
