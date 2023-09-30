@@ -13,6 +13,14 @@ const commentRoute = async (req: NextApiRequest, res: NextApiResponse) => {
   const secret = getSecret('RECAPTCHA_SECRET_KEY')
   const body = `secret=${secret}&response=${recaptchaToken}`
 
+  console.log({
+    name,
+    content,
+    email,
+    art,
+    recaptchaToken,
+  })
+
   const response = await fetch(
     'https://www.google.com/recaptcha/api/siteverify',
     {
@@ -24,6 +32,8 @@ const commentRoute = async (req: NextApiRequest, res: NextApiResponse) => {
   )
 
   const recaptchaResponse = await response.json()
+
+  console.log('recaptchaResponse', recaptchaResponse)
 
   if (!recaptchaResponse.success || recaptchaResponse.score < 0.5) {
     return res
