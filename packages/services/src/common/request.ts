@@ -3,7 +3,6 @@ import {
   UseQueryResult,
   useQuery,
 } from '@tanstack/react-query'
-import { useRouter } from 'next/router'
 
 import {
   RequestCollectionArgs,

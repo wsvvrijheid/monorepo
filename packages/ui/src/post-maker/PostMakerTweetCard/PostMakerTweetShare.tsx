@@ -37,6 +37,7 @@ export const PostMakerTweetShare: FC<PostMakerTweetShareProps> = ({
       <PopoverTrigger>
         <IconButton
           aria-label="Share post"
+          colorScheme={'gray'}
           icon={<BsThreeDotsVertical />}
           variant={'ghost'}
         />

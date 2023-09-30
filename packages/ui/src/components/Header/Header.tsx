@@ -98,9 +98,8 @@ export const Header: FC<HeaderProps> = ({
                 )}
               </Flex>
             </Container>
-          </Flex>
-        ) as // TODO: Remove this when react types are updated
-        ReactHeadroomProps['children']
+          </Flex> // TODO: Remove this when react types are updated
+        ) as ReactHeadroomProps['children']
       }
     </Headroom>
   )

@@ -79,7 +79,7 @@ export const RecommendedSocialButtons: FC<RecommendedSocialButtonsProps> = ({
 
   const tweetImageUrl =
     (tweet?.originalTweet?.image || tweet?.originalTweet?.video) &&
-    `https://twitter.com/${tweet.originalTweet?.user?.username}/status/${tweet?.originalTweet?.id}/video/1`
+    `https://x.com/${tweet.originalTweet?.user?.username}/status/${tweet?.originalTweet?.id}/video/1`
 
   const postContent = {
     title: tweet.text,

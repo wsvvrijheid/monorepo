@@ -8,7 +8,8 @@ import {
   Link,
 } from '@chakra-ui/react'
 import { useTranslation } from 'next-i18next'
-import { FaFacebook, FaGoogle, FaInstagram, FaTwitter } from 'react-icons/fa'
+import { FaFacebook, FaGoogle, FaInstagram } from 'react-icons/fa'
+import { FaXTwitter } from 'react-icons/fa6'
 
 import { API_URL } from '@wsvvrijheid/config'
 
@@ -19,21 +20,25 @@ const loginProviders: SocialProvider[] = [
     name: 'Google',
     icon: <Box as={FaGoogle} color="red.500" boxSize="5" />,
     url: '/api/connect/google',
+    colorSchema: 'red',
   },
   {
     name: 'Facebook',
     icon: <Box as={FaFacebook} color="facebook.500" boxSize="5" />,
     url: '/api/connect/facebook',
+    colorSchema: 'facebook',
   },
   {
     name: 'Twitter',
-    icon: <Box as={FaTwitter} color="twitter.500" boxSize="5" />,
+    icon: <Box as={FaXTwitter} color="black" boxSize="5" />,
     url: '/api/connect/twitter',
+    colorSchema: 'twitter',
   },
   {
     name: 'Instagram',
     icon: <Box as={FaInstagram} color="purple.500" boxSize="5" />,
     url: '/api/connect/instagram',
+    colorSchema: 'purple',
   },
 ]
 
@@ -63,13 +68,13 @@ export const SocialLoginButtons: FC<SocialLoginButtonsProps> = ({
 
   return (
     <ButtonGroup variant="outline" spacing="4" width="full" {...rest}>
-      {providers.map(({ name, icon, url }) => (
+      {providers.map(({ name, icon, url, colorSchema }) => (
         <Button
           as={Link}
           key={name}
           w="full"
           leftIcon={icon}
-          colorScheme="red"
+          colorScheme={colorSchema}
           onClick={() => {
             onSocialLogin(url)
           }}

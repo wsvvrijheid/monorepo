@@ -1,13 +1,14 @@
-import { FaInstagram, FaTwitter, FaWhatsapp } from 'react-icons/fa'
+import { FaInstagram, FaWhatsapp } from 'react-icons/fa'
+import { FaXTwitter } from 'react-icons/fa6'
 
 export const SOCIAL_LINKS = [
   {
-    label: 'Twitter',
-    icon: FaTwitter,
+    label: 'X',
+    icon: FaXTwitter,
     link: {
-      en: 'https://twitter.com/sanatduragi_nl',
-      tr: 'https://twitter.com/sanatduragi_nl',
-      nl: 'https://twitter.com/sanatduragi_nl',
+      en: 'https://x.com/sanatduragi_nl',
+      tr: 'https://x.com/sanatduragi_nl',
+      nl: 'https://x.com/sanatduragi_nl',
     },
   },
   {

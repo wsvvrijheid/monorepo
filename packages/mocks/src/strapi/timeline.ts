@@ -57,7 +57,7 @@ export const TİMELİNE_MOCKS = [
               media_url: 'http://pbs.twimg.com/media/FaK5YnNXwAE7-8u.jpg',
               display_url: 'pic.twitter.com/9DQwbSZQ6j',
               expanded_url:
-                'https://twitter.com/biten_hayatlar/status/1559012259313188865/photo/1',
+                'https://x.com/biten_hayatlar/status/1559012259313188865/photo/1',
               media_url_https:
                 'https://pbs.twimg.com/media/FaK5YnNXwAE7-8u.jpg',
             },
@@ -123,7 +123,7 @@ export const TİMELİNE_MOCKS = [
               media_url: 'http://pbs.twimg.com/media/FaK5YnNXwAE7-8u.jpg',
               display_url: 'pic.twitter.com/9DQwbSZQ6j',
               expanded_url:
-                'https://twitter.com/biten_hayatlar/status/1559012259313188865/photo/1',
+                'https://x.com/biten_hayatlar/status/1559012259313188865/photo/1',
               media_url_https:
                 'https://pbs.twimg.com/media/FaK5YnNXwAE7-8u.jpg',
             },
@@ -403,7 +403,7 @@ export const TİMELİNE_MOCKS = [
                 media_url: 'http://pbs.twimg.com/media/FaJReDVWIAUmLma.jpg',
                 display_url: 'pic.twitter.com/QkCWMBeOJC',
                 expanded_url:
-                  'https://twitter.com/Reyhaninandi/status/1558898001489416192/photo/1',
+                  'https://x.com/Reyhaninandi/status/1558898001489416192/photo/1',
                 media_url_https:
                   'https://pbs.twimg.com/media/FaJReDVWIAUmLma.jpg',
               },
@@ -461,7 +461,7 @@ export const TİMELİNE_MOCKS = [
                 media_url: 'http://pbs.twimg.com/media/FaJReDVWIAUmLma.jpg',
                 display_url: 'pic.twitter.com/QkCWMBeOJC',
                 expanded_url:
-                  'https://twitter.com/Reyhaninandi/status/1558898001489416192/photo/1',
+                  'https://x.com/Reyhaninandi/status/1558898001489416192/photo/1',
                 media_url_https:
                   'https://pbs.twimg.com/media/FaJReDVWIAUmLma.jpg',
               },

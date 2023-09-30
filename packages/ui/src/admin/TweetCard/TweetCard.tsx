@@ -186,7 +186,7 @@ export const TweetCard: FC<TweetCardProps> = ({
                 as={Link}
                 rel="noopener noreferrer"
                 target="_blank"
-                href={`https://twitter.com/intent/like?tweet_id=${tweet.id}`}
+                href={`https://x.com/intent/like?tweet_id=${tweet.id}`}
               >
                 <TbHeart />
                 <Text fontSize={'sm'}>{tweet.likes}</Text>
@@ -197,7 +197,7 @@ export const TweetCard: FC<TweetCardProps> = ({
                 as={Link}
                 rel="noopener noreferrer"
                 target="_blank"
-                href={`https://twitter.com/intent/retweet?tweet_id=${tweet.id}`}
+                href={`https://x.com/intent/retweet?tweet_id=${tweet.id}`}
               >
                 <TbRefresh />
                 <Text fontSize={'sm'}>{tweet.retweets}</Text>
@@ -208,7 +208,7 @@ export const TweetCard: FC<TweetCardProps> = ({
                 as={Link}
                 rel="noopener noreferrer"
                 target="_blank"
-                href={`https://twitter.com/intent/tweet?in_reply_to=${tweet.id}`}
+                href={`https://x.com/intent/tweet?in_reply_to=${tweet.id}`}
               >
                 <TbMessageCircle />
                 <Text fontSize={'sm'}>{tweet.replies}</Text>
