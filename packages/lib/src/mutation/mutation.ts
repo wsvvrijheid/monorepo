@@ -93,12 +93,15 @@ export const mutation = async <
     ? ({ data: body } as { data: D })
     : body
 
-  const hasBodyFile = Object.values(body).some(
-    value => value instanceof File || value instanceof Blob,
-  )
+  if (typeof window !== 'undefined') {
+    const hasBodyFile = Object.values(body).some(
+      // This might not work in Node.js environments. File is Web API only
+      value => value instanceof File || value instanceof Blob,
+    )
 
-  if (hasBodyFile) {
-    requestBody = generateFormData<D>(body, hasBodyDataField)
+    if (hasBodyFile) {
+      requestBody = generateFormData<D>(body, hasBodyDataField)
+    }
   }
 
   try {
