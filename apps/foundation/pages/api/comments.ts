@@ -2,7 +2,7 @@ import { withIronSessionApiRoute } from 'iron-session/next'
 import { NextApiRequest, NextApiResponse } from 'next'
 
 import { COMMENT_TOKEN } from '@wsvvrijheid/config'
-import { sessionOptions } from '@wsvvrijheid/secrets'
+import { getSecret, sessionOptions } from '@wsvvrijheid/secrets'
 import { createArtComment } from '@wsvvrijheid/services'
 
 const commentRoute = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -17,7 +17,9 @@ const commentRoute = async (req: NextApiRequest, res: NextApiResponse) => {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
       mode: 'no-cors',
-      body: `secret=${process.env['RECAPTCHA_SECRET_KEY']}&response=${recaptchaToken}`,
+      body: `secret=${getSecret(
+        'RECAPTCHA_SECRET_KEY',
+      )}&response=${recaptchaToken}`,
     },
   )
 
