@@ -20,6 +20,7 @@ export const DataTable = <T extends StrapiModel>({
   setCurrentPage,
   pageCount,
   totalCount,
+  children,
   pageSize,
   setPageSize,
   ...tableProps
@@ -38,6 +39,7 @@ export const DataTable = <T extends StrapiModel>({
           </VStack>
         )}
       </Box>
+      {children}
       <Spacer />
       {pageCount > 1 && (
         <Stack

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import { useUpdateEffect } from '@chakra-ui/react'
+import { useUpdateEffect, Box, Text, Flex } from '@chakra-ui/react'
 import { GetStaticPropsContext } from 'next'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
@@ -42,6 +42,7 @@ const DonationsPage = () => {
           $lt: endDate,
         },
       }),
+      status: { $eq: 'paid' },
     },
     sort,
   })
@@ -64,8 +65,17 @@ const DonationsPage = () => {
   }, [locale, searchTerm, sort])
 
   const donations = donationsQuery?.data?.data as Donation[]
+
+
+  const totalAmount =
+    donations &&
+    donations.reduce((acc, donation) => {
+      return acc + (donation.amount || 0)
+    }, 0)
+
   const pageCount = donationsQuery?.data?.meta?.pagination?.pageCount || 0
   const totalCount = donationsQuery?.data?.meta?.pagination?.total || 0
+
 
   return (
     <AdminLayout seo={{ title: t('donations') }}>
@@ -83,7 +93,15 @@ const DonationsPage = () => {
         setCurrentPage={setCurrentPage}
         setPageSize={setPageSize}
         totalCount={totalCount as number}
-      />
+      >
+        {donations && (
+          <Flex justify={'end'}>
+            <Box paddingY={2} paddingX={5} bg="white" shadow="base">
+              Total Paid: <Text as="b">{totalAmount}</Text>
+            </Box>
+          </Flex>
+        )}
+      </DataTable>
     </AdminLayout>
   )
 }
