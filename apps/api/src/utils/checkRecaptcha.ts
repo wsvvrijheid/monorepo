@@ -10,8 +10,6 @@ export const checkRecaptcha = async (context: Context) => {
 
   const recaptchaToken = (context.request as any).body?.data?.recaptchaToken
 
-  console.log('recaptchaToken', recaptchaToken)
-
   if (!recaptchaToken) {
     throw new ForbiddenError('Recaptcha token required')
   }
@@ -29,6 +27,8 @@ export const checkRecaptcha = async (context: Context) => {
   )
 
   const recaptcha = await response.json()
+
+  console.log('recaptcha', recaptcha)
 
   if (!recaptcha.success || recaptcha.score < 0.5) {
     // TODO: How to send the error details to the client?
