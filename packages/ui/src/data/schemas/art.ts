@@ -37,6 +37,11 @@ export const artFields: FormFields<Art> = [
     type: 'textarea',
   },
   {
+    name: 'artist',
+    type: 'select',
+    endpoint: 'profiles',
+  },
+  {
     name: 'categories',
     type: 'select',
     isMulti: true,

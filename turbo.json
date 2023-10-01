@@ -2,6 +2,11 @@
   "$schema": "https://turbo.build/schema.json",
   "globalEnv": ["NODE_ENV", "VERCEL_ENV"],
   "pipeline": {
+    "build:dev": {
+      "dependsOn": ["^build"],
+      "outputs": [".next/**", "!.next/cache/**"],
+      "cache": false
+    },
     "build": {
       "dependsOn": ["^build"],
       "outputs": [".next/**", "!.next/cache/**"]

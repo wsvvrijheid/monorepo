@@ -2,7 +2,7 @@ import { syncNews } from '../../../libs'
 
 export default {
   async sync(ctx) {
-    const result = await syncNews({ strapi })
+    const result = await syncNews()
     ctx.send({ count: result })
   },
 }

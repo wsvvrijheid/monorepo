@@ -9,7 +9,7 @@ import {
   useBreakpointValue,
 } from '@chakra-ui/react'
 import { motion } from 'framer-motion'
-import Headroom from 'react-headroom'
+import Headroom, { ReactHeadroomProps } from 'react-headroom'
 
 import { HeaderMobile } from './HeaderMobile'
 import { HeaderNav } from './HeaderNav'
@@ -32,67 +32,75 @@ export const Header: FC<HeaderProps> = ({
 
   return (
     <Headroom>
-      <Flex
-        bg={isScrolled ? 'white' : 'transparent'}
-        borderBottomWidth={isScrolled ? 1 : 0}
-        borderBottomColor="blackAlpha.300"
-        transition="all 0.3s ease-in-out"
-        align="center"
-        h={{ base: '64px', lg: '100px' }}
-      >
-        <Container>
-          <Flex justify="space-between" align="center" pos="relative">
-            <motion.div
-              {...(animated && {
-                animate: { rotate: -360 },
-                transition: { ease: 'linear', repeat: Infinity, duration: 60 },
-              })}
-            >
-              <Link href="/">
-                <Image
-                  width={{ base: '64px', lg: '92px' }}
-                  height={{ base: '64px', lg: '92px' }}
-                  objectFit="cover"
-                  src={logo}
-                  alt="logo"
-                />
-              </Link>
-            </motion.div>
-            <HStack
-              display={{ base: 'none', lg: 'flex' }}
-              align="center"
-              spacing={4}
-            >
-              <Stack spacing={1}>
-                <HStack justify="end">
-                  <LocaleSwitcher isDark={isDark} />
-                  {!isLoggedIn && profileMenu && (
+      {
+        (
+          <Flex
+            bg={isScrolled ? 'white' : 'transparent'}
+            borderBottomWidth={isScrolled ? 1 : 0}
+            borderBottomColor="blackAlpha.300"
+            transition="all 0.3s ease-in-out"
+            align="center"
+            h={{ base: '64px', lg: '100px' }}
+          >
+            <Container>
+              <Flex justify="space-between" align="center" pos="relative">
+                <motion.div
+                  {...(animated && {
+                    animate: { rotate: -360 },
+                    transition: {
+                      ease: 'linear',
+                      repeat: Infinity,
+                      duration: 60,
+                    },
+                  })}
+                >
+                  <Link href="/">
+                    <Image
+                      width={{ base: '64px', lg: '92px' }}
+                      height={{ base: '64px', lg: '92px' }}
+                      objectFit="cover"
+                      src={logo}
+                      alt="logo"
+                    />
+                  </Link>
+                </motion.div>
+                <HStack
+                  display={{ base: 'none', lg: 'flex' }}
+                  align="center"
+                  spacing={4}
+                >
+                  <Stack spacing={1}>
+                    <HStack justify="end">
+                      <LocaleSwitcher isDark={isDark} />
+                      {!isLoggedIn && profileMenu && (
+                        <ProfileMenu isDark={isDark} {...profileMenu} />
+                      )}
+                    </HStack>
+                    {!isMobile && (
+                      <HeaderNav
+                        direction="row"
+                        menu={headerMenu}
+                        isDark={isDark}
+                      />
+                    )}
+                  </Stack>
+                  {isLoggedIn && profileMenu && (
                     <ProfileMenu isDark={isDark} {...profileMenu} />
                   )}
                 </HStack>
-                {!isMobile && (
-                  <HeaderNav
-                    direction="row"
-                    menu={headerMenu}
+                {isMobile && (
+                  <HeaderMobile
+                    logo={logo}
                     isDark={isDark}
+                    profileMenu={profileMenu}
+                    headerMenu={headerMenu}
                   />
                 )}
-              </Stack>
-              {isLoggedIn && profileMenu && (
-                <ProfileMenu isDark={isDark} {...profileMenu} />
-              )}
-            </HStack>
-            {isMobile && (
-              <HeaderMobile
-                logo={logo}
-                isDark={isDark}
-                profileMenu={profileMenu}
-                headerMenu={headerMenu}
-              />
-            )}
-          </Flex>
-        </Container>
-      </Flex>
+              </Flex>
+            </Container>
+          </Flex> // TODO: Remove this when react types are updated
+        ) as ReactHeadroomProps['children']
+      }
     </Headroom>
   )
 }

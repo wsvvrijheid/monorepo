@@ -1,4 +1,3 @@
-export * from './comment'
 export * from './feedback'
 export * from './getByArtist'
 export * from './getByCategories'

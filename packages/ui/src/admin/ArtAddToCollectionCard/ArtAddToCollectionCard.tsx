@@ -43,7 +43,7 @@ export const ArtAddToCollectionCard: FC<ArtAddToCollectionCardProps> = ({
         </Text>
 
         <Text fontSize="sm" noOfLines={2}>
-          {art.artist?.username}
+          {art.artist?.name || art.artist?.email}
         </Text>
 
         <HStack justify="space-between" w="full">

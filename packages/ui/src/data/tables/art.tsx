@@ -1,8 +1,8 @@
 import { useRouter } from 'next/router'
 
-import { ApprovalStatus, Art, StrapiLocale, User } from '@wsvvrijheid/types'
+import { ApprovalStatus, Art, Profile } from '@wsvvrijheid/types'
 
-import { LocaleBadges, PublicationBadges } from '../../admin'
+import { PublicationBadges } from '../../admin'
 import { WTableProps } from '../../components'
 
 export const useArtColumns = (): WTableProps<Art>['columns'] => {
@@ -13,8 +13,8 @@ export const useArtColumns = (): WTableProps<Art>['columns'] => {
     [`title_${locale}`]: {},
     [`description_${locale}`]: {},
     artist: {
-      transform: value => (value as User)?.username,
-      sortKey: 'username',
+      transform: value => (value as Profile)?.email,
+      sortKey: 'email',
       sortable: true,
     },
     approvalStatus: {
@@ -31,9 +31,6 @@ export const useArtColumns = (): WTableProps<Art>['columns'] => {
           colorScheme: colorScheme[value as ApprovalStatus],
         }
       },
-    },
-    translates: {
-      transform: value => <LocaleBadges locales={value as StrapiLocale[]} />,
     },
     publishedAt: {
       transform: value => (

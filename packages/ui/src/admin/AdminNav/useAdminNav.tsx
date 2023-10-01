@@ -6,7 +6,7 @@ import {
   BsCommand,
   BsTranslate,
 } from 'react-icons/bs'
-import { CgHashtag } from 'react-icons/cg'
+import { CgHashtag, CgProfile } from 'react-icons/cg'
 import { FiActivity, FiUsers } from 'react-icons/fi'
 import { GiHumanPyramid } from 'react-icons/gi'
 import { HiOutlineNewspaper } from 'react-icons/hi'
@@ -14,7 +14,6 @@ import {
   MdOutlineFeedback,
   MdOutlineSpaceDashboard,
   MdOutlineSupervisorAccount,
-  MdOutlineVolunteerActivism,
 } from 'react-icons/md'
 import {
   TbActivity,
@@ -25,7 +24,6 @@ import {
   TbClock,
   TbThumbUp,
   TbTimeline,
-  TbVolume,
   TbWriting,
   TbX,
 } from 'react-icons/tb'
@@ -49,16 +47,6 @@ export const useAdminNav = (): AdminNavItemProps[] => {
           label: t('activities'),
           link: '/translates?slug=activities',
           icon: <TbActivity />,
-        },
-        {
-          label: t('announcements'),
-          link: '/translates?slug=announcements',
-          icon: <TbVolume />,
-        },
-        {
-          label: t('arts'),
-          link: '/translates?slug=arts',
-          icon: <TbBrush />,
         },
         {
           label: t('collections'),
@@ -167,9 +155,9 @@ export const useAdminNav = (): AdminNavItemProps[] => {
       icon: <GiHumanPyramid />,
     },
     {
-      label: t('volunteers'),
-      link: '/volunteers',
-      icon: <MdOutlineVolunteerActivism />,
+      label: t('profiles'),
+      link: '/profiles',
+      icon: <CgProfile />,
     },
     {
       label: t('users'),
@@ -202,7 +190,7 @@ export const useAdminNav = (): AdminNavItemProps[] => {
       icon: <BsCashStack />,
     },
     {
-      label: t('userFeedbacks'),
+      label: t('user-feedbacks'),
       link: '/user-feedbacks',
       icon: <MdOutlineFeedback />,
     },

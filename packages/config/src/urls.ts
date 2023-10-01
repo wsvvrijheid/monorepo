@@ -23,13 +23,13 @@ export const endpointsWithoutLocale: StrapiEndpoint[] = [
   'feedbacks',
   'lang-roles',
   'users',
-  'volunteers',
+  'profiles',
   'votes',
+  'users-permissions/roles',
 ]
 
 export const endpointsWithApprovalStatus: StrapiEndpoint[] = [
   'activities',
-  'announcements',
   'arts',
   'blogs',
   'collections',
@@ -43,7 +43,6 @@ export const endpointsWithApprovalStatus: StrapiEndpoint[] = [
 export const endpointsWithPublicationState: StrapiEndpoint[] = [
   'account-statistics',
   'activities',
-  'announcements',
   'applicants',
   'arts',
   'blogs',
@@ -66,7 +65,7 @@ export const endpointsWithPublicationState: StrapiEndpoint[] = [
   'term',
   'timelines',
   'topic',
-  'user-feedbacks',
-  'volunteers',
+  // 'user-feedbacks',
+  // 'profiles',
   'votes',
 ]

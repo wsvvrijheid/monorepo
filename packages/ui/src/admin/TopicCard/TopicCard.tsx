@@ -136,7 +136,7 @@ export const TopicCard: FC<TopicCardProps> = ({ topic }) => {
               setConfirmState(undefined)
             },
             onError: async errors => {
-              console.log('error delete mutation', errors)
+              console.error('Delete news error', errors)
             },
           },
         )
@@ -149,6 +149,7 @@ export const TopicCard: FC<TopicCardProps> = ({ topic }) => {
     <Stack
       h={isVertical ? 'auto' : '200px'}
       boxShadow="md"
+      bg={'white'}
       rounded="md"
       align={isVertical ? 'stretch' : 'flex-start'}
       direction={isVertical ? 'column' : 'row'}

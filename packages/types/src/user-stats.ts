@@ -1,10 +1,9 @@
+import { Profile } from './profile'
 import { StrapiBase } from './strapi'
-import { User } from './user'
 
 export type UserStatsApproves = {
   activity: number
   total: number
-  announcement: number
   application: number
   blog: number
   collection: number
@@ -30,7 +29,7 @@ export type UserStatsBase = StrapiBase & {
 }
 
 type UserStatsRelation = {
-  user: Pick<User, 'id' | 'name' | 'username'>
+  profile: Pick<Profile, 'id' | 'name' | 'email'>
 }
 
 export type UserStats = UserStatsBase & UserStatsRelation

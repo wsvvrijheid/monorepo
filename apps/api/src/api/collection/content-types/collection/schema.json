@@ -86,13 +86,15 @@
     },
     "approver": {
       "type": "relation",
-      "relation": "oneToOne",
-      "target": "plugin::users-permissions.user"
+      "relation": "manyToOne",
+      "target": "api::profile.profile",
+      "inversedBy": "approvedCollections"
     },
     "creator": {
       "type": "relation",
-      "relation": "oneToOne",
-      "target": "plugin::users-permissions.user"
+      "relation": "manyToOne",
+      "target": "api::profile.profile",
+      "inversedBy": "createdCollections"
     }
   }
 }

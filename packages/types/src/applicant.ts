@@ -1,7 +1,7 @@
 import { Application } from './application'
 import { Expand } from './common'
+import { Profile } from './profile'
 import { StrapiBase } from './strapi'
-import { User } from './user'
 
 export type ApplicantBase = {
   name: string
@@ -9,12 +9,11 @@ export type ApplicantBase = {
 
 type AplicantRelation = {
   application?: Application
-  user?: User
+  profile?: Profile
 }
 
 type ApplicantRelationInput = {
   application: number
-  user: number
 }
 
 export type ApplicantCreateInput = Expand<

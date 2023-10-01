@@ -1,45 +1,55 @@
 import { withIronSessionApiRoute } from 'iron-session/next'
 import { NextApiRequest, NextApiResponse } from 'next'
 
-import { COMMENT_TOKEN } from '@wsvvrijheid/config'
+import { API_URL, COMMENT_TOKEN } from '@wsvvrijheid/config'
 import { getSecret, sessionOptions } from '@wsvvrijheid/secrets'
-import { createArtComment } from '@wsvvrijheid/services'
 
 const commentRoute = async (req: NextApiRequest, res: NextApiResponse) => {
-  const { user } = req.session
-  const { name, content, email, art, recaptchaToken } = req.body
-
-  const response = await fetch(
-    'https://www.google.com/recaptcha/api/siteverify',
-    {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      mode: 'no-cors',
-      body: `secret=${getSecret(
-        'RECAPTCHA_SECRET_KEY',
-      )}&response=${recaptchaToken}`,
-    },
-  )
-
-  const recaptchaResponse = await response.json()
-
-  if (!recaptchaResponse.success || recaptchaResponse.score < 0.5) {
-    return res.status(400).json({ message: 'Recaptcha failed' })
-  }
-
   try {
-    const commentResponse = await createArtComment({
+    const { profileId } = req.session
+    const { name, content, email, art, recaptchaToken } = req.body
+
+    const secret = getSecret('RECAPTCHA_SECRET_KEY')
+    const captchaBody = `secret=${secret}&response=${recaptchaToken}`
+
+    const response = await fetch(
+      'https://www.google.com/recaptcha/api/siteverify',
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        mode: 'no-cors',
+        body: captchaBody,
+      },
+    )
+
+    const recaptchaResponse = await response.json()
+
+    if (!recaptchaResponse.success || recaptchaResponse.score < 0.5) {
+      return res
+        .status(400)
+        .json({ message: 'Recaptcha failed', response: recaptchaResponse })
+    }
+
+    const commentBody = {
+      ...(profileId && { profile: profileId }),
       content,
       name,
-      user: user?.id,
       art,
-      token: COMMENT_TOKEN as string,
       email,
+    }
+
+    const commentResponse = await fetch(`${API_URL}/api/comments`, {
+      method: 'POST',
+      body: JSON.stringify(commentBody),
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${COMMENT_TOKEN}`,
+      },
     })
 
-    return res.status(200).json(commentResponse)
+    const result = await commentResponse.json()
+
+    return res.status(200).json(result)
   } catch (error: any) {
     if (error.response?.data?.error) {
       console.error('COMMENT ERROR', error.response.data.error)
@@ -48,7 +58,10 @@ const commentRoute = async (req: NextApiRequest, res: NextApiResponse) => {
         .status(error.response.data.error.status)
         .json({ message: error.response.data.error.message })
     }
-    res.status(500).json({ message: 'Something went wrong' })
+
+    console.error('COMMENT ERROR', error)
+
+    res.status(500).json(error)
   }
 }
 

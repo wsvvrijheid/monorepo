@@ -1,13 +1,14 @@
-import { FaInstagram, FaTwitter, FaWhatsapp } from 'react-icons/fa'
+import { FaInstagram, FaWhatsapp } from 'react-icons/fa'
+import { FaXTwitter } from 'react-icons/fa6'
 
 export const samenvvv = [
   {
-    label: 'Twitter',
-    icon: FaTwitter,
+    label: 'X',
+    icon: FaXTwitter,
     link: {
-      en: 'https://twitter.com/samenvvvEN',
-      tr: 'https://twitter.com/samenvvvTR',
-      nl: 'https://twitter.com/samenvvv',
+      en: 'https://x.com/samenvvvEN',
+      tr: 'https://x.com/samenvvvTR',
+      nl: 'https://x.com/samenvvv',
     },
   },
   {

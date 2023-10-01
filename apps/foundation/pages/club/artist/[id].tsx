@@ -14,11 +14,7 @@ type ArtistPageProps = InferGetServerSidePropsType<typeof getServerSideProps>
 
 const ArtistPage: FC<ArtistPageProps> = ({ artist, arts }) => {
   return (
-    <Layout
-      seo={{ title: artist.name || artist.username || 'Artist' }}
-      isDark
-      hasScroll
-    >
+    <Layout seo={{ title: artist.name || 'Artist' }} isDark hasScroll>
       <ArtistTemplate artist={artist} arts={arts} />
     </Layout>
   )

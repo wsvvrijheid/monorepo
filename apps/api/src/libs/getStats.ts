@@ -5,7 +5,6 @@ import { KebabCase } from 'type-fest'
 
 type ModelKey =
   | 'activity'
-  | 'announcement'
   | 'application'
   | 'blog'
   | 'collection'
@@ -20,7 +19,6 @@ type StatsType = 'creator' | 'approver'
 // Some models might not have approvers
 const models: Record<ModelKey, StatsType[]> = {
   activity: ['creator', 'approver'],
-  announcement: ['creator', 'approver'],
   application: ['creator', 'approver'],
   blog: ['creator', 'approver'],
   collection: ['creator', 'approver'],
@@ -34,13 +32,13 @@ const models: Record<ModelKey, StatsType[]> = {
 const getModelStats = async <T extends ModelKey>(
   type: 'creator' | 'approver',
   modelKey: ModelApiKey<T>,
-  userId: number,
+  profileId: number,
   start: string,
   end: string,
 ) => {
   return await strapi.db.query(modelKey).count({
     where: {
-      [type]: userId,
+      [type]: profileId,
       createdAt: {
         $between: [start, end],
       },
@@ -49,7 +47,7 @@ const getModelStats = async <T extends ModelKey>(
 }
 
 export async function getStats(
-  userId: number,
+  profileId: number,
   date = new Date(),
   totalDays = 7,
 ) {
@@ -69,7 +67,7 @@ export async function getStats(
       const count = await getModelStats(
         type,
         `api::${apiPath}.${apiPath}`,
-        userId,
+        profileId,
         start,
         end,
       )

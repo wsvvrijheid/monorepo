@@ -19,9 +19,7 @@ export default {
         strapi.plugins['email'].services.email.send({
           to: artist.email,
           from: 'info@wsvvrijheid.nl',
-          subject: `Dear ${artist.name || artist.username} your art "${
-            art.title
-          }" has been ${result.status}`,
+          subject: `Dear ${artist.name} your art "${art.title_en}" has been ${result.status}`,
           html: `<div>
                   <p>Editor note: ${result.message}</p>
                   <p>View your art in your <a href="${process.env.KUNSTHALTE_SITE_URL}/profile">profile</a></p>
@@ -31,7 +29,7 @@ export default {
         return `artist does not exist for ${result.id}`
       }
     } catch (error) {
-      console.error('Error after feedback create', error.message)
+      console.error('Error after feedback create', error)
     }
   },
 }

@@ -51,7 +51,7 @@ export const WTable = <T extends StrapiModel>({
 
   return (
     <Table size="sm" cursor="default" {...rest}>
-      <Thead>
+      <Thead pos={'sticky'} top={0} zIndex={0} h={8} bg={'white'} shadow={'sm'}>
         <Tr>
           {Object.keys(columns).map((key, index) => {
             const isSortable = (columns[key as keyof T] as CellConfig<T>)

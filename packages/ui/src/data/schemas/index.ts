@@ -17,6 +17,7 @@ import {
 } from './courseApplication'
 import { hashtagFields, useHashtagSchema } from './hashtag'
 import { postFields, usePostSchema } from './post'
+import { profileFields, useProfileSchema } from './profile'
 import {
   recommendedTweetFields,
   useRecommendedTweetSchema,
@@ -28,9 +29,8 @@ import {
   translatePostModelFields,
   translatePostModelSchema,
 } from './translate'
-import { userFields, useUserSchema } from './user'
+import { useUserSchema, userFields } from './user'
 import { userFeedbackFields, useUserFeedbackSchema } from './userFeedback'
-import { volunteerFields, useVolunteerSchema } from './volunteer'
 import { FormFields } from '../../admin'
 
 export const useSchema = (): PartialStrapiEndpointMap<ObjectSchema<any>> => {
@@ -54,9 +54,9 @@ export const useSchema = (): PartialStrapiEndpointMap<ObjectSchema<any>> => {
     topic: useTopicSchema(),
     'translate-model': translateModelSchema,
     'translate-post-model': translatePostModelSchema,
-    users: useUserSchema(),
     'user-feedbacks': useUserFeedbackSchema(),
-    volunteers: useVolunteerSchema(),
+    users: useUserSchema(),
+    profiles: useProfileSchema(),
   }
 }
 
@@ -72,12 +72,12 @@ export const useFields = <T extends StrapiModel>(): PartialStrapiEndpointMap<
     'course-applications': courseApplicationFields as FormFields<T>,
     hashtags: hashtagFields as FormFields<T>,
     posts: postFields as FormFields<T>,
+    profiles: profileFields as FormFields<T>,
     'recommended-tweets': recommendedTweetFields as FormFields<T>,
     topic: topicFields as FormFields<T>,
     'translate-model': translateModelFields as FormFields<T>,
     'translate-post-model': translatePostModelFields as FormFields<T>,
     users: userFields as FormFields<T>,
     'user-feedbacks': userFeedbackFields as FormFields<T>,
-    volunteers: volunteerFields as FormFields<T>,
   }
 }

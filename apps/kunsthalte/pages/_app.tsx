@@ -29,9 +29,9 @@ const MyApp: FC<AppProps> = ({ Component, pageProps }) => {
   }
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <Hydrate state={pageProps.dehydratedState}>
-        <AuthProvider initialState={pageProps.authState}>
+    <AuthProvider initialState={pageProps.authState}>
+      <QueryClientProvider client={queryClient}>
+        <Hydrate state={pageProps.dehydratedState}>
           <ChakraProvider theme={themes.kunsthalte}>
             <DefaultSeo {...defaultSeo.kunsthalte[locale]} />
             <Component {...pageProps} />
@@ -39,10 +39,10 @@ const MyApp: FC<AppProps> = ({ Component, pageProps }) => {
             <Analytics />
             <ToastContainer />
           </ChakraProvider>
-        </AuthProvider>
-      </Hydrate>
-      <ReactQueryDevtools />
-    </QueryClientProvider>
+        </Hydrate>
+        <ReactQueryDevtools />
+      </QueryClientProvider>
+    </AuthProvider>
   )
 }
 

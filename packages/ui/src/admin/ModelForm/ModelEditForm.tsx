@@ -4,10 +4,13 @@ import {
   AspectRatio,
   Box,
   Button,
+  Divider,
   Flex,
   FormControl,
   FormErrorMessage,
+  FormHelperText,
   FormLabel,
+  Heading,
   HStack,
   Stack,
   Switch,
@@ -21,6 +24,7 @@ import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { useForm } from 'react-hook-form'
 import { AiOutlineEdit } from 'react-icons/ai'
+import { BiUserPlus } from 'react-icons/bi'
 import { BsTrash } from 'react-icons/bs'
 import { HiOutlineCheck, HiPlus } from 'react-icons/hi'
 import {
@@ -33,24 +37,30 @@ import { InferType } from 'yup'
 
 import {
   useApproveModel,
+  useCreateModelMutation,
   useDeleteModel,
   usePublishModel,
+  useStrapiRequest,
   useUnpublishModel,
   useUpdateModelMutation,
 } from '@wsvvrijheid/services'
 import {
+  Profile,
+  ProfileCreateInput,
   StrapiModel,
   StrapiTranslatableModel,
   StrapiTranslatableUpdateInput,
+  User,
 } from '@wsvvrijheid/types'
 
 import { ModelMedia } from './ModelMedia'
 import { ModelSelect } from './ModelSelect'
-import { ModelEditFormProps, Option } from './types'
+import { FormCommonFields, ModelEditFormProps, Option } from './types'
 import { useDefaultValues } from './utils'
 import { I18nNamespaces } from '../../../@types/i18next'
 import { FormItem, MasonryGrid, MdFormItem } from '../../components'
 import { WConfirm, WConfirmProps } from '../../components/WConfirm'
+import { useFields, useSchema } from '../../data'
 import { usePermission } from '../../hooks'
 import { ArtAddToCollectionModal } from '../ArtAddToCollectionCard'
 import { DowloadCapsModal } from '../DowloadCapsModal'
@@ -59,17 +69,17 @@ export const ModelEditForm = <T extends StrapiModel>({
   endpoint,
   model,
   translatedFields,
-  fields,
-  schema,
   onSuccess,
+  onCancel: onCancelProp,
   onClose,
   noColumns,
+  defaultIsEditing = false,
 }: ModelEditFormProps<T>) => {
   const translatableModel = model as unknown as StrapiTranslatableModel
 
   const id = model.id
   const isPublished = !!translatableModel.publishedAt
-  const [isEditing, setIsEditing] = useBoolean(false)
+  const [isEditing, setIsEditing] = useBoolean(defaultIsEditing)
   const [isChangingImage, setIsChangingImage] = useState<{
     [x: string]: boolean
   }>({
@@ -79,6 +89,12 @@ export const ModelEditForm = <T extends StrapiModel>({
     video: false,
   })
   const [confirmState, setConfirmState] = useState<WConfirmProps>()
+
+  const fieldsData = useFields<T>()
+  const schemasData = useSchema()
+
+  const fields = fieldsData[endpoint]!
+  const schemas = schemasData[endpoint]!
 
   const artModalDisclosure = useDisclosure()
 
@@ -106,11 +122,21 @@ export const ModelEditForm = <T extends StrapiModel>({
     setValue,
     watch,
     reset: resetForm,
-  } = useForm<InferType<typeof schema>>({
-    resolver: yupResolver(schema),
+  } = useForm<InferType<typeof schemas>>({
+    resolver: yupResolver(schemas),
     mode: 'all',
     values: defaultValues,
   })
+
+  const profileQuery = useStrapiRequest<Profile>({
+    endpoint: 'profiles',
+    filters: { user: { id: { $eq: id } } },
+    queryOptions: { enabled: endpoint === 'users' },
+  })
+
+  const profileMutation = useCreateModelMutation<Profile, ProfileCreateInput>(
+    'profiles',
+  )
 
   const convertToYoutubeEmbedUrl = (videoUrl: string) => {
     if (!videoUrl) return ''
@@ -134,7 +160,7 @@ export const ModelEditForm = <T extends StrapiModel>({
 
       return convertToYoutubeEmbedUrl(url)
     } catch (error) {
-      console.log('error', error)
+      console.error('Get video URL error', error)
 
       return null
     }
@@ -186,6 +212,7 @@ export const ModelEditForm = <T extends StrapiModel>({
   }
 
   const onCancel = () => {
+    onCancelProp?.()
     resetForm()
     setIsEditing.off()
     setIsChangingImage({
@@ -245,10 +272,39 @@ export const ModelEditForm = <T extends StrapiModel>({
     })
   }
 
+  const onGenerateProfile = () => {
+    const userModel = model as User
+
+    profileMutation.mutate(
+      {
+        email: userModel.email,
+        user: userModel.id,
+        publishedAt: new Date().toISOString(),
+        name: userModel.username,
+        availableHours: 1,
+        phone: '',
+      },
+      {
+        onSuccess: () => {
+          profileQuery.refetch()
+        },
+      },
+    )
+  }
+
+  const toggleChangingMedia = (field: FormCommonFields<T>) =>
+    setIsChangingImage(prev => ({
+      ...prev,
+      [field.name]: isChangingImage[field.name as string] ? false : true,
+    }))
+
+  const profile = profileQuery.data?.data?.[0]
+
   const disabledStyle = {
     borderColor: 'transparent',
     _hover: { borderColor: 'transparent' },
     color: 'gray.500',
+    pl: 0,
   }
 
   return (
@@ -266,7 +322,7 @@ export const ModelEditForm = <T extends StrapiModel>({
             columnGap={8}
             rowGap={4}
           >
-            {fields.map((field, index) => {
+            {Object.values(fields || {})?.map((field, index) => {
               const label = t(field.name as keyof I18nNamespaces['common'])
 
               if (
@@ -296,14 +352,7 @@ export const ModelEditForm = <T extends StrapiModel>({
                       name={field.name as string}
                       setValue={setValue}
                       isChangingMedia={isChangingImage[field.name as string]}
-                      toggleChangingMedia={() =>
-                        setIsChangingImage(prev => ({
-                          ...prev,
-                          [field.name]: isChangingImage[field.name as string]
-                            ? false
-                            : true,
-                        }))
-                      }
+                      toggleChangingMedia={() => toggleChangingMedia(field)}
                     />
                     <FormErrorMessage>
                       {errors[field.name as string]?.message as string}
@@ -314,11 +363,16 @@ export const ModelEditForm = <T extends StrapiModel>({
 
               if (field.type === 'boolean') {
                 return (
-                  <FormControl key={index} isRequired={field.isRequired}>
+                  <FormControl
+                    key={index}
+                    isRequired={field.isRequired}
+                    isDisabled={field.blockEdit}
+                  >
                     <FormLabel fontWeight={600} fontSize={'sm'}>
                       {label}
                     </FormLabel>
                     <Switch
+                      disabled={field.blockEdit}
                       colorScheme={'primary'}
                       size={'lg'}
                       isDisabled={!isEditing}
@@ -327,6 +381,10 @@ export const ModelEditForm = <T extends StrapiModel>({
                         setValue(field.name as string, e.target.checked)
                       }}
                     />
+
+                    <FormHelperText color={'orange.400'}>
+                      {isEditing && field.blockEdit && 'Blocked from editing'}
+                    </FormHelperText>
 
                     <FormErrorMessage>
                       {errors[field.name as string]?.message as string}
@@ -343,10 +401,16 @@ export const ModelEditForm = <T extends StrapiModel>({
                     isMulti={field.isMulti}
                     isRequired={field.isRequired}
                     name={field.name as string}
-                    isDisabled={!isEditing}
+                    isDisabled={field.blockEdit || !isEditing}
                     errors={errors}
                     control={control}
                     _disabled={disabledStyle}
+                    helperText={
+                      (isEditing &&
+                        field.blockEdit &&
+                        'Blocked from editing') ||
+                      undefined
+                    }
                   />
                 )
               }
@@ -356,11 +420,17 @@ export const ModelEditForm = <T extends StrapiModel>({
                   <Box key={index} maxH={400} overflowY={'auto'}>
                     <MdFormItem
                       name={field.name as string}
-                      isDisabled={!isEditing}
+                      isDisabled={field.blockEdit || !isEditing}
                       isRequired={field.isRequired}
                       errors={errors}
                       control={control}
                       _disabled={disabledStyle}
+                      helperText={
+                        (isEditing &&
+                          field.blockEdit &&
+                          'Blocked from editing') ||
+                        undefined
+                      }
                     />
                   </Box>
                 )
@@ -382,8 +452,14 @@ export const ModelEditForm = <T extends StrapiModel>({
                     isRequired={field.isRequired}
                     errors={errors}
                     register={register}
-                    isDisabled={!isEditing}
+                    isDisabled={field.blockEdit || !isEditing}
                     _disabled={disabledStyle}
+                    helperText={
+                      (isEditing &&
+                        field.blockEdit &&
+                        'Blocked from editing') ||
+                      undefined
+                    }
                   />
                   {field.type === 'mediaUrl' && videoUrl && (
                     <AspectRatio ratio={16 / 9}>
@@ -419,13 +495,23 @@ export const ModelEditForm = <T extends StrapiModel>({
                     colorScheme={'purple'}
                     isLoading={approveModelMutation.isLoading}
                   >
-                    {/* TODO: Add translation */}
-                    Add Arts
+                    {t('collection.add-art')}
                   </Button>
                 )}
               </>
             )}
             {endpoint === 'hashtags' && <DowloadCapsModal id={id} />}
+            {!profile &&
+              endpoint === 'users' &&
+              allowEndpointAction('profiles', 'create') && (
+                <Button
+                  onClick={onGenerateProfile}
+                  leftIcon={<BiUserPlus />}
+                  colorScheme="primary"
+                >
+                  {t('profile.create')}
+                </Button>
+              )}
             {translatableModel.approvalStatus &&
               translatableModel.approvalStatus !== 'approved' &&
               allowEndpointAction(endpoint, 'approve') && (
@@ -504,6 +590,17 @@ export const ModelEditForm = <T extends StrapiModel>({
           </Wrap>
         </Flex>
       </Stack>
+      <Divider />
+      {profile && (
+        <>
+          <Heading p={8}>{t('profile')}</Heading>
+          <ModelEditForm
+            endpoint="profiles"
+            model={profile}
+            onSuccess={profileQuery.refetch}
+          />
+        </>
+      )}
     </>
   )
 }

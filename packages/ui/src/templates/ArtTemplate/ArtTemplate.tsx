@@ -6,6 +6,7 @@ import { QueryKey } from '@tanstack/react-query'
 import { useTranslation } from 'next-i18next'
 import { ReCaptchaProvider } from 'next-recaptcha-v3'
 
+import { RECAPTCHA_SITE_KEY } from '@wsvvrijheid/config'
 import {
   useArtBySlug,
   useArtsByCategories,
@@ -36,7 +37,7 @@ export const ArtTemplate: FC<ArtTemplateProps> = ({ queryKey }) => {
   if (!art) return null
 
   return (
-    <ReCaptchaProvider useEnterprise reCaptchaKey={'RECAPTCHA_SECRET_KEY'}>
+    <ReCaptchaProvider reCaptchaKey={RECAPTCHA_SITE_KEY}>
       <Container minH="inherit" my={8}>
         {/* TODO Create skeleton components for ArtDetail ArtContent and Comments */}
 

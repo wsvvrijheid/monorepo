@@ -4,10 +4,10 @@ import { Box, Divider, Stack, useBreakpointValue } from '@chakra-ui/react'
 
 import { ASSETS_URL } from '@wsvvrijheid/config'
 import {
+  Profile,
   RecommendedTweet,
   Tweet,
   TweetUserBase,
-  User,
 } from '@wsvvrijheid/types'
 
 import { RecommendedSocialButtons } from './RecommendedSocialButtons'
@@ -17,12 +17,12 @@ import { TweetCard } from '../TweetCard'
 export const RecommendedTweetCard: FC<RecommendedTweetCardProps> = ({
   tweet,
 }) => {
-  const mapRecommenderToTweetUser = (creator?: User | null) => {
+  const mapRecommenderToTweetUser = (creator?: Profile | null) => {
     if (!creator) return
 
     return {
       name: creator.name as string,
-      username: creator.username,
+      username: creator.user?.username || creator.email,
       profile: creator.avatar?.url,
     }
   }

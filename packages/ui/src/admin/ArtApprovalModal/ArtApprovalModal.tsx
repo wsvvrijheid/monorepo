@@ -1,6 +1,7 @@
 import { FC, useState } from 'react'
 
 import {
+  Badge,
   Box,
   Button,
   ButtonGroup,
@@ -15,15 +16,16 @@ import {
   Stack,
   Tag,
   Text,
+  Wrap,
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
+import { useTranslation } from 'react-i18next'
 
 import { Art, StrapiLocale } from '@wsvvrijheid/types'
 
 import { ArtFeedbackForm } from './ArtFeedbackForm'
 import { ArtApprovalTypes } from './types'
 import { WAvatar, WImage } from '../../components'
-import { useFields, useSchema } from '../../data'
 import { ModelEditForm } from '../ModelForm'
 
 export const ArtApprovalModal: FC<ArtApprovalTypes> = ({
@@ -34,12 +36,9 @@ export const ArtApprovalModal: FC<ArtApprovalTypes> = ({
   onSuccess,
   editor,
 }) => {
-  const router = useRouter()
-  const locale = router.locale
+  const { locale } = useRouter()
   const [isEditing, setIsEditing] = useState(false)
-
-  const fields = useFields()
-  const schemas = useSchema()
+  const { t } = useTranslation()
 
   const [language, setLanguage] = useState<StrapiLocale>(locale)
 
@@ -74,10 +73,11 @@ export const ArtApprovalModal: FC<ArtApprovalTypes> = ({
                       ))}
                     </ButtonGroup>
                     <HStack spacing={4}>
-                      <Heading color={'primary.500'} fontWeight={700}>
+                      <Heading flex={1} color={'primary.500'} fontWeight={700}>
                         {title}
                       </Heading>
                       <Tag
+                        flexShrink={0}
                         size={'lg'}
                         colorScheme={
                           art.approvalStatus === 'approved'
@@ -94,22 +94,42 @@ export const ArtApprovalModal: FC<ArtApprovalTypes> = ({
                           : 'Pending'}
                       </Tag>
                     </HStack>
-                    {artist && (
-                      <HStack spacing={3} w={'full'}>
-                        <WAvatar
-                          size="md"
-                          src={artist.avatar?.url}
-                          name={artist.name || artist.username}
-                        />
-                        <Box>
-                          <Text fontWeight={700}>{artist.name}</Text>
-                          <Text>{artist.username}</Text>
-                        </Box>
-                      </HStack>
-                    )}
+
+                    <HStack spacing={3} w={'full'}>
+                      <WAvatar
+                        size="md"
+                        src={artist?.avatar?.url}
+                        name={artist?.name || artist?.email || 'Unknown'}
+                      />
+                      <Box>
+                        <Text fontWeight={700}>
+                          {artist?.name || 'Unknown'}
+                        </Text>
+                        <Text>{artist?.email}</Text>
+                      </Box>
+                    </HStack>
+
+                    <Stack>
+                      <Text color={'black'} fontWeight={700}>
+                        {t('categories')}
+                      </Text>
+                      <Wrap>
+                        {art?.categories?.map(category => (
+                          <Badge
+                            py={1}
+                            px={2}
+                            rounded={'md'}
+                            key={category.id}
+                            variant={'outline'}
+                          >
+                            {category[`name_${language}`]}
+                          </Badge>
+                        ))}
+                      </Wrap>
+                    </Stack>
                     <Stack flex={1} h={'full'}>
                       <Text color={'black'} fontWeight={700}>
-                        Description
+                        {t('description')}
                       </Text>
                       <Text overflowY={'auto'} h={'full'}>
                         {description || 'No description'}
@@ -137,17 +157,19 @@ export const ArtApprovalModal: FC<ArtApprovalTypes> = ({
                 <Stack spacing={4} p={{ base: 4, lg: 8 }} overflowY={'auto'}>
                   <HStack justify={'space-between'}>
                     <Heading color={'primary.500'} fontWeight={700}>
-                      Edit
+                      {t('edit')}
                     </Heading>
-                    <Button onClick={() => setIsEditing(false)}>Cancel</Button>
                   </HStack>
                   <ModelEditForm<Art>
                     noColumns
-                    fields={fields.arts!}
-                    schema={schemas.arts!}
+                    defaultIsEditing={isEditing}
+                    onCancel={() => setIsEditing(false)}
                     endpoint={'arts'}
                     model={art}
-                    onSuccess={() => setIsEditing(false)}
+                    onSuccess={() => {
+                      setIsEditing(false)
+                      onSuccess?.()
+                    }}
                   />
                 </Stack>
               )}

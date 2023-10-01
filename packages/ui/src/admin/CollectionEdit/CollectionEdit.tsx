@@ -12,16 +12,12 @@ import {
 import { Collection } from '@wsvvrijheid/types'
 
 import { CollectionEditProps } from './types'
-import { useFields, useSchema } from '../../data'
 import { ModelEditForm } from '../ModelForm'
 
 export const CollectionEdit: FC<CollectionEditProps> = ({
   collection,
   onSuccess,
 }) => {
-  const fields = useFields()
-  const schemas = useSchema()
-
   return (
     <Accordion
       size={'lg'}
@@ -46,9 +42,7 @@ export const CollectionEdit: FC<CollectionEditProps> = ({
             endpoint="collections"
             model={collection}
             translatedFields={['title', 'description', 'content']}
-            fields={fields.collections!}
             onSuccess={onSuccess}
-            schema={schemas.collections!}
           />
         </AccordionPanel>
       </AccordionItem>

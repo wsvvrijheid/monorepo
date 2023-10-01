@@ -103,13 +103,15 @@
     },
     "approver": {
       "type": "relation",
-      "relation": "oneToOne",
-      "target": "plugin::users-permissions.user"
+      "relation": "manyToOne",
+      "target": "api::profile.profile",
+      "inversedBy": "approvedPosts"
     },
     "creator": {
       "type": "relation",
-      "relation": "oneToOne",
-      "target": "plugin::users-permissions.user"
+      "relation": "manyToOne",
+      "target": "api::profile.profile",
+      "inversedBy": "createdPosts"
     },
     "video": {
       "type": "media",

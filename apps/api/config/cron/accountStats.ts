@@ -38,6 +38,6 @@ export default async ({ strapi }) => {
       }
     }
   } catch (error) {
-    console.log('Error updating account statistics', error.message)
+    console.error('Error updating account statistics', error)
   }
 }

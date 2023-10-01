@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
 
-import { ROLES, endpointsWithApprovalStatus } from '@wsvvrijheid/config'
+import { endpointsWithApprovalStatus } from '@wsvvrijheid/config'
 import { useStrapiRequest } from '@wsvvrijheid/services'
 import { StrapiModel } from '@wsvvrijheid/types'
 
@@ -22,10 +22,8 @@ export const ModelSelect = <T extends StrapiModel>({
         approvalStatus: { $eq: 'approved' },
       },
     }),
+    pageSize: 100,
     populate: [],
-    queryOptions: {
-      enabled: endpoint !== 'roles',
-    },
   })
 
   const models = modelsQuery.data?.data?.map((model: any) => ({
@@ -35,10 +33,7 @@ export const ModelSelect = <T extends StrapiModel>({
     ...model,
   }))
 
-  const options =
-    endpoint === 'roles'
-      ? ROLES.map(role => ({ value: role.id.toString(), label: role.name }))
-      : models && mapModelsToOptions(models, locale)
+  const options = models && mapModelsToOptions(models, locale)
 
   return <WSelect options={options} {...rest} />
 }

@@ -49,12 +49,6 @@
       "target": "api::competition.competition",
       "inversedBy": "categories"
     },
-    "announcements": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::announcement.announcement",
-      "mappedBy": "categories"
-    },
     "activities": {
       "type": "relation",
       "relation": "manyToMany",

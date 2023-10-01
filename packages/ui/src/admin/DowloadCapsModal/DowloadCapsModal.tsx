@@ -104,7 +104,7 @@ export const DowloadCapsModal: FC<DowloadCapsModalType> = ({ id }) => {
 
           imgFolder?.file(`${locale}_image_${index}.jpeg`, blob)
         } catch (error) {
-          console.log('try error', error)
+          console.error('Download caps error', error)
         }
       }),
     )

@@ -44,6 +44,7 @@ const ActivitiesTranslatePage = () => {
 
   const id = Number(query.id as string)
 
+  const modelColumns = useColumns()
   const modelFields = useFields()
   const modelSchemas = useSchema()
 
@@ -52,13 +53,12 @@ const ActivitiesTranslatePage = () => {
   }
 
   const [currentPage, setCurrentPage] = useState<number>(1)
+  const [pageSize, setPageSize] = useState<number>(20)
   const [sort, setSort] = useState<Sort>()
 
   const status = query.status as ApprovalStatus
   const slug = query.slug as Partial<StrapiCollectionEndpoint>
   const translateKey = slug as any
-
-  const columns = useColumns()
 
   useEffect(() => setCurrentPage(1), [status])
 
@@ -69,7 +69,7 @@ const ActivitiesTranslatePage = () => {
   const dataQuery = useStrapiRequest<Activity>({
     endpoint: slug,
     page: currentPage || 1,
-    pageSize: 10,
+    pageSize,
     filters: {
       ...(searchTerm && {
         $or: [
@@ -82,10 +82,14 @@ const ActivitiesTranslatePage = () => {
     sort,
     locale,
     includeDrafts: true,
+    queryOptions: {
+      enabled: !!slug,
+    },
   })
 
   const items = dataQuery?.data?.data
-  const totalCount = dataQuery?.data?.meta?.pagination?.pageCount || 0
+  const pageCount = dataQuery?.data?.meta?.pagination?.pageCount || 0
+  const totalCount = dataQuery?.data?.meta?.pagination?.total || 0
 
   const mappedModels =
     items?.map(item => ({
@@ -107,6 +111,7 @@ const ActivitiesTranslatePage = () => {
     }
   }
 
+  const columns = modelColumns[slug]
   const fields =
     slug === 'posts'
       ? modelFields['translate-post-model']
@@ -118,20 +123,22 @@ const ActivitiesTranslatePage = () => {
 
   return (
     <AdminLayout seo={{ title: t(translateKey || 'translates') }}>
-      <PageHeader
-        onSearch={handleSearch}
-        searchPlaceHolder={'Search by title or description'}
-      />
+      <PageHeader onSearch={handleSearch} />
 
-      <DataTable<StrapiModel>
-        columns={columns[slug] as WTableProps<StrapiModel>['columns']}
-        currentPage={currentPage}
-        totalCount={totalCount}
-        data={mappedModels}
-        setCurrentPage={setCurrentPage}
-        onClickRow={handleClick}
-        onSort={setSort}
-      />
+      {mappedModels && (
+        <DataTable<StrapiModel>
+          columns={columns as WTableProps<StrapiModel>['columns']}
+          currentPage={currentPage}
+          data={mappedModels}
+          onClickRow={handleClick}
+          onSort={setSort}
+          pageCount={pageCount}
+          pageSize={pageSize}
+          setCurrentPage={setCurrentPage}
+          setPageSize={setPageSize}
+          totalCount={totalCount}
+        />
+      )}
       <Modal
         isCentered
         isOpen={isOpen}
@@ -147,8 +154,9 @@ const ActivitiesTranslatePage = () => {
               id={id}
               endpoint={slug}
               translatedFields={fields?.map(f => f.name) || []}
-              fields={fields as any}
               schema={schema!}
+              fields={fields!}
+              onSuccess={dataQuery.refetch}
             >
               <Button onClick={handleClose} colorScheme={'gray'}>
                 {t('dismiss')}

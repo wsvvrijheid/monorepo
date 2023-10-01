@@ -1,5 +1,5 @@
 import { scrapTopics } from '../utils/scrapTopics'
-import { FormatTopic, Locale, PageSelectors, Publisher } from '../utils/types'
+import { Locale, PageSelectors, Publisher } from '../utils/types'
 
 export const getAmnesty = async () => {
   const url = new URL('https://www.amnesty.nl/nieuws')
@@ -9,17 +9,10 @@ export const getAmnesty = async () => {
     time: 'meta[property="article:modified_time"]',
   }
 
-  const formatTopic: FormatTopic = topic => {
-    return {
-      ...topic,
-    }
-  }
-
   return await scrapTopics({
     publisher: Publisher.AMNESTY,
     locale: Locale.NL,
     url,
     selectors,
-    formatTopic,
   })
 }

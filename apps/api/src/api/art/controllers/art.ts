@@ -1,4 +1,8 @@
 import { factories } from '@strapi/strapi'
+import { errors } from '@strapi/utils'
+import { getProfile } from '../../../utils'
+
+const { UnauthorizedError } = errors
 
 const sendEmail = async art => {
   // do not forget to define your comma seperated EDITOR_EMAILS in your local env
@@ -11,12 +15,13 @@ const sendEmail = async art => {
     {
       populate: {
         artist: {
-          fields: ['name', 'username'],
+          fields: ['name'],
         },
       },
     },
   )
   const artist = populatedArtist.artist
+  const name = artist.name || artist?.email || 'an artist'
 
   const title = art.title_tr || art.title_nl || art.title_en
   const description =
@@ -26,9 +31,7 @@ const sendEmail = async art => {
     strapi.plugins['email'].services.email.send({
       to: editorEmails,
       from: 'info@wsvvrijheid.nl',
-      subject: `New Art ${title} has been created by ${
-        artist.name || artist.username
-      }`,
+      subject: `New Art ${title} has been created by ${name}`,
       html: `<table>
       <tr>
         <td>Title:</td>
@@ -40,7 +43,7 @@ const sendEmail = async art => {
       </tr>
       <tr>
         <td>Artist:</td>
-        <td>${artist.name || artist.username}</td>
+        <td>${name}</td>
       </tr>
       <tr>
         <td>Link:</td>
@@ -49,20 +52,30 @@ const sendEmail = async art => {
   </table>`,
     })
   } else {
-    console.log('no editor email exists')
+    strapi.log.error('No editor email exists')
   }
 }
 
 export default factories.createCoreController('api::art.art', ({ strapi }) => {
   return {
     async create(ctx) {
+      if (!ctx.state.user) {
+        throw new UnauthorizedError('No user found')
+      }
+
+      const profile = await getProfile(ctx, true)
+
+      if (!profile) {
+        throw new UnauthorizedError('No artist profile found')
+      }
+
       const result = await super.create(ctx)
 
       const updatedArt = await strapi.entityService.update(
         'api::art.art',
         result.data.id,
         {
-          data: { artist: ctx.state.user.id },
+          data: { artist: profile.id },
           populate: 'artist',
         },
       )

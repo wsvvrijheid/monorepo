@@ -15,14 +15,17 @@ type ArtsTableProps = Omit<DataTableProps<Art>, 'columns'> & {
 }
 
 export const ArtsTable: FC<ArtsTableProps> = ({
-  onSuccess,
-  data: arts,
-  totalCount,
   currentPage,
+  data: arts,
   onSort,
+  onSuccess,
+  pageCount,
+  pageSize,
   setCurrentPage,
+  setPageSize,
+  totalCount,
 }) => {
-  const { user } = useAuthContext()
+  const { profile } = useAuthContext()
   const [selectedIndex, setSelectedIndex] = useState<number>()
 
   const columns = useColumns<Art>()
@@ -38,10 +41,10 @@ export const ArtsTable: FC<ArtsTableProps> = ({
 
   return (
     <>
-      {selectedArt && user && (
+      {selectedArt && profile && (
         <ArtApprovalModal
           art={selectedArt}
-          editor={user}
+          editor={profile}
           isOpen={approvalDisclosure.isOpen}
           onClose={approvalDisclosure.onClose}
           artist={selectedArt.artist}
@@ -49,13 +52,16 @@ export const ArtsTable: FC<ArtsTableProps> = ({
         />
       )}
       <DataTable<Art>
-        data={arts}
         columns={columns.arts!}
-        onClickRow={handleClickRow}
-        totalCount={totalCount}
         currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
+        data={arts}
+        onClickRow={handleClickRow}
         onSort={onSort}
+        pageCount={pageCount}
+        pageSize={pageSize}
+        setCurrentPage={setCurrentPage}
+        setPageSize={setPageSize}
+        totalCount={totalCount}
       />
     </>
   )

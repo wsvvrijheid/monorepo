@@ -1,3 +1,5 @@
+import { ReactNode } from 'react'
+
 import { ButtonProps, ModalProps } from '@chakra-ui/react'
 import { TFunction } from 'i18next'
 import {
@@ -45,11 +47,12 @@ type FormSelectFields = {
   endpoint: StrapiCollectionEndpoint
 }
 
-type FormCommonFields<T extends StrapiModel> = {
+export type FormCommonFields<T extends StrapiModel> = {
   name: keyof T
   label?: string
   isRequired?: boolean
   group?: { value: string; label?: string; name: string }
+  blockEdit?: boolean
 }
 
 export type FormFields<T extends StrapiModel> = Array<
@@ -81,25 +84,26 @@ export type ModelEditFormProps<T extends StrapiModel> = {
   endpoint: StrapiEndpoint
   model: T
   translatedFields?: (keyof T)[]
-  fields: FormFields<T>
-  schema: AnyObjectSchema
   hideLanguageSwitcher?: boolean
   noColumns?: boolean
+  defaultIsEditing?: boolean
   onSuccess: () => void
   onClose?: () => void
+  onCancel?: () => void
 }
 
 export type ModelEditModalProps<T extends StrapiModel> = Omit<
   ModalProps,
   'id' | 'children'
 > &
-  Omit<ModelEditFormProps<T>, 'onSuccess' | 'model'> & {
+  Omit<ModelEditFormProps<T>, 'model'> & {
     title: string
     id: number
     isOpen: boolean
     isFullHeight?: boolean
     onClose: () => void
     maxW?: string
+    children?: ReactNode
   }
 
 export type ModelSelectProps = WSelectProps<FieldValues> & {

@@ -17,13 +17,6 @@ export const actionRolesEndpoints: PartialStrapiEndpointMap<
     delete: [],
     publish: ['contentmanager'],
   },
-  announcements: {
-    create: ['contentmanager'],
-    approve: ['contentmanager', 'translator'],
-    update: ['contentmanager', 'translator'],
-    delete: [],
-    publish: ['contentmanager'],
-  },
   arts: {
     create: ['all'],
     approve: ['arteditor'],
@@ -32,7 +25,7 @@ export const actionRolesEndpoints: PartialStrapiEndpointMap<
     publish: ['arteditor'],
   },
   blogs: {
-    create: ['author'],
+    create: ['author', 'contentmanager'],
     approve: ['contentmanager', 'translator'],
     update: ['author', 'contentmanager', 'translator'],
     delete: ['author'],

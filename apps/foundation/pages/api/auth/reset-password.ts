@@ -1,8 +1,9 @@
 import axios from 'axios'
 import { withIronSessionApiRoute } from 'iron-session/next'
-import { NextApiResponse, NextApiRequest } from 'next'
+import { NextApiRequest, NextApiResponse } from 'next'
 
 import { API_URL } from '@wsvvrijheid/config'
+import { strapiRequest } from '@wsvvrijheid/lib'
 import { sessionOptions } from '@wsvvrijheid/secrets'
 import { getSessionUser } from '@wsvvrijheid/services'
 
@@ -24,9 +25,30 @@ const resetPassRoute = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const user = await getSessionUser(token)
 
-    const auth = { user, token, isLoggedIn: true }
+    if (!user) {
+      return res.json({
+        user: null,
+        isLoggedIn: false,
+        token: null,
+      })
+    }
 
-    req.session = { ...req.session, ...auth }
+    const profileResponse = await strapiRequest({
+      endpoint: 'profiles',
+      filters: {
+        user: { id: user.id },
+      },
+    })
+
+    const profile = profileResponse?.data?.[0] || null
+
+    const auth = { user, profile, token, isLoggedIn: true }
+
+    req.session.user = user
+    req.session.token = token
+    req.session.isLoggedIn = true
+    req.session.profileId = profile?.id || null
+
     await req.session.save()
     res.json(auth)
   } catch (error: any) {

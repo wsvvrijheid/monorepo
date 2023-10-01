@@ -119,8 +119,9 @@
     },
     "likers": {
       "type": "relation",
-      "relation": "oneToMany",
-      "target": "plugin::users-permissions.user"
+      "relation": "manyToMany",
+      "target": "api::profile.profile",
+      "mappedBy": "likedArts"
     },
     "votes": {
       "type": "relation",
@@ -130,8 +131,9 @@
     },
     "artist": {
       "type": "relation",
-      "relation": "oneToOne",
-      "target": "plugin::users-permissions.user"
+      "relation": "manyToOne",
+      "target": "api::profile.profile",
+      "inversedBy": "ownedArts"
     }
   }
 }

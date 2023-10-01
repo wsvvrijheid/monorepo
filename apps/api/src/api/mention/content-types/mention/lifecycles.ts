@@ -38,7 +38,7 @@ export default {
         data: { data },
       })
     } catch (error) {
-      console.error('Error after mention create', error.message)
+      console.error('Error after mention create', error)
     }
   },
 }

@@ -38,6 +38,6 @@ export const blogFields: FormFields<Blog> = [
     name: 'author',
     type: 'select',
     isMulti: false,
-    endpoint: 'authors',
+    endpoint: 'profiles',
   },
 ]

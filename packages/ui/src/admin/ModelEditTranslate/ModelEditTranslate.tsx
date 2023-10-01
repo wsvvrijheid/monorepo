@@ -49,6 +49,7 @@ export const ModelEditTranslate = <T extends StrapiTranslatableModel>({
   fields,
   schema,
   children,
+  onSuccess,
 }: ModelEditTranslateProps<T>) => {
   const { t } = useTranslation('common')
 
@@ -86,6 +87,7 @@ export const ModelEditTranslate = <T extends StrapiTranslatableModel>({
   const { allowEndpointAction } = usePermission()
 
   const handleSuccess = () => {
+    onSuccess?.()
     refetch()
     setIsEditing.off()
     setConfirmState(undefined)
@@ -141,6 +143,7 @@ export const ModelEditTranslate = <T extends StrapiTranslatableModel>({
     borderColor: 'transparent',
     _hover: { borderColor: 'transparent' },
     color: 'gray.500',
+    pl: 0,
   }
 
   const onCancel = () => {
@@ -159,8 +162,8 @@ export const ModelEditTranslate = <T extends StrapiTranslatableModel>({
           onCancel={() => setConfirmState(undefined)}
         />
       )}
-      <Stack>
-        <Stack p={8} spacing={8} as="form" onSubmit={handleSubmit(onSaveModel)}>
+      <Stack as="form" onSubmit={handleSubmit(onSaveModel)}>
+        <Stack p={8} spacing={8}>
           {(model?.localizations?.length || 0) > 0 && (
             <FormLocaleSwitcher model={model} />
           )}
@@ -217,6 +220,7 @@ export const ModelEditTranslate = <T extends StrapiTranslatableModel>({
                         _disabled={disabledStyle}
                         minH={300}
                         hideLabel
+                        whiteSpace={'pre-wrap'}
                       />
                     ) : (
                       <FormItem
@@ -232,6 +236,7 @@ export const ModelEditTranslate = <T extends StrapiTranslatableModel>({
                         name={field?.name as string}
                         h={'full'}
                         type={'text'}
+                        whiteSpace={'pre-wrap'}
                         errors={errors}
                         register={register}
                         isDisabled={!isEditing}

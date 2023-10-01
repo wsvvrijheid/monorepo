@@ -2,3 +2,4 @@
 .turbo
 dist
 .eslintrc.js
+types

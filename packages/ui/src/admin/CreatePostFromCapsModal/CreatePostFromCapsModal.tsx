@@ -94,7 +94,7 @@ export const CreatePostFromCapsModal: FC<CreatePostFromCapsModalProps> = ({
           })
         }
       } catch (error) {
-        console.log('error', error)
+        console.error('Create post error', error)
       }
     })
     setRecognized(false)

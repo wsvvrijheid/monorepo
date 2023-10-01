@@ -14,6 +14,7 @@ import { RangeParams } from '@wsvvrijheid/ui/src/components/MonthPicker/types'
 
 const DonationsPage = () => {
   const [currentPage, setCurrentPage] = useState<number>(1)
+  const [pageSize, setPageSize] = useState<number>(50)
   const [searchTerm, setSearchTerm] = useState<string>()
   const [date, setDate] = useState<RangeParams>()
 
@@ -32,7 +33,7 @@ const DonationsPage = () => {
   const donationsQuery = useStrapiRequest<Donation>({
     endpoint: 'donates',
     page: currentPage || 1,
-    pageSize: 50,
+    pageSize,
     filters: {
       ...(searchTerm && { email: { $containsi: searchTerm } }),
       ...(date && {
@@ -64,29 +65,34 @@ const DonationsPage = () => {
   }, [locale, searchTerm, sort])
 
   const donations = donationsQuery?.data?.data as Donation[]
-  const totalCount = donationsQuery?.data?.meta?.pagination?.pageCount || 0
+
+
   const totalAmount =
     donations &&
     donations.reduce((acc, donation) => {
       return acc + (donation.amount || 0)
     }, 0)
 
+  const pageCount = donationsQuery?.data?.meta?.pagination?.pageCount || 0
+  const totalCount = donationsQuery?.data?.meta?.pagination?.total || 0
+
+
   return (
     <AdminLayout seo={{ title: t('donations') }}>
-      <PageHeader
-        onSearch={handleSearch}
-        searchPlaceHolder={'Search arts by title or artist'}
-      >
+      <PageHeader onSearch={handleSearch}>
         <MonthPicker onClear={handleClear} onRangeSelect={handleSelect} />
       </PageHeader>
 
       <DataTable<Donation>
         columns={columns.donates!}
-        data={donations}
-        totalCount={totalCount}
         currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
+        data={donations}
         onSort={setSort}
+        pageCount={pageCount}
+        pageSize={pageSize}
+        setCurrentPage={setCurrentPage}
+        setPageSize={setPageSize}
+        totalCount={totalCount as number}
       >
         {donations && (
           <Flex justify={'end'}>

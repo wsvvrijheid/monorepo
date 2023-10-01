@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "dotenv -e ../../.env.local next dev",
-    "dashboard": "dotenv -e ../../.env.local next dev",
+    "dev": "dotenv -e ../../.env.local next dev -- -p 3000",
+    "dashboard": "dotenv -e ../../.env.local next dev -- -p 3000",
     "build": "next build",
+    "build:dev": "next build",
     "start": "next start",
     "clean": "rm -rf node_modules .turbo .next",
     "lint": "next lint"

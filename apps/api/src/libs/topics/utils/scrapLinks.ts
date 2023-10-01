@@ -19,9 +19,13 @@ export const scrapLinks: ScrapLinks = async ({
     .map((_, el) => $(el).attr('href'))
     .get()
 
-  const result = links.map(link =>
-    link.startsWith('https') ? new URL(link) : new URL(`${url.origin}${link}`),
-  )
+  const result = links
+    .slice(0, 5)
+    .map(link =>
+      link.startsWith('https')
+        ? new URL(link)
+        : new URL(`${url.origin}${link}`),
+    )
 
   const distinctResults = [
     ...new Map(result.map(item => [item['href'], item])).values(),

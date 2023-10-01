@@ -1,20 +1,10 @@
 import { Context } from 'koa'
 
-import { getReferenceModel } from '../../../utils'
+import { assignApprover, getReferenceModel } from '../../../utils'
 
 export default {
   async approve(ctx: Context) {
-    const result = await strapi.entityService.update(
-      'api::blog.blog',
-      ctx.params.id,
-      {
-        data: {
-          approvalStatus: 'approved',
-          publishedAt: new Date(),
-          approver: ctx.state.user.id,
-        },
-      },
-    )
+    const result = await assignApprover(ctx, 'api::blog.blog', true)
 
     return { data: result }
   },
@@ -22,7 +12,7 @@ export default {
     const id = ctx.params.id
 
     const currentBlog = await strapi.entityService.findOne(
-      'api::blogs.blogs',
+      'api::blog.blog',
       id,
       {
         populate: ['localizations.image'],
@@ -31,7 +21,7 @@ export default {
 
     const referenceBlog = getReferenceModel(currentBlog)
 
-    const result = await strapi.entityService.update('api::blogs.blogs', id, {
+    const result = await strapi.entityService.update('api::blog.blog', id, {
       data: { image: referenceBlog.image?.id },
     })
 
