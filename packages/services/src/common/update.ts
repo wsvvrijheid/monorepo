@@ -46,7 +46,7 @@ export const useUpdateModelMutation = <
       })
     },
     onError: (error: any) => {
-      console.error('error in sercices', error)
+      console.error('Update model error', error)
       toast({
         title: 'Error',
         description: `Something went wrong`,

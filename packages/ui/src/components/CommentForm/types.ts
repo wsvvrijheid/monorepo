@@ -1,12 +1,10 @@
-export type CommentFormFieldValues = {
-  email?: string
-  name?: string
-  content: string
-}
+import { InferType } from 'yup'
+
+import { commentFormSchema } from './schema'
+
+export type CommentFormFieldValues = InferType<typeof commentFormSchema>
 
 export type CommentFormProps = {
-  errorMessage?: string
-  isLoading: boolean
-  isSuccess: boolean
-  onSendForm: (data: CommentFormFieldValues) => void
+  artId: number
+  onSuccess: () => void
 }

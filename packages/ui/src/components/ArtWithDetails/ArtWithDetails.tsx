@@ -1,14 +1,11 @@
 import { FC } from 'react'
 
 import { Box, Grid, Stack } from '@chakra-ui/react'
-import { QueryKey, useMutation, useQueryClient } from '@tanstack/react-query'
-import axios from 'axios'
+import { QueryKey } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
-import { useReCaptcha } from 'next-recaptcha-v3'
 
-import { useArtBySlug, useLikeArt } from '@wsvvrijheid/services'
-import { Art } from '@wsvvrijheid/types'
-import { toastMessage } from '@wsvvrijheid/utils'
+import { useLikeArt, useStrapiRequest } from '@wsvvrijheid/services'
+import { Art, Comment } from '@wsvvrijheid/types'
 
 import {
   ArtContent,
@@ -16,88 +13,22 @@ import {
   CommentForm,
   CommentList,
 } from '../../components'
-import { CommentFormFieldValues } from '../CommentForm/types'
+
 export type ArtWithDetailsProps = {
   art: Art
   queryKey?: QueryKey
 }
 
 export const ArtWithDetails: FC<ArtWithDetailsProps> = ({ art, queryKey }) => {
-  const { executeRecaptcha } = useReCaptcha()
-
   const { toggleLike, isLiked, isLoading } = useLikeArt(art, queryKey)
-  const queryClient = useQueryClient()
 
-  const router = useRouter()
-  const locale = router.locale
+  const { locale } = useRouter()
 
-  const artCommentMutation = useMutation({
-    mutationKey: ['art-comment'],
-    mutationFn: (body: {
-      name?: string
-      content: string
-      email?: string
-      art: number
-      recaptchaToken?: string
-    }) => axios.post('/api/comments', body),
+  const commentQuery = useStrapiRequest<Comment>({
+    endpoint: 'comments',
+    filters: { art: { id: { $eq: art.id } } },
+    populate: ['profile.avatar'],
   })
-  const { data } = useArtBySlug(art.slug)
-
-  if (!art.comments) {
-    art = data as Art
-  }
-
-  const handleSendForm = async ({
-    name,
-    content,
-    email,
-  }: CommentFormFieldValues) => {
-    if (!art?.id) return
-
-    try {
-      const recaptchaToken = await executeRecaptcha('comment').catch(error => {
-        console.error(error)
-
-        return undefined
-      })
-
-      const body = {
-        name,
-        content,
-        email,
-        art: art.id,
-        recaptchaToken,
-      }
-
-      artCommentMutation.mutate(body, {
-        onSuccess: async () => {
-          await queryClient.invalidateQueries(queryKey)
-          toastMessage(
-            'Success',
-            'Your comment has been sent successfully.',
-            'success',
-          )
-        },
-        onError: error => {
-          console.error('Mutation error', error)
-
-          toastMessage(
-            'Error',
-            "Couldn't send comment. Please try again later.",
-            'error',
-          )
-        },
-      })
-    } catch (error) {
-      console.error(error)
-
-      toastMessage(
-        'Error',
-        "Couldn't send comment. Please try again later.",
-        'error',
-      )
-    }
-  }
 
   if (!art) return null
 
@@ -135,15 +66,11 @@ export const ArtWithDetails: FC<ArtWithDetailsProps> = ({ art, queryKey }) => {
         {/* Single Art Comments */}
         <Stack spacing={4}>
           {/*  Comment form */}
-          <CommentForm
-            isLoading={artCommentMutation.isLoading}
-            onSendForm={handleSendForm}
-            isSuccess={artCommentMutation.isSuccess}
-          />
+          <CommentForm artId={art.id} onSuccess={commentQuery.refetch} />
 
           {/* List comments of the current art */}
           {/* TODO Add CommentSkeleton */}
-          <CommentList comments={art.comments || []} />
+          <CommentList comments={commentQuery.data?.data || []} />
         </Stack>
       </Stack>
     </Grid>

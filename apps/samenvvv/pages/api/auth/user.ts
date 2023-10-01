@@ -1,15 +1,23 @@
 import { withIronSessionApiRoute } from 'iron-session/next'
 import { NextApiResponse, NextApiRequest } from 'next'
 
+import { strapiRequest } from '@wsvvrijheid/lib'
 import { sessionOptions } from '@wsvvrijheid/secrets'
 
 async function userRoute(req: NextApiRequest, res: NextApiResponse) {
   if (req.session.token) {
-    // in a real world application you might read the user id from the session
-    // and then do a database request
-    // to get more information on the user if needed
+    // TODO: Create /profiles/me endpoint
+    const profileResponse = await strapiRequest({
+      endpoint: 'profiles',
+      id: req.session.profileId as number,
+      token: req.session.token,
+    })
+
+    const profile = profileResponse?.data || null
+
     return res.json({
       ...req.session,
+      profile,
       isLoggedIn: true,
     })
   }

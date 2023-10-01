@@ -35,7 +35,7 @@ export const FilterMenu = <
   const { t } = useTranslation()
   const { locale } = useRouter()
 
-  const modelsQuery = useStrapiRequest<StrapiModel>({
+  const modelsQuery = useStrapiRequest<D>({
     endpoint,
     populate: [],
     locale,

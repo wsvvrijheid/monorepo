@@ -1,8 +1,5 @@
-import { FC } from 'react'
-
 import { Heading, Stack, useBreakpointValue } from '@chakra-ui/react'
 import { Splide, SplideSlide } from '@splidejs/react-splide'
-import { QueryKey } from '@tanstack/react-query'
 import { useTranslation } from 'next-i18next'
 import { ReCaptchaProvider } from 'next-recaptcha-v3'
 
@@ -13,18 +10,15 @@ import {
   useViewArtMutation,
 } from '@wsvvrijheid/services'
 
-import { Container, ArtCardBase, ArtWithDetails } from '../../components'
+import { ArtCardBase, ArtWithDetails, Container } from '../../components'
 
 import '@splidejs/react-splide/css'
 import '@splidejs/splide/dist/css/themes/splide-default.min.css'
 
-export type ArtTemplateProps = {
-  queryKey: QueryKey
-}
-
-export const ArtTemplate: FC<ArtTemplateProps> = ({ queryKey }) => {
+export const ArtTemplate = () => {
   const { t } = useTranslation()
   const perPage = useBreakpointValue({ base: 1, sm: 2, md: 3, lg: 4 })
+
   const { data: art } = useArtBySlug()
 
   useViewArtMutation()
@@ -32,6 +26,7 @@ export const ArtTemplate: FC<ArtTemplateProps> = ({ queryKey }) => {
   const categories = (art?.categories?.flatMap(
     (c: { slug: string }) => c.slug,
   ) || []) as string[]
+
   const { data: arts } = useArtsByCategories(categories, art?.id)
 
   if (!art) return null
@@ -40,8 +35,7 @@ export const ArtTemplate: FC<ArtTemplateProps> = ({ queryKey }) => {
     <ReCaptchaProvider reCaptchaKey={RECAPTCHA_SITE_KEY}>
       <Container minH="inherit" my={8}>
         {/* TODO Create skeleton components for ArtDetail ArtContent and Comments */}
-
-        <ArtWithDetails art={art} queryKey={queryKey} />
+        <ArtWithDetails art={art} />
 
         {/* Other Arts List */}
         {arts && arts?.length > 0 && (

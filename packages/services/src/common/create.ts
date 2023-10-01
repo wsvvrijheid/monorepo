@@ -42,7 +42,7 @@ export const useCreateModelMutation = <
       })
     },
     onError: (error: any) => {
-      console.error('error in sercices', error)
+      console.error('Create model error', error)
       toast({
         title: 'Error',
         description: `Something went wrong`,

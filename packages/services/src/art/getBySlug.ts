@@ -21,14 +21,11 @@ export const getArtBySlug = async (slug: string): Promise<Art | null> => {
   return response?.data?.[0] || null
 }
 
-export const useArtBySlug = (slug?: string) => {
-  const router = useRouter()
-  if (!slug) {
-    slug = router.query['slug'] as string
-  }
+export const useArtBySlug = () => {
+  const { query } = useRouter()
 
   return useQuery({
-    queryKey: ['art', slug],
-    queryFn: () => getArtBySlug(slug as string),
+    queryKey: ['art', query.slug],
+    queryFn: () => getArtBySlug(query.slug as string),
   })
 }

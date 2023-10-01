@@ -20,7 +20,7 @@ export const CommentList: FC<CommentListProps> = ({ comments }) => {
         {t('comments')}
       </Text>
 
-      <Stack spacing={4}>
+      <Stack spacing={4} maxH={300} overflowY={'auto'}>
         {comments?.map(comment => {
           return <CommentItem key={comment.id} comment={comment} />
         })}

@@ -26,11 +26,7 @@ import {
   CollectionCreateInput,
   CollectionUpdateInput,
 } from './collection'
-import {
-  Comment,
-  CommentArtCreateInput,
-  CommentBlogCreateInput,
-} from './comment'
+import { Comment, CommentCreateInput } from './comment'
 import { ApprovalStatus, Expand } from './common'
 import {
   Competition,
@@ -311,8 +307,8 @@ export type StrapiCreateInput =
   | BlogCreateInput
   | CategoryCreateInput
   | CollectionCreateInput
-  | CommentArtCreateInput
-  | CommentBlogCreateInput
+  | CommentCreateInput<'art'>
+  | CommentCreateInput<'blog'>
   | CompetitionCreateInput
   | CourseApplicationCreateInput
   | CourseCreateInput

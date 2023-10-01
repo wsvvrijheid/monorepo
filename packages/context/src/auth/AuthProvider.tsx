@@ -40,6 +40,7 @@ export const AuthProvider: FC<AuthProviderProps> = ({
 
   const checkAuth = async (): Promise<AuthState> => {
     setIsLoading(true)
+
     try {
       const response = await axios.get<Auth>('/api/auth/user')
 
@@ -54,6 +55,7 @@ export const AuthProvider: FC<AuthProviderProps> = ({
       return {
         ...response.data,
         roles: response.data?.user?.roles || initialAuthState.roles,
+        profile: response.data?.profile || null,
         error: null,
         isAuthModalOpen: false,
         isLoading: false,
@@ -75,6 +77,7 @@ export const AuthProvider: FC<AuthProviderProps> = ({
     } catch (error: any) {
       setError(error.message)
     } finally {
+      setProfile(null)
       setUser(null)
       setToken(null)
       setRoles(initialAuthState.roles)
