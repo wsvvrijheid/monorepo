@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { factories } from '@strapi/strapi'
-import { assignCreator, checkRecaptcha, getProfile } from '../../../utils'
+import { checkRecaptcha, getProfile } from '../../../utils'
 
 export default factories.createCoreController('api::comment.comment', () => {
   return {
@@ -8,16 +8,13 @@ export default factories.createCoreController('api::comment.comment', () => {
       await checkRecaptcha(ctx)
 
       const profile = await getProfile(ctx)
-      const result = await super.create(ctx)
 
-      if (profile) {
-        await assignCreator(
-          profile,
-          result.data.id,
-          'api::comment.comment',
-          'profile',
-        )
-      }
+      const result = await strapi.entityService.create('api::comment.comment', {
+        data: {
+          ...(ctx.request as any).body?.data,
+          profile: profile?.id,
+        },
+      })
 
       return result
     },
