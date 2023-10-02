@@ -5,7 +5,11 @@ const { ApplicationError, UnauthorizedError } = errors
 
 export const getProfile = async (ctx: Context, check?: boolean) => {
   if (!ctx.state.user) {
-    throw new UnauthorizedError('Not authenticated')
+    if (check) {
+      throw new UnauthorizedError('User required')
+    }
+
+    return null
   }
 
   const profileResponse = await strapi.entityService.findMany(

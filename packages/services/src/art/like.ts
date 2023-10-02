@@ -1,56 +1,32 @@
 import { QueryKey, useMutation, useQueryClient } from '@tanstack/react-query'
+import axios from 'axios'
 import { useLocalStorage } from 'usehooks-ts'
 
+import { API_URL } from '@wsvvrijheid/config'
 import { useAuthContext } from '@wsvvrijheid/context'
-import { Mutation } from '@wsvvrijheid/lib'
-import { Art, ArtUpdateInput } from '@wsvvrijheid/types'
+import { Art } from '@wsvvrijheid/types'
 
-type LikersMutationArgs = {
-  id: number
-  likers: number[]
-  token: string
-}
+import { useRecaptchaToken } from '../common'
 
-type LikesMutationArgs = {
-  id: number
-  likes: number
-  token: string
-}
+const useLikeArtMutation = () => {
+  const { token } = useAuthContext()
+  const recaptchaToken = useRecaptchaToken('like_art')
 
-const likeArtByUser = ({ id, likers, token }: LikersMutationArgs) => {
-  const body = { likers }
-
-  return Mutation.put<Art, ArtUpdateInput>('arts', id, body, token)
-}
-
-// TODO: Create new route, no token needed
-const likeArtPublic = ({ id, likes, token }: LikesMutationArgs) => {
-  const body = { likes }
-
-  return Mutation.put<Art, ArtUpdateInput>('arts', id, body, token)
-}
-
-const useLikeArtByUserMutation = () => {
   return useMutation({
-    mutationKey: ['likeArtByUser'],
-    mutationFn: likeArtByUser,
-  })
-}
-
-const useLikeArtPublicMutation = () => {
-  return useMutation({
-    mutationKey: ['likeArtPublic'],
-    mutationFn: likeArtPublic,
+    mutationKey: ['like-art'],
+    mutationFn: ({ id, type }: { id: number; type: 'like' | 'unlike' }) =>
+      axios.put(
+        `${API_URL}/api/${type}-art/${id}`,
+        { data: { recaptchaToken } },
+        { headers: { ...(token && { Authorization: `Bearer ${token}` }) } },
+      ),
   })
 }
 
 export const useLikeArt = (art?: Art | null, queryKey?: QueryKey) => {
   const queryClient = useQueryClient()
 
-  const { user, token } = useAuthContext()
-
-  const likeArtByUserMutation = useLikeArtByUserMutation()
-  const likeArtPublicMutation = useLikeArtPublicMutation()
+  const likeArtMutation = useLikeArtMutation()
 
   const [likersStorage, setLikersStorage] = useLocalStorage<number[]>(
     'like-art',
@@ -60,47 +36,19 @@ export const useLikeArt = (art?: Art | null, queryKey?: QueryKey) => {
   if (!art) return { toggleLike: () => null, isLiked: false, isLoading: false }
 
   const isLikedStorage = likersStorage?.some(id => id === art.id)
-  // FIXME This should be checked through API.
-  // We might not have all the `likers` in the art data
-  // as there should be a limit for it.
-  const isLikedByUser =
-    (user && art.likers && art.likers?.some(({ id }) => id === user.id)) ||
-    undefined
-
-  const likersIds = art.likers?.map(liker => liker.id) || []
-
-  let likers = likersIds
-
-  if (isLikedByUser) {
-    likers = likersIds.filter(id => id !== user?.id)
-  } else if (user) {
-    likers = [...likersIds, user.id]
-  }
-
-  const likes = isLikedStorage ? (art.likes || 0) - 1 : (art.likes || 0) + 1
+  const isLiked = art.isLiked || isLikedStorage
 
   const toggleLike = async () => {
-    if (user) {
-      return likeArtByUserMutation.mutate(
-        { id: art.id, likers, token: token as string },
-        {
-          onSuccess: async () => {
-            await queryClient.invalidateQueries(queryKey)
-          },
-        },
-      )
-    }
-
-    likeArtPublicMutation.mutate(
-      { id: art.id, likes, token: token as string },
+    likeArtMutation.mutate(
+      { id: art.id, type: isLikedStorage ? 'unlike' : 'like' },
       {
         onSuccess: async data => {
           await queryClient.invalidateQueries(queryKey)
 
           const isLiked = likersStorage?.some(id => id === art.id)
           const updatedStorage = isLiked
-            ? likersStorage?.filter(id => id !== data?.id)
-            : [...(likersStorage || []), data?.id]
+            ? likersStorage?.filter(id => id !== data?.data?.id)
+            : [...(likersStorage || []), data?.data?.id]
 
           setLikersStorage(updatedStorage as number[])
         },
@@ -110,8 +58,7 @@ export const useLikeArt = (art?: Art | null, queryKey?: QueryKey) => {
 
   return {
     toggleLike,
-    isLiked: user ? isLikedByUser : isLikedStorage,
-    isLoading:
-      likeArtByUserMutation.isLoading || likeArtPublicMutation.isLoading,
+    isLiked,
+    isLoading: likeArtMutation.isLoading,
   }
 }
