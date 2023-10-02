@@ -19,7 +19,7 @@ export const useViewArtMutation = () => {
 
   const { data: art } = useArtBySlug()
   const { token } = useAuthContext()
-  const recaptchaToken = useRecaptchaToken('view-art')
+  const recaptchaToken = useRecaptchaToken('view_art')
 
   const [artStorage, setArtStorage] = useLocalStorage<number[]>('view-art', [])
 

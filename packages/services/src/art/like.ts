@@ -10,7 +10,7 @@ import { useRecaptchaToken } from '../common'
 
 const useLikeArtMutation = () => {
   const { token } = useAuthContext()
-  const recaptchaToken = useRecaptchaToken('like-art')
+  const recaptchaToken = useRecaptchaToken('like_art')
 
   return useMutation({
     mutationKey: ['like-art'],
