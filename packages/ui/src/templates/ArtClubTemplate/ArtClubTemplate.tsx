@@ -16,9 +16,11 @@ import {
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
+import { ReCaptchaProvider } from 'next-recaptcha-v3'
 import { parse } from 'querystring'
 import { MdMenuOpen } from 'react-icons/md'
 
+import { RECAPTCHA_SITE_KEY } from '@wsvvrijheid/config'
 import { useStrapiRequest } from '@wsvvrijheid/services'
 import { Art, Category } from '@wsvvrijheid/types'
 
@@ -84,7 +86,7 @@ export const ArtClubTemplate: FC = () => {
   })
 
   return (
-    <>
+    <ReCaptchaProvider reCaptchaKey={RECAPTCHA_SITE_KEY}>
       <Drawer isOpen={isOpen} onClose={onClose}>
         <DrawerOverlay />
         <DrawerContent>
@@ -186,6 +188,6 @@ export const ArtClubTemplate: FC = () => {
           </Stack>
         </Grid>
       </Container>
-    </>
+    </ReCaptchaProvider>
   )
 }
