@@ -17,20 +17,22 @@ import { useForm } from 'react-hook-form'
 import { FiArrowRight } from 'react-icons/fi'
 
 import { useAuthContext } from '@wsvvrijheid/context'
-import { useCreateModelMutation } from '@wsvvrijheid/services'
+import {
+  useCreateModelMutation,
+  useRecaptchaToken,
+} from '@wsvvrijheid/services'
 import { Comment, CommentCreateInput } from '@wsvvrijheid/types'
 import { toastMessage } from '@wsvvrijheid/utils'
 
 import { commentFormSchema } from './schema'
 import { CommentFormFieldValues, CommentFormProps } from './types'
-import { useReCaptchaToken } from '../../hooks'
 import { FormItem } from '../FormItem'
 import { WAvatar } from '../WAvatar'
 
 export const CommentForm: FC<CommentFormProps> = ({ artId, onSuccess }) => {
   const { t } = useTranslation()
   const { user, profile } = useAuthContext()
-  const recaptchaToken = useReCaptchaToken('comment')
+  const recaptchaToken = useRecaptchaToken('comment')
 
   const {
     register,

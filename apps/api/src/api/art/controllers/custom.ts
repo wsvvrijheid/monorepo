@@ -1,4 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Context } from 'koa'
+import { checkRecaptcha, getProfile } from '../../../utils'
 
 export default {
   async approve(ctx: Context) {
@@ -15,5 +17,66 @@ export default {
     )
 
     return { data: result }
+  },
+  async like(ctx: Context) {
+    await checkRecaptcha(ctx)
+
+    const profile = await getProfile(ctx)
+
+    if (profile) {
+      const isLikedCount = await strapi.entityService.count('api::art.art', {
+        filters: {
+          id: { $eq: ctx.params.id },
+          likers: { id: { $in: [profile.id] } },
+        },
+      })
+
+      const connection = isLikedCount > 0 ? 'disconnect' : 'connect'
+
+      const result = await strapi.entityService.update(
+        'api::art.art',
+        ctx.params.id,
+        {
+          data: {
+            likers: {
+              [connection]: [profile.id as number],
+            } as any,
+          },
+        },
+      )
+
+      return result
+    }
+
+    const result = await strapi.db
+      .connection('arts')
+      .where('id', ctx.params.id)
+      .increment('likes', 1)
+
+    console.log('result', result)
+
+    return result
+  },
+  async unlike(ctx: Context) {
+    await checkRecaptcha(ctx)
+
+    const result = await strapi.db
+      .connection('arts')
+      .where('id', ctx.params.id)
+      .increment('likes', -1)
+
+    return result
+  },
+  async view(ctx: Context) {
+    await checkRecaptcha(ctx)
+
+    const result = await strapi.db
+      .connection('arts')
+      .where('id', ctx.params.id)
+      .increment('views', 1)
+
+    console.log('result', result)
+
+    return result
   },
 }

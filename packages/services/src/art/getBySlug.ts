@@ -1,10 +1,14 @@
-import { useQuery } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
 
 import { strapiRequest } from '@wsvvrijheid/lib'
 import { Art } from '@wsvvrijheid/types'
 
-export const getArtBySlug = async (slug: string): Promise<Art | null> => {
+import { useStrapiRequest } from '../common'
+
+export const getArtBySlug = async (
+  slug: string,
+  token?: string,
+): Promise<Art | null> => {
   const response = await strapiRequest<Art>({
     endpoint: 'arts',
     filters: { slug: { $eq: slug } },
@@ -16,6 +20,7 @@ export const getArtBySlug = async (slug: string): Promise<Art | null> => {
       'comments.user.avatar',
       'likers',
     ],
+    token,
   })
 
   return response?.data?.[0] || null
@@ -24,8 +29,18 @@ export const getArtBySlug = async (slug: string): Promise<Art | null> => {
 export const useArtBySlug = () => {
   const { query } = useRouter()
 
-  return useQuery({
-    queryKey: ['art', query.slug],
-    queryFn: () => getArtBySlug(query.slug as string),
+  const { data, ...rest } = useStrapiRequest<Art>({
+    endpoint: 'arts',
+    filters: { slug: { $eq: query.slug } },
+    populate: [
+      'artist.avatar',
+      'categories',
+      'image',
+      'localizations',
+      'comments.user.avatar',
+      'likers',
+    ],
   })
+
+  return { ...rest, data: data?.data?.[0] }
 }

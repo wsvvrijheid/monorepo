@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 
 import { useReCaptcha } from 'next-recaptcha-v3'
 
-export const useReCaptchaToken = (key: string) => {
+export const useRecaptchaToken = (key: string) => {
   const [token, setToken] = useState<string>()
 
   const { executeRecaptcha, loaded } = useReCaptcha()

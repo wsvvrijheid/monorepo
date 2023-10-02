@@ -84,5 +84,34 @@ export default factories.createCoreController('api::art.art', ({ strapi }) => {
 
       return result
     },
+    async find(ctx) {
+      const result = await super.find(ctx)
+
+      const profile = await getProfile(ctx)
+
+      if (!profile) {
+        return result
+      }
+
+      const arts = await Promise.all(
+        result.data.map(async art => {
+          const isLikedCount = await strapi.entityService.count(
+            'api::art.art',
+            {
+              filters: {
+                id: { $eq: art.id },
+                likers: { id: { $in: [profile?.id] } },
+              },
+            },
+          )
+
+          const isLiked = isLikedCount > 0
+
+          return { ...art, isLiked }
+        }),
+      )
+
+      return { ...result, data: arts }
+    },
   }
 })

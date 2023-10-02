@@ -39,15 +39,9 @@ async function strapiRequest<T extends StrapiModel>(
   const singleArgs = args as RequestSingleArgs
   const idArgs = args as RequestByIdArgs
 
-  const { id } = idArgs
+  const { id, token = TOKEN } = idArgs
 
-  const {
-    endpoint,
-    fields,
-    includeDrafts,
-    populate = '*',
-    token = TOKEN,
-  } = singleArgs
+  const { endpoint, fields, includeDrafts, populate = '*' } = singleArgs
 
   const {
     locale,

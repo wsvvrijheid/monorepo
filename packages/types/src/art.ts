@@ -20,6 +20,7 @@ type ArtBase = StrapiBase & {
   description_nl: string
   description_tr: string
   approvalStatus: string
+  isLiked?: boolean
 }
 
 type ArtRelation = {
