@@ -43,5 +43,5 @@ export const useViewArtMutation = () => {
     if (art && !isViewed) {
       mutate(art.id)
     }
-  }, 10 * 1000)
+  }, 10 * 3000)
 }

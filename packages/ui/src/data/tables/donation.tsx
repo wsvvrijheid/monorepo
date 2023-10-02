@@ -9,7 +9,6 @@ export const useDonationColumns = (): WTableProps<Donation>['columns'] => {
       type: 'date',
       sortable: true,
     },
-    amount: { sortable: true },
     status: {
       type: 'badge',
       componentProps: value => {
@@ -18,6 +17,10 @@ export const useDonationColumns = (): WTableProps<Donation>['columns'] => {
           colorScheme: (value as string) === 'paid' ? 'green' : 'yellow',
         }
       },
+    },
+    amount: {
+      sortable: true,
+      transform: value => `${(value as number).toFixed(2)} €`,
     },
   }
 }

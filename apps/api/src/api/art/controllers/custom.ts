@@ -48,40 +48,51 @@ export default {
         },
       )
 
-      return result
+      return { data: result }
     }
 
-    const result = await strapi.db
+    await strapi.db
       .connection('arts')
       .where('id', ctx.params.id)
       .increment('likes', 1)
 
-    console.log('result', result)
+    const result = await strapi.entityService.findOne(
+      'api::art.art',
+      ctx.params.id,
+    )
 
-    return result
+    return { data: result }
   },
   async unlike(ctx: Context) {
     await checkRecaptcha(ctx)
 
-    const result = await strapi.db
+    await strapi.db
       .connection('arts')
       .where('id', ctx.params.id)
       .increment('likes', -1)
 
-    return result
+    const result = await strapi.entityService.findOne(
+      'api::art.art',
+      ctx.params.id,
+    )
+
+    return { data: result }
   },
   async view(ctx: Context) {
     try {
       await checkRecaptcha(ctx)
 
-      const result = await strapi.db
+      await strapi.db
         .connection('arts')
         .where('id', ctx.params.id)
         .increment('views', 1)
 
-      console.log('result', result)
+      const result = await strapi.entityService.findOne(
+        'api::art.art',
+        ctx.params.id,
+      )
 
-      return result
+      return { data: result }
     } catch (error) {
       console.error('Error in view-art controller:', error)
 

@@ -66,7 +66,6 @@ const DonationsPage = () => {
 
   const donations = donationsQuery?.data?.data as Donation[]
 
-
   const totalAmount =
     donations &&
     donations.reduce((acc, donation) => {
@@ -75,7 +74,6 @@ const DonationsPage = () => {
 
   const pageCount = donationsQuery?.data?.meta?.pagination?.pageCount || 0
   const totalCount = donationsQuery?.data?.meta?.pagination?.total || 0
-
 
   return (
     <AdminLayout seo={{ title: t('donations') }}>
@@ -97,7 +95,7 @@ const DonationsPage = () => {
         {donations && (
           <Flex justify={'end'}>
             <Box paddingY={2} paddingX={5} bg="white" shadow="base">
-              Total Paid: <Text as="b">{totalAmount}</Text>
+              {t('total')}: <Text as="b">{totalAmount.toFixed(2)} €</Text>
             </Box>
           </Flex>
         )}
