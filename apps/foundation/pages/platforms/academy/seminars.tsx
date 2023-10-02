@@ -11,16 +11,16 @@ import { Container, Hero, Markdown } from '@wsvvrijheid/ui'
 
 import { Layout } from '../../../components'
 
-export type SeminarProps = InferGetStaticPropsType<typeof getStaticProps>
+export type SeminarsProps = InferGetStaticPropsType<typeof getStaticProps>
 
-const SeminarPage: FC<SeminarProps> = ({ source }) => {
+const SeminarsPage: FC<SeminarsProps> = ({ source }) => {
   const { t } = useTranslation()
 
   const title = t('seminars')
 
   return (
     <Layout seo={{ title }} isDark>
-      <Hero image={'/images/software-card.jpeg'} />
+      <Hero image={'/images/seminar.jpeg'} />
       <Container>
         <Stack mb={4}>
           <Box>
@@ -37,7 +37,7 @@ const SeminarPage: FC<SeminarProps> = ({ source }) => {
   )
 }
 
-export default SeminarPage
+export default SeminarsPage
 
 export const getStaticProps = async (context: GetStaticPropsContext) => {
   const locale = context.locale as StrapiLocale
