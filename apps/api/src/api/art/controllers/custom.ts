@@ -1,6 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Context } from 'koa'
 import { checkRecaptcha, getProfile } from '../../../utils'
+import { errors } from '@strapi/utils'
+
+const { ApplicationError, ForbiddenError } = errors
 
 export default {
   async approve(ctx: Context) {
@@ -68,15 +71,24 @@ export default {
     return result
   },
   async view(ctx: Context) {
-    await checkRecaptcha(ctx)
+    try {
+      await checkRecaptcha(ctx)
 
-    const result = await strapi.db
-      .connection('arts')
-      .where('id', ctx.params.id)
-      .increment('views', 1)
+      const result = await strapi.db
+        .connection('arts')
+        .where('id', ctx.params.id)
+        .increment('views', 1)
 
-    console.log('result', result)
+      console.log('result', result)
 
-    return result
+      return result
+    } catch (error) {
+      console.error('Error in view-art controller:', error)
+
+      if (error instanceof ForbiddenError)
+        throw new ForbiddenError(error.message)
+
+      throw new ApplicationError(error.message)
+    }
   },
 }
