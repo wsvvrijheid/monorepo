@@ -7,7 +7,7 @@ const { ForbiddenError } = errors
 export const checkRecaptcha = async (context: Context) => {
   try {
     // Add your own logic here.
-    console.info('In check-recaptcha policy.')
+    strapi.log.info('In check-recaptcha policy.')
 
     const recaptchaToken = (context.request as any).body?.data?.recaptchaToken
 

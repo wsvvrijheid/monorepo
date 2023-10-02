@@ -4,11 +4,7 @@ import { useTranslation } from 'next-i18next'
 import { ReCaptchaProvider } from 'next-recaptcha-v3'
 
 import { RECAPTCHA_SITE_KEY } from '@wsvvrijheid/config'
-import {
-  useArtBySlug,
-  useArtsByCategories,
-  useViewArtMutation,
-} from '@wsvvrijheid/services'
+import { useArtBySlug, useArtsByCategories } from '@wsvvrijheid/services'
 
 import { ArtCardBase, ArtWithDetails, Container } from '../../components'
 
@@ -20,8 +16,6 @@ export const ArtTemplate = () => {
   const perPage = useBreakpointValue({ base: 1, sm: 2, md: 3, lg: 4 })
 
   const { data: art } = useArtBySlug()
-
-  useViewArtMutation()
 
   const categories = (art?.categories?.flatMap(
     (c: { slug: string }) => c.slug,

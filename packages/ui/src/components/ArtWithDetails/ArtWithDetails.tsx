@@ -4,7 +4,11 @@ import { Box, Grid, Stack } from '@chakra-ui/react'
 import { QueryKey } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
 
-import { useLikeArt, useStrapiRequest } from '@wsvvrijheid/services'
+import {
+  useLikeArt,
+  useStrapiRequest,
+  useViewArtMutation,
+} from '@wsvvrijheid/services'
 import { Art, Comment } from '@wsvvrijheid/types'
 
 import {
@@ -21,6 +25,7 @@ export type ArtWithDetailsProps = {
 
 export const ArtWithDetails: FC<ArtWithDetailsProps> = ({ art, queryKey }) => {
   const { toggleLike, isLiked, isLoading } = useLikeArt(art, queryKey)
+  useViewArtMutation()
 
   const { locale } = useRouter()
 
