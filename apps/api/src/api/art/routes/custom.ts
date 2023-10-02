@@ -7,17 +7,17 @@ export default {
     },
     {
       method: 'PUT',
-      path: '/arts/:id/like',
+      path: '/like-art/:id',
       handler: 'custom.like',
     },
     {
       method: 'PUT',
-      path: '/arts/:id/unlike',
+      path: '/unlike-art/:id',
       handler: 'custom.unlike',
     },
     {
       method: 'PUT',
-      path: '/arts/:id/view',
+      path: '/view-art/:id',
       handler: 'custom.view',
     },
   ],

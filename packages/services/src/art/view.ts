@@ -27,7 +27,7 @@ export const useViewArtMutation = () => {
     mutationKey: ['view-art', art?.id],
     mutationFn: (id: number) =>
       axios.put(
-        `${API_URL}/api/arts/${id}/view`,
+        `${API_URL}/api/view-art/${id}`,
         { data: { recaptchaToken } },
         { headers: { ...(token && { Authorization: `Bearer ${token}` }) } },
       ),

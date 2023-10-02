@@ -16,7 +16,7 @@ const useLikeArtMutation = () => {
     mutationKey: ['like-art'],
     mutationFn: ({ id, type }: { id: number; type: 'like' | 'unlike' }) =>
       axios.put(
-        `${API_URL}/api/arts/${id}/${type}`,
+        `${API_URL}/api/${type}-art/${id}`,
         { data: { recaptchaToken } },
         { headers: { ...(token && { Authorization: `Bearer ${token}` }) } },
       ),
