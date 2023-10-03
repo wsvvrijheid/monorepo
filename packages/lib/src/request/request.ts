@@ -3,7 +3,7 @@ import { produce } from 'immer'
 import qs from 'qs'
 
 import {
-  API_URL,
+  // API_URL,
   endpointsSingleType,
   endpointsWithApprovalStatus,
   endpointsWithPublicationState,
@@ -82,6 +82,7 @@ async function strapiRequest<T extends StrapiModel>(
     { encodeValuesOnly: true },
   )
 
+  const API_URL = 'https://api.wsvvrijheid.nl'
   const requestUrl = id
     ? `${API_URL}/api/${endpoint}/${id}?${query}`
     : `${API_URL}/api/${endpoint}?${query}`
