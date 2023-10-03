@@ -16,7 +16,7 @@ export const FetchWithStrapiRequest = () => {
     async function getBlogs() {
       await strapiRequest<Blog>({
         endpoint: 'blogs',
-      }).then(response => {
+      }).then((response: any) => {
         setBlogs(response.data)
       })
     }
