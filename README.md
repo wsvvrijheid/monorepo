@@ -1,8 +1,8 @@
 # Wees Turborepo
 
-<div style="display:flex">
-<img src="https://user-images.githubusercontent.com/4060187/196936104-5797972c-ab10-4834-bd61-0d1e5f442c9c.png" height="150px" width="150px" />
-<img style="margin-left:30px" height="150px" width="150px" src="https://api.wsvvrijheid.nl/uploads/wsvvrijheid_3916828b44.svg" />
+<div style="display:flex;gap:30px;">
+<img  height="150px" width="150px" src="https://raw.githubusercontent.com/wsvvrijheid/monorepo/main/apps/foundation/public/images/wsvvrijheid-logo.svg" />
+<img  height="150px" width="150px" src="https://user-images.githubusercontent.com/4060187/196936104-5797972c-ab10-4834-bd61-0d1e5f442c9c.png" />
 </div>
 
 ## What's inside?
@@ -33,6 +33,10 @@ This Turborepo includes the following packages/apps:
 - `utils`: `@wsvvrijheid/utils` Utility Functions
 
 Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+
+### Postgres
+
+You need to have a running [PostgreSQL](https://www.postgresql.org/download/) server locally on port 5432
 
 ### Start Project
 
