@@ -24,6 +24,7 @@ export const globalTypes: GlobalTypes = {
   locale: {
     name: 'Locale',
     description: 'Internationalization locale',
+    defaultValue: 'en',
     toolbar: {
       icon: 'globe',
       items: [
