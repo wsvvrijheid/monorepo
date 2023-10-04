@@ -7,7 +7,10 @@ import { useRouter } from 'next/router'
 import { API_URL } from '@wsvvrijheid/config'
 import { TOKEN } from '@wsvvrijheid/secrets'
 
-const BLOG_URL = `${API_URL}/api/blogs` // https://api.wsvvrijheid.nl/api/blogs?locale=tr
+// https://wsvv-api-staging.onrender.com/api/blogs?locale=tr
+// You can use local API_URL instead of the above url
+// yarn --cwd apps/api dev to run the api locally (http://localhost:1337)
+const BLOG_URL = `${API_URL}/api/blogs`
 
 export const FetcWithAxios = () => {
   const [blogs, setBlogs] = useState([])

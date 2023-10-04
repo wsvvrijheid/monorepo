@@ -24,9 +24,9 @@ export const kunsthalte = [
     label: 'Instagram',
     icon: FaInstagram,
     link: {
-      en: 'https://instagram.com/sanatduragi.nl',
-      tr: 'https://instagram.com/sanatduragi.nl',
-      nl: 'https://instagram.com/sanatduragi.nl',
+      en: 'https://instagram.com/kunsthalte',
+      tr: 'https://instagram.com/kunsthalte',
+      nl: 'https://instagram.com/kunsthalte',
     },
   },
 ]
