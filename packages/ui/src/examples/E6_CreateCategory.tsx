@@ -30,11 +30,18 @@ export const CreateCategory: FC<CreateCategoryWithAxiosProps> = ({
 
     // TODO: Provide category body
 
+    const categoryBody = {
+      slug,
+      name_en,
+      name_nl,
+      name_tr,
+    }
+
     if (fetcher === 'axios') {
-      // const response = await createCategoryWithAxios(categoryBody)
-      // blogs = response.data
+      const response = await createCategoryWithAxios(categoryBody)
+      blogs = response.data
     } else if (fetcher === 'mutation') {
-      // blogs = await createCategoryWithMutation(categoryBody)
+      blogs = await createCategoryWithMutation(categoryBody)
     }
 
     setCreatedCategory(blogs)
@@ -48,9 +55,20 @@ export const CreateCategory: FC<CreateCategoryWithAxiosProps> = ({
         <Input
           placeholder="Category name (en)"
           value={name_en}
-          onChange={e => setNameEn(e.target.value)}
+          onChange={(e: any) => setNameEn(e.target.value)}
         />
         {/* TODO: Add all inputs */}
+
+        <Input
+          placeholder="Category name (tr)"
+          value={name_tr}
+          onChange={(e: any) => setNameTr(e.target.value)}
+        />
+        <Input
+          placeholder="Category name (nl)"
+          value={name_nl}
+          onChange={(e: any) => setNameNl(e.target.value)}
+        />
 
         <Button onClick={handleSubmit}>Submit</Button>
       </Stack>
