@@ -12,5 +12,4 @@ export type DataTableProps<T extends StrapiModel> = {
   setCurrentPage: (page: number) => void
   children?: ReactNode
   setPageSize: (pageSize: number) => void
-  
 } & Pick<WTableProps<T>, 'data' | 'columns' | 'onClickRow' | 'onSort'>
