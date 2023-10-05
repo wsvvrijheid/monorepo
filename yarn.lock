@@ -14331,7 +14331,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-config-next@npm:^13.5.4":
+"eslint-config-next@npm:^13.5.3":
   version: 13.5.4
   resolution: "eslint-config-next@npm:13.5.4"
   dependencies:
@@ -21051,7 +21051,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"next@npm:^13.5.4":
+"next@npm:^13.5.3":
   version: 13.5.4
   resolution: "next@npm:13.5.4"
   dependencies:
@@ -28470,7 +28470,7 @@ page-flip@latest:
     date-fns-tz: ^2.0.0
     dotenv-cli: ^7.3.0
     eslint: ^8.50.0
-    eslint-config-next: ^13.5.4
+    eslint-config-next: ^13.5.3
     eslint-config-prettier: ^9.0.0
     eslint-config-turbo: ^1.10.15
     eslint-plugin-react: 7.33.2
@@ -28483,7 +28483,7 @@ page-flip@latest:
     jszip: ^3.10.1
     kill-port-process: ^3.2.0
     lodash: ^4.17.21
-    next: ^13.5.4
+    next: ^13.5.3
     next-i18next: ^14.0.3
     next-mdx-remote: ^4.4.1
     next-recaptcha-v3: ^1.2.0
