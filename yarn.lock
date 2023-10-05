@@ -7907,11 +7907,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@turbo/gen@npm:^1.10.14":
-  version: 1.10.14
-  resolution: "@turbo/gen@npm:1.10.14"
+"@turbo/gen@npm:^1.10.15":
+  version: 1.10.15
+  resolution: "@turbo/gen@npm:1.10.15"
   dependencies:
-    "@turbo/workspaces": 1.10.14
+    "@turbo/workspaces": 1.10.15
     chalk: 2.4.2
     commander: ^10.0.0
     fs-extra: ^10.1.0
@@ -7924,13 +7924,13 @@ __metadata:
     validate-npm-package-name: ^5.0.0
   bin:
     gen: dist/cli.js
-  checksum: 0812672314d9dbb95c65ca7d045f6622dba9315806ce9eb0177d081e03e95be3a98f87956cb587467a83c2db34c38bf36e18e889b1a26f8be04b7616716ae070
+  checksum: c52d7c0998a8c73d52d7b0202c913f7c51290984aee64f76cf491e3a1ae5474c11b863331f816de44c6d0f91f25bb14a2a012aa62213eda0f955ef2609cefe0b
   languageName: node
   linkType: hard
 
-"@turbo/workspaces@npm:1.10.14":
-  version: 1.10.14
-  resolution: "@turbo/workspaces@npm:1.10.14"
+"@turbo/workspaces@npm:1.10.15":
+  version: 1.10.15
+  resolution: "@turbo/workspaces@npm:1.10.15"
   dependencies:
     chalk: 2.4.2
     commander: ^10.0.0
@@ -7946,7 +7946,7 @@ __metadata:
     update-check: ^1.5.4
   bin:
     workspaces: dist/cli.js
-  checksum: 79183a39391e7305cb147993b464b042e4a51bb628c5e152714c4164818a6c28441ee38375639c8611edc4238e087aef9887b51442817b23f2415fc755d132bd
+  checksum: 435a8dcbb2991b3249d9909d4f8e23d9bf56592139cad0ed010552bcf98df4bb8a90e7537f5b7526ae9d1ade6d1ad374e3d9ada45ccc28edfdcb46e9aa50ba4c
   languageName: node
   linkType: hard
 
@@ -14365,14 +14365,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-config-turbo@npm:^1.10.14":
-  version: 1.10.14
-  resolution: "eslint-config-turbo@npm:1.10.14"
+"eslint-config-turbo@npm:^1.10.15":
+  version: 1.10.15
+  resolution: "eslint-config-turbo@npm:1.10.15"
   dependencies:
-    eslint-plugin-turbo: 1.10.14
+    eslint-plugin-turbo: 1.10.15
   peerDependencies:
     eslint: ">6.6.0"
-  checksum: 8bcc6ecb97fbfd4d58b08ddef1817c91f64150e8f5d94000a7b500f7d925424b2ee5d1b7f40c0075e3023eba89188e4f0152345a729414584678bc7703395580
+  checksum: c48f12da65f62d29865f0b377492f3dad4d2c3e950d20629febf68e82eae20fec981fb1cda3ba72d57ee3b40ada47284821d630b3d5de7b19713e3dc923f6501
   languageName: node
   linkType: hard
 
@@ -14506,14 +14506,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-turbo@npm:1.10.14":
-  version: 1.10.14
-  resolution: "eslint-plugin-turbo@npm:1.10.14"
+"eslint-plugin-turbo@npm:1.10.15":
+  version: 1.10.15
+  resolution: "eslint-plugin-turbo@npm:1.10.15"
   dependencies:
     dotenv: 16.0.3
   peerDependencies:
     eslint: ">6.6.0"
-  checksum: 11d38c4eb73503a9bf896271dc712ef72555869b35856dd7810cc5bfe2ebe5e16af395fcb8202ed8d321dd04af4f9f4d0f94be01523dddb7a0327bdf9bf014dc
+  checksum: 51ffd874dd206ed2151067267fb7a75c42e8505584c9edb7029b336bd3175444f1054e87ff9f2e8dfaeb0aff93eafa5726cd157217ad3b6f320570a21f14a5b1
   languageName: node
   linkType: hard
 
@@ -27009,58 +27009,58 @@ page-flip@latest:
   languageName: node
   linkType: hard
 
-"turbo-darwin-64@npm:1.10.14":
-  version: 1.10.14
-  resolution: "turbo-darwin-64@npm:1.10.14"
+"turbo-darwin-64@npm:1.10.15":
+  version: 1.10.15
+  resolution: "turbo-darwin-64@npm:1.10.15"
   conditions: os=darwin & cpu=x64
   languageName: node
   linkType: hard
 
-"turbo-darwin-arm64@npm:1.10.14":
-  version: 1.10.14
-  resolution: "turbo-darwin-arm64@npm:1.10.14"
+"turbo-darwin-arm64@npm:1.10.15":
+  version: 1.10.15
+  resolution: "turbo-darwin-arm64@npm:1.10.15"
   conditions: os=darwin & cpu=arm64
   languageName: node
   linkType: hard
 
-"turbo-linux-64@npm:1.10.14":
-  version: 1.10.14
-  resolution: "turbo-linux-64@npm:1.10.14"
+"turbo-linux-64@npm:1.10.15":
+  version: 1.10.15
+  resolution: "turbo-linux-64@npm:1.10.15"
   conditions: os=linux & cpu=x64
   languageName: node
   linkType: hard
 
-"turbo-linux-arm64@npm:1.10.14":
-  version: 1.10.14
-  resolution: "turbo-linux-arm64@npm:1.10.14"
+"turbo-linux-arm64@npm:1.10.15":
+  version: 1.10.15
+  resolution: "turbo-linux-arm64@npm:1.10.15"
   conditions: os=linux & cpu=arm64
   languageName: node
   linkType: hard
 
-"turbo-windows-64@npm:1.10.14":
-  version: 1.10.14
-  resolution: "turbo-windows-64@npm:1.10.14"
+"turbo-windows-64@npm:1.10.15":
+  version: 1.10.15
+  resolution: "turbo-windows-64@npm:1.10.15"
   conditions: os=win32 & cpu=x64
   languageName: node
   linkType: hard
 
-"turbo-windows-arm64@npm:1.10.14":
-  version: 1.10.14
-  resolution: "turbo-windows-arm64@npm:1.10.14"
+"turbo-windows-arm64@npm:1.10.15":
+  version: 1.10.15
+  resolution: "turbo-windows-arm64@npm:1.10.15"
   conditions: os=win32 & cpu=arm64
   languageName: node
   linkType: hard
 
-"turbo@npm:^1.10.14":
-  version: 1.10.14
-  resolution: "turbo@npm:1.10.14"
+"turbo@npm:^1.10.15":
+  version: 1.10.15
+  resolution: "turbo@npm:1.10.15"
   dependencies:
-    turbo-darwin-64: 1.10.14
-    turbo-darwin-arm64: 1.10.14
-    turbo-linux-64: 1.10.14
-    turbo-linux-arm64: 1.10.14
-    turbo-windows-64: 1.10.14
-    turbo-windows-arm64: 1.10.14
+    turbo-darwin-64: 1.10.15
+    turbo-darwin-arm64: 1.10.15
+    turbo-linux-64: 1.10.15
+    turbo-linux-arm64: 1.10.15
+    turbo-windows-64: 1.10.15
+    turbo-windows-arm64: 1.10.15
   dependenciesMeta:
     turbo-darwin-64:
       optional: true
@@ -27076,7 +27076,7 @@ page-flip@latest:
       optional: true
   bin:
     turbo: bin/turbo
-  checksum: 219d245bb5cc32a9f76b136b81e86e179228d93a44cab4df3e3d487a55dd2688b5b85f4d585b66568ac53166145352399dd2d7ed0cd47f1aae63d08beb814ebb
+  checksum: b494c8bf79355874919e76ee0e4a0a53616e0ae5c7126eb1add50e67d4cd1e445ed9aecf99cb6d81c592b7a43ba91cd7dbf30df70410a44cecedba8b5126095d
   languageName: node
   linkType: hard
 
@@ -28437,7 +28437,7 @@ page-flip@latest:
     "@storybook/types": ^7.4.6
     "@tanstack/react-query": ^4.35.7
     "@tanstack/react-query-devtools": ^4.35.7
-    "@turbo/gen": ^1.10.14
+    "@turbo/gen": ^1.10.15
     "@types/file-saver": ^2.0.5
     "@types/node": ^20.8.2
     "@types/react": 18.2.25
@@ -28473,7 +28473,7 @@ page-flip@latest:
     eslint: ^8.50.0
     eslint-config-next: ^13.5.3
     eslint-config-prettier: ^9.0.0
-    eslint-config-turbo: ^1.10.14
+    eslint-config-turbo: ^1.10.15
     eslint-plugin-react: 7.33.2
     file-saver: ^2.0.5
     framer-motion: ^10.16.4
@@ -28516,7 +28516,7 @@ page-flip@latest:
     string-similarity: ^4.0.4
     stripe: ^13.8.0
     tesseract.js: ^5.0.2
-    turbo: ^1.10.14
+    turbo: ^1.10.15
     twitter-api-v2: ^1.15.1
     twitter-text: ^3.1.0
     type-fest: ^4.3.3
