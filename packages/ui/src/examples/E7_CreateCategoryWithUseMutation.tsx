@@ -18,9 +18,14 @@ export const CreateCategoryWithUseMutation = () => {
 
   useEffect(() => {
     // TODO: Update slug with slugify on name_en change
-  }, [])
+    setSlug(slugify(name_en ?? ''))
+  }, [name_en])
 
-  const { mutate, data, isLoading } = useMutation({
+  const {
+    mutate: setCategory,
+    data,
+    isLoading,
+  } = useMutation({
     mutationKey: ['create-category'],
     mutationFn: (data: CategoryCreateInput) => createCategoryWithMutation(data),
   })
@@ -29,6 +34,14 @@ export const CreateCategoryWithUseMutation = () => {
     e.preventDefault()
 
     // TODO: Call mutate with category body
+
+    const categoryBody = {
+      slug,
+      name_en,
+      name_nl,
+      name_tr,
+    }
+    return setCategory(categoryBody)
   }
 
   return (
@@ -39,10 +52,20 @@ export const CreateCategoryWithUseMutation = () => {
           <Input
             placeholder="Category name (en)"
             value={name_en}
-            onChange={e => setNameEn(e.target.value)}
+            onChange={(e: any) => setNameEn(e.target.value)}
           />
           {/* TODO: Add all inputs */}
 
+          <Input
+            placeholder="Category name (tr)"
+            value={name_tr}
+            onChange={(e: any) => setNameTr(e.target.value)}
+          />
+          <Input
+            placeholder="Category name (nl)"
+            value={name_nl}
+            onChange={(e: any) => setNameNl(e.target.value)}
+          />
           <Button
             isLoading={isLoading}
             loadingText={'Creating...'}
