@@ -20,7 +20,9 @@ export const HeaderNav: FC<HeaderNavProps> = ({
         return <HeaderNavItem key={i} item={item} isDark={isDark} />
       })}
       <Navigate href={'/donation'}>
-        <Button size={'sm'}>{t('donation.title')}</Button>
+        <Button variant={'outline'} size={'sm'}>
+          {t('donation.title')}
+        </Button>
       </Navigate>
     </Stack>
   )

@@ -78,6 +78,7 @@
     "react-medium-image-zoom": "^5.1.8",
     "react-pageflip": "^2.0.3",
     "react-player": "^2.13.0",
+    "react-qr-code": "^2.0.12",
     "react-use": "^17.4.0",
     "recharts": "^2.8.0",
     "remove-markdown": "^0.5.0",

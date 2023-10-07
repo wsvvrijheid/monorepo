@@ -9,6 +9,9 @@ const assetUrls: Record<string, string> = {
   preview: 'https://wsvv-api-staging.onrender.com',
 }
 
+export const DONATION_REQUEST_LINK = process.env[
+  'NEXT_PUBLIC_DONATION_REQUEST_LINK'
+] as string
 export const ADMIN_MODE = process.env['NEXT_PUBLIC_ADMIN_MODE'] === 'true'
 export const API_URL = process.env['NEXT_PUBLIC_API_URL'] as string
 export const ASSETS_URL = assetUrls.production
