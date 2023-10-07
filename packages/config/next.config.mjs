@@ -15,6 +15,13 @@ const nextConfig = {
     defaultLocale: 'en',
     locales: ['en', 'nl', 'tr'],
   },
+  redirects: async () => [
+    {
+      source: '/donate',
+      destination: '/donation',
+      permanent: true,
+    },
+  ],
   images: {
     deviceSizes: [320, 480, 720, 1080],
     imageSizes: [150],
