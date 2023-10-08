@@ -3,7 +3,7 @@ import { addHours } from 'date-fns'
 import { getTwitterClient } from '../../src/libs'
 import { mapTweetResponseToTweet } from '../../src/utils'
 
-export default async ({ strapi }) => {
+export default async () => {
   // Consider server timezone
   const date = addHours(new Date(), -6)
 
