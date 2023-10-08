@@ -1,6 +1,6 @@
 import { getTwitterClient } from '../../src/libs'
 
-export default async ({ strapi }) => {
+export default async () => {
   try {
     const woeids = {
       en: 1,

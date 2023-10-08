@@ -1,13 +1,12 @@
-import { Timeline } from '@wsvvrijheid/types'
 import { ApifyClient } from 'apify-client'
 
-export default async ({ strapi }) => {
+export default async () => {
   const locales = ['en', 'nl', 'tr']
   try {
-    const timelinePromise = await Promise.all<Timeline>(
+    const timelinePromise = await Promise.all(
       locales.map(locale => {
         return strapi.entityService.findMany('api::timeline.timeline', {
-          locale,
+          filters: { locale },
         })
       }),
     )

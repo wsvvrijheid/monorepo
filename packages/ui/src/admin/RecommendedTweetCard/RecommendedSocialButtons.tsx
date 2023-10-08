@@ -111,7 +111,6 @@ export const RecommendedSocialButtons: FC<RecommendedSocialButtonsProps> = ({
               onClick={() => null}
               icon={<AiOutlineShareAlt />}
               title="Share"
-              isVertical={isVertical}
               variant="ghost"
               size="sm"
             />
@@ -140,7 +139,6 @@ export const RecommendedSocialButtons: FC<RecommendedSocialButtonsProps> = ({
           iconSpacing: isVertical ? 0 : 2,
           variant: 'ghost',
           colorScheme: 'gray',
-          size: 'sm',
         }}
       >
         {!isVertical && t('create-post')}
@@ -148,11 +146,10 @@ export const RecommendedSocialButtons: FC<RecommendedSocialButtonsProps> = ({
 
       <ActionButton
         onClick={onDelete}
-        icon={<AiFillDelete color={'red'} />}
+        icon={<AiFillDelete />}
         title="Delete"
-        isVertical={isVertical}
         variant="ghost"
-        size="sm"
+        colorScheme="gray"
       />
     </HStack>
   )

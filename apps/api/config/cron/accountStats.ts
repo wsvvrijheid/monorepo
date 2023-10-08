@@ -2,7 +2,7 @@ import { format } from 'date-fns'
 
 import { getAccountStats } from '../../src/libs'
 
-export default async ({ strapi }) => {
+export default async () => {
   try {
     const accounts = process.env['STATS_ACCOUNTS']
 

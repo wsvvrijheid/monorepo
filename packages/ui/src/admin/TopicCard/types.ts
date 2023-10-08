@@ -12,5 +12,4 @@ export type ActionButtonProps = {
   onClick: () => void
   title: string
   icon: ReactElement
-  isVertical?: boolean
 } & ButtonProps

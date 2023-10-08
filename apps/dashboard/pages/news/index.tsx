@@ -131,9 +131,43 @@ const NewsPage = () => {
     })}`
 
   const keywords = {
-    tr: ['insan hakları', 'işkence', 'adalet', 'özgürlük'],
-    en: ['human rights', 'torture', 'justice', 'freedom'],
-    nl: ['mensenrechten', 'marteling', 'gerechtigheid', 'vrijheid'],
+    tr: [
+      'insan hakları',
+      'işkence',
+      'adalet',
+      'özgürlük',
+      'hukuk',
+      'haklar',
+      'eşitlik',
+      'demokrasi',
+      'barış',
+      'saygı',
+    ],
+    en: [
+      'human rights',
+      'torture',
+      'justice',
+      'freedom',
+      'liberty',
+      'law',
+      'rights',
+      'equality',
+      'democracy',
+      'peace',
+      'respect',
+    ],
+    nl: [
+      'mensenrechten',
+      'marteling',
+      'gerechtigheid',
+      'vrijheid',
+      'wet',
+      'rechten',
+      'gelijkheid',
+      'democratie',
+      'vrede',
+      'respect',
+    ],
   }
 
   return (
@@ -144,15 +178,17 @@ const NewsPage = () => {
         filterMenu={filterMenu}
         filterMenuCloseOnSelect={false}
       >
-        <Tooltip label={syncedStr} hasArrow bg="primary.400">
-          <IconButton
-            aria-label="Sync news"
-            isLoading={syncTopic.isLoading}
-            onClick={() => syncTopic.mutate()}
-            isDisabled={!isAdmin && (!canSync || syncTopic.isLoading)}
-            icon={<FaSyncAlt />}
-          />
-        </Tooltip>
+        {isAdmin && (
+          <Tooltip label={syncedStr} hasArrow bg="primary.400">
+            <IconButton
+              aria-label="Sync news"
+              isLoading={syncTopic.isLoading}
+              onClick={() => syncTopic.mutate()}
+              isDisabled={!isAdmin && (!canSync || syncTopic.isLoading)}
+              icon={<FaSyncAlt />}
+            />
+          </Tooltip>
+        )}
       </PageHeader>
       <Box overflow={'hidden'} flexShrink={0}>
         <Box overflowX={'auto'}>
