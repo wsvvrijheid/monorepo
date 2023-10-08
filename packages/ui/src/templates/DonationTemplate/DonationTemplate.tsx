@@ -30,7 +30,7 @@ import axios from 'axios'
 import { useTranslation } from 'next-i18next'
 import { useForm } from 'react-hook-form'
 import { AiOutlineEuroCircle } from 'react-icons/ai'
-import { FaDonate, FaExternalLinkAlt, FaLink } from 'react-icons/fa'
+import { FaDonate, FaExternalLinkAlt } from 'react-icons/fa'
 import QRCode from 'react-qr-code'
 import * as yup from 'yup'
 
