@@ -23,20 +23,23 @@ export const CreateCategoryWithHookForm = () => {
 
   useEffect(() => {
     // TODO: Update slug with slugify on name_en change
-  }, [])
+    setValue('slug', slugify(name_en ?? ''))
+  }, [name_en])
 
   const onSubmit = async (data: CategoryCreateInput) => {
-    const body = { ...data, slug: slugify(data.name_en ?? '') }
+    // const body = { ...data, slug: slugify(data.name_en ?? '') }  // Line26'da setValue kullanildigi icin bu satira gerek kalmadigini dusunuyorum.
 
-    mutate(body)
+    mutate(data)
   }
 
   return (
     <Stack>
       <Code as={'pre'}>{JSON.stringify(data, null, 2)}</Code>
       <Stack as={'form'} onSubmit={handleSubmit(onSubmit)}>
-        <Input placeholder="Category name (tr)" {...register('name_en')} />
+        <Input placeholder="Category name (en)" {...register('name_en')} />
         {/* TODO: Add all inputs */}
+        <Input placeholder="Category name (tr)" {...register('name_tr')} />
+        <Input placeholder="Category name (nl)" {...register('name_nl')} />
 
         <Button
           type={'submit'}
