@@ -16,6 +16,9 @@ import { FormItem } from '../components'
 const schema = yup.object().shape({
   name_en: yup.string().required(),
   // TODO: Add all inputs
+  name_tr: yup.string(),
+  name_nl: yup.string(),
+  slug: yup.string().required(),
 })
 
 export const CreateCategoryWithValidation = () => {
@@ -26,7 +29,7 @@ export const CreateCategoryWithValidation = () => {
     setValue,
     formState: { errors },
   } = useForm<CategoryCreateInput>({
-    // resolver: yupResolver(schema),
+    resolver: yupResolver(schema),
   })
 
   const { mutate, data, isLoading } = useMutation({
@@ -38,7 +41,8 @@ export const CreateCategoryWithValidation = () => {
 
   useEffect(() => {
     // TODO: Update slug with slugify on name_en change
-  }, [])
+    setValue('slug', slugify(name_en ?? ''))
+  }, [name_en])
 
   const onSubmit = async (data: CategoryCreateInput) => {
     mutate(data)
@@ -55,6 +59,18 @@ export const CreateCategoryWithValidation = () => {
           errors={errors}
         />
         {/* TODO: Add all inputs */}
+        <FormItem
+          placeholder="Category name (tr)"
+          name="name_tr"
+          register={register}
+          errors={errors}
+        />
+        <FormItem
+          placeholder="Category name (nl)"
+          name="name_nl"
+          register={register}
+          errors={errors}
+        />
 
         <Button
           type={'submit'}
