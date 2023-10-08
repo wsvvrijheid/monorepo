@@ -16,7 +16,11 @@ import { FormItem } from '../components'
 const schema = yup.object().shape({
   name_en: yup.string().required(),
   // TODO: Add all inputs
+  name_nl: yup.string().required(),
+  name_tr: yup.string().required(),
 })
+
+type CategoryFormFields = yup.InferType<typeof schema>
 
 export const CreateCategoryWithValidation = () => {
   const {
@@ -25,8 +29,8 @@ export const CreateCategoryWithValidation = () => {
     watch,
     setValue,
     formState: { errors },
-  } = useForm<CategoryCreateInput>({
-    // resolver: yupResolver(schema),
+  } = useForm<CategoryFormFields>({
+    resolver: yupResolver(schema),
   })
 
   const { mutate, data, isLoading } = useMutation({
@@ -35,13 +39,17 @@ export const CreateCategoryWithValidation = () => {
   })
 
   const name_en = watch('name_en')
+  const name_tr = watch('name_tr')
+  const name_nl = watch('name_nl')
 
   useEffect(() => {
     // TODO: Update slug with slugify on name_en change
-  }, [])
+    setValue("name_en", slugify(name_en ?? ''))
+  }, [name_en, setValue])
 
-  const onSubmit = async (data: CategoryCreateInput) => {
-    mutate(data)
+  const onSubmit = async (data: CategoryFormFields) => {
+    const body = { ...data, slug: slugify(data.name_en ?? '') }
+    mutate(body)
   }
 
   return (
@@ -55,6 +63,18 @@ export const CreateCategoryWithValidation = () => {
           errors={errors}
         />
         {/* TODO: Add all inputs */}
+        <FormItem
+          placeholder="Category name (nl)"
+          name="name_nl"
+          register={register}
+          errors={errors}
+        />
+        <FormItem
+          placeholder="Category name (tr)"
+          name="name_tr"
+          register={register}
+          errors={errors}
+        />
 
         <Button
           type={'submit'}
