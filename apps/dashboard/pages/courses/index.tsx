@@ -1,10 +1,9 @@
 import { useState } from 'react'
 
-import { MenuItem, useUpdateEffect } from '@chakra-ui/react'
+import { useUpdateEffect } from '@chakra-ui/react'
 import { GetStaticPropsContext } from 'next'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
-import { FaArrowDown, FaArrowUp } from 'react-icons/fa'
 
 import { useStrapiRequest } from '@wsvvrijheid/services'
 import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
@@ -68,17 +67,7 @@ const CoursesPage = () => {
 
   return (
     <AdminLayout seo={{ title: t('courses') }}>
-      <PageHeader
-        onSearch={handleSearch}
-        sortMenu={[
-          <MenuItem key="asc" icon={<FaArrowUp />}>
-            Name Asc
-          </MenuItem>,
-          <MenuItem key="desc" icon={<FaArrowDown />}>
-            Name Desc
-          </MenuItem>,
-        ]}
-      />
+      <PageHeader onSearch={handleSearch} />
 
       <DataTable<Course>
         columns={columns.courses!}
