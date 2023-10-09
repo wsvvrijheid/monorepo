@@ -66,7 +66,7 @@ export const JoinForm: FC<JoinFormProps> = ({
         {t('apply-form.title')}
       </Heading>
       <Stack direction={{ base: 'column', md: 'row' }} spacing={4}>
-        <FormItem<JoinFormFieldValues>
+        <FormItem
           register={register}
           id="name"
           name="name"
