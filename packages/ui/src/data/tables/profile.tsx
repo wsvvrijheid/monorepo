@@ -1,4 +1,5 @@
 import { ThemeTypings } from '@chakra-ui/react'
+import { useTranslation } from 'next-i18next'
 
 import { Platform, Profile, Role, RoleName, User } from '@wsvvrijheid/types'
 
@@ -7,9 +8,20 @@ import { WTableProps } from '../../components'
 export const useProfileColumns = (): WTableProps<
   Profile & { role: Role }
 >['columns'] => {
+  const { t } = useTranslation()
+
   return {
     avatar: {
       type: 'image',
+    },
+    isVolunteer: {
+      label: 'volunteer',
+      type: 'badge',
+      transform: value => (value ? t('volunteer') : null),
+      componentProps: {
+        colorScheme: 'primary',
+        variant: 'outline',
+      },
     },
     user: {
       label: 'role',

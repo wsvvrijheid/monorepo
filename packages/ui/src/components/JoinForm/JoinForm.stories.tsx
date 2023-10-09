@@ -21,7 +21,7 @@ export default {
 
 type Story = StoryObj<typeof JoinForm>
 
-const StoryWithHook: StoryFn<JoinFormProps> = args => {
+const StoryWithHook: StoryFn<JoinFormProps> = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const platforms = PLATFORM_MOCKS.data

@@ -5,8 +5,10 @@ import {
   IconButton,
   Menu,
   MenuButton,
+  MenuDivider,
   MenuList,
   Spacer,
+  Stack,
 } from '@chakra-ui/react'
 import { useTranslation } from 'next-i18next'
 import { HiOutlineFilter } from 'react-icons/hi'
@@ -74,7 +76,23 @@ export const PageHeader: FC<PageHeaderProps> = ({
             rounded="full"
             colorScheme="gray"
           />
-          <MenuList>{filterMenu}</MenuList>
+          <MenuList
+            as={Stack}
+            divider={<MenuDivider />}
+            sx={{
+              '.chakra-menu__group': {
+                maxH: 200,
+                overflowY: 'auto',
+              },
+              '.chakra-menu__group__title': {
+                position: 'sticky',
+                top: 0,
+                bg: 'white',
+              },
+            }}
+          >
+            {filterMenu}
+          </MenuList>
         </Menu>
       )}
 
