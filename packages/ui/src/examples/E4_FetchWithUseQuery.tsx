@@ -18,6 +18,7 @@ import { ASSETS_URL } from '@wsvvrijheid/config'
 import { TOKEN } from '@wsvvrijheid/secrets'
 import { Blog, StrapiCollectionResponse } from '@wsvvrijheid/types'
 import { sleep } from '@wsvvrijheid/utils'
+import { useStrapiRequest } from '@wsvvrijheid/services'
 
 // TODO: Add this to `packages/ui/.env` as NEXT_PUBLIC_API_URL
 const STAGING_API_URL = 'https://wsvv-api-staging.onrender.com'
@@ -47,11 +48,17 @@ export const FetchWithUseQuery = () => {
     await sleep(2000)
 
     // TODO: Replace with strapiRequest
-    return axios<StrapiCollectionResponse<Blog[]>>(BLOG_URL, {
-      params: { locale: 'tr', populate: 'image' },
-      headers: {
-        Authorization: `Bearer ${TOKEN}`,
-      },
+    // return axios<StrapiCollectionResponse<Blog[]>>(BLOG_URL, {
+    //   params: { locale: 'tr', populate: 'image' },
+    //   headers: {
+    //     Authorization: `Bearer ${TOKEN}`,
+    //   },
+    // })
+
+    return useStrapiRequest<Blog>({
+      endpoint: 'blogs',
+      locale: 'tr',
+      populate: 'image',
     })
   }
 
