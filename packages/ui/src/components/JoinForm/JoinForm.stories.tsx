@@ -1,13 +1,11 @@
 import { useState } from 'react'
 
 import { Meta, StoryFn, StoryObj } from '@storybook/react'
-import { useRouter } from 'next/router'
 
 import { JOB_MOCKS, PLATFORM_MOCKS } from '@wsvvrijheid/mocks'
-import { Job } from '@wsvvrijheid/types'
 
 import { JoinForm } from './JoinForm'
-import { JoinFormFieldValues, JoinFormFProps } from './types'
+import { JoinFormFieldValues, JoinFormProps } from './types'
 
 export default {
   title: 'Forms/JoinForm',
@@ -23,13 +21,10 @@ export default {
 
 type Story = StoryObj<typeof JoinForm>
 
-const StoryWithHook: StoryFn<JoinFormFProps> = args => {
+const StoryWithHook: StoryFn<JoinFormProps> = args => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
-  const { locale } = useRouter()
-
   const platforms = PLATFORM_MOCKS.data
-  const jobs = JOB_MOCKS.data as Job[]
   const onSubmit = (data: JoinFormFieldValues) => {
     setIsLoading(true)
     setTimeout(() => {
@@ -41,11 +36,9 @@ const StoryWithHook: StoryFn<JoinFormFProps> = args => {
 
   return (
     <JoinForm
-      locale={args.locale || locale}
       onSubmitHandler={onSubmit}
       isLoading={isLoading}
       platforms={platforms}
-      jobs={jobs}
     />
   )
 }

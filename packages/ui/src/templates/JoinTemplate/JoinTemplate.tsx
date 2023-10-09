@@ -62,6 +62,7 @@ export const JoinTemplate: FC<JoinTemplateProps> = ({ title }) => {
         availableHours,
         heardFrom,
         jobs,
+        isVolunteer: true,
       }
 
       mutate(body, {
@@ -115,7 +116,6 @@ export const JoinTemplate: FC<JoinTemplateProps> = ({ title }) => {
                 onSubmitHandler={onSubmit}
                 isLoading={isLoading}
                 platforms={platforms}
-                locale={locale || 'en'}
               />
             </Box>
 

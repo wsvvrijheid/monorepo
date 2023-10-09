@@ -24,7 +24,7 @@ export const joinSchema = () => {
     age: yup.number().required(),
     city: yup.string().required(),
     email: yup.string().email().required(),
-    phone: yup.string().required(),
+    phone: yup.string(),
     occupation: yup.string(),
     comment: yup.string(),
     inMailingList: yup.boolean(),
