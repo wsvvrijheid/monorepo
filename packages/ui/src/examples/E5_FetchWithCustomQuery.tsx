@@ -3,35 +3,23 @@
 import { useState } from 'react'
 
 import { Input, Stack } from '@chakra-ui/react'
-import { QueryClient, useQuery } from '@tanstack/react-query'
+import { useQuery } from '@tanstack/react-query'
 import { Blog, StrapiCollectionResponse } from '@wsvvrijheid/types'
-import { RequestCollectionArgs, strapiRequest } from '@wsvvrijheid/lib'
+import { strapiRequest } from '@wsvvrijheid/lib'
 
 const fetchBlogs = async (title?: string) => {
   // TODO: Use strapiRequest
   // TODO: Add title filter
   // TODO: Return blogs array instead of StrapiCollectionResponse ({data, meta})
 
-  const queryClient = new QueryClient()
-
-  const args: RequestCollectionArgs = {
+  const response = await strapiRequest<Blog>({
     endpoint: 'blogs',
     locale: 'tr',
-    // sort: ['date:desc'],
-    filters: {
-      title: { $containsi: title },
-    },
-    // pageSize: 1,
-  }
+    populate: 'image',
+    filters: { title: { $containsi: title } },
+  })
 
-  const queryKey = Object.values(args)
-
-  await queryClient.prefetchQuery(queryKey, () => strapiRequest<Blog>(args))
-
-  const blogsResponse =
-    queryClient.getQueryData<StrapiCollectionResponse<Blog[]>>(queryKey)
-
-  return blogsResponse?.data
+  return response?.data
 }
 
 const useBlogsQuery = (title?: string) => {
