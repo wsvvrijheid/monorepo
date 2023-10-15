@@ -15,13 +15,15 @@ import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 
 import { ASSETS_URL } from '@wsvvrijheid/config'
+import { API_URL } from '@wsvvrijheid/config'
+import { strapiRequest } from '@wsvvrijheid/lib'
 import { TOKEN } from '@wsvvrijheid/secrets'
 import { Blog, StrapiCollectionResponse } from '@wsvvrijheid/types'
 import { sleep } from '@wsvvrijheid/utils'
 
 // TODO: Add this to `packages/ui/.env` as NEXT_PUBLIC_API_URL
-const STAGING_API_URL = 'https://wsvv-api-staging.onrender.com'
-const BLOG_URL = `${STAGING_API_URL}/api/blogs`
+// const STAGING_API_URL = 'https://wsvv-api-staging.onrender.com'
+const BLOG_URL = `${API_URL}/api/blogs`
 
 type ExampleBlogCardProps = {
   blog: Blog
@@ -47,12 +49,14 @@ export const FetchWithUseQuery = () => {
     await sleep(2000)
 
     // TODO: Replace with strapiRequest
-    return axios<StrapiCollectionResponse<Blog[]>>(BLOG_URL, {
-      params: { locale: 'tr', populate: 'image' },
-      headers: {
-        Authorization: `Bearer ${TOKEN}`,
-      },
-    })
+    // return axios<StrapiCollectionResponse<Blog[]>>(BLOG_URL, {
+    //   params: { locale: 'tr', populate: 'image' },
+    //   headers: {
+    //     Authorization: `Bearer ${TOKEN}`,
+    //   },
+    // })
+    return strapiRequest<Blog>({ "endpoint": "blogs", locale: "tr", populate: "image" })
+    // .then(res => console.log(res))
   }
 
   // const blogsQuery = useQuery(['blogs'], fetchBlogs)
@@ -67,7 +71,7 @@ export const FetchWithUseQuery = () => {
     <Stack>
       {isLoaded ? (
         <SimpleGrid gap={4} columns={{ base: 2, lg: 3 }}>
-          {data?.data?.data?.map(blog => (
+          {data?.data?.map(blog => (
             <ExampleBlogCard key={blog.id} blog={blog} />
           ))}
         </SimpleGrid>
