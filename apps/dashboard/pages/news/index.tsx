@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useMemo, useState } from 'react'
 
 import {
   Box,
@@ -12,100 +12,58 @@ import {
   Spinner,
   Tooltip,
 } from '@chakra-ui/react'
-import { addHours, formatDistanceToNow, isPast } from 'date-fns'
+import { addMinutes, formatDistanceToNow, isPast } from 'date-fns'
 import { GetStaticPropsContext } from 'next'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { AiOutlineClear } from 'react-icons/ai'
-import { FaArrowDown, FaArrowUp, FaSyncAlt } from 'react-icons/fa'
+import { FaSyncAlt } from 'react-icons/fa'
 
-import { useAuthContext } from '@wsvvrijheid/context'
 import { useTopic, useTopicSync } from '@wsvvrijheid/services'
 import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
-import { StrapiLocale, TopicBase } from '@wsvvrijheid/types'
+import { StrapiLocale } from '@wsvvrijheid/types'
 import { AdminLayout, PageHeader, TopicCard } from '@wsvvrijheid/ui'
 
 const NewsPage = () => {
   const { data, isLoading } = useTopic()
   const syncTopic = useTopicSync()
-  const [sources, setSources] = useState<string[]>([])
   const [filter, setFilter] = useState<string[]>([])
-  const [topics, setTopics] = useState<TopicBase[]>([])
   const [searchTerm, setSearchTerm] = useState<string>()
-  const [sortDirection, setSortDirection] = useState<'DESC' | 'ASC'>('DESC')
-  const { roles } = useAuthContext()
 
   const { t } = useTranslation()
-
-  const isAdmin = roles?.includes('admin')
 
   const router = useRouter()
   const locale = router.locale
 
-  const search = useCallback(
-    (topics: TopicBase[]) => {
-      const results: TopicBase[] = []
-      const keywords = searchTerm?.split(' ') || []
-      const searchRegex = new RegExp(keywords.join('|'), 'gi')
+  const { topics, publishers } = useMemo(() => {
+    const topicsInLocale = data?.data?.filter(d => d.locale === locale) || []
 
-      topics?.forEach(topicBase => {
-        if (Object.values(topicBase).join(' ').match(searchRegex)) {
-          results.push(topicBase)
-        }
-      })
-
-      return results
-    },
-    [searchTerm],
-  )
-
-  const sortFn = useCallback(
-    (a: TopicBase, b: TopicBase) => {
-      const now = new Date()
-      if (sortDirection === 'ASC') {
-        return (
-          new Date(a.time ?? now).getTime() - new Date(b.time ?? now).getTime()
-        )
-      } else {
-        return (
-          new Date(b.time ?? now).getTime() - new Date(a.time ?? now).getTime()
-        )
-      }
-    },
-    [sortDirection],
-  )
-
-  useEffect(() => {
-    const localeData = data?.data?.filter(d => d.locale === locale) || []
-
-    const filteredData = localeData?.filter(d =>
+    const filteredResult = topicsInLocale?.filter(d =>
       filter.length > 0 ? filter.includes(d.publisher) : true,
     )
 
-    const sources = localeData
+    const publishersResult = topicsInLocale
       ?.map(d => d.publisher)
       .filter((v, i, a) => a.indexOf(v) === i)
 
-    setSources(sources)
+    if (searchTerm) {
+      const keywords = searchTerm?.split(' ') || []
+      const searchRegex = new RegExp(keywords.join('|'), 'gi')
 
-    setTopics((searchTerm ? search(filteredData) : filteredData)?.sort(sortFn))
-  }, [data, filter, locale, search, searchTerm, sortDirection, sortFn])
+      return {
+        publishers: publishersResult,
+        topics:
+          data?.data?.filter(topicBase =>
+            Object.values(topicBase).join(' ').match(searchRegex),
+          ) || [],
+      }
+    }
 
-  const sortMenu = (
-    <MenuOptionGroup
-      title="Order by Date"
-      type="radio"
-      onChange={direction => setSortDirection(direction as 'ASC' | 'DESC')}
-      value={sortDirection}
-    >
-      <MenuItemOption key="asc" icon={<FaArrowUp />} value="ASC">
-        Asc
-      </MenuItemOption>
-      <MenuItemOption key="desc" icon={<FaArrowDown />} value="DESC">
-        Desc
-      </MenuItemOption>
-    </MenuOptionGroup>
-  )
+    return {
+      topics: filteredResult,
+      publishers: publishersResult,
+    }
+  }, [data, filter, locale, searchTerm])
 
   const filterMenu = (
     <MenuOptionGroup
@@ -113,16 +71,16 @@ const NewsPage = () => {
       type="checkbox"
       onChange={value => setFilter(value as string[])}
     >
-      {sources?.map(source => (
-        <MenuItemOption key={source} value={source}>
-          {source}
+      {publishers?.map(publisher => (
+        <MenuItemOption key={publisher} value={publisher}>
+          {publisher}
         </MenuItemOption>
       ))}
     </MenuOptionGroup>
   )
 
   const canSync =
-    data?.updatedAt && isPast(addHours(new Date(data.updatedAt), 1))
+    data?.updatedAt && isPast(addMinutes(new Date(data.updatedAt), 10))
 
   const syncedStr =
     data?.updatedAt &&
@@ -174,21 +132,18 @@ const NewsPage = () => {
     <AdminLayout seo={{ title: t('news') }}>
       <PageHeader
         onSearch={setSearchTerm}
-        sortMenu={sortMenu}
         filterMenu={filterMenu}
         filterMenuCloseOnSelect={false}
       >
-        {isAdmin && (
-          <Tooltip label={syncedStr} hasArrow bg="primary.400">
-            <IconButton
-              aria-label="Sync news"
-              isLoading={syncTopic.isLoading}
-              onClick={() => syncTopic.mutate()}
-              isDisabled={!isAdmin && (!canSync || syncTopic.isLoading)}
-              icon={<FaSyncAlt />}
-            />
-          </Tooltip>
-        )}
+        <Tooltip label={syncedStr} hasArrow bg="primary.400">
+          <IconButton
+            aria-label="Sync news"
+            isLoading={syncTopic.isLoading || isLoading}
+            onClick={() => syncTopic.mutate()}
+            isDisabled={!canSync || syncTopic.isLoading || isLoading}
+            icon={<FaSyncAlt />}
+          />
+        </Tooltip>
       </PageHeader>
       <Box overflow={'hidden'} flexShrink={0}>
         <Box overflowX={'auto'}>

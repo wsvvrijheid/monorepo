@@ -1,4 +1,5 @@
 import isEmpty from 'lodash/isEmpty'
+import { addHours } from 'date-fns'
 
 import {
   getAktifHaber,
@@ -39,14 +40,28 @@ export const syncNews = async () => {
     strapi.log.info('All news fetching... ' + new Date())
 
     const topicsResponse = await Promise.all(sources.map(source => source()))
-    const topics = topicsResponse.flat().filter(topic => !isEmpty(topic))
+    const topics = topicsResponse
+      .flat()
+      .filter(topic => !isEmpty(topic))
+      .sort((a, b) => {
+        const aTime = a.time
+          ? new Date(a.time).getTime()
+          : addHours(new Date(), -5).getTime()
+        const bTime = b.time
+          ? new Date(b.time).getTime()
+          : addHours(new Date(), -5).getTime()
+
+        return bTime - aTime
+      })
 
     strapi.log.info('All news fetched. ' + new Date())
 
     const targetTopic = await strapi.entityService.findMany('api::topic.topic')
 
+    let updatedTopics = targetTopic
+
     if (targetTopic) {
-      await strapi.query('api::topic.topic').update({
+      updatedTopics = await strapi.query('api::topic.topic').update({
         where: { id: targetTopic.id },
         data: {
           data: topics,
@@ -54,7 +69,7 @@ export const syncNews = async () => {
         },
       })
     } else {
-      await strapi.query('api::topic.topic').create({
+      updatedTopics = await strapi.query('api::topic.topic').create({
         data: {
           data: topics,
           isSyncing: false,
@@ -62,9 +77,7 @@ export const syncNews = async () => {
       })
     }
 
-    strapi.log.info(` ${topics.length} total news saved.`)
-
-    return topics.length
+    return { data: updatedTopics, meta: {} }
   } catch (error) {
     console.error('Sync news', error)
 
