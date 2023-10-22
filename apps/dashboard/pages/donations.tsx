@@ -7,8 +7,13 @@ import { useTranslation } from 'next-i18next'
 
 import { useStrapiRequest } from '@wsvvrijheid/services'
 import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
-import { Donation, Sort, StrapiLocale } from '@wsvvrijheid/types'
-import { MonthPicker } from '@wsvvrijheid/ui'
+import {
+  Donation,
+  DonationsStatus,
+  Sort,
+  StrapiLocale,
+} from '@wsvvrijheid/types'
+import { MonthPicker, ModelStatusFilters } from '@wsvvrijheid/ui'
 import { AdminLayout, DataTable, PageHeader, useColumns } from '@wsvvrijheid/ui'
 import { RangeParams } from '@wsvvrijheid/ui/src/components/MonthPicker/types'
 
@@ -22,7 +27,10 @@ const DonationsPage = () => {
 
   const [sort, setSort] = useState<Sort | undefined>(['createdAt:desc'])
 
-  const { locale } = useRouter()
+  const { locale, query, push } = useRouter()
+
+  const status = query.status as DonationsStatus | 'all'
+
   const columns = useColumns<Donation>()
 
   const startDate =
@@ -42,7 +50,8 @@ const DonationsPage = () => {
           $lt: endDate,
         },
       }),
-      status: { $eq: 'paid' },
+      // status: { $eq: 'paid' },
+      status: status && status !== 'all' ? { $eq: status } : {},
     },
     sort,
   })
@@ -72,13 +81,46 @@ const DonationsPage = () => {
       return acc + (donation.amount || 0)
     }, 0)
 
+  useEffect(() => {
+    console.log(donations)
+  }, [donations])
+
   const pageCount = donationsQuery?.data?.meta?.pagination?.pageCount || 0
   const totalCount = donationsQuery?.data?.meta?.pagination?.total || 0
 
+  const changeRoute = (
+    key: 'id' | 'page' | 'sort' | 'status' | 'published' | 'q' | 'pageSize',
+    value?: string | number | Sort | DonationsStatus,
+  ) => {
+    if (!value || (key === 'status' && value === 'all')) {
+      const _query = { ...query }
+      delete _query[key]
+      push({ query: _query }, undefined, { shallow: true })
+
+      return
+    }
+
+    push({ query: { ...query, [key]: value } }, undefined, { shallow: true })
+  }
+
+  const setDonationStatus = (status?: DonationsStatus) =>
+    changeRoute('status', status)
+
   return (
     <AdminLayout seo={{ title: t('donations') }}>
-      <PageHeader onSearch={handleSearch}>
+      <PageHeader
+        onSearch={handleSearch}
+        filterMenu={
+          <ModelStatusFilters
+            donatStatus={status}
+            setDonationStatus={setDonationStatus}
+            showDonationsStatus={true}
+          />
+        }
+      >
         <MonthPicker onClear={handleClear} onRangeSelect={handleSelect} />
+
+        {/* <FilterMenu /> */}
       </PageHeader>
 
       <DataTable<Donation>
