@@ -14,7 +14,6 @@
     "start": "strapi start",
     "build": "strapi build",
     "build:dev": "strapi build",
-    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
     "strapi": "strapi",
     "db": "./scripts/prepare.sh",
     "docker-up": "docker compose up --remove-orphans",

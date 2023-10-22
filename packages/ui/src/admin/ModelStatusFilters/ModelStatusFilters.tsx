@@ -8,8 +8,6 @@ import {
 } from '@chakra-ui/react'
 import { useTranslation } from 'next-i18next'
 
-import { ApprovalStatus, DonationStatus } from '@wsvvrijheid/types'
-
 import { I18nNamespaces } from '../../../@types/i18next'
 import { Option } from '../ModelForm'
 
@@ -18,8 +16,8 @@ type ModelStatusFiltersProps = {
     currentValue: string
     defaultValue: string
     hidden?: boolean
-    setCurrentValue: (value: ApprovalStatus | DonationStatus | string) => void
-    statuses: Array<ApprovalStatus | DonationStatus | string> | Option[]
+    setCurrentValue: (value: string) => void
+    statuses: string[] | Option[]
   }[]
 }
 
@@ -47,11 +45,15 @@ export const ModelStatusFilters: FC<ModelStatusFiltersProps> = ({ args }) => {
 
         if (hidden) return null
 
+        const handleChange = (value: string | string[]) => {
+          setCurrentValue(value as string)
+        }
+
         return (
           <MenuOptionGroup
             key={i}
             value={currentValue || defaultValue}
-            onChange={val => setCurrentValue(val as string)}
+            onChange={handleChange}
             title={t('status')}
           >
             {statuses.map((status, i) => {

@@ -148,7 +148,7 @@ const ModelPage: FC<ModelPageProps> = ({ endpoint }) => {
   const setCurrentPage = (page?: number) => changeRoute('page', page)
   const setPageSize = (size?: number) => changeRoute('pageSize', size)
   const setSort = (sort?: Sort) => changeRoute('sort', sort)
-  const setStatus = (status: ApprovalStatus) => changeRoute('status', status)
+  const setStatus = (status: string) => changeRoute('status', status)
   const setPublished = (state: string) => changeRoute('published', state)
   const setQ = (q?: string) => changeRoute('q', q)
 
