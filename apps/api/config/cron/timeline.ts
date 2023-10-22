@@ -5,8 +5,9 @@ export default async () => {
   try {
     const timelinePromise = await Promise.all(
       locales.map(locale => {
-        return strapi.entityService.findMany('api::timeline.timeline', {
-          filters: { locale },
+        // Entity service doesn't seem to filter by locale
+        return strapi.db.query('api::timeline.timeline').findMany({
+          where: { locale },
         })
       }),
     )
