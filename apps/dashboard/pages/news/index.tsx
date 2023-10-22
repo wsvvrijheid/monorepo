@@ -191,6 +191,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
     props: {
       ...(await ssrTranslations(locale)),
     },
+    revalidate: 1,
   }
 }
 
