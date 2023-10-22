@@ -201,6 +201,7 @@ const ModelPage: FC<ModelPageProps> = ({ endpoint }) => {
                     currentValue: status,
                     setCurrentValue: setStatus,
                     hidden: !hasApprovalStatus,
+                    title: 'approvalStatus',
                   },
                   {
                     statuses: ['all', 'true', 'false'],
@@ -208,6 +209,7 @@ const ModelPage: FC<ModelPageProps> = ({ endpoint }) => {
                     currentValue: published,
                     setCurrentValue: setPublished,
                     hidden: !hasPublicationState,
+                    title: 'published',
                   },
                 ]}
               />

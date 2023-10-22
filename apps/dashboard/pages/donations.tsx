@@ -113,6 +113,7 @@ const DonationsPage = () => {
                 defaultValue: 'paid',
                 currentValue: status,
                 setCurrentValue: setDonationStatus,
+                title: 'status',
               },
             ]}
           />

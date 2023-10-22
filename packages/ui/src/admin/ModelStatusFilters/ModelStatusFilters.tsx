@@ -13,6 +13,7 @@ import { Option } from '../ModelForm'
 
 type ModelStatusFiltersProps = {
   args: {
+    title: keyof I18nNamespaces['common'] | string
     currentValue: string
     defaultValue: string
     hidden?: boolean
@@ -36,11 +37,12 @@ export const ModelStatusFilters: FC<ModelStatusFiltersProps> = ({ args }) => {
     >
       {args.map((arg, i) => {
         const {
-          statuses,
           currentValue,
-          setCurrentValue,
           defaultValue,
           hidden,
+          setCurrentValue,
+          statuses,
+          title,
         } = arg
 
         if (hidden) return null
@@ -54,7 +56,7 @@ export const ModelStatusFilters: FC<ModelStatusFiltersProps> = ({ args }) => {
             key={i}
             value={currentValue || defaultValue}
             onChange={handleChange}
-            title={t('status')}
+            title={t(title as keyof I18nNamespaces['common'])}
           >
             {statuses.map((status, i) => {
               const value = typeof status === 'string' ? status : status.value
