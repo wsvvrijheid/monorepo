@@ -8,36 +8,23 @@ import {
 } from '@chakra-ui/react'
 import { useTranslation } from 'next-i18next'
 
-import { ApprovalStatus, DonationsStatus } from '@wsvvrijheid/types'
+import { ApprovalStatus, DonationStatus } from '@wsvvrijheid/types'
+
+import { I18nNamespaces } from '../../../@types/i18next'
+import { Option } from '../ModelForm'
 
 type ModelStatusFiltersProps = {
-  status: ApprovalStatus | 'all'
-  setStatus: (status: ApprovalStatus) => void
-  published: string
-  setPublished: (published: string) => void
-  showApprovalStatus?: boolean
-  showPublicationState?: boolean
-  // for Donations Page
-  donatStatus: DonationsStatus | 'all'
-  setDonationStatus: (donatStatus: DonationsStatus) => void
-  showDonationsStatus?: boolean
+  args: {
+    currentValue: string
+    defaultValue: string
+    hidden?: boolean
+    setCurrentValue: (value: ApprovalStatus | DonationStatus | string) => void
+    statuses: Array<ApprovalStatus | DonationStatus | string> | Option[]
+  }[]
 }
 
-export const ModelStatusFilters: FC<ModelStatusFiltersProps> = ({
-  status,
-  donatStatus,
-  setStatus,
-  setDonationStatus,
-  published,
-  setPublished,
-  showApprovalStatus,
-  showDonationsStatus,
-  showPublicationState,
-}) => {
+export const ModelStatusFilters: FC<ModelStatusFiltersProps> = ({ args }) => {
   const { t } = useTranslation()
-
-  if (!showApprovalStatus && !showPublicationState && !showDonationsStatus)
-    return null
 
   return (
     <Stack
@@ -47,46 +34,39 @@ export const ModelStatusFilters: FC<ModelStatusFiltersProps> = ({
       shadow={'sm'}
       overflowX={'auto'}
       flexShrink={0}
+      divider={<MenuDivider />}
     >
-      {showApprovalStatus && (
-        <MenuOptionGroup
-          value={status || 'all'}
-          onChange={val => setStatus(val as ApprovalStatus)}
-          title={t('approvalStatus')}
-        >
-          <MenuItemOption value={'all'}>All</MenuItemOption>
-          <MenuItemOption value={'approved'}>Approved</MenuItemOption>
-          <MenuItemOption value={'pending'}>Pending</MenuItemOption>
-          <MenuItemOption value={'rejected'}>Rejected</MenuItemOption>
-        </MenuOptionGroup>
-      )}
+      {args.map((arg, i) => {
+        const {
+          statuses,
+          currentValue,
+          setCurrentValue,
+          defaultValue,
+          hidden,
+        } = arg
 
-      {showDonationsStatus && (
-        <MenuOptionGroup
-          value={donatStatus || 'all'}
-          onChange={val => setDonationStatus(val as DonationsStatus)}
-          title={t('donationsStatus')}
-        >
-          <MenuItemOption value={'all'}>All</MenuItemOption>
-          <MenuItemOption value={'paid'}>Paid</MenuItemOption>
-          <MenuItemOption value={'canceled'}>Canceled</MenuItemOption>
-          <MenuItemOption value={'expired'}>Expired</MenuItemOption>
-        </MenuOptionGroup>
-      )}
+        if (hidden) return null
 
-      {showApprovalStatus && showPublicationState && <MenuDivider />}
+        return (
+          <MenuOptionGroup
+            key={i}
+            value={currentValue || defaultValue}
+            onChange={val => setCurrentValue(val as string)}
+            title={t('status')}
+          >
+            {statuses.map((status, i) => {
+              const value = typeof status === 'string' ? status : status.value
+              const label = typeof status === 'string' ? status : status.label
 
-      {showPublicationState && (
-        <MenuOptionGroup
-          value={published || 'true'}
-          onChange={val => setPublished(val as string)}
-          title={t('publish')}
-        >
-          <MenuItemOption value={'all'}>All</MenuItemOption>
-          <MenuItemOption value={'true'}>Live</MenuItemOption>
-          <MenuItemOption value={'false'}>Draft</MenuItemOption>
-        </MenuOptionGroup>
-      )}
+              return (
+                <MenuItemOption key={i} value={`${value}`}>
+                  {t(label as keyof I18nNamespaces['common'])}
+                </MenuItemOption>
+              )
+            })}
+          </MenuOptionGroup>
+        )
+      })}
     </Stack>
   )
 }

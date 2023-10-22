@@ -9,7 +9,7 @@ import { useStrapiRequest } from '@wsvvrijheid/services'
 import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import {
   Donation,
-  DonationsStatus,
+  DonationStatus,
   Sort,
   StrapiLocale,
 } from '@wsvvrijheid/types'
@@ -29,7 +29,7 @@ const DonationsPage = () => {
 
   const { locale, query, push } = useRouter()
 
-  const status = query.status as DonationsStatus | 'all'
+  const status = query.status as DonationStatus | 'all'
 
   const columns = useColumns<Donation>()
 
@@ -81,16 +81,12 @@ const DonationsPage = () => {
       return acc + (donation.amount || 0)
     }, 0)
 
-  useEffect(() => {
-    console.log(donations)
-  }, [donations])
-
   const pageCount = donationsQuery?.data?.meta?.pagination?.pageCount || 0
   const totalCount = donationsQuery?.data?.meta?.pagination?.total || 0
 
   const changeRoute = (
     key: 'id' | 'page' | 'sort' | 'status' | 'published' | 'q' | 'pageSize',
-    value?: string | number | Sort | DonationsStatus,
+    value?: string | number | Sort | DonationStatus,
   ) => {
     if (!value || (key === 'status' && value === 'all')) {
       const _query = { ...query }
@@ -103,8 +99,7 @@ const DonationsPage = () => {
     push({ query: { ...query, [key]: value } }, undefined, { shallow: true })
   }
 
-  const setDonationStatus = (status?: DonationsStatus) =>
-    changeRoute('status', status)
+  const setDonationStatus = (status: string) => changeRoute('status', status)
 
   return (
     <AdminLayout seo={{ title: t('donations') }}>
@@ -112,15 +107,18 @@ const DonationsPage = () => {
         onSearch={handleSearch}
         filterMenu={
           <ModelStatusFilters
-            donatStatus={status}
-            setDonationStatus={setDonationStatus}
-            showDonationsStatus={true}
+            args={[
+              {
+                statuses: ['canceled', 'expired', 'paid', 'unpaid'],
+                defaultValue: 'paid',
+                currentValue: status,
+                setCurrentValue: setDonationStatus,
+              },
+            ]}
           />
         }
       >
         <MonthPicker onClear={handleClear} onRangeSelect={handleSelect} />
-
-        {/* <FilterMenu /> */}
       </PageHeader>
 
       <DataTable<Donation>
