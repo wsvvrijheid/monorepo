@@ -22,10 +22,10 @@
     "clean": "rm -rf node_modules .cache .turbo dist"
   },
   "dependencies": {
-    "@strapi/plugin-i18n": "4.14.4",
-    "@strapi/plugin-users-permissions": "4.14.4",
-    "@strapi/provider-email-nodemailer": "4.14.4",
-    "@strapi/strapi": "4.14.4",
+    "@strapi/plugin-i18n": "4.14.5",
+    "@strapi/plugin-users-permissions": "4.14.5",
+    "@strapi/provider-email-nodemailer": "4.14.5",
+    "@strapi/strapi": "4.14.5",
     "apify-client": "^2.8.1",
     "cheerio": "^1.0.0-rc.12",
     "pg": "^8.11.3",
