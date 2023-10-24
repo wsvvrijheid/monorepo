@@ -16,7 +16,6 @@ import {
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
-import { platform } from 'os'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { setLocale } from 'yup'
 import { tr, nl } from 'yup-locales'
@@ -68,7 +67,7 @@ export const JoinForm: FC<JoinFormProps> = ({
     const newPlarformsId = platformsId.join().split(',')
 
     const newData = { ...data, platforms: newPlarformsId }
-    console.log('newData  -------------', newData)
+
     onSubmitHandler(newData)
   }
   // console.log("platforms",platforms)
