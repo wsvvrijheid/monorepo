@@ -50,8 +50,7 @@ export const JoinForm: FC<JoinFormProps> = ({
 
   const onSubmit: SubmitHandler<JoinFormFieldValues> = data => {
     const platformsId: Array<number> = []
-    console.log('submit data', data)
-
+  
     platforms.map(platform => {
       const jb = platform?.jobs?.map(job => job.id)
       const dataJobId = data.jobs.map(el => parseInt(el))
