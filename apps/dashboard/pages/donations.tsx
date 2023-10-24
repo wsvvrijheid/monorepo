@@ -109,8 +109,8 @@ const DonationsPage = () => {
           <ModelStatusFilters
             args={[
               {
-                statuses: ['canceled', 'expired', 'paid', 'unpaid'],
-                defaultValue: 'paid',
+                statuses: ['all', 'canceled', 'expired', 'paid'],
+                defaultValue: 'all',
                 currentValue: status,
                 setCurrentValue: setDonationStatus,
                 title: 'status',
