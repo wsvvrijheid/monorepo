@@ -44,6 +44,7 @@ type ModelPageProps = InferGetServerSidePropsType<typeof getServerSideProps>
 const ModelPage: FC<ModelPageProps> = ({ endpoint }) => {
   const { t } = useTranslation()
   const { roles, profile } = useAuthContext()
+
   const [selectedRelationFilters, setSelectedRelationFilters] = useState<
     RelationFilterArgs[]
   >([])
@@ -112,6 +113,7 @@ const ModelPage: FC<ModelPageProps> = ({ endpoint }) => {
   })
 
   const models = endpointQuery?.data?.data
+
   const pageCount = endpointQuery?.data?.meta?.pagination?.pageCount
   const totalCount = endpointQuery?.data?.meta?.pagination?.total
 

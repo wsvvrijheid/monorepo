@@ -70,6 +70,14 @@ export const useRequestArgs = (): UseRequestArgsReturn => {
           endpoint: 'platforms',
           field: 'platforms',
         },
+        {
+          endpoint: 'jobs',
+          field: 'jobs',
+        },
+        {
+          endpoint: 'users-permissions/roles',
+          field: 'role',
+        },
       ],
       filters: [
         {
@@ -78,7 +86,7 @@ export const useRequestArgs = (): UseRequestArgsReturn => {
           operator: '$eq',
         },
       ],
-      populate: ['users.role', 'platforms'],
+      populate: ['users.role', 'platforms', 'jobs', 'role'],
       searchFields: ['name', 'email'],
     },
   }

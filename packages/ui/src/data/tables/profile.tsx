@@ -1,7 +1,15 @@
 import { ThemeTypings } from '@chakra-ui/react'
+import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
-import { Platform, Profile, Role, RoleName, User } from '@wsvvrijheid/types'
+import {
+  Platform,
+  Profile,
+  Role,
+  RoleName,
+  User,
+  Job,
+} from '@wsvvrijheid/types'
 
 import { WTableProps } from '../../components'
 
@@ -9,11 +17,13 @@ export const useProfileColumns = (): WTableProps<
   Profile & { role: Role }
 >['columns'] => {
   const { t } = useTranslation()
+  const { locale } = useRouter()
 
   return {
     avatar: {
       type: 'image',
     },
+    name: { sortable: true },
     isVolunteer: {
       label: 'volunteer',
       type: 'badge',
@@ -54,11 +64,17 @@ export const useProfileColumns = (): WTableProps<
       },
     },
     platforms: {
-      transform: value => (value as Platform[])?.map(p => p.slug).join(', '),
+      transform: value =>
+        (value as Platform[])?.map(p => p[`name_${locale}`]).join(', '),
       sortable: true,
       sortKey: `slug`,
     },
-    name: { sortable: true },
+    jobs: {
+      transform: value =>
+        (value as Job[])?.map(job => job[`name_${locale}`]).join(', '),
+      sortable: true,
+      sortKey: `slug`,
+    },
     email: { sortable: true },
     availableHours: { sortable: true },
     phone: {},

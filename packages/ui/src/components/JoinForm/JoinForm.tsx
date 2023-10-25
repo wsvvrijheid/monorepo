@@ -49,27 +49,9 @@ export const JoinForm: FC<JoinFormProps> = ({
   })
 
   const onSubmit: SubmitHandler<JoinFormFieldValues> = data => {
-    const platformsId: Array<number> = []
-  
-    platforms.map(platform => {
-      const jb = platform?.jobs?.map(job => job.id)
-      const dataJobId = data.jobs.map(el => parseInt(el))
-      jb?.forEach(el => {
-        dataJobId.forEach(Id => {
-          if (el === Id) {
-            !platformsId.includes(platform?.id) &&
-              platformsId.push(platform?.id)
-          }
-        })
-      })
-    })
-    const newPlarformsId = platformsId.join().split(',')
-
-    const newData = { ...data, platforms: newPlarformsId }
-
-    onSubmitHandler(newData)
+    const newData = { ...data, jobs: { connect: data.jobs } }
+    onSubmitHandler(newData as any)
   }
-  // console.log("platforms",platforms)
 
   return (
     <Stack

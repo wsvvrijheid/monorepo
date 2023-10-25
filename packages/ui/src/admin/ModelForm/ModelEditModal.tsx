@@ -33,7 +33,6 @@ export const ModelEditModal = <T extends StrapiModel>({
   const { data, isLoading, refetch } = useStrapiRequest<T>({ endpoint, id })
 
   const model = data?.data
-
   const handleSuccess = () => {
     onSuccess?.()
     refetch()
