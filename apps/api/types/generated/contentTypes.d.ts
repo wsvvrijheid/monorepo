@@ -2244,6 +2244,11 @@ export interface ApiProfileProfile extends Schema.CollectionType {
     draftAndPublish: true
   }
   attributes: {
+    role: Attribute.Relation<
+      'api::profile.profile',
+      'manyToOne',
+      'plugin::users-permissions.role'
+    >
     name: Attribute.String & Attribute.Required
     email: Attribute.Email & Attribute.Required & Attribute.Unique
     bio: Attribute.Text
@@ -2513,11 +2518,6 @@ export interface ApiProfileProfile extends Schema.CollectionType {
     inMailingList: Attribute.Boolean & Attribute.DefaultTo<false>
     approved: Attribute.Boolean & Attribute.DefaultTo<false>
     isPublic: Attribute.Boolean & Attribute.DefaultTo<false>
-    jobs: Attribute.Relation<
-      'api::profile.profile',
-      'oneToMany',
-      'api::job.job'
-    >
     age: Attribute.Integer
     city: Attribute.String
     platforms: Attribute.Relation<
@@ -2662,10 +2662,10 @@ export interface ApiProfileProfile extends Schema.CollectionType {
       'oneToOne',
       'plugin::users-permissions.user'
     >
-    role: Attribute.Relation<
+    jobs: Attribute.Relation<
       'api::profile.profile',
-      'manyToOne',
-      'plugin::users-permissions.role'
+      'oneToMany',
+      'api::job.job'
     >
     createdAt: Attribute.DateTime
     updatedAt: Attribute.DateTime

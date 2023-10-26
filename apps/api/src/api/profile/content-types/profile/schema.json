@@ -12,6 +12,13 @@
   },
   "pluginOptions": {},
   "attributes": {
+    "role": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.role",
+      "inversedBy": "users",
+      "configurable": false
+    },
     "name": {
       "type": "string",
       "required": true
@@ -316,11 +323,6 @@
       "type": "boolean",
       "default": false
     },
-    "jobs": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::job.job"
-    },
     "age": {
       "type": "integer"
     },
@@ -337,7 +339,9 @@
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": ["images"]
+      "allowedTypes": [
+        "images"
+      ]
     },
     "isVolunteer": {
       "type": "boolean"
@@ -503,12 +507,10 @@
       "relation": "oneToOne",
       "target": "plugin::users-permissions.user"
     },
-    "role": {
+    "jobs": {
       "type": "relation",
-      "relation": "manyToOne",
-      "target": "plugin::users-permissions.role",
-      "inversedBy": "users",
-      "configurable": false
+      "relation": "oneToMany",
+      "target": "api::job.job"
     }
   }
 }

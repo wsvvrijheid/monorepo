@@ -67,10 +67,6 @@ export const useRequestArgs = (): UseRequestArgsReturn => {
     profiles: {
       relationFilters: [
         {
-          endpoint: 'platforms',
-          field: 'platforms',
-        },
-        {
           endpoint: 'jobs',
           field: 'jobs',
         },
@@ -86,7 +82,7 @@ export const useRequestArgs = (): UseRequestArgsReturn => {
           operator: '$eq',
         },
       ],
-      populate: ['users.role', 'jobs.platforms',  'role'],
+      populate: ['users.role', 'jobs.platform',  'role'],
       searchFields: ['name', 'email'],
     },
   }

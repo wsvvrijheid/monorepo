@@ -122,7 +122,6 @@ const ModelPage: FC<ModelPageProps> = ({ endpoint }) => {
     translates:
       (m as StrapiTranslatableModel)?.localizations?.map(l => l.locale) || [],
   })) as StrapiModel[]
-
   const selectedModel = mappedModels?.find(m => m.id === selectedId)
 
   const changeRoute = (

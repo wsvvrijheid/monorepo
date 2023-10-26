@@ -3,7 +3,6 @@ import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
 import {
-  Platform,
   Profile,
   Role,
   RoleName,
@@ -63,15 +62,10 @@ export const useProfileColumns = (): WTableProps<
         }
       },
     },
-    platforms: {
-      transform: value =>
-        (value as Platform[])?.map(p => p[`name_${locale}`]).join(', '),
-      sortable: true,
-      sortKey: `slug`,
-    },
     jobs: {
       transform: value =>
-        (value as Job[])?.map(job => job[`name_${locale}`]).join(', '),
+        (value as Job[])?.map(job => 
+          job[`name_${locale}`]).join(', '),
       sortable: true,
       sortKey: `slug`,
     },
