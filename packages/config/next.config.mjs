@@ -51,16 +51,6 @@ const nextConfig = {
     'date-fns': { transform: 'date-fns/{{member}}' },
     lodash: { transform: 'lodash/{{member}}' },
   },
-  outputFileTracing: true,
-  experimental: {
-    outputFileTracingExcludes: {
-      '*': [
-        'node_modules/@swc/core-linux-x64-gnu',
-        'node_modules/@swc/core-linux-x64-musl',
-        'node_modules/@esbuild/linux-x64',
-      ],
-    },
-  },
 }
 
 export default nextConfig
