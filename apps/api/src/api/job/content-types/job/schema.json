@@ -45,6 +45,12 @@
       "relation": "manyToOne",
       "target": "api::platform.platform",
       "inversedBy": "jobs"
+    },
+    "profiles": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::profile.profile",
+      "inversedBy": "jobs"
     }
   }
 }

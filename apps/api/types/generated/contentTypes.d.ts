@@ -1879,6 +1879,11 @@ export interface ApiJobJob extends Schema.CollectionType {
       'manyToOne',
       'api::platform.platform'
     >
+    profiles: Attribute.Relation<
+      'api::job.job',
+      'manyToMany',
+      'api::profile.profile'
+    >
     createdAt: Attribute.DateTime
     updatedAt: Attribute.DateTime
     publishedAt: Attribute.DateTime
@@ -2664,7 +2669,7 @@ export interface ApiProfileProfile extends Schema.CollectionType {
     >
     jobs: Attribute.Relation<
       'api::profile.profile',
-      'oneToMany',
+      'manyToMany',
       'api::job.job'
     >
     createdAt: Attribute.DateTime
