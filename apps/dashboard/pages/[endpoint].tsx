@@ -148,8 +148,8 @@ const ModelPage: FC<ModelPageProps> = ({ endpoint }) => {
   const setCurrentPage = (page?: number) => changeRoute('page', page)
   const setPageSize = (size?: number) => changeRoute('pageSize', size)
   const setSort = (sort?: Sort) => changeRoute('sort', sort)
-  const setStatus = (status?: ApprovalStatus) => changeRoute('status', status)
-  const setPublished = (state?: string) => changeRoute('published', state)
+  const setStatus = (status: string) => changeRoute('status', status)
+  const setPublished = (state: string) => changeRoute('published', state)
   const setQ = (q?: string) => changeRoute('q', q)
 
   const handleClick = (index: number, id: number) => {
@@ -194,12 +194,24 @@ const ModelPage: FC<ModelPageProps> = ({ endpoint }) => {
           filterMenu: (
             <>
               <ModelStatusFilters
-                status={status}
-                setStatus={setStatus}
-                published={published}
-                setPublished={setPublished}
-                showApprovalStatus={hasApprovalStatus}
-                showPublicationState={hasPublicationState}
+                args={[
+                  {
+                    statuses: ['all', 'approved', 'pending', 'rejected'],
+                    defaultValue: 'all',
+                    currentValue: status,
+                    setCurrentValue: setStatus,
+                    hidden: !hasApprovalStatus,
+                    title: 'approvalStatus',
+                  },
+                  {
+                    statuses: ['all', 'true', 'false'],
+                    defaultValue: 'true',
+                    currentValue: published,
+                    setCurrentValue: setPublished,
+                    hidden: !hasPublicationState,
+                    title: 'published',
+                  },
+                ]}
               />
               <FilterMenu
                 relationFilterOptions={args.relationFilters}

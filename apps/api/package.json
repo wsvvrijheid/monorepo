@@ -14,7 +14,6 @@
     "start": "strapi start",
     "build": "strapi build",
     "build:dev": "strapi build",
-    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
     "strapi": "strapi",
     "db": "./scripts/prepare.sh",
     "docker-up": "docker compose up --remove-orphans",
@@ -22,10 +21,10 @@
     "clean": "rm -rf node_modules .cache .turbo dist"
   },
   "dependencies": {
-    "@strapi/plugin-i18n": "4.14.5",
-    "@strapi/plugin-users-permissions": "4.14.5",
-    "@strapi/provider-email-nodemailer": "4.14.5",
-    "@strapi/strapi": "4.14.5",
+    "@strapi/plugin-i18n": "4.15.0",
+    "@strapi/plugin-users-permissions": "4.15.0",
+    "@strapi/provider-email-nodemailer": "4.15.0",
+    "@strapi/strapi": "4.15.0",
     "apify-client": "^2.8.1",
     "cheerio": "^1.0.0-rc.12",
     "pg": "^8.11.3",
