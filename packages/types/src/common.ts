@@ -3,7 +3,7 @@ import { SetRequired } from 'type-fest'
 import { StrapiLocale } from './locale'
 
 export type ApprovalStatus = 'approved' | 'pending' | 'rejected'
-export type DonationStatus = 'canceled' | 'expired' | 'paid'
+export type DonationStatus = 'canceled' | 'expired' | 'paid' | 'unpaid' | 'all'
 
 export type Localize<T> = Record<StrapiLocale, T>
 

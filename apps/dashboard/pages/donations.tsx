@@ -21,6 +21,7 @@ const DonationsPage = () => {
   const [currentPage, setCurrentPage] = useState<number>(1)
   const [pageSize, setPageSize] = useState<number>(50)
   const [searchTerm, setSearchTerm] = useState<string>()
+  const [defaultValue, setdefaultValue] = useState<string>('paid')
   const [date, setDate] = useState<RangeParams>()
 
   const { t } = useTranslation()
@@ -50,8 +51,7 @@ const DonationsPage = () => {
           $lt: endDate,
         },
       }),
-      // status: { $eq: 'paid' },
-      status: status && status !== 'all' ? { $eq: status } : {},
+      status: defaultValue === 'all' ? {} : { $eq: defaultValue },
     },
     sort,
   })
@@ -99,7 +99,10 @@ const DonationsPage = () => {
     push({ query: { ...query, [key]: value } }, undefined, { shallow: true })
   }
 
-  const setDonationStatus = (status: string) => changeRoute('status', status)
+  const setDonationStatus = (status: string) => {
+    changeRoute('status', status)
+    setdefaultValue(status)
+  }
 
   return (
     <AdminLayout seo={{ title: t('donations') }}>
@@ -109,8 +112,8 @@ const DonationsPage = () => {
           <ModelStatusFilters
             args={[
               {
-                statuses: ['all', 'canceled', 'expired', 'paid'],
-                defaultValue: 'all',
+                statuses: ['all', 'paid', 'unpaid', 'canceled', 'expired'],
+                defaultValue,
                 currentValue: status,
                 setCurrentValue: setDonationStatus,
                 title: 'status',
