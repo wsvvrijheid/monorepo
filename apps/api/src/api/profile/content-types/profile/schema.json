@@ -8,7 +8,7 @@
     "description": ""
   },
   "options": {
-    "draftAndPublish": true
+    "draftAndPublish": false
   },
   "pluginOptions": {},
   "attributes": {
@@ -507,9 +507,8 @@
     },
     "jobs": {
       "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::job.job",
-      "mappedBy": "profiles"
+      "relation": "oneToMany",
+      "target": "api::job.job"
     }
   }
 }

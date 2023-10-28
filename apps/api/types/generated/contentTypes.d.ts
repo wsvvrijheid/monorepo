@@ -1864,7 +1864,7 @@ export interface ApiJobJob extends Schema.CollectionType {
     description: ''
   }
   options: {
-    draftAndPublish: true
+    draftAndPublish: false
   }
   attributes: {
     slug: Attribute.UID<'api::job.job', 'name_en'> & Attribute.Required
@@ -1879,14 +1879,8 @@ export interface ApiJobJob extends Schema.CollectionType {
       'manyToOne',
       'api::platform.platform'
     >
-    profiles: Attribute.Relation<
-      'api::job.job',
-      'manyToMany',
-      'api::profile.profile'
-    >
     createdAt: Attribute.DateTime
     updatedAt: Attribute.DateTime
-    publishedAt: Attribute.DateTime
     createdBy: Attribute.Relation<'api::job.job', 'oneToOne', 'admin::user'> &
       Attribute.Private
     updatedBy: Attribute.Relation<'api::job.job', 'oneToOne', 'admin::user'> &
@@ -2246,7 +2240,7 @@ export interface ApiProfileProfile extends Schema.CollectionType {
     description: ''
   }
   options: {
-    draftAndPublish: true
+    draftAndPublish: false
   }
   attributes: {
     role: Attribute.Relation<
@@ -2669,12 +2663,11 @@ export interface ApiProfileProfile extends Schema.CollectionType {
     >
     jobs: Attribute.Relation<
       'api::profile.profile',
-      'manyToMany',
+      'oneToMany',
       'api::job.job'
     >
     createdAt: Attribute.DateTime
     updatedAt: Attribute.DateTime
-    publishedAt: Attribute.DateTime
     createdBy: Attribute.Relation<
       'api::profile.profile',
       'oneToOne',
