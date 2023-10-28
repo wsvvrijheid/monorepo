@@ -11855,9 +11855,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chakra-react-select@npm:^4.7.5":
-  version: 4.7.5
-  resolution: "chakra-react-select@npm:4.7.5"
+"chakra-react-select@npm:^4.7.6":
+  version: 4.7.6
+  resolution: "chakra-react-select@npm:4.7.6"
   dependencies:
     react-select: 5.7.7
   peerDependencies:
@@ -11871,7 +11871,7 @@ __metadata:
     "@emotion/react": ^11.8.1
     react: ^18.0.0
     react-dom: ^18.0.0
-  checksum: 4ba4b37501e7c38f200bd12323c20872118b86f22738e8ebbcb0ca64a68bb1cf3bdc53241d98917ba2d06b0cdf8ada891971d1c7f58218393a27a077bddb96a5
+  checksum: 3101f7911a27a92cdef08668d82a738b31363abb53c623253bfd814b83eee71e90f6ad006de70463159e5b8e237887280edf20f3697ec14ea344da29ba9d2d7d
   languageName: node
   linkType: hard
 
@@ -17442,12 +17442,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"i18next-http-backend@npm:^2.3.0":
-  version: 2.3.0
-  resolution: "i18next-http-backend@npm:2.3.0"
+"i18next-http-backend@npm:^2.3.1":
+  version: 2.3.1
+  resolution: "i18next-http-backend@npm:2.3.1"
   dependencies:
     cross-fetch: 4.0.0
-  checksum: bb2f91db6cdb209fb9f0a0859e24d6f0c4661c2b5c28e998e54f9b16fed416d06838ab30890a48eb1f5269beb606a175c458eef241ee9a16a40b9650eb9eea15
+  checksum: 35201cb8b109d2542bd2d1ab3224ccc95d75c8bc6982ba1593401ad7834dffed70b0ac6a5ad3442ba43fafe0c14afda251fae4404fa4049cbf24dd5780b30377
   languageName: node
   linkType: hard
 
@@ -21639,14 +21639,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"next-seo@npm:^6.1.0":
-  version: 6.1.0
-  resolution: "next-seo@npm:6.1.0"
+"next-seo@npm:^6.4.0":
+  version: 6.4.0
+  resolution: "next-seo@npm:6.4.0"
   peerDependencies:
     next: ^8.1.1-canary.54 || >=9.0.0
     react: ">=16.0.0"
     react-dom: ">=16.0.0"
-  checksum: 5909d34d12dd8ac641d7fa96b6fe562470e1539f582c0a3f2b5e35f16b9b0e402d9f909a84393f80989bd96c034118712a5aecb520e5a45662e02fa23db7b656
+  checksum: 94183bf0c75359bad52d9e6463fb433bdcf94f42b33e88a60897a8957b41bc3d6ebb5ead3084a43cf287c42f7b95ba4e9f3a6cd21af532e1a8eb285f2cf8ac3b
   languageName: node
   linkType: hard
 
@@ -26974,13 +26974,13 @@ page-flip@latest:
   languageName: node
   linkType: hard
 
-"stripe@npm:^13.11.0":
-  version: 13.11.0
-  resolution: "stripe@npm:13.11.0"
+"stripe@npm:^14.2.0":
+  version: 14.2.0
+  resolution: "stripe@npm:14.2.0"
   dependencies:
     "@types/node": ">=8.1.0"
     qs: ^6.11.0
-  checksum: 907d95b6c182330d4ecaba54055fe7406e1a6de04888e7ef58b1abd1d7f7518d519b33633798d4c9b62971dee2bdc445536bdc7994c6adcb2f9376ab642bd438
+  checksum: c22af58c1a01300e98875b90f3c63336b7fc256ebccc0676cd9d81778a6635c11cc1eff1b75c6673fe62f8b548e346f259edfce9e7416940c3856d23f1394fa2
   languageName: node
   linkType: hard
 
@@ -29242,7 +29242,7 @@ page-flip@latest:
     "@wsvvrijheid/ui": "*"
     axios: ^1.6.0
     browserify-fs: ^1.0.0
-    chakra-react-select: ^4.7.5
+    chakra-react-select: ^4.7.6
     cookies-next: ^4.0.0
     date-fns: ^2.30.0
     date-fns-tz: ^2.0.0
@@ -29256,7 +29256,7 @@ page-flip@latest:
     framer-motion: ^10.16.4
     i18next: ^23.6.0
     i18next-browser-languagedetector: ^7.1.0
-    i18next-http-backend: ^2.3.0
+    i18next-http-backend: ^2.3.1
     iron-session: ^6.3.1
     jszip: ^3.10.1
     kill-port-process: ^3.2.0
@@ -29265,7 +29265,7 @@ page-flip@latest:
     next-i18next: ^14.0.3
     next-mdx-remote: ^4.4.1
     next-recaptcha-v3: ^1.2.0
-    next-seo: ^6.1.0
+    next-seo: ^6.4.0
     next-share: ^0.27.0
     os-browserify: ^0.3.0
     path-browserify: ^1.0.1
@@ -29292,7 +29292,7 @@ page-flip@latest:
     storybook: ^7.5.1
     stream-browserify: ^3.0.0
     string-similarity: ^4.0.4
-    stripe: ^13.11.0
+    stripe: ^14.2.0
     tesseract.js: ^5.0.2
     turbo: ^1.10.16
     twitter-api-v2: ^1.15.2

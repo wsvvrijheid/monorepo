@@ -8,28 +8,22 @@ import {
 } from '@chakra-ui/react'
 import { useTranslation } from 'next-i18next'
 
-import { ApprovalStatus } from '@wsvvrijheid/types'
+import { I18nNamespaces } from '../../../@types/i18next'
+import { Option } from '../ModelForm'
 
 type ModelStatusFiltersProps = {
-  status: ApprovalStatus | 'all'
-  setStatus: (status: ApprovalStatus) => void
-  published: string
-  setPublished: (published: string) => void
-  showApprovalStatus?: boolean
-  showPublicationState?: boolean
+  args: {
+    title: keyof I18nNamespaces['common'] | string
+    currentValue: string
+    defaultValue: string
+    hidden?: boolean
+    setCurrentValue: (value: string) => void
+    statuses: string[] | Option[]
+  }[]
 }
 
-export const ModelStatusFilters: FC<ModelStatusFiltersProps> = ({
-  status,
-  setStatus,
-  published,
-  setPublished,
-  showApprovalStatus,
-  showPublicationState,
-}) => {
+export const ModelStatusFilters: FC<ModelStatusFiltersProps> = ({ args }) => {
   const { t } = useTranslation()
-
-  if (!showApprovalStatus && !showPublicationState) return null
 
   return (
     <Stack
@@ -39,33 +33,44 @@ export const ModelStatusFilters: FC<ModelStatusFiltersProps> = ({
       shadow={'sm'}
       overflowX={'auto'}
       flexShrink={0}
+      divider={<MenuDivider />}
     >
-      {showApprovalStatus && (
-        <MenuOptionGroup
-          value={status || 'all'}
-          onChange={val => setStatus(val as ApprovalStatus)}
-          title={t('approvalStatus')}
-        >
-          <MenuItemOption value={'all'}>All</MenuItemOption>
-          <MenuItemOption value={'approved'}>Approved</MenuItemOption>
-          <MenuItemOption value={'pending'}>Pending</MenuItemOption>
-          <MenuItemOption value={'rejected'}>Rejected</MenuItemOption>
-        </MenuOptionGroup>
-      )}
+      {args.map((arg, i) => {
+        const {
+          currentValue,
+          defaultValue,
+          hidden,
+          setCurrentValue,
+          statuses,
+          title,
+        } = arg
 
-      {showApprovalStatus && showPublicationState && <MenuDivider />}
+        if (hidden) return null
 
-      {showPublicationState && (
-        <MenuOptionGroup
-          value={published || 'true'}
-          onChange={val => setPublished(val as string)}
-          title={t('publish')}
-        >
-          <MenuItemOption value={'all'}>All</MenuItemOption>
-          <MenuItemOption value={'true'}>Live</MenuItemOption>
-          <MenuItemOption value={'false'}>Draft</MenuItemOption>
-        </MenuOptionGroup>
-      )}
+        const handleChange = (value: string | string[]) => {
+          setCurrentValue(value as string)
+        }
+
+        return (
+          <MenuOptionGroup
+            key={i}
+            value={currentValue || defaultValue}
+            onChange={handleChange}
+            title={t(title as keyof I18nNamespaces['common'])}
+          >
+            {statuses.map((status, i) => {
+              const value = typeof status === 'string' ? status : status.value
+              const label = typeof status === 'string' ? status : status.label
+
+              return (
+                <MenuItemOption key={i} value={`${value}`}>
+                  {t(label as keyof I18nNamespaces['common'])}
+                </MenuItemOption>
+              )
+            })}
+          </MenuOptionGroup>
+        )
+      })}
     </Stack>
   )
 }
