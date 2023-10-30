@@ -1,6 +1,5 @@
 import { FC, useState } from 'react'
 
-import { CacheProvider } from '@chakra-ui/next-js'
 import {
   ChakraProvider,
   createStandaloneToast,
@@ -54,14 +53,12 @@ const MyApp: FC<AppProps> = ({ Component, pageProps }) => {
     <QueryClientProvider client={queryClient}>
       <Hydrate state={pageProps.dehydratedState}>
         <AuthProvider initialState={pageProps.authState}>
-          <CacheProvider>
-            <ChakraProvider theme={extendTheme(theme)}>
-              <DefaultSeo {...defaultSeo.admin[locale]} />
-              <Component {...pageProps} />
-              <Analytics />
-              <ToastContainer />
-            </ChakraProvider>
-          </CacheProvider>
+          <ChakraProvider theme={extendTheme(theme)}>
+            <DefaultSeo {...defaultSeo.admin[locale]} />
+            <Component {...pageProps} />
+            <Analytics />
+            <ToastContainer />
+          </ChakraProvider>
         </AuthProvider>
       </Hydrate>
       <ReactQueryDevtools />

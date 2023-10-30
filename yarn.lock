@@ -2808,20 +2808,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@chakra-ui/next-js@npm:^2.1.5":
-  version: 2.1.5
-  resolution: "@chakra-ui/next-js@npm:2.1.5"
-  dependencies:
-    "@emotion/cache": ^11.11.0
-  peerDependencies:
-    "@chakra-ui/react": ">=2.4.0"
-    "@emotion/react": ">=11"
-    next: ">=13"
-    react: ">=18"
-  checksum: 8996a41f3d69663279749367cdc815398efe3c4b22f03832bab4e393cda386784be1cfe6de79c3736f0879a9476931b0e61346734ce8866c9c6e0ffa6aeb227b
-  languageName: node
-  linkType: hard
-
 "@chakra-ui/number-input@npm:2.1.1":
   version: 2.1.1
   resolution: "@chakra-ui/number-input@npm:2.1.1"
@@ -29209,7 +29195,6 @@ page-flip@latest:
   version: 0.0.0-use.local
   resolution: "wees-turbo@workspace:."
   dependencies:
-    "@chakra-ui/next-js": ^2.1.5
     "@chakra-ui/react": ^2.8.1
     "@chakra-ui/storybook-addon": ^5.0.1
     "@ctrl/tinycolor": ^4.0.2
