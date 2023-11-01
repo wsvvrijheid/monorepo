@@ -24,7 +24,7 @@ export const getSecret = (key: Secrets) => {
 
 export const sessionOptions = {
   password: getSecret('COOKIE_PASSWORD') || '12345678901234567890123456789012',
-  cookieName: 'wees-session',
+  cookieName: 'iron-session',
   cookieOptions: {
     secure: process.env['NODE_ENV'] === 'production',
   },
