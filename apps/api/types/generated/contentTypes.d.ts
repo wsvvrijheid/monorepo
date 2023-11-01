@@ -1864,7 +1864,7 @@ export interface ApiJobJob extends Schema.CollectionType {
     description: ''
   }
   options: {
-    draftAndPublish: true
+    draftAndPublish: false
   }
   attributes: {
     slug: Attribute.UID<'api::job.job', 'name_en'> & Attribute.Required
@@ -1881,7 +1881,6 @@ export interface ApiJobJob extends Schema.CollectionType {
     >
     createdAt: Attribute.DateTime
     updatedAt: Attribute.DateTime
-    publishedAt: Attribute.DateTime
     createdBy: Attribute.Relation<'api::job.job', 'oneToOne', 'admin::user'> &
       Attribute.Private
     updatedBy: Attribute.Relation<'api::job.job', 'oneToOne', 'admin::user'> &
@@ -2241,9 +2240,14 @@ export interface ApiProfileProfile extends Schema.CollectionType {
     description: ''
   }
   options: {
-    draftAndPublish: true
+    draftAndPublish: false
   }
   attributes: {
+    role: Attribute.Relation<
+      'api::profile.profile',
+      'manyToOne',
+      'plugin::users-permissions.role'
+    >
     name: Attribute.String & Attribute.Required
     email: Attribute.Email & Attribute.Required & Attribute.Unique
     bio: Attribute.Text
@@ -2513,11 +2517,6 @@ export interface ApiProfileProfile extends Schema.CollectionType {
     inMailingList: Attribute.Boolean & Attribute.DefaultTo<false>
     approved: Attribute.Boolean & Attribute.DefaultTo<false>
     isPublic: Attribute.Boolean & Attribute.DefaultTo<false>
-    jobs: Attribute.Relation<
-      'api::profile.profile',
-      'oneToMany',
-      'api::job.job'
-    >
     age: Attribute.Integer
     city: Attribute.String
     platforms: Attribute.Relation<
@@ -2662,14 +2661,13 @@ export interface ApiProfileProfile extends Schema.CollectionType {
       'oneToOne',
       'plugin::users-permissions.user'
     >
-    role: Attribute.Relation<
+    jobs: Attribute.Relation<
       'api::profile.profile',
-      'manyToOne',
-      'plugin::users-permissions.role'
+      'oneToMany',
+      'api::job.job'
     >
     createdAt: Attribute.DateTime
     updatedAt: Attribute.DateTime
-    publishedAt: Attribute.DateTime
     createdBy: Attribute.Relation<
       'api::profile.profile',
       'oneToOne',

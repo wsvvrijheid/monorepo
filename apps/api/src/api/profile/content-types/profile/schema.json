@@ -8,10 +8,17 @@
     "description": ""
   },
   "options": {
-    "draftAndPublish": true
+    "draftAndPublish": false
   },
   "pluginOptions": {},
   "attributes": {
+    "role": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.role",
+      "inversedBy": "users",
+      "configurable": false
+    },
     "name": {
       "type": "string",
       "required": true
@@ -316,11 +323,6 @@
       "type": "boolean",
       "default": false
     },
-    "jobs": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::job.job"
-    },
     "age": {
       "type": "integer"
     },
@@ -503,12 +505,10 @@
       "relation": "oneToOne",
       "target": "plugin::users-permissions.user"
     },
-    "role": {
+    "jobs": {
       "type": "relation",
-      "relation": "manyToOne",
-      "target": "plugin::users-permissions.role",
-      "inversedBy": "users",
-      "configurable": false
+      "relation": "oneToMany",
+      "target": "api::job.job"
     }
   }
 }

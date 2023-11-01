@@ -49,7 +49,8 @@ export const JoinForm: FC<JoinFormProps> = ({
   })
 
   const onSubmit: SubmitHandler<JoinFormFieldValues> = data => {
-    onSubmitHandler(data)
+    const newData = { ...data, jobs: { connect: data.jobs } }
+    onSubmitHandler(newData as any)
   }
 
   return (
