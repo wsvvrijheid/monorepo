@@ -1,9 +1,9 @@
 import { kv } from '@vercel/kv'
-import { unsealData } from 'iron-session/edge'
+// import { unsealData } from 'iron-session/edge'
 import { NextRequest, NextResponse } from 'next/server'
 
-import { sessionOptions } from '@wsvvrijheid/secrets'
-import { Auth, RoleType } from '@wsvvrijheid/types'
+// import { sessionOptions } from '@wsvvrijheid/secrets'
+// import { Auth, RoleType } from '@wsvvrijheid/types'
 
 export const config = {
   runtime: 'edge',
@@ -14,23 +14,23 @@ const handler = async (req: NextRequest) => {
   try {
     // Allow users to read the data without authentication
     // but require admin role for all other mutations
-    if (method !== 'GET') {
-      const { user } = await unsealData<Auth>(
-        req.cookies.get('iron-session')?.value as string,
-        { password: sessionOptions.password },
-      )
+    // if (method !== 'GET') {
+    //   const { user } = await unsealData<Auth>(
+    //     req.cookies.get('iron-session')?.value as string,
+    //     { password: sessionOptions.password },
+    //   )
 
-      const allowedRoles: RoleType[] = [
-        'admin',
-        'contentmanager',
-        'contentmanager_translator',
-      ]
-      const isAllowed = user?.roles?.some(role => allowedRoles.includes(role))
+    //   const allowedRoles: RoleType[] = [
+    //     'admin',
+    //     'contentmanager',
+    //     'contentmanager_translator',
+    //   ]
+    //   const isAllowed = user?.roles?.some(role => allowedRoles.includes(role))
 
-      if (!isAllowed) {
-        throw new Error('Unauthorized')
-      }
-    }
+    //   if (!isAllowed) {
+    //     throw new Error('Unauthorized')
+    //   }
+    // }
 
     if (method === 'POST') {
       try {
