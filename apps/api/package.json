@@ -25,7 +25,7 @@
     "@strapi/plugin-users-permissions": "4.15.0",
     "@strapi/provider-email-nodemailer": "4.15.0",
     "@strapi/strapi": "4.15.0",
-    "apify-client": "^2.8.1",
+    "apify-client": "^2.8.2",
     "cheerio": "^1.0.0-rc.12",
     "pg": "^8.11.3",
     "pg-connection-string": "^2.6.2",
