@@ -79,7 +79,6 @@ export const useProfileColumns = (): WTableProps<
     availableHours: { sortable: true },
     phone: {},
     country: { sortable: true },
-    occupation: {},
     createdAt: { type: 'date', sortable: true },
   }
 }
