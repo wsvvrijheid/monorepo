@@ -1,0 +1,50 @@
+{
+  "kind": "collectionType",
+  "collectionName": "foundations",
+  "info": {
+    "singularName": "foundation",
+    "pluralName": "foundations",
+    "displayName": "Foundation",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "email": {
+      "type": "email"
+    },
+    "name": {
+      "type": "string"
+    },
+    "bank": {
+      "type": "text"
+    },
+    "board_of_directors": {
+      "type": "text"
+    },
+    "address": {
+      "type": "string"
+    },
+    "website": {
+      "type": "string"
+    },
+    "profiles": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::profile.profile"
+    },
+    "platforms": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::platform.platform"
+    },
+    "assets": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::asset.asset",
+      "mappedBy": "foundation"
+    }
+  }
+}

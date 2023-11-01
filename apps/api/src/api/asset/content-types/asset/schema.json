@@ -1,0 +1,54 @@
+{
+  "kind": "collectionType",
+  "collectionName": "assets",
+  "info": {
+    "singularName": "asset",
+    "pluralName": "assets",
+    "displayName": "assets",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "asset_number": {
+      "type": "string"
+    },
+    "used_person": {
+      "type": "string"
+    },
+    "where": {
+      "type": "string"
+    },
+    "asset_photo": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "comments": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::comment.comment",
+      "mappedBy": "asset"
+    },
+    "rules": {
+      "type": "text"
+    },
+    "foundation": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::foundation.foundation",
+      "inversedBy": "assets"
+    }
+  }
+}

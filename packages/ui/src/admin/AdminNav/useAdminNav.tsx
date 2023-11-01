@@ -11,10 +11,12 @@ import { FiActivity, FiUsers } from 'react-icons/fi'
 import { GiHumanPyramid } from 'react-icons/gi'
 import { HiOutlineNewspaper } from 'react-icons/hi'
 import {
+  MdFoundation,
   MdOutlineFeedback,
   MdOutlineSpaceDashboard,
   MdOutlineSupervisorAccount,
 } from 'react-icons/md'
+import { SiGeneralelectric, SiMaterialdesignicons } from 'react-icons/si'
 import {
   TbActivity,
   TbBookmarks,
@@ -38,6 +40,23 @@ export const useAdminNav = (): AdminNavItemProps[] => {
       label: t('dashboard'),
       link: '/',
       icon: <MdOutlineSpaceDashboard />,
+    },
+     {
+      label:'Foundation' , // t('foundation')
+      icon: <MdFoundation />,
+      submenu: [
+        {
+          label:'General' , // t('general')
+          link: '/general',
+          icon: <SiGeneralelectric />,
+        },
+        {
+          label:'Assets',// t('assets')
+          link: '/assets',
+          icon: <SiMaterialdesignicons />,
+        },
+       
+      ],
     },
     {
       label: t('translates'),

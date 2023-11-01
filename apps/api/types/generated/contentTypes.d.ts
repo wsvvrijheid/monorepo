@@ -1077,6 +1077,52 @@ export interface ApiArtArt extends Schema.CollectionType {
   }
 }
 
+export interface ApiAssetAsset extends Schema.CollectionType {
+  collectionName: 'assets'
+  info: {
+    singularName: 'asset'
+    pluralName: 'assets'
+    displayName: 'assets'
+    description: ''
+  }
+  options: {
+    draftAndPublish: true
+  }
+  attributes: {
+    name: Attribute.String
+    asset_number: Attribute.String
+    used_person: Attribute.String
+    where: Attribute.String
+    asset_photo: Attribute.Media
+    comments: Attribute.Relation<
+      'api::asset.asset',
+      'oneToMany',
+      'api::comment.comment'
+    >
+    rules: Attribute.Text
+    foundation: Attribute.Relation<
+      'api::asset.asset',
+      'manyToOne',
+      'api::foundation.foundation'
+    >
+    createdAt: Attribute.DateTime
+    updatedAt: Attribute.DateTime
+    publishedAt: Attribute.DateTime
+    createdBy: Attribute.Relation<
+      'api::asset.asset',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private
+    updatedBy: Attribute.Relation<
+      'api::asset.asset',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private
+  }
+}
+
 export interface ApiBlogBlog extends Schema.CollectionType {
   collectionName: 'blogs'
   info: {
@@ -1385,6 +1431,11 @@ export interface ApiCommentComment extends Schema.CollectionType {
     >
     art: Attribute.Relation<'api::comment.comment', 'manyToOne', 'api::art.art'>
     blocked: Attribute.Boolean & Attribute.DefaultTo<false>
+    asset: Attribute.Relation<
+      'api::comment.comment',
+      'manyToOne',
+      'api::asset.asset'
+    >
     createdAt: Attribute.DateTime
     updatedAt: Attribute.DateTime
     publishedAt: Attribute.DateTime
@@ -1712,6 +1763,57 @@ export interface ApiFeedbackFeedback extends Schema.CollectionType {
       Attribute.Private
     updatedBy: Attribute.Relation<
       'api::feedback.feedback',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private
+  }
+}
+
+export interface ApiFoundationFoundation extends Schema.CollectionType {
+  collectionName: 'foundations'
+  info: {
+    singularName: 'foundation'
+    pluralName: 'foundations'
+    displayName: 'Foundation'
+    description: ''
+  }
+  options: {
+    draftAndPublish: true
+  }
+  attributes: {
+    email: Attribute.Email
+    name: Attribute.String
+    bank: Attribute.Text
+    board_of_directors: Attribute.Text
+    address: Attribute.String
+    website: Attribute.String
+    profiles: Attribute.Relation<
+      'api::foundation.foundation',
+      'oneToMany',
+      'api::profile.profile'
+    >
+    platforms: Attribute.Relation<
+      'api::foundation.foundation',
+      'oneToMany',
+      'api::platform.platform'
+    >
+    assets: Attribute.Relation<
+      'api::foundation.foundation',
+      'oneToMany',
+      'api::asset.asset'
+    >
+    createdAt: Attribute.DateTime
+    updatedAt: Attribute.DateTime
+    publishedAt: Attribute.DateTime
+    createdBy: Attribute.Relation<
+      'api::foundation.foundation',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private
+    updatedBy: Attribute.Relation<
+      'api::foundation.foundation',
       'oneToOne',
       'admin::user'
     > &
@@ -3246,6 +3348,7 @@ declare module '@strapi/types' {
       'api::applicant.applicant': ApiApplicantApplicant
       'api::application.application': ApiApplicationApplication
       'api::art.art': ApiArtArt
+      'api::asset.asset': ApiAssetAsset
       'api::blog.blog': ApiBlogBlog
       'api::category.category': ApiCategoryCategory
       'api::collection.collection': ApiCollectionCollection
@@ -3255,6 +3358,7 @@ declare module '@strapi/types' {
       'api::course-application.course-application': ApiCourseApplicationCourseApplication
       'api::donate.donate': ApiDonateDonate
       'api::feedback.feedback': ApiFeedbackFeedback
+      'api::foundation.foundation': ApiFoundationFoundation
       'api::hashtag.hashtag': ApiHashtagHashtag
       'api::job.job': ApiJobJob
       'api::lang-role.lang-role': ApiLangRoleLangRole
