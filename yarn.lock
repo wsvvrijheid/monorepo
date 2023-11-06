@@ -9177,14 +9177,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:18.2.34":
-  version: 18.2.34
-  resolution: "@types/react@npm:18.2.34"
+"@types/react@npm:18.2.35":
+  version: 18.2.35
+  resolution: "@types/react@npm:18.2.35"
   dependencies:
     "@types/prop-types": "npm:*"
     "@types/scheduler": "npm:*"
     csstype: "npm:^3.0.2"
-  checksum: 6d16f86b384e829edc3710b1dd9ec4eb1d6b26bc079c5cf605bd0cbf77ae6224f15c76949afadb7f53df4544cfe4025c1111fbe36732cd7f660a320fbc2e5866
+  checksum: 3c8c752d21856f74ddb96b9dd13cdd70c0ce1522808f20511f0220f392ea727fae9388db4da3ebe317d9bac98a0d930566d4277b22e92c1cad414429739e1d76
   languageName: node
   linkType: hard
 
@@ -24234,12 +24234,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-hook-form@npm:7.47.0":
-  version: 7.47.0
-  resolution: "react-hook-form@npm:7.47.0"
+"react-hook-form@npm:7.48.2":
+  version: 7.48.2
+  resolution: "react-hook-form@npm:7.48.2"
   peerDependencies:
     react: ^16.8.0 || ^17 || ^18
-  checksum: 182a03afd2dedc31d6688481f01c0fed06c8440691b5d103df5007104aea5dc79f188c493730020bedac7781abc3327e51b432c605691beef44b0513bcadf51b
+  checksum: 6cb494f359675e78c14c49a33d1c568df1a03db4c750eab18d6554e622fd64e04195c57efa138db03f8988587d132c57d2a7f5f3dd9157be996cc9acd4362170
   languageName: node
   linkType: hard
 
@@ -29332,7 +29332,7 @@ __metadata:
     "@turbo/gen": "npm:^1.10.16"
     "@types/file-saver": "npm:^2.0.6"
     "@types/node": "npm:^20.8.10"
-    "@types/react": "npm:18.2.34"
+    "@types/react": "npm:18.2.35"
     "@types/react-dom": "npm:18.2.14"
     "@types/react-headroom": "npm:^3.2.2"
     "@types/remove-markdown": "npm:^0.3.3"
@@ -29389,7 +29389,7 @@ __metadata:
     react: "npm:^18.2.0"
     react-dom: "npm:^18.2.0"
     react-headroom: "npm:^3.2.1"
-    react-hook-form: "npm:7.47.0"
+    react-hook-form: "npm:7.48.2"
     react-hook-form-persist: "npm:^3.0.0"
     react-i18next: "npm:^13.3.1"
     react-icons: "npm:^4.11.0"
