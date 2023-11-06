@@ -168,6 +168,7 @@ export const TopicCard: FC<TopicCardProps> = ({ topic }) => {
           alt={topic.title}
           objectFit={'cover'}
           flexShrink={0}
+          unoptimized
         />
         <HStack spacing={1} pos="absolute" top={0} left={0} w={'full'} p={2}>
           <Badge
