@@ -70,11 +70,11 @@ const RecommendsPage: FC<RecommendsPageProps> = ({ topic, topics, seo }) => {
     <Layout seo={seo}>
       <NextSeo {...seo} />
 
-      <Modal isOpen={isOpen && !!topic} onClose={handleClose}>
+      <Modal size={'6xl'} isOpen={isOpen && !!topic} onClose={handleClose}>
         <ModalOverlay />
         <ModalContent>
           <ModalCloseButton />
-          <ModalBody>
+          <ModalBody p={{ base: 8, lg: 16 }}>
             {topic && <TopicCard key={topic.id} topic={topic} />}
           </ModalBody>
         </ModalContent>
@@ -121,18 +121,24 @@ export const getServerSideProps = async (
   }
 
   if (id) {
-    const topic = await strapiRequest<RecommendedTopic>({
+    await strapiRequest<RecommendedTopic>({
       endpoint: 'recommended-topics',
       id: Number(id),
       populate: ['localizations'],
     })
-
-    recommendedTopic = topic.data
-    seo = getPageSeo(recommendedTopic, 'recommended-topics', locale)
-    slugs = getLocalizedSlugs(
-      recommendedTopic as unknown as StrapiTranslatableModel,
-      locale,
-    )
+      .then(res => {
+        if (res.data) {
+          recommendedTopic = res.data
+          seo = getPageSeo(recommendedTopic, 'recommended-topics', locale)
+          slugs = getLocalizedSlugs(
+            recommendedTopic as unknown as StrapiTranslatableModel,
+            locale,
+          )
+        }
+      })
+      .catch(error => {
+        console.log(error)
+      })
   }
 
   const response = await strapiRequest<RecommendedTopic>({
