@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { load } from 'cheerio'
 
-import { ScrapPage, Topic } from './types'
+import { ScrapPage } from './types'
 
 export const scrapPage: ScrapPage = async ({
   publisher,
@@ -51,18 +51,14 @@ export const scrapPage: ScrapPage = async ({
       url: url.toString(),
       category,
     }
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } catch (error: any) {
-    console.error(`Error while scraping ${url}`, error.response || error)
-
-    return {
-      category: 'SCRAPING ERROR',
-      description: 'An error ocurred while scraping topics from : ' + url,
-      locale,
+  } catch (error) {
+    console.error(
+      'Error while scrapping the page.',
+      url.href,
+      error.message,
       publisher,
-      time: new Date().toDateString(),
-      title: 'ERROR',
-      url: url.toString(),
-    } as Topic
+    )
+
+    return null
   }
 }

@@ -3,7 +3,7 @@ import {
   Post,
   StrapiLocale,
   ApprovalStatus,
-  User,
+  Profile,
 } from '@wsvvrijheid/types'
 
 import { LocaleBadges, PublicationBadges } from '../../admin'
@@ -13,8 +13,8 @@ export const usePostColumns = (): WTableProps<Post>['columns'] => {
   return {
     image: { type: 'image' },
     creator: {
-      transform: value => (value as User)?.username,
-      sortKey: 'username',
+      transform: value => (value as Profile)?.email,
+      sortKey: 'email',
       sortable: true,
     },
     content: {},
@@ -24,7 +24,6 @@ export const usePostColumns = (): WTableProps<Post>['columns'] => {
     },
     createdAt: {
       type: 'date',
-      componentProps: { format: 'dd MMMM' },
       sortable: true,
     },
     translates: {

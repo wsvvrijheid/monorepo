@@ -24,13 +24,13 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
   const locale = context.locale as StrapiLocale
 
   const platforms = await strapiRequest<Platform>({
-    url: 'api/platforms',
+    endpoint: 'platforms',
     locale,
   })
 
   return {
     props: {
-      ...(await ssrTranslations(locale), ['admin', 'model']),
+      ...(await ssrTranslations(locale)),
       platforms,
     },
     revalidate: 1,

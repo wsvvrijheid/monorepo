@@ -1,7 +1,6 @@
 import { FC } from 'react'
 
 import { Box, Button, Heading, Stack, Text } from '@chakra-ui/react'
-import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
 import { Hashtag } from '@wsvvrijheid/types'
@@ -15,11 +14,10 @@ type HashtagsSummaryProps = {
 }
 
 export const HashtagsSummary: FC<HashtagsSummaryProps> = ({ hashtags }) => {
-  const { locale } = useRouter()
   const { t } = useTranslation()
 
   const links = hashtags.map(hashtag => {
-    return getItemLink(hashtag, locale, 'hashtag')
+    return getItemLink(hashtag, 'hashtags')
   })
 
   const [latestHashtag, ...prevHashtags] = hashtags

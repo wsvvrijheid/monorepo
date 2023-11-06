@@ -37,7 +37,7 @@ export const DowloadCapsModal: FC<DowloadCapsModalType> = ({ id }) => {
   const { locale } = useRouter()
 
   const postsQuery = useStrapiRequest<Post>({
-    url: 'api/posts',
+    endpoint: 'posts',
     filters: {
       ...(id && { hashtag: { id: { $eq: id } } }),
       approvalStatus: { $eq: 'approved' },
@@ -104,7 +104,7 @@ export const DowloadCapsModal: FC<DowloadCapsModalType> = ({ id }) => {
 
           imgFolder?.file(`${locale}_image_${index}.jpeg`, blob)
         } catch (error) {
-          console.log('try error', error)
+          console.error('Download caps error', error)
         }
       }),
     )

@@ -42,22 +42,29 @@ export const Pagination: FC<PaginationProps> = ({
     <ButtonGroup
       display={'flex'}
       justifyContent={'center'}
-      variant="outline"
-      isAttached
+      variant="ghost"
+      colorScheme="gray"
+      spacing={0}
       {...rest}
     >
+      {/* Prev button */}
       <IconButton
         aria-label="Previous page"
         icon={<TbChevronLeft />}
         isDisabled={currentPage === 1}
         onClick={onPrevious}
+        rounded={'full'}
       />
-      {paginationRange.map(pageNumber => {
+
+      {paginationRange.map((pageNumber, index) => {
         if (pageNumber === DOTS) {
           return (
             <IconButton
-              key={pageNumber}
+              key={index}
               aria-label="dots"
+              rounded={'full'}
+              isDisabled
+              _disabled={{ opacity: 1 }}
               icon={<BsThreeDots />}
             />
           )
@@ -67,18 +74,24 @@ export const Pagination: FC<PaginationProps> = ({
 
         return (
           <Button
-            key={pageNumber}
-            {...(isCurrentPage && { variant: 'solid' })}
+            key={index}
+            {...(isCurrentPage && {
+              variant: 'solid',
+            })}
+            rounded={'full'}
             onClick={() => onPageChange(pageNumber as number)}
           >
             {pageNumber}
           </Button>
         )
       })}
+
+      {/* Next button */}
       <IconButton
         aria-label="Next page"
         icon={<TbChevronRight />}
         isDisabled={lastPage === currentPage}
+        rounded={'full'}
         onClick={onNext}
       />
     </ButtonGroup>

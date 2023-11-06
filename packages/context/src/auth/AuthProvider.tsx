@@ -5,7 +5,7 @@ import axios from 'axios'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
-import { Auth, RoleType, SessionUser } from '@wsvvrijheid/types'
+import { Auth, Profile, RoleType, SessionUser } from '@wsvvrijheid/types'
 
 import { initialAuthState } from './state'
 import { AuthContextType, AuthProviderProps, AuthState } from './types'
@@ -18,6 +18,7 @@ export const AuthProvider: FC<AuthProviderProps> = ({
 }) => {
   // TODO: Use useReducer instead of useState
   const [user, setUser] = useState<SessionUser | null>(null)
+  const [profile, setProfile] = useState<Profile | null>(null)
   const [roles, setRoles] = useState<RoleType[]>(initialAuthState.roles)
   const [token, setToken] = useState<string | null>(null)
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false)
@@ -39,6 +40,7 @@ export const AuthProvider: FC<AuthProviderProps> = ({
 
   const checkAuth = async (): Promise<AuthState> => {
     setIsLoading(true)
+
     try {
       const response = await axios.get<Auth>('/api/auth/user')
 
@@ -47,11 +49,13 @@ export const AuthProvider: FC<AuthProviderProps> = ({
         setRoles(response.data?.user?.roles)
         setToken(response.data?.token)
         setIsLoggedIn(response.data?.isLoggedIn)
+        setProfile(response.data?.profile)
       }
 
       return {
         ...response.data,
         roles: response.data?.user?.roles || initialAuthState.roles,
+        profile: response.data?.profile || null,
         error: null,
         isAuthModalOpen: false,
         isLoading: false,
@@ -73,20 +77,21 @@ export const AuthProvider: FC<AuthProviderProps> = ({
     } catch (error: any) {
       setError(error.message)
     } finally {
+      setProfile(null)
       setUser(null)
       setToken(null)
       setRoles(initialAuthState.roles)
       setIsLoggedIn(false)
       setIsLoading(false)
 
-      router.push('/news')
+      router.push('/')
     }
   }
 
   const login = async (
     identifier: string,
     password: string,
-  ): Promise<AuthState> => {
+  ): Promise<AuthState | void> => {
     setIsLoading(true)
     try {
       const response = await axios.post<Auth>('/api/auth/login', {
@@ -94,24 +99,20 @@ export const AuthProvider: FC<AuthProviderProps> = ({
         password,
       })
 
-      if (response.data) {
-        setUser(response.data.user)
-        setToken(response.data.token)
-        setIsLoggedIn(response.data.isLoggedIn)
+      if (!response.data?.user) {
+        throw response.data
       }
 
-      return {
-        ...response.data,
-        roles: initialAuthState.roles,
-        isAuthModalOpen: false,
-        error: null,
-        isLoading: false,
-      }
+      setUser(response.data.user)
+      setToken(response.data.token)
+      setIsLoggedIn(response.data.isLoggedIn)
+      setProfile(response.data.profile)
     } catch (error: any) {
-      setError(error.message)
-      if (error.response.status === 400) {
+      if (error.response?.data?.message === 'Invalid identifier or password') {
+        setError(t('login.wrong-password-username'))
         throw t('login.wrong-password-username')
       } else {
+        setError(error.message)
         throw error.message
       }
     } finally {
@@ -124,7 +125,7 @@ export const AuthProvider: FC<AuthProviderProps> = ({
     password: string,
     username: string,
     name: string,
-  ): Promise<AuthState> => {
+  ): Promise<AuthState | void> => {
     setIsLoading(true)
 
     try {
@@ -135,23 +136,18 @@ export const AuthProvider: FC<AuthProviderProps> = ({
         name,
       })
 
-      if (response.data) {
-        setUser(response.data.user)
-        setToken(response.data.token)
-        setIsLoggedIn(response.data.isLoggedIn)
+      if (!response.data?.user) {
+        throw response.data
       }
 
-      return {
-        ...response.data,
-        roles: initialAuthState.roles,
-        isAuthModalOpen: false,
-        error: null,
-        isLoading: false,
-      }
+      setUser(response.data.user)
+      setToken(response.data.token)
+      setIsLoggedIn(response.data.isLoggedIn)
+      setProfile(response.data.profile)
     } catch (error: any) {
       setError(error.message)
 
-      return initialAuthState
+      throw error?.error?.message || error.message
     } finally {
       setIsLoading(false)
     }
@@ -161,6 +157,7 @@ export const AuthProvider: FC<AuthProviderProps> = ({
     <AuthContext.Provider
       value={{
         user,
+        profile,
         roles,
         token,
         isLoggedIn,

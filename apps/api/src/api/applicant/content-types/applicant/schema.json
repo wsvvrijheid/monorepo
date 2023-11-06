@@ -22,11 +22,11 @@
       "target": "api::application.application",
       "mappedBy": "applicant"
     },
-    "user": {
+    "profile": {
       "type": "relation",
       "relation": "oneToOne",
-      "target": "plugin::users-permissions.user",
-      "mappedBy": "applicant"
+      "target": "api::profile.profile",
+      "inversedBy": "applicant"
     }
   }
 }

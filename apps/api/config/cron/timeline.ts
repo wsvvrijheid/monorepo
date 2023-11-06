@@ -1,13 +1,13 @@
-import { Timeline } from '@wsvvrijheid/types'
 import { ApifyClient } from 'apify-client'
 
-export default async ({ strapi }) => {
+export default async () => {
   const locales = ['en', 'nl', 'tr']
   try {
-    const timelinePromise = await Promise.all<Timeline>(
+    const timelinePromise = await Promise.all(
       locales.map(locale => {
-        return strapi.entityService.findMany('api::timeline.timeline', {
-          locale,
+        // Entity service doesn't seem to filter by locale
+        return strapi.db.query('api::timeline.timeline').findMany({
+          where: { locale },
         })
       }),
     )
@@ -48,6 +48,6 @@ export default async ({ strapi }) => {
       })
     })
   } catch (error) {
-    console.log('Error updating timeline tweet', error.message)
+    console.error('Error updating timeline tweet', error)
   }
 }

@@ -1,27 +1,26 @@
 import { useQuery } from '@tanstack/react-query'
 
 import { strapiRequest } from '@wsvvrijheid/lib'
-import { Art, User } from '@wsvvrijheid/types'
+import { Profile } from '@wsvvrijheid/types'
 
 import { getArtByArtist } from '../art/getByArtist'
 
-export const getArtistById = async (
-  id: string,
-): Promise<(User & { arts: Art[] }) | null> => {
-  const artistResponse = await strapiRequest<User>({
-    url: 'api/users',
+export const getArtistById = async (id: string): Promise<Profile | null> => {
+  const artistResponse = await strapiRequest<Profile>({
+    endpoint: 'profiles',
     id: Number(id),
+    populate: '*',
   })
 
   const artist = artistResponse.data
 
   if (!artist) return null
 
-  const arts = await getArtByArtist(artist.id)
+  const ownedArts = await getArtByArtist(artist.id)
 
   return {
     ...artist,
-    arts,
+    ownedArts,
   }
 }
 

@@ -1,5 +1,5 @@
-import type { Strapi } from '@strapi/strapi'
 import isEmpty from 'lodash/isEmpty'
+import { addHours } from 'date-fns'
 
 import {
   getAktifHaber,
@@ -14,13 +14,11 @@ import {
   getSolidaritywithothersNews,
   getTr724News,
   getTrouwNews,
-  // getTurkishMinuteNews,
 } from './sources'
-import { AnyEntity } from '@strapi/strapi/lib/services/entity-service'
 
 // import getTurkishMinuteNews from './sources/turkishminute'
 
-export const syncNews = async ({ strapi }: { strapi: Strapi }) => {
+export const syncNews = async () => {
   try {
     const sources = [
       getAktifHaber,
@@ -38,55 +36,50 @@ export const syncNews = async ({ strapi }: { strapi: Strapi }) => {
       // getTurkishMinuteNews,
     ]
 
-    console.log('-----------------------------------')
-    console.log('All news fetching... ' + new Date())
+    strapi.log.info('-----------------------------------')
+    strapi.log.info('All news fetching... ' + new Date())
 
-    const recommendedTopics = (
-      await Promise.all(
-        ['tr', 'en', 'nl'].map(
-          locale =>
-            strapi.entityService.findMany(
-              'api::recommended-topic.recommended-topic',
-              {
-                locale,
-                fields: ['url', 'locale'],
-              },
-            ) as Promise<AnyEntity>,
-        ),
-      )
-    )
-      ?.flat()
-      ?.filter(t => !isEmpty(t))
+    const topicsResponse = await Promise.all(sources.map(source => source()))
+    const topics = topicsResponse
+      .flat()
+      .filter(topic => !isEmpty(topic))
+      .sort((a, b) => {
+        const aTime = a.time
+          ? new Date(a.time).getTime()
+          : addHours(new Date(), -5).getTime()
+        const bTime = b.time
+          ? new Date(b.time).getTime()
+          : addHours(new Date(), -5).getTime()
 
-    const topics = await Promise.all(sources.map(source => source()))
-    const result = topics.flat().filter(topic => !isEmpty(topic))
+        return bTime - aTime
+      })
 
-    const updatedTopics = result.map(topic => {
-      const isRecommended = recommendedTopics?.some(
-        recommendedTopic => recommendedTopic.url === topic.url,
-      )
+    strapi.log.info('All news fetched. ' + new Date())
 
-      return {
-        ...topic,
-        isRecommended,
-      }
-    })
+    const targetTopic = await strapi.entityService.findMany('api::topic.topic')
 
-    console.log(` ${updatedTopics.length} total news fetched.`)
-    console.log('All news fetched. ' + new Date())
-    console.log('-----------------------------------')
+    let updatedTopics = targetTopic
 
-    await strapi.db.query('api::topic.topic').update({
-      where: { id: 1 },
-      data: {
-        data: updatedTopics,
-        isSyncing: false,
-      },
-    })
+    if (targetTopic) {
+      updatedTopics = await strapi.query('api::topic.topic').update({
+        where: { id: targetTopic.id },
+        data: {
+          data: topics,
+          isSyncing: false,
+        },
+      })
+    } else {
+      updatedTopics = await strapi.query('api::topic.topic').create({
+        data: {
+          data: topics,
+          isSyncing: false,
+        },
+      })
+    }
 
-    return updatedTopics.length
+    return { data: updatedTopics, meta: {} }
   } catch (error) {
-    console.error('error', error)
+    console.error('Sync news', error)
 
     return error
   }

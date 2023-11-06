@@ -7,27 +7,24 @@ import { FormFields } from '../../admin'
 
 export const useUserSchema = () => {
   return yup.object({
-    avatar: yup.string(),
-    name: yup.string().required(),
     username: yup.string().required(),
-    role: yupSelect,
+    role: yupSelect.required(),
     email: yup.string().email().required(),
+    confirmed: yup.boolean(),
+    blocked: yup.boolean(),
+    provider: yup.string(),
   })
 }
 
 export const userFields: FormFields<User> = [
-  { name: 'name', isRequired: true },
-  { name: 'email', isRequired: true },
+  { name: 'email', isRequired: true, blockEdit: true },
   { name: 'username', isRequired: true },
-  {
-    name: 'volunteer',
-    type: 'select',
-    url: 'api/volunteers',
-  },
-  { name: 'avatar', isRequired: true, type: 'file' },
+  { name: 'confirmed', type: 'boolean', blockEdit: true },
+  { name: 'blocked', type: 'boolean' },
+  { name: 'provider', blockEdit: true },
   {
     name: 'role',
     type: 'select',
-    url: 'api/roles',
+    endpoint: 'users-permissions/roles',
   },
 ]

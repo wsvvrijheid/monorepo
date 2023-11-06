@@ -6,10 +6,9 @@ import { joinSchema } from './schema'
 
 export type JoinFormFieldValues = InferType<ReturnType<typeof joinSchema>>
 
-export type JoinFormFProps = {
+export type JoinFormProps = {
   platforms: Platform[]
   isLoading: boolean
-  locale: StrapiLocale
   onSubmitHandler: (data: JoinFormFieldValues) => void
 }
 

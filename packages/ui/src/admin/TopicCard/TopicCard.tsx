@@ -1,8 +1,10 @@
 import { FC, useState } from 'react'
 
 import {
+  Badge,
   Box,
   ButtonGroup,
+  HStack,
   Popover,
   PopoverArrow,
   PopoverBody,
@@ -11,19 +13,19 @@ import {
   Stack,
   Text,
   Tooltip,
-  useBreakpointValue,
   useToast,
 } from '@chakra-ui/react'
 import { useQueryClient } from '@tanstack/react-query'
 import { formatDistanceStrict } from 'date-fns'
 import { useTranslation } from 'next-i18next'
+import { AiOutlineDelete } from 'react-icons/ai'
 import {
-  AiFillDelete,
-  AiOutlineEye,
-  AiOutlineLike,
-  AiOutlineShareAlt,
-} from 'react-icons/ai'
-import { BsBookmarkHeart } from 'react-icons/bs'
+  FaBookmark,
+  FaRegBookmark,
+  FaRegEye,
+  FaRegShareFromSquare,
+  FaRegThumbsUp,
+} from 'react-icons/fa6'
 import { useLocalStorage } from 'usehooks-ts'
 
 import { useAuthContext } from '@wsvvrijheid/context'
@@ -38,34 +40,28 @@ import { ActionButton } from './ActionButton'
 import { TopicCardProps } from './types'
 import { ShareButtons, WConfirm, WConfirmProps, WImage } from '../../components'
 import { useFields, useSchema } from '../../data'
-import { useHasPermission } from '../../hooks'
-import { FormFields, ModelCreateModal } from '../ModelForm'
+import { usePermission } from '../../hooks'
+import { ModelCreateModal } from '../ModelForm'
 
 export const TopicCard: FC<TopicCardProps> = ({ topic }) => {
   const { user } = useAuthContext()
 
   const { t } = useTranslation()
 
-  const isVertical = useBreakpointValue({
-    base: true,
-    lg: false,
-  })
-
   const fields = useFields()
   const schemas = useSchema()
 
-  const { getPermission } = useHasPermission()
+  const { allowEndpointAction } = usePermission()
 
-  const time = topic.time
-    ? formatDistanceStrict(new Date(topic.time), new Date()) + ' - '
-    : ''
+  const time =
+    topic.time && formatDistanceStrict(new Date(topic.time), new Date())
 
   const [bookmarksStorage, setBookmarksStorage] = useLocalStorage<TopicBase[]>(
     'bookmarks',
     [],
   )
 
-  const deleteModelMutation = useDeleteModel('api/recommended-topics')
+  const deleteModelMutation = useDeleteModel('recommended-topics')
 
   const queryClient = useQueryClient()
 
@@ -136,7 +132,7 @@ export const TopicCard: FC<TopicCardProps> = ({ topic }) => {
               setConfirmState(undefined)
             },
             onError: async errors => {
-              console.log('error delete mutation', errors)
+              console.error('Delete news error', errors)
             },
           },
         )
@@ -147,12 +143,15 @@ export const TopicCard: FC<TopicCardProps> = ({ topic }) => {
 
   return (
     <Stack
-      h={isVertical ? 'auto' : '200px'}
       boxShadow="md"
+      bg={'white'}
       rounded="md"
-      align={isVertical ? 'stretch' : 'flex-start'}
-      direction={isVertical ? 'column' : 'row'}
+      align={{ base: 'stretch', xl: 'flex-start' }}
+      direction={{ base: 'column', xl: 'row' }}
       overflow="hidden"
+      backgroundImage={'url(/images/world-map.svg)'}
+      backgroundPosition={{ base: 'bottom', xl: 'right' }}
+      backgroundRepeat={'no-repeat'}
     >
       {confirmState && (
         <WConfirm
@@ -160,65 +159,72 @@ export const TopicCard: FC<TopicCardProps> = ({ topic }) => {
           onCancel={() => setConfirmState(undefined)}
         />
       )}
-      {topic.image && (
+
+      <Box pos={'relative'}>
         <WImage
-          w={isVertical ? '100%' : '300px'}
-          h={isVertical ? '200px' : '100%'}
+          w={{ base: 'full', xl: '400px' }}
+          h={{ base: '200px', xl: '220px' }}
           src={topic.image}
           alt={topic.title}
+          objectFit={'cover'}
+          flexShrink={0}
         />
-      )}
+        <HStack spacing={1} pos="absolute" top={0} left={0} w={'full'} p={2}>
+          <Badge
+            bg={'black'}
+            variant={'solid'}
+            fontWeight={600}
+            textTransform={'uppercase'}
+          >
+            {topic.publisher}
+          </Badge>
+          <Badge colorScheme={'primary'} variant={'solid'} fontWeight={600}>
+            {time}
+          </Badge>
+        </HStack>
+      </Box>
+
       <Stack
         spacing={4}
-        p={isVertical ? 4 : 8}
+        p={{ base: 4, xl: 6 }}
         flex={1}
-        justify="space-between"
+        overflow={'hidden'}
         h="full"
       >
-        <Stack textAlign={isVertical ? 'center' : 'left'}>
-          <Text fontSize="lg" fontWeight={600} noOfLines={1}>
+        <Stack textAlign={{ base: 'center', xl: 'left' }} flex={1}>
+          <Text fontSize="lg" fontWeight={600} noOfLines={{ xl: 1 }}>
             {topic.title}
           </Text>
-          <Text noOfLines={isVertical ? 3 : 2}>{topic.description}</Text>
-        </Stack>
-        <Stack
-          direction={isVertical ? 'column' : 'row'}
-          align={'center'}
-          spacing={4}
-        >
-          <Text
-            flex={1}
-            fontSize="sm"
-            fontWeight="medium"
-            color={'primary.500'}
-            noOfLines={1}
-          >
-            {time}
-            {topic.publisher}
+          <Text maxW={1000} noOfLines={{ base: 5, xl: 3 }}>
+            {topic.description}
           </Text>
-
-          <ButtonGroup size={'sm'}>
-            {getPermission(['all']) && (
+        </Stack>
+        <Stack overflowX={'auto'} align={{ base: 'center', xl: 'start' }}>
+          <ButtonGroup overflowX={'auto'} justifyContent={'center'}>
+            {allowEndpointAction('posts', 'create') && (
               <ModelCreateModal<Post>
                 title={t('create-post')}
-                url="api/posts"
+                endpoint={'posts'}
                 schema={schemas.posts!}
                 fields={fields.posts!}
                 model={postContent}
                 buttonProps={{
                   variant: 'ghost',
                   colorScheme: 'gray',
+                  iconSpacing: { base: 0, lg: 2 },
                 }}
               >
-                {isVertical ? '' : t('create-post')}
+                <Box as="span" display={{ base: 'none', xl: 'inline' }}>
+                  {t('create-post')}
+                </Box>
               </ModelCreateModal>
             )}
             <ActionButton
               onClick={() => handleView()}
-              icon={<AiOutlineEye />}
+              icon={<FaRegEye />}
               title="View"
-              isVertical={isVertical}
               variant="ghost"
+              colorScheme="gray"
             />
 
             <Popover placement="top">
@@ -226,10 +232,10 @@ export const TopicCard: FC<TopicCardProps> = ({ topic }) => {
                 <Box>
                   <ActionButton
                     onClick={() => null}
-                    icon={<AiOutlineShareAlt />}
+                    icon={<FaRegShareFromSquare />}
                     title="Share"
-                    isVertical={isVertical}
                     variant="ghost"
+                    colorScheme="gray"
                   />
                 </Box>
               </PopoverTrigger>
@@ -247,22 +253,23 @@ export const TopicCard: FC<TopicCardProps> = ({ topic }) => {
 
             <ActionButton
               onClick={() => handleBookmark()}
-              icon={<BsBookmarkHeart color={isBookmarked ? 'white' : ''} />}
-              title={isBookmarked ? 'Remove' : 'Add Bookmark'}
-              isVertical={isVertical}
-              variant={isBookmarked ? 'solid' : 'ghost'}
+              icon={<FaRegBookmark />}
+              {...(isBookmarked && {
+                icon: <FaBookmark color={'primary'} />,
+              })}
+              title={isBookmarked ? 'Remove' : 'Bookmark'}
+              variant={'ghost'}
               colorScheme={isBookmarked ? 'red' : 'gray'}
             />
             {user && (
               <ActionButton
                 onClick={() => handleRecommend()}
-                icon={<AiOutlineLike />}
+                icon={<FaRegThumbsUp />}
                 title="Recommend"
-                isVertical={isVertical}
                 disabled={topic.isRecommended || isLoading}
                 isDisabled={topic.isRecommended || isLoading}
-                variant={topic.isRecommended ? 'solid' : 'ghost'}
-                colorScheme={topic.isRecommended ? 'green' : 'gray'}
+                variant={'ghost'}
+                colorScheme={topic.isRecommended ? 'primary' : 'gray'}
               />
             )}
             {user && topic?.isRecommended && id && (
@@ -270,10 +277,10 @@ export const TopicCard: FC<TopicCardProps> = ({ topic }) => {
                 <Box>
                   <ActionButton
                     onClick={onDelete}
-                    icon={<AiFillDelete color={'red'} />}
+                    icon={<AiOutlineDelete />}
                     title="Delete"
-                    isVertical={isVertical}
                     variant="ghost"
+                    colorScheme="red"
                   />
                 </Box>
               </Tooltip>

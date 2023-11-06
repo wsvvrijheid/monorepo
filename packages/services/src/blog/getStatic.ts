@@ -43,7 +43,7 @@ export const getBlogStaticProps = async (context: GetStaticPropsContext) => {
       article: {
         publishedTime: blog.publishedAt,
         modifiedTime: blog.updatedAt,
-        authors: [blog?.author?.name || blog?.author?.username || ''],
+        authors: [blog?.author?.name || blog?.author?.email || ''],
       },
       images: image
         ? [

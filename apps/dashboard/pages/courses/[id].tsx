@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import {
   Accordion,
@@ -12,9 +12,9 @@ import {
   useDisclosure,
   useUpdateEffect,
 } from '@chakra-ui/react'
-import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
+import { GetServerSidePropsContext } from 'next'
 import { useRouter } from 'next/router'
-import { NextSeoProps } from 'next-seo'
+import { useTranslation } from 'next-i18next'
 import { FaArrowDown, FaArrowUp } from 'react-icons/fa'
 
 import { useStrapiRequest } from '@wsvvrijheid/services'
@@ -31,24 +31,20 @@ import {
   ModelEditForm,
   ModelEditModal,
   PageHeader,
-  useFields,
   useColumns,
-  useSchema,
 } from '@wsvvrijheid/ui'
 
-type PageProps = InferGetServerSidePropsType<typeof getServerSideProps>
-
-const CoursePage: FC<PageProps> = ({ seo }) => {
+const CoursePage = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
+  const { t } = useTranslation()
 
   const { locale, query } = useRouter()
 
   const columns = useColumns<CourseApplication>()
-  const fields = useFields()
-  const schemas = useSchema()
 
   const [selectedApplicationId, setSelectedApplicationId] = useState<number>()
   const [currentPage, setCurrentPage] = useState<number>(1)
+  const [pageSize, setPageSize] = useState<number>(20)
   const [searchTerm, setSearchTerm] = useState<string>()
   const [sort, setSort] = useState<Sort>()
 
@@ -59,7 +55,7 @@ const CoursePage: FC<PageProps> = ({ seo }) => {
   const id = Number(query.id as string)
 
   const applicationsQuery = useStrapiRequest<CourseApplication>({
-    url: 'api/course-applications',
+    endpoint: 'course-applications',
     filters: {
       course: { id: { $eq: id } },
       ...(searchTerm && { [`title_${locale}`]: { $containsi: searchTerm } }),
@@ -74,10 +70,11 @@ const CoursePage: FC<PageProps> = ({ seo }) => {
   }, [locale, searchTerm, sort])
 
   const applications = applicationsQuery?.data?.data || []
-  const totalCount = applicationsQuery?.data?.meta?.pagination?.pageCount || 0
+  const pageCount = applicationsQuery?.data?.meta?.pagination?.pageCount || 0
+  const totalCount = applicationsQuery?.data?.meta?.pagination?.total || 0
 
   const { data, isLoading, refetch } = useStrapiRequest<Course>({
-    url: 'api/courses',
+    endpoint: 'courses',
     id,
   })
 
@@ -99,19 +96,19 @@ const CoursePage: FC<PageProps> = ({ seo }) => {
   }
 
   return (
-    <AdminLayout seo={seo} isLoading={isLoading} hasBackButton>
+    <AdminLayout
+      seo={{ title: t('course') }}
+      isLoading={isLoading}
+      hasBackButton
+    >
       {selectedApplicationId && (
         <ModelEditModal<CourseApplication>
           title={'Application'}
-          url="api/course-applications"
+          endpoint="course-applications"
           id={selectedApplicationId}
-          schema={schemas['course-applications']!}
-          fields={fields['course-applications']!}
-          approverRoles={['academyeditor']}
-          editorRoles={['academyeditor']}
-          publisherRoles={['academyeditor']}
           isOpen={isOpen}
           onClose={handleClose}
+          onSuccess={refetch}
           size={'5xl'}
         />
       )}
@@ -122,7 +119,7 @@ const CoursePage: FC<PageProps> = ({ seo }) => {
           allowMultiple={false}
           defaultIndex={0}
           borderColor="transparent"
-          defaultValue={0}
+          defaultValue={1}
         >
           <AccordionItem _notLast={{ mb: 2 }}>
             <AccordionButton
@@ -140,22 +137,9 @@ const CoursePage: FC<PageProps> = ({ seo }) => {
             <AccordionPanel mt={4} bg={'white'} rounded={'md'}>
               {course && (
                 <ModelEditForm<Course>
-                  url="api/courses"
+                  endpoint="courses"
                   model={course}
-                  schema={schemas.courses!}
-                  fields={fields.courses!}
                   onSuccess={refetch}
-                  approverRoles={[
-                    'contentmanager',
-                    'academyeditor',
-                    'translator',
-                  ]}
-                  editorRoles={[
-                    'contentmanager',
-                    'academyeditor',
-                    'translator',
-                  ]}
-                  publisherRoles={['contentmanager', 'academyeditor']}
                 />
               )}
             </AccordionPanel>
@@ -163,6 +147,7 @@ const CoursePage: FC<PageProps> = ({ seo }) => {
           <AccordionItem>
             <AccordionButton
               justifyContent="space-between"
+              _activeStep={{ bg: 'gray.200' }}
               cursor="pointer"
               fontSize="lg"
               bg={'white'}
@@ -176,7 +161,6 @@ const CoursePage: FC<PageProps> = ({ seo }) => {
             <AccordionPanel mt={4} bg={'white'} rounded={'md'}>
               <PageHeader
                 onSearch={handleSearch}
-                searchPlaceHolder={'Search courses by title'}
                 sortMenu={[
                   <MenuItem key="asc" icon={<FaArrowUp />}>
                     Name Asc
@@ -189,12 +173,15 @@ const CoursePage: FC<PageProps> = ({ seo }) => {
 
               <DataTable<CourseApplication>
                 columns={columns['course-applications']!}
-                data={applications}
-                totalCount={totalCount}
                 currentPage={currentPage}
-                setCurrentPage={setCurrentPage}
-                onSort={setSort}
+                data={applications}
                 onClickRow={handleRowClick}
+                onSort={setSort}
+                pageCount={pageCount}
+                pageSize={pageSize}
+                setCurrentPage={setCurrentPage}
+                setPageSize={setPageSize}
+                totalCount={totalCount}
               />
             </AccordionPanel>
           </AccordionItem>
@@ -209,20 +196,9 @@ export const getServerSideProps = async (
 ) => {
   const locale = context.locale as StrapiLocale
 
-  const title = {
-    en: 'Course',
-    tr: 'Kurs',
-    nl: 'Course',
-  }
-
-  const seo: NextSeoProps = {
-    title: title[locale],
-  }
-
   return {
     props: {
-      seo,
-      ...(await ssrTranslations(locale, ['admin', 'model'])),
+      ...(await ssrTranslations(locale)),
     },
   }
 }

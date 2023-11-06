@@ -45,7 +45,7 @@ export const CreateArtForm = () => {
   const { locale } = useRouter()
   const { t } = useTranslation()
   const categories = useStrapiRequest<Category>({
-    url: 'api/categories',
+    endpoint: 'categories',
   })
 
   const { user, isLoggedIn } = useAuthContext()
@@ -64,7 +64,7 @@ export const CreateArtForm = () => {
     reset: resetForm,
     control,
   } = useForm<CreateArtFormFieldValues>({
-    resolver: yupResolver(createArtSchema(t) as any),
+    resolver: yupResolver(createArtSchema),
     mode: 'all',
   })
 
@@ -77,7 +77,7 @@ export const CreateArtForm = () => {
   const errors = formState.errors as FieldErrorsImpl<CreateArtFormFieldValues>
   const isValid = formState.isValid
 
-  const { mutate, isLoading } = useCreateModelMutation('api/arts')
+  const { mutate, isLoading } = useCreateModelMutation('arts')
 
   const createArt = async (
     data: CreateArtFormFieldValues & { image: File },
@@ -177,9 +177,9 @@ export const CreateArtForm = () => {
             {!isLoggedIn && (
               <VStack>
                 <Text>
-                  <>{t('art.create.require-auth.text')} </>
+                  <>{t('you-must-logged-in')} </>
                   <Navigate href="/login" color="primary.500">
-                    {t('art.create.require-auth.button')}
+                    {t('login')}
                   </Navigate>
                 </Text>
               </VStack>
@@ -196,13 +196,11 @@ export const CreateArtForm = () => {
                 >
                   <FormItem
                     name="title"
-                    label={t('title') as string}
                     isRequired
                     errors={errors}
                     register={register}
                   />
                   <WSelect
-                    label={t('category') as string}
                     name="categories"
                     errors={errors}
                     control={control}
@@ -217,7 +215,6 @@ export const CreateArtForm = () => {
 
                   <FormItem
                     name="description"
-                    label={t('description') as string}
                     as={Textarea}
                     isRequired
                     errors={errors}

@@ -7,6 +7,8 @@ import {
   Link,
   Stack,
   useBreakpointValue,
+  Box,
+  As,
 } from '@chakra-ui/react'
 import { motion } from 'framer-motion'
 import Headroom from 'react-headroom'
@@ -31,7 +33,7 @@ export const Header: FC<HeaderProps> = ({
   const isMobile = useBreakpointValue({ base: true, lg: false }) ?? true
 
   return (
-    <Headroom>
+    <Box as={Headroom as unknown as As}>
       <Flex
         bg={isScrolled ? 'white' : 'transparent'}
         borderBottomWidth={isScrolled ? 1 : 0}
@@ -45,7 +47,11 @@ export const Header: FC<HeaderProps> = ({
             <motion.div
               {...(animated && {
                 animate: { rotate: -360 },
-                transition: { ease: 'linear', repeat: Infinity, duration: 60 },
+                transition: {
+                  ease: 'linear',
+                  repeat: Infinity,
+                  duration: 60,
+                },
               })}
             >
               <Link href="/">
@@ -93,6 +99,6 @@ export const Header: FC<HeaderProps> = ({
           </Flex>
         </Container>
       </Flex>
-    </Headroom>
+    </Box>
   )
 }

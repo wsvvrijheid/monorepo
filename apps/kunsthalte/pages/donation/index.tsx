@@ -21,6 +21,8 @@ const DonationPage: FC<DonationPageProps> = () => {
   )
 }
 
+export default DonationPage
+
 export const getStaticProps = async (context: GetStaticPropsContext) => {
   const locale = context.locale as StrapiLocale
 
@@ -28,8 +30,5 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
     props: {
       ...(await ssrTranslations(locale)),
     },
-    revalidate: 1,
   }
 }
-
-export default DonationPage

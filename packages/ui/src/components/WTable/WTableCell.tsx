@@ -38,12 +38,16 @@ export const WTableCell = <T extends StrapiModel>({
 
   // Badge
   if (type === 'badge') {
-    cellContent = <Badge {...props}>{data}</Badge>
+    cellContent = data ? <Badge {...props}>{data}</Badge> : '-'
   }
 
   // Date
   else if (type === 'date') {
-    cellContent = <FormattedDate {...props} date={data as string} />
+    cellContent = data ? (
+      <FormattedDate format={'dd MMM yy'} {...props} date={data as string} />
+    ) : (
+      '-'
+    )
   }
 
   // Image
@@ -56,7 +60,7 @@ export const WTableCell = <T extends StrapiModel>({
         <PopoverTrigger>
           <Box>
             <WAvatar
-              size="md"
+              boxSize={8}
               src={cellImage || getMediaUrl(thumbnail)}
               onError={() => setCellImage(getMediaUrl(thumbnail, true))}
             />
@@ -77,7 +81,7 @@ export const WTableCell = <T extends StrapiModel>({
         {...(field === 'description' && { noOfLines: 1, maxW: 120 })}
         noOfLines={1}
       >
-        {cellContent}
+        {cellContent || '-'}
       </Box>
     </Td>
   )

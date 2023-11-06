@@ -1,4 +1,4 @@
-import { ApprovalStatus, Blog } from '@wsvvrijheid/types'
+import { ApprovalStatus, Blog, Profile } from '@wsvvrijheid/types'
 
 import { PublicationBadges } from '../../admin'
 import { WTableProps } from '../../components'
@@ -6,6 +6,11 @@ import { WTableProps } from '../../components'
 export const useBlogColumns = (): WTableProps<Blog>['columns'] => {
   return {
     image: { type: 'image' },
+    author: {
+      transform: value => (value as Profile)?.email,
+      sortKey: 'email',
+      sortable: true,
+    },
     title: { sortable: true },
     description: {},
     approvalStatus: {
@@ -30,7 +35,6 @@ export const useBlogColumns = (): WTableProps<Blog>['columns'] => {
     },
     createdAt: {
       type: 'date',
-      componentProps: { format: 'dd MMMM' },
       sortable: true,
     },
   }

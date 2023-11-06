@@ -36,14 +36,14 @@ export const CourseApplicationForm: FC<CourseApplicationFormProps> = ({
     handleSubmit,
     formState: { errors, isValid },
   } = useForm<ApplicationFormFields>({
-    resolver: yupResolver(applicationSchema(t)),
+    resolver: yupResolver(applicationSchema()),
     mode: 'all',
   })
 
   const { mutate } = useMutation({
     mutationKey: ['course-apply'],
     mutationFn: (data: CourseApplicationCreateInput) =>
-      Mutation.post('api/course-applications', data, TOKEN as string),
+      Mutation.post('course-applications', data, TOKEN as string),
   })
 
   const onSubmit = (data: ApplicationFormFields) => {
@@ -69,42 +69,27 @@ export const CourseApplicationForm: FC<CourseApplicationFormProps> = ({
     <form onSubmit={handleSubmit(onSubmit)}>
       <Stack spacing={8}>
         <SimpleGrid columns={{ base: 1, lg: 2 }} gap={4}>
-          <FormItem
-            name="name"
-            register={register}
-            errors={errors}
-            hideLabel
-            label={t('apply-form.name.input') as string}
-          />
+          <FormItem name="name" register={register} errors={errors} hideLabel />
           <FormItem
             name="email"
             type="email"
             register={register}
             errors={errors}
             hideLabel
-            label={t('apply-form.email.input') as string}
           />
           <FormItem
             name="country"
             register={register}
             errors={errors}
             hideLabel
-            label={t('country') as string}
           />
 
-          <FormItem
-            name="city"
-            register={register}
-            errors={errors}
-            hideLabel
-            label={t('city') as string}
-          />
+          <FormItem name="city" register={register} errors={errors} hideLabel />
           <FormItem
             name="phone"
             register={register}
             errors={errors}
             hideLabel
-            label={t('apply-form.phone.input') as string}
           />
 
           <Box gridColumn={{ lg: 'span 2' }}>
@@ -144,7 +129,7 @@ export const CourseApplicationForm: FC<CourseApplicationFormProps> = ({
           </Checkbox>
         </Stack> */}
         <Button w={'100%'} type="submit" isDisabled={!isValid}>
-          {t('apply-form.apply')}
+          {t('apply-now')}
         </Button>
       </Stack>
     </form>

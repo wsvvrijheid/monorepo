@@ -28,7 +28,7 @@ export const renderCreateFormBody = <T extends StrapiModel>({
   model,
   isChangingMedia,
   toggleChangingMedia,
-  tModel,
+  t,
 }: ModelCreateFormBodyProps<T>) => {
   const {
     register,
@@ -42,11 +42,12 @@ export const renderCreateFormBody = <T extends StrapiModel>({
     borderColor: 'transparent',
     _hover: { borderColor: 'transparent' },
     color: 'gray.500',
+    pl: 0,
   }
   const postModel = model as unknown as Post
 
   return fields.map((field, index) => {
-    const label = tModel(field.name as keyof I18nNamespaces['model'], {
+    const label = t(field.name as keyof I18nNamespaces['common'], {
       defaultValue: field.label,
     })
     const isActive =
@@ -101,7 +102,7 @@ export const renderCreateFormBody = <T extends StrapiModel>({
       return (
         <ModelSelect
           key={index}
-          url={field.url}
+          endpoint={field.endpoint}
           isMulti={field.isMulti}
           isRequired={field.isRequired}
           name={field.name as string}

@@ -1,5 +1,9 @@
 import { kv } from '@vercel/kv'
+// import { unsealData } from 'iron-session/edge'
 import { NextRequest, NextResponse } from 'next/server'
+
+// import { sessionOptions } from '@wsvvrijheid/secrets'
+// import { Auth, RoleType } from '@wsvvrijheid/types'
 
 export const config = {
   runtime: 'edge',
@@ -7,8 +11,27 @@ export const config = {
 
 const handler = async (req: NextRequest) => {
   const method = req.method
-
   try {
+    // Allow users to read the data without authentication
+    // but require admin role for all other mutations
+    // if (method !== 'GET') {
+    //   const { user } = await unsealData<Auth>(
+    //     req.cookies.get('iron-session')?.value as string,
+    //     { password: sessionOptions.password },
+    //   )
+
+    //   const allowedRoles: RoleType[] = [
+    //     'admin',
+    //     'contentmanager',
+    //     'contentmanager_translator',
+    //   ]
+    //   const isAllowed = user?.roles?.some(role => allowedRoles.includes(role))
+
+    //   if (!isAllowed) {
+    //     throw new Error('Unauthorized')
+    //   }
+    // }
+
     if (method === 'POST') {
       try {
         const { hashtagId, value } = await req.json()
@@ -17,7 +40,7 @@ const handler = async (req: NextRequest) => {
 
         return NextResponse.json(response)
       } catch (error) {
-        console.log(error)
+        console.error('Create sentence error', error)
         throw error
       }
     }
@@ -30,7 +53,7 @@ const handler = async (req: NextRequest) => {
 
         return NextResponse.json(response)
       } catch (error) {
-        console.log(error)
+        console.error('Update sentence error', error)
         throw error
       }
     }
@@ -44,7 +67,7 @@ const handler = async (req: NextRequest) => {
 
         return NextResponse.json(result)
       } catch (error) {
-        console.log(error)
+        console.error('Delete sentence error', error)
         throw error
       }
     }

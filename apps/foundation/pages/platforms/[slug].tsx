@@ -27,7 +27,7 @@ const PlatformDetailPage: FC<PlatformTemplateProps> = ({
 export default PlatformDetailPage
 
 export const getStaticPaths = async () => {
-  return await getModelStaticPaths('api/platforms')
+  return await getModelStaticPaths('platforms')
 }
 
 export const getStaticProps = async (context: GetStaticPropsContext) => {

@@ -1,13 +1,14 @@
 import { FC, useState } from 'react'
 
 import { Button, HStack, Stack, Text, Textarea } from '@chakra-ui/react'
+import { useTranslation } from 'next-i18next'
 import { HiOutlineCheck, HiOutlineX, HiPencil } from 'react-icons/hi'
 
 import { useArtFeedbackMutation } from '@wsvvrijheid/services'
 
 import { ArtFeedbackFormTypes } from './types'
 import { WAvatar, WConfirm, WConfirmProps } from '../../components'
-import { useHasPermission } from '../../hooks'
+import { usePermission } from '../../hooks'
 
 export const ArtFeedbackForm: FC<ArtFeedbackFormTypes> = ({
   art,
@@ -22,7 +23,9 @@ export const ArtFeedbackForm: FC<ArtFeedbackFormTypes> = ({
 
   const feedbackMutation = useArtFeedbackMutation()
 
-  const { getPermission } = useHasPermission()
+  const { allowEndpointAction } = usePermission()
+
+  const { t } = useTranslation()
 
   const handleSuccess = () => {
     onSuccess?.()
@@ -35,7 +38,7 @@ export const ArtFeedbackForm: FC<ArtFeedbackFormTypes> = ({
       isWarning: true,
       title: 'Reject art',
       description: 'Are you sure you want to reject this art?',
-      buttonText: 'Reject',
+      buttonText: t('reject'),
       onConfirm: async () => {
         feedbackMutation.mutate(
           {
@@ -82,22 +85,26 @@ export const ArtFeedbackForm: FC<ArtFeedbackFormTypes> = ({
         />
       )}
 
-      <Stack w={'full'} spacing={{ base: 2, lg: 4 }}>
+      <Stack w={'full'} spacing={2}>
         <Text color={'black'} fontWeight={700}>
-          Give Feedback
+          {t('give-feedback')}
         </Text>
-        <HStack align="start" spacing={{ base: 2, lg: 4 }}>
-          <WAvatar size="sm" src={editor.avatar} name={editor.name} />
+        <HStack align="start" spacing={2}>
+          <WAvatar
+            size="sm"
+            src={editor?.avatar}
+            name={editor?.name || editor.email}
+          />
 
-          <Stack flex={1} spacing={{ base: 2, lg: 4 }}>
+          <Stack flex={1} spacing={2}>
             <Textarea
               isRequired
               onChange={e => setFeedback(e.target.value)}
               placeholder={'Type your comment here'}
             />
 
-            {getPermission(['arteditor']) && (
-              <Stack direction={'row'} spacing={{ base: 2, lg: 4 }}>
+            {allowEndpointAction('arts', 'approve') && (
+              <Stack direction={'row'} spacing={2}>
                 <Button
                   flex={1}
                   flexShrink={0}
@@ -106,7 +113,7 @@ export const ArtFeedbackForm: FC<ArtFeedbackFormTypes> = ({
                   colorScheme="red"
                   leftIcon={<HiOutlineX />}
                 >
-                  Reject
+                  {t('reject')}
                 </Button>
 
                 <Button
@@ -117,7 +124,7 @@ export const ArtFeedbackForm: FC<ArtFeedbackFormTypes> = ({
                   colorScheme="primary"
                   leftIcon={<HiOutlineCheck />}
                 >
-                  Approve
+                  {t('approve')}
                 </Button>
 
                 <Button
@@ -127,7 +134,15 @@ export const ArtFeedbackForm: FC<ArtFeedbackFormTypes> = ({
                   colorScheme="primary"
                   leftIcon={<HiPencil />}
                 >
-                  Edit
+                  {t('edit')}
+                </Button>
+                <Button
+                  aria-label="Close"
+                  flexShrink={0}
+                  onClick={onClose}
+                  colorScheme="gray"
+                >
+                  {t('dismiss')}
                 </Button>
               </Stack>
             )}

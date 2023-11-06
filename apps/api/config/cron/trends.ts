@@ -1,6 +1,6 @@
 import { getTwitterClient } from '../../src/libs'
 
-export default async ({ strapi }) => {
+export default async () => {
   try {
     const woeids = {
       en: 1,
@@ -14,8 +14,6 @@ export default async ({ strapi }) => {
 
     Object.entries(woeids).forEach(async ([locale, id]) => {
       const result = await twitterClient.v1.get('trends/place.json', { id })
-
-      console.log('result', result)
 
       if (!Array.isArray(result)) return
       if (!result[0]) return

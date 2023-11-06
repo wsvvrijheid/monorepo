@@ -1,20 +1,21 @@
-import { FC, useState } from 'react'
+import { useState } from 'react'
 
-import { MenuItem, useUpdateEffect } from '@chakra-ui/react'
-import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
+import { useUpdateEffect } from '@chakra-ui/react'
+import { GetStaticPropsContext } from 'next'
 import { useRouter } from 'next/router'
-import { FaArrowDown, FaArrowUp } from 'react-icons/fa'
+import { useTranslation } from 'next-i18next'
 
 import { useStrapiRequest } from '@wsvvrijheid/services'
 import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import { Course, Sort, StrapiLocale } from '@wsvvrijheid/types'
 import { AdminLayout, DataTable, PageHeader, useColumns } from '@wsvvrijheid/ui'
 
-type PageProps = InferGetStaticPropsType<typeof getStaticProps>
-
-const CoursesPage: FC<PageProps> = ({ seo }) => {
+const CoursesPage = () => {
   const [currentPage, setCurrentPage] = useState<number>(1)
+  const [pageSize, setPageSize] = useState<number>(20)
   const [searchTerm, setSearchTerm] = useState<string>()
+
+  const { t } = useTranslation()
 
   const [sort, setSort] = useState<Sort>()
   const router = useRouter()
@@ -23,10 +24,10 @@ const CoursesPage: FC<PageProps> = ({ seo }) => {
   const columns = useColumns<Course>()
 
   const coursesQuery = useStrapiRequest<Course>({
-    url: 'api/courses',
+    endpoint: 'courses',
     populate: ['categories', 'tags', 'platforms', 'image', 'applications'],
     page: currentPage || 1,
-    pageSize: 10,
+    pageSize,
     filters: {
       ...(searchTerm && { [`title_${locale}`]: { $containsi: searchTerm } }),
     },
@@ -43,7 +44,8 @@ const CoursesPage: FC<PageProps> = ({ seo }) => {
   }, [locale, searchTerm, sort])
 
   const courses = coursesQuery?.data?.data
-  const totalCount = coursesQuery?.data?.meta?.pagination?.pageCount || 0
+  const pageCount = coursesQuery?.data?.meta?.pagination?.pageCount || 0
+  const totalCount = coursesQuery?.data?.meta?.pagination?.total || 0
 
   const mappedCourses =
     courses?.map(course => {
@@ -64,28 +66,20 @@ const CoursesPage: FC<PageProps> = ({ seo }) => {
   }
 
   return (
-    <AdminLayout seo={seo}>
-      <PageHeader
-        onSearch={handleSearch}
-        searchPlaceHolder={'Search courses by title'}
-        sortMenu={[
-          <MenuItem key="asc" icon={<FaArrowUp />}>
-            Name Asc
-          </MenuItem>,
-          <MenuItem key="desc" icon={<FaArrowDown />}>
-            Name Desc
-          </MenuItem>,
-        ]}
-      />
+    <AdminLayout seo={{ title: t('courses') }}>
+      <PageHeader onSearch={handleSearch} />
 
       <DataTable<Course>
         columns={columns.courses!}
-        data={mappedCourses as Course[]}
-        totalCount={totalCount}
         currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-        onSort={setSort}
+        data={mappedCourses as Course[]}
         onClickRow={handleRowClick}
+        onSort={setSort}
+        pageCount={pageCount}
+        pageSize={pageSize}
+        setCurrentPage={setCurrentPage}
+        setPageSize={setPageSize}
+        totalCount={totalCount}
       />
     </AdminLayout>
   )
@@ -94,20 +88,9 @@ const CoursesPage: FC<PageProps> = ({ seo }) => {
 export const getStaticProps = async (context: GetStaticPropsContext) => {
   const locale = context.locale as StrapiLocale
 
-  const title = {
-    en: 'Courses',
-    tr: 'Kurslar',
-    nl: 'Courses',
-  }
-
-  const seo = {
-    title: title[locale],
-  }
-
   return {
     props: {
-      seo,
-      ...(await ssrTranslations(locale, ['admin', 'model'])),
+      ...(await ssrTranslations(locale)),
     },
   }
 }

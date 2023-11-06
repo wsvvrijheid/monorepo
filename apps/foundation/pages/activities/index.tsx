@@ -1,8 +1,7 @@
-import { FC } from 'react'
-
 import { Image, SimpleGrid, Stack, Text } from '@chakra-ui/react'
-import { GetStaticPropsContext, InferGetServerSidePropsType } from 'next'
+import { GetStaticPropsContext } from 'next'
 import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
 
 import { RequestCollectionArgs } from '@wsvvrijheid/lib'
 import { useStrapiRequest } from '@wsvvrijheid/services'
@@ -20,17 +19,18 @@ import {
 import { Layout } from '../../components'
 
 const args: RequestCollectionArgs = {
-  url: 'api/activities',
+  endpoint: 'activities',
   sort: ['date:desc'],
   filters: { approvalStatus: { $eq: 'approved' } },
   populate: ['image'],
   fields: ['title', 'description', 'slug'],
 }
 
-type ActivitiesProps = InferGetServerSidePropsType<typeof getStaticProps>
-
-const Activities: FC<ActivitiesProps> = ({ title }) => {
+const Activities = () => {
   const { locale, query } = useRouter()
+  const { t } = useTranslation()
+
+  const title = t('activities')
 
   const page = +(query.page || 1)
 
@@ -96,18 +96,9 @@ export default Activities
 export const getStaticProps = async (context: GetStaticPropsContext) => {
   const locale = context.locale as StrapiLocale
 
-  const seo = {
-    title: {
-      en: 'Activities',
-      nl: 'Activiteiten',
-      tr: 'Faaliyetler',
-    },
-  }
-
   return {
     props: {
       ...(await ssrTranslations(locale)),
-      title: seo.title[locale],
     },
     revalidate: 1,
   }

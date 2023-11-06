@@ -33,13 +33,13 @@ export const hashtagFields: FormFields<Hashtag> = [
   {
     name: 'mentions',
     type: 'select',
-    url: 'api/mentions',
+    endpoint: 'mentions',
     isMulti: true,
   },
   {
     name: 'categories',
     type: 'select',
-    url: 'api/categories',
+    endpoint: 'categories',
     isMulti: true,
   },
 ]

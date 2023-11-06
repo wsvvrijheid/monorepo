@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { FC, useEffect } from 'react'
 
 import {
   Button,
@@ -7,103 +7,139 @@ import {
   Stack,
   Text,
   Textarea,
+  Tooltip,
   useBreakpointValue,
   VStack,
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { TFunction, useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next'
 import { useForm } from 'react-hook-form'
 import { FiArrowRight } from 'react-icons/fi'
-import * as yup from 'yup'
 
 import { useAuthContext } from '@wsvvrijheid/context'
+import {
+  useCreateModelMutation,
+  useRecaptchaToken,
+} from '@wsvvrijheid/services'
+import { Comment, CommentCreateInput } from '@wsvvrijheid/types'
+import { toastMessage } from '@wsvvrijheid/utils'
 
+import { commentFormSchema } from './schema'
 import { CommentFormFieldValues, CommentFormProps } from './types'
 import { FormItem } from '../FormItem'
 import { WAvatar } from '../WAvatar'
 
-const userSchema = (t: TFunction) =>
-  yup.object({
-    content: yup
-      .string()
-      .required(t('comment-form.content.required') as string),
-  })
-
-const publicSchema = (t: TFunction) =>
-  yup.object({
-    name: yup.string().required(t('comment-form.name.required') as string),
-    email: yup
-      .string()
-      .email(t('comment-form.email.invalid') as string)
-      .required(t('comment-form.email.required') as string),
-    content: yup
-      .string()
-      .required(t('comment-form.content.required') as string),
-  })
-
-export const CommentForm: React.FC<CommentFormProps> = ({
-  onSendForm,
-  isLoading,
-  isSuccess,
-}) => {
+export const CommentForm: FC<CommentFormProps> = ({ artId, onSuccess }) => {
   const { t } = useTranslation()
-  const { user, isLoggedIn } = useAuthContext()
+  const { user, profile } = useAuthContext()
+  const recaptchaToken = useRecaptchaToken('comment')
 
   const {
     register,
     handleSubmit,
     reset,
+    setValue,
     formState: { errors, isValid },
   } = useForm<CommentFormFieldValues>({
-    resolver: yupResolver(isLoggedIn ? userSchema(t) : publicSchema(t)),
+    resolver: yupResolver(commentFormSchema),
+    defaultValues: {
+      name: profile?.name || user?.username || '',
+      email: profile?.email || '',
+    },
     mode: 'all',
   })
+
+  const { mutate, isSuccess, isLoading } = useCreateModelMutation<
+    Comment,
+    CommentCreateInput<'art'>
+  >('comments')
 
   useEffect(() => {
     if (isSuccess) reset()
   }, [isSuccess, reset])
 
+  useEffect(() => {
+    if (profile) {
+      setValue('name', profile.name || user?.username || '')
+      setValue('email', profile.email)
+    }
+  }, [profile, isSuccess])
+
+  const handleSendForm = async ({
+    name,
+    content,
+    email,
+  }: CommentFormFieldValues) => {
+    try {
+      const body = {
+        name,
+        content,
+        email,
+        art: artId,
+        profile: profile?.id,
+        recaptchaToken,
+        publishedAt: new Date().toISOString(),
+      } as CommentCreateInput<'art'>
+
+      mutate(body, { onSuccess: () => onSuccess?.() })
+    } catch (error) {
+      toastMessage(
+        'Error',
+        "Couldn't send comment. Please try again later.",
+        'error',
+      )
+    }
+  }
+
   return (
-    <Stack spacing={4} p={4} boxShadow="base" borderRadius="sm" bg="white">
+    <Stack
+      display={isSuccess ? 'none' : 'flex'}
+      spacing={4}
+      p={4}
+      boxShadow="base"
+      borderRadius="sm"
+      bg="white"
+    >
       <Text
         textAlign="left"
         fontSize="16px"
         fontWeight={600}
         textTransform="capitalize"
       >
-        {t('apply-form.comment-placeholder')}
+        {t('comments')}
       </Text>
       <VStack
         as="form"
-        onSubmit={handleSubmit(onSendForm)}
+        onSubmit={handleSubmit(handleSendForm)}
         alignItems="flex-start"
         justify="flex-start"
       >
         <Stack w="100%" alignItems="flex-start">
-          {!isLoggedIn && (
-            <Stack direction={{ base: 'column', lg: 'row' }} w="full">
-              <FormItem
-                name="name"
-                hideLabel
-                label={t('comment-form.name.placeholder') as string}
-                register={register}
-                errors={errors}
-              />
-              <FormItem
-                name="email"
-                type="email"
-                hideLabel
-                label={t('comment-form.email.placeholder') as string}
-                register={register}
-                errors={errors}
-              />
-            </Stack>
-          )}
+          <Stack
+            display={profile ? 'none' : 'flex'}
+            direction={{ base: 'column', lg: 'row' }}
+            w="full"
+          >
+            <FormItem
+              name="name"
+              hideLabel
+              register={register}
+              errors={errors}
+            />
+            <FormItem
+              name="email"
+              type="email"
+              hideLabel
+              register={register}
+              errors={errors}
+            />
+          </Stack>
+
           <HStack w="full" align="start">
-            {isLoggedIn && (
+            {profile && (
               <WAvatar
                 size="sm"
-                src={`${user?.avatar}`}
+                src={`${profile?.avatar}`}
                 name={user?.username}
               />
             )}
@@ -111,7 +147,6 @@ export const CommentForm: React.FC<CommentFormProps> = ({
               as={Textarea}
               name="content"
               hideLabel
-              label={t('comment-form.content.placeholder') as string}
               register={register}
               errors={errors}
               {...useBreakpointValue({ base: { rows: 1 }, sm: { rows: 3 } })}
@@ -127,16 +162,20 @@ export const CommentForm: React.FC<CommentFormProps> = ({
             />
           </HStack>
         </Stack>
-        <Button
-          display={{ base: 'none', sm: 'flex' }}
-          alignSelf="flex-end"
-          rightIcon={<FiArrowRight />}
-          isLoading={isLoading}
-          isDisabled={!isValid}
-          type="submit"
+        <Tooltip
+          label={recaptchaToken ? null : 'You are not allowed to comment'}
         >
-          {t('comment-form.send')}
-        </Button>
+          <Button
+            display={{ base: 'none', sm: 'flex' }}
+            alignSelf="flex-end"
+            rightIcon={<FiArrowRight />}
+            isLoading={isLoading}
+            isDisabled={!isValid || !recaptchaToken}
+            type="submit"
+          >
+            {t('comment-form.send')}
+          </Button>
+        </Tooltip>
       </VStack>
     </Stack>
   )

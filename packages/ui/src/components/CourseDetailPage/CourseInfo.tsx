@@ -39,12 +39,12 @@ export const CourseInfo: FC<CourseInfoProps> = ({ course }) => {
 
   const items = [
     {
-      label: `${t('date-start')}`,
+      label: `${t('startDate')}`,
       value: format(new Date(course.startDate), 'dd-MM-yyyy'),
       icon: <CgCalendarDates />,
     },
     {
-      label: `${t('date-end')}`,
+      label: `${t('endDate')}`,
       value: format(new Date(course.endDate), 'dd-MM-yyyy'),
       icon: <CgCalendarDates />,
     },

@@ -5,8 +5,10 @@ import {
   IconButton,
   Menu,
   MenuButton,
+  MenuDivider,
   MenuList,
   Spacer,
+  Stack,
 } from '@chakra-ui/react'
 import { useTranslation } from 'next-i18next'
 import { HiOutlineFilter } from 'react-icons/hi'
@@ -20,7 +22,7 @@ export type PageHeaderProps = {
   onSearch?: (value?: string) => number | void
   children?: ReactNode
   filterMenuCloseOnSelect?: boolean
-  searchPlaceHolder?: string
+  searchPlaceholder?: string
 }
 
 export const PageHeader: FC<PageHeaderProps> = ({
@@ -29,7 +31,7 @@ export const PageHeader: FC<PageHeaderProps> = ({
   onSearch,
   children,
   filterMenuCloseOnSelect,
-  searchPlaceHolder,
+  searchPlaceholder,
 }) => {
   const { t } = useTranslation()
 
@@ -54,14 +56,18 @@ export const PageHeader: FC<PageHeaderProps> = ({
         <SearchForm
           onSearch={onSearch}
           variant="flushed"
-          placeholder={searchPlaceHolder || (t('search') as string)}
+          placeholder={searchPlaceholder || (t('search') as string)}
         />
       ) : (
         <Spacer />
       )}
 
       {filterMenu && (
-        <Menu closeOnSelect={filterMenuCloseOnSelect}>
+        <Menu
+          closeOnSelect={filterMenuCloseOnSelect}
+          isLazy
+          lazyBehavior="keepMounted"
+        >
           <MenuButton
             aria-label="Open filter menu"
             as={IconButton}
@@ -70,12 +76,28 @@ export const PageHeader: FC<PageHeaderProps> = ({
             rounded="full"
             colorScheme="gray"
           />
-          <MenuList>{filterMenu}</MenuList>
+          <MenuList
+            as={Stack}
+            divider={<MenuDivider />}
+            sx={{
+              '.chakra-menu__group': {
+                maxH: 200,
+                overflowY: 'auto',
+              },
+              '.chakra-menu__group__title': {
+                position: 'sticky',
+                top: 0,
+                bg: 'white',
+              },
+            }}
+          >
+            {filterMenu}
+          </MenuList>
         </Menu>
       )}
 
       {sortMenu && (
-        <Menu>
+        <Menu isLazy lazyBehavior="keepMounted">
           <MenuButton
             aria-label="Open sort menu"
             as={IconButton}

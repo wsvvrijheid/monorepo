@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, Fragment } from 'react'
 
 import {
   Button,
@@ -9,6 +9,7 @@ import {
   MenuItem,
   MenuList,
 } from '@chakra-ui/react'
+import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
 import { FiLogIn, FiLogOut } from 'react-icons/fi'
 
@@ -23,40 +24,33 @@ import { WAvatar } from '../WAvatar'
 export const ProfileMenu: FC<ProfileMenuProps> = ({ isDark, menu }) => {
   const isScrolled = useScroll()
   const { t } = useTranslation()
-  const { user, isLoggedIn, logout } = useAuthContext()
+  const { user, profile, isLoggedIn, logout } = useAuthContext()
 
-  if (!isLoggedIn)
-    return !isScrolled && isDark ? (
-      <DarkMode>
-        <Button
-          as={Navigate}
-          href="/login"
-          size="sm"
-          variant={!isScrolled && isDark ? 'solid' : 'outline'}
-          rightIcon={<FiLogIn />}
-        >
-          {t('login.sign-in')}
-        </Button>
-      </DarkMode>
-    ) : (
-      <Button
-        as={Navigate}
-        href="/login"
-        size="sm"
-        variant={!isScrolled && isDark ? 'solid' : 'outline'}
-        rightIcon={<FiLogIn />}
-      >
-        {t('login.sign-in')}
-      </Button>
+  const Wrapper = !isScrolled && isDark ? DarkMode : Fragment
+
+  if (!isLoggedIn) {
+    return (
+      <Wrapper>
+        <Link href="/login" className="login-link">
+          <Button
+            size="sm"
+            variant={!isScrolled && isDark ? 'solid' : 'outline'}
+            rightIcon={<FiLogIn />}
+          >
+            {t('login.signin')}
+          </Button>
+        </Link>
+      </Wrapper>
     )
+  }
 
   return (
     <Menu placement="bottom">
       <MenuButton>
         <WAvatar
           boxSize={{ base: 10, lg: 12 }}
-          src={`${ASSETS_URL}${user?.avatar}`}
-          name={user?.name || user?.username}
+          src={`${ASSETS_URL}${profile?.avatar}`}
+          name={profile?.name || user?.username}
         />
       </MenuButton>
       <MenuList>
@@ -73,7 +67,7 @@ export const ProfileMenu: FC<ProfileMenuProps> = ({ isDark, menu }) => {
 
         <MenuDivider />
         <MenuItem icon={<FiLogOut />} color="red.400" onClick={logout}>
-          {t('profile.logout')}
+          {t('logout')}
         </MenuItem>
       </MenuList>
     </Menu>

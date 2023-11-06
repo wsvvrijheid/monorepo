@@ -2,7 +2,6 @@ import { Box, Button, Heading, Link, Stack, VStack } from '@chakra-ui/react'
 import { useMutation } from '@tanstack/react-query'
 import { GetStaticPropsContext } from 'next'
 import { useTranslation } from 'next-i18next'
-import { NextSeoProps } from 'next-seo'
 import { FaWhatsapp } from 'react-icons/fa'
 import { MdEmail, MdLocationOn, MdPhone } from 'react-icons/md'
 
@@ -20,13 +19,8 @@ import {
 
 import { Layout } from '../components'
 
-interface ContactProps {
-  seo: NextSeoProps
-}
-
-// eslint-disable-next-line no-empty-pattern
-const Contact = ({ seo }: ContactProps): JSX.Element => {
-  const { t } = useTranslation(['common'])
+const Contact = () => {
+  const { t } = useTranslation()
 
   const {
     isError,
@@ -51,7 +45,7 @@ const Contact = ({ seo }: ContactProps): JSX.Element => {
   }
 
   return (
-    <Layout seo={seo}>
+    <Layout seo={{ title: t('contact.title') }}>
       <Box minH="inherit">
         <Container minH="inherit" maxW="container.xl">
           <Stack
@@ -96,7 +90,7 @@ const Contact = ({ seo }: ContactProps): JSX.Element => {
                   }
                   href="https://api.whatsapp.com/send?phone=31685221308"
                 >
-                  {t('contact.form.message-label')}
+                  {t('contact.form.message')}
                 </Button>
                 <Button
                   as={Link}
@@ -144,29 +138,12 @@ const Contact = ({ seo }: ContactProps): JSX.Element => {
   )
 }
 export default Contact
+
 export const getStaticProps = async (context: GetStaticPropsContext) => {
   const locale = context.locale as StrapiLocale
 
-  const title = {
-    en: 'Contact',
-    tr: 'İletişim',
-    nl: 'Contact',
-  }
-
-  const description = {
-    en: '',
-    tr: '',
-    nl: '',
-  }
-
-  const seo = {
-    title: title[locale],
-    description: description[locale],
-  }
-
   return {
     props: {
-      seo,
       ...(await ssrTranslations(locale)),
     },
   }

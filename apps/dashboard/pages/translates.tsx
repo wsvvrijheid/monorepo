@@ -1,50 +1,50 @@
-import { FC, useState } from 'react'
+import { useEffect, useState } from 'react'
 
-import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
+import {
+  Button,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalOverlay,
+  useDisclosure,
+  useUpdateEffect,
+} from '@chakra-ui/react'
+import { GetStaticPropsContext } from 'next'
 import { useRouter } from 'next/router'
-import { NextSeoProps } from 'next-seo'
+import { useTranslation } from 'next-i18next'
 
+import { useStrapiRequest } from '@wsvvrijheid/services'
 import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import {
-  PartialStrapiEndpointMap,
-  RoleType,
+  Activity,
+  ApprovalStatus,
+  Sort,
   StrapiCollectionEndpoint,
   StrapiLocale,
+  StrapiModel,
 } from '@wsvvrijheid/types'
 import {
   AdminLayout,
+  DataTable,
   ModelEditTranslate,
   PageHeader,
-  TranslateDataTable,
+  WTableProps,
+  useColumns,
   useFields,
   useSchema,
 } from '@wsvvrijheid/ui'
 
-type PageProps = InferGetStaticPropsType<typeof getStaticProps>
-
-const approverRoles: PartialStrapiEndpointMap<RoleType[]> = {
-  activities: ['translator'],
-  arts: ['translator'],
-  collections: ['translator'],
-  hashtags: ['translator'],
-  posts: ['translator'],
-}
-
-const editRoles: PartialStrapiEndpointMap<RoleType[]> = {
-  activities: ['translator'],
-  arts: ['translator'],
-  collections: ['translator'],
-  hashtags: ['translator'],
-  posts: ['translator'],
-}
-
-const ActivitiesTranslatePage: FC<PageProps> = ({ seo }) => {
+const ActivitiesTranslatePage = () => {
   const [searchTerm, setSearchTerm] = useState<string>()
+  const { t } = useTranslation()
+  const { isOpen, onClose, onOpen } = useDisclosure()
 
-  const { query } = useRouter()
+  const { query, locale, push } = useRouter()
+
   const id = Number(query.id as string)
-  const slug = query.slug as StrapiCollectionEndpoint
 
+  const modelColumns = useColumns()
   const modelFields = useFields()
   const modelSchemas = useSchema()
 
@@ -52,6 +52,66 @@ const ActivitiesTranslatePage: FC<PageProps> = ({ seo }) => {
     search ? setSearchTerm(search) : setSearchTerm(undefined)
   }
 
+  const [currentPage, setCurrentPage] = useState<number>(1)
+  const [pageSize, setPageSize] = useState<number>(20)
+  const [sort, setSort] = useState<Sort>()
+
+  const status = query.status as ApprovalStatus
+  const slug = query.slug as Partial<StrapiCollectionEndpoint>
+  const translateKey = slug as any
+
+  useEffect(() => setCurrentPage(1), [status])
+
+  useUpdateEffect(() => {
+    dataQuery.refetch()
+  }, [locale, searchTerm, sort, status])
+
+  const dataQuery = useStrapiRequest<Activity>({
+    endpoint: slug,
+    page: currentPage || 1,
+    pageSize,
+    filters: {
+      ...(searchTerm && {
+        $or: [
+          { title: { $containsi: searchTerm } },
+          { description: { $containsi: searchTerm } },
+        ],
+      }),
+      approvalStatus: { $eq: 'pending' },
+    },
+    sort,
+    locale,
+    includeDrafts: true,
+    queryOptions: {
+      enabled: !!slug,
+    },
+  })
+
+  const items = dataQuery?.data?.data
+  const pageCount = dataQuery?.data?.meta?.pagination?.pageCount || 0
+  const totalCount = dataQuery?.data?.meta?.pagination?.total || 0
+
+  const mappedModels =
+    items?.map(item => ({
+      ...item,
+      translates: item.localizations?.map(l => l.locale),
+    })) || []
+
+  const handleClick = (index: number, id: number) => {
+    onOpen()
+    push({ query: { ...query, id } })
+  }
+
+  const handleClose = () => {
+    onClose()
+    if (query.id) {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { id, ...q } = query
+      push({ query: q }, undefined, { shallow: true })
+    }
+  }
+
+  const columns = modelColumns[slug]
   const fields =
     slug === 'posts'
       ? modelFields['translate-post-model']
@@ -62,27 +122,49 @@ const ActivitiesTranslatePage: FC<PageProps> = ({ seo }) => {
       : modelSchemas['translate-model']
 
   return (
-    <AdminLayout seo={seo}>
-      {id ? (
-        <ModelEditTranslate
-          id={id}
-          url={`api/${slug}`}
-          translatedFields={fields?.map(f => f.name) || []}
-          fields={fields as any}
-          schema={schema!}
-          approverRoles={approverRoles[slug]}
-          editorRoles={editRoles[slug] as RoleType[]}
-        />
-      ) : (
-        <>
-          <PageHeader
-            onSearch={handleSearch}
-            searchPlaceHolder={'Search by title or description'}
-          />
+    <AdminLayout seo={{ title: t(translateKey || 'translates') }}>
+      <PageHeader onSearch={handleSearch} />
 
-          <TranslateDataTable searchTerm={searchTerm} />
-        </>
+      {mappedModels && (
+        <DataTable<StrapiModel>
+          columns={columns as WTableProps<StrapiModel>['columns']}
+          currentPage={currentPage}
+          data={mappedModels}
+          onClickRow={handleClick}
+          onSort={setSort}
+          pageCount={pageCount}
+          pageSize={pageSize}
+          setCurrentPage={setCurrentPage}
+          setPageSize={setPageSize}
+          totalCount={totalCount}
+        />
       )}
+      <Modal
+        isCentered
+        isOpen={isOpen}
+        onClose={handleClose}
+        size={'full'}
+        scrollBehavior={'inside'}
+      >
+        <ModalOverlay />
+        <ModalContent>
+          <ModalCloseButton />
+          <ModalBody p={0} h={'80vh'}>
+            <ModelEditTranslate
+              id={id}
+              endpoint={slug}
+              translatedFields={fields?.map(f => f.name) || []}
+              schema={schema!}
+              fields={fields!}
+              onSuccess={dataQuery.refetch}
+            >
+              <Button onClick={handleClose} colorScheme={'gray'}>
+                {t('dismiss')}
+              </Button>
+            </ModelEditTranslate>
+          </ModalBody>
+        </ModalContent>
+      </Modal>
     </AdminLayout>
   )
 }
@@ -90,20 +172,9 @@ const ActivitiesTranslatePage: FC<PageProps> = ({ seo }) => {
 export const getStaticProps = async (context: GetStaticPropsContext) => {
   const locale = context.locale as StrapiLocale
 
-  const title = {
-    en: 'Translates',
-    tr: 'Ceviriler',
-    nl: 'Vertalingen',
-  }
-
-  const seo: NextSeoProps = {
-    title: title[locale],
-  }
-
   return {
     props: {
-      seo,
-      ...(await ssrTranslations(locale, ['admin', 'model'])),
+      ...(await ssrTranslations(locale)),
     },
   }
 }

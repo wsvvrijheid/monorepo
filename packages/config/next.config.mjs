@@ -15,6 +15,13 @@ const nextConfig = {
     defaultLocale: 'en',
     locales: ['en', 'nl', 'tr'],
   },
+  redirects: async () => [
+    {
+      source: '/donate',
+      destination: '/donation',
+      permanent: true,
+    },
+  ],
   images: {
     deviceSizes: [320, 480, 720, 1080],
     imageSizes: [150],
@@ -43,16 +50,6 @@ const nextConfig = {
   modularizeImports: {
     'date-fns': { transform: 'date-fns/{{member}}' },
     lodash: { transform: 'lodash/{{member}}' },
-  },
-  outputFileTracing: true,
-  experimental: {
-    outputFileTracingExcludes: {
-      '*': [
-        'node_modules/@swc/core-linux-x64-gnu',
-        'node_modules/@swc/core-linux-x64-musl',
-        'node_modules/@esbuild/linux-x64',
-      ],
-    },
   },
 }
 

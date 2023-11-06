@@ -149,7 +149,7 @@ export const CreateTweetForm: React.FC<CreateTweetFormProps> = ({
 
                 <ModelSelect<Mention>
                   isMulti
-                  url="api/mentions"
+                  endpoint={'mentions'}
                   control={control as any}
                   name="mentions"
                   label="Mention"

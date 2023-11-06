@@ -5,9 +5,9 @@ import { IoMdCloudUpload } from 'react-icons/io'
 
 import {
   Post,
+  StrapiEndpoint,
   StrapiModel,
   StrapiTranslatableModel,
-  StrapiUrl,
 } from '@wsvvrijheid/types'
 import { getMediaUrl } from '@wsvvrijheid/utils'
 
@@ -20,16 +20,16 @@ export type ModelMediaProps<T extends FieldValues = FieldValues> = {
   isChangingMedia: boolean
   toggleChangingMedia: () => void
   setValue: UseFormSetValue<T>
-  url?: StrapiUrl
+  endpoint?: StrapiEndpoint
 }
 
 export const ModelMedia = <T extends FieldValues = FieldValues>({
   setValue,
   model,
   isEditing,
-  isChangingMedia: isChangingImage,
-  toggleChangingMedia: toggleChangingImage,
-  url,
+  isChangingMedia,
+  toggleChangingMedia,
+  endpoint,
   name,
 }: ModelMediaProps<T>) => {
   const { title, description } = (model || {}) as StrapiTranslatableModel
@@ -40,10 +40,10 @@ export const ModelMedia = <T extends FieldValues = FieldValues>({
   const mediaUrl = getMediaUrl(media)
 
   const renderMedia = () => {
-    if (isChangingImage || (isEditing && !media)) {
+    if (isChangingMedia || (isEditing && !media)) {
       return (
         <Stack>
-          {media && <Button onClick={toggleChangingImage}>Cancel</Button>}
+          {media && <Button onClick={toggleChangingMedia}>Cancel</Button>}
           <FilePicker
             onLoaded={files =>
               setValue(name as Path<T>, files[0] as PathValue<T, Path<T>>)
@@ -72,7 +72,7 @@ export const ModelMedia = <T extends FieldValues = FieldValues>({
       return <VideoPlayer url={mediaUrl} />
     }
 
-    if (url === 'api/posts' && mediaUrl && name === 'image') {
+    if (endpoint === 'posts' && mediaUrl && name === 'image') {
       return (
         <Caps
           imageParams={{
@@ -105,14 +105,14 @@ export const ModelMedia = <T extends FieldValues = FieldValues>({
       overflow="hidden"
     >
       {renderMedia()}
-      {isEditing && media && !isChangingImage && (
+      {isEditing && media && !isChangingMedia && (
         <Center
           pos="absolute"
           top={0}
           left={0}
           boxSize="full"
           bg="blackAlpha.500"
-          onClick={toggleChangingImage}
+          onClick={toggleChangingMedia}
           cursor="pointer"
         >
           <Button

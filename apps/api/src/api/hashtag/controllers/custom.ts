@@ -5,7 +5,11 @@ import { ETwitterStreamEvent, TweetV2SingleResult } from 'twitter-api-v2'
 import { Hashtag } from '@wsvvrijheid/types'
 
 import { hashtagStatsStore, getTwitterClient } from '../../../libs'
-import { getReferenceModel, mapTweetResponseToTweet } from '../../../utils'
+import {
+  assignApprover,
+  getReferenceModel,
+  mapTweetResponseToTweet,
+} from '../../../utils'
 
 let isStarted = false
 
@@ -27,23 +31,12 @@ export default {
 
       ctx.send(tweets)
     } catch (error) {
-      console.error('Error searching hashtags', error.message)
+      console.error('Error searching hashtags', error)
       ctx.send([])
     }
   },
   async approve(ctx: Context) {
-    const result = await strapi.entityService.update(
-      'api::hashtag.hashtag',
-      ctx.params.id,
-      {
-        data: {
-          approvalStatus: 'approved',
-          publishedAt: new Date(),
-          approver: ctx.state.user.id,
-        },
-        populate: ['localizations'],
-      },
-    )
+    const result = await assignApprover(ctx, 'api::hashtag.hashtag', true)
 
     return { data: result }
   },
@@ -179,7 +172,7 @@ export default {
 
       // reconnect on error
       stream.on(ETwitterStreamEvent.Error, error => {
-        console.error('Error occurred', error)
+        console.error('HashtagEventStream', error)
         stream.reconnect()
       })
 

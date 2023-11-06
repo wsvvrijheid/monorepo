@@ -29,12 +29,12 @@ import { SocialLoginButtons } from '../SocialLoginButtons'
 
 const schema = (t: TFunction) =>
   yup.object({
-    name: yup.string().required(t('login.name.required') as string),
-    username: yup.string().required(t('login.username.required') as string),
+    name: yup.string().required(),
+    username: yup.string().required(),
     password: yup
       .string()
       .min(8, t('login.password.warning', { count: 8 }) as string)
-      .required(t('login.password.required') as string)
+      .required()
       .matches(
         RegExp('(.*[a-z].*)'),
         t('login.password.matches.lowercase') as string,
@@ -47,10 +47,7 @@ const schema = (t: TFunction) =>
         RegExp('(.*\\d.*)'),
         t('login.password.matches.number') as string,
       ),
-    email: yup
-      .string()
-      .email(t('contact.form.email-invalid') as string)
-      .required(t('login.email.required') as string),
+    email: yup.string().email().required(),
   })
 
 export const SignupForm: FC<SignupFormProps> = ({
@@ -82,10 +79,7 @@ export const SignupForm: FC<SignupFormProps> = ({
     mutationKey: ['login'],
     mutationFn: (body: SignupFormFieldValues) =>
       registerAuth(body.email, body.password, body.username, body.name),
-    onSuccess: async data => {
-      if (data.error) {
-        return setErrorMessage(data.error)
-      }
+    onSuccess: async () => {
       router.push('/')
     },
   })
@@ -111,12 +105,12 @@ export const SignupForm: FC<SignupFormProps> = ({
       >
         <Stack spacing="6">
           <Stack spacing={{ base: '2', md: '3' }} textAlign="center">
-            <Heading>{t('login.sign-up-header.title')}</Heading>
+            <Heading>{t('login.create-account')}</Heading>
             <HStack spacing="1" justify="center">
-              <Text color="muted">{t('login.sign-up-header.text')}</Text>
+              <Text color="muted">{t('login.have-account')}</Text>
 
               <Button as={Navigate} href="/login" variant="link">
-                {t('login.sign-up-header.button')}
+                {t('login.signin')}
               </Button>
             </HStack>
           </Stack>
@@ -133,29 +127,17 @@ export const SignupForm: FC<SignupFormProps> = ({
                 <AlertDescription>{errorMessage}</AlertDescription>
               </Alert>
             )}
-            <FormItem
-              name="name"
-              label={t('login.name.title') as string}
-              register={register}
-              errors={errors}
-            />
-            <FormItem
-              name="username"
-              label={t('login.username.title') as string}
-              register={register}
-              errors={errors}
-            />
+            <FormItem name="name" register={register} errors={errors} />
+            <FormItem name="username" register={register} errors={errors} />
             <FormItem
               name="email"
               type="email"
-              label={t('login.email.title') as string}
               register={register}
               errors={errors}
             />
             <FormItem
               name="password"
               type="password"
-              label={t('login.password.title') as string}
               autoComplete="current-password"
               register={register}
               errors={errors}
@@ -182,7 +164,7 @@ export const SignupForm: FC<SignupFormProps> = ({
               <HStack>
                 <Divider />
                 <Text fontSize="sm" whiteSpace="nowrap" color="muted">
-                  {t('login.sign-up-with')}
+                  {t('login.with')}
                 </Text>
                 <Divider />
               </HStack>

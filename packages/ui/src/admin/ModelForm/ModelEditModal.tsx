@@ -1,5 +1,6 @@
 import {
   Center,
+  Divider,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -16,9 +17,7 @@ import { ModelEditForm } from './ModelEditForm'
 import { ModelEditModalProps } from './types'
 
 export const ModelEditModal = <T extends StrapiModel>({
-  fields,
-  schema,
-  url,
+  endpoint,
   title,
   hideLanguageSwitcher,
   id,
@@ -27,13 +26,15 @@ export const ModelEditModal = <T extends StrapiModel>({
   onClose,
   size = '6xl',
   maxW,
+  onSuccess,
+  children = null,
   ...rest
 }: ModelEditModalProps<T>) => {
-  const { data, isLoading, refetch } = useStrapiRequest<T>({ url, id })
+  const { data, isLoading, refetch } = useStrapiRequest<T>({ endpoint, id })
 
   const model = data?.data
-
   const handleSuccess = () => {
+    onSuccess?.()
     refetch()
   }
 
@@ -65,14 +66,18 @@ export const ModelEditModal = <T extends StrapiModel>({
         {model && (
           <ModalBody pos="relative" p={0}>
             <ModelEditForm<T>
-              url={url}
-              schema={schema}
-              fields={fields}
+              endpoint={endpoint}
               model={model}
               onSuccess={handleSuccess}
               hideLanguageSwitcher={hideLanguageSwitcher}
               onClose={onClose}
             />
+            {children && (
+              <>
+                <Divider />
+                {children}
+              </>
+            )}
           </ModalBody>
         )}
       </ModalContent>

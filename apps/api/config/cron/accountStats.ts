@@ -2,7 +2,7 @@ import { format } from 'date-fns'
 
 import { getAccountStats } from '../../src/libs'
 
-export default async ({ strapi }) => {
+export default async () => {
   try {
     const accounts = process.env['STATS_ACCOUNTS']
 
@@ -38,6 +38,6 @@ export default async ({ strapi }) => {
       }
     }
   } catch (error) {
-    console.log('Error updating account statistics', error.message)
+    console.error('Error updating account statistics', error)
   }
 }

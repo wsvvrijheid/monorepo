@@ -17,10 +17,10 @@ export const CommentList: FC<CommentListProps> = ({ comments }) => {
   return (
     <Stack p={4} spacing={4} bg="white" boxShadow="base">
       <Text fontSize="lg" fontWeight={600}>
-        {t('apply-form.comments')}
+        {t('comments')}
       </Text>
 
-      <Stack spacing={4}>
+      <Stack spacing={4} maxH={300} overflowY={'auto'}>
         {comments?.map(comment => {
           return <CommentItem key={comment.id} comment={comment} />
         })}

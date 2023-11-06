@@ -22,12 +22,12 @@ export const createFeedback = async ({
     publishedAt: args.status === 'approved' ? new Date().toISOString() : null,
   }
   await Mutation.post<Feedback, FeedbackArtCreateInput>(
-    'api/feedbacks',
+    'feedbacks',
     args as FeedbackArtCreateInput,
     token,
   )
 
-  return Mutation.put<Art, ArtUpdateInput>('api/arts', args.art, body, token)
+  return Mutation.put<Art, ArtUpdateInput>('arts', args.art, body, token)
 }
 
 export const useArtFeedbackMutation = () => {

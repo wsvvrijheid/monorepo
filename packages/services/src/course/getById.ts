@@ -7,7 +7,7 @@ export const getCourseById = async (
   id: string,
 ): Promise<{ course: Course } | null> => {
   const coursesResponse = await strapiRequest<Course>({
-    url: 'api/courses',
+    endpoint: 'courses',
     id: Number(id),
   })
 

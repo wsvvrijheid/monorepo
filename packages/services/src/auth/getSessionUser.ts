@@ -15,7 +15,7 @@ export const getSessionUser = async (token: string) => {
     return null
   }
 
-  const user = mapSessionUser(userData.data as unknown as User)
+  const sessionUser = mapSessionUser(userData.data as unknown as User)
 
-  return user
+  return sessionUser
 }

@@ -2,8 +2,8 @@ import { Button, Container, Heading, Stack } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation } from '@tanstack/react-query'
 import axios from 'axios'
-import { TFunction, useTranslation } from 'next-i18next'
-import { useForm, SubmitHandler } from 'react-hook-form'
+import { useTranslation } from 'next-i18next'
+import { SubmitHandler, useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
 import { toastMessage } from '@wsvvrijheid/utils'
@@ -11,13 +11,9 @@ import { toastMessage } from '@wsvvrijheid/utils'
 import { ForgotPasswordFieldValues } from './types'
 import { FormItem } from '../FormItem'
 
-const schema = (t: TFunction) =>
-  yup.object({
-    email: yup
-      .string()
-      .email(t('contact.form.email-invalid') as string)
-      .required(t('login.email.required') as string),
-  })
+const schema = yup.object({
+  email: yup.string().email().required(),
+})
 
 export const ForgotPasswordForm = () => {
   const { t } = useTranslation()
@@ -31,7 +27,7 @@ export const ForgotPasswordForm = () => {
     defaultValues: {
       email: '',
     },
-    resolver: yupResolver(schema(t)),
+    resolver: yupResolver(schema),
     mode: 'all',
   })
 
@@ -41,7 +37,7 @@ export const ForgotPasswordForm = () => {
       axios.post('/api/auth/forgot-password', values),
     {
       onSuccess: () => {
-        toastMessage(null, t`login.forgot-pass-header.text`, 'success')
+        toastMessage(null, t`forgot-pass.text`, 'success')
         reset()
       },
       onError: () => {
@@ -69,14 +65,13 @@ export const ForgotPasswordForm = () => {
       >
         <Stack spacing="6">
           <Stack spacing={{ base: '', md: '3' }} textAlign="center">
-            <Heading>{t('login.forgot-pass-header.title')}</Heading>
+            <Heading>{t('forgot-pass.link')}</Heading>
           </Stack>
         </Stack>
         <Stack spacing="6" as="form" onSubmit={handleSubmit(onSubmit)}>
           <Stack spacing="5">
             <FormItem
               id="email"
-              label={t('login.email.title') as string}
               type="email"
               register={register}
               errors={errors}
@@ -85,7 +80,7 @@ export const ForgotPasswordForm = () => {
           </Stack>
           <Stack spacing="6">
             <Button type="submit" isLoading={isLoading}>
-              {t('login.forgot-pass-header.button')}
+              {t('submit')}
             </Button>
           </Stack>
         </Stack>

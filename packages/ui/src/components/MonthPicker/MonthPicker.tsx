@@ -24,6 +24,7 @@ export const monthsNumber = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
 export const MonthPicker: FC<MonthPickerProps> = ({
   onRangeSelect,
   onSelect,
+  onClear,
   columns = 3,
   disableFuture = false,
   children,
@@ -41,6 +42,7 @@ export const MonthPicker: FC<MonthPickerProps> = ({
     setStartMonth(null)
     setEndMonth(null)
     setYearOffset(0)
+    onClear && onClear()
   }
 
   const handleSelectCurrent = () => {

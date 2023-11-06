@@ -2,9 +2,9 @@ import { Category } from './category'
 import { Comment } from './comment'
 import { Expand } from './common'
 import { UploadFile } from './file'
+import { Profile } from './profile'
 import { StrapiBase, StrapiCreatorRelation, StrapiEntityBase } from './strapi'
 import { Tag } from './tag'
-import { User } from './user'
 
 export type BlogBase = StrapiEntityBase & {
   likes: number
@@ -13,10 +13,10 @@ export type BlogBase = StrapiEntityBase & {
 
 type BlogRelation = {
   image?: UploadFile
-  author?: User
+  author?: Profile
   categories?: Array<Category>
   tags?: Array<Tag>
-  likers?: Array<User>
+  likers?: Array<Profile>
   comments?: Array<Comment>
   localizations?: Array<Blog>
 }

@@ -1,13 +1,14 @@
-import { FaInstagram, FaTwitter, FaWhatsapp } from 'react-icons/fa'
+import { FaInstagram, FaWhatsapp } from 'react-icons/fa'
+import { FaXTwitter } from 'react-icons/fa6'
 
 export const kunsthalte = [
   {
-    label: 'Twitter',
-    icon: FaTwitter,
+    label: 'X',
+    icon: FaXTwitter,
     link: {
-      en: 'https://twitter.com/sanatduragi_nl',
-      tr: 'https://twitter.com/sanatduragi_nl',
-      nl: 'https://twitter.com/sanatduragi_nl',
+      en: 'https://x.com/sanatduragi_nl',
+      tr: 'https://x.com/sanatduragi_nl',
+      nl: 'https://x.com/sanatduragi_nl',
     },
   },
   {
@@ -23,9 +24,9 @@ export const kunsthalte = [
     label: 'Instagram',
     icon: FaInstagram,
     link: {
-      en: 'https://instagram.com/sanatduragi.nl',
-      tr: 'https://instagram.com/sanatduragi.nl',
-      nl: 'https://instagram.com/sanatduragi.nl',
+      en: 'https://instagram.com/kunsthalte',
+      tr: 'https://instagram.com/kunsthalte',
+      nl: 'https://instagram.com/kunsthalte',
     },
   },
 ]

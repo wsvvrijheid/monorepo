@@ -12,7 +12,7 @@ export const recommendTopic = (
   token: string,
 ) =>
   Mutation.post<RecommendedTopic, RecommendedTopicCreateInput>(
-    `api/recommended-topics`,
+    `recommended-topics`,
     createInput,
     token,
   )

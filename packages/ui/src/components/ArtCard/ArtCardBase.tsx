@@ -54,9 +54,9 @@ export const ArtCardBase: FC<ArtCardBaseProps> = ({
   const router = useRouter()
   const locale = router.locale
 
-  const deleteMutation = useDeleteModel('api/arts', queryKey)
-  const publishMutation = usePublishModel('api/arts', queryKey)
-  const unpublishMutation = useUnpublishModel('api/arts', queryKey)
+  const deleteMutation = useDeleteModel('arts', queryKey)
+  const publishMutation = usePublishModel('arts', queryKey)
+  const unpublishMutation = useUnpublishModel('arts', queryKey)
 
   useEffect(() => {
     setHover({ color: isLiked ? 'red.200' : 'gray.100' })
@@ -76,7 +76,7 @@ export const ArtCardBase: FC<ArtCardBaseProps> = ({
   const noOfLines = useBreakpointValue({ base: undefined, lg: 2 })
 
   const artistName = art.artist?.name
-  const artistUsername = art.artist?.username
+  const artistEmail = art.artist?.email
   const artistAvatar =
     art.artist?.avatar?.formats?.thumbnail?.url || art.artist?.avatar?.url
 
@@ -229,10 +229,10 @@ export const ArtCardBase: FC<ArtCardBaseProps> = ({
               >
                 <WAvatar
                   size="xs"
-                  name={artistName || artistUsername}
+                  name={artistName || artistEmail}
                   src={artistAvatar}
                 />
-                <Text noOfLines={1}>{artistName || artistUsername}</Text>
+                <Text noOfLines={1}>{artistName || artistEmail}</Text>
               </HStack>
             </Navigate>
           </Stack>

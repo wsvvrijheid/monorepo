@@ -14,9 +14,9 @@ export const initialHashtagState: HashtagState = {
   trendsDisclosure: {} as UseDisclosureReturn,
   hashtagSentences: {},
   hashtagStats: {
-    totalSentences: 0,
-    totalShares: 0,
-    unsharedCount: 0,
+    en: { totalSentences: 0, totalShares: 0, unsharedCount: 0 },
+    nl: { totalSentences: 0, totalShares: 0, unsharedCount: 0 },
+    tr: { totalSentences: 0, totalShares: 0, unsharedCount: 0 },
   },
 }
 

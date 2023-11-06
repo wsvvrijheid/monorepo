@@ -16,7 +16,8 @@ export const UserFeedback = () => {
       h={'fit-content'}
       position={'fixed'}
       zIndex={'modal'}
-      right={0}
+      fontSize={'sm'}
+      right={-2}
       onClick={onOpen}
       isDisabled={isOpen}
       colorScheme="primary"
@@ -26,10 +27,12 @@ export const UserFeedback = () => {
       borderBottomLeftRadius={0}
       borderTopLeftRadius={0}
       transition={'all 0.2s'}
-      pr={3}
-      pl={3}
+      pr={1}
+      pl={2}
       _hover={{
-        pl: 5,
+        transform: 'rotate(180deg) scale(1.1)',
+        right: 0,
+        pr: 2,
       }}
     >
       <Box>Feedback</Box>

@@ -18,7 +18,7 @@ import { Post, RecommendedTweet } from '@wsvvrijheid/types'
 
 import { ShareButtons, WConfirm, WConfirmProps } from '../../components'
 import { useFields, useSchema } from '../../data'
-import { FormFields, ModelCreateModal } from '../ModelForm'
+import { ModelCreateModal } from '../ModelForm'
 import { ActionButton } from '../TopicCard'
 
 export interface RecommendedSocialButtonsProps {
@@ -30,7 +30,7 @@ export const RecommendedSocialButtons: FC<RecommendedSocialButtonsProps> = ({
   tweet,
   isVertical,
 }) => {
-  const deleteModelMutation = useDeleteModel('api/recommended-tweets')
+  const deleteModelMutation = useDeleteModel('recommended-tweets')
   const [confirmState, setConfirmState] = useState<WConfirmProps>()
   const id = tweet?.id
 
@@ -53,7 +53,7 @@ export const RecommendedSocialButtons: FC<RecommendedSocialButtonsProps> = ({
               setConfirmState(undefined)
             },
             onError: async errors => {
-              console.log('error delete mutation', errors)
+              console.error('Delete tweet mutation error', errors)
             },
           },
         )
@@ -79,7 +79,7 @@ export const RecommendedSocialButtons: FC<RecommendedSocialButtonsProps> = ({
 
   const tweetImageUrl =
     (tweet?.originalTweet?.image || tweet?.originalTweet?.video) &&
-    `https://twitter.com/${tweet.originalTweet?.user?.username}/status/${tweet?.originalTweet?.id}/video/1`
+    `https://x.com/${tweet.originalTweet?.user?.username}/status/${tweet?.originalTweet?.id}/video/1`
 
   const postContent = {
     title: tweet.text,
@@ -111,7 +111,6 @@ export const RecommendedSocialButtons: FC<RecommendedSocialButtonsProps> = ({
               onClick={() => null}
               icon={<AiOutlineShareAlt />}
               title="Share"
-              isVertical={isVertical}
               variant="ghost"
               size="sm"
             />
@@ -132,7 +131,7 @@ export const RecommendedSocialButtons: FC<RecommendedSocialButtonsProps> = ({
 
       <ModelCreateModal<Post>
         title={t('create-post')}
-        url="api/posts"
+        endpoint={'posts'}
         schema={schemas.posts!}
         fields={fields.posts!}
         model={postContent}
@@ -140,7 +139,6 @@ export const RecommendedSocialButtons: FC<RecommendedSocialButtonsProps> = ({
           iconSpacing: isVertical ? 0 : 2,
           variant: 'ghost',
           colorScheme: 'gray',
-          size: 'sm',
         }}
       >
         {!isVertical && t('create-post')}
@@ -148,11 +146,10 @@ export const RecommendedSocialButtons: FC<RecommendedSocialButtonsProps> = ({
 
       <ActionButton
         onClick={onDelete}
-        icon={<AiFillDelete color={'red'} />}
+        icon={<AiFillDelete />}
         title="Delete"
-        isVertical={isVertical}
         variant="ghost"
-        size="sm"
+        colorScheme="gray"
       />
     </HStack>
   )

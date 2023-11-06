@@ -1,16 +1,16 @@
 import { Application } from './application'
 import { Art } from './art'
 import { Expand, PickRequired } from './common'
+import { Profile } from './profile'
 import { StrapiBase } from './strapi'
-import { User } from './user'
 
 export type VoteBase = {
   value: number
 }
 
 type VoteRelation = {
-  voter?: User
-  jury?: User
+  voter?: Profile
+  jury?: Profile
   application?: Application | null
   art?: Art | null
 }

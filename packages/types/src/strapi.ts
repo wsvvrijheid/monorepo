@@ -7,12 +7,6 @@ import {
   ActivityLocalizeInput,
   ActivityUpdateInput,
 } from './activity'
-import {
-  Announcement,
-  AnnouncementCreateInput,
-  AnnouncementLocalizeInput,
-  AnnouncementUpdateInput,
-} from './announcement'
 import { Applicant } from './applicant'
 import {
   Application,
@@ -32,11 +26,7 @@ import {
   CollectionCreateInput,
   CollectionUpdateInput,
 } from './collection'
-import {
-  Comment,
-  CommentArtCreateInput,
-  CommentBlogCreateInput,
-} from './comment'
+import { Comment, CommentCreateInput } from './comment'
 import { ApprovalStatus, Expand } from './common'
 import {
   Competition,
@@ -76,6 +66,7 @@ import {
   PostUpdateInput,
 } from './post'
 import { Privacy } from './privacy'
+import { Profile, ProfileCreateInput, ProfileUpdateInput } from './profile'
 import {
   RecommendedTopic,
   RecommendedTopicCreateInput,
@@ -90,12 +81,11 @@ import { Timeline, TimelineCreateInput } from './timeline'
 import { Topic } from './topic'
 import { Trend } from './trend'
 import { User } from './user'
-import { UserFeedback, UserFeedbackCreateInput } from './user-feedback'
 import {
-  Volunteer,
-  VolunteerCreateInput,
-  VolunteerUpdateInput,
-} from './volunteer'
+  UserFeedback,
+  UserFeedbackCreateInput,
+  UserFeedbackUpdateInput,
+} from './user-feedback'
 import {
   Vote,
   VoteCreateApplicationInput,
@@ -127,14 +117,13 @@ export type StrapiEntityBase = {
 }
 
 export type StrapiCreatorRelation = {
-  approver?: User | null
-  creator?: User | null
+  approver?: Profile | null
+  creator?: Profile | null
 }
 
 export type StrapiModel =
   | AccountStats
   | Activity
-  | Announcement
   | Applicant
   | Application
   | Art
@@ -165,12 +154,24 @@ export type StrapiModel =
   | Trend
   | UploadFile
   | User
-  | Volunteer
+  | Profile
   | Vote
 
-export type StrapiAllModels = Expand<UnionToIntersection<StrapiModel>>
+export type StrapiSeoModel =
+  | Activity
+  | Art
+  | Blog
+  | Collection
+  | Course
+  | Hashtag
+  | Post
+  | RecommendedTopic
+  | RecommendedTweet
+  | Platform
 
-export type StrapiModelKeys = keyof StrapiAllModels
+export type StrapiMergedModels = Expand<UnionToIntersection<StrapiModel>>
+
+export type StrapiModelKeys = keyof StrapiMergedModels
 
 /**
  * STRAPI RESPONSE TYPES
@@ -215,7 +216,6 @@ export type StrapiResponse<T extends StrapiModel> =
 export type StrapiProviders = 'instagram' | 'facebook' | 'google' | 'twitter'
 
 export type StrapiEmailEndpoint = 'email'
-export type StrapiEmailUrl = `api/${StrapiEmailEndpoint}`
 
 export type StrapiCustomEndpoint = 'translate-model' | 'translate-post-model'
 
@@ -226,23 +226,20 @@ export type StrapiSingleEndpoint =
   | 'topic'
   | 'topic/sync'
   | 'users/me'
-export type StrapiSingleUrl = `api/${StrapiSingleEndpoint}`
 
 export type StrapiAuthEndpoint =
   | 'auth/local/register'
   | 'auth/local'
   | `connect/${StrapiProviders}/callback`
-export type StrapiAuthUrl = `api/${StrapiAuthEndpoint}`
 
 export type StrapiCollectionEndpoint =
   | 'account-statistics'
   | 'activities'
-  | 'announcements'
-  | 'applications'
   | 'applicants'
+  | 'applications'
   | 'arts'
-  | 'blogs'
   | 'authors'
+  | 'blogs'
   | 'categories'
   | 'collections'
   | 'comments'
@@ -252,7 +249,6 @@ export type StrapiCollectionEndpoint =
   | 'donates'
   | 'donates/email'
   | 'feedbacks'
-  | 'user-feedbacks'
   | 'hashtags'
   | 'jobs'
   | 'lang-roles'
@@ -260,6 +256,7 @@ export type StrapiCollectionEndpoint =
   | 'mentions'
   | 'platforms'
   | 'posts'
+  | 'profiles'
   | 'recommended-topics'
   | 'recommended-tweets'
   | 'saved-tweets'
@@ -267,14 +264,13 @@ export type StrapiCollectionEndpoint =
   | 'timelines'
   | 'tweet-users'
   | 'tweets'
-  | 'user-statistics/get-user-stats'
+  | 'user-feedbacks'
   | 'user-statistics/get-stats'
+  | 'user-statistics/get-user-stats'
+  | 'users-permissions/roles'
   | 'users'
-  | 'roles'
-  | 'volunteers'
   | 'votes'
 
-export type StrapiCollectionUrl = `api/${StrapiCollectionEndpoint}`
 export type StrapiEndpoint =
   | StrapiSingleEndpoint
   | StrapiCollectionEndpoint
@@ -284,15 +280,8 @@ export type StrapiEndpoint =
 
 export type PartialStrapiEndpointMap<T> = { [x in StrapiEndpoint]?: T }
 
-export type StrapiUrl =
-  | StrapiSingleUrl
-  | StrapiCollectionUrl
-  | StrapiAuthUrl
-  | StrapiEmailUrl
-
 export type StrapiLocalizeInput =
   | ActivityLocalizeInput
-  | AnnouncementLocalizeInput
   | ArtLocalizeInput
   | BlogLocalizeInput
   | CompetitionLocalizeInput
@@ -313,14 +302,13 @@ export type StrapiFormValue =
 
 export type StrapiCreateInput =
   | ActivityCreateInput
-  | AnnouncementCreateInput
   | ApplicationCreateInput
   | ArtCreateInput
   | BlogCreateInput
   | CategoryCreateInput
   | CollectionCreateInput
-  | CommentArtCreateInput
-  | CommentBlogCreateInput
+  | CommentCreateInput<'art'>
+  | CommentCreateInput<'blog'>
   | CompetitionCreateInput
   | CourseApplicationCreateInput
   | CourseCreateInput
@@ -337,7 +325,7 @@ export type StrapiCreateInput =
   | RecommendedTweetCreateInput
   | TagCreateInput
   | TimelineCreateInput
-  | VolunteerCreateInput
+  | ProfileCreateInput
   | VoteCreateApplicationInput
   | VoteCreateApplicationJuryInput
   | VoteCreateArtInput
@@ -345,7 +333,6 @@ export type StrapiCreateInput =
 
 export type StrapiUpdateInput =
   | ActivityUpdateInput
-  | AnnouncementUpdateInput
   | ApplicationUpdateInput
   | ArtUpdateInput
   | BlogUpdateInput
@@ -355,4 +342,5 @@ export type StrapiUpdateInput =
   | DonationUpdateInput
   | HashtagUpdateInput
   | PostUpdateInput
-  | VolunteerUpdateInput
+  | ProfileUpdateInput
+  | UserFeedbackUpdateInput

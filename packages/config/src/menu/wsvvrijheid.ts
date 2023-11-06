@@ -1,33 +1,33 @@
 import {
   about,
   academy,
-  activity,
+  activities,
   artStop,
-  blog,
+  blogs,
   club,
   contact,
   dashboard,
   donation,
   join,
   lotus,
-  platform,
+  platforms,
   privacy,
   samenvvv,
-  terms,
+  term,
   music,
 } from './routes'
 
 export const wsvvrijheid = {
   headerMenu: [
-    activity,
+    activities,
     {
-      link: platform.link,
-      en: platform.en,
-      nl: platform.nl,
-      tr: platform.tr,
+      link: platforms?.link,
+      en: platforms?.en,
+      nl: platforms?.nl,
+      tr: platforms?.tr,
       children: [samenvvv, artStop, lotus, academy, music],
     },
-    blog,
+    blogs,
     club,
     {
       link: '/',
@@ -40,9 +40,9 @@ export const wsvvrijheid = {
   footerMenu: [
     {
       children: [samenvvv, artStop, lotus, academy, music],
-      en: platform.en,
-      nl: platform.nl,
-      tr: platform.tr,
+      en: platforms?.en,
+      nl: platforms?.nl,
+      tr: platforms?.tr,
     },
     {
       children: [about, contact, join, dashboard],
@@ -51,13 +51,13 @@ export const wsvvrijheid = {
       tr: 'Vakıf',
     },
     {
-      children: [club, activity],
+      children: [club, activities],
       en: 'Menu',
       nl: 'Menu',
       tr: 'Menu',
     },
     {
-      children: [terms, privacy, donation],
+      children: [term, privacy, donation],
       en: 'Support',
       nl: 'Steun',
       tr: 'Destek',

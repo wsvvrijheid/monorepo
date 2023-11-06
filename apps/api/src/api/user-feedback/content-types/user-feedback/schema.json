@@ -26,6 +26,12 @@
     },
     "site": {
       "type": "string"
+    },
+    "processed": {
+      "type": "boolean"
+    },
+    "issueLink": {
+      "type": "string"
     }
   }
 }

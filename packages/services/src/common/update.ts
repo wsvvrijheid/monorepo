@@ -4,37 +4,37 @@ import { useMutation } from '@tanstack/react-query'
 import { useAuthContext } from '@wsvvrijheid/context'
 import { Mutation } from '@wsvvrijheid/lib'
 import {
+  StrapiEndpoint,
   StrapiModel,
   StrapiTranslatableModel,
   StrapiUpdateInput,
-  StrapiUrl,
 } from '@wsvvrijheid/types'
 
 export const updateModel = <
   T extends StrapiModel,
   D extends StrapiUpdateInput & { id: number },
 >(
-  url: StrapiUrl,
+  endpoint: StrapiEndpoint,
   id: number,
   args: D,
   token: string,
 ) => {
-  return Mutation.put<T, StrapiUpdateInput>(url, id, args, token)
+  return Mutation.put<T, StrapiUpdateInput>(endpoint, id, args, token)
 }
 
 export const useUpdateModelMutation = <
   T extends StrapiModel,
   D extends StrapiUpdateInput & { id: number },
 >(
-  url: StrapiUrl,
+  endpoint: StrapiEndpoint,
 ) => {
   const toast = useToast()
   const { token } = useAuthContext()
 
   return useMutation({
-    mutationKey: ['update-model', url],
+    mutationKey: ['update-model', endpoint],
     mutationFn: ({ id, ...args }: D & { id: number }) =>
-      updateModel<T, D>(url, id, args as D, token as string),
+      updateModel<T, D>(endpoint, id, args as D, token as string),
     onSuccess: res => {
       toast({
         title: `Model updated`,
@@ -46,7 +46,7 @@ export const useUpdateModelMutation = <
       })
     },
     onError: (error: any) => {
-      console.error('error in sercices', error)
+      console.error('Update model error', error)
       toast({
         title: 'Error',
         description: `Something went wrong`,

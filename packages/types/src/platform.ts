@@ -1,8 +1,8 @@
 import { Expand } from './common'
 import { UploadFile } from './file'
 import { Job } from './job'
+import { Profile } from './profile'
 import { StrapiBase } from './strapi'
-import { Volunteer } from './volunteer'
 
 export type PlatformBase = {
   slug: string
@@ -21,7 +21,7 @@ export type PlatformBase = {
 type PlatformRelation = {
   image?: UploadFile
   jobs?: Array<Job>
-  volunteers?: Array<Volunteer>
+  volunteers?: Array<Profile>
 }
 
 type PlatformRelationInput = {

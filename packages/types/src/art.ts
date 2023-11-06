@@ -4,9 +4,9 @@ import { Comment } from './comment'
 import { Expand } from './common'
 import { Feedback } from './feedback'
 import { UploadFile } from './file'
+import { Profile } from './profile'
 import { StrapiBase, StrapiCreatorRelation } from './strapi'
 import { Tag } from './tag'
-import { User } from './user'
 import { Vote } from './vote'
 
 type ArtBase = StrapiBase & {
@@ -20,16 +20,17 @@ type ArtBase = StrapiBase & {
   description_nl: string
   description_tr: string
   approvalStatus: string
+  isLiked?: boolean
 }
 
 type ArtRelation = {
-  artist?: User
+  artist?: Profile
   categories?: Array<Category>
   collection?: Collection | null
   comments?: Array<Comment>
   feedbacks?: Array<Feedback>
   image?: UploadFile
-  likers?: Array<User>
+  likers?: Array<Profile>
   tags?: Array<Tag>
   votes?: Array<Vote>
   juryVotes?: Array<Vote>

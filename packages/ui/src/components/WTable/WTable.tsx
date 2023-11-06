@@ -21,7 +21,7 @@ export const WTable = <T extends StrapiModel>({
   const [sortMode, setSortMode] = useState<'desc' | 'asc' | null>(null)
   const [selectedColumn, setSelectedColumn] = useState<string | null>(null)
 
-  const { t: tModel } = useTranslation('model')
+  const { t } = useTranslation()
 
   const toggleSort = (columnKey: string) => {
     setSelectedColumn(columnKey)
@@ -51,15 +51,15 @@ export const WTable = <T extends StrapiModel>({
 
   return (
     <Table size="sm" cursor="default" {...rest}>
-      <Thead>
+      <Thead pos={'sticky'} top={0} zIndex={0} h={8} bg={'white'} shadow={'sm'}>
         <Tr>
           {Object.keys(columns).map((key, index) => {
             const isSortable = (columns[key as keyof T] as CellConfig<T>)
               .sortable
 
             const { label } = columns[key as keyof T] as CellConfig<T>
-            const translationLabel = tModel(
-              (label || key) as keyof I18nNamespaces['model'],
+            const translationLabel = t(
+              (label || key) as keyof I18nNamespaces['common'],
               {
                 defaultValue: label || startCase(camelCase(key)),
               },

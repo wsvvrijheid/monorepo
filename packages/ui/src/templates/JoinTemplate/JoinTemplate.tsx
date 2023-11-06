@@ -13,12 +13,11 @@ import {
 import { useMutation } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
-import { v4 as uuidV4 } from 'uuid'
 
 import { Mutation } from '@wsvvrijheid/lib'
 import { VOLUNTEER_TOKEN } from '@wsvvrijheid/secrets'
 import { useStrapiRequest } from '@wsvvrijheid/services'
-import { Platform, Volunteer, VolunteerCreateInput } from '@wsvvrijheid/types'
+import { Platform, Profile, ProfileCreateInput } from '@wsvvrijheid/types'
 import { toastMessage } from '@wsvvrijheid/utils'
 
 import { JoinTemplateProps } from './types'
@@ -35,7 +34,7 @@ export const JoinTemplate: FC<JoinTemplateProps> = ({ title }) => {
   const { locale } = useRouter()
 
   const platformsResult = useStrapiRequest<Platform>({
-    url: 'api/platforms',
+    endpoint: 'platforms',
     locale,
   })
 
@@ -43,10 +42,10 @@ export const JoinTemplate: FC<JoinTemplateProps> = ({ title }) => {
 
   const { mutate, isLoading, isSuccess } = useMutation(
     ['create-volunteer'],
-    (body: VolunteerCreateInput) =>
-      Mutation.post<Volunteer, VolunteerCreateInput>(
-        'api/volunteers',
-        body,
+    (body: ProfileCreateInput) =>
+      Mutation.post<Profile, ProfileCreateInput>(
+        'profiles',
+        { ...body, isVolunteer: true },
         VOLUNTEER_TOKEN as string,
       ),
   )
@@ -58,21 +57,17 @@ export const JoinTemplate: FC<JoinTemplateProps> = ({ title }) => {
       const heardFrom = data.heardFrom.join(', ')
       const jobs = data.jobs
 
-      const body: VolunteerCreateInput = {
+      const body: ProfileCreateInput = {
         ...data,
-        username: uuidV4(),
         availableHours,
         heardFrom,
         jobs,
+        isVolunteer: true,
       }
 
       mutate(body, {
         onError: () =>
-          toastMessage(
-            t`apply-form.error.title`,
-            t`apply-form.error.description`,
-            'error',
-          ),
+          toastMessage(t`error`, t`apply-form.error.description`, 'error'),
       })
     } catch (error) {
       console.error('Submit volunteer form error', error)
@@ -99,7 +94,7 @@ export const JoinTemplate: FC<JoinTemplateProps> = ({ title }) => {
             <VStack spacing={4}>
               <AlertIcon boxSize="60px" mr={0} />
               <AlertTitle mt={4} mb={1} fontSize="2xl">
-                {t('apply-form.thanks.title')}
+                {t('thank-you')}
               </AlertTitle>
               <AlertDescription maxWidth="sm">
                 {t('apply-form.thanks.description')}
@@ -121,7 +116,6 @@ export const JoinTemplate: FC<JoinTemplateProps> = ({ title }) => {
                 onSubmitHandler={onSubmit}
                 isLoading={isLoading}
                 platforms={platforms}
-                locale={locale || 'en'}
               />
             </Box>
 

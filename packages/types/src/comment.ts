@@ -1,8 +1,8 @@
 import { Art } from './art'
 import { Blog } from './blog'
 import { Expand, PickRequired } from './common'
+import { Profile } from './profile'
 import { StrapiBase } from './strapi'
-import { User } from './user'
 
 export type CommentBase = {
   content: string
@@ -12,47 +12,29 @@ export type CommentBase = {
 }
 
 type CommentRelation = {
-  user?: User | null
+  profile?: Profile | null
   blog?: Blog | null
   art?: Art | null
 }
 
 type CommentRelationInput = {
-  user?: number
+  // TODO: Remove profile on create. Relation should be associated with token
+  profile?: number
   blog?: number
   art?: number
 }
 
-export type CommentArtCreateInputPublic = Expand<
-  { publishedAt?: Date | string | null } & {
-    content: string
-    name: string
-    email: string
-  } & PickRequired<CommentRelationInput, 'art'>
->
-export type CommentArtCreateInputUser = Expand<
-  { publishedAt?: Date | string | null } & Pick<CommentBase, 'content'> &
-    PickRequired<CommentRelationInput, 'art' | 'user'>
->
-export type CommentArtCreateInput = Expand<
-  | ({ publishedAt?: Date | string | null } & CommentArtCreateInputPublic)
-  | CommentArtCreateInputUser
+export type CommentCreateInputPublic<T extends 'art' | 'blog'> = Expand<
+  PickRequired<CommentBase, 'content' | 'email' | 'name'> &
+    PickRequired<CommentRelationInput, T> & { recaptchaToken: string }
 >
 
-export type CommentBlogCreateInputPublic = Expand<
-  { publishedAt?: Date | string | null } & {
-    content: string
-    name: string
-    email: string
-  } & PickRequired<CommentRelationInput, 'blog'>
+export type CommentCreateInputUser<T extends 'art' | 'blog'> = Expand<
+  Pick<CommentBase, 'content'> & PickRequired<CommentRelationInput, T>
 >
-export type CommentBlogCreateInputUser = Expand<
-  { publishedAt?: Date | string | null } & Pick<CommentBase, 'content'> &
-    PickRequired<CommentRelationInput, 'blog' | 'user'>
->
-export type CommentBlogCreateInput = Expand<
-  | ({ publishedAt?: Date | string | null } & CommentBlogCreateInputPublic)
-  | CommentBlogCreateInputUser
->
+
+export type CommentCreateInput<T extends 'art' | 'blog'> =
+  | CommentCreateInputPublic<T>
+  | CommentCreateInputUser<T>
 
 export type Comment = StrapiBase & CommentBase & CommentRelation

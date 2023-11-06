@@ -1,8 +1,8 @@
 import { Mutation } from '@wsvvrijheid/lib'
 import {
+  StrapiEndpoint,
   StrapiLocalizeInput,
   StrapiTranslatableModel,
-  StrapiUrl,
 } from '@wsvvrijheid/types'
 
 import { getModelTranslation } from './deepl'
@@ -10,7 +10,7 @@ import { getModelTranslation } from './deepl'
 type CreateLocalizationsArgs<T extends StrapiTranslatableModel> = {
   model: T
   translatedFields: (keyof T)[]
-  url: StrapiUrl
+  endpoint: StrapiEndpoint
   token: string
   hasSlug?: boolean
 }
@@ -18,7 +18,7 @@ type CreateLocalizationsArgs<T extends StrapiTranslatableModel> = {
 export const createLocalizations = async <T extends StrapiTranslatableModel>({
   model,
   translatedFields,
-  url,
+  endpoint,
   token,
   hasSlug = true,
 }: CreateLocalizationsArgs<T>) => {
@@ -33,10 +33,10 @@ export const createLocalizations = async <T extends StrapiTranslatableModel>({
   const firstTranslationResponse = await Mutation.localize<
     T,
     StrapiLocalizeInput
-  >(url, model.id, firstTranslation.locale, firstTranslation, token)
+  >(endpoint, model.id, firstTranslation.locale, firstTranslation, token)
 
   const secondTranslationResponse = await Mutation.localize(
-    url,
+    endpoint,
     firstTranslationResponse?.id as number,
     secondTranslation.locale,
     secondTranslation,

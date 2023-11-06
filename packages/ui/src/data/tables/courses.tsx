@@ -22,12 +22,10 @@ export const useCourseColumns = (): WTableProps<Course>['columns'] => {
     },
     startDate: {
       type: 'date',
-      componentProps: { format: 'dd MMMM' },
       sortable: true,
     },
     endDate: {
       type: 'date',
-      componentProps: { format: 'dd MMMM' },
       sortable: true,
     },
   }

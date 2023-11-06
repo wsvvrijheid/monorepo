@@ -13,13 +13,13 @@ interface CommentItemProps {
 }
 
 export const CommentItem: FC<CommentItemProps> = ({ comment }) => {
-  const name = comment.user?.username || comment.name || 'Anonymous'
+  const name = comment?.profile?.name || comment.name || 'Anonymous'
 
   return (
     <HStack align="start">
       <WAvatar
         size="sm"
-        src={`${ASSETS_URL}${comment.user?.avatar?.url}`}
+        src={`${ASSETS_URL}${comment.profile?.avatar?.url}`}
         name={name}
       />
       <Stack fontSize="sm">

@@ -17,7 +17,7 @@ import { UploadFile } from '@wsvvrijheid/types'
 
 import { ArtAddToCollectionCardProps } from './types'
 import { ArtModal, WImage } from '../../components'
-import { useHasPermission } from '../../hooks'
+import { usePermission } from '../../hooks'
 
 export const ArtAddToCollectionCard: FC<ArtAddToCollectionCardProps> = ({
   isAdded,
@@ -32,7 +32,7 @@ export const ArtAddToCollectionCard: FC<ArtAddToCollectionCardProps> = ({
 
   const titleKey = `title_${router.locale}` as const
 
-  const { getPermission } = useHasPermission()
+  const { allowEndpointAction } = usePermission()
 
   return (
     <Stack boxShadow="md" rounded="md" direction={'column'} overflow="hidden">
@@ -43,7 +43,7 @@ export const ArtAddToCollectionCard: FC<ArtAddToCollectionCardProps> = ({
         </Text>
 
         <Text fontSize="sm" noOfLines={2}>
-          {art.artist?.username}
+          {art.artist?.name || art.artist?.email}
         </Text>
 
         <HStack justify="space-between" w="full">
@@ -60,7 +60,7 @@ export const ArtAddToCollectionCard: FC<ArtAddToCollectionCardProps> = ({
 
           <Spacer />
 
-          {getPermission(['arteditor']) && (
+          {allowEndpointAction('collections', 'create') && (
             <Button
               variant={'outline'}
               colorScheme={isAdded ? 'red' : 'green'}

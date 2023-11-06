@@ -6,7 +6,7 @@ import { Blog, StrapiLocale } from '@wsvvrijheid/types'
 
 export const getBlogs = async (locale: StrapiLocale) => {
   const response = await strapiRequest<Blog>({
-    url: 'api/blogs',
+    endpoint: 'blogs',
     locale,
   })
 
@@ -19,7 +19,7 @@ export const getAuthorBlogs = async (
   blogId: number,
 ) => {
   const response = await strapiRequest<Blog>({
-    url: 'api/blogs',
+    endpoint: 'blogs',
     filters: {
       $and: [{ author: { id: { $eq: authorID } } }, { id: { $ne: blogId } }],
     },

@@ -1,43 +1,46 @@
-import { ROUTES, SITE_URL } from '@wsvvrijheid/config'
-import { Announcement, Hashtag, Post, StrapiLocale } from '@wsvvrijheid/types'
+import { SITE_URL } from '@wsvvrijheid/config'
+import {
+  Post,
+  RecommendedTopic,
+  RecommendedTweet,
+  StrapiEndpoint,
+  StrapiSeoModel,
+  StrapiTranslatableModel,
+} from '@wsvvrijheid/types'
 
 import { getMainPageLink } from './getMainPageLink'
 
 export const getItemLink = (
-  item: Hashtag | Post | Announcement,
-  locale: StrapiLocale,
-  type: keyof typeof ROUTES | 'post' | 'hashtag',
+  item: StrapiSeoModel,
+  endpoint: StrapiEndpoint,
   isAbsolute?: boolean,
 ): string | null => {
   const post = item as Post
-  const hashtag = item as Hashtag
+  const model = item as Exclude<
+    StrapiSeoModel,
+    Post | RecommendedTopic | RecommendedTweet
+  >
+  const modelWithLocale = item as StrapiTranslatableModel
 
   let itemUrl: string | null
 
+  const localeSlug = modelWithLocale?.locale ? `/${modelWithLocale.locale}` : ''
+
   if (!item) {
-    console.error('Missing item:', type, item)
+    console.error('Missing item:', endpoint, item)
 
     return null
   }
 
-  switch (type) {
-    case 'post':
-      if (!post.hashtag?.slug) {
-        console.error('Missing slug for post:', type, post)
+  if (post?.hashtag?.slug) {
+    itemUrl = `${localeSlug}/${getMainPageLink('hashtags')}/${post.hashtag
+      ?.slug}?id=${post.id}`
+  } else if (model.slug) {
+    itemUrl = `${localeSlug}/${getMainPageLink(endpoint)}/${model?.slug}`
+  } else {
+    console.error('Missing slug for post:', endpoint, model)
 
-        return null
-      }
-      itemUrl = `/${locale}/${getMainPageLink('hashtag')}/${post.hashtag
-        ?.slug}?id=${post.id}`
-      break
-    default:
-      if (!hashtag.slug) {
-        console.error('Missing slug for post:', type, hashtag)
-
-        return null
-      }
-      itemUrl = `/${locale}/${getMainPageLink(type)}/${hashtag?.slug}`
-      break
+    return null
   }
 
   return isAbsolute ? SITE_URL + itemUrl : itemUrl

@@ -1,3 +1,6 @@
+import { Icon } from '@chakra-ui/react'
+import { FaCheck } from 'react-icons/fa'
+
 import { UserFeedback } from '@wsvvrijheid/types'
 
 import { WTableProps } from '../../components'
@@ -6,10 +9,22 @@ export const useUserFeedbacksColumns =
   (): WTableProps<UserFeedback>['columns'] => {
     return {
       comment: {},
-      point: {},
+      point: {
+        cellProps: { textAlign: 'center' },
+        sortable: true,
+      },
+      issueLink: {
+        transform: value => value && <Icon as={FaCheck} />,
+        cellProps: { textAlign: 'center' },
+      },
+      processed: {
+        type: 'badge',
+        transform: value => value && <Icon as={FaCheck} />,
+        cellProps: { textAlign: 'center' },
+        sortable: true,
+      },
       createdAt: {
         type: 'date',
-        componentProps: { format: 'dd MMMM' },
         sortable: true,
       },
       site: {},

@@ -6,7 +6,7 @@ import {
   BsCommand,
   BsTranslate,
 } from 'react-icons/bs'
-import { CgHashtag } from 'react-icons/cg'
+import { CgHashtag, CgProfile } from 'react-icons/cg'
 import { FiActivity, FiUsers } from 'react-icons/fi'
 import { GiHumanPyramid } from 'react-icons/gi'
 import { HiOutlineNewspaper } from 'react-icons/hi'
@@ -14,7 +14,6 @@ import {
   MdOutlineFeedback,
   MdOutlineSpaceDashboard,
   MdOutlineSupervisorAccount,
-  MdOutlineVolunteerActivism,
 } from 'react-icons/md'
 import {
   TbActivity,
@@ -25,7 +24,6 @@ import {
   TbClock,
   TbThumbUp,
   TbTimeline,
-  TbVolume,
   TbWriting,
   TbX,
 } from 'react-icons/tb'
@@ -33,161 +31,151 @@ import {
 import { AdminNavItemProps } from './types'
 
 export const useAdminNav = (): AdminNavItemProps[] => {
-  const { t: tAdmin } = useTranslation('admin')
+  const { t } = useTranslation()
 
   return [
     {
-      label: tAdmin('dashboard'),
+      label: t('dashboard'),
       link: '/',
       icon: <MdOutlineSpaceDashboard />,
     },
     {
-      label: tAdmin('translates'),
+      label: t('translates'),
       icon: <BsTranslate />,
       submenu: [
         {
-          label: tAdmin('activities'),
+          label: t('activities'),
           link: '/translates?slug=activities',
           icon: <TbActivity />,
         },
         {
-          label: tAdmin('announcements'),
-          link: '/translates?slug=announcements',
-          icon: <TbVolume />,
-        },
-        {
-          label: tAdmin('arts'),
-          link: '/translates?slug=arts',
-          icon: <TbBrush />,
-        },
-        {
-          label: tAdmin('collections'),
+          label: t('collections'),
           link: '/translates?slug=collections',
           icon: <BsCollection />,
         },
         {
-          label: tAdmin('hashtags'),
+          label: t('hashtags'),
           link: '/translates?slug=hashtags',
           icon: <CgHashtag />,
         },
         {
-          label: tAdmin('posts'),
+          label: t('posts'),
           link: '/translates?slug=posts',
           icon: <TbBrandTwitter />,
         },
       ],
     },
     {
-      label: tAdmin('activities'),
+      label: t('activities'),
       icon: <FiActivity />,
       link: '/activities',
     },
     {
-      label: tAdmin('arts'),
+      label: t('arts'),
       icon: <TbBrush />,
 
       submenu: [
         {
-          label: tAdmin('pendingArts'),
+          label: t('pending-arts'),
           link: '/arts?status=pending',
           icon: <TbClock />,
         },
         {
-          label: tAdmin('approvedArts'),
+          label: t('approvedArts'),
           link: '/arts?status=approved',
           icon: <TbChecks />,
         },
         {
-          label: tAdmin('rejectedArts'),
+          label: t('rejected-arts'),
           link: '/arts?status=rejected',
           icon: <TbX />,
         },
       ],
     },
     {
-      label: tAdmin('artCollections'),
+      label: t('art.collections'),
       link: '/collections',
       icon: <BsCollection />,
     },
     {
-      label: tAdmin('hashtags'),
+      label: t('hashtags'),
       icon: <CgHashtag />,
       link: '/hashtags',
     },
     {
-      label: tAdmin('hashtagPosts'),
+      label: t('hashtagPosts'),
       icon: <TbBrandTwitter />,
       link: '/posts',
     },
     {
-      label: tAdmin('news'),
+      label: t('news'),
       icon: <HiOutlineNewspaper />,
       submenu: [
         {
-          label: tAdmin('news'),
+          label: t('news'),
           link: '/news',
           icon: <HiOutlineNewspaper />,
         },
         {
-          label: tAdmin('bookmarkedNews'),
+          label: t('bookmarked-news'),
           link: '/news/bookmarks',
           icon: <TbBookmarks />,
         },
         {
-          label: tAdmin('recommendedNews'),
+          label: t('recommended-news'),
           link: '/news/recommended',
           icon: <TbThumbUp />,
         },
       ],
     },
     {
-      label: tAdmin('timelines'),
+      label: t('timelines'),
       icon: <TbTimeline />,
       submenu: [
         {
-          label: tAdmin('timelines'),
+          label: t('timelines'),
           link: '/timelines',
           icon: <GiHumanPyramid />,
         },
         {
-          label: tAdmin('bookmarkedTweets'),
+          label: t('bookmarked-tweets'),
           link: '/timelines/bookmarks',
           icon: <TbBookmarks />,
         },
         {
-          label: tAdmin('recommendedTweets'),
+          label: t('recommended-tweets'),
           link: '/timelines/recommended',
           icon: <TbThumbUp />,
         },
       ],
     },
     {
-      label: tAdmin('courses'),
+      label: t('courses'),
       link: '/courses',
       icon: <GiHumanPyramid />,
     },
     {
-      label: tAdmin('volunteers'),
-      link: '/volunteers',
-      icon: <MdOutlineVolunteerActivism />,
+      label: t('profiles'),
+      link: '/profiles',
+      icon: <CgProfile />,
     },
     {
-      label: tAdmin('users'),
+      label: t('users'),
       link: '/users',
       icon: <FiUsers />,
     },
     {
-      label: tAdmin('blogs'),
+      label: t('blogs'),
       icon: <TbWriting />,
       link: '/blogs',
     },
     {
-      label: tAdmin('accounts'),
+      label: t('accounts'),
       link: '/accounts',
       icon: <MdOutlineSupervisorAccount />,
     },
     {
-      label: tAdmin('competitions'),
+      label: t('competitions'),
       link: '/competitions',
       icon: <BsCommand />,
     },
@@ -197,12 +185,12 @@ export const useAdminNav = (): AdminNavItemProps[] => {
       icon: <BsCashCoin />,
     },
     {
-      label: tAdmin('donations'),
+      label: t('donations'),
       link: '/donations',
       icon: <BsCashStack />,
     },
     {
-      label: tAdmin('userFeedbacks'),
+      label: t('user-feedbacks'),
       link: '/user-feedbacks',
       icon: <MdOutlineFeedback />,
     },

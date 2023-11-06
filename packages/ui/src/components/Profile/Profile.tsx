@@ -39,7 +39,7 @@ const Settings = () => {
 export const AuthenticatedUserProfile = () => {
   const { t } = useTranslation('common')
 
-  const { user } = useAuthContext()
+  const { user, profile } = useAuthContext()
 
   const { data } = useArtByArtist(user?.id, true)
   const rejected = data?.filter(art => art?.approvalStatus === 'rejected')
@@ -52,7 +52,7 @@ export const AuthenticatedUserProfile = () => {
         <Stack>
           <WAvatar
             size="lg"
-            src={`${ASSETS_URL}${user?.avatar}`}
+            src={`${ASSETS_URL}${profile?.avatar}`}
             name={user?.username}
           />
           <HStack
@@ -61,7 +61,7 @@ export const AuthenticatedUserProfile = () => {
             alignContent={'flex-end'}
             bg="transparent"
           >
-            <Text color={'white'}>{user?.name || user?.username}</Text>
+            <Text color={'white'}>{profile?.name || user?.username}</Text>
           </HStack>
         </Stack>
       </Hero>
@@ -76,12 +76,11 @@ export const AuthenticatedUserProfile = () => {
                     <>{t('profile.approved-arts')}</>
                   </Tab>
                   <Tab fontWeight={600}>
-                    <Box as={FaSpinner} mr={1} />{' '}
-                    <>{t('profile.pending-arts')}</>
+                    <Box as={FaSpinner} mr={1} /> <>{t('pending-arts')}</>
                   </Tab>
                   <Tab fontWeight={600}>
                     <Box as={MdRemoveModerator} mr={1} />{' '}
-                    <>{t('profile.rejected-arts')}</>
+                    <>{t('rejected-arts')}</>
                   </Tab>
                 </>
               )}

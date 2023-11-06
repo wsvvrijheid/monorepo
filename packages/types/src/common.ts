@@ -3,6 +3,7 @@ import { SetRequired } from 'type-fest'
 import { StrapiLocale } from './locale'
 
 export type ApprovalStatus = 'approved' | 'pending' | 'rejected'
+export type DonationStatus = 'canceled' | 'expired' | 'paid' | 'unpaid' | 'all'
 
 export type Localize<T> = Record<StrapiLocale, T>
 
@@ -14,9 +15,7 @@ export type MenuType = {
 // Ref: https://stackoverflow.com/a/57683652/8206907
 export type Expand<T> = T extends infer O ? { [K in keyof O]: O[K] } : never
 
-export type PickRequired<T, K extends keyof T> = Expand<
-  Pick<SetRequired<T, K>, any>
->
+export type PickRequired<T, K extends keyof T> = SetRequired<Pick<T, K>, K>
 
 export type Sort = [`${string | `${string}.${string}`}:${'asc' | 'desc'}`]
 

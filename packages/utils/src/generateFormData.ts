@@ -4,6 +4,7 @@ export const generateFormData = <
   T extends StrapiCreateInput | StrapiUpdateInput,
 >(
   body: T,
+  hasDataField = true,
 ) => {
   const formData = new FormData()
 
@@ -33,7 +34,13 @@ export const generateFormData = <
     }
   })
 
-  formData.append('data', JSON.stringify(data))
+  if (hasDataField) {
+    formData.append('data', JSON.stringify(data))
+  } else {
+    Object.entries(data).forEach(([key, value]) => {
+      formData.append(key, value as string)
+    })
+  }
 
   return formData
 }

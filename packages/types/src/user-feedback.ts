@@ -7,10 +7,17 @@ export type UserFeedbackBase = {
   image?: UploadFile
   comment: string
   site: string
+  processed?: boolean
+  issueLink?: string
 }
 
 export type UserFeedbackCreateInput = Expand<
   { publishedAt?: Date | string | null } & UserFeedbackBase
+>
+
+export type UserFeedbackUpdateInput = Pick<
+  UserFeedbackBase,
+  'processed' | 'issueLink'
 >
 
 export type UserFeedback = StrapiBase & UserFeedbackBase

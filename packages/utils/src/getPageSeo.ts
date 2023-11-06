@@ -1,51 +1,94 @@
 import { NextSeoProps } from 'next-seo'
 
-import { ROUTES } from '@wsvvrijheid/config'
-import { Blog, Hashtag, Post, StrapiLocale } from '@wsvvrijheid/types'
+import { SITE_URL, endpointsWithLocalizedTitle } from '@wsvvrijheid/config'
+import {
+  Art,
+  Blog,
+  Hashtag,
+  Platform,
+  Post,
+  StrapiEndpoint,
+  StrapiLocale,
+  StrapiSeoModel,
+} from '@wsvvrijheid/types'
 
 import { getItemLink } from './getItemLink'
 import { getMediaUrl } from './getMediaUrl'
+import { getOgImageSrc } from './getOgImageSrc'
+import { mapHashtagToOgParams } from './mapHashtagToOgParams'
 
 export const getPageSeo = (
-  data: Hashtag | Post | Blog,
+  data: StrapiSeoModel,
+  endpoint: StrapiEndpoint,
   locale: StrapiLocale,
-  type: keyof typeof ROUTES | 'post',
+  hasCaps?: boolean,
 ): NextSeoProps => {
-  const url = getItemLink(data as Hashtag | Post, locale, type, true) ?? ''
+  const url = getItemLink(data as Hashtag | Post, endpoint, true) ?? ''
 
   const page = data as Hashtag
   const post = data as Post
   const blog = data as Blog
+  const platform = data as Platform
+  const art = data as Art
 
-  const title = page.title ?? post.hashtag?.title ?? ''
+  const hasLocalizedName = endpointsWithLocalizedTitle.includes(endpoint)
+  const localizedTitle = hasLocalizedName
+    ? platform[`name_${locale}`] || art[`title_${locale}`]
+    : ''
+
+  const title = localizedTitle || page.title || post.hashtag?.title || ''
   const description = page.description ?? post.description ?? ''
-  const image = data.image
+  let image = data.image
 
-  const images = image && [
-    {
+  if (hasCaps) {
+    const ogParams = mapHashtagToOgParams(page)
+
+    image = SITE_URL + getOgImageSrc(ogParams)
+  }
+
+  const images = []
+
+  if (image) {
+    const imageObj = {
       url: getMediaUrl(image),
       secureUrl: getMediaUrl(image),
-      type: image.mime as string,
-      width: image.width as number,
-      height: image.height as number,
       alt: title,
-    },
-  ]
+    }
+
+    if (typeof image === 'string') {
+      images.push(imageObj)
+    } else {
+      images.push({
+        ...imageObj,
+        type: image.mime,
+        width: image.width,
+        height: image.height,
+      })
+    }
+  }
 
   return {
     title,
     description,
+    ...(image && {
+      additionalMetaTags: [
+        {
+          property: 'twitter:image:src',
+          content: images[0].url || '',
+        },
+      ],
+    }),
     openGraph: {
       title,
       description,
       url,
-      images,
-      ...(blog.author && {
+      ...(image && { images }),
+      ...(endpoint === 'posts' && {
         type: 'article',
         article: {
           publishedTime: blog.publishedAt as string,
           modifiedTime: blog.updatedAt as string,
-          authors: [blog.author.name || blog.author.username || ''],
+          authors: [blog.author?.name || blog.author?.email || ''],
         },
       }),
     },

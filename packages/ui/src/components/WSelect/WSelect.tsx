@@ -28,12 +28,12 @@ export type WSelectProps<T extends FieldValues> = {
 export const WSelect = <T extends FieldValues = FieldValues>({
   control,
   name,
-  label,
+  label: initialLabel,
   hideLabel,
   errors,
   isRequired,
   helperText,
-  placeholder,
+  placeholder: initialPlaceholder,
   options,
   tooltip,
   ...rest
@@ -43,7 +43,11 @@ export const WSelect = <T extends FieldValues = FieldValues>({
     control,
   })
 
-  const { t: tModel } = useTranslation('model')
+  const { t } = useTranslation()
+
+  const translatedName = t(name as keyof I18nNamespaces['common'])
+  const label = initialLabel || translatedName
+  const placeholder = initialPlaceholder || translatedName
 
   const errorMessage = errors?.[name]?.['message'] as unknown as string
 
@@ -57,7 +61,7 @@ export const WSelect = <T extends FieldValues = FieldValues>({
       {label && !hideLabel && (
         <Flex align={'center'} mb={1}>
           <FormLabel mb={0} htmlFor={name} fontSize="sm" fontWeight={600}>
-            {tModel(name, { defaultValue: label })}
+            {label}
           </FormLabel>
           {tooltip && (
             <Tooltip
@@ -79,16 +83,16 @@ export const WSelect = <T extends FieldValues = FieldValues>({
 
       <Select<SelectOption, boolean, GroupBase<SelectOption>>
         options={options}
-        placeholder={tModel(name as keyof I18nNamespaces['model'], {
-          defaultValue: placeholder || label,
-        })}
+        placeholder={placeholder}
         {...field}
         onChange={val => field.onChange(val as any)}
         {...rest}
       />
 
       <FormErrorMessage>{errorMessage}</FormErrorMessage>
-      {helperText && <FormHelperText>{helperText}</FormHelperText>}
+      {helperText && (
+        <FormHelperText color={'orange.400'}>{helperText}</FormHelperText>
+      )}
     </FormControl>
   )
 }

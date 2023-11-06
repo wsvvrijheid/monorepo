@@ -1,4 +1,4 @@
-import { FC, useCallback, useEffect, useState } from 'react'
+import { useMemo, useState } from 'react'
 
 import {
   Box,
@@ -12,100 +12,58 @@ import {
   Spinner,
   Tooltip,
 } from '@chakra-ui/react'
-import { addHours, formatDistanceToNow, isPast } from 'date-fns'
-import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
+import { addMinutes, formatDistanceToNow, isPast } from 'date-fns'
+import { GetStaticPropsContext } from 'next'
 import { useRouter } from 'next/router'
-import { NextSeoProps } from 'next-seo'
+import { useTranslation } from 'next-i18next'
 import { AiOutlineClear } from 'react-icons/ai'
-import { FaArrowDown, FaArrowUp, FaSyncAlt } from 'react-icons/fa'
+import { FaSyncAlt } from 'react-icons/fa'
 
-import { useAuthContext } from '@wsvvrijheid/context'
 import { useTopic, useTopicSync } from '@wsvvrijheid/services'
 import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
-import { StrapiLocale, TopicBase } from '@wsvvrijheid/types'
+import { StrapiLocale } from '@wsvvrijheid/types'
 import { AdminLayout, PageHeader, TopicCard } from '@wsvvrijheid/ui'
 
-type PageProps = InferGetStaticPropsType<typeof getStaticProps>
-
-const NewsPage: FC<PageProps> = ({ seo }) => {
+const NewsPage = () => {
   const { data, isLoading } = useTopic()
   const syncTopic = useTopicSync()
-  const [sources, setSources] = useState<string[]>([])
   const [filter, setFilter] = useState<string[]>([])
-  const [topics, setTopics] = useState<TopicBase[]>([])
   const [searchTerm, setSearchTerm] = useState<string>()
-  const [sortDirection, setSortDirection] = useState<'DESC' | 'ASC'>('DESC')
-  const { roles } = useAuthContext()
 
-  const isAdmin = roles?.includes('admin')
+  const { t } = useTranslation()
 
   const router = useRouter()
   const locale = router.locale
 
-  const search = useCallback(
-    (topics: TopicBase[]) => {
-      const results: TopicBase[] = []
-      const keywords = searchTerm?.split(' ') || []
-      const searchRegex = new RegExp(keywords.join('|'), 'gi')
+  const { topics, publishers } = useMemo(() => {
+    const topicsInLocale = data?.data?.filter(d => d.locale === locale) || []
 
-      topics?.forEach(topicBase => {
-        if (Object.values(topicBase).join(' ').match(searchRegex)) {
-          results.push(topicBase)
-        }
-      })
-
-      return results
-    },
-    [searchTerm],
-  )
-
-  const sortFn = useCallback(
-    (a: TopicBase, b: TopicBase) => {
-      const now = new Date()
-      if (sortDirection === 'ASC') {
-        return (
-          new Date(a.time ?? now).getTime() - new Date(b.time ?? now).getTime()
-        )
-      } else {
-        return (
-          new Date(b.time ?? now).getTime() - new Date(a.time ?? now).getTime()
-        )
-      }
-    },
-    [sortDirection],
-  )
-
-  useEffect(() => {
-    const localeData = data?.data?.filter(d => d.locale === locale) || []
-
-    const filteredData = localeData?.filter(d =>
+    const filteredResult = topicsInLocale?.filter(d =>
       filter.length > 0 ? filter.includes(d.publisher) : true,
     )
 
-    const sources = localeData
+    const publishersResult = topicsInLocale
       ?.map(d => d.publisher)
       .filter((v, i, a) => a.indexOf(v) === i)
 
-    setSources(sources)
+    if (searchTerm) {
+      const keywords = searchTerm?.split(' ') || []
+      const searchRegex = new RegExp(keywords.join('|'), 'gi')
 
-    setTopics((searchTerm ? search(filteredData) : filteredData)?.sort(sortFn))
-  }, [data, filter, locale, search, searchTerm, sortDirection, sortFn])
+      return {
+        publishers: publishersResult,
+        topics:
+          data?.data?.filter(topicBase =>
+            Object.values(topicBase).join(' ').match(searchRegex),
+          ) || [],
+      }
+    }
 
-  const sortMenu = (
-    <MenuOptionGroup
-      title="Order by Date"
-      type="radio"
-      onChange={direction => setSortDirection(direction as 'ASC' | 'DESC')}
-      value={sortDirection}
-    >
-      <MenuItemOption key="asc" icon={<FaArrowUp />} value="ASC">
-        Asc
-      </MenuItemOption>
-      <MenuItemOption key="desc" icon={<FaArrowDown />} value="DESC">
-        Desc
-      </MenuItemOption>
-    </MenuOptionGroup>
-  )
+    return {
+      topics: filteredResult,
+      publishers: publishersResult,
+    }
+  }, [data, filter, locale, searchTerm])
 
   const filterMenu = (
     <MenuOptionGroup
@@ -113,16 +71,16 @@ const NewsPage: FC<PageProps> = ({ seo }) => {
       type="checkbox"
       onChange={value => setFilter(value as string[])}
     >
-      {sources?.map(source => (
-        <MenuItemOption key={source} value={source}>
-          {source}
+      {publishers?.map(publisher => (
+        <MenuItemOption key={publisher} value={publisher}>
+          {publisher}
         </MenuItemOption>
       ))}
     </MenuOptionGroup>
   )
 
   const canSync =
-    data?.updatedAt && isPast(addHours(new Date(data.updatedAt), 1))
+    data?.updatedAt && isPast(addMinutes(new Date(data.updatedAt), 10))
 
   const syncedStr =
     data?.updatedAt &&
@@ -131,38 +89,70 @@ const NewsPage: FC<PageProps> = ({ seo }) => {
     })}`
 
   const keywords = {
-    tr: ['insan haklari', 'işkence', 'adalet', 'özgürlük'],
-    en: ['human rights', 'torture', 'justice', 'freedom'],
-    nl: ['mensenrechten', 'marteling', 'gerechtigheid', 'vrijheid'],
+    tr: [
+      'insan hakları',
+      'işkence',
+      'adalet',
+      'özgürlük',
+      'hukuk',
+      'haklar',
+      'eşitlik',
+      'demokrasi',
+      'barış',
+      'saygı',
+    ],
+    en: [
+      'human rights',
+      'torture',
+      'justice',
+      'freedom',
+      'liberty',
+      'law',
+      'rights',
+      'equality',
+      'democracy',
+      'peace',
+      'respect',
+    ],
+    nl: [
+      'mensenrechten',
+      'marteling',
+      'gerechtigheid',
+      'vrijheid',
+      'wet',
+      'rechten',
+      'gelijkheid',
+      'democratie',
+      'vrede',
+      'respect',
+    ],
   }
 
   return (
-    <AdminLayout seo={seo}>
+    <AdminLayout seo={{ title: t('news') }}>
       <PageHeader
-        searchPlaceHolder="Search news"
         onSearch={setSearchTerm}
-        sortMenu={sortMenu}
         filterMenu={filterMenu}
         filterMenuCloseOnSelect={false}
       >
         <Tooltip label={syncedStr} hasArrow bg="primary.400">
           <IconButton
             aria-label="Sync news"
-            isLoading={syncTopic.isLoading}
+            isLoading={syncTopic.isLoading || isLoading}
             onClick={() => syncTopic.mutate()}
-            isDisabled={!isAdmin && (!canSync || syncTopic.isLoading)}
+            isDisabled={!canSync || syncTopic.isLoading || isLoading}
             icon={<FaSyncAlt />}
           />
         </Tooltip>
       </PageHeader>
-      <Box overflow={'hidden'} mb={4}>
+      <Box overflow={'hidden'} flexShrink={0}>
         <Box overflowX={'auto'}>
-          <ButtonGroup size={'sm'} overflowX={'auto'}>
+          <ButtonGroup size={'sm'} overflowX={'auto'} colorScheme={'gray'}>
             <IconButton
               aria-label="Clear filters"
               icon={<AiOutlineClear />}
               size={'sm'}
-              variant={searchTerm === '' ? 'solid' : 'outline'}
+              variant={'outline'}
               onClick={() => setSearchTerm('')}
             />
             {keywords[locale].map(keyword => (
@@ -197,21 +187,11 @@ const NewsPage: FC<PageProps> = ({ seo }) => {
 export const getStaticProps = async (context: GetStaticPropsContext) => {
   const locale = context.locale as StrapiLocale
 
-  const title = {
-    en: 'News',
-    tr: 'Haberler',
-    nl: 'Nieuws',
-  }
-
-  const seo: NextSeoProps = {
-    title: title[locale],
-  }
-
   return {
     props: {
-      seo,
-      ...(await ssrTranslations(locale, ['admin', 'model'])),
+      ...(await ssrTranslations(locale)),
     },
+    revalidate: 1,
   }
 }
 

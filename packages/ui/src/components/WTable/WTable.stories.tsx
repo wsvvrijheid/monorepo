@@ -1,18 +1,14 @@
 import { useEffect, useRef, useState } from 'react'
 
-import { BadgeProps } from '@chakra-ui/react'
 import { Meta, StoryFn, StoryObj } from '@storybook/react'
 
-import { ART_MOCKS, CATEGORY_MOCKS, USER_MOCKS } from '@wsvvrijheid/mocks'
+import { ART_MOCKS, CATEGORY_MOCKS } from '@wsvvrijheid/mocks'
 import {
   ApprovalStatus,
   Art,
   Category,
-  Role,
-  RoleName,
   StrapiModel,
   StrapiModelKeys,
-  User,
 } from '@wsvvrijheid/types'
 
 import { WTableProps } from './types'
@@ -34,8 +30,6 @@ const StoryWithHooks: StoryFn<WTableProps<StrapiModel>> = args => {
     if (!sortKey?.[0]) return setData(initialData.current)
 
     const [field, sort] = sortKey[0].split(':')
-
-    console.log('sortKey', sortKey)
 
     const sortedData = [...data].sort((a, b) => {
       const aValue = a[field as keyof StrapiModel] as StrapiModelKeys
@@ -97,37 +91,6 @@ export const Arts: Story<Art> = {
           format: 'dd MMMM',
         },
         sortable: true,
-      },
-    },
-  },
-}
-
-export const Users: Story<User> = {
-  render: StoryWithHooks,
-  args: {
-    data: USER_MOCKS,
-    columns: {
-      avatar: {
-        type: 'image',
-      },
-      username: {
-        sortable: true,
-      },
-      role: {
-        type: 'badge',
-        transform: value => (value as Role).name,
-        componentProps: value => {
-          const colorScheme: { [x in RoleName]?: BadgeProps['colorScheme'] } = {
-            Admin: 'blue',
-            Authenticated: 'purple',
-            'Content Manager': 'green',
-          }
-
-          return {
-            variant: 'outline',
-            colorScheme: colorScheme[value as RoleName],
-          }
-        },
       },
     },
   },

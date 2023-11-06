@@ -1,8 +1,9 @@
-import { FC, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { MenuItem, useUpdateEffect } from '@chakra-ui/react'
-import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
+import { GetStaticPropsContext } from 'next'
 import { useRouter } from 'next/router'
+import { useTranslation } from 'react-i18next'
 import { FaArrowDown, FaArrowUp } from 'react-icons/fa'
 
 import { useStrapiRequest } from '@wsvvrijheid/services'
@@ -10,12 +11,12 @@ import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import { ApprovalStatus, Art, Sort, StrapiLocale } from '@wsvvrijheid/types'
 import { AdminLayout, ArtsTable, PageHeader } from '@wsvvrijheid/ui'
 
-type PageProps = InferGetStaticPropsType<typeof getStaticProps>
-
-const ArtsPage: FC<PageProps> = ({ seo }) => {
+const ArtsPage = () => {
   const { query } = useRouter()
   const [currentPage, setCurrentPage] = useState<number>(1)
+  const [pageSize, setPageSize] = useState<number>(20)
   const [searchTerm, setSearchTerm] = useState<string>()
+  const { t } = useTranslation()
 
   // Client side query params (?status=pending)
   const status = query.status as ApprovalStatus
@@ -25,7 +26,7 @@ const ArtsPage: FC<PageProps> = ({ seo }) => {
   const { locale } = useRouter()
 
   const artsQuery = useStrapiRequest<Art>({
-    url: 'api/arts',
+    endpoint: 'arts',
     populate: [
       'artist.user.avatar',
       'categories',
@@ -34,7 +35,7 @@ const ArtsPage: FC<PageProps> = ({ seo }) => {
       'localizations',
     ],
     page: currentPage || 1,
-    pageSize: 10,
+    pageSize,
     filters: {
       ...(status ? { approvalStatus: { $eq: status } } : {}),
       ...(searchTerm && { [`title_${locale}`]: { $containsi: searchTerm } }),
@@ -53,7 +54,8 @@ const ArtsPage: FC<PageProps> = ({ seo }) => {
   }, [locale, searchTerm, sort, status])
 
   const arts = artsQuery?.data?.data
-  const totalCount = artsQuery?.data?.meta?.pagination?.pageCount || 0
+  const pageCount = artsQuery?.data?.meta?.pagination?.pageCount || 0
+  const totalCount = artsQuery?.data?.meta?.pagination?.total || 0
 
   const mappedArts = arts?.map(art => {
     const translates = []
@@ -69,10 +71,9 @@ const ArtsPage: FC<PageProps> = ({ seo }) => {
   }) as Art[]
 
   return (
-    <AdminLayout seo={seo}>
+    <AdminLayout seo={{ title: t('arts') }}>
       <PageHeader
         onSearch={handleSearch}
-        searchPlaceHolder={'Search arts by title or artist'}
         sortMenu={[
           <MenuItem key="asc" icon={<FaArrowUp />}>
             Name Asc
@@ -83,12 +84,15 @@ const ArtsPage: FC<PageProps> = ({ seo }) => {
         ]}
       />
       <ArtsTable
-        data={mappedArts}
-        onSuccess={artsQuery.refetch}
-        totalCount={totalCount}
         currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
+        data={mappedArts}
         onSort={setSort}
+        onSuccess={artsQuery.refetch}
+        pageCount={pageCount}
+        pageSize={pageSize}
+        setCurrentPage={setCurrentPage}
+        setPageSize={setPageSize}
+        totalCount={totalCount}
       />
     </AdminLayout>
   )
@@ -97,20 +101,9 @@ const ArtsPage: FC<PageProps> = ({ seo }) => {
 export const getStaticProps = async (context: GetStaticPropsContext) => {
   const locale = context.locale as StrapiLocale
 
-  const title = {
-    en: 'Arts',
-    tr: 'Eserler',
-    nl: 'Arts',
-  }
-
-  const seo = {
-    title: title[locale],
-  }
-
   return {
     props: {
-      seo,
-      ...(await ssrTranslations(locale, ['admin', 'model'])),
+      ...(await ssrTranslations(locale)),
     },
   }
 }

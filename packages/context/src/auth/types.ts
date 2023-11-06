@@ -1,10 +1,11 @@
 /* eslint-disable no-unused-vars */
 import { ReactNode } from 'react'
 
-import { RoleType, SessionUser } from '@wsvvrijheid/types'
+import { Profile, RoleType, SessionUser } from '@wsvvrijheid/types'
 
 export type AuthState = {
   user: SessionUser | null
+  profile: Profile | null
   roles: RoleType[]
   isLoading: boolean
   token: string | null
@@ -14,7 +15,7 @@ export type AuthState = {
 }
 
 export type AuthActions = {
-  login: (identifier: string, password: string) => Promise<AuthState>
+  login: (identifier: string, password: string) => Promise<AuthState | void>
   logout: () => Promise<void>
   openAuthModal: () => void
   closeAuthModal: () => void
@@ -24,7 +25,7 @@ export type AuthActions = {
     password: string,
     username: string,
     name: string,
-  ) => Promise<AuthState>
+  ) => Promise<AuthState | void>
 }
 
 export type AuthContextType = AuthState & AuthActions
