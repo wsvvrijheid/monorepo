@@ -92,7 +92,7 @@ const RecommendsPage: FC<RecommendsPageProps> = ({ tweet, tweets, seo }) => {
             }}
           />
 
-          <MasonryGrid cols={{ base: 1, lg: 2 }}>
+          <MasonryGrid cols={[1, 1, 1, 2]}>
             {tweetsState?.map(t => (
               <RecommendedTweetCard key={t.id} tweet={t} />
             ))}
