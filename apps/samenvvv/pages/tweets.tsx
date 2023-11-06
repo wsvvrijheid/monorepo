@@ -9,8 +9,6 @@ import {
   ModalOverlay,
   Stack,
   useDisclosure,
-  SimpleGrid,
-  Box,
 } from '@chakra-ui/react'
 import { QueryClient, dehydrate } from '@tanstack/react-query'
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
