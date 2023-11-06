@@ -9,6 +9,8 @@ import {
   ModalOverlay,
   Stack,
   useDisclosure,
+  SimpleGrid,
+  Box,
 } from '@chakra-ui/react'
 import { QueryClient, dehydrate } from '@tanstack/react-query'
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
@@ -17,11 +19,11 @@ import { NextSeo, NextSeoProps } from 'next-seo'
 import { strapiRequest } from '@wsvvrijheid/lib'
 import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import {
-  RecommendedTopic,
+  RecommendedTweet,
   StrapiLocale,
   StrapiTranslatableModel,
 } from '@wsvvrijheid/types'
-import { Container, TopicCard } from '@wsvvrijheid/ui'
+import { Container, MasonryGrid, RecommendedTweetCard } from '@wsvvrijheid/ui'
 import { getLocalizedSlugs, getPageSeo } from '@wsvvrijheid/utils'
 
 import { Layout } from '../components'
@@ -30,9 +32,9 @@ type RecommendsPageProps = InferGetServerSidePropsType<
   typeof getServerSideProps
 >
 
-const RecommendsPage: FC<RecommendsPageProps> = ({ topic, topics, seo }) => {
+const RecommendsPage: FC<RecommendsPageProps> = ({ tweet, tweets, seo }) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const [topicsState, setTopicsState] = useState(topics)
+  const [tweetsState, setTweetsState] = useState(tweets)
   const [searchKey, setSearchKey] = useState('')
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -41,41 +43,39 @@ const RecommendsPage: FC<RecommendsPageProps> = ({ topic, topics, seo }) => {
 
   useEffect(() => {
     if (searchKey) {
-      const filteredTopics = topics.filter(topic => {
-        const content = `${topic.title}  ${topic.description}`
-
+      const filteredTweets = tweets.filter(t => {
         // Regex to match the search key
         const regex = new RegExp(searchKey, 'gi')
 
-        return content.match(regex)
+        return t.text.match(regex)
       })
-      setTopicsState(filteredTopics)
+      setTweetsState(filteredTweets)
     } else {
-      setTopicsState(topics)
+      setTweetsState(tweets)
     }
   }, [searchKey])
 
   useEffect(() => {
-    if (topic) {
+    if (tweet) {
       onOpen()
     }
-  }, [topic])
+  }, [tweet])
 
   const handleClose = () => {
     onClose()
   }
 
-  // It is for single topic
+  // It is for single tweet
   return (
     <Layout seo={seo}>
       <NextSeo {...seo} />
 
-      <Modal size={'6xl'} isOpen={isOpen && !!topic} onClose={handleClose}>
+      <Modal size={'6xl'} isOpen={isOpen && !!tweet} onClose={handleClose}>
         <ModalOverlay />
         <ModalContent>
           <ModalCloseButton />
           <ModalBody p={{ base: 8, lg: 16 }}>
-            {topic && <TopicCard key={topic.id} topic={topic} />}
+            {tweet && <RecommendedTweetCard key={tweet.id} tweet={tweet} />}
           </ModalBody>
         </ModalContent>
       </Modal>
@@ -85,16 +85,18 @@ const RecommendsPage: FC<RecommendsPageProps> = ({ topic, topics, seo }) => {
             size={'lg'}
             onChange={handleSearch}
             value={searchKey}
-            placeholder="Search topics"
+            placeholder="Search tweets"
             bg={'whiteAlpha.500'}
             _focus={{
               bg: 'white',
             }}
           />
 
-          {topicsState?.map(topic => (
-            <TopicCard key={topic.id} topic={topic} />
-          ))}
+          <MasonryGrid cols={{ base: 1, lg: 2 }}>
+            {tweetsState?.map(t => (
+              <RecommendedTweetCard key={t.id} tweet={t} />
+            ))}
+          </MasonryGrid>
         </Stack>
       </Container>
     </Layout>
@@ -113,25 +115,25 @@ export const getServerSideProps = async (
 
   const id = context.query.id as string
 
-  let recommendedTopic: RecommendedTopic | null = null
+  let recommendedTweet: RecommendedTweet | null = null
   let slugs = {}
 
   let seo: NextSeoProps = {
-    title: 'Recommended Topics',
+    title: 'Recommended Tweets',
   }
 
   if (id) {
-    await strapiRequest<RecommendedTopic>({
-      endpoint: 'recommended-topics',
+    await strapiRequest<RecommendedTweet>({
+      endpoint: 'recommended-tweets',
       id: Number(id),
       populate: ['localizations'],
     })
       .then(res => {
         if (res.data) {
-          recommendedTopic = res.data
-          seo = getPageSeo(recommendedTopic, 'recommended-topics', locale)
+          recommendedTweet = res.data
+          seo = getPageSeo(recommendedTweet, 'recommended-tweets', locale)
           slugs = getLocalizedSlugs(
-            recommendedTopic as unknown as StrapiTranslatableModel,
+            recommendedTweet as unknown as StrapiTranslatableModel,
             locale,
           )
         }
@@ -141,18 +143,18 @@ export const getServerSideProps = async (
       })
   }
 
-  const response = await strapiRequest<RecommendedTopic>({
-    endpoint: 'recommended-topics',
+  const response = await strapiRequest<RecommendedTweet>({
+    endpoint: 'recommended-tweets',
     locale,
     pageSize: 100,
   })
-  const recommendedTopics = response.data
+  const recommendedTweets = response.data
 
   return {
     props: {
       seo,
-      topic: recommendedTopic,
-      topics: recommendedTopics,
+      tweet: recommendedTweet as RecommendedTweet | null,
+      tweets: recommendedTweets,
       slugs,
       dehydratedState: dehydrate(queryClient),
       ...(await ssrTranslations(locale)),

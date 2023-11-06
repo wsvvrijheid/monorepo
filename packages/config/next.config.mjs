@@ -3,6 +3,14 @@
  **/
 const nextConfig = {
   reactStrictMode: true,
+  transpilePackages: [
+    '@wsvvrijheid/config',
+    '@wsvvrijheid/context',
+    '@wsvvrijheid/lib',
+    '@wsvvrijheid/services',
+    '@wsvvrijheid/ui',
+    '@wsvvrijheid/utils',
+  ],
   i18n: {
     defaultLocale: 'en',
     locales: ['en', 'nl', 'tr'],
