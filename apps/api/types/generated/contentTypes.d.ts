@@ -1082,7 +1082,7 @@ export interface ApiAssetAsset extends Schema.CollectionType {
   info: {
     singularName: 'asset'
     pluralName: 'assets'
-    displayName: 'assets'
+    displayName: 'Assets'
     description: ''
   }
   options: {
