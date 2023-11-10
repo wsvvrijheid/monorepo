@@ -58,6 +58,8 @@ export const AuthModal = () => {
       login(body.identifier, body.password),
   })
 
+  console.log('loginMutation', loginMutation)
+
   const handleSubmitSign: SubmitHandler<LoginFormFieldValues> = async data => {
     loginMutation.mutate(data, {
       onSuccess: async () => {

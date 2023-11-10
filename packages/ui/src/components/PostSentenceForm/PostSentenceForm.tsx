@@ -30,7 +30,9 @@ export const PostSentenceForm: FC<PostSentenceFormProps> = ({
       { hashtagId: hashtag.id, value: `${value}::${id}::${0}::${0}` },
       {
         onSuccess: () =>
-          queryClient.invalidateQueries(['kv-hashtag-sentences', hashtag.id]),
+          queryClient.invalidateQueries({
+            queryKey: ['kv-hashtag-sentences', hashtag.id],
+          }),
       },
     )
     setValue('')

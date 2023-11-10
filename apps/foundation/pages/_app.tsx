@@ -1,11 +1,7 @@
 import { FC, useState } from 'react'
 
 import { ChakraProvider, createStandaloneToast } from '@chakra-ui/react'
-import {
-  Hydrate,
-  QueryClient,
-  QueryClientProvider,
-} from '@tanstack/react-query'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { Analytics } from '@vercel/analytics/react'
 import { AppProps } from 'next/app'
@@ -31,15 +27,13 @@ const MyApp: FC<AppProps> = ({ Component, pageProps }) => {
   return (
     <AuthProvider initialState={pageProps.authState}>
       <QueryClientProvider client={queryClient}>
-        <Hydrate state={pageProps.dehydratedState}>
-          <ChakraProvider theme={themes.wsvvrijheid}>
-            <DefaultSeo {...defaultSeo.wsvvrijheid[locale]} />
-            <Component {...pageProps} />
-            {!cookie && <CookieBanner onAllow={onAllow} />}
-            <Analytics />
-            <ToastContainer />
-          </ChakraProvider>
-        </Hydrate>
+        <ChakraProvider theme={themes.wsvvrijheid}>
+          <DefaultSeo {...defaultSeo.wsvvrijheid[locale]} />
+          <Component {...pageProps} />
+          {!cookie && <CookieBanner onAllow={onAllow} />}
+          <Analytics />
+          <ToastContainer />
+        </ChakraProvider>
         <ReactQueryDevtools />
       </QueryClientProvider>
     </AuthProvider>

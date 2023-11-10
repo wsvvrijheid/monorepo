@@ -84,7 +84,7 @@ export const TopicCard: FC<TopicCardProps> = ({ topic }) => {
 
   const handleRecommend = async () => {
     await mutateAsync(topic as RecommendedTopicCreateInput, {
-      onSettled: () => queryClient.invalidateQueries(['topics']),
+      onSettled: () => queryClient.invalidateQueries({ queryKey: ['topics'] }),
     })
     toast({
       title: 'Recommended',

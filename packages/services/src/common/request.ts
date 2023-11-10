@@ -40,7 +40,7 @@ function useStrapiRequest<T extends StrapiModel>(
     queryKey: Object.entries(args),
     queryFn: () =>
       strapiRequest<T>({ ...args, ...(token && { token }) } as any),
-    keepPreviousData: true,
+    placeholderData: previousData => previousData,
     ...args.queryOptions,
   })
 }
