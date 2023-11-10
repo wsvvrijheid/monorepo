@@ -5,7 +5,11 @@ import {
   createStandaloneToast,
   extendTheme,
 } from '@chakra-ui/react'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import {
+  HydrationBoundary,
+  QueryClient,
+  QueryClientProvider,
+} from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { Analytics } from '@vercel/analytics/react'
 import { merge } from 'lodash'
@@ -47,14 +51,16 @@ const MyApp: FC<AppProps> = ({ Component, pageProps }) => {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <AuthProvider initialState={pageProps.authState}>
-        <ChakraProvider theme={extendTheme(theme)}>
-          <DefaultSeo {...defaultSeo.admin[locale]} />
-          <Component {...pageProps} />
-          <Analytics />
-          <ToastContainer />
-        </ChakraProvider>
-      </AuthProvider>
+      <HydrationBoundary state={pageProps.dehydratedState}>
+        <AuthProvider initialState={pageProps.authState}>
+          <ChakraProvider theme={extendTheme(theme)}>
+            <DefaultSeo {...defaultSeo.admin[locale]} />
+            <Component {...pageProps} />
+            <Analytics />
+            <ToastContainer />
+          </ChakraProvider>
+        </AuthProvider>
+      </HydrationBoundary>
       <ReactQueryDevtools />
     </QueryClientProvider>
   )
