@@ -66,7 +66,7 @@ export const TopicCard: FC<TopicCardProps> = ({ topic }) => {
   const queryClient = useQueryClient()
 
   const toast = useToast()
-  const { mutateAsync, isLoading } = useRecommendTopic()
+  const { mutateAsync, isPending } = useRecommendTopic()
 
   const isBookmarked = bookmarksStorage?.some(t => t.url === topic.url)
 
@@ -267,8 +267,8 @@ export const TopicCard: FC<TopicCardProps> = ({ topic }) => {
                 onClick={() => handleRecommend()}
                 icon={<FaRegThumbsUp />}
                 title="Recommend"
-                disabled={topic.isRecommended || isLoading}
-                isDisabled={topic.isRecommended || isLoading}
+                disabled={topic.isRecommended || isPending}
+                isDisabled={topic.isRecommended || isPending}
                 variant={'ghost'}
                 colorScheme={topic.isRecommended ? 'primary' : 'gray'}
               />

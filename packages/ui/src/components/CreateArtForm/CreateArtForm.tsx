@@ -77,7 +77,7 @@ export const CreateArtForm = () => {
   const errors = formState.errors as FieldErrorsImpl<CreateArtFormFieldValues>
   const isValid = formState.isValid
 
-  const { mutate, isLoading } = useCreateModelMutation('arts')
+  const { mutate, isPending } = useCreateModelMutation('arts')
 
   const createArt = async (
     data: CreateArtFormFieldValues & { image: File },
@@ -161,7 +161,7 @@ export const CreateArtForm = () => {
           <ModalCloseButton color={'white'} />
           <ModalBody pos="relative" py={6}>
             {/* LOADING */}
-            {isLoading && (
+            {isPending && (
               <Center
                 zIndex={1}
                 pos="absolute"

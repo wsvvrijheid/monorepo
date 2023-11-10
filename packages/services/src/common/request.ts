@@ -16,21 +16,23 @@ import {
   StrapiSingleResponse,
 } from '@wsvvrijheid/types'
 
+type QueryOptions = Partial<UseQueryOptions<unknown, unknown>>
+
 function useStrapiRequest<T extends StrapiModel>(
   args: RequestSingleArgs & {
-    queryOptions?: UseQueryOptions<unknown, unknown>
+    queryOptions?: QueryOptions
   },
 ): UseQueryResult<StrapiSingleResponse<T>>
 
 function useStrapiRequest<T extends StrapiModel>(
   args: RequestCollectionArgs & {
-    queryOptions?: UseQueryOptions<unknown, unknown>
+    queryOptions?: QueryOptions
   },
 ): UseQueryResult<StrapiCollectionResponse<T[]>>
 
 function useStrapiRequest<T extends StrapiModel>(
   args: (RequestCollectionArgs | RequestSingleArgs) & {
-    queryOptions?: UseQueryOptions<unknown, unknown>
+    queryOptions?: QueryOptions
   },
 ) {
   const auth = useAuthContext()
