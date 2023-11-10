@@ -87,7 +87,7 @@ export const useLikeBlog = (blog?: Blog | null, queryKey?: QueryKey) => {
         { id: blog.id, likers, token: token as string, user },
         {
           onSuccess: async () => {
-            await queryClient.invalidateQueries(queryKey)
+            await queryClient.invalidateQueries({ queryKey })
           },
         },
       )
@@ -97,7 +97,7 @@ export const useLikeBlog = (blog?: Blog | null, queryKey?: QueryKey) => {
       { id: blog.id, likes, token: token as string },
       {
         onSuccess: async data => {
-          await queryClient.invalidateQueries(queryKey)
+          await queryClient.invalidateQueries({ queryKey })
 
           const isLiked = likersStorage?.some(id => id === blog.id)
           const updatedStorage = isLiked
@@ -114,6 +114,6 @@ export const useLikeBlog = (blog?: Blog | null, queryKey?: QueryKey) => {
     toggleLike,
     isLiked: user ? isLikedByUser : isLikedStorage,
     isLoading:
-      likeBlogByUserMutation.isLoading || likeBlogPublicMutation.isLoading,
+      likeBlogByUserMutation.isPending || likeBlogPublicMutation.isPending,
   }
 }

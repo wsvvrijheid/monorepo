@@ -121,7 +121,7 @@ export const AuthModal = () => {
                   {t('login.signin')}
                 </Button>
                 {loginMutation.isError &&
-                  (loginMutation.error ===
+                  (loginMutation.error?.message ===
                   'Request failed with status code 401' ? (
                     <Text fontSize={'sm'} color={'red.500'}>
                       <Trans
@@ -139,7 +139,7 @@ export const AuthModal = () => {
                     </Text>
                   ) : (
                     <Text color="red.500" fontSize="sm">
-                      {(loginMutation.error as any) || 'An error occured'}
+                      {loginMutation.error?.message || 'An error occured'}
                     </Text>
                   ))}
               </Stack>

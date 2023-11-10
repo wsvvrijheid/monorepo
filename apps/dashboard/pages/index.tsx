@@ -115,8 +115,9 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
 
   const queryClient = new QueryClient()
 
-  await queryClient.prefetchQuery(['account-stats'], () => {
-    return strapiRequest<AccountStatsType>(args)
+  await queryClient.prefetchQuery({
+    queryKey: ['account-stats'],
+    queryFn: () => strapiRequest<AccountStatsType>(args),
   })
 
   return {

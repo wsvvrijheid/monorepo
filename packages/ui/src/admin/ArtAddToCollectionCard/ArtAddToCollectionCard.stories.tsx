@@ -87,7 +87,7 @@ const StoryWithHooks: StoryFn<ArtAddToCollectionCardProps> = args => {
           const isAdded = collection.arts?.some(a => a.id === art.id) || false
           const isLoading =
             artToBeMutated?.id === art.id &&
-            (addMutation.isLoading || removeMutation.isLoading)
+            (addMutation.isPending || removeMutation.isPending)
 
           return (
             <ArtAddToCollectionCard

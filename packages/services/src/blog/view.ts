@@ -36,7 +36,7 @@ export const useViewBlog = () => {
     mutationFn: (blog: Blog) => viewBlog(blog, token as string),
     onSuccess: () => {
       blog && setBlogStorage([...(blogStorage || []), blog.id])
-      queryClient.invalidateQueries(['blog', locale, slug])
+      queryClient.invalidateQueries({ queryKey: ['blog', locale, slug] })
     },
   })
 

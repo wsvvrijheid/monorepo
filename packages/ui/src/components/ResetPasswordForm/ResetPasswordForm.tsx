@@ -35,7 +35,7 @@ export const ResetPasswordForm = () => {
     mode: 'all',
   })
 
-  const { mutate, isLoading } = useMutation<
+  const { mutate, isPending } = useMutation<
     unknown,
     unknown,
     ResetPasswordFieldValues
@@ -105,7 +105,7 @@ export const ResetPasswordForm = () => {
             />
           </Stack>
           <Stack spacing="6">
-            <Button type="submit" isLoading={isLoading}>
+            <Button type="submit" isLoading={isPending}>
               {t('submit')}
             </Button>
           </Stack>

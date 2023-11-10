@@ -70,7 +70,10 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
 
   const queryKey = Object.entries(args)
 
-  await queryClient.prefetchQuery(queryKey, () => strapiRequest<Hashtag>(args))
+  await queryClient.prefetchQuery({
+    queryKey,
+    queryFn: () => strapiRequest<Hashtag>(args),
+  })
 
   return {
     props: {

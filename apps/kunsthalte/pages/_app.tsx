@@ -2,7 +2,7 @@ import { FC, useState } from 'react'
 
 import { ChakraProvider, createStandaloneToast } from '@chakra-ui/react'
 import {
-  Hydrate,
+  HydrationBoundary,
   QueryClient,
   QueryClientProvider,
 } from '@tanstack/react-query'
@@ -31,7 +31,7 @@ const MyApp: FC<AppProps> = ({ Component, pageProps }) => {
   return (
     <AuthProvider initialState={pageProps.authState}>
       <QueryClientProvider client={queryClient}>
-        <Hydrate state={pageProps.dehydratedState}>
+        <HydrationBoundary state={pageProps.dehydratedState}>
           <ChakraProvider theme={themes.kunsthalte}>
             <DefaultSeo {...defaultSeo.kunsthalte[locale]} />
             <Component {...pageProps} />
@@ -39,7 +39,7 @@ const MyApp: FC<AppProps> = ({ Component, pageProps }) => {
             <Analytics />
             <ToastContainer />
           </ChakraProvider>
-        </Hydrate>
+        </HydrationBoundary>
         <ReactQueryDevtools />
       </QueryClientProvider>
     </AuthProvider>
