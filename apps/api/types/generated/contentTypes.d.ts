@@ -3157,12 +3157,27 @@ export interface ApiUserStatisticUserStatistic extends Schema.CollectionType {
   }
   attributes: {
     date: Attribute.Date
-    stats: Attribute.JSON
     profile: Attribute.Relation<
       'api::user-statistic.user-statistic',
       'manyToOne',
       'api::profile.profile'
     >
+    approvedActivity: Attribute.Integer
+    approvedTotal: Attribute.Integer
+    approvedApplication: Attribute.Integer
+    approvedBlog: Attribute.Integer
+    approvedCollection: Attribute.Integer
+    approvedCompetition: Attribute.Integer
+    approvedHashtag: Attribute.Integer
+    approvedPost: Attribute.Integer
+    createdActivity: Attribute.Integer
+    createdTotal: Attribute.Integer
+    createdApplication: Attribute.Integer
+    createdBlog: Attribute.Integer
+    createdCollection: Attribute.Integer
+    createdCompetition: Attribute.Integer
+    createdHashtag: Attribute.Integer
+    createdPost: Attribute.Integer
     createdAt: Attribute.DateTime
     updatedAt: Attribute.DateTime
     publishedAt: Attribute.DateTime
