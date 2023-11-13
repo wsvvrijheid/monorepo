@@ -67,8 +67,8 @@ export const scrapFrontPage: ScrapFrontPage = async ({
           topic.image = !img
             ? ''
             : img.startsWith('http')
-            ? img
-            : url + '/' + img
+              ? img
+              : url + '/' + img
         }
 
         if (time) {

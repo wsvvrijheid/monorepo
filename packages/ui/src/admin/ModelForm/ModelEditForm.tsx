@@ -440,8 +440,8 @@ export const ModelEditForm = <T extends StrapiModel>({
                 field.type === 'date'
                   ? 'date'
                   : field.type === 'datetime-local'
-                  ? 'datetime-local'
-                  : 'text'
+                    ? 'datetime-local'
+                    : 'text'
 
               return (
                 <Stack key={index}>
