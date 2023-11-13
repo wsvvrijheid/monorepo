@@ -31,13 +31,13 @@ export const mapTweetResponseToTweet = (
           profile: userData?.profile_image_url,
         }
       : tweetUser
-      ? {
-          id: tweetUser.id,
-          name: tweetUser.name,
-          username: tweetUser.username,
-          profile: tweetUser.profile_image_url,
-        }
-      : null
+        ? {
+            id: tweetUser.id,
+            name: tweetUser.name,
+            username: tweetUser.username,
+            profile: tweetUser.profile_image_url,
+          }
+        : null
     const likes = public_metrics.like_count
     const retweets = public_metrics.retweet_count
     const replies = public_metrics.reply_count

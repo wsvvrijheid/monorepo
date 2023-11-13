@@ -6,7 +6,7 @@ import {
   extendTheme,
 } from '@chakra-ui/react'
 import {
-  Hydrate,
+  HydrationBoundary,
   QueryClient,
   QueryClientProvider,
 } from '@tanstack/react-query'
@@ -51,7 +51,7 @@ const MyApp: FC<AppProps> = ({ Component, pageProps }) => {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Hydrate state={pageProps.dehydratedState}>
+      <HydrationBoundary state={pageProps.dehydratedState}>
         <AuthProvider initialState={pageProps.authState}>
           <ChakraProvider theme={extendTheme(theme)}>
             <DefaultSeo {...defaultSeo.admin[locale]} />
@@ -60,7 +60,7 @@ const MyApp: FC<AppProps> = ({ Component, pageProps }) => {
             <ToastContainer />
           </ChakraProvider>
         </AuthProvider>
-      </Hydrate>
+      </HydrationBoundary>
       <ReactQueryDevtools />
     </QueryClientProvider>
   )

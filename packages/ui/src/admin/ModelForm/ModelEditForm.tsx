@@ -440,8 +440,8 @@ export const ModelEditForm = <T extends StrapiModel>({
                 field.type === 'date'
                   ? 'date'
                   : field.type === 'datetime-local'
-                  ? 'datetime-local'
-                  : 'text'
+                    ? 'datetime-local'
+                    : 'text'
 
               return (
                 <Stack key={index}>
@@ -493,7 +493,7 @@ export const ModelEditForm = <T extends StrapiModel>({
                     leftIcon={<HiPlus />}
                     fontSize="sm"
                     colorScheme={'purple'}
-                    isLoading={approveModelMutation.isLoading}
+                    isLoading={approveModelMutation.isPending}
                   >
                     {t('collection.add-art')}
                   </Button>
@@ -520,7 +520,7 @@ export const ModelEditForm = <T extends StrapiModel>({
                   leftIcon={<HiOutlineCheck />}
                   fontSize="sm"
                   colorScheme={'purple'}
-                  isLoading={approveModelMutation.isLoading}
+                  isLoading={approveModelMutation.isPending}
                 >
                   {t('approve')}
                 </Button>

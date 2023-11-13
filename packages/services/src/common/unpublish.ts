@@ -31,15 +31,15 @@ export const useUnpublishModel = <T extends StrapiModel>(
       // It's difficult to invalidate cache for paginated or filtering queries
       // Cache invalidation strategy might differ depending on where the mutation is called
       // If there would be no filters, sort, pages for fetching data,
-      // we could just invalidate the cache as `queryClient.invalidateQueries('arts')`
+      // we could just invalidate the cache as `queryClient.invalidateQueries({ queryKey: ['arts'] })`
       //
       // We fetch queries on `Club` page, so we can invalidate cache by using the same queryKey
       // That's why we give the current queryKey comes from `Club` page
-      queryClient.invalidateQueries(queryKey)
+      queryClient.invalidateQueries({ queryKey })
     },
     onSuccess: () => {
       // TODO Add translations
-      queryClient.invalidateQueries(queryKey)
+      queryClient.invalidateQueries({ queryKey })
       toast({
         title: `Successfully Unpublished`,
         status: 'success',

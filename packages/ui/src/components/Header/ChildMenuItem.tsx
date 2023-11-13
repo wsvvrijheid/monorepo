@@ -22,8 +22,8 @@ export const ChildMenuItem: FC<MenuTypeItemProps> = ({ item, isDark }) => {
             ? 'primary.200'
             : 'primary.500'
           : !isScrolled && isDark
-          ? 'white'
-          : 'gray.700'
+            ? 'white'
+            : 'gray.700'
       }
       _hover={{
         color: !isScrolled && isDark ? 'whiteAlpha.800' : 'primary.500',

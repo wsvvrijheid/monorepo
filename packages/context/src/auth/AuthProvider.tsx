@@ -110,10 +110,10 @@ export const AuthProvider: FC<AuthProviderProps> = ({
     } catch (error: any) {
       if (error.response?.data?.message === 'Invalid identifier or password') {
         setError(t('login.wrong-password-username'))
-        throw t('login.wrong-password-username')
+        throw new Error(t('login.wrong-password-username'))
       } else {
         setError(error.message)
-        throw error.message
+        throw error
       }
     } finally {
       setIsLoading(false)
