@@ -1,4 +1,5 @@
 import { Expand } from './common'
+import { Contact } from './contact'
 import { UploadFile } from './file'
 import { Job } from './job'
 import { Profile } from './profile'
@@ -16,6 +17,7 @@ export type PlatformBase = {
   content_nl: string
   content_tr: string
   link: string
+  contact?: Contact | null
 }
 
 type PlatformRelation = {
