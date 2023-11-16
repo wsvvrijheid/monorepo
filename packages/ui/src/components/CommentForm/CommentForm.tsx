@@ -49,7 +49,7 @@ export const CommentForm: FC<CommentFormProps> = ({ artId, onSuccess }) => {
     mode: 'all',
   })
 
-  const { mutate, isSuccess, isLoading } = useCreateModelMutation<
+  const { mutate, isSuccess, isPending } = useCreateModelMutation<
     Comment,
     CommentCreateInput<'art'>
   >('comments')
@@ -156,7 +156,7 @@ export const CommentForm: FC<CommentFormProps> = ({ artId, onSuccess }) => {
               aria-label="Send Comment"
               icon={<FiArrowRight />}
               isRound
-              isLoading={isLoading}
+              isLoading={isPending}
               isDisabled={!isValid}
               type="submit"
             />
@@ -169,7 +169,7 @@ export const CommentForm: FC<CommentFormProps> = ({ artId, onSuccess }) => {
             display={{ base: 'none', sm: 'flex' }}
             alignSelf="flex-end"
             rightIcon={<FiArrowRight />}
-            isLoading={isLoading}
+            isLoading={isPending}
             isDisabled={!isValid || !recaptchaToken}
             type="submit"
           >

@@ -17,7 +17,7 @@ export const useTopicSync = () => {
     mutationKey: ['topics-sync'],
     mutationFn: () => syncTopics(token as string),
     onSuccess: () => {
-      queryClient.invalidateQueries(['topics'])
+      queryClient.invalidateQueries({ queryKey: ['topics'] })
     },
   })
 }

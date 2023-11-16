@@ -105,10 +105,10 @@ export const ImageRecognizer: FC<ImageRecognizerProps> = ({
           const value = isLoading
             ? 'Recognizing ...'
             : isError
-            ? 'Error'
-            : isProcessed
-            ? text || 'No text found'
-            : 'Waiting to be processed'
+              ? 'Error'
+              : isProcessed
+                ? text || 'No text found'
+                : 'Waiting to be processed'
 
           return (
             <ImageRecognizeItem

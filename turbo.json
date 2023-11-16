@@ -11,7 +11,7 @@
       "dependsOn": ["^build"],
       "outputs": [".next/**", "!.next/cache/**"]
     },
-    "lint": {},
+    "lint": { "cache": false },
     "dev": { "cache": false, "persistent": true },
     "dashboard": { "cache": false, "persistent": true },
     "foundation": { "cache": false, "persistent": true },

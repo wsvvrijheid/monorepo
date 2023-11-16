@@ -38,7 +38,9 @@ export const PostSentenceFormItem: FC<PostSentenceFormItemProps> = ({
   const isChanged = value !== defaultSentence
 
   const onSuccess = async () => {
-    await queryClient.refetchQueries(['kv-hashtag-sentences', hashtag.id])
+    await queryClient.invalidateQueries({
+      queryKey: ['kv-hashtag-sentences', hashtag.id],
+    })
     setEditMode(false)
   }
 

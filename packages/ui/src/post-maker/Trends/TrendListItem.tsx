@@ -38,8 +38,8 @@ export const TrendListItem: FC<TrendListItemProps> = ({
   const colorScheme = isCurrentHashtag
     ? 'twitter'
     : isAdded
-    ? 'blackAlpha'
-    : 'primary'
+      ? 'blackAlpha'
+      : 'primary'
 
   const onTrendClick = (trendName: string) => {
     if (isCurrentHashtag) {

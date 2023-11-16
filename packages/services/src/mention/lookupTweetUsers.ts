@@ -25,6 +25,6 @@ export const useLookupTwitterUsers = (q?: string) => {
     queryKey: ['mentions-search', q],
     queryFn: () => lookupTwitterUsers(q),
     enabled: q?.length ? q.length > 3 : false,
-    keepPreviousData: true,
+    placeholderData: previousData => previousData,
   })
 }

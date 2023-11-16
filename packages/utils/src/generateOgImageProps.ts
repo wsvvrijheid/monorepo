@@ -8,8 +8,8 @@ export const generateOgImageParams = (props?: OgImageParams) => {
   const image = props?.image
     ? props.image
     : props?.randomImage
-    ? 'https://picsum.photos/300/675'
-    : undefined
+      ? 'https://picsum.photos/300/675'
+      : undefined
 
   const bgs = Object.entries(theme.colors)
     .filter(([key]) => key !== 'black' && key !== 'white')

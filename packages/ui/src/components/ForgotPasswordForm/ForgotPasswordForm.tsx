@@ -31,20 +31,18 @@ export const ForgotPasswordForm = () => {
     mode: 'all',
   })
 
-  const { mutate, isLoading } = useMutation(
-    ['forgot-password'],
-    (values: ForgotPasswordFieldValues) =>
+  const { mutate, isPending } = useMutation({
+    mutationKey: ['forgot-password'],
+    mutationFn: (values: ForgotPasswordFieldValues) =>
       axios.post('/api/auth/forgot-password', values),
-    {
-      onSuccess: () => {
-        toastMessage(null, t`forgot-pass.text`, 'success')
-        reset()
-      },
-      onError: () => {
-        toastMessage(t`error`, t`apply-form.error.description`, 'error')
-      },
+    onSuccess: () => {
+      toastMessage(null, t`forgot-pass.text`, 'success')
+      reset()
     },
-  )
+    onError: () => {
+      toastMessage(t`error`, t`apply-form.error.description`, 'error')
+    },
+  })
 
   const onSubmit: SubmitHandler<ForgotPasswordFieldValues> = data => {
     mutate(data)
@@ -79,7 +77,7 @@ export const ForgotPasswordForm = () => {
             />
           </Stack>
           <Stack spacing="6">
-            <Button type="submit" isLoading={isLoading}>
+            <Button type="submit" isLoading={isPending}>
               {t('submit')}
             </Button>
           </Stack>

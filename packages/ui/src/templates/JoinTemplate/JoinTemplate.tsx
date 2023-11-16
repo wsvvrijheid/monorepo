@@ -40,15 +40,15 @@ export const JoinTemplate: FC<JoinTemplateProps> = ({ title }) => {
 
   const platforms = platformsResult.data?.data || []
 
-  const { mutate, isLoading, isSuccess } = useMutation(
-    ['create-volunteer'],
-    (body: ProfileCreateInput) =>
+  const { mutate, isPending, isSuccess } = useMutation({
+    mutationKey: ['create-volunteer'],
+    mutationFn: (body: ProfileCreateInput) =>
       Mutation.post<Profile, ProfileCreateInput>(
         'profiles',
         { ...body, isVolunteer: true },
         VOLUNTEER_TOKEN as string,
       ),
-  )
+  })
 
   const onSubmit = (data: JoinFormFieldValues) => {
     try {
@@ -114,7 +114,7 @@ export const JoinTemplate: FC<JoinTemplateProps> = ({ title }) => {
             <Box>
               <JoinForm
                 onSubmitHandler={onSubmit}
-                isLoading={isLoading}
+                isLoading={isPending}
                 platforms={platforms}
               />
             </Box>

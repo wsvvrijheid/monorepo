@@ -66,7 +66,7 @@ export const TopicCard: FC<TopicCardProps> = ({ topic }) => {
   const queryClient = useQueryClient()
 
   const toast = useToast()
-  const { mutateAsync, isLoading } = useRecommendTopic()
+  const { mutateAsync, isPending } = useRecommendTopic()
 
   const isBookmarked = bookmarksStorage?.some(t => t.url === topic.url)
 
@@ -84,7 +84,7 @@ export const TopicCard: FC<TopicCardProps> = ({ topic }) => {
 
   const handleRecommend = async () => {
     await mutateAsync(topic as RecommendedTopicCreateInput, {
-      onSettled: () => queryClient.invalidateQueries(['topics']),
+      onSettled: () => queryClient.invalidateQueries({ queryKey: ['topics'] }),
     })
     toast({
       title: 'Recommended',
@@ -168,6 +168,7 @@ export const TopicCard: FC<TopicCardProps> = ({ topic }) => {
           alt={topic.title}
           objectFit={'cover'}
           flexShrink={0}
+          unoptimized
         />
         <HStack spacing={1} pos="absolute" top={0} left={0} w={'full'} p={2}>
           <Badge
@@ -266,8 +267,8 @@ export const TopicCard: FC<TopicCardProps> = ({ topic }) => {
                 onClick={() => handleRecommend()}
                 icon={<FaRegThumbsUp />}
                 title="Recommend"
-                disabled={topic.isRecommended || isLoading}
-                isDisabled={topic.isRecommended || isLoading}
+                disabled={topic.isRecommended || isPending}
+                isDisabled={topic.isRecommended || isPending}
                 variant={'ghost'}
                 colorScheme={topic.isRecommended ? 'primary' : 'gray'}
               />
