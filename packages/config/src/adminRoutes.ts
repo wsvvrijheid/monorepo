@@ -9,7 +9,7 @@ export const adminRoleRoutes = [
   '/collections',
   '/competitions',
   '/courses',
-   '/general',
+  '/general',
   '/hashtags',
   '/news/recommended',
   '/posts',
