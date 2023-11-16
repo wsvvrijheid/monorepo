@@ -8,7 +8,7 @@
     "description": ""
   },
   "options": {
-    "draftAndPublish": true
+    "draftAndPublish": false
   },
   "pluginOptions": {},
   "attributes": {
@@ -18,19 +18,19 @@
     "name": {
       "type": "string"
     },
-    "bank": {
-      "type": "text"
-    },
-    "board_of_directors": {
-      "type": "text"
-    },
-    "address": {
+    "bank1": {
       "type": "string"
     },
-    "website": {
+    "bank2": {
       "type": "string"
     },
-    "profiles": {
+    "IBAN1": {
+      "type": "uid"
+    },
+    "IBAN2": {
+      "type": "uid"
+    },
+    "volunteers": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::profile.profile"
@@ -38,13 +38,24 @@
     "platforms": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::platform.platform"
+      "target": "api::platform.platform",
+      "mappedBy": "foundation"
     },
     "assets": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::asset.asset",
       "mappedBy": "foundation"
+    },
+    "boardOfDirectors": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::profile.profile"
+    },
+    "contact": {
+      "type": "component",
+      "repeatable": false,
+      "component": "contact.contact"
     }
   }
 }

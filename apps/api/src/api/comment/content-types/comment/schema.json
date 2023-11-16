@@ -43,12 +43,6 @@
     "blocked": {
       "type": "boolean",
       "default": false
-    },
-    "asset": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::asset.asset",
-      "inversedBy": "comments"
     }
   }
 }

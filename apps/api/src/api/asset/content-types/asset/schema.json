@@ -4,46 +4,54 @@
   "info": {
     "singularName": "asset",
     "pluralName": "assets",
-    "displayName": "Assets",
+    "displayName": "Asset",
     "description": ""
   },
   "options": {
-    "draftAndPublish": true
+    "draftAndPublish": false
   },
   "pluginOptions": {},
   "attributes": {
     "name": {
       "type": "string"
     },
-    "asset_number": {
+    "sku": {
+      "type": "uid"
+    },
+    "value": {
       "type": "string"
     },
-    "used_person": {
+    "location": {
       "type": "string"
     },
-    "where": {
-      "type": "string"
+    "rules": {
+      "type": "blocks"
     },
-    "asset_photo": {
+    "notes": {
+      "type": "blocks"
+    },
+    "images": {
       "type": "media",
       "multiple": true,
       "required": false,
       "allowedTypes": ["images", "files", "videos", "audios"]
     },
-    "comments": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::comment.comment",
-      "mappedBy": "asset"
-    },
-    "rules": {
-      "type": "text"
+    "invoice": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["files", "images"]
     },
     "foundation": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::foundation.foundation",
       "inversedBy": "assets"
+    },
+    "peopleInCharge": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::profile.profile"
     }
   }
 }

@@ -1,5 +1,26 @@
 import type { Schema, Attribute } from '@strapi/strapi'
 
+export interface ContactContact extends Schema.Component {
+  collectionName: 'components_contact_contacts'
+  info: {
+    displayName: 'Contact'
+    icon: 'phone'
+    description: ''
+  }
+  attributes: {
+    email: Attribute.Email
+    website: Attribute.String
+    address: Attribute.String
+    city: Attribute.String
+    country: Attribute.String
+    phone: Attribute.String
+    facebook: Attribute.String
+    instagram: Attribute.String
+    twitter: Attribute.String
+    linkedin: Attribute.String
+  }
+}
+
 export interface CourseCurriculum extends Schema.Component {
   collectionName: 'components_course_curricula'
   info: {
@@ -37,6 +58,7 @@ export interface FaqFaq extends Schema.Component {
 declare module '@strapi/types' {
   export module Shared {
     export interface Components {
+      'contact.contact': ContactContact
       'course.curriculum': CourseCurriculum
       'faq.faq': FaqFaq
     }

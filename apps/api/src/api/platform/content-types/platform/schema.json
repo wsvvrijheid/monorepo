@@ -88,6 +88,17 @@
       "relation": "manyToMany",
       "target": "api::profile.profile",
       "mappedBy": "platforms"
+    },
+    "foundation": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::foundation.foundation",
+      "inversedBy": "platforms"
+    },
+    "contact": {
+      "type": "component",
+      "repeatable": false,
+      "component": "contact.contact"
     }
   }
 }

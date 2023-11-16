@@ -1082,32 +1082,33 @@ export interface ApiAssetAsset extends Schema.CollectionType {
   info: {
     singularName: 'asset'
     pluralName: 'assets'
-    displayName: 'Assets'
+    displayName: 'Asset'
     description: ''
   }
   options: {
-    draftAndPublish: true
+    draftAndPublish: false
   }
   attributes: {
     name: Attribute.String
-    asset_number: Attribute.String
-    used_person: Attribute.String
-    where: Attribute.String
-    asset_photo: Attribute.Media
-    comments: Attribute.Relation<
-      'api::asset.asset',
-      'oneToMany',
-      'api::comment.comment'
-    >
-    rules: Attribute.Text
+    sku: Attribute.UID
+    value: Attribute.String
+    location: Attribute.String
+    rules: Attribute.Blocks
+    notes: Attribute.Blocks
+    images: Attribute.Media
+    invoice: Attribute.Media
     foundation: Attribute.Relation<
       'api::asset.asset',
       'manyToOne',
       'api::foundation.foundation'
     >
+    peopleInCharge: Attribute.Relation<
+      'api::asset.asset',
+      'oneToMany',
+      'api::profile.profile'
+    >
     createdAt: Attribute.DateTime
     updatedAt: Attribute.DateTime
-    publishedAt: Attribute.DateTime
     createdBy: Attribute.Relation<
       'api::asset.asset',
       'oneToOne',
@@ -1116,6 +1117,54 @@ export interface ApiAssetAsset extends Schema.CollectionType {
       Attribute.Private
     updatedBy: Attribute.Relation<
       'api::asset.asset',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private
+  }
+}
+
+export interface ApiAssetsTrackingAssetsTracking extends Schema.CollectionType {
+  collectionName: 'assets_trackings'
+  info: {
+    singularName: 'assets-tracking'
+    pluralName: 'assets-trackings'
+    displayName: 'AssetsTracking'
+    description: ''
+  }
+  options: {
+    draftAndPublish: false
+  }
+  attributes: {
+    fromLocation: Attribute.String
+    toLocation: Attribute.String
+    date: Attribute.Date
+    notes: Attribute.Text
+    asset: Attribute.Relation<
+      'api::assets-tracking.assets-tracking',
+      'oneToOne',
+      'api::asset.asset'
+    >
+    previousTracking: Attribute.Relation<
+      'api::assets-tracking.assets-tracking',
+      'oneToOne',
+      'api::assets-tracking.assets-tracking'
+    >
+    assignedTo: Attribute.Relation<
+      'api::assets-tracking.assets-tracking',
+      'oneToOne',
+      'api::profile.profile'
+    >
+    createdAt: Attribute.DateTime
+    updatedAt: Attribute.DateTime
+    createdBy: Attribute.Relation<
+      'api::assets-tracking.assets-tracking',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private
+    updatedBy: Attribute.Relation<
+      'api::assets-tracking.assets-tracking',
       'oneToOne',
       'admin::user'
     > &
@@ -1431,11 +1480,6 @@ export interface ApiCommentComment extends Schema.CollectionType {
     >
     art: Attribute.Relation<'api::comment.comment', 'manyToOne', 'api::art.art'>
     blocked: Attribute.Boolean & Attribute.DefaultTo<false>
-    asset: Attribute.Relation<
-      'api::comment.comment',
-      'manyToOne',
-      'api::asset.asset'
-    >
     createdAt: Attribute.DateTime
     updatedAt: Attribute.DateTime
     publishedAt: Attribute.DateTime
@@ -1779,16 +1823,16 @@ export interface ApiFoundationFoundation extends Schema.CollectionType {
     description: ''
   }
   options: {
-    draftAndPublish: true
+    draftAndPublish: false
   }
   attributes: {
     email: Attribute.Email
     name: Attribute.String
-    bank: Attribute.Text
-    board_of_directors: Attribute.Text
-    address: Attribute.String
-    website: Attribute.String
-    profiles: Attribute.Relation<
+    bank1: Attribute.String
+    bank2: Attribute.String
+    IBAN1: Attribute.UID
+    IBAN2: Attribute.UID
+    volunteers: Attribute.Relation<
       'api::foundation.foundation',
       'oneToMany',
       'api::profile.profile'
@@ -1803,9 +1847,14 @@ export interface ApiFoundationFoundation extends Schema.CollectionType {
       'oneToMany',
       'api::asset.asset'
     >
+    boardOfDirectors: Attribute.Relation<
+      'api::foundation.foundation',
+      'oneToMany',
+      'api::profile.profile'
+    >
+    contact: Attribute.Component<'contact.contact'>
     createdAt: Attribute.DateTime
     updatedAt: Attribute.DateTime
-    publishedAt: Attribute.DateTime
     createdBy: Attribute.Relation<
       'api::foundation.foundation',
       'oneToOne',
@@ -2132,6 +2181,12 @@ export interface ApiPlatformPlatform extends Schema.CollectionType {
       'manyToMany',
       'api::profile.profile'
     >
+    foundation: Attribute.Relation<
+      'api::platform.platform',
+      'manyToOne',
+      'api::foundation.foundation'
+    >
+    contact: Attribute.Component<'contact.contact'>
     createdAt: Attribute.DateTime
     updatedAt: Attribute.DateTime
     publishedAt: Attribute.DateTime
@@ -3349,6 +3404,7 @@ declare module '@strapi/types' {
       'api::application.application': ApiApplicationApplication
       'api::art.art': ApiArtArt
       'api::asset.asset': ApiAssetAsset
+      'api::assets-tracking.assets-tracking': ApiAssetsTrackingAssetsTracking
       'api::blog.blog': ApiBlogBlog
       'api::category.category': ApiCategoryCategory
       'api::collection.collection': ApiCollectionCollection
