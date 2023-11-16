@@ -14,6 +14,12 @@ import {
   ApplicationUpdateInput,
 } from './application'
 import { Art, ArtCreateInput, ArtLocalizeInput, ArtUpdateInput } from './art'
+import { Asset, AssetCreateInput, AssetUpdateInput } from './asset'
+import {
+  AssetsTracking,
+  AssetsTrackingCreateInput,
+  AssetsTrackingUpdateInput,
+} from './assets-tracking'
 import {
   Blog,
   BlogCreateInput,
@@ -47,6 +53,11 @@ import {
   FeedbackArtCreateInput,
 } from './feedback'
 import { UploadFile } from './file'
+import {
+  Foundation,
+  FoundationCreateInput,
+  FoundationUpdateInput,
+} from './foundation'
 import {
   Hashtag,
   HashtagCreateInput,
@@ -127,6 +138,8 @@ export type StrapiModel =
   | Applicant
   | Application
   | Art
+  | Asset
+  | AssetsTracking
   | Blog
   | Category
   | Collection
@@ -136,7 +149,7 @@ export type StrapiModel =
   | CourseApplication
   | Donation
   | Feedback
-  | UserFeedback
+  | Foundation
   | Hashtag
   | Job
   | LangRole
@@ -145,6 +158,7 @@ export type StrapiModel =
   | Platform
   | Post
   | Privacy
+  | Profile
   | RecommendedTopic
   | RecommendedTweet
   | Tag
@@ -154,7 +168,7 @@ export type StrapiModel =
   | Trend
   | UploadFile
   | User
-  | Profile
+  | UserFeedback
   | Vote
 
 export type StrapiSeoModel =
@@ -238,6 +252,8 @@ export type StrapiCollectionEndpoint =
   | 'applicants'
   | 'applications'
   | 'arts'
+  | 'assets'
+  | 'assets-trackings'
   | 'authors'
   | 'blogs'
   | 'categories'
@@ -249,6 +265,7 @@ export type StrapiCollectionEndpoint =
   | 'donates'
   | 'donates/email'
   | 'feedbacks'
+  | 'foundations'
   | 'hashtags'
   | 'jobs'
   | 'lang-roles'
@@ -267,8 +284,8 @@ export type StrapiCollectionEndpoint =
   | 'user-feedbacks'
   | 'user-statistics/get-stats'
   | 'user-statistics/get-user-stats'
-  | 'users-permissions/roles'
   | 'users'
+  | 'users-permissions/roles'
   | 'votes'
 
 export type StrapiEndpoint =
@@ -304,6 +321,8 @@ export type StrapiCreateInput =
   | ActivityCreateInput
   | ApplicationCreateInput
   | ArtCreateInput
+  | AssetCreateInput
+  | AssetsTrackingCreateInput
   | BlogCreateInput
   | CategoryCreateInput
   | CollectionCreateInput
@@ -315,17 +334,18 @@ export type StrapiCreateInput =
   | DonationCreateInput
   | EmailCreateInput
   | FeedbackApplicationCreateInput
-  | UserFeedbackCreateInput
   | FeedbackArtCreateInput
+  | FoundationCreateInput
   | HashtagCreateInput
   | JobCreateInput
   | MentionCreateInput
   | PostCreateInput
+  | ProfileCreateInput
   | RecommendedTopicCreateInput
   | RecommendedTweetCreateInput
   | TagCreateInput
   | TimelineCreateInput
-  | ProfileCreateInput
+  | UserFeedbackCreateInput
   | VoteCreateApplicationInput
   | VoteCreateApplicationJuryInput
   | VoteCreateArtInput
@@ -335,11 +355,14 @@ export type StrapiUpdateInput =
   | ActivityUpdateInput
   | ApplicationUpdateInput
   | ArtUpdateInput
+  | AssetUpdateInput
+  | AssetsTrackingUpdateInput
   | BlogUpdateInput
   | CollectionUpdateInput
   | CompetitionUpdateInput
   | CourseUpdateInput
   | DonationUpdateInput
+  | FoundationUpdateInput
   | HashtagUpdateInput
   | PostUpdateInput
   | ProfileUpdateInput

@@ -1,0 +1,43 @@
+{
+  "kind": "collectionType",
+  "collectionName": "assets_trackings",
+  "info": {
+    "singularName": "assets-tracking",
+    "pluralName": "assets-trackings",
+    "displayName": "AssetsTracking",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "fromLocation": {
+      "type": "string"
+    },
+    "toLocation": {
+      "type": "string"
+    },
+    "date": {
+      "type": "date"
+    },
+    "notes": {
+      "type": "text"
+    },
+    "asset": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::asset.asset"
+    },
+    "previousTracking": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::assets-tracking.assets-tracking"
+    },
+    "assignedTo": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::profile.profile"
+    }
+  }
+}
