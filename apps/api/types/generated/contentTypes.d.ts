@@ -3335,6 +3335,8 @@ export interface ApiUserStatisticUserStatistic extends Schema.CollectionType {
     createdCompetition: Attribute.Integer
     createdHashtag: Attribute.Integer
     createdPost: Attribute.Integer
+    createdRecommendedTopic: Attribute.Integer
+    createdRecommendedTweet: Attribute.Integer
     createdAt: Attribute.DateTime
     updatedAt: Attribute.DateTime
     publishedAt: Attribute.DateTime

@@ -68,6 +68,12 @@
     },
     "createdPost": {
       "type": "integer"
+    },
+    "createdRecommendedTopic": {
+      "type": "integer"
+    },
+    "createdRecommendedTweet": {
+      "type": "integer"
     }
   }
 }
