@@ -82,6 +82,6 @@ export async function getStats(
 
   return {
     approves: stats.approver,
-    creations: stats.creator,
+    creates: stats.creator,
   }
 }
