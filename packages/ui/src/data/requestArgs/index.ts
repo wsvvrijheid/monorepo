@@ -21,6 +21,15 @@ export const useRequestArgs = (): UseRequestArgsReturn => {
   const { t } = useTranslation()
 
   return {
+    assets: {
+      relationFilters: [
+        {
+          endpoint: 'foundations',
+          field: 'foundation',
+        },
+      ],
+      searchFields: ['title', 'description'],
+    },
     hashtags: {
       searchFields: ['title'],
     },
@@ -44,6 +53,7 @@ export const useRequestArgs = (): UseRequestArgsReturn => {
         },
       ],
     },
+    foundations: { searchFields: ['title'] },
     blogs: {
       relationFilters: [
         {

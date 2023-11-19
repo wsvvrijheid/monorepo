@@ -47,7 +47,7 @@ export const useAdminNav = (): AdminNavItemProps[] => {
       submenu: [
         {
           label: 'General', // t('general')
-          link: '/general',
+          link: '/foundations',
           icon: <SiGeneralelectric />,
         },
         {
