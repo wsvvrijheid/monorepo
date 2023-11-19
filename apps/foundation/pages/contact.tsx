@@ -39,7 +39,7 @@ const Contact = ({ seo }: ContactProps): JSX.Element => {
 
   const {
     isError,
-    isLoading,
+    isPending,
     isSuccess,
     mutate: sendForm,
   } = useMutation({
@@ -153,7 +153,7 @@ const Contact = ({ seo }: ContactProps): JSX.Element => {
 
             <ContactForm
               onSubmitHandler={handleSubmit}
-              isLoading={isLoading}
+              isLoading={isPending}
               isSuccess={isSuccess}
               isError={isError}
             />

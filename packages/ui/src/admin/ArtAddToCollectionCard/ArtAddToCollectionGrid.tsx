@@ -70,7 +70,7 @@ export const ArtAddToCollectionGrid = ({
           const isAdded = art.collection?.id === collection.id
 
           const isLoading =
-            artToBeMutated?.id === art.id && updateArtMutation.isLoading
+            artToBeMutated?.id === art.id && updateArtMutation.isPending
 
           return (
             <ArtAddToCollectionCard

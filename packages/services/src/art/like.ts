@@ -43,7 +43,7 @@ export const useLikeArt = (art?: Art | null, queryKey?: QueryKey) => {
       { id: art.id, type: isLikedStorage ? 'unlike' : 'like' },
       {
         onSuccess: async data => {
-          await queryClient.invalidateQueries(queryKey)
+          await queryClient.invalidateQueries({ queryKey })
 
           const isLiked = likersStorage?.some(id => id === art.id)
           const updatedStorage = isLiked
@@ -59,6 +59,6 @@ export const useLikeArt = (art?: Art | null, queryKey?: QueryKey) => {
   return {
     toggleLike,
     isLiked,
-    isLoading: likeArtMutation.isLoading,
+    isLoading: likeArtMutation.isPending,
   }
 }

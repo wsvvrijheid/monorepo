@@ -26,11 +26,11 @@ export const useDeleteModel = <T extends StrapiModel>(
     mutationFn: ({ id }: { id: number }) =>
       deleteModel<T>(id, endpoint, token as string),
     onSettled: () => {
-      queryClient.invalidateQueries(queryKey)
+      queryClient.invalidateQueries({ queryKey })
     },
     onSuccess: () => {
       // TODO Add translations
-      queryClient.invalidateQueries(queryKey)
+      queryClient.invalidateQueries({ queryKey })
       toast({
         title: `Successfully Deleted`,
         status: 'success',

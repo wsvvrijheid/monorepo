@@ -190,7 +190,7 @@ export const ModelCreateForm = <T extends StrapiModel>({
         alignSelf={'end'}
         leftIcon={<TbPlus />}
         type={'submit'}
-        isLoading={createModelMutation.isLoading}
+        isLoading={createModelMutation.isPending}
       >
         {t('create')}
       </Button>

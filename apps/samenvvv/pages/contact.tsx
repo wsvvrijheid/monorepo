@@ -24,7 +24,7 @@ const Contact = () => {
 
   const {
     isError,
-    isLoading,
+    isPending,
     isSuccess,
     mutate: sendForm,
   } = useMutation({
@@ -126,7 +126,7 @@ const Contact = () => {
             <Box w="full">
               <ContactForm
                 onSubmitHandler={handleSubmit}
-                isLoading={isLoading}
+                isLoading={isPending}
                 isSuccess={isSuccess}
                 isError={isError}
               />

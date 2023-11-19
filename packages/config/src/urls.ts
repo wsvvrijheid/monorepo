@@ -17,10 +17,13 @@ export const endpointsWithLocalizedTitle: StrapiEndpoint[] = [
 
 export const endpointsWithoutLocale: StrapiEndpoint[] = [
   ...endpointsWithLocalizedTitle,
+  'assets',
+  'assets-trackings',
   'applicants',
   'comments',
   'donates',
   'feedbacks',
+  'foundations',
   'lang-roles',
   'users',
   'profiles',

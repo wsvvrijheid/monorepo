@@ -75,10 +75,9 @@ export const PostMakerTweetButtons: FC<PostMakerTweetButtonsProps> = ({
           },
           {
             onSuccess: async () => {
-              await queryClient.invalidateQueries([
-                'kv-hashtag-sentences',
-                hashtag.id,
-              ])
+              await queryClient.invalidateQueries({
+                queryKey: ['kv-hashtag-sentences', hashtag.id],
+              })
             },
           },
         )

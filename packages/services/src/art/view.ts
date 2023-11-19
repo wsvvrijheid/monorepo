@@ -33,7 +33,7 @@ export const useViewArtMutation = () => {
       ),
     onSuccess: () => {
       art && setArtStorage([...(artStorage || []), art.id])
-      queryClient.invalidateQueries(['art', locale, slug])
+      queryClient.invalidateQueries({ queryKey: ['art', locale, slug] })
     },
   })
 

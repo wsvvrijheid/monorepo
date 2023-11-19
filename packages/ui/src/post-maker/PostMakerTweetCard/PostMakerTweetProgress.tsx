@@ -8,8 +8,8 @@ export const PostMakerTweetProgress = () => {
   const color = isExceeded
     ? 'red.500'
     : availableCount <= 20
-    ? 'orange.500'
-    : 'black'
+      ? 'orange.500'
+      : 'black'
 
   return (
     <CircularProgress

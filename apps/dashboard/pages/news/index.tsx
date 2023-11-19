@@ -138,9 +138,9 @@ const NewsPage = () => {
         <Tooltip label={syncedStr} hasArrow bg="primary.400">
           <IconButton
             aria-label="Sync news"
-            isLoading={syncTopic.isLoading || isLoading}
+            isLoading={syncTopic.isPending || isLoading}
             onClick={() => syncTopic.mutate()}
-            isDisabled={!canSync || syncTopic.isLoading || isLoading}
+            isDisabled={!canSync || syncTopic.isPending || isLoading}
             icon={<FaSyncAlt />}
           />
         </Tooltip>

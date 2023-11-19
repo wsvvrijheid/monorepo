@@ -74,7 +74,10 @@ export const getServerSideProps = async (
 
   const queryKey = Object.values(args)
 
-  await queryClient.prefetchQuery(queryKey, () => strapiRequest<Hashtag>(args))
+  await queryClient.prefetchQuery({
+    queryKey,
+    queryFn: () => strapiRequest<Hashtag>(args),
+  })
 
   const hashtagsResponse =
     queryClient.getQueryData<StrapiCollectionResponse<Hashtag[]>>(queryKey)

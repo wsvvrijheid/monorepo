@@ -35,11 +35,11 @@ export const usePublishModel = <T extends StrapiModel>(
       //
       // We fetch queries on `Club` page, so we can invalidate cache by using the same queryKey
       // That's why we give the current queryKey comes from `Club` page
-      queryClient.invalidateQueries(queryKey)
+      queryClient.invalidateQueries({ queryKey })
     },
     onSuccess: () => {
       // TODO Add translations
-      queryClient.invalidateQueries(queryKey)
+      queryClient.invalidateQueries({ queryKey })
       toast({
         title: `Successfully Published`,
         status: 'success',
