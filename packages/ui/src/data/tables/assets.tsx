@@ -4,7 +4,6 @@ import { WTableProps } from '../../components'
 
 export const useAssetsColumns = (): WTableProps<Asset>['columns'] => {
   return {
-    images: { type: 'image' },
     name: { sortable: true },
     sku: {},
     value: {},
@@ -13,6 +12,7 @@ export const useAssetsColumns = (): WTableProps<Asset>['columns'] => {
     notes: {},
     peopleInCharge: {},
     invoice: {},
+    images: { type: 'image' },
     createdAt: {
       type: 'date',
       sortable: true,

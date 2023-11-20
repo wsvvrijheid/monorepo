@@ -1,35 +1,28 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
-import { useDisclosure, useUpdateEffect } from '@chakra-ui/react'
+import { useUpdateEffect } from '@chakra-ui/react'
 import { GetStaticPropsContext } from 'next'
 import { useRouter } from 'next/router'
 
 import { useStrapiRequest } from '@wsvvrijheid/services'
 import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
-import { Foundation, Sort, StrapiLocale } from '@wsvvrijheid/types'
-import {
-  AdminLayout,
-  DataTable,
-  ModelEditModal,
-  PageHeader,
-  useColumns,
-} from '@wsvvrijheid/ui'
+import { Asset, Sort, StrapiLocale } from '@wsvvrijheid/types'
+import { AdminLayout, DataTable, PageHeader, useColumns } from '@wsvvrijheid/ui'
 
-const FoundationsPage = () => {
+const AssetsPage = () => {
   const { locale, query, push } = useRouter()
-  const selectedId = query.id ? parseInt(query.id as string) : undefined
+  const router = useRouter()
   const sort = query.sort as Sort
   const currentPage = query.page ? parseInt(query.page as string) : 1
   const pageSize = query.pageSize ? parseInt(query.pageSize as string) : 20
 
   const [searchTerm, setSearchTerm] = useState<string>()
-  const { isOpen, onClose, onOpen } = useDisclosure()
 
-  const columns = useColumns<Foundation>()
+  const columns = useColumns<Asset>()
 
-  const foundationsQuery = useStrapiRequest<Foundation>({
-    endpoint: 'foundations',
-    populate: ['assets', 'platforms', 'volunteers', 'profile'],
+  const assetsQuery = useStrapiRequest<Asset>({
+    endpoint: 'assets',
+    populate: ['foundation', 'profile'],
     page: currentPage || 1,
     pageSize,
     filters: {
@@ -44,14 +37,14 @@ const FoundationsPage = () => {
   }
 
   useUpdateEffect(() => {
-    foundationsQuery.refetch()
+    assetsQuery.refetch()
   }, [locale, searchTerm, sort])
 
-  const foundations = foundationsQuery?.data?.data
-  const pageCount = foundationsQuery?.data?.meta?.pagination?.pageCount || 0
-  const totalCount = foundationsQuery?.data?.meta?.pagination?.total || 0
+  const assets = assetsQuery?.data?.data
+  const pageCount = assetsQuery?.data?.meta?.pagination?.pageCount || 0
+  const totalCount = assetsQuery?.data?.meta?.pagination?.total || 0
 
-  console.log('foundations', foundations)
+  console.log('assets', assets)
 
   const changeRoute = (
     key: 'id' | 'page' | 'sort' | 'status' | 'published' | 'q' | 'pageSize',
@@ -73,47 +66,23 @@ const FoundationsPage = () => {
 
     push({ query: { ...query, [key]: value } }, undefined, { shallow: true })
   }
-  const setSelectedId = (id?: number) => changeRoute('id', id)
   const setCurrentPage = (page?: number) => changeRoute('page', page)
   const setPageSize = (size?: number) => changeRoute('pageSize', size)
   const setSort = (sort?: Sort) => changeRoute('sort', sort)
 
-  const handleClick = (index: number, id: number) => {
-    setSelectedId(id)
+  const handleRowClick = (index: number, id: number) => {
+    router.push(`/foundations/assets/${id}`)
   }
-  const handleClose = () => {
-    setSelectedId(undefined)
-    onClose()
-  }
-
-  useEffect(() => setCurrentPage(1), [])
-
-  useEffect(() => {
-    if (selectedId) {
-      onOpen()
-    }
-  }, [selectedId])
 
   return (
-    <AdminLayout seo={{ title: 'Foundations' }}>
+    <AdminLayout seo={{ title: 'Assets' }}>
       <PageHeader onSearch={handleSearch} />
-      {selectedId && (
-        <ModelEditModal<Foundation>
-          title={'Foundation'}
-          endpoint="foundations"
-          id={selectedId}
-          isOpen={isOpen}
-          onClose={handleClose}
-          onSuccess={foundationsQuery.refetch()}
-          size={'5xl'}
-        />
-      )}
 
-      <DataTable<Foundation>
-        columns={columns.foundations!}
+      <DataTable<Asset>
+        columns={columns['foundations']!}
         currentPage={currentPage}
-        data={foundations as Foundation[]}
-        onClickRow={handleClick}
+        data={assets as Asset[]}
+        onClickRow={handleRowClick}
         onSort={setSort}
         pageCount={pageCount}
         pageSize={pageSize}
@@ -135,4 +104,4 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
   }
 }
 
-export default FoundationsPage
+export default AssetsPage

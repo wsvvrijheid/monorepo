@@ -13,7 +13,7 @@ export const useFoundationsSchema = () => {
     iban2: yup.string().required(),
     email: yup.string().email().required(),
     // TODO
-   // contact: yup.string().required(),
+    // contact: yup.string().required(),
   })
 }
 
@@ -24,5 +24,5 @@ export const foundationFields: FormFields<Foundation> = [
   { name: 'bank2', isRequired: true },
   { name: 'IBAN2', isRequired: true },
   { name: 'email', isRequired: true },
- // { name: 'contact', isRequired: true },
+  // { name: 'contact', isRequired: true },
 ]

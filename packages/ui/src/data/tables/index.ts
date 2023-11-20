@@ -21,7 +21,6 @@ export const useColumns = <T extends StrapiModel>(): {
 } => {
   return {
     assets: useAssetsColumns() as WTableProps<T>['columns'],
-    foundations: useFoundationsColumns() as WTableProps<T>['columns'],
     activities: useActivityColumns() as WTableProps<T>['columns'],
     arts: useArtColumns() as WTableProps<T>['columns'],
     blogs: useBlogColumns() as WTableProps<T>['columns'],
@@ -30,6 +29,7 @@ export const useColumns = <T extends StrapiModel>(): {
       useCourseApplicationColumns() as WTableProps<T>['columns'],
     courses: useCourseColumns() as WTableProps<T>['columns'],
     donates: useDonationColumns() as WTableProps<T>['columns'],
+    foundations: useFoundationsColumns() as WTableProps<T>['columns'],
     hashtags: useHashtagColumns() as WTableProps<T>['columns'],
     posts: usePostColumns() as WTableProps<T>['columns'],
     profiles: useProfileColumns() as WTableProps<T>['columns'],
