@@ -52,7 +52,7 @@ export const useAdminNav = (): AdminNavItemProps[] => {
         },
         {
           label: 'Assets', // t('assets')
-          link: '/assets',
+          link: '/foundations/assets',
           icon: <SiMaterialdesignicons />,
         },
       ],
