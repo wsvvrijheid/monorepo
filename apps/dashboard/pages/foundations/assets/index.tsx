@@ -79,7 +79,7 @@ const AssetsPage = () => {
       <PageHeader onSearch={handleSearch} />
 
       <DataTable<Asset>
-        columns={columns['foundations']!}
+        columns={columns.assets!}
         currentPage={currentPage}
         data={assets as Asset[]}
         onClickRow={handleRowClick}

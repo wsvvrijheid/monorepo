@@ -9,10 +9,10 @@ export const useAssetsSchema = () => {
     name: yup.string().required(),
     value: yup.string().required(),
     location: yup.string().required(),
-    rules: yup.string().required(),
-    notes: yup.string().required(),
+    rules: yup.string(),
+    notes: yup.string(),
     peopleInCharge: yup.string().required(),
-    invoice: yup.mixed().required(),
+    invoice: yup.mixed(),
     images: yup.mixed().required(),
   })
 }
@@ -21,9 +21,10 @@ export const assetFields: FormFields<Asset> = [
   { name: 'name', isRequired: true },
   { name: 'value', isRequired: true },
   { name: 'location', isRequired: true },
-  { name: 'rules', isRequired: true  },
-  { name: 'notes', isRequired: true  },
+  { name: 'rules' ,type:'markdown'},
+  { name: 'notes', type:'markdown'},
   { name: 'peopleInCharge', isRequired: true, type: 'select', endpoint: 'users'  },
-  { name: 'invoice', type: 'file', isRequired: true },
-  { name: 'images', type: 'file', isRequired: true },
+  { name: 'invoice', type: 'file',  },
+  { name: 'images', isRequired: true  , type: 'file',
+    group: { value: 'image', name: 'media' },},
 ]

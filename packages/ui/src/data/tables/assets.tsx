@@ -1,4 +1,4 @@
-import { Asset } from '@wsvvrijheid/types'
+import { Asset, Profile } from '@wsvvrijheid/types'
 
 import { WTableProps } from '../../components'
 
@@ -8,10 +8,9 @@ export const useAssetsColumns = (): WTableProps<Asset>['columns'] => {
     sku: {},
     value: {},
     location: {},
-    rules: {},
-    notes: {},
-    peopleInCharge: {},
-    invoice: {},
+    peopleInCharge: {
+      transform: value => (value as Profile)?.name,
+    },
     images: { type: 'image' },
     createdAt: {
       type: 'date',

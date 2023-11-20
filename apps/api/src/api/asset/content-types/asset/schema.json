@@ -24,12 +24,6 @@
     "location": {
       "type": "string"
     },
-    "rules": {
-      "type": "blocks"
-    },
-    "notes": {
-      "type": "blocks"
-    },
     "images": {
       "type": "media",
       "multiple": true,
@@ -52,6 +46,12 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::profile.profile"
+    },
+    "rules": {
+      "type": "richtext"
+    },
+    "notes": {
+      "type": "richtext"
     }
   }
 }
