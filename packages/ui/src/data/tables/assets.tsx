@@ -6,7 +6,7 @@ export const useAssetsColumns = (): WTableProps<Asset>['columns'] => {
   return {
     name: { sortable: true },
     sku: {},
-    value: {},
+    price: {},
     location: {},
     peopleInCharge: {
       transform: value => (value as Profile)?.name,

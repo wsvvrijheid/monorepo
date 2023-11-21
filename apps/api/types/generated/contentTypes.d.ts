@@ -1091,7 +1091,6 @@ export interface ApiAssetAsset extends Schema.CollectionType {
   attributes: {
     name: Attribute.String
     sku: Attribute.UID
-    value: Attribute.String
     location: Attribute.String
     images: Attribute.Media
     invoice: Attribute.Media
@@ -1107,6 +1106,7 @@ export interface ApiAssetAsset extends Schema.CollectionType {
     >
     rules: Attribute.RichText
     notes: Attribute.RichText
+    price: Attribute.Integer
     createdAt: Attribute.DateTime
     updatedAt: Attribute.DateTime
     createdBy: Attribute.Relation<
