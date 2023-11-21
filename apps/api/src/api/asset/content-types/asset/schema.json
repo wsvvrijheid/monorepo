@@ -25,21 +25,13 @@
       "type": "media",
       "multiple": true,
       "required": false,
-      "allowedTypes": [
-        "images",
-        "files",
-        "videos",
-        "audios"
-      ]
+      "allowedTypes": ["images", "files", "videos", "audios"]
     },
     "invoice": {
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": [
-        "files",
-        "images"
-      ]
+      "allowedTypes": ["files", "images"]
     },
     "foundation": {
       "type": "relation",

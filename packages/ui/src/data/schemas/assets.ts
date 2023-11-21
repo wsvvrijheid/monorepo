@@ -8,7 +8,7 @@ import { FormFields } from '../../admin'
 export const useAssetsSchema = () => {
   return yup.object({
     name: yup.string().required(),
-   price: yup.number(),
+    price: yup.number(),
     location: yup.string().required(),
     rules: yup.string(),
     notes: yup.string(),
@@ -20,11 +20,16 @@ export const useAssetsSchema = () => {
 
 export const assetFields: FormFields<Asset> = [
   { name: 'name', isRequired: true },
-  { name: 'price', isRequired: true, type: 'number-input'},
+  { name: 'price', isRequired: true, type: 'number-input' },
   { name: 'location', isRequired: true },
-  { name: 'rules' ,type:'markdown'},
-  { name: 'notes', type:'markdown'},
-  { name: 'peopleInCharge', isRequired: true, type: 'select',  endpoint: 'profiles',  },
-  { name: 'invoice', type: 'file',  },
-  { name: 'images', isRequired: true  , type: 'file',},
+  { name: 'rules', type: 'markdown' },
+  { name: 'notes', type: 'markdown' },
+  {
+    name: 'peopleInCharge',
+    isRequired: true,
+    type: 'select',
+    endpoint: 'profiles',
+  },
+  { name: 'invoice', type: 'file' },
+  { name: 'images', type: 'file', group: { value: 'image', name: 'media' } },
 ]

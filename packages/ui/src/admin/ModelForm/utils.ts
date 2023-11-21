@@ -138,7 +138,7 @@ export const useDefaultValues = <T extends StrapiModel>(
           }
 
           break
-          case 'asset':
+        case 'asset':
           defaults.asset = {
             label: `${assetModel.name}`,
             value: profileModel?.id.toString(),
