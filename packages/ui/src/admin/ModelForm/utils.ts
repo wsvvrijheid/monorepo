@@ -6,6 +6,7 @@ import { useRouter } from 'next/router'
 import {
   Activity,
   Art,
+  Asset,
   Category,
   Course,
   CourseApplication,
@@ -75,6 +76,7 @@ export const useDefaultValues = <T extends StrapiModel>(
   const activityModel = model as Activity
   const applicationModel = model as CourseApplication
   const artModel = model as Art
+  const assetModel = model as Asset
   const courseModel = model as Course
   const hashtagModel = model as Hashtag
   const postModel = model as Post
@@ -132,6 +134,13 @@ export const useDefaultValues = <T extends StrapiModel>(
         case 'artist':
           defaults.artist = {
             label: `${artModel.artist?.name} (${artModel.artist?.email})`,
+            value: profileModel?.id.toString(),
+          }
+
+          break
+          case 'asset':
+          defaults.asset = {
+            label: `${assetModel.name}`,
             value: profileModel?.id.toString(),
           }
 

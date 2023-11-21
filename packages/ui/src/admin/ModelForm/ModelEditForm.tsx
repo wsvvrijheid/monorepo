@@ -331,7 +331,8 @@ export const ModelEditForm = <T extends StrapiModel>({
                 (field.name === 'image' ||
                   field.name === 'avatar' ||
                   field.name === 'caps' ||
-                  field.name === 'video')
+                  field.name === 'invoice' ||
+                  field.name === 'images' )
               ) {
                 return (
                   <FormControl
