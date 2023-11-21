@@ -19,7 +19,7 @@ export const useAssetsSchema = () => {
 
 export const assetFields: FormFields<Asset> = [
   { name: 'name', isRequired: true },
-  { name: 'price', isRequired: true, btype: 'number-input'},
+  { name: 'price', isRequired: true, type: 'number-input'},
   { name: 'location', isRequired: true },
   { name: 'rules' ,type:'markdown'},
   { name: 'notes', type:'markdown'},
