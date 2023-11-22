@@ -71,7 +71,7 @@ const AssetsPage = () => {
   const setSort = (sort?: Sort) => changeRoute('sort', sort)
 
   const handleRowClick = (index: number, id: number) => {
-    router.push(`/foundations/assets/${id}`)
+    router.push(`/assets/${id}`)
   }
 
   return (
