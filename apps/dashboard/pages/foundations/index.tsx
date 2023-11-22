@@ -104,7 +104,7 @@ const FoundationsPage = () => {
           id={selectedId}
           isOpen={isOpen}
           onClose={handleClose}
-          onSuccess={foundationsQuery.refetch()}
+          onSuccess={foundationsQuery.refetch}
           size={'5xl'}
         />
       )}
