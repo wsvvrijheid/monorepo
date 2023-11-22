@@ -138,13 +138,6 @@ export const useDefaultValues = <T extends StrapiModel>(
           }
 
           break
-        case 'asset':
-          defaults.asset = {
-            label: `${assetModel.name}`,
-            value: profileModel?.id.toString(),
-          }
-
-          break
         case 'hashtag':
           defaults.hashtag = {
             label: postModel.hashtag?.title,
@@ -192,6 +185,13 @@ export const useDefaultValues = <T extends StrapiModel>(
             activityModel?.platforms?.map(p => ({
               label: p[`name_${locale}`],
               value: p.id.toString(),
+            })) || []
+          break
+        case 'peopleInCharge':
+          defaults.peopleInCharge =
+            assetModel?.peopleInCharge?.map(person => ({
+              label: person.name,
+              value: person.id.toString(),
             })) || []
           break
         case 'tags':
