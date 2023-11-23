@@ -17,11 +17,13 @@ import { CgHashtag } from 'react-icons/cg'
 import { FaPlus } from 'react-icons/fa'
 import { HiOutlineNewspaper } from 'react-icons/hi'
 import { MdOutlineCastForEducation } from 'react-icons/md'
+import { SiMaterialdesignicons } from 'react-icons/si'
 import { TbActivity, TbBrandTwitter, TbWriting } from 'react-icons/tb'
 
 import { useAuthContext } from '@wsvvrijheid/context'
 import {
   Activity,
+  Asset,
   Blog,
   Collection,
   Course,
@@ -86,7 +88,18 @@ export const CreateModelButton = () => {
                 >
                   {t('create-activity')}
                 </ModelCreateModal>
-
+                <ModelCreateModal<Asset>
+                  title={t('create-asset')}
+                  endpoint="assets"
+                  schema={schemas.assets!}
+                  fields={fields.assets!}
+                  buttonProps={{
+                    variant: 'outline',
+                    leftIcon: <SiMaterialdesignicons />,
+                  }}
+                >
+                  {t('create-asset')}
+                </ModelCreateModal>
                 <ModelCreateModal<Blog>
                   title={t('create-blog')}
                   endpoint="blogs"
