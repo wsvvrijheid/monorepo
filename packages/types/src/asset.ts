@@ -6,7 +6,7 @@ import { StrapiBase } from './strapi'
 type AssetBase = {
   name: string
   sku: string
-  value: string
+  price: number
   location: string
   rules: string
   notes: string

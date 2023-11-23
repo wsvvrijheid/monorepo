@@ -18,17 +18,8 @@
     "sku": {
       "type": "uid"
     },
-    "value": {
-      "type": "string"
-    },
     "location": {
       "type": "string"
-    },
-    "rules": {
-      "type": "blocks"
-    },
-    "notes": {
-      "type": "blocks"
     },
     "images": {
       "type": "media",
@@ -52,6 +43,15 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::profile.profile"
+    },
+    "rules": {
+      "type": "richtext"
+    },
+    "notes": {
+      "type": "richtext"
+    },
+    "price": {
+      "type": "integer"
     }
   }
 }

@@ -1091,10 +1091,7 @@ export interface ApiAssetAsset extends Schema.CollectionType {
   attributes: {
     name: Attribute.String
     sku: Attribute.UID
-    value: Attribute.String
     location: Attribute.String
-    rules: Attribute.Blocks
-    notes: Attribute.Blocks
     images: Attribute.Media
     invoice: Attribute.Media
     foundation: Attribute.Relation<
@@ -1107,6 +1104,9 @@ export interface ApiAssetAsset extends Schema.CollectionType {
       'oneToMany',
       'api::profile.profile'
     >
+    rules: Attribute.RichText
+    notes: Attribute.RichText
+    price: Attribute.Integer
     createdAt: Attribute.DateTime
     updatedAt: Attribute.DateTime
     createdBy: Attribute.Relation<
