@@ -95,7 +95,6 @@ export const ModelEditForm = <T extends StrapiModel>({
 
   const fields = fieldsData[endpoint]!
   const schemas = schemasData[endpoint]!
-  console.log('fiels data', fields, 'schemasData', schemas)
 
   const artModalDisclosure = useDisclosure()
 

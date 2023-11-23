@@ -73,6 +73,7 @@ const AssetsPage = () => {
   const handleRowClick = (index: number, id: number) => {
     router.push(`/assets/${id}`)
   }
+  console.log('asset ________>>>', assets)
 
   return (
     <AdminLayout seo={{ title: 'Assets' }}>

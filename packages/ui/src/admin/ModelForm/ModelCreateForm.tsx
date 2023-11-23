@@ -9,14 +9,17 @@ import { useForm } from 'react-hook-form'
 import { TbPlus } from 'react-icons/tb'
 import { InferType } from 'yup'
 
-import { useCreateModelMutation } from '@wsvvrijheid/services'
+import {
+  useCreateModelMutation,
+  useUpdateModelMutation,
+} from '@wsvvrijheid/services'
 import {
   Post,
   PostCreateInput,
   StrapiModel,
   StrapiTranslatableCreateInput,
 } from '@wsvvrijheid/types'
-import { generateOgImageParams } from '@wsvvrijheid/utils'
+import { generateOgImageParams, getSku } from '@wsvvrijheid/utils'
 
 import { renderCreateFormBody } from './renderCreateFormBody'
 import { ModelCreateFormProps, Option } from './types'
@@ -40,6 +43,7 @@ export const ModelCreateForm = <T extends StrapiModel>({
     T,
     StrapiTranslatableCreateInput
   >(endpoint)
+  const updateModelMutation = useUpdateModelMutation(endpoint)
 
   const { locale } = useRouter()
   const { t } = useTranslation()
@@ -82,6 +86,10 @@ export const ModelCreateForm = <T extends StrapiModel>({
     }
   }, [imageFile, capsFile, videoFile, setValue])
 
+  const handleSuccess = () => {
+    onSuccess?.()
+    setValue('image', undefined)
+  }
   const onCreateModel = async (
     data: Record<string, string | number | File | Option | Option[]>,
   ) => {
@@ -128,7 +136,21 @@ export const ModelCreateForm = <T extends StrapiModel>({
     }
 
     createModelMutation.mutate(bodyData, {
-      onSuccess: () => {
+      onSuccess: data => {
+        if (endpoint === 'assets') {
+          const assetId = data.id
+          const sku = getSku(assetId)
+          const newAssetBody = {
+            ...data,
+            sku,
+          }
+          updateModelMutation.mutate(
+            { assetId, ...newAssetBody },
+            { onSuccess: handleSuccess },
+          )
+        }
+        console.log('asset id >>>>', data.id, 'year ')
+
         onSuccess?.()
         setValue('image', undefined)
       },
