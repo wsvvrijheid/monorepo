@@ -152,6 +152,13 @@ export const useDefaultValues = <T extends StrapiModel>(
           }
 
           break
+        case 'foundation':
+          defaults.foundation = {
+            label: assetModel.foundation?.name,
+            value: assetModel.foundation?.id.toString(),
+          }
+
+          break
         case 'course':
           defaults.course = {
             label: applicationModel.course?.[`title_${locale}`],

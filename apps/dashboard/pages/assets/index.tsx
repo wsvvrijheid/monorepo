@@ -44,8 +44,6 @@ const AssetsPage = () => {
   const pageCount = assetsQuery?.data?.meta?.pagination?.pageCount || 0
   const totalCount = assetsQuery?.data?.meta?.pagination?.total || 0
 
-  console.log('assets', assets)
-
   const changeRoute = (
     key: 'id' | 'page' | 'sort' | 'status' | 'published' | 'q' | 'pageSize',
     value?: string | number | Sort,
