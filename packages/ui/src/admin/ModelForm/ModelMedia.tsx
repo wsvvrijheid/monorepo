@@ -1,4 +1,5 @@
 import { Box, Button, Center, Stack, Text } from '@chakra-ui/react'
+import { Splide, SplideSlide } from '@splidejs/react-splide'
 import { FieldValues, Path, PathValue, UseFormSetValue } from 'react-hook-form'
 import { CiImageOff } from 'react-icons/ci'
 import { IoMdCloudUpload } from 'react-icons/io'
@@ -34,8 +35,37 @@ export const ModelMedia = <T extends FieldValues = FieldValues>({
 }: ModelMediaProps<T>) => {
   const { title, description } = (model || {}) as StrapiTranslatableModel
 
+  const key = name || 'image'
+
   // Name can be image or avatar
-  const media = (model as any)?.[(name as string) || 'image']
+  const media = (model as any)?.[key]
+
+  if (Array.isArray(media)) {
+    return (
+      <Splide>
+        {media.map((m, index) => {
+          const newModel = {
+            ...model,
+            [key]: m,
+          }
+
+          return (
+            <SplideSlide key={index}>
+              <ModelMedia
+                model={newModel}
+                name={name}
+                isEditing={isEditing}
+                isChangingMedia={isChangingMedia}
+                toggleChangingMedia={toggleChangingMedia}
+                setValue={setValue}
+                endpoint={endpoint}
+              />
+            </SplideSlide>
+          )
+        })}
+      </Splide>
+    )
+  }
 
   const mediaUrl = getMediaUrl(media)
 

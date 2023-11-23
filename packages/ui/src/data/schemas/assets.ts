@@ -2,7 +2,7 @@ import * as yup from 'yup'
 
 import { Asset } from '@wsvvrijheid/types'
 
-import { yupSelect } from './common'
+import { yupMultiSelect } from './common'
 import { FormFields } from '../../admin'
 
 export const useAssetsSchema = () => {
@@ -12,7 +12,7 @@ export const useAssetsSchema = () => {
     location: yup.string().required(),
     rules: yup.string(),
     notes: yup.string(),
-    peopleInCharge: yupSelect.required(),
+    peopleInCharge: yupMultiSelect.required(),
     invoice: yup.mixed(),
     images: yup.mixed().required(),
   })
