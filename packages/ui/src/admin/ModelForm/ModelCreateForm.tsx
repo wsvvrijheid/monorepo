@@ -149,8 +149,6 @@ export const ModelCreateForm = <T extends StrapiModel>({
             { onSuccess: handleSuccess },
           )
         }
-        console.log('asset id >>>>', data.id, 'year ')
-
         onSuccess?.()
         setValue('image', undefined)
       },
