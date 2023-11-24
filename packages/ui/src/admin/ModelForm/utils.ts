@@ -152,11 +152,23 @@ export const useDefaultValues = <T extends StrapiModel>(
           }
 
           break
+        case 'peopleInCharge':
+          defaults.peopleInCharge =
+            assetModel?.peopleInCharge?.map(person => ({
+              label: person.name,
+              value: person.id.toString(),
+            })) || []
+          break
         case 'foundation':
           defaults.foundation = {
             label: assetModel.foundation?.name,
             value: assetModel.foundation?.id.toString(),
           }
+          // defaults.foundation =
+          //   assetModel?.foundation?.map(p => ({
+          //     label: p.name,
+          //     value: p.id.toString(),
+          //   })) || []
 
           break
         case 'course':
@@ -194,13 +206,7 @@ export const useDefaultValues = <T extends StrapiModel>(
               value: p.id.toString(),
             })) || []
           break
-        case 'peopleInCharge':
-          defaults.peopleInCharge =
-            assetModel?.peopleInCharge?.map(person => ({
-              label: person.name,
-              value: person.id.toString(),
-            })) || []
-          break
+
         case 'tags':
           defaults.tags =
             postModel?.tags?.map(c => ({
