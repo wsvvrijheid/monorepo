@@ -188,7 +188,8 @@ export const ModelEditForm = <T extends StrapiModel>({
         return acc
       }
 
-      if (Array.isArray(value)) {
+      // TODO: Find a better way to handle updating multiple media files
+      if (Array.isArray(value) && key !== 'images') {
         return {
           ...acc,
           [key]: value.map(v => v.value),
