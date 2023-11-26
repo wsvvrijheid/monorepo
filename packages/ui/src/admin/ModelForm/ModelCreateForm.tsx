@@ -19,7 +19,7 @@ import {
   StrapiModel,
   StrapiTranslatableCreateInput,
 } from '@wsvvrijheid/types'
-import { generateOgImageParams, getSku } from '@wsvvrijheid/utils'
+import { generateOgImageParams } from '@wsvvrijheid/utils'
 
 import { renderCreateFormBody } from './renderCreateFormBody'
 import { ModelCreateFormProps, Option } from './types'
@@ -136,19 +136,7 @@ export const ModelCreateForm = <T extends StrapiModel>({
     }
 
     createModelMutation.mutate(bodyData, {
-      onSuccess: data => {
-        if (endpoint === 'assets') {
-          const assetId = data.id
-          const sku = getSku(assetId)
-          const newAssetBody = {
-            ...data,
-            sku,
-          }
-          updateModelMutation.mutate(
-            { assetId, ...newAssetBody },
-            { onSuccess: handleSuccess },
-          )
-        }
+      onSuccess: () => {
         onSuccess?.()
         setValue('image', undefined)
       },
