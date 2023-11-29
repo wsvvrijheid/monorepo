@@ -8,7 +8,7 @@ import { FormFields } from '../../admin'
 export const useAssetsSchema = () => {
   return yup.object({
     name: yup.string().required(),
-    price: yup.number().required(),
+    price: yup.number(),
     location: yup.string().required(),
     rules: yup.string(),
     notes: yup.string(),
@@ -27,7 +27,7 @@ export const assetFields: FormFields<Asset> = [
     type: 'select',
     endpoint: 'foundations',
   },
-  { name: 'price', isRequired: true, type: 'number-input' },
+  { name: 'price', type: 'number-input' },
   { name: 'location', isRequired: true },
   { name: 'rules', type: 'markdown' },
   { name: 'notes', type: 'markdown' },
