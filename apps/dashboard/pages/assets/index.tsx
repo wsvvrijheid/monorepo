@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { useUpdateEffect } from '@chakra-ui/react'
 import { GetStaticPropsContext } from 'next'
 import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
 
 import { useStrapiRequest } from '@wsvvrijheid/services'
 import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
@@ -11,6 +12,7 @@ import { AdminLayout, DataTable, PageHeader, useColumns } from '@wsvvrijheid/ui'
 
 const AssetsPage = () => {
   const { locale, query, push } = useRouter()
+  const { t } = useTranslation()
   const router = useRouter()
   const sort = query.sort as Sort
   const currentPage = query.page ? parseInt(query.page as string) : 1
@@ -73,7 +75,7 @@ const AssetsPage = () => {
   }
 
   return (
-    <AdminLayout seo={{ title: 'Assets' }}>
+    <AdminLayout seo={{ title: t('foundation.assets') }}>
       <PageHeader onSearch={handleSearch} />
 
       <DataTable<Asset>
