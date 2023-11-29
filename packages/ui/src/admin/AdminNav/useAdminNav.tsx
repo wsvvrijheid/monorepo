@@ -42,16 +42,16 @@ export const useAdminNav = (): AdminNavItemProps[] => {
       icon: <MdOutlineSpaceDashboard />,
     },
     {
-      label: 'Foundation', // t('foundation')
+      label: t('foundation'), // t('foundation')
       icon: <MdFoundation />,
       submenu: [
         {
-          label: 'General', // t('general')
+          label: t('foundation.general'), // t('general')
           link: '/foundations',
           icon: <SiGeneralelectric />,
         },
         {
-          label: 'Assets', // t('assets')
+          label: t('foundation.assets'), // t('assets')
           link: '/assets',
           icon: <SiMaterialdesignicons />,
         },
