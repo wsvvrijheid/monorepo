@@ -9,10 +9,7 @@ import { useForm } from 'react-hook-form'
 import { TbPlus } from 'react-icons/tb'
 import { InferType } from 'yup'
 
-import {
-  useCreateModelMutation,
-  useUpdateModelMutation,
-} from '@wsvvrijheid/services'
+import { useCreateModelMutation } from '@wsvvrijheid/services'
 import {
   Post,
   PostCreateInput,
@@ -43,7 +40,6 @@ export const ModelCreateForm = <T extends StrapiModel>({
     T,
     StrapiTranslatableCreateInput
   >(endpoint)
-  const updateModelMutation = useUpdateModelMutation(endpoint)
 
   const { locale } = useRouter()
   const { t } = useTranslation()
@@ -136,10 +132,7 @@ export const ModelCreateForm = <T extends StrapiModel>({
     }
 
     createModelMutation.mutate(bodyData, {
-      onSuccess: () => {
-        onSuccess?.()
-        setValue('image', undefined)
-      },
+      onSuccess: handleSuccess,
     })
   }
 

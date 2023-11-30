@@ -88,6 +88,7 @@ export const CreateModelButton = () => {
                 >
                   {t('create-activity')}
                 </ModelCreateModal>
+
                 <ModelCreateModal<Asset>
                   title={t('create-asset')}
                   endpoint="assets"
@@ -100,6 +101,7 @@ export const CreateModelButton = () => {
                 >
                   {t('create-asset')}
                 </ModelCreateModal>
+
                 <ModelCreateModal<Blog>
                   title={t('create-blog')}
                   endpoint="blogs"
@@ -183,6 +185,7 @@ export const CreateModelButton = () => {
                     </Button>
                   </>
                 )}
+
                 <ModelCreateModal<RecommendedTopic>
                   title={t('create-news')}
                   endpoint="recommended-topics"
@@ -196,6 +199,7 @@ export const CreateModelButton = () => {
                 >
                   {t('create-news')}
                 </ModelCreateModal>
+
                 <ModelCreateModal<RecommendedTweet>
                   title={t('create-recommended-tweet')}
                   endpoint="recommended-tweets"

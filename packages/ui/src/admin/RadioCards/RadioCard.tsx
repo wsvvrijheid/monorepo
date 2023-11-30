@@ -12,7 +12,6 @@ export const RadioCard: FC<BoxProps> = props => {
     <Box as="label">
       <input {...input} />
       <Box
-        {...checkbox}
         cursor="pointer"
         rounded="md"
         borderWidth="1px"
@@ -25,7 +24,7 @@ export const RadioCard: FC<BoxProps> = props => {
         px={5}
         py={3}
         fontWeight={500}
-        {...props}
+        {...checkbox}
       >
         {props.children}
       </Box>

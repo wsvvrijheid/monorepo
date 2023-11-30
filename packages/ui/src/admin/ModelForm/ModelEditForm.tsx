@@ -378,7 +378,7 @@ export const ModelEditForm = <T extends StrapiModel>({
                       colorScheme={'primary'}
                       size={'lg'}
                       isDisabled={!isEditing}
-                      isChecked={watch(field.name as string)}
+                      isChecked={!!watch(field.name as string)}
                       onChange={e => {
                         setValue(field.name as string, e.target.checked)
                       }}
