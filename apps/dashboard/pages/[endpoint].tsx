@@ -111,9 +111,7 @@ const ModelPage: FC<ModelPageProps> = ({ endpoint }) => {
     sort,
     locale,
   })
-
   const models = endpointQuery?.data?.data
-
   const pageCount = endpointQuery?.data?.meta?.pagination?.pageCount
   const totalCount = endpointQuery?.data?.meta?.pagination?.total
 

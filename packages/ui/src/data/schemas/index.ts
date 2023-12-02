@@ -8,6 +8,7 @@ import { PartialStrapiEndpointMap, StrapiModel } from '@wsvvrijheid/types'
 
 import { activityFields, useActivitySchema } from './activity'
 import { artFields, useArtSchema } from './art'
+import { assetFields, useAssetsSchema } from './assets'
 import { blogFields, useBlogSchema } from './blog'
 import { collectionFields, useCollectionSchema } from './collection'
 import { courseFields, useCourseSchema } from './course'
@@ -15,6 +16,7 @@ import {
   courseApplicationFields,
   useCourseApplicationSchema,
 } from './courseApplication'
+import { foundationFields, useFoundationsSchema } from './foundation'
 import { hashtagFields, useHashtagSchema } from './hashtag'
 import { postFields, usePostSchema } from './post'
 import { profileFields, useProfileSchema } from './profile'
@@ -42,6 +44,8 @@ export const useSchema = (): PartialStrapiEndpointMap<ObjectSchema<any>> => {
   }, [locale])
 
   return {
+    foundations: useFoundationsSchema(),
+    assets: useAssetsSchema(),
     activities: useActivitySchema(),
     arts: useArtSchema(),
     blogs: useBlogSchema(),
@@ -64,12 +68,14 @@ export const useFields = <T extends StrapiModel>(): PartialStrapiEndpointMap<
   FormFields<T>
 > => {
   return {
+    assets: assetFields as FormFields<T>,
     activities: activityFields as FormFields<T>,
     arts: artFields as FormFields<T>,
     blogs: blogFields as FormFields<T>,
     collections: collectionFields as FormFields<T>,
     courses: courseFields as FormFields<T>,
     'course-applications': courseApplicationFields as FormFields<T>,
+    foundations: foundationFields as FormFields<T>,
     hashtags: hashtagFields as FormFields<T>,
     posts: postFields as FormFields<T>,
     profiles: profileFields as FormFields<T>,

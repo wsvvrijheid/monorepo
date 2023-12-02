@@ -95,6 +95,7 @@ export const ModelEditForm = <T extends StrapiModel>({
 
   const fields = fieldsData[endpoint]!
   const schemas = schemasData[endpoint]!
+  console.log('fiels data', fields, 'schemasData', schemas)
 
   const artModalDisclosure = useDisclosure()
 
@@ -330,7 +331,8 @@ export const ModelEditForm = <T extends StrapiModel>({
                 (field.name === 'image' ||
                   field.name === 'avatar' ||
                   field.name === 'caps' ||
-                  field.name === 'video')
+                  field.name === 'invoice' ||
+                  field.name === 'images')
               ) {
                 return (
                   <FormControl
