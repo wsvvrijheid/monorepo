@@ -3,7 +3,10 @@ import { NextApiRequest, NextApiResponse } from 'next'
 
 import { getSecret } from '@wsvvrijheid/secrets'
 
-async function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse,
+) {
   const response = await axios({
     url: `https://api-free.deepl.com/v2/translate?text=${
       req.body.text
@@ -19,5 +22,3 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   const text = response.data.translations[0].text
   res.json(text)
 }
-
-export default handler

@@ -1,7 +1,8 @@
-import { getIronSession } from 'iron-session/edge'
+import { getIronSession } from 'iron-session'
 import { NextRequest, NextResponse } from 'next/server'
 
 import { adminCommonRoutes } from '@wsvvrijheid/config/src/adminRoutes'
+import { Auth } from '@wsvvrijheid/types'
 
 import { getRoutePermission } from './getRoutePermission'
 
@@ -17,7 +18,7 @@ export const middleware = async (req: NextRequest) => {
     nextUrl.pathname.includes('/api/') ||
     PUBLIC_FILE.test(nextUrl.pathname)
 
-  const session = await getIronSession(req, res, {
+  const session = await getIronSession<Auth>(req, res, {
     password:
       process.env['SECRET_COOKIE_PASSWORD'] ||
       '12345678901234567890123456789012',

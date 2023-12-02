@@ -5375,39 +5375,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@peculiar/asn1-schema@npm:^2.3.6":
-  version: 2.3.6
-  resolution: "@peculiar/asn1-schema@npm:2.3.6"
-  dependencies:
-    asn1js: "npm:^3.0.5"
-    pvtsutils: "npm:^1.3.2"
-    tslib: "npm:^2.4.0"
-  checksum: 09e8292b19cca0952629fb26b897de02fd16d1ef897fa7257de350220223b1e544a398f3487e6e2022495ef7c5d186320b8e65c3f640886409c946bbdc277c96
-  languageName: node
-  linkType: hard
-
-"@peculiar/json-schema@npm:^1.1.12":
-  version: 1.1.12
-  resolution: "@peculiar/json-schema@npm:1.1.12"
-  dependencies:
-    tslib: "npm:^2.0.0"
-  checksum: dfec178afe63a02b6d45da8a18e51ef417e9f5412a8c2809c9a07b29b9376fadee1b4f2ea2d92d4e5a7b8eba76d9e99afbef6d7e9a27bd85257f69c4da228cbc
-  languageName: node
-  linkType: hard
-
-"@peculiar/webcrypto@npm:^1.4.0":
-  version: 1.4.3
-  resolution: "@peculiar/webcrypto@npm:1.4.3"
-  dependencies:
-    "@peculiar/asn1-schema": "npm:^2.3.6"
-    "@peculiar/json-schema": "npm:^1.1.12"
-    pvtsutils: "npm:^1.3.2"
-    tslib: "npm:^2.5.0"
-    webcrypto-core: "npm:^1.7.7"
-  checksum: 548f5e32badcfdb02c903ca240daccac5d87ba841e436bd6d30e5455ced22917146130dab21afb718568ea935d6b04dc66fb33a4b6ab652dd868abff81e74a81
-  languageName: node
-  linkType: hard
-
 "@pkgjs/parseargs@npm:^0.11.0":
   version: 0.11.0
   resolution: "@pkgjs/parseargs@npm:0.11.0"
@@ -8338,15 +8305,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/accepts@npm:*":
-  version: 1.3.5
-  resolution: "@types/accepts@npm:1.3.5"
-  dependencies:
-    "@types/node": "npm:*"
-  checksum: 3984edd631d9e308ef10286454a05e2388812a740d404abf93522a3bc3d10032ae6a60816e8cc4ae1bc96367db39e543d3ef862944cea53d1eea48be1f624fc2
-  languageName: node
-  linkType: hard
-
 "@types/acorn@npm:^4.0.0":
   version: 4.0.6
   resolution: "@types/acorn@npm:4.0.6"
@@ -8470,36 +8428,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/content-disposition@npm:*":
-  version: 0.5.5
-  resolution: "@types/content-disposition@npm:0.5.5"
-  checksum: fdf7379db1d509990bcf9a21d85f05aad878596f28b1418f9179f6436cb22513262c670ce88c6055054a7f5804a9303eeacb70aa59a5e11ffdc1434559db9692
-  languageName: node
-  linkType: hard
-
 "@types/cookie@npm:^0.4.1":
   version: 0.4.1
   resolution: "@types/cookie@npm:0.4.1"
   checksum: 427c9220217d3d74f3e5d53d68cd39502f3bbebdb1af4ecf0d05076bcbe9ddab299ad6369fe0f517389296ba4ca49ddf9a8c22f68e5e9eb8ae6d0076cfab90b2
-  languageName: node
-  linkType: hard
-
-"@types/cookie@npm:^0.5.1":
-  version: 0.5.1
-  resolution: "@types/cookie@npm:0.5.1"
-  checksum: 4237fff264ff57dc58aef273d78dec267ff1e4f6977bf986e3f19e39848b01e26dad628261a92f8ad55f563c8256efaa6dad2293b2a6d47c0afc1aa31d93c6a2
-  languageName: node
-  linkType: hard
-
-"@types/cookies@npm:*":
-  version: 0.7.7
-  resolution: "@types/cookies@npm:0.7.7"
-  dependencies:
-    "@types/connect": "npm:*"
-    "@types/express": "npm:*"
-    "@types/keygrip": "npm:*"
-    "@types/node": "npm:*"
-  checksum: 0571f0f1da070c5df3fca2ec35092b137a6ceb6cfbad4094a7d185e6e0fff6abfd53ad96d1b9e6abe3ff2c0d0232afb20c459b784614877c7c5d05057dc6f528
   languageName: node
   linkType: hard
 
@@ -8687,7 +8619,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/express@npm:*, @types/express@npm:^4.17.13, @types/express@npm:^4.7.0":
+"@types/express@npm:^4.7.0":
   version: 4.17.17
   resolution: "@types/express@npm:4.17.17"
   dependencies:
@@ -8793,24 +8725,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/http-assert@npm:*":
-  version: 1.5.3
-  resolution: "@types/http-assert@npm:1.5.3"
-  checksum: 9553e5a0b8bcfdac4b51d3fa3b89a91b5450171861a667a5b4c47204e0f4a1ca865d97396e6ceaf220e87b64d06b7a8bad7bfba15ef97acb41a87507c9940dbc
-  languageName: node
-  linkType: hard
-
 "@types/http-cache-semantics@npm:*":
   version: 4.0.1
   resolution: "@types/http-cache-semantics@npm:4.0.1"
   checksum: d059bf8a15d5163cc60da51ba00d17620507f968d0b792cd55f62043016344a5f0e1aa94fa411089d41114035fcd0ea656f968bda7eabb6663a97787e3445a1c
-  languageName: node
-  linkType: hard
-
-"@types/http-errors@npm:*":
-  version: 2.0.1
-  resolution: "@types/http-errors@npm:2.0.1"
-  checksum: 3bb0c50b0a652e679a84c30cd0340d696c32ef6558518268c238840346c077f899315daaf1c26c09c57ddd5dc80510f2a7f46acd52bf949e339e35ed3ee9654f
   languageName: node
   linkType: hard
 
@@ -8893,44 +8811,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/keygrip@npm:*":
-  version: 1.0.2
-  resolution: "@types/keygrip@npm:1.0.2"
-  checksum: 60bc2738a4f107070ee3d96f44709cb38f3a96c7ccabab09f56c1b2b4d85f869fd8fb9f1f2937e863d0e9e781f005c2223b823bf32b859185b4f52370c352669
-  languageName: node
-  linkType: hard
-
 "@types/keyv@npm:^3.1.4":
   version: 3.1.4
   resolution: "@types/keyv@npm:3.1.4"
   dependencies:
     "@types/node": "npm:*"
   checksum: e009a2bfb50e90ca9b7c6e8f648f8464067271fd99116f881073fa6fa76dc8d0133181dd65e6614d5fb1220d671d67b0124aef7d97dc02d7e342ab143a47779d
-  languageName: node
-  linkType: hard
-
-"@types/koa-compose@npm:*":
-  version: 3.2.5
-  resolution: "@types/koa-compose@npm:3.2.5"
-  dependencies:
-    "@types/koa": "npm:*"
-  checksum: 0f46016227c9d17fd4ff5fb1fbec7f658a95dbf36f15e08d4f3aae8f24599c8069cadff6c2d6af5350d56e4c234b634066636bb2eaa216d5c29f453858c1f798
-  languageName: node
-  linkType: hard
-
-"@types/koa@npm:*, @types/koa@npm:^2.13.5":
-  version: 2.13.6
-  resolution: "@types/koa@npm:2.13.6"
-  dependencies:
-    "@types/accepts": "npm:*"
-    "@types/content-disposition": "npm:*"
-    "@types/cookies": "npm:*"
-    "@types/http-assert": "npm:*"
-    "@types/http-errors": "npm:*"
-    "@types/keygrip": "npm:*"
-    "@types/koa-compose": "npm:*"
-    "@types/node": "npm:*"
-  checksum: cba52d2418668a2b7b6e8da791faab019584b50f7820130082cd97d46386f2a4c4a7bc59eecd734b98ca73ee8df9cda22485eb7e72738da223f54632dd0a020e
   languageName: node
   linkType: hard
 
@@ -9056,13 +8942,6 @@ __metadata:
   version: 16.18.34
   resolution: "@types/node@npm:16.18.34"
   checksum: 56d24fdf9d7c857632a15885dfc6505b540c291b4155623f79ed517667bc1621a27fe1c9296b9e27b35bb755a0903090fae887ccf2e41ea5d9e5d7c68fdd08f3
-  languageName: node
-  linkType: hard
-
-"@types/node@npm:^17.0.41":
-  version: 17.0.45
-  resolution: "@types/node@npm:17.0.45"
-  checksum: b45fff7270b5e81be19ef91a66b764a8b21473a97a8d211218a52e3426b79ad48f371819ab9153370756b33ba284e5c875463de4d2cf48a472e9098d7f09e8a2
   languageName: node
   linkType: hard
 
@@ -10793,17 +10672,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"asn1js@npm:^3.0.1, asn1js@npm:^3.0.5":
-  version: 3.0.5
-  resolution: "asn1js@npm:3.0.5"
-  dependencies:
-    pvtsutils: "npm:^1.3.2"
-    pvutils: "npm:^1.1.3"
-    tslib: "npm:^2.4.0"
-  checksum: 17fb0302432186631550de9606a4622ec366646d072cde9cdf4bcafa47bd2425e157eeb7b1377ee6520f8b46687b4ecaee31cf0ad2fa494361a1938b2ed53194
-  languageName: node
-  linkType: hard
-
 "assert@npm:^2.0.0":
   version: 2.0.0
   resolution: "assert@npm:2.0.0"
@@ -11558,7 +11426,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"buffer@npm:^6, buffer@npm:^6.0.3":
+"buffer@npm:^6.0.3":
   version: 6.0.3
   resolution: "buffer@npm:6.0.3"
   dependencies:
@@ -12560,10 +12428,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cookie@npm:0.5.0, cookie@npm:^0.5.0":
+"cookie@npm:0.5.0":
   version: 0.5.0
   resolution: "cookie@npm:0.5.0"
   checksum: aae7911ddc5f444a9025fbd979ad1b5d60191011339bce48e555cb83343d0f98b865ff5c4d71fecdfb8555a5cafdc65632f6fce172f32aaf6936830a883a0380
+  languageName: node
+  linkType: hard
+
+"cookie@npm:0.6.0":
+  version: 0.6.0
+  resolution: "cookie@npm:0.6.0"
+  checksum: c1f8f2ea7d443b9331680598b0ae4e6af18a618c37606d1bbdc75bec8361cce09fe93e727059a673f2ba24467131a9fb5a4eec76bb1b149c1b3e1ccb268dc583
   languageName: node
   linkType: hard
 
@@ -17594,38 +17469,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"iron-session@npm:^6.3.1":
-  version: 6.3.1
-  resolution: "iron-session@npm:6.3.1"
+"iron-session@npm:^8.0.1":
+  version: 8.0.1
+  resolution: "iron-session@npm:8.0.1"
   dependencies:
-    "@peculiar/webcrypto": "npm:^1.4.0"
-    "@types/cookie": "npm:^0.5.1"
-    "@types/express": "npm:^4.17.13"
-    "@types/koa": "npm:^2.13.5"
-    "@types/node": "npm:^17.0.41"
-    cookie: "npm:^0.5.0"
-    iron-webcrypto: "npm:^0.2.5"
-  peerDependencies:
-    express: ">=4"
-    koa: ">=2"
-    next: ">=10"
-  peerDependenciesMeta:
-    express:
-      optional: true
-    koa:
-      optional: true
-    next:
-      optional: true
-  checksum: 398b766d959c0a03f3991bd8fd8ed9efedd42de0d78321d48b257d641ec831f033dfa667679a84b072946ffd88d20ae56df8ee98869657f88e58ee1a1ca1f2b2
+    cookie: "npm:0.6.0"
+    iron-webcrypto: "npm:1.0.0"
+    uncrypto: "npm:0.1.3"
+  checksum: 8d25fe44a00959fe2c2650c9a27c2fdbc14ed2714e1707c43e03005e7da54e2995103918c17cd0fd31b11471fdbe32b1a089442320595984b32930a23fa5c8c2
   languageName: node
   linkType: hard
 
-"iron-webcrypto@npm:^0.2.5":
-  version: 0.2.8
-  resolution: "iron-webcrypto@npm:0.2.8"
-  dependencies:
-    buffer: "npm:^6"
-  checksum: 49923aa8d96019f362158cea2c7ba2a96957c28c75537f8fadf485c8571bc21a2b2f476d57679fca7caf4893c4d9b45098156c6d37e864bce95cff91df20e849
+"iron-webcrypto@npm:1.0.0":
+  version: 1.0.0
+  resolution: "iron-webcrypto@npm:1.0.0"
+  checksum: 1af9fc319c21d44023e08b7019b4c5d0b58f32c6fccab6e4885522b3efa2f6c17491f9caccba74d816f04b4af3148f5bd91a9b506b6d84c2db6ac0a678fbd88a
   languageName: node
   linkType: hard
 
@@ -23523,22 +23381,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pvtsutils@npm:^1.3.2":
-  version: 1.3.2
-  resolution: "pvtsutils@npm:1.3.2"
-  dependencies:
-    tslib: "npm:^2.4.0"
-  checksum: 3e89fea1836dd9027446d65923f7240372a1040b777b2e6adfc319bfeb3cacfd56dccb708652651e85ad6a5c87f61728b697226c105d441140b648f3e4167872
-  languageName: node
-  linkType: hard
-
-"pvutils@npm:^1.1.3":
-  version: 1.1.3
-  resolution: "pvutils@npm:1.1.3"
-  checksum: e5201b8f78ece68eae414a938c844bc45fb3f0de298178eed1775a217eedfd897c4346e5e54f410bb4d7466e09ceb262e85f20fd64239b8bb2595f14c52fa95e
-  languageName: node
-  linkType: hard
-
 "qr.js@npm:0.0.0":
   version: 0.0.0
   resolution: "qr.js@npm:0.0.0"
@@ -27836,6 +27678,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"uncrypto@npm:0.1.3":
+  version: 0.1.3
+  resolution: "uncrypto@npm:0.1.3"
+  checksum: 0020f74b0ce34723196d8982a73bb7f40cff455a41b8f88ae146b86885f4e66e41a1241fe80a887505c3bd2c7f07ed362b6ed041968370073c40a98496e6a737
+  languageName: node
+  linkType: hard
+
 "undici-types@npm:~5.26.4":
   version: 5.26.5
   resolution: "undici-types@npm:5.26.5"
@@ -28634,19 +28483,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webcrypto-core@npm:^1.7.7":
-  version: 1.7.7
-  resolution: "webcrypto-core@npm:1.7.7"
-  dependencies:
-    "@peculiar/asn1-schema": "npm:^2.3.6"
-    "@peculiar/json-schema": "npm:^1.1.12"
-    asn1js: "npm:^3.0.1"
-    pvtsutils: "npm:^1.3.2"
-    tslib: "npm:^2.4.0"
-  checksum: e87ac59d7d05c2aa96117c8f589e99ec9556dfc9ff3cd7fe9464de32e60ed6ff237cdfd35ed53c93546dd0d548bab67b244be381e97b162fe87b6d826e8765ae
-  languageName: node
-  linkType: hard
-
 "webidl-conversions@npm:^3.0.0":
   version: 3.0.1
   resolution: "webidl-conversions@npm:3.0.1"
@@ -28885,7 +28721,7 @@ __metadata:
     i18next: "npm:^23.7.7"
     i18next-browser-languagedetector: "npm:^7.2.0"
     i18next-http-backend: "npm:^2.4.2"
-    iron-session: "npm:^6.3.1"
+    iron-session: "npm:^8.0.1"
     jszip: "npm:^3.10.1"
     kill-port-process: "npm:^3.2.1"
     lodash: "npm:^4.17.21"
