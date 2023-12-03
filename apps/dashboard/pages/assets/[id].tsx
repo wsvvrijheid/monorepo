@@ -9,6 +9,7 @@ import {
 } from '@chakra-ui/react'
 import { GetServerSidePropsContext } from 'next'
 import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
 
 import { useStrapiRequest } from '@wsvvrijheid/services'
 import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
@@ -16,7 +17,7 @@ import { Asset, StrapiLocale } from '@wsvvrijheid/types'
 import { AdminLayout, ModelEditForm } from '@wsvvrijheid/ui'
 
 const AssetPage = () => {
-  // const { t } = useTranslation()
+  const { t } = useTranslation()
 
   const { query } = useRouter()
 
@@ -30,7 +31,11 @@ const AssetPage = () => {
   const asset = data?.data
 
   return (
-    <AdminLayout seo={{ title: 'Asset' }} isLoading={isLoading} hasBackButton>
+    <AdminLayout
+      seo={{ title: t('foundation.assets') }}
+      isLoading={isLoading}
+      hasBackButton
+    >
       <Stack spacing={8} p={6}>
         <Accordion
           size={'lg'}
