@@ -95,7 +95,6 @@ export const ModelEditForm = <T extends StrapiModel>({
 
   const fields = fieldsData[endpoint]!
   const schemas = schemasData[endpoint]!
-  console.log('fiels data', fields, 'schemasData', schemas)
 
   const artModalDisclosure = useDisclosure()
 
@@ -189,7 +188,8 @@ export const ModelEditForm = <T extends StrapiModel>({
         return acc
       }
 
-      if (Array.isArray(value)) {
+      // TODO: Find a better way to handle updating multiple media files
+      if (Array.isArray(value) && key !== 'images') {
         return {
           ...acc,
           [key]: value.map(v => v.value),
@@ -378,7 +378,7 @@ export const ModelEditForm = <T extends StrapiModel>({
                       colorScheme={'primary'}
                       size={'lg'}
                       isDisabled={!isEditing}
-                      isChecked={watch(field.name as string)}
+                      isChecked={!!watch(field.name as string)}
                       onChange={e => {
                         setValue(field.name as string, e.target.checked)
                       }}

@@ -2,7 +2,7 @@ import * as yup from 'yup'
 
 import { Asset } from '@wsvvrijheid/types'
 
-import { yupMultiSelect } from './common'
+import { yupMultiSelect, yupSelect } from './common'
 import { FormFields } from '../../admin'
 
 export const useAssetsSchema = () => {
@@ -13,6 +13,7 @@ export const useAssetsSchema = () => {
     rules: yup.string(),
     notes: yup.string(),
     peopleInCharge: yupMultiSelect.required(),
+    foundation: yupSelect.required(),
     invoice: yup.mixed(),
     images: yup.mixed().required(),
   })
@@ -20,7 +21,13 @@ export const useAssetsSchema = () => {
 
 export const assetFields: FormFields<Asset> = [
   { name: 'name', isRequired: true },
-  { name: 'price', isRequired: true, type: 'number-input' },
+  {
+    name: 'foundation',
+    isRequired: true,
+    type: 'select',
+    endpoint: 'foundations',
+  },
+  { name: 'price', type: 'number-input' },
   { name: 'location', isRequired: true },
   { name: 'rules', type: 'markdown' },
   { name: 'notes', type: 'markdown' },
@@ -31,6 +38,12 @@ export const assetFields: FormFields<Asset> = [
     isMulti: true,
     endpoint: 'profiles',
   },
+
   { name: 'invoice', type: 'file' },
-  { name: 'images', type: 'file', group: { value: 'image', name: 'media' } },
+  {
+    name: 'images',
+    isRequired: true,
+    type: 'file',
+    group: { value: 'image', name: 'media' },
+  },
 ]

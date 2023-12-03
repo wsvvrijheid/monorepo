@@ -110,6 +110,9 @@ const ModelPage: FC<ModelPageProps> = ({ endpoint }) => {
     includeDrafts: published !== 'true',
     sort,
     locale,
+    queryOptions: {
+      enabled: !!endpoint,
+    },
   })
   const models = endpointQuery?.data?.data
   const pageCount = endpointQuery?.data?.meta?.pagination?.pageCount
