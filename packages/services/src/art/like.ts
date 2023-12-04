@@ -42,14 +42,13 @@ export const useLikeArt = (art?: Art | null, queryKey?: QueryKey) => {
     likeArtMutation.mutate(
       { id: art.id, type: isLikedStorage ? 'unlike' : 'like' },
       {
-        onSuccess: async data => {
+        onSuccess: async () => {
           await queryClient.invalidateQueries({ queryKey })
 
           const isLiked = likersStorage?.some(id => id === art.id)
           const updatedStorage = isLiked
-            ? likersStorage?.filter(id => id !== data?.data?.id)
-            : [...(likersStorage || []), data?.data?.id]
-
+            ? likersStorage?.filter(id => id !== art.id)
+            : [...(likersStorage || []), art.id]
           setLikersStorage(updatedStorage as number[])
         },
       },

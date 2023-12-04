@@ -96,13 +96,13 @@ export const useLikeBlog = (blog?: Blog | null, queryKey?: QueryKey) => {
     likeBlogPublicMutation.mutate(
       { id: blog.id, likes, token: token as string },
       {
-        onSuccess: async data => {
+        onSuccess: async () => {
           await queryClient.invalidateQueries({ queryKey })
 
           const isLiked = likersStorage?.some(id => id === blog.id)
           const updatedStorage = isLiked
-            ? likersStorage?.filter(id => id !== data?.id)
-            : [...(likersStorage || []), data?.id]
+            ? likersStorage?.filter(id => id !== blog.id)
+            : [...(likersStorage || []), blog.id]
 
           setLikersStorage(updatedStorage as number[])
         },
