@@ -28,7 +28,8 @@ export const generateOgImageParams = (props?: OgImageParams) => {
   const flip = props?.flip ?? Math.random() > 0.5
   const hasLine = props?.hasLine ?? Math.random() > 0.5
 
-  const src = image?.startsWith('/uploads') ? ASSETS_URL + image : image
+  const url = typeof image === 'string' ? image : image?.url
+  const src = url?.startsWith('/uploads') ? ASSETS_URL + image : image
 
   return {
     bg,
