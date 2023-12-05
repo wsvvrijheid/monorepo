@@ -1,3 +1,3 @@
-import { loginRouter } from '@wsvvrijheid/services/src/api/login'
+import { adminLoginRouter } from '@wsvvrijheid/services/src/api/admin-login'
 
-export default loginRouter
+export default adminLoginRouter
