@@ -4,8 +4,8 @@ import { NextApiHandler } from 'next'
 
 import { API_URL } from '@wsvvrijheid/config'
 import { Mutation } from '@wsvvrijheid/lib'
-import { sessionOptions } from '@wsvvrijheid/secrets'
-import { getAuth } from '@wsvvrijheid/services'
+import { TOKEN, sessionOptions } from '@wsvvrijheid/secrets'
+import { loginAuth } from '@wsvvrijheid/services'
 import { Auth, AuthResponse, ProfileCreateInput } from '@wsvvrijheid/types'
 
 export const registerRouter: NextApiHandler = async (req, res) => {
@@ -22,7 +22,6 @@ export const registerRouter: NextApiHandler = async (req, res) => {
       { baseURL: API_URL },
     )
 
-    const token = response.data.jwt
     const userId = response.data.user?.id as number
 
     const body: ProfileCreateInput = {
@@ -31,9 +30,9 @@ export const registerRouter: NextApiHandler = async (req, res) => {
       email: trimmedEmail,
     }
 
-    await Mutation.post('profiles', body, token)
+    await Mutation.post('profiles', body, TOKEN as string)
 
-    const { profile, ...auth } = await getAuth(email, password)
+    const { profile, ...auth } = await loginAuth(email, password)
 
     const session = await getIronSession<Auth>(req, res, sessionOptions)
 
