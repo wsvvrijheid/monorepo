@@ -9,15 +9,18 @@ import {
 } from '@chakra-ui/react'
 import { GetServerSidePropsContext } from 'next'
 import { useRouter } from 'next/router'
+import { TbActivity } from 'react-icons/tb'
 
 import { useStrapiRequest } from '@wsvvrijheid/services'
 import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import { Asset, StrapiLocale } from '@wsvvrijheid/types'
-import { AdminLayout, ModelEditForm } from '@wsvvrijheid/ui'
+import { AssetsTracking } from '@wsvvrijheid/types/src/assets-tracking'
+import { AdminLayout, ModelCreateModal, ModelEditForm, useFields, useSchema } from '@wsvvrijheid/ui'
 
 const AssetPage = () => {
   // const { t } = useTranslation()
-
+const schemas = useSchema()
+ const fields = useFields()
   const { query } = useRouter()
 
   const id = Number(query.id as string)
@@ -68,6 +71,24 @@ TODO
 TRACKING MUST BE HERE
 */}
         </Accordion>
+        {
+          /*
+          {t('create-asset-trackings')}
+          */
+        }
+         <ModelCreateModal<AssetsTracking>
+                  title='assets-trackings'
+                  endpoint="assets-trackings"
+                  schema={schemas['assets-trackings']!}
+                  fields={fields['assets-trackings']!}
+                  buttonProps={{
+                    variant: 'outline',
+                    leftIcon: <TbActivity />,
+                  }}
+                >
+                  {/* {t('create-asset-tracking')} */}
+                  create assets trackings
+                </ModelCreateModal>
       </Stack>
     </AdminLayout>
   )
