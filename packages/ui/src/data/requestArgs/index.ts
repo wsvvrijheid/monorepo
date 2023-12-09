@@ -28,7 +28,7 @@ export const useRequestArgs = (): UseRequestArgsReturn => {
           field: 'foundation',
         },
       ],
-      searchFields: ['title', 'description'],
+      searchFields: ['name', 'description'],
     },
     hashtags: {
       searchFields: ['title'],

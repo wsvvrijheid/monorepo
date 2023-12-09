@@ -1,5 +1,5 @@
 import { Mutation } from '@wsvvrijheid/lib'
-import { TOKEN } from '@wsvvrijheid/secrets'
+import { getSecret } from '@wsvvrijheid/secrets'
 import {
   Donation,
   DonationUpdateInput,
@@ -22,14 +22,14 @@ export const donationWebhook = async (event: any) => {
         status,
         checkoutSessionId: checkoutSessionId as string,
       },
-      TOKEN as string,
+      getSecret('TOKEN'),
     )
     // Send email to customer
     if (status === 'paid') {
       await Mutation.post(
         `donates/email/${donationId}` as StrapiEndpoint,
         {},
-        TOKEN as string,
+        getSecret('TOKEN'),
       )
     }
   }

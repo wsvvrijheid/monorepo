@@ -1,7 +1,6 @@
 import { FC } from 'react'
 
 import { Box, Grid, Stack } from '@chakra-ui/react'
-import { QueryKey } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
 
 import {
@@ -20,11 +19,10 @@ import {
 
 export type ArtWithDetailsProps = {
   art: Art
-  queryKey?: QueryKey
 }
 
-export const ArtWithDetails: FC<ArtWithDetailsProps> = ({ art, queryKey }) => {
-  const { toggleLike, isLiked, isLoading } = useLikeArt(art, queryKey)
+export const ArtWithDetails: FC<ArtWithDetailsProps> = ({ art }) => {
+  const { toggleLike, isLiked, isLoading } = useLikeArt(art)
   useViewArtMutation()
 
   const { locale } = useRouter()

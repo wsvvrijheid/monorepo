@@ -5,6 +5,7 @@ import { useTranslation } from 'next-i18next'
 
 import { HeaderNavItem } from './HeaderNavItem'
 import { HeaderNavProps } from './types'
+import { useScroll } from '../../hooks'
 import { Navigate } from '../Navigate'
 
 export const HeaderNav: FC<HeaderNavProps> = ({
@@ -13,6 +14,7 @@ export const HeaderNav: FC<HeaderNavProps> = ({
   isDark,
 }) => {
   const { t } = useTranslation()
+  const isScrolled = useScroll()
 
   return (
     <Stack direction={direction} align={'center'}>
@@ -20,7 +22,14 @@ export const HeaderNav: FC<HeaderNavProps> = ({
         return <HeaderNavItem key={i} item={item} isDark={isDark} />
       })}
       <Navigate href={'/donation'}>
-        <Button variant={'outline'} size={'sm'}>
+        <Button
+          variant={'outline'}
+          size={'sm'}
+          color={isDark && !isScrolled ? 'whiteAlpha.900' : 'gray.700'}
+          borderColor={isDark && !isScrolled ? 'whiteAlpha.900' : 'gray.700'}
+          fontWeight={600}
+          borderWidth={2}
+        >
           {t('donation.title')}
         </Button>
       </Navigate>

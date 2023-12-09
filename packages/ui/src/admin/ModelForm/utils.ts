@@ -117,6 +117,7 @@ export const useDefaultValues = <T extends StrapiModel>(
             defaults[field.name] = dateFields[field.name as string][1]
           }
           break
+
         case 'mentions':
           defaults.mentions =
             hashtagModel.mentions?.map(m => ({
@@ -124,6 +125,7 @@ export const useDefaultValues = <T extends StrapiModel>(
               value: m.id.toString(),
             })) || []
           break
+
         case 'jobs':
           defaults.jobs =
             profileModel.jobs?.map(j => ({
@@ -131,62 +133,28 @@ export const useDefaultValues = <T extends StrapiModel>(
               value: j.id.toString(),
             })) || []
           break
+
         case 'artist':
           defaults.artist = {
             label: `${artModel.artist?.name} (${artModel.artist?.email})`,
-            value: profileModel?.id.toString(),
+            value: artModel?.artist?.id.toString(),
           }
-
           break
+
         case 'hashtag':
           defaults.hashtag = {
             label: postModel.hashtag?.title,
             value: postModel.hashtag?.id.toString(),
           }
-
           break
+
         case 'platform':
           defaults.platform = {
             label: courseModel.platform?.[`name_${locale}`],
             value: courseModel.platform?.id.toString(),
           }
+          break
 
-          break
-        case 'course':
-          defaults.course = {
-            label: applicationModel.course?.[`title_${locale}`],
-            value: applicationModel.course?.id.toString(),
-          }
-
-          break
-        case 'user':
-          defaults.user = {
-            label: profileModel.user?.email,
-            value: profileModel.user?.id.toString(),
-          }
-
-          break
-        case 'role':
-          defaults.role = {
-            label: userModel?.role?.name || '',
-            value: userModel?.role?.id.toString(),
-          }
-
-          break
-        case 'categories':
-          defaults.categories =
-            hashtagModel?.categories?.map(c => ({
-              label: c[`name_${locale}`],
-              value: c.id.toString(),
-            })) || []
-          break
-        case 'platforms':
-          defaults.platforms =
-            activityModel?.platforms?.map(p => ({
-              label: p[`name_${locale}`],
-              value: p.id.toString(),
-            })) || []
-          break
         case 'peopleInCharge':
           defaults.peopleInCharge =
             assetModel?.peopleInCharge?.map(person => ({
@@ -194,6 +162,50 @@ export const useDefaultValues = <T extends StrapiModel>(
               value: person.id.toString(),
             })) || []
           break
+
+        case 'foundation':
+          defaults.foundation = {
+            label: assetModel.foundation?.name,
+            value: assetModel.foundation?.id.toString(),
+          }
+          break
+        case 'course':
+          defaults.course = {
+            label: applicationModel.course?.[`title_${locale}`],
+            value: applicationModel.course?.id.toString(),
+          }
+          break
+
+        case 'user':
+          defaults.user = {
+            label: profileModel.user?.email,
+            value: profileModel.user?.id.toString(),
+          }
+          break
+
+        case 'role':
+          defaults.role = {
+            label: userModel?.role?.name || '',
+            value: userModel?.role?.id.toString(),
+          }
+          break
+
+        case 'categories':
+          defaults.categories =
+            hashtagModel?.categories?.map(c => ({
+              label: c[`name_${locale}`],
+              value: c.id.toString(),
+            })) || []
+          break
+
+        case 'platforms':
+          defaults.platforms =
+            activityModel?.platforms?.map(p => ({
+              label: p[`name_${locale}`],
+              value: p.id.toString(),
+            })) || []
+          break
+
         case 'tags':
           defaults.tags =
             postModel?.tags?.map(c => ({

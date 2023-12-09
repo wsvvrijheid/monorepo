@@ -10,11 +10,13 @@ import {
 } from '@chakra-ui/react'
 import Link from 'next/link'
 
+import { UploadFile } from '@wsvvrijheid/types'
+
 import { WImage } from '../../components'
 
 type AcademyCardProps = {
   href: string
-  image: string
+  image: UploadFile | string
   description?: string
   title: string
 }
@@ -25,7 +27,7 @@ export const AcademyCard: FC<AcademyCardProps> = ({
   description,
   title,
 }) => {
-  const baseTranslate = description ? 'translateY(6rem)' : 'translateY(.5rem)'
+  const baseTranslate = description ? 'translateY(5rem)' : 'translateY(2rem)'
 
   return (
     <LinkBox as="article">
@@ -46,13 +48,13 @@ export const AcademyCard: FC<AcademyCardProps> = ({
             />
             <Stack
               transform={baseTranslate}
-              p="6"
+              p={6}
               color="white"
               position="absolute"
-              bottom="0"
-              left="0"
+              bottom={0}
+              left={0}
               w={'full'}
-              _groupHover={{ transform: 'translateY(2px)' }}
+              _groupHover={{ transform: 'translateY(0)' }}
               transition="all"
               transitionDuration="0.3s"
               bgGradient="linear(to-t, rgba(0,0,0,0.5), rgba(0,0,0,0))"
@@ -65,7 +67,7 @@ export const AcademyCard: FC<AcademyCardProps> = ({
                 <Text
                   opacity={0}
                   _groupHover={{ opacity: 1 }}
-                  noOfLines={3}
+                  noOfLines={2}
                   transitionDuration="0.8s"
                 >
                   {description}

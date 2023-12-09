@@ -10,7 +10,6 @@ import { strapiRequest } from '@wsvvrijheid/lib'
 import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import { Course, StrapiLocale } from '@wsvvrijheid/types'
 import { AcademyCard, Container, Hero } from '@wsvvrijheid/ui'
-import { getMediaUrl } from '@wsvvrijheid/utils'
 
 import { Layout } from '../../components'
 
@@ -57,7 +56,7 @@ const Platforms: FC<CoursesProps> = ({ courses }) => {
                 <AcademyCard
                   key={course?.id}
                   title={title}
-                  image={getMediaUrl(course?.image)}
+                  image={course?.image}
                   href={`/courses/${course?.slug}`}
                   description={description}
                 />

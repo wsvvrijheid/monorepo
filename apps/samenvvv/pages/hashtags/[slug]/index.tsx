@@ -157,20 +157,12 @@ export const getServerSideProps = async (
     const image = post?.image
     const caps = post?.caps?.url
 
-    let src = image?.url
+    const src = image?.url
     const link = getItemLink(post, 'posts') as string
 
     if (caps) {
       capsSrc = `${ASSETS_URL}${caps}`
     } else {
-      if (image?.formats?.small) {
-        src = image.formats.small.url
-      } else if (image?.formats?.medium) {
-        src = image.formats.medium.url
-      } else if (image?.formats?.large) {
-        src = image.formats.large.url
-      }
-
       capsSrc =
         SITE_URL +
         getOgImageSrc({

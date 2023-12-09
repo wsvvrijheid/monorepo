@@ -1,23 +1,3 @@
-import { NextApiHandler } from 'next'
-import Stripe from 'stripe'
+import { paymentStatusRouter } from '@wsvvrijheid/services/src/api/payment-status'
 
-import { donationWebhook } from '@wsvvrijheid/stripe'
-
-const handler: NextApiHandler = async (req, res) => {
-  try {
-    const event: Stripe.Event = req.body
-    if (!event) {
-      res.status(500).send('Something went wrong')
-
-      return
-    }
-
-    await donationWebhook(event)
-
-    res.status(200).send('complete')
-  } catch (err) {
-    res.status(500).json(err)
-  }
-}
-
-export default handler
+export default paymentStatusRouter

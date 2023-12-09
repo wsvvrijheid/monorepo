@@ -2,7 +2,6 @@ import { FC } from 'react'
 
 import { ImageProps } from '@chakra-ui/react'
 
-import { ASSETS_URL } from '@wsvvrijheid/config'
 import { Post, UploadFile } from '@wsvvrijheid/types'
 
 import { usePostContext } from '../../post-maker/PostProvider'
@@ -26,23 +25,10 @@ export const PostImage: FC<PostImageProps> = ({
   if (!post) return null
 
   if (post.caps) {
-    return <WImage ratio={'twitter'} src={ASSETS_URL + post.caps?.url} />
+    return <WImage ratio={'twitter'} src={post.caps} />
   }
-
-  let src: string | undefined
 
   const image = post?.image || ({} as UploadFile)
-  const formats = image?.formats ?? {}
-
-  if (formats.small) {
-    src = `${ASSETS_URL}${formats.small.url}`
-  } else if (formats.medium) {
-    src = `${ASSETS_URL}${formats.medium.url}`
-  } else if (formats.large) {
-    src = `${ASSETS_URL}${formats.large.url}`
-  } else {
-    src = image.url && `${ASSETS_URL}${image.url}`
-  }
 
   const scales = {
     xs: 300 / 1200,
@@ -56,7 +42,7 @@ export const PostImage: FC<PostImageProps> = ({
       imageParams={{
         title: post.title,
         text: post.description as string,
-        image: src,
+        image,
         scale: scales[size],
         ...post.imageParams,
       }}

@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next'
 
 import { SITE_URL } from '@wsvvrijheid/config'
 import { Mutation } from '@wsvvrijheid/lib'
-import { TOKEN } from '@wsvvrijheid/secrets'
+import { getSecret } from '@wsvvrijheid/secrets'
 import { Donation, DonationCreateInput } from '@wsvvrijheid/types'
 
 import { stripe } from '../initStripe'
@@ -16,7 +16,7 @@ export const createCheckout = async (
   const donation = await Mutation.post<Donation, DonationCreateInput>(
     'donates',
     { name, email, amount },
-    TOKEN as string,
+    getSecret('TOKEN'),
   )
 
   // Check if customer exists

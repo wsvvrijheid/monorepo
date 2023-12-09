@@ -2,7 +2,6 @@
 import { FC, HtmlHTMLAttributes } from 'react'
 
 import { chakra } from '@chakra-ui/react'
-import { MDXProvider } from '@mdx-js/react'
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
 
 import { Navigate } from '../Navigate'
@@ -83,9 +82,5 @@ export const Markdown: FC<MarkdownProps> = ({ source }) => {
     return null
   }
 
-  return (
-    <MDXProvider components={{ ...MarkdownComponents }}>
-      <MDXRemote {...source} />
-    </MDXProvider>
-  )
+  return <MDXRemote {...source} components={MarkdownComponents} />
 }

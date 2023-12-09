@@ -13,8 +13,8 @@ import { useMutation } from '@tanstack/react-query'
 import { useTranslation } from 'next-i18next'
 import { useForm } from 'react-hook-form'
 
+import { PUBLIC_TOKEN } from '@wsvvrijheid/config'
 import { Mutation } from '@wsvvrijheid/lib'
-import { TOKEN } from '@wsvvrijheid/secrets'
 import { CourseApplicationCreateInput } from '@wsvvrijheid/types'
 
 import { applicationSchema } from './schema'
@@ -43,7 +43,7 @@ export const CourseApplicationForm: FC<CourseApplicationFormProps> = ({
   const { mutate } = useMutation({
     mutationKey: ['course-apply'],
     mutationFn: (data: CourseApplicationCreateInput) =>
-      Mutation.post('course-applications', data, TOKEN as string),
+      Mutation.post('course-applications', data, PUBLIC_TOKEN),
   })
 
   const onSubmit = (data: ApplicationFormFields) => {

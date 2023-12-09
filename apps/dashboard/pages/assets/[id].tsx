@@ -9,18 +9,27 @@ import {
 } from '@chakra-ui/react'
 import { GetServerSidePropsContext } from 'next'
 import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
 import { TbActivity } from 'react-icons/tb'
 
 import { useStrapiRequest } from '@wsvvrijheid/services'
 import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import { Asset, StrapiLocale } from '@wsvvrijheid/types'
 import { AssetsTracking } from '@wsvvrijheid/types/src/assets-tracking'
-import { AdminLayout, ModelCreateModal, ModelEditForm, useFields, useSchema } from '@wsvvrijheid/ui'
+import {
+  AdminLayout,
+  ModelCreateModal,
+  ModelEditForm,
+  useFields,
+  useSchema,
+} from '@wsvvrijheid/ui'
 
 const AssetPage = () => {
   // const { t } = useTranslation()
-const schemas = useSchema()
- const fields = useFields()
+  const schemas = useSchema()
+  const fields = useFields()
+  const { t } = useTranslation()
+
   const { query } = useRouter()
 
   const id = Number(query.id as string)
@@ -33,7 +42,11 @@ const schemas = useSchema()
   const asset = data?.data
 
   return (
-    <AdminLayout seo={{ title: 'Asset' }} isLoading={isLoading} hasBackButton>
+    <AdminLayout
+      seo={{ title: t('foundation.assets') }}
+      isLoading={isLoading}
+      hasBackButton
+    >
       <Stack spacing={8} p={6}>
         <Accordion
           size={'lg'}
@@ -71,24 +84,22 @@ TODO
 TRACKING MUST BE HERE
 */}
         </Accordion>
-        {
-          /*
+        {/*
           {t('create-asset-trackings')}
-          */
-        }
-         <ModelCreateModal<AssetsTracking>
-                  title='assets-trackings'
-                  endpoint="assets-trackings"
-                  schema={schemas['assets-trackings']!}
-                  fields={fields['assets-trackings']!}
-                  buttonProps={{
-                    variant: 'outline',
-                    leftIcon: <TbActivity />,
-                  }}
-                >
-                  {/* {t('create-asset-tracking')} */}
-                  create assets trackings
-                </ModelCreateModal>
+          */}
+        <ModelCreateModal<AssetsTracking>
+          title="assets-trackings"
+          endpoint="assets-trackings"
+          schema={schemas['assets-trackings']!}
+          fields={fields['assets-trackings']!}
+          buttonProps={{
+            variant: 'outline',
+            leftIcon: <TbActivity />,
+          }}
+        >
+          {/* {t('create-asset-tracking')} */}
+          create assets trackings
+        </ModelCreateModal>
       </Stack>
     </AdminLayout>
   )

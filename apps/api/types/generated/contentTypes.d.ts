@@ -2664,7 +2664,7 @@ export interface ApiProfileProfile extends Schema.CollectionType {
       Attribute.SetMinMax<{
         min: 1
       }> &
-      Attribute.DefaultTo<0>
+      Attribute.DefaultTo<1>
     heardFrom: Attribute.String
     comment: Attribute.Text
     linkedin: Attribute.String
