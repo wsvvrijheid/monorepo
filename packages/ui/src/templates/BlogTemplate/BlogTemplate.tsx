@@ -30,8 +30,8 @@ export const BlogTemplate: FC<BlogTemplateProps> = ({ seo, blogs }) => {
   return (
     <>
       <Hero title={seo.title as string} image={'/images/blog-bg.jpeg'} />
-      <Container maxW="container.lg">
-        <SimpleGrid gap={8} py={8} columns={{ base: 1, lg: 2 }}>
+      <Container>
+        <SimpleGrid gap={8} py={8} columns={{ base: 1, lg: 3 }}>
           {blogs.map((blog, index) => (
             <AnimatedBox
               key={index}

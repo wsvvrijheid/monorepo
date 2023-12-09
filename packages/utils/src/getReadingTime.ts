@@ -4,9 +4,9 @@ export const getReadingTime = (text: string, locale: StrapiLocale) => {
   if (!text) return ''
 
   const suffix = {
-    en: 'mins read',
-    nl: 'min lezen',
-    tr: 'dakika oku',
+    en: 'mins',
+    nl: 'min',
+    tr: 'dk',
   }
 
   const wpm = 225
