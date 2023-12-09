@@ -2400,11 +2400,6 @@ export interface ApiProfileProfile extends Schema.CollectionType {
     draftAndPublish: false
   }
   attributes: {
-    role: Attribute.Relation<
-      'api::profile.profile',
-      'manyToOne',
-      'plugin::users-permissions.role'
-    >
     name: Attribute.String & Attribute.Required
     email: Attribute.Email & Attribute.Required & Attribute.Unique
     bio: Attribute.Text

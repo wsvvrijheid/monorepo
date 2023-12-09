@@ -30,12 +30,6 @@ export const profileFields: FormFields<Profile & { role: Role }> = [
   { name: 'phone' },
   { name: 'age' },
   { name: 'availableHours' },
-  {
-    name: 'role',
-    type: 'select',
-    isMulti: true,
-    endpoint: 'users-permissions/roles',
-  },
   { name: 'country' },
   { name: 'city' },
   { name: 'jobs', type: 'select', isMulti: true, endpoint: 'jobs' },
