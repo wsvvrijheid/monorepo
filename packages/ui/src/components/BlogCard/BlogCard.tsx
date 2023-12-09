@@ -1,7 +1,8 @@
-import { FC, memo } from 'react'
+import { FC } from 'react'
 
 import {
   Box,
+  Flex,
   Heading,
   HStack,
   Icon,
@@ -13,33 +14,12 @@ import {
 import { useRouter } from 'next/router'
 import { FaCalendarDay, FaClock, FaEye, FaHeart } from 'react-icons/fa'
 
-import { Blog, UploadFile } from '@wsvvrijheid/types'
+import { Blog } from '@wsvvrijheid/types'
 import { getReadingTime } from '@wsvvrijheid/utils'
 
 import { FormattedDate } from '../FormattedDate'
 import { Navigate } from '../Navigate'
 import { WImage } from '../WImage'
-
-type BlogCardImageProps = {
-  isFeatured?: boolean
-  image: UploadFile
-  alt: string
-}
-
-const BlogCardImage: FC<BlogCardImageProps> = memo(
-  ({ isFeatured, image, alt }) => {
-    return (
-      <WImage
-        alt={alt}
-        minH={isFeatured ? 450 : 200}
-        src={image}
-        ratio="twitter"
-      />
-    )
-  },
-)
-
-BlogCardImage.displayName = 'BlogCardImage'
 
 export type BlogCardProps = {
   post: Blog
@@ -56,9 +36,13 @@ export const BlogCard: FC<BlogCardProps> = ({ post, isFeatured }) => {
   return (
     <Navigate
       {...(featured && { gridColumn: { lg: 'span 2' } })}
+      {...(!featured && { display: 'flex' })}
       href={`/blog/${post.slug}`}
+      h={'full'}
     >
-      <Box
+      <Flex
+        w={'full'}
+        direction={'column'}
         shadow="base"
         pos="relative"
         bg="white"
@@ -66,13 +50,16 @@ export const BlogCard: FC<BlogCardProps> = ({ post, isFeatured }) => {
         overflow="hidden"
       >
         {post.image?.url && (
-          <BlogCardImage
+          <WImage
             alt={post.title}
-            isFeatured={featured}
-            image={post.image}
+            h={featured ? 450 : 200}
+            src={post.image}
+            ratio="twitter"
+            flexShrink={0}
           />
         )}
         <Stack
+          flex={1}
           rounded="sm"
           mx={{ base: 4, lg: 8 }}
           mb={{ base: 4, lg: 8 }}
@@ -80,9 +67,8 @@ export const BlogCard: FC<BlogCardProps> = ({ post, isFeatured }) => {
           maxW={600}
           pos="relative"
           bg="white"
-          px={6}
           spacing={4}
-          py={featured ? 6 : 4}
+          p={featured ? 6 : 0}
           {...(featured && {
             pos: 'absolute',
             bottom: 8,
@@ -96,6 +82,7 @@ export const BlogCard: FC<BlogCardProps> = ({ post, isFeatured }) => {
             justify={{ base: 'center', md: 'space-between' }}
             fontSize="sm"
             color="gray.500"
+            {...(!featured && { p: 4 })}
           >
             <HStack>
               <HStack>
@@ -124,14 +111,26 @@ export const BlogCard: FC<BlogCardProps> = ({ post, isFeatured }) => {
               )}
             </HStack>
           </Wrap>
-          <Heading as="h3" size="md">
-            {post.title}
-          </Heading>
-          <Text noOfLines={2} color="gray.800">
-            {post.description}
-          </Text>
+          <Stack flex={1}>
+            <Heading as="h3" size="md">
+              {post.title}
+            </Heading>
+            <Text noOfLines={2} color={'gray.700'}>
+              {post.description}
+            </Text>
+            {post.author?.name && (
+              <Text
+                textAlign={'right'}
+                mt={'auto'}
+                fontWeight={600}
+                color={'gray.700'}
+              >
+                {post.author.name}
+              </Text>
+            )}
+          </Stack>
         </Stack>
-      </Box>
+      </Flex>
     </Navigate>
   )
 }

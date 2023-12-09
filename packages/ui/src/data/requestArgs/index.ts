@@ -92,7 +92,7 @@ export const useRequestArgs = (): UseRequestArgsReturn => {
           operator: '$eq',
         },
       ],
-      populate: ['users.role', 'jobs.platform', 'role'],
+      populate: ['user.role', 'jobs.platform'],
       searchFields: ['name', 'email'],
     },
   }
