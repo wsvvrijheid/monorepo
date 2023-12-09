@@ -77,8 +77,6 @@ export const PageHeader: FC<PageHeaderProps> = ({
             colorScheme="gray"
           />
           <MenuList
-            as={Stack}
-            divider={<MenuDivider />}
             sx={{
               '.chakra-menu__group': {
                 maxH: 200,
@@ -91,7 +89,7 @@ export const PageHeader: FC<PageHeaderProps> = ({
               },
             }}
           >
-            {filterMenu}
+            <Stack divider={<MenuDivider />}>{filterMenu}</Stack>
           </MenuList>
         </Menu>
       )}

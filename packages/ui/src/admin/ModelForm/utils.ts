@@ -137,7 +137,7 @@ export const useDefaultValues = <T extends StrapiModel>(
         case 'artist':
           defaults.artist = {
             label: `${artModel.artist?.name} (${artModel.artist?.email})`,
-            value: profileModel?.id.toString(),
+            value: artModel?.artist?.id.toString(),
           }
           break
 

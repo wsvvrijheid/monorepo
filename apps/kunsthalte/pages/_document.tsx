@@ -26,6 +26,7 @@ export default class Document extends NextDocument {
           />
           <link rel="manifest" href="/site.webmanifest" />
           <meta name="theme-color" content="#ffffff" />
+          <link rel="stylesheet" href="https://use.typekit.net/fnm3rna.css" />
         </Head>
         <body>
           <ColorModeScript initialColorMode="light" />
