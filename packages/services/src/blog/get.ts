@@ -8,6 +8,7 @@ export const getBlogs = async (locale: StrapiLocale) => {
   const response = await strapiRequest<Blog>({
     endpoint: 'blogs',
     locale,
+    sort: ['publishedAt:desc'],
   })
 
   return response?.data || []
@@ -24,6 +25,7 @@ export const getAuthorBlogs = async (
       $and: [{ author: { id: { $eq: authorID } } }, { id: { $ne: blogId } }],
     },
     pageSize: 2,
+    sort: ['publishedAt:desc'],
     locale,
   })
 
@@ -35,6 +37,6 @@ export const useGetBlogs = () => {
 
   return useQuery({
     queryKey: ['blogs', locale],
-    queryFn: () => getBlogs(locale),
+    queryFn: () => getBlogs(locale as StrapiLocale),
   })
 }
