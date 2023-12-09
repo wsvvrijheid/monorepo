@@ -57,7 +57,7 @@ export const mapModelToOption = (
   }
 
   // Role
-  else if (role.nb_users) {
+  else if (role.nb_users != null) {
     label = role.name
   }
 
