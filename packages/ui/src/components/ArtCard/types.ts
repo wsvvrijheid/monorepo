@@ -1,5 +1,4 @@
 import { ThemeTypings } from '@chakra-ui/react'
-import { QueryKey } from '@tanstack/react-query'
 
 import { Art, StrapiLocale, UploadFile } from '@wsvvrijheid/types'
 
@@ -18,9 +17,8 @@ export type ArtActions = Record<ArtActionType, ArtActionContext>
 export type ArtCardProps = {
   art: Art
   isMasonry?: boolean
-  queryKey?: QueryKey
-  actionQueryKey?: QueryKey
   isModal?: boolean
+  onToggleLike?: () => void
 }
 
 export type ArtCardBaseProps = {
@@ -31,7 +29,6 @@ export type ArtCardBaseProps = {
   isOwner?: boolean
   isModal?: boolean
   toggleLike?: () => void
-  actionQueryKey?: QueryKey
 }
 
 export type ArtCardAlertDialogProps = {

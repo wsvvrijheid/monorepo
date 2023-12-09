@@ -17,7 +17,7 @@ import { MdRemoveModerator } from 'react-icons/md'
 
 import { ASSETS_URL } from '@wsvvrijheid/config'
 import { useAuthContext } from '@wsvvrijheid/context'
-import { useArtByArtist } from '@wsvvrijheid/services'
+import { useArtsByArtist } from '@wsvvrijheid/services'
 
 import { ArtCard } from '../ArtCard'
 import { Container } from '../Container'
@@ -41,7 +41,7 @@ export const AuthenticatedUserProfile = () => {
 
   const { user, profile } = useAuthContext()
 
-  const { data } = useArtByArtist(user?.id, true)
+  const { data } = useArtsByArtist(profile?.id, true)
   const rejected = data?.filter(art => art?.approvalStatus === 'rejected')
   const approved = data?.filter(art => art?.approvalStatus === 'approved')
   const pending = data?.filter(art => art?.approvalStatus === 'pending')
@@ -97,26 +97,14 @@ export const AuthenticatedUserProfile = () => {
             {/* Approved arts */}
             <TabPanel px={0}>
               <SimpleGrid m={4} gap={8} columns={{ base: 1, md: 2, lg: 4 }}>
-                {approved?.map(art => (
-                  <ArtCard
-                    key={art.id}
-                    art={art}
-                    actionQueryKey={['user-art']}
-                  />
-                ))}
+                {approved?.map(art => <ArtCard key={art.id} art={art} />)}
               </SimpleGrid>
             </TabPanel>
             {/* Pending arts */}
             <TabPanel px={0}>
               <SimpleGrid columns={{ base: 1, sm: 2, md: 4 }} gap={4}>
                 {pending?.map(art => {
-                  return (
-                    <ArtCard
-                      key={art.id}
-                      art={art}
-                      actionQueryKey={['user-art']}
-                    />
-                  )
+                  return <ArtCard key={art.id} art={art} />
                 })}
               </SimpleGrid>
             </TabPanel>
@@ -124,13 +112,7 @@ export const AuthenticatedUserProfile = () => {
             <TabPanel>
               <SimpleGrid columns={{ base: 1, sm: 2, md: 4 }} gap={4}>
                 {rejected?.map(art => {
-                  return (
-                    <ArtCard
-                      key={art.id}
-                      art={art}
-                      actionQueryKey={['user-art']}
-                    />
-                  )
+                  return <ArtCard key={art.id} art={art} />
                 })}
               </SimpleGrid>
             </TabPanel>

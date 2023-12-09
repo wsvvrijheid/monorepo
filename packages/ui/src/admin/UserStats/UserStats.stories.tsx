@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { StoryObj, Meta, StoryFn } from '@storybook/react'
 import qs from 'qs'
 
-import { TOKEN } from '@wsvvrijheid/secrets'
+import { PUBLIC_TOKEN } from '@wsvvrijheid/config'
 import { UserStats as UserStatasType } from '@wsvvrijheid/types'
 
 import { UserStatistics } from './UserStats'
@@ -202,7 +202,7 @@ const DataFetch: StoryFn<UserStatasType> = args => {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${TOKEN}`,
+            Authorization: `Bearer ${PUBLIC_TOKEN}`,
           },
         },
       )

@@ -15,7 +15,7 @@ import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 
 import { ASSETS_URL } from '@wsvvrijheid/config'
-import { TOKEN } from '@wsvvrijheid/secrets'
+import { PUBLIC_TOKEN } from '@wsvvrijheid/config'
 import { Blog, StrapiCollectionResponse } from '@wsvvrijheid/types'
 import { sleep } from '@wsvvrijheid/utils'
 
@@ -50,7 +50,7 @@ export const FetchWithUseQuery = () => {
     return axios<StrapiCollectionResponse<Blog[]>>(BLOG_URL, {
       params: { locale: 'tr', populate: 'image' },
       headers: {
-        Authorization: `Bearer ${TOKEN}`,
+        Authorization: `Bearer ${PUBLIC_TOKEN}`,
       },
     })
   }

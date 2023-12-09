@@ -4,7 +4,7 @@ import { NextApiHandler } from 'next'
 
 import { API_URL } from '@wsvvrijheid/config'
 import { Mutation } from '@wsvvrijheid/lib'
-import { TOKEN, sessionOptions } from '@wsvvrijheid/secrets'
+import { getSecret, sessionOptions } from '@wsvvrijheid/secrets'
 import { loginAuth } from '@wsvvrijheid/services'
 import { Auth, AuthResponse, ProfileCreateInput } from '@wsvvrijheid/types'
 
@@ -30,7 +30,7 @@ export const registerRouter: NextApiHandler = async (req, res) => {
       email: trimmedEmail,
     }
 
-    await Mutation.post('profiles', body, TOKEN as string)
+    await Mutation.post('profiles', body, getSecret('TOKEN'))
 
     const { profile, ...auth } = await loginAuth(email, password)
 

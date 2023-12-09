@@ -14,8 +14,8 @@ import { useMutation } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
+import { PUBLIC_TOKEN } from '@wsvvrijheid/config'
 import { Mutation } from '@wsvvrijheid/lib'
-import { VOLUNTEER_TOKEN } from '@wsvvrijheid/secrets'
 import { useStrapiRequest } from '@wsvvrijheid/services'
 import { Platform, Profile, ProfileCreateInput } from '@wsvvrijheid/types'
 import { toastMessage } from '@wsvvrijheid/utils'
@@ -46,7 +46,7 @@ export const JoinTemplate: FC<JoinTemplateProps> = ({ title }) => {
       Mutation.post<Profile, ProfileCreateInput>(
         'profiles',
         { ...body, isVolunteer: true },
-        VOLUNTEER_TOKEN as string,
+        PUBLIC_TOKEN as string,
       ),
   })
 

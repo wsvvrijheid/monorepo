@@ -1,5 +1,5 @@
 import { useToast } from '@chakra-ui/react'
-import { QueryKey, useMutation, useQueryClient } from '@tanstack/react-query'
+import { useMutation } from '@tanstack/react-query'
 
 import { useAuthContext } from '@wsvvrijheid/context'
 import { Mutation } from '@wsvvrijheid/lib'
@@ -15,9 +15,7 @@ export const deleteModel = <T extends StrapiModel>(
 
 export const useDeleteModel = <T extends StrapiModel>(
   endpoint: StrapiEndpoint,
-  queryKey?: QueryKey,
 ) => {
-  const queryClient = useQueryClient()
   const toast = useToast()
   const { token } = useAuthContext()
 
@@ -25,12 +23,8 @@ export const useDeleteModel = <T extends StrapiModel>(
     mutationKey: [`delete-${endpoint}`],
     mutationFn: ({ id }: { id: number }) =>
       deleteModel<T>(id, endpoint, token as string),
-    onSettled: () => {
-      queryClient.invalidateQueries({ queryKey })
-    },
     onSuccess: () => {
       // TODO Add translations
-      queryClient.invalidateQueries({ queryKey })
       toast({
         title: `Successfully Deleted`,
         status: 'success',

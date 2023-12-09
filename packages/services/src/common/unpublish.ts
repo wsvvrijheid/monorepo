@@ -1,5 +1,5 @@
 import { useToast } from '@chakra-ui/react'
-import { QueryKey, useMutation, useQueryClient } from '@tanstack/react-query'
+import { useMutation } from '@tanstack/react-query'
 
 import { useAuthContext } from '@wsvvrijheid/context'
 import { Mutation } from '@wsvvrijheid/lib'
@@ -17,9 +17,7 @@ export const unpublishModel = <T extends StrapiModel>(
 
 export const useUnpublishModel = <T extends StrapiModel>(
   endpoint: StrapiEndpoint,
-  queryKey?: QueryKey,
 ) => {
-  const queryClient = useQueryClient()
   const toast = useToast()
   const { token } = useAuthContext()
 
@@ -27,19 +25,7 @@ export const useUnpublishModel = <T extends StrapiModel>(
     mutationKey: [`unpublish-${endpoint}`],
     mutationFn: ({ id }: { id: number }) =>
       unpublishModel<T>(id, endpoint, token as string),
-    onSettled: () => {
-      // It's difficult to invalidate cache for paginated or filtering queries
-      // Cache invalidation strategy might differ depending on where the mutation is called
-      // If there would be no filters, sort, pages for fetching data,
-      // we could just invalidate the cache as `queryClient.invalidateQueries({ queryKey: ['arts'] })`
-      //
-      // We fetch queries on `Club` page, so we can invalidate cache by using the same queryKey
-      // That's why we give the current queryKey comes from `Club` page
-      queryClient.invalidateQueries({ queryKey })
-    },
     onSuccess: () => {
-      // TODO Add translations
-      queryClient.invalidateQueries({ queryKey })
       toast({
         title: `Successfully Unpublished`,
         status: 'success',
