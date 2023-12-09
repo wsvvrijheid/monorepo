@@ -10,7 +10,6 @@ import {
   useBreakpointValue,
   useDisclosure,
 } from '@chakra-ui/react'
-import { QueryKey } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
 import { AiFillHeart } from 'react-icons/ai'
 import { FaExternalLinkSquareAlt } from 'react-icons/fa'
@@ -37,15 +36,12 @@ export const ArtCardBase: FC<ArtCardBaseProps> = ({
   actions,
   isOwner,
   isModal = false,
-  actionQueryKey,
 }) => {
   const {
     isOpen: artModalIsOpen,
     onOpen: artModalOnOpen,
     onClose: artModalOnClose,
   } = useDisclosure()
-
-  const queryKey = actionQueryKey as QueryKey
 
   const [actionType, setActionType] = useState<ArtActionType>()
   const [hover, setHover] = useState({ color: 'gray.100' })
@@ -54,9 +50,9 @@ export const ArtCardBase: FC<ArtCardBaseProps> = ({
   const router = useRouter()
   const locale = router.locale
 
-  const deleteMutation = useDeleteModel('arts', queryKey)
-  const publishMutation = usePublishModel('arts', queryKey)
-  const unpublishMutation = useUnpublishModel('arts', queryKey)
+  const deleteMutation = useDeleteModel('arts')
+  const publishMutation = usePublishModel('arts')
+  const unpublishMutation = useUnpublishModel('arts')
 
   useEffect(() => {
     setHover({ color: isLiked ? 'red.200' : 'gray.100' })

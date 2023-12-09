@@ -1,22 +1,18 @@
-// TODO: Never use Full API token in the browser, only use it on the server
-// TODO: Use READONLY API token in the browser
-export const TOKEN = process.env['NEXT_PUBLIC_API_TOKEN']
-export const VOLUNTEER_TOKEN = process.env['NEXT_PUBLIC_VOLUNTEER_TOKEN']
-
 const secrets = {
   COOKIE_PASSWORD: process.env['SECRET_COOKIE_PASSWORD'],
   DEEPL_API_KEY: process.env['DEEPL_API_KEY'],
   RECAPTCHA_SECRET_KEY: process.env['RECAPTCHA_SECRET_KEY'],
   STRIPE_KEY: process.env['STRIPE_KEY'],
+  TOKEN: process.env['API_TOKEN'],
 }
 
 type Secrets = keyof typeof secrets
 
-export const getSecret = (key: Secrets) => {
+export const getSecret = (key: Secrets): string => {
   if (typeof window !== 'undefined') {
     // console.error(key + ' secret should only be used on the server')
 
-    return
+    return ''
   }
 
   return secrets[key]

@@ -6,7 +6,7 @@ import { FaWhatsapp } from 'react-icons/fa'
 import { MdEmail, MdLocationOn, MdPhone } from 'react-icons/md'
 
 import { EMAIL_SENDER, socialLinks } from '@wsvvrijheid/config'
-import { TOKEN } from '@wsvvrijheid/secrets'
+import { PUBLIC_TOKEN } from '@wsvvrijheid/config'
 import { sendEmail } from '@wsvvrijheid/services'
 import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import { EmailCreateInput, StrapiLocale } from '@wsvvrijheid/types'
@@ -30,7 +30,7 @@ const Contact = () => {
   } = useMutation({
     mutationKey: ['contact'],
     mutationFn: async (data: EmailCreateInput) => {
-      return sendEmail(data, TOKEN as string)
+      return sendEmail(data, PUBLIC_TOKEN as string)
     },
   })
 

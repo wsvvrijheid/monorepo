@@ -5,7 +5,6 @@ import { Box } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 
 import { API_URL } from '@wsvvrijheid/config'
-import { TOKEN } from '@wsvvrijheid/secrets'
 
 // https://wsvv-api-staging.onrender.com/api/blogs?locale=tr
 // You can use local API_URL instead of the above url

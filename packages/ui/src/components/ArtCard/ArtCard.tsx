@@ -9,22 +9,25 @@ import { ArtCardProps } from './types'
 export const ArtCard: FC<ArtCardProps> = ({
   art,
   isMasonry,
-  queryKey,
-  actionQueryKey,
   isModal,
+  onToggleLike,
 }) => {
-  const { toggleLike, isLiked } = useLikeArt(art, queryKey)
+  const { toggleLike, isLiked } = useLikeArt(art)
   const { user } = useAuthContext()
+
+  const handeToggleLike = () => {
+    toggleLike()
+    onToggleLike?.()
+  }
 
   return (
     <ArtCardBase
       art={art}
       isLiked={isLiked as boolean}
-      toggleLike={toggleLike}
+      toggleLike={handeToggleLike}
       isOwner={user?.id === art.artist?.id}
       isMasonry={isMasonry}
       isModal={isModal}
-      actionQueryKey={actionQueryKey}
     />
   )
 }
