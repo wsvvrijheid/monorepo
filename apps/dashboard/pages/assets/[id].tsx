@@ -52,12 +52,11 @@ const AssetPage = () => {
     endpoint: 'assets-trackings',
     filters: {
       asset: { id: { $eq: id } },
-      ...(searchTerm && { [`title_${locale}`]: { $containsi: searchTerm } }),
-    },
+      },
     sort,
     page: currentPage || 1,
     pageSize: 100,
-    locale,
+   // locale,
   })
   useUpdateEffect(() => {
     assetsTrackingsQuery.refetch()
@@ -71,7 +70,6 @@ const AssetPage = () => {
     endpoint: 'assets',
     id,
   })
-
   const asset = data?.data
 
   const handleRowClick = (index: number, id: number) => {
@@ -88,6 +86,7 @@ const AssetPage = () => {
     onClose()
     setSelectedAssetsTrackingId(undefined)
   }
+console.log("assets trackings >>>>",assetsTrackings)
 
   return (
     <AdminLayout
@@ -138,10 +137,6 @@ const AssetPage = () => {
               )}
             </AccordionPanel>
           </AccordionItem>
-          {/*
-TODO
-TRACKING MUST BE HERE
-*/}
           <AccordionItem>
             <AccordionButton
               justifyContent="space-between"
@@ -168,7 +163,6 @@ TRACKING MUST BE HERE
                   </MenuItem>,
                 ]}
               />
-
               <DataTable<AssetsTracking>
                 columns={columns['assets-trackings']!}
                 currentPage={currentPage}
