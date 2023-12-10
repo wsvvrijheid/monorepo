@@ -1,16 +1,14 @@
 import { FC } from 'react'
 
-import { dehydrate, QueryClient } from '@tanstack/react-query'
+import { QueryClient } from '@tanstack/react-query'
+import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
 import { useRouter } from 'next/router'
-import { GetStaticPropsContext, InferGetStaticPropsType } from 'next/types'
 import { serialize } from 'next-mdx-remote/serialize'
 
 import { SITE_URL } from '@wsvvrijheid/config'
 import {
   getAuthorBlogs,
   getBlogBySlug,
-  getModelStaticPaths,
-  useGetBlogSlug,
   useLikeBlog,
   useViewBlog,
 } from '@wsvvrijheid/services'
