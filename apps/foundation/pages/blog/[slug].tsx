@@ -1,16 +1,14 @@
 import { FC } from 'react'
 
-import { dehydrate, QueryClient } from '@tanstack/react-query'
+import { QueryClient } from '@tanstack/react-query'
+import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
 import { useRouter } from 'next/router'
-import { GetStaticPropsContext, InferGetStaticPropsType } from 'next/types'
 import { serialize } from 'next-mdx-remote/serialize'
 
 import { SITE_URL } from '@wsvvrijheid/config'
 import {
   getAuthorBlogs,
   getBlogBySlug,
-  getModelStaticPaths,
-  useGetBlogSlug,
   useLikeBlog,
   useViewBlog,
 } from '@wsvvrijheid/services'
@@ -21,10 +19,11 @@ import { getPageSeo } from '@wsvvrijheid/utils'
 
 import { Layout } from '../../components'
 
-type BlogPageProps = InferGetStaticPropsType<typeof getStaticProps>
+type BlogPageProps = InferGetServerSidePropsType<typeof getServerSideProps>
 
 const BlogDetailPage: FC<BlogPageProps> = ({
   seo,
+  blog,
   queryKey,
   authorBlogs,
   source,
@@ -34,14 +33,13 @@ const BlogDetailPage: FC<BlogPageProps> = ({
     query: { slug },
   } = useRouter()
 
-  const { data: blog } = useGetBlogSlug(slug as string)
-
   useViewBlog()
+
   const { isLiked, toggleLike } = useLikeBlog(blog, queryKey)
 
   const link = `${SITE_URL}/${locale}/blog/${slug}`
 
-  if (!source || !blog) return null
+  if (!source) return null
 
   return (
     <Layout seo={seo}>
@@ -61,11 +59,9 @@ const BlogDetailPage: FC<BlogPageProps> = ({
 
 export default BlogDetailPage
 
-export const getStaticPaths = async () => {
-  return await getModelStaticPaths('blogs')
-}
-
-export const getStaticProps = async (context: GetStaticPropsContext) => {
+export const getServerSideProps = async (
+  context: GetServerSidePropsContext,
+) => {
   const queryClient = new QueryClient()
 
   const locale = context.locale as StrapiLocale
@@ -84,19 +80,18 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
   const authorBlogs =
     (await getAuthorBlogs(locale, blog?.author?.id as number, blog.id)) || []
 
-  const seo = getPageSeo(blog, 'blogs', locale)
-
   const source = await serialize(blog?.content || '')
+
+  const seo = getPageSeo(blog, 'blogs', locale)
 
   return {
     props: {
-      source,
+      blog,
       seo,
+      source,
       queryKey,
-      dehydrateState: dehydrate(queryClient),
       authorBlogs,
       ...(await ssrTranslations(locale)),
     },
-    revalidate: 1,
   }
 }

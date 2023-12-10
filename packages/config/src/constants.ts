@@ -27,3 +27,5 @@ export const RECAPTCHA_SITE_KEY = process.env[
   'NEXT_PUBLIC_RECAPTCHA_SITE_KEY'
 ] as string
 export const IS_PROD = process.env['NODE_ENV'] === 'production'
+export const TWITTER_HANDLE =
+  (process.env['NEXT_PUBLIC_TWITTER_HANDLE'] as string) || '@wsvvrijheid'
