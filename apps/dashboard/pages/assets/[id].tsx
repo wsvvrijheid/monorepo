@@ -56,7 +56,7 @@ const AssetPage = () => {
     sort,
     page: currentPage || 1,
     pageSize: 100,
-   // locale,
+   locale,
   })
   useUpdateEffect(() => {
     assetsTrackingsQuery.refetch()
@@ -72,7 +72,21 @@ const AssetPage = () => {
   })
   const asset = data?.data
 
-  const handleRowClick = (index: number, id: number) => {
+  // assets trackings
+  const { data:AssetsTrackings } = useStrapiRequest<AssetsTracking>({
+    endpoint: 'assets-trackings',
+  //  filters: {
+  //     asset: { id},
+  //     },
+  })
+ console.log("assets trackings >>>>",AssetsTrackings?.data)
+  const filterTrackings = AssetsTrackings?.data.filter(track => track?.asset?.id===id)
+
+ console.log("assets trackingsBBBBBBB",filterTrackings)
+  
+ 
+ 
+ const handleRowClick = (index: number, id: number) => {
     setSelectedAssetsTrackingId(id)
   }
 
