@@ -52,11 +52,11 @@ const AssetPage = () => {
     endpoint: 'assets-trackings',
     filters: {
       asset: { id: { $eq: id } },
-      },
+    },
     sort,
     page: currentPage || 1,
     pageSize: 100,
-   locale,
+    locale,
   })
   useUpdateEffect(() => {
     assetsTrackingsQuery.refetch()
@@ -73,7 +73,7 @@ const AssetPage = () => {
   const asset = data?.data
 
   // assets trackings
- const handleRowClick = (index: number, id: number) => {
+  const handleRowClick = (index: number, id: number) => {
     setSelectedAssetsTrackingId(id)
   }
 

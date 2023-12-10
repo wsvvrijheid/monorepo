@@ -8,9 +8,9 @@ export const useAssetsTrackingsColumns =
       fromLocation: {},
       toLocation: {},
       date: {
-      type: 'date',
-      sortable: true,
-    },
+        type: 'date',
+        sortable: true,
+      },
       asset: {},
       assignedTo: {},
       createdAt: {
