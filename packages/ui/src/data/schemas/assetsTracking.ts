@@ -35,6 +35,7 @@ export const assetsTrackingFields: FormFields<AssetsTracking> = [
     name: 'previousTracking',
     type: 'select',
     endpoint: 'assets-trackings',
+    populate: 'asset',
   },
   {
     name: 'assignedTo',

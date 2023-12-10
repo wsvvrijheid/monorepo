@@ -79,14 +79,8 @@ const AssetPage = () => {
               )}
             </AccordionPanel>
           </AccordionItem>
-          {/*
-TODO
-TRACKING MUST BE HERE
-*/}
         </Accordion>
-        {/*
-          {t('create-asset-trackings')}
-          */}
+
         <ModelCreateModal<AssetsTracking>
           title="assets-trackings"
           endpoint="assets-trackings"
@@ -97,8 +91,7 @@ TRACKING MUST BE HERE
             leftIcon: <TbActivity />,
           }}
         >
-          {/* {t('create-asset-tracking')} */}
-          create assets trackings
+          {t('add-tracking')}
         </ModelCreateModal>
       </Stack>
     </AdminLayout>
