@@ -1,4 +1,4 @@
-import { AssetsTracking } from '@wsvvrijheid/types'
+import { AssetsTracking, Profile } from '@wsvvrijheid/types'
 
 import { WTableProps } from '../../components'
 
@@ -11,8 +11,13 @@ export const useAssetsTrackingsColumns =
         type: 'date',
         sortable: true,
       },
-      asset: {},
-      assignedTo: {},
+      assignedTo: {
+        transform: value => {
+          const profile = value as Profile
+
+          return profile?.name || profile?.email
+        },
+      },
       createdAt: {
         type: 'date',
         sortable: true,
