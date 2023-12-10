@@ -74,6 +74,7 @@ export const getPageSeo = (
   return {
     title,
     description,
+    canonical: url,
     twitter: {
       cardType: 'summary_large_image',
       site: TWITTER_HANDLE,
@@ -85,6 +86,7 @@ export const getPageSeo = (
       url,
       ...(image && { images }),
       ...(endpoint === 'posts' && {
+        type: 'article',
         article: {
           publishedTime: blog.publishedAt as string,
           modifiedTime: blog.updatedAt as string,
