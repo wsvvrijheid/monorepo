@@ -73,19 +73,6 @@ const AssetPage = () => {
   const asset = data?.data
 
   // assets trackings
-  const { data:AssetsTrackings } = useStrapiRequest<AssetsTracking>({
-    endpoint: 'assets-trackings',
-  //  filters: {
-  //     asset: { id},
-  //     },
-  })
- console.log("assets trackings >>>>",AssetsTrackings?.data)
-  const filterTrackings = AssetsTrackings?.data.filter(track => track?.asset?.id===id)
-
- console.log("assets trackingsBBBBBBB",filterTrackings)
-  
- 
- 
  const handleRowClick = (index: number, id: number) => {
     setSelectedAssetsTrackingId(id)
   }
@@ -100,7 +87,6 @@ const AssetPage = () => {
     onClose()
     setSelectedAssetsTrackingId(undefined)
   }
-console.log("assets trackings >>>>",assetsTrackings)
 
   return (
     <AdminLayout
