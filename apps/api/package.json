@@ -4,12 +4,7 @@
   "version": "0.1.0",
   "description": "A Strapi application",
   "scripts": {
-    "dev": "strapi dev",
-    "dashboard": "strapi dev",
-    "foundation": "strapi dev",
-    "kunsthalte": "strapi dev",
     "transfer": "strapi transfer --from https://api.wsvvrijheid.nl/admin",
-    "samenvvv": "strapi dev",
     "lint": "eslint .",
     "start": "strapi start",
     "build": "strapi build",

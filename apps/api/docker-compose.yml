@@ -49,7 +49,7 @@ services:
       # copy the sql script to create tables
       - ./sql/init.sql:/docker-entrypoint-initdb.d/init-1.sql
     ports:
-      - '5432:5432'
+      - '5433:5433'
     healthcheck:
       test:
         [

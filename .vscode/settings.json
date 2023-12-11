@@ -3,5 +3,6 @@
     "source.fixAll.eslint": true
   },
   "editor.formatOnSave": true,
-  "cSpell.words": ["strapi"]
+  "cSpell.words": ["strapi"],
+  "liveServer.settings.port": 5501
 }

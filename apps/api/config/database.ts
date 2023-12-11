@@ -8,7 +8,7 @@ export default ({ env }) => {
       client: 'postgres',
       connection: {
         host: env('DATABASE_HOST', host),
-        port: '5432',
+        port: '5433',
         database: env('DATABASE_NAME', database),
         user: env('DATABASE_USER', user),
         password: env('DATABASE_PASSWORD', password),

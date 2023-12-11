@@ -1,6 +1,6 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "globalEnv": ["NODE_ENV", "VERCEL_ENV"],
+  "globalEnv": ["NODE_ENV", "VERCEL_ENV", "OPENAI_API_KEY"],
   "pipeline": {
     "build:dev": {
       "dependsOn": ["^build"],
