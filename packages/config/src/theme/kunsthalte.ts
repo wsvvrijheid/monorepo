@@ -8,7 +8,7 @@ export const kunsthalte = extendTheme(
   merge(defaultTheme, {
     fonts: {
       body: fonts.club,
-      heading: fonts.club,
+      heading: `"firdevs", sans-serif;`,
     },
     colors: {
       primary: defaultTheme['colors'].teal,

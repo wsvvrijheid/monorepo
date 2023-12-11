@@ -4,13 +4,15 @@ import { strapiRequest } from '@wsvvrijheid/lib'
 import { Art } from '@wsvvrijheid/types'
 
 export const getArtByArtist = async (
-  userId: number,
+  profileId: number,
   includeDrafts?: boolean,
 ) => {
+  if (!profileId) return []
+
   const response = await strapiRequest<Art>({
     endpoint: 'arts',
     filters: {
-      artist: { id: { $eq: userId || null } },
+      artist: { id: { $eq: profileId } },
     },
     populate: [
       'artist.avatar',
@@ -26,9 +28,12 @@ export const getArtByArtist = async (
   return response?.data
 }
 
-export const useArtByArtist = (userId?: number, includeDrafts?: boolean) => {
+export const useArtsByArtist = (
+  profileId?: number,
+  includeDrafts?: boolean,
+) => {
   return useQuery({
-    queryKey: ['user-art', userId],
-    queryFn: () => getArtByArtist(userId as number, includeDrafts),
+    queryKey: ['user-arts', profileId],
+    queryFn: () => getArtByArtist(profileId as number, includeDrafts),
   })
 }

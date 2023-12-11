@@ -1,14 +1,14 @@
 import axios from 'axios'
-import { withIronSessionApiRoute } from 'iron-session/next'
-import { NextApiRequest, NextApiResponse } from 'next'
+import { getIronSession } from 'iron-session'
+import { NextApiHandler } from 'next'
 
 import { API_URL } from '@wsvvrijheid/config'
 import { Mutation } from '@wsvvrijheid/lib'
-import { sessionOptions } from '@wsvvrijheid/secrets'
-import { getAuth } from '@wsvvrijheid/services'
-import { AuthResponse, ProfileCreateInput } from '@wsvvrijheid/types'
+import { getSecret, sessionOptions } from '@wsvvrijheid/secrets'
+import { loginAuth } from '@wsvvrijheid/services'
+import { Auth, AuthResponse, ProfileCreateInput } from '@wsvvrijheid/types'
 
-const registerRoute = async (req: NextApiRequest, res: NextApiResponse) => {
+export const registerRouter: NextApiHandler = async (req, res) => {
   const { name, username, email, password } = req.body
 
   const trimmedName = name.trim()
@@ -22,7 +22,6 @@ const registerRoute = async (req: NextApiRequest, res: NextApiResponse) => {
       { baseURL: API_URL },
     )
 
-    const token = response.data.jwt
     const userId = response.data.user?.id as number
 
     const body: ProfileCreateInput = {
@@ -31,17 +30,18 @@ const registerRoute = async (req: NextApiRequest, res: NextApiResponse) => {
       email: trimmedEmail,
     }
 
-    await Mutation.post('profiles', body, token)
+    await Mutation.post('profiles', body, getSecret('TOKEN'))
 
-    const { profile, ...auth } = await getAuth(email, password)
+    const { profile, ...auth } = await loginAuth(email, password)
 
-    req.session = {
-      ...auth,
-      ...req.session,
-      profileId: profile?.id || null,
-    }
+    const session = await getIronSession<Auth>(req, res, sessionOptions)
 
-    await req.session.save()
+    session.user = auth.user
+    session.token = auth.token
+    session.isLoggedIn = true
+    session.profileId = profile?.id || null
+
+    await session.save()
     res.json({ ...auth, profile })
   } catch (error: any) {
     if (error.response?.data?.error) {
@@ -52,7 +52,3 @@ const registerRoute = async (req: NextApiRequest, res: NextApiResponse) => {
     res.status(500).json({ message: 'Something went wrong' })
   }
 }
-
-const handler = withIronSessionApiRoute(registerRoute, sessionOptions)
-
-export default handler

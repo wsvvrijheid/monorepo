@@ -2400,11 +2400,6 @@ export interface ApiProfileProfile extends Schema.CollectionType {
     draftAndPublish: false
   }
   attributes: {
-    role: Attribute.Relation<
-      'api::profile.profile',
-      'manyToOne',
-      'plugin::users-permissions.role'
-    >
     name: Attribute.String & Attribute.Required
     email: Attribute.Email & Attribute.Required & Attribute.Unique
     bio: Attribute.Text
@@ -2664,7 +2659,7 @@ export interface ApiProfileProfile extends Schema.CollectionType {
       Attribute.SetMinMax<{
         min: 1
       }> &
-      Attribute.DefaultTo<0>
+      Attribute.DefaultTo<1>
     heardFrom: Attribute.String
     comment: Attribute.Text
     linkedin: Attribute.String

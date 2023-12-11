@@ -1,41 +1,7 @@
-import { NextRequest } from 'next/server'
+import { imagesRouter } from '@wsvvrijheid/services/src/api/images'
 
 export const config = {
   runtime: 'edge',
 }
 
-const handler = async (req: NextRequest) => {
-  const params = new URLSearchParams(req.nextUrl.search)
-  const url = params.get('url') || ''
-
-  const response = await fetch(url)
-
-  const reader = response.body?.getReader()
-
-  const readableStream = new ReadableStream({
-    async start(controller) {
-      if (!reader) return controller.close()
-
-      // eslint-disable-next-line no-constant-condition
-      while (true) {
-        const { done, value } = await reader.read()
-
-        // When no more data needs to be consumed, break the reading
-        if (done) {
-          break
-        }
-
-        // Enqueue the next data chunk into our target stream
-        controller.enqueue(value)
-      }
-
-      // Close the stream
-      controller.close()
-      reader.releaseLock()
-    },
-  })
-
-  return new Response(readableStream)
-}
-
-export default handler
+export default imagesRouter

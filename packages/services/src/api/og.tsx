@@ -3,10 +3,6 @@ import { CSSProperties } from 'react'
 import { ImageResponse } from '@vercel/og'
 import { NextRequest } from 'next/server'
 
-export const config = {
-  runtime: 'edge',
-}
-
 const paths = [
   'M50 337.5L0 0H50V337.5Z',
   'M50 337.5L0 675H50V337.5Z',
@@ -14,7 +10,7 @@ const paths = [
   'M45 675H55L55 8.74228e-07L45 0C15.021 168.507 0.0209643 252.819 2.18987e-05 337.135C-0.0209205 421.569 14.9791 506.007 45 675Z',
 ]
 
-async function handler(req: NextRequest) {
+export const ogRouter = async (req: NextRequest) => {
   const params = new URLSearchParams(req.nextUrl.search)
   const title = params.get('title')
   const text = params.get('text')
@@ -197,5 +193,3 @@ async function handler(req: NextRequest) {
     },
   )
 }
-
-export default handler

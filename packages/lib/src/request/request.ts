@@ -9,7 +9,6 @@ import {
   endpointsWithPublicationState,
   endpointsWithoutLocale,
 } from '@wsvvrijheid/config'
-import { TOKEN } from '@wsvvrijheid/secrets'
 import {
   StrapiCollectionResponse,
   StrapiModel,
@@ -39,7 +38,7 @@ async function strapiRequest<T extends StrapiModel>(
   const singleArgs = args as RequestSingleArgs
   const idArgs = args as RequestByIdArgs
 
-  const { id, token = TOKEN } = idArgs
+  const { id, token } = idArgs
 
   const { endpoint, fields, includeDrafts, populate = '*' } = singleArgs
 
@@ -87,11 +86,10 @@ async function strapiRequest<T extends StrapiModel>(
     : `${API_URL}/api/${endpoint}?${query}`
 
   try {
-    const response = await axios(requestUrl, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
+    const response = await axios(
+      requestUrl,
+      token ? { headers: { Authorization: `Bearer ${token}` } } : {},
+    )
 
     const result = response.data as StrapiResponse<T>
 

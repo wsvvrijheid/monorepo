@@ -1,6 +1,28 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "globalEnv": ["NODE_ENV", "VERCEL_ENV", "OPENAI_API_KEY"],
+  "globalEnv": [
+    "NEXT_PUBLIC_API_URL",
+    "NEXT_PUBLIC_DONATION_REQUEST_LINK",
+    "NEXT_PUBLIC_EMAIL_RECEIVER",
+    "NEXT_PUBLIC_EMAIL_SENDER",
+    "NEXT_PUBLIC_GA_MEASUREMENT_ID",
+    "NEXT_PUBLIC_RECAPTCHA_SITE_KEY",
+    "NEXT_PUBLIC_SITE_URL",
+    "NEXT_PUBLIC_TOKEN",
+    "NEXT_PUBLIC_TWITTER_HANDLE",
+    "NODE_ENV",
+    "USERNAME",
+    "VERCEL_ENV",
+    "VERCEL_URL",
+    "CI",
+    "API_TOKEN",
+    "DEEPL_API_KEY",
+    "PASSWORD",
+    "RECAPTCHA_SECRET_KEY",
+    "SECRET_COOKIE_PASSWORD",
+    "STRIPE_KEY",
+    "OPENAI_API_KEY"
+  ],
   "pipeline": {
     "build:dev": {
       "dependsOn": ["^build"],

@@ -1,4 +1,4 @@
-import { QueryKey, useMutation, useQueryClient } from '@tanstack/react-query'
+import { useMutation } from '@tanstack/react-query'
 import axios from 'axios'
 import { useLocalStorage } from 'usehooks-ts'
 
@@ -23,9 +23,7 @@ const useLikeArtMutation = () => {
   })
 }
 
-export const useLikeArt = (art?: Art | null, queryKey?: QueryKey) => {
-  const queryClient = useQueryClient()
-
+export const useLikeArt = (art?: Art | null) => {
   const likeArtMutation = useLikeArtMutation()
 
   const [likersStorage, setLikersStorage] = useLocalStorage<number[]>(
@@ -42,14 +40,11 @@ export const useLikeArt = (art?: Art | null, queryKey?: QueryKey) => {
     likeArtMutation.mutate(
       { id: art.id, type: isLikedStorage ? 'unlike' : 'like' },
       {
-        onSuccess: async data => {
-          await queryClient.invalidateQueries({ queryKey })
-
+        onSuccess: async () => {
           const isLiked = likersStorage?.some(id => id === art.id)
           const updatedStorage = isLiked
-            ? likersStorage?.filter(id => id !== data?.data?.id)
-            : [...(likersStorage || []), data?.data?.id]
-
+            ? likersStorage?.filter(id => id !== art.id)
+            : [...(likersStorage || []), art.id]
           setLikersStorage(updatedStorage as number[])
         },
       },

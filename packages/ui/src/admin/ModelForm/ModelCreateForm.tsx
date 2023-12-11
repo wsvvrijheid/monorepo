@@ -82,6 +82,10 @@ export const ModelCreateForm = <T extends StrapiModel>({
     }
   }, [imageFile, capsFile, videoFile, setValue])
 
+  const handleSuccess = () => {
+    onSuccess?.()
+    setValue('image', undefined)
+  }
   const onCreateModel = async (
     data: Record<string, string | number | File | Option | Option[]>,
   ) => {
@@ -128,10 +132,7 @@ export const ModelCreateForm = <T extends StrapiModel>({
     }
 
     createModelMutation.mutate(bodyData, {
-      onSuccess: () => {
-        onSuccess?.()
-        setValue('image', undefined)
-      },
+      onSuccess: handleSuccess,
     })
   }
 

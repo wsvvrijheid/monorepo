@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 import { API_URL } from '@wsvvrijheid/config'
-import { TOKEN } from '@wsvvrijheid/secrets'
+import { PUBLIC_TOKEN } from '@wsvvrijheid/config'
 import { MentionUserData } from '@wsvvrijheid/types'
 
 export const searchMentions = async (value: string) => {
@@ -9,7 +9,7 @@ export const searchMentions = async (value: string) => {
     `${API_URL}/api/mentions/search?q=${value}`,
     {
       headers: {
-        Authorization: `Bearer ${TOKEN}`,
+        Authorization: `Bearer ${PUBLIC_TOKEN}`,
       },
     },
   )
