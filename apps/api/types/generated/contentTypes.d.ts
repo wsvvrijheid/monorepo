@@ -2323,6 +2323,50 @@ export interface ApiPostPost extends Schema.CollectionType {
   }
 }
 
+export interface ApiPresentationPresentation extends Schema.CollectionType {
+  collectionName: 'presentations'
+  info: {
+    singularName: 'presentation'
+    pluralName: 'presentations'
+    displayName: 'Presentation'
+    description: ''
+  }
+  options: {
+    draftAndPublish: true
+  }
+  attributes: {
+    title_en: Attribute.String
+    content_nl: Attribute.RichText
+    description_nl: Attribute.Text
+    date: Attribute.DateTime
+    address: Attribute.String
+    name_nl: Attribute.String
+    name_tr: Attribute.String
+    content_tr: Attribute.RichText
+    content_en: Attribute.RichText
+    name_en: Attribute.String
+    title_tr: Attribute.String
+    title_nl: Attribute.String
+    description_tr: Attribute.Text
+    description_en: Attribute.Text
+    createdAt: Attribute.DateTime
+    updatedAt: Attribute.DateTime
+    publishedAt: Attribute.DateTime
+    createdBy: Attribute.Relation<
+      'api::presentation.presentation',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private
+    updatedBy: Attribute.Relation<
+      'api::presentation.presentation',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private
+  }
+}
+
 export interface ApiPrivacyPrivacy extends Schema.SingleType {
   collectionName: 'privacies'
   info: {
@@ -3433,6 +3477,7 @@ declare module '@strapi/types' {
       'api::mention.mention': ApiMentionMention
       'api::platform.platform': ApiPlatformPlatform
       'api::post.post': ApiPostPost
+      'api::presentation.presentation': ApiPresentationPresentation
       'api::privacy.privacy': ApiPrivacyPrivacy
       'api::profile.profile': ApiProfileProfile
       'api::recommended-topic.recommended-topic': ApiRecommendedTopicRecommendedTopic

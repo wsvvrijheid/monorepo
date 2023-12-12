@@ -27,6 +27,7 @@ export const endpointsWithoutLocale: StrapiEndpoint[] = [
   'lang-roles',
   'users',
   'profiles',
+  'presentations',
   'votes',
   'users-permissions/roles',
 ]

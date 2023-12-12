@@ -1,0 +1,58 @@
+{
+  "kind": "collectionType",
+  "collectionName": "presentations",
+  "info": {
+    "singularName": "presentation",
+    "pluralName": "presentations",
+    "displayName": "Presentation",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title_en": {
+      "type": "string"
+    },
+    "content_nl": {
+      "type": "richtext"
+    },
+    "description_nl": {
+      "type": "text"
+    },
+    "date": {
+      "type": "datetime"
+    },
+    "address": {
+      "type": "string"
+    },
+    "name_nl": {
+      "type": "string"
+    },
+    "name_tr": {
+      "type": "string"
+    },
+    "content_tr": {
+      "type": "richtext"
+    },
+    "content_en": {
+      "type": "richtext"
+    },
+    "name_en": {
+      "type": "string"
+    },
+    "title_tr": {
+      "type": "string"
+    },
+    "title_nl": {
+      "type": "string"
+    },
+    "description_tr": {
+      "type": "text"
+    },
+    "description_en": {
+      "type": "text"
+    }
+  }
+}
