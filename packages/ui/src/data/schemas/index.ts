@@ -9,6 +9,7 @@ import { PartialStrapiEndpointMap, StrapiModel } from '@wsvvrijheid/types'
 import { activityFields, useActivitySchema } from './activity'
 import { artFields, useArtSchema } from './art'
 import { assetFields, useAssetsSchema } from './assets'
+import { useAssetsTrackingSchema } from './assetsTrackings'
 import { blogFields, useBlogSchema } from './blog'
 import { collectionFields, useCollectionSchema } from './collection'
 import { courseFields, useCourseSchema } from './course'
@@ -46,6 +47,7 @@ export const useSchema = (): PartialStrapiEndpointMap<ObjectSchema<any>> => {
   return {
     foundations: useFoundationsSchema(),
     assets: useAssetsSchema(),
+    'assets-trackings': useAssetsTrackingSchema(),
     activities: useActivitySchema(),
     arts: useArtSchema(),
     blogs: useBlogSchema(),
@@ -69,6 +71,7 @@ export const useFields = <T extends StrapiModel>(): PartialStrapiEndpointMap<
 > => {
   return {
     assets: assetFields as FormFields<T>,
+    'assets-trackings': assetsTrackingFields as FormFields<T>,
     activities: activityFields as FormFields<T>,
     arts: artFields as FormFields<T>,
     blogs: blogFields as FormFields<T>,
