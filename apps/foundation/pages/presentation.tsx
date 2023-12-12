@@ -14,16 +14,12 @@ type PresentationsProps = InferGetStaticPropsType<typeof getStaticProps>
 
 const PresentationPage: FC<PresentationsProps> = ({ presentations }) => {
   // const { t } = useTranslation()
-
   const title = 'Presentation'
-  console.log('presentations', presentations.data)
 
   return (
     <Layout seo={{ title }}>
-      
       <Hero title={title} />
-      presentation
-      <PresentationTemplate presentations={presentations?.data}/>
+      <PresentationTemplate presentations={presentations?.data} />
     </Layout>
   )
 }

@@ -1,37 +1,40 @@
 import { FC } from 'react'
 
-
+import { Heading, Stack, Text } from '@chakra-ui/react'
 // import { useRouter } from 'next/router'
 // import { useTranslation } from 'next-i18next'
-import { MDXRemoteSerializeResult } from 'next-mdx-remote'
-import { NextSeoProps } from 'next-seo'
+import { useRouter } from 'next/router'
 
-import { Presentation, UploadFile } from '@wsvvrijheid/types'
+import { Presentation } from '@wsvvrijheid/types'
 
 import { Container } from '../../components'
 
 export type PresentationTemplateProps = {
-  seo: NextSeoProps
-  presentations:Presentation[]
-  source: MDXRemoteSerializeResult
-  image: UploadFile | string
-  link: string
+  // seo: NextSeoProps
+  presentations: Presentation[]
 }
 
 export const PresentationTemplate: FC<PresentationTemplateProps> = ({
- // seo,
-  source,
-  
+  // seo,
+  presentations,
 }) => {
   // const { t } = useTranslation()
-  // const router = useRouter()
- // const { slug } = router.query
-
-  if (!source) return null
+  const { locale } = useRouter()
 
   return (
     <Container maxW="container.md">
-presentations x
+      <Stack py={8} spacing={8} align="center">
+        {presentations?.map(pr => {
+          return (
+            <>
+              <Heading as="h1" textAlign="center">
+                {pr[`title_${locale}`]}
+              </Heading>
+              <Text key={pr.id}>{pr[`content_${locale}`]}</Text>
+            </>
+          )
+        })}
+      </Stack>
     </Container>
   )
 }
