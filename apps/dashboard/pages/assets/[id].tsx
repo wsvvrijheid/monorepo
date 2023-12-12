@@ -10,13 +10,24 @@ import {
 import { GetServerSidePropsContext } from 'next'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
+import { TbActivity } from 'react-icons/tb'
 
 import { useStrapiRequest } from '@wsvvrijheid/services'
 import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import { Asset, StrapiLocale } from '@wsvvrijheid/types'
-import { AdminLayout, ModelEditForm } from '@wsvvrijheid/ui'
+import { AssetsTracking } from '@wsvvrijheid/types/src/assets-tracking'
+import {
+  AdminLayout,
+  ModelCreateModal,
+  ModelEditForm,
+  useFields,
+  useSchema,
+} from '@wsvvrijheid/ui'
 
 const AssetPage = () => {
+  // const { t } = useTranslation()
+  const schemas = useSchema()
+  const fields = useFields()
   const { t } = useTranslation()
 
   const { query } = useRouter()
@@ -68,11 +79,20 @@ const AssetPage = () => {
               )}
             </AccordionPanel>
           </AccordionItem>
-          {/*
-TODO
-TRACKING MUST BE HERE
-*/}
         </Accordion>
+
+        <ModelCreateModal<AssetsTracking>
+          title="assets-trackings"
+          endpoint="assets-trackings"
+          schema={schemas['assets-trackings']!}
+          fields={fields['assets-trackings']!}
+          buttonProps={{
+            variant: 'outline',
+            leftIcon: <TbActivity />,
+          }}
+        >
+          {t('add-tracking')}
+        </ModelCreateModal>
       </Stack>
     </AdminLayout>
   )
