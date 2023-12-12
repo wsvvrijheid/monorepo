@@ -9,7 +9,10 @@ import { PartialStrapiEndpointMap, StrapiModel } from '@wsvvrijheid/types'
 import { activityFields, useActivitySchema } from './activity'
 import { artFields, useArtSchema } from './art'
 import { assetFields, useAssetsSchema } from './assets'
-import { useAssetsTrackingSchema } from './assetsTrackings'
+import {
+  assetsTrackingFields,
+  useAssetsTrackingSchema,
+} from './assetsTrackings'
 import { blogFields, useBlogSchema } from './blog'
 import { collectionFields, useCollectionSchema } from './collection'
 import { courseFields, useCourseSchema } from './course'
