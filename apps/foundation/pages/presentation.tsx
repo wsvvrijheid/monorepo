@@ -6,6 +6,7 @@ import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { strapiRequest } from '@wsvvrijheid/lib'
 import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import { Presentation, StrapiLocale } from '@wsvvrijheid/types'
+import { Hero, PresentationTemplate } from '@wsvvrijheid/ui'
 
 import { Layout } from '../components'
 
@@ -17,7 +18,14 @@ const PresentationPage: FC<PresentationsProps> = ({ presentations }) => {
   const title = 'Presentation'
   console.log('presentations', presentations.data)
 
-  return <Layout seo={{ title }}>presentation</Layout>
+  return (
+    <Layout seo={{ title }}>
+      
+      <Hero title={title} />
+      presentation
+      <PresentationTemplate presentations={presentations?.data}/>
+    </Layout>
+  )
 }
 
 export const getStaticProps = async (context: GetStaticPropsContext) => {
