@@ -12,6 +12,7 @@ import { WSelect } from '../../components'
 
 export const ModelSelect = <T extends StrapiModel>({
   endpoint,
+  populate = [],
   ...rest
 }: ModelSelectProps) => {
   const { locale } = useRouter()
@@ -26,7 +27,7 @@ export const ModelSelect = <T extends StrapiModel>({
       },
     }),
     pageSize: 100,
-    populate: [],
+    populate,
     queryOptions: {
       enabled: isMenuOpened,
     },

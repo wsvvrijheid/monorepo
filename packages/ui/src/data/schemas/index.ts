@@ -2,17 +2,14 @@ import { useEffect } from 'react'
 
 import { useRouter } from 'next/router'
 import { ObjectSchema, setLocale } from 'yup'
-import { tr, nl } from 'yup-locales'
+import { nl, tr } from 'yup-locales'
 
 import { PartialStrapiEndpointMap, StrapiModel } from '@wsvvrijheid/types'
 
 import { activityFields, useActivitySchema } from './activity'
 import { artFields, useArtSchema } from './art'
 import { assetFields, useAssetsSchema } from './assets'
-import {
-  assetsTrackingFields,
-  useAssetsTrackingSchema,
-} from './assetsTrackings'
+import { assetsTrackingFields, useAssetsTrackingSchema } from './assetsTracking'
 import { blogFields, useBlogSchema } from './blog'
 import { collectionFields, useCollectionSchema } from './collection'
 import { courseFields, useCourseSchema } from './course'
@@ -36,7 +33,7 @@ import {
   translatePostModelSchema,
 } from './translate'
 import { useUserSchema, userFields } from './user'
-import { userFeedbackFields, useUserFeedbackSchema } from './userFeedback'
+import { useUserFeedbackSchema, userFeedbackFields } from './userFeedback'
 import { FormFields } from '../../admin'
 
 export const useSchema = (): PartialStrapiEndpointMap<ObjectSchema<any>> => {

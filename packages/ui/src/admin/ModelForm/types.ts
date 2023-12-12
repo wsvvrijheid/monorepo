@@ -45,6 +45,7 @@ type FormSelectFields = {
   type: 'select'
   isMulti?: boolean
   endpoint: StrapiCollectionEndpoint
+  populate?: string | string[]
 }
 
 export type FormCommonFields<T extends StrapiModel> = {
@@ -108,6 +109,7 @@ export type ModelEditModalProps<T extends StrapiModel> = Omit<
 
 export type ModelSelectProps = WSelectProps<FieldValues> & {
   endpoint: StrapiCollectionEndpoint
+  populate?: string | string[]
   control: Control
   tooltip?: string
   errors: Partial<
