@@ -1,6 +1,6 @@
 import { FC } from 'react'
 
-import { Button, HStack, Heading, Stack, Text } from '@chakra-ui/react'
+import { Button, Center, HStack, Heading, Stack, Text } from '@chakra-ui/react'
 // import { useRouter } from 'next/router'
 // import { useTranslation } from 'next-i18next'
 import Link from 'next/link'
@@ -27,7 +27,7 @@ export const PresentationTemplate: FC<PresentationTemplateProps> = ({
       <Stack py={8} spacing={8} align="center">
         {presentations?.map(pr => {
           return (
-            <>
+            <Stack key={pr.id}>
               <HStack>
                 <Button as={Link} href={'https://wsvvrijheid.nl/donation'}>Donation</Button>
                 <Button as={Link} href={'https://samenvvv.nl'}>Postmaker</Button>
@@ -36,9 +36,8 @@ export const PresentationTemplate: FC<PresentationTemplateProps> = ({
               <Heading as="h1" textAlign="center">
                 {pr[`title_${locale}`]}
               </Heading>
-
-              <Text key={pr.id}>{pr[`content_${locale}`]}</Text>
-            </>
+              <Text >{pr[`content_${locale}`]}</Text>
+            </Stack>
           )
         })}
       </Stack>
