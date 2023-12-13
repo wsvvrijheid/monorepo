@@ -1,10 +1,9 @@
 import { FC } from 'react'
 
-import { Button, Center, HStack, Heading, Stack, Text } from '@chakra-ui/react'
-// import { useRouter } from 'next/router'
+import { Button, HStack, Heading, Stack } from '@chakra-ui/react'
 // import { useTranslation } from 'next-i18next'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
+// import { useRouter } from 'next/router'
 import Markdown from 'react-markdown'
 
 import { Presentation } from '@wsvvrijheid/types'
@@ -21,7 +20,7 @@ export const PresentationTemplate: FC<PresentationTemplateProps> = ({
   presentations,
 }) => {
   // const { t } = useTranslation()
-  const { locale } = useRouter()
+  // const { locale } = useRouter()
   console.log('presentation', presentations)
 
   return (
