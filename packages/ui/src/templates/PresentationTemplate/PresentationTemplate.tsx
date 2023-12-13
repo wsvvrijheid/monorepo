@@ -1,6 +1,6 @@
 import { FC } from 'react'
 
-import { Button, HStack, Heading, Stack } from '@chakra-ui/react'
+import { Button, Heading, Stack, HStack } from '@chakra-ui/react'
 // import { useTranslation } from 'next-i18next'
 import Link from 'next/link'
 // import { useRouter } from 'next/router'
@@ -21,7 +21,6 @@ export const PresentationTemplate: FC<PresentationTemplateProps> = ({
 }) => {
   // const { t } = useTranslation()
   // const { locale } = useRouter()
-  console.log('presentation', presentations)
 
   return (
     <Container maxW="container.md">
@@ -29,14 +28,6 @@ export const PresentationTemplate: FC<PresentationTemplateProps> = ({
         {presentations?.map(pr => {
           return (
             <Stack key={pr.id}>
-              <HStack>
-                <Button as={Link} href={'https://wsvvrijheid.nl/donation'}>
-                  Donation
-                </Button>
-                <Button as={Link} href={'https://samenvvv.nl'}>
-                  Postmaker
-                </Button>
-              </HStack>
               <Heading as="h1" textAlign="center">
                 {pr?.title}
               </Heading>
@@ -44,6 +35,14 @@ export const PresentationTemplate: FC<PresentationTemplateProps> = ({
             </Stack>
           )
         })}
+        <HStack>
+          <Button as={Link} href={'https://wsvvrijheid.nl/donation'}>
+            Donation
+          </Button>
+          <Button as={Link} href={'https://samenvvv.nl'}>
+            Postmaker
+          </Button>
+        </HStack>
       </Stack>
     </Container>
   )
