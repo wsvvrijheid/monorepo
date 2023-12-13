@@ -2334,21 +2334,48 @@ export interface ApiPresentationPresentation extends Schema.CollectionType {
   options: {
     draftAndPublish: true
   }
+  pluginOptions: {
+    i18n: {
+      localized: true
+    }
+  }
   attributes: {
-    title_en: Attribute.String
-    content_nl: Attribute.RichText
-    description_nl: Attribute.Text
-    date: Attribute.DateTime
-    address: Attribute.String
-    name_nl: Attribute.String
-    name_tr: Attribute.String
-    content_tr: Attribute.RichText
-    content_en: Attribute.RichText
-    name_en: Attribute.String
-    title_tr: Attribute.String
-    title_nl: Attribute.String
-    description_tr: Attribute.Text
-    description_en: Attribute.Text
+    title: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true
+        }
+      }>
+    content: Attribute.RichText &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true
+        }
+      }>
+    description: Attribute.Text &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true
+        }
+      }>
+    date: Attribute.DateTime &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false
+        }
+      }>
+    address: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false
+        }
+      }>
+    name: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true
+        }
+      }>
     createdAt: Attribute.DateTime
     updatedAt: Attribute.DateTime
     publishedAt: Attribute.DateTime
@@ -2364,6 +2391,12 @@ export interface ApiPresentationPresentation extends Schema.CollectionType {
       'admin::user'
     > &
       Attribute.Private
+    localizations: Attribute.Relation<
+      'api::presentation.presentation',
+      'oneToMany',
+      'api::presentation.presentation'
+    >
+    locale: Attribute.String
   }
 }
 

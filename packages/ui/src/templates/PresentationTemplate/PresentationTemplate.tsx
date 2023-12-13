@@ -5,6 +5,7 @@ import { Button, Center, HStack, Heading, Stack, Text } from '@chakra-ui/react'
 // import { useTranslation } from 'next-i18next'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import Markdown from 'react-markdown'
 
 import { Presentation } from '@wsvvrijheid/types'
 
@@ -21,6 +22,7 @@ export const PresentationTemplate: FC<PresentationTemplateProps> = ({
 }) => {
   // const { t } = useTranslation()
   const { locale } = useRouter()
+  console.log('presentation', presentations)
 
   return (
     <Container maxW="container.md">
@@ -29,14 +31,17 @@ export const PresentationTemplate: FC<PresentationTemplateProps> = ({
           return (
             <Stack key={pr.id}>
               <HStack>
-                <Button as={Link} href={'https://wsvvrijheid.nl/donation'}>Donation</Button>
-                <Button as={Link} href={'https://samenvvv.nl'}>Postmaker</Button>
+                <Button as={Link} href={'https://wsvvrijheid.nl/donation'}>
+                  Donation
+                </Button>
+                <Button as={Link} href={'https://samenvvv.nl'}>
+                  Postmaker
+                </Button>
               </HStack>
-
               <Heading as="h1" textAlign="center">
-                {pr[`title_${locale}`]}
+                {pr?.title}
               </Heading>
-              <Text >{pr[`content_${locale}`]}</Text>
+              <Markdown>{pr?.content}</Markdown>
             </Stack>
           )
         })}

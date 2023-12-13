@@ -10,49 +10,59 @@
   "options": {
     "draftAndPublish": true
   },
-  "pluginOptions": {},
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
   "attributes": {
-    "title_en": {
-      "type": "string"
+    "title": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     },
-    "content_nl": {
-      "type": "richtext"
+    "content": {
+      "type": "richtext",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     },
-    "description_nl": {
-      "type": "text"
+    "description": {
+      "type": "text",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     },
     "date": {
-      "type": "datetime"
+      "type": "datetime",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
     },
     "address": {
-      "type": "string"
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
     },
-    "name_nl": {
-      "type": "string"
-    },
-    "name_tr": {
-      "type": "string"
-    },
-    "content_tr": {
-      "type": "richtext"
-    },
-    "content_en": {
-      "type": "richtext"
-    },
-    "name_en": {
-      "type": "string"
-    },
-    "title_tr": {
-      "type": "string"
-    },
-    "title_nl": {
-      "type": "string"
-    },
-    "description_tr": {
-      "type": "text"
-    },
-    "description_en": {
-      "type": "text"
+    "name": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     }
   }
 }
