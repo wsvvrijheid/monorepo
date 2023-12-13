@@ -12,28 +12,29 @@ import { Layout } from '../components'
 
 type PresentationsProps = InferGetStaticPropsType<typeof getStaticProps>
 
-const PresentationPage: FC<PresentationsProps> = ({ presentations }) => {
+const PresentationPage: FC<PresentationsProps> = ({ presentationsData }) => {
   // const { t } = useTranslation()
   const title = 'Presentation'
+  const presentations = presentationsData?.data || []
 
   return (
     <Layout seo={{ title }}>
       <Hero title={title} />
-      <PresentationTemplate presentations={presentations?.data} />
+      <PresentationTemplate presentations={presentations} />
     </Layout>
   )
 }
 
 export const getStaticProps = async (context: GetStaticPropsContext) => {
   const locale = context.locale as StrapiLocale
-  const presentations = await strapiRequest<Presentation>({
+  const presentationsData = await strapiRequest<Presentation>({
     endpoint: 'presentations',
   })
 
   return {
     props: {
       ...(await ssrTranslations(locale)),
-      presentations,
+      presentationsData,
     },
     revalidate: 1,
   }
