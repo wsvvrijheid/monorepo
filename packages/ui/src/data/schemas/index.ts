@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 
 import { useRouter } from 'next/router'
 import { ObjectSchema, setLocale } from 'yup'
-import { tr, nl } from 'yup-locales'
+import { nl, tr } from 'yup-locales'
 
 import { PartialStrapiEndpointMap, StrapiModel } from '@wsvvrijheid/types'
 
@@ -33,7 +33,7 @@ import {
   translatePostModelSchema,
 } from './translate'
 import { useUserSchema, userFields } from './user'
-import { userFeedbackFields, useUserFeedbackSchema } from './userFeedback'
+import { useUserFeedbackSchema, userFeedbackFields } from './userFeedback'
 import { FormFields } from '../../admin'
 
 export const useSchema = (): PartialStrapiEndpointMap<ObjectSchema<any>> => {
