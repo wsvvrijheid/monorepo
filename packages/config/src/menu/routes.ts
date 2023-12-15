@@ -19,6 +19,7 @@ export const {
   lotus,
   music,
   platforms,
+  presentations,
   privacy,
   samenvvv,
   term,

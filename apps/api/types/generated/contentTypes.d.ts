@@ -767,6 +767,12 @@ export interface ApiActivityActivity extends Schema.CollectionType {
         }
       }> &
       Attribute.DefaultTo<'pending'>
+    place: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true
+        }
+      }>
     image: Attribute.Media &
       Attribute.Required &
       Attribute.SetPluginOptions<{
@@ -2346,6 +2352,12 @@ export interface ApiPresentationPresentation extends Schema.CollectionType {
           localized: true
         }
       }>
+    slug: Attribute.UID<'api::presentation.presentation', 'title'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true
+        }
+      }>
     content: Attribute.RichText &
       Attribute.SetPluginOptions<{
         i18n: {
@@ -2370,7 +2382,25 @@ export interface ApiPresentationPresentation extends Schema.CollectionType {
           localized: false
         }
       }>
-    name: Attribute.String &
+    place: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true
+        }
+      }>
+    flow: Attribute.Component<'flow.flow', true> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true
+        }
+      }>
+    images: Attribute.Media &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true
+        }
+      }>
+    image: Attribute.Media &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true

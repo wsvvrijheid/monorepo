@@ -7,12 +7,13 @@ import { serialize } from 'next-mdx-remote/serialize'
 
 import { SITE_URL } from '@wsvvrijheid/config'
 import { strapiRequest } from '@wsvvrijheid/lib'
+import { getModelStaticPaths } from '@wsvvrijheid/services'
 import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import { Presentation, StrapiLocale } from '@wsvvrijheid/types'
 import { Container, Markdown, ShareButtons, WImage } from '@wsvvrijheid/ui'
 import { getLocalizedSlugs } from '@wsvvrijheid/utils'
 
-import { Layout } from '../components/index'
+import { Layout } from '../../components/index'
 
 type PresentationDetailPageProps = InferGetStaticPropsType<
   typeof getStaticProps
@@ -52,13 +53,18 @@ const PresentationDetailPage: FC<PresentationDetailPageProps> = ({
 }
 export default PresentationDetailPage
 
+export const getStaticPaths = async () => {
+  return await getModelStaticPaths('presentations')
+}
+
 export const getStaticProps = async (context: GetStaticPropsContext) => {
   const locale = context.locale as StrapiLocale
+  const slug = context.params?.['slug'] as string
 
   const presentationData = await strapiRequest<Presentation>({
     endpoint: 'presentations',
+    filters: { slug: { $eq: slug } },
     locale,
-    sort: ['date:desc'],
   })
 
   if (!presentationData?.data?.length) return { notFound: true }
