@@ -9,6 +9,7 @@ type SiteRouteKey =
   | 'about'
   | 'contact'
   | 'donation'
+  | 'dashboard'
   | 'foundation'
 
 type EndpointRouteKey =
@@ -127,6 +128,12 @@ export const ROUTES: Record<RouteKey, MenuType> = {
     en: 'Donation',
     nl: 'Donatie',
     tr: 'Bağış',
+  },
+  dashboard: {
+    link: 'https://dashboard.wsvvrijheid.nl',
+    en: 'Dashboard',
+    nl: 'Dashboard',
+    tr: 'Kontrol Paneli',
   },
   term: {
     link: '/terms',

@@ -1,6 +1,6 @@
-import { FC } from "react"
+import { FC } from 'react'
 
-import { HStack,Text } from "@chakra-ui/react"
+import { HStack, Text } from '@chakra-ui/react'
 
 interface DetailsCard {
   label: string | null

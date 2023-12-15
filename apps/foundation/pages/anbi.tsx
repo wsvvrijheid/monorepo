@@ -1,13 +1,6 @@
 import { FC } from 'react'
 
-import {
-  Box,
-  Divider,
-  HStack,
-  Heading,
-  VStack,
-  Wrap,
-} from '@chakra-ui/react'
+import { Box, Divider, HStack, Heading, VStack, Wrap } from '@chakra-ui/react'
 import { GetStaticPropsContext } from 'next'
 import { useTranslation } from 'next-i18next'
 import { NextSeoProps } from 'next-seo'
@@ -17,8 +10,12 @@ import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import { Foundation, StrapiLocale } from '@wsvvrijheid/types'
 import { Container, Hero } from '@wsvvrijheid/ui'
 
-import { DirectorsCard, DocumentCard, FoundationDetailsCard, Layout } from '../components'
-
+import {
+  DirectorsCard,
+  DocumentCard,
+  FoundationDetailsCard,
+  Layout,
+} from '../components'
 
 interface AnbiPageProps {
   seo: NextSeoProps
@@ -62,19 +59,20 @@ const AnbiPage: FC<AnbiPageProps> = ({ seo, foundationsData, title }) => {
                     textAlign="center"
                     fontWeight={900}
                   >
-                    Directors
+                    {t('wsvvrijheid.management')}
                   </Heading>
                   <HStack spacing={4} m={8}>
                     <DirectorsCard
-                      label={'voorzitter'}
+                      label={t('wsvvrijheid.chairman')}
                       value={foundation?.charman?.name}
                     />
                     <DirectorsCard
-                      label={'Secretaris'}
+                      label={t('wsvvrijheid.secretary')}
                       value={foundation?.secretary?.name}
                     />
+
                     <DirectorsCard
-                      label={'Penningmeester'}
+                      label={t('wsvvrijheid.treasurer')}
                       value={foundation?.accountant?.name}
                     />
                   </HStack>
@@ -83,15 +81,15 @@ const AnbiPage: FC<AnbiPageProps> = ({ seo, foundationsData, title }) => {
                 <HStack align={{ base: 'center', lg: 'start' }}>
                   <Wrap spacing={4} m={4}>
                     <DocumentCard
-                      label={'Beleidplan'}
+                      label={t('wsvvrijheid.policy-plan')}
                       url={foundation?.policy_plan?.url}
                     />
                     <DocumentCard
-                      label={' Inhoudelijk & financieel Jaarverslag'}
+                      label={t('wsvvrijheid.financial_report')}
                       url={foundation?.substantive_financial_annual_report?.url}
                     />
                     <DocumentCard
-                      label={'Beloningsbeid'}
+                      label={t('wsvvrijheid.remuneration_policy')}
                       url={foundation?.remuneration_policy?.url}
                     />
                   </Wrap>
@@ -124,10 +122,3 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
     revalidate: 1,
   }
 }
-
-
-
-
-
-
-

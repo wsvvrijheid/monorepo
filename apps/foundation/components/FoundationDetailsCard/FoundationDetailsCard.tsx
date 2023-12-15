@@ -1,10 +1,11 @@
-import { FC } from "react"
+import { FC } from 'react'
 
-import { Stack, HStack, VStack } from "@chakra-ui/react"
+import { Stack, HStack, VStack } from '@chakra-ui/react'
+import { useTranslation } from 'react-i18next'
 
-import { Foundation } from "@wsvvrijheid/types"
+import { Foundation } from '@wsvvrijheid/types'
 
-import { DetailsCard } from "./DetailsCard"
+import { DetailsCard } from './DetailsCard'
 
 interface FoundationDetailsCard {
   foundation: Foundation
@@ -12,6 +13,8 @@ interface FoundationDetailsCard {
 export const FoundationDetailsCard: FC<FoundationDetailsCard> = ({
   foundation,
 }) => {
+    const { t } = useTranslation()
+
   return (
     <Stack
       direction={{ base: 'column', lg: 'row' }}
@@ -23,9 +26,9 @@ export const FoundationDetailsCard: FC<FoundationDetailsCard> = ({
       shadow="base"
     >
       <HStack align={{ base: 'center', lg: 'start' }}>
-        <DetailsCard label={'Adres'} value={foundation?.contact?.address} />
+        <DetailsCard label={t('address')} value={foundation?.contact?.address} />
         <VStack direction={{ base: 'column', lg: 'row' }}>
-          <DetailsCard label={'Email'} value={foundation?.email} />
+          <DetailsCard label={t('email')} value={foundation?.email} />
           <DetailsCard label={'Website'} value={foundation?.contact?.website} />
         </VStack>
 

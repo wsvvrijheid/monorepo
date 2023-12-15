@@ -311,7 +311,10 @@
   "weeksWithCount_other": "{{count}} weeks",
   "wsvvrijheid.chairman": "Chairman",
   "wsvvrijheid.management": "Management",
-  "wsvvrijheid.secretary": "Secretary: ",
+  "wsvvrijheid.secretary": "Secretary",
   "wsvvrijheid.treasurer": "Treasurer",
+  "wsvvrijheid.policy-plan": "Policy Plan",
+  "wsvvrijheid.financial_report": "Substantive & Financial Aannual Report",
+  "wsvvrijheid.remuneration_policy": "Remuneration Policy",
   "you-must-logged-in": "You must be logged in in order to be able to upload an art!"
 }

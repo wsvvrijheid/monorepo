@@ -13,6 +13,7 @@ export const {
   collections,
   contact,
   donation,
+  dashboard,
   foundation,
   hashtags,
   join,

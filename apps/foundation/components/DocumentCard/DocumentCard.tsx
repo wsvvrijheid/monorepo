@@ -1,7 +1,7 @@
-import { FC } from "react"
+import { FC } from 'react'
 
-import { HStack, VStack ,Text} from "@chakra-ui/react"
-import { GrDocumentDownload } from "react-icons/gr"
+import { HStack, VStack, Text, Button, Link } from '@chakra-ui/react'
+import { GrDocumentDownload } from 'react-icons/gr'
 
 interface DocumentCard {
   label: string
@@ -15,7 +15,16 @@ export const DocumentCard: FC<DocumentCard> = ({ label, url }) => {
         <Text fontWeight={'bold'} color={'primary.500'}>
           {label}
         </Text>
-        <Text color='primary.700'>{'.............url'}</Text>
+        <Button
+          as={Link}
+          isExternal
+          variant="link"
+          color="red"
+          _hover={{ color: 'primary.100' }}
+          href={url}
+        >
+          indir
+        </Button>
       </VStack>
     </HStack>
   )
