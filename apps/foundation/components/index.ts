@@ -1,3 +1,6 @@
+export * from './DirectorsCard'
+export * from './DocumentCard'
+export * from './FoundationDetailsCard'
 export * from './HomeAbout'
 export * from './HomeHero'
 export * from './HomePlatform'

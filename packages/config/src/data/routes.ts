@@ -9,10 +9,10 @@ type SiteRouteKey =
   | 'about'
   | 'contact'
   | 'donation'
-  | 'dashboard'
   | 'foundation'
 
 type EndpointRouteKey =
+  | 'anbi'
   | 'activities'
   | 'announcements'
   | 'arts'
@@ -26,17 +26,17 @@ type EndpointRouteKey =
 export type RouteKey = EndpointRouteKey | SiteRouteKey | PlatformRouteKey
 
 export const ROUTES: Record<RouteKey, MenuType> = {
+  anbi: {
+    link: '/anbi',
+    en: 'ANBI',
+    nl: 'ANBI',
+    tr: 'ANBI',
+  },
   arts: {
     link: '/club/arts',
     en: 'Arts',
     nl: 'Kunsten',
     tr: 'Eserler',
-  },
-  dashboard: {
-    link: 'https://dashboard.wsvvrijheid.nl',
-    en: 'Dashboard',
-    nl: 'Dashboard',
-    tr: 'Kontrol Paneli',
   },
   hashtags: {
     link: '/hashtags',

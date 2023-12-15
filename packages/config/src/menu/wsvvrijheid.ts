@@ -6,7 +6,7 @@ import {
   blogs,
   club,
   contact,
-  dashboard,
+  anbi,
   donation,
   join,
   lotus,
@@ -34,7 +34,7 @@ export const wsvvrijheid = {
       en: 'Wsvvrijheid',
       nl: 'Wsvvrijheid',
       tr: 'Wsvvrijheid',
-      children: [about, contact, join],
+      children: [about, contact, join, anbi],
     },
   ],
   footerMenu: [
@@ -45,7 +45,7 @@ export const wsvvrijheid = {
       tr: platforms?.tr,
     },
     {
-      children: [about, contact, join, dashboard],
+      children: [about, contact, join],
       en: 'Foundation',
       nl: 'Stichting',
       tr: 'Vakıf',

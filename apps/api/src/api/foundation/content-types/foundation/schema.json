@@ -56,6 +56,45 @@
       "type": "component",
       "repeatable": false,
       "component": "contact.contact"
+    },
+    "KVK": {
+      "type": "string"
+    },
+    "BIC": {
+      "type": "string"
+    },
+    "RSIN": {
+      "type": "string"
+    },
+    "charman": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::profile.profile"
+    },
+    "secretary": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::profile.profile"
+    },
+    "accountant": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::profile.profile"
+    },
+    "policy_plan": {
+      "allowedTypes": ["images", "files", "videos", "audios"],
+      "type": "media",
+      "multiple": false
+    },
+    "substantive_financial_annual_report": {
+      "allowedTypes": ["images", "files", "videos", "audios"],
+      "type": "media",
+      "multiple": false
+    },
+    "remuneration_policy": {
+      "allowedTypes": ["images", "files", "videos", "audios"],
+      "type": "media",
+      "multiple": false
     }
   }
 }
