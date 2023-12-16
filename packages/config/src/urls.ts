@@ -41,6 +41,7 @@ export const endpointsWithApprovalStatus: StrapiEndpoint[] = [
   'course-applications',
   'hashtags',
   'posts',
+  'presentations',
 ]
 
 export const endpointsWithPublicationState: StrapiEndpoint[] = [
@@ -70,5 +71,6 @@ export const endpointsWithPublicationState: StrapiEndpoint[] = [
   'topic',
   // 'user-feedbacks',
   // 'profiles',
+  'presentations',
   'votes',
 ]
