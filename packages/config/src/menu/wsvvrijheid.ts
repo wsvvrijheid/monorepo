@@ -36,7 +36,7 @@ export const wsvvrijheid = {
       en: 'Foundation',
       nl: 'Stichting',
       tr: 'Vakıf',
-      children: [presentations, anbi, about, contact, join],
+      children: [anbi, about, contact, join, presentations],
     },
   ],
   footerMenu: [
