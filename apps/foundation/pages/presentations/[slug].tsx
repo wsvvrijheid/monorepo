@@ -37,7 +37,6 @@ type PresentationDetailPageProps = InferGetStaticPropsType<
 const PresentationDetailPage: FC<PresentationDetailPageProps> = ({
   seo,
   source,
-  image,
   flow,
 }) => {
   const { locale, asPath } = useRouter()
