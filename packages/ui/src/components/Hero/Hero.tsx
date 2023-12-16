@@ -86,7 +86,7 @@ export const Hero: FC<PropsWithChildren<HeroProps>> = memo(function Hero({
           {title && (
             <Heading
               color="white"
-              fontSize={{ base: '4xl', md: '5xl', lg: '6xl' }}
+              fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }}
               {...(!isFullHeight && {
                 pos: 'absolute',
                 bottom: 12,

@@ -1,15 +1,12 @@
 import { FC } from 'react'
 
-import { Box, HStack, Heading, Spinner, Stack } from '@chakra-ui/react'
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
-import { useRouter } from 'next/router'
 import { serialize } from 'next-mdx-remote/serialize'
 
-import { SITE_URL } from '@wsvvrijheid/config'
 import { strapiRequest } from '@wsvvrijheid/lib'
 import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import { Presentation, StrapiLocale } from '@wsvvrijheid/types'
-import { Container, Markdown, ShareButtons, WImage } from '@wsvvrijheid/ui'
+import { Hero, PresentationTemplate } from '@wsvvrijheid/ui'
 import { getLocalizedSlugs } from '@wsvvrijheid/utils'
 
 import { Layout } from '../components/index'
@@ -21,32 +18,17 @@ type PresentationDetailPageProps = InferGetStaticPropsType<
 const PresentationDetailPage: FC<PresentationDetailPageProps> = ({
   seo,
   source,
-  image,
+  flow,
 }) => {
-  const { locale, asPath } = useRouter()
-
-  if (!source) return <Spinner />
-
-  const URL = `${SITE_URL}/${locale}${asPath}`
-
   return (
     <Layout seo={seo}>
-      <Container maxW="container.md">
-        <Stack py={8} spacing={8}>
-          <WImage ratio="twitter" src={image} rounded="lg" />
-          <Heading textAlign="center">{seo.title}</Heading>
-          <HStack justifyContent={'end'}>
-            <ShareButtons
-              url={URL}
-              title={seo.title}
-              quote={seo?.description || ''}
-            />
-          </HStack>
-          <Box textAlign={{ base: 'left', lg: 'justify' }}>
-            <Markdown source={source} />
-          </Box>
-        </Stack>
-      </Container>
+      <Hero title={seo.title} />
+      <PresentationTemplate
+        title={seo.title}
+        description={seo.description}
+        source={source}
+        flow={flow}
+      />
     </Layout>
   )
 }
@@ -82,6 +64,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
       image,
       source,
       slugs,
+      flow: presentation.flow || [],
       ...(await ssrTranslations(locale)),
     },
     revalidate: 1,
