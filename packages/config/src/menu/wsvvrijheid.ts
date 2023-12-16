@@ -1,4 +1,5 @@
 import {
+  anbi,
   about,
   academy,
   activities,
