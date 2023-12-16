@@ -9,12 +9,11 @@ import {
   Wrap,
 } from '@chakra-ui/react'
 import { useMutation } from '@tanstack/react-query'
-import { GetStaticPropsContext } from 'next'
-import { NextSeoProps } from 'next-seo'
+import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
+import { useTranslation } from 'next-i18next'
 import { MdEmail, MdLocationOn, MdPhone } from 'react-icons/md'
 
-import { EMAIL_SENDER, socialLinks } from '@wsvvrijheid/config'
-import { PUBLIC_TOKEN } from '@wsvvrijheid/config'
+import { EMAIL_SENDER, PUBLIC_TOKEN, socialLinks } from '@wsvvrijheid/config'
 import { strapiRequest } from '@wsvvrijheid/lib'
 import { sendEmail } from '@wsvvrijheid/services'
 import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
@@ -28,15 +27,11 @@ import {
 
 import { Layout } from '../components'
 
-interface ContactProps {
-  seo: NextSeoProps
-  foundations: Foundation | []
-}
+type ContactProps = InferGetStaticPropsType<typeof getStaticProps>
 
-const Contact = ({ seo, foundations }: ContactProps): JSX.Element => {
-  console.log('in contact', foundations?.data)
+const Contact = ({ foundation }: ContactProps): JSX.Element => {
+  const { t } = useTranslation()
 
-  const newFoundation = foundations?.data || []
   const {
     isError,
     isPending,
@@ -60,7 +55,7 @@ const Contact = ({ seo, foundations }: ContactProps): JSX.Element => {
   }
 
   return (
-    <Layout seo={seo}>
+    <Layout seo={{ title: t('contact.title') }}>
       <Box minH="inherit" fontWeight={500}>
         <Container minH="inherit">
           <SimpleGrid
@@ -84,53 +79,47 @@ const Contact = ({ seo, foundations }: ContactProps): JSX.Element => {
               </Heading>
               <Divider borderColor="whiteAlpha.400" />
 
-              {newFoundation?.map(foundation => {
-                return (
-                  <Wrap spacing={4} justify="center" key={foundation?.id}>
-                    <Button
-                      as={Link}
-                      isExternal
-                      variant="link"
-                      color="primary.50"
-                      _hover={{ color: 'primary.100' }}
-                      leftIcon={
-                        <Box as={MdPhone} color="primary.50" size="20px" />
-                      }
-                      href={`tel:${foundation?.contact?.phone}`}
-                    >
-                      {foundation?.contact?.phone}
-                    </Button>
+              <Wrap spacing={4} justify="center" key={foundation?.id}>
+                <Button
+                  as={Link}
+                  isExternal
+                  variant="link"
+                  color="primary.50"
+                  _hover={{ color: 'primary.100' }}
+                  leftIcon={<Box as={MdPhone} color="primary.50" size="20px" />}
+                  href={`tel:${foundation?.contact?.phone}`}
+                >
+                  {foundation?.contact?.phone}
+                </Button>
 
-                    <Button
-                      as={Link}
-                      isExternal
-                      variant="link"
-                      color="primary.50"
-                      _hover={{ color: 'primary.50' }}
-                      leftIcon={
-                        <Box as={MdEmail} color="primary.100" size="20px" />
-                      }
-                      href={`mailto:${foundation?.contact?.email}`}
-                    >
-                      {foundation?.contact?.email}
-                    </Button>
-                    <Button
-                      as={Link}
-                      isExternal
-                      variant="link"
-                      color="primary.50"
-                      _hover={{ color: 'primary.100' }}
-                      leftIcon={
-                        <Box as={MdLocationOn} color="primary.50" size="20px" />
-                      }
-                      href="https://goo.gl/maps/E9HaayQnXmphUWtN8"
-                      textAlign="left"
-                    >
-                      {foundation?.contact?.address}
-                    </Button>
-                  </Wrap>
-                )
-              })}
+                <Button
+                  as={Link}
+                  isExternal
+                  variant="link"
+                  color="primary.50"
+                  _hover={{ color: 'primary.50' }}
+                  leftIcon={
+                    <Box as={MdEmail} color="primary.100" size="20px" />
+                  }
+                  href={`mailto:${foundation?.contact?.email}`}
+                >
+                  {foundation?.contact?.email}
+                </Button>
+                <Button
+                  as={Link}
+                  isExternal
+                  variant="link"
+                  color="primary.50"
+                  _hover={{ color: 'primary.100' }}
+                  leftIcon={
+                    <Box as={MdLocationOn} color="primary.50" size="20px" />
+                  }
+                  href="https://goo.gl/maps/E9HaayQnXmphUWtN8"
+                  textAlign="left"
+                >
+                  {foundation?.contact?.address}
+                </Button>
+              </Wrap>
 
               <SocialButtons items={socialLinks.wsvvrijheid} />
             </VStack>
@@ -149,15 +138,23 @@ const Contact = ({ seo, foundations }: ContactProps): JSX.Element => {
 
 export const getStaticProps = async (context: GetStaticPropsContext) => {
   const locale = context.locale as StrapiLocale
+
   const foundations = await strapiRequest<Foundation>({
     endpoint: 'foundations',
   })
 
+  const foundation = foundations?.data?.[0]
+
+  if (!foundation) {
+    return { notFound: true }
+  }
+
   return {
     props: {
       ...(await ssrTranslations(locale)),
-      foundations,
+      foundation,
     },
+    revalidate: 1,
   }
 }
 

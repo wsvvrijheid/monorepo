@@ -65,7 +65,6 @@ export const ContactForm: FC<ContactFormProps> = ({
           type="email"
           label="Email"
           leftElement={<MdEmail color="gray.200" />}
-          helperText={t('contact.form.email-helper') as string}
           errors={errors}
           register={register}
         />
