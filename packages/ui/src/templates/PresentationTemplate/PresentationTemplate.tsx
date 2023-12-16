@@ -96,7 +96,12 @@ export const PresentationTemplate: FC<PresentationTemplateProps> = ({
                   />
                 }
               >
-                <Link isExternal href={'https://samenvvv.nl'}>
+                <Link
+                  isExternal
+                  href={
+                    'https://www.samenvvv.nl/tr/hashtags/kusatilmis-ebeveynlik'
+                  }
+                >
                   PostMaker
                 </Link>
               </Button>
@@ -116,7 +121,7 @@ export const PresentationTemplate: FC<PresentationTemplateProps> = ({
                   />
                 }
               >
-                <Link isExternal href="/donation">
+                <Link isExternal href="https://wsvvrijheid.nl/donation">
                   {t('donation.title')}
                 </Link>
               </Button>
