@@ -1,5 +1,5 @@
 import { UploadFile } from './file'
-import { StrapiBase } from './strapi'
+import { StrapiBase, StrapiEntityBase } from './strapi'
 
 export type Flow = {
   title: string
@@ -7,11 +7,7 @@ export type Flow = {
   presenter: string
 }
 
-export type PresentationBase = {
-  slug: string
-  title: string
-  description: string
-  content: string
+export type PresentationBase = StrapiEntityBase & {
   date: string
   address: string
   place: string
@@ -21,6 +17,7 @@ export type PresentationBase = {
 export type PresentationRelation = {
   image: UploadFile
   images: UploadFile[]
+  localizations?: Array<Presentation>
 }
 
 export type Presentation = StrapiBase & PresentationBase & PresentationRelation

@@ -2406,6 +2406,12 @@ export interface ApiPresentationPresentation extends Schema.CollectionType {
           localized: true
         }
       }>
+    approvalStatus: Attribute.Enumeration<['pending', 'approved', 'rejected']> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true
+        }
+      }>
     createdAt: Attribute.DateTime
     updatedAt: Attribute.DateTime
     publishedAt: Attribute.DateTime
