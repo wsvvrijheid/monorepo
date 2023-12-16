@@ -5,14 +5,11 @@ import {
   Heading,
   Link,
   SimpleGrid,
-  Stack,
-  Text,
   VStack,
   Wrap,
 } from '@chakra-ui/react'
 import { useMutation } from '@tanstack/react-query'
 import { GetStaticPropsContext } from 'next'
-import { useTranslation } from 'next-i18next'
 import { NextSeoProps } from 'next-seo'
 import { MdEmail, MdLocationOn, MdPhone } from 'react-icons/md'
 
@@ -35,7 +32,6 @@ interface ContactProps {
 }
 
 const Contact = ({ seo }: ContactProps): JSX.Element => {
-  const { t } = useTranslation()
 
   const {
     isError,
