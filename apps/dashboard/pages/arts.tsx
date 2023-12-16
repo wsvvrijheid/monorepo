@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { MenuItem, useUpdateEffect } from '@chakra-ui/react'
 import { GetStaticPropsContext } from 'next'
 import { useRouter } from 'next/router'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'next-i18next'
 import { FaArrowDown, FaArrowUp } from 'react-icons/fa'
 
 import { useStrapiRequest } from '@wsvvrijheid/services'

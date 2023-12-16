@@ -17,6 +17,7 @@ import { UploadFile } from './file'
 import { Hashtag, HashtagCreateInput, HashtagUpdateInput } from './hashtag'
 import { StrapiLocale } from './locale'
 import { Post, PostCreateInput, PostUpdateInput } from './post'
+import { Presentation } from './presentation'
 import { RecommendedTopicCreateInput } from './recommended-topic'
 
 /**
@@ -29,6 +30,7 @@ export type StrapiTranslatableModel =
   | Competition
   | Hashtag
   | Post
+  | Presentation
 
 export type StrapiTranslatableUpdateInput =
   | ActivityUpdateInput

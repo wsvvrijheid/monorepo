@@ -1,9 +1,10 @@
 import { Image, SimpleGrid, Stack, Text } from '@chakra-ui/react'
+import { QueryClient, dehydrate } from '@tanstack/react-query'
 import { GetStaticPropsContext } from 'next'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
-import { RequestCollectionArgs } from '@wsvvrijheid/lib'
+import { RequestCollectionArgs, strapiRequest } from '@wsvvrijheid/lib'
 import { useStrapiRequest } from '@wsvvrijheid/services'
 import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import { Activity, StrapiLocale, UploadFile } from '@wsvvrijheid/types'
@@ -14,6 +15,7 @@ import {
   Hero,
   Pagination,
   useChangeParams,
+  FormattedDate,
 } from '@wsvvrijheid/ui'
 
 import { Layout } from '../../components'
@@ -22,8 +24,6 @@ const args: RequestCollectionArgs = {
   endpoint: 'activities',
   sort: ['date:desc'],
   filters: { approvalStatus: { $eq: 'approved' } },
-  populate: ['image'],
-  fields: ['title', 'description', 'slug'],
 }
 
 const Activities = () => {
@@ -40,6 +40,9 @@ const Activities = () => {
     ...args,
     locale,
     page,
+    queryOptions: {
+      queryKey: ['activities', args],
+    },
   })
 
   const { data, isLoading } = activitiesQuery
@@ -55,7 +58,7 @@ const Activities = () => {
         <>
           <Container>
             <SimpleGrid
-              columns={{ base: 1, md: 2, lg: 4 }}
+              columns={{ base: 1, md: 2, lg: 3 }}
               gap={{ base: 6, lg: 8 }}
               my={16}
             >
@@ -66,6 +69,8 @@ const Activities = () => {
                     description={activity.description || ''}
                     image={activity.image as UploadFile}
                     link={`/${locale}/activities/${activity.slug}`}
+                    date={<FormattedDate date={activity.date} />}
+                    place={activity.place}
                   />
                 </AnimatedBox>
               ))}
@@ -96,8 +101,16 @@ export default Activities
 export const getStaticProps = async (context: GetStaticPropsContext) => {
   const locale = context.locale as StrapiLocale
 
+  const queryClient = new QueryClient()
+
+  await queryClient.prefetchQuery({
+    queryKey: ['activities', args],
+    queryFn: () => strapiRequest<Activity>({ ...args, locale }),
+  })
+
   return {
     props: {
+      dehydratedState: dehydrate(queryClient),
       ...(await ssrTranslations(locale)),
     },
     revalidate: 1,

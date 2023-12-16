@@ -10,6 +10,7 @@ export type Localize<T> = Record<StrapiLocale, T>
 
 export type MenuType = {
   link?: string
+  isExternal?: boolean
   children?: MenuType[]
 } & Localize<string>
 

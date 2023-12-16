@@ -1,18 +1,13 @@
 import { FC } from 'react'
 
 import { Spinner } from '@chakra-ui/react'
-import { QueryClient, dehydrate } from '@tanstack/react-query'
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { serialize } from 'next-mdx-remote/serialize'
 
 import { strapiRequest } from '@wsvvrijheid/lib'
 import { getModelStaticPaths } from '@wsvvrijheid/services'
 import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
-import {
-  Activity,
-  StrapiCollectionResponse,
-  StrapiLocale,
-} from '@wsvvrijheid/types'
+import { Activity, StrapiLocale } from '@wsvvrijheid/types'
 import { ActivityDetail } from '@wsvvrijheid/ui'
 import { getLocalizedSlugs } from '@wsvvrijheid/utils'
 
@@ -40,24 +35,14 @@ export const getStaticPaths = async () => {
 }
 
 export const getStaticProps = async (context: GetStaticPropsContext) => {
-  const queryClient = new QueryClient()
-
   const locale = context.locale as StrapiLocale
   const slug = context.params?.['slug'] as string
 
-  await queryClient.prefetchQuery({
-    queryKey: ['activity', locale, slug],
-    queryFn: () =>
-      strapiRequest<Activity>({
-        endpoint: 'activities',
-        filters: { slug: { $eq: slug } },
-        locale,
-      }),
+  const activityData = await strapiRequest<Activity>({
+    endpoint: 'activities',
+    filters: { slug: { $eq: slug } },
+    locale,
   })
-
-  const activityData = queryClient.getQueryData<
-    StrapiCollectionResponse<Activity[]>
-  >(['activity', locale, slug])
 
   if (!activityData?.data?.length) return { notFound: true }
 
@@ -79,7 +64,6 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
       image,
       source,
       slugs,
-      dehydratedState: dehydrate(queryClient),
       ...(await ssrTranslations(locale)),
     },
     revalidate: 1,

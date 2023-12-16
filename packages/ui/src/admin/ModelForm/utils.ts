@@ -20,6 +20,7 @@ import {
   StrapiTranslatableModel,
   User,
 } from '@wsvvrijheid/types'
+import { AssetsTracking } from '@wsvvrijheid/types/src/assets-tracking'
 
 import { FormFields } from './types'
 
@@ -39,6 +40,8 @@ export const mapModelToOption = (
   const profile = model as Profile
   const role = model as unknown as Role
   const modelWithLocalizedName = model as Category
+  const asset = model as Asset
+  const assetsTracking = model as AssetsTracking
 
   const localizedName = locale
     ? modelWithLocalizedName[`name_${locale}`]
@@ -66,6 +69,16 @@ export const mapModelToOption = (
     label = localizedName
   }
 
+  // Asset
+  else if (asset.sku) {
+    label = asset.name
+  }
+
+  // Asset Tracking
+  else if (assetsTracking.fromLocation) {
+    label = `${assetsTracking?.asset?.name} - ${assetsTracking.fromLocation} > ${assetsTracking.toLocation} - ${assetsTracking.date}`
+  }
+
   return { value, label }
 }
 
@@ -77,6 +90,7 @@ export const useDefaultValues = <T extends StrapiModel>(
   const applicationModel = model as CourseApplication
   const artModel = model as Art
   const assetModel = model as Asset
+  const assetTrackingModel = model as AssetsTracking
   const courseModel = model as Course
   const hashtagModel = model as Hashtag
   const postModel = model as Post
@@ -161,6 +175,22 @@ export const useDefaultValues = <T extends StrapiModel>(
               label: person.name,
               value: person.id.toString(),
             })) || []
+          break
+
+        case 'assignedTo':
+          defaults.assignedTo = {
+            label:
+              assetTrackingModel?.assignedTo?.name ||
+              assetTrackingModel?.assignedTo?.email,
+            value: assetTrackingModel?.assignedTo?.id.toString(),
+          }
+          break
+
+        case 'asset':
+          defaults.asset = {
+            label: assetTrackingModel?.asset?.name,
+            value: assetTrackingModel?.asset?.id.toString(),
+          }
           break
 
         case 'foundation':

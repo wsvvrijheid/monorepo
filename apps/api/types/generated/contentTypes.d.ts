@@ -767,6 +767,12 @@ export interface ApiActivityActivity extends Schema.CollectionType {
         }
       }> &
       Attribute.DefaultTo<'pending'>
+    place: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true
+        }
+      }>
     image: Attribute.Media &
       Attribute.Required &
       Attribute.SetPluginOptions<{
@@ -1853,6 +1859,27 @@ export interface ApiFoundationFoundation extends Schema.CollectionType {
       'api::profile.profile'
     >
     contact: Attribute.Component<'contact.contact'>
+    KVK: Attribute.String
+    BIC: Attribute.String
+    RSIN: Attribute.String
+    chairman: Attribute.Relation<
+      'api::foundation.foundation',
+      'oneToOne',
+      'api::profile.profile'
+    >
+    secretary: Attribute.Relation<
+      'api::foundation.foundation',
+      'oneToOne',
+      'api::profile.profile'
+    >
+    accountant: Attribute.Relation<
+      'api::foundation.foundation',
+      'oneToOne',
+      'api::profile.profile'
+    >
+    policy_plan: Attribute.Media
+    substantive_financial_annual_report: Attribute.Media
+    remuneration_policy: Attribute.Media
     createdAt: Attribute.DateTime
     updatedAt: Attribute.DateTime
     createdBy: Attribute.Relation<
@@ -2318,6 +2345,113 @@ export interface ApiPostPost extends Schema.CollectionType {
       'api::post.post',
       'oneToMany',
       'api::post.post'
+    >
+    locale: Attribute.String
+  }
+}
+
+export interface ApiPresentationPresentation extends Schema.CollectionType {
+  collectionName: 'presentations'
+  info: {
+    singularName: 'presentation'
+    pluralName: 'presentations'
+    displayName: 'Presentation'
+    description: ''
+  }
+  options: {
+    draftAndPublish: true
+  }
+  pluginOptions: {
+    i18n: {
+      localized: true
+    }
+  }
+  attributes: {
+    title: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true
+        }
+      }>
+    slug: Attribute.UID<'api::presentation.presentation', 'title'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true
+        }
+      }>
+    content: Attribute.RichText &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true
+        }
+      }>
+    description: Attribute.Text &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true
+        }
+      }>
+    date: Attribute.DateTime &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false
+        }
+      }>
+    address: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false
+        }
+      }>
+    place: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true
+        }
+      }>
+    flow: Attribute.Component<'flow.flow', true> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true
+        }
+      }>
+    images: Attribute.Media &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true
+        }
+      }>
+    image: Attribute.Media &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true
+        }
+      }>
+    approvalStatus: Attribute.Enumeration<['pending', 'approved', 'rejected']> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true
+        }
+      }>
+    createdAt: Attribute.DateTime
+    updatedAt: Attribute.DateTime
+    publishedAt: Attribute.DateTime
+    createdBy: Attribute.Relation<
+      'api::presentation.presentation',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private
+    updatedBy: Attribute.Relation<
+      'api::presentation.presentation',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private
+    localizations: Attribute.Relation<
+      'api::presentation.presentation',
+      'oneToMany',
+      'api::presentation.presentation'
     >
     locale: Attribute.String
   }
@@ -3433,6 +3567,7 @@ declare module '@strapi/types' {
       'api::mention.mention': ApiMentionMention
       'api::platform.platform': ApiPlatformPlatform
       'api::post.post': ApiPostPost
+      'api::presentation.presentation': ApiPresentationPresentation
       'api::privacy.privacy': ApiPrivacyPrivacy
       'api::profile.profile': ApiProfileProfile
       'api::recommended-topic.recommended-topic': ApiRecommendedTopicRecommendedTopic

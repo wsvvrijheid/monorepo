@@ -11,7 +11,7 @@ export const FooterNav: FC<FooterNavProps> = ({ menu }) => {
 
   return (
     <>
-      {menu.map((item, i) => {
+      {menu?.map((item, i) => {
         return (
           <Stack
             key={i}
