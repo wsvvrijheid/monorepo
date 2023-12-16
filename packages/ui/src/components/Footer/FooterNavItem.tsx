@@ -7,6 +7,7 @@ import { Navigate } from '../Navigate'
 
 export const FooterNavItem: FC<FooterNavItemProps> = ({ item }) => {
   const { locale } = useRouter()
+  const isExternal = item.link?.startsWith('http')
 
   return (
     <Navigate
@@ -14,6 +15,7 @@ export const FooterNavItem: FC<FooterNavItemProps> = ({ item }) => {
       _hover={{
         color: 'primary.50',
       }}
+      {...(isExternal && { isExternal, target: '_blank' })}
       key={item.link}
       href={item.link as string}
     >

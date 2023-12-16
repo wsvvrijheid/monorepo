@@ -1,6 +1,6 @@
 import { FC } from 'react'
 
-import { Box, Divider, HStack, Heading, VStack, Wrap } from '@chakra-ui/react'
+import { Box, HStack, Heading, VStack, Wrap } from '@chakra-ui/react'
 import { GetStaticPropsContext } from 'next'
 import { useTranslation } from 'next-i18next'
 import { NextSeoProps } from 'next-seo'
@@ -25,8 +25,6 @@ interface AnbiPageProps {
 
 const AnbiPage: FC<AnbiPageProps> = ({ seo, foundationsData, title }) => {
   const { t } = useTranslation()
-
-  console.log('foundations', foundationsData?.data, 'Title:', title)
 
   const foundations = foundationsData?.data || []
 
@@ -79,7 +77,7 @@ const AnbiPage: FC<AnbiPageProps> = ({ seo, foundationsData, title }) => {
                 </VStack>
                 {/* documents */}
                 <HStack align={{ base: 'center', lg: 'start' }}>
-                  <Wrap spacing={4} m={4}>
+                  <Wrap spacing={4} m={4} p={4}>
                     <DocumentCard
                       label={t('wsvvrijheid.policy-plan')}
                       url={foundation?.policy_plan?.url}
@@ -110,7 +108,6 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
 
   const foundationsData = await strapiRequest<Foundation>({
     endpoint: 'foundations',
-    //  populate: ['charman', 'secretary', 'accountant','profiles'],
   })
 
   return {

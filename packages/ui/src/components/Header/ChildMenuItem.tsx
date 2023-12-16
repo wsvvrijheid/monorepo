@@ -10,12 +10,14 @@ export const ChildMenuItem: FC<MenuTypeItemProps> = ({ item, isDark }) => {
   const { asPath, locale } = useRouter()
   const isScrolled = useScroll()
   const isActive = item.link !== '/' && asPath.includes(item.link as string)
+  const isExternal = item.link?.startsWith('http')
 
   return (
     <Navigate
       href={item.link as string}
       fontWeight={600}
       p={2}
+      {...(isExternal && { isExternal, target: '_blank' })}
       color={
         isActive
           ? isDark

@@ -13,7 +13,7 @@ interface FoundationDetailsCard {
 export const FoundationDetailsCard: FC<FoundationDetailsCard> = ({
   foundation,
 }) => {
-    const { t } = useTranslation()
+  const { t } = useTranslation()
 
   return (
     <Stack
@@ -26,7 +26,10 @@ export const FoundationDetailsCard: FC<FoundationDetailsCard> = ({
       shadow="base"
     >
       <HStack align={{ base: 'center', lg: 'start' }}>
-        <DetailsCard label={t('address')} value={foundation?.contact?.address} />
+        <DetailsCard
+          label={t('address')}
+          value={foundation?.contact?.address}
+        />
         <VStack direction={{ base: 'column', lg: 'row' }}>
           <DetailsCard label={t('email')} value={foundation?.email} />
           <DetailsCard label={'Website'} value={foundation?.contact?.website} />

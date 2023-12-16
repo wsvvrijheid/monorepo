@@ -1,6 +1,7 @@
 import { FC } from 'react'
 
 import { HStack, VStack, Text, Button, Link } from '@chakra-ui/react'
+import { useTranslation } from 'react-i18next'
 import { GrDocumentDownload } from 'react-icons/gr'
 
 interface DocumentCard {
@@ -8,10 +9,12 @@ interface DocumentCard {
   url: string
 }
 export const DocumentCard: FC<DocumentCard> = ({ label, url }) => {
+  const { t } = useTranslation()
+
   return (
-    <HStack>
+    <HStack spacing={4} pr={{ base: 4, lg: 8 }}>
       <GrDocumentDownload />
-      <VStack>
+      <VStack alignItems={'start'}>
         <Text fontWeight={'bold'} color={'primary.500'}>
           {label}
         </Text>
@@ -23,7 +26,7 @@ export const DocumentCard: FC<DocumentCard> = ({ label, url }) => {
           _hover={{ color: 'primary.100' }}
           href={url}
         >
-          indir
+          {t('dowload')}
         </Button>
       </VStack>
     </HStack>
