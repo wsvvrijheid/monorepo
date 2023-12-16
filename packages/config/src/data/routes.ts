@@ -40,13 +40,6 @@ export const ROUTES: Record<RouteKey, MenuType> = {
     nl: 'Kunsten',
     tr: 'Eserler',
   },
-  dashboard: {
-    link: 'https://dashboard.wsvvrijheid.nl',
-    en: 'Dashboard',
-    nl: 'Dashboard',
-    tr: 'Kontrol Paneli',
-    isExternal: true,
-  },
   hashtags: {
     link: '/hashtags',
     en: 'Hashtags',
