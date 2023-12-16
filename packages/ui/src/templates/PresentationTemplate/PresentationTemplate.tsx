@@ -96,7 +96,12 @@ export const PresentationTemplate: FC<PresentationTemplateProps> = ({
                   />
                 }
               >
-                <Link isExternal href={'https://samenvvv.nl'}>
+                <Link
+                  isExternal
+                  href={
+                    'https://www.samenvvv.nl/tr/hashtags/kusatilmis-ebeveynlik'
+                  }
+                >
                   PostMaker
                 </Link>
               </Button>
