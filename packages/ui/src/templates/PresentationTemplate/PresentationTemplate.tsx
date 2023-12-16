@@ -80,52 +80,50 @@ export const PresentationTemplate: FC<PresentationTemplateProps> = ({
             </Stack>
           )}
           <Stack spacing={4} order={{ base: 1, md: 2 }}>
-            <Center aspectRatio={{ base: 3, md: 2 }}>
-              <Button
-                boxSize={'full'}
-                colorScheme={'samen'}
-                variant={'outline'}
-                fontSize={'2xl'}
-                flexDir={'column'}
-                borderWidth={3}
-                leftIcon={
-                  <Box
-                    as={FaXTwitter}
-                    mb={4}
-                    fontSize={{ base: '1.5em', lg: '2em' }}
-                  />
-                }
-              >
-                <Link
-                  isExternal
-                  href={
-                    'https://www.samenvvv.nl/tr/hashtags/kusatilmis-ebeveynlik'
+            <Link
+              isExternal
+              href={'https://www.samenvvv.nl/tr/hashtags/kusatilmis-ebeveynlik'}
+            >
+              <Center aspectRatio={{ base: 3, md: 2 }}>
+                <Button
+                  boxSize={'full'}
+                  colorScheme={'samen'}
+                  variant={'outline'}
+                  fontSize={'2xl'}
+                  flexDir={'column'}
+                  borderWidth={3}
+                  leftIcon={
+                    <Box
+                      as={FaXTwitter}
+                      mb={4}
+                      fontSize={{ base: '1.5em', lg: '2em' }}
+                    />
                   }
                 >
                   PostMaker
-                </Link>
-              </Button>
-            </Center>
-            <Center aspectRatio={{ base: 3, md: 2 }}>
-              <Button
-                boxSize={'full'}
-                variant={'outline'}
-                fontSize={'2xl'}
-                flexDir={'column'}
-                borderWidth={3}
-                leftIcon={
-                  <Box
-                    as={FaDonate}
-                    mb={4}
-                    fontSize={{ base: '1.5em', lg: '2em' }}
-                  />
-                }
-              >
-                <Link isExternal href="https://wsvvrijheid.nl/donation">
+                </Button>
+              </Center>
+            </Link>
+            <Link isExternal href="https://wsvvrijheid.nl/donation">
+              <Center aspectRatio={{ base: 3, md: 2 }}>
+                <Button
+                  boxSize={'full'}
+                  variant={'outline'}
+                  fontSize={'2xl'}
+                  flexDir={'column'}
+                  borderWidth={3}
+                  leftIcon={
+                    <Box
+                      as={FaDonate}
+                      mb={4}
+                      fontSize={{ base: '1.5em', lg: '2em' }}
+                    />
+                  }
+                >
                   {t('donation.title')}
-                </Link>
-              </Button>
-            </Center>
+                </Button>
+              </Center>
+            </Link>
           </Stack>
         </SimpleGrid>
         {/* TODO: Add images gallery */}
