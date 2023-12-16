@@ -116,7 +116,7 @@ export const PresentationTemplate: FC<PresentationTemplateProps> = ({
                   />
                 }
               >
-                <Link isExternal href="/donations">
+                <Link isExternal href="/donation">
                   {t('donation.title')}
                 </Link>
               </Button>
