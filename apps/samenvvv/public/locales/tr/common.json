@@ -105,6 +105,7 @@
   "donation.one-time": "Tek Seferlik Bağış",
   "donation.title": "Bağış",
   "donations": "Bağışlar",
+  "dowload": "İndir",
   "edit": "Düzenle",
   "editor": "Editör",
   "education-language": "Eğitim Dili",
@@ -314,5 +315,8 @@
   "wsvvrijheid.management": "Yönetim",
   "wsvvrijheid.secretary": "Sekreter",
   "wsvvrijheid.treasurer": "Sayman",
+  "wsvvrijheid.policy-plan": "Strateji Planı",
+  "wsvvrijheid.financial_report": "İçerik&Finansal Faaliyet Raporu",
+  "wsvvrijheid.remuneration_policy": "Ücretlendirme Politikası",
   "you-must-logged-in": "Eser yükleyebilmek için giriş yapmalısınız!"
 }

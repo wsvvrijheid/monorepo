@@ -5,11 +5,14 @@ import { Localize } from '@wsvvrijheid/types'
 export const kunsthalte: Localize<NextSeoProps> = {
   en: {
     title: 'Kunsthalte',
+    titleTemplate: '%s - Art Station',
   },
   nl: {
     title: 'Kunsthalte',
+    titleTemplate: '%s - Kunsthalte',
   },
   tr: {
     title: 'Kunsthalte',
+    titleTemplate: '%s - Sanat Durağı',
   },
 }

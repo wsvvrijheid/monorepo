@@ -1,4 +1,5 @@
 import {
+  anbi,
   about,
   academy,
   activities,
@@ -6,8 +7,8 @@ import {
   blogs,
   club,
   contact,
-  dashboard,
   donation,
+  dashboard,
   join,
   lotus,
   platforms,
@@ -35,7 +36,7 @@ export const wsvvrijheid = {
       en: 'Foundation',
       nl: 'Stichting',
       tr: 'Vakıf',
-      children: [presentations, about, contact, join],
+      children: [anbi, about, contact, join, presentations],
     },
   ],
   footerMenu: [
@@ -46,7 +47,7 @@ export const wsvvrijheid = {
       tr: platforms?.tr,
     },
     {
-      children: [about, contact, join, dashboard],
+      children: [about, contact, join, anbi, dashboard],
       en: 'Foundation',
       nl: 'Stichting',
       tr: 'Vakıf',

@@ -1859,6 +1859,27 @@ export interface ApiFoundationFoundation extends Schema.CollectionType {
       'api::profile.profile'
     >
     contact: Attribute.Component<'contact.contact'>
+    KVK: Attribute.String
+    BIC: Attribute.String
+    RSIN: Attribute.String
+    chairman: Attribute.Relation<
+      'api::foundation.foundation',
+      'oneToOne',
+      'api::profile.profile'
+    >
+    secretary: Attribute.Relation<
+      'api::foundation.foundation',
+      'oneToOne',
+      'api::profile.profile'
+    >
+    accountant: Attribute.Relation<
+      'api::foundation.foundation',
+      'oneToOne',
+      'api::profile.profile'
+    >
+    policy_plan: Attribute.Media
+    substantive_financial_annual_report: Attribute.Media
+    remuneration_policy: Attribute.Media
     createdAt: Attribute.DateTime
     updatedAt: Attribute.DateTime
     createdBy: Attribute.Relation<

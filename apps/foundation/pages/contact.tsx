@@ -5,22 +5,20 @@ import {
   Heading,
   Link,
   SimpleGrid,
-  Stack,
-  Text,
   VStack,
   Wrap,
 } from '@chakra-ui/react'
 import { useMutation } from '@tanstack/react-query'
 import { GetStaticPropsContext } from 'next'
-import { useTranslation } from 'next-i18next'
 import { NextSeoProps } from 'next-seo'
 import { MdEmail, MdLocationOn, MdPhone } from 'react-icons/md'
 
 import { EMAIL_SENDER, socialLinks } from '@wsvvrijheid/config'
 import { PUBLIC_TOKEN } from '@wsvvrijheid/config'
+import { strapiRequest } from '@wsvvrijheid/lib'
 import { sendEmail } from '@wsvvrijheid/services'
 import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
-import { EmailCreateInput, StrapiLocale } from '@wsvvrijheid/types'
+import { EmailCreateInput, Foundation, StrapiLocale } from '@wsvvrijheid/types'
 import {
   ContactForm,
   ContactFormFieldValues,
@@ -32,11 +30,13 @@ import { Layout } from '../components'
 
 interface ContactProps {
   seo: NextSeoProps
+  foundations: Foundation | []
 }
 
-const Contact = ({ seo }: ContactProps): JSX.Element => {
-  const { t } = useTranslation()
+const Contact = ({ seo, foundations }: ContactProps): JSX.Element => {
+  console.log('in contact', foundations?.data)
 
+  const newFoundation = foundations?.data || []
   const {
     isError,
     isPending,
@@ -84,73 +84,56 @@ const Contact = ({ seo }: ContactProps): JSX.Element => {
               </Heading>
               <Divider borderColor="whiteAlpha.400" />
 
-              <Wrap spacing={4} justify="center">
-                <Button
-                  as={Link}
-                  isExternal
-                  variant="link"
-                  color="primary.50"
-                  _hover={{ color: 'primary.100' }}
-                  leftIcon={<Box as={MdPhone} color="primary.50" size="20px" />}
-                  href="tel:+31685221308"
-                >
-                  +31-6 85221308
-                </Button>
-                <Button
-                  as={Link}
-                  isExternal
-                  variant="link"
-                  color="primary.50"
-                  _hover={{ color: 'primary.50' }}
-                  leftIcon={
-                    <Box as={MdEmail} color="primary.100" size="20px" />
-                  }
-                  href="mailto:info@wsvvrijheid.nl"
-                >
-                  info@wsvvrijheid.nl
-                </Button>
-                <Button
-                  as={Link}
-                  isExternal
-                  variant="link"
-                  color="primary.50"
-                  _hover={{ color: 'primary.100' }}
-                  leftIcon={
-                    <Box as={MdLocationOn} color="primary.50" size="20px" />
-                  }
-                  href="https://goo.gl/maps/E9HaayQnXmphUWtN8"
-                  textAlign="left"
-                >
-                  Tandersplein 1, 3027 CN, Rotterdam
-                </Button>
-              </Wrap>
+              {newFoundation?.map(foundation => {
+                return (
+                  <Wrap spacing={4} justify="center" key={foundation?.id}>
+                    <Button
+                      as={Link}
+                      isExternal
+                      variant="link"
+                      color="primary.50"
+                      _hover={{ color: 'primary.100' }}
+                      leftIcon={
+                        <Box as={MdPhone} color="primary.50" size="20px" />
+                      }
+                      href={`tel:${foundation?.contact?.phone}`}
+                    >
+                      {foundation?.contact?.phone}
+                    </Button>
+
+                    <Button
+                      as={Link}
+                      isExternal
+                      variant="link"
+                      color="primary.50"
+                      _hover={{ color: 'primary.50' }}
+                      leftIcon={
+                        <Box as={MdEmail} color="primary.100" size="20px" />
+                      }
+                      href={`mailto:${foundation?.contact?.email}`}
+                    >
+                      {foundation?.contact?.email}
+                    </Button>
+                    <Button
+                      as={Link}
+                      isExternal
+                      variant="link"
+                      color="primary.50"
+                      _hover={{ color: 'primary.100' }}
+                      leftIcon={
+                        <Box as={MdLocationOn} color="primary.50" size="20px" />
+                      }
+                      href="https://goo.gl/maps/E9HaayQnXmphUWtN8"
+                      textAlign="left"
+                    >
+                      {foundation?.contact?.address}
+                    </Button>
+                  </Wrap>
+                )
+              })}
 
               <SocialButtons items={socialLinks.wsvvrijheid} />
-
-              <Stack w="full" spacing={4}>
-                <Stack w="full">
-                  <Text color="primary.50" fontWeight={600}>
-                    {t('wsvvrijheid.management')}
-                  </Text>
-                  <Wrap justify="space-around" spacing={4}>
-                    {/* <Box>
-                      <Text fontSize="sm">{t('wsvvrijheid.chairman')}</Text>
-                      <Text>Sümeyye Ateş</Text>
-                    </Box> */}
-                    <Box>
-                      <Text fontSize="sm">{t('wsvvrijheid.chairman')}</Text>
-                      <Text>Ahmet Nurettin Kara</Text>
-                    </Box>
-                  </Wrap>
-                </Stack>
-                <Divider borderColor="whiteAlpha.400" />
-                <Wrap justify="space-around" fontSize="sm" textAlign="left">
-                  <Text>KVK: 85680621</Text>
-                  <Text>RSIN: 863705571 </Text>
-                </Wrap>
-              </Stack>
             </VStack>
-
             <ContactForm
               onSubmitHandler={handleSubmit}
               isLoading={isPending}
@@ -166,10 +149,14 @@ const Contact = ({ seo }: ContactProps): JSX.Element => {
 
 export const getStaticProps = async (context: GetStaticPropsContext) => {
   const locale = context.locale as StrapiLocale
+  const foundations = await strapiRequest<Foundation>({
+    endpoint: 'foundations',
+  })
 
   return {
     props: {
       ...(await ssrTranslations(locale)),
+      foundations,
     },
   }
 }

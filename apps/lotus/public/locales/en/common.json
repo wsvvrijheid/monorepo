@@ -25,7 +25,7 @@
   "approved": "Approved",
   "approvedArts": "Approved Arts",
   "approver": "Approver",
-  "art-stop": "Art Stop",
+  "art-stop": "Art Station",
   "art.collections": "Art Collections",
   "art.create.success.description": "Your art updated successfully. Your art will be listed in club page after being approved by editor. You can see your pending arts in your",
   "art.create.success.link": "Go to my profile",
@@ -106,6 +106,7 @@
   "donation.one-time": "Donate One Time",
   "donation.title": "Donate",
   "donations": "Donations",
+  "dowload": "Dowload",
   "edit": "Edit",
   "editor": "Editor",
   "education-language": "Language",
@@ -313,7 +314,10 @@
   "weeksWithCount_other": "{{count}} weeks",
   "wsvvrijheid.chairman": "Chairman",
   "wsvvrijheid.management": "Management",
-  "wsvvrijheid.secretary": "Secretary: ",
+  "wsvvrijheid.secretary": "Secretary",
   "wsvvrijheid.treasurer": "Treasurer",
+  "wsvvrijheid.policy-plan": "Policy Plan",
+  "wsvvrijheid.financial_report": "Substantive & Financial Aannual Report",
+  "wsvvrijheid.remuneration_policy": "Remuneration Policy",
   "you-must-logged-in": "You must be logged in in order to be able to upload an art!"
 }

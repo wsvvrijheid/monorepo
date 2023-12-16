@@ -106,6 +106,7 @@
   "donation.one-time": "Eenmalig Doneren",
   "donation.title": "Donatie",
   "donations": "Donaties",
+  "dowload": "downloaden",
   "edit": "Bewerken",
   "editor": "Redacteur",
   "education-language": "Onderwijs taal",
@@ -313,5 +314,8 @@
   "wsvvrijheid.management": "Bestuur",
   "wsvvrijheid.secretary": "Secretaris",
   "wsvvrijheid.treasurer": "Penningmeester",
+  "wsvvrijheid.policy-plan": "Beleidplan",
+  "wsvvrijheid.financial_report": "Inhoudelijk & financieel Jaarverslag",
+  "wsvvrijheid.remuneration_policy": "Beloningsbeid",
   "you-must-logged-in": "Je moet ingelogd zijn om een kunstwerk te kunnen uploaden!"
 }
