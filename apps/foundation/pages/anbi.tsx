@@ -1,100 +1,114 @@
 import { FC } from 'react'
 
-import { Box, HStack, Heading, VStack, Wrap } from '@chakra-ui/react'
-import { GetStaticPropsContext } from 'next'
+import {
+  Box,
+  Button,
+  Heading,
+  Link,
+  SimpleGrid,
+  Stack,
+  Wrap,
+} from '@chakra-ui/react'
+import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { useTranslation } from 'next-i18next'
-import { NextSeoProps } from 'next-seo'
+import { GrDocumentDownload } from 'react-icons/gr'
 
 import { strapiRequest } from '@wsvvrijheid/lib'
 import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import { Foundation, StrapiLocale } from '@wsvvrijheid/types'
 import { Container, Hero } from '@wsvvrijheid/ui'
 
-import {
-  DirectorsCard,
-  DocumentCard,
-  FoundationDetailsCard,
-  Layout,
-} from '../components'
+import { DirectorsCard, FoundationDetails, Layout } from '../components'
 
-interface AnbiPageProps {
-  seo: NextSeoProps
-  foundationsData: Foundation[]
-  title: string
-}
+type AnbiPageProps = InferGetStaticPropsType<typeof getStaticProps>
 
-const AnbiPage: FC<AnbiPageProps> = ({ seo, foundationsData, title }) => {
+const AnbiPage: FC<AnbiPageProps> = ({ foundation }) => {
   const { t } = useTranslation()
 
-  const foundations = foundationsData?.data || []
+  const title = 'ANBI'
 
   return (
-    <Layout seo={seo} isDark>
+    <Layout seo={{ title }} isDark>
       <Hero title={title} />
       <Box minH="inherit" fontWeight={500}>
-        <Container minH="inherit">
-          {foundations?.map(foundation => {
-            return (
-              <VStack
-                key={foundation?.id}
-                p={{ base: 8, lg: 12 }}
-                align={{ base: 'center', lg: 'start' }}
+        <Container minH="inherit" py={{ base: 8, lg: 16 }}>
+          <Stack spacing={16} textAlign={'center'}>
+            {/*  foundation details*/}
+            <Stack spacing={4}>
+              <Heading as="h3" size="lg" fontWeight={700}>
+                {foundation?.name}
+              </Heading>
+
+              <FoundationDetails foundation={foundation} />
+            </Stack>
+
+            {/* directors */}
+            <Stack spacing={4}>
+              <Heading as="h3" size="lg" fontWeight={700}>
+                {t('wsvvrijheid.management')}
+              </Heading>
+              <SimpleGrid gap={4} columns={{ base: 1, lg: 3 }} w={'full'}>
+                {foundation?.chairman?.name && (
+                  <DirectorsCard
+                    title={t('wsvvrijheid.chairman')}
+                    name={foundation?.chairman?.name}
+                  />
+                )}
+                {foundation?.secretary?.name && (
+                  <DirectorsCard
+                    title={t('wsvvrijheid.secretary')}
+                    name={foundation?.secretary?.name}
+                  />
+                )}
+
+                {foundation?.accountant?.name && (
+                  <DirectorsCard
+                    title={t('wsvvrijheid.treasurer')}
+                    name={foundation?.accountant?.name}
+                  />
+                )}
+              </SimpleGrid>
+            </Stack>
+            {/* documents */}
+
+            <Wrap spacing={4} justify={'center'}>
+              <Button
+                as={Link}
+                href={foundation?.policy_plan?.url}
+                rightIcon={<GrDocumentDownload />}
+                colorScheme={'blackAlpha'}
+                variant={'ghost'}
+                color={'initial'}
+                isExternal
               >
-                {/*  foundation details*/}
-                <Heading as="h3" size="lg" textAlign="center" fontWeight={900}>
-                  {foundation?.name}
-                </Heading>
+                {t('wsvvrijheid.policy-plan')}
+              </Button>
 
-                <HStack p={{ base: 8, lg: 12 }}>
-                  <FoundationDetailsCard foundation={foundation} />
-                </HStack>
+              <Button
+                as={Link}
+                href={foundation?.substantive_financial_annual_report?.url}
+                rightIcon={<GrDocumentDownload />}
+                colorScheme={'blackAlpha'}
+                variant={'ghost'}
+                color={'initial'}
+                isExternal
+              >
+                {t('wsvvrijheid.financial_report')}
+              </Button>
 
-                {/* directors */}
-                <VStack align={{ base: 'center', lg: 'start' }}>
-                  <Heading
-                    as="h3"
-                    size="lg"
-                    textAlign="center"
-                    fontWeight={900}
-                  >
-                    {t('wsvvrijheid.management')}
-                  </Heading>
-                  <HStack spacing={4} m={8}>
-                    <DirectorsCard
-                      label={t('wsvvrijheid.chairman')}
-                      value={foundation?.charman?.name}
-                    />
-                    <DirectorsCard
-                      label={t('wsvvrijheid.secretary')}
-                      value={foundation?.secretary?.name}
-                    />
-
-                    <DirectorsCard
-                      label={t('wsvvrijheid.treasurer')}
-                      value={foundation?.accountant?.name}
-                    />
-                  </HStack>
-                </VStack>
-                {/* documents */}
-                <HStack align={{ base: 'center', lg: 'start' }}>
-                  <Wrap spacing={4} m={4} p={4}>
-                    <DocumentCard
-                      label={t('wsvvrijheid.policy-plan')}
-                      url={foundation?.policy_plan?.url}
-                    />
-                    <DocumentCard
-                      label={t('wsvvrijheid.financial_report')}
-                      url={foundation?.substantive_financial_annual_report?.url}
-                    />
-                    <DocumentCard
-                      label={t('wsvvrijheid.remuneration_policy')}
-                      url={foundation?.remuneration_policy?.url}
-                    />
-                  </Wrap>
-                </HStack>
-              </VStack>
-            )
-          })}
+              <Button
+                as={Link}
+                href={foundation?.remuneration_policy?.url}
+                rightIcon={<GrDocumentDownload />}
+                colorScheme={'blackAlpha'}
+                variant={'ghost'}
+                color={'initial'}
+                isExternal
+              >
+                {t('wsvvrijheid.remuneration_policy')}
+              </Button>
+            </Wrap>
+          </Stack>
         </Container>
       </Box>
     </Layout>
@@ -110,11 +124,14 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
     endpoint: 'foundations',
   })
 
+  const foundation = foundationsData?.data?.[0]
+
+  if (!foundation) return { notFound: true }
+
   return {
     props: {
       ...(await ssrTranslations(locale)),
-      foundationsData,
-      title: 'ANBI',
+      foundation,
     },
     revalidate: 1,
   }

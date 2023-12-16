@@ -23,7 +23,7 @@ type FoundationBase = {
 
 type FoundationRelation = {
   volunteers?: Profile[]
-  charman?: Profile
+  chairman?: Profile
   secretary?: Profile
   accountant?: Profile
   platforms?: Platform[]
@@ -33,7 +33,7 @@ type FoundationRelation = {
 
 type FoundationRelationInput = {
   volunteers?: Array<number>
-  charman?: Profile
+  chairman?: Profile
   secretary?: Profile
   accountant?: Profile
   platforms?: Array<number>

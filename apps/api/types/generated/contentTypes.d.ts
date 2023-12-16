@@ -1862,7 +1862,7 @@ export interface ApiFoundationFoundation extends Schema.CollectionType {
     KVK: Attribute.String
     BIC: Attribute.String
     RSIN: Attribute.String
-    charman: Attribute.Relation<
+    chairman: Attribute.Relation<
       'api::foundation.foundation',
       'oneToOne',
       'api::profile.profile'
