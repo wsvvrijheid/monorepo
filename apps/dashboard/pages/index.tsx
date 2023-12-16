@@ -1,29 +1,16 @@
-import { useMemo, useState } from 'react'
-
-import {
-  Center,
-  Checkbox,
-  CheckboxGroup,
-  Heading,
-  SimpleGrid,
-  Stack,
-  Text,
-  Wrap,
-} from '@chakra-ui/react'
+import { Center, Heading } from '@chakra-ui/react'
 import { QueryClient, dehydrate } from '@tanstack/react-query'
 import { GetStaticPropsContext } from 'next'
 import { useTranslation } from 'next-i18next'
 
 import { useAuthContext } from '@wsvvrijheid/context'
 import { RequestCollectionArgs, strapiRequest } from '@wsvvrijheid/lib'
-import { useStrapiRequest } from '@wsvvrijheid/services'
 import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import {
-  AccountStatsBase,
   AccountStats as AccountStatsType,
   StrapiLocale,
 } from '@wsvvrijheid/types'
-import { AccountStats, AdminLayout, PageHeader } from '@wsvvrijheid/ui'
+import { AdminLayout } from '@wsvvrijheid/ui'
 
 const args: RequestCollectionArgs = {
   endpoint: 'account-statistics',
