@@ -21,7 +21,7 @@ const PresentationDetailPage: FC<PresentationDetailPageProps> = ({
   flow,
 }) => {
   return (
-    <Layout seo={seo}>
+    <Layout seo={seo} isDark>
       <Hero title={seo.title} />
       <PresentationTemplate
         title={seo.title}
