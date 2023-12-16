@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, ReactNode } from 'react'
 
 import {
   Center,
@@ -7,6 +7,7 @@ import {
   LinkOverlay,
   Stack,
   Text,
+  Wrap,
 } from '@chakra-ui/react'
 
 import { UploadFile } from '@wsvvrijheid/types'
@@ -21,6 +22,8 @@ interface CardProps {
   image: UploadFile
   link: string
   rounded?: boolean
+  date?: ReactNode
+  place?: ReactNode
 }
 
 export const Card: FC<CardProps> = ({
@@ -29,7 +32,11 @@ export const Card: FC<CardProps> = ({
   image,
   link,
   rounded,
+  date,
+  place,
 }) => {
+  const href = link?.includes('undefined') ? '' : link
+
   return (
     <LinkBox h={'full'}>
       <Stack
@@ -60,8 +67,13 @@ export const Card: FC<CardProps> = ({
           )}
         </Center>
 
-        <Stack spacing={4} flex={1} p={4} align="center" textAlign="center">
-          <LinkOverlay as={Navigate} href={link}>
+        <Stack flex={1} p={{ base: 4, lg: 6 }}>
+          <Wrap color="gray.500">
+            {place && <Text>{place}</Text>}
+            {date && place && <Text>•</Text>}
+            {date && <Text>{date}</Text>}
+          </Wrap>
+          <LinkOverlay as={Navigate} href={href}>
             <Heading
               as="h3"
               textTransform="uppercase"
@@ -72,6 +84,7 @@ export const Card: FC<CardProps> = ({
               {title}
             </Heading>
           </LinkOverlay>
+
           <Text fontSize="md" lineHeight="base" noOfLines={3}>
             {description}
           </Text>

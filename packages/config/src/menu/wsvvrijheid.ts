@@ -11,6 +11,7 @@ import {
   join,
   lotus,
   platforms,
+  presentations,
   privacy,
   samenvvv,
   term,
@@ -31,10 +32,10 @@ export const wsvvrijheid = {
     club,
     {
       link: '/',
-      en: 'Wsvvrijheid',
-      nl: 'Wsvvrijheid',
-      tr: 'Wsvvrijheid',
-      children: [about, contact, join],
+      en: 'Foundation',
+      nl: 'Stichting',
+      tr: 'Vakıf',
+      children: [presentations, about, contact, join],
     },
   ],
   footerMenu: [
@@ -51,7 +52,7 @@ export const wsvvrijheid = {
       tr: 'Vakıf',
     },
     {
-      children: [club, activities],
+      children: [club, activities, blogs, presentations],
       en: 'Menu',
       nl: 'Menu',
       tr: 'Menu',

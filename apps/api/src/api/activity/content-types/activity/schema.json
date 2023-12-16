@@ -66,6 +66,14 @@
       "default": "pending",
       "required": false
     },
+    "place": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "string"
+    },
     "image": {
       "type": "media",
       "multiple": false,

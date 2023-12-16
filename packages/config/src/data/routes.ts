@@ -20,8 +20,9 @@ type EndpointRouteKey =
   | 'collections'
   | 'hashtags'
   | 'platforms'
-  | 'term'
+  | 'presentations'
   | 'privacy'
+  | 'term'
 
 export type RouteKey = EndpointRouteKey | SiteRouteKey | PlatformRouteKey
 
@@ -37,6 +38,7 @@ export const ROUTES: Record<RouteKey, MenuType> = {
     en: 'Dashboard',
     nl: 'Dashboard',
     tr: 'Kontrol Paneli',
+    isExternal: true,
   },
   hashtags: {
     link: '/hashtags',
@@ -139,6 +141,12 @@ export const ROUTES: Record<RouteKey, MenuType> = {
     en: 'Privacy Policy',
     nl: 'Privacybeleid',
     tr: 'Gizlilik Politikası',
+  },
+  presentations: {
+    link: '/presentations',
+    en: 'Presentations',
+    nl: 'Presentaties',
+    tr: 'Sunumlar',
   },
   contact: {
     link: '/contact',
