@@ -124,33 +124,8 @@ const Contact = ({ seo }: ContactProps): JSX.Element => {
                   Tandersplein 1, 3027 CN, Rotterdam
                 </Button>
               </Wrap>
-
               <SocialButtons items={socialLinks.wsvvrijheid} />
-
-              <Stack w="full" spacing={4}>
-                <Stack w="full">
-                  <Text color="primary.50" fontWeight={600}>
-                    {t('wsvvrijheid.management')}
-                  </Text>
-                  <Wrap justify="space-around" spacing={4}>
-                    {/* <Box>
-                      <Text fontSize="sm">{t('wsvvrijheid.chairman')}</Text>
-                      <Text>Sümeyye Ateş</Text>
-                    </Box> */}
-                    <Box>
-                      <Text fontSize="sm">{t('wsvvrijheid.chairman')}</Text>
-                      <Text>Ahmet Nurettin Kara</Text>
-                    </Box>
-                  </Wrap>
-                </Stack>
-                <Divider borderColor="whiteAlpha.400" />
-                <Wrap justify="space-around" fontSize="sm" textAlign="left">
-                  <Text>KVK: 85680621</Text>
-                  <Text>RSIN: 863705571 </Text>
-                </Wrap>
-              </Stack>
             </VStack>
-
             <ContactForm
               onSubmitHandler={handleSubmit}
               isLoading={isPending}
