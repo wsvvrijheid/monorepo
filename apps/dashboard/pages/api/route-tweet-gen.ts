@@ -23,7 +23,7 @@ export default async function handler(req: Request) {
       },
       {
         role: 'user',
-        content: `Given the fsollowing article, generate ${numberOfPosts > 0 ? numberOfPosts : numberOfPosts < 40 ? numberOfPosts : 'one'} ${language} posts for Twitter. The post shouldn't include any hashtags, and shouldn't exceed ${charLimit > 0 ? charLimit : charLimit <= 150 ? charLimit : 200 } characters.
+        content: `Given the following article, generate ${numberOfPosts > 0 ? numberOfPosts : numberOfPosts < 40 ? numberOfPosts : 'one'} ${language} posts for Twitter. The post shouldn't include any hashtags, and shouldn't exceed ${charLimit > 0 ? charLimit : charLimit <= 150 ? charLimit : 200 } characters.
 Respond with a JSON array of posts ["post1", "post2" , ...]. Only respond with an array. Article:
 ${prompt}`,
       },
