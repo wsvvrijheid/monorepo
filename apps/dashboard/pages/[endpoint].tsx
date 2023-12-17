@@ -14,7 +14,8 @@ import {
   NumberInputStepper,
   NumberIncrementStepper,
   NumberDecrementStepper,
-  useDisclosure
+  useDisclosure,
+  FormLabel
 } from '@chakra-ui/react'
 import { useCompletion } from 'ai/react'
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
@@ -291,6 +292,7 @@ const ModelPage: FC<ModelPageProps> = ({ endpoint }) => {
               <Heading p={4} color='black'>Post Generator</Heading>
               <Box p={4}>
                 <form onSubmit={handleSubmit}>
+                  <FormLabel>Content</FormLabel>
                   <Textarea
                     name='prompt'
                     placeholder='Enter a content...'
@@ -301,44 +303,51 @@ const ModelPage: FC<ModelPageProps> = ({ endpoint }) => {
                     required
                   />
                   <Flex gap={10} mb={4} >
-                    <NumberInput
-                      step={1}
-                      min={0}
-                      max={40}
-                      defaultValue={5}
-                      onChange={(a, b) => setNumberOfPosts(b)}
-                    >
-                      <NumberInputField />
-                      <NumberInputStepper>
-                        <NumberIncrementStepper />
-                        <NumberDecrementStepper />
-                      </NumberInputStepper>
-                    </NumberInput>
-
-                    <NumberInput
-                      step={10}
-                      min={10}
-                      max={200}
-                      defaultValue={150}
-                      onChange={(a, b) => setCharLimit(b)}
-                    >
-                      <NumberInputField />
-                      <NumberInputStepper>
-                        <NumberIncrementStepper />
-                        <NumberDecrementStepper />
-                      </NumberInputStepper>
-                    </NumberInput>
-
-                    <Select
-                      value={language ?? ''}
-                      onChange={e => setLanguage(e.target.value)}
-                    >
-                      {LANGUAGE_OPTIONS.map((opt, idx) => {
-                        return (
-                          <option key={idx}>{opt}</option>
-                        )
-                      })}
-                    </Select>
+                    <Box>
+                      <FormLabel>Number of Posts</FormLabel>
+                      <NumberInput
+                        step={1}
+                        min={0}
+                        max={40}
+                        defaultValue={5}
+                        onChange={(a, b) => setNumberOfPosts(b)}
+                      >
+                        <NumberInputField />
+                        <NumberInputStepper>
+                          <NumberIncrementStepper />
+                          <NumberDecrementStepper />
+                        </NumberInputStepper>
+                      </NumberInput>
+                    </Box>
+                    <Box>
+                      <FormLabel>Character Limit</FormLabel>
+                      <NumberInput
+                        step={10}
+                        min={10}
+                        max={200}
+                        defaultValue={150}
+                        onChange={(a, b) => setCharLimit(b)}
+                      >
+                        <NumberInputField />
+                        <NumberInputStepper>
+                          <NumberIncrementStepper />
+                          <NumberDecrementStepper />
+                        </NumberInputStepper>
+                      </NumberInput>
+                    </Box>
+                    <Box flex='1'>
+                      <FormLabel>Language</FormLabel>
+                      <Select
+                        value={language ?? ''}
+                        onChange={e => setLanguage(e.target.value)}
+                      >
+                        {LANGUAGE_OPTIONS.map((opt, idx) => {
+                          return (
+                            <option key={idx}>{opt}</option>
+                          )
+                        })}
+                      </Select>
+                    </Box>
                   </Flex>
 
                   <Button
