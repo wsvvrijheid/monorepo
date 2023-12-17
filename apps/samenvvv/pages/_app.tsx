@@ -1,5 +1,6 @@
 import { FC, useState } from 'react'
 
+import { HydrationOverlay } from '@builder.io/react-hydration-overlay'
 import { ChakraProvider, createStandaloneToast } from '@chakra-ui/react'
 import {
   HydrationBoundary,
@@ -38,20 +39,22 @@ const MyApp: FC<AppProps> = ({ Component, pageProps }) => {
   }
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <HydrationBoundary state={pageProps.dehydratedState}>
-        <AuthProvider initialState={pageProps.authState}>
-          <ChakraProvider theme={themes.samenvvv}>
-            <DefaultSeo {...defaultSeo.admin[locale]} />
-            <Component {...pageProps} />
-            {!cookie && <CookieBanner onAllow={onAllow} />}
-            <Analytics />
-            <ToastContainer />
-          </ChakraProvider>
-        </AuthProvider>
-      </HydrationBoundary>
-      <ReactQueryDevtools />
-    </QueryClientProvider>
+    <HydrationOverlay>
+      <QueryClientProvider client={queryClient}>
+        <HydrationBoundary state={pageProps.dehydratedState}>
+          <AuthProvider initialState={pageProps.authState}>
+            <ChakraProvider theme={themes.samenvvv}>
+              <DefaultSeo {...defaultSeo.admin[locale]} />
+              <Component {...pageProps} />
+              {!cookie && <CookieBanner onAllow={onAllow} />}
+              <Analytics />
+              <ToastContainer />
+            </ChakraProvider>
+          </AuthProvider>
+        </HydrationBoundary>
+        <ReactQueryDevtools />
+      </QueryClientProvider>
+    </HydrationOverlay>
   )
 }
 

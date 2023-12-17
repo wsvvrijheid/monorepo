@@ -1,5 +1,6 @@
 import { FC, useState } from 'react'
 
+import { HydrationOverlay } from '@builder.io/react-hydration-overlay'
 import {
   ChakraProvider,
   createStandaloneToast,
@@ -50,19 +51,21 @@ const MyApp: FC<AppProps> = ({ Component, pageProps }) => {
   const { locale } = useRouter()
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <HydrationBoundary state={pageProps.dehydratedState}>
-        <AuthProvider initialState={pageProps.authState}>
-          <ChakraProvider theme={extendTheme(theme)}>
-            <DefaultSeo {...defaultSeo.admin[locale]} />
-            <Component {...pageProps} />
-            <Analytics />
-            <ToastContainer />
-          </ChakraProvider>
-        </AuthProvider>
-      </HydrationBoundary>
-      <ReactQueryDevtools />
-    </QueryClientProvider>
+    <HydrationOverlay>
+      <QueryClientProvider client={queryClient}>
+        <HydrationBoundary state={pageProps.dehydratedState}>
+          <AuthProvider initialState={pageProps.authState}>
+            <ChakraProvider theme={extendTheme(theme)}>
+              <DefaultSeo {...defaultSeo.admin[locale]} />
+              <Component {...pageProps} />
+              <Analytics />
+              <ToastContainer />
+            </ChakraProvider>
+          </AuthProvider>
+        </HydrationBoundary>
+        <ReactQueryDevtools />
+      </QueryClientProvider>
+    </HydrationOverlay>
   )
 }
 
