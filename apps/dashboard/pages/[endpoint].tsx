@@ -1,6 +1,22 @@
+// #region imports
 import { FC, useEffect, useState } from 'react'
 
-import { Box, Heading, useDisclosure } from '@chakra-ui/react'
+import {
+  Box,
+  Button,
+  Flex,
+  Heading,
+  Progress,
+  Select,
+  Textarea,
+  NumberInput,
+  NumberInputField,
+  NumberInputStepper,
+  NumberIncrementStepper,
+  NumberDecrementStepper,
+  useDisclosure
+} from '@chakra-ui/react'
+import { useCompletion } from 'ai/react'
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
@@ -39,6 +55,8 @@ import {
 
 import { I18nNamespaces } from '../@types/i18next'
 
+// #endregion
+
 type ModelPageProps = InferGetServerSidePropsType<typeof getServerSideProps>
 
 const ModelPage: FC<ModelPageProps> = ({ endpoint }) => {
@@ -49,6 +67,37 @@ const ModelPage: FC<ModelPageProps> = ({ endpoint }) => {
     RelationFilterArgs[]
   >([])
   const [selectedFilters, setSelectedFilters] = useState<FilterOption[]>([])
+
+  const LANGUAGE_OPTIONS = ['Turkish', 'English', 'Dutch']
+  const [generatedPosts, setGeneratedPosts] = useState<string[]>()
+  const [numberOfPosts, setNumberOfPosts] = useState<number>()
+  const [charLimit, setCharLimit] = useState<number>()
+  const [language, setLanguage] = useState<string>(LANGUAGE_OPTIONS[0])
+
+
+  const {
+    // completion,
+    input,
+    stop,
+    isLoading,
+    handleInputChange,
+    handleSubmit,
+  } = useCompletion({
+    api: 'api/route-tweet-gen',
+    body: {
+      numberOfPosts,
+      charLimit,
+      language,
+    },
+    onFinish(prompt, completion) {
+      setGeneratedPosts(JSON.parse(completion))
+    },
+    onError(error) {
+      console.log("Error: ", error.message.substring(0, 280));
+    },
+  })
+
+  // #region non-AI 
 
   const { isOpen, onClose, onOpen } = useDisclosure()
 
@@ -96,9 +145,9 @@ const ModelPage: FC<ModelPageProps> = ({ endpoint }) => {
       ...(isBlogAuthor && profile && { author: { id: { $eq: profile.id } } }),
       ...(q &&
         args?.searchFields && {
-          // TODO: Support searchFields with relation fields
-          $or: args?.searchFields?.map(f => ({ [f]: { $containsi: q } })),
-        }),
+        // TODO: Support searchFields with relation fields
+        $or: args?.searchFields?.map(f => ({ [f]: { $containsi: q } })),
+      }),
       ...(published === 'false' && { publishedAt: { $null: true } }),
       approvalStatus:
         status && status !== 'all'
@@ -187,6 +236,8 @@ const ModelPage: FC<ModelPageProps> = ({ endpoint }) => {
     }
   }, [selectedId])
 
+  // #endregion
+
   return (
     <AdminLayout seo={{ title }}>
       <PageHeader
@@ -236,6 +287,102 @@ const ModelPage: FC<ModelPageProps> = ({ endpoint }) => {
         >
           {endpoint === 'posts' && selectedModel && (
             <Box p={4} rounded="md" bg="white" shadow="md">
+              {/* todo: button to generate posts using AI */}
+              <Heading p={4} color='black'>Post Generator</Heading>
+              <Box p={4}>
+                <form onSubmit={handleSubmit}>
+                  <Textarea
+                    name='prompt'
+                    placeholder='Enter a content...'
+                    value={input}
+                    onChange={handleInputChange}
+                    mb={4}
+                    size='xs'
+                    required
+                  />
+                  <Flex gap={10} mb={4} >
+                    <NumberInput
+                      step={1}
+                      min={0}
+                      max={40}
+                      defaultValue={5}
+                      onChange={(a, b) => setNumberOfPosts(b)}
+                    >
+                      <NumberInputField />
+                      <NumberInputStepper>
+                        <NumberIncrementStepper />
+                        <NumberDecrementStepper />
+                      </NumberInputStepper>
+                    </NumberInput>
+
+                    <NumberInput
+                      step={10}
+                      min={10}
+                      max={200}
+                      defaultValue={150}
+                      onChange={(a, b) => setCharLimit(b)}
+                    >
+                      <NumberInputField />
+                      <NumberInputStepper>
+                        <NumberIncrementStepper />
+                        <NumberDecrementStepper />
+                      </NumberInputStepper>
+                    </NumberInput>
+
+                    <Select
+                      value={language ?? ''}
+                      onChange={e => setLanguage(e.target.value)}
+                    >
+                      {LANGUAGE_OPTIONS.map((opt, idx) => {
+                        return (
+                          <option key={idx}>{opt}</option>
+                        )
+                      })}
+                    </Select>
+                  </Flex>
+
+                  <Button
+                    disabled={isLoading}
+                    type='submit'
+                  >
+                    Generate
+                  </Button>
+                  <Button
+                    type='button'
+                    onClick={stop}
+                    ml={2}
+                    colorScheme='gray'
+                  >
+                    Stop
+                  </Button>
+                </form>
+              </Box>
+              {isLoading ?
+                <Box p={4}>
+                  <Progress size='xs' isIndeterminate />
+                  {/* <div>{completion}</div> */}
+                </Box>
+                :
+                <Box>
+                  <Heading p={4} color='purple.500' size='lg'>AI-Generated Sentences</Heading>
+                  <Box display='flex' flexDirection='column' gap={3} p={4}>
+                    {generatedPosts
+                      ?.map((genPost: string, idx: number) => {
+                        return (
+                          <Textarea
+                            name={`aiPost-${idx}`}
+                            id={`aiPost-${idx}`}
+                            key={idx}
+                            value={genPost}
+                            onChange={e => console.log(e.target.value)}
+                          />
+                        )
+                      })
+                    }
+                  </Box>
+                </Box>
+              }
+
               <Heading p={4}>{t('sentences')}</Heading>
               <PostSentenceForm
                 id={selectedModel.id}
