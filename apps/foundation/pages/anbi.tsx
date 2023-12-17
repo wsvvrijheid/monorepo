@@ -13,6 +13,7 @@ import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { useTranslation } from 'next-i18next'
 import { GrDocumentDownload } from 'react-icons/gr'
 
+import { API_URL } from '@wsvvrijheid/config'
 import { strapiRequest } from '@wsvvrijheid/lib'
 import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import { Foundation, StrapiLocale } from '@wsvvrijheid/types'
@@ -72,41 +73,50 @@ const AnbiPage: FC<AnbiPageProps> = ({ foundation }) => {
             {/* documents */}
 
             <Wrap spacing={4} justify={'center'}>
-              <Button
-                as={Link}
-                href={foundation?.policy_plan?.url}
-                rightIcon={<GrDocumentDownload />}
-                colorScheme={'blackAlpha'}
-                variant={'ghost'}
-                color={'initial'}
-                isExternal
-              >
-                {t('wsvvrijheid.policy-plan')}
-              </Button>
+              {foundation?.policy_plan && (
+                <Button
+                  as={Link}
+                  href={API_URL + foundation?.policy_plan?.url}
+                  rightIcon={<GrDocumentDownload />}
+                  colorScheme={'blackAlpha'}
+                  variant={'ghost'}
+                  color={'initial'}
+                  isExternal
+                >
+                  {' '}
+                  {t('wsvvrijheid.policy-plan')}
+                </Button>
+              )}
 
-              <Button
-                as={Link}
-                href={foundation?.substantive_financial_annual_report?.url}
-                rightIcon={<GrDocumentDownload />}
-                colorScheme={'blackAlpha'}
-                variant={'ghost'}
-                color={'initial'}
-                isExternal
-              >
-                {t('wsvvrijheid.financial_report')}
-              </Button>
-
-              <Button
-                as={Link}
-                href={foundation?.remuneration_policy?.url}
-                rightIcon={<GrDocumentDownload />}
-                colorScheme={'blackAlpha'}
-                variant={'ghost'}
-                color={'initial'}
-                isExternal
-              >
-                {t('wsvvrijheid.remuneration_policy')}
-              </Button>
+              {foundation?.substantive_financial_annual_report && (
+                <Button
+                  as={Link}
+                  href={
+                    API_URL +
+                    foundation?.substantive_financial_annual_report?.url
+                  }
+                  rightIcon={<GrDocumentDownload />}
+                  colorScheme={'blackAlpha'}
+                  variant={'ghost'}
+                  color={'initial'}
+                  isExternal
+                >
+                  {t('wsvvrijheid.financial_report')}
+                </Button>
+              )}
+              {foundation?.remuneration_policy && (
+                <Button
+                  as={Link}
+                  href={API_URL + foundation?.remuneration_policy?.url}
+                  rightIcon={<GrDocumentDownload />}
+                  colorScheme={'blackAlpha'}
+                  variant={'ghost'}
+                  color={'initial'}
+                  isExternal
+                >
+                  {t('wsvvrijheid.remuneration_policy')}
+                </Button>
+              )}
             </Wrap>
           </Stack>
         </Container>
