@@ -21,7 +21,7 @@ import { LocaleSwitcher } from '../LocaleSwitcher'
 export const HeaderMobile: FC<HeaderMobileProps> = ({
   isDark,
   headerMenu,
-  profileMenu,
+  hasProfile,
 }) => {
   const { isOpen, onToggle, onClose } = useDisclosure()
   const isScrolled = useScroll()
@@ -33,15 +33,12 @@ export const HeaderMobile: FC<HeaderMobileProps> = ({
         <DrawerContent>
           <DrawerHeader>Menu</DrawerHeader>
           <DrawerBody>
-            <HeaderMobileNav
-              profileMenu={profileMenu}
-              headerMenu={headerMenu}
-            />
+            <HeaderMobileNav headerMenu={headerMenu} />
           </DrawerBody>
         </DrawerContent>
       </Drawer>
       <LocaleSwitcher isDark={isDark} />
-      {profileMenu && <ProfileMenu isDark={isDark} {...profileMenu} />}
+      {hasProfile && <ProfileMenu isDark={isDark} />}
       <IconButton
         variant="outline"
         color={!isScrolled && isDark ? 'white' : 'initial'}

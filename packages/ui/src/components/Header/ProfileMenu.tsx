@@ -21,7 +21,7 @@ import { useScroll } from '../../hooks'
 import { Navigate } from '../Navigate'
 import { WAvatar } from '../WAvatar'
 
-export const ProfileMenu: FC<ProfileMenuProps> = ({ isDark, menu }) => {
+export const ProfileMenu: FC<ProfileMenuProps> = ({ isDark }) => {
   const isScrolled = useScroll()
   const { t } = useTranslation()
   const { user, profile, isLoggedIn, logout } = useAuthContext()
@@ -54,16 +54,9 @@ export const ProfileMenu: FC<ProfileMenuProps> = ({ isDark, menu }) => {
         />
       </MenuButton>
       <MenuList>
-        {menu.map(item => (
-          <MenuItem
-            key={item.link}
-            as={Navigate}
-            icon={item.icon}
-            href={item.link}
-          >
-            {item.label}
-          </MenuItem>
-        ))}
+        <MenuItem as={Navigate} href={'/profile'}>
+          {t('profile')}
+        </MenuItem>
 
         <MenuDivider />
         <MenuItem icon={<FiLogOut />} color="red.400" onClick={logout}>

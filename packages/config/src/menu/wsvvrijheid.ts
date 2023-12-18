@@ -18,8 +18,9 @@ import {
   term,
   music,
 } from './routes'
+import { Menus } from './types'
 
-export const wsvvrijheid = {
+export const wsvvrijheid: Menus = {
   headerMenu: [
     activities,
     {
@@ -65,23 +66,4 @@ export const wsvvrijheid = {
       tr: 'Destek',
     },
   ],
-  profileMenu: {
-    isLoggedIn: false,
-    menu: [
-      {
-        label: 'Profile',
-        link: '/profile',
-      },
-    ],
-    login: {
-      label: 'Login',
-      link: '/login',
-    },
-    logout: {
-      label: 'Logout',
-      onClick: () => alert('Logout'),
-    },
-    username: 'John Doe',
-    userAvatar: 'https://placekitten.com/200/200',
-  },
 }

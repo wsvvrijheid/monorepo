@@ -26,7 +26,7 @@ export const Header: FC<HeaderProps> = ({
   isDark,
   logo,
   headerMenu,
-  profileMenu,
+  hasProfile,
   isLoggedIn,
 }) => {
   const isScrolled = useScroll()
@@ -72,9 +72,7 @@ export const Header: FC<HeaderProps> = ({
               <Stack spacing={1}>
                 <HStack justify="end">
                   <LocaleSwitcher isDark={isDark} />
-                  {!isLoggedIn && profileMenu && (
-                    <ProfileMenu isDark={isDark} {...profileMenu} />
-                  )}
+                  {!isLoggedIn && hasProfile && <ProfileMenu isDark={isDark} />}
                 </HStack>
                 {!isMobile && (
                   <HeaderNav
@@ -84,15 +82,13 @@ export const Header: FC<HeaderProps> = ({
                   />
                 )}
               </Stack>
-              {isLoggedIn && profileMenu && (
-                <ProfileMenu isDark={isDark} {...profileMenu} />
-              )}
+              {isLoggedIn && hasProfile && <ProfileMenu isDark={isDark} />}
             </HStack>
             {isMobile && (
               <HeaderMobile
                 logo={logo}
                 isDark={isDark}
-                profileMenu={profileMenu}
+                hasProfile={hasProfile}
                 headerMenu={headerMenu}
               />
             )}

@@ -34,9 +34,6 @@ export const Layout: FC<LayoutProps> = ({
         headerProps={{
           headerMenu: menus.kunsthalte.headerMenu,
           animated: false,
-          profileMenu: {
-            ...menus.kunsthalte.profileMenu,
-          },
           isDark,
           hasScroll,
         }}
