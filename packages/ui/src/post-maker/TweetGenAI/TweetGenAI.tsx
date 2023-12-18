@@ -41,7 +41,7 @@ export const TweetGenAI = ({ content }: TweetGenAIProps) => {
     handleInputChange,
     handleSubmit,
   } = useCompletion({
-    api: 'api/route-tweet-gen',
+    api: '/api/route-tweet-gen',
     initialInput: content,
     body: {
       numberOfPosts,
