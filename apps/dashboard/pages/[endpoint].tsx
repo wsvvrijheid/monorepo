@@ -35,6 +35,7 @@ import {
   WTableProps,
   useColumns,
   useRequestArgs,
+  TweetGenAI,
 } from '@wsvvrijheid/ui'
 
 import { I18nNamespaces } from '../@types/i18next'
@@ -236,6 +237,9 @@ const ModelPage: FC<ModelPageProps> = ({ endpoint }) => {
         >
           {endpoint === 'posts' && selectedModel && (
             <Box p={4} rounded="md" bg="white" shadow="md">
+              <TweetGenAI
+                content={(selectedModel as Post)?.content || undefined}
+              />
               <Heading p={4}>{t('sentences')}</Heading>
               <PostSentenceForm
                 id={selectedModel.id}
