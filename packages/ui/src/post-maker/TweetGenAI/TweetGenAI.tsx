@@ -21,7 +21,11 @@ import { useTranslation } from 'next-i18next'
 
 import { toastMessage } from '@wsvvrijheid/utils'
 
-export const TweetGenAI = () => {
+type TweetGenAIProps = {
+  content?: string | null
+}
+
+export const TweetGenAI = ({ content }: TweetGenAIProps) => {
   const { t } = useTranslation()
   const LANGUAGE_OPTIONS = ['Turkish', 'English', 'Dutch']
   const [generatedPosts, setGeneratedPosts] = useState<string[]>()
@@ -38,15 +42,16 @@ export const TweetGenAI = () => {
     handleSubmit,
   } = useCompletion({
     api: 'api/route-tweet-gen',
+    initialInput: content,
     body: {
       numberOfPosts,
       charLimit,
       language,
     },
-    onFinish(prompt, completion) {
+    onFinish(prompt: string, completion: string) {
       setGeneratedPosts(JSON.parse(completion))
     },
-    onError(error) {
+    onError() {
       toastMessage('Error', t('contact.form.failed'), 'error')
     },
   })
@@ -66,7 +71,6 @@ export const TweetGenAI = () => {
               value={input}
               onChange={handleInputChange}
               mb={4}
-              size="xs"
               required
             />
           </FormControl>
