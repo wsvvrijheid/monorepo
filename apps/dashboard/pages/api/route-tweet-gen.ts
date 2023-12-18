@@ -10,7 +10,6 @@ const openai = new OpenAI({
 export default async function handler(req: Request) {
   // Extract the `prompt` from the body of the request
   const { prompt, numberOfPosts, charLimit, language } = await req.json();
- 
   // Request the OpenAI API for the response based on the prompt
   const response = await openai.chat.completions.create({
     model: 'gpt-4',
