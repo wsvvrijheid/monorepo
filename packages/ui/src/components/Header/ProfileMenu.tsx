@@ -24,7 +24,7 @@ import { Navigate } from '../Navigate'
 export const ProfileMenu: FC<ProfileMenuProps> = ({ isDark, isLoggedIn }) => {
   const isScrolled = useScroll()
   const { t } = useTranslation()
-  const { profile, logout } = useAuthContext()
+  const { user, profile, logout } = useAuthContext()
 
   const Wrapper = !isScrolled && isDark ? DarkMode : Fragment
 
