@@ -1,10 +1,6 @@
 import { FC, useEffect, useState } from 'react'
 
-import {
-  Box,
-  Heading,
-  useDisclosure,
-} from '@chakra-ui/react'
+import { Box, Heading, useDisclosure } from '@chakra-ui/react'
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
@@ -101,9 +97,9 @@ const ModelPage: FC<ModelPageProps> = ({ endpoint }) => {
       ...(isBlogAuthor && profile && { author: { id: { $eq: profile.id } } }),
       ...(q &&
         args?.searchFields && {
-        // TODO: Support searchFields with relation fields
-        $or: args?.searchFields?.map(f => ({ [f]: { $containsi: q } })),
-      }),
+          // TODO: Support searchFields with relation fields
+          $or: args?.searchFields?.map(f => ({ [f]: { $containsi: q } })),
+        }),
       ...(published === 'false' && { publishedAt: { $null: true } }),
       approvalStatus:
         status && status !== 'all'
