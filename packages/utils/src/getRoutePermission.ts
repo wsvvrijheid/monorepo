@@ -35,17 +35,13 @@ export const getRoutePermission = (roles: RoleType[], route: AdminRoute) => {
       '/translates',
     ],
     jury: ['/competitions'],
-    public: ['/timelines', '/news'],
+    public: [],
     translator: ['/translates'],
     all: [],
   }
 
   return roles?.some(role => {
     const routes = roleRoutes[role]
-
-    if (roles?.includes('public') && route === '/') {
-      return false
-    }
 
     if (
       routes.includes('all') ||

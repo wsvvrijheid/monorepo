@@ -1,5 +1,4 @@
 export const adminRoleRoutes = [
-  '/',
   '/accounts',
   '/activities',
   '/assets',
@@ -19,16 +18,14 @@ export const adminRoleRoutes = [
   '/user-feedbacks',
   '/users',
   'all',
-] as const
-
-export const adminCommonRoutes = [
-  '/donation',
-  '/settings',
+  // TODO: Move these routes to adminCommonRoutes
   '/news',
   '/news/bookmarks',
   '/timelines',
   '/timelines/bookmarks',
 ] as const
+
+export const adminCommonRoutes = ['/', '/donation', '/settings'] as const
 
 export type AdminRoleRoute = (typeof adminRoleRoutes)[number]
 export type AdminCommonRoute = (typeof adminCommonRoutes)[number]

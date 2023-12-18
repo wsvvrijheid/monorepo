@@ -1,7 +1,8 @@
-import { ports } from './config'
-import { ProjectApp } from './types'
+import { AppSlug } from '@wsvvrijheid/types'
 
-export const getVercelUrl = (project: ProjectApp) => {
+import { ports } from './config'
+
+export const getVercelUrl = (project: AppSlug) => {
   if (process.env['CI'] === 'true') {
     return `https://${project}-git-dev-wsvvrijheid.vercel.app`
   }

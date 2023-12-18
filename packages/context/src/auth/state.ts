@@ -2,7 +2,6 @@ import { AuthContextType } from './types'
 
 export const initialAuthState: AuthContextType = {
   isLoading: false,
-  isLoggedIn: false,
   error: null,
   token: null,
   user: null,

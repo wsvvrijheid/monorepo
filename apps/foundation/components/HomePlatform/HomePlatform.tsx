@@ -12,14 +12,17 @@ import {
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
-import { Platform } from '@wsvvrijheid/types'
+import { PlatformSlug, Platform } from '@wsvvrijheid/types'
 import { AnimatedBox, Container, Navigate, WImage } from '@wsvvrijheid/ui'
 
 type HomePlatformProps = {
   platforms: Platform[]
 }
 
-const colors = {
+const colors: Record<
+  PlatformSlug,
+  { bg: string; colorScheme: string; text: string }
+> = {
   lotus: { bg: 'black', colorScheme: 'yellow', text: 'white' },
   samenvvv: { bg: 'samen.100', colorScheme: 'samen', text: 'initial' },
   kunsthalte: { bg: 'green.100', colorScheme: 'green', text: 'initial' },
@@ -37,7 +40,7 @@ export const HomePlatform: FC<HomePlatformProps> = ({ platforms }) => {
     <Box>
       {platforms.map((platform, index) => {
         const color =
-          colors[platform.slug as keyof typeof colors] || colors.academy
+          colors[platform.slug as PlatformSlug] || colors.academy
 
         return (
           <Center

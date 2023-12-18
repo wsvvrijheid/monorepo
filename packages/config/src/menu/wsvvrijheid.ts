@@ -1,4 +1,5 @@
 import {
+  anbi,
   about,
   academy,
   activities,
@@ -6,18 +7,20 @@ import {
   blogs,
   club,
   contact,
-  dashboard,
   donation,
+  dashboard,
   join,
   lotus,
   platforms,
+  presentations,
   privacy,
   samenvvv,
   term,
   music,
 } from './routes'
+import { Menus } from './types'
 
-export const wsvvrijheid = {
+export const wsvvrijheid: Menus = {
   headerMenu: [
     activities,
     {
@@ -31,10 +34,10 @@ export const wsvvrijheid = {
     club,
     {
       link: '/',
-      en: 'Wsvvrijheid',
-      nl: 'Wsvvrijheid',
-      tr: 'Wsvvrijheid',
-      children: [about, contact, join],
+      en: 'Foundation',
+      nl: 'Stichting',
+      tr: 'Vakıf',
+      children: [anbi, about, contact, join, presentations],
     },
   ],
   footerMenu: [
@@ -45,13 +48,13 @@ export const wsvvrijheid = {
       tr: platforms?.tr,
     },
     {
-      children: [about, contact, join, dashboard],
+      children: [about, contact, join, anbi, dashboard],
       en: 'Foundation',
       nl: 'Stichting',
       tr: 'Vakıf',
     },
     {
-      children: [club, activities],
+      children: [club, activities, blogs, presentations],
       en: 'Menu',
       nl: 'Menu',
       tr: 'Menu',
@@ -63,23 +66,4 @@ export const wsvvrijheid = {
       tr: 'Destek',
     },
   ],
-  profileMenu: {
-    isLoggedIn: false,
-    menu: [
-      {
-        label: 'Profile',
-        link: '/profile',
-      },
-    ],
-    login: {
-      label: 'Login',
-      link: '/login',
-    },
-    logout: {
-      label: 'Logout',
-      onClick: () => alert('Logout'),
-    },
-    username: 'John Doe',
-    userAvatar: 'https://placekitten.com/200/200',
-  },
 }

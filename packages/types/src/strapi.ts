@@ -76,6 +76,7 @@ import {
   PostLocalizeInput,
   PostUpdateInput,
 } from './post'
+import { Presentation } from './presentation'
 import { Privacy } from './privacy'
 import { Profile, ProfileCreateInput, ProfileUpdateInput } from './profile'
 import {
@@ -159,6 +160,7 @@ export type StrapiModel =
   | Post
   | Privacy
   | Profile
+  | Presentation
   | RecommendedTopic
   | RecommendedTweet
   | Tag
@@ -274,6 +276,7 @@ export type StrapiCollectionEndpoint =
   | 'platforms'
   | 'posts'
   | 'profiles'
+  | 'presentations'
   | 'recommended-topics'
   | 'recommended-tweets'
   | 'saved-tweets'
