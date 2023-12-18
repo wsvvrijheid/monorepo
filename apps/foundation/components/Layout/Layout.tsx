@@ -33,9 +33,6 @@ export const Layout: FC<LayoutProps> = ({
         logo={`/images/wsvvrijheid-logo.svg`}
         headerProps={{
           headerMenu: menus.wsvvrijheid.headerMenu,
-          profileMenu: {
-            ...menus.wsvvrijheid.profileMenu,
-          },
           isDark,
           hasScroll,
         }}
@@ -47,6 +44,7 @@ export const Layout: FC<LayoutProps> = ({
         }}
         isDark={isDark}
         isLoading={isLoading}
+        hasProfile
       >
         {children}
       </AppLayout>

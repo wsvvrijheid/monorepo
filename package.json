@@ -20,6 +20,7 @@
     "test": "yarn kill-ports && playwright test"
   },
   "dependencies": {
+    "@builder.io/react-hydration-overlay": "^0.0.5",
     "@chakra-ui/react": "^2.8.2",
     "@ctrl/tinycolor": "^4.0.2",
     "@emotion/react": "^11.11.1",

@@ -4,18 +4,16 @@ import { MenuType } from '@wsvvrijheid/types'
 
 export type HeaderMenu = Array<MenuType>
 
-export type ProfileMenuProps = {
-  menu: Array<{ label: string; link: string; icon?: JSX.Element }>
-} & Pick<HeaderProps, 'isDark'>
+export type ProfileMenuProps = Pick<HeaderProps, 'isDark' | 'isLoggedIn'>
 
 export interface HeaderProps {
   animated?: boolean
-  isDark?: boolean
+  hasProfile?: boolean
   hasScroll?: boolean
-  logo: string
   headerMenu: HeaderMenu
-  profileMenu?: ProfileMenuProps
+  isDark?: boolean
   isLoggedIn?: boolean
+  logo: string
 }
 
 export interface HeaderNavItemProps {
@@ -40,7 +38,4 @@ export interface HeaderNavProps {
 
 export type HeaderMobileProps = HeaderProps
 
-export type HeaderMobileNavProps = Pick<
-  HeaderProps,
-  'headerMenu' | 'profileMenu'
->
+export type HeaderMobileNavProps = Pick<HeaderProps, 'headerMenu'>

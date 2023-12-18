@@ -3,39 +3,51 @@ import { FC, ReactNode } from 'react'
 import { Box, Center, Flex, Spinner } from '@chakra-ui/react'
 import { NextSeo, NextSeoProps } from 'next-seo'
 
+import { useAuthContext } from '@wsvvrijheid/context'
+
 import { Footer } from '../Footer/Footer'
 import { FooterProps } from '../Footer/types'
 import { Header } from '../Header/Header'
 import { HeaderProps } from '../Header/types'
 
 export interface LayoutProps {
-  seo: NextSeoProps
-  isLoading?: boolean
-  isDark?: boolean
   children: ReactNode
-  headerProps: Omit<HeaderProps, 'logo'>
   footerProps: Omit<FooterProps, 'logo'>
+  hasProfile?: boolean
+  headerProps: Omit<HeaderProps, 'logo'>
+  isDark?: boolean
+  isLoading?: boolean
   logo: string
+  seo: NextSeoProps
 }
 
 export const Layout: FC<LayoutProps> = ({
   children,
-  seo,
-  isLoading = false,
-  isDark,
-  headerProps,
   footerProps,
+  hasProfile,
+  headerProps,
+  isDark,
+  isLoading = false,
   logo,
+  seo,
 }) => {
   const minH = isDark
     ? 'calc(100vh - 300px)'
     : { base: 'calc(100vh - 64px)', lg: 'calc(100vh - 100px)' }
 
+  const { user } = useAuthContext()
+
   return (
     <>
       {seo && <NextSeo {...seo} />}
       <Flex flexDir="column" minHeight="100vh" overflowX="hidden">
-        <Header isDark={isDark} {...headerProps} logo={logo} />
+        <Header
+          {...headerProps}
+          isLoggedIn={!!user}
+          isDark={isDark}
+          hasProfile={hasProfile}
+          logo={logo}
+        />
         {isLoading ? (
           <Center minH={minH}>
             <Spinner colorScheme="red" />
