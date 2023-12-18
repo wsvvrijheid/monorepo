@@ -28,6 +28,20 @@ const AnbiPage: FC<AnbiPageProps> = ({ foundation }) => {
 
   const title = 'ANBI'
 
+  const formatName = (fullName: string) => {
+    const nameParts = fullName.split(' ')
+    const initials = nameParts[0].charAt(0) + '.'
+    const lastName = nameParts.slice(1).join(' ')
+    const formattedName = `${initials} ${lastName}`
+
+    return formattedName
+  }
+
+  // formatted names
+  const chairmanName = formatName(foundation?.chairman?.name || ' ')
+  const secretaryName = formatName(foundation?.secretary?.name || ' ')
+  const accountantName = formatName(foundation?.accountant?.name || ' ')
+ 
   return (
     <Layout seo={{ title }} isDark>
       <Hero title={title} />
@@ -49,23 +63,23 @@ const AnbiPage: FC<AnbiPageProps> = ({ foundation }) => {
                 {t('wsvvrijheid.management')}
               </Heading>
               <SimpleGrid gap={4} columns={{ base: 1, lg: 3 }} w={'full'}>
-                {foundation?.chairman?.name && (
+                {chairmanName && (
                   <DirectorsCard
                     title={t('wsvvrijheid.chairman')}
-                    name={foundation?.chairman?.name}
+                    name={chairmanName}
                   />
                 )}
-                {foundation?.secretary?.name && (
+                {secretaryName && (
                   <DirectorsCard
                     title={t('wsvvrijheid.secretary')}
-                    name={foundation?.secretary?.name}
+                    name={secretaryName}
                   />
                 )}
 
-                {foundation?.accountant?.name && (
+                {accountantName && (
                   <DirectorsCard
                     title={t('wsvvrijheid.treasurer')}
-                    name={foundation?.accountant?.name}
+                    name={accountantName}
                   />
                 )}
               </SimpleGrid>
