@@ -1,6 +1,7 @@
 import { FC, useEffect, useState } from 'react'
 
 import {
+  Button,
   Input,
   Modal,
   ModalBody,
@@ -21,7 +22,12 @@ import {
   StrapiLocale,
   StrapiTranslatableModel,
 } from '@wsvvrijheid/types'
-import { Container, MasonryGrid, RecommendedTweetCard } from '@wsvvrijheid/ui'
+import {
+  Container,
+  MasonryGrid,
+  Navigate,
+  RecommendedTweetCard,
+} from '@wsvvrijheid/ui'
 import { getLocalizedSlugs, getPageSeo } from '@wsvvrijheid/utils'
 
 import { Layout } from '../components'
@@ -79,6 +85,9 @@ const RecommendsPage: FC<RecommendsPageProps> = ({ tweet, tweets, seo }) => {
       </Modal>
       <Container my={8}>
         <Stack spacing={4}>
+          <Navigate href={`/topics`}>
+            <Button>News</Button>
+          </Navigate>
           <Input
             size={'lg'}
             onChange={handleSearch}

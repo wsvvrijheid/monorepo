@@ -83,6 +83,9 @@ export const ArtClubTemplate: FC = () => {
     },
     page: parseInt(page as string) || 1,
     locale,
+    queryOptions: {
+      queryKey,
+    },
   })
 
   return (
