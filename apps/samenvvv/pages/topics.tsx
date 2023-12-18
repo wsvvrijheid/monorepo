@@ -9,6 +9,7 @@ import {
   ModalOverlay,
   Stack,
   useDisclosure,
+  Button,
 } from '@chakra-ui/react'
 import { QueryClient, dehydrate } from '@tanstack/react-query'
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
@@ -21,7 +22,7 @@ import {
   StrapiLocale,
   StrapiTranslatableModel,
 } from '@wsvvrijheid/types'
-import { Container, TopicCard } from '@wsvvrijheid/ui'
+import { Container, Navigate, TopicCard } from '@wsvvrijheid/ui'
 import { getLocalizedSlugs, getPageSeo } from '@wsvvrijheid/utils'
 
 import { Layout } from '../components'
@@ -81,6 +82,9 @@ const RecommendsPage: FC<RecommendsPageProps> = ({ topic, topics, seo }) => {
       </Modal>
       <Container my={8}>
         <Stack spacing={4}>
+          <Navigate href={`/tweets`}>
+            <Button>Tweets</Button>
+          </Navigate>
           <Input
             size={'lg'}
             onChange={handleSearch}
