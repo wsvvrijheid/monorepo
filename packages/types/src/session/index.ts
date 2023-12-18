@@ -13,7 +13,6 @@ export type Auth = {
   user: SessionUser | null
   profile: Profile | null
   profileId: number | null
-  isLoggedIn: boolean
   token: string | null
 }
 

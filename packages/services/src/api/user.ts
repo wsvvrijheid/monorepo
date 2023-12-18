@@ -23,12 +23,10 @@ export const userRouter: NextApiHandler = async (req, res) => {
     return res.json({
       ...session,
       profile,
-      isLoggedIn: true,
     })
   }
 
   res.json({
-    isLoggedIn: false,
     token: null,
     user: null,
   })

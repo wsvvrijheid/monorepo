@@ -8,8 +8,9 @@ import {
   donation,
   activities,
 } from './routes'
+import { Menus } from './types'
 
-export const kunsthalte = {
+export const kunsthalte: Menus = {
   headerMenu: [arts, collections, activities, about, contact],
   footerMenu: [
     {
@@ -41,21 +42,4 @@ export const kunsthalte = {
       tr: 'Destek',
     },
   ],
-  profileMenu: {
-    isLoggedIn: false,
-    menu: [
-      {
-        label: 'Profile',
-        link: '/profile',
-      },
-    ],
-    login: {
-      label: 'Login',
-      link: '/login',
-    },
-    logout: {
-      label: 'Logout',
-      onClick: () => alert('Logout'),
-    },
-  },
 }

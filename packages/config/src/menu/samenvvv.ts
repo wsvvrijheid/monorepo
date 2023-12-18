@@ -7,8 +7,9 @@ import {
   privacy,
   term,
 } from './routes'
+import { Menus } from './types'
 
-export const samenvvv = {
+export const samenvvv: Menus = {
   headerMenu: [announcements, hashtags, about, contact, foundation],
   footerMenu: [
     {

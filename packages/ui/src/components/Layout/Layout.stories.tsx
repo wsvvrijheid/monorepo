@@ -1,7 +1,7 @@
 import { StoryObj, StoryFn, Meta } from '@storybook/react'
 
 import { Layout, LayoutProps } from './Layout'
-import { FOOTER_MENU, HEADER_MENU, PROFILE, SOCIAL_LINKS } from '../../mocks'
+import { FOOTER_MENU, HEADER_MENU, SOCIAL_LINKS } from '../../mocks'
 import { Hero } from '../Hero/Hero'
 
 export default {
@@ -10,7 +10,6 @@ export default {
   args: {
     headerProps: {
       headerMenu: HEADER_MENU,
-      profileMenu: PROFILE,
     },
     logo: 'https://wsvvrijheid.nl/images/logo.svg',
     footerProps: {

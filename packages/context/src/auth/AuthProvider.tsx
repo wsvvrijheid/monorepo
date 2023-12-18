@@ -21,7 +21,6 @@ export const AuthProvider: FC<AuthProviderProps> = ({
   const [profile, setProfile] = useState<Profile | null>(null)
   const [roles, setRoles] = useState<RoleType[]>(initialAuthState.roles)
   const [token, setToken] = useState<string | null>(null)
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false)
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [error, setError] = useState<string | null>(null)
   const authModalDisclosure = useDisclosure()
@@ -33,7 +32,6 @@ export const AuthProvider: FC<AuthProviderProps> = ({
       setUser(initialState.user)
       setRoles(initialState.roles)
       setToken(initialState.token)
-      setIsLoggedIn(initialState.isLoggedIn)
       setError(initialState.error)
     }
   }, [initialState])
@@ -48,7 +46,6 @@ export const AuthProvider: FC<AuthProviderProps> = ({
         setUser(response.data?.user)
         setRoles(response.data?.user?.roles)
         setToken(response.data?.token)
-        setIsLoggedIn(response.data?.isLoggedIn)
         setProfile(response.data?.profile)
       }
 
@@ -81,7 +78,6 @@ export const AuthProvider: FC<AuthProviderProps> = ({
       setUser(null)
       setToken(null)
       setRoles(initialAuthState.roles)
-      setIsLoggedIn(false)
       setIsLoading(false)
 
       router.push('/')
@@ -105,7 +101,6 @@ export const AuthProvider: FC<AuthProviderProps> = ({
 
       setUser(response.data.user)
       setToken(response.data.token)
-      setIsLoggedIn(response.data.isLoggedIn)
       setProfile(response.data.profile)
     } catch (error: any) {
       if (error.response?.data?.message === 'Invalid identifier or password') {
@@ -142,7 +137,6 @@ export const AuthProvider: FC<AuthProviderProps> = ({
 
       setUser(response.data.user)
       setToken(response.data.token)
-      setIsLoggedIn(response.data.isLoggedIn)
       setProfile(response.data.profile)
     } catch (error: any) {
       setError(error.message)
@@ -160,7 +154,6 @@ export const AuthProvider: FC<AuthProviderProps> = ({
         profile,
         roles,
         token,
-        isLoggedIn,
         isLoading,
         error,
         checkAuth,

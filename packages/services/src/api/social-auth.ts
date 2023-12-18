@@ -29,20 +29,18 @@ export const socialAuthRouter: NextApiHandler = async (req, res) => {
       if (!token) {
         return res.json({
           user: null,
-          isLoggedIn: false,
           token: null,
         })
       }
 
       const sessionUser = await getSessionUser(token)
 
-      const auth = { user: sessionUser, token, isLoggedIn: true }
+      const auth = { user: sessionUser, token }
 
       const session = await getIronSession<Auth>(req, res, sessionOptions)
 
       session.user = auth.user
       session.token = auth.token
-      session.isLoggedIn = true
 
       await session.save()
       res.json(auth)
