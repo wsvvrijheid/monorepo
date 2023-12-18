@@ -30,7 +30,7 @@ export const TweetGenAI = () => {
   const [language, setLanguage] = useState<string>(LANGUAGE_OPTIONS[0])
 
   const {
-    // completion,
+    completion,
     input,
     stop,
     isLoading,
@@ -130,8 +130,8 @@ export const TweetGenAI = () => {
       </Box>
       {isLoading ? (
         <Box p={4}>
-          <Progress size="xs" isIndeterminate />
-          {/* <div>{completion}</div> */}
+          <Progress size="xs" mb={4} isIndeterminate />
+          {completion}
         </Box>
       ) : (
         <Box>
