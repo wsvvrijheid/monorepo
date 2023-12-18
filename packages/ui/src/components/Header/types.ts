@@ -4,7 +4,7 @@ import { MenuType } from '@wsvvrijheid/types'
 
 export type HeaderMenu = Array<MenuType>
 
-export type ProfileMenuProps = Pick<HeaderProps, 'isDark'>
+export type ProfileMenuProps = Pick<HeaderProps, 'isDark' | 'isLoggedIn'>
 
 export interface HeaderProps {
   animated?: boolean

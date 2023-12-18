@@ -8,6 +8,7 @@ import {
   MenuDivider,
   MenuItem,
   MenuList,
+  Avatar,
 } from '@chakra-ui/react'
 import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
@@ -19,12 +20,11 @@ import { useAuthContext } from '@wsvvrijheid/context'
 import { ProfileMenuProps } from './types'
 import { useScroll } from '../../hooks'
 import { Navigate } from '../Navigate'
-import { WAvatar } from '../WAvatar'
 
-export const ProfileMenu: FC<ProfileMenuProps> = ({ isDark }) => {
+export const ProfileMenu: FC<ProfileMenuProps> = ({ isDark, isLoggedIn }) => {
   const isScrolled = useScroll()
   const { t } = useTranslation()
-  const { user, profile, isLoggedIn, logout } = useAuthContext()
+  const { profile, logout } = useAuthContext()
 
   const Wrapper = !isScrolled && isDark ? DarkMode : Fragment
 
@@ -46,12 +46,19 @@ export const ProfileMenu: FC<ProfileMenuProps> = ({ isDark }) => {
 
   return (
     <Menu placement="bottom">
-      <MenuButton>
-        <WAvatar
-          boxSize={{ base: 10, lg: 12 }}
-          src={`${ASSETS_URL}${profile?.avatar}`}
-          name={profile?.name || user?.username}
-        />
+      <MenuButton
+        as={Button}
+        size={'sm'}
+        leftIcon={
+          <Avatar
+            size={'xs'}
+            bg={'white'}
+            src={`${ASSETS_URL}${profile?.avatar}`}
+            name={profile?.name || user?.username}
+          />
+        }
+      >
+        {profile?.name || user?.username}
       </MenuButton>
       <MenuList>
         <MenuItem as={Navigate} href={'/profile'}>

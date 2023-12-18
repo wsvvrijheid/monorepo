@@ -9,12 +9,12 @@ import { AuthenticatedUserProfile } from '@wsvvrijheid/ui'
 import { Layout } from '../components'
 
 const Profile = () => {
-  const { isLoggedIn } = useAuthContext()
+  const { user } = useAuthContext()
   const { t } = useTranslation()
 
   return (
     <Layout seo={{ title: t('profile') }} isDark>
-      {isLoggedIn && <AuthenticatedUserProfile />}
+      {user && <AuthenticatedUserProfile />}
     </Layout>
   )
 }

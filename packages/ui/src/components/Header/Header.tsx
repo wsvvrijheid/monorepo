@@ -1,15 +1,6 @@
 import { FC } from 'react'
 
-import {
-  Flex,
-  HStack,
-  Image,
-  Link,
-  Stack,
-  useBreakpointValue,
-  Box,
-  As,
-} from '@chakra-ui/react'
+import { As, Box, Flex, HStack, Image, Link, Stack } from '@chakra-ui/react'
 import { motion } from 'framer-motion'
 import Headroom from 'react-headroom'
 
@@ -30,7 +21,6 @@ export const Header: FC<HeaderProps> = ({
   isLoggedIn,
 }) => {
   const isScrolled = useScroll()
-  const isMobile = useBreakpointValue({ base: true, lg: false }) ?? true
 
   return (
     <Box as={Headroom as unknown as As}>
@@ -72,26 +62,29 @@ export const Header: FC<HeaderProps> = ({
               <Stack spacing={1}>
                 <HStack justify="end">
                   <LocaleSwitcher isDark={isDark} />
-                  {!isLoggedIn && hasProfile && <ProfileMenu isDark={isDark} />}
+                  {hasProfile && (
+                    <ProfileMenu isLoggedIn={isLoggedIn} isDark={isDark} />
+                  )}
                 </HStack>
-                {!isMobile && (
+
+                <Box display={{ base: 'none', lg: 'block' }}>
                   <HeaderNav
                     direction="row"
                     menu={headerMenu}
                     isDark={isDark}
                   />
-                )}
+                </Box>
               </Stack>
-              {isLoggedIn && hasProfile && <ProfileMenu isDark={isDark} />}
             </HStack>
-            {isMobile && (
+            <Box display={{ lg: 'none' }}>
               <HeaderMobile
+                isLoggedIn={isLoggedIn}
                 logo={logo}
                 isDark={isDark}
                 hasProfile={hasProfile}
                 headerMenu={headerMenu}
               />
-            )}
+            </Box>
           </Flex>
         </Container>
       </Flex>

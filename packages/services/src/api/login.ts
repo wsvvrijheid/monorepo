@@ -15,7 +15,6 @@ export const loginRouter: NextApiHandler = async (req, res) => {
 
     session.user = auth.user
     session.token = auth.token
-    session.isLoggedIn = true
     session.profileId = profile?.id || null
 
     await session.save()

@@ -22,6 +22,7 @@ export const HeaderMobile: FC<HeaderMobileProps> = ({
   isDark,
   headerMenu,
   hasProfile,
+  isLoggedIn,
 }) => {
   const { isOpen, onToggle, onClose } = useDisclosure()
   const isScrolled = useScroll()
@@ -38,11 +39,13 @@ export const HeaderMobile: FC<HeaderMobileProps> = ({
         </DrawerContent>
       </Drawer>
       <LocaleSwitcher isDark={isDark} />
-      {hasProfile && <ProfileMenu isDark={isDark} />}
+      {hasProfile && <ProfileMenu isLoggedIn={isLoggedIn} isDark={isDark} />}
       <IconButton
         variant="outline"
-        color={!isScrolled && isDark ? 'white' : 'initial'}
-        colorScheme={!isScrolled && isDark ? 'blackAlpha' : 'whiteAlpha'}
+        color={!isScrolled && isDark ? 'white' : 'primary.500'}
+        colorScheme={!isScrolled && isDark ? 'whiteAlpha' : 'primary'}
+        borderColor={!isScrolled && isDark ? 'white' : 'primary.500'}
+        size={'sm'}
         onClick={onToggle}
         aria-label="menu"
         icon={<FaBars />}

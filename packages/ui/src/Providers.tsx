@@ -14,6 +14,7 @@ import { GrAnalytics } from 'react-icons/gr'
 import { useCookie } from 'react-use'
 
 import { defaultSeo, themes } from '@wsvvrijheid/config'
+import { AuthProvider } from '@wsvvrijheid/context'
 import { AppSlug } from '@wsvvrijheid/types'
 
 import { CookieBanner } from './components'
@@ -52,13 +53,15 @@ export const Providers: FC<ProvidersProps> = ({
     <HydrationOverlay>
       <QueryClientProvider client={queryClient}>
         <HydrationBoundary state={dehydratedState}>
-          <ChakraProvider theme={themes[appSlug]}>
-            <DefaultSeo {...defaultSeo[appSlug][locale]} />
-            {children}
-            {!cookie && <CookieBanner onAllow={onAllow} />}
-            <GrAnalytics />
-            <ToastContainer />
-          </ChakraProvider>
+          <AuthProvider>
+            <ChakraProvider theme={themes[appSlug]}>
+              <DefaultSeo {...defaultSeo[appSlug][locale]} />
+              {children}
+              {!cookie && <CookieBanner onAllow={onAllow} />}
+              <GrAnalytics />
+              <ToastContainer />
+            </ChakraProvider>
+          </AuthProvider>
         </HydrationBoundary>
         <ReactQueryDevtools />
       </QueryClientProvider>

@@ -8,7 +8,6 @@ import { getSessionUser } from './getSessionUser'
 
 const emptyAuth: Auth = {
   user: null,
-  isLoggedIn: false,
   token: null,
   profile: null,
   profileId: null,
@@ -50,7 +49,6 @@ export const loginAuth = async (identifier: string, password: string) => {
   const auth: Auth = {
     user,
     token,
-    isLoggedIn: true,
     profile,
     profileId: profile?.id || null,
   }
