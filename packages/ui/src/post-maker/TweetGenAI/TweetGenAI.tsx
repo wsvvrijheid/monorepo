@@ -22,7 +22,7 @@ import { useTranslation } from 'next-i18next'
 import { toastMessage } from '@wsvvrijheid/utils'
 
 type TweetGenAIProps = {
-  content?: string | null
+  content?: string
 }
 
 export const TweetGenAI = ({ content }: TweetGenAIProps) => {
