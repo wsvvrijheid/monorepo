@@ -317,7 +317,7 @@ export const ModelEditForm = <T extends StrapiModel>({
         />
       )}
       <Stack as="form" onSubmit={handleSubmit(onSaveModel)} h={'full'}>
-        <Flex p={8} shadow={'sm'} flex={1}>
+        <Flex p={{ base: 4, lg: 8 }} shadow={'sm'} flex={1}>
           <MasonryGrid
             cols={noColumns ? [1] : [1, 1, 1, 2]}
             columnGap={8}
@@ -475,7 +475,7 @@ export const ModelEditForm = <T extends StrapiModel>({
         </Flex>
         <Flex
           justify={'end'}
-          px={8}
+          px={{ base: 4, lg: 8 }}
           py={4}
           pos={'sticky'}
           bottom={0}
@@ -595,7 +595,7 @@ export const ModelEditForm = <T extends StrapiModel>({
       <Divider />
       {profile && (
         <>
-          <Heading p={8}>{t('profile')}</Heading>
+          <Heading p={{ base: 4, lg: 8 }}>{t('profile')}</Heading>
           <ModelEditForm
             endpoint="profiles"
             model={profile}

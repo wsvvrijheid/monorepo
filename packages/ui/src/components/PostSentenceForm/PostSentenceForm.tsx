@@ -25,6 +25,7 @@ export const PostSentenceForm: FC<PostSentenceFormProps> = ({
 
   const onAddMutation = useCreateHashtagSentence()
 
+  // TODO: Move this into the PostSentenceCreator component
   const handleAdd = () => {
     onAddMutation.mutate(
       { hashtagId: hashtag.id, value: `${value}::${id}::${0}::${0}` },
@@ -39,7 +40,8 @@ export const PostSentenceForm: FC<PostSentenceFormProps> = ({
   }
 
   return (
-    <Stack p={4} spacing={4}>
+    <Stack spacing={4}>
+      {/* TODO: Move this into a separate PostSentenceCreator component */}
       <HStack>
         <Textarea
           value={value}

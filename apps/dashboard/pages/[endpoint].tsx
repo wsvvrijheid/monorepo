@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from 'react'
 
-import { Box, Heading, useDisclosure } from '@chakra-ui/react'
+import { Heading, Stack, useDisclosure } from '@chakra-ui/react'
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
@@ -25,17 +25,17 @@ import {
 import {
   AdminLayout,
   DataTable,
-  FilterOption,
   FilterMenu,
+  FilterOption,
   ModelEditModal,
   ModelStatusFilters,
   PageHeader,
-  RelationFilterArgs,
   PostSentenceForm,
+  RelationFilterArgs,
+  TweetGenAI,
   WTableProps,
   useColumns,
   useRequestArgs,
-  TweetGenAI,
 } from '@wsvvrijheid/ui'
 
 import { I18nNamespaces } from '../@types/i18next'
@@ -236,16 +236,18 @@ const ModelPage: FC<ModelPageProps> = ({ endpoint }) => {
           onSuccess={endpointQuery.refetch}
         >
           {endpoint === 'posts' && selectedModel && (
-            <Box p={4} rounded="md" bg="white" shadow="md">
+            <Stack rounded="md" bg="white" shadow="md">
               <TweetGenAI
                 content={(selectedModel as Post)?.content || undefined}
               />
-              <Heading p={4}>{t('sentences')}</Heading>
-              <PostSentenceForm
-                id={selectedModel.id}
-                hashtag={(selectedModel as Post).hashtag as HashtagReturnType}
-              />
-            </Box>
+              <Stack p={{ base: 4, lg: 8 }}>
+                <Heading>{t('sentences')}</Heading>
+                <PostSentenceForm
+                  id={selectedModel.id}
+                  hashtag={(selectedModel as Post).hashtag as HashtagReturnType}
+                />
+              </Stack>
+            </Stack>
           )}
         </ModelEditModal>
       )}
