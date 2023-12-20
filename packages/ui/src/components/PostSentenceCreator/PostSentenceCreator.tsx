@@ -35,11 +35,13 @@ export const PostSentenceCreator = ({ hashtagId, postId, initialContent }: PostS
         value={value}
         onChange={e => setValue(e.target.value)}
         placeholder="Add sentence"
+        bgColor={'whiteAlpha.700'}
       />
       <IconButton
         aria-label="Add sentence"
         icon={<FaPlus />}
         onClick={handleAdd}
+        colorScheme="purple"
       />
     </HStack>
   )
