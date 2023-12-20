@@ -41,7 +41,7 @@ const AnbiPage: FC<AnbiPageProps> = ({ foundation }) => {
   const chairmanName = formatName(foundation?.chairman?.name || ' ')
   const secretaryName = formatName(foundation?.secretary?.name || ' ')
   const accountantName = formatName(foundation?.accountant?.name || ' ')
- 
+
   return (
     <Layout seo={{ title }} isDark>
       <Hero title={title} />
