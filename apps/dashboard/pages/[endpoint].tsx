@@ -97,9 +97,9 @@ const ModelPage: FC<ModelPageProps> = ({ endpoint }) => {
       ...(isBlogAuthor && profile && { author: { id: { $eq: profile.id } } }),
       ...(q &&
         args?.searchFields && {
-          // TODO: Support searchFields with relation fields
-          $or: args?.searchFields?.map(f => ({ [f]: { $containsi: q } })),
-        }),
+        // TODO: Support searchFields with relation fields
+        $or: args?.searchFields?.map(f => ({ [f]: { $containsi: q } })),
+      }),
       ...(published === 'false' && { publishedAt: { $null: true } }),
       approvalStatus:
         status && status !== 'all'
@@ -238,6 +238,8 @@ const ModelPage: FC<ModelPageProps> = ({ endpoint }) => {
           {endpoint === 'posts' && selectedModel && (
             <Stack rounded="md" bg="white" shadow="md">
               <TweetGenAI
+                postId={selectedModel.id}
+                hashtag={(selectedModel as Post)?.hashtag as HashtagReturnType}
                 content={(selectedModel as Post)?.content || undefined}
               />
               <Stack p={{ base: 4, lg: 8 }}>
