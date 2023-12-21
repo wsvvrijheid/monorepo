@@ -25,7 +25,11 @@ import { RiAiGenerate } from 'react-icons/ri'
 import { StrapiLocale } from '@wsvvrijheid/types'
 import { toastMessage } from '@wsvvrijheid/utils'
 
+import { PostSentenceCreator } from '../../components/PostSentenceCreator'
+
 type TweetGenAIProps = {
+  postId: number
+  hashtagId: number
   content?: string
 }
 
@@ -35,7 +39,7 @@ const LANGUAGE_NAMES: Record<StrapiLocale, string> = {
   tr: 'Türkçe',
 }
 
-export const TweetGenAI = ({ content }: TweetGenAIProps) => {
+export const TweetGenAI = ({ postId, hashtagId, content }: TweetGenAIProps) => {
   const { t } = useTranslation()
   const [generatedPosts, setGeneratedPosts] = useState<string[]>()
   const [numberOfPosts, setNumberOfPosts] = useState<number>(5)
@@ -182,16 +186,14 @@ export const TweetGenAI = ({ content }: TweetGenAIProps) => {
         </Box>
       ) : (
         <Stack spacing={4}>
-          {generatedPosts?.map((genPost: string, idx: number) => {
-            // TODO: Use PostSentenceCreator component
+          {generatedPosts?.map((genPost: string) => {
             return (
-              <Textarea
-                name={`aiPost-${idx}`}
-                id={`aiPost-${idx}`}
-                key={idx}
-                value={genPost}
-                onChange={e => console.log(e.target.value)}
-                bg={'whiteAlpha.700'}
+              <PostSentenceCreator
+                key={postId}
+                initialContent={genPost}
+                hashtagId={hashtagId}
+                postId={postId}
+                colorScheme={'purple'}
               />
             )
           })}

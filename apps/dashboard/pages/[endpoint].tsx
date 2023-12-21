@@ -14,7 +14,6 @@ import { useStrapiRequest } from '@wsvvrijheid/services'
 import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import {
   ApprovalStatus,
-  HashtagReturnType,
   Post,
   Sort,
   StrapiCollectionEndpoint,
@@ -126,6 +125,8 @@ const ModelPage: FC<ModelPageProps> = ({ endpoint }) => {
   })) as StrapiModel[]
   const selectedModel = mappedModels?.find(m => m.id === selectedId)
 
+  const hashtagId = (selectedModel as Post)?.hashtag?.id
+
   const changeRoute = (
     key: 'id' | 'page' | 'sort' | 'status' | 'published' | 'q' | 'pageSize',
     value?: string | number | Sort | ApprovalStatus,
@@ -235,17 +236,16 @@ const ModelPage: FC<ModelPageProps> = ({ endpoint }) => {
           title={`Edit ${endpoint}`}
           onSuccess={endpointQuery.refetch}
         >
-          {endpoint === 'posts' && selectedModel && (
+          {endpoint === 'posts' && selectedModel && hashtagId && (
             <Stack rounded="md" bg="white" shadow="md">
               <TweetGenAI
+                postId={selectedModel.id}
+                hashtagId={hashtagId}
                 content={(selectedModel as Post)?.content || undefined}
               />
               <Stack p={{ base: 4, lg: 8 }}>
                 <Heading>{t('sentences')}</Heading>
-                <PostSentenceForm
-                  id={selectedModel.id}
-                  hashtag={(selectedModel as Post).hashtag as HashtagReturnType}
-                />
+                <PostSentenceForm id={selectedModel.id} hashtagId={hashtagId} />
               </Stack>
             </Stack>
           )}
