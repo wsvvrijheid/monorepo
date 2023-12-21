@@ -10,14 +10,14 @@ import { PostSentenceCreator } from '../PostSentenceCreator'
 
 export const PostSentenceForm: FC<PostSentenceFormProps> = ({
   id,
-  hashtag,
+  hashtagId,
 }) => {
-  const hashtagSentences = useGetHashtagSentences(hashtag?.id) ?? []
+  const hashtagSentences = useGetHashtagSentences(hashtagId) ?? []
   const sentences = hashtagSentences?.[id] ?? []
 
   return (
     <Stack spacing={4}>
-      <PostSentenceCreator hashtagId={hashtag.id} postId={id} />
+      <PostSentenceCreator hashtagId={hashtagId} postId={id} />
 
       {sentences.map(s => {
         const { value, shareCount, isPublished, index } = s
