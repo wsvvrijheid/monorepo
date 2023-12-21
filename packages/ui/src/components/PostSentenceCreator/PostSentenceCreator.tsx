@@ -1,19 +1,24 @@
-import { useState } from "react"
+import { useState } from 'react'
 
-import { HStack, IconButton, Textarea, ThemeTypings } from "@chakra-ui/react"
-import { useQueryClient } from "@tanstack/react-query"
-import { FaPlus } from "react-icons/fa"
+import { HStack, IconButton, Textarea, ThemeTypings } from '@chakra-ui/react'
+import { useQueryClient } from '@tanstack/react-query'
+import { FaPlus } from 'react-icons/fa'
 
-import { useCreateHashtagSentence } from "@wsvvrijheid/services"
+import { useCreateHashtagSentence } from '@wsvvrijheid/services'
 
 type PostSentenceCreatorProps = {
-  hashtagId: number,
-  postId: number,
-  initialContent?: string,
+  hashtagId: number
+  postId: number
+  initialContent?: string
   colorScheme?: ThemeTypings['colorSchemes']
 }
 
-export const PostSentenceCreator = ({ hashtagId, postId, initialContent, colorScheme }: PostSentenceCreatorProps) => {
+export const PostSentenceCreator = ({
+  hashtagId,
+  postId,
+  initialContent,
+  colorScheme,
+}: PostSentenceCreatorProps) => {
   const [value, setValue] = useState(initialContent)
   const onAddMutation = useCreateHashtagSentence()
   const queryClient = useQueryClient()
@@ -22,9 +27,10 @@ export const PostSentenceCreator = ({ hashtagId, postId, initialContent, colorSc
     onAddMutation.mutate(
       { hashtagId, value: `${value}::${postId}::${0}::${0}` },
       {
-        onSuccess: () => queryClient.invalidateQueries({
-          queryKey: ['kv-hashtag-sentences', hashtagId],
-        }),
+        onSuccess: () =>
+          queryClient.invalidateQueries({
+            queryKey: ['kv-hashtag-sentences', hashtagId],
+          }),
       },
     )
     setValue('')

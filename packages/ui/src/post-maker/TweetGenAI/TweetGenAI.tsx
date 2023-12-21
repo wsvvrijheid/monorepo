@@ -29,8 +29,8 @@ import { toastMessage } from '@wsvvrijheid/utils'
 import { PostSentenceCreator } from '../../components/PostSentenceCreator'
 
 type TweetGenAIProps = {
-  postId: number,
-  hashtag: HashtagReturnType,
+  postId: number
+  hashtag: HashtagReturnType
   content?: string
 }
 
@@ -41,7 +41,6 @@ const LANGUAGE_NAMES: Record<StrapiLocale, string> = {
 }
 
 export const TweetGenAI = ({ postId, hashtag, content }: TweetGenAIProps) => {
-
   const { t } = useTranslation()
   const [generatedPosts, setGeneratedPosts] = useState<string[]>()
   const [numberOfPosts, setNumberOfPosts] = useState<number>(5)
