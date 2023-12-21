@@ -15,7 +15,6 @@ import {
   Progress,
   Stack,
   Textarea,
-  ThemeTypings,
 } from '@chakra-ui/react'
 import { useCompletion } from 'ai/react'
 import { useRouter } from 'next/router'
@@ -23,14 +22,14 @@ import { useTranslation } from 'next-i18next'
 import { FaStop, FaTrash } from 'react-icons/fa6'
 import { RiAiGenerate } from 'react-icons/ri'
 
-import { HashtagReturnType, StrapiLocale } from '@wsvvrijheid/types'
+import { StrapiLocale } from '@wsvvrijheid/types'
 import { toastMessage } from '@wsvvrijheid/utils'
 
 import { PostSentenceCreator } from '../../components/PostSentenceCreator'
 
 type TweetGenAIProps = {
   postId: number
-  hashtag: HashtagReturnType
+  hashtagId: number
   content?: string
 }
 
@@ -40,7 +39,7 @@ const LANGUAGE_NAMES: Record<StrapiLocale, string> = {
   tr: 'Türkçe',
 }
 
-export const TweetGenAI = ({ postId, hashtag, content }: TweetGenAIProps) => {
+export const TweetGenAI = ({ postId, hashtagId, content }: TweetGenAIProps) => {
   const { t } = useTranslation()
   const [generatedPosts, setGeneratedPosts] = useState<string[]>()
   const [numberOfPosts, setNumberOfPosts] = useState<number>(5)
@@ -192,7 +191,7 @@ export const TweetGenAI = ({ postId, hashtag, content }: TweetGenAIProps) => {
               <PostSentenceCreator
                 key={postId}
                 initialContent={genPost}
-                hashtagId={hashtag.id}
+                hashtagId={hashtagId}
                 postId={postId}
                 colorScheme={'purple'}
               />

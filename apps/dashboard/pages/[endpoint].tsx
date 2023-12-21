@@ -239,7 +239,7 @@ const ModelPage: FC<ModelPageProps> = ({ endpoint }) => {
             <Stack rounded="md" bg="white" shadow="md">
               <TweetGenAI
                 postId={selectedModel.id}
-                hashtag={(selectedModel as Post)?.hashtag as HashtagReturnType}
+                hashtagId={(selectedModel as Post)?.hashtag.id}
                 content={(selectedModel as Post)?.content || undefined}
               />
               <Stack p={{ base: 4, lg: 8 }}>
