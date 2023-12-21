@@ -39,8 +39,7 @@ export const HomePlatform: FC<HomePlatformProps> = ({ platforms }) => {
   return (
     <Box>
       {platforms.map((platform, index) => {
-        const color =
-          colors[platform.slug as PlatformSlug] || colors.academy
+        const color = colors[platform.slug as PlatformSlug] || colors.academy
 
         return (
           <Center
