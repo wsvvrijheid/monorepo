@@ -26,7 +26,7 @@ export const PostSentencesModal = () => {
         <ModalContent>
           <ModalHeader>Manage Post Sentences</ModalHeader>
           <ModalBody>
-            <PostSentenceForm id={post?.id || 0} hashtag={hashtag} />
+            <PostSentenceForm id={post?.id || 0} hashtagId={hashtag.id} />
           </ModalBody>
         </ModalContent>
       </Modal>
