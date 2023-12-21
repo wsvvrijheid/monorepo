@@ -15,6 +15,7 @@ import {
   Progress,
   Stack,
   Textarea,
+  ThemeTypings,
 } from '@chakra-ui/react'
 import { useCompletion } from 'ai/react'
 import { useRouter } from 'next/router'
@@ -194,6 +195,7 @@ export const TweetGenAI = ({ postId, hashtag, content }: TweetGenAIProps) => {
                 initialContent={genPost}
                 hashtagId={hashtag.id}
                 postId={postId}
+                colorScheme={'purple'}
               />
             )
           })}

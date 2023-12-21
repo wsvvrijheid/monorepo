@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-import { HStack, IconButton, Textarea } from "@chakra-ui/react"
+import { HStack, IconButton, Textarea, ThemeTypings } from "@chakra-ui/react"
 import { useQueryClient } from "@tanstack/react-query"
 import { FaPlus } from "react-icons/fa"
 
@@ -10,9 +10,10 @@ type PostSentenceCreatorProps = {
   hashtagId: number,
   postId: number,
   initialContent?: string,
+  colorScheme?: ThemeTypings['colorSchemes']
 }
 
-export const PostSentenceCreator = ({ hashtagId, postId, initialContent }: PostSentenceCreatorProps) => {
+export const PostSentenceCreator = ({ hashtagId, postId, initialContent, colorScheme }: PostSentenceCreatorProps) => {
   const [value, setValue] = useState(initialContent)
   const onAddMutation = useCreateHashtagSentence()
   const queryClient = useQueryClient()
@@ -41,7 +42,7 @@ export const PostSentenceCreator = ({ hashtagId, postId, initialContent }: PostS
         aria-label="Add sentence"
         icon={<FaPlus />}
         onClick={handleAdd}
-        colorScheme="purple"
+        {...(colorScheme && { colorScheme })}
       />
     </HStack>
   )
