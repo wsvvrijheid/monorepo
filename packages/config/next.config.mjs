@@ -12,6 +12,7 @@ const nextConfig = {
     '@wsvvrijheid/services',
     '@wsvvrijheid/ui',
     '@wsvvrijheid/utils',
+    '@builder.io/react-hydration-overlay',
   ],
   i18n: {
     defaultLocale: 'en',
