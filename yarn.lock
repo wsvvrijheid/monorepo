@@ -2302,16 +2302,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@builder.io/react-hydration-overlay@npm:^0.0.5":
-  version: 0.0.5
-  resolution: "@builder.io/react-hydration-overlay@npm:0.0.5"
+"@builder.io/react-hydration-overlay@npm:^0.0.6":
+  version: 0.0.6
+  resolution: "@builder.io/react-hydration-overlay@npm:0.0.6"
   dependencies:
     beautify: "npm:^0.0.8"
     react-diff-viewer: "npm:^3.1.1"
   peerDependencies:
     react: ">=16"
     react-dom: ">=16"
-  checksum: c67507c3ed3adcad258f573ee3cb00fbe005ab089f093c161dc3041412e5bc9f974433af65d9955f45a8d4595984e71c2bcb577781451dff7be13b5d5ffe67db
+    webpack: ">=4"
+  checksum: b97a735f16a235760530dad07c48385c328f0531912c58215a20f58b5d0dab918810bd786ba1fc2a8d00c3a5132e7b060717b73f0254afad06687c465b960e28
   languageName: node
   linkType: hard
 
@@ -22352,9 +22353,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"openai@npm:^4.24.0":
-  version: 4.24.0
-  resolution: "openai@npm:4.24.0"
+"openai@npm:^4.24.1":
+  version: 4.24.1
+  resolution: "openai@npm:4.24.1"
   dependencies:
     "@types/node": "npm:^18.11.18"
     "@types/node-fetch": "npm:^2.6.4"
@@ -22367,7 +22368,7 @@ __metadata:
     web-streams-polyfill: "npm:^3.2.1"
   bin:
     openai: bin/cli
-  checksum: be9dbaff3b2e790dfe7b59da402d8866c4164c57ac000d6c4cbc7bdc286faf5411c1f84161d0229791ab920715661d3846585e07fd149f697704ac53fcaf1fe8
+  checksum: 30769c66e62129bfe0e5caedb760d9885019cf69bea9d8bcd370e88b6c32311c81a4d895e84ada96da035b6710dd880d67b747a630369c4e3c2b2a08bc8484e9
   languageName: node
   linkType: hard
 
@@ -29155,7 +29156,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "wees-turbo@workspace:."
   dependencies:
-    "@builder.io/react-hydration-overlay": "npm:^0.0.5"
+    "@builder.io/react-hydration-overlay": "npm:^0.0.6"
     "@chakra-ui/react": "npm:^2.8.2"
     "@chakra-ui/storybook-addon": "npm:^5.1.0"
     "@ctrl/tinycolor": "npm:^4.0.2"
@@ -29228,7 +29229,7 @@ __metadata:
     next-recaptcha-v3: "npm:^1.3.0"
     next-seo: "npm:^6.4.0"
     next-share: "npm:^0.27.0"
-    openai: "npm:^4.24.0"
+    openai: "npm:^4.24.1"
     os-browserify: "npm:^0.3.0"
     path-browserify: "npm:^1.0.1"
     prettier: "npm:^3.1.1"
