@@ -29,8 +29,6 @@ export const checkRecaptcha = async (context: Context) => {
 
     const recaptcha = await response.json()
 
-    console.log('recaptcha', recaptcha)
-
     if (!recaptcha.success || recaptcha.score < 0.5) {
       // TODO: How to send the error details to the client?
       throw new ForbiddenError('Recaptcha failed', {
