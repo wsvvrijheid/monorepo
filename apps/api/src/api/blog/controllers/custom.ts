@@ -1,6 +1,8 @@
 import { Context } from 'koa'
+import { checkRecaptcha, getProfile, assignApprover, getReferenceModel } from '../../../utils'
+import { errors } from '@strapi/utils'
 
-import { assignApprover, getReferenceModel } from '../../../utils'
+const { ApplicationError, ForbiddenError } = errors
 
 export default {
   async approve(ctx: Context) {
@@ -42,5 +44,109 @@ export default {
     )
 
     return { data: user }
+  },
+  async like(ctx: Context) {
+    // await checkRecaptcha(ctx)
+
+    const profile = await getProfile(ctx)
+
+    if (profile) {
+      const isLikedCount = await strapi.entityService.count('api::blog.blog', {
+        filters: {
+          id: { $eq: ctx.params.id },
+          likers: { id: { $in: [profile.id] } },
+        },
+      })
+
+      if (!isLikedCount) {
+        await strapi.entityService.update(
+          'api::blog.blog',
+          ctx.params.id,
+          {
+            data: {
+              likers: {
+                ['connect']: [profile.id as number],
+              } as any,
+            },
+          },
+        )
+      }
+    }
+
+    await strapi.db
+      .connection('blogs')
+      .where('id', ctx.params.id)
+      .increment('likes', 1)
+
+    const result = await strapi.entityService.findOne(
+      'api::blog.blog',
+      ctx.params.id,
+    )
+
+    return { data: result }
+  },
+  async unlike(ctx: Context) {
+    // await checkRecaptcha(ctx)
+
+    const profile = await getProfile(ctx)
+
+    if (profile) {
+      const isLikedCount = await strapi.entityService.count('api::blog.blog', {
+        filters: {
+          id: { $eq: ctx.params.id },
+          likers: { id: { $in: [profile.id] } },
+        },
+      })
+
+      if (isLikedCount) {
+        await strapi.entityService.update(
+          'api::blog.blog',
+          ctx.params.id,
+          {
+            data: {
+              likers: {
+                ['disconnect']: [profile.id as number],
+              } as any,
+            },
+          },
+        )
+      }
+    }
+
+    await strapi.db
+      .connection('blogs')
+      .where('id', ctx.params.id)
+      .increment('likes', -1)
+
+    const result = await strapi.entityService.findOne(
+      'api::blog.blog',
+      ctx.params.id,
+    )
+
+    return { data: result }
+  },
+  async view(ctx: Context) {
+    try {
+      // await checkRecaptcha(ctx)
+
+      await strapi.db
+        .connection('blogs')
+        .where('id', ctx.params.id)
+        .increment('views', 1)
+
+      const result = await strapi.entityService.findOne(
+        'api::blog.blog',
+        ctx.params.id,
+      )
+
+      return { data: result }
+    } catch (error) {
+      console.error('Error in view-blog controller:', error)
+
+      if (error instanceof ForbiddenError)
+        throw new ForbiddenError(error.message)
+
+      throw new ApplicationError(error.message)
+    }
   },
 }
