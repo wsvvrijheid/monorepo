@@ -34,21 +34,19 @@ export default {
         },
       })
 
-      const connection = isLikedCount > 0 ? 'disconnect' : 'connect'
-
-      const result = await strapi.entityService.update(
-        'api::art.art',
-        ctx.params.id,
-        {
-          data: {
-            likers: {
-              [connection]: [profile.id as number],
-            } as any,
+      if (!isLikedCount) {
+        await strapi.entityService.update(
+          'api::art.art',
+          ctx.params.id,
+          {
+            data: {
+              likers: {
+                ['connect']: [profile.id as number],
+              } as any,
+            },
           },
-        },
-      )
-
-      return { data: result }
+        )
+      }
     }
 
     await strapi.db
@@ -65,6 +63,31 @@ export default {
   },
   async unlike(ctx: Context) {
     await checkRecaptcha(ctx)
+
+    const profile = await getProfile(ctx)
+
+    if (profile) {
+      const isLikedCount = await strapi.entityService.count('api::art.art', {
+        filters: {
+          id: { $eq: ctx.params.id },
+          likers: { id: { $in: [profile.id] } },
+        },
+      })
+
+      if (isLikedCount) {
+        await strapi.entityService.update(
+          'api::art.art',
+          ctx.params.id,
+          {
+            data: {
+              likers: {
+                ['disconnect']: [profile.id as number],
+              } as any,
+            },
+          },
+        )
+      }
+    }
 
     await strapi.db
       .connection('arts')
