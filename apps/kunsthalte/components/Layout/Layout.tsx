@@ -31,12 +31,10 @@ export const Layout: FC<LayoutProps> = ({
       <AppLayout
         seo={seo}
         logo={'/images/kunsthalte-logo.svg'}
+        hasProfile
         headerProps={{
           headerMenu: menus.kunsthalte.headerMenu,
           animated: false,
-          profileMenu: {
-            ...menus.kunsthalte.profileMenu,
-          },
           isDark,
           hasScroll,
         }}

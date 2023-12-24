@@ -1,5 +1,6 @@
 import { SetRequired } from 'type-fest'
 
+import { UploadFile } from './file'
 import { StrapiLocale } from './locale'
 
 export type ApprovalStatus = 'approved' | 'pending' | 'rejected'
@@ -9,6 +10,7 @@ export type Localize<T> = Record<StrapiLocale, T>
 
 export type MenuType = {
   link?: string
+  isExternal?: boolean
   children?: MenuType[]
 } & Localize<string>
 
@@ -24,7 +26,7 @@ export type OgImageParams = Partial<{
   color: string
   flip: boolean
   hasLine: boolean
-  image: string
+  image: string | UploadFile
   randomImage: boolean
   scale: number
   shape: number

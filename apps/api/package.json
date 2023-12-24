@@ -22,10 +22,10 @@
     "clean": "rm -rf node_modules .cache .turbo dist .strapi"
   },
   "dependencies": {
-    "@strapi/plugin-i18n": "^4.15.5",
-    "@strapi/plugin-users-permissions": "^4.15.5",
-    "@strapi/provider-email-nodemailer": "^4.15.5",
-    "@strapi/strapi": "^4.15.5",
+    "@strapi/plugin-i18n": "^4.16.2",
+    "@strapi/plugin-users-permissions": "^4.16.2",
+    "@strapi/provider-email-nodemailer": "^4.16.2",
+    "@strapi/strapi": "^4.16.2",
     "apify-client": "^2.8.4",
     "cheerio": "^1.0.0-rc.12",
     "pg": "^8.11.3",
@@ -33,8 +33,8 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^5.3.4",
-    "sharp": "^0.33.0",
-    "strapi-plugin-import-export-entries": "^1.22.1",
+    "sharp": "^0.33.1",
+    "strapi-plugin-import-export-entries": "^1.22.2",
     "strapi-plugin-transformer": "^3.1.2",
     "styled-components": "^5.2.1"
   },

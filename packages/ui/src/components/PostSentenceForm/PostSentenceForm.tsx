@@ -1,57 +1,23 @@
-import { FC, useState } from 'react'
+import { FC } from 'react'
 
-import { HStack, IconButton, Stack, Textarea } from '@chakra-ui/react'
-import { useQueryClient } from '@tanstack/react-query'
-import { FaPlus } from 'react-icons/fa'
+import { Stack } from '@chakra-ui/react'
 
-import {
-  useCreateHashtagSentence,
-  useGetHashtagSentences,
-} from '@wsvvrijheid/services'
+import { useGetHashtagSentences } from '@wsvvrijheid/services'
 
 import { PostSentenceFormItem } from './PostSentenceFormItem'
 import { PostSentenceFormProps } from './types'
+import { PostSentenceCreator } from '../PostSentenceCreator'
 
 export const PostSentenceForm: FC<PostSentenceFormProps> = ({
   id,
-  hashtag,
+  hashtagId,
 }) => {
-  const hashtagSentences = useGetHashtagSentences(hashtag?.id) ?? []
+  const hashtagSentences = useGetHashtagSentences(hashtagId) ?? []
   const sentences = hashtagSentences?.[id] ?? []
 
-  const queryClient = useQueryClient()
-
-  const [value, setValue] = useState('')
-
-  const onAddMutation = useCreateHashtagSentence()
-
-  const handleAdd = () => {
-    onAddMutation.mutate(
-      { hashtagId: hashtag.id, value: `${value}::${id}::${0}::${0}` },
-      {
-        onSuccess: () =>
-          queryClient.invalidateQueries({
-            queryKey: ['kv-hashtag-sentences', hashtag.id],
-          }),
-      },
-    )
-    setValue('')
-  }
-
   return (
-    <Stack p={4} spacing={4}>
-      <HStack>
-        <Textarea
-          value={value}
-          onChange={e => setValue(e.target.value)}
-          placeholder="Add sentence"
-        />
-        <IconButton
-          aria-label="Add sentence"
-          icon={<FaPlus />}
-          onClick={handleAdd}
-        />
-      </HStack>
+    <Stack spacing={4}>
+      <PostSentenceCreator hashtagId={hashtagId} postId={id} />
 
       {sentences.map(s => {
         const { value, shareCount, isPublished, index } = s

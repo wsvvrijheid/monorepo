@@ -19,7 +19,7 @@ import {
   Wrap,
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'next-i18next'
 
 import { Art, StrapiLocale } from '@wsvvrijheid/types'
 

@@ -1,6 +1,10 @@
 import { NextSeoProps } from 'next-seo'
 
-import { SITE_URL, endpointsWithLocalizedTitle } from '@wsvvrijheid/config'
+import {
+  SITE_URL,
+  TWITTER_HANDLE,
+  endpointsWithLocalizedTitle,
+} from '@wsvvrijheid/config'
 import {
   Art,
   Blog,
@@ -70,14 +74,12 @@ export const getPageSeo = (
   return {
     title,
     description,
-    ...(image && {
-      additionalMetaTags: [
-        {
-          property: 'twitter:image:src',
-          content: images[0].url || '',
-        },
-      ],
-    }),
+    canonical: url,
+    twitter: {
+      cardType: 'summary_large_image',
+      site: TWITTER_HANDLE,
+      handle: TWITTER_HANDLE,
+    },
     openGraph: {
       title,
       description,

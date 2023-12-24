@@ -74,6 +74,7 @@ export const AdminNavItem: FC<AdminNavItemProps> = ({
         <Collapse in={open}>
           {submenu?.map((item, index) => {
             const isSubmenuLinkActive = router.asPath === item.link
+            const isExternal = item.link?.startsWith('http')
 
             return (
               <Box key={index}>
@@ -82,6 +83,7 @@ export const AdminNavItem: FC<AdminNavItemProps> = ({
                   justifyContent="start"
                   key={item.link}
                   ml={8}
+                  {...(isExternal && { isExternal, target: '_blank' })}
                 >
                   <Button
                     justifyContent={'start'}

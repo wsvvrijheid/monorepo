@@ -21,7 +21,7 @@ export const SocialButtons: FC<SocialButtonsProps> = ({ items }) => {
 
   return (
     <HStack align="start">
-      {items.map((item, i) => (
+      {items?.map((item, i) => (
         <IconButton
           key={i}
           aria-label={item.label}

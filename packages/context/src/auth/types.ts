@@ -9,7 +9,6 @@ export type AuthState = {
   roles: RoleType[]
   isLoading: boolean
   token: string | null
-  isLoggedIn: boolean
   isAuthModalOpen: boolean
   error: string | null
 }

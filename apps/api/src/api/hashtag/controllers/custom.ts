@@ -2,9 +2,7 @@ import { addHours } from 'date-fns'
 import { Context } from 'koa'
 import { ETwitterStreamEvent, TweetV2SingleResult } from 'twitter-api-v2'
 
-import { Hashtag } from '@wsvvrijheid/types'
-
-import { hashtagStatsStore, getTwitterClient } from '../../../libs'
+import { getTwitterClient, hashtagStatsStore } from '../../../libs'
 import {
   assignApprover,
   getReferenceModel,
@@ -86,16 +84,13 @@ export default {
       const twitterClient = await getTwitterClient()
 
       // get hashtags
-      const data = (await strapi.entityService.findMany(
-        'api::hashtag.hashtag',
-        {
-          filters: {
-            date: {
-              $gte: sixHoursAgo,
-            },
+      const data = await strapi.entityService.findMany('api::hashtag.hashtag', {
+        filters: {
+          date: {
+            $gte: sixHoursAgo,
           },
         },
-      )) as Hashtag[]
+      })
 
       // check if there is no hashtags
       if (!data || data.length === 0) return 'No hashtags in the last 6 hours'

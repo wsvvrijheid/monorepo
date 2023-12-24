@@ -3,7 +3,7 @@ import { merge } from 'lodash'
 
 import { defaultTheme } from './theme'
 
-export const admin = extendTheme(
+export const dashboard = extendTheme(
   merge(defaultTheme, {
     colors: {
       primary: defaultTheme['colors'].green,

@@ -2,27 +2,19 @@ import { getIronSession } from 'iron-session'
 import { NextApiHandler } from 'next'
 
 import { sessionOptions } from '@wsvvrijheid/secrets'
-import { getAuth } from '@wsvvrijheid/services'
+import { loginAuth } from '@wsvvrijheid/services'
 import { Auth } from '@wsvvrijheid/types'
 
 export const loginRouter: NextApiHandler = async (req, res) => {
   const { identifier, password } = req.body
 
   try {
-    const { profile, ...auth } = await getAuth(identifier, password)
-
-    if (auth.user?.roles.includes('authenticated')) {
-      return res.status(401).json({
-        message: `You are not allowed to login!`,
-        type: 'unauthorized',
-      })
-    }
+    const { profile, ...auth } = await loginAuth(identifier, password)
 
     const session = await getIronSession<Auth>(req, res, sessionOptions)
 
     session.user = auth.user
     session.token = auth.token
-    session.isLoggedIn = true
     session.profileId = profile?.id || null
 
     await session.save()

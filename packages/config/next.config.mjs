@@ -1,3 +1,5 @@
+import { withHydrationOverlayWebpack } from '@builder.io/react-hydration-overlay/webpack'
+
 /**
  * @type {import('next').NextConfig}
  **/
@@ -10,6 +12,7 @@ const nextConfig = {
     '@wsvvrijheid/services',
     '@wsvvrijheid/ui',
     '@wsvvrijheid/utils',
+    '@builder.io/react-hydration-overlay',
   ],
   i18n: {
     defaultLocale: 'en',
@@ -25,6 +28,15 @@ const nextConfig = {
   images: {
     deviceSizes: [320, 480, 720, 1080],
     imageSizes: [150],
+  },
+  webpack: (config, options) => {
+    config = withHydrationOverlayWebpack({
+      appRootSelector: '#__next',
+      isMainAppEntryPoint: entryPointName =>
+        !options.isServer && entryPointName === 'pages/_app',
+    })(config)
+
+    return config
   },
 }
 

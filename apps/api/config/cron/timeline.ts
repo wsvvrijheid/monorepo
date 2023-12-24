@@ -1,3 +1,4 @@
+import { Attribute } from '@strapi/strapi'
 import { ApifyClient } from 'apify-client'
 
 export default async () => {
@@ -44,7 +45,7 @@ export default async () => {
         }
       })
       await strapi.entityService.update('api::timeline.timeline', timeline.id, {
-        data: { tweets: formattedItems },
+        data: { tweets: formattedItems as Attribute.JsonValue },
       })
     })
   } catch (error) {

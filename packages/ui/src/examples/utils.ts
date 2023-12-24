@@ -1,7 +1,7 @@
 import axios from 'axios'
 
+import { PUBLIC_TOKEN } from '@wsvvrijheid/config'
 import { Mutation } from '@wsvvrijheid/lib'
-import { TOKEN } from '@wsvvrijheid/secrets'
 import { Category, CategoryCreateInput } from '@wsvvrijheid/types'
 import { sleep } from '@wsvvrijheid/utils'
 
@@ -15,7 +15,7 @@ export const createCategoryWithAxios = async (data: CategoryCreateInput) => {
   return await axios.post(
     CATEGORY_URL,
     { data },
-    { headers: { Authorization: `Bearer ${TOKEN}` } },
+    { headers: { Authorization: `Bearer ${PUBLIC_TOKEN}` } },
   )
 }
 
@@ -26,6 +26,6 @@ export const createCategoryWithMutation = async (data: CategoryCreateInput) => {
   return await Mutation.post<Category, CategoryCreateInput>(
     'categories',
     data,
-    TOKEN as string,
+    PUBLIC_TOKEN as string,
   )
 }

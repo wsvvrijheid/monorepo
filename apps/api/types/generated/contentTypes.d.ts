@@ -480,6 +480,97 @@ export interface PluginUploadFolder extends Schema.CollectionType {
   }
 }
 
+export interface PluginContentReleasesRelease extends Schema.CollectionType {
+  collectionName: 'strapi_releases'
+  info: {
+    singularName: 'release'
+    pluralName: 'releases'
+    displayName: 'Release'
+  }
+  options: {
+    draftAndPublish: false
+  }
+  pluginOptions: {
+    'content-manager': {
+      visible: false
+    }
+    'content-type-builder': {
+      visible: false
+    }
+  }
+  attributes: {
+    name: Attribute.String & Attribute.Required
+    releasedAt: Attribute.DateTime
+    actions: Attribute.Relation<
+      'plugin::content-releases.release',
+      'oneToMany',
+      'plugin::content-releases.release-action'
+    >
+    createdAt: Attribute.DateTime
+    updatedAt: Attribute.DateTime
+    createdBy: Attribute.Relation<
+      'plugin::content-releases.release',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private
+    updatedBy: Attribute.Relation<
+      'plugin::content-releases.release',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private
+  }
+}
+
+export interface PluginContentReleasesReleaseAction
+  extends Schema.CollectionType {
+  collectionName: 'strapi_release_actions'
+  info: {
+    singularName: 'release-action'
+    pluralName: 'release-actions'
+    displayName: 'Release Action'
+  }
+  options: {
+    draftAndPublish: false
+  }
+  pluginOptions: {
+    'content-manager': {
+      visible: false
+    }
+    'content-type-builder': {
+      visible: false
+    }
+  }
+  attributes: {
+    type: Attribute.Enumeration<['publish', 'unpublish']> & Attribute.Required
+    entry: Attribute.Relation<
+      'plugin::content-releases.release-action',
+      'morphToOne'
+    >
+    contentType: Attribute.String & Attribute.Required
+    release: Attribute.Relation<
+      'plugin::content-releases.release-action',
+      'manyToOne',
+      'plugin::content-releases.release'
+    >
+    createdAt: Attribute.DateTime
+    updatedAt: Attribute.DateTime
+    createdBy: Attribute.Relation<
+      'plugin::content-releases.release-action',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private
+    updatedBy: Attribute.Relation<
+      'plugin::content-releases.release-action',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private
+  }
+}
+
 export interface PluginI18NLocale extends Schema.CollectionType {
   collectionName: 'i18n_locale'
   info: {
@@ -767,6 +858,12 @@ export interface ApiActivityActivity extends Schema.CollectionType {
         }
       }> &
       Attribute.DefaultTo<'pending'>
+    place: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true
+        }
+      }>
     image: Attribute.Media &
       Attribute.Required &
       Attribute.SetPluginOptions<{
@@ -1853,6 +1950,27 @@ export interface ApiFoundationFoundation extends Schema.CollectionType {
       'api::profile.profile'
     >
     contact: Attribute.Component<'contact.contact'>
+    KVK: Attribute.String
+    BIC: Attribute.String
+    RSIN: Attribute.String
+    chairman: Attribute.Relation<
+      'api::foundation.foundation',
+      'oneToOne',
+      'api::profile.profile'
+    >
+    secretary: Attribute.Relation<
+      'api::foundation.foundation',
+      'oneToOne',
+      'api::profile.profile'
+    >
+    accountant: Attribute.Relation<
+      'api::foundation.foundation',
+      'oneToOne',
+      'api::profile.profile'
+    >
+    policy_plan: Attribute.Media
+    substantive_financial_annual_report: Attribute.Media
+    remuneration_policy: Attribute.Media
     createdAt: Attribute.DateTime
     updatedAt: Attribute.DateTime
     createdBy: Attribute.Relation<
@@ -2323,6 +2441,113 @@ export interface ApiPostPost extends Schema.CollectionType {
   }
 }
 
+export interface ApiPresentationPresentation extends Schema.CollectionType {
+  collectionName: 'presentations'
+  info: {
+    singularName: 'presentation'
+    pluralName: 'presentations'
+    displayName: 'Presentation'
+    description: ''
+  }
+  options: {
+    draftAndPublish: true
+  }
+  pluginOptions: {
+    i18n: {
+      localized: true
+    }
+  }
+  attributes: {
+    title: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true
+        }
+      }>
+    slug: Attribute.UID<'api::presentation.presentation', 'title'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true
+        }
+      }>
+    content: Attribute.RichText &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true
+        }
+      }>
+    description: Attribute.Text &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true
+        }
+      }>
+    date: Attribute.DateTime &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false
+        }
+      }>
+    address: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false
+        }
+      }>
+    place: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true
+        }
+      }>
+    flow: Attribute.Component<'flow.flow', true> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true
+        }
+      }>
+    images: Attribute.Media &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true
+        }
+      }>
+    image: Attribute.Media &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true
+        }
+      }>
+    approvalStatus: Attribute.Enumeration<['pending', 'approved', 'rejected']> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true
+        }
+      }>
+    createdAt: Attribute.DateTime
+    updatedAt: Attribute.DateTime
+    publishedAt: Attribute.DateTime
+    createdBy: Attribute.Relation<
+      'api::presentation.presentation',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private
+    updatedBy: Attribute.Relation<
+      'api::presentation.presentation',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private
+    localizations: Attribute.Relation<
+      'api::presentation.presentation',
+      'oneToMany',
+      'api::presentation.presentation'
+    >
+    locale: Attribute.String
+  }
+}
+
 export interface ApiPrivacyPrivacy extends Schema.SingleType {
   collectionName: 'privacies'
   info: {
@@ -2400,11 +2625,6 @@ export interface ApiProfileProfile extends Schema.CollectionType {
     draftAndPublish: false
   }
   attributes: {
-    role: Attribute.Relation<
-      'api::profile.profile',
-      'manyToOne',
-      'plugin::users-permissions.role'
-    >
     name: Attribute.String & Attribute.Required
     email: Attribute.Email & Attribute.Required & Attribute.Unique
     bio: Attribute.Text
@@ -3411,6 +3631,8 @@ declare module '@strapi/types' {
       'admin::transfer-token-permission': AdminTransferTokenPermission
       'plugin::upload.file': PluginUploadFile
       'plugin::upload.folder': PluginUploadFolder
+      'plugin::content-releases.release': PluginContentReleasesRelease
+      'plugin::content-releases.release-action': PluginContentReleasesReleaseAction
       'plugin::i18n.locale': PluginI18NLocale
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission
       'plugin::users-permissions.role': PluginUsersPermissionsRole
@@ -3438,6 +3660,7 @@ declare module '@strapi/types' {
       'api::mention.mention': ApiMentionMention
       'api::platform.platform': ApiPlatformPlatform
       'api::post.post': ApiPostPost
+      'api::presentation.presentation': ApiPresentationPresentation
       'api::privacy.privacy': ApiPrivacyPrivacy
       'api::profile.profile': ApiProfileProfile
       'api::recommended-topic.recommended-topic': ApiRecommendedTopicRecommendedTopic

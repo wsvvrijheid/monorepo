@@ -1,12 +1,16 @@
 export default {
-  afterCreate({ result }) {
+  async afterCreate({ result }) {
     if (result.isVolunteer) {
-      strapi.plugins['email'].services.email.send({
-        to: 'info@wsvvrijheid.nl',
-        from: 'info@wsvvrijheid.nl',
-        subject: `New volunteer ${result.name}`,
-        html: `<pre>${JSON.stringify(result, null, 2)}</pre>`,
-      })
+      try {
+        await strapi.plugins['email'].services.email.send({
+          to: 'info@wsvvrijheid.nl',
+          from: 'info@wsvvrijheid.nl',
+          subject: `New volunteer ${result.name}`,
+          html: `<p>Hi, ${result.name} has signed up as a volunteer.</p>`,
+        })
+      } catch (error) {
+        console.error('Error sending volunteer email', error)
+      }
     }
   },
 }

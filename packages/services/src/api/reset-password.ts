@@ -19,7 +19,6 @@ export const resetPasswordRouter: NextApiHandler = async (req, res) => {
     if (!token) {
       return res.json({
         user: null,
-        isLoggedIn: false,
         token: null,
       })
     }
@@ -29,7 +28,6 @@ export const resetPasswordRouter: NextApiHandler = async (req, res) => {
     if (!user) {
       return res.json({
         user: null,
-        isLoggedIn: false,
         token: null,
       })
     }
@@ -43,13 +41,12 @@ export const resetPasswordRouter: NextApiHandler = async (req, res) => {
 
     const profile = profileResponse?.data?.[0] || null
 
-    const auth = { user, profile, token, isLoggedIn: true }
+    const auth = { user, profile, token: true }
 
     const session = await getIronSession<Auth>(req, res, sessionOptions)
 
     session.user = user
     session.token = token
-    session.isLoggedIn = true
     session.profileId = profile?.id || null
 
     await session.save()

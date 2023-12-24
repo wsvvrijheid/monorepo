@@ -18,6 +18,7 @@ export enum Publisher {
   TM = 'Turkish Minute',
   IPA = 'Ipa News',
   SWO = 'Solidarity With Others',
+  NORDIC_MONITOR = 'Nordic Monitor',
 }
 
 export enum Locale {

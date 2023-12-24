@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 import { useRouter } from 'next/router'
 
 import { endpointsWithApprovalStatus } from '@wsvvrijheid/config'
@@ -10,9 +12,11 @@ import { WSelect } from '../../components'
 
 export const ModelSelect = <T extends StrapiModel>({
   endpoint,
+  populate = [],
   ...rest
 }: ModelSelectProps) => {
   const { locale } = useRouter()
+  const [isMenuOpened, setIsMenuOpened] = useState(false)
 
   const modelsQuery = useStrapiRequest<T>({
     endpoint,
@@ -23,7 +27,10 @@ export const ModelSelect = <T extends StrapiModel>({
       },
     }),
     pageSize: 100,
-    populate: [],
+    populate,
+    queryOptions: {
+      enabled: isMenuOpened,
+    },
   })
 
   const models = modelsQuery.data?.data?.map((model: any) => ({
@@ -35,5 +42,11 @@ export const ModelSelect = <T extends StrapiModel>({
 
   const options = models && mapModelsToOptions(models, locale)
 
-  return <WSelect options={options} {...rest} />
+  return (
+    <WSelect
+      onMenuOpen={() => setIsMenuOpened(true)}
+      options={options}
+      {...rest}
+    />
+  )
 }

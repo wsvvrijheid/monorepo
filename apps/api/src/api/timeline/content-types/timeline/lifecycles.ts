@@ -1,3 +1,4 @@
+import { Attribute } from '@strapi/strapi'
 import { getUserByUsername, getUserTweets } from '../../../../libs'
 
 export default {
@@ -19,7 +20,7 @@ export default {
             username: user.username,
             profile: user.profile_image_url,
           },
-          tweets,
+          tweets: tweets as unknown as Attribute.JsonValue,
         },
       })
     } catch (error) {

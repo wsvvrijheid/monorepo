@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from 'react'
 
-import { Box, Heading, useDisclosure } from '@chakra-ui/react'
+import { Heading, Stack, useDisclosure } from '@chakra-ui/react'
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
@@ -14,7 +14,6 @@ import { useStrapiRequest } from '@wsvvrijheid/services'
 import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import {
   ApprovalStatus,
-  HashtagReturnType,
   Post,
   Sort,
   StrapiCollectionEndpoint,
@@ -25,13 +24,14 @@ import {
 import {
   AdminLayout,
   DataTable,
-  FilterOption,
   FilterMenu,
+  FilterOption,
   ModelEditModal,
   ModelStatusFilters,
   PageHeader,
-  RelationFilterArgs,
   PostSentenceForm,
+  RelationFilterArgs,
+  TweetGenAI,
   WTableProps,
   useColumns,
   useRequestArgs,
@@ -124,6 +124,8 @@ const ModelPage: FC<ModelPageProps> = ({ endpoint }) => {
       (m as StrapiTranslatableModel)?.localizations?.map(l => l.locale) || [],
   })) as StrapiModel[]
   const selectedModel = mappedModels?.find(m => m.id === selectedId)
+
+  const hashtagId = (selectedModel as Post)?.hashtag?.id
 
   const changeRoute = (
     key: 'id' | 'page' | 'sort' | 'status' | 'published' | 'q' | 'pageSize',
@@ -234,14 +236,18 @@ const ModelPage: FC<ModelPageProps> = ({ endpoint }) => {
           title={`Edit ${endpoint}`}
           onSuccess={endpointQuery.refetch}
         >
-          {endpoint === 'posts' && selectedModel && (
-            <Box p={4} rounded="md" bg="white" shadow="md">
-              <Heading p={4}>{t('sentences')}</Heading>
-              <PostSentenceForm
-                id={selectedModel.id}
-                hashtag={(selectedModel as Post).hashtag as HashtagReturnType}
+          {endpoint === 'posts' && selectedModel && hashtagId && (
+            <Stack rounded="md" bg="white" shadow="md">
+              <TweetGenAI
+                postId={selectedModel.id}
+                hashtagId={hashtagId}
+                content={(selectedModel as Post)?.content || undefined}
               />
-            </Box>
+              <Stack p={{ base: 4, lg: 8 }}>
+                <Heading>{t('sentences')}</Heading>
+                <PostSentenceForm id={selectedModel.id} hashtagId={hashtagId} />
+              </Stack>
+            </Stack>
           )}
         </ModelEditModal>
       )}

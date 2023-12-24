@@ -83,6 +83,9 @@ export const ArtClubTemplate: FC = () => {
     },
     page: parseInt(page as string) || 1,
     locale,
+    queryOptions: {
+      queryKey,
+    },
   })
 
   return (
@@ -166,7 +169,11 @@ export const ArtClubTemplate: FC = () => {
                         directing="to-down"
                         delay={i * 0.5}
                       >
-                        <ArtCard art={art} queryKey={queryKey} isMasonry />
+                        <ArtCard
+                          art={art}
+                          onToggleLike={artsQuery.refetch}
+                          isMasonry
+                        />
                       </AnimatedBox>
                     )
                   })}

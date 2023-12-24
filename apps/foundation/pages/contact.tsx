@@ -5,22 +5,19 @@ import {
   Heading,
   Link,
   SimpleGrid,
-  Stack,
-  Text,
   VStack,
   Wrap,
 } from '@chakra-ui/react'
 import { useMutation } from '@tanstack/react-query'
-import { GetStaticPropsContext } from 'next'
+import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { useTranslation } from 'next-i18next'
-import { NextSeoProps } from 'next-seo'
 import { MdEmail, MdLocationOn, MdPhone } from 'react-icons/md'
 
-import { EMAIL_SENDER, socialLinks } from '@wsvvrijheid/config'
-import { TOKEN } from '@wsvvrijheid/secrets'
+import { EMAIL_SENDER, PUBLIC_TOKEN, socialLinks } from '@wsvvrijheid/config'
+import { strapiRequest } from '@wsvvrijheid/lib'
 import { sendEmail } from '@wsvvrijheid/services'
 import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
-import { EmailCreateInput, StrapiLocale } from '@wsvvrijheid/types'
+import { EmailCreateInput, Foundation, StrapiLocale } from '@wsvvrijheid/types'
 import {
   ContactForm,
   ContactFormFieldValues,
@@ -30,11 +27,9 @@ import {
 
 import { Layout } from '../components'
 
-interface ContactProps {
-  seo: NextSeoProps
-}
+type ContactProps = InferGetStaticPropsType<typeof getStaticProps>
 
-const Contact = ({ seo }: ContactProps): JSX.Element => {
+const Contact = ({ foundation }: ContactProps): JSX.Element => {
   const { t } = useTranslation()
 
   const {
@@ -45,7 +40,7 @@ const Contact = ({ seo }: ContactProps): JSX.Element => {
   } = useMutation({
     mutationKey: ['contact'],
     mutationFn: async (data: EmailCreateInput) => {
-      return sendEmail(data, TOKEN as string)
+      return sendEmail(data, PUBLIC_TOKEN as string)
     },
   })
 
@@ -60,7 +55,7 @@ const Contact = ({ seo }: ContactProps): JSX.Element => {
   }
 
   return (
-    <Layout seo={seo}>
+    <Layout seo={{ title: t('contact.title') }}>
       <Box minH="inherit" fontWeight={500}>
         <Container minH="inherit">
           <SimpleGrid
@@ -84,7 +79,7 @@ const Contact = ({ seo }: ContactProps): JSX.Element => {
               </Heading>
               <Divider borderColor="whiteAlpha.400" />
 
-              <Wrap spacing={4} justify="center">
+              <Wrap spacing={4} justify="center" key={foundation?.id}>
                 <Button
                   as={Link}
                   isExternal
@@ -92,10 +87,11 @@ const Contact = ({ seo }: ContactProps): JSX.Element => {
                   color="primary.50"
                   _hover={{ color: 'primary.100' }}
                   leftIcon={<Box as={MdPhone} color="primary.50" size="20px" />}
-                  href="tel:+31685221308"
+                  href={`tel:${foundation?.contact?.phone}`}
                 >
-                  +31-6 85221308
+                  {foundation?.contact?.phone}
                 </Button>
+
                 <Button
                   as={Link}
                   isExternal
@@ -105,9 +101,9 @@ const Contact = ({ seo }: ContactProps): JSX.Element => {
                   leftIcon={
                     <Box as={MdEmail} color="primary.100" size="20px" />
                   }
-                  href="mailto:info@wsvvrijheid.nl"
+                  href={`mailto:${foundation?.contact?.email}`}
                 >
-                  info@wsvvrijheid.nl
+                  {foundation?.contact?.email}
                 </Button>
                 <Button
                   as={Link}
@@ -121,36 +117,12 @@ const Contact = ({ seo }: ContactProps): JSX.Element => {
                   href="https://goo.gl/maps/E9HaayQnXmphUWtN8"
                   textAlign="left"
                 >
-                  Tandersplein 1, 3027 CN, Rotterdam
+                  {foundation?.contact?.address}
                 </Button>
               </Wrap>
 
               <SocialButtons items={socialLinks.wsvvrijheid} />
-
-              <Stack w="full" spacing={4}>
-                <Stack w="full">
-                  <Text color="primary.50" fontWeight={600}>
-                    {t('wsvvrijheid.management')}
-                  </Text>
-                  <Wrap justify="space-around" spacing={4}>
-                    {/* <Box>
-                      <Text fontSize="sm">{t('wsvvrijheid.chairman')}</Text>
-                      <Text>Sümeyye Ateş</Text>
-                    </Box> */}
-                    <Box>
-                      <Text fontSize="sm">{t('wsvvrijheid.chairman')}</Text>
-                      <Text>Ahmet Nurettin Kara</Text>
-                    </Box>
-                  </Wrap>
-                </Stack>
-                <Divider borderColor="whiteAlpha.400" />
-                <Wrap justify="space-around" fontSize="sm" textAlign="left">
-                  <Text>KVK: 85680621</Text>
-                  <Text>RSIN: 863705571 </Text>
-                </Wrap>
-              </Stack>
             </VStack>
-
             <ContactForm
               onSubmitHandler={handleSubmit}
               isLoading={isPending}
@@ -167,10 +139,22 @@ const Contact = ({ seo }: ContactProps): JSX.Element => {
 export const getStaticProps = async (context: GetStaticPropsContext) => {
   const locale = context.locale as StrapiLocale
 
+  const foundations = await strapiRequest<Foundation>({
+    endpoint: 'foundations',
+  })
+
+  const foundation = foundations?.data?.[0]
+
+  if (!foundation) {
+    return { notFound: true }
+  }
+
   return {
     props: {
       ...(await ssrTranslations(locale)),
+      foundation,
     },
+    revalidate: 1,
   }
 }
 

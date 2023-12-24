@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_flow_flows",
+  "info": {
+    "displayName": "flow",
+    "icon": "manyToMany"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "duration": {
+      "type": "string"
+    },
+    "presenter": {
+      "type": "string"
+    }
+  }
+}

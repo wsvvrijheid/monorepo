@@ -22,6 +22,7 @@ import {
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import slugify from '@sindresorhus/slugify'
+import { useQueryClient } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { FieldErrorsImpl, useForm } from 'react-hook-form'
@@ -47,8 +48,9 @@ export const CreateArtForm = () => {
   const categories = useStrapiRequest<Category>({
     endpoint: 'categories',
   })
+  const queryClient = useQueryClient()
 
-  const { user, isLoggedIn } = useAuthContext()
+  const { user, profile } = useAuthContext()
 
   const cancelRef = useRef<HTMLButtonElement>(null)
   const formDisclosure = useDisclosure()
@@ -103,6 +105,7 @@ export const CreateArtForm = () => {
       onSuccess: () => {
         closeForm()
         successDisclosure.onOpen()
+        queryClient.invalidateQueries({ queryKey: ['user-arts', profile?.id] })
       },
       onError: () => {
         toast({
@@ -151,7 +154,7 @@ export const CreateArtForm = () => {
         closeOnOverlayClick={false}
         isOpen={formDisclosure.isOpen}
         onClose={closeForm}
-        size={isLoggedIn ? '4xl' : 'md'}
+        size={user ? '4xl' : 'md'}
       >
         <ModalOverlay />
         <ModalContent>
@@ -174,7 +177,7 @@ export const CreateArtForm = () => {
               </Center>
             )}
 
-            {!isLoggedIn && (
+            {!user && (
               <VStack>
                 <Text>
                   <>{t('you-must-logged-in')} </>
@@ -186,7 +189,7 @@ export const CreateArtForm = () => {
             )}
 
             {/* CREATE FORM */}
-            {isLoggedIn && (
+            {user && (
               <SimpleGrid columns={{ base: 1, lg: 2 }} gap={4}>
                 <FilePicker onLoaded={files => setImage(files[0])} />
                 <Stack

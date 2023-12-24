@@ -13,6 +13,7 @@ type SiteRouteKey =
   | 'foundation'
 
 type EndpointRouteKey =
+  | 'anbi'
   | 'activities'
   | 'announcements'
   | 'arts'
@@ -20,23 +21,24 @@ type EndpointRouteKey =
   | 'collections'
   | 'hashtags'
   | 'platforms'
-  | 'term'
+  | 'presentations'
   | 'privacy'
+  | 'term'
 
 export type RouteKey = EndpointRouteKey | SiteRouteKey | PlatformRouteKey
 
 export const ROUTES: Record<RouteKey, MenuType> = {
+  anbi: {
+    link: '/anbi',
+    en: 'ANBI',
+    nl: 'ANBI',
+    tr: 'ANBI',
+  },
   arts: {
     link: '/club/arts',
     en: 'Arts',
     nl: 'Kunsten',
     tr: 'Eserler',
-  },
-  dashboard: {
-    link: 'https://dashboard.wsvvrijheid.nl',
-    en: 'Dashboard',
-    nl: 'Dashboard',
-    tr: 'Kontrol Paneli',
   },
   hashtags: {
     link: '/hashtags',
@@ -128,6 +130,12 @@ export const ROUTES: Record<RouteKey, MenuType> = {
     nl: 'Donatie',
     tr: 'Bağış',
   },
+  dashboard: {
+    link: 'https://dashboard.wsvvrijheid.nl',
+    en: 'Dashboard',
+    nl: 'Dashboard',
+    tr: 'Kontrol Paneli',
+  },
   term: {
     link: '/terms',
     en: 'Terms of service',
@@ -139,6 +147,12 @@ export const ROUTES: Record<RouteKey, MenuType> = {
     en: 'Privacy Policy',
     nl: 'Privacybeleid',
     tr: 'Gizlilik Politikası',
+  },
+  presentations: {
+    link: '/presentations',
+    en: 'Presentations',
+    nl: 'Presentaties',
+    tr: 'Sunumlar',
   },
   contact: {
     link: '/contact',
