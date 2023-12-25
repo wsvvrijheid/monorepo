@@ -35,17 +35,13 @@ export default {
       })
 
       if (!isLikedCount) {
-        await strapi.entityService.update(
-          'api::art.art',
-          ctx.params.id,
-          {
-            data: {
-              likers: {
-                ['connect']: [profile.id as number],
-              } as any,
+        await strapi.entityService.update('api::art.art', ctx.params.id, {
+          data: {
+            likers: {
+              ['connect']: [profile.id as number],
             },
           },
-        )
+        })
       }
     }
 
@@ -75,17 +71,13 @@ export default {
       })
 
       if (isLikedCount) {
-        await strapi.entityService.update(
-          'api::art.art',
-          ctx.params.id,
-          {
-            data: {
-              likers: {
-                ['disconnect']: [profile.id as number],
-              } as any,
+        await strapi.entityService.update('api::art.art', ctx.params.id, {
+          data: {
+            likers: {
+              ['disconnect']: [profile.id as number],
             },
           },
-        )
+        })
       }
     }
 

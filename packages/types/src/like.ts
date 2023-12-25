@@ -1,4 +1,4 @@
 export type LikeMutationArgs = {
-    id: number
-    type: 'like' | 'unlike'
+  id: number
+  type: 'like' | 'unlike'
 }

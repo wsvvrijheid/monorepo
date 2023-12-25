@@ -1,5 +1,10 @@
 import { Context } from 'koa'
-import { checkRecaptcha, getProfile, assignApprover, getReferenceModel } from '../../../utils'
+import {
+  checkRecaptcha,
+  getProfile,
+  assignApprover,
+  getReferenceModel,
+} from '../../../utils'
 import { errors } from '@strapi/utils'
 
 const { ApplicationError, ForbiddenError } = errors
@@ -59,17 +64,13 @@ export default {
       })
 
       if (!isLikedCount) {
-        await strapi.entityService.update(
-          'api::blog.blog',
-          ctx.params.id,
-          {
-            data: {
-              likers: {
-                ['connect']: [profile.id as number],
-              } as any,
+        await strapi.entityService.update('api::blog.blog', ctx.params.id, {
+          data: {
+            likers: {
+              ['connect']: [profile.id as number],
             },
           },
-        )
+        })
       }
     }
 
@@ -99,17 +100,13 @@ export default {
       })
 
       if (isLikedCount) {
-        await strapi.entityService.update(
-          'api::blog.blog',
-          ctx.params.id,
-          {
-            data: {
-              likers: {
-                ['disconnect']: [profile.id as number],
-              } as any,
+        await strapi.entityService.update('api::blog.blog', ctx.params.id, {
+          data: {
+            likers: {
+              ['disconnect']: [profile.id as number],
             },
           },
-        )
+        })
       }
     }
 
