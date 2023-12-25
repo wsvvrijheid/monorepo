@@ -46,7 +46,7 @@ export default {
     return { data: user }
   },
   async like(ctx: Context) {
-    // await checkRecaptcha(ctx)
+    await checkRecaptcha(ctx)
 
     const profile = await getProfile(ctx)
 
@@ -86,7 +86,7 @@ export default {
     return { data: result }
   },
   async unlike(ctx: Context) {
-    // await checkRecaptcha(ctx)
+    await checkRecaptcha(ctx)
 
     const profile = await getProfile(ctx)
 
@@ -127,7 +127,7 @@ export default {
   },
   async view(ctx: Context) {
     try {
-      // await checkRecaptcha(ctx)
+      await checkRecaptcha(ctx)
 
       await strapi.db
         .connection('blogs')
