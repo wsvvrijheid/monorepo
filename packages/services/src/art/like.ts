@@ -4,7 +4,7 @@ import { useLocalStorage } from 'usehooks-ts'
 
 import { API_URL } from '@wsvvrijheid/config'
 import { useAuthContext } from '@wsvvrijheid/context'
-import { Art } from '@wsvvrijheid/types'
+import { Art, LikeMutationArgs } from '@wsvvrijheid/types'
 
 import { useRecaptchaToken } from '../common'
 
@@ -14,7 +14,7 @@ const useLikeArtMutation = () => {
 
   return useMutation({
     mutationKey: ['like-art'],
-    mutationFn: ({ id, type }: { id: number; type: 'like' | 'unlike' }) =>
+    mutationFn: ({ id, type }: LikeMutationArgs) =>
       axios.put(
         `${API_URL}/api/${type}-art/${id}`,
         { data: { recaptchaToken } },
@@ -24,6 +24,8 @@ const useLikeArtMutation = () => {
 }
 
 export const useLikeArt = (art?: Art | null) => {
+  const { profile } = useAuthContext()
+
   const likeArtMutation = useLikeArtMutation()
 
   const [likersStorage, setLikersStorage] = useLocalStorage<number[]>(
@@ -33,27 +35,38 @@ export const useLikeArt = (art?: Art | null) => {
 
   if (!art) return { toggleLike: () => null, isLiked: false, isLoading: false }
 
-  const isLikedStorage = likersStorage?.some(id => id === art.id)
-  const isLiked = art.isLiked || isLikedStorage
+  const isLikedByUser =
+    profile &&
+    art.likers &&
+    art.likers?.length > 0 &&
+    art.likers?.some(({ id }) => id === profile.id)
 
-  const toggleLike = async () => {
-    likeArtMutation.mutate(
-      { id: art.id, type: isLikedStorage ? 'unlike' : 'like' },
-      {
-        onSuccess: async () => {
-          const isLiked = likersStorage?.some(id => id === art.id)
-          const updatedStorage = isLiked
-            ? likersStorage?.filter(id => id !== art.id)
-            : [...(likersStorage || []), art.id]
-          setLikersStorage(updatedStorage as number[])
+  const isLikedStorage = likersStorage?.some(id => id === art.id)
+
+  const toggleLike = () => {
+    if (profile) {
+      return likeArtMutation.mutate(
+        { id: art.id, type: isLikedByUser ? 'unlike' : 'like' },
+        // TODO: onSuccess
+      )
+    } else {
+      likeArtMutation.mutate(
+        { id: art.id, type: isLikedStorage ? 'unlike' : 'like' },
+        {
+          onSuccess: () => {
+            const updatedStorage = isLikedStorage
+              ? likersStorage?.filter(id => id !== art.id)
+              : [...(likersStorage || []), art.id]
+            setLikersStorage(updatedStorage as number[])
+          },
         },
-      },
-    )
+      )
+    }
   }
 
   return {
     toggleLike,
-    isLiked,
+    isLiked: profile ? isLikedByUser : isLikedStorage,
     isLoading: likeArtMutation.isPending,
   }
 }

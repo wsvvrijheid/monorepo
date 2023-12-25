@@ -15,5 +15,20 @@ export default {
       path: '/authors',
       handler: 'custom.getAuthors',
     },
+    {
+      method: 'PUT',
+      path: '/like-blog/:id',
+      handler: 'custom.like',
+    },
+    {
+      method: 'PUT',
+      path: '/unlike-blog/:id',
+      handler: 'custom.unlike',
+    },
+    {
+      method: 'PUT',
+      path: '/view-blog/:id',
+      handler: 'custom.view',
+    },
   ],
 }
