@@ -5,6 +5,7 @@ import { useLocalStorage } from 'usehooks-ts'
 import { API_URL } from '@wsvvrijheid/config'
 import { useAuthContext } from '@wsvvrijheid/context'
 import { Art, LikeMutationArgs } from '@wsvvrijheid/types'
+
 import { useRecaptchaToken } from '../common'
 
 const useLikeArtMutation = () => {
@@ -46,7 +47,7 @@ export const useLikeArt = (art?: Art | null) => {
     if (profile) {
       return likeArtMutation.mutate(
         { id: art.id, type: isLikedByUser ? 'unlike' : 'like' },
-        // TODO: onSuccess 
+        // TODO: onSuccess
       )
     } else {
       likeArtMutation.mutate(

@@ -5,6 +5,7 @@ import { useLocalStorage } from 'usehooks-ts'
 import { API_URL } from '@wsvvrijheid/config'
 import { useAuthContext } from '@wsvvrijheid/context'
 import { Blog, LikeMutationArgs } from '@wsvvrijheid/types'
+
 import { useRecaptchaToken } from '../common'
 
 const useLikeBlogMutation = () => {
@@ -65,7 +66,7 @@ export const useLikeBlog = (blog?: Blog | null, queryKey?: QueryKey) => {
               ? likersStorage?.filter(id => id !== blog.id)
               : [...(likersStorage || []), blog.id]
 
-            setLikersStorage([...new Set(updatedStorage)] as number[])
+            setLikersStorage(updatedStorage as number[])
           },
         },
       )
