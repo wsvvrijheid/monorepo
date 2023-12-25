@@ -22,9 +22,7 @@ const useLikeArtMutation = () => {
   })
 }
 
-export const useLikeArt = (art?: Art | null, queryKey?: QueryKey) => {
-  const queryClient = useQueryClient()
-
+export const useLikeArt = (art?: Art | null) => {
   const { profile } = useAuthContext()
 
   const likeArtMutation = useLikeArtMutation()
@@ -44,23 +42,17 @@ export const useLikeArt = (art?: Art | null, queryKey?: QueryKey) => {
 
   const isLikedStorage = likersStorage?.some(id => id === art.id)
 
-  const toggleLike = async () => {
+  const toggleLike = () => {
     if (profile) {
       return likeArtMutation.mutate(
         { id: art.id, type: isLikedByUser ? 'unlike' : 'like' },
-        {
-          onSuccess: async () => {
-            await queryClient.invalidateQueries({ queryKey })
-          },
-        },
+        // TODO: onSuccess 
       )
     } else {
       likeArtMutation.mutate(
         { id: art.id, type: isLikedStorage ? 'unlike' : 'like' },
         {
-          onSuccess: async () => {
-            await queryClient.invalidateQueries({ queryKey })
-
+          onSuccess: () => {
             const updatedStorage = isLikedStorage
               ? likersStorage?.filter(id => id !== art.id)
               : [...(likersStorage || []), art.id]
