@@ -59,7 +59,7 @@ export default {
       const isLikedCount = await strapi.entityService.count('api::blog.blog', {
         filters: {
           id: { $eq: ctx.params.id },
-          likers: { id: { $in: [profile.id] } },
+          likers: { id: { $eq: profile.id } },
         },
       })
 
@@ -95,7 +95,7 @@ export default {
       const isLikedCount = await strapi.entityService.count('api::blog.blog', {
         filters: {
           id: { $eq: ctx.params.id },
-          likers: { id: { $in: [profile.id] } },
+          likers: { id: { $eq: profile.id } },
         },
       })
 

@@ -30,7 +30,7 @@ export default {
       const isLikedCount = await strapi.entityService.count('api::art.art', {
         filters: {
           id: { $eq: ctx.params.id },
-          likers: { id: { $in: [profile.id] } },
+          likers: { id: { $eq: profile.id } },
         },
       })
 
@@ -66,7 +66,7 @@ export default {
       const isLikedCount = await strapi.entityService.count('api::art.art', {
         filters: {
           id: { $eq: ctx.params.id },
-          likers: { id: { $in: [profile.id] } },
+          likers: { id: { $eq: profile.id } },
         },
       })
 
