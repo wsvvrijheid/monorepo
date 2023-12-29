@@ -17,6 +17,8 @@ export const usePermission = () => {
 
     if (!actionRoles) return false
 
+    if (actionRoles.includes('all')) return true
+
     return actionRoles.some(role => roles?.includes(role))
   }
 
