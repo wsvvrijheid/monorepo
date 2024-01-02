@@ -26,16 +26,13 @@ export const FetchWithFilters: FC<RequestFilterProps> = ({ initialValue }) => {
 
   let timerID: any = undefined;
   const changeWord = (keyword: string) => {
-    if (keyword.length < 2) {
-      if (timerID) {
-        clearTimeout(timerID);
-        timerID = undefined;
-        setWord('');
-      }
-      return;
+    if(timerID)
+    {
+      clearTimeout(timerID);
     }
     timerID = setTimeout(() => {
-      setWord(keyword);
+      setWord(keyword.length < 2 ? '' :keyword);
+      timerID = undefined;
     }, 400);
   }
 
