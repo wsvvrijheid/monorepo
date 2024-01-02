@@ -6,7 +6,6 @@ const ResponsiveCard = () => {
 
   return (
     <Flex
-      margin="50px auto"
       boxShadow="0 4px 8px rgba(0, 0, 0, 0.1)"
       flexDirection="row"
     >
@@ -17,7 +16,7 @@ const ResponsiveCard = () => {
         w={{ base: "auto", md: "50%" }}
       />
 
-      <Stack margin="20px">
+      <Stack p={4}>
         <Heading as="h1" size="lg" mb={5} color="#000" fontWeight="600">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse?
         </Heading>
@@ -41,10 +40,9 @@ const ResponsiveCardColumn = () => {
   return (
     <Flex
       margin="50px auto"
-      boxShadow="0 4px 8px rgba(0, 0, 0, 0.1)"
+      boxShadow="sm"
       flexDirection="column"
       align="center"
-      maxW="347px"
       w="100%"
     >
       <Stack position="relative" overflow="hidden" borderRadius="50%" mt={5}>
@@ -56,7 +54,7 @@ const ResponsiveCardColumn = () => {
         />
       </Stack>
 
-      <Stack p="20px" w="100%">
+      <Stack p={4} w="100%">
         <Heading as="h1" size="lg" mb={5} color="#000" fontWeight="600">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse?
         </Heading>
