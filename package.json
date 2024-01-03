@@ -46,7 +46,7 @@
     "@wsvvrijheid/types": "*",
     "@wsvvrijheid/ui": "*",
     "ai": "^2.2.30",
-    "axios": "^1.6.2",
+    "axios": "^1.6.3",
     "chakra-react-select": "^4.7.6",
     "cookies-next": "^4.1.0",
     "date-fns": "^2.30.0",
