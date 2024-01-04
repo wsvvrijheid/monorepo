@@ -15,12 +15,13 @@ interface Blog {
 export const FetchWithStrapiRequest = () => {
   const [blogs, setBlogs] = useState<Blog[]>([])
 
-  useEffect(() => {
+  useEffect(() => { 
     const fetchData = async () => {
       try {
         // Fetch blogs with strapiRequest by using the API_URL and PUBLIC_TOKEN
         const response = await strapiRequest({
-          method: 'GET',
+          // No overload matches this call overload 1 of 2 
+          method: 'GET', 
           url: BLOG_URL,
           headers: {
             Authorization: `Bearer ${PUBLIC_TOKEN}`,
