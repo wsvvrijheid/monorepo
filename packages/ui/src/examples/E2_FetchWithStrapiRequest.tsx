@@ -27,11 +27,9 @@ export const FetchWithStrapiRequest = () => {
           },
         })
 
-        // Adjust the way you handle the API response based on the StrapiModel type
+
         if ('data' in response.data) {
           setBlogs(response.data.data as Blog[])
-        } else {
-          setBlogs([response.data as Blog])
         }
       } catch (error) {
         console.error('Error fetching data:', error)
