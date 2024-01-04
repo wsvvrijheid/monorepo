@@ -13,7 +13,7 @@ import { API_URL } from '@wsvvrijheid/config'
 const BLOG_URL = "https://wsvv-api-staging.onrender.com/api/blogs?locale=tr"
 
 export const FetcWithAxios = () => {
-  const [blogs, setBlogs] = useState([])
+  const [blogs, setBlogs] = useState<Blog[]>([])
   const { locale } = useRouter()
 
   useEffect(() => {
@@ -34,8 +34,7 @@ export const FetcWithAxios = () => {
     fetchBlogs();
   }, [locale])
 
-  return
-   (
+  return (
   <Box>
     {blogs.map((blog, index) => (
     <div key={index}>{blog}</div>
