@@ -10,9 +10,9 @@ type AssetsTrackingBase = {
 }
 
 type AssetsTrackingRelation = {
-  asset?: Asset
-  previousTracking?: AssetsTracking
-  assignedTo?: Profile
+  asset?: Asset | null
+  previousTracking?: AssetsTracking | null
+  assignedTo?: Profile | null
 }
 
 type AssetsTrackingRelationInput = {

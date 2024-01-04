@@ -7,7 +7,7 @@ export type PrivacyBase = Omit<
 >
 
 type PrivacyRelation = {
-  image?: UploadFile
+  image?: UploadFile | null
   localizations?: Array<Privacy>
 }
 

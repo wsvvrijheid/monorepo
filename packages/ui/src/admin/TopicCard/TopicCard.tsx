@@ -106,7 +106,6 @@ export const TopicCard: FC<TopicCardProps> = ({ topic }) => {
   }
 
   const postContent = {
-    title: topic?.title,
     description: topic?.description,
     content: topic?.description,
     reference: topic?.url,

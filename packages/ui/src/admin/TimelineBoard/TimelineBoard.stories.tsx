@@ -1,7 +1,7 @@
 // import { Box, SimpleGrid } from '@chakra-ui/react'
 import { StoryObj, Meta } from '@storybook/react'
 
-import { TİMELİNE_MOCKS } from '@wsvvrijheid/mocks'
+import { TIMELINE_MOCKS } from '@wsvvrijheid/mocks'
 
 import { TimelineBoard } from './TimelineBoard'
 import { Container } from '../../components'
@@ -10,7 +10,7 @@ export default {
   title: 'Admin/TimelineBoard',
   component: TimelineBoard,
   args: {
-    timeline: TİMELİNE_MOCKS[0],
+    timeline: TIMELINE_MOCKS[0],
   },
   decorators: [
     Story => (

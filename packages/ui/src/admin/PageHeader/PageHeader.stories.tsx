@@ -18,7 +18,7 @@ type Story = StoryObj<typeof PageHeader>
 
 export const Default: Story = {
   args: {
-    onSearch: (item: string | null) => {
+    onSearch: (item?: string | null) => {
       alert(item)
     },
     filterMenu: (

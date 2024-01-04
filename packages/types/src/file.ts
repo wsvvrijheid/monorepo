@@ -1,6 +1,12 @@
 import { StrapiBase } from './strapi'
 
-export type FileFormatsType = 'large' | 'small' | 'medium' | 'thumbnail'
+export type FileFormatsType =
+  | 'xlarge'
+  | 'large'
+  | 'small'
+  | 'medium'
+  | 'thumbnail'
+  | 'xsmall'
 
 export interface FileInfoInput {
   name: string

@@ -11,7 +11,7 @@ export interface HeroProps {
   title?: string
   description?: string
   video?: string
-  image?: UploadFile | string
+  image?: UploadFile | null | string
   isFullHeight?: boolean
 }
 

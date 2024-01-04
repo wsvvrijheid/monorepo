@@ -1,6 +1,6 @@
 import * as yup from 'yup'
 
-import { StrapiTranslatableModel } from '@wsvvrijheid/types'
+import { Post, StrapiTranslatableModel } from '@wsvvrijheid/types'
 
 import { FormFields } from '../../admin'
 
@@ -15,7 +15,9 @@ export const translatePostModelSchema = yup.object({
   content: yup.string(),
 })
 
-export const translateModelFields: FormFields<StrapiTranslatableModel> = [
+export const translateModelFields: FormFields<
+  Exclude<StrapiTranslatableModel, Post>
+> = [
   { name: 'title' },
   { name: 'description', type: 'textarea' },
   { name: 'content', type: 'markdown' },

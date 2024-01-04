@@ -13,7 +13,7 @@ export type UserBase = {
 }
 
 type UserRelation = {
-  role?: Role
+  role?: Role | null
 }
 
 type UserRelationInput = {

@@ -24,19 +24,19 @@ type CourseBase = StrapiBase & {
   instructor: string
   quota: number | null
   price: number | null
-  approvalStatus: ApprovalStatus
+  approvalStatus: ApprovalStatus | null
   isOnline: boolean
   startDate: string
   endDate: string
 }
 
 type CourseRelation = {
-  image: UploadFile
-  tags: Tag[]
-  applications: CourseApplication[]
-  faqs: FaqLocale[]
-  curriculum: Curriculum[]
-  platform: Platform
+  image?: UploadFile | null
+  tags?: Tag[]
+  applications?: CourseApplication[]
+  faqs?: FaqLocale[]
+  curriculum?: Curriculum[]
+  platform?: Platform | null
 }
 
 // Remove approvalStatus from CourseCreateInput since it will be set when an editor approves the course

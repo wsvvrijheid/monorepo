@@ -2,7 +2,7 @@ import { Art, Profile } from '@wsvvrijheid/types'
 
 export type ArtApprovalTypes = {
   art: Art
-  artist?: Profile
+  artist?: Profile | null
   editor: Profile
   isOpen: boolean
   onClose: () => void

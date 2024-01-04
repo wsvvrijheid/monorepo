@@ -115,7 +115,7 @@ export type StrapiBase = {
   id: number
   createdAt: string
   updatedAt: string | null
-  publishedAt: string | null
+  publishedAt?: string | null
   translates?: StrapiLocale[]
 }
 

@@ -6,12 +6,7 @@ import Index from '../pages/index'
 
 describe('Index', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(
-      <Index
-        platforms={{ data: [], meta: {} }}
-        seo={{ title: 'Title', description: 'Description' }}
-      />,
-    )
+    const { baseElement } = render(<Index platforms={{ data: [], meta: {} }} />)
     expect(baseElement).toBeTruthy()
   })
 })

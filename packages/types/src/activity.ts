@@ -7,13 +7,13 @@ import { Tag } from './tag'
 
 type ActivityBase = StrapiEntityBase & {
   date: string
-  place: string
+  place: string | null
 }
 
 type ActivityRelation = {
   categories?: Array<Category>
   tags?: Array<Tag>
-  image?: UploadFile
+  image?: UploadFile | null
   localizations?: Array<Activity>
   platforms?: Array<Platform>
 }

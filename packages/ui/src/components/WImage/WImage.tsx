@@ -11,7 +11,7 @@ import 'react-medium-image-zoom/dist/styles.css'
 
 export type WImageProps = {
   ratio?: number | 'twitter'
-  src?: UploadFile | string
+  src?: UploadFile | null | string
   alt?: string
   hasZoom?: boolean
   objectFit?: 'cover' | 'contain' | 'fill' | 'none' | 'scale-down'

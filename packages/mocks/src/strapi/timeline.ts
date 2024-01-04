@@ -1,4 +1,4 @@
-export const TİMELİNE_MOCKS = [
+export const TIMELINE_MOCKS = [
   {
     id: 34,
     username: 'biten_hayatlar',

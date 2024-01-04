@@ -9,8 +9,9 @@ export default {
 
 type Story = StoryObj<typeof PostMakerTweetCard>
 
-export const Default: Story = {
+export const Default: Story = {}
+export const Ios: Story = {
   args: {
-    id: 1,
+    isIosSafari: true,
   },
 }

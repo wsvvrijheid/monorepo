@@ -47,7 +47,7 @@ export const mapModelToOption = (
     ? modelWithLocalizedName[`name_${locale}`]
     : 'name'
   const value = model.id.toString()
-  let label = (model as StrapiTranslatableModel).title
+  let label = (model as StrapiTranslatableModel).title || ''
 
   // Mention
   if (mention.data && mention.username) {

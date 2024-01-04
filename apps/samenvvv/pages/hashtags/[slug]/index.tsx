@@ -173,16 +173,18 @@ export const getServerSideProps = async (
         })
     }
 
-    const images = image && [
-      {
-        url: capsSrc,
-        secureUrl: capsSrc,
-        type: image.mime as string,
-        width: 1200,
-        height: 675,
-        alt: title,
-      },
-    ]
+    const images = image
+      ? [
+          {
+            url: capsSrc,
+            secureUrl: capsSrc,
+            type: image.mime as string,
+            width: 1200,
+            height: 675,
+            alt: title,
+          },
+        ]
+      : undefined
 
     const twitterHandle = {
       en: '@samenvvvEn',

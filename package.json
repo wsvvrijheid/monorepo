@@ -17,7 +17,8 @@
     "storybook-build": "turbo run storybook-build",
     "format": "prettier --write \"**/*.{ts,tsx,md,json}\"",
     "kill-ports": "kill-port 3000 3001 3002 3003 3004 1337",
-    "test": "yarn kill-ports && playwright test"
+    "test": "yarn kill-ports && playwright test",
+    "tsc": "turbo run tsc --concurrency=20"
   },
   "dependencies": {
     "@builder.io/react-hydration-overlay": "^0.0.6",

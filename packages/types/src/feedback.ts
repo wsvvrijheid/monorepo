@@ -13,7 +13,7 @@ type FeedbackBase = {
 type FeedbackRelation = {
   art?: Art | null
   application?: Application | null
-  editor?: Profile
+  editor?: Profile | null
 }
 
 type FeedbackRelationInput = {

@@ -50,3 +50,4 @@ storybook-static
 #playwright
 
 test-results
+tsconfig.tsbuildinfo

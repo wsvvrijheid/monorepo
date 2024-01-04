@@ -9,12 +9,12 @@ type CourseApplicationBase = {
   country: string | null
   phone: string | null
   message: string | null
-  hasPaid: boolean
+  hasPaid: boolean | null
   approvalStatus: ApprovalStatus
 }
 
 type CourseApplicationRelation = {
-  course: Course
+  course?: Course
 }
 
 export type CourseApplicationCreateInput = Omit<

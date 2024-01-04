@@ -16,7 +16,7 @@ import { WImage } from '../../components'
 
 type AcademyCardProps = {
   href: string
-  image: UploadFile | string
+  image: UploadFile | string | undefined | null
   description?: string
   title: string
 }

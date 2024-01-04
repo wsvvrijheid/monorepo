@@ -12,8 +12,8 @@ export type BlogBase = StrapiEntityBase & {
 }
 
 type BlogRelation = {
-  image?: UploadFile
-  author?: Profile
+  image?: UploadFile | null
+  author?: Profile | null
   categories?: Array<Category>
   tags?: Array<Tag>
   likers?: Array<Profile>

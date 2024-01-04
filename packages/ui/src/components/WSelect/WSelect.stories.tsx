@@ -1,5 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup'
-import { StoryObj, StoryFn, Meta } from '@storybook/react'
+import { Meta, StoryFn, StoryObj } from '@storybook/react'
 import { FieldValues, useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
@@ -27,12 +27,7 @@ const objectSchema = yup.object({
   category: categorySchema,
 })
 
-type SelectFormFieldValues = {
-  category: {
-    label: string
-    value: string
-  }
-}
+type SelectFormFieldValues = yup.InferType<typeof objectSchema>
 
 type Story<T extends FieldValues> = StoryObj<WSelectProps<T>>
 
@@ -87,15 +82,10 @@ export const Color: Story<SelectFormFieldValues> = {
 // MULTISELECT COMPONENT
 
 const arraySchema = yup.object({
-  categories: yup.array().of(categorySchema),
+  categories: yup.array().of(categorySchema).required(),
 })
 
-type SelectFormMultiFieldValues = {
-  categories: {
-    label: string
-    value: string
-  }[]
-}
+type SelectFormMultiFieldValues = yup.InferType<typeof arraySchema>
 
 const StoryWithHooksMultiple: StoryFn<
   WSelectProps<SelectFormMultiFieldValues>
@@ -103,7 +93,7 @@ const StoryWithHooksMultiple: StoryFn<
   const {
     control,
     formState: { errors },
-  } = useForm({
+  } = useForm<SelectFormMultiFieldValues>({
     resolver: yupResolver(arraySchema),
     mode: 'all',
   })

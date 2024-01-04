@@ -9,8 +9,8 @@ export type VoteBase = {
 }
 
 type VoteRelation = {
-  voter?: Profile
-  jury?: Profile
+  voter?: Profile | null
+  jury?: Profile | null
   application?: Application | null
   art?: Art | null
 }

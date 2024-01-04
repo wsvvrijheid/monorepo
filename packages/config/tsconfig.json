@@ -1,8 +1,5 @@
 {
   "extends": "@wsvvrijheid/config/tsconfig.base.json",
-  "compilerOptions": {
-    "resolveJsonModule": true
-  },
   "include": ["."],
   "exclude": ["dist", "build", "node_modules"]
 }
