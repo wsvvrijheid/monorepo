@@ -8,6 +8,8 @@ import { StrapiBase } from './strapi'
 
 export type MentionUserData = Pick<
   UserV1,
+  | 'id'
+  | 'url'
   | 'description'
   | 'followers_count'
   | 'friends_count'

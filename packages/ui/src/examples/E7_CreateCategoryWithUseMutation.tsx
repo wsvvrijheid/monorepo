@@ -20,7 +20,7 @@ export const CreateCategoryWithUseMutation = () => {
     // TODO: Update slug with slugify on name_en change
   }, [])
 
-  const { mutate, data, isLoading } = useMutation({
+  const { mutate, data, isPending } = useMutation({
     mutationKey: ['create-category'],
     mutationFn: (data: CategoryCreateInput) => createCategoryWithMutation(data),
   })
@@ -44,7 +44,7 @@ export const CreateCategoryWithUseMutation = () => {
           {/* TODO: Add all inputs */}
 
           <Button
-            isLoading={isLoading}
+            isLoading={isPending}
             loadingText={'Creating...'}
             type="submit"
           >

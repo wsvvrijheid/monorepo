@@ -15,7 +15,6 @@ export default {
         label: 'Test',
         link: '/',
         icon: <></>,
-        visible: true,
         submenu: [],
       },
     ],

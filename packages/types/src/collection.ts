@@ -8,7 +8,7 @@ export type CollectionBase = StrapiEntityBase & {
 }
 
 type CollectionRelation = {
-  image?: UploadFile
+  image?: UploadFile | null
   arts?: Array<Art>
   localizations?: Array<Collection>
 }

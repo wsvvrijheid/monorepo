@@ -15,7 +15,7 @@ export type PresentationBase = StrapiEntityBase & {
 }
 
 export type PresentationRelation = {
-  image: UploadFile
+  image: UploadFile | null
   images: UploadFile[]
   localizations?: Array<Presentation>
 }

@@ -5,19 +5,20 @@ import { Profile } from './profile'
 import { StrapiBase, StrapiCreatorRelation, StrapiEntityBase } from './strapi'
 import { Tag } from './tag'
 
-export type PostBase = Omit<StrapiEntityBase, 'slug'> & {
+export type PostBase = Omit<StrapiEntityBase, 'title' | 'slug'> & {
+  title: string // TODO: It doesn't exists but part of StrapiTranslatableModel
   capsStatus: ApprovalStatus
   twitterMedia?: string | null
   reference?: string | null
-  imageParams?: OgImageParams
-  videoUrl?: string
+  imageParams?: OgImageParams | null
+  videoUrl?: string | null
 }
 
 export type PostRelation = {
-  image?: UploadFile
-  video?: UploadFile
-  caps?: UploadFile
-  hashtag?: Hashtag
+  image?: UploadFile | null
+  video?: UploadFile | null
+  caps?: UploadFile | null
+  hashtag?: Hashtag | null
   tags?: Array<Tag>
   translator?: Profile | null
   localizations?: Array<Post>

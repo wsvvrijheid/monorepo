@@ -9,9 +9,9 @@ import { Vote } from './vote'
 export type ApplicationBase = Omit<StrapiEntityBase, 'description'>
 
 type ApplicationRelation = {
-  image?: UploadFile
-  competition?: Competition
-  applicant?: Applicant
+  image?: UploadFile | null
+  competition?: Competition | null
+  applicant?: Applicant | null
   votes?: Array<Vote>
   tags?: Array<Tag>
   localizations?: Array<Application>

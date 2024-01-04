@@ -44,7 +44,7 @@ const queryClient = new QueryClient()
  */
 export const decorators: Decorator[] = [
   (Story, context) => {
-    const locale = context.locale as StrapiLocale
+    const locale = context.globals?.locale as StrapiLocale
 
     useEffect(() => {
       i18n.changeLanguage(locale)

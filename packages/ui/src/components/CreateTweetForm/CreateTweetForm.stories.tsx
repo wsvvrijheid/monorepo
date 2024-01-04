@@ -28,6 +28,7 @@ const StoryWithHook: StoryFn<CreateTweetFormProps> = args => {
       originalTweet: JSON.parse(JSON.stringify(args.originalTweet)),
       image: data.image,
       text: data.text,
+      locale: 'en',
       mentions: [],
     }
 

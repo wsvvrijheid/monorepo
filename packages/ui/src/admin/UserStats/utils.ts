@@ -1,6 +1,6 @@
 import { theme } from '@chakra-ui/react'
 
-import { UserStatsProps } from '@wsvvrijheid/types'
+import { UserStats } from '@wsvvrijheid/types'
 
 export const getColor = (index: number) => {
   const { blue, red, green, purple, pink, orange, yellow, cyan, teal } =
@@ -46,14 +46,14 @@ export const getColor = (index: number) => {
 }
 
 export const groupStats = (
-  stats: UserStatsProps[],
+  stats: UserStats[],
 ): {
-  groupedUserStats: { name: string; data: UserStatsProps[] }[]
+  groupedUserStats: { name: string; data: UserStats[] }[]
   names: string[]
 } => {
   const groupedStats = stats.reduce(
     (result, stat) => {
-      const { name } = stat.user
+      const { name } = stat.profile || {}
       if (name && !result[name]) {
         result[name] = { name, data: [] }
       }
@@ -63,21 +63,17 @@ export const groupStats = (
 
       return result
     },
-    {} as { [name: string]: { name: string; data: UserStatsProps[] } },
+    {} as { [name: string]: { name: string; data: UserStats[] } },
   )
 
-  const groupedUserStats: { name: string; data: UserStatsProps[] }[] =
-    Object.values(groupedStats).map(({ name, data }) => ({
-      name,
-      data: data.sort(
-        (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
-      ),
-    }))
+  const groupedUserStats: { name: string; data: UserStats[] }[] = Object.values(
+    groupedStats,
+  ).map(({ name, data }) => ({
+    name,
+    data: data.sort(
+      (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
+    ),
+  }))
 
   return { groupedUserStats, names: Object.keys(groupedStats) }
 }
-
-export const getKeys = (
-  stats: UserStatsProps,
-  type: 'approves' | 'creations',
-) => Object.keys(stats.stats[type])

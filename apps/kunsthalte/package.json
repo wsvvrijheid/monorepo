@@ -8,6 +8,7 @@
     "build": "next build",
     "start": "next start",
     "clean": "rm -rf node_modules .turbo .next",
-    "lint": "next lint"
+    "lint": "next lint",
+    "tsc": "npx tsc --noEmit"
   }
 }

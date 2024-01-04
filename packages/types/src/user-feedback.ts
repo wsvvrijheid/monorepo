@@ -4,7 +4,7 @@ import { StrapiBase } from './strapi'
 
 export type UserFeedbackBase = {
   point: number
-  image?: UploadFile
+  image?: UploadFile | null
   comment: string
   site: string
   processed?: boolean

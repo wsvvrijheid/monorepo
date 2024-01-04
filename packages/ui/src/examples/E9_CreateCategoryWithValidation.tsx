@@ -29,7 +29,7 @@ export const CreateCategoryWithValidation = () => {
     // resolver: yupResolver(schema),
   })
 
-  const { mutate, data, isLoading } = useMutation({
+  const { mutate, data, isPending } = useMutation({
     mutationKey: ['create-category'],
     mutationFn: (data: CategoryCreateInput) => createCategoryWithMutation(data),
   })
@@ -58,7 +58,7 @@ export const CreateCategoryWithValidation = () => {
 
         <Button
           type={'submit'}
-          isLoading={isLoading}
+          isLoading={isPending}
           loadingText={'Creating...'}
         >
           Submit

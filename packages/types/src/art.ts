@@ -24,12 +24,12 @@ type ArtBase = StrapiBase & {
 }
 
 type ArtRelation = {
-  artist?: Profile
+  artist?: Profile | null
   categories?: Array<Category>
   collection?: Collection | null
   comments?: Array<Comment>
   feedbacks?: Array<Feedback>
-  image?: UploadFile
+  image?: UploadFile | null
   likers?: Array<Profile>
   tags?: Array<Tag>
   votes?: Array<Vote>

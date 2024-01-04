@@ -9,7 +9,7 @@ export type TimelineBase = StrapiBase & {
 type TimelineRelation = {
   userData: TweetUserBase
   tweets: Array<Omit<Tweet, 'user'>>
-  creator?: Profile
+  creator?: Profile | null
   locale?: 'en' | 'nl' | 'tr'
 }
 

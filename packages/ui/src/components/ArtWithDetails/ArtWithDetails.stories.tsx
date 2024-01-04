@@ -1,6 +1,5 @@
 import { Meta, StoryFn, StoryObj } from '@storybook/react'
 import { sample } from 'lodash'
-import { useRouter } from 'next/router'
 
 import { ART_MOCKS } from '@wsvvrijheid/mocks'
 
@@ -15,16 +14,8 @@ export default {
 
 type Story = StoryObj<ArtWithDetailsProps>
 
-const StoryWithHook: StoryFn<ArtWithDetailsProps> = args => {
-  const { locale } = useRouter()
-
-  return (
-    <ArtWithDetails
-      {...args}
-      art={sampleArt}
-      queryKey={['art', locale, sampleArt.slug]}
-    />
-  )
+const StoryWithHook: StoryFn<ArtWithDetailsProps> = () => {
+  return <ArtWithDetails art={sampleArt} />
 }
 
 export const Default: Story = {

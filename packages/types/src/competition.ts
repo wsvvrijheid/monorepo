@@ -10,7 +10,7 @@ type CompetitionBase = StrapiEntityBase & {
 }
 
 type CompetitionRelation = {
-  image?: UploadFile
+  image?: UploadFile | null
   applications?: Array<Application>
   categories?: Array<Category>
   localizations?: Array<Competition>

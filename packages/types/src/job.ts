@@ -13,7 +13,7 @@ export type JobBase = {
 }
 
 type JobRelation = {
-  platform?: Platform
+  platform?: Platform | null
 }
 
 type JobRelationInput = {

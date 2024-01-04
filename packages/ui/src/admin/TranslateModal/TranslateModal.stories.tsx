@@ -2,12 +2,7 @@ import { Box, Button, Container, useDisclosure } from '@chakra-ui/react'
 import { Meta, StoryFn, StoryObj } from '@storybook/react'
 import { sample } from 'lodash'
 
-import {
-  ACTIVITY_MOCKS,
-  ANNOUNCEMENT_MOCKS,
-  BLOG_MOCKS,
-  HASHTAG_MOCKS,
-} from '@wsvvrijheid/mocks'
+import { ACTIVITY_MOCKS, BLOG_MOCKS, HASHTAG_MOCKS } from '@wsvvrijheid/mocks'
 
 import { TranslateModal } from './TranslateModal'
 
@@ -47,13 +42,6 @@ export const ActivityModel: Story = {
   render: StoryWithHooks,
   args: {
     model: sample(ACTIVITY_MOCKS.tr.data),
-  },
-}
-
-export const AnnouncementModel: Story = {
-  render: StoryWithHooks,
-  args: {
-    model: sample(ANNOUNCEMENT_MOCKS.tr.data),
   },
 }
 

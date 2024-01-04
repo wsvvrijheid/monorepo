@@ -19,7 +19,7 @@ import { WImage } from '../WImage'
 interface CardProps {
   title: string
   description: string
-  image: UploadFile
+  image: UploadFile | null
   link: string
   rounded?: boolean
   date?: ReactNode

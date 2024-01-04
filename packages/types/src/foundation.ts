@@ -16,19 +16,19 @@ type FoundationBase = {
   KVK: string
   BIC: string
   RSIN: string
-  policy_plan: UploadFile
-  substantive_financial_annual_report: UploadFile
-  remuneration_policy: UploadFile
 }
 
 type FoundationRelation = {
   volunteers?: Profile[]
-  chairman?: Profile
-  secretary?: Profile
-  accountant?: Profile
+  chairman?: Profile | null
+  secretary?: Profile | null
+  accountant?: Profile | null
   platforms?: Platform[]
   assets?: Asset[]
   boardOfDirectors?: Profile[]
+  policy_plan?: UploadFile | null
+  substantive_financial_annual_report?: UploadFile | null
+  remuneration_policy?: UploadFile | null
 }
 
 type FoundationRelationInput = {

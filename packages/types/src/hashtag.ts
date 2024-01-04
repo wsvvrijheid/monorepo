@@ -16,7 +16,7 @@ export type HashtagBase = StrapiEntityBase & {
 }
 
 type HashtagRelation = {
-  image?: UploadFile
+  image?: UploadFile | null
   posts?: Array<Post>
   categories?: Array<Category>
   mentions?: Array<Mention>

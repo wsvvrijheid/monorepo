@@ -4,7 +4,7 @@ import { StrapiBase, StrapiEntityBase } from './strapi'
 export type TermBase = Omit<StrapiEntityBase, 'description' | 'approvalStatus'>
 
 type TermRelation = {
-  image?: UploadFile
+  image?: UploadFile | null
   localizations?: Array<Term>
 }
 

@@ -75,7 +75,7 @@ export const useHashtag = () => {
 
   const hashtagQuery = useQuery({
     queryKey: ['hashtag', locale, slug],
-    queryFn: () => getHashtagBySlug(locale, slug as string),
+    queryFn: () => getHashtagBySlug(locale as StrapiLocale, slug as string),
     staleTime: 1000 * 60,
   })
 

@@ -57,7 +57,7 @@ export type TranslatableModel<T extends StrapiTranslatableModel> = {
   publishedAt?: Date | string | null
   content: string | null
   text?: string
-  image?: UploadFile
+  image?: UploadFile | null
   approvalStatus?: ApprovalStatus
   localizations?: T[]
 }

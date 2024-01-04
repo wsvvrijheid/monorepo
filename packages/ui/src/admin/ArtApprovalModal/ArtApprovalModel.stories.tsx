@@ -1,9 +1,8 @@
 import { Box, Button, Container, useDisclosure } from '@chakra-ui/react'
 import { Meta, StoryFn, StoryObj } from '@storybook/react'
 
-import { ART_MOCKS, USER_MOCKS } from '@wsvvrijheid/mocks'
-import { SessionUser, UploadFile } from '@wsvvrijheid/types'
-import { Profile } from '@wsvvrijheid/types/src/profile'
+import { ART_MOCKS, PROFILE_MOCKS } from '@wsvvrijheid/mocks'
+import { UploadFile } from '@wsvvrijheid/types'
 
 import { ArtApprovalModal } from './ArtApprovalModal'
 
@@ -14,9 +13,9 @@ export default {
   title: 'Admin/ArtApprovalModal',
   args: {
     art: artMock,
-    artist: USER_MOCKS[1] as Profile,
-    editor: USER_MOCKS[0] as unknown as SessionUser,
-    isOpen: true,
+    editor: PROFILE_MOCKS.data[0],
+    artist: PROFILE_MOCKS.data[1],
+    onSuccess: () => alert('Success!'),
   },
   decorators: [
     (Story: any) => (

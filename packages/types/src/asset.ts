@@ -14,8 +14,8 @@ type AssetBase = {
 
 type AssetRelation = {
   images?: UploadFile[]
-  invoice?: UploadFile
-  foundation?: Foundation
+  invoice?: UploadFile | null
+  foundation?: Foundation | null
   peopleInCharge?: Profile[]
 }
 

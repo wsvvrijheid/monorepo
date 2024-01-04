@@ -6,7 +6,7 @@ import { FileFormats, UploadFile } from '@wsvvrijheid/types'
 import { getMediaUrl } from '@wsvvrijheid/utils'
 
 type WAvatarProps = Omit<AvatarProps, 'src'> & {
-  src?: UploadFile | string | null
+  src?: UploadFile | null | string | null
 }
 
 export const WAvatar: FC<WAvatarProps> = ({ src, size, ...props }) => {

@@ -1,7 +1,7 @@
 import { Box } from '@chakra-ui/react'
 import { Meta, StoryFn, StoryObj } from '@storybook/react'
 
-import { CookieBanner } from './CookieBanner'
+import CookieBanner from './CookieBanner'
 import { Container } from '../Container'
 
 export default {

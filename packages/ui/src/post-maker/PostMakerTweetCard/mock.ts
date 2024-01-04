@@ -1,9 +1,8 @@
 import { PostState } from '../PostProvider'
 
-export const postMock: PostState = {
+export const postMock = {
   post: {
     id: 1,
-    title: 'Post title',
     description: 'Post description',
     content: 'Post content',
     imageParams: {
@@ -25,11 +24,21 @@ export const postMock: PostState = {
   isExceeded: false,
   postContent: 'Post postContent',
   sentence: {
+    postId: 1,
     value: 'Post postText',
     index: 0,
     isPublished: true,
     shareCount: 0,
   },
+  sentences: [
+    {
+      index: 1,
+      isPublished: true,
+      postId: 1,
+      shareCount: 0,
+      value: 'Post postText',
+    },
+  ],
   threshold: 0,
   percentage: 0,
-}
+} as unknown as PostState // Missing post title

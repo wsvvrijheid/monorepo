@@ -1,6 +1,9 @@
+import { Activity } from './activity'
 import { Expand } from './common'
 import { Contact } from './contact'
+import { Course } from './course'
 import { UploadFile } from './file'
+import { Foundation } from './foundation'
 import { Job } from './job'
 import { Profile } from './profile'
 import { StrapiBase } from './strapi'
@@ -16,14 +19,17 @@ export type PlatformBase = {
   content_en: string
   content_nl: string
   content_tr: string
-  link: string
+  link: string | null
   contact?: Contact | null
 }
 
 type PlatformRelation = {
-  image?: UploadFile
+  image?: UploadFile | null
   jobs?: Array<Job>
   volunteers?: Array<Profile>
+  courses?: Array<Course>
+  activities?: Array<Activity>
+  foundation?: Foundation | null
 }
 
 type PlatformRelationInput = {

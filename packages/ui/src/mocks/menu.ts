@@ -3,30 +3,30 @@ import { ROUTES } from '@wsvvrijheid/config'
 import { HeaderNavProps } from '../components/Header/types'
 
 const {
-  activity,
-  platform,
+  activities,
+  platforms,
   lotus,
   artStop,
   samenvvv,
   academy,
-  blog,
+  blogs,
   club,
   about,
   contact,
-  terms,
+  term,
   privacy,
 } = ROUTES
 
 export const HEADER_MENU: Pick<HeaderNavProps, 'menu'>['menu'] = [
-  activity,
+  activities,
   {
-    link: platform.link,
-    en: platform.en,
-    nl: platform.nl,
-    tr: platform.tr,
+    link: platforms.link,
+    en: platforms.en,
+    nl: platforms.nl,
+    tr: platforms.tr,
     children: [lotus, artStop, samenvvv, academy],
   },
-  blog,
+  blogs,
   club,
   {
     link: '/',
@@ -40,9 +40,9 @@ export const HEADER_MENU: Pick<HeaderNavProps, 'menu'>['menu'] = [
 export const FOOTER_MENU = [
   {
     children: [lotus, artStop, samenvvv, academy],
-    en: platform.en,
-    nl: platform.nl,
-    tr: platform.tr,
+    en: platforms.en,
+    nl: platforms.nl,
+    tr: platforms.tr,
   },
   {
     children: [about, contact],
@@ -51,13 +51,13 @@ export const FOOTER_MENU = [
     tr: 'Vakıf',
   },
   {
-    children: [club, activity],
+    children: [club, activities],
     en: 'Menu',
     nl: 'Menu',
     tr: 'Menu',
   },
   {
-    children: [terms, privacy],
+    children: [term, privacy],
     en: 'Support',
     nl: 'Steun',
     tr: 'Destek',

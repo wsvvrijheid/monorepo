@@ -1,5 +1,5 @@
 export type TweetUserBase = {
-  id: string
+  id?: string
   name: string
   username: string
   profile: string
@@ -8,8 +8,8 @@ export type TweetUserBase = {
 export interface Tweet {
   id: string
   user: TweetUserBase
-  image?: string
-  video?: string
+  image?: string | null
+  video?: string | null
   text: string
   createdAt?: string
   likes?: number

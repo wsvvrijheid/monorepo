@@ -78,7 +78,7 @@ export const CourseDetailPage: FC<CourseDetailPageProps> = ({
           <Heading as={'h3'} size={'lg'}>
             {t('faq')}
           </Heading>
-          <CourseFaqs faqs={course.faqs} />
+          <CourseFaqs faqs={course.faqs || []} />
         </Stack>
 
         {courses?.length > 0 && (

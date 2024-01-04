@@ -47,4 +47,4 @@ export type ArtCardImageProps = {
   locale: StrapiLocale
 }
 
-export type CardImageProps = { image?: UploadFile } & ArtCardImageProps
+export type CardImageProps = { image?: UploadFile | null } & ArtCardImageProps

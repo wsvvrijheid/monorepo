@@ -8,8 +8,8 @@ export type ApplicantBase = {
 }
 
 type AplicantRelation = {
-  application?: Application
-  profile?: Profile
+  application?: Application | null
+  profile?: Profile | null
 }
 
 type ApplicantRelationInput = {

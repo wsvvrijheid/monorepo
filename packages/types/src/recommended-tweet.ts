@@ -13,10 +13,10 @@ export type RecommendedTweetBase = {
 }
 
 type RecommendedTweetRelation = {
-  video?: UploadFile
-  image?: UploadFile
-  caps?: UploadFile
-  originalTweet: Tweet
+  video?: UploadFile | null
+  image?: UploadFile | null
+  caps?: UploadFile | null
+  originalTweet: Tweet | null
   mentions: Mention[]
 }
 
