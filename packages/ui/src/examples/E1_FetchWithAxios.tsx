@@ -5,12 +5,14 @@ import axios from 'axios'
 
 const BLOG_URL = `https://wsvv-api-staging.onrender.com/api/blogs?locale=tr`
 
+// describe the specific data type for not return an error
 interface Blog {
   id: number;
   title: string;
 }
 
 export const FetcWithAxios = () => {
+  // specify the type of the Blog 
   const [blogs, setBlogs] = useState<Blog[]>([])
 
   useEffect(() => {
