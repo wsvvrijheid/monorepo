@@ -19,7 +19,7 @@ export const FetcWithAxios = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(BLOG_URL)
-        setBlogs(response.data)
+        setBlogs(response.data.data)
       } catch (error) {
         console.error('Error fetching data:', error)
       }
