@@ -1,7 +1,7 @@
 import { FC } from 'react'
 
 import { SimpleGrid, Stack } from '@chakra-ui/react'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'next-i18next'
 
 import { Foundation } from '@wsvvrijheid/types'
 
