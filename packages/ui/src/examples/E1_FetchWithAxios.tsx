@@ -5,8 +5,13 @@ import axios from 'axios'
 
 const BLOG_URL = `https://wsvv-api-staging.onrender.com/api/blogs?locale=tr`
 
+interface Blog {
+  id: number;
+  title: string;
+}
+
 export const FetcWithAxios = () => {
-  const [blogs, setBlogs] = useState([])
+  const [blogs, setBlogs] = useState<Blog[]>([])
 
   useEffect(() => {
     const fetchData = async () => {
