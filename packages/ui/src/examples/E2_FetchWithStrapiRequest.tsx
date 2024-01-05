@@ -23,9 +23,9 @@ export const FetchWithStrapiRequest = () => {
           token: PUBLIC_TOKEN,
         });
 
-        if ('data' in response.data) {
-          setBlogs(response.data.data as Blog[]);
-        }
+        if ('data' in response.data) 
+          setBlogs(response.data.data as Blog[])
+        
       } catch (error) {
         console.error('Error fetching data:', error);
       }

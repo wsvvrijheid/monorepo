@@ -95,6 +95,8 @@
   },
   "devDependencies": {
     "@chakra-ui/storybook-addon": "^5.1.0",
+    "@storybook/addon-actions": "^7.6.7",
+    "@storybook/addon-console": "^2.0.0",
     "@storybook/addon-essentials": "^7.6.6",
     "@storybook/builder-webpack5": "^7.6.6",
     "@storybook/core-common": "^7.6.6",

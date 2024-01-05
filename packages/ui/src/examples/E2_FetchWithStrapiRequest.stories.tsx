@@ -6,7 +6,7 @@ import { Container } from '../components'
 export default {
   component: FetchWithStrapiRequest,
   title: 'Examples/FetchWithStrapiRequest',
-  decorators: [Story => <Container maxW="container.sm">{Story()}</Container>],
+  decorators: [Story => <Container maxW="container.sm">{Story()}</Container>], 
 } as Meta<typeof FetchWithStrapiRequest>
 
 type Story = StoryObj<typeof FetchWithStrapiRequest>
