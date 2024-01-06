@@ -62,12 +62,12 @@ export const getServerSideProps = async (
   const locale = context.locale as StrapiLocale
   const queryClient = new QueryClient()
 
-  const args: RequestCollectionArgs = {
+  const args: RequestCollectionArgs<Hashtag> = {
     endpoint: 'hashtags',
     locale,
     sort: ['date:desc'],
     filters: {
-      approvalStatus: { eq: 'approved' },
+      approvalStatus: { $eq: 'approved' },
     },
     pageSize: 1,
   }

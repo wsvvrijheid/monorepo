@@ -4808,12 +4808,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@hookform/resolvers@npm:^3.3.3":
-  version: 3.3.3
-  resolution: "@hookform/resolvers@npm:3.3.3"
+"@hookform/resolvers@npm:^3.3.4":
+  version: 3.3.4
+  resolution: "@hookform/resolvers@npm:3.3.4"
   peerDependencies:
     react-hook-form: ^7.0.0
-  checksum: b0ad5cfe40b49573f70471d53c85cdb17b5bf643a7975df5a297fbec26b7b9048972ba1bc7e365f8d417215595477eedd07a6156e43188155dbee0abedad545e
+  checksum: 0845e15f53b515ab5dc8d970d4ee7f47bbdfc4f4391bc166361535482d96b6ae3d1812669107fca05bf8687fa5447e3ed65f2eee3e349759b23b229ca978f917
   languageName: node
   linkType: hard
 
@@ -6421,10 +6421,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@resvg/resvg-wasm@npm:2.6.0":
-  version: 2.6.0
-  resolution: "@resvg/resvg-wasm@npm:2.6.0"
-  checksum: 16433d78401f76b7da9aabf58396807ae867aa315e7c2a5d7965a57907aec5056791ed95e7fd4d383180aa1fa5e9b2788d654317b688ba2352b965cf815542cc
+"@resvg/resvg-wasm@npm:2.4.0":
+  version: 2.4.0
+  resolution: "@resvg/resvg-wasm@npm:2.4.0"
+  checksum: 82f0f734787f676259c78546f5c37a708b74061ee84e349746d4d89ce204423782a59125d48bc2a9cedcfbb8b1653d25113691c24adb06479288febd86afd8f5
   languageName: node
   linkType: hard
 
@@ -8309,10 +8309,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/query-core@npm:5.17.1":
-  version: 5.17.1
-  resolution: "@tanstack/query-core@npm:5.17.1"
-  checksum: 037f829a8f68a6fd1aa5581d655bc85e67111cd011f3b4a3bfd15e16b3a5568c879a6d121442c1e261f8024b20c3f9427b2046b15b05cc3896e8814057f474fb
+"@tanstack/query-core@npm:5.17.4":
+  version: 5.17.4
+  resolution: "@tanstack/query-core@npm:5.17.4"
+  checksum: e1e4860bb7b1f0609c285e108a338a4015701968f52472161be5a48ff50efa6c717cdb1f407e930d6b3883b5679be7d3e83e299a48b2895d1eb1f640f812c136
   languageName: node
   linkType: hard
 
@@ -8323,26 +8323,26 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/react-query-devtools@npm:^5.17.1":
-  version: 5.17.1
-  resolution: "@tanstack/react-query-devtools@npm:5.17.1"
+"@tanstack/react-query-devtools@npm:^5.17.5":
+  version: 5.17.5
+  resolution: "@tanstack/react-query-devtools@npm:5.17.5"
   dependencies:
     "@tanstack/query-devtools": "npm:5.17.1"
   peerDependencies:
-    "@tanstack/react-query": ^5.17.1
+    "@tanstack/react-query": ^5.17.5
     react: ^18.0.0
-  checksum: 03dd6ede2fb28211e6f978d8bdae770b0321e87d74c1ac06454801d4f5a2106bfc188ab6ca0868f742a628333ab368e809b15807076510b2db323614819f4814
+  checksum: 2e0b42844f59896e523a14a4edb4fedc137605e0e5378dc0de7ec1019e2ea1b2553b84fd36acb68b36041dca5eb2786697973128870e5b01c1abbf36d8147095
   languageName: node
   linkType: hard
 
-"@tanstack/react-query@npm:^5.17.1":
-  version: 5.17.1
-  resolution: "@tanstack/react-query@npm:5.17.1"
+"@tanstack/react-query@npm:^5.17.5":
+  version: 5.17.5
+  resolution: "@tanstack/react-query@npm:5.17.5"
   dependencies:
-    "@tanstack/query-core": "npm:5.17.1"
+    "@tanstack/query-core": "npm:5.17.4"
   peerDependencies:
     react: ^18.0.0
-  checksum: c09efc215aaaa7c865a8c05f8b52095117f3f5d1678ab5a5b08fb4a0975e80301b7f744cd341729089e04b1ef3f53dd5cc44cfc3d0c67f2cdff8903d9c6795e8
+  checksum: 8cc9876491de8e3047377fe246fd9f36715577c088ea7c4e353433ddb380b071385e5263345214e5ce65538094e14cc59dd232a3d20c6374e9ae1b026a95c243
   languageName: node
   linkType: hard
 
@@ -8432,11 +8432,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@turbo/gen@npm:^1.11.2":
-  version: 1.11.2
-  resolution: "@turbo/gen@npm:1.11.2"
+"@turbo/gen@npm:^1.11.3":
+  version: 1.11.3
+  resolution: "@turbo/gen@npm:1.11.3"
   dependencies:
-    "@turbo/workspaces": "npm:1.11.2"
+    "@turbo/workspaces": "npm:1.11.3"
     chalk: "npm:2.4.2"
     commander: "npm:^10.0.0"
     fs-extra: "npm:^10.1.0"
@@ -8449,13 +8449,13 @@ __metadata:
     validate-npm-package-name: "npm:^5.0.0"
   bin:
     gen: dist/cli.js
-  checksum: 872905b4d501ec29d9a9baa260eb53033cda29384ae9dc448253364c27d2dfa56e57be9ad3e87a2f4005c25580656ec55bb0cef82d63c4c18a56605f4d548dff
+  checksum: f1121458c21a5355d865f488eb31659ca0285d5ddbcec8aa5d669575bf7397f801083d26e84bad456d9c9e2af18507ca53f989028c6b8ba372a02244255befc6
   languageName: node
   linkType: hard
 
-"@turbo/workspaces@npm:1.11.2":
-  version: 1.11.2
-  resolution: "@turbo/workspaces@npm:1.11.2"
+"@turbo/workspaces@npm:1.11.3":
+  version: 1.11.3
+  resolution: "@turbo/workspaces@npm:1.11.3"
   dependencies:
     chalk: "npm:2.4.2"
     commander: "npm:^10.0.0"
@@ -8471,7 +8471,7 @@ __metadata:
     update-check: "npm:^1.5.4"
   bin:
     workspaces: dist/cli.js
-  checksum: 9ad157f6bd1f6ac83d51961ea5ae8c4189acd91645fea3c2929d4634576c9426495aeda7af46ebf9f8764f9417cae741be45f4bdfa46233b986b50e06267e29e
+  checksum: 930f6afd82e805868bdc8b17200db53ebdf557a6ff129d1f99bd7e6efbf391abc68094062e16e280f6180e8eb0d8f90769b57f0a09f4459b2a6bf1b471637ade
   languageName: node
   linkType: hard
 
@@ -9239,14 +9239,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:18.2.46":
-  version: 18.2.46
-  resolution: "@types/react@npm:18.2.46"
+"@types/react@npm:18.2.47":
+  version: 18.2.47
+  resolution: "@types/react@npm:18.2.47"
   dependencies:
     "@types/prop-types": "npm:*"
     "@types/scheduler": "npm:*"
     csstype: "npm:^3.0.2"
-  checksum: 10fb28a5b8504106512ce3b154c45d1ac045c31633786773a29f003b3079b434060368bb56f95ef6c39510835ceec4fb8fdc271d6ca2b9cdd979379cf53f126b
+  checksum: 0a98c2ef8303909f78c973ac9731cb671f3a0b96bc5213b538d1a50cbaae6e51b6befd64845a9cb95af8528767315d5bd99a85608eb716c020393c7d33a9b477
   languageName: node
   linkType: hard
 
@@ -9946,14 +9946,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vercel/og@npm:^0.6.1":
-  version: 0.6.1
-  resolution: "@vercel/og@npm:0.6.1"
+"@vercel/og@npm:^0.6.2":
+  version: 0.6.2
+  resolution: "@vercel/og@npm:0.6.2"
   dependencies:
-    "@resvg/resvg-wasm": "npm:2.6.0"
+    "@resvg/resvg-wasm": "npm:2.4.0"
     satori: "npm:0.10.9"
     yoga-wasm-web: "npm:0.3.3"
-  checksum: efd3a58fcd89b94aa512d5826fbe60ec94d306abdff5a1f6887d473c64982fb7334cbeff0fb2cf3a881396513252e797ecaa3f8934b4b2c45ac41f965272dfe0
+  checksum: 7844d692b7e6c78b99d3ce2baf8d7e95c0f3c9f5637dbd43862f01187b649a6bc4566e7c4cf0dcffab89f1b6651195df02cb5d83cd4692fb71b430aa2e77992b
   languageName: node
   linkType: hard
 
@@ -11080,14 +11080,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axios@npm:^1.6.4":
-  version: 1.6.4
-  resolution: "axios@npm:1.6.4"
+"axios@npm:^1.6.5":
+  version: 1.6.5
+  resolution: "axios@npm:1.6.5"
   dependencies:
     follow-redirects: "npm:^1.15.4"
     form-data: "npm:^4.0.0"
     proxy-from-env: "npm:^1.1.0"
-  checksum: ed15229f447dd81a5a9e3dac5c84d64f8598145b1102fb6f8c5feb0d02d0dafaef7bf071d2575a7687dd0c014b9da2edbcff59ee9a57b59da941ae673b938919
+  checksum: 465489d9bf8f039b9adbc8103b6299d6a5e26de77b27f0e4173d814d39bca8f4b4659d94e09ee40461aedccd8c2452f1e2b3edace1c9f81220060d2974ff9dc7
   languageName: node
   linkType: hard
 
@@ -15054,14 +15054,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-config-turbo@npm:^1.11.2":
-  version: 1.11.2
-  resolution: "eslint-config-turbo@npm:1.11.2"
+"eslint-config-turbo@npm:^1.11.3":
+  version: 1.11.3
+  resolution: "eslint-config-turbo@npm:1.11.3"
   dependencies:
-    eslint-plugin-turbo: "npm:1.11.2"
+    eslint-plugin-turbo: "npm:1.11.3"
   peerDependencies:
     eslint: ">6.6.0"
-  checksum: c9ef4ca532922c4361c9bb8c01b3335b19dee358170ae62309eb322d4e5c4d0f23456f2543930805ec4809dbcff32f3e09bfeef86cd472b0a25108a0c9402178
+  checksum: 288591d73ff168593e01d924aaacbe419be4a25e460e8b809c4bfde8e9112ab155f6ce2d796adadc12a8f6814dac0d502428db9d1e05810fa68407e1f90b6a40
   languageName: node
   linkType: hard
 
@@ -15195,14 +15195,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-turbo@npm:1.11.2":
-  version: 1.11.2
-  resolution: "eslint-plugin-turbo@npm:1.11.2"
+"eslint-plugin-turbo@npm:1.11.3":
+  version: 1.11.3
+  resolution: "eslint-plugin-turbo@npm:1.11.3"
   dependencies:
     dotenv: "npm:16.0.3"
   peerDependencies:
     eslint: ">6.6.0"
-  checksum: 780b22254105ca89463914086088383ed9d3e1c7e6fd7547e8b91880f432db2ce59181ba5806c587a3a0729e4ec04470077b2fc199f7bb5d0d1a089eb472ce9a
+  checksum: 1eec81bcb64a54b9b74bb454eefd181c38969975a6d0588e80de04032a5ac9e4d49f545fd614594a3281765687e0568894e5b6f5742a96ebde1ff88135853554
   languageName: node
   linkType: hard
 
@@ -16223,9 +16223,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"framer-motion@npm:^10.17.4":
-  version: 10.17.4
-  resolution: "framer-motion@npm:10.17.4"
+"framer-motion@npm:^10.17.9":
+  version: 10.17.9
+  resolution: "framer-motion@npm:10.17.9"
   dependencies:
     "@emotion/is-prop-valid": "npm:^0.8.2"
     tslib: "npm:^2.4.0"
@@ -16240,7 +16240,7 @@ __metadata:
       optional: true
     react-dom:
       optional: true
-  checksum: 15519913340899c16bcb2ba7e924b49f0eb5475a04775b20cb2ef7a1beb82082ec1b964e4bb9325e0d6c43f369bdc2e0fc085394ecf6e238d54d0d607e116412
+  checksum: 7ce3449885c49ea08cda429d82da45e688e321c49ac0443e56b595161e0a8b6d468efba7a13bf55194e7c0f030356383d9b38ca0e9ea48bcc113172b548c1876
   languageName: node
   linkType: hard
 
@@ -17600,12 +17600,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"i18next@npm:^23.7.15":
-  version: 23.7.15
-  resolution: "i18next@npm:23.7.15"
+"i18next@npm:^23.7.16":
+  version: 23.7.16
+  resolution: "i18next@npm:23.7.16"
   dependencies:
     "@babel/runtime": "npm:^7.23.2"
-  checksum: d6618af06e3f3ab601fff7bbe62b3696fb32fabb119fae5509a2720755b042680d8927759b9644c99f82d90b115e42721ca3c72647bfab02a102d06c4b65eaaa
+  checksum: 77e74c07a73316f6fb6678a5a3e8ce58a6e66be457dd1ccd23941e9fc57ad8e1da55193fa6328c70b86073337b776cd267f3c13c6309f548b3116f27a1e41787
   languageName: node
   linkType: hard
 
@@ -21804,9 +21804,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"next-i18next@npm:^15.1.2":
-  version: 15.1.2
-  resolution: "next-i18next@npm:15.1.2"
+"next-i18next@npm:^15.2.0":
+  version: 15.2.0
+  resolution: "next-i18next@npm:15.2.0"
   dependencies:
     "@babel/runtime": "npm:^7.23.2"
     "@types/hoist-non-react-statics": "npm:^3.3.4"
@@ -21818,7 +21818,7 @@ __metadata:
     next: ">= 12.0.0"
     react: ">= 17.0.2"
     react-i18next: ">= 13.5.0"
-  checksum: fb0af2f61f83cb725e180528a8ffc1d7c6ad3c9074a681d3acb6fe36eaeb6096e51beaba11105a7dbe37f1a53b56e074cb6577009c6daed2dbf2afa6c73c1c78
+  checksum: f81129292c97cac2b8ef2c0ad4997bc70f8255e6fdee12b6c329a48c6d3bb74aa98e70ab46e054eff20366a4087eaa1e560c3b45b5f1c3c55f9add4a0dad8b16
   languageName: node
   linkType: hard
 
@@ -27232,13 +27232,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"stripe@npm:^14.10.0":
-  version: 14.10.0
-  resolution: "stripe@npm:14.10.0"
+"stripe@npm:^14.11.0":
+  version: 14.11.0
+  resolution: "stripe@npm:14.11.0"
   dependencies:
     "@types/node": "npm:>=8.1.0"
     qs: "npm:^6.11.0"
-  checksum: 4274fc2caf965a3459f2f19549ea4cf5839a641e8507b62ca88b829eb251c401780de986f7843eaa8007a4a8a9c145e397ae29745996f3d39f20fb2b97241838
+  checksum: 379c2801db37e876e387838aa4924cdf4871a84822c19bda0c560faf9266905de7d3ed5643cef4d52e4656f33c7b19983ab8399adb06bc43c3b914a181f6753a
   languageName: node
   linkType: hard
 
@@ -28093,58 +28093,58 @@ __metadata:
   languageName: node
   linkType: hard
 
-"turbo-darwin-64@npm:1.11.2":
-  version: 1.11.2
-  resolution: "turbo-darwin-64@npm:1.11.2"
+"turbo-darwin-64@npm:1.11.3":
+  version: 1.11.3
+  resolution: "turbo-darwin-64@npm:1.11.3"
   conditions: os=darwin & cpu=x64
   languageName: node
   linkType: hard
 
-"turbo-darwin-arm64@npm:1.11.2":
-  version: 1.11.2
-  resolution: "turbo-darwin-arm64@npm:1.11.2"
+"turbo-darwin-arm64@npm:1.11.3":
+  version: 1.11.3
+  resolution: "turbo-darwin-arm64@npm:1.11.3"
   conditions: os=darwin & cpu=arm64
   languageName: node
   linkType: hard
 
-"turbo-linux-64@npm:1.11.2":
-  version: 1.11.2
-  resolution: "turbo-linux-64@npm:1.11.2"
+"turbo-linux-64@npm:1.11.3":
+  version: 1.11.3
+  resolution: "turbo-linux-64@npm:1.11.3"
   conditions: os=linux & cpu=x64
   languageName: node
   linkType: hard
 
-"turbo-linux-arm64@npm:1.11.2":
-  version: 1.11.2
-  resolution: "turbo-linux-arm64@npm:1.11.2"
+"turbo-linux-arm64@npm:1.11.3":
+  version: 1.11.3
+  resolution: "turbo-linux-arm64@npm:1.11.3"
   conditions: os=linux & cpu=arm64
   languageName: node
   linkType: hard
 
-"turbo-windows-64@npm:1.11.2":
-  version: 1.11.2
-  resolution: "turbo-windows-64@npm:1.11.2"
+"turbo-windows-64@npm:1.11.3":
+  version: 1.11.3
+  resolution: "turbo-windows-64@npm:1.11.3"
   conditions: os=win32 & cpu=x64
   languageName: node
   linkType: hard
 
-"turbo-windows-arm64@npm:1.11.2":
-  version: 1.11.2
-  resolution: "turbo-windows-arm64@npm:1.11.2"
+"turbo-windows-arm64@npm:1.11.3":
+  version: 1.11.3
+  resolution: "turbo-windows-arm64@npm:1.11.3"
   conditions: os=win32 & cpu=arm64
   languageName: node
   linkType: hard
 
-"turbo@npm:^1.11.2":
-  version: 1.11.2
-  resolution: "turbo@npm:1.11.2"
+"turbo@npm:^1.11.3":
+  version: 1.11.3
+  resolution: "turbo@npm:1.11.3"
   dependencies:
-    turbo-darwin-64: "npm:1.11.2"
-    turbo-darwin-arm64: "npm:1.11.2"
-    turbo-linux-64: "npm:1.11.2"
-    turbo-linux-arm64: "npm:1.11.2"
-    turbo-windows-64: "npm:1.11.2"
-    turbo-windows-arm64: "npm:1.11.2"
+    turbo-darwin-64: "npm:1.11.3"
+    turbo-darwin-arm64: "npm:1.11.3"
+    turbo-linux-64: "npm:1.11.3"
+    turbo-linux-arm64: "npm:1.11.3"
+    turbo-windows-64: "npm:1.11.3"
+    turbo-windows-arm64: "npm:1.11.3"
   dependenciesMeta:
     turbo-darwin-64:
       optional: true
@@ -28160,7 +28160,7 @@ __metadata:
       optional: true
   bin:
     turbo: bin/turbo
-  checksum: 778c13b4ed81351b9959de8259ec9ec12b885b614ade069db0fc017263d10941e857af82fea57524318a3d4092a0c1d710c01b22ea55baf73a5b3080b224d3cc
+  checksum: 649938c8fecc7f4a9f0995fc41593216eadf51bd8314e1d5a6f45603d6a15e0ea2a7b108de7feb617e6ee5b1cab2505c7b843cd26d1c2164b14a665b6adcf886
   languageName: node
   linkType: hard
 
@@ -29425,7 +29425,7 @@ __metadata:
     "@ctrl/tinycolor": "npm:^4.0.2"
     "@emotion/react": "npm:^11.11.3"
     "@emotion/styled": "npm:^11.11.0"
-    "@hookform/resolvers": "npm:^3.3.3"
+    "@hookform/resolvers": "npm:^3.3.4"
     "@playwright/test": "npm:^1.40.1"
     "@sindresorhus/slugify": "npm:^2.2.1"
     "@splidejs/react-splide": "npm:^0.7.12"
@@ -29436,12 +29436,13 @@ __metadata:
     "@storybook/nextjs": "npm:^7.6.7"
     "@storybook/react": "npm:^7.6.7"
     "@storybook/types": "npm:^7.6.7"
-    "@tanstack/react-query": "npm:^5.17.1"
-    "@tanstack/react-query-devtools": "npm:^5.17.1"
-    "@turbo/gen": "npm:^1.11.2"
+    "@tanstack/react-query": "npm:^5.17.5"
+    "@tanstack/react-query-devtools": "npm:^5.17.5"
+    "@turbo/gen": "npm:^1.11.3"
     "@types/file-saver": "npm:^2.0.7"
+    "@types/jest": "npm:^29.5.11"
     "@types/node": "npm:^20.10.6"
-    "@types/react": "npm:18.2.46"
+    "@types/react": "npm:18.2.47"
     "@types/react-dom": "npm:18.2.18"
     "@types/react-headroom": "npm:^3.2.3"
     "@types/remove-markdown": "npm:^0.3.4"
@@ -29460,12 +29461,12 @@ __metadata:
     "@uppy/url": "npm:^3.5.0"
     "@vercel/analytics": "npm:^1.1.1"
     "@vercel/kv": "npm:^1.0.1"
-    "@vercel/og": "npm:^0.6.1"
+    "@vercel/og": "npm:^0.6.2"
     "@wsvvrijheid/config": "npm:*"
     "@wsvvrijheid/types": "npm:*"
     "@wsvvrijheid/ui": "npm:*"
     ai: "npm:^2.2.31"
-    axios: "npm:^1.6.4"
+    axios: "npm:^1.6.5"
     browserify-fs: "npm:^1.0.0"
     chakra-react-select: "npm:^4.7.6"
     cookies-next: "npm:^4.1.0"
@@ -29475,11 +29476,11 @@ __metadata:
     eslint: "npm:^8.56.0"
     eslint-config-next: "npm:^14.0.4"
     eslint-config-prettier: "npm:^9.1.0"
-    eslint-config-turbo: "npm:^1.11.2"
+    eslint-config-turbo: "npm:^1.11.3"
     eslint-plugin-react: "npm:7.33.2"
     file-saver: "npm:^2.0.5"
-    framer-motion: "npm:^10.17.4"
-    i18next: "npm:^23.7.15"
+    framer-motion: "npm:^10.17.9"
+    i18next: "npm:^23.7.16"
     i18next-browser-languagedetector: "npm:^7.2.0"
     i18next-http-backend: "npm:^2.4.2"
     iron-session: "npm:^8.0.1"
@@ -29487,7 +29488,7 @@ __metadata:
     kill-port-process: "npm:^3.2.1"
     lodash: "npm:^4.17.21"
     next: "npm:^14.0.4"
-    next-i18next: "npm:^15.1.2"
+    next-i18next: "npm:^15.2.0"
     next-mdx-remote: "npm:^4.4.1"
     next-recaptcha-v3: "npm:^1.3.0"
     next-seo: "npm:^6.4.0"
@@ -29518,9 +29519,9 @@ __metadata:
     storybook: "npm:^7.6.7"
     stream-browserify: "npm:^3.0.0"
     string-similarity: "npm:^4.0.4"
-    stripe: "npm:^14.10.0"
+    stripe: "npm:^14.11.0"
     tesseract.js: "npm:^5.0.4"
-    turbo: "npm:^1.11.2"
+    turbo: "npm:^1.11.3"
     twitter-api-v2: "npm:^1.15.2"
     twitter-text: "npm:^3.1.0"
     type-fest: "npm:^4.9.0"

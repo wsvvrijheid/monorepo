@@ -25,13 +25,13 @@ function useStrapiRequest<T extends StrapiModel>(
 ): UseQueryResult<StrapiSingleResponse<T>>
 
 function useStrapiRequest<T extends StrapiModel>(
-  args: RequestCollectionArgs & {
+  args: RequestCollectionArgs<T> & {
     queryOptions?: QueryOptions
   },
 ): UseQueryResult<StrapiCollectionResponse<T[]>>
 
 function useStrapiRequest<T extends StrapiModel>(
-  args: (RequestCollectionArgs | RequestSingleArgs) & {
+  args: (RequestCollectionArgs<T> | RequestSingleArgs) & {
     queryOptions?: QueryOptions
   },
 ) {

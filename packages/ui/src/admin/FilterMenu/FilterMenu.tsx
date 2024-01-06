@@ -1,19 +1,21 @@
-import { FC, useState } from 'react'
+import { useState } from 'react'
 
 import { MenuDivider } from '@chakra-ui/react'
 import { useTranslation } from 'next-i18next'
 
+import { StrapiModel } from '@wsvvrijheid/types'
+
 import { FilterMenuGroup } from './FilterMenuGroup'
 import { RelationFilterMenuGroup } from './RelationFilterMenuGroup'
-import { FilterOption, FilterMenuProps } from './types'
+import { FilterMenuProps, FilterOption } from './types'
 import { I18nNamespaces } from '../../../@types/i18next'
 
-export const FilterMenu: FC<FilterMenuProps> = ({
+export const FilterMenu = <T extends StrapiModel>({
   relationFilterOptions = [],
   setRelationFilter,
   filterOptions = [],
   setFilters,
-}) => {
+}: FilterMenuProps<T>) => {
   const [selectedFilters, setSelectedFilters] = useState<FilterOption[]>([])
   const { t } = useTranslation()
 

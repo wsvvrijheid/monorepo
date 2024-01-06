@@ -370,3 +370,52 @@ export type StrapiUpdateInput =
   | PostUpdateInput
   | ProfileUpdateInput
   | UserFeedbackUpdateInput
+
+type StrapiFilterOperator =
+  | '$eq'
+  | '$eqi'
+  | '$ne'
+  | '$nei'
+  | '$lt'
+  | '$lte'
+  | '$gt'
+  | '$gte'
+  | '$in'
+  | '$notIn'
+  | '$contains'
+  | '$notContains'
+  | '$containsi'
+  | '$notContainsi'
+  | '$null'
+  | '$notNull'
+  | '$between'
+  | '$startsWith'
+  | '$startsWithi'
+  | '$endsWith'
+  | '$endsWithi'
+  | '$or'
+  | '$and'
+  | '$not'
+
+type StrapiFilterValue =
+  | string
+  | number
+  | boolean
+  | string[]
+  | number[]
+  | boolean[]
+  | [number, number]
+
+export type StrapiFilter<T> = {
+  [field in keyof T]?: T[field] extends infer U
+    ? U extends Array<any>
+      ? StrapiFilter<U[number]>
+      : U extends object
+        ? StrapiFilter<T[field]>
+        : Partial<Record<StrapiFilterOperator, StrapiFilterValue>>
+    : Partial<Record<StrapiFilterOperator, StrapiFilterValue>>
+} & {
+  $or?: StrapiFilter<T>[]
+  $and?: StrapiFilter<T>[]
+  $not?: StrapiFilter<T>[]
+}
