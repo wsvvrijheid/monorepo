@@ -72,7 +72,7 @@ export const ArtClubTemplate: FC = () => {
       ...(categories && {
         categories: {
           slug: {
-            $in: Object.values(parse(categories as string)),
+            $in: Object.values(parse(categories as string)) as string[],
           },
         },
       }),

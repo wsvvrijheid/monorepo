@@ -59,7 +59,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
   const locale = context.locale as StrapiLocale
   const queryClient = new QueryClient()
 
-  const args: RequestCollectionArgs = {
+  const args: RequestCollectionArgs<Hashtag> = {
     endpoint: 'hashtags',
     locale,
     filters: {

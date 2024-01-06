@@ -7,12 +7,13 @@ import { useAuthContext } from '@wsvvrijheid/context'
 import { RequestCollectionArgs, strapiRequest } from '@wsvvrijheid/lib'
 import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import {
+  AccountStats,
   AccountStats as AccountStatsType,
   StrapiLocale,
 } from '@wsvvrijheid/types'
 import { AdminLayout } from '@wsvvrijheid/ui'
 
-const args: RequestCollectionArgs = {
+const args: RequestCollectionArgs<AccountStats> = {
   endpoint: 'account-statistics',
   sort: ['date:asc'],
   pageSize: 100,

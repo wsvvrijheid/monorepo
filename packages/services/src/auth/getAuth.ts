@@ -38,7 +38,11 @@ export const loginAuth = async (identifier: string, password: string) => {
     ? await strapiRequest<Profile>({
         endpoint: 'profiles',
         filters: {
-          user: { id: user.id },
+          user: {
+            id: {
+              $eq: user.id,
+            },
+          },
         },
         token,
       })

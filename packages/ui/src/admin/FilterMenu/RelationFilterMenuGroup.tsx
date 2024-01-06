@@ -14,7 +14,7 @@ export const RelationFilterMenuGroup = <T extends StrapiModel>({
   relationFilter,
   setRelationFilter,
   ...props
-}: RelationFilterMenuGroupProps) => {
+}: RelationFilterMenuGroupProps<T>) => {
   const { locale } = useRouter()
 
   const [ids, setIds] = useState<number[]>([])

@@ -1,7 +1,11 @@
 import { MenuOptionGroupProps } from '@chakra-ui/react'
 
 import { RequestCollectionArgs } from '@wsvvrijheid/lib'
-import { StrapiCollectionEndpoint, StrapiModelKeys } from '@wsvvrijheid/types'
+import {
+  StrapiCollectionEndpoint,
+  StrapiModel,
+  StrapiModelKeys,
+} from '@wsvvrijheid/types'
 
 export type FilterOption = {
   field: StrapiModelKeys
@@ -39,24 +43,25 @@ export type RelationFilterArgs = {
   ids: number[]
 }
 
-export type RelationFilterOption = {
+export type RelationFilterOption<T extends StrapiModel> = {
   endpoint: StrapiCollectionEndpoint
   field: StrapiModelKeys
   label?: string
-  queryFilters?: RequestCollectionArgs['filters']
+  queryFilters?: RequestCollectionArgs<T>['filters']
 }
 
-export type FilterMenuProps = {
+export type FilterMenuProps<T extends StrapiModel> = {
   filterOptions?: FilterOption[]
-  relationFilterOptions?: RelationFilterOption[]
+  relationFilterOptions?: RelationFilterOption<T>[]
   setRelationFilter: (args: RelationFilterArgs) => void
   setFilters: (filters: FilterOption[]) => void
 }
 
-export type RelationFilterMenuGroupProps = MenuOptionGroupProps & {
-  relationFilter: RelationFilterOption
-  setRelationFilter: (args: RelationFilterArgs) => void
-}
+export type RelationFilterMenuGroupProps<T extends StrapiModel> =
+  MenuOptionGroupProps & {
+    relationFilter: RelationFilterOption<T>
+    setRelationFilter: (args: RelationFilterArgs) => void
+  }
 
 export type FilterMenuGroupProps = MenuOptionGroupProps & {
   options: FilterOption[]

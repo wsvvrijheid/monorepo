@@ -6,7 +6,7 @@ import { API_URL } from '@wsvvrijheid/config'
 import { strapiRequest } from '@wsvvrijheid/lib'
 import { sessionOptions } from '@wsvvrijheid/secrets'
 import { getSessionUser } from '@wsvvrijheid/services'
-import { Auth } from '@wsvvrijheid/types'
+import { Auth, Profile } from '@wsvvrijheid/types'
 
 export const resetPasswordRouter: NextApiHandler = async (req, res) => {
   try {
@@ -32,10 +32,14 @@ export const resetPasswordRouter: NextApiHandler = async (req, res) => {
       })
     }
 
-    const profileResponse = await strapiRequest({
+    const profileResponse = await strapiRequest<Profile>({
       endpoint: 'profiles',
       filters: {
-        user: { id: user.id },
+        user: {
+          id: {
+            $eq: user.id,
+          },
+        },
       },
     })
 
