@@ -202,7 +202,7 @@ export const TweetGenAI = ({ postId, hashtagId, content }: TweetGenAIProps) => {
                 hashtagId={hashtagId}
                 postId={postId}
                 colorScheme={'purple'}
-                onRemove={() => handleRemoveGeneratedPost(idx)}
+                onSuccess={() => handleRemoveGeneratedPost(idx)}
               />
             )
           })}

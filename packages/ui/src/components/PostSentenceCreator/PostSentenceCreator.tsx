@@ -11,7 +11,7 @@ type PostSentenceCreatorProps = {
   postId: number
   initialContent?: string
   colorScheme?: ThemeTypings['colorSchemes']
-  onRemove?: () => void
+  onSuccess?: () => void
 }
 
 export const PostSentenceCreator = ({
@@ -19,7 +19,7 @@ export const PostSentenceCreator = ({
   postId,
   initialContent,
   colorScheme,
-  onRemove,
+  onSuccess,
 }: PostSentenceCreatorProps) => {
   const [value, setValue] = useState(initialContent)
   const onAddMutation = useCreateHashtagSentence()
@@ -39,8 +39,8 @@ export const PostSentenceCreator = ({
           queryClient.invalidateQueries({
             queryKey: ['kv-hashtag-sentences', hashtagId],
           })
-          onRemove && onRemove()
-        },
+          onSuccess?.()
+        }
       },
     )
   }
