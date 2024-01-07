@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { HStack, IconButton, Textarea, ThemeTypings } from '@chakra-ui/react'
 import { useQueryClient } from '@tanstack/react-query'
@@ -11,6 +11,7 @@ type PostSentenceCreatorProps = {
   postId: number
   initialContent?: string
   colorScheme?: ThemeTypings['colorSchemes']
+  onRemove?: () => void
 }
 
 export const PostSentenceCreator = ({
@@ -18,22 +19,30 @@ export const PostSentenceCreator = ({
   postId,
   initialContent,
   colorScheme,
+  onRemove,
 }: PostSentenceCreatorProps) => {
   const [value, setValue] = useState(initialContent)
   const onAddMutation = useCreateHashtagSentence()
   const queryClient = useQueryClient()
 
+  useEffect(() => {
+    if (initialContent !== value) {
+      setValue(initialContent)
+    }
+  }, [initialContent])
+
   const handleAdd = () => {
     onAddMutation.mutate(
       { hashtagId, value: `${value}::${postId}::${0}::${0}` },
       {
-        onSuccess: () =>
+        onSuccess: () => {
           queryClient.invalidateQueries({
             queryKey: ['kv-hashtag-sentences', hashtagId],
-          }),
+          })
+          onRemove && onRemove()
+        },
       },
     )
-    setValue('')
   }
 
   return (
