@@ -4,6 +4,7 @@ import { QueryClient } from '@tanstack/react-query'
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
 import { useRouter } from 'next/router'
 import { serialize } from 'next-mdx-remote/serialize'
+import { ReCaptchaProvider } from 'next-recaptcha-v3'
 
 import { RECAPTCHA_SITE_KEY, SITE_URL } from '@wsvvrijheid/config'
 import {
@@ -18,7 +19,6 @@ import { BlogDetail, Container } from '@wsvvrijheid/ui'
 import { getPageSeo } from '@wsvvrijheid/utils'
 
 import { Layout } from '../../components'
-import { ReCaptchaProvider } from 'next-recaptcha-v3'
 
 type BlogPageProps = InferGetServerSidePropsType<typeof getServerSideProps>
 
