@@ -42,9 +42,6 @@ const BlogDetailPage: FC<BlogPageProps> = ({
 
   if (!source) return null
 
-  // console.log('RECAPTCHA_SITE_KEY::', RECAPTCHA_SITE_KEY);
-
-
   return (
     <ReCaptchaProvider reCaptchaKey={RECAPTCHA_SITE_KEY}>
       <Layout seo={seo}>
