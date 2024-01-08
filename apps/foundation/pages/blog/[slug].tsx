@@ -5,7 +5,7 @@ import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
 import { useRouter } from 'next/router'
 import { serialize } from 'next-mdx-remote/serialize'
 
-import { SITE_URL } from '@wsvvrijheid/config'
+import { RECAPTCHA_SITE_KEY, SITE_URL } from '@wsvvrijheid/config'
 import {
   getAuthorBlogs,
   getBlogBySlug,
@@ -18,6 +18,7 @@ import { BlogDetail, Container } from '@wsvvrijheid/ui'
 import { getPageSeo } from '@wsvvrijheid/utils'
 
 import { Layout } from '../../components'
+import { ReCaptchaProvider } from 'next-recaptcha-v3'
 
 type BlogPageProps = InferGetServerSidePropsType<typeof getServerSideProps>
 
@@ -41,19 +42,24 @@ const BlogDetailPage: FC<BlogPageProps> = ({
 
   if (!source) return null
 
+  // console.log('RECAPTCHA_SITE_KEY::', RECAPTCHA_SITE_KEY);
+
+
   return (
-    <Layout seo={seo}>
-      <Container maxW="container.md">
-        <BlogDetail
-          post={blog}
-          source={source}
-          link={link}
-          isLiked={isLiked as boolean}
-          toggleLike={toggleLike}
-          authorBlogs={authorBlogs}
-        />
-      </Container>
-    </Layout>
+    <ReCaptchaProvider reCaptchaKey={RECAPTCHA_SITE_KEY}>
+      <Layout seo={seo}>
+        <Container maxW="container.md">
+          <BlogDetail
+            post={blog}
+            source={source}
+            link={link}
+            isLiked={isLiked as boolean}
+            toggleLike={toggleLike}
+            authorBlogs={authorBlogs}
+          />
+        </Container>
+      </Layout>
+    </ReCaptchaProvider>
   )
 }
 
