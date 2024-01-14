@@ -8,7 +8,6 @@ import { FaPlus } from 'react-icons/fa'
 import { useCreateHashtagSentence } from '@wsvvrijheid/services'
 import { toastMessage } from '@wsvvrijheid/utils'
 
-
 type PostSentenceCreatorProps = {
   hashtagId: number
   postId: number
@@ -35,20 +34,24 @@ export const PostSentenceCreator = ({
     }
   }, [initialContent])
 
-
   const handleAdd = () => {
-    const sentences: string[] = queryClient.getQueryData(['kv-hashtag-sentences', hashtagId]) || []
-    const postIdFilteredSentences = sentences?.filter((s => s.split('::')[1] === String(postId)))
+    const sentences: string[] =
+      queryClient.getQueryData(['kv-hashtag-sentences', hashtagId]) || []
+    const postIdFilteredSentences = sentences?.filter(
+      s => s.split('::')[1] === String(postId),
+    )
 
-    let sentence = '';
+    let sentence = ''
     for (sentence of postIdFilteredSentences) {
       // Some generated sentences end with a punctuation, some don't
-      if (value?.trim().replace(/[.!]$/, '') === sentence.split('::')[0].trim().replace(/[.!]$/, '')) {
+      if (
+        value?.trim().replace(/[.!]$/, '') ===
+        sentence.split('::')[0].trim().replace(/[.!]$/, '')
+      ) {
         toastMessage('Error', t('addExistingHashtagPost'), 'error')
 
         return
       }
-
     }
 
     onAddMutation.mutate(
@@ -60,7 +63,7 @@ export const PostSentenceCreator = ({
           })
           onSuccess?.()
           toastMessage('Success', t('post.add.success.description'), 'success')
-        }
+        },
       },
     )
   }
