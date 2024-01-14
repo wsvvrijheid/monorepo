@@ -2,9 +2,11 @@ import { useEffect, useState } from 'react'
 
 import { HStack, IconButton, Textarea, ThemeTypings } from '@chakra-ui/react'
 import { useQueryClient } from '@tanstack/react-query'
+import { useTranslation } from 'react-i18next'
 import { FaPlus } from 'react-icons/fa'
 
 import { useCreateHashtagSentence } from '@wsvvrijheid/services'
+import { toastMessage } from '@wsvvrijheid/utils'
 
 type PostSentenceCreatorProps = {
   hashtagId: number
@@ -21,6 +23,7 @@ export const PostSentenceCreator = ({
   colorScheme,
   onSuccess,
 }: PostSentenceCreatorProps) => {
+  const { t } = useTranslation()
   const [value, setValue] = useState(initialContent)
   const onAddMutation = useCreateHashtagSentence()
   const queryClient = useQueryClient()
@@ -32,6 +35,25 @@ export const PostSentenceCreator = ({
   }, [initialContent])
 
   const handleAdd = () => {
+    const sentences: string[] =
+      queryClient.getQueryData(['kv-hashtag-sentences', hashtagId]) || []
+    const postIdFilteredSentences = sentences?.filter(
+      s => s.split('::')[1] === String(postId),
+    )
+
+    let sentence = ''
+    for (sentence of postIdFilteredSentences) {
+      // Some generated sentences end with a punctuation, some don't
+      if (
+        value?.trim().replace(/[.!]$/, '') ===
+        sentence.split('::')[0].trim().replace(/[.!]$/, '')
+      ) {
+        toastMessage('Error', t('addExistingHashtagPost'), 'error')
+
+        return
+      }
+    }
+
     onAddMutation.mutate(
       { hashtagId, value: `${value}::${postId}::${0}::${0}` },
       {
@@ -40,7 +62,8 @@ export const PostSentenceCreator = ({
             queryKey: ['kv-hashtag-sentences', hashtagId],
           })
           onSuccess?.()
-        }
+          toastMessage('Success', t('post.add.success.description'), 'success')
+        },
       },
     )
   }
