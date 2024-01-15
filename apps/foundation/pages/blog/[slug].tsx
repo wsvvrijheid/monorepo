@@ -4,12 +4,12 @@ import { QueryClient } from '@tanstack/react-query'
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
 import { useRouter } from 'next/router'
 import { serialize } from 'next-mdx-remote/serialize'
+import { ReCaptchaProvider } from 'next-recaptcha-v3'
 
-import { SITE_URL } from '@wsvvrijheid/config'
+import { RECAPTCHA_SITE_KEY, SITE_URL } from '@wsvvrijheid/config'
 import {
   getAuthorBlogs,
   getBlogBySlug,
-  useLikeBlog,
   useViewBlog,
 } from '@wsvvrijheid/services'
 import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
@@ -35,25 +35,24 @@ const BlogDetailPage: FC<BlogPageProps> = ({
 
   useViewBlog()
 
-  const { isLiked, toggleLike } = useLikeBlog(blog, queryKey)
-
   const link = `${SITE_URL}/${locale}/blog/${slug}`
 
   if (!source) return null
 
   return (
-    <Layout seo={seo}>
-      <Container maxW="container.md">
-        <BlogDetail
-          post={blog}
-          source={source}
-          link={link}
-          isLiked={isLiked as boolean}
-          toggleLike={toggleLike}
-          authorBlogs={authorBlogs}
-        />
-      </Container>
-    </Layout>
+    <ReCaptchaProvider reCaptchaKey={RECAPTCHA_SITE_KEY}>
+      <Layout seo={seo}>
+        <Container maxW="container.md">
+          <BlogDetail
+            post={blog}
+            queryKey={queryKey}
+            source={source}
+            link={link}
+            authorBlogs={authorBlogs}
+          />
+        </Container>
+      </Layout>
+    </ReCaptchaProvider>
   )
 }
 
