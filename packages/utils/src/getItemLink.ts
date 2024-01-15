@@ -33,8 +33,9 @@ export const getItemLink = (
   }
 
   if (post?.hashtag?.slug) {
-    itemUrl = `${localeSlug}/${getMainPageLink('hashtags')}/${post.hashtag
-      ?.slug}?id=${post.id}`
+    itemUrl = `${localeSlug}/${getMainPageLink('hashtags')}/${
+      post.hashtag?.slug
+    }?id=${post.id}`
   } else if (model.slug) {
     itemUrl = `${localeSlug}/${getMainPageLink(endpoint)}/${model?.slug}`
   } else {
