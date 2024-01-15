@@ -82,8 +82,8 @@ async function strapiRequest<T extends StrapiModel>(
   )
 
   const requestUrl = id
-    ? `${API_URL}/api/${endpoint}/${id}?${query}`
-    : `${API_URL}/api/${endpoint}?${query}`
+    ? `https://wsvv-api-staging.onrender.com/api/${endpoint}/${id}?${query}`
+    : `https://wsvv-api-staging.onrender.com/api/${endpoint}?${query}`
 
   try {
     const response = await axios(
