@@ -1,4 +1,5 @@
 import { addHours } from 'date-fns'
+import { Attribute } from '@strapi/strapi'
 
 import { getTwitterClient } from '../../src/libs'
 import { mapTweetResponseToTweet } from '../../src/utils'
@@ -66,7 +67,7 @@ export default async () => {
         })
 
         await strapi.entityService.update('api::hashtag.hashtag', id, {
-          data: { tweets: mappedTweets },
+          data: { tweets: mappedTweets as unknown as Attribute.JsonValue },
         })
 
         strapi.log.info(
