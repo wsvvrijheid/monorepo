@@ -4,7 +4,7 @@
     "target": "ES2015",
     "lib": ["DOM", "ES2015"],
     "outDir": "dist",
-    "rootDir": "."
+    "rootDir": ".",
   },
   "include": ["./", "./**/*.ts", "./**/*.js", "src/**/*.json"],
   "exclude": [
@@ -15,6 +15,6 @@
     ".tmp/",
     "src/admin/",
     "**/*.test.*",
-    "src/plugins/**"
-  ]
+    "src/plugins/**",
+  ],
 }
