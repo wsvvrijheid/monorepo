@@ -7,7 +7,7 @@ export type ApplicantBase = {
   name: string
 }
 
-type AplicantRelation = {
+type ApplicantRelation = {
   application?: Application | null
   profile?: Profile | null
 }
@@ -21,4 +21,4 @@ export type ApplicantCreateInput = Expand<
     ApplicantRelationInput
 >
 
-export type Applicant = StrapiBase & ApplicantBase & AplicantRelation
+export type Applicant = StrapiBase & ApplicantBase & ApplicantRelation
