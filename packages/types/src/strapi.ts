@@ -13,6 +13,12 @@ import {
   ApplicationCreateInput,
   ApplicationUpdateInput,
 } from './application'
+import {
+  ArchiveContent,
+  ArchiveContentCreateInput,
+  ArchiveContentUpdateInput,
+} from './archive-content'
+import { ArchiveImage, ArchiveImageCreateInput } from './archive-image'
 import { Art, ArtCreateInput, ArtLocalizeInput, ArtUpdateInput } from './art'
 import { Asset, AssetCreateInput, AssetUpdateInput } from './asset'
 import {
@@ -138,6 +144,8 @@ export type StrapiModel =
   | Activity
   | Applicant
   | Application
+  | ArchiveContent
+  | ArchiveImage
   | Art
   | Asset
   | AssetsTracking
@@ -158,9 +166,9 @@ export type StrapiModel =
   | Mention
   | Platform
   | Post
+  | Presentation
   | Privacy
   | Profile
-  | Presentation
   | RecommendedTopic
   | RecommendedTweet
   | Tag
@@ -253,6 +261,8 @@ export type StrapiCollectionEndpoint =
   | 'activities'
   | 'applicants'
   | 'applications'
+  | 'archive-contents'
+  | 'archive-images'
   | 'arts'
   | 'assets'
   | 'assets-trackings'
@@ -323,6 +333,8 @@ export type StrapiFormValue =
 export type StrapiCreateInput =
   | ActivityCreateInput
   | ApplicationCreateInput
+  | ArchiveContentCreateInput
+  | ArchiveImageCreateInput
   | ArtCreateInput
   | AssetCreateInput
   | AssetsTrackingCreateInput
@@ -357,6 +369,8 @@ export type StrapiCreateInput =
 export type StrapiUpdateInput =
   | ActivityUpdateInput
   | ApplicationUpdateInput
+  | ArchiveContentCreateInput
+  | ArchiveContentUpdateInput
   | ArtUpdateInput
   | AssetUpdateInput
   | AssetsTrackingUpdateInput

@@ -1079,6 +1079,89 @@ export interface ApiApplicationApplication extends Schema.CollectionType {
   }
 }
 
+export interface ApiArchiveContentArchiveContent extends Schema.CollectionType {
+  collectionName: 'archive_contents'
+  info: {
+    singularName: 'archive-content'
+    pluralName: 'archive-contents'
+    displayName: 'Archive Content'
+  }
+  options: {
+    draftAndPublish: true
+  }
+  attributes: {
+    categories: Attribute.Relation<
+      'api::archive-content.archive-content',
+      'oneToMany',
+      'api::category.category'
+    >
+    tags: Attribute.Relation<
+      'api::archive-content.archive-content',
+      'oneToMany',
+      'api::tag.tag'
+    >
+    content: Attribute.RichText
+    source: Attribute.String
+    link: Attribute.String
+    createdAt: Attribute.DateTime
+    updatedAt: Attribute.DateTime
+    publishedAt: Attribute.DateTime
+    createdBy: Attribute.Relation<
+      'api::archive-content.archive-content',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private
+    updatedBy: Attribute.Relation<
+      'api::archive-content.archive-content',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private
+  }
+}
+
+export interface ApiArchiveImageArchiveImage extends Schema.CollectionType {
+  collectionName: 'archive_images'
+  info: {
+    singularName: 'archive-image'
+    pluralName: 'archive-images'
+    displayName: 'Archive Image'
+    description: ''
+  }
+  options: {
+    draftAndPublish: true
+  }
+  attributes: {
+    categories: Attribute.Relation<
+      'api::archive-image.archive-image',
+      'oneToMany',
+      'api::category.category'
+    >
+    tags: Attribute.Relation<
+      'api::archive-image.archive-image',
+      'oneToMany',
+      'api::tag.tag'
+    >
+    image: Attribute.Media & Attribute.Required
+    createdAt: Attribute.DateTime
+    updatedAt: Attribute.DateTime
+    publishedAt: Attribute.DateTime
+    createdBy: Attribute.Relation<
+      'api::archive-image.archive-image',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private
+    updatedBy: Attribute.Relation<
+      'api::archive-image.archive-image',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private
+  }
+}
+
 export interface ApiArtArt extends Schema.CollectionType {
   collectionName: 'arts'
   info: {
@@ -3641,6 +3724,8 @@ declare module '@strapi/types' {
       'api::activity.activity': ApiActivityActivity
       'api::applicant.applicant': ApiApplicantApplicant
       'api::application.application': ApiApplicationApplication
+      'api::archive-content.archive-content': ApiArchiveContentArchiveContent
+      'api::archive-image.archive-image': ApiArchiveImageArchiveImage
       'api::art.art': ApiArtArt
       'api::asset.asset': ApiAssetAsset
       'api::assets-tracking.assets-tracking': ApiAssetsTrackingAssetsTracking
