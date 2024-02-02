@@ -3,23 +3,55 @@ import { FC, useEffect, useState } from 'react'
 
 import { Box } from '@chakra-ui/react'
 
-import { strapiRequest } from '@wsvvrijheid/lib'
+import { strapiRequest } from '@wsvvrijheid/lib';
+import { Blog } from '@wsvvrijheid/types';
 
 export type RequestFilterProps = {
   initialValue: string
 }
 
 export const FetchWithFilters: FC<RequestFilterProps> = ({ initialValue }) => {
-  const [blogs, setBlogs] = useState([])
+  const [blogs, setBlogs] = useState<Blog[]>([])
   const [title, setTitle] = useState(initialValue)
 
-  useEffect(() => {
-    // REF: https://docs.strapi.io/dev-docs/api/rest/filters-locale-publication#filtering
-    // TODO: Fetch blogs with by providing `title` filter to strapiRequest (title: { $containsi: title })
-    // NOTE: Changing `title` should trigger a new fetch.
-    // BONUS: You can play by using other arguments of strapiRequest (sort, populate,  fields etc).
-  }, [])
+  const fetchBlogs = async () => {
+    try {
+      const response = await strapiRequest<Blog>({
+        endpoint: 'blogs',
+        locale: 'tr', 
+        filters: {
+          title: { $containsi: title },
+        },
+      });
 
-  // TODO Add Input to change titleFilter
-  return <Box>{/* TODO: Show only title of the blogs */}</Box>
-}
+      setBlogs(response.data); 
+      console.log(response.data);
+    } catch (error) {
+      console.error('Error fetching blogs:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchBlogs();
+  }, ); // Do I have to include a dependency array here? 
+
+  // Title filter'ını değiştirmek için bir input ekleyin
+  const handleTitleChange = (newTitle: string) => {
+    setTitle(newTitle);
+  };
+
+  return (
+    <Box>
+      <input
+        type="text"
+        value={title}
+        onChange={(e) => handleTitleChange(e.target.value)}
+        placeholder="Title'a göre filtrele"
+      />
+
+      {blogs.map((blog) => (
+        <div key={blog.id}>{blog.title}</div>
+      ))}
+    </Box>
+  );
+};
