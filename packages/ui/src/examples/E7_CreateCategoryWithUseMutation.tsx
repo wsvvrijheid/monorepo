@@ -17,8 +17,9 @@ export const CreateCategoryWithUseMutation = () => {
   const [slug, setSlug] = useState<string>('')
 
   useEffect(() => {
-    // TODO: Update slug with slugify on name_en change
-  }, [])
+    // Update slug with slugify on name_en change
+    setSlug(slugify(name_en))
+  }, [name_en])
 
   const { mutate, data, isLoading } = useMutation({
     mutationKey: ['create-category'],
@@ -28,7 +29,13 @@ export const CreateCategoryWithUseMutation = () => {
   const handleSubmit: FormEventHandler<HTMLFormElement> = async e => {
     e.preventDefault()
 
-    // TODO: Call mutate with category body
+    // Call mutate with category body
+    mutate({
+      name_en,
+      name_tr,
+      name_nl,
+      slug,
+    })
   }
 
   return (
@@ -41,7 +48,7 @@ export const CreateCategoryWithUseMutation = () => {
             value={name_en}
             onChange={e => setNameEn(e.target.value)}
           />
-          {/* TODO: Add all inputs */}
+          {/* Add other inputs for name_tr, name_nl, etc. */}
 
           <Button
             isLoading={isLoading}
