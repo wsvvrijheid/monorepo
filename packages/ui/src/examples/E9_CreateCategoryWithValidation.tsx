@@ -26,7 +26,7 @@ export const CreateCategoryWithValidation = () => {
     setValue,
     formState: { errors },
   } = useForm<CategoryCreateInput>({
-    // resolver: yupResolver(schema),
+    resolver: yupResolver(schema),
   })
 
   const { mutate, data, isLoading } = useMutation({
@@ -37,8 +37,9 @@ export const CreateCategoryWithValidation = () => {
   const name_en = watch('name_en')
 
   useEffect(() => {
-    // TODO: Update slug with slugify on name_en change
-  }, [])
+    const slug = slugify(name_en, { lower: true })
+    setValue('slug', slug)
+  }, [name_en])
 
   const onSubmit = async (data: CategoryCreateInput) => {
     mutate(data)
@@ -54,7 +55,10 @@ export const CreateCategoryWithValidation = () => {
           register={register}
           errors={errors}
         />
-        {/* TODO: Add all inputs */}
+        <Input
+          type="hidden"
+          {...register('slug')}
+        />
 
         <Button
           type={'submit'}
