@@ -22,11 +22,16 @@ export const CreateCategoryWithHookForm = () => {
   const name_en = watch('name_en')
 
   useEffect(() => {
-    // TODO: Update slug with slugify on name_en change
-  }, [])
+    // Update slug with slugify on name_en change
+    setValue('slug', slugify(name_en ?? ''));
+  }, [name_en, setValue])
 
   const onSubmit = async (data: CategoryCreateInput) => {
-    const body = { ...data, slug: slugify(data.name_en ?? '') }
+    // we could add more fields here if we need 
+    const body = { ...data, 
+    slug: slugify(data.name_en ?? ''),
+    name_tr: data.name_tr
+  }
 
     mutate(body)
   }
@@ -35,8 +40,8 @@ export const CreateCategoryWithHookForm = () => {
     <Stack>
       <Code as={'pre'}>{JSON.stringify(data, null, 2)}</Code>
       <Stack as={'form'} onSubmit={handleSubmit(onSubmit)}>
-        <Input placeholder="Category name (tr)" {...register('name_en')} />
-        {/* TODO: Add all inputs */}
+        <Input placeholder="Category name (en)" {...register('name_en')} />
+        <Input placeholder="Category name (tr)" {...register('name_tr')} />
 
         <Button
           type={'submit'}
