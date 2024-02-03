@@ -15,7 +15,7 @@ const TweetBookmarkedPage = () => {
     <AdminLayout seo={{ title: t('bookmarked-tweets') }}>
       <Container>
         <MasonryGrid cols={[1, 1, 1, 2, 3]}>
-          {storageTweets.map((tweet, key) => (
+          {storageTweets?.map((tweet, key) => (
             <TweetCard tweet={tweet} key={key} editable />
           ))}
         </MasonryGrid>
