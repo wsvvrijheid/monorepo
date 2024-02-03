@@ -14,6 +14,7 @@ import {
   NumberInputStepper,
   Progress,
   Stack,
+  Text,
   Textarea,
 } from '@chakra-ui/react'
 import { useCompletion } from 'ai/react'
@@ -30,7 +31,7 @@ type ArchivePostGenAIProps = {
   content?: string
 }
 
-type GeneratedHashtagPost = {
+type GeneratedArchiveContentPost = {
   description: string
   sentences: string[]
 }
@@ -43,8 +44,8 @@ const LANGUAGE_NAMES: Record<StrapiLocale, string> = {
 
 export const ArchivePostGenAI = ({ archiveContentId, content }: ArchivePostGenAIProps) => {
   const { t } = useTranslation()
-  const [generatedHashtagPosts, setGeneratedHashtagPosts] =
-    useState<GeneratedHashtagPost[]>()
+  const [generatedArchiveContentPosts, setGeneratedArchiveContentPosts] =
+    useState<GeneratedArchiveContentPost[]>()
   const [numberOfDescriptions, setNumberOfDescriptions] = useState<number>(5)
   const [numberOfSentences, setNumberOfSentences] = useState<number>(5)
   const [charLimitOfDescriptions, setCharLimitOfDescriptions] =
@@ -73,7 +74,7 @@ export const ArchivePostGenAI = ({ archiveContentId, content }: ArchivePostGenAI
       language,
     },
     onFinish(prompt: string, completion: string) {
-      setGeneratedHashtagPosts(JSON.parse(completion))
+      setGeneratedArchiveContentPosts(JSON.parse(completion))
     },
     onError() {
       toastMessage('Error', t('contact.form.failed'), 'error')
@@ -81,7 +82,7 @@ export const ArchivePostGenAI = ({ archiveContentId, content }: ArchivePostGenAI
   })
 
   const handleClear = () => {
-    confirm('Are you sure you want to clear?') && setGeneratedHashtagPosts([])
+    confirm('Are you sure you want to clear?') && setGeneratedArchiveContentPosts([])
   }
 
   return (
@@ -204,8 +205,8 @@ export const ArchivePostGenAI = ({ archiveContentId, content }: ArchivePostGenAI
                 Stop
               </Button>
             )}
-            {generatedHashtagPosts?.length &&
-              generatedHashtagPosts?.length > 0 && (
+            {generatedArchiveContentPosts?.length &&
+              generatedArchiveContentPosts?.length > 0 && (
                 <Button
                   leftIcon={<FaTrash />}
                   type="button"
@@ -231,11 +232,11 @@ export const ArchivePostGenAI = ({ archiveContentId, content }: ArchivePostGenAI
         </Box>
       ) : (
         <Stack spacing={4} p={4}>
-          {generatedHashtagPosts?.map(
-            (postObject: GeneratedHashtagPost, idx: number) => {
+          {generatedArchiveContentPosts?.map(
+            (postObject: GeneratedArchiveContentPost, idx: number) => {
               return (
                 <Stack key={`${archiveContentId}-desc-${idx}`}>
-                  <p>{postObject?.description}</p>
+                  <Text noOfLines={1} as='b'>{postObject?.description}</Text>
                   <ul>
                     {postObject?.sentences?.map(
                       (sentence: string, idx: number) => {
