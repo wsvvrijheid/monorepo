@@ -42,7 +42,10 @@ const LANGUAGE_NAMES: Record<StrapiLocale, string> = {
   tr: 'Türkçe',
 }
 
-export const ArchivePostGenAI = ({ archiveContentId, content }: ArchivePostGenAIProps) => {
+export const ArchivePostGenAI = ({
+  archiveContentId,
+  content,
+}: ArchivePostGenAIProps) => {
   const { t } = useTranslation()
   const [generatedArchiveContentPosts, setGeneratedArchiveContentPosts] =
     useState<GeneratedArchiveContentPost[]>()
@@ -82,7 +85,8 @@ export const ArchivePostGenAI = ({ archiveContentId, content }: ArchivePostGenAI
   })
 
   const handleClear = () => {
-    confirm('Are you sure you want to clear?') && setGeneratedArchiveContentPosts([])
+    confirm('Are you sure you want to clear?') &&
+      setGeneratedArchiveContentPosts([])
   }
 
   return (
@@ -236,12 +240,16 @@ export const ArchivePostGenAI = ({ archiveContentId, content }: ArchivePostGenAI
             (postObject: GeneratedArchiveContentPost, idx: number) => {
               return (
                 <Stack key={`${archiveContentId}-desc-${idx}`}>
-                  <Text noOfLines={1} as='b'>{postObject?.description}</Text>
+                  <Text noOfLines={1} as="b">
+                    {postObject?.description}
+                  </Text>
                   <ul>
                     {postObject?.sentences?.map(
                       (sentence: string, idx: number) => {
                         return (
-                          <li key={`${archiveContentId}-sent-${idx}`}>{sentence}</li>
+                          <li key={`${archiveContentId}-sent-${idx}`}>
+                            {sentence}
+                          </li>
                         )
                       },
                     )}
