@@ -65,6 +65,11 @@ const RecommendsPage: FC<RecommendsPageProps> = ({ tweet, tweets, seo }) => {
     }
   }, [tweet])
 
+  useEffect(() => {
+    setSearchKey('')
+    setTweetsState(tweets)
+  }, [tweets])
+
   const handleClose = () => {
     onClose()
   }
