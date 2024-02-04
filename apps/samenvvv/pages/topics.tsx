@@ -41,6 +41,11 @@ const RecommendsPage: FC<RecommendsPageProps> = ({ topic, topics, seo }) => {
   }
 
   useEffect(() => {
+    setSearchKey('')
+    setTopicsState(topics)
+  }, [topics])
+
+  useEffect(() => {
     if (searchKey) {
       const filteredTopics = topics.filter(topic => {
         const content = `${topic.title}  ${topic.description}`
