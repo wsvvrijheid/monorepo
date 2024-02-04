@@ -92,7 +92,7 @@ export const ArchivePostGenAI = ({ archiveContentId, content }: ArchivePostGenAI
       bg={'blue.100'}
       borderBottomWidth={1}
     >
-      <Heading color={'blue.500'}>Archive Content Post Generator</Heading>
+      <Heading color={'blue.500'}>Post Generator</Heading>
       <form onSubmit={handleSubmit}>
         <Stack spacing={4}>
           <FormControl>
@@ -155,9 +155,9 @@ export const ArchivePostGenAI = ({ archiveContentId, content }: ArchivePostGenAI
               </FormLabel>
               <NumberInput
                 step={10}
-                min={50}
+                min={80}
                 max={200}
-                defaultValue={80}
+                defaultValue={150}
                 onChange={(a, b) => setCharLimitOfDescriptions(b)}
               >
                 <NumberInputField bg={'whiteAlpha.700'} />
