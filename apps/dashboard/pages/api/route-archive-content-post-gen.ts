@@ -7,6 +7,9 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY!,
 })
 
+const capitalizeFirstLetter = (str: string) =>
+  str[0].toUpperCase() + str.slice(1)
+
 export default async function handler(req: Request) {
   const {
     prompt,
@@ -44,16 +47,12 @@ export default async function handler(req: Request) {
       },
       {
         role: 'user',
-        content: `Given the following context, generate ${descriptionCount} ${language} descriptions and ${sentenceCount} ${language} sentences for each description. The description will be a short explanatory text of the context, and should not exceed ${characterLimitOfDescriptions} characters and sentences shouldn't exceed ${characterLimitOfSentences} characters.
+        content: `Given the following context, generate ${descriptionCount} descriptions and ${sentenceCount} sentences in ${capitalizeFirstLetter(language)} for each description. The description will be a gist of the context, and should not exceed ${characterLimitOfDescriptions} characters and the sentences shouldn't exceed ${characterLimitOfSentences} characters.
 Respond with a JSON array of objects containing description and sentences keys [{description: "description1", sentences: ["sentence1", "sentence2", ...]}, {description: "description2", sentences: ["sentence1", "sentence2", ...]}]. Only respond with an array. Context:
 ${prompt}`,
       },
     ],
     temperature: 0, // absolute certainty
-    // max_tokens: 200,
-    // top_p: 1,
-    // frequency_penalty: 1,
-    // presence_penalty: 1,
   })
 
   const stream = OpenAIStream(response)
