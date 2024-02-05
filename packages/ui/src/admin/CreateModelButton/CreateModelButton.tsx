@@ -16,6 +16,7 @@ import { BsCollection } from 'react-icons/bs'
 import { CgHashtag } from 'react-icons/cg'
 import { FaPlus } from 'react-icons/fa'
 import { HiOutlineNewspaper } from 'react-icons/hi'
+import { LuFileArchive } from 'react-icons/lu'
 import { MdOutlineCastForEducation } from 'react-icons/md'
 import { SiMaterialdesignicons } from 'react-icons/si'
 import { TbActivity, TbBrandTwitter, TbWriting } from 'react-icons/tb'
@@ -76,6 +77,19 @@ export const CreateModelButton = () => {
 
             <PopoverBody>
               <Stack>
+                <ModelCreateModal<Activity>
+                  title={t('create-archive-content')}
+                  endpoint="archive-contents"
+                  schema={schemas['archive-contents']!}
+                  fields={fields['archive-contents']!}
+                  buttonProps={{
+                    variant: 'outline',
+                    leftIcon: <LuFileArchive />,
+                  }}
+                >
+                  {t('create-archive-content')}
+                </ModelCreateModal>
+
                 <ModelCreateModal<Activity>
                   title={t('create-activity')}
                   endpoint="activities"

@@ -1,5 +1,6 @@
 export const adminRoleRoutes = [
   '/accounts',
+  '/archive-contents',
   '/activities',
   '/assets',
   '/donations',

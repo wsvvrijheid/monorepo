@@ -157,6 +157,12 @@ const ModelPage: FC<ModelPageProps> = ({ endpoint }) => {
   const setQ = (q?: string) => changeRoute('q', q)
 
   const handleClick = (index: number, id: number) => {
+    if (endpoint === 'archive-contents') {
+      push(`/archive-content/${id}`)
+
+      return
+    }
+
     setSelectedId(id)
   }
 

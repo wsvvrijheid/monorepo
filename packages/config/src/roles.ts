@@ -17,6 +17,13 @@ export const actionRolesEndpoints: PartialStrapiEndpointMap<
     delete: [],
     publish: ['contentmanager'],
   },
+  'archive-contents': {
+    create: ['contentmanager', 'translator'],
+    approve: ['contentmanager', 'translator'],
+    update: ['contentmanager', 'translator'],
+    delete: [],
+    publish: ['contentmanager', 'translator'],
+  },
   arts: {
     create: ['all'],
     approve: ['arteditor'],
