@@ -1,12 +1,16 @@
 import { Category } from './category'
 import { Expand } from './common'
+import { StrapiLocale } from './locale'
 import { StrapiBase } from './strapi'
 import { Tag } from './tag'
 
 export type ArchiveContentBase = {
+  title: string
+  date: string
   source: string
   link: string
   content: string
+  locale: StrapiLocale
 }
 
 type ArchiveContentRelation = {

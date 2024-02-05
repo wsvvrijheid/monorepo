@@ -1,9 +1,7 @@
-import React, { useEffect, useRef } from 'react'
-
 import { Stack } from '@chakra-ui/react'
 import { GetServerSidePropsContext } from 'next'
 import { useRouter } from 'next/router'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'next-i18next'
 
 import { useStrapiRequest } from '@wsvvrijheid/services'
 import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
@@ -13,7 +11,6 @@ import { AdminLayout, ArchivePostGenAI } from '@wsvvrijheid/ui'
 
 export default function ArchiveContent() {
   const { t } = useTranslation()
-  const title = useRef<string>()
   const { locale, query } = useRouter()
   const archiveContentId = query.id
 
@@ -25,14 +22,10 @@ export default function ArchiveContent() {
     locale,
   })
 
-  useEffect(() => {
-    title.current = t('archive-content')
-  }, [t])
-
   const archiveContentData = archiveContentQuery.data?.data[0]
 
   return (
-    <AdminLayout seo={{ title: title.current }}>
+    <AdminLayout seo={{ title: t('archive-contents') }}>
       <Stack>
         {archiveContentData?.id && (
           <ArchivePostGenAI
