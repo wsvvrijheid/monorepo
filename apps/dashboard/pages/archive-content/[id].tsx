@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 
-import { Heading, Stack } from '@chakra-ui/react'
+import { Stack } from '@chakra-ui/react'
 import { GetServerSidePropsContext } from 'next'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'react-i18next'
