@@ -7,6 +7,10 @@ import { nl, tr } from 'yup-locales'
 import { PartialStrapiEndpointMap, StrapiModel } from '@wsvvrijheid/types'
 
 import { activityFields, useActivitySchema } from './activity'
+import {
+  archiveContentFields,
+  useArchiveContentsSchema,
+} from './archive-contents'
 import { artFields, useArtSchema } from './art'
 import { assetFields, useAssetsSchema } from './assets'
 import { assetsTrackingFields, useAssetsTrackingSchema } from './assetsTracking'
@@ -45,24 +49,25 @@ export const useSchema = (): PartialStrapiEndpointMap<ObjectSchema<any>> => {
   }, [locale])
 
   return {
-    foundations: useFoundationsSchema(),
-    assets: useAssetsSchema(),
+    'archive-contents': useArchiveContentsSchema(),
     'assets-trackings': useAssetsTrackingSchema(),
-    activities: useActivitySchema(),
-    arts: useArtSchema(),
-    blogs: useBlogSchema(),
-    collections: useCollectionSchema(),
-    courses: useCourseSchema(),
     'course-applications': useCourseApplicationSchema(),
-    hashtags: useHashtagSchema(),
-    posts: usePostSchema(),
     'recommended-tweets': useRecommendedTweetSchema(),
-    topic: useTopicSchema(),
     'translate-model': translateModelSchema,
     'translate-post-model': translatePostModelSchema,
     'user-feedbacks': useUserFeedbackSchema(),
-    users: useUserSchema(),
+    activities: useActivitySchema(),
+    arts: useArtSchema(),
+    assets: useAssetsSchema(),
+    blogs: useBlogSchema(),
+    collections: useCollectionSchema(),
+    courses: useCourseSchema(),
+    foundations: useFoundationsSchema(),
+    hashtags: useHashtagSchema(),
+    posts: usePostSchema(),
     profiles: useProfileSchema(),
+    topic: useTopicSchema(),
+    users: useUserSchema(),
   }
 }
 
@@ -70,6 +75,7 @@ export const useFields = <T extends StrapiModel>(): PartialStrapiEndpointMap<
   FormFields<T>
 > => {
   return {
+    'archive-contents': archiveContentFields as FormFields<T>,
     assets: assetFields as FormFields<T>,
     'assets-trackings': assetsTrackingFields as FormFields<T>,
     activities: activityFields as FormFields<T>,

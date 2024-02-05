@@ -10,6 +10,7 @@ import { CgHashtag, CgProfile } from 'react-icons/cg'
 import { FiActivity, FiUsers } from 'react-icons/fi'
 import { GiHumanPyramid } from 'react-icons/gi'
 import { HiOutlineNewspaper } from 'react-icons/hi'
+import { LuFileArchive } from 'react-icons/lu'
 import {
   MdFoundation,
   MdOutlineFeedback,
@@ -82,6 +83,11 @@ export const useAdminNav = (): AdminNavItemProps[] => {
           icon: <TbBrandTwitter />,
         },
       ],
+    },
+    {
+      label: t('archive-contents'),
+      icon: <LuFileArchive />,
+      link: '/archive-contents',
     },
     {
       label: t('activities'),

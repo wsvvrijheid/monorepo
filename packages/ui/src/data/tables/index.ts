@@ -1,6 +1,7 @@
 import { StrapiCollectionEndpoint, StrapiModel } from '@wsvvrijheid/types'
 
 import { useActivityColumns } from './activity'
+import { useArchiveContentColumns } from './archive-content'
 import { useArtColumns } from './art'
 import { useAssetsColumns } from './assets'
 import { useAssetsTrackingsColumns } from './assets-trackings'
@@ -21,6 +22,7 @@ export const useColumns = <T extends StrapiModel>(): {
   [x in StrapiCollectionEndpoint]?: WTableProps<T>['columns']
 } => {
   return {
+    'archive-contents': useArchiveContentColumns() as WTableProps<T>['columns'],
     assets: useAssetsColumns() as WTableProps<T>['columns'],
     'assets-trackings':
       useAssetsTrackingsColumns() as WTableProps<T>['columns'],
