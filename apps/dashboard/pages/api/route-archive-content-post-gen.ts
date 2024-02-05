@@ -28,7 +28,7 @@ export default async function handler(req: Request) {
   const characterLimitOfDescriptions =
     charLimitOfDescriptions > 0 || charLimitOfDescriptions <= 150
       ? charLimitOfDescriptions
-      : 80
+      : 150
   const characterLimitOfSentences =
     charLimitOfSentences > 0 || charLimitOfSentences <= 200
       ? charLimitOfSentences
