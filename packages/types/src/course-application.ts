@@ -11,6 +11,7 @@ type CourseApplicationBase = {
   message: string | null
   hasPaid: boolean | null
   approvalStatus: ApprovalStatus
+  notes: string| null
 }
 
 type CourseApplicationRelation = {
