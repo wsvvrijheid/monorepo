@@ -10,7 +10,7 @@ import {
   Text,
   useMergeRefs,
 } from '@chakra-ui/react'
-import { useElementSize } from 'usehooks-ts'
+import { useMeasure } from 'react-use'
 
 import { CapsProps } from './types'
 import { WImage } from '../WImage'
@@ -42,7 +42,7 @@ export const Caps = forwardRef<CapsProps, 'div'>(
       height: 'full',
     }
 
-    const [divRef, { width }] = useElementSize()
+    const [divRef, { width }] = useMeasure()
 
     const mergedRef = useMergeRefs(ref, divRef)
 
