@@ -1,5 +1,5 @@
 {
   "extends": "@wsvvrijheid/config/tsconfig.base.json",
   "include": [".", "../../playwright.config.ts"],
-  "exclude": ["dist", "build", "node_modules"],
+  "exclude": ["dist", "build", "node_modules"]
 }
