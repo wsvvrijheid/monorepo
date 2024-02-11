@@ -16,8 +16,9 @@ import { BsCollection } from 'react-icons/bs'
 import { CgHashtag } from 'react-icons/cg'
 import { FaPlus } from 'react-icons/fa'
 import { HiOutlineNewspaper } from 'react-icons/hi'
+import { IoPricetagsOutline } from 'react-icons/io5'
 import { LuFileArchive } from 'react-icons/lu'
-import { MdOutlineCastForEducation } from 'react-icons/md'
+import { MdOutlineCastForEducation, MdOutlineCategory } from 'react-icons/md'
 import { SiMaterialdesignicons } from 'react-icons/si'
 import { TbActivity, TbBrandTwitter, TbWriting } from 'react-icons/tb'
 
@@ -26,12 +27,14 @@ import {
   Activity,
   Asset,
   Blog,
+  Category,
   Collection,
   Course,
   Hashtag,
   Post,
   RecommendedTopic,
   RecommendedTweet,
+  Tag,
 } from '@wsvvrijheid/types'
 
 import { useFields, useSchema } from '../../data'
@@ -199,6 +202,32 @@ export const CreateModelButton = () => {
                     </Button>
                   </>
                 )}
+
+                <ModelCreateModal<Category>
+                  title={t('categories')}
+                  endpoint="categories"
+                  schema={schemas['categories']!}
+                  fields={fields['categories']!}
+                  buttonProps={{
+                    variant: 'outline',
+                    leftIcon: <MdOutlineCategory />,
+                  }}
+                >
+                  {t('categories')}
+                </ModelCreateModal>
+
+                <ModelCreateModal<Tag>
+                  title={t('tags')}
+                  endpoint="tags"
+                  schema={schemas['tags']!}
+                  fields={fields['tags']!}
+                  buttonProps={{
+                    variant: 'outline',
+                    leftIcon: <IoPricetagsOutline />,
+                  }}
+                >
+                  {t('tags')}
+                </ModelCreateModal>
 
                 <ModelCreateModal<RecommendedTopic>
                   title={t('create-news')}
