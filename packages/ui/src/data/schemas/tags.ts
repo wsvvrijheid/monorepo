@@ -13,6 +13,4 @@ export const useTagsSchema = () => {
   })
 }
 
-export const archiveContentFields: FormFields<Tag> = [
-  { name: 'slug', isRequired: true },
-]
+export const tagFields: FormFields<Tag> = [{ name: 'slug', isRequired: true }]

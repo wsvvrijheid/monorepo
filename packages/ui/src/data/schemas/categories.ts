@@ -12,7 +12,7 @@ export const useCategoriesSchema = () => {
   })
 }
 
-export const archiveContentFields: FormFields<Category> = [
+export const categoryFields: FormFields<Category> = [
   { name: 'slug', isRequired: true },
   {
     name: 'arts',
