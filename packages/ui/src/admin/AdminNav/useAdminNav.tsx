@@ -134,14 +134,14 @@ export const useAdminNav = (): AdminNavItemProps[] => {
       link: '/posts',
     },
     {
-      label: "Categories",
+      label: 'Categories',
       icon: <MdOutlineCategory />,
-      link: '/categories'
+      link: '/categories',
     },
     {
-      label: "Tags",
+      label: 'Tags',
       icon: <IoPricetagsOutline />,
-      link: '/tags'
+      link: '/tags',
     },
     {
       label: t('news'),
