@@ -15,6 +15,7 @@ import { artFields, useArtSchema } from './art'
 import { assetFields, useAssetsSchema } from './assets'
 import { assetsTrackingFields, useAssetsTrackingSchema } from './assetsTracking'
 import { blogFields, useBlogSchema } from './blog'
+import { useCategoriesSchema } from './categories'
 import { collectionFields, useCollectionSchema } from './collection'
 import { courseFields, useCourseSchema } from './course'
 import {
@@ -29,6 +30,7 @@ import {
   recommendedTweetFields,
   useRecommendedTweetSchema,
 } from './recommendedTweet'
+import { useTagsSchema } from './tags'
 import { topicFields, useTopicSchema } from './topic'
 import {
   translateModelFields,
@@ -51,8 +53,10 @@ export const useSchema = (): PartialStrapiEndpointMap<ObjectSchema<any>> => {
   return {
     'archive-contents': useArchiveContentsSchema(),
     'assets-trackings': useAssetsTrackingSchema(),
+    categories: useCategoriesSchema(),
     'course-applications': useCourseApplicationSchema(),
     'recommended-tweets': useRecommendedTweetSchema(),
+    tags: useTagsSchema(),
     'translate-model': translateModelSchema,
     'translate-post-model': translatePostModelSchema,
     'user-feedbacks': useUserFeedbackSchema(),
