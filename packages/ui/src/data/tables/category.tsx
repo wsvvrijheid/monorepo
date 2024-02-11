@@ -1,6 +1,3 @@
-import { Badge, Wrap } from '@chakra-ui/react'
-import { useRouter } from 'next/router'
-
 import { Category } from '@wsvvrijheid/types'
 
 import { PublicationBadges } from '../../admin'
