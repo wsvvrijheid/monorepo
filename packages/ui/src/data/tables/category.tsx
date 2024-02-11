@@ -16,10 +16,10 @@ export const useCategoryColumns = (): WTableProps<Category>['columns'] => {
       transform: value => (
         <Wrap>
           {(value as Art[])
-            .sort((a, b) =>
+            ?.sort((a, b) =>
               a[`title_${locale}`].localeCompare(b[`title_${locale}`]),
             )
-            .map(c => (
+            ?.map(c => (
               <Badge variant={'outline'} key={c.id}>
                 {c[`title_${locale}`]}
               </Badge>

@@ -23,10 +23,10 @@ export const useArchiveContentColumns =
         transform: value => (
           <Wrap>
             {(value as Category[])
-              .sort((a, b) =>
+              ?.sort((a, b) =>
                 a[`name_${locale}`].localeCompare(b[`name_${locale}`]),
               )
-              .map(c => (
+              ?.map(c => (
                 <Badge variant={'outline'} key={c.id}>
                   {c[`name_${locale}`]}
                 </Badge>
@@ -37,7 +37,7 @@ export const useArchiveContentColumns =
       tags: {
         transform: value => (
           <Wrap>
-            {(value as Tag[]).map(t => (
+            {(value as Tag[])?.map(t => (
               <Badge variant={'outline'} key={t.id}>
                 {t[`name_${locale}`]}
               </Badge>
