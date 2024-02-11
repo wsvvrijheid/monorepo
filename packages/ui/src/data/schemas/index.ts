@@ -15,6 +15,7 @@ import { artFields, useArtSchema } from './art'
 import { assetFields, useAssetsSchema } from './assets'
 import { assetsTrackingFields, useAssetsTrackingSchema } from './assetsTracking'
 import { blogFields, useBlogSchema } from './blog'
+import { categoryFields, useCategoriesSchema } from './categories'
 import { collectionFields, useCollectionSchema } from './collection'
 import { courseFields, useCourseSchema } from './course'
 import {
@@ -29,6 +30,7 @@ import {
   recommendedTweetFields,
   useRecommendedTweetSchema,
 } from './recommendedTweet'
+import { tagFields, useTagsSchema } from './tags'
 import { topicFields, useTopicSchema } from './topic'
 import {
   translateModelFields,
@@ -51,8 +53,10 @@ export const useSchema = (): PartialStrapiEndpointMap<ObjectSchema<any>> => {
   return {
     'archive-contents': useArchiveContentsSchema(),
     'assets-trackings': useAssetsTrackingSchema(),
+    categories: useCategoriesSchema(),
     'course-applications': useCourseApplicationSchema(),
     'recommended-tweets': useRecommendedTweetSchema(),
+    tags: useTagsSchema(),
     'translate-model': translateModelSchema,
     'translate-post-model': translatePostModelSchema,
     'user-feedbacks': useUserFeedbackSchema(),
@@ -81,6 +85,7 @@ export const useFields = <T extends StrapiModel>(): PartialStrapiEndpointMap<
     activities: activityFields as FormFields<T>,
     arts: artFields as FormFields<T>,
     blogs: blogFields as FormFields<T>,
+    categories: categoryFields as FormFields<T>,
     collections: collectionFields as FormFields<T>,
     courses: courseFields as FormFields<T>,
     'course-applications': courseApplicationFields as FormFields<T>,
@@ -89,6 +94,7 @@ export const useFields = <T extends StrapiModel>(): PartialStrapiEndpointMap<
     posts: postFields as FormFields<T>,
     profiles: profileFields as FormFields<T>,
     'recommended-tweets': recommendedTweetFields as FormFields<T>,
+    tags: tagFields as FormFields<T>,
     topic: topicFields as FormFields<T>,
     'translate-model': translateModelFields as FormFields<T>,
     'translate-post-model': translatePostModelFields as FormFields<T>,

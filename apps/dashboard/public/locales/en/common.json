@@ -77,6 +77,8 @@
   "courses": "Courses",
   "create": "Create",
   "create-archive-content": "Create Archive Content",
+  "create-category": "Create Category",
+  "create-tag": "Create Tag",
   "create-activity": "Create Activity",
   "create-asset": "Create Asset",
   "create-blog": "Create Blog",
