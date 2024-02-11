@@ -13,4 +13,9 @@ export const useTagsSchema = () => {
   })
 }
 
-export const tagFields: FormFields<Tag> = [{ name: 'slug', isRequired: true }]
+export const tagFields: FormFields<Tag> = [
+  { name: 'slug', isRequired: true },
+  { name: 'name_en', isRequired: true },
+  { name: 'name_nl', isRequired: true },
+  { name: 'name_tr', isRequired: true },
+]
