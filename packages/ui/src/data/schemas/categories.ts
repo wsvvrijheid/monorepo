@@ -2,13 +2,14 @@ import * as yup from 'yup'
 
 import { Category } from '@wsvvrijheid/types'
 
-import { yupMultiSelect } from './common'
 import { FormFields } from '../../admin'
 
 export const useCategoriesSchema = () => {
   return yup.object({
     slug: yup.string().required(),
-    arts: yupMultiSelect,
+    name_en: yup.date().required(),
+    name_nl: yup.date().required(),
+    name_tr: yup.date().required(),
   })
 }
 
