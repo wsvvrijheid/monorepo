@@ -213,7 +213,7 @@ export const CreateModelButton = () => {
                     leftIcon: <MdOutlineCategory />,
                   }}
                 >
-                  {t('categories')}
+                  {t('create-category')}
                 </ModelCreateModal>
 
                 <ModelCreateModal<Tag>
@@ -226,7 +226,7 @@ export const CreateModelButton = () => {
                     leftIcon: <IoPricetagsOutline />,
                   }}
                 >
-                  {t('tags')}
+                  {t('create-tag')}
                 </ModelCreateModal>
 
                 <ModelCreateModal<RecommendedTopic>
