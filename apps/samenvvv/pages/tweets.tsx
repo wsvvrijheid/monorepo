@@ -90,7 +90,7 @@ const RecommendsPage: FC<RecommendsPageProps> = ({ tweet, tweets, seo }) => {
       </Modal>
       <Container my={8}>
         <Stack spacing={4}>
-          <Navigate href={`/topics`}>
+          <Navigate href={`/news`}>
             <Button>News</Button>
           </Navigate>
           <Input
