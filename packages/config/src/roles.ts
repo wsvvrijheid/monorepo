@@ -38,6 +38,13 @@ export const actionRolesEndpoints: PartialStrapiEndpointMap<
     delete: ['author'],
     publish: [],
   },
+  categories: {
+    create: ['contentmanager'],
+    approve: ['contentmanager', 'translator'],
+    update: ['contentmanager', 'translator'],
+    delete: [],
+    publish: ['contentmanager'],
+  },
   collections: {
     create: ['arteditor'],
     approve: ['arteditor'],
@@ -63,6 +70,13 @@ export const actionRolesEndpoints: PartialStrapiEndpointMap<
     create: ['all'],
     approve: ['contentmanager'],
     update: ['contentmanager'],
+    delete: [],
+    publish: ['contentmanager'],
+  },
+  tags: {
+    create: ['contentmanager'],
+    approve: ['contentmanager', 'translator'],
+    update: ['contentmanager', 'translator'],
     delete: [],
     publish: ['contentmanager'],
   },
