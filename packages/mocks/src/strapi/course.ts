@@ -629,6 +629,7 @@ export const COURSE_MOCKS: StrapiCollectionResponse<Course[]> = {
           createdAt: '2023-10-01T11:54:21.817Z',
           updatedAt: '2023-10-23T18:28:22.091Z',
           publishedAt: '2023-10-01T11:54:21.814Z',
+          notes: null,
         },
         {
           id: 34,
@@ -643,6 +644,7 @@ export const COURSE_MOCKS: StrapiCollectionResponse<Course[]> = {
           createdAt: '2023-10-01T11:57:43.264Z',
           updatedAt: '2023-10-02T19:44:54.808Z',
           publishedAt: '2023-10-01T11:57:43.261Z',
+          notes: null,
         },
         {
           id: 36,
@@ -657,6 +659,7 @@ export const COURSE_MOCKS: StrapiCollectionResponse<Course[]> = {
           createdAt: '2023-10-01T12:22:24.792Z',
           updatedAt: '2023-10-02T19:44:20.600Z',
           publishedAt: '2023-10-01T12:22:24.789Z',
+          notes: null,
         },
         {
           id: 37,
@@ -671,6 +674,7 @@ export const COURSE_MOCKS: StrapiCollectionResponse<Course[]> = {
           createdAt: '2023-10-01T15:00:58.309Z',
           updatedAt: '2023-10-01T15:00:58.309Z',
           publishedAt: '2023-10-01T15:00:58.305Z',
+          notes: null,
         },
         {
           id: 38,
@@ -685,6 +689,7 @@ export const COURSE_MOCKS: StrapiCollectionResponse<Course[]> = {
           createdAt: '2023-10-01T15:14:00.137Z',
           updatedAt: '2023-10-01T15:14:00.137Z',
           publishedAt: '2023-10-01T15:14:00.134Z',
+          notes: null,
         },
         {
           id: 39,
@@ -699,6 +704,7 @@ export const COURSE_MOCKS: StrapiCollectionResponse<Course[]> = {
           createdAt: '2023-10-01T15:14:44.288Z',
           updatedAt: '2023-11-07T07:28:20.931Z',
           publishedAt: '2023-10-01T15:14:44.252Z',
+          notes: null,
         },
         {
           id: 40,
@@ -713,6 +719,7 @@ export const COURSE_MOCKS: StrapiCollectionResponse<Course[]> = {
           createdAt: '2023-10-01T17:47:44.241Z',
           updatedAt: '2023-10-01T17:47:44.241Z',
           publishedAt: '2023-10-01T17:47:44.237Z',
+          notes: null,
         },
         {
           id: 41,
@@ -727,6 +734,7 @@ export const COURSE_MOCKS: StrapiCollectionResponse<Course[]> = {
           createdAt: '2023-10-01T21:18:20.755Z',
           updatedAt: '2023-10-01T21:18:20.755Z',
           publishedAt: '2023-10-01T21:18:20.751Z',
+          notes: null,
         },
         {
           id: 42,
@@ -741,6 +749,7 @@ export const COURSE_MOCKS: StrapiCollectionResponse<Course[]> = {
           createdAt: '2023-10-01T21:19:42.777Z',
           updatedAt: '2023-10-01T21:19:42.777Z',
           publishedAt: '2023-10-01T21:19:42.774Z',
+          notes: null,
         },
         {
           id: 43,
@@ -755,6 +764,7 @@ export const COURSE_MOCKS: StrapiCollectionResponse<Course[]> = {
           createdAt: '2023-10-01T23:23:07.164Z',
           updatedAt: '2023-10-02T19:43:42.889Z',
           publishedAt: '2023-10-01T23:23:07.161Z',
+          notes: null,
         },
         {
           id: 44,
@@ -770,6 +780,7 @@ export const COURSE_MOCKS: StrapiCollectionResponse<Course[]> = {
           createdAt: '2023-10-02T09:04:04.032Z',
           updatedAt: '2023-10-02T09:04:04.032Z',
           publishedAt: '2023-10-02T09:04:04.027Z',
+          notes: null,
         },
       ],
       platform: {

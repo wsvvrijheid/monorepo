@@ -11,7 +11,7 @@ type CourseApplicationBase = {
   message: string | null
   hasPaid: boolean | null
   approvalStatus: ApprovalStatus
-  notes: string| null
+  notes: string | null
 }
 
 type CourseApplicationRelation = {
@@ -20,9 +20,10 @@ type CourseApplicationRelation = {
 
 export type CourseApplicationCreateInput = Omit<
   CourseApplicationBase,
-  'hasPaid' | 'approvalStatus'
+  'hasPaid' | 'approvalStatus' | 'notes' 
 > & {
   course: number
+  notes?: string
 }
 
 export type CourseApplication = StrapiBase &
