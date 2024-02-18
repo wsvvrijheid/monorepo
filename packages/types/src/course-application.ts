@@ -19,9 +19,10 @@ type CourseApplicationRelation = {
 
 export type CourseApplicationCreateInput = Omit<
   CourseApplicationBase,
-  'hasPaid' | 'approvalStatus'
+  'hasPaid' | 'approvalStatus' | 'notes'
 > & {
   course: number
+  notes?: string
 }
 
 export type CourseApplication = StrapiBase &
