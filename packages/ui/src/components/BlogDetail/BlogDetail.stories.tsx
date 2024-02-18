@@ -34,9 +34,7 @@ type Story = StoryObj<BlogDetailProps>
 
 const StoryWithHook: StoryFn<BlogDetailProps> = args => {
   const { locale } = useRouter()
-  const [isLiked, setIsLiked] = useState(false)
   const [source, setSource] = useState<MDXRemoteSerializeResult>()
-  const [blogData, setBlogData] = useState(args.post)
 
   const getSource = async (content: string) => {
     const s = await serialize(content || '')
@@ -47,28 +45,9 @@ const StoryWithHook: StoryFn<BlogDetailProps> = args => {
     getSource(args.post?.content || '')
   }, [args.post.content])
 
-  const toggleLike = () => {
-    setTimeout(() => {
-      setIsLiked(!isLiked)
-      setBlogData({
-        ...blogData,
-        likes: isLiked ? (blogData.likes || 0) - 1 : (blogData.likes || 0) + 1,
-      })
-    }, 1000)
-  }
-
   const link = `${SITE_URL}/${locale}/blog/${args.post.slug}`
 
-  return (
-    <BlogDetail
-      {...args}
-      post={blogData}
-      toggleLike={toggleLike}
-      isLiked={isLiked}
-      source={source!}
-      link={link}
-    />
-  )
+  return <BlogDetail {...args} source={source!} link={link} />
 }
 
 export const Default: Story = {

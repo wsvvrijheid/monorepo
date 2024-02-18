@@ -38,8 +38,9 @@ export const useUpdateModelMutation = <
     onSuccess: res => {
       toast({
         title: `Model updated`,
-        description: `Model ${(res as StrapiTranslatableModel)
-          ?.title} has been updated`,
+        description: `Model ${
+          (res as StrapiTranslatableModel)?.title
+        } has been updated`,
         status: 'success',
         duration: 5000,
         isClosable: true,

@@ -401,9 +401,12 @@ export interface PluginUploadFile extends Schema.CollectionType {
     folderPath: Attribute.String &
       Attribute.Required &
       Attribute.Private &
-      Attribute.SetMinMax<{
-        min: 1
-      }>
+      Attribute.SetMinMax<
+        {
+          min: 1
+        },
+        number
+      >
     createdAt: Attribute.DateTime
     updatedAt: Attribute.DateTime
     createdBy: Attribute.Relation<
@@ -439,9 +442,12 @@ export interface PluginUploadFolder extends Schema.CollectionType {
   attributes: {
     name: Attribute.String &
       Attribute.Required &
-      Attribute.SetMinMax<{
-        min: 1
-      }>
+      Attribute.SetMinMax<
+        {
+          min: 1
+        },
+        number
+      >
     pathId: Attribute.Integer & Attribute.Required & Attribute.Unique
     parent: Attribute.Relation<
       'plugin::upload.folder',
@@ -460,9 +466,12 @@ export interface PluginUploadFolder extends Schema.CollectionType {
     >
     path: Attribute.String &
       Attribute.Required &
-      Attribute.SetMinMax<{
-        min: 1
-      }>
+      Attribute.SetMinMax<
+        {
+          min: 1
+        },
+        number
+      >
     createdAt: Attribute.DateTime
     updatedAt: Attribute.DateTime
     createdBy: Attribute.Relation<
@@ -501,6 +510,8 @@ export interface PluginContentReleasesRelease extends Schema.CollectionType {
   attributes: {
     name: Attribute.String & Attribute.Required
     releasedAt: Attribute.DateTime
+    scheduledAt: Attribute.DateTime
+    timezone: Attribute.String
     actions: Attribute.Relation<
       'plugin::content-releases.release',
       'oneToMany',
@@ -549,6 +560,7 @@ export interface PluginContentReleasesReleaseAction
       'morphToOne'
     >
     contentType: Attribute.String & Attribute.Required
+    locale: Attribute.String
     release: Attribute.Relation<
       'plugin::content-releases.release-action',
       'manyToOne',
@@ -593,10 +605,13 @@ export interface PluginI18NLocale extends Schema.CollectionType {
   }
   attributes: {
     name: Attribute.String &
-      Attribute.SetMinMax<{
-        min: 1
-        max: 50
-      }>
+      Attribute.SetMinMax<
+        {
+          min: 1
+          max: 50
+        },
+        number
+      >
     code: Attribute.String & Attribute.Unique
     createdAt: Attribute.DateTime
     updatedAt: Attribute.DateTime
@@ -1079,6 +1094,127 @@ export interface ApiApplicationApplication extends Schema.CollectionType {
   }
 }
 
+export interface ApiArchiveContentArchiveContent extends Schema.CollectionType {
+  collectionName: 'archive_contents'
+  info: {
+    singularName: 'archive-content'
+    pluralName: 'archive-contents'
+    displayName: 'Archive Content'
+    description: ''
+  }
+  options: {
+    draftAndPublish: false
+  }
+  pluginOptions: {
+    i18n: {
+      localized: true
+    }
+  }
+  attributes: {
+    title: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true
+        }
+      }>
+    date: Attribute.Date &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true
+        }
+      }>
+    content: Attribute.RichText &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true
+        }
+      }>
+    source: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true
+        }
+      }>
+    link: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true
+        }
+      }>
+    categories: Attribute.Relation<
+      'api::archive-content.archive-content',
+      'oneToMany',
+      'api::category.category'
+    >
+    tags: Attribute.Relation<
+      'api::archive-content.archive-content',
+      'oneToMany',
+      'api::tag.tag'
+    >
+    createdAt: Attribute.DateTime
+    updatedAt: Attribute.DateTime
+    createdBy: Attribute.Relation<
+      'api::archive-content.archive-content',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private
+    updatedBy: Attribute.Relation<
+      'api::archive-content.archive-content',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private
+    localizations: Attribute.Relation<
+      'api::archive-content.archive-content',
+      'oneToMany',
+      'api::archive-content.archive-content'
+    >
+    locale: Attribute.String
+  }
+}
+
+export interface ApiArchiveImageArchiveImage extends Schema.CollectionType {
+  collectionName: 'archive_images'
+  info: {
+    singularName: 'archive-image'
+    pluralName: 'archive-images'
+    displayName: 'Archive Image'
+    description: ''
+  }
+  options: {
+    draftAndPublish: true
+  }
+  attributes: {
+    categories: Attribute.Relation<
+      'api::archive-image.archive-image',
+      'oneToMany',
+      'api::category.category'
+    >
+    tags: Attribute.Relation<
+      'api::archive-image.archive-image',
+      'oneToMany',
+      'api::tag.tag'
+    >
+    image: Attribute.Media & Attribute.Required
+    createdAt: Attribute.DateTime
+    updatedAt: Attribute.DateTime
+    publishedAt: Attribute.DateTime
+    createdBy: Attribute.Relation<
+      'api::archive-image.archive-image',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private
+    updatedBy: Attribute.Relation<
+      'api::archive-image.archive-image',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private
+  }
+}
+
 export interface ApiArtArt extends Schema.CollectionType {
   collectionName: 'arts'
   info: {
@@ -1118,9 +1254,12 @@ export interface ApiArtArt extends Schema.CollectionType {
           localized: false
         }
       }> &
-      Attribute.SetMinMax<{
-        min: 0
-      }> &
+      Attribute.SetMinMax<
+        {
+          min: 0
+        },
+        number
+      > &
       Attribute.DefaultTo<0>
     views: Attribute.Integer &
       Attribute.SetPluginOptions<{
@@ -1128,9 +1267,12 @@ export interface ApiArtArt extends Schema.CollectionType {
           localized: false
         }
       }> &
-      Attribute.SetMinMax<{
-        min: 0
-      }> &
+      Attribute.SetMinMax<
+        {
+          min: 0
+        },
+        number
+      > &
       Attribute.DefaultTo<0>
     categories: Attribute.Relation<
       'api::art.art',
@@ -1330,9 +1472,12 @@ export interface ApiBlogBlog extends Schema.CollectionType {
           localized: false
         }
       }> &
-      Attribute.SetMinMax<{
-        min: 0
-      }> &
+      Attribute.SetMinMax<
+        {
+          min: 0
+        },
+        number
+      > &
       Attribute.DefaultTo<0>
     views: Attribute.Integer &
       Attribute.SetPluginOptions<{
@@ -1340,9 +1485,12 @@ export interface ApiBlogBlog extends Schema.CollectionType {
           localized: false
         }
       }> &
-      Attribute.SetMinMax<{
-        min: 0
-      }> &
+      Attribute.SetMinMax<
+        {
+          min: 0
+        },
+        number
+      > &
       Attribute.DefaultTo<0>
     categories: Attribute.Relation<
       'api::blog.blog',
@@ -1874,10 +2022,13 @@ export interface ApiFeedbackFeedback extends Schema.CollectionType {
     message: Attribute.Text & Attribute.Required
     point: Attribute.Integer &
       Attribute.Required &
-      Attribute.SetMinMax<{
-        min: 1
-        max: 10
-      }>
+      Attribute.SetMinMax<
+        {
+          min: 1
+          max: 10
+        },
+        number
+      >
     status: Attribute.Enumeration<['approved', 'rejected']> & Attribute.Required
     art: Attribute.Relation<
       'api::feedback.feedback',
@@ -2882,9 +3033,12 @@ export interface ApiProfileProfile extends Schema.CollectionType {
       Attribute.DefaultTo<'NL'>
     availableHours: Attribute.Integer &
       Attribute.Required &
-      Attribute.SetMinMax<{
-        min: 1
-      }> &
+      Attribute.SetMinMax<
+        {
+          min: 1
+        },
+        number
+      > &
       Attribute.DefaultTo<1>
     heardFrom: Attribute.String
     comment: Attribute.Text
@@ -3590,10 +3744,13 @@ export interface ApiVoteVote extends Schema.CollectionType {
   attributes: {
     value: Attribute.Integer &
       Attribute.Required &
-      Attribute.SetMinMax<{
-        min: 1
-        max: 10
-      }>
+      Attribute.SetMinMax<
+        {
+          min: 1
+          max: 10
+        },
+        number
+      >
     voter: Attribute.Relation<
       'api::vote.vote',
       'manyToOne',
@@ -3642,6 +3799,8 @@ declare module '@strapi/types' {
       'api::activity.activity': ApiActivityActivity
       'api::applicant.applicant': ApiApplicantApplicant
       'api::application.application': ApiApplicationApplication
+      'api::archive-content.archive-content': ApiArchiveContentArchiveContent
+      'api::archive-image.archive-image': ApiArchiveImageArchiveImage
       'api::art.art': ApiArtArt
       'api::asset.asset': ApiAssetAsset
       'api::assets-tracking.assets-tracking': ApiAssetsTrackingAssetsTracking

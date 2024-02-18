@@ -76,6 +76,14 @@ export const TweetGenAI = ({ postId, hashtagId, content }: TweetGenAIProps) => {
     confirm('Are you sure you want to clear?') && setGeneratedPosts([])
   }
 
+  const handleRemoveGeneratedPost = (indexToRemove: number) => {
+    setGeneratedPosts(prevPosts => {
+      const newPosts = prevPosts?.filter((_, index) => index !== indexToRemove)
+
+      return newPosts
+    })
+  }
+
   return (
     <Stack
       spacing={4}
@@ -186,14 +194,15 @@ export const TweetGenAI = ({ postId, hashtagId, content }: TweetGenAIProps) => {
         </Box>
       ) : (
         <Stack spacing={4}>
-          {generatedPosts?.map((genPost: string) => {
+          {generatedPosts?.map((genPost: string, idx: number) => {
             return (
               <PostSentenceCreator
-                key={postId}
+                key={`${postId}-${idx}`}
                 initialContent={genPost}
                 hashtagId={hashtagId}
                 postId={postId}
                 colorScheme={'purple'}
+                onSuccess={() => handleRemoveGeneratedPost(idx)}
               />
             )
           })}

@@ -13,6 +13,12 @@ import {
   ApplicationCreateInput,
   ApplicationUpdateInput,
 } from './application'
+import {
+  ArchiveContent,
+  ArchiveContentCreateInput,
+  ArchiveContentUpdateInput,
+} from './archive-content'
+import { ArchiveImage, ArchiveImageCreateInput } from './archive-image'
 import { Art, ArtCreateInput, ArtLocalizeInput, ArtUpdateInput } from './art'
 import { Asset, AssetCreateInput, AssetUpdateInput } from './asset'
 import {
@@ -138,6 +144,8 @@ export type StrapiModel =
   | Activity
   | Applicant
   | Application
+  | ArchiveContent
+  | ArchiveImage
   | Art
   | Asset
   | AssetsTracking
@@ -158,9 +166,9 @@ export type StrapiModel =
   | Mention
   | Platform
   | Post
+  | Presentation
   | Privacy
   | Profile
-  | Presentation
   | RecommendedTopic
   | RecommendedTweet
   | Tag
@@ -253,6 +261,8 @@ export type StrapiCollectionEndpoint =
   | 'activities'
   | 'applicants'
   | 'applications'
+  | 'archive-contents'
+  | 'archive-images'
   | 'arts'
   | 'assets'
   | 'assets-trackings'
@@ -323,6 +333,8 @@ export type StrapiFormValue =
 export type StrapiCreateInput =
   | ActivityCreateInput
   | ApplicationCreateInput
+  | ArchiveContentCreateInput
+  | ArchiveImageCreateInput
   | ArtCreateInput
   | AssetCreateInput
   | AssetsTrackingCreateInput
@@ -357,6 +369,8 @@ export type StrapiCreateInput =
 export type StrapiUpdateInput =
   | ActivityUpdateInput
   | ApplicationUpdateInput
+  | ArchiveContentCreateInput
+  | ArchiveContentUpdateInput
   | ArtUpdateInput
   | AssetUpdateInput
   | AssetsTrackingUpdateInput
@@ -370,3 +384,52 @@ export type StrapiUpdateInput =
   | PostUpdateInput
   | ProfileUpdateInput
   | UserFeedbackUpdateInput
+
+type StrapiFilterOperator =
+  | '$eq'
+  | '$eqi'
+  | '$ne'
+  | '$nei'
+  | '$lt'
+  | '$lte'
+  | '$gt'
+  | '$gte'
+  | '$in'
+  | '$notIn'
+  | '$contains'
+  | '$notContains'
+  | '$containsi'
+  | '$notContainsi'
+  | '$null'
+  | '$notNull'
+  | '$between'
+  | '$startsWith'
+  | '$startsWithi'
+  | '$endsWith'
+  | '$endsWithi'
+  | '$or'
+  | '$and'
+  | '$not'
+
+type StrapiFilterValue =
+  | string
+  | number
+  | boolean
+  | string[]
+  | number[]
+  | boolean[]
+  | [number, number]
+
+export type StrapiFilter<T> = {
+  [field in keyof T]?: T[field] extends infer U
+    ? U extends Array<any>
+      ? StrapiFilter<U[number]>
+      : U extends object
+        ? StrapiFilter<T[field]>
+        : Partial<Record<StrapiFilterOperator, StrapiFilterValue>>
+    : Partial<Record<StrapiFilterOperator, StrapiFilterValue>>
+} & {
+  $or?: StrapiFilter<T>[]
+  $and?: StrapiFilter<T>[]
+  $not?: StrapiFilter<T>[]
+}

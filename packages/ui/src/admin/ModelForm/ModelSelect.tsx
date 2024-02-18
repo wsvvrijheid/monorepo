@@ -24,7 +24,7 @@ export const ModelSelect = <T extends StrapiModel>({
     ...(endpointsWithApprovalStatus.includes(endpoint) && {
       filters: {
         approvalStatus: { $eq: 'approved' },
-      },
+      } as any,
     }),
     pageSize: 100,
     populate,

@@ -1,7 +1,9 @@
 export const adminRoleRoutes = [
   '/accounts',
+  '/archive-contents',
   '/activities',
   '/assets',
+  '/categories',
   '/donations',
   '/arts',
   '/blogs',
@@ -15,6 +17,7 @@ export const adminRoleRoutes = [
   '/timelines/recommended',
   '/translates',
   '/profiles',
+  '/tags',
   '/user-feedbacks',
   '/users',
   'all',

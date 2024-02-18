@@ -2,7 +2,9 @@ import {
   Sort,
   StrapiCollectionEndpoint,
   StrapiEndpoint,
+  StrapiFilter,
   StrapiLocale,
+  StrapiModel,
   StrapiSingleEndpoint,
 } from '@wsvvrijheid/types'
 
@@ -14,8 +16,8 @@ export type RequestCommonArgs = {
   sort?: Sort
 }
 
-export type RequestCollectionArgs = RequestCommonArgs & {
-  filters?: { [key: string]: unknown }
+export type RequestCollectionArgs<T extends StrapiModel> = RequestCommonArgs & {
+  filters?: StrapiFilter<T>
   locale?: StrapiLocale
   page?: number
   pageSize?: number

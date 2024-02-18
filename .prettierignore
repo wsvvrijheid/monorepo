@@ -1,0 +1,7 @@
+# Add files here to ignore them from prettier formatting
+
+.cache
+dist
+coverage
+apps/api/src/admin
+apps/api/.strapi-updater.json

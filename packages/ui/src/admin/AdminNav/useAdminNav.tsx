@@ -10,8 +10,11 @@ import { CgHashtag, CgProfile } from 'react-icons/cg'
 import { FiActivity, FiUsers } from 'react-icons/fi'
 import { GiHumanPyramid } from 'react-icons/gi'
 import { HiOutlineNewspaper } from 'react-icons/hi'
+import { IoPricetagsOutline } from 'react-icons/io5'
+import { LuFileArchive } from 'react-icons/lu'
 import {
   MdFoundation,
+  MdOutlineCategory,
   MdOutlineFeedback,
   MdOutlineSpaceDashboard,
   MdOutlineSupervisorAccount,
@@ -84,6 +87,11 @@ export const useAdminNav = (): AdminNavItemProps[] => {
       ],
     },
     {
+      label: t('archive-contents'),
+      icon: <LuFileArchive />,
+      link: '/archive-contents',
+    },
+    {
       label: t('activities'),
       icon: <FiActivity />,
       link: '/activities',
@@ -124,6 +132,16 @@ export const useAdminNav = (): AdminNavItemProps[] => {
       label: t('hashtagPosts'),
       icon: <TbBrandTwitter />,
       link: '/posts',
+    },
+    {
+      label: t('categories'),
+      icon: <MdOutlineCategory />,
+      link: '/categories',
+    },
+    {
+      label: t('tags'),
+      icon: <IoPricetagsOutline />,
+      link: '/tags',
     },
     {
       label: t('news'),

@@ -1,23 +1,25 @@
 import { useTranslation } from 'next-i18next'
 
 import { RequestCollectionArgs } from '@wsvvrijheid/lib'
-import { StrapiCollectionEndpoint } from '@wsvvrijheid/types'
+import { StrapiCollectionEndpoint, StrapiModel } from '@wsvvrijheid/types'
 
 import { FilterOption, RelationFilterOption } from '../../admin'
 
-type UseRequestArgsReturn = Partial<
+type UseRequestArgsReturn<T extends StrapiModel> = Partial<
   Record<
     StrapiCollectionEndpoint,
     {
-      relationFilters?: RelationFilterOption[]
+      relationFilters?: RelationFilterOption<T>[]
       filters?: FilterOption[]
-      populate?: RequestCollectionArgs['populate']
+      populate?: RequestCollectionArgs<T>['populate']
       searchFields?: string[]
     }
   >
 >
 
-export const useRequestArgs = (): UseRequestArgsReturn => {
+export const useRequestArgs = <
+  T extends StrapiModel,
+>(): UseRequestArgsReturn<T> => {
   const { t } = useTranslation()
 
   return {

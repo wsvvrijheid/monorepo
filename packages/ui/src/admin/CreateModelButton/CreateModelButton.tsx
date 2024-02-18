@@ -16,7 +16,9 @@ import { BsCollection } from 'react-icons/bs'
 import { CgHashtag } from 'react-icons/cg'
 import { FaPlus } from 'react-icons/fa'
 import { HiOutlineNewspaper } from 'react-icons/hi'
-import { MdOutlineCastForEducation } from 'react-icons/md'
+import { IoPricetagsOutline } from 'react-icons/io5'
+import { LuFileArchive } from 'react-icons/lu'
+import { MdOutlineCastForEducation, MdOutlineCategory } from 'react-icons/md'
 import { SiMaterialdesignicons } from 'react-icons/si'
 import { TbActivity, TbBrandTwitter, TbWriting } from 'react-icons/tb'
 
@@ -25,12 +27,14 @@ import {
   Activity,
   Asset,
   Blog,
+  Category,
   Collection,
   Course,
   Hashtag,
   Post,
   RecommendedTopic,
   RecommendedTweet,
+  Tag,
 } from '@wsvvrijheid/types'
 
 import { useFields, useSchema } from '../../data'
@@ -76,6 +80,19 @@ export const CreateModelButton = () => {
 
             <PopoverBody>
               <Stack>
+                <ModelCreateModal<Activity>
+                  title={t('create-archive-content')}
+                  endpoint="archive-contents"
+                  schema={schemas['archive-contents']!}
+                  fields={fields['archive-contents']!}
+                  buttonProps={{
+                    variant: 'outline',
+                    leftIcon: <LuFileArchive />,
+                  }}
+                >
+                  {t('create-archive-content')}
+                </ModelCreateModal>
+
                 <ModelCreateModal<Activity>
                   title={t('create-activity')}
                   endpoint="activities"
@@ -185,6 +202,32 @@ export const CreateModelButton = () => {
                     </Button>
                   </>
                 )}
+
+                <ModelCreateModal<Category>
+                  title={t('categories')}
+                  endpoint="categories"
+                  schema={schemas['categories']!}
+                  fields={fields['categories']!}
+                  buttonProps={{
+                    variant: 'outline',
+                    leftIcon: <MdOutlineCategory />,
+                  }}
+                >
+                  {t('create-category')}
+                </ModelCreateModal>
+
+                <ModelCreateModal<Tag>
+                  title={t('tags')}
+                  endpoint="tags"
+                  schema={schemas['tags']!}
+                  fields={fields['tags']!}
+                  buttonProps={{
+                    variant: 'outline',
+                    leftIcon: <IoPricetagsOutline />,
+                  }}
+                >
+                  {t('create-tag')}
+                </ModelCreateModal>
 
                 <ModelCreateModal<RecommendedTopic>
                   title={t('create-news')}

@@ -18,7 +18,7 @@ import {
 
 import { Layout } from '../../components'
 
-const args: RequestCollectionArgs = {
+const args: RequestCollectionArgs<Activity> = {
   endpoint: 'activities',
   sort: ['date:desc'],
   filters: {

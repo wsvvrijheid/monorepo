@@ -24,7 +24,7 @@ import {
 } from './types'
 
 function strapiRequest<T extends StrapiModel>(
-  args: RequestCollectionArgs,
+  args: RequestCollectionArgs<T>,
 ): Promise<StrapiCollectionResponse<T[]>>
 
 function strapiRequest<T extends StrapiModel>(
@@ -32,9 +32,9 @@ function strapiRequest<T extends StrapiModel>(
 ): Promise<StrapiSingleResponse<T>>
 
 async function strapiRequest<T extends StrapiModel>(
-  args: RequestCollectionArgs | RequestSingleArgs,
+  args: RequestCollectionArgs<T> | RequestSingleArgs,
 ): Promise<StrapiResponse<T>> {
-  const collectionArgs = args as RequestCollectionArgs
+  const collectionArgs = args as RequestCollectionArgs<T>
   const singleArgs = args as RequestSingleArgs
   const idArgs = args as RequestByIdArgs
 
@@ -59,11 +59,11 @@ async function strapiRequest<T extends StrapiModel>(
 
   const filters = produce(initialFilters, draft => {
     if (!hasApprovalStatus) {
-      delete draft.approvalStatus
+      delete (draft as any).approvalStatus
     }
 
     if (!hasPublicationState) {
-      delete draft.publishedAt
+      delete (draft as any).publishedAt
     }
   })
 

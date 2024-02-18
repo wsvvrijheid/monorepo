@@ -17,6 +17,7 @@ import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { AiFillHeart } from 'react-icons/ai'
 import { FaCalendarDay, FaClock, FaEye } from 'react-icons/fa'
 
+import { useLikeBlog } from '@wsvvrijheid/services'
 import { Blog, UploadFile } from '@wsvvrijheid/types'
 import { getReadingTime } from '@wsvvrijheid/utils'
 
@@ -28,8 +29,7 @@ import { WImage } from '../WImage'
 
 export type BlogDetailProps = {
   post: Blog
-  isLiked?: boolean
-  toggleLike: () => void
+  queryKey: string[]
   link: string
   source: MDXRemoteSerializeResult
   authorBlogs: Blog[]
@@ -37,14 +37,15 @@ export type BlogDetailProps = {
 
 export const BlogDetail: FC<BlogDetailProps> = ({
   post,
-  isLiked,
-  toggleLike,
+  queryKey,
   link,
   source,
   authorBlogs,
 }) => {
   const { locale } = useRouter()
   const { t } = useTranslation()
+
+  const { isLiked, toggleLike } = useLikeBlog(post, queryKey)
 
   const readingTime = getReadingTime(post.content || '', locale)
 
