@@ -16,6 +16,7 @@ import {
   Stack,
   Text,
   Textarea,
+  ThemeTypings,
 } from '@chakra-ui/react'
 import { useCompletion } from 'ai/react'
 import { useRouter } from 'next/router'
@@ -31,6 +32,7 @@ type ArchivePostGenAIProps = {
   content?: string
   onSuccess?: (data: GeneratedArchiveContentPost[]) => void
   initialPosts?: GeneratedArchiveContentPost[]
+  colorScheme?: ThemeTypings['colorSchemes']
 }
 
 type GeneratedArchiveContentPost = {
@@ -49,6 +51,7 @@ export const ArchivePostGenAI = ({
   content,
   onSuccess,
   initialPosts,
+  colorScheme = 'blue',
 }: ArchivePostGenAIProps) => {
   const { t } = useTranslation()
   const [generatedArchiveContentPosts, setGeneratedArchiveContentPosts] =
@@ -99,10 +102,12 @@ export const ArchivePostGenAI = ({
     <Stack
       spacing={4}
       p={{ base: 4, lg: 8 }}
-      bg={'blue.100'}
-      borderBottomWidth={1}
+      bg={`${colorScheme}.100`}
+      borderWidth={2}
+      borderColor={`${colorScheme}.500`}
+      rounded={'md'}
     >
-      <Heading color={'blue.500'}>Post Generator</Heading>
+      <Heading colorScheme={colorScheme}>Post Generator</Heading>
       <form onSubmit={handleSubmit}>
         <Stack spacing={4}>
           <FormControl>
@@ -201,7 +206,7 @@ export const ArchivePostGenAI = ({
               leftIcon={<RiAiGenerate />}
               disabled={isLoading}
               type="submit"
-              colorScheme={'facebook'}
+              colorScheme={colorScheme}
             >
               {t('generate')}
             </Button>

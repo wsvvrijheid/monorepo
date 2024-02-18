@@ -401,7 +401,12 @@ export interface PluginUploadFile extends Schema.CollectionType {
     folderPath: Attribute.String &
       Attribute.Required &
       Attribute.Private &
-      Attribute.SetMinMax<{ min: 1 }, number>
+      Attribute.SetMinMax<
+        {
+          min: 1
+        },
+        number
+      >
     createdAt: Attribute.DateTime
     updatedAt: Attribute.DateTime
     createdBy: Attribute.Relation<
@@ -437,7 +442,12 @@ export interface PluginUploadFolder extends Schema.CollectionType {
   attributes: {
     name: Attribute.String &
       Attribute.Required &
-      Attribute.SetMinMax<{ min: 1 }, number>
+      Attribute.SetMinMax<
+        {
+          min: 1
+        },
+        number
+      >
     pathId: Attribute.Integer & Attribute.Required & Attribute.Unique
     parent: Attribute.Relation<
       'plugin::upload.folder',
@@ -456,7 +466,12 @@ export interface PluginUploadFolder extends Schema.CollectionType {
     >
     path: Attribute.String &
       Attribute.Required &
-      Attribute.SetMinMax<{ min: 1 }, number>
+      Attribute.SetMinMax<
+        {
+          min: 1
+        },
+        number
+      >
     createdAt: Attribute.DateTime
     updatedAt: Attribute.DateTime
     createdBy: Attribute.Relation<
@@ -1239,7 +1254,12 @@ export interface ApiArtArt extends Schema.CollectionType {
           localized: false
         }
       }> &
-      Attribute.SetMinMax<{ min: 0 }, number> &
+      Attribute.SetMinMax<
+        {
+          min: 0
+        },
+        number
+      > &
       Attribute.DefaultTo<0>
     views: Attribute.Integer &
       Attribute.SetPluginOptions<{
@@ -1247,7 +1267,12 @@ export interface ApiArtArt extends Schema.CollectionType {
           localized: false
         }
       }> &
-      Attribute.SetMinMax<{ min: 0 }, number> &
+      Attribute.SetMinMax<
+        {
+          min: 0
+        },
+        number
+      > &
       Attribute.DefaultTo<0>
     categories: Attribute.Relation<
       'api::art.art',
@@ -1447,7 +1472,12 @@ export interface ApiBlogBlog extends Schema.CollectionType {
           localized: false
         }
       }> &
-      Attribute.SetMinMax<{ min: 0 }, number> &
+      Attribute.SetMinMax<
+        {
+          min: 0
+        },
+        number
+      > &
       Attribute.DefaultTo<0>
     views: Attribute.Integer &
       Attribute.SetPluginOptions<{
@@ -1455,7 +1485,12 @@ export interface ApiBlogBlog extends Schema.CollectionType {
           localized: false
         }
       }> &
-      Attribute.SetMinMax<{ min: 0 }, number> &
+      Attribute.SetMinMax<
+        {
+          min: 0
+        },
+        number
+      > &
       Attribute.DefaultTo<0>
     categories: Attribute.Relation<
       'api::blog.blog',
@@ -1986,7 +2021,13 @@ export interface ApiFeedbackFeedback extends Schema.CollectionType {
     message: Attribute.Text & Attribute.Required
     point: Attribute.Integer &
       Attribute.Required &
-      Attribute.SetMinMax<{ min: 1; max: 10 }, number>
+      Attribute.SetMinMax<
+        {
+          min: 1
+          max: 10
+        },
+        number
+      >
     status: Attribute.Enumeration<['approved', 'rejected']> & Attribute.Required
     art: Attribute.Relation<
       'api::feedback.feedback',
@@ -2991,7 +3032,12 @@ export interface ApiProfileProfile extends Schema.CollectionType {
       Attribute.DefaultTo<'NL'>
     availableHours: Attribute.Integer &
       Attribute.Required &
-      Attribute.SetMinMax<{ min: 1 }, number> &
+      Attribute.SetMinMax<
+        {
+          min: 1
+        },
+        number
+      > &
       Attribute.DefaultTo<1>
     heardFrom: Attribute.String
     comment: Attribute.Text
@@ -3697,7 +3743,13 @@ export interface ApiVoteVote extends Schema.CollectionType {
   attributes: {
     value: Attribute.Integer &
       Attribute.Required &
-      Attribute.SetMinMax<{ min: 1; max: 10 }, number>
+      Attribute.SetMinMax<
+        {
+          min: 1
+          max: 10
+        },
+        number
+      >
     voter: Attribute.Relation<
       'api::vote.vote',
       'manyToOne',
