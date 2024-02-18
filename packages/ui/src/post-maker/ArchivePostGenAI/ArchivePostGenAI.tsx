@@ -29,6 +29,8 @@ import { toastMessage } from '@wsvvrijheid/utils'
 type ArchivePostGenAIProps = {
   archiveContentId: number
   content?: string
+  onSuccess?: (data: GeneratedArchiveContentPost[]) => void
+  initialPosts?: GeneratedArchiveContentPost[]
 }
 
 type GeneratedArchiveContentPost = {
@@ -45,10 +47,12 @@ const LANGUAGE_NAMES: Record<StrapiLocale, string> = {
 export const ArchivePostGenAI = ({
   archiveContentId,
   content,
+  onSuccess,
+  initialPosts,
 }: ArchivePostGenAIProps) => {
   const { t } = useTranslation()
   const [generatedArchiveContentPosts, setGeneratedArchiveContentPosts] =
-    useState<GeneratedArchiveContentPost[]>()
+    useState<GeneratedArchiveContentPost[]>(initialPosts || [])
   const [numberOfDescriptions, setNumberOfDescriptions] = useState<number>(5)
   const [numberOfSentences, setNumberOfSentences] = useState<number>(5)
   const [charLimitOfDescriptions, setCharLimitOfDescriptions] =
@@ -77,7 +81,9 @@ export const ArchivePostGenAI = ({
       language,
     },
     onFinish(prompt: string, completion: string) {
-      setGeneratedArchiveContentPosts(JSON.parse(completion))
+      const parsedCompletion = JSON.parse(completion)
+      setGeneratedArchiveContentPosts(parsedCompletion)
+      onSuccess?.(parsedCompletion)
     },
     onError() {
       toastMessage('Error', t('contact.form.failed'), 'error')
@@ -119,7 +125,7 @@ export const ArchivePostGenAI = ({
           >
             <FormControl>
               <FormLabel mb={0} fontSize="sm" fontWeight={600}>
-                Number of Descriptions
+                Number of Caps Content
               </FormLabel>
               <NumberInput
                 step={1}
@@ -137,7 +143,7 @@ export const ArchivePostGenAI = ({
             </FormControl>
             <FormControl>
               <FormLabel mb={0} fontSize="sm" fontWeight={600}>
-                Number of Sentences
+                Number of Posts
               </FormLabel>
               <NumberInput
                 step={1}
@@ -155,7 +161,7 @@ export const ArchivePostGenAI = ({
             </FormControl>
             <FormControl>
               <FormLabel mb={0} fontSize="sm" fontWeight={600}>
-                Character Limit (Description)
+                Character Limit (Caps)
               </FormLabel>
               <NumberInput
                 step={10}
@@ -173,7 +179,7 @@ export const ArchivePostGenAI = ({
             </FormControl>
             <FormControl>
               <FormLabel mb={0} fontSize="sm" fontWeight={600}>
-                Character Limit (Sentences)
+                Character Limit (Posts)
               </FormLabel>
               <NumberInput
                 step={10}
