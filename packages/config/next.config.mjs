@@ -26,6 +26,11 @@ const nextConfig = {
     },
   ],
   images: {
+    remotePatterns: [
+      {
+        hostname: 'api.wsvvrijheid.nl',
+      },
+    ],
     deviceSizes: [320, 480, 720, 1080],
     imageSizes: [150],
   },
