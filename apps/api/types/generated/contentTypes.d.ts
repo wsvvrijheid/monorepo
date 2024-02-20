@@ -1952,6 +1952,7 @@ export interface ApiCourseApplicationCourseApplication
       'manyToOne',
       'api::course.course'
     >
+    notes: Attribute.Text
     createdAt: Attribute.DateTime
     updatedAt: Attribute.DateTime
     publishedAt: Attribute.DateTime
