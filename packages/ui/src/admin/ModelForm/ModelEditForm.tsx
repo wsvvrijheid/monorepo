@@ -26,6 +26,7 @@ import { useForm } from 'react-hook-form'
 import { AiOutlineEdit } from 'react-icons/ai'
 import { BiUserPlus } from 'react-icons/bi'
 import { BsTrash } from 'react-icons/bs'
+import { FaXTwitter } from 'react-icons/fa6'
 import { HiOutlineCheck, HiPlus } from 'react-icons/hi'
 import {
   MdClose,
@@ -482,6 +483,18 @@ export const ModelEditForm = <T extends StrapiModel>({
           bg={'white'}
         >
           <Wrap>
+            {endpoint === 'hashtags' &&
+              allowEndpointAction('posts', 'create') && (
+                <Button
+                  onClick={() => router.push(`/hashtags/${id}`)}
+                  leftIcon={<FaXTwitter />}
+                  fontSize="sm"
+                  colorScheme={'purple'}
+                  isLoading={approveModelMutation.isPending}
+                >
+                  {t('posts')}
+                </Button>
+              )}
             {endpoint === 'collections' && (
               <>
                 <ArtAddToCollectionModal

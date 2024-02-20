@@ -1,4 +1,4 @@
-import React, { FC, ReactNode, useState } from 'react'
+import { FC, ReactNode, useState } from 'react'
 
 import { HydrationOverlay } from '@builder.io/react-hydration-overlay'
 import { ChakraProvider, createStandaloneToast } from '@chakra-ui/react'
@@ -10,7 +10,6 @@ import {
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { useRouter } from 'next/router'
 import { DefaultSeo } from 'next-seo'
-import { GrAnalytics } from 'react-icons/gr'
 import { useCookie } from 'react-use'
 
 import { defaultSeo, themes } from '@wsvvrijheid/config'
@@ -58,7 +57,6 @@ export const Providers: FC<ProvidersProps> = ({
               <DefaultSeo {...defaultSeo[appSlug][locale]} />
               {children}
               {!cookie && <CookieBanner onAllow={onAllow} />}
-              <GrAnalytics />
               <ToastContainer />
             </ChakraProvider>
           </AuthProvider>
