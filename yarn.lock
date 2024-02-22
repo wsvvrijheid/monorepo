@@ -9112,12 +9112,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^20.11.19":
-  version: 20.11.19
-  resolution: "@types/node@npm:20.11.19"
+"@types/node@npm:^20.11.20":
+  version: 20.11.20
+  resolution: "@types/node@npm:20.11.20"
   dependencies:
     undici-types: "npm:~5.26.4"
-  checksum: c7f4705d6c84aa21679ad180c33c13ca9567f650e66e14bcee77c7c43d14619c7cd3b4d7b2458947143030b7b1930180efa6d12d999b45366abff9fed7a17472
+  checksum: ff449bdc94810dadb54e0f77dd587c6505ef79ffa5a208c16eb29b223365b188f4c935a3abaf0906a01d05257c3da1f72465594a841d35bcf7b6deac7a6938fb
   languageName: node
   linkType: hard
 
@@ -9680,32 +9680,32 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uppy/core@npm:^3.9.1":
-  version: 3.9.1
-  resolution: "@uppy/core@npm:3.9.1"
+"@uppy/core@npm:^3.9.2":
+  version: 3.9.2
+  resolution: "@uppy/core@npm:3.9.2"
   dependencies:
     "@transloadit/prettier-bytes": "npm:^0.3.0"
     "@uppy/store-default": "npm:^3.2.2"
-    "@uppy/utils": "npm:^5.7.2"
+    "@uppy/utils": "npm:^5.7.3"
     lodash: "npm:^4.17.21"
     mime-match: "npm:^1.0.2"
     namespace-emitter: "npm:^2.0.1"
     nanoid: "npm:^4.0.0"
     preact: "npm:^10.5.13"
-  checksum: 52de9e31c8cb5434e571147fce1181003bc9b112009daa86d5c51af1a0c0dcfa794bfe55af0afd5996b93e759a698e6c80e750fe2fd0f3346181b4efd2b85061
+  checksum: 52c361af154d84bd452d362ac9fdb8398dcd386ec04d2bb1494f7ce6c5bbd99bca520cc373214a570086bfbe594bd32504007f5f0c7a232860c014025c287883
   languageName: node
   linkType: hard
 
-"@uppy/dashboard@npm:^3.7.3":
-  version: 3.7.3
-  resolution: "@uppy/dashboard@npm:3.7.3"
+"@uppy/dashboard@npm:^3.7.4":
+  version: 3.7.4
+  resolution: "@uppy/dashboard@npm:3.7.4"
   dependencies:
     "@transloadit/prettier-bytes": "npm:^0.3.0"
     "@uppy/informer": "npm:^3.0.4"
     "@uppy/provider-views": "npm:^3.9.1"
-    "@uppy/status-bar": "npm:^3.2.7"
+    "@uppy/status-bar": "npm:^3.2.8"
     "@uppy/thumbnail-generator": "npm:^3.0.8"
-    "@uppy/utils": "npm:^5.7.2"
+    "@uppy/utils": "npm:^5.7.3"
     classnames: "npm:^2.2.6"
     is-shallow-equal: "npm:^1.0.1"
     lodash: "npm:^4.17.21"
@@ -9713,8 +9713,8 @@ __metadata:
     nanoid: "npm:^4.0.0"
     preact: "npm:^10.5.13"
   peerDependencies:
-    "@uppy/core": ^3.9.1
-  checksum: 23d4a4a290292fccda344192bc85fbbe3023e602390af70167a5ae11da7b07eb990e26297b15cf76fbca7f5be6b8fb1bc3327282d651ff727f99378682bc1bb1
+    "@uppy/core": ^3.9.2
+  checksum: 96227121789b52ba0cdac1cd69894b28f3b20b0055c91f45dafe505aab703240018065beb6d3e820a12663c620b754ae215ca5f69fc22c1871bd8db7f640fcdc
   languageName: node
   linkType: hard
 
@@ -9781,19 +9781,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uppy/react@npm:^3.2.1":
-  version: 3.2.1
-  resolution: "@uppy/react@npm:3.2.1"
+"@uppy/react@npm:^3.2.2":
+  version: 3.2.2
+  resolution: "@uppy/react@npm:3.2.2"
   dependencies:
-    "@uppy/utils": "npm:^5.6.0"
+    "@uppy/utils": "npm:^5.7.3"
     prop-types: "npm:^15.6.1"
   peerDependencies:
-    "@uppy/core": ^3.7.1
-    "@uppy/dashboard": ^3.7.1
+    "@uppy/core": ^3.9.2
+    "@uppy/dashboard": ^3.7.4
     "@uppy/drag-drop": ^3.0.3
     "@uppy/file-input": ^3.0.4
     "@uppy/progress-bar": ^3.0.4
-    "@uppy/status-bar": ^3.2.5
+    "@uppy/status-bar": ^3.2.8
     react: ^16.0.0 || ^17.0.0 || ^18.0.0
   peerDependenciesMeta:
     "@uppy/dashboard":
@@ -9806,21 +9806,21 @@ __metadata:
       optional: true
     "@uppy/status-bar":
       optional: true
-  checksum: 8512f936c28fa6bd4cbe3cd648f6049f57e124526cd5cee934e3470d7ff070814ecf529d5a07f2a973d743f7804140f1894bbc72b74ce055aa80d9455651848c
+  checksum: 5fef9b1ff5e9ece9039da7621a9d36527b02104562ef302c68eebc8662a58095051146225353bad0d1786003c5a3a50c8b3d61fcd4340a2afee8cd8ebcea41a5
   languageName: node
   linkType: hard
 
-"@uppy/status-bar@npm:^3.2.7":
-  version: 3.2.7
-  resolution: "@uppy/status-bar@npm:3.2.7"
+"@uppy/status-bar@npm:^3.2.8":
+  version: 3.2.8
+  resolution: "@uppy/status-bar@npm:3.2.8"
   dependencies:
     "@transloadit/prettier-bytes": "npm:^0.3.0"
-    "@uppy/utils": "npm:^5.7.2"
+    "@uppy/utils": "npm:^5.7.3"
     classnames: "npm:^2.2.6"
     preact: "npm:^10.5.13"
   peerDependencies:
-    "@uppy/core": ^3.9.1
-  checksum: 7a2602aa031c008f7620c45546cf2f2bbe760e2b36c2eb6538177c161b5c3a12048eddc1c48a379544991c16d766cd90ceb64dcbd896fc40ea4383ed2849bda9
+    "@uppy/core": ^3.9.2
+  checksum: 88dab593d07add9b8370844a47fd787c44584cf08f4438397f65759d6c747da21c776faba0cf4374c637b2ad40895cb92c6c4cd590cc5e406a4316441cddbdb0
   languageName: node
   linkType: hard
 
@@ -9877,16 +9877,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uppy/utils@npm:^5.6.0":
-  version: 5.6.0
-  resolution: "@uppy/utils@npm:5.6.0"
-  dependencies:
-    lodash: "npm:^4.17.21"
-    preact: "npm:^10.5.13"
-  checksum: f81121cfd307011599895a92940cb984e4f4f8670d3f3b0738739d657e9bed364d3d6218616d07d0bf09c4e958b6f778772949c1c8c1eb582cec9338bb6d78d1
-  languageName: node
-  linkType: hard
-
 "@uppy/utils@npm:^5.7.0":
   version: 5.7.0
   resolution: "@uppy/utils@npm:5.7.0"
@@ -9904,6 +9894,16 @@ __metadata:
     lodash: "npm:^4.17.21"
     preact: "npm:^10.5.13"
   checksum: f26b586f82809698e8035b99a3dd0db52c194916a90ce8d09e93bdebdce364b57abd521348196daa20522620dea5f3f2b75a70be56ccc1d49447b02c6c9c386d
+  languageName: node
+  linkType: hard
+
+"@uppy/utils@npm:^5.7.3":
+  version: 5.7.3
+  resolution: "@uppy/utils@npm:5.7.3"
+  dependencies:
+    lodash: "npm:^4.17.21"
+    preact: "npm:^10.5.13"
+  checksum: 72811fb84406c26b3dcecf3a71d462255118b1f01b5a02d385c2052914f573b4eadd92297d318d1b9c9baa18f72e67c33e2682c2e85d0e9cf80c9227281b98be
   languageName: node
   linkType: hard
 
@@ -17659,12 +17659,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"i18next@npm:^23.9.0":
-  version: 23.9.0
-  resolution: "i18next@npm:23.9.0"
+"i18next@npm:^23.10.0":
+  version: 23.10.0
+  resolution: "i18next@npm:23.10.0"
   dependencies:
     "@babel/runtime": "npm:^7.23.2"
-  checksum: 7b91f22560a07b2e3f874de30ce3f875cd19beb4657b0f4ac2f805554f9c44bea3552b6cf933f64c83baa1e9a0d8f85110711b4e96354b3b4d79c039b6b7373f
+  checksum: d32293a40650783ac746ce476d220ac3285133de729b2c1da0e7c91bc396ec6728629e84ea4c06311ae37dc6b7984ca962d5b296deb58cf713ba477a2edbd0ea
   languageName: node
   linkType: hard
 
@@ -24617,16 +24617,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-intersection-observer@npm:^9.8.0":
-  version: 9.8.0
-  resolution: "react-intersection-observer@npm:9.8.0"
+"react-intersection-observer@npm:^9.8.1":
+  version: 9.8.1
+  resolution: "react-intersection-observer@npm:9.8.1"
   peerDependencies:
     react: ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0
     react-dom: ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0
   peerDependenciesMeta:
     react-dom:
       optional: true
-  checksum: 1c09af69c810d241dee85d2af2e1d8a1e376169b1eabc74b91bf2a11569c09e0466222aa12bb2668c8c72fb549d23cf798a6ab16b281a20bed8845ede6d81ee8
+  checksum: eaff5c0ccee267f565e6f0333f11f0842bd5be6eacd6994ccfdcb8a53a9412b25d63fa50ca59868bb82b1562c12579052f5657779f94ddb03e969516acacc6cf
   languageName: node
   linkType: hard
 
@@ -28496,10 +28496,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"type-fest@npm:^4.10.2":
-  version: 4.10.2
-  resolution: "type-fest@npm:4.10.2"
-  checksum: 2b1ad1270d9fabeeb506ba831d513caeb05bfc852e5e012511d785ce9dc68d773fe0a42bddf857a362c7f3406244809c5b8a698b743bb7617d4a8c470672087f
+"type-fest@npm:^4.10.3":
+  version: 4.10.3
+  resolution: "type-fest@npm:4.10.3"
+  checksum: ab86ee1624efbb29be138f5582654b32bd0f0c55cdef9bab0eca76933936313933058de7ddc9e6b741aa2ee686f15b1c4451e777e2db93eff44ee69770c84046
   languageName: node
   linkType: hard
 
@@ -29188,14 +29188,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"usehooks-ts@npm:^2.14.0":
-  version: 2.14.0
-  resolution: "usehooks-ts@npm:2.14.0"
+"usehooks-ts@npm:^2.15.0":
+  version: 2.15.0
+  resolution: "usehooks-ts@npm:2.15.0"
   dependencies:
     lodash.debounce: "npm:^4.0.8"
   peerDependencies:
     react: ^16.8.0  || ^17 || ^18
-  checksum: 5ceaafbed357b08553ce3b97c4286b2f514a642a30a350b7715f672834654b385ea3c7d24d0a9dd82af51c7de86c003944d13b4b22542a814a2f733745cbe530
+  checksum: 52016159f5e2df94157c8ed86ea7e00ef5a2dee39e216dce6b6ddcbe62bbe74f6a873f75d074d5c1450685afd014f6016853fe236276b8fc6e6678f7323adf88
   languageName: node
   linkType: hard
 
@@ -29710,7 +29710,7 @@ __metadata:
     "@turbo/gen": "npm:^1.12.4"
     "@types/file-saver": "npm:^2.0.7"
     "@types/jest": "npm:^29.5.12"
-    "@types/node": "npm:^20.11.19"
+    "@types/node": "npm:^20.11.20"
     "@types/react": "npm:18.2.57"
     "@types/react-dom": "npm:18.2.19"
     "@types/react-headroom": "npm:^3.2.3"
@@ -29721,12 +29721,12 @@ __metadata:
     "@typescript-eslint/eslint-plugin": "npm:^7.0.2"
     "@typescript-eslint/parser": "npm:^7.0.2"
     "@uppy/compressor": "npm:^1.1.1"
-    "@uppy/core": "npm:^3.9.1"
-    "@uppy/dashboard": "npm:^3.7.3"
+    "@uppy/core": "npm:^3.9.2"
+    "@uppy/dashboard": "npm:^3.7.4"
     "@uppy/drag-drop": "npm:^3.0.3"
     "@uppy/file-input": "npm:^3.0.4"
     "@uppy/progress-bar": "npm:^3.0.4"
-    "@uppy/react": "npm:^3.2.1"
+    "@uppy/react": "npm:^3.2.2"
     "@uppy/url": "npm:^3.5.0"
     "@vercel/analytics": "npm:^1.2.2"
     "@vercel/kv": "npm:^1.0.1"
@@ -29749,7 +29749,7 @@ __metadata:
     eslint-plugin-react: "npm:7.33.2"
     file-saver: "npm:^2.0.5"
     framer-motion: "npm:^11.0.5"
-    i18next: "npm:^23.9.0"
+    i18next: "npm:^23.10.0"
     i18next-browser-languagedetector: "npm:^7.2.0"
     i18next-http-backend: "npm:^2.5.0"
     iron-session: "npm:^8.0.1"
@@ -29774,7 +29774,7 @@ __metadata:
     react-hook-form-persist: "npm:^3.0.0"
     react-i18next: "npm:^14.0.5"
     react-icons: "npm:^5.0.1"
-    react-intersection-observer: "npm:^9.8.0"
+    react-intersection-observer: "npm:^9.8.1"
     react-markdown: "npm:^9.0.1"
     react-markdown-editor-lite: "npm:^1.3.4"
     react-masonry-css: "npm:^1.0.16"
@@ -29793,9 +29793,9 @@ __metadata:
     turbo: "npm:^1.12.4"
     twitter-api-v2: "npm:^1.16.0"
     twitter-text: "npm:^3.1.0"
-    type-fest: "npm:^4.10.2"
+    type-fest: "npm:^4.10.3"
     typescript: "npm:^5.3.3"
-    usehooks-ts: "npm:^2.14.0"
+    usehooks-ts: "npm:^2.15.0"
     yup: "npm:^1.3.3"
     yup-locales: "npm:^1.2.21"
   languageName: unknown
