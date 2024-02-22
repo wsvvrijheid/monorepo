@@ -43,6 +43,9 @@
       "relation": "manyToOne",
       "target": "api::course.course",
       "inversedBy": "applications"
+    },
+    "notes": {
+      "type": "text"
     }
   }
 }
