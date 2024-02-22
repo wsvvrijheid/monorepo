@@ -35,7 +35,11 @@
     },
     "approvalStatus": {
       "type": "enumeration",
-      "enum": ["approved", "pending", "rejected"],
+      "enum": [
+        "approved",
+        "pending",
+        "rejected"
+      ],
       "default": "pending"
     },
     "course": {
@@ -43,6 +47,9 @@
       "relation": "manyToOne",
       "target": "api::course.course",
       "inversedBy": "applications"
+    },
+    "notes": {
+      "type": "text"
     }
   }
 }

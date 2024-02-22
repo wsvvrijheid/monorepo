@@ -14,6 +14,7 @@ export const useCourseApplicationSchema = () => {
     phone: yup.string().required(),
     message: yup.string().required(),
     hasPaid: yup.boolean(),
+    notes: yup.string(),
     course: yupSelect,
   })
 }
@@ -31,4 +32,5 @@ export const courseApplicationFields: FormFields<CourseApplication> = [
     type: 'select',
     endpoint: 'courses',
   },
+  { name: 'notes', type: 'textarea' },
 ]

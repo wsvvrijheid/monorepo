@@ -11,18 +11,15 @@ import { AdminLayout, ArchivePostGenAI } from '@wsvvrijheid/ui'
 
 export default function ArchiveContent() {
   const { t } = useTranslation()
-  const { locale, query } = useRouter()
-  const archiveContentId = query.id
+  const { query } = useRouter()
+  const id = query.id ? +query.id : 0
 
   const archiveContentQuery = useStrapiRequest<ArchiveContent>({
     endpoint: 'archive-contents',
-    filters: {
-      id: { $eq: archiveContentId },
-    },
-    locale,
+    id,
   })
 
-  const archiveContentData = archiveContentQuery.data?.data[0]
+  const archiveContentData = archiveContentQuery.data?.data
 
   return (
     <AdminLayout seo={{ title: t('archive-contents') }}>
