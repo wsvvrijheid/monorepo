@@ -1,5 +1,3 @@
-import { useState } from 'react'
-
 import {
   Badge,
   Button,
@@ -34,7 +32,6 @@ import {
   AdminLayout,
   ArchivePostGenAI,
   ModelEditModal,
-  useGenPostContext,
 } from '@wsvvrijheid/ui'
 import { GenPostProvider } from '@wsvvrijheid/ui'
 
@@ -42,8 +39,6 @@ const HashtagPage = () => {
   const { t } = useTranslation()
   const { locale, query } = useRouter()
   const { isOpen, onOpen, onClose } = useDisclosure()
-
-  const { addPost } = useGenPostContext()
 
   const id = query.id ? +query.id : 0
 

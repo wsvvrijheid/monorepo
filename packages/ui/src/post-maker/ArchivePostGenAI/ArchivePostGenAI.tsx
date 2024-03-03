@@ -21,7 +21,7 @@ import {
 import { useCompletion } from 'ai/react'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
-import { FaRegSave, FaSave } from 'react-icons/fa'
+import { FaSave } from 'react-icons/fa'
 import { FaStop, FaTrash } from 'react-icons/fa6'
 import { RiAiGenerate } from 'react-icons/ri'
 
