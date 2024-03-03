@@ -21,11 +21,14 @@ import {
 import { useCompletion } from 'ai/react'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
+import { FaRegSave, FaSave } from 'react-icons/fa'
 import { FaStop, FaTrash } from 'react-icons/fa6'
 import { RiAiGenerate } from 'react-icons/ri'
 
 import { StrapiLocale } from '@wsvvrijheid/types'
 import { toastMessage } from '@wsvvrijheid/utils'
+
+import { useGenPostContext } from './GenPostProvider'
 
 type ArchivePostGenAIProps = {
   archiveContentId: number
@@ -61,6 +64,7 @@ export const ArchivePostGenAI = ({
   const [charLimitOfDescriptions, setCharLimitOfDescriptions] =
     useState<number>()
   const [charLimitOfSentences, setCharLimitOfSentences] = useState<number>()
+  const { posts, addPost } = useGenPostContext()
 
   const { locale } = useRouter()
 
@@ -222,14 +226,26 @@ export const ArchivePostGenAI = ({
             )}
             {generatedArchiveContentPosts?.length &&
               generatedArchiveContentPosts?.length > 0 && (
-                <Button
-                  leftIcon={<FaTrash />}
-                  type="button"
-                  onClick={handleClear}
-                  colorScheme={'red'}
-                >
-                  Clear Results
-                </Button>
+                <>
+                  <Button
+                    leftIcon={<FaSave />}
+                    type="button"
+                    onClick={() => {
+                      generatedArchiveContentPosts.map(post => addPost(post))
+                    }}
+                    colorScheme={'purple'}
+                  >
+                    Save All
+                  </Button>
+                  <Button
+                    leftIcon={<FaTrash />}
+                    type="button"
+                    onClick={handleClear}
+                    colorScheme={'red'}
+                  >
+                    Clear Results
+                  </Button>
+                </>
               )}
           </HStack>
         </Stack>
@@ -271,6 +287,22 @@ export const ArchivePostGenAI = ({
           )}
         </Stack>
       )}
+      <Stack spacing={4} p={4}>
+        {posts.length > 0 && (
+          <Stack>
+            <Text as={'b'}>
+              {posts.length} posts saved with the following caps content:
+            </Text>
+            {posts.map((post, idx) => {
+              return (
+                <Stack key={idx}>
+                  <Text>{post.description}</Text>
+                </Stack>
+              )
+            })}
+          </Stack>
+        )}
+      </Stack>
     </Stack>
   )
 }
