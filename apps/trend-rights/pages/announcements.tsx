@@ -8,15 +8,11 @@ import { useTranslation } from 'next-i18next'
 import { serialize } from 'next-mdx-remote/serialize'
 import { NextSeoProps } from 'next-seo'
 
-import { RequestCollectionArgs, strapiRequest } from '@wsvvrijheid/lib'
-import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
-import {
-  Hashtag,
-  StrapiCollectionResponse,
-  StrapiLocale,
-} from '@wsvvrijheid/types'
-import { Container, HashtagAnnouncement, Hero, Navigate } from '@wsvvrijheid/ui'
-import { getItemLink, getPageSeo } from '@wsvvrijheid/utils'
+import { RequestCollectionArgs, strapiRequest } from '@fc/lib'
+import { ssrTranslations } from '@fc/services/ssrTranslations'
+import { Hashtag, StrapiCollectionResponse, StrapiLocale } from '@fc/types'
+import { Container, HashtagAnnouncement, Hero, Navigate } from '@fc/ui'
+import { getItemLink, getPageSeo } from '@fc/utils'
 
 import { Layout } from '../components'
 

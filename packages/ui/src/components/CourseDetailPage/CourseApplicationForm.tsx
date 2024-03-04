@@ -13,9 +13,9 @@ import { useMutation } from '@tanstack/react-query'
 import { useTranslation } from 'next-i18next'
 import { useForm } from 'react-hook-form'
 
-import { PUBLIC_TOKEN } from '@wsvvrijheid/config'
-import { Mutation } from '@wsvvrijheid/lib'
-import { CourseApplicationCreateInput } from '@wsvvrijheid/types'
+import { PUBLIC_TOKEN } from '@fc/config'
+import { Mutation } from '@fc/lib'
+import { CourseApplicationCreateInput } from '@fc/types'
 
 import { applicationSchema } from './schema'
 import { ApplicationFormFields, CourseApplicationFormProps } from './types'

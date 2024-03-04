@@ -1,8 +1,8 @@
 import { Meta, StoryObj } from '@storybook/react'
 import { sample } from 'lodash'
 
-import { ART_MOCKS } from '@wsvvrijheid/mocks'
-import { Art } from '@wsvvrijheid/types'
+import { ART_MOCKS } from '@fc/mocks'
+import { Art } from '@fc/types'
 
 import { ArtTemplate } from './ArtTemplate'
 

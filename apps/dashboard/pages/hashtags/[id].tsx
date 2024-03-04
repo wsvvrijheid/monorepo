@@ -23,12 +23,12 @@ import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { FaPencil } from 'react-icons/fa6'
 
-import { strapiRequest } from '@wsvvrijheid/lib'
-import { useStrapiRequest } from '@wsvvrijheid/services'
-import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
-import { Hashtag, StrapiLocale } from '@wsvvrijheid/types'
-import { ArchiveContent } from '@wsvvrijheid/types/src/archive-content'
-import { AdminLayout, ArchivePostGenAI, ModelEditModal } from '@wsvvrijheid/ui'
+import { strapiRequest } from '@fc/lib'
+import { useStrapiRequest } from '@fc/services'
+import { ssrTranslations } from '@fc/services/ssrTranslations'
+import { Hashtag, StrapiLocale } from '@fc/types'
+import { ArchiveContent } from '@fc/types/src/archive-content'
+import { AdminLayout, ArchivePostGenAI, ModelEditModal } from '@fc/ui'
 
 const HashtagPage = () => {
   const { t } = useTranslation()

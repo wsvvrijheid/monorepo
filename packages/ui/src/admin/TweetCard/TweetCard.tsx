@@ -29,8 +29,8 @@ import {
 } from 'react-icons/tb'
 import { useLocalStorage } from 'usehooks-ts'
 
-import { useRecommendTweet } from '@wsvvrijheid/services'
-import { Post, RecommendedTweetCreateInput, Tweet } from '@wsvvrijheid/types'
+import { useRecommendTweet } from '@fc/services'
+import { Post, RecommendedTweetCreateInput, Tweet } from '@fc/types'
 
 import { TweetCardProps } from './types'
 import { CreateTweetForm, WAvatar } from '../../components'

@@ -1,4 +1,4 @@
-import { Feedback, StrapiCollectionResponse } from '@wsvvrijheid/types'
+import { Feedback, StrapiCollectionResponse } from '@fc/types'
 
 export const FEEDBACK_MOCK: StrapiCollectionResponse<Feedback[]> = {
   data: [

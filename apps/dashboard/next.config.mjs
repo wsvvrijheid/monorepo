@@ -1,3 +1,3 @@
-import nextConfig from '@wsvvrijheid/config/next.config.mjs'
+import nextConfig from '@fc/config/next.config.mjs'
 
 export default nextConfig

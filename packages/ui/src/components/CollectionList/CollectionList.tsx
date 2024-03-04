@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { MdCollectionsBookmark } from 'react-icons/md'
 
-import { Collection } from '@wsvvrijheid/types'
+import { Collection } from '@fc/types'
 
 import { Navigate } from '../Navigate'
 

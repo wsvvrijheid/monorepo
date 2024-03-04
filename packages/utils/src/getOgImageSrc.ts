@@ -1,4 +1,4 @@
-import { OgImageParams } from '@wsvvrijheid/types'
+import { OgImageParams } from '@fc/types'
 
 import { generateOgImageParams } from './generateOgImageProps'
 

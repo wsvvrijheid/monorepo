@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import { ObjectSchema, setLocale } from 'yup'
 import { nl, tr } from 'yup-locales'
 
-import { PartialStrapiEndpointMap, StrapiModel } from '@wsvvrijheid/types'
+import { PartialStrapiEndpointMap, StrapiModel } from '@fc/types'
 
 import { activityFields, useActivitySchema } from './activity'
 import {

@@ -1,4 +1,4 @@
-import { RoleType, SessionUser, User } from '@wsvvrijheid/types'
+import { RoleType, SessionUser, User } from '@fc/types'
 
 export const mapSessionUser = (user: User): SessionUser => {
   const { role, ...rest } = user

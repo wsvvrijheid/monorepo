@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
 
-import { ApprovalStatus, Art, Profile } from '@wsvvrijheid/types'
+import { ApprovalStatus, Art, Profile } from '@fc/types'
 
 import { PublicationBadges } from '../../admin'
 import { WTableProps } from '../../components'

@@ -3,7 +3,7 @@ import { FC, ReactNode } from 'react'
 import { Box, Center, Flex, Spinner } from '@chakra-ui/react'
 import { NextSeo, NextSeoProps } from 'next-seo'
 
-import { useAuthContext } from '@wsvvrijheid/context'
+import { useAuthContext } from '@fc/context'
 
 import { Footer } from '../Footer/Footer'
 import { FooterProps } from '../Footer/types'

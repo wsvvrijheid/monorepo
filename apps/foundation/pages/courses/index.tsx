@@ -5,11 +5,11 @@ import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
-import { COURSES } from '@wsvvrijheid/config'
-import { strapiRequest } from '@wsvvrijheid/lib'
-import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
-import { Course, StrapiLocale } from '@wsvvrijheid/types'
-import { AcademyCard, Container, Hero } from '@wsvvrijheid/ui'
+import { COURSES } from '@fc/config'
+import { strapiRequest } from '@fc/lib'
+import { ssrTranslations } from '@fc/services/ssrTranslations'
+import { Course, StrapiLocale } from '@fc/types'
+import { AcademyCard, Container, Hero } from '@fc/ui'
 
 import { Layout } from '../../components'
 

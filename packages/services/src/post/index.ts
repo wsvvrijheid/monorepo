@@ -3,7 +3,7 @@ import { useMemo } from 'react'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 
-import { PostSentence, RedisPost } from '@wsvvrijheid/types'
+import { PostSentence, RedisPost } from '@fc/types'
 
 type UpdateArgs = { hashtagId: number; index: number; value: RedisPost }
 type CreateArgs = { hashtagId: number; value: RedisPost }

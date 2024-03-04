@@ -20,7 +20,7 @@ import {
 } from './routes'
 import { Menus } from './types'
 
-export const wsvvrijheid: Menus = {
+export const foundation: Menus = {
   headerMenu: [
     activities,
     {

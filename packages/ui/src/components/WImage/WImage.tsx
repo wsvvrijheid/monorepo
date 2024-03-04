@@ -3,7 +3,7 @@ import { FC, Fragment } from 'react'
 import { AspectRatio, ImageProps as ChakraImageProps } from '@chakra-ui/react'
 import Zoom from 'react-medium-image-zoom'
 
-import { UploadFile } from '@wsvvrijheid/types'
+import { UploadFile } from '@fc/types'
 
 import { StrapiImage } from '../StrapiImage'
 

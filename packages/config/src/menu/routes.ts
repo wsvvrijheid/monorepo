@@ -22,6 +22,6 @@ export const {
   platforms,
   presentations,
   privacy,
-  trendRights,
+  'trend-rights': trendRights,
   term,
 } = ROUTES

@@ -11,7 +11,7 @@ export default {
     headerProps: {
       headerMenu: HEADER_MENU,
     },
-    logo: 'https://wsvvrijheid.nl/images/logo.svg',
+    logo: 'https://freedomcombination.com/images/logo.svg',
     footerProps: {
       menu: FOOTER_MENU,
       about: 'trend-rights',

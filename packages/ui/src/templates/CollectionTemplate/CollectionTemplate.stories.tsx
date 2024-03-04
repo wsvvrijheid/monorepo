@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react'
 
-import { COLLECTION_MOCKS } from '@wsvvrijheid/mocks'
+import { COLLECTION_MOCKS } from '@fc/mocks'
 
 import { CollectionTemplate, CollectionTemplateProps } from './index'
 

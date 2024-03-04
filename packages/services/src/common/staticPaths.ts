@@ -1,9 +1,5 @@
-import { strapiRequest } from '@wsvvrijheid/lib'
-import {
-  StrapiCollectionEndpoint,
-  StrapiLocale,
-  StrapiModel,
-} from '@wsvvrijheid/types'
+import { strapiRequest } from '@fc/lib'
+import { StrapiCollectionEndpoint, StrapiLocale, StrapiModel } from '@fc/types'
 
 const getModelPaths = async <T extends StrapiModel>(
   endpoint: StrapiCollectionEndpoint,

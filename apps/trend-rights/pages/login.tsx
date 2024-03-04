@@ -3,9 +3,9 @@ import { GetStaticPropsContext } from 'next'
 import { useTranslation } from 'next-i18next'
 import { NextSeo } from 'next-seo'
 
-import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
-import { StrapiLocale } from '@wsvvrijheid/types'
-import { LoginForm } from '@wsvvrijheid/ui'
+import { ssrTranslations } from '@fc/services/ssrTranslations'
+import { StrapiLocale } from '@fc/types'
+import { LoginForm } from '@fc/ui'
 
 const LoginPage = () => {
   const { t } = useTranslation()

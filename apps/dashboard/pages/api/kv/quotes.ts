@@ -1,4 +1,4 @@
-import { quotesRouter } from '@wsvvrijheid/services/src/api/quotes'
+import { quotesRouter } from '@fc/services/src/api/quotes'
 
 export const config = {
   runtime: 'edge',

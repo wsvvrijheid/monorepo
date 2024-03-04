@@ -4,12 +4,12 @@ import { Spinner } from '@chakra-ui/react'
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { serialize } from 'next-mdx-remote/serialize'
 
-import { strapiRequest } from '@wsvvrijheid/lib'
-import { getModelStaticPaths } from '@wsvvrijheid/services'
-import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
-import { Activity, StrapiLocale } from '@wsvvrijheid/types'
-import { ActivityDetail } from '@wsvvrijheid/ui'
-import { getLocalizedSlugs } from '@wsvvrijheid/utils'
+import { strapiRequest } from '@fc/lib'
+import { getModelStaticPaths } from '@fc/services'
+import { ssrTranslations } from '@fc/services/ssrTranslations'
+import { Activity, StrapiLocale } from '@fc/types'
+import { ActivityDetail } from '@fc/ui'
+import { getLocalizedSlugs } from '@fc/utils'
 
 import { Layout } from '../../components/index'
 

@@ -5,9 +5,9 @@ import { Meta, StoryFn, StoryObj } from '@storybook/react'
 import { useMutation } from '@tanstack/react-query'
 import { sample, shuffle } from 'lodash'
 
-import { ART_MOCKS } from '@wsvvrijheid/mocks'
-import { Art, Collection } from '@wsvvrijheid/types'
-import { sleep } from '@wsvvrijheid/utils'
+import { ART_MOCKS } from '@fc/mocks'
+import { Art, Collection } from '@fc/types'
+import { sleep } from '@fc/utils'
 
 import { ArtAddToCollectionCard } from './ArtAddToCollectionCard'
 import { ArtAddToCollectionCardProps } from './types'

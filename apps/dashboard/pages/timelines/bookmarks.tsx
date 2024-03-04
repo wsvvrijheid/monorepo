@@ -2,9 +2,9 @@ import { GetStaticPropsContext } from 'next'
 import { useTranslation } from 'next-i18next'
 import { useLocalStorage } from 'usehooks-ts'
 
-import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
-import { StrapiLocale, Tweet } from '@wsvvrijheid/types'
-import { AdminLayout, Container, MasonryGrid, TweetCard } from '@wsvvrijheid/ui'
+import { ssrTranslations } from '@fc/services/ssrTranslations'
+import { StrapiLocale, Tweet } from '@fc/types'
+import { AdminLayout, Container, MasonryGrid, TweetCard } from '@fc/ui'
 
 const TweetBookmarkedPage = () => {
   const [storageTweets] = useLocalStorage<Tweet[]>('bookmarked-tweets', [])

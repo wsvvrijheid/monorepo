@@ -1,5 +1,5 @@
-import { strapiRequest } from '@wsvvrijheid/lib'
-import { Platform } from '@wsvvrijheid/types'
+import { strapiRequest } from '@fc/lib'
+import { Platform } from '@fc/types'
 
 export const getPlatformBySlug = async (slug: string) => {
   const response = await strapiRequest<Platform>({

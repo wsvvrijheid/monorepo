@@ -16,7 +16,7 @@ import { AiOutlineClose } from 'react-icons/ai'
 import { FaPlus } from 'react-icons/fa'
 import { MdFeedback } from 'react-icons/md'
 
-import { UserFeedbackForm } from '@wsvvrijheid/ui'
+import { UserFeedbackForm } from '@fc/ui'
 
 export const PlusButton = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()

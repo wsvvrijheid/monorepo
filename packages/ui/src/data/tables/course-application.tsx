@@ -1,4 +1,4 @@
-import { ApprovalStatus, Course, CourseApplication } from '@wsvvrijheid/types'
+import { ApprovalStatus, Course, CourseApplication } from '@fc/types'
 
 import { PaidBadges } from '../../admin'
 import { WTableProps } from '../../components'

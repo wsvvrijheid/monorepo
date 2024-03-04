@@ -44,7 +44,7 @@ import {
   useStrapiRequest,
   useUnpublishModel,
   useUpdateModelMutation,
-} from '@wsvvrijheid/services'
+} from '@fc/services'
 import {
   Profile,
   ProfileCreateInput,
@@ -52,7 +52,7 @@ import {
   StrapiTranslatableModel,
   StrapiTranslatableUpdateInput,
   User,
-} from '@wsvvrijheid/types'
+} from '@fc/types'
 
 import { ModelMedia } from './ModelMedia'
 import { ModelSelect } from './ModelSelect'

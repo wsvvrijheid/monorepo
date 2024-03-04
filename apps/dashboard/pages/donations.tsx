@@ -5,17 +5,12 @@ import { GetStaticPropsContext } from 'next'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
-import { useStrapiRequest } from '@wsvvrijheid/services'
-import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
-import {
-  Donation,
-  DonationStatus,
-  Sort,
-  StrapiLocale,
-} from '@wsvvrijheid/types'
-import { MonthPicker, ModelStatusFilters } from '@wsvvrijheid/ui'
-import { AdminLayout, DataTable, PageHeader, useColumns } from '@wsvvrijheid/ui'
-import { RangeParams } from '@wsvvrijheid/ui/src/components/MonthPicker/types'
+import { useStrapiRequest } from '@fc/services'
+import { ssrTranslations } from '@fc/services/ssrTranslations'
+import { Donation, DonationStatus, Sort, StrapiLocale } from '@fc/types'
+import { MonthPicker, ModelStatusFilters } from '@fc/ui'
+import { AdminLayout, DataTable, PageHeader, useColumns } from '@fc/ui'
+import { RangeParams } from '@fc/ui/src/components/MonthPicker/types'
 
 const DonationsPage = () => {
   const [currentPage, setCurrentPage] = useState<number>(1)

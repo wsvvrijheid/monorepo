@@ -4,7 +4,7 @@ import { merge } from 'lodash'
 import { fonts } from './fonts'
 import { defaultTheme } from './theme'
 
-export const wsvvrijheid = extendTheme(
+export const foundation = extendTheme(
   merge(defaultTheme, {
     fonts: {
       body: fonts.body,

@@ -10,8 +10,8 @@ import {
   Spinner,
 } from '@chakra-ui/react'
 
-import { useStrapiRequest } from '@wsvvrijheid/services'
-import { StrapiModel } from '@wsvvrijheid/types'
+import { useStrapiRequest } from '@fc/services'
+import { StrapiModel } from '@fc/types'
 
 import { ModelEditForm } from './ModelEditForm'
 import { ModelEditModalProps } from './types'

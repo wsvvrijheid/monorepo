@@ -18,10 +18,10 @@ import JSZip from 'jszip'
 import { useRouter } from 'next/router'
 import { FaDownload } from 'react-icons/fa'
 
-import { ASSETS_URL, SITE_URL } from '@wsvvrijheid/config'
-import { useStrapiRequest } from '@wsvvrijheid/services'
-import { Post } from '@wsvvrijheid/types'
-import { getOgImageSrc } from '@wsvvrijheid/utils'
+import { ASSETS_URL, SITE_URL } from '@fc/config'
+import { useStrapiRequest } from '@fc/services'
+import { Post } from '@fc/types'
+import { getOgImageSrc } from '@fc/utils'
 
 import { Caps, WImage } from '../../components'
 

@@ -1,9 +1,9 @@
 import { Meta, StoryObj } from '@storybook/react'
 import { sample } from 'lodash'
 
-import { ASSETS_URL } from '@wsvvrijheid/config'
-import { ART_MOCKS } from '@wsvvrijheid/mocks'
-import { Art } from '@wsvvrijheid/types'
+import { ASSETS_URL } from '@fc/config'
+import { ART_MOCKS } from '@fc/mocks'
+import { Art } from '@fc/types'
 
 import { ArtContent } from './ArtContent'
 

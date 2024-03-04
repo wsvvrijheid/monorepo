@@ -16,8 +16,8 @@ import {
 } from '@chakra-ui/react'
 import { AiOutlineArrowLeft, AiOutlineCheck } from 'react-icons/ai'
 
-import { StrapiLocale, StrapiTranslatableModel } from '@wsvvrijheid/types'
-import { mapModelLocalization } from '@wsvvrijheid/utils'
+import { StrapiLocale, StrapiTranslatableModel } from '@fc/types'
+import { mapModelLocalization } from '@fc/utils'
 
 import { TranslateAccordionItem } from './TranslateAccordionItem'
 import { TranslateForm } from './TranslateForm'

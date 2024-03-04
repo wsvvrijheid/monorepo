@@ -1,9 +1,9 @@
 import { Box, Button, useDisclosure } from '@chakra-ui/react'
 import { Meta, StoryFn, StoryObj } from '@storybook/react'
 
-import { TWEET_MOCKS } from '@wsvvrijheid/mocks'
-import { useRecommendTweet } from '@wsvvrijheid/services'
-import { RecommendedTweetCreateInput } from '@wsvvrijheid/types'
+import { TWEET_MOCKS } from '@fc/mocks'
+import { useRecommendTweet } from '@fc/services'
+import { RecommendedTweetCreateInput } from '@fc/types'
 
 import { CreateTweetForm } from './CreateTweetForm'
 import { CreateTweetFormFieldValues, CreateTweetFormProps } from './types'

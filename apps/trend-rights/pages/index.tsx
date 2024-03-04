@@ -6,16 +6,16 @@ import { GetStaticPropsContext } from 'next'
 import { useTranslation } from 'next-i18next'
 import { NextSeoProps } from 'next-seo'
 
-import { strapiRequest } from '@wsvvrijheid/lib'
-import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
-import { Hashtag, StrapiLocale } from '@wsvvrijheid/types'
+import { strapiRequest } from '@fc/lib'
+import { ssrTranslations } from '@fc/services/ssrTranslations'
+import { Hashtag, StrapiLocale } from '@fc/types'
 import {
   Container,
   HashtagAnnouncement,
   HashtagsSummary,
   Navigate,
-} from '@wsvvrijheid/ui'
-import { getItemLink } from '@wsvvrijheid/utils'
+} from '@fc/ui'
+import { getItemLink } from '@fc/utils'
 
 import { Layout } from '../components'
 

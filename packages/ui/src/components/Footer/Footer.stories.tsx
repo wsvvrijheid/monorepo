@@ -25,7 +25,7 @@ export const Default: Story = {
   args: {
     menu: FOOTER_MENU,
     about: 'trend-rights',
-    logo: 'https://wsvvrijheid.nl/images/logo.svg',
+    logo: 'https://freedomcombination.com/images/logo.svg',
     socialItems: SOCIAL_LINKS,
   },
 }

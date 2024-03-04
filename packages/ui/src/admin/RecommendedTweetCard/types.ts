@@ -1,4 +1,4 @@
-import { RecommendedTweet } from '@wsvvrijheid/types'
+import { RecommendedTweet } from '@fc/types'
 
 export type RecommendedTweetCardProps = {
   tweet: RecommendedTweet

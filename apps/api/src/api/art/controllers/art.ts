@@ -30,7 +30,7 @@ const sendEmail = async art => {
   if (editorEmails?.length > 0) {
     strapi.plugins['email'].services.email.send({
       to: editorEmails,
-      from: 'info@wsvvrijheid.nl',
+      from: 'info@freedomcombination.com',
       subject: `New Art ${title} has been created by ${name}`,
       html: `<table>
       <tr>
@@ -47,7 +47,7 @@ const sendEmail = async art => {
       </tr>
       <tr>
         <td>Link:</td>
-        <td>View the art <a href="https://dashboard.wsvvrijheid.nl/arts?status=pending">here</a></td>
+        <td>View the art <a href="https://dashboard.freedomcombination.com/arts?status=pending">here</a></td>
       </tr>
   </table>`,
     })

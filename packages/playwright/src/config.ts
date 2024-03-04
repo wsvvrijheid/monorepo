@@ -1,11 +1,11 @@
-import { AppSlug } from '@wsvvrijheid/types'
+import { AppSlug } from '@fc/types'
 
 export const ports: Record<AppSlug, number> = {
   dashboard: 3000,
-  wsvvrijheid: 3001,
+  foundation: 3001,
   kunsthalte: 3002,
   lotus: 3003,
-  trendRights: 3004,
+  'trend-rights': 3004,
 }
 
 export const projects = Object.keys(ports) as AppSlug[]

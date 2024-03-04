@@ -11,7 +11,7 @@ import { useTranslation } from 'next-i18next'
 import { FaFacebook, FaGoogle, FaInstagram } from 'react-icons/fa'
 import { FaXTwitter } from 'react-icons/fa6'
 
-import { API_URL } from '@wsvvrijheid/config'
+import { API_URL } from '@fc/config'
 
 import { SocialProvider, SocialProviderName } from './type'
 

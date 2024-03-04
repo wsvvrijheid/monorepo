@@ -1,6 +1,6 @@
 import * as yup from 'yup'
 
-import { Tag } from '@wsvvrijheid/types'
+import { Tag } from '@fc/types'
 
 import { FormFields } from '../../admin'
 

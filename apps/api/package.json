@@ -8,7 +8,7 @@
     "dashboard": "strapi dev",
     "foundation": "strapi dev",
     "kunsthalte": "strapi dev",
-    "transfer": "strapi transfer --from https://api.wsvvrijheid.nl/admin",
+    "transfer": "strapi transfer --from https://api.freedomcombination.com/admin",
     "trend-rights": "strapi dev",
     "lint": "eslint .",
     "start": "strapi start",

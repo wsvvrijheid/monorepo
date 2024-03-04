@@ -1,4 +1,4 @@
-import { Comment, StrapiCollectionResponse } from '@wsvvrijheid/types'
+import { Comment, StrapiCollectionResponse } from '@fc/types'
 
 export const COMMENT_MOCKS: StrapiCollectionResponse<Comment[]> = {
   data: [

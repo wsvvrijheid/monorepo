@@ -18,14 +18,14 @@ import slugify from '@sindresorhus/slugify'
 import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
 
-import { useCreateModelMutation } from '@wsvvrijheid/services'
+import { useCreateModelMutation } from '@fc/services'
 import {
   Post,
   PostCreateInput,
   StrapiTranslatableCreateInput,
   UploadFile,
-} from '@wsvvrijheid/types'
-import { generateOgImageParams } from '@wsvvrijheid/utils'
+} from '@fc/types'
+import { generateOgImageParams } from '@fc/utils'
 
 import { ImageRecognizer } from '../ImageRecognizer/ImageRecognizer'
 import { RecognizedImage } from '../ImageRecognizer/types'

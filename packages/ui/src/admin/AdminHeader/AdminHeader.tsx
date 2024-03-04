@@ -17,7 +17,7 @@ import { FaArrowLeft, FaUser } from 'react-icons/fa'
 import { HiMenu } from 'react-icons/hi'
 import { MdOutlineNotifications } from 'react-icons/md'
 
-import { useAuthContext } from '@wsvvrijheid/context'
+import { useAuthContext } from '@fc/context'
 
 import { UserFeedback } from '../../components'
 import { AdminSidebar } from '../AdminSidebar'

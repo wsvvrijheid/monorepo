@@ -9,7 +9,7 @@ import {
   TextProps,
 } from '@chakra-ui/react'
 
-import { Sort, StrapiModel } from '@wsvvrijheid/types'
+import { Sort, StrapiModel } from '@fc/types'
 
 import { FormattedDateProps } from '../FormattedDate'
 

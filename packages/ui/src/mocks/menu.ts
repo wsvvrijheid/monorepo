@@ -1,4 +1,4 @@
-import { ROUTES } from '@wsvvrijheid/config'
+import { ROUTES } from '@fc/config'
 
 import { HeaderNavProps } from '../components/Header/types'
 
@@ -7,7 +7,7 @@ const {
   platforms,
   lotus,
   artStop,
-  trendRights,
+  'trend-rights': trendRights,
   academy,
   blogs,
   club,
@@ -30,9 +30,9 @@ export const HEADER_MENU: Pick<HeaderNavProps, 'menu'>['menu'] = [
   club,
   {
     link: '/',
-    en: 'Wsvvrijheid',
-    nl: 'Wsvvrijheid',
-    tr: 'Wsvvrijheid',
+    en: 'Freedom Combination',
+    nl: 'Freedom Combination',
+    tr: 'Freedom Combination',
     children: [about, contact],
   },
 ]

@@ -11,8 +11,8 @@ import {
 import { useRouter } from 'next/router'
 import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 
-import { SITE_URL } from '@wsvvrijheid/config'
-import { Activity, UploadFile } from '@wsvvrijheid/types'
+import { SITE_URL } from '@fc/config'
+import { Activity, UploadFile } from '@fc/types'
 
 import { Markdown } from '../Markdown'
 import { ShareButtons } from '../ShareButtons'

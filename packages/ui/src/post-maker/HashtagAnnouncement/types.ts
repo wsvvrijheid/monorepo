@@ -1,4 +1,4 @@
-import { Hashtag } from '@wsvvrijheid/types'
+import { Hashtag } from '@fc/types'
 
 export interface HashtagAnnouncementProps {
   hashtag: Hashtag

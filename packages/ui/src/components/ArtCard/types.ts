@@ -1,6 +1,6 @@
 import { ThemeTypings } from '@chakra-ui/react'
 
-import { Art, StrapiLocale, UploadFile } from '@wsvvrijheid/types'
+import { Art, StrapiLocale, UploadFile } from '@fc/types'
 
 export type ArtActionType = 'delete' | 'publish' | 'unpublish'
 

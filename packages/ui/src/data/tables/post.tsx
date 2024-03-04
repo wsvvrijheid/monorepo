@@ -1,10 +1,4 @@
-import {
-  Hashtag,
-  Post,
-  StrapiLocale,
-  ApprovalStatus,
-  Profile,
-} from '@wsvvrijheid/types'
+import { Hashtag, Post, StrapiLocale, ApprovalStatus, Profile } from '@fc/types'
 
 import { LocaleBadges, PublicationBadges } from '../../admin'
 import { WTableProps } from '../../components'

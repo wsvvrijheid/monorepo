@@ -2,14 +2,14 @@ import { useEffect, useRef, useState } from 'react'
 
 import { Meta, StoryFn, StoryObj } from '@storybook/react'
 
-import { ART_MOCKS, CATEGORY_MOCKS } from '@wsvvrijheid/mocks'
+import { ART_MOCKS, CATEGORY_MOCKS } from '@fc/mocks'
 import {
   ApprovalStatus,
   Art,
   Category,
   StrapiModel,
   StrapiModelKeys,
-} from '@wsvvrijheid/types'
+} from '@fc/types'
 
 import { WTableProps } from './types'
 import { WTable } from './WTable'

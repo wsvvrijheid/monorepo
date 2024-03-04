@@ -20,8 +20,8 @@ import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { FaChevronRight, FaDonate } from 'react-icons/fa'
 import { FaXTwitter } from 'react-icons/fa6'
 
-import { SITE_URL } from '@wsvvrijheid/config'
-import { Flow } from '@wsvvrijheid/types'
+import { SITE_URL } from '@fc/config'
+import { Flow } from '@fc/types'
 
 import { Container, Markdown, ShareButtons } from '../../components'
 
@@ -104,7 +104,7 @@ export const PresentationTemplate: FC<PresentationTemplateProps> = ({
                 </Button>
               </Center>
             </Link>
-            <Link isExternal href="https://wsvvrijheid.nl/donation">
+            <Link isExternal href="https://freedomcombination.com/donation">
               <Center aspectRatio={{ base: 3, md: 2 }}>
                 <Button
                   boxSize={'full'}

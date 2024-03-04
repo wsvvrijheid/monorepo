@@ -17,29 +17,25 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
-import { ASSETS_URL, SITE_URL } from '@wsvvrijheid/config'
-import { useAuthContext } from '@wsvvrijheid/context'
-import { strapiRequest } from '@wsvvrijheid/lib'
-import {
-  getHashtagBySlug,
-  getHashtagSentences,
-  useHashtag,
-} from '@wsvvrijheid/services'
-import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
-import { HashtagReturnType, Post, StrapiLocale } from '@wsvvrijheid/types'
+import { ASSETS_URL, SITE_URL } from '@fc/config'
+import { useAuthContext } from '@fc/context'
+import { strapiRequest } from '@fc/lib'
+import { getHashtagBySlug, getHashtagSentences, useHashtag } from '@fc/services'
+import { ssrTranslations } from '@fc/services/ssrTranslations'
+import { HashtagReturnType, Post, StrapiLocale } from '@fc/types'
 import {
   Container,
   HashtagProvider,
   PostImage,
   PostMaker,
   TimeLeft,
-} from '@wsvvrijheid/ui'
+} from '@fc/ui'
 import {
   getItemLink,
   getLocalizedSlugs,
   getOgImageSrc,
   getPageSeo,
-} from '@wsvvrijheid/utils'
+} from '@fc/utils'
 
 import { Layout } from '../../../components'
 

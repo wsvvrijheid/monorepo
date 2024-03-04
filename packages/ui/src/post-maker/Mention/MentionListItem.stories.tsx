@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react'
 
-import { MENTION_MOCKS } from '@wsvvrijheid/mocks'
+import { MENTION_MOCKS } from '@fc/mocks'
 
 import MentionListItem from './MentionListItem'
 

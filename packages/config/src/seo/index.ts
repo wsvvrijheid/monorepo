@@ -1,17 +1,17 @@
 import { NextSeoProps } from 'next-seo'
 
-import { AppSlug, Localize } from '@wsvvrijheid/types'
+import { AppSlug, Localize } from '@fc/types'
 
 import { dashboard } from './dashboard'
+import { foundation } from './foundation'
 import { kunsthalte } from './kunsthalte'
 import { lotus } from './lotus'
 import { trendRights } from './trend-rights'
-import { wsvvrijheid } from './wsvvrijheid'
 
 export const defaultSeo: Record<AppSlug, Localize<NextSeoProps>> = {
   dashboard,
   lotus,
   kunsthalte,
-  trendRights,
-  wsvvrijheid,
+  'trend-rights': trendRights,
+  foundation,
 }

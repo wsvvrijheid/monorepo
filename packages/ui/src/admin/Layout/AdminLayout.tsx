@@ -3,7 +3,7 @@ import { FC, ReactNode, useEffect } from 'react'
 import { Box, Center, Flex, Spinner, Stack } from '@chakra-ui/react'
 import { NextSeo, NextSeoProps } from 'next-seo'
 
-import { useAuthContext } from '@wsvvrijheid/context'
+import { useAuthContext } from '@fc/context'
 
 import { AdminHeader } from '../AdminHeader'
 import { AdminSidebar } from '../AdminSidebar'

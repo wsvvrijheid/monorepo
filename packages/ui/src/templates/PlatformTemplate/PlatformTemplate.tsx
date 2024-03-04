@@ -15,7 +15,7 @@ import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { NextSeoProps } from 'next-seo'
 import { FaExternalLinkAlt } from 'react-icons/fa'
 
-import { UploadFile } from '@wsvvrijheid/types'
+import { UploadFile } from '@fc/types'
 
 import { AcademyCard, Container, Markdown, WImage } from '../../components'
 

@@ -1,4 +1,4 @@
-const eslintConfig = require('@wsvvrijheid/config/eslint-preset.js')
+const eslintConfig = require('@fc/config/eslint-preset.js')
 
 module.exports = {
   ...eslintConfig,

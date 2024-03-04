@@ -5,7 +5,7 @@ import { camelCase, startCase } from 'lodash'
 import { useTranslation } from 'next-i18next'
 import { FaArrowDown, FaArrowUp, FaSort } from 'react-icons/fa'
 
-import { StrapiModel, StrapiModelKeys } from '@wsvvrijheid/types'
+import { StrapiModel, StrapiModelKeys } from '@fc/types'
 
 import { WTableRow } from './TableRow'
 import { CellConfig, WTableProps } from './types'

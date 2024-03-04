@@ -5,17 +5,17 @@ import { useTranslation } from 'next-i18next'
 import { FaWhatsapp } from 'react-icons/fa'
 import { MdEmail, MdLocationOn, MdPhone } from 'react-icons/md'
 
-import { EMAIL_SENDER, socialLinks } from '@wsvvrijheid/config'
-import { PUBLIC_TOKEN } from '@wsvvrijheid/config'
-import { sendEmail } from '@wsvvrijheid/services'
-import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
-import { EmailCreateInput, StrapiLocale } from '@wsvvrijheid/types'
+import { EMAIL_SENDER, socialLinks } from '@fc/config'
+import { PUBLIC_TOKEN } from '@fc/config'
+import { sendEmail } from '@fc/services'
+import { ssrTranslations } from '@fc/services/ssrTranslations'
+import { EmailCreateInput, StrapiLocale } from '@fc/types'
 import {
   ContactForm,
   ContactFormFieldValues,
   Container,
   SocialButtons,
-} from '@wsvvrijheid/ui'
+} from '@fc/ui'
 
 import { Layout } from '../components'
 
@@ -120,7 +120,7 @@ const Contact = () => {
                 </Button>
               </VStack>
 
-              <SocialButtons items={socialLinks.trendRights} />
+              <SocialButtons items={socialLinks['trend-rights']} />
             </VStack>
 
             <Box w="full">

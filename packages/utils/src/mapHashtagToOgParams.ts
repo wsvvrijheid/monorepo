@@ -2,7 +2,7 @@
 import { format } from 'date-fns'
 import { formatInTimeZone } from 'date-fns-tz'
 
-import { Hashtag, OgImageParams } from '@wsvvrijheid/types'
+import { Hashtag, OgImageParams } from '@fc/types'
 
 const capsContent = {
   en: { title: 'TAG ANNOUNCEMENT', topic: 'Topic' },

@@ -9,14 +9,14 @@ import { useForm } from 'react-hook-form'
 import { TbPlus } from 'react-icons/tb'
 import { InferType } from 'yup'
 
-import { useCreateModelMutation } from '@wsvvrijheid/services'
+import { useCreateModelMutation } from '@fc/services'
 import {
   Post,
   PostCreateInput,
   StrapiModel,
   StrapiTranslatableCreateInput,
-} from '@wsvvrijheid/types'
-import { generateOgImageParams } from '@wsvvrijheid/utils'
+} from '@fc/types'
+import { generateOgImageParams } from '@fc/utils'
 
 import { renderCreateFormBody } from './renderCreateFormBody'
 import { ModelCreateFormProps, Option } from './types'

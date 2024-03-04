@@ -1,7 +1,7 @@
 import { Stack } from '@chakra-ui/react'
 import { Meta, StoryObj, StoryFn } from '@storybook/react'
 
-import { TWEET_MOCKS } from '@wsvvrijheid/mocks'
+import { TWEET_MOCKS } from '@fc/mocks'
 
 import { TweetCard } from './TweetCard'
 import { Container } from '../../components'

@@ -2,7 +2,7 @@ import { Box, Button, useDisclosure } from '@chakra-ui/react'
 import { Meta, StoryFn, StoryObj } from '@storybook/react'
 import { sample } from 'lodash'
 
-import { ART_MOCKS } from '@wsvvrijheid/mocks'
+import { ART_MOCKS } from '@fc/mocks'
 
 import { ArtModal } from './ArtModal'
 import { ArtModalProps } from './types'

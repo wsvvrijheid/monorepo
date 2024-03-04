@@ -1,4 +1,4 @@
-import { Auth } from '@wsvvrijheid/types'
+import { Auth } from '@fc/types'
 import 'iron-session'
 
 declare module 'iron-session' {

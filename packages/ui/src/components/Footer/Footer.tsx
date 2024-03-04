@@ -1,7 +1,6 @@
 import { FC } from 'react'
 
 import { Box, Link, Stack, Text, Wrap } from '@chakra-ui/react'
-import { motion } from 'framer-motion'
 import NextImage from 'next/image'
 import { useTranslation } from 'next-i18next'
 
@@ -11,7 +10,6 @@ import { Container } from '../Container'
 import { SocialButtons } from '../SocialButtons'
 
 export const Footer: FC<FooterProps> = ({
-  animated = true,
   name,
   menu,
   about,
@@ -35,20 +33,9 @@ export const Footer: FC<FooterProps> = ({
           align={{ base: 'center', lg: 'start' }}
         >
           <Stack align="center" maxW={250}>
-            <motion.div
-              {...(animated && {
-                animate: { rotate: -360 },
-                transition: {
-                  ease: 'linear',
-                  repeat: Infinity,
-                  duration: 60,
-                },
-              })}
-            >
-              <Link href="/">
-                <NextImage width={92} height={92} src={logo} alt="logo" />
-              </Link>
-            </motion.div>
+            <Link href="/">
+              <NextImage width={92} height={92} src={logo} alt="logo" />
+            </Link>
             <Text textAlign="center" paddingLeft={1} mx={2} my={2}>
               {t(`footer-about.${about}`)}
             </Text>

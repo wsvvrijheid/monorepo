@@ -15,15 +15,15 @@ import { QueryClient, dehydrate } from '@tanstack/react-query'
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
 import { NextSeo, NextSeoProps } from 'next-seo'
 
-import { strapiRequest } from '@wsvvrijheid/lib'
-import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
+import { strapiRequest } from '@fc/lib'
+import { ssrTranslations } from '@fc/services/ssrTranslations'
 import {
   RecommendedTopic,
   StrapiLocale,
   StrapiTranslatableModel,
-} from '@wsvvrijheid/types'
-import { Container, Navigate, TopicCard } from '@wsvvrijheid/ui'
-import { getLocalizedSlugs, getPageSeo } from '@wsvvrijheid/utils'
+} from '@fc/types'
+import { Container, Navigate, TopicCard } from '@fc/ui'
+import { getLocalizedSlugs, getPageSeo } from '@fc/utils'
 
 import { Layout } from '../components'
 

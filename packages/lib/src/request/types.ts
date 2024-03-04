@@ -6,7 +6,7 @@ import {
   StrapiLocale,
   StrapiModel,
   StrapiSingleEndpoint,
-} from '@wsvvrijheid/types'
+} from '@fc/types'
 
 export type RequestCommonArgs = {
   fields?: string[]

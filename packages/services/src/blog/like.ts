@@ -2,9 +2,9 @@ import { QueryKey, useMutation, useQueryClient } from '@tanstack/react-query'
 import axios from 'axios'
 import { useLocalStorage } from 'usehooks-ts'
 
-import { API_URL } from '@wsvvrijheid/config'
-import { useAuthContext } from '@wsvvrijheid/context'
-import { Blog, LikeMutationArgs } from '@wsvvrijheid/types'
+import { API_URL } from '@fc/config'
+import { useAuthContext } from '@fc/context'
+import { Blog, LikeMutationArgs } from '@fc/types'
 
 import { useRecaptchaToken } from '../common'
 

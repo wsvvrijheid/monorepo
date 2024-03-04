@@ -1,9 +1,9 @@
+import { foundation } from './foundation'
 import { kunsthalte } from './kunsthalte'
 import { trendRights } from './trend-rights'
-import { wsvvrijheid } from './wsvvrijheid'
 
 export const socialLinks = {
-  wsvvrijheid,
-  trendRights,
+  foundation,
+  'trend-rights': trendRights,
   kunsthalte,
 }

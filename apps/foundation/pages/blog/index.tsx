@@ -2,10 +2,10 @@ import { dehydrate, QueryClient } from '@tanstack/react-query'
 import { GetStaticPropsContext } from 'next'
 import { useTranslation } from 'next-i18next'
 
-import { getBlogs, useGetBlogs } from '@wsvvrijheid/services'
-import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
-import { StrapiLocale } from '@wsvvrijheid/types'
-import { BlogTemplate } from '@wsvvrijheid/ui'
+import { getBlogs, useGetBlogs } from '@fc/services'
+import { ssrTranslations } from '@fc/services/ssrTranslations'
+import { StrapiLocale } from '@fc/types'
+import { BlogTemplate } from '@fc/ui'
 
 import { Layout } from '../../components'
 

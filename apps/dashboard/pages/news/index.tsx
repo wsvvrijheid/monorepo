@@ -19,10 +19,10 @@ import { useTranslation } from 'next-i18next'
 import { AiOutlineClear } from 'react-icons/ai'
 import { FaSyncAlt } from 'react-icons/fa'
 
-import { useTopic, useTopicSync } from '@wsvvrijheid/services'
-import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
-import { StrapiLocale } from '@wsvvrijheid/types'
-import { AdminLayout, PageHeader, TopicCard } from '@wsvvrijheid/ui'
+import { useTopic, useTopicSync } from '@fc/services'
+import { ssrTranslations } from '@fc/services/ssrTranslations'
+import { StrapiLocale } from '@fc/types'
+import { AdminLayout, PageHeader, TopicCard } from '@fc/ui'
 
 const NewsPage = () => {
   const { data, isLoading } = useTopic()

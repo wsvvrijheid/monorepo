@@ -9,7 +9,7 @@ import {
 import dynamic from 'next/dynamic'
 import { useTranslation } from 'next-i18next'
 
-import { MentionUserData } from '@wsvvrijheid/types'
+import { MentionUserData } from '@fc/types'
 
 import { MentionListPanel } from './MentionListPanel'
 import { useHashtagContext } from '../HashtagProvider'

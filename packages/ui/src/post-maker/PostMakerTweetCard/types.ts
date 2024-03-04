@@ -1,4 +1,4 @@
-import { Post } from '@wsvvrijheid/types'
+import { Post } from '@fc/types'
 
 export type PostMakerTweetShareProps = {
   url: string

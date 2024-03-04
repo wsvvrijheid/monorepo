@@ -5,7 +5,7 @@ export const VERCEL_ENV = process.env['VERCEL_ENV']
 
 const assetUrls: Record<string, string> = {
   development: 'https://wsvv-api-staging.onrender.com',
-  production: 'https://api.wsvvrijheid.nl',
+  production: 'https://api.freedomcombination.com',
   preview: 'https://wsvv-api-staging.onrender.com',
 }
 
@@ -28,4 +28,4 @@ export const RECAPTCHA_SITE_KEY = process.env[
 ] as string
 export const IS_PROD = process.env['NODE_ENV'] === 'production'
 export const TWITTER_HANDLE =
-  (process.env['NEXT_PUBLIC_TWITTER_HANDLE'] as string) || '@wsvvrijheid'
+  (process.env['NEXT_PUBLIC_TWITTER_HANDLE'] as string) || '@fc'

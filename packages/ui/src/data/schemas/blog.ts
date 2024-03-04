@@ -1,6 +1,6 @@
 import * as yup from 'yup'
 
-import { Blog } from '@wsvvrijheid/types'
+import { Blog } from '@fc/types'
 
 import { yupMultiSelect, yupSelect } from './common'
 import { FormFields } from '../../admin'

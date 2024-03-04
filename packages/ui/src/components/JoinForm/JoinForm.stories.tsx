@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import { Meta, StoryFn, StoryObj } from '@storybook/react'
 
-import { JOB_MOCKS, PLATFORM_MOCKS } from '@wsvvrijheid/mocks'
+import { JOB_MOCKS, PLATFORM_MOCKS } from '@fc/mocks'
 
 import { JoinForm } from './JoinForm'
 import { JoinFormFieldValues, JoinFormProps } from './types'

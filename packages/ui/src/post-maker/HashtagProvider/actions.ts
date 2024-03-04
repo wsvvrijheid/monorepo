@@ -1,8 +1,8 @@
 import axios from 'axios'
 
-import { API_URL } from '@wsvvrijheid/config'
-import { PUBLIC_TOKEN } from '@wsvvrijheid/config'
-import { MentionUserData } from '@wsvvrijheid/types'
+import { API_URL } from '@fc/config'
+import { PUBLIC_TOKEN } from '@fc/config'
+import { MentionUserData } from '@fc/types'
 
 export const searchMentions = async (value: string) => {
   const response = await axios<MentionUserData[]>(

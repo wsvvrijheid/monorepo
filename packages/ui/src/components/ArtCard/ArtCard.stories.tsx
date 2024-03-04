@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react'
 
-import { ART_MOCKS, USER_MOCKS } from '@wsvvrijheid/mocks'
+import { ART_MOCKS, USER_MOCKS } from '@fc/mocks'
 
 import { ArtCard } from './ArtCard'
 import { Container } from '../Container'

@@ -4,9 +4,9 @@ import { Box } from '@chakra-ui/react'
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { serialize } from 'next-mdx-remote/serialize'
 
-import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
-import { StrapiLocale } from '@wsvvrijheid/types'
-import { Container, Hero, Markdown } from '@wsvvrijheid/ui'
+import { ssrTranslations } from '@fc/services/ssrTranslations'
+import { StrapiLocale } from '@fc/types'
+import { Container, Hero, Markdown } from '@fc/ui'
 
 import { Layout } from '../components'
 

@@ -1,7 +1,7 @@
 import { Badge, Wrap } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 
-import { ArchiveContent, Category, Tag } from '@wsvvrijheid/types'
+import { ArchiveContent, Category, Tag } from '@fc/types'
 
 import { PublicationBadges } from '../../admin'
 import { WTableProps } from '../../components'

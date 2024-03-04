@@ -1,4 +1,4 @@
-import { UploadFile } from '@wsvvrijheid/types'
+import { UploadFile } from '@fc/types'
 
 import files from './files.json'
 

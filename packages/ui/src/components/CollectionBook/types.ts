@@ -3,7 +3,7 @@ import { ComponentProps, PropsWithChildren } from 'react'
 import { CenterProps } from '@chakra-ui/react'
 import HTMLFlipBook from 'react-pageflip'
 
-import { Collection } from '@wsvvrijheid/types'
+import { Collection } from '@fc/types'
 
 export interface CollectionBookProps {
   collection: Collection

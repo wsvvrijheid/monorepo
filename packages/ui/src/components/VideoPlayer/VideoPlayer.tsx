@@ -4,7 +4,7 @@ import { AspectRatio, Box, useBoolean } from '@chakra-ui/react'
 import { FaPauseCircle, FaPlayCircle } from 'react-icons/fa'
 import ReactPlayer from 'react-player'
 
-import { getMediaUrl } from '@wsvvrijheid/utils'
+import { getMediaUrl } from '@fc/utils'
 
 type VideoPlayerProps = {
   ratio?: number

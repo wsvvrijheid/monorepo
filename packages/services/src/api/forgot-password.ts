@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { NextApiHandler } from 'next'
 
-import { API_URL } from '@wsvvrijheid/config'
+import { API_URL } from '@fc/config'
 
 export const forgotPasswordRouter: NextApiHandler = async (req, res) => {
   const { email } = req.body

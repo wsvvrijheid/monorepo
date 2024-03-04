@@ -1,8 +1,8 @@
 import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 
-import { API_URL } from '@wsvvrijheid/config'
-import { MentionUserData } from '@wsvvrijheid/types'
+import { API_URL } from '@fc/config'
+import { MentionUserData } from '@fc/types'
 
 export const lookupTwitterUsers = async (
   q?: string,

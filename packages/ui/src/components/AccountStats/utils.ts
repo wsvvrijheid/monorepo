@@ -1,7 +1,7 @@
 import { theme } from '@chakra-ui/react'
 import { format } from 'date-fns'
 
-import { AccountStats, AccountStatsBase } from '@wsvvrijheid/types'
+import { AccountStats, AccountStatsBase } from '@fc/types'
 
 import { ChartJSData } from './types'
 

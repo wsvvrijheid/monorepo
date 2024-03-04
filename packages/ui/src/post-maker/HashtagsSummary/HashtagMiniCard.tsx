@@ -2,8 +2,8 @@ import { FC } from 'react'
 
 import { Card, Heading, Stack, Text } from '@chakra-ui/react'
 
-import { Hashtag } from '@wsvvrijheid/types'
-import { Navigate, WImage } from '@wsvvrijheid/ui'
+import { Hashtag } from '@fc/types'
+import { Navigate, WImage } from '@fc/ui'
 
 type HashtagMiniCardProps = {
   hashtag: Hashtag

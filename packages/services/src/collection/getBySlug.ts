@@ -1,5 +1,5 @@
-import { strapiRequest } from '@wsvvrijheid/lib'
-import { Collection, StrapiLocale } from '@wsvvrijheid/types'
+import { strapiRequest } from '@fc/lib'
+import { Collection, StrapiLocale } from '@fc/types'
 
 export const getCollectionBySlug = async (
   locale: StrapiLocale,

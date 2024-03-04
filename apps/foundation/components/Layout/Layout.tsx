@@ -2,9 +2,9 @@ import { FC, PropsWithChildren, useEffect } from 'react'
 
 import { NextSeoProps } from 'next-seo'
 
-import { menus, socialLinks } from '@wsvvrijheid/config'
-import { useAuthContext } from '@wsvvrijheid/context'
-import { Layout as AppLayout, UserFeedback } from '@wsvvrijheid/ui'
+import { menus, socialLinks } from '@fc/config'
+import { useAuthContext } from '@fc/context'
+import { Layout as AppLayout, UserFeedback } from '@fc/ui'
 
 interface LayoutProps extends PropsWithChildren {
   isDark?: boolean
@@ -30,17 +30,17 @@ export const Layout: FC<LayoutProps> = ({
     <>
       <AppLayout
         seo={seo}
-        logo={`/images/wsvvrijheid-logo.svg`}
+        logo={`/images/foundation-logo.svg`}
         headerProps={{
-          headerMenu: menus.wsvvrijheid.headerMenu,
+          headerMenu: menus.foundation.headerMenu,
           isDark,
           hasScroll,
         }}
         footerProps={{
-          menu: menus.wsvvrijheid.footerMenu,
-          name: 'Wsvvrijheid',
-          about: 'wsvvrijheid',
-          socialItems: socialLinks.wsvvrijheid,
+          menu: menus.foundation.footerMenu,
+          name: 'Freedom Combination',
+          about: 'foundation',
+          socialItems: socialLinks.foundation,
         }}
         isDark={isDark}
         isLoading={isLoading}

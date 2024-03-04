@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { ReactNode } from 'react'
 
-import { Profile, RoleType, SessionUser } from '@wsvvrijheid/types'
+import { Profile, RoleType, SessionUser } from '@fc/types'
 
 export type AuthState = {
   user: SessionUser | null

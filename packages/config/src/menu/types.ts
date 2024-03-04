@@ -1,4 +1,4 @@
-import { MenuType } from '@wsvvrijheid/types'
+import { MenuType } from '@fc/types'
 
 export type Menus = {
   headerMenu: MenuType[]

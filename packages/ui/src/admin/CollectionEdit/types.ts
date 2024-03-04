@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from 'react'
 
-import { Collection } from '@wsvvrijheid/types'
+import { Collection } from '@fc/types'
 
 export type CollectionEditFormProps = {
   collection: Collection

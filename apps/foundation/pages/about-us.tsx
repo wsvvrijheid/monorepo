@@ -3,10 +3,10 @@ import { FC } from 'react'
 import { Heading, Image, SimpleGrid, Stack, Text } from '@chakra-ui/react'
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 
-import { ABOUT_US } from '@wsvvrijheid/config'
-import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
-import { StrapiLocale } from '@wsvvrijheid/types'
-import { AnimatedBox, Container, Hero } from '@wsvvrijheid/ui'
+import { ABOUT_US } from '@fc/config'
+import { ssrTranslations } from '@fc/services/ssrTranslations'
+import { StrapiLocale } from '@fc/types'
+import { AnimatedBox, Container, Hero } from '@fc/ui'
 
 import { Layout } from '../components'
 

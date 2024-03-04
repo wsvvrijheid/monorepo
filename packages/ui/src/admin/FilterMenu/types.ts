@@ -1,11 +1,11 @@
 import { MenuOptionGroupProps } from '@chakra-ui/react'
 
-import { RequestCollectionArgs } from '@wsvvrijheid/lib'
+import { RequestCollectionArgs } from '@fc/lib'
 import {
   StrapiCollectionEndpoint,
   StrapiModel,
   StrapiModelKeys,
-} from '@wsvvrijheid/types'
+} from '@fc/types'
 
 export type FilterOption = {
   field: StrapiModelKeys

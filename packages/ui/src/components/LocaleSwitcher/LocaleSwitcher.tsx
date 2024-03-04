@@ -3,7 +3,7 @@ import { FC } from 'react'
 import { Button, ButtonGroup } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 
-import { StrapiLocale } from '@wsvvrijheid/types'
+import { StrapiLocale } from '@fc/types'
 
 import { LocaleSwitcherProps } from './types'
 import { useScroll } from '../../hooks'

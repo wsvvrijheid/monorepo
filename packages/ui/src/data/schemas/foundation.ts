@@ -1,6 +1,6 @@
 import * as yup from 'yup'
 
-import { Foundation } from '@wsvvrijheid/types'
+import { Foundation } from '@fc/types'
 
 import { FormFields } from '../../admin'
 

@@ -1,6 +1,6 @@
 import { FieldValues } from 'react-hook-form'
 
-import { Tweet } from '@wsvvrijheid/types'
+import { Tweet } from '@fc/types'
 
 import { ModelMediaProps } from '../ModelForm/ModelMedia'
 

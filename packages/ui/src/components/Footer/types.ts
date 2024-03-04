@@ -2,10 +2,9 @@ import { HeaderMenu, HeaderNavItemProps } from '../Header/types'
 import { SocialItem } from '../SocialButtons'
 
 export type FooterProps = {
-  animated?: boolean
   name: string
   menu: HeaderMenu
-  about: 'wsvvrijheid' | 'kunsthalte' | 'trend-rights'
+  about: 'foundation' | 'kunsthalte' | 'trend-rights'
   logo: string
   socialItems: SocialItem[]
 }

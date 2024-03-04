@@ -15,8 +15,8 @@ import {
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 
-import { useStrapiRequest } from '@wsvvrijheid/services'
-import { Art } from '@wsvvrijheid/types'
+import { useStrapiRequest } from '@fc/services'
+import { Art } from '@fc/types'
 
 import { ArtAddToCollectionGrid } from './ArtAddToCollectionGrid'
 import { ArtAddToCollectionModalProps } from './types'

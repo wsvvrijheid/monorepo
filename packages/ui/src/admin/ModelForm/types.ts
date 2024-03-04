@@ -14,7 +14,7 @@ import {
   StrapiCollectionEndpoint,
   StrapiEndpoint,
   StrapiModel,
-} from '@wsvvrijheid/types'
+} from '@fc/types'
 
 import { WSelectProps } from '../../components'
 

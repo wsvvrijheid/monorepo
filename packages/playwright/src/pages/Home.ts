@@ -1,6 +1,6 @@
 import { expect, type Locator, type Page } from '@playwright/test'
 
-import { AppSlug } from '@wsvvrijheid/types'
+import { AppSlug } from '@fc/types'
 
 import { getVercelUrl } from '../utils'
 

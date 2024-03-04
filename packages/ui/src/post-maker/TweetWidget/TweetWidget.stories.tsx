@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react'
 
-import { TWEET_MOCKS } from '@wsvvrijheid/mocks'
+import { TWEET_MOCKS } from '@fc/mocks'
 
 import { TweetWidget } from './TweetWidget'
 

@@ -20,7 +20,7 @@ import { TFunction, useTranslation } from 'next-i18next'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
-import { useAuthContext } from '@wsvvrijheid/context'
+import { useAuthContext } from '@fc/context'
 
 import { SignupFormFieldValues, SignupFormProps } from './types'
 import { FormItem } from '../FormItem'

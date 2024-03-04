@@ -1,5 +1,5 @@
-import { useHashtag, useTrends } from '@wsvvrijheid/services'
-import { Trend, TwitterTrend } from '@wsvvrijheid/types'
+import { useHashtag, useTrends } from '@fc/services'
+import { Trend, TwitterTrend } from '@fc/types'
 
 export const useFindHashtagInTrends = () => {
   const hashtag = useHashtag()

@@ -6,7 +6,7 @@ import { useTranslation } from 'next-i18next'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
-import { toastMessage } from '@wsvvrijheid/utils'
+import { toastMessage } from '@fc/utils'
 
 import { ForgotPasswordFieldValues } from './types'
 import { FormItem } from '../FormItem'

@@ -1,8 +1,8 @@
 import { useQuery } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
 
-import { strapiRequest } from '@wsvvrijheid/lib'
-import { Blog, StrapiLocale } from '@wsvvrijheid/types'
+import { strapiRequest } from '@fc/lib'
+import { Blog, StrapiLocale } from '@fc/types'
 
 export const getBlogs = async (locale: StrapiLocale) => {
   const response = await strapiRequest<Blog>({

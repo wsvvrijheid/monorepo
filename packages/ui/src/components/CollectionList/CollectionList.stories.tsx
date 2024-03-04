@@ -2,9 +2,9 @@ import { Box, Grid } from '@chakra-ui/react'
 import { Meta, StoryFn, StoryObj } from '@storybook/react'
 import { useRouter } from 'next/router'
 
-import { COLLECTION_MOCKS } from '@wsvvrijheid/mocks'
-import { useStrapiRequest } from '@wsvvrijheid/services'
-import { Collection } from '@wsvvrijheid/types'
+import { COLLECTION_MOCKS } from '@fc/mocks'
+import { useStrapiRequest } from '@fc/services'
+import { Collection } from '@fc/types'
 
 import { CollectionList, CollectionListProps } from './CollectionList'
 

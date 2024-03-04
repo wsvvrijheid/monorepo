@@ -1,4 +1,4 @@
-import { ogRouter } from '@wsvvrijheid/services/src/api/og'
+import { ogRouter } from '@fc/services/src/api/og'
 
 export const config = {
   runtime: 'edge',

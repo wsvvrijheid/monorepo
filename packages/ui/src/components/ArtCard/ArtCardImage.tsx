@@ -2,7 +2,7 @@ import { FC } from 'react'
 
 import { useRouter } from 'next/router'
 
-import { UploadFile } from '@wsvvrijheid/types'
+import { UploadFile } from '@fc/types'
 
 import { ArtCardImageProps, CardImageProps } from './types'
 import { WImage } from '../WImage'

@@ -6,12 +6,12 @@ import { withHydrationOverlayWebpack } from '@builder.io/react-hydration-overlay
 const nextConfig = {
   reactStrictMode: true,
   transpilePackages: [
-    '@wsvvrijheid/config',
-    '@wsvvrijheid/context',
-    '@wsvvrijheid/lib',
-    '@wsvvrijheid/services',
-    '@wsvvrijheid/ui',
-    '@wsvvrijheid/utils',
+    '@fc/config',
+    '@fc/context',
+    '@fc/lib',
+    '@fc/services',
+    '@fc/ui',
+    '@fc/utils',
     '@builder.io/react-hydration-overlay',
   ],
   i18n: {
@@ -28,7 +28,7 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        hostname: 'api.wsvvrijheid.nl',
+        hostname: 'api.freedomcombination.com',
       },
     ],
     deviceSizes: [320, 480, 720, 1080],

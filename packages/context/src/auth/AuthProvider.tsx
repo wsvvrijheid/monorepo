@@ -5,7 +5,7 @@ import axios from 'axios'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
-import { Auth, Profile, RoleType, SessionUser } from '@wsvvrijheid/types'
+import { Auth, Profile, RoleType, SessionUser } from '@fc/types'
 
 import { initialAuthState } from './state'
 import { AuthContextType, AuthProviderProps, AuthState } from './types'

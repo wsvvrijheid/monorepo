@@ -4,7 +4,7 @@ import { Image, SimpleGrid, Stack, Text } from '@chakra-ui/react'
 import { useTranslation } from 'next-i18next'
 import { NextSeoProps } from 'next-seo'
 
-import { Blog } from '@wsvvrijheid/types'
+import { Blog } from '@fc/types'
 
 import { AnimatedBox, BlogCard, Container, Hero } from '../../components'
 

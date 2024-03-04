@@ -5,8 +5,8 @@ import { useQueryClient } from '@tanstack/react-query'
 import { useTranslation } from 'next-i18next'
 import { FaPlus } from 'react-icons/fa'
 
-import { useCreateHashtagSentence } from '@wsvvrijheid/services'
-import { toastMessage } from '@wsvvrijheid/utils'
+import { useCreateHashtagSentence } from '@fc/services'
+import { toastMessage } from '@fc/utils'
 
 type PostSentenceCreatorProps = {
   hashtagId: number
