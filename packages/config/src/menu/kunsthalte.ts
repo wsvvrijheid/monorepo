@@ -18,7 +18,7 @@ export const kunsthalte: Menus = {
         contact,
         about,
         {
-          link: 'https://wsvvrijheid.nl',
+          link: 'https://freedomcombination.com',
           tr: 'Vakıf',
           en: 'Foundation',
           nl: 'Stichting',

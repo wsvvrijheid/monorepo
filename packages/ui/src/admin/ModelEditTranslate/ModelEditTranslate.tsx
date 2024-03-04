@@ -23,11 +23,11 @@ import {
   useApproveModel,
   useStrapiRequest,
   useUpdateModelMutation,
-} from '@wsvvrijheid/services'
+} from '@fc/services'
 import {
   StrapiTranslatableModel,
   StrapiTranslatableUpdateInput,
-} from '@wsvvrijheid/types'
+} from '@fc/types'
 
 import { ModelEditTranslateProps } from './types'
 import { I18nNamespaces } from '../../../@types/i18next'

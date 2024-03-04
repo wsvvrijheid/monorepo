@@ -5,9 +5,9 @@ import { useTranslation } from 'next-i18next'
 import { BsActivity, BsCollectionFill } from 'react-icons/bs'
 import { FaPaintBrush } from 'react-icons/fa'
 
-import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
-import { StrapiLocale } from '@wsvvrijheid/types'
-import { AnimatedBox, Container, Navigate } from '@wsvvrijheid/ui'
+import { ssrTranslations } from '@fc/services/ssrTranslations'
+import { StrapiLocale } from '@fc/types'
+import { AnimatedBox, Container, Navigate } from '@fc/ui'
 
 import { Layout } from '../components'
 

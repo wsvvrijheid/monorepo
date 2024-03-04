@@ -22,8 +22,8 @@ import { useTranslation } from 'next-i18next'
 import { FaStop, FaTrash } from 'react-icons/fa6'
 import { RiAiGenerate } from 'react-icons/ri'
 
-import { StrapiLocale } from '@wsvvrijheid/types'
-import { toastMessage } from '@wsvvrijheid/utils'
+import { StrapiLocale } from '@fc/types'
+import { toastMessage } from '@fc/utils'
 
 import { PostSentenceCreator } from '../../components/PostSentenceCreator'
 

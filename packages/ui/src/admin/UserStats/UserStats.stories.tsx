@@ -3,8 +3,8 @@ import { useEffect, useState } from 'react'
 import { Meta, StoryFn, StoryObj } from '@storybook/react'
 import qs from 'qs'
 
-import { PUBLIC_TOKEN } from '@wsvvrijheid/config'
-import { UserStats as UserStatasType, UserStatsData } from '@wsvvrijheid/types'
+import { PUBLIC_TOKEN } from '@fc/config'
+import { UserStats as UserStatasType, UserStatsData } from '@fc/types'
 
 import { UserStatistics } from './UserStats'
 

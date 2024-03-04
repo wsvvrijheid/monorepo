@@ -1,3 +1,3 @@
-import { forgotPasswordRouter } from '@wsvvrijheid/services/src/api/forgot-password'
+import { forgotPasswordRouter } from '@fc/services/src/api/forgot-password'
 
 export default forgotPasswordRouter

@@ -9,8 +9,8 @@ import {
   Td,
 } from '@chakra-ui/react'
 
-import { StrapiModel, UploadFile } from '@wsvvrijheid/types'
-import { getMediaUrl } from '@wsvvrijheid/utils'
+import { StrapiModel, UploadFile } from '@fc/types'
+import { getMediaUrl } from '@fc/utils'
 
 import { WTableCellProps } from './types'
 import { FormattedDate } from '../FormattedDate'

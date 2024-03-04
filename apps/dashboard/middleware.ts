@@ -1,8 +1,8 @@
 import { getIronSession } from 'iron-session'
 import { NextRequest, NextResponse } from 'next/server'
 
-import { adminCommonRoutes } from '@wsvvrijheid/config/src/adminRoutes'
-import { Auth } from '@wsvvrijheid/types'
+import { adminCommonRoutes } from '@fc/config/src/adminRoutes'
+import { Auth } from '@fc/types'
 
 import { getRoutePermission } from './getRoutePermission'
 

@@ -2,8 +2,8 @@ import { Box, SimpleGrid, Stack, Text } from '@chakra-ui/react'
 import { FieldValues, Path } from 'react-hook-form'
 import twitterText from 'twitter-text'
 
-import { ASSETS_URL } from '@wsvvrijheid/config'
-import { RecommendedTweet, StrapiModel } from '@wsvvrijheid/types'
+import { ASSETS_URL } from '@fc/config'
+import { RecommendedTweet, StrapiModel } from '@fc/types'
 
 import { TweetContentProps } from './types'
 import { VideoPlayer, WImage } from '../../components'

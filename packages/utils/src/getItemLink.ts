@@ -1,4 +1,4 @@
-import { SITE_URL } from '@wsvvrijheid/config'
+import { SITE_URL } from '@fc/config'
 import {
   Post,
   RecommendedTopic,
@@ -6,7 +6,7 @@ import {
   StrapiEndpoint,
   StrapiSeoModel,
   StrapiTranslatableModel,
-} from '@wsvvrijheid/types'
+} from '@fc/types'
 
 import { getMainPageLink } from './getMainPageLink'
 

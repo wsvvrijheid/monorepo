@@ -1,4 +1,4 @@
-import { StrapiCollectionEndpoint, StrapiModel } from '@wsvvrijheid/types'
+import { StrapiCollectionEndpoint, StrapiModel } from '@fc/types'
 
 import { useActivityColumns } from './activity'
 import { useArchiveContentColumns } from './archive-content'

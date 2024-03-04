@@ -5,8 +5,8 @@ import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { FaChevronRight } from 'react-icons/fa'
 
-import { ASSETS_URL } from '@wsvvrijheid/config'
-import { Platform } from '@wsvvrijheid/types'
+import { ASSETS_URL } from '@fc/config'
+import { Platform } from '@fc/types'
 
 import { Navigate } from '../Navigate'
 import { WAvatar } from '../WAvatar'

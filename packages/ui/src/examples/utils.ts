@@ -1,9 +1,9 @@
 import axios from 'axios'
 
-import { PUBLIC_TOKEN } from '@wsvvrijheid/config'
-import { Mutation } from '@wsvvrijheid/lib'
-import { Category, CategoryCreateInput } from '@wsvvrijheid/types'
-import { sleep } from '@wsvvrijheid/utils'
+import { PUBLIC_TOKEN } from '@fc/config'
+import { Mutation } from '@fc/lib'
+import { Category, CategoryCreateInput } from '@fc/types'
+import { sleep } from '@fc/utils'
 
 // TODO: Add this to `packages/ui/.env` as NEXT_PUBLIC_API_URL
 // and use API_URL instead of STAGING_API_URL

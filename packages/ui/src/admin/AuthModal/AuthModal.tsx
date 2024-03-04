@@ -18,7 +18,7 @@ import { useRouter } from 'next/router'
 import { Trans, useTranslation } from 'next-i18next'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
-import { useAuthContext } from '@wsvvrijheid/context'
+import { useAuthContext } from '@fc/context'
 
 import {
   FormItem,
@@ -86,10 +86,9 @@ export const AuthModal = () => {
           <Stack textAlign="center" spacing={4} py={4} justify="center">
             <Navigate href="/">
               <VStack textAlign="center" w={'full'}>
-                <WAvatar boxSize={100} src={`/images/wsvvrijheid-logo.svg`} />
+                <WAvatar boxSize={100} src={`/images/foundation-logo.svg`} />
                 <Text fontSize="xl" color={'blue.500'} fontWeight={900}>
-                  WEES DE STEM <br />
-                  VOOR VRIJHEID
+                  FREEDOM COMBINATION
                 </Text>
               </VStack>
             </Navigate>
@@ -130,7 +129,7 @@ export const AuthModal = () => {
                           a: (
                             <Link
                               isExternal
-                              href={'https://www.wsvvrijheid.nl/tr/contact'}
+                              href={'https://freedomcombination.com/tr/contact'}
                               color="blue.500"
                             />
                           ),
@@ -154,7 +153,8 @@ export const AuthModal = () => {
               </Button>
             </Stack>
             <Text fontSize={'xs'}>
-              Wsvvrijheid &copy; {new Date().getFullYear()} All rights reserved
+              Freedom Combination &copy; {new Date().getFullYear()} All rights
+              reserved
             </Text>
           </Stack>
         </ModalBody>

@@ -14,6 +14,6 @@ type Story = StoryObj<JoinTemplateProps>
 
 export const Default: Story = {
   args: {
-    title: 'SamenVVV',
+    title: 'Trend Rights',
   },
 }

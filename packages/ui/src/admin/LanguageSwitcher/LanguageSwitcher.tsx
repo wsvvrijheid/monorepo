@@ -11,7 +11,7 @@ import {
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 
-import { StrapiLocale } from '@wsvvrijheid/types'
+import { StrapiLocale } from '@fc/types'
 
 import { Flags } from '../../components'
 

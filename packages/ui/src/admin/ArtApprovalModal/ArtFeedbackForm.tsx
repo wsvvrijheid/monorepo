@@ -4,7 +4,7 @@ import { Button, HStack, Stack, Text, Textarea } from '@chakra-ui/react'
 import { useTranslation } from 'next-i18next'
 import { HiOutlineCheck, HiOutlineX, HiPencil } from 'react-icons/hi'
 
-import { useArtFeedbackMutation } from '@wsvvrijheid/services'
+import { useArtFeedbackMutation } from '@fc/services'
 
 import { ArtFeedbackFormTypes } from './types'
 import { WAvatar, WConfirm, WConfirmProps } from '../../components'

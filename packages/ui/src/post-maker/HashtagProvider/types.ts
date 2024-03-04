@@ -3,7 +3,7 @@ import { ReactNode } from 'react'
 
 import { UseDisclosureReturn } from '@chakra-ui/react'
 
-import { MentionUserData, PostSentence, StrapiLocale } from '@wsvvrijheid/types'
+import { MentionUserData, PostSentence, StrapiLocale } from '@fc/types'
 
 export type HashtagStats = {
   unsharedCount: number

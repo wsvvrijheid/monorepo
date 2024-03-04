@@ -47,7 +47,7 @@ const sendEmail = async art => {
       </tr>
       <tr>
         <td>Link:</td>
-        <td>View the art <a href="https://dashboard.wsvvrijheid.nl/arts?status=pending">here</a></td>
+        <td>View the art <a href="https://dashboard.freedomcombination.com/arts?status=pending">here</a></td>
       </tr>
   </table>`,
     })

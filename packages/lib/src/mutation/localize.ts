@@ -3,7 +3,7 @@ import {
   StrapiLocale,
   StrapiLocalizeInput,
   StrapiTranslatableModel,
-} from '@wsvvrijheid/types'
+} from '@fc/types'
 
 import { mutation } from './mutation'
 

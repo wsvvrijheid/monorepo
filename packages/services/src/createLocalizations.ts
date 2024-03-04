@@ -1,9 +1,9 @@
-import { Mutation } from '@wsvvrijheid/lib'
+import { Mutation } from '@fc/lib'
 import {
   StrapiEndpoint,
   StrapiLocalizeInput,
   StrapiTranslatableModel,
-} from '@wsvvrijheid/types'
+} from '@fc/types'
 
 import { getModelTranslation } from './deepl'
 

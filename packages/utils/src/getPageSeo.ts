@@ -4,7 +4,7 @@ import {
   SITE_URL,
   TWITTER_HANDLE,
   endpointsWithLocalizedTitle,
-} from '@wsvvrijheid/config'
+} from '@fc/config'
 import {
   Art,
   Blog,
@@ -14,7 +14,7 @@ import {
   StrapiEndpoint,
   StrapiLocale,
   StrapiSeoModel,
-} from '@wsvvrijheid/types'
+} from '@fc/types'
 
 import { getItemLink } from './getItemLink'
 import { getMediaUrl } from './getMediaUrl'

@@ -9,8 +9,8 @@ import {
   StrapiEndpoint,
   StrapiModel,
   StrapiTranslatableModel,
-} from '@wsvvrijheid/types'
-import { getMediaUrl } from '@wsvvrijheid/utils'
+} from '@fc/types'
+import { getMediaUrl } from '@fc/utils'
 
 import { Caps, FilePicker, VideoPlayer, WImage } from '../../components'
 

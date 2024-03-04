@@ -1,10 +1,6 @@
-import { Mutation } from '@wsvvrijheid/lib'
-import { getSecret } from '@wsvvrijheid/secrets'
-import {
-  Donation,
-  DonationUpdateInput,
-  StrapiEndpoint,
-} from '@wsvvrijheid/types'
+import { Mutation } from '@fc/lib'
+import { getSecret } from '@fc/secrets'
+import { Donation, DonationUpdateInput, StrapiEndpoint } from '@fc/types'
 
 export const donationWebhook = async (event: any) => {
   // check the checkout session status, if it's paid then update the donation status

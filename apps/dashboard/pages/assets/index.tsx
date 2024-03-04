@@ -5,10 +5,10 @@ import { GetStaticPropsContext } from 'next'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
-import { useStrapiRequest } from '@wsvvrijheid/services'
-import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
-import { Asset, Sort, StrapiLocale } from '@wsvvrijheid/types'
-import { AdminLayout, DataTable, PageHeader, useColumns } from '@wsvvrijheid/ui'
+import { useStrapiRequest } from '@fc/services'
+import { ssrTranslations } from '@fc/services/ssrTranslations'
+import { Asset, Sort, StrapiLocale } from '@fc/types'
+import { AdminLayout, DataTable, PageHeader, useColumns } from '@fc/ui'
 
 const AssetsPage = () => {
   const { locale, query, push } = useRouter()

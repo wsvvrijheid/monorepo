@@ -3,7 +3,7 @@ import { ReactNode } from 'react'
 import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { InferType } from 'yup'
 
-import { Course, FaqLocale } from '@wsvvrijheid/types'
+import { Course, FaqLocale } from '@fc/types'
 
 import { applicationSchema } from './schema'
 

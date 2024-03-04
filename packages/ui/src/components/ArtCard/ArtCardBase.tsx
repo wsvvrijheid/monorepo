@@ -18,7 +18,7 @@ import {
   useDeleteModel,
   usePublishModel,
   useUnpublishModel,
-} from '@wsvvrijheid/services'
+} from '@fc/services'
 
 import { ArtCardActions } from './ArtCardActions'
 import { ArtCardAlertDialog } from './ArtCardAlertDialog'

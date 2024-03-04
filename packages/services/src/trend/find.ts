@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 
-import { strapiRequest } from '@wsvvrijheid/lib'
-import { Trend } from '@wsvvrijheid/types'
+import { strapiRequest } from '@fc/lib'
+import { Trend } from '@fc/types'
 
 export const getTrends = async () => {
   const response = await strapiRequest<Trend>({

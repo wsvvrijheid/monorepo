@@ -1,6 +1,6 @@
 import { NextSeoProps } from 'next-seo'
 
-import { Localize } from '@wsvvrijheid/types'
+import { Localize } from '@fc/types'
 
 export const lotus: Localize<NextSeoProps> = {
   en: {

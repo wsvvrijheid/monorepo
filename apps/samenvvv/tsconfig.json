@@ -1,5 +1,0 @@
-{
-  "extends": "@wsvvrijheid/config/tsconfig.nextjs.json",
-  "include": ["next-env.d.ts", "@types/**/*.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules"]
-}

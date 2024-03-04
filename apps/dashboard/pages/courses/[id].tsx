@@ -17,14 +17,9 @@ import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { FaArrowDown, FaArrowUp } from 'react-icons/fa'
 
-import { useStrapiRequest } from '@wsvvrijheid/services'
-import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
-import {
-  Course,
-  CourseApplication,
-  Sort,
-  StrapiLocale,
-} from '@wsvvrijheid/types'
+import { useStrapiRequest } from '@fc/services'
+import { ssrTranslations } from '@fc/services/ssrTranslations'
+import { Course, CourseApplication, Sort, StrapiLocale } from '@fc/types'
 import {
   AdminLayout,
   DataTable,
@@ -32,7 +27,7 @@ import {
   ModelEditModal,
   PageHeader,
   useColumns,
-} from '@wsvvrijheid/ui'
+} from '@fc/ui'
 
 const CoursePage = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()

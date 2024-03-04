@@ -2,7 +2,7 @@ import { FC } from 'react'
 
 import { Badge, BadgeProps, HStack } from '@chakra-ui/react'
 
-import { StrapiLocale } from '@wsvvrijheid/types'
+import { StrapiLocale } from '@fc/types'
 
 type LocaleBadgesProps = {
   locales: StrapiLocale[]

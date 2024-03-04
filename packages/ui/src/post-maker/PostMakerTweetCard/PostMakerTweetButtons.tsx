@@ -10,9 +10,9 @@ import { FaXTwitter } from 'react-icons/fa6'
 import { GoMention } from 'react-icons/go'
 import { MdTrendingUp } from 'react-icons/md'
 
-import { SITE_URL } from '@wsvvrijheid/config'
-import { useHashtag, useUpdateHashtagSentence } from '@wsvvrijheid/services'
-import { RedisPost } from '@wsvvrijheid/types'
+import { SITE_URL } from '@fc/config'
+import { useHashtag, useUpdateHashtagSentence } from '@fc/services'
+import { RedisPost } from '@fc/types'
 
 import { PostMakerTweetProgress } from './PostMakerTweetProgress'
 import { PostMakerTweetShare } from './PostMakerTweetShare'

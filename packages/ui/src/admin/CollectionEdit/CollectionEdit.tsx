@@ -9,7 +9,7 @@ import {
   Text,
 } from '@chakra-ui/react'
 
-import { Collection } from '@wsvvrijheid/types'
+import { Collection } from '@fc/types'
 
 import { CollectionEditProps } from './types'
 import { ModelEditForm } from '../ModelForm'

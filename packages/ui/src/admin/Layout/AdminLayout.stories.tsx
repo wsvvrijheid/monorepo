@@ -2,8 +2,8 @@ import { Box } from '@chakra-ui/react'
 import { StoryObj, Meta } from '@storybook/react'
 import { sample } from 'lodash'
 
-import { USER_MOCKS } from '@wsvvrijheid/mocks'
-import { mapSessionUser } from '@wsvvrijheid/utils'
+import { USER_MOCKS } from '@fc/mocks'
+import { mapSessionUser } from '@fc/utils'
 
 import { AdminLayout, AdminLayoutProps } from './AdminLayout'
 

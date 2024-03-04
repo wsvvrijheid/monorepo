@@ -1,4 +1,4 @@
-import { Tweet } from '@wsvvrijheid/types'
+import { Tweet } from '@fc/types'
 
 export const TIMELINE_TWEET_MOCKS: Omit<Tweet, 'user'>[] = [
   {

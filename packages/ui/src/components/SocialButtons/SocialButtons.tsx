@@ -4,7 +4,7 @@ import { HStack, IconButton } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { IconType } from 'react-icons/lib'
 
-import { Localize } from '@wsvvrijheid/types'
+import { Localize } from '@fc/types'
 
 export type SocialItem = {
   label: string

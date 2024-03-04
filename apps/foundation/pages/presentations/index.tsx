@@ -5,10 +5,10 @@ import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
-import { strapiRequest } from '@wsvvrijheid/lib'
-import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
-import { Presentation, StrapiLocale, UploadFile } from '@wsvvrijheid/types'
-import { AnimatedBox, Card, FormattedDate, Hero } from '@wsvvrijheid/ui'
+import { strapiRequest } from '@fc/lib'
+import { ssrTranslations } from '@fc/services/ssrTranslations'
+import { Presentation, StrapiLocale, UploadFile } from '@fc/types'
+import { AnimatedBox, Card, FormattedDate, Hero } from '@fc/ui'
 
 import { Layout } from '../../components'
 

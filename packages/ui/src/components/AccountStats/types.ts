@@ -1,5 +1,5 @@
-import { AccountStatsBase } from '@wsvvrijheid/types'
-import { AccountStats } from '@wsvvrijheid/types'
+import { AccountStatsBase } from '@fc/types'
+import { AccountStats } from '@fc/types'
 
 export type ChartJSData = {
   labels: Array<{

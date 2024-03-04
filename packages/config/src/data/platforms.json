@@ -1,21 +1,21 @@
 [
   {
-    "image": "/images/samen-logo.svg",
+    "image": "/images/trend-rights-logo.svg",
     "colors": {
-      "bg": "samen.100",
-      "header": "samen.500"
+      "bg": "trend-rights.100",
+      "header": "trend-rights.500"
     },
     "title": {
-      "en": "Together for Freedom and Conecting",
-      "nl": "Samen voor Vrijheid en Verbinding",
-      "tr": "Birlikte Yaşama ve Özgürlük"
+      "en": "Trend Rights",
+      "nl": "Trend Rights",
+      "tr": "Trend Rights"
     },
     "description": {
       "en": "Today, with the developing technology, social media is one of the most important tools for explaining human rights and announcing human rights violations. For this reason, a social media platform has been established within our foundation for the effective use of social media tools.",
       "nl": "Vandaag de dag, met de zich ontwikkelende technologie, is sociale media een van de belangrijkste instrumenten om mensenrechten uit te leggen en mensenrechtenschendingen aan te kondigen. Om deze reden is er binnen onze stichting een social media platform opgericht voor het effectief inzetten van social media tools.",
       "tr": "Günümüzde gelişen teknolojiyle birlikte sosyal medya insan haklarının anlatılması ve insan hakları ihlallerinin duyurulması için en önemli araçlardandır. Bu nedenle sosyal medya araçlarının etkin bir biçimde kullanılması için, vakfımız bünyesinde sosyal medya platformu kurulmuştur."
     },
-    "link": "/platforms/samenvvv"
+    "link": "/platforms/trend-rights"
   },
   {
     "image": "/images/lotus-logo.svg",
@@ -61,9 +61,9 @@
       "header": "blue.500"
     },
     "title": {
-      "en": "WSVVrijheid Academy",
-      "nl": "WSVVrijheid Academie",
-      "tr": "WSVVrijheid Akademi"
+      "en": "FC Academy",
+      "nl": "FC Academie",
+      "tr": "FC Akademi"
     },
     "description": {
       "en": "First of all, it is aimed to meet the software needs of the foundation, and to provide internship opportunities for those who contribute to the software and to provide references in job applications.",

@@ -10,7 +10,7 @@ import {
   Wrap,
 } from '@chakra-ui/react'
 
-import { UploadFile } from '@wsvvrijheid/types'
+import { UploadFile } from '@fc/types'
 
 import { Navigate } from '../Navigate'
 import { WAvatar } from '../WAvatar'

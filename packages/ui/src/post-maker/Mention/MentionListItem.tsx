@@ -16,8 +16,8 @@ import {
 import { useTranslation } from 'next-i18next'
 import { FaPlus, FaTimes } from 'react-icons/fa'
 
-import { MentionUserData } from '@wsvvrijheid/types'
-import { formatNumber } from '@wsvvrijheid/utils'
+import { MentionUserData } from '@fc/types'
+import { formatNumber } from '@fc/utils'
 
 import { WAvatar } from '../../components'
 import { useHashtagContext } from '../HashtagProvider'

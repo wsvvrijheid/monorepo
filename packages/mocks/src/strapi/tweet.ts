@@ -1,4 +1,4 @@
-import { Tweet } from '@wsvvrijheid/types'
+import { Tweet } from '@fc/types'
 
 export const TWEET_MOCKS: Tweet[] = [
   {

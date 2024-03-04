@@ -17,9 +17,9 @@ import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { AiFillHeart } from 'react-icons/ai'
 import { FaCalendarDay, FaClock, FaEye } from 'react-icons/fa'
 
-import { useLikeBlog } from '@wsvvrijheid/services'
-import { Blog, UploadFile } from '@wsvvrijheid/types'
-import { getReadingTime } from '@wsvvrijheid/utils'
+import { useLikeBlog } from '@fc/services'
+import { Blog, UploadFile } from '@fc/types'
+import { getReadingTime } from '@fc/utils'
 
 import { BlogCard } from '../BlogCard'
 import { FormattedDate } from '../FormattedDate'

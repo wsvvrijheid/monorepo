@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 
-import { StrapiTranslatableModel } from '@wsvvrijheid/types'
+import { StrapiTranslatableModel } from '@fc/types'
 
 export const getReferenceModel = <T extends StrapiTranslatableModel>(
   model?: T | null,

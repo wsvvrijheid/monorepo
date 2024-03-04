@@ -19,8 +19,8 @@ import {
 import { BsThreeDotsVertical } from 'react-icons/bs'
 import { FaFacebook, FaLinkedin, FaTelegram, FaWhatsapp } from 'react-icons/fa'
 
-import { RECAPTCHA_SITE_KEY } from '@wsvvrijheid/config'
-import { useAuthContext } from '@wsvvrijheid/context'
+import { RECAPTCHA_SITE_KEY } from '@fc/config'
+import { useAuthContext } from '@fc/context'
 
 import { PostSentencesModal } from './PostSentencesModal'
 import { PostMakerTweetShareProps } from './types'

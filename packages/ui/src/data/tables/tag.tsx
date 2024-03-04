@@ -1,4 +1,4 @@
-import { Tag } from '@wsvvrijheid/types'
+import { Tag } from '@fc/types'
 
 import { PublicationBadges } from '../../admin'
 import { WTableProps } from '../../components'

@@ -12,8 +12,8 @@ import {
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
-import { PlatformSlug, Platform } from '@wsvvrijheid/types'
-import { AnimatedBox, Container, Navigate, WImage } from '@wsvvrijheid/ui'
+import { PlatformSlug, Platform } from '@fc/types'
+import { AnimatedBox, Container, Navigate, WImage } from '@fc/ui'
 
 type HomePlatformProps = {
   platforms: Platform[]
@@ -24,10 +24,14 @@ const colors: Record<
   { bg: string; colorScheme: string; text: string }
 > = {
   lotus: { bg: 'black', colorScheme: 'yellow', text: 'white' },
-  samenvvv: { bg: 'samen.100', colorScheme: 'samen', text: 'initial' },
+  'trend-rights': {
+    bg: 'trend-rights.100',
+    colorScheme: 'trend-rights',
+    text: 'initial',
+  },
   kunsthalte: { bg: 'green.100', colorScheme: 'green', text: 'initial' },
   academy: { bg: 'blue.100', colorScheme: 'blue', text: 'initial' },
-  weesmusic: { bg: 'red.100', colorScheme: 'red', text: 'initial' },
+  'rhythmic-dreams': { bg: 'red.100', colorScheme: 'red', text: 'initial' },
 }
 
 export const HomePlatform: FC<HomePlatformProps> = ({ platforms }) => {

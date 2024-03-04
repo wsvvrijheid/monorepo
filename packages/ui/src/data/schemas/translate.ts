@@ -1,6 +1,6 @@
 import * as yup from 'yup'
 
-import { Post, StrapiTranslatableModel } from '@wsvvrijheid/types'
+import { Post, StrapiTranslatableModel } from '@fc/types'
 
 import { FormFields } from '../../admin'
 

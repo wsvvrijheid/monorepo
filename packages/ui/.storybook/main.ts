@@ -25,15 +25,15 @@ const config: StorybookConfig = {
 
       config.resolve.alias = {
         ...config.resolve.alias,
-        '@wsvvrijheid/config': path.resolve(__dirname, '../../config'),
-        '@wsvvrijheid/context': path.resolve(__dirname, '../../context'),
-        '@wsvvrijheid/lib': path.resolve(__dirname, '../../lib'),
-        '@wsvvrijheid/mocks': path.resolve(__dirname, '../../mocks'),
-        '@wsvvrijheid/secrets': path.resolve(__dirname, '../../secrets'),
-        '@wsvvrijheid/services': path.resolve(__dirname, '../../services'),
-        '@wsvvrijheid/types': path.resolve(__dirname, '../../types'),
-        '@wsvvrijheid/ui': path.resolve(__dirname, '../../ui'),
-        '@wsvvrijheid/utils': path.resolve(__dirname, '../../utils'),
+        '@fc/config': path.resolve(__dirname, '../../config'),
+        '@fc/context': path.resolve(__dirname, '../../context'),
+        '@fc/lib': path.resolve(__dirname, '../../lib'),
+        '@fc/mocks': path.resolve(__dirname, '../../mocks'),
+        '@fc/secrets': path.resolve(__dirname, '../../secrets'),
+        '@fc/services': path.resolve(__dirname, '../../services'),
+        '@fc/types': path.resolve(__dirname, '../../types'),
+        '@fc/ui': path.resolve(__dirname, '../../ui'),
+        '@fc/utils': path.resolve(__dirname, '../../utils'),
         'next-i18next': 'react-i18next',
       }
     }

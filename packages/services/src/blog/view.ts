@@ -3,9 +3,9 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
 import { useLocalStorage } from 'usehooks-ts'
 
-import { useAuthContext } from '@wsvvrijheid/context'
-import { Mutation } from '@wsvvrijheid/lib'
-import { Blog, BlogUpdateInput } from '@wsvvrijheid/types'
+import { useAuthContext } from '@fc/context'
+import { Mutation } from '@fc/lib'
+import { Blog, BlogUpdateInput } from '@fc/types'
 
 import { useGetBlogSlug } from './getBlogBySlug'
 

@@ -2,7 +2,7 @@ import { FC } from 'react'
 
 import { Box, Divider, HStack, Stack, Text } from '@chakra-ui/react'
 
-import { useAuthContext } from '@wsvvrijheid/context'
+import { useAuthContext } from '@fc/context'
 
 import { AdminSidebarProfile } from './AdminSidebarProfile'
 import { Navigate, WAvatar } from '../../components'
@@ -33,8 +33,8 @@ export const AdminSidebar: FC<AdminSidebarProps> = ({ mobile }) => {
         <HStack align="center" spacing={4} alignItems="center" justify="center">
           <WAvatar
             size={'lg'}
-            src={`/images/wsvvrijheid-logo.svg`}
-            name="Wsvvrijheid"
+            src={`/images/foundation-logo.svg`}
+            name="Freedom Combination"
           />
 
           <Text color={'blue.500'} fontWeight={700} fontSize="xl">
@@ -70,7 +70,7 @@ export const AdminSidebar: FC<AdminSidebarProps> = ({ mobile }) => {
         <Divider mb={4} />
         <Stack>
           <Text fontSize={'sm'} textAlign="center">
-            Wsvvrijheid &copy;All Copyrights Reserved
+            Freedom Combination &copy;All Copyrights Reserved
           </Text>
         </Stack>
       </Box>

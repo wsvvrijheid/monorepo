@@ -26,8 +26,8 @@ import { GrFormClose } from 'react-icons/gr'
 import stringSimilarity from 'string-similarity'
 import { ObjectSchema } from 'yup'
 
-import { useRecommendTweet } from '@wsvvrijheid/services'
-import { Mention, Tweet } from '@wsvvrijheid/types'
+import { useRecommendTweet } from '@fc/services'
+import { Mention, Tweet } from '@fc/types'
 
 import { createTweetSchema } from './schema'
 import { CreateTweetFormFieldValues, CreateTweetFormProps } from './types'

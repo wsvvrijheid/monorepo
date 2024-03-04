@@ -1,6 +1,6 @@
 import * as yup from 'yup'
 
-import { UserFeedback } from '@wsvvrijheid/types'
+import { UserFeedback } from '@fc/types'
 
 import { FormFields } from '../../admin'
 

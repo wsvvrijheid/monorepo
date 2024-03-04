@@ -1,6 +1,6 @@
 import * as yup from 'yup'
 
-import { Tweet } from '@wsvvrijheid/types'
+import { Tweet } from '@fc/types'
 
 import { createTweetSchema } from './schema'
 

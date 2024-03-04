@@ -15,7 +15,7 @@ import { useRouter } from 'next/router'
 import { Trans, useTranslation } from 'next-i18next'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
-import { useAuthContext } from '@wsvvrijheid/context'
+import { useAuthContext } from '@fc/context'
 
 import { adminLoginSchema } from './schema'
 import {
@@ -86,11 +86,10 @@ export const AdminLoginForm = () => {
         >
           <Navigate href="/">
             <VStack textAlign="center" w={'full'}>
-              <WAvatar size="2xl" src={`/images/wsvvrijheid-logo.svg`} />
+              <WAvatar size="2xl" src={`/images/foundation-logo.svg`} />
 
               <Text fontSize="xl" color={'blue.500'} fontWeight={900}>
-                WEES DE STEM <br />
-                VOOR VRIJHEID
+                FREEDOM COMBINATION
               </Text>
             </VStack>
           </Navigate>
@@ -132,7 +131,7 @@ export const AdminLoginForm = () => {
                         a: (
                           <Link
                             isExternal
-                            href={'https://www.wsvvrijheid.nl/tr/contact'}
+                            href={'https://freedomcombination.com/tr/contact'}
                             color="blue.500"
                           />
                         ),
@@ -159,7 +158,8 @@ export const AdminLoginForm = () => {
           </Stack>
 
           <Text fontSize={'xs'}>
-            Wsvvrijheid &copy; {new Date().getFullYear()} All rights reserved
+            Freedom Combination &copy; {new Date().getFullYear()} All rights
+            reserved
           </Text>
         </Stack>
       </Container>

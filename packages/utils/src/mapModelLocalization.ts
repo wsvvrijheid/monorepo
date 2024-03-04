@@ -4,7 +4,7 @@ import {
   LocalizedModel,
   StrapiTranslatableModel,
   TranslatableModel,
-} from '@wsvvrijheid/types'
+} from '@fc/types'
 
 export const mapModelLocalization = <T extends StrapiTranslatableModel>(
   model: TranslatableModel<T>,

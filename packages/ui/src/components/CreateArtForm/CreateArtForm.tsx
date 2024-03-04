@@ -29,9 +29,9 @@ import { FieldErrorsImpl, useForm } from 'react-hook-form'
 import useFormPersist from 'react-hook-form-persist'
 import { FaPlus, FaUpload } from 'react-icons/fa'
 
-import { useAuthContext } from '@wsvvrijheid/context'
-import { useCreateModelMutation, useStrapiRequest } from '@wsvvrijheid/services'
-import { ArtCreateInput, Category } from '@wsvvrijheid/types'
+import { useAuthContext } from '@fc/context'
+import { useCreateModelMutation, useStrapiRequest } from '@fc/services'
+import { ArtCreateInput, Category } from '@fc/types'
 
 import { ArtCreateSuccessAlert } from './CreateArtSuccessAlert'
 import { createArtSchema } from './schema'

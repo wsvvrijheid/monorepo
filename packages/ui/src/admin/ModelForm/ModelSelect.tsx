@@ -2,9 +2,9 @@ import { useState } from 'react'
 
 import { useRouter } from 'next/router'
 
-import { endpointsWithApprovalStatus } from '@wsvvrijheid/config'
-import { useStrapiRequest } from '@wsvvrijheid/services'
-import { StrapiModel } from '@wsvvrijheid/types'
+import { endpointsWithApprovalStatus } from '@fc/config'
+import { useStrapiRequest } from '@fc/services'
+import { StrapiModel } from '@fc/types'
 
 import { ModelSelectProps } from './types'
 import { mapModelsToOptions } from './utils'

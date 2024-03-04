@@ -2,11 +2,11 @@ import axios from 'axios'
 import { getIronSession } from 'iron-session'
 import { NextApiHandler } from 'next'
 
-import { API_URL } from '@wsvvrijheid/config'
-import { Mutation } from '@wsvvrijheid/lib'
-import { getSecret, sessionOptions } from '@wsvvrijheid/secrets'
-import { loginAuth } from '@wsvvrijheid/services'
-import { Auth, AuthResponse, ProfileCreateInput } from '@wsvvrijheid/types'
+import { API_URL } from '@fc/config'
+import { Mutation } from '@fc/lib'
+import { getSecret, sessionOptions } from '@fc/secrets'
+import { loginAuth } from '@fc/services'
+import { Auth, AuthResponse, ProfileCreateInput } from '@fc/types'
 
 export const registerRouter: NextApiHandler = async (req, res) => {
   const { name, username, email, password } = req.body

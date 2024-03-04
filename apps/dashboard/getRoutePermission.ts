@@ -1,4 +1,4 @@
-import { RoleType } from '@wsvvrijheid/types'
+import { RoleType } from '@fc/types'
 
 export const adminRoleRoutes = [
   '/',

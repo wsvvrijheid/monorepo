@@ -3,11 +3,11 @@ import { FC } from 'react'
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { serialize } from 'next-mdx-remote/serialize'
 
-import { strapiRequest } from '@wsvvrijheid/lib'
-import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
-import { Presentation, StrapiLocale } from '@wsvvrijheid/types'
-import { Hero, PresentationTemplate } from '@wsvvrijheid/ui'
-import { getLocalizedSlugs } from '@wsvvrijheid/utils'
+import { strapiRequest } from '@fc/lib'
+import { ssrTranslations } from '@fc/services/ssrTranslations'
+import { Presentation, StrapiLocale } from '@fc/types'
+import { Hero, PresentationTemplate } from '@fc/ui'
+import { getLocalizedSlugs } from '@fc/utils'
 
 import { Layout } from '../components/index'
 

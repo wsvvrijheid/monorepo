@@ -8,7 +8,7 @@ import {
   Tabs,
 } from '@chakra-ui/react'
 
-import { useTrends } from '@wsvvrijheid/services'
+import { useTrends } from '@fc/services'
 
 import { TrendList } from './TrendList'
 import { useFindHashtagInTrends } from './useFindHashtagsInTrend'

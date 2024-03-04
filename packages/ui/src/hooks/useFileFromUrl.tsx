@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 
 import axios from 'axios'
 
-import { ASSETS_URL } from '@wsvvrijheid/config'
+import { ASSETS_URL } from '@fc/config'
 
 export const useFileFromUrl = (
   url?: string,

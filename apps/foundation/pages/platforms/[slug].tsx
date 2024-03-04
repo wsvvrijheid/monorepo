@@ -2,11 +2,11 @@ import { FC } from 'react'
 
 import { GetStaticPropsContext } from 'next'
 
-import { getModelStaticPaths } from '@wsvvrijheid/services'
-import { getPlatformStaticProps } from '@wsvvrijheid/services/src/platform/getStaticProps'
-import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
-import { StrapiLocale } from '@wsvvrijheid/types'
-import { PlatformTemplate, PlatformTemplateProps } from '@wsvvrijheid/ui'
+import { getModelStaticPaths } from '@fc/services'
+import { getPlatformStaticProps } from '@fc/services/src/platform/getStaticProps'
+import { ssrTranslations } from '@fc/services/ssrTranslations'
+import { StrapiLocale } from '@fc/types'
+import { PlatformTemplate, PlatformTemplateProps } from '@fc/ui'
 
 import { Layout } from '../../components'
 

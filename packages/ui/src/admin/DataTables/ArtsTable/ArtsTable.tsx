@@ -2,8 +2,8 @@ import { FC, useState } from 'react'
 
 import { useDisclosure } from '@chakra-ui/react'
 
-import { useAuthContext } from '@wsvvrijheid/context'
-import { Art } from '@wsvvrijheid/types'
+import { useAuthContext } from '@fc/context'
+import { Art } from '@fc/types'
 
 import { useColumns } from '../../../data'
 import { ArtApprovalModal } from '../../ArtApprovalModal'

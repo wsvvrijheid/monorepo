@@ -1,4 +1,4 @@
-import { Art, Collection } from '@wsvvrijheid/types'
+import { Art, Collection } from '@fc/types'
 
 export type ArtAddToCollectionCardProps = {
   isAdded: boolean

@@ -3,15 +3,15 @@ import { QueryClient, dehydrate } from '@tanstack/react-query'
 import { GetStaticPropsContext } from 'next'
 import { useTranslation } from 'next-i18next'
 
-import { useAuthContext } from '@wsvvrijheid/context'
-import { RequestCollectionArgs, strapiRequest } from '@wsvvrijheid/lib'
-import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
+import { useAuthContext } from '@fc/context'
+import { RequestCollectionArgs, strapiRequest } from '@fc/lib'
+import { ssrTranslations } from '@fc/services/ssrTranslations'
 import {
   AccountStats,
   AccountStats as AccountStatsType,
   StrapiLocale,
-} from '@wsvvrijheid/types'
-import { AdminLayout } from '@wsvvrijheid/ui'
+} from '@fc/types'
+import { AdminLayout } from '@fc/ui'
 
 const args: RequestCollectionArgs<AccountStats> = {
   endpoint: 'account-statistics',

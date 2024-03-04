@@ -1,9 +1,9 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 
-import { SITE_URL } from '@wsvvrijheid/config'
-import { Mutation } from '@wsvvrijheid/lib'
-import { getSecret } from '@wsvvrijheid/secrets'
-import { Donation, DonationCreateInput } from '@wsvvrijheid/types'
+import { SITE_URL } from '@fc/config'
+import { Mutation } from '@fc/lib'
+import { getSecret } from '@fc/secrets'
+import { Donation, DonationCreateInput } from '@fc/types'
 
 import { stripe } from '../initStripe'
 

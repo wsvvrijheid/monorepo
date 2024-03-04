@@ -1,4 +1,4 @@
-import { Art, StrapiCollectionResponse } from '@wsvvrijheid/types'
+import { Art, StrapiCollectionResponse } from '@fc/types'
 
 export const ART_MOCKS: StrapiCollectionResponse<Art[]> = {
   data: [

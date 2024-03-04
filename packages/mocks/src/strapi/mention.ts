@@ -1,8 +1,4 @@
-import {
-  Mention,
-  MentionUserData,
-  StrapiCollectionResponse,
-} from '@wsvvrijheid/types'
+import { Mention, MentionUserData, StrapiCollectionResponse } from '@fc/types'
 
 export const MENTION_MOCKS: StrapiCollectionResponse<Mention[]> = {
   data: [

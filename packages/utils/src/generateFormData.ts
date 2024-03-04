@@ -1,4 +1,4 @@
-import { StrapiCreateInput, StrapiUpdateInput } from '@wsvvrijheid/types'
+import { StrapiCreateInput, StrapiUpdateInput } from '@fc/types'
 
 export const generateFormData = <
   T extends StrapiCreateInput | StrapiUpdateInput,

@@ -12,7 +12,7 @@ import {
 } from '@chakra-ui/react'
 import { FaPlus } from 'react-icons/fa6'
 
-import { StrapiModel } from '@wsvvrijheid/types'
+import { StrapiModel } from '@fc/types'
 
 import { ModelCreateForm } from './ModelCreateForm'
 import { ModelCreateFormProps } from './types'

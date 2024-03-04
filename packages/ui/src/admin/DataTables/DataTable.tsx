@@ -10,7 +10,7 @@ import {
 } from '@chakra-ui/react'
 import { useTranslation } from 'next-i18next'
 
-import { StrapiModel } from '@wsvvrijheid/types'
+import { StrapiModel } from '@fc/types'
 
 import { DataTableProps } from './types'
 import { Pagination, WTable } from '../../components'

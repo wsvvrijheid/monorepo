@@ -2,7 +2,7 @@ import { ReactNode } from 'react'
 
 import { AnyObjectSchema } from 'yup'
 
-import { StrapiTranslatableModel } from '@wsvvrijheid/types'
+import { StrapiTranslatableModel } from '@fc/types'
 
 import { FormFields, ModelEditFormProps } from '../ModelForm'
 

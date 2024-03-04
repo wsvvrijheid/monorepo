@@ -4,7 +4,7 @@ import {
   StrapiLocale,
   StrapiTranslatableModel,
   TranslatableModel,
-} from '@wsvvrijheid/types'
+} from '@fc/types'
 
 export type TranslateModalProps<T extends StrapiTranslatableModel> = {
   isOpen: boolean

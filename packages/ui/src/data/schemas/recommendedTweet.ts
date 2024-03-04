@@ -1,6 +1,6 @@
 import * as yup from 'yup'
 
-import { RecommendedTweet } from '@wsvvrijheid/types'
+import { RecommendedTweet } from '@fc/types'
 
 import { FormFields } from '../../admin'
 

@@ -21,7 +21,7 @@ import {
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
-import { Art, StrapiLocale } from '@wsvvrijheid/types'
+import { Art, StrapiLocale } from '@fc/types'
 
 import { ArtFeedbackForm } from './ArtFeedbackForm'
 import { ArtApprovalTypes } from './types'

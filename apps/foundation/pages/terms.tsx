@@ -4,10 +4,10 @@ import { truncate } from 'lodash'
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { serialize } from 'next-mdx-remote/serialize'
 
-import { strapiRequest } from '@wsvvrijheid/lib'
-import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
-import { StrapiLocale, Term } from '@wsvvrijheid/types'
-import { Container, Hero, Markdown } from '@wsvvrijheid/ui'
+import { strapiRequest } from '@fc/lib'
+import { ssrTranslations } from '@fc/services/ssrTranslations'
+import { StrapiLocale, Term } from '@fc/types'
+import { Container, Hero, Markdown } from '@fc/ui'
 
 import { Layout } from '../components'
 

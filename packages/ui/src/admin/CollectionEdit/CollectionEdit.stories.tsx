@@ -1,7 +1,7 @@
 import { Container } from '@chakra-ui/react'
 import { Meta, StoryObj } from '@storybook/react'
 
-import { COLLECTION_MOCKS } from '@wsvvrijheid/mocks'
+import { COLLECTION_MOCKS } from '@fc/mocks'
 
 import { CollectionEdit } from './CollectionEdit'
 

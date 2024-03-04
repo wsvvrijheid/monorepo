@@ -1,9 +1,4 @@
-import {
-  Activity,
-  ApprovalStatus,
-  Profile,
-  StrapiLocale,
-} from '@wsvvrijheid/types'
+import { Activity, ApprovalStatus, Profile, StrapiLocale } from '@fc/types'
 
 import { LocaleBadges, PublicationBadges } from '../../admin'
 import { WTableProps } from '../../components'

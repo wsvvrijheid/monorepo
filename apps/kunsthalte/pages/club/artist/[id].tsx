@@ -3,10 +3,10 @@ import { FC } from 'react'
 import { dehydrate, QueryClient } from '@tanstack/react-query'
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
 
-import { getArtistServerProps } from '@wsvvrijheid/services'
-import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
-import { StrapiLocale } from '@wsvvrijheid/types'
-import { ArtistTemplate } from '@wsvvrijheid/ui'
+import { getArtistServerProps } from '@fc/services'
+import { ssrTranslations } from '@fc/services/ssrTranslations'
+import { StrapiLocale } from '@fc/types'
+import { ArtistTemplate } from '@fc/ui'
 
 import { Layout } from '../../../components'
 

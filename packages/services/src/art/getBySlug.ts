@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 
-import { strapiRequest } from '@wsvvrijheid/lib'
-import { Art } from '@wsvvrijheid/types'
+import { strapiRequest } from '@fc/lib'
+import { Art } from '@fc/types'
 
 import { useStrapiRequest } from '../common'
 

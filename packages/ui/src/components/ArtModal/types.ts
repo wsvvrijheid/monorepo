@@ -1,4 +1,4 @@
-import { Art } from '@wsvvrijheid/types'
+import { Art } from '@fc/types'
 
 export type ArtModalProps = {
   art: Art

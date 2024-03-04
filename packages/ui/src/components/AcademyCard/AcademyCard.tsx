@@ -10,7 +10,7 @@ import {
 } from '@chakra-ui/react'
 import Link from 'next/link'
 
-import { UploadFile } from '@wsvvrijheid/types'
+import { UploadFile } from '@fc/types'
 
 import { WImage } from '../../components'
 

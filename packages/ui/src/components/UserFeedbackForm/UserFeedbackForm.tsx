@@ -20,8 +20,8 @@ import { FieldErrorsImpl, useForm } from 'react-hook-form'
 import { IoSend } from 'react-icons/io5'
 import { ObjectSchema } from 'yup'
 
-import { useUserFeedbackMutation } from '@wsvvrijheid/services'
-import { UserFeedbackCreateInput } from '@wsvvrijheid/types'
+import { useUserFeedbackMutation } from '@fc/services'
+import { UserFeedbackCreateInput } from '@fc/types'
 
 import { createUserFeedbackSchema } from './schema'
 import {

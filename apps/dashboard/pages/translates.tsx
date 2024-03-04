@@ -14,8 +14,8 @@ import { GetStaticPropsContext } from 'next'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
-import { useStrapiRequest } from '@wsvvrijheid/services'
-import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
+import { useStrapiRequest } from '@fc/services'
+import { ssrTranslations } from '@fc/services/ssrTranslations'
 import {
   Activity,
   ApprovalStatus,
@@ -23,7 +23,7 @@ import {
   StrapiCollectionEndpoint,
   StrapiLocale,
   StrapiModel,
-} from '@wsvvrijheid/types'
+} from '@fc/types'
 import {
   AdminLayout,
   DataTable,
@@ -33,7 +33,7 @@ import {
   useColumns,
   useFields,
   useSchema,
-} from '@wsvvrijheid/ui'
+} from '@fc/ui'
 
 const ActivitiesTranslatePage = () => {
   const [searchTerm, setSearchTerm] = useState<string>()
