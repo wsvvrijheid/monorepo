@@ -8,11 +8,13 @@ type GeneratedArchiveContentPost = {
 type GenPostValueType = {
   posts: GeneratedArchiveContentPost[]
   addPost: (post: GeneratedArchiveContentPost) => void
+  removePosts: () => Promise<void>
 }
 
 const GenPostContext = createContext<GenPostValueType>({
   posts: [],
   addPost: () => null,
+  removePosts: () => Promise.resolve(),
 })
 
 export const useGenPostContext = () => {
@@ -26,8 +28,17 @@ export const GenPostProvider = ({ children }: React.PropsWithChildren) => {
     setPosts(prevPosts => [...prevPosts, { ...post }])
   }
 
+  const removePosts = (): Promise<void> => {
+    return new Promise(resolve => {
+      setTimeout(() => {
+        setPosts([])
+        resolve()
+      }, 5000)
+    })
+  }
+
   return (
-    <GenPostContext.Provider value={{ posts, addPost }}>
+    <GenPostContext.Provider value={{ posts, addPost, removePosts }}>
       {children}
     </GenPostContext.Provider>
   )
