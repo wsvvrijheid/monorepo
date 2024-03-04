@@ -15,8 +15,8 @@ export default ({ env }) => ({
         },
       },
       settings: {
-        defaultFrom: 'info@freedomcombination.com',
-        defaultReplyTo: 'info@freedomcombination.com',
+        defaultFrom: 'info@wsvvrijheid.nl',
+        defaultReplyTo: 'info@wsvvrijheid.nl',
       },
     },
   },

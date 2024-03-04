@@ -319,7 +319,7 @@ export const PLATFORM_MOCKS: StrapiCollectionResponse<Platform[]> = {
       ],
       foundation: {
         id: 1,
-        email: 'info@freedomcombination.com',
+        email: 'info@wsvvrijheid.nl',
         name: 'Stichting Freedom Combination',
         bank1: 'ING BANK',
         bank2: 'TRIODOS BANK',
@@ -823,7 +823,7 @@ export const PLATFORM_MOCKS: StrapiCollectionResponse<Platform[]> = {
       ],
       foundation: {
         id: 1,
-        email: 'info@freedomcombination.com',
+        email: 'info@wsvvrijheid.nl',
         name: 'Stichting Freedom Combination',
         bank1: 'ING BANK',
         bank2: 'TRIODOS BANK',
@@ -1172,7 +1172,7 @@ export const PLATFORM_MOCKS: StrapiCollectionResponse<Platform[]> = {
       ],
       foundation: {
         id: 1,
-        email: 'info@freedomcombination.com',
+        email: 'info@wsvvrijheid.nl',
         name: 'Stichting Freedom Combination',
         bank1: 'ING BANK',
         bank2: 'TRIODOS BANK',
@@ -1751,7 +1751,7 @@ export const PLATFORM_MOCKS: StrapiCollectionResponse<Platform[]> = {
       ],
       foundation: {
         id: 1,
-        email: 'info@freedomcombination.com',
+        email: 'info@wsvvrijheid.nl',
         name: 'Stichting Freedom Combination',
         bank1: 'ING BANK',
         bank2: 'TRIODOS BANK',
@@ -1994,7 +1994,7 @@ export const PLATFORM_MOCKS: StrapiCollectionResponse<Platform[]> = {
       volunteers: [],
       foundation: {
         id: 1,
-        email: 'info@freedomcombination.com',
+        email: 'info@wsvvrijheid.nl',
         name: 'Stichting Freedom Combination',
         bank1: 'ING BANK',
         bank2: 'TRIODOS BANK',
