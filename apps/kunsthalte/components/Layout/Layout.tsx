@@ -30,18 +30,19 @@ export const Layout: FC<LayoutProps> = ({
     <>
       <AppLayout
         seo={seo}
-        logo={'/images/kunsthalte-logo.svg'}
         hasProfile
         headerProps={{
           headerMenu: menus.kunsthalte.headerMenu,
           isDark,
           hasScroll,
+          logo: '/images/kunsthalte-logo.svg',
         }}
         footerProps={{
           name: 'Kunsthalte',
           menu: menus.kunsthalte.footerMenu,
           about: 'kunsthalte',
           socialItems: socialLinks.kunsthalte,
+          logo: '/images/kunsthalte-logo.svg',
         }}
         isDark={isDark}
         isLoading={isLoading}

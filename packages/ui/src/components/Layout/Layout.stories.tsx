@@ -10,12 +10,13 @@ export default {
   args: {
     headerProps: {
       headerMenu: HEADER_MENU,
+      logo: 'https://freedomcombination.com/images/logo.svg',
     },
-    logo: 'https://freedomcombination.com/images/logo.svg',
     footerProps: {
       menu: FOOTER_MENU,
       about: 'trend-rights',
       socialItems: SOCIAL_LINKS,
+      logo: 'https://freedomcombination.com/images/logo.svg',
     },
   },
 } as Meta<LayoutProps>
