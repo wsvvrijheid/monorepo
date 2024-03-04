@@ -26069,9 +26069,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"samenvvv@workspace:apps/samenvvv":
+"trend-rights@workspace:apps/trend-rights":
   version: 0.0.0-use.local
-  resolution: "samenvvv@workspace:apps/samenvvv"
+  resolution: "trend-rights@workspace:apps/trend-rights"
   languageName: unknown
   linkType: soft
 

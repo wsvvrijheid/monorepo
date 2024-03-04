@@ -24,7 +24,11 @@ const colors: Record<
   { bg: string; colorScheme: string; text: string }
 > = {
   lotus: { bg: 'black', colorScheme: 'yellow', text: 'white' },
-  samenvvv: { bg: 'samen.100', colorScheme: 'samen', text: 'initial' },
+  trendRights: {
+    bg: 'trend-rights.100',
+    colorScheme: 'trend-rights',
+    text: 'initial',
+  },
   kunsthalte: { bg: 'green.100', colorScheme: 'green', text: 'initial' },
   academy: { bg: 'blue.100', colorScheme: 'blue', text: 'initial' },
   weesmusic: { bg: 'red.100', colorScheme: 'red', text: 'initial' },

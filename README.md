@@ -12,10 +12,10 @@ This Turborepo includes the following packages/apps:
 ### Apps
 
 - `api`: Strapi Backend
-- `dashboard`: https://dashboard.wsvvrijheid.nl
-- `foundation`: https://wsvvrijheid.nl
+- `dashboard`: https://dashboard.freedomcombination.com
+- `foundation`: https://freedomcombination.com
 - `kunsthalte`: https://kunsthalte.com
-- `samenvvv`: https://samenvvv.nl
+- `trend-rights`: https://trendrights.com
 
 ### Packages
 
@@ -49,7 +49,7 @@ yarn dev
 yarn dashboard
 yarn foundation
 yarn kunsthalte
-yarn samenvvv
+yarn trend-rights
 yarn storybook
 # The backend (api) will always be accessible via localhost:1337 for dev mode.
 ```

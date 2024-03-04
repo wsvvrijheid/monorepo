@@ -8,7 +8,10 @@ import { Providers } from '@wsvvrijheid/ui'
 
 const MyApp: FC<AppProps> = ({ Component, pageProps }) => {
   return (
-    <Providers appSlug="samenvvv" dehydratedState={pageProps.dehydratedState}>
+    <Providers
+      appSlug="trendRights"
+      dehydratedState={pageProps.dehydratedState}
+    >
       <Component {...pageProps} />
     </Providers>
   )

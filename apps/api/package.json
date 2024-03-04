@@ -9,7 +9,7 @@
     "foundation": "strapi dev",
     "kunsthalte": "strapi dev",
     "transfer": "strapi transfer --from https://api.wsvvrijheid.nl/admin",
-    "samenvvv": "strapi dev",
+    "trend-rights": "strapi dev",
     "lint": "eslint .",
     "start": "strapi start",
     "build": "strapi build",

@@ -9,7 +9,7 @@ import {
 } from './routes'
 import { Menus } from './types'
 
-export const samenvvv: Menus = {
+export const trendRights: Menus = {
   headerMenu: [announcements, hashtags, about, contact, foundation],
   footerMenu: [
     {

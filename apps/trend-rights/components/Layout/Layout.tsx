@@ -30,19 +30,19 @@ export const Layout: FC<LayoutProps> = ({
     <>
       <AppLayout
         seo={seo}
-        logo={'/images/samen-logo.svg'}
+        logo={'/images/trend-rights-logo.svg'}
         headerProps={{
-          headerMenu: menus.samenvvv.headerMenu,
+          headerMenu: menus.trendRights.headerMenu,
           animated: false,
           isDark,
           hasScroll,
         }}
         footerProps={{
-          name: 'samenvvv',
+          name: 'trend-rights',
           animated: false,
-          menu: menus.samenvvv.footerMenu,
-          about: 'samenvvv',
-          socialItems: socialLinks.samenvvv,
+          menu: menus.trendRights.footerMenu,
+          about: 'trend-rights',
+          socialItems: socialLinks.trendRights,
         }}
         isDark={isDark}
         isLoading={isLoading}

@@ -24,7 +24,7 @@ type Story = StoryObj<FooterProps>
 export const Default: Story = {
   args: {
     menu: FOOTER_MENU,
-    about: 'samenvvv',
+    about: 'trend-rights',
     logo: 'https://wsvvrijheid.nl/images/logo.svg',
     socialItems: SOCIAL_LINKS,
   },

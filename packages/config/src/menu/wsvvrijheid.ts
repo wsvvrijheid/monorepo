@@ -14,7 +14,7 @@ import {
   platforms,
   presentations,
   privacy,
-  samenvvv,
+  trendRights,
   term,
   music,
 } from './routes'
@@ -28,7 +28,7 @@ export const wsvvrijheid: Menus = {
       en: platforms?.en,
       nl: platforms?.nl,
       tr: platforms?.tr,
-      children: [samenvvv, artStop, lotus, academy, music],
+      children: [trendRights, artStop, lotus, academy, music],
     },
     blogs,
     club,
@@ -42,7 +42,7 @@ export const wsvvrijheid: Menus = {
   ],
   footerMenu: [
     {
-      children: [samenvvv, artStop, lotus, academy, music],
+      children: [trendRights, artStop, lotus, academy, music],
       en: platforms?.en,
       nl: platforms?.nl,
       tr: platforms?.tr,

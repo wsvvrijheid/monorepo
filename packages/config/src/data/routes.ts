@@ -1,6 +1,11 @@
 import { MenuType } from '@wsvvrijheid/types'
 
-type PlatformRouteKey = 'lotus' | 'artStop' | 'music' | 'samenvvv' | 'academy'
+type PlatformRouteKey =
+  | 'lotus'
+  | 'artStop'
+  | 'music'
+  | 'trendRights'
+  | 'academy'
 
 type SiteRouteKey =
   | 'sign-up'
@@ -88,11 +93,11 @@ export const ROUTES: Record<RouteKey, MenuType> = {
     nl: 'Wees Muziek',
     tr: 'Wees Muzik',
   },
-  samenvvv: {
-    link: '/platforms/samenvvv',
-    en: 'Samenvvv',
-    nl: 'Samenvvv',
-    tr: 'Samenvvv',
+  trendRights: {
+    link: '/platforms/trend-rights',
+    en: 'Trend Rights',
+    nl: 'Trend Rights',
+    tr: 'Trend Rights',
   },
   academy: {
     link: '/platforms/academy',

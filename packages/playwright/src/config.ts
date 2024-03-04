@@ -5,7 +5,7 @@ export const ports: Record<AppSlug, number> = {
   wsvvrijheid: 3001,
   kunsthalte: 3002,
   lotus: 3003,
-  samenvvv: 3004,
+  trendRights: 3004,
 }
 
 export const projects = Object.keys(ports) as AppSlug[]

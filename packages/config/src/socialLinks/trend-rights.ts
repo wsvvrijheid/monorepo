@@ -1,14 +1,14 @@
 import { FaInstagram, FaWhatsapp } from 'react-icons/fa'
 import { FaXTwitter } from 'react-icons/fa6'
 
-export const samenvvv = [
+export const trendRights = [
   {
     label: 'X',
     icon: FaXTwitter,
     link: {
-      en: 'https://x.com/samenvvvEN',
-      tr: 'https://x.com/samenvvvTR',
-      nl: 'https://x.com/samenvvv',
+      en: 'https://x.com/TrendRights_EN',
+      tr: 'https://x.com/TrendRights_TR',
+      nl: 'https://x.com/TrendRights_NL',
     },
   },
   {
@@ -24,9 +24,9 @@ export const samenvvv = [
     label: 'Instagram',
     icon: FaInstagram,
     link: {
-      en: 'https://instagram.com/samenvvv',
-      tr: 'https://instagram.com/samenvvv',
-      nl: 'https://instagram.com/samenvvv',
+      en: 'https://instagram.com/trendrights',
+      tr: 'https://instagram.com/trendrights',
+      nl: 'https://instagram.com/trendrights',
     },
   },
 ]

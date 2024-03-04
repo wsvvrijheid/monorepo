@@ -5,14 +5,14 @@ import { colors } from './colors'
 import { fonts } from './fonts'
 import { defaultTheme } from './theme'
 
-export const samenvvv = extendTheme(
+export const trendRights = extendTheme(
   merge(defaultTheme, {
     fonts: {
       body: fonts.body,
       heading: fonts.body,
     },
     colors: {
-      primary: colors.samen,
+      primary: colors['trend-rights'],
     },
   }),
 )

@@ -187,9 +187,9 @@ export const getServerSideProps = async (
       : undefined
 
     const twitterHandle = {
-      en: '@samenvvvEn',
-      nl: '@samenvvv',
-      tr: '@samenvvvTr',
+      en: '@TrendRights_EN',
+      nl: '@TrendRights_NL',
+      tr: '@TrendRights_TR',
     }
 
     seo = {

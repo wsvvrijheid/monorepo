@@ -7,7 +7,7 @@ const {
   platforms,
   lotus,
   artStop,
-  samenvvv,
+  trendRights,
   academy,
   blogs,
   club,
@@ -24,7 +24,7 @@ export const HEADER_MENU: Pick<HeaderNavProps, 'menu'>['menu'] = [
     en: platforms.en,
     nl: platforms.nl,
     tr: platforms.tr,
-    children: [lotus, artStop, samenvvv, academy],
+    children: [lotus, artStop, trendRights, academy],
   },
   blogs,
   club,
@@ -39,7 +39,7 @@ export const HEADER_MENU: Pick<HeaderNavProps, 'menu'>['menu'] = [
 
 export const FOOTER_MENU = [
   {
-    children: [lotus, artStop, samenvvv, academy],
+    children: [lotus, artStop, trendRights, academy],
     en: platforms.en,
     nl: platforms.nl,
     tr: platforms.tr,

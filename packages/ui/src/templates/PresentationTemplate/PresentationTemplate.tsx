@@ -82,12 +82,12 @@ export const PresentationTemplate: FC<PresentationTemplateProps> = ({
           <Stack spacing={4} order={{ base: 1, md: 2 }}>
             <Link
               isExternal
-              href={'https://www.samenvvv.nl/tr/hashtags/kusatilmis-ebeveynlik'}
+              href={'https://trendrights.com/tr/hashtags/kusatilmis-ebeveynlik'}
             >
               <Center aspectRatio={{ base: 3, md: 2 }}>
                 <Button
                   boxSize={'full'}
-                  colorScheme={'samen'}
+                  colorScheme={'trend-rights'}
                   variant={'outline'}
                   fontSize={'2xl'}
                   flexDir={'column'}

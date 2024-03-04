@@ -64,7 +64,7 @@ const Contact = () => {
               justify="center"
               spacing={{ base: 8, lg: 16 }}
             >
-              <Heading color={'primary.50'}>{t('samenvvv')}</Heading>
+              <Heading color={'primary.50'}>{t('trend-rights')}</Heading>
               <VStack alignItems="flex-start" color="primary.50">
                 <Button
                   as={Link}
@@ -100,9 +100,9 @@ const Contact = () => {
                   variant="ghost"
                   _hover={{ borderColor: 'primary.50' }}
                   leftIcon={<Box as={MdEmail} color="primary.50" size="20px" />}
-                  href="mailto:info@samenvvv.nl"
+                  href="mailto:info@trendrights.com"
                 >
-                  info@samenvvv.nl
+                  info@trendrights.com
                 </Button>
                 <Button
                   as={Link}
@@ -120,7 +120,7 @@ const Contact = () => {
                 </Button>
               </VStack>
 
-              <SocialButtons items={socialLinks.samenvvv} />
+              <SocialButtons items={socialLinks.trendRights} />
             </VStack>
 
             <Box w="full">
