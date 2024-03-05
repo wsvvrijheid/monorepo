@@ -43,7 +43,7 @@ export const Layout: FC<LayoutProps> = ({
           menu: menus['trend-rights'].footerMenu,
           about: 'trend-rights',
           socialItems: socialLinks['trend-rights'],
-          logo: '/images/trend-rights-logo.svg',
+          logo: '/images/trend-rights-logo-light.svg',
         }}
         isDark={isDark}
         isLoading={isLoading}
