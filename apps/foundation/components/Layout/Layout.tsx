@@ -34,7 +34,9 @@ export const Layout: FC<LayoutProps> = ({
           headerMenu: menus.foundation.headerMenu,
           isDark,
           hasScroll,
-          logo: `/images/foundation-logo.svg`,
+          logo: isDark
+            ? '/images/foundation-logo-light.svg'
+            : `/images/foundation-logo.svg`,
         }}
         footerProps={{
           menu: menus.foundation.footerMenu,

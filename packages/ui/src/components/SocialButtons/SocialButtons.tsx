@@ -32,8 +32,8 @@ export const SocialButtons: FC<SocialButtonsProps> = ({ items }) => {
           href={item.link[locale]}
           variant="outline"
           colorScheme="primary"
-          borderColor="primary.200"
-          color="primary.200"
+          borderColor="primary.100"
+          color="primary.100"
           _hover={{
             bg: 'whiteAlpha.100',
             borderColor: 'primary.50',

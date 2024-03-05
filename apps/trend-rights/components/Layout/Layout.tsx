@@ -34,7 +34,9 @@ export const Layout: FC<LayoutProps> = ({
           headerMenu: menus['trend-rights'].headerMenu,
           isDark,
           hasScroll,
-          logo: '/images/trend-rights-logo.svg',
+          logo: isDark
+            ? '/images/trend-rights-logo-light.svg'
+            : '/images/trend-rights-logo.svg',
         }}
         footerProps={{
           name: 'trend-rights',
