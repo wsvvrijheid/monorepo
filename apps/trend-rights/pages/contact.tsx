@@ -72,6 +72,7 @@ const Contact = () => {
                   borderWidth={2}
                   borderColor="transparent"
                   variant="ghost"
+                  color={'white'}
                   _hover={{ borderColor: 'primary.50' }}
                   leftIcon={<Box as={MdPhone} color="primary.50" size="20px" />}
                   href="tel:+31685221308"
@@ -84,6 +85,7 @@ const Contact = () => {
                   borderWidth={2}
                   borderColor="transparent"
                   variant="ghost"
+                  color={'white'}
                   _hover={{ borderColor: 'primary.50' }}
                   leftIcon={
                     <Box as={FaWhatsapp} color="primary.50" size="20px" />
@@ -98,6 +100,7 @@ const Contact = () => {
                   borderWidth={2}
                   borderColor="transparent"
                   variant="ghost"
+                  color={'white'}
                   _hover={{ borderColor: 'primary.50' }}
                   leftIcon={<Box as={MdEmail} color="primary.50" size="20px" />}
                   href="mailto:info@trendrights.com"
@@ -110,6 +113,7 @@ const Contact = () => {
                   borderWidth={2}
                   borderColor="transparent"
                   variant="ghost"
+                  color={'white'}
                   _hover={{ borderColor: 'primary.50' }}
                   leftIcon={
                     <Box as={MdLocationOn} color="primary.50" size="20px" />
