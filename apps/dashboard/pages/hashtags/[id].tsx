@@ -28,11 +28,7 @@ import { useStrapiRequest } from '@wsvvrijheid/services'
 import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
 import { Hashtag, StrapiLocale } from '@wsvvrijheid/types'
 import { ArchiveContent } from '@wsvvrijheid/types/src/archive-content'
-import {
-  AdminLayout,
-  ArchivePostGenAI,
-  ModelEditModal,
-} from '@wsvvrijheid/ui'
+import { AdminLayout, ArchivePostGenAI, ModelEditModal } from '@wsvvrijheid/ui'
 import { GenPostProvider } from '@wsvvrijheid/ui'
 
 const HashtagPage = () => {
