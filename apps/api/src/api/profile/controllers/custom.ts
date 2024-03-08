@@ -7,7 +7,8 @@ module.exports = {
       const userId = ctx.state.user.id;
   
       try {
-        const profile = await strapi.entityService.get('user', userId, {
+        // what should I use here? 
+        const profile = await strapi.entityService.getProfile('user', userId, {
           populate: 'profile', 
         });
   
@@ -22,4 +23,3 @@ module.exports = {
       }
     },
   };
-  
