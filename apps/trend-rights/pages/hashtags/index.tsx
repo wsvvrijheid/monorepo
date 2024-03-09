@@ -35,7 +35,7 @@ const HashtagEvents = () => {
         image={'/images/hashtags-bg.jpeg'}
       />
       <Container overflowX="hidden">
-        <Stack spacing={12} mb={12}>
+        <Stack spacing={{ base: 4, lg: 8 }} my={{ base: 4, lg: 8 }}>
           {hashtagsQuery.data?.data?.map((hashtag, i) => (
             <AnimatedBox
               directing={i % 2 === 0 ? 'to-left' : 'to-right'}
