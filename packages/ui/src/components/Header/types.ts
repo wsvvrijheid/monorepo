@@ -8,7 +8,6 @@ export type ProfileMenuProps = Pick<HeaderProps, 'isDark' | 'isLoggedIn'>
 
 export interface HeaderProps {
   hasProfile?: boolean
-  hasScroll?: boolean
   headerMenu: HeaderMenu
   isDark?: boolean
   isLoggedIn?: boolean
