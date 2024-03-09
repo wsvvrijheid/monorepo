@@ -13,7 +13,7 @@ import { Layout } from '../components'
 
 type PrivacyProps = InferGetStaticPropsType<typeof getStaticProps>
 
-const Privacy: FC<PrivacyProps> = ({ privacy, seo, source }) => {
+const PrivacyPage: FC<PrivacyProps> = ({ privacy, seo, source }) => {
   return (
     <Layout seo={seo} isDark>
       <Hero title={privacy.title} isFullHeight={false} />
@@ -24,7 +24,7 @@ const Privacy: FC<PrivacyProps> = ({ privacy, seo, source }) => {
   )
 }
 
-export default Privacy
+export default PrivacyPage
 
 export const getStaticProps = async (context: GetStaticPropsContext) => {
   const locale = context.locale as StrapiLocale

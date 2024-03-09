@@ -32,7 +32,7 @@ const Home: FC<HomeProps> = ({ hashtags }) => {
   const hasStarted = isPast(new Date(hashtag?.date as string))
 
   return (
-    <Layout seo={{ title: t('home') }} isDark hasScroll>
+    <Layout seo={{ title: t('home') }} isDark>
       <Box
         bgGradient={'linear(to-b, primary.400, primary.500)'}
         mt={{ base: '-64px', lg: '-100px' }}

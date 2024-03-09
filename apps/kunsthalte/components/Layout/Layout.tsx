@@ -9,7 +9,6 @@ import { Layout as AppLayout, UserFeedback } from '@fc/ui'
 interface LayoutProps extends PropsWithChildren {
   isDark?: boolean
   isLoading?: boolean
-  hasScroll?: boolean
   seo: NextSeoProps
 }
 
@@ -17,7 +16,6 @@ export const Layout: FC<LayoutProps> = ({
   children,
   isDark,
   isLoading,
-  hasScroll,
   seo,
 }) => {
   const { checkAuth } = useAuthContext()
@@ -34,7 +32,6 @@ export const Layout: FC<LayoutProps> = ({
         headerProps={{
           headerMenu: menus.kunsthalte.headerMenu,
           isDark,
-          hasScroll,
           logo: '/images/kunsthalte-logo.svg',
         }}
         footerProps={{

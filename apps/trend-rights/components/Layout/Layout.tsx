@@ -4,12 +4,11 @@ import { NextSeoProps } from 'next-seo'
 
 import { menus, socialLinks } from '@fc/config'
 import { useAuthContext } from '@fc/context'
-import { Layout as AppLayout, UserFeedback } from '@fc/ui'
+import { Layout as AppLayout, UserFeedback, useScroll } from '@fc/ui'
 
 interface LayoutProps extends PropsWithChildren {
   isDark?: boolean
   isLoading?: boolean
-  hasScroll?: boolean
   seo: NextSeoProps
 }
 
@@ -17,10 +16,10 @@ export const Layout: FC<LayoutProps> = ({
   children,
   isDark,
   isLoading,
-  hasScroll,
   seo,
 }) => {
   const { checkAuth } = useAuthContext()
+  const isScrolled = useScroll()
 
   useEffect(() => {
     checkAuth()
@@ -33,10 +32,10 @@ export const Layout: FC<LayoutProps> = ({
         headerProps={{
           headerMenu: menus['trend-rights'].headerMenu,
           isDark,
-          hasScroll,
-          logo: isDark
-            ? '/images/trend-rights-logo-light.svg'
-            : '/images/trend-rights-logo.svg',
+          logo:
+            isDark && !isScrolled
+              ? '/images/trend-rights-logo-light.svg'
+              : '/images/trend-rights-logo.svg',
         }}
         footerProps={{
           name: 'trend-rights',
