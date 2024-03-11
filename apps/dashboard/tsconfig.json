@@ -1,5 +1,15 @@
 {
   "extends": "@fc/config/tsconfig.nextjs.json",
-  "include": ["next-env.d.ts", "@types/**/*.ts", "**/*.ts", "**/*.tsx"],
+  "compilerOptions": {
+    "plugins": [{ "name": "next" }],
+    "strictNullChecks": true
+  },
+  "include": [
+    "next-env.d.ts",
+    "@types/**/*.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts"
+  ],
   "exclude": ["node_modules"]
 }
