@@ -1,11 +1,5 @@
 import { kv } from '@vercel/kv'
-import { NextRequest, NextResponse } from 'next/server'
-
-const headers = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-  'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-}
+import { NextRequest } from 'next/server'
 
 export const hashtagSentencesRouter = async (req: NextRequest) => {
   const method = req.method
@@ -16,7 +10,7 @@ export const hashtagSentencesRouter = async (req: NextRequest) => {
 
         const response = await kv.rpush(`hashtag:${hashtagId}`, value)
 
-        return NextResponse.json(response, { headers })
+        return new Response(JSON.stringify(response))
       } catch (error) {
         console.error('Create sentence error', error)
         throw error
@@ -29,7 +23,7 @@ export const hashtagSentencesRouter = async (req: NextRequest) => {
 
         const response = await kv.lset(`hashtag:${hashtagId}`, index, value)
 
-        return NextResponse.json(response, { headers })
+        return new Response(JSON.stringify(response))
       } catch (error) {
         console.error('Update sentence error', error)
         throw error
@@ -41,9 +35,9 @@ export const hashtagSentencesRouter = async (req: NextRequest) => {
         const hashtagId = req.nextUrl.searchParams.get('hashtagId')?.toString()
         const value = req.nextUrl.searchParams.get('value')?.toString()
 
-        const result = await kv.lrem(`hashtag:${hashtagId}`, 0, value)
+        const response = await kv.lrem(`hashtag:${hashtagId}`, 0, value)
 
-        return NextResponse.json(result, { headers })
+        return new Response(JSON.stringify(response))
       } catch (error) {
         console.error('Delete sentence error', error)
         throw error
@@ -52,10 +46,12 @@ export const hashtagSentencesRouter = async (req: NextRequest) => {
 
     const hashtagId = req.nextUrl.searchParams.get('hashtagId')?.toString()
 
-    const result = await kv.lrange(`hashtag:${hashtagId}`, 0, -1)
+    const response = await kv.lrange(`hashtag:${hashtagId}`, 0, -1)
 
-    return NextResponse.json(result, { headers })
+    return new Response(JSON.stringify(response))
   } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { headers })
+    return new Response(JSON.stringify({ error: error.message }), {
+      status: error.status || 500,
+    })
   }
 }
