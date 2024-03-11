@@ -1,6 +1,8 @@
 import { kv } from '@vercel/kv'
 import { NextRequest, NextResponse } from 'next/server'
 
+import cors from '@fc/lib/src/cors'
+
 export const hashtagSentencesRouter = async (req: NextRequest) => {
   const method = req.method
   try {
@@ -10,7 +12,7 @@ export const hashtagSentencesRouter = async (req: NextRequest) => {
 
         const response = await kv.rpush(`hashtag:${hashtagId}`, value)
 
-        return NextResponse.json(response)
+        return cors(req, NextResponse.json(response))
       } catch (error) {
         console.error('Create sentence error', error)
         throw error
@@ -23,7 +25,7 @@ export const hashtagSentencesRouter = async (req: NextRequest) => {
 
         const response = await kv.lset(`hashtag:${hashtagId}`, index, value)
 
-        return NextResponse.json(response)
+        return cors(req, NextResponse.json(response))
       } catch (error) {
         console.error('Update sentence error', error)
         throw error
@@ -37,7 +39,7 @@ export const hashtagSentencesRouter = async (req: NextRequest) => {
 
         const result = await kv.lrem(`hashtag:${hashtagId}`, 0, value)
 
-        return NextResponse.json(result)
+        return cors(req, NextResponse.json(result))
       } catch (error) {
         console.error('Delete sentence error', error)
         throw error
@@ -48,8 +50,8 @@ export const hashtagSentencesRouter = async (req: NextRequest) => {
 
     const result = await kv.lrange(`hashtag:${hashtagId}`, 0, -1)
 
-    return NextResponse.json(result)
+    return cors(req, NextResponse.json(result))
   } catch (error: any) {
-    return NextResponse.json({ error: error.message })
+    return cors(req, NextResponse.json({ error: error.message }))
   }
 }
