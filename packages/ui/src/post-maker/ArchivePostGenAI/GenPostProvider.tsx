@@ -1,4 +1,6 @@
-import { createContext, useContext, useState } from 'react'
+import { createContext, useContext } from 'react'
+
+import { useLocalStorage } from 'usehooks-ts'
 
 type GeneratedArchiveContentPost = {
   description: string
@@ -22,7 +24,10 @@ export const useGenPostContext = () => {
 }
 
 export const GenPostProvider = ({ children }: React.PropsWithChildren) => {
-  const [posts, setPosts] = useState<GeneratedArchiveContentPost[]>([])
+  const [posts, setPosts] = useLocalStorage<GeneratedArchiveContentPost[]>(
+    'generated-archive-content-posts',
+    [],
+  )
 
   const addPost = (post: GeneratedArchiveContentPost) => {
     setPosts(prevPosts => [...prevPosts, { ...post }])
