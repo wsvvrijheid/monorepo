@@ -64,7 +64,7 @@ export const ArchivePostGenAI = ({
   const [charLimitOfDescriptions, setCharLimitOfDescriptions] =
     useState<number>()
   const [charLimitOfSentences, setCharLimitOfSentences] = useState<number>()
-  const { posts, addPost } = useGenPostContext()
+  const { posts, addPost, removePosts } = useGenPostContext()
 
   const { locale } = useRouter()
 
@@ -90,6 +90,7 @@ export const ArchivePostGenAI = ({
     onFinish(prompt: string, completion: string) {
       const parsedCompletion = JSON.parse(completion)
       setGeneratedArchiveContentPosts(parsedCompletion)
+      parsedCompletion.map((post: GeneratedArchiveContentPost) => addPost(post))
       onSuccess?.(parsedCompletion)
     },
     onError() {
@@ -231,7 +232,9 @@ export const ArchivePostGenAI = ({
                     leftIcon={<FaSave />}
                     type="button"
                     onClick={() => {
-                      generatedArchiveContentPosts.map(post => addPost(post))
+                      removePosts()
+                        .then(() => console.log('Posts removed'))
+                        .catch(err => console.error('Ooops! Error: ', err))
                     }}
                     colorScheme={'purple'}
                   >
