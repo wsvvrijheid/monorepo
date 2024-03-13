@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 
 import { Box } from '@chakra-ui/react'
 
-import { strapiRequest } from '@wsvvrijheid/lib'
+import { strapiRequest } from '@fc/lib'
 
 export const FetchWithStrapiRequest = () => {
   const [blogs, setBlogs] = useState([])

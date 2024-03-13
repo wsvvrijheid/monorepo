@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 
-import { strapiRequest } from '@wsvvrijheid/lib'
-import { Art } from '@wsvvrijheid/types'
+import { strapiRequest } from '@fc/lib'
+import { Art } from '@fc/types'
 
 export const getArtByArtist = async (
   profileId: number,

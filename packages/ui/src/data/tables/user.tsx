@@ -1,7 +1,7 @@
 import { Icon } from '@chakra-ui/react'
 import { FaCheck, FaTimesCircle } from 'react-icons/fa'
 
-import { Role, User } from '@wsvvrijheid/types'
+import { Role, User } from '@fc/types'
 
 import { WTableProps } from '../../components'
 

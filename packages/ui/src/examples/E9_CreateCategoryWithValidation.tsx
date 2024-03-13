@@ -8,7 +8,7 @@ import { useMutation } from '@tanstack/react-query'
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
-import { CategoryCreateInput } from '@wsvvrijheid/types'
+import { CategoryCreateInput } from '@fc/types'
 
 import { createCategoryWithMutation } from './utils'
 import { FormItem } from '../components'

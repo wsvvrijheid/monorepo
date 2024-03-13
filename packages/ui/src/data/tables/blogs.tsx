@@ -1,4 +1,4 @@
-import { ApprovalStatus, Blog, Profile } from '@wsvvrijheid/types'
+import { ApprovalStatus, Blog, Profile } from '@fc/types'
 
 import { PublicationBadges } from '../../admin'
 import { WTableProps } from '../../components'

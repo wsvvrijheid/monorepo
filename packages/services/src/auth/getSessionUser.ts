@@ -1,8 +1,8 @@
 import axios from 'axios'
 
-import { API_URL } from '@wsvvrijheid/config'
-import { User } from '@wsvvrijheid/types'
-import { mapSessionUser } from '@wsvvrijheid/utils'
+import { API_URL } from '@fc/config'
+import { User } from '@fc/types'
+import { mapSessionUser } from '@fc/utils'
 
 export const getSessionUser = async (token: string) => {
   const userData = await axios('api/users/me', {

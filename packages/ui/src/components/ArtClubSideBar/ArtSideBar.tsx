@@ -4,8 +4,8 @@ import { Box, Stack } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
-import { useStrapiRequest } from '@wsvvrijheid/services'
-import { Category, Collection } from '@wsvvrijheid/types'
+import { useStrapiRequest } from '@fc/services'
+import { Category, Collection } from '@fc/types'
 
 import { useChangeParams } from '../../hooks'
 import { CategoryFilter } from '../CategoryFilter'

@@ -4,10 +4,10 @@ import { Box, Center, Flex, Heading, Text, VStack } from '@chakra-ui/react'
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { useTranslation } from 'next-i18next'
 
-import { strapiRequest } from '@wsvvrijheid/lib'
-import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
-import { Platform, StrapiLocale } from '@wsvvrijheid/types'
-import { AnimatedBox, Container } from '@wsvvrijheid/ui'
+import { strapiRequest } from '@fc/lib'
+import { ssrTranslations } from '@fc/services/ssrTranslations'
+import { Platform, StrapiLocale } from '@fc/types'
+import { AnimatedBox, Container } from '@fc/ui'
 
 import { HomeAbout, HomeHero, HomePlatform, Layout } from '../components'
 
@@ -31,7 +31,7 @@ const Home: FC<HomeProps> = ({ platforms }) => {
         <Container maxW="container.md" pos="relative" zIndex={1}>
           <AnimatedBox directing="to-down">
             <VStack flex={1} py={16} spacing={4} textAlign="center">
-              <Heading fontWeight={900}>Wees de Stem voor Vrijheid</Heading>
+              <Heading fontWeight={900}>Freedom Combination</Heading>
               <Text fontSize="xl">{t('home.hero')}</Text>
             </VStack>
           </AnimatedBox>

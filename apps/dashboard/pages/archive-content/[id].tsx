@@ -3,13 +3,13 @@ import { GetServerSidePropsContext } from 'next'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
-import { useStrapiRequest } from '@wsvvrijheid/services'
-import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
-import { StrapiLocale } from '@wsvvrijheid/types'
-import { ArchiveContent } from '@wsvvrijheid/types/src/archive-content'
-import { AdminLayout, ArchivePostGenAI } from '@wsvvrijheid/ui'
+import { useStrapiRequest } from '@fc/services'
+import { ssrTranslations } from '@fc/services/ssrTranslations'
+import { StrapiLocale } from '@fc/types'
+import { ArchiveContent } from '@fc/types/src/archive-content'
+import { AdminLayout, ArchivePostGenAI } from '@fc/ui'
 
-export default function ArchiveContent() {
+export default function ArchiveContentPage() {
   const { t } = useTranslation()
   const { query } = useRouter()
   const id = query.id ? +query.id : 0

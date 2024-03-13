@@ -14,7 +14,7 @@ import { Meta, StoryFn, StoryObj } from '@storybook/react'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
-import { CATEGORY_MOCKS } from '@wsvvrijheid/mocks'
+import { CATEGORY_MOCKS } from '@fc/mocks'
 
 import { CategoryFilter, CategoryFilterProps } from './CategoryFilter'
 import { useChangeParams } from '../../hooks'

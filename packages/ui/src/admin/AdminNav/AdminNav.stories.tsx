@@ -2,9 +2,9 @@ import { Box, Grid } from '@chakra-ui/react'
 import { Meta, StoryObj } from '@storybook/react'
 import { sample } from 'lodash'
 
-import { USER_MOCKS } from '@wsvvrijheid/mocks'
-import { User } from '@wsvvrijheid/types'
-import { mapSessionUser } from '@wsvvrijheid/utils'
+import { USER_MOCKS } from '@fc/mocks'
+import { User } from '@fc/types'
+import { mapSessionUser } from '@fc/utils'
 
 import { AdminNav } from './AdminNav'
 

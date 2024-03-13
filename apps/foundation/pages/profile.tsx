@@ -1,10 +1,10 @@
 import { GetStaticPropsContext } from 'next'
 import { useTranslation } from 'next-i18next'
 
-import { useAuthContext } from '@wsvvrijheid/context'
-import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
-import { StrapiLocale } from '@wsvvrijheid/types'
-import { AuthenticatedUserProfile } from '@wsvvrijheid/ui'
+import { useAuthContext } from '@fc/context'
+import { ssrTranslations } from '@fc/services/ssrTranslations'
+import { StrapiLocale } from '@fc/types'
+import { AuthenticatedUserProfile } from '@fc/ui'
 
 import { Layout } from '../components'
 

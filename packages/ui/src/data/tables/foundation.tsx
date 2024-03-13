@@ -1,4 +1,4 @@
-import { Foundation } from '@wsvvrijheid/types'
+import { Foundation } from '@fc/types'
 
 import { WTableProps } from '../../components'
 

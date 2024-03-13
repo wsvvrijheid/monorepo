@@ -1,12 +1,9 @@
 import { useToast } from '@chakra-ui/react'
 import { useMutation } from '@tanstack/react-query'
 
-import { useAuthContext } from '@wsvvrijheid/context'
-import { Mutation } from '@wsvvrijheid/lib'
-import {
-  RecommendedTweet,
-  RecommendedTweetCreateInput,
-} from '@wsvvrijheid/types'
+import { useAuthContext } from '@fc/context'
+import { Mutation } from '@fc/lib'
+import { RecommendedTweet, RecommendedTweetCreateInput } from '@fc/types'
 
 export const recommendTweet = (
   recommendedTweet: RecommendedTweetCreateInput,

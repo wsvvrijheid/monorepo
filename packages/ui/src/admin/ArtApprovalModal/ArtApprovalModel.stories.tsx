@@ -1,8 +1,8 @@
 import { Box, Button, Container, useDisclosure } from '@chakra-ui/react'
 import { Meta, StoryFn, StoryObj } from '@storybook/react'
 
-import { ART_MOCKS, PROFILE_MOCKS } from '@wsvvrijheid/mocks'
-import { UploadFile } from '@wsvvrijheid/types'
+import { ART_MOCKS, PROFILE_MOCKS } from '@fc/mocks'
+import { UploadFile } from '@fc/types'
 
 import { ArtApprovalModal } from './ArtApprovalModal'
 

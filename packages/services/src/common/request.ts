@@ -4,17 +4,17 @@ import {
   useQuery,
 } from '@tanstack/react-query'
 
-import { useAuthContext } from '@wsvvrijheid/context'
+import { useAuthContext } from '@fc/context'
 import {
   RequestCollectionArgs,
   RequestSingleArgs,
   strapiRequest,
-} from '@wsvvrijheid/lib'
+} from '@fc/lib'
 import {
   StrapiCollectionResponse,
   StrapiModel,
   StrapiSingleResponse,
-} from '@wsvvrijheid/types'
+} from '@fc/types'
 
 type QueryOptions = Partial<UseQueryOptions<unknown, unknown>>
 

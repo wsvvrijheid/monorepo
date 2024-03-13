@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
 
-import { StrapiLocale, Course } from '@wsvvrijheid/types'
+import { StrapiLocale, Course } from '@fc/types'
 
 import { LocaleBadges, PublicationBadges } from '../../admin'
 import { WTableProps } from '../../components'

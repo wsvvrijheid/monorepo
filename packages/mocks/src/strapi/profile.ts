@@ -1,4 +1,4 @@
-import { StrapiCollectionResponse, Profile } from '@wsvvrijheid/types'
+import { StrapiCollectionResponse, Profile } from '@fc/types'
 
 export const PROFILE_MOCKS: StrapiCollectionResponse<Profile[]> = {
   data: [

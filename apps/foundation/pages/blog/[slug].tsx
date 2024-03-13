@@ -6,16 +6,12 @@ import { useRouter } from 'next/router'
 import { serialize } from 'next-mdx-remote/serialize'
 import { ReCaptchaProvider } from 'next-recaptcha-v3'
 
-import { RECAPTCHA_SITE_KEY, SITE_URL } from '@wsvvrijheid/config'
-import {
-  getAuthorBlogs,
-  getBlogBySlug,
-  useViewBlog,
-} from '@wsvvrijheid/services'
-import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
-import { Blog, StrapiLocale } from '@wsvvrijheid/types'
-import { BlogDetail, Container } from '@wsvvrijheid/ui'
-import { getPageSeo } from '@wsvvrijheid/utils'
+import { RECAPTCHA_SITE_KEY, SITE_URL } from '@fc/config'
+import { getAuthorBlogs, getBlogBySlug, useViewBlog } from '@fc/services'
+import { ssrTranslations } from '@fc/services/ssrTranslations'
+import { Blog, StrapiLocale } from '@fc/types'
+import { BlogDetail, Container } from '@fc/ui'
+import { getPageSeo } from '@fc/utils'
 
 import { Layout } from '../../components'
 

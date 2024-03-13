@@ -1,4 +1,4 @@
-import { StrapiLocale, StrapiTranslatableModel } from '@wsvvrijheid/types'
+import { StrapiLocale, StrapiTranslatableModel } from '@fc/types'
 
 export const getLocalizedSlugs = <T extends StrapiTranslatableModel>(
   model: T,

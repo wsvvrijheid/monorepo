@@ -1,4 +1,4 @@
-import { Timeline } from '@wsvvrijheid/types'
+import { Timeline } from '@fc/types'
 
 export type TimelineBoardProps = {
   timelines: Timeline[]

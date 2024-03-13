@@ -5,8 +5,8 @@ import { useRouter } from 'next/router'
 import { AiFillHeart } from 'react-icons/ai'
 import { FaEye } from 'react-icons/fa'
 
-import { SITE_URL } from '@wsvvrijheid/config'
-import { Art } from '@wsvvrijheid/types'
+import { SITE_URL } from '@fc/config'
+import { Art } from '@fc/types'
 
 import { ShareButtons } from '../ShareButtons'
 import { WImage } from '../WImage'

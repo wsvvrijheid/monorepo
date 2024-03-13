@@ -1,6 +1,6 @@
 import * as yup from 'yup'
 
-import { RecommendedTopic } from '@wsvvrijheid/types'
+import { RecommendedTopic } from '@fc/types'
 
 import { FormFields } from '../../admin'
 

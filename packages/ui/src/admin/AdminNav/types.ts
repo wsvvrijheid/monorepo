@@ -2,7 +2,7 @@ import { ReactNode } from 'react'
 
 import { ButtonProps } from '@chakra-ui/react'
 
-import { AdminRoute } from '@wsvvrijheid/config'
+import { AdminRoute } from '@fc/config'
 
 export type NavItemWithSubmenuProps = {
   label: string

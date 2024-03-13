@@ -15,9 +15,9 @@ import { FaPaintBrush, FaSpinner } from 'react-icons/fa'
 import { IoMdSettings } from 'react-icons/io'
 import { MdRemoveModerator } from 'react-icons/md'
 
-import { ASSETS_URL } from '@wsvvrijheid/config'
-import { useAuthContext } from '@wsvvrijheid/context'
-import { useArtsByArtist } from '@wsvvrijheid/services'
+import { ASSETS_URL } from '@fc/config'
+import { useAuthContext } from '@fc/context'
+import { useArtsByArtist } from '@fc/services'
 
 import { ArtCard } from '../ArtCard'
 import { Container } from '../Container'

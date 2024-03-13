@@ -1,4 +1,4 @@
-import { Category } from '@wsvvrijheid/types'
+import { Category } from '@fc/types'
 
 import { PublicationBadges } from '../../admin'
 import { WTableProps } from '../../components'

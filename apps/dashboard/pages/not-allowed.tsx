@@ -2,9 +2,9 @@ import { Box } from '@chakra-ui/react'
 import { GetStaticPropsContext } from 'next'
 import { useTranslation } from 'next-i18next'
 
-import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
-import { StrapiLocale } from '@wsvvrijheid/types'
-import { AdminLayout } from '@wsvvrijheid/ui'
+import { ssrTranslations } from '@fc/services/ssrTranslations'
+import { StrapiLocale } from '@fc/types'
+import { AdminLayout } from '@fc/ui'
 
 const NotAllowed = () => {
   const { t } = useTranslation()

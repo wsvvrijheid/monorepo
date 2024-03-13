@@ -12,7 +12,7 @@ import { useTranslation } from 'next-i18next'
 import { FaSearch, FaTimes } from 'react-icons/fa'
 import { useDebounce } from 'react-use'
 
-import { useHashtag } from '@wsvvrijheid/services'
+import { useHashtag } from '@fc/services'
 
 import { useHashtagContext } from '../HashtagProvider'
 

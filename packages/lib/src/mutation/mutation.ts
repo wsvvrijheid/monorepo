@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import { API_URL } from '@wsvvrijheid/config'
+import { API_URL } from '@fc/config'
 import {
   StrapiCreateInput,
   StrapiEndpoint,
@@ -8,8 +8,8 @@ import {
   StrapiModel,
   StrapiMutationResponse,
   StrapiUpdateInput,
-} from '@wsvvrijheid/types'
-import { generateFormData } from '@wsvvrijheid/utils'
+} from '@fc/types'
+import { generateFormData } from '@fc/utils'
 
 type Method = 'post' | 'put' | 'delete' | 'localize'
 

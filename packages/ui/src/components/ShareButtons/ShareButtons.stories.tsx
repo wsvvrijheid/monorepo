@@ -11,7 +11,7 @@ type Story = StoryObj<typeof ShareButtons>
 
 export const Default: Story = {
   args: {
-    url: 'https://wsvvrijheid.vercel.app/tr/club/arts/yalnizlik',
+    url: 'https://freedom-combination.vercel.app/tr/club/arts/yalnizlik',
     title: 'Yalnizlik',
     quote:
       'Karısı ölen bir koca yalnız, annesi ölen bir çocuk yalnız, sevdiklerimiz gidiyor kalıyoruz yalnız.',

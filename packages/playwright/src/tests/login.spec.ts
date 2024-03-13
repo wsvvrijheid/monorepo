@@ -1,14 +1,14 @@
 import { expect, test } from '@playwright/test'
 import dotenv from 'dotenv'
 
-import { AppSlug } from '@wsvvrijheid/types'
+import { AppSlug } from '@fc/types'
 
 import { PASSWORD, USERNAME } from '../constants'
 import { HomePage, LoginPage } from '../pages'
 
 dotenv.config({ path: '.env.local' })
 
-const projectsWithLogin: AppSlug[] = ['kunsthalte', 'wsvvrijheid']
+const projectsWithLogin: AppSlug[] = ['kunsthalte', 'foundation']
 
 for (const project of projectsWithLogin) {
   test(`Login for ${project}`, async ({ page }) => {

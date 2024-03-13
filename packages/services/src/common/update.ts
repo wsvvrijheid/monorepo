@@ -1,14 +1,14 @@
 import { useToast } from '@chakra-ui/react'
 import { useMutation } from '@tanstack/react-query'
 
-import { useAuthContext } from '@wsvvrijheid/context'
-import { Mutation } from '@wsvvrijheid/lib'
+import { useAuthContext } from '@fc/context'
+import { Mutation } from '@fc/lib'
 import {
   StrapiEndpoint,
   StrapiModel,
   StrapiTranslatableModel,
   StrapiUpdateInput,
-} from '@wsvvrijheid/types'
+} from '@fc/types'
 
 export const updateModel = <
   T extends StrapiModel,

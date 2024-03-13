@@ -34,8 +34,8 @@ import { FaDonate, FaExternalLinkAlt } from 'react-icons/fa'
 import QRCode from 'react-qr-code'
 import * as yup from 'yup'
 
-import { DONATION_REQUEST_LINK } from '@wsvvrijheid/config'
-import { Platform } from '@wsvvrijheid/types'
+import { DONATION_REQUEST_LINK } from '@fc/config'
+import { Platform } from '@fc/types'
 
 import { Container, FormItem, PlatformList } from '../../components'
 

@@ -4,14 +4,35 @@ import { withHydrationOverlayWebpack } from '@builder.io/react-hydration-overlay
  * @type {import('next').NextConfig}
  **/
 const nextConfig = {
+  async headers() {
+    return [
+      {
+        // matching all API routes
+        source: '/api/:path*',
+        headers: [
+          { key: 'Access-Control-Allow-Credentials', value: 'true' },
+          { key: 'Access-Control-Allow-Origin', value: '*' },
+          {
+            key: 'Access-Control-Allow-Methods',
+            value: 'GET,OPTIONS,PATCH,DELETE,POST,PUT',
+          },
+          {
+            key: 'Access-Control-Allow-Headers',
+            value:
+              'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version',
+          },
+        ],
+      },
+    ]
+  },
   reactStrictMode: true,
   transpilePackages: [
-    '@wsvvrijheid/config',
-    '@wsvvrijheid/context',
-    '@wsvvrijheid/lib',
-    '@wsvvrijheid/services',
-    '@wsvvrijheid/ui',
-    '@wsvvrijheid/utils',
+    '@fc/config',
+    '@fc/context',
+    '@fc/lib',
+    '@fc/services',
+    '@fc/ui',
+    '@fc/utils',
     '@builder.io/react-hydration-overlay',
   ],
   i18n: {
@@ -28,7 +49,7 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        hostname: 'api.wsvvrijheid.nl',
+        hostname: 'api.freedomcombination.com',
       },
     ],
     deviceSizes: [320, 480, 720, 1080],

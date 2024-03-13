@@ -14,11 +14,11 @@ import { useMutation } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
-import { PUBLIC_TOKEN } from '@wsvvrijheid/config'
-import { Mutation } from '@wsvvrijheid/lib'
-import { useStrapiRequest } from '@wsvvrijheid/services'
-import { Platform, Profile, ProfileCreateInput } from '@wsvvrijheid/types'
-import { toastMessage } from '@wsvvrijheid/utils'
+import { PUBLIC_TOKEN } from '@fc/config'
+import { Mutation } from '@fc/lib'
+import { useStrapiRequest } from '@fc/services'
+import { Platform, Profile, ProfileCreateInput } from '@fc/types'
+import { toastMessage } from '@fc/utils'
 
 import { JoinTemplateProps } from './types'
 import {

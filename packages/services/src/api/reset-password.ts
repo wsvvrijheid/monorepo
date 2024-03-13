@@ -2,11 +2,11 @@ import axios from 'axios'
 import { getIronSession } from 'iron-session'
 import { NextApiHandler } from 'next'
 
-import { API_URL } from '@wsvvrijheid/config'
-import { strapiRequest } from '@wsvvrijheid/lib'
-import { sessionOptions } from '@wsvvrijheid/secrets'
-import { getSessionUser } from '@wsvvrijheid/services'
-import { Auth, Profile } from '@wsvvrijheid/types'
+import { API_URL } from '@fc/config'
+import { strapiRequest } from '@fc/lib'
+import { sessionOptions } from '@fc/secrets'
+import { getSessionUser } from '@fc/services'
+import { Auth, Profile } from '@fc/types'
 
 export const resetPasswordRouter: NextApiHandler = async (req, res) => {
   try {

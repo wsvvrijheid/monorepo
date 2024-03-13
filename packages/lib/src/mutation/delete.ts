@@ -1,4 +1,4 @@
-import { StrapiEndpoint, StrapiModel } from '@wsvvrijheid/types'
+import { StrapiEndpoint, StrapiModel } from '@fc/types'
 
 import { mutation } from './mutation'
 

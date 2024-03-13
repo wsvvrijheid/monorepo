@@ -8,12 +8,12 @@ import {
 } from 'next'
 import { NextSeoProps } from 'next-seo'
 
-import { ASSETS_URL, SITE_URL } from '@wsvvrijheid/config'
-import { strapiRequest } from '@wsvvrijheid/lib'
-import { getArtBySlug } from '@wsvvrijheid/services'
-import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
-import { Art, StrapiLocale } from '@wsvvrijheid/types'
-import { ArtTemplate } from '@wsvvrijheid/ui'
+import { ASSETS_URL, SITE_URL } from '@fc/config'
+import { strapiRequest } from '@fc/lib'
+import { getArtBySlug } from '@fc/services'
+import { ssrTranslations } from '@fc/services/ssrTranslations'
+import { Art, StrapiLocale } from '@fc/types'
+import { ArtTemplate } from '@fc/ui'
 
 import { Layout } from '../../../components'
 

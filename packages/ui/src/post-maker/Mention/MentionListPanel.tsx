@@ -1,7 +1,7 @@
 import { Box } from '@chakra-ui/react'
 
-import { useHashtag, useLookupTwitterUsers } from '@wsvvrijheid/services'
-import { MentionUserData } from '@wsvvrijheid/types'
+import { useHashtag, useLookupTwitterUsers } from '@fc/services'
+import { MentionUserData } from '@fc/types'
 
 import MentionListItem from './MentionListItem'
 import { MentionListSkeleton } from './MentionListSkeleton'

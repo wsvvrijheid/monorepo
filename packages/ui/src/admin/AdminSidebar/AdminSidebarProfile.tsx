@@ -3,7 +3,7 @@ import { FC } from 'react'
 import { Box, HStack, IconButton, Stack, Text, Tooltip } from '@chakra-ui/react'
 import { GoSignOut } from 'react-icons/go'
 
-import { Profile, SessionUser } from '@wsvvrijheid/types'
+import { Profile, SessionUser } from '@fc/types'
 
 import { WAvatar } from '../../components'
 

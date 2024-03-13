@@ -1,6 +1,6 @@
-import { RoleActionType, actionRolesEndpoints } from '@wsvvrijheid/config'
-import { useAuthContext } from '@wsvvrijheid/context'
-import { StrapiEndpoint } from '@wsvvrijheid/types'
+import { RoleActionType, actionRolesEndpoints } from '@fc/config'
+import { useAuthContext } from '@fc/context'
+import { StrapiEndpoint } from '@fc/types'
 
 export const usePermission = () => {
   const { user, roles } = useAuthContext()

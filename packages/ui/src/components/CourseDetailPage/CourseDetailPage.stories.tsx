@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react'
 
-import { COURSE_MOCKS } from '@wsvvrijheid/mocks'
+import { COURSE_MOCKS } from '@fc/mocks'
 
 import { CourseDetailPage } from './CourseDetailPage'
 import { CourseDetailPageProps } from './types'

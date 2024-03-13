@@ -1,8 +1,8 @@
 import { Meta, StoryObj } from '@storybook/react'
 import { sample } from 'lodash'
 
-import { PLATFORM_MOCKS } from '@wsvvrijheid/mocks'
-import { Platform } from '@wsvvrijheid/types'
+import { PLATFORM_MOCKS } from '@fc/mocks'
+import { Platform } from '@fc/types'
 
 import { Card } from './Card'
 import { Container } from '../Container'

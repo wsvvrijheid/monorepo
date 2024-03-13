@@ -3,7 +3,7 @@ import { FC } from 'react'
 import { Center, Heading, Stack, Text } from '@chakra-ui/react'
 import { useTranslation } from 'next-i18next'
 
-import { PostMakerIcon, useLocaleTimeFormat } from '@wsvvrijheid/ui'
+import { PostMakerIcon, useLocaleTimeFormat } from '@fc/ui'
 
 type TimeLeftProps = {
   date: string

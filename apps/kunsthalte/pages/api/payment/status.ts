@@ -1,3 +1,3 @@
-import { paymentStatusRouter } from '@wsvvrijheid/services/src/api/payment-status'
+import { paymentStatusRouter } from '@fc/services/src/api/payment-status'
 
 export default paymentStatusRouter

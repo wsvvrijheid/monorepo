@@ -14,9 +14,9 @@ import { useTranslation } from 'next-i18next'
 import { FaArrowRight } from 'react-icons/fa'
 import { HiOutlineCalendar } from 'react-icons/hi'
 
-import { Hashtag } from '@wsvvrijheid/types'
-import { FormattedDate, Navigate, WImage } from '@wsvvrijheid/ui'
-import { getItemLink } from '@wsvvrijheid/utils'
+import { Hashtag } from '@fc/types'
+import { FormattedDate, Navigate, WImage } from '@fc/ui'
+import { getItemLink } from '@fc/utils'
 interface SliderHeroProps {
   item: Hashtag
 }

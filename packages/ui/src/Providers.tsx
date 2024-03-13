@@ -12,9 +12,9 @@ import { useRouter } from 'next/router'
 import { DefaultSeo } from 'next-seo'
 import { useCookie } from 'react-use'
 
-import { defaultSeo, themes } from '@wsvvrijheid/config'
-import { AuthProvider } from '@wsvvrijheid/context'
-import { AppSlug } from '@wsvvrijheid/types'
+import { defaultSeo, themes } from '@fc/config'
+import { AuthProvider } from '@fc/context'
+import { AppSlug } from '@fc/types'
 
 import { CookieBanner } from './components'
 

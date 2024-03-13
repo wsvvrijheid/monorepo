@@ -1,6 +1,6 @@
 import { NextApiHandler } from 'next'
 
-import { createCheckout } from '@wsvvrijheid/stripe'
+import { createCheckout } from '@fc/stripe'
 
 export const paymentRouter: NextApiHandler = async (req, res) => {
   try {

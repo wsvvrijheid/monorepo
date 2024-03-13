@@ -1,6 +1,6 @@
 import * as yup from 'yup'
 
-import { AssetsTracking } from '@wsvvrijheid/types/src/assets-tracking'
+import { AssetsTracking } from '@fc/types/src/assets-tracking'
 
 import { yupSelect } from './common'
 import { FormFields } from '../../admin'

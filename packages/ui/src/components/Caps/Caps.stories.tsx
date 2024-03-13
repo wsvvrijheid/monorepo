@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react'
 
-import { OgImageParams } from '@wsvvrijheid/types'
+import { OgImageParams } from '@fc/types'
 
 import { Caps } from './Caps'
 import { CapsProps } from './types'

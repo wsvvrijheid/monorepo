@@ -1,4 +1,4 @@
-import { AssetsTracking, Profile } from '@wsvvrijheid/types'
+import { AssetsTracking, Profile } from '@fc/types'
 
 import { WTableProps } from '../../components'
 

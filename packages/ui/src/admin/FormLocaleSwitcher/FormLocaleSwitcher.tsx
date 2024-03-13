@@ -2,7 +2,7 @@ import { Button, ButtonGroup } from '@chakra-ui/react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
-import { StrapiTranslatableModel } from '@wsvvrijheid/types'
+import { StrapiTranslatableModel } from '@fc/types'
 
 export const FormLocaleSwitcher = <T extends StrapiTranslatableModel>({
   model,

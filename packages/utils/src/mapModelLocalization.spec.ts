@@ -1,4 +1,4 @@
-import { POST_MOCKS } from '@wsvvrijheid/mocks'
+import { POST_MOCKS } from '@fc/mocks'
 
 import { mapModelLocalization } from './mapModelLocalization'
 

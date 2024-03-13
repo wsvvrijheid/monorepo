@@ -1,4 +1,4 @@
-import { Blog, Localize, StrapiCollectionResponse } from '@wsvvrijheid/types'
+import { Blog, Localize, StrapiCollectionResponse } from '@fc/types'
 
 export const BLOG_MOCKS: Localize<StrapiCollectionResponse<Blog[]>> = {
   tr: {

@@ -19,8 +19,8 @@ import {
   StrapiModel,
   StrapiTranslatableModel,
   User,
-} from '@wsvvrijheid/types'
-import { AssetsTracking } from '@wsvvrijheid/types/src/assets-tracking'
+} from '@fc/types'
+import { AssetsTracking } from '@fc/types/src/assets-tracking'
 
 import { FormFields } from './types'
 

@@ -1,4 +1,4 @@
-import { UploadFile } from '@wsvvrijheid/types'
+import { UploadFile } from '@fc/types'
 
 export const IMAGE_MOCK: UploadFile = {
   id: 1,

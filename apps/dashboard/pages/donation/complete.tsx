@@ -2,10 +2,10 @@ import { FC } from 'react'
 
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
 
-import { strapiRequest } from '@wsvvrijheid/lib'
-import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
-import { Donation, StrapiLocale } from '@wsvvrijheid/types'
-import { AdminLayout, DonationCompleteTemplate } from '@wsvvrijheid/ui'
+import { strapiRequest } from '@fc/lib'
+import { ssrTranslations } from '@fc/services/ssrTranslations'
+import { Donation, StrapiLocale } from '@fc/types'
+import { AdminLayout, DonationCompleteTemplate } from '@fc/ui'
 
 type DonationCompletePageProps = InferGetServerSidePropsType<
   typeof getServerSideProps

@@ -4,10 +4,10 @@ import { GetStaticPropsContext } from 'next'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
-import { RequestCollectionArgs, strapiRequest } from '@wsvvrijheid/lib'
-import { useStrapiRequest } from '@wsvvrijheid/services'
-import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
-import { Activity, StrapiLocale, UploadFile } from '@wsvvrijheid/types'
+import { RequestCollectionArgs, strapiRequest } from '@fc/lib'
+import { useStrapiRequest } from '@fc/services'
+import { ssrTranslations } from '@fc/services/ssrTranslations'
+import { Activity, StrapiLocale, UploadFile } from '@fc/types'
 import {
   AnimatedBox,
   Card,
@@ -16,7 +16,7 @@ import {
   Pagination,
   useChangeParams,
   FormattedDate,
-} from '@wsvvrijheid/ui'
+} from '@fc/ui'
 
 import { Layout } from '../../components'
 

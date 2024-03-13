@@ -20,9 +20,9 @@ import { ReCaptchaProvider } from 'next-recaptcha-v3'
 import { parse } from 'querystring'
 import { MdMenuOpen } from 'react-icons/md'
 
-import { RECAPTCHA_SITE_KEY } from '@wsvvrijheid/config'
-import { useStrapiRequest } from '@wsvvrijheid/services'
-import { Art, Category } from '@wsvvrijheid/types'
+import { RECAPTCHA_SITE_KEY } from '@fc/config'
+import { useStrapiRequest } from '@fc/services'
+import { Art, Category } from '@fc/types'
 
 import {
   AnimatedBox,

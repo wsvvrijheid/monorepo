@@ -4,7 +4,7 @@ import {
   Collection,
   Profile,
   StrapiLocale,
-} from '@wsvvrijheid/types'
+} from '@fc/types'
 
 import { LocaleBadges, PublicationBadges } from '../../admin'
 import { WTableProps } from '../../components'

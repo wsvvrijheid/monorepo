@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { MenuDivider } from '@chakra-ui/react'
 import { useTranslation } from 'next-i18next'
 
-import { StrapiModel } from '@wsvvrijheid/types'
+import { StrapiModel } from '@fc/types'
 
 import { FilterMenuGroup } from './FilterMenuGroup'
 import { RelationFilterMenuGroup } from './RelationFilterMenuGroup'

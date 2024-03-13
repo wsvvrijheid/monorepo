@@ -39,7 +39,7 @@
     "foundation": { "cache": false, "persistent": true },
     "kunsthalte": { "cache": false, "persistent": true },
     "lotus": { "cache": false, "persistent": true },
-    "samenvvv": { "cache": false, "persistent": true },
+    "trend-rights": { "cache": false, "persistent": true },
     "clean": {},
     "storybook": { "cache": false, "persistent": true },
     "storybook-build": {},

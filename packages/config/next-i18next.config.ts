@@ -1,6 +1,6 @@
 import { resolve } from 'path'
 
-import { StrapiLocale } from '@wsvvrijheid/types'
+import { StrapiLocale } from '@fc/types'
 
 export const i18nConfig = {
   i18n: {

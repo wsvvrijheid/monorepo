@@ -2,8 +2,8 @@ import { FC, useState } from 'react'
 
 import Image, { ImageProps } from 'next/image'
 
-import { UploadFile } from '@wsvvrijheid/types'
-import { getMediaUrl } from '@wsvvrijheid/utils'
+import { UploadFile } from '@fc/types'
+import { getMediaUrl } from '@fc/utils'
 
 type StrapiImageProps = Omit<ImageProps, 'src'> & {
   src: UploadFile | string

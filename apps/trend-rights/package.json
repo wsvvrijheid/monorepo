@@ -1,0 +1,15 @@
+{
+  "name": "trend-rights",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "dotenv -e ../../.env.local next dev -- -p 3004",
+    "trend-rights": "dotenv -e ../../.env.local next dev -- -p 3004",
+    "build": "next build",
+    "build:dev": "next build",
+    "start": "next start",
+    "clean": "rm -rf node_modules .turbo .next",
+    "lint": "next lint",
+    "tsc": "npx tsc --noEmit"
+  }
+}

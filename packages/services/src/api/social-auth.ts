@@ -2,10 +2,10 @@ import axios from 'axios'
 import { getIronSession } from 'iron-session'
 import { NextApiHandler } from 'next'
 
-import { API_URL } from '@wsvvrijheid/config'
-import { sessionOptions } from '@wsvvrijheid/secrets'
-import { getSessionUser } from '@wsvvrijheid/services'
-import { Auth, AuthResponse } from '@wsvvrijheid/types'
+import { API_URL } from '@fc/config'
+import { sessionOptions } from '@fc/secrets'
+import { getSessionUser } from '@fc/services'
+import { Auth, AuthResponse } from '@fc/types'
 
 export const socialAuthRouter: NextApiHandler = async (req, res) => {
   const { provider } = req.query

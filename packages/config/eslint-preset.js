@@ -36,7 +36,7 @@ module.exports = {
             position: 'before',
           },
           {
-            pattern: '@wsvvrijheid/**',
+            pattern: '@fc/**',
             group: 'internal',
             position: 'after',
           },

@@ -12,7 +12,7 @@ import {
 import { RiFilterOffLine } from 'react-icons/ri'
 import { useDebounce } from 'react-use'
 
-import { Category, StrapiLocale } from '@wsvvrijheid/types'
+import { Category, StrapiLocale } from '@fc/types'
 
 import { CategoryFilterCheckbox } from './CategoryFilterCheckbox'
 

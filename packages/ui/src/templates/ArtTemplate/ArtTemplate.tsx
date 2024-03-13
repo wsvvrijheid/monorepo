@@ -3,8 +3,8 @@ import { Splide, SplideSlide } from '@splidejs/react-splide'
 import { useTranslation } from 'next-i18next'
 import { ReCaptchaProvider } from 'next-recaptcha-v3'
 
-import { RECAPTCHA_SITE_KEY } from '@wsvvrijheid/config'
-import { useArtBySlug, useArtsByCategories } from '@wsvvrijheid/services'
+import { RECAPTCHA_SITE_KEY } from '@fc/config'
+import { useArtBySlug, useArtsByCategories } from '@fc/services'
 
 import { ArtCardBase, ArtWithDetails, Container } from '../../components'
 

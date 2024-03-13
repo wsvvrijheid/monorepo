@@ -12,9 +12,9 @@ import {
 import { useTranslation } from 'next-i18next'
 import { AiFillDelete, AiOutlineShareAlt } from 'react-icons/ai'
 
-import { ASSETS_URL } from '@wsvvrijheid/config'
-import { useDeleteModel } from '@wsvvrijheid/services'
-import { Post, RecommendedTweet } from '@wsvvrijheid/types'
+import { ASSETS_URL } from '@fc/config'
+import { useDeleteModel } from '@fc/services'
+import { Post, RecommendedTweet } from '@fc/types'
 
 import { ShareButtons, WConfirm, WConfirmProps } from '../../components'
 import { useFields, useSchema } from '../../data'

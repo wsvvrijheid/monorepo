@@ -1,4 +1,4 @@
-import { Category, StrapiCollectionResponse } from '@wsvvrijheid/types'
+import { Category, StrapiCollectionResponse } from '@fc/types'
 
 export const CATEGORY_MOCKS: StrapiCollectionResponse<Category[]> = {
   data: [

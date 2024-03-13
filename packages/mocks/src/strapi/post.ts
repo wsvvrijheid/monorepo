@@ -1,4 +1,4 @@
-import { Localize, Post, StrapiCollectionResponse } from '@wsvvrijheid/types'
+import { Localize, Post, StrapiCollectionResponse } from '@fc/types'
 
 export const POST_MOCKS = {
   tr: {
@@ -28,9 +28,10 @@ export const POST_MOCKS = {
         image: null,
         hashtag: {
           id: 28,
-          title: 'Wees Vakfı tanıtım',
+          title: 'Freedom Combination Vakfı tanıtım',
           slug: 'wees-vakfi-tanitim',
-          description: 'Wees vakfı faaliyetleri tanıtım hashtag kampanyası',
+          description:
+            'Freedom Combination Vakfı faaliyetleri tanıtım hashtag kampanyası',
           content: 'Content',
           approvalStatus: 'approved',
           hashtagExtra: '',
@@ -140,7 +141,7 @@ export const POST_MOCKS = {
       {
         id: 210,
         description:
-          'Wees vakfı- Sanatın dilini evrensel kabul ederek, sanatın dili ile insan hakları ihlallerini daha fazla insana ulaştırmak da hedefleri arasındadır.',
+          'Freedom Combination Vakfı- Sanatın dilini evrensel kabul ederek, sanatın dili ile insan hakları ihlallerini daha fazla insana ulaştırmak da hedefleri arasındadır.',
         content:
           'Ögürlüğün Sesi Ol Vakfı - Sanatın dilini evrensel kabul ederek, sanatın dili ile insan hakları ihlallerini daha fazla insana ulaştırmak da hedefleri arasındadır.',
         reference: '',
@@ -162,9 +163,10 @@ export const POST_MOCKS = {
         image: null,
         hashtag: {
           id: 28,
-          title: 'Wees Vakfı tanıtım',
+          title: 'Freedom Combination Vakfı tanıtım',
           slug: 'wees-vakfi-tanitim',
-          description: 'Wees vakfı faaliyetleri tanıtım hashtag kampanyası',
+          description:
+            'Freedom Combination Vakfı faaliyetleri tanıtım hashtag kampanyası',
           content: 'Content',
           approvalStatus: 'approved',
           hashtagExtra: '',
@@ -226,9 +228,9 @@ export const POST_MOCKS = {
           {
             id: 218,
             description:
-              'Wees de Stem voor Vrijheid - Deze stichting accepteert de taal van de kunst als universeel en wil ook meer mensen bereiken over mensenrechtenschendingen via de taal van de kunst.',
+              'Freedom Combination - Deze stichting accepteert de taal van de kunst als universeel en wil ook meer mensen bereiken over mensenrechtenschendingen via de taal van de kunst.',
             content:
-              'Wees de Stem voor Vrijheid - Deze stichting accepteert de taal van de kunst als universeel en wil ook meer mensen bereiken over mensenrechtenschendingen via de taal van de kunst.dingen via de taal van de kunst.',
+              'Freedom Combination - Deze stichting accepteert de taal van de kunst als universeel en wil ook meer mensen bereiken over mensenrechtenschendingen via de taal van de kunst.dingen via de taal van de kunst.',
             reference: null,
             approvalStatus: 'approved',
             capsStatus: 'pending',
@@ -249,9 +251,9 @@ export const POST_MOCKS = {
           {
             id: 217,
             description:
-              ' Foundation Wees de Stem voor Vrijheid - Accepting the language of art as universal, one of its goals is to bring human rights violations to more people through the language of art.',
+              ' Foundation Freedom Combination - Accepting the language of art as universal, one of its goals is to bring human rights violations to more people through the language of art.',
             content:
-              'Foundation Wees de Stem voor Vrijheid  - Accepting the language of art as universal, one of its goals is to bring human rights violations to more people through the language of art.',
+              'Foundation Freedom Combination  - Accepting the language of art as universal, one of its goals is to bring human rights violations to more people through the language of art.',
             reference: null,
             approvalStatus: 'approved',
             capsStatus: 'pending',
@@ -380,9 +382,10 @@ export const POST_MOCKS = {
         },
         hashtag: {
           id: 28,
-          title: 'Wees Vakfı tanıtım',
+          title: 'Freedom Combination Vakfı tanıtım',
           slug: 'wees-vakfi-tanitim',
-          description: 'Wees vakfı faaliyetleri tanıtım hashtag kampanyası',
+          description:
+            'Freedom Combination Vakfı faaliyetleri tanıtım hashtag kampanyası',
           content: 'Content',
           approvalStatus: 'approved',
           hashtagExtra: '',
@@ -558,9 +561,10 @@ export const POST_MOCKS = {
         image: null,
         hashtag: {
           id: 28,
-          title: 'Wees Vakfı tanıtım',
+          title: 'Freedom Combination Vakfı tanıtım',
           slug: 'wees-vakfi-tanitim',
-          description: 'Wees vakfı faaliyetleri tanıtım hashtag kampanyası',
+          description:
+            'Freedom Combination Vakfı faaliyetleri tanıtım hashtag kampanyası',
           content: 'Content',
           approvalStatus: 'approved',
           hashtagExtra: '',
@@ -736,9 +740,10 @@ export const POST_MOCKS = {
         },
         hashtag: {
           id: 28,
-          title: 'Wees Vakfı tanıtım',
+          title: 'Freedom Combination Vakfı tanıtım',
           slug: 'wees-vakfi-tanitim',
-          description: 'Wees vakfı faaliyetleri tanıtım hashtag kampanyası',
+          description:
+            'Freedom Combination Vakfı faaliyetleri tanıtım hashtag kampanyası',
           content: 'Content',
           approvalStatus: 'approved',
           hashtagExtra: '',
@@ -1073,9 +1078,10 @@ export const POST_MOCKS = {
         image: null,
         hashtag: {
           id: 30,
-          title: 'Stichting Wees introductie',
+          title: 'Stichting Freedom Combination introductie',
           slug: 'wees-stichting-introductie',
-          description: 'Stichting Wees activiteiten promotie hashtag campagne',
+          description:
+            'Stichting Freedom Combination activiteiten promotie hashtag campagne',
           content: 'Inhoud',
           approvalStatus: 'approved',
           hashtagExtra: '',
@@ -1185,9 +1191,9 @@ export const POST_MOCKS = {
       {
         id: 220,
         description:
-          'Stichting Wees de Stem voor Vrijheid - Stelt zich ten doel een einde te maken aan mensenrechtenschendingen door gebruik te maken van de kracht van sociale media',
+          'Stichting Freedom Combination - Stelt zich ten doel een einde te maken aan mensenrechtenschendingen door gebruik te maken van de kracht van sociale media',
         content:
-          'Stichting Wees de Stem voor Vrijheid - Stelt zich ten doel een einde te maken aan mensenrechtenschendingen door gebruik te maken van de kracht van sociale media',
+          'Stichting Freedom Combination - Stelt zich ten doel een einde te maken aan mensenrechtenschendingen door gebruik te maken van de kracht van sociale media',
         reference: null,
         approvalStatus: 'approved',
         capsStatus: 'pending',
@@ -1248,9 +1254,10 @@ export const POST_MOCKS = {
         },
         hashtag: {
           id: 30,
-          title: 'Stichting Wees introductie',
+          title: 'Stichting Freedom Combination introductie',
           slug: 'wees-stichting-introductie',
-          description: 'Stichting Wees activiteiten promotie hashtag campagne',
+          description:
+            'Stichting Freedom Combination activiteiten promotie hashtag campagne',
           content: 'Inhoud',
           approvalStatus: 'approved',
           hashtagExtra: '',
@@ -1312,9 +1319,9 @@ export const POST_MOCKS = {
           {
             id: 219,
             description:
-              'Foundation Wees de Stem voor Vrijheid - Aims to end human rights violations by using the power of social media',
+              'Foundation Freedom Combination - Aims to end human rights violations by using the power of social media',
             content:
-              'Foundation Wees de Stem voor Vrijheid  - Aims to end human rights violations by using the power of social media.',
+              'Foundation Freedom Combination  - Aims to end human rights violations by using the power of social media.',
             reference: null,
             approvalStatus: 'approved',
             capsStatus: 'pending',
@@ -1467,9 +1474,10 @@ export const POST_MOCKS = {
         },
         hashtag: {
           id: 30,
-          title: 'Stichting Wees introductie',
+          title: 'Stichting Freedom Combination introductie',
           slug: 'wees-stichting-introductie',
-          description: 'Stichting Wees activiteiten promotie hashtag campagne',
+          description:
+            'Stichting Freedom Combination activiteiten promotie hashtag campagne',
           content: 'Inhoud',
           approvalStatus: 'approved',
           hashtagExtra: '',
@@ -1538,9 +1546,9 @@ export const POST_MOCKS = {
       {
         id: 138,
         description:
-          'Als Wees Academy hebben we een digitale tekentraining gegeven, die we in de nieuwe periode willen herhalen.',
+          'Als FC Academy hebben we een digitale tekentraining gegeven, die we in de nieuwe periode willen herhalen.',
         content:
-          'Als Wees Academy hebben we een digitale tekentraining gegeven, die we in de nieuwe periode willen herhalen.',
+          'Als FC Academy hebben we een digitale tekentraining gegeven, die we in de nieuwe periode willen herhalen.',
         reference: null,
         approvalStatus: 'approved',
         capsStatus: 'pending',
@@ -1621,9 +1629,10 @@ export const POST_MOCKS = {
         },
         hashtag: {
           id: 30,
-          title: 'Stichting Wees introductie',
+          title: 'Stichting Freedom Combination introductie',
           slug: 'wees-stichting-introductie',
-          description: 'Stichting Wees activiteiten promotie hashtag campagne',
+          description:
+            'Stichting Freedom Combination activiteiten promotie hashtag campagne',
           content: 'Inhoud',
           approvalStatus: 'approved',
           hashtagExtra: '',
@@ -1644,9 +1653,9 @@ export const POST_MOCKS = {
           {
             id: 137,
             description:
-              'As Wees Academy, we gave digital drawing training. We are planning to repeat it in the new semester.',
+              'As FC Academy, we gave digital drawing training. We are planning to repeat it in the new semester.',
             content:
-              'As Wees Academy, we gave digital drawing training. We are planning to repeat it in the new semester.',
+              'As FC Academy, we gave digital drawing training. We are planning to repeat it in the new semester.',
             reference: null,
             approvalStatus: 'approved',
             capsStatus: 'pending',
@@ -1665,9 +1674,9 @@ export const POST_MOCKS = {
           {
             id: 133,
             description:
-              'Wees Akademi olarak Dijital çizim eğitimi verdik. Yeni dönemde tekrarını planlıyoruz.',
+              'FC Akademi olarak Dijital çizim eğitimi verdik. Yeni dönemde tekrarını planlıyoruz.',
             content:
-              'Wees Akademi olarak Dijital çizim eğitimi verdik. Yeni dönemde tekrarını planlıyoruz.',
+              'FC Akademi olarak Dijital çizim eğitimi verdik. Yeni dönemde tekrarını planlıyoruz.',
             reference: '',
             approvalStatus: 'approved',
             capsStatus: 'pending',
@@ -2030,9 +2039,9 @@ export const POST_MOCKS = {
       {
         id: 219,
         description:
-          'Foundation Wees de Stem voor Vrijheid - Aims to end human rights violations by using the power of social media',
+          'Foundation Freedom Combination - Aims to end human rights violations by using the power of social media',
         content:
-          'Foundation Wees de Stem voor Vrijheid  - Aims to end human rights violations by using the power of social media.',
+          'Foundation Freedom Combination  - Aims to end human rights violations by using the power of social media.',
         reference: null,
         approvalStatus: 'approved',
         capsStatus: 'pending',
@@ -2093,7 +2102,7 @@ export const POST_MOCKS = {
         },
         hashtag: {
           id: 29,
-          title: 'Wees Foundation promotion',
+          title: 'Freedom Combination Foundation promotion',
           slug: 'wees-foundation-promotion',
           description: 'Wees foundation activities promotion hashtag campaign',
           content: 'Content',
@@ -2103,7 +2112,7 @@ export const POST_MOCKS = {
           tweets: [
             {
               id: '1668402029868331009',
-              text: 'RT @sanatduragi_nl: Kendimizi bir kez daha tanıtma fırsatı bulduğunuz bir ortadayız. Bize bu fırsatı sınan @wsvvrijheid teşekkürler 💙 #StgW…',
+              text: 'RT @sanatduragi_nl: Kendimizi bir kez daha tanıtma fırsatı bulduğunuz bir ortadayız. Bize bu fırsatı sınan @fc teşekkürler 💙 #StgW…',
               user: {
                 name: 'Hasan Rüstemoglu',
                 profile:
@@ -2159,7 +2168,7 @@ export const POST_MOCKS = {
             },
             {
               id: '1668297997334065157',
-              text: 'RT @MhmtTvt: Haarlem’ de  Hollanda’ nın kurtuluş gününde Wees Vakfımız organizasyonuyla Türkiye’ de kadınlara yapılan hukuksuzlukları lanse…',
+              text: 'RT @MhmtTvt: Haarlem’ de  Hollanda’ nın kurtuluş gününde Freedom Combination Vakfımız organizasyonuyla Türkiye’ de kadınlara yapılan hukuksuzlukları lanse…',
               user: {
                 name: 'Christina Tyler 💐',
                 profile:
@@ -2201,7 +2210,7 @@ export const POST_MOCKS = {
             },
             {
               id: '1668138749002219521',
-              text: "RT @insan_sevgisii: Proje dünyasına adım atmak için Wees Akademi'nin proje eğitimine katılın. Hollanda içi veAvrupa Birliği projeleriyle pr…",
+              text: "RT @insan_sevgisii: Proje dünyasına adım atmak için FC Akademi'nin proje eğitimine katılın. Hollanda içi veAvrupa Birliği projeleriyle pr…",
               user: {
                 name: 'Nevbahar',
                 profile:
@@ -2229,7 +2238,7 @@ export const POST_MOCKS = {
             },
             {
               id: '1668004277351071745',
-              text: 'RT @samenvvvTR: Wees Akademi, insan haklarına ilişkin farkındalığı artırmayı amaçlayan aylık söyleşiler aracılığıyla bilgi yaymayı hedeflem…',
+              text: 'RT @samenvvvTR: FC Akademi, insan haklarına ilişkin farkındalığı artırmayı amaçlayan aylık söyleşiler aracılığıyla bilgi yaymayı hedeflem…',
               user: {
                 name: 'Yoldas',
                 profile:
@@ -2285,7 +2294,7 @@ export const POST_MOCKS = {
             },
             {
               id: '1667996803571040256',
-              text: 'RT @samenvvvTR: Wees Akademi, insan haklarına ilişkin farkındalığı artırmayı amaçlayan aylık söyleşiler aracılığıyla bilgi yaymayı hedeflem…',
+              text: 'RT @samenvvvTR: FC Akademi, insan haklarına ilişkin farkındalığı artırmayı amaçlayan aylık söyleşiler aracılığıyla bilgi yaymayı hedeflem…',
               user: {
                 name: 'Ismail',
                 profile:
@@ -2313,7 +2322,7 @@ export const POST_MOCKS = {
             },
             {
               id: '1667996703423705099',
-              text: 'RT @sanatduragi_nl: Als Wees Academy hebben we een digitale tekentraining gegeven, die we in de nieuwe periode willen herhalen..\n@samenvvv…',
+              text: 'RT @sanatduragi_nl: Als FC Academy hebben we een digitale tekentraining gegeven, die we in de nieuwe periode willen herhalen..\n@samenvvv…',
               user: {
                 name: 'Ismail',
                 profile:
@@ -2355,7 +2364,7 @@ export const POST_MOCKS = {
             },
             {
               id: '1667995710963302400',
-              text: 'Join Foundation Wees de Stem voor Vrijheid in our mission to end human rights violations. Through the power of social media, we aim to raise awareness, promote accountability, and advocate for the rights of all individuals.\n@samenvvvEN\n#StgWeesPresentatie \nhttps://t.co/EjXGC9Qc9b',
+              text: 'Join Foundation Freedom Combination in our mission to end human rights violations. Through the power of social media, we aim to raise awareness, promote accountability, and advocate for the rights of all individuals.\n@samenvvvEN\n#StgWeesPresentatie \nhttps://t.co/EjXGC9Qc9b',
               user: {
                 name: 'Ibrahim Van Lopik',
                 profile:
@@ -2495,7 +2504,7 @@ export const POST_MOCKS = {
             },
             {
               id: '1667947950742413313',
-              text: 'RT @wsvvrijheid: Foundation Wees de Stem voor Vrijheid is breaking new ground as the first and only foundation dedicated to human rights on…',
+              text: 'RT @fc: Foundation Freedom Combination is breaking new ground as the first and only foundation dedicated to human rights on…',
               user: {
                 name: 'Mustafa',
                 profile:
@@ -2523,7 +2532,7 @@ export const POST_MOCKS = {
             },
             {
               id: '1667897619924807681',
-              text: 'RT @sanatduragi_nl: Als Wees Academy hebben we een digitale tekentraining gegeven, die we in de nieuwe periode willen herhalen..\n@samenvvv…',
+              text: 'RT @sanatduragi_nl: Als FC Academy hebben we een digitale tekentraining gegeven, die we in de nieuwe periode willen herhalen..\n@samenvvv…',
               user: {
                 name: 'sade',
                 profile:
@@ -2607,7 +2616,7 @@ export const POST_MOCKS = {
             },
             {
               id: '1667866569093914625',
-              text: 'RT @MeteNisan: Wees Akademi, proje eğitimiyle size Hollanda içinde ve Avrupa Birliği projelerinde yer alma fırsatı sunuyor. Bilgi ve beceri…',
+              text: 'RT @MeteNisan: FC Akademi, proje eğitimiyle size Hollanda içinde ve Avrupa Birliği projelerinde yer alma fırsatı sunuyor. Bilgi ve beceri…',
               user: {
                 name: 'Eren Eymen',
                 profile:
@@ -2621,7 +2630,7 @@ export const POST_MOCKS = {
             },
             {
               id: '1667857723252252675',
-              text: 'Wees Akademi, proje eğitimiyle size Hollanda içinde ve Avrupa Birliği projelerinde yer alma fırsatı sunuyor. Bilgi ve becerilerinizi geliştirerek geleceğin projelerine katkıda bulunun. \n\n@sanatduragi_nl\n\n#StgWeesPresentatie \n\nhttps://t.co/7L7z8h30zr',
+              text: 'FC Akademi, proje eğitimiyle size Hollanda içinde ve Avrupa Birliği projelerinde yer alma fırsatı sunuyor. Bilgi ve becerilerinizi geliştirerek geleceğin projelerine katkıda bulunun. \n\n@sanatduragi_nl\n\n#StgWeesPresentatie \n\nhttps://t.co/7L7z8h30zr',
               user: {
                 name: 'fatma',
                 profile:
@@ -2635,7 +2644,7 @@ export const POST_MOCKS = {
             },
             {
               id: '1667846147354787842',
-              text: 'RT @sanatduragi_nl: Kendimizi bir kez daha tanıtma fırsatı bulduğunuz bir ortadayız. Bize bu fırsatı sınan @wsvvrijheid teşekkürler 💙 #StgW…',
+              text: 'RT @sanatduragi_nl: Kendimizi bir kez daha tanıtma fırsatı bulduğunuz bir ortadayız. Bize bu fırsatı sınan @fc teşekkürler 💙 #StgW…',
               user: {
                 name: 'Büşra',
                 profile:
@@ -2747,7 +2756,7 @@ export const POST_MOCKS = {
             },
             {
               id: '1667785227563876352',
-              text: 'RT @samenvvvTR: Wees Akademi, insan haklarına ilişkin farkındalığı artırmayı amaçlayan aylık söyleşiler aracılığıyla bilgi yaymayı hedeflem…',
+              text: 'RT @samenvvvTR: FC Akademi, insan haklarına ilişkin farkındalığı artırmayı amaçlayan aylık söyleşiler aracılığıyla bilgi yaymayı hedeflem…',
               user: {
                 name: 'semran sari',
                 profile:
@@ -2761,7 +2770,7 @@ export const POST_MOCKS = {
             },
             {
               id: '1667783386859970561',
-              text: "RT @insan_sevgisii: Proje dünyasına adım atmak için Wees Akademi'nin proje eğitimine katılın. Hollanda içi veAvrupa Birliği projeleriyle pr…",
+              text: "RT @insan_sevgisii: Proje dünyasına adım atmak için FC Akademi'nin proje eğitimine katılın. Hollanda içi veAvrupa Birliği projeleriyle pr…",
               user: {
                 name: 'DeepDarkRaven',
                 profile:
@@ -2858,9 +2867,9 @@ export const POST_MOCKS = {
           {
             id: 220,
             description:
-              'Stichting Wees de Stem voor Vrijheid - Stelt zich ten doel een einde te maken aan mensenrechtenschendingen door gebruik te maken van de kracht van sociale media',
+              'Stichting Freedom Combination - Stelt zich ten doel een einde te maken aan mensenrechtenschendingen door gebruik te maken van de kracht van sociale media',
             content:
-              'Stichting Wees de Stem voor Vrijheid - Stelt zich ten doel een einde te maken aan mensenrechtenschendingen door gebruik te maken van de kracht van sociale media',
+              'Stichting Freedom Combination - Stelt zich ten doel een einde te maken aan mensenrechtenschendingen door gebruik te maken van de kracht van sociale media',
             reference: null,
             approvalStatus: 'approved',
             capsStatus: 'pending',
@@ -2928,7 +2937,7 @@ export const POST_MOCKS = {
         image: null,
         hashtag: {
           id: 29,
-          title: 'Wees Foundation promotion',
+          title: 'Freedom Combination Foundation promotion',
           slug: 'wees-foundation-promotion',
           description: 'Wees foundation activities promotion hashtag campaign',
           content: 'Content',
@@ -2938,7 +2947,7 @@ export const POST_MOCKS = {
           tweets: [
             {
               id: '1668402029868331009',
-              text: 'RT @sanatduragi_nl: Kendimizi bir kez daha tanıtma fırsatı bulduğunuz bir ortadayız. Bize bu fırsatı sınan @wsvvrijheid teşekkürler 💙 #StgW…',
+              text: 'RT @sanatduragi_nl: Kendimizi bir kez daha tanıtma fırsatı bulduğunuz bir ortadayız. Bize bu fırsatı sınan @fc teşekkürler 💙 #StgW…',
               user: {
                 name: 'Hasan Rüstemoglu',
                 profile:
@@ -2994,7 +3003,7 @@ export const POST_MOCKS = {
             },
             {
               id: '1668297997334065157',
-              text: 'RT @MhmtTvt: Haarlem’ de  Hollanda’ nın kurtuluş gününde Wees Vakfımız organizasyonuyla Türkiye’ de kadınlara yapılan hukuksuzlukları lanse…',
+              text: 'RT @MhmtTvt: Haarlem’ de  Hollanda’ nın kurtuluş gününde Freedom Combination Vakfımız organizasyonuyla Türkiye’ de kadınlara yapılan hukuksuzlukları lanse…',
               user: {
                 name: 'Christina Tyler 💐',
                 profile:
@@ -3036,7 +3045,7 @@ export const POST_MOCKS = {
             },
             {
               id: '1668138749002219521',
-              text: "RT @insan_sevgisii: Proje dünyasına adım atmak için Wees Akademi'nin proje eğitimine katılın. Hollanda içi veAvrupa Birliği projeleriyle pr…",
+              text: "RT @insan_sevgisii: Proje dünyasına adım atmak için FC Akademi'nin proje eğitimine katılın. Hollanda içi veAvrupa Birliği projeleriyle pr…",
               user: {
                 name: 'Nevbahar',
                 profile:
@@ -3064,7 +3073,7 @@ export const POST_MOCKS = {
             },
             {
               id: '1668004277351071745',
-              text: 'RT @samenvvvTR: Wees Akademi, insan haklarına ilişkin farkındalığı artırmayı amaçlayan aylık söyleşiler aracılığıyla bilgi yaymayı hedeflem…',
+              text: 'RT @samenvvvTR: FC Akademi, insan haklarına ilişkin farkındalığı artırmayı amaçlayan aylık söyleşiler aracılığıyla bilgi yaymayı hedeflem…',
               user: {
                 name: 'Yoldas',
                 profile:
@@ -3120,7 +3129,7 @@ export const POST_MOCKS = {
             },
             {
               id: '1667996803571040256',
-              text: 'RT @samenvvvTR: Wees Akademi, insan haklarına ilişkin farkındalığı artırmayı amaçlayan aylık söyleşiler aracılığıyla bilgi yaymayı hedeflem…',
+              text: 'RT @samenvvvTR: FC Akademi, insan haklarına ilişkin farkındalığı artırmayı amaçlayan aylık söyleşiler aracılığıyla bilgi yaymayı hedeflem…',
               user: {
                 name: 'Ismail',
                 profile:
@@ -3148,7 +3157,7 @@ export const POST_MOCKS = {
             },
             {
               id: '1667996703423705099',
-              text: 'RT @sanatduragi_nl: Als Wees Academy hebben we een digitale tekentraining gegeven, die we in de nieuwe periode willen herhalen..\n@samenvvv…',
+              text: 'RT @sanatduragi_nl: Als FC Academy hebben we een digitale tekentraining gegeven, die we in de nieuwe periode willen herhalen..\n@samenvvv…',
               user: {
                 name: 'Ismail',
                 profile:
@@ -3190,7 +3199,7 @@ export const POST_MOCKS = {
             },
             {
               id: '1667995710963302400',
-              text: 'Join Foundation Wees de Stem voor Vrijheid in our mission to end human rights violations. Through the power of social media, we aim to raise awareness, promote accountability, and advocate for the rights of all individuals.\n@samenvvvEN\n#StgWeesPresentatie \nhttps://t.co/EjXGC9Qc9b',
+              text: 'Join Foundation Freedom Combination in our mission to end human rights violations. Through the power of social media, we aim to raise awareness, promote accountability, and advocate for the rights of all individuals.\n@samenvvvEN\n#StgWeesPresentatie \nhttps://t.co/EjXGC9Qc9b',
               user: {
                 name: 'Ibrahim Van Lopik',
                 profile:
@@ -3330,7 +3339,7 @@ export const POST_MOCKS = {
             },
             {
               id: '1667947950742413313',
-              text: 'RT @wsvvrijheid: Foundation Wees de Stem voor Vrijheid is breaking new ground as the first and only foundation dedicated to human rights on…',
+              text: 'RT @fc: Foundation Freedom Combination is breaking new ground as the first and only foundation dedicated to human rights on…',
               user: {
                 name: 'Mustafa',
                 profile:
@@ -3358,7 +3367,7 @@ export const POST_MOCKS = {
             },
             {
               id: '1667897619924807681',
-              text: 'RT @sanatduragi_nl: Als Wees Academy hebben we een digitale tekentraining gegeven, die we in de nieuwe periode willen herhalen..\n@samenvvv…',
+              text: 'RT @sanatduragi_nl: Als FC Academy hebben we een digitale tekentraining gegeven, die we in de nieuwe periode willen herhalen..\n@samenvvv…',
               user: {
                 name: 'sade',
                 profile:
@@ -3442,7 +3451,7 @@ export const POST_MOCKS = {
             },
             {
               id: '1667866569093914625',
-              text: 'RT @MeteNisan: Wees Akademi, proje eğitimiyle size Hollanda içinde ve Avrupa Birliği projelerinde yer alma fırsatı sunuyor. Bilgi ve beceri…',
+              text: 'RT @MeteNisan: FC Akademi, proje eğitimiyle size Hollanda içinde ve Avrupa Birliği projelerinde yer alma fırsatı sunuyor. Bilgi ve beceri…',
               user: {
                 name: 'Eren Eymen',
                 profile:
@@ -3456,7 +3465,7 @@ export const POST_MOCKS = {
             },
             {
               id: '1667857723252252675',
-              text: 'Wees Akademi, proje eğitimiyle size Hollanda içinde ve Avrupa Birliği projelerinde yer alma fırsatı sunuyor. Bilgi ve becerilerinizi geliştirerek geleceğin projelerine katkıda bulunun. \n\n@sanatduragi_nl\n\n#StgWeesPresentatie \n\nhttps://t.co/7L7z8h30zr',
+              text: 'FC Akademi, proje eğitimiyle size Hollanda içinde ve Avrupa Birliği projelerinde yer alma fırsatı sunuyor. Bilgi ve becerilerinizi geliştirerek geleceğin projelerine katkıda bulunun. \n\n@sanatduragi_nl\n\n#StgWeesPresentatie \n\nhttps://t.co/7L7z8h30zr',
               user: {
                 name: 'fatma',
                 profile:
@@ -3470,7 +3479,7 @@ export const POST_MOCKS = {
             },
             {
               id: '1667846147354787842',
-              text: 'RT @sanatduragi_nl: Kendimizi bir kez daha tanıtma fırsatı bulduğunuz bir ortadayız. Bize bu fırsatı sınan @wsvvrijheid teşekkürler 💙 #StgW…',
+              text: 'RT @sanatduragi_nl: Kendimizi bir kez daha tanıtma fırsatı bulduğunuz bir ortadayız. Bize bu fırsatı sınan @fc teşekkürler 💙 #StgW…',
               user: {
                 name: 'Büşra',
                 profile:
@@ -3582,7 +3591,7 @@ export const POST_MOCKS = {
             },
             {
               id: '1667785227563876352',
-              text: 'RT @samenvvvTR: Wees Akademi, insan haklarına ilişkin farkındalığı artırmayı amaçlayan aylık söyleşiler aracılığıyla bilgi yaymayı hedeflem…',
+              text: 'RT @samenvvvTR: FC Akademi, insan haklarına ilişkin farkındalığı artırmayı amaçlayan aylık söyleşiler aracılığıyla bilgi yaymayı hedeflem…',
               user: {
                 name: 'semran sari',
                 profile:
@@ -3596,7 +3605,7 @@ export const POST_MOCKS = {
             },
             {
               id: '1667783386859970561',
-              text: "RT @insan_sevgisii: Proje dünyasına adım atmak için Wees Akademi'nin proje eğitimine katılın. Hollanda içi veAvrupa Birliği projeleriyle pr…",
+              text: "RT @insan_sevgisii: Proje dünyasına adım atmak için FC Akademi'nin proje eğitimine katılın. Hollanda içi veAvrupa Birliği projeleriyle pr…",
               user: {
                 name: 'DeepDarkRaven',
                 profile:
@@ -3848,7 +3857,7 @@ export const POST_MOCKS = {
         },
         hashtag: {
           id: 29,
-          title: 'Wees Foundation promotion',
+          title: 'Freedom Combination Foundation promotion',
           slug: 'wees-foundation-promotion',
           description: 'Wees foundation activities promotion hashtag campaign',
           content: 'Content',
@@ -3858,7 +3867,7 @@ export const POST_MOCKS = {
           tweets: [
             {
               id: '1668402029868331009',
-              text: 'RT @sanatduragi_nl: Kendimizi bir kez daha tanıtma fırsatı bulduğunuz bir ortadayız. Bize bu fırsatı sınan @wsvvrijheid teşekkürler 💙 #StgW…',
+              text: 'RT @sanatduragi_nl: Kendimizi bir kez daha tanıtma fırsatı bulduğunuz bir ortadayız. Bize bu fırsatı sınan @fc teşekkürler 💙 #StgW…',
               user: {
                 name: 'Hasan Rüstemoglu',
                 profile:
@@ -3914,7 +3923,7 @@ export const POST_MOCKS = {
             },
             {
               id: '1668297997334065157',
-              text: 'RT @MhmtTvt: Haarlem’ de  Hollanda’ nın kurtuluş gününde Wees Vakfımız organizasyonuyla Türkiye’ de kadınlara yapılan hukuksuzlukları lanse…',
+              text: 'RT @MhmtTvt: Haarlem’ de  Hollanda’ nın kurtuluş gününde Freedom Combination Vakfımız organizasyonuyla Türkiye’ de kadınlara yapılan hukuksuzlukları lanse…',
               user: {
                 name: 'Christina Tyler 💐',
                 profile:
@@ -3956,7 +3965,7 @@ export const POST_MOCKS = {
             },
             {
               id: '1668138749002219521',
-              text: "RT @insan_sevgisii: Proje dünyasına adım atmak için Wees Akademi'nin proje eğitimine katılın. Hollanda içi veAvrupa Birliği projeleriyle pr…",
+              text: "RT @insan_sevgisii: Proje dünyasına adım atmak için FC Akademi'nin proje eğitimine katılın. Hollanda içi veAvrupa Birliği projeleriyle pr…",
               user: {
                 name: 'Nevbahar',
                 profile:
@@ -3984,7 +3993,7 @@ export const POST_MOCKS = {
             },
             {
               id: '1668004277351071745',
-              text: 'RT @samenvvvTR: Wees Akademi, insan haklarına ilişkin farkındalığı artırmayı amaçlayan aylık söyleşiler aracılığıyla bilgi yaymayı hedeflem…',
+              text: 'RT @samenvvvTR: FC Akademi, insan haklarına ilişkin farkındalığı artırmayı amaçlayan aylık söyleşiler aracılığıyla bilgi yaymayı hedeflem…',
               user: {
                 name: 'Yoldas',
                 profile:
@@ -4040,7 +4049,7 @@ export const POST_MOCKS = {
             },
             {
               id: '1667996803571040256',
-              text: 'RT @samenvvvTR: Wees Akademi, insan haklarına ilişkin farkındalığı artırmayı amaçlayan aylık söyleşiler aracılığıyla bilgi yaymayı hedeflem…',
+              text: 'RT @samenvvvTR: FC Akademi, insan haklarına ilişkin farkındalığı artırmayı amaçlayan aylık söyleşiler aracılığıyla bilgi yaymayı hedeflem…',
               user: {
                 name: 'Ismail',
                 profile:
@@ -4068,7 +4077,7 @@ export const POST_MOCKS = {
             },
             {
               id: '1667996703423705099',
-              text: 'RT @sanatduragi_nl: Als Wees Academy hebben we een digitale tekentraining gegeven, die we in de nieuwe periode willen herhalen..\n@samenvvv…',
+              text: 'RT @sanatduragi_nl: Als FC Academy hebben we een digitale tekentraining gegeven, die we in de nieuwe periode willen herhalen..\n@samenvvv…',
               user: {
                 name: 'Ismail',
                 profile:
@@ -4110,7 +4119,7 @@ export const POST_MOCKS = {
             },
             {
               id: '1667995710963302400',
-              text: 'Join Foundation Wees de Stem voor Vrijheid in our mission to end human rights violations. Through the power of social media, we aim to raise awareness, promote accountability, and advocate for the rights of all individuals.\n@samenvvvEN\n#StgWeesPresentatie \nhttps://t.co/EjXGC9Qc9b',
+              text: 'Join Foundation Freedom Combination in our mission to end human rights violations. Through the power of social media, we aim to raise awareness, promote accountability, and advocate for the rights of all individuals.\n@samenvvvEN\n#StgWeesPresentatie \nhttps://t.co/EjXGC9Qc9b',
               user: {
                 name: 'Ibrahim Van Lopik',
                 profile:
@@ -4250,7 +4259,7 @@ export const POST_MOCKS = {
             },
             {
               id: '1667947950742413313',
-              text: 'RT @wsvvrijheid: Foundation Wees de Stem voor Vrijheid is breaking new ground as the first and only foundation dedicated to human rights on…',
+              text: 'RT @fc: Foundation Freedom Combination is breaking new ground as the first and only foundation dedicated to human rights on…',
               user: {
                 name: 'Mustafa',
                 profile:
@@ -4278,7 +4287,7 @@ export const POST_MOCKS = {
             },
             {
               id: '1667897619924807681',
-              text: 'RT @sanatduragi_nl: Als Wees Academy hebben we een digitale tekentraining gegeven, die we in de nieuwe periode willen herhalen..\n@samenvvv…',
+              text: 'RT @sanatduragi_nl: Als FC Academy hebben we een digitale tekentraining gegeven, die we in de nieuwe periode willen herhalen..\n@samenvvv…',
               user: {
                 name: 'sade',
                 profile:
@@ -4362,7 +4371,7 @@ export const POST_MOCKS = {
             },
             {
               id: '1667866569093914625',
-              text: 'RT @MeteNisan: Wees Akademi, proje eğitimiyle size Hollanda içinde ve Avrupa Birliği projelerinde yer alma fırsatı sunuyor. Bilgi ve beceri…',
+              text: 'RT @MeteNisan: FC Akademi, proje eğitimiyle size Hollanda içinde ve Avrupa Birliği projelerinde yer alma fırsatı sunuyor. Bilgi ve beceri…',
               user: {
                 name: 'Eren Eymen',
                 profile:
@@ -4376,7 +4385,7 @@ export const POST_MOCKS = {
             },
             {
               id: '1667857723252252675',
-              text: 'Wees Akademi, proje eğitimiyle size Hollanda içinde ve Avrupa Birliği projelerinde yer alma fırsatı sunuyor. Bilgi ve becerilerinizi geliştirerek geleceğin projelerine katkıda bulunun. \n\n@sanatduragi_nl\n\n#StgWeesPresentatie \n\nhttps://t.co/7L7z8h30zr',
+              text: 'FC Akademi, proje eğitimiyle size Hollanda içinde ve Avrupa Birliği projelerinde yer alma fırsatı sunuyor. Bilgi ve becerilerinizi geliştirerek geleceğin projelerine katkıda bulunun. \n\n@sanatduragi_nl\n\n#StgWeesPresentatie \n\nhttps://t.co/7L7z8h30zr',
               user: {
                 name: 'fatma',
                 profile:
@@ -4390,7 +4399,7 @@ export const POST_MOCKS = {
             },
             {
               id: '1667846147354787842',
-              text: 'RT @sanatduragi_nl: Kendimizi bir kez daha tanıtma fırsatı bulduğunuz bir ortadayız. Bize bu fırsatı sınan @wsvvrijheid teşekkürler 💙 #StgW…',
+              text: 'RT @sanatduragi_nl: Kendimizi bir kez daha tanıtma fırsatı bulduğunuz bir ortadayız. Bize bu fırsatı sınan @fc teşekkürler 💙 #StgW…',
               user: {
                 name: 'Büşra',
                 profile:
@@ -4502,7 +4511,7 @@ export const POST_MOCKS = {
             },
             {
               id: '1667785227563876352',
-              text: 'RT @samenvvvTR: Wees Akademi, insan haklarına ilişkin farkındalığı artırmayı amaçlayan aylık söyleşiler aracılığıyla bilgi yaymayı hedeflem…',
+              text: 'RT @samenvvvTR: FC Akademi, insan haklarına ilişkin farkındalığı artırmayı amaçlayan aylık söyleşiler aracılığıyla bilgi yaymayı hedeflem…',
               user: {
                 name: 'semran sari',
                 profile:
@@ -4516,7 +4525,7 @@ export const POST_MOCKS = {
             },
             {
               id: '1667783386859970561',
-              text: "RT @insan_sevgisii: Proje dünyasına adım atmak için Wees Akademi'nin proje eğitimine katılın. Hollanda içi veAvrupa Birliği projeleriyle pr…",
+              text: "RT @insan_sevgisii: Proje dünyasına adım atmak için FC Akademi'nin proje eğitimine katılın. Hollanda içi veAvrupa Birliği projeleriyle pr…",
               user: {
                 name: 'DeepDarkRaven',
                 profile:
@@ -4727,7 +4736,7 @@ export const POST_MOCKS = {
         },
         hashtag: {
           id: 29,
-          title: 'Wees Foundation promotion',
+          title: 'Freedom Combination Foundation promotion',
           slug: 'wees-foundation-promotion',
           description: 'Wees foundation activities promotion hashtag campaign',
           content: 'Content',
@@ -4737,7 +4746,7 @@ export const POST_MOCKS = {
           tweets: [
             {
               id: '1668402029868331009',
-              text: 'RT @sanatduragi_nl: Kendimizi bir kez daha tanıtma fırsatı bulduğunuz bir ortadayız. Bize bu fırsatı sınan @wsvvrijheid teşekkürler 💙 #StgW…',
+              text: 'RT @sanatduragi_nl: Kendimizi bir kez daha tanıtma fırsatı bulduğunuz bir ortadayız. Bize bu fırsatı sınan @fc teşekkürler 💙 #StgW…',
               user: {
                 name: 'Hasan Rüstemoglu',
                 profile:
@@ -4793,7 +4802,7 @@ export const POST_MOCKS = {
             },
             {
               id: '1668297997334065157',
-              text: 'RT @MhmtTvt: Haarlem’ de  Hollanda’ nın kurtuluş gününde Wees Vakfımız organizasyonuyla Türkiye’ de kadınlara yapılan hukuksuzlukları lanse…',
+              text: 'RT @MhmtTvt: Haarlem’ de  Hollanda’ nın kurtuluş gününde Freedom Combination Vakfımız organizasyonuyla Türkiye’ de kadınlara yapılan hukuksuzlukları lanse…',
               user: {
                 name: 'Christina Tyler 💐',
                 profile:
@@ -4835,7 +4844,7 @@ export const POST_MOCKS = {
             },
             {
               id: '1668138749002219521',
-              text: "RT @insan_sevgisii: Proje dünyasına adım atmak için Wees Akademi'nin proje eğitimine katılın. Hollanda içi veAvrupa Birliği projeleriyle pr…",
+              text: "RT @insan_sevgisii: Proje dünyasına adım atmak için FC Akademi'nin proje eğitimine katılın. Hollanda içi veAvrupa Birliği projeleriyle pr…",
               user: {
                 name: 'Nevbahar',
                 profile:
@@ -4863,7 +4872,7 @@ export const POST_MOCKS = {
             },
             {
               id: '1668004277351071745',
-              text: 'RT @samenvvvTR: Wees Akademi, insan haklarına ilişkin farkındalığı artırmayı amaçlayan aylık söyleşiler aracılığıyla bilgi yaymayı hedeflem…',
+              text: 'RT @samenvvvTR: FC Akademi, insan haklarına ilişkin farkındalığı artırmayı amaçlayan aylık söyleşiler aracılığıyla bilgi yaymayı hedeflem…',
               user: {
                 name: 'Yoldas',
                 profile:
@@ -4919,7 +4928,7 @@ export const POST_MOCKS = {
             },
             {
               id: '1667996803571040256',
-              text: 'RT @samenvvvTR: Wees Akademi, insan haklarına ilişkin farkındalığı artırmayı amaçlayan aylık söyleşiler aracılığıyla bilgi yaymayı hedeflem…',
+              text: 'RT @samenvvvTR: FC Akademi, insan haklarına ilişkin farkındalığı artırmayı amaçlayan aylık söyleşiler aracılığıyla bilgi yaymayı hedeflem…',
               user: {
                 name: 'Ismail',
                 profile:
@@ -4947,7 +4956,7 @@ export const POST_MOCKS = {
             },
             {
               id: '1667996703423705099',
-              text: 'RT @sanatduragi_nl: Als Wees Academy hebben we een digitale tekentraining gegeven, die we in de nieuwe periode willen herhalen..\n@samenvvv…',
+              text: 'RT @sanatduragi_nl: Als FC Academy hebben we een digitale tekentraining gegeven, die we in de nieuwe periode willen herhalen..\n@samenvvv…',
               user: {
                 name: 'Ismail',
                 profile:
@@ -4989,7 +4998,7 @@ export const POST_MOCKS = {
             },
             {
               id: '1667995710963302400',
-              text: 'Join Foundation Wees de Stem voor Vrijheid in our mission to end human rights violations. Through the power of social media, we aim to raise awareness, promote accountability, and advocate for the rights of all individuals.\n@samenvvvEN\n#StgWeesPresentatie \nhttps://t.co/EjXGC9Qc9b',
+              text: 'Join Foundation Freedom Combination in our mission to end human rights violations. Through the power of social media, we aim to raise awareness, promote accountability, and advocate for the rights of all individuals.\n@samenvvvEN\n#StgWeesPresentatie \nhttps://t.co/EjXGC9Qc9b',
               user: {
                 name: 'Ibrahim Van Lopik',
                 profile:
@@ -5129,7 +5138,7 @@ export const POST_MOCKS = {
             },
             {
               id: '1667947950742413313',
-              text: 'RT @wsvvrijheid: Foundation Wees de Stem voor Vrijheid is breaking new ground as the first and only foundation dedicated to human rights on…',
+              text: 'RT @fc: Foundation Freedom Combination is breaking new ground as the first and only foundation dedicated to human rights on…',
               user: {
                 name: 'Mustafa',
                 profile:
@@ -5157,7 +5166,7 @@ export const POST_MOCKS = {
             },
             {
               id: '1667897619924807681',
-              text: 'RT @sanatduragi_nl: Als Wees Academy hebben we een digitale tekentraining gegeven, die we in de nieuwe periode willen herhalen..\n@samenvvv…',
+              text: 'RT @sanatduragi_nl: Als FC Academy hebben we een digitale tekentraining gegeven, die we in de nieuwe periode willen herhalen..\n@samenvvv…',
               user: {
                 name: 'sade',
                 profile:
@@ -5241,7 +5250,7 @@ export const POST_MOCKS = {
             },
             {
               id: '1667866569093914625',
-              text: 'RT @MeteNisan: Wees Akademi, proje eğitimiyle size Hollanda içinde ve Avrupa Birliği projelerinde yer alma fırsatı sunuyor. Bilgi ve beceri…',
+              text: 'RT @MeteNisan: FC Akademi, proje eğitimiyle size Hollanda içinde ve Avrupa Birliği projelerinde yer alma fırsatı sunuyor. Bilgi ve beceri…',
               user: {
                 name: 'Eren Eymen',
                 profile:
@@ -5255,7 +5264,7 @@ export const POST_MOCKS = {
             },
             {
               id: '1667857723252252675',
-              text: 'Wees Akademi, proje eğitimiyle size Hollanda içinde ve Avrupa Birliği projelerinde yer alma fırsatı sunuyor. Bilgi ve becerilerinizi geliştirerek geleceğin projelerine katkıda bulunun. \n\n@sanatduragi_nl\n\n#StgWeesPresentatie \n\nhttps://t.co/7L7z8h30zr',
+              text: 'FC Akademi, proje eğitimiyle size Hollanda içinde ve Avrupa Birliği projelerinde yer alma fırsatı sunuyor. Bilgi ve becerilerinizi geliştirerek geleceğin projelerine katkıda bulunun. \n\n@sanatduragi_nl\n\n#StgWeesPresentatie \n\nhttps://t.co/7L7z8h30zr',
               user: {
                 name: 'fatma',
                 profile:
@@ -5269,7 +5278,7 @@ export const POST_MOCKS = {
             },
             {
               id: '1667846147354787842',
-              text: 'RT @sanatduragi_nl: Kendimizi bir kez daha tanıtma fırsatı bulduğunuz bir ortadayız. Bize bu fırsatı sınan @wsvvrijheid teşekkürler 💙 #StgW…',
+              text: 'RT @sanatduragi_nl: Kendimizi bir kez daha tanıtma fırsatı bulduğunuz bir ortadayız. Bize bu fırsatı sınan @fc teşekkürler 💙 #StgW…',
               user: {
                 name: 'Büşra',
                 profile:
@@ -5381,7 +5390,7 @@ export const POST_MOCKS = {
             },
             {
               id: '1667785227563876352',
-              text: 'RT @samenvvvTR: Wees Akademi, insan haklarına ilişkin farkındalığı artırmayı amaçlayan aylık söyleşiler aracılığıyla bilgi yaymayı hedeflem…',
+              text: 'RT @samenvvvTR: FC Akademi, insan haklarına ilişkin farkındalığı artırmayı amaçlayan aylık söyleşiler aracılığıyla bilgi yaymayı hedeflem…',
               user: {
                 name: 'semran sari',
                 profile:
@@ -5395,7 +5404,7 @@ export const POST_MOCKS = {
             },
             {
               id: '1667783386859970561',
-              text: "RT @insan_sevgisii: Proje dünyasına adım atmak için Wees Akademi'nin proje eğitimine katılın. Hollanda içi veAvrupa Birliği projeleriyle pr…",
+              text: "RT @insan_sevgisii: Proje dünyasına adım atmak için FC Akademi'nin proje eğitimine katılın. Hollanda içi veAvrupa Birliği projeleriyle pr…",
               user: {
                 name: 'DeepDarkRaven',
                 profile:

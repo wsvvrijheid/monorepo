@@ -2,7 +2,7 @@ import { FC, useMemo } from 'react'
 
 import { Divider, Stack } from '@chakra-ui/react'
 
-import { useHashtag } from '@wsvvrijheid/services'
+import { useHashtag } from '@fc/services'
 
 import { PostMakerTweetCard } from './PostMakerTweetCard'
 import { PostMakerTweetListProps } from './types'

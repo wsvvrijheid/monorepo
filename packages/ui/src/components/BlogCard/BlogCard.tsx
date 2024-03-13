@@ -14,8 +14,8 @@ import {
 import { useRouter } from 'next/router'
 import { FaCalendarDay, FaClock, FaEye, FaHeart } from 'react-icons/fa'
 
-import { Blog } from '@wsvvrijheid/types'
-import { getReadingTime } from '@wsvvrijheid/utils'
+import { Blog } from '@fc/types'
+import { getReadingTime } from '@fc/utils'
 
 import { FormattedDate } from '../FormattedDate'
 import { Navigate } from '../Navigate'

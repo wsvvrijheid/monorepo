@@ -1,4 +1,4 @@
-import { Donation } from '@wsvvrijheid/types'
+import { Donation } from '@fc/types'
 
 import { WTableProps } from '../../components'
 

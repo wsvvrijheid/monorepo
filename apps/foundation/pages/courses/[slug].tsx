@@ -4,11 +4,11 @@ import { dehydrate, QueryClient } from '@tanstack/react-query'
 import { GetServerSidePropsContext, InferGetStaticPropsType } from 'next'
 import { serialize } from 'next-mdx-remote/serialize'
 
-import { ASSETS_URL, SITE_URL } from '@wsvvrijheid/config'
-import { getCourseBySlug } from '@wsvvrijheid/services'
-import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
-import { StrapiLocale } from '@wsvvrijheid/types'
-import { CourseDetailPage } from '@wsvvrijheid/ui'
+import { ASSETS_URL, SITE_URL } from '@fc/config'
+import { getCourseBySlug } from '@fc/services'
+import { ssrTranslations } from '@fc/services/ssrTranslations'
+import { StrapiLocale } from '@fc/types'
+import { CourseDetailPage } from '@fc/ui'
 
 import { Layout } from '../../components'
 

@@ -3,7 +3,7 @@ import { FC, Fragment } from 'react'
 import { AspectRatio, ImageProps as ChakraImageProps } from '@chakra-ui/react'
 import Zoom from 'react-medium-image-zoom'
 
-import { UploadFile } from '@wsvvrijheid/types'
+import { UploadFile } from '@fc/types'
 
 import { StrapiImage } from '../StrapiImage'
 
@@ -29,7 +29,7 @@ export const WImage: FC<WImageProps> = ({
   ...rest
 }) => {
   if (!src) {
-    if (process.env.NODE_ENV === 'production') {
+    if (process.env.NODE_ENV !== 'production') {
       console.warn('No src provided to WImage')
     }
 

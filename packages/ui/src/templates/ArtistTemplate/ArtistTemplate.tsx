@@ -2,7 +2,7 @@ import { FC } from 'react'
 
 import { SimpleGrid, Stack, Text } from '@chakra-ui/react'
 
-import { Art, Profile } from '@wsvvrijheid/types'
+import { Art, Profile } from '@fc/types'
 
 import { ArtCard, Container, Hero, WAvatar } from '../../components'
 

@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 
-import { strapiRequest } from '@wsvvrijheid/lib'
-import { Profile } from '@wsvvrijheid/types'
+import { strapiRequest } from '@fc/lib'
+import { Profile } from '@fc/types'
 
 import { getArtByArtist } from '../art/getByArtist'
 

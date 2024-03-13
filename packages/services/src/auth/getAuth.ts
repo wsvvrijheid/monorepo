@@ -1,8 +1,8 @@
 import axios from 'axios'
 
-import { API_URL } from '@wsvvrijheid/config'
-import { strapiRequest } from '@wsvvrijheid/lib'
-import { Auth, AuthResponse, Profile } from '@wsvvrijheid/types'
+import { API_URL } from '@fc/config'
+import { strapiRequest } from '@fc/lib'
+import { Auth, AuthResponse, Profile } from '@fc/types'
 
 import { getSessionUser } from './getSessionUser'
 

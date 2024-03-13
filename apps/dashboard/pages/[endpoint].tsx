@@ -8,10 +8,10 @@ import { useTranslation } from 'next-i18next'
 import {
   endpointsWithApprovalStatus,
   endpointsWithPublicationState,
-} from '@wsvvrijheid/config'
-import { useAuthContext } from '@wsvvrijheid/context'
-import { useStrapiRequest } from '@wsvvrijheid/services'
-import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
+} from '@fc/config'
+import { useAuthContext } from '@fc/context'
+import { useStrapiRequest } from '@fc/services'
+import { ssrTranslations } from '@fc/services/ssrTranslations'
 import {
   ApprovalStatus,
   Post,
@@ -20,7 +20,7 @@ import {
   StrapiLocale,
   StrapiModel,
   StrapiTranslatableModel,
-} from '@wsvvrijheid/types'
+} from '@fc/types'
 import {
   AdminLayout,
   DataTable,
@@ -35,7 +35,7 @@ import {
   WTableProps,
   useColumns,
   useRequestArgs,
-} from '@wsvvrijheid/ui'
+} from '@fc/ui'
 
 import { I18nNamespaces } from '../@types/i18next'
 

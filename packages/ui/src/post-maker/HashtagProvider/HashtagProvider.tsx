@@ -4,8 +4,8 @@ import { useDisclosure } from '@chakra-ui/react'
 import { sampleSize } from 'lodash'
 import { useRouter } from 'next/router'
 
-import { useGetHashtagSentences, useHashtag } from '@wsvvrijheid/services'
-import { StrapiLocale } from '@wsvvrijheid/types'
+import { useGetHashtagSentences, useHashtag } from '@fc/services'
+import { StrapiLocale } from '@fc/types'
 
 import { initialHashtagContext } from './state'
 import {

@@ -1,3 +1,3 @@
-import { registerRouter } from '@wsvvrijheid/services/src/api/register'
+import { registerRouter } from '@fc/services/src/api/register'
 
 export default registerRouter

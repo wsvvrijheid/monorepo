@@ -5,8 +5,8 @@ import { useRouter } from 'next/router'
 import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { serialize } from 'next-mdx-remote/serialize'
 
-import { SITE_URL } from '@wsvvrijheid/config'
-import { BLOG_MOCKS } from '@wsvvrijheid/mocks'
+import { SITE_URL } from '@fc/config'
+import { BLOG_MOCKS } from '@fc/mocks'
 
 import { BlogDetail, BlogDetailProps } from './BlogDetail'
 import { Container } from '../Container'

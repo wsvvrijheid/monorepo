@@ -1,9 +1,9 @@
 import { getIronSession } from 'iron-session'
 import { NextApiHandler } from 'next'
 
-import { strapiRequest } from '@wsvvrijheid/lib'
-import { sessionOptions } from '@wsvvrijheid/secrets'
-import { Auth } from '@wsvvrijheid/types'
+import { strapiRequest } from '@fc/lib'
+import { sessionOptions } from '@fc/secrets'
+import { Auth } from '@fc/types'
 
 export const userRouter: NextApiHandler = async (req, res) => {
   const session = await getIronSession<Auth>(req, res, sessionOptions)

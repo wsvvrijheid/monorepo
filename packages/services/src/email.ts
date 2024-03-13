@@ -1,6 +1,6 @@
-import { EMAIL_SENDER, EMAIL_RECEIVER } from '@wsvvrijheid/config'
-import { Mutation } from '@wsvvrijheid/lib'
-import { EmailCreateInput } from '@wsvvrijheid/types'
+import { EMAIL_SENDER, EMAIL_RECEIVER } from '@fc/config'
+import { Mutation } from '@fc/lib'
+import { EmailCreateInput } from '@fc/types'
 
 export const sendEmail = async (data: EmailCreateInput, token: string) => {
   const body: EmailCreateInput = {

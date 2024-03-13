@@ -3,10 +3,10 @@ import { GetStaticPropsContext } from 'next'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
-import { useStrapiRequest } from '@wsvvrijheid/services'
-import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
-import { RecommendedTopic, StrapiLocale } from '@wsvvrijheid/types'
-import { AdminLayout, TopicCard } from '@wsvvrijheid/ui'
+import { useStrapiRequest } from '@fc/services'
+import { ssrTranslations } from '@fc/services/ssrTranslations'
+import { RecommendedTopic, StrapiLocale } from '@fc/types'
+import { AdminLayout, TopicCard } from '@fc/ui'
 
 const NewsBookmarkedPage = () => {
   const { locale } = useRouter()
