@@ -12,7 +12,7 @@ export const userRouter: NextApiHandler = async (req, res) => {
     // TODO: Create /profiles/me endpoint
     const profileResponse = session?.profileId
       ? await strapiRequest({
-          endpoint: 'profiles',
+          endpoint: 'profiles/me',
           id: session.profileId as number,
           token: session.token,
         })
