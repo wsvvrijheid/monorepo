@@ -45,7 +45,7 @@ export const BlogDetail: FC<BlogDetailProps> = ({
   const { locale } = useRouter()
   const { t } = useTranslation()
 
-  const { isLiked, toggleLike } = useLikeBlog(post, queryKey)
+  const { isLiked, toggleLike, likeCount } = useLikeBlog(post, queryKey)
 
   const readingTime = getReadingTime(post.content || '', locale)
 
@@ -79,9 +79,7 @@ export const BlogDetail: FC<BlogDetailProps> = ({
             </HStack>
             <HStack>
               <Box as={AiFillHeart} />
-              <Text>
-                {(post?.likes || 0) + (post?.likers?.length || 0)} likes
-              </Text>
+              <Text>{likeCount} likes</Text>
             </HStack>
           </Box>
         </Wrap>

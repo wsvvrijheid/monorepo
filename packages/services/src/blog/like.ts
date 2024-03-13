@@ -1,12 +1,13 @@
 import { QueryKey, useMutation, useQueryClient } from '@tanstack/react-query'
 import axios from 'axios'
-import { useLocalStorage } from 'usehooks-ts'
+import { useDebounceValue, useLocalStorage } from 'usehooks-ts'
 
 import { API_URL } from '@fc/config'
 import { useAuthContext } from '@fc/context'
 import { Blog, LikeMutationArgs } from '@fc/types'
 
 import { useRecaptchaToken } from '../common'
+import { useEffect, useState } from 'react'
 
 const useLikeBlogMutation = () => {
   const { token } = useAuthContext()
@@ -35,47 +36,65 @@ export const useLikeBlog = (blog?: Blog | null, queryKey?: QueryKey) => {
     [],
   )
 
-  if (!blog) return { toggleLike: () => null, isLiked: false, isLoading: false }
+  const initialLike = profile
+    ? blog?.likers?.some(({ id }) => id === profile.id) ?? false
+    : likersStorage?.some(id => id === blog?.id) ?? false
 
-  const isLikedByUser =
-    profile &&
-    blog?.likers &&
-    blog?.likers?.length > 0 &&
-    blog?.likers?.some(({ id }) => id === profile.id)
+  const [isLiked, setIsLiked] = useState(initialLike)
+  const [isLikedDebounced] = useDebounceValue(isLiked, 600)
 
-  const isLikedStorage = likersStorage?.some(id => id === blog.id)
+  const likeCountWithoutMe =
+    (blog?.likes ?? 0) + (blog?.likers?.length ?? 0) - (initialLike ? 1 : 0)
 
-  const toggleLike = async () => {
-    if (profile) {
-      return likeBlogMutation.mutate(
-        { id: blog.id, type: isLikedByUser ? 'unlike' : 'like' },
-        {
-          onSuccess: async () => {
-            await queryClient.invalidateQueries({ queryKey })
+  useEffect(() => {
+    if (!blog || initialLike === isLikedDebounced) return
+
+    const toggleLike = async () => {
+      if (profile) {
+        return likeBlogMutation.mutate(
+          { id: blog.id, type: isLikedDebounced ? 'unlike' : 'like' },
+          {
+            onSuccess: async () => {
+              await queryClient.invalidateQueries({ queryKey })
+            },
           },
-        },
-      )
-    } else {
-      return likeBlogMutation.mutate(
-        { id: blog.id, type: isLikedStorage ? 'unlike' : 'like' },
-        {
-          onSuccess: async () => {
-            await queryClient.invalidateQueries({ queryKey })
+        )
+      } else {
+        return likeBlogMutation.mutate(
+          { id: blog.id, type: isLikedDebounced ? 'unlike' : 'like' },
+          {
+            onSuccess: async () => {
+              await queryClient.invalidateQueries({ queryKey })
 
-            const updatedStorage = isLikedStorage
-              ? likersStorage?.filter(id => id !== blog.id)
-              : [...(likersStorage || []), blog.id]
+              const updatedStorage = isLikedDebounced
+                ? likersStorage?.filter(id => id !== blog.id)
+                : [...(likersStorage || []), blog.id]
 
-            setLikersStorage(updatedStorage as number[])
+              setLikersStorage(updatedStorage as number[])
+            },
           },
-        },
-      )
+        )
+      }
     }
-  }
+
+    toggleLike()
+  }, [isLikedDebounced, blog])
+
+  if (!blog)
+    return {
+      toggleLike: () => null,
+      likeCount: 0,
+      isLiked: false,
+      isLoading: false,
+    }
 
   return {
-    toggleLike,
-    isLiked: profile ? isLikedByUser : isLikedStorage,
+    toggleLike: () => {
+      setIsLiked(!isLiked)
+    },
+    isLiked: isLiked,
+    likeCount: likeCountWithoutMe + (isLiked ? 1 : 0),
     isLoading: likeBlogMutation.isPending,
   }
+
 }
