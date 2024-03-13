@@ -30,7 +30,6 @@
     "@fc/types": "*",
     "@fc/ui": "*",
     "@hookform/resolvers": "^3.3.4",
-    "@mailchimp/mailchimp_marketing": "^3.0.80",
     "@playwright/test": "^1.42.1",
     "@sindresorhus/slugify": "^2.2.1",
     "@splidejs/react-splide": "^0.7.12",

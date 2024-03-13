@@ -24,16 +24,6 @@ export default {
       return
     }
 
-    const r = await addToMailList(mail.id, email)
-    console.info(
-      'email',
-      email,
-      'course',
-      course,
-      'courseName',
-      courseName,
-      'result',
-      r,
-    )
+    await addToMailList(mail.id, [email])
   },
 }

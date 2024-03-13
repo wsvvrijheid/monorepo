@@ -1,6 +1,6 @@
 import { errors } from '@strapi/utils'
 import {
-  addToMailListBatch,
+  addToMailList,
   createMailList,
 } from '../../../libs/mailchimp/mailchimp'
 const { UnauthorizedError } = errors
@@ -13,7 +13,6 @@ export default {
     }
 
     const courseId = ctx.params.id
-    console.info('courseId', courseId, 'params', ctx.params, 'ctx', ctx)
 
     const course = await strapi.entityService.findOne(
       'api::course.course',
@@ -22,14 +21,12 @@ export default {
         fields: ['title_en', 'mailchimp'],
       },
     )
-    console.info('course', course)
 
     if (!course) {
       throw new errors.NotFoundError('Course not found')
     }
 
     const mailchimp = await createMailList(course.title_en, courseId)
-    console.info('mailchimp', mailchimp)
 
     await strapi.entityService.update('api::course.course', courseId, {
       data: { mailchimp },
@@ -52,9 +49,8 @@ export default {
         fields: ['email'],
       },
     )
-    console.info('applicants', applicants)
 
-    await addToMailListBatch(
+    await addToMailList(
       mailchimp.id,
       applicants.map(applicant => applicant.email),
     )
