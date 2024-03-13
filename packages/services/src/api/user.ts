@@ -9,11 +9,9 @@ export const userRouter: NextApiHandler = async (req, res) => {
   const session = await getIronSession<Auth>(req, res, sessionOptions)
 
   if (session.token) {
-    // TODO: Create /profiles/me endpoint
     const profileResponse = session?.profileId
       ? await strapiRequest({
           endpoint: 'profiles/me',
-          id: session.profileId as number,
           token: session.token,
         })
       : null
