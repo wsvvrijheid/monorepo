@@ -1,6 +1,6 @@
 import { FC } from 'react'
 
-import { QueryClient } from '@tanstack/react-query'
+import { QueryClient, dehydrate } from '@tanstack/react-query'
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
 import { useRouter } from 'next/router'
 import { serialize } from 'next-mdx-remote/serialize'
@@ -17,13 +17,7 @@ import { Layout } from '../../components'
 
 type BlogPageProps = InferGetServerSidePropsType<typeof getServerSideProps>
 
-const BlogDetailPage: FC<BlogPageProps> = ({
-  seo,
-  blog,
-  queryKey,
-  authorBlogs,
-  source,
-}) => {
+const BlogDetailPage: FC<BlogPageProps> = ({ seo, authorBlogs, source }) => {
   const {
     locale,
     query: { slug },
@@ -39,13 +33,7 @@ const BlogDetailPage: FC<BlogPageProps> = ({
     <ReCaptchaProvider reCaptchaKey={RECAPTCHA_SITE_KEY}>
       <Layout seo={seo}>
         <Container maxW="container.md">
-          <BlogDetail
-            post={blog}
-            queryKey={queryKey}
-            source={source}
-            link={link}
-            authorBlogs={authorBlogs}
-          />
+          <BlogDetail source={source} link={link} authorBlogs={authorBlogs} />
         </Container>
       </Layout>
     </ReCaptchaProvider>
@@ -81,11 +69,10 @@ export const getServerSideProps = async (
 
   return {
     props: {
-      blog,
       seo,
       source,
-      queryKey,
       authorBlogs,
+      dehydratedState: dehydrate(queryClient),
       ...(await ssrTranslations(locale)),
     },
   }
