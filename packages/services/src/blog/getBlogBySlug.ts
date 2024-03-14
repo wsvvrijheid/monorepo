@@ -8,7 +8,7 @@ import { Blog, StrapiLocale } from '@fc/types'
 export const getBlogBySlug = async (
   locale: StrapiLocale,
   slug: string,
-): Promise<Blog | null> => {
+): Promise<Blog> => {
   const response = await strapiRequest<
     SetRequired<Blog, 'author' | 'image' | 'likers'>
   >({
@@ -21,11 +21,11 @@ export const getBlogBySlug = async (
   return response?.data?.[0] || null
 }
 
-export const useGetBlogSlug = (slug: string) => {
-  const { locale } = useRouter()
+export const useGetBlogSlug = () => {
+  const { locale, query } = useRouter()
 
   return useQuery({
-    queryKey: ['blog', locale, slug],
-    queryFn: () => getBlogBySlug(locale as StrapiLocale, slug),
+    queryKey: ['blog', locale, query.slug],
+    queryFn: () => getBlogBySlug(locale as StrapiLocale, query.slug as string),
   })
 }

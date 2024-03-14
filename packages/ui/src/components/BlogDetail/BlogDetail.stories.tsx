@@ -1,19 +1,27 @@
-import { useEffect, useState } from 'react'
-
-import { StoryFn, Meta, StoryObj } from '@storybook/react'
+import { Meta, StoryFn, StoryObj } from '@storybook/react'
 import { useRouter } from 'next/router'
-import { MDXRemoteSerializeResult } from 'next-mdx-remote'
-import { serialize } from 'next-mdx-remote/serialize'
 
 import { SITE_URL } from '@fc/config'
 import { BLOG_MOCKS } from '@fc/mocks'
 
-import { BlogDetail, BlogDetailProps } from './BlogDetail'
+import BlogDetail, { BlogDetailProps } from './BlogDetail'
 import { Container } from '../Container'
 
 export default {
   component: BlogDetail,
   title: 'Shared/BlogDetail',
+  parameters: {
+    nextjs: {
+      router: {
+        pathname: '/blog/[slug]',
+        asPath: '/blog/dimitri-1',
+        locale: 'tr',
+        query: {
+          slug: 'dimitri-1',
+        },
+      },
+    },
+  },
   args: {
     post: BLOG_MOCKS.tr.data[1],
     authorBlogs: BLOG_MOCKS.tr.data,
@@ -33,21 +41,14 @@ export default {
 type Story = StoryObj<BlogDetailProps>
 
 const StoryWithHook: StoryFn<BlogDetailProps> = args => {
-  const { locale } = useRouter()
-  const [source, setSource] = useState<MDXRemoteSerializeResult>()
+  const {
+    locale,
+    query: { slug },
+  } = useRouter()
 
-  const getSource = async (content: string) => {
-    const s = await serialize(content || '')
-    setSource(s)
-  }
+  const link = `${SITE_URL}/${locale}/blog/${slug}`
 
-  useEffect(() => {
-    getSource(args.post?.content || '')
-  }, [args.post.content])
-
-  const link = `${SITE_URL}/${locale}/blog/${args.post.slug}`
-
-  return <BlogDetail {...args} source={source!} link={link} />
+  return <BlogDetail {...args} link={link} />
 }
 
 export const Default: Story = {
