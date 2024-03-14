@@ -3,10 +3,10 @@ import { FC } from 'react'
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { useTranslation } from 'next-i18next'
 
-import { strapiRequest } from '@wsvvrijheid/lib'
-import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
-import { Platform, StrapiLocale } from '@wsvvrijheid/types'
-import { AdminLayout, DonationTemplate } from '@wsvvrijheid/ui'
+import { strapiRequest } from '@fc/lib'
+import { ssrTranslations } from '@fc/services/ssrTranslations'
+import { Platform, StrapiLocale } from '@fc/types'
+import { AdminLayout, DonationTemplate } from '@fc/ui'
 
 type DonationPageProps = InferGetStaticPropsType<typeof getStaticProps>
 

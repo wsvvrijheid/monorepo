@@ -1,6 +1,6 @@
 import { SkeletonText, VStack, Wrap } from '@chakra-ui/react'
 
-import { TwitterTrend } from '@wsvvrijheid/types'
+import { TwitterTrend } from '@fc/types'
 
 import { TrendListItem } from './TrendListItem'
 import { useHashtagContext } from '../HashtagProvider'

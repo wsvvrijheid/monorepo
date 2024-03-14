@@ -15,7 +15,7 @@ import {
 import { FaFacebook, FaLinkedin, FaTelegram, FaWhatsapp } from 'react-icons/fa'
 import { FaXTwitter } from 'react-icons/fa6'
 
-import { makeSocialContent } from '@wsvvrijheid/utils'
+import { makeSocialContent } from '@fc/utils'
 
 interface ShareButtonsProps extends ButtonGroupProps {
   title?: string

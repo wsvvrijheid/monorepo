@@ -1,6 +1,6 @@
 import { theme } from '@chakra-ui/react'
 
-import { UserStats } from '@wsvvrijheid/types'
+import { UserStats } from '@fc/types'
 
 export const getColor = (index: number) => {
   const { blue, red, green, purple, pink, orange, yellow, cyan, teal } =

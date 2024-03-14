@@ -1,4 +1,4 @@
-import { Asset } from '@wsvvrijheid/types'
+import { Asset } from '@fc/types'
 
 import { WTableProps } from '../../components'
 

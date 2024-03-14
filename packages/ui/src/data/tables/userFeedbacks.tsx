@@ -1,7 +1,7 @@
 import { Icon } from '@chakra-ui/react'
 import { FaCheck } from 'react-icons/fa'
 
-import { UserFeedback } from '@wsvvrijheid/types'
+import { UserFeedback } from '@fc/types'
 
 import { WTableProps } from '../../components'
 

@@ -3,7 +3,7 @@ import { FC } from 'react'
 import { Box } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 
-import { Art } from '@wsvvrijheid/types'
+import { Art } from '@fc/types'
 
 import { WImage } from '../../components'
 

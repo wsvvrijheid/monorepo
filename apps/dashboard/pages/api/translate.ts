@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { NextApiRequest, NextApiResponse } from 'next'
 
-import { getSecret } from '@wsvvrijheid/secrets'
+import { getSecret } from '@fc/secrets'
 
 export default async function handler(
   req: NextApiRequest,

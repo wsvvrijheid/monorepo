@@ -1,1 +1,1 @@
-module.exports = require('@wsvvrijheid/config/eslint-preset.js')
+module.exports = require('@fc/config/eslint-preset.js')

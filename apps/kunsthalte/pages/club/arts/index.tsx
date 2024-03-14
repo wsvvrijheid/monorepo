@@ -2,10 +2,10 @@ import { dehydrate, QueryClient } from '@tanstack/react-query'
 import { GetStaticPropsContext } from 'next'
 import { useTranslation } from 'next-i18next'
 
-import { strapiRequest } from '@wsvvrijheid/lib'
-import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
-import { Art, StrapiLocale } from '@wsvvrijheid/types'
-import { ArtClubTemplate } from '@wsvvrijheid/ui'
+import { strapiRequest } from '@fc/lib'
+import { ssrTranslations } from '@fc/services/ssrTranslations'
+import { Art, StrapiLocale } from '@fc/types'
+import { ArtClubTemplate } from '@fc/ui'
 
 import { Layout } from '../../../components'
 

@@ -12,7 +12,7 @@ import {
 import { StoryFn, Meta, StoryObj } from '@storybook/react'
 import { useRouter } from 'next/router'
 
-import { Category } from '@wsvvrijheid/types'
+import { Category } from '@fc/types'
 
 import { ArtSideBar, ArtSideBarProps } from './ArtSideBar'
 

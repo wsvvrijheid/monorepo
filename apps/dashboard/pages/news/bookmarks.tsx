@@ -3,9 +3,9 @@ import { GetStaticPropsContext } from 'next'
 import { useTranslation } from 'next-i18next'
 import { useLocalStorage } from 'usehooks-ts'
 
-import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
-import { StrapiLocale, TopicBase } from '@wsvvrijheid/types'
-import { AdminLayout, TopicCard } from '@wsvvrijheid/ui'
+import { ssrTranslations } from '@fc/services/ssrTranslations'
+import { StrapiLocale, TopicBase } from '@fc/types'
+import { AdminLayout, TopicCard } from '@fc/ui'
 
 const NewsBookmarkedPage = () => {
   const [bookmarksStorage] = useLocalStorage<TopicBase[]>('bookmarks', [])

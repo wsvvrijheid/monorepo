@@ -3,9 +3,9 @@ import { FC } from 'react'
 import { Heading, SimpleGrid, Stack, Text } from '@chakra-ui/react'
 import { useTranslation } from 'next-i18next'
 
-import { SITE_URL } from '@wsvvrijheid/config'
-import { Caps, Navigate, ShareButtons } from '@wsvvrijheid/ui'
-import { getItemLink, mapHashtagToOgParams } from '@wsvvrijheid/utils'
+import { SITE_URL } from '@fc/config'
+import { Caps, Navigate, ShareButtons } from '@fc/ui'
+import { getItemLink, mapHashtagToOgParams } from '@fc/utils'
 
 import { HashtagAnnouncementProps } from './types'
 

@@ -13,7 +13,7 @@ import {
   Textarea,
 } from '@chakra-ui/react'
 
-import { Post, StrapiModel } from '@wsvvrijheid/types'
+import { Post, StrapiModel } from '@fc/types'
 
 import { ModelMedia } from './ModelMedia'
 import { ModelSelect } from './ModelSelect'

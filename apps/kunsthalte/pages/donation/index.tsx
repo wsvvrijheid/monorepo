@@ -3,9 +3,9 @@ import { FC } from 'react'
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { useTranslation } from 'next-i18next'
 
-import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
-import { StrapiLocale } from '@wsvvrijheid/types'
-import { DonationTemplate } from '@wsvvrijheid/ui'
+import { ssrTranslations } from '@fc/services/ssrTranslations'
+import { StrapiLocale } from '@fc/types'
+import { DonationTemplate } from '@fc/ui'
 
 import { Layout } from '../../components'
 

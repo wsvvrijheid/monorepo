@@ -1,6 +1,6 @@
 import { Tr } from '@chakra-ui/react'
 
-import { StrapiModel } from '@wsvvrijheid/types'
+import { StrapiModel } from '@fc/types'
 
 import { CellConfig, WTableRowProps } from './types'
 import { WTableCell } from './WTableCell'

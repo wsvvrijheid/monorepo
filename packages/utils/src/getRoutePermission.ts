@@ -1,9 +1,5 @@
-import {
-  AdminCommonRoute,
-  adminCommonRoutes,
-  AdminRoute,
-} from '@wsvvrijheid/config'
-import { RoleType } from '@wsvvrijheid/types'
+import { AdminCommonRoute, adminCommonRoutes, AdminRoute } from '@fc/config'
+import { RoleType } from '@fc/types'
 
 export const getRoutePermission = (roles: RoleType[], route: AdminRoute) => {
   const roleRoutes: Record<RoleType, AdminRoute[]> = {

@@ -4,8 +4,8 @@ import axios from 'axios'
 import { useRouter } from 'next/router'
 import { useLocalStorage } from 'usehooks-ts'
 
-import { API_URL } from '@wsvvrijheid/config'
-import { useAuthContext } from '@wsvvrijheid/context'
+import { API_URL } from '@fc/config'
+import { useAuthContext } from '@fc/context'
 
 import { useArtBySlug } from './getBySlug'
 import { useRecaptchaToken } from '../common'

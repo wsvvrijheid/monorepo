@@ -1,4 +1,4 @@
-import { StrapiEndpoint, StrapiSingleEndpoint } from '@wsvvrijheid/types'
+import { StrapiEndpoint, StrapiSingleEndpoint } from '@fc/types'
 
 export const endpointsSingleType: StrapiSingleEndpoint[] = [
   'privacy',

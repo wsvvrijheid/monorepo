@@ -3,12 +3,8 @@ import { FC } from 'react'
 import { Box, Grid, Stack } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 
-import {
-  useLikeArt,
-  useStrapiRequest,
-  useViewArtMutation,
-} from '@wsvvrijheid/services'
-import { Art, Comment } from '@wsvvrijheid/types'
+import { useLikeArt, useStrapiRequest, useViewArtMutation } from '@fc/services'
+import { Art, Comment } from '@fc/types'
 
 import {
   ArtContent,

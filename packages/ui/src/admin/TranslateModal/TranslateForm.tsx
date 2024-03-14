@@ -9,7 +9,7 @@ import {
   Textarea,
 } from '@chakra-ui/react'
 
-import { StrapiTranslatableModel } from '@wsvvrijheid/types'
+import { StrapiTranslatableModel } from '@fc/types'
 
 import { TranslateFormProps } from './types'
 import { Flags } from '../../components'

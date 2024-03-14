@@ -1,4 +1,4 @@
-import { StrapiLocale } from '@wsvvrijheid/types'
+import { StrapiLocale } from '@fc/types'
 
 export const minuteSuffix = {
   en: 'mins',

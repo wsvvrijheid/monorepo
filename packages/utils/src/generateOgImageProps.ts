@@ -1,8 +1,8 @@
 import { theme } from '@chakra-ui/react'
 import { sample } from 'lodash'
 
-import { ASSETS_URL } from '@wsvvrijheid/config'
-import { OgImageParams } from '@wsvvrijheid/types'
+import { ASSETS_URL } from '@fc/config'
+import { OgImageParams } from '@fc/types'
 
 export const generateOgImageParams = (props?: OgImageParams) => {
   const image = props?.image

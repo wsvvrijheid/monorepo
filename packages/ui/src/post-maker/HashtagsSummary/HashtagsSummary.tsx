@@ -3,9 +3,9 @@ import { FC } from 'react'
 import { Box, Button, Heading, Stack, Text } from '@chakra-ui/react'
 import { useTranslation } from 'next-i18next'
 
-import { Hashtag } from '@wsvvrijheid/types'
-import { Container, Navigate, WImage } from '@wsvvrijheid/ui'
-import { getItemLink } from '@wsvvrijheid/utils'
+import { Hashtag } from '@fc/types'
+import { Container, Navigate, WImage } from '@fc/ui'
+import { getItemLink } from '@fc/utils'
 
 import { HashtagMiniCard } from './HashtagMiniCard'
 

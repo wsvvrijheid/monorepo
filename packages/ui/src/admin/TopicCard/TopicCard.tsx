@@ -28,13 +28,9 @@ import {
 } from 'react-icons/fa6'
 import { useLocalStorage } from 'usehooks-ts'
 
-import { useAuthContext } from '@wsvvrijheid/context'
-import { useDeleteModel, useRecommendTopic } from '@wsvvrijheid/services'
-import {
-  Post,
-  RecommendedTopicCreateInput,
-  TopicBase,
-} from '@wsvvrijheid/types'
+import { useAuthContext } from '@fc/context'
+import { useDeleteModel, useRecommendTopic } from '@fc/services'
+import { Post, RecommendedTopicCreateInput, TopicBase } from '@fc/types'
 
 import { ActionButton } from './ActionButton'
 import { TopicCardProps } from './types'

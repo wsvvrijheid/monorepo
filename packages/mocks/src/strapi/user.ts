@@ -1,4 +1,4 @@
-import { User } from '@wsvvrijheid/types'
+import { User } from '@fc/types'
 
 export const USER_MOCKS: Array<User> = [
   {

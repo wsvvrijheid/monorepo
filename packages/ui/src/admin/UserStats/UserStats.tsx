@@ -11,7 +11,7 @@ import {
   YAxis,
 } from 'recharts'
 
-import { UserStats as UserStatsType } from '@wsvvrijheid/types'
+import { UserStats as UserStatsType } from '@fc/types'
 
 import { getColor, groupStats } from './utils'
 

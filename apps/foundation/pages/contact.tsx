@@ -13,17 +13,17 @@ import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { useTranslation } from 'next-i18next'
 import { MdEmail, MdLocationOn, MdPhone } from 'react-icons/md'
 
-import { EMAIL_SENDER, PUBLIC_TOKEN, socialLinks } from '@wsvvrijheid/config'
-import { strapiRequest } from '@wsvvrijheid/lib'
-import { sendEmail } from '@wsvvrijheid/services'
-import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
-import { EmailCreateInput, Foundation, StrapiLocale } from '@wsvvrijheid/types'
+import { EMAIL_SENDER, PUBLIC_TOKEN, socialLinks } from '@fc/config'
+import { strapiRequest } from '@fc/lib'
+import { sendEmail } from '@fc/services'
+import { ssrTranslations } from '@fc/services/ssrTranslations'
+import { EmailCreateInput, Foundation, StrapiLocale } from '@fc/types'
 import {
   ContactForm,
   ContactFormFieldValues,
   Container,
   SocialButtons,
-} from '@wsvvrijheid/ui'
+} from '@fc/ui'
 
 import { Layout } from '../components'
 
@@ -75,7 +75,7 @@ const Contact = ({ foundation }: ContactProps): JSX.Element => {
               spacing={8}
             >
               <Heading fontWeight={900} as="h2" size="lg" color="primary.50">
-                STICHTING <br /> WEES DE STEM VOOR VRIJHEID
+                Freedom Combination <br /> Foundation
               </Heading>
               <Divider borderColor="whiteAlpha.400" />
 
@@ -121,7 +121,7 @@ const Contact = ({ foundation }: ContactProps): JSX.Element => {
                 </Button>
               </Wrap>
 
-              <SocialButtons items={socialLinks.wsvvrijheid} />
+              <SocialButtons items={socialLinks.foundation} />
             </VStack>
             <ContactForm
               onSubmitHandler={handleSubmit}

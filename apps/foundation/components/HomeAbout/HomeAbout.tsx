@@ -3,9 +3,9 @@ import { FC } from 'react'
 import { SimpleGrid, Text, VStack } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 
-import { ABOUT_DATA } from '@wsvvrijheid/config'
-import { Localize } from '@wsvvrijheid/types'
-import { AnimatedBox, WImage } from '@wsvvrijheid/ui'
+import { ABOUT_DATA } from '@fc/config'
+import { Localize } from '@fc/types'
+import { AnimatedBox, WImage } from '@fc/ui'
 
 type AboutItem = {
   image: string

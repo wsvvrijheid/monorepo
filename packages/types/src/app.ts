@@ -2,12 +2,12 @@ export type AppSlug =
   | 'dashboard'
   | 'kunsthalte'
   | 'lotus'
-  | 'samenvvv'
-  | 'wsvvrijheid'
+  | 'trend-rights'
+  | 'foundation'
 
 export type PlatformSlug =
   | 'lotus'
-  | 'samenvvv'
+  | 'trend-rights'
   | 'kunsthalte'
   | 'academy'
-  | 'weesmusic'
+  | 'rhythmic-dreams'

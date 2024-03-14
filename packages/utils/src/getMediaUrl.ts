@@ -1,5 +1,5 @@
-import { ASSETS_FALLBACK_URL, ASSETS_URL } from '@wsvvrijheid/config'
-import { FileFormats, UploadFile } from '@wsvvrijheid/types'
+import { ASSETS_FALLBACK_URL, ASSETS_URL } from '@fc/config'
+import { FileFormats, UploadFile } from '@fc/types'
 
 const getFormattedMedia = (media: UploadFile, size?: keyof FileFormats) => {
   if (!size) {
@@ -15,7 +15,7 @@ export const getMediaUrl = (
   size?: keyof FileFormats,
 ) => {
   if (!src) {
-    if (process.env.NODE_ENV === 'production') {
+    if (process.env.NODE_ENV !== 'production') {
       console.warn('No src provided to WImage')
     }
 

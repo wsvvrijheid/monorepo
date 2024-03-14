@@ -1,6 +1,6 @@
 import * as yup from 'yup'
 
-import { CourseApplication } from '@wsvvrijheid/types'
+import { CourseApplication } from '@fc/types'
 
 import { yupSelect } from './common'
 import { FormFields } from '../../admin'

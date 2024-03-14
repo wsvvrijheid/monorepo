@@ -4,7 +4,7 @@ import { Box, Heading, Stack } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
-import { SITE_URL } from '@wsvvrijheid/config'
+import { SITE_URL } from '@fc/config'
 
 import { CourseApplicationForm } from './CourseApplicationForm'
 import { CourseFaqs } from './CourseFaqs'

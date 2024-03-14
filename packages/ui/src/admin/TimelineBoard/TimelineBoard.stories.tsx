@@ -1,7 +1,7 @@
 // import { Box, SimpleGrid } from '@chakra-ui/react'
 import { StoryObj, Meta } from '@storybook/react'
 
-import { TIMELINE_MOCKS } from '@wsvvrijheid/mocks'
+import { TIMELINE_MOCKS } from '@fc/mocks'
 
 import { TimelineBoard } from './TimelineBoard'
 import { Container } from '../../components'

@@ -2,8 +2,8 @@ import React, { FC, useState } from 'react'
 
 import { Avatar, AvatarProps } from '@chakra-ui/react'
 
-import { FileFormats, UploadFile } from '@wsvvrijheid/types'
-import { getMediaUrl } from '@wsvvrijheid/utils'
+import { FileFormats, UploadFile } from '@fc/types'
+import { getMediaUrl } from '@fc/utils'
 
 type WAvatarProps = Omit<AvatarProps, 'src'> & {
   src?: UploadFile | null | string | null

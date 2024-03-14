@@ -12,7 +12,7 @@ import {
   useDeleteHashtagSentence,
   useHashtag,
   useUpdateHashtagSentence,
-} from '@wsvvrijheid/services'
+} from '@fc/services'
 
 import { PostSentenceFormItemProps } from './types'
 import { WConfirm, WConfirmProps } from '../WConfirm'

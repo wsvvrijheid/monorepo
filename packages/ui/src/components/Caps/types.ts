@@ -1,7 +1,7 @@
 import { AspectRatioProps } from '@chakra-ui/react'
 import { ImageProps } from 'next/image'
 
-import { OgImageParams } from '@wsvvrijheid/types'
+import { OgImageParams } from '@fc/types'
 
 export type CapsImageProps = ImageProps & {
   imageParams: OgImageParams

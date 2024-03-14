@@ -15,7 +15,7 @@ import {
   useBreakpointValue,
 } from '@chakra-ui/react'
 
-import { useHashtag } from '@wsvvrijheid/services'
+import { useHashtag } from '@fc/services'
 
 import { useHashtagContext } from './HashtagProvider'
 import { HashtagStats } from './HashtagStats'

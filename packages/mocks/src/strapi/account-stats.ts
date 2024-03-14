@@ -1,4 +1,4 @@
-import { AccountStats, StrapiCollectionResponse } from '@wsvvrijheid/types'
+import { AccountStats, StrapiCollectionResponse } from '@fc/types'
 
 const getRandomValue = () => Math.floor(Math.random() * 800) + 200
 

@@ -2,7 +2,7 @@ import { FC } from 'react'
 
 import { Icon, IconProps } from '@chakra-ui/react'
 
-import { StrapiLocale } from '@wsvvrijheid/types'
+import { StrapiLocale } from '@fc/types'
 
 const Tr: FC<IconProps> = props => {
   return (

@@ -3,8 +3,8 @@ import { FC } from 'react'
 import { HStack, Stack, Text } from '@chakra-ui/react'
 import { formatDistanceStrict } from 'date-fns'
 
-import { ASSETS_URL } from '@wsvvrijheid/config'
-import { Comment } from '@wsvvrijheid/types'
+import { ASSETS_URL } from '@fc/config'
+import { Comment } from '@fc/types'
 
 import { WAvatar } from '../WAvatar'
 

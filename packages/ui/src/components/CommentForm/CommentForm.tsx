@@ -16,13 +16,10 @@ import { useTranslation } from 'next-i18next'
 import { useForm } from 'react-hook-form'
 import { FiArrowRight } from 'react-icons/fi'
 
-import { useAuthContext } from '@wsvvrijheid/context'
-import {
-  useCreateModelMutation,
-  useRecaptchaToken,
-} from '@wsvvrijheid/services'
-import { Comment, CommentCreateInput } from '@wsvvrijheid/types'
-import { toastMessage } from '@wsvvrijheid/utils'
+import { useAuthContext } from '@fc/context'
+import { useCreateModelMutation, useRecaptchaToken } from '@fc/services'
+import { Comment, CommentCreateInput } from '@fc/types'
+import { toastMessage } from '@fc/utils'
 
 import { commentFormSchema } from './schema'
 import { CommentFormFieldValues, CommentFormProps } from './types'

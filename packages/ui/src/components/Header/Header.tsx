@@ -1,7 +1,6 @@
 import { FC } from 'react'
 
 import { As, Box, Flex, HStack, Image, Link, Stack } from '@chakra-ui/react'
-import { motion } from 'framer-motion'
 import Headroom from 'react-headroom'
 
 import { HeaderMobile } from './HeaderMobile'
@@ -13,7 +12,6 @@ import { Container } from '../Container'
 import { LocaleSwitcher } from '../LocaleSwitcher'
 
 export const Header: FC<HeaderProps> = ({
-  animated = true,
   isDark,
   logo,
   headerMenu,
@@ -34,26 +32,15 @@ export const Header: FC<HeaderProps> = ({
       >
         <Container>
           <Flex justify="space-between" align="center" pos="relative">
-            <motion.div
-              {...(animated && {
-                animate: { rotate: -360 },
-                transition: {
-                  ease: 'linear',
-                  repeat: Infinity,
-                  duration: 60,
-                },
-              })}
-            >
-              <Link href="/">
-                <Image
-                  width={{ base: '64px', lg: '92px' }}
-                  height={{ base: '64px', lg: '92px' }}
-                  objectFit="cover"
-                  src={logo}
-                  alt="logo"
-                />
-              </Link>
-            </motion.div>
+            <Link href="/">
+              <Image
+                width={{ base: '64px', lg: '92px' }}
+                height={{ base: '64px', lg: '92px' }}
+                objectFit="cover"
+                src={logo}
+                alt="logo"
+              />
+            </Link>
             <HStack
               display={{ base: 'none', lg: 'flex' }}
               align="center"

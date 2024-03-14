@@ -1,5 +1,5 @@
 export const colors = {
-  samen: {
+  'trend-rights': {
     50: '#FFEDE5',
     100: '#FFCEB8',
     200: '#FFAE8A',

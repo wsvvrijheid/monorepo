@@ -1,11 +1,10 @@
 import { useTimeout } from '@chakra-ui/react'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { useRouter } from 'next/router'
+import { useMutation } from '@tanstack/react-query'
 import { useLocalStorage } from 'usehooks-ts'
 
-import { useAuthContext } from '@wsvvrijheid/context'
-import { Mutation } from '@wsvvrijheid/lib'
-import { Blog, BlogUpdateInput } from '@wsvvrijheid/types'
+import { useAuthContext } from '@fc/context'
+import { Mutation } from '@fc/lib'
+import { Blog, BlogUpdateInput } from '@fc/types'
 
 import { useGetBlogSlug } from './getBlogBySlug'
 
@@ -16,15 +15,9 @@ export const viewBlog = async (blog: Blog, token: string) => {
 }
 
 export const useViewBlog = () => {
-  const queryClient = useQueryClient()
-  const {
-    locale,
-    query: { slug },
-  } = useRouter()
-
   const { token } = useAuthContext()
 
-  const { data: blog } = useGetBlogSlug(slug as string)
+  const { data: blog, refetch } = useGetBlogSlug()
 
   const [blogStorage, setBlogStorage] = useLocalStorage<number[]>(
     'view-blog',
@@ -32,11 +25,11 @@ export const useViewBlog = () => {
   )
 
   const { mutate } = useMutation({
-    mutationKey: ['viewblog', blog?.id],
+    mutationKey: ['view-blog', blog?.id],
     mutationFn: (blog: Blog) => viewBlog(blog, token as string),
     onSuccess: () => {
       blog && setBlogStorage([...(blogStorage || []), blog.id])
-      queryClient.invalidateQueries({ queryKey: ['blog', locale, slug] })
+      refetch()
     },
   })
 

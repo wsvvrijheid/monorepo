@@ -1,7 +1,7 @@
 import { useTranslation } from 'next-i18next'
 
-import { RequestCollectionArgs } from '@wsvvrijheid/lib'
-import { StrapiCollectionEndpoint, StrapiModel } from '@wsvvrijheid/types'
+import { RequestCollectionArgs } from '@fc/lib'
+import { StrapiCollectionEndpoint, StrapiModel } from '@fc/types'
 
 import { FilterOption, RelationFilterOption } from '../../admin'
 

@@ -1,4 +1,4 @@
-import { HashtagReturnType } from '@wsvvrijheid/types'
+import { HashtagReturnType } from '@fc/types'
 
 export type PostSentenceFormProps = {
   id: number

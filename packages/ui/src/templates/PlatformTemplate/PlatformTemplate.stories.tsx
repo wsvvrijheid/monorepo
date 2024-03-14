@@ -15,9 +15,9 @@ type Story = StoryObj<PlatformTemplateProps>
 export const Default: Story = {
   args: {
     seo: {
-      title: 'SamenVVV',
+      title: 'Trend Rights',
     },
-    image: '/images/samen-logo.svg',
-    link: '/platforms/samenvvv',
+    image: '/images/trend-rights-logo.svg',
+    link: '/platforms/trend-rights',
   },
 }

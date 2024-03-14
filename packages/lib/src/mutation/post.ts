@@ -1,8 +1,4 @@
-import {
-  StrapiCreateInput,
-  StrapiEndpoint,
-  StrapiModel,
-} from '@wsvvrijheid/types'
+import { StrapiCreateInput, StrapiEndpoint, StrapiModel } from '@fc/types'
 
 import { mutation } from './mutation'
 

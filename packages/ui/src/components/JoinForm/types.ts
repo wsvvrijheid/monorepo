@@ -1,6 +1,6 @@
 import { InferType } from 'yup'
 
-import { Platform, StrapiLocale } from '@wsvvrijheid/types'
+import { Platform, StrapiLocale } from '@fc/types'
 
 import { joinSchema } from './schema'
 

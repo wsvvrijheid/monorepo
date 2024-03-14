@@ -2,7 +2,7 @@ import { FC } from 'react'
 
 import { ImageProps } from '@chakra-ui/react'
 
-import { Post, UploadFile } from '@wsvvrijheid/types'
+import { Post, UploadFile } from '@fc/types'
 
 import { usePostContext } from '../../post-maker/PostProvider'
 import { Caps } from '../Caps'

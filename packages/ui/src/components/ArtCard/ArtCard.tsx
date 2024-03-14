@@ -1,7 +1,7 @@
 import { FC } from 'react'
 
-import { useAuthContext } from '@wsvvrijheid/context'
-import { useLikeArt } from '@wsvvrijheid/services'
+import { useAuthContext } from '@fc/context'
+import { useLikeArt } from '@fc/services'
 
 import { ArtCardBase } from './ArtCardBase'
 import { ArtCardProps } from './types'

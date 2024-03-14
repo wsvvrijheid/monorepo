@@ -1,7 +1,7 @@
 import { NextApiHandler } from 'next'
 import Stripe from 'stripe'
 
-import { donationWebhook } from '@wsvvrijheid/stripe'
+import { donationWebhook } from '@fc/stripe'
 
 export const paymentStatusRouter: NextApiHandler = async (req, res) => {
   try {

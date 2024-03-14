@@ -9,7 +9,7 @@ import {
 } from '@chakra-ui/react'
 import { FaCogs } from 'react-icons/fa'
 
-import { useHashtag } from '@wsvvrijheid/services'
+import { useHashtag } from '@fc/services'
 
 import { PostSentenceForm } from '../../components'
 import { usePostContext } from '../PostProvider'

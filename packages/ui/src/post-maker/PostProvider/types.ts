@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
 
-import { Post, PostSentence } from '@wsvvrijheid/types'
+import { Post, PostSentence } from '@fc/types'
 
 export type PostState = {
   availableCount: number

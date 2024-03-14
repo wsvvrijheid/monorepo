@@ -7,7 +7,7 @@ import { useTranslation } from 'next-i18next'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { ObjectSchema } from 'yup'
 
-import { toastMessage } from '@wsvvrijheid/utils'
+import { toastMessage } from '@fc/utils'
 
 import { resetPasswordSchema } from './schema'
 import { ResetPasswordFieldValues } from './types'

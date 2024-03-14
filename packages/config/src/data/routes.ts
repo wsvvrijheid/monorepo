@@ -1,6 +1,11 @@
-import { MenuType } from '@wsvvrijheid/types'
+import { MenuType } from '@fc/types'
 
-type PlatformRouteKey = 'lotus' | 'artStop' | 'music' | 'samenvvv' | 'academy'
+type PlatformRouteKey =
+  | 'lotus'
+  | 'artStop'
+  | 'music'
+  | 'trend-rights'
+  | 'academy'
 
 type SiteRouteKey =
   | 'sign-up'
@@ -53,7 +58,7 @@ export const ROUTES: Record<RouteKey, MenuType> = {
     tr: 'Koleksiyonlar',
   },
   foundation: {
-    link: 'https://wsvvrijheid.nl',
+    link: 'https://freedomcombination.com',
     en: 'Foundation',
     nl: 'Stichting',
     tr: 'Vakıf',
@@ -83,22 +88,22 @@ export const ROUTES: Record<RouteKey, MenuType> = {
     tr: 'Sanat Durağı',
   },
   music: {
-    link: '/platforms/weesmusic',
-    en: 'Wees Music',
-    nl: 'Wees Muziek',
-    tr: 'Wees Muzik',
+    link: '/platforms/rhythmic-dreams',
+    en: 'Rhythmic Dreams',
+    nl: 'Rhythmic Dreams',
+    tr: 'Rhythmic Dreams',
   },
-  samenvvv: {
-    link: '/platforms/samenvvv',
-    en: 'Samenvvv',
-    nl: 'Samenvvv',
-    tr: 'Samenvvv',
+  'trend-rights': {
+    link: '/platforms/trend-rights',
+    en: 'Trend Rights',
+    nl: 'Trend Rights',
+    tr: 'Trend Rights',
   },
   academy: {
     link: '/platforms/academy',
-    en: 'Wees Academy',
-    nl: 'Wees Academie',
-    tr: 'Wees Akademi',
+    en: 'FC Academy',
+    nl: 'FC Academie',
+    tr: 'FC Akademi',
   },
   blogs: {
     link: '/blog',
@@ -131,7 +136,7 @@ export const ROUTES: Record<RouteKey, MenuType> = {
     tr: 'Bağış',
   },
   dashboard: {
-    link: 'https://dashboard.wsvvrijheid.nl',
+    link: 'https://dashboard.freedomcombination.com',
     en: 'Dashboard',
     nl: 'Dashboard',
     tr: 'Kontrol Paneli',

@@ -2,8 +2,8 @@ import { FC } from 'react'
 
 import { Stack } from '@chakra-ui/react'
 
-import { useAuthContext } from '@wsvvrijheid/context'
-import { getRoutePermission } from '@wsvvrijheid/utils'
+import { useAuthContext } from '@fc/context'
+import { getRoutePermission } from '@fc/utils'
 
 import { AdminNavItem } from './AdminNavItem'
 import { AdminNavItemProps, AdminNavProps } from './types'

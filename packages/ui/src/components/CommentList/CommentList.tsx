@@ -3,7 +3,7 @@ import { FC } from 'react'
 import { Stack, Text } from '@chakra-ui/react'
 import { useTranslation } from 'next-i18next'
 
-import { Comment } from '@wsvvrijheid/types'
+import { Comment } from '@fc/types'
 
 import { CommentItem } from '../CommentItem'
 

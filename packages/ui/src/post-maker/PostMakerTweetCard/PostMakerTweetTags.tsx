@@ -1,6 +1,6 @@
 import { Stack, Tag, TagCloseButton, TagLabel, Wrap } from '@chakra-ui/react'
 
-import { useHashtag } from '@wsvvrijheid/services'
+import { useHashtag } from '@fc/services'
 
 import { useHashtagContext } from '../HashtagProvider'
 import { usePostContext } from '../PostProvider'

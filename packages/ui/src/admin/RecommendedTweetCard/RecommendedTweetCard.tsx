@@ -2,13 +2,8 @@ import { FC } from 'react'
 
 import { Box, Divider, Stack, useBreakpointValue } from '@chakra-ui/react'
 
-import { ASSETS_URL } from '@wsvvrijheid/config'
-import {
-  Profile,
-  RecommendedTweet,
-  Tweet,
-  TweetUserBase,
-} from '@wsvvrijheid/types'
+import { ASSETS_URL } from '@fc/config'
+import { Profile, RecommendedTweet, Tweet, TweetUserBase } from '@fc/types'
 
 import { RecommendedSocialButtons } from './RecommendedSocialButtons'
 import { RecommendedTweetCardProps } from './types'

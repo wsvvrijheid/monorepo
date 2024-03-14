@@ -3,7 +3,7 @@ import { FC, ReactNode } from 'react'
 import { Box, Center, Flex, Spinner } from '@chakra-ui/react'
 import { NextSeo, NextSeoProps } from 'next-seo'
 
-import { useAuthContext } from '@wsvvrijheid/context'
+import { useAuthContext } from '@fc/context'
 
 import { Footer } from '../Footer/Footer'
 import { FooterProps } from '../Footer/types'
@@ -12,12 +12,11 @@ import { HeaderProps } from '../Header/types'
 
 export interface LayoutProps {
   children: ReactNode
-  footerProps: Omit<FooterProps, 'logo'>
+  footerProps: FooterProps
   hasProfile?: boolean
-  headerProps: Omit<HeaderProps, 'logo'>
+  headerProps: HeaderProps
   isDark?: boolean
   isLoading?: boolean
-  logo: string
   seo: NextSeoProps
 }
 
@@ -28,7 +27,6 @@ export const Layout: FC<LayoutProps> = ({
   headerProps,
   isDark,
   isLoading = false,
-  logo,
   seo,
 }) => {
   const minH = isDark
@@ -46,7 +44,6 @@ export const Layout: FC<LayoutProps> = ({
           isLoggedIn={!!user}
           isDark={isDark}
           hasProfile={hasProfile}
-          logo={logo}
         />
         {isLoading ? (
           <Center minH={minH}>
@@ -55,7 +52,7 @@ export const Layout: FC<LayoutProps> = ({
         ) : (
           <Box minH={minH}>{children}</Box>
         )}
-        <Footer {...footerProps} logo={logo} />
+        <Footer {...footerProps} />
       </Flex>
     </>
   )

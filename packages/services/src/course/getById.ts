@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 
-import { strapiRequest } from '@wsvvrijheid/lib'
-import { Course } from '@wsvvrijheid/types'
+import { strapiRequest } from '@fc/lib'
+import { Course } from '@fc/types'
 
 export const getCourseById = async (
   id: string,

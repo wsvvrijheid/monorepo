@@ -14,8 +14,8 @@ import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
 import { FiLogIn, FiLogOut } from 'react-icons/fi'
 
-import { ASSETS_URL } from '@wsvvrijheid/config'
-import { useAuthContext } from '@wsvvrijheid/context'
+import { ASSETS_URL } from '@fc/config'
+import { useAuthContext } from '@fc/context'
 
 import { ProfileMenuProps } from './types'
 import { useScroll } from '../../hooks'

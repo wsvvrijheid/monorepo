@@ -1,10 +1,10 @@
-import { AppSlug } from '@wsvvrijheid/types'
+import { AppSlug } from '@fc/types'
 
 import { dashboard } from './dashboard'
+import { foundation } from './foundation'
 import { kunsthalte } from './kunsthalte'
 import { lotus } from './lotus'
-import { samenvvv } from './samenvvv'
-import { wsvvrijheid } from './wsvvrijheid'
+import { trendRights } from './trend-rights'
 
 export { defaultTheme } from './theme'
 
@@ -12,6 +12,6 @@ export const themes: Record<AppSlug, Record<string, any>> = {
   dashboard,
   kunsthalte,
   lotus,
-  samenvvv,
-  wsvvrijheid,
+  'trend-rights': trendRights,
+  foundation,
 }

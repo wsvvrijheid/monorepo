@@ -1,7 +1,7 @@
 import { Meta, StoryFn, StoryObj } from '@storybook/react'
 import { sample } from 'lodash'
 
-import { ART_MOCKS } from '@wsvvrijheid/mocks'
+import { ART_MOCKS } from '@fc/mocks'
 
 import { ArtWithDetails, ArtWithDetailsProps } from './ArtWithDetails'
 

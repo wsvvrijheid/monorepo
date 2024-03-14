@@ -9,7 +9,7 @@ import {
 } from '@chakra-ui/react'
 import { useTranslation } from 'next-i18next'
 
-import { useHashtag } from '@wsvvrijheid/services'
+import { useHashtag } from '@fc/services'
 
 import { TrendListTabs } from './Trends'
 import { TweetWidget } from './TweetWidget'

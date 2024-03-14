@@ -1,15 +1,13 @@
 import { ResponsiveValue } from '@chakra-ui/react'
 
-import { MenuType } from '@wsvvrijheid/types'
+import { MenuType } from '@fc/types'
 
 export type HeaderMenu = Array<MenuType>
 
 export type ProfileMenuProps = Pick<HeaderProps, 'isDark' | 'isLoggedIn'>
 
 export interface HeaderProps {
-  animated?: boolean
   hasProfile?: boolean
-  hasScroll?: boolean
   headerMenu: HeaderMenu
   isDark?: boolean
   isLoggedIn?: boolean

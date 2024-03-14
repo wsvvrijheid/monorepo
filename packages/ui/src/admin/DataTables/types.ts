@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
 
-import { StrapiModel } from '@wsvvrijheid/types'
+import { StrapiModel } from '@fc/types'
 
 import { WTableProps } from '../../components'
 

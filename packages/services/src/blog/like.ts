@@ -1,11 +1,14 @@
-import { QueryKey, useMutation, useQueryClient } from '@tanstack/react-query'
+import { useState } from 'react'
+
+import { useMutation } from '@tanstack/react-query'
 import axios from 'axios'
 import { useLocalStorage } from 'usehooks-ts'
 
-import { API_URL } from '@wsvvrijheid/config'
-import { useAuthContext } from '@wsvvrijheid/context'
-import { Blog, LikeMutationArgs } from '@wsvvrijheid/types'
+import { API_URL } from '@fc/config'
+import { useAuthContext } from '@fc/context'
+import { LikeMutationArgs } from '@fc/types'
 
+import { useGetBlogSlug } from './getBlogBySlug'
 import { useRecaptchaToken } from '../common'
 
 const useLikeBlogMutation = () => {
@@ -23,8 +26,9 @@ const useLikeBlogMutation = () => {
   })
 }
 
-export const useLikeBlog = (blog?: Blog | null, queryKey?: QueryKey) => {
-  const queryClient = useQueryClient()
+export const useLikeBlog = () => {
+  const [isDisabled, setIsDisabled] = useState(false)
+  const { data: blog, refetch } = useGetBlogSlug()
 
   const { profile } = useAuthContext()
 
@@ -45,37 +49,49 @@ export const useLikeBlog = (blog?: Blog | null, queryKey?: QueryKey) => {
 
   const isLikedStorage = likersStorage?.some(id => id === blog.id)
 
+  const handleError = (error: any) => {
+    console.error('LIKE_BLOG_ERROR', error)
+    if (error.response.status === 403) {
+      setIsDisabled(true)
+    }
+  }
+
   const toggleLike = async () => {
     if (profile) {
       return likeBlogMutation.mutate(
         { id: blog.id, type: isLikedByUser ? 'unlike' : 'like' },
         {
           onSuccess: async () => {
-            await queryClient.invalidateQueries({ queryKey })
+            refetch()
           },
-        },
-      )
-    } else {
-      return likeBlogMutation.mutate(
-        { id: blog.id, type: isLikedStorage ? 'unlike' : 'like' },
-        {
-          onSuccess: async () => {
-            await queryClient.invalidateQueries({ queryKey })
-
-            const updatedStorage = isLikedStorage
-              ? likersStorage?.filter(id => id !== blog.id)
-              : [...(likersStorage || []), blog.id]
-
-            setLikersStorage(updatedStorage as number[])
-          },
+          onError: handleError,
         },
       )
     }
+
+    return likeBlogMutation.mutate(
+      { id: blog.id, type: isLikedStorage ? 'unlike' : 'like' },
+      {
+        onSuccess: async () => {
+          const updatedStorage = isLikedStorage
+            ? likersStorage?.filter(id => id !== blog.id)
+            : [...(likersStorage || []), blog.id]
+
+          setLikersStorage(updatedStorage as number[])
+
+          await refetch()
+        },
+        onError: handleError,
+      },
+    )
   }
+
+  const isLiked = profile ? isLikedByUser : isLikedStorage
 
   return {
     toggleLike,
-    isLiked: profile ? isLikedByUser : isLikedStorage,
+    isLiked,
     isLoading: likeBlogMutation.isPending,
+    isDisabled,
   }
 }

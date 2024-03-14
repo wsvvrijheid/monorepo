@@ -1,14 +1,14 @@
-import { AppSlug } from '@wsvvrijheid/types'
+import { AppSlug } from '@fc/types'
 
+import { foundation } from './foundation'
 import { kunsthalte } from './kunsthalte'
-import { samenvvv } from './samenvvv'
+import { trendRights } from './trend-rights'
 import { Menus } from './types'
-import { wsvvrijheid } from './wsvvrijheid'
 
 export const menus: Record<AppSlug, Menus> = {
   kunsthalte,
-  samenvvv,
-  wsvvrijheid,
+  'trend-rights': trendRights,
+  foundation,
   dashboard: { headerMenu: [], footerMenu: [] },
   lotus: { headerMenu: [], footerMenu: [] },
 }

@@ -25,8 +25,8 @@ import { FaSave } from 'react-icons/fa'
 import { FaStop, FaTrash } from 'react-icons/fa6'
 import { RiAiGenerate } from 'react-icons/ri'
 
-import { StrapiLocale } from '@wsvvrijheid/types'
-import { toastMessage } from '@wsvvrijheid/utils'
+import { StrapiLocale } from '@fc/types'
+import { toastMessage } from '@fc/utils'
 
 import { useGenPostContext } from './GenPostProvider'
 

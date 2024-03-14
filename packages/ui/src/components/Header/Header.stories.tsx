@@ -9,7 +9,7 @@ export default {
   title: 'Layout/Header',
   args: {
     headerMenu: HEADER_MENU,
-    logo: 'https://wsvvrijheid.nl/images/logo.svg',
+    logo: 'https://freedomcombination.com/images/logo.svg',
   },
 } as Meta<HeaderProps>
 

@@ -1,4 +1,4 @@
-import { Art, Profile } from '@wsvvrijheid/types'
+import { Art, Profile } from '@fc/types'
 
 export type ArtApprovalTypes = {
   art: Art

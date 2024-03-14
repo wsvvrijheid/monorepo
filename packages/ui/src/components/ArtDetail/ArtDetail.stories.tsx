@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import { StoryFn, StoryObj, Meta } from '@storybook/react'
 
-import { ART_MOCKS } from '@wsvvrijheid/mocks'
+import { ART_MOCKS } from '@fc/mocks'
 
 import { ArtDetail } from './ArtDetail'
 

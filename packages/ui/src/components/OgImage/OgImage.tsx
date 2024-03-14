@@ -2,8 +2,8 @@ import { FC, memo } from 'react'
 
 import Image from 'next/image'
 
-import { OgImageParams } from '@wsvvrijheid/types'
-import { getOgImageSrc } from '@wsvvrijheid/utils'
+import { OgImageParams } from '@fc/types'
+import { getOgImageSrc } from '@fc/utils'
 
 type OgImageProps = {
   imageParams: OgImageParams

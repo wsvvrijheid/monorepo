@@ -1,4 +1,4 @@
-import { PartialStrapiEndpointMap, RoleType } from '@wsvvrijheid/types'
+import { PartialStrapiEndpointMap, RoleType } from '@fc/types'
 
 export type RoleActionType =
   | 'create'

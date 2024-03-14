@@ -8,14 +8,14 @@ import {
   endpointsWithApprovalStatus,
   endpointsWithPublicationState,
   endpointsWithoutLocale,
-} from '@wsvvrijheid/config'
+} from '@fc/config'
 import {
   StrapiCollectionResponse,
   StrapiModel,
   StrapiResponse,
   StrapiSingleEndpoint,
   StrapiSingleResponse,
-} from '@wsvvrijheid/types'
+} from '@fc/types'
 
 import {
   RequestByIdArgs,

@@ -6,7 +6,7 @@ import { Button, Code, Input, Stack } from '@chakra-ui/react'
 import slugify from '@sindresorhus/slugify'
 import { useMutation } from '@tanstack/react-query'
 
-import { CategoryCreateInput } from '@wsvvrijheid/types'
+import { CategoryCreateInput } from '@fc/types'
 
 import { createCategoryWithMutation } from './utils'
 

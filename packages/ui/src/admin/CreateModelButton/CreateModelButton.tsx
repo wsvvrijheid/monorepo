@@ -22,7 +22,7 @@ import { MdOutlineCastForEducation, MdOutlineCategory } from 'react-icons/md'
 import { SiMaterialdesignicons } from 'react-icons/si'
 import { TbActivity, TbBrandTwitter, TbWriting } from 'react-icons/tb'
 
-import { useAuthContext } from '@wsvvrijheid/context'
+import { useAuthContext } from '@fc/context'
 import {
   Activity,
   Asset,
@@ -35,7 +35,7 @@ import {
   RecommendedTopic,
   RecommendedTweet,
   Tag,
-} from '@wsvvrijheid/types'
+} from '@fc/types'
 
 import { useFields, useSchema } from '../../data'
 import { usePermission } from '../../hooks'

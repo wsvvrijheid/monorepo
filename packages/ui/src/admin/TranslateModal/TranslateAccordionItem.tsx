@@ -14,7 +14,7 @@ import {
 } from '@chakra-ui/react'
 import { BsTranslate } from 'react-icons/bs'
 
-import { StrapiTranslatableModel } from '@wsvvrijheid/types'
+import { StrapiTranslatableModel } from '@fc/types'
 
 import { TranslateAccordionItemProps } from './types'
 import { Flags } from '../../components'

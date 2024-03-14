@@ -1,33 +1,23 @@
 import { FC } from 'react'
 
-import { QueryClient } from '@tanstack/react-query'
+import { QueryClient, dehydrate } from '@tanstack/react-query'
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
 import { useRouter } from 'next/router'
 import { serialize } from 'next-mdx-remote/serialize'
 import { ReCaptchaProvider } from 'next-recaptcha-v3'
 
-import { RECAPTCHA_SITE_KEY, SITE_URL } from '@wsvvrijheid/config'
-import {
-  getAuthorBlogs,
-  getBlogBySlug,
-  useViewBlog,
-} from '@wsvvrijheid/services'
-import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
-import { Blog, StrapiLocale } from '@wsvvrijheid/types'
-import { BlogDetail, Container } from '@wsvvrijheid/ui'
-import { getPageSeo } from '@wsvvrijheid/utils'
+import { RECAPTCHA_SITE_KEY, SITE_URL } from '@fc/config'
+import { getAuthorBlogs, getBlogBySlug, useViewBlog } from '@fc/services'
+import { ssrTranslations } from '@fc/services/ssrTranslations'
+import { Blog, StrapiLocale } from '@fc/types'
+import { BlogDetail, Container } from '@fc/ui'
+import { getPageSeo } from '@fc/utils'
 
 import { Layout } from '../../components'
 
 type BlogPageProps = InferGetServerSidePropsType<typeof getServerSideProps>
 
-const BlogDetailPage: FC<BlogPageProps> = ({
-  seo,
-  blog,
-  queryKey,
-  authorBlogs,
-  source,
-}) => {
+const BlogDetailPage: FC<BlogPageProps> = ({ seo, authorBlogs, source }) => {
   const {
     locale,
     query: { slug },
@@ -43,13 +33,7 @@ const BlogDetailPage: FC<BlogPageProps> = ({
     <ReCaptchaProvider reCaptchaKey={RECAPTCHA_SITE_KEY}>
       <Layout seo={seo}>
         <Container maxW="container.md">
-          <BlogDetail
-            post={blog}
-            queryKey={queryKey}
-            source={source}
-            link={link}
-            authorBlogs={authorBlogs}
-          />
+          <BlogDetail source={source} link={link} authorBlogs={authorBlogs} />
         </Container>
       </Layout>
     </ReCaptchaProvider>
@@ -85,11 +69,10 @@ export const getServerSideProps = async (
 
   return {
     props: {
-      blog,
       seo,
       source,
-      queryKey,
       authorBlogs,
+      dehydratedState: dehydrate(queryClient),
       ...(await ssrTranslations(locale)),
     },
   }

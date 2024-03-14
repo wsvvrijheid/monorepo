@@ -13,11 +13,11 @@ import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { useTranslation } from 'next-i18next'
 import { GrDocumentDownload } from 'react-icons/gr'
 
-import { API_URL } from '@wsvvrijheid/config'
-import { strapiRequest } from '@wsvvrijheid/lib'
-import { ssrTranslations } from '@wsvvrijheid/services/ssrTranslations'
-import { Foundation, StrapiLocale } from '@wsvvrijheid/types'
-import { Container, Hero } from '@wsvvrijheid/ui'
+import { API_URL } from '@fc/config'
+import { strapiRequest } from '@fc/lib'
+import { ssrTranslations } from '@fc/services/ssrTranslations'
+import { Foundation, StrapiLocale } from '@fc/types'
+import { Container, Hero } from '@fc/ui'
 
 import { DirectorsCard, FoundationDetails, Layout } from '../components'
 
@@ -60,25 +60,25 @@ const AnbiPage: FC<AnbiPageProps> = ({ foundation }) => {
             {/* directors */}
             <Stack spacing={4}>
               <Heading as="h3" size="lg" fontWeight={700}>
-                {t('wsvvrijheid.management')}
+                {t('foundation.management')}
               </Heading>
               <SimpleGrid gap={4} columns={{ base: 1, lg: 3 }} w={'full'}>
                 {chairmanName && (
                   <DirectorsCard
-                    title={t('wsvvrijheid.chairman')}
+                    title={t('foundation.chairman')}
                     name={chairmanName}
                   />
                 )}
                 {secretaryName && (
                   <DirectorsCard
-                    title={t('wsvvrijheid.secretary')}
+                    title={t('foundation.secretary')}
                     name={secretaryName}
                   />
                 )}
 
                 {accountantName && (
                   <DirectorsCard
-                    title={t('wsvvrijheid.treasurer')}
+                    title={t('foundation.treasurer')}
                     name={accountantName}
                   />
                 )}
@@ -98,7 +98,7 @@ const AnbiPage: FC<AnbiPageProps> = ({ foundation }) => {
                   isExternal
                 >
                   {' '}
-                  {t('wsvvrijheid.policy-plan')}
+                  {t('foundation.policy-plan')}
                 </Button>
               )}
 
@@ -115,7 +115,7 @@ const AnbiPage: FC<AnbiPageProps> = ({ foundation }) => {
                   color={'initial'}
                   isExternal
                 >
-                  {t('wsvvrijheid.financial_report')}
+                  {t('foundation.financial-report')}
                 </Button>
               )}
               {foundation?.remuneration_policy && (
@@ -128,7 +128,7 @@ const AnbiPage: FC<AnbiPageProps> = ({ foundation }) => {
                   color={'initial'}
                   isExternal
                 >
-                  {t('wsvvrijheid.remuneration_policy')}
+                  {t('foundation.remuneration-policy')}
                 </Button>
               )}
             </Wrap>

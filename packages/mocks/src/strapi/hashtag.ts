@@ -1,4 +1,4 @@
-import { Hashtag, Localize, StrapiCollectionResponse } from '@wsvvrijheid/types'
+import { Hashtag, Localize, StrapiCollectionResponse } from '@fc/types'
 
 export const HASHTAG_MOCKS = {
   tr: {
@@ -637,9 +637,10 @@ export const HASHTAG_MOCKS = {
       },
       {
         id: 28,
-        title: 'Wees Vakfı tanıtım',
+        title: 'Freedom Combination Vakfı tanıtım',
         slug: 'wees-vakfi-tanitim',
-        description: 'Wees vakfı faaliyetleri tanıtım hashtag kampanyası',
+        description:
+          'Freedom Combination Vakfı faaliyetleri tanıtım hashtag kampanyası',
         content: 'Content',
         approvalStatus: 'approved',
         hashtagExtra: '',
@@ -901,9 +902,9 @@ export const HASHTAG_MOCKS = {
           {
             id: 126,
             description:
-              "Wees Akademi, senaryo yazarlığı eğitimiyle yeni yetenekleri keşfetmeyi hedefliyor! Bu eşsiz eğitim programı sayesinde, senaryo yazma becerilerinizi geliştirerek kendi hikayelerinizi dünyaya anlatabilirsiniz. Siz de Wees Akademi'nin desteğiyle senaryo yazarlığı yolculuğuna adım atın! ",
+              "FC Akademi, senaryo yazarlığı eğitimiyle yeni yetenekleri keşfetmeyi hedefliyor! Bu eşsiz eğitim programı sayesinde, senaryo yazma becerilerinizi geliştirerek kendi hikayelerinizi dünyaya anlatabilirsiniz. Siz de FC Akademi'nin desteğiyle senaryo yazarlığı yolculuğuna adım atın! ",
             content:
-              'Wees Akademi senaryo yazarlığı eğitimi ile yeni senaristler yetiştirilmektedir.',
+              'FC Akademi senaryo yazarlığı eğitimi ile yeni senaristler yetiştirilmektedir.',
             reference: '',
             approvalStatus: 'approved',
             capsStatus: 'pending',
@@ -924,9 +925,9 @@ export const HASHTAG_MOCKS = {
           {
             id: 129,
             description:
-              "Wees Akademi'nin aylık söyleşileri, insan hakları konusunda farkındalık oluşturmayı hedefliyor. Önde gelen insan hakları uzmanlarıyla bir araya gelerek, bu önemli konuda bilgi edinin ve perspektifinizi genişletin. Siz de bu değerli etkinliklere katılarak sesinizi duyurun! ",
+              "FC Akademi'nin aylık söyleşileri, insan hakları konusunda farkındalık oluşturmayı hedefliyor. Önde gelen insan hakları uzmanlarıyla bir araya gelerek, bu önemli konuda bilgi edinin ve perspektifinizi genişletin. Siz de bu değerli etkinliklere katılarak sesinizi duyurun! ",
             content:
-              'Wees Akaemi aylık söyleşiler ile insan haklaır konusunda farkındalık oluşturmayı hedeflemektedir. ',
+              'FC Akademi aylık söyleşiler ile insan haklaır konusunda farkındalık oluşturmayı hedeflemektedir. ',
             reference: '',
             approvalStatus: 'approved',
             capsStatus: 'pending',
@@ -947,9 +948,9 @@ export const HASHTAG_MOCKS = {
           {
             id: 132,
             description:
-              'Wees Akademi proje eğitimi vermektedir. Hollanda içi ve Avrupa Birliği projeleri planlanmaktadır.',
+              'FC Akademi proje eğitimi vermektedir. Hollanda içi ve Avrupa Birliği projeleri planlanmaktadır.',
             content:
-              'Wees Akademi proje eğitimi vermektedir. Hollanda içi ve Avrupa Birliği projeleri planlanmaktadır.',
+              'FC Akademi proje eğitimi vermektedir. Hollanda içi ve Avrupa Birliği projeleri planlanmaktadır.',
             reference: '',
             approvalStatus: 'approved',
             capsStatus: 'pending',
@@ -970,9 +971,9 @@ export const HASHTAG_MOCKS = {
           {
             id: 133,
             description:
-              'Wees Akademi olarak Dijital çizim eğitimi verdik. Yeni dönemde tekrarını planlıyoruz.',
+              'FC Akademi olarak Dijital çizim eğitimi verdik. Yeni dönemde tekrarını planlıyoruz.',
             content:
-              'Wees Akademi olarak Dijital çizim eğitimi verdik. Yeni dönemde tekrarını planlıyoruz.',
+              'FC Akademi olarak Dijital çizim eğitimi verdik. Yeni dönemde tekrarını planlıyoruz.',
             reference: '',
             approvalStatus: 'approved',
             capsStatus: 'pending',
@@ -991,9 +992,9 @@ export const HASHTAG_MOCKS = {
           {
             id: 134,
             description:
-              "Wees Akademi, Hollanda'da planladığı eğitimlerle sizlere yeni fırsatlar sunuyor. Yazılım, söyleşi ve daha fazlasıyla kariyerinizi ileriye taşımak için şimdi harekete geçin. Wees Akademi ailesine katılarak geleceğinize yön verin! ",
+              "FC Akademi, Hollanda'da planladığı eğitimlerle sizlere yeni fırsatlar sunuyor. Yazılım, söyleşi ve daha fazlasıyla kariyerinizi ileriye taşımak için şimdi harekete geçin. FC Akademi ailesine katılarak geleceğinize yön verin! ",
             content:
-              "Wees Akademi bünyesinde Hollanda'da yazılım, söyleşi ve eğitimler planlanmaktadır.  ",
+              "FC Akademi bünyesinde Hollanda'da yazılım, söyleşi ve eğitimler planlanmaktadır.  ",
             reference: '',
             approvalStatus: 'approved',
             capsStatus: 'pending',
@@ -1060,9 +1061,9 @@ export const HASHTAG_MOCKS = {
           {
             id: 143,
             description:
-              'Haarlem’ de  Hollanda’ nın kurtuluş gününde Wees Vakfımız organizasyonuyla Türkiye’ de kadınlara yapılan hukuksuzlukları lanse etmek amacıyla stand programında Sound of Change grubu sokak müziği yaparak katıldı.',
+              'Haarlem’ de  Hollanda’ nın kurtuluş gününde Freedom Combination Vakfımız organizasyonuyla Türkiye’ de kadınlara yapılan hukuksuzlukları lanse etmek amacıyla stand programında Sound of Change grubu sokak müziği yaparak katıldı.',
             content:
-              'Haarlem’ de  Hollanda’ nın kurtuluş gününde Wees Vakfımız organizasyonuyla Türkiye’ de kadınlara yapılan hukuksuzlukları lanse etmek amacıyla stand programında Sound of Change grubu sokak müziği yaparak katıldı.',
+              'Haarlem’ de  Hollanda’ nın kurtuluş gününde Freedom Combination Vakfımız organizasyonuyla Türkiye’ de kadınlara yapılan hukuksuzlukları lanse etmek amacıyla stand programında Sound of Change grubu sokak müziği yaparak katıldı.',
             reference: '',
             approvalStatus: 'approved',
             capsStatus: 'pending',
@@ -1378,7 +1379,7 @@ export const HASHTAG_MOCKS = {
           {
             id: 210,
             description:
-              'Wees vakfı- Sanatın dilini evrensel kabul ederek, sanatın dili ile insan hakları ihlallerini daha fazla insana ulaştırmak da hedefleri arasındadır.',
+              'Freedom Combination Vakfı- Sanatın dilini evrensel kabul ederek, sanatın dili ile insan hakları ihlallerini daha fazla insana ulaştırmak da hedefleri arasındadır.',
             content:
               'Ögürlüğün Sesi Ol Vakfı - Sanatın dilini evrensel kabul ederek, sanatın dili ile insan hakları ihlallerini daha fazla insana ulaştırmak da hedefleri arasındadır.',
             reference: '',
@@ -1631,10 +1632,10 @@ export const HASHTAG_MOCKS = {
         localizations: [
           {
             id: 30,
-            title: 'Stichting Wees introductie',
+            title: 'Stichting Freedom Combination introductie',
             slug: 'wees-stichting-introductie',
             description:
-              'Stichting Wees activiteiten promotie hashtag campagne',
+              'Stichting Freedom Combination activiteiten promotie hashtag campagne',
             content: 'Inhoud',
             approvalStatus: 'approved',
             hashtagExtra: '',
@@ -1648,7 +1649,7 @@ export const HASHTAG_MOCKS = {
           },
           {
             id: 29,
-            title: 'Wees Foundation promotion',
+            title: 'Freedom Combination Foundation promotion',
             slug: 'wees-foundation-promotion',
             description:
               'Wees foundation activities promotion hashtag campaign',
@@ -1659,7 +1660,7 @@ export const HASHTAG_MOCKS = {
             tweets: [
               {
                 id: '1668402029868331009',
-                text: 'RT @sanatduragi_nl: Kendimizi bir kez daha tanıtma fırsatı bulduğunuz bir ortadayız. Bize bu fırsatı sınan @wsvvrijheid teşekkürler 💙 #StgW…',
+                text: 'RT @sanatduragi_nl: Kendimizi bir kez daha tanıtma fırsatı bulduğunuz bir ortadayız. Bize bu fırsatı sınan @fc teşekkürler 💙 #StgW…',
                 user: {
                   name: 'Hasan Rüstemoglu',
                   profile:
@@ -1715,7 +1716,7 @@ export const HASHTAG_MOCKS = {
               },
               {
                 id: '1668297997334065157',
-                text: 'RT @MhmtTvt: Haarlem’ de  Hollanda’ nın kurtuluş gününde Wees Vakfımız organizasyonuyla Türkiye’ de kadınlara yapılan hukuksuzlukları lanse…',
+                text: 'RT @MhmtTvt: Haarlem’ de  Hollanda’ nın kurtuluş gününde Freedom Combination Vakfımız organizasyonuyla Türkiye’ de kadınlara yapılan hukuksuzlukları lanse…',
                 user: {
                   name: 'Christina Tyler 💐',
                   profile:
@@ -1757,7 +1758,7 @@ export const HASHTAG_MOCKS = {
               },
               {
                 id: '1668138749002219521',
-                text: "RT @insan_sevgisii: Proje dünyasına adım atmak için Wees Akademi'nin proje eğitimine katılın. Hollanda içi veAvrupa Birliği projeleriyle pr…",
+                text: "RT @insan_sevgisii: Proje dünyasına adım atmak için FC Akademi'nin proje eğitimine katılın. Hollanda içi veAvrupa Birliği projeleriyle pr…",
                 user: {
                   name: 'Nevbahar',
                   profile:
@@ -1785,7 +1786,7 @@ export const HASHTAG_MOCKS = {
               },
               {
                 id: '1668004277351071745',
-                text: 'RT @samenvvvTR: Wees Akademi, insan haklarına ilişkin farkındalığı artırmayı amaçlayan aylık söyleşiler aracılığıyla bilgi yaymayı hedeflem…',
+                text: 'RT @samenvvvTR: FC Akademi, insan haklarına ilişkin farkındalığı artırmayı amaçlayan aylık söyleşiler aracılığıyla bilgi yaymayı hedeflem…',
                 user: {
                   name: 'Yoldas',
                   profile:
@@ -1841,7 +1842,7 @@ export const HASHTAG_MOCKS = {
               },
               {
                 id: '1667996803571040256',
-                text: 'RT @samenvvvTR: Wees Akademi, insan haklarına ilişkin farkındalığı artırmayı amaçlayan aylık söyleşiler aracılığıyla bilgi yaymayı hedeflem…',
+                text: 'RT @samenvvvTR: FC Akademi, insan haklarına ilişkin farkındalığı artırmayı amaçlayan aylık söyleşiler aracılığıyla bilgi yaymayı hedeflem…',
                 user: {
                   name: 'Ismail',
                   profile:
@@ -1869,7 +1870,7 @@ export const HASHTAG_MOCKS = {
               },
               {
                 id: '1667996703423705099',
-                text: 'RT @sanatduragi_nl: Als Wees Academy hebben we een digitale tekentraining gegeven, die we in de nieuwe periode willen herhalen..\n@samenvvv…',
+                text: 'RT @sanatduragi_nl: Als FC Academy hebben we een digitale tekentraining gegeven, die we in de nieuwe periode willen herhalen..\n@samenvvv…',
                 user: {
                   name: 'Ismail',
                   profile:
@@ -1911,7 +1912,7 @@ export const HASHTAG_MOCKS = {
               },
               {
                 id: '1667995710963302400',
-                text: 'Join Foundation Wees de Stem voor Vrijheid in our mission to end human rights violations. Through the power of social media, we aim to raise awareness, promote accountability, and advocate for the rights of all individuals.\n@samenvvvEN\n#StgWeesPresentatie \nhttps://t.co/EjXGC9Qc9b',
+                text: 'Join Foundation Freedom Combination in our mission to end human rights violations. Through the power of social media, we aim to raise awareness, promote accountability, and advocate for the rights of all individuals.\n@samenvvvEN\n#StgWeesPresentatie \nhttps://t.co/EjXGC9Qc9b',
                 user: {
                   name: 'Ibrahim Van Lopik',
                   profile:
@@ -2051,7 +2052,7 @@ export const HASHTAG_MOCKS = {
               },
               {
                 id: '1667947950742413313',
-                text: 'RT @wsvvrijheid: Foundation Wees de Stem voor Vrijheid is breaking new ground as the first and only foundation dedicated to human rights on…',
+                text: 'RT @fc: Foundation Freedom Combination is breaking new ground as the first and only foundation dedicated to human rights on…',
                 user: {
                   name: 'Mustafa',
                   profile:
@@ -2079,7 +2080,7 @@ export const HASHTAG_MOCKS = {
               },
               {
                 id: '1667897619924807681',
-                text: 'RT @sanatduragi_nl: Als Wees Academy hebben we een digitale tekentraining gegeven, die we in de nieuwe periode willen herhalen..\n@samenvvv…',
+                text: 'RT @sanatduragi_nl: Als FC Academy hebben we een digitale tekentraining gegeven, die we in de nieuwe periode willen herhalen..\n@samenvvv…',
                 user: {
                   name: 'sade',
                   profile:
@@ -2163,7 +2164,7 @@ export const HASHTAG_MOCKS = {
               },
               {
                 id: '1667866569093914625',
-                text: 'RT @MeteNisan: Wees Akademi, proje eğitimiyle size Hollanda içinde ve Avrupa Birliği projelerinde yer alma fırsatı sunuyor. Bilgi ve beceri…',
+                text: 'RT @MeteNisan: FC Akademi, proje eğitimiyle size Hollanda içinde ve Avrupa Birliği projelerinde yer alma fırsatı sunuyor. Bilgi ve beceri…',
                 user: {
                   name: 'Eren Eymen',
                   profile:
@@ -2177,7 +2178,7 @@ export const HASHTAG_MOCKS = {
               },
               {
                 id: '1667857723252252675',
-                text: 'Wees Akademi, proje eğitimiyle size Hollanda içinde ve Avrupa Birliği projelerinde yer alma fırsatı sunuyor. Bilgi ve becerilerinizi geliştirerek geleceğin projelerine katkıda bulunun. \n\n@sanatduragi_nl\n\n#StgWeesPresentatie \n\nhttps://t.co/7L7z8h30zr',
+                text: 'FC Akademi, proje eğitimiyle size Hollanda içinde ve Avrupa Birliği projelerinde yer alma fırsatı sunuyor. Bilgi ve becerilerinizi geliştirerek geleceğin projelerine katkıda bulunun. \n\n@sanatduragi_nl\n\n#StgWeesPresentatie \n\nhttps://t.co/7L7z8h30zr',
                 user: {
                   name: 'fatma',
                   profile:
@@ -2191,7 +2192,7 @@ export const HASHTAG_MOCKS = {
               },
               {
                 id: '1667846147354787842',
-                text: 'RT @sanatduragi_nl: Kendimizi bir kez daha tanıtma fırsatı bulduğunuz bir ortadayız. Bize bu fırsatı sınan @wsvvrijheid teşekkürler 💙 #StgW…',
+                text: 'RT @sanatduragi_nl: Kendimizi bir kez daha tanıtma fırsatı bulduğunuz bir ortadayız. Bize bu fırsatı sınan @fc teşekkürler 💙 #StgW…',
                 user: {
                   name: 'Büşra',
                   profile:
@@ -2303,7 +2304,7 @@ export const HASHTAG_MOCKS = {
               },
               {
                 id: '1667785227563876352',
-                text: 'RT @samenvvvTR: Wees Akademi, insan haklarına ilişkin farkındalığı artırmayı amaçlayan aylık söyleşiler aracılığıyla bilgi yaymayı hedeflem…',
+                text: 'RT @samenvvvTR: FC Akademi, insan haklarına ilişkin farkındalığı artırmayı amaçlayan aylık söyleşiler aracılığıyla bilgi yaymayı hedeflem…',
                 user: {
                   name: 'semran sari',
                   profile:
@@ -2317,7 +2318,7 @@ export const HASHTAG_MOCKS = {
               },
               {
                 id: '1667783386859970561',
-                text: "RT @insan_sevgisii: Proje dünyasına adım atmak için Wees Akademi'nin proje eğitimine katılın. Hollanda içi veAvrupa Birliği projeleriyle pr…",
+                text: "RT @insan_sevgisii: Proje dünyasına adım atmak için FC Akademi'nin proje eğitimine katılın. Hollanda içi veAvrupa Birliği projeleriyle pr…",
                 user: {
                   name: 'DeepDarkRaven',
                   profile:
@@ -7902,9 +7903,10 @@ export const HASHTAG_MOCKS = {
       },
       {
         id: 30,
-        title: 'Stichting Wees introductie',
+        title: 'Stichting Freedom Combination introductie',
         slug: 'wees-stichting-introductie',
-        description: 'Stichting Wees activiteiten promotie hashtag campagne',
+        description:
+          'Stichting Freedom Combination activiteiten promotie hashtag campagne',
         content: 'Inhoud',
         approvalStatus: 'approved',
         hashtagExtra: '',
@@ -8091,9 +8093,9 @@ export const HASHTAG_MOCKS = {
           {
             id: 128,
             description:
-              'Nieuwe scenarioschrijvers worden getraind met de Wees Academy scenarioschrijftraining.',
+              'Nieuwe scenarioschrijvers worden getraind met de FC Academy scenarioschrijftraining.',
             content:
-              'Nieuwe scenarioschrijvers worden getraind met de Wees Academy scenarioschrijftraining.',
+              'Nieuwe scenarioschrijvers worden getraind met de FC Academy scenarioschrijftraining.',
             reference: null,
             approvalStatus: 'approved',
             capsStatus: 'pending',
@@ -8114,9 +8116,9 @@ export const HASHTAG_MOCKS = {
           {
             id: 131,
             description:
-              'Wees Akaemi wil het bewustzijn over mensenrechten vergroten met maandelijkse lezingen.',
+              'FC Akademi wil het bewustzijn over mensenrechten vergroten met maandelijkse lezingen.',
             content:
-              'Wees Akaemi wil het bewustzijn over mensenrechten vergroten met maandelijkse lezingen.',
+              'FC Akademi wil het bewustzijn over mensenrechten vergroten met maandelijkse lezingen.',
             reference: null,
             approvalStatus: 'approved',
             capsStatus: 'pending',
@@ -8137,9 +8139,9 @@ export const HASHTAG_MOCKS = {
           {
             id: 135,
             description:
-              'Software, interviews en trainingen zijn gepland in Nederland binnen Wees Academy.  ',
+              'Software, interviews en trainingen zijn gepland in Nederland binnen FC Academy.  ',
             content:
-              'Software, interviews en trainingen zijn gepland in Nederland binnen Wees Academy.',
+              'Software, interviews en trainingen zijn gepland in Nederland binnen FC Academy.',
             reference: null,
             approvalStatus: 'approved',
             capsStatus: 'pending',
@@ -8160,9 +8162,9 @@ export const HASHTAG_MOCKS = {
           {
             id: 138,
             description:
-              'Als Wees Academy hebben we een digitale tekentraining gegeven, die we in de nieuwe periode willen herhalen.',
+              'Als FC Academy hebben we een digitale tekentraining gegeven, die we in de nieuwe periode willen herhalen.',
             content:
-              'Als Wees Academy hebben we een digitale tekentraining gegeven, die we in de nieuwe periode willen herhalen.',
+              'Als FC Academy hebben we een digitale tekentraining gegeven, die we in de nieuwe periode willen herhalen.',
             reference: null,
             approvalStatus: 'approved',
             capsStatus: 'pending',
@@ -8181,9 +8183,9 @@ export const HASHTAG_MOCKS = {
           {
             id: 140,
             description:
-              'Wees Academy verzorgt projecttrainingen. Nederlandse en Europese Unie projecten zijn gepland.',
+              'FC Academy verzorgt projecttrainingen. Nederlandse en Europese Unie projecten zijn gepland.',
             content:
-              'Wees Academy verzorgt projecttrainingen. Nederlandse en Europese Unie projecten zijn gepland.',
+              'FC Academy verzorgt projecttrainingen. Nederlandse en Europese Unie projecten zijn gepland.',
             reference: null,
             approvalStatus: 'approved',
             capsStatus: 'pending',
@@ -8250,9 +8252,9 @@ export const HASHTAG_MOCKS = {
           {
             id: 151,
             description:
-              'Op de bevrijdingsdag van Nederland in Haarlem, met de organisatie van Stichting Wees, heeft Sound of Change deelgenomen aan het standprogramma door straatmuziek te maken om de onrechtmatigheden tegen vrouwen in Turkije onder de aandacht te brengen.',
+              'Op de bevrijdingsdag van Nederland in Haarlem, met de organisatie van Stichting Freedom Combination, heeft Sound of Change deelgenomen aan het standprogramma door straatmuziek te maken om de onrechtmatigheden tegen vrouwen in Turkije onder de aandacht te brengen.',
             content:
-              'Op de bevrijdingsdag van Nederland in Haarlem, met de organisatie van Stichting Wees, heeft Sound of Change deelgenomen aan het standprogramma door straatmuziek te maken om de onrechtmatigheden tegen vrouwen in Turkije onder de aandacht te brengen.',
+              'Op de bevrijdingsdag van Nederland in Haarlem, met de organisatie van Stichting Freedom Combination, heeft Sound of Change deelgenomen aan het standprogramma door straatmuziek te maken om de onrechtmatigheden tegen vrouwen in Turkije onder de aandacht te brengen.',
             reference: null,
             approvalStatus: 'approved',
             capsStatus: 'pending',
@@ -8568,9 +8570,9 @@ export const HASHTAG_MOCKS = {
           {
             id: 218,
             description:
-              'Wees de Stem voor Vrijheid - Deze stichting accepteert de taal van de kunst als universeel en wil ook meer mensen bereiken over mensenrechtenschendingen via de taal van de kunst.',
+              'Freedom Combination - Deze stichting accepteert de taal van de kunst als universeel en wil ook meer mensen bereiken over mensenrechtenschendingen via de taal van de kunst.',
             content:
-              'Wees de Stem voor Vrijheid - Deze stichting accepteert de taal van de kunst als universeel en wil ook meer mensen bereiken over mensenrechtenschendingen via de taal van de kunst.dingen via de taal van de kunst.',
+              'Freedom Combination - Deze stichting accepteert de taal van de kunst als universeel en wil ook meer mensen bereiken over mensenrechtenschendingen via de taal van de kunst.dingen via de taal van de kunst.',
             reference: null,
             approvalStatus: 'approved',
             capsStatus: 'pending',
@@ -8591,9 +8593,9 @@ export const HASHTAG_MOCKS = {
           {
             id: 220,
             description:
-              'Stichting Wees de Stem voor Vrijheid - Stelt zich ten doel een einde te maken aan mensenrechtenschendingen door gebruik te maken van de kracht van sociale media',
+              'Stichting Freedom Combination - Stelt zich ten doel een einde te maken aan mensenrechtenschendingen door gebruik te maken van de kracht van sociale media',
             content:
-              'Stichting Wees de Stem voor Vrijheid - Stelt zich ten doel een einde te maken aan mensenrechtenschendingen door gebruik te maken van de kracht van sociale media',
+              'Stichting Freedom Combination - Stelt zich ten doel een einde te maken aan mensenrechtenschendingen door gebruik te maken van de kracht van sociale media',
             reference: null,
             approvalStatus: 'approved',
             capsStatus: 'pending',
@@ -8614,9 +8616,9 @@ export const HASHTAG_MOCKS = {
           {
             id: 222,
             description:
-              'Stichting Wees de Stem voor Vrijheid - Werkt met verschillende platforms en groepen om het publiek op een gezonde manier bewust te maken van mensenrechten.',
+              'Stichting Freedom Combination - Werkt met verschillende platforms en groepen om het publiek op een gezonde manier bewust te maken van mensenrechten.',
             content:
-              'Stichting Wees de Stem voor Vrijheid - Werkt met verschillende platforms en groepen om het publiek op een gezonde manier bewust te maken van mensenrechten.',
+              'Stichting Freedom Combination - Werkt met verschillende platforms en groepen om het publiek op een gezonde manier bewust te maken van mensenrechten.',
             reference: null,
             approvalStatus: 'approved',
             capsStatus: 'pending',
@@ -8636,9 +8638,9 @@ export const HASHTAG_MOCKS = {
           {
             id: 224,
             description:
-              'Stichting Wees de Stem voor Vrijheid - In tegenstelling tot andere stichtingen voor mensenrechten is dit de eerste en enige stichting die speciaal is opgericht voor sociale media.',
+              'Stichting Freedom Combination - In tegenstelling tot andere stichtingen voor mensenrechten is dit de eerste en enige stichting die speciaal is opgericht voor sociale media.',
             content:
-              'Stichting Wees de Stem voor Vrijheid - In tegenstelling tot andere stichtingen voor mensenrechten is dit de eerste en enige stichting die speciaal is opgericht voor sociale media.',
+              'Stichting Freedom Combination - In tegenstelling tot andere stichtingen voor mensenrechten is dit de eerste en enige stichting die speciaal is opgericht voor sociale media.',
             reference: null,
             approvalStatus: 'approved',
             capsStatus: 'pending',
@@ -8659,9 +8661,9 @@ export const HASHTAG_MOCKS = {
           {
             id: 225,
             description:
-              'Stichting Wees de Stem voor Vrijheid - De stichting, die haar activiteiten op vrijwillige basis uitvoert, wordt financieel en moreel gesteund door verschillende beroepsgroepen en leeftijdsgroepen.',
+              'Stichting Freedom Combination - De stichting, die haar activiteiten op vrijwillige basis uitvoert, wordt financieel en moreel gesteund door verschillende beroepsgroepen en leeftijdsgroepen.',
             content:
-              'Stichting Wees de Stem voor Vrijheid - De stichting, die haar activiteiten op vrijwillige basis uitvoert, wordt financieel en moreel gesteund door verschillende beroepsgroepen en leeftijdsgroepen.',
+              'Stichting Freedom Combination - De stichting, die haar activiteiten op vrijwillige basis uitvoert, wordt financieel en moreel gesteund door verschillende beroepsgroepen en leeftijdsgroepen.',
             reference: null,
             approvalStatus: 'approved',
             capsStatus: 'pending',
@@ -8821,7 +8823,7 @@ export const HASHTAG_MOCKS = {
         localizations: [
           {
             id: 29,
-            title: 'Wees Foundation promotion',
+            title: 'Freedom Combination Foundation promotion',
             slug: 'wees-foundation-promotion',
             description:
               'Wees foundation activities promotion hashtag campaign',
@@ -8832,7 +8834,7 @@ export const HASHTAG_MOCKS = {
             tweets: [
               {
                 id: '1668402029868331009',
-                text: 'RT @sanatduragi_nl: Kendimizi bir kez daha tanıtma fırsatı bulduğunuz bir ortadayız. Bize bu fırsatı sınan @wsvvrijheid teşekkürler 💙 #StgW…',
+                text: 'RT @sanatduragi_nl: Kendimizi bir kez daha tanıtma fırsatı bulduğunuz bir ortadayız. Bize bu fırsatı sınan @fc teşekkürler 💙 #StgW…',
                 user: {
                   name: 'Hasan Rüstemoglu',
                   profile:
@@ -8888,7 +8890,7 @@ export const HASHTAG_MOCKS = {
               },
               {
                 id: '1668297997334065157',
-                text: 'RT @MhmtTvt: Haarlem’ de  Hollanda’ nın kurtuluş gününde Wees Vakfımız organizasyonuyla Türkiye’ de kadınlara yapılan hukuksuzlukları lanse…',
+                text: 'RT @MhmtTvt: Haarlem’ de  Hollanda’ nın kurtuluş gününde Freedom Combination Vakfımız organizasyonuyla Türkiye’ de kadınlara yapılan hukuksuzlukları lanse…',
                 user: {
                   name: 'Christina Tyler 💐',
                   profile:
@@ -8930,7 +8932,7 @@ export const HASHTAG_MOCKS = {
               },
               {
                 id: '1668138749002219521',
-                text: "RT @insan_sevgisii: Proje dünyasına adım atmak için Wees Akademi'nin proje eğitimine katılın. Hollanda içi veAvrupa Birliği projeleriyle pr…",
+                text: "RT @insan_sevgisii: Proje dünyasına adım atmak için FC Akademi'nin proje eğitimine katılın. Hollanda içi veAvrupa Birliği projeleriyle pr…",
                 user: {
                   name: 'Nevbahar',
                   profile:
@@ -8958,7 +8960,7 @@ export const HASHTAG_MOCKS = {
               },
               {
                 id: '1668004277351071745',
-                text: 'RT @samenvvvTR: Wees Akademi, insan haklarına ilişkin farkındalığı artırmayı amaçlayan aylık söyleşiler aracılığıyla bilgi yaymayı hedeflem…',
+                text: 'RT @samenvvvTR: FC Akademi, insan haklarına ilişkin farkındalığı artırmayı amaçlayan aylık söyleşiler aracılığıyla bilgi yaymayı hedeflem…',
                 user: {
                   name: 'Yoldas',
                   profile:
@@ -9014,7 +9016,7 @@ export const HASHTAG_MOCKS = {
               },
               {
                 id: '1667996803571040256',
-                text: 'RT @samenvvvTR: Wees Akademi, insan haklarına ilişkin farkındalığı artırmayı amaçlayan aylık söyleşiler aracılığıyla bilgi yaymayı hedeflem…',
+                text: 'RT @samenvvvTR: FC Akademi, insan haklarına ilişkin farkındalığı artırmayı amaçlayan aylık söyleşiler aracılığıyla bilgi yaymayı hedeflem…',
                 user: {
                   name: 'Ismail',
                   profile:
@@ -9042,7 +9044,7 @@ export const HASHTAG_MOCKS = {
               },
               {
                 id: '1667996703423705099',
-                text: 'RT @sanatduragi_nl: Als Wees Academy hebben we een digitale tekentraining gegeven, die we in de nieuwe periode willen herhalen..\n@samenvvv…',
+                text: 'RT @sanatduragi_nl: Als FC Academy hebben we een digitale tekentraining gegeven, die we in de nieuwe periode willen herhalen..\n@samenvvv…',
                 user: {
                   name: 'Ismail',
                   profile:
@@ -9084,7 +9086,7 @@ export const HASHTAG_MOCKS = {
               },
               {
                 id: '1667995710963302400',
-                text: 'Join Foundation Wees de Stem voor Vrijheid in our mission to end human rights violations. Through the power of social media, we aim to raise awareness, promote accountability, and advocate for the rights of all individuals.\n@samenvvvEN\n#StgWeesPresentatie \nhttps://t.co/EjXGC9Qc9b',
+                text: 'Join Foundation Freedom Combination in our mission to end human rights violations. Through the power of social media, we aim to raise awareness, promote accountability, and advocate for the rights of all individuals.\n@samenvvvEN\n#StgWeesPresentatie \nhttps://t.co/EjXGC9Qc9b',
                 user: {
                   name: 'Ibrahim Van Lopik',
                   profile:
@@ -9224,7 +9226,7 @@ export const HASHTAG_MOCKS = {
               },
               {
                 id: '1667947950742413313',
-                text: 'RT @wsvvrijheid: Foundation Wees de Stem voor Vrijheid is breaking new ground as the first and only foundation dedicated to human rights on…',
+                text: 'RT @fc: Foundation Freedom Combination is breaking new ground as the first and only foundation dedicated to human rights on…',
                 user: {
                   name: 'Mustafa',
                   profile:
@@ -9252,7 +9254,7 @@ export const HASHTAG_MOCKS = {
               },
               {
                 id: '1667897619924807681',
-                text: 'RT @sanatduragi_nl: Als Wees Academy hebben we een digitale tekentraining gegeven, die we in de nieuwe periode willen herhalen..\n@samenvvv…',
+                text: 'RT @sanatduragi_nl: Als FC Academy hebben we een digitale tekentraining gegeven, die we in de nieuwe periode willen herhalen..\n@samenvvv…',
                 user: {
                   name: 'sade',
                   profile:
@@ -9336,7 +9338,7 @@ export const HASHTAG_MOCKS = {
               },
               {
                 id: '1667866569093914625',
-                text: 'RT @MeteNisan: Wees Akademi, proje eğitimiyle size Hollanda içinde ve Avrupa Birliği projelerinde yer alma fırsatı sunuyor. Bilgi ve beceri…',
+                text: 'RT @MeteNisan: FC Akademi, proje eğitimiyle size Hollanda içinde ve Avrupa Birliği projelerinde yer alma fırsatı sunuyor. Bilgi ve beceri…',
                 user: {
                   name: 'Eren Eymen',
                   profile:
@@ -9350,7 +9352,7 @@ export const HASHTAG_MOCKS = {
               },
               {
                 id: '1667857723252252675',
-                text: 'Wees Akademi, proje eğitimiyle size Hollanda içinde ve Avrupa Birliği projelerinde yer alma fırsatı sunuyor. Bilgi ve becerilerinizi geliştirerek geleceğin projelerine katkıda bulunun. \n\n@sanatduragi_nl\n\n#StgWeesPresentatie \n\nhttps://t.co/7L7z8h30zr',
+                text: 'FC Akademi, proje eğitimiyle size Hollanda içinde ve Avrupa Birliği projelerinde yer alma fırsatı sunuyor. Bilgi ve becerilerinizi geliştirerek geleceğin projelerine katkıda bulunun. \n\n@sanatduragi_nl\n\n#StgWeesPresentatie \n\nhttps://t.co/7L7z8h30zr',
                 user: {
                   name: 'fatma',
                   profile:
@@ -9364,7 +9366,7 @@ export const HASHTAG_MOCKS = {
               },
               {
                 id: '1667846147354787842',
-                text: 'RT @sanatduragi_nl: Kendimizi bir kez daha tanıtma fırsatı bulduğunuz bir ortadayız. Bize bu fırsatı sınan @wsvvrijheid teşekkürler 💙 #StgW…',
+                text: 'RT @sanatduragi_nl: Kendimizi bir kez daha tanıtma fırsatı bulduğunuz bir ortadayız. Bize bu fırsatı sınan @fc teşekkürler 💙 #StgW…',
                 user: {
                   name: 'Büşra',
                   profile:
@@ -9476,7 +9478,7 @@ export const HASHTAG_MOCKS = {
               },
               {
                 id: '1667785227563876352',
-                text: 'RT @samenvvvTR: Wees Akademi, insan haklarına ilişkin farkındalığı artırmayı amaçlayan aylık söyleşiler aracılığıyla bilgi yaymayı hedeflem…',
+                text: 'RT @samenvvvTR: FC Akademi, insan haklarına ilişkin farkındalığı artırmayı amaçlayan aylık söyleşiler aracılığıyla bilgi yaymayı hedeflem…',
                 user: {
                   name: 'semran sari',
                   profile:
@@ -9490,7 +9492,7 @@ export const HASHTAG_MOCKS = {
               },
               {
                 id: '1667783386859970561',
-                text: "RT @insan_sevgisii: Proje dünyasına adım atmak için Wees Akademi'nin proje eğitimine katılın. Hollanda içi veAvrupa Birliği projeleriyle pr…",
+                text: "RT @insan_sevgisii: Proje dünyasına adım atmak için FC Akademi'nin proje eğitimine katılın. Hollanda içi veAvrupa Birliği projeleriyle pr…",
                 user: {
                   name: 'DeepDarkRaven',
                   profile:
@@ -9539,9 +9541,10 @@ export const HASHTAG_MOCKS = {
           },
           {
             id: 28,
-            title: 'Wees Vakfı tanıtım',
+            title: 'Freedom Combination Vakfı tanıtım',
             slug: 'wees-vakfi-tanitim',
-            description: 'Wees vakfı faaliyetleri tanıtım hashtag kampanyası',
+            description:
+              'Freedom Combination Vakfı faaliyetleri tanıtım hashtag kampanyası',
             content: 'Content',
             approvalStatus: 'approved',
             hashtagExtra: '',
@@ -14212,7 +14215,7 @@ export const HASHTAG_MOCKS = {
     data: [
       {
         id: 29,
-        title: 'Wees Foundation promotion',
+        title: 'Freedom Combination Foundation promotion',
         slug: 'wees-foundation-promotion',
         description: 'Wees foundation activities promotion hashtag campaign',
         content: 'Content',
@@ -14222,7 +14225,7 @@ export const HASHTAG_MOCKS = {
         tweets: [
           {
             id: '1668402029868331009',
-            text: 'RT @sanatduragi_nl: Kendimizi bir kez daha tanıtma fırsatı bulduğunuz bir ortadayız. Bize bu fırsatı sınan @wsvvrijheid teşekkürler 💙 #StgW…',
+            text: 'RT @sanatduragi_nl: Kendimizi bir kez daha tanıtma fırsatı bulduğunuz bir ortadayız. Bize bu fırsatı sınan @fc teşekkürler 💙 #StgW…',
             user: {
               name: 'Hasan Rüstemoglu',
               profile:
@@ -14278,7 +14281,7 @@ export const HASHTAG_MOCKS = {
           },
           {
             id: '1668297997334065157',
-            text: 'RT @MhmtTvt: Haarlem’ de  Hollanda’ nın kurtuluş gününde Wees Vakfımız organizasyonuyla Türkiye’ de kadınlara yapılan hukuksuzlukları lanse…',
+            text: 'RT @MhmtTvt: Haarlem’ de  Hollanda’ nın kurtuluş gününde Freedom Combination Vakfımız organizasyonuyla Türkiye’ de kadınlara yapılan hukuksuzlukları lanse…',
             user: {
               name: 'Christina Tyler 💐',
               profile:
@@ -14320,7 +14323,7 @@ export const HASHTAG_MOCKS = {
           },
           {
             id: '1668138749002219521',
-            text: "RT @insan_sevgisii: Proje dünyasına adım atmak için Wees Akademi'nin proje eğitimine katılın. Hollanda içi veAvrupa Birliği projeleriyle pr…",
+            text: "RT @insan_sevgisii: Proje dünyasına adım atmak için FC Akademi'nin proje eğitimine katılın. Hollanda içi veAvrupa Birliği projeleriyle pr…",
             user: {
               name: 'Nevbahar',
               profile:
@@ -14348,7 +14351,7 @@ export const HASHTAG_MOCKS = {
           },
           {
             id: '1668004277351071745',
-            text: 'RT @samenvvvTR: Wees Akademi, insan haklarına ilişkin farkındalığı artırmayı amaçlayan aylık söyleşiler aracılığıyla bilgi yaymayı hedeflem…',
+            text: 'RT @samenvvvTR: FC Akademi, insan haklarına ilişkin farkındalığı artırmayı amaçlayan aylık söyleşiler aracılığıyla bilgi yaymayı hedeflem…',
             user: {
               name: 'Yoldas',
               profile:
@@ -14404,7 +14407,7 @@ export const HASHTAG_MOCKS = {
           },
           {
             id: '1667996803571040256',
-            text: 'RT @samenvvvTR: Wees Akademi, insan haklarına ilişkin farkındalığı artırmayı amaçlayan aylık söyleşiler aracılığıyla bilgi yaymayı hedeflem…',
+            text: 'RT @samenvvvTR: FC Akademi, insan haklarına ilişkin farkındalığı artırmayı amaçlayan aylık söyleşiler aracılığıyla bilgi yaymayı hedeflem…',
             user: {
               name: 'Ismail',
               profile:
@@ -14432,7 +14435,7 @@ export const HASHTAG_MOCKS = {
           },
           {
             id: '1667996703423705099',
-            text: 'RT @sanatduragi_nl: Als Wees Academy hebben we een digitale tekentraining gegeven, die we in de nieuwe periode willen herhalen..\n@samenvvv…',
+            text: 'RT @sanatduragi_nl: Als FC Academy hebben we een digitale tekentraining gegeven, die we in de nieuwe periode willen herhalen..\n@samenvvv…',
             user: {
               name: 'Ismail',
               profile:
@@ -14474,7 +14477,7 @@ export const HASHTAG_MOCKS = {
           },
           {
             id: '1667995710963302400',
-            text: 'Join Foundation Wees de Stem voor Vrijheid in our mission to end human rights violations. Through the power of social media, we aim to raise awareness, promote accountability, and advocate for the rights of all individuals.\n@samenvvvEN\n#StgWeesPresentatie \nhttps://t.co/EjXGC9Qc9b',
+            text: 'Join Foundation Freedom Combination in our mission to end human rights violations. Through the power of social media, we aim to raise awareness, promote accountability, and advocate for the rights of all individuals.\n@samenvvvEN\n#StgWeesPresentatie \nhttps://t.co/EjXGC9Qc9b',
             user: {
               name: 'Ibrahim Van Lopik',
               profile:
@@ -14614,7 +14617,7 @@ export const HASHTAG_MOCKS = {
           },
           {
             id: '1667947950742413313',
-            text: 'RT @wsvvrijheid: Foundation Wees de Stem voor Vrijheid is breaking new ground as the first and only foundation dedicated to human rights on…',
+            text: 'RT @fc: Foundation Freedom Combination is breaking new ground as the first and only foundation dedicated to human rights on…',
             user: {
               name: 'Mustafa',
               profile:
@@ -14642,7 +14645,7 @@ export const HASHTAG_MOCKS = {
           },
           {
             id: '1667897619924807681',
-            text: 'RT @sanatduragi_nl: Als Wees Academy hebben we een digitale tekentraining gegeven, die we in de nieuwe periode willen herhalen..\n@samenvvv…',
+            text: 'RT @sanatduragi_nl: Als FC Academy hebben we een digitale tekentraining gegeven, die we in de nieuwe periode willen herhalen..\n@samenvvv…',
             user: {
               name: 'sade',
               profile:
@@ -14726,7 +14729,7 @@ export const HASHTAG_MOCKS = {
           },
           {
             id: '1667866569093914625',
-            text: 'RT @MeteNisan: Wees Akademi, proje eğitimiyle size Hollanda içinde ve Avrupa Birliği projelerinde yer alma fırsatı sunuyor. Bilgi ve beceri…',
+            text: 'RT @MeteNisan: FC Akademi, proje eğitimiyle size Hollanda içinde ve Avrupa Birliği projelerinde yer alma fırsatı sunuyor. Bilgi ve beceri…',
             user: {
               name: 'Eren Eymen',
               profile:
@@ -14740,7 +14743,7 @@ export const HASHTAG_MOCKS = {
           },
           {
             id: '1667857723252252675',
-            text: 'Wees Akademi, proje eğitimiyle size Hollanda içinde ve Avrupa Birliği projelerinde yer alma fırsatı sunuyor. Bilgi ve becerilerinizi geliştirerek geleceğin projelerine katkıda bulunun. \n\n@sanatduragi_nl\n\n#StgWeesPresentatie \n\nhttps://t.co/7L7z8h30zr',
+            text: 'FC Akademi, proje eğitimiyle size Hollanda içinde ve Avrupa Birliği projelerinde yer alma fırsatı sunuyor. Bilgi ve becerilerinizi geliştirerek geleceğin projelerine katkıda bulunun. \n\n@sanatduragi_nl\n\n#StgWeesPresentatie \n\nhttps://t.co/7L7z8h30zr',
             user: {
               name: 'fatma',
               profile:
@@ -14754,7 +14757,7 @@ export const HASHTAG_MOCKS = {
           },
           {
             id: '1667846147354787842',
-            text: 'RT @sanatduragi_nl: Kendimizi bir kez daha tanıtma fırsatı bulduğunuz bir ortadayız. Bize bu fırsatı sınan @wsvvrijheid teşekkürler 💙 #StgW…',
+            text: 'RT @sanatduragi_nl: Kendimizi bir kez daha tanıtma fırsatı bulduğunuz bir ortadayız. Bize bu fırsatı sınan @fc teşekkürler 💙 #StgW…',
             user: {
               name: 'Büşra',
               profile:
@@ -14866,7 +14869,7 @@ export const HASHTAG_MOCKS = {
           },
           {
             id: '1667785227563876352',
-            text: 'RT @samenvvvTR: Wees Akademi, insan haklarına ilişkin farkındalığı artırmayı amaçlayan aylık söyleşiler aracılığıyla bilgi yaymayı hedeflem…',
+            text: 'RT @samenvvvTR: FC Akademi, insan haklarına ilişkin farkındalığı artırmayı amaçlayan aylık söyleşiler aracılığıyla bilgi yaymayı hedeflem…',
             user: {
               name: 'semran sari',
               profile:
@@ -14880,7 +14883,7 @@ export const HASHTAG_MOCKS = {
           },
           {
             id: '1667783386859970561',
-            text: "RT @insan_sevgisii: Proje dünyasına adım atmak için Wees Akademi'nin proje eğitimine katılın. Hollanda içi veAvrupa Birliği projeleriyle pr…",
+            text: "RT @insan_sevgisii: Proje dünyasına adım atmak için FC Akademi'nin proje eğitimine katılın. Hollanda içi veAvrupa Birliği projeleriyle pr…",
             user: {
               name: 'DeepDarkRaven',
               profile:
@@ -15177,9 +15180,9 @@ export const HASHTAG_MOCKS = {
           {
             id: 127,
             description:
-              'Wees Academy screenwriting training trains new screenwriters.',
+              'FC Academy screenwriting training trains new screenwriters.',
             content:
-              'Wees Academy screenwriting training trains new screenwriters.',
+              'FC Academy screenwriting training trains new screenwriters.',
             reference: null,
             approvalStatus: 'approved',
             capsStatus: 'pending',
@@ -15200,9 +15203,9 @@ export const HASHTAG_MOCKS = {
           {
             id: 130,
             description:
-              'Wees Akaemi aims to raise awareness about human rights through monthly talks.',
+              'FC Akademi aims to raise awareness about human rights through monthly talks.',
             content:
-              'Wees Akaemi aims to raise awareness about human rights through monthly talks.',
+              'FC Akademi aims to raise awareness about human rights through monthly talks.',
             reference: null,
             approvalStatus: 'approved',
             capsStatus: 'pending',
@@ -15223,9 +15226,9 @@ export const HASHTAG_MOCKS = {
           {
             id: 136,
             description:
-              'Software, interviews and trainings are planned in the Netherlands within Wees Academy.  ',
+              'Software, interviews and trainings are planned in the Netherlands within FC Academy.  ',
             content:
-              'Software, interviews and trainings are planned in the Netherlands within Wees Academy.',
+              'Software, interviews and trainings are planned in the Netherlands within FC Academy.',
             reference: null,
             approvalStatus: 'approved',
             capsStatus: 'pending',
@@ -15246,9 +15249,9 @@ export const HASHTAG_MOCKS = {
           {
             id: 137,
             description:
-              'As Wees Academy, we gave digital drawing training. We are planning to repeat it in the new semester.',
+              'As FC Academy, we gave digital drawing training. We are planning to repeat it in the new semester.',
             content:
-              'As Wees Academy, we gave digital drawing training. We are planning to repeat it in the new semester.',
+              'As FC Academy, we gave digital drawing training. We are planning to repeat it in the new semester.',
             reference: null,
             approvalStatus: 'approved',
             capsStatus: 'pending',
@@ -15267,9 +15270,9 @@ export const HASHTAG_MOCKS = {
           {
             id: 139,
             description:
-              'Wees Academy provides project training. Intra-Dutch and European Union projects are planned.',
+              'FC Academy provides project training. Intra-Dutch and European Union projects are planned.',
             content:
-              'Wees Academy provides project training. Intra-Dutch and European Union projects are planned.',
+              'FC Academy provides project training. Intra-Dutch and European Union projects are planned.',
             reference: null,
             approvalStatus: 'approved',
             capsStatus: 'pending',
@@ -15336,9 +15339,9 @@ export const HASHTAG_MOCKS = {
           {
             id: 150,
             description:
-              'On the liberation day of the Netherlands in Haarlem, with the organization of our Wees Foundation, Sound of Change group participated in the stand program by making street music in order to showcase the unlawful acts against women in Turkey.',
+              'On the liberation day of the Netherlands in Haarlem, with the organization of our Freedom Combination Foundation, Sound of Change group participated in the stand program by making street music in order to showcase the unlawful acts against women in Turkey.',
             content:
-              'On the liberation day of the Netherlands in Haarlem, with the organization of our Wees Foundation, Sound of Change group participated in the stand program by making street music in order to showcase the unlawful acts against women in Turkey.',
+              'On the liberation day of the Netherlands in Haarlem, with the organization of our Freedom Combination Foundation, Sound of Change group participated in the stand program by making street music in order to showcase the unlawful acts against women in Turkey.',
             reference: null,
             approvalStatus: 'approved',
             capsStatus: 'pending',
@@ -15676,9 +15679,9 @@ export const HASHTAG_MOCKS = {
           {
             id: 217,
             description:
-              ' Foundation Wees de Stem voor Vrijheid - Accepting the language of art as universal, one of its goals is to bring human rights violations to more people through the language of art.',
+              ' Foundation Freedom Combination - Accepting the language of art as universal, one of its goals is to bring human rights violations to more people through the language of art.',
             content:
-              'Foundation Wees de Stem voor Vrijheid  - Accepting the language of art as universal, one of its goals is to bring human rights violations to more people through the language of art.',
+              'Foundation Freedom Combination  - Accepting the language of art as universal, one of its goals is to bring human rights violations to more people through the language of art.',
             reference: null,
             approvalStatus: 'approved',
             capsStatus: 'pending',
@@ -15699,9 +15702,9 @@ export const HASHTAG_MOCKS = {
           {
             id: 219,
             description:
-              'Foundation Wees de Stem voor Vrijheid - Aims to end human rights violations by using the power of social media',
+              'Foundation Freedom Combination - Aims to end human rights violations by using the power of social media',
             content:
-              'Foundation Wees de Stem voor Vrijheid  - Aims to end human rights violations by using the power of social media.',
+              'Foundation Freedom Combination  - Aims to end human rights violations by using the power of social media.',
             reference: null,
             approvalStatus: 'approved',
             capsStatus: 'pending',
@@ -15722,9 +15725,9 @@ export const HASHTAG_MOCKS = {
           {
             id: 221,
             description:
-              'Foundation Wees de Stem voor Vrijheid - With its various platforms and groups, it works to raise public awareness of human rights in a healthy way.',
+              'Foundation Freedom Combination - With its various platforms and groups, it works to raise public awareness of human rights in a healthy way.',
             content:
-              'Foundation Wees de Stem voor Vrijheid  - With its various platforms and groups, it works to raise public awareness of human rights in a healthy way.',
+              'Foundation Freedom Combination  - With its various platforms and groups, it works to raise public awareness of human rights in a healthy way.',
             reference: null,
             approvalStatus: 'approved',
             capsStatus: 'pending',
@@ -15744,9 +15747,9 @@ export const HASHTAG_MOCKS = {
           {
             id: 223,
             description:
-              'Foundation Wees de Stem voor Vrijheid - Unlike other human rights foundations, it is the first and only foundation established specifically for Social Media.',
+              'Foundation Freedom Combination - Unlike other human rights foundations, it is the first and only foundation established specifically for Social Media.',
             content:
-              'Foundation Stichting Wees de Stem voor Vrijheid - In tegenstelling tot andere stichtingen voor mensenrechten is dit de eerste en enige stichting die speciaal is opgericht voor sociale media.',
+              'Foundation Stichting Freedom Combination - In tegenstelling tot andere stichtingen voor mensenrechten is dit de eerste en enige stichting die speciaal is opgericht voor sociale media.',
             reference: null,
             approvalStatus: 'approved',
             capsStatus: 'pending',
@@ -15767,9 +15770,9 @@ export const HASHTAG_MOCKS = {
           {
             id: 226,
             description:
-              'Foundation Stichting Wees de Stem voor Vrijheid - The foundation works on a voluntary basis and is supported financially and morally by various professions and age groups.',
+              'Foundation Stichting Freedom Combination - The foundation works on a voluntary basis and is supported financially and morally by various professions and age groups.',
             content:
-              'Foundation Stichting Wees de Stem voor Vrijheid - The foundation works on a voluntary basis and is supported financially and morally by various professions and age groups.',
+              'Foundation Stichting Freedom Combination - The foundation works on a voluntary basis and is supported financially and morally by various professions and age groups.',
             reference: null,
             approvalStatus: 'approved',
             capsStatus: 'pending',
@@ -15929,10 +15932,10 @@ export const HASHTAG_MOCKS = {
         localizations: [
           {
             id: 30,
-            title: 'Stichting Wees introductie',
+            title: 'Stichting Freedom Combination introductie',
             slug: 'wees-stichting-introductie',
             description:
-              'Stichting Wees activiteiten promotie hashtag campagne',
+              'Stichting Freedom Combination activiteiten promotie hashtag campagne',
             content: 'Inhoud',
             approvalStatus: 'approved',
             hashtagExtra: '',
@@ -15946,9 +15949,10 @@ export const HASHTAG_MOCKS = {
           },
           {
             id: 28,
-            title: 'Wees Vakfı tanıtım',
+            title: 'Freedom Combination Vakfı tanıtım',
             slug: 'wees-vakfi-tanitim',
-            description: 'Wees vakfı faaliyetleri tanıtım hashtag kampanyası',
+            description:
+              'Freedom Combination Vakfı faaliyetleri tanıtım hashtag kampanyası',
             content: 'Content',
             approvalStatus: 'approved',
             hashtagExtra: '',
