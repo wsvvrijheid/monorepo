@@ -5,6 +5,9 @@ import { Context } from 'koa'
 const { ForbiddenError } = errors
 
 export const checkRecaptcha = async (context: Context) => {
+  if (process.env.NODE_ENV === 'development')
+    return
+
   try {
     // Add your own logic here.
     strapi.log.info('In check-recaptcha policy.')

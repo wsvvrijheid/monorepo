@@ -9,6 +9,7 @@ import { Tag } from './tag'
 export type BlogBase = StrapiEntityBase & {
   likes: number
   views: number
+  isLiked: boolean
 }
 
 type BlogRelation = {

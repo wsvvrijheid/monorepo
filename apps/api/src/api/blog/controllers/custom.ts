@@ -56,35 +56,22 @@ export default {
     const profile = await getProfile(ctx)
 
     if (profile) {
-      const isLikedCount = await strapi.entityService.count('api::blog.blog', {
-        filters: {
-          id: { $eq: ctx.params.id },
-          likers: { id: { $eq: profile.id } },
+      await strapi.entityService.update('api::blog.blog', ctx.params.id, {
+        data: {
+          likers: {
+            connect: [profile],
+          },
         },
       })
-
-      if (!isLikedCount) {
-        await strapi.entityService.update('api::blog.blog', ctx.params.id, {
-          data: {
-            likers: {
-              ['connect']: [profile.id as number],
-            },
-          },
-        })
-      }
+    } else {
+      // we calculate like count likes + likers.length
+      // so dont increase liker value if user added to likers
+      await strapi.db
+        .connection('blogs')
+        .where('id', ctx.params.id)
+        .increment('likes', 1)
     }
-
-    await strapi.db
-      .connection('blogs')
-      .where('id', ctx.params.id)
-      .increment('likes', 1)
-
-    const result = await strapi.entityService.findOne(
-      'api::blog.blog',
-      ctx.params.id,
-    )
-
-    return { data: result }
+    return { data: null }
   },
   async unlike(ctx: Context) {
     await checkRecaptcha(ctx)
@@ -92,35 +79,21 @@ export default {
     const profile = await getProfile(ctx)
 
     if (profile) {
-      const isLikedCount = await strapi.entityService.count('api::blog.blog', {
-        filters: {
-          id: { $eq: ctx.params.id },
-          likers: { id: { $eq: profile.id } },
+      await strapi.entityService.update('api::blog.blog', ctx.params.id, {
+        data: {
+          likers: {
+            disconnect: [profile],
+          },
         },
       })
-
-      if (isLikedCount) {
-        await strapi.entityService.update('api::blog.blog', ctx.params.id, {
-          data: {
-            likers: {
-              ['disconnect']: [profile.id as number],
-            },
-          },
-        })
-      }
+    } else {
+      // same as like()...
+      await strapi.db
+        .connection('blogs')
+        .where('id', ctx.params.id)
+        .increment('likes', -1)
     }
-
-    await strapi.db
-      .connection('blogs')
-      .where('id', ctx.params.id)
-      .increment('likes', -1)
-
-    const result = await strapi.entityService.findOne(
-      'api::blog.blog',
-      ctx.params.id,
-    )
-
-    return { data: result }
+    return { data: null }
   },
   async view(ctx: Context) {
     try {

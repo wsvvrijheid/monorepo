@@ -1,12 +1,14 @@
 import { FC } from 'react'
 
 import { QueryClient, dehydrate } from '@tanstack/react-query'
+
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
 import { useRouter } from 'next/router'
 import { serialize } from 'next-mdx-remote/serialize'
 import { ReCaptchaProvider } from 'next-recaptcha-v3'
 
 import { RECAPTCHA_SITE_KEY, SITE_URL } from '@fc/config'
+import { getSession } from '@fc/secrets'
 import { getAuthorBlogs, getBlogBySlug, useViewBlog } from '@fc/services'
 import { ssrTranslations } from '@fc/services/ssrTranslations'
 import { Blog, StrapiLocale } from '@fc/types'
@@ -51,9 +53,11 @@ export const getServerSideProps = async (
   const slug = context.params?.['slug'] as string
   const queryKey = ['blog', locale, slug]
 
+  const { token } = await getSession(context.req, context.res)
+
   await queryClient.prefetchQuery({
     queryKey,
-    queryFn: () => getBlogBySlug(locale, slug),
+    queryFn: () => getBlogBySlug(locale, slug, token),
   })
 
   const blog = queryClient.getQueryData<Blog>(queryKey)
@@ -61,7 +65,12 @@ export const getServerSideProps = async (
   if (!blog) return { notFound: true }
 
   const authorBlogs =
-    (await getAuthorBlogs(locale, blog?.author?.id as number, blog.id)) || []
+    (await getAuthorBlogs(
+      locale,
+      blog?.author?.id as number,
+      blog.id,
+      token,
+    )) || []
 
   const source = await serialize(blog?.content || '')
 
