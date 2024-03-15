@@ -244,6 +244,7 @@ export type StrapiEmailEndpoint = 'email'
 export type StrapiCustomEndpoint = 'translate-model' | 'translate-post-model'
 
 export type StrapiSingleEndpoint =
+  | 'profiles/me'
   | 'term'
   | 'privacy'
   | 'trend'
