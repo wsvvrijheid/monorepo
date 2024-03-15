@@ -34,7 +34,7 @@ export const loginAuth = async (identifier: string, password: string) => {
     return emptyAuth
   }
 
-    const profileResponse = user?.id
+  const profileResponse = user?.id
     ? await strapiRequest<Profile>({
         endpoint: 'profiles/me',
         token,
