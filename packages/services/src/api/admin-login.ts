@@ -18,6 +18,13 @@ export const adminLoginRouter: NextApiHandler = async (req, res) => {
       })
     }
 
+    if (!profile) {
+      return res.status(404).json({
+        message: `Profile not found`,
+        type: 'not_found',
+      })
+    }
+
     const session = await getIronSession<Auth>(req, res, sessionOptions)
 
     session.user = auth.user
