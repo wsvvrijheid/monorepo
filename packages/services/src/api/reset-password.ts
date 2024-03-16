@@ -32,18 +32,14 @@ export const resetPasswordRouter: NextApiHandler = async (req, res) => {
       })
     }
 
-    const profileResponse = await strapiRequest<Profile>({
-      endpoint: 'profiles',
-      filters: {
-        user: {
-          id: {
-            $eq: user.id,
-          },
-        },
-      },
-    })
+    const profileResponse = user?.id
+      ? await strapiRequest<Profile>({
+          endpoint: 'profiles/me',
+          token,
+        })
+      : null
 
-    const profile = profileResponse?.data?.[0] || null
+    const profile = profileResponse?.data || null
 
     const auth = { user, profile, token: true }
 
