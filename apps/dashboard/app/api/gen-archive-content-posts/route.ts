@@ -1,7 +1,7 @@
 import { OpenAIStream, StreamingTextResponse } from 'ai'
 import OpenAI from 'openai'
 
-import { generatePostMock } from '@fc/utils/src/generate-post-mock'
+import { generateMockArchivePost } from '@fc/utils/src/generateMockArchivePost'
 
 export const runtime = 'edge'
 
@@ -25,9 +25,8 @@ export async function POST(req: Request) {
 
   // If dev environment, return mock stream response
   if (process.env.NODE_ENV === 'development' && !useApiInDev) {
-    // Define your mock response
     const mockResponse = JSON.stringify(
-      generatePostMock(
+      generateMockArchivePost(
         numberOfDescriptions,
         numberOfSentences,
         charLimitOfDescriptions,

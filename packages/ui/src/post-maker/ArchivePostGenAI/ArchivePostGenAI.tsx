@@ -97,7 +97,6 @@ export const ArchivePostGenAI = ({
       onSuccess?.(parsedCompletion)
     },
     onError(error) {
-      console.log('error.message', error.message)
       if (typeof error?.message === 'string') {
         if (error.message.includes('You exceeded your current quota')) {
           toastMessage('Error', 'You exceeded your current quota', 'error')

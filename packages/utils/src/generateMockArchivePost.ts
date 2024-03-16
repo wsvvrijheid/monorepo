@@ -2,7 +2,7 @@
 
 import { loremIpsum } from 'lorem-ipsum'
 
-export const generatePostMock = (
+export const generateMockArchivePost = (
   numberOfDescriptions: number,
   numberOfSentences: number,
   charLimitOfDescriptions: number,
@@ -10,22 +10,29 @@ export const generatePostMock = (
 ): Array<{ description: string; sentences: string[] }> => {
   const result: Array<{ description: string; sentences: string[] }> = []
 
+  // Average word count of a tweet is between 2-10
+  const avgWordCharCount = Math.random() * (10 - 2) + 2
+
   for (let i = 0; i < numberOfDescriptions; i++) {
+    const wordCount = Math.floor(charLimitOfDescriptions / avgWordCharCount)
+
     const description = loremIpsum({
       count: 1,
       units: 'sentences',
-      sentenceLowerBound: charLimitOfDescriptions,
-      sentenceUpperBound: charLimitOfDescriptions,
-    })
+      sentenceUpperBound: wordCount + 2,
+    })?.slice(0, charLimitOfDescriptions)
 
     const sentences = []
     for (let j = 0; j < numberOfSentences; j++) {
+      // Average word count of a tweet is between 5-15
+      const wordCount = Math.floor(charLimitOfSentences / avgWordCharCount)
+
       const sentence = loremIpsum({
         count: 1,
         units: 'sentences',
-        sentenceLowerBound: charLimitOfSentences,
-        sentenceUpperBound: charLimitOfSentences,
-      })
+        sentenceUpperBound: wordCount + 2,
+      })?.slice(0, charLimitOfSentences)
+
       sentences.push(sentence)
     }
 

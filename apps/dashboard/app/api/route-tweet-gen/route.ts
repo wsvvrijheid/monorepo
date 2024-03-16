@@ -1,17 +1,47 @@
 import { OpenAIStream, StreamingTextResponse } from 'ai'
 import OpenAI from 'openai'
 
+import { generateMockTweets } from '@fc/utils/src/generateMockTweets'
+
 export const runtime = 'edge'
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY!,
 })
 
-export default async function handler(req: Request) {
-  const { prompt, numberOfPosts, charLimit, language } = await req.json()
+export async function POST(req: Request) {
+  const { prompt, numberOfPosts, charLimit, language, useApiInDev } =
+    await req.json()
   const postCount =
     numberOfPosts > 0 || numberOfPosts < 40 ? numberOfPosts : 'two'
   const characterLimit = charLimit > 0 || charLimit <= 150 ? charLimit : 200
+
+  // If dev environment, return mock stream response
+  if (process.env.NODE_ENV === 'development' && !useApiInDev) {
+    const mockResponse = JSON.stringify(
+      generateMockTweets(postCount, characterLimit),
+    )
+
+    // Create a ReadableStream from your mock response
+    const stream = new ReadableStream({
+      async start(controller) {
+        // Split the response into chunks by 50 characters
+        const chunks = mockResponse.match(/.{1,50}/g) || []
+
+        // Enqueue each chunk with a delay
+        for (const chunk of chunks) {
+          await new Promise(resolve => setTimeout(resolve, 100)) // 1 second delay
+          controller.enqueue(new TextEncoder().encode(chunk))
+        }
+
+        controller.close()
+      },
+    })
+
+    // Use the stream as input to your StreamingTextResponse
+    return new StreamingTextResponse(stream)
+  }
+
   // Request the OpenAI API for the response based on the prompt
   const response = await openai.chat.completions.create({
     model: 'gpt-4',
