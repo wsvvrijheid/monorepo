@@ -20,11 +20,12 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { setLocale } from 'yup'
 import { tr, nl, en } from 'yup-locales'
 
+import { sleep } from '@fc/utils'
+
 import { heardFrom } from './data'
 import { joinSchema } from './schema'
 import { JoinFormFieldValues, JoinFormProps } from './types'
 import { FormItem } from '../FormItem'
-import { sleep } from '@fc/utils'
 
 export const JoinForm: FC<JoinFormProps> = ({
   onSubmitHandler,
@@ -53,15 +54,14 @@ export const JoinForm: FC<JoinFormProps> = ({
 
     const updateErrorFields = async () => {
       await sleep(100)
-      Object.keys(errors).forEach((fieldName) => {
+      Object.keys(errors).forEach(fieldName => {
         if (errors[fieldName as keyof JoinFormFieldValues]) {
-          clearErrors(fieldName as keyof JoinFormFieldValues);
-          trigger(fieldName as keyof JoinFormFieldValues);
+          clearErrors(fieldName as keyof JoinFormFieldValues)
+          trigger(fieldName as keyof JoinFormFieldValues)
         }
-      });
+      })
     }
     updateErrorFields()
-
   }, [locale])
 
   const onSubmit: SubmitHandler<JoinFormFieldValues> = data => {
