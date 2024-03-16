@@ -1,5 +1,6 @@
 import { factories } from '@strapi/strapi'
 import { assignCreator, getProfile } from '../../../utils'
+import { Blog } from '@fc/types'
 
 export default factories.createCoreController('api::blog.blog', () => {
   return {
@@ -12,22 +13,50 @@ export default factories.createCoreController('api::blog.blog', () => {
 
       return result
     },
-    async find(ctx) {
-      const result = await super.find(ctx)
+    async findOne(ctx) {
+      const { id } = ctx.params
+      const slug = id ? id : ctx.params.slug
+
+      const blog = await strapi.db.query('api::blog.blog').findOne({
+        where: { slug },
+        populate: ['author', 'likers', 'image'],
+      })
+
       const user = ctx.state.user
-      for (const blog of result.data) {
-        const attr = blog.attributes
-        const { likers, likes, ...others } = attr
+      const { likes, likers, ...rest } = (await this.sanitizeOutput(
+        blog,
+        ctx,
+      )) as Blog
+      const isLiked = user && likers.some(liker => liker.email === user.email)
+
+      return {
+        ...rest,
+        isLiked: !!isLiked,
+        likes: (likes ?? 0) + (likers?.length ?? 0),
+      }
+    },
+    async find(ctx) {
+      const response = await super.find(ctx)
+      const user = ctx.state.user
+
+      response.data = response.data.map(blog => {
+        const { id, attributes } = blog
+        const { likes, likers, ...rest } = attributes
         const isLiked =
-          user &&
-          likers?.data?.some(liker => liker.attributes.email === user.email)
-        blog.attributes = {
-          ...others,
+          user && likers.data.some(liker => liker.email === user.email)
+        const data = {
+          ...rest,
           isLiked: !!isLiked,
           likes: (likes ?? 0) + (likers?.data?.length ?? 0),
         }
-      }
-      return result
+
+        return {
+          id,
+          attributes: data,
+        }
+      })
+
+      return response
     },
   }
 })

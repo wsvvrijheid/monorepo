@@ -46,6 +46,6 @@ export const getServerSideProps = async (
     props: {
       dehydratedState: dehydrate(queryClient),
       ...(await ssrTranslations(locale)),
-    }
+    },
   }
 }

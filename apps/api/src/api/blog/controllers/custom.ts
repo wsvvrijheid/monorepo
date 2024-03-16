@@ -59,7 +59,7 @@ export default {
       await strapi.entityService.update('api::blog.blog', ctx.params.id, {
         data: {
           likers: {
-            connect: [profile],
+            connect: [profile.id],
           },
         },
       })
@@ -82,7 +82,7 @@ export default {
       await strapi.entityService.update('api::blog.blog', ctx.params.id, {
         data: {
           likers: {
-            disconnect: [profile],
+            disconnect: [profile.id],
           },
         },
       })
