@@ -10,11 +10,8 @@ export const generateMockArchivePost = (
 ): Array<{ description: string; sentences: string[] }> => {
   const result: Array<{ description: string; sentences: string[] }> = []
 
-  // Average word count of a tweet is between 2-10
-  const avgWordCharCount = Math.random() * (10 - 2) + 2
-
   for (let i = 0; i < numberOfDescriptions; i++) {
-    const wordCount = Math.floor(charLimitOfDescriptions / avgWordCharCount)
+    const wordCount = Math.floor(charLimitOfDescriptions / 5)
 
     const description = loremIpsum({
       count: 1,
@@ -25,11 +22,12 @@ export const generateMockArchivePost = (
     const sentences = []
     for (let j = 0; j < numberOfSentences; j++) {
       // Average word count of a tweet is between 5-15
-      const wordCount = Math.floor(charLimitOfSentences / avgWordCharCount)
+      const wordCount = Math.floor(charLimitOfSentences / 5)
 
       const sentence = loremIpsum({
         count: 1,
         units: 'sentences',
+        sentenceLowerBound: wordCount,
         sentenceUpperBound: wordCount + 2,
       })?.slice(0, charLimitOfSentences)
 

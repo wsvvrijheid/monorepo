@@ -7,14 +7,16 @@ type GeneratedArchiveContentPost = {
   sentences: string[]
 }
 
+type ArchiveContentPosts = Record<number, GeneratedArchiveContentPost[]>
+
 type GenPostValueType = {
-  posts: GeneratedArchiveContentPost[]
-  addPost: (post: GeneratedArchiveContentPost) => void
-  removePosts: () => Promise<void>
+  posts: ArchiveContentPosts
+  addPost: (id: number, post: GeneratedArchiveContentPost) => void
+  removePosts: (id: number) => Promise<void>
 }
 
 const GenPostContext = createContext<GenPostValueType>({
-  posts: [],
+  posts: {},
   addPost: () => null,
   removePosts: () => Promise.resolve(),
 })
@@ -24,21 +26,30 @@ export const useGenPostContext = () => {
 }
 
 export const GenPostProvider = ({ children }: React.PropsWithChildren) => {
-  const [posts, setPosts] = useLocalStorage<GeneratedArchiveContentPost[]>(
+  const [posts, setPosts] = useLocalStorage<ArchiveContentPosts>(
     'generated-archive-content-posts',
     [],
   )
 
-  const addPost = (post: GeneratedArchiveContentPost) => {
-    setPosts(prevPosts => [...prevPosts, { ...post }])
+  const addPost = (id: number, post: GeneratedArchiveContentPost) => {
+    setPosts(prevPosts => {
+      const newPosts = { ...prevPosts }
+      newPosts[id] = newPosts[id] ? [...newPosts[id], post] : [post]
+
+      return newPosts
+    })
   }
 
-  const removePosts = (): Promise<void> => {
+  const removePosts = (id: number): Promise<void> => {
     return new Promise(resolve => {
-      setTimeout(() => {
-        setPosts([])
-        resolve()
-      }, 5000)
+      setPosts(prevPosts => {
+        const newPosts = { ...prevPosts }
+        delete newPosts[id]
+
+        return newPosts
+      })
+
+      resolve()
     })
   }
 

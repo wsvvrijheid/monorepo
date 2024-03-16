@@ -63,8 +63,8 @@ export const ArchivePostGenAI = ({
   const [numberOfDescriptions, setNumberOfDescriptions] = useState<number>(5)
   const [numberOfSentences, setNumberOfSentences] = useState<number>(5)
   const [charLimitOfDescriptions, setCharLimitOfDescriptions] =
-    useState<number>()
-  const [charLimitOfSentences, setCharLimitOfSentences] = useState<number>()
+    useState<number>(200)
+  const [charLimitOfSentences, setCharLimitOfSentences] = useState<number>(150)
   const { posts, addPost, removePosts } = useGenPostContext()
   const [useApiInDev, setUseApiInDev] = useState(false)
 
@@ -93,7 +93,9 @@ export const ArchivePostGenAI = ({
     onFinish(prompt: string, completion: string) {
       const parsedCompletion = JSON.parse(completion)
       setGeneratedArchiveContentPosts(parsedCompletion)
-      parsedCompletion.map((post: GeneratedArchiveContentPost) => addPost(post))
+      parsedCompletion.map((post: GeneratedArchiveContentPost) =>
+        addPost(archiveContentId, post),
+      )
       onSuccess?.(parsedCompletion)
     },
     onError(error) {
@@ -188,7 +190,8 @@ export const ArchivePostGenAI = ({
                 step={10}
                 min={80}
                 max={200}
-                defaultValue={150}
+                defaultValue={charLimitOfDescriptions}
+                value={charLimitOfDescriptions}
                 onChange={(a, b) => setCharLimitOfDescriptions(b)}
               >
                 <NumberInputField bg={'whiteAlpha.700'} />
@@ -206,7 +209,8 @@ export const ArchivePostGenAI = ({
                 step={10}
                 min={100}
                 max={200}
-                defaultValue={150}
+                defaultValue={charLimitOfSentences}
+                value={charLimitOfSentences}
                 onChange={(a, b) => setCharLimitOfSentences(b)}
               >
                 <NumberInputField bg={'whiteAlpha.700'} />
@@ -254,7 +258,7 @@ export const ArchivePostGenAI = ({
                     leftIcon={<FaSave />}
                     type="button"
                     onClick={() => {
-                      removePosts()
+                      removePosts(archiveContentId)
                         .then(() => console.log('Posts removed'))
                         .catch(err => console.error('Ooops! Error: ', err))
                     }}

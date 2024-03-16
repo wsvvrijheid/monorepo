@@ -24,24 +24,6 @@ export async function POST(req: Request) {
     useApiInDev = false,
   } = await req.json()
 
-  // If dev environment, return mock stream response
-  if (process.env.NODE_ENV === 'development' && !useApiInDev) {
-    const mockResponse = JSON.stringify(
-      generateMockArchivePost(
-        numberOfDescriptions,
-        numberOfSentences,
-        charLimitOfDescriptions,
-        charLimitOfSentences,
-      ),
-    )
-
-    // Create a ReadableStream from your mock response
-    const stream = getMockReadableStream(mockResponse)
-
-    // Use the stream as input to your StreamingTextResponse
-    return new StreamingTextResponse(stream)
-  }
-
   const descriptionCount =
     numberOfDescriptions > 0 || numberOfDescriptions < 10
       ? numberOfDescriptions
@@ -56,6 +38,24 @@ export async function POST(req: Request) {
     charLimitOfSentences > 0 || charLimitOfSentences <= 200
       ? charLimitOfSentences
       : 150
+
+  // If dev environment, return mock stream response
+  if (process.env.NODE_ENV === 'development' && !useApiInDev) {
+    const mockResponse = JSON.stringify(
+      generateMockArchivePost(
+        descriptionCount,
+        sentenceCount,
+        characterLimitOfDescriptions,
+        characterLimitOfSentences,
+      ),
+    )
+
+    // Create a ReadableStream from your mock response
+    const stream = getMockReadableStream(mockResponse)
+
+    // Use the stream as input to your StreamingTextResponse
+    return new StreamingTextResponse(stream)
+  }
 
   // Request the OpenAI API for the response based on the prompt
   const response = await openai.chat.completions.create({
