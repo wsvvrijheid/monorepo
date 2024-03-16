@@ -1,6 +1,9 @@
 import { OpenAIStream, StreamingTextResponse } from 'ai'
 import OpenAI from 'openai'
 
+import { generateMockArchivePost } from '@fc/utils/src/generateMockArchivePost'
+import { getMockReadableStream } from '@fc/utils/src/getMockReadableStream'
+
 export const runtime = 'edge'
 
 const openai = new OpenAI({
@@ -10,7 +13,7 @@ const openai = new OpenAI({
 const capitalizeFirstLetter = (str: string) =>
   str[0].toUpperCase() + str.slice(1)
 
-export default async function handler(req: Request) {
+export async function POST(req: Request) {
   const {
     prompt,
     numberOfDescriptions,
@@ -18,7 +21,27 @@ export default async function handler(req: Request) {
     charLimitOfDescriptions,
     charLimitOfSentences,
     language,
+    useApiInDev = false,
   } = await req.json()
+
+  // If dev environment, return mock stream response
+  if (process.env.NODE_ENV === 'development' && !useApiInDev) {
+    const mockResponse = JSON.stringify(
+      generateMockArchivePost(
+        numberOfDescriptions,
+        numberOfSentences,
+        charLimitOfDescriptions,
+        charLimitOfSentences,
+      ),
+    )
+
+    // Create a ReadableStream from your mock response
+    const stream = getMockReadableStream(mockResponse)
+
+    // Use the stream as input to your StreamingTextResponse
+    return new StreamingTextResponse(stream)
+  }
+
   const descriptionCount =
     numberOfDescriptions > 0 || numberOfDescriptions < 10
       ? numberOfDescriptions

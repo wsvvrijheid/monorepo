@@ -14,6 +14,7 @@ import {
   NumberInputStepper,
   Progress,
   Stack,
+  Switch,
   Text,
   Textarea,
   ThemeTypings,
@@ -65,6 +66,7 @@ export const ArchivePostGenAI = ({
     useState<number>()
   const [charLimitOfSentences, setCharLimitOfSentences] = useState<number>()
   const { posts, addPost, removePosts } = useGenPostContext()
+  const [useApiInDev, setUseApiInDev] = useState(false)
 
   const { locale } = useRouter()
 
@@ -78,7 +80,7 @@ export const ArchivePostGenAI = ({
     handleInputChange,
     handleSubmit,
   } = useCompletion({
-    api: '/api/route-archive-content-post-gen',
+    api: '/api/gen-archive-content-posts',
     initialInput: content,
     body: {
       numberOfDescriptions,
@@ -86,6 +88,7 @@ export const ArchivePostGenAI = ({
       charLimitOfDescriptions,
       charLimitOfSentences,
       language,
+      useApiInDev,
     },
     onFinish(prompt: string, completion: string) {
       const parsedCompletion = JSON.parse(completion)
@@ -93,7 +96,15 @@ export const ArchivePostGenAI = ({
       parsedCompletion.map((post: GeneratedArchiveContentPost) => addPost(post))
       onSuccess?.(parsedCompletion)
     },
-    onError() {
+    onError(error) {
+      if (typeof error?.message === 'string') {
+        if (error.message.includes('You exceeded your current quota')) {
+          toastMessage('Error', 'You exceeded your current quota', 'error')
+
+          return
+        }
+      }
+
       toastMessage('Error', t('contact.form.failed'), 'error')
     },
   })
@@ -207,6 +218,17 @@ export const ArchivePostGenAI = ({
             </FormControl>
           </HStack>
           <HStack justify={'right'}>
+            <FormControl w="auto" display="flex" alignItems="center">
+              <FormLabel htmlFor="useApiInDev" mb="0">
+                Use API in Dev
+              </FormLabel>
+              <Switch
+                id="useApiInDev"
+                isChecked={useApiInDev}
+                onChange={e => setUseApiInDev(e.target.checked)}
+                colorScheme={colorScheme}
+              />
+            </FormControl>
             <Button
               leftIcon={<RiAiGenerate />}
               disabled={isLoading}
