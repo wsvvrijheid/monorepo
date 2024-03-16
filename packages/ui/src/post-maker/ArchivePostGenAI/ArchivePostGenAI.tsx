@@ -65,8 +65,10 @@ export const ArchivePostGenAI = ({
   const [charLimitOfDescriptions, setCharLimitOfDescriptions] =
     useState<number>(200)
   const [charLimitOfSentences, setCharLimitOfSentences] = useState<number>(150)
-  const { posts, addPost, removePosts } = useGenPostContext()
+  const { posts: storedPosts, addPost, removePosts } = useGenPostContext()
   const [useApiInDev, setUseApiInDev] = useState(false)
+
+  const posts = storedPosts[archiveContentId] || []
 
   const { locale } = useRouter()
 
