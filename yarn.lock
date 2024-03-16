@@ -12727,6 +12727,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"commander@npm:^9.3.0":
+  version: 9.5.0
+  resolution: "commander@npm:9.5.0"
+  checksum: 10/41c49b3d0f94a1fbeb0463c85b13f15aa15a9e0b4d5e10a49c0a1d58d4489b549d62262b052ae0aa6cfda53299bee487bfe337825df15e342114dde543f82906
+  languageName: node
+  linkType: hard
+
 "common-path-prefix@npm:^3.0.0":
   version: 3.0.0
   resolution: "common-path-prefix@npm:3.0.0"
@@ -16178,6 +16185,7 @@ __metadata:
     jszip: "npm:^3.10.1"
     kill-port-process: "npm:^3.2.1"
     lodash: "npm:^4.17.21"
+    lorem-ipsum: "npm:^2.0.8"
     next: "npm:^14.1.2"
     next-i18next: "npm:^15.2.0"
     next-mdx-remote: "npm:^4.4.1"
@@ -20686,6 +20694,17 @@ __metadata:
   bin:
     loose-envify: cli.js
   checksum: 10/6517e24e0cad87ec9888f500c5b5947032cdfe6ef65e1c1936a0c48a524b81e65542c9c3edc91c97d5bddc806ee2a985dbc79be89215d613b1de5db6d1cfe6f4
+  languageName: node
+  linkType: hard
+
+"lorem-ipsum@npm:^2.0.8":
+  version: 2.0.8
+  resolution: "lorem-ipsum@npm:2.0.8"
+  dependencies:
+    commander: "npm:^9.3.0"
+  bin:
+    lorem-ipsum: dist/bin/lorem-ipsum.bin.js
+  checksum: 10/deef8e072d3605789748ebb3ac70eb7f15980ea9198e6564c59dec9368e74e73be1638d43eb44d934d21ef05f8890bc06028bb01372f476e6e067b64579baf0e
   languageName: node
   linkType: hard
 

@@ -77,7 +77,12 @@ const HashtagPage = () => {
 
   return (
     <AdminLayout seo={{ title: hashtag.title }}>
-      <Button alignSelf={'end'} onClick={onOpen} leftIcon={<FaPencil />}>
+      <Button
+        flexShrink={0}
+        alignSelf={'end'}
+        onClick={onOpen}
+        leftIcon={<FaPencil />}
+      >
         {t('edit')}
       </Button>
 
