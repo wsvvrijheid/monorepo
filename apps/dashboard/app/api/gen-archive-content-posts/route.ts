@@ -2,6 +2,7 @@ import { OpenAIStream, StreamingTextResponse } from 'ai'
 import OpenAI from 'openai'
 
 import { generateMockArchivePost } from '@fc/utils/src/generateMockArchivePost'
+import { getMockReadableStream } from '@fc/utils/src/getMockReadableStream'
 
 export const runtime = 'edge'
 
@@ -35,20 +36,7 @@ export async function POST(req: Request) {
     )
 
     // Create a ReadableStream from your mock response
-    const stream = new ReadableStream({
-      async start(controller) {
-        // Split the response into chunks by 50 characters
-        const chunks = mockResponse.match(/.{1,50}/g) || []
-
-        // Enqueue each chunk with a delay
-        for (const chunk of chunks) {
-          await new Promise(resolve => setTimeout(resolve, 100)) // 1 second delay
-          controller.enqueue(new TextEncoder().encode(chunk))
-        }
-
-        controller.close()
-      },
-    })
+    const stream = getMockReadableStream(mockResponse)
 
     // Use the stream as input to your StreamingTextResponse
     return new StreamingTextResponse(stream)
