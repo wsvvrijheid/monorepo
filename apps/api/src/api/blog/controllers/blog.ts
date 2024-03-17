@@ -27,7 +27,7 @@ export default factories.createCoreController('api::blog.blog', () => {
 
       const isLiked =
         user &&
-        (await strapi.db.query('api::blog.blog').findOne({
+        (await strapi.db.query('api::blog.blog').count({
           where: {
             slug,
             likers: {
@@ -52,7 +52,7 @@ export default factories.createCoreController('api::blog.blog', () => {
 
         const isLiked =
           user &&
-          (await strapi.db.query('api::blog.blog').findOne({
+          (await strapi.db.query('api::blog.blog').count({
             where: {
               id,
               likers: {
