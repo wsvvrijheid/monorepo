@@ -20,7 +20,7 @@ export const getAuthorBlogs = async (
   locale: StrapiLocale,
   authorID: number,
   blogId: number,
-  token?: string | null
+  token?: string | null,
 ) => {
   const response = await strapiRequest<Blog>({
     endpoint: 'blogs',

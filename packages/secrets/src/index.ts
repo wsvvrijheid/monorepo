@@ -1,5 +1,4 @@
 import { IncomingMessage, ServerResponse } from 'http'
-
 import { getIronSession } from 'iron-session'
 
 import { Auth } from '@fc/types'

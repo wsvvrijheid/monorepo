@@ -1,7 +1,5 @@
 import { dehydrate, QueryClient } from '@tanstack/react-query'
-
 import { GetServerSidePropsContext } from 'next'
-
 import { useTranslation } from 'next-i18next'
 
 import { getSession } from '@fc/secrets'

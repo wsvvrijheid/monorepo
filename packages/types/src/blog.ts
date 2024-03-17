@@ -9,7 +9,9 @@ import { Tag } from './tag'
 export type BlogBase = StrapiEntityBase & {
   likes: number
   views: number
-  isLiked: boolean
+  // `isLiked` is a virtual field that is not stored in the database
+  // It is used to determine if the current user has liked the blog
+  isLiked?: boolean
 }
 
 type BlogRelation = {
