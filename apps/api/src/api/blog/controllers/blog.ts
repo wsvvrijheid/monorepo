@@ -19,43 +19,59 @@ export default factories.createCoreController('api::blog.blog', () => {
 
       const blog = await strapi.db.query('api::blog.blog').findOne({
         where: { slug },
-        populate: ['author', 'likers', 'image'],
+        populate: ['author', 'image'],
       })
 
       const user = ctx.state.user
-      const { likes, likers, ...rest } = (await this.sanitizeOutput(
-        blog,
-        ctx,
-      )) as Blog
-      const isLiked = user && likers.some(liker => liker.email === user.email)
+      const sanitizedBlog = (await this.sanitizeOutput(blog, ctx)) as Blog
+
+      const isLiked =
+        user &&
+        (await strapi.db.query('api::blog.blog').findOne({
+          where: {
+            slug,
+            likers: {
+              email: user.email,
+            },
+          },
+          select: ['id'],
+        }))
 
       return {
-        ...rest,
+        ...sanitizedBlog,
         isLiked: !!isLiked,
-        likes: (likes ?? 0) + (likers?.length ?? 0),
       }
     },
     async find(ctx) {
       const response = await super.find(ctx)
       const user = ctx.state.user
 
-      response.data = response.data.map(blog => {
+      const data = []
+      for (const blog of response.data) {
         const { id, attributes } = blog
-        const { likes, likers, ...rest } = attributes
+
         const isLiked =
-          user && likers.data.some(liker => liker.email === user.email)
-        const data = {
-          ...rest,
-          isLiked: !!isLiked,
-          likes: (likes ?? 0) + (likers?.data?.length ?? 0),
-        }
+          user &&
+          (await strapi.db.query('api::blog.blog').findOne({
+            where: {
+              id,
+              likers: {
+                email: user.email,
+              },
+            },
+            select: ['id'],
+          }))
 
-        return {
+        data.push({
           id,
-          attributes: data,
-        }
-      })
+          attributes: {
+            ...attributes,
+            isLiked: !!isLiked,
+          },
+        })
+      }
 
+      response.data = data
       return response
     },
   }

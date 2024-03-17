@@ -63,14 +63,13 @@ export default {
           },
         },
       })
-    } else {
-      // we calculate like count likes + likers.length
-      // so dont increase liker value if user added to likers
-      await strapi.db
-        .connection('blogs')
-        .where('id', ctx.params.id)
-        .increment('likes', 1)
     }
+
+    await strapi.db
+      .connection('blogs')
+      .where('id', ctx.params.id)
+      .increment('likes', 1)
+
     return { data: null }
   },
   async unlike(ctx: Context) {
@@ -86,13 +85,13 @@ export default {
           },
         },
       })
-    } else {
-      // same as like()...
-      await strapi.db
-        .connection('blogs')
-        .where('id', ctx.params.id)
-        .increment('likes', -1)
     }
+
+    await strapi.db
+      .connection('blogs')
+      .where('id', ctx.params.id)
+      .increment('likes', -1)
+
     return { data: null }
   },
   async view(ctx: Context) {

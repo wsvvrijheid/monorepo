@@ -1,10 +1,10 @@
 import { useQuery } from '@tanstack/react-query'
+import axios from 'axios'
 import { useRouter } from 'next/router'
 
-import { useAuthContext } from '@fc/context'
-import { Blog, StrapiLocale } from '@fc/types'
-import axios from 'axios'
 import { API_URL } from '@fc/config'
+import { useAuthContext } from '@fc/context'
+import { Blog } from '@fc/types'
 
 export const getBlogBySlug = async (
   slug: string,
@@ -24,7 +24,6 @@ export const useGetBlogSlug = () => {
 
   return useQuery({
     queryKey: ['blog', locale, query.slug],
-    queryFn: () =>
-      getBlogBySlug(query.slug as string, token),
+    queryFn: () => getBlogBySlug(query.slug as string, token),
   })
 }

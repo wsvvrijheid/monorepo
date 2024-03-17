@@ -1,7 +1,6 @@
 import { FC } from 'react'
 
 import { QueryClient, dehydrate } from '@tanstack/react-query'
-
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
 import { useRouter } from 'next/router'
 import { serialize } from 'next-mdx-remote/serialize'
@@ -57,7 +56,7 @@ export const getServerSideProps = async (
 
   await queryClient.prefetchQuery({
     queryKey,
-    queryFn: () => getBlogBySlug(locale, slug, token),
+    queryFn: () => getBlogBySlug(slug, token),
   })
 
   const blog = queryClient.getQueryData<Blog>(queryKey)
