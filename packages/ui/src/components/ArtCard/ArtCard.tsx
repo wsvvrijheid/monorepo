@@ -15,7 +15,7 @@ export const ArtCard: FC<ArtCardProps> = ({
   const { toggleLike, isLiked } = useLikeArt(art)
   const { user } = useAuthContext()
 
-  const handeToggleLike = () => {
+  const handleToggleLike = () => {
     toggleLike()
     onToggleLike?.()
   }
@@ -24,7 +24,7 @@ export const ArtCard: FC<ArtCardProps> = ({
     <ArtCardBase
       art={art}
       isLiked={isLiked as boolean}
-      toggleLike={handeToggleLike}
+      toggleLike={handleToggleLike}
       isOwner={user?.id === art.artist?.id}
       isMasonry={isMasonry}
       isModal={isModal}

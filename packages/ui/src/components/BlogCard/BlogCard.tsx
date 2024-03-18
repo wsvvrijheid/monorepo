@@ -99,7 +99,10 @@ export const BlogCard: FC<BlogCardProps> = ({ post, isFeatured }) => {
             <HStack>
               {post.likes && (
                 <HStack>
-                  <Box as={FaHeart} color={post.isLiked ? 'red.500' : 'gray.500'} />
+                  <Box
+                    as={FaHeart}
+                    color={post.isLiked ? 'red.500' : 'gray.500'}
+                  />
                   <Text>{post.likes}</Text>
                 </HStack>
               )}

@@ -17,7 +17,7 @@ export type ArtWithDetailsProps = {
   art: Art
 }
 
-export const ArtWithDetails: FC<ArtWithDetailsProps> = ({ art }) => {
+const ArtWithDetails: FC<ArtWithDetailsProps> = ({ art }) => {
   const { toggleLike, isLiked, isLoading } = useLikeArt(art)
   useViewArtMutation()
 
@@ -75,3 +75,5 @@ export const ArtWithDetails: FC<ArtWithDetailsProps> = ({ art }) => {
     </Grid>
   )
 }
+
+export default ArtWithDetails
