@@ -29,6 +29,7 @@ import { ssrTranslations } from '@fc/services/ssrTranslations'
 import { Hashtag, StrapiLocale } from '@fc/types'
 import { ArchiveContent } from '@fc/types/src/archive-content'
 import { AdminLayout, ArchivePostGenAI, ModelEditModal } from '@fc/ui'
+import { GenPostProvider } from '@fc/ui'
 
 const HashtagPage = () => {
   const { t } = useTranslation()
@@ -76,7 +77,12 @@ const HashtagPage = () => {
 
   return (
     <AdminLayout seo={{ title: hashtag.title }}>
-      <Button alignSelf={'end'} onClick={onOpen} leftIcon={<FaPencil />}>
+      <Button
+        flexShrink={0}
+        alignSelf={'end'}
+        onClick={onOpen}
+        leftIcon={<FaPencil />}
+      >
         {t('edit')}
       </Button>
 
@@ -92,60 +98,62 @@ const HashtagPage = () => {
       {!hashtag?.categories?.length ? (
         <Center h={'60vh'}>{"Please update hashtag's categories"}</Center>
       ) : (
-        <Tabs colorScheme="primary">
-          <TabList>
-            {archiveContents?.map(archiveContent => {
-              return (
-                <Popover
-                  placement="top"
-                  key={archiveContent.id}
-                  trigger="hover"
-                >
-                  <PopoverTrigger>
-                    <Tab fontWeight={700} maxW={200} noOfLines={1}>
-                      {archiveContent.title}
-                    </Tab>
-                  </PopoverTrigger>
-                  <PopoverContent>
-                    <List p={2} spacing={2}>
-                      <ListItem>{archiveContent.source}</ListItem>
-                      <ListItem>
-                        <Link isExternal href={archiveContent.link}>
-                          {archiveContent.link}
-                        </Link>
-                      </ListItem>
-                      <ListItem>
-                        <Wrap>
-                          {archiveContent.categories?.map(c => (
-                            <Badge key={c.id}>{c[`name_${locale}`]}</Badge>
-                          ))}
-                        </Wrap>
-                      </ListItem>
-                    </List>
-                  </PopoverContent>
-                </Popover>
-              )
-            })}
-          </TabList>
-          <TabPanels>
-            {archiveContents?.map(archiveContent => {
-              return (
-                <TabPanel key={archiveContent.id}>
-                  <ArchivePostGenAI
-                    archiveContentId={archiveContent.id}
-                    content={archiveContent.content}
-                    // TODO: Use ArchiveContentPostContext to store saved posts
-                    // TODO: Consider deleting saved posts from context after saving them to the database?
-                    onSuccess={data => console.log(data)}
-                    // TODO: Use ArchiveContentPostContext to get initial posts
-                    initialPosts={[]}
-                    colorScheme="green"
-                  />
-                </TabPanel>
-              )
-            })}
-          </TabPanels>
-        </Tabs>
+        <GenPostProvider>
+          <Tabs colorScheme="primary">
+            <TabList>
+              {archiveContents?.map(archiveContent => {
+                return (
+                  <Popover
+                    placement="top"
+                    key={archiveContent.id}
+                    trigger="hover"
+                  >
+                    <PopoverTrigger>
+                      <Tab fontWeight={700} maxW={200} noOfLines={1}>
+                        {archiveContent.title}
+                      </Tab>
+                    </PopoverTrigger>
+                    <PopoverContent>
+                      <List p={2} spacing={2}>
+                        <ListItem>{archiveContent.source}</ListItem>
+                        <ListItem>
+                          <Link isExternal href={archiveContent.link}>
+                            {archiveContent.link}
+                          </Link>
+                        </ListItem>
+                        <ListItem>
+                          <Wrap>
+                            {archiveContent.categories?.map(c => (
+                              <Badge key={c.id}>{c[`name_${locale}`]}</Badge>
+                            ))}
+                          </Wrap>
+                        </ListItem>
+                      </List>
+                    </PopoverContent>
+                  </Popover>
+                )
+              })}
+            </TabList>
+            <TabPanels>
+              {archiveContents?.map(archiveContent => {
+                return (
+                  <TabPanel key={archiveContent.id}>
+                    <ArchivePostGenAI
+                      archiveContentId={archiveContent.id}
+                      content={archiveContent.content}
+                      // TODO: Use ArchiveContentPostContext to store saved posts
+                      // TODO: Consider deleting saved posts from context after saving them to the database?
+                      onSuccess={data => console.log(data)}
+                      // TODO: Use ArchiveContentPostContext to get initial posts
+                      initialPosts={[]}
+                      colorScheme="green"
+                    />
+                  </TabPanel>
+                )
+              })}
+            </TabPanels>
+          </Tabs>
+        </GenPostProvider>
       )}
     </AdminLayout>
   )

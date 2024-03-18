@@ -1,7 +1,8 @@
 import { dehydrate, QueryClient } from '@tanstack/react-query'
-import { GetStaticPropsContext } from 'next'
+import { GetServerSidePropsContext } from 'next'
 import { useTranslation } from 'next-i18next'
 
+import { getSession } from '@fc/secrets'
 import { getBlogs, useGetBlogs } from '@fc/services'
 import { ssrTranslations } from '@fc/services/ssrTranslations'
 import { StrapiLocale } from '@fc/types'
@@ -26,14 +27,17 @@ const Blogs = () => {
 
 export default Blogs
 
-export const getStaticProps = async (context: GetStaticPropsContext) => {
+export const getServerSideProps = async (
+  context: GetServerSidePropsContext,
+) => {
   const queryClient = new QueryClient()
 
   const locale = context.locale as StrapiLocale
+  const { token } = await getSession(context.req, context.res)
 
   await queryClient.prefetchQuery({
     queryKey: ['blogs', locale],
-    queryFn: () => getBlogs(locale),
+    queryFn: () => getBlogs(locale, token),
   })
 
   return {
@@ -41,6 +45,5 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
       dehydratedState: dehydrate(queryClient),
       ...(await ssrTranslations(locale)),
     },
-    revalidate: 1,
   }
 }

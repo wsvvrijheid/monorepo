@@ -1,31 +1,29 @@
 import { useQuery } from '@tanstack/react-query'
+import axios from 'axios'
 import { useRouter } from 'next/router'
-import { SetRequired } from 'type-fest'
 
-import { strapiRequest } from '@fc/lib'
-import { Blog, StrapiLocale } from '@fc/types'
+import { API_URL } from '@fc/config'
+import { useAuthContext } from '@fc/context'
+import { Blog } from '@fc/types'
 
 export const getBlogBySlug = async (
-  locale: StrapiLocale,
   slug: string,
+  token: string | null,
 ): Promise<Blog> => {
-  const response = await strapiRequest<
-    SetRequired<Blog, 'author' | 'image' | 'likers'>
-  >({
-    endpoint: 'blogs',
-    populate: ['author', 'image', 'likers'],
-    filters: { slug: { $eq: slug } },
-    locale,
+  const slugUrl = `${API_URL}/api/blogs/${slug}`
+  const blogResponse = await axios.get<Blog>(slugUrl, {
+    headers: { Authorization: `Bearer ${token}` },
   })
 
-  return response?.data?.[0] || null
+  return blogResponse.data
 }
 
 export const useGetBlogSlug = () => {
   const { locale, query } = useRouter()
+  const { token } = useAuthContext()
 
   return useQuery({
     queryKey: ['blog', locale, query.slug],
-    queryFn: () => getBlogBySlug(locale as StrapiLocale, query.slug as string),
+    queryFn: () => getBlogBySlug(query.slug as string, token),
   })
 }

@@ -14,6 +14,7 @@ import {
   NumberInputStepper,
   Progress,
   Stack,
+  Switch,
   Textarea,
 } from '@chakra-ui/react'
 import { useCompletion } from 'ai/react'
@@ -43,7 +44,8 @@ export const TweetGenAI = ({ postId, hashtagId, content }: TweetGenAIProps) => {
   const { t } = useTranslation()
   const [generatedPosts, setGeneratedPosts] = useState<string[]>()
   const [numberOfPosts, setNumberOfPosts] = useState<number>(5)
-  const [charLimit, setCharLimit] = useState<number>()
+  const [charLimit, setCharLimit] = useState<number>(150)
+  const [useApiInDev, setUseApiInDev] = useState<boolean>(false)
 
   const { locale } = useRouter()
 
@@ -63,11 +65,20 @@ export const TweetGenAI = ({ postId, hashtagId, content }: TweetGenAIProps) => {
       numberOfPosts,
       charLimit,
       language,
+      useApiInDev,
     },
     onFinish(prompt: string, completion: string) {
       setGeneratedPosts(JSON.parse(completion))
     },
-    onError() {
+    onError(error) {
+      if (typeof error?.message === 'string') {
+        if (error.message.includes('You exceeded your current quota')) {
+          toastMessage('Error', 'You exceeded your current quota', 'error')
+
+          return
+        }
+      }
+
       toastMessage('Error', t('contact.form.failed'), 'error')
     },
   })
@@ -138,7 +149,8 @@ export const TweetGenAI = ({ postId, hashtagId, content }: TweetGenAIProps) => {
                 step={10}
                 min={100}
                 max={200}
-                defaultValue={150}
+                defaultValue={charLimit}
+                value={charLimit}
                 onChange={(a, b) => setCharLimit(b)}
               >
                 <NumberInputField bg={'whiteAlpha.700'} />
@@ -150,6 +162,17 @@ export const TweetGenAI = ({ postId, hashtagId, content }: TweetGenAIProps) => {
             </FormControl>
           </HStack>
           <HStack justify={'right'}>
+            <FormControl w="auto" display="flex" alignItems="center">
+              <FormLabel htmlFor="useApiInDev" mb="0">
+                Use API in Dev
+              </FormLabel>
+              <Switch
+                id="useApiInDev"
+                isChecked={useApiInDev}
+                onChange={e => setUseApiInDev(e.target.checked)}
+                colorScheme={'purple'}
+              />
+            </FormControl>
             <Button
               leftIcon={<RiAiGenerate />}
               disabled={isLoading}

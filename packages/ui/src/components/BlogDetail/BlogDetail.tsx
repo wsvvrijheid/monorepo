@@ -73,9 +73,7 @@ const BlogDetail: FC<BlogDetailProps> = ({ link, source, authorBlogs }) => {
             </HStack>
             <HStack>
               <Box as={AiFillHeart} />
-              <Text>
-                {(post?.likes || 0) + (post?.likers?.length || 0)} likes
-              </Text>
+              <Text>{post?.likes || 0} likes</Text>
             </HStack>
           </Box>
         </Wrap>
@@ -88,7 +86,7 @@ const BlogDetail: FC<BlogDetailProps> = ({ link, source, authorBlogs }) => {
           <IconButton
             rounded="full"
             aria-label="like post"
-            color={isLiked ? 'red.400' : 'gray.400'}
+            color={isLiked ? 'red.500' : 'blue.600'}
             icon={<AiFillHeart />}
             onClick={toggleLike}
             isLoading={isLoading}

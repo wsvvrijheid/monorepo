@@ -14,6 +14,7 @@ import {
   NumberInputStepper,
   Progress,
   Stack,
+  Switch,
   Text,
   Textarea,
   ThemeTypings,
@@ -21,11 +22,14 @@ import {
 import { useCompletion } from 'ai/react'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
+import { FaSave } from 'react-icons/fa'
 import { FaStop, FaTrash } from 'react-icons/fa6'
 import { RiAiGenerate } from 'react-icons/ri'
 
 import { StrapiLocale } from '@fc/types'
 import { toastMessage } from '@fc/utils'
+
+import { useGenPostContext } from './GenPostProvider'
 
 type ArchivePostGenAIProps = {
   archiveContentId: number
@@ -59,8 +63,12 @@ export const ArchivePostGenAI = ({
   const [numberOfDescriptions, setNumberOfDescriptions] = useState<number>(5)
   const [numberOfSentences, setNumberOfSentences] = useState<number>(5)
   const [charLimitOfDescriptions, setCharLimitOfDescriptions] =
-    useState<number>()
-  const [charLimitOfSentences, setCharLimitOfSentences] = useState<number>()
+    useState<number>(200)
+  const [charLimitOfSentences, setCharLimitOfSentences] = useState<number>(150)
+  const { posts: storedPosts, addPost, removePosts } = useGenPostContext()
+  const [useApiInDev, setUseApiInDev] = useState(false)
+
+  const posts = storedPosts[archiveContentId] || []
 
   const { locale } = useRouter()
 
@@ -74,7 +82,7 @@ export const ArchivePostGenAI = ({
     handleInputChange,
     handleSubmit,
   } = useCompletion({
-    api: '/api/route-archive-content-post-gen',
+    api: '/api/gen-archive-content-posts',
     initialInput: content,
     body: {
       numberOfDescriptions,
@@ -82,13 +90,25 @@ export const ArchivePostGenAI = ({
       charLimitOfDescriptions,
       charLimitOfSentences,
       language,
+      useApiInDev,
     },
     onFinish(prompt: string, completion: string) {
       const parsedCompletion = JSON.parse(completion)
       setGeneratedArchiveContentPosts(parsedCompletion)
+      parsedCompletion.map((post: GeneratedArchiveContentPost) =>
+        addPost(archiveContentId, post),
+      )
       onSuccess?.(parsedCompletion)
     },
-    onError() {
+    onError(error) {
+      if (typeof error?.message === 'string') {
+        if (error.message.includes('You exceeded your current quota')) {
+          toastMessage('Error', 'You exceeded your current quota', 'error')
+
+          return
+        }
+      }
+
       toastMessage('Error', t('contact.form.failed'), 'error')
     },
   })
@@ -172,7 +192,8 @@ export const ArchivePostGenAI = ({
                 step={10}
                 min={80}
                 max={200}
-                defaultValue={150}
+                defaultValue={charLimitOfDescriptions}
+                value={charLimitOfDescriptions}
                 onChange={(a, b) => setCharLimitOfDescriptions(b)}
               >
                 <NumberInputField bg={'whiteAlpha.700'} />
@@ -190,7 +211,8 @@ export const ArchivePostGenAI = ({
                 step={10}
                 min={100}
                 max={200}
-                defaultValue={150}
+                defaultValue={charLimitOfSentences}
+                value={charLimitOfSentences}
                 onChange={(a, b) => setCharLimitOfSentences(b)}
               >
                 <NumberInputField bg={'whiteAlpha.700'} />
@@ -202,6 +224,17 @@ export const ArchivePostGenAI = ({
             </FormControl>
           </HStack>
           <HStack justify={'right'}>
+            <FormControl w="auto" display="flex" alignItems="center">
+              <FormLabel htmlFor="useApiInDev" mb="0">
+                Use API in Dev
+              </FormLabel>
+              <Switch
+                id="useApiInDev"
+                isChecked={useApiInDev}
+                onChange={e => setUseApiInDev(e.target.checked)}
+                colorScheme={colorScheme}
+              />
+            </FormControl>
             <Button
               leftIcon={<RiAiGenerate />}
               disabled={isLoading}
@@ -222,14 +255,28 @@ export const ArchivePostGenAI = ({
             )}
             {generatedArchiveContentPosts?.length &&
               generatedArchiveContentPosts?.length > 0 && (
-                <Button
-                  leftIcon={<FaTrash />}
-                  type="button"
-                  onClick={handleClear}
-                  colorScheme={'red'}
-                >
-                  Clear Results
-                </Button>
+                <>
+                  <Button
+                    leftIcon={<FaSave />}
+                    type="button"
+                    onClick={() => {
+                      removePosts(archiveContentId)
+                        .then(() => console.log('Posts removed'))
+                        .catch(err => console.error('Ooops! Error: ', err))
+                    }}
+                    colorScheme={'purple'}
+                  >
+                    Save All
+                  </Button>
+                  <Button
+                    leftIcon={<FaTrash />}
+                    type="button"
+                    onClick={handleClear}
+                    colorScheme={'red'}
+                  >
+                    Clear Results
+                  </Button>
+                </>
               )}
           </HStack>
         </Stack>
@@ -271,6 +318,22 @@ export const ArchivePostGenAI = ({
           )}
         </Stack>
       )}
+      <Stack spacing={4} p={4}>
+        {posts.length > 0 && (
+          <Stack>
+            <Text as={'b'}>
+              {posts.length} posts saved with the following caps content:
+            </Text>
+            {posts.map((post, idx) => {
+              return (
+                <Stack key={idx}>
+                  <Text>{post.description}</Text>
+                </Stack>
+              )
+            })}
+          </Stack>
+        )}
+      </Stack>
     </Stack>
   )
 }
