@@ -8,7 +8,7 @@ import { ReCaptchaProvider } from 'next-recaptcha-v3'
 
 import { RECAPTCHA_SITE_KEY, SITE_URL } from '@fc/config'
 import { getSession } from '@fc/secrets'
-import { getAuthorBlogs, getBlogBySlug, useViewBlog } from '@fc/services'
+import { getAuthorBlogs, getBlogBySlug } from '@fc/services'
 import { ssrTranslations } from '@fc/services/ssrTranslations'
 import { Blog, StrapiLocale } from '@fc/types'
 import { BlogDetail, Container } from '@fc/ui'
@@ -23,8 +23,6 @@ const BlogDetailPage: FC<BlogPageProps> = ({ seo, authorBlogs, source }) => {
     locale,
     query: { slug },
   } = useRouter()
-
-  useViewBlog()
 
   const link = `${SITE_URL}/${locale}/blog/${slug}`
 

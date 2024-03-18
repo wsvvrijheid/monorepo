@@ -17,7 +17,7 @@ import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { AiFillHeart } from 'react-icons/ai'
 import { FaCalendarDay, FaClock, FaEye } from 'react-icons/fa'
 
-import { useGetBlogSlug, useLikeBlog } from '@fc/services'
+import { useGetBlogSlug, useLikeBlog, useViewBlog } from '@fc/services'
 import { Blog, UploadFile } from '@fc/types'
 import { getReadingTime } from '@fc/utils'
 
@@ -37,6 +37,7 @@ const BlogDetail: FC<BlogDetailProps> = ({ link, source, authorBlogs }) => {
   const { locale } = useRouter()
   const { t } = useTranslation()
 
+  useViewBlog()
   const { data: post } = useGetBlogSlug()
 
   const { isLiked, toggleLike, isLoading, isDisabled } = useLikeBlog()
