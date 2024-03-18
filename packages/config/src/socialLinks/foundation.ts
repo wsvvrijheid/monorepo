@@ -1,4 +1,4 @@
-import { FaLinkedin, FaXTwitter, FaWhatsapp } from 'react-icons/fa6'
+import { FaLinkedin, FaXTwitter, FaWhatsapp, FaYoutube } from 'react-icons/fa6'
 
 export const foundation = [
   {
@@ -26,6 +26,15 @@ export const foundation = [
       en: 'https://www.linkedin.com/company/freedom-combination',
       tr: 'https://www.linkedin.com/company/freedom-combination',
       nl: 'https://www.linkedin.com/company/freedom-combination',
+    },
+  },
+  {
+    label: 'YouTube',
+    icon: FaYoutube,
+    link: {
+      en: 'https://www.youtube.com/@FreedomCombination',
+      tr: 'https://www.youtube.com/@FreedomCombination',
+      nl: 'https://www.youtube.com/@FreedomCombination',
     },
   },
 ]
