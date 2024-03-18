@@ -30,5 +30,10 @@ export default {
       path: '/view-blog/:id',
       handler: 'custom.view',
     },
+    {
+      method: 'GET',
+      path: '/blogs/:slug',
+      handler: 'blog.findOne',
+    },
   ],
 }

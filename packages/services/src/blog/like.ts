@@ -41,11 +41,7 @@ export const useLikeBlog = () => {
 
   if (!blog) return { toggleLike: () => null, isLiked: false, isLoading: false }
 
-  const isLikedByUser =
-    profile &&
-    blog?.likers &&
-    blog?.likers?.length > 0 &&
-    blog?.likers?.some(({ id }) => id === profile.id)
+  const isLikedByUser = profile && blog?.isLiked
 
   const isLikedStorage = likersStorage?.some(id => id === blog.id)
 
