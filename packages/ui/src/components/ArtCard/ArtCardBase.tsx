@@ -148,7 +148,7 @@ export const ArtCardBase: FC<ArtCardBaseProps> = ({
         >
           <HStack spacing={1}>
             <Text fontWeight={600} color="white">
-              {(art?.likes || 0) + (art.likers?.length || 0)}
+              {(art?.likes || 0)}
             </Text>
             <IconButton
               _hover={hover}

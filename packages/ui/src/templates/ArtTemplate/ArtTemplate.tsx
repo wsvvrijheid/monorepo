@@ -29,7 +29,7 @@ export const ArtTemplate = () => {
     <ReCaptchaProvider reCaptchaKey={RECAPTCHA_SITE_KEY}>
       <Container minH="inherit" my={8}>
         {/* TODO Create skeleton components for ArtDetail ArtContent and Comments */}
-        <ArtWithDetails art={art} />
+        <ArtWithDetails />
 
         {/* Other Arts List */}
         {arts && arts?.length > 0 && (
@@ -46,7 +46,7 @@ export const ArtTemplate = () => {
             >
               {arts.map(art => (
                 <SplideSlide key={art.id}>
-                  <ArtCardBase art={art} isLiked={false} isOwner={false} />
+                  <ArtCardBase art={art} isLiked={art.isLiked} isOwner={false} />
                 </SplideSlide>
               ))}
             </Splide>

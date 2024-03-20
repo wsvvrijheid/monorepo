@@ -2,14 +2,13 @@ import { FC } from 'react'
 
 import { dehydrate, QueryClient } from '@tanstack/react-query'
 import {
-  GetStaticPaths,
-  GetStaticPropsContext,
-  InferGetStaticPropsType,
+  GetServerSidePropsContext,
+  InferGetStaticPropsType
 } from 'next'
 import { NextSeoProps } from 'next-seo'
 
 import { ASSETS_URL, SITE_URL } from '@fc/config'
-import { strapiRequest } from '@fc/lib'
+import { getSession } from '@fc/secrets'
 import { getArtBySlug } from '@fc/services'
 import { ssrTranslations } from '@fc/services/ssrTranslations'
 import { Art, StrapiLocale } from '@fc/types'
@@ -17,7 +16,7 @@ import { ArtTemplate } from '@fc/ui'
 
 import { Layout } from '../../../components'
 
-type ArtPageProps = InferGetStaticPropsType<typeof getStaticProps>
+type ArtPageProps = InferGetStaticPropsType<typeof getServerSideProps>
 
 const ArtPage: FC<ArtPageProps> = ({ seo }) => {
   return (
@@ -29,29 +28,20 @@ const ArtPage: FC<ArtPageProps> = ({ seo }) => {
 
 export default ArtPage
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const artsResponse = await strapiRequest<Art>({
-    endpoint: 'arts',
-  })
-
-  const paths = artsResponse.data?.map(({ slug }) => ({
-    params: { slug },
-  }))
-
-  return { paths, fallback: true }
-}
-
-export const getStaticProps = async (context: GetStaticPropsContext) => {
+export const getServerSideProps = async (
+  context: GetServerSidePropsContext,
+) => {
   const { params } = context
   const queryClient = new QueryClient()
 
   const locale = context.locale as StrapiLocale
+  const { token } = await getSession(context.req, context.res)
 
   const queryKey = ['art', params?.slug]
 
   await queryClient.prefetchQuery({
     queryKey,
-    queryFn: () => getArtBySlug(params?.slug as string),
+    queryFn: () => getArtBySlug(params?.slug as string, token),
   })
 
   const art = queryClient.getQueryData<Art>(queryKey)
@@ -105,7 +95,6 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
       slugs: { en: slug, nl: slug, tr: slug },
       dehydratedState: dehydrate(queryClient),
       ...(await ssrTranslations(locale)),
-    },
-    revalidate: 1,
+    }
   }
 }
