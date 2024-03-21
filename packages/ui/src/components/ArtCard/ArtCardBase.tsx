@@ -7,7 +7,6 @@ import {
   IconButton,
   Stack,
   Text,
-  useBreakpointValue,
   useDisclosure,
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
@@ -68,8 +67,6 @@ export const ArtCardBase: FC<ArtCardBaseProps> = ({
   }
 
   const { isOpen, onOpen, onClose } = useDisclosure()
-
-  const noOfLines = useBreakpointValue({ base: undefined, lg: 2 })
 
   const artistName = art.artist?.name
   const artistEmail = art.artist?.email
@@ -207,7 +204,7 @@ export const ArtCardBase: FC<ArtCardBaseProps> = ({
           >
             <Text
               display={{ base: 'none', lg: 'block' }}
-              noOfLines={noOfLines}
+              noOfLines={{ lg: 2 }}
               p={2}
               pb={0}
             >

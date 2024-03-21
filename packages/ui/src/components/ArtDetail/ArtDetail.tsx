@@ -14,7 +14,7 @@ import { WImage } from '../WImage'
 export const ArtDetail: FC = () => {
   const router = useRouter()
   const locale = router.locale
-  const { toggleLike, isLiked, isLoading, isDisabled } = useLikeArt()
+  const { toggleLike, isLiked, isLoading, isDisabled } = useLikeArt(true)
   const { data: art } = useArtBySlug()
 
   if (!art) return null
