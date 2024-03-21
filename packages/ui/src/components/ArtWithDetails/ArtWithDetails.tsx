@@ -74,3 +74,5 @@ export const ArtWithDetails: FC = () => {
     </Grid>
   )
 }
+
+export default ArtWithDetails
