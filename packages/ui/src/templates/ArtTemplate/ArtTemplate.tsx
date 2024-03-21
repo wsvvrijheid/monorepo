@@ -46,7 +46,11 @@ export const ArtTemplate = () => {
             >
               {arts.map(art => (
                 <SplideSlide key={art.id}>
-                  <ArtCardBase art={art} isLiked={art.isLiked} isOwner={false} />
+                  <ArtCardBase
+                    art={art}
+                    isLiked={art.isLiked}
+                    isOwner={false}
+                  />
                 </SplideSlide>
               ))}
             </Splide>

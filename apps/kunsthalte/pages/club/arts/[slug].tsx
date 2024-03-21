@@ -1,10 +1,7 @@
 import { FC } from 'react'
 
 import { dehydrate, QueryClient } from '@tanstack/react-query'
-import {
-  GetServerSidePropsContext,
-  InferGetStaticPropsType
-} from 'next'
+import { GetServerSidePropsContext, InferGetStaticPropsType } from 'next'
 import { NextSeoProps } from 'next-seo'
 
 import { ASSETS_URL, SITE_URL } from '@fc/config'
@@ -95,6 +92,6 @@ export const getServerSideProps = async (
       slugs: { en: slug, nl: slug, tr: slug },
       dehydratedState: dehydrate(queryClient),
       ...(await ssrTranslations(locale)),
-    }
+    },
   }
 }

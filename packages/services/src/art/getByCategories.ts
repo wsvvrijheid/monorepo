@@ -7,7 +7,7 @@ import { Art } from '@fc/types'
 export const getArtsByCategories = async (
   categories: string[],
   id?: number,
-  token?: string | null
+  token?: string | null,
 ) => {
   const response = await strapiRequest<Art>({
     endpoint: 'arts',
