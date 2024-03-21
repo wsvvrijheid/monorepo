@@ -12,7 +12,7 @@
     "tsc": "npx tsc --noEmit"
   },
   "devDependencies": {
-    "@testing-library/react": "^14.2.1",
+    "@testing-library/react": "^14.2.2",
     "@types/jest": "^29.5.12"
   }
 }
