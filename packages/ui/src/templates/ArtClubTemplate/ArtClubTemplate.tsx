@@ -61,14 +61,14 @@ export const ArtClubTemplate: FC = () => {
     },
   })
 
-  // As mentioned in `getStaticProps`, we need to keep the same order for queryKey
-  // queryKey = [arts, locale, searchTerm, category, page]
-  const queryKey = ['arts', locale, searchTerm, categories || null, page || '1']
-
-  // Custom useQuery hook or fetching arts
+  // Note: Keep the order of the query params in the same order as
+  // the query params in services/src/art/getClubQueryClient.ts to use the cache properly
   const artsQuery = useStrapiRequest<Art>({
     endpoint: 'arts',
+    locale,
+    page: parseInt(page as string) || 1,
     filters: {
+      approvalStatus: { $eq: 'approved' },
       ...(categories && {
         categories: {
           slug: {
@@ -79,12 +79,6 @@ export const ArtClubTemplate: FC = () => {
       ...(searchTerm && {
         [`title_${locale}`]: { $containsi: searchTerm as string },
       }),
-      approvalStatus: { $eq: 'approved' },
-    },
-    page: parseInt(page as string) || 1,
-    locale,
-    queryOptions: {
-      queryKey,
     },
   })
 

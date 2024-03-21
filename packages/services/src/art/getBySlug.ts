@@ -26,11 +26,11 @@ export const getArtBySlug = async (
 }
 
 export const useArtBySlug = () => {
-  const { locale, query } = useRouter()
+  const { query } = useRouter()
   const { token } = useAuthContext()
 
   return useQuery({
-    queryKey: ['art', locale, query.slug],
+    queryKey: ['art', query.slug],
     queryFn: () => getArtBySlug(query.slug as string, token),
   })
 }

@@ -26,7 +26,7 @@ const useLikeArtMutation = () => {
   })
 }
 
-export const useLikeArt = () => {
+export const useLikeArt = (shouldInvalidate?: boolean) => {
   const { profile } = useAuthContext()
   const { data: art, refetch } = useArtBySlug()
 
@@ -50,20 +50,22 @@ export const useLikeArt = () => {
     }
   }
 
-  const toggleLike = () => {
+  const toggleLike = async () => {
     if (profile) {
-      return likeArtMutation.mutate(
+      return likeArtMutation.mutateAsync(
         { id: art.id, type: isLikedByUser ? 'unlike' : 'like' },
         {
           onSuccess: async () => {
-            refetch()
+            if (shouldInvalidate) {
+              refetch()
+            }
           },
           onError: handleError,
         },
       )
     }
 
-    return likeArtMutation.mutate(
+    return likeArtMutation.mutateAsync(
       { id: art.id, type: isLikedStorage ? 'unlike' : 'like' },
       {
         onSuccess: async () => {

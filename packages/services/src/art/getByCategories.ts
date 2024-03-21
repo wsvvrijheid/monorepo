@@ -29,5 +29,6 @@ export const useArtsByCategories = (categories: string[], id?: number) => {
   return useQuery({
     queryKey: ['arts', categories, id],
     queryFn: () => getArtsByCategories(categories, id, token),
+    enabled: !!id,
   })
 }

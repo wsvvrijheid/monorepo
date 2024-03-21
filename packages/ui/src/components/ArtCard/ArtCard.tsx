@@ -12,11 +12,11 @@ export const ArtCard: FC<ArtCardProps> = ({
   isModal,
   onToggleLike,
 }) => {
-  const { toggleLike, isLiked } = useLikeArt()
+  const { toggleLike, isLiked } = useLikeArt(false)
   const { user } = useAuthContext()
 
-  const handleToggleLike = () => {
-    toggleLike()
+  const handleToggleLike = async () => {
+    await toggleLike()
     onToggleLike?.()
   }
 
