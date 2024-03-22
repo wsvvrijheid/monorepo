@@ -9,10 +9,11 @@ import {
 } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { useRouter } from 'next/router'
+import { ReCaptchaProvider } from 'next-recaptcha-v3'
 import { DefaultSeo } from 'next-seo'
 import { useCookie } from 'react-use'
 
-import { defaultSeo, themes } from '@fc/config'
+import { RECAPTCHA_SITE_KEY, defaultSeo, themes } from '@fc/config'
 import { AuthProvider } from '@fc/context'
 import { AppSlug } from '@fc/types'
 
@@ -54,10 +55,15 @@ export const Providers: FC<ProvidersProps> = ({
         <HydrationBoundary state={dehydratedState}>
           <AuthProvider>
             <ChakraProvider theme={themes[appSlug]}>
-              <DefaultSeo {...defaultSeo[appSlug][locale]} />
-              {children}
-              {!cookie && <CookieBanner onAllow={onAllow} />}
-              <ToastContainer />
+              <ReCaptchaProvider
+                reCaptchaKey={RECAPTCHA_SITE_KEY}
+                language={locale}
+              >
+                <DefaultSeo {...defaultSeo[appSlug][locale]} />
+                {children}
+                {!cookie && <CookieBanner onAllow={onAllow} />}
+                <ToastContainer />
+              </ReCaptchaProvider>
             </ChakraProvider>
           </AuthProvider>
         </HydrationBoundary>

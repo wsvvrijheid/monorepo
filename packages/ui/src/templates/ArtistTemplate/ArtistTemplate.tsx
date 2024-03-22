@@ -2,6 +2,7 @@ import { FC } from 'react'
 
 import { SimpleGrid, Stack, Text } from '@chakra-ui/react'
 
+import { useRecaptchaToken } from '@fc/services'
 import { Art, Profile } from '@fc/types'
 
 import { ArtCard, Container, Hero, WAvatar } from '../../components'
@@ -9,10 +10,16 @@ import { ArtCard, Container, Hero, WAvatar } from '../../components'
 type ArtistTemplateProps = {
   artist: Profile
   arts: Art[]
+  onToggleLike: () => void
 }
 
-export const ArtistTemplate: FC<ArtistTemplateProps> = ({ artist, arts }) => {
+export const ArtistTemplate: FC<ArtistTemplateProps> = ({
+  artist,
+  arts,
+  onToggleLike,
+}) => {
   const name = artist?.name || artist?.email
+  const recaptchaToken = useRecaptchaToken('like_art')
 
   return (
     <>
@@ -25,7 +32,14 @@ export const ArtistTemplate: FC<ArtistTemplateProps> = ({ artist, arts }) => {
       </Hero>
       <Container mt={'80px'}>
         <SimpleGrid m={4} gap={8} columns={{ base: 1, md: 2, lg: 4 }}>
-          {arts?.map(art => <ArtCard key={art.id} art={art} />)}
+          {arts?.map(art => (
+            <ArtCard
+              onToggleLike={onToggleLike}
+              recaptchaToken={recaptchaToken}
+              key={art.id}
+              art={art}
+            />
+          ))}
         </SimpleGrid>
       </Container>
     </>

@@ -42,6 +42,8 @@ export default {
             },
           },
         })
+      } else {
+        return { data: null }
       }
     }
 
@@ -50,12 +52,7 @@ export default {
       .where('id', ctx.params.id)
       .increment('likes', 1)
 
-    const result = await strapi.entityService.findOne(
-      'api::art.art',
-      ctx.params.id,
-    )
-
-    return { data: result }
+    return { data: null }
   },
   async unlike(ctx: Context) {
     await checkRecaptcha(ctx)
@@ -78,6 +75,8 @@ export default {
             },
           },
         })
+      } else {
+        return { data: null }
       }
     }
 
@@ -86,12 +85,7 @@ export default {
       .where('id', ctx.params.id)
       .increment('likes', -1)
 
-    const result = await strapi.entityService.findOne(
-      'api::art.art',
-      ctx.params.id,
-    )
-
-    return { data: result }
+    return { data: null }
   },
   async view(ctx: Context) {
     try {

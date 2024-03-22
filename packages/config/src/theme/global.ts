@@ -22,5 +22,8 @@ export const styles = {
         textDecoration: 'none',
       },
     },
+    '.grecaptcha-badge': {
+      display: 'none',
+    },
   },
 }

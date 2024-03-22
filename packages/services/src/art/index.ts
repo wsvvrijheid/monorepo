@@ -1,5 +1,6 @@
 export * from './feedback'
 export * from './getByArtist'
+export * from './getClubQueryClient'
 export * from './getByCategories'
 export * from './getById'
 export * from './getBySlug'

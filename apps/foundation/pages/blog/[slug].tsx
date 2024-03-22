@@ -4,9 +4,8 @@ import { QueryClient, dehydrate } from '@tanstack/react-query'
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
 import { useRouter } from 'next/router'
 import { serialize } from 'next-mdx-remote/serialize'
-import { ReCaptchaProvider } from 'next-recaptcha-v3'
 
-import { RECAPTCHA_SITE_KEY, SITE_URL } from '@fc/config'
+import { SITE_URL } from '@fc/config'
 import { getSession } from '@fc/secrets'
 import { getAuthorBlogs, getBlogBySlug } from '@fc/services'
 import { ssrTranslations } from '@fc/services/ssrTranslations'
@@ -29,13 +28,11 @@ const BlogDetailPage: FC<BlogPageProps> = ({ seo, authorBlogs, source }) => {
   if (!source) return null
 
   return (
-    <ReCaptchaProvider reCaptchaKey={RECAPTCHA_SITE_KEY}>
-      <Layout seo={seo}>
-        <Container maxW="container.md">
-          <BlogDetail source={source} link={link} authorBlogs={authorBlogs} />
-        </Container>
-      </Layout>
-    </ReCaptchaProvider>
+    <Layout seo={seo}>
+      <Container maxW="container.md">
+        <BlogDetail source={source} link={link} authorBlogs={authorBlogs} />
+      </Container>
+    </Layout>
   )
 }
 
