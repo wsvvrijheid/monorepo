@@ -7,6 +7,7 @@ import {
   Link,
   SimpleGrid,
   Stack,
+  Text,
   Wrap,
 } from '@chakra-ui/react'
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
@@ -49,13 +50,16 @@ const AnbiPage: FC<AnbiPageProps> = ({ foundation }) => {
         <Container minH="inherit" py={{ base: 8, lg: 16 }}>
           <Stack spacing={16} textAlign={'center'}>
             {/*  foundation details*/}
-            <Stack spacing={4}>
+            <Stack>
               <Heading as="h3" size="lg" fontWeight={700}>
-                {foundation?.name}
+                Stichting Wees de Stem voor Vrijheid
               </Heading>
-
-              <FoundationDetails foundation={foundation} />
+              <Text fontSize={'sm'} fontStyle={'italic'}>
+                {t('anbi-description')}
+              </Text>
             </Stack>
+
+            <FoundationDetails foundation={foundation} />
 
             {/* directors */}
             <Stack spacing={4}>
