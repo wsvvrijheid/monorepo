@@ -6,14 +6,10 @@ import { useLocalStorage } from 'usehooks-ts'
 
 import { API_URL } from '@fc/config'
 import { useAuthContext } from '@fc/context'
-import { LikeMutationArgs } from '@fc/types'
+import { Art, LikeMutationArgs } from '@fc/types'
 
-import { useArtBySlug } from './getBySlug'
-import { useRecaptchaToken } from '../common'
-
-const useLikeArtMutation = () => {
+const useLikeArtMutation = (recaptchaToken?: string) => {
   const { token } = useAuthContext()
-  const recaptchaToken = useRecaptchaToken('like_art')
 
   return useMutation({
     mutationKey: ['like-art'],
@@ -26,11 +22,20 @@ const useLikeArtMutation = () => {
   })
 }
 
-export const useLikeArt = (shouldInvalidate?: boolean) => {
-  const { profile } = useAuthContext()
-  const { data: art, refetch } = useArtBySlug()
+type UseLikeArtArgs = {
+  art: Art
+  recaptchaToken?: string
+  onToggleLike: () => void
+}
 
-  const likeArtMutation = useLikeArtMutation()
+export const useLikeArt = ({
+  art,
+  recaptchaToken,
+  onToggleLike,
+}: UseLikeArtArgs) => {
+  const { profile } = useAuthContext()
+
+  const likeArtMutation = useLikeArtMutation(recaptchaToken)
   const [isDisabled, setIsDisabled] = useState(false)
   const [likersStorage, setLikersStorage] = useLocalStorage<number[]>(
     'like-art',
@@ -55,11 +60,7 @@ export const useLikeArt = (shouldInvalidate?: boolean) => {
       return likeArtMutation.mutateAsync(
         { id: art.id, type: isLikedByUser ? 'unlike' : 'like' },
         {
-          onSuccess: async () => {
-            if (shouldInvalidate) {
-              refetch()
-            }
-          },
+          onSuccess: onToggleLike,
           onError: handleError,
         },
       )
@@ -73,8 +74,6 @@ export const useLikeArt = (shouldInvalidate?: boolean) => {
             ? likersStorage?.filter(id => id !== art.id)
             : [...(likersStorage || []), art.id]
           setLikersStorage(updatedStorage as number[])
-
-          await refetch()
         },
         onError: handleError,
       },

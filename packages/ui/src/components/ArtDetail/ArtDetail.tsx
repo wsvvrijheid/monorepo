@@ -6,7 +6,8 @@ import { AiFillHeart } from 'react-icons/ai'
 import { FaEye } from 'react-icons/fa'
 
 import { SITE_URL } from '@fc/config'
-import { useArtBySlug, useLikeArt } from '@fc/services'
+import { useArtBySlug, useLikeArt, useRecaptchaToken } from '@fc/services'
+import { Art } from '@fc/types'
 
 import { ShareButtons } from '../ShareButtons'
 import { WImage } from '../WImage'
@@ -14,8 +15,13 @@ import { WImage } from '../WImage'
 export const ArtDetail: FC = () => {
   const router = useRouter()
   const locale = router.locale
-  const { toggleLike, isLiked, isLoading, isDisabled } = useLikeArt(true)
-  const { data: art } = useArtBySlug()
+  const { data: art, refetch } = useArtBySlug()
+  const recaptchaToken = useRecaptchaToken('like_art')
+  const { toggleLike, isLiked, isLoading, isDisabled } = useLikeArt({
+    art: art as Art,
+    recaptchaToken,
+    onToggleLike: refetch,
+  })
 
   if (!art) return null
 

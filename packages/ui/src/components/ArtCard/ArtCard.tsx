@@ -11,20 +11,20 @@ export const ArtCard: FC<ArtCardProps> = ({
   isMasonry,
   isModal,
   onToggleLike,
+  recaptchaToken,
 }) => {
-  const { toggleLike, isLiked } = useLikeArt(false)
+  const { toggleLike, isLiked } = useLikeArt({
+    art,
+    recaptchaToken,
+    onToggleLike,
+  })
   const { user } = useAuthContext()
-
-  const handleToggleLike = async () => {
-    await toggleLike()
-    onToggleLike?.()
-  }
 
   return (
     <ArtCardBase
       art={art}
       isLiked={isLiked as boolean}
-      toggleLike={handleToggleLike}
+      toggleLike={toggleLike}
       isOwner={user?.id === art.artist?.id}
       isMasonry={isMasonry}
       isModal={isModal}

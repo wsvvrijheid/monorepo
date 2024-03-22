@@ -16,12 +16,10 @@ import {
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
-import { ReCaptchaProvider } from 'next-recaptcha-v3'
 import { parse } from 'querystring'
 import { MdMenuOpen } from 'react-icons/md'
 
-import { RECAPTCHA_SITE_KEY } from '@fc/config'
-import { useStrapiRequest } from '@fc/services'
+import { useRecaptchaToken, useStrapiRequest } from '@fc/services'
 import { Art, Category } from '@fc/types'
 
 import {
@@ -43,6 +41,8 @@ export const ArtClubTemplate: FC = () => {
     query: { categories, page, searchTerm },
     locale,
   } = useRouter()
+
+  const recaptchaToken = useRecaptchaToken('like_art')
 
   const changeParam = useChangeParams()
   const [isLoading, setIsLoading] = useState(false)
@@ -83,7 +83,7 @@ export const ArtClubTemplate: FC = () => {
   })
 
   return (
-    <ReCaptchaProvider reCaptchaKey={RECAPTCHA_SITE_KEY}>
+    <>
       <Drawer isOpen={isOpen} onClose={onClose}>
         <DrawerOverlay />
         <DrawerContent>
@@ -167,6 +167,7 @@ export const ArtClubTemplate: FC = () => {
                           art={art}
                           onToggleLike={artsQuery.refetch}
                           isMasonry
+                          recaptchaToken={recaptchaToken}
                         />
                       </AnimatedBox>
                     )
@@ -189,6 +190,6 @@ export const ArtClubTemplate: FC = () => {
           </Stack>
         </Grid>
       </Container>
-    </ReCaptchaProvider>
+    </>
   )
 }

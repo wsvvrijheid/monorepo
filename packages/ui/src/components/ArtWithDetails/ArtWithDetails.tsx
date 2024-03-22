@@ -7,6 +7,7 @@ import {
   useArtBySlug,
   useStrapiRequest,
   useViewArtMutation,
+  useRecaptchaToken,
 } from '@fc/services'
 import { Comment } from '@fc/types'
 
@@ -18,7 +19,9 @@ import {
 } from '../../components'
 
 export const ArtWithDetails: FC = () => {
-  useViewArtMutation()
+  const recaptchaToken = useRecaptchaToken('view_art')
+
+  useViewArtMutation(recaptchaToken)
 
   const { data: art } = useArtBySlug()
 
