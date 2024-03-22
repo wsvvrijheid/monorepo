@@ -6,26 +6,24 @@ import { AiFillHeart } from 'react-icons/ai'
 import { FaEye } from 'react-icons/fa'
 
 import { SITE_URL } from '@fc/config'
+import { useArtBySlug, useLikeArt, useRecaptchaToken } from '@fc/services'
 import { Art } from '@fc/types'
 
 import { ShareButtons } from '../ShareButtons'
 import { WImage } from '../WImage'
 
-interface ArtDetailProps {
-  art: Art
-  isLiked: boolean
-  isLoading: boolean
-  toggleLike: (isSinglePage: boolean) => void
-}
-
-export const ArtDetail: FC<ArtDetailProps> = ({
-  art,
-  isLiked,
-  isLoading,
-  toggleLike,
-}) => {
+export const ArtDetail: FC = () => {
   const router = useRouter()
   const locale = router.locale
+  const { data: art, refetch } = useArtBySlug()
+  const recaptchaToken = useRecaptchaToken('like_art')
+  const { toggleLike, isLiked, isLoading, isDisabled } = useLikeArt({
+    art: art as Art,
+    recaptchaToken,
+    onToggleLike: refetch,
+  })
+
+  if (!art) return null
 
   const url = `${SITE_URL}/${locale}/club/arts/${art.slug}`
 
@@ -57,7 +55,8 @@ export const ArtDetail: FC<ArtDetailProps> = ({
           rounded="full"
           colorScheme={isLiked ? 'red' : 'gray'}
           rightIcon={<AiFillHeart />}
-          onClick={() => toggleLike(true)}
+          onClick={() => toggleLike()}
+          disabled={isDisabled}
           size="sm"
           variant="outline"
           isLoading={isLoading}
