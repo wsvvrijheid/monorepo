@@ -9,6 +9,7 @@ import { useStrapiRequest } from '@fc/services'
 import { ssrTranslations } from '@fc/services/ssrTranslations'
 import { Course, Sort, StrapiLocale } from '@fc/types'
 import { AdminLayout, DataTable, PageHeader, useColumns } from '@fc/ui'
+import { MailChimpProps } from '@fc/ui/src/components/CourseDetailPage/MailChimp'
 
 const CoursesPage = () => {
   const [currentPage, setCurrentPage] = useState<number>(1)
@@ -55,6 +56,17 @@ const CoursesPage = () => {
       if (course.title_en) translates.push('en')
       if (course.title_tr) translates.push('tr')
       if (course.title_nl) translates.push('nl')
+
+      /*
+       this code is just a workaround for old courses
+       that don't have mailchimp data
+       */
+      const asProp = course.mailchimp as unknown as MailChimpProps
+      if (!asProp || !asProp.courseId) {
+        course.mailchimp = {
+          courseId: course.id,
+        }
+      }
 
       return {
         ...course,

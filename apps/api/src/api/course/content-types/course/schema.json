@@ -105,6 +105,9 @@
       "type": "component",
       "repeatable": true,
       "component": "course.curriculum"
+    },
+    "mailchimp": {
+      "type": "json"
     }
   }
 }

@@ -1912,6 +1912,7 @@ export interface ApiCourseCourse extends Schema.CollectionType {
     >
     faqs: Attribute.Component<'faq.faq', true>
     curriculum: Attribute.Component<'course.curriculum', true>
+    mailchimp: Attribute.JSON
     createdAt: Attribute.DateTime
     updatedAt: Attribute.DateTime
     publishedAt: Attribute.DateTime

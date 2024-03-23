@@ -28,6 +28,7 @@ type CourseBase = StrapiBase & {
   isOnline: boolean
   startDate: string
   endDate: string
+  mailchimp?: { courseId?: number; id?: number } | null
 }
 
 type CourseRelation = {
