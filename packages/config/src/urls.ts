@@ -5,6 +5,7 @@ export const endpointsSingleType: StrapiSingleEndpoint[] = [
   'term',
   'topic',
   'trend',
+  'profiles/me',
 ]
 
 export const endpointsWithLocalizedTitle: StrapiEndpoint[] = [

@@ -17,7 +17,7 @@ import { MdRemoveModerator } from 'react-icons/md'
 
 import { ASSETS_URL } from '@fc/config'
 import { useAuthContext } from '@fc/context'
-import { useArtsByArtist } from '@fc/services'
+import { useArtsByArtist, useRecaptchaToken } from '@fc/services'
 
 import { ArtCard } from '../ArtCard'
 import { Container } from '../Container'
@@ -40,8 +40,10 @@ export const AuthenticatedUserProfile = () => {
   const { t } = useTranslation('common')
 
   const { user, profile } = useAuthContext()
+  const recaptchaToken = useRecaptchaToken('like_art')
 
-  const { data } = useArtsByArtist(profile?.id, true)
+  // TODO: Remove like action from profile, user shouldn't like their own arts
+  const { data, refetch } = useArtsByArtist(profile?.id, true)
   const rejected = data?.filter(art => art?.approvalStatus === 'rejected')
   const approved = data?.filter(art => art?.approvalStatus === 'approved')
   const pending = data?.filter(art => art?.approvalStatus === 'pending')
@@ -97,14 +99,28 @@ export const AuthenticatedUserProfile = () => {
             {/* Approved arts */}
             <TabPanel px={0}>
               <SimpleGrid m={4} gap={8} columns={{ base: 1, md: 2, lg: 4 }}>
-                {approved?.map(art => <ArtCard key={art.id} art={art} />)}
+                {approved?.map(art => (
+                  <ArtCard
+                    onToggleLike={refetch}
+                    recaptchaToken={recaptchaToken}
+                    key={art.id}
+                    art={art}
+                  />
+                ))}
               </SimpleGrid>
             </TabPanel>
             {/* Pending arts */}
             <TabPanel px={0}>
               <SimpleGrid columns={{ base: 1, sm: 2, md: 4 }} gap={4}>
                 {pending?.map(art => {
-                  return <ArtCard key={art.id} art={art} />
+                  return (
+                    <ArtCard
+                      onToggleLike={refetch}
+                      recaptchaToken={recaptchaToken}
+                      key={art.id}
+                      art={art}
+                    />
+                  )
                 })}
               </SimpleGrid>
             </TabPanel>
@@ -112,7 +128,14 @@ export const AuthenticatedUserProfile = () => {
             <TabPanel>
               <SimpleGrid columns={{ base: 1, sm: 2, md: 4 }} gap={4}>
                 {rejected?.map(art => {
-                  return <ArtCard key={art.id} art={art} />
+                  return (
+                    <ArtCard
+                      onToggleLike={refetch}
+                      recaptchaToken={recaptchaToken}
+                      key={art.id}
+                      art={art}
+                    />
+                  )
                 })}
               </SimpleGrid>
             </TabPanel>

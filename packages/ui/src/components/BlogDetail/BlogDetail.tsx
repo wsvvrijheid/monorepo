@@ -17,7 +17,7 @@ import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { AiFillHeart } from 'react-icons/ai'
 import { FaCalendarDay, FaClock, FaEye } from 'react-icons/fa'
 
-import { useLikeBlog } from '@fc/services'
+import { useGetBlogSlug, useLikeBlog, useViewBlog } from '@fc/services'
 import { Blog, UploadFile } from '@fc/types'
 import { getReadingTime } from '@fc/utils'
 
@@ -28,30 +28,25 @@ import { ShareButtons } from '../ShareButtons'
 import { WImage } from '../WImage'
 
 export type BlogDetailProps = {
-  post: Blog
-  queryKey: string[]
   link: string
   source: MDXRemoteSerializeResult
   authorBlogs: Blog[]
 }
 
-export const BlogDetail: FC<BlogDetailProps> = ({
-  post,
-  queryKey,
-  link,
-  source,
-  authorBlogs,
-}) => {
+const BlogDetail: FC<BlogDetailProps> = ({ link, source, authorBlogs }) => {
   const { locale } = useRouter()
   const { t } = useTranslation()
 
-  const { isLiked, toggleLike } = useLikeBlog(post, queryKey)
+  useViewBlog()
+  const { data: post } = useGetBlogSlug()
 
-  const readingTime = getReadingTime(post.content || '', locale)
+  const { isLiked, toggleLike, isLoading, isDisabled } = useLikeBlog()
+
+  const readingTime = getReadingTime(post?.content || '', locale)
 
   return (
     <Stack py={8} spacing={8}>
-      <WImage ratio="twitter" rounded="lg" src={post.image as UploadFile} />
+      <WImage ratio="twitter" rounded="lg" src={post?.image as UploadFile} />
       <Heading as="h1" textAlign="center">
         {post?.title}
       </Heading>
@@ -65,7 +60,7 @@ export const BlogDetail: FC<BlogDetailProps> = ({
           <Box>
             <HStack>
               <Icon as={FaCalendarDay} />
-              <FormattedDate date={post.publishedAt as string} />
+              <FormattedDate date={post?.publishedAt as string} />
             </HStack>
             <HStack>
               <Icon as={FaClock} />
@@ -79,9 +74,7 @@ export const BlogDetail: FC<BlogDetailProps> = ({
             </HStack>
             <HStack>
               <Box as={AiFillHeart} />
-              <Text>
-                {(post?.likes || 0) + (post?.likers?.length || 0)} likes
-              </Text>
+              <Text>{post?.likes || 0} likes</Text>
             </HStack>
           </Box>
         </Wrap>
@@ -94,9 +87,11 @@ export const BlogDetail: FC<BlogDetailProps> = ({
           <IconButton
             rounded="full"
             aria-label="like post"
-            color={isLiked ? 'red.400' : 'gray.400'}
+            color={isLiked ? 'red.500' : 'blue.600'}
             icon={<AiFillHeart />}
             onClick={toggleLike}
+            isLoading={isLoading}
+            isDisabled={isDisabled}
           />
         </ShareButtons>
       </Wrap>
@@ -116,3 +111,5 @@ export const BlogDetail: FC<BlogDetailProps> = ({
     </Stack>
   )
 }
+
+export default BlogDetail

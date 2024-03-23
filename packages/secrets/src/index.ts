@@ -1,3 +1,8 @@
+import { IncomingMessage, ServerResponse } from 'http'
+import { getIronSession } from 'iron-session'
+
+import { Auth } from '@fc/types'
+
 const secrets = {
   COOKIE_PASSWORD: process.env['SECRET_COOKIE_PASSWORD'] as string,
   DEEPL_API_KEY: process.env['DEEPL_API_KEY'] as string,
@@ -24,4 +29,11 @@ export const sessionOptions = {
   cookieOptions: {
     secure: process.env['NODE_ENV'] === 'production',
   },
+}
+
+export const getSession = async (
+  req: IncomingMessage | Request,
+  res: Response | ServerResponse<IncomingMessage>,
+) => {
+  return await getIronSession<Auth>(req, res, sessionOptions)
 }

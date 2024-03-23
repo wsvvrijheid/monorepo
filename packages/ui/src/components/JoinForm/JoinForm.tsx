@@ -18,7 +18,9 @@ import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { setLocale } from 'yup'
-import { tr, nl } from 'yup-locales'
+import { tr, nl, en } from 'yup-locales'
+
+import { sleep } from '@fc/utils'
 
 import { heardFrom } from './data'
 import { joinSchema } from './schema'
@@ -34,19 +36,33 @@ export const JoinForm: FC<JoinFormProps> = ({
 
   const { locale } = useRouter()
 
-  useEffect(() => {
-    if (locale === 'tr') setLocale(tr)
-    if (locale === 'nl') setLocale(nl)
-  }, [locale])
-
   const {
     register,
     handleSubmit,
+    trigger,
+    clearErrors,
     formState: { errors },
   } = useForm<JoinFormFieldValues>({
     resolver: yupResolver(joinSchema()),
     mode: 'onTouched',
   })
+
+  useEffect(() => {
+    if (locale === 'tr') setLocale(tr)
+    else if (locale === 'nl') setLocale(nl)
+    else setLocale(en)
+
+    const updateErrorFields = async () => {
+      await sleep(100)
+      Object.keys(errors).forEach(fieldName => {
+        if (errors[fieldName as keyof JoinFormFieldValues]) {
+          clearErrors(fieldName as keyof JoinFormFieldValues)
+          trigger(fieldName as keyof JoinFormFieldValues)
+        }
+      })
+    }
+    updateErrorFields()
+  }, [locale])
 
   const onSubmit: SubmitHandler<JoinFormFieldValues> = data => {
     const newData = { ...data, jobs: { connect: data.jobs } }

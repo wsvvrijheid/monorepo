@@ -34,6 +34,7 @@ const CoursesPage = () => {
     },
     sort,
     locale,
+    includeDrafts: true,
   })
 
   const handleSearch = (search?: string) => {

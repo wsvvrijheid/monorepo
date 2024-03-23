@@ -56,22 +56,13 @@ export default {
     const profile = await getProfile(ctx)
 
     if (profile) {
-      const isLikedCount = await strapi.entityService.count('api::blog.blog', {
-        filters: {
-          id: { $eq: ctx.params.id },
-          likers: { id: { $eq: profile.id } },
+      await strapi.entityService.update('api::blog.blog', ctx.params.id, {
+        data: {
+          likers: {
+            connect: [profile.id],
+          },
         },
       })
-
-      if (!isLikedCount) {
-        await strapi.entityService.update('api::blog.blog', ctx.params.id, {
-          data: {
-            likers: {
-              ['connect']: [profile.id as number],
-            },
-          },
-        })
-      }
     }
 
     await strapi.db
@@ -79,12 +70,7 @@ export default {
       .where('id', ctx.params.id)
       .increment('likes', 1)
 
-    const result = await strapi.entityService.findOne(
-      'api::blog.blog',
-      ctx.params.id,
-    )
-
-    return { data: result }
+    return { data: null }
   },
   async unlike(ctx: Context) {
     await checkRecaptcha(ctx)
@@ -92,22 +78,13 @@ export default {
     const profile = await getProfile(ctx)
 
     if (profile) {
-      const isLikedCount = await strapi.entityService.count('api::blog.blog', {
-        filters: {
-          id: { $eq: ctx.params.id },
-          likers: { id: { $eq: profile.id } },
+      await strapi.entityService.update('api::blog.blog', ctx.params.id, {
+        data: {
+          likers: {
+            disconnect: [profile.id],
+          },
         },
       })
-
-      if (isLikedCount) {
-        await strapi.entityService.update('api::blog.blog', ctx.params.id, {
-          data: {
-            likers: {
-              ['disconnect']: [profile.id as number],
-            },
-          },
-        })
-      }
     }
 
     await strapi.db
@@ -115,12 +92,7 @@ export default {
       .where('id', ctx.params.id)
       .increment('likes', -1)
 
-    const result = await strapi.entityService.findOne(
-      'api::blog.blog',
-      ctx.params.id,
-    )
-
-    return { data: result }
+    return { data: null }
   },
   async view(ctx: Context) {
     try {

@@ -18,7 +18,8 @@ export type ArtCardProps = {
   art: Art
   isMasonry?: boolean
   isModal?: boolean
-  onToggleLike?: () => void
+  onToggleLike: () => void
+  recaptchaToken?: string
 }
 
 export type ArtCardBaseProps = {
