@@ -1,6 +1,6 @@
 import { FC } from 'react'
 
-import { Flex, SimpleGrid, Stack, Wrap } from '@chakra-ui/react'
+import { Stack } from '@chakra-ui/react'
 import { useTranslation } from 'next-i18next'
 
 import { Foundation } from '@fc/types'
