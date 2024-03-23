@@ -8,6 +8,7 @@ import {
   QueryClientProvider,
 } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import { Analytics } from '@vercel/analytics/react'
 import { useRouter } from 'next/router'
 import { ReCaptchaProvider } from 'next-recaptcha-v3'
 import { DefaultSeo } from 'next-seo'
@@ -61,6 +62,7 @@ export const Providers: FC<ProvidersProps> = ({
               >
                 <DefaultSeo {...defaultSeo[appSlug][locale]} />
                 {children}
+                <Analytics />
                 {!cookie && <CookieBanner onAllow={onAllow} />}
                 <ToastContainer />
               </ReCaptchaProvider>
