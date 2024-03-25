@@ -13,9 +13,13 @@ import { Layout } from '../../../components'
 type ArtistPageProps = InferGetServerSidePropsType<typeof getServerSideProps>
 
 const ArtistPage: FC<ArtistPageProps> = ({ artist, arts }) => {
+  const onToggleLike = () => {
+    // TODO: Implement useQuery refetch
+  }
+
   return (
     <Layout seo={{ title: artist.name || 'Artist' }} isDark>
-      <ArtistTemplate artist={artist} arts={arts} />
+      <ArtistTemplate onToggleLike={onToggleLike} artist={artist} arts={arts} />
     </Layout>
   )
 }

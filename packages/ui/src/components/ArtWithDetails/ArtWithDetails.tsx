@@ -3,8 +3,13 @@ import { FC } from 'react'
 import { Box, Grid, Stack } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 
-import { useLikeArt, useStrapiRequest, useViewArtMutation } from '@fc/services'
-import { Art, Comment } from '@fc/types'
+import {
+  useArtBySlug,
+  useStrapiRequest,
+  useViewArtMutation,
+  useRecaptchaToken,
+} from '@fc/services'
+import { Comment } from '@fc/types'
 
 import {
   ArtContent,
@@ -13,20 +18,22 @@ import {
   CommentList,
 } from '../../components'
 
-export type ArtWithDetailsProps = {
-  art: Art
-}
+export const ArtWithDetails: FC = () => {
+  const recaptchaToken = useRecaptchaToken('view_art')
 
-const ArtWithDetails: FC<ArtWithDetailsProps> = ({ art }) => {
-  const { toggleLike, isLiked, isLoading } = useLikeArt(art)
-  useViewArtMutation()
+  useViewArtMutation(recaptchaToken)
+
+  const { data: art } = useArtBySlug()
 
   const { locale } = useRouter()
 
   const commentQuery = useStrapiRequest<Comment>({
     endpoint: 'comments',
-    filters: { art: { id: { $eq: art.id } } },
+    filters: { art: { id: { $eq: art?.id } } },
     populate: ['profile.avatar'],
+    queryOptions: {
+      enabled: !!art,
+    },
   })
 
   if (!art) return null
@@ -43,12 +50,7 @@ const ArtWithDetails: FC<ArtWithDetailsProps> = ({ art }) => {
     >
       {/* Single Art Images */}
       <Box pos={{ lg: 'sticky' }} top={0}>
-        <ArtDetail
-          art={art}
-          isLiked={!!isLiked}
-          isLoading={isLoading}
-          toggleLike={toggleLike}
-        />
+        <ArtDetail />
       </Box>
 
       <Stack spacing={4}>

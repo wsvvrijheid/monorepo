@@ -16,12 +16,10 @@ import {
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
-import { ReCaptchaProvider } from 'next-recaptcha-v3'
 import { parse } from 'querystring'
 import { MdMenuOpen } from 'react-icons/md'
 
-import { RECAPTCHA_SITE_KEY } from '@fc/config'
-import { useStrapiRequest } from '@fc/services'
+import { useRecaptchaToken, useStrapiRequest } from '@fc/services'
 import { Art, Category } from '@fc/types'
 
 import {
@@ -44,6 +42,8 @@ export const ArtClubTemplate: FC = () => {
     locale,
   } = useRouter()
 
+  const recaptchaToken = useRecaptchaToken('like_art')
+
   const changeParam = useChangeParams()
   const [isLoading, setIsLoading] = useState(false)
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -61,14 +61,14 @@ export const ArtClubTemplate: FC = () => {
     },
   })
 
-  // As mentioned in `getStaticProps`, we need to keep the same order for queryKey
-  // queryKey = [arts, locale, searchTerm, category, page]
-  const queryKey = ['arts', locale, searchTerm, categories || null, page || '1']
-
-  // Custom useQuery hook or fetching arts
+  // Note: Keep the order of the query params in the same order as
+  // the query params in services/src/art/getClubQueryClient.ts to use the cache properly
   const artsQuery = useStrapiRequest<Art>({
     endpoint: 'arts',
+    locale,
+    page: parseInt(page as string) || 1,
     filters: {
+      approvalStatus: { $eq: 'approved' },
       ...(categories && {
         categories: {
           slug: {
@@ -79,17 +79,11 @@ export const ArtClubTemplate: FC = () => {
       ...(searchTerm && {
         [`title_${locale}`]: { $containsi: searchTerm as string },
       }),
-      approvalStatus: { $eq: 'approved' },
-    },
-    page: parseInt(page as string) || 1,
-    locale,
-    queryOptions: {
-      queryKey,
     },
   })
 
   return (
-    <ReCaptchaProvider reCaptchaKey={RECAPTCHA_SITE_KEY}>
+    <>
       <Drawer isOpen={isOpen} onClose={onClose}>
         <DrawerOverlay />
         <DrawerContent>
@@ -173,6 +167,7 @@ export const ArtClubTemplate: FC = () => {
                           art={art}
                           onToggleLike={artsQuery.refetch}
                           isMasonry
+                          recaptchaToken={recaptchaToken}
                         />
                       </AnimatedBox>
                     )
@@ -195,6 +190,6 @@ export const ArtClubTemplate: FC = () => {
           </Stack>
         </Grid>
       </Container>
-    </ReCaptchaProvider>
+    </>
   )
 }

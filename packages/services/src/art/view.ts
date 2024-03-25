@@ -8,9 +8,8 @@ import { API_URL } from '@fc/config'
 import { useAuthContext } from '@fc/context'
 
 import { useArtBySlug } from './getBySlug'
-import { useRecaptchaToken } from '../common'
 
-export const useViewArtMutation = () => {
+export const useViewArtMutation = (recaptchaToken?: string) => {
   const queryClient = useQueryClient()
   const {
     locale,
@@ -19,7 +18,6 @@ export const useViewArtMutation = () => {
 
   const { data: art } = useArtBySlug()
   const { token } = useAuthContext()
-  const recaptchaToken = useRecaptchaToken('view_art')
 
   const [artStorage, setArtStorage] = useLocalStorage<number[]>('view-art', [])
 

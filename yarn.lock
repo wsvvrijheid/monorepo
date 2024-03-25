@@ -13590,6 +13590,8 @@ __metadata:
 "dashboard@workspace:apps/dashboard":
   version: 0.0.0-use.local
   resolution: "dashboard@workspace:apps/dashboard"
+  dependencies:
+    "@vercel/analytics": "npm:^1.2.2"
   languageName: unknown
   linkType: soft
 
@@ -16688,6 +16690,8 @@ __metadata:
 "foundation@workspace:apps/foundation":
   version: 0.0.0-use.local
   resolution: "foundation@workspace:apps/foundation"
+  dependencies:
+    "@vercel/analytics": "npm:^1.2.2"
   languageName: unknown
   linkType: soft
 
@@ -20280,6 +20284,8 @@ __metadata:
 "kunsthalte@workspace:apps/kunsthalte":
   version: 0.0.0-use.local
   resolution: "kunsthalte@workspace:apps/kunsthalte"
+  dependencies:
+    "@vercel/analytics": "npm:^1.2.2"
   languageName: unknown
   linkType: soft
 
@@ -20721,6 +20727,8 @@ __metadata:
 "lotus@workspace:apps/lotus":
   version: 0.0.0-use.local
   resolution: "lotus@workspace:apps/lotus"
+  dependencies:
+    "@vercel/analytics": "npm:^1.2.2"
   languageName: unknown
   linkType: soft
 
@@ -28968,6 +28976,8 @@ __metadata:
 "trend-rights@workspace:apps/trend-rights":
   version: 0.0.0-use.local
   resolution: "trend-rights@workspace:apps/trend-rights"
+  dependencies:
+    "@vercel/analytics": "npm:^1.2.2"
   languageName: unknown
   linkType: soft
 
