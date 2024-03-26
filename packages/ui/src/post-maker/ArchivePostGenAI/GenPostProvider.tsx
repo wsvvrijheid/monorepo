@@ -118,7 +118,7 @@ export const GenPostProvider = ({
     'generated-archive-content-posts',
     [],
   )
-  const [alertAction, setAlertAction] = useState<DialogAction>({})
+  const [alertAction, setAlertAction] = useState<DialogAction>()
   const { isOpen, onOpen, onClose } = useDisclosure()
   const cancelRef = useRef<HTMLButtonElement | null>(null)
 
@@ -308,10 +308,10 @@ export const GenPostProvider = ({
             <AlertDialogCloseButton />
             <AlertDialogBody>
               <Stack spacing={8}>
-                <Text>{alertAction.title}</Text>
-                {alertAction.extra && (
+                <Text>{alertAction?.title}</Text>
+                {alertAction?.extra && (
                   <Text fontSize="sm" borderLeft={'1px'} pl={2}>
-                    {alertAction.extra}
+                    {alertAction?.extra}
                   </Text>
                 )}
               </Stack>
@@ -324,7 +324,7 @@ export const GenPostProvider = ({
                 colorScheme="red"
                 ml={3}
                 onClick={() => {
-                  alertAction.action()
+                  alertAction?.action()
                   onClose()
                 }}
               >

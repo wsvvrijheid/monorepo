@@ -1,6 +1,7 @@
 import { FC, FormEventHandler, useEffect, useRef } from 'react'
 
 import { Box } from '@chakra-ui/react'
+import { debounce } from 'lodash'
 
 import { ContentEditableProps } from './types'
 
@@ -48,13 +49,15 @@ export const ContentEditable: FC<ContentEditableProps> = props => {
     }
   }
 
-  const handleInput: FormEventHandler<HTMLDivElement> = e => {
-    onUpdate(e.currentTarget.textContent ?? '')
+  const handleInput = debounce<FormEventHandler<HTMLDivElement>>(e => {
+    const target = (e.target || e.currentTarget) as HTMLDivElement
+    const content = target?.textContent ?? ''
+    onUpdate(content)
 
     if (contentRef.current) {
       caretPos.current = getCaret(contentRef.current) as number
     }
-  }
+  }, 700)
 
   useEffect(() => {
     if (contentRef.current) {

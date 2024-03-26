@@ -1,68 +1,69 @@
 import {
-  EditableProps as EditablePropsType,
-  Editable,
-  EditablePreview,
-  EditableTextarea,
+  Badge,
   HStack,
   IconButton,
   Popover,
   PopoverContent,
   PopoverTrigger,
-  useColorModeValue,
 } from '@chakra-ui/react'
-import { debounce } from 'lodash'
 import { FaInfo, FaX } from 'react-icons/fa6'
 
 import { OgImageParams } from '@fc/types'
 
-import { Caps } from '../../components'
+import { Caps, ContentEditable } from '../../components'
+import { ContentEditableProps } from '../../components/ContentEditable/types'
 
-export type EditableProps = Pick<
-  EditablePropsType,
-  'defaultValue' | 'onChange' | 'isDisabled'
-> & {
+export type EditableProps = ContentEditableProps & {
+  isDisabled?: boolean
   onDelete?: () => void
   isDescription?: boolean
   imageParams?: OgImageParams
 }
 
 export const EditableLine: React.FC<EditableProps> = ({
-  defaultValue,
-  onChange = () => {},
   onDelete,
   isDescription = false,
+  contentEditable = true,
   isDisabled = false,
   imageParams = {},
+  value,
+  ...rest
 }) => {
-  const debouncedOnChange = debounce(onChange, 700)
+  const disabled = isDisabled || !contentEditable
 
   return (
     <HStack
-      _hover={{ backgroundColor: useColorModeValue('gray.100', 'gray.700') }}
+      pos={'relative'}
       px={2}
+      align={'baseline'}
       rounded={'md'}
       pl={isDescription ? 0 : 4}
+      role={'group'}
     >
       <IconButton
-        isDisabled={isDisabled}
+        isDisabled={disabled}
         aria-label="delete"
         variant={'ghost'}
+        colorScheme="red"
         size={'xs'}
         icon={<FaX />}
         onClick={onDelete}
+        rounded={'full'}
       />
       {isDescription && (
         <Popover trigger="hover" placement="bottom-start" isLazy>
           <PopoverTrigger>
             <IconButton
-              variant={'ghost'}
+              variant={'outline'}
               size="xs"
-              aria-label={''}
+              aria-label={'Show caps'}
               icon={<FaInfo />}
+              colorScheme="blue"
+              rounded={'full'}
             />
           </PopoverTrigger>
           <PopoverContent
-            width={650}
+            width={{ base: 200, lg: 650 }}
             p={0}
             m={0}
             background={'white'}
@@ -72,9 +73,9 @@ export const EditableLine: React.FC<EditableProps> = ({
             <Caps
               m={0}
               p={0}
-              width={650}
+              width={{ base: 200, lg: 650 }}
               imageParams={{
-                text: defaultValue,
+                text: value as string,
                 scale: 1,
                 ...imageParams,
               }}
@@ -82,26 +83,35 @@ export const EditableLine: React.FC<EditableProps> = ({
           </PopoverContent>
         </Popover>
       )}
-      <Editable
-        flexGrow={1}
-        defaultValue={defaultValue}
-        onChange={debouncedOnChange}
-        isDisabled={isDisabled}
+      <ContentEditable
+        _hover={{
+          bg: 'whiteAlpha.300',
+        }}
+        _focusWithin={{
+          bg: 'whiteAlpha.500',
+        }}
+        value={value}
+        contentEditable={!disabled}
+        {...rest}
+      />
+      <Badge
+        opacity={0}
+        _groupHover={{
+          opacity: 1,
+        }}
+        _groupFocusWithin={{
+          opacity: 1,
+        }}
+        transition={'opacity 0.3s ease-in-out'}
+        colorScheme="primary"
+        variant={'subtle'}
+        pos="absolute"
+        top={-1}
+        right={-1}
+        fontWeight={600}
       >
-        <EditablePreview
-          py={1}
-          px={2}
-          fontWeight={isDescription ? 'bold' : 'normal'}
-        />
-        <EditableTextarea
-          fontWeight={isDescription ? 'bold' : 'normal'}
-          px={1}
-          py={2}
-          minWidth={'90%'}
-          background={'gray.100'}
-          borderRadius={'md'}
-        />
-      </Editable>
+        {value?.length ?? 0}
+      </Badge>
     </HStack>
   )
 }

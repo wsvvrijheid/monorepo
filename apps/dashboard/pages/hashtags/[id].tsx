@@ -140,7 +140,7 @@ const HashtagPage = () => {
             <TabPanels>
               {archiveContents?.map(archiveContent => {
                 return (
-                  <TabPanel key={archiveContent.id}>
+                  <TabPanel px={0} key={archiveContent.id}>
                     <ArchivePostGenAI
                       archiveContentId={archiveContent.id}
                       content={archiveContent.content}
