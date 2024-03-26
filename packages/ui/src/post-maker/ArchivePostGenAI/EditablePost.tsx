@@ -23,7 +23,7 @@ export const EditablePost: React.FC<EditablePostProps> = ({
       <EditableLine
         isDescription={true}
         isDisabled={archiveId < 0}
-        defaultVal={postObject?.description}
+        defaultValue={postObject?.description}
         onDelete={() => removePost(archiveId, postObject.id)}
         onChange={val => {
           postObject.description = val
@@ -33,7 +33,7 @@ export const EditablePost: React.FC<EditablePostProps> = ({
       {postObject?.sentences?.map((sentence, index) => {
         return (
           <EditableLine
-            defaultVal={sentence}
+            defaultValue={sentence}
             imageParams={postObject?.postInput?.imageParams ?? {}}
             key={`${postObject.id}-sent-${sentence}-${index}`}
             isDisabled={archiveId < 0}

@@ -6,7 +6,7 @@ import axios from 'axios'
 import { PostSentence, RedisPost } from '@fc/types'
 
 type UpdateArgs = { hashtagId: number; index: number; value: RedisPost }
-type CreateArgs = { hashtagId: number; value: RedisPost }
+type CreateArgs = { hashtagId: number; value: RedisPost | RedisPost[] }
 type DeleteArgs = { hashtagId: number; value: RedisPost }
 
 export const updateHashtagSentences = async (args: UpdateArgs) => {
@@ -60,14 +60,19 @@ export const getHashtagSentences = async (hashtagId: number) => {
 }
 
 export const useGetHashtagSentences = (hashtagId: number) => {
-  const { data } = useQuery<RedisPost[]>({
+  const { data: mixData } = useQuery<RedisPost[]>({
     queryKey: ['kv-hashtag-sentences', hashtagId],
     queryFn: () => getHashtagSentences(hashtagId),
     staleTime: 1000 * 60,
   })
 
-  return useMemo(() => {
-    if (!data?.length) return []
+  return useMemo<Record<number, PostSentence[]>>(() => {
+    if (!mixData?.length) return []
+
+    // when we send create sentences request as array, it also returns as array
+    // i dont know if it become a problem while we delete or update
+    // @7alip i think you shold check it.
+    const data = mixData.flatMap(d => (Array.isArray(d) ? d : [d]))
 
     const sortedSentences = (data
       .map((s, index) => {
@@ -105,5 +110,5 @@ export const useGetHashtagSentences = (hashtagId: number) => {
     )
 
     return sentencesByPostId
-  }, [data])
+  }, [mixData])
 }

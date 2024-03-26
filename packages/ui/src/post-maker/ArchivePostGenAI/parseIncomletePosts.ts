@@ -2,7 +2,7 @@ import { GeneratedArchiveContentPost } from './GenPostProvider'
 
 let lastBest: GeneratedArchiveContentPost[] = []
 
-export const parseUncomletedPosts = (
+export const parseIncompletePosts = (
   src: string,
 ): GeneratedArchiveContentPost[] => {
   if (src.length < 50) {

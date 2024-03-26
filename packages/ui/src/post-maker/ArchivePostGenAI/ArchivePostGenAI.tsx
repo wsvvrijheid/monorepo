@@ -29,7 +29,7 @@ import { RiAiGenerate } from 'react-icons/ri'
 import { API_URL } from '@fc/config'
 import { useAuthContext } from '@fc/context'
 import { createHashtagSentence } from '@fc/services'
-import { PostCreateInput, StrapiLocale } from '@fc/types'
+import { PostCreateInput, RedisPost, StrapiLocale } from '@fc/types'
 import { sleep, toastMessage } from '@fc/utils'
 
 import { EditablePost } from './EditablePost'
@@ -38,7 +38,7 @@ import {
   GeneratedArchiveContentPost,
   useGenPostContext,
 } from './GenPostProvider'
-import { parseUncomletedPosts } from './parseUncomletedPosts'
+import { parseIncompletePosts } from './parseIncomletePosts'
 
 type ArchivePostGenAIProps = {
   archiveContentId: number
@@ -122,7 +122,7 @@ export const ArchivePostGenAI = ({
     },
   })
 
-  const completed = isLoading ? parseUncomletedPosts(completion) : null
+  const completed = isLoading ? parseIncompletePosts(completion) : null
 
   const handleSave = async () => {
     setIsSaving(true)
@@ -139,7 +139,7 @@ export const ArchivePostGenAI = ({
 
     const url = API_URL + '/api/posts/createPosts'
     try {
-      const responce = await fetch(url, {
+      const response = await fetch(url, {
         method: 'POST',
         body: JSON.stringify({ data: finalPosts }),
         headers: {
@@ -148,10 +148,10 @@ export const ArchivePostGenAI = ({
         },
       })
 
-      if (!responce.ok) throw Error(responce.statusText)
+      if (!response.ok) throw Error(response.statusText)
 
       const addedPosts: { id: number; description: string }[] =
-        await responce.json()
+        await response.json()
 
       try {
         for (const post of addedPosts) {
@@ -165,15 +165,17 @@ export const ArchivePostGenAI = ({
             continue
           }
 
+          await createHashtagSentence({
+            hashtagId,
+            value: localPost.sentences.map(
+              sentence => `${sentence}::${post.id}::${0}::${0}` as RedisPost,
+            ),
+          })
+
           for (let i = 0; i < localPost.sentences.length; i++) {
-            const sentence = localPost.sentences[i]
-            await createHashtagSentence({
-              hashtagId,
-              value: `${sentence}::${post.id}::${0}::${0}`,
-            })
             localPost.sentences[i] = ''
             modifyPost(archiveContentId, localPost)
-            await sleep(50)
+            await sleep(20)
           }
         }
       } catch (e) {

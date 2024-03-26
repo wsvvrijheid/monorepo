@@ -1,4 +1,5 @@
 import {
+  EditableProps as EditablePropsType,
   Editable,
   EditablePreview,
   EditableTextarea,
@@ -16,17 +17,17 @@ import { OgImageParams } from '@fc/types'
 
 import { Caps } from '../../components'
 
-export type EditableProps = {
-  defaultVal?: string
-  isDescription?: boolean
-  onChange?: (value: string) => void
+export type EditableProps = Pick<
+  EditablePropsType,
+  'defaultValue' | 'onChange' | 'isDisabled'
+> & {
   onDelete?: () => void
-  isDisabled?: boolean
+  isDescription?: boolean
   imageParams?: OgImageParams
 }
 
 export const EditableLine: React.FC<EditableProps> = ({
-  defaultVal,
+  defaultValue,
   onChange = () => {},
   onDelete,
   isDescription = false,
@@ -50,7 +51,7 @@ export const EditableLine: React.FC<EditableProps> = ({
         icon={<FaX />}
         onClick={onDelete}
       />
-      {!isDescription && (
+      {isDescription && (
         <Popover trigger="hover" placement="bottom-start" isLazy>
           <PopoverTrigger>
             <IconButton
@@ -73,7 +74,7 @@ export const EditableLine: React.FC<EditableProps> = ({
               p={0}
               width={650}
               imageParams={{
-                text: defaultVal,
+                text: defaultValue,
                 scale: 1,
                 ...imageParams,
               }}
@@ -83,7 +84,7 @@ export const EditableLine: React.FC<EditableProps> = ({
       )}
       <Editable
         flexGrow={1}
-        defaultValue={defaultVal}
+        defaultValue={defaultValue}
         onChange={debouncedOnChange}
         isDisabled={isDisabled}
       >
