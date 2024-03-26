@@ -18,6 +18,7 @@ import {
   Text,
   Textarea,
   ThemeTypings,
+  Wrap,
 } from '@chakra-ui/react'
 import { useCompletion } from 'ai/react'
 import { useRouter } from 'next/router'
@@ -306,69 +307,75 @@ export const ArchivePostGenAI = ({
               </NumberInput>
             </FormControl>
           </HStack>
-          <HStack justify={'right'}>
-            <FormLabel htmlFor="askBeforeDelete" mb="0">
-              Always ask before deleting
-            </FormLabel>
-            <Switch
-              id="askBeforeDelete"
-              isChecked={askBeforeDelete}
-              onChange={e => setAskBeforeDelete(e.target.checked)}
-              mr={5}
-            />
-            <FormControl w="auto" display="flex" alignItems="center">
-              <FormLabel htmlFor="useApiInDev" mb="0">
-                Use API in Dev
-              </FormLabel>
-              <Switch
-                id="useApiInDev"
-                isChecked={useApiInDev}
-                onChange={e => setUseApiInDev(e.target.checked)}
-                colorScheme={colorScheme}
-              />
-            </FormControl>
-            <Button
-              leftIcon={<RiAiGenerate />}
-              disabled={isLoading}
-              type="submit"
-              colorScheme={colorScheme}
-            >
-              {t('generate')}
-            </Button>
-            {isLoading && (
+          <Wrap justify={'space-between'}>
+            <Wrap alignContent={'center'}>
+              <FormControl w="auto" display="flex" alignItems="center">
+                <FormLabel htmlFor="askBeforeDelete" mb="0">
+                  Always ask before deleting
+                </FormLabel>
+                <Switch
+                  id="askBeforeDelete"
+                  isChecked={askBeforeDelete}
+                  onChange={e => setAskBeforeDelete(e.target.checked)}
+                  mr={5}
+                />
+              </FormControl>
+              <FormControl w="auto" display="flex" alignItems="center">
+                <FormLabel htmlFor="useApiInDev" mb="0">
+                  Use API in Dev
+                </FormLabel>
+                <Switch
+                  id="useApiInDev"
+                  isChecked={useApiInDev}
+                  onChange={e => setUseApiInDev(e.target.checked)}
+                  colorScheme={colorScheme}
+                />
+              </FormControl>
+            </Wrap>
+            <Wrap>
               <Button
-                leftIcon={<FaStop />}
-                type="button"
-                onClick={stop}
-                colorScheme="gray"
+                leftIcon={<RiAiGenerate />}
+                disabled={isLoading}
+                type="submit"
+                colorScheme={colorScheme}
               >
-                Stop
+                {t('generate')}
               </Button>
-            )}
-            {posts.length > 0 && (
-              <>
+              {isLoading && (
                 <Button
-                  leftIcon={<FaSave />}
+                  leftIcon={<FaStop />}
                   type="button"
-                  onClick={handleSave}
-                  colorScheme={'purple'}
-                  isLoading={isSaving}
-                  loadingText="Saving..."
+                  onClick={stop}
+                  colorScheme="gray"
                 >
-                  Save All
+                  Stop
                 </Button>
-                <Button
-                  leftIcon={<FaTrash />}
-                  type="button"
-                  isDisabled={isSaving}
-                  onClick={() => removePosts(archiveContentId)}
-                  colorScheme={'red'}
-                >
-                  Clear Results
-                </Button>
-              </>
-            )}
-          </HStack>
+              )}
+              {posts.length > 0 && (
+                <>
+                  <Button
+                    leftIcon={<FaSave />}
+                    type="button"
+                    onClick={handleSave}
+                    colorScheme={'purple'}
+                    isLoading={isSaving}
+                    loadingText="Saving..."
+                  >
+                    Save All
+                  </Button>
+                  <Button
+                    leftIcon={<FaTrash />}
+                    type="button"
+                    isDisabled={isSaving}
+                    onClick={() => removePosts(archiveContentId)}
+                    colorScheme={'red'}
+                  >
+                    Clear Results
+                  </Button>
+                </>
+              )}
+            </Wrap>
+          </Wrap>
         </Stack>
       </form>
       {isLoading && (
@@ -386,6 +393,8 @@ export const ArchivePostGenAI = ({
                 archiveId={-1}
                 key={index + postObject.description}
                 postObject={{ ...postObject } as ArchivePost}
+                descriptionThreshold={charLimitOfDescriptions}
+                sentenceThreshold={charLimitOfSentences}
               />
             ))}
           </Stack>
@@ -402,6 +411,8 @@ export const ArchivePostGenAI = ({
                 archiveId={isSaving ? -1 : archiveContentId}
                 key={postObject.id}
                 postObject={postObject}
+                descriptionThreshold={charLimitOfDescriptions}
+                sentenceThreshold={charLimitOfSentences}
               />
             ))}
           </Stack>
