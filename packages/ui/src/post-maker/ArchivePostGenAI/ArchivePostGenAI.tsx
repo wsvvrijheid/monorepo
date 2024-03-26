@@ -38,12 +38,12 @@ import {
   GeneratedArchiveContentPost,
   useGenPostContext,
 } from './GenPostProvider'
-import { parseIncompletePosts } from './parseIncomletePosts'
+import { parseIncompletePosts } from './parseIncompletePosts'
 
 type ArchivePostGenAIProps = {
   archiveContentId: number
   content?: string
-  referanceLink?: string
+  referenceLink?: string
   onSuccess?: (data: ArchivePost[]) => void
   initialPosts?: GeneratedArchiveContentPost[]
   colorScheme?: ThemeTypings['colorSchemes']
@@ -59,7 +59,7 @@ export const ArchivePostGenAI = ({
   archiveContentId,
   content,
   onSuccess,
-  referanceLink = '',
+  referenceLink = '',
   colorScheme = 'blue',
 }: ArchivePostGenAIProps) => {
   const { t } = useTranslation()
@@ -131,7 +131,7 @@ export const ArchivePostGenAI = ({
         ...post.postInput,
         description: post.description,
         content: post.description,
-        reference: referanceLink,
+        reference: referenceLink,
         locale,
         hashtag: hashtagId,
       } as PostCreateInput
