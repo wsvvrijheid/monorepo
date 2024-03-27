@@ -11,18 +11,18 @@ export const actionRolesEndpoints: PartialStrapiEndpointMap<
   Record<RoleActionType, RoleType[]>
 > = {
   activities: {
-    create: ['contentmanager'],
-    approve: ['contentmanager', 'translator'],
-    update: ['contentmanager', 'translator'],
+    create: ['contentmanager', 'platformcoordinator'],
+    approve: ['contentmanager', 'translator', 'platformcoordinator'],
+    update: ['contentmanager', 'translator', 'platformcoordinator'],
     delete: [],
-    publish: ['contentmanager'],
+    publish: ['contentmanager', 'platformcoordinator'],
   },
   'archive-contents': {
-    create: ['contentmanager', 'translator'],
-    approve: ['contentmanager', 'translator'],
-    update: ['contentmanager', 'translator'],
+    create: ['contentmanager', 'translator', 'platformcoordinator'],
+    approve: ['contentmanager', 'translator', 'platformcoordinator'],
+    update: ['contentmanager', 'translator', 'platformcoordinator'],
     delete: [],
-    publish: ['contentmanager', 'translator'],
+    publish: ['contentmanager', 'translator', 'platformcoordinator'],
   },
   arts: {
     create: ['all'],
@@ -39,11 +39,11 @@ export const actionRolesEndpoints: PartialStrapiEndpointMap<
     publish: [],
   },
   categories: {
-    create: ['contentmanager'],
-    approve: ['contentmanager', 'translator'],
-    update: ['contentmanager', 'translator'],
+    create: ['contentmanager', 'platformcoordinator'],
+    approve: ['contentmanager', 'translator', 'platformcoordinator'],
+    update: ['contentmanager', 'translator', 'platformcoordinator'],
     delete: [],
-    publish: ['contentmanager'],
+    publish: ['contentmanager', 'platformcoordinator'],
   },
   collections: {
     create: ['arteditor'],
@@ -53,11 +53,16 @@ export const actionRolesEndpoints: PartialStrapiEndpointMap<
     publish: ['arteditor'],
   },
   courses: {
-    create: ['academyeditor'],
-    approve: ['academyeditor', 'contentmanager', 'translator'],
-    update: ['academyeditor'],
+    create: ['academyeditor', 'platformcoordinator'],
+    approve: [
+      'academyeditor',
+      'contentmanager',
+      'translator',
+      'platformcoordinator',
+    ],
+    update: ['academyeditor', 'platformcoordinator'],
     delete: [],
-    publish: ['academyeditor'],
+    publish: ['academyeditor', 'platformcoordinator'],
   },
   hashtags: {
     create: ['contentmanager'],
@@ -72,6 +77,13 @@ export const actionRolesEndpoints: PartialStrapiEndpointMap<
     update: ['contentmanager'],
     delete: [],
     publish: ['contentmanager'],
+  },
+  profiles: {
+    create: ['platformcoordinator'],
+    approve: ['platformcoordinator'],
+    update: ['platformcoordinator'],
+    delete: [],
+    publish: ['platformcoordinator'],
   },
   tags: {
     create: ['contentmanager'],
