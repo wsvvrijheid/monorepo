@@ -66,7 +66,7 @@ export const LoginForm: FC<LoginFormProps> = ({
     mutationFn: (body: LoginFormFieldValues) =>
       login(body.identifier, body.password),
     onSuccess: async () => {
-      router.push(returnUrl ? returnUrl.toString() : '/');
+      router.push(returnUrl ? returnUrl.toString() : '/')
     },
   })
 

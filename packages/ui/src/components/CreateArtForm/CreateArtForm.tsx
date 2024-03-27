@@ -38,7 +38,6 @@ import { createArtSchema } from './schema'
 import { CreateArtFormFieldValues } from './types'
 import { FilePicker } from '../FilePicker'
 import { FormItem } from '../FormItem'
-import { getLoginUrl } from '../LoginForm/getLoginUrl'
 import { Navigate } from '../Navigate'
 import { WSelect } from '../WSelect'
 
