@@ -55,7 +55,6 @@ export default {
         data: item,
       })
 
-      console.info(result)
       resultData.push({
         id: result.id,
         description: result.description,

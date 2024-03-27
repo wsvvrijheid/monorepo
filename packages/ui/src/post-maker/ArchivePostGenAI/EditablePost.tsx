@@ -1,5 +1,3 @@
-import { useState } from 'react'
-
 import { Stack } from '@chakra-ui/react'
 
 import { EditableLine } from './EditableLine'
@@ -24,39 +22,19 @@ export const EditablePost: React.FC<EditablePostProps> = ({
     removeSentence: removeSentences,
   } = useGenPostContext()
 
-  const [archivePost, setArchivePost] = useState<ArchivePost>(postObject)
-
-  const handleChangeSentence = (index: number, value: string) => {
-    const newSentences = archivePost.sentences.map((sentence, i) => {
-      if (i === index) {
-        return value
-      }
-
-      return sentence
-    })
-
-    setArchivePost({
-      ...archivePost,
-      sentences: newSentences,
-    })
-
+  const handleChangeSentence = (index: number, value: string) =>
     modifyPost(archiveId, {
-      ...archivePost,
-      sentences: newSentences,
+      ...postObject,
+      sentences: postObject.sentences.map((sentence, i) =>
+        i === index ? value : sentence,
+      ),
     })
-  }
 
-  const handleChangeDescription = (value: string) => {
-    setArchivePost({
-      ...archivePost,
+  const handleChangeDescription = (value: string) =>
+    modifyPost(archiveId, {
+      ...postObject,
       description: value,
     })
-
-    modifyPost(archiveId, {
-      ...archivePost,
-      description: value,
-    })
-  }
 
   return (
     <Stack
@@ -72,7 +50,7 @@ export const EditablePost: React.FC<EditablePostProps> = ({
         defaultValue={postObject?.description}
         onDelete={() => removePost(archiveId, postObject.id)}
         onUpdate={handleChangeDescription}
-        value={archivePost?.description}
+        value={postObject.description}
         threshold={descriptionThreshold}
         thresholdStyles={{
           color: 'red.400',
@@ -83,7 +61,6 @@ export const EditablePost: React.FC<EditablePostProps> = ({
       {postObject?.sentences?.map((sentence, index) => {
         return (
           <EditableLine
-            defaultValue={sentence}
             imageParams={postObject?.postInput?.imageParams ?? {}}
             key={`${postObject.id}-sent-${sentence}-${index}`}
             isDisabled={archiveId < 0}
@@ -91,7 +68,7 @@ export const EditablePost: React.FC<EditablePostProps> = ({
               removeSentences(archiveId, postObject, sentence)
             }}
             onUpdate={val => handleChangeSentence(index, val)}
-            value={archivePost?.sentences[index]}
+            value={sentence}
             threshold={sentenceThreshold}
             rounded={'md'}
             thresholdStyles={{

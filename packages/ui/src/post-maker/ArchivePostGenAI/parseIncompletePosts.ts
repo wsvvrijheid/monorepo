@@ -24,7 +24,6 @@ export const parseIncompletePosts = (
         sentences:
           parts.length > 1 ? parts[1].replace('"]', '').split('","') : [],
       }
-      console.log(temp.description)
       ret.push(temp)
     }
     lastBest = ret

@@ -145,11 +145,6 @@ const HashtagPage = () => {
                       archiveContentId={archiveContent.id}
                       content={archiveContent.content}
                       referenceLink={archiveContent.link}
-                      // TODO: Use ArchiveContentPostContext to store saved posts
-                      // TODO: Consider deleting saved posts from context after saving them to the database?
-                      onSuccess={data => console.log(data)}
-                      // TODO: Use ArchiveContentPostContext to get initial posts
-                      initialPosts={[]}
                       colorScheme="green"
                     />
                   </TabPanel>
