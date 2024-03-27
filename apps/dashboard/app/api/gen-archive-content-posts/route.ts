@@ -7,7 +7,7 @@ import { getMockReadableStream } from '@fc/utils/src/getMockReadableStream'
 export const runtime = 'edge'
 
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY!,
+  apiKey: process.env.OPENAI_API_KEY! ?? '',
 })
 
 const capitalizeFirstLetter = (str: string) =>

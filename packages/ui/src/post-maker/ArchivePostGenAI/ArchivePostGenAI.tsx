@@ -18,6 +18,7 @@ import {
   Text,
   Textarea,
   ThemeTypings,
+  Wrap,
 } from '@chakra-ui/react'
 import { useCompletion } from 'ai/react'
 import { useRouter } from 'next/router'
@@ -26,22 +27,27 @@ import { FaSave } from 'react-icons/fa'
 import { FaStop, FaTrash } from 'react-icons/fa6'
 import { RiAiGenerate } from 'react-icons/ri'
 
-import { StrapiLocale } from '@fc/types'
-import { toastMessage } from '@fc/utils'
+import { API_URL } from '@fc/config'
+import { useAuthContext } from '@fc/context'
+import { createHashtagSentence } from '@fc/services'
+import { PostCreateInput, RedisPost, StrapiLocale } from '@fc/types'
+import { sleep, toastMessage } from '@fc/utils'
 
-import { useGenPostContext } from './GenPostProvider'
+import { EditablePost } from './EditablePost'
+import {
+  ArchivePost,
+  GeneratedArchiveContentPost,
+  useGenPostContext,
+} from './GenPostProvider'
+import { parseIncompletePosts } from './parseIncompletePosts'
 
 type ArchivePostGenAIProps = {
   archiveContentId: number
   content?: string
-  onSuccess?: (data: GeneratedArchiveContentPost[]) => void
+  referenceLink?: string
+  onSuccess?: (data: ArchivePost[]) => void
   initialPosts?: GeneratedArchiveContentPost[]
   colorScheme?: ThemeTypings['colorSchemes']
-}
-
-type GeneratedArchiveContentPost = {
-  description: string
-  sentences: string[]
 }
 
 const LANGUAGE_NAMES: Record<StrapiLocale, string> = {
@@ -54,21 +60,28 @@ export const ArchivePostGenAI = ({
   archiveContentId,
   content,
   onSuccess,
-  initialPosts,
+  referenceLink = '',
   colorScheme = 'blue',
 }: ArchivePostGenAIProps) => {
   const { t } = useTranslation()
-  const [generatedArchiveContentPosts, setGeneratedArchiveContentPosts] =
-    useState<GeneratedArchiveContentPost[]>(initialPosts || [])
   const [numberOfDescriptions, setNumberOfDescriptions] = useState<number>(5)
   const [numberOfSentences, setNumberOfSentences] = useState<number>(5)
   const [charLimitOfDescriptions, setCharLimitOfDescriptions] =
     useState<number>(200)
   const [charLimitOfSentences, setCharLimitOfSentences] = useState<number>(150)
-  const { posts: storedPosts, addPost, removePosts } = useGenPostContext()
+  const {
+    getPosts,
+    addPosts,
+    removePosts,
+    modifyPost,
+    askBeforeDelete,
+    hashtagId,
+    setAskBeforeDelete,
+  } = useGenPostContext()
+  const [isSaving, setIsSaving] = useState(false)
   const [useApiInDev, setUseApiInDev] = useState(false)
-
-  const posts = storedPosts[archiveContentId] || []
+  const posts = getPosts(archiveContentId)
+  const { token } = useAuthContext()
 
   const { locale } = useRouter()
 
@@ -94,11 +107,8 @@ export const ArchivePostGenAI = ({
     },
     onFinish(prompt: string, completion: string) {
       const parsedCompletion = JSON.parse(completion)
-      setGeneratedArchiveContentPosts(parsedCompletion)
-      parsedCompletion.map((post: GeneratedArchiveContentPost) =>
-        addPost(archiveContentId, post),
-      )
-      onSuccess?.(parsedCompletion)
+      const archived = addPosts(archiveContentId, parsedCompletion)
+      onSuccess?.(archived)
     },
     onError(error) {
       if (typeof error?.message === 'string') {
@@ -113,9 +123,83 @@ export const ArchivePostGenAI = ({
     },
   })
 
-  const handleClear = () => {
-    confirm('Are you sure you want to clear?') &&
-      setGeneratedArchiveContentPosts([])
+  const completed = isLoading ? parseIncompletePosts(completion) : null
+
+  const handleSave = async () => {
+    setIsSaving(true)
+    const finalPosts: PostCreateInput[] = posts.map(post => {
+      return {
+        ...post.postInput,
+        description: post.description,
+        content: post.description,
+        reference: referenceLink,
+        locale,
+        hashtag: hashtagId,
+      } as PostCreateInput
+    })
+
+    const url = API_URL + '/api/posts/createPosts'
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        body: JSON.stringify({ data: finalPosts }),
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      })
+
+      if (!response.ok) throw Error(response.statusText)
+
+      const addedPosts: { id: number; description: string }[] =
+        await response.json()
+
+      try {
+        for (const post of addedPosts) {
+          const localPost = posts.find(p => p.description === post.description)
+          if (!localPost) {
+            toastMessage(
+              'Error',
+              'Post not found : ' + post.description,
+              'error',
+            )
+            continue
+          }
+
+          await createHashtagSentence({
+            hashtagId,
+            value: localPost.sentences.map(
+              sentence => `${sentence}::${post.id}::${0}::${0}` as RedisPost,
+            ),
+          })
+
+          for (let i = 0; i < localPost.sentences.length; i++) {
+            localPost.sentences[i] = ''
+            modifyPost(archiveContentId, localPost)
+            await sleep(20)
+          }
+        }
+      } catch (e) {
+        for (const { id } of addedPosts) {
+          await fetch(API_URL + '/api/posts/' + id, {
+            method: 'DELETE',
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          })
+        }
+        throw e
+      }
+
+      removePosts(archiveContentId, true)
+      toastMessage('Success', 'Posts saved', 'success')
+    } catch (error) {
+      const msg = error instanceof Error ? error.message : String(error)
+      toastMessage('Error', msg, 'error')
+      console.error(msg)
+    }
+
+    setIsSaving(false)
   }
 
   return (
@@ -223,65 +307,78 @@ export const ArchivePostGenAI = ({
               </NumberInput>
             </FormControl>
           </HStack>
-          <HStack justify={'right'}>
-            <FormControl w="auto" display="flex" alignItems="center">
-              <FormLabel htmlFor="useApiInDev" mb="0">
-                Use API in Dev
-              </FormLabel>
-              <Switch
-                id="useApiInDev"
-                isChecked={useApiInDev}
-                onChange={e => setUseApiInDev(e.target.checked)}
-                colorScheme={colorScheme}
-              />
-            </FormControl>
-            <Button
-              leftIcon={<RiAiGenerate />}
-              disabled={isLoading}
-              type="submit"
-              colorScheme={colorScheme}
-            >
-              {t('generate')}
-            </Button>
-            {isLoading && (
+          <Wrap justify={'space-between'}>
+            <Wrap alignContent={'center'}>
+              <FormControl w="auto" display="flex" alignItems="center">
+                <FormLabel htmlFor="askBeforeDelete" mb="0">
+                  Always ask before deleting
+                </FormLabel>
+                <Switch
+                  id="askBeforeDelete"
+                  isChecked={askBeforeDelete}
+                  onChange={e => setAskBeforeDelete(e.target.checked)}
+                  mr={5}
+                />
+              </FormControl>
+              <FormControl w="auto" display="flex" alignItems="center">
+                <FormLabel htmlFor="useApiInDev" mb="0">
+                  Use API in Dev
+                </FormLabel>
+                <Switch
+                  id="useApiInDev"
+                  isChecked={useApiInDev}
+                  onChange={e => setUseApiInDev(e.target.checked)}
+                  colorScheme={colorScheme}
+                />
+              </FormControl>
+            </Wrap>
+            <Wrap>
               <Button
-                leftIcon={<FaStop />}
-                type="button"
-                onClick={stop}
-                colorScheme="gray"
+                leftIcon={<RiAiGenerate />}
+                disabled={isLoading}
+                type="submit"
+                colorScheme={colorScheme}
               >
-                Stop
+                {t('generate')}
               </Button>
-            )}
-            {generatedArchiveContentPosts?.length &&
-              generatedArchiveContentPosts?.length > 0 && (
+              {isLoading && (
+                <Button
+                  leftIcon={<FaStop />}
+                  type="button"
+                  onClick={stop}
+                  colorScheme="gray"
+                >
+                  Stop
+                </Button>
+              )}
+              {posts.length > 0 && (
                 <>
                   <Button
                     leftIcon={<FaSave />}
                     type="button"
-                    onClick={() => {
-                      removePosts(archiveContentId)
-                        .then(() => console.log('Posts removed'))
-                        .catch(err => console.error('Ooops! Error: ', err))
-                    }}
+                    onClick={handleSave}
                     colorScheme={'purple'}
+                    isLoading={isSaving}
+                    loadingText="Saving..."
                   >
                     Save All
                   </Button>
                   <Button
                     leftIcon={<FaTrash />}
                     type="button"
-                    onClick={handleClear}
+                    isDisabled={isSaving}
+                    onClick={() => removePosts(archiveContentId)}
                     colorScheme={'red'}
                   >
                     Clear Results
                   </Button>
                 </>
               )}
-          </HStack>
+            </Wrap>
+          </Wrap>
         </Stack>
       </form>
-      {isLoading ? (
+      {isLoading && (
         <Box p={4}>
           <Progress
             size="xs"
@@ -290,47 +387,34 @@ export const ArchivePostGenAI = ({
             colorScheme={'purple'}
             bgColor={'whiteAlpha.700'}
           />
-          {completion}
+          <Stack spacing={4} p={4}>
+            {completed?.map((postObject, index) => (
+              <EditablePost
+                archiveId={-1}
+                key={index + postObject.description}
+                postObject={{ ...postObject } as ArchivePost}
+                descriptionThreshold={charLimitOfDescriptions}
+                sentenceThreshold={charLimitOfSentences}
+              />
+            ))}
+          </Stack>
         </Box>
-      ) : (
-        <Stack spacing={4} p={4}>
-          {generatedArchiveContentPosts?.map(
-            (postObject: GeneratedArchiveContentPost, idx: number) => {
-              return (
-                <Stack key={`${archiveContentId}-desc-${idx}`}>
-                  <Text noOfLines={1} as="b">
-                    {postObject?.description}
-                  </Text>
-                  <ul>
-                    {postObject?.sentences?.map(
-                      (sentence: string, idx: number) => {
-                        return (
-                          <li key={`${archiveContentId}-sent-${idx}`}>
-                            {sentence}
-                          </li>
-                        )
-                      },
-                    )}
-                  </ul>
-                </Stack>
-              )
-            },
-          )}
-        </Stack>
       )}
       <Stack spacing={4} p={4}>
         {posts.length > 0 && (
           <Stack>
-            <Text as={'b'}>
+            <Text as={'b'} width={'100%'} pb={2}>
               {posts.length} posts saved with the following caps content:
             </Text>
-            {posts.map((post, idx) => {
-              return (
-                <Stack key={idx}>
-                  <Text>{post.description}</Text>
-                </Stack>
-              )
-            })}
+            {posts.map(postObject => (
+              <EditablePost
+                archiveId={isSaving ? -1 : archiveContentId}
+                key={postObject.id}
+                postObject={postObject}
+                descriptionThreshold={charLimitOfDescriptions}
+                sentenceThreshold={charLimitOfSentences}
+              />
+            ))}
           </Stack>
         )}
       </Stack>

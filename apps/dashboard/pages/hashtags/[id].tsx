@@ -14,6 +14,7 @@ import {
   TabPanel,
   TabPanels,
   Tabs,
+  Text,
   Wrap,
   useDisclosure,
 } from '@chakra-ui/react'
@@ -98,7 +99,7 @@ const HashtagPage = () => {
       {!hashtag?.categories?.length ? (
         <Center h={'60vh'}>{"Please update hashtag's categories"}</Center>
       ) : (
-        <GenPostProvider>
+        <GenPostProvider hashtag={hashtag}>
           <Tabs colorScheme="primary">
             <TabList>
               {archiveContents?.map(archiveContent => {
@@ -109,8 +110,10 @@ const HashtagPage = () => {
                     trigger="hover"
                   >
                     <PopoverTrigger>
-                      <Tab fontWeight={700} maxW={200} noOfLines={1}>
-                        {archiveContent.title}
+                      <Tab>
+                        <Text noOfLines={2} maxW={200} fontWeight={700}>
+                          {archiveContent.title}
+                        </Text>
                       </Tab>
                     </PopoverTrigger>
                     <PopoverContent>
@@ -137,15 +140,11 @@ const HashtagPage = () => {
             <TabPanels>
               {archiveContents?.map(archiveContent => {
                 return (
-                  <TabPanel key={archiveContent.id}>
+                  <TabPanel px={0} key={archiveContent.id}>
                     <ArchivePostGenAI
                       archiveContentId={archiveContent.id}
                       content={archiveContent.content}
-                      // TODO: Use ArchiveContentPostContext to store saved posts
-                      // TODO: Consider deleting saved posts from context after saving them to the database?
-                      onSuccess={data => console.log(data)}
-                      // TODO: Use ArchiveContentPostContext to get initial posts
-                      initialPosts={[]}
+                      referenceLink={archiveContent.link}
                       colorScheme="green"
                     />
                   </TabPanel>
