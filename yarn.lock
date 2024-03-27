@@ -16218,6 +16218,8 @@ __metadata:
     usehooks-ts: "npm:^3.0.2"
     yup: "npm:^1.4.0"
     yup-locales: "npm:^1.2.21"
+  peerDependencies:
+    zod: ^3.22.4
   languageName: unknown
   linkType: soft
 
