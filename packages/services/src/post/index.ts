@@ -6,7 +6,7 @@ import axios from 'axios'
 import { PostSentence, RedisPost } from '@fc/types'
 
 type UpdateArgs = { hashtagId: number; index: number; value: RedisPost }
-type CreateArgs = { hashtagId: number; value: RedisPost }
+type CreateArgs = { hashtagId: number; value: RedisPost[] }
 type DeleteArgs = { hashtagId: number; value: RedisPost }
 
 export const updateHashtagSentences = async (args: UpdateArgs) => {
