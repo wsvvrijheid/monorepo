@@ -3,5 +3,5 @@
     "source.fixAll.eslint": "explicit"
   },
   "editor.formatOnSave": true,
-  "cSpell.words": ["strapi"]
+  "cSpell.words": ["platformcoordinator", "strapi"]
 }

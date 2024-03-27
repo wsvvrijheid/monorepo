@@ -15,6 +15,7 @@ export type RoleName =
   | 'Jury'
   | 'Public'
   | 'Translator'
+  | 'Platform Coordinator'
 
 export type RoleType =
   | 'academyeditor'
@@ -29,6 +30,7 @@ export type RoleType =
   | 'contentmanager'
   | 'contentmanager_translator'
   | 'jury'
+  | 'platformcoordinator'
   | 'public'
   | 'translator'
 
