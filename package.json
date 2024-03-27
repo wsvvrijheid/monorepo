@@ -51,7 +51,7 @@
     "chakra-react-select": "^4.7.6",
     "cookies-next": "^4.1.1",
     "date-fns": "^2.30.0",
-    "date-fns-tz": "^2.0.0",
+    "date-fns-tz": "^2.0.1",
     "file-saver": "^2.0.5",
     "framer-motion": "10.12.16",
     "i18next": "^23.10.1",
