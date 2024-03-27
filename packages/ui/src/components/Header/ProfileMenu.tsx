@@ -1,6 +1,7 @@
 import { FC, Fragment } from 'react'
 
 import {
+  Avatar,
   Button,
   DarkMode,
   Menu,
@@ -8,9 +9,9 @@ import {
   MenuDivider,
   MenuItem,
   MenuList,
-  Avatar,
 } from '@chakra-ui/react'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { FiLogIn, FiLogOut } from 'react-icons/fi'
 
@@ -19,19 +20,21 @@ import { useAuthContext } from '@fc/context'
 
 import { ProfileMenuProps } from './types'
 import { useScroll } from '../../hooks'
+import { getLoginUrl } from '../LoginForm/getLoginUrl'
 import { Navigate } from '../Navigate'
 
 export const ProfileMenu: FC<ProfileMenuProps> = ({ isDark, isLoggedIn }) => {
   const isScrolled = useScroll()
   const { t } = useTranslation()
   const { user, profile, logout } = useAuthContext()
+  const loginHref = getLoginUrl(useRouter())
 
   const Wrapper = !isScrolled && isDark ? DarkMode : Fragment
 
   if (!isLoggedIn) {
     return (
       <Wrapper>
-        <Link href="/login" className="login-link">
+        <Link href={loginHref} className="login-link">
           <Button
             size="sm"
             variant={!isScrolled && isDark ? 'solid' : 'outline'}

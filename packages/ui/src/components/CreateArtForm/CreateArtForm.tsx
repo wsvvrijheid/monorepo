@@ -38,6 +38,7 @@ import { createArtSchema } from './schema'
 import { CreateArtFormFieldValues } from './types'
 import { FilePicker } from '../FilePicker'
 import { FormItem } from '../FormItem'
+import { getLoginUrl } from '../LoginForm/getLoginUrl'
 import { Navigate } from '../Navigate'
 import { WSelect } from '../WSelect'
 
@@ -80,6 +81,7 @@ export const CreateArtForm = () => {
   const isValid = formState.isValid
 
   const { mutate, isPending } = useCreateModelMutation('arts')
+  const loginHref = getLoginUrl(useRouter())
 
   const createArt = async (
     data: CreateArtFormFieldValues & { image: File },
@@ -181,7 +183,7 @@ export const CreateArtForm = () => {
               <VStack>
                 <Text>
                   <>{t('you-must-logged-in')} </>
-                  <Navigate href="/login" color="primary.500">
+                  <Navigate href={loginHref} color="primary.500">
                     {t('login')}
                   </Navigate>
                 </Text>
