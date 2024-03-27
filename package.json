@@ -93,7 +93,8 @@
     "twitter-text": "^3.1.0",
     "usehooks-ts": "^3.0.2",
     "yup": "^1.4.0",
-    "yup-locales": "^1.2.21"
+    "yup-locales": "^1.2.21",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@chakra-ui/storybook-addon": "^5.1.0",
@@ -134,9 +135,6 @@
     "turbo": "^1.13.0",
     "type-fest": "^4.14.0",
     "typescript": "^5.4.3"
-  },
-  "peerDependencies": {
-    "zod": "^3.22.4"
   },
   "packageManager": "yarn@4.1.1",
   "workspaces": [

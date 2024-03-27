@@ -16218,8 +16218,7 @@ __metadata:
     usehooks-ts: "npm:^3.0.2"
     yup: "npm:^1.4.0"
     yup-locales: "npm:^1.2.21"
-  peerDependencies:
-    zod: ^3.22.4
+    zod: "npm:^3.22.4"
   languageName: unknown
   linkType: soft
 
@@ -31065,6 +31064,13 @@ __metadata:
   peerDependencies:
     zod: ^3.22.4
   checksum: 10/572c947d8bc106e45b3d6bdb2a527d34834a38b0c8ef8821b26ffe714e9711bacd3e661103fe6592c3798a75e334fb930c4b42c408748dde2fd451f62c5e314e
+  languageName: node
+  linkType: hard
+
+"zod@npm:^3.22.4":
+  version: 3.22.4
+  resolution: "zod@npm:3.22.4"
+  checksum: 10/73622ca36a916f785cf528fe612a884b3e0f183dbe6b33365a7d0fc92abdbedf7804c5e2bd8df0a278e1472106d46674281397a3dd800fa9031dc3429758c6ac
   languageName: node
   linkType: hard
 
